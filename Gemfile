@@ -14,21 +14,19 @@ gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[ windows jruby ]
 
 group :development, :test do
-  gem 'debug', platforms: %i[ mri windows ]
-
   gem 'brakeman'
+  gem 'debug', platforms: %i[ mri windows ]
 end
 
 group :development do
-  gem 'web-console'
-
   gem 'rubocop', require: false
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
+  gem 'web-console'
 end
 
 group :test do
-  gem 'rspec-rails', '6.1.0'
   gem 'capybara'
+  gem 'rspec-rails', '6.1.0'
   gem 'selenium-webdriver'
 end
