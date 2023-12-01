@@ -1,1 +1,13 @@
 fr:
+  layouts:
+    header:
+      title: DataPass
+      tagline: Habilitations juridiques
+      menu:
+        homepage: Page d'accueil
+    footer:
+      tagline: Habilitations juridiques
+      external_links:
+        - api.gouv.fr
+        - annuaire-entreprises.data.gouv.fr
+        - data.gouv.fr
