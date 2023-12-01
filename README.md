@@ -13,3 +13,6 @@ L'outil de gestion des habilitations juridiques pour les données à accès rest
 ./bin/install.sh
 ```
 
+## Documentation
+
+* [Design System](./docs/design.md)
