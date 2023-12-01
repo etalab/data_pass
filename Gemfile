@@ -15,6 +15,7 @@ gem 'tzinfo-data', platforms: %i[ windows jruby ]
 
 group :development, :test do
   gem 'brakeman'
+  gem 'bullet'
   gem 'debug', platforms: %i[ mri windows ]
   gem 'i18n-tasks'
 end
