@@ -10,9 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_02_175818) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_02_181614) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "organizations", force: :cascade do |t|
+    t.string "siret", null: false
+    t.jsonb "mon_compte_pro_payload", default: {}, null: false
+    t.datetime "last_mon_compte_pro_updated_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["siret"], name: "index_organizations_on_siret", unique: true
+  end
+
+  create_table "organizations_users", id: false, force: :cascade do |t|
+    t.bigint "organization_id"
+    t.bigint "user_id"
+    t.index ["organization_id"], name: "index_organizations_users_on_organization_id"
+    t.index ["user_id"], name: "index_organizations_users_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
