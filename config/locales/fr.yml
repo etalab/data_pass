@@ -6,7 +6,7 @@ fr:
       menu:
         homepage: Page d'accueil
     footer:
-      tagline: Habilitations juridiques
+      tagline: L'outil de gestion des habilitations juridiques pour les données à accès restreint.
       external_links:
         - api.gouv.fr
         - annuaire-entreprises.data.gouv.fr
