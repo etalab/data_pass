@@ -19,6 +19,7 @@ group :development, :test do
   gem 'bullet'
   gem 'byebug'
   gem 'debug', platforms: %i[ mri windows ]
+  gem 'factory_bot_rails'
   gem 'i18n-tasks'
 end
 
