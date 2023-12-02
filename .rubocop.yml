@@ -216,3 +216,6 @@ Rails/FindEach:
 Rails/RedundantActiveRecordAllMethod:
   Exclude:
       - "spec/**/*"
+
+RSpec/ExampleWording:
+  Enabled: false

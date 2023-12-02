@@ -1,4 +1,4 @@
-describe 'Basic pages', type: :feature do
+describe 'Basic pages' do
   it 'works' do
     visit '/'
 
