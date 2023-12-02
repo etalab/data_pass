@@ -123,9 +123,15 @@ GEM
       railties (>= 5.0.0)
     faker (3.2.2)
       i18n (>= 1.8.11, < 2)
+    faraday (2.7.12)
+      base64
+      faraday-net_http (>= 2.0, < 3.1)
+      ruby2_keywords (>= 0.0.4)
+    faraday-net_http (3.0.2)
     ffi (1.16.3)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    hashie (5.0.0)
     highline (2.1.0)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
@@ -149,6 +155,7 @@ GEM
       rdoc
       reline (>= 0.3.8)
     json (2.7.0)
+    jwt (2.7.1)
     language_server-protocol (3.17.0.3)
     loofah (2.22.0)
       crass (~> 1.0.2)
@@ -163,6 +170,7 @@ GEM
     mini_mime (1.1.5)
     minitest (5.20.0)
     msgpack (1.7.2)
+    multi_xml (0.6.0)
     mutex_m (0.2.0)
     net-imap (0.4.7)
       date
@@ -180,6 +188,23 @@ GEM
       racc (~> 1.4)
     nokogiri (1.15.5-x86_64-linux)
       racc (~> 1.4)
+    oauth2 (2.0.9)
+      faraday (>= 0.17.3, < 3.0)
+      jwt (>= 1.0, < 3.0)
+      multi_xml (~> 0.5)
+      rack (>= 1.2, < 4)
+      snaky_hash (~> 2.0)
+      version_gem (~> 1.1)
+    omniauth (2.1.1)
+      hashie (>= 3.4.6)
+      rack (>= 2.2.3)
+      rack-protection
+    omniauth-oauth2 (1.8.0)
+      oauth2 (>= 1.4, < 3)
+      omniauth (~> 2.0)
+    omniauth-rails_csrf_protection (1.0.1)
+      actionpack (>= 4.2)
+      omniauth (~> 2.0)
     parallel (1.23.0)
     parser (3.2.2.4)
       ast (~> 2.4.1)
@@ -192,10 +217,15 @@ GEM
       nio4r (~> 2.0)
     racc (1.7.3)
     rack (3.0.8)
+    rack-protection (3.0.6)
+      rack
     rack-session (2.0.0)
       rack (>= 3.0.0)
     rack-test (2.1.0)
       rack (>= 1.3)
+    rack_session_access (0.2.0)
+      builder (>= 2.0.0)
+      rack (>= 1.0.0)
     rackup (2.1.0)
       rack (>= 3)
       webrick (~> 1.8)
@@ -304,6 +334,9 @@ GEM
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
     smart_properties (1.17.0)
+    snaky_hash (2.0.1)
+      hashie
+      version_gem (~> 1.1, >= 1.1.1)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -327,6 +360,7 @@ GEM
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.5.0)
     uniform_notifier (1.16.0)
+    version_gem (1.1.3)
     web-console (4.2.1)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -357,8 +391,12 @@ DEPENDENCIES
   faker
   i18n-tasks
   importmap-rails
+  omniauth
+  omniauth-oauth2
+  omniauth-rails_csrf_protection
   pg (~> 1.1)
   puma (>= 5.0)
+  rack_session_access
   rails (~> 7.1.2)
   redis (>= 4.0.1)
   rspec-rails (= 6.1.0)

@@ -11,3 +11,6 @@ fr:
         - api.gouv.fr
         - annuaire-entreprises.data.gouv.fr
         - data.gouv.fr
+  pages:
+    home:
+      title: Se connecter

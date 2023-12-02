@@ -4,6 +4,9 @@ ruby '3.2.2'
 
 gem 'bootsnap', require: false
 gem 'importmap-rails'
+gem 'omniauth'
+gem 'omniauth-rails_csrf_protection'
+gem 'omniauth-oauth2'
 gem 'pg', '~> 1.1'
 gem 'puma', '>= 5.0'
 gem 'rails', '~> 7.1.2'
@@ -33,6 +36,7 @@ end
 group :test do
   gem 'capybara'
   gem 'faker'
+  gem 'rack_session_access'
   gem 'rspec-rails', '6.1.0'
   gem 'selenium-webdriver'
 end
