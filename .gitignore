@@ -35,3 +35,5 @@
 /config/master.key
 .byebug_history
 sandbox
+
+/config/credentials/production.key

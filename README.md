@@ -13,6 +13,9 @@ L'outil de gestion des habilitations juridiques pour les données à accès rest
 ./bin/install.sh
 ```
 
+Ask for the production master key to a colleague
+(`config/credentials/production.key`)
+
 ## Documentation
 
 * [Design System](./docs/design.md)
