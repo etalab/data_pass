@@ -10,9 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_02_181614) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_04_153525) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "authorization_requests", force: :cascade do |t|
+    t.string "type", null: false
+    t.string "state", default: "draft", null: false
+    t.bigint "organization_id", null: false
+    t.integer "applicant_id", null: false
+    t.boolean "terms_of_service_accepted", default: false, null: false
+    t.boolean "data_protection_officer_informed", default: false, null: false
+    t.jsonb "data", default: {}, null: false
+    t.datetime "last_validated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["applicant_id"], name: "index_authorization_requests_on_applicant_id"
+    t.index ["organization_id"], name: "index_authorization_requests_on_organization_id"
+  end
 
   create_table "organizations", force: :cascade do |t|
     t.string "siret", null: false
