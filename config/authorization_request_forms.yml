@@ -1,0 +1,8 @@
+---
+shared:
+  portail-hubee-demarche-certdc:
+    name: "Portail HubEE - Démarche CertDC"
+    description: "Certificats de Décès"
+    public: true
+    authorization_request: 'HubEECertDC'
+    logo: 'hubee.png'
