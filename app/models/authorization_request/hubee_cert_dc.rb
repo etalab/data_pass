@@ -3,4 +3,6 @@ class AuthorizationRequest::HubEECertDC < AuthorizationRequest
 
   validates :intitule, presence: true
   validates :description, presence: true, if: :need_complete_validation?
+
+  contact :administrateur_metier
 end

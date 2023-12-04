@@ -27,6 +27,33 @@ class AuthorizationRequest < ApplicationRecord
     end
   end
 
+  def self.contact_types
+    @contact_types ||= []
+  end
+
+  def self.contact_attributes
+    %w[
+      family_name
+      given_name
+      email
+      phone_number
+      job_title
+    ]
+  end
+
+  def self.contact(kind)
+    class_eval do
+      contact_attributes.each do |attr|
+        store_accessor :data, "#{kind}_#{attr}"
+        validates "#{kind}_#{attr}", presence: true, if: :need_complete_validation?
+      end
+
+      validates "#{kind}_email", format: { with: URI::MailTo::EMAIL_REGEXP }, if: :need_complete_validation?
+
+      contact_types << kind
+    end
+  end
+
   def need_complete_validation?
     %w[draft request_changes].exclude?(state)
   end

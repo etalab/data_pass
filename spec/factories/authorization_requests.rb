@@ -24,6 +24,14 @@ FactoryBot.define do
 
         authorization_request.organization = organization
       end
+
+      authorization_request.class.contact_types.each do |contact_type|
+        authorization_request.public_send("#{contact_type}_family_name=", "Dupont #{contact_type.to_s.humanize}")
+        authorization_request.public_send("#{contact_type}_given_name=", "Jean #{contact_type.to_s.humanize}")
+        authorization_request.public_send("#{contact_type}_email=", "jean.dupont.#{contact_type}@gouv.fr")
+        authorization_request.public_send("#{contact_type}_phone_number=", '0836656565')
+        authorization_request.public_send("#{contact_type}_job_title=", "Directeur #{contact_type.to_s.humanize}")
+      end
     end
 
     hubee_cert_dc
