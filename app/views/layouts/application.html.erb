@@ -15,7 +15,9 @@
   <body>
     <%= render partial: 'layouts/header' %>
 
-    <%= yield %>
+    <div class="fr-container fr-container--main">
+      <%= yield %>
+    </div>
 
     <%= render partial: 'layouts/footer' %>
   </body>
