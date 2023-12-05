@@ -6,7 +6,8 @@ class AuthorizationRequestForm
     :description,
     :public,
     :logo,
-    :authorization_request_class
+    :authorization_request_class,
+    :templates
 
   def self.all
     Rails.application.config_for(:authorization_request_forms).map do |uid, hash|
@@ -31,7 +32,8 @@ class AuthorizationRequestForm
         :public
       ).merge(
         uid: uid.to_s,
-        authorization_request_class: AuthorizationRequest.const_get(hash[:authorization_request])
+        authorization_request_class: AuthorizationRequest.const_get(hash[:authorization_request]),
+        templates: (hash[:templates] || []).map { |template_key, template_attributes| AuthorizationRequestTemplate.new(template_key, template_attributes) },
       )
     )
   end

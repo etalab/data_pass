@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
     scope(path: 'formulaires/:form_uid') do
       resources :authorization_requests, only: %w[new create show update], path: 'demande'
+      resources :authorization_request_from_templates, only: %i[index create], path: 'templates'
     end
   end
 end

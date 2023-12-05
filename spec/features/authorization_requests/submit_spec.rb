@@ -28,7 +28,7 @@ RSpec.describe 'Submit authorization request' do
       it 'does not allow access' do
         visit authorization_request_path(form_uid: authorization_request_form.uid, id: authorization_request.id)
 
-        expect(current_path).to eq(dashboard_path)
+        expect(page).to have_current_path(dashboard_path, ignore_query: true)
       end
     end
   end

@@ -2,6 +2,24 @@
   <%= @authorization_request_form.name %>
 </h1>
 
+<% if @authorization_request.new_record? %>
+  <h3 class="center">
+    Partez d'un modèle existant
+  </h3>
+
+  <turbo-frame id="authorization_request_templates" src="<%= authorization_request_from_templates_path %>">
+    <div class="loader">
+      <%= image_tag('loading.gif') %>
+    </div>
+  </turbo-frame>
+
+  <h1 class="center">OU</h3>
+
+  <h3 class="center">
+    Remplissez directement ci-dessous
+  </h3>
+<% end %>
+
 <%=
   form_with(
     model: @authorization_request,
