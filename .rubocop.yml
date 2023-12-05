@@ -195,6 +195,9 @@ Style/OpenStructUse:
   Exclude:
     - "spec/**/*_spec.rb"
 
+Style/TrailingCommaInArguments:
+  Enabled: false
+
 RSpec/MissingExampleGroupArgument:
   Exclude:
     - "spec/factories/**/*.rb"
@@ -216,6 +219,9 @@ Rails/FindEach:
 Rails/RedundantActiveRecordAllMethod:
   Exclude:
       - "spec/**/*"
+
+Rails/ActionOrder:
+  Enabled: false
 
 RSpec/ExampleWording:
   Enabled: false
