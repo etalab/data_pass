@@ -398,6 +398,7 @@ DEPENDENCIES
   puma (>= 5.0)
   rack_session_access
   rails (~> 7.1.2)
+  rails-i18n (~> 7.0.0)
   redis (>= 4.0.1)
   rspec-rails (= 6.1.0)
   rubocop
