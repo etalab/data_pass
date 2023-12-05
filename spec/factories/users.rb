@@ -9,5 +9,11 @@ FactoryBot.define do
     job_title { 'Adjoint au Maire' }
     email_verified { true }
     external_id
+
+    trait :with_organization do
+      after(:build) do |user|
+        user.organizations << build(:organization)
+      end
+    end
   end
 end
