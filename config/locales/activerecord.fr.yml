@@ -1,0 +1,11 @@
+fr:
+  activerecord:
+    attributes:
+      authorization_request:
+        intitule: Nom du projet
+        description: Description du projet
+        administrateur_metier_family_name: Nom de famille de l'administrateur système
+        administrateur_metier_given_name: Prénom de l'administrateur système
+        administrateur_metier_email: Email de l'administrateur système
+        administrateur_metier_phone_number: Téléphone de l'administrateur système
+        administrateur_metier_job_title: Fonction de l'administrateur système

@@ -1,0 +1,28 @@
+<h2>
+    <%= t('.title') %>
+</h2>
+
+<div id="<%= dom_id(@authorization_request.applicant, :authorization_request_card) %>" class="fr-basic-card">
+  <h3>
+    <%= t('.you.title') %>
+  </h3>
+
+  <ul>
+    <li>
+      <strong><%= current_user.full_name %></strong>
+    </li>
+    <% %i[email job_title].each do |attr| %>
+      <li>
+        <%= current_user.public_send(attr) %>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<div id="<%= dom_id(@authorization_request.organization, :authorization_request_card) %>" class="fr-basic-card">
+  <h3>
+    <%= t('.organization.title') %>
+  </h3>
+
+  <%= f.select :organization_id, options_from_collection_for_select(current_user.organizations, :id, :raison_sociale, @authorization_request.organization_id), {}, class: 'fr-select' %>
+</div>
