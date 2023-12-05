@@ -14,6 +14,7 @@ gem 'rails-i18n', '~> 7.0.0'
 gem 'redis', '>= 4.0.1'
 gem 'sass-rails', '>= 6'
 gem 'sprockets-rails'
+gem 'state_machines-activerecord'
 gem 'stimulus-rails'
 gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[ windows jruby ]

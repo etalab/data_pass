@@ -11,6 +11,15 @@ class AuthorizationRequest < ApplicationRecord
     @form_model ||= AuthorizationRequestForm.where(authorization_request_class: self.class).first
   end
 
+  state_machine initial: :draft do
+    state :draft
+    state :submitted
+
+    event :submit do
+      transition from: %i[draft], to: :submitted
+    end
+  end
+
   validate :applicant_belongs_to_organization
 
   def self.extra_attributes
