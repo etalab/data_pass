@@ -36,6 +36,7 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'cuprite'
   gem 'faker'
   gem 'rack_session_access'
   gem 'rspec-rails', '6.1.0'

@@ -108,6 +108,9 @@ GEM
     concurrent-ruby (1.2.2)
     connection_pool (2.4.1)
     crass (1.0.6)
+    cuprite (0.15)
+      capybara (~> 3.0)
+      ferrum (~> 0.14.0)
     date (3.3.4)
     debug (1.8.0)
       irb (>= 1.5.0)
@@ -128,6 +131,11 @@ GEM
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.2)
+    ferrum (0.14)
+      addressable (~> 2.5)
+      concurrent-ruby (~> 1.1)
+      webrick (~> 1.7)
+      websocket-driver (>= 0.6, < 0.8)
     ffi (1.16.3)
     globalid (1.2.1)
       activesupport (>= 6.1)
@@ -386,6 +394,7 @@ DEPENDENCIES
   bullet
   byebug
   capybara
+  cuprite
   debug
   factory_bot_rails
   faker
