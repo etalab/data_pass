@@ -1,0 +1,13 @@
+<ul>
+  <% @authorization_request_forms.each do |authorization_requests_form| %>
+    <li id="<%= dom_id(authorization_requests_form) %>">
+      <%= link_to new_authorization_request_path(form_uid: authorization_requests_form.uid) do %>
+        <%= image_tag(authorization_requests_form.logo_path) %>
+        |
+        <%= authorization_requests_form.name %>
+        |
+        <%= authorization_requests_form.description %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
