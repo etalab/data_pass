@@ -7,7 +7,7 @@ RSpec.describe 'Dashboard' do
     end
 
     it 'works' do
-      visit '/dashboard'
+      visit dashboard_path
 
       expect(page).to have_content user.full_name
     end
