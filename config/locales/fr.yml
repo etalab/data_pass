@@ -11,6 +11,9 @@ fr:
         - api.gouv.fr
         - annuaire-entreprises.data.gouv.fr
         - data.gouv.fr
+  application:
+    user_not_authorized:
+      title: Vous n'avez pas le droit d'accéder à cette page
 
   pages:
     home:

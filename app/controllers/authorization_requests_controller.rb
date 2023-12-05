@@ -31,6 +31,8 @@ class AuthorizationRequestsController < AuthenticatedUserController
   # rubocop:enable Metrics/AbcSize
 
   def show
+    authorize @authorization_request
+
     render @authorization_request_form.view_path
   end
 
@@ -39,6 +41,8 @@ class AuthorizationRequestsController < AuthenticatedUserController
     if params[:submit].present?
       submit
     elsif @authorization_request.update(authorization_request_params)
+      authorize @authorization_request
+
       success_message(title: t('.success', intitule: @authorization_request.intitule))
 
       redirect_to authorization_request_path(form_uid: @authorization_request.form_model.uid, id: @authorization_request.id)
@@ -51,6 +55,8 @@ class AuthorizationRequestsController < AuthenticatedUserController
   # rubocop:enable Metrics/AbcSize
 
   def submit
+    authorize @authorization_request
+
     if @authorization_request.update(authorization_request_params) && @authorization_request.submit
       success_message(title: t('.success', intitule: @authorization_request.intitule))
 

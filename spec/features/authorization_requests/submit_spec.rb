@@ -20,6 +20,19 @@ RSpec.describe 'Submit authorization request' do
     end
   end
 
+  describe 'access' do
+    context 'when user is not the applicant' do
+      let(:user) { create(:user) }
+      let(:authorization_request) { create(:authorization_request) }
+
+      it 'does not allow access' do
+        visit authorization_request_path(form_uid: authorization_request_form.uid, id: authorization_request.id)
+
+        expect(current_path).to eq(dashboard_path)
+      end
+    end
+  end
+
   describe 'submitting the form' do
     subject do
       visit authorization_request_path(form_uid: authorization_request_form.uid, id: authorization_request.id)

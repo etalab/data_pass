@@ -63,6 +63,10 @@ class AuthorizationRequest < ApplicationRecord
     end
   end
 
+  def self.policy_class
+    AuthorizationRequestPolicy
+  end
+
   def need_complete_validation?
     %w[draft request_changes].exclude?(state)
   end
