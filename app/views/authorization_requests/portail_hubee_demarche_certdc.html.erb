@@ -1,0 +1,37 @@
+<h1 class="title">
+  <%= @authorization_request_form.name %>
+</h1>
+
+<% if @authorization_request.new_record? %>
+  <h3 class="center">
+    Partez d'un modèle existant
+  </h3>
+
+  <turbo-frame id="authorization_request_templates" src="<%= authorization_request_from_templates_path %>">
+    <div class="loader">
+      <%= image_tag('loading.gif') %>
+    </div>
+  </turbo-frame>
+
+  <h1 class="center">OU</h3>
+
+  <h3 class="center">
+    Remplissez directement ci-dessous
+  </h3>
+<% end %>
+
+<%=
+  form_with(
+    model: @authorization_request,
+    url: authorization_request_model_path(@authorization_request_form, @authorization_request),
+    method: authorization_request_model_http_method(@authorization_request),
+    id: dom_id(@authorization_request),
+  ) do |f|
+%>
+  <%= render partial: 'authorization_request_forms/shared/organization', locals: { f: f } %>
+  <%= render partial: 'authorization_request_forms/shared/basic_infos', locals: { f: f } %>
+  <%= render partial: 'authorization_request_forms/shared/cadre_juridique', locals: { f: f } %>
+  <%= render partial: 'authorization_request_forms/shared/scopes', locals: { f: f } %>
+  <%= render partial: 'authorization_request_forms/shared/contacts', locals: { f: f } %>
+  <%= render partial: 'authorization_request_forms/shared/submit_buttons', locals: { f: f } %>
+<% end %>

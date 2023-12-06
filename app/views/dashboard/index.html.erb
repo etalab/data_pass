@@ -1,1 +1,18 @@
 Bonjour <%= current_user.full_name %>
+
+<%= link_to 'Demander une habilitation', authorization_request_forms_path %>
+
+<hr />
+
+<% if current_user.authorization_requests.any? %>
+  <h3>
+    Habilitations
+  </h3>
+  <ul>
+    <% current_user.authorization_requests.each do |authorization_request| %>
+      <li>
+        <%= link_to authorization_request.intitule, authorization_request_path(form_uid: authorization_request.form_model.uid, id: authorization_request.id) %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

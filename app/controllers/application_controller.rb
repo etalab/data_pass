@@ -1,5 +1,15 @@
 class ApplicationController < ActionController::Base
+  include Pundit::Authorization
+
   helper ActiveLinks
+
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
+  def user_not_authorized
+    error_message(title: t('.title'))
+
+    redirect_to root_path
+  end
 
   def error_message_for(object, title:, id: nil)
     flash_message(:error, title:, description: object.errors.full_messages, id:, activemodel: true)

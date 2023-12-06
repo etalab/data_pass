@@ -1,0 +1,23 @@
+<% @authorization_request.class.contact_types.each do |contact_type| %>
+  <div id="<%= dom_id(@authorization_request, contact_type) %>" class="fr-basic-card">
+    <h3>
+      <%= t(".#{contact_type}.title") %>
+    </h3>
+
+    <fieldset class="fr-fieldset" aria-label="feedme" aria-describedby="name-1-fieldset-messages">
+      <% @authorization_request.class.contact_attributes.each do |contact_attribute| %>
+        <div class="fr-fieldset__element">
+          <div class="fr-input-group">
+            <%= f.label "#{contact_type}_#{contact_attribute}", value: t(".#{contact_attribute}.label"), class: %w(fr-label) %>
+
+            <% if contact_attribute == 'email' %>
+              <%= f.email_field "#{contact_type}_#{contact_attribute}", class: %w(fr-input) %>
+            <% else %>
+              <%= f.text_field "#{contact_type}_#{contact_attribute}", class: %w(fr-input) %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </fieldset>
+  </div>
+<% end %>

@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 ruby '3.2.2'
 
+gem 'active_storage_validations'
 gem 'bootsnap', require: false
 gem 'importmap-rails'
 gem 'omniauth'
@@ -9,11 +10,13 @@ gem 'omniauth-rails_csrf_protection'
 gem 'omniauth-oauth2'
 gem 'pg', '~> 1.1'
 gem 'puma', '>= 5.0'
+gem 'pundit'
 gem 'rails', '~> 7.1.2'
 gem 'rails-i18n', '~> 7.0.0'
 gem 'redis', '>= 4.0.1'
 gem 'sass-rails', '>= 6'
 gem 'sprockets-rails'
+gem 'state_machines-activerecord'
 gem 'stimulus-rails'
 gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[ windows jruby ]

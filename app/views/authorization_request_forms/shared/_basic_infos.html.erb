@@ -1,0 +1,17 @@
+<fieldset class="fr-fieldset" aria-label="feedme" aria-describedby="name-1-fieldset-messages">
+  <div class="fr-fieldset__element">
+    <div class="fr-input-group">
+      <%= f.label :intitule, class: %w(fr-label) do %>
+        <%= t('.intitule.title') %>
+        <%= raw("<div class=\"fr-hint-text\">#{t('.intitule.hint_text')}</div>") %>
+      <% end %>
+      <%= f.text_field :intitule, class: %w(fr-input), required: true %>
+    </div>
+  </div>
+  <div class="fr-fieldset__element">
+    <div class="fr-input-group">
+      <%= f.label :description, value: t('.description.title'), class: %w(fr-label) %>
+      <%= f.text_area :description, class: %w(fr-input), rows: 10 %>
+    </div>
+  </div>
+</fieldset>
