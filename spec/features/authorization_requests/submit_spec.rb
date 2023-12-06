@@ -38,9 +38,6 @@ RSpec.describe 'Submit authorization request' do
       visit authorization_request_path(form_uid: authorization_request_form.uid, id: authorization_request.id)
 
       within(css_id(authorization_request)) do
-        fill_in input_identifier(authorization_request_class, :intitule), with: 'Intitulé de la demande'
-        fill_in input_identifier(authorization_request_class, :description), with: 'Description de la demande'
-
         fill_in input_identifier(authorization_request_class, :administrateur_metier_email), with: 'metier@gouv.fr'
         fill_in input_identifier(authorization_request_class, :administrateur_metier_family_name), with: 'Mé'
         fill_in input_identifier(authorization_request_class, :administrateur_metier_given_name), with: 'tier'
