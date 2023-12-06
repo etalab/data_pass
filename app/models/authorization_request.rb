@@ -63,6 +63,19 @@ class AuthorizationRequest < ApplicationRecord
     end
   end
 
+  def self.documents
+    @documents ||= []
+  end
+
+  def self.add_document(name, validation_options = {})
+    class_eval do
+      has_one_attached name
+      validates name, validation_options
+
+      documents << name
+    end
+  end
+
   def self.policy_class
     AuthorizationRequestPolicy
   end

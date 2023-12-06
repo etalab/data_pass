@@ -83,7 +83,9 @@ class AuthorizationRequestsController < AuthenticatedUserController
   end
 
   def extract_permitted_attributes(authorization_request_class)
-    extra_attributes = authorization_request_class.extra_attributes.map(&:to_sym)
+    extra_attributes = authorization_request_class.extra_attributes.map(&:to_sym).concat(
+      authorization_request_class.documents.map(&:to_sym)
+    )
 
     authorization_request_class.contact_types.each_with_object(extra_attributes) do |contact_type, attributes|
       attributes.concat(
