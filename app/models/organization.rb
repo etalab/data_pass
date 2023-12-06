@@ -3,7 +3,7 @@ class Organization < ApplicationRecord
 
   has_and_belongs_to_many :users
 
-  has_many :authorizations_requests,
+  has_many :authorization_requests,
     dependent: :restrict_with_exception
 
   def raison_sociale
