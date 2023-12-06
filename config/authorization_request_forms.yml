@@ -6,4 +6,5 @@ shared:
     public: true
     authorization_request: 'HubEECertDC'
     logo: 'hubee.png'
+    unique: true
 

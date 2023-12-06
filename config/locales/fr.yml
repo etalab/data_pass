@@ -61,6 +61,8 @@ fr:
           label: Rôle dans le projet *
 
   authorization_requests:
+    new:
+      unicity_error: Une habilitation existe déjà pour cette organisation
     create:
       success: La demande d'habilitation n°%{id} a été sauvegardée avec succès
       error: Une erreur est survenue lors de la sauvegarde de la demande d'habilitation
