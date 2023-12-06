@@ -7,6 +7,7 @@ class AuthorizationRequestForm
     :public,
     :logo,
     :authorization_request_class,
+    :scopes,
     :templates
 
   def self.all
@@ -34,6 +35,7 @@ class AuthorizationRequestForm
         uid: uid.to_s,
         authorization_request_class: AuthorizationRequest.const_get(hash[:authorization_request]),
         templates: (hash[:templates] || []).map { |template_key, template_attributes| AuthorizationRequestTemplate.new(template_key, template_attributes) },
+        scopes: (hash[:scopes] || []).map { |scope_attributes| AuthorizationRequestScope.new(scope_attributes) }
       )
     )
   end

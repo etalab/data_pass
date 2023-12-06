@@ -87,6 +87,8 @@ class AuthorizationRequestsController < AuthenticatedUserController
       authorization_request_class.documents.map(&:to_sym)
     )
 
+    extra_attributes << { scopes: [] } if authorization_request_class.scopes_enabled?
+
     authorization_request_class.contact_types.each_with_object(extra_attributes) do |contact_type, attributes|
       attributes.concat(
         authorization_request_class.contact_attributes.map { |attribute| :"#{contact_type}_#{attribute}" }

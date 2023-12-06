@@ -7,8 +7,16 @@ class AuthorizationRequest < ApplicationRecord
 
   belongs_to :organization
 
+  def self.form_model
+    @form_model ||= AuthorizationRequestForm.where(authorization_request_class: self).first
+  end
+
   def form_model
-    @form_model ||= AuthorizationRequestForm.where(authorization_request_class: self.class).first
+    self.class.form_model
+  end
+
+  def available_scopes
+    form_model.scopes
   end
 
   state_machine initial: :draft do
@@ -73,6 +81,18 @@ class AuthorizationRequest < ApplicationRecord
       validates name, validation_options
 
       documents << name
+    end
+  end
+
+  def self.scopes_enabled?
+    @scopes_enabled
+  end
+
+  def self.add_scopes
+    class_eval do
+      store_accessor :data, :scopes
+
+      @scopes_enabled = true
     end
   end
 

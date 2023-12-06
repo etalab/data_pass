@@ -6,6 +6,16 @@ shared:
     public: true
     authorization_request: 'HubEECertDC'
     logo: 'hubee.png'
+    scopes:
+      - name: 'CNAF Identité'
+        value: 'cnaf_identity'
+        group: 'CNAF'
+      - name: 'CNAF Quotient familial'
+        value: 'cnaf_qf'
+        group: 'CNAF'
+      - name: 'DGFIP Impôts'
+        value: 'dgfip_impots'
+        group: 'DGFIP'
     templates:
       template1:
         name: Template 1
