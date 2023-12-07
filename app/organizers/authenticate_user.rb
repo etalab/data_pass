@@ -1,5 +1,11 @@
 class AuthenticateUser < ApplicationOrganizer
-  organize FindOrCreateUser,
-    FindOrCreateOrganization,
+  organize FindOrCreateOrganization,
+    FindOrCreateUser,
+    ChangeUserCurrentOrganization,
     AddUserToOrganization
+
+  after do
+    context.organization.save!
+    context.user.save!
+  end
 end

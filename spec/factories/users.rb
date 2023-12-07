@@ -10,10 +10,9 @@ FactoryBot.define do
     email_verified { true }
     external_id
 
-    trait :with_organization do
-      after(:build) do |user|
-        user.organizations << build(:organization)
-      end
+    after(:build) do |user|
+      user.current_organization ||= build(:organization, users: [user])
+      user.organizations << user.current_organization
     end
   end
 end

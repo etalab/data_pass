@@ -1,6 +1,6 @@
 RSpec.describe FindOrCreateUser do
   describe '#call' do
-    subject(:find_or_create_user) { described_class.call(mon_compte_pro_omniauth_payload:) }
+    subject(:find_or_create_user) { described_class.call(mon_compte_pro_omniauth_payload:, user_attributes: { current_organization: create(:organization) }) }
 
     let(:mon_compte_pro_omniauth_payload) { build(:mon_compte_pro_omniauth_payload) }
 

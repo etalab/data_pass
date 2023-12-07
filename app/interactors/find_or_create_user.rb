@@ -4,7 +4,7 @@ class FindOrCreateUser < ApplicationInteractor
   def call
     context.user = find_or_initialize_user
     assign_attributes
-    context.user.save!
+    context.user.save
   end
 
   private
@@ -27,6 +27,8 @@ class FindOrCreateUser < ApplicationInteractor
       'email_verified'
     ).merge(
       'job_title' => info_payload['job']
+    ).merge(
+      context.user_attributes || {}
     )
   end
 end

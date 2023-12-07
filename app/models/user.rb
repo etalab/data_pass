@@ -4,6 +4,8 @@ class User < ApplicationRecord
 
   validates :external_id, presence: true, uniqueness: true
 
+  belongs_to :current_organization, class_name: 'Organization'
+
   has_and_belongs_to_many :organizations
 
   has_many :authorization_requests,

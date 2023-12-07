@@ -19,5 +19,17 @@ RSpec.describe AuthenticateUser do
 
       expect(authenticate_user.user.organizations).to include(authenticate_user.organization)
     end
+
+    context 'when user already exists and have another current organization' do
+      let!(:user) { create(:user, external_id: mon_compte_pro_omniauth_payload['uid'], email: mon_compte_pro_omniauth_payload['info']['email']) }
+
+      it 'changes the current organization' do
+        expect {
+          authenticate_user
+        }.to change { user.reload.current_organization }
+
+        expect(user.current_organization).to eq(authenticate_user.organization)
+      end
+    end
   end
 end
