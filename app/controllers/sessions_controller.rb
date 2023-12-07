@@ -4,9 +4,9 @@ class SessionsController < ApplicationController
   allow_unauthenticated_access only: [:create]
 
   def create
-    user = User.find_or_create_from_mon_compte_pro(request.env['omniauth.auth'])
+    organizer = AuthenticateUser.call(mon_compte_pro_omniauth_payload: request.env['omniauth.auth'])
 
-    sign_in(user)
+    sign_in(organizer.user)
 
     redirect_to redirect_to_after_sign_in
   end
