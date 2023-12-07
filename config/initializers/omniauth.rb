@@ -15,7 +15,7 @@ module OmniAuth
         }
       }
 
-      option :scope, 'openid email profile phone organizations'
+      option :scope, 'openid email profile phone organization'
 
       uid { raw_info['sub'] }
       info { raw_info }
@@ -36,3 +36,5 @@ end
 Rails.application.config.middleware.use OmniAuth::Builder do
   provider :mon_compte_pro, Rails.application.credentials.mon_compte_pro_client_id, Rails.application.credentials.mon_compte_pro_client_secret
 end
+
+OmniAuth.config.test_mode = Rails.env.test?

@@ -32,10 +32,17 @@ class User < ApplicationRecord
 
     user.save!
 
-    info_payload['organizations'].each do |organization_payload|
-      organization = Organization.find_or_create_from_mon_compte_pro(organization_payload)
-      user.organizations << organization unless user.organizations.include?(organization)
-    end
+    organization = Organization.find_or_create_from_mon_compte_pro(
+      info_payload.slice(
+        'siret',
+        'label',
+        'is_collectivite_territoriale',
+        'is_commune',
+        'is_external',
+        'is_service_public',
+      )
+    )
+    user.organizations << organization unless user.organizations.include?(organization)
 
     user
   end
