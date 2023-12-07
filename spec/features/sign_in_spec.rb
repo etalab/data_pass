@@ -7,13 +7,13 @@ RSpec.describe 'Sign in through MonComptePro' do
 
   before do
     OmniAuth.config.mock_auth[:mon_compte_pro] = OmniAuth::AuthHash.new({
-      'provider' => :mon_compte_pro,
-      'uid' => '1',
-      'info' => attributes_for(:mon_compte_pro_payload),
+      provider: :mon_compte_pro,
+      uid: '1',
+      info: attributes_for(:mon_compte_pro_payload),
       credentials: {
-        'token' => 'token',
-        'expires_at' => 1.hour.from_now.to_i,
-        'expires' => true
+        token: 'token',
+        expires_at: 1.hour.from_now.to_i,
+        expires: true
       }
     })
   end
