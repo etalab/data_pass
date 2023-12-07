@@ -37,8 +37,6 @@ module Authentication
   def sign_out
     session.delete(:user_id)
     @current_user = nil
-
-    redirect_to sign_out_path
   end
 
   def authenticate_user!

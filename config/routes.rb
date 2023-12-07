@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')
 
+  get 'compte/deconnexion', to: 'sessions#destroy', as: :signout
+
   get '/tableau-de-bord', to: 'dashboard#index', as: :dashboard
 
   scope(path_names: { new: 'nouveau' }) do

@@ -6,7 +6,7 @@ module OmniAuth
       option :name, :mon_compte_pro
 
       option :client_options, {
-        site: 'https://app-test.moncomptepro.beta.gouv.fr',
+        site: Rails.application.credentials.mon_compte_pro_url,
         authorize_url: '/oauth/authorize',
         callback_path: '/auth/mon_compte_pro/callback',
         auth_scheme: :basic_auth,
