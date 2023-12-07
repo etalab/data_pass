@@ -9,23 +9,7 @@ RSpec.describe 'Sign in through MonComptePro' do
     OmniAuth.config.mock_auth[:mon_compte_pro] = OmniAuth::AuthHash.new({
       'provider' => :mon_compte_pro,
       'uid' => '1',
-      'info' => {
-        'sub' => '1',
-        'email' => 'user@yopmail.com',
-        'email_verified' => true,
-        'family_name' => 'User',
-        'given_name' => 'Jean',
-        'updated_at' => DateTime.now.strftime('%Y-%m-%dT%H:%M:%S.%LZ'),
-        'job' => 'International knowledge practice leader',
-        'phone_number' => '0123456789',
-        'phone_number_verified' => false,
-        'label' => 'Commune de nantes - Mairie',
-        'siret' => '21440109300015',
-        'is_collectivite_territoriale' => true,
-        'is_commune' => true,
-        'is_external' => false,
-        'is_service_public' => true
-      },
+      'info' => attributes_for(:mon_compte_pro_payload),
       credentials: {
         'token' => 'token',
         'expires_at' => 1.hour.from_now.to_i,
@@ -42,6 +26,6 @@ RSpec.describe 'Sign in through MonComptePro' do
     connect_user
 
     expect(page).to have_current_path(dashboard_path, ignore_query: true)
-    expect(page).to have_content('User Jean')
+    expect(page).to have_content('Dupont Jean')
   end
 end
