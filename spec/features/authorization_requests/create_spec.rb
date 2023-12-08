@@ -1,5 +1,5 @@
 RSpec.describe 'Create authorization request' do
-  let(:user) { create(:user, :with_organization) }
+  let(:user) { create(:user) }
   let(:authorization_request_form) { AuthorizationRequestForm.find('portail-hubee-demarche-certdc') }
   let(:authorization_request_class) { authorization_request_form.authorization_request_class }
 

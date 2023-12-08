@@ -7,10 +7,7 @@ fr:
         homepage: Page d'accueil
       tools:
         links:
-          user_connected:
-            icon: user-fill
           sign_out:
-            icon: logout-box-r-fill
             title: Se déconnecter
     footer:
       tagline: L'outil de gestion des habilitations juridiques pour les données à accès restreint.
@@ -21,6 +18,12 @@ fr:
   application:
     user_not_authorized:
       title: Vous n'avez pas le droit d'accéder à cette page
+
+  sessions:
+    change_current_organization:
+      success:
+        title: Vous avez changé votre organisation
+        description: "Vous êtes maintenant connecté pour le compte de '%{organization_name}' (numéro de siret: %{organization_siret})"
 
   pages:
     home:

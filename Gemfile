@@ -5,6 +5,7 @@ ruby '3.2.2'
 gem 'active_storage_validations'
 gem 'bootsnap', require: false
 gem 'importmap-rails'
+gem 'interactor'
 gem 'omniauth'
 gem 'omniauth-rails_csrf_protection'
 gem 'omniauth-oauth2'

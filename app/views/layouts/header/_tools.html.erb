@@ -2,12 +2,17 @@
   <ul class="fr-links-group">
     <% if user_signed_in? %>
       <li>
-        <a class="fr-link fr-icon-<%= t('.links.user_connected.icon') %>" href="<%= root_path %>">
+        <a class="fr-link fr-icon-user-fill" href="<%= root_path %>">
           <%= current_user.full_name %>
         </a>
       </li>
       <li>
-        <a class="fr-link fr-icon-<%= t('.links.sign_out.icon') %>" id="signout_button" href="<%= signout_path %>" target="_self">
+        <a class="fr-link fr-icon-community-fill" href="<%= root_path %>">
+          <%= current_organization.raison_sociale %>
+        </a>
+      </li>
+      <li>
+        <a class="fr-link fr-icon-logout-box-r-fill" id="signout_button" href="<%= signout_path %>" target="_self">
           <%= t('.links.sign_out.title') %>
         </a>
       </li>
