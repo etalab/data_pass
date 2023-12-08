@@ -4,7 +4,7 @@ module Authentication
   included do
     before_action :authenticate_user!
 
-    helper_method :current_user, :user_signed_in?
+    helper_method :current_user, :current_organization, :user_signed_in?
   end
 
   class_methods do
@@ -61,5 +61,9 @@ module Authentication
 
   def current_user
     @current_user ||= User.find_by(id: session[:user_id].try(:[], 'value'))
+  end
+
+  def current_organization
+    @current_organization ||= current_user&.current_organization
   end
 end
