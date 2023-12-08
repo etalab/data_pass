@@ -9,12 +9,36 @@ L'outil de gestion des habilitations juridiques pour les données à accès rest
 
 ## Install
 
+Ask for the production master key to a colleague
+(`config/credentials/production.key`)
+
+With docker:
+
+```sh
+make build
+```
+
+Without docker:
+
 ```sh
 ./bin/install.sh
 ```
 
-Ask for the production master key to a colleague
-(`config/credentials/production.key`)
+## Development
+
+With docker:
+
+```sh
+make up
+```
+
+Check [Makefile](Makefile) for all commands
+
+Without docker:
+
+```sh
+rails s
+```
 
 ## Documentation
 
