@@ -7,10 +7,7 @@ fr:
         homepage: Page d'accueil
       tools:
         links:
-          user_connected:
-            icon: user-fill
           sign_out:
-            icon: logout-box-r-fill
             title: Se déconnecter
     footer:
       tagline: L'outil de gestion des habilitations juridiques pour les données à accès restreint.
