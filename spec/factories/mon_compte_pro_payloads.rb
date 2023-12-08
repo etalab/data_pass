@@ -40,7 +40,6 @@ FactoryBot.define do
     is_collectivite_territoriale { true }
     is_commune { true }
     is_service_public { true }
-    siret
     is_external { true }
   end
 end
