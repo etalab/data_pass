@@ -42,6 +42,22 @@ Without docker:
 rails s
 ```
 
+Then go to [http://localhost:3000](http://localhost:3000)
+
+## Tests
+
+With docker:
+
+```sh
+make tests
+```
+
+Without docker:
+
+```sh
+bundle exec rspec
+```
+
 ## Documentation
 
 * [Design System](./docs/design.md)
