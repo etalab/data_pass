@@ -1,3 +1,5 @@
+[![ci](https://github.com/etalab/data_pass/actions/workflows/test.yaml/badge.svg)](https://github.com/etalab/data_pass/actions/workflows/test.yaml)
+
 # DataPass
 
 L'outil de gestion des habilitations juridiques pour les données à accès restreint.
