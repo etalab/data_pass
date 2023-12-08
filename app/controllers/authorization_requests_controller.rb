@@ -41,7 +41,7 @@ class AuthorizationRequestsController < AuthenticatedUserController
     if params[:submit].present?
       submit
     elsif @authorization_request.update(authorization_request_params)
-      authorize @authorization_request
+      authorize @authorization_request, :update?
 
       success_message(title: t('.success', intitule: @authorization_request.intitule))
 
@@ -55,7 +55,7 @@ class AuthorizationRequestsController < AuthenticatedUserController
   # rubocop:enable Metrics/AbcSize
 
   def submit
-    authorize @authorization_request
+    authorize @authorization_request, :submit?
 
     if @authorization_request.update(authorization_request_params) && @authorization_request.submit
       success_message(title: t('.success', intitule: @authorization_request.intitule))
