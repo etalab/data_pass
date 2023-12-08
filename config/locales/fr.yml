@@ -22,6 +22,12 @@ fr:
     user_not_authorized:
       title: Vous n'avez pas le droit d'accéder à cette page
 
+  sessions:
+    change_current_organization:
+      success:
+        title: Vous avez changé votre organisation
+        description: "Vous êtes maintenant connecté pour le compte de '%{organization_name}' (numéro de siret: %{organization_siret})"
+
   pages:
     home:
       title: Se connecter

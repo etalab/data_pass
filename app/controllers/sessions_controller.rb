@@ -4,11 +4,12 @@ class SessionsController < ApplicationController
   allow_unauthenticated_access only: [:create]
 
   def create
-    organizer = AuthenticateUser.call(mon_compte_pro_omniauth_payload: request.env['omniauth.auth'])
-
-    sign_in(organizer.user)
-
-    redirect_to redirect_to_after_sign_in
+    case request.env['omniauth.params']['prompt']
+    when 'select_organization'
+      change_current_organization
+    else
+      authenticate_user
+    end
   end
 
   def destroy
@@ -18,6 +19,28 @@ class SessionsController < ApplicationController
   end
 
   private
+
+  def authenticate_user
+    organizer = AuthenticateUser.call(mon_compte_pro_omniauth_payload: request.env['omniauth.auth'])
+
+    sign_in(organizer.user)
+
+    redirect_to redirect_to_after_sign_in
+  end
+
+  def change_current_organization
+    ChangeCurrentOrganization.call(
+      user: current_user,
+      mon_compte_pro_omniauth_payload: request.env['omniauth.auth'],
+    )
+
+    success_message(
+      title: t('sessions.change_current_organization.success.title'),
+      description: t('sessions.change_current_organization.success.description', organization_name: current_organization.raison_sociale, organization_siret: current_organization.siret),
+    )
+
+    redirect_to dashboard_path
+  end
 
   def after_logout_url
     root_url.sub(%r{/$}, '')
