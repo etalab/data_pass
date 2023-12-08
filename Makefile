@@ -5,7 +5,7 @@ build:
 	docker-compose build
 
 up:
-	docker-compose up
+	docker-compose up web db redis
 
 down:
 	docker-compose down
@@ -19,6 +19,10 @@ sh:
 
 lint:
 	$(DOCKER-RUN) web $(BUNDLE-EXEC) rubocop
+
+tests:
+	docker-compose up -d chrome
+	$(DOCKER-RUN) web $(BUNDLE-EXEC) rspec
 
 console:
 	$(DOCKER-RUN) web bin/rails console
