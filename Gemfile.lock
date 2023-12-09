@@ -95,7 +95,7 @@ GEM
     bindex (0.8.1)
     bootsnap (1.17.0)
       msgpack (~> 1.2)
-    brakeman (6.0.1)
+    brakeman (6.1.0)
     builder (3.2.4)
     bullet (7.1.4)
       activesupport (>= 3.0.0)
@@ -165,10 +165,10 @@ GEM
       railties (>= 6.0.0)
     interactor (3.1.2)
     io-console (0.6.0)
-    irb (1.9.1)
+    irb (1.10.1)
       rdoc
       reline (>= 0.3.8)
-    json (2.7.0)
+    json (2.7.1)
     jwt (2.7.1)
     language_server-protocol (3.17.0.3)
     loofah (2.22.0)
@@ -195,7 +195,7 @@ GEM
       timeout
     net-smtp (0.4.0)
       net-protocol
-    nio4r (2.6.1)
+    nio4r (2.7.0)
     nokogiri (1.15.5-aarch64-linux)
       racc (~> 1.4)
     nokogiri (1.15.5-arm64-darwin)
@@ -279,13 +279,13 @@ GEM
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
     rake (13.1.0)
-    rdoc (6.6.0)
+    rdoc (6.6.1)
       psych (>= 4.0.0)
     redis (5.0.8)
       redis-client (>= 0.17.0)
-    redis-client (0.18.0)
+    redis-client (0.19.0)
       connection_pool
-    regexp_parser (2.8.2)
+    regexp_parser (2.8.3)
     reline (0.4.1)
       io-console (~> 0.5)
     rexml (3.2.6)
@@ -345,7 +345,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    selenium-webdriver (4.15.0)
+    selenium-webdriver (4.16.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
