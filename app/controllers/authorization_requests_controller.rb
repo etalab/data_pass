@@ -5,7 +5,7 @@ class AuthorizationRequestsController < AuthenticatedUserController
   before_action :extract_authorization_request, only: %i[show update]
 
   def new
-    @authorization_request = authorization_request_class.new(applicant: current_user, organization: current_user.organizations.first)
+    @authorization_request = authorization_request_class.new(applicant: current_user, organization: current_organization)
 
     render @authorization_request_form.view_path
   end
@@ -15,6 +15,7 @@ class AuthorizationRequestsController < AuthenticatedUserController
     @authorization_request = authorization_request_class.new(
       authorization_request_params.merge(
         applicant: current_user,
+        organization: current_organization,
       )
     )
 
@@ -76,7 +77,6 @@ class AuthorizationRequestsController < AuthenticatedUserController
         %i[
           terms_of_service_accepted
           data_protection_officer_informed
-          organization_id
         ]
       )
     )
