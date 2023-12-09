@@ -20,6 +20,10 @@ sh:
 lint:
 	$(DOCKER-RUN) web $(BUNDLE-EXEC) rubocop
 
+guard:
+	docker-compose up -d chrome
+	$(DOCKER-RUN) web $(BUNDLE-EXEC) guard
+
 tests:
 	docker-compose up -d chrome
 	$(DOCKER-RUN) web $(BUNDLE-EXEC) rspec

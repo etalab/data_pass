@@ -28,6 +28,8 @@ group :development, :test do
   gem 'byebug'
   gem 'debug', platforms: %i[ mri windows ]
   gem 'factory_bot_rails'
+  gem 'guard'
+  gem 'guard-rspec'
   gem 'i18n-tasks'
 end
 
