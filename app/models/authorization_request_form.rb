@@ -8,7 +8,8 @@ class AuthorizationRequestForm
     :logo,
     :authorization_request_class,
     :scopes,
-    :templates
+    :templates,
+    :unique
 
   def self.all
     Rails.application.config_for(:authorization_request_forms).map do |uid, hash|
@@ -30,7 +31,8 @@ class AuthorizationRequestForm
         :name,
         :description,
         :logo,
-        :public
+        :public,
+        :unique
       ).merge(
         uid: uid.to_s,
         authorization_request_class: AuthorizationRequest.const_get(hash[:authorization_request]),

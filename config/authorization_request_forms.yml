@@ -6,27 +6,5 @@ shared:
     public: true
     authorization_request: 'HubEECertDC'
     logo: 'hubee.png'
-    scopes:
-      - name: 'CNAF Identité'
-        value: 'cnaf_identity'
-        group: 'CNAF'
-      - name: 'CNAF Quotient familial'
-        value: 'cnaf_qf'
-        group: 'CNAF'
-      - name: 'DGFIP Impôts'
-        value: 'dgfip_impots'
-        group: 'DGFIP'
-    templates:
-      template1:
-        name: Template 1
-        attributes:
-          intitule: Intitulé 1
-      template2:
-        name: Template 2
-        attributes:
-          intitule: Intitulé 2
-          administrateur_metier_family_name: Dupont
-          administrateur_metier_given_name: Jean
-          administrateur_metier_email: dupont.jean@gouv.fr
-          administrateur_metier_phone_number: '0336656565'
-          administrateur_metier_job_title: Directeur
+    unique: true
+

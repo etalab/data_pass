@@ -3,10 +3,10 @@ class AuthorizationRequestsController < AuthenticatedUserController
 
   before_action :extract_authorization_request_form
   before_action :extract_authorization_request, only: %i[show update]
+  before_action :check_authorization_request_unicity!, only: %i[new]
 
   def new
     @authorization_request = authorization_request_class.new(applicant: current_user, organization: current_organization)
-
     render @authorization_request_form.view_path
   end
 
@@ -20,7 +20,7 @@ class AuthorizationRequestsController < AuthenticatedUserController
     )
 
     if @authorization_request.save
-      success_message(title: t('.success', intitule: @authorization_request.intitule))
+      success_message(title: t('.success', id: @authorization_request.id))
 
       redirect_to authorization_request_path(form_uid: @authorization_request.form_model.uid, id: @authorization_request.id)
     else
@@ -44,7 +44,7 @@ class AuthorizationRequestsController < AuthenticatedUserController
     elsif @authorization_request.update(authorization_request_params)
       authorize @authorization_request, :update?
 
-      success_message(title: t('.success', intitule: @authorization_request.intitule))
+      success_message(title: t('.success', id: @authorization_request.id))
 
       redirect_to authorization_request_path(form_uid: @authorization_request.form_model.uid, id: @authorization_request.id)
     else
@@ -59,7 +59,7 @@ class AuthorizationRequestsController < AuthenticatedUserController
     authorize @authorization_request, :submit?
 
     if @authorization_request.update(authorization_request_params) && @authorization_request.submit
-      success_message(title: t('.success', intitule: @authorization_request.intitule))
+      success_message(title: t('.success', id: @authorization_request.id))
 
       redirect_to authorization_request_path(form_uid: @authorization_request.form_model.uid, id: @authorization_request.id)
     else
@@ -106,5 +106,17 @@ class AuthorizationRequestsController < AuthenticatedUserController
 
   def extract_authorization_request_form
     @authorization_request_form = AuthorizationRequestForm.find(params[:form_uid])
+  end
+
+  def another_of_this_type_already_exists?
+    current_organization.authorization_requests.where(type: authorization_request_class.to_s).any?
+  end
+
+  def check_authorization_request_unicity!
+    return unless @authorization_request_form.unique && another_of_this_type_already_exists?
+
+    warning_message(title: t('authorization_requests.new.unicity_error'))
+
+    redirect_to root_path
   end
 end

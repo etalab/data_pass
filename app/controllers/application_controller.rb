@@ -27,6 +27,10 @@ class ApplicationController < ActionController::Base
     flash_message(:info, title:, description:, id:)
   end
 
+  def warning_message(title:, description: nil, id: nil)
+    flash_message(:warning, title:, description:, id:)
+  end
+
   private
 
   def flash_message(kind, title:, description:, id:, activemodel: false)

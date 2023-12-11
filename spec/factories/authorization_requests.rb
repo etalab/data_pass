@@ -46,8 +46,6 @@ FactoryBot.define do
 
     trait :hubee_cert_dc do
       type { 'AuthorizationRequest::HubEECertDC' }
-
-      with_basic_infos
     end
   end
 end
