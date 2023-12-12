@@ -15,6 +15,11 @@ class AuthorizationRequest < ApplicationRecord
     self.class.form_model
   end
 
+  def name
+    data['intitule'] ||
+      "#{form_model.name} n°#{id}"
+  end
+
   def available_scopes
     form_model.scopes
   end

@@ -64,11 +64,11 @@ fr:
     new:
       unicity_error: Une habilitation existe déjà pour cette organisation
     create:
-      success: La demande d'habilitation n°%{id} a été sauvegardée avec succès
+      success: La demande d'habilitation %{name} a été sauvegardée avec succès
       error: Une erreur est survenue lors de la sauvegarde de la demande d'habilitation
     update:
-      success: La demande d'habilitation n°%{id} a été mise à jour avec succès
+      success: La demande d'habilitation %{name} a été mise à jour avec succès
       error: Une erreur est survenue lors de la mise à jour de la demande d'habilitation
     submit:
-      success: La demande d'habilitation n°%{id} a été soumise avec succès
+      success: La demande d'habilitation %{name} a été soumise avec succès
       error: Une erreur est survenue lors de la soumission de la demande d'habilitation
