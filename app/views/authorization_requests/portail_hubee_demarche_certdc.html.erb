@@ -2,14 +2,7 @@
   <%= @authorization_request_form.name %>
 </h1>
 
-<%=
-  form_with(
-    model: @authorization_request,
-    url: authorization_request_model_path(@authorization_request_form, @authorization_request),
-    method: authorization_request_model_http_method(@authorization_request),
-    id: dom_id(@authorization_request),
-  ) do |f|
-%>
+<%= authorization_request_form(@authorization_request) do |f| %>
   <%= render partial: 'authorization_request_forms/shared/organization', locals: { f: f } %>
   <%= render partial: 'authorization_request_forms/shared/contacts', locals: { f: f } %>
   <%= render partial: 'authorization_request_forms/shared/submit_buttons', locals: { f: f } %>
