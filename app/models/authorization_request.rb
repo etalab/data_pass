@@ -7,21 +7,17 @@ class AuthorizationRequest < ApplicationRecord
 
   belongs_to :organization
 
-  def self.form_model
-    @form_model ||= AuthorizationRequestForm.where(authorization_request_class: self).first
-  end
-
-  def form_model
-    self.class.form_model
+  def form
+    @form ||= AuthorizationRequestForm.where(authorization_request_class: self.class).first
   end
 
   def name
     data['intitule'] ||
-      "#{form_model.name} n°#{id}"
+      "#{form.name} n°#{id}"
   end
 
   def available_scopes
-    form_model.scopes
+    form.scopes
   end
 
   state_machine initial: :draft do

@@ -1,7 +1,7 @@
 RSpec.describe 'Submit authorization request' do
   let(:user) { create(:user) }
   let(:authorization_request) { create(:authorization_request, applicant: user) }
-  let(:authorization_request_form) { authorization_request.form_model }
+  let(:authorization_request_form) { authorization_request.form }
   let(:authorization_request_class) { authorization_request_form.authorization_request_class }
 
   before do

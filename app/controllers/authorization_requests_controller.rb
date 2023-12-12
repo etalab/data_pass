@@ -19,7 +19,7 @@ class AuthorizationRequestsController < AuthenticatedUserController
     if @authorization_request.save
       success_message(title: t('.success', name: @authorization_request.name))
 
-      redirect_to authorization_request_path(form_uid: @authorization_request.form_model.uid, id: @authorization_request.id)
+      redirect_to authorization_request_path(form_uid: @authorization_request.form.uid, id: @authorization_request.id)
     else
       error_message_for(@authorization_request, title: t('.error'))
 
@@ -49,7 +49,7 @@ class AuthorizationRequestsController < AuthenticatedUserController
 
       success_message(title: t('authorization_requests.update.success', name: @authorization_request.name))
 
-      redirect_to authorization_request_path(form_uid: @authorization_request.form_model.uid, id: @authorization_request.id)
+      redirect_to authorization_request_path(form_uid: @authorization_request.form.uid, id: @authorization_request.id)
     else
       error_message_for(@authorization_request, title: t('authorization_requests.update.error'))
 
@@ -63,7 +63,7 @@ class AuthorizationRequestsController < AuthenticatedUserController
     if @authorization_request.update(authorization_request_params) && @authorization_request.submit
       success_message(title: t('authorization_requests.submit.success', name: @authorization_request.name))
 
-      redirect_to authorization_request_path(form_uid: @authorization_request.form_model.uid, id: @authorization_request.id)
+      redirect_to authorization_request_path(form_uid: @authorization_request.form.uid, id: @authorization_request.id)
     else
       error_message_for(@authorization_request, title: t('authorization_requests.submit.error'))
 
