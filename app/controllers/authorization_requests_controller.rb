@@ -7,16 +7,13 @@ class AuthorizationRequestsController < AuthenticatedUserController
 
   def new
     @authorization_request = authorization_request_class.new(applicant: current_user, organization: current_organization)
+
     render @authorization_request_form.view_path
   end
 
-  # rubocop:disable Metrics/AbcSize
   def create
     @authorization_request = authorization_request_class.new(
-      authorization_request_params.merge(
-        applicant: current_user,
-        organization: current_organization,
-      )
+      authorization_request_create_params
     )
 
     if @authorization_request.save
@@ -29,7 +26,6 @@ class AuthorizationRequestsController < AuthenticatedUserController
       render @authorization_request_form.view_path, status: :unprocessable_entity
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   def show
     authorize @authorization_request
@@ -37,39 +33,54 @@ class AuthorizationRequestsController < AuthenticatedUserController
     render @authorization_request_form.view_path
   end
 
-  # rubocop:disable Metrics/AbcSize
   def update
     if params[:submit].present?
       submit
-    elsif @authorization_request.update(authorization_request_params)
+    else
+      update_model
+    end
+  end
+
+  private
+
+  def update_model
+    if @authorization_request.update(authorization_request_update_params)
       authorize @authorization_request, :update?
 
-      success_message(title: t('.success', name: @authorization_request.name))
+      success_message(title: t('authorization_requests.update.success', name: @authorization_request.name))
 
       redirect_to authorization_request_path(form_uid: @authorization_request.form_model.uid, id: @authorization_request.id)
     else
-      error_message_for(@authorization_request, title: t('.error'))
+      error_message_for(@authorization_request, title: t('authorization_requests.update.error'))
 
       render @authorization_request_form.view_path, status: :unprocessable_entity
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   def submit
     authorize @authorization_request, :submit?
 
     if @authorization_request.update(authorization_request_params) && @authorization_request.submit
-      success_message(title: t('.success', name: @authorization_request.name))
+      success_message(title: t('authorization_requests.submit.success', name: @authorization_request.name))
 
       redirect_to authorization_request_path(form_uid: @authorization_request.form_model.uid, id: @authorization_request.id)
     else
-      error_message_for(@authorization_request, title: t('.error'))
+      error_message_for(@authorization_request, title: t('authorization_requests.submit.error'))
 
       render @authorization_request_form.view_path, status: :unprocessable_entity
     end
   end
 
-  private
+  def authorization_request_create_params
+    authorization_request_params.merge(
+      applicant: current_user,
+      organization: current_organization,
+    )
+  end
+
+  def authorization_request_update_params
+    authorization_request_params
+  end
 
   def authorization_request_params
     params.require(authorization_request_class.model_name.singular).permit(
