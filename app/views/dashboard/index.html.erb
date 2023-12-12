@@ -4,12 +4,12 @@ Bonjour <%= current_user.full_name %>
 
 <hr />
 
-<% if current_user.authorization_requests.any? %>
+<% if current_organization.authorization_requests.any? %>
   <h3>
     Habilitations
   </h3>
   <ul>
-    <% current_user.authorization_requests.each do |authorization_request| %>
+    <% current_organization.authorization_requests.each do |authorization_request| %>
       <li>
         <%= link_to authorization_request.name, authorization_request_path(form_uid: authorization_request.form.uid, id: authorization_request.id) %>
       </li>

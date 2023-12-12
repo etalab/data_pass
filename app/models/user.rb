@@ -8,8 +8,9 @@ class User < ApplicationRecord
 
   has_and_belongs_to_many :organizations
 
-  has_many :authorization_requests,
+  has_many :authorization_requests_as_applicant,
     dependent: :restrict_with_exception,
+    class_name: 'AuthorizationRequest',
     inverse_of: :applicant
 
   def full_name

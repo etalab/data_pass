@@ -3,7 +3,7 @@ class AuthorizationRequest < ApplicationRecord
 
   belongs_to :applicant,
     class_name: 'User',
-    inverse_of: :authorization_requests
+    inverse_of: :authorization_requests_as_applicant
 
   belongs_to :organization
 
