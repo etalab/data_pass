@@ -36,12 +36,16 @@ class AuthorizationRequest < ApplicationRecord
   end
 
   def self.add_attributes(*names)
-    class_eval do
-      names.each do |name|
-        store_accessor :data, name
-      end
+    names.each do |name|
+      add_attribute(name)
+    end
+  end
 
-      extra_attributes.concat(names)
+  def self.add_attribute(name)
+    class_eval do
+      store_accessor :data, name
+
+      extra_attributes.push(name)
     end
   end
 
