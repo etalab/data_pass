@@ -6,9 +6,7 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def user_not_authorized
-    error_message(title: t('.title'))
-
-    redirect_to root_path
+    redirect_to root_path, alert: { title: t('.title') }
   end
 
   def error_message_for(object, title:, id: nil)
@@ -34,10 +32,12 @@ class ApplicationController < ActionController::Base
   private
 
   def flash_message(kind, title:, description:, id:, activemodel: false)
-    flash[kind] ||= {}
-    flash[kind]['title'] = title
-    flash[kind]['description'] = description
-    flash[kind]['id'] = id
-    flash[kind]['activemodel'] = activemodel
+    flash_object = kind == :error ? flash.now : flash
+
+    flash_object[kind] ||= {}
+    flash_object[kind]['title'] = title
+    flash_object[kind]['description'] = description
+    flash_object[kind]['id'] = id
+    flash_object[kind]['activemodel'] = activemodel
   end
 end
