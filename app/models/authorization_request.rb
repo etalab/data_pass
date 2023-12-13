@@ -20,6 +20,9 @@ class AuthorizationRequest < ApplicationRecord
     form.scopes
   end
 
+  validates :terms_of_service_accepted, presence: true, if: :need_complete_validation?
+  validates :data_protection_officer_informed, presence: true, if: :need_complete_validation?
+
   state_machine initial: :draft do
     state :draft
     state :submitted

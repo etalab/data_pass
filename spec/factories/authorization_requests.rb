@@ -4,6 +4,9 @@ FactoryBot.define do
       attributes[:type].constantize.new(attributes.stringify_keys)
     end
 
+    terms_of_service_accepted { true }
+    data_protection_officer_informed { true }
+
     after(:build) do |authorization_request|
       if authorization_request.applicant.nil? && authorization_request.organization.nil?
         applicant = create(:user)

@@ -2,6 +2,9 @@ fr:
   activerecord:
     attributes:
       authorization_request:
+        terms_of_service_accepted: J’ai pris connaissance des conditions générales d’utilisation et je les valide.
+        data_protection_officer_informed: Je confirme que le délégué à la protection des données de mon organisation est informé de ma demande.
+
         intitule: Nom du projet
         description: Description du projet
         maquette_projet: Maquette du projet
