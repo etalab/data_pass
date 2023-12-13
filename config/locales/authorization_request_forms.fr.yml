@@ -1,0 +1,65 @@
+fr:
+  authorization_request_forms:
+    default:
+      intitule:
+        hint: Cette information sera rendue publique
+      description:
+        label: Description du projet (à quoi va-t-il servir ? qui l'utilisera ?)
+      destinataire_donnees_caractere_personnel:
+        hint: <a href="https://www.cnil.fr/fr/definition/destinataire" target="_blank">Plus d'infos</a>
+      duree_conservation_donnees_caractere_personnel:
+        hint: <a href="https://www.cnil.fr/fr/les-durees-de-conservation-des-donnees" target="_blank">Plus d'infos</a>
+      cadre_juridique_nature:
+        label: Précisez la nature et les références du texte vous autorisant à traiter les données
+        hint: loi, décret, arrêté, délibération, etc.
+      cadre_juridique_url:
+        label: URL du texte relatif au traitement
+      cadre_juridique_document:
+        label: Joindre le document lui même
+        hint: 'Taille maximale: 10 Mo. Formats supportés: pdf'
+
+      contact_technique:
+        title: Contact technique
+      contact_technique_family_name: &contact_family_name
+        label: Nom
+      contact_technique_given_name: &contact_given_name
+        label: Prénom
+      contact_technique_email: &contact_email
+        label: Email
+      contact_technique_phone_number: &contact_phone_number
+        label: Téléphone
+      contact_technique_job_title: &contact_job_title
+        label: Fonction
+
+      contact_metier:
+        title: Contact métier
+      contact_metier_family_name: *contact_family_name
+      contact_metier_given_name: *contact_given_name
+      contact_metier_email: *contact_email
+      contact_metier_phone_number: *contact_phone_number
+
+      responsable_traitement:
+        title: Responsable de traitement
+      responsable_traitement_family_name: *contact_family_name
+      responsable_traitement_given_name: *contact_given_name
+      responsable_traitement_email: *contact_email
+      responsable_traitement_phone_number: *contact_phone_number
+      responsable_traitement_job_title: *contact_job_title
+
+      delegue_protection_donnees:
+        title: Délégué à la protection des données
+      delegue_protection_donnees_family_name: *contact_family_name
+      delegue_protection_donnees_given_name: *contact_given_name
+      delegue_protection_donnees_email: *contact_email
+      delegue_protection_donnees_phone_number: *contact_phone_number
+
+      administrateur_metier:
+        title: Administrateur métier
+      administrateur_metier_family_name: *contact_family_name
+      administrateur_metier_given_name: *contact_given_name
+      administrateur_metier_email: *contact_email
+      administrateur_metier_phone_number: *contact_phone_number
+
+    api_entreprise:
+      volumetrie_approximative:
+        hint: Nombre de démarches ou dossiers traités dans l'année

@@ -1,12 +1,15 @@
 <fieldset class="fr-fieldset" aria-label="feedme" aria-describedby="name-1-fieldset-messages">
   <div class="fr-fieldset__element">
-    <div class="fr-input-group">
-      <%= f.label :cadre_juridique, class: %w(fr-label) %>
-      <%= f.file_field :cadre_juridique, class: %w(fr-input) %>
+    <%= f.dsfr_text_area :cadre_juridique_nature, required: true, rows: 2 %>
+  </div>
 
-      <% if @authorization_request.cadre_juridique.attached? && @authorization_request.cadre_juridique.persisted? %>
-        <%= link_to 'Voir le document', rails_blob_path(@authorization_request.cadre_juridique, disposition: 'attachment') %>
-      <% end %>
-    </div>
+  <div class="fr-fieldset__element">
+    <%= f.dsfr_file_field :cadre_juridique_document %>
+  </div>
+
+  <h2>OU</h2>
+
+  <div class="fr-fieldset__element">
+    <%= f.dsfr_url_field :cadre_juridique_url %>
   </div>
 </fieldset>

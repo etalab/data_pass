@@ -35,40 +35,26 @@ fr:
       submit: Soumettre la demande d'habilitation
     shared:
       organization:
-        title: L'organisation
         you:
           title: Vous êtes
         organization:
           title: Vous faites cette demande pour
-      basic_infos:
-        intitule:
-          title: Nom du projet *
-          hint_text: Cette information sera rendue publique
-        description:
-          title: Description du projet (à quoi va-t-il servir ? qui l'utilisera ?)
-      contacts:
-        administrateur_metier:
-          title: Administrateur métier
-        family_name:
-          label: Nom *
-        given_name:
-          label: Prénom *
-        email:
-          label: Adresse email *
-        phone_number:
-          label: Numéro de téléphone *
-        job_title:
-          label: Rôle dans le projet *
 
   authorization_requests:
     new:
       unicity_error: Une habilitation existe déjà pour cette organisation
     create:
       success: La demande d'habilitation %{name} a été sauvegardée avec succès
-      error: Une erreur est survenue lors de la sauvegarde de la demande d'habilitation
+      error:
+        title: Une erreur est survenue lors de la sauvegarde de la demande d'habilitation
+        description: &common_authorization_requests_error_description Certains champs ci-dessous ne sont pas valides, merci d'effectuer les corrections nécessaires
     update:
       success: La demande d'habilitation %{name} a été mise à jour avec succès
-      error: Une erreur est survenue lors de la mise à jour de la demande d'habilitation
+      error:
+        title: Une erreur est survenue lors de la mise à jour de la demande d'habilitation
+        description: *common_authorization_requests_error_description
     submit:
       success: La demande d'habilitation %{name} a été soumise avec succès
-      error: Une erreur est survenue lors de la soumission de la demande d'habilitation
+      error:
+        title: Une erreur est survenue lors de la soumission de la demande d'habilitation
+        description: *common_authorization_requests_error_description

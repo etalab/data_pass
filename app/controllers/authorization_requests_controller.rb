@@ -11,6 +11,7 @@ class AuthorizationRequestsController < AuthenticatedUserController
     render @authorization_request_form.view_path
   end
 
+  # rubocop:disable Metrics/AbcSize
   def create
     @authorization_request = authorization_request_class.new(
       authorization_request_create_params
@@ -21,11 +22,12 @@ class AuthorizationRequestsController < AuthenticatedUserController
 
       redirect_to authorization_request_path(form_uid: @authorization_request.form.uid, id: @authorization_request.id)
     else
-      error_message_for(@authorization_request, title: t('.error'))
+      error_message(title: t('.error.title'), description: t('.error.description'))
 
       render @authorization_request_form.view_path, status: :unprocessable_entity
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def show
     authorize @authorization_request
@@ -51,12 +53,13 @@ class AuthorizationRequestsController < AuthenticatedUserController
 
       redirect_to authorization_request_path(form_uid: @authorization_request.form.uid, id: @authorization_request.id)
     else
-      error_message_for(@authorization_request, title: t('authorization_requests.update.error'))
+      error_message(title: t('authorization_requests.update.error.title'), description: t('authorization_requests.update.error.description'))
 
       render @authorization_request_form.view_path, status: :unprocessable_entity
     end
   end
 
+  # rubocop:disable Metrics/AbcSize
   def submit
     authorize @authorization_request, :submit?
 
@@ -65,11 +68,12 @@ class AuthorizationRequestsController < AuthenticatedUserController
 
       redirect_to authorization_request_path(form_uid: @authorization_request.form.uid, id: @authorization_request.id)
     else
-      error_message_for(@authorization_request, title: t('authorization_requests.submit.error'))
+      error_message(title: t('authorization_requests.submit.error.title'), description: t('authorization_requests.submit.error.description'))
 
       render @authorization_request_form.view_path, status: :unprocessable_entity
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def authorization_request_create_params
     authorization_request_params.merge(

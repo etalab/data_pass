@@ -1,17 +1,21 @@
 <fieldset class="fr-fieldset" aria-label="feedme" aria-describedby="name-1-fieldset-messages">
   <div class="fr-fieldset__element">
-    <div class="fr-input-group">
-      <%= f.label :intitule, class: %w(fr-label) do %>
-        <%= t('.intitule.title') %>
-        <%= raw("<div class=\"fr-hint-text\">#{t('.intitule.hint_text')}</div>") %>
-      <% end %>
-      <%= f.text_field :intitule, class: %w(fr-input), required: true %>
-    </div>
+    <%= f.dsfr_text_field :intitule, required: true %>
   </div>
+
   <div class="fr-fieldset__element">
-    <div class="fr-input-group">
-      <%= f.label :description, value: t('.description.title'), class: %w(fr-label) %>
-      <%= f.text_area :description, class: %w(fr-input), rows: 10 %>
-    </div>
+    <%= f.dsfr_text_area :description, rows: 10 %>
+  </div>
+
+  <div class="fr-fieldset__element">
+    <%= f.dsfr_file_field :maquette_projet %>
+  </div>
+
+  <div class="fr-fieldset__element">
+    <%= f.dsfr_date_field :date_prevue_mise_en_production %>
+  </div>
+
+  <div class="fr-fieldset__element">
+    <%= f.dsfr_text_field :volumetrie_approximative %>
   </div>
 </fieldset>

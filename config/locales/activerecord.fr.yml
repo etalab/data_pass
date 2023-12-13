@@ -4,8 +4,44 @@ fr:
       authorization_request:
         intitule: Nom du projet
         description: Description du projet
+        maquette_projet: Maquette du projet
+        date_prevue_mise_en_production: Date de mise en production prévue
+        volumetrie_approximative: Volumétrie approximative
+
+        destinataire_donnees_caractere_personnel: Destinataire des données
+        duree_conservation_donnees_caractere_personnel: Durée de conservation des données en mois
+
+        cadre_juridique_nature: Nature du cadre juridique
+        cadre_juridique_url: Lien vers le texte relatif au cadre juridique
+        cadre_juridique_document: Document associé au cadre juridique
+
         administrateur_metier_family_name: Nom de famille de l'administrateur système
         administrateur_metier_given_name: Prénom de l'administrateur système
         administrateur_metier_email: Email de l'administrateur système
         administrateur_metier_phone_number: Téléphone de l'administrateur système
         administrateur_metier_job_title: Fonction de l'administrateur système
+
+        contact_technique_family_name: Nom de famille du contact technique
+        contact_technique_given_name: Prénom du contact technique
+        contact_technique_email: Email du contact technique
+        contact_technique_phone_number: Téléphone du contact technique
+        contact_technique_job_title: Fonction du contact technique
+
+        contact_metier_family_name: Nom de famille du contact métier
+        contact_metier_given_name: Prénom du contact métier
+        contact_metier_email: Email du contact métier
+        contact_metier_phone_number: Téléphone du contact métier
+        contact_metier_job_title: Fonction du contact métier
+
+        responsable_traitement_family_name: Nom de famille du responsable de traitement
+        responsable_traitement_given_name: Prénom du responsable de traitement
+        responsable_traitement_email: Email du responsable de traitement
+        responsable_traitement_phone_number: Téléphone du responsable de traitement
+        responsable_traitement_job_title: Fonction du responsable de traitement
+
+        delegue_protection_donnees_family_name: Nom de famille du délégué à la protection des données
+        delegue_protection_donnees_given_name: Prénom du délégué à la protection des données
+        delegue_protection_donnees_email: Email du délégué à la protection des données
+        delegue_protection_donnees_phone_number: Téléphone du délégué à la protection des données
+        delegue_protection_donnees_job_title: Fonction du délégué à la protection des données
+
