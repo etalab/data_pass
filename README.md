@@ -23,7 +23,7 @@ make build
 Without docker:
 
 ```sh
-./bin/install.sh
+./bin/setup
 ```
 
 ## Development
