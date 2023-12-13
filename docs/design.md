@@ -30,3 +30,5 @@ Concernant les icônes:
 
 1. Remplacer le fichier `app/assets/stylesheets/dsfr-utility.css` par le fichier `dist/utility/utility.css`
 2. Remplacer le dossier `app/assets/icons` par le dossier `dist/icons`
+3. Dans les fichiers `dsfr-utility.css` et `dsfr.css`, remplacez tous les liens
+   des icones de `../icons/whatever` en `icons/whatever`
