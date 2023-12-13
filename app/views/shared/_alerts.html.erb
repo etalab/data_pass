@@ -1,9 +1,9 @@
 <% %i[error info success warning].each do |kind| %>
   <% if flash[kind].present? %>
     <div class="fr-alert fr-alert--<%= kind %> fr-mb-8v" id="<%= flash[kind]['id'] %>">
-      <p class="fr-alert__title">
+      <h3 class="fr-alert__title">
         <%= flash[kind]['title'] %>
-      </p>
+      </h3>
 
       <% if flash[kind]['activemodel'] %>
         <ul>
@@ -15,5 +15,9 @@
         <%= simple_format(flash[kind]['description']) %>
       <% end %>
     </div>
+
+    <button class="fr-btn--close fr-btn" title="Masquer le message" onclick="const alert = this.parentNode; alert.parentNode.removeChild(alert)">
+      Masquer le message
+    </button>
   <% end %>
 <% end %>
