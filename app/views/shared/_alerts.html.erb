@@ -14,10 +14,10 @@
       <% elsif flash[kind]['description'] %>
         <%= simple_format(flash[kind]['description']) %>
       <% end %>
-    </div>
 
-    <button class="fr-btn--close fr-btn" title="Masquer le message" onclick="const alert = this.parentNode; alert.parentNode.removeChild(alert)">
-      Masquer le message
-    </button>
+      <button class="fr-btn--close fr-btn" title="Masquer le message" onclick="const alert = this.parentNode; alert.parentNode.removeChild(alert)">
+        Masquer le message
+      </button>
+    </div>
   <% end %>
 <% end %>
