@@ -41,7 +41,7 @@ class SessionsController < ApplicationController
       description: t('sessions.change_current_organization.success.description', organization_name: current_organization.raison_sociale, organization_siret: current_organization.siret),
     )
 
-    redirect_to request.env['omniauth.origin'] || root_path
+    redirect_to after_prompt_path
   end
 
   def update_user
@@ -53,7 +53,11 @@ class SessionsController < ApplicationController
       title: t('sessions.update_user.success.title')
     )
 
-    redirect_to request.env['omniauth.origin'] || root_path
+    redirect_to after_prompt_path
+  end
+
+  def after_prompt_path
+    request.env['omniauth.origin'] || root_path
   end
 
   def after_logout_url
