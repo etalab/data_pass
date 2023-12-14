@@ -1,6 +1,14 @@
 fr:
   form:
     no_file: Pas de fichier
+  wicked:
+    basic_infos: 'informations-de-base'
+    personal_data: 'donnees-personnelles'
+    legal: 'cadre-juridique'
+    scopes: 'donneees'
+    contacts: 'contacts'
+    finish: 'resume'
+
   layouts:
     header:
       title: DataPass

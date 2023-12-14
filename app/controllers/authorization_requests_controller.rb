@@ -24,7 +24,9 @@ class AuthorizationRequestsController < AuthenticatedUserController
     authorize @authorization_request
 
     if @authorization_request_form.multiple_steps?
-      redirect_to authorization_request_build_path(form_uid: @authorization_request_form.uid, authorization_request_id: @authorization_request.id, id: @authorization_request_form.steps.first[:name])
+      step_localized = t("wicked.#{@authorization_request_form.steps.first[:name]}")
+
+      redirect_to authorization_request_build_path(form_uid: @authorization_request_form.uid, authorization_request_id: @authorization_request.id, id: step_localized)
     else
       render view_path
     end
@@ -46,7 +48,9 @@ class AuthorizationRequestsController < AuthenticatedUserController
       organization: current_organization,
     )
 
-    redirect_to authorization_request_build_path(form_uid: @authorization_request_form.uid, authorization_request_id: authorization_request.id, id: @authorization_request_form.steps.first[:name])
+    step_localized = t("wicked.#{@authorization_request_form.steps.first[:name]}")
+
+    redirect_to authorization_request_build_path(form_uid: @authorization_request_form.uid, authorization_request_id: authorization_request.id, id: step_localized)
   end
 
   def create_for_single_page_form
@@ -89,7 +93,7 @@ class AuthorizationRequestsController < AuthenticatedUserController
     else
       error_message(title: t('authorization_requests.submit.error.title'), description: t('authorization_requests.submit.error.description'))
 
-      render view_path, status: :unprocessable_entity
+      render view_path(:finish), status: :unprocessable_entity
     end
   end
 
@@ -133,9 +137,9 @@ class AuthorizationRequestsController < AuthenticatedUserController
     params[:submit].present?
   end
 
-  def view_path
+  def view_path(step = nil)
     if @authorization_request.form.multiple_steps?
-      "authorization_requests/build/#{params[:id] || 'start'}"
+      "authorization_requests/build/#{step || params[:id] || 'start'}"
     else
       @authorization_request.form.uid.underscore
     end

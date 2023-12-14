@@ -1,12 +1,12 @@
 class AuthorizationRequests::BuildController < AuthorizationRequestsController
-  include Wicked::Wizard
+  include Wicked::Wizard::Translated
 
   prepend_before_action :configure_steps
 
   def show
     authorize @authorization_request, :show?
 
-    jump_to(:finish) if should_redirect_to_finish_page?
+    jump_to(t('wicked.finish')) if should_redirect_to_finish_page?
 
     render_wizard
   end
@@ -31,11 +31,11 @@ class AuthorizationRequests::BuildController < AuthorizationRequestsController
 
   def should_redirect_to_finish_page?
     !@authorization_request.in_draft? &&
-      step != 'finish'
+      wizard_value(step) != 'finish'
   end
 
   def authorization_request_params
-    super.merge(current_build_step: params[:id])
+    super.merge(current_build_step: wizard_value(params[:id]))
   end
 
   def extract_authorization_request

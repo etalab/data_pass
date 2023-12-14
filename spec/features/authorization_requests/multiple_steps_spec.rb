@@ -3,6 +3,10 @@ RSpec.describe 'Authorization request with multiple steps' do
   let(:authorization_request) { build(:authorization_request, :api_entreprise, applicant: user) }
   let(:authorization_request_form) { authorization_request.form }
 
+  let(:first_step_name) { I18n.t("wicked.#{authorization_request_form.steps[0][:name]}") }
+  let(:second_step_name) { I18n.t("wicked.#{authorization_request_form.steps[1][:name]}") }
+  let(:last_step_name) { I18n.t('wicked.finish') }
+
   before do
     sign_in(user)
   end
@@ -40,7 +44,7 @@ RSpec.describe 'Authorization request with multiple steps' do
 
         authorization_request = AuthorizationRequest.last
 
-        expect(page).to have_current_path(authorization_request_build_path(form_uid: authorization_request_form.uid, authorization_request_id: authorization_request.id, id: authorization_request_form.steps.first[:name]))
+        expect(page).to have_current_path(authorization_request_build_path(form_uid: authorization_request_form.uid, authorization_request_id: authorization_request.id, id: first_step_name))
       end
     end
   end
@@ -55,7 +59,7 @@ RSpec.describe 'Authorization request with multiple steps' do
     it 'redirects to first step' do
       resume_habilitation
 
-      expect(page).to have_current_path(authorization_request_build_path(form_uid: authorization_request_form.uid, authorization_request_id: authorization_request.id, id: authorization_request_form.steps.first[:name]))
+      expect(page).to have_current_path(authorization_request_build_path(form_uid: authorization_request_form.uid, authorization_request_id: authorization_request.id, id: first_step_name))
     end
   end
 
@@ -73,7 +77,6 @@ RSpec.describe 'Authorization request with multiple steps' do
 
     let(:authorization_request) { create(:authorization_request, :api_entreprise, :no_checkboxes, applicant: user) }
     let(:authorization_request_class) { authorization_request_form.authorization_request_class }
-    let(:next_step_name) { authorization_request.form.steps[1][:name] }
     let(:description) { 'My new description' }
 
     context 'with valid data' do
@@ -84,7 +87,7 @@ RSpec.describe 'Authorization request with multiple steps' do
           move_to_next_step
         }.to change { authorization_request.reload.intitule }.to(intitule)
 
-        expect(page).to have_current_path(authorization_request_build_path(form_uid: authorization_request_form.uid, authorization_request_id: authorization_request.id, id: next_step_name))
+        expect(page).to have_current_path(authorization_request_build_path(form_uid: authorization_request_form.uid, authorization_request_id: authorization_request.id, id: second_step_name))
       end
     end
 
@@ -103,7 +106,7 @@ RSpec.describe 'Authorization request with multiple steps' do
 
   describe 'submit the habilitation' do
     subject(:submit_habilitation) do
-      visit authorization_request_build_path(form_uid: authorization_request_form.uid, authorization_request_id: authorization_request.id, id: 'finish')
+      visit authorization_request_build_path(form_uid: authorization_request_form.uid, authorization_request_id: authorization_request.id, id: last_step_name)
 
       within(css_id(authorization_request)) do
         click_button 'submit_authorization_request'
@@ -130,7 +133,7 @@ RSpec.describe 'Authorization request with multiple steps' do
       it 'renders finish view' do
         submit_habilitation
 
-        expect(page).to have_current_path(authorization_request_build_path(form_uid: authorization_request_form.uid, authorization_request_id: authorization_request.id, id: 'finish'))
+        expect(page).to have_current_path(authorization_request_build_path(form_uid: authorization_request_form.uid, authorization_request_id: authorization_request.id, id: last_step_name))
         expect(page).to have_css('#submit_authorization_request')
       end
     end
@@ -146,7 +149,7 @@ RSpec.describe 'Authorization request with multiple steps' do
     it 'redirects to finish path, with no submit button' do
       visit_habilitation
 
-      expect(page).to have_current_path(authorization_request_build_path(form_uid: authorization_request_form.uid, authorization_request_id: authorization_request.id, id: 'finish'))
+      expect(page).to have_current_path(authorization_request_build_path(form_uid: authorization_request_form.uid, authorization_request_id: authorization_request.id, id: last_step_name))
       expect(page).not_to have_button('submit_authorization_request')
     end
   end
