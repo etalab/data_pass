@@ -1,4 +1,3 @@
-# rubocop:disable Metrics/ClassLength
 class DSFRFormBuilder < ActionView::Helpers::FormBuilder
   def dsfr_text_field(attribute, opts = {})
     dsfr_input_field(attribute, :text_field, opts)
@@ -175,4 +174,3 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
     @object.class.human_attribute_name(attribute)
   end
 end
-# rubocop:enable Metrics/ClassLength
