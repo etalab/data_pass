@@ -24,7 +24,9 @@ class FindOrCreateUser < ApplicationInteractor
     info_payload.slice(
       'family_name',
       'given_name',
-      'email_verified'
+      'email_verified',
+      'phone_number',
+      'phone_number_verified',
     ).merge(
       'job_title' => info_payload['job']
     ).merge(
