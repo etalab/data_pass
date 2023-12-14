@@ -8,6 +8,11 @@ class AuthorizationRequest < ApplicationRecord
 
   belongs_to :organization
 
+  scope :drafts, -> { where(state: %w[draft request_changes]) }
+  scope :in_instructions, -> { where(state: 'submitted') }
+  scope :validated, -> { where(state: 'validated') }
+  scope :refused, -> { where(state: 'refused') }
+
   def form
     @form ||= AuthorizationRequestForm.where(authorization_request_class: self.class).first
   end
