@@ -10,14 +10,11 @@
           <li>
             <strong><%= current_user.full_name %></strong>
           </li>
-          <% %i[email job_title].each do |attr| %>
+          <% %i[email job_title phone_number].each do |attr| %>
             <li>
               <%= current_user.public_send(attr) %>
             </li>
           <% end %>
-          <li>
-            FIXME phone number
-          </li>
         </ul>
 
         <%= form_with(url: "/auth/mon_compte_pro?prompt=update_userinfo", method: :post, data: { turbo: false }) do |f| %>

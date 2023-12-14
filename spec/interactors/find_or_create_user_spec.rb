@@ -22,6 +22,8 @@ RSpec.describe FindOrCreateUser do
         expect(user.given_name).to eq(mon_compte_pro_omniauth_payload['info']['given_name'])
         expect(user.job_title).to eq(mon_compte_pro_omniauth_payload['info']['job'])
         expect(user.email_verified).to eq(mon_compte_pro_omniauth_payload['info']['email_verified'])
+        expect(user.phone_number).to eq(mon_compte_pro_omniauth_payload['info']['phone_number'])
+        expect(user.phone_number_verified).to eq(mon_compte_pro_omniauth_payload['info']['phone_number_verified'])
       end
 
       it 'returns the user' do
@@ -51,6 +53,8 @@ RSpec.describe FindOrCreateUser do
         expect(user.given_name).to eq(mon_compte_pro_omniauth_payload['info']['given_name'])
         expect(user.job_title).to eq(mon_compte_pro_omniauth_payload['info']['job'])
         expect(user.email_verified).to eq(mon_compte_pro_omniauth_payload['info']['email_verified'])
+        expect(user.phone_number).to eq(mon_compte_pro_omniauth_payload['info']['phone_number'])
+        expect(user.phone_number_verified).to eq(mon_compte_pro_omniauth_payload['info']['phone_number_verified'])
       end
     end
   end
