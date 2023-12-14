@@ -52,11 +52,6 @@ class AuthorizationRequestForm
     uid
   end
 
-  # FIXME: should be a helper method
-  def logo_path
-    "authorization_request_forms_logos/#{logo}"
-  end
-
   def multiple_steps?
     steps.any?
   end
