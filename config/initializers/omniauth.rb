@@ -38,11 +38,11 @@ setup_proc = lambda do |env|
   env['omniauth.strategy'].options[:client_secret] = Rails.application.credentials.mon_compte_pro_client_secret
 
   prompt_param = Rack::Utils.parse_nested_query(env['QUERY_STRING'])['prompt']
+  return_to = Rack::Utils.parse_nested_query(env['QUERY_STRING'])['return_to']
 
-  if %w[select_organization].include?(prompt_param)
+  if %w[select_organization update_userinfo].include?(prompt_param)
     env['omniauth.strategy'].options[:authorize_params] = {
       prompt: prompt_param,
-      return_to: '/formulaires',
     }
   end
 end

@@ -7,6 +7,8 @@ class SessionsController < ApplicationController
     case request.env['omniauth.params']['prompt']
     when 'select_organization'
       change_current_organization
+    when 'update_userinfo'
+      update_user
     else
       authenticate_user
     end
@@ -39,7 +41,19 @@ class SessionsController < ApplicationController
       description: t('sessions.change_current_organization.success.description', organization_name: current_organization.raison_sociale, organization_siret: current_organization.siret),
     )
 
-    redirect_to dashboard_path
+    redirect_to request.env['omniauth.origin'] || root_path
+  end
+
+  def update_user
+    FindOrCreateUser.call(
+      mon_compte_pro_omniauth_payload: request.env['omniauth.auth'],
+    )
+
+    success_message(
+      title: t('sessions.update_user.success.title')
+    )
+
+    redirect_to request.env['omniauth.origin'] || root_path
   end
 
   def after_logout_url

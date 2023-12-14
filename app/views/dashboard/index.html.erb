@@ -25,7 +25,3 @@
     <%= t('.no_authorization_requests') %>
   </h3>
 <% end %>
-
-<%= form_with(url: '/auth/mon_compte_pro?prompt=select_organization', method: :post, data: { turbo: false }) do |f| %>
-  <%= f.button "Changer d'organisation", id: 'change_current_organization' %>
-<% end %>

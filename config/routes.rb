@@ -8,6 +8,9 @@ Rails.application.routes.draw do
 
   get '/tableau-de-bord', to: 'dashboard#index', as: :dashboard
 
+  get '/compte', to: 'profile#edit', as: :profile
+  patch '/compte', to: 'profile#update'
+
   scope(path_names: { new: 'nouveau' }) do
     resources :authorization_request_forms, only: %w[index], path: 'formulaires'
 

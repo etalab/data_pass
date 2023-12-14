@@ -34,6 +34,9 @@ fr:
       success:
         title: Vous avez changé votre organisation
         description: "Vous êtes maintenant connecté pour le compte de '%{organization_name}' (numéro de siret: %{organization_siret})"
+    update_user:
+      success:
+        title: Vos informations ont bien été mises à jour
 
   pages:
     home:
@@ -51,6 +54,10 @@ fr:
     authorization_request_card:
       cta: Consulter
 
+  profile:
+    edit:
+      title: Votre compte
+
   authorization_request_forms:
     form:
       save: Enregistrer les modifications
@@ -62,8 +69,10 @@ fr:
       organization:
         you:
           title: Vous êtes
+          update: Mettre à jour mes informations
         organization:
           title: Vous faites cette demande pour
+          update: Changer d'organisation
 
   authorization_requests:
     new:

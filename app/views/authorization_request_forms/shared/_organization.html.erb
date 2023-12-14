@@ -1,7 +1,7 @@
 <div class="fr-container-fluid">
   <div class="fr-grid-row">
     <div class="fr-col-12 fr-col-lg-6">
-      <div id="<%= dom_id(@authorization_request.applicant, :authorization_request_card) %>" class="fr-basic-card">
+      <div id="<%= dom_id(current_user, :authorization_request_card) %>" class="fr-basic-card">
         <h3>
           <%= t('.you.title') %>
         </h3>
@@ -19,11 +19,15 @@
             FIXME phone number
           </li>
         </ul>
+
+        <%= form_with(url: "/auth/mon_compte_pro?prompt=update_userinfo", method: :post, data: { turbo: false }) do |f| %>
+          <%= f.button t('.you.update'), id: 'update_infos', class: %w(fr-btn) %>
+        <% end %>
       </div>
     </div>
 
     <div class="fr-col-12 fr-col-lg-6">
-      <div id="<%= dom_id(@authorization_request.organization, :authorization_request_card) %>" class="fr-basic-card">
+      <div id="<%= dom_id(current_organization, :authorization_request_card) %>" class="fr-basic-card">
         <h3>
           <%= t('.organization.title') %>
         </h3>
@@ -38,6 +42,10 @@
             </li>
           <% end %>
         </ul>
+
+        <%= form_with(url: "/auth/mon_compte_pro?prompt=select_organization", method: :post, data: { turbo: false }) do |f| %>
+          <%= f.button t('.organization.update'), id: 'change_current_organization', class: %w(fr-btn) %>
+        <% end %>
       </div>
     </div>
   </div>
