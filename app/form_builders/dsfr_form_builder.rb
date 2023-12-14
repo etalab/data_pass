@@ -1,4 +1,7 @@
+# rubocop:disable Metrics/ClassLength
 class DSFRFormBuilder < ActionView::Helpers::FormBuilder
+  include Rails.application.routes.url_helpers
+
   def dsfr_text_field(attribute, opts = {})
     dsfr_input_field(attribute, :text_field, opts)
   end
@@ -146,7 +149,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
     return unless @object.send(attribute).attached? && @object.send(attribute).persisted?
 
     @template.content_tag(:div, class: 'fr-input-group__text') do
-      @template.link_to('Voir le document', rails_blob_path(@object.send(attribute), disposition: 'inline'))
+      @template.link_to('Voir le document', rails_blob_path(@object.send(attribute), disposition: 'inline', only_path: true), target: '_blank', rel: 'noopener')
     end
   end
 
@@ -178,3 +181,4 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
     opts
   end
 end
+# rubocop:enable Metrics/ClassLength
