@@ -1,11 +1,17 @@
 RSpec.describe AuthorizationRequest do
+  # rubocop:disable RSpec/NoExpectationExample
   it 'has valid factories' do
     %w[
       hubee_cert_dc
       api_entreprise
     ].each do |kind|
-      expect(build(:authorization_request, kind)).to be_valid
-      expect(build(:authorization_request, kind, state: 'submitted')).to be_valid
+      authorization_request = build(:authorization_request, kind, state: 'submitted')
+      authorization_request.save!
+      authorization_request.state = 'draft'
+      authorization_request.save!
+    rescue StandardError => e
+      fail "Factory :authorization_request, kind: #{kind}, state: 'submitted' is not valid: #{e}"
     end
   end
+  # rubocop:enable RSpec/NoExpectationExample
 end

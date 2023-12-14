@@ -113,6 +113,8 @@ class AuthorizationRequest < ApplicationRecord
 
   def need_complete_validation?(step = nil)
     if form.multiple_steps? && step != :finish
+      raise "Unknown step #{step}" if step.present? && steps_names.exclude?(step.to_s)
+
       !in_draft? ||
         required_for_step?(step)
     else
