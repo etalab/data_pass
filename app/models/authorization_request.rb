@@ -7,6 +7,8 @@ class AuthorizationRequest < ApplicationRecord
 
   belongs_to :organization
 
+  attr_accessor :current_build_step
+
   def form
     @form ||= AuthorizationRequestForm.where(authorization_request_class: self.class).first
   end
@@ -20,8 +22,8 @@ class AuthorizationRequest < ApplicationRecord
     form.scopes
   end
 
-  validates :terms_of_service_accepted, presence: true, if: :need_complete_validation?
-  validates :data_protection_officer_informed, presence: true, if: :need_complete_validation?
+  validates :terms_of_service_accepted, presence: true, if: -> { need_complete_validation?(:finish) }
+  validates :data_protection_officer_informed, presence: true, if: -> { need_complete_validation?(:finish) }
 
   state_machine initial: :draft do
     state :draft
@@ -66,14 +68,16 @@ class AuthorizationRequest < ApplicationRecord
     ]
   end
 
-  def self.contact(kind)
+  def self.contact(kind, validation_condition: nil)
+    validation_condition ||= :need_complete_validation?
+
     class_eval do
       contact_attributes.each do |attr|
         store_accessor :data, "#{kind}_#{attr}"
-        validates "#{kind}_#{attr}", presence: true, if: :need_complete_validation?
+        validates "#{kind}_#{attr}", presence: true, if: validation_condition
       end
 
-      validates "#{kind}_email", format: { with: URI::MailTo::EMAIL_REGEXP }, if: :need_complete_validation?
+      validates "#{kind}_email", format: { with: URI::MailTo::EMAIL_REGEXP }, if: validation_condition
 
       contact_types << kind
     end
@@ -108,8 +112,22 @@ class AuthorizationRequest < ApplicationRecord
     AuthorizationRequestPolicy
   end
 
-  def need_complete_validation?
-    %w[draft request_changes].exclude?(state)
+  def need_complete_validation?(step = nil)
+    if form.multiple_steps? && step != :finish
+      %w[draft request_changes].exclude?(state) ||
+        required_for_step?(step)
+    else
+      %w[draft request_changes].exclude?(state)
+    end
+  end
+
+  # FIXME: not robust
+  def required_for_step?(step)
+    persisted? && (
+      step.nil? ||
+        current_build_step == 'finish' ||
+        form.steps.pluck(:name).index(step.to_s) <= form.steps.pluck(:name).index(current_build_step)
+    )
   end
 
   def applicant_belongs_to_organization

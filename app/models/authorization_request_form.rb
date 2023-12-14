@@ -9,6 +9,7 @@ class AuthorizationRequestForm
     :authorization_request_class,
     :scopes,
     :templates,
+    :steps,
     :unique
 
   def self.all
@@ -37,7 +38,8 @@ class AuthorizationRequestForm
         uid: uid.to_s,
         authorization_request_class: AuthorizationRequest.const_get(hash[:authorization_request]),
         templates: (hash[:templates] || []).map { |template_key, template_attributes| AuthorizationRequestTemplate.new(template_key, template_attributes) },
-        scopes: (hash[:scopes] || []).map { |scope_attributes| AuthorizationRequestScope.new(scope_attributes) }
+        scopes: (hash[:scopes] || []).map { |scope_attributes| AuthorizationRequestScope.new(scope_attributes) },
+        steps: hash[:steps] || []
       )
     )
   end
@@ -50,11 +52,21 @@ class AuthorizationRequestForm
     uid
   end
 
+  # FIXME: should be a helper method
   def logo_path
     "authorization_request_forms_logos/#{logo}"
   end
 
+  def multiple_steps?
+    steps.any?
+  end
+
+  # FIXME: should be in controller
   def view_path
-    uid.underscore
+    if multiple_steps?
+      'authorization_requests/build/start'
+    else
+      uid.underscore
+    end
   end
 end
