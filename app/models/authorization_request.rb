@@ -113,10 +113,10 @@ class AuthorizationRequest < ApplicationRecord
 
   def need_complete_validation?(step = nil)
     if form.multiple_steps? && step != :finish
-      %w[draft request_changes].exclude?(state) ||
+      !in_draft? ||
         required_for_step?(step)
     else
-      %w[draft request_changes].exclude?(state)
+      !in_draft?
     end
   end
 
@@ -139,6 +139,10 @@ class AuthorizationRequest < ApplicationRecord
 
   def steps_names
     @steps_names ||= form.steps.pluck(:name) + ['finish']
+  end
+
+  def in_draft?
+    %w[draft request_changes].include?(state)
   end
 
   def applicant_belongs_to_organization

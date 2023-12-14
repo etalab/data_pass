@@ -5,13 +5,13 @@ class AuthorizationRequestPolicy < ApplicationPolicy
 
   def update?
     record.applicant == user &&
-      %w[draft changes_requested].include?(record.state) &&
+      record.in_draft? &&
       record.applicant == user
   end
 
   def submit?
     record.persisted? &&
-      %w[draft changes_requested].include?(record.state) &&
+      record.in_draft? &&
       record.applicant == user
   end
 end

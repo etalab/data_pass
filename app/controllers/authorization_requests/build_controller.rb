@@ -30,7 +30,7 @@ class AuthorizationRequests::BuildController < AuthorizationRequestsController
   private
 
   def should_redirect_to_finish_page?
-    %w[draft changes_requested].exclude?(@authorization_request.state) &&
+    !@authorization_request.in_draft? &&
       step != 'finish'
   end
 
