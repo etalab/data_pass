@@ -59,6 +59,9 @@ fr:
       title: Votre compte
 
   authorization_request_forms:
+    index:
+      title: Demander une nouvelle habilitation
+      cta: Remplir une demande
     form:
       save: Enregistrer les modifications
       start: Démarrer

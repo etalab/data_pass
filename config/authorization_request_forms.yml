@@ -3,6 +3,7 @@ shared:
   portail-hubee-demarche-certdc:
     name: "Portail HubEE - Démarche CertDC"
     description: "Certificats de Décès"
+    link: 'https://hubee.numerique.gouv.fr/'
     public: true
     authorization_request: 'HubEECertDC'
     logo: 'hubee.png'
@@ -10,6 +11,7 @@ shared:
   api-entreprise:
     name: "API Entreprise"
     description: "Entités administratives, simplifiez les démarches des entreprises et des associations en récupérant pour elles leurs informations administratives."
+    link: 'https://api.gouv.fr/les-api/api-entreprise'
     public: true
     authorization_request: 'APIEntreprise'
     logo: 'dinum.png'

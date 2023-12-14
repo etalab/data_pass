@@ -16,6 +16,10 @@
       <%= stylesheet_link_tag "components/#{File.basename(path)}", "data-turbo-track": "reload" %>
     <% end %>
 
+    <%  Dir[Rails.root.join("app/assets/stylesheets/pages/*.css")].each do |path| %>
+      <%= stylesheet_link_tag "pages/#{File.basename(path)}", "data-turbo-track": "reload" %>
+    <% end %>
+
     <%= javascript_include_tag "dsfr.module", "data-turbo-track": "reload" %>
 
     <%= javascript_importmap_tags %>
