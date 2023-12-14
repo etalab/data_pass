@@ -1,3 +1,5 @@
 return unless Rails.env.development?
 
-Seeds.new.perform
+seeds = Seeds.new
+seeds.flushdb
+seeds.perform
