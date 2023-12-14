@@ -9,7 +9,7 @@ RSpec.describe 'Dashboard' do
     it 'works' do
       visit dashboard_path
 
-      expect(page).to have_content user.full_name
+      expect(page).to have_content(user.email)
     end
   end
 end

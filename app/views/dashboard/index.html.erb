@@ -1,23 +1,30 @@
-Bonjour <%= current_user.full_name %>
+<div class="sub-header">
+  <h1 class="fr-m-0">
+    <%= t('.title') %>
+  </h1>
 
-<%= link_to 'Demander une habilitation', authorization_request_forms_path %>
-
-<hr />
+  <div>
+    <%= link_to t('.new_authorization_request'), authorization_request_forms_path, class: %w(fr-btn fr-btn--secondary fr-icon-add-line fr-btn--icon-left) %>
+  </div>
+</div>
 
 <% if current_organization.authorization_requests.any? %>
-  <h3>
-    Habilitations
-  </h3>
-  <ul>
-    <% current_organization.authorization_requests.each do |authorization_request| %>
-      <li>
-        <%= link_to authorization_request.name, authorization_request_path(form_uid: authorization_request.form.uid, id: authorization_request.id) %>
-      </li>
-    <% end %>
-  </ul>
-<% end %>
+  <% if current_organization.authorization_requests.validated.any? %>
+    <%= render partial: 'authorization_requests', locals: { authorization_requests: current_organization.authorization_requests.validated, kind: 'validated' } %>
+  <% end %>
 
-<hr />
+  <% if current_organization.authorization_requests.drafts.any? %>
+    <%= render partial: 'authorization_requests', locals: { authorization_requests: current_organization.authorization_requests.drafts, kind: 'draft' } %>
+  <% end %>
+
+  <% if current_organization.authorization_requests.in_instructions.any? %>
+    <%= render partial: 'authorization_requests', locals: { authorization_requests: current_organization.authorization_requests.in_instructions, kind: 'pending' } %>
+  <% end %>
+<% else %>
+  <h3 class="center">
+    <%= t('.no_authorization_requests') %>
+  </h3>
+<% end %>
 
 <%= form_with(url: '/auth/mon_compte_pro?prompt=select_organization', method: :post, data: { turbo: false }) do |f| %>
   <%= f.button "Changer d'organisation", id: 'change_current_organization' %>

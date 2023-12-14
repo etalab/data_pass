@@ -1,0 +1,17 @@
+<div class="authorization-request-card">
+  <div class="card-provider">
+    <%= authorization_request.form.name %>
+  </div>
+
+  <div class="card-title">
+    <%= authorization_request.name %>
+  </div>
+
+  <% if authorization_request.respond_to?(:description) %>
+    <div class="card-description">
+      <%= truncate(authorization_request.description, length: 30) %>
+    </div>
+  <% end %>
+
+  <%= link_to t('.cta'), authorization_request_path(form_uid: authorization_request.form.uid, id: authorization_request.id), class: %w(fr-btn fr-btn--sm) %>
+</div>

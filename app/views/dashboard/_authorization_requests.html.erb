@@ -1,0 +1,13 @@
+<h3 class="with-icon">
+  <%= image_tag("#{kind}-icon.svg") %>
+  <%= t(".#{kind}_title") %>
+</h3>
+
+<div class="fr-grid-row">
+  <% authorization_requests.each do |authorization_request| %>
+    <div class="fr-col-12 fr-col-md-6 fr-col-lg-4">
+      <%= render partial: 'authorization_request_card', locals: { authorization_request: } %>
+    </div>
+  <% end %>
+</div>
+

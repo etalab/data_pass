@@ -39,6 +39,18 @@ fr:
     home:
       title: Se connecter
 
+  dashboard:
+    index:
+      title: Accueil
+      new_authorization_request: Demander une nouvelle habilitation
+      no_authorization_requests: Vous n'avez aucun habilitations ou demandes en cours.
+    authorization_requests:
+      validated_title: Mes habilitations
+      draft_title: Demandes en brouillon
+      pending_title: Demandes en cours d'instruction
+    authorization_request_card:
+      cta: Consulter
+
   authorization_request_forms:
     form:
       save: Enregistrer les modifications

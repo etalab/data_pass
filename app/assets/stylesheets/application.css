@@ -5,3 +5,19 @@ turbo-frame {
 .center {
   text-align: center;
 }
+
+.pull-right {
+  float: right;
+}
+
+.sub-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+h3.with-icon img {
+  vertical-align: -10%;
+}

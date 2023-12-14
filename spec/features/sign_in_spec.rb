@@ -22,10 +22,10 @@ RSpec.describe 'Sign in through MonComptePro' do
     OmniAuth.config.mock_auth[:mon_compte_pro] = nil
   end
 
-  it 'logs user, redirect to the dashboard and displays his name' do
+  it 'logs user, redirect to the dashboard and displays his email' do
     connect_user
 
     expect(page).to have_current_path(dashboard_path, ignore_query: true)
-    expect(page).to have_content('Dupont Jean')
+    expect(page).to have_content(User.last.email)
   end
 end
