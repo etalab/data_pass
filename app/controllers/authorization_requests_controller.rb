@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ClassLength
 class AuthorizationRequestsController < AuthenticatedUserController
   helper AuthorizationRequestsHelpers
 
@@ -8,35 +9,29 @@ class AuthorizationRequestsController < AuthenticatedUserController
   def new
     @authorization_request = authorization_request_class.new(applicant: current_user, organization: current_organization)
 
-    render @authorization_request_form.view_path
+    render view_path
   end
 
-  # rubocop:disable Metrics/AbcSize
   def create
-    @authorization_request = authorization_request_class.new(
-      authorization_request_create_params
-    )
-
-    if @authorization_request.save
-      success_message(title: t('.success', name: @authorization_request.name))
-
-      redirect_to authorization_request_path(form_uid: @authorization_request.form.uid, id: @authorization_request.id)
+    if @authorization_request_form.multiple_steps?
+      create_for_multiple_steps
     else
-      error_message(title: t('.error.title'), description: t('.error.description'))
-
-      render @authorization_request_form.view_path, status: :unprocessable_entity
+      create_for_single_page_form
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   def show
     authorize @authorization_request
 
-    render @authorization_request_form.view_path
+    if @authorization_request_form.multiple_steps?
+      redirect_to authorization_request_build_path(form_uid: @authorization_request_form.uid, authorization_request_id: @authorization_request.id, id: @authorization_request_form.steps.first[:name])
+    else
+      render view_path
+    end
   end
 
   def update
-    if params[:submit].present?
+    if final_submit?
       submit
     else
       update_model
@@ -45,35 +40,58 @@ class AuthorizationRequestsController < AuthenticatedUserController
 
   private
 
-  def update_model
-    if @authorization_request.update(authorization_request_update_params)
-      authorize @authorization_request, :update?
+  def create_for_multiple_steps
+    authorization_request = authorization_request_class.create!(
+      applicant: current_user,
+      organization: current_organization,
+    )
 
+    redirect_to authorization_request_build_path(form_uid: @authorization_request_form.uid, authorization_request_id: authorization_request.id, id: @authorization_request_form.steps.first[:name])
+  end
+
+  def create_for_single_page_form
+    @authorization_request = authorization_request_class.new(
+      authorization_request_create_params
+    )
+
+    if @authorization_request.save
+      success_message(title: t('.success', name: @authorization_request.name))
+
+      redirect_to authorization_request_path(form_uid: @authorization_request_form.uid, id: @authorization_request.id)
+    else
+      error_message(title: t('.error.title'), description: t('.error.description'))
+
+      render view_path, status: :unprocessable_entity
+    end
+  end
+
+  def update_model
+    authorize @authorization_request, :update?
+
+    if @authorization_request.update(authorization_request_update_params)
       success_message(title: t('authorization_requests.update.success', name: @authorization_request.name))
 
       redirect_to authorization_request_path(form_uid: @authorization_request.form.uid, id: @authorization_request.id)
     else
       error_message(title: t('authorization_requests.update.error.title'), description: t('authorization_requests.update.error.description'))
 
-      render @authorization_request_form.view_path, status: :unprocessable_entity
+      render view_path, status: :unprocessable_entity
     end
   end
 
-  # rubocop:disable Metrics/AbcSize
   def submit
     authorize @authorization_request, :submit?
 
     if @authorization_request.update(authorization_request_params) && @authorization_request.submit
       success_message(title: t('authorization_requests.submit.success', name: @authorization_request.name))
 
-      redirect_to authorization_request_path(form_uid: @authorization_request.form.uid, id: @authorization_request.id)
+      redirect_to dashboard_path
     else
       error_message(title: t('authorization_requests.submit.error.title'), description: t('authorization_requests.submit.error.description'))
 
-      render @authorization_request_form.view_path, status: :unprocessable_entity
+      render view_path, status: :unprocessable_entity
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   def authorization_request_create_params
     authorization_request_params.merge(
@@ -111,6 +129,18 @@ class AuthorizationRequestsController < AuthenticatedUserController
     end
   end
 
+  def final_submit?
+    params[:submit].present?
+  end
+
+  def view_path
+    if @authorization_request.form.multiple_steps?
+      "authorization_requests/build/#{params[:id] || 'start'}"
+    else
+      @authorization_request.form.uid.underscore
+    end
+  end
+
   def extract_authorization_request
     @authorization_request = authorization_request_class.find(params[:id])
   end
@@ -135,3 +165,4 @@ class AuthorizationRequestsController < AuthenticatedUserController
     redirect_to root_path
   end
 end
+# rubocop:enable Metrics/ClassLength

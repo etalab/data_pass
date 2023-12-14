@@ -60,13 +60,4 @@ class AuthorizationRequestForm
   def multiple_steps?
     steps.any?
   end
-
-  # FIXME: should be in controller
-  def view_path
-    if multiple_steps?
-      'authorization_requests/build/start'
-    else
-      uid.underscore
-    end
-  end
 end

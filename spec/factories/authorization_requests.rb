@@ -7,6 +7,11 @@ FactoryBot.define do
     terms_of_service_accepted { true }
     data_protection_officer_informed { true }
 
+    trait :no_checkboxes do
+      terms_of_service_accepted { false }
+      data_protection_officer_informed { false }
+    end
+
     transient do
       fill_all_attributes { false }
     end

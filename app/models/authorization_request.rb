@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ClassLength
 class AuthorizationRequest < ApplicationRecord
   store :data, coder: JSON
 
@@ -6,8 +7,6 @@ class AuthorizationRequest < ApplicationRecord
     inverse_of: :authorization_requests_as_applicant
 
   belongs_to :organization
-
-  attr_accessor :current_build_step
 
   def form
     @form ||= AuthorizationRequestForm.where(authorization_request_class: self.class).first
@@ -22,8 +21,8 @@ class AuthorizationRequest < ApplicationRecord
     form.scopes
   end
 
-  validates :terms_of_service_accepted, presence: true, if: -> { need_complete_validation?(:finish) }
-  validates :data_protection_officer_informed, presence: true, if: -> { need_complete_validation?(:finish) }
+  validates :terms_of_service_accepted, presence: true, inclusion: [true], if: -> { need_complete_validation?(:finish) }
+  validates :data_protection_officer_informed, presence: true, inclusion: [true], if: -> { need_complete_validation?(:finish) }
 
   state_machine initial: :draft do
     state :draft
@@ -121,13 +120,25 @@ class AuthorizationRequest < ApplicationRecord
     end
   end
 
-  # FIXME: not robust
+  attr_writer :current_build_step
+
+  def current_build_step
+    if form.multiple_steps? && steps_names.include?(@current_build_step)
+      @current_build_step
+    else
+      'finish'
+    end
+  end
+
   def required_for_step?(step)
     persisted? && (
       step.nil? ||
-        current_build_step == 'finish' ||
-        form.steps.pluck(:name).index(step.to_s) <= form.steps.pluck(:name).index(current_build_step)
+        steps_names.index(step.to_s) <= steps_names.index(current_build_step)
     )
+  end
+
+  def steps_names
+    @steps_names ||= form.steps.pluck(:name) + ['finish']
   end
 
   def applicant_belongs_to_organization
@@ -136,3 +147,4 @@ class AuthorizationRequest < ApplicationRecord
     errors.add(:applicant, :belongs_to)
   end
 end
+# rubocop:enable Metrics/ClassLength

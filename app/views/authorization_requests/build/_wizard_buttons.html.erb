@@ -1,0 +1,5 @@
+<% if !current_page?(previous_wizard_path) %>
+  <%= link_to t('authorization_request_forms.form.previous'), previous_wizard_path, id: :previous_authorization_request, class: %w(fr-btn fr-btn--secondary fr-icon-arrow-left-fill fr-btn--icon-left) %>
+<% end %>
+
+<%= f.submit t('authorization_request_forms.form.next'), name: :save, id: :next_authorization_request, class: %w(fr-btn fr-btn--secondary fr-icon-arrow-right-fill fr-btn--icon-right) %>
