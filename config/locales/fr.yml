@@ -1,4 +1,6 @@
 fr:
+  form:
+    no_file: Pas de fichier
   layouts:
     header:
       title: DataPass

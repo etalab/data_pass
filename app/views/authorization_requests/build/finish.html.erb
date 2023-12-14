@@ -18,8 +18,8 @@
 
   <%= f.hidden_field :current_build_step, value: step %>
 
-  <%= f.dsfr_check_box :terms_of_service_accepted %>
-  <%= f.dsfr_check_box :data_protection_officer_informed %>
+  <%= f.dsfr_check_box :terms_of_service_accepted, disabled: !@authorization_request.in_draft? %>
+  <%= f.dsfr_check_box :data_protection_officer_informed, disabled: !@authorization_request.in_draft? %>
 
   <% if policy(@authorization_request).submit? %>
     <%= link_to t('authorization_request_forms.form.previous'), previous_wizard_path, id: :previous_authorization_request, class: %w(fr-btn fr-btn--secondary fr-icon-arrow-left-fill fr-btn--icon-left) %>
