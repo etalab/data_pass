@@ -153,6 +153,7 @@ class AuthorizationRequest < ApplicationRecord
   end
 
   def applicant_belongs_to_organization
+    return if organization.blank? || applicant.blank?
     return unless applicant.organizations.exclude?(organization)
 
     errors.add(:applicant, :belongs_to)
