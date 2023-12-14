@@ -1,4 +1,3 @@
-# rubocop:disable Metrics/ClassLength
 class DSFRFormBuilder < ActionView::Helpers::FormBuilder
   def dsfr_text_field(attribute, opts = {})
     dsfr_input_field(attribute, :text_field, opts)
@@ -29,7 +28,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
       @template.safe_join(
         [
           label_with_hint(attribute),
-          file_field(attribute, class: input_classes(opts), autocomplete: 'off', **opts.except(:class)),
+          file_field(attribute, class: input_classes(opts), autocomplete: 'off', **enhance_input_options(opts).except(:class)),
           error_message(attribute),
           link_to_file(attribute)
         ]
@@ -42,7 +41,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
       @template.content_tag(:div, class: 'fr-checkbox-group') do
         @template.safe_join(
           [
-            check_box(attribute, class: input_classes(opts), **opts),
+            check_box(attribute, class: input_classes(opts), **enhance_input_options(opts).except(:class)),
             label_with_hint(attribute)
           ]
         )
@@ -91,7 +90,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
       @template.safe_join(
         [
           label_with_hint(attribute),
-          public_send(input_kind, attribute, class: input_classes(opts), autocomplete: 'off', **opts.except(:class)),
+          public_send(input_kind, attribute, class: input_classes(opts), autocomplete: 'off', **enhance_input_options(opts).except(:class)),
           error_message(attribute)
         ]
       )
@@ -174,5 +173,8 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
   def label_value(attribute)
     @object.class.human_attribute_name(attribute)
   end
+
+  def enhance_input_options(opts)
+    opts
+  end
 end
-# rubocop:enable Metrics/ClassLength

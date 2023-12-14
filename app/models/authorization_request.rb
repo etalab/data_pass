@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ClassLength
 class AuthorizationRequest < ApplicationRecord
   store :data, coder: JSON
 
@@ -20,8 +21,8 @@ class AuthorizationRequest < ApplicationRecord
     form.scopes
   end
 
-  validates :terms_of_service_accepted, presence: true, if: :need_complete_validation?
-  validates :data_protection_officer_informed, presence: true, if: :need_complete_validation?
+  validates :terms_of_service_accepted, presence: true, inclusion: [true], if: -> { need_complete_validation?(:finish) }
+  validates :data_protection_officer_informed, presence: true, inclusion: [true], if: -> { need_complete_validation?(:finish) }
 
   state_machine initial: :draft do
     state :draft
@@ -66,14 +67,16 @@ class AuthorizationRequest < ApplicationRecord
     ]
   end
 
-  def self.contact(kind)
+  def self.contact(kind, validation_condition: nil)
+    validation_condition ||= :need_complete_validation?
+
     class_eval do
       contact_attributes.each do |attr|
         store_accessor :data, "#{kind}_#{attr}"
-        validates "#{kind}_#{attr}", presence: true, if: :need_complete_validation?
+        validates "#{kind}_#{attr}", presence: true, if: validation_condition
       end
 
-      validates "#{kind}_email", format: { with: URI::MailTo::EMAIL_REGEXP }, if: :need_complete_validation?
+      validates "#{kind}_email", format: { with: URI::MailTo::EMAIL_REGEXP }, if: validation_condition
 
       contact_types << kind
     end
@@ -108,8 +111,40 @@ class AuthorizationRequest < ApplicationRecord
     AuthorizationRequestPolicy
   end
 
-  def need_complete_validation?
-    %w[draft request_changes].exclude?(state)
+  def need_complete_validation?(step = nil)
+    if form.multiple_steps? && step != :finish
+      raise "Unknown step #{step}" if step.present? && steps_names.exclude?(step.to_s)
+
+      !in_draft? ||
+        required_for_step?(step)
+    else
+      !in_draft?
+    end
+  end
+
+  attr_writer :current_build_step
+
+  def current_build_step
+    if form.multiple_steps? && steps_names.include?(@current_build_step)
+      @current_build_step
+    else
+      'finish'
+    end
+  end
+
+  def required_for_step?(step)
+    persisted? && (
+      step.nil? ||
+        steps_names.index(step.to_s) <= steps_names.index(current_build_step)
+    )
+  end
+
+  def steps_names
+    @steps_names ||= form.steps.pluck(:name) + ['finish']
+  end
+
+  def in_draft?
+    %w[draft request_changes].include?(state)
   end
 
   def applicant_belongs_to_organization
@@ -118,3 +153,4 @@ class AuthorizationRequest < ApplicationRecord
     errors.add(:applicant, :belongs_to)
   end
 end
+# rubocop:enable Metrics/ClassLength

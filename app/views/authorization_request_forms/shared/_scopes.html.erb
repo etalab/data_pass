@@ -5,8 +5,9 @@
     <% scopes.each do |scope| %>
       <div class="fr-checkboxes">
         <div class="fr-checkboxes__item">
-          <%= f.check_box :scopes, { multiple: true }, scope.value %>
-          <%= f.label scope.name %>
+          <%= f.check_box :scopes, { multiple: true, disabled: !@authorization_request.in_draft? }, scope.value %>
+
+          <%= f.label :scopes, scope.name, class: "fr-label" %>
         </div>
       </div>
     <% end %>

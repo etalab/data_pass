@@ -12,7 +12,10 @@ Rails.application.routes.draw do
     resources :authorization_request_forms, only: %w[index], path: 'formulaires'
 
     scope(path: 'formulaires/:form_uid') do
-      resources :authorization_requests, only: %w[new create show update], path: 'demande'
+      resources :authorization_requests, only: %w[new create show update], path: 'demande' do
+        resources :build, controller: 'authorization_requests/build', only: %w[show update], path: 'etapes'
+      end
+
       resources :authorization_request_from_templates, only: %i[index create], path: 'templates'
     end
   end

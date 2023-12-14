@@ -1,4 +1,14 @@
 fr:
+  form:
+    no_file: Pas de fichier
+  wicked:
+    basic_infos: 'informations-de-base'
+    personal_data: 'donnees-personnelles'
+    legal: 'cadre-juridique'
+    scopes: 'donneees'
+    contacts: 'contacts'
+    finish: 'resume'
+
   layouts:
     header:
       title: DataPass
@@ -32,7 +42,10 @@ fr:
   authorization_request_forms:
     form:
       save: Enregistrer les modifications
+      start: Démarrer
       submit: Soumettre la demande d'habilitation
+      previous: Précédent
+      next: Suivant
     shared:
       organization:
         you:
@@ -43,14 +56,14 @@ fr:
   authorization_requests:
     new:
       unicity_error: Une habilitation existe déjà pour cette organisation
-    create:
+    create_for_single_page_form:
       success: La demande d'habilitation %{name} a été sauvegardée avec succès
       error:
         title: Une erreur est survenue lors de la sauvegarde de la demande d'habilitation
         description: &common_authorization_requests_error_description Certains champs ci-dessous ne sont pas valides, merci d'effectuer les corrections nécessaires
     update:
       success: La demande d'habilitation %{name} a été mise à jour avec succès
-      error:
+      error: &authorization_requests_update_error
         title: Une erreur est survenue lors de la mise à jour de la demande d'habilitation
         description: *common_authorization_requests_error_description
     submit:
@@ -58,3 +71,6 @@ fr:
       error:
         title: Une erreur est survenue lors de la soumission de la demande d'habilitation
         description: *common_authorization_requests_error_description
+    build:
+      update:
+        error: *authorization_requests_update_error

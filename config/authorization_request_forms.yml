@@ -7,4 +7,23 @@ shared:
     authorization_request: 'HubEECertDC'
     logo: 'hubee.png'
     unique: true
+  api-entreprise:
+    name: "API Entreprise"
+    description: "Entités administratives, simplifiez les démarches des entreprises et des associations en récupérant pour elles leurs informations administratives."
+    public: true
+    authorization_request: 'APIEntreprise'
+    logo: 'dinum.png'
+    scopes:
+      - name: 'Données unités légales et établissements du répertoire Sirene - Insee (diffusibles et non-diffusibles)'
+        value: 'unites_legales_etablissements_insee'
+        group: 'Information générales'
+      - name: 'Mandataires sociaux - Infogreffe | 🔐'
+        value: 'mandataires_sociaux_infogreffe'
+        group: 'Information générales'
 
+    steps:
+      - name: 'basic_infos'
+      - name: 'personal_data'
+      - name: 'legal'
+      - name: 'scopes'
+      - name: 'contacts'

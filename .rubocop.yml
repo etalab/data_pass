@@ -68,6 +68,9 @@ Metrics/BlockLength:
     - "response"
 
 Metrics/ClassLength:
+  CountAsOne:
+    - "array"
+    - "method_call"
   Exclude:
     - "app/lib/seeds.rb"
 

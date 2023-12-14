@@ -1,0 +1,29 @@
+<%= render partial: 'header' %>
+
+<h3>
+  Récapitulatif de votre demande d'habilitation
+</h3>
+
+<p>
+  Vous avez complété toutes les étapes de votre demande. Vous pouvez à présent la soumettre à l'équipe d'instruction.
+  <br />
+  <strong>Attention :</strong> une fois votre demande soumise, vous ne pourrez plus la modifier.
+</p>
+
+<%= authorization_request_form(@authorization_request) do |f| %>
+  <%= render partial: 'authorization_request_forms/shared/organization', locals: { f: f } %>
+  <% @authorization_request.form.steps.each do |step| %>
+    <%= render partial: "authorization_request_forms/shared/#{step[:name]}", locals: { f: f } %>
+  <% end %>
+
+  <%= f.hidden_field :current_build_step, value: step %>
+
+  <%= f.dsfr_check_box :terms_of_service_accepted, disabled: !@authorization_request.in_draft? %>
+  <%= f.dsfr_check_box :data_protection_officer_informed, disabled: !@authorization_request.in_draft? %>
+
+  <% if policy(@authorization_request).submit? %>
+    <%= link_to t('authorization_request_forms.form.previous'), previous_wizard_path, id: :previous_authorization_request, class: %w(fr-btn fr-btn--secondary fr-icon-arrow-left-fill fr-btn--icon-left) %>
+
+    <%= f.submit t('authorization_request_forms.form.submit'), name: :submit, id: :submit_authorization_request, class: %w(fr-btn fr-icon-checkbox-line fr-btn--icon-left) %>
+  <% end %>
+<% end %>
