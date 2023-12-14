@@ -1,5 +1,9 @@
-# rubocop:disable Metrics/ClassLength
 class AuthorizationRequest < ApplicationRecord
+  include AuthorizationExtensions::Attributes
+  include AuthorizationExtensions::Documents
+  include AuthorizationExtensions::Contacts
+  include AuthorizationExtensions::Scopes
+
   store :data, coder: JSON
 
   belongs_to :applicant,
@@ -39,78 +43,6 @@ class AuthorizationRequest < ApplicationRecord
   end
 
   validate :applicant_belongs_to_organization
-
-  def self.extra_attributes
-    @extra_attributes ||= []
-  end
-
-  def self.add_attributes(*names)
-    names.each do |name|
-      add_attribute(name)
-    end
-  end
-
-  def self.add_attribute(name)
-    class_eval do
-      store_accessor :data, name
-
-      extra_attributes.push(name)
-    end
-  end
-
-  def self.contact_types
-    @contact_types ||= []
-  end
-
-  def self.contact_attributes
-    %w[
-      family_name
-      given_name
-      email
-      phone_number
-      job_title
-    ]
-  end
-
-  def self.contact(kind, validation_condition: nil)
-    validation_condition ||= :need_complete_validation?
-
-    class_eval do
-      contact_attributes.each do |attr|
-        store_accessor :data, "#{kind}_#{attr}"
-        validates "#{kind}_#{attr}", presence: true, if: validation_condition
-      end
-
-      validates "#{kind}_email", format: { with: URI::MailTo::EMAIL_REGEXP }, if: validation_condition
-
-      contact_types << kind
-    end
-  end
-
-  def self.documents
-    @documents ||= []
-  end
-
-  def self.add_document(name, validation_options = {})
-    class_eval do
-      has_one_attached name
-      validates name, validation_options
-
-      documents << name
-    end
-  end
-
-  def self.scopes_enabled?
-    @scopes_enabled
-  end
-
-  def self.add_scopes
-    class_eval do
-      store_accessor :data, :scopes
-
-      @scopes_enabled = true
-    end
-  end
 
   def self.policy_class
     AuthorizationRequestPolicy
@@ -159,4 +91,3 @@ class AuthorizationRequest < ApplicationRecord
     errors.add(:applicant, :belongs_to)
   end
 end
-# rubocop:enable Metrics/ClassLength
