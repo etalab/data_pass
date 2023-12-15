@@ -12,7 +12,7 @@ class AuthorizationRequest < ApplicationRecord
 
   belongs_to :organization
 
-  scope :drafts, -> { where(state: %w[draft request_changes]) }
+  scope :drafts, -> { where(state: %w[draft changes_requested]) }
   scope :in_instructions, -> { where(state: 'submitted') }
   scope :validated, -> { where(state: 'validated') }
   scope :refused, -> { where(state: 'refused') }
@@ -36,9 +36,24 @@ class AuthorizationRequest < ApplicationRecord
   state_machine initial: :draft do
     state :draft
     state :submitted
+    state :changes_requested
+    state :validated
+    state :refused
 
     event :submit do
-      transition from: %i[draft], to: :submitted
+      transition from: %i[draft changes_requested], to: :submitted
+    end
+
+    event :refuse do
+      transition from: %i[changes_requested submitted], to: :refused
+    end
+
+    event :request_changes do
+      transition from: :submitted, to: :changes_requested
+    end
+
+    event :approve do
+      transition from: :submitted, to: :validated
     end
   end
 
@@ -81,7 +96,7 @@ class AuthorizationRequest < ApplicationRecord
   end
 
   def in_draft?
-    %w[draft request_changes].include?(state)
+    %w[draft changes_requested].include?(state)
   end
 
   def applicant_belongs_to_organization
