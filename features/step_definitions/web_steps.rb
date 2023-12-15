@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 Quand("je me rends sur la page d'accueil") do
   visit root_path
 end
@@ -12,6 +10,10 @@ Alors('il y a un titre contenant {string}') do |text|
   element = page.all('h1').first
 
   expect(element.text).to include(text)
+end
+
+Alors('je suis sur la page {string}') do |text|
+  step "il y a un titre contenant \"#{text}\""
 end
 
 Quand('je clique sur {string}') do |label|
@@ -56,6 +58,10 @@ Quand('je choisis {string}') do |option|
   choose option
 end
 
+Quand('je coche {string}') do |label|
+  check label
+end
+
 Alors('je peux voir dans le tableau {string}') do |caption, table|
   expect(page).to have_table(caption, with_rows: table.rows)
 end
@@ -80,6 +86,18 @@ end
 
 Alors('il y a un message de succès contenant {string}') do |text|
   expect(page).to have_css('.fr-alert.fr-alert--success', text:)
+end
+
+Alors("il y a un message d'erreur contenant {string}") do |text|
+  expect(page).to have_css('.fr-alert.fr-alert--error', text:)
+end
+
+Alors("il y a un message d'attention contenant {string}") do |text|
+  expect(page).to have_css('.fr-alert.fr-alert--warning', text:)
+end
+
+Alors('il y a au moins une erreur sur un champ') do
+  expect(page).to have_css('.fr-input-group.fr-input-group--error')
 end
 
 Alors('debug') do
