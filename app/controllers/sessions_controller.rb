@@ -27,6 +27,8 @@ class SessionsController < ApplicationController
 
     sign_in(organizer.user)
 
+    success_message(title: t('sessions.authenticate_user.success.title'))
+
     redirect_to redirect_to_after_sign_in
   end
 

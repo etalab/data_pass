@@ -29,6 +29,7 @@ group :development, :test do
   gem 'debug', platforms: %i[ mri windows ]
   gem 'factory_bot_rails'
   gem 'guard'
+  gem 'guard-cucumber'
   gem 'guard-rspec'
   gem 'i18n-tasks'
 end
@@ -42,7 +43,9 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'cucumber-rails', require: false
   gem 'cuprite'
+  gem 'database_cleaner-active_record'
   gem 'faker'
   gem 'rack_session_access'
   gem 'rspec-rails', '6.1.0'
