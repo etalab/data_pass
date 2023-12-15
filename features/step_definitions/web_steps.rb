@@ -109,6 +109,6 @@ Quand('je rafraîchis la page') do
   visit current_path
 end
 
-Quand(/je vais sur la page (des|du|de la|de mon) (.*)/) do |_, page_name|
+Quand(/je vais sur la page (des |du |de la |de mon )?(.*)/) do |_, page_name|
   visit "/#{page_name}"
 end

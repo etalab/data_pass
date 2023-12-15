@@ -108,3 +108,16 @@ fr:
     build:
       update:
         error: *authorization_requests_update_error
+  instruction:
+    authorization_requests:
+      index:
+        table:
+          caption: Liste des demandes en cours
+          header:
+            id: Identifiant interne
+            name: Intitulé de la demande
+            type: Type de données
+            status: Statut
+            actions: Actions
+          actions:
+            show: Consulter
