@@ -30,6 +30,9 @@ fr:
       title: Vous n'avez pas le droit d'accéder à cette page
 
   sessions:
+    authenticate_user:
+      success:
+        title: Vous êtes connecté
     change_current_organization:
       success:
         title: Vous avez changé votre organisation
