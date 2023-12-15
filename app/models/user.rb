@@ -16,4 +16,12 @@ class User < ApplicationRecord
   def full_name
     "#{family_name} #{given_name}"
   end
+
+  def instructor?(authorization_request_type = nil)
+    if authorization_request_type
+      roles.include?("#{authorization_request_type}:instructor")
+    else
+      roles.any? { |role| role.match?(/:instructor\z/) }
+    end
+  end
 end
