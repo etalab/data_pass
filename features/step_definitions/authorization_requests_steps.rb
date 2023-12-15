@@ -34,3 +34,9 @@ Quand('je coche les cases de conditions générales et du délégué à la prote
     Quand je coche "Je confirme que le délégué à la protection des données de mon organisation est informé de ma demande."
   )
 end
+
+Quand('je clique sur {string} pour le formulaire {string}') do |cta_name, form_name|
+  form_uid = AuthorizationRequestForm.where(name: form_name).first.uid
+
+  click_link cta_name, href: new_authorization_request_path(form_uid:)
+end
