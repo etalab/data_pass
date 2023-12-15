@@ -1,6 +1,6 @@
 # language: fr
 
-Fonctionnalité: Soumission d'une demande d'habilitation "Portail HubEE - Démarche CertDC"
+Fonctionnalité: Soumission d'une demande d'habilitation Portail HubEE - Démarche CertDC
   Contexte:
     Sachant que je suis un demandeur
     Et que je me connecte
