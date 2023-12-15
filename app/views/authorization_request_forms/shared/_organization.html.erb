@@ -17,8 +17,10 @@
           <% end %>
         </ul>
 
-        <%= form_with(url: "/auth/mon_compte_pro?prompt=update_userinfo", method: :post, data: { turbo: false }) do |f| %>
-          <%= f.button t('.you.update'), id: 'update_infos', class: %w(fr-btn) %>
+        <% if @authorization_request.blank? %>
+          <%= form_with(url: "/auth/mon_compte_pro?prompt=update_userinfo", method: :post, data: { turbo: false }) do |f| %>
+            <%= f.button t('.you.update'), id: 'update_infos', class: %w(fr-btn) %>
+          <% end %>
         <% end %>
       </div>
     </div>
@@ -40,8 +42,10 @@
           <% end %>
         </ul>
 
-        <%= form_with(url: "/auth/mon_compte_pro?prompt=select_organization", method: :post, data: { turbo: false }) do |f| %>
-          <%= f.button t('.organization.update'), id: 'change_current_organization', class: %w(fr-btn) %>
+        <% if @authorization_request.blank? %>
+          <%= form_with(url: "/auth/mon_compte_pro?prompt=select_organization", method: :post, data: { turbo: false }) do |f| %>
+            <%= f.button t('.organization.update'), id: 'change_current_organization', class: %w(fr-btn) %>
+          <% end %>
         <% end %>
       </div>
     </div>
