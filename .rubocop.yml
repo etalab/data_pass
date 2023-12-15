@@ -201,6 +201,9 @@ Style/OpenStructUse:
 Style/TrailingCommaInArguments:
   Enabled: false
 
+Style/TrailingCommaInHashLiteral:
+  Enabled: false
+
 RSpec/MissingExampleGroupArgument:
   Exclude:
     - "spec/factories/**/*.rb"
