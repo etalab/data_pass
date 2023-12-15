@@ -59,11 +59,11 @@ class AuthorizationRequestsController < AuthenticatedUserController
     )
 
     if @authorization_request.save
-      success_message(title: t('.success', name: @authorization_request.name))
+      success_message(title: t('authorization_requests.create_for_single_page_form.success', name: @authorization_request.name))
 
       redirect_to authorization_request_path(form_uid: @authorization_request_form.uid, id: @authorization_request.id)
     else
-      error_message(title: t('.error.title'), description: t('.error.description'))
+      error_message(title: t('authorization_requests.create_for_single_page_form.error.title'), description: t('authorization_requests.create_for_single_page_form.error.description'))
 
       render view_path, status: :unprocessable_entity
     end
