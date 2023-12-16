@@ -33,8 +33,8 @@ Fonctionnalité: Soumission d'une demande d'habilitation simple (sur une seule p
   Scénario: Je soumets une demande d'habilitation valide
     Quand je démarre une nouvelle demande d'habilitation "Portail HubEE - Démarche CertDC"
     Et que je remplis les informations du contact "Administrateur métier" avec :
-      | Nom    | Prénom | Email               | Téléphone   | Fonction              |
-      | Dupont | Jean   | dupont.jean@gouv.fr | 0836656565  | Administrateur métier |
+      | Nom    | Prénom | Email               | Téléphone   | Fonction de l'administrateur système |
+      | Dupont | Jean   | dupont.jean@gouv.fr | 0836656565  | Administrateur métier                |
     Et que je coche les cases de conditions générales et du délégué à la protection des données
     Et que je clique sur "Enregistrer les modifications"
     Et que je clique sur "Soumettre la demande d'habilitation"

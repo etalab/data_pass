@@ -13,18 +13,11 @@ end
 Quand('je remplis les informations du contact {string} avec :') do |string, table|
   contact_title_node = find('h3', text: string)
   contact_node = contact_title_node.find(:xpath, '..')
-  contact_type = contact_node['data-contact-type']
 
-  technical_field = {
-    'Nom' => 'family_name',
-    'Prénom' => 'given_name',
-    'Email' => 'email',
-    'Téléphone' => 'phone_number',
-    'Fonction' => 'job_title',
-  }
-
-  table.hashes[0].each do |field, value|
-    find("input[id$='_#{contact_type}_#{technical_field[field]}']").set(value)
+  within(contact_node) do
+    table.hashes[0].each do |field, value|
+      fill_in field, with: value
+    end
   end
 end
 
