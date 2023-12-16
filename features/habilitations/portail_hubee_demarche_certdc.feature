@@ -19,7 +19,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation Portail HubEE - Démarc
   Scénario: Je soumets une demande d'habilitation avec un champ du contact manquant
     Quand je démarre une nouvelle demande d'habilitation "Portail HubEE - Démarche CertDC"
     Et que je remplis les informations du contact "Administrateur métier" avec :
-      | Nom    | Prénom | Email               | Téléphone   | Fonction              |
+      | Nom    | Prénom | Email               | Téléphone   | Fonction de l'administrateur système |
       | Dupont |        | dupont.jean@gouv.fr | 0836656565  | Administrateur métier |
     Et que je coche les cases de conditions générales et du délégué à la protection des données
     Et que je clique sur "Enregistrer les modifications"
