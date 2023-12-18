@@ -16,9 +16,28 @@ FactoryBot.define do
       fill_all_attributes { false }
     end
 
+    trait :draft do
+      state { 'draft' }
+    end
+
+    trait :changes_requested do
+      state { 'changes_requested' }
+    end
+
     trait :submitted do
       state { 'submitted' }
       fill_all_attributes { true }
+    end
+
+    trait :refused do
+      state { 'refused' }
+      fill_all_attributes { true }
+    end
+
+    trait :validated do
+      state { 'validated' }
+      fill_all_attributes { true }
+      last_validated_at { Time.zone.now }
     end
 
     after(:build) do |authorization_request|
