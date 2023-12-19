@@ -1,6 +1,4 @@
-<h1 class="title">
-  <%= @authorization_request_form.name %>
-</h1>
+<%= render 'authorization_requests/build/header' %>
 
 <%= authorization_request_form(@authorization_request) do |f| %>
   <%= render partial: 'authorization_request_forms/shared/organization', locals: { f: f } %>

@@ -8,6 +8,13 @@ fr:
     scopes: 'donneees'
     contacts: 'contacts'
     finish: 'resume'
+  authorization_request:
+    status:
+      draft: Brouillon
+      changes_requested: A modifier
+      submitted: En cours
+      validated: Validée
+      refused: Refusée
 
   layouts:
     header:
