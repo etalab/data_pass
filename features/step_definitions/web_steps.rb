@@ -7,7 +7,8 @@ Quand('print the page') do
 end
 
 Alors('il y a un titre contenant {string}') do |text|
-  element = page.all('h1').first
+  element = page.all('h1').first ||
+            page.all('table caption').first
 
   expect(element.text).to include(text)
 end
