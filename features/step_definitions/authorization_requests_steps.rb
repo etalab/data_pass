@@ -1,7 +1,7 @@
 Quand("j'ai déjà une demande d'habilitation {string} en cours") do |string|
   FactoryBot.create(
     :authorization_request,
-    type: find_form_from_name(string).authorization_request_class.to_s,
+    find_factory_trait_from_name(string),
     applicant: current_user,
   )
 end
@@ -19,6 +19,16 @@ Quand('je remplis les informations du contact {string} avec :') do |string, tabl
       fill_in field, with: value
     end
   end
+end
+
+Quand("je me rends sur une demande d'habilitation {string} à modérer") do |string|
+  authorization_request = FactoryBot.create(
+    :authorization_request,
+    find_factory_trait_from_name(string),
+    :submitted,
+  )
+
+  visit instruction_authorization_request_path(authorization_request)
 end
 
 Quand('je coche les cases de conditions générales et du délégué à la protection des données') do
@@ -51,14 +61,17 @@ Quand(/il y a (\d+) demandes? d'habilitation "([^"]+)"(?: en )?(\w+)?/) do |coun
     :authorization_request,
     count,
     status.to_sym,
-    find_form_from_name(type).authorization_request_class.to_s.underscore.split('/').last.to_sym,
+    find_factory_trait_from_name(type),
   )
 end
 
-Alors(/je vois (\d+) demandes? d'habilitation( "([^"]+)")?/) do |count, type|
+# https://rubular.com/r/meA7pKlPwfrZs3
+Alors(/je vois (\d+) demandes? d'habilitation(?: "([^"]+)")?(?:(?: en)? (\S+))?$/) do |count, type, status|
   if type.present?
-    expect(page).to have_css('.authorization-request-type', text: type, count:)
+    expect(page).to have_css('.authorization-request-form-name', text: type, count:)
   else
     expect(page).to have_css('.authorization-request', count:)
   end
+
+  expect(page).to have_css('.authorization-request-state', text: status.humanize, count:) if status.present?
 end

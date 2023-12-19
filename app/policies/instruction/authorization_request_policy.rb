@@ -1,4 +1,13 @@
 class Instruction::AuthorizationRequestPolicy < ApplicationPolicy
+  def show?
+    Scope.new(user, AuthorizationRequest).resolve.exists?(id: record.id)
+  end
+
+  def refuse?
+    show? &&
+      record.can_refuse?
+  end
+
   class Scope < Scope
     def resolve
       scope.where(type: current_user_instructor_types)

@@ -1,0 +1,12 @@
+<h1 class="title">
+  <%= @authorization_request.form.name %>
+</h1>
+
+<%= form_with(model: @authorization_request, url: '#', builder: AuthorizationRequestFormBuilder) do |f| %>
+  <%= render partial: 'authorization_request_forms/shared/organization', locals: { f: f } %>
+  <%= render partial: 'authorization_request_forms/shared/contacts', locals: { f: f } %>
+<% end %>
+
+<% if policy([:instruction, @authorization_request]).refuse? %>
+  <%= button_to t('.refuse'), refuse_instruction_authorization_request_path(@authorization_request), class: %w(fr-btn fr-btn--secondary) %>
+<% end %>

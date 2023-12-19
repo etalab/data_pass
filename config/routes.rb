@@ -26,6 +26,10 @@ Rails.application.routes.draw do
   get '/instruction', to: redirect('/instruction/demandes')
 
   namespace :instruction do
-    resources :authorization_requests, only: %w[index show], path: 'demandes'
+    resources :authorization_requests, only: %w[index show], path: 'demandes' do
+      member do
+        post :refuse, path: 'refuser'
+      end
+    end
   end
 end

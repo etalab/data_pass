@@ -121,3 +121,9 @@ fr:
             actions: Actions
           actions:
             show: Consulter
+      show:
+        refuse: Refuser
+      refuse:
+        success: La demande d'habilitation %{name} a été refusé
+      approve:
+        success: La demande d'habilitation %{name} a été validé
