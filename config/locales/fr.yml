@@ -123,6 +123,7 @@ fr:
             show: Consulter
       show:
         refuse: Refuser
+        approve: Valider
       refuse:
         success: La demande d'habilitation %{name} a été refusé
       approve:

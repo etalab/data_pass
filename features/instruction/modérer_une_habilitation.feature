@@ -13,3 +13,9 @@ Fonctionnalité: Instruction: modération
     Alors je suis sur la page "Liste des demandes en cours"
     Et je vois 1 demande d'habilitation "API Entreprise" refusée
     Et il y a un message de succès contenant "a été refusé"
+
+  Scénario: Je valide une demande d'habilitation
+    Quand je clique sur "Valider"
+    Alors je suis sur la page "Liste des demandes en cours"
+    Et je vois 1 demande d'habilitation "API Entreprise" validée
+    Et il y a un message de succès contenant "a été validé"

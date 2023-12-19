@@ -8,6 +8,11 @@ class Instruction::AuthorizationRequestPolicy < ApplicationPolicy
       record.can_refuse?
   end
 
+  def approve?
+    show? &&
+      record.can_approve?
+  end
+
   class Scope < Scope
     def resolve
       scope.where(type: current_user_instructor_types)

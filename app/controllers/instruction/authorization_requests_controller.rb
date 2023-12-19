@@ -21,6 +21,18 @@ class Instruction::AuthorizationRequestsController < InstructionController
     end
   end
 
+  def approve
+    authorize [:instruction, @authorization_request]
+
+    if @authorization_request.approve
+      success_message(title: t('.success', name: @authorization_request.name))
+
+      redirect_to instruction_authorization_requests_path
+    else
+      render 'show'
+    end
+  end
+
   private
 
   def extract_authorization_request
