@@ -58,9 +58,11 @@ fr:
       new_authorization_request: Demander une nouvelle habilitation
       no_authorization_requests: Vous n'avez aucun habilitations ou demandes en cours.
     authorization_requests:
-      validated_title: Mes habilitations
+      validated_or_refused_title: Mes habilitations
       draft_title: Demandes en brouillon
       pending_title: Demandes en cours d'instruction
+      changes_requested_title: Demandes à modifier
+
     authorization_request_card:
       cta: Consulter
 

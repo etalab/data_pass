@@ -12,10 +12,12 @@ class AuthorizationRequest < ApplicationRecord
 
   belongs_to :organization
 
-  scope :drafts, -> { where(state: %w[draft changes_requested]) }
+  scope :drafts, -> { where(state: 'draft') }
+  scope :changes_requested, -> { where(state: 'changes_requested') }
   scope :in_instructions, -> { where(state: 'submitted') }
   scope :validated, -> { where(state: 'validated') }
   scope :refused, -> { where(state: 'refused') }
+  scope :validated_or_refused, -> { where(state: %w[validated refused]) }
 
   def form
     @form ||= AuthorizationRequestForm.where(authorization_request_class: self.class).first
