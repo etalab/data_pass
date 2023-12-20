@@ -11,6 +11,11 @@ module AuthorizationExtensions::Scopes
         class_eval do
           store_accessor :data, :scopes
 
+          def scopes
+            data['scopes'] ||= []
+            super
+          end
+
           @scopes_enabled = true
         end
       end
