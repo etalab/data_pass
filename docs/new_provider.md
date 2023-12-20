@@ -1,0 +1,177 @@
+# Ajout d'un nouveau fournisseur
+
+La checklist globale:
+
+1. Ajouter l'entrée [dans le fichier de config](../config/authorization_request_forms.yml) ;
+2. Ajouter et configurer le modèle (avec sa factory et son test) ;
+3. Configurer les formulations via l'I18n ;
+4. Ajouter la vue de complétion côté demandeur ;
+5. Ajouter la vue de modération côté instructeur ;
+6. Ajouter un test d'intégration Cucumber.
+
+Disclaimer: La procédure est amené à évoluer rapidement, et certains parties seront
+peut-être obsolètes. Il y a par ailleurs des refactorisations logiques, mais
+potentiellement prématurés: il faut attendre d'intégrer plus de sources pour
+être sûr d'effectuer les refactorisations nécessaires.
+
+## 1. Fichier de configuration
+
+Le format:
+
+```yaml
+  # Identifiant unique qui sera utilisé dans les URLs
+  mon-api:
+    # Nom affiché dans l'index des formulaires et en titre de chaque formulaire
+    name: Mon API
+    # Description affichée dans l'index des formulaires
+    description: Une description
+    # Lien pour en savoir plus
+    link: https://mon-api.gouv.fr
+    # Affiche ou non cette source de données dans l'index des formulaires
+    public: true
+    # Nom de la classe du modèle associé (défini dans l'étape e)
+    authorization_request: MonAPI
+    # Chemin relatif vers le logo du fournisseur, depuis app/assets/images/authorization_request_forms_logs/
+    logo: mon-api.png
+    # Optionnel. Détermine si il ne peut y avoir qu'un seul formulaire par organisation. Par défaut à `false`
+    unique: false
+    # Liste des diverses données débrayable pour la source de données
+    scopes:
+        # Nom humanisé de la donnée
+      - name: Nom de famille
+        # Nom technique de la donnée
+        value: family_name
+        # Optionnel. Nom du groupe pour cette donnée afin d'effectuer un regroupement visuel
+        group: Identité pivot
+    # Optionnel. Détermine les étapes ordonnées pour remplir ce formulaire. Si
+    # ce champ n'est pas défini le formulaire sera sur une seule page pour le
+    # demandeur. La première étape est systématiquement l'organisation et le
+    # demandeur, qui sont commun à tous les formulaires. La dernière étape est
+    # systématiquement le récapitulatif et les cases à cocher des CGUs.
+    steps:
+    - name: basic_infos
+    - name: personal_data
+```
+
+## 2. Ajouter et configurer le modèle de données
+
+En reprenant l'exemple ci-dessus, il faut créer le fichier
+`app/models/authorization_request/mon_api.rb` avec le contenu (minimal) suivant:
+
+```ruby
+class AuthorizationRequest::MonAPI < AuthorizationRequest
+end
+```
+
+Une liste de méthode disponibles pour ajouter des attributs au formulaire:
+
+* `add_attribute :attribut1` pour ajouter un attribut ayant pour nom `attribut1`
+    de type texte ;
+* `add_document :document1, validation_options` pour ajouter un document ayant
+    pour nom `document1`
+* `contact :mon_contact` pour ajouter un nouveau contact. Cette méthode va créer
+    les attributs `mon_contact_family_name`, `mon_contact_given_name`,
+    `mon_contact_email`, `mon_contact_phone_number`, `mon_contact_job_title`
+* `add_scopes`, qui permet d'activer les scopes (basé sur le fichier de config)
+
+Il est fortement conseillé d'utiliser ces méthodes outils qui permettent de dynamiquement
+accepter les modifications lors du cycle de vie de la demande, et de
+pré-configurer plus rapidement les vues.
+
+Exemple:
+
+```ruby
+class AuthorizationRequest::MonAPI < AuthorizationRequest
+  add_attribute :intitule
+  validates :intitule, presence: true
+
+  contact :responsable_technique
+
+  add_document :maquette_projet, content_type: ['application/pdf'], size: { less_than: 10.megabytes }
+end
+```
+
+Vis-à-vis de la factory, il faut se rendre dans le fichier
+[`spec/factories/authorization_requests.rb`](../spec/factories/authorization_requests.rb) et compléter avec le nom de la classe en underscore.
+
+Et pour le test, il faut modifier
+[`spec/models/authorization_request_spec.rb`](../spec/models/authorization_request_spec.rb)
+et ajouter dans le test de factory le trait de la factory pour bien vérifier que notre couche modèle est OK.
+
+## 3. Configurer les formulations via l'I18n
+
+Il faut à minima définir les noms des attributs définis dans le modèle. Cela se
+passe dans le fichier de locale [`activerecord.fr.yml`](../config/locales/activerecord.fr.yml)).
+Ceux-ci servent quand il y a des problèmes de validation sur les attributs.
+
+Concernant les formulaires, l'affichage tire les valeurs dans cet ordre:
+
+1. Dans le fichier de traduction [`authorization_request_forms.fr.yml`](config/locales/authorization_request_forms.fr.yml),
+   clé correspondant au type de formulaire (exemple: `mon_api`)
+2. Dans le fichier de traduction [`authorization_request_forms.fr.yml`](config/locales/authorization_request_forms.fr.yml),
+   clé `default`
+3. Attributs (dans [`activerecord.fr.yml`](../config/locales/activerecord.fr.yml))
+
+## 4. Ajouter la vue de complétion côté demandeur
+
+### 4.1 Cas du multi étapes
+
+Il faut s'assurer que pour chaque étape défini dans le fichier en 1. une vue
+existe dans le dossier [`app/views/authorization_request_forms/shared/`](../app/views/authorization_request_forms/shared/).
+
+Si ce n'est pas le cas il faut ajouter, pour une étape ayant pour nom
+`mon_etape`, le fichier `_mon_etape.html.erb`. Inspirez-vous des fichiers
+existants. Vous pouvez utiliser les méthodes de formulaire en `dsfr_` pour
+simplifier la génération des formulaires.
+
+### 4.2 Cas du formulaire sur une page
+
+Il faut créer le fichier `mon_api.html.erb` dans le dossier
+[`app/views/authorization_requests/`](../app/views/authorization_requests/) avec le markup minimal:
+
+```erb
+<%= render 'authorization_requests/build/header' %>
+
+<%= authorization_request_form(@authorization_request) do |f| %>
+  <%= render partial: 'authorization_request_forms/shared/organization', locals: { f: f } %>
+
+  <% # Les autres champs ici %>
+
+  <%= render partial: 'authorization_request_forms/shared/tos_checkboxes', locals: { f: f } %>
+  <%= render partial: 'authorization_request_forms/shared/submit_buttons', locals: { f: f } %>
+<% end %>
+```
+
+## 5. Ajouter la vue de modération côté instructeur
+
+### 5.1 Cas du multi étapes
+
+Il n'y a rien à faire.
+
+### 5.2 Cas du formulaire sur 1 page
+
+Il faut créer le fichier `mon_api.html.erb` dans
+le dossier [`app/views/instruction/authorization_requests/show`](../app/views/instruction/authorization_requests/show)
+avec le markup minimal:
+
+```erb
+<%= render 'authorization_requests/build/header' %>
+
+<%= form_with(model: @authorization_request, url: '#', builder: DisabledAuthorizationRequestFormBuilder) do |f| %>
+  <%= render partial: 'authorization_request_forms/shared/organization', locals: { f: f } %>
+
+  <% # Les autres champs ici %>
+
+  <%= render partial: 'authorization_request_forms/shared/tos_checkboxes', locals: { f: f } %>
+<% end %>
+
+<%= render partial: 'moderation_buttons' %>
+```
+
+Les formulaires 4.2 et 5.2 étant assez identiques, faire des partials n'est pas
+à exclure.
+
+## 6. Ajout du test d'intégration Cucumber
+
+Créer le fichier `mon_api.feature` dans [`features/habilitations`](../features/habilitations) et
+remplissez en fonction de la spécification.

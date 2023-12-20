@@ -60,4 +60,5 @@ bundle exec rspec
 
 ## Documentation
 
+* [Ajout d'un nouveau fournisseur](./docs/new_provider.md)
 * [Design System](./docs/design.md)
