@@ -1,15 +1,15 @@
-<fieldset class="fr-fieldset" aria-label="feedme" aria-describedby="name-1-fieldset-messages">
-  <% @authorization_request.available_scopes.group_by(&:group).each do |group_name, scopes| %>
-    <h3><%= group_name %></h3>
+<% @authorization_request.available_scopes.group_by(&:group).each do |group_name, scopes| %>
+  <div class="fr-form-group authorization-request-scopes-group">
+    <fieldset class="fr-fieldset">
+      <h3 class="authorization-request-scopes-group-title">
+        <%= group_name %>
+      </h3>
 
-    <% scopes.each do |scope| %>
-      <div class="fr-checkboxes">
-        <div class="fr-checkboxes__item">
-          <%= f.check_box :scopes, { multiple: true, disabled: !@authorization_request.in_draft? }, scope.value %>
-
-          <%= f.label :scopes, scope.name, class: "fr-label" %>
-        </div>
+      <div class="authorization-request-scopes-group-grid">
+        <% scopes.each do |scope| %>
+          <%= f.dsfr_scope :scopes, scope %>
+        <% end %>
       </div>
-    <% end %>
-  <% end %>
-</fieldset>
+    </fieldset>
+  </div>
+<% end %>

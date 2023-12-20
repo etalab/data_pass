@@ -24,6 +24,17 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
     end
   end
 
+  def dsfr_scope(attribute, scope, opts = {})
+    @template.content_tag(:div, class: 'fr-checkbox-group') do
+      @template.safe_join(
+        [
+          check_box(:scopes, { class: input_classes(opts), disabled: check_box_disabled, multiple: true, **enhance_input_options(opts).except(:class) }, scope.value, nil),
+          label(:scopes, scope.name, class: 'fr-label', value: scope.value),
+        ]
+      )
+    end
+  end
+
   def link_to_file(attribute)
     link_to_file = super(attribute)
 
