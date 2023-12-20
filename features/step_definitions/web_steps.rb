@@ -7,7 +7,8 @@ Quand('print the page') do
 end
 
 Alors('il y a un titre contenant {string}') do |text|
-  element = page.all('h1').first
+  element = page.all('h1').first ||
+            page.all('table caption').first
 
   expect(element.text).to include(text)
 end
@@ -108,6 +109,12 @@ Quand('je rafraîchis la page') do
   visit current_path
 end
 
-Quand(/je vais sur la page (des|du|de la|de mon) (.*)/) do |_, page_name|
+Quand(/je vais sur la page (des |du |de la |de mon )?(.*)/) do |_, page_name|
   visit "/#{page_name}"
+end
+
+Alors("il n'y a pas de champ éditable") do
+  all('input').each do |input|
+    expect(input).to be_readonly if %w[hidden checkbox].exclude?(input[:type])
+  end
 end

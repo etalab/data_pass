@@ -1,0 +1,47 @@
+<div class="fr-table fr-table--bordered fr-table--layout-fixed">
+  <table>
+    <caption>
+      <%= t('.table.caption') %>
+    </caption>
+    <thead>
+      <tr>
+        <%
+          %w[
+            id
+            name
+            type
+            status
+            actions
+          ].each do |attr|
+        %>
+          <th scope="col">
+            <%= t(".table.header.#{attr}") %>
+          </th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @authorization_requests.each do |authorization_request| %>
+        <tr id="<%=dom_id(authorization_request) %>" class="authorization-request">
+          <td class="authorization-request-id">
+            <%= authorization_request.id %>
+          </td>
+          <td class="authorization-request-name">
+            <%= authorization_request.name %>
+          </td>
+          <td class="authorization-request-form-name">
+            <%= authorization_request.form.name %>
+          </td>
+          <td class="authorization-request-state">
+            <%= authorization_request_status_badge(authorization_request) %>
+          </td>
+          <td class="authorization-request-actions">
+            <%= link_to t('.table.actions.show'), instruction_authorization_request_path(authorization_request), class: %w(fr-btn fr-btn--sm) %>
+          </td>
+        </div>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @authorization_requests %>

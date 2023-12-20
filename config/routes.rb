@@ -22,4 +22,15 @@ Rails.application.routes.draw do
       resources :authorization_request_from_templates, only: %i[index create], path: 'templates'
     end
   end
+
+  get '/instruction', to: redirect('/instruction/demandes')
+
+  namespace :instruction do
+    resources :authorization_requests, only: %w[index show], path: 'demandes' do
+      member do
+        post :refuse, path: 'refuser'
+        post :approve, path: 'valider'
+      end
+    end
+  end
 end

@@ -9,8 +9,12 @@
 </div>
 
 <% if current_organization.authorization_requests.any? %>
-  <% if current_organization.authorization_requests.validated.any? %>
-    <%= render partial: 'authorization_requests', locals: { authorization_requests: current_organization.authorization_requests.validated, kind: 'validated' } %>
+  <% if current_organization.authorization_requests.changes_requested.any? %>
+    <%= render partial: 'authorization_requests', locals: { authorization_requests: current_organization.authorization_requests.changes_requested, kind: 'changes_requested' } %>
+  <% end %>
+
+  <% if current_organization.authorization_requests.validated_or_refused.any? %>
+    <%= render partial: 'authorization_requests', locals: { authorization_requests: current_organization.authorization_requests.validated_or_refused, kind: 'validated_or_refused' } %>
   <% end %>
 
   <% if current_organization.authorization_requests.drafts.any? %>

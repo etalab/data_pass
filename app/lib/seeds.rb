@@ -20,24 +20,42 @@ class Seeds
   private
 
   def create_entities
-    organization.users << user
+    clamart_organization.users << demandeur
+    dinum_organization.users << api_entreprise_instructor
   end
 
-  def user
-    @user ||= User.create!(
+  def demandeur
+    @demandeur ||= User.create!(
       email: 'user@yopmail.com',
       external_id: '1',
-      current_organization: organization
+      current_organization: clamart_organization
     )
   end
 
-  def organization
-    @organization ||= Organization.create!(
-      siret: '21920023500014',
+  def api_entreprise_instructor
+    @api_entreprise_instructor ||= User.create!(
+      email: 'api-entreprise@yopmail.com',
+      external_id: '4',
+      current_organization: dinum_organization,
+      roles: ['api_entreprise:instructor']
+    )
+  end
+
+  def clamart_organization
+    @clamart_organization ||= create_organization(siret: '21920023500014', name: 'Ville de Clamart')
+  end
+
+  def dinum_organization
+    @dinum_organization ||= create_organization(siret: '13001518800019', name: 'DINUM')
+  end
+
+  def create_organization(siret:, name:)
+    Organization.create!(
+      siret:,
       last_mon_compte_pro_updated_at: DateTime.now,
       mon_compte_pro_payload: {
-        label: 'Commune de clamart - Mairie'
-      },
+        label: name
+      }
     )
   end
 
@@ -46,8 +64,8 @@ class Seeds
       :authorization_request,
       kind,
       options.merge(
-        applicant: user,
-        organization:,
+        applicant: demandeur,
+        organization: clamart_organization,
       )
     )
   end

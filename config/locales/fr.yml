@@ -8,6 +8,13 @@ fr:
     scopes: 'donneees'
     contacts: 'contacts'
     finish: 'resume'
+  authorization_request:
+    status:
+      draft: Brouillon
+      changes_requested: A modifier
+      submitted: En cours
+      validated: Validée
+      refused: Refusée
 
   layouts:
     header:
@@ -51,9 +58,11 @@ fr:
       new_authorization_request: Demander une nouvelle habilitation
       no_authorization_requests: Vous n'avez aucun habilitations ou demandes en cours.
     authorization_requests:
-      validated_title: Mes habilitations
+      validated_or_refused_title: Mes habilitations
       draft_title: Demandes en brouillon
       pending_title: Demandes en cours d'instruction
+      changes_requested_title: Demandes à modifier
+
     authorization_request_card:
       cta: Consulter
 
@@ -101,3 +110,23 @@ fr:
     build:
       update:
         error: *authorization_requests_update_error
+  instruction:
+    authorization_requests:
+      index:
+        table:
+          caption: Liste des demandes en cours
+          header:
+            id: Identifiant interne
+            name: Intitulé de la demande
+            type: Type de données
+            status: Statut
+            actions: Actions
+          actions:
+            show: Consulter
+      moderation_buttons:
+        refuse: Refuser
+        approve: Valider
+      refuse:
+        success: La demande d'habilitation %{name} a été refusé
+      approve:
+        success: La demande d'habilitation %{name} a été validé
