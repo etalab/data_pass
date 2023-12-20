@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e
+trap "echo -ne \"\n\n❌ Something went wrong\n\"" ERR
+
+bundle exec rubocop &&
+  bundle exec rspec &&
+  bundle exec cucumber &&
+  echo -ne "\n\n✅ All good"
