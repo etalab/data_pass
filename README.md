@@ -4,6 +4,10 @@
 
 L'outil de gestion des habilitations juridiques pour les données à accès restreint.
 
+Version en ligne:
+[https://datapass-reborn.onrender.com/](https://datapass-reborn.onrender.com/)
+(basé sur le dernier commit de `main`)
+
 # Requirements
 
 * ruby 3.2.2
