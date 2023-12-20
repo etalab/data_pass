@@ -24,6 +24,50 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
     end
   end
 
+  def dsfr_scope(scope, opts = {})
+    @template.content_tag(:div, class: 'fr-checkbox-group') do
+      @template.safe_join(
+        [
+          check_box(
+            :scopes,
+            {
+              class: input_classes(opts),
+              **dsfr_scope_options(scope),
+              **enhance_input_options(opts).except(:class)
+            },
+            scope.value,
+            nil
+          ),
+          dsfr_scope_label(scope),
+          scope.included? ? scope_hidden_field(scope) : nil
+        ].compact
+      )
+    end
+  end
+
+  def dsfr_scope_options(scope)
+    {
+      disabled: check_box_disabled || scope.included?,
+      checked: scope.included? || @object.scopes.include?(scope.value),
+      multiple: true,
+    }
+  end
+
+  def dsfr_scope_label(scope)
+    label(:scopes, class: 'fr-label', value: scope.value) do
+      @template.safe_join(
+        [
+          scope.name,
+          scope.link? ? @template.link_to('', scope.link, { target: '_blank', rel: 'noopener' }) : nil
+        ].compact
+      )
+    end
+  end
+
+  def scope_hidden_field(scope)
+    hidden_field(:scopes, value: scope.value, name: "#{@object.model_name.param_key}[scopes][]")
+  end
+
   def link_to_file(attribute)
     link_to_file = super(attribute)
 
@@ -42,5 +86,9 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
 
   def readonly?
     !@object.in_draft?
+  end
+
+  def check_box_disabled
+    readonly?
   end
 end

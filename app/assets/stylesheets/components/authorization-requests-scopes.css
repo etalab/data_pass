@@ -1,0 +1,10 @@
+.authorization-request-scopes-group .authorization-request-scopes-group-grid {
+  display: grid;
+
+  --gap: 1.5em;
+
+  grid-template-columns: repeat(3,1fr);
+  grid-column-gap: var(--gap);
+  -webkit-column-gap: var(--gap);
+  column-gap: var(--gap);
+}

@@ -44,7 +44,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
       @template.content_tag(:div, class: 'fr-checkbox-group') do
         @template.safe_join(
           [
-            check_box(attribute, class: input_classes(opts), **enhance_input_options(opts).except(:class)),
+            check_box(attribute, class: input_classes(opts), disabled: check_box_disabled, **enhance_input_options(opts).except(:class)),
             label_with_hint(attribute)
           ]
         )
@@ -179,6 +179,10 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
 
   def enhance_input_options(opts)
     opts
+  end
+
+  def check_box_disabled
+    false
   end
 end
 # rubocop:enable Metrics/ClassLength

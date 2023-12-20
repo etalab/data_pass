@@ -16,13 +16,129 @@ shared:
     authorization_request: 'APIEntreprise'
     logo: 'dinum.png'
     scopes:
-      - name: 'Données unités légales et établissements du répertoire Sirene - Insee (diffusibles et non-diffusibles)'
+      - name: "Données unités légales et établissements du répertoire Sirene - Insee (diffusibles et non-diffusibles)"
+        group: 'Informations générales'
         value: 'unites_legales_etablissements_insee'
-        group: 'Information générales'
-      - name: 'Mandataires sociaux - Infogreffe | 🔐'
-        value: 'mandataires_sociaux_infogreffe'
-        group: 'Information générales'
+        link: 'https://entreprise.api.gouv.fr/catalogue?APIEntreprise_Endpoint%5Bquery%5D=insee'
+      - name: "Données des unités légales et établissements diffusibles - Insee | Open Data"
+        group: "Informations générales"
+        value: "open_data_unites_legales_etablissements_insee"
+        link: "https://entreprise.api.gouv.fr/catalogue?APIEntreprise_Endpoint%5Bquery%5D=insee%20diffusible"
+        included: true
+      - name: "Extrait RCS - Infogreffe | Open Data"
+        group: "Informations générales"
+        value: "open_data_extrait_rcs_infogreffe"
+        link: "https://entreprise.api.gouv.fr/catalogue/infogreffe/rcs/extrait"
+        included: true
+      - name: "Données associations - DJEPVA | Open Data"
+        group: "Informations générales"
+        value: "open_data_associations_djepva"
+        link: "https://entreprise.api.gouv.fr/catalogue/infogreffe/rcs/extrait"
+        included: true
+      - name: "Bénéficiaires effectifs - Inpi | Open Data"
+        value: "open_data_beneficiaires_effectifs_inpi"
+        group: "Informations générales"
+        link: "https://entreprise.api.gouv.fr/catalogue/inpi/rne/beneficiaires_effectifs"
+        included: true
+      - name: "N°TVA intracommunautaire français - Commission européenne | Open Data"
+        value: "open_data_numero_tva_commission_europeenne"
+        group: "Informations générales"
+        link: "https://entreprise.api.gouv.fr/catalogue/commission_europeenne/numero_tva"
+        included: true
+      - name: "Conventions collectives - FabNum | Open Data"
+        group: "Informations générales"
+        value: "open_data_conventions_collectives_fabnum"
+        link: "https://entreprise.api.gouv.fr/catalogue/fabrique_numerique_ministeres_sociaux/conventions_collectives"
+        included: true
+      - name: "Immatriculation EORI - Douanes | Open Data"
+        group: "Informations générales"
+        value: "open_data_immatriculation_eori_douanes"
+        link: "https://entreprise.api.gouv.fr/catalogue/douanes/immatriculation_eori"
+        included: true
 
+      - name: "Données associations - DJEPVA | 🔐"
+        group: 'Informations générales'
+        value: 'associations_djepva'
+        link: 'https://entreprise.api.gouv.fr/catalogue/djepva/associations'
+      - name: "Effectifs - GIP-MDS | 🔐"
+        group: 'Informations générales'
+        value: "effectifs_urssaf"
+        link: "https://entreprise.api.gouv.fr/catalogue/?APIEntreprise_Endpoint%5Bquery%5D=effectif%20gip"
+      - name: "Mandataires sociaux - Infogreffe | 🔐"
+        group: 'Informations générales'
+        value: "mandataires_sociaux_infogreffe"
+        link: "https://entreprise.api.gouv.fr/catalogue/infogreffe/mandataires_sociaux"
+      - name: "Chiffre d’affaires - DGFIP | 🔐"
+        group: "Informations financières"
+        value: "chiffre_affaires_dgfip"
+        link: "https://entreprise.api.gouv.fr/catalogue/dgfip/chiffres_affaires"
+      - name: "3 derniers bilans annuels - Banque de France"
+        group: "Informations financières"
+        value: "bilans_bdf"
+        link: "https://entreprise.api.gouv.fr/catalogue/banque_de_france/bilans"
+      - name: "Liasses fiscales - DGFIP | 🔐"
+        group: "Informations financières"
+        value: "liasses_fiscales_dgfip"
+        link: "https://entreprise.api.gouv.fr/catalogue/dgfip/liasses_fiscales"
+      - name: "Attestation fiscale - DGFIP | 🔐"
+        group: "Informations de régularité"
+        value: "attestation_fiscale_dgfip"
+        link: "https://entreprise.api.gouv.fr/catalogue/dgfip/attestations_fiscales"
+      - name: "Attestation de vigilance - Urssaf | 🔐"
+        group: "Informations de régularité"
+        value: "attestation_sociale_urssaf"
+        link: "https://entreprise.api.gouv.fr/catalogue/urssaf/attestation_vigilance"
+      - name: "Conformité cotisations de sécurité sociale agricole - MSA | 🔐"
+        group: "Informations de régularité"
+        value: "cotisations_msa"
+        link: "https://entreprise.api.gouv.fr/catalogue/msa/conformites_cotisations"
+      - name: "Conformité cotisations retraite complémentaire - ProBTP | 🔐"
+        group: "Informations de régularité"
+        value: "cotisations_probtp"
+        link: "https://entreprise.api.gouv.fr/catalogue/probtp/conformites_cotisations_retraite"
+      - name: "Attestation de cotisations congés payés & chômage-intempéries - CNETP | 🔐"
+        group: "Informations de régularité"
+        value: "certification_cnetp"
+        link: "https://entreprise.api.gouv.fr/catalogue/cnetp/attestations_cotisations_conges_payes_chomage_intemperies"
+      - name: "Carte professionnelles des travaux publics - FNTP | Open Data"
+        group: "Informations de régularité"
+        value: "open_data_carte_pro_travaux_publics_fntp"
+        link: "https://entreprise.api.gouv.fr/catalogue/fntp/carte_professionnelle_travaux_public"
+        included: true
+      - name: "Qualiopi & habilitations France compétences - CARIF-OREF | 🔐"
+        group: "Certifications"
+        value: "certifications_qualiopi_france_competences"
+        link: "https://entreprise.api.gouv.fr/catalogue/carif_oref/certifications_qualiopi_france_competences"
+      - name: "Certification en BIO - Agence BIO | Open Data"
+        group: "Certifications"
+        value: "open_data_certifications_bio_agence_bio"
+        link: "https://entreprise.api.gouv.fr/catalogue/agence_bio/certifications_bio"
+        included: true
+      - name: "Certification RGE - ADEME | Open Data"
+        group: "Certifications"
+        value: "open_data_certifications_rge_ademe"
+        link: "https://entreprise.api.gouv.fr/catalogue/ademe/certifications_rge"
+        included: true
+      - name: "Certification Qualibat - Qualibat | Open Data"
+        group: "Certifications"
+        value: "open_data_certifications_batiment_qualibat"
+        link: "https://entreprise.api.gouv.fr/catalogue/qualibat/certifications_batiment"
+        included: true
+      - name: "Certification d'ingénierie - OPQIBI | Open Data"
+        group: "Certifications"
+        value: "open_data_certifications_ingenierie_opqibi"
+        link: "https://entreprise.api.gouv.fr/catalogue/opqibi/qualifications_ingenierie"
+        included: true
+      - name: "Certification Qualifelec - Qualifelec | Open Data"
+        group: "Certifications"
+        value: "open_data_certifications_qualifelec"
+        link: "https://entreprise.api.gouv.fr/catalogue/qualifelec/certificats"
+        included: true
+      - name: "Brevets, marques et modèles déposés - Inpi | Open Data"
+        group: "Certifications"
+        value: "open_data_brevets_marques_modeles_deposes_inpi"
+        link: "https://entreprise.api.gouv.fr/catalogue?APIEntreprise_Endpoint%5Bquery%5D=inpi%20d%C3%A9pos%C3%A9"
+        included: true
     steps:
       - name: 'basic_infos'
       - name: 'personal_data'
