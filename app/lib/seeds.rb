@@ -8,7 +8,7 @@ class Seeds
   end
 
   def flushdb
-    raise 'Not in production!' if Rails.env.production?
+    raise 'Not in production!' if production?
 
     load_all_models!
 
@@ -76,5 +76,9 @@ class Seeds
 
   def load_all_models!
     Dir[Rails.root.join('app/models/**/*.rb')].each { |f| require f }
+  end
+
+  def production?
+    Rails.env.production? && ENV['CAN_FLUSH_DB'].blank?
   end
 end

@@ -7,6 +7,7 @@ gem 'bootsnap', require: false
 gem 'importmap-rails'
 gem 'interactor'
 gem 'kaminari'
+gem 'factory_bot_rails'
 gem 'omniauth'
 gem 'omniauth-rails_csrf_protection'
 gem 'omniauth-oauth2'
@@ -28,7 +29,6 @@ group :development, :test do
   gem 'bullet'
   gem 'byebug'
   gem 'debug', platforms: %i[ mri windows ]
-  gem 'factory_bot_rails'
   gem 'guard'
   gem 'guard-cucumber'
   gem 'guard-rspec'
