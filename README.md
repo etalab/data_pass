@@ -9,6 +9,20 @@ Version en ligne:
 [https://datapass-reborn.onrender.com/](https://datapass-reborn.onrender.com/)
 (basé sur le dernier commit de `main`)
 
+Les comptes disponibles en simili-production (couple email/password sur
+MonComptePro) :
+
+* `user@yopmail.com` / `user@yopmail.com`: simple demandeur qui possède
+    plusieurs habilitations sur
+    la première organisation de liste (Commune de Clamart)
+* `api-entreprise@yopmail.com` / `api-entreprise@yopmail.com`: instructeur pour
+    API Entreprise, sans habilitation
+
+Le lien pour l'instruction: [https://datapass-reborn.onrender.com/instruction](https://datapass-reborn.onrender.com/instruction)
+
+A noter qu'à chaque déploiement la base de données est vidée et re-remplie avec
+les seeds disponible [ici](app/lib/seeds.rb)
+
 # Requirements
 
 * ruby 3.2.2
