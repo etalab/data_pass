@@ -112,3 +112,9 @@ end
 Quand(/je vais sur la page (des |du |de la |de mon )?(.*)/) do |_, page_name|
   visit "/#{page_name}"
 end
+
+Alors("il n'y a pas de champ éditable") do
+  all('input').each do |input|
+    expect(input).to be_readonly if %w[hidden checkbox].exclude?(input[:type])
+  end
+end

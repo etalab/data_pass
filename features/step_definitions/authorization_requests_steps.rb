@@ -21,16 +21,6 @@ Quand('je remplis les informations du contact {string} avec :') do |string, tabl
   end
 end
 
-Quand("je me rends sur une demande d'habilitation {string} à modérer") do |string|
-  authorization_request = FactoryBot.create(
-    :authorization_request,
-    find_factory_trait_from_name(string),
-    :submitted,
-  )
-
-  visit instruction_authorization_request_path(authorization_request)
-end
-
 Quand('je coche les cases de conditions générales et du délégué à la protection des données') do
   steps %(
     Quand je coche "J'ai pris connaissance des conditions générales d'utilisation et je les valide."
@@ -44,25 +34,16 @@ Quand('je clique sur {string} pour le formulaire {string}') do |cta_name, form_n
   click_link cta_name, href: new_authorization_request_path(form_uid:)
 end
 
+# https://rubular.com/r/oBcBPVLlH2kFDl
+Quand(/je me rends sur une demande d'habilitation "([^"]+)"(?: (?:en|à))? ?(\S+)?/) do |type, status|
+  authorization_request = create_authorization_requests_with_status(type, status, 1).first
+
+  visit instruction_authorization_request_path(authorization_request)
+end
+
 # https://rubular.com/r/oYVuAoQY2UZ1FZ
 Quand(/il y a (\d+) demandes? d'habilitation "([^"]+)"(?: en )?(\w+)?/) do |count, type, status|
-  status = case status
-           when 'attente', 'attentes', 'soumise', 'soumises'
-             'submitted'
-           when 'brouillon', 'brouillons'
-             'draft'
-           when 'refusée', 'refusées'
-             'rejected'
-           when 'validée', 'validées'
-             'validated'
-           end
-
-  FactoryBot.create_list(
-    :authorization_request,
-    count,
-    status.to_sym,
-    find_factory_trait_from_name(type),
-  )
+  create_authorization_requests_with_status(type, status, count)
 end
 
 # https://rubular.com/r/meA7pKlPwfrZs3

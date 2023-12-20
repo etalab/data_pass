@@ -1,6 +1,6 @@
 <%= render 'authorization_requests/build/header' %>
 
-<%= form_with(model: @authorization_request, url: '#', builder: AuthorizationRequestFormBuilder) do |f| %>
+<%= form_with(model: @authorization_request, url: '#', builder: DisabledAuthorizationRequestFormBuilder) do |f| %>
   <% @authorization_request.form.steps.each do |step| %>
     <%= render partial: "authorization_request_forms/shared/#{step[:name]}", locals: { f: f } %>
   <% end %>
