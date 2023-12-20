@@ -43,4 +43,8 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
   def readonly?
     !@object.in_draft?
   end
+
+  def check_box_disabled
+    readonly?
+  end
 end
