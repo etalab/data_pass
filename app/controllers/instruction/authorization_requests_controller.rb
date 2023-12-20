@@ -7,6 +7,8 @@ class Instruction::AuthorizationRequestsController < InstructionController
 
   def show
     authorize [:instruction, @authorization_request]
+
+    render_show
   end
 
   def refuse
@@ -17,7 +19,7 @@ class Instruction::AuthorizationRequestsController < InstructionController
 
       redirect_to instruction_authorization_requests_path
     else
-      render 'show'
+      render_show
     end
   end
 
@@ -29,11 +31,19 @@ class Instruction::AuthorizationRequestsController < InstructionController
 
       redirect_to instruction_authorization_requests_path
     else
-      render 'show'
+      render_show
     end
   end
 
   private
+
+  def render_show
+    if @authorization_request.form.multiple_steps?
+      render 'show'
+    else
+      render "instruction/authorization_requests/show/#{@authorization_request.form.uid.underscore}"
+    end
+  end
 
   def extract_authorization_request
     @authorization_request = AuthorizationRequest.find(params[:id])

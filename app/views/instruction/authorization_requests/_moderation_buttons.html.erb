@@ -1,0 +1,7 @@
+<% if policy([:instruction, @authorization_request]).refuse? %>
+  <%= button_to t('.refuse'), refuse_instruction_authorization_request_path(@authorization_request), class: %w(fr-btn fr-btn--secondary) %>
+<% end %>
+
+<% if policy([:instruction, @authorization_request]).approve? %>
+  <%= button_to t('.approve'), approve_instruction_authorization_request_path(@authorization_request), class: %w(fr-btn fr-btn--secondary) %>
+<% end %>

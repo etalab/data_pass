@@ -1,16 +1,9 @@
-<h1 class="title">
-  <%= @authorization_request.form.name %>
-</h1>
+<%= render 'authorization_requests/build/header' %>
 
 <%= form_with(model: @authorization_request, url: '#', builder: AuthorizationRequestFormBuilder) do |f| %>
-  <%= render partial: 'authorization_request_forms/shared/organization', locals: { f: f } %>
-  <%= render partial: 'authorization_request_forms/shared/contacts', locals: { f: f } %>
+  <% @authorization_request.form.steps.each do |step| %>
+    <%= render partial: "authorization_request_forms/shared/#{step[:name]}", locals: { f: f } %>
+  <% end %>
 <% end %>
 
-<% if policy([:instruction, @authorization_request]).refuse? %>
-  <%= button_to t('.refuse'), refuse_instruction_authorization_request_path(@authorization_request), class: %w(fr-btn fr-btn--secondary) %>
-<% end %>
-
-<% if policy([:instruction, @authorization_request]).approve? %>
-  <%= button_to t('.approve'), approve_instruction_authorization_request_path(@authorization_request), class: %w(fr-btn fr-btn--secondary) %>
-<% end %>
+<%= render partial: 'moderation_buttons' %>

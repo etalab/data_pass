@@ -121,7 +121,7 @@ fr:
             actions: Actions
           actions:
             show: Consulter
-      show:
+      moderation_buttons:
         refuse: Refuser
         approve: Valider
       refuse:
