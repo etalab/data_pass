@@ -1,0 +1,12 @@
+name: Continous Deployment
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - run: curl https://api.render.com/deploy/${{ secrets.RENDER_DEPLOY_SERVICE_ID }}?key=${{ secrets.RENDER_DEPLOY_KEY }}
