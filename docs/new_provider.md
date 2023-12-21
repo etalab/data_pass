@@ -78,7 +78,11 @@ class AuthorizationRequest::MonAPI < AuthorizationRequest
 end
 ```
 
-Une liste de méthode disponibles pour ajouter des attributs au formulaire:
+Certains formulaires possèdent des blocs communs, certains de ces blocs ont été
+identifiés et placés dans le dossier
+[`app/models/concerns/authorization_extensions`](../app/models/concerns/authorization_extensions).
+
+De manière plus bas niveau, une liste de méthode disponibles pour ajouter des attributs au formulaire:
 
 * `add_attribute :attribut1` pour ajouter un attribut ayant pour nom `attribut1`
     de type texte ;
@@ -89,7 +93,8 @@ Une liste de méthode disponibles pour ajouter des attributs au formulaire:
     `mon_contact_email`, `mon_contact_phone_number`, `mon_contact_job_title`
 * `add_scopes`, qui permet d'activer les scopes (basé sur le fichier de config)
 
-Il est fortement conseillé d'utiliser ces méthodes outils qui permettent de dynamiquement
+Il est fortement conseillé d'utiliser les blocs dans un premier temps, et
+ces méthodes outils dans un second temps, qui permettent de dynamiquement
 accepter les modifications lors du cycle de vie de la demande, et de
 pré-configurer plus rapidement les vues.
 
@@ -97,6 +102,8 @@ Exemple:
 
 ```ruby
 class AuthorizationRequest::MonAPI < AuthorizationRequest
+  include AuthorizationExtensions::CadreJuridique
+
   add_attribute :intitule
   validates :intitule, presence: true
 
