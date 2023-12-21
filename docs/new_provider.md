@@ -25,14 +25,14 @@ Le format:
     name: Mon API
     # Description affichée dans l'index des formulaires
     description: Une description
-    # Lien pour en savoir plus
+    # ID du provider (cf 1.1 plus bas)
+    provider: dinum
+    # Optionel. Lien pour en savoir plus. Par défaut le lien du fournisseur est pris
     link: https://mon-api.gouv.fr
     # Affiche ou non cette source de données dans l'index des formulaires
     public: true
     # Nom de la classe du modèle associé (défini dans l'étape e)
     authorization_request: MonAPI
-    # Chemin relatif vers le logo du fournisseur, depuis app/assets/images/authorization_request_forms_logs/
-    logo: mon-api.png
     # Optionnel. Détermine si il ne peut y avoir qu'un seul formulaire par organisation. Par défaut à `false`
     unique: false
     # Liste des diverses données débrayable pour la source de données
@@ -51,6 +51,21 @@ Le format:
     steps:
     - name: basic_infos
     - name: personal_data
+```
+
+### 1.1 Ajout d'un nouveau fournisseur
+
+Si il s'agit d'un nouveau fournisseur, il faut l'ajouter dans
+[`config/data_providers.yml`](../config/data_providers.yml)
+
+Le format:
+
+```yaml
+  # Identifiant unique du fournisseur, utilisé dans le form au dessus
+  mon-fournisseur:
+    name: Mon Fournisseur
+    logo: mon-fournisseur.png
+    link: https://mon-fournisseur.gouv.fr
 ```
 
 ## 2. Ajouter et configurer le modèle de données
