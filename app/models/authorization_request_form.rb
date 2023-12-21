@@ -1,11 +1,9 @@
-class AuthorizationRequestForm
-  include ActiveModel::Model
-
+class AuthorizationRequestForm < StaticApplicationRecord
   attr_accessor :uid,
     :name,
     :description,
     :public,
-    :logo,
+    :provider,
     :authorization_request_class,
     :scopes,
     :templates,
@@ -18,24 +16,16 @@ class AuthorizationRequestForm
     end
   end
 
-  def self.where(options)
-    all.select do |authorization_form|
-      options.all? do |key, value|
-        authorization_form.send(key) == value
-      end
-    end
-  end
-
   def self.build(uid, hash)
     new(
       hash.slice(
         :name,
         :description,
-        :logo,
         :public,
         :unique
       ).merge(
         uid: uid.to_s,
+        provider: DataProvider.find(hash[:provider]),
         authorization_request_class: AuthorizationRequest.const_get(hash[:authorization_request]),
         templates: (hash[:templates] || []).map { |template_key, template_attributes| AuthorizationRequestTemplate.new(template_key, template_attributes) },
         scopes: (hash[:scopes] || []).map { |scope_attributes| AuthorizationRequestScope.new(scope_attributes) },
@@ -44,13 +34,15 @@ class AuthorizationRequestForm
     )
   end
 
-  def self.find(uid)
-    all.find { |authorization_form| authorization_form.uid == uid } || raise(ActiveRecord::RecordNotFound)
-  end
-
   def id
     uid
   end
+
+  def link
+    link || provider.link
+  end
+
+  delegate :logo, to: :provider
 
   def multiple_steps?
     steps.any?
