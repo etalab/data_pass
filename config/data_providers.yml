@@ -1,0 +1,10 @@
+---
+shared:
+  hubee:
+    name: HubEE
+    logo: hubee.png
+    link: https://hubee.numerique.gouv.fr/
+  dinum:
+    name: DINUM
+    logo: dinum.png
+    link: https://www.numerique.gouv.fr/

@@ -3,10 +3,9 @@ shared:
   portail-hubee-demarche-certdc:
     name: "Portail HubEE - Démarche CertDC"
     description: "Certificats de Décès"
-    link: 'https://hubee.numerique.gouv.fr/'
     public: true
     authorization_request: 'HubEECertDC'
-    logo: 'hubee.png'
+    provider: 'hubee'
     unique: true
   api-entreprise:
     name: "API Entreprise"
@@ -14,7 +13,7 @@ shared:
     link: 'https://api.gouv.fr/les-api/api-entreprise'
     public: true
     authorization_request: 'APIEntreprise'
-    logo: 'dinum.png'
+    provider: 'dinum'
     scopes:
       - name: "Données unités légales et établissements du répertoire Sirene - Insee (diffusibles et non-diffusibles)"
         group: 'Informations générales'
