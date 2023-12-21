@@ -1,6 +1,4 @@
-class AuthorizationRequestForm
-  include ActiveModel::Model
-
+class AuthorizationRequestForm < StaticApplicationRecord
   attr_accessor :uid,
     :name,
     :description,
@@ -15,14 +13,6 @@ class AuthorizationRequestForm
   def self.all
     Rails.application.config_for(:authorization_request_forms).map do |uid, hash|
       build(uid, hash)
-    end
-  end
-
-  def self.where(options)
-    all.select do |authorization_form|
-      options.all? do |key, value|
-        authorization_form.send(key) == value
-      end
     end
   end
 
@@ -42,10 +32,6 @@ class AuthorizationRequestForm
         steps: hash[:steps] || []
       )
     )
-  end
-
-  def self.find(uid)
-    all.find { |authorization_form| authorization_form.uid == uid } || raise(ActiveRecord::RecordNotFound)
   end
 
   def id
