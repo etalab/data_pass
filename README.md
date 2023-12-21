@@ -81,3 +81,8 @@ bundle exec rspec
 
 * [Ajout d'un nouveau fournisseur](./docs/new_provider.md)
 * [Design System](./docs/design.md)
+
+## Ressources externes
+
+* [(Pad) DataPase Reborn conception](https://pad.incubateur.net/laoh-IYETHyUfzUvK7Mjmw?both)
+* [(Pad) DataPass vs DS](https://pad.incubateur.net/KXZUoUBiQhqs6WwPUWGWLA?both)
