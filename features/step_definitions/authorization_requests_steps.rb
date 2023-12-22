@@ -21,13 +21,6 @@ Quand('je remplis les informations du contact {string} avec :') do |string, tabl
   end
 end
 
-Quand('je coche les cases de conditions générales et du délégué à la protection des données') do
-  steps %(
-    Quand je coche "J'ai pris connaissance des conditions générales d'utilisation et je les valide."
-    Quand je coche "Je confirme que le délégué à la protection des données de mon organisation est informé de ma demande."
-  )
-end
-
 Quand('je clique sur {string} pour le formulaire {string}') do |cta_name, form_name|
   form_uid = AuthorizationRequestForm.where(name: form_name).first.uid
 
@@ -56,4 +49,11 @@ Alors(/je vois (\d+) demandes? d'habilitation(?: "([^"]+)")?(?:(?: en)? (\S+))?$
   end
 
   expect(page).to have_css('.authorization-request-state', text: status.humanize, count:) if status.present?
+end
+
+Quand("j'adhère aux conditions générales") do
+  steps %(
+    Quand je coche "J'ai pris connaissance des conditions générales d'utilisation et je les valide."
+    Quand je coche "Je confirme que le délégué à la protection des données de mon organisation est informé de ma demande."
+  )
 end

@@ -10,7 +10,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation Portail HubEE - Démarc
     Et que je remplis les informations du contact "Administrateur métier" avec :
       | Nom    | Prénom | Email               | Téléphone   | Fonction              |
       | Dupont | Jean   | dupont.jean@gouv.fr | 0836656565  | Administrateur métier |
-    Et que je coche les cases de conditions générales et du délégué à la protection des données
+    Et que j'adhère aux conditions générales
     Et que je clique sur "Enregistrer les modifications"
     Et que je clique sur "Soumettre la demande d'habilitation"
     Alors il y a un message de succès contenant "soumise avec succès"
@@ -21,7 +21,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation Portail HubEE - Démarc
     Et que je remplis les informations du contact "Administrateur métier" avec :
       | Nom    | Prénom | Email               | Téléphone   | Fonction de l'administrateur système |
       | Dupont |        | dupont.jean@gouv.fr | 0836656565  | Administrateur métier |
-    Et que je coche les cases de conditions générales et du délégué à la protection des données
+    Et que j'adhère aux conditions générales
     Et que je clique sur "Enregistrer les modifications"
     Et que je clique sur "Soumettre la demande d'habilitation"
     Alors il y a un message d'erreur contenant "Une erreur est survenue lors de la soumission de la demande d'habilitation"

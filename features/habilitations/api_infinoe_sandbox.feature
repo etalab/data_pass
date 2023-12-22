@@ -35,7 +35,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API INFINOE (Bac à sab
       | Dupont | Marc    | dupont.marc@gouv.fr | 08366565603 | Technique   |
     * je clique sur "Suivant"
 
-    * je coche les cases de conditions générales et du délégué à la protection des données
+    * j'adhère aux conditions générales
     * je clique sur "Soumettre la demande d'habilitation"
 
     Alors il y a un message de succès contenant "soumise avec succès"
