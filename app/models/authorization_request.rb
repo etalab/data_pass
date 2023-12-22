@@ -28,10 +28,6 @@ class AuthorizationRequest < ApplicationRecord
       "#{form.name} n°#{id}"
   end
 
-  def available_scopes
-    form.scopes
-  end
-
   validates :terms_of_service_accepted, presence: true, inclusion: [true], if: -> { need_complete_validation?(:finish) }
   validates :data_protection_officer_informed, presence: true, inclusion: [true], if: -> { need_complete_validation?(:finish) }
 

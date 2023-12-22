@@ -7,7 +7,7 @@ module AuthorizationCore::Scopes
         @scopes_enabled
       end
 
-      def self.add_scopes
+      def self.add_scopes(options = {})
         class_eval do
           store_accessor :data, :scopes
 
@@ -17,8 +17,14 @@ module AuthorizationCore::Scopes
           end
 
           @scopes_enabled = true
+
+          validates :scopes, options[:validation] if options[:validation].present?
         end
       end
     end
+  end
+
+  def available_scopes
+    form.scopes
   end
 end
