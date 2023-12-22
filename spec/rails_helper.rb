@@ -43,6 +43,7 @@ RSpec.configure do |config|
   ]
 
   config.include FactoryBot::Syntax::Methods
+  config.include RequestsHelpers, type: :request
   config.include SessionsHelpers, type: :feature
   config.include FeaturesHelpers, type: :feature
 
@@ -73,6 +74,14 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+  config.before(:each, type: :request) do
+    OmniAuth.config.test_mode = true
+  end
+
+  config.after(:each, type: :request) do
+    OmniAuth.config.mock_auth[:mon_compte_pro] = nil
+    OmniAuth.config.test_mode = false
+  end
 end
 
 REMOTE_CHROME_URL = ENV.fetch('CHROME_URL', nil)
