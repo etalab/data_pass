@@ -57,3 +57,35 @@ Quand("j'adhère aux conditions générales") do
     Quand je coche "Je confirme que le délégué à la protection des données de mon organisation est informé de ma demande."
   )
 end
+
+Quand('je renseigne les infos de bases du projet') do
+  steps %(
+    * je remplis "Nom du projet" avec "Conquérir le monde"
+    * je remplis "Description du projet" avec "Comment chaque soir"
+  )
+end
+
+Quand('je renseigne les infos concernant les données personnelles') do
+  steps %(
+    * je remplis "Destinataire des données" avec "Minus et Cortex"
+    * je remplis "Durée de conservation des données en mois" avec "6"
+  )
+end
+
+Quand('je renseigne le cadre légal') do
+  steps %(
+    * je remplis "Précisez la nature et les références du texte vous autorisant à traiter les données" avec "Article 42"
+    * je remplis "URL du texte relatif au traitement" avec "https://legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000006430983&cidTexte=LEGITEXT000006070721"
+  )
+end
+
+Quand('je renseigne les informations des contacts RGPD') do
+  steps %(
+    * je remplis les informations du contact "Responsable de traitement" avec :
+      | Nom    | Prénom | Email               | Téléphone   | Fonction                  |
+      | Dupont | Jean   | dupont.jean@gouv.fr | 0836656560  | Responsable de traitement |
+    * je remplis les informations du contact "Délégué à la protection des données" avec :
+      | Nom    | Prénom  | Email                  | Téléphone   | Fonction    |
+      | Dupont | Jacques | dupont.jacques@gouv.fr | 08366565601 | Délégué     |
+  )
+end
