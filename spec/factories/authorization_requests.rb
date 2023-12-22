@@ -49,8 +49,8 @@ FactoryBot.define do
         authorization_request.applicant = applicant
         authorization_request.organization = organization
       elsif authorization_request.applicant.nil?
-        applicant = create(:user)
-        organization.users << applicant
+        applicant = create(:user, current_organization: authorization_request.organization)
+        authorization_request.organization.users << applicant
 
         authorization_request.applicant = applicant
       elsif authorization_request.organization.nil?
