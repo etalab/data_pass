@@ -225,6 +225,9 @@ Rails/HasAndBelongsToMany:
 Rails/FindEach:
   Enabled: false
 
+Rails/I18nLazyLookup:
+  Enabled: false
+
 Rails/RedundantActiveRecordAllMethod:
   Exclude:
       - "spec/**/*"
