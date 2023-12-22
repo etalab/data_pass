@@ -90,8 +90,6 @@ fr:
           update: Changer d'organisation
 
   authorization_requests:
-    new:
-      unicity_error: Une habilitation existe déjà pour cette organisation
     create_for_single_page_form:
       success: La demande d'habilitation %{name} a été sauvegardée avec succès
       error:

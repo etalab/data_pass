@@ -18,3 +18,15 @@ module RequestsHelpers
   end
   # rubocop:enable Metrics/AbcSize
 end
+
+shared_examples 'an unauthorized access' do
+  it { is_expected.to redirect_to(controller: 'dashboard', action: 'index') }
+
+  it do
+    subject
+
+    follow_redirect!
+
+    expect(response.body).to include('pas le droit')
+  end
+end

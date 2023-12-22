@@ -27,6 +27,14 @@ Quand('je clique sur {string} pour le formulaire {string}') do |cta_name, form_n
   click_link cta_name, href: new_authorization_request_path(form_uid:)
 end
 
+Alors("il n'y a pas le bouton {string} pour le formulaire {string}") do |text, form_name|
+  form = AuthorizationRequestForm.where(name: form_name).first
+
+  within(css_id(form)) do
+    expect(page).not_to have_content(text)
+  end
+end
+
 # https://rubular.com/r/oBcBPVLlH2kFDl
 Quand(/je me rends sur une demande d'habilitation "([^"]+)"(?: (?:en|à))? ?(\S+)?/) do |type, status|
   authorization_request = create_authorization_requests_with_status(type, status, 1).first
