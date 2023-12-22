@@ -144,3 +144,14 @@ shared:
       - name: 'legal'
       - name: 'scopes'
       - name: 'contacts'
+  api-infinoe-sandbox:
+    name: "API INFINOE (Bac à sable)"
+    public: false
+    authorization_request: 'APIInfinoeSandbox'
+    provider: 'dgfip'
+    steps:
+      - name: 'basic_infos'
+      - name: 'personal_data'
+      - name: 'legal'
+      - name: 'contacts'
+

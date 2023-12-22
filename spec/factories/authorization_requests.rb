@@ -129,5 +129,14 @@ FactoryBot.define do
       with_scopes
       with_contacts
     end
+
+    trait :api_infinoe_sandbox do
+      type { 'AuthorizationRequest::APIInfinoeSandbox' }
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+      with_contacts
+    end
   end
 end
