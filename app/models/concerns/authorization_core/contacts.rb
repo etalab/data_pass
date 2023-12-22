@@ -1,4 +1,4 @@
-module AuthorizationExtensions::Contacts
+module AuthorizationCore::Contacts
   extend ActiveSupport::Concern
 
   included do

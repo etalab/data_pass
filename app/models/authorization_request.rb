@@ -1,8 +1,8 @@
 class AuthorizationRequest < ApplicationRecord
-  include AuthorizationExtensions::Attributes
-  include AuthorizationExtensions::Documents
-  include AuthorizationExtensions::Contacts
-  include AuthorizationExtensions::Scopes
+  include AuthorizationCore::Attributes
+  include AuthorizationCore::Documents
+  include AuthorizationCore::Contacts
+  include AuthorizationCore::Scopes
 
   store :data, coder: JSON
 

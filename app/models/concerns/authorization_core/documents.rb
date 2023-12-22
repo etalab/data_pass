@@ -1,4 +1,4 @@
-module AuthorizationExtensions::Documents
+module AuthorizationCore::Documents
   extend ActiveSupport::Concern
 
   included do

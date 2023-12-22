@@ -1,4 +1,4 @@
-module AuthorizationExtensions::Scopes
+module AuthorizationCore::Scopes
   extend ActiveSupport::Concern
 
   included do

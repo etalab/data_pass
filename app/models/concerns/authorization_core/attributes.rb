@@ -1,4 +1,4 @@
-module AuthorizationExtensions::Attributes
+module AuthorizationCore::Attributes
   extend ActiveSupport::Concern
 
   included do
