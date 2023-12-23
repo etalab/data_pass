@@ -16,6 +16,9 @@ AllCops:
     - "vendor/**/*"
     - "sandbox/**/*"
 
+FactoryBot/FactoryAssociationWithStrategy:
+  Enabled: false
+
 Layout/ArgumentAlignment:
   EnforcedStyle: with_fixed_indentation
 
