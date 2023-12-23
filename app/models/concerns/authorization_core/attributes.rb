@@ -13,9 +13,11 @@ module AuthorizationCore::Attributes
         end
       end
 
-      def self.add_attribute(name)
+      def self.add_attribute(name, options = {})
         class_eval do
           store_accessor :data, name
+
+          validates name, options[:validation] if options[:validation].present?
 
           extra_attributes.push(name)
         end
