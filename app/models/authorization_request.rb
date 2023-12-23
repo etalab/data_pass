@@ -4,8 +4,6 @@ class AuthorizationRequest < ApplicationRecord
   include AuthorizationCore::Contacts
   include AuthorizationCore::Scopes
 
-  store :data, coder: JSON
-
   belongs_to :applicant,
     class_name: 'User',
     inverse_of: :authorization_requests_as_applicant
