@@ -63,3 +63,8 @@ fr:
     api_entreprise:
       volumetrie_approximative:
         hint: Nombre de démarches ou dossiers traités dans l'année
+    api_infinoe_production:
+      recette_fonctionnelle:
+        label: J'atteste avoir réalisé une recette fonctionnelle et qualifié mon téléservice.
+      volumetrie_appels_par_minute:
+        label: Quelle est la limitation de debit que vous souhaitez pour votre téléservice ?

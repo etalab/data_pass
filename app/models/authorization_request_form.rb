@@ -2,13 +2,15 @@ class AuthorizationRequestForm < StaticApplicationRecord
   attr_accessor :uid,
     :name,
     :description,
-    :public,
     :provider,
     :authorization_request_class,
     :scopes,
     :templates,
     :steps,
     :unique
+
+  attr_writer :startable_by_applicant,
+    :public
 
   def self.all
     Rails.application.config_for(:authorization_request_forms).map do |uid, hash|
@@ -22,6 +24,7 @@ class AuthorizationRequestForm < StaticApplicationRecord
         :name,
         :description,
         :public,
+        :startable_by_applicant,
         :unique
       ).merge(
         uid: uid.to_s,
@@ -42,9 +45,30 @@ class AuthorizationRequestForm < StaticApplicationRecord
     link || provider.link
   end
 
+  def startable_by_applicant
+    value_or_default(@startable_by_applicant, true)
+  end
+
+  def public
+    value_or_default(@public, true)
+  end
+
+  def self.indexable
+    where(
+      public: true,
+      startable_by_applicant: true,
+    )
+  end
+
   delegate :logo, to: :provider
 
   def multiple_steps?
     steps.any?
+  end
+
+  private
+
+  def value_or_default(value, default)
+    value.nil? ? default : value
   end
 end

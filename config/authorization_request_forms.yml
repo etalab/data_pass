@@ -155,3 +155,9 @@ shared:
       - name: 'legal'
       - name: 'contacts'
 
+  api-infinoe-production:
+    name: "API INFINOE (Production)"
+    public: false
+    startable_by_applicant: false
+    authorization_request: 'APIInfinoeProduction'
+    provider: 'dgfip'

@@ -9,4 +9,8 @@ class AuthorizationRequest::APIInfinoeSandbox < AuthorizationRequest
     :volumetrie_approximative
 
   contact :contact_technique, validation_condition: -> { need_complete_validation?(:contacts) }
+
+  def production_authorization_request
+    AuthorizationRequest::APIInfinoeProduction.where("data->'sandbox_authorization_request_id' = ?", id.to_s).first
+  end
 end
