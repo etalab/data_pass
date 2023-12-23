@@ -23,6 +23,7 @@ gem 'state_machines-activerecord'
 gem 'stimulus-rails'
 gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[ windows jruby ]
+gem 'validates_timeliness', '~> 7.0.0.beta1'
 gem 'wicked'
 
 group :development, :test do
