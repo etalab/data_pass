@@ -201,6 +201,10 @@ Style/OpenStructUse:
   Exclude:
     - "spec/**/*_spec.rb"
 
+Style/MixinUsage:
+  Exclude:
+    - "features/support/**/*.rb"
+
 Style/TrailingCommaInArguments:
   Enabled: false
 
