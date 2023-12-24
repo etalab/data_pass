@@ -8,6 +8,6 @@ class InstructionController < AuthenticatedUserController
       title: t('application.user_not_authorized.title')
     }
 
-    redirect_to root_path
+    redirect_to dashboard_path
   end
 end
