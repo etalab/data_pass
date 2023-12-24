@@ -68,13 +68,23 @@ Then go to [http://localhost:3000](http://localhost:3000)
 With docker:
 
 ```sh
+# Unit
 make tests
+# E2E
+make e2e
 ```
 
 Without docker:
 
 ```sh
+# Unit
 bundle exec rspec
+# Unit with coverage
+COVERAGE=true bundle exec rspec
+# E2E
+bundle exec cucumber
+# E2Ewith coverage
+COVERAGE=true bundle exec cucumber
 ```
 
 ## Documentation

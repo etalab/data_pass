@@ -28,6 +28,10 @@ tests:
 	docker-compose up -d chrome
 	$(DOCKER-RUN) web $(BUNDLE-EXEC) rspec
 
+e2e:
+	docker-compose up -d chrome
+	$(DOCKER-RUN) web $(BUNDLE-EXEC) cucumber
+
 console:
 	$(DOCKER-RUN) web bin/rails console
 
