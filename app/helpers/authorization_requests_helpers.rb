@@ -5,7 +5,7 @@ module AuthorizationRequestsHelpers
       url: authorization_request_model_path(authorization_request.form, authorization_request),
       method: authorization_request_model_http_method(authorization_request),
       id: dom_id(authorization_request),
-      builder: AuthorizationRequestFormBuilder,
+      builder: authorization_request.in_draft? ? AuthorizationRequestFormBuilder : DisabledAuthorizationRequestFormBuilder,
       &
     )
   end
