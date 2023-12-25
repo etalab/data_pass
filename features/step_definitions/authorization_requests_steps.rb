@@ -41,9 +41,10 @@ Quand(/je me rends sur une demande d'habilitation "([^"]+)"(?: (?:en|à))? ?(\S+
   visit instruction_authorization_request_path(authorization_request)
 end
 
-# https://rubular.com/r/oYVuAoQY2UZ1FZ
-Quand(/il y a (\d+) demandes? d'habilitation "([^"]+)"(?: en )?(\w+)?/) do |count, type, status|
-  create_authorization_requests_with_status(type, status, count)
+# https://rubular.com/r/ONkLmQtr34p3ic
+Quand(/(j'ai|il y a) (\d+) demandes? d'habilitation "([^"]+)"(?: en )?(\w+)?/) do |who, count, type, status|
+  applicant = who == 'j\'ai' ? current_user : nil
+  create_authorization_requests_with_status(type, status, count, applicant)
 end
 
 # https://rubular.com/r/meA7pKlPwfrZs3
