@@ -17,8 +17,17 @@ Alors('je suis sur la page {string}') do |text|
   step "il y a un titre contenant \"#{text}\""
 end
 
-Quand('je clique sur {string}') do |label|
-  click_link_or_button label # rubocop:disable Capybara/ClickLinkOrButtonStyle
+Quand(/je clique sur (le (?:dernier|premier) )?"([^"]+)"\s*$/) do |position, label|
+  case position
+  when 'le dernier '
+    page.all('a', text: label).last.click
+  when 'le premier '
+    page.all('a', text: label).first.click
+  else
+    # rubocop:disable Capybara/ClickLinkOrButtonStyle
+    click_link_or_button label
+    # rubocop:enable Capybara/ClickLinkOrButtonStyle
+  end
 end
 
 Alors('la page contient {string}') do |content|
@@ -111,6 +120,10 @@ end
 
 Quand(/je vais sur la page (des |du |de la |de mon )?(.*)/) do |_, page_name|
   visit "/#{page_name}"
+end
+
+Quand('je me rends sur mon tableau de bord') do
+  visit dashboard_path
 end
 
 Alors("il n'y a pas de champ éditable") do

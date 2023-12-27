@@ -48,3 +48,10 @@ fr:
         delegue_protection_donnees_phone_number: Téléphone du délégué à la protection des données
         delegue_protection_donnees_job_title: Fonction du délégué à la protection des données
 
+      authorization_request/api_infinoe_production:
+        homologation_autorite_nom: Nom de l'autorité d'homologation ou du signataire du questionnaire de sécurité
+        homologation_autorite_fonction: Fonction de l'autorité d'homologation ou du signataire du questionnaire de sécurité
+        homologation_date_debut: Date de début de l'homologation ou de signature du questionnaire de sécurité
+        homologation_date_fin: Date de fin de l'homologation
+
+        volumetrie_appels_par_minute: Volumétrie d'appels par minute

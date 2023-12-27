@@ -4,6 +4,8 @@ RSpec.describe AuthorizationRequest do
     %w[
       hubee_cert_dc
       api_entreprise
+      api_infinoe_sandbox
+      api_infinoe_production
     ].each do |kind|
       authorization_request = build(:authorization_request, kind, state: 'submitted')
       authorization_request.save!

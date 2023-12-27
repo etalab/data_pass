@@ -35,6 +35,11 @@ Le format:
     authorization_request: MonAPI
     # Optionnel. Détermine si il ne peut y avoir qu'un seul formulaire par organisation. Par défaut à `false`
     unique: false
+    # Optionel. Détermine si ce formulaire peut être démarrer à l'initiative de
+    # l'utilisateur. Cet attribut sert principalement aux habilitations en 2
+    # étapes (bac à sable puis production), lorsque la 1ere est validé la 2e est
+    # crée par le système. Par défaut à `true`
+    startable_by_applicant: false
     # Liste des diverses données débrayable pour la source de données
     scopes:
         # Nom humanisé de la donnée

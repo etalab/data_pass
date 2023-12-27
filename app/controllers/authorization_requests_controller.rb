@@ -4,9 +4,10 @@ class AuthorizationRequestsController < AuthenticatedUserController
 
   before_action :extract_authorization_request_form
   before_action :extract_authorization_request, only: %i[show update]
-  before_action :check_authorization_request_unicity!, only: %i[new]
 
   def new
+    authorize @authorization_request_form, :new?
+
     @authorization_request = authorization_request_class.new(applicant: current_user, organization: current_organization)
 
     render view_path
@@ -155,18 +156,6 @@ class AuthorizationRequestsController < AuthenticatedUserController
 
   def extract_authorization_request_form
     @authorization_request_form = AuthorizationRequestForm.find(params[:form_uid])
-  end
-
-  def another_of_this_type_already_exists?
-    current_organization.authorization_requests.where(type: authorization_request_class.to_s).any?
-  end
-
-  def check_authorization_request_unicity!
-    return unless @authorization_request_form.unique && another_of_this_type_already_exists?
-
-    warning_message(title: t('authorization_requests.new.unicity_error'))
-
-    redirect_to root_path
   end
 end
 # rubocop:enable Metrics/ClassLength

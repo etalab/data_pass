@@ -36,18 +36,4 @@ RSpec.describe 'Create authorization request' do
       expect(authorization_request.applicant).to eq(user)
     end
   end
-
-  describe 'from template', :js do
-    subject do
-      visit new_authorization_request_path(form_uid: authorization_request_form.uid)
-
-      within('#authorization_request_templates') do
-        click_button
-      end
-    end
-
-    it 'creates a new authorization request', skip: 'later' do
-      expect { subject }.to change(AuthorizationRequest, :count).by(1)
-    end
-  end
 end

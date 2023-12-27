@@ -49,8 +49,8 @@ FactoryBot.define do
         authorization_request.applicant = applicant
         authorization_request.organization = organization
       elsif authorization_request.applicant.nil?
-        applicant = create(:user)
-        organization.users << applicant
+        applicant = create(:user, current_organization: authorization_request.organization)
+        authorization_request.organization.users << applicant
 
         authorization_request.applicant = applicant
       elsif authorization_request.organization.nil?
@@ -128,6 +128,37 @@ FactoryBot.define do
       with_cadre_juridique
       with_scopes
       with_contacts
+    end
+
+    trait :api_infinoe_sandbox do
+      type { 'AuthorizationRequest::APIInfinoeSandbox' }
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+      with_contacts
+    end
+
+    trait :api_infinoe_production do
+      type { 'AuthorizationRequest::APIInfinoeProduction' }
+
+      homologation_autorite_nom { 'Autorité de homologation' }
+      homologation_autorite_fonction { 'Fonction de l\'autorité de homologation' }
+      homologation_date_debut { 51.months.ago.to_date }
+      homologation_date_fin { 42.years.from_now.to_date }
+
+      volumetrie_appels_par_minute { '1000' }
+      recette_fonctionnelle { '1' }
+
+      after(:build) do |authorization_request, _evaluator|
+        authorization_request.sandbox_authorization_request ||= create(
+          :authorization_request,
+          :api_infinoe_sandbox,
+          :validated,
+          applicant: authorization_request.applicant,
+          organization: authorization_request.organization,
+        )
+      end
     end
   end
 end

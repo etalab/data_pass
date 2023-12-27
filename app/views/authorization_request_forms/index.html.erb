@@ -17,8 +17,10 @@
         <%= authorization_requests_form.description %>
       </div>
     </div>
-    <div class="data-provider-cta">
-      <%= link_to t('.cta'), new_authorization_request_path(form_uid: authorization_requests_form.uid), class: %w(fr-btn fr-btn--sm) %>
-    </div>
+    <% if policy(authorization_requests_form).new? %>
+      <div class="data-provider-cta">
+        <%= link_to t('.cta'), new_authorization_request_path(form_uid: authorization_requests_form.uid), class: %w(fr-btn fr-btn--sm) %>
+      </div>
+    <% end %>
   </div>
 <% end %>

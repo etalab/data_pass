@@ -8,3 +8,7 @@ shared:
     name: DINUM
     logo: dinum.png
     link: https://www.numerique.gouv.fr/
+  dgfip:
+    name: DGFIP
+    logo: dgfip.jpeg
+    link: https://api.gouv.fr/producteurs/dgfip

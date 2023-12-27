@@ -5,6 +5,8 @@ class Seeds
     create_authorization_request(:api_entreprise)
     create_authorization_request(:api_entreprise, state: 'submitted', description: very_long_description)
     create_authorization_request(:hubee_cert_dc)
+
+    create_authorization_request(:api_infinoe_production, state: 'draft')
   end
 
   def flushdb

@@ -26,7 +26,9 @@ class Instruction::AuthorizationRequestsController < InstructionController
   def approve
     authorize [:instruction, @authorization_request]
 
-    if @authorization_request.approve
+    organizer = ApproveAuthorizationRequest.call(authorization_request: @authorization_request)
+
+    if organizer.success?
       success_message(title: t('.success', name: @authorization_request.name))
 
       redirect_to instruction_authorization_requests_path

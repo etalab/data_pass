@@ -86,7 +86,23 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
     end
   end
 
+  def dsfr_select(attribute, choices, opts = {})
+    @template.content_tag(:div, class: 'fr-select-group') do
+      @template.safe_join(
+        [
+          label_with_hint(attribute),
+          dsfr_select_tag(attribute, choices, opts),
+          error_message(attribute)
+        ]
+      )
+    end
+  end
+
   private
+
+  def dsfr_select_tag(attribute, choices, opts)
+    select(attribute, choices, {}, class: 'fr-select', **enhance_input_options(opts).except(:class))
+  end
 
   def dsfr_input_field(attribute, input_kind, opts = {})
     dsfr_input_group(attribute, opts) do

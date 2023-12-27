@@ -63,3 +63,17 @@ fr:
     api_entreprise:
       volumetrie_approximative:
         hint: Nombre de démarches ou dossiers traités dans l'année
+    api_infinoe_production:
+      sandbox_authorization_request:
+        title: L'habilitation de bac à sable
+        description: "L'habilitation de bac à sable associée est '%{authorization_request_name}', disponible à l'adresse suivante: %{authorization_request_link}"
+      recette_fonctionnelle:
+        title: La recette fonctionnelle
+        label: J'atteste avoir réalisé une recette fonctionnelle et qualifié mon téléservice.
+      volumetrie_appels_par_minute:
+        label: Quelle est la limitation de debit que vous souhaitez pour votre téléservice ?
+      homologation:
+        title: L'homologation de sécurité
+      volumetrie:
+        title: Volumétrie attendue
+
