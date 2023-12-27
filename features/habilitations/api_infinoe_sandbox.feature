@@ -18,8 +18,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation API INFINOE (Bac à sab
     * je renseigne le cadre légal
     * je clique sur "Suivant"
 
-    * je clique sur "Suivant"
-
     * je renseigne les informations des contacts RGPD
     * je remplis les informations du contact "Contact technique" avec :
       | Nom    | Prénom  | Email               | Téléphone   | Fonction    |
