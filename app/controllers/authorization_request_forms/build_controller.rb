@@ -1,4 +1,4 @@
-class AuthorizationRequests::BuildController < AuthorizationRequestsController
+class AuthorizationRequestForms::BuildController < AuthorizationRequestFormsController
   include Wicked::Wizard::Translated
 
   prepend_before_action :configure_steps

@@ -2,7 +2,7 @@
 
 La checklist globale:
 
-1. Ajouter l'entrée [dans le fichier de config](../config/authorization_request_forms.yml) ;
+1. Ajouter le ou les entrée(s) dans les fichiers de config ;
 2. Ajouter et configurer le modèle (avec sa factory et son test) ;
 3. Configurer les formulations via l'I18n ;
 4. Ajouter la vue de complétion côté demandeur ;
@@ -14,16 +14,20 @@ peut-être obsolètes. Il y a par ailleurs des refactorisations logiques, mais
 potentiellement prématurés: il faut attendre d'intégrer plus de sources pour
 être sûr d'effectuer les refactorisations nécessaires.
 
-## 1. Fichier de configuration
+## 1. Fichiers de configurations
 
-Le format:
+Une demande d'habilitation (le modèle) est lié à 1 ou plusieurs formulaires. Il
+faut à minima en remplir 1 de chaque et qu'ils soient liés.
+
+Pour [le modèle](../config/authorization_definitions.yml):
 
 ```yaml
-  # Identifiant unique qui sera utilisé dans les URLs
-  mon-api:
-    # Nom affiché dans l'index des formulaires et en titre de chaque formulaire
+  # Il s'agit du nom de la classe en underscore. Ici `MonAPI`
+  mon_api:
+    # Nom affiché dans l'index des formulaires et en titre par défaut de chaque
+    # formulaire exploitant cette habilitation
     name: Mon API
-    # Description affichée dans l'index des formulaires
+    # Description affichée dans l'index des habilitations.
     description: Une description
     # ID du provider (cf 1.1 plus bas)
     provider: dinum
@@ -31,8 +35,6 @@ Le format:
     link: https://mon-api.gouv.fr
     # Affiche ou non cette source de données dans l'index des formulaires
     public: true
-    # Nom de la classe du modèle associé (défini dans l'étape e)
-    authorization_request: MonAPI
     # Optionnel. Détermine si il ne peut y avoir qu'un seul formulaire par organisation. Par défaut à `false`
     unique: false
     # Optionel. Détermine si ce formulaire peut être démarrer à l'initiative de
@@ -46,8 +48,37 @@ Le format:
       - name: Nom de famille
         # Nom technique de la donnée
         value: family_name
-        # Optionnel. Nom du groupe pour cette donnée afin d'effectuer un regroupement visuel
+        # Optionnel. Nom du groupe pour cette donnée afin d'effectuer
+        # un regroupement visuel
         group: Identité pivot
+        # Optionnel. Lien vers des détails sur la donnée. Affiche un lien pour
+        # en savoir plus sur cette donnée.
+        link: https://mon-api.gouv.fr/documentation/nom-de-famille
+        # Optionnel. Détermine si la donnée est forcément incluse. Cela permet
+        # d'afficher des données grisés et cochés à l'utilisateur pour l'informer
+        # que ces données seront disponibles avec son habilitation. Par défaut à
+        # false
+        included: true
+```
+
+Pour [le formulaire](../config/authorization_request_forms.yml):
+
+```yaml
+  # Identifiant unique qui sera utilisé dans les URLs
+  mon-api:
+    # Nom affiché en titre du formulaire. Par défaut celui de l'habilitation est
+    # prise
+    name: Mon API dans le formulaire
+    # Description affichée au début du formulaire. Par défaut celui de
+    # l'habilitation est prise.
+    description: Une description du formulaire
+    # Nom de la classe du modèle associé (défini dans l'étape 2). Permet de
+    # faire le lien avec la définition plus haut
+    authorization_request: MonAPI
+    # Optionnel. Prend celui de l'habilitation par défaut
+    public: true
+    # Optionnel. Prend celui de l'habilitation par défaut
+    startable_by_applicant: true
     # Optionnel. Détermine les étapes ordonnées pour remplir ce formulaire. Si
     # ce champ n'est pas défini le formulaire sera sur une seule page pour le
     # demandeur. La première étape est systématiquement l'organisation et le

@@ -70,26 +70,11 @@ fr:
     edit:
       title: Votre compte
 
-  authorization_request_forms:
+  authorization_requests:
     index:
       title: Demander une nouvelle habilitation
       cta: Remplir une demande
-    form:
-      save: Enregistrer les modifications
-      start: Démarrer
-      submit: Soumettre la demande d'habilitation
-      previous: Précédent
-      next: Suivant
-    shared:
-      organization:
-        you:
-          title: Vous êtes
-          update: Mettre à jour mes informations
-        organization:
-          title: Vous faites cette demande pour
-          update: Changer d'organisation
-
-  authorization_requests:
+  authorization_request_forms:
     create_for_single_page_form:
       success: La demande d'habilitation %{name} a été sauvegardée avec succès
       error:
@@ -105,9 +90,24 @@ fr:
       error:
         title: Une erreur est survenue lors de la soumission de la demande d'habilitation
         description: *common_authorization_requests_error_description
+    form:
+      save: Enregistrer les modifications
+      start: Démarrer
+      submit: Soumettre la demande d'habilitation
+      previous: Précédent
+      next: Suivant
+    shared:
+      organization:
+        you:
+          title: Vous êtes
+          update: Mettre à jour mes informations
+        organization:
+          title: Vous faites cette demande pour
+          update: Changer d'organisation
     build:
       update:
         error: *authorization_requests_update_error
+
   instruction:
     authorization_requests:
       index:
@@ -117,6 +117,7 @@ fr:
             id: Identifiant interne
             name: Intitulé de la demande
             type: Type de données
+            form_name: Nom du formulaire
             status: Statut
             actions: Actions
           actions:

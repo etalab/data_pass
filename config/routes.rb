@@ -12,11 +12,13 @@ Rails.application.routes.draw do
   patch '/compte', to: 'profile#update'
 
   scope(path_names: { new: 'nouveau' }) do
-    resources :authorization_request_forms, only: %w[index], path: 'formulaires'
+    resources :authorization_requests, only: %w[index new], path: 'habilitations'
 
     scope(path: 'formulaires/:form_uid') do
-      resources :authorization_requests, only: %w[new create show update], path: 'demande' do
-        resources :build, controller: 'authorization_requests/build', only: %w[show update], path: 'etapes'
+      resources :authorization_request_forms, only: %w[new create show update], path: 'demande'
+
+      scope 'demande/:authorization_request_id' do
+        resources :build, controller: 'authorization_request_forms/build', only: %w[show update], path: 'etapes', as: 'authorization_request_form_build'
       end
 
       resources :authorization_request_from_templates, only: %i[index create], path: 'templates'

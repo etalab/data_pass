@@ -29,6 +29,6 @@ module AuthorizationCore::Scopes
   end
 
   def available_scopes
-    form.scopes
+    @available_scopes ||= definition.scopes
   end
 end

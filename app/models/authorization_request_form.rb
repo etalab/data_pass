@@ -1,15 +1,12 @@
 class AuthorizationRequestForm < StaticApplicationRecord
   attr_accessor :uid,
-    :name,
-    :description,
-    :provider,
     :authorization_request_class,
-    :scopes,
     :templates,
-    :steps,
-    :unique
+    :steps
 
-  attr_writer :startable_by_applicant,
+  attr_writer :name,
+    :description,
+    :startable_by_applicant,
     :public
 
   def self.all
@@ -24,29 +21,50 @@ class AuthorizationRequestForm < StaticApplicationRecord
         :name,
         :description,
         :public,
-        :startable_by_applicant,
-        :unique
+        :startable_by_applicant
       ).merge(
         uid: uid.to_s,
-        provider: DataProvider.find(hash[:provider]),
         authorization_request_class: AuthorizationRequest.const_get(hash[:authorization_request]),
         templates: (hash[:templates] || []).map { |template_key, template_attributes| AuthorizationRequestTemplate.new(template_key, template_attributes) },
-        scopes: (hash[:scopes] || []).map { |scope_attributes| AuthorizationRequestScope.new(scope_attributes) },
         steps: hash[:steps] || []
       )
     )
   end
 
+  delegate :provider, :unique?, to: :authorization_definition
+
   def id
     uid
+  end
+
+  def name
+    if @name
+      "#{authorization_definition.name} - #{@name}"
+    else
+      authorization_definition.name
+    end
+  end
+
+  def description
+    @description || authorization_definition.description
   end
 
   def link
     link || provider.link
   end
 
+  def authorization_definition
+    authorization_request_class.definition
+  end
+
   def startable_by_applicant
-    value_or_default(@startable_by_applicant, true)
+    value_or_default(
+      value_or_default(
+        @startable_by_applicant,
+        authorization_definition.startable_by_applicant
+      ),
+      true,
+    )
   end
 
   def public
@@ -60,15 +78,7 @@ class AuthorizationRequestForm < StaticApplicationRecord
     )
   end
 
-  delegate :logo, to: :provider
-
   def multiple_steps?
     steps.any?
-  end
-
-  private
-
-  def value_or_default(value, default)
-    value.nil? ? default : value
   end
 end

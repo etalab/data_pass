@@ -2,7 +2,7 @@ module AuthorizationRequestsHelpers
   def authorization_request_form(authorization_request, &)
     form_with(
       model: authorization_request,
-      url: authorization_request_model_path(authorization_request.form, authorization_request),
+      url: authorization_request_model_path(authorization_request),
       method: authorization_request_model_http_method(authorization_request),
       id: dom_id(authorization_request),
       builder: authorization_request.in_draft? ? AuthorizationRequestFormBuilder : DisabledAuthorizationRequestFormBuilder,
@@ -10,13 +10,13 @@ module AuthorizationRequestsHelpers
     )
   end
 
-  def authorization_request_model_path(authorization_request_form, authorization_request)
+  def authorization_request_model_path(authorization_request)
     if authorization_request.new_record?
-      authorization_requests_path(form_uid: authorization_request_form.uid)
+      authorization_request_forms_path(form_uid: authorization_request.form.uid)
     elsif authorization_request.form.multiple_steps?
       wizard_path
     else
-      authorization_request_path(form_uid: authorization_request_form.uid, id: authorization_request.id)
+      authorization_request_form_path(form_uid: authorization_request.form.uid, id: authorization_request.id)
     end
   end
 

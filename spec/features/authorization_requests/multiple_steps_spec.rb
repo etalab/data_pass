@@ -14,7 +14,7 @@ RSpec.describe 'Authorization request with multiple steps' do
   describe 'new habilitation' do
     describe 'visiting' do
       subject(:visit_new_habilitation) do
-        visit new_authorization_request_path(form_uid: authorization_request_form.uid)
+        visit new_authorization_request_form_path(form_uid: authorization_request_form.uid)
       end
 
       context 'when there is already a habilitation in progress' do
@@ -30,7 +30,7 @@ RSpec.describe 'Authorization request with multiple steps' do
 
     describe 'submitting the form' do
       subject(:start_new_habilitation) do
-        visit new_authorization_request_path(form_uid: authorization_request_form.uid)
+        visit new_authorization_request_form_path(form_uid: authorization_request_form.uid)
 
         within('#new_authorization_request_api_entreprise') do
           click_button 'start_authorization_request'
@@ -44,14 +44,14 @@ RSpec.describe 'Authorization request with multiple steps' do
 
         authorization_request = AuthorizationRequest.last
 
-        expect(page).to have_current_path(authorization_request_build_path(form_uid: authorization_request_form.uid, authorization_request_id: authorization_request.id, id: first_step_name))
+        expect(page).to have_current_path(authorization_request_form_build_path(form_uid: authorization_request_form.uid, authorization_request_id: authorization_request.id, id: first_step_name))
       end
     end
   end
 
   describe 'resume habilitation' do
     subject(:resume_habilitation) do
-      visit authorization_request_path(form_uid: authorization_request_form.uid, id: authorization_request.id)
+      visit authorization_request_form_path(form_uid: authorization_request_form.uid, id: authorization_request.id)
     end
 
     let(:authorization_request) { create(:authorization_request, :api_entreprise, applicant: user) }
@@ -59,13 +59,13 @@ RSpec.describe 'Authorization request with multiple steps' do
     it 'redirects to first step' do
       resume_habilitation
 
-      expect(page).to have_current_path(authorization_request_build_path(form_uid: authorization_request_form.uid, authorization_request_id: authorization_request.id, id: first_step_name))
+      expect(page).to have_current_path(authorization_request_form_build_path(form_uid: authorization_request_form.uid, authorization_request_id: authorization_request.id, id: first_step_name))
     end
   end
 
   describe 'move to another step' do
     subject(:move_to_next_step) do
-      visit authorization_request_path(form_uid: authorization_request_form.uid, id: authorization_request.id)
+      visit authorization_request_form_path(form_uid: authorization_request_form.uid, id: authorization_request.id)
 
       within(css_id(authorization_request)) do
         fill_in input_identifier(authorization_request_class, :intitule), with: intitule
@@ -87,7 +87,7 @@ RSpec.describe 'Authorization request with multiple steps' do
           move_to_next_step
         }.to change { authorization_request.reload.intitule }.to(intitule)
 
-        expect(page).to have_current_path(authorization_request_build_path(form_uid: authorization_request_form.uid, authorization_request_id: authorization_request.id, id: second_step_name))
+        expect(page).to have_current_path(authorization_request_form_build_path(form_uid: authorization_request_form.uid, authorization_request_id: authorization_request.id, id: second_step_name))
       end
     end
 
@@ -106,7 +106,7 @@ RSpec.describe 'Authorization request with multiple steps' do
 
   describe 'submit the habilitation' do
     subject(:submit_habilitation) do
-      visit authorization_request_build_path(form_uid: authorization_request_form.uid, authorization_request_id: authorization_request.id, id: last_step_name)
+      visit authorization_request_form_build_path(form_uid: authorization_request_form.uid, authorization_request_id: authorization_request.id, id: last_step_name)
 
       within(css_id(authorization_request)) do
         click_button 'submit_authorization_request'
@@ -133,7 +133,7 @@ RSpec.describe 'Authorization request with multiple steps' do
       it 'renders finish view' do
         submit_habilitation
 
-        expect(page).to have_current_path(authorization_request_build_path(form_uid: authorization_request_form.uid, authorization_request_id: authorization_request.id, id: last_step_name))
+        expect(page).to have_current_path(authorization_request_form_build_path(form_uid: authorization_request_form.uid, authorization_request_id: authorization_request.id, id: last_step_name))
         expect(page).to have_css('#submit_authorization_request')
       end
     end
@@ -141,7 +141,7 @@ RSpec.describe 'Authorization request with multiple steps' do
 
   context 'when habilitation is submitted' do
     subject(:visit_habilitation) do
-      visit authorization_request_path(form_uid: authorization_request_form.uid, id: authorization_request.id)
+      visit authorization_request_form_path(form_uid: authorization_request_form.uid, id: authorization_request.id)
     end
 
     let(:authorization_request) { create(:authorization_request, :api_entreprise, :submitted, applicant: user) }
@@ -149,7 +149,7 @@ RSpec.describe 'Authorization request with multiple steps' do
     it 'redirects to finish path, with no submit button' do
       visit_habilitation
 
-      expect(page).to have_current_path(authorization_request_build_path(form_uid: authorization_request_form.uid, authorization_request_id: authorization_request.id, id: last_step_name))
+      expect(page).to have_current_path(authorization_request_form_build_path(form_uid: authorization_request_form.uid, authorization_request_id: authorization_request.id, id: last_step_name))
       expect(page).not_to have_button('submit_authorization_request')
     end
   end

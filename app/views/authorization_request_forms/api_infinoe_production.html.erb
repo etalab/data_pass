@@ -1,4 +1,4 @@
-<%= render 'authorization_requests/build/header' %>
+<%= render 'authorization_request_forms/build/header' %>
 
 <%= authorization_request_form(@authorization_request) do |f| %>
   <%= render partial: 'authorization_request_forms/shared/organization', locals: { f: f } %>
@@ -13,7 +13,7 @@
         t(
           'authorization_request_forms.api_infinoe_production.sandbox_authorization_request.description',
           authorization_request_name: @authorization_request.sandbox_authorization_request.name,
-          authorization_request_link: link_to('Lien', authorization_request_path(form_uid: @authorization_request.sandbox_authorization_request.form.uid, id: @authorization_request.id))
+          authorization_request_link: link_to('Lien', authorization_request_form_path(form_uid: @authorization_request.sandbox_authorization_request.form.uid, id: @authorization_request.id))
         ).html_safe
       %>
     </div>

@@ -1,6 +1,6 @@
 <div class="authorization-request-card authorization-request">
   <div class="card-provider">
-    <%= authorization_request.form.name %>
+    <%= authorization_request.definition.name %>
   </div>
 
   <div class="card-title">
@@ -13,5 +13,5 @@
     </div>
   <% end %>
 
-  <%= link_to t('.cta'), authorization_request_path(form_uid: authorization_request.form.uid, id: authorization_request.id), class: %w(fr-btn fr-btn--sm) %>
+  <%= link_to t('.cta'), authorization_request_form_path(form_uid: authorization_request.form.uid, id: authorization_request.id), class: %w(fr-btn fr-btn--sm) %>
 </div>

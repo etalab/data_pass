@@ -7,7 +7,7 @@ class AuthorizationRequestFormPolicy < ApplicationPolicy
   private
 
   def unicity_constraint_violated?
-    return false unless record.unique
+    return false unless record.unique?
 
     another_authorization_request_with_same_type_exists?
   end

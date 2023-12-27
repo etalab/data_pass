@@ -7,7 +7,7 @@ Quand("j'ai déjà une demande d'habilitation {string} en cours") do |string|
 end
 
 Quand("je démarre une nouvelle demande d'habilitation {string}") do |string|
-  visit new_authorization_request_path(form_uid: find_form_from_name(string).uid)
+  visit new_authorization_request_path(id: find_authorization_definition_from_name(string).id)
 end
 
 Quand('je remplis les informations du contact {string} avec :') do |string, table|
@@ -21,16 +21,12 @@ Quand('je remplis les informations du contact {string} avec :') do |string, tabl
   end
 end
 
-Quand('je clique sur {string} pour le formulaire {string}') do |cta_name, form_name|
-  form_uid = AuthorizationRequestForm.where(name: form_name).first.uid
-
-  click_link cta_name, href: new_authorization_request_path(form_uid:)
+Quand("je clique sur {string} pour l'habilitation {string}") do |cta_name, habilitation_name|
+  click_link cta_name, href: new_authorization_request_path(id: find_authorization_definition_from_name(habilitation_name).id)
 end
 
-Alors("il n'y a pas le bouton {string} pour le formulaire {string}") do |text, form_name|
-  form = AuthorizationRequestForm.where(name: form_name).first
-
-  within(css_id(form)) do
+Alors("il n'y a pas le bouton {string} pour l'habilitation {string}") do |text, habilitation_name|
+  within(css_id(find_authorization_definition_from_name(habilitation_name))) do
     expect(page).not_to have_content(text)
   end
 end
