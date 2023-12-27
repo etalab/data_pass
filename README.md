@@ -25,7 +25,7 @@ les seeds disponible [ici](app/lib/seeds.rb)
 
 # Requirements
 
-* ruby 3.2.2
+* ruby 3.3.0
 * postressql >= 13
 
 ## Install
