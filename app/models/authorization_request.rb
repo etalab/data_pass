@@ -17,8 +17,10 @@ class AuthorizationRequest < ApplicationRecord
   scope :refused, -> { where(state: 'refused') }
   scope :validated_or_refused, -> { where(state: %w[validated refused]) }
 
+  validates :form_uid, presence: true
+
   def form
-    @form ||= AuthorizationRequestForm.where(authorization_request_class: self.class).first
+    @form ||= AuthorizationRequestForm.find(form_uid)
   end
 
   def name

@@ -116,12 +116,14 @@ FactoryBot.define do
 
     trait :hubee_cert_dc do
       type { 'AuthorizationRequest::HubEECertDC' }
+      form_uid { 'portail-hubee-demarche-certdc' }
 
       with_contacts
     end
 
     trait :api_entreprise do
       type { 'AuthorizationRequest::APIEntreprise' }
+      form_uid { 'api-entreprise' }
 
       with_basic_infos
       with_personal_data
@@ -132,6 +134,7 @@ FactoryBot.define do
 
     trait :api_infinoe_sandbox do
       type { 'AuthorizationRequest::APIInfinoeSandbox' }
+      form_uid { 'api-infinoe-sandbox' }
 
       with_basic_infos
       with_personal_data
@@ -141,6 +144,7 @@ FactoryBot.define do
 
     trait :api_infinoe_production do
       type { 'AuthorizationRequest::APIInfinoeProduction' }
+      form_uid { 'api-infinoe-production' }
 
       homologation_autorite_nom { 'Autorité de homologation' }
       homologation_autorite_fonction { 'Fonction de l\'autorité de homologation' }

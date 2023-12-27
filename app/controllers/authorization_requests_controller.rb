@@ -8,7 +8,7 @@ class AuthorizationRequestsController < AuthenticatedUserController
   def new
     authorize @authorization_request_form, :new?
 
-    @authorization_request = authorization_request_class.new(applicant: current_user, organization: current_organization)
+    @authorization_request = authorization_request_class.new(applicant: current_user, organization: current_organization, form_uid: @authorization_request_form.uid)
 
     render view_path
   end
@@ -45,8 +45,7 @@ class AuthorizationRequestsController < AuthenticatedUserController
 
   def create_for_multiple_steps
     authorization_request = authorization_request_class.create!(
-      applicant: current_user,
-      organization: current_organization,
+      authorization_request_create_common_params
     )
 
     step_localized = t("wicked.#{@authorization_request_form.steps.first[:name]}")
@@ -100,9 +99,16 @@ class AuthorizationRequestsController < AuthenticatedUserController
 
   def authorization_request_create_params
     authorization_request_params.merge(
+      authorization_request_create_common_params,
+    )
+  end
+
+  def authorization_request_create_common_params
+    {
       applicant: current_user,
       organization: current_organization,
-    )
+      form_uid: @authorization_request_form.uid
+    }
   end
 
   def authorization_request_update_params
