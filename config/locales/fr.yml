@@ -108,16 +108,6 @@ fr:
     build:
       update:
         error: *authorization_requests_update_error
-    api_infinoe_production:
-      sandbox_authorization_request:
-        title: L'habilitation de bac à sable
-        description: "L'habilitation de bac à sable associée est '%{authorization_request_name}', disponible à l'adresse suivante: %{authorization_request_link}"
-      recette_fonctionnelle:
-        title: La recette fonctionnelle
-      homologation:
-        title: L'homologation de sécurité
-      volumetrie:
-        title: Volumétrie attendue
   instruction:
     authorization_requests:
       index:
