@@ -13,7 +13,11 @@ module AuthorizationCore::Scopes
 
           def scopes
             data['scopes'] ||= []
-            super
+            begin
+              JSON.parse(super)
+            rescue StandardError
+              super
+            end
           end
 
           @scopes_enabled = true
