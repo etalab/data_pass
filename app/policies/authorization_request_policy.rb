@@ -5,22 +5,26 @@ class AuthorizationRequestPolicy < ApplicationPolicy
   end
 
   def show?
-    record.applicant == user
+    same_user?
   end
 
   def update?
-    record.applicant == user &&
-      record.in_draft? &&
-      record.applicant == user
+    same_user? &&
+      record.in_draft?
   end
 
   def submit?
-    record.persisted? &&
-      record.in_draft? &&
-      record.applicant == user
+    same_user? &&
+      record.persisted? &&
+      record.in_draft?
   end
 
   private
+
+  def same_user?
+    record.applicant == user &&
+      record.organization == current_organization
+  end
 
   def unicity_constraint_violated?
     return false unless record.unique?

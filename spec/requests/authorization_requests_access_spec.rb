@@ -36,4 +36,30 @@ RSpec.describe 'Authorization requests access' do
       end
     end
   end
+
+  describe 'show' do
+    subject(:show_authorization_request) do
+      get authorization_request_form_path(form_uid: authorization_request.form_uid, id: authorization_request.id)
+
+      response
+    end
+
+    context 'when user is applicant and has the correct current organization' do
+      let(:authorization_request) { create(:authorization_request, :hubee_cert_dc, organization: user.current_organization, applicant: user) }
+
+      it { is_expected.to have_http_status(:ok) }
+    end
+
+    context 'when user is applicant but has not the correct current organization' do
+      let(:another_organization) do
+        organization = create(:organization)
+        user.organizations << organization
+        organization
+      end
+
+      let(:authorization_request) { create(:authorization_request, :hubee_cert_dc, applicant: user, organization: another_organization) }
+
+      it_behaves_like 'an unauthorized access'
+    end
+  end
 end
