@@ -4,7 +4,7 @@ class AuthorizationRequestsController < AuthenticatedUserController
   end
 
   def new
-    @authorization_definition = AuthorizationDefinition.find(params[:id])
+    @authorization_definition = AuthorizationDefinition.find(id_sanitized)
 
     if @authorization_definition.available_forms.one?
       redirect_to new_authorization_request_form_path(form_uid: @authorization_definition.available_forms.first.uid)
@@ -15,5 +15,11 @@ class AuthorizationRequestsController < AuthenticatedUserController
         render :new
       end
     end
+  end
+
+  private
+
+  def id_sanitized
+    params[:id].underscore
   end
 end

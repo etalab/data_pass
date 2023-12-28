@@ -12,7 +12,8 @@ Rails.application.routes.draw do
   patch '/compte', to: 'profile#update'
 
   scope(path_names: { new: 'nouveau' }) do
-    resources :authorization_requests, only: %w[index new], path: 'habilitations'
+    resources :authorization_requests, only: %w[index], path: 'habilitations'
+    get '/habilitations/:id/nouveau', to: 'authorization_requests#new', as: :new_authorization_request
 
     scope(path: 'formulaires/:form_uid') do
       resources :authorization_request_forms, only: %w[new create show update], path: 'demande'
