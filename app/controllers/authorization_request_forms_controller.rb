@@ -8,7 +8,11 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   def new
     authorize @authorization_request_form, :new?
 
-    @authorization_request = authorization_request_class.new(applicant: current_user, organization: current_organization, form_uid: @authorization_request_form.uid)
+    @authorization_request = authorization_request_class.new(
+      applicant: current_user,
+      organization: current_organization,
+      form_uid: @authorization_request_form.uid,
+    )
 
     render view_path
   end
@@ -44,32 +48,28 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   private
 
   def create_for_multiple_steps
-    @authorization_request = authorization_request_class.new
+    organizer = organizer_for_creation
 
-    @authorization_request.assign_attributes(
-      authorization_request_create_common_params.merge(
-        authorization_request_create_extra_params_from_form
-      )
+    authorization_request = organizer.authorization_request
+
+    step_localized = t("wicked.#{authorization_request.form.steps.first[:name]}")
+
+    redirect_to authorization_request_form_build_path(
+      form_uid: authorization_request.form_uid,
+      authorization_request_id: authorization_request.id,
+      id: step_localized,
     )
-
-    @authorization_request.save!
-
-    step_localized = t("wicked.#{@authorization_request_form.steps.first[:name]}")
-
-    redirect_to authorization_request_form_build_path(form_uid: @authorization_request_form.uid, authorization_request_id: @authorization_request.id, id: step_localized)
   end
 
   def create_for_single_page_form
-    @authorization_request = authorization_request_class.new
+    organizer = organizer_for_creation(authorization_request_params)
 
-    @authorization_request.assign_attributes(
-      authorization_request_create_params
-    )
+    @authorization_request = organizer.authorization_request
 
-    if @authorization_request.save
+    if organizer.success?
       success_message(title: t('authorization_request_forms.create_for_single_page_form.success', name: @authorization_request.name))
 
-      redirect_to authorization_request_form_path(form_uid: @authorization_request_form.uid, id: @authorization_request.id)
+      redirect_to authorization_request_form_path(form_uid: @authorization_request.form_uid, id: @authorization_request.id)
     else
       error_message(title: t('authorization_request_forms.create_for_single_page_form.error.title'), description: t('authorization_request_forms.create_for_single_page_form.error.description'))
 
@@ -77,13 +77,25 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     end
   end
 
+  def organizer_for_creation(authorization_request_params = nil)
+    CreateAuthorizationRequest.call(
+      user: current_user,
+      authorization_request_form: @authorization_request_form,
+      authorization_request_params:,
+    )
+  end
+
   def update_model
     authorize @authorization_request, :update?
 
-    if @authorization_request.update(authorization_request_update_params)
+    organizer = organizer_for_update
+
+    @authorization_request = organizer.authorization_request
+
+    if organizer.success?
       success_message(title: t('authorization_request_forms.update.success', name: @authorization_request.name))
 
-      redirect_to authorization_request_form_path(form_uid: @authorization_request.form.uid, id: @authorization_request.id)
+      redirect_to authorization_request_form_path(form_uid: @authorization_request.form_uid, id: @authorization_request.id)
     else
       error_message(title: t('authorization_request_forms.update.error.title'), description: t('authorization_request_forms.update.error.description'))
 
@@ -91,10 +103,24 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     end
   end
 
+  def organizer_for_update
+    UpdateAuthorizationRequest.call(
+      authorization_request: @authorization_request,
+      authorization_request_params:,
+    )
+  end
+
   def submit
     authorize @authorization_request, :submit?
 
-    if @authorization_request.update(authorization_request_params) && @authorization_request.submit
+    organizer = SubmitAuthorizationRequest.call(
+      authorization_request: @authorization_request,
+      authorization_request_params:,
+    )
+
+    @authorization_request = organizer.authorization_request
+
+    if organizer.success?
       success_message(title: t('authorization_request_forms.submit.success', name: @authorization_request.name))
 
       redirect_to dashboard_path
@@ -102,55 +128,6 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
       error_message(title: t('authorization_request_forms.submit.error.title'), description: t('authorization_request_forms.submit.error.description'))
 
       render view_path(:finish), status: :unprocessable_entity
-    end
-  end
-
-  def authorization_request_create_params
-    authorization_request_params.merge(
-      authorization_request_create_common_params,
-    ).merge(
-      authorization_request_create_extra_params_from_form
-    )
-  end
-
-  def authorization_request_create_common_params
-    {
-      applicant: current_user,
-      organization: current_organization,
-      form_uid: @authorization_request_form.uid
-    }
-  end
-
-  def authorization_request_create_extra_params_from_form
-    @authorization_request_form.data || {}
-  end
-
-  def authorization_request_update_params
-    authorization_request_params
-  end
-
-  def authorization_request_params
-    params.require(authorization_request_class.model_name.singular).permit(
-      extract_permitted_attributes(authorization_request_class).push(
-        %i[
-          terms_of_service_accepted
-          data_protection_officer_informed
-        ]
-      )
-    )
-  end
-
-  def extract_permitted_attributes(authorization_request_class)
-    extra_attributes = authorization_request_class.extra_attributes.map(&:to_sym).concat(
-      authorization_request_class.documents.map(&:to_sym)
-    )
-
-    extra_attributes << { scopes: [] } if authorization_request_class.scopes_enabled?
-
-    authorization_request_class.contact_types.each_with_object(extra_attributes) do |contact_type, attributes|
-      attributes.concat(
-        authorization_request_class.contact_attributes.map { |attribute| :"#{contact_type}_#{attribute}" }
-      )
     end
   end
 
@@ -164,6 +141,10 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     else
       @authorization_request.form.uid.underscore
     end
+  end
+
+  def authorization_request_params
+    params.require(authorization_request_class.model_name.singular)
   end
 
   def extract_authorization_request
