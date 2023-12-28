@@ -18,6 +18,8 @@ fr:
         cadre_juridique_url: Lien vers le texte relatif au cadre juridique
         cadre_juridique_document: Document associé au cadre juridique
 
+        scopes: Les données
+
         administrateur_metier_family_name: Nom de famille de l'administrateur système
         administrateur_metier_given_name: Prénom de l'administrateur système
         administrateur_metier_email: Email de l'administrateur système
@@ -55,3 +57,9 @@ fr:
         homologation_date_fin: Date de fin de l'homologation
 
         volumetrie_appels_par_minute: Volumétrie d'appels par minute
+    errors:
+      models:
+        authorization_request:
+          attributes:
+            scopes:
+              blank: doivent au moins contenir un élément sélectionné ci-dessous

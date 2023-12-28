@@ -1,5 +1,17 @@
 <% @authorization_request.available_scopes.group_by(&:group).each do |group_name, scopes| %>
   <div class="fr-form-group authorization-request-scopes-group">
+    <% if @authorization_request.errors.key?(:scopes) %>
+      <div class="fr-alert fr-alert--warning fr-alert--sm" role="alert">
+        <ul>
+          <% @authorization_request.errors.full_messages.each do |message| %>
+            <li>
+              <%= message %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
     <fieldset class="fr-fieldset">
       <h3 class="authorization-request-scopes-group-title">
         <%= group_name %>
@@ -13,3 +25,5 @@
     </fieldset>
   </div>
 <% end %>
+
+<%= f.hidden_field :scopes, value: '', name: "#{@authorization_request.model_name.param_key}[scopes][]" %>

@@ -7,6 +7,7 @@ module AuthorizationCore::Scopes
         @scopes_enabled
       end
 
+      # rubocop:disable Metrics/MethodLength
       def self.add_scopes(options = {})
         class_eval do
           store_accessor :data, :scopes
@@ -20,11 +21,17 @@ module AuthorizationCore::Scopes
             end
           end
 
+          def scopes=(value)
+            (value || []).compact_blank!
+            super(value)
+          end
+
           @scopes_enabled = true
 
           validates :scopes, options[:validation] if options[:validation].present?
         end
       end
+      # rubocop:enable Metrics/MethodLength
     end
   end
 
