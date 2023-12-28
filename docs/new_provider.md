@@ -192,9 +192,9 @@ Il faut créer le fichier `mon_api.html.erb` dans le dossier
 ```erb
 <%= render 'authorization_requests/build/header' %>
 
-<%= authorization_request_form(@authorization_request) do |f| %>
-  <%= render partial: 'authorization_request_forms/shared/organization', locals: { f: f } %>
+<%= render partial: 'authorization_request_forms/shared/organization' %>
 
+<%= authorization_request_form(@authorization_request) do |f| %>
   <% # Les autres champs ici %>
 
   <%= render partial: 'authorization_request_forms/shared/tos_checkboxes', locals: { f: f } %>
