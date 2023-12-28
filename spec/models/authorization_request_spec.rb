@@ -4,6 +4,7 @@ RSpec.describe AuthorizationRequest do
     %w[
       hubee_cert_dc
       api_entreprise
+      api_particulier
       api_infinoe_sandbox
       api_infinoe_production
     ].each do |kind|

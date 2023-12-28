@@ -43,6 +43,16 @@ La plateforme, mise en place pour permettre le dépôt de ces aides publiques et
       contact_metier_email: *api_entreprise_mgdis_contact_email
       contact_metier_phone_number: *api_entreprise_mgdis_contact_phone_number
 
+  api-particulier:
+    name: "Demande libre"
+    authorization_request: 'APIParticulier'
+    steps:
+      - name: 'basic_infos'
+      - name: 'personal_data'
+      - name: 'legal'
+      - name: 'scopes'
+      - name: 'contacts'
+
   api-infinoe-sandbox:
     authorization_request: 'APIInfinoeSandbox'
     steps:
