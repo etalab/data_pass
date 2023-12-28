@@ -1,11 +1,11 @@
 class AuthorizationRequestForm < StaticApplicationRecord
   attr_accessor :uid,
+    :name,
     :authorization_request_class,
     :templates,
     :steps
 
-  attr_writer :name,
-    :description,
+  attr_writer :description,
     :startable_by_applicant,
     :data,
     :public
@@ -39,7 +39,7 @@ class AuthorizationRequestForm < StaticApplicationRecord
     uid
   end
 
-  def name
+  def name_with_authorization
     if @name
       "#{authorization_definition.name} - #{@name}"
     else

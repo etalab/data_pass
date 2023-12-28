@@ -47,7 +47,7 @@ end
 # https://rubular.com/r/meA7pKlPwfrZs3
 Alors(/je vois (\d+) demandes? d'habilitation(?: "([^"]+)")?(?:(?: en)? (\S+))?$/) do |count, type, status|
   if type.present?
-    expect(page).to have_css('.authorization-request-form-name', text: type, count:)
+    expect(page).to have_css('.authorization-request-definition-name', text: type, count:)
   else
     expect(page).to have_css('.authorization-request', count:)
   end
