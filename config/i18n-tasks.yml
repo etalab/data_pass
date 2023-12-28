@@ -119,6 +119,7 @@ search:
 ## Consider these keys used:
 ignore_unused:
 - 'activerecord.attributes.*'
+- 'activerecord.errors.*'
 - 'errors.messages.*'
 - 'validates_timeliness.error_value_formats.*'
 # - '{devise,kaminari,will_paginate}.*'
