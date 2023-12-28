@@ -10,7 +10,7 @@ RSpec.describe 'Submit authorization request' do
 
   describe 'elements' do
     subject do
-      visit authorization_request_path(form_uid: authorization_request_form.uid, id: authorization_request.id)
+      visit authorization_request_form_path(form_uid: authorization_request_form.uid, id: authorization_request.id)
 
       page
     end
@@ -26,7 +26,7 @@ RSpec.describe 'Submit authorization request' do
       let(:authorization_request) { create(:authorization_request) }
 
       it 'does not allow access' do
-        visit authorization_request_path(form_uid: authorization_request_form.uid, id: authorization_request.id)
+        visit authorization_request_form_path(form_uid: authorization_request_form.uid, id: authorization_request.id)
 
         expect(page).to have_current_path(dashboard_path, ignore_query: true)
       end
@@ -35,7 +35,7 @@ RSpec.describe 'Submit authorization request' do
 
   describe 'submitting the form' do
     subject do
-      visit authorization_request_path(form_uid: authorization_request_form.uid, id: authorization_request.id)
+      visit authorization_request_form_path(form_uid: authorization_request_form.uid, id: authorization_request.id)
 
       within(css_id(authorization_request)) do
         fill_in input_identifier(authorization_request_class, :administrateur_metier_email), with: 'metier@gouv.fr'

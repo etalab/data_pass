@@ -10,6 +10,7 @@
             id
             name
             type
+            form_name
             status
             actions
           ].each do |attr|
@@ -22,12 +23,15 @@
     </thead>
     <tbody>
       <% @authorization_requests.each do |authorization_request| %>
-        <tr id="<%=dom_id(authorization_request) %>" class="authorization-request">
+        <tr id="<%= dom_id(authorization_request) %>" class="authorization-request">
           <td class="authorization-request-id">
             <%= authorization_request.id %>
           </td>
           <td class="authorization-request-name">
             <%= authorization_request.name %>
+          </td>
+          <td class="authorization-request-definition-name">
+            <%= authorization_request.definition.name %>
           </td>
           <td class="authorization-request-form-name">
             <%= authorization_request.form.name %>

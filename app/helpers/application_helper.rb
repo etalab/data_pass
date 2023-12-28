@@ -1,6 +1,6 @@
 module ApplicationHelper
-  def provider_logo_path(authorization_request_form)
-    "data_providers/#{authorization_request_form.logo}"
+  def provider_logo_path(authorization_definition)
+    "data_providers/#{authorization_definition.provider.logo}"
   end
 
   def authorization_request_status_badge(authorization_request)

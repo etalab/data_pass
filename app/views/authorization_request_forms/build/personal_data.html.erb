@@ -3,6 +3,6 @@
 <%= authorization_request_form(@authorization_request) do |f| %>
   <%= render partial: 'authorization_request_forms/shared/personal_data', locals: { f: f } %>
 
-  <%= render partial: 'authorization_requests/build/wizard_buttons', locals: { f: f } %>
+  <%= render partial: 'authorization_request_forms/build/wizard_buttons', locals: { f: f } %>
 <% end %>
 

@@ -40,4 +40,10 @@ class StaticApplicationRecord
   def id
     fail NotImplementedError
   end
+
+  private
+
+  def value_or_default(value, default)
+    value.nil? ? default : value
+  end
 end

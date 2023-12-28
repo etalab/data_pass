@@ -1,8 +1,8 @@
-<%= render partial: 'authorization_requests/build/header' %>
+<%= render partial: 'authorization_request_forms/build/header' %>
 
 <div class="fr-alert fr-alert--info">
   <h3 class="fr-alert__title">
-    Vous allez démarrer une nouvelle demande d'accès pour <%= @authorization_request_form.name %>
+    Vous allez démarrer une nouvelle demande d'accès pour <%= @authorization_request_form.authorization_definition.name %>
   </h3>
 
   <p>
@@ -21,14 +21,14 @@
 <% if current_organization.authorization_requests.where(type: @authorization_request.class.name).any? %>
   <div class="fr-alert fr-alert--warning">
     <h3 class="fr-alert__title">
-      L'organization possède déjà une ou plusieurs habilitations en cours pour ce service
+      L'organisation possède déjà une ou plusieurs habilitations en cours pour ce service
     </h3>
     <p>
       Vérifiez que la demande que vous allez démarrez n'ait pas déjà été soumise ou en cours. Voici la liste:
       <ul>
         <% current_organization.authorization_requests.where(type: @authorization_request.class.name).each do |another_authorization_request| %>
           <li>
-            <%= link_to another_authorization_request.name, authorization_request_path(form_uid: another_authorization_request.form.uid, id: another_authorization_request.id), target: '_blank' %>
+            <%= link_to another_authorization_request.name, authorization_request_form_path(form_uid: another_authorization_request.form.uid, id: another_authorization_request.id), target: '_blank' %>
           </li>
         <% end %>
       </ul>

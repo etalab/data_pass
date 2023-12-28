@@ -17,13 +17,27 @@ class AuthorizationRequest < ApplicationRecord
   scope :refused, -> { where(state: 'refused') }
   scope :validated_or_refused, -> { where(state: %w[validated refused]) }
 
+  validates :form_uid, presence: true
+
+  class << self
+    delegate :description, :available_forms, :provider, :startable_by_applicant, :unique?, to: :definition
+
+    def definition
+      @definition ||= AuthorizationDefinition.find(to_s.demodulize.underscore)
+    end
+  end
+
+  def definition
+    self.class.definition
+  end
+
   def form
-    @form ||= AuthorizationRequestForm.where(authorization_request_class: self.class).first
+    @form ||= AuthorizationRequestForm.find(form_uid)
   end
 
   def name
     data['intitule'] ||
-      "#{form.name} n°#{id}"
+      "#{definition.name} n°#{id}"
   end
 
   validates :terms_of_service_accepted, presence: true, inclusion: [true], if: -> { need_complete_validation?(:finish) }

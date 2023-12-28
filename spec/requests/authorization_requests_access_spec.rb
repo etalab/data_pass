@@ -7,7 +7,7 @@ RSpec.describe 'Authorization requests access' do
 
   describe 'new' do
     subject(:new_authorization_request) do
-      get new_authorization_request_path(form_uid: authorization_request_form.uid)
+      get new_authorization_request_form_path(form_uid: authorization_request_form.uid)
 
       response
     end

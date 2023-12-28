@@ -11,6 +11,7 @@ class APIInfinoeSandboxBridge < ApplicationBridge
     production_authorization_request = AuthorizationRequest::APIInfinoeProduction.new(
       organization: authorization_request.organization,
       applicant: authorization_request.applicant,
+      form_uid: 'api-infinoe-production',
     )
 
     production_authorization_request.sandbox_authorization_request = authorization_request

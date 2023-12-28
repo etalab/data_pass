@@ -1,0 +1,26 @@
+<div class="sub-header">
+  <h1 class="fr-m-0">
+    <%= t('.title') %>
+  </h1>
+</div>
+
+<% @authorization_definitions.each do |authorization_definition| %>
+  <div class="data-provider" id="<%= dom_id(authorization_definition) %>">
+    <div class="data-provider-logo">
+      <%= image_tag(provider_logo_path(authorization_definition)) %>
+    </div>
+    <div class="data-provider-info">
+      <div class="data-provider-title">
+        <%= authorization_definition.name %>
+      </div>
+      <div class="data-provider-description">
+        <%= authorization_definition.description %>
+      </div>
+    </div>
+    <% if policy(authorization_definition.authorization_request_class).new? %>
+      <div class="data-provider-cta">
+        <%= link_to t('.cta'), new_authorization_request_path(id: authorization_definition.id), class: %w(fr-btn fr-btn--sm) %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

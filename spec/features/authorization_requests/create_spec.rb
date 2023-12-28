@@ -9,7 +9,7 @@ RSpec.describe 'Create authorization request' do
 
   describe 'elements' do
     subject do
-      visit new_authorization_request_path(form_uid: authorization_request_form.uid)
+      visit new_authorization_request_form_path(form_uid: authorization_request_form.uid)
 
       page
     end
@@ -21,7 +21,7 @@ RSpec.describe 'Create authorization request' do
 
   describe 'filling the form' do
     subject do
-      visit new_authorization_request_path(form_uid: authorization_request_form.uid)
+      visit new_authorization_request_form_path(form_uid: authorization_request_form.uid)
 
       within(css_id(authorization_request_class)) do
         click_button 'save_authorization_request'
