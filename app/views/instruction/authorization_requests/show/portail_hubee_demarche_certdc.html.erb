@@ -1,9 +1,0 @@
-<%= render 'authorization_request_forms/build/header' %>
-
-<%= form_with(model: @authorization_request, url: '#', builder: DisabledAuthorizationRequestFormBuilder) do |f| %>
-  <%= render partial: 'authorization_request_forms/shared/organization', locals: { f: f } %>
-  <%= render partial: 'authorization_request_forms/shared/contacts', locals: { f: f } %>
-  <%= render partial: 'authorization_request_forms/shared/tos_checkboxes', locals: { f: f } %>
-<% end %>
-
-<%= render partial: 'moderation_buttons' %>

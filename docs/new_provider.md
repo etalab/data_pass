@@ -6,8 +6,7 @@ La checklist globale:
 2. Ajouter et configurer le modèle (avec sa factory et son test) ;
 3. Configurer les formulations via l'I18n ;
 4. Ajouter la vue de complétion côté demandeur ;
-5. Ajouter la vue de modération côté instructeur ;
-6. Ajouter un test d'intégration Cucumber.
+5. Ajouter un test d'intégration Cucumber.
 
 Disclaimer: La procédure est amené à évoluer rapidement, et certains parties seront
 peut-être obsolètes. Il y a par ailleurs des refactorisations logiques, mais
@@ -203,36 +202,7 @@ Il faut créer le fichier `mon_api.html.erb` dans le dossier
 <% end %>
 ```
 
-## 5. Ajouter la vue de modération côté instructeur
-
-### 5.1 Cas du multi étapes
-
-Il n'y a rien à faire.
-
-### 5.2 Cas du formulaire sur 1 page
-
-Il faut créer le fichier `mon_api.html.erb` dans
-le dossier [`app/views/instruction/authorization_requests/show`](../app/views/instruction/authorization_requests/show)
-avec le markup minimal:
-
-```erb
-<%= render 'authorization_requests/build/header' %>
-
-<%= form_with(model: @authorization_request, url: '#', builder: DisabledAuthorizationRequestFormBuilder) do |f| %>
-  <%= render partial: 'authorization_request_forms/shared/organization', locals: { f: f } %>
-
-  <% # Les autres champs ici %>
-
-  <%= render partial: 'authorization_request_forms/shared/tos_checkboxes', locals: { f: f } %>
-<% end %>
-
-<%= render partial: 'moderation_buttons' %>
-```
-
-Les formulaires 4.2 et 5.2 étant assez identiques, faire des partials n'est pas
-à exclure.
-
-## 6. Ajout du test d'intégration Cucumber
+## 5. Ajout du test d'intégration Cucumber
 
 Créer le fichier `mon_api.feature` dans [`features/habilitations`](../features/habilitations) et
 remplissez en fonction de la spécification.

@@ -1,4 +1,6 @@
 class Instruction::AuthorizationRequestsController < InstructionController
+  helper AuthorizationRequestsHelpers
+
   before_action :extract_authorization_request, except: [:index]
 
   def index
@@ -43,7 +45,7 @@ class Instruction::AuthorizationRequestsController < InstructionController
     if @authorization_request.form.multiple_steps?
       render 'show'
     else
-      render "instruction/authorization_requests/show/#{@authorization_request.form.uid.underscore}"
+      render "authorization_request_forms/#{@authorization_request.form.uid.underscore}"
     end
   end
 
