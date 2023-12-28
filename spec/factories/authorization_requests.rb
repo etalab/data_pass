@@ -140,6 +140,17 @@ FactoryBot.define do
       form_uid { 'api-entreprise-mgdis' }
     end
 
+    trait :api_particulier do
+      type { 'AuthorizationRequest::APIParticulier' }
+      form_uid { 'api-particulier' }
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+      with_scopes
+      with_contacts
+    end
+
     trait :api_infinoe_sandbox do
       type { 'AuthorizationRequest::APIInfinoeSandbox' }
       form_uid { 'api-infinoe-sandbox' }

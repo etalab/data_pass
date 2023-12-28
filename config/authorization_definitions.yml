@@ -137,6 +137,18 @@ shared:
         value: "open_data_brevets_marques_modeles_deposes_inpi"
         link: "https://entreprise.api.gouv.fr/catalogue?APIEntreprise_Endpoint%5Bquery%5D=inpi%20d%C3%A9pos%C3%A9"
         included: true
+  api_particulier:
+    name: "API Particulier"
+    description: "Entités administratives, simplifiez les démarches des particuliers en récupérant pour eux leurs informations administratives (quotient familial CAF, composition familiale, statut demandeur d’emploi, étudiant et étudiant boursier)."
+    provider: 'dinum'
+    link: 'https://staging.api.gouv.fr/les-api/api-particulier'
+    scopes:
+      - name: "Quotient familial CAF & MSA"
+        value: "cnaf_quotient_familial"
+        group: "API Quotient familial CAF & MSA"
+      - name: "Identités allocataire et conjoint"
+        value: "cnaf_allocataires"
+        group: "API Quotient familial CAF & MSA"
   api_infinoe_sandbox:
     name: "API INFINOE (Bac à sable)"
     public: false
