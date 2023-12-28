@@ -3,6 +3,7 @@ shared:
   portail-hubee-demarche-certdc:
     authorization_request: 'HubEECertDC'
   api-entreprise:
+    name: "Demande libre"
     authorization_request: 'APIEntreprise'
     steps:
       - name: 'basic_infos'
@@ -10,6 +11,38 @@ shared:
       - name: 'legal'
       - name: 'scopes'
       - name: 'contacts'
+  api-entreprise-mgdis:
+    name: "Solution Portail des aides de l'éditeur MGDIS"
+    authorization_request: 'APIEntreprise'
+    data:
+      intitule: "Solution Portail des aides de l'éditeur MGDIS"
+      description: "Dans un objectif de dématérialisation des aides publiques, nous mettons en place un outil, à destination des usagers de notre organisme leur permettant de déposer des demandes d’aides/subventions, qui seront ensuite instruites par nos agents dans ce même outil.
+La demande d’accès à API Entreprise est effectuée dans le but de faciliter le dépôt et l’instruction des demandes d’aides publiques pour les entreprises et associations du territoire, et de récupérer les justificatifs administratifs de ces organisations demandant des aides publiques, sans avoir à les demander aux demandeurs d’aides.
+
+La plateforme, mise en place pour permettre le dépôt de ces aides publiques et l’instruction de ces demandes, s’appuie sur la solution « Portail des Aides » de l’éditeur MGDIS."
+      scopes:
+        - unites_legales_etablissements_insee
+        - associations_djepva
+        - mandataires_sociaux_infogreffe
+        - attestation_fiscale_dgfip
+        - attestation_sociale_urssaf
+      destinataire_donnees_caractere_personnel: Agents instructeurs des aides publiques
+      duree_conservation_donnees_caractere_personnel: 36
+      cadre_juridique_nature: "Décret n° 2019-31 du 18 janvier 2019 relatif aux échanges d’informations et de données entre administrations dans le cadre des démarches administratives et à l’expérimentation prévue par l’article 40 de la loi n° 2018-727 du 10 août 2018 pour un Etat au service d’une société de confiance"
+      cadre_juridique_url: "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000038029589/"
+
+      contact_technique_given_name: &api_entreprise_mgdis_contact_given_name 'Jean-Michel'
+      contact_technique_family_name: &api_entreprise_mgdis_contact_family_name 'Dupont'
+      contact_technique_job_title: &api_entreprise_mgdis_contact_job_title 'Chef de projet'
+      contact_technique_email: &api_entreprise_mgdis_contact_email 'assistance@mgdis.fr'
+      contact_technique_phone_number: &api_entreprise_mgdis_contact_phone_number '0297681828'
+
+      contact_metier_given_name: *api_entreprise_mgdis_contact_given_name
+      contact_metier_family_name: *api_entreprise_mgdis_contact_family_name
+      contact_metier_job_title: *api_entreprise_mgdis_contact_job_title
+      contact_metier_email: *api_entreprise_mgdis_contact_email
+      contact_metier_phone_number: *api_entreprise_mgdis_contact_phone_number
+
   api-infinoe-sandbox:
     authorization_request: 'APIInfinoeSandbox'
     steps:

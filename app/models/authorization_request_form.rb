@@ -7,6 +7,7 @@ class AuthorizationRequestForm < StaticApplicationRecord
   attr_writer :name,
     :description,
     :startable_by_applicant,
+    :data,
     :public
 
   def self.all
@@ -21,6 +22,7 @@ class AuthorizationRequestForm < StaticApplicationRecord
         :name,
         :description,
         :public,
+        :data,
         :startable_by_applicant
       ).merge(
         uid: uid.to_s,
@@ -69,6 +71,10 @@ class AuthorizationRequestForm < StaticApplicationRecord
 
   def public
     value_or_default(@public, true)
+  end
+
+  def data
+    @data || {}
   end
 
   def self.indexable

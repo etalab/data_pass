@@ -79,6 +79,9 @@ Pour [le formulaire](../config/authorization_request_forms.yml):
     public: true
     # Optionnel. Prend celui de l'habilitation par défaut
     startable_by_applicant: true
+    # Optionnel. Données pré-rempli au démarrage du formulaire.
+    data:
+      intitule: "Mon intitulé"
     # Optionnel. Détermine les étapes ordonnées pour remplir ce formulaire. Si
     # ce champ n'est pas défini le formulaire sera sur une seule page pour le
     # demandeur. La première étape est systématiquement l'organisation et le

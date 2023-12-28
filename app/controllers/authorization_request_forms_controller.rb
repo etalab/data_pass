@@ -44,17 +44,25 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   private
 
   def create_for_multiple_steps
-    authorization_request = authorization_request_class.create!(
-      authorization_request_create_common_params
+    @authorization_request = authorization_request_class.new
+
+    @authorization_request.assign_attributes(
+      authorization_request_create_common_params.merge(
+        authorization_request_create_extra_params_from_form
+      )
     )
+
+    @authorization_request.save!
 
     step_localized = t("wicked.#{@authorization_request_form.steps.first[:name]}")
 
-    redirect_to authorization_request_form_build_path(form_uid: @authorization_request_form.uid, authorization_request_id: authorization_request.id, id: step_localized)
+    redirect_to authorization_request_form_build_path(form_uid: @authorization_request_form.uid, authorization_request_id: @authorization_request.id, id: step_localized)
   end
 
   def create_for_single_page_form
-    @authorization_request = authorization_request_class.new(
+    @authorization_request = authorization_request_class.new
+
+    @authorization_request.assign_attributes(
       authorization_request_create_params
     )
 
@@ -100,6 +108,8 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   def authorization_request_create_params
     authorization_request_params.merge(
       authorization_request_create_common_params,
+    ).merge(
+      authorization_request_create_extra_params_from_form
     )
   end
 
@@ -109,6 +119,10 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
       organization: current_organization,
       form_uid: @authorization_request_form.uid
     }
+  end
+
+  def authorization_request_create_extra_params_from_form
+    @authorization_request_form.data || {}
   end
 
   def authorization_request_update_params

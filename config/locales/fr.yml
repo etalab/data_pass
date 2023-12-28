@@ -74,6 +74,9 @@ fr:
     index:
       title: Demander une nouvelle habilitation
       cta: Remplir une demande
+    new:
+      title: Démarrer une nouvelle habilitation pour %{authorization_name}
+      description: "Il existe plusieurs formulaires pour obtenir une habilitation à %{authorization_name}, sélectionnez celui qui correspond le mieux à votre cas d'usage :"
   authorization_request_forms:
     create_for_single_page_form:
       success: La demande d'habilitation %{name} a été sauvegardée avec succès
