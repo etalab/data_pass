@@ -1,6 +1,16 @@
 class ApplicationController < ActionController::Base
   helper ActiveLinks
 
+  helper_method :namespace?
+
+  def current_namespace
+    self.class.name.split('::').first
+  end
+
+  def namespace?(namespace)
+    current_namespace.underscore == namespace.to_s
+  end
+
   def error_message_for(object, title:, id: nil)
     flash_message(:error, title:, description: object.errors.full_messages, id:, activemodel: true)
   end
