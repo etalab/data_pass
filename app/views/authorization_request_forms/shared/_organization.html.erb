@@ -1,18 +1,25 @@
+<% user = @authorization_request.present? ? @authorization_request.applicant : current_user %>
+<% organization = @authorization_request.present? ? @authorization_request.organization : current_organization %>
+
 <div class="fr-container-fluid">
   <div class="fr-grid-row">
     <div class="fr-col-12 fr-col-lg-6">
-      <div id="<%= dom_id(current_user, :authorization_request_card) %>" class="fr-basic-card">
+      <div id="<%= dom_id(user, :authorization_request_card) %>" class="fr-basic-card">
         <h3>
-          <%= t('.you.title') %>
+          <% if namespace?(:instruction) %>
+            <%= t('.applicant.title') %>
+          <% else %>
+            <%= t('.you.title') %>
+          <% end %>
         </h3>
 
         <ul>
           <li>
-            <strong><%= current_user.full_name %></strong>
+            <strong><%= user.full_name %></strong>
           </li>
           <% %i[email job_title phone_number].each do |attr| %>
             <li>
-              <%= current_user.public_send(attr) %>
+              <%= user.public_send(attr) %>
             </li>
           <% end %>
         </ul>
@@ -26,25 +33,29 @@
     </div>
 
     <div class="fr-col-12 fr-col-lg-6">
-      <div id="<%= dom_id(current_organization, :authorization_request_card) %>" class="fr-basic-card">
+      <div id="<%= dom_id(organization, :authorization_request_card) %>" class="fr-basic-card">
         <h3>
-          <%= t('.organization.title') %>
+          <% if namespace?(:instruction) %>
+            <%= t('.organization.title') %>
+          <% else %>
+            <%= t('.your_organization.title') %>
+          <% end %>
         </h3>
 
         <ul>
           <li>
-            <strong><%= current_organization.raison_sociale %></strong>
+            <strong><%= organization.raison_sociale %></strong>
           </li>
           <% %i[siret].each do |attr| %>
             <li>
-              <%= current_organization.public_send(attr) %>
+              <%= organization.public_send(attr) %>
             </li>
           <% end %>
         </ul>
 
         <% if @authorization_request.blank? %>
           <%= form_with(url: "/auth/mon_compte_pro?prompt=select_organization", method: :post, data: { turbo: false }) do |f| %>
-            <%= f.button t('.organization.update'), id: 'change_current_organization', class: %w(fr-btn) %>
+            <%= f.button t('.your_organization.update'), id: 'change_current_organization', class: %w(fr-btn) %>
           <% end %>
         <% end %>
       </div>

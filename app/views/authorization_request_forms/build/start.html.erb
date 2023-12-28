@@ -36,8 +36,8 @@
   </div>
 <% end %>
 
-<%= authorization_request_form(@authorization_request) do |f| %>
-  <%= render partial: 'authorization_request_forms/shared/organization', locals: { f: f } %>
+<%= render partial: 'authorization_request_forms/shared/organization' %>
 
+<%= authorization_request_form(@authorization_request) do |f| %>
   <%= f.submit t('authorization_request_forms.form.start'), name: :start, id: :start_authorization_request, class: %w(fr-btn fr-icon-save-line fr-btn--icon-left) %>
 <% end %>

@@ -10,8 +10,9 @@
   <strong>Attention :</strong> une fois votre demande soumise, vous ne pourrez plus la modifier.
 </p>
 
+<%= render partial: 'authorization_request_forms/shared/organization' %>
+
 <%= authorization_request_form(@authorization_request) do |f| %>
-  <%= render partial: 'authorization_request_forms/shared/organization', locals: { f: f } %>
   <% @authorization_request.form.steps.each do |step| %>
     <%= render partial: "authorization_request_forms/shared/#{step[:name]}", locals: { f: f } %>
   <% end %>

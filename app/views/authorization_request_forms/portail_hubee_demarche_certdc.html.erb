@@ -1,7 +1,8 @@
 <%= render 'authorization_request_forms/build/header' %>
 
+<%= render partial: 'authorization_request_forms/shared/organization' %>
+
 <%= authorization_request_form(@authorization_request) do |f| %>
-  <%= render partial: 'authorization_request_forms/shared/organization', locals: { f: f } %>
   <%= render partial: 'authorization_request_forms/shared/contacts', locals: { f: f } %>
   <%= render partial: 'authorization_request_forms/shared/tos_checkboxes', locals: { f: f } %>
   <%= render partial: 'authorization_request_forms/shared/submit_buttons', locals: { f: f } %>

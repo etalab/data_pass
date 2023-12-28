@@ -1,8 +1,8 @@
 <%= render 'authorization_request_forms/build/header' %>
 
-<%= authorization_request_form(@authorization_request) do |f| %>
-  <%= render partial: 'authorization_request_forms/shared/organization', locals: { f: f } %>
+<%= render partial: 'authorization_request_forms/shared/organization' %>
 
+<%= authorization_request_form(@authorization_request) do |f| %>
   <div class="fr-container-fluid">
     <div class="fr-grid-row">
       <% %i[responsable_traitement delegue_protection_donnees].each do |contact_type| %>

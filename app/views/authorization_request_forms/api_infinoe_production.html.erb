@@ -1,8 +1,8 @@
 <%= render 'authorization_request_forms/build/header' %>
 
-<%= authorization_request_form(@authorization_request) do |f| %>
-  <%= render partial: 'authorization_request_forms/shared/organization', locals: { f: f } %>
+<%= render partial: 'authorization_request_forms/shared/organization' %>
 
+<%= authorization_request_form(@authorization_request) do |f| %>
   <fieldset class="fr-fieldset" aria-label="feedme" aria-describedby="name-1-fieldset-messages">
     <h3>
       <%= t('authorization_request_forms.api_infinoe_production.sandbox_authorization_request.title') %>

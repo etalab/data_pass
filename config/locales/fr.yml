@@ -104,7 +104,11 @@ fr:
         you:
           title: Vous êtes
           update: Mettre à jour mes informations
+        applicant:
+          title: Demandeur
         organization:
+          title: Organisation
+        your_organization:
           title: Vous faites cette demande pour
           update: Changer d'organisation
     build:
