@@ -121,6 +121,10 @@ FactoryBot.define do
       with_contacts
     end
 
+    trait :portail_hubee_demarche_certdc do
+      hubee_cert_dc
+    end
+
     trait :api_entreprise do
       type { 'AuthorizationRequest::APIEntreprise' }
       form_uid { 'api-entreprise' }
@@ -130,6 +134,10 @@ FactoryBot.define do
       with_cadre_juridique
       with_scopes
       with_contacts
+    end
+
+    trait :api_entreprise_mgdis do
+      form_uid { 'api-entreprise-mgdis' }
     end
 
     trait :api_infinoe_sandbox do
