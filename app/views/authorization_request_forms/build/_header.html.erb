@@ -3,3 +3,12 @@
 
   <%= authorization_request_status_badge(@authorization_request) %>
 </h1>
+
+<% if defined?(wizard_steps) %>
+  <%=
+    dsfr_stepper(
+      current_step: authorization_request_step_name(@authorization_request, wizard_value(params[:id])),
+      steps: wizard_steps.map { |step| authorization_request_step_name(@authorization_request, wizard_value(step)) }
+    )
+  %>
+<% end %>
