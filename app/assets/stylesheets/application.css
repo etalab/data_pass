@@ -21,3 +21,7 @@ turbo-frame {
 h3.with-icon img {
   vertical-align: -10%;
 }
+
+.inline {
+  display: inline!important;
+}
