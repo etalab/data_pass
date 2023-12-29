@@ -1,23 +1,5 @@
 <%= render partial: 'authorization_request_forms/build/header' %>
 
-<div class="fr-alert fr-alert--info">
-  <h3 class="fr-alert__title">
-    Vous allez démarrer une nouvelle demande d'accès pour <%= @authorization_request_form.authorization_definition.name %>
-  </h3>
-
-  <p>
-    Avant de démarrer, quelques points de vigilances:
-    <ul>
-      <li>
-        Vérifiez l'organisation pour laquelle vous allez effectuer cette demande
-      </li>
-      <li>
-        Vérifiez bien que vous êtes éligible pour cette demande
-      </li>
-    </ul>
-  </p>
-</div>
-
 <% if current_organization.authorization_requests.where(type: @authorization_request.class.name).any? %>
   <div class="fr-alert fr-alert--warning">
     <h3 class="fr-alert__title">
