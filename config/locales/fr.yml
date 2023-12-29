@@ -76,7 +76,20 @@ fr:
       cta: Remplir une demande
     new:
       title: Démarrer une nouvelle habilitation pour %{authorization_name}
-      description: "Il existe plusieurs formulaires pour obtenir une habilitation à %{authorization_name}, sélectionnez celui qui correspond le mieux à votre cas d'usage :"
+      organization:
+        description: "Vous êtes sur le point de démarrer une nouvelle demande d'habilitation pour le compte de <strong>%{organization_raison_sociale}</strong> (numéro de siret: <a href=\"https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}\" target=\"_blank\">%{organization_siret}</a>).
+  <br />
+  <br />
+  <strong>Attention</strong> : vous ne pourrez pas modifier ces informations dans ce formulaire une fois la demande démarrée. Si vous voulez effectuer cette demande pour le compte d'une autre organisation, veuillez cliquer sur le lien ci-dessous qui vous redirigera vers MonComptePro:"
+        change_cta: Changer d'organisation
+      multiple_forms:
+        description: "Il existe plusieurs formulaires pour obtenir une habilitation à %{authorization_name}, sélectionnez celui qui correspond le mieux à votre cas d'usage :"
+      multiple_steps:
+        description: "Cette demande s'effectue en plusieurs étapes. Vous pouvez à tout moment sauvegarder votre demande et la reprendre plus tard. Les étapes sont les suivantes :"
+      single_form:
+        description: "Cliquez sur le bouton ci-dessous pour démarrer le formulaire. Vous pourrez le sauvegarder et le reprendre plus tard."
+  start_authorization_request_form:
+    cta: Démarrer
   authorization_request_forms:
     create_for_single_page_form:
       success: La demande d'habilitation %{name} a été sauvegardée avec succès
