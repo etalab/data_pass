@@ -112,6 +112,10 @@ fr:
           title: Vous faites cette demande pour
           update: Changer d'organisation
     build:
+      start:
+        multiple_authorization_requests_warning:
+          title: L'organisation possède déjà une ou plusieurs habilitations en cours pour ce service
+          description: "Vérifiez que la demande que vous allez démarrez n'ait pas déjà été soumise ou en cours. Voici la liste:"
       update:
         error: *authorization_requests_update_error
 
