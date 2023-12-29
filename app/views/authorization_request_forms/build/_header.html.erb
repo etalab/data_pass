@@ -5,30 +5,10 @@
 </h1>
 
 <% if defined?(wizard_steps) %>
-  <% current_step = wizard_value(params[:id]) %>
-  <% current_step_count = wizard_steps.index(params[:id]) + 1 %>
-  <% next_step = wizard_steps[-1] != step ? wizard_value(wizard_steps[current_step_count]) : nil %>
-
-  <% steps_count = wizard_steps.count %>
-  <% current_step_name = I18n.t("authorization_request_forms.#{@authorization_request.model_name.element}.steps.#{current_step}", default: I18n.t("authorization_request_forms.default.steps.#{current_step}")) %>
-
-  <% if next_step %>
-    <% next_step_name = I18n.t("authorization_request_forms.#{@authorization_request.model_name.element}.steps.#{next_step}", default: I18n.t("authorization_request_forms.default.steps.#{next_step}")) %>
-  <% end %>
-
-  <div class="fr-stepper">
-    <h2 class="fr-stepper__title">
-      <%= current_step_name %>
-      <span class="fr-stepper__state">
-        Étape <%= current_step_count %> sur <%= steps_count %>
-      </span>
-    </h2>
-    <div class="fr-stepper__steps" data-fr-current-step="<%= current_step_count %>" data-fr-steps="<%= steps_count %>"></div>
-    <p class="fr-stepper__details">
-      <span class="fr-text--bold">
-        Étape suivante :
-      </span>
-      <%= next_step_name %>
-    </p>
-  </div>
+  <%=
+    dsfr_stepper(
+      current_step: authorization_request_step_name(@authorization_request, wizard_value(params[:id])),
+      steps: wizard_steps.map { |step| authorization_request_step_name(@authorization_request, wizard_value(step)) }
+    )
+  %>
 <% end %>
