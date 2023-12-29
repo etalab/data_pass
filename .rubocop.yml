@@ -136,6 +136,9 @@ Style/StringLiterals:
 Style/StringLiteralsInInterpolation:
   EnforcedStyle: single_quotes
 
+Style/TrailingCommaInArrayLiteral:
+  Enabled: false
+
 Rails/OutputSafety:
   Enabled: false
 
