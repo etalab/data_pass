@@ -5,7 +5,7 @@ fr:
     basic_infos: 'informations-de-base'
     personal_data: 'donnees-personnelles'
     legal: 'cadre-juridique'
-    scopes: 'donneees'
+    scopes: 'donnees'
     contacts: 'contacts'
     finish: 'resume'
   authorization_request:
