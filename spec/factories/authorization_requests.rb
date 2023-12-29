@@ -156,7 +156,6 @@ FactoryBot.define do
       form_uid { 'api-infinoe-sandbox' }
 
       with_basic_infos
-      with_personal_data
       with_cadre_juridique
       with_contacts
     end

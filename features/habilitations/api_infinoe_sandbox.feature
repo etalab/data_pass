@@ -12,9 +12,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation API INFINOE (Bac à sab
     * je renseigne les infos de bases du projet
     * je clique sur "Suivant"
 
-    * je renseigne les infos concernant les données personnelles
-    * je clique sur "Suivant"
-
     * je renseigne le cadre légal
     * je clique sur "Suivant"
 

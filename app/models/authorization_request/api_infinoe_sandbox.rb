@@ -1,6 +1,5 @@
 class AuthorizationRequest::APIInfinoeSandbox < AuthorizationRequest
   include AuthorizationExtensions::BasicInfos
-  include AuthorizationExtensions::PersonalData
   include AuthorizationExtensions::CadreJuridique
   include AuthorizationExtensions::GDPRContacts
 
