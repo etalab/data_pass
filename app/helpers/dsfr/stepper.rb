@@ -1,4 +1,4 @@
-module DSFRStepperHelper
+module DSFR::Stepper
   def dsfr_stepper(current_step:, steps:)
     content_tag(:div, class: 'fr-stepper') do
       [
