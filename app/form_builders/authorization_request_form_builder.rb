@@ -17,6 +17,8 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
   end
 
   def info_for(block)
+    return if @template.namespace?(:instruction)
+
     info_wording = {
       title: wording_for('info.title', block),
       content: wording_for('info.content', block),
@@ -36,6 +38,8 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
   end
 
   def contacts_infos(contacts = nil)
+    return if @template.namespace?(:instruction)
+
     contacts ||= @object.class.contact_types
 
     dsfr_accordion(
