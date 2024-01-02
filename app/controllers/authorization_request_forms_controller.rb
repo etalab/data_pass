@@ -62,7 +62,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   end
 
   def create_for_single_page_form
-    organizer = organizer_for_creation(authorization_request_params)
+    organizer = organizer_for_creation
 
     @authorization_request = organizer.authorization_request
 
@@ -77,11 +77,10 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     end
   end
 
-  def organizer_for_creation(authorization_request_params = nil)
+  def organizer_for_creation
     CreateAuthorizationRequest.call(
       user: current_user,
       authorization_request_form: @authorization_request_form,
-      authorization_request_params:,
     )
   end
 

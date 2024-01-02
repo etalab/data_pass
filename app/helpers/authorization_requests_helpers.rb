@@ -1,4 +1,10 @@
 module AuthorizationRequestsHelpers
+  def start_authorization_request_form(form)
+    authorization_request_form(form.authorization_request_class.new(form_uid: form.uid)) do |f|
+      f.submit t('start_authorization_request_form.cta'), name: :start, id: :start_authorization_request, class: %w[fr-btn fr-icon-save-line fr-btn--icon-left]
+    end
+  end
+
   def authorization_request_form(authorization_request, &)
     [
       form_with(

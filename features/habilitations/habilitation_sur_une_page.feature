@@ -8,23 +8,22 @@ Fonctionnalité: Soumission d'une demande d'habilitation simple (sur une seule p
     Sachant que je suis un demandeur
     Et que je me connecte
 
-  Scénario: Le formulaire ne possède qu'un bouton de sauvegarde au démarrage
+  Scénario: Le formulaire ne possède qu'un bouton de démarrage
     Quand je démarre une nouvelle demande d'habilitation "Portail HubEE - Démarche CertDC"
     Alors je suis sur la page "Portail HubEE - Démarche CertDC"
-    Et il y a un bouton "Enregistrer les modifications"
+    Et il y a un bouton "Démarrer"
     Et il n'y a pas de bouton "Soumettre la demande d'habilitation"
 
   Scénario: J'enregistre une demande d'habilitation
     Quand je démarre une nouvelle demande d'habilitation "Portail HubEE - Démarche CertDC"
-    Et que je clique sur "Enregistrer les modifications"
-    Alors il y a un message de succès contenant "sauvegardée avec succès"
-    Et je suis sur la page "Portail HubEE - Démarche CertDC"
+    Et que je clique sur "Démarrer"
+    Alors je suis sur la page "Portail HubEE - Démarche CertDC"
     Et il y a un bouton "Soumettre la demande d'habilitation"
     Et il y a un bouton "Enregistrer les modifications"
 
   Scénario: Je soumets une demande d'habilitation invalide
     Quand je démarre une nouvelle demande d'habilitation "Portail HubEE - Démarche CertDC"
-    Et que je clique sur "Enregistrer les modifications"
+    Et que je clique sur "Démarrer"
     Et que je clique sur "Soumettre la demande d'habilitation"
     Alors il y a un message d'erreur contenant "Une erreur est survenue lors de la soumission de la demande d'habilitation"
     Et il y a au moins une erreur sur un champ
@@ -32,6 +31,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation simple (sur une seule p
 
   Scénario: Je soumets une demande d'habilitation valide
     Quand je démarre une nouvelle demande d'habilitation "Portail HubEE - Démarche CertDC"
+    Et que je clique sur "Démarrer"
     Et que je remplis les informations du contact "Administrateur métier" avec :
       | Nom    | Prénom | Email               | Téléphone   | Fonction de l'administrateur système |
       | Dupont | Jean   | dupont.jean@gouv.fr | 0836656565  | Administrateur métier                |

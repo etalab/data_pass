@@ -17,5 +17,6 @@ Fonctionnalité: Liste des habilitations
   Scénario: Je démarre une nouvelle habilitation
     Quand je vais sur la page des habilitations
     Et que je clique sur "Remplir une demande" pour l'habilitation "Portail HubEE - Démarche CertDC"
+    Et que je clique sur "Démarrer"
     Alors il y a un titre contenant "Portail HubEE - Démarche CertDC"
     Et il y a un bouton "Enregistrer les modifications"

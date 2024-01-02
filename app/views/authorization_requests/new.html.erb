@@ -4,14 +4,69 @@
   </h1>
 </div>
 
-<p>
-  <%= t('.description', authorization_name: @authorization_definition.name) %>
-</p>
+<div class="fr-mb-4w">
+  <%= t('.organization.description', organization_raison_sociale: current_organization.raison_sociale, organization_siret: current_organization.siret).html_safe %>
 
-<ol>
-  <% @authorization_definition.available_forms.each do |authorization_request_form| %>
-    <li>
-      <%= link_to authorization_request_form.name, new_authorization_request_form_path(form_uid: authorization_request_form.uid) %>
-    </li>
+  <%= form_with(url: "/auth/mon_compte_pro?prompt=select_organization", method: :post, data: { turbo: false }, class: 'inline') do |f| %>
+    <%= f.button t('.organization.change_cta'), id: 'change_current_organization', class: %w(fr-btn fr-btn--sm fr-btn--secondary) %>
   <% end %>
-</ol>
+</div>
+
+<% if current_organization.authorization_requests.where(type: @authorization_definition.authorization_request_class.name).any? %>
+  <div class="fr-alert fr-alert--warning">
+    <h3 class="fr-alert__title">
+      <%= t('authorization_request_forms.build.start.multiple_authorization_requests_warning.title') %>
+    </h3>
+    <p>
+      <%= t('authorization_request_forms.build.start.multiple_authorization_requests_warning.description') %>
+      <ul>
+        <% current_organization.authorization_requests.where(type: @authorization_definition.authorization_request_class.name).each do |another_authorization_request| %>
+          <li>
+            <%= link_to another_authorization_request.name, authorization_request_form_path(form_uid: another_authorization_request.form.uid, id: another_authorization_request.id), target: '_blank' %>
+          </li>
+        <% end %>
+      </ul>
+    </p>
+  </div>
+<% end %>
+
+<% if @authorization_definition.available_forms.one? %>
+  <% authorization_request_form = @authorization_definition.available_forms.first %>
+
+  <% if authorization_request_form.multiple_steps? %>
+    <p>
+      <%= t('.multiple_steps.description') %>
+
+      <ol>
+        <% authorization_request_form.steps.each do |step| %>
+          <li>
+            <%= authorization_request_step_name(authorization_request_form.authorization_request_class.new, step[:name]) %>
+          </li>
+        <% end %>
+      </ol>
+
+      <%= start_authorization_request_form(authorization_request_form) %>
+    </p>
+  <% else %>
+    <p>
+      <%= t('.single_form.description') %>
+
+      <br />
+
+      <%= start_authorization_request_form(authorization_request_form) %>
+    </p>
+  <% end %>
+<% else %>
+  <p>
+    <%= t('.multiple_forms.description', authorization_name: @authorization_definition.name) %>
+  </p>
+
+  <ol>
+    <% @authorization_definition.available_forms.each do |authorization_request_form| %>
+      <li>
+        <%= authorization_request_form.name %>
+        <%= start_authorization_request_form(authorization_request_form) %>
+      </li>
+    <% end %>
+  </ol>
+<% end %>
