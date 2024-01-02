@@ -27,6 +27,8 @@ fr:
 
       contact_technique:
         title: Contact technique
+        info: |
+          <strong>Le responsable technique</strong> recevra les accès techniques par mail (attention, ce courrier peut parfois passer en « courriers indésirables »). Cette personne sera contactée en cas de problème technique sur votre service. Le responsable technique peut être le contact technique de votre prestataire.
       contact_technique_family_name: &contact_family_name
         label: Nom
       contact_technique_given_name: &contact_given_name
@@ -138,9 +140,6 @@ fr:
             <p>
               Pour en savoir plus, consultez <a href="https://api.gouv.fr/guides/deliberation-api-part">notre guide sur ce qu’est une bonne délibération.</a>
             </p>
-      contact_technique:
-        info: |
-          <strong>Le responsable technique</strong> recevra les accès techniques par mail (attention, ce courrier peut parfois passer en « courriers indésirables »). Cette personne sera contactée en cas de problème technique sur votre service. Le responsable technique peut être le contact technique de votre prestataire.
 
     api_infinoe_production:
       sandbox_authorization_request:
