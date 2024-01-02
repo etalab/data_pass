@@ -1,14 +1,53 @@
 class AuthorizationRequestFormBuilder < DSFRFormBuilder
+  include DSFR::Accordion
+
   def hint_for(attribute)
-    I18n.t("authorization_request_forms.#{@object.model_name.element}.#{attribute}.hint", default: nil) ||
-      I18n.t("authorization_request_forms.default.#{attribute}.hint", default: nil) ||
+    wording_for(:hint, attribute) ||
       super(attribute)
   end
 
   def label_value(attribute)
-    I18n.t("authorization_request_forms.#{@object.model_name.element}.#{attribute}.label", default: nil) ||
-      I18n.t("authorization_request_forms.default.#{attribute}.label", default: nil) ||
+    wording_for(:label, attribute) ||
       super(attribute)
+  end
+
+  def wording_for(kind, attribute)
+    I18n.t("authorization_request_forms.#{@object.model_name.element}.#{attribute}.#{kind}", default: nil) ||
+      I18n.t("authorization_request_forms.default.#{attribute}.#{kind}", default: nil)
+  end
+
+  def info_for(block)
+    info_wording = wording_for(:info, block)
+
+    return unless info_wording
+    return unless %i[title content].all? { |key| info_wording.key?(key) }
+
+    dsfr_accordion(
+      info_wording[:title],
+      info_wording[:content],
+      {
+        id: [@object.model_name.element, 'info', block].join('_'),
+        class: %w[fr-accordion--info fr-mb-3w],
+      },
+    )
+  end
+
+  def contacts_infos(contacts = nil)
+    contacts ||= @object.class.contact_types
+
+    dsfr_accordion(
+      I18n.t('authorization_request_forms.default.contacts.info.title'),
+      contacts.reduce('') do |content, contact|
+        contact_content = I18n.t("authorization_request_forms.#{@object.model_name.element}.#{contact}.info", default: nil) ||
+          I18n.t("authorization_request_forms.default.#{contact}.info")
+
+        content << "<p>#{contact_content}</p>"
+      end,
+      {
+        id: [@object.model_name.element, 'info_contacts'].join('_'),
+        class: %w[fr-accordion--info fr-mb-3w],
+      },
+    )
   end
 
   def dsfr_file_field(attribute, opts = {})

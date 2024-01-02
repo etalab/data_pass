@@ -172,6 +172,28 @@ Concernant les formulaires, l'affichage tire les valeurs dans cet ordre:
    clé `default`
 3. Attributs (dans [`activerecord.fr.yml`](../config/locales/activerecord.fr.yml))
 
+Ce qui est exploité ici (liste non-exhaustive):
+
+1. Les labels
+2. Les 'hints' des formulaires
+3. Les titres
+4. Les blocs d'infos
+
+A noter que l'on peut ajouter d'autres clés non-conventionnelles (exemple pour
+API Infinoe Production).
+
+A noter que pour le point 4., les contacts sont définis de manière unitaire, si
+vous voulez par exemple modifier ou ajouter des infos sur le contact
+`contact_technique` pour le modèle `MonAPI`:
+
+```yaml
+authorization_request_forms:
+  mon_api:
+    contact_technique:
+      info: |
+        Info sur mon contact technique
+```
+
 ## 4. Ajouter la vue de complétion côté demandeur
 
 ### 4.1 Cas du multi étapes

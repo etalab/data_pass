@@ -122,6 +122,7 @@ ignore_unused:
 - 'activerecord.errors.*'
 - 'errors.messages.*'
 - 'validates_timeliness.error_value_formats.*'
+- 'authorization_request_forms.*.*.info.{title,content}'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'
 # - 'simple_form.{placeholders,hints,labels}.*'

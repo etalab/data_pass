@@ -27,6 +27,8 @@ fr:
 
       contact_technique:
         title: Contact technique
+        info: |
+          <strong>Le responsable technique</strong> recevra les accès techniques par mail (attention, ce courrier peut parfois passer en « courriers indésirables »). Cette personne sera contactée en cas de problème technique sur votre service. Le responsable technique peut être le contact technique de votre prestataire.
       contact_technique_family_name: &contact_family_name
         label: Nom
       contact_technique_given_name: &contact_given_name
@@ -47,6 +49,7 @@ fr:
 
       responsable_traitement:
         title: Responsable de traitement
+        info: <strong>Le responsable du traitement des données</strong> est la personne physique ou morale qui, seule ou conjointement avec d’autres, détermine les finalités et les moyens du traitement des données à caractère personnel. Seule une personne appartenant à l’organisme demandeur peut être renseignée. Cette personne sera notifiée par email à la validation de l’habilitation. Ses nom et prénom peuvent également être rendus publics. <a href="https://www.cnil.fr/fr/definition/responsable-de-traitement" target="_blank">Plus d’infos</a>.
       responsable_traitement_family_name: *contact_family_name
       responsable_traitement_given_name: *contact_given_name
       responsable_traitement_email: *contact_email
@@ -55,6 +58,7 @@ fr:
 
       delegue_protection_donnees:
         title: Délégué à la protection des données
+        info: <strong>Le délégué à la protection des données</strong> assure que l’organisation protège convenablement les données à caractère personnel, conformément à la législation en vigueur. C'est généralement une personne appartenant à l’organisme demandeur. Cette personne sera notifiée par email à la validation de l’habilitation. <a href="https://www.cnil.fr/fr/designation-dpo" target="_blank">Plus d’infos</a>.
       delegue_protection_donnees_family_name: *contact_family_name
       delegue_protection_donnees_given_name: *contact_given_name
       delegue_protection_donnees_email: *contact_email
@@ -67,9 +71,76 @@ fr:
       administrateur_metier_email: *contact_email
       administrateur_metier_phone_number: *contact_phone_number
 
+      contacts:
+        info:
+          title: Comment renseigner la liste des contacts ?
+
+      legal:
+        info:
+          title: Comment trouver le cadre juridique ?
+
+      scopes:
+        info:
+          title: Comment choisir les données ?
+
+    hubee_cert_dc:
+      administrateur_metier:
+        info: |
+          <strong>L’administrateur métier</strong> disposera des droits d’administration portail HubEE : gestion des abonnements et gestion des utilisateurs.
     api_entreprise:
       volumetrie_approximative:
         hint: Nombre de démarches ou dossiers traités dans l'année
+      scopes:
+        info:
+          content: |
+            Vous pouvez vous aider <a href="https://entreprise.api.gouv.fr/catalogue/" target="_blank">du catalogue des API</a>. Il présente l’ensemble des API disponibles accompagnées d’une documentation métier et d’un accès aux spécifications techniques (swagger).
+      legal:
+        info:
+          content: |
+            L’accès à l’API Entreprise se fait sous réserve que son utilisation soit justifiée. Chaque donnée requiert la fourniture d’un cadre juridique précis. Par exemple, si vous êtes une administration centrale, une agence d’État, un opérateur, ou un service déconcentré, il vous faudra transmettre le décret ou l’arrêté justifiant votre demande.
+
+            <br />
+            <br />
+
+            La loi Lemaire pour une République numérique du 7 octobre 2016 suffit si vous demandez des données publiques ; c‘est-à-dire les données n‘ayant pas de 🔐 devant leur nom.
+
+            <br />
+            <br />
+
+            ⚠️ Attention, quel que soit votre statut, le <a href="https://www.legifrance.gouv.fr/codes/texte_lc/LEGITEXT000031366350/2020-12-14/" target="_blank">CRPA (Code des relations entre le public et l’administration)</a>>, la <a href="https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000037307624/" target="_blank">loi ESSOC (pour un État au service d’une société de confiance)</a> ou la loi Lemaire (pour une République numérique) ne sont pas suffisants car ils indiquent un principe d’échange qui doit être complété par un cadre juridique précis pour l’utilisation envisagée.
+      contact_metier:
+        info: |
+          <strong>Le contact métier</strong> est la personne en charge des aspects fonctionnels de votre service, elle connaît notamment les données et les informations utiles pour simplifier les démarches des entreprises et des associations. Le contact métier sera notamment informé des nouvelles API disponibles. Il sera également notifié en cas d'incidents majeurs.
+          <br />
+          Si votre service métier a une adresse e-mail générique, n'hésitez pas à renseigner celle-ci.
+      contact_technique:
+        info: |
+          <strong>Le contact technique</strong> est la personne en charge de l'intégration de l'API Entreprise et de sa maintenance dans vos systèmes d'information. Le contact technique sera notifié de l'ensemble des opérations de maintenance et des incidents. Le contact technique sera en copie des notifications d'expiration du jeton.
+          <br />
+          Afin de garantir que votre service ne soit pas interrompu, merci de renseigner une adresse e-mail générique ou liste de diffusion fonctionnelle, afin que ce contact soit permanent et peu influencé par les changements de poste, congés ou autres.
+    api_particulier:
+      scopes:
+        info:
+          content: |
+            L'API Particulier vous donne accès à <a href="https://particulier.api.gouv.fr/catalogue" target="_blank">plusieurs API</a>. Chaque API transmet <strong>différentes données, regroupées dans des périmètres distincts</strong>. En effet, afin de respecter les principes de collecte, traitement et conservation de données définit par <a href="https://www.cnil.fr/fr/la-loi-informatique-et-libertes#article4" target="_blank">l'article 4 de la loi informatique et libertés</a>, vous devez sélectionner uniquement les données strictement nécessaires à votre téléservice. Le non-respect du principe de proportionnalité vous expose vis-à-vis de la CNIL. <strong>Chaque périmètre est formalisé par une case à cocher dans ce formulaire</strong>.
+      legal:
+        info:
+          content: |
+            <p>
+              Pour pouvoir bénéficier du raccordement à l’API Particulier, le cadre légal et réglementaire des fournisseurs de service doit permettre à la DINUM de transmettre des données personnelles à votre entité administrative. Merci de le compléter.
+            </p>
+
+            <p>
+              Dans le cas où vous représenteriez une collectivité, veuillez joindre la délibération du conseil municipal explicitant l’usage des données demandées. Citer l’article 114-8 du code des relations entre le public et l’administration ne peut pas se substituer à la présence d’une délibération du conseil municipal.
+            </p>
+
+            <p>
+              Important : à priori, vous n’avez pas de nouvelle délibération à réaliser. Il vous suffit de déposer la dernière délibération tarifaire qui détaille les barèmes de facturation des services, ou le règlement qui décrit les données nécessaires à une instruction.
+            </p>
+            <p>
+              Pour en savoir plus, consultez <a href="https://api.gouv.fr/guides/deliberation-api-part">notre guide sur ce qu’est une bonne délibération.</a>
+            </p>
+
     api_infinoe_production:
       sandbox_authorization_request:
         title: L'habilitation de bac à sable
@@ -77,10 +148,56 @@ fr:
       recette_fonctionnelle:
         title: La recette fonctionnelle
         label: J'atteste avoir réalisé une recette fonctionnelle et qualifié mon téléservice.
+        info:
+          title: Comment effectuer une recette fonctionnelle ?
+          content: |
+            <p>
+              La qualification de votre téléservice est obligatoire tant pour votre homologation de sécurité ou vos obligations RGPD que pour demander l’entrée en production auprès de la DGFiP.
+            </p>
+
+            <p>
+              Pour vous accompagner dans vos travaux, un environnement de test est mis à votre disposition sur le portail des API de la DGFiP.
+            </p>
+
+            <p>
+              Le périmètre des réponses de cet environnement de test est fonctionnellement identique à l’environnement de production.
+            </p>
+
+            <p>
+              Un jeu de données fictives vous permet de valider l’intégration de quelques cas fonctionnels dans votre téléservice. L’environnement de test proposé par la DGFiP n’a donc pas vocation à recetter toutes les fonctionnalités du téléservice, qui doivent faire l’objet d’une recette interne.
+            </p>
+
+            <p>
+              A l’issue de vos travaux, veuillez attester de la qualification de votre téléservice.
+            </p>
       volumetrie_appels_par_minute:
         label: Quelle est la limitation de debit que vous souhaitez pour votre téléservice ?
       homologation:
         title: L'homologation de sécurité
+        info:
+          title: Pourquoi effectuer une homologation de sécurité ?
+          content: |
+            <p>
+              Le Référentiel Général de Sécurité (RGS 2.0) rend la démarche d’homologation obligatoire pour les SI relatifs aux échanges entre une autorité administrative et les usagers ou entre autorités administratives.
+            </p>
+
+            <p>
+              Complétez les informations relatives à l’homologation et déposez la décision formelle d’homologation (également appelée attestation formelle).
+            </p>
+
+            <p>
+              Toutefois, si votre organisme n’est pas soumis au RGS, vous pouvez remplir un questionnaire de sécurité à récupérer auprès de la DTNum à l’adresse mail suivante : <a href="mailto:dtnum.donnees.demande-acces@dgfip.finances.gouv.fr">dtnum.donnees.demande-acces@dgfip.finances.gouv.fr</a>, et à joindre dans le formulaire ci-dessous.
+            </p>
       volumetrie:
         title: Volumétrie attendue
+        info:
+          title: Pourquoi avons nous besoin de cette information ?
+          content:
+            <p>
+              Connaître les données relatives à la volumétrie de votre téléservice nous permet de vous offrir la meilleure qualité de service possible. Ces informations sont transmises aux fournisseurs de vos données pour prévenir les pics de charges.
+            </p>
+
+            <p>
+              Conformément aux modalités d’utilisation, nous nous réservons le droit de réduire ou couper les appels autorisés au fournisseur de service.
+            </p>
 
