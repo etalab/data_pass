@@ -53,6 +53,7 @@ fr:
   dashboard:
     index:
       title: Accueil
+      instruction_cta: Espace instruction
       new_authorization_request: Demander une nouvelle habilitation
       no_authorization_requests: Vous n'avez aucun habilitations ou demandes en cours.
     authorization_requests:
