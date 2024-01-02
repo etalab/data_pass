@@ -89,6 +89,20 @@ RSpec.describe 'Authorization request with multiple steps' do
 
         expect(page).to have_current_path(authorization_request_form_build_path(form_uid: authorization_request_form.uid, authorization_request_id: authorization_request.id, id: second_step_name))
       end
+
+      describe 'when we returned to the form' do
+        subject(:save_and_return_to_the_form) do
+          move_to_next_step
+
+          visit authorization_request_form_path(form_uid: authorization_request_form.uid, id: authorization_request.id)
+        end
+
+        it 'returns to the last step' do
+          save_and_return_to_the_form
+
+          expect(page).to have_current_path(authorization_request_form_build_path(form_uid: authorization_request_form.uid, authorization_request_id: authorization_request.id, id: second_step_name))
+        end
+      end
     end
 
     context 'with invalid data' do

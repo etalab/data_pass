@@ -22,6 +22,8 @@ class AuthorizationRequestForms::BuildController < AuthorizationRequestFormsCont
       @authorization_request = organizer.authorization_request
 
       if organizer.success?
+        save_current_step
+
         redirect_to next_wizard_path
       else
         error_message(title: t('.error.title'), description: t('.error.description'))
@@ -35,6 +37,10 @@ class AuthorizationRequestForms::BuildController < AuthorizationRequestFormsCont
 
   def authorization_request_params
     super.merge(current_build_step: wizard_value(params[:id]))
+  end
+
+  def save_current_step
+    session[current_build_step_cache_key] = next_step
   end
 
   def should_redirect_to_finish_page?

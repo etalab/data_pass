@@ -29,9 +29,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     authorize @authorization_request
 
     if @authorization_request_form.multiple_steps?
-      step_localized = t("wicked.#{@authorization_request_form.steps.first[:name]}")
-
-      redirect_to authorization_request_form_build_path(form_uid: @authorization_request_form.uid, authorization_request_id: @authorization_request.id, id: step_localized)
+      redirect_to_current_build_step
     else
       render view_path
     end
@@ -59,6 +57,20 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
       authorization_request_id: authorization_request.id,
       id: step_localized,
     )
+  end
+
+  def redirect_to_current_build_step
+    step = session.fetch(current_build_step_cache_key, t("wicked.#{@authorization_request_form.steps.first[:name]}"))
+
+    redirect_to authorization_request_form_build_path(
+      form_uid: @authorization_request_form.uid,
+      authorization_request_id: @authorization_request.id,
+      id: step,
+    )
+  end
+
+  def current_build_step_cache_key
+    "authorization_request_form:#{@authorization_request.id}:current_build_step"
   end
 
   def create_for_single_page_form
