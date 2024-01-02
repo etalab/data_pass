@@ -20,8 +20,6 @@ fr:
     header:
       title: DataPass
       tagline: Habilitations juridiques
-      menu:
-        homepage: Page d'accueil
       tools:
         links:
           sign_out:
