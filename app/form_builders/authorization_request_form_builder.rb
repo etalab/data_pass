@@ -37,12 +37,12 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
 
     dsfr_accordion(
       I18n.t('authorization_request_forms.default.contacts.info.title'),
-      contacts.map do |contact|
-        '<p>' +
-          (I18n.t("authorization_request_forms.#{@object.model_name.element}.#{contact}.info", default: nil) ||
-            I18n.t("authorization_request_forms.default.#{contact}.info")) +
-          '</p>'
-      end.join,
+      contacts.reduce('') do |content, contact|
+        contact_content = I18n.t("authorization_request_forms.#{@object.model_name.element}.#{contact}.info", default: nil) ||
+          I18n.t("authorization_request_forms.default.#{contact}.info")
+
+        content << "<p>#{contact_content}</p>"
+      end,
       {
         id: [@object.model_name.element, 'info_contacts'].join('_'),
         class: %w[fr-accordion--info fr-mb-3w],
