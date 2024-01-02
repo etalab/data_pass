@@ -24,6 +24,8 @@
       <%= t('authorization_request_forms.api_infinoe_production.recette_fonctionnelle.title') %>
     </h3>
 
+    <%= f.info_for(:recette_fonctionnelle) %>
+
     <div class="fr-fieldset__element">
       <%= f.dsfr_check_box :recette_fonctionnelle %>
     </div>
@@ -33,6 +35,8 @@
     <h3>
       <%= t('authorization_request_forms.api_infinoe_production.homologation.title') %>
     </h3>
+
+    <%= f.info_for(:homologation) %>
 
     <div class="fr-fieldset__element">
       <%= f.dsfr_text_field :homologation_autorite_nom %>
@@ -55,6 +59,8 @@
     <h3>
       <%= t('authorization_request_forms.api_infinoe_production.volumetrie.title') %>
     </h3>
+
+    <%= f.info_for(:volumetrie) %>
 
     <div class="fr-fieldset__element">
       <%= f.dsfr_select :volumetrie_appels_par_minute, [['1000 appels', '1000'], ['2000 appels', '2000']] %>
