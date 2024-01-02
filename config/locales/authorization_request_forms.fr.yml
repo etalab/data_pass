@@ -73,17 +73,23 @@ fr:
         info:
           title: Comment renseigner la liste des contacts ?
 
+      legal:
+        info:
+          title: Comment trouver le cadre juridique ?
+
+      scopes:
+        info:
+          title: Comment choisir les données ?
+
     api_entreprise:
       volumetrie_approximative:
         hint: Nombre de démarches ou dossiers traités dans l'année
       scopes:
         info:
-          title: Comment choisir les données ?
           content: |
             Vous pouvez vous aider <a href="https://entreprise.api.gouv.fr/catalogue/" target="_blank">du catalogue des API</a>. Il présente l’ensemble des API disponibles accompagnées d’une documentation métier et d’un accès aux spécifications techniques (swagger).
       legal:
         info:
-          title: Comment trouver le cadre juridique ?
           content: |
             L’accès à l’API Entreprise se fait sous réserve que son utilisation soit justifiée. Chaque donnée requiert la fourniture d’un cadre juridique précis. Par exemple, si vous êtes une administration centrale, une agence d’État, un opérateur, ou un service déconcentré, il vous faudra transmettre le décret ou l’arrêté justifiant votre demande.
 
@@ -106,6 +112,31 @@ fr:
           <strong>Le contact technique</strong> est la personne en charge de l'intégration de l'API Entreprise et de sa maintenance dans vos systèmes d'information. Le contact technique sera notifié de l'ensemble des opérations de maintenance et des incidents. Le contact technique sera en copie des notifications d'expiration du jeton.
           <br />
           Afin de garantir que votre service ne soit pas interrompu, merci de renseigner une adresse e-mail générique ou liste de diffusion fonctionnelle, afin que ce contact soit permanent et peu influencé par les changements de poste, congés ou autres.
+    api_particulier:
+      scopes:
+        info:
+          content: |
+            L'API Particulier vous donne accès à <a href="https://particulier.api.gouv.fr/catalogue" target="_blank">plusieurs API</a>. Chaque API transmet <strong>différentes données, regroupées dans des périmètres distincts</strong>. En effet, afin de respecter les principes de collecte, traitement et conservation de données définit par <a href="https://www.cnil.fr/fr/la-loi-informatique-et-libertes#article4" target="_blank">l'article 4 de la loi informatique et libertés</a>, vous devez sélectionner uniquement les données strictement nécessaires à votre téléservice. Le non-respect du principe de proportionnalité vous expose vis-à-vis de la CNIL. <strong>Chaque périmètre est formalisé par une case à cocher dans ce formulaire</strong>.
+      legal:
+        info:
+          content: |
+            <p>
+              Pour pouvoir bénéficier du raccordement à l’API Particulier, le cadre légal et réglementaire des fournisseurs de service doit permettre à la DINUM de transmettre des données personnelles à votre entité administrative. Merci de le compléter.
+            </p>
+
+            <p>
+              Dans le cas où vous représenteriez une collectivité, veuillez joindre la délibération du conseil municipal explicitant l’usage des données demandées. Citer l’article 114-8 du code des relations entre le public et l’administration ne peut pas se substituer à la présence d’une délibération du conseil municipal.
+            </p>
+
+            <p>
+              Important : à priori, vous n’avez pas de nouvelle délibération à réaliser. Il vous suffit de déposer la dernière délibération tarifaire qui détaille les barèmes de facturation des services, ou le règlement qui décrit les données nécessaires à une instruction.
+            </p>
+            <p>
+              Pour en savoir plus, consultez <a href="https://api.gouv.fr/guides/deliberation-api-part">notre guide sur ce qu’est une bonne délibération.</a>
+            </p>
+      contact_technique:
+        info: |
+          <strong>Le responsable technique</strong> recevra les accès techniques par mail (attention, ce courrier peut parfois passer en « courriers indésirables »). Cette personne sera contactée en cas de problème technique sur votre service. Le responsable technique peut être le contact technique de votre prestataire.
 
     api_infinoe_production:
       sandbox_authorization_request:
