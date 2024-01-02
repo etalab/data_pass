@@ -4,13 +4,15 @@ class SessionsController < ApplicationController
   allow_unauthenticated_access only: [:create]
 
   def create
+    authenticate_user
+
     case request.env['omniauth.params']['prompt']
     when 'select_organization'
       change_current_organization
     when 'update_userinfo'
       update_user
     else
-      authenticate_user
+      post_sign_in
     end
   end
 
@@ -23,10 +25,14 @@ class SessionsController < ApplicationController
   private
 
   def authenticate_user
+    sign_out if user_signed_in?
+
     organizer = AuthenticateUser.call(mon_compte_pro_omniauth_payload: request.env['omniauth.auth'])
 
     sign_in(organizer.user)
+  end
 
+  def post_sign_in
     success_message(title: t('sessions.authenticate_user.success.title'))
 
     redirect_to redirect_to_after_sign_in
