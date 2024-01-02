@@ -1,16 +1,20 @@
 <%= render partial: 'header' %>
 
 <h3>
-  Récapitulatif de votre demande d'habilitation
+  <% if @authorization_request.validated? %>
+    <%= t('.title.validated') %>
+  <% else %>
+    <%= t('.title.draft') %>
+  <% end %>
 </h3>
 
-<p>
-  Vous avez complété toutes les étapes de votre demande. Vous pouvez à présent la soumettre à l'équipe d'instruction.
-  <br />
-  <strong>Attention :</strong> une fois votre demande soumise, vous ne pourrez plus la modifier.
-</p>
-
-<%= render partial: 'authorization_request_forms/shared/organization' %>
+<% if @authorization_request.in_draft? %>
+  <p>
+    Vous avez complété toutes les étapes de votre demande. Vous pouvez à présent la soumettre à l'équipe d'instruction.
+    <br />
+    <strong>Attention :</strong> une fois votre demande soumise, vous ne pourrez plus la modifier.
+  </p>
+<% end %>
 
 <%= authorization_request_form(@authorization_request) do |f| %>
   <% @authorization_request.form.steps.each do |step| %>

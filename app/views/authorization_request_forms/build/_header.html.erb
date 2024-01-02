@@ -4,7 +4,7 @@
   <%= authorization_request_status_badge(@authorization_request) %>
 </h1>
 
-<% if defined?(wizard_steps) %>
+<% if defined?(wizard_steps) && !@authorization_request.validated? %>
   <%=
     dsfr_stepper(
       current_step: authorization_request_step_name(@authorization_request, wizard_value(params[:id])),
