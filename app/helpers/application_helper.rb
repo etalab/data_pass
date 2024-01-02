@@ -1,5 +1,6 @@
 module ApplicationHelper
   include DSFR::Stepper
+  include DSFR::Accordion
 
   def provider_logo_path(authorization_definition)
     "data_providers/#{authorization_definition.provider.logo}"
