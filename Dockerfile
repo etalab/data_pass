@@ -6,7 +6,9 @@ FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim as base
 WORKDIR /app
 
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libpq-dev libvips pkg-config
+    apt-get install --no-install-recommends -y build-essential git libpq-dev libvips pkg-config npm
+
+RUN npm install standard --global
 
 COPY Gemfile Gemfile.lock ./
 RUN bundle install
