@@ -144,8 +144,10 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
   def error_message(attr)
     return if @object.errors[attr].none?
 
-    @template.content_tag(:p, class: 'fr-error-text') do
-      @object.errors.full_messages_for(attr).join('<br />').html_safe
+    @template.content_tag(:p, class: 'fr-messages-group') do
+      @object.errors.full_messages_for(attr).map { |msg|
+        @template.content_tag(:span, msg, class: 'fr-message fr-message--error')
+      }.join.html_safe
     end
   end
 
