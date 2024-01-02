@@ -1,3 +1,11 @@
+/* form inputs readonly */
+.fr-input[readonly] {
+  background-color: rgb(0, 0, 0, 0.02);
+  cursor: default;
+  box-shadow: inset 0 -2px 0 0 rgb(0, 0, 0, 0.05);
+}
+
+/* Accordion */
 .fr-accordion .fr-collapse p:last-child {
   margin-bottom: 0;
 }
