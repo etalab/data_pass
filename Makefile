@@ -20,6 +20,9 @@ sh:
 lint:
 	$(DOCKER-RUN) web $(BUNDLE-EXEC) rubocop
 
+js-lint:
+	$(DOCKER-RUN) web standard app/javascript
+
 guard:
 	docker-compose up -d chrome
 	$(DOCKER-RUN) web $(BUNDLE-EXEC) guard

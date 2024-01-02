@@ -27,6 +27,7 @@ les seeds disponible [ici](app/lib/seeds.rb)
 
 * ruby 3.3.0
 * postressql >= 13
+* (optional) npm (for [standardjs](https://standardjs.com/))
 
 ## Install
 
@@ -43,6 +44,8 @@ Without docker:
 
 ```sh
 ./bin/setup
+# Optional, for standardjs
+npm install standard --global
 ```
 
 ## Development

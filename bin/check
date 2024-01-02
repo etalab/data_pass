@@ -6,4 +6,5 @@ trap "echo -ne \"\n\n❌ Something went wrong\n\"" ERR
 bundle exec rubocop -F &&
   bundle exec rspec --fail-fast &&
   bundle exec cucumber --fail-fast &&
+  standard app/javascript &&
   echo -ne "\n\n✅ All good"
