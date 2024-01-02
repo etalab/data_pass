@@ -81,6 +81,10 @@ fr:
         info:
           title: Comment choisir les données ?
 
+    hubee_cert_dc:
+      administrateur_metier:
+        info: |
+          <strong>L’administrateur métier</strong> disposera des droits d’administration portail HubEE : gestion des abonnements et gestion des utilisateurs.
     api_entreprise:
       volumetrie_approximative:
         hint: Nombre de démarches ou dossiers traités dans l'année
