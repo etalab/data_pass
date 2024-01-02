@@ -47,6 +47,7 @@ fr:
 
       responsable_traitement:
         title: Responsable de traitement
+        info: <strong>Le responsable du traitement des données</strong> est la personne physique ou morale qui, seule ou conjointement avec d’autres, détermine les finalités et les moyens du traitement des données à caractère personnel. Seule une personne appartenant à l’organisme demandeur peut être renseignée. Cette personne sera notifiée par email à la validation de l’habilitation. Ses nom et prénom peuvent également être rendus publics. <a href="https://www.cnil.fr/fr/definition/responsable-de-traitement" target="_blank">Plus d’infos</a>.
       responsable_traitement_family_name: *contact_family_name
       responsable_traitement_given_name: *contact_given_name
       responsable_traitement_email: *contact_email
@@ -55,6 +56,7 @@ fr:
 
       delegue_protection_donnees:
         title: Délégué à la protection des données
+        info: <strong>Le délégué à la protection des données</strong> assure que l’organisation protège convenablement les données à caractère personnel, conformément à la législation en vigueur. C'est généralement une personne appartenant à l’organisme demandeur. Cette personne sera notifiée par email à la validation de l’habilitation. <a href="https://www.cnil.fr/fr/designation-dpo" target="_blank">Plus d’infos</a>.
       delegue_protection_donnees_family_name: *contact_family_name
       delegue_protection_donnees_given_name: *contact_given_name
       delegue_protection_donnees_email: *contact_email
@@ -67,9 +69,44 @@ fr:
       administrateur_metier_email: *contact_email
       administrateur_metier_phone_number: *contact_phone_number
 
+      contacts:
+        info:
+          title: Comment renseigner la liste des contacts ?
+
     api_entreprise:
       volumetrie_approximative:
         hint: Nombre de démarches ou dossiers traités dans l'année
+      scopes:
+        info:
+          title: Comment choisir les données ?
+          content: |
+            Vous pouvez vous aider <a href="https://entreprise.api.gouv.fr/catalogue/" target="_blank">du catalogue des API</a>. Il présente l’ensemble des API disponibles accompagnées d’une documentation métier et d’un accès aux spécifications techniques (swagger).
+      legal:
+        info:
+          title: Comment trouver le cadre juridique ?
+          content: |
+            L’accès à l’API Entreprise se fait sous réserve que son utilisation soit justifiée. Chaque donnée requiert la fourniture d’un cadre juridique précis. Par exemple, si vous êtes une administration centrale, une agence d’État, un opérateur, ou un service déconcentré, il vous faudra transmettre le décret ou l’arrêté justifiant votre demande.
+
+            <br />
+            <br />
+
+            La loi Lemaire pour une République numérique du 7 octobre 2016 suffit si vous demandez des données publiques ; c‘est-à-dire les données n‘ayant pas de 🔐 devant leur nom.
+
+            <br />
+            <br />
+
+            ⚠️ Attention, quel que soit votre statut, le <a href="https://www.legifrance.gouv.fr/codes/texte_lc/LEGITEXT000031366350/2020-12-14/" target="_blank">CRPA (Code des relations entre le public et l’administration)</a>>, la <a href="https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000037307624/" target="_blank">loi ESSOC (pour un État au service d’une société de confiance)</a> ou la loi Lemaire (pour une République numérique) ne sont pas suffisants car ils indiquent un principe d’échange qui doit être complété par un cadre juridique précis pour l’utilisation envisagée.
+      contact_metier:
+        info: |
+          <strong>Le contact métier</strong> est la personne en charge des aspects fonctionnels de votre service, elle connaît notamment les données et les informations utiles pour simplifier les démarches des entreprises et des associations. Le contact métier sera notamment informé des nouvelles API disponibles. Il sera également notifié en cas d'incidents majeurs.
+          <br />
+          Si votre service métier a une adresse e-mail générique, n'hésitez pas à renseigner celle-ci.
+      contact_technique:
+        info: |
+          <strong>Le contact technique</strong> est la personne en charge de l'intégration de l'API Entreprise et de sa maintenance dans vos systèmes d'information. Le contact technique sera notifié de l'ensemble des opérations de maintenance et des incidents. Le contact technique sera en copie des notifications d'expiration du jeton.
+          <br />
+          Afin de garantir que votre service ne soit pas interrompu, merci de renseigner une adresse e-mail générique ou liste de diffusion fonctionnelle, afin que ce contact soit permanent et peu influencé par les changements de poste, congés ou autres.
+
     api_infinoe_production:
       sandbox_authorization_request:
         title: L'habilitation de bac à sable

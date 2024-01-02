@@ -1,3 +1,5 @@
+<%= f.info_for(:scopes) %>
+
 <% @authorization_request.available_scopes.group_by(&:group).each do |group_name, scopes| %>
   <div class="fr-form-group authorization-request-scopes-group">
     <% if @authorization_request.errors.key?(:scopes) %>
