@@ -1,5 +1,5 @@
 <% if namespace?(:instruction) %>
-  <div class="fr-btns-group fr-btns-group--inline-lg fr-btns-group--icon-left fr-mt-4v">
+  <div data-controller="sticky-btns-group" class="fr-btns-group fr-btns-group--inline-lg fr-btns-group--icon-left">
     <% if policy([:instruction, @authorization_request]).approve? %>
       <%= button_to t('.approve'), approve_instruction_authorization_request_path(@authorization_request), class: %w(fr-btn fr-btn--primary fr-icon-success-line fr-btn--icon-left) %>
     <% end %>

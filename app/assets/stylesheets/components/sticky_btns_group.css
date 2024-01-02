@@ -1,0 +1,30 @@
+.sticky-btns-group {
+  background-color: white;
+  border-top: 1px solid var(--border-color);
+  padding: 0.5rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.sticky-btns-group.is-sticky {
+  position: fixed;
+  max-width: 100%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.sticky-btns-group .fr-btn {
+  margin: 0;
+}
+
+.sticky-btns-group .fr-btn:first-child {
+  margin-left: 0;
+}
+
+.sticky-btns-group .fr-btn:last-child {
+  margin-right: 0;
+}
