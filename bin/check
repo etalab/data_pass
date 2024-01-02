@@ -3,8 +3,18 @@
 set -e
 trap "echo -ne \"\n\n❌ Something went wrong\n\"" ERR
 
-bundle exec rubocop -F &&
-  bundle exec rspec --fail-fast &&
-  bundle exec cucumber --fail-fast &&
-  standard app/javascript &&
-  echo -ne "\n\n✅ All good"
+bundle exec rubocop -F 2> /dev/null &
+PID_RUBOCOP=$!
+bundle exec rspec --fail-fast 2> /dev/null &
+PID_RSPEC=$!
+bundle exec cucumber --fail-fast --format progress 2> /dev/null &
+PID_CUCUMBER=$!
+standard app/javascript 2> /dev/null &
+PID_STANDARD=$!
+
+wait $PID_RUBOCOP
+wait $PID_RSPEC
+wait $PID_CUCUMBER
+wait $PID_STANDARD
+
+echo -ne "\n\n✅ All good"
