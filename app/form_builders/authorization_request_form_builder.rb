@@ -17,10 +17,13 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
   end
 
   def info_for(block)
-    info_wording = wording_for(:info, block)
+    info_wording = {
+      title: wording_for('info.title', block),
+      content: wording_for('info.content', block),
+    }
 
     return unless info_wording
-    return unless %i[title content].all? { |key| info_wording.key?(key) }
+    return unless %i[title content].all? { |key| info_wording[key].present? }
 
     dsfr_accordion(
       info_wording[:title],
