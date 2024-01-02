@@ -57,6 +57,14 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
     )
   end
 
+  def cgu_check_box(opts = {})
+    opts[:label_with_hint] = label(:terms_of_service_accepted, class: 'fr-label') do
+      I18n.t('authorization_request_forms.default.terms_of_service_accepted.label', link: @object.definition.cgu_link).html_safe
+    end
+
+    dsfr_check_box(:terms_of_service_accepted, opts)
+  end
+
   def dsfr_file_field(attribute, opts = {})
     opts[:class] ||= 'fr-upload-group'
 

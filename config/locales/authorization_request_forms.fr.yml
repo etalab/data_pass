@@ -8,6 +8,8 @@ fr:
         scopes: "Données"
         contacts: "Contacts"
         finish: "Résumé"
+      terms_of_service_accepted:
+        label: J'ai pris connaissance des&nbsp;<a href="%{link}" target="_blank">conditions générales d'utilisation</a>&nbsp;et je les valide.
       intitule:
         hint: Cette information sera rendue publique
       description:

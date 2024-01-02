@@ -4,6 +4,7 @@ class AuthorizationDefinition < StaticApplicationRecord
     :provider,
     :description,
     :link,
+    :cgu_link,
     :scopes
 
   attr_writer :unique,
@@ -29,6 +30,7 @@ class AuthorizationDefinition < StaticApplicationRecord
         :name,
         :description,
         :link,
+        :cgu_link,
         :public,
         :startable_by_applicant,
         :unique
