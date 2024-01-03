@@ -12,3 +12,7 @@ shared:
     name: DGFIP
     logo: dgfip.jpeg
     link: https://api.gouv.fr/producteurs/dgfip
+  minarm:
+    name: ApiServiceNational
+    logo: minarm.jpg
+    link: https://api.gouv.fr/les-api/api-service-national

@@ -139,6 +139,7 @@ shared:
         value: "open_data_brevets_marques_modeles_deposes_inpi"
         link: "https://entreprise.api.gouv.fr/catalogue?APIEntreprise_Endpoint%5Bquery%5D=inpi%20d%C3%A9pos%C3%A9"
         included: true
+
   api_particulier:
     name: "API Particulier"
     description: "Entités administratives, simplifiez les démarches des particuliers en récupérant pour eux leurs informations administratives (quotient familial CAF, composition familiale, statut demandeur d’emploi, étudiant et étudiant boursier)."
@@ -152,11 +153,13 @@ shared:
       - name: "Identités allocataire et conjoint"
         value: "cnaf_allocataires"
         group: "API Quotient familial CAF & MSA"
+
   api_infinoe_sandbox:
     name: "API INFINOE (Bac à sable)"
     public: false
     cgu_link: '/cgus/cgu_infinoe_bac_a_sable_v_2023_10.pdf'
     provider: 'dgfip'
+
   api_infinoe_production:
     name: "API INFINOE (Production)"
     public: false
@@ -164,3 +167,12 @@ shared:
     startable_by_applicant: false
     provider: 'dgfip'
 
+  api_service_national:
+    name: "Api Service National"
+    description: "Vérifiez si un candidat est en règle vis-à-vis de ses obligations de Service National et peut s’inscrire au concours ou à l’examen dont vous êtes en charge."
+    public: true
+    cgu_link: 'https://presaje.sga.defense.gouv.fr/cgu-dln1f'
+    provider: 'minarm'
+    scopes:
+      - name: "État de régularité vis-à-vis des obligations de Service National"
+        value: "en_regle"
