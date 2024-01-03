@@ -66,15 +66,17 @@ La plateforme, mise en place pour permettre le dépôt de ces aides publiques et
     authorization_request: 'APIInfinoeProduction'
 
   api-service-national:
-    name: "Inscription à un concours ou un examen (hors permis de conduire)"
+    #    name: "Inscription à un concours ou un examen (hors permis de conduire)"
     authorization_request: 'APIServiceNational'
-    data:
-      intitule: "Inscription à un concours ou un examen (hors permis de conduire)"
-      scopes: en_regle
-      cadre_juridique_nature: "Article L114-6 du code du service national"
-      cadre_juridique_url: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000021960309/"
+    #    data:
+    #      intitule: "Inscription à un concours ou un examen (hors permis de conduire)"
+    #      scopes:
+    #        - en_regle
+    #      cadre_juridique_nature: "Article L114-6 du code du service national"
+    #      cadre_juridique_url: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000021960309/"
     steps:
       - name: 'basic_infos'
       - name: 'personal_data'
       - name: 'legal'
+      - name: 'scopes'
       - name: 'contacts'

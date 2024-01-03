@@ -168,7 +168,7 @@ shared:
     provider: 'dgfip'
 
   api_service_national:
-    name: "Api Service National"
+    name: "API Service National"
     description: "Vérifiez si un candidat est en règle vis-à-vis de ses obligations de Service National et peut s’inscrire au concours ou à l’examen dont vous êtes en charge."
     public: true
     cgu_link: 'https://presaje.sga.defense.gouv.fr/cgu-dln1f'
