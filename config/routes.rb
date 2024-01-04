@@ -32,8 +32,9 @@ Rails.application.routes.draw do
     resources :authorization_requests, only: %w[index show], path: 'demandes' do
       member do
         post :refuse, path: 'refuser'
-        post :approve, path: 'valider'
       end
+
+      resources :approve_authorization_requests, only: %w[new create], path: 'approuver', as: :approval
     end
   end
 end

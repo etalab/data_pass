@@ -154,5 +154,14 @@ fr:
         approve: Valider
       refuse:
         success: La demande d'habilitation %{name} a été refusé
-      approve:
+    approve_authorization_requests:
+      new:
+        title: Validation de la demande d'habilitation
+        description: |
+          Vous êtes sur le point de valider la demande d'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_raison_sociale}' (numéro de siret: %{organization_siret}).
+          <br />
+          <strong>Cette action est irréversible</strong>. Veuillez vérifier que la demande d'habilitation est bien conforme aux règles de gestion.
+        cancel: Annuler
+        approve: Valider la demande d'habilitation
+      create:
         success: La demande d'habilitation %{name} a été validé
