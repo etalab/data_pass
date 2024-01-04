@@ -25,22 +25,6 @@ class Instruction::AuthorizationRequestsController < InstructionController
     end
   end
 
-  def approve
-    authorize [:instruction, @authorization_request]
-
-    organizer = ApproveAuthorizationRequest.call(authorization_request: @authorization_request)
-
-    if organizer.success?
-      success_message(title: t('.success', name: @authorization_request.name))
-
-      redirect_to instruction_authorization_requests_path
-    else
-      render_show
-    end
-  end
-
-  private
-
   def render_show
     if @authorization_request.form.multiple_steps?
       render 'show'

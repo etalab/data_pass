@@ -20,7 +20,7 @@ module RequestsHelpers
 end
 
 shared_examples 'an unauthorized access' do
-  it { is_expected.to redirect_to(controller: 'dashboard', action: 'index') }
+  it { is_expected.to redirect_to(controller: '/dashboard', action: 'index') }
 
   it do
     subject

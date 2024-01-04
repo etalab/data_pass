@@ -1,0 +1,35 @@
+<div class="simple-page-action-wrapper fr-pt-5w">
+  <div class="fr-grid-row fr-grid-row--center">
+    <div class="fr-col-md-offset-1 fr-col-md-10">
+      <turbo-frame id="main-modal-content">
+        <div class="fr-modal__content">
+          <h1 class="fr-modal__title">
+            <%= t('.title', authorization_request_name: @authorization_request.name) %>
+          </h1>
+
+          <p>
+            <%=
+              t(
+                '.description.organization',
+                authorization_request_name: sanitize(@authorization_request.name),
+                organization_raison_sociale: @authorization_request.organization.raison_sociale,
+                organization_siret: @authorization_request.organization.siret,
+              )
+            %>
+          </p>
+
+          <p>
+            <%= t('.description.disclaimer') %>
+          </p>
+        </div>
+
+        <div class="fr-modal__footer" data-turbo="false">
+          <div class="fr-btns-group fr-btns-group--right fr-btns-group--inline-reverse fr-btns-group--inline-lg fr-btns-group--icon-left">
+            <%= link_to t('.cancel'), '#', class: %w(fr-btn fr-btn--secondary), aria: { controls: 'main-modal' } %>
+            <%= button_to t('.approve'), instruction_authorization_request_approval_index_path(@authorization_request), class: %w(fr-btn fr-btn--primary fr-icon-success-line fr-btn--icon-left) %>
+          </div>
+        </div>
+      </turbo-frame>
+    </div>
+  </div>
+</div>

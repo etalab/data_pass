@@ -23,6 +23,7 @@ Fonctionnalité: Instruction: modération
   Scénario: Je valide une demande d'habilitation
     Quand je me rends sur une demande d'habilitation "API Entreprise" à modérer
     Et je clique sur "Valider"
+    Et je clique sur "Valider la demande d'habilitation"
     Alors je suis sur la page "Liste des demandes en cours"
     Et je vois 1 demande d'habilitation "API Entreprise" validée
     Et il y a un message de succès contenant "a été validé"
