@@ -41,9 +41,15 @@ end
 
 # https://rubular.com/r/oBcBPVLlH2kFDl
 Quand(/je me rends sur une demande d'habilitation "([^"]+)"(?: (?:en|à))? ?(\S+)?/) do |type, status|
-  authorization_request = create_authorization_requests_with_status(type, status, 1).first
+  if current_user.instructor?
+    authorization_request = create_authorization_requests_with_status(type, status, 1).first
 
-  visit instruction_authorization_request_path(authorization_request)
+    visit instruction_authorization_request_path(authorization_request)
+  else
+    authorization_request = create_authorization_requests_with_status(type, status, 1, current_user).first
+
+    visit authorization_request_path(authorization_request)
+  end
 end
 
 # https://rubular.com/r/DpRIf7GEZJ5SH7

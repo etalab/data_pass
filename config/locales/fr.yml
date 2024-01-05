@@ -87,6 +87,10 @@ fr:
         description: "Cette demande s'effectue en plusieurs étapes. Vous pouvez à tout moment sauvegarder votre demande et la reprendre plus tard. Les étapes sont les suivantes :"
       single_form:
         description: "Cliquez sur le bouton ci-dessous pour démarrer le formulaire. Vous pourrez le sauvegarder et le reprendre plus tard."
+    show:
+      refused:
+        title: Votre demande d'habilitation a été refusée
+        description: "La raison évoquée par l'équipe d'instruction est la suivante :"
   start_authorization_request_form:
     cta: Démarrer
   authorization_request_forms:
