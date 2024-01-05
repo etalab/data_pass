@@ -114,6 +114,10 @@ class AuthorizationRequest < ApplicationRecord
     %w[draft changes_requested].include?(state)
   end
 
+  def finished?
+    %w[validated refused].include?(state)
+  end
+
   def applicant_belongs_to_organization
     return if organization.blank? || applicant.blank?
     return unless applicant.organizations.exclude?(organization)
