@@ -1,3 +1,7 @@
 .simple-page-action-wrapper {
   margin: 10px 0;
 }
+
+.simple-page-action-wrapper [aria-controls$='modal'] {
+  display: none;
+}
