@@ -20,10 +20,12 @@ Fonctionnalité: Instruction: modération
     Et je vois 1 demande d'habilitation "API Entreprise" refusée
     Et il y a un message de succès contenant "a été refusé"
 
+  @AvecCourriels
   Scénario: Je valide une demande d'habilitation
     Quand je me rends sur une demande d'habilitation "API Entreprise" à modérer
     Et je clique sur "Valider"
     Et je clique sur "Valider la demande d'habilitation"
     Alors je suis sur la page "Liste des demandes en cours"
     Et je vois 1 demande d'habilitation "API Entreprise" validée
+    Et un email est envoyé contenant "validé"
     Et il y a un message de succès contenant "a été validé"
