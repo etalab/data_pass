@@ -11,6 +11,10 @@ RSpec.describe ApproveAuthorizationRequest do
         expect { approve_authorization_request }.to change { authorization_request.reload.state }.from('submitted').to('validated')
       end
 
+      it 'delivers an email' do
+        expect { approve_authorization_request }.to have_enqueued_mail(AuthorizationRequestMailer, :validated)
+      end
+
       context 'with authorization request which has a bridge' do
         let(:bridge) { instance_double(APIInfinoeSandboxBridge, perform: true) }
         let(:authorization_request) { create(:authorization_request, :api_infinoe_sandbox, :submitted) }
