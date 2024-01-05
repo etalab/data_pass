@@ -66,6 +66,8 @@ rails s
 
 Then go to [http://localhost:3000](http://localhost:3000)
 
+For mailer preview: [http://localhost:3000/rails/mailers](http://localhost:3000/rails/mailers)
+
 ## Tests
 
 With docker:

@@ -1,0 +1,15 @@
+fr:
+  mailer:
+    shared:
+      applicant:
+        header:
+          text: Bonjour %{user_full_name},
+        footer:
+          text: L'équipe %{authorization_definition_name}
+  authorization_request_mailer:
+    validated:
+      subject: Votre habilitation numéro %{authorization_request_id} vient d'être validée
+      description: |
+        Votre habilitation "%{authorization_request_name}" (numéro %{authorization_request_id}) a été validée par nos équipes.
+
+        Vous pouvez consulter votre habilitation en suivant le lien suivant: %{authorization_request_url}
