@@ -57,6 +57,8 @@ fr:
         homologation_date_fin: Date de fin de l'homologation
 
         volumetrie_appels_par_minute: Volumétrie d'appels par minute
+      denial_of_authorization:
+        reason: Raison du refus
     errors:
       models:
         authorization_request:

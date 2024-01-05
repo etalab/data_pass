@@ -10,6 +10,11 @@ class AuthorizationRequest < ApplicationRecord
 
   belongs_to :organization
 
+  has_one :denial,
+    class_name: 'DenialOfAuthorization',
+    inverse_of: :authorization_request,
+    dependent: :destroy
+
   scope :drafts, -> { where(state: 'draft') }
   scope :changes_requested, -> { where(state: 'changes_requested') }
   scope :in_instructions, -> { where(state: 'submitted') }
