@@ -119,7 +119,7 @@ Quand('je rafraîchis la page') do
 end
 
 Quand(/je vais sur la page (des |du |de la |de mon )?(.*)/) do |_, page_name|
-  visit "/#{page_name}"
+  visit "/#{page_name.gsub(' ', '-')}"
 end
 
 Quand('je me rends sur mon tableau de bord') do
