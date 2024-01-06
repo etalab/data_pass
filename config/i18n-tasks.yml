@@ -112,7 +112,8 @@ search:
 #   deepl_options:
 #     formality: prefer_less
 ## Do not consider these keys missing:
-# ignore_missing:
+ignore_missing:
+- 'authorization_request_mailer.subject'
 # - 'errors.messages.{accepted,blank,invalid,too_short,too_long}'
 # - '{devise,simple_form}.*'
 
@@ -123,6 +124,7 @@ ignore_unused:
 - 'errors.messages.*'
 - 'validates_timeliness.error_value_formats.*'
 - 'authorization_request_forms.*.*.info.{title,content}'
+- 'authorization_request_mailer.*.subject'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'
 # - 'simple_form.{placeholders,hints,labels}.*'

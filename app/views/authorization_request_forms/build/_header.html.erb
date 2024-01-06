@@ -4,7 +4,21 @@
   <%= authorization_request_status_badge(@authorization_request) %>
 </h1>
 
-<% if defined?(wizard_steps) && !@authorization_request.validated? %>
+<% if @authorization_request.refused? %>
+  <div class="fr-alert fr-alert--error fr-mb-2v">
+    <h3 class="fr-alert__title">
+      <%= t('authorization_requests.show.refused.title') %>
+    </h3>
+
+    <%= t('authorization_requests.show.refused.description') %>
+
+    <blockquote>
+      <%= simple_format(@authorization_request.denial.reason) %>
+    </blockquote>
+  </div>
+<% end %>
+
+<% if defined?(wizard_steps) && !@authorization_request.finished? %>
   <%=
     dsfr_stepper(
       current_step: authorization_request_step_name(@authorization_request, wizard_value(params[:id])),

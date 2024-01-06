@@ -87,6 +87,10 @@ fr:
         description: "Cette demande s'effectue en plusieurs étapes. Vous pouvez à tout moment sauvegarder votre demande et la reprendre plus tard. Les étapes sont les suivantes :"
       single_form:
         description: "Cliquez sur le bouton ci-dessous pour démarrer le formulaire. Vous pourrez le sauvegarder et le reprendre plus tard."
+    show:
+      refused:
+        title: Votre demande d'habilitation a été refusée
+        description: "La raison évoquée par l'équipe d'instruction est la suivante :"
   start_authorization_request_form:
     cta: Démarrer
   authorization_request_forms:
@@ -152,8 +156,6 @@ fr:
       moderation_buttons:
         refuse: Refuser
         approve: Valider
-      refuse:
-        success: La demande d'habilitation %{name} a été refusé
     approve_authorization_requests:
       new:
         title: Validation de la demande d'habilitation
@@ -166,3 +168,15 @@ fr:
         approve: Valider la demande d'habilitation
       create:
         success: La demande d'habilitation %{name} a été validé
+    refuse_authorization_requests:
+      new:
+        title: Refus de la demande d'habilitation
+        description:
+          organization: |
+            Vous êtes sur le point de refuser la demande d'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_raison_sociale}' (numéro de siret: %{organization_siret}).
+          disclaimer: |
+            Merci de renseigner une raison ci-dessous qui sera communiquée au demandeur.
+        cancel: Annuler
+        refuse: Refuser la demande d'habilitation
+      create:
+        success: La demande d'habilitation %{name} a été refusée

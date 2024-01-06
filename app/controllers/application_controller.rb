@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  default_form_builder DSFRFormBuilder
+
   helper ActiveLinks
 
   helper_method :namespace?

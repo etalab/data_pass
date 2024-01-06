@@ -13,18 +13,6 @@ class Instruction::AuthorizationRequestsController < InstructionController
     render_show
   end
 
-  def refuse
-    authorize [:instruction, @authorization_request]
-
-    if @authorization_request.refuse
-      success_message(title: t('.success', name: @authorization_request.name))
-
-      redirect_to instruction_authorization_requests_path
-    else
-      render_show
-    end
-  end
-
   def render_show
     if @authorization_request.form.multiple_steps?
       render 'show'

@@ -13,9 +13,11 @@ def extract_state_from_french_status(status)
   when 'brouillon', 'brouillons'
     'draft'
   when 'refusée', 'refusées'
-    'rejected'
+    'refused'
   when 'validée', 'validées'
     'validated'
+  else
+    raise "Unknown status #{status}"
   end
 end
 

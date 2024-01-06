@@ -32,6 +32,10 @@ FactoryBot.define do
     trait :refused do
       state { 'refused' }
       fill_all_attributes { true }
+
+      after(:build) do |authorization_request|
+        authorization_request.denial = build(:denial_of_authorization, authorization_request:)
+      end
     end
 
     trait :validated do

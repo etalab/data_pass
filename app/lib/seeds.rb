@@ -3,10 +3,11 @@ class Seeds
     create_entities
 
     create_authorization_request(:api_entreprise)
-    create_authorization_request(:api_entreprise, state: 'submitted', description: very_long_description)
+    create_authorization_request(:api_entreprise, attributes: { state: 'submitted', description: very_long_description })
+    create_authorization_request(:api_particulier, traits: %i[refused])
     create_authorization_request(:hubee_cert_dc)
 
-    create_authorization_request(:api_infinoe_production, state: 'draft')
+    create_authorization_request(:api_infinoe_production, attributes: { state: 'draft' })
   end
 
   def flushdb
@@ -61,11 +62,13 @@ class Seeds
     )
   end
 
-  def create_authorization_request(kind, options = {})
+  def create_authorization_request(kind, attributes: {}, traits: [])
+    traits << kind
+
     FactoryBot.create(
       :authorization_request,
-      kind,
-      options.merge(
+      *traits,
+      attributes.merge(
         applicant: demandeur,
         organization: clamart_organization,
       )

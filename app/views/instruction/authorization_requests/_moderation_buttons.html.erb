@@ -5,7 +5,7 @@
     <% end %>
 
     <% if policy([:instruction, @authorization_request]).refuse? %>
-      <%= button_to t('.refuse'), refuse_instruction_authorization_request_path(@authorization_request), class: %w(fr-btn fr-btn--secondary fr-icon-error-line fr-btn--icon-left) %>
+      <%= dsfr_main_modal_button(t('.refuse'), new_instruction_authorization_request_refusal_path(@authorization_request), class: %w(fr-btn fr-btn--primary fr-icon-error-line fr-btn--icon-left)) %>
     <% end %>
   </div>
 <% end %>
