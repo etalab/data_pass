@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_05_173258) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_06_165759) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "plpgsql"
@@ -67,6 +67,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_05_173258) do
     t.index ["authorization_request_id"], name: "index_denial_of_authorizations_on_authorization_request_id"
   end
 
+  create_table "instructor_modification_requests", force: :cascade do |t|
+    t.string "reason", null: false
+    t.bigint "authorization_request_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["authorization_request_id"], name: "idx_on_authorization_request_id_a222f7b7d6"
+  end
+
   create_table "organizations", force: :cascade do |t|
     t.string "siret", null: false
     t.jsonb "mon_compte_pro_payload", default: {}, null: false
@@ -104,4 +112,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_05_173258) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "denial_of_authorizations", "authorization_requests"
+  add_foreign_key "instructor_modification_requests", "authorization_requests"
 end

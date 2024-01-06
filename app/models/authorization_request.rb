@@ -15,6 +15,11 @@ class AuthorizationRequest < ApplicationRecord
     inverse_of: :authorization_request,
     dependent: :destroy
 
+  has_one :modification_request,
+    class_name: 'InstructorModificationRequest',
+    inverse_of: :authorization_request,
+    dependent: :destroy
+
   scope :drafts, -> { where(state: 'draft') }
   scope :changes_requested, -> { where(state: 'changes_requested') }
   scope :in_instructions, -> { where(state: 'submitted') }
