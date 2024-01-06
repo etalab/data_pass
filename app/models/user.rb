@@ -21,7 +21,7 @@ class User < ApplicationRecord
     if authorization_request_type
       roles.include?("#{authorization_request_type}:instructor")
     else
-      roles.any? { |role| role.match?(/:instructor\z/) }
+      roles.any? { |role| role.end_with?(':instructor') }
     end
   end
 end

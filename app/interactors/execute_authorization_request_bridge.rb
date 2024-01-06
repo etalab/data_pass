@@ -12,7 +12,7 @@ class ExecuteAuthorizationRequestBridge < ApplicationInteractor
   end
 
   def bridge
-    Kernel.const_get("#{authorization_request_class}Bridge")
+    Kernel.const_get(:"#{authorization_request_class}Bridge")
   rescue NameError
     nil
   end

@@ -35,7 +35,7 @@ class AssignParamsToAuthorizationRequest < ApplicationInteractor
       build_step
       contacts
     ].each_with_object([]) do |method, attributes|
-      attributes.concat(send("permitted_#{method}"))
+      attributes.concat(send(:"permitted_#{method}"))
     end
   end
 

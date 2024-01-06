@@ -413,6 +413,9 @@ GEM
       rubocop (~> 1.41)
     rubocop-factory_bot (2.24.0)
       rubocop (~> 1.33)
+    rubocop-performance (1.20.1)
+      rubocop (>= 1.48.1, < 2.0)
+      rubocop-ast (>= 1.30.0, < 2.0)
     rubocop-rails (2.23.1)
       activesupport (>= 4.2.0)
       rack (>= 1.1)
@@ -525,6 +528,9 @@ DEPENDENCIES
   redis (>= 4.0.1)
   rspec-rails (= 6.1.0)
   rubocop
+  rubocop-capybara
+  rubocop-factory_bot
+  rubocop-performance
   rubocop-rails
   rubocop-rspec
   selenium-webdriver
