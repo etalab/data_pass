@@ -6,6 +6,10 @@
   padding: 20px;
 }
 
+.authorization-request-card .card-header {
+  margin-bottom: 5px;
+}
+
 .authorization-request-card .card-title {
   font-size: 18px;
   font-weight: 500;

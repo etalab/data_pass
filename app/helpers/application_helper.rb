@@ -7,22 +7,31 @@ module ApplicationHelper
     "data_providers/#{authorization_definition.provider.logo}"
   end
 
-  def authorization_request_status_badge(authorization_request)
-    content_tag(:p, t("authorization_request.status.#{authorization_request.state}"), class: "fr-badge #{authorization_request_status_badge_class(authorization_request)}")
+  def authorization_request_status_badge(authorization_request, no_icon: false)
+    content_tag(
+      :p,
+      t("authorization_request.status.#{authorization_request.state}"),
+      class: [
+        'fr-badge',
+        no_icon ? 'fr-badge--no-icon' : nil,
+      ]
+        .concat(authorization_request_status_badge_class(authorization_request))
+        .compact,
+    )
   end
 
   def authorization_request_status_badge_class(authorization_request)
     case authorization_request.state
     when 'draft'
-      'fr-badge--purple-glycine fr-badge--no-icon'
+      %w[fr-badge--purple-glycine fr-badge--no-icon]
     when 'changes_requested'
-      'fr-badge--warning'
+      %w[fr-badge--warning]
     when 'submitted'
-      'fr-badge--info'
+      %w[fr-badge--info]
     when 'validated'
-      'fr-badge--success'
+      %w[fr-badge--success]
     when 'refused', 'revoked'
-      'fr-badge--error fr-badge--no-icon'
+      %w[fr-badge--error fr-badge--no-icon]
     end
   end
 end
