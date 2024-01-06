@@ -14,5 +14,4 @@ Fonctionnalité: Tableau de bord
     Et j'ai 1 demande d'habilitation "API Entreprise" refusée
     Et j'ai 1 demande d'habilitation "API Entreprise" validée
     Et que je vais sur la page du tableau de bord
-    Et debug
     Alors je vois 4 demandes d'habilitation
