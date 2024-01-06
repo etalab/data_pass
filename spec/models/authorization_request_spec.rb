@@ -1,5 +1,4 @@
 RSpec.describe AuthorizationRequest do
-  # rubocop:disable RSpec/NoExpectationExample
   it 'has valid factories' do
     %w[
       hubee_cert_dc
@@ -15,6 +14,9 @@ RSpec.describe AuthorizationRequest do
     rescue StandardError => e
       fail "Factory :authorization_request, kind: #{kind}, state: 'submitted' is not valid: #{e}"
     end
+
+    AuthorizationRequest.state_machine.states.map(&:name).each do |state|
+      expect(build(:authorization_request, :api_entreprise, state)).to be_valid
+    end
   end
-  # rubocop:enable RSpec/NoExpectationExample
 end
