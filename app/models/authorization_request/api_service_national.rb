@@ -14,7 +14,7 @@ class AuthorizationRequest::APIServiceNational < AuthorizationRequest
   })
 
   %i[
-    responsable_technique
+    contact_technique
   ].each do |contact_kind|
     contact contact_kind, validation_condition: -> { need_complete_validation?(:contacts) }
   end
