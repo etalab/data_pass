@@ -173,6 +173,3 @@ shared:
     public: true
     cgu_link: 'https://presaje.sga.defense.gouv.fr/cgu-dln1f'
     provider: 'minarm'
-    scopes:
-      - name: "État de régularité vis-à-vis des obligations de Service National"
-        value: "en_regle"
