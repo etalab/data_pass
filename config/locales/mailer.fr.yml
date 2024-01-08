@@ -21,3 +21,14 @@ fr:
         %{authorization_request_denial_reason}
 
         Vous pouvez consulter votre habilitation en suivant le lien suivant: %{authorization_request_url}
+    changes_requested:
+      subject: Votre demande d'habilitation numéro %{authorization_request_id} requiert des modification
+      description: |
+        Votre habilitation "%{authorization_request_name}" (numéro %{authorization_request_id}) requiert des modifications avant de pouvoir être validée.
+
+        Les modifications attendues sont les suivantes:
+
+        %{authorization_request_modification_request_reason}
+
+        Vous pouvez consulter votre habilitation en suivant le lien suivant: %{authorization_request_url}
+

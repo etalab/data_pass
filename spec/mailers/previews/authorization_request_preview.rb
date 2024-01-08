@@ -1,9 +1,15 @@
 class AuthorizationRequestPreview < ActionMailer::Preview
-  def validated
-    AuthorizationRequestMailer.with(authorization_request: AuthorizationRequest.where(state: 'validated').first).validated
+  %w[validated refused changes_requested].each do |state|
+    define_method state do
+      authorization_request_mailer_method(state)
+    end
   end
 
-  def refused
-    AuthorizationRequestMailer.with(authorization_request: AuthorizationRequest.where(state: 'refused').first).refused
+  private
+
+  def authorization_request_mailer_method(state)
+    AuthorizationRequestMailer.with(
+      authorization_request: AuthorizationRequest.where(state:).first
+    ).public_send(state)
   end
 end

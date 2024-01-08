@@ -22,6 +22,10 @@ FactoryBot.define do
 
     trait :changes_requested do
       state { 'changes_requested' }
+
+      after(:build) do |authorization_request|
+        authorization_request.modification_request = build(:instructor_modification_request, authorization_request:)
+      end
     end
 
     trait :submitted do

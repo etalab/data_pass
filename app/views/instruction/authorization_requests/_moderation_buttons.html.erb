@@ -4,6 +4,10 @@
       <%= dsfr_main_modal_button(t('.approve'), new_instruction_authorization_request_approval_path(@authorization_request), class: %w(fr-btn fr-btn--primary fr-icon-success-line fr-btn--icon-left)) %>
     <% end %>
 
+    <% if policy([:instruction, @authorization_request]).request_changes? %>
+      <%= dsfr_main_modal_button(t('.request_changes'), new_instruction_authorization_request_request_change_path(@authorization_request), class: %w(fr-btn fr-btn--primary fr-icon-edit-line fr-btn--icon-left)) %>
+    <% end %>
+
     <% if policy([:instruction, @authorization_request]).refuse? %>
       <%= dsfr_main_modal_button(t('.refuse'), new_instruction_authorization_request_refusal_path(@authorization_request), class: %w(fr-btn fr-btn--primary fr-icon-error-line fr-btn--icon-left)) %>
     <% end %>
