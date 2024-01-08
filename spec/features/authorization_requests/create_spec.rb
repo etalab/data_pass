@@ -15,7 +15,7 @@ RSpec.describe 'Create authorization request' do
     end
 
     it 'does not have a submit authorization request button' do
-      expect(subject).not_to have_button('submit_authorization_request')
+      expect(subject).to have_no_button('submit_authorization_request')
     end
   end
 
@@ -24,7 +24,7 @@ RSpec.describe 'Create authorization request' do
       visit new_authorization_request_form_path(form_uid: authorization_request_form.uid)
 
       within(css_id(authorization_request_class)) do
-        click_button 'save_authorization_request'
+        click_link_or_button 'save_authorization_request'
       end
     end
 

@@ -33,7 +33,7 @@ RSpec.describe 'Authorization request with multiple steps' do
         visit new_authorization_request_form_path(form_uid: authorization_request_form.uid)
 
         within('#new_authorization_request_api_entreprise') do
-          click_button 'start_authorization_request'
+          click_link_or_button 'start_authorization_request'
         end
       end
 
@@ -71,7 +71,7 @@ RSpec.describe 'Authorization request with multiple steps' do
         fill_in input_identifier(authorization_request_class, :intitule), with: intitule
         fill_in input_identifier(authorization_request_class, :description), with: description
 
-        click_button 'next_authorization_request'
+        click_link_or_button 'next_authorization_request'
       end
     end
 
@@ -123,7 +123,7 @@ RSpec.describe 'Authorization request with multiple steps' do
       visit authorization_request_form_build_path(form_uid: authorization_request_form.uid, authorization_request_id: authorization_request.id, id: last_step_name)
 
       within(css_id(authorization_request)) do
-        click_button 'submit_authorization_request'
+        click_link_or_button 'submit_authorization_request'
       end
     end
 
@@ -164,7 +164,7 @@ RSpec.describe 'Authorization request with multiple steps' do
       visit_habilitation
 
       expect(page).to have_current_path(authorization_request_form_build_path(form_uid: authorization_request_form.uid, authorization_request_id: authorization_request.id, id: last_step_name))
-      expect(page).not_to have_button('submit_authorization_request')
+      expect(page).to have_no_button('submit_authorization_request')
     end
   end
 end

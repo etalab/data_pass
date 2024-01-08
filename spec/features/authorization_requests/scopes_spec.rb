@@ -20,7 +20,7 @@ RSpec.describe 'Authorization request with a scope step' do
   describe 'submitting no scope' do
     subject(:submitting_without_scope) do
       within(css_id(authorization_request)) do
-        click_button 'next_authorization_request'
+        click_link_or_button 'next_authorization_request'
       end
     end
 
@@ -38,7 +38,7 @@ RSpec.describe 'Authorization request with a scope step' do
       within(css_id(authorization_request)) do
         check 'authorization_request_api_particulier_scopes_cnaf_quotient_familial'
 
-        click_button 'next_authorization_request'
+        click_link_or_button 'next_authorization_request'
       end
     end
 
@@ -47,8 +47,8 @@ RSpec.describe 'Authorization request with a scope step' do
         submitting_without_scope
       }.to change { authorization_request.reload.scopes }.to(['cnaf_quotient_familial'])
 
-      expect(page).not_to have_css('.fr-alert')
-      expect(page).not_to have_current_path(authorization_request_form_build_path(form_uid: authorization_request_form.uid, authorization_request_id: authorization_request.id, id: scope_step_name))
+      expect(page).to have_no_css('.fr-alert')
+      expect(page).to have_no_current_path(authorization_request_form_build_path(form_uid: authorization_request_form.uid, authorization_request_id: authorization_request.id, id: scope_step_name))
     end
   end
 end

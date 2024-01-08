@@ -24,9 +24,7 @@ Quand(/je clique sur (le (?:dernier|premier) )?"([^"]+)"\s*$/) do |position, lab
   when 'le premier '
     page.all('a', text: label).first.click
   else
-    # rubocop:disable Capybara/ClickLinkOrButtonStyle
-    click_link_or_button label
-    # rubocop:enable Capybara/ClickLinkOrButtonStyle
+    click_link_or_button_or_button label
   end
 end
 
@@ -35,7 +33,7 @@ Alors('la page contient {string}') do |content|
 end
 
 Alors('la page ne contient pas {string}') do |content|
-  expect(page).not_to have_content(content)
+  expect(page).to have_no_content(content)
 end
 
 Alors('la page contient {string} dans la rangée {string} du tableau {string}') do |content, row, caption|
@@ -56,7 +54,7 @@ end
 
 Quand('je clique sur {string} dans la rangée {string}') do |link, row|
   within('tr', text: row) do
-    click_link(link)
+    click_link_or_button(link)
   end
 end
 
@@ -87,7 +85,7 @@ Alors('je peux voir dans le tableau {string} dans cet ordre :') do |caption, tab
 end
 
 Alors("il n'y a pas de bouton {string}") do |label|
-  expect(page).not_to have_button(label)
+  expect(page).to have_no_button(label)
 end
 
 Alors('il y a un bouton {string}') do |label|

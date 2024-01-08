@@ -25,7 +25,7 @@ RSpec.describe 'Profile' do
       subject(:change_current_organization) do
         visit profile_path
 
-        click_button 'change_current_organization'
+        click_link_or_button 'change_current_organization'
       end
 
       let(:info_attributes) { attributes_for(:mon_compte_pro_payload, email: user.email, sub: user.external_id, given_name: 'Jacques') }
@@ -56,7 +56,7 @@ RSpec.describe 'Profile' do
       subject(:update_user_infos) do
         visit profile_path
 
-        click_button 'update_infos'
+        click_link_or_button 'update_infos'
       end
 
       let(:info_attributes) { attributes_for(:mon_compte_pro_payload, email: user.email, sub: user.external_id, given_name: 'Jacques') }

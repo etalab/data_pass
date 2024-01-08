@@ -44,7 +44,7 @@ RSpec.describe 'Submit authorization request' do
         fill_in input_identifier(authorization_request_class, :administrateur_metier_phone_number), with: '0836656565'
         fill_in input_identifier(authorization_request_class, :administrateur_metier_job_title), with: 'Chief Metier Officier'
 
-        click_button 'submit_authorization_request'
+        click_link_or_button 'submit_authorization_request'
       end
     end
 
