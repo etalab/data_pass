@@ -13,6 +13,7 @@ Fonctionnalité: Liste des habilitations
     Alors il y a un titre contenant "Demander une nouvelle habilitation"
     Et la page contient "API Entreprise"
     Et la page contient "Portail HubEE - Démarche CertDC"
+    Et la page contient "API Service National"
 
   Scénario: Je démarre une nouvelle habilitation
     Quand je vais sur la page des habilitations
