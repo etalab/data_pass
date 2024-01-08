@@ -14,7 +14,7 @@ Quand('je clique sur {string} pour le formulaire {string}') do |cta_name, form_n
   form_start_block = find('li', text: form_name)
 
   within(form_start_block) do
-    click_link_or_button_or_button(cta_name)
+    click_link_or_button(cta_name)
   end
 end
 
@@ -30,7 +30,7 @@ Quand('je remplis les informations du contact {string} avec :') do |string, tabl
 end
 
 Quand("je clique sur {string} pour l'habilitation {string}") do |cta_name, habilitation_name|
-  click_link_or_button cta_name, href: new_authorization_request_path(id: find_authorization_definition_from_name(habilitation_name).id.dasherize)
+  click_link cta_name, href: new_authorization_request_path(id: find_authorization_definition_from_name(habilitation_name).id.dasherize) # rubocop:disable Capybara/ClickLinkOrButtonStyle
 end
 
 Alors("il n'y a pas le bouton {string} pour l'habilitation {string}") do |text, habilitation_name|

@@ -24,7 +24,7 @@ Quand(/je clique sur (le (?:dernier|premier) )?"([^"]+)"\s*$/) do |position, lab
   when 'le premier '
     page.all('a', text: label).first.click
   else
-    click_link_or_button_or_button label
+    click_link_or_button label
   end
 end
 
