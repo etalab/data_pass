@@ -145,6 +145,7 @@ FactoryBot.define do
     end
 
     trait :api_entreprise_mgdis do
+      type { 'AuthorizationRequest::APIEntreprise' }
       form_uid { 'api-entreprise-mgdis' }
     end
 
@@ -189,6 +190,27 @@ FactoryBot.define do
           organization: authorization_request.organization,
         )
       end
+    end
+
+    trait :api_service_national do
+      type { 'AuthorizationRequest::APIServiceNational' }
+      form_uid { 'api-service-national' }
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+      with_scopes
+      with_contacts
+    end
+
+    trait :api_service_national_inscription_concours_examen do
+      type { 'AuthorizationRequest::APIServiceNational' }
+      form_uid { 'api-service-national-inscription-concours-examen' }
+    end
+
+    trait :api_service_national_obligation_service_national do
+      type { 'AuthorizationRequest::APIServiceNational' }
+      form_uid { 'api-service-national-obligation-service-national' }
     end
   end
 end
