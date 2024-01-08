@@ -1,5 +1,5 @@
 class AuthorizationRequestMailer < ApplicationMailer
-  %i[validated refused].each do |status|
+  %i[validated refused changes_requested].each do |status|
     define_method(status) do
       @authorization_request = params[:authorization_request]
 
