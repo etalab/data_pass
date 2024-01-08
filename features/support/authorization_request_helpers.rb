@@ -8,6 +8,8 @@ end
 
 def extract_state_from_french_status(status)
   case status
+  when 'attente de modification'
+    'changes_requested'
   when 'attente', 'attentes', 'soumise', 'soumises', 'modérer'
     'submitted'
   when 'brouillon', 'brouillons'

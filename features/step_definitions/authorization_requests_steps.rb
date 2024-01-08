@@ -39,8 +39,8 @@ Alors("il n'y a pas le bouton {string} pour l'habilitation {string}") do |text, 
   end
 end
 
-# https://rubular.com/r/oBcBPVLlH2kFDl
-Quand(/je me rends sur une demande d'habilitation "([^"]+)"(?: (?:en|à))? ?(\S+)?/) do |type, status|
+# https://rubular.com/r/Vg8QOMkfLtrxhh
+Quand(/je me rends sur une demande d'habilitation "([^"]+)"(?: (?:en|à))? ?(.+)?/) do |type, status|
   if current_user.instructor?
     authorization_request = create_authorization_requests_with_status(type, status, 1).first
 
@@ -52,21 +52,25 @@ Quand(/je me rends sur une demande d'habilitation "([^"]+)"(?: (?:en|à))? ?(\S+
   end
 end
 
-# https://rubular.com/r/DpRIf7GEZJ5SH7
-Quand(/(j'ai|il y a) (\d+) demandes? d'habilitation "([^"]+)" ?(?:en )?(\S+)?/) do |who, count, type, status|
+# https://rubular.com/r/AiBmvod6e8ssvO
+Quand(/(j'ai|il y a) (\d+) demandes? d'habilitation "([^"]+)" ?(?:en )?(.+)?/) do |who, count, type, status|
   applicant = who == 'j\'ai' ? current_user : nil
   create_authorization_requests_with_status(type, status, count, applicant)
 end
 
-# https://rubular.com/r/meA7pKlPwfrZs3
-Alors(/je vois (\d+) demandes? d'habilitation(?: "([^"]+)")?(?:(?: en)? (\S+))?$/) do |count, type, status|
+# https://rubular.com/r/dRUFmK5dzDpjJv
+Alors(/je vois (\d+) demandes? d'habilitation(?: "([^"]+)")?(?:(?: en)? (.+))?/) do |count, type, status|
   if type.present?
     expect(page).to have_css('.authorization-request-definition-name', text: type, count:)
   else
     expect(page).to have_css('.authorization-request', count:)
   end
 
-  expect(page).to have_css('.authorization-request-state', text: status.humanize, count:) if status.present?
+  if status.present?
+    state = extract_state_from_french_status(status)
+
+    expect(page).to have_css('.authorization-request-state', text: I18n.t("authorization_request.status.#{state}"), count:) if status.present?
+  end
 end
 
 Quand("j'adhère aux conditions générales") do

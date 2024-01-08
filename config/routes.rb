@@ -32,6 +32,7 @@ Rails.application.routes.draw do
     resources :authorization_requests, only: %w[index show], path: 'demandes' do
       resources :approve_authorization_requests, only: %w[new create], path: 'approuver', as: :approval
       resources :refuse_authorization_requests, only: %w[new create], path: 'refuser', as: :refusal
+      resources :request_changes_on_authorization_requests, only: %w[new create], path: 'demande-de-modifications', as: :request_changes
     end
   end
 end

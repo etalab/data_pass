@@ -155,6 +155,7 @@ fr:
             show: Consulter
       moderation_buttons:
         refuse: Refuser
+        request_changes: Demander des modifications
         approve: Valider
     approve_authorization_requests:
       new:
@@ -180,3 +181,15 @@ fr:
         refuse: Refuser la demande d'habilitation
       create:
         success: La demande d'habilitation %{name} a été refusée
+    request_changes_on_authorization_requests:
+      new:
+        title: Demande de modifications
+        description:
+          organization: |
+            Vous êtes sur le point de demander des modifications sur la demande d'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_raison_sociale}' (numéro de siret: %{organization_siret}).
+          disclaimer: |
+            Merci de renseigner les raisons ci-dessous qui sera communiquée au demandeur.
+        cancel: Annuler
+        request_changes: Envoyer la demande de modification
+      create:
+        success: La demande de modifications de d'habilitation %{name} a bien été envoyée au demandeur

@@ -39,3 +39,20 @@ Fonctionnalité: Instruction: modération
     Et je clique sur "Refuser"
     Et que je clique sur "Refuser la demande"
     Alors il y a au moins une erreur sur un champ
+
+  @AvecCourriels
+  Scénario: Je demande des modifications sur une demande d'habilitation avec un message valide
+    Quand je me rends sur une demande d'habilitation "API Entreprise" à modérer
+    Et je clique sur "Demander des modifications"
+    Et que je remplis "Raison de la demande de modification" avec "Précisez votre cas d'usage"
+    Et que je clique sur "Envoyer la demande de modification"
+    Alors je suis sur la page "Liste des demandes en cours"
+    Et je vois 1 demande d'habilitation "API Entreprise" en attente de modification
+    Et un email est envoyé contenant "Précisez votre cas d'usage"
+    Et il y a un message de succès contenant "demande de modifications"
+
+  Scénario: Je demande des modifications sur une demande d'habilitation avec un message valide
+    Quand je me rends sur une demande d'habilitation "API Entreprise" à modérer
+    Et je clique sur "Demander des modifications"
+    Et que je clique sur "Envoyer la demande de modification"
+    Alors il y a au moins une erreur sur un champ
