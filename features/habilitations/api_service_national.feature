@@ -21,9 +21,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Service National
     * je remplis "URL du texte relatif au traitement" avec "https://legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000006430983&cidTexte=LEGITEXT000006070721"
     * je clique sur "Suivant"
 
-    * je coche "État de régularité vis-à-vis des obligations de Service National"
-    * je clique sur "Suivant"
-
     * je renseigne les informations des contacts RGPD
     * je remplis les informations du contact "Contact technique" avec :
       | Nom    | Prénom | Email               | Téléphone   | Fonction  |

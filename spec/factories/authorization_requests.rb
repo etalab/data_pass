@@ -199,7 +199,6 @@ FactoryBot.define do
       with_basic_infos
       with_personal_data
       with_cadre_juridique
-      with_scopes
       with_contacts
     end
 
