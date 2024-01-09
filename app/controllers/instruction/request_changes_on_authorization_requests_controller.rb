@@ -4,7 +4,7 @@ class Instruction::RequestChangesOnAuthorizationRequestsController < Instruction
   end
 
   def create
-    organizer = RequestChangesOnAuthorizationRequest.call(instructor_modification_request_params:, authorization_request: @authorization_request)
+    organizer = RequestChangesOnAuthorizationRequest.call(instructor_modification_request_params:, authorization_request: @authorization_request, user: current_user)
 
     @instructor_modification_request = organizer.instructor_modification_request
 

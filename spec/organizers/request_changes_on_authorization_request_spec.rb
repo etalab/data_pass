@@ -1,6 +1,8 @@
 RSpec.describe RequestChangesOnAuthorizationRequest do
   describe '.call' do
-    subject(:request_changes_authorization_request) { described_class.call(instructor_modification_request_params:, authorization_request:) }
+    subject(:request_changes_authorization_request) { described_class.call(instructor_modification_request_params:, authorization_request:, user:) }
+
+    let(:user) { create(:user, :instructor, authorization_request_types: %w[api_entreprise]) }
 
     context 'with valid params' do
       let(:instructor_modification_request_params) { attributes_for(:instructor_modification_request) }
@@ -21,6 +23,8 @@ RSpec.describe RequestChangesOnAuthorizationRequest do
         it 'delivers an email' do
           expect { request_changes_authorization_request }.to have_enqueued_mail(AuthorizationRequestMailer, :changes_requested)
         end
+
+        include_examples 'creates an event', event_name: :request_changes, entity_type: :instructor_modification_request
       end
 
       context 'with authorization request in draft state' do

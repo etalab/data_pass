@@ -118,6 +118,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     UpdateAuthorizationRequest.call(
       authorization_request: @authorization_request,
       authorization_request_params:,
+      user: current_user,
     )
   end
 
@@ -127,6 +128,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     organizer = SubmitAuthorizationRequest.call(
       authorization_request: @authorization_request,
       authorization_request_params:,
+      user: current_user,
     )
 
     @authorization_request = organizer.authorization_request

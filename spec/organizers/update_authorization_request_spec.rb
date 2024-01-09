@@ -4,6 +4,7 @@ RSpec.describe UpdateAuthorizationRequest, type: :organizer do
       described_class.call(
         authorization_request:,
         authorization_request_params:,
+        user: authorization_request.applicant,
       )
     end
 
@@ -24,6 +25,8 @@ RSpec.describe UpdateAuthorizationRequest, type: :organizer do
           update_authorization_request
         }.to change { authorization_request.reload.administrateur_metier_family_name }.to('New Dupont')
       end
+
+      include_examples 'creates an event', event_name: :update
     end
 
     context 'with multi steps form' do

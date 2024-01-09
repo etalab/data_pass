@@ -5,5 +5,6 @@ class ApproveAuthorizationRequest < ApplicationOrganizer
 
   organize TriggerAuthorizationRequestEvent,
     ExecuteAuthorizationRequestBridge,
+    CreateAuthorizationRequestEventModel,
     DeliverAuthorizationRequestNotification
 end

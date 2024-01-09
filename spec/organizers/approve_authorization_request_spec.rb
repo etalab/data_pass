@@ -1,6 +1,8 @@
 RSpec.describe ApproveAuthorizationRequest do
   describe '.call' do
-    subject(:approve_authorization_request) { described_class.call(authorization_request:) }
+    subject(:approve_authorization_request) { described_class.call(authorization_request:, user:) }
+
+    let(:user) { create(:user, :instructor, authorization_request_types: %w[api_entreprise]) }
 
     context 'with authorization request in submitted state' do
       let(:authorization_request) { create(:authorization_request, :api_entreprise, :submitted) }
@@ -14,6 +16,8 @@ RSpec.describe ApproveAuthorizationRequest do
       it 'delivers an email' do
         expect { approve_authorization_request }.to have_enqueued_mail(AuthorizationRequestMailer, :validated)
       end
+
+      include_examples 'creates an event', event_name: :approve
 
       context 'with authorization request which has a bridge' do
         let(:bridge) { instance_double(APIInfinoeSandboxBridge, perform: true) }
