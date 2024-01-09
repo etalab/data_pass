@@ -190,5 +190,23 @@ FactoryBot.define do
         )
       end
     end
+
+    trait :api_service_national do
+      type { 'AuthorizationRequest::APIServiceNational' }
+      form_uid { 'api-service-national' }
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+      with_contacts
+    end
+
+    trait :api_service_national_inscription_concours_examen do
+      form_uid { 'api-service-national-inscription-concours-examen' }
+    end
+
+    trait :api_service_national_obligation_service_national do
+      form_uid { 'api-service-national-obligation-service-national' }
+    end
   end
 end
