@@ -32,6 +32,10 @@ class AuthorizationRequest < ApplicationRecord
     inverse_of: :authorization_request,
     dependent: :destroy
 
+  def events
+    @events ||= AuthorizationRequestEventsQuery.new(self).perform
+  end
+
   scope :drafts, -> { where(state: 'draft') }
   scope :changes_requested, -> { where(state: 'changes_requested') }
   scope :in_instructions, -> { where(state: 'submitted') }
