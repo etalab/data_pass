@@ -10,12 +10,24 @@ class AuthorizationRequest < ApplicationRecord
 
   belongs_to :organization
 
-  has_one :denial,
+  has_many :denials,
     class_name: 'DenialOfAuthorization',
     inverse_of: :authorization_request,
     dependent: :destroy
 
+  has_one :denial,
+    -> { order(created_at: :desc) },
+    class_name: 'DenialOfAuthorization',
+    inverse_of: :authorization_request,
+    dependent: :destroy
+
+  has_many :modification_requests,
+    class_name: 'InstructorModificationRequest',
+    inverse_of: :authorization_request,
+    dependent: :destroy
+
   has_one :modification_request,
+    -> { order(created_at: :desc) },
     class_name: 'InstructorModificationRequest',
     inverse_of: :authorization_request,
     dependent: :destroy

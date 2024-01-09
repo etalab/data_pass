@@ -1,6 +1,6 @@
 class CreateInstructorModificationRequestModel < ApplicationInteractor
   def call
-    context.instructor_modification_request = authorization_request.build_modification_request(
+    context.instructor_modification_request = authorization_request.modification_requests.build(
       instructor_modification_request_params
     )
 

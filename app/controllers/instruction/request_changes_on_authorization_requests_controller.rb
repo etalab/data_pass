@@ -1,6 +1,6 @@
 class Instruction::RequestChangesOnAuthorizationRequestsController < Instruction::AuthorizationRequestsController
   def new
-    @instructor_modification_request = @authorization_request.build_modification_request
+    @instructor_modification_request = @authorization_request.modification_requests.build
   end
 
   def create

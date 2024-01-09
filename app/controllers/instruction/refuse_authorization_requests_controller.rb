@@ -1,6 +1,6 @@
 class Instruction::RefuseAuthorizationRequestsController < Instruction::AuthorizationRequestsController
   def new
-    @denial_of_authorization = @authorization_request.build_denial
+    @denial_of_authorization = @authorization_request.denials.build
   end
 
   def create

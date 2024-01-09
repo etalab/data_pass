@@ -1,6 +1,6 @@
 class CreateDenialOfAuthorizationModel < ApplicationInteractor
   def call
-    context.denial_of_authorization = authorization_request.build_denial(
+    context.denial_of_authorization = authorization_request.denials.build(
       denial_of_authorization_params
     )
 
