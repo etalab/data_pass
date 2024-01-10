@@ -38,3 +38,6 @@ sandbox
 
 /config/credentials/production.key
 coverage/
+
+app/migration/.pgpassword
+app/migration/dumps/*.csv
