@@ -1,0 +1,45 @@
+<%= content_for(:body) do %>
+  <%
+    tabs = {
+      authorization_request: instruction_authorization_request_path(@authorization_request),
+      authorization_request_events: instruction_authorization_request_events_path(@authorization_request),
+    }
+  %>
+
+  <div class="fr-tabs fr-pt-5w">
+    <ul class="fr-tabs__list" role="tablist" aria-label="Menu secondaire">
+      <% tabs.each do |id, path| %>
+        <li role="presentation">
+          <%=
+            link_to t(".tabs.#{id}.title"),
+              path,
+              class: [
+                'fr-tabs__tab',
+                "fr-icon-#{t(".tabs.#{id}.icon")}",
+                'fr-tabs__tab--icon-left'
+              ],
+              role: 'tab',
+              id: "tab-#{id}",
+              tabindex: current_page?(path) ? '0' : '-1',
+              aria: {
+                selected: current_page?(path),
+                controls: "tab-#{id}-panel"
+              }
+          %>
+        </li>
+      <% end %>
+    </ul>
+
+    <% tabs.each do |id, path| %>
+      <turbo-frame id="tab-<%= id %>-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tab-<%= id %>" tabindex="0">
+        <% if current_page?(path) %>
+          <%= yield %>
+        <% else %>
+          <%= render partial: 'shared/loader' %>
+        <% end %>
+      </turbo-frame>
+    <% end %>
+  </div>
+<% end %>
+
+<%= render template: 'layouts/application' %>
