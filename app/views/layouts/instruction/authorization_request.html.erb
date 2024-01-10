@@ -21,6 +21,9 @@
               role: 'tab',
               id: "tab-#{id}",
               tabindex: current_page?(path) ? '0' : '-1',
+              data: {
+                turbo_frame: "tab-#{id}-panel",
+              },
               aria: {
                 selected: current_page?(path),
                 controls: "tab-#{id}-panel"
@@ -31,7 +34,7 @@
     </ul>
 
     <% tabs.each do |id, path| %>
-      <turbo-frame id="tab-<%= id %>-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tab-<%= id %>" tabindex="0">
+      <turbo-frame id="tab-<%= id %>-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tab-<%= id %>" tabindex="0" data-turbo-action="advance">
         <% if current_page?(path) %>
           <%= yield %>
         <% else %>
