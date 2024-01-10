@@ -1,0 +1,7 @@
+<%= render partial: 'header' %>
+
+<%= authorization_request_form(@authorization_request) do |f| %>
+  <%= render partial: 'authorization_request_forms/shared/minimal_infos', locals: { f: f } %>
+
+  <%= render partial: 'authorization_request_forms/build/wizard_buttons', locals: { f: f } %>
+<% end %>

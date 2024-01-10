@@ -13,6 +13,6 @@ shared:
     logo: dgfip.jpeg
     link: https://api.gouv.fr/producteurs/dgfip
   ministere_des_armees:
-    name: MinistereDesArmees
+    name: Ministere Des Armees
     logo: minarm.jpg
     link: https://api.gouv.fr/les-api/api-service-national

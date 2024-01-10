@@ -2,6 +2,7 @@ fr:
   authorization_request_forms:
     default:
       steps:
+        minimal_infos: "Informations de base"
         basic_infos: "Informations de base"
         personal_data: "Données personnelles"
         legal: "Cadre juridique"

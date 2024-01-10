@@ -11,7 +11,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Service National
     Et que je clique sur "Démarrer" pour le formulaire "Demande libre"
 
     * je renseigne les infos de bases du projet
-    * je remplis "Date de mise en production" avec "08/01/2042"
     * je clique sur "Suivant"
 
     * je renseigne les infos concernant les données personnelles
@@ -38,11 +37,9 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Service National
     Et que je clique sur "Démarrer" pour le formulaire "Inscription à un concours ou un examen (hors permis de conduire)"
 
     * je renseigne les infos de bases du projet
-    * je remplis "Date de mise en production" avec "08/01/2042"
-
     * je renseigne les infos concernant les données personnelles
-
     * je renseigne les informations des contacts RGPD
+
     * je remplis les informations du contact "Contact technique" avec :
       | Nom    | Prénom | Email               | Téléphone   | Fonction  |
       | Dupont | Marc   | dupont.marc@gouv.fr | 08366565603 | Technique |
@@ -58,11 +55,9 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Service National
     Et que je clique sur "Démarrer" pour le formulaire "Accès à un statut exigeant d’être en règle avec les obligations de service national"
 
     * je renseigne les infos de bases du projet
-    * je remplis "Date de mise en production" avec "08/01/2042"
-
     * je renseigne les infos concernant les données personnelles
-
     * je renseigne les informations des contacts RGPD
+    
     * je remplis les informations du contact "Contact technique" avec :
       | Nom    | Prénom | Email               | Téléphone   | Fonction  |
       | Dupont | Marc   | dupont.marc@gouv.fr | 08366565603 | Technique |

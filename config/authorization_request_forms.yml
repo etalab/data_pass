@@ -91,7 +91,7 @@ La plateforme, mise en place pour permettre le dépôt de ces aides publiques et
     name: "Demande libre"
     authorization_request: 'APIServiceNational'
     steps:
-      - name: 'basic_infos'
+      - name: 'minimal_infos'
       - name: 'personal_data'
       - name: 'legal'
       - name: 'contacts'
