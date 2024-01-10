@@ -1,0 +1,10 @@
+ul.authorization_request_events li {
+  display: block;
+  position: relative;
+}
+
+ul.authorization_request_events li time {
+  position: absolute;
+  right: 0;
+  top: 0;
+}

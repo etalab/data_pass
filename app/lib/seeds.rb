@@ -3,12 +3,12 @@ class Seeds
     create_entities
 
     create_authorization_request(:api_entreprise)
-    create_authorization_request(:api_entreprise, traits: %i[submitted], attributes: { intitule: 'Marché publics', description: very_long_description })
-    create_authorization_request(:api_particulier, traits: %i[refused], attributes: { intitule: 'Vente de données personnelles' })
-    create_authorization_request(:api_particulier, traits: %i[changes_requested], attributes: { intitule: 'Tarification cantine' })
+    create_authorization_request(:api_entreprise, :submitted, attributes: { intitule: 'Marché publics', description: very_long_description })
+    create_authorization_request(:api_particulier, :refused, attributes: { intitule: 'Vente de données personnelles' })
+    create_authorization_request(:api_particulier, :changes_requested, attributes: { intitule: 'Tarification cantine' })
     create_authorization_request(:hubee_cert_dc)
 
-    create_authorization_request(:api_infinoe_production, traits: %i[draft])
+    create_authorization_request(:api_infinoe_production, :draft)
   end
 
   def flushdb
@@ -63,16 +63,51 @@ class Seeds
     )
   end
 
-  def create_authorization_request(kind, attributes: {}, traits: [])
+  def create_authorization_request(kind, status = :draft, attributes: {}, traits: [])
     traits << kind
+    traits << status
 
-    FactoryBot.create(
+    authorization_request = FactoryBot.create(
       :authorization_request,
       *traits,
       {
         applicant: demandeur,
         organization: clamart_organization,
       }.merge(attributes)
+    )
+
+    create_events_for(authorization_request, status)
+  end
+
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  def create_events_for(authorization_request, status)
+    case status
+    when :draft
+      create_event(authorization_request, :create, created_at: 1.day.ago)
+    when :submitted
+      create_event(authorization_request, :create, created_at: 3.hours.ago)
+      create_event(authorization_request, :submit, created_at: 1.hour.ago)
+    when :refused
+      create_event(authorization_request, :create, created_at: 3.hours.ago)
+      create_event(authorization_request, :submit, created_at: 1.hour.ago)
+      create_event(authorization_request, :refuse, created_at: 30.minutes.ago)
+    when :changes_requested
+      create_event(authorization_request, :create, created_at: 3.hours.ago)
+      create_event(authorization_request, :submit, created_at: 1.hour.ago)
+      create_event(authorization_request, :request_changes, created_at: 30.minutes.ago)
+    when :validated
+      create_event(authorization_request, :create, created_at: 3.hours.ago)
+      create_event(authorization_request, :submit, created_at: 1.hour.ago)
+      create_event(authorization_request, :approve, created_at: 30.minutes.ago)
+    end
+  end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+
+  def create_event(authorization_request, status, attributes = {})
+    FactoryBot.create(
+      :authorization_request_event,
+      status,
+      attributes.merge(authorization_request:)
     )
   end
 

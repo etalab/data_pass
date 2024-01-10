@@ -32,6 +32,8 @@ RSpec.describe CreateAuthorizationRequest, type: :organizer do
 
         expect(authorization_request.administrateur_metier_family_name).to eq('Dupont')
       end
+
+      include_examples 'creates an event', event_name: :create
     end
 
     context 'with a form which has data key' do

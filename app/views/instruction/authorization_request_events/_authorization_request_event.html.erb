@@ -1,0 +1,26 @@
+<li class="authorization_request_event">
+  <%=
+    content_tag(
+      :span,
+      '',
+      class: [
+        "fr-icon-#{t(".#{authorization_request_event.name}.icon", default: 'info-fill')}",
+        "fr-text-#{t(".#{authorization_request_event.name}.color", default: 'info')}",
+      ]
+    )
+  %>
+
+  <%=
+    t(
+      ".#{authorization_request_event.name}.text",
+      **{
+        user_full_name: authorization_request_event.user.try(:full_name),
+        reason: authorization_request_event.entity.try(:reason),
+      }.compact
+    ).html_safe
+  %>
+
+  <%= time_tag authorization_request_event.created_at do %>
+    <%= authorization_request_event.created_at.strftime("%d/%m/%Y") %>
+  <% end %>
+</li>

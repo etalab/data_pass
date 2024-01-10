@@ -31,6 +31,17 @@ fr:
         - api.gouv.fr
         - annuaire-entreprises.data.gouv.fr
         - data.gouv.fr
+
+    instruction:
+      authorization_request:
+        tabs:
+          authorization_request:
+            title: 'Demande'
+            icon: 'article-line'
+          authorization_request_events:
+            title: 'Historique'
+            icon: 'time-line'
+
   application:
     user_not_authorized:
       title: Vous n'avez pas le droit d'accéder à cette page
@@ -194,3 +205,38 @@ fr:
         request_changes: Envoyer la demande de modification
       create:
         success: La demande de modifications de d'habilitation %{name} a bien été envoyée au demandeur
+    authorization_request_events:
+      index:
+        title: Derniers événements lié à cette demande
+      authorization_request_event:
+        create:
+          text: "<strong>%{user_full_name}</strong> a crée la demande"
+        update:
+          text: "<strong>%{user_full_name}</strong> a mis à jour la demande"
+        submit:
+          text: "<strong>%{user_full_name}</strong> a soumis la demande"
+        approve:
+          text: "<strong>%{user_full_name}</strong> a approuvé la demande"
+          icon: success-fill
+          color: success
+        request_changes:
+          text: |
+            <strong>%{user_full_name}</strong> a demandé des modifications sur la demande:
+
+            <blockquote>
+              %{reason}
+            </blockquote>
+          icon: warning-fill
+          color: warning
+        refuse:
+          text: |
+            <strong>%{user_full_name}</strong> a refusé la demande:
+
+            <blockquote>
+              %{reason}
+            </blockquote>
+          icon: error-fill
+          color: error
+
+        system_reminder:
+          text: "Une relance a été envoyé au demandeur"

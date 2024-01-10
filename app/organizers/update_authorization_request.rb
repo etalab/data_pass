@@ -1,5 +1,10 @@
 class UpdateAuthorizationRequest < ApplicationOrganizer
-  organize AssignParamsToAuthorizationRequest
+  before do
+    context.event_name = 'update'
+  end
+
+  organize AssignParamsToAuthorizationRequest,
+    CreateAuthorizationRequestEventModel
 
   after do
     context.authorization_request.save ||

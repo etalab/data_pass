@@ -2,7 +2,7 @@ class Instruction::ApproveAuthorizationRequestsController < Instruction::Authori
   def new; end
 
   def create
-    organizer = ApproveAuthorizationRequest.call(authorization_request: @authorization_request)
+    organizer = ApproveAuthorizationRequest.call(authorization_request: @authorization_request, user: current_user)
 
     if organizer.success?
       success_message(title: t('.success', name: @authorization_request.name))

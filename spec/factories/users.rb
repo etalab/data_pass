@@ -1,6 +1,6 @@
 FactoryBot.define do
   sequence(:email) { |n| "user#{n}@gouv.fr" }
-  sequence(:external_id, &:to_s)
+  sequence(:external_id) { |n| (n + 100).to_s }
 
   factory :user do
     email
@@ -18,7 +18,7 @@ FactoryBot.define do
     trait :instructor do
       transient do
         authorization_request_types do
-          %w[api_entreprise]
+          %w[hubee_cert_dc api_entreprise]
         end
       end
 

@@ -24,7 +24,7 @@ FactoryBot.define do
       state { 'changes_requested' }
 
       after(:build) do |authorization_request|
-        authorization_request.modification_request = build(:instructor_modification_request, authorization_request:)
+        authorization_request.modification_requests << build(:instructor_modification_request, authorization_request:)
       end
     end
 
@@ -38,7 +38,7 @@ FactoryBot.define do
       fill_all_attributes { true }
 
       after(:build) do |authorization_request|
-        authorization_request.denial = build(:denial_of_authorization, authorization_request:)
+        authorization_request.denials << build(:denial_of_authorization, authorization_request:)
       end
     end
 

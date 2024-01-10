@@ -1,10 +1,10 @@
 class Instruction::RefuseAuthorizationRequestsController < Instruction::AuthorizationRequestsController
   def new
-    @denial_of_authorization = @authorization_request.build_denial
+    @denial_of_authorization = @authorization_request.denials.build
   end
 
   def create
-    organizer = RefuseAuthorizationRequest.call(denial_of_authorization_params:, authorization_request: @authorization_request)
+    organizer = RefuseAuthorizationRequest.call(denial_of_authorization_params:, authorization_request: @authorization_request, user: current_user)
 
     @denial_of_authorization = organizer.denial_of_authorization
 

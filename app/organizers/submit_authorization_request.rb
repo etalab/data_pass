@@ -1,10 +1,12 @@
 class SubmitAuthorizationRequest < ApplicationOrganizer
   before do
+    context.authorization_request_params ||= ActionController::Parameters.new
     context.state_machine_event = :submit
   end
 
-  organize UpdateAuthorizationRequest,
-    TriggerAuthorizationRequestEvent
+  organize AssignParamsToAuthorizationRequest,
+    TriggerAuthorizationRequestEvent,
+    CreateAuthorizationRequestEventModel
 
   after do
     context.authorization_request.save ||

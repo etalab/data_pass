@@ -1,6 +1,8 @@
 RSpec.describe RefuseAuthorizationRequest do
   describe '.call' do
-    subject(:refuse_authorization_request) { described_class.call(denial_of_authorization_params:, authorization_request:) }
+    subject(:refuse_authorization_request) { described_class.call(denial_of_authorization_params:, authorization_request:, user:) }
+
+    let(:user) { create(:user, :instructor, authorization_request_types: %w[api_entreprise]) }
 
     context 'with valid params' do
       let(:denial_of_authorization_params) { attributes_for(:denial_of_authorization) }
@@ -25,6 +27,8 @@ RSpec.describe RefuseAuthorizationRequest do
         it 'delivers an email' do
           expect { refuse_authorization_request }.to have_enqueued_mail(AuthorizationRequestMailer, :refused)
         end
+
+        include_examples 'creates an event', event_name: :refuse, entity_type: :denial_of_authorization
       end
 
       context 'with authorization request in draft state' do

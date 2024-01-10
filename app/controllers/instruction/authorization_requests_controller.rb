@@ -13,11 +13,14 @@ class Instruction::AuthorizationRequestsController < InstructionController
     render_show
   end
 
+  private
+
   def render_show
     if @authorization_request.form.multiple_steps?
-      render 'show'
+      render 'show', layout: 'instruction/authorization_request'
     else
-      render "authorization_request_forms/#{@authorization_request.form.uid.underscore}"
+      render "authorization_request_forms/#{@authorization_request.form.uid.underscore}", layout: 'instruction/authorization_request'
+
     end
   end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_06_165759) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_09_101531) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "plpgsql"
@@ -41,6 +41,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_06_165759) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "authorization_request_events", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "user_id"
+    t.string "entity_type", null: false
+    t.bigint "entity_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["entity_type", "entity_id"], name: "index_authorization_request_events_on_entity"
+    t.index ["user_id"], name: "index_authorization_request_events_on_user_id"
+    t.check_constraint "name::text !~~ 'system_%'::text AND user_id IS NOT NULL OR name::text ~~ 'system_%'::text", name: "user_id_not_null_unless_system_event"
+    t.check_constraint "name::text = 'refuse'::text AND entity_type::text = 'DenialOfAuthorization'::text OR name::text = 'request_changes'::text AND entity_type::text = 'InstructorModificationRequest'::text OR entity_type::text = 'AuthorizationRequest'::text", name: "entity_type_validation"
   end
 
   create_table "authorization_requests", force: :cascade do |t|
