@@ -2,6 +2,7 @@
 shared:
   portail-hubee-demarche-certdc:
     authorization_request: 'HubEECertDC'
+
   api-entreprise:
     name: "Demande libre"
     authorization_request: 'APIEntreprise'
@@ -11,6 +12,7 @@ shared:
       - name: 'legal'
       - name: 'scopes'
       - name: 'contacts'
+
   api-entreprise-mgdis:
     name: "Solution Portail des aides de l'éditeur MGDIS"
     authorization_request: 'APIEntreprise'
@@ -62,3 +64,34 @@ La plateforme, mise en place pour permettre le dépôt de ces aides publiques et
 
   api-infinoe-production:
     authorization_request: 'APIInfinoeProduction'
+
+  api-service-national-inscription-concours-examen:
+    name: "Inscription à un concours ou un examen (hors permis de conduire)"
+    authorization_request: 'APIServiceNational'
+    data:
+      intitule: "Inscription à un concours ou un examen (hors permis de conduire)"
+      description: "La candidature à un concours ou examens en France nécessite souvent l'inscription à un service national. Ce service permet au candidat d'être identifié et authentifié de manière sécurisée lors de son inscription."
+      destinataire_donnees_caractere_personnel:
+      duree_conservation_donnees_caractere_personnel: "12"
+      cadre_juridique_nature: "Article L114-6 du code du service national"
+      cadre_juridique_url: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000021960309/"
+
+  api-service-national-obligation-service-national:
+    name: "Accès à un statut exigeant d’être en règle avec les obligations de service national"
+    authorization_request: 'APIServiceNational'
+    data:
+      intitule: "Accès à un statut exigeant d’être en règle avec les obligations de service national"
+      description:
+      destinataire_donnees_caractere_personnel:
+      duree_conservation_donnees_caractere_personnel: "12"
+      cadre_juridique_nature: "Article L111-3 du code du service national"
+      cadre_juridique_url: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000024042593/"
+
+  api-service-national:
+    name: "Demande libre"
+    authorization_request: 'APIServiceNational'
+    steps:
+      - name: 'minimal_infos'
+      - name: 'personal_data'
+      - name: 'legal'
+      - name: 'contacts'

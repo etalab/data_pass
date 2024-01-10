@@ -2,6 +2,7 @@ fr:
   authorization_request_forms:
     default:
       steps:
+        minimal_infos: "Informations de base"
         basic_infos: "Informations de base"
         personal_data: "Données personnelles"
         legal: "Cadre juridique"
@@ -89,6 +90,7 @@ fr:
       administrateur_metier:
         info: |
           <strong>L’administrateur métier</strong> disposera des droits d’administration portail HubEE : gestion des abonnements et gestion des utilisateurs.
+
     api_entreprise:
       volumetrie_approximative:
         hint: Nombre de démarches ou dossiers traités dans l'année
@@ -120,6 +122,7 @@ fr:
           <strong>Le contact technique</strong> est la personne en charge de l'intégration de l'API Entreprise et de sa maintenance dans vos systèmes d'information. Le contact technique sera notifié de l'ensemble des opérations de maintenance et des incidents. Le contact technique sera en copie des notifications d'expiration du jeton.
           <br />
           Afin de garantir que votre service ne soit pas interrompu, merci de renseigner une adresse e-mail générique ou liste de diffusion fonctionnelle, afin que ce contact soit permanent et peu influencé par les changements de poste, congés ou autres.
+
     api_particulier:
       scopes:
         info:

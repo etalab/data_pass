@@ -1,0 +1,11 @@
+<%= f.info_for(:minimal_infos) %>
+
+<fieldset class="fr-fieldset" aria-label="feedme" aria-describedby="name-1-fieldset-messages">
+  <div class="fr-fieldset__element">
+    <%= f.dsfr_text_field :intitule, required: true %>
+  </div>
+
+  <div class="fr-fieldset__element">
+    <%= f.dsfr_text_area :description, rows: 10 %>
+  </div>
+</fieldset>

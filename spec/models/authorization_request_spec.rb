@@ -6,6 +6,7 @@ RSpec.describe AuthorizationRequest do
       api_particulier
       api_infinoe_sandbox
       api_infinoe_production
+      api_service_national
     ].each do |kind|
       authorization_request = build(:authorization_request, kind, state: 'submitted')
       authorization_request.save!
