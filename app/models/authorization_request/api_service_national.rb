@@ -9,9 +9,5 @@ class AuthorizationRequest::APIServiceNational < AuthorizationRequest
   add_attributes :date_prevue_mise_en_production,
     :volumetrie_approximative
 
-  %i[
-    contact_technique
-  ].each do |contact_kind|
-    contact contact_kind, validation_condition: -> { need_complete_validation?(:contacts) }
-  end
+  contact :contact_technique, validation_condition: -> { need_complete_validation?(:contacts) }
 end

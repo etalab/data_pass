@@ -76,12 +76,6 @@ La plateforme, mise en place pour permettre le dépôt de ces aides publiques et
       cadre_juridique_nature: "Article L114-6 du code du service national"
       cadre_juridique_url: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000021960309/"
 
-      contact_technique_given_name:
-      contact_technique_family_name:
-      contact_technique_job_title:
-      contact_technique_email:
-      contact_technique_phone_number:
-
   api-service-national-obligation-service-national:
     name: "Accès à un statut exigeant d’être en règle avec les obligations de service national"
     authorization_request: 'APIServiceNational'
@@ -92,12 +86,6 @@ La plateforme, mise en place pour permettre le dépôt de ces aides publiques et
       duree_conservation_donnees_caractere_personnel: "12"
       cadre_juridique_nature: "Article L111-3 du code du service national"
       cadre_juridique_url: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000024042593/"
-
-      contact_technique_given_name:
-      contact_technique_family_name:
-      contact_technique_job_title:
-      contact_technique_email:
-      contact_technique_phone_number:
 
   api-service-national:
     name: "Demande libre"
