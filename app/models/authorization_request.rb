@@ -75,6 +75,7 @@ class AuthorizationRequest < ApplicationRecord
     state :changes_requested
     state :validated
     state :refused
+    state :archived
 
     event :submit do
       transition from: %i[draft changes_requested], to: :submitted

@@ -20,6 +20,10 @@ FactoryBot.define do
       state { 'draft' }
     end
 
+    trait :archived do
+      state { 'archived' }
+    end
+
     trait :changes_requested do
       state { 'changes_requested' }
 
