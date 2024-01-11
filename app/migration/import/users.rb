@@ -34,7 +34,7 @@ class Import::Users < Import::Base
   end
 
   def in_organizations?(user_row)
-    sanitize_user_organizations(user_row['organizations']).map { |org| org['siret'] } & organization_sirets != []
+    organization_sirets.intersect?(sanitize_user_organizations(user_row['organizations']).map { |org| org['siret'] })
   end
 
   def organization_sirets

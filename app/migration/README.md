@@ -8,7 +8,14 @@
 
 ## 2. LOCAL Importation des données
 
-La commande: `./app/migrations/local_import.sh`
+Executez la commande: `./app/migrations/local_import.sh`
+Cette commande est idempotent.
+Pour clean la db locale: `./app/migrations/clean_local_db.sh`
 
 Il possible d'effectuer des filtrages sur les données importées (via les options
 globale de la classe principale [`MainImport`](./main_import.rb))
+
+Chaque type d'habilitation s'occupe de ses propres attributs dans la classe
+situé dans le dossier [`app/migration/import/authorization_requests/`](./import/authorization_requests),
+cela permet de simplifier les traitements. La classe
+`Import::AuthorizationRequests` s'occupe des attributs communs.

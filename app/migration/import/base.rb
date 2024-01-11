@@ -14,17 +14,19 @@ class Import::Base
     csv_to_loop.each do |row|
       next unless import?(row)
 
-      extract(row)
+      begin
+        extract(row)
+      rescue => e
+        log(" ERROR: #{e.message}")
+        log(e.backtrace.join("\n"))
+
+        byebug if ENV['LOCAL'].present?
+      end
     end
 
     log(" > #{@models.count} #{model_tableize} imported")
 
     @models
-  rescue => e
-    log(" ERROR: #{e.message}")
-    log(e.backtrace.join("\n"))
-
-    raise
   end
 
   protected
@@ -56,6 +58,7 @@ class Import::Base
       .gsub('{"{', '[{')
       .gsub('}"}', '}]')
       .gsub('\\"', '"')
+      .gsub('","', ',')
 
     JSON.parse(json)
   end
