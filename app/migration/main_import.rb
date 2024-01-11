@@ -4,7 +4,6 @@ class MainImport
   include ImportUtils
 
   def perform
-    log("Init")
     organizations = import(:organizations)
     users = import(:users, { organizations: })
   end

@@ -5,13 +5,63 @@ class Import::Base
 
   def initialize(options = {})
     @options = options
+    @models = []
   end
 
   def perform
-    raise NotImplementedError
+    log("# Importing #{model_tableize}...")
+
+    csv_to_loop.each do |row|
+      next unless import?(row)
+
+      extract(row)
+    end
+
+    log(" > #{@models.count} #{model_tableize} imported")
+
+    @models
+  rescue => e
+    log(" ERROR: #{e.message}")
+    log(e.backtrace.join("\n"))
+
+    raise
+  end
+
+  protected
+
+  def export
+    fail NoImplementedError
+  end
+
+  def csv_to_loop
+    csv(model_tableize)
+  end
+
+  private
+
+  def model_name
+    self.class.name.split('::')[-1]
+  end
+
+  def model_tableize
+    model_name.underscore.pluralize
   end
 
   def import?(row)
     true
+  end
+
+  def sanitize_user_organizations(organizations)
+    json = organizations
+      .gsub('{"{', '[{')
+      .gsub('}"}', '}]')
+      .gsub('\\"', '"')
+
+    JSON.parse(json)
+  end
+
+  def to_boolean(value)
+    value == 't' ||
+      value == 'true'
   end
 end
