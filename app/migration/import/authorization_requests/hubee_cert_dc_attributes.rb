@@ -1,6 +1,7 @@
 class Import::AuthorizationRequests::HubEECertDCAttributes < Import::AuthorizationRequests::Base
   def affect_attributes
     handle_missing_applicant
+    handle_missing_organization
     handle_multiple_organizations
     handle_administrateur_metier
   end
@@ -11,6 +12,10 @@ class Import::AuthorizationRequests::HubEECertDCAttributes < Import::Authorizati
     raise SkipRow.new(:no_applicant) if authorization_request.applicant.blank?
   end
 
+  def handle_missing_organization
+    raise SkipRow.new(:no_organization) if authorization_request.organization.blank?
+  end
+
   def handle_multiple_organizations
     other_authorization_request = AuthorizationRequest::HubEECertDC.find_by(organization_id: authorization_request.organization_id)
 
@@ -18,7 +23,7 @@ class Import::AuthorizationRequests::HubEECertDCAttributes < Import::Authorizati
 
     case other_authorization_request.state
     when 'validated'
-      raise SkipRow
+      raise SkipRow.new(:validated_one_already_exists)
     else
       other_authorization_request.destroy!
     end

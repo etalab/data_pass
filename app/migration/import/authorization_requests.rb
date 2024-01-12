@@ -39,13 +39,6 @@ class Import::AuthorizationRequests < Import::Base
     authorization_request.save!
 
     @models << authorization_request
-  rescue Import::AuthorizationRequests::Base::SkipRow => e
-    case e.kind
-    when :missing_applicant
-      log("Skipping enrollment #{enrollment_row['id']} because applicant is missing\n")
-    end
-
-    raise
   end
 
   private
@@ -73,7 +66,7 @@ class Import::AuthorizationRequests < Import::Base
       else
         organization.mon_compte_pro_payload['id'].to_s == enrollment_row['organization_id'].to_s
       end
-    end || (raise "No organization found for #{enrollment_row['organization_id']} (enrollment ##{enrollment_row['id']})}")
+    end
   end
 
   def fetch_applicant(enrollment_row)

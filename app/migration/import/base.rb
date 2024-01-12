@@ -38,7 +38,7 @@ class Import::Base
   end
 
   def load_sql_file!
-    model_klass.delete_all
+    model_klass.destroy_all
 
     sql_tables_to_save.each do |sql_table|
       log("# Importing #{sql_table} from SQL dump")

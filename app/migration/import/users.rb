@@ -1,7 +1,7 @@
 class Import::Users < Import::Base
   def extract(user_row)
     user = User.find_or_initialize_by(email: user_row['email'])
-    user_organizations = Organization.where(siret: sanitize_user_organizations(user_row['organizations']).map { |org| org['siret'] })
+    user_organizations = Organization.where(siret: sanitize_user_organizations(user_row['organizations']).map { |org| org['siret'] }).distinct
 
     user.assign_attributes(
       user_row.to_h.slice(
@@ -15,7 +15,10 @@ class Import::Users < Import::Base
       )
     )
 
-    user.organizations = user_organizations
+    user_organizations.each do |organization|
+      user.organizations << organization unless user.organizations.include?(organization)
+    end
+
     user.current_organization = user_organizations.first if user.current_organization.blank?
 
     user.save!
