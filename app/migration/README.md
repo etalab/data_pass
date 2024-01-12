@@ -22,6 +22,7 @@ suivantes:
 
 * `dump_sql`, dump un fichier sql ;
 * `load_from_sql`, load depuis un fichier sql (plus rapide).
+* `TABLE_NAME_filter`, lambda pour filtrer les entrées
 
 Chaque type d'habilitation s'occupe de ses propres attributs dans la classe
 situé dans le dossier [`app/migration/import/authorization_requests/`](./import/authorization_requests),

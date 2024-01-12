@@ -39,7 +39,13 @@ class Import::AuthorizationRequests < Import::Base
     authorization_request.save!
 
     @models << authorization_request
-  rescue Import::AuthorizationRequests::Base::SkipRow
+  rescue Import::AuthorizationRequests::Base::SkipRow => e
+    case e.kind
+    when :missing_applicant
+      log("Skipping enrollment #{enrollment_row['id']} because applicant is missing\n")
+    end
+
+    raise
   end
 
   private
@@ -50,7 +56,7 @@ class Import::AuthorizationRequests < Import::Base
 
   def fetch_team_members(enrollment_id)
     @team_members.fetch(enrollment_id) do
-      enrollment_team_members = csv('team_members').select { |row| row['enrollment_id'] == enrollment_id }
+      enrollment_team_members = filtered_team_members.select { |row| row['enrollment_id'] == enrollment_id }
 
       @team_members[enrollment_id] = enrollment_team_members
 
@@ -59,6 +65,8 @@ class Import::AuthorizationRequests < Import::Base
   end
 
   def fetch_organization(user, enrollment_row)
+    return if user.blank?
+
     user.organizations.find do |organization|
       organization.mon_compte_pro_payload['id'].to_s == enrollment_row['organization_id'].to_s
     end || (raise "No organization found for #{enrollment_row['organization_id']} (enrollment ##{enrollment_row['id']})}")
@@ -67,7 +75,7 @@ class Import::AuthorizationRequests < Import::Base
   def fetch_applicant(enrollment_row)
     demandeur = find_team_member('demandeur', enrollment_row['id'])
 
-    User.find_by(email: demandeur['email']) || (raise "No user found for #{demandeur} (enrollment ##{enrollment_row['id']})}")
+    User.find_by(email: demandeur['email'])
   end
 
   def fetch_form(authorization_request)
@@ -106,6 +114,14 @@ class Import::AuthorizationRequests < Import::Base
   end
 
   def csv_to_loop
-    csv('enrollments')
+    @csv_to_loop ||= csv('enrollments').select { |row| import?(row) }
+  end
+
+  def filtered_team_members
+    @filtered_team_members ||= begin
+      enrollment_ids = csv_to_loop.pluck('id')
+
+      csv('team_members').select { |row| enrollment_ids.include?(row['enrollment_id']) }
+    end
   end
 end

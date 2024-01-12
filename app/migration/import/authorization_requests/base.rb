@@ -1,5 +1,12 @@
 class Import::AuthorizationRequests::Base
-  class SkipRow < StandardError; end
+  class SkipRow < StandardError
+    attr_reader :kind, :message
+
+    def initialize(kind = nil, message = nil)
+      @kind = kind
+      @message = message
+    end
+  end
 
   attr_reader :authorization_request, :enrollment_row, :team_members
 

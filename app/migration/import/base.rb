@@ -34,15 +34,17 @@ class Import::Base
 
   def import_from_sql?
     options[:load_from_sql] &&
-      File.exist?(sql_file_path)
+      sql_tables_to_save.all? { |sql_table| File.exist?(sql_file_path(sql_table)) }
   end
 
   def load_sql_file!
-    log("# Importing #{model_tableize} from SQL dump")
-
     model_klass.delete_all
 
-    `psql -d #{ActiveRecord::Base.connection.current_database} -f #{sql_file_path}`
+    sql_tables_to_save.each do |sql_table|
+      log("# Importing #{sql_table} from SQL dump")
+
+      `psql -d #{ActiveRecord::Base.connection.current_database} -f #{sql_file_path(sql_table)}`
+    end
 
     log("> DONE")
 
@@ -50,9 +52,11 @@ class Import::Base
   end
 
   def dump_sql_file!
-    log("# Dumping #{model_tableize} to SQL file")
+    sql_tables_to_save.each do |sql_table|
+      log("# Dumping #{sql_table} to SQL file")
 
-    `pg_dump -a -d #{ActiveRecord::Base.connection.current_database} -t #{model_tableize} > #{sql_file_path}`
+      `pg_dump -a -d #{ActiveRecord::Base.connection.current_database} -t #{sql_table} > #{sql_file_path(sql_table)}`
+    end
 
     log("> SQL file dumped")
   end
@@ -66,6 +70,13 @@ class Import::Base
 
       begin
         extract(row)
+      rescue Import::AuthorizationRequests::Base::SkipRow => e
+        options[:skipped] << {
+          type: model_name,
+          id: row['id'],
+          kind: e.kind,
+          message: e.message,
+        }
       rescue => e
         log(" ERROR: #{e.message}")
         log(e.backtrace.join("\n"))
@@ -100,8 +111,12 @@ class Import::Base
     model_name.underscore.pluralize
   end
 
-  def sql_file_path
-    Rails.root.join("app/migration/dumps/#{model_tableize}.sql")
+  def sql_file_path(sql_table)
+    Rails.root.join("app/migration/dumps/#{sql_table}.sql")
+  end
+
+  def sql_tables_to_save
+    [model_tableize]
   end
 
   def sanitize_user_organizations(organizations)

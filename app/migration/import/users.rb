@@ -31,6 +31,10 @@ class Import::Users < Import::Base
     )
   end
 
+  def sql_tables_to_save
+    @sql_tables_to_save ||= super.concat(['organizations_users'])
+  end
+
   def organization_sirets
     @organization_sirets ||= organizations.map(&:siret)
   end
