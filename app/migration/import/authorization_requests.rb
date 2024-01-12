@@ -30,9 +30,16 @@ class Import::AuthorizationRequests < Import::Base
 
     handle_authorization_request_type_specific_fields(authorization_request, enrollment_row)
 
-    byebug unless authorization_request.save
+    unless authorization_request.valid?
+      log("Errors: #{authorization_request.errors.full_messages}\n")
+
+      byebug
+    end
+
+    authorization_request.save!
 
     @models << authorization_request
+  rescue Import::AuthorizationRequests::Base::SkipRow
   end
 
   private
@@ -100,13 +107,5 @@ class Import::AuthorizationRequests < Import::Base
 
   def csv_to_loop
     csv('enrollments')
-  end
-
-  def user_emails
-    @user_emails ||= users.map(&:email)
-  end
-
-  def users
-    @users ||= options[:users]
   end
 end

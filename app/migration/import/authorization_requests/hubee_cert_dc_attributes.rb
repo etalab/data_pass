@@ -1,15 +1,37 @@
 class Import::AuthorizationRequests::HubEECertDCAttributes < Import::AuthorizationRequests::Base
   def affect_attributes
+    handle_multiple_organizations
+    handle_administrateur_metier
+  end
+
+  private
+
+  def handle_multiple_organizations
+    other_authorization_request = AuthorizationRequest::HubEECertDC.find_by(organization_id: authorization_request.organization_id)
+
+    return if other_authorization_request.blank?
+
+    case other_authorization_request.state
+    when 'validated'
+      raise SkipRow
+    else
+      other_authorization_request.destroy!
+    end
+  end
+
+  def handle_administrateur_metier
     responsable_metier_team_member = find_team_member_by_type('responsable_metier')
 
-    AuthorizationRequest.contact_attributes.each do |contact_attribute|
-      from_contact_attribute = contact_attribute == 'job_title' ? 'job' : contact_attribute
-
-      authorization_request.send(
-        "administrateur_metier_#{contact_attribute}=",
-        responsable_metier_team_member[from_contact_attribute] ||
-          authorization_request.applicant.send(contact_attribute)
+    if authorization_request.draft?
+      affect_team_attributes(responsable_metier_team_member, 'administrateur_metier')
+    elsif team_member_incomplete?(responsable_metier_team_member)
+      virtual_user = responsable_metier_team_member.merge(
+        authorization_request.applicant.attributes.slice(**AuthorizationRequest.contact_attributes)
       )
+
+      affect_team_attributes(virtual_user, 'administrateur_metier')
+    else
+      affect_team_attributes(responsable_metier_team_member, 'administrateur_metier')
     end
   end
 end
