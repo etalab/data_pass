@@ -1,5 +1,52 @@
 {
-  "ignored_warnings": [],
-  "updated": "2023-12-01 12:31:40 +0200",
-  "brakeman_version": "6.0.1"
+  "ignored_warnings": [
+    {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "47963c013ecacb60f325d5d2b5fe9c6745c036d6cbcad33ea72bdb0311a1f728",
+      "check_name": "Execute",
+      "message": "Possible command injection",
+      "file": "app/migration/import/base.rb",
+      "line": 45,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "`psql -d #{ActiveRecord::Base.connection.current_database} -f #{sql_file_path}`",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Import::Base",
+        "method": "load_sql_file!"
+      },
+      "user_input": "ActiveRecord::Base.connection.current_database",
+      "confidence": "Medium",
+      "cwe_id": [
+        77
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "a9438f58fdba48a5e805f8d9391b228ecd7db550622b27c97f44604400d26e61",
+      "check_name": "Execute",
+      "message": "Possible command injection",
+      "file": "app/migration/import/base.rb",
+      "line": 55,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "`pg_dump -a -d #{ActiveRecord::Base.connection.current_database} -t #{model_tableize} > #{sql_file_path}`",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Import::Base",
+        "method": "dump_sql_file!"
+      },
+      "user_input": "ActiveRecord::Base.connection.current_database",
+      "confidence": "Medium",
+      "cwe_id": [
+        77
+      ],
+      "note": ""
+    }
+  ],
+  "updated": "2024-01-12 12:40:03 +0100",
+  "brakeman_version": "6.1.1"
 }
