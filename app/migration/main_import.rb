@@ -5,7 +5,7 @@ class MainImport
 
   def perform
     organizations = import(:organizations, { load_from_sql: true })
-    users = import(:users, { organizations:, dump_sql: true })
+    users = import(:users, { organizations:, load_from_sql: true })
     # authorization_requests = import(:authorization_requests, { users: })
   end
 

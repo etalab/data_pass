@@ -33,7 +33,8 @@ class Import::Base
   private
 
   def import_from_sql?
-    options[:load_from_sql] == true
+    options[:load_from_sql] &&
+      File.exist?(sql_file_path)
   end
 
   def load_sql_file!
@@ -51,7 +52,7 @@ class Import::Base
   def dump_sql_file!
     log("# Dumping #{model_tableize} to SQL file")
 
-    `pg_dump -d #{ActiveRecord::Base.connection.current_database} -t #{model_tableize} > #{sql_file_path}`
+    `pg_dump -a -d #{ActiveRecord::Base.connection.current_database} -t #{model_tableize} > #{sql_file_path}`
 
     log("> SQL file dumped")
   end
@@ -74,7 +75,7 @@ class Import::Base
 
     log(" > #{@models.count} #{model_tableize} imported")
 
-    dump_sql_file! if options[:dump_sql]
+    dump_sql_file! if options[:dump_sql] || options[:load_from_sql]
 
     @models
   end
