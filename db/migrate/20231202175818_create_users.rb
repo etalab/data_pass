@@ -6,7 +6,7 @@ class CreateUsers < ActiveRecord::Migration[7.1]
       t.string :given_name
       t.string :job_title
       t.boolean :email_verified, default: false
-      t.string :external_id, null: false, index: { unique: true }
+      t.string :external_id, index: { unique: true, where: 'external_id IS NOT NULL' }
 
       t.timestamps
     end

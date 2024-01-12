@@ -110,7 +110,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_09_101531) do
     t.string "given_name"
     t.string "job_title"
     t.boolean "email_verified", default: false
-    t.string "external_id", null: false
+    t.string "external_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "current_organization_id"
@@ -119,7 +119,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_09_101531) do
     t.string "roles", default: [], array: true
     t.index ["current_organization_id"], name: "index_users_on_current_organization_id"
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["external_id"], name: "index_users_on_external_id", unique: true
+    t.index ["external_id"], name: "index_users_on_external_id", unique: true, where: "(external_id IS NOT NULL)"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
