@@ -68,7 +68,11 @@ class Import::AuthorizationRequests < Import::Base
     return if user.blank?
 
     user.organizations.find do |organization|
-      organization.mon_compte_pro_payload['id'].to_s == enrollment_row['organization_id'].to_s
+      if enrollment_row['organization_id'].blank?
+        organization.siret == enrollment_row['siret']
+      else
+        organization.mon_compte_pro_payload['id'].to_s == enrollment_row['organization_id'].to_s
+      end
     end || (raise "No organization found for #{enrollment_row['organization_id']} (enrollment ##{enrollment_row['id']})}")
   end
 
