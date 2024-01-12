@@ -23,7 +23,7 @@ class Import::Organizations < Import::Base
   end
 
   def import?(user_row)
-    options[:users_filter].present? &&
+    options[:users_filter].blank? ||
       options[:users_filter].call(user_row)
   end
 end

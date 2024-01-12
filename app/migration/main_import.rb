@@ -4,9 +4,9 @@ class MainImport
   include ImportUtils
 
   def perform
-    organizations = import(:organizations)
-    users = import(:users, { organizations: })
-    authorization_requests = import(:authorization_requests, { users: })
+    organizations = import(:organizations, { load_from_sql: true })
+    users = import(:users, { organizations:, dump_sql: true })
+    # authorization_requests = import(:authorization_requests, { users: })
   end
 
   private
@@ -17,7 +17,7 @@ class MainImport
 
   def global_options
     {
-      users_filter: ->(user_row) { sample_hubee_cert_dc_user_ids.include?(user_row['id'].to_i) },
+      # users_filter: ->(user_row) { sample_hubee_cert_dc_user_ids.include?(user_row['id'].to_i) },
       enrollments_filter: ->(enrollment_row) { sample_hubee_cert_dc_enrollment_ids.include?(enrollment_row['id'].to_i) },
     }
   end
