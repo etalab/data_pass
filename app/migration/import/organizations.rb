@@ -21,9 +21,4 @@ class Import::Organizations < Import::Base
   def csv_to_loop
     csv('users')
   end
-
-  def import?(user_row)
-    options[:users_filter].blank? ||
-      options[:users_filter].call(user_row)
-  end
 end

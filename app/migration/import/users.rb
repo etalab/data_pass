@@ -26,15 +26,9 @@ class Import::Users < Import::Base
   private
 
   def import?(user_row)
-    (
-      options[:users_filter].blank? ||
-        options[:users_filter].call(user_row)
-      ) &&
-        in_organizations?(user_row)
-  end
-
-  def in_organizations?(user_row)
-    organization_sirets.intersect?(sanitize_user_organizations(user_row['organizations']).map { |org| org['siret'] })
+    organization_sirets.intersect?(
+      sanitize_user_organizations(user_row['organizations']).map { |org| org['siret'] }
+    )
   end
 
   def organization_sirets

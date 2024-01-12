@@ -10,7 +10,7 @@ class Import::AuthorizationRequests < Import::Base
     user = fetch_applicant(enrollment_row)
 
     authorization_request.applicant = user
-    authorization_request.organization = user.organizations.find { |organization| organization.mon_compte_pro_payload['id'].to_s == enrollment_row['organization_id'].to_s }
+    authorization_request.organization = fetch_organization(user, enrollment_row)
 
     authorization_request.form_uid = fetch_form(authorization_request).id
     authorization_request.state = enrollment_row['status']
@@ -28,13 +28,7 @@ class Import::AuthorizationRequests < Import::Base
       )
     end
 
-    Kernel.const_get(
-      "Import::AuthorizationRequests::#{authorization_request.type.split('::')[-1]}Attributes"
-    ).new(
-      authorization_request,
-      enrollment_row,
-      fetch_team_members(enrollment_row['id']),
-    ).perform
+    handle_authorization_request_type_specific_fields(authorization_request, enrollment_row)
 
     byebug unless authorization_request.save
 
@@ -57,10 +51,16 @@ class Import::AuthorizationRequests < Import::Base
     end
   end
 
+  def fetch_organization(user, enrollment_row)
+    user.organizations.find do |organization|
+      organization.mon_compte_pro_payload['id'].to_s == enrollment_row['organization_id'].to_s
+    end || (raise "No organization found for #{enrollment_row['organization_id']} (enrollment ##{enrollment_row['id']})}")
+  end
+
   def fetch_applicant(enrollment_row)
     demandeur = find_team_member('demandeur', enrollment_row['id'])
 
-    User.find_by(email: demandeur['email']) || (raise "No user found for #{demandeur['email']} (enrollment ##{enrollment_row['id']})}")
+    User.find_by(email: demandeur['email']) || (raise "No user found for #{demandeur} (enrollment ##{enrollment_row['id']})}")
   end
 
   def fetch_form(authorization_request)
@@ -73,17 +73,18 @@ class Import::AuthorizationRequests < Import::Base
     end
   end
 
-  def import?(enrollment_row)
-    from_target_api_to_type(enrollment_row).present? &&
-      options[:enrollments_filter].present? &&
-      options[:enrollments_filter].call(enrollment_row) &&
-      at_least_one_team_member_is_demandeur?(enrollment_row)
+  def handle_authorization_request_type_specific_fields(authorization_request, enrollment_row)
+    Kernel.const_get(
+      "Import::AuthorizationRequests::#{authorization_request.type.split('::')[-1]}Attributes"
+    ).new(
+      authorization_request,
+      enrollment_row,
+      fetch_team_members(enrollment_row['id']),
+    ).perform
   end
 
-  def at_least_one_team_member_is_demandeur?(enrollment_row)
-    team_members = fetch_team_members(enrollment_row['id'])
-
-    user_emails.intersect?(team_members.map { |team_member| team_member['email'] })
+  def import?(enrollment_row)
+    from_target_api_to_type(enrollment_row).present?
   end
 
   def find_or_build_authorization_request(enrollment_row)

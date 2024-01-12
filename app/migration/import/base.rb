@@ -61,6 +61,7 @@ class Import::Base
     log("# Importing #{model_tableize} from CSV file")
 
     csv_to_loop.each do |row|
+      next unless match_global_filter?(row)
       next unless import?(row)
 
       begin
@@ -78,6 +79,13 @@ class Import::Base
     dump_sql_file! if options[:dump_sql] || options[:load_from_sql]
 
     @models
+  end
+
+  def match_global_filter?(row)
+    filter_key = "#{model_tableize}_filter".to_sym
+
+    options[filter_key].blank? ||
+      options[filter_key].call(row)
   end
 
   def model_klass
