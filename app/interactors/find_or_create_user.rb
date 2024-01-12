@@ -12,7 +12,6 @@ class FindOrCreateUser < ApplicationInteractor
   def find_or_initialize_user
     User.where(
       email: info_payload['email'],
-      external_id: payload['uid'],
     ).first_or_initialize
   end
 
@@ -28,7 +27,8 @@ class FindOrCreateUser < ApplicationInteractor
       'phone_number',
       'phone_number_verified',
     ).merge(
-      'job_title' => info_payload['job']
+      'job_title' => info_payload['job'],
+      'external_id' => info_payload['sub'],
     ).merge(
       context.user_attributes || {}
     )

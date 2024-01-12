@@ -2,7 +2,7 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
   before_save { email.downcase! }
 
-  validates :external_id, presence: true, uniqueness: true
+  validates :external_id, uniqueness: true, allow_nil: true
 
   belongs_to :current_organization, class_name: 'Organization'
 
