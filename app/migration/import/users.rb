@@ -5,13 +5,11 @@ class Import::Users < Import::Base
 
     user.assign_attributes(
       user_row.to_h.slice(
-        'given_name',
-        'family_name',
         'phone_number',
       ).merge(
-        given_name: user_row['given_name'].strip,
-        family_name: user_row['family_name'].strip,
-        job_title: user_row['job'].strip,
+        given_name: user_row['given_name'].try(:strip),
+        family_name: user_row['family_name'].try(:strip),
+        job_title: user_row['job'].try(:strip),
         email_verified: to_boolean(user_row['email_verified']),
         external_id: user_row['uid'],
       )
