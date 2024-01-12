@@ -16,6 +16,7 @@ fr:
       submitted: En cours
       validated: Validée
       refused: Refusée
+      archived: Archivée
 
   layouts:
     header:
@@ -154,11 +155,14 @@ fr:
   instruction:
     authorization_requests:
       index:
+        search:
+          btn: Rechercher
         table:
           caption: Liste des demandes en cours
           header:
-            id: Identifiant interne
+            id: Identifiant
             name: Intitulé de la demande
+            created_at: Date
             type: Type de données
             form_name: Nom du formulaire
             status: Statut

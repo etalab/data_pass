@@ -1,0 +1,24 @@
+.search-box .search-inputs {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.search-box .search-inputs > .input {
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.search-box .search-inputs > .input {
+  flex-basis: 25%;
+  padding: 5px;
+}
+
+.search-box .search-inputs > .input:first-child {
+  padding-left: 0;
+  flex-basis: 50%;
+}
+
+.search-box .actions {
+  margin-top: -15px;
+  text-align: right;
+}
