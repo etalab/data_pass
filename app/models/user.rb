@@ -24,4 +24,10 @@ class User < ApplicationRecord
       roles.any? { |role| role.end_with?(':instructor') }
     end
   end
+
+  def authorization_roles_as(kind)
+    roles.select { |role| role.end_with?(":#{kind}") }.map do |role|
+      role.split(':').first
+    end
+  end
 end
