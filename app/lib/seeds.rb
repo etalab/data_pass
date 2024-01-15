@@ -6,7 +6,7 @@ class Seeds
     create_authorization_request(:api_entreprise, :submitted, attributes: { intitule: 'Marché publics', description: very_long_description })
     create_authorization_request(:api_particulier, :refused, attributes: { intitule: 'Vente de données personnelles' })
     create_authorization_request(:api_particulier, :changes_requested, attributes: { intitule: 'Tarification cantine' })
-    create_authorization_request(:hubee_cert_dc)
+    create_authorization_request(:portail_hubee_demarche_certdc)
 
     create_authorization_request(:api_infinoe_production, :draft)
   end

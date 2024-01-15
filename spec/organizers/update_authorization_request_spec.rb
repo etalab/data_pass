@@ -8,7 +8,7 @@ RSpec.describe UpdateAuthorizationRequest, type: :organizer do
       )
     end
 
-    let(:authorization_request) { create(:authorization_request, :hubee_cert_dc) }
+    let(:authorization_request) { create(:authorization_request, :portail_hubee_demarche_certdc) }
 
     context 'with basic form and valid params' do
       let(:authorization_request_params) do

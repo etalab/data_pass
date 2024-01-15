@@ -6,14 +6,50 @@ FactoryBot.define do
 
     terms_of_service_accepted { true }
     data_protection_officer_informed { true }
+    form_uid { 'portail-hubee-demarche-certdc' }
+    type { 'AuthorizationRequest::HubEECertDC' }
 
-    trait :no_checkboxes do
-      terms_of_service_accepted { false }
-      data_protection_officer_informed { false }
+    after(:build) do |authorization_request, evaluator|
+      if authorization_request.need_complete_validation? || evaluator.fill_all_attributes
+        authorization_request.class.contact_types.each do |contact_type|
+          authorization_request.public_send(:"#{contact_type}_family_name=", "Dupont #{contact_type.to_s.humanize}")
+          authorization_request.public_send(:"#{contact_type}_given_name=", "Jean #{contact_type.to_s.humanize}")
+          authorization_request.public_send(:"#{contact_type}_email=", "jean.dupont.#{contact_type}@gouv.fr")
+          authorization_request.public_send(:"#{contact_type}_phone_number=", '0836656565')
+          authorization_request.public_send(:"#{contact_type}_job_title=", "Directeur #{contact_type.to_s.humanize}")
+        end
+      end
+    end
+
+    after(:build) do |authorization_request|
+      if authorization_request.applicant.nil? && authorization_request.organization.nil?
+        applicant = create(:user)
+        organization = create(:organization)
+        applicant.organizations << organization
+
+        authorization_request.applicant = applicant
+        authorization_request.organization = organization
+      elsif authorization_request.applicant.nil?
+        applicant = create(:user, current_organization: authorization_request.organization)
+        authorization_request.organization.users << applicant
+
+        authorization_request.applicant = applicant
+      elsif authorization_request.organization.nil?
+        applicant = authorization_request.applicant
+        organization = applicant.organizations.first || create(:organization)
+        organization.users << applicant if organization.users.exclude?(applicant)
+
+        authorization_request.organization = organization
+      end
     end
 
     transient do
       fill_all_attributes { false }
+    end
+
+    trait :no_checkboxes do
+      terms_of_service_accepted { false }
+      data_protection_officer_informed { false }
     end
 
     trait :draft do
@@ -52,30 +88,6 @@ FactoryBot.define do
       last_validated_at { Time.zone.now }
     end
 
-    after(:build) do |authorization_request|
-      if authorization_request.applicant.nil? && authorization_request.organization.nil?
-        applicant = create(:user)
-        organization = create(:organization)
-        applicant.organizations << organization
-
-        authorization_request.applicant = applicant
-        authorization_request.organization = organization
-      elsif authorization_request.applicant.nil?
-        applicant = create(:user, current_organization: authorization_request.organization)
-        authorization_request.organization.users << applicant
-
-        authorization_request.applicant = applicant
-      elsif authorization_request.organization.nil?
-        applicant = authorization_request.applicant
-        organization = applicant.organizations.first || create(:organization)
-        organization.users << applicant if organization.users.exclude?(applicant)
-
-        authorization_request.organization = organization
-      end
-    end
-
-    hubee_cert_dc
-
     trait :with_basic_infos do
       after(:build) do |authorization_request, evaluator|
         if authorization_request.need_complete_validation? || evaluator.fill_all_attributes
@@ -112,29 +124,14 @@ FactoryBot.define do
       end
     end
 
-    trait :with_contacts do
-      after(:build) do |authorization_request, evaluator|
-        if authorization_request.need_complete_validation? || evaluator.fill_all_attributes
-          authorization_request.class.contact_types.each do |contact_type|
-            authorization_request.public_send(:"#{contact_type}_family_name=", "Dupont #{contact_type.to_s.humanize}")
-            authorization_request.public_send(:"#{contact_type}_given_name=", "Jean #{contact_type.to_s.humanize}")
-            authorization_request.public_send(:"#{contact_type}_email=", "jean.dupont.#{contact_type}@gouv.fr")
-            authorization_request.public_send(:"#{contact_type}_phone_number=", '0836656565')
-            authorization_request.public_send(:"#{contact_type}_job_title=", "Directeur #{contact_type.to_s.humanize}")
-          end
-        end
-      end
-    end
-
     trait :hubee_cert_dc do
       type { 'AuthorizationRequest::HubEECertDC' }
-      form_uid { 'portail-hubee-demarche-certdc' }
-
-      with_contacts
     end
 
     trait :portail_hubee_demarche_certdc do
       hubee_cert_dc
+
+      form_uid { 'portail-hubee-demarche-certdc' }
     end
 
     trait :api_entreprise do
@@ -145,11 +142,10 @@ FactoryBot.define do
       with_personal_data
       with_cadre_juridique
       with_scopes
-      with_contacts
     end
 
     trait :api_entreprise_mgdis do
-      type { 'AuthorizationRequest::APIEntreprise' }
+      api_entreprise
       form_uid { 'api-entreprise-mgdis' }
     end
 
@@ -161,7 +157,6 @@ FactoryBot.define do
       with_personal_data
       with_cadre_juridique
       with_scopes
-      with_contacts
     end
 
     trait :api_infinoe_sandbox do
@@ -170,7 +165,6 @@ FactoryBot.define do
 
       with_basic_infos
       with_cadre_juridique
-      with_contacts
     end
 
     trait :api_infinoe_production do
@@ -203,16 +197,15 @@ FactoryBot.define do
       with_basic_infos
       with_personal_data
       with_cadre_juridique
-      with_contacts
     end
 
     trait :api_service_national_inscription_concours_examen do
-      type { 'AuthorizationRequest::APIServiceNational' }
+      api_service_national
       form_uid { 'api-service-national-inscription-concours-examen' }
     end
 
     trait :api_service_national_obligation_service_national do
-      type { 'AuthorizationRequest::APIServiceNational' }
+      api_service_national
       form_uid { 'api-service-national-obligation-service-national' }
     end
   end

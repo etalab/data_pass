@@ -21,7 +21,7 @@ RSpec.describe 'Authorization requests access' do
 
       context 'when there is one authorization request' do
         before do
-          create(:authorization_request, :hubee_cert_dc, organization: user.current_organization)
+          create(:authorization_request, :portail_hubee_demarche_certdc, organization: user.current_organization)
         end
 
         it_behaves_like 'an unauthorized access'
@@ -45,7 +45,7 @@ RSpec.describe 'Authorization requests access' do
     end
 
     context 'when user is applicant and has the correct current organization' do
-      let(:authorization_request) { create(:authorization_request, :hubee_cert_dc, organization: user.current_organization, applicant: user) }
+      let(:authorization_request) { create(:authorization_request, :portail_hubee_demarche_certdc, organization: user.current_organization, applicant: user) }
 
       it { is_expected.to have_http_status(:ok) }
     end
@@ -57,7 +57,7 @@ RSpec.describe 'Authorization requests access' do
         organization
       end
 
-      let(:authorization_request) { create(:authorization_request, :hubee_cert_dc, applicant: user, organization: another_organization) }
+      let(:authorization_request) { create(:authorization_request, :portail_hubee_demarche_certdc, applicant: user, organization: another_organization) }
 
       it_behaves_like 'an unauthorized access'
     end
