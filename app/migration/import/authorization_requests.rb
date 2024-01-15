@@ -10,7 +10,7 @@ class Import::AuthorizationRequests < Import::Base
     user = fetch_applicant(enrollment_row)
 
     authorization_request.applicant = user
-    authorization_request.organization = user.organizations.find { |organization| organization.mon_compte_pro_payload['id'].to_s == enrollment_row['organization_id'].to_s }
+    authorization_request.organization = fetch_organization(user, enrollment_row)
 
     authorization_request.form_uid = fetch_form(authorization_request).id
     authorization_request.state = enrollment_row['status']
@@ -28,15 +28,15 @@ class Import::AuthorizationRequests < Import::Base
       )
     end
 
-    Kernel.const_get(
-      "Import::AuthorizationRequests::#{authorization_request.type.split('::')[-1]}Attributes"
-    ).new(
-      authorization_request,
-      enrollment_row,
-      fetch_team_members(enrollment_row['id']),
-    ).perform
+    handle_authorization_request_type_specific_fields(authorization_request, enrollment_row)
 
-    byebug unless authorization_request.save
+    unless authorization_request.valid?
+      log("Errors: #{authorization_request.errors.full_messages}\n")
+
+      byebug
+    end
+
+    authorization_request.save!
 
     @models << authorization_request
   end
@@ -49,7 +49,7 @@ class Import::AuthorizationRequests < Import::Base
 
   def fetch_team_members(enrollment_id)
     @team_members.fetch(enrollment_id) do
-      enrollment_team_members = csv('team_members').select { |row| row['enrollment_id'] == enrollment_id }
+      enrollment_team_members = filtered_team_members.select { |row| row['enrollment_id'] == enrollment_id }
 
       @team_members[enrollment_id] = enrollment_team_members
 
@@ -57,10 +57,22 @@ class Import::AuthorizationRequests < Import::Base
     end
   end
 
+  def fetch_organization(user, enrollment_row)
+    return if user.blank?
+
+    user.organizations.find do |organization|
+      if enrollment_row['organization_id'].blank?
+        organization.siret == enrollment_row['siret']
+      else
+        organization.mon_compte_pro_payload['id'].to_s == enrollment_row['organization_id'].to_s
+      end
+    end
+  end
+
   def fetch_applicant(enrollment_row)
     demandeur = find_team_member('demandeur', enrollment_row['id'])
 
-    User.find_by(email: demandeur['email']) || (raise "No user found for #{demandeur['email']} (enrollment ##{enrollment_row['id']})}")
+    User.find_by(email: demandeur['email'])
   end
 
   def fetch_form(authorization_request)
@@ -73,17 +85,18 @@ class Import::AuthorizationRequests < Import::Base
     end
   end
 
-  def import?(enrollment_row)
-    from_target_api_to_type(enrollment_row).present? &&
-      options[:enrollments_filter].present? &&
-      options[:enrollments_filter].call(enrollment_row) &&
-      at_least_one_team_member_is_demandeur?(enrollment_row)
+  def handle_authorization_request_type_specific_fields(authorization_request, enrollment_row)
+    Kernel.const_get(
+      "Import::AuthorizationRequests::#{authorization_request.type.split('::')[-1]}Attributes"
+    ).new(
+      authorization_request,
+      enrollment_row,
+      fetch_team_members(enrollment_row['id']),
+    ).perform
   end
 
-  def at_least_one_team_member_is_demandeur?(enrollment_row)
-    team_members = fetch_team_members(enrollment_row['id'])
-
-    user_emails.intersect?(team_members.map { |team_member| team_member['email'] })
+  def import?(enrollment_row)
+    from_target_api_to_type(enrollment_row).present?
   end
 
   def find_or_build_authorization_request(enrollment_row)
@@ -98,14 +111,14 @@ class Import::AuthorizationRequests < Import::Base
   end
 
   def csv_to_loop
-    csv('enrollments')
+    @csv_to_loop ||= csv('enrollments').select { |row| import?(row) }
   end
 
-  def user_emails
-    @user_emails ||= users.map(&:email)
-  end
+  def filtered_team_members
+    @filtered_team_members ||= begin
+      enrollment_ids = csv_to_loop.pluck('id')
 
-  def users
-    @users ||= options[:users]
+      csv('team_members').select { |row| enrollment_ids.include?(row['enrollment_id']) }
+    end
   end
 end
