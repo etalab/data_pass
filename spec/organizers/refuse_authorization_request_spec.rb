@@ -2,13 +2,13 @@ RSpec.describe RefuseAuthorizationRequest do
   describe '.call' do
     subject(:refuse_authorization_request) { described_class.call(denial_of_authorization_params:, authorization_request:, user:) }
 
-    let(:user) { create(:user, :instructor, authorization_request_types: %w[api_entreprise]) }
+    let(:user) { create(:user, :instructor, authorization_request_types: %w[hubee_cert_dc]) }
 
     context 'with valid params' do
       let(:denial_of_authorization_params) { attributes_for(:denial_of_authorization) }
 
       context 'with authorization request in submitted state' do
-        let(:authorization_request) { create(:authorization_request, :api_entreprise, :submitted) }
+        let(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :submitted) }
 
         it { is_expected.to be_success }
 
@@ -32,7 +32,7 @@ RSpec.describe RefuseAuthorizationRequest do
       end
 
       context 'with authorization request in draft state' do
-        let(:authorization_request) { create(:authorization_request, :api_entreprise, :draft) }
+        let(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :draft) }
 
         it { is_expected.to be_failure }
 
@@ -44,7 +44,7 @@ RSpec.describe RefuseAuthorizationRequest do
 
     context 'with invalid params' do
       let(:denial_of_authorization_params) { attributes_for(:denial_of_authorization, reason: nil) }
-      let(:authorization_request) { create(:authorization_request, :api_entreprise, :submitted) }
+      let(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :submitted) }
 
       it { is_expected.to be_failure }
 
