@@ -12,4 +12,10 @@ class Organization < ApplicationRecord
   def raison_sociale
     mon_compte_pro_payload['label']
   end
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[
+      siret
+    ]
+  end
 end

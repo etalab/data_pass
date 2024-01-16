@@ -156,6 +156,7 @@ fr:
     authorization_requests:
       index:
         search:
+          main_input: Rechercher dans les infos des habilitations
           btn: Rechercher
         table:
           caption: Liste des demandes en cours

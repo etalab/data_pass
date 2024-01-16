@@ -107,7 +107,9 @@ class AuthorizationRequest < ApplicationRecord
   end
 
   def self.ransackable_associations(_auth_object = nil)
-    []
+    %w[
+      organization
+    ]
   end
 
   ransacker :within_data do |_parent|
