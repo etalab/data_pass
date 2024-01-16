@@ -2,13 +2,13 @@ RSpec.describe RequestChangesOnAuthorizationRequest do
   describe '.call' do
     subject(:request_changes_authorization_request) { described_class.call(instructor_modification_request_params:, authorization_request:, user:) }
 
-    let(:user) { create(:user, :instructor, authorization_request_types: %w[api_entreprise]) }
+    let(:user) { create(:user, :instructor, authorization_request_types: %w[hubee_cert_dc]) }
 
     context 'with valid params' do
       let(:instructor_modification_request_params) { attributes_for(:instructor_modification_request) }
 
       context 'with authorization request in submitted state' do
-        let(:authorization_request) { create(:authorization_request, :api_entreprise, :submitted) }
+        let(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :submitted) }
 
         it { is_expected.to be_success }
 
@@ -28,7 +28,7 @@ RSpec.describe RequestChangesOnAuthorizationRequest do
       end
 
       context 'with authorization request in draft state' do
-        let(:authorization_request) { create(:authorization_request, :api_entreprise, :draft) }
+        let(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :draft) }
 
         it { is_expected.to be_failure }
 
@@ -40,7 +40,7 @@ RSpec.describe RequestChangesOnAuthorizationRequest do
 
     context 'with invalid params' do
       let(:instructor_modification_request_params) { attributes_for(:instructor_modification_request, reason: nil) }
-      let(:authorization_request) { create(:authorization_request, :api_entreprise, :submitted) }
+      let(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :submitted) }
 
       it { is_expected.to be_failure }
 
