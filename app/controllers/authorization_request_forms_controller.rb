@@ -1,4 +1,3 @@
-# rubocop:disable Metrics/ClassLength
 class AuthorizationRequestFormsController < AuthenticatedUserController
   helper AuthorizationRequestsHelpers
 
@@ -172,4 +171,3 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     @authorization_request_form = AuthorizationRequestForm.find(params[:form_uid])
   end
 end
-# rubocop:enable Metrics/ClassLength
