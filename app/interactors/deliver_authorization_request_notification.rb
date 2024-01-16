@@ -1,8 +1,9 @@
 class DeliverAuthorizationRequestNotification < ApplicationInteractor
   def call
-    AuthorizationRequestMailer.with(
+    notifier_klass.new(context.authorization_request).public_send(
+      current_authorization_request_state,
       params,
-    ).public_send(current_authorization_request_state).deliver_later
+    )
   end
 
   private
@@ -12,8 +13,12 @@ class DeliverAuthorizationRequestNotification < ApplicationInteractor
   end
 
   def params
-    (context.authorization_request_mailer_params || {}).merge(
-      authorization_request: context.authorization_request,
-    )
+    context.authorization_request_notifier_params || {}
+  end
+
+  def notifier_klass
+    "#{context.authorization_request.class.name.demodulize}Notifier".constantize
+  rescue NameError
+    BaseNotifier
   end
 end
