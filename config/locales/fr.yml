@@ -6,6 +6,7 @@ fr:
     basic_infos: 'informations-de-base'
     personal_data: 'donnees-personnelles'
     legal: 'cadre-juridique'
+    legal_api_le_taxi: 'cadre-juridique'
     scopes: 'donnees'
     contacts: 'contacts'
     finish: 'resume'

@@ -206,3 +206,22 @@ fr:
               Conformément aux modalités d’utilisation, nous nous réservons le droit de réduire ou couper les appels autorisés au fournisseur de service.
             </p>
 
+    api-le-taxi:
+      description:
+        hint: "Indiquer le nombre de taxis et courses mensuelles actuellement (approximatif), les villes desservies et la proportion de courses CPAM/Aéroport"
+
+    api-le-taxi-appsolu-connexion:
+      description:
+        hint: "Indiquer le nombre de taxis et courses mensuelles actuellement (approximatif), les villes desservies et la proportion de courses CPAM/Aéroport"
+
+    api-le-taxi-appsolu-mise-en-regle:
+      description:
+        hint: "Indiquer le nombre de taxis et courses mensuelles actuellement (approximatif), les villes desservies et la proportion de courses CPAM/Aéroport"
+
+    api-le-taxi-axygest-connexion:
+      description:
+        hint: "Indiquer le nombre de taxis et courses mensuelles actuellement (approximatif), les villes desservies et la proportion de courses CPAM/Aéroport"
+
+    api-le-taxi-tessa-connexion:
+      description:
+        hint: "Indiquer le nombre de taxis et courses mensuelles actuellement (approximatif), les villes desservies et la proportion de courses CPAM/Aéroport"

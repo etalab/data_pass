@@ -1,0 +1,40 @@
+<%= render 'authorization_request_forms/build/header' %>
+<%= render partial: 'authorization_request_forms/shared/organization' %>
+
+<%= authorization_request_form(@authorization_request) do |f| %>
+  <h3>
+    <%= t('authorization_request_forms.default.steps.basic_infos') %>
+  </h3>
+
+  <%= render partial: 'authorization_request_forms/shared/basic_infos', locals: { f: f } %>
+
+  <h3>
+    <%= t('authorization_request_forms.default.steps.personal_data') %>
+  </h3>
+
+  <%= render partial: 'authorization_request_forms/shared/personal_data', locals: { f: f } %>
+
+  <h3>
+    <%= t('authorization_request_forms.default.steps.legal') %>
+  </h3>
+
+  <%= render partial: 'authorization_request_forms/shared/legal_api_le_taxi', locals: { f: f } %>
+
+  <h3>
+    <%= t('authorization_request_forms.default.steps.contacts') %>
+  </h3>
+
+
+  <%= f.contacts_infos(%i[responsable_traitement delegue_protection_donnees contact_technique]) %>
+
+  <div class="fr-container-fluid">
+    <div class="fr-grid-row">
+      <% %i[responsable_traitement delegue_protection_donnees contact_technique].each do |contact_type| %>
+        <%= render partial: 'authorization_request_forms/shared/contact', locals: { contact_type: contact_type, f: f } %>
+      <% end %>
+    </div>
+  </div>
+
+  <%= render partial: 'authorization_request_forms/shared/tos_checkboxes', locals: { f: f } %>
+  <%= render partial: 'authorization_request_forms/shared/submit_buttons', locals: { f: f } %>
+<% end %>

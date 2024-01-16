@@ -95,3 +95,127 @@ La plateforme, mise en place pour permettre le dépôt de ces aides publiques et
       - name: 'personal_data'
       - name: 'legal'
       - name: 'contacts'
+
+  api-le-taxi:
+    name: "Demande Libre"
+    authorization_request: 'APILeTaxi'
+    steps:
+      - name: 'basic_infos'
+      - name: 'personal_data'
+      - name: 'legal_api_le_taxi'
+      - name: 'contacts'
+
+  api-le-taxi-applicatif-chauffeur:
+    name: "Applicatif chauffeur (groupement, centrale, application pour indépendants, …)"
+    authorization_request: 'APILeTaxi'
+    steps:
+      - name: 'basic_infos'
+      - name: 'personal_data'
+      - name: 'legal_api_le_taxi'
+      - name: 'contacts'
+
+  api-le-taxi-applicatif-client:
+    name: "Applicatif client (moteur de recherche de taxis, application multimodale, …)"
+    authorization_request: 'APILeTaxi'
+    steps:
+      - name: 'basic_infos'
+      - name: 'personal_data'
+      - name: 'legal_api_le_taxi'
+      - name: 'contacts'
+
+  api-le-taxi-applicatif-chauffeur-client:
+    name: "Applicatif chauffeur et applicatif client (groupement, …)"
+    authorization_request: 'APILeTaxi'
+    steps:
+      - name: 'basic_infos'
+      - name: 'personal_data'
+      - name: 'legal_api_le_taxi'
+      - name: 'contacts'
+
+  api-le-taxi-appsolu-connexion:
+    name: "Appsolu, Connexion au registre Le.Taxi"
+    authorization_request: 'APILeTaxi'
+    data:
+      intitule: "Connexion au registre Le.Taxi via Appsolu"
+      destinataire_donnees_caractere_personnel: "APPSOLU"
+      duree_conservation_donnees_caractere_personnel: "2"
+      cadre_juridique_nature: "Articles L. 3121-11-1 et R3121-24 à R3121-33 du Code des transports"
+      cadre_juridique_url: "https://www.legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000029528684&cidTexte=LEGITEXT000023086525;https://www.legifrance.gouv.fr/affichCode.do?idSectionTA=LEGISCTA000032278146&cidTexte=LEGITEXT000023086525"
+
+      responsable_traitement_given_name: &api_le_taxi_appsolu_appsolu_connexion_contact_given_name 'Luc'
+      responsable_traitement_family_name: &api_le_taxi_appsolu_appsolu_connexion_contact_family_name 'DAIME'
+      responsable_traitement_job_title: &api_le_taxi_appsolu_appsolu_connexion_contact_job_title 'PDG APPSOLU'
+      responsable_traitement_email: &api_le_taxi_appsolu_appsolu_connexion_contact_email 'contact@appsolu.net'
+      responsable_traitement_phone_number: &api_le_taxi_appsolu_appsolu_connexion_contact_phone_number '0953455344'
+
+      contact_technique_given_name: *api_le_taxi_appsolu_appsolu_connexion_contact_given_name
+      contact_technique_family_name: *api_le_taxi_appsolu_appsolu_connexion_contact_family_name
+      contact_technique_job_title: *api_le_taxi_appsolu_appsolu_connexion_contact_job_title
+      contact_technique_email: *api_le_taxi_appsolu_appsolu_connexion_contact_email
+      contact_technique_phone_number: *api_le_taxi_appsolu_appsolu_connexion_contact_phone_number
+
+  api-le-taxi-appsolu-mise-en-regle:
+    name: "Appsolu, Mise en règle Le.Taxi"
+    authorization_request: 'APILeTaxi'
+    data:
+      intitule: "Mise en règle Le.Taxi"
+      destinataire_donnees_caractere_personnel: "APPSOLU"
+      duree_conservation_donnees_caractere_personnel: "2"
+      cadre_juridique_nature: "Articles L. 3121-11-1 et R3121-24 à R3121-33 du Code des transports"
+      cadre_juridique_url: "https://www.legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000029528684&cidTexte=LEGITEXT000023086525;https://www.legifrance.gouv.fr/affichCode.do?idSectionTA=LEGISCTA000032278146&cidTexte=LEGITEXT000023086525"
+
+      responsable_traitement_given_name: &api_le_taxi_appsolu_mise_en_regle_client_contact_given_name 'Nicolas'
+      responsable_traitement_family_name: &api_le_taxi_appsolu_mise_en_regle_chauffeur_contact_family_name 'Bouigues'
+      responsable_traitement_job_title: &api_le_taxi_appsolu_mise_en_regle_chauffeur_contact_job_title 'APPSOLU'
+      responsable_traitement_email: &api_le_taxi_appsolu_mise_en_regle_chauffeur_contact_email 'support@appsolu.net'
+      responsable_traitement_phone_number: &api_le_taxi_appsolu_mise_en_regle_chauffeur_contact_phone_number '0185085089'
+
+      contact_technique_given_name: *api_le_taxi_appsolu_mise_en_regle_client_contact_given_name
+      contact_technique_family_name: *api_le_taxi_appsolu_mise_en_regle_chauffeur_contact_family_name
+      contact_technique_job_title: *api_le_taxi_appsolu_mise_en_regle_chauffeur_contact_job_title
+      contact_technique_email: *api_le_taxi_appsolu_mise_en_regle_chauffeur_contact_email
+      contact_technique_phone_number: *api_le_taxi_appsolu_mise_en_regle_chauffeur_contact_phone_number
+
+  api-le-taxi-axygest-connexion:
+    name: "Axygest, Connexion au registre Le.Taxi"
+    authorization_request: 'APILeTaxi'
+    data:
+      intitule: "Connexion au registre Le.Taxi via Axygest"
+      destinataire_donnees_caractere_personnel: "Axygest"
+      duree_conservation_donnees_caractere_personnel: "12"
+      cadre_juridique_nature: "Articles L. 3121-11-1 et R3121-24 à R3121-33 du Code des transports"
+      cadre_juridique_url: "https://www.legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000029528684&cidTexte=LEGITEXT000023086525;https://www.legifrance.gouv.fr/affichCode.do?idSectionTA=LEGISCTA000032278146&cidTexte=LEGITEXT000023086525"
+
+      responsable_traitement_given_name: &api_le_taxi_appsolu_mise_en_regle_client_contact_given_name 'Roger Frédéric'
+      responsable_traitement_family_name: &api_le_taxi_appsolu_mise_en_regle_chauffeur_contact_family_name 'DUVILLARD'
+      responsable_traitement_job_title: &api_le_taxi_appsolu_mise_en_regle_chauffeur_contact_job_title 'Président'
+      responsable_traitement_email: &api_le_taxi_appsolu_mise_en_regle_chauffeur_contact_email 'valerie.constantin@axygest.fr'
+      responsable_traitement_phone_number: &api_le_taxi_appsolu_mise_en_regle_chauffeur_contact_phone_number '0611079343'
+
+      contact_technique_given_name: *api_le_taxi_appsolu_mise_en_regle_client_contact_given_name
+      contact_technique_family_name: *api_le_taxi_appsolu_mise_en_regle_chauffeur_contact_family_name
+      contact_technique_job_title: *api_le_taxi_appsolu_mise_en_regle_chauffeur_contact_job_title
+      contact_technique_email: *api_le_taxi_appsolu_mise_en_regle_chauffeur_contact_email
+      contact_technique_phone_number: *api_le_taxi_appsolu_mise_en_regle_chauffeur_contact_phone_number
+
+  api-le-taxi-tessa-connexion:
+    name: "Tessa, Connexion au registre Le.Taxi"
+    authorization_request: 'APILeTaxi'
+    data:
+      intitule: "Connexion au registre Le.Taxi via Tessa"
+      destinataire_donnees_caractere_personnel: "Tessa"
+      duree_conservation_donnees_caractere_personnel: "6"
+      cadre_juridique_nature: "Articles L. 3121-11-1 et R3121-24 à R3121-33 du Code des transports"
+      cadre_juridique_url: "https://www.legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000029528684&cidTexte=LEGITEXT000023086525;https://www.legifrance.gouv.fr/affichCode.do?idSectionTA=LEGISCTA000032278146&cidTexte=LEGITEXT000023086525"
+
+      responsable_traitement_given_name: &api_le_taxi_appsolu_mise_en_regle_client_contact_given_name 'Benoit'
+      responsable_traitement_family_name: &api_le_taxi_appsolu_mise_en_regle_chauffeur_contact_family_name 'LEPAN'
+      responsable_traitement_job_title: &api_le_taxi_appsolu_mise_en_regle_chauffeur_contact_job_title 'PDG Tessa'
+      responsable_traitement_email: &api_le_taxi_appsolu_mise_en_regle_chauffeur_contact_email 'benoit.lepan@tessa.fr'
+      responsable_traitement_phone_number: &api_le_taxi_appsolu_mise_en_regle_chauffeur_contact_phone_number '0493654000'
+
+      contact_technique_given_name: *api_le_taxi_appsolu_mise_en_regle_client_contact_given_name
+      contact_technique_family_name: *api_le_taxi_appsolu_mise_en_regle_chauffeur_contact_family_name
+      contact_technique_job_title: *api_le_taxi_appsolu_mise_en_regle_chauffeur_contact_job_title
+      contact_technique_email: *api_le_taxi_appsolu_mise_en_regle_chauffeur_contact_email
+      contact_technique_phone_number: *api_le_taxi_appsolu_mise_en_regle_chauffeur_contact_phone_number
