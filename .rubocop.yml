@@ -73,6 +73,7 @@ Metrics/BlockLength:
     - "response"
 
 Metrics/ClassLength:
+  Max: 150
   CountAsOne:
     - "array"
     - "method_call"

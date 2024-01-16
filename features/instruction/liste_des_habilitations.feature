@@ -13,3 +13,11 @@ Fonctionnalité: Instruction: liste des habilitations
     Et qu'il y a 1 demande d'habilitation "Portail HubEE - Démarche CertDC" en attente
     Et que je vais sur la page instruction
     Alors je vois 2 demandes d'habilitation
+
+  Scénario: Je cherche une habilitation avec son status
+    Sachant qu'il y a 1 demande d'habilitation "API Entreprise" en attente
+    Et qu'il y a 1 demande d'habilitation "API Entreprise" validée
+    Et que je vais sur la page instruction
+    Et que je sélectionne "Validée" pour "État égal à"
+    Et que je clique sur "Rechercher"
+    Alors je vois 1 demande d'habilitation

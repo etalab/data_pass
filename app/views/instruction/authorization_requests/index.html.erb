@@ -1,3 +1,31 @@
+<%= search_form_for(@q, url: instruction_authorization_requests_path, html: { method: :get, data: { turbo: false }, class: %w[search-box] }) do |f| %>
+  <div class="search-inputs">
+    <div class="fr-input-group input">
+      <%= f.label :within_data_or_organization_siret_cont, t('.search.main_input'), class: %w[fr-label] %>
+      <%= f.search_field :within_data_or_organization_siret_cont, id: 'search_main_input', class: %[fr-input] %>
+    </div>
+
+    <% if current_user.authorization_roles_as(:instructor).count > 1 %>
+    <div class="fr-select-group input">
+      <%= f.label :type_eq, class: %w[fr-label] %>
+      <% options = current_user.authorization_roles_as(:instructor).map { |e| [AuthorizationDefinition.find(e).name, "AuthorizationRequest::#{e.classify}"] }%>
+      <%= f.select :type_eq, options_for_select([['Toutes les données', '']].concat(options), selected: params[:q].try(:[], :type_eq)), {}, class: %w[fr-select] %>
+    </div>
+    <% end %>
+
+    <div class="fr-select-group input">
+      <%= f.label :state_eq, class: %w[fr-label] %>
+
+      <% options = AuthorizationRequest.state_machine.states.map { |s| s.name }.map { |e| [t("authorization_request.status.#{e}"), e] } %>
+      <%= f.select :state_eq, options_for_select([['Tous les status', '']].concat(options), selected: params[:q].try(:[], :state_eq) || 'Tous les status'), {}, class: %w[fr-select] %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= f.submit t('.search.btn'), class: %w[fr-btn fr-btn--primary] %>
+  </div>
+<% end %>
+
 <div class="fr-table fr-table--bordered fr-table--layout-fixed">
   <table>
     <caption>
@@ -8,36 +36,47 @@
         <%
           %w[
             id
+            status
             name
+            created_at
             type
             form_name
-            status
             actions
           ].each do |attr|
         %>
           <th scope="col">
-            <%= t(".table.header.#{attr}") %>
+            <% if %w[form_name actions].exclude?(attr) %>
+              <%= sort_link(@q, attr) do %>
+                <%= t(".table.header.#{attr}") %>
+              <% end %>
+            <% else %>
+              <%= t(".table.header.#{attr}") %>
+            <% end %>
           </th>
         <% end %>
       </tr>
     </thead>
+
     <tbody>
       <% @authorization_requests.each do |authorization_request| %>
         <tr id="<%= dom_id(authorization_request) %>" class="authorization-request">
           <td class="authorization-request-id">
             <%= authorization_request.id %>
           </td>
+          <td class="authorization-request-state">
+            <%= authorization_request_status_badge(authorization_request) %>
+          </td>
           <td class="authorization-request-name">
             <%= authorization_request.name %>
+          </td>
+          <td class="authorization-request-created_at">
+            <%= authorization_request.created_at %>
           </td>
           <td class="authorization-request-definition-name">
             <%= authorization_request.definition.name %>
           </td>
           <td class="authorization-request-form-name">
             <%= authorization_request.form.name %>
-          </td>
-          <td class="authorization-request-state">
-            <%= authorization_request_status_badge(authorization_request) %>
           </td>
           <td class="authorization-request-actions">
             <%= link_to t('.table.actions.show'), instruction_authorization_request_path(authorization_request), class: %w(fr-btn fr-btn--sm) %>

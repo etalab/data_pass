@@ -47,4 +47,23 @@ RSpec.describe User do
       end
     end
   end
+
+  describe '#authorization_roles_as' do
+    subject { user.authorization_roles_as(kind) }
+
+    let(:kind) { 'instructor' }
+
+    context 'when user is not an instructor' do
+      let(:user) { build(:user) }
+
+      it { is_expected.to be_empty }
+    end
+
+    context 'when user is an instructor' do
+      let(:user) { build(:user, :instructor, authorization_request_types:) }
+      let(:authorization_request_types) { %w[api_entreprise api_particulier] }
+
+      it { is_expected.to contain_exactly('api_entreprise', 'api_particulier') }
+    end
+  end
 end

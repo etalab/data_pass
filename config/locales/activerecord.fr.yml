@@ -67,3 +67,9 @@ fr:
           attributes:
             scopes:
               blank: doivent au moins contenir un élément sélectionné ci-dessous
+  ransack:
+    attributes:
+      authorization_request:
+        within_data: Les infos de l'habilitation
+        type: Type d'habilitation
+        state: État

@@ -1,4 +1,3 @@
-# rubocop:disable Metrics/ClassLength
 class DSFRFormBuilder < ActionView::Helpers::FormBuilder
   include Rails.application.routes.url_helpers
 
@@ -205,4 +204,3 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
     false
   end
 end
-# rubocop:enable Metrics/ClassLength

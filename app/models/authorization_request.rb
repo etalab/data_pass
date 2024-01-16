@@ -96,6 +96,26 @@ class AuthorizationRequest < ApplicationRecord
 
   validate :applicant_belongs_to_organization
 
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[
+      id
+      type
+      within_data
+      state
+      created_at
+    ]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[
+      organization
+    ]
+  end
+
+  ransacker :within_data do |_parent|
+    Arel.sql('authorization_requests.data::text')
+  end
+
   def self.policy_class
     AuthorizationRequestPolicy
   end
