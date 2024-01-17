@@ -6,7 +6,8 @@ La checklist globale:
 2. Ajouter et configurer le modèle (avec sa factory et son test) ;
 3. Configurer les formulations via l'I18n ;
 4. Ajouter la vue de complétion côté demandeur ;
-5. Ajouter un test d'intégration Cucumber.
+5. Ajouter un test d'intégration Cucumber ;
+6. Importer les données existantes.
 
 Disclaimer: La procédure est amené à évoluer rapidement, et certains parties seront
 peut-être obsolètes. Il y a par ailleurs des refactorisations logiques, mais
@@ -230,3 +231,8 @@ Il faut créer le fichier `mon_api.html.erb` dans le dossier
 
 Créer le fichier `mon_api.feature` dans [`features/habilitations`](../features/habilitations) et
 remplissez en fonction de la spécification.
+
+## 6. Importer les données existantes
+
+Si il s'agit d'un nouveau formulaire sans donnée, il n'y a rien à faire.
+Sinon, vous pouvez vous référer au [README](../app/migration/README.md) associé.

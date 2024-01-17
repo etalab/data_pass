@@ -28,3 +28,9 @@ Chaque type d'habilitation s'occupe de ses propres attributs dans la classe
 situé dans le dossier [`app/migration/import/authorization_requests/`](./import/authorization_requests),
 cela permet de simplifier les traitements. La classe
 `Import::AuthorizationRequests` s'occupe des attributs communs.
+
+### 2.1 Ajout d'un nouveau type d'habilitation.
+
+1. Ajouter le mapping dans `Import::AuthorizationRequests#from_target_api_to_type`
+2. Créer la classe spécifique pour le traitement des infos de ce type
+   d'habilitation dans `app/migration/import/authorization_requests/`
