@@ -15,7 +15,7 @@ class Import::Users < Import::Base
       )
     )
 
-    user_organizations.each do |organization|
+    (user_organizations.concat(extra_organizations(user_row['id']))).each do |organization|
       user.organizations << organization unless user.organizations.include?(organization)
     end
 
@@ -36,6 +36,18 @@ class Import::Users < Import::Base
 
   def sql_tables_to_save
     @sql_tables_to_save ||= super.concat(['organizations_users'])
+  end
+
+  def extra_organizations(user_id)
+    sirets = {
+      '42364' => ['22270229200012'],
+    }[user_id]
+
+    if sirets.present?
+      Organization.where(siret: sirets)
+    else
+      []
+    end
   end
 
   def organization_sirets

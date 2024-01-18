@@ -30,16 +30,15 @@ class Import::AuthorizationRequests < Import::Base
 
     handle_authorization_request_type_specific_fields(authorization_request, enrollment_row)
 
-    unless authorization_request.valid?
+    begin
+      authorization_request.save!
+      @models << authorization_request
+    rescue ActiveRecord::RecordInvalid => e
       log("DataPass: https://datapass.api.gouv.fr/#{enrollment_row['target_api'].gsub('_', '-')}/#{enrollment_row['id']}")
       log("Errors: #{authorization_request.errors.full_messages.join("\n")}")
 
       byebug
     end
-
-    authorization_request.save!
-
-    @models << authorization_request
   end
 
   private
@@ -61,13 +60,24 @@ class Import::AuthorizationRequests < Import::Base
   def fetch_organization(user, enrollment_row)
     return if user.blank?
 
-    user.organizations.find do |organization|
+    organization = user.organizations.find do |organization|
       if enrollment_row['organization_id'].blank?
         organization.siret == enrollment_row['siret']
       else
         organization.mon_compte_pro_payload['id'].to_s == enrollment_row['organization_id'].to_s
       end
     end
+
+    return organization if organization.present?
+
+    new_potential_siret = {
+      # PM => DINUM
+      '11000101300017' => '13002526500013',
+    }[enrollment_row['siret']]
+
+    return if new_potential_siret.blank?
+
+    user.organizations.find_by(siret: new_potential_siret)
   end
 
   def fetch_applicant(enrollment_row)
