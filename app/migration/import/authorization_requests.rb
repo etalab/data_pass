@@ -97,7 +97,13 @@ class Import::AuthorizationRequests < Import::Base
   end
 
   def import?(enrollment_row)
-    from_target_api_to_type(enrollment_row).present?
+    !old_draft?(enrollment_row) &&
+      from_target_api_to_type(enrollment_row).present?
+  end
+
+  def old_draft?(enrollment_row)
+    enrollment_row['status'] == 'draft' &&
+      DateTime.parse(enrollment_row['created_at']) < DateTime.new(2022, 1, 1)
   end
 
   def find_or_build_authorization_request(enrollment_row)

@@ -34,3 +34,7 @@ cela permet de simplifier les traitements. La classe
 1. Ajouter le mapping dans `Import::AuthorizationRequests#from_target_api_to_type`
 2. Créer la classe spécifique pour le traitement des infos de ce type
    d'habilitation dans `app/migration/import/authorization_requests/`
+
+## Infos sur les données exclues
+
+1. Les brouillons d'avant le 01/01/2022
