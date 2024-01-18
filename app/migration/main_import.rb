@@ -9,7 +9,7 @@ class MainImport
 
   def perform
     organizations = import(:organizations, { load_from_sql: true })
-    import(:users, { organizations:, load_from_sql: true })
+    import(:users, { load_from_sql: true })
     import(:authorization_requests)
 
     print_skipped
