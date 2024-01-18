@@ -124,10 +124,10 @@ class AuthorizationRequest < ApplicationRecord
     if form.multiple_steps? && step != :finish
       raise "Unknown step #{step}" if step.present? && steps_names.exclude?(step.to_s)
 
-      !in_draft? ||
+      !in_draft_or_archived? ||
         required_for_step?(step)
     else
-      !in_draft?
+      !in_draft_or_archived?
     end
   end
 
@@ -154,6 +154,10 @@ class AuthorizationRequest < ApplicationRecord
 
   def in_draft?
     %w[draft changes_requested].include?(state)
+  end
+
+  def in_draft_or_archived?
+    in_draft? || state == 'archived'
   end
 
   def finished?
