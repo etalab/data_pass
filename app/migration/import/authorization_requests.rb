@@ -31,7 +31,8 @@ class Import::AuthorizationRequests < Import::Base
     handle_authorization_request_type_specific_fields(authorization_request, enrollment_row)
 
     unless authorization_request.valid?
-      log("Errors: #{authorization_request.errors.full_messages}\n")
+      log("DataPass: https://datapass.api.gouv.fr/#{enrollment_row['target_api'].gsub('_', '-')}/#{enrollment_row['id']}")
+      log("Errors: #{authorization_request.errors.full_messages.join("\n")}")
 
       byebug
     end
@@ -80,7 +81,7 @@ class Import::AuthorizationRequests < Import::Base
       authorization_request.definition.available_forms.first
     else
       authorization_request.definition.available_forms.find do |form|
-        form.id.underscore == authorization_request.class.name.underscore
+        form.id.underscore == authorization_request.class.name.demodulize.underscore
       end
     end
   end
@@ -101,7 +102,7 @@ class Import::AuthorizationRequests < Import::Base
 
   def find_or_build_authorization_request(enrollment_row)
     AuthorizationRequest.find_by(id: enrollment_row['id']) ||
-      AuthorizationRequest.const_get(from_target_api_to_type(enrollment_row)).new(type: "AuthorizationRequest::#{from_target_api_to_type(enrollment_row)}")
+      AuthorizationRequest.const_get(from_target_api_to_type(enrollment_row)).new(id: enrollment_row['id'], type: "AuthorizationRequest::#{from_target_api_to_type(enrollment_row)}")
   end
 
   def from_target_api_to_type(enrollment)
