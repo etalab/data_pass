@@ -107,7 +107,15 @@ class Import::AuthorizationRequests < Import::Base
       mon_compte_pro_payload: { siret: enrollment_row['siret'], manual_creation: true },
       last_mon_compte_pro_updated_at: DateTime.now,
     )
-    organization.save!
+    begin
+      organization.save!
+    rescue ActiveRecord::RecordInvalid => e
+      if e.record.errors.include?(:siret)
+        raise Import::AuthorizationRequests::Base::SkipRow.new(:invalid_siret_for_unknown_user_and_organization)
+      else
+        raise
+      end
+    end
 
     user.organizations << organization
     user.current_organization = organization
