@@ -49,9 +49,9 @@ class Import::AuthorizationRequests::Base
 
     return {} unless team_member
 
-    team_member['job_title'] = team_member.delete('job')
+    team_member['job_title'] = team_member.delete('job')[1]
 
-    team_member
+    team_member.to_h
   end
 
   def affect_team_attributes(team_member_attributes, contact_type)
