@@ -70,6 +70,7 @@ class Import::Base
 
       begin
         extract(row)
+        print '.'
       rescue Import::AuthorizationRequests::Base::SkipRow => e
         options[:skipped] << {
           type: model_name,

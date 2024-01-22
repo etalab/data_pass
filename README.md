@@ -97,7 +97,7 @@ COVERAGE=true bundle exec cucumber
 * [Conception technique/métier](./docs/conception.md)
 * [Ajout d'un nouveau fournisseur](./docs/new_provider.md)
 * [Design System](./docs/design.md)
-* [Migration de l'ancienne stack](./migration/)
+* [Migration de l'ancienne stack](./app/migration/)
 
 ## Ressources externes
 

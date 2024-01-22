@@ -17,6 +17,7 @@ fr:
       validated: Validée
       refused: Refusée
       archived: Archivée
+      revoked: Révoquée
 
   layouts:
     header:

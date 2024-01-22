@@ -60,6 +60,10 @@ FactoryBot.define do
       state { 'archived' }
     end
 
+    trait :revoked do
+      state { 'revoked' }
+    end
+
     trait :changes_requested do
       state { 'changes_requested' }
 

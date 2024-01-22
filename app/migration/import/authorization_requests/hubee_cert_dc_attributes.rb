@@ -1,5 +1,5 @@
 class Import::AuthorizationRequests::HubEECertDCAttributes < Import::AuthorizationRequests::Base
-  def affect_attributes
+  def affect_data
     handle_missing_applicant
     handle_missing_organization
     handle_multiple_organizations
@@ -36,6 +36,7 @@ class Import::AuthorizationRequests::HubEECertDCAttributes < Import::Authorizati
       affect_team_attributes(responsable_metier_team_member, 'administrateur_metier')
     elsif team_member_incomplete?(responsable_metier_team_member)
       if responsable_metier_team_member['email'] == authorization_request.applicant.email
+        # FIXME harden this case
         virtual_user = responsable_metier_team_member.to_h.merge(
           authorization_request.applicant.attributes.slice(*AuthorizationRequest.contact_attributes)
         )

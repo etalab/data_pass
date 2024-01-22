@@ -30,15 +30,15 @@ class Import::AuthorizationRequests < Import::Base
 
     handle_authorization_request_type_specific_fields(authorization_request, enrollment_row)
 
-    unless authorization_request.valid?
-      log("Errors: #{authorization_request.errors.full_messages}\n")
+    begin
+      authorization_request.save!
+      @models << authorization_request
+    rescue ActiveRecord::RecordInvalid => e
+      log("DataPass: https://datapass.api.gouv.fr/#{enrollment_row['target_api'].gsub('_', '-')}/#{enrollment_row['id']}")
+      log("Errors: #{authorization_request.errors.full_messages.join("\n")}")
 
       byebug
     end
-
-    authorization_request.save!
-
-    @models << authorization_request
   end
 
   private
@@ -60,19 +60,61 @@ class Import::AuthorizationRequests < Import::Base
   def fetch_organization(user, enrollment_row)
     return if user.blank?
 
-    user.organizations.find do |organization|
-      if enrollment_row['organization_id'].blank?
-        organization.siret == enrollment_row['siret']
-      else
-        organization.mon_compte_pro_payload['id'].to_s == enrollment_row['organization_id'].to_s
-      end
+    organization = user.organizations.find do |organization|
+      organization.siret == enrollment_row['siret']
     end
+
+    return organization if organization.present?
+
+    new_potential_siret = {
+      # PM => DINUM
+      '11000101300017' => '13002526500013',
+      # Agence de la recherche fermée
+      '13000250400020' => '13000250400038',
+    }[enrollment_row['siret']]
+
+    return if new_potential_siret.blank?
+
+    user.organizations.find_by(siret: new_potential_siret)
   end
 
   def fetch_applicant(enrollment_row)
     demandeur = find_team_member('demandeur', enrollment_row['id'])
 
-    User.find_by(email: demandeur['email'])
+    user = User.find_by(email: demandeur['email'].try(:downcase))
+
+    return user if user.present?
+
+    try_to_create_user!(enrollment_row, demandeur)
+  end
+
+  def try_to_create_user!(enrollment_row, demandeur)
+    return if demandeur.blank? || demandeur['email'].blank?
+
+    user = User.new(
+      demandeur.to_h.slice(
+        'email',
+        'given_name',
+        'family_name',
+        'phone_number',
+      ).merge(
+        'job_title' => demandeur['job'],
+      )
+    )
+
+    organization = Organization.find_or_initialize_by(siret: enrollment_row['siret'])
+    organization.assign_attributes(
+      mon_compte_pro_payload: { siret: enrollment_row['siret'], manual_creation: true },
+      last_mon_compte_pro_updated_at: DateTime.now,
+    )
+    organization.save!
+
+    user.organizations << organization
+    user.current_organization = organization
+
+    user.save!
+
+    user
   end
 
   def fetch_form(authorization_request)
@@ -80,7 +122,7 @@ class Import::AuthorizationRequests < Import::Base
       authorization_request.definition.available_forms.first
     else
       authorization_request.definition.available_forms.find do |form|
-        form.id.underscore == authorization_request.class.name.underscore
+        form.id.underscore == authorization_request.class.name.demodulize.underscore
       end
     end
   end
@@ -96,17 +138,32 @@ class Import::AuthorizationRequests < Import::Base
   end
 
   def import?(enrollment_row)
-    from_target_api_to_type(enrollment_row).present?
+    !old_draft?(enrollment_row) &&
+      !ignore?(enrollment_row['id']) &&
+      from_target_api_to_type(enrollment_row).present?
+  end
+
+  def old_draft?(enrollment_row)
+    enrollment_row['status'] == 'draft' &&
+      DateTime.parse(enrollment_row['created_at']) < DateTime.new(2022, 1, 1)
+  end
+
+  def ignore?(enrollment_id)
+    [
+      # Draft ~3 mois, boîte fermée
+      '54815',
+    ].include?(enrollment_id)
   end
 
   def find_or_build_authorization_request(enrollment_row)
     AuthorizationRequest.find_by(id: enrollment_row['id']) ||
-      AuthorizationRequest.const_get(from_target_api_to_type(enrollment_row)).new(type: "AuthorizationRequest::#{from_target_api_to_type(enrollment_row)}")
+      AuthorizationRequest.const_get(from_target_api_to_type(enrollment_row)).new(id: enrollment_row['id'], type: "AuthorizationRequest::#{from_target_api_to_type(enrollment_row)}")
   end
 
   def from_target_api_to_type(enrollment)
     {
       'hubee_portail' => 'hubee_cert_dc',
+      'api_entreprise' => 'api_entreprise',
     }[enrollment['target_api']].try(:classify)
   end
 

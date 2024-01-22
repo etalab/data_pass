@@ -1,4 +1,6 @@
 class Import::AuthorizationRequests::Base
+  include ImportUtils
+
   class SkipRow < StandardError
     attr_reader :kind, :message
 
@@ -17,15 +19,29 @@ class Import::AuthorizationRequests::Base
   end
 
   def perform
-    affect_attributes
+    affect_data
 
     authorization_request
   end
 
   protected
 
-  def affect_attributes
+  def affect_data
     fail NoImplementedError
+  end
+
+  def affect_scopes
+    if enrollment_row['scopes'].blank? || enrollment_row['scopes'] == '{}'
+      authorization_request.scopes = []
+    else
+      authorization_request.scopes = enrollment_row['scopes'][1..-2].split(',')
+    end
+  end
+
+  def affect_attributes
+    attributes_mapping.each do |from, to|
+      authorization_request.public_send("#{to}=", enrollment_row[from])
+    end
   end
 
   def find_team_member_by_type(type)
@@ -51,5 +67,18 @@ class Import::AuthorizationRequests::Base
     AuthorizationRequest.contact_attributes.any? do |contact_attribute|
       team_member[contact_attribute].blank?
     end
+  end
+
+  def attributes_mapping
+    {}
+  end
+
+  # FIXME implement
+  def attach_file(kind, row_data)
+    authorization_request.public_send("#{kind}=", extract_file(row_data))
+  end
+
+  def extract_file(row_data)
+    Rails.root.join('spec', 'fixtures', 'dummy.pdf').open
   end
 end

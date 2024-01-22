@@ -9,10 +9,10 @@
 
 ## 2. LOCAL Importation des données
 
-Executez la commande: `./app/migrations/local_import.sh`
+Executez la commande: `./app/migration/local_import.sh`
 Cette commande est idempotent.
 
-Pour clean la db locale: `./app/migrations/clean_local_db.sh`
+Pour clean la db locale: `./app/migration/clean_local_db.sh`
 
 Il possible d'effectuer des filtrages sur les données importées (via les options
 globale de la classe principale [`MainImport`](./main_import.rb))
@@ -34,3 +34,10 @@ cela permet de simplifier les traitements. La classe
 1. Ajouter le mapping dans `Import::AuthorizationRequests#from_target_api_to_type`
 2. Créer la classe spécifique pour le traitement des infos de ce type
    d'habilitation dans `app/migration/import/authorization_requests/`
+
+## Infos sur les données exclues/retravaillées
+
+1. Les brouillons d'avant le 01/01/2022
+2. Dans les users, certains sont ajoutés à des organisations (mapping: id => sirets)
+3. Dans les demandes d'autorisations, certaines organisations sont fermées ou
+   ont migrées (mapping: old_siret => new_siret)
