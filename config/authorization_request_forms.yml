@@ -97,15 +97,6 @@ La plateforme, mise en place pour permettre le dépôt de ces aides publiques et
       - name: 'contacts'
 
   api-le-taxi:
-    name: "Demande Libre"
-    authorization_request: 'APILeTaxi'
-    steps:
-      - name: 'basic_infos'
-      - name: 'personal_data'
-      - name: 'legal_api_le_taxi'
-      - name: 'contacts'
-
-  api-le-taxi-applicatif-chauffeur:
     name: "Applicatif chauffeur (groupement, centrale, application pour indépendants, …)"
     authorization_request: 'APILeTaxi'
     steps:
@@ -114,7 +105,7 @@ La plateforme, mise en place pour permettre le dépôt de ces aides publiques et
       - name: 'legal_api_le_taxi'
       - name: 'contacts'
 
-  api-le-taxi-applicatif-client:
+  api-le-taxi-client:
     name: "Applicatif client (moteur de recherche de taxis, application multimodale, …)"
     authorization_request: 'APILeTaxi'
     steps:
@@ -123,7 +114,7 @@ La plateforme, mise en place pour permettre le dépôt de ces aides publiques et
       - name: 'legal_api_le_taxi'
       - name: 'contacts'
 
-  api-le-taxi-applicatif-chauffeur-client:
+  api-le-taxi-chauffeur-client:
     name: "Applicatif chauffeur et applicatif client (groupement, …)"
     authorization_request: 'APILeTaxi'
     steps:

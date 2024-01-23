@@ -212,5 +212,44 @@ FactoryBot.define do
       api_service_national
       form_uid { 'api-service-national-obligation-service-national' }
     end
+
+    trait :api_le_taxi do
+      type { 'AuthorizationRequest::APILeTaxi' }
+      form_uid { 'api-le-taxi' }
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+    end
+
+    trait :api_le_taxi_client do
+      api_le_taxi
+      form_uid { 'api-le-taxi-client' }
+    end
+
+    trait :api_le_taxi_chauffeur_client do
+      api_le_taxi
+      form_uid { 'api-le-taxi-chauffeur-client' }
+    end
+
+    trait :api_le_taxi_appsolu_connexion do
+      api_le_taxi
+      form_uid { 'api-le-taxi-appsolu-connexion' }
+    end
+
+    trait :api_le_taxi_appsolu_mise_en_regle do
+      api_le_taxi
+      form_uid { 'api-le-taxi-appsolu-mise-en-regle' }
+    end
+
+    trait :api_le_taxi_axygest_connexion do
+      api_le_taxi
+      form_uid { 'api-le-taxi-axygest-connexion' }
+    end
+
+    trait :api_le_taxi_tessa_connexion do
+      api_le_taxi
+      form_uid { 'api-le-taxi-tessa-connexion' }
+    end
   end
 end
