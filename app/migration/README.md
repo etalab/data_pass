@@ -41,3 +41,5 @@ cela permet de simplifier les traitements. La classe
 2. Dans les users, certains sont ajoutés à des organisations (mapping: id => sirets)
 3. Dans les demandes d'autorisations, certaines organisations sont fermées ou
    ont migrées (mapping: old_siret => new_siret)
+4. Certaines demandes dont les sirets ne sont pas des sirets (TBD qu'est-ce
+   qu'on fait ici ?)
