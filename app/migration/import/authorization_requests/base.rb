@@ -2,11 +2,12 @@ class Import::AuthorizationRequests::Base
   include ImportUtils
 
   class SkipRow < StandardError
-    attr_reader :kind, :message
+    attr_reader :kind, :id, :target_api
 
-    def initialize(kind = nil, message = nil)
+    def initialize(kind = nil, id:, target_api:)
       @kind = kind
-      @message = message
+      @id = id
+      @target_api = target_api
     end
   end
 
@@ -71,6 +72,10 @@ class Import::AuthorizationRequests::Base
 
   def attributes_mapping
     {}
+  end
+
+  def skip_row!(kind)
+    raise SkipRow.new(kind.to_s, id: enrollment_row['id'], target_api: enrollment_row['target_api'])
   end
 
   # FIXME implement

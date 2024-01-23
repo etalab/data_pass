@@ -9,11 +9,11 @@ class Import::AuthorizationRequests::HubEECertDCAttributes < Import::Authorizati
   private
 
   def handle_missing_applicant
-    raise SkipRow.new(:no_applicant) if authorization_request.applicant.blank?
+    skip_row!(:no_applicant) if authorization_request.applicant.blank?
   end
 
   def handle_missing_organization
-    raise SkipRow.new(:no_organization) if authorization_request.organization.blank?
+    skip_row!(:no_organization) if authorization_request.organization.blank?
   end
 
   def handle_multiple_organizations
@@ -23,7 +23,7 @@ class Import::AuthorizationRequests::HubEECertDCAttributes < Import::Authorizati
 
     case other_authorization_request.state
     when 'validated'
-      raise SkipRow.new(:validated_one_already_exists)
+      skip_row!(:validated_one_already_exists)
     else
       other_authorization_request.destroy!
     end
@@ -43,7 +43,7 @@ class Import::AuthorizationRequests::HubEECertDCAttributes < Import::Authorizati
 
         affect_team_attributes(virtual_user, 'administrateur_metier')
       else
-        raise SkipRow.new(:partial_administrateur_metier_mismatch_with_applicant)
+        skip_row!(:partial_administrateur_metier_mismatch_with_applicant)
       end
     else
       affect_team_attributes(responsable_metier_team_member, 'administrateur_metier')
@@ -51,6 +51,6 @@ class Import::AuthorizationRequests::HubEECertDCAttributes < Import::Authorizati
 
     return if authorization_request.valid?
 
-    raise SkipRow.new(:not_enough_data_for_administrateur_metier)
+    skip_row!(:not_enough_data_for_administrateur_metier)
   end
 end

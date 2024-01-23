@@ -23,7 +23,7 @@ class Import::AuthorizationRequests::APIEntrepriseAttributes < Import::Authoriza
         if user && !team_member_incomplete?(user)
           affect_team_attributes(user.attributes.slice(*AuthorizationRequest.contact_attributes), to_contact)
         else
-          raise SkipRow.new("incomplete_#{from_contact}_contact_data".to_sym)
+          skip_row!("incomplete_#{from_contact}_contact_data")
         end
       else
         affect_team_attributes(contact_data, to_contact)

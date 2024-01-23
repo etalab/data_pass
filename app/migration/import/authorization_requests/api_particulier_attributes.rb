@@ -1,6 +1,6 @@
 class Import::AuthorizationRequests::APIParticulierAttributes < Import::AuthorizationRequests::Base
   def affect_data
-    raise SkipRow.new(:invalid_habilitation) if authorization_request.state == 'refused' && no_valid_organization?
+    skip_row!(:invalid_habilitation) if authorization_request.state == 'refused' && no_valid_organization?
 
     affect_scopes
     affect_attributes
@@ -24,7 +24,7 @@ class Import::AuthorizationRequests::APIParticulierAttributes < Import::Authoriz
         if user && !team_member_incomplete?(user)
           affect_team_attributes(user.attributes.slice(*AuthorizationRequest.contact_attributes), to_contact)
         else
-          raise SkipRow.new("incomplete_#{from_contact}_contact_data".to_sym)
+          skip_row!("incomplete_#{from_contact}_contact_data".to_sym)
         end
       else
         affect_team_attributes(contact_data, to_contact)

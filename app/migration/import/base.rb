@@ -72,12 +72,7 @@ class Import::Base
         extract(row)
         print '.'
       rescue Import::AuthorizationRequests::Base::SkipRow => e
-        options[:skipped] << {
-          type: model_name,
-          id: row['id'],
-          kind: e.kind,
-          message: e.message,
-        }
+        options[:skipped] << e
       rescue => e
         log(" ERROR: #{e.message}")
         log(e.backtrace.join("\n"))

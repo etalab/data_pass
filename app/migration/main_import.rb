@@ -12,7 +12,8 @@ class MainImport
     import(:users, { load_from_sql: true })
     import(:authorization_requests)
 
-    print_skipped
+    export_skipped
+    print_skipped_stats
   end
 
   private
@@ -21,12 +22,34 @@ class MainImport
     Import.const_get(klass_name.to_s.classify << 's').new(options.merge(global_options)).perform
   end
 
-  def print_skipped
+  def export_skipped
     log("# Skipped: #{@skipped.count}")
 
-    @skipped.each do |skipped|
-      log("#{skipped.to_json}")
+    CSV.open(export_path, 'w') do |csv|
+      csv << %w[id target_api kind]
+
+      @skipped.each do |skipped|
+        csv << [skipped.id, skipped.target_api, skipped.kind]
+      end
     end
+  end
+
+  def print_skipped_stats
+    log('Skipped stats:')
+
+    log('  - by target_api:')
+    @skipped.group_by(&:target_api).each do |target_api, skipped|
+      log("  #{target_api}: #{skipped.count}")
+    end
+
+    log('  - by error type:')
+    @skipped.group_by(&:kind).each do |kind, skipped|
+      log("  #{kind}: #{skipped.count}")
+    end
+  end
+
+  def export_path
+    Rails.root.join('app/migration/dumps/skipped.csv')
   end
 
   def global_options
