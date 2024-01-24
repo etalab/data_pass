@@ -109,7 +109,6 @@ fr:
     cta: Démarrer
   authorization_request_forms:
     create_for_single_page_form:
-      success: La demande d'habilitation %{name} a été sauvegardée avec succès
       error:
         title: Une erreur est survenue lors de la sauvegarde de la demande d'habilitation
         description: &common_authorization_requests_error_description Certains champs ci-dessous ne sont pas valides, merci d'effectuer les corrections nécessaires

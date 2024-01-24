@@ -78,8 +78,6 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     @authorization_request = organizer.authorization_request
 
     if organizer.success?
-      success_message(title: t('authorization_request_forms.create_for_single_page_form.success', name: @authorization_request.name))
-
       redirect_to authorization_request_form_path(form_uid: @authorization_request.form_uid, id: @authorization_request.id)
     else
       error_message(title: t('authorization_request_forms.create_for_single_page_form.error.title'), description: t('authorization_request_forms.create_for_single_page_form.error.description'))
