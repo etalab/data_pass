@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   scope(path_names: { new: 'nouveau' }) do
     resources :authorization_requests, only: %w[index show], path: 'habilitations'
     get '/habilitations/:id/nouveau', to: 'authorization_requests#new', as: :new_authorization_request
+    get '/habilitations/:authorization_definition_id/formulaires', to: 'authorization_request_forms#index', as: :choose_authorization_request_form
 
     scope(path: 'formulaires/:form_uid') do
       resources :authorization_request_forms, only: %w[new create show update], path: 'demande'

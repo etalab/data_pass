@@ -45,7 +45,7 @@
         <% end %>
       </ol>
 
-      <%= start_authorization_request_form(authorization_request_form) %>
+      <%= start_authorization_request_form(authorization_request_form, ) %>
     </p>
   <% else %>
     <p>
@@ -57,16 +57,5 @@
     </p>
   <% end %>
 <% else %>
-  <p>
-    <%= t('.multiple_forms.description', authorization_name: @authorization_definition.name) %>
-  </p>
-
-  <ol>
-    <% @authorization_definition.available_forms.each do |authorization_request_form| %>
-      <li>
-        <%= authorization_request_form.name %>
-        <%= start_authorization_request_form(authorization_request_form) %>
-      </li>
-    <% end %>
-  </ol>
+  <%= link_to t('.cta', authorization_name: @authorization_definition.name), choose_authorization_request_form_path(authorization_definition_id: @authorization_definition.id), class: %w[fr-btn fr-btn--lg] %>
 <% end %>

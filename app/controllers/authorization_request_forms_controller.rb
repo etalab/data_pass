@@ -1,8 +1,12 @@
 class AuthorizationRequestFormsController < AuthenticatedUserController
   helper AuthorizationRequestsHelpers
 
-  before_action :extract_authorization_request_form
+  before_action :extract_authorization_request_form, except: [:index]
   before_action :extract_authorization_request, only: %i[show update]
+
+  def index
+    @authorization_definition = AuthorizationDefinition.find(params[:authorization_definition_id])
+  end
 
   def new
     authorize @authorization_request_form, :new?

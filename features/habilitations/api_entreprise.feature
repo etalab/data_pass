@@ -4,10 +4,11 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Entreprise
   Contexte:
     Sachant que je suis un demandeur
     Et que je me connecte
+    Et je démarre une nouvelle demande d'habilitation "API Entreprise"
+    Et que je clique sur "Démarrer"
 
   Scénario: Je soumets une demande d'habilitation libre valide
-    Quand je démarre une nouvelle demande d'habilitation "API Entreprise"
-    Et que je clique sur "Démarrer" pour le formulaire "Demande libre"
+    Quand je clique sur "Démarrer" pour le formulaire "Demande libre"
 
     * je renseigne les infos de bases du projet
     * je remplis "Date de mise en production" avec "25/12/2042"
@@ -38,8 +39,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Entreprise
     Et je suis sur la page "Accueil"
 
   Scénario: Je soumets une demande d'habilitation MGDIS valide
-    Quand je démarre une nouvelle demande d'habilitation "API Entreprise"
-    Et que je clique sur "Démarrer" pour le formulaire "MGDIS"
+    Quand je clique sur "Démarrer" pour le formulaire "MGDIS"
 
     * je renseigne les informations des contacts RGPD
     * j'adhère aux conditions générales
