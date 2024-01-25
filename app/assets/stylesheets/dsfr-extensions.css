@@ -31,3 +31,7 @@
 .fr-text-warning {
   color: var(--text-default-warning);
 }
+
+.fr-bg-alt-blue-france {
+  background-color: var(--background-action-low-blue-france);
+}
