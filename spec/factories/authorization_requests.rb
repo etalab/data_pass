@@ -153,6 +153,11 @@ FactoryBot.define do
       form_uid { 'api-entreprise-mgdis' }
     end
 
+    trait :api_entreprise_setec_atexo do
+      api_entreprise
+      form_uid { 'api-entreprise-setec-atexo' }
+    end
+
     trait :api_particulier do
       type { 'AuthorizationRequest::APIParticulier' }
       form_uid { 'api-particulier' }

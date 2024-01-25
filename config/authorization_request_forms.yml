@@ -16,6 +16,7 @@ shared:
   api-entreprise-mgdis:
     name: "Solution Portail des aides de l'éditeur MGDIS"
     authorization_request: 'APIEntreprise'
+    editor: 'mgdis'
     data:
       intitule: "Solution Portail des aides de l'éditeur MGDIS"
       description: "Dans un objectif de dématérialisation des aides publiques, nous mettons en place un outil, à destination des usagers de notre organisme leur permettant de déposer des demandes d’aides/subventions, qui seront ensuite instruites par nos agents dans ce même outil.
@@ -44,6 +45,46 @@ La plateforme, mise en place pour permettre le dépôt de ces aides publiques et
       contact_metier_job_title: *api_entreprise_mgdis_contact_job_title
       contact_metier_email: *api_entreprise_mgdis_contact_email
       contact_metier_phone_number: *api_entreprise_mgdis_contact_phone_number
+
+  api-entreprise-setec-atexo:
+    name: "Dématérialisation des marchés publics de l'éditeur Setec Atexo"
+    authorization_request: 'APIEntreprise'
+    editor: 'setec-atexo'
+    data:
+      intitule: "Outil de dématérialisation des appels d’offres des marchés publics - Solution LOCAL TRUST MPE via SETEC"
+      description: |+
+        Cette demande sous entend que vous avez fait appel à la société SETEC 702 005 901 00104 pour le traitement de vos marchés publics à travers la plateforme LOCAL TRUST MPE de Atexo.
+
+        Afin de faciliter cette investigation du marché fournisseurs, ATEXO propose le module de Sourcing. Combiné au profil acheteur MPE, il permet aux entreprises de mettre en avant leurs informations.
+
+        Basé sur l’open data et les renseignements des entreprises, ce module présente aux acheteurs des fiches fournisseurs complètes : établissements, éléments financiers, contrats publics, références significatives, expertises, contacts qualifiés, etc.
+      scopes:
+        - unites_legales_etablissements_insee
+        - associations_djepva
+        - effectifs_urssaf
+        - mandataires_sociaux_infogreffe
+        - chiffre_affaires_dgfip
+        - attestation_fiscale_dgfip
+        - attestation_sociale_urssaf
+        - cotisations_msa
+        - cotisations_probtp
+        - certification_cnetp
+
+      destinataire_donnees_caractere_personnel: Acheteurs publics dans le cadre de leur activité de traitement des marchés publics
+      duree_conservation_donnees_caractere_personnel: 36
+      cadre_juridique_nature: |+
+        Service numérique de conformité pour les administrations publiques dans le cadre du décret N°2011-1601 et de l’article D8222 du code du travail, offre de services d’intermédiation aux organismes publics, tel que défini par l’article 17, alinéa IV, du décret du 24 septembre 2014 et le décret lié à la commande publique n° 2016-360.
+        https://www.legifrance.gouv.fr/codes/id/LEGIARTI000018520702/2011-12-31/
+
+        Article R2143-13 du code de la commande publique. Concernant l’accès des acheteurs aux documents justificatifs et moyens de preuve.
+        https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037730589
+      cadre_juridique_url: https://www.legifrance.gouv.fr/codes/id/LEGIARTI000018520702/2011-12-31/
+
+      contact_technique_email: &api_entreprise_setec_atexo_contact_email "<%= Rails.application.credentials.api_entreprise_setec_atexo_contact_email || 'not_valid@setec.com' %>"
+      contact_technique_phone_number: &api_entreprise_setec_atexo_contact_phone_number "<%= Rails.application.credentials.api_entreprise_setec_atexo_contact_phone_number || '0836656565' %>"
+
+      contact_metier_email: *api_entreprise_setec_atexo_contact_email
+      contact_metier_phone_number: *api_entreprise_setec_atexo_contact_phone_number
 
   api-particulier:
     name: "Demande libre"
