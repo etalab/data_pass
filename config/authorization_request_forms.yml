@@ -29,7 +29,7 @@ shared:
     name: "Solution Portail des aides de l'éditeur MGDIS"
     description: "Solution logicielle fournie par l'éditeur MGDIS."
     authorization_request: 'APIEntreprise'
-    editor: 'mgdis'
+    editor_id: 'mgdis'
     data:
       intitule: "Solution Portail des aides de l'éditeur MGDIS"
       description: "Dans un objectif de dématérialisation des aides publiques, nous mettons en place un outil, à destination des usagers de notre organisme leur permettant de déposer des demandes d’aides/subventions, qui seront ensuite instruites par nos agents dans ce même outil.
@@ -63,7 +63,7 @@ La plateforme, mise en place pour permettre le dépôt de ces aides publiques et
     name: "Dématérialisation des marchés publics"
     description: "Solution logicielle fournie par l'éditeur Setec."
     authorization_request: 'APIEntreprise'
-    editor: 'setec-atexo'
+    editor_id: 'setec'
     data:
       intitule: "Outil de dématérialisation des appels d’offres des marchés publics - Solution LOCAL TRUST MPE via SETEC"
       description: |+
