@@ -2,6 +2,7 @@ class AuthorizationRequestForm < StaticApplicationRecord
   attr_accessor :uid,
     :name,
     :editor,
+    :default,
     :authorization_request_class,
     :templates,
     :steps
@@ -28,6 +29,7 @@ class AuthorizationRequestForm < StaticApplicationRecord
       ).merge(
         uid: uid.to_s,
         editor: hash[:editor_id].present? ? Editor.find(hash[:editor_id]) : nil,
+        default: hash[:default].nil? ? false : hash[:default],
         authorization_request_class: AuthorizationRequest.const_get(hash[:authorization_request]),
         templates: (hash[:templates] || []).map { |template_key, template_attributes| AuthorizationRequestTemplate.new(template_key, template_attributes) },
         steps: hash[:steps] || []
