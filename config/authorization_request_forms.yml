@@ -18,6 +18,7 @@ shared:
   api-entreprise-marches-publics:
     name: "Marchés publics"
     description: "Facilitez le dépôt des candidatures et récupérez les justificatifs administratifs de vos utilisateurs."
+    use_case: 'marches_publics'
     authorization_request: 'APIEntreprise'
     steps:
       - name: 'basic_infos'
@@ -29,6 +30,7 @@ shared:
   api-entreprise-mgdis:
     name: "Solution Portail des aides de l'éditeur MGDIS"
     description: "Solution logicielle fournie par l'éditeur MGDIS."
+    use_case: 'aides_publiques'
     authorization_request: 'APIEntreprise'
     editor_id: 'mgdis'
     data:
@@ -64,6 +66,7 @@ La plateforme, mise en place pour permettre le dépôt de ces aides publiques et
     name: "Dématérialisation des marchés publics"
     description: "Solution logicielle fournie par l'éditeur Setec."
     authorization_request: 'APIEntreprise'
+    use_case: 'marches_publics'
     editor_id: 'setec'
     data:
       intitule: "Outil de dématérialisation des appels d’offres des marchés publics - Solution LOCAL TRUST MPE via SETEC"

@@ -3,6 +3,7 @@ class AuthorizationRequestForm < StaticApplicationRecord
     :name,
     :editor,
     :default,
+    :use_case,
     :authorization_request_class,
     :templates,
     :steps
@@ -18,12 +19,14 @@ class AuthorizationRequestForm < StaticApplicationRecord
     end
   end
 
+  # rubocop:disable Metrics/AbcSize
   def self.build(uid, hash)
     new(
       hash.slice(
         :name,
         :description,
         :public,
+        :use_case,
         :data,
         :startable_by_applicant
       ).merge(
@@ -36,6 +39,7 @@ class AuthorizationRequestForm < StaticApplicationRecord
       )
     )
   end
+  # rubocop:enable Metrics/AbcSize
 
   delegate :provider, :unique?, to: :authorization_definition
 
