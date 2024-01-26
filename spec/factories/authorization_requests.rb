@@ -148,6 +148,11 @@ FactoryBot.define do
       with_scopes
     end
 
+    trait :api_entreprise_marches_publics do
+      api_entreprise
+      form_uid { 'api-entreprise-marches-publics' }
+    end
+
     trait :api_entreprise_mgdis do
       api_entreprise
       form_uid { 'api-entreprise-mgdis' }

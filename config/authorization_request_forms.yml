@@ -5,6 +5,18 @@ shared:
 
   api-entreprise:
     name: "Demande libre"
+    description: "Pour les utilisateurs expérimentés qui connaissent précisemment l'usage des données et les aspects techniques des APIs"
+    authorization_request: 'APIEntreprise'
+    steps:
+      - name: 'basic_infos'
+      - name: 'personal_data'
+      - name: 'legal'
+      - name: 'scopes'
+      - name: 'contacts'
+
+  api-entreprise-marches-publics:
+    name: "Marchés publics"
+    description: "Facilitez le dépôt des candidatures et récupérez les justificatifs administratifs de vos utilisateurs."
     authorization_request: 'APIEntreprise'
     steps:
       - name: 'basic_infos'
@@ -15,6 +27,7 @@ shared:
 
   api-entreprise-mgdis:
     name: "Solution Portail des aides de l'éditeur MGDIS"
+    description: "Solution logicielle fournie par l'éditeur MGDIS."
     authorization_request: 'APIEntreprise'
     editor: 'mgdis'
     data:
@@ -47,7 +60,8 @@ La plateforme, mise en place pour permettre le dépôt de ces aides publiques et
       contact_metier_phone_number: *api_entreprise_mgdis_contact_phone_number
 
   api-entreprise-setec-atexo:
-    name: "Dématérialisation des marchés publics de l'éditeur Setec Atexo"
+    name: "Dématérialisation des marchés publics"
+    description: "Solution logicielle fournie par l'éditeur Setec."
     authorization_request: 'APIEntreprise'
     editor: 'setec-atexo'
     data:
