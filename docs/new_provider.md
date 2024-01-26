@@ -212,7 +212,7 @@ simplifier la génération des formulaires.
 ### 4.2 Cas du formulaire sur une page
 
 Il faut créer le fichier `mon_api.html.erb` dans le dossier
-[`app/views/authorization_requests/`](../app/views/authorization_requests/) avec le markup minimal:
+[`app/views/authorization_request_forms/`](../app/views/authorization_request_forms/) avec le markup minimal:
 
 ```erb
 <%= render 'authorization_requests/build/header' %>
