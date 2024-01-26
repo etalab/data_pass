@@ -1,5 +1,6 @@
 class StaticApplicationRecord
   include ActiveModel::Model
+  include Draper::Decoratable
 
   def self.inherited(base)
     base.extend ClassMethods
