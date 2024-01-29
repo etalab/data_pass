@@ -63,11 +63,19 @@ Quand('je sélectionne {string} pour {string}') do |option, name|
 end
 
 Quand('je choisis {string}') do |option|
-  choose option
+  if javascript?
+    find('label', text: option)&.click
+  else
+    choose option
+  end
 end
 
 Quand('je coche {string}') do |label|
-  check label
+  if javascript?
+    find('label', text: label)&.click
+  else
+    check label
+  end
 end
 
 Alors('je peux voir dans le tableau {string}') do |caption, table|

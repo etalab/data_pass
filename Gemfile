@@ -56,6 +56,5 @@ group :test do
   gem 'database_cleaner-active_record'
   gem 'rack_session_access'
   gem 'rspec-rails', '6.1.1'
-  gem 'selenium-webdriver'
   gem 'simplecov', require: false
 end
