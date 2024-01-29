@@ -2,7 +2,14 @@
   Qui se charge techniquement de l'intégration de l'API ?
 </h3>
 
-<div class="fr-mb-2w" data-controller="choose-authorization-request-form" data-choose-authorization-request-form-editors-value="<%= @authorization_definition.editors.map(&:id).to_json %>">
+<div
+  class="fr-mb-2w"
+  data-controller="choose-authorization-request-form"
+  data-choose-authorization-request-form-editors-value="<%= @authorization_definition.editors.map(&:id).to_json %>"
+  <% if params[:use_case] %>
+    data-choose-authorization-request-form-target-use-case-value="<%= params[:use_case] %>"
+  <% end %>
+>
   <fieldset class="fr-fieldset" aria-labelledby="radio-rich-inline-legend radio-rich-inline-messages">
     <div class="fr-grid-row">
       <div class="fr-col-md-4 fr-col-12">

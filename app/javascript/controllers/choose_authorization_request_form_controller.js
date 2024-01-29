@@ -3,7 +3,8 @@ import { Controller } from '@hotwired/stimulus'
 export default class extends Controller {
   static targets = ['editors', 'editor', 'forms', 'form', 'noTeamDisclaimer']
   static values = {
-    editors: Array
+    editors: Array,
+    targetUseCase: String
   }
 
   chooseTeam (event) {
@@ -13,6 +14,9 @@ export default class extends Controller {
       case 'internal':
         this._hideEditors()
         this._hideEditorForms()
+        if (this.hasTargetUseCaseValue) {
+          this._hideOtherUseCaseForms()
+        }
         this._showFormsBlock()
         break
       case 'editor':
@@ -37,6 +41,10 @@ export default class extends Controller {
         form.classList.add('fr-hidden')
       }
     })
+
+    if (this.hasTargetUseCaseValue) {
+      this._hideOtherUseCaseForms()
+    }
 
     this._showFormsBlock()
   }
@@ -90,5 +98,15 @@ export default class extends Controller {
 
   _showNoTeamDisclaimer () {
     this.noTeamDisclaimerTarget.classList.remove('fr-hidden')
+  }
+
+  _hideOtherUseCaseForms () {
+    this.formTargets.forEach((form) => {
+      const formTags = this._getFormTags(form)
+
+      if (!formTags.includes(this.targetUseCaseValue) && !formTags.includes('default')) {
+        form.classList.add('fr-hidden')
+      }
+    })
   }
 }
