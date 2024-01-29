@@ -90,12 +90,15 @@ fr:
     new:
       title: &start_new_habilitation_title Démarrer une nouvelle habilitation pour %{authorization_name}
       organization:
-        description: "Vous êtes sur le point de démarrer une nouvelle demande d'habilitation pour le compte de <strong>%{organization_raison_sociale}</strong> (numéro de siret: <a href=\"https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}\" target=\"_blank\">%{organization_siret}</a>).
-  <br />
-  <br />
-  <strong>Attention</strong> : vous ne pourrez pas modifier ces informations dans ce formulaire une fois la demande démarrée. Si vous voulez effectuer cette demande pour le compte d'une autre organisation, veuillez cliquer sur le lien ci-dessous qui vous redirigera vers MonComptePro:"
+        start_text: "Vous êtes sur le point de démarrer une nouvelle demande d'habilitation pour le compte de <strong>%{organization_raison_sociale}</strong> (numéro de siret: <a href=\"https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}\" target=\"_blank\">%{organization_siret}</a>)."
+        callout:
+          title: Attention
+          text: |+
+            Vous ne pourrez pas modifier ces informations une fois la demande démarrée.
+            <br />
+            Si vous voulez effectuer cette demande pour le compte d'une autre organization, veuillez cliquer sur le bouton ci-dessous.
         change_cta: Changer d'organisation
-      cta: Démarrer mon habilitation pour %{authorization_name}
+      cta: Débuter mon habilitation pour %{authorization_name}
       multiple_steps:
         description: "Cette demande s'effectue en plusieurs étapes. Vous pouvez à tout moment sauvegarder votre demande et la reprendre plus tard. Les étapes sont les suivantes :"
       single_form:
