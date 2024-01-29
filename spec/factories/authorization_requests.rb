@@ -153,6 +153,11 @@ FactoryBot.define do
       form_uid { 'api-entreprise-marches-publics' }
     end
 
+    trait :api_entreprise_aides_publiques do
+      api_entreprise
+      form_uid { 'api-entreprise-aides-publiques' }
+    end
+
     trait :api_entreprise_mgdis do
       api_entreprise
       form_uid { 'api-entreprise-mgdis' }

@@ -27,6 +27,18 @@ shared:
       - name: 'scopes'
       - name: 'contacts'
 
+  api-entreprise-aides-publiques:
+    name: "Aides publiques"
+    description: "Faciliter le dépôt et l'instruction des aides publiques"
+    use_case: 'aides_publiques'
+    authorization_request: 'APIEntreprise'
+    steps:
+      - name: 'basic_infos'
+      - name: 'personal_data'
+      - name: 'legal'
+      - name: 'scopes'
+      - name: 'contacts'
+
   api-entreprise-mgdis:
     name: "Solution Portail des aides de l'éditeur MGDIS"
     description: "Solution logicielle fournie par l'éditeur MGDIS."
