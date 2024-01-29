@@ -1,7 +1,7 @@
 import { Controller } from '@hotwired/stimulus'
 
 export default class extends Controller {
-  static targets = ['editors', 'editor', 'forms', 'form', 'noTeamDisclaimer']
+  static targets = ['editors', 'editor', 'forms', 'form', 'noTeamDisclaimer', 'noEditorDisclaimer']
   static values = {
     editors: Array,
     targetUseCase: String
@@ -35,7 +35,7 @@ export default class extends Controller {
     this.formTargets.forEach((form) => {
       const formTags = this._getFormTags(form)
 
-      if (formTags.includes(editor) || formTags.includes('default')) {
+      if (formTags.includes(editor)) {
         form.classList.remove('fr-hidden')
       } else {
         form.classList.add('fr-hidden')
@@ -46,7 +46,11 @@ export default class extends Controller {
       this._hideOtherUseCaseForms()
     }
 
-    this._showFormsBlock()
+    if (this._noForm()) {
+      this._showNoEditorDisclaimer()
+    } else {
+      this._showFormsBlock()
+    }
   }
 
   _getFormTags (form) {
@@ -94,10 +98,22 @@ export default class extends Controller {
     })
     this.formsTarget.classList.add('fr-hidden')
     this.noTeamDisclaimerTarget.classList.add('fr-hidden')
+    this.noEditorDisclaimerTarget.classList.add('fr-hidden')
   }
 
   _showNoTeamDisclaimer () {
     this.noTeamDisclaimerTarget.classList.remove('fr-hidden')
+  }
+
+  _showNoEditorDisclaimer () {
+    this.noEditorDisclaimerTarget.classList.remove('fr-hidden')
+    this.formsTarget.classList.add('fr-hidden')
+  }
+
+  _noForm () {
+    return this.formTargets.every((form) => {
+      return form.classList.contains('fr-hidden')
+    })
   }
 
   _hideOtherUseCaseForms () {
