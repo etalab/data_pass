@@ -141,3 +141,23 @@ Alors("il n'y a pas de champ éditable") do
     expect(input).to be_readonly if %w[hidden checkbox].exclude?(input[:type])
   end
 end
+
+# https://rubular.com/r/xHZlGXKvtnqUvz
+Alors(/je vois( au moins)? (\d+) (tuiles?|cartes?)(?: "([^"]+)")?/) do |at_least, count, kind, text|
+  kind_to_selector = {
+    'tuile' => '.fr-tile',
+    'carte' => '.fr-card',
+  }
+
+  css = kind_to_selector[kind.singularize]
+
+  options = if at_least.present?
+              { minimum: count.to_i }
+            else
+              { count: count.to_i }
+            end
+
+  options[:text] = text if text.present?
+
+  expect(page).to have_css(css, **options)
+end
