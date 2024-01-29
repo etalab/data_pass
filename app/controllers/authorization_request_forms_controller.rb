@@ -11,13 +11,9 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   def new
     authorize @authorization_request_form, :new?
 
-    @authorization_request = authorization_request_class.new(
-      applicant: current_user,
-      organization: current_organization,
-      form_uid: @authorization_request_form.uid,
-    )
+    @authorization_definition = @authorization_request_form.authorization_definition
 
-    render view_path
+    render 'authorization_requests/new'
   end
 
   def create

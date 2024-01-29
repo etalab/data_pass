@@ -5,6 +5,12 @@
 </div>
 
 <div class="fr-mb-4w">
+  <% if @authorization_request_form.present? %>
+    <h5>
+      <%= t('.current_form', authorization_request_form_name: @authorization_request_form.name) %>
+    </h5>
+  <% end %>
+
   <p>
     <%= t('.organization.start_text', organization_raison_sociale: current_organization.raison_sociale, organization_siret: current_organization.siret).html_safe %>
   </p>
@@ -39,8 +45,8 @@
       <% end %>
   </div>
 
-  <% if @authorization_definition.available_forms.one? %>
-    <% authorization_request_form = @authorization_definition.available_forms.first %>
+  <% if @authorization_request_form || @authorization_definition.available_forms.one? %>
+    <% authorization_request_form = @authorization_request_form || @authorization_definition.available_forms.first %>
 
     <% if authorization_request_form.multiple_steps? %>
       <p>
@@ -54,7 +60,7 @@
           <% end %>
         </ol>
 
-        <%= start_authorization_request_form(authorization_request_form, ) %>
+        <%= start_authorization_request_form(authorization_request_form) %>
       </p>
     <% else %>
       <p>

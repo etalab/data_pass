@@ -8,6 +8,8 @@ end
 
 Quand("je démarre une nouvelle demande d'habilitation {string}") do |string|
   visit new_authorization_request_path(id: find_authorization_definition_from_name(string).id)
+
+  click_on 'Débuter mon habilitation'
 end
 
 Quand('je clique sur {string} pour le formulaire {string}') do |cta_name, form_name|

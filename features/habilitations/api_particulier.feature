@@ -7,7 +7,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
 
   Scénario: Je soumets une demande d'habilitation libre valide
     Quand je démarre une nouvelle demande d'habilitation "API Particulier"
-    Et que je clique sur "Démarrer"
 
     * je renseigne les infos de bases du projet
     * je remplis "Date de mise en production" avec "25/12/2042"

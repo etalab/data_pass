@@ -5,7 +5,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Entreprise
     Sachant que je suis un demandeur
     Et que je me connecte
     Et je démarre une nouvelle demande d'habilitation "API Entreprise"
-    Et que je clique sur "Démarrer"
 
   @javascript
   Scénario: Je soumets une demande d'habilitation libre valide
