@@ -24,8 +24,8 @@ def extract_state_from_french_status(status)
 end
 
 # rubocop:disable Metrics/MethodLength
-def create_authorization_requests_with_status(type, status = nil, count = 1, applicant = nil)
-  applicant ||= FactoryBot.create(:user)
+def create_authorization_requests_with_status(type, status = nil, count = 1, attributes = {})
+  attributes[:applicant] ||= FactoryBot.create(:user)
 
   if status
     FactoryBot.create_list(
@@ -33,16 +33,16 @@ def create_authorization_requests_with_status(type, status = nil, count = 1, app
       count,
       extract_state_from_french_status(status),
       find_factory_trait_from_name(type),
-      applicant:,
-      organization: applicant.current_organization,
+      organization: attributes[:applicant].current_organization,
+      **attributes,
     )
   else
     FactoryBot.create_list(
       :authorization_request,
       count,
       find_factory_trait_from_name(type),
-      applicant:,
-      organization: applicant.current_organization,
+      organization: attributes[:applicant].current_organization,
+      **attributes,
     )
   end
 end

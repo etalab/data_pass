@@ -25,7 +25,7 @@ shared_examples 'an unauthorized access' do
   it do
     subject
 
-    follow_redirect!
+    2.times { follow_redirect! }
 
     expect(response.body).to include('pas le droit')
   end

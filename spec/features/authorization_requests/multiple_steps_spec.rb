@@ -133,7 +133,7 @@ RSpec.describe 'Authorization request with multiple steps' do
           submit_habilitation
         }.to change { authorization_request.reload.state }.to('submitted')
 
-        expect(page).to have_current_path(dashboard_path)
+        expect(page).to have_current_path(/#{dashboard_path}/)
       end
     end
 

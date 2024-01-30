@@ -35,4 +35,10 @@ class AuthorizationRequestPolicy < ApplicationPolicy
   def another_authorization_request_with_same_type_exists?
     current_organization.authorization_requests.where(type: record.to_s).any?
   end
+
+  class Scope < Scope
+    def resolve
+      scope.where(organization: current_organization)
+    end
+  end
 end

@@ -37,6 +37,8 @@ class ApplicationPolicy
   delegate :current_organization, to: :user
 
   class Scope
+    delegate :current_organization, to: :user
+
     def initialize(user, scope)
       @user = user
       @scope = scope

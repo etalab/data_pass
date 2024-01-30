@@ -27,7 +27,7 @@ RSpec.describe 'Instruction access' do
     it 'can not access the instruction space' do
       visit_instruction
 
-      2.times { follow_redirect! }
+      3.times { follow_redirect! }
 
       expect(response.body).to include('pas le droit')
     end

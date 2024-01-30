@@ -52,16 +52,31 @@ Quand(/je me rends sur une demande d'habilitation "([^"]+)"(?: (?:en|à))? ?(.+)
 
     visit instruction_authorization_request_path(authorization_request)
   else
-    authorization_request = create_authorization_requests_with_status(type, status, 1, current_user).first
+    authorization_request = create_authorization_requests_with_status(type, status, 1, applicant: current_user).first
 
     visit authorization_request_path(authorization_request)
   end
 end
 
-# https://rubular.com/r/AiBmvod6e8ssvO
-Quand(/(j'ai|il y a) (\d+) demandes? d'habilitation "([^"]+)" ?(?:en )?(.+)?/) do |who, count, type, status|
-  applicant = who == 'j\'ai' ? current_user : nil
-  create_authorization_requests_with_status(type, status, count, applicant)
+# https://rubular.com/r/t8v2hsttNnb9h3
+Quand(/(j'ai|il y a|mon organisation a) (\d+) demandes? d'habilitation "([^"]+)" ?(?:en )?(.+)?/) do |who, count, type, status|
+  applicant = case who
+              when 'j\'ai'
+                current_user
+              when 'mon organisation a'
+                create(:user, current_organization: current_user.current_organization)
+              end
+
+  create_authorization_requests_with_status(type, status, count, applicant:)
+end
+
+Quand(/je suis mentionné dans (\d+) demandes? d'habilitation "([^"]+)" en tant que "([^"]+)"/) do |count, type, role_humanized|
+  role = role_humanized.parameterize.underscore
+  options = {
+    "#{role}_email": current_user.email,
+  }
+
+  create_authorization_requests_with_status(type, nil, count, options)
 end
 
 # https://rubular.com/r/dRUFmK5dzDpjJv

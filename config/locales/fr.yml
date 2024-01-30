@@ -34,6 +34,18 @@ fr:
         - annuaire-entreprises.data.gouv.fr
         - data.gouv.fr
 
+    dashboard:
+      title: Accueil
+      instruction_cta: Espace instruction
+      new_authorization_request: Demander une nouvelle habilitation
+      tabs:
+        moi:
+          title: Mes demandes ou habilitations
+        organisation:
+          title: Les demandes ou habilitations de l'organisation
+        mentions:
+          title: Mes mentions
+
     instruction:
       authorization_request:
         tabs:
@@ -65,11 +77,11 @@ fr:
       title: Se connecter
 
   dashboard:
-    index:
-      title: Accueil
-      instruction_cta: Espace instruction
-      new_authorization_request: Demander une nouvelle habilitation
-      no_authorization_requests: Vous n'avez aucun habilitations ou demandes en cours.
+    show:
+      no_authorization_requests:
+        moi: Vous n'avez aucune habilitation ou demande en cours.
+        organisation: Votre organization ne possède aucune habilitation ou demande en cours.
+        mentions: Vous n'êtes mentionné dans aucune habilitation ou demande en cours.
     authorization_requests:
       validated_or_refused_title: Mes habilitations
       draft_title: Demandes en brouillon
