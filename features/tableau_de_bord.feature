@@ -1,7 +1,7 @@
 # language: fr
 
 Fonctionnalité: Tableau de bord
-  Cette page est la page principale du demandeur, où il peut voir les diverses actions
+  Cette page est la page principale de l'utilisateur, où il peut voir les diverses actions
   qu'il doit effectuer.
 
   Contexte:
