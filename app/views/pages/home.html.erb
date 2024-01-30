@@ -1,23 +1,54 @@
-<h2 class="center">
-  <%= t('.title').html_safe %>
-</h2>
-
 <div class="fr-container">
   <div class="fr-grid-row">
-    <div class="fr-col-md-6 fr-col-offset-md-3 fr-col-12 center">
-      <div class="fr-connect-group">
-        <%= form_with(url: '/auth/mon_compte_pro', method: :post, data: { turbo: false }) do |f| %>
-          <%= f.button class: %w(fr-connect fr-connect-moncomptepro fr-m-auto), id: 'login_mon_compte_pro' do %>
-            <span class="fr-connect__login">S'identifier avec</span>
-            <span class="fr-connect__brand">MonComptePro</span>
-          <% end %>
+    <div class="fr-col-md-6 fr-col-3 fr-col-12">
+      <div class="fr-m-3w">
+        <%= image_tag "logo-welcome-page.svg", alt: "Welcome Page Logo" %>
+      </div>
+    </div>
 
-          <p class="center">
-            <a href="https://moncomptepro.beta.gouv.fr/" target="_blank"  rel="noopener" title="Qu’est-ce que MonComptePro ? - Nouvelle fenêtre">
-              Qu’est-ce que MonComptePro ?
-            </a>
+    <div class="fr-col-md-6 fr-col-3 fr-col-12">
+      <div class="fr-m-3w">
+        <div class="fr-connect-group">
+          <h2>
+            <%#= t('.title').html_safe %>
+            Bienvenue sur DataPass !
+          </h2>
+
+          <p>
+            DataPass, c’est le service qui vous permet de profiter facilement d’habilitations conformes entre
+            administrations et d’accéder à des données en accès restreint.
           </p>
-        <% end %>
+
+          <div class="fr-mb-3w">
+            <div class="new-login-container">
+              <%= form_with(url: '/auth/mon_compte_pro', method: :post, data: { turbo: false }) do |f| %>
+                <%= f.button class: %w(fr-connect fr-connect-moncomptepro fr-m-auto), id: 'login_mon_compte_pro' do %>
+                  <span class="fr-connect__login">S'identifier avec</span>
+                  <span class="fr-connect__brand">MonComptePro</span>
+                <% end %>
+
+                <p>
+                  <a href="https://moncomptepro.beta.gouv.fr/" target="_blank" rel="noopener" title="Qu’est-ce que MonComptePro ? - Nouvelle fenêtre">
+                    Qu’est-ce que MonComptePro ?
+                  </a>
+                </p>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="fr-mb-3w">
+            <div class="new-login-container">
+              <p>Pour découvrir les APIs du service public</p>
+              <div class="fr-mb-2w">
+                <div class=" fr-btn fr-btn--secondary fr-m-auto">
+                  <a href="https://api.gouv.fr/" target="_blank" rel="noopener" title="api.gouv.fr - Nouvelle fenêtre">
+                    api.gouv.fr
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

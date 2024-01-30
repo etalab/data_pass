@@ -1,0 +1,21 @@
+.new-login-container {
+    flex-direction: column;
+    border: 1px solid var(--grey-925-125);
+    padding: 16px 24px 8px 24px
+}
+
+.new-login-container p {
+    font-weight: bold;
+}
+
+@media all and (max-width: 992px) {
+    .new-login-container {
+        padding: 1rem 5rem;
+    }
+}
+
+@media all and (max-width: 768px) {
+    .new-login-container {
+        padding: 1rem;
+    }
+}
