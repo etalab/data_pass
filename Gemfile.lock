@@ -223,7 +223,7 @@ GEM
       rails-i18n
       rainbow (>= 2.2.2, < 4.0)
       terminal-table (>= 1.5.1)
-    importmap-rails (1.2.3)
+    importmap-rails (2.0.1)
       actionpack (>= 6.0.0)
       activesupport (>= 6.0.0)
       railties (>= 6.0.0)
@@ -524,7 +524,7 @@ DEPENDENCIES
   guard-cucumber
   guard-rspec
   i18n-tasks
-  importmap-rails (~> 1.0)
+  importmap-rails (~> 2.0)
   interactor
   kaminari
   omniauth
