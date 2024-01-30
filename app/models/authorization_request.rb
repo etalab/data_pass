@@ -32,6 +32,17 @@ class AuthorizationRequest < ApplicationRecord
     inverse_of: :authorization_request,
     dependent: :destroy
 
+  has_many :authorizations,
+    class_name: 'Authorization',
+    inverse_of: :authorization_request,
+    dependent: :nullify
+
+  has_one :latest_authorization,
+    -> { order(created_at: :desc).limit(1) },
+    class_name: 'Authorization',
+    inverse_of: :authorization_request,
+    dependent: :nullify
+
   def events
     @events ||= AuthorizationRequestEventsQuery.new(self).perform
   end

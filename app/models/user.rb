@@ -13,6 +13,11 @@ class User < ApplicationRecord
     class_name: 'AuthorizationRequest',
     inverse_of: :applicant
 
+  has_many :authorizations_as_applicant,
+    dependent: :restrict_with_exception,
+    class_name: 'Authorization',
+    inverse_of: :applicant
+
   def full_name
     "#{family_name} #{given_name}"
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_09_101531) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_30_155005) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "plpgsql"
@@ -72,6 +72,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_09_101531) do
     t.index ["organization_id"], name: "index_authorization_requests_on_organization_id"
   end
 
+  create_table "authorizations", force: :cascade do |t|
+    t.hstore "data", default: {}, null: false
+    t.bigint "applicant_id", null: false
+    t.bigint "authorization_request_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["applicant_id"], name: "index_authorizations_on_applicant_id"
+    t.index ["authorization_request_id"], name: "index_authorizations_on_authorization_request_id"
+  end
+
   create_table "denial_of_authorizations", force: :cascade do |t|
     t.string "reason", null: false
     t.bigint "authorization_request_id", null: false
@@ -124,6 +134,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_09_101531) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "authorizations", "authorization_requests"
+  add_foreign_key "authorizations", "users", column: "applicant_id"
   add_foreign_key "denial_of_authorizations", "authorization_requests"
   add_foreign_key "instructor_modification_requests", "authorization_requests"
 end
