@@ -23,6 +23,7 @@ class CreateAuthorizationRequestEvents < ActiveRecord::Migration[7.1]
       CHECK (
         (name = 'refuse' AND entity_type = 'DenialOfAuthorization') OR
         (name = 'request_changes' AND entity_type = 'InstructorModificationRequest') OR
+        (name = 'approve' AND entity_type = 'Authorization') OR
         (entity_type = 'AuthorizationRequest')
       )
     SQL

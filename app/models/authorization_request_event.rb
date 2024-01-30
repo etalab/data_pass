@@ -18,17 +18,18 @@ class AuthorizationRequestEvent < ApplicationRecord
 
   validate :entity_type_is_authorized
 
-  # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
   def entity_type_is_authorized
     return if name.blank? || entity_type.blank?
 
     return if name == 'refuse' && entity_type == 'DenialOfAuthorization'
     return if name == 'request_changes' && entity_type == 'InstructorModificationRequest'
-    return if entity_type == 'AuthorizationRequest'
+    return if name == 'approve' && entity_type == 'Authorization'
+    return if %w[approve refuse request_changes].exclude?(name) && entity_type == 'AuthorizationRequest'
 
     errors.add(:entity_type, :invalid)
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
 
   def authorization_request
     entity.authorization_request

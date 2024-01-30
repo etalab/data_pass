@@ -28,7 +28,7 @@ RSpec.describe ApproveAuthorizationRequest do
         expect(authorization.data).to eq(authorization_request.data)
       end
 
-      include_examples 'creates an event', event_name: :approve
+      include_examples 'creates an event', event_name: :approve, entity_type: :authorization
 
       context 'with authorization request which has a bridge' do
         let(:bridge) { instance_double(APIInfinoeSandboxBridge, perform: true) }
