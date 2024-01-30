@@ -1,4 +1,10 @@
 RSpec.describe 'Create authorization request' do
+  subject do
+    visit new_authorization_request_form_path(form_uid: authorization_request_form.uid)
+
+    click_link_or_button dom_id(authorization_request_form, :start_authorization_request)
+  end
+
   let(:user) { create(:user) }
   let(:authorization_request_form) { AuthorizationRequestForm.find('portail-hubee-demarche-certdc') }
   let(:authorization_request_class) { authorization_request_form.authorization_request_class }
@@ -7,33 +13,11 @@ RSpec.describe 'Create authorization request' do
     sign_in(user)
   end
 
-  describe 'elements' do
-    subject do
-      visit new_authorization_request_form_path(form_uid: authorization_request_form.uid)
+  it 'creates a new authorization request linked to user' do
+    expect { subject }.to change(AuthorizationRequest, :count).by(1)
 
-      page
-    end
+    authorization_request = AuthorizationRequest.last
 
-    it 'does not have a submit authorization request button' do
-      expect(subject).to have_no_button('submit_authorization_request')
-    end
-  end
-
-  describe 'filling the form' do
-    subject do
-      visit new_authorization_request_form_path(form_uid: authorization_request_form.uid)
-
-      within(css_id(authorization_request_class)) do
-        click_link_or_button 'save_authorization_request'
-      end
-    end
-
-    it 'creates a new authorization request linked to user' do
-      expect { subject }.to change(AuthorizationRequest, :count).by(1)
-
-      authorization_request = AuthorizationRequest.last
-
-      expect(authorization_request.applicant).to eq(user)
-    end
+    expect(authorization_request.applicant).to eq(user)
   end
 end

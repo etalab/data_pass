@@ -1,0 +1,19 @@
+<div id="<%= dom_id(authorization_request_form) %>" class="fr-tile fr-tile--sm fr-tile--horizontal fr-enlarge-link authorization-request-form-card">
+  <div class="fr-tile__body">
+    <div class="fr-tile__content">
+      <h3 class="fr-tile__title">
+        <%= link_to authorization_request_form.name, authorization_request_forms_path(form_uid: authorization_request_form.id), data: { turbo_method: 'post' } %>
+      </h3>
+      <p class="fr-tile__detail">
+        <%= authorization_request_form.description %>
+      </p>
+      <% if authorization_request_form.editor %>
+        <div class="fr-tile__start">
+          <p class="fr-badge fr-badge--sm">
+            Via l'éditeur <%= authorization_request_form.editor.name %>
+          </p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

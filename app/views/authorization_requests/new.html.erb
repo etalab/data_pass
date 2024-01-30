@@ -5,68 +5,73 @@
 </div>
 
 <div class="fr-mb-4w">
-  <%= t('.organization.description', organization_raison_sociale: current_organization.raison_sociale, organization_siret: current_organization.siret).html_safe %>
-
-  <%= form_with(url: "/auth/mon_compte_pro?prompt=select_organization", method: :post, data: { turbo: false }, class: 'inline') do |f| %>
-    <%= f.button t('.organization.change_cta'), id: 'change_current_organization', class: %w(fr-btn fr-btn--sm fr-btn--secondary) %>
+  <% if @authorization_request_form.present? %>
+    <h5>
+      <%= t('.current_form', authorization_request_form_name: @authorization_request_form.name) %>
+    </h5>
   <% end %>
-</div>
 
-<% if current_organization.authorization_requests.where(type: @authorization_definition.authorization_request_class.name).any? %>
-  <div class="fr-alert fr-alert--warning">
-    <h3 class="fr-alert__title">
-      <%= t('authorization_request_forms.build.start.multiple_authorization_requests_warning.title') %>
-    </h3>
-    <p>
-      <%= t('authorization_request_forms.build.start.multiple_authorization_requests_warning.description') %>
-      <ul>
-        <% current_organization.authorization_requests.where(type: @authorization_definition.authorization_request_class.name).each do |another_authorization_request| %>
-          <li>
-            <%= link_to another_authorization_request.name, authorization_request_form_path(form_uid: another_authorization_request.form.uid, id: another_authorization_request.id), target: '_blank' %>
-          </li>
-        <% end %>
-      </ul>
-    </p>
-  </div>
-<% end %>
-
-<% if @authorization_definition.available_forms.one? %>
-  <% authorization_request_form = @authorization_definition.available_forms.first %>
-
-  <% if authorization_request_form.multiple_steps? %>
-    <p>
-      <%= t('.multiple_steps.description') %>
-
-      <ol>
-        <% authorization_request_form.steps.each do |step| %>
-          <li>
-            <%= authorization_request_step_name(authorization_request_form.authorization_request_class.new, step[:name]) %>
-          </li>
-        <% end %>
-      </ol>
-
-      <%= start_authorization_request_form(authorization_request_form) %>
-    </p>
-  <% else %>
-    <p>
-      <%= t('.single_form.description') %>
-
-      <br />
-
-      <%= start_authorization_request_form(authorization_request_form) %>
-    </p>
-  <% end %>
-<% else %>
   <p>
-    <%= t('.multiple_forms.description', authorization_name: @authorization_definition.name) %>
+    <%= t('.organization.start_text', organization_raison_sociale: current_organization.raison_sociale, organization_siret: current_organization.siret).html_safe %>
   </p>
 
-  <ol>
-    <% @authorization_definition.available_forms.each do |authorization_request_form| %>
-      <li>
-        <%= authorization_request_form.name %>
+  <% if current_organization.authorization_requests.where(type: @authorization_definition.authorization_request_class.name).any? %>
+    <div class="fr-alert fr-alert--warning fr-mb-2w">
+      <h3 class="fr-alert__title">
+        <%= t('authorization_request_forms.build.start.multiple_authorization_requests_warning.title') %>
+      </h3>
+      <p>
+        <%= t('authorization_request_forms.build.start.multiple_authorization_requests_warning.description') %>
+        <ul>
+          <% current_organization.authorization_requests.where(type: @authorization_definition.authorization_request_class.name).each do |another_authorization_request| %>
+            <li>
+              <%= link_to another_authorization_request.name, authorization_request_form_path(form_uid: another_authorization_request.form.uid, id: another_authorization_request.id), target: '_blank' %>
+            </li>
+          <% end %>
+        </ul>
+      </p>
+    </div>
+  <% end %>
+
+  <div class="fr-callout fr-icon-information-line">
+    <h3 class="fr-callout__title">
+      <%= t('.organization.callout.title') %>
+    </h3>
+    <p class="fr-callout__text">
+      <%= t('.organization.callout.text').html_safe %>
+    </p>
+      <%= form_with(url: "/auth/mon_compte_pro?prompt=select_organization", method: :post, data: { turbo: false }, class: 'inline') do |f| %>
+        <%= f.button t('.organization.change_cta'), id: 'change_current_organization', class: %w(fr-btn fr-btn--secondary) %>
+      <% end %>
+  </div>
+
+  <% if @authorization_request_form || @authorization_definition.available_forms.one? %>
+    <% authorization_request_form = @authorization_request_form || @authorization_definition.available_forms.first %>
+
+    <% if authorization_request_form.multiple_steps? %>
+      <p>
+        <%= t('.multiple_steps.description') %>
+
+        <ol>
+          <% authorization_request_form.steps.each do |step| %>
+            <li>
+              <%= authorization_request_step_name(authorization_request_form.authorization_request_class.new, step[:name]) %>
+            </li>
+          <% end %>
+        </ol>
+
         <%= start_authorization_request_form(authorization_request_form) %>
-      </li>
+      </p>
+    <% else %>
+      <p>
+        <%= t('.single_form.description') %>
+
+        <br />
+
+        <%= start_authorization_request_form(authorization_request_form) %>
+      </p>
     <% end %>
-  </ol>
-<% end %>
+  <% else %>
+    <%= link_to t('.cta', authorization_name: @authorization_definition.name), choose_authorization_request_form_path(authorization_definition_id: @authorization_definition.id), class: %w[fr-btn fr-btn--lg] %>
+  <% end %>
+</div>

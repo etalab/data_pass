@@ -57,6 +57,9 @@ Lint/ConstantDefinitionInBlock:
   Exclude:
     - "spec/**/*"
 
+Lint/UnexpectedBlockArity:
+  Enabled: false
+
 Metrics/BlockLength:
   Exclude:
     - "spec/spec_helper.rb"

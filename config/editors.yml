@@ -1,0 +1,9 @@
+---
+shared:
+  mgdis:
+    name: MGDIS
+    siret: 32816124500027
+  setec:
+    name: SETEC
+    siret: 70200590100104
+

@@ -7,7 +7,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation API INFINOE (Bac à sab
 
   Scénario: Je soumets une demande d'habilitation valide
     Quand je démarre une nouvelle demande d'habilitation "API INFINOE (Bac à sable)"
-    * je clique sur "Démarrer"
 
     * je renseigne les infos de bases du projet
     * je clique sur "Suivant"

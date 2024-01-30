@@ -1,0 +1,129 @@
+<h3>
+  Qui se charge techniquement de l'intégration de l'API ?
+</h3>
+
+<div
+  class="fr-mb-2w"
+  data-controller="choose-authorization-request-form"
+  data-choose-authorization-request-form-editors-value="<%= @authorization_definition.editors.map(&:id).to_json %>"
+  <% if params[:use_case] %>
+    data-choose-authorization-request-form-target-use-case-value="<%= params[:use_case] %>"
+  <% end %>
+>
+  <fieldset class="fr-fieldset" aria-labelledby="radio-rich-inline-legend radio-rich-inline-messages">
+    <div class="fr-grid-row">
+      <div class="fr-col-md-4 fr-col-12">
+        <div class="fr-fieldset__element fr-fieldset__element">
+          <div class="fr-radio-group fr-radio-rich">
+            <input type="radio" id="team-internal" data-action="click->choose-authorization-request-form#chooseTeam" value="internal" name="team">
+            <label class="fr-label" for="team-internal">
+              Vos développeurs internes ou prestataires
+              <span class="fr-hint-text">
+                Ils conçoivent une solution logicielle sur-mesure pour votre organisation
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="fr-col-md-4 fr-col-12">
+        <div class="fr-fieldset__element fr-fieldset__element">
+          <div class="fr-radio-group fr-radio-rich">
+            <input type="radio" id="team-editor" value="editor" data-action="click->choose-authorization-request-form#chooseTeam" name="team">
+            <label class="fr-label" for="team-editor">
+              Votre éditeur
+              <span class="fr-hint-text">
+                Rien à coder, vous utilisez une solution clé en main proposée par un éditeur.
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="fr-col-md-4 fr-col-12">
+        <div class="fr-fieldset__element fr-fieldset__element">
+          <div class="fr-radio-group fr-radio-rich">
+            <input type="radio" id="team-none" value="none" data-action="click->choose-authorization-request-form#chooseTeam"  name="team">
+            <label class="fr-label" for="team-none">
+              Ni équipe technique, ni éditeur
+              <span class="fr-hint-text">
+                Vous traitez tout manuellement.
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+
+  <div data-choose-authorization-request-form-target="editors" id="editors-list" class="fr-hidden">
+    <h3>
+      Quel est votre éditeur de logiciel ?
+    </h3>
+    <fieldset class="fr-fieldset" id="editors" aria-labelledby="radio-hint-legend radio-hint-messages">
+      <%
+        @authorization_definition.editors.each do |editor|
+      %>
+        <div class="fr-fieldset__element">
+          <div class="fr-radio-group">
+            <input type="radio" id="<%= dom_id(editor) %>" data-action="click->choose-authorization-request-form#chooseEditor" value="<%= editor.id %>" name="editor">
+            <label class="fr-label" for="<%= dom_id(editor) %>">
+              <%= editor.name %>
+            </label>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="fr-fieldset__element">
+        <div class="fr-radio-group">
+          <input type="radio" id="no_editor"  data-action="click->choose-authorization-request-form#chooseEditor" value="none" name="editor">
+          <label class="fr-label" for="no_editor">
+            Aucun de ces éditeurs
+          </label>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+
+  <div data-choose-authorization-request-form-target="forms" id="forms" class="fr-bg-alt-blue-france fr-hidden">
+    <p class="center fr-px-5w fr-py-1w">
+      Il existe plusieurs formulaires pour obtenir une habilitation à <%= @authorization_definition.name %>, vos réponses ont permis de réduire le choix aux formulaires ci-dessous.
+      <br />
+      <br />
+      En cas de doute, nous vous invitons à consulter le site d'<a href="https://entreprise.api.gouv.fr" target="_blank">API Entreprise</a>, plus spécifiquement la page des <a href="https://entreprise.api.gouv.fr/cas_usages" target="_blank">cas d'usages</a>.
+
+    </p>
+
+    <div class="fr-grid-row">
+      <% @authorization_definition.available_forms.map(&:decorate).each do |authorization_request_form| %>
+        <div data-choose-authorization-request-form-target="form" data-choose-authorization-request-form-tags="<%= authorization_request_form.tags.to_json %>" class="fr-col-md-6 fr-col-xl-4 fr-col-12 fr-p-3w">
+          <%= render partial: 'authorization_request_forms/authorization_request_form_card', locals: { authorization_request_form: } %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div data-choose-authorization-request-form-target="noTeamDisclaimer" class="fr-bg-alt-blue-france fr-hidden">
+    <p class="center fr-px-5w fr-py-1w">
+      Vous êtes éligible mais n'avez pas les <a href="https://entreprise.api.gouv.fr/developpeurs#prerequis-techniques" target="_blank">prérequis techniques</a> pour utiliser l’API Entreprise
+
+      <br />
+
+      🔎 L’API Entreprise s’utilise au travers d’un logiciel métier, comme par exemple un profil acheteur pour les marchés publics. Si vous collectez et traitez les données à la main, vous n’avez probablement pas un logiciel dédié aux démarches.
+
+      <br />
+
+      Vous pouvez utiliser l'espace agent sur l'annuaires des entreprises.
+    </p>
+  </div>
+
+  <div data-choose-authorization-request-form-target="noEditorDisclaimer" id="no-editor-disclaimer" class="fr-bg-alt-blue-france fr-hidden">
+    <p class="center fr-px-5w fr-py-1w">
+    Vous êtes éligible mais votre éditeur ne semble pas utiliser l'API Entreprise, ou son intégration ne nécessite aucune action de votre part.
+
+    <br />
+
+    Si votre éditeur n'intégre pas API Entreprise, vous pouvez utiliser l'espace agent sur l'annuaires des entreprises.
+    </p>
+  </div>
+</div>

@@ -24,7 +24,11 @@ Quand(/je clique sur (le (?:dernier|premier) )?"([^"]+)"\s*$/) do |position, lab
   when 'le premier '
     page.all('a', text: label).first.click
   else
-    click_link_or_button label
+    if javascript?
+      find(:link_or_button, label).trigger('click')
+    else
+      click_link_or_button label
+    end
   end
 end
 
@@ -63,11 +67,19 @@ Quand('je sélectionne {string} pour {string}') do |option, name|
 end
 
 Quand('je choisis {string}') do |option|
-  choose option
+  if javascript?
+    find('label', text: option)&.click
+  else
+    choose option
+  end
 end
 
 Quand('je coche {string}') do |label|
-  check label
+  if javascript?
+    find('label', text: label)&.click
+  else
+    check label
+  end
 end
 
 Alors('je peux voir dans le tableau {string}') do |caption, table|
@@ -128,4 +140,24 @@ Alors("il n'y a pas de champ éditable") do
   all('input').each do |input|
     expect(input).to be_readonly if %w[hidden checkbox].exclude?(input[:type])
   end
+end
+
+# https://rubular.com/r/xHZlGXKvtnqUvz
+Alors(/je vois( au moins)? (\d+) (tuiles?|cartes?)(?: "([^"]+)")?/) do |at_least, count, kind, text|
+  kind_to_selector = {
+    'tuile' => '.fr-tile',
+    'carte' => '.fr-card',
+  }
+
+  css = kind_to_selector[kind.singularize]
+
+  options = if at_least.present?
+              { minimum: count.to_i }
+            else
+              { count: count.to_i }
+            end
+
+  options[:text] = text if text.present?
+
+  expect(page).to have_css(css, **options)
 end

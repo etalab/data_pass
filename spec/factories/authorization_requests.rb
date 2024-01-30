@@ -148,9 +148,24 @@ FactoryBot.define do
       with_scopes
     end
 
+    trait :api_entreprise_marches_publics do
+      api_entreprise
+      form_uid { 'api-entreprise-marches-publics' }
+    end
+
+    trait :api_entreprise_aides_publiques do
+      api_entreprise
+      form_uid { 'api-entreprise-aides-publiques' }
+    end
+
     trait :api_entreprise_mgdis do
       api_entreprise
       form_uid { 'api-entreprise-mgdis' }
+    end
+
+    trait :api_entreprise_setec_atexo do
+      api_entreprise
+      form_uid { 'api-entreprise-setec-atexo' }
     end
 
     trait :api_particulier do

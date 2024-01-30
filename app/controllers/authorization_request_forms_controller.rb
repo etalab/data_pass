@@ -1,19 +1,19 @@
 class AuthorizationRequestFormsController < AuthenticatedUserController
   helper AuthorizationRequestsHelpers
 
-  before_action :extract_authorization_request_form
+  before_action :extract_authorization_request_form, except: [:index]
   before_action :extract_authorization_request, only: %i[show update]
+
+  def index
+    @authorization_definition = AuthorizationDefinition.find(params[:authorization_definition_id])
+  end
 
   def new
     authorize @authorization_request_form, :new?
 
-    @authorization_request = authorization_request_class.new(
-      applicant: current_user,
-      organization: current_organization,
-      form_uid: @authorization_request_form.uid,
-    )
+    @authorization_definition = @authorization_request_form.authorization_definition
 
-    render view_path
+    render 'authorization_requests/new'
   end
 
   def create
@@ -78,8 +78,6 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     @authorization_request = organizer.authorization_request
 
     if organizer.success?
-      success_message(title: t('authorization_request_forms.create_for_single_page_form.success', name: @authorization_request.name))
-
       redirect_to authorization_request_form_path(form_uid: @authorization_request.form_uid, id: @authorization_request.id)
     else
       error_message(title: t('authorization_request_forms.create_for_single_page_form.error.title'), description: t('authorization_request_forms.create_for_single_page_form.error.description'))
