@@ -3,8 +3,9 @@ class Seeds
     create_entities
 
     create_authorization_request(:api_entreprise)
-    create_authorization_request(:api_entreprise, :submitted, attributes: { intitule: 'Marché publics', description: very_long_description })
-    create_authorization_request(:api_particulier, :refused, attributes: { intitule: 'Vente de données personnelles' })
+    create_authorization_request(:api_entreprise, :submitted, attributes: { intitule: 'Marché publics', description: very_long_description, applicant: another_demandeur })
+    create_authorization_request(:api_entreprise, :validated, attributes: { intitule: 'Marché publics', contact_technique_email: demandeur.email, applicant: foreign_demandeur })
+    create_authorization_request(:api_particulier, :refused, attributes: { intitule: 'Vente de données personnelles', applicant: another_demandeur })
     create_authorization_request(:api_particulier, :changes_requested, attributes: { intitule: 'Tarification cantine' })
     create_authorization_request(:portail_hubee_demarche_certdc)
 
@@ -30,14 +31,33 @@ class Seeds
 
   def create_entities
     clamart_organization.users << demandeur
+    clamart_organization.users << another_demandeur
+
     dinum_organization.users << api_entreprise_instructor
+    dinum_organization.users << foreign_demandeur
   end
 
   def demandeur
     @demandeur ||= User.create!(
       email: 'user@yopmail.com',
       external_id: '1',
-      current_organization: clamart_organization
+      current_organization: clamart_organization,
+    )
+  end
+
+  def another_demandeur
+    @another_demandeur ||= User.create!(
+      email: 'user10@yopmail.com',
+      external_id: '10',
+      current_organization: clamart_organization,
+    )
+  end
+
+  def foreign_demandeur
+    @foreign_demandeur ||= User.create!(
+      email: 'user11@yopmail.com',
+      external_id: '11',
+      current_organization: dinum_organization,
     )
   end
 
@@ -72,12 +92,14 @@ class Seeds
     traits << kind
     traits << status
 
+    applicant = attributes.delete(:applicant) || demandeur
+
     authorization_request = FactoryBot.create(
       :authorization_request,
       *traits,
       {
-        applicant: demandeur,
-        organization: clamart_organization,
+        applicant:,
+        organization: applicant.current_organization,
       }.merge(attributes)
     )
 
@@ -109,6 +131,12 @@ class Seeds
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def create_event(authorization_request, status, attributes = {})
+    attributes[:user] = if %i[create submit].include?(status)
+                          authorization_request.applicant
+                        else
+                          api_entreprise_instructor
+                        end
+
     FactoryBot.create(
       :authorization_request_event,
       status,
