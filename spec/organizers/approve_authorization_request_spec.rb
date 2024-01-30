@@ -17,6 +17,17 @@ RSpec.describe ApproveAuthorizationRequest do
         expect { approve_authorization_request }.to have_enqueued_mail(AuthorizationRequestMailer, :validated)
       end
 
+      it 'creates a new authorization with snapshoted data' do
+        expect { approve_authorization_request }.to change(Authorization, :count).by(1)
+
+        authorization = Authorization.last
+
+        expect(authorization.applicant).to eq(authorization_request.applicant)
+        expect(authorization.organization).to eq(authorization_request.organization)
+        expect(authorization.authorization_request).to eq(authorization_request)
+        expect(authorization.data).to eq(authorization_request.data)
+      end
+
       include_examples 'creates an event', event_name: :approve
 
       context 'with authorization request which has a bridge' do
