@@ -1,58 +1,50 @@
 <div class="fr-container">
   <div class="fr-grid-row">
-    <div class="fr-col-md-6 fr-col-3 fr-col-12">
-      <div class="fr-m-3w">
-        <%= image_tag "logo-welcome-page.svg", alt: "Welcome Page Logo" %>
-      </div>
+    <div class="fr-col-sm-12 fr-col-md-5">
+      <%= image_tag "logo-welcome-page.svg", alt: "Welcome Page Logo", class: %w(fr-responsive-img fr-mt-3w) %>
     </div>
 
-    <div class="fr-col-md-6 fr-col-3 fr-col-12">
-      <div class="fr-m-3w">
-        <div class="fr-connect-group">
-          <h2>
-            <%= t('.title').html_safe %>
-          </h2>
+    <div class="fr-col-sm-12 fr-col-md-7">
+      <div class="fr-connect-group fr-mt-3w">
+        <h2>
+          <%= t('.title').html_safe %>
+        </h2>
 
+        <p>
+          <%= t('.sub_title').html_safe %>
+        </p>
+
+        <div class="fr-mb-3w">
           <p>
-            <%= t('.sub_title').html_safe %>
+            <%= t('.mcp_connexion').html_safe %>
           </p>
+          <%= form_with(url: '/auth/mon_compte_pro', method: :post, data: { turbo: false }) do |f| %>
+            <%= f.button class: %w(fr-connect fr-connect-moncomptepro fr-m-auto), id: 'login_mon_compte_pro' do %>
+              <span class="fr-connect__login">
+                <%= t('.mcp_login').html_safe %>
+              </span>
+              <span class="fr-connect__brand">
+                <%= t('.mcp_brand').html_safe %>
+              </span>
+            <% end %>
 
-          <div class="fr-mb-3w">
-            <div class="new-login-container">
-              <p>
-                <%= t('.mcp_connexion').html_safe %>
-              </p>
-              <%= form_with(url: '/auth/mon_compte_pro', method: :post, data: { turbo: false }) do |f| %>
-                <%= f.button class: %w(fr-connect fr-connect-moncomptepro fr-m-auto), id: 'login_mon_compte_pro' do %>
-                  <span class="fr-connect__login">
-                    <%= t('.mcp_login').html_safe %>
-                  </span>
-                  <span class="fr-connect__brand">
-                    <%= t('.mcp_brand').html_safe %>
-                  </span>
-                <% end %>
+            <p>
+              <a href="https://moncomptepro.beta.gouv.fr/" target="_blank" rel="noopener" title="Qu’est-ce que MonComptePro ? - Nouvelle fenêtre">
+                <%= t('.mcp_subtitle').html_safe %>
+              </a>
+            </p>
+          <% end %>
+        </div>
 
-                <p>
-                  <a href="https://moncomptepro.beta.gouv.fr/" target="_blank" rel="noopener" title="Qu’est-ce que MonComptePro ? - Nouvelle fenêtre">
-                    <%= t('.mcp_subtitle').html_safe %>
-                  </a>
-                </p>
-              <% end %>
-            </div>
-          </div>
-
-          <div class="fr-mb-3w">
-            <div class="new-login-container">
-              <p>
-                <%= t('.api_gouv_title').html_safe %>
-              </p>
-              <div class="fr-mb-2w">
-                <div class=" fr-btn fr-btn--secondary fr-m-auto">
-                  <a href="https://api.gouv.fr/" target="_blank" rel="noopener" title="api.gouv.fr - Nouvelle fenêtre">
-                    <%= t('.api_gouv').html_safe %>
-                  </a>
-                </div>
-              </div>
+        <div class="fr-mb-3w">
+          <p>
+            <%= t('.api_gouv_title').html_safe %>
+          </p>
+          <div class="fr-mb-2w">
+            <div class=" fr-btn fr-btn--secondary fr-m-auto">
+              <a href="https://api.gouv.fr/" target="_blank" rel="noopener" title="api.gouv.fr - Nouvelle fenêtre">
+                <%= t('.api_gouv').html_safe %>
+              </a>
             </div>
           </div>
         </div>
