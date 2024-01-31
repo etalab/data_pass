@@ -170,6 +170,15 @@ shared:
   api_service_national:
     name: "API Service National"
     description: "Vérifiez si un candidat est en règle vis-à-vis de ses obligations de Service National et peut s’inscrire au concours ou à l’examen dont vous êtes en charge."
-    public: true
+    link: 'https://api.gouv.fr/les-api/api-service-national'
     cgu_link: 'https://presaje.sga.defense.gouv.fr/cgu-dln1f'
+    public: true
     provider: 'ministere_des_armees'
+
+  api_le_taxi:
+    name: "API le.Taxi"
+    description: "Un clic, un taxi"
+    link: 'https://api.gouv.fr/les-api/le-taxi'
+    cgu_link: 'https://le.taxi/assets/documents/CGU.pdf'
+    public: true
+    provider: 'dinum'
