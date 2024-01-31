@@ -176,6 +176,16 @@ class AuthorizationRequest < ApplicationRecord
     %w[validated refused].include?(state)
   end
 
+  def contact_types_for(user)
+    contact_type_key_values = data.select do |key, value|
+      key =~ /^contact_.*_email$/ && value == user.email
+    end
+
+    contact_type_key_values.keys.map do |key|
+      key.match(/^(.*)_email$/)[1]
+    end
+  end
+
   def applicant_belongs_to_organization
     return if organization.blank? || applicant.blank?
     return unless applicant.organizations.exclude?(organization)
