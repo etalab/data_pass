@@ -157,10 +157,6 @@ end
 Vis-à-vis de la factory, il faut se rendre dans le fichier
 [`spec/factories/authorization_requests.rb`](../spec/factories/authorization_requests.rb) et compléter avec le nom de la classe en underscore.
 
-Et pour le test, il faut modifier
-[`spec/models/authorization_request_spec.rb`](../spec/models/authorization_request_spec.rb)
-et ajouter dans le test de factory le trait de la factory pour bien vérifier que notre couche modèle est OK.
-
 ## 3. Configurer les formulations via l'I18n
 
 Il faut à minima définir les noms des attributs définis dans le modèle. Cela se
@@ -215,7 +211,7 @@ Il faut créer le fichier `mon_api.html.erb` dans le dossier
 [`app/views/authorization_request_forms/`](../app/views/authorization_request_forms/) avec le markup minimal:
 
 ```erb
-<%= render 'authorization_requests/build/header' %>
+<%= render 'authorization_request_forms/build/header' %>
 
 <%= render partial: 'authorization_request_forms/shared/organization' %>
 
