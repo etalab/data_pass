@@ -94,6 +94,7 @@ fr:
       changes_requested_title: Demandes à modifier
 
     authorization_request_card:
+      current_user_mention: Vous avez été référencé comme %{contact_types}
       cta: Consulter
 
   profile:

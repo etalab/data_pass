@@ -36,4 +36,5 @@ Fonctionnalité: Tableau de bord
     Et que je vais sur la page du tableau de bord
     Et que je clique sur "Mes mentions"
     Alors je vois 1 demande d'habilitation
+    Et la page contient "Vous avez été référencé comme contact métier"
 

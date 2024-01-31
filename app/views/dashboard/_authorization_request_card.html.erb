@@ -18,6 +18,13 @@
   <% if authorization_request.respond_to?(:description) %>
     <div class="card-description">
       <%= truncate(authorization_request.description, length: 30) %>
+
+      <% if authorization_request.applicant != current_user %>
+        <p class="fr-text--xs fr-text-grey">
+          <% contact_types = authorization_request.contact_types_for(current_user).map { |contact_type| t("authorization_request_forms.default.#{contact_type}.title").downcase }.to_sentence %>
+          <%= t('.current_user_mention', contact_types:) %>
+        </p>
+      <% end %>
     </div>
   <% end %>
 
