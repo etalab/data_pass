@@ -1,4 +1,9 @@
 fr:
+  support:
+    array:
+      words_connector: ', '
+      two_words_connector: ' et '
+      last_word_connector: ' et '
   form:
     no_file: Pas de fichier
   wicked:

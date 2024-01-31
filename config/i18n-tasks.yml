@@ -127,6 +127,7 @@ ignore_unused:
 - 'validates_timeliness.error_value_formats.*'
 - 'authorization_request_forms.*.*.info.{title,content}'
 - 'authorization_request_mailer.*.subject'
+- 'support.*'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'
 # - 'simple_form.{placeholders,hints,labels}.*'
