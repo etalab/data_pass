@@ -79,7 +79,15 @@ fr:
 
   pages:
     home:
-      title: Se connecter
+      title: Bienvenue sur DataPass
+      sub_title: DataPass, c’est le service qui vous permet de profiter facilement d’habilitations conformes entre
+        administrations et d’accéder à des données en accès restreint.
+      mcp_connexion: Pour suivre vos demandes d’habilitation
+      mcp_login: S'identifier avec
+      mcp_brand: MonComptePro
+      mcp_subtitle: Qu’est-ce que MonComptePro ?
+      api_gouv_title: Pour découvrir les APIs du service public
+      api_gouv: api.gouv.fr
 
   dashboard:
     show:
