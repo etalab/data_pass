@@ -1,6 +1,6 @@
 FactoryBot.define do
-  sequence(:email) { |n| "user#{n}@gouv.fr" }
-  sequence(:external_id) { |n| (n + 100).to_s }
+  sequence(:email) { |n| "user#{User.count + n}@gouv.fr" }
+  sequence(:external_id) { |n| (n + User.maximum('CAST(external_id AS INTEGER)').to_i).to_s }
 
   factory :user do
     email
