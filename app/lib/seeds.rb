@@ -20,10 +20,10 @@ class Seeds
   def flushdb
     raise 'Not in production!' if production?
 
-    load_all_models!
+    ActiveRecord::Base.connection.tables.each do |table|
+      next if table == 'schema_migrations'
 
-    ActiveRecord::Base.connection.transaction do
-      ApplicationRecord.descendants.each(&:delete_all)
+      ActiveRecord::Base.connection.execute("TRUNCATE TABLE #{table} CASCADE;")
     end
   end
 
