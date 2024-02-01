@@ -1,0 +1,9 @@
+<%= render 'authorization_request_forms/build/header' %>
+
+<%= render partial: 'authorization_request_forms/shared/organization' %>
+
+<%= authorization_request_form(@authorization_request) do |f| %>
+  <% @authorization_request.form.steps.each do |step| %>
+    <%= render partial: "authorization_request_forms/shared/#{step[:name]}", locals: { f: f } %>
+  <% end %>
+<% end%>
