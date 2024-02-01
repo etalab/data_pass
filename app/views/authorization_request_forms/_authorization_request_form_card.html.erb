@@ -10,10 +10,17 @@
       <% if authorization_request_form.editor %>
         <div class="fr-tile__start">
           <p class="fr-badge fr-badge--sm">
-            Via l'éditeur <%= authorization_request_form.editor.name %>
+          Via l'éditeur <%= authorization_request_form.editor.name %>
           </p>
         </div>
       <% end %>
     </div>
   </div>
+  <% if authorization_request_form.use_case && File.exist?(Rails.root.join("app/assets/images/pictograms/authorization_requests/#{authorization_request_form.use_case}.svg")) %>
+    <div class="fr-tile__header">
+      <div class="fr-tile__pictogram">
+        <%= dsfr_custom_pictogram("pictograms/authorization_requests/#{authorization_request_form.use_case}.svg") %>
+      </div>
+    </div>
+  <% end %>
 </div>

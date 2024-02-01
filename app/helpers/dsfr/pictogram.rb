@@ -6,4 +6,10 @@ module DSFR::Pictogram
       end.join.html_safe
     end
   end
+
+  def dsfr_custom_pictogram(image_name)
+    content_tag(:div, class: 'fr-custom-artwork') do
+      image_tag(image_name)
+    end
+  end
 end
