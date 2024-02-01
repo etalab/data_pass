@@ -2,7 +2,9 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   helper AuthorizationRequestsHelpers
 
   before_action :extract_authorization_request_form, except: [:index]
-  before_action :extract_authorization_request, only: %i[show update]
+  before_action :extract_authorization_request, only: %i[show summary update]
+
+  before_action :redirect_to_summary, only: %i[show], if: :not_editable_by_current_user?
 
   def index
     @authorization_definition = AuthorizationDefinition.find(params[:authorization_definition_id])
@@ -39,9 +41,15 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   def update
     if final_submit?
       submit
+    elsif review?
+      go_to_summary
     else
       update_model
     end
+  end
+
+  def summary
+    authorize @authorization_request, :show?
   end
 
   private
@@ -121,6 +129,26 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     )
   end
 
+  def go_to_summary
+    authorize @authorization_request, :show?
+
+    organizer = ReviewAuthorizationRequest.call(
+      authorization_request: @authorization_request,
+      authorization_request_params:,
+      user: current_user,
+    )
+
+    @authorization_request = organizer.authorization_request
+
+    if organizer.success?
+      redirect_to summary_authorization_request_form_path(form_uid: @authorization_request.form_uid, id: @authorization_request.id)
+    else
+      error_message(title: t('authorization_request_forms.update.error.title'), description: t('authorization_request_forms.update.error.description'))
+
+      render view_path, status: :unprocessable_entity
+    end
+  end
+
   def submit
     authorize @authorization_request, :submit?
 
@@ -139,12 +167,16 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     else
       error_message(title: t('authorization_request_forms.submit.error.title'), description: t('authorization_request_forms.submit.error.description'))
 
-      render view_path(:finish), status: :unprocessable_entity
+      render 'summary', status: :unprocessable_entity
     end
   end
 
   def final_submit?
     params[:submit].present?
+  end
+
+  def review?
+    params[:review].present?
   end
 
   def view_path(step = nil)
@@ -169,5 +201,16 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
 
   def extract_authorization_request_form
     @authorization_request_form = AuthorizationRequestForm.find(params[:form_uid])
+  end
+
+  def not_editable_by_current_user?
+    !(
+      @authorization_request.in_draft? &&
+        @authorization_request.applicant == current_user
+    )
+  end
+
+  def redirect_to_summary
+    redirect_to summary_authorization_request_form_path(form_uid: @authorization_request.form_uid, id: @authorization_request.id)
   end
 end

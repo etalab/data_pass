@@ -12,8 +12,11 @@ Fonctionnalité: Soumission d'une demande d'habilitation Portail HubEE - Démarc
       | Dupont | Jean   | dupont.jean@gouv.fr | 0836656565  | Administrateur métier |
     Et que j'adhère aux conditions générales
     Et que je clique sur "Enregistrer les modifications"
+    Et que je clique sur "Continuer vers le résumé"
+    Et que j'adhère aux conditions générales
     Et que je clique sur "Soumettre la demande d'habilitation"
-    Alors il y a un message de succès contenant "soumise avec succès"
+
+   Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Accueil"
 
   Scénario: Je soumets une demande d'habilitation avec un champ du contact manquant
@@ -23,8 +26,9 @@ Fonctionnalité: Soumission d'une demande d'habilitation Portail HubEE - Démarc
       | Dupont |        | dupont.jean@gouv.fr | 0836656565  | Administrateur métier |
     Et que j'adhère aux conditions générales
     Et que je clique sur "Enregistrer les modifications"
-    Et que je clique sur "Soumettre la demande d'habilitation"
-    Alors il y a un message d'erreur contenant "Une erreur est survenue lors de la soumission de la demande d'habilitation"
+    Et que je clique sur "Continuer vers le résumé"
+
+    Alors il y a un message d'erreur contenant "Une erreur est survenue lors de la mise à jour"
     Et il y a au moins une erreur sur un champ
     Et je suis sur la page "Portail HubEE - Démarche CertDC"
 

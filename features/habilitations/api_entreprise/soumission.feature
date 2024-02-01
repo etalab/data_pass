@@ -46,9 +46,11 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Entreprise
     Et que je clique sur "Solution Portail des aides de l'éditeur MGDIS"
 
     * je renseigne les informations des contacts RGPD
-    * j'adhère aux conditions générales
 
     * je clique sur "Enregistrer les modifications"
+    * je clique sur "Continuer vers le résumé"
+
+    * j'adhère aux conditions générales
     * je clique sur "Soumettre la demande d'habilitation"
 
     Alors il y a un message de succès contenant "soumise avec succès"

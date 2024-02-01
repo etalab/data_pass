@@ -18,7 +18,11 @@ Rails.application.routes.draw do
     get '/habilitations/:authorization_definition_id/formulaires', to: 'authorization_request_forms#index', as: :choose_authorization_request_form
 
     scope(path: 'formulaires/:form_uid') do
-      resources :authorization_request_forms, only: %w[new create show update], path: 'demande'
+      resources :authorization_request_forms, only: %w[new create show update], path: 'demande' do
+        member do
+          get :summary, as: :summary, path: 'résumé'
+        end
+      end
 
       scope 'demande/:authorization_request_id' do
         resources :build, controller: 'authorization_request_forms/build', only: %w[show update], path: 'etapes', as: 'authorization_request_form_build'

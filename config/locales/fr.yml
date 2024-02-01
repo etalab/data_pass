@@ -146,8 +146,8 @@ fr:
       error:
         title: Une erreur est survenue lors de la sauvegarde de la demande d'habilitation
         description: &common_authorization_requests_error_description Certains champs ci-dessous ne sont pas valides, merci d'effectuer les corrections nécessaires
-    multiple_steps_as_single_page:
-      current_user_mentions: Vous avez été référencé comme %{contact_types} dans cette habilitation.
+    current_user_mentions_alert:
+      text: Vous avez été référencé comme %{contact_types} dans cette habilitation.
     update:
       success: La demande d'habilitation %{name} a été mise à jour avec succès
       error: &authorization_requests_update_error
@@ -162,6 +162,7 @@ fr:
       save: Enregistrer les modifications
       start: Démarrer
       submit: Soumettre la demande d'habilitation
+      review: Continuer vers le résumé
       previous: Précédent
       next: Suivant
     shared:

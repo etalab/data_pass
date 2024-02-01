@@ -42,8 +42,9 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Service National
     * je remplis les informations du contact "Contact technique" avec :
       | Nom    | Prénom | Email               | Téléphone   | Fonction  |
       | Dupont | Marc   | dupont.marc@gouv.fr | 08366565603 | Technique |
-    * j'adhère aux conditions générales
+    * je clique sur "Continuer vers le résumé"
 
+    * j'adhère aux conditions générales
     * je clique sur "Soumettre la demande d'habilitation"
 
     Alors il y a un message de succès contenant "soumise avec succès"
@@ -59,8 +60,9 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Service National
     * je remplis les informations du contact "Contact technique" avec :
       | Nom    | Prénom | Email               | Téléphone   | Fonction  |
       | Dupont | Marc   | dupont.marc@gouv.fr | 08366565603 | Technique |
-    * j'adhère aux conditions générales
+    * je clique sur "Continuer vers le résumé"
 
+    * j'adhère aux conditions générales
     * je clique sur "Soumettre la demande d'habilitation"
 
     Alors il y a un message de succès contenant "soumise avec succès"

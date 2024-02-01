@@ -137,7 +137,7 @@ class AuthorizationRequest < ApplicationRecord
   def need_complete_validation?(step = nil)
     return true if %i[submit review].include?(validation_context)
 
-    if form.multiple_steps? && step != :finish
+    if form.multiple_steps?
       raise "Unknown step #{step}" if step.present? && steps_names.exclude?(step.to_s)
 
       !in_draft_or_archived? ||
@@ -153,7 +153,7 @@ class AuthorizationRequest < ApplicationRecord
     if form.multiple_steps? && steps_names.include?(@current_build_step)
       @current_build_step
     else
-      'finish'
+      form.steps.last[:name]
     end
   end
 
@@ -165,7 +165,7 @@ class AuthorizationRequest < ApplicationRecord
   end
 
   def steps_names
-    @steps_names ||= form.steps.pluck(:name) + ['finish']
+    @steps_names ||= form.steps.pluck(:name)
   end
 
   def in_draft?

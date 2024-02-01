@@ -13,13 +13,17 @@ class AuthorizationRequestDecorator < ApplicationDecorator
   end
 
   def editable_blocks
-    object.definition.blocks.select do |block|
+    blocks.select do |block|
       object.form.static_blocks.pluck(:name).exclude?(block[:name])
     end
   end
 
   def static_blocks
-    object.definition.blocks - editable_blocks
+    blocks - editable_blocks
+  end
+
+  def blocks
+    object.definition.blocks
   end
 
   private

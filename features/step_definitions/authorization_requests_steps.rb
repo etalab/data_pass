@@ -53,6 +53,14 @@ Alors('il y a un formulaire en une seule page') do
   expect(page).to have_no_css('.fr-stepper')
 end
 
+Alors('il y a un formulaire en mode résumé') do
+  expect(page).to have_xpath('//*[starts-with(@id, "summary_authorization_request_")]')
+end
+
+Alors("il n'y a pas de formulaire en mode résumé") do
+  expect(page).to have_no_xpath('//*[starts-with(@id, "summary_authorization_request_")]')
+end
+
 # https://rubular.com/r/Vg8QOMkfLtrxhh
 Quand(/je me rends sur une demande d'habilitation "([^"]+)"(?: (?:en|à))? ?(.+)?/) do |type, status|
   if current_user.instructor?

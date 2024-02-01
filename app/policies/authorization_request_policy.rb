@@ -20,6 +20,10 @@ class AuthorizationRequestPolicy < ApplicationPolicy
       record.in_draft?
   end
 
+  def review?
+    submit?
+  end
+
   private
 
   def same_current_organization?

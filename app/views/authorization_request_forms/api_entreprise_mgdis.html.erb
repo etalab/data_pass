@@ -5,8 +5,6 @@
   contractuelles sont fixes et ne peuvent être modifiées. Celles-ci vous seront résumé à la prochaine étape, et ne nécessitent aucune intervention de votre part.
 </p>
 
-<%= render partial: 'authorization_request_forms/shared/organization' %>
-
 <%= authorization_request_form(@authorization_request) do |f| %>
   <div class="fr-mt-2w">
     <%= f.contacts_infos(%i[responsable_traitement delegue_protection_donnees]) %>
@@ -20,6 +18,5 @@
     </div>
   </div>
 
-  <%= render partial: 'authorization_request_forms/shared/tos_checkboxes', locals: { f: f } %>
   <%= render partial: 'authorization_request_forms/shared/submit_buttons', locals: { f: f } %>
 <% end %>

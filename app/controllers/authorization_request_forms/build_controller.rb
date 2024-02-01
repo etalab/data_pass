@@ -6,8 +6,6 @@ class AuthorizationRequestForms::BuildController < AuthorizationRequestFormsCont
   def show
     authorize @authorization_request, :show?
 
-    jump_to(t('wicked.finish')) if should_redirect_to_finish_page?
-
     render_wizard
   end
 
@@ -43,11 +41,6 @@ class AuthorizationRequestForms::BuildController < AuthorizationRequestFormsCont
     session[current_build_step_cache_key] = next_step
   end
 
-  def should_redirect_to_finish_page?
-    !@authorization_request.in_draft? &&
-      wizard_value(step) != 'finish'
-  end
-
   def extract_authorization_request
     @authorization_request = AuthorizationRequest.find(params[:authorization_request_id])
   end
@@ -55,6 +48,10 @@ class AuthorizationRequestForms::BuildController < AuthorizationRequestFormsCont
   def configure_steps
     extract_authorization_request_form
 
-    self.steps = @authorization_request_form.steps.pluck(:name) + %w[finish]
+    self.steps = @authorization_request_form.steps.pluck(:name)
+  end
+
+  def finish_wizard_path
+    summary_authorization_request_form_path(form_uid: @authorization_request.form_uid, id: @authorization_request.id)
   end
 end
