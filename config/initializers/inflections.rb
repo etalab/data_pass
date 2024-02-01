@@ -19,4 +19,6 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.acronym 'HubEE'
   inflect.acronym 'DC'
   inflect.acronym 'DILA'
+
+  inflect.acronym 'CaptchEtat'
 end
