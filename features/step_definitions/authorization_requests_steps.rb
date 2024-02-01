@@ -45,6 +45,14 @@ Alors("il n'y a pas le bouton {string} pour l'habilitation {string}") do |text, 
   end
 end
 
+Alors('il y a un formulaire en plusieurs étapes') do
+  expect(page).to have_css('.fr-stepper')
+end
+
+Alors('il y a un formulaire en une seule page') do
+  expect(page).to have_no_css('.fr-stepper')
+end
+
 # https://rubular.com/r/Vg8QOMkfLtrxhh
 Quand(/je me rends sur une demande d'habilitation "([^"]+)"(?: (?:en|à))? ?(.+)?/) do |type, status|
   if current_user.instructor?

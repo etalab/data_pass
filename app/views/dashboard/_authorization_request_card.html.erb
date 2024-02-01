@@ -1,3 +1,5 @@
+<% authorization_request = authorization_request.decorate %>
+
 <div class="authorization-request-card authorization-request">
   <div class="card-header">
     <span class="fr-badge fr-badge--no-icon">
@@ -19,10 +21,9 @@
     <div class="card-description">
       <%= truncate(authorization_request.description, length: 30) %>
 
-      <% if authorization_request.applicant != current_user %>
+      <% if authorization_request.only_in_contacts?(current_user) %>
         <p class="fr-text--xs fr-text-grey">
-          <% contact_types = authorization_request.contact_types_for(current_user).map { |contact_type| t("authorization_request_forms.default.#{contact_type}.title").downcase }.to_sentence %>
-          <%= t('.current_user_mention', contact_types:) %>
+          <%= t('.current_user_mentions', contact_types: authorization_request.humanized_contact_types_for(current_user).to_sentence) %>
         </p>
       <% end %>
     </div>
