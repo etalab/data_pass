@@ -31,7 +31,10 @@ module AuthorizationCore::Contacts
           contact_types << kind
         end
       end
-
     end
+  end
+
+  def contact_types
+    self.class.contact_types
   end
 end

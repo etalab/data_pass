@@ -2,7 +2,7 @@
 
 <div class="fr-container-fluid">
   <div class="fr-grid-row">
-    <% @authorization_request.class.contact_types.each do |contact_type| %>
+    <% @authorization_request.contact_types.each do |contact_type| %>
       <%= render partial: 'authorization_request_forms/shared/contact', locals: { contact_type:, f: } %>
     <% end %>
   </div>

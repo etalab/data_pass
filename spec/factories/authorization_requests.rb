@@ -11,7 +11,7 @@ FactoryBot.define do
 
     after(:build) do |authorization_request, evaluator|
       if authorization_request.need_complete_validation? || evaluator.fill_all_attributes
-        authorization_request.class.contact_types.each do |contact_type|
+        authorization_request.contact_types.each do |contact_type|
           {
             'family_name' => "Dupont #{contact_type.to_s.humanize}",
             'given_name' => "Jean #{contact_type.to_s.humanize}",
