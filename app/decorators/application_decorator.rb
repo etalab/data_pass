@@ -1,4 +1,6 @@
 class ApplicationDecorator < Draper::Decorator
+  delegate :t, to: I18n
+
   # Define methods for all decorated objects.
   # Helpers are accessed through `helpers` (aka `h`). For example:
   #
