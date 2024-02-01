@@ -227,5 +227,14 @@ FactoryBot.define do
       api_service_national
       form_uid { 'api-service-national-obligation-service-national' }
     end
+
+    trait :api_captchetat do
+      type { 'AuthorizationRequest::APICaptchEtat' }
+
+      form_uid { 'api-captchetat' }
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+    end
   end
 end

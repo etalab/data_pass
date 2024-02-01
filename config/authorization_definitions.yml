@@ -173,3 +173,10 @@ shared:
     public: true
     cgu_link: 'https://presaje.sga.defense.gouv.fr/cgu-dln1f'
     provider: 'ministere_des_armees'
+
+  api_captchetat:
+    name: "API CaptchEtat"
+    description: "Générer un CAPTCHA pour sécuriser un service en ligne"
+    public: true
+    cgu_link: '/cgus/cgu_api_captchetat_v_1_2.pdf'
+    provider: 'aife'

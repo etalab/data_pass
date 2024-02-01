@@ -16,3 +16,8 @@ shared:
     name: Ministere Des Armees
     logo: minarm.jpg
     link: https://api.gouv.fr/les-api/api-service-national
+  aife:
+    name: Agence pour l'Information Financière de l'État
+    logo: aife.jpeg
+    link: https://aife.economie.gouv.fr/
+
