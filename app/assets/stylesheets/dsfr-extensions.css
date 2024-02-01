@@ -32,6 +32,9 @@
   color: var(--text-default-warning);
 }
 
+.fr-text-grey {
+  color: var(--grey-625-425);
+}
 .fr-bg-alt-blue-france {
   background-color: var(--background-action-low-blue-france);
 }

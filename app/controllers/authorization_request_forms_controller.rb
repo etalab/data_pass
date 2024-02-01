@@ -27,8 +27,10 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   def show
     authorize @authorization_request
 
-    if @authorization_request_form.multiple_steps?
+    if @authorization_request_form.multiple_steps? && @authorization_request.applicant == current_user
       redirect_to_current_build_step
+    elsif @authorization_request_form.multiple_steps?
+      render 'multiple_steps_as_single_page'
     else
       render view_path
     end
@@ -158,7 +160,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   end
 
   def extract_authorization_request
-    @authorization_request = authorization_request_class.find(params[:id])
+    @authorization_request = authorization_request_class.find(params[:id]).decorate
   end
 
   def authorization_request_class

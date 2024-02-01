@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'compte/deconnexion', to: 'sessions#destroy', as: :signout
 
   get '/tableau-de-bord', to: 'dashboard#index', as: :dashboard
+  get '/tableau-de-bord/:id', to: 'dashboard#show', as: :dashboard_show
 
   get '/compte', to: 'profile#edit', as: :profile
   patch '/compte', to: 'profile#update'

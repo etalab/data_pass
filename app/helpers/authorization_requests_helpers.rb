@@ -24,7 +24,7 @@ module AuthorizationRequestsHelpers
       '#'
     elsif authorization_request.new_record?
       authorization_request_forms_path(form_uid: authorization_request.form.uid)
-    elsif authorization_request.form.multiple_steps?
+    elsif authorization_request.form.multiple_steps? && defined?(wizard_path)
       wizard_path
     else
       authorization_request_form_path(form_uid: authorization_request.form.uid, id: authorization_request.id)

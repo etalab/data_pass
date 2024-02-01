@@ -40,7 +40,7 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
   def contacts_infos(contacts = nil)
     return if @template.namespace?(:instruction)
 
-    contacts ||= @object.class.contact_types
+    contacts ||= @object.contact_types
 
     dsfr_accordion(
       I18n.t('authorization_request_forms.default.contacts.info.title'),

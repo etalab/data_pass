@@ -1,20 +1,26 @@
 RSpec.describe Seeds do
+  let(:seeds) { described_class.new }
+
   describe '#perform' do
-    subject { described_class.new.perform }
+    subject(:perform) { seeds.perform }
+
+    before do
+      seeds.flushdb
+    end
 
     it 'does not raise error' do
       expect {
-        subject
+        perform
       }.not_to raise_error
     end
   end
 
   describe '#flushdb' do
-    subject { described_class.new.flushdb }
+    subject(:flushdb) { seeds.flushdb }
 
     it 'does not raise error' do
       expect {
-        subject
+        flushdb
       }.not_to raise_error
     end
 
@@ -25,7 +31,7 @@ RSpec.describe Seeds do
 
       it 'raises error' do
         expect {
-          subject
+          flushdb
         }.to raise_error(StandardError)
       end
     end

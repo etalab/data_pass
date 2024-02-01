@@ -23,4 +23,23 @@ RSpec.describe AuthorizationRequest do
       expect(authorization_request.state).to eq('draft')
     end
   end
+
+  describe '#contact_types_for' do
+    subject { authorization_request.contact_types_for(user) }
+
+    let(:user) { create(:user) }
+    let(:authorization_request) { create(:authorization_request, data: { 'contact_test_email' => contact_email, 'contact_lol_email' => contact_email, 'whatever' => user.email }) }
+
+    context 'when user is a valid contact' do
+      let(:contact_email) { user.email }
+
+      it { is_expected.to eq(%w[contact_test contact_lol]) }
+    end
+
+    context 'when user is not a valid contact' do
+      let(:contact_email) { 'what@ever.fr' }
+
+      it { is_expected.to eq([]) }
+    end
+  end
 end

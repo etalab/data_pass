@@ -193,7 +193,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def label_value(attribute)
-    @object.class.human_attribute_name(attribute)
+    (@object.try(:object) || @object).class.human_attribute_name(attribute)
   end
 
   def enhance_input_options(opts)

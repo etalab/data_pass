@@ -1,3 +1,5 @@
+<% authorization_request = authorization_request.decorate %>
+
 <div class="authorization-request-card authorization-request">
   <div class="card-header">
     <span class="fr-badge fr-badge--no-icon">
@@ -18,6 +20,12 @@
   <% if authorization_request.respond_to?(:description) %>
     <div class="card-description">
       <%= truncate(authorization_request.description, length: 30) %>
+
+      <% if authorization_request.only_in_contacts?(current_user) %>
+        <p class="fr-text--xs fr-text-grey">
+          <%= t('.current_user_mentions', contact_types: authorization_request.humanized_contact_types_for(current_user).to_sentence) %>
+        </p>
+      <% end %>
     </div>
   <% end %>
 

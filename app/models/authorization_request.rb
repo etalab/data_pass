@@ -32,6 +32,17 @@ class AuthorizationRequest < ApplicationRecord
     inverse_of: :authorization_request,
     dependent: :destroy
 
+  has_many :authorizations,
+    class_name: 'Authorization',
+    inverse_of: :authorization_request,
+    dependent: :nullify
+
+  has_one :latest_authorization,
+    -> { order(created_at: :desc).limit(1) },
+    class_name: 'Authorization',
+    inverse_of: :authorization_request,
+    dependent: :nullify
+
   def events
     @events ||= AuthorizationRequestEventsQuery.new(self).perform
   end
@@ -163,6 +174,16 @@ class AuthorizationRequest < ApplicationRecord
 
   def finished?
     %w[validated refused].include?(state)
+  end
+
+  def contact_types_for(user)
+    contact_type_key_values = data.select do |key, value|
+      key =~ /^contact_.*_email$/ && value == user.email
+    end
+
+    contact_type_key_values.keys.map do |key|
+      key.match(/^(.*)_email$/)[1]
+    end
   end
 
   def applicant_belongs_to_organization
