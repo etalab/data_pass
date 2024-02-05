@@ -1,25 +1,25 @@
 <div class="fr-container">
-  <div class="fr-grid-row">
-    <div class="fr-col-sm-12 fr-col-md-5">
-      <%= image_tag "logo-welcome-page.svg", alt: "Welcome Page Logo", class: %w(fr-responsive-img fr-mt-3w) %>
+  <div class="fr-grid-row fr-grid-row--middle">
+    <div class="fr-col-sm-12 fr-col-md-5 ">
+      <%= image_tag "logo-welcome-page.svg", alt: "Welcome Page Logo", class: %w(fr-responsive-img) %>
     </div>
 
-    <div class="fr-col-sm-12 fr-col-md-7">
-      <div class="fr-connect-group fr-mt-3w">
-        <h2>
+    <div class="fr-col-sm-12 fr-col-md-7 fr-my-5w">
+      <div class="fr-connect-group">
+        <h1>
           <%= t('.title').html_safe %>
-        </h2>
+        </h1>
 
         <p>
           <%= t('.sub_title').html_safe %>
         </p>
 
-        <div class="fr-mb-3w">
-          <p>
+        <div class="fr-mt-5w fr-mb-3w">
+          <p class="fr-h6">
             <%= t('.mcp_connexion').html_safe %>
           </p>
           <%= form_with(url: '/auth/mon_compte_pro', method: :post, data: { turbo: false }) do |f| %>
-            <%= f.button class: %w(fr-connect fr-connect-moncomptepro fr-m-auto), id: 'login_mon_compte_pro' do %>
+            <%= f.button class: %w(fr-connect fr-btn--sm fr-connect-moncomptepro fr-m-auto), id: 'login_mon_compte_pro' do %>
               <span class="fr-connect__login">
                 <%= t('.mcp_login').html_safe %>
               </span>
@@ -36,15 +36,17 @@
           <% end %>
         </div>
 
-        <div class="fr-mb-3w">
-          <p>
-            <%= t('.api_gouv_title').html_safe %>
-          </p>
-          <div class="fr-mb-2w">
-            <div class=" fr-btn fr-btn--secondary fr-m-auto">
-              <a href="https://api.gouv.fr/" target="_blank" rel="noopener" title="api.gouv.fr - Nouvelle fenêtre">
-                <%= t('.api_gouv').html_safe %>
-              </a>
+        <div class="line-break">
+          <div class="fr-my-3w">
+            <p class="fr-h6">
+              <%= t('.api_gouv_title').html_safe %>
+            </p>
+            <div class="fr-mb-2w">
+              <div class="fr-btn fr-btn--sm fr-btn--secondary fr-m-auto">
+                <a href="https://api.gouv.fr/" target="_blank" rel="noopener" title="api.gouv.fr - Nouvelle fenêtre">
+                  <%= t('.api_gouv').html_safe %>
+                </a>
+              </div>
             </div>
           </div>
         </div>
