@@ -15,9 +15,11 @@
         </p>
 
         <div class="fr-mt-5w fr-mb-3w">
-          <p class="fr-h6">
+          <div class="homepage-subtitle">
+            <div class="fr-h6">
             <%= t('.mcp_connexion').html_safe %>
-          </p>
+            </div>
+          </div>
           <%= form_with(url: '/auth/mon_compte_pro', method: :post, data: { turbo: false }) do |f| %>
             <%= f.button class: %w(fr-connect fr-btn--sm fr-connect-moncomptepro fr-m-auto), id: 'login_mon_compte_pro' do %>
               <span class="fr-connect__login">
@@ -36,11 +38,11 @@
           <% end %>
         </div>
 
-        <div class="line-break">
           <div class="fr-my-3w">
-            <p class="fr-h6">
+            <hr/>
+            <div class="fr-h6">
               <%= t('.api_gouv_title').html_safe %>
-            </p>
+            </div>
             <div class="fr-mb-2w">
               <div class="fr-btn fr-btn--sm fr-btn--secondary fr-m-auto">
                 <a href="https://api.gouv.fr/" target="_blank" rel="noopener" title="api.gouv.fr - Nouvelle fenêtre">
