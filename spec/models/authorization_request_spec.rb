@@ -36,4 +36,64 @@ RSpec.describe AuthorizationRequest do
       it { is_expected.to eq([]) }
     end
   end
+
+  describe 'save context' do
+    subject(:save_authorization_request) { authorization_request.save(context:) }
+
+    context 'when context is not provided' do
+      let(:context) { nil }
+
+      context 'when authorization request is not entire filled' do
+        let(:authorization_request) { build(:authorization_request, :api_entreprise) }
+
+        it { is_expected.to be_truthy }
+      end
+    end
+
+    context 'when context is `review`' do
+      let(:context) { :review }
+
+      context 'when authorization request is not entire filled' do
+        let(:authorization_request) { build(:authorization_request, :api_entreprise) }
+
+        it { is_expected.to be_falsey }
+      end
+
+      context 'when authorization request is entire filled without terms' do
+        let(:authorization_request) { build(:authorization_request, :api_entreprise, fill_all_attributes: true) }
+
+        before do
+          authorization_request.update!(terms_of_service_accepted: false)
+        end
+
+        it { is_expected.to be_truthy }
+      end
+    end
+
+    context 'when context is `submit`' do
+      let(:context) { :submit }
+
+      context 'when authorization request is not entire filled' do
+        let(:authorization_request) { build(:authorization_request, :api_entreprise) }
+
+        it { is_expected.to be_falsey }
+      end
+
+      context 'when authorization request is entire filled without terms' do
+        let(:authorization_request) { build(:authorization_request, :api_entreprise, fill_all_attributes: true) }
+
+        before do
+          authorization_request.update!(terms_of_service_accepted: false)
+        end
+
+        it { is_expected.to be_falsey }
+      end
+
+      context 'when authorization request is entire filled with terms' do
+        let(:authorization_request) { build(:authorization_request, :api_entreprise, fill_all_attributes: true) }
+
+        it { is_expected.to be_truthy }
+      end
+    end
+  end
 end

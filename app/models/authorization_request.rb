@@ -77,8 +77,10 @@ class AuthorizationRequest < ApplicationRecord
       "#{definition.name} n°#{id}"
   end
 
-  validates :terms_of_service_accepted, presence: true, inclusion: [true], if: -> { need_complete_validation?(:finish) }
-  validates :data_protection_officer_informed, presence: true, inclusion: [true], if: -> { need_complete_validation?(:finish) }
+  with_options on: :submit do
+    validates :terms_of_service_accepted, presence: true, inclusion: [true]
+    validates :data_protection_officer_informed, presence: true, inclusion: [true]
+  end
 
   state_machine initial: :draft do
     state :draft
@@ -133,6 +135,8 @@ class AuthorizationRequest < ApplicationRecord
   end
 
   def need_complete_validation?(step = nil)
+    return true if %i[submit review].include?(validation_context)
+
     if form.multiple_steps? && step != :finish
       raise "Unknown step #{step}" if step.present? && steps_names.exclude?(step.to_s)
 
