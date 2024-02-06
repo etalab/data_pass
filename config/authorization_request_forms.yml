@@ -172,6 +172,5 @@ La plateforme, mise en place pour permettre le dépôt de ces aides publiques et
     authorization_request: 'APICaptchEtat'
     steps:
       - name: 'basic_infos'
-      - name: 'personal_data'
       - name: 'legal'
       - name: 'contacts'
