@@ -37,6 +37,28 @@ RSpec.describe SubmitAuthorizationRequest do
         end
       end
 
+      context 'with missing checkbox' do
+        let(:authorization_request) { create(:authorization_request, :api_entreprise, :draft, fill_all_attributes: true) }
+
+        before do
+          authorization_request.update!(terms_of_service_accepted: false)
+        end
+
+        it { is_expected.to be_failure }
+
+        it 'does not change state' do
+          expect { submit_authorization_request }.not_to change { authorization_request.reload.state }
+        end
+
+        it 'does not create an event' do
+          expect { submit_authorization_request }.not_to change { authorization_request.events.count }
+        end
+
+        it 'does not updates params' do
+          expect { submit_authorization_request }.not_to change { authorization_request.reload.intitule }
+        end
+      end
+
       context 'with invalid authorization request' do
         let(:authorization_request) { create(:authorization_request, :api_entreprise, :draft) }
 

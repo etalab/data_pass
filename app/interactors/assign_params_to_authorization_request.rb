@@ -3,6 +3,10 @@ class AssignParamsToAuthorizationRequest < ApplicationInteractor
     context.authorization_request.assign_attributes(
       valid_authorization_request_params
     )
+
+    return if context.authorization_request.valid?(context.save_context)
+
+    context.fail!
   end
 
   private
