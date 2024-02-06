@@ -239,7 +239,6 @@ FactoryBot.define do
 
       form_uid { 'api-captchetat' }
       with_basic_infos
-      with_personal_data
       with_cadre_juridique
     end
   end

@@ -1,7 +1,6 @@
 class AuthorizationRequest::APICaptchEtat < AuthorizationRequest
   include AuthorizationExtensions::BasicInfos
   include AuthorizationExtensions::CadreJuridique
-  include AuthorizationExtensions::PersonalData
   include AuthorizationExtensions::GDPRContacts
 
   add_document :maquette_projet, content_type: ['application/pdf'], size: { less_than: 10.megabytes }

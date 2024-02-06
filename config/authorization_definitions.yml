@@ -178,5 +178,6 @@ shared:
     name: "API CaptchEtat"
     description: "Générer un CAPTCHA pour sécuriser un service en ligne"
     public: true
+    link: 'https://api.gouv.fr/les-api/api-captchetat'
     cgu_link: '/cgus/cgu_api_captchetat_v_1_2.pdf'
     provider: 'aife'
