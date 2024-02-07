@@ -1,0 +1,23 @@
+<div class="fr-mt-5w fr-mb-3w">
+  <div class="homepage-subtitle">
+    <div class="fr-h6">
+      <%= t('pages.home.mcp_connexion').html_safe %>
+    </div>
+  </div>
+  <%= form_with(url: '/auth/mon_compte_pro', method: :post, data: { turbo: false }) do |f| %>
+    <%= f.button class: %w(fr-connect fr-btn--sm fr-connect-moncomptepro fr-m-auto), id: 'login_mon_compte_pro' do %>
+              <span class="fr-connect__login">
+                <%= t('pages.home.mcp_login').html_safe %>
+              </span>
+      <span class="fr-connect__brand">
+                <%= t('pages.home.mcp_brand').html_safe %>
+              </span>
+    <% end %>
+
+    <p>
+      <a href="https://moncomptepro.beta.gouv.fr/" target="_blank" rel="noopener" title="Qu’est-ce que MonComptePro ? - Nouvelle fenêtre">
+        <%= t('pages.home.mcp_subtitle').html_safe %>
+      </a>
+    </p>
+  <% end %>
+</div>
