@@ -5,7 +5,8 @@ class AuthorizationDefinition < StaticApplicationRecord
     :description,
     :link,
     :cgu_link,
-    :scopes
+    :scopes,
+    :blocks
 
   attr_writer :unique,
     :startable_by_applicant,
@@ -44,6 +45,7 @@ class AuthorizationDefinition < StaticApplicationRecord
         id: uid.to_s,
         provider: DataProvider.find(hash[:provider]),
         scopes: (hash[:scopes] || []).map { |scope_data| AuthorizationRequestScope.new(scope_data) },
+        blocks: hash[:blocks] || [],
       )
     )
   end

@@ -7,6 +7,8 @@ shared:
     provider: 'hubee'
     public: true
     unique: true
+    blocks:
+      - name: 'contacts'
 
   api_entreprise:
     name: "API Entreprise"
@@ -15,6 +17,12 @@ shared:
     link: 'https://api.gouv.fr/les-api/api-entreprise'
     cgu_link: 'https://entreprise.api.gouv.fr/cgu'
     public: true
+    blocks:
+      - name: 'basic_infos'
+      - name: 'personal_data'
+      - name: 'legal'
+      - name: 'scopes'
+      - name: 'contacts'
     scopes:
       - name: "Données unités légales et établissements du répertoire Sirene - Insee (diffusibles et non-diffusibles)"
         group: 'Informations générales'
@@ -146,6 +154,12 @@ shared:
     cgu_link: 'https://particulier.api.gouv.fr/cgu'
     provider: 'dinum'
     link: 'https://staging.api.gouv.fr/les-api/api-particulier'
+    blocks:
+      - name: 'basic_infos'
+      - name: 'personal_data'
+      - name: 'legal'
+      - name: 'scopes'
+      - name: 'contacts'
     scopes:
       - name: "Quotient familial CAF & MSA"
         value: "cnaf_quotient_familial"
@@ -159,6 +173,10 @@ shared:
     public: false
     cgu_link: '/cgus/cgu_infinoe_bac_a_sable_v_2023_10.pdf'
     provider: 'dgfip'
+    blocks:
+      - name: 'basic_infos'
+      - name: 'legal'
+      - name: 'contacts'
 
   api_infinoe_production:
     name: "API INFINOE (Production)"
@@ -166,6 +184,10 @@ shared:
     cgu_link: '/cgus/cgu_infinoe_production_v_2023_10.pdf'
     startable_by_applicant: false
     provider: 'dgfip'
+    blocks:
+      - name: 'api_infinoe_production/recette_fonctionnelle'
+      - name: 'api_infinoe_production/homologation_securite'
+      - name: 'api_infinoe_production/volumetrie'
 
   api_service_national:
     name: "API Service National"
@@ -173,6 +195,11 @@ shared:
     public: true
     cgu_link: 'https://presaje.sga.defense.gouv.fr/cgu-dln1f'
     provider: 'ministere_des_armees'
+    blocks:
+      - name: 'basic_infos'
+      - name: 'personal_data'
+      - name: 'legal'
+      - name: 'contacts'
 
   api_captchetat:
     name: "API CaptchEtat"
@@ -181,3 +208,7 @@ shared:
     link: 'https://api.gouv.fr/les-api/api-captchetat'
     cgu_link: '/cgus/cgu_api_captchetat_v_1_2.pdf'
     provider: 'aife'
+    blocks:
+      - name: 'basic_infos'
+      - name: 'legal'
+      - name: 'contacts'
