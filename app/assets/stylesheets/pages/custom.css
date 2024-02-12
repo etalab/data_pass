@@ -1,0 +1,70 @@
+.steps-timeline {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.next-steps, .timeline {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 30px 0 20px;
+    font-size: 14px;
+}
+
+.timeline {
+    margin: 0 0 50px;
+    align-items: center;
+}
+
+.next-steps > div,
+.timeline > div {
+    width: 24%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.timeline > div {
+    width: 25%;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+.timeline > div > .time-indication {
+    font-style: italic;
+    position: absolute;
+    width: 90px;
+    right: -45px;
+    background-color: var(--background-default-grey);
+    z-index: 5;
+    padding: 0 5px;
+    color: var(--text-action-high-blue-france);
+}
+
+.timeline > div:before,
+.timeline > div:after {
+    content: '';
+    width: 50%;
+    border: 1px dashed var(--text-action-high-blue-france);
+    opacity: 0.75;
+}
+
+.timeline > div:first-of-type:before,
+.timeline > div:last-of-type:after {
+    opacity: 0;
+}
+
+.timeline .step {
+    height: 12px;
+    width: 12px;
+    border-radius: 15px;
+    background-color: var(--text-action-high-blue-france);
+}
+
+.next-steps .prepare > ul {
+    padding: 10px;
+    margin: 0;
+}
