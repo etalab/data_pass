@@ -92,6 +92,14 @@ bundle exec cucumber
 COVERAGE=true bundle exec cucumber
 ```
 
+## Deploy
+
+Only sandbox for now:
+
+```sh
+./bin/deploy
+```
+
 ## Documentation
 
 * [Conception technique/métier](./docs/conception.md)
