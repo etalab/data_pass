@@ -1,23 +1,57 @@
-<h2 class="center">
-  <%= t('.title').html_safe %>
-</h2>
-
 <div class="fr-container">
-  <div class="fr-grid-row">
-    <div class="fr-col-md-6 fr-col-offset-md-3 fr-col-12 center">
-      <div class="fr-connect-group">
-        <%= form_with(url: '/auth/mon_compte_pro', method: :post, data: { turbo: false }) do |f| %>
-          <%= f.button class: %w(fr-connect fr-connect-moncomptepro fr-m-auto), id: 'login_mon_compte_pro' do %>
-            <span class="fr-connect__login">S'identifier avec</span>
-            <span class="fr-connect__brand">MonComptePro</span>
-          <% end %>
+  <div class="fr-grid-row fr-grid-row--middle">
+    <div class="fr-col-sm-12 fr-col-md-5 ">
+      <%= image_tag "logo-welcome-page.svg", alt: "Welcome Page Logo", class: %w(fr-responsive-img) %>
+    </div>
 
-          <p class="center">
-            <a href="https://moncomptepro.beta.gouv.fr/" target="_blank"  rel="noopener" title="Qu’est-ce que MonComptePro ? - Nouvelle fenêtre">
-              Qu’est-ce que MonComptePro ?
-            </a>
-          </p>
-        <% end %>
+    <div class="fr-col-sm-12 fr-col-md-7 fr-my-5w">
+      <div class="fr-connect-group">
+        <h1>
+          <%= t('.title').html_safe %>
+        </h1>
+
+        <p>
+          <%= t('.sub_title').html_safe %>
+        </p>
+
+        <div class="fr-mt-5w fr-mb-3w">
+          <div class="homepage-subtitle">
+            <div class="fr-h6">
+            <%= t('.mcp_connexion').html_safe %>
+            </div>
+          </div>
+          <%= form_with(url: '/auth/mon_compte_pro', method: :post, data: { turbo: false }) do |f| %>
+            <%= f.button class: %w(fr-connect fr-btn--sm fr-connect-moncomptepro fr-m-auto), id: 'login_mon_compte_pro' do %>
+              <span class="fr-connect__login">
+                <%= t('.mcp_login').html_safe %>
+              </span>
+              <span class="fr-connect__brand">
+                <%= t('.mcp_brand').html_safe %>
+              </span>
+            <% end %>
+
+            <p>
+              <a href="https://moncomptepro.beta.gouv.fr/" target="_blank" rel="noopener" title="Qu’est-ce que MonComptePro ? - Nouvelle fenêtre">
+                <%= t('.mcp_subtitle').html_safe %>
+              </a>
+            </p>
+          <% end %>
+        </div>
+
+          <div class="fr-my-3w">
+            <hr/>
+            <div class="fr-h6">
+              <%= t('.api_gouv_title').html_safe %>
+            </div>
+            <div class="fr-mb-2w">
+              <div class="fr-btn fr-btn--sm fr-btn--secondary fr-m-auto">
+                <a href="https://api.gouv.fr/" target="_blank" rel="noopener" title="api.gouv.fr - Nouvelle fenêtre">
+                  <%= t('.api_gouv').html_safe %>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
