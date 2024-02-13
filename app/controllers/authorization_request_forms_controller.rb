@@ -2,6 +2,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   helper AuthorizationRequestsHelpers
   include AuthorizationRequestsFlashes
 
+  before_action :authenticate_user!, except: [:new]
   before_action :extract_authorization_request_form, except: [:index]
   before_action :extract_authorization_request, only: %i[show summary update]
 
@@ -14,7 +15,11 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
 
     @authorization_definition = @authorization_request_form.authorization_definition
 
-    render 'authorization_requests/new'
+    if user_signed_in?
+      render 'authorization_requests/new'
+    else
+      render 'pages/custom'
+    end
   end
 
   def create

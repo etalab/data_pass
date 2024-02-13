@@ -9,7 +9,7 @@
         </h1>
 
         <p>
-          <%= t('.sub_title').html_safe %>
+          <%= t('.sub_title', api_name: @authorization_definition.name).html_safe %>
           <br/>
           <%= t('.description_4_steps').html_safe %>
         </p>

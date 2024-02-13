@@ -43,7 +43,6 @@ module Authentication
     return if user_signed_in?
 
     session[:return_to_after_sign_in] = request.url
-
     redirect_to sign_in_path
   end
 

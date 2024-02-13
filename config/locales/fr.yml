@@ -90,7 +90,7 @@ fr:
       api_gouv_title: Pour découvrir les APIs du service public
       api_gouv: api.gouv.fr
     custom:
-      sub_title: "Vous souhaitez accédez à l’<strong>API Entreprise</strong>"
+      sub_title: "Vous souhaitez accédez à l’<strong>%{api_name}</strong>"
       description_4_steps: Votre demande d’habilitation va se dérouler en 4 étapes
 
   dashboard:
