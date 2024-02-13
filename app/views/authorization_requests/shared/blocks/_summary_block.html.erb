@@ -1,0 +1,15 @@
+<div class="summary-block">
+  <h3 class="summary-block__title">
+    <%= title %>
+  </h3>
+
+  <div class="summary-block__ctas">
+    <% if policy(@authorization_request).update? && editable %>
+      <%= link_to 'Modifier', '#', class: %w(fr-btn fr-btn--sm) %>
+    <% end %>
+  </div>
+
+  <div class="summary-block__container">
+    <%= yield(f) %>
+  </div>
+</div>

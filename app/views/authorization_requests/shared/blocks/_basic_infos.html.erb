@@ -1,0 +1,13 @@
+<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { title: t('authorization_request_forms.default.steps.basic_infos'), f:, editable: } do %>
+  <strong>
+    <%= f.label_value(:intitule) %>
+  </strong>
+
+  <%= simple_format(@authorization_request.intitule) %>
+
+  <strong>
+    <%= f.label_value(:description) %>
+  </strong>
+
+  <%= simple_format(@authorization_request.description) %>
+<% end %>

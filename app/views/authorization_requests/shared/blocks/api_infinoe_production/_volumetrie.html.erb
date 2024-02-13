@@ -1,0 +1,7 @@
+<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { title: t('authorization_request_forms.default.steps.basic_infos'), f:, editable: } do %>
+  <strong>
+    <%= f.label_value(:volumetrie_appels_par_minute) %>
+  </strong>
+
+  <%= simple_format(@authorization_request.volumetrie_appels_par_minute) %>
+<% end %>

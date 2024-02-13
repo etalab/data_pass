@@ -1,0 +1,13 @@
+<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { title: t('authorization_request_forms.default.steps.legal'), f:, editable: } do %>
+  <strong>
+    <%= f.label_value(:cadre_juridique_nature) %>
+  </strong>
+
+  <%= simple_format(@authorization_request.cadre_juridique_nature) %>
+
+  <% if @authorization_request.cadre_juridique_url.present? %>
+    <%= link_to @authorization_request.cadre_juridique_url, @authorization_request.cadre_juridique_url, target: '_blank' %>
+  <% elsif @authorization_request.cadre_juridique_document.attached? %>
+    <%= link_to @authorization_request.cadre_juridique_documen.filename, url_for(@authorization_request.cadre_juridique_document) %>
+  <% end %>
+<% end %>

@@ -1,0 +1,15 @@
+<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { title: t('authorization_request_forms.default.steps.contacts'), f:, editable: } do %>
+  <% @authorization_request.available_scopes.group_by(&:group).each do |group_name, scopes| %>
+    <fieldset class="fr-fieldset">
+      <h3 class="authorization-request-scopes-group-title">
+        <%= group_name %>
+      </h3>
+
+      <div class="authorization-request-scopes-group-grid">
+        <% scopes.each do |scope| %>
+          <%= f.dsfr_scope scope %>
+        <% end %>
+      </div>
+    </fieldset>
+  <% end %>
+<% end %>
