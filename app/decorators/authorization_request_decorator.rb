@@ -12,6 +12,16 @@ class AuthorizationRequestDecorator < ApplicationDecorator
     end
   end
 
+  def editable_blocks
+    object.definition.blocks.select do |block|
+      object.form.static_blocks.pluck(:name).exclude?(block[:name])
+    end
+  end
+
+  def static_blocks
+    object.definition.blocks - editable_blocks
+  end
+
   private
 
   def lookup_i18n_key(subkey)
