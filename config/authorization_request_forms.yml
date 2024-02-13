@@ -73,6 +73,12 @@ La plateforme, mise en place pour permettre le dépôt de ces aides publiques et
       contact_metier_job_title: *api_entreprise_mgdis_contact_job_title
       contact_metier_email: *api_entreprise_mgdis_contact_email
       contact_metier_phone_number: *api_entreprise_mgdis_contact_phone_number
+    static_blocks:
+      - name: 'basic_infos'
+      - name: 'personal_data'
+      - name: 'legal'
+      - name: 'scopes'
+
 
   api-entreprise-setec-atexo:
     name: "Dématérialisation des marchés publics"
