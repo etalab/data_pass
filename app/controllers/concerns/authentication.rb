@@ -58,6 +58,10 @@ module Authentication
       session[:user_id]['expires_at'] > Time.current
   end
 
+  def save_redirect_path
+    session[:return_to_after_sign_in] = request.url
+  end
+
   def current_user
     @current_user ||= User.find_by(id: session[:user_id].try(:[], 'value'))
   end

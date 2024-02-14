@@ -2,7 +2,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   helper AuthorizationRequestsHelpers
   include AuthorizationRequestsFlashes
 
-  before_action :authenticate_user!, except: [:new]
+  allow_unauthenticated_access only: [:new]
   before_action :extract_authorization_request_form, except: [:index]
   before_action :extract_authorization_request, only: %i[show summary update]
 
@@ -18,6 +18,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     if user_signed_in?
       render 'authorization_requests/new'
     else
+      save_redirect_path
       render 'pages/custom'
     end
   end

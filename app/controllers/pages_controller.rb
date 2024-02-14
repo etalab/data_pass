@@ -7,5 +7,7 @@ class PagesController < ApplicationController
     redirect_to dashboard_path if user_signed_in?
   end
 
-  def custom; end
+  def custom
+    redirect_to session[:previous_url] if user_signed_in?
+  end
 end
