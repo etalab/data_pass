@@ -1,73 +1,20 @@
 <div class="fr-container">
   <div class="fr-grid-row fr-grid-row--middle">
-    <%= render partial: 'pages/shared/welcome_logo' %>
+    <%= render partial: 'pages/shared/unauthenticated_pages/welcome_logo' %>
 
     <div class="fr-col-sm-12 fr-col-md-7 fr-my-5w">
       <div class="fr-connect-group">
         <h1>
-          <%= t('pages.home.title').html_safe %>
+          <%= t('pages.home.title') %>
         </h1>
 
         <p>
-          <%= t('.sub_title', api_name: @authorization_definition.name).html_safe %>
-          <br/>
-          <%= t('.description_4_steps').html_safe %>
+          <%= simple_format(t('.sub_title', api_name: @authorization_definition.name)) %>
         </p>
 
-        <div class="steps-timeline">
-          <div class="next-steps">
-            <div>
-              <div>
-                <%= image_tag "pictograms/homepage/identification.svg", alt: "identification", class: %w(fr-responsive-img) %>
-              </div>
-              <div>S’identifier avec MonComptePro</div>
-            </div>
-
-            <div>
-              <div>
-                <%= image_tag "pictograms/homepage/demande.svg", alt: "identification", class: %w(fr-responsive-img) %>
-              </div>
-              <div>Remplir ma demande</div>
-            </div>
-
-            <div>
-              <div>
-                <%= image_tag "pictograms/homepage/habilitation.svg", alt: "identification", class: %w(fr-responsive-img) %>
-              </div>
-              <div>Être habilité</div>
-            </div>
-
-            <div>
-              <div>
-                <%= image_tag "pictograms/homepage/token.svg", alt: "identification", class: %w(fr-responsive-img) %>
-              </div>
-              <div>Obtenir le token d’accès</div>
-            </div>
-          </div>
-
-          <div class="timeline">
-            <div>
-              <div class="step">
-              </div>
-            </div>
-            <div>
-              <div class="step">
-              </div>
-              <div class="time-indication">~ 11 jour(s)</div>
-            </div>
-            <div>
-              <div class="step">
-              </div>
-            </div>
-            <div>
-              <div class="step">
-              </div>
-            </div>
-          </div>
-        </div>
-
+        <%= render partial: 'pages/shared/unauthenticated_pages/timeline_steps' %>
         <hr/>
-        <%= render partial: 'pages/mon_compte_pro' %>
+        <%= render partial: 'pages/shared/unauthenticated_pages/mon_compte_pro' %>
       </div>
     </div>
   </div>
