@@ -9,7 +9,7 @@
         </h1>
 
         <p>
-          <%= simple_format(t('authorization_requests.unauthenticated_authorization_request_form_start.sub_title', api_name: @authorization_definition.name)) %>
+          <%= simple_format(t '.sub_title', api_name: @authorization_definition.name) %>
         </p>
 
         <%= render partial: 'authorization_requests/shared/unauthenticated_pages/timeline_steps' %>
