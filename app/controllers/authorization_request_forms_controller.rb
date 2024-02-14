@@ -19,7 +19,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
       render 'authorization_requests/new'
     else
       save_redirect_path
-      render 'pages/custom'
+      render 'pages/unauthenticated_authorization_request_form_start'
     end
   end
 

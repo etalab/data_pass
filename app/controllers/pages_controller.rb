@@ -7,5 +7,5 @@ class PagesController < ApplicationController
     redirect_to dashboard_path if user_signed_in?
   end
 
-  def custom; end
+  def unauthenticated_authorization_request_form_start; end
 end
