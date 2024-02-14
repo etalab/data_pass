@@ -182,7 +182,7 @@ class AuthorizationRequest < ApplicationRecord
 
   def contact_types_for(user)
     contact_type_key_values = data.select do |key, value|
-      key =~ /^contact_.*_email$/ && value == user.email
+      key =~ /.*_email$/ && value == user.email
     end
 
     contact_type_key_values.keys.map do |key|
