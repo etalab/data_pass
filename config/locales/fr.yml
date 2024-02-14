@@ -89,12 +89,6 @@ fr:
       mon_compte_pro_subtitle: Qu’est-ce que MonComptePro ?
       api_gouv_title: Pour découvrir les APIs du service public
       api_gouv: api.gouv.fr
-    unauthenticated_authorization_request_form_start:
-      sub_title: "Vous souhaitez accédez à l’<strong>%{api_name}</strong> \n Votre demande d’habilitation va se dérouler en 4 étapes"
-      etape_1: S’identifier avec MonComptePro
-      etape_2: Remplir ma demande
-      etape_3: Être habilité
-      etape_4: Accéder au service
 
   dashboard:
     show:
@@ -122,6 +116,12 @@ fr:
     index:
       title: Demander une nouvelle habilitation
       cta: Remplir une demande
+    unauthenticated_authorization_request_form_start:
+      sub_title: "Vous souhaitez accédez à l’<strong>%{api_name}</strong> \n Votre demande d’habilitation va se dérouler en 4 étapes"
+      etape_1: S’identifier avec MonComptePro
+      etape_2: Remplir ma demande
+      etape_3: Être habilité
+      etape_4: Accéder au service
     new:
       title: &start_new_habilitation_title Démarrer une nouvelle habilitation pour %{authorization_name}
       current_form: Via le formulaire " %{authorization_request_form_name} "
