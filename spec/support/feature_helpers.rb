@@ -1,8 +1,8 @@
 module FeaturesHelpers
   include ActionView::RecordIdentifier
 
-  def css_id(record)
-    "##{dom_id(record)}"
+  def css_id(record, prefix = nil)
+    "##{dom_id(record, prefix)}"
   end
 
   def input_identifier(klass, attribute)
