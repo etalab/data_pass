@@ -61,6 +61,13 @@ Pour [le modèle](../config/authorization_definitions.yml):
         # que ces données seront disponibles avec son habilitation. Par défaut à
         # false
         included: true
+    # Liste des blocs à afficher dans le résumé
+    # Ces blocs peuvent correspondre aux 'steps' des formulaires définis
+    # ci-dessous, mais ce n'est pas une obligation. Chaque bloc doit être défini
+    # dans app/views/authorization_requests/shared/blocks/
+    blocks:
+      - name: basic_infos
+      - name: personal_data
 ```
 
 Pour [le formulaire](../config/authorization_request_forms.yml):
@@ -86,12 +93,19 @@ Pour [le formulaire](../config/authorization_request_forms.yml):
       intitule: "Mon intitulé"
     # Optionnel. Détermine les étapes ordonnées pour remplir ce formulaire. Si
     # ce champ n'est pas défini le formulaire sera sur une seule page pour le
-    # demandeur. La première étape est systématiquement l'organisation et le
-    # demandeur, qui sont commun à tous les formulaires. La dernière étape est
+    # demandeur. La dernière étape est
     # systématiquement le récapitulatif et les cases à cocher des CGUs.
     steps:
-    - name: basic_infos
-    - name: personal_data
+      - name: basic_infos
+      - name: personal_data
+    # Détermine les blocs qui sont statiques, à afficher dans le résumé.
+    # Un bloc statique est un bloc qui n'a pas vocation a être modifié par le
+    # demandeur, par exemple dans le cas de formulaires d'éditeurs, certaines
+    # infos comme les infos du projet sont déjà connues et fixes.
+    # Ces blocs doivent matcher sur la clé `name` avec les `blocks` des
+    # définitions ci-dessus
+    static_blocks:
+      - name: basic_infos
 ```
 
 ### 1.1 Ajout d'un nouveau fournisseur
