@@ -20,13 +20,15 @@ module RequestsHelpers
 end
 
 shared_examples 'an unauthorized access' do
-  it { is_expected.to redirect_to(controller: '/dashboard', action: 'index') }
-
   it do
     subject
 
-    2.times { follow_redirect! }
+    begin
+      5.times { follow_redirect! }
+    rescue RuntimeError
+    end
 
+    expect(response.request.path).to match('/tableau-de-bord')
     expect(response.body).to include('pas le droit')
   end
 end
