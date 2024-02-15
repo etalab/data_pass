@@ -23,10 +23,12 @@ shared_examples 'an unauthorized access' do
   it do
     subject
 
+    # rubocop:disable Lint/SuppressedException
     begin
       5.times { follow_redirect! }
     rescue RuntimeError
     end
+    # rubocop:enable Lint/SuppressedException
 
     expect(response.request.path).to match('/tableau-de-bord')
     expect(response.body).to include('pas le droit')

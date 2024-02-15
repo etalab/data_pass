@@ -5,8 +5,18 @@ class AuthorizationRequestPolicy < ApplicationPolicy
   end
 
   def show?
-    same_current_organization? ||
-      current_user_is_contact?
+    update?
+  end
+
+  def summary?
+    if same_user_and_organization?
+      !record.in_draft? ||
+        review_authorization_request.success?
+    elsif same_current_organization?
+      true
+    else
+      record.contact_types_for(user).any?
+    end
   end
 
   def update?
@@ -28,6 +38,13 @@ class AuthorizationRequestPolicy < ApplicationPolicy
 
   def same_current_organization?
     record.organization == current_organization
+  end
+
+  def review_authorization_request
+    ReviewAuthorizationRequest.call(
+      authorization_request: record,
+      user:,
+    )
   end
 
   def same_user_and_organization?

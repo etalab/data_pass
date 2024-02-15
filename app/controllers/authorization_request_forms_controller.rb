@@ -4,8 +4,6 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   before_action :extract_authorization_request_form, except: [:index]
   before_action :extract_authorization_request, only: %i[show summary update]
 
-  before_action :redirect_to_summary, only: %i[show], if: :not_editable_by_current_user?
-
   def index
     @authorization_definition = AuthorizationDefinition.find(params[:authorization_definition_id])
   end
@@ -29,13 +27,13 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   def show
     authorize @authorization_request
 
-    if @authorization_request_form.multiple_steps? && @authorization_request.applicant == current_user
+    if @authorization_request_form.multiple_steps?
       redirect_to_current_build_step
-    elsif @authorization_request_form.multiple_steps?
-      render 'multiple_steps_as_single_page'
     else
       render view_path
     end
+  rescue Pundit::NotAuthorizedError
+    redirect_to summary_authorization_request_form_path(form_uid: @authorization_request_form.uid, id: @authorization_request.id)
   end
 
   def update
@@ -49,12 +47,11 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   end
 
   def summary
-    authorize @authorization_request, :show?
+    authorize @authorization_request
+  rescue Pundit::NotAuthorizedError
+    raise unless AuthorizationRequestPolicy.new(current_user, @authorization_request).show?
 
-    return if @authorization_request.applicant != current_user
-    return if review_authorization_request.success?
-
-    redirect_to authorization_request_form_path(form_uid: @authorization_request.form_uid, id: @authorization_request.id)
+    redirect_to authorization_request_form_path(form_uid: @authorization_request_form.uid, id: @authorization_request.id)
   end
 
   private
@@ -202,22 +199,11 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     @authorization_request_form = AuthorizationRequestForm.find(params[:form_uid])
   end
 
-  def not_editable_by_current_user?
-    !(
-      @authorization_request.in_draft? &&
-        @authorization_request.applicant == current_user
-    )
-  end
-
   def review_authorization_request
     ReviewAuthorizationRequest.call(
       authorization_request: @authorization_request,
       authorization_request_params:,
       user: current_user,
     )
-  end
-
-  def redirect_to_summary
-    redirect_to summary_authorization_request_form_path(form_uid: @authorization_request.form_uid, id: @authorization_request.id)
   end
 end

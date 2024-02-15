@@ -15,6 +15,8 @@ class AuthorizationRequestsController < AuthenticatedUserController
     authorize @authorization_request
 
     redirect_to authorization_request_form_path(form_uid: @authorization_request.form_uid, id: @authorization_request.id)
+  rescue Pundit::NotAuthorizedError
+    redirect_to summary_authorization_request_form_path(form_uid: @authorization_request.form.uid, id: @authorization_request.id)
   end
 
   private

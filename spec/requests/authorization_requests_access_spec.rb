@@ -45,9 +45,19 @@ RSpec.describe 'Authorization requests access' do
     end
 
     context 'when user is applicant and has the correct current organization' do
-      let(:authorization_request) { create(:authorization_request, :portail_hubee_demarche_certdc, organization: user.current_organization, applicant: user) }
+      describe 'in draft state' do
+        let(:authorization_request) { create(:authorization_request, :portail_hubee_demarche_certdc, :draft, organization: user.current_organization, applicant: user) }
 
-      it { is_expected.to have_http_status(:ok) }
+        it { is_expected.to have_http_status(:ok) }
+      end
+
+      describe 'in submitted state' do
+        let(:authorization_request) { create(:authorization_request, :portail_hubee_demarche_certdc, :submitted, organization: user.current_organization, applicant: user) }
+
+        it 'redirects to summary' do
+          expect(show_authorization_request).to redirect_to(summary_authorization_request_form_path(form_uid: authorization_request.form_uid, id: authorization_request.id))
+        end
+      end
     end
 
     context 'when user is applicant but has not the correct current organization' do
