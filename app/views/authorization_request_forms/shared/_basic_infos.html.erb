@@ -1,23 +1,33 @@
 <%= f.info_for(:basic_infos) %>
 
 <fieldset class="fr-fieldset" aria-label="feedme" aria-describedby="name-1-fieldset-messages">
-  <div class="fr-fieldset__element">
-    <%= f.dsfr_text_field :intitule, required: true %>
-  </div>
+  <% if @authorization_request.respond_to?(:intitule) %>
+    <div class="fr-fieldset__element">
+      <%= f.dsfr_text_field :intitule, required: true %>
+    </div>
+  <% end %>
 
-  <div class="fr-fieldset__element">
-    <%= f.dsfr_text_area :description, rows: 10 %>
-  </div>
+  <% if @authorization_request.respond_to?(:description) %>
+    <div class="fr-fieldset__element">
+      <%= f.dsfr_text_area :description, rows: 10 %>
+    </div>
+  <% end %>
 
-  <div class="fr-fieldset__element">
-    <%= f.dsfr_file_field :maquette_projet %>
-  </div>
+  <% if @authorization_request.respond_to?(:maquette_projet) %>
+    <div class="fr-fieldset__element">
+      <%= f.dsfr_file_field :maquette_projet %>
+    </div>
+  <% end %>
 
-  <div class="fr-fieldset__element">
-    <%= f.dsfr_date_field :date_prevue_mise_en_production %>
-  </div>
+  <% if @authorization_request.respond_to?(:intitule) %>
+    <div class="fr-fieldset__element">
+      <%= f.dsfr_date_field :date_prevue_mise_en_production %>
+    </div>
+  <% end %>
 
-  <div class="fr-fieldset__element">
-    <%= f.dsfr_text_field :volumetrie_approximative %>
-  </div>
+  <% if @authorization_request.respond_to?(:volumetrie_approximative) %>
+    <div class="fr-fieldset__element">
+      <%= f.dsfr_text_field :volumetrie_approximative %>
+    </div>
+  <% end %>
 </fieldset>

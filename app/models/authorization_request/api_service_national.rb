@@ -1,5 +1,5 @@
 class AuthorizationRequest::APIServiceNational < AuthorizationRequest
-  include AuthorizationExtensions::MinimalInfos
+  include AuthorizationExtensions::BasicInfos
   include AuthorizationExtensions::PersonalData
   include AuthorizationExtensions::CadreJuridique
   include AuthorizationExtensions::GDPRContacts
