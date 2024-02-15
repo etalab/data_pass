@@ -191,13 +191,7 @@ RSpec/RepeatedDescription:
   Enabled: false
 
 RSpec/DescribeClass:
-  IgnoredMetadata:
-    type:
-      - acceptance
-      - request
-      - controller
-      - feature
-      - rake
+  Enabled: false
 
 RSpec/ExpectOutput:
   Exclude:
