@@ -31,3 +31,7 @@
 .scopes-group__grid label {
   display: inline-block!important;
 }
+
+.summary-block .scopes-group__grid label {
+  color: var(--text-label-grey)!important;
+}
