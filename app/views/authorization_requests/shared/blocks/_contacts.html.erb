@@ -1,17 +1,36 @@
 <%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { title: t('authorization_request_forms.default.steps.contacts'), f:, editable: } do %>
-  <% @authorization_request.contact_types.each do |contact_type| %>
-    <div id="<%= dom_id(@authorization_request, contact_type) %>" class="fr-basic-card">
-      <h3>
-        <%= t("authorization_request_forms.default.#{contact_type}.title") %>
-      </h3>
+  <div class="fr-container-fluid">
+    <div class="fr-grid-row">
+      <% @authorization_request.contact_types.each do |contact_type| %>
+        <div class="fr-col-12 fr-col-lg-6 fr-pr-4v fr-pb-4v">
+          <div id="<%= dom_id(@authorization_request, contact_type) %>" class="fr-basic-card contact-card">
+            <div class="contact-card__kind">
+              <%= t("authorization_request_forms.default.#{contact_type}.title") %>
+            </div>
 
-      <fieldset class="fr-fieldset" aria-label="feedme" aria-describedby="name-1-fieldset-messages">
-        <% @authorization_request.class.contact_attributes.each do |contact_attribute| %>
-          <div class="fr-fieldset__element">
-            <%= @authorization_request.public_send("#{contact_type}_#{contact_attribute}") %>
+            <div class="contact-card__full_name">
+              <%= @authorization_request.contact_full_name(contact_type) %>
+            </div>
+
+            <%
+              %w[
+                job_title
+                email
+                phone_number
+              ].each do |contact_attribute|
+            %>
+              <div class="contact-card__attribute">
+                <div class="contact-card__attribute-label">
+                  <%= f.label_value("#{contact_type}_#{contact_attribute}") %>
+                </div>
+                <div class="contact-card__attribute-value">
+                  <%= @authorization_request.public_send("#{contact_type}_#{contact_attribute}") %>
+                </div>
+              </div>
+            <% end %>
           </div>
-        <% end %>
-      </fieldset>
+        </div>
+      <% end %>
     </div>
-  <% end %>
+  </div>
 <% end %>

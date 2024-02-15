@@ -26,6 +26,13 @@ class AuthorizationRequestDecorator < ApplicationDecorator
     object.definition.blocks
   end
 
+  def contact_full_name(contact_type)
+    [
+      object.data["#{contact_type}_given_name"],
+      object.data["#{contact_type}_family_name"],
+    ].compact.join(' ')
+  end
+
   private
 
   def lookup_i18n_key(subkey)
