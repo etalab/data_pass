@@ -50,6 +50,11 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
 
   def summary
     authorize @authorization_request, :show?
+
+    return if @authorization_request.applicant != current_user
+    return if review_authorization_request.success?
+
+    redirect_to authorization_request_form_path(form_uid: @authorization_request.form_uid, id: @authorization_request.id)
   end
 
   private
@@ -132,15 +137,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   def go_to_summary
     authorize @authorization_request, :show?
 
-    organizer = ReviewAuthorizationRequest.call(
-      authorization_request: @authorization_request,
-      authorization_request_params:,
-      user: current_user,
-    )
-
-    @authorization_request = organizer.authorization_request
-
-    if organizer.success?
+    if review_authorization_request.success?
       redirect_to summary_authorization_request_form_path(form_uid: @authorization_request.form_uid, id: @authorization_request.id)
     else
       error_message(title: t('authorization_request_forms.update.error.title'), description: t('authorization_request_forms.update.error.description'))
@@ -189,6 +186,8 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
 
   def authorization_request_params
     params.require(authorization_request_class.model_name.singular)
+  rescue ActionController::ParameterMissing
+    nil
   end
 
   def extract_authorization_request
@@ -207,6 +206,14 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     !(
       @authorization_request.in_draft? &&
         @authorization_request.applicant == current_user
+    )
+  end
+
+  def review_authorization_request
+    ReviewAuthorizationRequest.call(
+      authorization_request: @authorization_request,
+      authorization_request_params:,
+      user: current_user,
     )
   end
 

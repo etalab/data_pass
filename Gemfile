@@ -55,6 +55,7 @@ group :test do
   gem 'cuprite'
   gem 'database_cleaner-active_record'
   gem 'rack_session_access'
+  gem 'rails-controller-testing'
   gem 'rspec-rails', '6.1.1'
   gem 'simplecov', require: false
 end
