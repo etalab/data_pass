@@ -35,6 +35,11 @@ class AuthorizationRequestPolicy < ApplicationPolicy
     submit?
   end
 
+  def archive?
+    same_user_and_organization? &&
+      record.in_draft?
+  end
+
   private
 
   def same_current_organization?

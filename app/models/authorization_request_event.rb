@@ -6,6 +6,7 @@ class AuthorizationRequestEvent < ApplicationRecord
     approve
     request_changes
     refuse
+    archive
 
     system_reminder
   ].freeze
