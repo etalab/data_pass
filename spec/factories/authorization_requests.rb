@@ -135,7 +135,7 @@ FactoryBot.define do
       after(:build) do |authorization_request, evaluator|
         if authorization_request.need_complete_validation? || evaluator.fill_all_attributes
           authorization_request.scopes ||= []
-          authorization_request.scopes << authorization_request.available_scopes.first
+          authorization_request.scopes << authorization_request.available_scopes.first.value
         end
       end
     end
