@@ -1,7 +1,7 @@
-<%= render 'authorization_request_forms/build/header' %>
-<%= render partial: 'authorization_request_forms/shared/organization' %>
-
 <%= authorization_request_form(@authorization_request) do |f| %>
+  <%= render partial: 'authorization_request_forms/build/header', locals: { f: } %>
+  <%= render partial: 'authorization_request_forms/shared/organization' %>
+
   <h3>
     <%= t('authorization_request_forms.default.steps.basic_infos') %>
   </h3>

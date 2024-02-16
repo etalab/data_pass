@@ -1,7 +1,5 @@
-<%= render partial: 'header' %>
-
 <%= authorization_request_form(@authorization_request) do |f| %>
-  <%= render partial: 'authorization_request_forms/shared/contacts', locals: { f: f } %>
-
-  <%= render partial: 'authorization_request_forms/build/wizard_buttons', locals: { f: f } %>
+  <%= render partial: 'authorization_request_forms/build/header', locals: { f: } %>
+  <%= render partial: 'authorization_request_forms/shared/contacts', locals: { f: } %>
+  <%= render partial: 'authorization_request_forms/build/wizard_buttons', locals: { f: } %>
 <% end %>
