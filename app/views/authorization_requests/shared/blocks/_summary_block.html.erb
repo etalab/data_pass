@@ -1,11 +1,11 @@
-<div class="summary-block">
+<div class="summary-block" id="<%= dom_id(@authorization_request, block_id) %>">
   <h3 class="summary-block__title">
     <%= title %>
   </h3>
 
   <div class="summary-block__ctas">
     <% if policy(@authorization_request).update? && editable %>
-      <%= link_to 'Modifier', '#', class: %w(fr-btn fr-btn--sm) %>
+      <%= link_to 'Modifier', edit_authorization_request_block_path(@authorization_request, block_id), class: %w(fr-btn fr-btn--secondary fr-btn--sm) %>
     <% end %>
   </div>
 

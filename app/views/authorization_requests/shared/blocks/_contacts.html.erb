@@ -1,4 +1,4 @@
-<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { title: t('authorization_request_forms.default.steps.contacts'), f:, editable: } do %>
+<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { title: t('authorization_request_forms.default.steps.contacts'), block_id: :contacts, f:, editable: } do %>
   <div class="fr-container-fluid">
     <div class="fr-grid-row">
       <% @authorization_request.contact_types.each do |contact_type| %>

@@ -1,4 +1,4 @@
-<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { title: t('authorization_request_forms.default.steps.personal_data'), f:, editable: } do %>
+<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { title: t('authorization_request_forms.default.steps.personal_data'), block_id: :personal_data, f:, editable: } do %>
   <strong>
     <%= f.label_value(:destinataire_donnees_caractere_personnel) %>
   </strong>
