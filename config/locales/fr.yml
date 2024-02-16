@@ -12,7 +12,6 @@ fr:
     legal: 'cadre-juridique'
     scopes: 'donnees'
     contacts: 'contacts'
-    finish: 'resume'
   authorization_request:
     status:
       draft: Brouillon
@@ -183,10 +182,6 @@ fr:
           description: "Vérifiez que la demande que vous allez démarrez n'ait pas déjà été soumise ou en cours. Voici la liste:"
       update:
         error: *authorization_requests_update_error
-      finish:
-        title:
-          validated: Récapitulatif de votre habilitation
-          draft: Récapitulatif de votre demande d'habilitation
 
   instruction:
     authorization_requests:
