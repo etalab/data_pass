@@ -1,5 +1,3 @@
-<%= render 'authorization_request_forms/build/header' %>
-
 <%= authorization_request_form(@authorization_request, url: authorization_request_block_path([@authorization_request, block_id])) do |f| %>
   <%= render partial: "authorization_request_forms/shared/#{block_id}", locals: { f: } %>
 

@@ -1,7 +1,3 @@
-<%= render 'authorization_request_forms/build/header' %>
-
-<%= render partial: 'authorization_request_forms/shared/organization' %>
-
 <%= authorization_request_form(@authorization_request) do |f| %>
   <fieldset class="fr-fieldset" aria-label="feedme" aria-describedby="name-1-fieldset-messages">
     <h3>
@@ -23,6 +19,5 @@
   <%= render partial: 'authorization_request_forms/shared/api_infinoe_production/homologation_securite', locals: { f: f } %>
   <%= render partial: 'authorization_request_forms/shared/api_infinoe_production/volumetrie', locals: { f: f } %>
 
-  <%= render partial: 'authorization_request_forms/shared/tos_checkboxes', locals: { f: f } %>
   <%= render partial: 'authorization_request_forms/shared/submit_buttons', locals: { f: f } %>
 <% end %>

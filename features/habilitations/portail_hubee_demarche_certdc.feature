@@ -10,7 +10,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation Portail HubEE - Démarc
     Et que je remplis les informations du contact "Administrateur métier" avec :
       | Nom    | Prénom | Email               | Téléphone   | Fonction              |
       | Dupont | Jean   | dupont.jean@gouv.fr | 0836656565  | Administrateur métier |
-    Et que j'adhère aux conditions générales
     Et que je clique sur "Enregistrer les modifications"
     Et que je clique sur "Continuer vers le résumé"
     Et que j'adhère aux conditions générales
@@ -24,7 +23,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation Portail HubEE - Démarc
     Et que je remplis les informations du contact "Administrateur métier" avec :
       | Nom    | Prénom | Email               | Téléphone   | Fonction de l'administrateur système |
       | Dupont |        | dupont.jean@gouv.fr | 0836656565  | Administrateur métier |
-    Et que j'adhère aux conditions générales
     Et que je clique sur "Enregistrer les modifications"
     Et que je clique sur "Continuer vers le résumé"
 

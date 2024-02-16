@@ -1,13 +1,15 @@
-<div class="sub-header">
-  <h1>
-    <%= t('.title', authorization_name: @authorization_definition.name) %>
-  </h1>
-</div>
+<div class="fr-container">
+  <div class="sub-header">
+    <h1>
+      <%= t('.title', authorization_name: @authorization_definition.name) %>
+    </h1>
+  </div>
 
-<%=
-  begin
-    render partial: "authorization_request_forms/index/#{@authorization_definition.id}"
-  rescue ActionView::MissingTemplate
-    render partial: "authorization_request_forms/index/default"
-  end
-%>
+  <%=
+    begin
+      render partial: "authorization_request_forms/index/#{@authorization_definition.id}"
+    rescue ActionView::MissingTemplate
+      render partial: "authorization_request_forms/index/default"
+    end
+  %>
+</div>

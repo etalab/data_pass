@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  layout 'container'
+
   default_form_builder DSFRFormBuilder
 
   helper ActiveLinks

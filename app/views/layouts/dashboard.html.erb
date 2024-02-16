@@ -1,57 +1,61 @@
 <%= content_for(:body) do %>
-  <div class="sub-header">
-    <h1 class="fr-m-0">
-      <%= t('.title') %>
-    </h1>
+  <div class="fr-container">
+    <div class="sub-header">
+      <h1 class="fr-m-0">
+        <%= t('.title') %>
+      </h1>
 
-    <div>
-      <% if current_user.instructor? %>
-        <%= link_to t('.instruction_cta'), instruction_path, class: %w(fr-btn fr-btn--secondary fr-icon-file-add-fill fr-btn--icon-left) %>
-      <% end %>
-      <%= link_to t('.new_authorization_request'), authorization_requests_path, class: %w(fr-btn fr-btn--secondary fr-icon-add-line fr-btn--icon-left) %>
+      <div>
+        <% if current_user.instructor? %>
+          <%= link_to t('.instruction_cta'), instruction_path, class: %w(fr-btn fr-btn--secondary fr-icon-file-add-fill fr-btn--icon-left) %>
+        <% end %>
+        <%= link_to t('.new_authorization_request'), authorization_requests_path, class: %w(fr-btn fr-btn--secondary fr-icon-add-line fr-btn--icon-left) %>
+      </div>
     </div>
-  </div>
 
-  <% tabs = ['moi', 'organisation', 'mentions'] %>
+    <%= render partial: 'shared/alerts' %>
 
-  <div class="fr-tabs fr-pt-5w">
-    <ul class="fr-tabs__list" role="tablist" aria-label="Menu secondaire">
+    <% tabs = ['moi', 'organisation', 'mentions'] %>
+
+    <div class="fr-tabs fr-pt-5w">
+      <ul class="fr-tabs__list" role="tablist" aria-label="Menu secondaire">
+        <% tabs.each do |id| %>
+          <% path = dashboard_show_path(id:) %>
+
+          <li role="presentation">
+            <%=
+              link_to t(".tabs.#{id}.title"),
+                path,
+                class: [
+                  'fr-tabs__tab',
+                ],
+                role: 'tab',
+                id: "tab-#{id}",
+                tabindex: current_page?(path) ? '0' : '-1',
+                data: {
+                  turbo_frame: "tab-#{id}-panel",
+                },
+                aria: {
+                  selected: current_page?(path),
+                  controls: "tab-#{id}-panel"
+                }
+            %>
+          </li>
+        <% end %>
+      </ul>
+
       <% tabs.each do |id| %>
         <% path = dashboard_show_path(id:) %>
 
-        <li role="presentation">
-          <%=
-            link_to t(".tabs.#{id}.title"),
-              path,
-              class: [
-                'fr-tabs__tab',
-              ],
-              role: 'tab',
-              id: "tab-#{id}",
-              tabindex: current_page?(path) ? '0' : '-1',
-              data: {
-                turbo_frame: "tab-#{id}-panel",
-              },
-              aria: {
-                selected: current_page?(path),
-                controls: "tab-#{id}-panel"
-              }
-          %>
-        </li>
+        <turbo-frame id="tab-<%= id %>-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tab-<%= id %>" tabindex="0" data-turbo-action="advance">
+          <% if current_page?(path) %>
+            <%= yield %>
+          <% else %>
+            <%= render partial: 'shared/loader' %>
+          <% end %>
+        </turbo-frame>
       <% end %>
-    </ul>
-
-    <% tabs.each do |id| %>
-      <% path = dashboard_show_path(id:) %>
-
-      <turbo-frame id="tab-<%= id %>-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tab-<%= id %>" tabindex="0" data-turbo-action="advance">
-        <% if current_page?(path) %>
-          <%= yield %>
-        <% else %>
-          <%= render partial: 'shared/loader' %>
-        <% end %>
-      </turbo-frame>
-    <% end %>
+    </div>
   </div>
 <% end %>
 

@@ -1,27 +1,24 @@
-<%= render 'authorization_request_forms/build/header' %>
+<%= authorization_request_form(@authorization_request) do |f| %>
+  <%= render partial: 'authorization_request_forms/current_user_mentions_alert' %>
 
-<%= render partial: 'authorization_request_forms/current_user_mentions_alert' %>
+  <div id="<%= dom_id(@authorization_request, :summary) %>">
+    <% if @authorization_request.in_draft? %>
+      <h2>
+        Récapitulatif de votre demande
+      </h2>
 
-
-<div id="<%= dom_id(@authorization_request, :summary) %>">
-  <% if @authorization_request.in_draft? %>
-    <h2>
-      Récapitulatif de votre demande
-    </h2>
-
-    <p>
-      Vous avez complété toutes les étapes de votre demande.
-      <br />
-      Merci de vérifier que les informations ci-dessous sont correctes et d'accepter les conditions générales d'utilisation.
-
-      <% if @authorization_request.static_blocks.any? %>
+      <p>
+        Vous avez complété toutes les étapes de votre demande.
         <br />
-        Une partie des informations ci-dessous ont été pré-remplies en accord avec le type de formulaire que vous avez sélectionné et ne sont pas modifiables.
-      <% end %>
-    </p>
-  <% end %>
+        Merci de vérifier que les informations ci-dessous sont correctes et d'accepter les conditions générales d'utilisation.
 
-  <%= authorization_request_form(@authorization_request) do |f| %>
+        <% if @authorization_request.static_blocks.any? %>
+          <br />
+          Une partie des informations ci-dessous ont été pré-remplies en accord avec le type de formulaire que vous avez sélectionné et ne sont pas modifiables.
+        <% end %>
+      </p>
+    <% end %>
+
     <% if @authorization_request.in_draft? %>
       <%= render partial: 'authorization_request_forms/shared/tos_checkboxes', locals: { f: f } %>
     <% end %>

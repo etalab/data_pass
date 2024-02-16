@@ -1,4 +1,6 @@
 class AuthorizationRequestFormsController < AuthenticatedUserController
+  layout 'authorization_request'
+
   helper AuthorizationRequestsHelpers
 
   before_action :extract_authorization_request_form, except: [:index]
@@ -166,11 +168,11 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   end
 
   def final_submit?
-    params[:submit].present?
+    params.key?(:submit)
   end
 
   def review?
-    params[:review].present?
+    params.key?(:review)
   end
 
   def view_path(step = nil)

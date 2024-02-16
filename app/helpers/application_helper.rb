@@ -10,7 +10,7 @@ module ApplicationHelper
 
   def authorization_request_status_badge(authorization_request, no_icon: false)
     content_tag(
-      :p,
+      :span,
       t("authorization_request.status.#{authorization_request.state}"),
       class: [
         'fr-badge',

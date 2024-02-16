@@ -1,25 +1,23 @@
-<%= render partial: 'authorization_request_forms/build/header' %>
-
-<% if current_organization.authorization_requests.where(type: @authorization_request.class.name).any? %>
-  <div class="fr-alert fr-alert--warning">
-    <h3 class="fr-alert__title">
-      <%= t('.multiple_authorization_requests_warning.title') %>
-    </h3>
-    <p>
-      <%= t('.multiple_authorization_requests_warning.description') %>
-      <ul>
-        <% current_organization.authorization_requests.where(type: @authorization_request.class.name).each do |another_authorization_request| %>
-          <li>
-            <%= link_to another_authorization_request.name, authorization_request_form_path(form_uid: another_authorization_request.form.uid, id: another_authorization_request.id), target: '_blank' %>
-          </li>
-        <% end %>
-      </ul>
-    </p>
-  </div>
-<% end %>
-
-<%= render partial: 'authorization_request_forms/shared/organization' %>
-
 <%= authorization_request_form(@authorization_request) do |f| %>
+  <% if current_organization.authorization_requests.where(type: @authorization_request.class.name).any? %>
+    <div class="fr-alert fr-alert--warning">
+      <h3 class="fr-alert__title">
+        <%= t('.multiple_authorization_requests_warning.title') %>
+      </h3>
+      <p>
+        <%= t('.multiple_authorization_requests_warning.description') %>
+        <ul>
+          <% current_organization.authorization_requests.where(type: @authorization_request.class.name).each do |another_authorization_request| %>
+            <li>
+              <%= link_to another_authorization_request.name, authorization_request_form_path(form_uid: another_authorization_request.form.uid, id: another_authorization_request.id), target: '_blank' %>
+            </li>
+          <% end %>
+        </ul>
+      </p>
+    </div>
+  <% end %>
+
+  <%= render partial: 'authorization_request_forms/shared/organization' %>
+
   <%= f.submit t('authorization_request_forms.form.start'), name: :start, id: :start_authorization_request, class: %w(fr-btn fr-icon-save-line fr-btn--icon-left) %>
 <% end %>
