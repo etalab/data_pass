@@ -1,6 +1,4 @@
 class DashboardController < AuthenticatedUserController
-  layout 'dashboard'
-
   def index
     redirect_to dashboard_show_path(id: 'moi')
   end
@@ -16,5 +14,11 @@ class DashboardController < AuthenticatedUserController
     else
       redirect_to dashboard_show_path(id: 'moi')
     end
+  end
+
+  private
+
+  def layout_name
+    'dashboard'
   end
 end
