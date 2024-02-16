@@ -1,16 +1,10 @@
 RSpec.describe AuthorizationRequest do
-  def all_form_uids
-    AuthorizationRequestForm.all.map { |form| form.uid.underscore }
-  end
-
-  def state_machine_state_names
-    AuthorizationRequest.state_machine.states.map(&:name)
-  end
-
-  describe 'Authorization Request has valid factories' do
+  describe 'factories' do
     it 'has valid factories for all states and all form_uids' do
-      all_form_uids.each do |form_uid|
-        state_machine_state_names.each { |state_name| expect(build(:authorization_request, form_uid.to_sym, state_name)).to be_valid }
+      AuthorizationRequestForm.all.each do |form|
+        AuthorizationRequest.state_machine.states.map(&:name).each do |state_name|
+          expect(build(:authorization_request, form.uid.underscore, state_name)).to be_valid
+        end
       end
     end
 
@@ -40,6 +34,66 @@ RSpec.describe AuthorizationRequest do
       let(:contact_email) { 'what@ever.fr' }
 
       it { is_expected.to eq([]) }
+    end
+  end
+
+  describe 'save context' do
+    subject(:save_authorization_request) { authorization_request.save(context:) }
+
+    context 'when context is not provided' do
+      let(:context) { nil }
+
+      context 'when authorization request is not entire filled' do
+        let(:authorization_request) { build(:authorization_request, :api_entreprise) }
+
+        it { is_expected.to be_truthy }
+      end
+    end
+
+    context 'when context is `review`' do
+      let(:context) { :review }
+
+      context 'when authorization request is not entire filled' do
+        let(:authorization_request) { build(:authorization_request, :api_entreprise) }
+
+        it { is_expected.to be_falsey }
+      end
+
+      context 'when authorization request is entire filled without terms' do
+        let(:authorization_request) { build(:authorization_request, :api_entreprise, fill_all_attributes: true) }
+
+        before do
+          authorization_request.update!(terms_of_service_accepted: false)
+        end
+
+        it { is_expected.to be_truthy }
+      end
+    end
+
+    context 'when context is `submit`' do
+      let(:context) { :submit }
+
+      context 'when authorization request is not entire filled' do
+        let(:authorization_request) { build(:authorization_request, :api_entreprise) }
+
+        it { is_expected.to be_falsey }
+      end
+
+      context 'when authorization request is entire filled without terms' do
+        let(:authorization_request) { build(:authorization_request, :api_entreprise, fill_all_attributes: true) }
+
+        before do
+          authorization_request.update!(terms_of_service_accepted: false)
+        end
+
+        it { is_expected.to be_falsey }
+      end
+
+      context 'when authorization request is entire filled with terms' do
+        let(:authorization_request) { build(:authorization_request, :api_entreprise, fill_all_attributes: true) }
+
+        it { is_expected.to be_truthy }
+      end
     end
   end
 end

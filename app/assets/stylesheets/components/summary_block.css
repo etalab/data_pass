@@ -1,0 +1,26 @@
+:root {
+  --summary-block--padding-y: 20px;
+  --summary-block--padding-x: 30px;
+}
+
+.summary-block {
+  position: relative;
+  background-color: #fff;
+  border-radius: 0px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  padding: var(--summary-block--padding-y) var(--summary-block--padding-x);
+
+  margin-bottom: 50px;
+}
+
+.summary-block__ctas {
+  position: absolute;
+  top: var(--summary-block--padding-y);
+  right: var(--summary-block--padding-x);
+}
+
+.summary-block__title {
+  display: inline-block;
+  border-bottom: 5px solid var(--border-active-blue-france);
+  padding-bottom: 5px;
+}

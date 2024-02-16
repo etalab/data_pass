@@ -1,0 +1,23 @@
+<fieldset class="fr-fieldset" aria-label="feedme" aria-describedby="name-1-fieldset-messages">
+  <h3>
+    <%= t('authorization_request_forms.api_infinoe_production.homologation.title') %>
+  </h3>
+
+  <%= f.info_for(:homologation) %>
+
+  <div class="fr-fieldset__element">
+    <%= f.dsfr_text_field :homologation_autorite_nom %>
+  </div>
+
+  <div class="fr-fieldset__element">
+    <%= f.dsfr_text_field :homologation_autorite_fonction %>
+  </div>
+
+  <div class="fr-fieldset__element">
+    <%= f.dsfr_date_field :homologation_date_debut %>
+  </div>
+
+  <div class="fr-fieldset__element">
+    <%= f.dsfr_date_field :homologation_date_fin %>
+  </div>
+</fieldset>

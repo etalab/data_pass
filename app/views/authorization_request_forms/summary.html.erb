@@ -1,0 +1,58 @@
+<%= render 'authorization_request_forms/build/header' %>
+
+<%= render partial: 'authorization_request_forms/current_user_mentions_alert' %>
+
+
+<div id="<%= dom_id(@authorization_request, :summary) %>">
+  <% if @authorization_request.in_draft? %>
+    <h2>
+      Récapitulatif de votre demande
+    </h2>
+
+    <p>
+      Vous avez complété toutes les étapes de votre demande.
+      <br />
+      Merci de vérifier que les informations ci-dessous sont correctes et d'accepter les conditions générales d'utilisation.
+
+      <% if @authorization_request.static_blocks.any? %>
+        <br />
+        Une partie des informations ci-dessous ont été pré-remplies en accord avec le type de formulaire que vous avez sélectionné et ne sont pas modifiables.
+      <% end %>
+    </p>
+  <% end %>
+
+  <%= authorization_request_form(@authorization_request) do |f| %>
+    <% if @authorization_request.in_draft? %>
+      <%= render partial: 'authorization_request_forms/shared/tos_checkboxes', locals: { f: f } %>
+    <% end %>
+
+    <% if @authorization_request.in_draft? %>
+      <% @authorization_request.editable_blocks.each do |block| %>
+        <%= render partial: "authorization_requests/shared/blocks/#{block[:name]}", locals: { f: f, editable: true } %>
+      <% end %>
+
+      <% if @authorization_request.static_blocks.any? %>
+        <h3>
+          Les informations pré-remplies
+        </h3>
+        <p>
+          Les informations suivantes ont été pré-remplies et ne sont pas modifiables.
+        </p>
+
+        <% @authorization_request.static_blocks.each do |block| %>
+          <%= render partial: "authorization_requests/shared/blocks/#{block[:name]}", locals: { f: f, editable: false } %>
+        <% end %>
+      <% end %>
+    <% else %>
+        <% @authorization_request.blocks.each do |block| %>
+          <%= render partial: "authorization_requests/shared/blocks/#{block[:name]}", locals: { f: f, editable: false } %>
+        <% end %>
+    <% end %>
+
+    <% if policy(@authorization_request).submit? %>
+      <div class="fr-btns-group fr-btns-group--inline-lg fr-btns-group--icon-left fr-btns-group--right">
+        <%= f.submit t('authorization_request_forms.form.submit'), name: :submit, id: :submit_authorization_request, class: %w(fr-btn fr-btn--sm fr-icon-checkbox-line fr-btn--icon-left) %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

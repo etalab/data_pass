@@ -16,6 +16,8 @@ Fonctionnalité: Soumission d'une demande d'habilitation API INFINOE (Production
     * je remplis "Date de début de l'homologation" avec "02/01/2018"
     * je remplis "Date de fin de l'homologation" avec "01/01/2042"
 
+    * je clique sur "Continuer vers le résumé"
+
     * j'adhère aux conditions générales
     * je clique sur "Soumettre la demande d'habilitation"
 

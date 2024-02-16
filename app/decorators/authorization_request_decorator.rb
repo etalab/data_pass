@@ -12,6 +12,27 @@ class AuthorizationRequestDecorator < ApplicationDecorator
     end
   end
 
+  def editable_blocks
+    blocks.select do |block|
+      object.form.static_blocks.pluck(:name).exclude?(block[:name])
+    end
+  end
+
+  def static_blocks
+    blocks - editable_blocks
+  end
+
+  def blocks
+    object.definition.blocks
+  end
+
+  def contact_full_name(contact_type)
+    [
+      object.data["#{contact_type}_given_name"],
+      object.data["#{contact_type}_family_name"],
+    ].compact.join(' ')
+  end
+
   private
 
   def lookup_i18n_key(subkey)

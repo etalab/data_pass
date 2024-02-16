@@ -1,0 +1,27 @@
+:root {
+  --contact-card-grey-color: var(--text-mention-grey);
+}
+
+.contact-card__kind {
+  font-size: 0.9rem;
+  color: var(--contact-card-grey-color);
+  padding-bottom: 10px;
+}
+
+.contact-card__full_name {
+  font-size: 1.4rem;
+  font-weight: 900;
+}
+
+.contact-card__attribute {
+  margin-top: 5px;
+}
+
+.contact-card__attribute-label {
+  font-size: 0.7rem;
+  color: var(--contact-card-grey-color);
+}
+
+.contact-card__attribute-value {
+  font-weight: 600;
+}

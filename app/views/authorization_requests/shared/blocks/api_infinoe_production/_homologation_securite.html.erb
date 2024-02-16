@@ -1,0 +1,25 @@
+<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { title: t('authorization_request_forms.default.steps.basic_infos'), block_id: 'api_infinoe_production/homologation_securite', f:, editable: } do %>
+  <strong>
+    <%= f.label_value(:homologation_autorite_nom) %>
+  </strong>
+
+  <%= simple_format(@authorization_request.homologation_autorite_nom) %>
+
+  <strong>
+    <%= f.label_value(:homologation_autorite_fonction) %>
+  </strong>
+
+  <%= simple_format(@authorization_request.homologation_autorite_fonction) %>
+
+  <strong>
+    <%= f.label_value(:homologation_date_debut) %>
+  </strong>
+
+  <%= simple_format(@authorization_request.homologation_date_debut) %>
+
+  <strong>
+    <%= f.label_value(:homologation_date_fin) %>
+  </strong>
+
+  <%= simple_format(@authorization_request.homologation_date_fin) %>
+<% end %>

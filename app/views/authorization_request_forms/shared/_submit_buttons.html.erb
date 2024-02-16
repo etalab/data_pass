@@ -3,8 +3,8 @@
     <%= f.submit t('authorization_request_forms.form.save'), name: :save, id: :save_authorization_request, class: %w(fr-btn fr-btn--sm fr-btn--secondary fr-icon-save-line fr-btn--icon-left) %>
   <% end %>
 
-  <% if policy(@authorization_request).submit? %>
-    <%= f.submit t('authorization_request_forms.form.submit'), name: :submit, id: :submit_authorization_request, class: %w(fr-btn fr-btn--sm fr-icon-checkbox-line fr-btn--icon-left) %>
+  <% if policy(@authorization_request).review? %>
+    <%= f.submit t('authorization_request_forms.form.review'), name: :review, id: :review_authorization_request, class: %w(fr-btn fr-btn--sm fr-icon-checkbox-line fr-btn--icon-left) %>
   <% end %>
 </div>
 

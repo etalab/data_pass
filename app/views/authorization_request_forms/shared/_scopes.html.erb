@@ -1,7 +1,7 @@
 <%= f.info_for(:scopes) %>
 
 <% @authorization_request.available_scopes.group_by(&:group).each do |group_name, scopes| %>
-  <div class="fr-form-group authorization-request-scopes-group">
+  <div class="fr-form-group scopes-group">
     <% if @authorization_request.errors.key?(:scopes) %>
       <div class="fr-alert fr-alert--warning fr-alert--sm" role="alert">
         <ul>
@@ -14,17 +14,15 @@
       </div>
     <% end %>
 
-    <fieldset class="fr-fieldset">
-      <h3 class="authorization-request-scopes-group-title">
-        <%= group_name %>
-      </h3>
+    <h5 class="scopes-group__title">
+      <%= group_name %>
+    </h5>
 
-      <div class="authorization-request-scopes-group-grid">
-        <% scopes.each do |scope| %>
-          <%= f.dsfr_scope scope %>
-        <% end %>
-      </div>
-    </fieldset>
+    <div class="scopes-group__grid">
+      <% scopes.each do |scope| %>
+        <%= f.dsfr_scope scope %>
+      <% end %>
+    </div>
   </div>
 <% end %>
 

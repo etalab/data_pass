@@ -6,7 +6,8 @@ class AuthorizationRequestForm < StaticApplicationRecord
     :use_case,
     :authorization_request_class,
     :templates,
-    :steps
+    :steps,
+    :static_blocks
 
   attr_writer :description,
     :startable_by_applicant,
@@ -19,6 +20,7 @@ class AuthorizationRequestForm < StaticApplicationRecord
     end
   end
 
+  # rubocop:disable Metrics/AbcSize
   def self.build(uid, hash)
     new(
       hash.slice(
@@ -34,10 +36,13 @@ class AuthorizationRequestForm < StaticApplicationRecord
         default: hash[:default] || false,
         authorization_request_class: AuthorizationRequest.const_get(hash[:authorization_request]),
         templates: (hash[:templates] || []).map { |template_key, template_attributes| AuthorizationRequestTemplate.new(template_key, template_attributes) },
-        steps: hash[:steps] || []
+        steps: hash[:steps] || [],
+        static_blocks: hash[:static_blocks] || [],
       )
     )
   end
+  # rubocop:enable Metrics/AbcSize
+
   delegate :provider, :unique?, to: :authorization_definition
 
   def id

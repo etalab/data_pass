@@ -77,8 +77,10 @@ class AuthorizationRequest < ApplicationRecord
       "#{definition.name} n°#{id}"
   end
 
-  validates :terms_of_service_accepted, presence: true, inclusion: [true], if: -> { need_complete_validation?(:finish) }
-  validates :data_protection_officer_informed, presence: true, inclusion: [true], if: -> { need_complete_validation?(:finish) }
+  with_options on: :submit do
+    validates :terms_of_service_accepted, presence: true, inclusion: [true]
+    validates :data_protection_officer_informed, presence: true, inclusion: [true]
+  end
 
   state_machine initial: :draft do
     state :draft
@@ -133,7 +135,9 @@ class AuthorizationRequest < ApplicationRecord
   end
 
   def need_complete_validation?(step = nil)
-    if form.multiple_steps? && step != :finish
+    return true if %i[submit review].include?(validation_context)
+
+    if form.multiple_steps?
       raise "Unknown step #{step}" if step.present? && steps_names.exclude?(step.to_s)
 
       !in_draft_or_archived? ||
@@ -149,7 +153,7 @@ class AuthorizationRequest < ApplicationRecord
     if form.multiple_steps? && steps_names.include?(@current_build_step)
       @current_build_step
     else
-      'finish'
+      form.steps.last[:name]
     end
   end
 
@@ -161,7 +165,7 @@ class AuthorizationRequest < ApplicationRecord
   end
 
   def steps_names
-    @steps_names ||= form.steps.pluck(:name) + ['finish']
+    @steps_names ||= form.steps.pluck(:name)
   end
 
   def in_draft?
@@ -178,7 +182,7 @@ class AuthorizationRequest < ApplicationRecord
 
   def contact_types_for(user)
     contact_type_key_values = data.select do |key, value|
-      key =~ /^contact_.*_email$/ && value == user.email
+      key =~ /.*_email$/ && value == user.email
     end
 
     contact_type_key_values.keys.map do |key|

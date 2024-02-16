@@ -81,6 +81,8 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
   end
 
   def dsfr_scope(scope, opts = {})
+    disabled = opts.delete(:disabled)
+
     @template.content_tag(:div, class: 'fr-checkbox-group') do
       @template.safe_join(
         [
@@ -88,7 +90,7 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
             :scopes,
             {
               class: input_classes(opts),
-              **dsfr_scope_options(scope),
+              **dsfr_scope_options(scope, disabled:),
               **enhance_input_options(opts).except(:class)
             },
             scope.value,
@@ -101,9 +103,9 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
     end
   end
 
-  def dsfr_scope_options(scope)
+  def dsfr_scope_options(scope, disabled: false)
     {
-      disabled: check_box_disabled || scope.included?,
+      disabled: disabled || check_box_disabled || scope.included?,
       checked: scope.included? || @object.scopes.include?(scope.value),
       multiple: true,
     }

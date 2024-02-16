@@ -1,6 +1,9 @@
 <%= render 'authorization_request_forms/build/header' %>
 
-<%= render partial: 'authorization_request_forms/shared/organization' %>
+<p class="fr-alert fr-alert--info">
+  Ce formulaire simplifié vous permet d'obtenir une habilitation pour le cas d'usage des Marchés Publics à travers l'éditeur MGDIS. Une grosse partie des informations
+  contractuelles sont fixes et ne peuvent être modifiées. Celles-ci vous seront résumé à la prochaine étape, et ne nécessitent aucune intervention de votre part.
+</p>
 
 <%= authorization_request_form(@authorization_request) do |f| %>
   <div class="fr-mt-2w">
@@ -15,6 +18,5 @@
     </div>
   </div>
 
-  <%= render partial: 'authorization_request_forms/shared/tos_checkboxes', locals: { f: f } %>
   <%= render partial: 'authorization_request_forms/shared/submit_buttons', locals: { f: f } %>
 <% end %>

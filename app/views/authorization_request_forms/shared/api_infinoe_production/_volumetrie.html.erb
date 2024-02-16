@@ -1,0 +1,13 @@
+
+  <fieldset class="fr-fieldset" aria-label="feedme" aria-describedby="name-1-fieldset-messages">
+    <h3>
+      <%= t('authorization_request_forms.api_infinoe_production.volumetrie.title') %>
+    </h3>
+
+    <%= f.info_for(:volumetrie) %>
+
+    <div class="fr-fieldset__element">
+      <%= f.dsfr_select :volumetrie_appels_par_minute, [['1000 appels', '1000'], ['2000 appels', '2000']] %>
+    </div>
+  </fieldset>
+
