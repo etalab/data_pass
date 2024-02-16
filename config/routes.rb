@@ -12,8 +12,11 @@ Rails.application.routes.draw do
   get '/compte', to: 'profile#edit', as: :profile
   patch '/compte', to: 'profile#update'
 
-  scope(path_names: { new: 'nouveau' }) do
-    resources :authorization_requests, only: %w[index show], path: 'habilitations'
+  scope(path_names: { new: 'nouveau', edit: 'modifier' }) do
+    resources :authorization_requests, only: %w[index show], path: 'habilitations' do
+      resources :blocks, only: %w[edit update], path: 'blocs', controller: 'authorization_requests/blocks'
+    end
+
     get '/habilitations/:id/nouveau', to: 'authorization_requests#new', as: :new_authorization_request
     get '/habilitations/:authorization_definition_id/formulaires', to: 'authorization_request_forms#index', as: :choose_authorization_request_form
 
