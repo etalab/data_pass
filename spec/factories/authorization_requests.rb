@@ -10,6 +10,12 @@ FactoryBot.define do
     type { 'AuthorizationRequest::HubEECertDC' }
 
     after(:build) do |authorization_request, evaluator|
+      authorization_request.form.data.each do |key, value|
+        next if authorization_request.public_send(key).present?
+
+        authorization_request.public_send(:"#{key}=", value)
+      end
+
       if authorization_request.need_complete_validation? || evaluator.fill_all_attributes
         authorization_request.contact_types.each do |contact_type|
           {
