@@ -33,6 +33,8 @@ module ApplicationHelper
       %w[fr-badge--success]
     when 'refused', 'revoked'
       %w[fr-badge--error fr-badge--no-icon]
+    when 'archived'
+      %w[fr-badge--secondary]
     end
   end
 end

@@ -216,6 +216,7 @@ fr:
         refuse: Refuser
         request_changes: Demander des modifications
         approve: Valider
+        archive: Archiver
     approve_authorization_requests:
       new:
         title: Validation de la demande d'habilitation
@@ -252,6 +253,9 @@ fr:
         request_changes: Envoyer la demande de modification
       create:
         success: La demande de modifications de d'habilitation %{name} a bien été envoyée au demandeur
+    archive_authorization_requests:
+      create:
+        success: La demande d'habilitation %{name} a été archivée avec succèss
     authorization_request_events:
       index:
         title: Derniers événements lié à cette demande
@@ -260,6 +264,8 @@ fr:
           text: "<strong>%{user_full_name}</strong> a crée la demande"
         update:
           text: "<strong>%{user_full_name}</strong> a mis à jour la demande"
+        archive:
+          text: "<strong>%{user_full_name}</strong> a archivé la demande"
         submit:
           text: "<strong>%{user_full_name}</strong> a soumis la demande"
         approve:

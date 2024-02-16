@@ -11,5 +11,9 @@
     <% if policy([:instruction, @authorization_request]).refuse? %>
       <%= dsfr_main_modal_button(t('.refuse'), new_instruction_authorization_request_refusal_path(@authorization_request), class: %w(fr-btn fr-btn--primary fr-icon-error-line fr-btn--icon-left)) %>
     <% end %>
+
+    <% if policy([:instruction, @authorization_request]).archive? %>
+      <%= dsfr_main_modal_button(t('.archive'), new_instruction_authorization_request_archive_path(@authorization_request), class: %w(fr-btn fr-btn--secondary fr-icon-archive-line fr-btn--icon-left)) %>
+    <% end %>
   </div>
 <% end %>
