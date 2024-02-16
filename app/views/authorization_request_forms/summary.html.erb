@@ -1,5 +1,4 @@
 <%= authorization_request_form(@authorization_request) do |f| %>
-  <%= render partial: 'authorization_request_forms/build/header', locals: { f: } %>
   <%= render partial: 'authorization_request_forms/current_user_mentions_alert' %>
 
   <div id="<%= dom_id(@authorization_request, :summary) %>">

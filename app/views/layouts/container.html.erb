@@ -1,0 +1,9 @@
+<%= content_for(:body) do %>
+  <div class="fr-container fr-container--main">
+    <%= render partial: 'shared/alerts' %>
+
+    <%= yield %>
+  </div>
+<% end %>
+
+<%= render template: 'layouts/application' %>

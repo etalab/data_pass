@@ -7,10 +7,13 @@ Quand('print the page') do
 end
 
 Alors('il y a un titre contenant {string}') do |text|
-  element = page.all('h1').first ||
-            page.all('table caption').first
+  elements = [
+    page.all('h1').first,
+    page.all('h2').first,
+    page.all('table caption').first,
+  ]
 
-  expect(element.text).to include(text)
+  expect(elements.any? { |element| element&.text&.include?(text) }).to be_truthy
 end
 
 Alors('je suis sur la page {string}') do |text|

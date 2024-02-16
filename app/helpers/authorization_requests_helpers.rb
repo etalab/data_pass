@@ -1,22 +1,28 @@
 module AuthorizationRequestsHelpers
   def start_authorization_request_form(form)
-    authorization_request_form(form.authorization_request_class.new(form_uid: form.uid)) do |f|
+    authorization_request_form_tag(form.authorization_request_class.new(form_uid: form.uid)) do |f|
       f.submit t('start_authorization_request_form.cta', authorization_name: form.authorization_definition.name), name: :start, id: dom_id(form, :start_authorization_request), class: %w[fr-btn fr-icon-save-line fr-btn--icon-left]
     end
   end
 
   def authorization_request_form(authorization_request, url: nil, &)
-    [
-      form_with(
-        model: authorization_request,
-        url: url || authorization_request_model_path(authorization_request),
-        method: authorization_request_model_http_method(authorization_request),
-        id: dom_id(authorization_request),
-        builder: authorization_request_can_be_updated?(authorization_request) ? AuthorizationRequestFormBuilder : DisabledAuthorizationRequestFormBuilder,
-        &
-      ),
-      (render partial: 'instruction/authorization_requests/moderation_buttons')
-    ].join.html_safe
+    authorization_request_form_tag(authorization_request, url:) do |f|
+      render(layout: 'authorization_request_forms/form', locals: { f: }) do
+        yield f
+      end
+    end
+  end
+
+  private
+
+  def authorization_request_form_tag(authorization_request, url: nil, &block)
+    form_with(
+      model: authorization_request,
+      url: url || authorization_request_model_path(authorization_request),
+      method: authorization_request_model_http_method(authorization_request),
+      id: dom_id(authorization_request),
+      builder: authorization_request_can_be_updated?(authorization_request) ? AuthorizationRequestFormBuilder : DisabledAuthorizationRequestFormBuilder, &block
+    )
   end
 
   def authorization_request_model_path(authorization_request)
