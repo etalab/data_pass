@@ -2,8 +2,20 @@ def find_authorization_definition_from_name(name)
   AuthorizationDefinition.where(name:).first
 end
 
+def find_authorization_request_form_from_name(name)
+  AuthorizationRequestForm.where(name:).first
+end
+
 def find_factory_trait_from_name(name)
-  find_authorization_definition_from_name(name).authorization_request_class.to_s.underscore.split('/').last
+  authorization_definition = find_authorization_definition_from_name(name)
+
+  return authorization_definition.authorization_request_class.to_s.underscore.split('/').last if authorization_definition
+
+  authorization_request_form = find_authorization_request_form_from_name(name)
+
+  return unless authorization_request_form
+
+  authorization_request_form.uid.underscore
 end
 
 def extract_state_from_french_status(status)
