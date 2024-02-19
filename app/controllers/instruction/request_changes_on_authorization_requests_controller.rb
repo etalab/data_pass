@@ -1,4 +1,6 @@
 class Instruction::RequestChangesOnAuthorizationRequestsController < Instruction::AuthorizationRequestsController
+  before_action :authorize_authorization_request_changes_request
+
   def new
     @instructor_modification_request = @authorization_request.modification_requests.build
   end
@@ -28,7 +30,9 @@ class Instruction::RequestChangesOnAuthorizationRequestsController < Instruction
 
   def extract_authorization_request
     @authorization_request = AuthorizationRequest.find(params[:authorization_request_id])
+  end
 
+  def authorize_authorization_request_changes_request
     authorize [:instruction, @authorization_request], :request_changes?
   end
 end
