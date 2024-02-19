@@ -5,7 +5,7 @@ ruby '3.3.0'
 gem 'active_storage_validations'
 gem 'bootsnap', require: false
 gem 'draper'
-gem 'importmap-rails', '~> 1.0'
+gem 'importmap-rails', '~> 2.0'
 gem 'interactor'
 gem 'kaminari'
 gem 'factory_bot_rails'
