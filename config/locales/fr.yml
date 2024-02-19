@@ -192,7 +192,7 @@ fr:
       cancel: Annuler
       archive: Archiver la demande d'habilitation
     create:
-      success: La demande d'habilitation %{name} a été archivée avec succèss
+      success: La demande d'habilitation %{name} a été archivée avec succès
 
   instruction:
     authorization_requests:
