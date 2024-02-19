@@ -8,3 +8,13 @@ Fonctionnalité: Interactions sur une demande d'habilitation en plusieurs étape
 
   Dans le cas d'une demande de modification ou en brouillon en étape finale, modifier un bloc
   ouvre la page de l'étape sans pour autant permettre de se déplacer dans les étapes.
+
+  Contexte:
+    Sachant que je suis un demandeur
+    Et que je me connecte
+
+  Scénario: J'enregistre une demande d'habilitation en plusieurs étapes sur la première étape
+    Quand je démarre une nouvelle demande d'habilitation "API Particulier"
+    Et que je remplis "Nom du projet" avec "Je suis un projet"
+    Et que je clique sur "Enregistrer"
+    Et il y a un message de succès contenant "été mise à jour"

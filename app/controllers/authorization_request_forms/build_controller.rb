@@ -19,10 +19,10 @@ class AuthorizationRequestForms::BuildController < AuthorizationRequestFormsCont
 
       @authorization_request = organizer.authorization_request
 
-      if organizer.success?
-        save_current_step
-
-        redirect_to next_wizard_path
+      if organizer.success? && save_only?
+        save_only
+      elsif organizer.success?
+        save_and_continue
       else
         error_message(title: t('.error.title'), description: t('.error.description'))
 
@@ -33,8 +33,28 @@ class AuthorizationRequestForms::BuildController < AuthorizationRequestFormsCont
 
   private
 
+  def save_only
+    success_message(title: t('authorization_request_forms.update.success', name: @authorization_request.name))
+
+    redirect_to wizard_path
+  end
+
+  def save_and_continue
+    save_current_step
+
+    redirect_to next_wizard_path
+  end
+
   def authorization_request_params
     super.merge(current_build_step: wizard_value(params[:id]))
+  end
+
+  def update_save_context
+    if save_only?
+      :save_within_wizard
+    else
+      super
+    end
   end
 
   def save_current_step
@@ -53,5 +73,9 @@ class AuthorizationRequestForms::BuildController < AuthorizationRequestFormsCont
 
   def finish_wizard_path
     summary_authorization_request_form_path(form_uid: @authorization_request.form_uid, id: @authorization_request.id)
+  end
+
+  def save_only?
+    params.key?(:save)
   end
 end

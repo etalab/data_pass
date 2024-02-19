@@ -164,6 +164,8 @@ class AuthorizationRequest < ApplicationRecord
   end
 
   def required_for_step?(step)
+    return false if validation_context == :save_within_wizard
+
     persisted? && (
       step.nil? ||
         steps_names.index(step.to_s) <= steps_names.index(current_build_step)

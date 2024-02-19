@@ -128,7 +128,12 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
       authorization_request: @authorization_request,
       authorization_request_params:,
       user: current_user,
+      save_context: update_save_context,
     )
+  end
+
+  def update_save_context
+    :update
   end
 
   def go_to_summary

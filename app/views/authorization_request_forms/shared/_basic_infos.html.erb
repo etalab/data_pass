@@ -3,7 +3,7 @@
 <fieldset class="fr-fieldset" aria-label="feedme" aria-describedby="name-1-fieldset-messages">
   <% if @authorization_request.respond_to?(:intitule) %>
     <div class="fr-fieldset__element">
-      <%= f.dsfr_text_field :intitule, required: true %>
+      <%= f.dsfr_text_field :intitule %>
     </div>
   <% end %>
 
