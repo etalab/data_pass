@@ -1,6 +1,4 @@
 <%= authorization_request_form(@authorization_request) do |f| %>
-  <%= render partial: 'authorization_request_forms/shared/organization' %>
-
   <h3>
     <%= t('authorization_request_forms.default.steps.basic_infos') %>
   </h3>
@@ -27,6 +25,5 @@
     </div>
   </div>
 
-  <%= render partial: 'authorization_request_forms/shared/tos_checkboxes', locals: { f: f } %>
   <%= render partial: 'authorization_request_forms/shared/submit_buttons', locals: { f: f } %>
 <% end %>
