@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  layout 'container'
+  layout :custom_layout
 
   default_form_builder DSFRFormBuilder
 
@@ -35,6 +35,10 @@ class ApplicationController < ActionController::Base
     flash_message(:warning, title:, description:, id:)
   end
 
+  def layout_name
+    'container'
+  end
+
   private
 
   def flash_message(kind, title:, description:, id:, activemodel: false)
@@ -45,5 +49,11 @@ class ApplicationController < ActionController::Base
     flash_object[kind]['description'] = description
     flash_object[kind]['id'] = id
     flash_object[kind]['activemodel'] = activemodel
+  end
+
+  def custom_layout
+    return 'turbo_rails/frame' if turbo_frame_request?
+
+    layout_name
   end
 end

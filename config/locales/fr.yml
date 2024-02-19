@@ -184,6 +184,15 @@ fr:
           description: "Vérifiez que la demande que vous allez démarrez n'ait pas déjà été soumise ou en cours. Voici la liste:"
       update:
         error: *authorization_requests_update_error
+  archive_authorization_requests:
+    new:
+      title: Archivage de la demande d'habilitation %{authorization_request_name}
+      disclaimer: |
+        <strong>Cette action est irréversible</strong>. Veuillez vérifier que nous n'archivez pas une demande légitime.
+      cancel: Annuler
+      archive: Archiver la demande d'habilitation
+    create:
+      success: La demande d'habilitation %{name} a été archivée avec succès
 
   instruction:
     authorization_requests:
@@ -207,6 +216,7 @@ fr:
         refuse: Refuser
         request_changes: Demander des modifications
         approve: Valider
+        archive: Archiver
     approve_authorization_requests:
       new:
         title: Validation de la demande d'habilitation
@@ -243,6 +253,9 @@ fr:
         request_changes: Envoyer la demande de modification
       create:
         success: La demande de modifications de d'habilitation %{name} a bien été envoyée au demandeur
+    archive_authorization_requests:
+      create:
+        success: La demande d'habilitation %{name} a été archivée avec succèss
     authorization_request_events:
       index:
         title: Derniers événements lié à cette demande
@@ -251,6 +264,8 @@ fr:
           text: "<strong>%{user_full_name}</strong> a crée la demande"
         update:
           text: "<strong>%{user_full_name}</strong> a mis à jour la demande"
+        archive:
+          text: "<strong>%{user_full_name}</strong> a archivé la demande"
         submit:
           text: "<strong>%{user_full_name}</strong> a soumis la demande"
         approve:

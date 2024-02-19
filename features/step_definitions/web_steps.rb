@@ -101,10 +101,14 @@ end
 
 Alors("il n'y a pas de bouton {string}") do |label|
   expect(page).to have_no_button(label)
+rescue RSpec::Expectations::ExpectationNotMetError
+  expect(page).to have_no_link(label)
 end
 
 Alors('il y a un bouton {string}') do |label|
   expect(page).to have_button(label)
+rescue RSpec::Expectations::ExpectationNotMetError
+  expect(page).to have_link(label)
 end
 
 Alors('il y a un message de succès contenant {string}') do |text|

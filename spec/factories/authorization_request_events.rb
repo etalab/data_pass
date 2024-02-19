@@ -68,6 +68,12 @@ FactoryBot.define do
       end
     end
 
+    trait :archive do
+      entity_is_authorization_request
+
+      name { 'archive' }
+    end
+
     trait :system_reminder do
       name { 'system_reminder' }
 

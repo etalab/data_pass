@@ -1,6 +1,4 @@
 class AuthorizationRequestFormsController < AuthenticatedUserController
-  layout 'authorization_request'
-
   helper AuthorizationRequestsHelpers
 
   before_action :extract_authorization_request_form, except: [:index]
@@ -207,5 +205,9 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
       authorization_request_params:,
       user: current_user,
     )
+  end
+
+  def layout_name
+    'authorization_request'
   end
 end

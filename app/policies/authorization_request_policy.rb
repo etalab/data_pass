@@ -5,7 +5,8 @@ class AuthorizationRequestPolicy < ApplicationPolicy
   end
 
   def show?
-    update?
+    same_user_and_organization? &&
+      record.in_draft?
   end
 
   def summary?
@@ -32,6 +33,11 @@ class AuthorizationRequestPolicy < ApplicationPolicy
 
   def review?
     submit?
+  end
+
+  def archive?
+    same_user_and_organization? &&
+      record.in_draft?
   end
 
   private

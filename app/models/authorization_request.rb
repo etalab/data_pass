@@ -106,6 +106,10 @@ class AuthorizationRequest < ApplicationRecord
     event :approve do
       transition from: :submitted, to: :validated
     end
+
+    event :archive do
+      transition from: all - %i[archived validated], to: :archived
+    end
   end
 
   validate :applicant_belongs_to_organization
@@ -136,14 +140,15 @@ class AuthorizationRequest < ApplicationRecord
 
   def need_complete_validation?(step = nil)
     return true if %i[submit review].include?(validation_context)
+    return false if state == 'archived'
 
     if form.multiple_steps?
       raise "Unknown step #{step}" if step.present? && steps_names.exclude?(step.to_s)
 
-      !in_draft_or_archived? ||
+      !in_draft? ||
         required_for_step?(step)
     else
-      !in_draft_or_archived?
+      !in_draft?
     end
   end
 
@@ -170,10 +175,6 @@ class AuthorizationRequest < ApplicationRecord
 
   def in_draft?
     %w[draft changes_requested].include?(state)
-  end
-
-  def in_draft_or_archived?
-    in_draft? || state == 'archived'
   end
 
   def finished?

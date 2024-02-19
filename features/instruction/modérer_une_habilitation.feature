@@ -56,3 +56,11 @@ Fonctionnalité: Instruction: modération
     Et je clique sur "Demander des modifications"
     Et que je clique sur "Envoyer la demande de modification"
     Alors il y a au moins une erreur sur un champ
+
+  Scénario: J'archive ue demande d'habilitation
+    Quand je me rends sur une demande d'habilitation "API Entreprise" en brouillon
+    Et je clique sur "Archiver"
+    Et je clique sur "Archiver la demande"
+    Alors je suis sur la page "Liste des demandes en cours"
+    Et je vois 1 demande d'habilitation "API Entreprise" archivée
+    Et il y a un message de succès contenant "a été archivée"

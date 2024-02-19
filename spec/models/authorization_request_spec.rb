@@ -37,6 +37,18 @@ RSpec.describe AuthorizationRequest do
     end
   end
 
+  describe 'archive event' do
+    subject(:archive) { authorization_request.archive }
+
+    let(:authorization_request) { create(:authorization_request, :api_entreprise, state: 'draft') }
+
+    it 'archives the authorization request' do
+      expect {
+        archive
+      }.to change { authorization_request.reload.state }.from('draft').to('archived')
+    end
+  end
+
   describe 'save context' do
     subject(:save_authorization_request) { authorization_request.save(context:) }
 
