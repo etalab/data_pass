@@ -53,6 +53,7 @@ class AuthorizationRequest < ApplicationRecord
   scope :validated, -> { where(state: 'validated') }
   scope :refused, -> { where(state: 'refused') }
   scope :validated_or_refused, -> { where(state: %w[validated refused]) }
+  scope :not_archived, -> { where.not(state: 'archived') }
 
   validates :form_uid, presence: true
 

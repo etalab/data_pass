@@ -14,6 +14,8 @@ class DashboardController < AuthenticatedUserController
     else
       redirect_to dashboard_show_path(id: 'moi')
     end
+
+    @authorization_requests = @authorization_requests.not_archived
   end
 
   private
