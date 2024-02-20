@@ -108,6 +108,10 @@ class AuthorizationRequest < ApplicationRecord
       transition from: :submitted, to: :validated
     end
 
+    after_transition to: :validated do |authorization_request|
+      authorization_request.update(last_validated_at: Time.zone.now)
+    end
+
     event :archive do
       transition from: all - %i[archived validated], to: :archived
     end

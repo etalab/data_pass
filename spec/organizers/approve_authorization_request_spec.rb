@@ -13,6 +13,10 @@ RSpec.describe ApproveAuthorizationRequest do
         expect { approve_authorization_request }.to change { authorization_request.reload.state }.from('submitted').to('validated')
       end
 
+      it 'changes last_validated_at' do
+        expect { approve_authorization_request }.to change { authorization_request.reload.last_validated_at }
+      end
+
       it 'delivers an email' do
         expect { approve_authorization_request }.to have_enqueued_mail(AuthorizationRequestMailer, :validated)
       end
