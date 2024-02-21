@@ -6,7 +6,13 @@
       N°<%= authorization_request.id %>
     </span>
 
-    <%= authorization_request_status_badge(authorization_request, no_icon: true) %>
+    <% if authorization_request.validated? %>
+      <span class="fr-badge fr-badge--no-icon fr-badge--success">
+        <%= t("authorization_request.status.validated") %>
+      </span>
+    <% else %>
+      <%= authorization_request_status_badge(authorization_request, no_icon: true) %>
+    <% end %>
   </div>
 
   <div class="card-provider">
@@ -29,5 +35,13 @@
     </div>
   <% end %>
 
-  <%= link_to t('.cta'), authorization_request_form_path(form_uid: authorization_request.form.uid, id: authorization_request.id), class: %w(fr-btn fr-btn--sm) %>
+  <%= link_to t('.show_cta'), authorization_request_form_path(form_uid: authorization_request.form.uid, id: authorization_request.id), class: %w(fr-btn fr-btn--sm) %>
+
+  <% if policy(authorization_request).reopen? %>
+    <%= button_to t('.reopen_cta'), authorization_reopen_index_path(authorization_request.latest_authorization), class: %w(fr-btn fr-btn--secondary fr-btn--sm) %>
+  <% end %>
+
+  <% if authorization_request.reopening? %>
+    Encart réouverture
+  <% end %>
 </div>

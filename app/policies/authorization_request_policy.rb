@@ -40,6 +40,11 @@ class AuthorizationRequestPolicy < ApplicationPolicy
       record.can_archive?
   end
 
+  def reopen?
+    same_user_and_organization? &&
+      record.can_reopen?
+  end
+
   private
 
   def same_current_organization?

@@ -101,7 +101,8 @@ fr:
 
     authorization_request_card:
       current_user_mentions: Vous avez été référencé comme %{contact_types}
-      cta: Consulter
+      show_cta: Consulter
+      reopen_cta: Mettre à jour
 
   profile:
     edit:
@@ -193,6 +194,12 @@ fr:
       archive: Archiver la demande d'habilitation
     create:
       success: La demande d'habilitation %{name} a été archivée avec succès
+  reopen_authorizations:
+    create:
+      success:
+        title: L'habilitation %{name} a bien été réouverte
+      error:
+        title: Une erreur est survenue lors de la réouverture de l'habilitation %{name}
 
   instruction:
     authorization_requests:

@@ -8,15 +8,15 @@ Fonctionnalité: Liste des habilitations
     Sachant que je suis un demandeur
     Et que je me connecte
 
-  Scénario: Je vois l'ensemble des habilitations disponibles
-    Quand je vais sur la page des habilitations
+  Scénario: Je vois l'ensemble des demandes d'habilitations disponibles
+    Quand je vais sur la page des demandes
     Alors il y a un titre contenant "Demander une nouvelle habilitation"
     Et la page contient "API Entreprise"
     Et la page contient "Portail HubEE - Démarche CertDC"
     Et la page contient "API Service National"
 
-  Scénario: Je démarre une nouvelle habilitation
-    Quand je vais sur la page des habilitations
+  Scénario: Je démarre une nouvelle demande d'habilitation
+    Quand je vais sur la page des demandes
     Et que je clique sur "Remplir une demande" pour l'habilitation "Portail HubEE - Démarche CertDC"
     Et que je clique sur "Débuter"
     Alors il y a un titre contenant "Portail HubEE - Démarche CertDC"

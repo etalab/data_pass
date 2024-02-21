@@ -3,23 +3,42 @@
 
   <div id="<%= dom_id(@authorization_request, :summary) %>">
     <% if @authorization_request.in_draft? %>
-      <h2>
-        Récapitulatif de votre demande
-      </h2>
+      <% if @authorization_request.reopening? %>
+        <h2>
+          Réouverture de la demande
+        </h2>
 
-      <p>
-        Vous avez complété toutes les étapes de votre demande.
+        <p>
+        Vous pouvez mettre à jour les informations que vous voulez ci-dessous. Si celles-ci sont rejetées votre habilitation initiale sera toujours valide et les informations restaurées à la version initiale.
+
         <br />
-        Merci de vérifier que les informations ci-dessous sont correctes et d'accepter les conditions générales d'utilisation.
 
-        <% if @authorization_request.static_blocks.any? %>
+        Vous pouvez consulter l'habilitation validée sur le lien suivant: LIEN
+
+          <% if @authorization_request.static_blocks.any? %>
+            <br />
+            Une partie des informations ci-dessous ont été pré-remplies en accord avec le type de formulaire que vous avez sélectionné et ne sont pas modifiables.
+          <% end %>
+        </p>
+      <% else %>
+        <h2>
+          Récapitulatif de votre demande
+        </h2>
+
+        <p>
+          Vous avez complété toutes les étapes de votre demande.
           <br />
-          Une partie des informations ci-dessous ont été pré-remplies en accord avec le type de formulaire que vous avez sélectionné et ne sont pas modifiables.
-        <% end %>
-      </p>
+          Merci de vérifier que les informations ci-dessous sont correctes et d'accepter les conditions générales d'utilisation.
+
+          <% if @authorization_request.static_blocks.any? %>
+            <br />
+            Une partie des informations ci-dessous ont été pré-remplies en accord avec le type de formulaire que vous avez sélectionné et ne sont pas modifiables.
+          <% end %>
+        </p>
+      <% end %>
     <% end %>
 
-    <% if @authorization_request.in_draft? %>
+    <% if @authorization_request.in_draft? && !@authorization_request.reopening? %>
       <%= render partial: 'authorization_request_forms/shared/tos_checkboxes', locals: { f: f } %>
     <% end %>
 
