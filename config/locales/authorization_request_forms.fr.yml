@@ -24,7 +24,7 @@ fr:
       cadre_juridique_url:
         label: URL du texte relatif au traitement
       cadre_juridique_document:
-        label: Joindre le document lui même
+        label: Joindre le document lui-même
         hint: 'Taille maximale: 10 Mo. Formats supportés: pdf'
 
       contact_technique:
