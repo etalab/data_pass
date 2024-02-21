@@ -74,6 +74,18 @@ FactoryBot.define do
       name { 'archive' }
     end
 
+    trait :reopen do
+      name { 'reopen' }
+
+      entity factory: %i[authorization]
+
+      after(:build) do |authorization_request_event, evaluator|
+        next if evaluator.authorization_request.blank?
+
+        authorization_request_event.entity = build(:authorization, authorization_request: evaluator.authorization_request)
+      end
+    end
+
     trait :system_reminder do
       name { 'system_reminder' }
 

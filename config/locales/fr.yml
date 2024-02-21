@@ -291,5 +291,8 @@ fr:
           icon: error-fill
           color: error
 
+        reopen:
+          text: "<strong>%{user_full_name}</strong> a réouvert l'habilitation"
+
         system_reminder:
           text: "Une relance a été envoyé au demandeur"
