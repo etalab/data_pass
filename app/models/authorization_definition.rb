@@ -54,6 +54,10 @@ class AuthorizationDefinition < StaticApplicationRecord
     value_or_default(@unique, false)
   end
 
+  def reopenable?
+    true
+  end
+
   def available_forms
     AuthorizationRequestForm.where(authorization_request_class:).sort do |form|
       form.default ? 1 : 0

@@ -83,6 +83,7 @@ class AuthorizationRequest < ApplicationRecord
     validates :data_protection_officer_informed, presence: true, inclusion: [true]
   end
 
+  # rubocop:disable Metrics/BlockLength
   state_machine initial: :draft do
     state :draft
     state :submitted
@@ -93,7 +94,8 @@ class AuthorizationRequest < ApplicationRecord
     state :revoked
 
     event :submit do
-      transition from: %i[draft changes_requested], to: :submitted
+      transition from: %i[draft changes_requested], to: :submitted, if: ->(authorization_request) { !authorization_request.reopening? }
+      transition from: %i[draft changes_requested refused], to: :submitted, if: ->(authorization_request) { authorization_request.reopening? }
     end
 
     event :refuse do
@@ -113,9 +115,14 @@ class AuthorizationRequest < ApplicationRecord
     end
 
     event :archive do
-      transition from: all - %i[archived validated], to: :archived
+      transition from: all - %i[archived validated], to: :archived, if: ->(authorization_request) { !authorization_request.reopening? }
+    end
+
+    event :reopen do
+      transition from: :validated, to: :draft, if: ->(authorization_request) { authorization_request.reopenable? }
     end
   end
+  # rubocop:enable Metrics/BlockLength
 
   validate :applicant_belongs_to_organization
 
@@ -186,6 +193,13 @@ class AuthorizationRequest < ApplicationRecord
 
   def finished?
     %w[validated refused].include?(state)
+  end
+
+  delegate :reopenable?, to: :definition
+
+  def reopening?
+    state != 'validated' &&
+      last_validated_at.present?
   end
 
   def contact_types_for(user)
