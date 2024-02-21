@@ -43,7 +43,7 @@ class AuthorizationRequestPolicy < ApplicationPolicy
   private
 
   def same_current_organization?
-    record.organization == current_organization
+    record.organization_id == current_organization.id
   end
 
   def review_authorization_request
