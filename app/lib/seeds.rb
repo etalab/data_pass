@@ -1,9 +1,15 @@
 class Seeds
+  # rubocop:disable Metrics/AbcSize
   def perform
     create_entities
 
     create_authorization_request(:api_entreprise)
     create_authorization_request(:api_entreprise, :submitted, attributes: { intitule: 'Marché publics', description: very_long_description, applicant: another_demandeur })
+    create_authorization_request(:api_entreprise_mgdis, :validated)
+
+    reopened_authorization_request = create_authorization_request(:api_entreprise, :validated, attributes: { intitule: 'Marché publics - Ville de Bordeaux', description: 'reopening' })
+    ReopenAuthorization.call(authorization: reopened_authorization_request.latest_authorization, user: reopened_authorization_request.applicant).perform
+
     create_authorization_request(:api_entreprise, :validated, attributes: { intitule: 'Marché publics', contact_technique_email: demandeur.email, applicant: foreign_demandeur })
     create_authorization_request(:api_particulier, :refused, attributes: { intitule: 'Vente de données personnelles', applicant: another_demandeur })
     create_authorization_request(:api_particulier, :changes_requested, attributes: { intitule: 'Tarification cantine' })
@@ -16,6 +22,7 @@ class Seeds
     })
     create_authorization_request(:api_service_national, :submitted)
   end
+  # rubocop:enable Metrics/AbcSize
 
   def flushdb
     raise 'Not in production!' if production?
@@ -104,6 +111,8 @@ class Seeds
     )
 
     create_events_for(authorization_request, status)
+
+    authorization_request
   end
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
