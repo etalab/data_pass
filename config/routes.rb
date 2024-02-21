@@ -35,7 +35,7 @@ Rails.application.routes.draw do
       resources :authorization_request_from_templates, only: %i[index create], path: 'templates'
     end
 
-    resources :authorizations, only: %i[], path: 'habilitations' do
+    resources :authorizations, only: %i[show], path: 'habilitations' do
       resources :reopen_authorizations, only: %w[create], path: 'réouvrir', as: :reopen
     end
   end

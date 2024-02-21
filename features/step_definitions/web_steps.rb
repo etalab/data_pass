@@ -172,3 +172,7 @@ Alors(/je vois( au moins)? (\d+) (tuiles?|cartes?)(?: "([^"]+)")?/) do |at_least
 
   expect(page).to have_css(css, **options)
 end
+
+Alors('il y a un badge {string}') do |text|
+  expect(page).to have_css('.fr-badge', text:)
+end

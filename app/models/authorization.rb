@@ -9,4 +9,15 @@ class Authorization < ApplicationRecord
 
   has_one :organization,
     through: :authorization_request
+
+  def kind
+    authorization_request.type.underscore
+  end
+
+  def authorization_request_as_validated
+    authorization_request_as_validated = authorization_request.dup
+    authorization_request_as_validated.data = data
+    authorization_request_as_validated.state = 'validated'
+    authorization_request_as_validated
+  end
 end
