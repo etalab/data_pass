@@ -1,16 +1,27 @@
 class BaseNotifier < ApplicationNotifier
   %w[
-    submit
     changes_requested
-    validated
     refused
   ].each do |event|
     define_method(event) do |params|
-      email_notification(event, params)
+      if authorization_request.already_been_validated?
+        email_notification("reopening_#{event}", params)
+      else
+        email_notification(event, params)
+      end
+    end
+  end
+
+  def validated(params)
+    if params[:first_validation]
+      email_notification('validated', params)
+    else
+      email_notification('reopening_validated', params)
     end
   end
 
   %w[
+    submit
     draft
     archived
   ].each do |event|
