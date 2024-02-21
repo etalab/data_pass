@@ -108,6 +108,17 @@ FactoryBot.define do
       end
     end
 
+    trait :reopened do
+      validated
+
+      after(:create) do |authorization_request|
+        ReopenAuthorization.call(
+          authorization: authorization_request.latest_authorization,
+          user: authorization_request.applicant,
+        )
+      end
+    end
+
     trait :with_basic_infos do
       after(:build) do |authorization_request, evaluator|
         if authorization_request.need_complete_validation? || evaluator.fill_all_attributes
