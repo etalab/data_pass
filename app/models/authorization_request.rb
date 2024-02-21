@@ -52,8 +52,9 @@ class AuthorizationRequest < ApplicationRecord
   scope :in_instructions, -> { where(state: 'submitted') }
   scope :validated, -> { where(state: 'validated') }
   scope :refused, -> { where(state: 'refused') }
-  scope :validated_or_refused, -> { where(state: %w[validated refused]) }
+  scope :validated_or_refused, -> { where('state in (?) or last_validated_at is not null', %w[validated refused]) }
   scope :not_archived, -> { where.not(state: 'archived') }
+  scope :without_reopening, -> { where(last_validated_at: nil) }
 
   validates :form_uid, presence: true
 
