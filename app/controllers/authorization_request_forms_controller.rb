@@ -27,7 +27,9 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   def show
     authorize @authorization_request
 
-    if @authorization_request_form.multiple_steps?
+    if @authorization_request.reopening?
+      redirect_to summary_authorization_request_form_path(form_uid: @authorization_request.form.uid, id: @authorization_request.id)
+    elsif @authorization_request_form.multiple_steps?
       redirect_to_current_build_step
     else
       render view_path
