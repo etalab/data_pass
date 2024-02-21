@@ -1,5 +1,6 @@
 class ArchiveAuthorizationRequestsController < AuthenticatedUserController
   before_action :extract_authorization_request
+  before_action :authorize_authorization_request_archive
 
   def new; end
 
@@ -20,7 +21,9 @@ class ArchiveAuthorizationRequestsController < AuthenticatedUserController
 
   def extract_authorization_request
     @authorization_request = AuthorizationRequest.find(params[:authorization_request_id])
+  end
 
+  def authorize_authorization_request_archive
     authorize @authorization_request, :archive?
   end
 end
