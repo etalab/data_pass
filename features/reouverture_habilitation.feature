@@ -20,6 +20,12 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Et la page ne contient pas "Archiver"
     Et la page ne contient pas "Récapitulatif de votre demande"
 
+  Scénario: Présence des badges d'une habilitation réouverte sur le tableau de bord
+    Quand j'ai 1 demande d'habilitation "API Entreprise" réouverte
+    Et que je vais sur la page tableau de bord
+    Alors il y a un badge "Validée"
+    Et il y a un badge "Brouillon"
+
   Scénario: Consultation de l'habilitation validée associée à une réouverture
     Quand j'ai 1 demande d'habilitation "API Entreprise" réouverte
     Et que je vais sur la page tableau de bord
