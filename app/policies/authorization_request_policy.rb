@@ -37,7 +37,7 @@ class AuthorizationRequestPolicy < ApplicationPolicy
 
   def archive?
     same_user_and_organization? &&
-      record.in_draft?
+      record.can_archive?
   end
 
   private
