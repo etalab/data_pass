@@ -11,6 +11,10 @@
         </h2>
 
         <p class="authorization-request-form-header__badges">
+          <% if @authorization_request.reopening? %>
+            <%= authorization_request_reopening_badge %>
+          <% end %>
+
           <%= authorization_request_status_badge(@authorization_request) %>
         </p>
       </div>

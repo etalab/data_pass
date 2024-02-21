@@ -195,6 +195,10 @@ class AuthorizationRequest < ApplicationRecord
     %w[validated refused].include?(state)
   end
 
+  def already_been_validated?
+    last_validated_at.present?
+  end
+
   delegate :reopenable?, to: :definition
 
   def reopening?
