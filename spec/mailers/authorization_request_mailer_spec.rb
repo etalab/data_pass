@@ -56,4 +56,63 @@ RSpec.describe AuthorizationRequestMailer do
       expect(mail.body.encoded).to match(authorization_request.modification_request.reason)
     end
   end
+
+  describe '#reopening_validated' do
+    subject(:mail) do
+      described_class.with(
+        authorization_request:
+      ).reopening_validated
+    end
+
+    let(:authorization_request) { create(:authorization_request, :api_entreprise, :validated) }
+
+    it 'sends the email to the applicant' do
+      expect(mail.to).to eq([authorization_request.applicant.email])
+    end
+
+    it 'renders valid template' do
+      expect(mail.body.encoded).to match('a été validée')
+      expect(mail.body.encoded).to match('réouverture')
+    end
+  end
+
+  describe '#reopening_refused' do
+    subject(:mail) do
+      described_class.with(
+        authorization_request:
+      ).reopening_refused
+    end
+
+    let(:authorization_request) { create(:authorization_request, :api_entreprise, :refused) }
+
+    it 'sends the email to the applicant' do
+      expect(mail.to).to eq([authorization_request.applicant.email])
+    end
+
+    it 'renders valid template, with denial reason' do
+      expect(mail.body.encoded).to match('a été refusée')
+      expect(mail.body.encoded).to match('réouverture')
+      expect(mail.body.encoded).to match(authorization_request.denial.reason)
+    end
+  end
+
+  describe '#reopening_changes_requested' do
+    subject(:mail) do
+      described_class.with(
+        authorization_request:
+      ).reopening_changes_requested
+    end
+
+    let(:authorization_request) { create(:authorization_request, :api_entreprise, :changes_requested) }
+
+    it 'sends the email to the applicant' do
+      expect(mail.to).to eq([authorization_request.applicant.email])
+    end
+
+    it 'renders valid template, with modification request reason' do
+      expect(mail.body.encoded).to match('réouverture')
+      expect(mail.body.encoded).to match('des modifications')
+      expect(mail.body.encoded).to match(authorization_request.modification_request.reason)
+    end
+  end
 end
