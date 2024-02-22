@@ -42,3 +42,13 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Et il y a un badge "Mise à jour"
     Et il y a un badge "Brouillon"
     Et il y a un bouton "Enregistrer"
+
+  Scénario: Soumission d'une habilitation fraîchement réouverte
+    Quand j'ai 1 demande d'habilitation "API Entreprise" réouverte
+    Et que je vais sur la page tableau de bord
+    Et que je clique sur le dernier "Consulter"
+    Et que je clique sur "Soumettre"
+    Alors il y a un message de succès contenant "soumise avec succès"
+    Et il y a un badge "Validée"
+    Et il y a un badge "En cours"
+
