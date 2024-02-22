@@ -159,6 +159,7 @@ fr:
         title: Une erreur est survenue lors de la soumission de la demande d'habilitation
         description: *common_authorization_requests_error_description
     form:
+      reopen: Mettre à jour
       archive: Archiver
       save_header: Enregistrer
       save: Enregistrer les modifications

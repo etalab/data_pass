@@ -18,6 +18,7 @@ class Authorization < ApplicationRecord
 
   def authorization_request_as_validated
     authorization_request_as_validated = authorization_request.dup
+    authorization_request_as_validated.id = authorization_request.id
     authorization_request_as_validated.data = data
     authorization_request_as_validated.state = 'validated'
     authorization_request_as_validated
