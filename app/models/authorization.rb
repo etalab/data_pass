@@ -27,6 +27,14 @@ class Authorization < ApplicationRecord
     request_as_validated
   end
 
+  def latest?
+    request.latest_authorization == self
+  end
+
+  def latest
+    request.latest_authorization
+  end
+
   def authorization_request
     request
   end

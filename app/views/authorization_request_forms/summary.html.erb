@@ -2,24 +2,46 @@
   <%= render partial: 'authorization_request_forms/current_user_mentions_alert' %>
 
   <div id="<%= dom_id(@authorization_request, :summary) %>">
+    <% if @authorization %>
+      <% if @authorization.latest? && @authorization.request.reopening? %>
+        <div class="fr-alert fr-alert--info fr-mb-4v">
+          <h3 class="fr-alert__title">
+            Une mise à jour de cette demande est en cours.
+          </h3>
+
+          Vous avez initié une mise à jour de cette habilitation. Vous pouvez y accéder en cliquant ici : <%= link_to "Demande de mise à jour n°#{@authorization.request.id}", authorization_request_path(@authorization.request) %>
+        </div>
+      <% elsif %>
+        <div class="fr-alert fr-alert--warning fr-mb-4v">
+          <h3 class="fr-alert__title">
+            Attention, vous consultez une version ancienne de cette habilitation
+          </h3>
+
+          Il existe une version plus récente de cette habilitation que vous pouvez consulter en cliquant ici : <%= link_to "Habilitation n°#{@authorization_request.latest_authorization.id}", @authorization_request.latest_authorization %>
+        </div>
+      <% end %>
+    <% end %>
+
     <% if @authorization_request.in_draft? %>
-      <% if @authorization_request.reopening? %>
-        <h2>
-          Réouverture de la demande
-        </h2>
+      <% if @authorization_request.reopening? && @authorization_request.applicant == current_user %>
+        <div class="fr-alert fr-alert--info fr-mb-4v">
+          <h3 class="fr-alert__title">
+            Mise à jour de l'habilitation
+          </h2>
 
-        <p>
-        Vous pouvez mettre à jour les informations que vous voulez ci-dessous. Si celles-ci sont rejetées votre habilitation initiale sera toujours valide et les informations restaurées à la version initiale.
+          <p>
+            Il s'agit d'une mise à jour d'une habilitation validée. Si celle-ci est rejetée, votre habilitation initiale sera toujours valide et les informations restaurées à la version initiale.
 
-        <br />
-
-        Vous pouvez consulter l'habilitation validée sur le lien suivant: LIEN
-
-          <% if @authorization_request.static_blocks.any? %>
             <br />
-            Une partie des informations ci-dessous ont été pré-remplies en accord avec le type de formulaire que vous avez sélectionné et ne sont pas modifiables.
-          <% end %>
-        </p>
+
+            Vous pouvez consulter à tout moment l'habilitation validée sur le lien suivant : <%= link_to "Habilitation n°#{@authorization_request.latest_authorization.id}", @authorization_request.latest_authorization %>
+
+            <% if @authorization_request.static_blocks.any? %>
+              <br />
+              Une partie des informations ci-dessous ont été pré-remplies en accord avec le type de formulaire que vous avez sélectionné et ne sont pas modifiables.
+            <% end %>
+          </p>
+        </div>
       <% else %>
         <h2>
           Récapitulatif de votre demande
