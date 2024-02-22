@@ -40,7 +40,7 @@ RSpec.describe ApproveAuthorizationRequest do
 
         expect(authorization.applicant).to eq(authorization_request.applicant)
         expect(authorization.organization).to eq(authorization_request.organization)
-        expect(authorization.authorization_request).to eq(authorization_request)
+        expect(authorization.request).to eq(authorization_request)
         expect(authorization.data).to eq(authorization_request.data)
       end
 

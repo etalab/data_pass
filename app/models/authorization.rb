@@ -5,22 +5,29 @@ class Authorization < ApplicationRecord
     class_name: 'User',
     inverse_of: :authorizations_as_applicant
 
-  belongs_to :authorization_request
+  belongs_to :request,
+    class_name: 'AuthorizationRequest',
+    inverse_of: :authorizations,
+    dependent: :destroy
 
   has_one :organization,
-    through: :authorization_request
+    through: :request
 
-  delegate :name, to: :authorization_request
+  delegate :name, to: :request
 
   def kind
-    authorization_request.type.underscore
+    request.type.underscore
   end
 
-  def authorization_request_as_validated
-    authorization_request_as_validated = authorization_request.dup
-    authorization_request_as_validated.id = authorization_request.id
-    authorization_request_as_validated.data = data
-    authorization_request_as_validated.state = 'validated'
-    authorization_request_as_validated
+  def request_as_validated
+    request_as_validated = request.dup
+    request_as_validated.id = request.id
+    request_as_validated.data = data
+    request_as_validated.state = 'validated'
+    request_as_validated
+  end
+
+  def authorization_request
+    request
   end
 end

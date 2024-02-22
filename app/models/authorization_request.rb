@@ -34,13 +34,13 @@ class AuthorizationRequest < ApplicationRecord
 
   has_many :authorizations,
     class_name: 'Authorization',
-    inverse_of: :authorization_request,
+    inverse_of: :request,
     dependent: :nullify
 
   has_one :latest_authorization,
     -> { order(created_at: :desc).limit(1) },
     class_name: 'Authorization',
-    inverse_of: :authorization_request,
+    inverse_of: :request,
     dependent: :nullify
 
   def events

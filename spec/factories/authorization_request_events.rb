@@ -40,7 +40,7 @@ FactoryBot.define do
       after(:build) do |authorization_request_event, evaluator|
         next if evaluator.authorization_request.blank?
 
-        authorization_request_event.entity = build(:authorization, authorization_request: evaluator.authorization_request)
+        authorization_request_event.entity = build(:authorization, request: evaluator.authorization_request)
       end
     end
 
@@ -82,7 +82,7 @@ FactoryBot.define do
       after(:build) do |authorization_request_event, evaluator|
         next if evaluator.authorization_request.blank?
 
-        authorization_request_event.entity = build(:authorization, authorization_request: evaluator.authorization_request)
+        authorization_request_event.entity = build(:authorization, request: evaluator.authorization_request)
       end
     end
 

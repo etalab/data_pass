@@ -11,7 +11,7 @@ RSpec.describe AuthorizationRequestEvent do
   describe '#authorization_request' do
     it 'works for each event' do
       AuthorizationRequestEvent::NAMES.each do |name|
-        expect(build(:authorization_request_event, name).authorization_request).to be_a(AuthorizationRequest)
+        expect(build(:authorization_request_event, name).authorization_request).to be_a(AuthorizationRequest), "for event #{name}"
       end
     end
   end

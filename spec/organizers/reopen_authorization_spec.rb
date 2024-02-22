@@ -3,7 +3,7 @@ RSpec.describe ReopenAuthorization do
     subject(:reopen_authorization_request) { described_class.call(authorization:, user:) }
 
     let(:user) { authorization_request.applicant }
-    let(:authorization) { create(:authorization, authorization_request:) }
+    let(:authorization) { create(:authorization, request: authorization_request) }
 
     context 'with authorization request is in validated state' do
       let(:authorization_request) { create(:authorization_request, :api_entreprise, :validated) }
