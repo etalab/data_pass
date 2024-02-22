@@ -2,6 +2,8 @@ class ReopenAuthorizationsController < AuthenticatedUserController
   before_action :extract_authorization
   before_action :authorize_authorization_reopening
 
+  def new; end
+
   def create
     if reopen_authorization.success?
       success_message(title: t('.success.title', name: @authorization.authorization_request.name))

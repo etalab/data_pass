@@ -36,7 +36,7 @@ Rails.application.routes.draw do
     end
 
     resources :authorizations, only: %i[show], path: 'habilitations' do
-      resources :reopen_authorizations, only: %w[create], path: 'réouvrir', as: :reopen
+      resources :reopen_authorizations, only: %w[new create], path: 'réouvrir', as: :reopen
     end
   end
 

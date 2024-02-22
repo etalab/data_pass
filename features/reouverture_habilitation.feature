@@ -12,6 +12,7 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Quand j'ai 1 demande d'habilitation "API Entreprise" validée
     Et que je vais sur la page tableau de bord
     Et que je clique sur "Mettre à jour"
+    Et que je clique sur "Mettre à jour l'habilitation"
     Alors je suis sur la page "API Entreprise"
     Et il y a un message de succès contenant "a bien été réouverte"
     Et la page contient "Réouverture de la demande"

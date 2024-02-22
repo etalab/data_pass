@@ -196,6 +196,15 @@ fr:
     create:
       success: La demande d'habilitation %{name} a été archivée avec succès
   reopen_authorizations:
+    new:
+      title: Mettre à jour la demande d'habilitation %{authorization_name}
+      disclaimer: |
+        Si votre habilitation nécessite des modifications (changement de contacts, de documents), vous pouvez la mettre à jour en cliquant sur le bouton ci-dessous.
+        <br />
+        <br />
+        Votre habilitation restera valide quelque soit l'issue de la demande de mise à jour.
+      cancel: Annuler
+      reopen: Mettre à jour l'habilitation
     create:
       success:
         title: L'habilitation %{name} a bien été réouverte

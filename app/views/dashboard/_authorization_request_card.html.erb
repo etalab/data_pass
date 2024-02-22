@@ -43,7 +43,7 @@
     <% end %>
 
     <% if policy(authorization_request).reopen? %>
-      <%= button_to t('.reopen_cta'), authorization_reopen_index_path(authorization_request.latest_authorization), class: %w(fr-btn fr-btn--secondary fr-btn--sm) %>
+      <%= dsfr_main_modal_button t('.reopen_cta'), new_authorization_reopen_path(authorization_request.latest_authorization), class: %w(fr-btn fr-btn--secondary fr-btn--sm) %>
     <% end %>
   </div>
 

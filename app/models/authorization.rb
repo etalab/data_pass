@@ -10,6 +10,8 @@ class Authorization < ApplicationRecord
   has_one :organization,
     through: :authorization_request
 
+  delegate :name, to: :authorization_request
+
   def kind
     authorization_request.type.underscore
   end
