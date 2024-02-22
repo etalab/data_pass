@@ -9,6 +9,9 @@ class Organization < ApplicationRecord
   has_many :authorization_requests,
     dependent: :restrict_with_exception
 
+  has_many :authorizations,
+    through: :authorization_requests
+
   def raison_sociale
     mon_compte_pro_payload['label']
   end
