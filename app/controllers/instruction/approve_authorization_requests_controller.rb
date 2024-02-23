@@ -7,7 +7,7 @@ class Instruction::ApproveAuthorizationRequestsController < Instruction::Authori
     organizer = ApproveAuthorizationRequest.call(authorization_request: @authorization_request, user: current_user)
 
     if organizer.success?
-      success_message(title: t('.success', name: @authorization_request.name))
+      success_message_for_authorization_request(@authorization_request, key: 'instruction.approve_authorization_requests.create')
 
       redirect_to instruction_authorization_requests_path,
         status: :see_other

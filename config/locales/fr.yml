@@ -133,7 +133,10 @@ fr:
     show:
       refused:
         title: Votre demande d'habilitation a été refusée
-        description: "La raison évoquée par l'équipe d'instruction est la suivante :"
+        description: &authorization_request_refused_description "La raison évoquée par l'équipe d'instruction est la suivante :"
+      reopening_refused:
+        title: Votre demande de mise à jour a été refusée
+        description: *authorization_request_refused_description
   start_authorization_request_form:
     cta: Débuter mon habilitation pour %{authorization_name}
   authorization_request_forms:
@@ -146,17 +149,33 @@ fr:
       error:
         title: Une erreur est survenue lors de la sauvegarde de la demande d'habilitation
         description: &common_authorization_requests_error_description Certains champs ci-dessous ne sont pas valides, merci d'effectuer les corrections nécessaires
+      reopening_error:
+        title: Une erreur est survenue lors de la sauvegarde de la demande de mise à jour de l'habilitation
+        description: *common_authorization_requests_error_description
+
     current_user_mentions_alert:
       text: Vous avez été référencé comme %{contact_types} dans cette habilitation.
     update:
-      success: La demande d'habilitation %{name} a été mise à jour avec succès
+      success:
+        title: La demande d'habilitation %{name} a été mise à jour avec succès
       error: &authorization_requests_update_error
         title: Une erreur est survenue lors de la mise à jour de la demande d'habilitation
         description: *common_authorization_requests_error_description
+      reopening_success:
+        title: La demande de mise à jour de l'habilitation %{name} a été mise à jour avec succès
+      reopening_error: &authorization_requests_update_reopening_error
+        title: Une erreur est survenue lors de l'enregistrement de la mise à jour de la demande d'habilitation
+        description: *common_authorization_requests_error_description
     submit:
-      success: La demande d'habilitation %{name} a été soumise avec succès
+      success:
+        title: La demande d'habilitation %{name} a été soumise avec succès
       error:
         title: Une erreur est survenue lors de la soumission de la demande d'habilitation
+        description: *common_authorization_requests_error_description
+      reopening_success:
+        title: La demande de mise à jour de l'habilitation %{name} a été soumise avec succès
+      reopening_error:
+        title: Une erreur est survenue lors de la soumission de la demande de mise à jour de l'habilitation
         description: *common_authorization_requests_error_description
     form:
       reopen: Mettre à jour
@@ -187,6 +206,7 @@ fr:
           description: "Vérifiez que la demande que vous allez démarrez n'ait pas déjà été soumise ou en cours. Voici la liste:"
       update:
         error: *authorization_requests_update_error
+        reopening_error: *authorization_requests_update_reopening_error
   archive_authorization_requests:
     new:
       title: Archivage de la demande d'habilitation %{authorization_request_name}
@@ -237,40 +257,87 @@ fr:
         archive: Archiver
     approve_authorization_requests:
       new:
-        title: Validation de la demande d'habilitation
-        description:
-          organization: |
-            Vous êtes sur le point de valider la demande d'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_raison_sociale}' (numéro de siret: %{organization_siret}).
-          disclaimer: |
-            <strong>Cette action est irréversible</strong>. Veuillez vérifier que la demande d'habilitation est bien conforme aux règles de gestion.
-        cancel: Annuler
-        approve: Valider la demande d'habilitation
+        initial:
+          title: Validation de la demande d'habilitation
+          description:
+            organization: |
+              Vous êtes sur le point de valider la demande d'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_raison_sociale}' (numéro de siret: %{organization_siret}).
+            disclaimer: |
+              <strong>Cette action est irréversible</strong>. Veuillez vérifier que la demande d'habilitation est bien conforme aux règles de gestion.
+          cancel: Annuler
+          approve: Valider la demande d'habilitation
+        reopening:
+          title: Validation de la demande de mise à jour de l'habilitation.
+          description:
+            organization: |
+              Vous êtes sur le point de valider la demande de mise à jour de l'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_raison_sociale}' (numéro de siret: %{organization_siret}).
+            disclaimer: |
+              <strong>Cette action est irréversible</strong>. Veuillez vérifier que la demande de mise à jour de l'habilitation est bien conforme aux règles de gestion.
+          cancel: Annuler
+          approve: Valider la demande de mise à jour
       create:
-        success: La demande d'habilitation %{name} a été validé
+        success:
+          title: La demande d'habilitation %{name} a été validé
+      reopening_create:
+        success:
+          title: La demande de mise à jour de l'habilitation %{name} a été validé
+
     refuse_authorization_requests:
       new:
-        title: Refus de la demande d'habilitation
-        description:
-          organization: |
-            Vous êtes sur le point de refuser la demande d'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_raison_sociale}' (numéro de siret: %{organization_siret}).
-          disclaimer: |
-            Merci de renseigner une raison ci-dessous qui sera communiquée au demandeur.
-        cancel: Annuler
-        refuse: Refuser la demande d'habilitation
+        initial:
+          title: Refus de la demande d'habilitation
+          description:
+            organization: |
+              Vous êtes sur le point de refuser la demande d'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_raison_sociale}' (numéro de siret: %{organization_siret}).
+            disclaimer: |
+              Merci de renseigner une raison ci-dessous qui sera communiquée au demandeur.
+          cancel: Annuler
+          refuse: Refuser la demande d'habilitation
+        reopening:
+          title: Refus de la demande de mise à jour de l'habilitation
+          description:
+            organization: |
+              Vous êtes sur le point de refuser la demande de mise à jour de l'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_raison_sociale}' (numéro de siret: %{organization_siret}).
+            disclaimer: |
+              Merci de renseigner une raison ci-dessous qui sera communiquée au demandeur. A noter que lors du refus, les modifications apportées par le demandeur depuis le début de la réouverture seront annulées. L'habilitation sera toujours valide.
+          cancel: Annuler
+          refuse: Refuser la demande de mise à jour
+
       create:
-        success: La demande d'habilitation %{name} a été refusée
+        success:
+          title: La demande d'habilitation %{name} a été refusée
+      reopening_create:
+        success:
+          title: La demande de mise à jour de l'habilitation %{name} a été refusée
+
     request_changes_on_authorization_requests:
       new:
-        title: Demande de modifications
-        description:
-          organization: |
-            Vous êtes sur le point de demander des modifications sur la demande d'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_raison_sociale}' (numéro de siret: %{organization_siret}).
-          disclaimer: |
-            Merci de renseigner les raisons ci-dessous qui sera communiquée au demandeur.
-        cancel: Annuler
-        request_changes: Envoyer la demande de modification
+        initial:
+          title: Demande de modifications
+          description:
+            organization: |
+              Vous êtes sur le point de demander des modifications sur la demande d'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_raison_sociale}' (numéro de siret: %{organization_siret}).
+            disclaimer: |
+              Merci de renseigner les raisons ci-dessous qui sera communiquée au demandeur.
+          cancel: Annuler
+          request_changes: Envoyer la demande de modification
+        reopening:
+          title: Demande de modifications
+          description:
+            organization: |
+              Vous êtes sur le point de demander des modifications sur la mise à jour de l'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_raison_sociale}' (numéro de siret: %{organization_siret}).
+            disclaimer: |
+              Merci de renseigner les raisons ci-dessous qui sera communiquée au demandeur.
+          cancel: Annuler
+          request_changes: Envoyer la demande de modification
       create:
-        success: La demande de modifications de d'habilitation %{name} a bien été envoyée au demandeur
+        success:
+          title: La demande de modifications de d'habilitation %{name} a bien été envoyée au demandeur
+
+      reopening_create:
+        success:
+          title: La demande de modifications de la mise à jour de l'habilitation %{name} a bien été envoyée au demandeur
+
     archive_authorization_requests:
       create:
         success: La demande d'habilitation %{name} a été archivée avec succèss

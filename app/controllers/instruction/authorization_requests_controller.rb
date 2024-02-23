@@ -1,5 +1,6 @@
 class Instruction::AuthorizationRequestsController < InstructionController
   helper AuthorizationRequestsHelpers
+  include AuthorizationRequestsFlashes
 
   before_action :extract_authorization_request, except: [:index]
 

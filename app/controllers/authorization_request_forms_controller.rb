@@ -1,5 +1,6 @@
 class AuthorizationRequestFormsController < AuthenticatedUserController
   helper AuthorizationRequestsHelpers
+  include AuthorizationRequestsFlashes
 
   before_action :extract_authorization_request_form, except: [:index]
   before_action :extract_authorization_request, only: %i[show summary update]
@@ -94,7 +95,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     if organizer.success?
       redirect_to authorization_request_form_path(form_uid: @authorization_request.form_uid, id: @authorization_request.id)
     else
-      error_message(title: t('authorization_request_forms.create_for_single_page_form.error.title'), description: t('authorization_request_forms.create_for_single_page_form.error.description'))
+      error_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.create_for_single_page_form')
 
       render view_path, status: :unprocessable_entity
     end
@@ -115,11 +116,11 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     @authorization_request = organizer.authorization_request
 
     if organizer.success?
-      success_message(title: t('authorization_request_forms.update.success', name: @authorization_request.name))
+      success_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.update')
 
       redirect_to authorization_request_form_path(form_uid: @authorization_request.form_uid, id: @authorization_request.id)
     else
-      error_message(title: t('authorization_request_forms.update.error.title'), description: t('authorization_request_forms.update.error.description'))
+      error_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.update')
 
       render view_path, status: :unprocessable_entity
     end
@@ -144,7 +145,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     if review_authorization_request.success?
       redirect_to summary_authorization_request_form_path(form_uid: @authorization_request.form_uid, id: @authorization_request.id)
     else
-      error_message(title: t('authorization_request_forms.update.error.title'), description: t('authorization_request_forms.update.error.description'))
+      error_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.update')
 
       render view_path, status: :unprocessable_entity
     end
@@ -162,11 +163,11 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     @authorization_request = organizer.authorization_request
 
     if organizer.success?
-      success_message(title: t('authorization_request_forms.submit.success', name: @authorization_request.name))
+      success_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.submit')
 
       redirect_to dashboard_path
     else
-      error_message(title: t('authorization_request_forms.submit.error.title'), description: t('authorization_request_forms.submit.error.description'))
+      error_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.submit')
 
       render 'summary', status: :unprocessable_entity
     end
