@@ -64,3 +64,14 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Et il y a un badge "Validée"
     Et il y a un badge "En cours"
 
+  Scénario: Soumission d'une habilitation réouverte qui a été refusée
+    Quand j'ai 1 demande d'habilitation "API Entreprise" réouverte
+    Et que cette demande a été "soumise"
+    Et que cette demande a été "refusée"
+    Et que je vais sur la page tableau de bord
+    Et que je clique sur le dernier "Consulter"
+    Et que je clique sur "Soumettre"
+    Alors il y a un message de succès contenant "soumise avec succès"
+    Et il y a un badge "Validée"
+    Et il y a un badge "En cours"
+

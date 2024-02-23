@@ -28,7 +28,7 @@ class AuthorizationRequestPolicy < ApplicationPolicy
   def submit?
     same_user_and_organization? &&
       record.persisted? &&
-      record.in_draft?
+      record.can_submit?
   end
 
   def review?
