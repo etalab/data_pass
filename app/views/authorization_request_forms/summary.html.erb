@@ -11,7 +11,7 @@
 
           Vous avez initié une mise à jour de cette habilitation. Vous pouvez y accéder en cliquant ici : <%= link_to "Demande de mise à jour n°#{@authorization.request.id}", authorization_request_path(@authorization.request) %>
         </div>
-      <% elsif %>
+      <% elsif !@authorization.latest? %>
         <div class="fr-alert fr-alert--warning fr-mb-4v">
           <h3 class="fr-alert__title">
             Attention, vous consultez une version ancienne de cette habilitation
