@@ -54,7 +54,7 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Alors je suis sur la page "API Entreprise"
     Et il y a un badge "Mise à jour"
     Et il y a un badge "Brouillon"
-    Et il y a un bouton "Enregistrer"
+    Et il n'y a pas de bouton "Enregistrer"
 
   Scénario: Soumission d'une habilitation fraîchement réouverte
     Quand j'ai 1 demande d'habilitation "API Entreprise" réouverte
