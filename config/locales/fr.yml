@@ -157,14 +157,14 @@ fr:
       text: Vous avez été référencé comme %{contact_types} dans cette habilitation.
     update:
       success:
-        title: La demande d'habilitation %{name} a été mise à jour avec succès
+        title: La demande d'habilitation %{name} a été sauvegardée avec succès
       error: &authorization_requests_update_error
-        title: Une erreur est survenue lors de la mise à jour de la demande d'habilitation
+        title: Une erreur est survenue lors de la sauvegarde de la demande d'habilitation
         description: *common_authorization_requests_error_description
       reopening_success:
-        title: La demande de mise à jour de l'habilitation %{name} a été mise à jour avec succès
+        title: La demande de mise à jour de l'habilitation %{name} a été sauvegardée avec succès
       reopening_error: &authorization_requests_update_reopening_error
-        title: Une erreur est survenue lors de l'enregistrement de la mise à jour de la demande d'habilitation
+        title: Une erreur est survenue lors de la sauvegarde de la mise à jour de la demande d'habilitation
         description: *common_authorization_requests_error_description
     submit:
       success:

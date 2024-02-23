@@ -17,4 +17,4 @@ Fonctionnalité: Interactions sur une demande d'habilitation en plusieurs étape
     Quand je démarre une nouvelle demande d'habilitation "API Particulier"
     Et que je remplis "Nom du projet" avec "Je suis un projet"
     Et que je clique sur "Enregistrer"
-    Et il y a un message de succès contenant "été mise à jour"
+    Et il y a un message de succès contenant "été sauvegardé"

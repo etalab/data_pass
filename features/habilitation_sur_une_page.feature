@@ -12,7 +12,7 @@ Fonctionnalité: Interactions sur une demande d'habilitation simple (sur une seu
     Quand je démarre une nouvelle demande d'habilitation "Portail HubEE - Démarche CertDC"
     Et que je clique sur "Enregistrer les modifications"
     Alors je suis sur la page "Portail HubEE - Démarche CertDC"
-    Et il y a un message de succès contenant "a été mise à jour avec succès"
+    Et il y a un message de succès contenant "a été sauvegardé"
     Et il y a un bouton "Continuer vers le résumé"
     Et il y a un bouton "Enregistrer les modifications"
 
@@ -20,7 +20,7 @@ Fonctionnalité: Interactions sur une demande d'habilitation simple (sur une seu
     Quand je démarre une nouvelle demande d'habilitation "Portail HubEE - Démarche CertDC"
     Et que je clique sur "Enregistrer les modifications"
     Et que je clique sur "Continuer vers le résumé"
-    Alors il y a un message d'erreur contenant "Une erreur est survenue lors de la mise à jour de la demande"
+    Alors il y a un message d'erreur contenant "Une erreur est survenue lors de la sauvegarde"
     Et il y a au moins une erreur sur un champ
     Et je suis sur la page "Portail HubEE - Démarche CertDC"
     Et il n'y a pas de formulaire en mode résumé

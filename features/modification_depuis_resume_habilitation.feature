@@ -21,7 +21,7 @@ Fonctionnalité: Modifications d'un formulaire depuis sa page de résumé
       | Nom     | Prénom | Email                 | Téléphone  | Fonction                  |
       | Nouveau | Louis  | nouveau.louis@gouv.fr | 0836656560 | Directeur d'exploitation  |
     Et que je clique sur "Enregistrer les modifications"
-    Alors il y a un message de succès contenant "été mise à jour avec succès"
+    Alors il y a un message de succès contenant "été sauvegardé"
     Et la page contient "Récapitulatif de votre demande"
 
   Scénario: Modification avec des données invalides
@@ -30,4 +30,4 @@ Fonctionnalité: Modifications d'un formulaire depuis sa page de résumé
       | Nom     | Prénom | Email                 | Téléphone  | Fonction                  |
       |         | Louis  | nouveau.louis@gouv.fr | 0836656560 | Directeur d'exploitation  |
     Et que je clique sur "Enregistrer les modifications"
-    Alors il y a un message d'erreur contenant "lors de la mise à jour de la demande"
+    Alors il y a un message d'erreur contenant "lors de la sauvegarde"

@@ -26,7 +26,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation Portail HubEE - Démarc
     Et que je clique sur "Enregistrer les modifications"
     Et que je clique sur "Continuer vers le résumé"
 
-    Alors il y a un message d'erreur contenant "Une erreur est survenue lors de la mise à jour"
+    Alors il y a un message d'erreur contenant "Une erreur est survenue lors de la sauvegarde"
     Et il y a au moins une erreur sur un champ
     Et je suis sur la page "Portail HubEE - Démarche CertDC"
 
