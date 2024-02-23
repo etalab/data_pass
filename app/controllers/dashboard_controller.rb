@@ -15,7 +15,7 @@ class DashboardController < AuthenticatedUserController
       redirect_to dashboard_show_path(id: 'moi')
     end
 
-    @authorization_requests = @authorization_requests.not_archived.eager_load(:latest_authorization)
+    @authorization_requests = @authorization_requests.not_archived
   end
 
   private
