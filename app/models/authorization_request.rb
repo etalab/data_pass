@@ -93,7 +93,7 @@ class AuthorizationRequest < ApplicationRecord
     state :revoked
 
     event :submit do
-      transition from: %i[draft changes_requested], to: :submitted, if: ->(authorization_request) { !authorization_request.reopening? }
+      transition from: %i[draft changes_requested], to: :submitted, unless: ->(authorization_request) { authorization_request.reopening? }
       transition from: %i[draft changes_requested refused], to: :submitted, if: ->(authorization_request) { authorization_request.reopening? }
     end
 
@@ -114,7 +114,7 @@ class AuthorizationRequest < ApplicationRecord
     end
 
     event :archive do
-      transition from: all - %i[archived validated], to: :archived, if: ->(authorization_request) { !authorization_request.reopening? }
+      transition from: all - %i[archived validated], to: :archived, unless: ->(authorization_request) { authorization_request.reopening? }
     end
 
     event :reopen do
