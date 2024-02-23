@@ -15,6 +15,44 @@ RSpec.describe SubmitAuthorizationRequest do
         end
 
         include_examples 'creates an event', event_name: :submit
+
+        describe 'versions diffing' do
+          let(:authorization_request_params) do
+            ActionController::Parameters.new(intitule: 'new intitule')
+          end
+
+          it 'creates a changelog' do
+            expect { submit_authorization_request }.to change { authorization_request.changelogs.count }.by(1)
+          end
+
+          describe 'on first submit' do
+            it 'stores the initial diff with all data' do
+              submit_authorization_request
+              changelog = authorization_request.changelogs.last
+
+              expect(changelog.diff).to eq(
+                authorization_request.data.transform_values { |v| [nil, v] }
+              )
+            end
+          end
+
+          context 'when it is not the first submit and there is a changelog' do
+            before do
+              create(:authorization_request_changelog, authorization_request:)
+            end
+
+            it 'stories only the diff on the field' do
+              old_intitule = authorization_request.intitule
+
+              submit_authorization_request
+              changelog = authorization_request.changelogs.last
+
+              expect(changelog.diff).to eq({
+                'intitule' => [old_intitule, 'new intitule']
+              })
+            end
+          end
+        end
       end
 
       context 'with invalid params' do

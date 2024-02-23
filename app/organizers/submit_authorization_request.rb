@@ -7,6 +7,7 @@ class SubmitAuthorizationRequest < ApplicationOrganizer
 
   organize AssignParamsToAuthorizationRequest,
     TriggerAuthorizationRequestEvent,
+    CreateAuthorizationRequestChangelog,
     CreateAuthorizationRequestEventModel
 
   after do
