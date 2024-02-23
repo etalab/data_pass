@@ -11,7 +11,7 @@ class Instruction::RequestChangesOnAuthorizationRequestsController < Instruction
     @instructor_modification_request = organizer.instructor_modification_request
 
     if organizer.success?
-      success_message(title: t('.success', name: organizer.authorization_request.name))
+      success_message_for_authorization_request(@authorization_request, key: 'instruction.request_changes_on_authorization_requests.create')
 
       redirect_to instruction_authorization_requests_path,
         status: :see_other

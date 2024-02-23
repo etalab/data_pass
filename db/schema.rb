@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_30_155005) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_22_161240) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "plpgsql"
@@ -53,7 +53,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_30_155005) do
     t.index ["entity_type", "entity_id"], name: "index_authorization_request_events_on_entity"
     t.index ["user_id"], name: "index_authorization_request_events_on_user_id"
     t.check_constraint "name::text !~~ 'system_%'::text AND user_id IS NOT NULL OR name::text ~~ 'system_%'::text", name: "user_id_not_null_unless_system_event"
-    t.check_constraint "name::text = 'refuse'::text AND entity_type::text = 'DenialOfAuthorization'::text OR name::text = 'request_changes'::text AND entity_type::text = 'InstructorModificationRequest'::text OR name::text = 'approve'::text AND entity_type::text = 'Authorization'::text OR entity_type::text = 'AuthorizationRequest'::text", name: "entity_type_validation"
+    t.check_constraint "name::text = 'refuse'::text AND entity_type::text = 'DenialOfAuthorization'::text OR name::text = 'request_changes'::text AND entity_type::text = 'InstructorModificationRequest'::text OR name::text = 'approve'::text AND entity_type::text = 'Authorization'::text OR name::text = 'reopen'::text AND entity_type::text = 'Authorization'::text OR entity_type::text = 'AuthorizationRequest'::text", name: "entity_type_validation"
   end
 
   create_table "authorization_requests", force: :cascade do |t|
@@ -75,11 +75,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_30_155005) do
   create_table "authorizations", force: :cascade do |t|
     t.hstore "data", default: {}, null: false
     t.bigint "applicant_id", null: false
-    t.bigint "authorization_request_id", null: false
+    t.bigint "request_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["applicant_id"], name: "index_authorizations_on_applicant_id"
-    t.index ["authorization_request_id"], name: "index_authorizations_on_authorization_request_id"
+    t.index ["request_id"], name: "index_authorizations_on_request_id"
   end
 
   create_table "denial_of_authorizations", force: :cascade do |t|
@@ -134,7 +134,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_30_155005) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "authorizations", "authorization_requests"
+  add_foreign_key "authorizations", "authorization_requests", column: "request_id"
   add_foreign_key "authorizations", "users", column: "applicant_id"
   add_foreign_key "denial_of_authorizations", "authorization_requests"
   add_foreign_key "instructor_modification_requests", "authorization_requests"

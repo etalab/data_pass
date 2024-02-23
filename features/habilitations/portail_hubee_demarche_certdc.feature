@@ -32,5 +32,5 @@ Fonctionnalité: Soumission d'une demande d'habilitation Portail HubEE - Démarc
 
   Scénario: Je veux démarrer une demande d'habilitation alors que j'ai déjà une habilitation
     Quand j'ai déjà une demande d'habilitation "Portail HubEE - Démarche CertDC" en cours
-    Et que je vais sur la page des habilitations
+    Et que je vais sur la page des demandes
     Alors il n'y a pas le bouton "Remplir une demande" pour l'habilitation "Portail HubEE - Démarche CertDC"

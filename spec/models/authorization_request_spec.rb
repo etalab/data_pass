@@ -16,6 +16,19 @@ RSpec.describe AuthorizationRequest do
 
       expect(authorization_request.state).to eq('draft')
     end
+
+    it 'has a valid reopened factory' do
+      authorization_request = create(:authorization_request, :api_entreprise, :reopened)
+
+      expect(authorization_request).to be_reopening
+    end
+
+    it 'has a validated factory which creates an authorization' do
+      authorization_request = create(:authorization_request, :api_entreprise, :validated)
+
+      expect(authorization_request).to be_validated
+      expect(authorization_request.latest_authorization).to be_a(Authorization)
+    end
   end
 
   describe '#contact_types_for' do

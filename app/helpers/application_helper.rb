@@ -37,4 +37,12 @@ module ApplicationHelper
       %w[fr-badge--secondary]
     end
   end
+
+  def authorization_request_reopening_badge
+    content_tag(
+      :span,
+      t('authorization_request.reopening'),
+      class: 'fr-badge fr-badge--no-icon fr-badge--purple-glycine',
+    )
+  end
 end

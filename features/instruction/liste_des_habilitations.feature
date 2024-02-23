@@ -14,6 +14,12 @@ Fonctionnalité: Instruction: liste des habilitations
     Et que je vais sur la page instruction
     Alors je vois 2 demandes d'habilitation
 
+  Scénario: Je vois les badges des habilitations en réouvertures
+    Sachant qu'il y a 1 demande d'habilitation "API Entreprise" réouverte
+    Et que je vais sur la page instruction
+    Alors il y a un badge "Brouillon"
+    Et il y a un badge "Mise à jour"
+
   Scénario: Je cherche une habilitation avec son status
     Sachant qu'il y a 1 demande d'habilitation "API Entreprise" en attente
     Et qu'il y a 1 demande d'habilitation "API Entreprise" validée

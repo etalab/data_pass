@@ -102,6 +102,21 @@ FactoryBot.define do
       state { 'validated' }
       fill_all_attributes { true }
       last_validated_at { Time.zone.now }
+
+      after(:create) do |authorization_request|
+        CreateAuthorization.call(authorization_request:)
+      end
+    end
+
+    trait :reopened do
+      validated
+
+      after(:create) do |authorization_request|
+        ReopenAuthorization.call(
+          authorization: authorization_request.latest_authorization,
+          user: authorization_request.applicant,
+        )
+      end
     end
 
     trait :with_basic_infos do

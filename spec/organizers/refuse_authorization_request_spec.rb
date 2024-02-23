@@ -28,6 +28,31 @@ RSpec.describe RefuseAuthorizationRequest do
           expect { refuse_authorization_request }.to have_enqueued_mail(AuthorizationRequestMailer, :refused)
         end
 
+        context 'when it is a reopening' do
+          let(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :reopened) }
+
+          before do
+            authorization_request.update!(state: 'submitted')
+          end
+
+          it 'delivers an email specific to reopening' do
+            expect { refuse_authorization_request }.to have_enqueued_mail(AuthorizationRequestMailer, :reopening_refused)
+          end
+
+          context 'when there was updates on the authorization request' do
+            let(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :reopened, administrateur_metier_email: 'old@gouv.fr') }
+
+            before do
+              authorization_request.administrateur_metier_email = 'new@gouv.fr'
+              authorization_request.save!
+            end
+
+            it 'reverts to previous data' do
+              expect { refuse_authorization_request }.to change { authorization_request.reload.administrateur_metier_email }.from('new@gouv.fr').to('old@gouv.fr')
+            end
+          end
+        end
+
         include_examples 'creates an event', event_name: :refuse, entity_type: :denial_of_authorization
       end
 

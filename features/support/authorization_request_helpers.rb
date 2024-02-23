@@ -18,7 +18,7 @@ def find_factory_trait_from_name(name)
   authorization_request_form.uid.underscore
 end
 
-# rubocop:disable Metrics/MethodLength
+# rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity
 def extract_state_from_french_status(status)
   case status
   when 'attente de modification'
@@ -33,11 +33,13 @@ def extract_state_from_french_status(status)
     'validated'
   when 'archivée', 'archivées'
     'archived'
+  when 'réouverte', 'réouvertes'
+    'reopened'
   else
     raise "Unknown status #{status}"
   end
 end
-# rubocop:enable Metrics/MethodLength
+# rubocop:enable Metrics/MethodLength, Metrics/CyclomaticComplexity
 
 # rubocop:disable Metrics/MethodLength
 def create_authorization_requests_with_status(type, status = nil, count = 1, attributes = {})

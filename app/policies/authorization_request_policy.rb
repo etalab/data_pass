@@ -28,7 +28,7 @@ class AuthorizationRequestPolicy < ApplicationPolicy
   def submit?
     same_user_and_organization? &&
       record.persisted? &&
-      record.in_draft?
+      record.can_submit?
   end
 
   def review?
@@ -37,13 +37,18 @@ class AuthorizationRequestPolicy < ApplicationPolicy
 
   def archive?
     same_user_and_organization? &&
-      record.in_draft?
+      record.can_archive?
+  end
+
+  def reopen?
+    same_user_and_organization? &&
+      record.can_reopen?
   end
 
   private
 
   def same_current_organization?
-    record.organization == current_organization
+    record.organization_id == current_organization.id
   end
 
   def review_authorization_request

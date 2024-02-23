@@ -24,7 +24,7 @@ class AuthorizationRequestForms::BuildController < AuthorizationRequestFormsCont
       elsif organizer.success?
         save_and_continue
       else
-        error_message(title: t('.error.title'), description: t('.error.description'))
+        error_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.build.update')
 
         render_wizard(@authorization_request, status: :unprocessable_entity)
       end
@@ -34,7 +34,7 @@ class AuthorizationRequestForms::BuildController < AuthorizationRequestFormsCont
   private
 
   def save_only
-    success_message(title: t('authorization_request_forms.update.success', name: @authorization_request.name))
+    success_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.update')
 
     redirect_to wizard_path
   end

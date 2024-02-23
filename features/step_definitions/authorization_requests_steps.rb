@@ -110,6 +110,24 @@ Alors(/je vois (\d+) demandes? d'habilitation(?: "([^"]+)")?(?:(?: en)? (.+))?/)
   end
 end
 
+Quand('cette demande a été {string}') do |status|
+  authorization_request = AuthorizationRequest.last
+  user = User.last
+
+  case extract_state_from_french_status(status)
+  when 'submitted'
+    organizer = SubmitAuthorizationRequest.call(authorization_request:, user:)
+  when 'approved'
+    organizer = ApproveAuthorizationRequest.call(authorization_request:, user:)
+  when 'refused'
+    organizer = RefuseAuthorizationRequest.call(authorization_request:, user:, denial_of_authorization_params: attributes_for(:denial_of_authorization))
+  else
+    raise "Unknown status: #{status}"
+  end
+
+  raise 'Organizer failed' unless organizer.success?
+end
+
 Quand("j'adhère aux conditions générales") do
   steps %(
     Quand je coche "conditions générales d'utilisation"

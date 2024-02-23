@@ -100,9 +100,9 @@ Alors('je peux voir dans le tableau {string} dans cet ordre :') do |caption, tab
 end
 
 Alors("il n'y a pas de bouton {string}") do |label|
-  expect(page).to have_no_button(label)
-rescue RSpec::Expectations::ExpectationNotMetError
-  expect(page).to have_no_link(label)
+  element_found = page.has_button?(label) || page.has_link?(label)
+
+  expect(element_found).to be_falsey, "Expected to not find a button or link with the label '#{label}', found at least one"
 end
 
 Alors('il y a un bouton {string}') do |label|
@@ -171,4 +171,8 @@ Alors(/je vois( au moins)? (\d+) (tuiles?|cartes?)(?: "([^"]+)")?/) do |at_least
   options[:text] = text if text.present?
 
   expect(page).to have_css(css, **options)
+end
+
+Alors('il y a un badge {string}') do |text|
+  expect(page).to have_css('.fr-badge', text:)
 end

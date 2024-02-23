@@ -24,6 +24,18 @@ RSpec.describe RequestChangesOnAuthorizationRequest do
           expect { request_changes_authorization_request }.to have_enqueued_mail(AuthorizationRequestMailer, :changes_requested)
         end
 
+        context 'when it is a reopening' do
+          let(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :reopened) }
+
+          before do
+            authorization_request.update!(state: 'submitted')
+          end
+
+          it 'delivers an email specific to reopening' do
+            expect { request_changes_authorization_request }.to have_enqueued_mail(AuthorizationRequestMailer, :reopening_changes_requested)
+          end
+        end
+
         include_examples 'creates an event', event_name: :request_changes, entity_type: :instructor_modification_request
       end
 

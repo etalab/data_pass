@@ -34,14 +34,12 @@ class AuthorizationRequest < ApplicationRecord
 
   has_many :authorizations,
     class_name: 'Authorization',
-    inverse_of: :authorization_request,
+    inverse_of: :request,
     dependent: :nullify
 
-  has_one :latest_authorization,
-    -> { order(created_at: :desc).limit(1) },
-    class_name: 'Authorization',
-    inverse_of: :authorization_request,
-    dependent: :nullify
+  def latest_authorization
+    authorizations.order(created_at: :desc).limit(1).first
+  end
 
   def events
     @events ||= AuthorizationRequestEventsQuery.new(self).perform
@@ -52,8 +50,9 @@ class AuthorizationRequest < ApplicationRecord
   scope :in_instructions, -> { where(state: 'submitted') }
   scope :validated, -> { where(state: 'validated') }
   scope :refused, -> { where(state: 'refused') }
-  scope :validated_or_refused, -> { where(state: %w[validated refused]) }
+  scope :validated_or_refused, -> { where('state in (?) or last_validated_at is not null', %w[validated refused]) }
   scope :not_archived, -> { where.not(state: 'archived') }
+  scope :without_reopening, -> { where(last_validated_at: nil) }
 
   validates :form_uid, presence: true
 
@@ -83,6 +82,7 @@ class AuthorizationRequest < ApplicationRecord
     validates :data_protection_officer_informed, presence: true, inclusion: [true]
   end
 
+  # rubocop:disable Metrics/BlockLength
   state_machine initial: :draft do
     state :draft
     state :submitted
@@ -93,7 +93,8 @@ class AuthorizationRequest < ApplicationRecord
     state :revoked
 
     event :submit do
-      transition from: %i[draft changes_requested], to: :submitted
+      transition from: %i[draft changes_requested], to: :submitted, unless: ->(authorization_request) { authorization_request.reopening? }
+      transition from: %i[draft changes_requested refused], to: :submitted, if: ->(authorization_request) { authorization_request.reopening? }
     end
 
     event :refuse do
@@ -108,10 +109,19 @@ class AuthorizationRequest < ApplicationRecord
       transition from: :submitted, to: :validated
     end
 
+    after_transition to: :validated do |authorization_request|
+      authorization_request.update(last_validated_at: Time.zone.now)
+    end
+
     event :archive do
-      transition from: all - %i[archived validated], to: :archived
+      transition from: all - %i[archived validated], to: :archived, unless: ->(authorization_request) { authorization_request.reopening? }
+    end
+
+    event :reopen do
+      transition from: :validated, to: :draft, if: ->(authorization_request) { authorization_request.reopenable? }
     end
   end
+  # rubocop:enable Metrics/BlockLength
 
   validate :applicant_belongs_to_organization
 
@@ -182,6 +192,17 @@ class AuthorizationRequest < ApplicationRecord
 
   def finished?
     %w[validated refused].include?(state)
+  end
+
+  def already_been_validated?
+    last_validated_at.present?
+  end
+
+  delegate :reopenable?, to: :definition
+
+  def reopening?
+    state != 'validated' &&
+      last_validated_at.present?
   end
 
   def contact_types_for(user)

@@ -13,8 +13,24 @@ RSpec.describe ApproveAuthorizationRequest do
         expect { approve_authorization_request }.to change { authorization_request.reload.state }.from('submitted').to('validated')
       end
 
+      it 'changes last_validated_at' do
+        expect { approve_authorization_request }.to change { authorization_request.reload.last_validated_at }
+      end
+
       it 'delivers an email' do
         expect { approve_authorization_request }.to have_enqueued_mail(AuthorizationRequestMailer, :validated)
+      end
+
+      context 'when it is a reopening' do
+        let(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :reopened) }
+
+        before do
+          authorization_request.update!(state: 'submitted')
+        end
+
+        it 'delivers an email specific to reopening' do
+          expect { approve_authorization_request }.to have_enqueued_mail(AuthorizationRequestMailer, :reopening_validated)
+        end
       end
 
       it 'creates a new authorization with snapshoted data' do
@@ -24,7 +40,7 @@ RSpec.describe ApproveAuthorizationRequest do
 
         expect(authorization.applicant).to eq(authorization_request.applicant)
         expect(authorization.organization).to eq(authorization_request.organization)
-        expect(authorization.authorization_request).to eq(authorization_request)
+        expect(authorization.request).to eq(authorization_request)
         expect(authorization.data).to eq(authorization_request.data)
       end
 
