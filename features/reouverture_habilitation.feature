@@ -43,6 +43,7 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Et que je clique sur le premier "Consulter"
     Alors je suis sur la page "API Entreprise"
     Et il y a un badge "Validée"
+    Et il n'y a pas de bouton "Mettre à jour"
     Et il n'y a pas de bouton "Enregistrer"
     Et il y a un message d'info contenant "Une mise à jour de cette demande est en cours."
 
