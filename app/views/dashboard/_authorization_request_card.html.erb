@@ -29,8 +29,12 @@
         <%= truncate(authorization_request.description, length: 30) %>
 
         <% if authorization_request.only_in_contacts?(current_user) %>
-          <p class="fr-text--xs fr-text-grey">
+          <p class="fr-text--xs fr-text-grey fr-my-2v">
             <%= t('.current_user_mentions', contact_types: authorization_request.humanized_contact_types_for(current_user).to_sentence) %>
+          </p>
+        <% elsif authorization_request.applicant == current_user %>
+          <p class="fr-text--xs fr-text-grey fr-my-2v">
+            <%= t('.current_user_is_applicant') %>
           </p>
         <% end %>
       </div>

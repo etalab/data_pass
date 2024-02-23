@@ -16,6 +16,7 @@ Fonctionnalité: Tableau de bord
     Et que mon organisation a 1 demande d'habilitation "API Entreprise"
     Et que je vais sur la page du tableau de bord
     Alors je vois 4 demandes d'habilitation
+    Et la page contient "Vous êtes le demandeur"
 
   Scénario: Je ne vois pas sur l'écran principal les habilitations de mon organisation
     Quand mon organisation a 1 demande d'habilitation "API Entreprise"
