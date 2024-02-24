@@ -13,5 +13,6 @@ Fonctionnalité: Instruction: historique habilitation
     Et je clique sur "Valider la demande d'habilitation"
     Et que je clique sur "Consulter"
     Et que je clique sur "Historique"
-    Alors la page contient "Dupont Jean a approuvé la demande"
+    Alors la page contient "a approuvé la demande"
+    Et la page contient "a soumis la demande"
 
