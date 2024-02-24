@@ -1,5 +1,6 @@
 class AuthorizationRequests::BlocksController < AuthenticatedUserController
   helper AuthorizationRequestsHelpers
+  include AuthorizationRequestsFlashes
 
   before_action :extract_authorization_request
   before_action :validate_block_id
@@ -16,11 +17,11 @@ class AuthorizationRequests::BlocksController < AuthenticatedUserController
     )
 
     if organizer.success?
-      success_message(title: t('authorization_request_forms.update.success', name: @authorization_request.name))
+      success_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.update')
 
       redirect_to summary_authorization_request_form_path(form_uid: @authorization_request.form.uid, id: @authorization_request.id)
     else
-      error_message(title: t('authorization_request_forms.update.error.title'), description: t('authorization_request_forms.update.error.description'))
+      error_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.update')
 
       render :edit, status: :unprocessable_entity
     end
