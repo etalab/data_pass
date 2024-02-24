@@ -363,7 +363,7 @@ fr:
             <strong>%{user_full_name}</strong> a demandé des modifications sur la demande:
 
             <blockquote>
-              %{reason}
+              %{text}
             </blockquote>
           icon: warning-fill
           color: warning
@@ -372,7 +372,7 @@ fr:
             <strong>%{user_full_name}</strong> a refusé la demande:
 
             <blockquote>
-              %{reason}
+              %{text}
             </blockquote>
           icon: error-fill
           color: error
