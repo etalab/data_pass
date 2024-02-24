@@ -5,7 +5,7 @@ RSpec.describe ApproveAuthorizationRequest do
     let(:user) { create(:user, :instructor, authorization_request_types: %w[hubee_cert_dc]) }
 
     context 'with authorization request in submitted state' do
-      let(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :submitted) }
+      let!(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :submitted) }
 
       it { is_expected.to be_success }
 
@@ -22,7 +22,7 @@ RSpec.describe ApproveAuthorizationRequest do
       end
 
       context 'when it is a reopening' do
-        let(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :reopened) }
+        let!(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :reopened) }
 
         before do
           authorization_request.update!(state: 'submitted')
@@ -48,7 +48,7 @@ RSpec.describe ApproveAuthorizationRequest do
 
       context 'with authorization request which has a bridge' do
         let(:bridge) { instance_double(APIInfinoeSandboxBridge, perform: true) }
-        let(:authorization_request) { create(:authorization_request, :api_infinoe_sandbox, :submitted) }
+        let!(:authorization_request) { create(:authorization_request, :api_infinoe_sandbox, :submitted) }
 
         before do
           allow(APIInfinoeSandboxBridge).to receive(:new).and_return(bridge)
@@ -63,7 +63,7 @@ RSpec.describe ApproveAuthorizationRequest do
     end
 
     context 'with authorization request in draft state' do
-      let(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :draft) }
+      let!(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :draft) }
 
       it { is_expected.to be_failure }
 

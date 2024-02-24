@@ -8,7 +8,7 @@ RSpec.describe RequestChangesOnAuthorizationRequest do
       let(:instructor_modification_request_params) { attributes_for(:instructor_modification_request) }
 
       context 'with authorization request in submitted state' do
-        let(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :submitted) }
+        let!(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :submitted) }
 
         it { is_expected.to be_success }
 
@@ -25,7 +25,7 @@ RSpec.describe RequestChangesOnAuthorizationRequest do
         end
 
         context 'when it is a reopening' do
-          let(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :reopened) }
+          let!(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :reopened) }
 
           before do
             authorization_request.update!(state: 'submitted')
@@ -40,7 +40,7 @@ RSpec.describe RequestChangesOnAuthorizationRequest do
       end
 
       context 'with authorization request in draft state' do
-        let(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :draft) }
+        let!(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :draft) }
 
         it { is_expected.to be_failure }
 

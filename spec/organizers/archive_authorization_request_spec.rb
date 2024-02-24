@@ -5,7 +5,7 @@ RSpec.describe ArchiveAuthorizationRequest do
     let(:user) { create(:user) }
 
     context 'with authorization request in submitted state' do
-      let(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :submitted) }
+      let!(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :submitted) }
 
       it { is_expected.to be_success }
 
@@ -17,7 +17,7 @@ RSpec.describe ArchiveAuthorizationRequest do
     end
 
     context 'with authorization request in validated state' do
-      let(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :validated) }
+      let!(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :validated) }
 
       it { is_expected.to be_failure }
 
