@@ -37,6 +37,11 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Alors il y a un badge "Validée"
     Et il y a un badge "Brouillon"
 
+  Scénario: Présence de la date de réouverture sur une habilitation réouverte sur le tableau de bord
+    Quand j'ai 1 demande d'habilitation "API Entreprise" réouverte
+    Et que je vais sur la page tableau de bord
+    Alors la page contient la date du jour au format court
+
   Scénario: Consultation de l'habilitation validée associée à une réouverture
     Quand j'ai 1 demande d'habilitation "API Entreprise" réouverte
     Et que je vais sur la page tableau de bord
