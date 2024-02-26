@@ -13,6 +13,11 @@ class Authorization < ApplicationRecord
   has_one :organization,
     through: :request
 
+  has_many :documents,
+    class_name: 'AuthorizationDocument',
+    inverse_of: :authorization,
+    dependent: :destroy
+
   delegate :name, to: :request
 
   def kind

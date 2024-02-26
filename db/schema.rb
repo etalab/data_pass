@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_23_235741) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_26_214947) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "plpgsql"
@@ -41,6 +41,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_23_235741) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "authorization_documents", force: :cascade do |t|
+    t.string "identifier", null: false
+    t.bigint "authorization_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["authorization_id"], name: "index_authorization_documents_on_authorization_id"
   end
 
   create_table "authorization_request_changelogs", force: :cascade do |t|
@@ -142,6 +150,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_23_235741) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "authorization_documents", "authorizations"
   add_foreign_key "authorization_request_changelogs", "authorization_requests"
   add_foreign_key "authorizations", "authorization_requests", column: "request_id"
   add_foreign_key "authorizations", "users", column: "applicant_id"
