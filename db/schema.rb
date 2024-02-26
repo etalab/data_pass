@@ -229,6 +229,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_26_214947) do
     t.index ["external_id"], name: "index_users_on_external_id", unique: true, where: "(external_id IS NOT NULL)"
   end
 
+  create_table "verified_emails", force: :cascade do |t|
+    t.string "email", null: false
+    t.string "status", default: "unknown", null: false
+    t.datetime "verified_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_verified_emails_on_email", unique: true
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "authorization_documents", "authorizations"
