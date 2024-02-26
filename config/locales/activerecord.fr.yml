@@ -62,6 +62,8 @@ fr:
       instructor_modification_request:
         reason: Raison de la demande de modification
     errors:
+      messages:
+        email_unreachable: "n'est pas une adresse email joignable : celle-ci n'existe probablement pas. Veuillez soit mettre à jour cette adresse email, soit contacter le support."
       models:
         authorization_request:
           attributes:

@@ -121,4 +121,19 @@ RSpec.describe AuthorizationRequest do
       end
     end
   end
+
+  describe 'contact email validation' do
+    subject(:authorization_request) { build(:authorization_request, :api_entreprise, fill_all_attributes: true, contact_metier_email: email) }
+
+    let(:email) { generate(:email) }
+    let!(:verified_email) { create(:verified_email, email:, status: 'undeliverable', verified_at: 1.day.ago) }
+
+    describe 'without validation context' do
+      it { is_expected.to be_valid }
+    end
+
+    describe 'with submit validation context' do
+      it { is_expected.not_to be_valid(:submit) }
+    end
+  end
 end

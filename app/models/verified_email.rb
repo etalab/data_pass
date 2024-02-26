@@ -22,4 +22,8 @@ class VerifiedEmail < ApplicationRecord
     verified_at.present? &&
       verified_at > 30.days.ago
   end
+
+  def old?
+    !recent?
+  end
 end
