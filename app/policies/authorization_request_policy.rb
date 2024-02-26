@@ -6,12 +6,12 @@ class AuthorizationRequestPolicy < ApplicationPolicy
 
   def show?
     same_user_and_organization? &&
-      record.in_draft?
+      record.draft?
   end
 
   def summary?
     if same_user_and_organization?
-      !record.in_draft? ||
+      !record.draft? ||
         review_authorization_request.success?
     elsif same_current_organization?
       true

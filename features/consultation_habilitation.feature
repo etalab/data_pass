@@ -17,6 +17,13 @@ Fonctionnalité: Consultation d'une demande d'habilitation
     Et il n'y a pas de bouton "Sauvegarder"
     Et il y a un formulaire en mode résumé
 
+  Scénario: Je consulte une demande d'habilitation demandant des modifications m'appartenant
+    Quand je me rends sur une demande d'habilitation "API Entreprise" à modifier
+    Alors il y a un bouton "Modifier"
+    Et il y a un bouton "Soumettre la demande"
+    Et il y a un message d'attention contenant "Veuillez inclure une preuve"
+    Et il y a un formulaire en une seule page
+
   Scénario: Je consulte une demande d'habilitation validée m'appartenant
     Quand je me rends sur une demande d'habilitation "API Entreprise" validée
     Alors il n'y a pas de bouton "Sauvegarder"

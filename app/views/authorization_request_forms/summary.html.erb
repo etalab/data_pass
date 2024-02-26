@@ -2,6 +2,28 @@
   <%= render partial: 'authorization_request_forms/current_user_mentions_alert' %>
 
   <div id="<%= dom_id(@authorization_request, :summary) %>">
+    <% if @authorization_request.changes_requested? %>
+      <div class="fr-alert fr-alert--warning fr-mb-2v">
+        <h3 class="fr-alert__title">
+          <% if @authorization_request.reopening? %>
+            <%= t("authorization_requests.show.reopening_changes_requested.title") %>
+          <% else %>
+            <%= t("authorization_requests.show.changes_requested.title") %>
+          <% end %>
+        </h3>
+
+        <% if @authorization_request.reopening? %>
+          <%= t('authorization_requests.show.reopening_changes_requested.description') %>
+        <% else %>
+          <%= t("authorization_requests.show.changes_requested.description") %>
+        <% end %>
+
+        <blockquote>
+          <%= simple_format(@authorization_request.modification_request.reason) %>
+        </blockquote>
+      </div>
+    <% end %>
+
     <% if @authorization %>
       <% if @authorization.latest? && @authorization.request.reopening? %>
         <div class="fr-alert fr-alert--info fr-mb-4v">
