@@ -44,6 +44,19 @@ RSpec.describe ApproveAuthorizationRequest do
         expect(authorization.data).to eq(authorization_request.data)
       end
 
+      describe 'when there is attached documents' do
+        let(:authorization_request) { create(:authorization_request, :api_entreprise, :submitted, documents: %i[cadre_juridique_document]) }
+
+        it 'creates a new authorization with attached documents' do
+          expect { approve_authorization_request }.to change(Authorization, :count).by(1)
+
+          authorization = Authorization.last
+
+          expect(authorization.documents.count).to eq(1)
+          expect(authorization.documents.first.file.blob).to eq(authorization_request.cadre_juridique_document.blob)
+        end
+      end
+
       include_examples 'creates an event', event_name: :approve, entity_type: :authorization
 
       context 'with authorization request which has a bridge' do
