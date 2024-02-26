@@ -87,6 +87,18 @@ FactoryBot.define do
     trait :submitted do
       state { 'submitted' }
       fill_all_attributes { true }
+
+      after(:create) do |authorization_request|
+        changelog = CreateAuthorizationRequestChangelog.call(authorization_request:, user: authorization_request.applicant).changelog
+
+        CreateAuthorizationRequestEventModel.call(
+          authorization_request:,
+          user: authorization_request.applicant,
+          event_name: 'submit',
+          event_entity: :changelog,
+          changelog:,
+        )
+      end
     end
 
     trait :refused do

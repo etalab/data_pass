@@ -8,7 +8,7 @@ RSpec.describe RefuseAuthorizationRequest do
       let(:denial_of_authorization_params) { attributes_for(:denial_of_authorization) }
 
       context 'with authorization request in submitted state' do
-        let(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :submitted) }
+        let!(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :submitted) }
 
         it { is_expected.to be_success }
 
@@ -29,7 +29,7 @@ RSpec.describe RefuseAuthorizationRequest do
         end
 
         context 'when it is a reopening' do
-          let(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :reopened) }
+          let!(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :reopened) }
 
           before do
             authorization_request.update!(state: 'submitted')
@@ -40,7 +40,7 @@ RSpec.describe RefuseAuthorizationRequest do
           end
 
           context 'when there was updates on the authorization request' do
-            let(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :reopened, administrateur_metier_email: 'old@gouv.fr') }
+            let!(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :reopened, administrateur_metier_email: 'old@gouv.fr') }
 
             before do
               authorization_request.administrateur_metier_email = 'new@gouv.fr'
@@ -57,7 +57,7 @@ RSpec.describe RefuseAuthorizationRequest do
       end
 
       context 'with authorization request in draft state' do
-        let(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :draft) }
+        let!(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :draft) }
 
         it { is_expected.to be_failure }
 
@@ -69,7 +69,7 @@ RSpec.describe RefuseAuthorizationRequest do
 
     context 'with invalid params' do
       let(:denial_of_authorization_params) { attributes_for(:denial_of_authorization, reason: nil) }
-      let(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :submitted) }
+      let!(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :submitted) }
 
       it { is_expected.to be_failure }
 

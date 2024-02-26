@@ -4,7 +4,7 @@ class Instruction::AuthorizationRequestEventsController < Instruction::Authoriza
   def index
     authorize [:instruction, @authorization_request], :show?
 
-    @events = @authorization_request.events.includes(%i[user entity]).order(created_at: :desc)
+    @events = @authorization_request.events.includes(%i[user entity]).order(created_at: :desc).decorate
   end
 
   private

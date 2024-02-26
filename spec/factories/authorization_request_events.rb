@@ -27,9 +27,15 @@ FactoryBot.define do
     end
 
     trait :submit do
-      entity_is_authorization_request
-
       name { 'submit' }
+
+      entity factory: %i[authorization_request_changelog]
+
+      after(:build) do |authorization_request_event, evaluator|
+        next if evaluator.authorization_request.blank?
+
+        authorization_request_event.entity = build(:authorization_request_changelog, authorization_request: evaluator.authorization_request)
+      end
     end
 
     trait :approve do

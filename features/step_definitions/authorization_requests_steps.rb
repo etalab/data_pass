@@ -35,6 +35,16 @@ Quand('je remplis les informations du contact {string} avec :') do |string, tabl
   end
 end
 
+Quand('cette demande a été modifiée avec les informations suivantes :') do |table|
+  authorization_request = AuthorizationRequest.last
+
+  params = table.hashes.each_with_object({}) do |hash, data|
+    data[hash['champ']] = hash['nouvelle valeur']
+  end
+
+  authorization_request.update!(params)
+end
+
 Quand("je clique sur {string} pour l'habilitation {string}") do |cta_name, habilitation_name|
   click_link cta_name, href: new_authorization_request_path(id: find_authorization_definition_from_name(habilitation_name).id.dasherize) # rubocop:disable Capybara/ClickLinkOrButtonStyle
 end
@@ -121,6 +131,8 @@ Quand('cette demande a été {string}') do |status|
     organizer = ApproveAuthorizationRequest.call(authorization_request:, user:)
   when 'refused'
     organizer = RefuseAuthorizationRequest.call(authorization_request:, user:, denial_of_authorization_params: attributes_for(:denial_of_authorization))
+  when 'changes_requested'
+    organizer = RequestChangesOnAuthorizationRequest.call(authorization_request:, user:, instructor_modification_request_params: attributes_for(:instructor_modification_request))
   else
     raise "Unknown status: #{status}"
   end

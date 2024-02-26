@@ -22,6 +22,8 @@ fr:
       archived: Archivée
       revoked: Révoquée
     reopening: Mise à jour
+  authorization_request_event:
+    changelog_entry: "Le champ \"%{attribute}\" a changé de \"%{old_value}\" en \"%{new_value}\""
 
   layouts:
     header:
@@ -352,8 +354,15 @@ fr:
           text: "<strong>%{user_full_name}</strong> a mis à jour la demande"
         archive:
           text: "<strong>%{user_full_name}</strong> a archivé la demande"
-        submit:
+        initial_submit:
           text: "<strong>%{user_full_name}</strong> a soumis la demande"
+        submit:
+          text: |
+            <strong>%{user_full_name}</strong> a soumis la demande
+
+            La liste des changements depuis la dernière modération sont:
+            %{text}
+
         approve:
           text: "<strong>%{user_full_name}</strong> a approuvé la demande"
           icon: success-fill
@@ -363,7 +372,7 @@ fr:
             <strong>%{user_full_name}</strong> a demandé des modifications sur la demande:
 
             <blockquote>
-              %{reason}
+              %{text}
             </blockquote>
           icon: warning-fill
           color: warning
@@ -372,7 +381,7 @@ fr:
             <strong>%{user_full_name}</strong> a refusé la demande:
 
             <blockquote>
-              %{reason}
+              %{text}
             </blockquote>
           icon: error-fill
           color: error
