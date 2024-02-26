@@ -63,5 +63,20 @@ RSpec.describe UpdateAuthorizationRequest, type: :organizer do
         end
       end
     end
+
+    context 'with authorization request which has contacts' do
+      let(:authorization_request) { create(:authorization_request, :api_entreprise, fill_all_attributes: true) }
+      let(:authorization_request_params) do
+        ActionController::Parameters.new(
+          contact_metier_email: 'contact@metier.fr',
+        )
+      end
+
+      it 'schedules email verifier job' do
+        expect {
+          update_authorization_request
+        }.to have_enqueued_job(EmailVerifierJob).with('contact@metier.fr')
+      end
+    end
   end
 end
