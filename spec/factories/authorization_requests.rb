@@ -78,6 +78,7 @@ FactoryBot.define do
 
     trait :changes_requested do
       state { 'changes_requested' }
+      fill_all_attributes { true }
 
       after(:build) do |authorization_request|
         authorization_request.modification_requests << build(:instructor_modification_request, authorization_request:)
