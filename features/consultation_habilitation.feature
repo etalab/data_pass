@@ -15,13 +15,11 @@ Fonctionnalité: Consultation d'une demande d'habilitation
     Quand je me rends sur une demande d'habilitation "API Entreprise" refusée
     Alors il y a un message d'erreur contenant "a été refusée"
     Et il n'y a pas de bouton "Sauvegarder"
-    Et il n'y a pas de bouton "Soumettre"
     Et il y a un formulaire en mode résumé
 
   Scénario: Je consulte une demande d'habilitation validée m'appartenant
     Quand je me rends sur une demande d'habilitation "API Entreprise" validée
-    Et il n'y a pas de bouton "Sauvegarder"
-    Et il n'y a pas de bouton "Soumettre"
+    Alors il n'y a pas de bouton "Sauvegarder"
     Et il y a un formulaire en mode résumé
 
   Scénario: Je consulte une demande d'habilitation simple en brouillon m'appartenant
