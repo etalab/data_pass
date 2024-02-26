@@ -84,6 +84,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_26_214947) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "form_uid", null: false
+    t.datetime "reopened_at"
     t.index ["applicant_id"], name: "index_authorization_requests_on_applicant_id"
     t.index ["organization_id"], name: "index_authorization_requests_on_organization_id"
   end
