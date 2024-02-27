@@ -31,8 +31,8 @@ les seeds disponible [ici](app/lib/seeds.rb)
 
 ## Install
 
-Ask for the production master key to a colleague
-(`config/credentials/production.key`)
+Ask for the sandbox/production master key to a colleague
+(`config/credentials/*.key`)
 
 With docker:
 
@@ -94,11 +94,20 @@ COVERAGE=true bundle exec cucumber
 
 ## Deploy
 
-Only sandbox for now:
-
 ```sh
 ./bin/deploy
+
+# For sandbox, branch is optional
+./bin/deploy-sandbox branch
 ```
+
+## Credentials
+
+3 kind:
+
+1. `production`, for main app ;
+2. `sandbox`, for the sandbox ;
+3. `development`, for development/test.
 
 ## Documentation
 

@@ -33,10 +33,12 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+/config/credentials/production.key
+/config/credentials/sandbox.key
+
 .byebug_history
 sandbox
 
-/config/credentials/production.key
 coverage/
 
 app/migration/.pgpassword
