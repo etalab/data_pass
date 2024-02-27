@@ -1,5 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'DataPass <notifications@api.gouv.fr>'
+  default from: "DataPass <#{Rails.application.config.default_from}>"
 
   layout 'mailer'
 

@@ -2,7 +2,7 @@
 Mailjet.configure do |config|
   config.api_key = Rails.application.credentials.mailjet_api_key
   config.secret_key = Rails.application.credentials.mailjet_secret_key
-  config.default_from = 'support@datapass.api.gouv.fr'
+  config.default_from = Rails.application.config.default_from
   # Mailjet API v3.1 is at the moment limited to Send API.
   # We’ve not set the version to it directly since there is no other endpoint in that version.
   # We recommend you create a dedicated instance of the wrapper set with it to send your emails.
