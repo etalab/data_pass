@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ClassLength
 class AuthorizationRequestFormsController < AuthenticatedUserController
   helper AuthorizationRequestsHelpers
   include AuthorizationRequestsFlashes
@@ -226,3 +227,5 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     'authorization_request'
   end
 end
+
+# rubocop:enable Metrics/ClassLength
