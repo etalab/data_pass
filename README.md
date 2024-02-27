@@ -6,8 +6,7 @@
 L'outil de gestion des habilitations juridiques pour les données à accès restreint.
 
 Version en ligne:
-[https://datapass-reborn.onrender.com/](https://datapass-reborn.onrender.com/)
-(basé sur le dernier commit de `main`)
+[https://sandbox.v2.datapass.api.gouv.fr/](https://sandbox.v2.datapass.api.gouv.fr/)
 
 Les comptes disponibles en simili-production (couple email/password sur
 MonComptePro) :
@@ -18,7 +17,7 @@ MonComptePro) :
 * `api-entreprise@yopmail.com` / `api-entreprise@yopmail.com`: instructeur pour
     API Entreprise, sans habilitation
 
-Le lien pour l'instruction: [https://datapass-reborn.onrender.com/instruction](https://datapass-reborn.onrender.com/instruction)
+Le lien pour l'instruction: [https://sandbox.v2.datapass.api.gouv.fr/instruction](https://sandbox.v2.datapass.api.gouv.fr/instruction)
 
 A noter qu'à chaque déploiement la base de données est vidée et re-remplie avec
 les seeds disponible [ici](app/lib/seeds.rb)
