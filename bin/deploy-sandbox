@@ -1,0 +1,4 @@
+#!/bin/bash
+
+ssh -A watchdoge1 -- /usr/local/bin/rails_deploy_datapass_reborn_sandbox.sh
+ssh -A watchdoge2 -- /usr/local/bin/rails_deploy_datapass_reborn_sandbox.sh
