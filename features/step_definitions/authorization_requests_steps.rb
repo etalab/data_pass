@@ -98,11 +98,14 @@ end
 
 Quand(/je suis mentionné dans (\d+) demandes? d'habilitation "([^"]+)" en tant que "([^"]+)"/) do |count, type, role_humanized|
   role = role_humanized.parameterize.underscore
+  foreign_user = create(:user)
   options = {
     "#{role}_email": current_user.email,
+    applicant: foreign_user,
+    organization: foreign_user.current_organization,
   }
 
-  create_authorization_requests_with_status(type, nil, count, options)
+  create_authorization_requests_with_status(type, 'soumise', count, options)
 end
 
 # https://rubular.com/r/dRUFmK5dzDpjJv
@@ -127,7 +130,7 @@ Quand('cette demande a été {string}') do |status|
   case extract_state_from_french_status(status)
   when 'submitted'
     organizer = SubmitAuthorizationRequest.call(authorization_request:, user:)
-  when 'approved'
+  when 'validated'
     organizer = ApproveAuthorizationRequest.call(authorization_request:, user:)
   when 'refused'
     organizer = RefuseAuthorizationRequest.call(authorization_request:, user:, denial_of_authorization_params: attributes_for(:denial_of_authorization))

@@ -1,10 +1,14 @@
 class AuthorizationPolicy < ApplicationPolicy
   def show?
-    record.organization == user.current_organization ||
-      user.instructor?(authorization.kind)
+    authorization_request_policy.summary? ||
+      user.instructor?(record.kind)
   end
 
-  def reopen?
-    AuthorizationRequestPolicy.new(user, record.authorization_request).reopen?
+  delegate :reopen?, to: :authorization_request_policy
+
+  private
+
+  def authorization_request_policy
+    @authorization_request_policy ||= AuthorizationRequestPolicy.new(user, record.authorization_request)
   end
 end

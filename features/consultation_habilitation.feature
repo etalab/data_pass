@@ -71,3 +71,14 @@ Fonctionnalité: Consultation d'une demande d'habilitation
     Et il y a un formulaire en mode résumé
     Et il n'y a pas de bouton "Enregistrer"
     Et il y a un message d'info contenant "Vous avez été référencé comme contact technique"
+
+  Scénario: Je consulte une habilitation validée où je suis mentionnée
+    Quand je suis mentionné dans 1 demande d'habilitation "API Entreprise" en tant que "Contact technique"
+    Et que cette demande a été "validée"
+    Et que je vais sur la page du tableau de bord
+    Et que je clique sur "Mes mentions"
+    Et que je clique sur "Consulter"
+    Alors il y a un titre contenant "API Entreprise"
+    Et il y a un formulaire en mode résumé
+    Et il y a un message d'info contenant "Vous avez été référencé comme contact technique"
+
