@@ -6,8 +6,8 @@ Quand("j'ai déjà une demande d'habilitation {string} en cours") do |string|
   )
 end
 
-Quand('je veux remplir une demande pour {string} via le formulaire Demande Libre') do |string|
-  visit new_authorization_request_form_path(form_uid: find_authorization_definition_from_name(string).id.tr('_', '-'))
+Quand('je veux remplir une demande pour {string}') do |authorization_request_name|
+  visit new_authorization_request_form_path(form_uid: find_authorization_definition_from_name(authorization_request_name).id.dasherize)
 end
 
 Quand("je démarre une nouvelle demande d'habilitation {string}") do |string|
