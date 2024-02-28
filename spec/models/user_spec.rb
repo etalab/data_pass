@@ -66,4 +66,24 @@ RSpec.describe User do
       it { is_expected.to contain_exactly('api_entreprise', 'api_particulier') }
     end
   end
+
+  describe '#settings on instruction_submit_notification' do
+    subject { user.instruction_submit_notification_for_api_entreprise }
+
+    let(:user) { create(:user) }
+
+    it { is_expected.to be_truthy }
+
+    context 'when it sets to false' do
+      let(:user) { create(:user, instruction_submit_notification_for_api_entreprise: false) }
+
+      it { is_expected.to be_falsey }
+    end
+
+    context 'when it sets to true' do
+      let(:user) { create(:user, instruction_submit_notification_for_api_entreprise: true) }
+
+      it { is_expected.to be_truthy }
+    end
+  end
 end

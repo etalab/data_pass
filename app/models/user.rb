@@ -28,6 +28,14 @@ class User < ApplicationRecord
     ", "#{authorization_request_type.underscore}:instructor")
   }
 
+  AuthorizationDefinition.all.each do |authorization_definition|
+    store_accessor :settings, :"instruction_submit_notification_for_#{authorization_definition.id.underscore}"
+
+    define_method :"instruction_submit_notification_for_#{authorization_definition.id.underscore}" do
+      settings["instruction_submit_notification_for_#{authorization_definition.id.underscore}"].nil? ? true : settings["instruction_submit_notification_for_#{authorization_definition.id.underscore}"]
+    end
+  end
+
   def full_name
     "#{family_name} #{given_name}"
   end
