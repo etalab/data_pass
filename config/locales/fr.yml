@@ -116,7 +116,7 @@ fr:
     index:
       title: Demander une nouvelle habilitation
       cta: Remplir une demande
-    unauthenticated_authorization_request_form_start:
+    unauthenticated_form_start:
       sub_title: "Vous souhaitez accédez à l’<strong>%{api_name}</strong> \n Votre demande d’habilitation va se dérouler en 4 étapes"
       etape_1: S’identifier avec MonComptePro
       etape_2: Remplir ma demande
