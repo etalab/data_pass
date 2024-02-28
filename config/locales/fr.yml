@@ -111,6 +111,10 @@ fr:
   profile:
     edit:
       title: Votre compte
+      notifications:
+        title: Notifications par emails
+    authorization_notifications:
+      instruction_submit_notification: Notifications pour les soumissions
 
   authorization_requests:
     index:

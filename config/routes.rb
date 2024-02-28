@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   get '/compte', to: 'profile#edit', as: :profile
   patch '/compte', to: 'profile#update'
 
+  patch '/settings/notifications', to: 'notifications_settings#update', as: :notifications_settings
+
   scope(path_names: { new: 'nouveau', edit: 'modifier' }) do
     resources :authorization_requests, only: %w[index show], path: 'demandes' do
       resources :archive_authorization_requests, only: %w[new create], path: 'archiver', as: :archive

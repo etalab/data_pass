@@ -5,3 +5,13 @@
 </div>
 
 <%= render partial: 'authorization_request_forms/shared/organization' %>
+
+<% if current_user.instructor? %>
+  <h2 class="fr-mt-4v">
+    <%= t('.notifications.title') %>
+  </h2>
+
+  <% current_user.authorization_definition_roles_as('instructor').each do |authorization_definition| %>
+    <%= render partial: 'profile/authorization_notifications', locals: { authorization_definition: } %>
+  <% end %>
+<% end %>

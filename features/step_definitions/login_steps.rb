@@ -19,7 +19,7 @@ Sachantque('je suis un demandeur') do
 end
 
 Sachantque('je suis un instructeur {string}') do |kind|
-  @current_user_email = "#{kind.parameterize}@gouv.fr"
+  @current_user_email ||= "#{kind.parameterize}@gouv.fr"
   user = User.find_by(email: @current_user_email) || FactoryBot.create(:user, email: @current_user_email)
   mock_mon_compte_pro(user)
 

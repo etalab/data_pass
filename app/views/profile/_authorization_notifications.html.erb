@@ -1,0 +1,28 @@
+<div class="settings-block">
+  <h3 class="settings-block__title">
+    <%= authorization_definition.name %>
+  </h3>
+
+  <div class="settings-block__container">
+    <%= form_with(model: current_user, url: notifications_settings_path, data: { controller: 'auto-submit' }) do |f| %>
+      <div class="fr-toggle">
+        <%=
+          f.check_box "instruction_submit_notification_for_#{authorization_definition.id.underscore}",
+            class: 'fr-toggle__input',
+            data: {
+              action: 'change->auto-submit#perform'
+            }
+        %>
+        <%=
+          f.label "instruction_submit_notification_for_#{authorization_definition.id.underscore}",
+            t('.instruction_submit_notification'),
+            class: 'fr-toggle__label',
+            data: {
+              fr_checked_label: 'Activées',
+              fr_unchecked_label: 'Désactivées',
+            }
+        %>
+      </div>
+    <% end %>
+  </div>
+</div>
