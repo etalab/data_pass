@@ -10,6 +10,17 @@ class Instruction::AuthorizationRequestMailer < ApplicationMailer
     )
   end
 
+  def reopening_submitted
+    @authorization_request = params[:authorization_request]
+
+    mail(
+      to: instructors_to_notify(@authorization_request).pluck(:email),
+      subject: t(
+        '.subject',
+      )
+    )
+  end
+
   private
 
   def instructors_to_notify(authorization_request)
