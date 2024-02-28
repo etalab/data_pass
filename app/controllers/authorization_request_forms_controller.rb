@@ -1,7 +1,9 @@
+# rubocop:disable Metrics/ClassLength
 class AuthorizationRequestFormsController < AuthenticatedUserController
   helper AuthorizationRequestsHelpers
   include AuthorizationRequestsFlashes
 
+  allow_unauthenticated_access only: [:new]
   before_action :extract_authorization_request_form, except: [:index]
   before_action :extract_authorization_request, only: %i[show summary update]
 
@@ -10,11 +12,15 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   end
 
   def new
+    @authorization_definition = @authorization_request_form.authorization_definition
     authorize @authorization_request_form, :new?
 
-    @authorization_definition = @authorization_request_form.authorization_definition
-
-    render 'authorization_requests/new'
+    if user_signed_in?
+      render 'authorization_requests/new'
+    else
+      save_redirect_path
+      render 'authorization_requests/unauthenticated_form_start'
+    end
   end
 
   def create
@@ -220,3 +226,5 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     'authorization_request'
   end
 end
+
+# rubocop:enable Metrics/ClassLength

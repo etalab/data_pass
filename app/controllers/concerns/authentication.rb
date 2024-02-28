@@ -43,7 +43,6 @@ module Authentication
     return if user_signed_in?
 
     session[:return_to_after_sign_in] = request.url
-
     redirect_to sign_in_path
   end
 
@@ -57,6 +56,10 @@ module Authentication
       session[:user_id]['value'].present? &&
       session[:user_id]['expires_at'].present? &&
       session[:user_id]['expires_at'] > Time.current
+  end
+
+  def save_redirect_path
+    session[:return_to_after_sign_in] = request.url
   end
 
   def current_user

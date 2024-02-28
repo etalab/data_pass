@@ -34,7 +34,7 @@ class ApplicationPolicy
     false
   end
 
-  delegate :current_organization, to: :user
+  delegate :current_organization, to: :user, allow_nil: true
 
   class Scope
     delegate :current_organization, to: :user

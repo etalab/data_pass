@@ -31,6 +31,6 @@ end
 Sachantque('je me connecte') do
   steps %(
     Quand je me rends sur la page d'accueil
-    Et que je clique sur "S'identifier avec MonComptePro"
+    Et que je clique sur "S’identifier avec MonComptePro"
   )
 end
