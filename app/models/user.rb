@@ -18,6 +18,16 @@ class User < ApplicationRecord
     class_name: 'Authorization',
     inverse_of: :applicant
 
+  scope :instructor_for, lambda { |authorization_request_type|
+    where("
+      EXISTS (
+        SELECT 1
+        FROM unnest(roles) AS role
+        WHERE role = ?
+      )
+    ", "#{authorization_request_type.underscore}:instructor")
+  }
+
   def full_name
     "#{family_name} #{given_name}"
   end

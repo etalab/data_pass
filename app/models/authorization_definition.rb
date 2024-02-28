@@ -58,6 +58,10 @@ class AuthorizationDefinition < StaticApplicationRecord
     true
   end
 
+  def instructors
+    User.instructor_for(id)
+  end
+
   def available_forms
     AuthorizationRequestForm.where(authorization_request_class:).sort do |form|
       form.default ? 1 : 0
