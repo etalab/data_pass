@@ -2,6 +2,14 @@ def find_authorization_definition_from_name(name)
   AuthorizationDefinition.where(name:).first
 end
 
+def form_uid_from_names(name, form_name)
+  form_name = nil if form_name&.downcase == 'demande libre'
+
+  form_uid = [name.dasherize, form_name&.dasherize].compact.join('-')
+
+  I18n.transliterate(form_uid.tr(' ', '-').downcase.dasherize)
+end
+
 def find_authorization_request_form_from_name(name)
   AuthorizationRequestForm.where(name:).first
 end
