@@ -1,13 +1,13 @@
 module AuthorizationExtensions::GDPRContacts
   extend ActiveSupport::Concern
 
-  NAME = %i[
+  NAMES = %i[
     responsable_traitement
     delegue_protection_donnees
   ].freeze
 
   included do
-    NAME.each do |contact_kind|
+    NAMES.each do |contact_kind|
       contact contact_kind, validation_condition: -> { need_complete_validation?(:contacts) }
     end
   end

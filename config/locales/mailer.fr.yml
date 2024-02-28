@@ -62,13 +62,12 @@ fr:
 
         Vous pouvez consulter votre demande de mise à jour en suivant le lien suivant: %{authorization_request_url}
   gdpr_contact_mailer:
-    shared: &shared_gdpr
+    responsable_traitement: &shared_gdpr
       subject: &gdpr_subject Vous avez été désigné %{authorization_request_contact_kind} pour la démarche "%{authorization_request_name}".
       description: &gdpr_description |
         Nous vous informons que %{authorization_request_applicant_email}, de l'organisation %{authorization_request_organization},
         vous a désigné(e) comme %{authorization_request_contact_kind} pour accéder aux resources de %{authorization_request_definition_name} dans le cadre
         de la démarche « %{authorization_request_name} ».
-    responsable_traitement: *shared_gdpr
     delegue_protection_donnees: *shared_gdpr
 
   instruction:
