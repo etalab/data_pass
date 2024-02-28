@@ -58,7 +58,7 @@
           Demande de mise à jour
         </strong>
 
-        Fait le 01/01/2024
+        Fait le <%= l authorization_request.reopened_at, format: '%d/%m/%Y' %>
 
         <%= link_to t('.show_cta'), authorization_request_form_path(form_uid: authorization_request.form.uid, id: authorization_request.id) %>
       </div>

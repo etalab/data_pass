@@ -85,6 +85,8 @@ RSpec.configure do |config|
     OmniAuth.config.mock_auth[:mon_compte_pro] = nil
     OmniAuth.config.test_mode = false
   end
+
+  config.include ActiveSupport::Testing::TimeHelpers
 end
 
 load Rails.root.join('spec/support/configure_javascript_driver.rb')
