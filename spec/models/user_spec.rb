@@ -48,8 +48,8 @@ RSpec.describe User do
     end
   end
 
-  describe '#authorization_roles_as' do
-    subject { user.authorization_roles_as(kind) }
+  describe '#authorization_definition_roles_as' do
+    subject { user.authorization_definition_roles_as(kind).map(&:id) }
 
     let(:kind) { 'instructor' }
 
@@ -62,6 +62,9 @@ RSpec.describe User do
     context 'when user is an instructor' do
       let(:user) { build(:user, :instructor, authorization_request_types:) }
       let(:authorization_request_types) { %w[api_entreprise api_particulier] }
+
+      let(:api_entreprise_definition) { AuthorizationDefinition.find('api_entreprise') }
+      let(:api_particulier_definition) { AuthorizationDefinition.find('api_particulier') }
 
       it { is_expected.to contain_exactly('api_entreprise', 'api_particulier') }
     end

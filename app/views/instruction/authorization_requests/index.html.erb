@@ -5,10 +5,10 @@
       <%= f.search_field :within_data_or_organization_siret_cont, id: 'search_main_input', class: %[fr-input] %>
     </div>
 
-    <% if current_user.authorization_roles_as(:instructor).count > 1 %>
+    <% if current_user.authorization_definition_roles_as(:instructor).count > 1 %>
       <div class="fr-select-group input">
         <%= f.label :type_eq, class: %w[fr-label] %>
-        <% options = current_user.authorization_roles_as(:instructor).map { |e| [AuthorizationDefinition.find(e).name, "AuthorizationRequest::#{e.classify}"] }%>
+        <% options = current_user.authorization_definition_roles_as(:instructor).map { |authorization_definition| [authorization_definition.name, authorization_definition.authorization_request_class.to_s] }%>
         <%= f.select :type_eq, options_for_select([['Toutes les données', '']].concat(options), selected: params[:q].try(:[], :type_eq)), {}, class: %w[fr-select] %>
       </div>
     <% end %>
