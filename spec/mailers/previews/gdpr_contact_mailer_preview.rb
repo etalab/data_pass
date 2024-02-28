@@ -1,5 +1,5 @@
 class GDPRContactMailerPreview < ActionMailer::Preview
-  AuthorizationExtensions::GDPRContacts::GDPR_CONTACTS.each do |contact|
+  AuthorizationExtensions::GDPRContacts::NAMES.each do |contact|
     define_method contact do
       GDPRContactMailer.with(params_for(contact)).send(contact)
     end

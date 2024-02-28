@@ -1,5 +1,5 @@
 class GDPRContactMailer < ApplicationMailer
-  AuthorizationExtensions::GDPRContacts::GDPR_CONTACTS.each do |contact|
+  AuthorizationExtensions::GDPRContacts::NAMES.each do |contact|
     define_method(contact) do
       @authorization_request = params[:authorization_request]
 
