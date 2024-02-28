@@ -55,8 +55,19 @@ FactoryBot.define do
       end
     end
 
+    after(:create) do |authorization_request, evaluator|
+      evaluator.documents.each do |document|
+        authorization_request.public_send(document).attach(
+          io: Rails.root.join('spec/fixtures/dummy.pdf').open,
+          filename: 'dummy.pdf',
+          content_type: 'application/pdf',
+        )
+      end
+    end
+
     transient do
       fill_all_attributes { false }
+      documents { [] }
     end
 
     trait :no_checkboxes do

@@ -13,6 +13,11 @@ class Authorization < ApplicationRecord
   has_one :organization,
     through: :request
 
+  has_many :documents,
+    class_name: 'AuthorizationDocument',
+    inverse_of: :authorization,
+    dependent: :destroy
+
   delegate :name, to: :request
 
   def kind
@@ -21,9 +26,12 @@ class Authorization < ApplicationRecord
 
   def request_as_validated
     request_as_validated = request.dup
+
     request_as_validated.id = request.id
     request_as_validated.data = data
     request_as_validated.state = 'validated'
+    affect_snapshot_documents(request_as_validated)
+
     request_as_validated
   end
 
@@ -37,5 +45,16 @@ class Authorization < ApplicationRecord
 
   def authorization_request
     request
+  end
+
+  private
+
+  def affect_snapshot_documents(request_as_validated)
+    request_as_validated.class.documents.each do |document|
+      snapshoted_document = documents.find_by(identifier: document)
+      next if snapshoted_document.nil?
+
+      request_as_validated.public_send(:"#{document}=", snapshoted_document.file.blob)
+    end
   end
 end
