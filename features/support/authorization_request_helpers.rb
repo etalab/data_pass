@@ -29,7 +29,7 @@ end
 # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity
 def extract_state_from_french_status(status)
   case status
-  when 'attente de modification', 'sujet à modification'
+  when 'attente de modification', 'sujet à modification', 'modifier'
     'changes_requested'
   when 'attente', 'attentes', 'soumise', 'soumises', 'modérer'
     'submitted'

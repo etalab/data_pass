@@ -146,6 +146,13 @@ fr:
       reopening_refused:
         title: Votre demande de mise à jour a été refusée
         description: *authorization_request_refused_description
+      changes_requested:
+        title: Votre demande d'habilitation nécessite des modifications avant d'être validée
+        description: *authorization_request_refused_description
+      reopening_changes_requested:
+        title: Votre demande de mise à jour nécessite des modifications avant d'être validée
+        description: *authorization_request_refused_description
+
   start_authorization_request_form:
     cta: Débuter mon habilitation pour %{authorization_name}
   authorization_request_forms:
