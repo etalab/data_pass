@@ -1,4 +1,4 @@
-<%= render partial: 'mailer/shared/applicant/header', locals: { user: @authorization_request.applicant } %>
+<%= render partial: 'mailer/shared/applicant/header', locals: { user: @authorization_request.applicant.full_name } %>
 
 <%=
   t(
