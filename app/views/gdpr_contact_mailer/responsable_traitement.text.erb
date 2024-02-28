@@ -1,0 +1,16 @@
+<%= render partial: 'mailer/shared/applicant/header', locals: { user: @authorization_request.responsable_traitement_given_name } %>
+
+<%=
+  t(
+    '.description',
+    authorization_request_applicant_email: @authorization_request.applicant.email,
+    authorization_request_organization: @authorization_request.organization.raison_sociale,
+    authorization_request_contact_kind: t("authorization_request_forms.default.responsable_traitement.title").downcase,
+    authorization_request_name: @authorization_request.name,
+    authorization_request_definition_name: @authorization_request.definition.name
+  # authorization_request_url: authorization_request_url(@authorization_request),
+    # authorization_request_modification_request_reason: @authorization_request.modification_request.reason
+  )
+%>
+
+<%= render partial: 'mailer/shared/applicant/footer', locals: { authorization_definition_name: @authorization_request.definition.name } %>
