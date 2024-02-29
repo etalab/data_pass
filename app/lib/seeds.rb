@@ -1,30 +1,11 @@
 class Seeds
-  # rubocop:disable Metrics/AbcSize
   def perform
     create_entities
-
-    create_authorization_request(:api_entreprise)
-    create_authorization_request(:api_entreprise, :submitted, attributes: { intitule: 'Marché publics', description: very_long_description, applicant: another_demandeur })
-    create_authorization_request(:api_entreprise_mgdis, :validated)
-
-    reopened_authorization_request = create_authorization_request(:api_entreprise, :validated, attributes: { intitule: 'Marché publics - Ville de Bordeaux', description: 'reopening' })
-    ReopenAuthorization.call(authorization: reopened_authorization_request.latest_authorization, user: reopened_authorization_request.applicant).perform
-
-    create_authorization_request(:api_entreprise, :validated, attributes: { intitule: 'Marché publics', contact_technique_email: demandeur.email, applicant: foreign_demandeur })
-    create_authorization_request(:api_particulier, :refused, attributes: { intitule: 'Vente de données personnelles', applicant: another_demandeur })
-    create_authorization_request(:api_particulier, :changes_requested, attributes: { intitule: 'Tarification cantine' })
-    create_authorization_request(:portail_hubee_demarche_certdc)
-
-    create_authorization_request(:api_infinoe_production, :draft)
-    create_authorization_request(:api_service_national_inscription_concours_examen, :changes_requested, attributes: {
-      intitule: 'Inscription à un concours ou un examen (hors permis de conduire)',
-      description: very_long_description
-    })
-    create_authorization_request(:api_service_national, :submitted)
-
     create_all_verified_emails
+
+    create_authorization_requests_for_clamart
+    create_authorization_requests_for_dinum
   end
-  # rubocop:enable Metrics/AbcSize
 
   def flushdb
     raise 'Not in production!' if production?
@@ -46,8 +27,23 @@ class Seeds
     dinum_organization.users << foreign_demandeur
   end
 
+  def create_authorization_requests_for_clamart
+    create_validated_authorization_request(:api_entreprise, attributes: { intitule: "Portail des appels d'offres", applicant: demandeur })
+    create_request_changes_authorization_request(:api_entreprise, attributes: { intitule: 'Portail des aides publiques', applicant: another_demandeur })
+    create_refused_authorization_request(:api_entreprise, attributes: { intitule: 'Statistiques sur les effectifs', applicant: demandeur })
+    create_reopened_authorization_request(:api_entreprise_mgdis, attributes: { applicant: demandeur })
+
+    create_submitted_authorization_request(:api_entreprise, attributes: { intitule: 'Place des entreprises', applicant: another_demandeur })
+  end
+
+  def create_authorization_requests_for_dinum
+    create_validated_authorization_request(:api_entreprise, attributes: { intitule: 'Démarches simplifiées', applicant: foreign_demandeur, contact_metier_email: demandeur.email })
+  end
+
   def demandeur
     @demandeur ||= User.create!(
+      given_name: 'Jean',
+      family_name: 'Dupont',
       email: 'user@yopmail.com',
       external_id: '1',
       current_organization: clamart_organization,
@@ -56,6 +52,8 @@ class Seeds
 
   def another_demandeur
     @another_demandeur ||= User.create!(
+      given_name: 'Jacques',
+      family_name: 'Dupont',
       email: 'user10@yopmail.com',
       external_id: '10',
       current_organization: clamart_organization,
@@ -64,6 +62,8 @@ class Seeds
 
   def foreign_demandeur
     @foreign_demandeur ||= User.create!(
+      given_name: 'Pierre',
+      family_name: 'Dupont',
       email: 'user11@yopmail.com',
       external_id: '11',
       current_organization: dinum_organization,
@@ -72,6 +72,8 @@ class Seeds
 
   def api_entreprise_instructor
     @api_entreprise_instructor ||= User.create!(
+      given_name: 'Paul',
+      family_name: 'Dupont',
       email: 'api-entreprise@yopmail.com',
       external_id: '4',
       current_organization: dinum_organization,
@@ -97,62 +99,81 @@ class Seeds
     )
   end
 
-  def create_authorization_request(kind, status = :draft, attributes: {}, traits: [])
+  def create_draft_authorization_request(kind, attributes: {})
+    create_authorization_request_model(
+      kind,
+      attributes: attributes.merge(
+        fill_all_attributes: true,
+        description: random_description,
+      )
+    )
+  end
+
+  def create_submitted_authorization_request(kind, attributes: {})
+    user = extract_applicant(attributes)
+    authorization_request = create_draft_authorization_request(kind, attributes:)
+
+    SubmitAuthorizationRequest.call(authorization_request:, user:).perform
+
+    authorization_request
+  end
+
+  def create_validated_authorization_request(kind, attributes: {})
+    authorization_request = create_submitted_authorization_request(kind, attributes:)
+
+    ApproveAuthorizationRequest.call(authorization_request:, user: api_entreprise_instructor).perform
+
+    authorization_request
+  end
+
+  def create_refused_authorization_request(kind, attributes: {})
+    authorization_request = create_submitted_authorization_request(kind, attributes:)
+    denial_of_authorization_params = {
+      reason: 'Cette demande ne correspond pas à nos critères',
+    }.merge(attributes[:denial_of_authorization_params] || {})
+
+    RefuseAuthorizationRequest.call(authorization_request:, user: api_entreprise_instructor, denial_of_authorization_params:).perform
+
+    authorization_request
+  end
+
+  def create_request_changes_authorization_request(kind, attributes: {})
+    authorization_request = create_submitted_authorization_request(kind, attributes:)
+    instructor_modification_request_params = {
+      reason: "Le cadre juridique n'est pas suffisamment précis, merci de le compléter",
+    }.merge(attributes[:instructor_modification_request_params] || {})
+
+    RequestChangesOnAuthorizationRequest.call(authorization_request:, user: api_entreprise_instructor, instructor_modification_request_params:).perform
+
+    authorization_request
+  end
+
+  def create_reopened_authorization_request(kind, attributes: {})
+    authorization_request = create_validated_authorization_request(kind, attributes:)
+
+    ReopenAuthorization.call(authorization: authorization_request.latest_authorization, user: authorization_request.applicant).perform
+
+    authorization_request
+  end
+
+  def create_authorization_request_model(kind, attributes: {})
+    traits = [:draft]
     traits << kind
-    traits << status
 
-    applicant = attributes.delete(:applicant) || demandeur
+    applicant = extract_applicant(attributes)
 
-    authorization_request = FactoryBot.create(
+    FactoryBot.create(
       :authorization_request,
       *traits,
       {
         applicant:,
         organization: applicant.current_organization,
-      }.merge(attributes)
+      }.merge(attributes.except(:applicant))
     )
-
-    create_events_for(authorization_request, status)
-
-    authorization_request
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  def create_events_for(authorization_request, status)
-    case status
-    when :draft
-      create_event(authorization_request, :create, created_at: 1.day.ago)
-    when :submitted
-      create_event(authorization_request, :create, created_at: 3.hours.ago)
-      create_event(authorization_request, :submit, created_at: 1.hour.ago)
-    when :refused
-      create_event(authorization_request, :create, created_at: 3.hours.ago)
-      create_event(authorization_request, :submit, created_at: 1.hour.ago)
-      create_event(authorization_request, :refuse, created_at: 30.minutes.ago)
-    when :changes_requested
-      create_event(authorization_request, :create, created_at: 3.hours.ago)
-      create_event(authorization_request, :submit, created_at: 1.hour.ago)
-      create_event(authorization_request, :request_changes, created_at: 30.minutes.ago)
-    when :validated
-      create_event(authorization_request, :create, created_at: 3.hours.ago)
-      create_event(authorization_request, :submit, created_at: 1.hour.ago)
-      create_event(authorization_request, :approve, created_at: 30.minutes.ago)
-    end
-  end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-
-  def create_event(authorization_request, status, attributes = {})
-    attributes[:user] = if %i[create submit].include?(status)
-                          authorization_request.applicant
-                        else
-                          api_entreprise_instructor
-                        end
-
-    FactoryBot.create(
-      :authorization_request_event,
-      status,
-      attributes.merge(authorization_request:)
-    )
+  def extract_applicant(attributes)
+    attributes[:applicant] || demandeur
   end
 
   def create_all_verified_emails
@@ -178,8 +199,19 @@ class Seeds
     )
   end
 
-  def very_long_description
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, vitae aliquam nisl nisl vitae nisl. Donec euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, vitae aliquam nisl nisl vitae nisl. Donec euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, vitae aliquam nisl nisl vitae nisl. Donec euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, vitae aliquam nisl nisl vitae nisl. Donec euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, vitae aliquam nisl nisl vitae nisl.'
+  def random_description
+    [
+      "Demande d'accès sécurisé aux données fiscales pour analyse économique.",
+      "Requête d'habilitation pour accéder aux dossiers de santé publique.",
+      "Solicitation d'accès aux registres d'état civil pour recherche démographique.",
+      'Demande de permission pour consulter les données de permis de conduire pour étude de mobilité.',
+      "Application pour accéder aux données cadastrales pour projet d'urbanisme.",
+      "Requête pour l'utilisation des données de sécurité sociale dans le cadre d'une étude sur le vieillissement.",
+      "Demande d'habilitation pour étudier les tendances de l'emploi avec accès aux données du ministère du Travail.",
+      "Solicitation d'accès à la base de données électorales pour analyse politique.",
+      "Demande d'autorisation pour utiliser les données de consommation énergétique pour recherche environnementale.",
+      "Requête pour accéder aux archives judiciaires dans le but d'une étude sur la justice pénale."
+    ].sample
   end
 
   def load_all_models!
