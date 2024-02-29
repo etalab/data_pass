@@ -83,8 +83,13 @@ class AuthorizationRequest < ApplicationRecord
   end
 
   with_options on: :submit do
-    validates :terms_of_service_accepted, presence: true, inclusion: [true]
-    validates :data_protection_officer_informed, presence: true, inclusion: [true]
+    validate :all_terms_accepted
+  end
+
+  def all_terms_accepted
+    return if terms_of_service_accepted && data_protection_officer_informed
+
+    errors.add(:base, :all_terms_not_accepted)
   end
 
   # rubocop:disable Metrics/BlockLength
