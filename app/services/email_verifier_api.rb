@@ -6,6 +6,18 @@ class EmailVerifierAPI
   end
 
   def status
+    return ok_status unless enable_email_verification?
+
+    Emailable.verify(email).state
+  end
+
+  private
+
+  def enable_email_verification?
+    Emailable.api_key.present?
+  end
+
+  def ok_status
     'deliverable'
   end
 end
