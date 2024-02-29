@@ -27,6 +27,7 @@ module AuthorizationCore::Contacts
           end
 
           validates "#{kind}_email", format: { with: URI::MailTo::EMAIL_REGEXP }, if: validation_condition
+          validates "#{kind}_email", email_recently_verified: true, if: validation_condition, on: :submit
 
           contact_types << kind
         end

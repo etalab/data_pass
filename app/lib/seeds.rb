@@ -21,6 +21,8 @@ class Seeds
       description: very_long_description
     })
     create_authorization_request(:api_service_national, :submitted)
+
+    create_all_verified_emails
   end
   # rubocop:enable Metrics/AbcSize
 
@@ -150,6 +152,29 @@ class Seeds
       :authorization_request_event,
       status,
       attributes.merge(authorization_request:)
+    )
+  end
+
+  def create_all_verified_emails
+    User.find_each do |user|
+      create_verified_email(user.email)
+    end
+
+    AuthorizationRequest.find_each do |authorization_request|
+      authorization_request.class.contact_types.each do |contact_type|
+        create_verified_email(authorization_request.send(:"#{contact_type}_email"))
+      end
+    end
+  end
+
+  def create_verified_email(email)
+    return if email.blank?
+    return if VerifiedEmail.exists?(email:)
+
+    VerifiedEmail.create!(
+      email:,
+      status: 'deliverable',
+      verified_at: Time.zone.now,
     )
   end
 

@@ -5,6 +5,7 @@ class UpdateAuthorizationRequest < ApplicationOrganizer
   end
 
   organize AssignParamsToAuthorizationRequest,
+    VerifyContactsEmailsAsynchronously,
     CreateAuthorizationRequestEventModel
 
   after do
