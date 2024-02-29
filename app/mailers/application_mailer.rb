@@ -6,7 +6,7 @@ class ApplicationMailer < ActionMailer::Base
   before_action :extract_host
 
   def extract_host
-    default_url_options[:host] = current_host
+    ActionMailer::Base.default_url_options[:host] = current_host
   end
 
   def current_host
