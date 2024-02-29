@@ -6,9 +6,7 @@ RSpec.describe DeliverGDPRContactsMails do
       let(:authorization_request) { create(:authorization_request) }
 
       it 'does not deliver any emails to RGPD contacts' do
-        AuthorizationExtensions::GDPRContacts::NAMES.each do |contact|
-          expect(GDPRContactMailer).not_to receive(contact)
-        end
+        expect(GDPRContactMailer).not_to receive(:with)
 
         expect(subject).to be_truthy
       end
@@ -20,7 +18,8 @@ RSpec.describe DeliverGDPRContactsMails do
       it 'delivers emails to RGPD contacts' do
         AuthorizationExtensions::GDPRContacts::NAMES.each do |contact|
           contact_mailer = instance_double(ActionMailer::MessageDelivery)
-          allow(GDPRContactMailer).to receive(contact).and_return(contact_mailer)
+
+          allow(GDPRContactMailer).to receive_message_chain(:with, contact).and_return(contact_mailer) # rubocop:disable RSpec/MessageChain
 
           expect(contact_mailer).to receive(:deliver_later)
         end

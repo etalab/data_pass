@@ -12,11 +12,13 @@ class DeliverGDPRContactsMails < ApplicationInteractor
   end
 
   def notify(gdpr_contact)
-    GDPRContactMailer.public_send(gdpr_contact, params).deliver_later
+    GDPRContactMailer.with(params).public_send(gdpr_contact).deliver_later
   end
 
   def params
-    context.authorization_request_notifier_params || {}
+    {
+      authorization_request: context.authorization_request
+    }
   end
 
   def email_defined?(gdpr_contact)
