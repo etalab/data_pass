@@ -1,7 +1,7 @@
 <%= render partial: 'mailer/shared/applicant/header', locals: { entity_name: @authorization_request.responsable_traitement_given_name } %>
 
 <%=
-  sanitize t(
+  t(
     '.description',
     authorization_request_applicant_email: @authorization_request.applicant.email,
     authorization_request_organization: @authorization_request.organization.raison_sociale,
@@ -9,7 +9,7 @@
     authorization_request_name: @authorization_request.name,
     authorization_request_definition_name: @authorization_request.definition.name,
     authorization_request_url: authorization_request_url(@authorization_request),
-    data_pass_support_email: Rails.application.config.default_from
+    data_pass_support_email: t("mailer.shared.support.email")
   )
 %>
 

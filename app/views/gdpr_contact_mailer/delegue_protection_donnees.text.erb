@@ -10,7 +10,7 @@
     authorization_request_name: @authorization_request.name,
     authorization_request_definition_name: @authorization_request.definition.name,
     authorization_request_url: authorization_request_url(@authorization_request),
-    data_pass_support_email: Rails.application.config.default_from
+    data_pass_support_email: t("mailer.shared.support.email")
   ).html_safe
 %>
 

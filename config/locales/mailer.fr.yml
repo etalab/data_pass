@@ -3,6 +3,8 @@ fr:
     shared:
       header:
         hello: 'Bonjour,'
+      support:
+        email: datapass@api.gouv.fr
       applicant:
         header:
           text: Bonjour %{entity_name},
