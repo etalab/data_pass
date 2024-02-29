@@ -1,19 +1,34 @@
-<% if namespace?(:instruction) %>
-  <div data-controller="sticky-btns-group" class="fr-btns-group fr-btns-group--inline-lg fr-btns-group--icon-left">
-    <% if policy([:instruction, @authorization_request]).approve? %>
-      <%= dsfr_main_modal_button(t('.approve'), new_instruction_authorization_request_approval_path(@authorization_request), class: %w(fr-btn fr-btn--primary fr-icon-success-line fr-btn--icon-left)) %>
-    <% end %>
+<nav role="navigation" class="fr-dropdown fr-translate instruction-actions fr-nav">
+  <div class="fr-nav__item">
+    <button class="fr-translate__btn fr-btn fr-btn--lg fr-btn--primary" aria-controls="translate-1177" aria-expanded="false" title="Instruire la demande">
+      Instruire la demande
+    </button>
+    <div class="fr-collapse fr-translate__menu fr-menu" id="translate-1177">
+      <ul class="fr-menu__list">
+        <% if policy([:instruction, @authorization_request]).approve? %>
+          <li>
+            <%= dsfr_main_modal_button(t('.approve'), new_instruction_authorization_request_approval_path(@authorization_request), class: %w(fr-translate__language fr-nav__link fr-icon-success-line)) %>
+          </li>
+        <% end %>
 
-    <% if policy([:instruction, @authorization_request]).request_changes? %>
-      <%= dsfr_main_modal_button(t('.request_changes'), new_instruction_authorization_request_request_change_path(@authorization_request), class: %w(fr-btn fr-btn--primary fr-icon-edit-line fr-btn--icon-left)) %>
-    <% end %>
+        <% if policy([:instruction, @authorization_request]).request_changes? %>
+          <li>
+            <%= dsfr_main_modal_button(t('.request_changes'), new_instruction_authorization_request_request_change_path(@authorization_request), class: %w(fr-translate__language fr-nav__link fr-icon-edit-line)) %>
+          </li>
+        <% end %>
 
-    <% if policy([:instruction, @authorization_request]).refuse? %>
-      <%= dsfr_main_modal_button(t('.refuse'), new_instruction_authorization_request_refusal_path(@authorization_request), class: %w(fr-btn fr-btn--primary fr-icon-error-line fr-btn--icon-left)) %>
-    <% end %>
+        <% if policy([:instruction, @authorization_request]).refuse? %>
+          <li>
+            <%= dsfr_main_modal_button(t('.refuse'), new_instruction_authorization_request_refusal_path(@authorization_request), class: %w(fr-translate__language fr-nav__link fr-icon-error-line)) %>
+          </li>
+        <% end %>
 
-    <% if policy([:instruction, @authorization_request]).archive? %>
-      <%= dsfr_main_modal_button(t('.archive'), new_instruction_authorization_request_archive_path(@authorization_request), class: %w(fr-btn fr-btn--secondary fr-icon-archive-line fr-btn--icon-left)) %>
-    <% end %>
+        <% if policy([:instruction, @authorization_request]).archive? %>
+          <li>
+            <%= dsfr_main_modal_button(t('.archive'), new_instruction_authorization_request_archive_path(@authorization_request), class: %w(fr-translate__language fr-nav__link fr-icon-archive-line)) %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
   </div>
-<% end %>
+</nav>

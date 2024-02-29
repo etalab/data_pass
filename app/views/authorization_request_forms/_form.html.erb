@@ -3,7 +3,6 @@
 <div class="fr-container">
   <%= render partial: 'shared/alerts' %>
 
-
   <% if @authorization_request.refused? %>
     <div class="fr-alert fr-alert--error fr-mb-2v">
       <h3 class="fr-alert__title">
@@ -36,7 +35,5 @@
   <% end %>
 
   <%= yield %>
-
-  <%= render partial: 'instruction/authorization_requests/moderation_buttons' %>
 </div>
 

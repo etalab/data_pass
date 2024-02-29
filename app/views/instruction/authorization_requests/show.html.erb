@@ -1,7 +1,32 @@
-<%= authorization_request_form(@authorization_request) do |f| %>
-  <%= render partial: 'authorization_request_forms/shared/organization' %>
+<%= authorization_request_form_tag(@authorization_request) do |f| %>
+  🍿 INSERT Informations demandeur/organisation 💰
 
-  <% @authorization_request.form.steps.each do |step| %>
-    <%= render partial: "authorization_request_forms/shared/#{step[:name]}", locals: { f: } %>
+  <div class="info-block">
+    <h3>
+      Les informations renseignées par le demandeur
+    </h3>
+    <p>
+      Ces informations ont été complétées manuellement pas le demandeur.
+    </p>
+  </div>
+
+
+  <% @authorization_request.editable_blocks.each do |block| %>
+    <%= render partial: "authorization_requests/shared/blocks/#{block[:name]}", locals: { f: f, editable: true } %>
+  <% end %>
+
+  <% if @authorization_request.static_blocks.any? %>
+    <div class="info-block">
+      <h3>
+        Les informations pré-remplies
+      </h3>
+      <p>
+        Ces informations suivantes ont été pré-remplies et ne sont pas modifiables.
+      </p>
+    </div>
+
+    <% @authorization_request.static_blocks.each do |block| %>
+      <%= render partial: "authorization_requests/shared/blocks/#{block[:name]}", locals: { f: f, editable: false } %>
+    <% end %>
   <% end %>
 <% end %>
