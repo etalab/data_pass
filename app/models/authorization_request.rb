@@ -161,10 +161,10 @@ class AuthorizationRequest < ApplicationRecord
     if form.multiple_steps?
       raise "Unknown step #{step}" if step.present? && steps_names.exclude?(step.to_s)
 
-      !in_draft? ||
+      !in_filling? ||
         required_for_step?(step)
     else
-      !in_draft?
+      !in_filling?
     end
   end
 
@@ -191,7 +191,7 @@ class AuthorizationRequest < ApplicationRecord
     @steps_names ||= form.steps.pluck(:name)
   end
 
-  def in_draft?
+  def in_filling?
     %w[draft changes_requested].include?(state)
   end
 

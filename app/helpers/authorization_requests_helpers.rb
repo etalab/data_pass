@@ -50,6 +50,6 @@ module AuthorizationRequestsHelpers
   def authorization_request_can_be_updated?(authorization_request)
     return false if namespace?(:instruction)
 
-    authorization_request.in_draft?
+    authorization_request.in_filling?
   end
 end

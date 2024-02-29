@@ -2,7 +2,7 @@ class ReviewAuthorizationRequest < ApplicationOrganizer
   before do
     context.authorization_request_params ||= ActionController::Parameters.new
     context.save_context = :review
-    context.fail! unless context.authorization_request.in_draft?
+    context.fail! unless context.authorization_request.in_filling?
   end
 
   organize AssignParamsToAuthorizationRequest

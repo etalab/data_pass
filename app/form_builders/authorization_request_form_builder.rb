@@ -143,7 +143,7 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
   end
 
   def readonly?
-    !@object.in_draft?
+    !@object.in_filling?
   end
 
   def check_box_disabled
