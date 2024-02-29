@@ -294,8 +294,7 @@ fr:
       create:
         success:
           title: La demande d'habilitation %{name} a été validé
-      reopening_create:
-        success:
+        reopening_success:
           title: La demande de mise à jour de l'habilitation %{name} a été validé
 
     refuse_authorization_requests:
@@ -322,8 +321,7 @@ fr:
       create:
         success:
           title: La demande d'habilitation %{name} a été refusée
-      reopening_create:
-        success:
+        reopening_success:
           title: La demande de mise à jour de l'habilitation %{name} a été refusée
 
     request_changes_on_authorization_requests:
@@ -350,8 +348,7 @@ fr:
         success:
           title: La demande de modifications de d'habilitation %{name} a bien été envoyée au demandeur
 
-      reopening_create:
-        success:
+        reopening_success:
           title: La demande de modifications de la mise à jour de l'habilitation %{name} a bien été envoyée au demandeur
 
     archive_authorization_requests:
