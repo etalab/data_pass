@@ -19,8 +19,8 @@ class ApplicationController < ActionController::Base
     flash_message(:error, title:, description: object.errors.full_messages, id:, activemodel: true)
   end
 
-  def error_message(title:, description: nil, id: nil)
-    flash_message(:error, title:, description:, id:)
+  def error_message(title:, description: nil, id: nil, activemodel: false)
+    flash_message(:error, title:, description:, id:, activemodel:)
   end
 
   def success_message(title:, description: nil, id: nil)
