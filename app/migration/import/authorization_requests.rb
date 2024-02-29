@@ -15,7 +15,7 @@ class Import::AuthorizationRequests < Import::Base
     authorization_request.form_uid = fetch_form(authorization_request).id
     authorization_request.state = enrollment_row['status']
 
-    if !authorization_request.in_filling?
+    if !authorization_request.filling?
       authorization_request.assign_attributes(
         terms_of_service_accepted: true,
         data_protection_officer_informed: true,

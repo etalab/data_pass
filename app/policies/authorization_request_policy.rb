@@ -22,7 +22,7 @@ class AuthorizationRequestPolicy < ApplicationPolicy
 
   def update?
     same_user_and_organization? &&
-      record.in_filling?
+      record.filling?
   end
 
   def submit?

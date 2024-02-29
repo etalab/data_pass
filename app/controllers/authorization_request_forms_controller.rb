@@ -57,7 +57,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
 
   def summary
     authorize @authorization_request
-    @summary_before_submit = @authorization_request.in_filling?
+    @summary_before_submit = @authorization_request.filling?
   rescue Pundit::NotAuthorizedError
     raise unless AuthorizationRequestPolicy.new(current_user, @authorization_request).show?
 
