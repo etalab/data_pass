@@ -1,10 +1,17 @@
-ul.authorization_request_events li {
-  display: block;
-  position: relative;
+:root {
+  --authorization-request-event-padding: 20px;
 }
 
-ul.authorization_request_events li time {
+ul.authorization-request-events li {
+  display: block;
+  position: relative;
+  padding-bottom: var(--authorization-request-event-padding);
+  padding-top: var(--authorization-request-event-padding);
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+ul.authorization-request-events li time {
   position: absolute;
   right: 0;
-  top: 0;
+  top: var(--authorization-request-event-padding);
 }
