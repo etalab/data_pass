@@ -15,6 +15,7 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.acronym 'API'
   inflect.acronym 'DSFR'
   inflect.acronym 'GDPR'
+  inflect.acronym 'INSEE'
 
   inflect.acronym 'HubEE'
   inflect.acronym 'DC'
