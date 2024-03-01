@@ -176,6 +176,17 @@ class AuthorizationRequest < ApplicationRecord
     end
   end
 
+  kredis_counter :redis_unread_messages_from_applicant
+  kredis_counter :redis_unread_messages_from_instructors
+
+  def unread_messages_from_applicant_count
+    redis_unread_messages_from_applicant.value
+  end
+
+  def unread_messages_from_instructors_count
+    redis_unread_messages_from_instructors.value
+  end
+
   attr_writer :current_build_step
 
   def current_build_step
