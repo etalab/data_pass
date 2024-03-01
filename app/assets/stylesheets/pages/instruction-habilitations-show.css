@@ -1,0 +1,12 @@
+.instruction-actions .fr-translate__btn {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5rem;
+  min-height: 2.5rem;
+  padding: 0.5rem 1rem;
+}
+
+.instruction-actions .fr-translate__language::before {
+  width: 25px;
+  margin-right: 10px;
+}

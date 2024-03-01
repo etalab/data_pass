@@ -1,6 +1,12 @@
 fr:
   activerecord:
     attributes:
+      user:
+        job_title: Poste occupé
+        email: Email
+        phone_number: Numéro de téléphone
+      organization:
+        siret: Numéro de SIRET
       authorization_request:
         terms_of_service_accepted: J'ai pris connaissance des conditions générales d'utilisation et je les valide.
         data_protection_officer_informed: Je confirme que le délégué à la protection des données de mon organisation est informé de ma demande.

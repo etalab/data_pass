@@ -356,7 +356,7 @@ fr:
         success: La demande d'habilitation %{name} a été archivée avec succèss
     authorization_request_events:
       index:
-        title: Derniers événements lié à cette demande
+        title: Derniers événements liés à cette demande
       authorization_request_event:
         create:
           text: "<strong>%{user_full_name}</strong> a crée la demande"
@@ -375,7 +375,7 @@ fr:
 
         approve:
           text: "<strong>%{user_full_name}</strong> a approuvé la demande"
-          icon: success-fill
+          icon: checkbox-line
           color: success
         request_changes:
           text: |
@@ -384,7 +384,7 @@ fr:
             <blockquote>
               %{text}
             </blockquote>
-          icon: warning-fill
+          icon: pencil-line
           color: warning
         refuse:
           text: |
@@ -393,7 +393,7 @@ fr:
             <blockquote>
               %{text}
             </blockquote>
-          icon: error-fill
+          icon: close-circle-line
           color: error
 
         reopen:

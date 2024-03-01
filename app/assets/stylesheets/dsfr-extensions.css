@@ -15,6 +15,19 @@
   background-color: var(--background-contrast-info);
 }
 
+/* Tabs container width */
+.fr-tabs > .fr-container {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Dropdown based on fr-translate component */
+
+.fr-dropdown.fr-translate .fr-translate__btn::before {
+  width: 0px;
+  mask-size: 0;
+}
+
 /* Text color */
 .fr-text-info {
   color: var(--text-default-info);
@@ -35,6 +48,15 @@
 .fr-text-grey {
   color: var(--grey-625-425);
 }
+
+.fr-bg-white {
+  background-color: white;
+}
+
+.fr-bg-grey {
+  background-color: #f5f5f5;
+}
+
 .fr-bg-alt-blue-france {
   background-color: var(--background-action-low-blue-france);
 }
