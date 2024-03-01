@@ -22,6 +22,9 @@ fr:
       archived: Archivée
       revoked: Révoquée
     reopening: Mise à jour
+    contacts:
+      responsable_traitement: Responsable de traitement
+      delegue_protection_donnees: Délégué à la protection des données
   authorization_request_event:
     changelog_entry: "Le champ \"%{attribute}\" a changé de \"%{old_value}\" en \"%{new_value}\""
 

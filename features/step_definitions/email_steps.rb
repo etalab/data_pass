@@ -9,8 +9,8 @@ After('@AvecCourriels') do
 end
 
 Alors('un email est envoyé contenant {string}') do |content|
-  last_email = ActionMailer::Base.deliveries.last
+  matching =
+    ActionMailer::Base.deliveries.find { |email| email.body.include?(content) }
 
-  expect(last_email).to be_present, "Aucun email n'a été envoyé"
-  expect(last_email.body).to include(content)
+  expect(matching).to be_present
 end

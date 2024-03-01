@@ -11,5 +11,6 @@ class ApproveAuthorizationRequest < ApplicationOrganizer
     ExecuteAuthorizationRequestBridge,
     CreateAuthorization,
     CreateAuthorizationRequestEventModel,
-    DeliverAuthorizationRequestNotification
+    DeliverAuthorizationRequestNotification,
+    DeliverGDPRContactsMails
 end
