@@ -14,8 +14,12 @@
           <%
             %w[
               siret
+              address
+              code_naf_with_libelle
             ].each do |organization_attribute|
           %>
+            <% next unless @authorization_request.organization.public_send(organization_attribute).present? %>
+
             <div class="contact-card__attribute">
               <div class="contact-card__attribute-label">
                 <%= Organization.human_attribute_name(organization_attribute) %>
