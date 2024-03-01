@@ -47,6 +47,8 @@ RSpec.configure do |config|
   config.include RequestsHelpers, type: :request
   config.include SessionsHelpers, type: :feature
   config.include FeaturesHelpers, type: :feature
+  config.include FixturesHelpers
+  config.include INSEESireneAPIMocks
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false

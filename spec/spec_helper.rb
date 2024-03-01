@@ -16,6 +16,7 @@ require 'simplecov'
 #
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require 'capybara/rspec'
+require 'webmock/rspec'
 
 RSpec.configure do |config|
   config.before(:all) do
