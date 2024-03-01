@@ -26,6 +26,8 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
       entity.reason
     when 'submit'
       humanized_changelog
+    when 'applicant_message', 'instructor_message'
+      entity.body
     end
   end
 

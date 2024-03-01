@@ -406,5 +406,21 @@ fr:
         reopen:
           text: "<strong>%{user_full_name}</strong> a réouvert l'habilitation"
 
+        applicant_message:
+          text: |
+            Le demandeur <strong>%{user_full_name}</strong> a envoyé un message:
+
+            <blockquote>
+              %{text}
+            </blockquote>
+
+        instructor_message:
+          text: |
+            L'instructeur <strong>%{user_full_name}</strong> a envoyé un message:
+
+            <blockquote>
+              %{text}
+            </blockquote>
+
         system_reminder:
           text: "Une relance a été envoyé au demandeur"

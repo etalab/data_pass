@@ -92,6 +92,30 @@ FactoryBot.define do
       end
     end
 
+    trait :applicant_message do
+      name { 'applicant_message' }
+
+      entity { build(:message, :from_applicant) }
+
+      after(:build) do |authorization_request_event, evaluator|
+        next if evaluator.authorization_request.blank?
+
+        authorization_request_event.entity = build(:message, authorization_request: evaluator.authorization_request)
+      end
+    end
+
+    trait :instructor_message do
+      name { 'instructor_message' }
+
+      entity { build(:message, :from_instructor) }
+
+      after(:build) do |authorization_request_event, evaluator|
+        next if evaluator.authorization_request.blank?
+
+        authorization_request_event.entity = build(:message, authorization_request: evaluator.authorization_request)
+      end
+    end
+
     trait :system_reminder do
       name { 'system_reminder' }
 
