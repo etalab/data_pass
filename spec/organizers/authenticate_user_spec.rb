@@ -14,6 +14,10 @@ RSpec.describe AuthenticateUser do
       expect { subject }.to change(Organization, :count).by(1)
     end
 
+    it 'schedules a job to update organization INSEE data' do
+      expect { subject }.to have_enqueued_job(UpdateOrganizationINSEEPayloadJob)
+    end
+
     it 'associates the user to organization' do
       authenticate_user
 
