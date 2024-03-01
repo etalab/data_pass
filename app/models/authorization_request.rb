@@ -42,6 +42,9 @@ class AuthorizationRequest < ApplicationRecord
     inverse_of: :request,
     dependent: :nullify
 
+  has_many :messages,
+    dependent: :destroy
+
   def latest_authorization
     authorizations.order(created_at: :desc).limit(1).first
   end

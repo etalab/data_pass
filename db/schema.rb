@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_01_140544) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_01_181603) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pgcrypto"
@@ -195,6 +195,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_01_140544) do
     t.index ["authorization_request_id"], name: "idx_on_authorization_request_id_a222f7b7d6"
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.bigint "from_id", null: false
+    t.bigint "authorization_request_id", null: false
+    t.text "body", null: false
+    t.datetime "sent_at"
+    t.datetime "read_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["authorization_request_id"], name: "index_messages_on_authorization_request_id"
+    t.index ["from_id"], name: "index_messages_on_from_id"
+  end
+
   create_table "organizations", force: :cascade do |t|
     t.string "siret", null: false
     t.jsonb "mon_compte_pro_payload", default: {}, null: false
@@ -250,4 +262,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_01_140544) do
   add_foreign_key "authorizations", "users", column: "applicant_id"
   add_foreign_key "denial_of_authorizations", "authorization_requests"
   add_foreign_key "instructor_modification_requests", "authorization_requests"
+  add_foreign_key "messages", "authorization_requests"
+  add_foreign_key "messages", "users", column: "from_id"
 end
