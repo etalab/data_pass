@@ -43,3 +43,6 @@ restart:
 
 replant:
 	$(DOCKER-RUN) web bin/rails db:seed:replant
+
+prepare_db:
+	$(DOCKER-RUN) web bin/rails db:schema:load
