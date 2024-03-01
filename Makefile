@@ -5,7 +5,7 @@ build:
 	docker-compose build
 
 up:
-	docker-compose up web db redis
+	docker-compose up web db redis worker
 
 down:
 	docker-compose down
