@@ -18,6 +18,24 @@ class User < ApplicationRecord
     class_name: 'Authorization',
     inverse_of: :applicant
 
+  scope :instructor_for, lambda { |authorization_request_type|
+    where("
+      EXISTS (
+        SELECT 1
+        FROM unnest(roles) AS role
+        WHERE role = ?
+      )
+    ", "#{authorization_request_type.underscore}:instructor")
+  }
+
+  AuthorizationDefinition.all.each do |authorization_definition|
+    store_accessor :settings, :"instruction_submit_notification_for_#{authorization_definition.id.underscore}"
+
+    define_method :"instruction_submit_notification_for_#{authorization_definition.id.underscore}" do
+      settings["instruction_submit_notification_for_#{authorization_definition.id.underscore}"].nil? ? true : settings["instruction_submit_notification_for_#{authorization_definition.id.underscore}"]
+    end
+  end
+
   def full_name
     "#{family_name} #{given_name}"
   end
@@ -30,9 +48,9 @@ class User < ApplicationRecord
     end
   end
 
-  def authorization_roles_as(kind)
+  def authorization_definition_roles_as(kind)
     roles.select { |role| role.end_with?(":#{kind}") }.map do |role|
-      role.split(':').first
+      AuthorizationDefinition.find(role.split(':').first)
     end
   end
 end

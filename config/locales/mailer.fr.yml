@@ -1,11 +1,16 @@
 fr:
   mailer:
     shared:
+      header:
+        hello: 'Bonjour,'
       applicant:
         header:
           text: Bonjour %{user_full_name},
         footer:
           text: L'équipe %{authorization_definition_name}
+      instruction:
+        footer:
+          text: L'équipe DataPass
   authorization_request_mailer:
     validated:
       subject: Votre habilitation numéro %{authorization_request_id} vient d'être validée
@@ -57,3 +62,18 @@ fr:
         %{authorization_request_modification_request_reason}
 
         Vous pouvez consulter votre demande de mise à jour en suivant le lien suivant: %{authorization_request_url}
+
+  instruction:
+    authorization_request_mailer:
+      submitted:
+        subject: Nouvelle demande d'habilitation sur DataPass
+        description: |
+          %{applicant_full_name} (%{applicant_email}) a soumis une nouvelle demande d'habilitation sur DataPass pour le compte de l'organisation %{organization_raison_sociale}
+
+          Vous pouvez modérer cette demande d'habilitation en suivant le lien suivant: %{authorization_request_instruction_url}
+      reopening_submitted:
+        subject: Nouvelle demande de réouverture d'habilitation sur DataPass
+        description: |
+          %{applicant_full_name} (%{applicant_email}) a soumis une nouvelle demande de réouverture d'habilitation sur DataPass pour le compte de l'organisation %{organization_raison_sociale}
+
+          Vous pouvez modérer cette demande de réouverture d'habilitation en suivant le lien suivant: %{authorization_request_instruction_url}

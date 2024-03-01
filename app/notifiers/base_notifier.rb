@@ -20,8 +20,13 @@ class BaseNotifier < ApplicationNotifier
     end
   end
 
+  def submitted(_params)
+    Instruction::AuthorizationRequestMailer.with(
+      authorization_request:
+    ).submitted.deliver_later
+  end
+
   %w[
-    submit
     draft
     archived
   ].each do |event|

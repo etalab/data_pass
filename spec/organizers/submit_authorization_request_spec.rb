@@ -52,6 +52,10 @@ RSpec.describe SubmitAuthorizationRequest do
               })
             end
           end
+
+          it 'notifies the instructors' do
+            expect { submit_authorization_request }.to have_enqueued_mail(Instruction::AuthorizationRequestMailer, :submitted)
+          end
         end
       end
 

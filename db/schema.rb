@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_26_214947) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_28_081648) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pgcrypto"
@@ -224,9 +224,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_26_214947) do
     t.string "phone_number"
     t.boolean "phone_number_verified", default: false
     t.string "roles", default: [], array: true
+    t.jsonb "settings", default: {}
     t.index ["current_organization_id"], name: "index_users_on_current_organization_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["external_id"], name: "index_users_on_external_id", unique: true, where: "(external_id IS NOT NULL)"
+    t.index ["settings"], name: "index_users_on_settings", using: :gin
   end
 
   create_table "verified_emails", force: :cascade do |t|
