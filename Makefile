@@ -5,7 +5,7 @@ build:
 	docker-compose build
 
 up:
-	docker-compose up web db redis
+	docker-compose up web db redis worker
 
 down:
 	docker-compose down
@@ -43,3 +43,6 @@ restart:
 
 replant:
 	$(DOCKER-RUN) web bin/rails db:seed:replant
+
+prepare_db:
+	$(DOCKER-RUN) web bin/rails db:schema:load

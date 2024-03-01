@@ -38,6 +38,7 @@ group :development, :test do
   gem 'bullet'
   gem 'byebug'
   gem 'debug', platforms: %i[ mri windows ]
+  gem 'foreman'
   gem 'guard'
   gem 'guard-cucumber'
   gem 'guard-rspec'

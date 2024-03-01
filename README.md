@@ -60,7 +60,7 @@ Check [Makefile](Makefile) for all commands
 Without docker:
 
 ```sh
-rails s
+./bin/local_run.sh
 ```
 
 Then go to [http://localhost:3000](http://localhost:3000)

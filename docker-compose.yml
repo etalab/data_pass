@@ -27,6 +27,16 @@ services:
     image: redis
     ports:
       - "6379:6379"
+  worker:
+    image: data_pass
+    build: .
+    command: 'bundle exec good_job start'
+    env_file:
+      - '.env.docker'
+    depends_on:
+      - db
+      - redis
+
   chrome:
     image: browserless/chrome:latest
     ports:
