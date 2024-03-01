@@ -170,6 +170,7 @@ GEM
       ruby2_keywords
     drb (2.2.0)
       ruby2_keywords
+    emailable (4.1.0)
     erubi (1.12.0)
     et-orbi (1.2.7)
       tzinfo
@@ -559,6 +560,7 @@ DEPENDENCIES
   database_cleaner-active_record
   debug
   draper
+  emailable
   factory_bot_rails
   faker
   good_job
