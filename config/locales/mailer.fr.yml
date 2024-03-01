@@ -92,3 +92,18 @@ fr:
           %{applicant_full_name} (%{applicant_email}) a soumis une nouvelle demande de réouverture d'habilitation sur DataPass pour le compte de l'organisation %{organization_raison_sociale}
 
           Vous pouvez modérer cette demande de réouverture d'habilitation en suivant le lien suivant: %{authorization_request_instruction_url}
+
+  message_mailer:
+    to_applicant:
+      subject: Vous avez reçu un nouveau message concernant votre demande d'habilitation %{authorization_request_name}
+      description: |
+        Vous avez reçu un nouveau message concernant votre demande d'habilitation "%{authorization_request_name}" (numéro %{authorization_request_id}).
+
+        Vous pouvez consulter ce message en suivant le lien suivant: %{authorization_request_url}
+
+    to_instructors:
+      subject: Nouveau message concernant la demande d'habilitation %{authorization_request_name}
+      description: |
+        %{applicant_full_name} (%{applicant_email}) vient d'envoyer un nouveau message concernant la demande d'habilitation "%{authorization_request_name}" (numéro %{authorization_request_id}).
+
+        Vous pouvez consulter ce message en suivant le lien suivant: %{authorization_request_instruction_url}
