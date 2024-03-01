@@ -24,7 +24,7 @@ FactoryBot.define do
     phone_number { '0836656565' }
     phone_number_verified { false }
 
-    label { 'Commune de Nantes - Mairie' }
+    label { 'Ville de Clamart' }
     siret
     is_collectivite_territoriale { true }
     is_commune { true }
@@ -35,7 +35,7 @@ FactoryBot.define do
   factory :organization_hash_from_mon_compte_pro, class: Hash do
     initialize_with { attributes.stringify_keys }
 
-    label { 'Commune de Nantes - Mairie' }
+    label { 'Ville de Clamart' }
     siret
     is_collectivite_territoriale { true }
     is_commune { true }
