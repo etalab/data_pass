@@ -5,8 +5,8 @@
         <%= t('.form.title') %>
       </h3>
 
-      <% if policy([:instruction ,@authorization_request]).send_message? %>
-        <%= render 'form' %>
+      <% if policy([:instruction, @authorization_request]).send_message? %>
+        <%= render partial: 'form', locals: { url: instruction_authorization_request_messages_path(@authorization_request) } %>
       <% end %>
     </div>
 

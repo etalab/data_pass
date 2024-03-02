@@ -1,0 +1,11 @@
+<div class="fr-modal__content">
+  <% if policy(@authorization_request).send_message? %>
+    <%= render partial: 'instruction/messages/form', locals: { url: authorization_request_messages_path(@authorization_request) } %>
+  <% end %>
+
+  <div id="<%= dom_id(@authorization_request, :messages) %>">
+    <% @messages.each do |message| %>
+      <%= render partial: 'instruction/messages/message', locals: { message: } %>
+    <% end %>
+  </div>
+</div>

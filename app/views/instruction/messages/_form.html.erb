@@ -1,4 +1,4 @@
-<%= form_with(model: @message, url: instruction_authorization_request_messages_path(@authorization_request)) do |f| %>
+<%= form_with(model: @message, url: ) do |f| %>
   <%= f.dsfr_text_area :body, placeholder: t('.placeholder'), required: true %>
   <%= f.button t('.cta'), type: :submit, class: %(fr-btn fr-btn--primary fr-btn--icon-left fr-icon-send-plane-line) %>
 <% end %>

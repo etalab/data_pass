@@ -45,6 +45,15 @@ class AuthorizationRequestPolicy < ApplicationPolicy
       record.can_reopen?
   end
 
+  def messages?
+    record.applicant == user &&
+      !record.validated?
+  end
+
+  def send_message?
+    messages?
+  end
+
   private
 
   def same_current_organization?

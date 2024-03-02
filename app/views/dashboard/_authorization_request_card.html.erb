@@ -13,6 +13,12 @@
         </span>
       <% else %>
         <%= authorization_request_status_badge(authorization_request, no_icon: true) %>
+
+        <% if policy(authorization_request).messages? && authorization_request.unread_messages_from_applicant_count > 0 %>
+          <div class="unread-message-dot">
+            <%= authorization_request.unread_messages_from_applicant_count %>
+          </div>
+        <% end %>
       <% end %>
     </div>
 
@@ -65,6 +71,12 @@
 
       <div>
         <%= authorization_request_status_badge(authorization_request, no_icon: true) %>
+
+        <% if policy(authorization_request).messages? && authorization_request.unread_messages_from_applicant_count > 0 %>
+          <div class="unread-message-dot">
+            <%= authorization_request.unread_messages_from_applicant_count %>
+          </div>
+        <% end %>
       </div>
     </div>
   <% end %>
