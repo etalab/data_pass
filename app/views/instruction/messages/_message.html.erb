@@ -1,0 +1,15 @@
+<div id="<%= dom_id(message) %>" class="message">
+  <div class="message__header">
+    <div class="message__from">
+      <%= message.from.full_name %>
+    </div>
+
+    <div class="message__date">
+      <%= l message.sent_at %>
+    </div>
+  </div>
+
+  <div class="message__body">
+    <%= simple_format(message.body) %>
+  </div>
+</div>

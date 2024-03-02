@@ -52,6 +52,8 @@ Rails.application.routes.draw do
       resources :archive_authorization_requests, only: %w[new create], path: 'archiver', as: :archive
 
       resources :authorization_request_events, only: :index, path: 'historique', as: :events
+
+      resources :messages, only: %w[index create], path: 'messages'
     end
   end
 end

@@ -59,11 +59,14 @@ fr:
       authorization_request:
         tabs:
           authorization_request:
-            title: 'Demande'
-            icon: 'article-line'
+            title: Demande
+            icon: article-line
           authorization_request_events:
-            title: 'Historique'
-            icon: 'time-line'
+            title: Historique
+            icon: time-line
+          messages:
+            title: Messagerie
+            icon: question-answer-line
 
   application:
     user_not_authorized:
@@ -361,6 +364,17 @@ fr:
     archive_authorization_requests:
       create:
         success: La demande d'habilitation %{name} a été archivée avec succèss
+    messages:
+      index:
+        form:
+          title: Pour quel motif voulez-vous écrire au demandeur ?
+        messages:
+          title: Historique des messages
+      form:
+        placeholder: Écrivez votre message ici
+        cta: Envoyer le message
+      create:
+        success: Votre message a été envoyé avec succès
     authorization_request_events:
       index:
         title: Derniers événements liés à cette demande

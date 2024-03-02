@@ -1,0 +1,21 @@
+<div class="fr-row">
+  <div class="fr-col-sm-8 fr-col-offset-sm-2 fr-col-12">
+    <div class="instruction-message-form">
+      <h3>
+        <%= t('.form.title') %>
+      </h3>
+
+      <%= render 'form' %>
+    </div>
+
+    <% if @messages.any? %>
+      <div class="instruction-messages">
+        <h3>
+          <%= t('.messages.title') %>
+        </h3>
+
+        <%= render @messages %>
+      </div>
+    <% end %>
+  </div>
+</div>

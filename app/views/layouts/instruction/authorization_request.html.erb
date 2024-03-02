@@ -33,6 +33,7 @@
       tabs = {
         authorization_request: instruction_authorization_request_path(@authorization_request),
         authorization_request_events: instruction_authorization_request_events_path(@authorization_request),
+        messages: instruction_authorization_request_messages_path(@authorization_request),
       }
     %>
 
@@ -41,7 +42,7 @@
         <% tabs.each do |id, path| %>
           <li role="presentation">
             <%=
-              link_to t(".tabs.#{id}.title"),
+              link_to(
                 path,
                 class: [
                   'fr-tabs__tab',
@@ -57,8 +58,15 @@
                 aria: {
                   selected: current_page?(path),
                   controls: "tab-#{id}-panel"
-                }
-            %>
+                }) do
+              %>
+              <%= t(".tabs.#{id}.title") %>
+              <% if id == :messages && @authorization_request.unread_messages_from_instructors_count > 0 %>
+                <span class="unread-message-dot fr-ml-2v">
+                  <%= @authorization_request.unread_messages_from_instructors_count %>
+                </span>
+              <% end %>
+            <% end %>
           </li>
         <% end %>
       </ul>
@@ -66,6 +74,8 @@
       <% tabs.each do |id, path| %>
         <turbo-frame id="tab-<%= id %>-panel" class="fr-tabs__panel fr-tabs__panel--selected fr-bg-white" role="tabpanel" aria-labelledby="tab-<%= id %>" tabindex="0" data-turbo-action="advance">
           <div class="fr-container">
+            <%= render partial: 'shared/alerts' %>
+
             <% if current_page?(path) %>
               <%= yield %>
             <% else %>

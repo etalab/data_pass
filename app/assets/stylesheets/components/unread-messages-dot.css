@@ -1,0 +1,10 @@
+.unread-message-dot {
+  color: white;
+  background-color: var(--text-default-error);
+  font-weight: bold;
+  font-size: 80%;
+
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 50%;
+}

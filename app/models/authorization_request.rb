@@ -187,6 +187,18 @@ class AuthorizationRequest < ApplicationRecord
     redis_unread_messages_from_instructors.value
   end
 
+  # rubocop:disable Rails/SkipsModelValidations
+  def mark_messages_as_read_by_applicant!
+    redis_unread_messages_from_applicant.reset
+    messages.from_users(definition.instructors).unread.update_all(read_at: DateTime.current)
+  end
+
+  def mark_messages_as_read_by_instructors!
+    redis_unread_messages_from_instructors.reset
+    messages.from_users(applicant).unread.update_all(read_at: DateTime.current)
+  end
+  # rubocop:enable Rails/SkipsModelValidations
+
   attr_writer :current_build_step
 
   def current_build_step
