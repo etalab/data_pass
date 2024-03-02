@@ -120,7 +120,8 @@ fr:
       notifications:
         title: Notifications par emails
     authorization_notifications:
-      instruction_submit_notification: Notifications pour les soumissions
+      instruction_submit_notifications: Notifications pour les dépôts de demandes d'habilitations
+      instruction_messages_notifications: Notifications pour les nouveaux messages sur les demandes d'habilitations
 
   authorization_requests:
     index:

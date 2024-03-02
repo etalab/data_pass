@@ -8,8 +8,8 @@ RSpec.describe Instruction::AuthorizationRequestMailer do
 
     let(:authorization_request) { create(:authorization_request, :api_entreprise, :submitted) }
 
-    let!(:valid_instructor) { create(:user, :instructor, authorization_request_types: %w[api_entreprise api_particulier], instruction_submit_notification_for_api_particulier: false) }
-    let!(:instructor_without_notification) { create(:user, :instructor, authorization_request_types: %w[api_entreprise], instruction_submit_notification_for_api_entreprise: false) }
+    let!(:valid_instructor) { create(:user, :instructor, authorization_request_types: %w[api_entreprise api_particulier], instruction_submit_notifications_for_api_particulier: false) }
+    let!(:instructor_without_notification) { create(:user, :instructor, authorization_request_types: %w[api_entreprise], instruction_submit_notifications_for_api_entreprise: false) }
     let!(:instructor_for_another_authorization) { create(:user, :instructor, authorization_request_types: %w[api_particulier]) }
 
     it 'sends the email to the instructors with notification on' do

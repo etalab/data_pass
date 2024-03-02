@@ -14,6 +14,6 @@ class NotificationsSettingsController < AuthenticatedUserController
   end
 
   def notifications_permitted_settings
-    User.stored_attributes[:settings].select { |setting| setting.to_s.include?('_notification_') }
+    User.stored_attributes[:settings].select { |setting| setting.to_s.include?('_notifications_') }
   end
 end
