@@ -11,7 +11,9 @@ class Seeds
     raise 'Not in production!' if production?
 
     ActiveRecord::Base.connection.tables.each do |table|
-      next if table == 'schema_migrations'
+      # rubocop:disable Performance/CollectionLiteralInLoop
+      next if %w[schema_migrations ar_internal_metadata].include?(table)
+      # rubocop:enable Performance/CollectionLiteralInLoop
 
       ActiveRecord::Base.connection.execute("TRUNCATE TABLE #{table} CASCADE;")
     end
