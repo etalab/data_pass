@@ -15,7 +15,5 @@ class Instruction::AuthorizationRequestEventsController < Instruction::Authoriza
 
   def extract_authorization_request
     @authorization_request = AuthorizationRequest.find(params[:authorization_request_id])
-
-    authorize [:instruction, @authorization_request], :show?
   end
 end
