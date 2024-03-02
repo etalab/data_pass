@@ -14,13 +14,15 @@ RSpec.describe MessageMailer do
 
   describe '#to_instructors' do
     let(:mail) { described_class.with(message:).to_instructors }
-    let(:message) { create(:message) }
+    let(:message) { create(:message, authorization_request:) }
+    let(:authorization_request) { create(:authorization_request, :api_entreprise) }
 
-    let!(:first_instructor) { create(:user, :instructor) }
-    let!(:second_instructor) { create(:user, :instructor) }
+    let!(:valid_instructor) { create(:user, :instructor, authorization_request_types: %w[api_entreprise api_particulier], instruction_messages_notifications_for_api_particulier: false) }
+    let!(:instructor_without_notification) { create(:user, :instructor, authorization_request_types: %w[api_entreprise], instruction_messages_notifications_for_api_entreprise: false) }
+    let!(:instructor_for_another_authorization) { create(:user, :instructor, authorization_request_types: %w[api_particulier]) }
 
-    it 'sends the email to the instructors' do
-      expect(mail.to).to contain_exactly(first_instructor.email, second_instructor.email)
+    it 'sends the email to the instructors with notification on' do
+      expect(mail.to).to contain_exactly(valid_instructor.email)
     end
 
     it 'renders valid template' do
