@@ -36,3 +36,9 @@ Fonctionnalité: Instruction: messagerie
     Et que je clique sur "Envoyer"
     Alors la page contient "Bonjour, je suis l'instructeur"
     Et un email est envoyé contenant "nouveau message"
+
+  Scénario: Il n'y a pas de formulaire d'envoi de messages sur une habilitation validée
+    Quand je me rends sur une demande d'habilitation "API Entreprise" validée
+    Et que je clique sur "Messagerie"
+    Alors il n'y a pas de bouton "Envoyer"
+

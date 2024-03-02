@@ -5,7 +5,9 @@
         <%= t('.form.title') %>
       </h3>
 
-      <%= render 'form' %>
+      <% if policy([:instruction ,@authorization_request]).send_message? %>
+        <%= render 'form' %>
+      <% end %>
     </div>
 
     <% if @messages.any? %>

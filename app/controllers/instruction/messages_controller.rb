@@ -1,6 +1,6 @@
 class Instruction::MessagesController < InstructionController
   before_action :extract_authorization_request
-  before_action :mark_messages_as_read!
+  before_action :mark_messages_as_read!, only: [:index]
 
   def index
     authorize [:instruction, @authorization_request], :show?
@@ -10,6 +10,8 @@ class Instruction::MessagesController < InstructionController
   end
 
   def create
+    authorize [:instruction, @authorization_request], :send_message?
+
     @organizer = SendMessageToApplicant.call(
       authorization_request: @authorization_request,
       user: current_user,
