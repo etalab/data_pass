@@ -9,4 +9,8 @@ class Message < ApplicationRecord
 
   scope :unread, -> { where(read_at: nil) }
   scope :from_users, ->(users) { where(from_id: Array(users).pluck(:id)) }
+
+  def from_applicant?
+    from_id == authorization_request.applicant_id
+  end
 end
