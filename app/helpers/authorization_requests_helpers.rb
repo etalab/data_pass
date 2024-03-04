@@ -15,13 +15,13 @@ module AuthorizationRequestsHelpers
 
   private
 
-  def authorization_request_form_tag(authorization_request, url: nil, &block)
+  def authorization_request_form_tag(authorization_request, url: nil, &)
     form_with(
       model: authorization_request,
       url: url || authorization_request_model_path(authorization_request),
       method: authorization_request_model_http_method(authorization_request),
       id: dom_id(authorization_request),
-      builder: authorization_request_can_be_updated?(authorization_request) ? AuthorizationRequestFormBuilder : DisabledAuthorizationRequestFormBuilder, &block
+      builder: authorization_request_can_be_updated?(authorization_request) ? AuthorizationRequestFormBuilder : DisabledAuthorizationRequestFormBuilder, &
     )
   end
 
