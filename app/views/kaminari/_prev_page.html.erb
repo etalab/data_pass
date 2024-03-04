@@ -9,7 +9,7 @@
 <li>
   <% if current_page.first? %>
     <%= content_tag('a',  class: %w(fr-pagination__link fr-pagination__link--prev), 'aria-disabled': true, role: 'link') do %>
-      <%= t('views.pagination.previous').html_safe %>
+      <%= t('views.pagination.previous') %>
     <% end %>
   <% else %>
     <%= link_to t('views.pagination.previous').html_safe, url, remote: remote, class: %w(fr-pagination__link fr-pagination__link--prev), 'aria-disabled': current_page.first?, role: 'link' %>
