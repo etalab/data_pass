@@ -1,6 +1,8 @@
 class AuthorizationRequestDecorator < ApplicationDecorator
   delegate_all
 
+  decorates_association :organization
+
   def only_in_contacts?(user)
     user != object.applicant &&
       object.contact_types_for(user).present?

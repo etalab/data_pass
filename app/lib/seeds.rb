@@ -88,7 +88,7 @@ class Seeds
   end
 
   def dinum_organization
-    @dinum_organization ||= create_organization(siret: '13001518800019', name: 'DINUM')
+    @dinum_organization ||= create_organization(siret: '13002526500013', name: 'DINUM')
   end
 
   def create_organization(siret:, name:)
@@ -97,7 +97,9 @@ class Seeds
       last_mon_compte_pro_updated_at: DateTime.now,
       mon_compte_pro_payload: {
         label: name
-      }
+      },
+      insee_payload: JSON.parse(Rails.root.join('spec', 'fixtures', 'insee', "#{siret}.json").read),
+      last_insee_payload_updated_at: DateTime.now,
     )
   end
 

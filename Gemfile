@@ -11,6 +11,9 @@ gem 'interactor'
 gem 'kaminari'
 gem 'factory_bot_rails'
 gem 'faker'
+gem 'faraday'
+gem 'faraday-net_http'
+gem 'faraday-retry'
 gem 'good_job'
 gem 'omniauth'
 gem 'omniauth-rails_csrf_protection'
@@ -64,4 +67,5 @@ group :test do
   gem 'rails-controller-testing'
   gem 'rspec-rails', '6.1.1'
   gem 'simplecov', require: false
+  gem 'webmock'
 end

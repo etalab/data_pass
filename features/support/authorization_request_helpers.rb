@@ -51,7 +51,7 @@ end
 
 # rubocop:disable Metrics/MethodLength
 def create_authorization_requests_with_status(type, status = nil, count = 1, attributes = {})
-  attributes[:applicant] ||= FactoryBot.create(:user)
+  attributes[:applicant] ||= FactoryBot.create(:user, current_organization: attributes[:organization])
 
   if status
     FactoryBot.create_list(

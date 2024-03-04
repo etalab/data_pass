@@ -1,5 +1,6 @@
 class AuthenticateUser < ApplicationOrganizer
   organize FindOrCreateOrganization,
+    UpdateOrganizationINSEEPayload,
     FindOrCreateUser,
     ChangeUserCurrentOrganization,
     AddUserToOrganization

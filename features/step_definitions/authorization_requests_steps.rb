@@ -75,14 +75,17 @@ Alors("il n'y a pas de formulaire en mode résumé") do
   expect(page).to have_no_xpath('//*[starts-with(@id, "summary_authorization_request_")]')
 end
 
-# https://rubular.com/r/Vg8QOMkfLtrxhh
-Quand(/je me rends sur une demande d'habilitation "([^"]+)"(?: (?:en|à))? ?(.+)?/) do |type, status|
+# https://rubular.com/r/0orApA5lrXMtTA
+Quand(/je me rends sur une demande d'habilitation "([^"]+)"(?: de l'organisation "([^"]+)")?(?: (?:en|à))? ?(.+)?/) do |type, organization_name, status|
+  attributes = {}
+  attributes[:organization] = find_or_create_organization_by_name(organization_name) if organization_name.present?
+
   if current_user.instructor?
-    authorization_request = create_authorization_requests_with_status(type, status, 1).first
+    authorization_request = create_authorization_requests_with_status(type, status, 1, attributes).first
 
     visit instruction_authorization_request_path(authorization_request)
   else
-    authorization_request = create_authorization_requests_with_status(type, status, 1, applicant: current_user).first
+    authorization_request = create_authorization_requests_with_status(type, status, 1, attributes.merge(applicant: current_user)).first
 
     visit authorization_request_path(authorization_request)
   end
