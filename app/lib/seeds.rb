@@ -48,6 +48,8 @@ class Seeds
       family_name: 'Dupont',
       email: 'user@yopmail.com',
       external_id: '1',
+      job_title: 'Responsable des affaires générales',
+      phone_number: '0123456789',
       current_organization: clamart_organization,
     )
   end
@@ -58,6 +60,8 @@ class Seeds
       family_name: 'Dupont',
       email: 'user10@yopmail.com',
       external_id: '10',
+      job_title: 'Responsable des affaires juridiques',
+      phone_number: '0823456789',
       current_organization: clamart_organization,
     )
   end
@@ -68,6 +72,8 @@ class Seeds
       family_name: 'Dupont',
       email: 'user11@yopmail.com',
       external_id: '11',
+      job_title: 'Responsable des affaires étrangères',
+      phone_number: '0323456789',
       current_organization: dinum_organization,
     )
   end
@@ -78,6 +84,8 @@ class Seeds
       family_name: 'Dupont',
       email: 'api-entreprise@yopmail.com',
       external_id: '4',
+      job_title: 'Responsable des instructions',
+      phone_number: '0423456789',
       current_organization: dinum_organization,
       roles: ['api_entreprise:instructor']
     )
