@@ -25,6 +25,14 @@ RSpec.describe SendMessageToApplicant do
       expect { send_message_to_applicant }.to have_enqueued_mail(MessageMailer, :to_applicant)
     end
 
+    context 'when it is a reopening' do
+      let(:authorization_request) { create(:authorization_request, :reopened) }
+
+      it 'delivers an email specific to reopening to applicant' do
+        expect { send_message_to_applicant }.to have_enqueued_mail(MessageMailer, :reopening_to_applicant)
+      end
+    end
+
     it 'increments the unread messages count for applicant, not for instructors' do
       expect { send_message_to_applicant }.to change(authorization_request, :unread_messages_from_applicant_count).by(1)
 

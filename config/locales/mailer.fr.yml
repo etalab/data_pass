@@ -101,9 +101,24 @@ fr:
 
         Vous pouvez consulter ce message en suivant le lien suivant: %{authorization_request_url}
 
+    reopening_to_applicant:
+      subject: Vous avez reçu un nouveau message concernant votre demande de réouverture de l'habilitation %{authorization_request_name}
+      description: |
+        Vous avez reçu un nouveau message concernant votre demande de réouverture de l'habilitation "%{authorization_request_name}" (numéro %{authorization_request_id}).
+
+        Vous pouvez consulter ce message en suivant le lien suivant: %{authorization_request_url}
+
     to_instructors:
       subject: Nouveau message concernant la demande d'habilitation %{authorization_request_name}
       description: |
         %{applicant_full_name} (%{applicant_email}) vient d'envoyer un nouveau message concernant la demande d'habilitation "%{authorization_request_name}" (numéro %{authorization_request_id}).
 
         Vous pouvez consulter ce message en suivant le lien suivant: %{authorization_request_instruction_url}
+
+    reopening_to_instructors:
+      subject: Nouveau message concernant la demande de réouverture de l'habilitation %{authorization_request_name}
+      description: |
+        %{applicant_full_name} (%{applicant_email}) vient d'envoyer un nouveau message concernant la demande de réouverture de l'habilitation "%{authorization_request_name}" (numéro %{authorization_request_id}).
+
+        Vous pouvez consulter ce message en suivant le lien suivant: %{authorization_request_instruction_url}
+

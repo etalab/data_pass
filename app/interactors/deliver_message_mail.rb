@@ -10,6 +10,14 @@ class DeliverMessageMail < ApplicationInteractor
   end
 
   def mailer_method
-    context.mailer_method
+    if authorization_request.reopening?
+      "reopening_#{context.mailer_method}"
+    else
+      context.mailer_method
+    end
+  end
+
+  def authorization_request
+    context.authorization_request
   end
 end
