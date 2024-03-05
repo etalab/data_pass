@@ -17,6 +17,12 @@
             </div>
           </div>
 
+          <% if @authorization_definition.present? %>
+            <div class="fr-header__service">
+              <%= image_tag(provider_logo_path(@authorization_definition), style: "max-width:9.0625rem", alt: "Logo du data provider") %>
+            </div>
+          <% end %>
+
           <div class="fr-header__service">
             <a href="/" title="Accueil - <%= t('.title') %>">
               <p class="fr-header__service-title">
