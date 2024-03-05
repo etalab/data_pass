@@ -1,5 +1,5 @@
 <%= authorization_request_form(@authorization_request, url: authorization_request_block_path([@authorization_request, block_id])) do |f| %>
   <%= render partial: "authorization_request_forms/shared/#{block_id}", locals: { f: } %>
 
-  <%= f.submit t('authorization_request_forms.form.save'), name: :save, id: :save_authorization_request, class: %w(fr-btn fr-btn--sm fr-btn--secondary fr-icon-save-line fr-btn--icon-left) %>
+  <%= f.button t('authorization_request_forms.form.save'), type: :submit, name: :save, id: :save_authorization_request, class: %w(fr-btn fr-btn--sm fr-btn--secondary fr-icon-save-line fr-btn--icon-left) %>
 <% end %>
