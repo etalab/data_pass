@@ -16,7 +16,7 @@ class AuthorizationRequestsController < AuthenticatedUserController
 
     if user_signed_in?
       authorize @authorization_request
-    redirect_to authorization_request_form_path(form_uid: @authorization_request.form_uid, id: @authorization_request.id)
+      redirect_to authorization_request_form_path(form_uid: @authorization_request.form_uid, id: @authorization_request.id)
     else
       @authorization_definition = @authorization_request.definition
       render 'pages/home'
