@@ -6,9 +6,8 @@ Fonctionnalité: Modifications d'un formulaire depuis sa page de résumé
   Contexte:
     Sachant que je suis un demandeur
     Et que je me connecte
-    Et que je me rends sur une demande d'habilitation "Solution Portail des aides de l'éditeur MGDIS" en brouillon
+    Et que je me rends sur une demande d'habilitation "Solution Portail des aides" en brouillon
     Et que je renseigne les informations des contacts RGPD
-    Et que je clique sur "Enregistrer les modifications"
     Et que je clique sur "Continuer vers le résumé"
 
   Scénario: Les blocs fixes n'ont pas de bouton modifier

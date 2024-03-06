@@ -22,7 +22,7 @@ Fonctionnalité: Choix du type de formulalire pour API Entreprise
     Et que je choisis "Votre éditeur"
     Et que je choisis "MGDIS"
     Alors je vois 1 tuile
-    Et je vois 1 tuile "Solution Portail des aides de l'éditeur MGDIS"
+    Et je vois 1 tuile "Solution Portail des aides"
 
   Scénario: Je choisis un éditeur inconnu de API Entreprise
     Quand je démarre une nouvelle demande d'habilitation "API Entreprise"
