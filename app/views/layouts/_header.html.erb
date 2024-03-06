@@ -17,7 +17,7 @@
             </div>
           </div>
 
-          <% if @redirection_user_when_not_connected %>
+          <% if displays_provider_logo? %>
             <div class="fr-header__service">
               <%= provider_logo_image_tag(@authorization_definition, class: "header__logo") %>
             </div>
