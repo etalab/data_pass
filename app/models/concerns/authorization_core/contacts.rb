@@ -19,28 +19,40 @@ module AuthorizationCore::Contacts
 
       def self.contact(kind, validation_condition:)
         class_eval do
-          store_accessor :data, "#{kind}_type"
-
-          define_method(:"#{kind}_type") do
-            data["#{kind}_type"] || 'person'
-          end
-
-          validates "#{kind}_type", inclusion: { in: %w[person organization] }
-
-          %w[email phone_number].each do |attr|
-            store_accessor :data, "#{kind}_#{attr}"
-            validates "#{kind}_#{attr}", presence: true, if: validation_condition
-          end
-
-          %w[family_name given_name job_title].each do |attr|
-            store_accessor :data, "#{kind}_#{attr}"
-            validates "#{kind}_#{attr}", presence: true, if: -> { send(:"#{kind}_type") == 'person' && validation_condition.call(self) }
-          end
-
-          validates "#{kind}_email", format: { with: URI::MailTo::EMAIL_REGEXP }, if: validation_condition
-          validates "#{kind}_email", email_recently_verified: true, if: validation_condition, on: :submit
+          define_contact_type_methods(kind)
+          define_contact_entity_attributes(kind, validation_condition:)
+          define_contact_person_attributes(kind, validation_condition:)
 
           contact_types << kind
+        end
+      end
+
+      private
+
+      def self.define_contact_type_methods(kind)
+        validates "#{kind}_type", inclusion: { in: %w[person organization] }
+
+        store_accessor :data, "#{kind}_type"
+
+        define_method(:"#{kind}_type") do
+          data["#{kind}_type"] || 'person'
+        end
+      end
+
+      def self.define_contact_entity_attributes(kind, validation_condition:)
+        %w[email phone_number].each do |attr|
+          store_accessor :data, "#{kind}_#{attr}"
+          validates "#{kind}_#{attr}", presence: true, if: validation_condition
+        end
+
+        validates "#{kind}_email", format: { with: URI::MailTo::EMAIL_REGEXP }, if: validation_condition
+        validates "#{kind}_email", email_recently_verified: true, if: validation_condition, on: :submit
+      end
+
+      def self.define_contact_person_attributes(kind, validation_condition:)
+        %w[family_name given_name job_title].each do |attr|
+          store_accessor :data, "#{kind}_#{attr}"
+          validates "#{kind}_#{attr}", presence: true, if: -> { send(:"#{kind}_type") == 'person' && validation_condition.call(self) }
         end
       end
     end
