@@ -17,9 +17,7 @@ module AuthorizationCore::Contacts
         ]
       end
 
-      def self.contact(kind, validation_condition: nil)
-        validation_condition ||= :need_complete_validation?
-
+      def self.contact(kind, validation_condition:)
         class_eval do
           contact_attributes.each do |attr|
             store_accessor :data, "#{kind}_#{attr}"
