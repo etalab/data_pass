@@ -11,7 +11,7 @@ FactoryBot.define do
 
     after(:build) do |authorization_request, evaluator|
       authorization_request.form.data.each do |key, value|
-        next if authorization_request.public_send(key).present?
+        next if authorization_request.data[key].present?
 
         authorization_request.public_send(:"#{key}=", value)
       end
