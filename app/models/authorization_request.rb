@@ -204,13 +204,12 @@ class AuthorizationRequest < ApplicationRecord
   def current_build_step
     if form.multiple_steps? && steps_names.include?(@current_build_step)
       @current_build_step
-    else
-      form.steps.last[:name]
     end
   end
 
   def required_for_step?(step)
     return false if validation_context == :save_within_wizard
+    return false if current_build_step.blank?
 
     persisted? && (
       step.nil? ||
