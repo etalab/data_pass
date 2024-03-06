@@ -28,6 +28,7 @@ class AuthorizationRequestsController < AuthenticatedUserController
     else
       @authorization_definition = @authorization_request.definition
       save_redirect_path
+      @redirection_user_when_not_connected = true
       render 'pages/home'
     end
   end

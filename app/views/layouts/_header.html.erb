@@ -17,7 +17,7 @@
             </div>
           </div>
 
-          <% if @authorization_definition.present? %>
+          <% if @redirection_user_when_not_connected %>
             <div class="fr-header__service">
               <%= image_tag(provider_logo_path(@authorization_definition), style: "max-width:9.0625rem", alt: "Logo du data provider") %>
             </div>
