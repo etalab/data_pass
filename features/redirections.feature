@@ -35,9 +35,9 @@ Fonctionnalité: Démarrage d'habilitation par des internautes
 
   Scénario:  Un internaute veut accéder à son habilitation API Service National - formulaire "Demande libre"
     Sachant que je suis un demandeur
-    Quand je veux accéder à ma demande d'habilitation "API Service National" validée
+    Quand je me rends sur une demande d'habilitation "API Service National" validée
     Alors il y a un titre contenant "Bienvenue sur DataPass !"
-    Alors il contient le logo du data provider
+    Alors la page contient le logo du fournisseur de données
     Alors je clique sur "S’identifier avec MonComptePro"
     Alors il y a un formulaire en mode résumé
     Et la page contient "Demande libre"

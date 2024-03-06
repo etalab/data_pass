@@ -177,6 +177,6 @@ Alors('il y a un badge {string}') do |text|
   expect(page).to have_css('.fr-badge', text:)
 end
 
-Alors('il contient le logo du data provider') do
+Alors('la page contient le logo du fournisseur de données') do
   expect(page.html).to include('Logo du data provider')
 end
