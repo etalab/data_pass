@@ -25,3 +25,8 @@ h3.with-icon img {
 .inline {
   display: inline!important;
 }
+
+.header__logo {
+  max-width: 7rem;
+  padding: 1rem;
+}
