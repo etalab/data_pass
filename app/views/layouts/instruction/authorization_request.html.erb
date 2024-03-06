@@ -36,7 +36,7 @@
       }
     %>
 
-    <div class="fr-tabs">
+    <div class="fr-tabs" data-controller="auto-height">
       <ul class="fr-tabs__list fr-container" role="tablist" aria-label="Menu secondaire">
         <% tabs.each do |id, path| %>
           <li role="presentation">
@@ -67,9 +67,12 @@
         <turbo-frame id="tab-<%= id %>-panel" class="fr-tabs__panel fr-tabs__panel--selected fr-bg-white" role="tabpanel" aria-labelledby="tab-<%= id %>" tabindex="0" data-turbo-action="advance">
           <div class="fr-container">
             <% if current_page?(path) %>
-              <%= yield %>
+              <div data-auto-height-target="source">
+                <%= yield %>
+              </div>
             <% else %>
-              <%= render partial: 'shared/loader' %>
+              <div data-auto-height-target="destination">
+              </div>
             <% end %>
           </div>
         </turbo-frame>
