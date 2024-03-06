@@ -10,7 +10,6 @@ Fonctionnalité: Démarrage d'habilitation par des internautes
     Et la page contient "Votre demande d’habilitation va se dérouler en 4 étapes"
     Et la page contient "S’identifier avec MonComptePro"
 
-
   Scénario:  Un internaute veut remplir une demande d'habilitation API Entreprise via le formulaire "Marchés publics"
     Sachant que je suis un demandeur
     Quand je veux remplir une demande pour "API Entreprise" via le formulaire "Marchés publics"
@@ -27,10 +26,18 @@ Fonctionnalité: Démarrage d'habilitation par des internautes
     Et la page contient "Votre demande d’habilitation va se dérouler en 4 étapes"
     Et la page contient "S’identifier avec MonComptePro"
 
-
   Scénario:  Un internaute veut demarer une demande d'habilitation API Entreprise via le formulaire "Demande Libre"
     Sachant que je suis un demandeur
     Quand je veux remplir une demande pour "API Entreprise" via le formulaire "Demande libre"
     Alors je clique sur "S’identifier avec MonComptePro"
     Alors je suis sur la page "Démarrer une nouvelle habilitation pour API Entreprise"
     Et la page contient "demandeur@gouv.fr"
+
+  Scénario:  Un internaute veut accéder à son habilitation API Service National - formulaire "Demande libre"
+    Sachant que je suis un demandeur
+    Quand je veux accéder à ma demande d'habilitation "API Service National" validée
+    Alors il y a un titre contenant "Bienvenue sur DataPass !"
+    Alors il contient le logo du data provider
+    Alors je clique sur "S’identifier avec MonComptePro"
+    Alors il y a un formulaire en mode résumé
+    Et la page contient "Demande libre"
