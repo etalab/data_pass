@@ -19,9 +19,22 @@ module AuthorizationCore::Contacts
 
       def self.contact(kind, validation_condition:)
         class_eval do
-          contact_attributes.each do |attr|
+          store_accessor :data, "#{kind}_type"
+
+          define_method(:"#{kind}_type") do
+            data["#{kind}_type"] || 'person'
+          end
+
+          validates "#{kind}_type", inclusion: { in: %w[person organization] }
+
+          %w[email phone_number].each do |attr|
             store_accessor :data, "#{kind}_#{attr}"
             validates "#{kind}_#{attr}", presence: true, if: validation_condition
+          end
+
+          %w[family_name given_name job_title].each do |attr|
+            store_accessor :data, "#{kind}_#{attr}"
+            validates "#{kind}_#{attr}", presence: true, if: -> { send(:"#{kind}_type") == 'person' && validation_condition.call(self) }
           end
 
           validates "#{kind}_email", format: { with: URI::MailTo::EMAIL_REGEXP }, if: validation_condition
