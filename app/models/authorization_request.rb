@@ -164,12 +164,10 @@ class AuthorizationRequest < ApplicationRecord
 
   def need_complete_validation?(step = nil)
     return true if %i[submit review].include?(validation_context)
-    return false if state == 'archived'
+    return false if archived?
     return false if static_data_already_filled?(step)
 
     if form.multiple_steps?
-      raise "Unknown step #{step}" if step.present? && steps_names.exclude?(step.to_s)
-
       !filling? ||
         required_for_step?(step)
     else
