@@ -1,0 +1,10 @@
+.authorization-request-forms-api-entreprise-index .editors-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.authorization-request-forms-api-entreprise-index .editors-list .fr-fieldset__element {
+  flex: 0 1 calc(33.333% - 10px);
+  margin: 5px;
+}
+

@@ -3,6 +3,7 @@
 </h3>
 
 <div
+  class="authorization-request-forms-api-entreprise-index"
   class="fr-mb-2w"
   data-controller="choose-authorization-request-form"
   data-choose-authorization-request-form-editors-value="<%= @authorization_definition.editors.map(&:id).to_json %>"
@@ -56,7 +57,7 @@
     </div>
   </fieldset>
 
-  <div data-choose-authorization-request-form-target="editors" id="editors-list" class="fr-hidden">
+  <div data-choose-authorization-request-form-target="editors" id="editors-list" class="fr-hidden editors-list">
     <h3>
       Quel est votre éditeur de logiciel ?
     </h3>
