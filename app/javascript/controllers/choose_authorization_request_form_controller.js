@@ -1,7 +1,7 @@
 import { Controller } from '@hotwired/stimulus'
 
 export default class extends Controller {
-  static targets = ['editors', 'editor', 'forms', 'form', 'noTeamDisclaimer', 'noEditorDisclaimer']
+  static targets = ['editors', 'editor', 'forms', 'form', 'noTeamDisclaimer', 'noEditorDisclaimer', 'editorAlreadyIntegrated']
   static values = {
     editors: Array,
     targetUseCase: String
@@ -31,6 +31,11 @@ export default class extends Controller {
 
   chooseEditor (event) {
     const editor = event.target.value
+
+    if (editor === 'editor_already_integrated') {
+      this._showEditorAlreadyIntegrated()
+      return
+    }
 
     this.formTargets.forEach((form) => {
       const formTags = this._getFormTags(form)
@@ -98,6 +103,7 @@ export default class extends Controller {
     })
     this.formsTarget.classList.add('fr-hidden')
     this.noTeamDisclaimerTarget.classList.add('fr-hidden')
+    this.editorAlreadyIntegratedTarget.classList.add('fr-hidden')
     this.noEditorDisclaimerTarget.classList.add('fr-hidden')
   }
 
@@ -107,7 +113,18 @@ export default class extends Controller {
 
   _showNoEditorDisclaimer () {
     this.noEditorDisclaimerTarget.classList.remove('fr-hidden')
+    this.editorAlreadyIntegratedTarget.classList.add('fr-hidden')
     this.formsTarget.classList.add('fr-hidden')
+  }
+
+  _showEditorAlreadyIntegrated () {
+    this.editorAlreadyIntegratedTarget.classList.remove('fr-hidden')
+    this.noEditorDisclaimerTarget.classList.add('fr-hidden')
+    this.formsTarget.classList.add('fr-hidden')
+  }
+
+  _hideEditorAlreadyIntegrated () {
+    this.editorAlreadyIntegratedTarget.classList.add('fr-hidden')
   }
 
   _noForm () {

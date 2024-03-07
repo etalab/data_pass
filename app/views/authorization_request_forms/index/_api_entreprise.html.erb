@@ -74,6 +74,34 @@
         </div>
       <% end %>
 
+      <%
+        [
+          "Achatpublic - achatpublic.com",
+          "Actradis",
+          "Arnia - Pack commande publique",
+          "Atline Services - marches-securises.fr",
+          "AWS - AWS-achat",
+          "Axyus",
+          "Dematis - e-marchespublics.com",
+          "Entr'ouvert - Publik",
+          "Klekoon - klekoon.com",
+          "Maximilien",
+          "Megalis Bretagne",
+          "PICTAV Informatique",
+          "SmartGlobal - Smart Global Governance",
+          "Solution Attestations",
+        ].each do |editor_already_integrated|
+      %>
+        <div class="fr-fieldset__element">
+          <div class="fr-radio-group">
+            <input type="radio" id="<%= editor_already_integrated.parameterize %>" data-action="click->choose-authorization-request-form#chooseEditor" value="editor_already_integrated" name="editor">
+            <label class="fr-label" for="<%= editor_already_integrated.parameterize %>">
+              <%= editor_already_integrated %>
+            </label>
+          </div>
+        </div>
+      <% end %>
+
       <div class="fr-fieldset__element">
         <div class="fr-radio-group">
           <input type="radio" id="no_editor"  data-action="click->choose-authorization-request-form#chooseEditor" value="none" name="editor">
@@ -124,6 +152,16 @@
     <br />
 
     Si votre éditeur n'intégre pas API Entreprise, vous pouvez utiliser l'espace agent sur l'annuaires des entreprises.
+    </p>
+  </div>
+
+  <div data-choose-authorization-request-form-target="editorAlreadyIntegrated" id="editor-alread-integrated-disclaimer" class="fr-bg-alt-blue-france fr-hidden">
+    <p class="center fr-px-5w fr-py-1w">
+      <strong>Bonne nouvelle ! Vous êtes éligible et votre éditeur/profil acheteur a déjà intégré l’API Entreprise. 👍</strong>
+
+      <br />
+
+      Vous n’avez plus qu’à vous adresser directement à votre éditeur.
     </p>
   </div>
 </div>

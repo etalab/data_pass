@@ -30,6 +30,12 @@ Fonctionnalité: Choix du type de formulalire pour API Entreprise
     Et que je choisis "Aucun de ces éditeurs"
     Alors la page contient "Vous êtes éligible mais votre éditeur ne semble pas utiliser l'API Entreprise"
 
+  Scénario: Je choisis un éditeur qui a déjà intégré API Entreprise sans avoir à demander une habilitation
+    Quand je démarre une nouvelle demande d'habilitation "API Entreprise"
+    Et que je choisis "Votre éditeur"
+    Et que je choisis "Axyus"
+    Alors la page contient "Bonne nouvelle ! Vous êtes éligible et votre éditeur/profil acheteur a déjà intégré l’API Entreprise."
+
   Scénario: Je choisis ni équipe technique ni éditeur
     Quand je démarre une nouvelle demande d'habilitation "API Entreprise"
     Et que je choisis "Ni équipe technique, ni éditeur"
