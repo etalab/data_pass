@@ -283,6 +283,7 @@ fr:
           actions:
             show: Consulter
       moderation_buttons:
+        title: Instruire la demande
         refuse: Refuser
         request_changes: Demander des modifications
         approve: Valider
