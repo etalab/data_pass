@@ -8,7 +8,11 @@
   <div class="fr-mb-4w">
     <% if @authorization_request_form.present? && @authorization_request_form.name.present? %>
       <h5>
-        <%= t('.current_form', authorization_request_form_name: @authorization_request_form.name) %>
+        <% if @authorization_request_form.editor.present? %>
+          <%= t('.current_form_with_editor', authorization_request_form_name: @authorization_request_form.name, editor_name: @authorization_request_form.editor.name) %>
+        <% else %>
+          <%= t('.current_form', authorization_request_form_name: @authorization_request_form.name) %>
+        <% end %>
       </h5>
     <% end %>
 
