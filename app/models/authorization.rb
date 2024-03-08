@@ -21,7 +21,7 @@ class Authorization < ApplicationRecord
   delegate :name, to: :request
 
   def kind
-    request.type.underscore
+    request.type.underscore.split('/').last
   end
 
   def request_as_validated
