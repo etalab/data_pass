@@ -57,6 +57,7 @@ fr:
 
     instruction:
       authorization_request:
+        view_authorization: Consulter l'habilitation
         tabs:
           authorization_request:
             title: Demande

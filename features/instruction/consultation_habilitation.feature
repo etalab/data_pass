@@ -15,3 +15,7 @@ Fonctionnalité: Instruction: consultation d'une habilitation
     Et la page contient "Dupont Jean"
     Et la page contient "Adjoint au Maire"
 
+  Scénario: Je vois un bouton pour consulter l'habilitation validée d'une demande de réouverture
+    Quand je me rends sur une demande d'habilitation "API Entreprise" réouverte
+    Alors il y a un bouton "Consulter l'habilitation"
+
