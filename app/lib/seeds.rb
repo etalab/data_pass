@@ -31,11 +31,20 @@ class Seeds
 
   def create_authorization_requests_for_clamart
     create_validated_authorization_request(:api_entreprise, attributes: { intitule: "Portail des appels d'offres", applicant: demandeur })
-    create_request_changes_authorization_request(:api_entreprise, attributes: { intitule: 'Portail des aides publiques', applicant: another_demandeur })
+
+    authorization_request = create_request_changes_authorization_request(:api_entreprise, attributes: { intitule: 'Portail des aides publiques', applicant: another_demandeur })
+    send_message_to_instructors(authorization_request, body: 'Bonjour, je ne suis pas sûr du cadre légal de cette demande, pouvez-vous m\'aider ?')
+    send_message_to_applicant(authorization_request, body: 'Bonjour, il faut que vous demandiez à votre DPO de vous fournir le document inférent à votre demande.')
+
+    authorization_request = create_request_changes_authorization_request(:api_entreprise, attributes: { intitule: 'Portail des aides dans le secteur du batîment' })
+    send_message_to_instructors(authorization_request, body: 'Bonjour, dois-je inclure les aides pour les particuliers ?')
+    send_message_to_applicant(authorization_request, body: 'Bonjour, non il s\'agit uniquement des aides pour les entreprises.')
+
     create_refused_authorization_request(:api_entreprise, attributes: { intitule: 'Statistiques sur les effectifs', applicant: demandeur })
     create_reopened_authorization_request(:api_entreprise_mgdis, attributes: { applicant: demandeur })
 
-    create_submitted_authorization_request(:api_entreprise, attributes: { intitule: 'Place des entreprises', applicant: another_demandeur })
+    authorization_request = create_submitted_authorization_request(:api_entreprise, attributes: { intitule: 'Place des entreprises', applicant: another_demandeur })
+    send_message_to_instructors(authorization_request, body: "Je ne suis pas sûr du cadre de cette demande, pouvez-vous m'aider ?")
   end
 
   def create_authorization_requests_for_dinum
@@ -209,6 +218,25 @@ class Seeds
       status: 'deliverable',
       verified_at: Time.zone.now,
     )
+  end
+
+  def send_message_to_instructors(authorization_request, message_params)
+    SendMessageToInstructors.call(
+      authorization_request:,
+      user: authorization_request.applicant,
+      message_params:,
+    )
+
+    authorization_request.mark_messages_as_read_by_applicant!
+  end
+
+  def send_message_to_applicant(authorization_request, message_params)
+    SendMessageToApplicant.call(
+      authorization_request:,
+      user: api_entreprise_instructor,
+      message_params:,
+    )
+    authorization_request.mark_messages_as_read_by_instructors!
   end
 
   def random_description

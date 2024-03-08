@@ -19,13 +19,18 @@ Sachantque('je suis un demandeur') do
 end
 
 Sachantque('je suis un instructeur {string}') do |kind|
-  @current_user_email ||= "#{kind.parameterize}@gouv.fr"
-  user = User.find_by(email: @current_user_email) || FactoryBot.create(:user, email: @current_user_email)
-  mock_mon_compte_pro(user)
+  user = create_instructor(kind)
 
-  user.roles << "#{find_factory_trait_from_name(kind)}:instructor"
-  user.roles.uniq!
-  user.save!
+  if @current_user_email.blank?
+    @current_user_email = user.email
+    mock_mon_compte_pro(user)
+  end
+
+  if @current_user_email != user.email
+    current_user.roles << "#{find_factory_trait_from_name(kind)}:instructor"
+    current_user.roles.uniq!
+    current_user.save!
+  end
 end
 
 Sachantque('je me connecte') do

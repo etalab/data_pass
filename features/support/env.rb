@@ -57,3 +57,4 @@ Cucumber::Rails::Database.javascript_strategy = :truncation
 World(FactoryBot::Syntax::Methods)
 
 Seeds.new.flushdb
+Kredis.redis.flushdb

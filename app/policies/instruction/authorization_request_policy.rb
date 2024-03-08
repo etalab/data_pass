@@ -23,6 +23,11 @@ class Instruction::AuthorizationRequestPolicy < ApplicationPolicy
       record.can_archive?
   end
 
+  def send_message?
+    show? &&
+      !record.validated?
+  end
+
   class Scope < Scope
     def resolve
       scope.where(type: current_user_instructor_types)

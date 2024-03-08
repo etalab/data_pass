@@ -5,6 +5,7 @@ class AuthorizationRequestEventsQuery
     @authorization_request = authorization_request
   end
 
+  # rubocop:disable Metrics/AbcSize
   def perform
     AuthorizationRequestEvent
       .where(
@@ -13,9 +14,11 @@ class AuthorizationRequestEventsQuery
         authorization_request.denials.pluck(:id),
         authorization_request.modification_requests.pluck(:id),
         authorization_request.changelogs.pluck(:id),
+        authorization_request.messages.pluck(:id),
         authorization_request.authorizations.pluck(:id),
       )
   end
+  # rubocop:enable Metrics/AbcSize
 
   private
 
@@ -24,6 +27,7 @@ class AuthorizationRequestEventsQuery
       "(entity_id in (?) and entity_type = 'DenialOfAuthorization') or " \
       "(entity_id in (?) and entity_type = 'InstructorModificationRequest') or " \
       "(entity_id in (?) and entity_type = 'AuthorizationRequestChangelog') or " \
+      "(entity_id in (?) and entity_type = 'Message') or " \
       "(entity_id in (?) and entity_type = 'Authorization')"
   end
 end

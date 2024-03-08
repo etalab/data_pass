@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  include InstructorSettings
+
   validates :email, presence: true, uniqueness: true
   before_save { email.downcase! }
 
@@ -28,13 +30,7 @@ class User < ApplicationRecord
     ", "#{authorization_request_type.underscore}:instructor")
   }
 
-  AuthorizationDefinition.all.each do |authorization_definition|
-    store_accessor :settings, :"instruction_submit_notification_for_#{authorization_definition.id.underscore}"
-
-    define_method :"instruction_submit_notification_for_#{authorization_definition.id.underscore}" do
-      settings["instruction_submit_notification_for_#{authorization_definition.id.underscore}"].nil? ? true : settings["instruction_submit_notification_for_#{authorization_definition.id.underscore}"]
-    end
-  end
+  add_instructor_boolean_settings :submit_notifications, :messages_notifications
 
   def full_name
     "#{family_name} #{given_name}"

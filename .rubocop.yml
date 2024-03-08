@@ -83,6 +83,7 @@ Metrics/ClassLength:
     - "method_call"
   Exclude:
     - "app/lib/seeds.rb"
+    - "app/models/authorization_request.rb"
 
 Naming/MethodParameterName:
   AllowedNames:

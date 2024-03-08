@@ -25,7 +25,7 @@ class Instruction::AuthorizationRequestMailer < ApplicationMailer
 
   def instructors_to_notify(authorization_request)
     instructors(authorization_request.definition).reject do |instructor|
-      !instructor.public_send(:"instruction_submit_notification_for_#{authorization_request.definition.id.underscore}") &&
+      !instructor.public_send(:"instruction_submit_notifications_for_#{authorization_request.definition.id.underscore}") &&
         instructor != authorization_request.applicant
     end
   end

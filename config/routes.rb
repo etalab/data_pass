@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   scope(path_names: { new: 'nouveau', edit: 'modifier' }) do
     resources :authorization_requests, only: %w[index show], path: 'demandes' do
+      resources :messages, only: %w[index create], path: 'messages'
       resources :archive_authorization_requests, only: %w[new create], path: 'archiver', as: :archive
       resources :blocks, only: %w[edit update], path: 'blocs', controller: 'authorization_requests/blocks'
     end
@@ -52,6 +53,8 @@ Rails.application.routes.draw do
       resources :archive_authorization_requests, only: %w[new create], path: 'archiver', as: :archive
 
       resources :authorization_request_events, only: :index, path: 'historique', as: :events
+
+      resources :messages, only: %w[index create], path: 'messages'
     end
   end
 end

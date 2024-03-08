@@ -75,6 +75,16 @@ Alors("il n'y a pas de formulaire en mode résumé") do
   expect(page).to have_no_xpath('//*[starts-with(@id, "summary_authorization_request_")]')
 end
 
+Quand('je me rends sur cette demande d\'habilitation') do
+  authorization_request = AuthorizationRequest.last
+
+  if current_user.instructor?
+    visit instruction_authorization_request_path(authorization_request)
+  else
+    visit authorization_request_path(authorization_request)
+  end
+end
+
 # https://rubular.com/r/0orApA5lrXMtTA
 Quand(/je me rends sur une demande d'habilitation "([^"]+)"(?: de l'organisation "([^"]+)")?(?: (?:en|à))? ?(.+)?/) do |type, organization_name, status|
   attributes = {}
@@ -187,4 +197,10 @@ Quand('je renseigne les informations des contacts RGPD') do
       | Nom    | Prénom  | Email                  | Téléphone   | Fonction    |
       | Dupont | Jacques | dupont.jacques@gouv.fr | 08366565601 | Délégué     |
   )
+end
+
+Quand('il existe un instructeur pour cette demande d\'habilitation') do
+  definition = AuthorizationRequest.last.definition
+
+  create_instructor(definition.name) unless definition.instructors.any?
 end

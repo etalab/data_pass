@@ -59,11 +59,14 @@ fr:
       authorization_request:
         tabs:
           authorization_request:
-            title: 'Demande'
-            icon: 'article-line'
+            title: Demande
+            icon: article-line
           authorization_request_events:
-            title: 'Historique'
-            icon: 'time-line'
+            title: Historique
+            icon: time-line
+          messages:
+            title: Messagerie
+            icon: question-answer-line
 
   application:
     user_not_authorized:
@@ -117,7 +120,8 @@ fr:
       notifications:
         title: Notifications par emails
     authorization_notifications:
-      instruction_submit_notification: Notifications pour les soumissions
+      instruction_submit_notifications: Notifications pour les dépôts de demandes d'habilitations
+      instruction_messages_notifications: Notifications pour les nouveaux messages sur les demandes d'habilitations
 
   authorization_requests:
     index:
@@ -255,6 +259,11 @@ fr:
       error:
         title: Une erreur est survenue lors de la réouverture de l'habilitation %{name}
 
+  messages:
+    form:
+      placeholder: Écrivez votre message ici
+      cta: Envoyer le message
+
   instruction:
     authorization_requests:
       index:
@@ -361,6 +370,14 @@ fr:
     archive_authorization_requests:
       create:
         success: La demande d'habilitation %{name} a été archivée avec succèss
+    messages:
+      index:
+        form:
+          title: Pour quel motif voulez-vous écrire au demandeur ?
+        messages:
+          title: Historique des messages
+      create:
+        success: Votre message a été envoyé avec succès
     authorization_request_events:
       index:
         title: Derniers événements liés à cette demande
@@ -405,6 +422,22 @@ fr:
 
         reopen:
           text: "<strong>%{user_full_name}</strong> a réouvert l'habilitation"
+
+        applicant_message:
+          text: |
+            Le demandeur <strong>%{user_full_name}</strong> a envoyé un message:
+
+            <blockquote>
+              %{text}
+            </blockquote>
+
+        instructor_message:
+          text: |
+            L'instructeur <strong>%{user_full_name}</strong> a envoyé un message:
+
+            <blockquote>
+              %{text}
+            </blockquote>
 
         system_reminder:
           text: "Une relance a été envoyé au demandeur"
