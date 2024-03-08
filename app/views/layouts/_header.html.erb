@@ -17,6 +17,12 @@
             </div>
           </div>
 
+          <% if displays_provider_logo? %>
+            <div class="fr-header__service">
+              <%= provider_logo_image_tag(@authorization_definition, class: "header__logo") %>
+            </div>
+          <% end %>
+
           <div class="fr-header__service">
             <a href="/" title="Accueil - <%= t('.title') %>">
               <p class="fr-header__service-title">

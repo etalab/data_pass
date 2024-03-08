@@ -4,8 +4,13 @@ module ApplicationHelper
   include DSFR::Modal
   include DSFR::Pictogram
 
-  def provider_logo_path(authorization_definition)
-    "data_providers/#{authorization_definition.provider.logo}"
+  def provider_logo_image_tag(authorization_definition, options = {})
+    options = options.merge(alt: "Logo du fournisseur de données \" #{authorization_definition.provider.name}\"")
+    image_tag("data_providers/#{authorization_definition.provider.logo}", options)
+  end
+
+  def displays_provider_logo?
+    @authorization_definition.present? && @display_provider_logo_in_header # rubocop:disable Naming/HelperInstanceVariable
   end
 
   def authorization_request_status_badge(authorization_request, no_icon: false)

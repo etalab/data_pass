@@ -7,7 +7,7 @@
 <% @authorization_definitions.each do |authorization_definition| %>
   <div class="data-provider" id="<%= dom_id(authorization_definition) %>">
     <div class="data-provider-logo">
-      <%= image_tag(provider_logo_path(authorization_definition)) %>
+      <%= provider_logo_image_tag(authorization_definition) %>
     </div>
     <div class="data-provider-info">
       <div class="data-provider-title">
