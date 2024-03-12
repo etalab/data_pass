@@ -1,14 +1,18 @@
 class AuthorizationRequestsController < AuthenticatedUserController
   helper AuthorizationRequestsHelpers
 
-  allow_unauthenticated_access only: [:show]
+  allow_unauthenticated_access only: %i[new show]
 
   def index
     @authorization_definitions = AuthorizationDefinition.indexable
   end
 
   def new
-    @authorization_definition = AuthorizationDefinition.find(id_sanitized)
+    if user_signed_in?
+      @authorization_definition = AuthorizationDefinition.find(id_sanitized)
+    else
+      new_as_guest_user
+    end
   end
 
   def show
@@ -38,6 +42,14 @@ class AuthorizationRequestsController < AuthenticatedUserController
     @display_provider_logo_in_header = true
 
     render 'pages/home'
+  end
+
+  def new_as_guest_user
+    @authorization_definition = AuthorizationDefinition.find(id_sanitized)
+    save_redirect_path
+    @display_provider_logo_in_header = true
+
+    render 'authorization_requests/unauthenticated_form_start'
   end
 
   def id_sanitized
