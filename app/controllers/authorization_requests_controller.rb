@@ -49,7 +49,7 @@ class AuthorizationRequestsController < AuthenticatedUserController
     save_redirect_path
     @display_provider_logo_in_header = true
 
-    render 'authorization_requests/unauthenticated_form_start'
+    render 'authorization_requests/unauthenticated_start'
   end
 
   def id_sanitized
