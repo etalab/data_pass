@@ -26,13 +26,34 @@ RSpec.describe SubmitAuthorizationRequest do
           end
 
           describe 'on first submit' do
-            it 'stores the initial diff with all data' do
-              submit_authorization_request
-              changelog = authorization_request.changelogs.last
+            context 'when there is no default data on form' do
+              it 'stores the initial diff with all data' do
+                submit_authorization_request
+                changelog = authorization_request.changelogs.last
 
-              expect(changelog.diff).to eq(
-                authorization_request.data.transform_values { |v| [nil, v] }
-              )
+                expect(changelog.diff).to eq(
+                  authorization_request.data.transform_values { |v| [nil, v] }
+                )
+              end
+            end
+
+            context 'when there is default data on form and a change on one of this data' do
+              let(:authorization_request) { create(:authorization_request, :api_entreprise_mgdis, :draft, fill_all_attributes: true) }
+              let(:authorization_request_params) { ActionController::Parameters.new(intitule: 'new intitule') }
+              let!(:original_intitule) { authorization_request.intitule }
+
+              it 'stores the diff for this data only' do
+                submit_authorization_request
+                changelog = authorization_request.changelogs.last
+
+                expect(changelog.diff['intitule']).to eq(
+                  [original_intitule, 'new intitule']
+                )
+
+                expect(changelog.diff.except('intitule')).to eq(
+                  authorization_request.data.except('intitule').transform_values { |v| [nil, v] }
+                )
+              end
             end
           end
 

@@ -11,7 +11,7 @@ class CreateAuthorizationRequestChangelog < ApplicationInteractor
 
   def create_initial_changelog
     create_changelog(
-      authorization_request.data.transform_values { |v| [nil, v] }
+      authorization_request_initial_diff
     )
   end
 
@@ -25,10 +25,38 @@ class CreateAuthorizationRequestChangelog < ApplicationInteractor
     )
   end
 
+  def authorization_request_initial_diff
+    if authorization_request.form.prefilled?
+      initial_diff_with_prefilled_form
+    else
+      initial_diff_without_prefilled_form
+    end
+  end
+
   def reified_data
     @reified_data ||= latest_changelog.diff.each_with_object(authorization_request.data.dup) do |(key, value), latest_data|
       latest_data[key] = value[1]
     end
+  end
+
+  def initial_diff_with_prefilled_form
+    authorization_request.data.to_h do |attribute, actual_value|
+      default_value = authorization_request.form.data[attribute.to_sym].to_s
+
+      if data_changed_between_prefilling_and_submit?(default_value, actual_value)
+        [attribute, [default_value, actual_value]]
+      else
+        [attribute, [nil, actual_value]]
+      end
+    end
+  end
+
+  def data_changed_between_prefilling_and_submit?(default_value, actual_value)
+    default_value.present? && default_value != actual_value
+  end
+
+  def initial_diff_without_prefilled_form
+    authorization_request.data.transform_values { |v| [nil, v] }
   end
 
   def latest_changelog
