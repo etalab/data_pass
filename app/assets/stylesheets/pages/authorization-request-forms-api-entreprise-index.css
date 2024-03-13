@@ -4,7 +4,7 @@
 }
 
 .authorization-request-forms-api-entreprise-index .editors-list .fr-fieldset__element {
-  flex: 0 1 calc(33.333% - 10px);
-  margin: 5px;
+  flex: 0 1 calc(33.333% - 0.75rem);
+  margin: 0.375rem;
 }
 
