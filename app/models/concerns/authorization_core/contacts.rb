@@ -20,7 +20,7 @@ module AuthorizationCore::Contacts
       def self.contact(kind, validation_condition:)
         class_eval do
           define_contact_type_methods(kind)
-          define_contact_entity_attributes(kind, validation_condition:)
+          define_common_contact_attributes(kind, validation_condition:)
           define_contact_person_attributes(kind, validation_condition:)
 
           contact_types << kind
@@ -39,7 +39,7 @@ module AuthorizationCore::Contacts
         end
       end
 
-      def self.define_contact_entity_attributes(kind, validation_condition:)
+      def self.define_common_contact_attributes(kind, validation_condition:)
         %w[email phone_number].each do |attr|
           store_accessor :data, "#{kind}_#{attr}"
           validates "#{kind}_#{attr}", presence: true, if: validation_condition
