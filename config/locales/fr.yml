@@ -46,7 +46,6 @@ fr:
     dashboard:
       title: Accueil
       instruction_cta: Espace instruction
-      new_authorization_request: Demander une nouvelle habilitation
       tabs:
         moi:
           title: Mes demandes ou habilitations
