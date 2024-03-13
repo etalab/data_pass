@@ -37,16 +37,15 @@ Fonctionnalité: Démarrage d'habilitation par des internautes
     Sachant que je suis un demandeur
     Quand je me rends sur une demande d'habilitation "API Service National" validée
     Alors il y a un titre contenant "Bienvenue sur DataPass !"
-    Alors la page contient le logo du fournisseur de données
+    Alors la page contient le logo du fournisseur de données "API Service National"
     Alors je clique sur "S’identifier avec MonComptePro"
     Alors il y a un formulaire en mode résumé
     Et la page contient "Demande libre"
 
   Scénario: Un internaute veut démarrer une demande d'habilitation API Entreprise
     Sachant que je suis un demandeur
-    Quand je veux demarrer une demande d'habilitation pour "API Entreprise"
+    Quand je veux remplir une demande pour "API Entreprise"
     Alors il y a un titre contenant "Bienvenue sur DataPass !"
-    Alors la page contient le logo du fournisseur de données
+    Alors la page contient le logo du fournisseur de données "API Entreprise"
     Alors je clique sur "S’identifier avec MonComptePro"
-    Alors il y a un formulaire en mode résumé
     Et la page contient "Démarrer une nouvelle habilitation pour API Entreprise"

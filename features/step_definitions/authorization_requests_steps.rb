@@ -10,6 +10,10 @@ Quand('je veux remplir une demande pour {string} via le formulaire {string}') do
   visit new_authorization_request_form_path(form_uid: form_uid_from_names(authorization_request_name, authorization_request_form_name))
 end
 
+Quand('je veux remplir une demande pour {string}') do |authorization_request_name|
+  visit new_authorization_request_path(id: find_authorization_definition_from_name(authorization_request_name).id)
+end
+
 Quand("je démarre une nouvelle demande d'habilitation {string}") do |string|
   visit new_authorization_request_path(id: find_authorization_definition_from_name(string).id)
 
