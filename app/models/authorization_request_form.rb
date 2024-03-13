@@ -83,6 +83,10 @@ class AuthorizationRequestForm < StaticApplicationRecord
     value_or_default(@public, true)
   end
 
+  def prefilled?
+    data.present?
+  end
+
   def data
     @data || {}
   end
