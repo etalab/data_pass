@@ -1,4 +1,4 @@
-<div class="summary-block" id="<%= dom_id(@authorization_request, block_id) %>">
+<div class="summary-block <%= !editable ? 'summary-block--fixed' : '' %>" id="<%= dom_id(@authorization_request, block_id) %>">
   <h3 class="summary-block__title">
     <%= title %>
   </h3>

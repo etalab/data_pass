@@ -13,6 +13,10 @@
   margin-bottom: 50px;
 }
 
+.summary-block.summary-block--fixed {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
 .summary-block__ctas {
   position: absolute;
   top: var(--summary-block--padding-y);
