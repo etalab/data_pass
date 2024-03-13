@@ -16,7 +16,7 @@
       <%= t('.organization.start_text', organization_raison_sociale: current_organization.raison_sociale, organization_siret: current_organization.siret).html_safe %>
     </p>
 
-    <% if current_organization.authorization_requests.where(type: @authorization_definition.authorization_request_class.name).any? %>
+    <% if current_organization.authorization_requests.not_archived.where(type: @authorization_definition.authorization_request_class.name).any? %>
       <div class="fr-alert fr-alert--warning fr-mb-2w">
         <h3 class="fr-alert__title">
           <%= t('authorization_request_forms.build.start.multiple_authorization_requests_warning.title') %>
@@ -24,7 +24,7 @@
         <p>
           <%= t('authorization_request_forms.build.start.multiple_authorization_requests_warning.description') %>
           <ul>
-            <% current_organization.authorization_requests.where(type: @authorization_definition.authorization_request_class.name).each do |another_authorization_request| %>
+            <% current_organization.authorization_requests.not_archived.where(type: @authorization_definition.authorization_request_class.name).each do |another_authorization_request| %>
               <li>
                 <%= link_to another_authorization_request.name, authorization_request_form_path(form_uid: another_authorization_request.form.uid, id: another_authorization_request.id), target: '_blank' %>
               </li>
