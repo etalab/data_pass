@@ -44,15 +44,15 @@ fr:
         - data.gouv.fr
 
     dashboard:
-      title: Accueil
+      title: Demandes et habilitations
       instruction_cta: Espace instruction
       tabs:
         moi:
-          title: Mes demandes ou habilitations
+          title: J'en suis le demandeur
         organisation:
-          title: Les demandes ou habilitations de l'organisation
+          title: Toutes celles de l'organisation
         mentions:
-          title: Mes mentions
+          title: J'y suis mentionné en contact
 
     instruction:
       authorization_request:
