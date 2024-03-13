@@ -25,7 +25,7 @@
 
         <% if policy([:instruction, @authorization_request]).archive? %>
           <li>
-            <%= dsfr_main_modal_button(t('.archive'), new_instruction_authorization_request_archive_path(@authorization_request), class: %w(fr-translate__language fr-nav__link fr-icon-archive-line)) %>
+            <%= dsfr_main_modal_button(t('.archive'), new_instruction_authorization_request_archive_path(@authorization_request), class: %w(fr-translate__language fr-nav__link fr-icon-delete-line)) %>
           </li>
         <% end %>
       </ul>

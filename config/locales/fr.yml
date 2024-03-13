@@ -19,7 +19,7 @@ fr:
       submitted: En cours d'instruction
       validated: Validée
       refused: Refusée
-      archived: Archivée
+      archived: Archivée/supprimée
       revoked: Révoquée
     reopening: Mise à jour
     contacts:
@@ -206,7 +206,7 @@ fr:
         description: *common_authorization_requests_error_description
     form:
       reopen: Mettre à jour
-      archive: Archiver
+      archive: Supprimer
       save_header: Enregistrer
       save: Enregistrer les modifications
       start: Démarrer
@@ -236,13 +236,13 @@ fr:
         reopening_error: *authorization_requests_update_reopening_error
   archive_authorization_requests:
     new:
-      title: Archivage de la demande d'habilitation %{authorization_request_name}
+      title: Suppression de la demande d'habilitation %{authorization_request_name}
       disclaimer: |
-        <strong>Cette action est irréversible</strong>. Veuillez vérifier que nous n'archivez pas une demande légitime.
+        <strong>Cette action est irréversible</strong>. Veuillez vérifier que nous ne supprimez pas une demande légitime.
       cancel: Annuler
-      archive: Archiver la demande d'habilitation
+      archive: Supprimer la demande d'habilitation
     create:
-      success: La demande d'habilitation %{name} a été archivée avec succès
+      success: La demande d'habilitation %{name} a été supprimée avec succès
   reopen_authorizations:
     new:
       title: Mettre à jour la demande d'habilitation %{authorization_name}
@@ -287,7 +287,7 @@ fr:
         refuse: Refuser
         request_changes: Demander des modifications
         approve: Valider
-        archive: Archiver
+        archive: Supprimer
     approve_authorization_requests:
       new:
         initial:
@@ -370,7 +370,7 @@ fr:
 
     archive_authorization_requests:
       create:
-        success: La demande d'habilitation %{name} a été archivée avec succèss
+        success: La demande d'habilitation %{name} a été supprimée avec succèss
     messages:
       index:
         form:
@@ -388,7 +388,7 @@ fr:
         update:
           text: "<strong>%{user_full_name}</strong> a mis à jour la demande"
         archive:
-          text: "<strong>%{user_full_name}</strong> a archivé la demande"
+          text: "<strong>%{user_full_name}</strong> a supprimé la demande"
         initial_submit:
           text: "<strong>%{user_full_name}</strong> a soumis la demande"
         submit:

@@ -26,7 +26,7 @@
 
           <% unless @summary_before_submit %>
             <% if policy(@authorization_request).archive? %>
-              <%= dsfr_main_modal_button t('authorization_request_forms.form.archive'), new_authorization_request_archive_path(@authorization_request), id: :archive_authorization_request, class: %w(fr-btn fr-btn--sm fr-btn--secondary fr-btn--icon-left fr-icon-archive-line) %>
+              <%= dsfr_main_modal_button t('authorization_request_forms.form.archive'), new_authorization_request_archive_path(@authorization_request), id: :archive_authorization_request, class: %w(fr-btn fr-btn--sm fr-btn--secondary fr-btn--icon-left fr-icon-delete-line) %>
             <% end %>
 
             <% if policy(@authorization_request).update? %>
