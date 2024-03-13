@@ -27,7 +27,7 @@ Fonctionnalité: Tableau de bord
     Quand mon organisation a 2 demandes d'habilitation "API Entreprise"
     Et que j'ai 1 demande d'habilitation "API Particulier"
     Et que je vais sur la page du tableau de bord
-    Et que je clique sur "Les demandes ou habilitations de l'organisation"
+    Et que je clique sur "Toutes celles de l'organisation"
     Alors je vois 3 demandes d'habilitations
 
   Scénario: Je vois les habilitations où je suis mentionné
@@ -35,7 +35,7 @@ Fonctionnalité: Tableau de bord
     Et que mon organisation a 2 demandes d'habilitation "API Entreprise"
     Et que je suis mentionné dans 1 demande d'habilitation "API Entreprise" en tant que "Contact métier"
     Et que je vais sur la page du tableau de bord
-    Et que je clique sur "Mes mentions"
+    Et que je clique sur "J'y suis mentionné en contact"
     Alors je vois 1 demande d'habilitation
     Et la page contient "Vous avez été référencé comme contact métier"
 

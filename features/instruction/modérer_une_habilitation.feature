@@ -59,10 +59,9 @@ Fonctionnalité: Instruction: modération
     Et que je clique sur "Envoyer la demande de modification"
     Alors il y a au moins une erreur sur un champ
 
-  Scénario: J'archive ue demande d'habilitation
+  Scénario: Je supprime une demande d'habilitation
     Quand je me rends sur une demande d'habilitation "API Entreprise" en brouillon
-    Et je clique sur "Archiver"
-    Et je clique sur "Archiver la demande"
+    Et je clique sur "Supprimer"
+    Et je clique sur "Supprimer la demande"
     Alors je suis sur la page "Liste des demandes en cours"
-    Et je vois 1 demande d'habilitation "API Entreprise" archivée
-    Et il y a un message de succès contenant "a été archivée"
+    Et il y a un message de succès contenant "a été supprimée"

@@ -58,4 +58,4 @@ Fonctionnalité: Interactions sur une demande d'habilitation simple (sur une seu
     Et que j'adhère aux conditions générales
     Et que je clique sur "Soumettre la demande"
     Alors il y a un message de succès contenant "soumise avec succès"
-    Et je suis sur la page "Accueil"
+    Et je suis sur la page "Demandes et habilitations"

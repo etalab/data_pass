@@ -30,7 +30,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Service National
     * je clique sur "Soumettre la demande d'habilitation"
 
     Alors il y a un message de succès contenant "soumise avec succès"
-    Et je suis sur la page "Accueil"
+    Et je suis sur la page "Demandes et habilitations"
 
   Scénario: Je soumets une demande d'habilitation Inscription à un concours ou un examen (hors permis de conduire) valide
     Quand je clique sur "Débuter mon habilitation" pour le formulaire "Inscription à un concours ou un examen (hors permis de conduire)"
@@ -48,7 +48,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Service National
     * je clique sur "Soumettre la demande d'habilitation"
 
     Alors il y a un message de succès contenant "soumise avec succès"
-    Et je suis sur la page "Accueil"
+    Et je suis sur la page "Demandes et habilitations"
 
   Scénario: Je soumets une demande d'habilitation Accès à un statut exigeant d’être en règle avec les obligations de service national valide
     Quand je clique sur "Débuter mon habilitation" pour le formulaire "Accès à un statut exigeant d’être en règle avec les obligations de service national"
@@ -66,4 +66,4 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Service National
     * je clique sur "Soumettre la demande d'habilitation"
 
     Alors il y a un message de succès contenant "soumise avec succès"
-    Et je suis sur la page "Accueil"
+    Et je suis sur la page "Demandes et habilitations"

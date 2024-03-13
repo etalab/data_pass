@@ -22,4 +22,4 @@ Fonctionnalité: Soumission d'une demande d'habilitation API INFINOE (Production
     * je clique sur "Soumettre la demande d'habilitation"
 
     Alors il y a un message de succès contenant "soumise avec succès"
-    Et je suis sur la page "Accueil"
+    Et je suis sur la page "Demandes et habilitations"
