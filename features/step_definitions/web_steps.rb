@@ -177,7 +177,7 @@ Alors('il y a un badge {string}') do |text|
   expect(page).to have_css('.fr-badge', text:)
 end
 
-Alors('la page contient le logo du fournisseur de données') do
-  authorization_request = AuthorizationRequest.last
-  expect(page).to have_xpath("//img[contains(@alt, \"#{authorization_request.definition.provider.name}\")]")
+Alors('la page contient le logo du fournisseur de données {string}') do |authorization_definition|
+  provider_logo = find_authorization_definition_from_name(authorization_definition).provider.name
+  expect(page).to have_xpath("//img[contains(@alt, \"#{provider_logo}\")]")
 end
