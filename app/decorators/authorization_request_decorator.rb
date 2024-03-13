@@ -35,6 +35,11 @@ class AuthorizationRequestDecorator < ApplicationDecorator
     ].compact.join(' ')
   end
 
+  def skip_contact_attribute?(contact_type, contact_attribute)
+    model.public_send(:"#{contact_type}_type") == 'organization' &&
+      %w[family_name given_name job_title].include?(contact_attribute)
+  end
+
   private
 
   def lookup_i18n_key(subkey)
