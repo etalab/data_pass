@@ -23,9 +23,23 @@ shared:
     steps:
       - name: 'basic_infos'
       - name: 'personal_data'
-      - name: 'legal'
       - name: 'scopes'
       - name: 'contacts'
+    static_blocks:
+      - name: 'legal'
+    data:
+      cadre_juridique_nature: 'R2143-13 Code de la commande publique'
+      cadre_juridique_url: 'https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037730589'
+    scopes:
+      - unites_legales_etablissements_insee
+      - associations_djepva
+      - chiffre_affaires_dgfip
+      - attestation_fiscale_dgfip
+      - attestation_sociale_urssaf
+      - cotisations_msa
+      - cotisations_probtp
+      - certification_cnetp
+      - certifications_qualiopi_france_competences
 
   api-entreprise-aides-publiques:
     name: "Aides publiques"
@@ -38,13 +52,207 @@ shared:
       - name: 'legal'
       - name: 'scopes'
       - name: 'contacts'
+    scopes:
+      - unites_legales_etablissements_insee
+      - associations_djepva
+      - mandataires_sociaux_infogreffe
+      - chiffre_affaires_dgfip
+      - attestation_fiscale_dgfip
+      - attestation_sociale_urssaf
+      - cotisations_msa
+
+  api-entreprise-subventions-associations:
+    name: "Subventions des associations"
+    description: "Faciliter le dépôt et l'instruction des demandes de subventions des associations."
+    use_case: 'subventions_associations'
+    authorization_request: 'APIEntreprise'
+    steps:
+      - name: 'basic_infos'
+      - name: 'personal_data'
+      - name: 'legal'
+      - name: 'scopes'
+      - name: 'contacts'
+    scopes:
+      - unites_legales_etablissements_insee
+      - associations_djepva
+      - mandataires_sociaux_infogreffe
+      - chiffre_affaires_dgfip
+      - certifications_qualiopi_france_competences
+
+  api-entreprise-portail-gru-preremplissage:
+    name: "Portail GRU - Préremplissage"
+    description: "Faciliter le pré-remplissage des usagers sur les portails GRU"
+    use_case: 'portail_gru_preremplissage'
+    authorization_request: 'APIEntreprise'
+    steps:
+      - name: 'basic_infos'
+      - name: 'personal_data'
+      - name: 'scopes'
+      - name: 'contacts'
+    static_blocks:
+      - name: 'legal'
+    data:
+      intitule: "Démarches liées au portail de gestion relation usagers"
+      description: "Accès aux données ouvertes permettant aux usagers de pré-remplir les informations liées à leurs entreprises."
+      cadre_juridique_nature: "Article Premier de la LOI n° 2016-1321 du 7 octobre 2016 pour une République numérique"
+      cadre_juridique_url: "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000033202746/"
+
+  api-entreprise-portail-gru-instruction:
+    name: "Portail GRU - Instruction des démarches"
+    description: "Faciliter l'instruction des demandes sur les portails GRU"
+    use_case: 'portail_gru_instruction'
+    authorization_request: 'APIEntreprise'
+    steps:
+      - name: 'basic_infos'
+      - name: 'personal_data'
+      - name: 'scopes'
+      - name: 'contacts'
+    static_blocks:
+      - name: 'legal'
+    data:
+      intitule: "Démarches liées au portail de gestion relation usagers"
+      description: "Accès aux données ouvertes permettant aux usagers de pré-remplir les informations liées à leurs entreprises, ainsi qu'aux données protégées permettant l'instruction de demandes par des agents habilités"
+      cadre_juridique_nature: "Article Premier de la LOI n° 2016-1321 du 7 octobre 2016 pour une République numérique"
+      cadre_juridique_url: "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000033202746/"
+      scopes:
+        - unites_legales_etablissements_insee
+        - associations_djepva
+        - attestation_fiscale_dgfip
+        - attestation_sociale_urssaf
+        - cotisations_msa
+
+  api-entreprise-detection-fraude:
+    name: "Détection de la fraude"
+    description: "Ce cas d’usage est EXCLUSIVEMENT réservé aux administrations dont la détection des fraudes fait partie de ses missions."
+    use_case: 'detection_fraude'
+    authorization_request: 'APIEntreprise'
+    steps:
+      - name: 'basic_infos'
+      - name: 'personal_data'
+      - name: 'legal'
+      - name: 'scopes'
+      - name: 'contacts'
+
+  api-entreprise-e-attestations:
+    name: "Conformité titulaires de marchés"
+    description: "Logiciel de contrôle de conformité des opérateurs économiques en vue de l’attribution ou du suivi des marchés"
+    use_case: 'marches_publics'
+    authorization_request: 'APIEntreprise'
+    editor_id: 'e_attestations'
+    static_blocks:
+      - name: 'basic_infos'
+      - name: 'personal_data'
+      - name: 'legal'
+      - name: 'scopes'
+    data:
+      intitule: "Logiciel de contrôle de conformité des opérateurs économiques en vue de l’attribution ou du suivi des marchés - Solution e-Attestations"
+      description: "Dans le cadre des procédures de passation de marchés publics, nous mettons en place un outil, à destination de nos agents habilités en interne, leur permettant de récupérer les justificatifs nécessaires au dépôt et à l’instruction du dossier de candidature.\r\nL’accès à l’API Entreprise nous permettra d’accéder aux justificatifs sans avoir à les demander aux prestataires.\r\nCet outil s’appuie sur la solution de l’éditeur e-Attestations."
+      cadre_juridique_nature: "Service numérique de conformité pour les administrations publiques dans le cadre du décret N°2011-1601 et de l’article D8222 du code du travail, offre de services d’intermédiation aux organismes publics, telle que définie par l’article 17, alinéa IV, du décret du 24 septembre 2014 et le décret lié à la commande publique n° 2016-360.\r\nhttps://www.legifrance.gouv.fr/codes/id/LEGIARTI000018520702/2011-12-31/\r\n\r\nArticle R2143-13 du code de la commande publique, concernant l’accès des acheteurs aux documents justificatifs et moyens de preuve :\r\nhttps://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037730589"
+      cadre_juridique_url: 'https://www.legifrance.gouv.fr/codes/id/LEGIARTI000018520702/2011-12-31/'
+      destinataire_donnees_caractere_personnel: "Services marchés d’organismes publics et collectivités locales"
+      duree_conservation_donnees_caractere_personnel: 36
+      contact_metier_type: 'organization'
+      contact_metier_email: "p.gue@e-attestations.com"
+      contact_metier_phone_number: "0158060016"
+      contact_technique_type: 'organization'
+      contact_technique_email: "tech@e-attestations.com"
+      contact_technique_phone_number: "0158060010"
+      scopes:
+        - unites_legales_etablissements_insee
+        - associations_djepva
+        - effectifs_urssaf
+        - mandataires_sociaux_infogreffe
+        - chiffre_affaires_dgfip
+        - attestation_fiscale_dgfip
+        - attestation_sociale_urssaf
+        - cotisations_msa
+        - cotisations_probtp
+        - certification_cnetp
+
+  api-entreprise-provigis:
+    name: "Conformité titulaires de marchés"
+    description: "Outil de contrôle de conformité des titulaires de marchés"
+    use_case: 'marches_publics'
+    authorization_request: 'APIEntreprise'
+    editor_id: 'provigis'
+    static_blocks:
+      - name: 'basic_infos'
+      - name: 'personal_data'
+      - name: 'legal'
+      - name: 'scopes'
+    data:
+      intitule: "Outil de contrôle de conformité des titulaires de marchés - Solution Provigis"
+      description: "Dans le cadre des procédures de passation de marchés publics, nous mettons en place un outil, à destination de nos agents habilités en interne, leur permettant de collecter, contrôler et stocker les documents de conformité de leurs prestataires et sous-traitants.\r\nL’accès à l’API Entreprise nous permettra d’accéder aux justificatifs sans avoir à les demander aux prestataires.\r\n\r\nCet outil s’appuie sur la solution de l’éditeur Provigis.\r\n\r\nhttps://www.provigis.com/"
+      cadre_juridique_nature: "Service numérique de conformité pour les administrations publiques dans le cadre du décret N°2011-1601 et de l’article D8222 du code du travail, offre de services d’intermédiation aux organismes publics, telle que définie par l’article 17, alinéa IV, du décret du 24 septembre 2014 et le décret lié à la commande publique n° 2016-360.\r\nhttps://www.legifrance.gouv.fr/codes/id/LEGIARTI000018520702/2011-12-31/\r\n\r\nArticle R2143-13 du code de la commande publique. Concernant l’accès des acheteurs aux documents justificatifs et moyens de preuve.\r\nhttps://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037730589"
+      cadre_juridique_url: 'https://www.legifrance.gouv.fr/codes/id/LEGIARTI000018520702/2011-12-31/'
+      destinataire_donnees_caractere_personnel: "Services marchés d’organismes publics et collectivités locales"
+      duree_conservation_donnees_caractere_personnel: 36
+      contact_metier_type: 'organization'
+      contact_metier_email: "client.services@provigis.com"
+      contact_metier_phone_number: "0183755520"
+      contact_technique_type: 'organization'
+      contact_technique_email: "tech@provigis.com"
+      contact_technique_phone_number: "0183755520"
+      scopes:
+        - unites_legales_etablissements_insee
+        - associations_djepva
+        - effectifs_urssaf
+        - mandataires_sociaux_infogreffe
+        - chiffre_affaires_dgfip
+        - attestation_fiscale_dgfip
+        - attestation_sociale_urssaf
+        - cotisations_msa
+        - cotisations_probtp
+        - certification_cnetp
+        - certifications_qualiopi_france_competences
+
+  api-entreprise-achat-solution:
+    name: "Conformité titulaires de marchés"
+    description: "Outil de contrôle de conformité des candidats et titulaires de marchés publics"
+    use_case: 'marches_publics'
+    authorization_request: 'APIEntreprise'
+    editor_id: 'achat_solution'
+    static_blocks:
+      - name: 'basic_infos'
+      - name: 'personal_data'
+      - name: 'legal'
+      - name: 'scopes'
+    data:
+      intitule: "Outil de contrôle de conformité des candidats et titulaires de marchés publics"
+      description: "Dans le cadre des procédures de passation de marchés publics, nous mettons en place un outil, à destination des acheteurs adhérents, leur permettant de récupérer les justificatifs nécessaires au dépôt et à l’instruction du dossier de candidature ainsi qu’au contrôle périodique de la régularité fiscale et sociale des entreprises\r\nL’accès à l’API Entreprise nous permettra d’accéder aux justificatifs sans avoir à les demander aux prestataires.\r\nCet outil s’appuie sur la solution de l’éditeur Achat Solution.\r\n\r\nhttps://www.achat-solution.com/"
+      cadre_juridique_nature: "Service numérique de conformité pour les administrations publiques dans le cadre du décret N°2011-1601 et de l’article D8222 du code du travail, offre de services d’intermédiation aux organismes publics, telle que définie par l’article 17, alinéa IV, du décret du 24 septembre 2014 et le décret lié à la commande publique n° 2016-360.\r\nhttps://www.legifrance.gouv.fr/codes/id/LEGIARTI000018520702/2011-12-31/\r\n\r\nArticle R2143-13 du code de la commande publique. Concernant l’accès des acheteurs aux documents justificatifs et moyens de preuve.\r\nhttps://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037730589"
+      cadre_juridique_url: "https://www.legifrance.gouv.fr/codes/id/LEGIARTI000018520702/2011-12-31/"
+      destinataire_donnees_caractere_personnel: "Maître d’ouvrage, acheteurs publics dans le cadre de leurs contrôles de la régularité fiscale et sociale des entreprises"
+      duree_conservation_donnees_caractere_personnel: 36
+      contact_metier_type: 'organization'
+      contact_metier_email: "<%= Rails.application.credentials.api_entreprise_achat_solution_contact_metier_email || 'metier@achat-solution.com' %>"
+      contact_metier_phone_number: "<%= Rails.application.credentials.api_entreprise_achat_solution_contact_metier_phone_number || '0836656565' %>"
+      contact_technique_type: 'organization'
+      contact_technique_email: "<%= Rails.application.credentials.api_entreprise_achat_solution_contact_technique_email || 'metier@achat-solution.com' %>"
+      contact_technique_phone_number: "<%= Rails.application.credentials.api_entreprise_achat_solution_contact_technique_phone_number || '0836656565' %>"
+      scopes:
+        - unites_legales_etablissements_insee
+        - associations_djepva
+        - effectifs_urssaf
+        - mandataires_sociaux_infogreffe
+        - chiffre_affaires_dgfip
+        - attestation_fiscale_dgfip
+        - attestation_sociale_urssaf
+        - cotisations_msa
+        - cotisations_probtp
+        - certification_cnetp
 
   api-entreprise-mgdis:
-    name: "Solution Portail des aides de l'éditeur MGDIS"
+    name: "Solution Portail des aides"
     description: "Solution logicielle fournie par l'éditeur MGDIS."
     use_case: 'aides_publiques'
     authorization_request: 'APIEntreprise'
     editor_id: 'mgdis'
+    static_blocks:
+      - name: 'basic_infos'
+      - name: 'personal_data'
+      - name: 'legal'
+      - name: 'scopes'
     data:
       intitule: "Solution Portail des aides de l'éditeur MGDIS"
       description: "Dans un objectif de dématérialisation des aides publiques, nous mettons en place un outil, à destination des usagers de notre organisme leur permettant de déposer des demandes d’aides/subventions, qui seront ensuite instruites par nos agents dans ce même outil.
@@ -62,22 +270,54 @@ La plateforme, mise en place pour permettre le dépôt de ces aides publiques et
       cadre_juridique_nature: "Décret n° 2019-31 du 18 janvier 2019 relatif aux échanges d’informations et de données entre administrations dans le cadre des démarches administratives et à l’expérimentation prévue par l’article 40 de la loi n° 2018-727 du 10 août 2018 pour un Etat au service d’une société de confiance"
       cadre_juridique_url: "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000038029589/"
 
-      contact_technique_given_name: &api_entreprise_mgdis_contact_given_name 'Jean-Michel'
-      contact_technique_family_name: &api_entreprise_mgdis_contact_family_name 'Dupont'
-      contact_technique_job_title: &api_entreprise_mgdis_contact_job_title 'Chef de projet'
+      contact_technique_type: 'organization'
       contact_technique_email: &api_entreprise_mgdis_contact_email 'assistance@mgdis.fr'
       contact_technique_phone_number: &api_entreprise_mgdis_contact_phone_number '0297681828'
-
-      contact_metier_given_name: *api_entreprise_mgdis_contact_given_name
-      contact_metier_family_name: *api_entreprise_mgdis_contact_family_name
-      contact_metier_job_title: *api_entreprise_mgdis_contact_job_title
+      contact_metier_type: 'organization'
       contact_metier_email: *api_entreprise_mgdis_contact_email
       contact_metier_phone_number: *api_entreprise_mgdis_contact_phone_number
+
+  api-entreprise-atexo:
+    name: "Dématérialisation des marchés publics"
+    description: "Outil de dématérialisation des appels d’offres des marchés publics - Solution LOCAL TRUST MPE"
+    use_case: 'marches_publics'
+    authorization_request: 'APIEntreprise'
+    editor_id: 'atexo'
     static_blocks:
       - name: 'basic_infos'
       - name: 'personal_data'
       - name: 'legal'
       - name: 'scopes'
+    data:
+      intitule: "Outil de dématérialisation des appels d’offres des marchés publics - Solution LOCAL TRUST MPE"
+      description: "Afin de faciliter cette investigation du marché fournisseurs, ATEXO propose le module de Sourcing. Combiné au profil acheteur MPE, il permet aux entreprises de mettre en avant leurs informations.\r\nBasé sur l’open data et les renseignements des entreprises, ce module présente aux acheteurs des fiches fournisseurs complètes : établissements, éléments financiers, contrats publics, références significatives, expertises, contacts qualifiés, etc."
+      destinataire_donnees_caractere_personnel: Acheteurs publics dans le cadre de leur activité de traitement des marchés publics
+      duree_conservation_donnees_caractere_personnel: 36
+      cadre_juridique_nature: |+
+        Service numérique de conformité pour les administrations publiques dans le cadre du décret N°2011-1601 et de l’article D8222 du code du travail, offre de services d’intermédiation aux organismes publics, tel que défini par l’article 17, alinéa IV, du décret du 24 septembre 2014 et le décret lié à la commande publique n° 2016-360.
+        https://www.legifrance.gouv.fr/codes/id/LEGIARTI000018520702/2011-12-31/
+
+        Article R2143-13 du code de la commande publique. Concernant l’accès des acheteurs aux documents justificatifs et moyens de preuve.
+        https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037730589
+      cadre_juridique_url: 'https://www.legifrance.gouv.fr/codes/id/LEGIARTI000018520702/2011-12-31/'
+
+      contact_technique_type: 'organization'
+      contact_technique_email: 'produits@atexo.com'
+      contact_technique_phone_number: '0175440934'
+      contact_metier_type: 'organization'
+      contact_metier_email: "<%= Rails.application.credentials.api_entreprise_atexo_contact_metier_email || 'produit@atexo.com' %>"
+      contact_metier_phone_number: '0153430678'
+      scopes:
+        - unites_legales_etablissements_insee
+        - associations_djepva
+        - effectifs_urssaf
+        - mandataires_sociaux_infogreffe
+        - chiffre_affaires_dgfip
+        - attestation_fiscale_dgfip
+        - attestation_sociale_urssaf
+        - cotisations_msa
+        - cotisations_probtp
+        - certification_cnetp
 
 
   api-entreprise-setec-atexo:
@@ -116,9 +356,11 @@ La plateforme, mise en place pour permettre le dépôt de ces aides publiques et
         https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037730589
       cadre_juridique_url: https://www.legifrance.gouv.fr/codes/id/LEGIARTI000018520702/2011-12-31/
 
+      contact_technique_type: 'organization'
       contact_technique_email: &api_entreprise_setec_atexo_contact_email "<%= Rails.application.credentials.api_entreprise_setec_atexo_contact_email || 'not_valid@setec.com' %>"
       contact_technique_phone_number: &api_entreprise_setec_atexo_contact_phone_number "<%= Rails.application.credentials.api_entreprise_setec_atexo_contact_phone_number || '0836656565' %>"
 
+      contact_metier_type: 'organization'
       contact_metier_email: *api_entreprise_setec_atexo_contact_email
       contact_metier_phone_number: *api_entreprise_setec_atexo_contact_phone_number
 

@@ -8,7 +8,7 @@ module AuthorizationExtensions::GDPRContacts
 
   included do
     NAMES.each do |contact_kind|
-      contact contact_kind, validation_condition: -> { need_complete_validation?(:contacts) }
+      contact contact_kind, validation_condition: ->(record) { record.need_complete_validation?(:contacts) }
     end
   end
 end

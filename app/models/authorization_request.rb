@@ -164,11 +164,10 @@ class AuthorizationRequest < ApplicationRecord
 
   def need_complete_validation?(step = nil)
     return true if %i[submit review].include?(validation_context)
-    return false if state == 'archived'
+    return false if archived?
+    return false if static_data_already_filled?(step)
 
     if form.multiple_steps?
-      raise "Unknown step #{step}" if step.present? && steps_names.exclude?(step.to_s)
-
       !filling? ||
         required_for_step?(step)
     else
@@ -199,18 +198,21 @@ class AuthorizationRequest < ApplicationRecord
   end
   # rubocop:enable Rails/SkipsModelValidations
 
+  def static_data_already_filled?(step)
+    form.static_blocks.pluck(:name).include?(step.to_s)
+  end
+
   attr_writer :current_build_step
 
   def current_build_step
-    if form.multiple_steps? && steps_names.include?(@current_build_step)
-      @current_build_step
-    else
-      form.steps.last[:name]
-    end
+    return unless form.multiple_steps? && steps_names.include?(@current_build_step)
+
+    @current_build_step
   end
 
   def required_for_step?(step)
     return false if validation_context == :save_within_wizard
+    return false if current_build_step.blank?
 
     persisted? && (
       step.nil? ||

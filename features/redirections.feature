@@ -20,7 +20,7 @@ Fonctionnalité: Démarrage d'habilitation par des internautes
 
   Scénario:  Un internaute veut remplir une demande d'habilitation API Infinoe sandbox
     Sachant que je suis un demandeur
-    Quand je veux remplir une demande pour "API Infinoe Sandbox" via le formulaire ""
+    Quand je veux remplir une demande pour "API INFINOE (Bac à sable)"
     Alors il y a un titre contenant "Bienvenue sur DataPass !"
     Et la page contient "Vous souhaitez accédez à l’API INFINOE (Bac à sable)"
     Et la page contient "Votre demande d’habilitation va se dérouler en 4 étapes"

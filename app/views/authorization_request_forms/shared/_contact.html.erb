@@ -6,6 +6,8 @@
 
     <fieldset class="fr-fieldset" aria-label="feedme" aria-describedby="name-1-fieldset-messages">
       <% @authorization_request.class.contact_attributes.each do |contact_attribute| %>
+        <% next if @authorization_request.skip_contact_attribute?(contact_type, contact_attribute) %>
+
         <div class="fr-fieldset__element">
           <% if contact_attribute == 'email' %>
             <%= f.dsfr_email_field("#{contact_type}_#{contact_attribute}") %>

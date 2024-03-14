@@ -1,13 +1,11 @@
-def find_authorization_definition_from_name(name)
-  AuthorizationDefinition.where(name:).first
+def find_authorization_request_class_from_name(name)
+  authorization_definition = find_authorization_definition_from_name(name)
+
+  AuthorizationRequest.const_get(authorization_definition.id.classify)
 end
 
-def form_uid_from_names(name, form_name)
-  form_name = nil if form_name&.downcase == 'demande libre'
-
-  form_uid = [name.dasherize, form_name&.dasherize].compact_blank.join('-')
-
-  I18n.transliterate(form_uid.tr(' ', '-').downcase.dasherize)
+def find_authorization_definition_from_name(name)
+  AuthorizationDefinition.where(name:).first
 end
 
 def find_authorization_request_form_from_name(name)

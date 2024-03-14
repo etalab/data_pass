@@ -6,4 +6,16 @@ shared:
   setec:
     name: SETEC
     siret: 70200590100104
+  e_attestations:
+    name: e-Attestations
+    siret: 50382936800045
+  provigis:
+    name: Provigis
+    siret: 43196025100061
+  achat_solution:
+    name: Achat Solution
+    siret: 81449011600013
+  atexo:
+    name: Atexo
+    siret: 44090956200033
 

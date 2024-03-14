@@ -8,5 +8,5 @@ class AuthorizationRequest::APICaptchEtat < AuthorizationRequest
   add_attributes :date_prevue_mise_en_production,
     :volumetrie_approximative
 
-  contact :contact_technique, validation_condition: -> { need_complete_validation?(:contacts) }
+  contact :contact_technique, validation_condition: ->(record) { record.need_complete_validation?(:contacts) }
 end

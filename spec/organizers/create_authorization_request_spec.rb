@@ -56,5 +56,14 @@ RSpec.describe CreateAuthorizationRequest, type: :organizer do
         expect(authorization_request.contact_technique_email).to eq('assistance@mgdis.fr')
       end
     end
+
+    context 'with a form which has data key and static blocks' do
+      let(:authorization_request_form) { AuthorizationRequestForm.find('api-entreprise-marches-publics') }
+      let(:authorization_request_params) do
+        ActionController::Parameters.new
+      end
+
+      it { is_expected.to be_success }
+    end
   end
 end

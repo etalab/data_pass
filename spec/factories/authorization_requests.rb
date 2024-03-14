@@ -11,7 +11,7 @@ FactoryBot.define do
 
     after(:build) do |authorization_request, evaluator|
       authorization_request.form.data.each do |key, value|
-        next if authorization_request.public_send(key).present?
+        next if authorization_request.data[key].present?
 
         authorization_request.public_send(:"#{key}=", value)
       end
@@ -211,9 +211,49 @@ FactoryBot.define do
       form_uid { 'api-entreprise-aides-publiques' }
     end
 
+    trait :api_entreprise_subventions_associations do
+      api_entreprise
+      form_uid { 'api-entreprise-subventions-associations' }
+    end
+
+    trait :api_entreprise_portail_gru_preremplissage do
+      api_entreprise
+      form_uid { 'api-entreprise-portail-gru-preremplissage' }
+    end
+
+    trait :api_entreprise_portail_gru_instruction do
+      api_entreprise
+      form_uid { 'api-entreprise-portail-gru-instruction' }
+    end
+
+    trait :api_entreprise_detection_fraude do
+      api_entreprise
+      form_uid { 'api-entreprise-detection-fraude' }
+    end
+
+    trait :api_entreprise_e_attestations do
+      api_entreprise
+      form_uid { 'api-entreprise-e-attestations' }
+    end
+
+    trait :api_entreprise_provigis do
+      api_entreprise
+      form_uid { 'api-entreprise-provigis' }
+    end
+
+    trait :api_entreprise_achat_solution do
+      api_entreprise
+      form_uid { 'api-entreprise-achat-solution' }
+    end
+
     trait :api_entreprise_mgdis do
       api_entreprise
       form_uid { 'api-entreprise-mgdis' }
+    end
+
+    trait :api_entreprise_atexo do
+      api_entreprise
+      form_uid { 'api-entreprise-atexo' }
     end
 
     trait :api_entreprise_setec_atexo do
