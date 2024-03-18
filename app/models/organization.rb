@@ -12,6 +12,12 @@ class Organization < ApplicationRecord
   has_many :authorizations,
     through: :authorization_requests
 
+  has_many :active_authorization_requests,
+    -> { not_archived },
+    dependent: :restrict_with_exception,
+    class_name: 'AuthorizationRequest',
+    inverse_of: :organization
+
   def raison_sociale
     mon_compte_pro_payload['label']
   end
