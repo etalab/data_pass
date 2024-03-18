@@ -39,6 +39,8 @@ class ApplicationPolicy
   delegate :current_organization, to: :user, allow_nil: true
 
   class Scope
+    include SubdomainsHelper
+
     attr_reader :user_context, :scope
 
     delegate :current_organization, to: :user
@@ -49,7 +51,6 @@ class ApplicationPolicy
     end
 
     delegate :user, to: :user_context
-
     delegate :host, to: :user_context
 
     def resolve
