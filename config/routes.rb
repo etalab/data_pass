@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')
 
+  if Rails.env.development?
+    get 'local-sign-in', to: 'authenticated_user#bypass_login'
+  end
+
   get 'compte/deconnexion', to: 'sessions#destroy', as: :signout
 
   get '/tableau-de-bord', to: 'dashboard#index', as: :dashboard
