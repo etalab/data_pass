@@ -19,3 +19,7 @@ end
 After do
   OmniAuth.config.mock_auth[:mon_compte_pro] = nil
 end
+
+Before do
+  Capybara.app_host = nil
+end

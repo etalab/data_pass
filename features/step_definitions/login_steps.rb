@@ -18,6 +18,10 @@ Sachantque('je suis un demandeur') do
   mock_mon_compte_pro(user)
 end
 
+Sachantque('je consulte le site ayant le sous-domaine {string}') do |subdomain|
+  Capybara.app_host = "http://#{subdomain}.localtest.me"
+end
+
 Sachantque('je suis un instructeur {string}') do |kind|
   user = create_instructor(kind)
 
