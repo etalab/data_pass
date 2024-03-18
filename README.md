@@ -67,6 +67,17 @@ Then go to [http://localhost:3000](http://localhost:3000)
 
 For mailer preview: [http://localhost:3000/rails/mailers](http://localhost:3000/rails/mailers)
 
+### Avec un sous-domaine référencé
+
+Il est possible de restreindre l'application à un sous-ensemble de type
+d'habilitation à travers un sous nom de domaine. Cela permet de restreindre les
+demandeurs à ce sous-ensemble.
+
+Par exemple pour API Entreprise: [http://api-entreprise.localtest.me:3000/](http://api-entreprise.localtest.me:3000/)
+
+Il est possible de bypass le login via MonComptePro de cette manière en local :
+[http://api-entreprise.localtest.me:3000/local-sign-in?email=api-entreprise@yopmail.com](http://api-entreprise.localtest.me:3000/local-sign-in?email=api-entreprise@yopmail.com)
+
 ## Tests
 
 With docker:
