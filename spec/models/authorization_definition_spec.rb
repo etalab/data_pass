@@ -20,7 +20,7 @@ RSpec.describe AuthorizationDefinition do
     end
   end
 
-  describe '.editors' do
+  describe '#editors' do
     subject(:editors) { instance.editors }
 
     let(:instance) { described_class.find('api_entreprise') }
