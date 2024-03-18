@@ -1,6 +1,6 @@
 class Instruction::AuthorizationRequestPolicy < ApplicationPolicy
   def show?
-    Scope.new(user, AuthorizationRequest).resolve.exists?(id: record.id)
+    Scope.new(user_context, AuthorizationRequest).resolve.exists?(id: record.id)
   end
 
   def refuse?
