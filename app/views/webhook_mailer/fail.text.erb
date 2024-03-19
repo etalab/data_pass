@@ -1,0 +1,14 @@
+<%= render partial: 'mailer/shared/applicant/header', locals: { entity_name: nil } %>
+
+<%=
+  t(
+    '.description',
+    api_manager_label: @api_manager_label,
+    webhook_url: @webhook_url,
+    payload: @payload,
+    webhook_response_status: @webhook_response_status,
+    webhook_response_body: @webhook_response_body
+  )
+%>
+
+<%= t('mailer.shared.instruction.footer.text') %>
