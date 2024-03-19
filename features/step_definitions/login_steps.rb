@@ -19,6 +19,7 @@ Sachantque('je suis un demandeur') do
 end
 
 Sachantque('je consulte le site ayant le sous-domaine {string}') do |subdomain|
+  $previous_app_host = Capybara.app_host.dup
   Capybara.app_host = "http://#{subdomain}.localtest.me"
 end
 
