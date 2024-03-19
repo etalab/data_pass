@@ -8,6 +8,7 @@ FactoryBot.define do
     data_protection_officer_informed { true }
     form_uid { 'portail-hubee-demarche-certdc' }
     type { 'AuthorizationRequest::HubEECertDC' }
+    linked_token_manager_id { nil }
 
     after(:build) do |authorization_request, evaluator|
       authorization_request.form.data.each do |key, value|
