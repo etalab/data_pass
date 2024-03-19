@@ -392,6 +392,12 @@ fr:
           text: "<strong>%{user_full_name}</strong> a supprimé la demande"
         initial_submit:
           text: "<strong>%{user_full_name}</strong> a soumis la demande"
+        initial_submit_with_changed_prefilled:
+          text: |
+            <strong>%{user_full_name}</strong> a soumis la demande
+
+            Les données suivantes ont été modifiées par rapport aux informations pré-remplies:
+            %{text}
         submit:
           text: |
             <strong>%{user_full_name}</strong> a soumis la demande
