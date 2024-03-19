@@ -1,7 +1,6 @@
 class DeliverAuthorizationRequestWebhook < ApplicationInteractor
   def call
-    pp ?1*100, webhook_payload
-    # DeliverAuthorizationRequestWebhookJob.perform_now(*job_params)
+    DeliverAuthorizationRequestWebhookJob.perform_later(*job_params)
   end
 
   private
