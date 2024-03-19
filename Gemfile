@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 ruby '3.3.0'
 
+gem 'active_model_serializers', '~> 0.10.14'
 gem 'active_storage_validations'
 gem 'bootsnap', require: false
 gem 'draper'
