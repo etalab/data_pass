@@ -1,0 +1,6 @@
+---
+shared:
+  api-entreprise:
+    name: 'API Entreprise'
+    authorization_definition_ids:
+      - 'api_entreprise'
