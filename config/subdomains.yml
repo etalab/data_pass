@@ -2,5 +2,7 @@
 shared:
   api-entreprise:
     name: 'API Entreprise'
+    title: 'DataPass - API Entreprise'
+    tagline: 'Habilitations juridiques pour API Entreprise'
     authorization_definition_ids:
       - 'api_entreprise'

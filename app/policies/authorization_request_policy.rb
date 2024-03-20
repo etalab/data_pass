@@ -90,19 +90,11 @@ class AuthorizationRequestPolicy < ApplicationPolicy
     def resolve
       authorization_requests = scope.where(organization: current_organization)
 
-      if registered_subdomain.present?
+      if registered_subdomain?
         authorization_requests.where(type: registered_subdomain.authorization_request_types)
       else
         authorization_requests
       end
-    end
-
-    private
-
-    def registered_subdomain
-      Subdomain.find(app_subdomain)
-    rescue ActiveRecord::RecordNotFound
-      nil
     end
   end
 end

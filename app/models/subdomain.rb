@@ -1,6 +1,8 @@
 class Subdomain < StaticApplicationRecord
   attr_accessor :id,
     :name,
+    :title,
+    :tagline,
     :authorization_definitions
 
   def self.all
@@ -11,9 +13,14 @@ class Subdomain < StaticApplicationRecord
 
   def self.build(uid, hash)
     new(
-      id: uid.to_s,
-      name: hash[:name],
-      authorization_definitions: AuthorizationDefinition.where(id: hash[:authorization_definition_ids])
+      hash.slice(
+        :name,
+        :title,
+        :tagline,
+      ).merge(
+        id: uid.to_s,
+        authorization_definitions: AuthorizationDefinition.where(id: hash[:authorization_definition_ids]),
+      )
     )
   end
 
