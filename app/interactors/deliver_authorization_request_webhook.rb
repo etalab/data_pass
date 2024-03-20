@@ -25,6 +25,6 @@ class DeliverAuthorizationRequestWebhook < ApplicationInteractor
   def target_api = context.authorization_request.definition.id
 
   def can_deliver_webhook?
-    context.authorization_request.definition.webhook?
+    context.authorization_request.definition.webhook? && !Rails.env.local?
   end
 end
