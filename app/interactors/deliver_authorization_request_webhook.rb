@@ -16,7 +16,7 @@ class DeliverAuthorizationRequestWebhook < ApplicationInteractor
   def webhook_payload
     WebhookSerializer.new(
       context.authorization_request,
-      "validated"
+      'validated'
     ).serializable_hash
   end
 end

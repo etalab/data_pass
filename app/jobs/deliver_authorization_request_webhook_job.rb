@@ -42,27 +42,23 @@ class DeliverAuthorizationRequestWebhookJob < ApplicationJob
   def handle_success(payload, authorization_request_id)
     json = JSON.parse!(payload)
 
-    return unless json["token_id"].present?
-
+    return if json['token_id'].blank?
 
     authorization_request = AuthorizationRequest.find(authorization_request_id)
     authorization_request.update(
-      linked_token_manager_id: json["token_id"]
+      linked_token_manager_id: json['token_id']
     )
-
   rescue JSON::ParserError
     nil
   end
 
-  def handle_error(response, target_api, payload, authorization_request_id)
+  def handle_error(response, target_api, payload, _authorization_request_id)
     track_error(response, target_api, payload)
     notify_webhook_fail(target_api, payload, response) if attempts == TOTAL_ATTEMPTS
     webhook_fail!
   end
 
-  def attempts
-    @attempts
-  end
+  attr_reader :attempts
 
   def webhook_fail!
     raise WebhookDeliveryFailedError
@@ -71,8 +67,8 @@ class DeliverAuthorizationRequestWebhookJob < ApplicationJob
   def track_error(response, target_api, payload)
     Sentry.set_extras(
       {
-        target_api: target_api,
-        payload: payload,
+        target_api:,
+        payload:,
         tries_count: attempts,
         webhook_response_status: response.status,
         webhook_response_body: response.body
@@ -84,8 +80,8 @@ class DeliverAuthorizationRequestWebhookJob < ApplicationJob
 
   def notify_webhook_fail(target_api, payload, response)
     WebhookMailer.with(
-      target_api: target_api,
-      payload: payload,
+      target_api:,
+      payload:,
       webhook_response_status: response.status.to_i,
       webhook_response_body: response.body.to_s
     ).fail.deliver_later
@@ -93,18 +89,18 @@ class DeliverAuthorizationRequestWebhookJob < ApplicationJob
 
   def generate_hub_signature(target_api, payload)
     OpenSSL::HMAC.hexdigest(
-      OpenSSL::Digest.new("sha256"),
+      OpenSSL::Digest.new('sha256'),
       verify_token(target_api),
       payload.to_json
     )
   end
 
   def webhook_url(target_api)
-    ENV["#{target_api.upcase}_WEBHOOK_URL"]
+    ENV.fetch("#{target_api.upcase}_WEBHOOK_URL", nil)
   end
 
   def verify_token(target_api)
-    ENV["#{target_api.upcase}_VERIFY_TOKEN"]
+    ENV.fetch("#{target_api.upcase}_VERIFY_TOKEN", nil)
   end
 
   def success_http_codes

@@ -8,12 +8,11 @@ class WebhookAuthorizationRequestSerializer < ApplicationSerializer
     :scopes,
     :previous_authorization_request_id,
     :copied_from_authorization_request_id,
-
-  has_many :contacts, serializer: ContactSerializer
+    has_many(:contacts, serializer: ContactSerializer)
   # has_many :events, serializer: WebhookEventSerializer
 
   attribute :scopes do
-    object.scopes.map { |scope| [scope.to_sym, true] }.to_h
+    object.scopes.to_h { |scope| [scope.to_sym, true] }
   end
 
   def demarche = object.form.name

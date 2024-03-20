@@ -11,7 +11,7 @@ class WebhookSerializer
 
   def serializable_hash
     {
-      event: event,
+      event:,
       fired_at: now.to_i,
       model_type:,
       data: {
@@ -20,7 +20,7 @@ class WebhookSerializer
     }
   end
 
-  def to_json
+  def to_json(*_args)
     serializable_hash.to_json
   end
 
@@ -31,7 +31,7 @@ class WebhookSerializer
   end
 
   def now
-    @now ||= Time.now
+    @now ||= Time.zone.now
   end
 
   def authorization_request_serialized

@@ -1,21 +1,25 @@
-class WebhookMailer < ActionMailer::Base
+class WebhookMailer < ApplicationMailer
   layout false
 
   def fail
-    @webhook_url = ENV["#{params[:target_api].upcase}_WEBHOOK_URL"]
-    @payload = JSON.pretty_generate(params[:payload])
-    @webhook_response_body = params[:webhook_response_body]
-    @webhook_response_status = params[:webhook_response_status]
-    @api_manager_label = api_manager_label
+    init_fail!
 
     mail(
-      subject: t('.subject', api_manager_label: api_manager_label),
+      subject: t('.subject', api_manager_label:),
       from: t('mailer.shared.support.email'),
       to: target_api_instructor_emails
     )
   end
 
   private
+
+  def init_fail!
+    @webhook_url = ENV.fetch("#{params[:target_api].upcase}_WEBHOOK_URL", nil)
+    @payload = JSON.pretty_generate(params[:payload])
+    @webhook_response_body = params[:webhook_response_body]
+    @webhook_response_status = params[:webhook_response_status]
+    @api_manager_label = api_manager_label
+  end
 
   def target_api_instructor_emails
     User.instructor_for(params[:target_api]).pluck(:email)
