@@ -244,7 +244,7 @@ class AuthorizationRequest < ApplicationRecord
   end
 
   def contacts
-    contact_types.map { |type| Contact.new(type, object) }
+    contact_types.map { |type| Contact.new(type, self) }
   end
 
   def contact_types_for(user)

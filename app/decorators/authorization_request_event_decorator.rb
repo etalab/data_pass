@@ -34,6 +34,7 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
       entity.body
     end
   end
+  alias comment text # see WebhookEventSerializer
 
   private
 
