@@ -7,7 +7,7 @@ class DeliverAuthorizationRequestWebhook < ApplicationInteractor
 
   def job_params
     [
-      context.target_api,
+      target_api,
       webhook_payload,
       context.authorization_request.id
     ]
@@ -16,7 +16,9 @@ class DeliverAuthorizationRequestWebhook < ApplicationInteractor
   def webhook_payload
     WebhookSerializer.new(
       context.authorization_request,
-      'validated'
+      context.state_machine_event || context.event_name
     ).serializable_hash
   end
+
+  def target_api = context.authorization_request.definition.id
 end

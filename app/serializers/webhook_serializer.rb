@@ -3,9 +3,9 @@ class WebhookSerializer
     :event,
     :extra_data
 
-  def initialize(authorization_request, event, extra_data = {})
+  def initialize(authorization_request, extra_data = {})
     @authorization_request = authorization_request
-    @event = event
+    @event = authorization_request.state
     @extra_data = extra_data
   end
 
