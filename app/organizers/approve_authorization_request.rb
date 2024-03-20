@@ -12,5 +12,6 @@ class ApproveAuthorizationRequest < ApplicationOrganizer
     CreateAuthorization,
     CreateAuthorizationRequestEventModel,
     DeliverAuthorizationRequestNotification,
-    DeliverGDPRContactsMails
+    DeliverGDPRContactsMails,
+    DeliverAuthorizationRequestWebhook
 end

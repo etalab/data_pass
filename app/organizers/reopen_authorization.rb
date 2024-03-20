@@ -7,5 +7,6 @@ class ReopenAuthorization < ApplicationOrganizer
   end
 
   organize TriggerAuthorizationRequestEvent,
-    CreateAuthorizationRequestEventModel
+    CreateAuthorizationRequestEventModel,
+    DeliverAuthorizationRequestWebhook
 end

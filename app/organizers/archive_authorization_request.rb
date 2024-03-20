@@ -4,5 +4,6 @@ class ArchiveAuthorizationRequest < ApplicationOrganizer
   end
 
   organize TriggerAuthorizationRequestEvent,
-    CreateAuthorizationRequestEventModel
+    CreateAuthorizationRequestEventModel,
+    DeliverAuthorizationRequestWebhook
 end

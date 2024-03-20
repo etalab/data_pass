@@ -10,7 +10,8 @@ class SubmitAuthorizationRequest < ApplicationOrganizer
     TriggerAuthorizationRequestEvent,
     CreateAuthorizationRequestChangelog,
     CreateAuthorizationRequestEventModel,
-    DeliverAuthorizationRequestNotification
+    DeliverAuthorizationRequestNotification,
+    DeliverAuthorizationRequestWebhook
 
   after do
     context.authorization_request.save(context: context.save_context) ||
