@@ -1,5 +1,7 @@
 class DeliverAuthorizationRequestWebhook < ApplicationInteractor
   def call
+    return unless can_deliver_webhook?
+
     DeliverAuthorizationRequestWebhookJob.perform_later(*job_params)
   end
 
@@ -21,4 +23,8 @@ class DeliverAuthorizationRequestWebhook < ApplicationInteractor
   end
 
   def target_api = context.authorization_request.definition.id
+
+  def can_deliver_webhook?
+    context.authorization_request.definition.webhook?
+  end
 end

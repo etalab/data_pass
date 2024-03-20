@@ -17,6 +17,7 @@ shared:
     link: 'https://api.gouv.fr/les-api/api-entreprise'
     cgu_link: 'https://entreprise.api.gouv.fr/cgu'
     public: true
+    webhook: true
     blocks:
       - name: 'basic_infos'
       - name: 'personal_data'
@@ -154,6 +155,7 @@ shared:
     cgu_link: 'https://particulier.api.gouv.fr/cgu'
     provider: 'dinum'
     link: 'https://staging.api.gouv.fr/les-api/api-particulier'
+    webhook: true
     blocks:
       - name: 'basic_infos'
       - name: 'personal_data'

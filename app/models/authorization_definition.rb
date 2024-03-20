@@ -72,6 +72,8 @@ class AuthorizationDefinition < StaticApplicationRecord
     value_or_default(@public, true)
   end
 
+  def webhook? = value_or_default(@webhook, false)
+
   def startable_by_applicant
     value_or_default(@startable_by_applicant, true)
   end
