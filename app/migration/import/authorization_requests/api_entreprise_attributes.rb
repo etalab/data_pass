@@ -15,7 +15,7 @@ class Import::AuthorizationRequests::APIEntrepriseAttributes < Import::Authoriza
     }.each do |from_contact, to_contact|
       contact_data = find_team_member_by_type(from_contact)
 
-      if authorization_request.draft?
+      if %w[draft archived changes_requested].include?(authorization_request.state)
         affect_team_attributes(contact_data, to_contact)
       elsif team_member_incomplete?(contact_data)
         user = User.find_by(email: contact_data['email'])
