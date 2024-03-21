@@ -146,13 +146,13 @@ class Import::AuthorizationRequests < Import::Base
   end
 
   def import?(enrollment_row)
-    !old_draft?(enrollment_row) &&
+    !old_unused?(enrollment_row) &&
       !ignore?(enrollment_row['id']) &&
       from_target_api_to_type(enrollment_row).present?
   end
 
-  def old_draft?(enrollment_row)
-    enrollment_row['status'] == 'draft' &&
+  def old_unused?(enrollment_row)
+    %w[refused changes_requested draft archived].include?(enrollment_row['status'])
       DateTime.parse(enrollment_row['created_at']) < DateTime.new(2022, 1, 1)
   end
 
