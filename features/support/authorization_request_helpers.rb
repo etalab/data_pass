@@ -1,3 +1,4 @@
+require 'rspec/expectations'
 def find_authorization_request_class_from_name(name)
   authorization_definition = find_authorization_definition_from_name(name)
 

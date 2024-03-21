@@ -10,7 +10,8 @@ class AuthorizationDefinition < StaticApplicationRecord
 
   attr_writer :unique,
     :startable_by_applicant,
-    :public
+    :public,
+    :webhook
 
   def self.all
     Rails.application.config_for(:authorization_definitions).map do |uid, hash|
@@ -39,6 +40,7 @@ class AuthorizationDefinition < StaticApplicationRecord
         :link,
         :cgu_link,
         :public,
+        :webhook,
         :startable_by_applicant,
         :unique
       ).merge(

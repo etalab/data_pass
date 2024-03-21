@@ -27,3 +27,5 @@ Fonctionnalité: Supprimer une habilitation
     Et que je clique sur "Supprimer la demande"
     Alors je suis sur la page "Demandes et habilitations"
     Et il y a un message de succès contenant "a été supprimée"
+    Et Un webhook avec l'évènement "archive" est envoyé
+

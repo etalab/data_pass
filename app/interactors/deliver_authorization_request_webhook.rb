@@ -2,7 +2,7 @@ class DeliverAuthorizationRequestWebhook < ApplicationInteractor
   def call
     return unless can_deliver_webhook?
 
-    DeliverAuthorizationRequestWebhookJob.perform_later(*job_params)
+    DeliverAuthorizationRequestWebhookJob.new(*job_params).enqueue
   end
 
   private
@@ -25,6 +25,6 @@ class DeliverAuthorizationRequestWebhook < ApplicationInteractor
   def target_api = context.authorization_request.definition.id
 
   def can_deliver_webhook?
-    context.authorization_request.definition.webhook? && !Rails.env.local?
+    context.authorization_request.definition.webhook? && !Rails.env.development?
   end
 end
