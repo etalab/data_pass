@@ -23,6 +23,8 @@ class Import::AuthorizationRequests < Import::Base
     end
 
     if authorization_request.state == 'validated'
+      CreateAuthorization.call(authorization_request:)
+
       authorization_request.assign_attributes(
         last_validated_at: DateTime.now,
       )

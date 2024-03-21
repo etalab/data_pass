@@ -10,7 +10,7 @@ class MainImport
   def perform
     organizations = import(:organizations, { load_from_sql: true })
     import(:users, { load_from_sql: true })
-    import(:authorization_requests)
+    @authorization_requests = import(:authorization_requests)
 
     export_skipped
     print_skipped_stats
@@ -54,7 +54,18 @@ class MainImport
 
   def global_options
     {
+      authorization_requests_filter: ->(enrollment_row) do
+        enrollment_row['target_api'] == 'api_entreprise' &&
+          %w[55747 52697 25613 56974].exclude?(enrollment_row['id'])
+      end,
+      events_filter: ->(event_row) do
+        authorization_request_ids.include?(event_row['enrollment_id'])
+      end
       skipped: @skipped,
     }
+  end
+
+  def authorization_request_ids
+    @authorization_request_ids ||= @authorization_requests.map(&:id)
   end
 end
