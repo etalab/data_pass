@@ -13,6 +13,7 @@ class DashboardController < AuthenticatedUserController
       @authorization_requests = AuthorizationRequestsMentionsQuery.new(current_user).perform
     else
       redirect_to dashboard_show_path(id: 'moi')
+      return
     end
 
     @authorization_requests = @authorization_requests.not_archived
