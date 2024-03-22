@@ -30,7 +30,7 @@ les seeds disponible [ici](app/lib/seeds.rb)
 
 ## Install
 
-Ask for the sandbox/production master key to a colleague
+Ask for the sandbox/staging/production master key to a colleague
 (`config/credentials/*.key`)
 
 With docker:
@@ -102,11 +102,12 @@ COVERAGE=true bundle exec cucumber
 
 ## Credentials
 
-3 kind:
+4 kind:
 
 1. `production`, for main app ;
 2. `sandbox`, for the sandbox ;
-3. `development`, for development/test.
+3. `staging`, for the staging (E2E tests with others apps) ;
+4. `development`, for development/test.
 
 ## Documentation
 

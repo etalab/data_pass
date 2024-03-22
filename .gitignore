@@ -47,3 +47,5 @@ coverage/
 app/migration/.pgpassword
 app/migration/dumps/*.csv
 app/migration/dumps/*.sql
+
+/config/credentials/staging.key
