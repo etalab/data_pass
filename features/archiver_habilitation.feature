@@ -21,6 +21,7 @@ Fonctionnalité: Supprimer une habilitation
     Et que je clique sur "Consulter"
     Alors il n'y a pas de bouton "Supprimer"
 
+  @DeliverWebhook
   Scénario: J'supprime une de mes habilitations en brouillon
     Quand je me rends sur une demande d'habilitation "API Entreprise" en brouillon
     Et que je clique sur "Supprimer"

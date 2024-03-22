@@ -230,17 +230,16 @@ Quand('il existe un instructeur pour cette demande d\'habilitation') do
 end
 
 Alors('Un webhook avec l\'évènement {string} est envoyé') do |event_name|
-  authorization_request = AuthorizationRequest.last
+  authorization_request = AuthorizationRequest.first
 
   webhook_job = ActiveJob::Base.queue_adapter.enqueued_jobs.find do |job|
-    job['job_class'] == 'DeliverAuthorizationRequestWebhookJob'
+    job['job_class'] == 'DeliverAuthorizationRequestWebhookJob' &&
+      job.dig('arguments', 1, 'event', 'value') == event_name
   end
-
-  expect(webhook_job).not_to be_nil
 
   webhook_job_arg = [authorization_request.definition.id, an_instance_of(Hash), authorization_request.id]
 
-  expect(webhook_job['arguments']).to match(webhook_job_arg)
+  expect(webhook_job).not_to be_nil
 
-  expect(webhook_job.dig('arguments', 1, 'event', 'value')).to eq(event_name)
+  expect(webhook_job['arguments']).to match(webhook_job_arg)
 end
