@@ -96,11 +96,11 @@ class DeliverAuthorizationRequestWebhookJob < ApplicationJob
   end
 
   def webhook_url(target_api)
-    ENV.fetch("#{target_api.upcase}_WEBHOOK_URL", nil)
+    Rails.application.credentials.webhooks.public_send(target_api)&.url
   end
 
   def verify_token(target_api)
-    ENV.fetch("#{target_api.upcase}_VERIFY_TOKEN", nil)
+    Rails.application.credentials.webhooks.public_send(target_api)&.token
   end
 
   def success_http_codes

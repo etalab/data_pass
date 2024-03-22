@@ -38,13 +38,13 @@ RSpec.describe DeliverAuthorizationRequestWebhookJob do
   end
 
   after do
-    ENV['API_ENTREPRISE_WEBHOOK_URL'] = nil
-    ENV['API_ENTREPRISE_VERIFY_TOKEN'] = nil
+    Rails.application.credentials.webhooks.api_entreprise.url = nil
+    Rails.application.credentials.webhooks.api_entreprise.token = nil
   end
 
   context "when target api's webhook url is not defined" do
     before do
-      ENV['API_ENTREPRISE_VERIFY_TOKEN'] = verify_token
+      Rails.application.credentials.webhooks.api_entreprise.token = verify_token
     end
 
     it 'does nothing' do
@@ -56,7 +56,7 @@ RSpec.describe DeliverAuthorizationRequestWebhookJob do
 
   context "when target api's verify token is not defined" do
     before do
-      ENV['API_ENTREPRISE_WEBHOOK_URL'] = webhook_url
+      Rails.application.credentials.webhooks.api_entreprise.url = webhook_url
     end
 
     it 'does nothing' do
@@ -68,8 +68,8 @@ RSpec.describe DeliverAuthorizationRequestWebhookJob do
 
   context 'when all target api webhook env vars are defined' do
     before do
-      ENV['API_ENTREPRISE_WEBHOOK_URL'] = webhook_url
-      ENV['API_ENTREPRISE_VERIFY_TOKEN'] = verify_token
+      Rails.application.credentials.webhooks.api_entreprise.url = webhook_url
+      Rails.application.credentials.webhooks.api_entreprise.token = verify_token
     end
 
     it "performs a post request on target api's webhook url with payload and headers" do
