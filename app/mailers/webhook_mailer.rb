@@ -1,11 +1,9 @@
 class WebhookMailer < ApplicationMailer
-  layout false
-
   def fail
-    init_fail!
+    instanciate_fail_view_variables
 
     mail(
-      subject: t('.subject', api_manager_label:),
+      subject: t('.subject', authorization_definition_name: @authorization_definition_name),
       from: t('mailer.shared.support.email'),
       to: target_api_instructor_emails
     )
@@ -13,19 +11,19 @@ class WebhookMailer < ApplicationMailer
 
   private
 
-  def init_fail!
-    @webhook_url = ENV.fetch("#{params[:target_api].upcase}_WEBHOOK_URL", nil)
+  def instanciate_fail_view_variables
+    @webhook_url = Rails.application.credentials.webhooks.public_send(params[:target_api]).url
     @payload = JSON.pretty_generate(params[:payload])
     @webhook_response_body = params[:webhook_response_body]
     @webhook_response_status = params[:webhook_response_status]
-    @api_manager_label = api_manager_label
+    @authorization_definition_name = authorization_definition_name
   end
 
   def target_api_instructor_emails
     User.instructor_for(params[:target_api]).pluck(:email)
   end
 
-  def api_manager_label
+  def authorization_definition_name
     target_api_data.name
   end
 

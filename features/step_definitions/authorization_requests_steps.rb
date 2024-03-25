@@ -160,7 +160,7 @@ Alors(/je vois (\d+) demandes? d'habilitation(?: "([^"]+)")?(?:(?: en)? (.+))?/)
   if status.present?
     state = extract_state_from_french_status(status)
 
-    expect(page).to have_css('.authorization-request-state', text: I18n.t("authorization_request.status.#{state}"), count:) if status.present?
+    expect(page).to have_css('.authorization-request-state', text: I18n.t("authorization_request.status.#{state}"), count:)
   end
 end
 

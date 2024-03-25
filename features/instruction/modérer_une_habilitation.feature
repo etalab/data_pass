@@ -27,6 +27,7 @@ Fonctionnalité: Instruction: modération
     Et il y a un message de succès contenant "a été validé"
 
   @AvecCourriels
+  @DisableBullet
   Scénario: Je refuse une demande d'habilitation avec un message valide
     Quand je me rends sur une demande d'habilitation "API Entreprise" à modérer
     Et je clique sur "Refuser"

@@ -7,11 +7,9 @@ class ApproveAuthorizationRequest < ApplicationOrganizer
     }
   end
 
-  organize TriggerAuthorizationRequestEvent,
+  organize ExecuteAuthorizationRequestTransitionWithCallbacks,
     ExecuteAuthorizationRequestBridge,
     CreateAuthorization,
     CreateAuthorizationRequestEventModel,
-    DeliverAuthorizationRequestNotification,
-    DeliverGDPRContactsMails,
-    DeliverAuthorizationRequestWebhook
+    DeliverGDPRContactsMails
 end

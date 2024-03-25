@@ -8,7 +8,7 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Sachant que je suis un demandeur
     Et que je me connecte
 
-  @DeliverWebhook
+  @FlushJobQueue
   Scénario: Initialisation d'une réouverture d'une demande validée depuis le tableau de bord
     Quand j'ai 1 demande d'habilitation "API Entreprise" validée
     Et que je vais sur la page tableau de bord
@@ -73,7 +73,7 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Et il y a un badge "En cours"
 
   @DisableBullet
-  @DeliverWebhook
+  @FlushJobQueue
   Scénario: Soumission d'une habilitation réouverte qui a été refusée
     Quand j'ai 1 demande d'habilitation "API Entreprise" réouverte
     Et que cette demande a été "soumise"

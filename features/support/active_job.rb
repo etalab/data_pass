@@ -1,7 +1,5 @@
 Before do |scenario|
-  next unless scenario.source_tag_names.include?('@DeliverWebhook')
+  next unless scenario.source_tag_names.include?('@FlushJobQueue')
 
-  ActiveJob::Base.queue_adapter.enqueued_jobs.delete_if do |j|
-    j['job_class'] == 'DeliverAuthorizationRequestWebhookJob'
-  end
+  ActiveJob::Base.queue_adapter.enqueued_jobs = []
 end

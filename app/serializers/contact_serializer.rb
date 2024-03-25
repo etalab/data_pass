@@ -3,4 +3,5 @@ class ContactSerializer < ApplicationSerializer
 
   def id  = nil
   def uid = nil
+  def job = object.job_title
 end

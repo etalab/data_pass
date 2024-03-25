@@ -10,17 +10,13 @@ RSpec.describe DeliverAuthorizationRequestWebhookJob do
       'lol' => 'oki'
     }
   end
-  # let(:authorization_request) { create(:authorization_request, :api_entreprise, :no_checkboxes, applicant: create(:user)) }
 
   let(:authorization_request) { create(:authorization_request, :api_entreprise, :api_entreprise_mgdis) }
   let!(:webhook_post_request) do
     stub_request(:post, webhook_url).with(
       body: payload.to_json,
       headers: {
-        'Accept' => '*/*',
-        'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
         'Content-Type' => 'application/json',
-        'User-Agent' => 'Faraday v2.9.0',
         'X-Hub-Signature-256' => "sha256=#{hub_signature}"
       }
     ).to_return(status:, body:)

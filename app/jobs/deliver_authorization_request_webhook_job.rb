@@ -3,7 +3,7 @@ class DeliverAuthorizationRequestWebhookJob < ApplicationJob
 
   class WebhookDeliveryFailedError < StandardError; end
 
-  retry_on(WebhookDeliveryFailedError, wait: :polynomially_longer, attempts: TOTAL_ATTEMPTS)
+  retry_on(WebhookDeliveryFailedError, wait: :polynomially_longer)
 
   def serialize
     super.merge('tries_count' => (@attempts || 1) + 1)
@@ -40,9 +40,9 @@ class DeliverAuthorizationRequestWebhookJob < ApplicationJob
   end
 
   def handle_success(payload, authorization_request_id)
-    json = JSON.parse!(payload)
+    json = JSON.parse(payload)
 
-    return if json['token_id'].blank?
+    return unless json && json['token_id'].present?
 
     authorization_request = AuthorizationRequest.find(authorization_request_id)
     authorization_request.update(

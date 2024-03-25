@@ -243,10 +243,6 @@ class AuthorizationRequest < ApplicationRecord
       last_validated_at.present?
   end
 
-  def contacts
-    contact_types.map { |type| Contact.new(type, self) }
-  end
-
   def contact_types_for(user)
     contact_type_key_values = data.select do |key, value|
       key =~ /.*_email$/ && value == user.email

@@ -19,11 +19,11 @@ RSpec.describe WebhookMailer do
     let(:webhook_url) { 'https://service.api.gouv.fr/webhook' }
 
     before do
-      ENV["#{target_api.upcase}_WEBHOOK_URL"] = webhook_url
+      Rails.application.credentials.webhooks.api_entreprise.url = webhook_url
     end
 
     after do
-      ENV["#{target_api.upcase}_WEBHOOK_URL"] = nil
+      Rails.application.credentials.webhooks.api_entreprise.url = nil
     end
 
     it 'sends email to target api instructors, from datapass@api.gouv.fr with equipe-datapass@api.gouv.fr in cc' do

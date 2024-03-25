@@ -7,7 +7,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/lib/seeds.rb",
-      "line": 26,
+      "line": 18,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "ActiveRecord::Base.connection.execute(\"TRUNCATE TABLE #{table} CASCADE;\")",
       "render_path": null,
@@ -68,8 +68,31 @@
         77
       ],
       "note": ""
+    },
+    {
+      "warning_type": "Dangerous Send",
+      "warning_code": 23,
+      "fingerprint": "c21411c87429fcc8e02428b35189e2a90b46f2a3f2d2569f171047f9a3ed1d68",
+      "check_name": "Send",
+      "message": "User controlled method execution",
+      "file": "app/mailers/webhook_mailer.rb",
+      "line": 15,
+      "link": "https://brakemanscanner.org/docs/warning_types/dangerous_send/",
+      "code": "Rails.application.credentials.webhooks.public_send(params[:target_api])",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "WebhookMailer",
+        "method": "instanciate_fail_view_variables"
+      },
+      "user_input": "params[:target_api]",
+      "confidence": "High",
+      "cwe_id": [
+        77
+      ],
+      "note": "this is clearly a false positive as params[:target_api] is an entry in a authorization_definitions.yml"
     }
   ],
-  "updated": "2024-01-31 19:37:54 +0100",
-  "brakeman_version": "6.1.1"
+  "updated": "2024-03-25 11:59:11 +0100",
+  "brakeman_version": "6.1.2"
 }

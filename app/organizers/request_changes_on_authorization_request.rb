@@ -5,8 +5,6 @@ class RequestChangesOnAuthorizationRequest < ApplicationOrganizer
   end
 
   organize CreateInstructorModificationRequestModel,
-    TriggerAuthorizationRequestEvent,
-    DeliverAuthorizationRequestNotification,
     CreateAuthorizationRequestEventModel,
-    DeliverAuthorizationRequestWebhook
+    ExecuteAuthorizationRequestTransitionWithCallbacks
 end
