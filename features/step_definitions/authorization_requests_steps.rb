@@ -160,7 +160,7 @@ Alors(/je vois (\d+) demandes? d'habilitation(?: "([^"]+)")?(?:(?: en)? (.+))?/)
   if status.present?
     state = extract_state_from_french_status(status)
 
-    expect(page).to have_css('.authorization-request-state', text: I18n.t("authorization_request.status.#{state}"), count:) if status.present?
+    expect(page).to have_css('.authorization-request-state', text: I18n.t("authorization_request.status.#{state}"), count:)
   end
 end
 
@@ -227,4 +227,19 @@ Quand('il existe un instructeur pour cette demande d\'habilitation') do
   definition = AuthorizationRequest.last.definition
 
   create_instructor(definition.name) unless definition.instructors.any?
+end
+
+Alors('Un webhook avec l\'évènement {string} est envoyé') do |event_name|
+  authorization_request = AuthorizationRequest.first
+
+  webhook_job = ActiveJob::Base.queue_adapter.enqueued_jobs.find do |job|
+    job['job_class'] == 'DeliverAuthorizationRequestWebhookJob' &&
+      job.dig('arguments', 1, 'event', 'value') == event_name
+  end
+
+  webhook_job_arg = [authorization_request.definition.id, an_instance_of(Hash), authorization_request.id]
+
+  expect(webhook_job).not_to be_nil
+
+  expect(webhook_job['arguments']).to match(webhook_job_arg)
 end

@@ -58,6 +58,15 @@ module AuthorizationCore::Contacts
     end
   end
 
+  def contacts
+    @contacts ||= contact_types.map { |type| Contact.new(type, self) }
+  end
+
+  def reload!
+    super
+    @contacts = nil
+  end
+
   def contact_types
     self.class.contact_types
   end

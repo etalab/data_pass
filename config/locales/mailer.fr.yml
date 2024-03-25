@@ -7,12 +7,13 @@ fr:
         email: datapass@api.gouv.fr
       applicant:
         header:
-          text: Bonjour %{entity_name},
+          text: <%= ["Bonjour", entity_name].compact.join(" ") %>,
         footer:
           text: L'équipe %{authorization_definition_name}
       instruction:
         footer:
           text: L'équipe DataPass
+
   authorization_request_mailer:
     validated:
       subject: Votre habilitation numéro %{authorization_request_id} vient d'être validée
@@ -122,3 +123,34 @@ fr:
 
         Vous pouvez consulter ce message en suivant le lien suivant: %{authorization_request_instruction_url}
 
+  webhook_mailer:
+    fail:
+      subject: \[ DataPass \] Erreur de communication avec votre %{authorization_definition_name}
+      description: |
+        DataPass cherche à notifier votre %{authorization_definition_name} depuis 10 minutes mais n’y parvient plus. Une habilitation DataPass n’a donc pas été transmise automatiquement à vos services.
+
+        Les informations techniques sont les suivantes:
+
+        **Endpoint**
+
+        %{webhook_url}
+
+        **Payload**
+
+        La payload envoyée:
+
+        ```
+        %{payload}
+        ```
+
+        **Status**
+
+        %{webhook_response_status}
+
+        **Body**
+
+        %{webhook_response_body}
+
+        Merci de transmettre ce message à votre équipe technique pour correction. Nous sommes disponibles pour vos questions techniques à l’adresse mail suivante : equipe-datapass@api.gouv.fr.
+
+        Cordialement,

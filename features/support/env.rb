@@ -58,3 +58,5 @@ World(FactoryBot::Syntax::Methods)
 
 Seeds.new.flushdb
 Kredis.redis.flushdb
+
+ActiveJob::Base.queue_adapter = :test

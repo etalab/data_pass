@@ -21,9 +21,12 @@ Fonctionnalité: Supprimer une habilitation
     Et que je clique sur "Consulter"
     Alors il n'y a pas de bouton "Supprimer"
 
+  @FlushJobQueue
   Scénario: J'supprime une de mes habilitations en brouillon
     Quand je me rends sur une demande d'habilitation "API Entreprise" en brouillon
     Et que je clique sur "Supprimer"
     Et que je clique sur "Supprimer la demande"
     Alors je suis sur la page "Demandes et habilitations"
     Et il y a un message de succès contenant "a été supprimée"
+    Et Un webhook avec l'évènement "archive" est envoyé
+

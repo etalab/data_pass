@@ -8,6 +8,7 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Sachant que je suis un demandeur
     Et que je me connecte
 
+  @FlushJobQueue
   Scénario: Initialisation d'une réouverture d'une demande validée depuis le tableau de bord
     Quand j'ai 1 demande d'habilitation "API Entreprise" validée
     Et que je vais sur la page tableau de bord
@@ -15,6 +16,7 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Et que je clique sur "Mettre à jour l'habilitation"
     Alors je suis sur la page "API Entreprise"
     Et il y a un message de succès contenant "a bien été réouverte"
+    Et Un webhook avec l'évènement "reopen" est envoyé
     Et il y a un badge "Mise à jour"
     Et il y a un badge "Brouillon"
     Et la page ne contient pas "Archiver"
@@ -70,6 +72,8 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Et il y a un badge "Validée"
     Et il y a un badge "En cours"
 
+  @DisableBullet
+  @FlushJobQueue
   Scénario: Soumission d'une habilitation réouverte qui a été refusée
     Quand j'ai 1 demande d'habilitation "API Entreprise" réouverte
     Et que cette demande a été "soumise"
@@ -80,4 +84,6 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Alors il y a un message de succès contenant "soumise avec succès"
     Et il y a un badge "Validée"
     Et il y a un badge "En cours"
+    Et Un webhook avec l'évènement "submit" est envoyé
+
 

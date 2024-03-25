@@ -3,6 +3,6 @@ class ArchiveAuthorizationRequest < ApplicationOrganizer
     context.state_machine_event = :archive
   end
 
-  organize TriggerAuthorizationRequestEvent,
+  organize ExecuteAuthorizationRequestTransitionWithCallbacks,
     CreateAuthorizationRequestEventModel
 end

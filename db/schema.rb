@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_01_210849) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_11_140518) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pgcrypto"
@@ -86,6 +86,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_01_210849) do
     t.datetime "updated_at", null: false
     t.string "form_uid", null: false
     t.datetime "reopened_at"
+    t.string "linked_token_manager_id"
     t.index ["applicant_id"], name: "index_authorization_requests_on_applicant_id"
     t.index ["organization_id"], name: "index_authorization_requests_on_organization_id"
   end

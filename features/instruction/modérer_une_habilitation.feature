@@ -14,6 +14,7 @@ Fonctionnalité: Instruction: modération
     Et il n'y a pas de champ éditable
 
   @AvecCourriels
+  @DisableBullet
   Scénario: Je valide une demande d'habilitation
     Quand je me rends sur une demande d'habilitation "API Entreprise" à modérer
     Et je clique sur "Valider"
@@ -26,6 +27,7 @@ Fonctionnalité: Instruction: modération
     Et il y a un message de succès contenant "a été validé"
 
   @AvecCourriels
+  @DisableBullet
   Scénario: Je refuse une demande d'habilitation avec un message valide
     Quand je me rends sur une demande d'habilitation "API Entreprise" à modérer
     Et je clique sur "Refuser"
@@ -43,6 +45,7 @@ Fonctionnalité: Instruction: modération
     Alors il y a au moins une erreur sur un champ
 
   @AvecCourriels
+  @DisableBullet
   Scénario: Je demande des modifications sur une demande d'habilitation avec un message valide
     Quand je me rends sur une demande d'habilitation "API Entreprise" à modérer
     Et je clique sur "Demander des modifications"

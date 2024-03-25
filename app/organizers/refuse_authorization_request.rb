@@ -5,8 +5,7 @@ class RefuseAuthorizationRequest < ApplicationOrganizer
   end
 
   organize CreateDenialOfAuthorizationModel,
-    TriggerAuthorizationRequestEvent,
+    ExecuteAuthorizationRequestTransitionWithCallbacks,
     RestoreAuthorizationRequestToLatestAuthorization,
-    DeliverAuthorizationRequestNotification,
     CreateAuthorizationRequestEventModel
 end
