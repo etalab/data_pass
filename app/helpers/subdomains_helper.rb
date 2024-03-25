@@ -15,7 +15,7 @@ module SubdomainsHelper
     case Rails.env
     when 'development', 'test'
       host.split('.').first
-    when 'sandbox'
+    when 'sandbox', 'staging'
       host.split('.')[1]
     when 'production'
       top_level, second_level = host.split('.')[0..1]
