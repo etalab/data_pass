@@ -8,6 +8,11 @@ class Instruction::AuthorizationRequestPolicy < ApplicationPolicy
       record.can_refuse?
   end
 
+  def revoke?
+    show? &&
+      record.can_revoke?
+  end
+
   def request_changes?
     show? &&
       record.can_request_changes?
