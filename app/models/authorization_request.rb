@@ -71,6 +71,7 @@ class AuthorizationRequest < ApplicationRecord
   scope :validated_or_refused, -> { where('state in (?) or last_validated_at is not null', %w[validated refused]) }
   scope :not_archived, -> { where.not(state: 'archived') }
   scope :without_reopening, -> { where(last_validated_at: nil) }
+  scope :revoked, -> { where(state: 'revoked') }
 
   validates :form_uid, presence: true
 
@@ -142,6 +143,10 @@ class AuthorizationRequest < ApplicationRecord
 
     event :reopen do
       transition from: :validated, to: :draft, if: ->(authorization_request) { authorization_request.reopenable? }
+    end
+
+    event :revoke do
+      transition from: :validated, to: :revoked
     end
   end
   # rubocop:enable Metrics/BlockLength
