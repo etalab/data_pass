@@ -337,6 +337,18 @@ fr:
           cancel: Annuler
           refuse: Refuser la demande de mise à jour
 
+    revoke_authorization_requests:
+      new:
+        initial:
+          title: Révocation de la demande d'habilitation
+          description:
+            organization: |
+              Vous êtes sur le point de révoquer la demande d'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_raison_sociale}' (numéro de siret: %{organization_siret}).
+            disclaimer: |
+              Merci de renseigner une raison ci-dessous qui sera communiquée au demandeur.
+          cancel: Annuler
+          revoke: Révoquer la demande d'habilitation
+
       create:
         success:
           title: La demande d'habilitation %{name} a été refusée
