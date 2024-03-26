@@ -1,6 +1,6 @@
 # language: fr
 
-Fonctionnalité: Tableau de bord poyr un sous-domaine spécifique
+Fonctionnalité: Tableau de bord pour un sous-domaine spécifique
   Cette page est la page principale de l'utilisateur, où il peut voir les diverses actions
   qu'il doit effectuer. Cette version du tableau de bord est restreinte à un sous-ensemble d'habilitations
   régie par le sous-domaine
