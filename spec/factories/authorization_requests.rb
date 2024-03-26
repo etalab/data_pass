@@ -84,10 +84,6 @@ FactoryBot.define do
       state { 'archived' }
     end
 
-    trait :revoked do
-      state { 'revoked' }
-    end
-
     trait :changes_requested do
       state { 'changes_requested' }
       fill_all_attributes { true }
@@ -116,6 +112,15 @@ FactoryBot.define do
 
     trait :refused do
       state { 'refused' }
+      fill_all_attributes { true }
+
+      after(:build) do |authorization_request|
+        authorization_request.denials << build(:denial_of_authorization, authorization_request:)
+      end
+    end
+
+    trait :revoked do
+      state { 'revoked' }
       fill_all_attributes { true }
 
       after(:build) do |authorization_request|
