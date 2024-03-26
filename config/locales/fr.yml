@@ -285,10 +285,11 @@ fr:
             show: Consulter
       moderation_buttons:
         title: Instruire la demande
-        refuse: Refuser
-        request_changes: Demander des modifications
         approve: Valider
         archive: Supprimer
+        refuse: Refuser
+        request_changes: Demander des modifications
+        revoke: Révoquer
     approve_authorization_requests:
       new:
         initial:

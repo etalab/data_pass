@@ -1,0 +1,13 @@
+<%= render partial: 'mailer/shared/applicant/header', locals: { entity_name: @authorization_request.applicant.full_name } %>
+
+<%=
+  t(
+    '.description',
+    authorization_request_id: @authorization_request.id,
+    authorization_request_name: @authorization_request.name,
+    authorization_request_url: authorization_request_url(@authorization_request),
+    authorization_request_denial_reason: @authorization_request.denial.reason
+  )
+%>
+
+<%= render partial: 'mailer/shared/applicant/footer', locals: { authorization_definition_name: @authorization_request.definition.name } %>

@@ -52,9 +52,10 @@ Rails.application.routes.draw do
   namespace :instruction do
     resources :authorization_requests, only: %w[index show], path: 'demandes' do
       resources :approve_authorization_requests, only: %w[new create], path: 'approuver', as: :approval
+      resources :archive_authorization_requests, only: %w[new create], path: 'archiver', as: :archive
       resources :refuse_authorization_requests, only: %w[new create], path: 'refuser', as: :refusal
       resources :request_changes_on_authorization_requests, only: %w[new create], path: 'demande-de-modifications', as: :request_changes
-      resources :archive_authorization_requests, only: %w[new create], path: 'archiver', as: :archive
+      resources :revoque_authorization_requests, only: %w[new create], path: 'révoquer', as: :revocation
 
       resources :authorization_request_events, only: :index, path: 'historique', as: :events
 
