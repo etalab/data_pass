@@ -55,7 +55,7 @@ Rails.application.routes.draw do
       resources :archive_authorization_requests, only: %w[new create], path: 'archiver', as: :archive
       resources :refuse_authorization_requests, only: %w[new create], path: 'refuser', as: :refusal
       resources :request_changes_on_authorization_requests, only: %w[new create], path: 'demande-de-modifications', as: :request_changes
-      resources :revoque_authorization_requests, only: %w[new create], path: 'révoquer', as: :revocation
+      resources :revoke_authorization_requests, only: %w[new create], path: 'révoquer', as: :revocation
 
       resources :authorization_request_events, only: :index, path: 'historique', as: :events
 
