@@ -49,3 +49,6 @@ app/migration/dumps/*.csv
 app/migration/dumps/*.sql
 
 /config/credentials/staging.key
+
+# Ignore local Redis snapshots
+/dump.rdb
