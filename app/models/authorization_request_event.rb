@@ -1,14 +1,14 @@
 class AuthorizationRequestEvent < ApplicationRecord
   NAMES = %w[
-    create
-    update
-    submit
     approve
-    request_changes
-    refuse
     archive
+    create
+    refuse
+    request_changes
     reopen
     revoke
+    submit
+    update
 
     applicant_message
     instructor_message
