@@ -351,9 +351,7 @@ fr:
 
       create:
         success:
-          title: La demande d'habilitation %{name} a été refusée
-        reopening_success:
-          title: La demande de mise à jour de l'habilitation %{name} a été refusée
+          title: La demande d'habilitation %{name} a été révoquée
 
     request_changes_on_authorization_requests:
       new:
@@ -434,6 +432,15 @@ fr:
         refuse:
           text: |
             <strong>%{user_full_name}</strong> a refusé la demande:
+
+            <blockquote>
+              %{text}
+            </blockquote>
+          icon: close-circle-line
+          color: error
+        revoke:
+          text: |
+            <strong>%{user_full_name}</strong> a révoqué la demande:
 
             <blockquote>
               %{text}
