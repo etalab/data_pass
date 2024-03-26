@@ -8,6 +8,7 @@ class AuthorizationRequestEvent < ApplicationRecord
     refuse
     archive
     reopen
+    revoke
 
     applicant_message
     instructor_message
