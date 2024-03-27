@@ -37,7 +37,8 @@ class AddRevokeConstraintsToEvents < ActiveRecord::Migration[7.1]
         (name = 'approve' AND entity_type = 'Authorization') OR
         (name = 'reopen' AND entity_type = 'Authorization') OR
         (name = 'submit' AND entity_type = 'AuthorizationRequestChangelog') OR
-        (name = 'revoke' AND entity_type = 'DenialOfAuthorization') OR
+        (name = 'applicant_message' AND entity_type = 'Message') OR
+        (name = 'instructor_message' AND entity_type = 'Message') OR
         (entity_type = 'AuthorizationRequest')
       )
     SQL
