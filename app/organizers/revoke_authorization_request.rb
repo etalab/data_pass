@@ -4,5 +4,7 @@ class RevokeAuthorizationRequest < ApplicationOrganizer
     context.event_entity = :denial_of_authorization
   end
 
-  organize ExecuteAuthorizationRequestTransitionWithCallbacks
+  organize CreateDenialOfAuthorizationModel,
+    CreateAuthorizationRequestEventModel,
+    ExecuteAuthorizationRequestTransitionWithCallbacks
 end
