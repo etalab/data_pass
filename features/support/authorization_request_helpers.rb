@@ -41,6 +41,8 @@ def extract_state_from_french_status(status)
     'archived'
   when 'réouverte', 'réouvertes'
     'reopened'
+  when 'révoquée', 'révoquées'
+    'revoked'
   else
     raise "Unknown status #{status}"
   end

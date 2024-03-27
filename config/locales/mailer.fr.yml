@@ -7,7 +7,7 @@ fr:
         email: datapass@api.gouv.fr
       applicant:
         header:
-          text: <%= ["Bonjour", entity_name].compact.join(" ") %>,
+          text: 'Bonjour'
         footer:
           text: L'équipe %{authorization_definition_name}
       instruction:
@@ -25,6 +25,14 @@ fr:
       subject: Votre demande d'habilitation numéro %{authorization_request_id} a été refusée
       description: |
         Votre habilitation "%{authorization_request_name}" (numéro %{authorization_request_id}) a été refusée par nos équipes pour la raison suivante:
+
+        %{authorization_request_denial_reason}
+
+        Vous pouvez consulter votre habilitation en suivant le lien suivant: %{authorization_request_url}
+    revoked:
+      subject: Votre demande d'habilitation numéro %{authorization_request_id} a été révoquée.
+      description: |
+        Votre habilitation "%{authorization_request_name}" (numéro %{authorization_request_id}) a été révoquée par nos équipes pour la raison suivante:
 
         %{authorization_request_denial_reason}
 
