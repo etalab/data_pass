@@ -254,7 +254,7 @@ class AuthorizationRequest < ApplicationRecord
   delegate :reopenable?, to: :definition
 
   def reopening?
-    state != 'validated' &&
+    %w[validated revoked].exclude?(state) &&
       last_validated_at.present?
   end
 
