@@ -26,7 +26,7 @@ class BaseNotifier < ApplicationNotifier
     ).submitted.deliver_later
   end
 
-  def revoked(_params) = email_notification('revoked', params)
+  def revoked(params) = email_notification('revoked', params)
 
   %w[
     draft
