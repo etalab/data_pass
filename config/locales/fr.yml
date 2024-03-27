@@ -336,6 +336,11 @@ fr:
               Merci de renseigner une raison ci-dessous qui sera communiquée au demandeur. A noter que lors du refus, les modifications apportées par le demandeur depuis le début de la réouverture seront annulées. L'habilitation sera toujours valide.
           cancel: Annuler
           refuse: Refuser la demande de mise à jour
+      create:
+        success:
+          title: La demande d'habilitation %{name} a été refusée
+        reopening_success:
+          title: La demande de mise à jour de l'habilitation %{name} a été refusée
 
     revoke_authorization_requests:
       new:
@@ -347,11 +352,11 @@ fr:
             disclaimer: |
               Merci de renseigner une raison ci-dessous qui sera communiquée au demandeur.
           cancel: Annuler
-          revoke: Révoquer la demande d'habilitation
+          revoke: Révoquer l'habilitation
 
       create:
         success:
-          title: La demande d'habilitation %{name} a été révoquée
+          title: L'habilitation %{name} a été révoquée
 
     request_changes_on_authorization_requests:
       new:
