@@ -1,7 +1,8 @@
 RSpec.describe AuthorizationRequestPolicy do
   describe '#new?' do
-    subject { described_class.new(user, authorization_request_class).new? }
+    subject { described_class.new(user_context, authorization_request_class).new? }
 
+    let(:user_context) { UserContext.new(user) }
     let(:user) { create(:user) }
 
     describe 'HubEE' do

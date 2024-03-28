@@ -9,6 +9,6 @@ class AuthorizationPolicy < ApplicationPolicy
   private
 
   def authorization_request_policy
-    @authorization_request_policy ||= AuthorizationRequestPolicy.new(user, record.authorization_request)
+    @authorization_request_policy ||= AuthorizationRequestPolicy.new(user_context, record.authorization_request)
   end
 end
