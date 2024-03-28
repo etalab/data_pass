@@ -3,6 +3,11 @@ require 'rails_helper'
 RSpec.describe DeliverAuthorizationRequestWebhookJob do
   subject { job_instance.perform_now }
 
+  after do
+    Rails.application.credentials.webhooks.api_entreprise.url = nil
+    Rails.application.credentials.webhooks.api_entreprise.token = nil
+  end
+
   let(:job_instance) { described_class.new(target_api, payload.to_json, authorization_request.id) }
   let(:target_api) { 'api_entreprise' }
   let(:payload) do
