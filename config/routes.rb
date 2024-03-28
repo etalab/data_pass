@@ -61,4 +61,6 @@ Rails.application.routes.draw do
       resources :messages, only: %w[index create], path: 'messages'
     end
   end
+
+  mount GoodJob::Engine => '/workers'
 end
