@@ -1,5 +1,5 @@
 class AuthorizationRequestPreview < ActionMailer::Preview
-  %w[validated refused changes_requested].each do |state|
+  %w[changes_requested refused revoked validated].each do |state|
     [state, "reopening_#{state}"].each do |mth|
       define_method mth do
         authorization_request_mailer_method(state, mth)

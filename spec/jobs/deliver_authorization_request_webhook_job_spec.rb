@@ -3,6 +3,11 @@ require 'rails_helper'
 RSpec.describe DeliverAuthorizationRequestWebhookJob do
   subject { job_instance.perform_now }
 
+  after do
+    Rails.application.credentials.webhooks.api_entreprise.url = nil
+    Rails.application.credentials.webhooks.api_entreprise.token = nil
+  end
+
   let(:job_instance) { described_class.new(target_api, payload.to_json, authorization_request.id) }
   let(:target_api) { 'api_entreprise' }
   let(:payload) do
@@ -23,7 +28,7 @@ RSpec.describe DeliverAuthorizationRequestWebhookJob do
   end
   let(:status) { [200, 201, 204].sample }
   let(:body) { 'whatever' }
-  let(:webhook_url) { 'https://service.gouv.fr/webhook' }
+  let(:webhook_url) { 'https://service.gouv.fr/path/to/webhook' }
   let(:verify_token) { 'verify_token' }
   let(:hub_signature) do
     OpenSSL::HMAC.hexdigest(
@@ -31,11 +36,6 @@ RSpec.describe DeliverAuthorizationRequestWebhookJob do
       verify_token,
       payload.to_json
     )
-  end
-
-  after do
-    Rails.application.credentials.webhooks.api_entreprise.url = nil
-    Rails.application.credentials.webhooks.api_entreprise.token = nil
   end
 
   context "when target api's webhook url is not defined" do
