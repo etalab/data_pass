@@ -233,11 +233,12 @@ Alors('Un webhook avec l\'évènement {string} est envoyé') do |event_name|
   authorization_request = AuthorizationRequest.first
 
   webhook_job = ActiveJob::Base.queue_adapter.enqueued_jobs.find do |job|
-    job['job_class'] == 'DeliverAuthorizationRequestWebhookJob' &&
-      job.dig('arguments', 1, 'event', 'value') == event_name
+    next unless job['job_class'] == 'DeliverAuthorizationRequestWebhookJob'
+
+    JSON.parse(job['arguments'][1])['event'] == event_name
   end
 
-  webhook_job_arg = [authorization_request.definition.id, an_instance_of(Hash), authorization_request.id]
+  webhook_job_arg = [authorization_request.definition.id, an_instance_of(String), authorization_request.id]
 
   expect(webhook_job).not_to be_nil
 
