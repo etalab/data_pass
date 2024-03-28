@@ -11,6 +11,9 @@ RSpec.describe DeliverAuthorizationRequestWebhook do
 
     after do
       ActiveJob::Base.queue_adapter = :test
+
+      Rails.application.credentials.webhooks.api_entreprise.url = nil
+      Rails.application.credentials.webhooks.api_entreprise.token = nil
     end
 
     describe 'when all env variables are set' do
