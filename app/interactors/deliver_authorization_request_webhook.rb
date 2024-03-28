@@ -19,7 +19,7 @@ class DeliverAuthorizationRequestWebhook < ApplicationInteractor
     WebhookSerializer.new(
       context.authorization_request,
       context.state_machine_event || context.event_name
-    ).serializable_hash
+    ).to_json
   end
 
   def target_api = context.authorization_request.definition.id

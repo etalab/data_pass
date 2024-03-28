@@ -33,11 +33,6 @@ RSpec.describe DeliverAuthorizationRequestWebhookJob do
     )
   end
 
-  after do
-    Rails.application.credentials.webhooks.api_entreprise.url = nil
-    Rails.application.credentials.webhooks.api_entreprise.token = nil
-  end
-
   context "when target api's webhook url is not defined" do
     before do
       Rails.application.credentials.webhooks.api_entreprise.token = verify_token
