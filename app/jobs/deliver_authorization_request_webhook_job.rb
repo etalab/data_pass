@@ -3,7 +3,7 @@ class DeliverAuthorizationRequestWebhookJob < ApplicationJob
 
   class WebhookDeliveryFailedError < StandardError; end
 
-  retry_on(WebhookDeliveryFailedError, wait: :polynomially_longer)
+  retry_on(WebhookDeliveryFailedError, wait: :polynomially_longer, attempts: :unlimited)
 
   def serialize
     super.merge('tries_count' => (@attempts || 1) + 1)
