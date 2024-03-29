@@ -15,6 +15,11 @@ class AuthorizationRequest < ApplicationRecord
     inverse_of: :authorization_request,
     dependent: :destroy
 
+  has_many :instructor_modification_requests,
+    class_name: 'InstructorModificationRequest',
+    inverse_of: :authorization_request,
+    dependent: :destroy
+
   has_one :denial,
     -> { order(created_at: :desc) },
     class_name: 'DenialOfAuthorization',
@@ -43,6 +48,11 @@ class AuthorizationRequest < ApplicationRecord
     dependent: :destroy
 
   has_many :messages,
+    dependent: :destroy
+
+  has_many :events,
+    class_name: 'AuthorizationRequestEvent',
+    inverse_of: :entity,
     dependent: :destroy
 
   def latest_authorization
