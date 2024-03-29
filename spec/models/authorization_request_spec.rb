@@ -31,6 +31,16 @@ RSpec.describe AuthorizationRequest do
     end
   end
 
+  describe 'destroy' do
+    subject(:destroy) { authorization_request.destroy }
+
+    let(:authorization_request) { create(:authorization_request, :api_entreprise, :validated) }
+
+    it 'does not raise error due to db constraints' do
+      expect { destroy }.not_to raise_error
+    end
+  end
+
   describe '#contact_types_for' do
     subject { authorization_request.contact_types_for(user) }
 
