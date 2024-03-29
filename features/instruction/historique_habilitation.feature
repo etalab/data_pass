@@ -7,7 +7,6 @@ Fonctionnalité: Instruction: historique habilitation
     Sachant que je suis un instructeur "API Entreprise"
     Et que je me connecte
 
-  @DisableBullet
   Scénario: Je vois les événements
     Quand je me rends sur une demande d'habilitation "API Entreprise" à modérer
     Et je clique sur "Valider"
