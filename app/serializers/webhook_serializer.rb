@@ -35,6 +35,8 @@ class WebhookSerializer
   end
 
   def authorization_request_serialized
-    WebhookAuthorizationRequestSerializer.new(authorization_request).serializable_hash
+    WebhookAuthorizationRequestSerializer.new(authorization_request).serializable_hash(
+      include: ['events.user']
+    )
   end
 end
