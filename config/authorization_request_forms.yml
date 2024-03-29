@@ -152,10 +152,10 @@ shared:
       destinataire_donnees_caractere_personnel: "Services marchés d’organismes publics et collectivités locales"
       duree_conservation_donnees_caractere_personnel: 36
       contact_metier_type: 'organization'
-      contact_metier_email: "p.gue@e-attestations.com"
+      contact_metier_email: "<%= Rails.application.credentials.api_entreprise_e_attestation_contact_metier_email || 'metier-e-attestation@yopmail.com' %>"
       contact_metier_phone_number: "0158060016"
       contact_technique_type: 'organization'
-      contact_technique_email: "tech@e-attestations.com"
+      contact_technique_email: "<%= Rails.application.credentials.api_entreprise_e_attestation_contact_technique_email || 'tech-e-attestation@yopmail.com' %>"
       contact_technique_phone_number: "0158060010"
       scopes:
         - unites_legales_etablissements_insee
@@ -225,10 +225,10 @@ shared:
       destinataire_donnees_caractere_personnel: "Maître d’ouvrage, acheteurs publics dans le cadre de leurs contrôles de la régularité fiscale et sociale des entreprises"
       duree_conservation_donnees_caractere_personnel: 36
       contact_metier_type: 'organization'
-      contact_metier_email: "<%= Rails.application.credentials.api_entreprise_achat_solution_contact_metier_email || 'metier@achat-solution.com' %>"
+      contact_metier_email: "<%= Rails.application.credentials.api_entreprise_achat_solution_contact_metier_email || 'metier-achat-solution@yopmail.com' %>"
       contact_metier_phone_number: "<%= Rails.application.credentials.api_entreprise_achat_solution_contact_metier_phone_number || '0836656565' %>"
       contact_technique_type: 'organization'
-      contact_technique_email: "<%= Rails.application.credentials.api_entreprise_achat_solution_contact_technique_email || 'metier@achat-solution.com' %>"
+      contact_technique_email: "<%= Rails.application.credentials.api_entreprise_achat_solution_contact_technique_email || 'metier-achat-solution@yopmail.com' %>"
       contact_technique_phone_number: "<%= Rails.application.credentials.api_entreprise_achat_solution_contact_technique_phone_number || '0836656565' %>"
       scopes:
         - unites_legales_etablissements_insee
@@ -305,7 +305,7 @@ La plateforme, mise en place pour permettre le dépôt de ces aides publiques et
       contact_technique_email: 'produits@atexo.com'
       contact_technique_phone_number: '0175440934'
       contact_metier_type: 'organization'
-      contact_metier_email: "<%= Rails.application.credentials.api_entreprise_atexo_contact_metier_email || 'produit@atexo.com' %>"
+      contact_metier_email: "<%= Rails.application.credentials.api_entreprise_atexo_contact_metier_email || 'produit-atexo@yopmail.com' %>"
       contact_metier_phone_number: '0153430678'
       scopes:
         - unites_legales_etablissements_insee
