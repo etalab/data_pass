@@ -68,7 +68,9 @@ fr:
 
         volumetrie_appels_par_minute: Volumétrie d'appels par minute
       denial_of_authorization:
-        reason: Raison de l'action
+        reason: Raison du refus
+      revocation_of_authorization:
+        reason: Raison de la révocation
       instructor_modification_request:
         reason: Raison de la demande de modification
     errors:

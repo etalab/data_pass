@@ -2,13 +2,13 @@ class Instruction::RevokeAuthorizationRequestsController < Instruction::Authoriz
   before_action :authorize_authorization_request_revocation
 
   def new
-    @denial_of_authorization = @authorization_request.denials.build
+    @revocation_of_authorization = @authorization_request.revocations.build
   end
 
   def create
-    organizer = RevokeAuthorizationRequest.call(denial_of_authorization_params:, authorization_request: @authorization_request, user: current_user)
+    organizer = RevokeAuthorizationRequest.call(revocation_of_authorization_params:, authorization_request: @authorization_request, user: current_user)
 
-    @denial_of_authorization = organizer.denial_of_authorization
+    @revocation_of_authorization = organizer.revocation_of_authorization
 
     if organizer.success?
       success_message_for_authorization_request(@authorization_request, key: 'instruction.revoke_authorization_requests.create')
@@ -22,8 +22,8 @@ class Instruction::RevokeAuthorizationRequestsController < Instruction::Authoriz
 
   private
 
-  def denial_of_authorization_params
-    params.require(:denial_of_authorization).permit(
+  def revocation_of_authorization_params
+    params.require(:revocation_of_authorization).permit(
       :reason,
     )
   end

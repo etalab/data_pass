@@ -2,7 +2,7 @@
   <div class="fr-grid-row fr-grid-row--center">
     <div class="fr-col-md-offset-1 fr-col-md-10">
       <turbo-frame id="main-modal-content">
-        <%= form_with(model: @denial_of_authorization, url: instruction_authorization_request_revocation_index_path(@authorization_request), data: { turbo_frame: 'main-modal-content' }) do |f| %>
+        <%= form_with(model: @revocation_of_authorization, url: instruction_authorization_request_revocation_index_path(@authorization_request), data: { turbo_frame: 'main-modal-content' }) do |f| %>
           <div class="fr-modal__content">
             <h1 class="fr-modal__title">
               <%= t(".initial.title", authorization_request_name: @authorization_request.name) %>
