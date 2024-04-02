@@ -28,7 +28,8 @@ class AuthorizationRequestEvent < ApplicationRecord
   def entity_type_is_authorized
     return if name.blank? || entity_type.blank?
 
-    return if %w[refuse revoke].include?(name) && entity_type == 'DenialOfAuthorization'
+    return if name == 'refuse' && entity_type == 'DenialOfAuthorization'
+    return if name == 'revoke' && entity_type == 'RevocationOfAuthorization'
     return if name == 'request_changes' && entity_type == 'InstructorModificationRequest'
     return if name == 'submit' && entity_type == 'AuthorizationRequestChangelog'
     return if %w[approve reopen].include?(name) && entity_type == 'Authorization'

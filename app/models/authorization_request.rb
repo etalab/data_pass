@@ -26,6 +26,17 @@ class AuthorizationRequest < ApplicationRecord
     inverse_of: :authorization_request,
     dependent: :destroy
 
+  has_many :revocations,
+    class_name: 'RevocationOfAuthorization',
+    inverse_of: :authorization_request,
+    dependent: :destroy
+
+  has_one :revocation,
+    -> { order(created_at: :desc) },
+    class_name: 'RevocationOfAuthorization',
+    inverse_of: :authorization_request,
+    dependent: :destroy
+
   has_many :changelogs,
     class_name: 'AuthorizationRequestChangelog',
     inverse_of: :authorization_request,
