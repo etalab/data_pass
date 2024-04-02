@@ -29,7 +29,7 @@ Fonctionnalité: Instruction: modération
   Scénario: Je refuse une demande d'habilitation avec un message valide
     Quand je me rends sur une demande d'habilitation "API Particulier" à modérer
     Et je clique sur "Refuser"
-    Et que je remplis "Raison de l'action" avec "Vous êtes une entreprise privée"
+    Et que je remplis "Raison du refus" avec "Vous êtes une entreprise privée"
     Et que je clique sur "Refuser la demande d'habilitation"
     Alors je suis sur la page "Liste des demandes en cours"
     Et je vois 1 demande d'habilitation "API Particulier" refusée
