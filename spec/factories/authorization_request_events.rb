@@ -65,12 +65,12 @@ FactoryBot.define do
     trait :revoke do
       name { 'revoke' }
 
-      entity factory: %i[denial_of_authorization]
+      entity factory: %i[revocation_of_authorization]
 
       after(:build) do |authorization_request_event, evaluator|
         next if evaluator.authorization_request.blank?
 
-        authorization_request_event.entity = build(:denial_of_authorization, authorization_request: evaluator.authorization_request)
+        authorization_request_event.entity = build(:revocation_of_authorization, authorization_request: evaluator.authorization_request)
       end
     end
 
