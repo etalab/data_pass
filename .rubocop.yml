@@ -17,6 +17,7 @@ AllCops:
     - "vendor/**/*"
     - "sandbox/**/*"
     - "app/migration/**/*"
+    - "tmp/**/*"
 
 FactoryBot/FactoryAssociationWithStrategy:
   Enabled: false
