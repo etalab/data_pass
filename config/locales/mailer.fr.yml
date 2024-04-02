@@ -34,7 +34,7 @@ fr:
       description: |
         Votre habilitation "%{authorization_request_name}" (numéro %{authorization_request_id}) a été révoquée par nos équipes pour la raison suivante:
 
-        %{authorization_request_denial_reason}
+        %{authorization_request_revocation_reason}
 
         Vous pouvez consulter votre habilitation en suivant le lien suivant: %{authorization_request_url}
     changes_requested:
