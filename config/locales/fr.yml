@@ -274,12 +274,12 @@ fr:
         table:
           caption: Liste des demandes en cours
           header:
-            id: Identifiant
-            name: Intitulé de la demande
-            created_at: Date
-            type: Type de données
-            form_name: Nom du formulaire
             status: Statut
+            created_at: Date
+            organization: Organisation
+            project_name: Projet
+            target_api: Nom de l'API
+            applicant_email: Email du demandeur
             actions: Actions
           actions:
             show: Consulter
