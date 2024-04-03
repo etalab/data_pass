@@ -24,12 +24,24 @@
           <% end %>
 
           <div class="fr-header__service">
-            <a href="/" title="Accueil - <%= t('.title') %>">
+            <% if registered_subdomain? && registered_subdomain.title.present? %>
+              <% title = registered_subdomain.title %>
+            <% else %>
+              <% title = t('.title') %>
+            <% end %>
+
+            <% if registered_subdomain? && registered_subdomain.tagline.present? %>
+              <% tagline = registered_subdomain.tagline %>
+            <% else %>
+              <% tagline = t('.tagline') %>
+            <% end %>
+
+            <a href="/" title="Accueil - <%= title %>">
               <p class="fr-header__service-title">
-                <%= t('.title') %>
+                <%= title %>
               </p>
               <p class="fr-header__service-tagline">
-                <%= t('.tagline') %>
+                <%= tagline %>
               </p>
             </a>
           </div>

@@ -129,6 +129,7 @@ Style/FrozenStringLiteralComment:
 Style/GlobalVars:
   AllowedVariables:
     - $elastic
+    - $previous_app_host
 
 Style/MethodCalledOnDoEndBlock:
   Enabled: false
