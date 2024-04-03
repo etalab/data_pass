@@ -7,7 +7,7 @@ fr:
         email: datapass@api.gouv.fr
       applicant:
         header:
-          text: <%= ["Bonjour", entity_name].compact.join(" ") %>,
+          text: 'Bonjour'
         footer:
           text: L'équipe %{authorization_definition_name}
       instruction:

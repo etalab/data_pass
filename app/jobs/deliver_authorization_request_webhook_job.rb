@@ -3,7 +3,7 @@ class DeliverAuthorizationRequestWebhookJob < ApplicationJob
 
   class WebhookDeliveryFailedError < StandardError; end
 
-  retry_on(WebhookDeliveryFailedError, wait: :polynomially_longer)
+  retry_on(WebhookDeliveryFailedError, wait: :polynomially_longer, attempts: :unlimited)
 
   def serialize
     super.merge('tries_count' => (@attempts || 1) + 1)
@@ -32,7 +32,7 @@ class DeliverAuthorizationRequestWebhookJob < ApplicationJob
   private
 
   def request(target_api, payload)
-    Faraday.new(webhook_url(target_api)).post('/webhook') do |req|
+    Faraday.new(webhook_uri(target_api).to_s).post(webhook_uri(target_api).path) do |req|
       req.headers['Content-Type'] = 'application/json'
       req.headers['X-Hub-Signature-256'] = "sha256=#{generate_hub_signature(target_api, payload)}"
       req.body = payload.to_json
@@ -93,6 +93,10 @@ class DeliverAuthorizationRequestWebhookJob < ApplicationJob
       verify_token(target_api),
       payload.to_json
     )
+  end
+
+  def webhook_uri(target_api)
+    URI(webhook_url(target_api))
   end
 
   def webhook_url(target_api)

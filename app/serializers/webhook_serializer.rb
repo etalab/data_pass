@@ -27,7 +27,7 @@ class WebhookSerializer
   private
 
   def model_type
-    authorization_request.class.name.underscore
+    "enrollment/#{authorization_request.type.underscore.split('/').last}"
   end
 
   def now
@@ -35,6 +35,8 @@ class WebhookSerializer
   end
 
   def authorization_request_serialized
-    WebhookAuthorizationRequestSerializer.new(authorization_request).serializable_hash
+    WebhookAuthorizationRequestSerializer.new(authorization_request).serializable_hash(
+      include: ['events.user']
+    )
   end
 end

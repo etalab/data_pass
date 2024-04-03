@@ -8,6 +8,7 @@ class AuthorizationRequestEventsQuery
   # rubocop:disable Metrics/AbcSize
   def perform
     AuthorizationRequestEvent
+      .includes(%i[user entity])
       .where(
         sql_query,
         authorization_request.id,
