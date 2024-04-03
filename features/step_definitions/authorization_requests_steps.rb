@@ -150,9 +150,9 @@ Quand(/je suis mentionné dans (\d+) demandes? d'habilitation "([^"]+)" en tant 
 end
 
 # https://rubular.com/r/dRUFmK5dzDpjJv
-Alors(/je vois (\d+) demandes? d'habilitation(?: "([^"]+)")?(?:(?: en)? (.+))?/) do |count, type, status|
-  if type.present?
-    expect(page).to have_css('.authorization-request-definition-name', text: type, count:)
+Alors(/je vois (\d+) demandes? d'habilitation(?: "([^"]+)")?(?:(?: en)? (.+))?/) do |count, target_api, status|
+  if target_api.present?
+    expect(page).to have_css('.authorization-request-target-api', text: target_api, count:)
   else
     expect(page).to have_css('.authorization-request', count:)
   end
