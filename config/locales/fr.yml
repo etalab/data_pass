@@ -345,12 +345,12 @@ fr:
     revoke_authorization_requests:
       new:
         initial:
-          title: Révocation de la demande d'habilitation
+          title: Révocation de l'habilitation
           description:
             organization: |
-              Vous êtes sur le point de révoquer la demande d'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_raison_sociale}' (numéro de siret: %{organization_siret}).
+              Vous êtes sur le point de révoquer cette habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_raison_sociale}' (numéro de siret: %{organization_siret}).
             disclaimer: |
-              Merci de renseigner une raison ci-dessous qui sera communiquée au demandeur.
+              Merci de renseigner les motifs qui seront communiqués au demandeur.
           cancel: Annuler
           revoke: Révoquer l'habilitation
 

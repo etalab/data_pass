@@ -12,7 +12,7 @@ Fonctionnalité: Instruction: révocation d'habilitation
   Scénario: Je révoque une habilitation avec un message valide
     Quand je me rends sur une habilitation "API Entreprise" validée
     Et je clique sur "Révoquer"
-    Et que je remplis "Raison de la révocation" avec "Une nouvelle demande a été validée"
+    Et que je remplis "Indiquez les motifs de révocation" avec "Une nouvelle demande a été validée"
     Et que je clique sur "Révoquer l'habilitation"
     Alors je suis sur la page "Liste des demandes en cours"
     Et je vois 1 habilitation "API Entreprise" révoquée

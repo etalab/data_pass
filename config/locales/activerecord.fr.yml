@@ -70,7 +70,7 @@ fr:
       denial_of_authorization:
         reason: Raison du refus
       revocation_of_authorization:
-        reason: Raison de la révocation
+        reason: Indiquez les motifs de révocation
       instructor_modification_request:
         reason: Raison de la demande de modification
     errors:
