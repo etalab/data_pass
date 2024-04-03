@@ -60,9 +60,6 @@
     <tbody>
       <% @authorization_requests.each do |authorization_request| %>
         <tr id="<%= dom_id(authorization_request) %>" class="authorization-request">
-          <td class="authorization-request-id">
-            <%= authorization_request.id %>
-          </td>
           <td class="authorization-request-state">
             <%= authorization_request_status_badge(authorization_request) %>
 
@@ -70,17 +67,20 @@
               <%= authorization_request_reopening_badge %>
             <% end %>
           </td>
-          <td class="authorization-request-name">
+          <td class="authorization-request-created_at">
+            <%= authorization_request.created_at.strftime("%d/%m/%y") %>
+          </td>
+          <td class="authorization-request-organization">
+            <%= authorization_request.applicant.current_organization.raison_sociale %>
+          </td>
+          <td class="authorization-request-project-name">
             <%= authorization_request.name %>
           </td>
-          <td class="authorization-request-created_at">
-            <%= authorization_request.created_at %>
-          </td>
-          <td class="authorization-request-definition-name">
+          <td class="authorization-request-target-api">
             <%= authorization_request.definition.name %>
           </td>
-          <td class="authorization-request-form-name">
-            <%= authorization_request.form.name %>
+          <td class="authorization-request-applicant-email">
+            <%= authorization_request.applicant.email %>
           </td>
           <td class="authorization-request-actions">
             <%= link_to t('.table.actions.show'), instruction_authorization_request_path(authorization_request), class: %w(fr-btn fr-btn--sm) %>
