@@ -183,6 +183,8 @@ GEM
     erubi (1.12.0)
     et-orbi (1.2.11)
       tzinfo
+    ethon (0.16.0)
+      ffi (>= 1.15.0)
     factory_bot (6.4.5)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.4.3)
@@ -239,6 +241,9 @@ GEM
     http-accept (1.7.0)
     http-cookie (1.0.5)
       domain_name (~> 0.5)
+    hubspot-api-client (18.0.0)
+      json (~> 2.1, >= 2.1.0)
+      typhoeus (~> 1.4.0)
     i18n (1.14.4)
       concurrent-ruby (~> 1.0)
     i18n-tasks (1.0.13)
@@ -540,6 +545,8 @@ GEM
       actionpack (>= 6.0.0)
       activejob (>= 6.0.0)
       railties (>= 6.0.0)
+    typhoeus (1.4.1)
+      ethon (>= 0.9.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.5.0)
@@ -600,6 +607,7 @@ DEPENDENCIES
   guard
   guard-cucumber
   guard-rspec
+  hubspot-api-client
   i18n-tasks
   importmap-rails (~> 1.0)
   interactor
