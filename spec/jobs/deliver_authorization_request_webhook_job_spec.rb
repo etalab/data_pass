@@ -3,7 +3,13 @@ require 'rails_helper'
 RSpec.describe DeliverAuthorizationRequestWebhookJob do
   subject(:deliver_authorization_request_webhook) { job_instance.perform_now }
 
+  before do
+    ActiveJob::Base.queue_adapter = :inline
+  end
+
   after do
+    ActiveJob::Base.queue_adapter = :test
+
     Rails.application.credentials.webhooks.api_entreprise.url = nil
     Rails.application.credentials.webhooks.api_entreprise.token = nil
   end
@@ -130,9 +136,11 @@ RSpec.describe DeliverAuthorizationRequestWebhookJob do
 
           before do
             allow(job_instance).to receive_messages(request: response, attempts: described_class::TOTAL_ATTEMPTS)
+
+            ActiveJob::Base.queue_adapter = :test
           end
 
-          it 'sends an email through WebhookMailer' do
+          it 'sends an email through WebhookMailer to instructors' do
             deliver_authorization_request_webhook
 
             expect(ActionMailer::MailDeliveryJob).to(
