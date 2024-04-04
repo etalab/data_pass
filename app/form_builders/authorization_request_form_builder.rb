@@ -97,9 +97,18 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
             nil
           ),
           dsfr_scope_label(scope),
-          scope.included? ? scope_hidden_field(scope) : nil
+          include_scope_hidden_field?(scope, disabled) ? scope_hidden_field(scope) : nil
         ].compact
       )
+    end
+  end
+
+  def include_scope_hidden_field?(scope, disabled)
+    if disabled
+      scope.included? ||
+        @object.scopes.include?(scope.value)
+    else
+      scope.included?
     end
   end
 
