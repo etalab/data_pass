@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe DeliverAuthorizationRequestWebhookJob do
-  subject { job_instance.perform_now }
+  subject(:deliver_authorization_request_webhook) { job_instance.perform_now }
 
   after do
     Rails.application.credentials.webhooks.api_entreprise.url = nil
@@ -44,7 +44,7 @@ RSpec.describe DeliverAuthorizationRequestWebhookJob do
     end
 
     it 'does nothing' do
-      subject
+      deliver_authorization_request_webhook
 
       expect(webhook_post_request).not_to have_been_requested
     end
@@ -56,7 +56,7 @@ RSpec.describe DeliverAuthorizationRequestWebhookJob do
     end
 
     it 'does nothing' do
-      subject
+      deliver_authorization_request_webhook
 
       expect(webhook_post_request).not_to have_been_requested
     end
@@ -69,14 +69,12 @@ RSpec.describe DeliverAuthorizationRequestWebhookJob do
     end
 
     it "performs a post request on target api's webhook url with payload and headers" do
-      subject
+      deliver_authorization_request_webhook
 
       expect(webhook_post_request).to have_been_requested
     end
 
     describe "target's api webhook url status" do
-      subject { job_instance.perform_now }
-
       before do
         allow(job_instance).to receive(:webhook_fail!)
       end
@@ -85,13 +83,13 @@ RSpec.describe DeliverAuthorizationRequestWebhookJob do
         it 'does not reschedule worker' do
           expect(job_instance).not_to receive(:webhook_fail!)
 
-          subject
+          deliver_authorization_request_webhook
         end
 
         it 'does not track on sentry' do
           expect(Sentry).not_to receive(:capture_message)
 
-          subject
+          deliver_authorization_request_webhook
         end
 
         context 'when body is a json with a token_id key' do
@@ -105,7 +103,7 @@ RSpec.describe DeliverAuthorizationRequestWebhookJob do
 
           it 'stores this token id in authorization_request' do
             expect {
-              subject
+              deliver_authorization_request_webhook
             }.to change { authorization_request.reload.linked_token_manager_id }.to(token_id)
           end
         end
@@ -117,18 +115,16 @@ RSpec.describe DeliverAuthorizationRequestWebhookJob do
         it 'reschedules job' do
           expect(job_instance).to receive(:webhook_fail!)
 
-          subject
+          deliver_authorization_request_webhook
         end
 
         it 'tracks on sentry' do
           expect(Sentry).to receive(:capture_message)
 
-          subject
+          deliver_authorization_request_webhook
         end
 
         context 'when last retry_on attempt fails' do
-          subject { job_instance.perform_now }
-
           let(:tries_count) { described_class::TOTAL_ATTEMPTS }
           let(:response) { instance_double(Faraday::Response, status:, body:) }
 
@@ -137,7 +133,7 @@ RSpec.describe DeliverAuthorizationRequestWebhookJob do
           end
 
           it 'sends an email through WebhookMailer' do
-            subject
+            deliver_authorization_request_webhook
 
             expect(ActionMailer::MailDeliveryJob).to(
               have_been_enqueued.with(
