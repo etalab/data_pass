@@ -61,7 +61,7 @@
       <% @authorization_requests.each do |authorization_request| %>
         <tr id="<%= dom_id(authorization_request) %>" class="authorization-request">
           <td class="authorization-request-state">
-            <%= authorization_request_status_badge(authorization_request) %>
+            <%= authorization_request_status_badge(authorization_request, scope: :instruction) %>
 
             <% if authorization_request.reopening? %>
               <%= authorization_request_reopening_badge %>

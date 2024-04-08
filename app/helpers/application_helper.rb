@@ -13,10 +13,10 @@ module ApplicationHelper
     @authorization_definition.present? && @display_provider_logo_in_header # rubocop:disable Naming/HelperInstanceVariable
   end
 
-  def authorization_request_status_badge(authorization_request, no_icon: false)
+  def authorization_request_status_badge(authorization_request, no_icon: false, scope: nil)
     content_tag(
       :span,
-      t("authorization_request.status.#{authorization_request.state}"),
+      t(authorization_request_status_badge_translation(authorization_request, scope)),
       class: [
         'fr-badge',
         no_icon ? 'fr-badge--no-icon' : nil,
@@ -49,5 +49,14 @@ module ApplicationHelper
       t('authorization_request.reopening'),
       class: 'fr-badge fr-badge--no-icon fr-badge--purple-glycine',
     )
+  end
+
+  def authorization_request_status_badge_translation(authorization_request, scope)
+    case scope
+    when :instruction, 'instruction'
+      "instruction.authorization_requests.index.status.#{authorization_request.state}"
+    else
+      "authorization_request.status.#{authorization_request.state}"
+    end
   end
 end
