@@ -71,12 +71,12 @@
             <%= authorization_request.created_at.strftime("%d/%m/%y") %>
           </td>
           <td class="authorization-request-organization">
-            <%= authorization_request.applicant.current_organization.raison_sociale %>
+            <%= authorization_request.organization.raison_sociale %>
           </td>
           <td class="authorization-request-project-name">
             <%= authorization_request.name %>
           </td>
-          <td class="authorization-request-target-api">
+          <td class="authorization-request-definition-name">
             <%= authorization_request.definition.name %>
           </td>
           <td class="authorization-request-applicant-email">
