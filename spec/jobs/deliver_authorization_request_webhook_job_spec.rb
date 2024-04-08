@@ -101,6 +101,10 @@ RSpec.describe DeliverAuthorizationRequestWebhookJob do
         context 'when body is a json with a token_id key' do
           let(:token_id) { 'token_id' }
 
+          before do
+            ActiveJob::Base.queue_adapter = :inline
+          end
+
           let!(:body) do
             {
               token_id => token_id
