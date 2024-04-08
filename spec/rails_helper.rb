@@ -81,14 +81,6 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
-  config.before(:each, type: :request) do
-    OmniAuth.config.test_mode = true
-  end
-
-  config.after(:each, type: :request) do
-    OmniAuth.config.mock_auth[:mon_compte_pro] = nil
-    OmniAuth.config.test_mode = false
-  end
 
   config.include ActiveSupport::Testing::TimeHelpers
 end
