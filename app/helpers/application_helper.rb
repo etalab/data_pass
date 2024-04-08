@@ -29,7 +29,7 @@ module ApplicationHelper
   def authorization_request_status_badge_class(authorization_request)
     case authorization_request.state
     when 'draft'
-      %w[fr-badge--purple-glycine fr-badge--no-icon]
+      %w[fr-badge--grey fr-badge--no-icon]
     when 'changes_requested'
       %w[fr-badge--warning]
     when 'submitted'
