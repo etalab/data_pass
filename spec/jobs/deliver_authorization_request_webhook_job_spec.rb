@@ -30,10 +30,9 @@ RSpec.describe DeliverAuthorizationRequestWebhookJob do
         'Content-Type' => 'application/json',
         'X-Hub-Signature-256' => "sha256=#{hub_signature}"
       }
-    ).to_return(status:, body:)
+    ).to_return(status:)
   end
   let(:status) { [200, 201, 204].sample }
-  let(:body) { 'whatever' }
   let(:webhook_url) { 'https://service.gouv.fr/path/to/webhook' }
   let(:verify_token) { 'verify_token' }
   let(:hub_signature) do
@@ -99,18 +98,14 @@ RSpec.describe DeliverAuthorizationRequestWebhookJob do
         end
 
         context 'when body is a json with a token_id key' do
-          let(:token_id) { 'token_id' }
-
-          let!(:body) do
-            {
-              token_id => token_id
-            }.to_json
+          let!(:webhook_post_request) do
+            stub_request(:post, webhook_url).to_return(status: 200, body: { token_id: 'token_id' }.to_json)
           end
 
           it 'stores this token id in authorization_request' do
             expect {
               deliver_authorization_request_webhook
-            }.to change { authorization_request.reload.linked_token_manager_id }.to(token_id)
+            }.to change { authorization_request.reload.linked_token_manager_id }.to('token_id')
           end
         end
       end
@@ -132,7 +127,7 @@ RSpec.describe DeliverAuthorizationRequestWebhookJob do
 
         context 'when last retry_on attempt fails' do
           let(:tries_count) { described_class::TOTAL_ATTEMPTS }
-          let(:response) { instance_double(Faraday::Response, status:, body:) }
+          let(:response) { instance_double(Faraday::Response, status:, body: 'body') }
 
           before do
             allow(job_instance).to receive_messages(request: response, attempts: described_class::TOTAL_ATTEMPTS)
@@ -153,7 +148,7 @@ RSpec.describe DeliverAuthorizationRequestWebhookJob do
                     target_api:,
                     payload:,
                     webhook_response_status: status,
-                    webhook_response_body: body
+                    webhook_response_body: 'body',
                   },
                   args: []
                 }
