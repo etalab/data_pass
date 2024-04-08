@@ -44,6 +44,7 @@ Rails.application.routes.draw do
 
     resources :authorizations, only: %i[show], path: 'habilitations' do
       resources :reopen_authorizations, only: %w[new create], path: 'réouvrir', as: :reopen
+      get 'reopen-from-external', to: 'reopen_authorizations#create', as: :reopen_from_external
     end
   end
 
