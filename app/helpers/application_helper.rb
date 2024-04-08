@@ -37,7 +37,7 @@ module ApplicationHelper
     when 'validated'
       %w[fr-badge--success]
     when 'refused', 'revoked'
-      %w[fr-badge--error fr-badge--no-icon]
+      %w[fr-badge--error]
     when 'archived'
       %w[fr-badge--secondary]
     end
@@ -47,7 +47,7 @@ module ApplicationHelper
     content_tag(
       :span,
       t('authorization_request.reopening'),
-      class: 'fr-badge fr-badge--no-icon fr-badge--purple-glycine',
+      class: 'fr-badge fr-badge--purple-glycine',
     )
   end
 
