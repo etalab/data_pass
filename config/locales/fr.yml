@@ -275,7 +275,7 @@ fr:
           caption: Liste des demandes en cours
           header:
             status: Statut
-            created_at: Date
+            created_at: Date de création
             organization: Organisation
             project_name: Projet
             target_api: Nom de l'API
@@ -283,6 +283,14 @@ fr:
             actions: Actions
           actions:
             show: Consulter
+        status:
+          draft: Brouillon
+          changes_requested: A modifier
+          submitted: En cours
+          validated: Validée
+          refused: Refusée
+          archived: Archivée/supprimée
+          revoked: Révoquée
       moderation_buttons:
         title: Instruire la demande
         refuse: Refuser
