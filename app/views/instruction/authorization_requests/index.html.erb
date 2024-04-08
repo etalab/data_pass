@@ -1,3 +1,5 @@
+<p class="fr-h2 fr-mt-5w"><%= t('.table.caption') %></p>
+
 <%= search_form_for(@q, url: instruction_authorization_requests_path, html: { method: :get, data: { turbo: false }, class: %w[search-box] }) do |f| %>
   <div class="search-inputs">
     <div class="fr-input-group input">
@@ -28,9 +30,6 @@
 
 <div class="fr-table fr-table--bordered fr-table--layout-fixed">
   <table>
-    <caption>
-      <%= t('.table.caption') %>
-    </caption>
     <thead>
       <tr>
         <%
