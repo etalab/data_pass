@@ -324,6 +324,7 @@ fr:
             organization: |
               Vous êtes sur le point de refuser la demande d'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_raison_sociale}' (numéro de siret: %{organization_siret}).
             disclaimer: |
+              <strong>Cette action est irréversible</strong>.
               Merci de renseigner une raison ci-dessous qui sera communiquée au demandeur.
           cancel: Annuler
           refuse: Refuser la demande d'habilitation
@@ -350,6 +351,7 @@ fr:
             organization: |
               Vous êtes sur le point de révoquer cette habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_raison_sociale}' (numéro de siret: %{organization_siret}).
             disclaimer: |
+              <strong>Cette action est irréversible</strong>.
               Merci de renseigner les motifs qui seront communiqués au demandeur.
           cancel: Annuler
           revoke: Révoquer l'habilitation
