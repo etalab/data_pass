@@ -60,3 +60,64 @@
 .fr-bg-alt-blue-france {
   background-color: var(--background-action-low-blue-france);
 }
+
+/* Badge Icon */
+
+.fr-badge--purple-glycine::before,
+.fr-badge--secondary::before {
+  content: ""
+}
+
+.fr-badge.fr-badge--info::before,
+.fr-badge--sm.fr-badge--info::before {
+  -webkit-mask-image: url("icons/system/time-fill.svg");
+  mask-image: url("icons/system/time-fill.svg");
+}
+
+.fr-badge.fr-badge--success::before,
+.fr-badge--sm.fr-badge--success::before {
+  -webkit-mask-image: url("icons/system/check-line.svg");
+  mask-image: url("icons/system/check-line.svg");
+}
+
+.fr-badge.fr-badge--error::before,
+.fr-badge--sm.fr-badge--error::before {
+  -webkit-mask-image: url("icons/system/fr--error-fill.svg");
+  mask-image: url("icons/system/fr--error-fill.svg");
+}
+
+.fr-badge.fr-badge--warning::before,
+.fr-badge--sm.fr-badge--warning::before {
+  -webkit-mask-image: url("icons/system/fr--warning-fill.svg");
+  mask-image: url("icons/system/fr--warning-fill.svg");
+}
+
+.fr-badge.fr-badge--new::before,
+.fr-badge--sm.fr-badge--new::before {
+  -webkit-mask-image: url("icons/weather/flashlight-fill.svg");
+  mask-image: url("icons/weather/flashlight-fill.svg");
+}
+
+.fr-badge.fr-badge--purple-glycine::before,
+.fr-badge--sm.fr-badge--purple-glycine::before {
+  -webkit-mask-image: url("icons/others/recycle-fill.svg");
+  mask-image: url("icons/others/recycle-fill.svg");
+}
+
+.fr-badge.fr-badge--secondary::before,
+.fr-badge--sm.fr-badge--secondary::before {
+  -webkit-mask-image: url("icons/business/archive-fill.svg");
+  mask-image: url("icons/business/archive-fill.svg");
+}
+
+/* Badge color */
+
+fr-badge--grey {
+  background-color: var(--grey-975-75-hover);
+  color: var(--grey-50-1000);
+}
+
+.fr-badge.fr-badge--secondary {
+  background-color: var(--grey-50-1000);
+  color: var(--grey-1000-50);
+}

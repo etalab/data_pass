@@ -19,7 +19,7 @@ fr:
       submitted: En cours d'instruction
       validated: Validée
       refused: Refusée
-      archived: Archivée/supprimée
+      archived: Archivée
       revoked: Révoquée
     reopening: Mise à jour
     contacts:
@@ -274,15 +274,23 @@ fr:
         table:
           caption: Liste des demandes en cours
           header:
-            id: Identifiant
-            name: Intitulé de la demande
-            created_at: Date
-            type: Type de données
-            form_name: Nom du formulaire
             status: Statut
+            created_at: Date de création
+            organization: Organisation
+            project_name: Projet
+            target_api: Nom de l'API
+            applicant_email: Email du demandeur
             actions: Actions
           actions:
             show: Consulter
+        status:
+          draft: Brouillon
+          changes_requested: A modifier
+          submitted: En cours
+          validated: Validée
+          refused: Refusée
+          archived: Archivée
+          revoked: Révoquée
       moderation_buttons:
         title: Instruire la demande
         refuse: Refuser

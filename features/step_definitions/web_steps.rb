@@ -9,6 +9,7 @@ end
 Alors('il y a un titre contenant {string}') do |text|
   elements = [
     page.all('h1').first,
+    page.all('p.fr-h2').first,
     page.all('h2').first,
     page.all('table caption').first,
   ]
