@@ -1,9 +1,5 @@
 class DenialOfAuthorization < ApplicationRecord
-  validates :reason, presence: true
-  belongs_to :authorization_request
+  include CommonInstructionModel
 
-  has_many :events,
-    class_name: 'AuthorizationRequestEvent',
-    inverse_of: :entity,
-    dependent: :destroy
+  validates :reason, presence: true
 end
