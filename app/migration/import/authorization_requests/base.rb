@@ -50,7 +50,7 @@ class Import::AuthorizationRequests::Base
 
     return {} unless team_member
 
-    team_member['job_title'] = team_member.delete('job')[1]
+    team_member['job_title'] = team_member.delete('job')
 
     team_member.to_h
   end

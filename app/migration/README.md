@@ -12,6 +12,9 @@
 Executez la commande: `./app/migration/local_import.sh`
 Cette commande est idempotent.
 
+Executez la commande: `./app/migration/local_build_db.sh`.
+Il faut penser à supprimer la db local si besoin
+
 Pour clean la db locale: `./app/migration/clean_local_db.sh`
 
 Il possible d'effectuer des filtrages sur les données importées (via les options

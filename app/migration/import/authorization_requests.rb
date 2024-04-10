@@ -1,4 +1,6 @@
 class Import::AuthorizationRequests < Import::Base
+  include LocalDatabaseUtils
+
   def initialize(options)
     super(options)
     @team_members = {}
@@ -49,11 +51,9 @@ class Import::AuthorizationRequests < Import::Base
 
   def fetch_team_members(enrollment_id)
     @team_members.fetch(enrollment_id) do
-      enrollment_team_members = filtered_team_members.select { |row| row['enrollment_id'] == enrollment_id }
-
-      @team_members[enrollment_id] = enrollment_team_members
-
-      enrollment_team_members
+      database.execute('select * from team_members where authorization_request_id = ?', enrollment_id).to_a.map do |row|
+        format_row_from_sql(row)
+      end
     end
   end
 
@@ -152,7 +152,7 @@ class Import::AuthorizationRequests < Import::Base
   end
 
   def old_unused?(enrollment_row)
-    %w[refused changes_requested draft archived].include?(enrollment_row['status'])
+    %w[refused revoked changes_requested draft archived].include?(enrollment_row['status']) &&
       DateTime.parse(enrollment_row['created_at']) < DateTime.new(2022, 1, 1)
   end
 
@@ -176,13 +176,18 @@ class Import::AuthorizationRequests < Import::Base
     }[enrollment['target_api']].try(:classify)
   end
 
-  def csv_to_loop
-    @csv_to_loop ||= csv('enrollments').select { |row| import?(row) }
+  def csv_or_table_to_loop
+    @rows_from_sql = true
+    where_key = "#{model_tableize}_sql_where".to_sym
+
+    query = 'SELECT raw_data FROM enrollments'
+    query += " WHERE #{options[where_key]}" if options[where_key].present?
+    database.execute(query)
   end
 
   def filtered_team_members
     @filtered_team_members ||= begin
-      enrollment_ids = csv_to_loop.pluck('id')
+      enrollment_ids = csv_or_table_to_loop.pluck('id')
 
       csv('team_members').select { |row| enrollment_ids.include?(row['enrollment_id']) }
     end

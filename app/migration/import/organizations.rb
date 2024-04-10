@@ -18,7 +18,7 @@ class Import::Organizations < Import::Base
 
   private
 
-  def csv_to_loop
+  def csv_or_table_to_loop
     csv('users')
   end
 end

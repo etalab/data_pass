@@ -22,7 +22,7 @@ class Import::Base
     fail NoImplementedError
   end
 
-  def csv_to_loop
+  def csv_or_table_to_loop
     csv(model_tableize)
   end
 
@@ -38,7 +38,7 @@ class Import::Base
   end
 
   def load_sql_file!
-    model_klass.destroy_all
+    model_klass.delete_all
 
     sql_tables_to_save.each do |sql_table|
       log("# Importing #{sql_table} from SQL dump")
@@ -64,7 +64,9 @@ class Import::Base
   def load_from_csv!
     log("# Importing #{model_tableize} from CSV file")
 
-    csv_to_loop.each do |row|
+    csv_or_table_to_loop.each do |row|
+      row = format_row_from_sql(row) if rows_from_sql?
+
       next unless match_global_filter?(row)
       next unless import?(row)
 
@@ -93,6 +95,14 @@ class Import::Base
 
     options[filter_key].blank? ||
       options[filter_key].call(row)
+  end
+
+  def format_row_from_sql(row)
+    JSON.parse(row[-1]).to_h
+  end
+
+  def rows_from_sql?
+    @rows_from_sql
   end
 
   def model_klass
