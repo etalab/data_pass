@@ -22,6 +22,14 @@ class Organization < ApplicationRecord
     mon_compte_pro_payload['label']
   end
 
+  def categorie_juridique_label
+    return unless insee_payload
+
+    CategorieJuridique.find(insee_payload['etablissement']['uniteLegale']['categorieJuridiqueUniteLegale']).libelle
+  rescue ActiveRecord::RecordNotFound
+    nil
+  end
+
   def self.ransackable_attributes(_auth_object = nil)
     %w[
       siret
