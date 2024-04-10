@@ -26,6 +26,17 @@ class AuthorizationRequest < ApplicationRecord
     inverse_of: :authorization_request,
     dependent: :destroy
 
+  has_many :revocations,
+    class_name: 'RevocationOfAuthorization',
+    inverse_of: :authorization_request,
+    dependent: :destroy
+
+  has_one :revocation,
+    -> { order(created_at: :desc) },
+    class_name: 'RevocationOfAuthorization',
+    inverse_of: :authorization_request,
+    dependent: :destroy
+
   has_many :changelogs,
     class_name: 'AuthorizationRequestChangelog',
     inverse_of: :authorization_request,
@@ -71,6 +82,7 @@ class AuthorizationRequest < ApplicationRecord
   scope :validated_or_refused, -> { where('state in (?) or last_validated_at is not null', %w[validated refused]) }
   scope :not_archived, -> { where.not(state: 'archived') }
   scope :without_reopening, -> { where(last_validated_at: nil) }
+  scope :revoked, -> { where(state: 'revoked') }
 
   validates :form_uid, presence: true
 
@@ -142,6 +154,10 @@ class AuthorizationRequest < ApplicationRecord
 
     event :reopen do
       transition from: :validated, to: :draft, if: ->(authorization_request) { authorization_request.reopenable? }
+    end
+
+    event :revoke do
+      transition from: :validated, to: :revoked
     end
   end
   # rubocop:enable Metrics/BlockLength
@@ -249,7 +265,7 @@ class AuthorizationRequest < ApplicationRecord
   delegate :reopenable?, to: :definition
 
   def reopening?
-    state != 'validated' &&
+    %w[validated revoked].exclude?(state) &&
       last_validated_at.present?
   end
 

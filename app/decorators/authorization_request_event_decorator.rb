@@ -24,7 +24,7 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
 
   def text
     case name
-    when 'refuse', 'request_changes'
+    when 'refuse', 'request_changes', 'revoke'
       entity.reason
     when 'submit'
       humanized_changelog

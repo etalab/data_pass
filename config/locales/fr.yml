@@ -293,10 +293,11 @@ fr:
           revoked: Révoquée
       moderation_buttons:
         title: Instruire la demande
-        refuse: Refuser
-        request_changes: Demander des modifications
         approve: Valider
         archive: Supprimer
+        refuse: Refuser
+        request_changes: Demander des modifications
+        revoke: Révoquer
     approve_authorization_requests:
       new:
         initial:
@@ -331,6 +332,7 @@ fr:
             organization: |
               Vous êtes sur le point de refuser la demande d'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_raison_sociale}' (numéro de siret: %{organization_siret}).
             disclaimer: |
+              <strong>Cette action est irréversible</strong>.
               Merci de renseigner une raison ci-dessous qui sera communiquée au demandeur.
           cancel: Annuler
           refuse: Refuser la demande d'habilitation
@@ -343,12 +345,28 @@ fr:
               Merci de renseigner une raison ci-dessous qui sera communiquée au demandeur. A noter que lors du refus, les modifications apportées par le demandeur depuis le début de la réouverture seront annulées. L'habilitation sera toujours valide.
           cancel: Annuler
           refuse: Refuser la demande de mise à jour
-
       create:
         success:
           title: La demande d'habilitation %{name} a été refusée
         reopening_success:
           title: La demande de mise à jour de l'habilitation %{name} a été refusée
+
+    revoke_authorization_requests:
+      new:
+        initial:
+          title: Révocation de l'habilitation
+          description:
+            organization: |
+              Vous êtes sur le point de révoquer cette habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_raison_sociale}' (numéro de siret: %{organization_siret}).
+            disclaimer: |
+              <strong>Cette action est irréversible</strong>.
+              Merci de renseigner les motifs qui seront communiqués au demandeur.
+          cancel: Annuler
+          revoke: Révoquer l'habilitation
+
+      create:
+        success:
+          title: L'habilitation %{name} a été révoquée
 
     request_changes_on_authorization_requests:
       new:
@@ -429,6 +447,15 @@ fr:
         refuse:
           text: |
             <strong>%{user_full_name}</strong> a refusé la demande:
+
+            <blockquote>
+              %{text}
+            </blockquote>
+          icon: close-circle-line
+          color: error
+        revoke:
+          text: |
+            <strong>%{user_full_name}</strong> a révoqué la demande:
 
             <blockquote>
               %{text}

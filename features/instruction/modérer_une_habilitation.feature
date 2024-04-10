@@ -30,7 +30,7 @@ Fonctionnalité: Instruction: modération
     Quand je me rends sur une demande d'habilitation "API Particulier" à modérer
     Et je clique sur "Refuser"
     Et que je remplis "Raison du refus" avec "Vous êtes une entreprise privée"
-    Et que je clique sur "Refuser la demande"
+    Et que je clique sur "Refuser la demande d'habilitation"
     Alors je suis sur la page "Liste des demandes en cours"
     Et je vois 1 demande d'habilitation "API Particulier" refusée
     Et un email est envoyé contenant "Vous êtes une entreprise privée"
