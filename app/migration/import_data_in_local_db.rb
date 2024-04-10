@@ -44,12 +44,13 @@ class ImportDataInLocalDb
           create table events (
             id INTEGER PRIMARY KEY,
             authorization_request_id INTEGER,
+            created_at DATETIME,
             raw_data TEXT
           );
           create index authorization_request_id_index on events (authorization_request_id);
         ",
-        insert_statement: "insert into events (id, authorization_request_id, raw_data) values (?, ?, ?)",
-        insert_data: ->(row) { [row['id'], row['enrollment_id'], row.to_a.to_json] }
+        insert_statement: "insert into events (id, authorization_request_id, created_at, raw_data) values (?, ?, ?, ?)",
+        insert_data: ->(row) { [row['id'], row['enrollment_id'], row['created_at'], row.to_a.to_json] }
       },
       'team_members' => {
         table: "
@@ -75,6 +76,44 @@ class ImportDataInLocalDb
         ",
         insert_statement: "insert into enrollments (id, target_api, raw_data) values (?, ?, ?)",
         insert_data: ->(row) { [row['id'], row['target_api'], row.to_a.to_json] }
+      },
+      'snapshots' => {
+        table: "
+          create table snapshots (
+            id INTEGER PRIMARY KEY,
+            enrollment_id INTEGER,
+            created_at DATETIME,
+            raw_data TEXT
+          );
+          create index snapshot_enrollment_id_index on snapshots (enrollment_id);
+        ",
+        insert_statement: "insert into snapshots (id, enrollment_id, created_at, raw_data) values (?, ?, ?, ?)",
+        insert_data: ->(row) { [row['id'], row['item_id'], row['created_at'], row.to_a.to_json] },
+      },
+      'snapshot_items' => {
+        table: "
+          create table snapshot_items (
+            id INTEGER PRIMARY KEY,
+            snapshot_id INTEGER,
+            created_at DATETIME,
+            raw_data TEXT
+          );
+          create index snapshot_item_snapshot_id_index on snapshots_items (snapshot_id);
+        ",
+        insert_statement: "insert into snapshot_items (id, snapshot_id, created_at, raw_data) values (?, ?, ?, ?)",
+        insert_data: ->(row) { [row['id'], row['snapshot_id'], row['created_at'], row.to_a.to_json] }
+      },
+      'documents' => {
+        table: "
+          create table documents (
+            id INTEGER PRIMARY KEY,
+            enrollment_id INTEGER,
+            raw_data TEXT
+          );
+          create index document_enrollment_id_index on documents (enrollment_id);
+        ",
+        insert_statement: "insert into documents (id, enrollment_id, raw_data) values (?, ?, ?)",
+        insert_data: ->(row) { [row['id'], row['attachable_id'], row.to_a.to_json] }
       }
     }
   end
