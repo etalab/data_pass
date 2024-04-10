@@ -5,6 +5,7 @@ class Import::Users < Import::Base
 
     user.assign_attributes(
       user_row.to_h.slice(
+        'id',
         'phone_number',
       ).merge(
         given_name: user_row['given_name'].try(:strip),
