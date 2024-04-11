@@ -32,6 +32,16 @@ situé dans le dossier [`app/migration/import/authorization_requests/`](./import
 cela permet de simplifier les traitements. La classe
 `Import::AuthorizationRequests` s'occupe des attributs communs.
 
+Pour l'import final il faure les creds d'OVH S3 dans le fichier `.ovh.yml` sous le format suivant:
+
+```yaml
+---
+OVH_BUCKET: OVH_BUCKET
+OVH_ACCESS_KEY_ID: OVH_ACCESS_KEY_ID
+OVH_SECRET_ACCESS_KEY: OVH_SECRET_ACCESS_KEY
+OVH_REGION: reg
+```
+
 ### 2.1 Ajout d'un nouveau type d'habilitation.
 
 1. Ajouter le mapping dans `Import::AuthorizationRequests#from_target_api_to_type`
