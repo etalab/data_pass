@@ -4,6 +4,7 @@ ruby '3.3.0'
 
 gem 'active_model_serializers', '~> 0.10.14'
 gem 'active_storage_validations'
+gem 'aws-sdk-s3', require: false
 gem 'bootsnap', require: false
 gem 'draper'
 gem 'emailable'
