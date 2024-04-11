@@ -483,4 +483,7 @@ fr:
             </blockquote>
 
         system_reminder:
-          text: "Une relance a été envoyé au demandeur"
+          text: Une relance a été envoyé au demandeur
+
+        system_archive:
+          text: L'habilitation a été archivée par le système

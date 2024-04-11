@@ -14,6 +14,7 @@ class AuthorizationRequestEvent < ApplicationRecord
     instructor_message
 
     system_reminder
+    system_archive
   ].freeze
 
   belongs_to :user, optional: true
