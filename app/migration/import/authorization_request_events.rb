@@ -16,9 +16,9 @@ class Import::AuthorizationRequestEvents < Import::Base
     when 'submit'
       # retrieve all updates and diffs to create a changelog
     when 'approve'
-      create_event(event_row, entity: authorization_request.latest_authorization)
+      create_event(event_row, entity: create_authorization(event_row))
     when 'reopen'
-      # create_event(event_row, entity: Authorization.create!(authorization_request:, reason: event_row['comment']))
+      create_event(event_row, entity: find_closest_authorization(event_row))
     when 'refuse'
       create_event(event_row, entity: DenialOfAuthorization.create!(authorization_request:, reason: event_row['comment']))
     when 'revoke'
@@ -45,5 +45,16 @@ class Import::AuthorizationRequestEvents < Import::Base
         user_id: event_row['user_id'],
       }.merge(extra_params)
     )
+  end
+
+  def create_authorization(event_row)
+    CreateAuthorizationFromSnapshot.new(authorization_request, event_row).perform
+  end
+
+  def find_closest_authorization(event_row)
+    Authorization.where(
+      "date_trunc('hour', 'created_at') = (?)",
+      DateTime.parse(event_row['created_at']).beginning_of_hour
+    ).where(request_id: authorization_request.id).first
   end
 end

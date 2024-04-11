@@ -11,6 +11,7 @@ class MainImport
     organizations = import(:organizations, { load_from_sql: true })
     import(:users, { load_from_sql: true })
     authorization_requests = import(:authorization_requests, { load_from_sql: true })
+
     import(:authorization_request_events, { load_from_sql: true, valid_authorization_request_ids: authorization_requests.pluck(:id) })
 
     export_skipped
