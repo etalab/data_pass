@@ -1,6 +1,8 @@
 class CreateAuthorizationFromSnapshot
   include LocalDatabaseUtils
 
+  attr_reader :authorization_request, :event_row
+
   def initialize(authorization_request, event_row)
     @authorization_request = authorization_request
     @event_row = event_row
@@ -8,12 +10,20 @@ class CreateAuthorizationFromSnapshot
 
   def perform
     snapshot = find_closest_snapshot
-    snapshot_items = find_snapshot_items(snapshot)
+
+    # XXX Cas où il y a eu une révocation récente (dunno why ?)
+    if snapshot.blank?
+      data = authorization_request.data
+    else
+      snapshot_items = find_snapshot_items(snapshot)
+      data = build_data(snapshot_items)
+    end
 
     Authorization.create!(
       request_id: authorization_request.id,
       applicant: authorization_request.applicant,
-      data: build_data(snapshot_items)
+      data: build_data(snapshot_items),
+      created_at: event_datetime,
     )
   end
 
@@ -21,17 +31,21 @@ class CreateAuthorizationFromSnapshot
 
   def find_closest_snapshot
     if event_datetime.to_date <= initial_creation_date
-      database.execute(
-        'select * from snapshots where item_id = ? order by created_at limit 1',
+      data = database.execute(
+        'select * from snapshots where enrollment_id = ? order by created_at limit 1',
         authorization_request.id,
       )
     else
-      database.execute(
-        'select * from snapshots where item_id = ? and date(created_at) = ? order by created_at limit 1',
+      data = database.execute(
+        'select * from snapshots where enrollment_id = ? and date(created_at) = ? order by created_at limit 1',
         authorization_request.id,
-        event_datetime.to_date,
+        event_datetime.to_date.to_s,
       )
     end
+
+    return if data.empty?
+
+    JSON.parse(data[0][-1]).to_h
   end
 
   def find_snapshot_items(snapshot)

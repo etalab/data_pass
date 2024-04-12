@@ -13,12 +13,25 @@ class Import::AuthorizationRequestEvents < Import::Base
       else
         create_event(event_row, name: 'system_archive', entity: authorization_request, user_id: nil)
       end
+    when 'reminder_before_archive', 'reminder'
+      create_event(event_row, name: 'system_reminder', entity: authorization_request, user_id: nil)
+    when 'import'
+      # FIXME seulement hubee et FC
+    when 'notify'
+      user = User.find(event_row['user_id'])
+      message = Message.create!(body: event_row['comment'], from: user, authorization_request: authorization_request)
+      name = event_row['is_notify_from_demandeur'] == 't' ? 'applicant_message' : 'instructor_message'
+
+      create_event(event_row, name:, entity: message)
+    when 'request_changes'
+      create_event(event_row, entity: InstructorModificationRequest.create!(authorization_request:, reason: event_row['comment']))
     when 'submit'
-      # retrieve all updates and diffs to create a changelog
-    when 'approve'
-      create_event(event_row, entity: create_authorization(event_row))
+      # FIXME retrieve all updates and diffs to create a changelog
+      create_event(event_row, entity: AuthorizationRequestChangelog.create!(authorization_request:))
+    when 'approve', 'validate'
+      create_event(event_row, name: 'approve', entity: create_authorization(event_row, authorization_request))
     when 'reopen'
-      create_event(event_row, entity: find_closest_authorization(event_row))
+      create_event(event_row, entity: find_closest_authorization(event_row, authorization_request))
     when 'refuse'
       create_event(event_row, entity: DenialOfAuthorization.create!(authorization_request:, reason: event_row['comment']))
     when 'revoke'
@@ -35,6 +48,7 @@ class Import::AuthorizationRequestEvents < Import::Base
     query = 'SELECT raw_data FROM events'
     query += " where authorization_request_id in (#{options[:valid_authorization_request_ids].join(',')})"
     query += " and #{options[where_key]}" if options[where_key].present?
+    query += ' ORDER BY created_at ASC'
     database.execute(query)
   end
 
@@ -43,18 +57,18 @@ class Import::AuthorizationRequestEvents < Import::Base
       {
         name: event_row['name'],
         user_id: event_row['user_id'],
+        created_at: event_row['created_at'],
       }.merge(extra_params)
     )
   end
 
-  def create_authorization(event_row)
+  def create_authorization(event_row, authorization_request)
     CreateAuthorizationFromSnapshot.new(authorization_request, event_row).perform
   end
 
-  def find_closest_authorization(event_row)
+  def find_closest_authorization(event_row, authorization_request)
     Authorization.where(
-      "date_trunc('hour', 'created_at') = (?)",
-      DateTime.parse(event_row['created_at']).beginning_of_hour
-    ).where(request_id: authorization_request.id).first
+      request_id: authorization_request.id
+    ).order(created_at: :desc).first
   end
 end
