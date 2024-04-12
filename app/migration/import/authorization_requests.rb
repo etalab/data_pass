@@ -165,7 +165,11 @@ class Import::AuthorizationRequests < Import::Base
 
   def find_or_build_authorization_request(enrollment_row)
     AuthorizationRequest.find_by(id: enrollment_row['id']) ||
-      AuthorizationRequest.const_get(from_target_api_to_type(enrollment_row)).new(id: enrollment_row['id'], type: "AuthorizationRequest::#{from_target_api_to_type(enrollment_row)}")
+      AuthorizationRequest.const_get(from_target_api_to_type(enrollment_row)).new(
+        id: enrollment_row['id'],
+        created_at: enrollment_row['created_at'],
+        type: "AuthorizationRequest::#{from_target_api_to_type(enrollment_row)}"
+      )
   end
 
   def from_target_api_to_type(enrollment)

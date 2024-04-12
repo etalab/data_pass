@@ -7,7 +7,8 @@ class Import::Organizations < Import::Base
 
       organization.assign_attributes(
         mon_compte_pro_payload: organization_data,
-        last_mon_compte_pro_updated_at: DateTime.now
+        last_mon_compte_pro_updated_at: DateTime.now,
+        created_at: user_row['created_at'],
       )
 
       organization.save!

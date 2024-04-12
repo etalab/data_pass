@@ -7,6 +7,7 @@ class Import::Users < Import::Base
       user_row.to_h.slice(
         'id',
         'phone_number',
+        'created_at',
       ).merge(
         given_name: user_row['given_name'].try(:strip),
         family_name: user_row['family_name'].try(:strip),
