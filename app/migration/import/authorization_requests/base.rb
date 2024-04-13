@@ -3,6 +3,7 @@ require 'aws-sdk-s3'
 
 class Import::AuthorizationRequests::Base
   include ImportUtils
+  include LocalDatabaseUtils
 
   class SkipRow < StandardError
     attr_reader :kind, :id, :target_api
