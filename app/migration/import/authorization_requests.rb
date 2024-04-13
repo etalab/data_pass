@@ -120,6 +120,8 @@ class Import::AuthorizationRequests < Import::Base
     user.organizations << organization
     user.current_organization = organization
 
+    user.id = 100_000 + User.count
+
     user.save!
 
     user
