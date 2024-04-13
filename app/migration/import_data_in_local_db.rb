@@ -69,13 +69,15 @@ class ImportDataInLocalDb
           create table enrollments (
             id INTEGER PRIMARY KEY,
             target_api TEXT,
+            status TEXT,
+            copied_from_enrollment_id INTEGER,
             raw_data TEXT
           );
           create index enrollment_id_index on enrollments (id);
           create index enrollment_target_api_index on enrollments (target_api);
         ",
-        insert_statement: "insert into enrollments (id, target_api, raw_data) values (?, ?, ?)",
-        insert_data: ->(row) { [row['id'], row['target_api'], row.to_a.to_json] }
+        insert_statement: "insert into enrollments (id, target_api, status, copied_from_enrollment_id, raw_data) values (?, ?, ?, ?, ?)",
+        insert_data: ->(row) { [row['id'], row['target_api'], row['status'], row['copied_from_enrollment_id'], row.to_a.to_json] }
       },
       'snapshots' => {
         table: "
