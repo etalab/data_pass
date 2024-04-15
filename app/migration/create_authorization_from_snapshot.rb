@@ -19,12 +19,24 @@ class CreateAuthorizationFromSnapshot
       data = build_data(snapshot_items)
     end
 
-    Authorization.create!(
+    authorization = Authorization.create!(
       request_id: authorization_request.id,
       applicant: authorization_request.applicant,
       data: build_data(snapshot_items),
       created_at: event_datetime,
     )
+
+    authorization_request.class.documents.each do |document_identifier|
+      storage_file_model = authorization_request.public_send(document_identifier)
+      next if storage_file_model.blank?
+
+      document = authorization.documents.create!(
+        identifier: document_identifier,
+      )
+      document.file.attach(storage_file_model.blob)
+    end
+
+    authorization
   end
 
   private
