@@ -4,6 +4,7 @@ class Import::AuthorizationRequests::APIEntrepriseAttributes < Import::Authoriza
     affect_attributes
     affect_contacts
     affect_potential_legal_document
+    affect_form_uid
   end
 
   def affect_contacts
@@ -40,6 +41,43 @@ class Import::AuthorizationRequests::APIEntrepriseAttributes < Import::Authoriza
 
     if row
       attach_file('cadre_juridique_document', row)
+    end
+  end
+
+  def affect_form_uid
+    form_uid = demarche_to_form_uid
+
+    return if form_uid.blank?
+
+    authorization_request.form_uid = form_uid
+  end
+
+  def demarche_to_form_uid
+    case enrollment_row['demarche']
+    when 'marches_publics'
+      'api-entreprise-marches-publics'
+    when 'aides_publiques'
+      'api-entreprise-aides-publiques'
+    when 'subventions_associations'
+      'api-entreprise-subventions-associations'
+    when 'portail_gru'
+      'api-entreprise-portail-gru-preremplissage'
+    when 'portail_gru_instruction'
+      'api-entreprise-portail-gru-instruction'
+    when 'detection_fraude'
+      'api-entreprise-detection-fraude'
+    when 'e_attestations'
+      'api-entreprise-e-attestations'
+    when 'provigis'
+      'api-entreprise-provigis'
+    when 'achat_solution'
+      'api-entreprise-achat-solution'
+    when 'atexo'
+      'api-entreprise-atexo'
+    when 'mgdis'
+      'api-entreprise-mgdis'
+    when 'setec'
+      'api-entreprise-setec-atexo'
     end
   end
 
