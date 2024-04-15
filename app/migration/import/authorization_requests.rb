@@ -16,17 +16,12 @@ class Import::AuthorizationRequests < Import::Base
 
     authorization_request.form_uid = fetch_form(authorization_request).id
     authorization_request.state = enrollment_row['status']
+    authorization_request.linked_token_manager_id = enrollment_row['linked_token_manager_id']
 
     if !authorization_request.filling?
       authorization_request.assign_attributes(
         terms_of_service_accepted: true,
         data_protection_officer_informed: true,
-      )
-    end
-
-    if authorization_request.state == 'validated'
-      authorization_request.assign_attributes(
-        last_validated_at: DateTime.now,
       )
     end
 
@@ -44,6 +39,16 @@ class Import::AuthorizationRequests < Import::Base
   end
 
   private
+
+  def sql_tables_to_save
+    @sql_tables_to_save ||= super.concat(
+      %w[
+        active_storage_attachments
+        active_storage_blobs
+        active_storage_variant_records
+      ]
+    )
+  end
 
   def find_team_member(kind, enrollment_id)
     fetch_team_members(enrollment_id).find { |team_member| team_member['type'] == kind }

@@ -29,8 +29,16 @@ class Import::AuthorizationRequestEvents < Import::Base
       # FIXME retrieve all updates and diffs to create a changelog
       create_event(event_row, entity: AuthorizationRequestChangelog.create!(authorization_request:))
     when 'approve', 'validate'
+      authorization_request.assign_attributes(
+        last_validated_at: event_row['created_at'],
+      )
+
       create_event(event_row, name: 'approve', entity: create_authorization(event_row, authorization_request))
     when 'reopen'
+      authorization_request.assign_attributes(
+        reopened_at: event_row['created_at'],
+      )
+
       create_event(event_row, entity: find_closest_authorization(event_row, authorization_request))
     when 'refuse'
       create_event(event_row, entity: DenialOfAuthorization.create!(authorization_request:, reason: event_row['comment']))
@@ -40,6 +48,21 @@ class Import::AuthorizationRequestEvents < Import::Base
   end
 
   private
+
+  def sql_tables_to_save
+    @sql_tables_to_save ||= super.concat(
+      %w[
+        instructor_modification_requests
+        authorization_request_changelogs
+        denial_of_authorizations
+        revocation_of_authorizations
+        messages
+
+        authorizations
+        authorization_documents
+      ]
+    )
+  end
 
   def csv_or_table_to_loop
     @rows_from_sql = true
