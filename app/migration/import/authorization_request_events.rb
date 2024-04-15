@@ -19,7 +19,13 @@ class Import::AuthorizationRequestEvents < Import::Base
       # FIXME seulement hubee et FC
     when 'notify'
       user = User.find(event_row['user_id'])
-      message = Message.create!(body: event_row['comment'], from: user, authorization_request: authorization_request)
+      message = Message.create!(
+        body: event_row['comment'],
+        from: user,
+        authorization_request: authorization_request,
+        sent_at: event_row['created_at'],
+        read_at: event_row['created_at'],
+      )
       name = event_row['is_notify_from_demandeur'] == 't' ? 'applicant_message' : 'instructor_message'
 
       create_event(event_row, name:, entity: message)
