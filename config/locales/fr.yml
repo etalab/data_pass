@@ -12,7 +12,10 @@ fr:
     legal: 'cadre-juridique'
     scopes: 'donnees'
     contacts: 'contacts'
+  authorization:
+    badge: habilitation n°%{id}
   authorization_request:
+    badge: demande n°%{id}
     status:
       draft: Brouillon
       changes_requested: A modifier

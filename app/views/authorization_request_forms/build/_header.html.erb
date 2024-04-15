@@ -10,13 +10,8 @@
           <%= @authorization_request.definition.name %>
         </h2>
 
-        <p class="authorization-request-form-header__badges">
-          <% if @authorization_request.reopening? %>
-            <%= authorization_request_reopening_badge %>
-          <% end %>
+        <%= render partial: "authorization_request_forms/shared/header_badge", locals: { authorization_request: @authorization_request } %>
 
-          <%= authorization_request_status_badge(@authorization_request) %>
-        </p>
       </div>
       <div class="fr-col-12 fr-col-md-4">
         <div class="authorization-request-form-header__actions">
