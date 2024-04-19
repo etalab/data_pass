@@ -16,7 +16,7 @@ class DashboardController < AuthenticatedUserController
       return
     end
 
-    @authorization_requests = @authorization_requests.not_archived
+    @authorization_requests = @authorization_requests.not_archived.order(created_at: :desc)
   end
 
   private
