@@ -15,7 +15,7 @@
       ".#{authorization_request_event.name}.text",
       **{
         user_full_name: authorization_request_event.user_full_name,
-        text: authorization_request_event.text,
+        text: simple_format(authorization_request_event.text),
       }.compact
     ).html_safe
   %>
