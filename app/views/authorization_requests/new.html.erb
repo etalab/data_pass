@@ -68,13 +68,22 @@
           <%= start_authorization_request_form(authorization_request_form) %>
         </p>
       <% else %>
-        <p>
-          <%= t('.single_form.description') %>
+        <% if hubee_cert_dc_any?(current_organization) %>
+          <p>
+            <%= t('.single_form.description') %>
 
-          <br />
+            <br/>
+            <%= disabled_start_authorization_request_form(authorization_request_form) %>
+          </p>
+        <% else %>
+          <p>
+            <%= t('.single_form.description') %>
 
-          <%= start_authorization_request_form(authorization_request_form) %>
-        </p>
+            <br/>
+
+            <%= start_authorization_request_form(authorization_request_form) %>
+          </p>
+        <% end %>
       <% end %>
     <% else %>
       <%= link_to t('.cta', authorization_name: @authorization_definition.name), choose_authorization_request_form_path(authorization_definition_id: @authorization_definition.id), class: %w[fr-btn fr-btn--lg] %>

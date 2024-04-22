@@ -5,6 +5,12 @@ module AuthorizationRequestsHelpers
     end
   end
 
+  def disabled_start_authorization_request_form(form)
+    authorization_request_form_tag(form.authorization_request_class.new(form_uid: form.uid)) do |f|
+      f.button t('start_authorization_request_form.cta', authorization_name: form.authorization_definition.name), type: :submit, name: :start, id: dom_id(form, :start_authorization_request), class: %w[fr-btn fr-icon-save-line fr-btn--icon-left], disabled: true
+    end
+  end
+
   def authorization_request_form(authorization_request, url: nil, &)
     authorization_request_form_tag(authorization_request, url:) do |f|
       render(layout: 'authorization_request_forms/form', locals: { f: }) do
@@ -51,5 +57,9 @@ module AuthorizationRequestsHelpers
     return false if namespace?(:instruction)
 
     authorization_request.filling?
+  end
+
+  def hubee_cert_dc_any?(current_organization)
+    current_organization.active_authorization_requests.where(type: 'AuthorizationRequest::HubEECertDC').any?
   end
 end
