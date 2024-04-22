@@ -39,8 +39,6 @@ fr:
         label: Email
       contact_technique_phone_number: &contact_phone_number
         label: Téléphone
-      contact_technique_job_title: &contact_job_title
-        label: Fonction
 
       contact_metier:
         title: Contact métier
@@ -56,7 +54,6 @@ fr:
       responsable_traitement_given_name: *contact_given_name
       responsable_traitement_email: *contact_email
       responsable_traitement_phone_number: *contact_phone_number
-      responsable_traitement_job_title: *contact_job_title
 
       delegue_protection_donnees:
         title: Délégué à la protection des données
