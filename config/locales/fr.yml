@@ -140,6 +140,8 @@ fr:
       title: &start_new_habilitation_title Démarrer une nouvelle habilitation pour %{authorization_name}
       current_form: Via le formulaire " %{authorization_request_form_name} "
       current_form_with_editor: Via le formulaire " %{authorization_request_form_name} " relatif à l'éditeur " %{editor_name} "
+      unicity_warning:
+        description: Vous ne pouvez posséder qu'une seule habilitation pour %{authorization_request_form_name}.
       organization:
         start_text: "Vous êtes sur le point de démarrer une nouvelle demande d'habilitation pour le compte de <strong>%{organization_raison_sociale}</strong> (numéro de siret: <a href=\"https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}\" target=\"_blank\">%{organization_siret}</a>)."
         callout:

@@ -68,23 +68,19 @@
           <%= start_authorization_request_form(authorization_request_form) %>
         </p>
       <% else %>
-        <% if policy(authorization_request_form).new? %>
-          <p>
-            <%= t('.single_form.description') %>
+        <p>
+          <%= t('.single_form.description') %>
 
-            <br/>
-
+          <% if policy(authorization_request_form).new? %>
             <%= start_authorization_request_form(authorization_request_form) %>
-          </p>
-        <% else %>
-          <p>
-            <%= t('.single_form.description') %>
-
-            <br/>
+          <% else %>
+            <p class="fr-alert fr-alert--warning fr-my-3w">
+              <%= t('.unicity_warning.description', authorization_request_form_name: authorization_request_form.name_with_authorization) %>
+            </p>
 
             <%= start_authorization_request_form(authorization_request_form, disabled: true) %>
-          </p>
-        <% end %>
+          <% end %>
+        </p>
       <% end %>
     <% else %>
       <%= link_to t('.cta', authorization_name: @authorization_definition.name), choose_authorization_request_form_path(authorization_definition_id: @authorization_definition.id), class: %w[fr-btn fr-btn--lg] %>
