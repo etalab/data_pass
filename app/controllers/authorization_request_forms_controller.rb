@@ -24,6 +24,8 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   end
 
   def create
+    authorize @authorization_request_form, :create?
+
     if @authorization_request_form.multiple_steps?
       create_for_multiple_steps
     else
