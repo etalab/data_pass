@@ -88,7 +88,7 @@ class AuthorizationRequest < ApplicationRecord
   validate :applicant_belongs_to_organization
 
   class << self
-    delegate :description, :available_forms, :provider, :startable_by_applicant, :unique?, to: :definition
+    delegate :description, :available_forms, :provider, :startable_by_applicant, to: :definition
 
     def definition
       @definition ||= AuthorizationDefinition.find(to_s.demodulize.underscore)

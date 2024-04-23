@@ -8,8 +8,7 @@ class AuthorizationDefinition < StaticApplicationRecord
     :scopes,
     :blocks
 
-  attr_writer :unique,
-    :startable_by_applicant,
+  attr_writer :startable_by_applicant,
     :public,
     :webhook
 
@@ -42,7 +41,6 @@ class AuthorizationDefinition < StaticApplicationRecord
         :public,
         :webhook,
         :startable_by_applicant,
-        :unique
       ).merge(
         id: uid.to_s,
         provider: DataProvider.find(hash[:provider]),
@@ -50,10 +48,6 @@ class AuthorizationDefinition < StaticApplicationRecord
         blocks: hash[:blocks] || [],
       )
     )
-  end
-
-  def unique?
-    value_or_default(@unique, false)
   end
 
   def reopenable?

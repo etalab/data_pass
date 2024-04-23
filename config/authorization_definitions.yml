@@ -6,7 +6,6 @@ shared:
     cgu_link: '/cgus/20210212_dinum_hubee_cgu_v2_1_0_version_site.pdf'
     provider: 'hubee'
     public: true
-    unique: true
     blocks:
       - name: 'contacts'
 
