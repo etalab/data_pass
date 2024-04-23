@@ -73,7 +73,8 @@
             <%= t('.single_form.description') %>
 
             <br/>
-            <%= disabled_start_authorization_request_form(authorization_request_form) %>
+
+            <%= start_authorization_request_form(authorization_request_form, disabled: true) %>
           </p>
         <% else %>
           <p>

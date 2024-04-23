@@ -276,6 +276,6 @@ Alors(/je vois (\d+) habilitation(?: "([^"]+)")?(?:(?: en)? (.+))?/) do |count, 
   end
 end
 
-Et(/je peux voir le bouton "Débuter mon habilitation pour Portail HubEE - Démarche CertDC" grisé et désactivé/) do
-  expect(page).to have_css('button#start_authorization_request_authorization_request_form_portail-hubee-demarche-certdc.fr-btn.fr-icon-save-line.fr-btn--icon-left[disabled]', text: 'Débuter mon habilitation pour Portail HubEE - Démarche CertDC')
+Et('je peux voir le bouton {string} grisé et désactivé') do |string|
+  expect(page).to have_css('button[disabled]', text: string)
 end
