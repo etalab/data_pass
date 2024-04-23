@@ -43,7 +43,7 @@ class AuthorizationRequestForm < StaticApplicationRecord
   end
   # rubocop:enable Metrics/AbcSize
 
-  delegate :provider, :unique?, to: :authorization_definition
+  delegate :provider, to: :authorization_definition
 
   def id
     uid

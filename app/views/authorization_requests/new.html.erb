@@ -71,9 +71,14 @@
         <p>
           <%= t('.single_form.description') %>
 
-          <br />
-
-          <%= start_authorization_request_form(authorization_request_form) %>
+          <% if policy(authorization_request_form).new? %>
+            <%= start_authorization_request_form(authorization_request_form) %>
+          <% else %>
+            <div class="flex">
+              <%= link_to t('.back_to_dashboard'), dashboard_path, class: %w[fr-btn fr-btn--secondary fr-mr-2w] %>
+              <%= start_authorization_request_form(authorization_request_form, disabled: true) %>
+            </div>
+          <% end %>
         </p>
       <% end %>
     <% else %>

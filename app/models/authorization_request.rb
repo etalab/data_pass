@@ -85,9 +85,10 @@ class AuthorizationRequest < ApplicationRecord
   scope :revoked, -> { where(state: 'revoked') }
 
   validates :form_uid, presence: true
+  validate :applicant_belongs_to_organization
 
   class << self
-    delegate :description, :available_forms, :provider, :startable_by_applicant, :unique?, to: :definition
+    delegate :description, :available_forms, :provider, :startable_by_applicant, to: :definition
 
     def definition
       @definition ||= AuthorizationDefinition.find(to_s.demodulize.underscore)
@@ -161,8 +162,6 @@ class AuthorizationRequest < ApplicationRecord
     end
   end
   # rubocop:enable Metrics/BlockLength
-
-  validate :applicant_belongs_to_organization
 
   def self.ransackable_attributes(_auth_object = nil)
     %w[

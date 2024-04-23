@@ -146,4 +146,30 @@ RSpec.describe AuthorizationRequest do
       it { is_expected.not_to be_valid(:submit) }
     end
   end
+
+  describe 'unicity of authorization request validation' do
+    subject(:authorization_request) { build(:authorization_request, :hubee_cert_dc, organization:) }
+
+    let(:organization) { create(:organization) }
+
+    context 'when an authorization request already exists for the same organization' do
+      before do
+        create(:authorization_request, :hubee_cert_dc, organization:)
+      end
+
+      it { is_expected.not_to be_valid }
+    end
+
+    context 'when an authorization request already exists for the same organization but is archived' do
+      before do
+        create(:authorization_request, :hubee_cert_dc, :archived, organization:)
+      end
+
+      it { is_expected.to be_valid }
+    end
+
+    context 'when there is no authorization request for the same organization' do
+      it { is_expected.to be_valid }
+    end
+  end
 end

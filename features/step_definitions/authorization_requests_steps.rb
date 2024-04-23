@@ -275,3 +275,7 @@ Alors(/je vois (\d+) habilitation(?: "([^"]+)")?(?:(?: en)? (.+))?/) do |count, 
     expect(page).to have_css('.authorization-request-state', text: I18n.t("authorization_request.status.#{state}"), count:)
   end
 end
+
+Et('je peux voir le bouton {string} grisé et désactivé') do |string|
+  expect(page).to have_css('button[disabled]', text: string)
+end
