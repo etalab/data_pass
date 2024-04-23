@@ -28,7 +28,7 @@ module DataPass
 
     config.action_mailer.preview_paths = [Rails.root.join('spec/mailers/previews')]
 
-    config.default_from = 'support@datapass.api.gouv.fr'
+    config.default_from = 'notifications@api.gouv.fr'
 
     # Configuration for the application, engines, and railties goes here.
     #
