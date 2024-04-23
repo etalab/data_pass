@@ -26,6 +26,10 @@ h3.with-icon img {
   display: inline!important;
 }
 
+.flex {
+  display: flex!important;
+}
+
 .header__logo {
   max-width: 7rem;
   padding: 1rem;

@@ -74,11 +74,10 @@
           <% if policy(authorization_request_form).new? %>
             <%= start_authorization_request_form(authorization_request_form) %>
           <% else %>
-            <p class="fr-alert fr-alert--warning fr-my-3w">
-              <%= t('.unicity_warning.description', authorization_request_form_name: authorization_request_form.name_with_authorization) %>
-            </p>
-
-            <%= start_authorization_request_form(authorization_request_form, disabled: true) %>
+            <div class="flex">
+              <%= link_to t('.back_to_dashboard'), dashboard_path, class: %w[fr-btn fr-btn--secondary fr-mr-2w] %>
+              <%= start_authorization_request_form(authorization_request_form, disabled: true) %>
+            </div>
           <% end %>
         </p>
       <% end %>
