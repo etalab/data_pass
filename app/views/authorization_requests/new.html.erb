@@ -68,13 +68,13 @@
           <%= start_authorization_request_form(authorization_request_form) %>
         </p>
       <% else %>
-        <% if hubee_cert_dc_any?(current_organization) %>
+        <% if policy(authorization_request_form).new? %>
           <p>
             <%= t('.single_form.description') %>
 
             <br/>
 
-            <%= start_authorization_request_form(authorization_request_form, disabled: true) %>
+            <%= start_authorization_request_form(authorization_request_form) %>
           </p>
         <% else %>
           <p>
@@ -82,7 +82,7 @@
 
             <br/>
 
-            <%= start_authorization_request_form(authorization_request_form) %>
+            <%= start_authorization_request_form(authorization_request_form, disabled: true) %>
           </p>
         <% end %>
       <% end %>

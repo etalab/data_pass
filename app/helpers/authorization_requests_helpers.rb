@@ -52,8 +52,4 @@ module AuthorizationRequestsHelpers
 
     authorization_request.filling?
   end
-
-  def hubee_cert_dc_any?(current_organization)
-    current_organization.active_authorization_requests.where(type: 'AuthorizationRequest::HubEECertDC').any?
-  end
 end
