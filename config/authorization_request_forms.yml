@@ -4,8 +4,8 @@ shared:
     authorization_request: 'HubEECertDC'
 
   portail-hubee-dila:
-    authorization_request: 'HubEEDila'
     name: "Démarches en ligne auxquelles vous souhaitez abonner votre commune"
+    authorization_request: 'HubEEDila'
     steps:
       - name: 'scopes'
       - name: 'contacts'
