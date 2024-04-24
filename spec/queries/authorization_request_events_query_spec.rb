@@ -2,7 +2,7 @@ RSpec.describe AuthorizationRequestEventsQuery, type: :FEEDME do
   describe '#perform' do
     subject(:events) { described_class.new(authorization_request).perform }
 
-    let(:authorization_request) { create(:authorization_request).reload }
+    let(:authorization_request) { create(:authorization_request, :api_entreprise).reload }
 
     before do
       AuthorizationRequestEvent::NAMES.each_with_index do |event_name, index|

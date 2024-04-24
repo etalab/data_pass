@@ -10,6 +10,8 @@ class AuthorizationRequestEvent < ApplicationRecord
     submit
     update
 
+    copy
+
     applicant_message
     instructor_message
 

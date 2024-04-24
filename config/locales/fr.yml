@@ -467,6 +467,10 @@ fr:
           icon: close-circle-line
           color: error
 
+        copy:
+          text: |
+            <strong>%{user_full_name}</strong> a copié la demande %{copied_from_authorization_request_id}
+
         reopen:
           text: "<strong>%{user_full_name}</strong> a réouvert l'habilitation"
 

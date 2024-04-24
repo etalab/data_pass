@@ -1,6 +1,6 @@
 RSpec.describe 'Instruction: habilitation events' do
   let(:user) { create(:user, :instructor) }
-  let(:authorization_request) { create(:authorization_request, applicant: user) }
+  let(:authorization_request) { create(:authorization_request, :api_entreprise, applicant: user) }
 
   before do
     sign_in(user)

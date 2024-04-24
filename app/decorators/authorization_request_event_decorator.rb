@@ -36,6 +36,12 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
   end
   alias comment text # see WebhookEventSerializer
 
+  def copied_from_authorization_request_id
+    return unless name == 'copy'
+
+    entity.copied_from_request.id
+  end
+
   private
 
   def humanized_changelog
