@@ -66,6 +66,16 @@ class AuthorizationRequest < ApplicationRecord
     inverse_of: :entity,
     dependent: :destroy
 
+  has_one :copied_from_request,
+    inverse_of: :next_request_copied,
+    class_name: 'AuthorizationRequest',
+    dependent: :nullify
+
+  belongs_to :next_request_copied,
+    class_name: 'AuthorizationRequest',
+    inverse_of: :copied_from_request,
+    optional: true
+
   def latest_authorization
     authorizations.order(created_at: :desc).limit(1).first
   end

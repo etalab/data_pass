@@ -172,4 +172,15 @@ RSpec.describe AuthorizationRequest do
       it { is_expected.to be_valid }
     end
   end
+
+  describe 'copy behaviour' do
+    subject!(:authorization_request_copy) do
+      create(:authorization_request, :api_entreprise, copied_from_request: authorization_request)
+    end
+
+    let(:authorization_request) { create(:authorization_request, :api_entreprise, :validated) }
+
+    it { expect(authorization_request_copy.copied_from_request).to eq(authorization_request) }
+    it { expect(authorization_request.next_request_copied).to eq(authorization_request_copy) }
+  end
 end
