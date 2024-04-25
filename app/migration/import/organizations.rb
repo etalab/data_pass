@@ -17,6 +17,18 @@ class Import::Organizations < Import::Base
     end
   end
 
+  def after_load_from_csv
+    return if Organization.find_by(siret: '89991311500015').present?
+
+    @models << Organization.create!(
+      siret: '89991311500015',
+      mon_compte_pro_payload: {
+        siret: '89991311500015',
+      },
+      last_mon_compte_pro_updated_at: 1.year.ago,
+    )
+  end
+
   private
 
   def csv_or_table_to_loop

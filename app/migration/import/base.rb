@@ -83,12 +83,16 @@ class Import::Base
       end
     end
 
+    after_load_from_csv
+
     log(" > #{@models.count} #{model_tableize} imported")
 
     dump_sql_file! if options[:dump_sql] || options[:load_from_sql]
 
     @models
   end
+
+  def after_load_from_csv; end
 
   def match_global_filter?(row)
     filter_key = "#{model_tableize}_filter".to_sym
