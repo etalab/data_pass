@@ -57,12 +57,14 @@ class ImportDataInLocalDb
           create table team_members (
             id INTEGER PRIMARY KEY,
             authorization_request_id INTEGER,
+            email TEXT,
             raw_data TEXT
           );
           create index authorization_request_id_index on team_members (authorization_request_id);
+          create index authorization_request_email_index on team_members (email);
         ",
-        insert_statement: "insert into team_members (id, authorization_request_id, raw_data) values (?, ?, ?)",
-        insert_data: ->(row) { [row['id'], row['enrollment_id'], row.to_a.to_json] }
+        insert_statement: "insert into team_members (id, authorization_request_id, email, raw_data) values (?, ?, ?, ?)",
+        insert_data: ->(row) { [row['id'], row['enrollment_id'], row['email'], row.to_a.to_json] }
       },
       'enrollments' => {
         table: "
