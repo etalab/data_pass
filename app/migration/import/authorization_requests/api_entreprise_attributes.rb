@@ -23,7 +23,27 @@ class Import::AuthorizationRequests::APIEntrepriseAttributes < Import::Authoriza
 
         if user && !team_member_incomplete?(user)
           affect_team_attributes(user.attributes.slice(*AuthorizationRequest.contact_attributes), to_contact)
-        elsif recent_validated_enrollment_exists?
+          next
+        end
+
+        if contact_data['email']
+          potential_valid_team_member = database.execute('select * from team_members where email = ?', contact_data['email']).to_a.map do |row|
+            JSON.parse(row[-1]).to_h
+          end.select do |data|
+            %w[given_name family_name phone_number job].all? { |key| data[key].present? }
+          end.max do |data|
+            data['id'].to_i
+          end
+
+          if potential_valid_team_member
+            potential_valid_team_member['job_title'] = potential_valid_team_member.delete('job')
+
+            affect_team_attributes(potential_valid_team_member, to_contact)
+            next
+          end
+        end
+
+        if recent_validated_enrollment_exists?
           skip_row!('incomplete_contact_data_with_new_enrollments')
         else
           skip_row!('incomplete_contact_data_without_new_enrollments')
