@@ -44,6 +44,7 @@ class Import::Users < Import::Base
     sirets = {
       '66565' => ['22270229200012'],
       '39697' => ['89991311500015'],
+      '47430' => ['12000018700027'],
     }[user_external_id]
 
     if sirets.present?
