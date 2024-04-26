@@ -42,8 +42,9 @@ fr:
     footer:
       tagline: L'outil de gestion des habilitations juridiques pour les données à accès restreint.
       external_links:
-        - api.gouv.fr
-        - annuaire-entreprises.data.gouv.fr
+        - info.gouv.fr
+        - service-public.fr
+        - legifrance.gouv.fr
         - data.gouv.fr
 
     dashboard:
