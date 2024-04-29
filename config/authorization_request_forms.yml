@@ -3,18 +3,18 @@ shared:
   portail-hubee-demarche-certdc:
     authorization_request: 'HubEECertDC'
 
-  portail-hubee-dila:
+  portail-hubee-demarches-dila:
     name: "Démarches en ligne auxquelles vous souhaitez abonner votre commune"
     authorization_request: 'HubEEDila'
     steps:
       - name: 'scopes'
       - name: 'contacts'
     scopes:
-      - EtatCivil
-      - depotDossierPACS
-      - recensementCitoyen
-      - HebergementTourisme
-      - JeChangeDeCoordonnees
+      - etat_civil
+      - depot_dossier_pacs
+      - recensement_citoyen
+      - hebergement_tourisme
+      - je_change_de_coordonnees
 
   api-entreprise:
     name: "Demande libre"

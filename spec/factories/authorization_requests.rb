@@ -199,7 +199,7 @@ FactoryBot.define do
 
     trait :hubee_dila do
       type { 'AuthorizationRequest::HubEEDila' }
-      form_uid { 'portail-hubee-dila' }
+      form_uid { 'portail-hubee-demarche-dila' }
       with_scopes
     end
 
