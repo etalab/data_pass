@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_29_103410) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_24_133631) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pgcrypto"
@@ -87,7 +87,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_29_103410) do
     t.string "form_uid", null: false
     t.datetime "reopened_at"
     t.string "linked_token_manager_id"
+    t.bigint "next_request_copied_id"
     t.index ["applicant_id"], name: "index_authorization_requests_on_applicant_id"
+    t.index ["next_request_copied_id"], name: "index_authorization_requests_on_next_request_copied_id"
     t.index ["organization_id"], name: "index_authorization_requests_on_organization_id"
   end
 
@@ -267,6 +269,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_29_103410) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "authorization_documents", "authorizations"
   add_foreign_key "authorization_request_changelogs", "authorization_requests"
+  add_foreign_key "authorization_requests", "authorization_requests", column: "next_request_copied_id"
   add_foreign_key "authorizations", "authorization_requests", column: "request_id"
   add_foreign_key "authorizations", "users", column: "applicant_id"
   add_foreign_key "denial_of_authorizations", "authorization_requests"

@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :authorization_request_event do
     name { 'create' }
     user
-    entity factory: %i[authorization_request]
+    entity factory: %i[authorization_request api_entreprise]
 
     transient do
       authorization_request { nil }
@@ -101,6 +101,22 @@ FactoryBot.define do
         next if evaluator.authorization_request.blank?
 
         authorization_request_event.entity = build(:authorization, request: evaluator.authorization_request)
+      end
+    end
+
+    trait :copy do
+      entity factory: %i[authorization_request api_entreprise]
+      entity_is_authorization_request
+
+      name { 'copy' }
+
+      after(:build) do |authorization_request_event|
+        authorization_request = authorization_request_event.entity
+        authorization_request_trait = authorization_request.type.split('::').last.underscore.to_sym
+
+        copied_from_authorization_request = create(:authorization_request, :validated, authorization_request_trait, applicant: authorization_request.applicant)
+
+        authorization_request_event.entity.copied_from_request = copied_from_authorization_request
       end
     end
 
