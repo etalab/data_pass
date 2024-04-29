@@ -119,4 +119,8 @@ class Import::AuthorizationRequests::APIEntrepriseAttributes < Import::Authoriza
       "data_retention_period" => "duree_conservation_donnees_caractere_personnel",
     }
   end
+
+  def attributes_with_possible_null_values
+    ['destinataire_donnees_caractere_personnel']
+  end
 end

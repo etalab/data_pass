@@ -45,7 +45,10 @@ class Import::AuthorizationRequests::Base
 
   def affect_attributes
     attributes_mapping.each do |from, to|
-      authorization_request.public_send("#{to}=", enrollment_row[from])
+      data = enrollment_row[from]
+      data = 'Non renseigné' if data.blank? && attributes_with_possible_null_values.include?(to)
+
+      authorization_request.public_send("#{to}=", data)
     end
   end
 
@@ -76,6 +79,10 @@ class Import::AuthorizationRequests::Base
 
   def attributes_mapping
     {}
+  end
+
+  def attributes_with_possible_null_values
+    []
   end
 
   def skip_row!(kind)
