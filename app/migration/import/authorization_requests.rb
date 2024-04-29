@@ -77,6 +77,10 @@ class Import::AuthorizationRequests < Import::Base
       '11000101300017' => '13002526500013',
       # Agence de la recherche fermée
       '13000250400020' => '13000250400038',
+      # DRJSCS => DREETS
+      '13001252900017' => '13002921800018',
+      # Recia
+      '18450311800020' => '12002503600035',
     }[enrollment_row['siret']]
 
     return if new_potential_siret.blank?
