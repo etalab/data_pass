@@ -3,7 +3,7 @@
 <% @authorization_request.available_scopes.group_by(&:group).each do |group_name, scopes| %>
   <div class="fr-form-group scopes-group">
     <% if @authorization_request.errors.key?(:scopes) %>
-      <div class="fr-alert fr-alert--warning fr-alert--sm" role="alert">
+      <div class="fr-alert fr-alert--warning fr-alert--sm fr-mb-3w" role="alert">
         <ul>
           <% @authorization_request.errors.full_messages.each do |message| %>
             <li>
