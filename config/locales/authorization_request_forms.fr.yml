@@ -88,6 +88,9 @@ fr:
           <strong>L’administrateur métier</strong> disposera des droits d’administration portail HubEE : gestion des abonnements et gestion des utilisateurs.
 
     hubee_dila:
+      administrateur_metier:
+        info: |
+          <strong>L’administrateur métier</strong> disposera des droits d’administration portail HubEE : gestion des abonnements et gestion des utilisateurs.
       scopes:
         info:
           title: En quoi consistent ces démarches?
