@@ -193,14 +193,18 @@ FactoryBot.define do
 
     trait :portail_hubee_demarche_certdc do
       hubee_cert_dc
-
       form_uid { 'portail-hubee-demarche-certdc' }
     end
 
     trait :hubee_dila do
       type { 'AuthorizationRequest::HubEEDila' }
-      form_uid { 'portail-hubee-demarche-dila' }
+
       with_scopes
+    end
+
+    trait :portail_hubee_demarches_dila do
+      hubee_dila
+      form_uid { 'portail-hubee-demarches-dila' }
     end
 
     trait :api_entreprise do
