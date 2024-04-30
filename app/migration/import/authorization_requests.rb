@@ -208,4 +208,8 @@ class Import::AuthorizationRequests < Import::Base
       csv('team_members').select { |row| enrollment_ids.include?(row['enrollment_id']) }
     end
   end
+
+  def sql_tables_to_save
+    super.concat(['users', 'organizations'])
+  end
 end
