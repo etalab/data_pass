@@ -32,8 +32,7 @@ class Import::AuthorizationRequestEvents < Import::Base
     when 'request_changes'
       create_event(event_row, entity: InstructorModificationRequest.create!(authorization_request:, reason: event_row['comment']))
     when 'submit'
-      # FIXME retrieve all updates and diffs to create a changelog
-      create_event(event_row, entity: AuthorizationRequestChangelog.create!(authorization_request:))
+      create_event(event_row, entity: AuthorizationRequestChangelog.create!(authorization_request:, diff: build_event_diff(event_row, authorization_request)))
     when 'approve', 'validate'
       authorization_request.assign_attributes(
         last_validated_at: event_row['created_at'],
@@ -93,6 +92,10 @@ class Import::AuthorizationRequestEvents < Import::Base
         created_at: event_row['created_at'],
       }.merge(extra_params)
     )
+  end
+
+  def build_event_diff(event_row, authorization_request)
+    CreateDiffFromEvent.new(event_row, authorization_request).perform
   end
 
   def create_authorization(event_row, authorization_request)
