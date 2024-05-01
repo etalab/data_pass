@@ -20,11 +20,8 @@ class CreateDiffFromEvent
       case event_diff['_v']
       when '2'
         handle_v2(final_diff, event_diff)
-
-        print final_diff
-        print "\n"
       when '3'
-        print "3\n"
+        handle_v3(final_diff, event_diff)
       else
         raise "Invalid version #{event_diff['_v']}" if event_diff['_v'].present?
 
@@ -47,6 +44,7 @@ class CreateDiffFromEvent
         'dpo_id',
         'siret',
         'organization_id',
+        'zip_code',
         'nom_raison_sociale',
         'responsable_traitement_id',
         'cgu_approved',
@@ -134,11 +132,15 @@ class CreateDiffFromEvent
     byebug if final_diff.any? { |k,v| !v.is_a?(Array) || v.size != 2 }
   end
 
-  def handle_v2(final_diff, event_diff)
+  def handle_v2_v3(final_diff, event_diff, handle_scopes:)
     clean_keys(
       event_diff,
       [
         '_v',
+        'siret',
+        'organization_id',
+        'nom_raison_sociale',
+        'zip_code',
         'technical_team_type',
         'technical_team_value',
         'cgu_approved',
@@ -167,7 +169,29 @@ class CreateDiffFromEvent
 
       team_members_diff.delete('_t')
       team_members_diff.each do |index, team_member_diff|
-        team_member = team_members[index.to_i]
+        if team_member_diff['type'].present?
+          team_member_diff_type = Array(team_member_diff['type'])[0]
+          team_member = team_members.find { |tm| tm['type'] == team_member_diff_type }
+        else
+          team_member = team_members[index.to_i]
+        end
+
+        byebug if team_member.nil?
+        next if team_member['type'] == 'demandeur'
+
+        final_type = {
+          'metier' => 'contact_metier',
+          'contact_metier' => 'contact_metier',
+          'technique' => 'contact_technique',
+          'contact_technique' => 'contact_technique',
+          'responsable_technique' => 'contact_technique',
+          'dpo' => 'delegue_protection_donnees',
+          'delegue_protection_donnees' => 'delegue_protection_donnees',
+          'responsable_traitement' => 'responsable_traitement',
+        }[team_member['type']]
+
+        byebug if final_type.nil?
+
         next if team_member.blank?
 
         {
@@ -186,16 +210,32 @@ class CreateDiffFromEvent
           end
           byebug if value.is_a?(String)
 
-          final_diff["team_member_#{index}_#{new_attribute}"] = value.map { |v| v.presence.try(:strip) }
+          final_diff["#{final_type}_#{new_attribute}"] = value.map { |v| v.presence.try(:strip) }
         end
 
-        team_member_diff.delete('user_id')
+        %w[
+          id
+          user_id
+          type
+          enrollment_id
+        ].each do |attribute|
+          team_member_diff.delete(attribute)
+        end
 
         byebug if team_member_diff.keys.present?
       end
     end
 
-    event_diff.delete('scopes')
+    scopes = event_diff.delete('scopes')
+
+    if handle_scopes && scopes
+      from = final_diff['scopes'].present? ? final_diff['scopes'].first : scopes[0]
+
+      final_diff['scopes'] = [
+        from,
+        scopes[1],
+      ]
+    end
 
     documents = event_diff.delete('documents')
     if documents
@@ -215,6 +255,14 @@ class CreateDiffFromEvent
 
     byebug if event_diff.keys.present?
     byebug if final_diff.any? { |k,v| !v.is_a?(Array) || v.size != 2 }
+  end
+
+  def handle_v2(final_diff, event_diff)
+    handle_v2_v3(final_diff, event_diff, handle_scopes: false)
+  end
+
+  def handle_v3(final_diff, event_diff)
+    handle_v2_v3(final_diff, event_diff, handle_scopes: true)
   end
 
   def attributes_mapping
