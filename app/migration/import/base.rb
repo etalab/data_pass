@@ -38,9 +38,10 @@ class Import::Base
   end
 
   def load_sql_file!
-    model_klass.delete_all
-
     sql_tables_to_save.each do |sql_table|
+      log("# Clean #{sql_table}")
+      ActiveRecord::Base.connection.execute("TRUNCATE #{sql_table} CASCADE")
+
       log("# Importing #{sql_table} from SQL dump")
 
       `psql -d #{ActiveRecord::Base.connection.current_database} -f #{sql_file_path(sql_table)}`
