@@ -42,11 +42,13 @@ class Import::AuthorizationRequests < Import::Base
   private
 
   def sql_tables_to_save
-    @sql_tables_to_save ||= super.concat(
+    super.concat(
       %w[
-        active_storage_attachments
         active_storage_blobs
+        active_storage_attachments
         active_storage_variant_records
+        users
+        organizations
       ]
     )
   end
@@ -207,9 +209,5 @@ class Import::AuthorizationRequests < Import::Base
 
       csv('team_members').select { |row| enrollment_ids.include?(row['enrollment_id']) }
     end
-  end
-
-  def sql_tables_to_save
-    super.concat(['users', 'organizations'])
   end
 end
