@@ -83,7 +83,18 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
 
   def initial_submit_with_changed_prefilled?
     initial_submit? &&
-      object.authorization_request.form.prefilled? &&
+      (
+        from_form_with_prefilled_data_with_changes? ||
+          authorization_request_is_a_copy?
+      )
+  end
+
+  def authorization_request_is_a_copy?
+    authorization_request.events.where(name: 'copy').exists?
+  end
+
+  def from_form_with_prefilled_data_with_changes?
+    object.authorization_request.form.prefilled? &&
       prefilled_changed?
   end
 
