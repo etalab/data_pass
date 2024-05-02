@@ -28,5 +28,5 @@ Fonctionnalité: Instruction: historique habilitation
     Et que je vais sur la page instruction
     Et que je clique sur "Consulter"
     Et que je clique sur "Historique"
-    Alors la page contient "Le champ \"Nom du projet\" a changé de \"Demande d'accès à la plateforme fournisseur\" en \"Nouvelle valeur de titre\""
-    Et la page contient "Le champ \"Description du projet\" a changé de \"Description de la demande\" en \"Nouvelle valeur de description\""
+    Alors la page contient "Le champ Nom du projet a changé de \"Demande d'accès à la plateforme fournisseur\" en \"Nouvelle valeur de titre\""
+    Et la page contient "Le champ Description du projet a changé de \"Description de la demande\" en \"Nouvelle valeur de description\""

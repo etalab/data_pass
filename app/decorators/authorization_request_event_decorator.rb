@@ -25,13 +25,13 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
   def text
     case name
     when 'refuse', 'request_changes', 'revoke'
-      entity.reason
+      h.simple_format(entity.reason)
     when 'submit'
       humanized_changelog
     when 'initial_submit_with_changed_prefilled'
       humanized_changelog_without_blank_values
     when 'applicant_message', 'instructor_message'
-      entity.body
+      h.simple_format(entity.body)
     end
   end
   alias comment text # see WebhookEventSerializer
@@ -55,8 +55,12 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
   def changelog_builder(diffs)
     h.content_tag(:ul) do
       diffs.map { |attribute, values|
-        h.content_tag(:li, build_attribute_change(attribute, values))
-      }.join.html_safe
+        if attribute == 'scopes'
+          build_scopes_change(values)
+        else
+          h.content_tag(:li, build_attribute_change(attribute, values))
+        end
+      }.flatten.join.html_safe
     end
   end
 
@@ -68,13 +72,43 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
     changelog_diffs.reject { |_h, v| v[0].blank? }
   end
 
+  def build_scopes_change(values)
+    new_scopes = values[0] - values[1]
+    removed_scopes = values[1] - values[0]
+
+    [
+      new_scopes.map do |scope|
+        h.content_tag(:li, t('authorization_request_event.changelog_entry_new_scope', value: scope).html_safe)
+      end,
+      removed_scopes.map do |scope|
+        h.content_tag(:li, t('authorization_request_event.changelog_entry_removed_scope', value: scope).html_safe)
+      end
+    ]
+  end
+
   def build_attribute_change(attribute, values)
+    if values[0].blank?
+      build_attribute_initial_change(attribute, values)
+    else
+      build_attribute_change_with_values(attribute, values)
+    end
+  end
+
+  def build_attribute_initial_change(attribute, values)
+    t(
+      'authorization_request_event.changelog_entry_with_null_old_value',
+      attribute: object.authorization_request.class.human_attribute_name(attribute),
+      new_value: h.sanitize(values.last.to_s),
+    ).html_safe
+  end
+
+  def build_attribute_change_with_values(attribute, values)
     t(
       'authorization_request_event.changelog_entry',
       attribute: object.authorization_request.class.human_attribute_name(attribute),
-      old_value: values.first,
-      new_value: values.last,
-    )
+      old_value: h.sanitize(values.first.to_s),
+      new_value: h.sanitize(values.last.to_s),
+    ).html_safe
   end
 
   def initial_submit?
@@ -90,7 +124,7 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
   end
 
   def authorization_request_is_a_copy?
-    authorization_request.events.where(name: 'copy').exists?
+    authorization_request.events.exists?(name: 'copy')
   end
 
   def from_form_with_prefilled_data_with_changes?
