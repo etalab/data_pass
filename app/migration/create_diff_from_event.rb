@@ -29,6 +29,10 @@ class CreateDiffFromEvent
       end
     end
 
+    final_diff.delete_if do |_,changes|
+      changes.uniq.count == 1
+    end
+
     database.close
 
     final_diff
@@ -126,6 +130,8 @@ class CreateDiffFromEvent
         from,
         scopes[1].select { |k,v| v == true }.keys
       ]
+
+      final_diff.delete('scopes') if final_diff['scopes'].first == final_diff['scopes'].last
     end
 
     byebug if event_diff.keys.present?
@@ -235,6 +241,8 @@ class CreateDiffFromEvent
         from,
         scopes[1],
       ]
+
+      final_diff.delete('scopes') if final_diff['scopes'].first == final_diff['scopes'].last
     end
 
     documents = event_diff.delete('documents')
@@ -295,9 +303,9 @@ class CreateDiffFromEvent
     end
 
     if all_events_before_this_submit[1..].index { |event| event['name'] == 'submit' }.nil?
-      @relevant_rows = all_events_before_this_submit
+      @relevant_rows = all_events_before_this_submit[1..]
     else
-      @relevant_rows = all_events_before_this_submit[0..all_events_before_this_submit.index { |event| event['name'] == 'submit' }]
+      @relevant_rows = all_events_before_this_submit[1..all_events_before_this_submit[1..].index { |event| event['name'] == 'submit' }]
     end
 
     @relevant_rows.select! do |row|
