@@ -14,7 +14,7 @@ RSpec.describe INSEESireneAPIClient do
       let(:valid_payload) { insee_sirene_api_etablissement_valid_payload(siret:) }
 
       before do
-        stub_request(:get, "https://api.insee.fr/entreprises/sirene/V3/siret/#{siret}").to_return(
+        stub_request(:get, "https://api.insee.fr/entreprises/sirene/V3.11/siret/#{siret}").to_return(
           status: 200,
           headers: { 'Content-Type' => 'application/json' },
           body: valid_payload.to_json
@@ -28,7 +28,7 @@ RSpec.describe INSEESireneAPIClient do
 
     context 'when API returns something else than 200' do
       before do
-        stub_request(:get, "https://api.insee.fr/entreprises/sirene/V3/siret/#{siret}").to_return(
+        stub_request(:get, "https://api.insee.fr/entreprises/sirene/V3.11/siret/#{siret}").to_return(
           status: 404,
           headers: { 'Content-Type' => 'application/json' },
           body: ''
