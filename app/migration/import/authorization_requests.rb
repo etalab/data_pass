@@ -74,6 +74,12 @@ class Import::AuthorizationRequests < Import::Base
 
     return organization if organization.present?
 
+    if authorization_ids_where_user_belongs_to_organization.include?(enrollment_row['id'].to_i)
+      organization = Organization.find_by(siret: enrollment_row['siret'])
+      user.organizations << organization
+      return organization
+    end
+
     new_potential_siret = {
       # PM => DINUM
       '11000101300017' => '13002526500013',
@@ -90,6 +96,16 @@ class Import::AuthorizationRequests < Import::Base
     return if new_potential_siret.blank?
 
     user.organizations.find_by(siret: new_potential_siret)
+  end
+
+  def authorization_ids_where_user_belongs_to_organization
+    [
+      2929,
+      2930,
+      2931,
+      45988,
+      52766,
+    ]
   end
 
   def fetch_applicant(enrollment_row)
