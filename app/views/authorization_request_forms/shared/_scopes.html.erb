@@ -20,7 +20,11 @@
 
     <div class="scopes-group__grid">
       <% scopes.each do |scope| %>
-        <%= f.dsfr_scope scope %>
+        <% if hubee_dila_selected_scopes_for_current_organization.include? scope.value %>
+          <%= f.dsfr_scope(scope, disabled: true) %>
+        <% else %>
+          <%= f.dsfr_scope scope %>
+        <% end %>
       <% end %>
     </div>
   </div>

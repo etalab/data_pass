@@ -52,4 +52,10 @@ module AuthorizationRequestsHelpers
 
     authorization_request.filling?
   end
+
+  def hubee_dila_selected_scopes_for_current_organization
+    authorization_requests = AuthorizationRequest.where(type: 'AuthorizationRequest::HubEEDila', organization: current_organization.id, state: %w[validated submitted changes_requested],)
+
+    authorization_requests.map(&:scopes).flatten.uniq.join(', ')
+  end
 end
