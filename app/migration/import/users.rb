@@ -22,6 +22,7 @@ class Import::Users < Import::Base
     end
 
     user.current_organization = user_organizations.first if user.current_organization.blank?
+    user.organizations << user.current_organization unless user.organizations.include?(user.current_organization)
 
     user.save!
 
@@ -42,7 +43,7 @@ class Import::Users < Import::Base
 
   def extra_organizations(user_external_id)
     sirets = {
-      '13025' => ['23130002100012', '20005375900011'],
+      '13025' => ['23130002100012', '20005375900011', '23450002300028', '20005372600028', '20005376700014', '20005550700012', '20005379100014', '20005376700014'],
       '14308' => ['18450311800020'],
       '66565' => ['22270229200012'],
       '39697' => ['89991311500015'],

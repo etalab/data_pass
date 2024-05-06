@@ -4,6 +4,7 @@ class Import::AuthorizationRequests::APIEntrepriseAttributes < Import::Authoriza
     affect_attributes
     affect_contacts
     affect_potential_legal_document
+    affect_not_specified_to_duree_conservation
     affect_form_uid
   end
 
@@ -27,9 +28,11 @@ class Import::AuthorizationRequests::APIEntrepriseAttributes < Import::Authoriza
         end
 
         if contact_data['email']
-          potential_valid_team_member = database.execute('select * from team_members where email = ?', contact_data['email']).to_a.map do |row|
+          others_team_members = database.execute('select * from team_members where email = ?', contact_data['email']).to_a.map do |row|
             JSON.parse(row[-1]).to_h
-          end.select do |data|
+          end
+
+          potential_valid_team_member = others_team_members.select do |data|
             %w[given_name family_name phone_number job].all? { |key| data[key].present? }
           end.max do |data|
             data['id'].to_i
@@ -40,6 +43,35 @@ class Import::AuthorizationRequests::APIEntrepriseAttributes < Import::Authoriza
 
             affect_team_attributes(potential_valid_team_member, to_contact)
             next
+          end
+
+          potential_team_member_with_family_name = others_team_members.select do |data|
+            data['family_name'].present?
+          end.max do |data|
+            data['id'].to_i
+          end
+
+          if potential_team_member_with_family_name.present?
+            potential_team_member_with_family_name['job_title'] = potential_team_member_with_family_name.delete('job')
+
+            if potential_team_member_with_family_name['family_name'].present? && potential_team_member_with_family_name['family_name'].include?(' ')
+              potential_team_member_with_family_name['family_name'], potential_team_member_with_family_name['given_name'] = potential_team_member_with_family_name['family_name'].split(' ', 2)
+            elsif potential_team_member_with_family_name['family_name'].present?
+              potential_team_member_with_family_name['given_name'] = 'Non renseigné'
+            end
+
+            if potential_team_member_with_family_name['job_title'].blank?
+              potential_team_member_with_family_name['job_title'] = 'Non renseigné'
+            end
+
+            if potential_team_member_with_family_name['phone_number'].blank?
+              potential_team_member_with_family_name['phone_number'] = 'Non renseigné'
+            end
+
+            if %w[given_name family_name phone_number job_title].all? { |key| potential_team_member_with_family_name[key].present? }
+              affect_team_attributes(potential_team_member_with_family_name, to_contact)
+              next
+            end
           end
         end
 
@@ -99,6 +131,12 @@ class Import::AuthorizationRequests::APIEntrepriseAttributes < Import::Authoriza
     when 'setec'
       'api-entreprise-setec-atexo'
     end
+  end
+
+  def affect_not_specified_to_duree_conservation
+    return if authorization_request.duree_conservation_donnees_caractere_personnel.present?
+
+    authorization_request.duree_conservation_donnees_caractere_personnel = 'Non renseigné'
   end
 
   def recent_validated_enrollment_exists?

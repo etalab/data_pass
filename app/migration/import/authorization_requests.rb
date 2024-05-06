@@ -83,6 +83,8 @@ class Import::AuthorizationRequests < Import::Base
       '13001252900017' => '13002921800018',
       # Recia
       '18450311800020' => '12002503600035',
+      # Port de strasbourg
+      '77564141800014' => '77564141800089',
     }[enrollment_row['siret']]
 
     return if new_potential_siret.blank?
@@ -174,6 +176,8 @@ class Import::AuthorizationRequests < Import::Base
     [
       # Draft ~3 mois, boîte fermée
       '54815',
+      # Irrelevant
+      '1124',
     ].include?(enrollment_id)
   end
 
