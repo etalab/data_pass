@@ -36,6 +36,51 @@ RSpec.describe CreateAuthorizationRequest, type: :organizer do
       include_examples 'creates an event', event_name: :create
     end
 
+    context 'with a form which has default scopes on definition' do
+      let(:authorization_request_form) { AuthorizationRequestForm.find('api-entreprise') }
+      let(:authorization_request_params) do
+        ActionController::Parameters.new(
+          invalid: 'invalid',
+          responsable_traitement_family_name: 'New Dupont',
+        )
+      end
+
+      it { is_expected.to be_success }
+
+      it 'creates an authorization request with scopes' do
+        create_authorization_request
+
+        authorization_request = AuthorizationRequest.last
+
+        expect(authorization_request.scopes).to be_present
+        expect(authorization_request.scopes).to include('open_data_unites_legales_etablissements_insee')
+        expect(authorization_request.responsable_traitement_family_name).to eq('New Dupont')
+      end
+    end
+
+    context 'with a form which has default scopes on both definition and form' do
+      let(:authorization_request_form) { AuthorizationRequestForm.find('api-entreprise-marches-publics') }
+      let(:authorization_request_params) do
+        ActionController::Parameters.new(
+          invalid: 'invalid',
+          responsable_traitement_family_name: 'New Dupont',
+        )
+      end
+
+      it { is_expected.to be_success }
+
+      it 'creates an authorization request with scopes' do
+        create_authorization_request
+
+        authorization_request = AuthorizationRequest.last
+
+        expect(authorization_request.scopes).to be_present
+        expect(authorization_request.scopes).to include('open_data_unites_legales_etablissements_insee')
+        expect(authorization_request.scopes).to include('unites_legales_etablissements_insee')
+        expect(authorization_request.responsable_traitement_family_name).to eq('New Dupont')
+      end
+    end
+
     context 'with a form which has data key' do
       let(:authorization_request_form) { AuthorizationRequestForm.find('api-entreprise-mgdis') }
       let(:authorization_request_params) do

@@ -134,7 +134,7 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
 
   def prefilled_changed?
     object.authorization_request.form.data.any? do |key, value|
-      object.authorization_request.data[key] != value
+      object.authorization_request.public_send(key) != value
     end
   end
 end

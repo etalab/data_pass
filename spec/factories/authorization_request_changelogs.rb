@@ -5,7 +5,8 @@ FactoryBot.define do
     after(:build) do |authorization_request_changelog|
       next if authorization_request_changelog.diff.present?
 
-      authorization_request_changelog.diff = authorization_request_changelog.authorization_request.data.transform_values { |v| [nil, v] }
+      authorization_request = authorization_request_changelog.authorization_request
+      authorization_request_changelog.diff = authorization_request.data.to_h { |k, _| [k, [nil, authorization_request.public_send(k)]] }
     end
   end
 end

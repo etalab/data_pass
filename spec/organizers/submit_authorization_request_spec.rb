@@ -32,7 +32,7 @@ RSpec.describe SubmitAuthorizationRequest do
                 changelog = authorization_request.changelogs.last
 
                 expect(changelog.diff).to eq(
-                  authorization_request.data.transform_values { |v| [nil, v] }
+                  authorization_request.data.to_h { |k, _| [k, [nil, authorization_request.public_send(k)]] }
                 )
               end
             end
@@ -50,8 +50,8 @@ RSpec.describe SubmitAuthorizationRequest do
                   [original_intitule, 'new intitule']
                 )
 
-                expect(changelog.diff.except('intitule')).to eq(
-                  authorization_request.data.except('intitule').transform_values { |v| [nil, v] }
+                expect(changelog.diff.except('intitule', 'scopes')).to eq(
+                  authorization_request.data.except('intitule', 'scopes').to_h { |k, _| [k, [nil, authorization_request.public_send(k)]] }
                 )
               end
             end
@@ -71,6 +71,47 @@ RSpec.describe SubmitAuthorizationRequest do
               expect(changelog.diff).to eq({
                 'intitule' => [old_intitule, 'new intitule']
               })
+            end
+          end
+
+          describe 'with scopes changes' do
+            let(:authorization_request_params) do
+              ActionController::Parameters.new(
+                scopes: authorization_request.scopes + %w[scope1 scope2]
+              )
+            end
+            let!(:initial_scopes) { authorization_request.scopes.dup }
+
+            let(:authorization_request) { create(:authorization_request, :api_entreprise, :draft, fill_all_attributes: true) }
+
+            describe 'on first submit' do
+              it 'stores the scopes diff as an array' do
+                submit_authorization_request
+
+                changelog = authorization_request.changelogs.last
+
+                expect(changelog.diff['scopes']).to eq([
+                  initial_scopes,
+                  initial_scopes + %w[scope1 scope2]
+                ])
+              end
+            end
+
+            describe 'when it is not the first submit and there is a changelog' do
+              before do
+                create(:authorization_request_changelog, authorization_request:)
+              end
+
+              it 'stores the diff on the scopes field' do
+                submit_authorization_request
+
+                changelog = authorization_request.changelogs.last
+
+                expect(changelog.diff['scopes']).to eq([
+                  initial_scopes,
+                  initial_scopes + %w[scope1 scope2]
+                ])
+              end
             end
           end
 

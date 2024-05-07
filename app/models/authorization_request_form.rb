@@ -90,7 +90,16 @@ class AuthorizationRequestForm < StaticApplicationRecord
   end
 
   def data
-    @data || {}
+    data = @data || {}
+
+    if authorization_definition.scopes.any?
+      included_scopes = authorization_definition.scopes.select(&:included?)
+
+      data[:scopes] ||= []
+      data[:scopes] += included_scopes.map(&:value).sort
+    end
+
+    data
   end
 
   def self.indexable
