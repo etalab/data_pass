@@ -74,7 +74,7 @@ class CreateDiffFromEvent
 
         next if value.nil?
 
-        final_diff["#{new_contact_kind}_#{new_attribute}"] = value.map { |v| v.presence.try(:strip) }
+        final_diff["#{new_contact_kind}_#{new_attribute}"] = value.map { |v| sanitize_data(v) }
       end
     end
 
@@ -84,7 +84,7 @@ class CreateDiffFromEvent
       next unless authorization_request.class.extra_attributes.include?(new_attribute.to_sym)
       next if value.nil?
 
-      final_diff[new_attribute] = value.map { |v| v.presence.try(:strip) }
+      final_diff[new_attribute] = value.map { |v| sanitize_data(v) }
     end
 
     if event_diff['contacts']
@@ -113,12 +113,12 @@ class CreateDiffFromEvent
         }.each do |old_attribute, new_attribute|
           next if valid_from_contact[old_attribute].nil?
 
-          from_value = valid_from_contact[old_attribute].presence.try(:strip)
-          to_value = valid_to_contact[old_attribute].presence.try(:strip)
+          from_value = sanitize_data(valid_from_contact[old_attribute])
+          to_value = sanitize_data(valid_to_contact[old_attribute])
 
           next if from_value == to_value
 
-          final_diff["#{new_contact_kind}_#{new_attribute}"] ||= [valid_from_contact[old_attribute].presence, valid_to_contact[old_attribute].presence]
+          final_diff["#{new_contact_kind}_#{new_attribute}"] ||= [sanitize_data(valid_from_contact[old_attribute]), sanitize_data(valid_to_contact[old_attribute])]
         end
       end
     end
@@ -165,7 +165,7 @@ class CreateDiffFromEvent
         value = [nil, value.first]
       end
 
-      final_diff[new_attribute] = value.map { |v| v.presence.try(:strip) }
+      final_diff[new_attribute] = value.map { |v| sanitize_data(v) }
     end
 
     team_members_diff = event_diff.delete('team_members')
@@ -216,7 +216,7 @@ class CreateDiffFromEvent
           end
           byebug if value.is_a?(String)
 
-          final_diff["#{final_type}_#{new_attribute}"] = value.map { |v| v.presence.try(:strip) }
+          final_diff["#{final_type}_#{new_attribute}"] = value.map { |v| sanitize_data(v) }
         end
 
         %w[
@@ -319,6 +319,18 @@ class CreateDiffFromEvent
   def retrieve_team_members_from_database
     @retrieve_team_members_from_database ||= database.execute('select * from team_members where authorization_request_id = ?', event_row['enrollment_id']).map do |row|
       JSON.parse(row[-1]).to_h
+    end
+  end
+
+  def sanitize_data(datum)
+    if datum.blank?
+      nil
+    else
+      begin
+        datum.strip
+      rescue
+        datum
+      end
     end
   end
 end
