@@ -35,12 +35,12 @@ module CommonAuthorizationModelsPolicies
   def requested_scopes?
     existing_requests = current_organization.active_authorization_requests.where(type: authorization_request_class, state: %w[validated submitted changes_requested])
 
-    if current_organization && existing_requests.any?
-      existing_scopes = existing_requests.map(&:scopes).flatten.uniq
-      required_scopes = %w[etat_civil depot_dossier_pacs recensement_citoyen hebergement_tourisme je_change_de_coordonnees]
+    return false unless current_organization && existing_requests.any?
 
-      required_scopes.intersect?(existing_scopes)
-    end
+    existing_scopes = existing_requests.map(&:scopes).flatten.uniq
+    required_scopes = %w[etat_civil depot_dossier_pacs recensement_citoyen hebergement_tourisme je_change_de_coordonnees]
+
+    required_scopes.intersect?(existing_scopes)
   end
 
   def hubee_cert_dc?

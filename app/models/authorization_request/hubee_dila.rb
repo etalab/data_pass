@@ -11,11 +11,11 @@ class AuthorizationRequest::HubEEDila < AuthorizationRequest
 
   def unique_scope_request
     existing_requests = self.class.where.not(state: 'archived')
-                        .where(
-                          organization:,
-                          type: 'AuthorizationRequest::HubEEDila',
-                          state: %w[validated submitted changes_requested]
-                        )
+      .where(
+        organization:,
+        type: 'AuthorizationRequest::HubEEDila',
+        state: %w[validated submitted changes_requested]
+      )
 
     existing_scopes = existing_requests.map(&:scopes).flatten.uniq
 
@@ -24,6 +24,5 @@ class AuthorizationRequest::HubEEDila < AuthorizationRequest
     return unless required_scopes.intersect?(existing_scopes)
 
     errors.add(:base, 'Une demande d‘habilitation avec les mêmes scopes existe déjà pour cette organisation.')
-
   end
 end
