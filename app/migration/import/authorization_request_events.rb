@@ -88,10 +88,24 @@ class Import::AuthorizationRequestEvents < Import::Base
     @models << AuthorizationRequestEvent.create!(
       {
         name: event_row['name'],
-        user_id: event_row['user_id'],
+        user_id: extract_user_id(event_row, entity: extra_params[:entity]),
         created_at: event_row['created_at'],
       }.merge(extra_params)
     )
+  end
+
+  def extract_user_id(event_row, entity:)
+    if all_user_ids.include?(event_row['user_id'].to_i)
+      event_row['user_id']
+    elsif %w[create update archive copy].include?(event_row['name'])
+      entity.applicant_id
+    elsif %w[submit].include?(event_row['name'])
+      entity.authorization_request.applicant_id
+    end
+  end
+
+  def all_user_ids
+    @all_user_ids ||= User.pluck(:id)
   end
 
   def build_event_diff(event_row, authorization_request)
