@@ -39,7 +39,7 @@ class Import::AuthorizationRequests::APIEntrepriseAttributes < Import::Authoriza
           end
 
           if potential_valid_team_member
-            potential_valid_team_member['job_title'] = potential_valid_team_member.delete('job')
+            potential_valid_team_member['job_title'] ||= potential_valid_team_member.delete('job')
 
             affect_team_attributes(potential_valid_team_member, to_contact)
             next
@@ -56,7 +56,7 @@ class Import::AuthorizationRequests::APIEntrepriseAttributes < Import::Authoriza
 
             if potential_team_member_with_family_name['family_name'].present? && potential_team_member_with_family_name['family_name'].include?(' ')
               potential_team_member_with_family_name['family_name'], potential_team_member_with_family_name['given_name'] = potential_team_member_with_family_name['family_name'].split(' ', 2)
-            elsif potential_team_member_with_family_name['family_name'].present?
+            else
               potential_team_member_with_family_name['given_name'] = 'Non renseigné'
             end
 
@@ -72,6 +72,15 @@ class Import::AuthorizationRequests::APIEntrepriseAttributes < Import::Authoriza
               affect_team_attributes(potential_team_member_with_family_name, to_contact)
               next
             end
+          end
+
+          if contact_data['email'].present?
+            %w[given_name family_name phone_number job_title].each do |key|
+              contact_data[key] = 'Non renseigné' if contact_data[key].blank?
+            end
+
+            affect_team_attributes(contact_data, to_contact)
+            next
           end
         end
 
