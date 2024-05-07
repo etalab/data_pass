@@ -33,7 +33,11 @@ class User < ApplicationRecord
   add_instructor_boolean_settings :submit_notifications, :messages_notifications
 
   def full_name
-    "#{family_name} #{given_name}"
+    if family_name.present? && given_name.present?
+      "#{family_name} #{given_name}"
+    else
+      email
+    end
   end
 
   def instructor?(authorization_request_type = nil)
