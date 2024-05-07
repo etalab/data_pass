@@ -112,7 +112,7 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
   end
 
   def initial_submit?
-    object.authorization_request.changelogs.one?
+    object.authorization_request.events.where(name: 'submit').order(created_at: :asc).first == object
   end
 
   def initial_submit_with_changed_prefilled?
