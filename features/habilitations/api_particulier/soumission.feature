@@ -40,6 +40,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
     Et que je clique sur "Débuter mon habilitation"
 
     * je renseigne les informations des contacts RGPD
+    * je remplis "URL du texte relatif au traitement" avec "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000045213315"
 
     * je clique sur "Enregistrer les modifications"
     * je clique sur "Continuer vers le résumé"
