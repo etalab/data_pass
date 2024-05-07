@@ -17,6 +17,8 @@ class Import::AuthorizationRequests::APIEntrepriseAttributes < Import::Authoriza
     }.each do |from_contact, to_contact|
       contact_data = find_team_member_by_type(from_contact)
 
+      contact_data['email'] = find_team_member_by_type('responsable_technique')['email'] if enrollment_row['id'] == '848' && to_contact == 'contact_metier'
+
       if %w[draft archived changes_requested].include?(authorization_request.state)
         affect_team_attributes(contact_data, to_contact)
       elsif team_member_incomplete?(contact_data)
@@ -83,6 +85,8 @@ class Import::AuthorizationRequests::APIEntrepriseAttributes < Import::Authoriza
             next
           end
         end
+
+        byebug
 
         if recent_validated_enrollment_exists?
           skip_row!('incomplete_contact_data_with_new_enrollments')
