@@ -100,6 +100,7 @@ class Import::AuthorizationRequests < Import::Base
 
   def authorization_ids_where_user_belongs_to_organization
     [
+      971,
       2929,
       2930,
       2931,
