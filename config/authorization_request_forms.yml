@@ -138,6 +138,7 @@ shared:
     description: "Logiciel de contrôle de conformité des opérateurs économiques en vue de l’attribution ou du suivi des marchés"
     use_case: 'marches_publics'
     authorization_request: 'APIEntreprise'
+    single_page_view: 'api_entreprise_through_editor'
     editor_id: 'e_attestations'
     static_blocks:
       - name: 'basic_infos'
@@ -174,6 +175,7 @@ shared:
     description: "Outil de contrôle de conformité des titulaires de marchés"
     use_case: 'marches_publics'
     authorization_request: 'APIEntreprise'
+    single_page_view: 'api_entreprise_through_editor'
     editor_id: 'provigis'
     static_blocks:
       - name: 'basic_infos'
@@ -211,6 +213,7 @@ shared:
     description: "Outil de contrôle de conformité des candidats et titulaires de marchés publics"
     use_case: 'marches_publics'
     authorization_request: 'APIEntreprise'
+    single_page_view: 'api_entreprise_through_editor'
     editor_id: 'achat_solution'
     static_blocks:
       - name: 'basic_infos'
@@ -247,6 +250,7 @@ shared:
     description: "Solution logicielle fournie par l'éditeur MGDIS."
     use_case: 'aides_publiques'
     authorization_request: 'APIEntreprise'
+    single_page_view: 'api_entreprise_through_editor'
     editor_id: 'mgdis'
     static_blocks:
       - name: 'basic_infos'
@@ -281,6 +285,7 @@ La plateforme, mise en place pour permettre le dépôt de ces aides publiques et
     name: "Dématérialisation des marchés publics"
     description: "Outil de dématérialisation des appels d’offres des marchés publics - Solution LOCAL TRUST MPE"
     use_case: 'marches_publics'
+    single_page_view: 'api_entreprise_through_editor'
     authorization_request: 'APIEntreprise'
     editor_id: 'atexo'
     static_blocks:
@@ -324,6 +329,7 @@ La plateforme, mise en place pour permettre le dépôt de ces aides publiques et
     name: "Dématérialisation des marchés publics"
     description: "Solution logicielle fournie par l'éditeur Setec."
     authorization_request: 'APIEntreprise'
+    single_page_view: 'api_entreprise_through_editor'
     use_case: 'marches_publics'
     editor_id: 'setec'
     data:

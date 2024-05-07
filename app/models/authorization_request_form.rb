@@ -5,6 +5,7 @@ class AuthorizationRequestForm < StaticApplicationRecord
     :default,
     :use_case,
     :authorization_request_class,
+    :single_page_view,
     :templates,
     :steps,
     :static_blocks
@@ -29,6 +30,7 @@ class AuthorizationRequestForm < StaticApplicationRecord
         :public,
         :use_case,
         :data,
+        :single_page_view,
         :startable_by_applicant
       ).merge(
         uid: uid.to_s,

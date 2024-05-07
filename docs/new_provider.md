@@ -84,6 +84,9 @@ Pour [le formulaire](../config/authorization_request_forms.yml):
     # Nom de la classe du modèle associé (défini dans l'étape 2). Permet de
     # faire le lien avec la définition plus haut
     authorization_request: MonAPI
+    # Optionnel: Permet de spécifier la vue à utiliser dans le cas d'un
+    # formulaire sur une seule page. Cette vue doit être placée dans `app/views/authorization_request_forms`
+    single_page_view: 'api_entreprise_through_editor'
     # Optionnel. Prend celui de l'habilitation par défaut
     public: true
     # Optionnel. Prend celui de l'habilitation par défaut
