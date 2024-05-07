@@ -14,7 +14,8 @@ Fonctionnalité: Interactions sur une demande d'habilitation en plusieurs étape
     Et que je me connecte
 
   Scénario: J'enregistre une demande d'habilitation en plusieurs étapes sur la première étape
-    Quand je démarre une nouvelle demande d'habilitation "API Particulier"
+    Quand je veux remplir une demande pour "API Particulier" via le formulaire "Demande libre"
+    Et que je clique sur "Débuter mon habilitation"
     Et que je remplis "Nom du projet" avec "Je suis un projet"
     Et que je clique sur "Enregistrer"
     Et il y a un message de succès contenant "été sauvegardé"
