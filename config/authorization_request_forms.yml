@@ -332,6 +332,11 @@ La plateforme, mise en place pour permettre le dépôt de ces aides publiques et
     single_page_view: 'api_entreprise_through_editor'
     use_case: 'marches_publics'
     editor_id: 'setec'
+    static_blocks:
+      - name: 'basic_infos'
+      - name: 'personal_data'
+      - name: 'legal'
+      - name: 'scopes'
     data:
       intitule: "Outil de dématérialisation des appels d’offres des marchés publics - Solution LOCAL TRUST MPE via SETEC"
       description: |+
