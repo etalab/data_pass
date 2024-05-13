@@ -193,6 +193,8 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   def view_path(step = nil)
     if @authorization_request.form.multiple_steps?
       "authorization_request_forms/build/#{step || params[:id] || 'start'}"
+    elsif @authorization_request.form.single_page_view.present?
+      @authorization_request.form.single_page_view
     else
       @authorization_request.form.uid.underscore
     end
