@@ -5,6 +5,18 @@
   </p>
 
   <div class="fr-mt-2w">
+    <h3>
+      Cadre juridique
+    </h3>
+
+    <%= render partial: 'authorization_request_forms/shared/legal', locals: { f: f } %>
+  </div>
+
+  <div class="fr-mt-2w">
+    <h3>
+      Contacts légaux
+    </h3>
+
     <%= f.contacts_infos(%i[responsable_traitement delegue_protection_donnees]) %>
   </div>
 

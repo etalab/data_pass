@@ -381,6 +381,36 @@ La plateforme, mise en place pour permettre le dépôt de ces aides publiques et
       - name: 'scopes'
       - name: 'contacts'
 
+  api-particulier-aiga:
+    name: "iNoé, Tarification services municipaux / Portail Famille, Données CNAF"
+    authorization_request: 'APIParticulier'
+    editor_id: 'aiga'
+    static_blocks:
+      - name: 'basic_infos'
+      - name: 'personal_data'
+      - name: 'legal'
+      - name: 'scopes'
+    data:
+      intitule: Facturation des familles inscrites aux CLSH, services périscolaires … des collectivités
+      description: >-
+          iNoé permet la facturation des prestations des activités périscolaires,
+          garderies et centres de loisirs des collectivités. La tarification aux
+          familles est dépendante du quotient familial, au plus juste quand récupéré
+          auprès de la CNAF.
+      cadre_juridique_nature: >-
+          L'article L114-8 du code des relations entre le public et l'administration
+          fixe le cadre général des échanges de données au sein de l'administration.
+          En tant que collectivité territoriale, la délibération ci-jointe précise
+          l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices,
+          et précise les données nécessaires à son fonctionnement.
+      destinataire_donnees_caractere_personnel: Adresse du foyer
+      duree_conservation_donnees_caractere_personnel: 12
+      scopes:
+        - cnaf_quotient_familial
+      contact_technique_type: organization
+      contact_technique_email: tech@aiga.fr
+      contact_technique_phone_number: 0472532200
+
   api-infinoe-sandbox:
     authorization_request: 'APIInfinoeSandbox'
     steps:

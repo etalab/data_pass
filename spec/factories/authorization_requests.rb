@@ -277,6 +277,12 @@ FactoryBot.define do
       with_scopes
     end
 
+    trait :api_particulier_aiga do
+      api_particulier
+
+      form_uid { 'api-particulier-aiga' }
+    end
+
     trait :api_infinoe_sandbox do
       type { 'AuthorizationRequest::APIInfinoeSandbox' }
       form_uid { 'api-infinoe-sandbox' }
