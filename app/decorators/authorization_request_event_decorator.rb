@@ -57,6 +57,8 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
       diffs.map { |attribute, values|
         if attribute == 'scopes'
           build_scopes_change(values)
+        elsif attribute == 'applicant_id'
+          h.content_tag(:li, build_applicant_change(attribute, values))
         else
           h.content_tag(:li, build_attribute_change(attribute, values))
         end
@@ -109,6 +111,21 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
       old_value: h.sanitize(values.first.to_s),
       new_value: h.sanitize(values.last.to_s),
     ).html_safe
+  end
+
+  def build_applicant_change(attribute, values)
+    from_user, to_user = values.map { |id| User.find_by(id:) }
+
+    if from_user && to_user
+      t(
+        'authorization_request_event.changelog_entry_applicant',
+        attribute: object.authorization_request.class.human_attribute_name(attribute),
+        old_value: from_user.email,
+        new_value: to_user.email,
+      ).html_safe
+    else
+      t('authorization_request_event.changelog_entry_applicant_with_missing_data')
+    end
   end
 
   def initial_submit?
