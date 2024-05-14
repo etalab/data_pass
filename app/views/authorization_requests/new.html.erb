@@ -53,8 +53,8 @@
     <% if @authorization_request_form || @authorization_definition.available_forms.one? %>
       <% authorization_request_form = @authorization_request_form || @authorization_definition.available_forms.first %>
 
-      <% if policy(authorization_request_form).new? %>
-        <% if authorization_request_form.multiple_steps? %>
+      <% if authorization_request_form.multiple_steps? %>
+        <% if policy(authorization_request_form).new? %>
           <p>
             <%= t('.multiple_steps.description') %>
 
