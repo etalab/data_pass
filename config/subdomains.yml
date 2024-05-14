@@ -6,3 +6,18 @@ shared:
     tagline: 'Habilitations juridiques pour API Entreprise'
     authorization_definition_ids:
       - 'api_entreprise'
+test:
+  api-entreprise:
+    name: 'API Entreprise'
+    title: 'DataPass - API Entreprise'
+    tagline: 'Habilitations juridiques pour API Entreprise'
+    authorization_definition_ids:
+      - 'api_entreprise'
+  api-gouv:
+    name: 'API Gouv'
+    title: 'DataPass - API Gouv'
+    tagline: 'Habilitations juridiques pour API Entreprise & Particulier'
+    authorization_definition_ids:
+      - 'api_entreprise'
+      - 'api_particulier'
+
