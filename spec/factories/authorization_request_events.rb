@@ -144,6 +144,18 @@ FactoryBot.define do
       end
     end
 
+    trait :admin_update do
+      name { 'admin_update' }
+
+      entity factory: %i[authorization_request_changelog]
+
+      after(:build) do |authorization_request_event, evaluator|
+        authorization_request_event.entity = build(:authorization_request_changelog, authorization_request: evaluator.authorization_request) if evaluator.authorization_request.present?
+
+        authorization_request_event.entity.diff.delete 'scopes'
+      end
+    end
+
     trait :system_reminder do
       name { 'system_reminder' }
 

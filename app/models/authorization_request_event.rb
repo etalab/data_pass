@@ -15,6 +15,8 @@ class AuthorizationRequestEvent < ApplicationRecord
     applicant_message
     instructor_message
 
+    admin_update
+
     system_reminder
     system_archive
   ].freeze
@@ -34,7 +36,7 @@ class AuthorizationRequestEvent < ApplicationRecord
     return if name == 'refuse' && entity_type == 'DenialOfAuthorization'
     return if name == 'revoke' && entity_type == 'RevocationOfAuthorization'
     return if name == 'request_changes' && entity_type == 'InstructorModificationRequest'
-    return if name == 'submit' && entity_type == 'AuthorizationRequestChangelog'
+    return if %w[submit admin_update].include?(name) && entity_type == 'AuthorizationRequestChangelog'
     return if %w[approve reopen].include?(name) && entity_type == 'Authorization'
     return if %w[applicant_message instructor_message].include?(name) && entity_type == 'Message'
     return if %w[approve refuse request_changes revoke].exclude?(name) && entity_type == 'AuthorizationRequest'

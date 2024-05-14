@@ -498,6 +498,15 @@ fr:
               %{text}
             </blockquote>
 
+        admin_update:
+          text: |
+            L'administrateur <strong>%{user_full_name}</strong> a mis à jour la demande.
+
+            <br />
+
+            La liste des changements est :
+            %{text}
+
         system_reminder:
           text: Une relance a été envoyé au demandeur
 

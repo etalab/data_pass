@@ -8,6 +8,12 @@ RSpec.describe 'Instruction: habilitation events' do
     AuthorizationRequestEvent::NAMES.each_with_index do |event_name, index|
       create(:authorization_request_event, event_name, authorization_request:, created_at: index.days.ago)
     end
+
+    Bullet.enable = false
+  end
+
+  after do
+    Bullet.enable = true
   end
 
   it 'works for all events' do
