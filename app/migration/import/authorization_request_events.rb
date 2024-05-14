@@ -5,8 +5,16 @@ class Import::AuthorizationRequestEvents < Import::Base
     authorization_request = AuthorizationRequest.find(event_row['enrollment_id'])
 
     case event_row['name']
-    when 'create', 'update'
+    when 'create'
       create_event(event_row, entity: authorization_request)
+    when 'update'
+      if from_admin?(event_row)
+        entity = AuthorizationRequestChangelog.create!(authorization_request:, diff: build_event_diff(event_row, authorization_request, relevant_rows: [event_row]))
+
+        create_event(event_row, name: 'admin_update', entity: entity)
+      else
+        create_event(event_row, entity: authorization_request)
+      end
     when 'archive'
       if event_row['user_id'].present?
         create_event(event_row, entity: authorization_request)
@@ -108,8 +116,25 @@ class Import::AuthorizationRequestEvents < Import::Base
     @all_user_ids ||= User.pluck(:id)
   end
 
-  def build_event_diff(event_row, authorization_request)
-    CreateDiffFromEvent.new(event_row, authorization_request).perform
+  def from_admin?(event_row)
+    event_row['user_id'].present? &&
+      admin_ids.include?(event_row['user_id'].to_i)
+  end
+
+  def admin_ids
+    [
+      161,
+      5475,
+      12477,
+      13134,
+      14932,
+      21645,
+      21960,
+    ]
+  end
+
+  def build_event_diff(event_row, authorization_request, relevant_rows: nil)
+    CreateDiffFromEvent.new(event_row, authorization_request, relevant_rows:).perform
   end
 
   def create_authorization(event_row, authorization_request)

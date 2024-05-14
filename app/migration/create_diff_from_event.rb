@@ -3,10 +3,15 @@ class CreateDiffFromEvent
 
   attr_reader :event_row, :authorization_request
 
-  def initialize(event_row, authorization_request)
+  def initialize(event_row, authorization_request, relevant_rows: nil)
     @event_row = event_row
     @authorization_request = authorization_request
-    fetch_relevant_rows!
+
+    if relevant_rows.present?
+      @relevant_rows = relevant_rows
+    else
+      fetch_relevant_rows!
+    end
   end
 
   def perform
@@ -59,6 +64,8 @@ class CreateDiffFromEvent
         'updated_at',
       ]
     )
+
+    handle_user_change(final_diff, event_diff)
 
     {
       'dpo' => 'delegue_protection_donnees',
@@ -154,6 +161,8 @@ class CreateDiffFromEvent
         'dpo_is_informed',
       ]
     )
+
+    handle_user_change(final_diff, event_diff)
 
     attributes_mapping.each do |old_attribute, new_attribute|
       value = event_diff.delete(old_attribute)
@@ -291,6 +300,12 @@ class CreateDiffFromEvent
     keys.each do |key|
       event_diff.delete(key)
     end
+  end
+
+  def handle_user_change(final_diff, event_diff)
+    return unless event_diff['user_id']
+
+    final_diff['applicant_id'] = event_diff.delete('user_id')
   end
 
   def fetch_relevant_rows!
