@@ -21,7 +21,7 @@ class AuthorizationRequest::HubEEDila < AuthorizationRequest
 
     required_scopes = %w[etat_civil depot_dossier_pacs recensement_citoyen hebergement_tourisme je_change_de_coordonnees]
 
-    return unless required_scopes.intersect?(existing_scopes)
+    return unless (required_scopes & existing_scopes) == required_scopes
 
     errors.add(:base, 'Une demande d‘habilitation avec les mêmes scopes existe déjà pour cette organisation.')
   end
