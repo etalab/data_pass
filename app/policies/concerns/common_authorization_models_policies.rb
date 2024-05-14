@@ -14,6 +14,10 @@ module CommonAuthorizationModelsPolicies
     fail NoImplementedError
   end
 
+  def scopes
+    fail NoImplementedError
+  end
+
   private
 
   def unicity_constraint_violated?
@@ -33,14 +37,14 @@ module CommonAuthorizationModelsPolicies
   end
 
   def requested_scopes?
-    existing_requests = current_organization.active_authorization_requests.where(type: authorization_request_class, state: %w[validated submitted changes_requested])
+    existing_requests = current_organization&.active_authorization_requests&.where(type: authorization_request_class, state: %w[validated submitted changes_requested])
 
-    return false unless current_organization && existing_requests.any?
+    return false unless existing_requests.any?
 
     existing_scopes = existing_requests.map(&:scopes).flatten.uniq
     required_scopes = %w[etat_civil depot_dossier_pacs recensement_citoyen hebergement_tourisme je_change_de_coordonnees]
 
-    required_scopes.intersect?(existing_scopes)
+    (required_scopes & existing_scopes) == required_scopes
   end
 
   def hubee_cert_dc?
