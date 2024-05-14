@@ -15,15 +15,15 @@ module AuthorizationCore::Scopes
           def scopes
             data['scopes'] ||= []
             begin
-              JSON.parse(super)
+              JSON.parse(super).sort
             rescue StandardError
               super
             end
           end
 
           def scopes=(value)
-            (value || []).compact_blank!
-            super(value)
+            value = (value || []).compact_blank
+            super(value.sort)
           end
 
           @scopes_enabled = true
@@ -37,5 +37,9 @@ module AuthorizationCore::Scopes
 
   def available_scopes
     @available_scopes ||= definition.scopes
+  end
+
+  def included_scopes
+    @included_scopes ||= definition.scopes.select(&:included?)
   end
 end

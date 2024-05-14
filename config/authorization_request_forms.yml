@@ -30,16 +30,16 @@ shared:
     data:
       cadre_juridique_nature: 'R2143-13 Code de la commande publique'
       cadre_juridique_url: 'https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037730589'
-    scopes:
-      - unites_legales_etablissements_insee
-      - associations_djepva
-      - chiffre_affaires_dgfip
-      - attestation_fiscale_dgfip
-      - attestation_sociale_urssaf
-      - cotisations_msa
-      - cotisations_probtp
-      - certification_cnetp
-      - certifications_qualiopi_france_competences
+      scopes:
+        - unites_legales_etablissements_insee
+        - associations_djepva
+        - chiffre_affaires_dgfip
+        - attestation_fiscale_dgfip
+        - attestation_sociale_urssaf
+        - cotisations_msa
+        - cotisations_probtp
+        - certification_cnetp
+        - certifications_qualiopi_france_competences
 
   api-entreprise-aides-publiques:
     name: "Aides publiques"
@@ -52,14 +52,15 @@ shared:
       - name: 'legal'
       - name: 'scopes'
       - name: 'contacts'
-    scopes:
-      - unites_legales_etablissements_insee
-      - associations_djepva
-      - mandataires_sociaux_infogreffe
-      - chiffre_affaires_dgfip
-      - attestation_fiscale_dgfip
-      - attestation_sociale_urssaf
-      - cotisations_msa
+    data:
+      scopes:
+        - unites_legales_etablissements_insee
+        - associations_djepva
+        - mandataires_sociaux_infogreffe
+        - chiffre_affaires_dgfip
+        - attestation_fiscale_dgfip
+        - attestation_sociale_urssaf
+        - cotisations_msa
 
   api-entreprise-subventions-associations:
     name: "Subventions des associations"
@@ -72,12 +73,13 @@ shared:
       - name: 'legal'
       - name: 'scopes'
       - name: 'contacts'
-    scopes:
-      - unites_legales_etablissements_insee
-      - associations_djepva
-      - mandataires_sociaux_infogreffe
-      - chiffre_affaires_dgfip
-      - certifications_qualiopi_france_competences
+    data:
+      scopes:
+        - unites_legales_etablissements_insee
+        - associations_djepva
+        - mandataires_sociaux_infogreffe
+        - chiffre_affaires_dgfip
+        - certifications_qualiopi_france_competences
 
   api-entreprise-portail-gru-preremplissage:
     name: "Portail GRU - Préremplissage"
@@ -332,6 +334,11 @@ La plateforme, mise en place pour permettre le dépôt de ces aides publiques et
     single_page_view: 'api_entreprise_through_editor'
     use_case: 'marches_publics'
     editor_id: 'setec'
+    static_blocks:
+      - name: 'basic_infos'
+      - name: 'personal_data'
+      - name: 'legal'
+      - name: 'scopes'
     data:
       intitule: "Outil de dématérialisation des appels d’offres des marchés publics - Solution LOCAL TRUST MPE via SETEC"
       description: |+

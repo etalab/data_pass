@@ -29,7 +29,10 @@ fr:
       responsable_traitement: Responsable de traitement
       delegue_protection_donnees: Délégué à la protection des données
   authorization_request_event:
-    changelog_entry: "Le champ \"%{attribute}\" a changé de \"%{old_value}\" en \"%{new_value}\""
+    changelog_entry: "Le champ <u>%{attribute}</u> a changé de \"%{old_value}\" en \"%{new_value}\""
+    changelog_entry_new_scope: "Le périmètre de données <u>%{value}</u> a été ajouté."
+    changelog_entry_removed_scope: "Le périmètre de données <u>%{value}</u> a été retiré."
+    changelog_entry_with_null_old_value: "Le champ <u>%{attribute}</u> a été initialisé à \"%{new_value}\""
 
   layouts:
     header:
@@ -427,11 +430,15 @@ fr:
           text: |
             <strong>%{user_full_name}</strong> a soumis la demande
 
-            Les données suivantes ont été modifiées par rapport aux informations pré-remplies:
+            <br />
+
+            Les données suivantes ont été modifiées par rapport aux informations initiales de la demande :
             %{text}
         submit:
           text: |
-            <strong>%{user_full_name}</strong> a soumis la demande
+            <strong>%{user_full_name}</strong> a soumis la demande.
+
+            <br />
 
             La liste des changements depuis la dernière modération sont:
             %{text}
