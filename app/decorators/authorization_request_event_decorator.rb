@@ -26,7 +26,7 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
     case name
     when 'refuse', 'request_changes', 'revoke'
       h.simple_format(entity.reason)
-    when 'submit'
+    when 'submit', 'admin_update'
       humanized_changelog
     when 'initial_submit_with_changed_prefilled'
       humanized_changelog_without_blank_values
