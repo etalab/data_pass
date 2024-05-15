@@ -1,5 +1,6 @@
 class Import::AuthorizationRequestEvents < Import::Base
   include LocalDatabaseUtils
+  include UserLegacyUtils
 
   def extract(event_row)
     authorization_request = AuthorizationRequest.find(event_row['enrollment_id'])
@@ -26,10 +27,11 @@ class Import::AuthorizationRequestEvents < Import::Base
     when 'import'
       # FIXME seulement hubee et FC
     when 'notify'
-      user = User.find(event_row['user_id'])
+      user_id = all_users_email_to_id[all_legacy_users_id_to_email[event_row['user_id'].to_i]]
+
       message = Message.create!(
         body: event_row['comment'],
-        from: user,
+        from_id: user_id,
         authorization_request: authorization_request,
         sent_at: event_row['created_at'],
         read_at: event_row['created_at'],
@@ -103,8 +105,8 @@ class Import::AuthorizationRequestEvents < Import::Base
   end
 
   def extract_user_id(event_row, entity:)
-    if all_user_ids.include?(event_row['user_id'].to_i)
-      event_row['user_id']
+    if all_legacy_users_id_to_email.keys.include?(event_row['user_id'].to_i)
+      legacy_user_id_to_user_id(event_row['user_id'])
     elsif %w[create update archive copy].include?(event_row['name'])
       entity.applicant_id
     elsif %w[submit].include?(event_row['name'])
@@ -112,25 +114,25 @@ class Import::AuthorizationRequestEvents < Import::Base
     end
   end
 
-  def all_user_ids
-    @all_user_ids ||= User.pluck(:id)
-  end
-
   def from_admin?(event_row)
     event_row['user_id'].present? &&
-      admin_ids.include?(event_row['user_id'].to_i)
+      admin_legacy_id_to_external_id.keys.include?(event_row['user_id'].to_s)
   end
 
   def admin_ids
-    [
-      161,
-      5475,
-      12477,
-      13134,
-      14932,
-      21645,
-      21960,
-    ]
+    @admin_ids ||= database.execute('select id from users where uid in (?)', admin_external_ids).map { |row| row['id'] }
+  end
+
+  def admin_legacy_id_to_external_id
+    {
+      '161' => '243',
+      '5475' => '8404',
+      '12477' => '16574',
+      '13134' => '17210',
+      '14932' => '19244',
+      '21645' => '34178',
+      '21960' => '34758',
+    }
   end
 
   def build_event_diff(event_row, authorization_request, relevant_rows: nil)

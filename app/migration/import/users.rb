@@ -1,11 +1,10 @@
 class Import::Users < Import::Base
   def extract(user_row)
-    user = User.find_or_initialize_by(email: user_row['email'])
+    user = User.find_or_initialize_by(email: user_row['email'].downcase.strip)
     user_organizations = Organization.where(siret: sanitize_user_organizations(user_row['organizations']).map { |org| org['siret'] }).distinct
 
     user.assign_attributes(
       user_row.to_h.slice(
-        'id',
         'phone_number',
         'created_at',
       ).merge(

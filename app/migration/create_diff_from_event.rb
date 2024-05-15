@@ -1,5 +1,6 @@
 class CreateDiffFromEvent
   include LocalDatabaseUtils
+  include UserLegacyUtils
 
   attr_reader :event_row, :authorization_request
 
@@ -305,7 +306,9 @@ class CreateDiffFromEvent
   def handle_user_change(final_diff, event_diff)
     return unless event_diff['user_id']
 
-    final_diff['applicant_id'] = event_diff.delete('user_id')
+    final_diff['applicant_id'] = event_diff.delete('user_id').map { |legacy_user_id| legacy_user_id_to_user_id(legacy_user_id) }
+
+    byebug if final_diff['applicant_id'].any? { |v| v.nil? }
   end
 
   def fetch_relevant_rows!

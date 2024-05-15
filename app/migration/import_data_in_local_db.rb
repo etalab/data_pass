@@ -39,6 +39,18 @@ class ImportDataInLocalDb
 
   def definitions
     {
+      'users' => {
+        table: "
+          CREATE TABLE users (
+            id INTEGER PRIMARY KEY,
+            uid TEXT,
+            email TEXT
+          );
+          create unique index users_id_index on users (id);
+        ",
+        insert_statement: "INSERT INTO users (id, uid, email) VALUES (?, ?, ?)",
+        insert_data: ->(row) { [row['id'], row['uid'], row['email']] },
+      },
       'events' => {
         table: "
           create table events (
