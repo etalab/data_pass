@@ -14,7 +14,7 @@ class AuthorizationRequest::HubEEDila < AuthorizationRequest
       .where(
         organization:,
         type: 'AuthorizationRequest::HubEEDila',
-        state: %w[validated submitted changes_requested]
+        state: %w[draft validated submitted changes_requested]
       )
 
     existing_scopes = existing_requests.map(&:scopes).flatten.uniq

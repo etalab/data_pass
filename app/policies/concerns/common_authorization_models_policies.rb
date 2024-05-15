@@ -37,7 +37,7 @@ module CommonAuthorizationModelsPolicies
   end
 
   def requested_scopes?
-    existing_requests = current_organization&.active_authorization_requests&.where(type: authorization_request_class, state: %w[validated submitted changes_requested])
+    existing_requests = current_organization&.active_authorization_requests&.where(type: authorization_request_class, state: %w[draft validated submitted changes_requested])
 
     return false unless existing_requests.any?
 
