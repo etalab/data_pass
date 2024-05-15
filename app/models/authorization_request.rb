@@ -10,6 +10,9 @@ class AuthorizationRequest < ApplicationRecord
 
   belongs_to :organization
 
+  validates :applicant, presence: true
+  validates :organization, presence: true
+
   has_many :denials,
     class_name: 'DenialOfAuthorization',
     inverse_of: :authorization_request,
