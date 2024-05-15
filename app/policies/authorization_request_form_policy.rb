@@ -6,4 +6,8 @@ class AuthorizationRequestFormPolicy < ApplicationPolicy
   def authorization_request_class
     record.authorization_request_class.to_s
   end
+
+  def scopes
+    record.authorization_definition.scopes
+  end
 end

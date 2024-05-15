@@ -9,6 +9,32 @@ shared:
     blocks:
       - name: 'contacts'
 
+  hubee_dila:
+    name: "Portail HubEE - Démarches DILA"
+    description: "Acte d’État Civil, Démarche en ligne de préparation à la conclusion d’un Pacs, Recensement Citoyen Obligatoire, Déclaration d'hébergement touristique, Déclaration de Changement de Coordonnées"
+    cgu_link: '/cgus/20210212_dinum_hubee_cgu_v2_1_0_version_site.pdf'
+    provider: 'hubee'
+    public: true
+    blocks:
+      - name: 'scopes'
+      - name: 'contacts'
+    scopes:
+      - name: "AEC - Acte d’Etat Civil"
+        value: "etat_civil"
+        group: "Démarches en ligne auxquelles vous souhaitez abonner votre commune"
+      - name: "DDPACS - Démarche en ligne de préparation à la conclusion d’un Pacs"
+        value: "depot_dossier_pacs"
+        group: "Démarches en ligne auxquelles vous souhaitez abonner votre commune"
+      - name: "RCO - Recensement Citoyen Obligatoire"
+        value: "recensement_citoyen"
+        group: "Démarches en ligne auxquelles vous souhaitez abonner votre commune"
+      - name: "DHTOUR - Déclaration d’hébergement touristique"
+        value: "hebergement_tourisme"
+        group: "Démarches en ligne auxquelles vous souhaitez abonner votre commune"
+      - name: "JCC - Déclaration de Changement de Coordonnées"
+        value: "je_change_de_coordonnees"
+        group: "Démarches en ligne auxquelles vous souhaitez abonner votre commune"
+
   api_entreprise:
     name: "API Entreprise"
     description: "Entités administratives, simplifiez les démarches des entreprises et des associations en récupérant pour elles leurs informations administratives."

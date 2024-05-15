@@ -1,6 +1,6 @@
 module CommonAuthorizationModelsPolicies
   def new?
-    !unicity_constraint_violated? &&
+    !unicity_constraint_violated? && !hubee_scope_uniqueness_constraint? &&
       record.startable_by_applicant
   end
 
@@ -11,6 +11,10 @@ module CommonAuthorizationModelsPolicies
   protected
 
   def authorization_request_class
+    fail NoImplementedError
+  end
+
+  def scopes
     fail NoImplementedError
   end
 
@@ -26,7 +30,28 @@ module CommonAuthorizationModelsPolicies
     current_organization && current_organization.active_authorization_requests.where(type: authorization_request_class).any?
   end
 
+  def hubee_scope_uniqueness_constraint?
+    return false unless hubee_dila?
+
+    requested_scopes?
+  end
+
+  def requested_scopes?
+    existing_requests = current_organization&.active_authorization_requests&.where(type: authorization_request_class, state: %w[draft validated submitted changes_requested])
+
+    return false unless existing_requests.any?
+
+    existing_scopes = existing_requests.map(&:scopes).flatten.uniq
+    required_scopes = %w[etat_civil depot_dossier_pacs recensement_citoyen hebergement_tourisme je_change_de_coordonnees]
+
+    (required_scopes & existing_scopes) == required_scopes
+  end
+
   def hubee_cert_dc?
     authorization_request_class == 'AuthorizationRequest::HubEECertDC'
+  end
+
+  def hubee_dila?
+    authorization_request_class == 'AuthorizationRequest::HubEEDila'
   end
 end

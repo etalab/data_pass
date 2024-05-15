@@ -57,6 +57,10 @@ class AuthorizationRequestPolicy < ApplicationPolicy
     record.to_s
   end
 
+  def scopes
+    record.scopes
+  end
+
   private
 
   def same_current_organization?

@@ -36,6 +36,12 @@ Fonctionnalité: Consultation d'une demande d'habilitation
     Et il y a un bouton "Enregistrer"
 
   Scénario: Je consulte une demande d'habilitation en plusieurs étapes en brouillon m'appartenant
+    Quand je me rends sur une demande d'habilitation "Portail HubEE - Démarches DILA" en brouillon
+    Alors il y a un titre contenant "Portail HubEE - Démarches DILA"
+    Et il y a un formulaire en plusieurs étapes
+    Et il y a un bouton "Enregistrer"
+
+  Scénario: Je consulte une demande d'habilitation en plusieurs étapes en brouillon m'appartenant
     Quand je me rends sur une demande d'habilitation "API Entreprise" en brouillon
     Alors il y a un titre contenant "API Entreprise"
     Et il y a un formulaire en plusieurs étapes
@@ -46,6 +52,14 @@ Fonctionnalité: Consultation d'une demande d'habilitation
     Et que je clique sur "Toutes celles de l'organisation"
     Et que je clique sur "Consulter"
     Alors il y a un titre contenant "Portail HubEE - Démarche CertDC"
+    Et il y a un formulaire en mode résumé
+    Et il n'y a pas de bouton "Enregistrer"
+
+  Scénario: Je consulte une demande d'habilitation en plusieurs étapes en brouillon de l'organisation
+    Quand mon organisation a 1 demande d'habilitation "Portail HubEE - Démarches DILA"
+    Et que je clique sur "Toutes celles de l'organisation"
+    Et que je clique sur "Consulter"
+    Alors il y a un titre contenant "Portail HubEE - Démarches DILA"
     Et il y a un formulaire en mode résumé
     Et il n'y a pas de bouton "Enregistrer"
 
@@ -63,6 +77,16 @@ Fonctionnalité: Consultation d'une demande d'habilitation
     Et que je clique sur "J'y suis mentionné en contact"
     Et que je clique sur "Consulter"
     Alors il y a un titre contenant "Portail HubEE - Démarche CertDC"
+    Et il y a un formulaire en mode résumé
+    Et il n'y a pas de bouton "Enregistrer"
+    Et il y a un message d'info contenant "Vous avez été référencé comme administrateur métier"
+
+  Scénario: Je consulte une demande d'habilitation en plusieurs étapes où je suis mentionné
+    Quand je suis mentionné dans 1 demande d'habilitation "Portail HubEE - Démarches DILA" en tant que "Administrateur métier"
+    Et que je vais sur la page du tableau de bord
+    Et que je clique sur "J'y suis mentionné en contact"
+    Et que je clique sur "Consulter"
+    Alors il y a un titre contenant "Portail HubEE - Démarches DILA"
     Et il y a un formulaire en mode résumé
     Et il n'y a pas de bouton "Enregistrer"
     Et il y a un message d'info contenant "Vous avez été référencé comme administrateur métier"
