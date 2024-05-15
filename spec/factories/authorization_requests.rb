@@ -237,6 +237,12 @@ FactoryBot.define do
       form_uid { 'api-entreprise-detection-fraude' }
     end
 
+    trait :api_entreprise_editeur do
+      api_entreprise
+
+      form_uid { 'api-entreprise-editeur' }
+    end
+
     trait :api_entreprise_e_attestations do
       api_entreprise
       form_uid { 'api-entreprise-e-attestations' }
