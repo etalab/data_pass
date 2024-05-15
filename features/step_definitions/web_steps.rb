@@ -182,3 +182,9 @@ Alors('la page contient le logo du fournisseur de données {string}') do |author
   provider_logo = find_authorization_definition_from_name(authorization_definition).provider.name
   expect(page).to have_xpath("//img[contains(@alt, \"#{provider_logo}\")]")
 end
+
+Alors('je ne peux pas cocher {string}') do |checkbox_label|
+  checkbox_id = "##{find('label', text: checkbox_label)[:for]}"
+
+  expect(page.find(checkbox_id, visible: :all)[:disabled]).to be_truthy
+end

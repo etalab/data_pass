@@ -50,3 +50,19 @@ Fonctionnalité: Soumission d'une demande d'habilitation Portail HubEE - Démarc
     Alors il y a un message d'erreur contenant "Une erreur est survenue lors de la sauvegarde de la demande d'habilitation"
     Et il y a au moins une erreur sur un champ
     Et je suis sur la page "Portail HubEE - Démarches DILA"
+
+  Scénario: Je soumets une demande d'habilitation valide
+    Quand je démarre une nouvelle demande d'habilitation "Portail HubEE - Démarches DILA"
+    * je coche "AEC - Acte d’Etat Civil"
+    * je clique sur "Suivant"
+
+    * je remplis les informations du contact "Administrateur métier" avec :
+      | Nom    | Prénom | Email               | Téléphone   | Fonction              |
+      | Dupont | Jean   | dupont.jean@gouv.fr | 0836656565  | Administrateur métier |
+    * je clique sur "Suivant"
+
+    * j'adhère aux conditions générales
+    * je clique sur "Soumettre la demande d'habilitation"
+
+    * je démarre une nouvelle demande d'habilitation "Portail HubEE - Démarches DILA"
+    Alors je ne peux pas cocher "AEC - Acte d’Etat Civil"
