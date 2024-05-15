@@ -135,6 +135,34 @@ shared:
       - name: 'scopes'
       - name: 'contacts'
 
+  api-entreprise-editeur:
+    name: "Demande spécifique aux éditeurs de logiciels"
+    description: "Pour les éditeurs de logiciels ayant des clients publics et souhaitant intégrer API Entreprise."
+    authorization_request: 'APIEntreprise'
+    steps:
+      - name: 'basic_infos'
+      - name: 'personal_data'
+      - name: 'legal'
+      - name: 'scopes'
+      - name: 'contacts'
+    data:
+      intitule: "Merci de préciser le nom de votre solution logicielle"
+      description: |+
+        Attention, cette demande concerne exclusivement les prestataires éditeurs de logiciels à destination d’acteurs publics.
+
+        Éditeurs de logiciels, merci de répondre à toutes les questions suivantes :
+
+        1- Quelles sont les différentes activités de votre organisation(description et site internet) ?
+
+        2- Qui sont vos différents clients (privés et/ou publics)?
+
+        3- Qui seront les clients publics qui bénéficieront des données obtenues par l’API Entreprise?
+
+        4- À quoi sert le logiciel qui utilisera API Entreprise? Décrivez-nous le produit et son rôle auprès de vos clients du secteur public.
+
+        5- Quels sont les cas d’usage de vos clients publics? Exemples: Marchés publics, Aides et subventions publiques, Portail de gestion relation usager, Fiabilisation de base de tiers, Autres?
+
+
   api-entreprise-e-attestations:
     name: "Conformité titulaires de marchés"
     description: "Logiciel de contrôle de conformité des opérateurs économiques en vue de l’attribution ou du suivi des marchés"
