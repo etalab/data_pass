@@ -10,4 +10,16 @@
   </strong>
 
   <%= @authorization_request.duree_conservation_donnees_caractere_personnel %> mois.
+
+  <% if @authorization_request.duree_conservation_donnees_caractere_personnel_more_than_3_years? && @authorization_request.duree_conservation_donnees_caractere_personnel_justification.present? %>
+    <div>
+      <strong>
+        <%= f.label_value(:duree_conservation_donnees_caractere_personnel_justification) %>
+      </strong>
+
+      <p>
+        <%= simple_format(@authorization_request.duree_conservation_donnees_caractere_personnel_justification) %>
+      </p>
+    </div>
+  <% end %>
 <% end %>

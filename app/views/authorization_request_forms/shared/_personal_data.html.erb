@@ -1,12 +1,20 @@
 <%= f.info_for(:personal_data) %>
 
-<fieldset class="fr-fieldset" aria-label="feedme" aria-describedby="name-1-fieldset-messages">
+<fieldset class="fr-fieldset" data-controller="personal-data-duree-conservation-justification" aria-label="feedme" aria-describedby="name-1-fieldset-messages">
   <div class="fr-fieldset__element">
     <%= f.dsfr_text_field :destinataire_donnees_caractere_personnel %>
   </div>
 
   <div class="fr-fieldset__element">
-    <%= f.dsfr_number_field :duree_conservation_donnees_caractere_personnel %>
+    <%= f.dsfr_number_field :duree_conservation_donnees_caractere_personnel, data: { 'personal-data-duree-conservation-justification-target': 'value' } %>
+  </div>
+
+  <div class="fr-fieldset__element fr-hidden" data-personal-data-duree-conservation-justification-target="justificationBlock">
+    <div class="fr-alert fr-alert--warning">
+      <%= t('.duree_conservation_donnees_caractere_personnel_justification.warning') %>
+    </div>
+
+    <%= f.dsfr_text_area :duree_conservation_donnees_caractere_personnel_justification %>
   </div>
 </fieldset>
 
