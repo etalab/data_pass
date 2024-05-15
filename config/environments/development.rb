@@ -1,6 +1,7 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+  config.hosts << 'localtest.me'
   config.hosts << /.*\.localtest\.me/
 
   # Configure 'rails notes' to inspect Cucumber files
