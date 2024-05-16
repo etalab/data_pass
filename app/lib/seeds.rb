@@ -106,9 +106,13 @@ class Seeds
   def data_pass_admin
     @data_pass_admin ||= User.create!(
       email: 'datapass@yopmail.com',
-      roles: ['admin'],
+      roles: ['admin'] + all_authorization_definition_instructor_roles,
       current_organization: dinum_organization,
     )
+  end
+
+  def all_authorization_definition_instructor_roles
+    AuthorizationDefinition.all.map { |definition| "#{definition.id}:instructor" }
   end
 
   def clamart_organization
