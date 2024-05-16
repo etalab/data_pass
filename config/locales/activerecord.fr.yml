@@ -23,6 +23,7 @@ fr:
 
         destinataire_donnees_caractere_personnel: Destinataire des données
         duree_conservation_donnees_caractere_personnel: Durée de conservation des données en mois
+        duree_conservation_donnees_caractere_personnel_justification: Justification de la durée de conservation des données
 
         cadre_juridique_nature: Nature du cadre juridique
         cadre_juridique_url: Lien vers le texte relatif au cadre juridique
