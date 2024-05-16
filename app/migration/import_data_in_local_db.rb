@@ -135,7 +135,7 @@ class ImportDataInLocalDb
   end
 
   def delete_db_file!
-    FileUtils.rm_f(table_path)
+    FileUtils.rm_f(db_path)
     @database = nil
   end
 end
