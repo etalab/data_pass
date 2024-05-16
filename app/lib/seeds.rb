@@ -21,13 +21,16 @@ class Seeds
 
   private
 
+  # rubocop:disable Metrics/AbcSize
   def create_entities
     clamart_organization.users << demandeur
     clamart_organization.users << another_demandeur
 
     dinum_organization.users << api_entreprise_instructor
     dinum_organization.users << foreign_demandeur
+    dinum_organization.users << data_pass_admin
   end
+  # rubocop:enable Metrics/AbcSize
 
   def create_authorization_requests_for_clamart
     create_validated_authorization_request(:api_entreprise, attributes: { intitule: "Portail des appels d'offres", applicant: demandeur })
@@ -97,6 +100,14 @@ class Seeds
       phone_number: '0423456789',
       current_organization: dinum_organization,
       roles: ['api_entreprise:instructor']
+    )
+  end
+
+  def data_pass_admin
+    @data_pass_admin ||= User.create!(
+      email: 'datapass@yopmail.com',
+      roles: ['admin'],
+      current_organization: dinum_organization,
     )
   end
 
