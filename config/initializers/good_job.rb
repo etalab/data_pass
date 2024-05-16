@@ -1,3 +1,7 @@
+Rails.application.configure do
+  config.good_job.dashboard_default_locale = :fr
+end
+
 ActiveSupport.on_load(:good_job_application_controller) do
   include Authentication
 
