@@ -2,6 +2,8 @@ class RegisterOrganizationWithContactsOnCRMJob < ApplicationJob
   attr_reader :authorization_request
 
   def perform(authorization_request_id)
+    return unless hubspot_enabled?
+
     @authorization_request = AuthorizationRequest.find_by(id: authorization_request_id)
 
     return unless authorization_request
@@ -190,6 +192,11 @@ class RegisterOrganizationWithContactsOnCRMJob < ApplicationJob
 
   def organization
     @organization ||= authorization_request.organization
+  end
+
+  def hubspot_enabled?
+    Rails.env.local? ||
+      Rails.application.credentials.hubspot_private_app_access_token.present?
   end
 
   def crm_client
