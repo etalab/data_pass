@@ -11,7 +11,7 @@ ovh:
   endpoint: "https://s3.<%= Rails.application.credentials.dig(:ovh_region) %>.io.cloud.ovh.net/"
   region: <%= Rails.application.credentials.dig(:ovh_region) %>
   access_key_id: <%= Rails.application.credentials.dig(:ovh_access_key_id) %>
-  secret_access_key: <%= Rails.application.credentials.dig(:ovh_secret_access_key) %>
+  secret_access_key: <%= Rails.application.credentials.dig(:ovh_secret_key) %>
   bucket: <%= Rails.application.credentials.dig(:ovh_bucket_name) %>
 
 # Remember not to checkin your GCS keyfile to a repository
