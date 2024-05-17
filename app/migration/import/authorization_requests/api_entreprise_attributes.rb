@@ -143,6 +143,8 @@ class Import::AuthorizationRequests::APIEntrepriseAttributes < Import::Authoriza
       'api-entreprise-mgdis'
     when 'setec'
       'api-entreprise-setec-atexo'
+    when 'editeur'
+      'api-entreprise-editeur'
     end
   end
 
