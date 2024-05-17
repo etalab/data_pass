@@ -86,7 +86,7 @@ class AuthorizationRequestForm < StaticApplicationRecord
   end
 
   def prefilled?
-    data.present?
+    @data.present?
   end
 
   def data

@@ -91,7 +91,7 @@ RSpec.describe SubmitAuthorizationRequest do
                 changelog = authorization_request.changelogs.last
 
                 expect(changelog.diff['scopes']).to eq([
-                  initial_scopes,
+                  nil,
                   initial_scopes + %w[scope1 scope2]
                 ])
               end
