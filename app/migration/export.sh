@@ -7,7 +7,7 @@ pg_password=`cat app/migration/.pgpassword`
 echo ">> Init pg access"
 ssh $user@$host "echo \"localhost:5432:datapass_production:datapass_production:$pg_password\" > ~/.pgpass && chmod 600 ~/.pgpass && mkdir dumps 2> /dev/null"
 
-tables=(enrollments users team_members events organizations documents)
+tables=(enrollments users team_members events organizations documents snapshots snapshot_items)
 
 for table in "${tables[@]}"
 do

@@ -3,6 +3,29 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
+      "fingerprint": "189ba1fa0b6179743dc3eb8268099d24fc7decc92472645ea8cc2cf0b4b04255",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/migration/import/base.rb",
+      "line": 43,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.execute(\"TRUNCATE #{sql_table} CASCADE\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Import::Base",
+        "method": "load_sql_file!"
+      },
+      "user_input": "sql_table",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
       "fingerprint": "356e6d0847ba9e4d4d88c2b5a9016a2b71f1cdd821248af8384b997249c4eec0",
       "check_name": "SQL",
       "message": "Possible SQL injection",
@@ -30,7 +53,7 @@
       "check_name": "Execute",
       "message": "Possible command injection",
       "file": "app/migration/import/base.rb",
-      "line": 46,
+      "line": 47,
       "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
       "code": "`psql -d #{ActiveRecord::Base.connection.current_database} -f #{sql_file_path(sql_table)}`",
       "render_path": null,
@@ -53,7 +76,7 @@
       "check_name": "Execute",
       "message": "Possible command injection",
       "file": "app/migration/import/base.rb",
-      "line": 58,
+      "line": 59,
       "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
       "code": "`pg_dump -a -d #{ActiveRecord::Base.connection.current_database} -t #{sql_table} > #{sql_file_path(sql_table)}`",
       "render_path": null,
@@ -93,6 +116,6 @@
       "note": "this is clearly a false positive as params[:target_api] is an entry in a authorization_definitions.yml"
     }
   ],
-  "updated": "2024-03-25 11:59:11 +0100",
+  "updated": "2024-05-08 16:27:34 +0200",
   "brakeman_version": "6.1.2"
 }

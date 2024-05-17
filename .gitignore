@@ -45,6 +45,7 @@ sandbox
 coverage/
 
 app/migration/.pgpassword
+app/migration/.ovh.yml
 app/migration/dumps/*.csv
 app/migration/dumps/*.sql
 
@@ -52,3 +53,4 @@ app/migration/dumps/*.sql
 
 # Ignore local Redis snapshots
 /dump.rdb
+app/migration/dumps/data.db

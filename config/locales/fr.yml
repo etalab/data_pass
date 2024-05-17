@@ -33,6 +33,8 @@ fr:
     changelog_entry_new_scope: "Le périmètre de données <u>%{value}</u> a été ajouté."
     changelog_entry_removed_scope: "Le périmètre de données <u>%{value}</u> a été retiré."
     changelog_entry_with_null_old_value: "Le champ <u>%{attribute}</u> a été initialisé à \"%{new_value}\""
+    changelog_entry_applicant: "Le <u>demandeur</u> a été modifié de %{old_value} à %{new_value}."
+    changelog_entry_applicant_with_missing_data: "Le <u>demandeur</u> a été modifié."
 
   layouts:
     header:

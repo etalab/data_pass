@@ -1,11 +1,12 @@
 class Import::Users < Import::Base
   def extract(user_row)
-    user = User.find_or_initialize_by(email: user_row['email'])
+    user = User.find_or_initialize_by(email: user_row['email'].downcase.strip)
     user_organizations = Organization.where(siret: sanitize_user_organizations(user_row['organizations']).map { |org| org['siret'] }).distinct
 
     user.assign_attributes(
       user_row.to_h.slice(
         'phone_number',
+        'created_at',
       ).merge(
         given_name: user_row['given_name'].try(:strip),
         family_name: user_row['family_name'].try(:strip),
@@ -20,6 +21,7 @@ class Import::Users < Import::Base
     end
 
     user.current_organization = user_organizations.first if user.current_organization.blank?
+    user.organizations << user.current_organization unless user.organizations.include?(user.current_organization)
 
     user.save!
 
@@ -40,8 +42,11 @@ class Import::Users < Import::Base
 
   def extra_organizations(user_external_id)
     sirets = {
+      '13025' => ['23130002100012', '20005375900011', '23450002300028', '20005372600028', '20005376700014', '20005550700012', '20005379100014', '20005376700014', '20005267800014'],
+      '14308' => ['18450311800020'],
       '66565' => ['22270229200012'],
       '39697' => ['89991311500015'],
+      '47430' => ['12000018700027', '12002503600035'],
     }[user_external_id]
 
     if sirets.present?

@@ -1,4 +1,6 @@
 class Import::AuthorizationRequests < Import::Base
+  include LocalDatabaseUtils
+
   def initialize(options)
     super(options)
     @team_members = {}
@@ -14,17 +16,13 @@ class Import::AuthorizationRequests < Import::Base
 
     authorization_request.form_uid = fetch_form(authorization_request).id
     authorization_request.state = enrollment_row['status']
+    authorization_request.linked_token_manager_id = enrollment_row['linked_token_manager_id']
+    authorization_request.copied_from_request = AuthorizationRequest.find(enrollment_row['copied_from_enrollment_id']) if enrollment_row['copied_from_enrollment_id'] && AuthorizationRequest.exists?(enrollment_row['copied_from_enrollment_id'])
 
     if !authorization_request.filling?
       authorization_request.assign_attributes(
         terms_of_service_accepted: true,
         data_protection_officer_informed: true,
-      )
-    end
-
-    if authorization_request.state == 'validated'
-      authorization_request.assign_attributes(
-        last_validated_at: DateTime.now,
       )
     end
 
@@ -43,17 +41,27 @@ class Import::AuthorizationRequests < Import::Base
 
   private
 
+  def sql_tables_to_save
+    super.concat(
+      %w[
+        active_storage_blobs
+        active_storage_attachments
+        active_storage_variant_records
+        users
+        organizations
+      ]
+    )
+  end
+
   def find_team_member(kind, enrollment_id)
     fetch_team_members(enrollment_id).find { |team_member| team_member['type'] == kind }
   end
 
   def fetch_team_members(enrollment_id)
     @team_members.fetch(enrollment_id) do
-      enrollment_team_members = filtered_team_members.select { |row| row['enrollment_id'] == enrollment_id }
-
-      @team_members[enrollment_id] = enrollment_team_members
-
-      enrollment_team_members
+      database.execute('select * from team_members where authorization_request_id = ?', enrollment_id).to_a.map do |row|
+        format_row_from_sql(row)
+      end
     end
   end
 
@@ -66,16 +74,39 @@ class Import::AuthorizationRequests < Import::Base
 
     return organization if organization.present?
 
+    if authorization_ids_where_user_belongs_to_organization.include?(enrollment_row['id'].to_i)
+      organization = Organization.find_by(siret: enrollment_row['siret'])
+      user.organizations << organization
+      return organization
+    end
+
     new_potential_siret = {
       # PM => DINUM
       '11000101300017' => '13002526500013',
       # Agence de la recherche fermée
       '13000250400020' => '13000250400038',
+      # DRJSCS => DREETS
+      '13001252900017' => '13002921800018',
+      # Recia
+      '18450311800020' => '12002503600035',
+      # Port de strasbourg
+      '77564141800014' => '77564141800089',
     }[enrollment_row['siret']]
 
     return if new_potential_siret.blank?
 
     user.organizations.find_by(siret: new_potential_siret)
+  end
+
+  def authorization_ids_where_user_belongs_to_organization
+    [
+      971,
+      2929,
+      2930,
+      2931,
+      45988,
+      52766,
+    ]
   end
 
   def fetch_applicant(enrollment_row)
@@ -146,13 +177,13 @@ class Import::AuthorizationRequests < Import::Base
   end
 
   def import?(enrollment_row)
-    !old_draft?(enrollment_row) &&
+    !old_unused?(enrollment_row) &&
       !ignore?(enrollment_row['id']) &&
       from_target_api_to_type(enrollment_row).present?
   end
 
-  def old_draft?(enrollment_row)
-    enrollment_row['status'] == 'draft' &&
+  def old_unused?(enrollment_row)
+    %w[refused revoked changes_requested draft archived].include?(enrollment_row['status']) &&
       DateTime.parse(enrollment_row['created_at']) < DateTime.new(2022, 1, 1)
   end
 
@@ -160,12 +191,18 @@ class Import::AuthorizationRequests < Import::Base
     [
       # Draft ~3 mois, boîte fermée
       '54815',
+      # Irrelevant
+      '1124',
     ].include?(enrollment_id)
   end
 
   def find_or_build_authorization_request(enrollment_row)
     AuthorizationRequest.find_by(id: enrollment_row['id']) ||
-      AuthorizationRequest.const_get(from_target_api_to_type(enrollment_row)).new(id: enrollment_row['id'], type: "AuthorizationRequest::#{from_target_api_to_type(enrollment_row)}")
+      AuthorizationRequest.const_get(from_target_api_to_type(enrollment_row)).new(
+        id: enrollment_row['id'],
+        created_at: enrollment_row['created_at'],
+        type: "AuthorizationRequest::#{from_target_api_to_type(enrollment_row)}"
+      )
   end
 
   def from_target_api_to_type(enrollment)
@@ -176,13 +213,18 @@ class Import::AuthorizationRequests < Import::Base
     }[enrollment['target_api']].try(:classify)
   end
 
-  def csv_to_loop
-    @csv_to_loop ||= csv('enrollments').select { |row| import?(row) }
+  def csv_or_table_to_loop
+    @rows_from_sql = true
+    where_key = "#{model_tableize}_sql_where".to_sym
+
+    query = 'SELECT raw_data FROM enrollments'
+    query += " WHERE #{options[where_key]}" if options[where_key].present?
+    database.execute(query)
   end
 
   def filtered_team_members
     @filtered_team_members ||= begin
-      enrollment_ids = csv_to_loop.pluck('id')
+      enrollment_ids = csv_or_table_to_loop.pluck('id')
 
       csv('team_members').select { |row| enrollment_ids.include?(row['enrollment_id']) }
     end
