@@ -75,8 +75,8 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
   end
 
   def build_scopes_change(values)
-    new_scopes = values[0] - values[1]
-    removed_scopes = values[1] - values[0]
+    new_scopes = values[1] - values[0]
+    removed_scopes = values[0] - values[1]
 
     [
       new_scopes.map do |scope|
