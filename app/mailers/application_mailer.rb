@@ -12,11 +12,11 @@ class ApplicationMailer < ActionMailer::Base
   def current_host
     case Rails.env
     when 'production'
-      'https://v2.datapass.api.gouv.fr'
+      'https://api-entreprise.v2.datapass.api.gouv.fr'
     when 'test', 'development'
       'http://localhost:3000'
     else
-      "https://#{Rails.env}.v2.datapass.api.gouv.fr"
+      "https://#{Rails.env}.api-entreprise.v2.datapass.api.gouv.fr"
     end
   end
 end
