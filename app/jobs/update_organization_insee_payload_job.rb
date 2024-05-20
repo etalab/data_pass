@@ -1,7 +1,7 @@
 class UpdateOrganizationINSEEPayloadJob < ApplicationJob
   attr_reader :organization
 
-  retry_on Faraday::ServerError, wait: :exponentially_longer, attempts: Float::INFINITY
+  retry_on Faraday::ServerError, wait: :polynomially_longer, attempts: Float::INFINITY
 
   def perform(organization_id)
     @organization = Organization.find(organization_id)
