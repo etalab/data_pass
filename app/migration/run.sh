@@ -7,8 +7,8 @@ pg_password=`cat app/migration/.pgpassword`
 cd /var/www/datapass_reborn_$RAILS_ENV/current
 
 ## TODO TO CHANGE
-RAILS_ENV=staging
-LOCAL=true
+RAILS_ENV=production
+LOCAL=false
 ## END TODO
 
 export RAILS_ENV LOCAL
