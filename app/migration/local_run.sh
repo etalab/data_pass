@@ -1,6 +1,7 @@
 #!/bin/bash
 
-bundle exec rails db:schema:load
+# bundle exec rails db:schema:load
+LOCAL=true time bundle exec rails runner "ImportDataInLocalDb.new.perform(delete_db_file: false)"
 LOCAL=true time bundle exec rails runner "MainImport.new.perform"
 LOCAL=true bundle exec rails runner "
 ActiveRecord::Base.transaction do
