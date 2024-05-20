@@ -233,10 +233,10 @@ shared:
       destinataire_donnees_caractere_personnel: "Services marchés d’organismes publics et collectivités locales"
       duree_conservation_donnees_caractere_personnel: 36
       contact_metier_type: 'organization'
-      contact_metier_email: "client.services@provigis.com"
+      contact_metier_email: "<%= Rails.env.production? ? 'client.services@provigis.com' : 'metier-provigis@yopmail.com' %>"
       contact_metier_phone_number: "0183755520"
       contact_technique_type: 'organization'
-      contact_technique_email: "tech@provigis.com"
+      contact_technique_email: "<%= Rails.env.production? ? 'tech@provigis.com' : 'tech-provigis@yopmail.com' %>"
       contact_technique_phone_number: "0183755520"
       scopes:
         - unites_legales_etablissements_insee
@@ -318,7 +318,7 @@ La plateforme, mise en place pour permettre le dépôt de ces aides publiques et
       cadre_juridique_url: "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000038029589/"
 
       contact_technique_type: 'organization'
-      contact_technique_email: &api_entreprise_mgdis_contact_email 'assistance@mgdis.fr'
+      contact_technique_email: &api_entreprise_mgdis_contact_email "<%= Rails.env.production? ? 'assistance@mgdis.fr' : 'contact-mgdis@yopmail.com' %>"
       contact_technique_phone_number: &api_entreprise_mgdis_contact_phone_number '0297681828'
       contact_metier_type: 'organization'
       contact_metier_email: *api_entreprise_mgdis_contact_email
@@ -350,7 +350,7 @@ La plateforme, mise en place pour permettre le dépôt de ces aides publiques et
       cadre_juridique_url: 'https://www.legifrance.gouv.fr/codes/id/LEGIARTI000018520702/2011-12-31/'
 
       contact_technique_type: 'organization'
-      contact_technique_email: 'produits@atexo.com'
+      contact_technique_email: "<%= Rails.env.production? ? 'produits@atexo.com' : 'produit-atexo@yopmail.com' %>"
       contact_technique_phone_number: '0175440934'
       contact_metier_type: 'organization'
       contact_metier_email: "<%= Rails.application.credentials.api_entreprise_atexo_contact_metier_email || 'produit-atexo@yopmail.com' %>"
@@ -411,7 +411,7 @@ La plateforme, mise en place pour permettre le dépôt de ces aides publiques et
       cadre_juridique_url: https://www.legifrance.gouv.fr/codes/id/LEGIARTI000018520702/2011-12-31/
 
       contact_technique_type: 'organization'
-      contact_technique_email: &api_entreprise_setec_atexo_contact_email "<%= Rails.application.credentials.api_entreprise_setec_atexo_contact_email || 'not_valid@setec.com' %>"
+      contact_technique_email: &api_entreprise_setec_atexo_contact_email "<%= Rails.application.credentials.api_entreprise_setec_atexo_contact_email || 'contact-setec@yopmail.com' %>"
       contact_technique_phone_number: &api_entreprise_setec_atexo_contact_phone_number "<%= Rails.application.credentials.api_entreprise_setec_atexo_contact_phone_number || '0836656565' %>"
 
       contact_metier_type: 'organization'
