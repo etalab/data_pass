@@ -3,18 +3,13 @@ class Import::Users < Import::Base
     user = User.find_or_initialize_by(email: user_row['email'].downcase.strip)
     user_organizations = Organization.where(siret: sanitize_user_organizations(user_row['organizations']).map { |org| org['siret'] }).distinct
 
-    user.assign_attributes(
-      user_row.to_h.slice(
-        'phone_number',
-        'created_at',
-      ).merge(
-        given_name: user_row['given_name'].try(:strip),
-        family_name: user_row['family_name'].try(:strip),
-        job_title: user_row['job'].try(:strip),
-        email_verified: to_boolean(user_row['email_verified']),
-        external_id: user_row['uid'],
-      )
-    )
+    user.phone_number ||= user_row['phone_number']
+    user.created_at ||= user_row['created_at']
+    user.given_name ||= user_row['given_name'].try(:strip)
+    user.family_name ||= user_row['family_name'].try(:strip)
+    user.job_title ||= user_row['job_title'].try(:strip)
+    user.email_verified ||= to_boolean(user_row['email_verified'])
+    user.external_id ||= user_row['uid']
 
     (user_organizations.to_a.concat(extra_organizations(user_row['uid']))).each do |organization|
       user.organizations << organization unless user.organizations.include?(organization)

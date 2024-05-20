@@ -5,11 +5,9 @@ class Import::Organizations < Import::Base
     sanitize_user_organizations(user_row['organizations']).each do |organization_data|
       organization = Organization.find_or_initialize_by(siret: organization_data['siret'])
 
-      organization.assign_attributes(
-        mon_compte_pro_payload: organization_data,
-        last_mon_compte_pro_updated_at: DateTime.now,
-        created_at: user_row['created_at'],
-      )
+      organization.mon_compte_pro_payload = organization_data if organization.mon_compte_pro_payload.blank?
+      organization.last_mon_compte_pro_updated_at ||= DateTime.current
+      organization.created_at ||= user_row['created_at']
 
       organization.save!
 
