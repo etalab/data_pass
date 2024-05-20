@@ -50,8 +50,10 @@ class CreateAuthorizationFromSnapshot
     else
       data = database.execute(
         'select * from snapshots where enrollment_id = ? and date(created_at) = ? order by created_at limit 1',
-        authorization_request.id,
-        event_datetime.to_date.to_s,
+        [
+          authorization_request.id,
+          event_datetime.to_date.to_s,
+        ],
       )
     end
 
