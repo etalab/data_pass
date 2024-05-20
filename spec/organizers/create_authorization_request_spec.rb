@@ -98,7 +98,7 @@ RSpec.describe CreateAuthorizationRequest, type: :organizer do
         authorization_request = AuthorizationRequest.last
 
         expect(authorization_request.responsable_traitement_family_name).to eq('New Dupont')
-        expect(authorization_request.contact_technique_email).to eq('assistance@mgdis.fr')
+        expect(authorization_request.contact_technique_email).to eq('contact-mgdis@yopmail.com')
       end
     end
 
