@@ -44,6 +44,22 @@ sudo --preserve-env=RAILS_ENV,LOCAL -u datapass_reborn_$RAILS_ENV bundle exec ra
 echo ">> Change authorization request id sequence"
 sudo --preserve-env=RAILS_ENV,LOCAL -u datapass_reborn_$RAILS_ENV bundle exec rails runner "ActiveRecord::Base.connection.execute(\"select setval('authorization_requests_id_seq', 87045, true);\")"
 
+echo ">> Assign instructor roles"
+sudo --preserve-env=RAILS_ENV,LOCAL -u datapass_reborn_$RAILS_ENV bundle exec rails runner "
+ActiveRecord::Base.transaction do
+  User.where(external_id: %w[16574 243 33577 86663 3164 26213]).find_each do |user|
+    user.roles << 'api_entreprise:instructor'
+
+    if %w[16574 33577].exclude?(user.external_id)
+      user.instruction_submit_notifications_for_api_entreprise = false
+      user.instruction_messages_notifications_for_api_entreprise = false
+    end
+
+    user.save!
+  end
+end
+"
+
 echo ">> Maintenance mode OFF"
 sudo rm -f /var/www/html/maintenance_datapass.html
 
