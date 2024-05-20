@@ -96,7 +96,9 @@ class AuthorizationRequestForm < StaticApplicationRecord
       included_scopes = authorization_definition.scopes.select(&:included?)
 
       data[:scopes] ||= []
-      data[:scopes] += included_scopes.map(&:value).sort
+      data[:scopes] += included_scopes.map(&:value)
+      data[:scopes].sort!
+      data[:scopes].uniq!
     end
 
     data
