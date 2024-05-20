@@ -1,6 +1,8 @@
 class EmailVerifierJob < ApplicationJob
   attr_reader :email
 
+  retry_on Emailable::TimeoutError, wait: :exponentially_longer, attempts: Float::INFINITY
+
   def perform(email)
     @email = email
 
