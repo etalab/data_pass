@@ -12,7 +12,7 @@ SKIP_DOCUMENT_VALIDATION=true
 LOCAL=false
 ## END TODO
 
-export RAILS_ENV LOCAL
+export RAILS_ENV LOCAL SKIP_DOCUMENT_VALIDATION
 
 ## Process ici: https://pad.incubateur.net/xMY2MVZ1STexUrU8yfYMng
 
