@@ -15,4 +15,4 @@ ssh -A watchdoge -- sudo chmod 644 /var/www/datapass_reborn_$RAILS_ENV/current/a
 
 
 ssh -A watchdoge -- sudo cp /var/www/datapass_reborn_$RAILS_ENV/data.db /var/www/datapass_reborn_$RAILS_ENV/current/app/migration/dumps/
-ssh -A watchdoge -- sudo cp /var/www/datapass_reborn_$RAILS_ENV/*.sql /var/www/datapass_reborn_$RAILS_ENV/current/app/migration/dumps/
+ssh -A watchdoge -- sudo cp /var/www/datapass_reborn_$RAILS_ENV/app/migration/dumps/*.sql /var/www/datapass_reborn_$RAILS_ENV/current/app/migration/dumps/
