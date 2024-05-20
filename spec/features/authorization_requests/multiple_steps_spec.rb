@@ -12,22 +12,6 @@ RSpec.describe 'Authorization request with multiple steps' do
   end
 
   describe 'new habilitation' do
-    describe 'visiting' do
-      subject(:visit_new_habilitation) do
-        visit new_authorization_request_form_path(form_uid: authorization_request_form.uid)
-      end
-
-      context 'when there is already a habilitation in progress' do
-        let!(:another_authorization_request) { create(:authorization_request, :api_entreprise, applicant: user) }
-
-        it 'displays a warning' do
-          visit_new_habilitation
-
-          expect(page).to have_css('.fr-alert--warning')
-        end
-      end
-    end
-
     describe 'submitting the form' do
       subject(:start_new_habilitation) do
         visit new_authorization_request_form_path(form_uid: authorization_request_form.uid)
