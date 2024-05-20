@@ -9,9 +9,8 @@
         <% if current_user.instructor? %>
           <%= link_to t('.instruction_cta'), instruction_path, class: %w(fr-btn fr-btn--secondary fr-icon-file-add-fill fr-btn--icon-left) %>
         <% end %>
-        <% unless Rails.env.production? %>
-          <%= link_to 'Nouvelle habilitation', authorization_requests_path, class: %w(fr-btn fr-btn--secondary fr-icon-add-line fr-btn--icon-left) %>
-        <% end %>
+
+        <%= link_to 'Nouvelle habilitation', authorization_requests_path, class: %w(fr-btn fr-btn--secondary fr-icon-add-line fr-btn--icon-left) %>
       </div>
     </div>
 
