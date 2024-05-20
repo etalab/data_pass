@@ -10,7 +10,7 @@ module AuthorizationCore::Documents
       def self.add_document(name, validation_options = {})
         class_eval do
           has_one_attached name
-          validates name, validation_options
+          validates name, validation_options unless ENV['SKIP_DOCUMENT_VALIDATION']
 
           documents << name
         end

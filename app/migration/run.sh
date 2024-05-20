@@ -8,6 +8,7 @@ cd /var/www/datapass_reborn_$RAILS_ENV/current
 
 ## TODO TO CHANGE
 RAILS_ENV=production
+SKIP_DOCUMENT_VALIDATION=true
 LOCAL=false
 ## END TODO
 
@@ -39,7 +40,7 @@ echo ">> Drop local database"
 DISABLE_DATABASE_ENVIRONMENT_CHECK=1 sudo --preserve-env=RAILS_ENV,PATH,DISABLE_DATABASE_ENVIRONMENT_CHECK -u datapass_reborn_$RAILS_ENV bundle exec rails db:schema:load
 
 echo ">> Run main import script"
-sudo --preserve-env=RAILS_ENV,LOCAL -u datapass_reborn_$RAILS_ENV bundle exec rails runner "MainImport.new.perform"
+sudo --preserve-env=RAILS_ENV,LOCAL,SKIP_DOCUMENT_VALIDATION -u datapass_reborn_$RAILS_ENV bundle exec rails runner "MainImport.new.perform"
 
 echo ">> Change authorization request id sequence"
 sudo --preserve-env=RAILS_ENV,LOCAL -u datapass_reborn_$RAILS_ENV bundle exec rails runner "ActiveRecord::Base.connection.execute(\"select setval('authorization_requests_id_seq', 87045, true);\")"
