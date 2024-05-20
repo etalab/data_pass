@@ -42,7 +42,7 @@ echo ">> Run main import script"
 sudo --preserve-env=RAILS_ENV,LOCAL -u datapass_reborn_$RAILS_ENV bundle exec rails runner "MainImport.new.perform"
 
 echo ">> Change authorization request id sequence"
-sudo --preserve-env=RAILS_ENV,LOCAL -u datapass_reborn_$RAILS_ENV bundle exec rails runner "ActiveRecord::Base.connection.execute(\"select setval('authorization_requests_id_seq', 87000, true);\")"
+sudo --preserve-env=RAILS_ENV,LOCAL -u datapass_reborn_$RAILS_ENV bundle exec rails runner "ActiveRecord::Base.connection.execute(\"select setval('authorization_requests_id_seq', 87045, true);\")"
 
 echo ">> Maintenance mode OFF"
 sudo rm -f /var/www/html/maintenance_datapass.html
