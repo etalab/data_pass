@@ -46,7 +46,11 @@ shared:
       scopes:
         - unites_legales_etablissements_insee
         - associations_djepva
+        - effectifs_urssaf
+        - mandataires_sociaux_infogreffe
         - chiffre_affaires_dgfip
+        - bilans_bdf
+        - liasses_fiscales_dgfip
         - attestation_fiscale_dgfip
         - attestation_sociale_urssaf
         - cotisations_msa
@@ -69,11 +73,17 @@ shared:
       scopes:
         - unites_legales_etablissements_insee
         - associations_djepva
+        - effectifs_urssaf
         - mandataires_sociaux_infogreffe
         - chiffre_affaires_dgfip
+        - bilans_bdf
+        # - liasses_fiscales_dgfip
         - attestation_fiscale_dgfip
         - attestation_sociale_urssaf
         - cotisations_msa
+        - cotisations_probtp
+        - certification_cnetp
+        - certifications_qualiopi_france_competences
 
   api-entreprise-subventions-associations:
     name: "Subventions des associations"
@@ -90,8 +100,9 @@ shared:
       scopes:
         - unites_legales_etablissements_insee
         - associations_djepva
-        - mandataires_sociaux_infogreffe
-        - chiffre_affaires_dgfip
+        - effectifs_urssaf
+        # - attestation_fiscale_dgfip
+        # - attestation_sociale_urssaf
         - certifications_qualiopi_france_competences
 
   api-entreprise-portail-gru-preremplissage:
@@ -132,9 +143,17 @@ shared:
       scopes:
         - unites_legales_etablissements_insee
         - associations_djepva
+        - effectifs_urssaf
+        - mandataires_sociaux_infogreffe
+        - chiffre_affaires_dgfip
+        # - bilans_bdf
+        # - liasses_fiscales_dgfip
         - attestation_fiscale_dgfip
         - attestation_sociale_urssaf
         - cotisations_msa
+        - cotisations_probtp
+        - certification_cnetp
+        - certifications_qualiopi_france_competences
 
   api-entreprise-detection-fraude:
     name: "Détection de la fraude"
@@ -147,6 +166,21 @@ shared:
       - name: 'legal'
       - name: 'scopes'
       - name: 'contacts'
+    data:
+      scopes:
+        - unites_legales_etablissements_insee
+        - associations_djepva
+        - effectifs_urssaf
+        - mandataires_sociaux_infogreffe
+        - chiffre_affaires_dgfip
+        - bilans_bdf
+        - liasses_fiscales_dgfip
+        - attestation_fiscale_dgfip
+        - attestation_sociale_urssaf
+        - cotisations_msa
+        - cotisations_probtp
+        - certification_cnetp
+        - certifications_qualiopi_france_competences
 
   api-entreprise-editeur:
     name: "Demande spécifique aux éditeurs de logiciels"
@@ -207,11 +241,14 @@ shared:
         - effectifs_urssaf
         - mandataires_sociaux_infogreffe
         - chiffre_affaires_dgfip
+        - bilans_bdf
+        - liasses_fiscales_dgfip
         - attestation_fiscale_dgfip
         - attestation_sociale_urssaf
         - cotisations_msa
         - cotisations_probtp
         - certification_cnetp
+        - certifications_qualiopi_france_competences
 
   api-entreprise-provigis:
     name: "Conformité titulaires de marchés"
@@ -244,6 +281,8 @@ shared:
         - effectifs_urssaf
         - mandataires_sociaux_infogreffe
         - chiffre_affaires_dgfip
+        - bilans_bdf
+        - liasses_fiscales_dgfip
         - attestation_fiscale_dgfip
         - attestation_sociale_urssaf
         - cotisations_msa
@@ -282,11 +321,14 @@ shared:
         - effectifs_urssaf
         - mandataires_sociaux_infogreffe
         - chiffre_affaires_dgfip
+        - bilans_bdf
+        - liasses_fiscales_dgfip
         - attestation_fiscale_dgfip
         - attestation_sociale_urssaf
         - cotisations_msa
         - cotisations_probtp
         - certification_cnetp
+        - certifications_qualiopi_france_competences
 
   api-entreprise-mgdis:
     name: "Solution Portail des aides"
@@ -306,12 +348,6 @@ shared:
 La demande d’accès à API Entreprise est effectuée dans le but de faciliter le dépôt et l’instruction des demandes d’aides publiques pour les entreprises et associations du territoire, et de récupérer les justificatifs administratifs de ces organisations demandant des aides publiques, sans avoir à les demander aux demandeurs d’aides.
 
 La plateforme, mise en place pour permettre le dépôt de ces aides publiques et l’instruction de ces demandes, s’appuie sur la solution « Portail des Aides » de l’éditeur MGDIS."
-      scopes:
-        - unites_legales_etablissements_insee
-        - associations_djepva
-        - mandataires_sociaux_infogreffe
-        - attestation_fiscale_dgfip
-        - attestation_sociale_urssaf
       destinataire_donnees_caractere_personnel: Agents instructeurs des aides publiques
       duree_conservation_donnees_caractere_personnel: 36
       cadre_juridique_nature: "Décret n° 2019-31 du 18 janvier 2019 relatif aux échanges d’informations et de données entre administrations dans le cadre des démarches administratives et à l’expérimentation prévue par l’article 40 de la loi n° 2018-727 du 10 août 2018 pour un Etat au service d’une société de confiance"
@@ -323,6 +359,21 @@ La plateforme, mise en place pour permettre le dépôt de ces aides publiques et
       contact_metier_type: 'organization'
       contact_metier_email: *api_entreprise_mgdis_contact_email
       contact_metier_phone_number: *api_entreprise_mgdis_contact_phone_number
+      scopes:
+        - unites_legales_etablissements_insee
+        - associations_djepva
+        - effectifs_urssaf
+        - mandataires_sociaux_infogreffe
+        - chiffre_affaires_dgfip
+        # - bilans_bdf
+        # - liasses_fiscales_dgfip
+        - attestation_fiscale_dgfip
+        - attestation_sociale_urssaf
+        - cotisations_msa
+        - cotisations_probtp
+        - certification_cnetp
+        - certifications_qualiopi_france_competences
+
 
   api-entreprise-atexo:
     name: "Dématérialisation des marchés publics"
@@ -361,11 +412,14 @@ La plateforme, mise en place pour permettre le dépôt de ces aides publiques et
         - effectifs_urssaf
         - mandataires_sociaux_infogreffe
         - chiffre_affaires_dgfip
+        - bilans_bdf
+        - liasses_fiscales_dgfip
         - attestation_fiscale_dgfip
         - attestation_sociale_urssaf
         - cotisations_msa
         - cotisations_probtp
         - certification_cnetp
+        - certifications_qualiopi_france_competences
 
 
   api-entreprise-setec-atexo:
@@ -388,18 +442,6 @@ La plateforme, mise en place pour permettre le dépôt de ces aides publiques et
         Afin de faciliter cette investigation du marché fournisseurs, ATEXO propose le module de Sourcing. Combiné au profil acheteur MPE, il permet aux entreprises de mettre en avant leurs informations.
 
         Basé sur l’open data et les renseignements des entreprises, ce module présente aux acheteurs des fiches fournisseurs complètes : établissements, éléments financiers, contrats publics, références significatives, expertises, contacts qualifiés, etc.
-      scopes:
-        - unites_legales_etablissements_insee
-        - associations_djepva
-        - effectifs_urssaf
-        - mandataires_sociaux_infogreffe
-        - chiffre_affaires_dgfip
-        - attestation_fiscale_dgfip
-        - attestation_sociale_urssaf
-        - cotisations_msa
-        - cotisations_probtp
-        - certification_cnetp
-
       destinataire_donnees_caractere_personnel: Acheteurs publics dans le cadre de leur activité de traitement des marchés publics
       duree_conservation_donnees_caractere_personnel: 36
       cadre_juridique_nature: |+
@@ -417,6 +459,20 @@ La plateforme, mise en place pour permettre le dépôt de ces aides publiques et
       contact_metier_type: 'organization'
       contact_metier_email: *api_entreprise_setec_atexo_contact_email
       contact_metier_phone_number: *api_entreprise_setec_atexo_contact_phone_number
+      scopes:
+        - unites_legales_etablissements_insee
+        - associations_djepva
+        - effectifs_urssaf
+        - mandataires_sociaux_infogreffe
+        - chiffre_affaires_dgfip
+        # - bilans_bdf
+        # - liasses_fiscales_dgfip
+        - attestation_fiscale_dgfip
+        - attestation_sociale_urssaf
+        - cotisations_msa
+        - cotisations_probtp
+        - certification_cnetp
+        - certifications_qualiopi_france_competences
 
   api-particulier:
     name: "Demande libre"
