@@ -62,7 +62,25 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
       I18n.t('authorization_request_forms.default.terms_of_service_accepted.label', link: @object.definition.cgu_link).html_safe
     end
 
+    opts[:class] ||= []
+    opts[:class] << 'fr-input-group--error' if all_terms_not_accepted_error?(:terms_of_service_accepted)
+
     dsfr_check_box(:terms_of_service_accepted, opts)
+  end
+
+  def data_protection_officer_informed_check_box(opts = {})
+    opts[:class] ||= []
+    opts[:class] << 'fr-input-group--error' if all_terms_not_accepted_error?(:data_protection_officer_informed)
+
+    dsfr_check_box(:data_protection_officer_informed, opts)
+  end
+
+  def all_terms_not_accepted_error?(attribute)
+    return false if @object.public_send(attribute).present?
+
+    @object.errors.any? do |error|
+      error.attribute == :base && error.type == :all_terms_not_accepted
+    end
   end
 
   def dsfr_file_field(attribute, opts = {})

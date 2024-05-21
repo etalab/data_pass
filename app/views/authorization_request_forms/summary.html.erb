@@ -84,10 +84,6 @@
 
     <%= render partial: 'authorization_requests/shared/organization_and_applicant' %>
 
-    <% if @authorization_request.draft? && !@authorization_request.reopening? %>
-      <%= render partial: 'authorization_request_forms/shared/tos_checkboxes', locals: { f: f } %>
-    <% end %>
-
     <% if @authorization_request.filling? %>
       <% @authorization_request.editable_blocks.each do |block| %>
         <%= render partial: "authorization_requests/shared/blocks/#{block[:name]}", locals: { f: f, editable: true } %>
@@ -109,6 +105,10 @@
       <% @authorization_request.blocks.each do |block| %>
         <%= render partial: "authorization_requests/shared/blocks/#{block[:name]}", locals: { f: f, editable: false } %>
       <% end %>
+    <% end %>
+
+    <% if @authorization_request.draft? && !@authorization_request.reopening? %>
+      <%= render partial: 'authorization_request_forms/shared/tos_checkboxes', locals: { f: f } %>
     <% end %>
 
     <% if policy(@authorization_request).submit? %>
