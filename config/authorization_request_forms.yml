@@ -36,10 +36,9 @@ shared:
     steps:
       - name: 'basic_infos'
       - name: 'personal_data'
+      - name: 'legal'
       - name: 'scopes'
       - name: 'contacts'
-    static_blocks:
-      - name: 'legal'
     data:
       cadre_juridique_nature: 'R2143-13 Code de la commande publique'
       cadre_juridique_url: 'https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037730589'
@@ -113,10 +112,9 @@ shared:
     steps:
       - name: 'basic_infos'
       - name: 'personal_data'
+      - name: 'legal'
       - name: 'scopes'
       - name: 'contacts'
-    static_blocks:
-      - name: 'legal'
     data:
       intitule: "Démarches liées au portail de gestion relation usagers"
       description: "Accès aux données ouvertes permettant aux usagers de pré-remplir les informations liées à leurs entreprises."
@@ -131,10 +129,9 @@ shared:
     steps:
       - name: 'basic_infos'
       - name: 'personal_data'
+      - name: 'legal'
       - name: 'scopes'
       - name: 'contacts'
-    static_blocks:
-      - name: 'legal'
     data:
       intitule: "Démarches liées au portail de gestion relation usagers"
       description: "Accès aux données ouvertes permettant aux usagers de pré-remplir les informations liées à leurs entreprises, ainsi qu'aux données protégées permettant l'instruction de demandes par des agents habilités"
