@@ -74,18 +74,30 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
     changelog_diffs.reject { |_h, v| v[0].blank? }
   end
 
+  # rubocop:disable Metrics/AbcSize
   def build_scopes_change(values)
     new_scopes = values[1] - values[0]
     removed_scopes = values[0] - values[1]
 
     [
       new_scopes.map do |scope|
-        h.content_tag(:li, t('authorization_request_event.changelog_entry_new_scope', value: scope).html_safe)
+        h.content_tag(:li, t('authorization_request_event.changelog_entry_new_scope', value: humanized_scope(scope)).html_safe)
       end,
       removed_scopes.map do |scope|
-        h.content_tag(:li, t('authorization_request_event.changelog_entry_removed_scope', value: scope).html_safe)
+        h.content_tag(:li, t('authorization_request_event.changelog_entry_removed_scope', value: humanized_scope(scope)).html_safe)
       end
     ]
+  end
+  # rubocop:enable Metrics/AbcSize
+
+  def humanized_scope(scope_value)
+    scope = authorization_request.definition.scopes.find { |s| s.value == scope_value }
+
+    if scope
+      [scope.name, "(#{scope_value})"].join(' ')
+    else
+      scope_value
+    end
   end
 
   def build_attribute_change(attribute, values)
