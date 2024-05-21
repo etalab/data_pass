@@ -51,6 +51,8 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Entreprise
 
     * je clique sur "Suivant"
 
+    * je clique sur "Suivant"
+
     * je renseigne les informations des contacts RGPD
     * je remplis les informations du contact "Contact métier" avec :
       | Nom    | Prénom  | Email                | Téléphone   | Fonction    |
@@ -167,6 +169,8 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Entreprise
     * je clique sur "Suivant"
 
     * je renseigne les infos concernant les données personnelles
+    * je clique sur "Suivant"
+
     * je clique sur "Suivant"
 
     * je clique sur "Suivant"
