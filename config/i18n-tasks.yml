@@ -121,9 +121,9 @@ ignore_missing:
 
 ## Consider these keys used:
 ignore_unused:
-- 'activerecord.attributes.*'
+- '{activerecord,activemodel}.attributes.*'
+- '{activerecord,activemodel}.errors.*'
 - 'ransack.attributes.*'
-- 'activerecord.errors.*'
 - 'errors.messages.*'
 - 'validates_timeliness.error_value_formats.*'
 - 'authorization_request_forms.*.*.info.{title,content}'
