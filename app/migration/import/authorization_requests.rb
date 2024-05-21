@@ -19,7 +19,7 @@ class Import::AuthorizationRequests < Import::Base
     authorization_request.linked_token_manager_id = enrollment_row['linked_token_manager_id']
     authorization_request.copied_from_request = AuthorizationRequest.find(enrollment_row['copied_from_enrollment_id']) if enrollment_row['copied_from_enrollment_id'] && AuthorizationRequest.exists?(enrollment_row['copied_from_enrollment_id'])
 
-    if !authorization_request.filling?
+    if authorization_request.state != 'draft'
       authorization_request.assign_attributes(
         terms_of_service_accepted: true,
         data_protection_officer_informed: true,
