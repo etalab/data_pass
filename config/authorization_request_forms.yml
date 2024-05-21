@@ -196,10 +196,10 @@ shared:
       destinataire_donnees_caractere_personnel: "Services marchés d’organismes publics et collectivités locales"
       duree_conservation_donnees_caractere_personnel: 36
       contact_metier_type: 'organization'
-      contact_metier_email: "<%= Rails.application.credentials.api_entreprise_e_attestation_contact_metier_email || 'metier-e-attestation@yopmail.com' %>"
+      contact_metier_email: "<%= Rails.application.credentials.api_entreprise_e_attestations_contact_metier_email || 'metier-e-attestation@yopmail.com' %>"
       contact_metier_phone_number: "0158060016"
       contact_technique_type: 'organization'
-      contact_technique_email: "<%= Rails.application.credentials.api_entreprise_e_attestation_contact_technique_email || 'tech-e-attestation@yopmail.com' %>"
+      contact_technique_email: "<%= Rails.application.credentials.api_entreprise_e_attestations_contact_technique_email || 'tech-e-attestation@yopmail.com' %>"
       contact_technique_phone_number: "0158060010"
       scopes:
         - unites_legales_etablissements_insee
