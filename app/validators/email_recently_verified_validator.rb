@@ -2,10 +2,15 @@ class EmailRecentlyVerifiedValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     return if value.blank?
 
-    verified_email = VerifiedEmail.find_by(email: value)
-    verified_email = create_or_refresh_verified_email!(value) if verified_email.blank? || verified_email.old?
+    create_or_refresh_verified_email!(value)
 
-    record.errors.add(attribute, :email_unreachable) if verified_email.unreachable?
+    verified_email = VerifiedEmail.find_by(email: value)
+
+    if verified_email.blank?
+      record.errors.add(attribute, :email_deliverability_unknown)
+    elsif verified_email.unreachable?
+      record.errors.add(attribute, :email_unreachable)
+    end
   end
 
   private
