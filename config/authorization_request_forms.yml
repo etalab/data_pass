@@ -113,8 +113,9 @@ shared:
       - name: 'basic_infos'
       - name: 'personal_data'
       - name: 'legal'
-      - name: 'scopes'
       - name: 'contacts'
+    static_blocks:
+      - name: 'scopes'
     data:
       intitule: "Démarches liées au portail de gestion relation usagers"
       description: "Accès aux données ouvertes permettant aux usagers de pré-remplir les informations liées à leurs entreprises."
