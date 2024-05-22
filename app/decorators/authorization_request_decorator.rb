@@ -35,6 +35,21 @@ class AuthorizationRequestDecorator < ApplicationDecorator
     ].compact.join(' ')
   end
 
+  def contact_data_by_type(contact_type)
+    {
+      email: object.data["#{contact_type}_email"],
+      job_title: object.data["#{contact_type}_job_title"],
+      given_name: object.data["#{contact_type}_given_name"],
+      family_name: object.data["#{contact_type}_family_name"],
+      phone_number: object.data["#{contact_type}_phone_number"],
+    }
+
+  end
+
+  def validated_at
+    object.authorizations.first&.events&.where(name: 'approve')&.last&.created_at
+  end
+
   def skip_contact_attribute?(contact_type, contact_attribute)
     model.public_send(:"#{contact_type}_type") == 'organization' &&
       %w[family_name given_name job_title].include?(contact_attribute)
