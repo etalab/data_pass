@@ -47,6 +47,7 @@ coverage/
 app/migration/.*pgpassword*
 app/migration/.ovh.yml
 app/migration/dumps/*.csv
+app/migration/dumps/*.dump
 app/migration/dumps/*.sql
 
 /config/credentials/staging.key

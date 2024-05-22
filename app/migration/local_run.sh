@@ -1,5 +1,8 @@
 #!/bin/bash
 
+bundle exec rails db:environment:set RAILS_ENV=development
+bundle exec rails db:schema:load
+pg_restore -h localhost -d development app/migration/dumps/datapass_production_v2.dump 2> /dev/null
 LOCAL=true bundle exec rails runner "ImportDataInLocalDb.new.perform(delete_db_file: false)"
 LOCAL=true bundle exec rails runner "MainImport.new.perform"
 LOCAL=true bundle exec rails runner "
