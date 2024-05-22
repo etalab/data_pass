@@ -174,6 +174,7 @@ class Import::AuthorizationRequests < Import::Base
       authorization_request,
       enrollment_row,
       fetch_team_members(enrollment_row['id']),
+      options[:warned],
     ).perform
   end
 

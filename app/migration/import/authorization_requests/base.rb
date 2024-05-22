@@ -5,7 +5,7 @@ class Import::AuthorizationRequests::Base
   include ImportUtils
   include LocalDatabaseUtils
 
-  class SkipRow < StandardError
+  class AbstractRow  < StandardError
     attr_reader :kind, :id, :target_api
 
     def initialize(kind = nil, id:, target_api:)
@@ -15,12 +15,16 @@ class Import::AuthorizationRequests::Base
     end
   end
 
+  class SkipRow < AbstractRow; end
+  class WarnRow < AbstractRow; end
+
   attr_reader :authorization_request, :enrollment_row, :team_members
 
-  def initialize(authorization_request, enrollment_row, team_members)
+  def initialize(authorization_request, enrollment_row, team_members, warned)
     @authorization_request = authorization_request
     @enrollment_row = enrollment_row
     @team_members = team_members
+    @warned = warned
   end
 
   def perform
@@ -118,6 +122,10 @@ class Import::AuthorizationRequests::Base
             potential_team_member_with_family_name['phone_number'] = 'Non renseigné'
           end
 
+          if %w[given_name family_name phone_number job_title].any? { |key| potential_team_member_with_family_name[key] == 'Non renseigné' }
+            warn_row!("#{to_contact}_incomplete".to_sym)
+          end
+
           if %w[given_name family_name phone_number job_title].all? { |key| potential_team_member_with_family_name[key].present? }
             affect_team_attributes(potential_team_member_with_family_name, to_contact)
             return
@@ -171,6 +179,10 @@ class Import::AuthorizationRequests::Base
 
   def skip_row!(kind)
     raise SkipRow.new(kind.to_s, id: enrollment_row['id'], target_api: enrollment_row['target_api'])
+  end
+
+  def warn_row!(kind)
+    @warned << WarnRow.new(kind.to_s, id: enrollment_row['id'], target_api: enrollment_row['target_api'])
   end
 
   def attach_file(kind, row_data)
