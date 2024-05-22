@@ -56,6 +56,7 @@ class Import::AuthorizationRequests::APIParticulierAttributes < Import::Authoriz
       "volumetrie_approximative" => "volumetrie_approximative",
       "data_recipients" => "destinataire_donnees_caractere_personnel",
       "data_retention_period" => "duree_conservation_donnees_caractere_personnel",
+      "data_retention_comment" => "duree_conservation_donnees_caractere_personnel_justification",
     }
   end
 end

@@ -57,9 +57,17 @@ class MainImport
   def global_options
     {
       authorization_requests_filter: ->(enrollment_row) do
-        %w[44082].exclude?(enrollment_row['id'])
+        %w[
+          9
+          6949
+          8833
+          9193
+          9306
+          22659
+          54115
+        ].exclude?(enrollment_row['id'])
       end,
-      authorization_requests_sql_where: 'target_api = \'api_entreprise\'',
+      authorization_requests_sql_where: 'target_api = \'api_particulier\'',
       skipped: @skipped,
     }
   end
