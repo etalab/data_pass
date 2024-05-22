@@ -44,7 +44,7 @@ sandbox
 
 coverage/
 
-app/migration/.pgpassword
+app/migration/.*pgpassword*
 app/migration/.ovh.yml
 app/migration/dumps/*.csv
 app/migration/dumps/*.sql

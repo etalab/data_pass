@@ -3,7 +3,7 @@
 ## 1. Récupération des données SQL de la v1
 
 1. Récupérez le mot de passe de la base de donnéees de production depuis
-   `very_ansible` et déposez le dans `./app/migration/.pgpassword`
+   `very_ansible` et déposez le dans `./app/migration/.v1-pgpassword`
 2. Lancer `./app/migration/export_v1.sh` (voir pour modifier le `user` dans le
    script)
 
@@ -71,7 +71,7 @@ Le script (en local):
 
 Cela copie:
 
-* `app/migration/.pgpassword` Password de la database v1 ;
+* `app/migration/.v1-pgpassword` Password de la database v1 ;
 * `app/migration/.ovh.yml` credentials OVH v1
 
 ## 3.2 Run
