@@ -1,7 +1,5 @@
 class Import::AuthorizationRequests::APIParticulierAttributes < Import::AuthorizationRequests::Base
   def affect_data
-    skip_row!(:invalid_habilitation) if authorization_request.state == 'refused' && no_valid_organization?
-
     affect_scopes
     affect_attributes
     affect_contacts
@@ -14,21 +12,7 @@ class Import::AuthorizationRequests::APIParticulierAttributes < Import::Authoriz
       'responsable_traitement' => 'responsable_traitement',
       'delegue_protection_donnees' => 'delegue_protection_donnees',
     }.each do |from_contact, to_contact|
-      contact_data = find_team_member_by_type(from_contact)
-
-      if authorization_request.draft?
-        affect_team_attributes(contact_data, to_contact)
-      elsif team_member_incomplete?(contact_data)
-        user = User.find_by(email: contact_data['email'])
-
-        if user && !team_member_incomplete?(user)
-          affect_team_attributes(user.attributes.slice(*AuthorizationRequest.contact_attributes), to_contact)
-        else
-          skip_row!("incomplete_#{from_contact}_contact_data".to_sym)
-        end
-      else
-        affect_team_attributes(contact_data, to_contact)
-      end
+      affect_contact(from_contact, to_contact)
     end
   end
 
@@ -40,10 +24,6 @@ class Import::AuthorizationRequests::APIParticulierAttributes < Import::Authoriz
     if row
       attach_file('cadre_juridique_document', row)
     end
-  end
-
-  def no_valid_organization?
-
   end
 
   def attributes_mapping
