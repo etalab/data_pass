@@ -42,4 +42,8 @@ module AuthorizationCore::Scopes
   def included_scopes
     @included_scopes ||= definition.scopes.select(&:included?)
   end
+
+  def legacy_scope_values
+    scopes - available_scopes.map(&:value)
+  end
 end
