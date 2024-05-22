@@ -49,6 +49,7 @@ class Import::AuthorizationRequests < Import::Base
         active_storage_variant_records
         users
         organizations
+        organizations_users
       ]
     )
   end
