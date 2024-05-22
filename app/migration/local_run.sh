@@ -1,13 +1,13 @@
 #!/bin/bash
 
-# bundle exec rails db:schema:load
-LOCAL=true time bundle exec rails runner "ImportDataInLocalDb.new.perform(delete_db_file: false)"
-LOCAL=true time bundle exec rails runner "MainImport.new.perform"
+LOCAL=true bundle exec rails runner "ImportDataInLocalDb.new.perform(delete_db_file: false)"
+LOCAL=true bundle exec rails runner "MainImport.new.perform"
 LOCAL=true bundle exec rails runner "
 ActiveRecord::Base.transaction do
   User.find_by(email: 'user@yopmail.com').try(:destroy)
   user = User.find_by(email: 'philippe.vrignaud@modernisation.gouv.fr')
-  user.update!(email: 'user@yopmail.com', roles: ['api_entreprise:instructor'])
+  instructor_roles = AuthorizationDefinition.all.map { |definition| \"#{definition.id}:instructor\" }
+  user.update!(email: 'user@yopmail.com', roles: ['admin'] + instructor_roles)
 
   common_entities_data = {
     applicant_id: user.id,
