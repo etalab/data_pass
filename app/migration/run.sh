@@ -18,6 +18,7 @@ export RAILS_ENV LOCAL SKIP_DOCUMENT_VALIDATION
 
 echo ">> Maintenance mode ON"
 sudo cp app/migration/maintenance.html /var/www/html/maintenance_datapass_$RAILS_ENV.html
+sudo service nginx reload
 sudo chmod 644 /var/www/html/maintenance_datapass_$RAILS_ENV.html
 
 echo ">> Export des dumps de la v1"
