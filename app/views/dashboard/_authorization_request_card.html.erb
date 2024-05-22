@@ -33,18 +33,20 @@
     <% if authorization_request.respond_to?(:description) %>
       <div class="card-description">
         <%= truncate(authorization_request.description, length: 30) %>
-
-        <% if authorization_request.only_in_contacts?(current_user) %>
-          <p class="fr-text--xs fr-text-grey fr-my-2v">
-            <%= t('.current_user_mentions', contact_types: authorization_request.humanized_contact_types_for(current_user).to_sentence) %>
-          </p>
-        <% elsif authorization_request.applicant == current_user %>
-          <p class="fr-text--xs fr-text-grey fr-my-2v">
-            <%= t('.current_user_is_applicant') %>
-          </p>
-        <% end %>
       </div>
     <% end %>
+
+    <div class="card-applicant-information">
+      <% if authorization_request.only_in_contacts?(current_user) %>
+        <p class="fr-text--xs fr-text-grey fr-my-2v">
+          <%= t('.current_user_mentions', contact_types: authorization_request.humanized_contact_types_for(current_user).to_sentence) %>
+        </p>
+      <% elsif authorization_request.applicant == current_user %>
+        <p class="fr-text--xs fr-text-grey fr-my-2v">
+          <%= t('.current_user_is_applicant') %>
+        </p>
+      <% end %>
+    </div>
 
     <% if authorization_request.already_been_validated? %>
       <%= link_to t('.show_cta'), authorization_path(authorization_request.latest_authorization), class: %w(fr-btn fr-btn--sm) %>
