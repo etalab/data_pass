@@ -12,7 +12,7 @@ class MainImport
     import(:users, { load_from_sql: true })
     authorization_requests = import(:authorization_requests, { dump_sql: true })
 
-    import(:authorization_request_events, { dump_sql: true, valid_authorization_request_ids: authorization_requests.pluck(:id) })
+    # import(:authorization_request_events, { dump_sql: true, valid_authorization_request_ids: authorization_requests.pluck(:id) })
 
     export_skipped
     print_skipped_stats
@@ -27,7 +27,7 @@ class MainImport
   def export_skipped
     log("# Skipped: #{@skipped.count}")
 
-    CSV.open(export_path, 'w') do |csv|
+    CSV.open(skipped_export_path, 'w') do |csv|
       csv << %w[id target_api kind]
 
       @skipped.each do |skipped|
@@ -50,7 +50,7 @@ class MainImport
     end
   end
 
-  def export_path
+  def skipped_export_path
     Rails.root.join('app/migration/dumps/skipped.csv')
   end
 
@@ -58,13 +58,7 @@ class MainImport
     {
       authorization_requests_filter: ->(enrollment_row) do
         %w[
-          9
-          6949
-          8833
-          9193
-          9306
-          22659
-          54115
+          129
         ].exclude?(enrollment_row['id'])
       end,
       authorization_requests_sql_where: 'target_api = \'api_particulier\'',

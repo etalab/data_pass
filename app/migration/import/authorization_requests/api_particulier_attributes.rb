@@ -3,7 +3,11 @@ class Import::AuthorizationRequests::APIParticulierAttributes < Import::Authoriz
     affect_scopes
     affect_attributes
     affect_contacts
-    affect_potential_legal_document
+    cadre_juridique_present = affect_potential_legal_document
+
+    skip_row!(:cadre_juridique_manquant) unless cadre_juridique_present
+    skip_row!(:duree_conservation_donnees_caractere_personne_manquante) if authorization_request.duree_conservation_donnees_caractere_personnel.blank?
+    skip_row!(:justification_duree_conservation_manquante) if authorization_request.duree_conservation_donnees_caractere_personnel > 36 && authorization_request.duree_conservation_donnees_caractere_personnel_justification.blank?
   end
 
   def affect_contacts
@@ -17,12 +21,15 @@ class Import::AuthorizationRequests::APIParticulierAttributes < Import::Authoriz
   end
 
   def affect_potential_legal_document
-    return if authorization_request.cadre_juridique_url.present?
+    return true if authorization_request.cadre_juridique_url.present?
 
     row = csv('documents').find { |row| row['attachable_id'] == enrollment_row['id'] && row['type'] == 'Document::LegalBasis' }
 
     if row
       attach_file('cadre_juridique_document', row)
+      true
+    else
+      false
     end
   end
 
