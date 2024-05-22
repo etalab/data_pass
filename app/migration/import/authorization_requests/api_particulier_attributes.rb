@@ -5,6 +5,8 @@ class Import::AuthorizationRequests::APIParticulierAttributes < Import::Authoriz
     affect_contacts
     cadre_juridique_present = affect_potential_legal_document
 
+    return if authorization_request.filling? || authorization_request.archived?
+
     skip_row!(:cadre_juridique_manquant) unless cadre_juridique_present
     skip_row!(:duree_conservation_donnees_caractere_personne_manquante) if authorization_request.duree_conservation_donnees_caractere_personnel.blank?
     skip_row!(:justification_duree_conservation_manquante) if authorization_request.duree_conservation_donnees_caractere_personnel > 36 && authorization_request.duree_conservation_donnees_caractere_personnel_justification.blank?
