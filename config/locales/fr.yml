@@ -174,6 +174,10 @@ fr:
       reopening_changes_requested:
         title: Votre demande de mise à jour nécessite des modifications avant d'être validée
         description: *authorization_request_refused_description
+    shared:
+      blocks:
+        scopes:
+          legacy_scopes: "Les données suivantes ont été précédemment sélectionnées mais ne sont plus disponibles :"
 
   start_authorization_request_form:
     cta: Débuter mon habilitation pour %{authorization_name}

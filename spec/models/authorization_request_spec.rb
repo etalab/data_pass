@@ -183,4 +183,19 @@ RSpec.describe AuthorizationRequest do
     it { expect(authorization_request_copy.copied_from_request).to eq(authorization_request) }
     it { expect(authorization_request.next_request_copied).to eq(authorization_request_copy) }
   end
+
+  describe '#legacy_scope_values' do
+    subject { authorization_request.legacy_scope_values }
+
+    context 'when authorization has scopes not referenced within the definition' do
+      let(:authorization_request) do
+        authorization_request = create(:authorization_request, :api_entreprise)
+        authorization_request.data['scopes'] = %w[old_scope1 old_scope2 unites_legales_etablissements_insee]
+        authorization_request.save!
+        authorization_request
+      end
+
+      it { is_expected.to eq(%w[old_scope1 old_scope2]) }
+    end
+  end
 end
