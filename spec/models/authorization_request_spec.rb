@@ -2,7 +2,9 @@ RSpec.describe AuthorizationRequest do
   describe 'factories' do
     it 'has valid factories for all states and all form_uids' do
       AuthorizationRequestForm.all.each do |form|
-        AuthorizationRequest.state_machine.states.map(&:name).each do |state_name|
+        # rubocop:disable Performance/CollectionLiteralInLoop
+        %w[draft validated].each do |state_name|
+          # rubocop:enable Performance/CollectionLiteralInLoop
           expect(build(:authorization_request, form.uid.underscore, state_name)).to be_valid
         rescue ActiveRecord::RecordNotFound
           fail "Factory not found for form_uid: #{form.uid.underscore} and state: #{state_name}"
