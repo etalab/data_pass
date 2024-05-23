@@ -4,6 +4,8 @@ RSpec.describe AuthorizationRequest do
       AuthorizationRequestForm.all.each do |form|
         AuthorizationRequest.state_machine.states.map(&:name).each do |state_name|
           expect(build(:authorization_request, form.uid.underscore, state_name)).to be_valid
+        rescue ActiveRecord::RecordNotFound
+          fail "Factory not found for form_uid: #{form.uid.underscore} and state: #{state_name}"
         end
       end
     end
