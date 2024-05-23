@@ -249,10 +249,37 @@ FactoryBot.define do
       with_scopes
     end
 
-    trait :api_particulier_aiga do
-      api_particulier
-
-      form_uid { 'api-particulier-aiga' }
+    %w[
+      api-particulier-aiga
+      api-particulier-abelium
+      api-particulier-agora-plus
+      api-particulier-amiciel-malice
+      api-particulier-arpege-concerto
+      api-particulier-bl-enfance-berger-levrault
+      api-particulier-cantine-de-france
+      api-particulier-ccas-arche-mc2
+      api-particulier-ccas-arpege
+      api-particulier-ccas-melissandre-afi
+      api-particulier-city-family-mushroom-software
+      api-particulier-civil-enfance-ciril-group
+      api-particulier-cosoluce-fluo
+      api-particulier-docaposte-fast
+      api-particulier-entrouvert-publik
+      api-particulier-jvs-parascol
+      api-particulier-nfi
+      api-particulier-odyssee-informartique-pandore
+      api-particulier-qiis-eticket
+      api-particulier-sigec-maelis
+      api-particulier-teamnet-axel
+      api-particulier-technocarte-ile
+      api-particulier-waigeo-myperischool
+      api-particulier-3d-ouest
+      api-particulier-coexya
+    ].each do |form_uid|
+      trait form_uid.tr('-', '_') do
+        api_particulier
+        form_uid { form_uid }
+      end
     end
 
     trait :api_infinoe_sandbox do
