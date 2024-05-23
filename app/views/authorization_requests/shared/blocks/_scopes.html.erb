@@ -12,4 +12,14 @@
       </div>
     </div>
   <% end %>
+
+  <% if @authorization_request.legacy_scope_values.any? %>
+    <p><%= t('authorization_requests.shared.blocks.scopes.legacy_scopes') %></p>
+
+    <ul>
+      <% @authorization_request.legacy_scope_values.each do |legacy_scope_value| %>
+        <li><%= legacy_scope_value %></li>
+      <% end %>
+    </ul>
+  <% end %>
 <% end %>
