@@ -20,6 +20,17 @@
       <%= t('.organization.start_text', organization_raison_sociale: current_organization.raison_sociale, organization_siret: current_organization.siret).html_safe %>
     </p>
 
+    <% if registered_subdomain? %>
+      <div class="fr-alert fr-alert--warning fr-mb-2w">
+        <h3 class="fr-alert__title">
+          <%= t('.subdomain_warning.title', name: registered_subdomain.name) %>
+        </h3>
+        <p>
+          <%= t('.subdomain_warning.description', name: registered_subdomain.name).html_safe %>
+        </p>
+      </div>
+    <% end %>
+
     <div class="fr-callout fr-icon-information-line">
       <h3 class="fr-callout__title">
         <%= t('.organization.callout.title') %>

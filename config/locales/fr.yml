@@ -161,6 +161,9 @@ fr:
         description: "Cette demande s'effectue en plusieurs étapes. Vous pouvez à tout moment sauvegarder votre demande et la reprendre plus tard. Les étapes sont les suivantes :"
       single_form:
         description: "Cliquez sur le bouton ci-dessous pour démarrer le formulaire. Vous pourrez le sauvegarder et le reprendre plus tard."
+      subdomain_warning:
+        title: Vous cherchez à obtenir un accès à une autre source de données ?
+        description: Ce site ne permet de gérer que les demandes relatives à %{name}, si vous voulez gérer ou demander des habilitations pour une autre source de données, merci de vous rendre sur le <a href="https://datapass.api.gouv.fr">site principal de DataPass</a>.
     show:
       refused:
         title: Votre demande d'habilitation a été refusée
