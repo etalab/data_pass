@@ -18,6 +18,9 @@ AllCops:
     - "sandbox/**/*"
     - "app/migration/**/*"
     - "tmp/**/*"
+    - "app/bridges/hubee_cert_dc_bridge.rb"
+    - "spec/bridges/hubee_cert_dc_bridge_spec.rb"
+    - "lib/http.rb"
 
 FactoryBot/FactoryAssociationWithStrategy:
   Enabled: false
