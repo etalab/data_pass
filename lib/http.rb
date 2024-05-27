@@ -1,19 +1,19 @@
-require "singleton"
+require 'singleton'
 
 class Http
   include Singleton
 
   def request(http_verb, options = {})
     url = options.fetch(:url)
-    default_auth_header = "Authorization"
+    default_auth_header = 'Authorization'
     auth_header = options.fetch(:auth_header, default_auth_header)
     auth_method = if auth_header == default_auth_header
-                    options.fetch(:use_basic_auth_method, false) ? "Basic " : "Bearer "
+                    options.fetch(:use_basic_auth_method, false) ? 'Basic ' : 'Bearer '
                   else
-                    ""
+                    ''
                   end
     use_form_content_type = options.fetch(:use_form_content_type, false)
-    api_key = options.fetch(:api_key, "") || ""
+    api_key = options.fetch(:api_key, '') || ''
     body = options.fetch(:body, {})
     tag = options.fetch(:tag)
     timeout = options.fetch(:timeout, 30)
@@ -26,14 +26,7 @@ class Http
     end
 
     http_with_auth =
-      if api_key.empty?
-        http
-      else
-        http.request :authorization, auth_header, -> { "#{auth_method}#{api_key}" }
-        http
-      end
-
-    pp ?1*100, "#{auth_method}#{api_key}"
+      (http.request :authorization, auth_header, -> { "#{auth_method}#{api_key}" } unless api_key.empty?)
 
     response = if body.empty?
                  http_with_auth
@@ -56,20 +49,20 @@ class Http
     end
 
     response
-  # rescue HTTP::Error => e
-  #   raise ApplicationController::BadGateway.new(
-  #     tag,
-  #     url,
-  #     nil,
-  #     nil
-  #   ), e.message
-  # rescue OpenSSL::SSL::SSLError => e
-  #   raise ApplicationController::BadGateway.new(
-  #     tag,
-  #     url,
-  #     nil,
-  #     nil
-  #   ), e.message
+    # rescue HTTP::Error => e
+    #   raise ApplicationController::BadGateway.new(
+    #     tag,
+    #     url,
+    #     nil,
+    #     nil
+    #   ), e.message
+    # rescue OpenSSL::SSL::SSLError => e
+    #   raise ApplicationController::BadGateway.new(
+    #     tag,
+    #     url,
+    #     nil,
+    #     nil
+    #   ), e.message
   end
 
   def get(options)
