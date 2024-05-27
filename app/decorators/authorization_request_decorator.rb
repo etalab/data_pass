@@ -43,7 +43,6 @@ class AuthorizationRequestDecorator < ApplicationDecorator
       family_name: object.data["#{contact_type}_family_name"],
       phone_number: object.data["#{contact_type}_phone_number"],
     }
-
   end
 
   def validated_at
