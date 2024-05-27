@@ -2,10 +2,10 @@ RSpec.describe ApproveAuthorizationRequest do
   describe '.call' do
     subject(:approve_authorization_request) { described_class.call(authorization_request:, user:) }
 
-    let(:user) { create(:user, :instructor, authorization_request_types: %w[hubee_cert_dc]) }
+    let(:user) { create(:user, :instructor, authorization_request_types: %w[api_infinoe_sandbox]) }
 
     context 'with authorization request in submitted state' do
-      let!(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :submitted) }
+      let!(:authorization_request) { create(:authorization_request, :api_infinoe_sandbox, :submitted) }
 
       it { is_expected.to be_success }
 
@@ -22,7 +22,7 @@ RSpec.describe ApproveAuthorizationRequest do
       end
 
       context 'when it is a reopening' do
-        let!(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :reopened) }
+        let!(:authorization_request) { create(:authorization_request, :api_infinoe_sandbox, :reopened) }
 
         before do
           authorization_request.update!(state: 'submitted')
@@ -76,7 +76,7 @@ RSpec.describe ApproveAuthorizationRequest do
     end
 
     context 'with authorization request in draft state' do
-      let!(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :draft) }
+      let!(:authorization_request) { create(:authorization_request, :api_infinoe_sandbox, :draft) }
 
       it { is_expected.to be_failure }
 
