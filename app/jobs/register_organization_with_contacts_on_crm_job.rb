@@ -35,7 +35,7 @@ class RegisterOrganizationWithContactsOnCRMJob < ApplicationJob
     crm_client.create_company(
       siret: organization.siret,
       name: organization.raison_sociale,
-      categorie_juridique: organization.categorie_juridique_label,
+      categorie_juridique: organization.categorie_juridique.try(:libelle),
       n_datapass: authorization_request.id.to_s,
       bouquets_utilises: extract_bouquet(:company)
     )
