@@ -3,12 +3,12 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
 
   def hint_for(attribute)
     wording_for(:hint, attribute) ||
-      super(attribute)
+      super
   end
 
   def label_value(attribute)
     wording_for(:label, attribute) ||
-      super(attribute)
+      super
   end
 
   def wording_for(kind, attribute)
@@ -154,7 +154,7 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
   end
 
   def link_to_file(attribute)
-    link_to_file = super(attribute)
+    link_to_file = super
 
     if link_to_file.present?
       link_to_file
