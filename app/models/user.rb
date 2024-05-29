@@ -48,6 +48,16 @@ class User < ApplicationRecord
     end
   end
 
+  def reporter?(authorization_request_type = nil)
+    return true if instructor?(authorization_request_type)
+
+    if authorization_request_type
+      roles.include?("#{authorization_request_type}:reporter")
+    else
+      roles.any? { |role| role.end_with?(':reporter') }
+    end
+  end
+
   def admin?
     roles.include?('admin')
   end

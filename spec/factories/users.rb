@@ -15,6 +15,20 @@ FactoryBot.define do
       user.organizations << user.current_organization
     end
 
+    trait :reporter do
+      transient do
+        authorization_request_types do
+          %w[hubee_cert_dc api_entreprise]
+        end
+      end
+
+      after(:build) do |user, evaluator|
+        evaluator.authorization_request_types.each do |authorization_request_type|
+          user.roles << "#{authorization_request_type}:reporter"
+        end
+      end
+    end
+
     trait :instructor do
       transient do
         authorization_request_types do
