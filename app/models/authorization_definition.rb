@@ -21,7 +21,7 @@ class AuthorizationDefinition < StaticApplicationRecord
   def editors
     available_forms.select { |form|
       form.editor.present?
-    }.map(&:editor).uniq
+    }.map(&:editor).uniq(&:id)
   end
 
   def self.indexable

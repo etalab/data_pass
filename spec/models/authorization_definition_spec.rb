@@ -23,7 +23,7 @@ RSpec.describe AuthorizationDefinition do
   describe '#editors' do
     subject(:editors) { instance.editors }
 
-    let(:instance) { described_class.find('api_entreprise') }
+    let(:instance) { described_class.find('api_particulier') }
 
     it 'returns a list of all editors' do
       expect(editors.count).to be > 0
@@ -31,6 +31,10 @@ RSpec.describe AuthorizationDefinition do
       expect(editors).to be_all do |editor|
         editor.is_a?(Editor)
       end
+    end
+
+    it 'does not return duplicates' do
+      expect(editors.map(&:id)).to eq(editors.map(&:id).uniq)
     end
   end
 

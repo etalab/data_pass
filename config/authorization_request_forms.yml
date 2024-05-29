@@ -16,6 +16,54 @@ shared:
       - hebergement_tourisme
       - je_change_de_coordonnees
 
+  api-infinoe-sandbox:
+    authorization_request: 'APIInfinoeSandbox'
+    steps:
+      - name: 'basic_infos'
+      - name: 'legal'
+      - name: 'contacts'
+
+  api-infinoe-production:
+    authorization_request: 'APIInfinoeProduction'
+
+  api-service-national-inscription-concours-examen:
+    name: "Inscription à un concours ou un examen (hors permis de conduire)"
+    authorization_request: 'APIServiceNational'
+    data:
+      intitule: "Inscription à un concours ou un examen (hors permis de conduire)"
+      description: "La candidature à un concours ou examens en France nécessite souvent l'inscription à un service national. Ce service permet au candidat d'être identifié et authentifié de manière sécurisée lors de son inscription."
+      destinataire_donnees_caractere_personnel:
+      duree_conservation_donnees_caractere_personnel: "12"
+      cadre_juridique_nature: "Article L114-6 du code du service national"
+      cadre_juridique_url: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000021960309/"
+
+  api-service-national-obligation-service-national:
+    name: "Accès à un statut exigeant d’être en règle avec les obligations de service national"
+    authorization_request: 'APIServiceNational'
+    data:
+      intitule: "Accès à un statut exigeant d’être en règle avec les obligations de service national"
+      description:
+      destinataire_donnees_caractere_personnel:
+      duree_conservation_donnees_caractere_personnel: "12"
+      cadre_juridique_nature: "Article L111-3 du code du service national"
+      cadre_juridique_url: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000024042593/"
+
+  api-service-national:
+    name: "Demande libre"
+    authorization_request: 'APIServiceNational'
+    steps:
+      - name: 'basic_infos'
+      - name: 'personal_data'
+      - name: 'legal'
+      - name: 'contacts'
+
+  api-captchetat:
+    authorization_request: 'APICaptchEtat'
+    steps:
+      - name: 'basic_infos'
+      - name: 'legal'
+      - name: 'contacts'
+
   api-entreprise:
     name: "Demande libre"
     default: true
@@ -475,6 +523,7 @@ La plateforme, mise en place pour permettre le dépôt de ces aides publiques et
   api-particulier:
     name: "Demande libre"
     default: true
+    description: "Pour les utilisateurs expérimentés qui connaissent précisemment l'usage des données et les aspects techniques des APIs"
     authorization_request: 'APIParticulier'
     steps:
       - name: 'basic_infos'
@@ -484,9 +533,12 @@ La plateforme, mise en place pour permettre le dépôt de ces aides publiques et
       - name: 'contacts'
 
   api-particulier-aiga:
-    name: "iNoé, Tarification services municipaux / Portail Famille, Données CNAF"
+    name: "iNoé, Tarification services municipaux / Portail Famille"
+    description: Facturation des familles inscrites aux CLSH, services périscolaires … des collectivités
     authorization_request: 'APIParticulier'
     editor_id: 'aiga'
+    single_page_view: 'api_particulier_through_editor'
+    use_case: 'portail_famille_tarification'
     static_blocks:
       - name: 'basic_infos'
       - name: 'personal_data'
@@ -513,50 +565,934 @@ La plateforme, mise en place pour permettre le dépôt de ces aides publiques et
       contact_technique_email: tech@aiga.fr
       contact_technique_phone_number: 0472532200
 
-  api-infinoe-sandbox:
-    authorization_request: 'APIInfinoeSandbox'
-    steps:
-      - name: 'basic_infos'
-      - name: 'legal'
-      - name: 'contacts'
-
-  api-infinoe-production:
-    authorization_request: 'APIInfinoeProduction'
-
-  api-service-national-inscription-concours-examen:
-    name: "Inscription à un concours ou un examen (hors permis de conduire)"
-    authorization_request: 'APIServiceNational'
+  api-particulier-abelium:
+    name: Domino web 2.0, Tarification services municipaux / Portail Famille
+    description: Service Périscolaire, Restauration Scolaire, Extrascolaire, Accueil
+      des loisirs
+    authorization_request: APIParticulier
+    single_page_view: 'api_particulier_through_editor_without_contact_technique'
+    use_case: portail_famille_tarification
+    editor_id: abelium
+    static_blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: scopes
     data:
-      intitule: "Inscription à un concours ou un examen (hors permis de conduire)"
-      description: "La candidature à un concours ou examens en France nécessite souvent l'inscription à un service national. Ce service permet au candidat d'être identifié et authentifié de manière sécurisée lors de son inscription."
-      destinataire_donnees_caractere_personnel:
-      duree_conservation_donnees_caractere_personnel: "12"
-      cadre_juridique_nature: "Article L114-6 du code du service national"
-      cadre_juridique_url: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000021960309/"
+      intitule: Service Périscolaire, Restauration Scolaire, Extrascolaire, Accueil
+        des loisirs
+      description: 'Le logiciel Domino ''Web 2.0 permet la facturation des prestations
+        pour les services suivants : périscolaire (par exemple : tarifs garderie matin,
+        soir, etc.), restauration (par exemple : tarif repas enfant et adulte), centres
+        de loisirs (par exemple : tarif demi-journée ou journée ALSH, etc.), jeunesse
+        (par exemple : tarif journée, tarif activité, etc.), petite enfance (tarif d''accueil
+        horaire) et temps libre (école d''art, école de danse et de musique). Le calcul
+        du montant des prestations est réalisé selon un ou plusieurs critères suivants
+        : revenu déclaré du foyer, quotient familial du foyer, nombre d''enfants à charge
+        et /ou nombre total d''enfants. Abelium Collectivités accompagne le demandeur
+        lors de la mise en place de la demande des informations sur l''application API
+        particulier.'
+      cadre_juridique_nature: L'article L114-8 du code des relations entre le public
+        et l'administration fixe le cadre général des échanges de données au sein de
+        l'administration. En tant que collectivité territoriale, la délibération ci-jointe
+        précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices,
+        et précise les données nécessaires à son fonctionnement
+      destinataire_donnees_caractere_personnel: Agents du service
+      duree_conservation_donnees_caractere_personnel: 36
+      scopes:
+        - cnaf_quotient_familial
+        - cnaf_allocataires
+        - cnaf_enfants
+        - cnaf_adresse
 
-  api-service-national-obligation-service-national:
-    name: "Accès à un statut exigeant d’être en règle avec les obligations de service national"
-    authorization_request: 'APIServiceNational'
+  api-particulier-agora-plus:
+    name: Agora Famille Premium, Tarification services municipaux / Portail Famille
+    description: Dématérialisation du calcul du quotient/taux d'effort pour les structures
+      gérés par les administrations/collectivités (petite enfance, enfance, jeunesse
+      et adultes)
+    authorization_request: APIParticulier
+    single_page_view: 'api_particulier_through_editor'
+    use_case: portail_famille_tarification
+    editor_id: agora_plus
+    static_blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: scopes
     data:
-      intitule: "Accès à un statut exigeant d’être en règle avec les obligations de service national"
-      description:
+      intitule: Dématérialisation du calcul du quotient/taux d'effort pour les structures
+        gérés par les administrations/collectivités (petite enfance, enfance, jeunesse
+        et adultes)
+      description: "Cette démarche auprès des administrés nous permettra de récupérer
+        les éléments nécessaires à appliquer pour le calcul des tarifs des différentes
+        prestations.\r\n  - Cette démarche auprès des administrés nous permettra de
+        récupérer les éléments nécessaires à appliquer pour le calcul des tarifs des
+        différentes prestations.\r\n  - Les allocataires\r\n  - Les revenus déclarés
+        aux différents organisme\r\n  - Adresse du foyer\r\n Nous sommes accompagnés
+        par Agora."
+      cadre_juridique_nature: L'article L114-8 du code des relations entre le public
+        et l'administration fixe le cadre général des échanges de données au sein de
+        l'administration. En tant que collectivité territoriale, la délibération ci-jointe
+        précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices,
+        et précise les données nécessaires à son fonctionnement
+      destinataire_donnees_caractere_personnel: Adresse du foyer
+      duree_conservation_donnees_caractere_personnel: 12
+      scopes:
+        - cnaf_quotient_familial
+        - cnaf_allocataires
+        - cnaf_enfants
+        - cnaf_adresse
+      contact_technique_email: projet@agoraplus.fr
+      contact_technique_phone_number: '0184160095'
+      contact_technique_type: organization
+
+  api-particulier-amiciel-malice:
+    name: Malice, Tarification services municipaux / Portail Famille
+    description: Récupération des données de la famille pour l'inscription et la facturation
+      en crèche, cantine, périscolaire, extrascolaire, transports scolaires
+    authorization_request: APIParticulier
+    single_page_view: 'api_particulier_through_editor_without_contact_technique'
+    use_case: portail_famille_tarification
+    editor_id: amiciel
+    static_blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: scopes
+    data:
+      intitule: Récupération des données de la famille pour l'inscription et la facturation
+        en crèche, cantine, périscolaire, extrascolaire, transports scolaires
+      description: "La collectivité utilisera les API Particulier dans les cas suivants
+        :\r\n- Lors de l'inscription d'une nouvelle famille sur le portail familles
+        : la famille pourra choisir le remplissage des informations déjà connues (Dites-le
+        nous une fois).\r\n- Lors de l'inscription ou actualisation d'une famille sur
+        le portail familles : les données actualisées via les API ne nécessiteront plus
+        de justificatifs.\r\n- Lors du suivi du dossier par la collectivité, les données
+        pourront être automatiquement vérifiées, contrôlées et actualisées\r\nL’utilisation
+        de l’API Particulier se fait dans le cadre de l’utilisation du portail familles
+        MALICE édité par la société AMICIEL."
+      cadre_juridique_nature: L'article L114-8 du code des relations entre le public
+        et l'administration fixe le cadre général des échanges de données au sein de
+        l'administration. En tant que collectivité territoriale, la délibération ci-jointe
+        précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices,
+        et précise les données nécessaires à son fonctionnement
+      destinataire_donnees_caractere_personnel: Agents instructeurs gérant les inscriptions
+        et les facturations des prestations Petite Enfance, Scolaire et Extra-Scolaire
+      duree_conservation_donnees_caractere_personnel: 36
+      scopes:
+        - cnaf_quotient_familial
+        - cnaf_allocataires
+        - cnaf_enfants
+        - cnaf_adresse
+
+  api-particulier-arpege-concerto:
+    name: Concerto, Tarification services municipaux / Portail Famille
+    description: Récupération du Quotient Familial pour le service Périscolaire
+    authorization_request: APIParticulier
+    single_page_view: 'api_particulier_through_editor_without_contact_technique'
+    use_case: portail_famille_tarification
+    editor_id: arpege
+    static_blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: scopes
+    data:
+      intitule: Récupération du Quotient Familial pour le service Périscolaire
+      description: Notre commune module la facturation des services liés à l’enfance
+        en fonction des QF. Dans un esprit de simplification et de sécurité, nous souhaitons
+        ne pas demander aux familles ces éléments de calcul mais plutôt nous baser sur
+        les données proposées par API Particulier. Nous utilisons le logiciel Concerto,
+        édité par la Société Arpège.
+      cadre_juridique_nature: L'article L114-8 du code des relations entre le public
+        et l'administration fixe le cadre général des échanges de données au sein de
+        l'administration. En tant que collectivité territoriale, la délibération ci-jointe
+        précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices,
+        et précise les données nécessaires à son fonctionnement
+      destinataire_donnees_caractere_personnel: Agents instructeurs des dossiers d’inscription
+        en multi-accueil, Agents instructeurs des dossiers au guichet unique, Agents
+        instructeurs des dossiers d’inscription en accueil périscolaire
+      duree_conservation_donnees_caractere_personnel: 12
+      scopes:
+        - cnaf_quotient_familial
+        - cnaf_allocataires
+        - cnaf_enfants
+        - cnaf_adresse
+
+  api-particulier-bl-enfance-berger-levrault:
+    name: BL Enfance, Tarification services municipaux / Portail Famille
+    description: Calcul du quotient familial pour la facturation des activités scolaires,
+      périscolaires et loisirs
+    authorization_request: APIParticulier
+    single_page_view: 'api_particulier_through_editor'
+    use_case: portail_famille_tarification
+    editor_id: berger_levrault
+    static_blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: scopes
+    data:
+      intitule: Calcul du quotient familial pour la facturation des activités scolaires,
+        périscolaires et loisirs
+      description: "La collectivité a voté un règlement intérieur où figure le tarif
+        des prestations liées aux activités scolaires et périscolaires, qui est fonction
+        du quotient familial. Il est donc nécessaire de récupérer ce dernier qui a été
+        transmis par la CAF.\r\nLa solution utilisée est BL.enfance de l’éditeur Berger-levrault."
+      cadre_juridique_nature: L'article L114-8 du code des relations entre le public
+        et l'administration fixe le cadre général des échanges de données au sein de
+        l'administration. En tant que collectivité territoriale, la délibération ci-jointe
+        précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices,
+        et précise les données nécessaires à son fonctionnement.
+      destinataire_donnees_caractere_personnel: Agent de la collectivité ( ou association)
+        en charge de l’inscription des familles ou en charge de la facturation des activités,
+        agent du service guichet unique.
+      duree_conservation_donnees_caractere_personnel: 36
+      scopes:
+        - cnaf_quotient_familial
+        - cnaf_allocataires
+        - cnaf_adresse
+      contact_technique_email: "<%= Rails.application.credentials.api_particulier_berger_levrault_contact_technique_email || 'tech-berger-levrault@yopmail.com' %>"
+      contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_berger_levrault_contact_technique_given_name || 'Jean' %>"
+      contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_berger_levrault_contact_technique_family_name || 'Dupont' %>"
+      contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_berger_levrault_contact_technique_phone_number || '0836656565' %>"
+      contact_technique_job_title: Contact technique
+
+  api-particulier-cantine-de-france:
+    name: Cantines-de-France, Tarification services municipaux / Portail Famille
+    description: Récupération du Quotient Familial ainsi que les informations administratives
+      (CAF et Impôts) pour les services Cantine et Garderie
+    authorization_request: APIParticulier
+    use_case: portail_famille_tarification
+    single_page_view: 'api_particulier_through_editor'
+    editor_id: jdealise
+    static_blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: scopes
+    data:
+      intitule: Récupération du Quotient Familial ainsi que les informations administratives
+        (CAF et Impôts) pour les services Cantine et Garderie
+      description: "La mairie souhaite bénéficier du service API Particulier pour les
+        besoins suivants :\r\n- Le tarif des prestations de la collectivité est indexé
+        sur le QF de chaque famille\r\n- Les nouvelles familles arrivant sur la commune
+        peuvent lors de la création de leurs comptes remonter l'ensemble des informations
+        administratives grâce à API particulier\r\n- Avoir la mise à jour des QF afin
+        de mettre à jour les facturations des familles\r\n- Dématérialiser les mises
+        à jours de ces informations et de limiter les déplacements en mairie ou échange
+        de courriers\r\n\r\nLa consommation se fait le cadre de l'utilisation du logiciel
+        Cantine de France de la société Jdéalise."
+      cadre_juridique_nature: L'article L114-8 du code des relations entre le public
+        et l'administration fixe le cadre général des échanges de données au sein de
+        l'administration. En tant que collectivité territoriale, la délibération ci-jointe
+        précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices,
+        et précise les données nécessaires à son fonctionnement.
       destinataire_donnees_caractere_personnel:
-      duree_conservation_donnees_caractere_personnel: "12"
-      cadre_juridique_nature: "Article L111-3 du code du service national"
-      cadre_juridique_url: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000024042593/"
+      duree_conservation_donnees_caractere_personnel: 36
+      scopes:
+        - cnaf_quotient_familial
+        - cnaf_allocataires
+        - cnaf_enfants
+        - cnaf_adresse
+      contact_technique_email: support@cantine-de-france.fr
+      contact_technique_phone_number: '0972473612'
+      contact_technique_type: organization
 
-  api-service-national:
-    name: "Demande libre"
-    authorization_request: 'APIServiceNational'
-    steps:
-      - name: 'basic_infos'
-      - name: 'personal_data'
-      - name: 'legal'
-      - name: 'contacts'
+  api-particulier-ccas-arche-mc2:
+    name: Arche MC2, Dématérialisation de l'instruction des dossiers dans un CCAS/CIAS
+    description: Instructions des dossiers d'aides sociales
+    authorization_request: APIParticulier
+    single_page_view: 'api_particulier_through_editor_without_contact_technique'
+    use_case: ccas
+    editor_id: arche_mc2
+    static_blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: scopes
+    data:
+      intitule: Instructions des dossiers d'aides sociales
+      description: 'Les agents sociaux de la collectivité (CCAS/CIAS) instruisent des
+        dossiers de demande d''aides légales et/ou facultatives. Dans ce contexte, ils
+        ont besoin de connaître la composition familiale et la situation financière
+        du foyer du demandeur : état civil (nom prénom date de naissance), structure
+        familiale (nom prénom date de naissance des enfants et parents), adresse du
+        foyer, quotient familial calculé par la CAF. Toutes ces informations leur permettent
+        de vérifier les conditions d''éligibilité aux aides sociales. Ainsi, dans une
+        volonté de simplification de la démarche pour les citoyens et agents, nous souhaitons
+        exploiter les données déjà connues de l''API Particulier. Pour cela, la collectivité
+        utilise la solution Millésime édité par la société Arche MC2.'
+      cadre_juridique_nature: Article L. 312-1 et Article R123-5 du code de l'action
+        sociale et des familles. Article L114-8 et Article R. 114-9-3 du code des relations
+        entre le public et l'administration.
+      destinataire_donnees_caractere_personnel: agents instructeurs des demandes d'aides,
+        agents instructeurs des demandes d'inscriptions aux services à la personne,
+        ...
+      duree_conservation_donnees_caractere_personnel: 24
+      scopes:
+        - cnaf_quotient_familial
+        - cnaf_allocataires
+        - cnaf_enfants
+        - cnaf_adresse
 
-  api-captchetat:
-    authorization_request: 'APICaptchEtat'
-    steps:
-      - name: 'basic_infos'
-      - name: 'legal'
-      - name: 'contacts'
+  api-particulier-ccas-arpege:
+    name: Dématérialisation de l'instruction des dossiers dans un CCAS
+    description: Récupération du Quotient Familial pour les aides sociales facultatives
+      et les services à la personne du CCAS
+    authorization_request: APIParticulier
+    single_page_view: 'api_particulier_through_editor_without_contact_technique'
+    use_case: ccas
+    editor_id: arpege
+    static_blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: scopes
+    data:
+      intitule: Récupération du Quotient Familial pour les aides sociales facultatives
+        et les services à la personne du CCAS
+      description: "Le CCAS de notre commune module le montant des aides octroyées et
+        les tarifications des services à la personne en fonction du QF.\r\nDans un esprit
+        de simplification et de sécurité, nous souhaitons ne pas demander aux usagers
+        les informations de calcul mais plutôt nous baser sur les données proposées
+        par API Particulier.\r\nNous utilisons le logiciel Sonate édité par la Société
+        Arpège."
+      cadre_juridique_nature: "Préciser ici les délibérations du conseil d'administration
+        qui détaillent les modalités de calcul du montant des aides et/ou du prix de
+        services.\r\nLorsque le calcul du montant des aides est à la libre appréciation
+        du travailleur social ou de la commission d’attribution, préciser sur quels
+        éléments se basent la décision."
+      destinataire_donnees_caractere_personnel: agents instructeurs des demandes d'aides,
+        agents instructeurs des demandes d'inscriptions aux services à la personne,
+        ...
+      duree_conservation_donnees_caractere_personnel: 12
+      scopes:
+        - cnaf_quotient_familial
+        - cnaf_allocataires
+        - cnaf_enfants
+        - cnaf_adresse
+
+  api-particulier-ccas-melissandre-afi:
+    name: Mélissandre, Dématérialisation de l'instruction des dossiers dans un CCAS
+    description: Instructions des dossiers d'aides sociales
+    authorization_request: APIParticulier
+    single_page_view: 'api_particulier_through_editor'
+    use_case: ccas
+    editor_id: afi
+    static_blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: scopes
+    data:
+      intitule: Instructions des dossiers d'aides sociales
+      description: 'Les agents du CCAS instruisent des dossiers de demandes d''aides
+        légales et facultatives. Pour définir si un usager est éligible, les agents
+        analysent la situation fiscal et familiale (toutes les ressources perçues, le
+        quotient familial, la composition du ménage, si l''adresse est bien sur la commune,
+        etc.). L''accès à certaines informations, certifiées via l''API Particulier,
+        permet un gain de temps dans le traitement des dossiers par les instructeurs
+        et simplifie les démarches des familles. Logiciel utilisé : Melissande, édité
+        par la Société A.F.I.'
+      cadre_juridique_nature: "Préciser ici les délibérations du conseil d'administration
+        qui détaillent les modalités de calcul du montant des aides et/ou du prix de
+        services.\r\nLorsque le calcul du montant des aides est à la libre appréciation
+        du travailleur social ou de la commission d’attribution, préciser sur quels
+        éléments se basent la décision."
+      destinataire_donnees_caractere_personnel: agents instructeurs des demandes d'aides,
+        agents instructeurs des demandes d'inscriptions aux services à la personne,
+        ...
+      duree_conservation_donnees_caractere_personnel: 12
+      scopes:
+        - cnaf_quotient_familial
+        - cnaf_allocataires
+        - cnaf_enfants
+        - cnaf_adresse
+        - pole_emploi_identite
+        - pole_emploi_contact
+        - pole_emploi_adresse
+        - pole_emploi_inscription
+        - mesri_identite
+        - cnous_statut_bourse
+        - cnous_identite
+      contact_technique_email: "<%= Rails.application.credentials.api_particulier_afi_contact_technique_email || 'tech-afi@yopmail.com' %>"
+      contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_afi_contact_technique_given_name || 'Jeanne' %>"
+      contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_afi_contact_technique_family_name || 'Martin' %>"
+      contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_afi_contact_technique_phone_number || '0836656565' %>"
+      contact_technique_job_title: Contact technique
+
+  api-particulier-city-family-mushroom-software:
+    name: City Family, Tarification services municipaux / Portail Famille
+    description: Calcul du quotient familial pour la facturations des crèches, du périscolaire,
+      du scolaire et de l’extrascolaire
+    authorization_request: APIParticulier
+    single_page_view: 'api_particulier_through_editor'
+    use_case: portail_famille_tarification
+    editor_id: mushroom_software
+    static_blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: scopes
+    data:
+      intitule: Calcul du quotient familial pour la facturations des crèches, du périscolaire,
+        du scolaire et de l’extrascolaire
+      description: "La ville gère les prestations liées à la restauration scolaire,
+        les garderies, les centres de loisirs et les crèches. Le calcul du prix des
+        prestations est lié soit aux revenus des familles soit à leur quotient familial.\r\nNous
+        utilisons la solution CityFamily de Mushroom Software."
+      cadre_juridique_nature: L'article L114-8 du code des relations entre le public
+        et l'administration fixe le cadre général des échanges de données au sein de
+        l'administration. En tant que collectivité territoriale, la délibération ci-jointe
+        précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices,
+        et précise les données nécessaires à son fonctionnement.
+      destinataire_donnees_caractere_personnel: Il s'agit de l'agent en Mairie effectuant
+        la gestion des familles pour une facturation conforme à la délibération municipale.
+        La consultation des données n’est pas autorisée ni permise aux agents n’ayant
+        pas rapport au service.
+      duree_conservation_donnees_caractere_personnel: 24
+      scopes:
+        - cnaf_quotient_familial
+        - cnaf_allocataires
+        - cnaf_adresse
+      contact_technique_email: "<%= Rails.application.credentials.api_particulier_mushroom_software_contact_technique_email || 'tech-mushroom_software@yopmail.com' %>"
+      contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_mushroom_software_contact_technique_given_name || 'Jeanne' %>"
+      contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_mushroom_software_contact_technique_family_name || 'Martin' %>"
+      contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_mushroom_software_contact_technique_phone_number || '0836656565' %>"
+      contact_technique_job_title: Contact technique
+
+  api-particulier-civil-enfance-ciril-group:
+    name: Civil Enfance, Tarification services municipaux / Portail Famille
+    description: Déclaration et calcul du quotient familial pour la facturation des
+      activités du portail famille
+    authorization_request: APIParticulier
+    single_page_view: 'api_particulier_through_editor'
+    use_case: portail_famille_tarification
+    editor_id: ciril_group
+    static_blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: scopes
+    data:
+      intitule: Déclaration et calcul du quotient familial pour la facturation des activités
+        du portail famille
+      description: "Ce service permet aux familles de déclarer leurs ressources et faire
+        calculer leur quotient familial via le portail famille Civil Enfance de l'éditeur
+        Ciril Group sans se déplacer en Mairie. Cette procédure est entièrement dématérialisée.\r\n[Vous
+        pouvez indiquer que les données nécessaires au calcul du quotient seront récupérées
+        des services fiscaux et / ou des services de la CNAF en fonction de vos besoins.
+        Soyez-spécifique sur quelle donnée pour quel usage.]"
+      cadre_juridique_nature: L'article L114-8 du code des relations entre le public
+        et l'administration fixe le cadre général des échanges de données au sein de
+        l'administration. En tant que collectivité territoriale, la délibération ci-jointe
+        précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices,
+        et précise les données nécessaires à son fonctionnement.
+      destinataire_donnees_caractere_personnel: Agents de la collectivité en charge
+        des services enfance, petite enfance et jeunesse de la ville.
+      duree_conservation_donnees_caractere_personnel: 36
+      scopes:
+        - cnaf_quotient_familial
+        - cnaf_allocataires
+        - cnaf_enfants
+        - cnaf_adresse
+      contact_technique_email: "<%= Rails.application.credentials.api_particulier_cirilgroup_contact_technique_email || 'tech-cirilgroup@yopmail.com' %>"
+      contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_cirilgroup_contact_technique_given_name || 'Jeanne' %>"
+      contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_cirilgroup_contact_technique_family_name || 'Martin' %>"
+      contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_cirilgroup_contact_technique_phone_number || '0836656565' %>"
+      contact_technique_job_title: Contact technique
+
+  api-particulier-cosoluce-fluo:
+    name: Fluo, Tarification services municipaux / Portail Famille
+    description: Récupération des données CNAF pour les services municipaux
+    authorization_request: APIParticulier
+    single_page_view: 'api_particulier_through_editor'
+    use_case: portail_famille_tarification
+    editor_id: cosoluce
+    static_blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: scopes
+    data:
+      intitule: Récupération des données CNAF pour les services municipaux
+      description: "La mairie souhaite bénéficier du service API Particulier pour les
+        besoins suivants :\r\n- Le tarif des prestations de la collectivité est indexé
+        sur le QF de chaque famille\r\n- Les nouvelles familles arrivant sur la commune
+        peuvent lors de la création de leurs comptes remonter l'ensemble des informations
+        administratives grâce à API particulier\r\n- Avoir la mise à jour des QF afin
+        de mettre à jour les facturations des familles\r\n- Dématérialiser les mises
+        à jours de ces informations et de limiter les déplacements en mairie ou échange
+        de courriers"
+      cadre_juridique_nature: L'article L114-8 du code des relations entre le public
+        et l'administration fixe le cadre général des échanges de données au sein de
+        l'administration. En tant que collectivité territoriale, la délibération ci-jointe
+        précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices,
+        et précise les données nécessaires à son fonctionnement.
+      destinataire_donnees_caractere_personnel:
+      duree_conservation_donnees_caractere_personnel: 36
+      scopes:
+        - cnaf_quotient_familial
+        - cnaf_allocataires
+        - cnaf_enfants
+        - cnaf_adresse
+      contact_technique_email: "<%= Rails.application.credentials.api_particulier_cosoluce_contact_technique_email || 'tech-cosoluce@yopmail.com' %>"
+      contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_cosoluce_contact_technique_given_name || 'Jeanne' %>"
+      contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_cosoluce_contact_technique_family_name || 'Martin' %>"
+      contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_cosoluce_contact_technique_phone_number || '0836656565' %>"
+      contact_technique_job_title: Contact technique
+
+  api-particulier-docaposte-fast:
+    name: Tarification services municipaux / Portail Famille
+    description: Récupération du Quotient Familial ainsi que les informations administratives
+      (CAF et Impôts) pour les services Cantine et Garderie
+    authorization_request: APIParticulier
+    use_case: portail_famille_tarification
+    single_page_view: 'api_particulier_through_editor_without_contact_technique'
+    editor_id: docaposte
+    static_blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: scopes
+    data:
+      intitule: Récupération du Quotient Familial ainsi que les informations administratives
+        (CAF et Impôts) pour les services Cantine et Garderie
+      description: "Notre mairie souhaite bénéficier du service API Particulier pour
+        les besoins suivants :\r\n - Le tarif des prestations de la collectivité est
+        indexé sur le QF de chaque famille\r\n - Les nouvelles familles arrivant sur
+        la commune peuvent lors de la création de leurs comptes remonter l'ensemble
+        des informations administratives grâce à API particulier\r\n - Avoir la mise
+        à jour des QF afin de mettre à jour les facturations des familles\r\n - Dématérialiser
+        les mises à jours de ces informations et de limiter les déplacements en mairie
+        ou échange de courriers\r\n L’Utilisation de l’API Particulier se fait dans
+        le cadre de l’utilisation du logiciel FAST-Famille  édité par la société DOCAPOSTE-FAST."
+      cadre_juridique_nature: L'article L114-8 du code des relations entre le public
+        et l'administration fixe le cadre général des échanges de données au sein de
+        l'administration. En tant que collectivité territoriale, la délibération ci-jointe
+        précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices,
+        et précise les données nécessaires à son fonctionnement.
+      destinataire_donnees_caractere_personnel: Agents instructeurs en charge de la
+        tarification et de la facturation des prestations aux familles
+      duree_conservation_donnees_caractere_personnel: 36
+      scopes:
+        - cnaf_quotient_familial
+        - cnaf_allocataires
+        - cnaf_enfants
+        - cnaf_adresse
+
+  api-particulier-entrouvert-publik:
+    name: Publik Famille, Tarification services municipaux / Portail Famille
+    description: Calcul du tarif des activités péri-extrascolaires, petite enfance,
+      socio-culturelles et sportives pour les enfants ou les adultes inscrits
+    authorization_request: APIParticulier
+    use_case: portail_famille_tarification
+    single_page_view: 'api_particulier_through_editor_without_contact_technique'
+    editor_id: entrouvert
+    static_blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: scopes
+    data:
+      intitule: Calcul du tarif des activités péri-extrascolaires, petite enfance, socio-culturelles
+        et sportives pour les enfants ou les adultes inscrits
+      description: Calculer le tarif des activités péri-extrascolaires, petite enfance,
+        socio-culturelles et sportives pour la facturation des familles qui effectuent
+        leurs démarches en ligne via la plateforme de Gestion de la relation usager
+        Publik de la collectivité, éditée par la société Entr'ouvert
+      cadre_juridique_nature:
+      destinataire_donnees_caractere_personnel: Agents instructeurs des dossiers "restauration
+        scolaire"
+      duree_conservation_donnees_caractere_personnel: 20
+      scopes:
+        - cnaf_quotient_familial
+        - cnaf_allocataires
+        - cnaf_enfants
+
+  api-particulier-jvs-parascol:
+    name: Parascol, Tarification services municipaux / Portail Famille
+    description: Facturation des familles pour les services périscolaires et loisirs
+    authorization_request: APIParticulier
+    single_page_view: 'api_particulier_through_editor_without_contact_technique'
+    use_case: portail_famille_tarification
+    editor_id: jvs_mairistem
+    static_blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: scopes
+    data:
+      intitule: Facturation des familles pour les services périscolaires et loisirs
+      description: "La commune/la structure intercommunale est chargée de la gestion
+        de la facturation des services liés à l'Enfance.\r\nDans ce cadre, elle a besoin
+        de récupérer des informations concernant la famille et ses éléments de revenus
+        et de quotient familial.\r\nAfin d'avoir des informations fiables sur ces points
+        et pour éviter de réclamer certains justificatifs, l'utilisation d'API Particulier
+        semble adaptée.\r\nLe logiciel utilisé est Parascol, édité par JVS-MAIRISTEM.\r\nL'Espace
+        Famille, proposé en complément de Parascol, permet aux familles (entre autres
+        mises à jour de leur dossier ou inscription) de déclarer leurs ressources et
+        calculer leur quotient familial, sans avoir à se déplacer en mairie. Là encore,
+        l'utilisation d'API Particulier représente un véritable plus pour les familles."
+      cadre_juridique_nature: L'article L114-8 du code des relations entre le public
+        et l'administration fixe le cadre général des échanges de données au sein de
+        l'administration. En tant que collectivité territoriale, la délibération ci-jointe
+        précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices,
+        et précise les données nécessaires à son fonctionnement.
+      destinataire_donnees_caractere_personnel: Agents instructeurs des dossiers d’inscription
+        (périscolaire, multi-accueil, guichet unique)
+      duree_conservation_donnees_caractere_personnel: 24
+      scopes:
+        - cnaf_quotient_familial
+        - cnaf_allocataires
+        - cnaf_enfants
+        - cnaf_adresse
+
+  api-particulier-nfi:
+    name: Tarification services municipaux / Portail Famille
+    description: Gestion de la relation client sur le portail famille
+    authorization_request: APIParticulier
+    single_page_view: 'api_particulier_through_editor'
+    use_case: portail_famille_tarification
+    editor_id: nfi
+    static_blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: scopes
+    data:
+      intitule: Gestion de la relation client sur le portail famille
+      description: "Permettre la récupération de quotient familial par les administrés
+        eux-mêmes sur leur compte d'inscription en saisissant leur identifiant Caf et
+        en demandant l'actualisation du quotient Familial.\r\nPermettre le même traitement
+        en mairie pour le compte d'un administré spécifique dans le cas d'un administré
+        n'ayant pas accès à Internet ou pour le compte de l'ensemble des administrés
+        gérés dans le cadre du service et en cours de validité au moment du traitement
+        afin d'actualiser la totalité des foyers et d'être conforme à la délibération
+        municipale fixant les coût des prestations en fonction du Quotient Familial.\r\nIl
+        s'agit également, vu que les données sont demandées aux administrés au moment
+        de leur inscription, de récupérer les informations sur les enfants et les allocataires
+        ainsi que l'adresse du foyer. En effet, cela permettra aux administrés non seulement
+        de connaître la connaissance de la CAF sur la composition de leur foyer mais
+        également de pré-saisir et donc d'éviter des erreurs de saisie sur l'adresse
+        ainsi que sur les prénoms, sexe et date de naissance des enfants. Les données
+        sont gardées en base de données le temps de l'activité au sein du service du
+        portail famille. Les données peuvent être anonymisées dès que l'administré en
+        fait la demande et qu'il ne fait plus parti des administrés actifs au service.\r\nNous
+        utilisons la solution de GRC de l'éditeur Nord France Informatique (NFI)."
+      cadre_juridique_nature: Délibération de la commune au format PDF en pièce jointe
+      destinataire_donnees_caractere_personnel: Il s'agit de l'agent en Mairie effectuant
+        la gestion des familles pour une facturation conforme à la délibération municipale.
+        La consultation des données n’est pas autorisée ni permise aux agents n’ayant
+        pas rapport au service.
+      duree_conservation_donnees_caractere_personnel: 24
+      scopes:
+        - cnaf_quotient_familial
+        - cnaf_allocataires
+        - cnaf_enfants
+        - cnaf_adresse
+      contact_technique_email: "<%= Rails.application.credentials.api_particulier_nfi_contact_technique_email || 'tech-nfi@yopmail.com' %>"
+      contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_nfi_contact_technique_given_name || 'Jeanne' %>"
+      contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_nfi_contact_technique_family_name || 'Martin' %>"
+      contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_nfi_contact_technique_phone_number || '0836656565' %>"
+      contact_technique_job_title: Contact technique
+
+  api-particulier-odyssee-informartique-pandore:
+    name: Pandore, Tarification services municipaux / Portail Famille
+    description: Récupération des données CNAF pour les services municipaux
+    authorization_request: APIParticulier
+    single_page_view: 'api_particulier_through_editor'
+    use_case: portail_famille_tarification
+    editor_id: odyssee_informatique
+    static_blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: scopes
+    data:
+      intitule: Récupération des données CNAF pour les services municipaux
+      description: "La mairie souhaite bénéficier du service API Particulier pour les
+        besoins suivants :\r\n- Le tarif des prestations de la collectivité est indexé
+        sur le QF de chaque famille\r\n- Les nouvelles familles arrivant sur la commune
+        peuvent lors de la création de leurs comptes remonter l'ensemble des informations
+        administratives grâce à API particulier\r\n- Avoir la mise à jour des QF afin
+        de mettre à jour les facturations des familles\r\n- Dématérialiser les mises
+        à jours de ces informations et de limiter les déplacements en mairie ou échange
+        de courriers"
+      cadre_juridique_nature: L'article L114-8 du code des relations entre le public
+        et l'administration fixe le cadre général des échanges de données au sein de
+        l'administration. En tant que collectivité territoriale, la délibération ci-jointe
+        précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices,
+        et précise les données nécessaires à son fonctionnement.
+      destinataire_donnees_caractere_personnel: Service facturier de la collectivité
+      duree_conservation_donnees_caractere_personnel: 36
+      scopes:
+        - cnaf_quotient_familial
+        - cnaf_allocataires
+        - cnaf_enfants
+        - cnaf_adresse
+      contact_technique_email: "<%= Rails.application.credentials.api_particulier_odyssee_informatique_contact_technique_email || 'tech-odyssee_informatique@yopmail.com' %>"
+      contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_odyssee_informatique_contact_technique_given_name || 'Jeanne' %>"
+      contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_odyssee_informatique_contact_technique_family_name || 'Martin' %>"
+      contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_odyssee_informatique_contact_technique_phone_number || '0836656565' %>"
+      contact_technique_job_title: Contact technique
+
+  api-particulier-qiis-eticket:
+    name: eTicket, Tarification services municipaux / Portail Famille
+    description: eTicket - Portail Famille
+    authorization_request: APIParticulier
+    use_case: portail_famille_tarification
+    single_page_view: 'api_particulier_through_editor'
+    editor_id: qiis
+    static_blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: scopes
+    data:
+      intitule: eTicket - Portail Famille
+      description: "Cette démarche auprès des administrés nous permettra de récupérer
+        les éléments nécessaires à appliquer pour le calcul des tarifs des différentes
+        prestations.\r\n  - Les allocataires\r\n  - Les revenus déclarés aux différents
+        organisme\r\n  - Adresse du foyer\r\n "
+      cadre_juridique_nature: L'article L114-8 du code des relations entre le public
+        et l'administration fixe le cadre général des échanges de données au sein de
+        l'administration. En tant que collectivité territoriale, la délibération ci-jointe
+        précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices,
+        et précise les données nécessaires à son fonctionnement.
+      destinataire_donnees_caractere_personnel: Adresse du foyer
+      duree_conservation_donnees_caractere_personnel: 12
+      scopes:
+        - cnaf_quotient_familial
+        - cnaf_allocataires
+        - cnaf_enfants
+        - cnaf_adresse
+      contact_technique_email: "<%= Rails.application.credentials.api_particulier_qiis_contact_technique_email || 'tech-qiis@yopmail.com' %>"
+      contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_qiis_contact_technique_given_name || 'Jeanne' %>"
+      contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_qiis_contact_technique_family_name || 'Martin' %>"
+      contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_qiis_contact_technique_phone_number || '0836656565' %>"
+      contact_technique_job_title: Contact technique
+
+  api-particulier-sigec-maelis:
+    name: Maelis Portail, Tarification services municipaux / Portail Famille
+    description: Récupération des données CNAF pour les services municipaux
+    authorization_request: APIParticulier
+    single_page_view: 'api_particulier_through_editor'
+    use_case: portail_famille_tarification
+    editor_id: sigec
+    static_blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: scopes
+    data:
+      intitule: Récupération des données CNAF pour les services municipaux
+      description: "La mairie souhaite bénéficier du service API Particulier pour les
+        besoins suivants :\r\n- Le tarif des prestations de la collectivité est indexé
+        sur le QF de chaque famille\r\n- Les nouvelles familles arrivant sur la commune
+        peuvent lors de la création de leurs comptes remonter l'ensemble des informations
+        administratives grâce à API particulier\r\n- Avoir la mise à jour des QF afin
+        de mettre à jour les facturations des familles\r\n- Dématérialiser les mises
+        à jours de ces informations et de limiter les déplacements en mairie ou échange
+        de courriers"
+      cadre_juridique_nature: L'article L114-8 du code des relations entre le public
+        et l'administration fixe le cadre général des échanges de données au sein de
+        l'administration. En tant que collectivité territoriale, la délibération ci-jointe
+        précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices,
+        et précise les données nécessaires à son fonctionnement.
+      destinataire_donnees_caractere_personnel:
+      duree_conservation_donnees_caractere_personnel: 36
+      scopes:
+        - cnaf_quotient_familial
+        - cnaf_allocataires
+        - cnaf_enfants
+      contact_technique_email: "<%= Rails.application.credentials.api_particulier_sigec_contact_technique_email || 'tech-sigec@yopmail.com' %>"
+      contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_sigec_contact_technique_given_name || 'Jeanne' %>"
+      contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_sigec_contact_technique_family_name || 'Martin' %>"
+      contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_sigec_contact_technique_phone_number || '0836656565' %>"
+      contact_technique_job_title: Contact technique
+
+  api-particulier-teamnet-axel:
+    name: Axel, Tarification services municipaux / Portail Famille
+    description: Déclaration des revenus et calcul du quotient familial pour actualiser
+      les tarifs appliqués aux différentes prestations facturées
+    authorization_request: APIParticulier
+    use_case: portail_famille_tarification
+    single_page_view: 'api_particulier_through_editor_without_contact_technique'
+    editor_id: teamnet
+    static_blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: scopes
+    data:
+      intitule: Déclaration des revenus et calcul du quotient familial pour actualiser
+        les tarifs appliqués aux différentes prestations facturées
+      description: "Le télé-service de déclaration des revenus est accessible sur le
+        Portail Familles. Il permet à une famille de déclarer ses revenus et de préciser
+        le nombre de personnes qui compose le foyer.\r\nLes revenus déclarés par la
+        famille sont utilisés pour actualiser les tarifs appliqués aux différentes prestations
+        facturées.\r\nLes tarifs des prestations sont calculés en fonction des revenus
+        de la famille ou de son quotient familial. Le quotient familial est calculé
+        avec les revenus du foyer et le nombre de personnes qui composent le foyer."
+      cadre_juridique_nature: Préciser la référence et le texte et de la délibération
+        au format PDF vous autorisant à traiter les données.
+      destinataire_donnees_caractere_personnel: Agents instructeurs qui gèrent la facturation
+        des prestations de la Petite Enfance, du Scolaire et de l'extra-scolaire
+      duree_conservation_donnees_caractere_personnel: 36
+      scopes:
+        - cnaf_quotient_familial
+        - cnaf_allocataires
+        - cnaf_enfants
+        - cnaf_adresse
+
+  api-particulier-technocarte-ile:
+    name: ILE, Tarification service enfance
+    description: Récupération du Quotient Familial pour le service Enfance (Périscolaire,
+      centre de loisirs)
+    authorization_request: APIParticulier
+    single_page_view: 'api_particulier_through_editor'
+    use_case: portail_famille_tarification
+    editor_id: technocarte
+    static_blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: scopes
+    data:
+      intitule: Récupération du Quotient Familial pour le service Enfance (Périscolaire,
+        centre de loisirs)
+      description: Notre commune module la facturation des services liés à l’enfance
+        en fonction des QF. Dans un esprit de simplification et de sécurité, nous souhaitons
+        ne pas demander aux familles ces éléments de calcul mais plutôt nous baser sur
+        les données proposées par API Particulier. Nous utilisons le logiciel ILE, édité
+        par la Société Technocarte.
+      cadre_juridique_nature: L'article L114-8 du code des relations entre le public
+        et l'administration fixe le cadre général des échanges de données au sein de
+        l'administration. En tant que collectivité territoriale, la délibération ci-jointe
+        précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices,
+        et précise les données nécessaires à son fonctionnement
+      destinataire_donnees_caractere_personnel: Agents instructeurs des dossiers au
+        guichet unique, Agents instructeurs des dossiers d’inscription en accueil périscolaire
+        et centre de loisirs
+      duree_conservation_donnees_caractere_personnel: 36
+      scopes:
+        - cnaf_quotient_familial
+        - cnaf_allocataires
+        - cnaf_enfants
+        - cnaf_adresse
+      contact_technique_email: "<%= Rails.application.credentials.api_particulier_technocarte_contact_technique_email || 'tech-technocarte@yopmail.com' %>"
+      contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_technocarte_contact_technique_given_name || 'Jeanne' %>"
+      contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_technocarte_contact_technique_family_name || 'Martin' %>"
+      contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_technocarte_contact_technique_phone_number || '0836656565' %>"
+      contact_technique_job_title: Contact technique
+
+  api-particulier-waigeo-myperischool:
+    name: MyPerischool, Tarification services municipaux / Portail Famille
+    description: Calcul de la tarification pour la facturation des services périscolaires,
+      restauration scolaire et des accueils de loisirs.
+    authorization_request: APIParticulier
+    use_case: portail_famille_tarification
+    single_page_view: 'api_particulier_through_editor'
+    editor_id: waigeo
+    static_blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: scopes
+    data:
+      intitule: Calcul de la tarification pour la facturation des services périscolaires,
+        restauration scolaire et des accueils de loisirs.
+      description: "Ce service permet aux familles de déclarer leurs ressources et de
+        bénéficier d'une tarification en fonction de leur situation.\r\nMypérischool
+        permet la facturation des prestations liées à la restauration scolaire, les
+        activités périscolaires, les garderies et les centres de loisirsLa tarification
+        se base sur le quotient familial récupéré auprès de la CNAF ou sur les revenus
+        des familles récupérés directement auprès des services fiscaux à travers l'avis
+        d'imposition."
+      cadre_juridique_nature: L'article L114-8 du code des relations entre le public
+        et l'administration fixe le cadre général des échanges de données au sein de
+        l'administration. En tant que collectivité territoriale, la délibération ci-jointe
+        précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices,
+        et précise les données nécessaires à son fonctionnement.
+      destinataire_donnees_caractere_personnel: Agents de la collectivité en charge
+        des services enfance et jeunesse de la ville.
+      duree_conservation_donnees_caractere_personnel: 36
+      scopes:
+        - cnaf_quotient_familial
+      contact_technique_email: technique@waigeo.fr
+      contact_technique_phone_number: '0970805210'
+      contact_technique_type: organization
+
+  api-particulier-3d-ouest:
+    name: 3D Ouest, Tarification services municipaux / Portail Famille
+    description: Tarification Services Enfance et récupération des quotients familiaux
+      avec le logiciel Enfance 3D OUEST
+    authorization_request: APIParticulier
+    single_page_view: 'api_particulier_through_editor'
+    use_case: portail_famille_tarification
+    editor_id: 3d_ouest
+    static_blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: scopes
+    data:
+      intitule: Tarification Services Enfance et récupération des quotients familiaux
+        avec le logiciel Enfance 3D OUEST
+      description: Dans un esprit de simplification et de sécurité, les collectivités
+        pourront utiliser API Particulier pour récupérer les quotients familiaux des
+        administrés afin de faciliter la facturation des services enfance et périscolaire.
+        L’utilisation d’API Particulier est un vrai plus pour dématérialiser les mises
+        à jour de ces informations
+      cadre_juridique_nature: L'article L114-8 du code des relations entre le public
+        et l'administration fixe le cadre général des échanges de données au sein de
+        l'administration. En tant que collectivité territoriale, la délibération ci-jointe
+        précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices,
+        et précise les données nécessaires à son fonctionnement.
+      destinataire_donnees_caractere_personnel: Agents des services publics de la ville
+      duree_conservation_donnees_caractere_personnel: 36
+      scopes:
+        - cnaf_quotient_familial
+        - cnaf_allocataires
+        - cnaf_enfants
+      contact_technique_email: "<%= Rails.application.credentials.api_particulier_3douest_contact_technique_email || 'tech-3douest@yopmail.com' %>"
+      contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_3douest_contact_technique_given_name || 'Jeanne' %>"
+      contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_3douest_contact_technique_family_name || 'Martin' %>"
+      contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_3douest_contact_technique_phone_number || '0836656565' %>"
+      contact_technique_job_title: Contact technique
+
+  api-particulier-coexya:
+    name: Coexya, solution portail tarification sociale et solidaire ICAR
+    description: Tarification sociale et solidaires des transports
+    authorization_request: APIParticulier
+    single_page_view: 'api_particulier_through_editor'
+    use_case: portail_famille_tarification
+    editor_id: coexya
+    static_blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: scopes
+    data:
+      intitule: Tarification sociale et solidaires des transports
+      description: Aide à l'accès aux transports
+      cadre_juridique_nature: l'Article L114-8 du Code des relations entre le public
+        et l'administration fixe le cadre général qui oblige l’administration à échanger
+        des données lors d’une démarche d’un usager.
+      destinataire_donnees_caractere_personnel:
+      duree_conservation_donnees_caractere_personnel:
+      scopes:
+        - cnaf_quotient_familial
+        - cnaf_allocataires
+        - cnaf_adresse
+        - men_statut_scolarite
+        - men_statut_boursier
+        - men_echelon_bourse
+        - complementaire_sante_solidaire
+      contact_technique_email: "<%= Rails.application.credentials.api_particulier_coexya_contact_technique_email || 'tech-coexya@yopmail.com' %>"
+      contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_coexya_contact_technique_given_name || 'Jeanne' %>"
+      contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_coexya_contact_technique_family_name || 'Martin' %>"
+      contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_coexya_contact_technique_phone_number || '0836656565' %>"
+      contact_technique_job_title: Contact technique

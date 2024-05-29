@@ -1,9 +1,9 @@
-.authorization-request-forms-api-entreprise-index .editors-list {
+.authorization-request-forms-api-entreculier-index .editors-list {
   display: flex;
   flex-wrap: wrap;
 }
 
-.authorization-request-forms-api-entreprise-index .editors-list .fr-fieldset__element {
+.authorization-request-forms-api-entreculier-index .editors-list .fr-fieldset__element {
   flex: 0 1 calc(33.333% - 0.75rem);
   margin: 0.375rem;
 }

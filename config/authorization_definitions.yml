@@ -179,7 +179,8 @@ shared:
     description: "Entités administratives, simplifiez les démarches des particuliers en récupérant pour eux leurs informations administratives (quotient familial CAF, composition familiale, statut demandeur d’emploi, étudiant et étudiant boursier)."
     cgu_link: 'https://particulier.api.gouv.fr/cgu'
     provider: 'dinum'
-    link: 'https://staging.api.gouv.fr/les-api/api-particulier'
+    link: 'https://api.gouv.fr/les-api/api-particulier'
+    public: true
     webhook: true
     blocks:
       - name: 'basic_infos'

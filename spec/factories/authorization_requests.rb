@@ -218,70 +218,25 @@ FactoryBot.define do
       with_scopes
     end
 
-    trait :api_entreprise_marches_publics do
-      api_entreprise
-      form_uid { 'api-entreprise-marches-publics' }
-    end
-
-    trait :api_entreprise_aides_publiques do
-      api_entreprise
-      form_uid { 'api-entreprise-aides-publiques' }
-    end
-
-    trait :api_entreprise_subventions_associations do
-      api_entreprise
-      form_uid { 'api-entreprise-subventions-associations' }
-    end
-
-    trait :api_entreprise_portail_gru_preremplissage do
-      api_entreprise
-      form_uid { 'api-entreprise-portail-gru-preremplissage' }
-    end
-
-    trait :api_entreprise_portail_gru_instruction do
-      api_entreprise
-      form_uid { 'api-entreprise-portail-gru-instruction' }
-    end
-
-    trait :api_entreprise_detection_fraude do
-      api_entreprise
-      form_uid { 'api-entreprise-detection-fraude' }
-    end
-
-    trait :api_entreprise_editeur do
-      api_entreprise
-
-      form_uid { 'api-entreprise-editeur' }
-    end
-
-    trait :api_entreprise_e_attestations do
-      api_entreprise
-      form_uid { 'api-entreprise-e-attestations' }
-    end
-
-    trait :api_entreprise_provigis do
-      api_entreprise
-      form_uid { 'api-entreprise-provigis' }
-    end
-
-    trait :api_entreprise_achat_solution do
-      api_entreprise
-      form_uid { 'api-entreprise-achat-solution' }
-    end
-
-    trait :api_entreprise_mgdis do
-      api_entreprise
-      form_uid { 'api-entreprise-mgdis' }
-    end
-
-    trait :api_entreprise_atexo do
-      api_entreprise
-      form_uid { 'api-entreprise-atexo' }
-    end
-
-    trait :api_entreprise_setec_atexo do
-      api_entreprise
-      form_uid { 'api-entreprise-setec-atexo' }
+    %w[
+      api-entreprise-marches-publics
+      api-entreprise-aides-publiques
+      api-entreprise-subventions-associations
+      api-entreprise-portail-gru-preremplissage
+      api-entreprise-portail-gru-instruction
+      api-entreprise-detection-fraude
+      api-entreprise-editeur
+      api-entreprise-e-attestations
+      api-entreprise-provigis
+      api-entreprise-achat-solution
+      api-entreprise-mgdis
+      api-entreprise-atexo
+      api-entreprise-setec-atexo
+    ].each do |form_uid|
+      trait form_uid.tr('-', '_') do
+        api_entreprise
+        form_uid { form_uid }
+      end
     end
 
     trait :api_particulier do
@@ -294,10 +249,37 @@ FactoryBot.define do
       with_scopes
     end
 
-    trait :api_particulier_aiga do
-      api_particulier
-
-      form_uid { 'api-particulier-aiga' }
+    %w[
+      api-particulier-aiga
+      api-particulier-abelium
+      api-particulier-agora-plus
+      api-particulier-amiciel-malice
+      api-particulier-arpege-concerto
+      api-particulier-bl-enfance-berger-levrault
+      api-particulier-cantine-de-france
+      api-particulier-ccas-arche-mc2
+      api-particulier-ccas-arpege
+      api-particulier-ccas-melissandre-afi
+      api-particulier-city-family-mushroom-software
+      api-particulier-civil-enfance-ciril-group
+      api-particulier-cosoluce-fluo
+      api-particulier-docaposte-fast
+      api-particulier-entrouvert-publik
+      api-particulier-jvs-parascol
+      api-particulier-nfi
+      api-particulier-odyssee-informartique-pandore
+      api-particulier-qiis-eticket
+      api-particulier-sigec-maelis
+      api-particulier-teamnet-axel
+      api-particulier-technocarte-ile
+      api-particulier-waigeo-myperischool
+      api-particulier-3d-ouest
+      api-particulier-coexya
+    ].each do |form_uid|
+      trait form_uid.tr('-', '_') do
+        api_particulier
+        form_uid { form_uid }
+      end
     end
 
     trait :api_infinoe_sandbox do
