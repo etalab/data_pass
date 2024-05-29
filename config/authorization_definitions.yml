@@ -266,11 +266,31 @@ shared:
         value: "mesri_etablissements"
         group: "API Statut étudiant"
 
-      - name: "Complémentaire Santé Solidaire"
+      - name: "Statut C2S"
         value: "complementaire_sante_solidaire"
         group: "API Complémentaire Santé Solidaire"
 
+      - name: "Statut RSA"
+        value: "revenu_solidarite_active"
+        group: "API Revenue de Solidarité Active"
+      - name: "Majoration RSA"
+        value: "revenu_solidarite_active_majoration"
+        group: "API Revenue de Solidarité Active"
 
+      - name: "Statut Prime d'activité"
+        value: "prime_activite"
+        group: "API Prime d'Activité"
+      - name: "Majoration Prime d'activité"
+        value: "prime_activite_majoration"
+        group: "API Prime d'Activité"
+
+      - name: "Statut ASF"
+        value: "allocation_soutien_familial"
+        group: "API Allocation Soutien Familial"
+
+      - name: "Statut AAH"
+        value: "allocation_adulte_handicape"
+        group: "API Allocation Adulte Handicapé"
 
   api_infinoe_sandbox:
     name: "API INFINOE (Bac à sable)"
