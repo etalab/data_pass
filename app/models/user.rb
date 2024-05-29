@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  include InstructorSettings
+  include NotificationsSettings
 
   validates :email, presence: true, uniqueness: true
   before_save { email.downcase! }
@@ -30,7 +30,7 @@ class User < ApplicationRecord
     ", "#{authorization_request_type.underscore}:instructor")
   }
 
-  add_instructor_boolean_settings :submit_notifications, :messages_notifications
+  add_instruction_boolean_settings :submit_notifications, :messages_notifications
 
   def full_name
     if family_name.present? && given_name.present?

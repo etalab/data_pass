@@ -1,8 +1,8 @@
-module InstructorSettings
+module NotificationsSettings
   extend ActiveSupport::Concern
 
   included do
-    def self.add_instructor_boolean_settings(*names)
+    def self.add_instruction_boolean_settings(*names)
       AuthorizationDefinition.all.each do |authorization_definition|
         names.each do |name|
           method_name = "instruction_#{name}_for_#{authorization_definition.id.underscore}"
