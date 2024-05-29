@@ -30,6 +30,20 @@ class User < ApplicationRecord
     ", "#{authorization_request_type.underscore}:instructor")
   }
 
+  scope :reporter_for, lambda { |authorization_request_type|
+    where(
+      "EXISTS (
+        SELECT 1
+        FROM unnest(roles) AS role
+        WHERE role in (?)
+      )",
+      [
+        "#{authorization_request_type.underscore}:instructor",
+        "#{authorization_request_type.underscore}:reporter",
+      ]
+    )
+  }
+
   add_instruction_boolean_settings :submit_notifications, :messages_notifications
 
   def full_name
