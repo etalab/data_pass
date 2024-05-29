@@ -143,7 +143,7 @@ class RegisterOrganizationWithContactsOnCRMJob < ApplicationJob
   end
 
   def humanize_contact_types(type)
-    case type
+    case type.to_s
     when 'contact_metier'
       'Contact Métier'
     when 'responsable_technique', 'contact_technique'
@@ -186,7 +186,7 @@ class RegisterOrganizationWithContactsOnCRMJob < ApplicationJob
     if contact.is_a?(User)
       'demandeur'
     else
-      contact.type
+      contact.type.to_s
     end
   end
 

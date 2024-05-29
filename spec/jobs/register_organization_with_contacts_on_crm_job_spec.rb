@@ -60,5 +60,19 @@ RSpec.describe RegisterOrganizationWithContactsOnCRMJob do
         expect { subject }.not_to raise_error
       end
     end
+
+    describe 'non-regression test: when one contact already exists with one type' do
+      before do
+        allow(hubspot_api).to receive(:find_company_by_siret).and_return(entity)
+        allow(hubspot_api).to receive(:find_contact_by_email).and_return(
+          OpenStruct.new(id: 41, properties: { 'type_de_contact' => 'Responsable de traitement' }),
+          entity,
+        )
+      end
+
+      it 'does not raise error' do
+        expect { subject }.not_to raise_error
+      end
+    end
   end
 end
