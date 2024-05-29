@@ -38,6 +38,21 @@ Sachantque('je suis un instructeur {string}') do |kind|
   end
 end
 
+Sachantque('je suis un rapporteur {string}') do |kind|
+  user = create_reporter(kind)
+
+  if @current_user_email.blank?
+    @current_user_email = user.email
+    mock_mon_compte_pro(user)
+  end
+
+  if @current_user_email != user.email
+    current_user.roles << "#{find_factory_trait_from_name(kind)}:reporter"
+    current_user.roles.uniq!
+    current_user.save!
+  end
+end
+
 Sachantque('je me connecte') do
   steps %(
     Quand je me rends sur la page d'accueil

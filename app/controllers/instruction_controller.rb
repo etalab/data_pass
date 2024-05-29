@@ -1,8 +1,8 @@
 class InstructionController < AuthenticatedUserController
-  before_action :check_user_is_instructor!
+  before_action :check_user_is_reporter!
 
-  def check_user_is_instructor!
-    return if current_user.instructor?
+  def check_user_is_reporter!
+    return if current_user.reporter?
 
     flash[:error] = {
       title: t('application.user_not_authorized.title')
