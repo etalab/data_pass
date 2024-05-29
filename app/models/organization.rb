@@ -22,10 +22,10 @@ class Organization < ApplicationRecord
     mon_compte_pro_payload['label']
   end
 
-  def categorie_juridique_label
+  def categorie_juridique
     return unless insee_payload
 
-    CategorieJuridique.find(insee_payload['etablissement']['uniteLegale']['categorieJuridiqueUniteLegale']).libelle
+    CategorieJuridique.find(insee_payload['etablissement']['uniteLegale']['categorieJuridiqueUniteLegale'])
   rescue ActiveRecord::RecordNotFound
     nil
   end
