@@ -58,6 +58,14 @@ class AuthorizationDefinition < StaticApplicationRecord
     User.instructor_for(id)
   end
 
+  def reporters
+    User.reporter_for(id)
+  end
+
+  def instructors_or_reporters
+    (instructors + reporters).uniq
+  end
+
   def available_forms
     AuthorizationRequestForm.where(authorization_request_class:).sort do |form|
       form.default ? 1 : 0
