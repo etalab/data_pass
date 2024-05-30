@@ -2,12 +2,12 @@ fr:
   authorization_request_forms:
     default:
       steps:
-        basic_infos: "Informations de base"
-        personal_data: "Données personnelles"
-        legal: "Cadre juridique"
-        scopes: "Données"
-        contacts: "Contacts"
-        finish: "Résumé"
+        basic_infos: "Mon projet"
+        personal_data: "Le traitement des données"
+        legal: "Le cadre juridique"
+        scopes: "Les données"
+        contacts: "Les personnes impliquées"
+        finish: "La synthèse"
       terms_of_service_accepted:
         label: J'ai pris connaissance des&nbsp;<a href="%{link}" target="_blank">conditions générales d'utilisation</a>&nbsp;et je les valide.
       intitule:
