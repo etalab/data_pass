@@ -11,7 +11,7 @@ Fonctionnalité: Modifications d'un formulaire depuis sa page de résumé
     Et que je clique sur "Continuer vers le résumé"
 
   Scénario: Les blocs fixes n'ont pas de bouton modifier
-    Alors il n'y a pas de lien "Modifier" dans le bloc de résumé "Les personnes impliquées"
+    Alors il n'y a pas de lien "Modifier" dans le bloc de résumé "Mon projet"
     Et il y a un lien "Modifier" dans le bloc de résumé "Les personnes impliquées"
 
   Scénario: Modification avec des données valides
