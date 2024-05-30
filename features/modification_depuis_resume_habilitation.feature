@@ -11,11 +11,11 @@ Fonctionnalité: Modifications d'un formulaire depuis sa page de résumé
     Et que je clique sur "Continuer vers le résumé"
 
   Scénario: Les blocs fixes n'ont pas de bouton modifier
-    Alors il n'y a pas de lien "Modifier" dans le bloc de résumé "Informations de base"
+    Alors il n'y a pas de lien "Modifier" dans le bloc de résumé "Les personnes impliquées"
     Et il y a un lien "Modifier" dans le bloc de résumé "Contacts"
 
   Scénario: Modification avec des données valides
-    Quand je clique sur "Modifier" dans le bloc de résumé "Contacts"
+    Quand je clique sur "Modifier" dans le bloc de résumé "Les personnes impliquées"
     Et que je remplis les informations du contact "Responsable de traitement" avec :
       | Nom     | Prénom | Email                 | Téléphone  | Fonction                  |
       | Nouveau | Louis  | nouveau.louis@gouv.fr | 0836656560 | Directeur d'exploitation  |
@@ -24,7 +24,7 @@ Fonctionnalité: Modifications d'un formulaire depuis sa page de résumé
     Et la page contient "Récapitulatif de votre demande"
 
   Scénario: Modification avec des données invalides
-    Quand je clique sur "Modifier" dans le bloc de résumé "Contacts"
+    Quand je clique sur "Modifier" dans le bloc de résumé "Les personnes impliquées"
     Et que je remplis les informations du contact "Responsable de traitement" avec :
       | Nom     | Prénom | Email                 | Téléphone  | Fonction                  |
       |         | Louis  | nouveau.louis@gouv.fr | 0836656560 | Directeur d'exploitation  |
