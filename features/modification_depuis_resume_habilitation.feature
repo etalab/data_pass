@@ -12,7 +12,7 @@ Fonctionnalité: Modifications d'un formulaire depuis sa page de résumé
 
   Scénario: Les blocs fixes n'ont pas de bouton modifier
     Alors il n'y a pas de lien "Modifier" dans le bloc de résumé "Les personnes impliquées"
-    Et il y a un lien "Modifier" dans le bloc de résumé "Contacts"
+    Et il y a un lien "Modifier" dans le bloc de résumé "Les personnes impliquées"
 
   Scénario: Modification avec des données valides
     Quand je clique sur "Modifier" dans le bloc de résumé "Les personnes impliquées"
