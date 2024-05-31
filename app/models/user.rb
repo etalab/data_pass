@@ -62,6 +62,18 @@ class User < ApplicationRecord
     end
   end
 
+  def reporter_roles
+    (roles.select { |role|
+      role.end_with?(':reporter')
+    } + instructor_roles).uniq
+  end
+
+  def instructor_roles
+    roles.select do |role|
+      role.end_with?(':instructor')
+    end
+  end
+
   def reporter?(authorization_request_type = nil)
     return true if instructor?(authorization_request_type)
 

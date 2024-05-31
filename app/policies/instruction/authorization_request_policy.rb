@@ -64,10 +64,7 @@ class Instruction::AuthorizationRequestPolicy < ApplicationPolicy
     end
 
     def current_user_reporter_roles
-      user.roles.select do |scope|
-        scope.end_with?(':reporter') ||
-          scope.end_with?(':instructor')
-      end
+      user.reporter_roles
     end
   end
 end
