@@ -26,7 +26,9 @@
                 <%= link_to t('.view_authorization'), @authorization_request.latest_authorization, target: '_blank', class: 'fr-btn fr-btn--secondary' %>
               <% end %>
 
-              <%= render partial: 'instruction/authorization_requests/moderation_buttons' %>
+              <% if policy([:instruction, @authorization_request]).moderate? %>
+                <%= render partial: 'instruction/authorization_requests/moderation_buttons' %>
+              <% end %>
             </div>
           </div>
         </div>

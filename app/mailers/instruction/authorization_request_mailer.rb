@@ -4,10 +4,10 @@ class Instruction::AuthorizationRequestMailer < ApplicationMailer
   def submitted
     @authorization_request = params[:authorization_request]
 
-    return if instructors_to_notify.empty?
+    return if instructors_or_reporters_to_notify.empty?
 
     mail(
-      to: instructors_to_notify.pluck(:email),
+      to: instructors_or_reporters_to_notify.pluck(:email),
       subject: t(
         '.subject',
       )
@@ -17,10 +17,10 @@ class Instruction::AuthorizationRequestMailer < ApplicationMailer
   def reopening_submitted
     @authorization_request = params[:authorization_request]
 
-    return if instructors_to_notify.empty?
+    return if instructors_or_reporters_to_notify.empty?
 
     mail(
-      to: instructors_to_notify.pluck(:email),
+      to: instructors_or_reporters_to_notify.pluck(:email),
       subject: t(
         '.subject',
       )
@@ -29,14 +29,14 @@ class Instruction::AuthorizationRequestMailer < ApplicationMailer
 
   private
 
-  def instructors_to_notify
-    @instructors_to_notify ||= instructors.reject do |instructor|
-      !instructor.public_send(:"instruction_submit_notifications_for_#{authorization_request.definition.id.underscore}") &&
-        instructor != authorization_request.applicant
+  def instructors_or_reporters_to_notify
+    @instructors_or_reporters_to_notify ||= instructors_or_reporters.reject do |user|
+      !user.public_send(:"instruction_submit_notifications_for_#{authorization_request.definition.id.underscore}") &&
+        user != authorization_request.applicant
     end
   end
 
-  def instructors
-    authorization_request.definition.instructors
+  def instructors_or_reporters
+    authorization_request.definition.instructors_or_reporters
   end
 end

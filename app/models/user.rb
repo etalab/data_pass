@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  include InstructorSettings
+  include NotificationsSettings
 
   validates :email, presence: true, uniqueness: true
   before_save { email.downcase! }
@@ -30,7 +30,21 @@ class User < ApplicationRecord
     ", "#{authorization_request_type.underscore}:instructor")
   }
 
-  add_instructor_boolean_settings :submit_notifications, :messages_notifications
+  scope :reporter_for, lambda { |authorization_request_type|
+    where(
+      "EXISTS (
+        SELECT 1
+        FROM unnest(roles) AS role
+        WHERE role in (?)
+      )",
+      [
+        "#{authorization_request_type.underscore}:instructor",
+        "#{authorization_request_type.underscore}:reporter",
+      ]
+    )
+  }
+
+  add_instruction_boolean_settings :submit_notifications, :messages_notifications
 
   def full_name
     if family_name.present? && given_name.present?
@@ -45,6 +59,28 @@ class User < ApplicationRecord
       roles.include?("#{authorization_request_type}:instructor")
     else
       roles.any? { |role| role.end_with?(':instructor') }
+    end
+  end
+
+  def reporter_roles
+    (roles.select { |role|
+      role.end_with?(':reporter')
+    } + instructor_roles).uniq
+  end
+
+  def instructor_roles
+    roles.select do |role|
+      role.end_with?(':instructor')
+    end
+  end
+
+  def reporter?(authorization_request_type = nil)
+    return true if instructor?(authorization_request_type)
+
+    if authorization_request_type
+      roles.include?("#{authorization_request_type}:reporter")
+    else
+      roles.any? { |role| role.end_with?(':reporter') }
     end
   end
 

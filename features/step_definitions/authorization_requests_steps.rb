@@ -114,7 +114,7 @@ Quand(/je me rends sur une demande d'habilitation "([^"]+)"(?: de l'organisation
   attributes = {}
   attributes[:organization] = find_or_create_organization_by_name(organization_name) if organization_name.present?
 
-  if current_user.instructor?
+  if current_user.reporter?
     authorization_request = create_authorization_requests_with_status(type, status, 1, attributes).first
 
     visit instruction_authorization_request_path(authorization_request)

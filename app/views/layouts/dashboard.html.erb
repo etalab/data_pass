@@ -6,7 +6,7 @@
       </h1>
 
       <div>
-        <% if current_user.instructor? %>
+        <% if current_user.reporter? %>
           <%= link_to t('.instruction_cta'), instruction_path, class: %w(fr-btn fr-btn--secondary fr-icon-file-add-fill fr-btn--icon-left) %>
         <% end %>
 

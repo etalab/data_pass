@@ -27,6 +27,7 @@ class Seeds
     clamart_organization.users << another_demandeur
 
     dinum_organization.users << api_entreprise_instructor
+    dinum_organization.users << api_entreprise_reporter
     dinum_organization.users << foreign_demandeur
     dinum_organization.users << data_pass_admin
   end
@@ -102,6 +103,19 @@ class Seeds
       phone_number: '0423456789',
       current_organization: dinum_organization,
       roles: ['api_entreprise:instructor']
+    )
+  end
+
+  def api_entreprise_reporter
+    @api_entreprise_reporter ||= User.create!(
+      given_name: 'Marc',
+      family_name: 'Dupont',
+      email: 'user12@yopmail.com',
+      external_id: '12',
+      job_title: 'Responsable des reporteurs',
+      phone_number: '0423456789',
+      current_organization: dinum_organization,
+      roles: ['api_entreprise:reporter']
     )
   end
 

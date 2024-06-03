@@ -1,10 +1,11 @@
 class Instruction::AuthorizationRequestPolicy < ApplicationPolicy
   def show?
-    Scope.new(user_context, AuthorizationRequest).resolve.exists?(id: record.id)
+    reporter_for_record?
   end
 
   def refuse?
     show? &&
+      instructor_for_record? &&
       record.can_refuse?
   end
 
@@ -15,39 +16,63 @@ class Instruction::AuthorizationRequestPolicy < ApplicationPolicy
 
   def request_changes?
     show? &&
+      instructor_for_record? &&
       record.can_request_changes?
   end
 
   def approve?
     show? &&
+      instructor_for_record? &&
       record.can_approve?
   end
 
   def archive?
     show? &&
+      instructor_for_record? &&
       record.can_archive?
   end
 
   def send_message?
     show? &&
+      instructor_for_record? &&
       !record.validated?
+  end
+
+  def moderate?
+    archive? ||
+      approve? ||
+      refuse? ||
+      revoke? ||
+      request_changes?
+  end
+
+  private
+
+  def instructor_for_record?
+    user.instructor?(authorization_request_type)
+  end
+
+  def reporter_for_record?
+    user.reporter?(authorization_request_type)
+  end
+
+  def authorization_request_type
+    record.type.underscore.split('/').last
   end
 
   class Scope < Scope
     def resolve
-      scope.where(type: current_user_instructor_types)
+      scope.where(type: current_user_reporter_types)
     end
 
-    def current_user_instructor_types
-      current_user_instructor_roles.map do |scope|
+    def current_user_reporter_types
+      current_user_reporter_roles.map do |scope|
         "AuthorizationRequest::#{scope.split(':').first.classify}"
       end
     end
 
-    def current_user_instructor_roles
-      user.roles.select do |scope|
-        scope.end_with?(':instructor')
-      end
+    def current_user_reporter_roles
+      user.reporter_roles
     end
   end
 end
