@@ -42,6 +42,8 @@ fr:
       tagline: Habilitations juridiques
       tools:
         links:
+          authorization_requests_index:
+            title: Toutes mes habilitations
           sign_out:
             title: Se déconnecter
     footer:
