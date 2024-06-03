@@ -115,7 +115,7 @@ class AuthorizationRequest < ApplicationRecord
 
   def name
     data['intitule'].presence ||
-      "#{definition.name}"
+      definition.name.to_s
   end
 
   with_options on: :submit do
