@@ -6,6 +6,12 @@ shared:
     tagline: 'Habilitations juridiques pour API Entreprise'
     authorization_definition_ids:
       - 'api_entreprise'
+  api-particulier:
+    name: 'API Particulier'
+    title: 'DataPass - API Particulier'
+    tagline: 'Habilitations juridiques pour API Particulier'
+    authorization_definition_ids:
+      - 'api_particulier'
 test:
   api-entreprise:
     name: 'API Entreprise'
