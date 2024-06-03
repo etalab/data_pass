@@ -38,6 +38,14 @@ class Instruction::AuthorizationRequestPolicy < ApplicationPolicy
       !record.validated?
   end
 
+  def moderate?
+    archive? ||
+      approve? ||
+      refuse? ||
+      revoke? ||
+      request_changes?
+  end
+
   private
 
   def instructor_for_record?

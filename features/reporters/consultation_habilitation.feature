@@ -22,3 +22,4 @@ Fonctionnalité: Instruction: consultation d'une habilitation
     Et il n'y a pas de bouton "Refuser"
     Et il n'y a pas de bouton "Demander des modifications"
     Et il n'y a pas de bouton "Supprimer la demande"
+    Et la page ne contient pas "Instruire la demande"
