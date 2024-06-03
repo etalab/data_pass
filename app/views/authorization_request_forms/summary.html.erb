@@ -82,24 +82,22 @@
       <% end %>
     <% end %>
 
-    <%= render partial: 'authorization_requests/shared/organization_and_applicant' %>
-
     <% if @authorization_request.filling? %>
       <% @authorization_request.editable_blocks.each do |block| %>
         <%= render partial: "authorization_requests/shared/blocks/#{block[:name]}", locals: { f: f, editable: true } %>
       <% end %>
 
-      <% if @authorization_request.static_blocks.any? %>
-        <h3>
-          Les informations pré-remplies
-        </h3>
-        <p>
-          Les informations suivantes ont été pré-remplies et ne sont pas modifiables.
-        </p>
+      <h3>
+        Les informations pré-remplies
+      </h3>
+      <p>
+        Les informations suivantes ont été pré-remplies et ne sont pas modifiables.
+      </p>
 
-        <% @authorization_request.static_blocks.each do |block| %>
-          <%= render partial: "authorization_requests/shared/blocks/#{block[:name]}", locals: { f: f, editable: false } %>
-        <% end %>
+      <%= render partial: 'authorization_requests/shared/organization_and_applicant' %>
+
+      <% @authorization_request.static_blocks.each do |block| %>
+        <%= render partial: "authorization_requests/shared/blocks/#{block[:name]}", locals: { f: f, editable: false } %>
       <% end %>
     <% else %>
       <% @authorization_request.blocks.each do |block| %>
