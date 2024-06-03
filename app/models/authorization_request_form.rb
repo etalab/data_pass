@@ -16,8 +16,8 @@ class AuthorizationRequestForm < StaticApplicationRecord
     :public
 
   def self.all
-    Rails.application.config_for(:authorization_request_forms).map do |uid, hash|
-      build(uid, hash)
+    AuthorizationRequestFormConfigurations.instance.all.map do |uid, hash|
+      build(uid, hash.deep_symbolize_keys)
     end
   end
 
