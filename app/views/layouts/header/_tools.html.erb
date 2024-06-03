@@ -5,11 +5,11 @@
         <a class="fr-link fr-icon-community-fill" href="#">
           <%= current_organization.raison_sociale %>
         </a>
+      </li>
       <li>
         <a class="fr-link fr-icon-user-fill" href="<%= profile_path %>">
           <%= current_user.email %>
         </a>
-      </li>
       </li>
       <li>
         <a class="fr-link fr-icon-logout-box-r-fill" id="signout_button" href="<%= signout_path %>" target="_self">
