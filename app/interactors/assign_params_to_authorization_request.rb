@@ -6,6 +6,8 @@ class AssignParamsToAuthorizationRequest < ApplicationInteractor
 
     return if context.authorization_request.valid?(context.save_context)
 
+    track_errors_on_sentry
+
     context.fail!
   end
 
@@ -69,5 +71,14 @@ class AssignParamsToAuthorizationRequest < ApplicationInteractor
         authorization_request_class.contact_attributes.map { |attribute| :"#{contact_type}_#{attribute}" }
       )
     end
+  end
+
+  def track_errors_on_sentry
+    Sentry.capture_message(
+      'AuthorizationRequest validation failed',
+      extra: {
+        errors: context.authorization_request.errors.full_messages
+      }
+    )
   end
 end
