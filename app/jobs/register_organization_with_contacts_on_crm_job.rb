@@ -103,12 +103,12 @@ class RegisterOrganizationWithContactsOnCRMJob < ApplicationJob
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def update_multi_attributes_on_contact(crm_contact, contact)
     contact_types = crm_contact.properties['type_de_contact']
-    current_content_type = extract_contact_type(contact)
+    current_contact_type = extract_contact_type(contact)
 
-    if contact_types.present? && contact_types.exclude?(humanize_contact_types(contact.type))
+    if contact_types.present? && contact_types.exclude?(humanize_contact_types(current_contact_type))
       contact_types << "; #{humanize_contact_types(current_content_type)}"
     else
-      contact_types = humanize_contact_types(current_content_type)
+      contact_types = humanize_contact_types(current_contact_type)
     end
 
     bouquets_utilises = crm_contact.properties['bouquet_s__associe_s_']
