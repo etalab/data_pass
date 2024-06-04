@@ -27,3 +27,11 @@ Fonctionnalité: Instruction: liste des habilitations
     Et que je sélectionne "Validée" pour "État égal à"
     Et que je clique sur "Rechercher"
     Alors je vois 1 demande d'habilitation
+
+  Scénario: Je cherche une habilitation avec son ID
+    Sachant qu'il y a 1 demande d'habilitation "API Entreprise" en attente
+    Et qu'il y a 1 demande d'habilitation "API Entreprise" validée
+    Et que je vais sur la page instruction
+    Et que je renseigne l'identifiant de la dernière demande dans le champ "Recherche par ID"
+    Et que je clique sur "Rechercher"
+    Alors je vois 1 demande d'habilitation
