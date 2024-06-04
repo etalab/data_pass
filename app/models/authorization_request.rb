@@ -189,6 +189,10 @@ class AuthorizationRequest < ApplicationRecord
     ]
   end
 
+  ransacker :id do
+    Arel.sql("to_char(\"#{table_name}\".\"id\", '99999999')")
+  end
+
   ransacker :within_data do |_parent|
     Arel.sql('authorization_requests.data::text')
   end

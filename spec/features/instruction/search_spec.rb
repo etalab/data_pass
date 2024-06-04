@@ -3,7 +3,7 @@ RSpec.describe 'Instruction: habilitation search' do
     visit instruction_authorization_requests_path
 
     within('#authorization_request_search') do
-      fill_in 'search_main_input', with: search_text if use_search_text
+      fill_in 'q_within_data_or_organization_siret_or_id_cont', with: search_text if use_search_text
       select state, from: 'q_state_eq' if state
       select type, from: 'q_type_eq' if type
 

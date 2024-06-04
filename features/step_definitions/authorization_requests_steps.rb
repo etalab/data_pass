@@ -279,3 +279,7 @@ end
 Et('je peux voir le bouton {string} grisé et désactivé') do |string|
   expect(page).to have_css('button[disabled]', text: string)
 end
+
+Et('je renseigne l\'identifiant de la dernière demande dans le champ {string}') do |field|
+  fill_in field, with: AuthorizationRequest.last.id
+end
