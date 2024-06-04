@@ -34,6 +34,7 @@ Fonctionnalité: Interactions sur une demande d'habilitation simple (sur une seu
     Et que je clique sur "Continuer vers le résumé"
     Alors je suis sur la page "Portail HubEE - Démarche CertDC"
     Et il y a un formulaire en mode résumé
+    Et il y a un bouton "Supprimer"
     Et il n'y a pas de bouton "Enregistrer"
 
   Scénario: Je soumets une demande d'habilitation valide en omettant les conditions générales
