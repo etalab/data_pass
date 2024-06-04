@@ -3,13 +3,13 @@
 <%= search_form_for(@q, url: instruction_authorization_requests_path, html: { method: :get, data: { turbo: false }, class: %w[search-box] }) do |f| %>
   <div class="search-inputs">
     <div class="fr-input-group id-input input">
-      <%= f.label :id_eq, t('.search.id_input'), class: %w[fr-label] %>
-      <%= f.search_field :id_eq, class: %[fr-input] %>
+      <%= f.label :id_eq, t('.search.id_input.label'), class: %w[fr-label] %>
+      <%= f.search_field :id_eq, class: %[fr-input], placeholder: t('.search.id_input.placeholder') %>
     </div>
 
     <div class="fr-input-group main-input input">
-      <%= f.label :within_data_or_organization_siret_cont, t('.search.main_input'), class: %w[fr-label] %>
-      <%= f.search_field :within_data_or_organization_siret_cont, class: %[fr-input] %>
+      <%= f.label :within_data_or_organization_siret_cont, t('.search.main_input.label'), class: %w[fr-label] %>
+      <%= f.search_field :within_data_or_organization_siret_cont, class: %[fr-input], placeholder: t('.search.main_input.placeholder') %>
     </div>
 
     <% if current_user.authorization_definition_roles_as(:instructor).count > 1 %>

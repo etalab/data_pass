@@ -287,8 +287,12 @@ fr:
     authorization_requests:
       index:
         search:
-          id_input: Recherche par ID
-          main_input: Rechercher dans les infos des habilitations
+          id_input:
+            label: Recherche par ID
+            placeholder: ""
+          main_input:
+            label: Rechercher dans les infos des habilitations
+            placeholder: numéro de siret, intitulé...
           btn: Rechercher
         table:
           caption: Liste des demandes en cours
