@@ -31,7 +31,7 @@ Fonctionnalité: Démarrage d'habilitation par des internautes
     Quand je veux remplir une demande pour "API Entreprise" via le formulaire "Demande libre"
     Alors je clique sur "S’identifier avec MonComptePro"
     Alors je suis sur la page "Démarrer une nouvelle habilitation pour API Entreprise"
-    Et la page contient "demandeur@gouv.fr"
+    Et la page contient "Dupont Jean"
 
   Scénario:  Un internaute veut accéder à son habilitation API Service National - formulaire "Demande libre"
     Sachant que je suis un demandeur
