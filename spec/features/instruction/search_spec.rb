@@ -3,7 +3,7 @@ RSpec.describe 'Instruction: habilitation search' do
     visit instruction_authorization_requests_path
 
     within('#authorization_request_search') do
-      fill_in 'search_main_input', with: search_text if use_search_text
+      fill_in 'q_within_data_or_organization_siret_cont', with: search_text if use_search_text
       select state, from: 'q_state_eq' if state
       select type, from: 'q_type_eq' if type
 
@@ -94,6 +94,34 @@ RSpec.describe 'Instruction: habilitation search' do
 
       expect(page).to have_css('.authorization-request', count: 1)
       expect(page).to have_css(css_id(valid_searched_authorization_request))
+    end
+  end
+
+  context 'when we use an id' do
+    let(:use_search_text) { true }
+    let(:state) { nil }
+    let(:type) { nil }
+    let(:intitule) { 'whatever' }
+
+    context 'when we can see this authorization request' do
+      let(:search_text) { valid_searched_authorization_request.id.to_s }
+
+      it 'redirects to the authorization request' do
+        search
+
+        expect(page).to have_current_path(instruction_authorization_request_path(valid_searched_authorization_request))
+      end
+    end
+
+    context 'when we can not see this authorization request' do
+      let(:foreign_authorization_request) { create(:authorization_request, :hubee_dila, state: :validated) }
+      let(:search_text) { foreign_authorization_request.id.to_s }
+
+      it 'does not redirects to the authorization request' do
+        search
+
+        expect(page).to have_current_path(instruction_authorization_requests_path, ignore_query: true)
+      end
     end
   end
 end
