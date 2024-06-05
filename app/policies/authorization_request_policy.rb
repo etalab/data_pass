@@ -29,21 +29,25 @@ class AuthorizationRequestPolicy < ApplicationPolicy
   end
 
   def review?
-    submit?
+    record.persisted? &&
+      submit?
   end
 
   def archive?
-    same_user_and_organization? &&
+    record.persisted? &&
+      same_user_and_organization? &&
       record.can_archive?
   end
 
   def reopen?
-    same_user_and_organization? &&
+    record.persisted? &&
+      same_user_and_organization? &&
       record.can_reopen?
   end
 
   def messages?
-    record.applicant == user &&
+    record.persisted? &&
+      record.applicant == user &&
       !record.validated?
   end
 
