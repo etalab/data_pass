@@ -3,7 +3,7 @@ RSpec.describe 'Instruction: habilitation search' do
     visit instruction_authorization_requests_path
 
     within('#authorization_request_search') do
-      fill_in 'q_within_data_or_organization_siret_or_applicant_email_cont', with: search_text if use_search_text
+      fill_in 'q_within_data_or_organization_siret_or_applicant_email_or_applicant_family_name_cont', with: search_text if use_search_text
       select state, from: 'q_state_eq' if state
       select type, from: 'q_type_eq' if type
 
@@ -103,6 +103,25 @@ RSpec.describe 'Instruction: habilitation search' do
     let(:intitule) { 'whatever' }
     let(:state) { nil }
     let(:type) { nil }
+
+    it 'renders authorization request linked to this applicant' do
+      search
+
+      expect(page).to have_css('.authorization-request', count: 1)
+      expect(page).to have_css(css_id(valid_searched_authorization_request))
+    end
+  end
+
+  context 'when we use applicant family name' do
+    let(:use_search_text) { true }
+    let(:search_text) { valid_searched_authorization_request.applicant.family_name }
+    let(:intitule) { 'whatever' }
+    let(:state) { nil }
+    let(:type) { nil }
+
+    before do
+      valid_searched_authorization_request.applicant.update(family_name: 'My family name')
+    end
 
     it 'renders authorization request linked to this applicant' do
       search
