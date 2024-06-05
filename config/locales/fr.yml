@@ -288,7 +288,7 @@ fr:
       index:
         search:
           main_input:
-            label: Rechercher dans les infos des habilitations
+            label: Rechercher dans toutes les habilitations
             placeholder: id, numéro de siret, intitulé...
           btn: Rechercher
         table:
