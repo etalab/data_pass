@@ -106,7 +106,7 @@ class RegisterOrganizationWithContactsOnCRMJob < ApplicationJob
     current_contact_type = extract_contact_type(contact)
 
     if contact_types.present? && contact_types.exclude?(humanize_contact_types(current_contact_type))
-      contact_types << "; #{humanize_contact_types(current_content_type)}"
+      contact_types << "; #{humanize_contact_types(current_contact_type)}"
     else
       contact_types = humanize_contact_types(current_contact_type)
     end
