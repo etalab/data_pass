@@ -117,10 +117,11 @@ RSpec.describe 'Instruction: habilitation search' do
       let(:foreign_authorization_request) { create(:authorization_request, :hubee_dila, state: :validated) }
       let(:search_text) { foreign_authorization_request.id.to_s }
 
-      it 'does not redirects to the authorization request' do
+      it 'does not redirects to the authorization request, and renders nothing' do
         search
 
         expect(page).to have_current_path(instruction_authorization_requests_path, ignore_query: true)
+        expect(page).to have_css('.authorization-request', count: 0)
       end
     end
   end
