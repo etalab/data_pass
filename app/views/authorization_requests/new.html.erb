@@ -38,13 +38,8 @@
         </h3>
         <p>
           <%= t('authorization_request_forms.build.start.multiple_authorization_requests_warning.description') %>
-          <ul>
-            <% current_organization.authorization_requests.not_archived.where(type: @authorization_definition.authorization_request_class.name).each do |another_authorization_request| %>
-              <li>
-                <%= link_to another_authorization_request.name, authorization_request_form_path(form_uid: another_authorization_request.form.uid, id: another_authorization_request.id), target: '_blank' %>
-              </li>
-            <% end %>
-          </ul>
+          <br />
+          <%= link_to t('authorization_request_forms.build.start.multiple_authorization_requests_warning.cta_text'), dashboard_path %>
         </p>
       </div>
     <% end %>
