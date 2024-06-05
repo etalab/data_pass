@@ -185,6 +185,7 @@ class AuthorizationRequest < ApplicationRecord
 
   def self.ransackable_associations(_auth_object = nil)
     %w[
+      applicant
       organization
     ]
   end

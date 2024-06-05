@@ -93,4 +93,10 @@ class User < ApplicationRecord
       AuthorizationDefinition.find(role.split(':').first)
     end
   end
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[
+      email
+    ]
+  end
 end
