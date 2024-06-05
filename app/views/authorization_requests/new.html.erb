@@ -106,7 +106,7 @@
       <% end %>
     <% else %>
       <div class="flex-end__content">
-        <%= link_to t('.cta', authorization_name: @authorization_definition.name), choose_authorization_request_form_path(authorization_definition_id: @authorization_definition.id), class: %w[fr-btn fr-btn--lg] %>
+        <%= link_to t('.cta', authorization_name: @authorization_definition.name), authorization_definition_forms_path(authorization_definition_id: @authorization_definition.id), class: %w[fr-btn fr-btn--lg] %>
       </div>
     <% end %>
   </div>

@@ -4,12 +4,9 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   include AuthorizationRequestsFlashes
 
   allow_unauthenticated_access only: [:new]
-  before_action :extract_authorization_request_form, except: [:index]
-  before_action :extract_authorization_request, only: %i[show summary update]
 
-  def index
-    @authorization_definition = AuthorizationDefinition.find(params[:authorization_definition_id])
-  end
+  before_action :extract_authorization_request_form
+  before_action :extract_authorization_request, only: %i[show summary update]
 
   def new
     @authorization_definition = @authorization_request_form.authorization_definition

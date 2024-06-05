@@ -138,6 +138,14 @@ fr:
     index:
       title: Demander une nouvelle habilitation
       cta: Remplir une demande
+    forms:
+      index:
+        title: &start_new_habilitation_title Demander une habilitation pour %{authorization_name}
+        default:
+          multiple_forms:
+            description: "Il existe plusieurs formulaires pour obtenir une habilitation à %{authorization_name}, sélectionnez celui qui correspond le mieux à votre cas d'usage :"
+
+
   authorization_requests:
     unauthenticated_start:
       sub_title: "Vous souhaitez accédez à l’<strong>%{api_name}</strong> \n Votre demande d’habilitation va se dérouler en 4 étapes"
@@ -146,7 +154,7 @@ fr:
       etape_3: Être habilité
       etape_4: Accéder au service
     new:
-      title: &start_new_habilitation_title Demander une habilitation pour %{authorization_name}
+      title: *start_new_habilitation_title
       current_form: Via le formulaire " %{authorization_request_form_name} "
       current_form_with_editor: Via le formulaire " %{authorization_request_form_name} " relatif à l'éditeur " %{editor_name} "
       back_to_dashboard: Retour à l'accueil
@@ -188,11 +196,6 @@ fr:
   start_authorization_request_form:
     cta: Débuter mon habilitation pour %{authorization_name}
   authorization_request_forms:
-    index:
-      title: *start_new_habilitation_title
-      default:
-        multiple_forms:
-          description: "Il existe plusieurs formulaires pour obtenir une habilitation à %{authorization_name}, sélectionnez celui qui correspond le mieux à votre cas d'usage :"
     create_for_single_page_form:
       error:
         title: Une erreur est survenue lors de la sauvegarde de la demande d'habilitation
