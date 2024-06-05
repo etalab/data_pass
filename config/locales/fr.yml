@@ -134,10 +134,11 @@ fr:
       instruction_submit_notifications: Notifications pour les dépôts de demandes d'habilitations
       instruction_messages_notifications: Notifications pour les nouveaux messages sur les demandes d'habilitations
 
-  authorization_requests:
+  authorization_definitions:
     index:
       title: Demander une nouvelle habilitation
       cta: Remplir une demande
+  authorization_requests:
     unauthenticated_start:
       sub_title: "Vous souhaitez accédez à l’<strong>%{api_name}</strong> \n Votre demande d’habilitation va se dérouler en 4 étapes"
       etape_1: S’identifier avec MonComptePro
