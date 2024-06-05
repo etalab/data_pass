@@ -206,9 +206,11 @@ fr:
 
     current_user_mentions_alert:
       text: Vous avez été référencé comme %{contact_types} dans cette habilitation.
-    update:
-      success:
+    create:
+      success: &authorization_request_forms_create_success
         title: La demande d'habilitation %{name} a été sauvegardée avec succès
+    update:
+      success: *authorization_request_forms_create_success
       error: &authorization_requests_update_error
         title: Une erreur est survenue lors de la sauvegarde de la demande d'habilitation
         description: *common_authorization_requests_error_description

@@ -28,21 +28,19 @@ RSpec.describe 'Authorization request with multiple steps' do
       end
     end
 
-    describe 'submitting the form' do
+    describe 'click on start' do
       subject(:start_new_habilitation) do
         visit new_authorization_request_form_path(form_uid: authorization_request_form.uid)
 
         click_link_or_button dom_id(authorization_request_form, :start_authorization_request)
       end
 
-      it 'creates a new habilitation and redirect to first step' do
+      it 'does not create a new habilitation, redirect to first step' do
         expect {
           start_new_habilitation
-        }.to change(AuthorizationRequest, :count).by(1)
+        }.not_to change(AuthorizationRequest, :count)
 
-        authorization_request = AuthorizationRequest.last
-
-        expect(page).to have_current_path(authorization_request_form_build_path(form_uid: authorization_request_form.uid, authorization_request_id: authorization_request.id, id: first_step_name))
+        expect(page).to have_current_path(start_authorization_request_forms_path(form_uid: authorization_request_form.uid))
       end
     end
   end

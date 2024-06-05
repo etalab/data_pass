@@ -6,7 +6,7 @@
   <% @authorization_definition.available_forms.each do |authorization_request_form| %>
     <li>
       <%= authorization_request_form.name %>
-      <%= start_authorization_request_form(authorization_request_form) %>
+      <%= link_to 'Débuter mon habilitation', start_authorization_request_forms_path(form_uid: authorization_request_form.id) %>
     </li>
   <% end %>
 </ol>

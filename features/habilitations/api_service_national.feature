@@ -42,6 +42,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Service National
     * je remplis les informations du contact "Contact technique" avec :
       | Nom    | Prénom | Email               | Téléphone   | Fonction  |
       | Dupont | Marc   | dupont.marc@gouv.fr | 08366565603 | Technique |
+    * je clique sur "Enregistrer les modifications"
     * je clique sur "Continuer vers le résumé"
 
     * j'adhère aux conditions générales
@@ -60,6 +61,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Service National
     * je remplis les informations du contact "Contact technique" avec :
       | Nom    | Prénom | Email               | Téléphone   | Fonction  |
       | Dupont | Marc   | dupont.marc@gouv.fr | 08366565603 | Technique |
+    * je clique sur "Enregistrer les modifications"
     * je clique sur "Continuer vers le résumé"
 
     * j'adhère aux conditions générales

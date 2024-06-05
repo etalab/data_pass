@@ -255,10 +255,8 @@ class AuthorizationRequest < ApplicationRecord
     return false if validation_context == :save_within_wizard
     return false if current_build_step.blank?
 
-    persisted? && (
-      step.nil? ||
-        steps_names.index(step.to_s) <= steps_names.index(current_build_step)
-    )
+    step.nil? ||
+      steps_names.index(step.to_s) <= steps_names.index(current_build_step)
   end
 
   def steps_names

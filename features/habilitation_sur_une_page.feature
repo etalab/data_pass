@@ -60,3 +60,9 @@ Fonctionnalité: Interactions sur une demande d'habilitation simple (sur une seu
     Et que je clique sur "Soumettre la demande"
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
+
+  Scénario: Je démarre une demande d'habilitation avec des données pré-remplies
+    Quand je veux remplir une demande pour "API Entreprise" via le formulaire "Dématérialisation des marchés publics" de l'éditeur "SETEC"
+    Et que je clique sur "Débuter mon habilitation"
+    Alors un champ contient "contact-setec@yopmail.com"
+

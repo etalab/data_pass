@@ -25,13 +25,21 @@
     </div>
   <% end %>
 
-  <% if defined?(wizard_steps) && !@authorization_request.finished? %>
-    <%=
-      dsfr_stepper(
-        current_step: authorization_request_step_name(@authorization_request, wizard_value(params[:id])),
-        steps: wizard_steps.map { |step| authorization_request_step_name(@authorization_request, wizard_value(step)) }
-      )
-    %>
+  <% if @authorization_request.form.multiple_steps? && !@authorization_request.finished? %>
+    <% if params[:id] %>
+      <% step_key = I18n.t('wicked').select { |k,v| v == params[:id] }.keys.first %>
+    <% else %>
+      <% step_key =  @authorization_request.form.steps.first[:name] %>
+    <% end %>
+
+    <% if step_key.present? %>
+      <%=
+        dsfr_stepper(
+          current_step: authorization_request_step_name(@authorization_request, step_key),
+          steps: @authorization_request.form.steps.map { |step| authorization_request_step_name(@authorization_request, step[:name]) }
+        )
+      %>
+    <% end %>
   <% end %>
 
   <%= yield %>

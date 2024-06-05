@@ -1,4 +1,4 @@
-RSpec.describe 'Create authorization request' do
+RSpec.describe 'Starting a new authorization request' do
   subject do
     visit new_authorization_request_form_path(form_uid: authorization_request_form.uid)
 
@@ -13,11 +13,7 @@ RSpec.describe 'Create authorization request' do
     sign_in(user)
   end
 
-  it 'creates a new authorization request linked to user' do
-    expect { subject }.to change(AuthorizationRequest, :count).by(1)
-
-    authorization_request = AuthorizationRequest.last
-
-    expect(authorization_request.applicant).to eq(user)
+  it 'does not create a new authorization request (no longer persisted when starting)' do
+    expect { subject }.not_to change(AuthorizationRequest, :count)
   end
 end

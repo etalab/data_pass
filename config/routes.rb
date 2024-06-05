@@ -35,6 +35,10 @@ Rails.application.routes.draw do
 
     scope(path: 'formulaires/:form_uid') do
       resources :authorization_request_forms, only: %w[new create show update], path: 'demande' do
+        collection do
+          get :start, path: 'commencer'
+        end
+
         member do
           get :summary, as: :summary, path: 'résumé'
         end
