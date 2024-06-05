@@ -61,9 +61,13 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     authorize @authorization_request
     @summary_before_submit = @authorization_request.filling?
   rescue Pundit::NotAuthorizedError
-    raise unless AuthorizationRequestPolicy.new(pundit_user, @authorization_request).show?
-
-    redirect_to authorization_request_form_path(form_uid: @authorization_request_form.uid, id: @authorization_request.id)
+    if AuthorizationRequestPolicy.new(pundit_user, @authorization_request).show?
+      redirect_to authorization_request_form_path(form_uid: @authorization_request_form.uid, id: @authorization_request.id)
+    elsif Instruction::AuthorizationRequestPolicy.new(pundit_user, @authorization_request).show?
+      redirect_to instruction_authorization_request_path(@authorization_request)
+    else
+      raise
+    end
   end
 
   private
