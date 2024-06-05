@@ -250,6 +250,10 @@ fr:
         duree_conservation_donnees_caractere_personnel_justification:
           warning: Cette durée excède la durée communément constatée (36 mois). Merci de justifier cette durée dans le champ ci-dessous
     build:
+      start:
+        multiple_authorization_requests_warning:
+          title: L'organisation possède déjà une ou plusieurs habilitations en cours pour ce service
+          description: "Vérifiez que la demande que vous allez démarrez n'ait pas déjà été soumise ou en cours. Voici la liste:"
       update:
         error: *authorization_requests_update_error
         reopening_error: *authorization_requests_update_reopening_error
