@@ -26,7 +26,7 @@ Fonctionnalité: Démarrage d'habilitation par des internautes
     Et la page contient "Votre demande d’habilitation va se dérouler en 4 étapes"
     Et la page contient "S’identifier avec MonComptePro"
 
-  Scénario:  Un internaute veut demarer une demande d'habilitation API Entreprise via le formulaire "Demande Libre"
+  Scénario:  Un internaute veut démarrer une demande d'habilitation API Entreprise via le formulaire "Demande Libre"
     Sachant que je suis un demandeur
     Quand je veux remplir une demande pour "API Entreprise" via le formulaire "Demande libre"
     Alors je clique sur "S’identifier avec MonComptePro"
