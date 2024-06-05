@@ -10,12 +10,16 @@ turbo-frame {
   float: right;
 }
 
+.dashboard-sub-header {
+  padding-left: 0.75rem;
+}
+
 .sub-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-top: 3rem;
+  margin-bottom: 2.5rem;
 }
 
 h3.with-icon img {
