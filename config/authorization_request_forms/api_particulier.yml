@@ -676,7 +676,7 @@ api-particulier-nfi:
     contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_nfi_contact_technique_phone_number || '0836656565' %>"
     contact_technique_job_title: Contact technique
 
-api-particulier-odyssee-informartique-pandore:
+api-particulier-odyssee-informatique-pandore:
   name: Pandore, Tarification services municipaux / Portail Famille
   description: Récupération des données CNAF pour les services municipaux
   authorization_request: APIParticulier
