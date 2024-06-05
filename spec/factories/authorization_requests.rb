@@ -267,7 +267,7 @@ FactoryBot.define do
       api-particulier-entrouvert-publik
       api-particulier-jvs-parascol
       api-particulier-nfi
-      api-particulier-odyssee-informartique-pandore
+      api-particulier-odyssee-informatique-pandore
       api-particulier-qiis-eticket
       api-particulier-sigec-maelis
       api-particulier-teamnet-axel
