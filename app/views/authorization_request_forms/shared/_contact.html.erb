@@ -1,8 +1,14 @@
 <div class="fr-col-12 fr-col-lg-6">
-  <div id="<%= dom_id(@authorization_request, contact_type) %>" class="fr-basic-card fr-m-2v">
-    <h3>
+  <div id="<%= dom_id(@authorization_request, contact_type) %>" class="fr-basic-card contact-form-card fr-m-2v">
+    <h6 class="contact-form-card__title">
       <%= t("authorization_request_forms.default.#{contact_type}.title") %>
-    </h3>
+    </h6>
+
+    <% if @authorization_request.contact_info(contact_type).present? %>
+      <p class="contact-form-card__info">
+        <%= @authorization_request.contact_info(contact_type).html_safe %>
+      </p>
+    <% end %>
 
     <fieldset class="fr-fieldset" aria-label="feedme" aria-describedby="name-1-fieldset-messages">
       <% @authorization_request.class.contact_attributes.each do |contact_attribute| %>
