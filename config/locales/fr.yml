@@ -252,7 +252,7 @@ fr:
     build:
       start:
         multiple_authorization_requests_warning:
-          title: L'organisation possède déjà une habilitation ou une demande en cours pour ce en cours pour ce service.
+          title: L'organisation possède déjà une habilitation ou une demande en cours pour ce service.
           description: "Vous pouvez consulter la liste des habilitations et demandes existantes à tout moment :"
           cta_text: Consulter la liste des habilitations de mon organisation
       update:
