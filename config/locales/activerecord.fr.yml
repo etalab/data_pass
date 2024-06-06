@@ -4,6 +4,12 @@ fr:
       messages:
         email_unreachable: "n'est pas une adresse email joignable : celle-ci n'existe probablement pas. Veuillez soit mettre à jour cette adresse email, soit contacter le support à l'adresse datapass@api.gouv.fr en précisant votre numéro d'habilitation"
         email_deliverability_unknown: "n'a pas pu être vérifiée : merci de contacter le support à l'adresse datapass@api.gouv.fr en précisant votre numéro d'habilitation"
+      models:
+        authorization_request_transfer:
+          attributes:
+            to:
+              different_user: "doit être différent du demandeur actuel"
+              different_organization: "n'appartient pas à la même organisation que le demandeur actuel."
   activerecord:
     attributes:
       user:

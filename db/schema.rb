@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_20_092639) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_06_140028) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pgcrypto"
@@ -71,6 +71,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_20_092639) do
     t.index ["user_id"], name: "index_authorization_request_events_on_user_id"
     t.check_constraint "name::text !~~ 'system_%'::text AND user_id IS NOT NULL OR name::text ~~ 'system_%'::text", name: "user_id_not_null_unless_system_event"
     t.check_constraint "name::text = 'refuse'::text AND entity_type::text = 'DenialOfAuthorization'::text OR name::text = 'request_changes'::text AND entity_type::text = 'InstructorModificationRequest'::text OR name::text = 'approve'::text AND entity_type::text = 'Authorization'::text OR name::text = 'reopen'::text AND entity_type::text = 'Authorization'::text OR name::text = 'submit'::text AND entity_type::text = 'AuthorizationRequestChangelog'::text OR name::text = 'admin_update'::text AND entity_type::text = 'AuthorizationRequestChangelog'::text OR name::text = 'applicant_message'::text AND entity_type::text = 'Message'::text OR name::text = 'instructor_message'::text AND entity_type::text = 'Message'::text OR name::text = 'revoke'::text AND entity_type::text = 'RevocationOfAuthorization'::text OR entity_type::text = 'AuthorizationRequest'::text", name: "entity_type_validation"
+  end
+
+  create_table "authorization_request_transfers", force: :cascade do |t|
+    t.bigint "authorization_request_id", null: false
+    t.bigint "from_id", null: false
+    t.bigint "to_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["authorization_request_id"], name: "idx_on_authorization_request_id_a4275ef675"
+    t.index ["from_id"], name: "index_authorization_request_transfers_on_from_id"
+    t.index ["to_id"], name: "index_authorization_request_transfers_on_to_id"
   end
 
   create_table "authorization_requests", force: :cascade do |t|
@@ -270,6 +281,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_20_092639) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "authorization_documents", "authorizations"
   add_foreign_key "authorization_request_changelogs", "authorization_requests"
+  add_foreign_key "authorization_request_transfers", "authorization_requests"
+  add_foreign_key "authorization_request_transfers", "users", column: "from_id"
+  add_foreign_key "authorization_request_transfers", "users", column: "to_id"
   add_foreign_key "authorization_requests", "authorization_requests", column: "next_request_copied_id"
   add_foreign_key "authorizations", "authorization_requests", column: "request_id"
   add_foreign_key "authorizations", "users", column: "applicant_id"
