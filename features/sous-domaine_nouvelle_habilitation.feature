@@ -28,6 +28,5 @@ Fonctionnalité: Démarrage d'une habilitation en fonction du sous-domaine.
     Sachant que je consulte le site ayant le sous-domaine "api-entreprise"
     Et que je me connecte
     Et que je clique sur "Nouvelle habilitation"
-    Alors la page ne contient pas "Demander une nouvelle habilitation"
-    Et la page contient "Démarrer une nouvelle habilitation pour API Entreprise"
+    Alors la page contient "Demander une habilitation pour API Entreprise"
     Et la page ne contient pas "API Particulier"
