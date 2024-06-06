@@ -121,3 +121,26 @@ fr-badge--grey {
   background-color: var(--grey-50-1000);
   color: var(--grey-1000-50);
 }
+
+/* ¯¯¯¯¯¯¯¯¯ *\
+  BANDEAU NOTICE WARNING
+\* ˍˍˍˍˍˍˍˍˍ */
+
+.fr-notice__title {
+  line-height: 2rem;
+}
+
+.fr-notice--warning .fr-notice__body::before {
+  -webkit-mask-image: url("icons/system/alarm-warning-fill.svg") !important;
+  mask-image: url("icons/system/alarm-warning-fill.svg") !important;
+  content: "";
+}
+
+.fr-notice--warning {
+  background-color: var(--background-contrast-warning);
+
+  --idle: transparent;
+  --hover: var(--background-contrast-warning-hover);
+  --active: var(--background-contrast-warning-active);
+  color: var(--text-default-warning);
+}
