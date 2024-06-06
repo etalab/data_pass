@@ -22,6 +22,7 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
     end
   end
 
+  # rubocop:disable Metrics/AbcSize
   def text
     case name
     when 'refuse', 'request_changes', 'revoke'
@@ -32,8 +33,12 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
       humanized_changelog_without_blank_values
     when 'applicant_message', 'instructor_message'
       h.simple_format(entity.body)
+    when 'transfer'
+      "#{entity.to.full_name} (#{entity.to.email})"
     end
   end
+  # rubocop:enable Metrics/AbcSize
+
   alias comment text # see WebhookEventSerializer
 
   def copied_from_authorization_request_id
