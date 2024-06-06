@@ -23,7 +23,7 @@ RSpec.describe 'Authorization request with multiple steps' do
         it 'displays a warning' do
           visit_new_habilitation
 
-          expect(page).to have_css('.fr-alert--warning')
+          expect(page).to have_css('.fr-notice--warning')
         end
       end
     end

@@ -32,15 +32,21 @@
     <% end %>
 
     <% if current_organization.authorization_requests.not_archived.where(type: @authorization_definition.authorization_request_class.name).any? %>
-      <div class="fr-alert fr-alert--warning fr-mb-2w">
-        <h3 class="fr-alert__title">
-          <%= t('authorization_request_forms.build.start.multiple_authorization_requests_warning.title') %>
-        </h3>
-        <p>
-          <%= t('authorization_request_forms.build.start.multiple_authorization_requests_warning.description') %>
-          <br />
-          <%= link_to t('authorization_request_forms.build.start.multiple_authorization_requests_warning.cta_text'), dashboard_path %>
-        </p>
+      <div class="fr-notice fr-notice--warning fr-my-3w">
+        <div class="fr-container">
+          <div class="fr-notice__body">
+            <p class="fr-notice__title">
+              <%= t('authorization_request_forms.build.start.multiple_authorization_requests_warning.title') %>
+              <br/>
+              <%= t('authorization_request_forms.build.start.multiple_authorization_requests_warning.description') %>
+              <br/>
+              <%= link_to dashboard_path do %>
+                <%= t('authorization_request_forms.build.start.multiple_authorization_requests_warning.cta_text') %>
+                <span class="fr-fi-arrow-right-line"></span>
+              <% end %>
+            </p>
+          </div>
+        </div>
       </div>
     <% end %>
 
