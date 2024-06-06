@@ -34,6 +34,18 @@ RSpec.describe TransferAuthorizationRequestToNewApplicant, type: :organizer do
           entity: instance_of(AuthorizationRequestTransfer),
         )
       end
+
+      context 'when authorization request has webhooks activated' do
+        let(:authorization_request) { create(:authorization_request, :api_entreprise) }
+
+        it 'delivers a webhook for transfer event' do
+          expect { subject }.to have_enqueued_job(DeliverAuthorizationRequestWebhookJob).with(
+            authorization_request.definition.id,
+            a_string_matching('"event":"transfer"'),
+            authorization_request.id,
+          )
+        end
+      end
     end
 
     context 'with invalid attributes' do
