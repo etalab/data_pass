@@ -57,6 +57,10 @@
   background-color: #f5f5f5;
 }
 
+.fr-text-blue-france {
+  color: var(--text-active-blue-france);
+}
+
 .fr-bg-alt-blue-france {
   background-color: var(--background-action-low-blue-france);
 }

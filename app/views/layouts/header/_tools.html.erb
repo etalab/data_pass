@@ -7,13 +7,8 @@
         </a>
       </li>
       <li>
-        <a class="fr-link fr-icon-community-fill" href="#">
-          <%= truncate(current_organization.raison_sociale, length: 50) %>
-        </a>
-      </li>
-      <li>
         <a class="fr-link fr-icon-user-fill" href="<%= profile_path %>">
-          <%= current_user.email %>
+          <%= current_user.full_name %>
         </a>
       </li>
       <li>
