@@ -94,7 +94,9 @@
           <%= t('.single_form.description') %>
 
           <% if policy(authorization_request_form).new? %>
+          <div class="flex-end__content fr-mt-3w">
             <%= start_authorization_request_form(authorization_request_form) %>
+          </div>
           <% else %>
           <div class="flex-end__content">
               <%= link_to t('.back_to_dashboard'), dashboard_path, class: %w[fr-btn fr-btn--secondary fr-mr-2w] %>

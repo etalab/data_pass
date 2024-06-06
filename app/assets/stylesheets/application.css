@@ -10,6 +10,10 @@ turbo-frame {
   float: right;
 }
 
+.dashboard-sub-header {
+  padding-left: 0.75rem;
+}
+
 .sub-header {
   display: flex;
   justify-content: space-between;
