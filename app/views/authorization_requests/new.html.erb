@@ -16,9 +16,9 @@
       </h5>
     <% end %>
 
-    <p>
+    <div class="border-frame-text fr-my-3w">
       <%= t('.organization.start_text', organization_raison_sociale: current_organization.raison_sociale, organization_siret: current_organization.siret).html_safe %>
-    </p>
+    </div>
 
     <% if registered_subdomain? %>
       <div class="fr-alert fr-alert--warning fr-mb-2w">
@@ -78,10 +78,12 @@
             <% end %>
           </ol>
 
+          <div class="flex-end__content fr-mt-3w">
           <%= start_authorization_request_form(authorization_request_form) %>
+          </div>
 
         <% else %>
-          <div class="flex">
+          <div class="flex-end__content">
             <%= link_to t('.back_to_dashboard'), dashboard_path, class: %w[fr-btn fr-btn--secondary fr-mr-2w] %>
             <%= start_authorization_request_form(authorization_request_form, disabled: true) %>
           </div>
@@ -94,7 +96,7 @@
           <% if policy(authorization_request_form).new? %>
             <%= start_authorization_request_form(authorization_request_form) %>
           <% else %>
-            <div class="flex">
+          <div class="flex-end__content">
               <%= link_to t('.back_to_dashboard'), dashboard_path, class: %w[fr-btn fr-btn--secondary fr-mr-2w] %>
               <%= start_authorization_request_form(authorization_request_form, disabled: true) %>
             </div>
@@ -102,7 +104,9 @@
         </p>
       <% end %>
     <% else %>
-      <%= link_to t('.cta', authorization_name: @authorization_definition.name), choose_authorization_request_form_path(authorization_definition_id: @authorization_definition.id), class: %w[fr-btn fr-btn--lg] %>
+      <div class="flex-end__content">
+        <%= link_to t('.cta', authorization_name: @authorization_definition.name), choose_authorization_request_form_path(authorization_definition_id: @authorization_definition.id), class: %w[fr-btn fr-btn--lg] %>
+      </div>
     <% end %>
   </div>
 </div>

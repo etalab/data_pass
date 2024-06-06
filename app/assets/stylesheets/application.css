@@ -14,8 +14,7 @@ turbo-frame {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin: 4rem 0 2rem 0;
 }
 
 h3.with-icon img {
@@ -28,6 +27,17 @@ h3.with-icon img {
 
 .flex {
   display: flex!important;
+}
+
+.flex-end__content {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.border-frame-text {
+  border: 1px solid var(--border-default-grey);
+  padding: 1rem;
+  margin
 }
 
 .header__logo {
