@@ -1,4 +1,6 @@
 class DashboardController < AuthenticatedUserController
+  include SubdomainsHelper
+
   def index
     redirect_to dashboard_show_path(id: 'moi')
   end
@@ -10,7 +12,7 @@ class DashboardController < AuthenticatedUserController
     when 'organisation'
       @authorization_requests = policy_scope(AuthorizationRequest)
     when 'mentions'
-      @authorization_requests = AuthorizationRequestsMentionsQuery.new(current_user).perform
+      @authorization_requests = AuthorizationRequestsMentionsQuery.new(current_user).perform(authorization_requests_relation)
     else
       redirect_to dashboard_show_path(id: 'moi')
       return
@@ -20,6 +22,14 @@ class DashboardController < AuthenticatedUserController
   end
 
   private
+
+  def authorization_requests_relation
+    if registered_subdomain?
+      AuthorizationRequest.where(type: registered_subdomain.authorization_request_types)
+    else
+      AuthorizationRequest.all
+    end
+  end
 
   def layout_name
     'dashboard'
