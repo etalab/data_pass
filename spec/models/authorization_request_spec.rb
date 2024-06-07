@@ -202,4 +202,38 @@ RSpec.describe AuthorizationRequest do
       it { is_expected.to eq(%w[old_scope1 old_scope2]) }
     end
   end
+
+  describe 'scopes config behaviour' do
+    describe '#available_scopes' do
+      subject(:available_scopes) { authorization_request.available_scopes }
+
+      context 'without config' do
+        let(:authorization_request) { create(:authorization_request, :api_entreprise) }
+
+        it { expect(available_scopes.map(&:value)).to match_array(authorization_request.definition.scopes.map(&:value)) }
+      end
+
+      context 'with displayed config on form' do
+        let(:authorization_request) { create(:authorization_request, :api_particulier_abelium) }
+
+        it { expect(available_scopes.map(&:value)).to match_array(%w[cnaf_quotient_familial cnaf_allocataires cnaf_enfants cnaf_adresse]) }
+      end
+    end
+
+    describe '#disabled_scopes' do
+      subject(:disabled_scopes) { authorization_request.disabled_scopes }
+
+      context 'without config' do
+        let(:authorization_request) { create(:authorization_request, :api_entreprise) }
+
+        it { is_expected.to be_empty }
+      end
+
+      context 'with disabled scopes config on form' do
+        let(:authorization_request) { create(:authorization_request, :api_particulier_abelium) }
+
+        it { expect(disabled_scopes.map(&:value)).to contain_exactly('cnaf_quotient_familial') }
+      end
+    end
+  end
 end

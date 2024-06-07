@@ -36,14 +36,34 @@ module AuthorizationCore::Scopes
   end
 
   def available_scopes
-    @available_scopes ||= definition.scopes
+    @available_scopes ||= if displayed_scope_values
+                            definition.scopes.select { |scope| displayed_scope_values.include?(scope.value) }
+                          else
+                            definition.scopes
+                          end
   end
 
   def included_scopes
     @included_scopes ||= definition.scopes.select(&:included?)
   end
 
+  def disabled_scopes
+    @disabled_scopes ||= definition.scopes.select { |scope| disabled_scope_values.include?(scope.value) }
+  end
+
   def legacy_scope_values
     scopes - available_scopes.map(&:value)
+  end
+
+  private
+
+  def disabled_scope_values
+    form.scopes_config[:disabled].presence || []
+  end
+
+  def displayed_scope_values
+    return if form.scopes_config[:displayed].blank?
+
+    form.scopes_config[:displayed]
   end
 end

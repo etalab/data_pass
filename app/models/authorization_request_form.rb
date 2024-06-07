@@ -13,6 +13,7 @@ class AuthorizationRequestForm < StaticApplicationRecord
   attr_writer :description,
     :startable_by_applicant,
     :data,
+    :scopes_config,
     :public
 
   def self.all
@@ -31,7 +32,8 @@ class AuthorizationRequestForm < StaticApplicationRecord
         :use_case,
         :data,
         :single_page_view,
-        :startable_by_applicant
+        :startable_by_applicant,
+        :scopes_config,
       ).merge(
         uid: uid.to_s,
         editor: hash[:editor_id].present? ? Editor.find(hash[:editor_id]) : nil,
@@ -102,6 +104,10 @@ class AuthorizationRequestForm < StaticApplicationRecord
     end
 
     data
+  end
+
+  def scopes_config
+    @scopes_config || {}
   end
 
   def self.indexable

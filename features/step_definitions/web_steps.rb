@@ -186,5 +186,11 @@ end
 Alors('je ne peux pas cocher {string}') do |checkbox_label|
   checkbox_id = "##{find('label', text: checkbox_label)[:for]}"
 
-  expect(page.find(checkbox_id, visible: :all)[:disabled]).to be_truthy
+  expect(page.find(checkbox_id, visible: :all)[:disabled]).to be_truthy, "Expected checkbox '#{checkbox_label}' to be disabled"
+end
+
+Alors('je peux cocher {string}') do |checkbox_label|
+  checkbox_id = "##{find('label', text: checkbox_label)[:for]}"
+
+  expect(page.find(checkbox_id, visible: :all)[:disabled]).to be_in([nil, false]), "Expected checkbox '#{checkbox_label}' to be enabled"
 end

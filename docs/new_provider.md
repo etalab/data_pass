@@ -91,6 +91,19 @@ Pour [le formulaire](../config/authorization_request_forms.yml):
     public: true
     # Optionnel. Prend celui de l'habilitation par défaut
     startable_by_applicant: true
+    # Optionnel. Permet de définir des options sur les scopes de la définition
+    # au sein du formulaire.
+    scopes_config:
+      # Optionnel. Scopes (par valeur) qui auront leur checkbox désactivés. A
+      # noter que le scope peut-être présent (grace à la clé `data`) ci-dessous.
+      disabled:
+        - scope1
+        - scope2
+      # Optionnel. Scopes (par valeur) qui seront affichés. Si cette clé est
+      # omise l'ensemble des scopes de la définition sont affichés.
+      displayed:
+        - scope3
+        - scope4
     # Optionnel. Données pré-rempli au démarrage du formulaire.
     data:
       intitule: "Mon intitulé"
