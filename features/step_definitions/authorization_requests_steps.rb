@@ -109,6 +109,12 @@ Quand('je me rends sur cette demande d\'habilitation') do
   end
 end
 
+Quand(/je me rends via l'espace usager sur une demande d'habilitation "([^"]+)"/) do |type|
+  authorization_request = create_authorization_requests_with_status(type).first
+
+  visit authorization_request_path(authorization_request)
+end
+
 # https://rubular.com/r/0orApA5lrXMtTA
 Quand(/je me rends sur une demande d'habilitation "([^"]+)"(?: de l'organisation "([^"]+)")?(?: (?:en|à))? ?(.+)?/) do |type, organization_name, status|
   attributes = {}
