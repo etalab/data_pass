@@ -26,6 +26,18 @@ FactoryBot.define do
       name { 'update' }
     end
 
+    trait :transfer do
+      name { 'transfer' }
+
+      entity factory: :authorization_request_transfer
+
+      after(:build) do |authorization_request_event, evaluator|
+        next if evaluator.authorization_request.blank?
+
+        authorization_request_event.entity = build(:authorization_request_transfer, authorization_request: evaluator.authorization_request, from: evaluator.authorization_request.applicant)
+      end
+    end
+
     trait :submit do
       name { 'submit' }
 

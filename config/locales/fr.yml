@@ -432,6 +432,9 @@ fr:
           text: "<strong>%{user_full_name}</strong> a crée la demande"
         update:
           text: "<strong>%{user_full_name}</strong> a mis à jour la demande"
+
+        transfer:
+          text: "<strong>%{user_full_name}</strong> a transféré la demande à <strong>%{text}</strong>"
         archive:
           text: "<strong>%{user_full_name}</strong> a supprimé la demande"
         initial_submit:
