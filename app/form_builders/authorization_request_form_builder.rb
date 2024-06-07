@@ -101,6 +101,8 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
   def dsfr_scope(scope, opts = {})
     disabled = opts.delete(:disabled)
 
+    disabled = @object.disabled_scopes.include?(scope) if disabled.blank?
+
     @template.content_tag(:div, class: 'fr-checkbox-group') do
       @template.safe_join(
         [

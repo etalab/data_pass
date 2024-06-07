@@ -51,7 +51,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation Portail HubEE - Démarc
     Et il y a au moins une erreur sur un champ
     Et je suis sur la page "Portail HubEE - Démarches DILA"
 
-  Scénario: Je soumets une demande d'habilitation valide
+  Scénario: Je ne peux pas cocher un scope si celui-ci existe déjà dans une demande envoyée
     Quand je démarre une nouvelle demande d'habilitation "Portail HubEE - Démarches DILA"
     * je coche "AEC - Acte d’Etat Civil"
     * je clique sur "Suivant"
@@ -64,5 +64,5 @@ Fonctionnalité: Soumission d'une demande d'habilitation Portail HubEE - Démarc
     * j'adhère aux conditions générales
     * je clique sur "Soumettre la demande d'habilitation"
 
-    * je démarre une nouvelle demande d'habilitation "Portail HubEE - Démarches DILA"
+    Et que je démarre une nouvelle demande d'habilitation "Portail HubEE - Démarches DILA"
     Alors je ne peux pas cocher "AEC - Acte d’Etat Civil"

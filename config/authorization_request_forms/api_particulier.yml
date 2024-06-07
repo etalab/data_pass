@@ -56,6 +56,14 @@ api-particulier-abelium:
   - name: personal_data
   - name: legal
   - name: scopes
+  scopes_config:
+    disabled:
+      - cnaf_quotient_familial
+    displayed:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_enfants
+      - cnaf_adresse
   data:
     intitule: Service Périscolaire, Restauration Scolaire, Extrascolaire, Accueil
       des loisirs
@@ -79,9 +87,6 @@ api-particulier-abelium:
     duree_conservation_donnees_caractere_personnel: 36
     scopes:
       - cnaf_quotient_familial
-      - cnaf_allocataires
-      - cnaf_enfants
-      - cnaf_adresse
 
 api-particulier-agora-plus:
   name: Agora Famille Premium, Tarification services municipaux / Portail Famille
