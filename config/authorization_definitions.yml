@@ -188,6 +188,11 @@ shared:
       - name: 'legal'
       - name: 'scopes'
       - name: 'contacts'
+    modalities:
+      - name: "Saisie des paramètres"
+        value: "params"
+      - name: "Formulaire de collecte de l'identité pivot et du QF"
+        value: "qf"
     scopes:
       - name: "Quotient familial CAF & MSA"
         value: "cnaf_quotient_familial"

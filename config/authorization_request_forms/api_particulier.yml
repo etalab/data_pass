@@ -172,14 +172,27 @@ api-particulier-arpege-concerto:
   name: Concerto, Tarification services municipaux / Portail Famille
   description: Récupération du Quotient Familial pour le service Périscolaire
   authorization_request: APIParticulier
-  single_page_view: 'api_particulier_through_editor_without_contact_technique'
   use_case: portail_famille_tarification
   editor_id: arpege
   static_blocks:
+  - name: modalities
   - name: basic_infos
   - name: personal_data
-  - name: legal
+  - name: deliberation
   - name: scopes
+  scopes_config:
+    disabled:
+      - cnaf_quotient_familial
+    displayed:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_enfants
+      - cnaf_adresse
+  steps:
+    - name: 'modalities'
+    - name: 'scopes'
+    - name: 'deliberation'
+    - name: 'contacts'
   data:
     intitule: Récupération du Quotient Familial pour le service Périscolaire
     description: Notre commune module la facturation des services liés à l’enfance
@@ -201,6 +214,9 @@ api-particulier-arpege-concerto:
       - cnaf_allocataires
       - cnaf_enfants
       - cnaf_adresse
+    modalities:
+      - params
+      - qf
 
 api-particulier-bl-enfance-berger-levrault:
   name: BL Enfance, Tarification services municipaux / Portail Famille
