@@ -5,6 +5,7 @@ class AuthorizationDefinition < StaticApplicationRecord
     :description,
     :link,
     :cgu_link,
+    :modalities,
     :scopes,
     :blocks
 
@@ -44,6 +45,7 @@ class AuthorizationDefinition < StaticApplicationRecord
       ).merge(
         id: uid.to_s,
         provider: DataProvider.find(hash[:provider]),
+        modalities: (hash[:modalities] || []).map { |data| AuthorizationRequestModality.new(data) },
         scopes: (hash[:scopes] || []).map { |scope_data| AuthorizationRequestScope.new(scope_data) },
         blocks: hash[:blocks] || [],
       )
