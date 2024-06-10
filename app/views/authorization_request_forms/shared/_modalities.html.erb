@@ -1,0 +1,9 @@
+<%= f.info_for(:modalities) %>
+
+<% @authorization_request.available_modalities.each do |modality| %>
+  <div class="modalities-group__grid">
+    <%= f.dsfr_scope modality %>
+  </div>
+<% end %>
+
+<%= f.hidden_field :modalities, value: '', name: "#{@authorization_request.model_name.param_key}[modalities][]" %>

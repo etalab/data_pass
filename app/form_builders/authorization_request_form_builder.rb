@@ -145,7 +145,7 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
       @template.safe_join(
         [
           scope.name,
-          scope.link? ? @template.link_to('', scope.link, { target: '_blank', rel: 'noopener' }) : nil
+          scope&.link? ? @template.link_to('', scope.link, { target: '_blank', rel: 'noopener' }) : nil
         ].compact
       )
     end
