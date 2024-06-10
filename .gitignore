@@ -54,3 +54,4 @@ app/migration/dumps/*.sql
 # Ignore local Redis snapshots
 /dump.rdb
 app/migration/dumps/data.db
+.deploy_token
