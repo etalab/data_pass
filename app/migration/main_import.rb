@@ -65,7 +65,11 @@ class MainImport
     {
       authorization_requests_filter: ->(enrollment_row) do
         %w[
+          5
+          26
           129
+          25590
+          54115
         ].exclude?(enrollment_row['id'])
       end,
       authorization_requests_sql_where: 'target_api = \'api_particulier\'',
