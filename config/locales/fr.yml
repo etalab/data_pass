@@ -12,6 +12,7 @@ fr:
     legal: 'cadre-juridique'
     scopes: 'donnees'
     contacts: 'contacts'
+    modalities: 'modalites'
   authorization:
     badge: habilitation n°%{id}
   authorization_request:
