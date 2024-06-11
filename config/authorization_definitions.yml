@@ -186,6 +186,7 @@ shared:
       - name: 'basic_infos'
       - name: 'personal_data'
       - name: 'legal'
+      - name: 'modalities'
       - name: 'scopes'
       - name: 'contacts'
     modalities:

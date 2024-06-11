@@ -14,9 +14,7 @@ class AuthorizationRequest::APIParticulier < AuthorizationRequest
     presence: true, if: -> { need_complete_validation?(:scopes) }
   })
 
-  add_modalities(validation: {
-    presence: true, if: -> { need_complete_validation?(:modalities) }
-  })
+  add_modalities(validation: { presence: true })
 
   contact :contact_technique, validation_condition: ->(record) { record.need_complete_validation?(:contacts) }
 end

@@ -206,7 +206,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
 
   def authorization_request_params
     params.require(authorization_request_class.model_name.singular)
-  rescue ActionController::ParameterMissing
+  rescue ActionController::ParameterMissing => e
     nil
   end
 

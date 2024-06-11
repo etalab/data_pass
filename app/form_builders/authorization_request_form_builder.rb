@@ -123,6 +123,31 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
     end
   end
 
+  def dsfr_modality(scope, opts = {})
+    # disabled = opts.delete(:disabled)
+
+    # disabled = @object.disabled_scopes.include?(scope) if disabled.blank?
+
+    @template.content_tag(:div, class: 'fr-checkbox-group') do
+      @template.safe_join(
+        [
+          check_box(
+            :modalities,
+            {
+              class: input_classes(opts),
+              **dsfr_scope_options(scope, disabled: false),
+              **enhance_input_options(opts).except(:class)
+            },
+            scope.value,
+            nil
+          ),
+          dsfr_modality_label(scope),
+          include_scope_hidden_field?(scope, false) ? scope_hidden_field(scope) : nil
+        ].compact
+      )
+    end
+  end
+
   def include_scope_hidden_field?(scope, disabled)
     if disabled
       scope.included? ||
@@ -134,7 +159,7 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
 
   def dsfr_scope_options(scope, disabled: false)
     {
-      disabled: disabled || check_box_disabled || scope.included?,
+      disabled: false, #disabled || check_box_disabled || scope.included?,
       checked: scope.included? || @object.scopes.include?(scope.value),
       multiple: true,
     }
@@ -145,7 +170,18 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
       @template.safe_join(
         [
           scope.name,
-          scope&.link? ? @template.link_to('', scope.link, { target: '_blank', rel: 'noopener' }) : nil
+          scope.link? ? @template.link_to('', scope.link, { target: '_blank', rel: 'noopener' }) : nil
+        ].compact
+      )
+    end
+  end
+
+  def dsfr_modality_label(scope)
+    label(:modalities, class: 'fr-label', value: scope.value) do
+      @template.safe_join(
+        [
+          scope.name,
+          scope.link? ? @template.link_to('', scope.link, { target: '_blank', rel: 'noopener' }) : nil
         ].compact
       )
     end
