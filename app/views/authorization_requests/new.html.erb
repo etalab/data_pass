@@ -70,24 +70,23 @@
           <p>
             <%= t('.multiple_steps.description') %>
 
-          <ol>
-            <% authorization_request_form.steps.each do |step| %>
-              <li>
-                <%= authorization_request_step_name(authorization_request_form.authorization_request_class.new, step[:name]) %>
-              </li>
-            <% end %>
-          </ol>
+            <ol>
+              <% authorization_request_form.steps.each do |step| %>
+                <li>
+                  <%= authorization_request_step_name(authorization_request_form.authorization_request_class.new, step[:name]) %>
+                </li>
+              <% end %>
+            </ol>
 
-          <div class="flex-end__content fr-mt-3w">
-          <%= start_authorization_request_form(authorization_request_form) %>
-          </div>
-
+            <div class="flex-end__content fr-mt-3w">
+              <%= start_authorization_request_form(authorization_request_form) %>
+            </div>
+          </p>
         <% else %>
           <div class="flex-end__content">
             <%= link_to t('.back_to_dashboard'), dashboard_path, class: %w[fr-btn fr-btn--secondary fr-mr-2w] %>
             <%= start_authorization_request_form(authorization_request_form, disabled: true) %>
           </div>
-          </p>
         <% end %>
       <% else %>
         <p>
