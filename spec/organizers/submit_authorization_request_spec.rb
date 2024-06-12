@@ -187,5 +187,37 @@ RSpec.describe SubmitAuthorizationRequest do
         expect { submit_authorization_request }.not_to change { authorization_request.events.count }
       end
     end
+
+    describe 'non-regression test: changelog creation after empty changelog' do
+      let!(:authorization_request) { create(:authorization_request, :api_entreprise, :submitted, scopes:) }
+      let(:user) { create(:user, :instructor, authorization_request_types: %w[api_entreprise]) }
+      let(:scopes) do
+        %w[open_data_unites_legales_etablissements_insee]
+      end
+      let(:authorization_request_params) { ActionController::Parameters.new(scopes: scopes + %w[unites_legales_etablissements_insee]) }
+      let(:create_empty_changelog) do
+        CreateAuthorizationRequestChangelog.call(authorization_request:)
+      end
+
+      before do
+        create_empty_changelog
+
+        RequestChangesOnAuthorizationRequest.call(
+          authorization_request: authorization_request.reload,
+          user: authorization_request.applicant,
+          instructor_modification_request_params: {
+            reason: 'Be better please'
+          }
+        )
+      end
+
+      it 'creates a changelog with diff too' do
+        expect { submit_authorization_request }.to change(authorization_request.changelogs, :count).by(1)
+
+        changelog = authorization_request.changelogs.last
+
+        expect(changelog.diff).to be_blank
+      end
+    end
   end
 end

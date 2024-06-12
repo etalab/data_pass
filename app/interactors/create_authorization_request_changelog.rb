@@ -34,9 +34,13 @@ class CreateAuthorizationRequestChangelog < ApplicationInteractor
   end
 
   def reified_data
-    @reified_data ||= latest_changelog.diff.each_with_object(authorization_request.data.dup) do |(key, value), latest_data|
+    @reified_data ||= latest_changelog.diff.each_with_object(authorization_request_data) do |(key, value), latest_data|
       latest_data[key] = value[1]
     end
+  end
+
+  def authorization_request_data
+    @authorization_request_data ||= authorization_request.data.to_h { |k, _| [k, authorization_request.public_send(k)] }
   end
 
   def initial_diff_with_prefilled_form
