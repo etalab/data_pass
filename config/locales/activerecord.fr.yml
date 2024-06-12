@@ -1,7 +1,7 @@
 fr:
   activemodel:
     errors:
-      messages:
+      messages: &active_record_messages_errors
         email_unreachable: "n'est pas une adresse email joignable : celle-ci n'existe probablement pas. Veuillez soit mettre à jour cette adresse email, soit contacter le support à l'adresse datapass@api.gouv.fr en précisant votre numéro d'habilitation"
         email_deliverability_unknown: "n'a pas pu être vérifiée : merci de contacter le support à l'adresse datapass@api.gouv.fr en précisant votre numéro d'habilitation"
       models:
@@ -86,6 +86,7 @@ fr:
       instructor_modification_request:
         reason: Raison de la demande de modification
     errors:
+      messages: *active_record_messages_errors
       models:
         authorization_request:
           all_terms_not_accepted: Vous devez acceptez les conditions générales avant de continuer
