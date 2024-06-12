@@ -25,7 +25,7 @@ fi
 if [ $# -gt 2 ] && [ $env = "sandbox" ] ; then
   ref=$2
 else
-  ref="master"
+  ref="main"
 fi
 
 workflow_id="https-deploy-$env.yaml"
