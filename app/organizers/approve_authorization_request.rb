@@ -8,8 +8,8 @@ class ApproveAuthorizationRequest < ApplicationOrganizer
   end
 
   organize ExecuteAuthorizationRequestTransitionWithCallbacks,
-    ExecuteAuthorizationRequestBridge,
     CreateAuthorization,
     CreateAuthorizationRequestEventModel,
+    ExecuteAuthorizationRequestBridge,
     DeliverGDPRContactsMails
 end
