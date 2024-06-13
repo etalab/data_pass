@@ -46,15 +46,9 @@ class HubEECertDCBridge < ApplicationBridge
     client_secret = hubee_configuration[:client_secret]
 
     # 1. get token
-    token_response = faraday_connection.post do |req|
-      req.url hubee_auth_url
-      req.headers['Authorization'] = "Basic #{Base64.strict_encode64("#{client_id}:#{client_secret}")}"
-      req.headers['Content-Type'] = 'application/x-www-form-urlencoded'
-      req.headers['tag'] = 'Portail HubEE'
-      req.body = URI.encode_www_form({ grant_type: 'client_credentials', scope: 'ADMIN' })
-    end
-
-    access_token = token_response.body["access_token"]
+    token_service = HubEEServiceAuthentication.new(client_id, client_secret, hubee_auth_url)
+    token_response = token_service.retrieve_body
+    access_token = JSON.parse(token_response.body)['access_token']
 
     # 2.1 get organization
     begin
