@@ -23,7 +23,7 @@ class HubEECertDCBridge < ApplicationBridge
   private
 
   def create_enrollment_in_token_manager(
-    id,
+    authorization_id,
     administrateur_metier_data,
     siret,
     updated_at,
@@ -46,31 +46,30 @@ class HubEECertDCBridge < ApplicationBridge
     client_secret = hubee_configuration[:client_secret]
 
     # 1. get token
-    token_response = Http.instance.post({
-      url: hubee_auth_url,
-      body: { grant_type: 'client_credentials', scope: 'ADMIN' },
-      api_key: Base64.strict_encode64("#{client_id}:#{client_secret}"),
-      use_basic_auth_method: true,
-      tag: 'Portail HubEE'
-    })
+    token_response = faraday_connection.post do |req|
+      req.url hubee_auth_url
+      req.headers['Authorization'] = "Basic #{Base64.strict_encode64("#{client_id}:#{client_secret}")}"
+      req.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+      req.headers['tag'] = 'Portail HubEE'
+      req.body = URI.encode_www_form({ grant_type: 'client_credentials', scope: 'ADMIN' })
+    end
 
-    token = token_response.parse
-    access_token = token['access_token']
+    access_token = token_response.body["access_token"]
 
     # 2.1 get organization
     begin
-      Http.instance.get({
-        url: "#{api_host}/referential/v1/organizations/SI-#{siret}-#{code_commune}",
-        api_key: access_token,
-        tag: 'Portail HubEE'
-      })
-    rescue NameError => e
-      raise unless e.message == '404'
-
+      faraday_connection.get do |req|
+        req.url "#{api_host}/referential/v1/organizations/SI-#{siret}-#{code_commune}"
+        req.headers['Authorization'] = "Bearer #{access_token}"
+        req.headers['tag'] = 'Portail HubEE'
+      end
+    rescue Faraday::ResourceNotFound
       # 2.2 if organization does not exist, create the organization
-      Http.instance.post({
-        url: "#{api_host}/referential/v1/organizations",
-        body: {
+      faraday_connection.post do |req|
+        req.url "#{api_host}/referential/v1/organizations"
+        req.headers['Authorization'] = "Bearer #{access_token}"
+        req.headers['tag'] = 'Portail HubEE'
+        req.body = {
           type: 'SI',
           companyRegister: siret,
           branchCode: code_commune,
@@ -82,10 +81,8 @@ class HubEECertDCBridge < ApplicationBridge
           email: administrateur_metier_data[:email],
           phoneNumber: administrateur_metier_data[:phone_number].delete(' ').delete('.').delete('-'),
           status: 'Actif'
-        },
-        api_key: access_token,
-        tag: 'Portail HubEE'
-      })
+        }
+      end
     end
 
     # 3. create subscriptions
@@ -94,10 +91,12 @@ class HubEECertDCBridge < ApplicationBridge
     scopes = scopes.presence || ['CERTDC']
 
     scopes.each do |scope|
-      create_subscription_response = Http.instance.post({
-        url: "#{api_host}/referential/v1/subscriptions",
-        body: {
-          datapassId: id,
+      create_subscription_response = faraday_connection.post do |req|
+        req.url "#{api_host}/referential/v1/subscriptions"
+        req.headers['Authorization'] = "Bearer #{access_token}"
+        req.headers['tag'] = 'Portail HubEE'
+        req.body = {
+          datapassId: authorization_id,
           processCode: scope,
           subscriber: {
             type: 'SI',
@@ -123,12 +122,10 @@ class HubEECertDCBridge < ApplicationBridge
             phoneNumber: administrateur_metier_data[:phone_number].delete(' ').delete('.').delete('-'),
             mobileNumber: nil
           }
-        },
-        api_key: access_token,
-        tag: 'Portail HubEE'
-      })
+        }
+      end
 
-      subscription_ids.push create_subscription_response.parse['id']
+      subscription_ids.push (create_subscription_response)['authorization_id']
     end
 
     subscription_ids.join(',')
@@ -204,5 +201,15 @@ class HubEECertDCBridge < ApplicationBridge
     }
   end
 
+  def faraday_connection
+    @faraday_connection ||= Faraday.new do |conn|
+      conn.request :json
+      conn.request :retry, max: 5
+      conn.response :raise_error
+      conn.response :json, :content_type => /\bjson$/
+      conn.options.timeout = 2
+      conn.adapter Faraday.default_adapter
+    end
+  end
   def hubee_configuration = Rails.application.credentials.hubee
 end
