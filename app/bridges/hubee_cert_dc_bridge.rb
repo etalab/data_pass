@@ -57,25 +57,29 @@ class HubEECertDCBridge < ApplicationBridge
         req.headers['Authorization'] = "Bearer #{access_token}"
         req.headers['tag'] = 'Portail HubEE'
       end
-    rescue Faraday::ResourceNotFound
+    rescue Faraday::ResourceNotFound => e
       # 2.2 if organization does not exist, create the organization
-      faraday_connection.post do |req|
-        req.url "#{api_host}/referential/v1/organizations"
-        req.headers['Authorization'] = "Bearer #{access_token}"
-        req.headers['tag'] = 'Portail HubEE'
-        req.body = {
-          type: 'SI',
-          companyRegister: siret,
-          branchCode: code_commune,
-          name: denomination,
-          code: sigle,
-          country: 'France',
-          postalCode: code_postal,
-          territory: libelle_commune,
-          email: administrateur_metier_data[:email],
-          phoneNumber: administrateur_metier_data[:phone_number].delete(' ').delete('.').delete('-'),
-          status: 'Actif'
-        }
+      if e.response_status == 404
+        faraday_connection.post do |req|
+          req.url "#{api_host}/referential/v1/organizations"
+          req.headers['Authorization'] = "Bearer #{access_token}"
+          req.headers['tag'] = 'Portail HubEE'
+          req.body = {
+            type: 'SI',
+            companyRegister: siret,
+            branchCode: code_commune,
+            name: denomination,
+            code: sigle,
+            country: 'France',
+            postalCode: code_postal,
+            territory: libelle_commune,
+            email: administrateur_metier_data[:email],
+            phoneNumber: administrateur_metier_data[:phone_number].delete(' ').delete('.').delete('-'),
+            status: 'Actif'
+          }
+        end
+      else
+        raise
       end
     end
 
@@ -83,43 +87,46 @@ class HubEECertDCBridge < ApplicationBridge
     subscription_ids = []
 
     scopes = scopes.presence || ['CERTDC']
-
-    scopes.each do |scope|
-      create_subscription_response = faraday_connection.post do |req|
-        req.url "#{api_host}/referential/v1/subscriptions"
-        req.headers['Authorization'] = "Bearer #{access_token}"
-        req.headers['tag'] = 'Portail HubEE'
-        req.body = {
-          datapassId: id,
-          processCode: scope,
-          subscriber: {
-            type: 'SI',
-            companyRegister: siret,
-            branchCode: code_commune
-          },
-          accessMode: nil,
-          notificationFrequency: 'unitaire',
-          activateDateTime: nil,
-          validateDateTime: validated_at.iso8601,
-          rejectDateTime: nil,
-          endDateTime: nil,
-          updateDateTime: updated_at.iso8601,
-          delegationActor: nil,
-          rejectionReason: nil,
-          status: 'Inactif',
-          email: administrateur_metier_data[:email],
-          localAdministrator: {
+    begin
+      scopes.each do |scope|
+        create_subscription_response = faraday_connection.post do |req|
+          req.url "#{api_host}/referential/v1/subscriptions"
+          req.headers['Authorization'] = "Bearer #{access_token}"
+          req.headers['tag'] = 'Portail HubEE'
+          req.body = {
+            datapassId: id,
+            processCode: scope,
+            subscriber: {
+              type: 'SI',
+              companyRegister: siret,
+              branchCode: code_commune
+            },
+            accessMode: nil,
+            notificationFrequency: 'unitaire',
+            activateDateTime: nil,
+            validateDateTime: validated_at.iso8601,
+            rejectDateTime: nil,
+            endDateTime: nil,
+            updateDateTime: updated_at.iso8601,
+            delegationActor: nil,
+            rejectionReason: nil,
+            status: 'Inactif',
             email: administrateur_metier_data[:email],
-            firstName: administrateur_metier_data[:given_name],
-            lastName: administrateur_metier_data[:family_name],
-            function: administrateur_metier_data[:job_title],
-            phoneNumber: administrateur_metier_data[:phone_number].delete(' ').delete('.').delete('-'),
-            mobileNumber: nil
+            localAdministrator: {
+              email: administrateur_metier_data[:email],
+              firstName: administrateur_metier_data[:given_name],
+              lastName: administrateur_metier_data[:family_name],
+              function: administrateur_metier_data[:job_title],
+              phoneNumber: administrateur_metier_data[:phone_number].delete(' ').delete('.').delete('-'),
+              mobileNumber: nil
+            }
           }
-        }
-      end
+        end
 
-      subscription_ids.push (create_subscription_response)['id']
+        subscription_ids.push (create_subscription_response)['id']
+      end
+    rescue Faraday::BadRequestError => e
+      raise
     end
 
     subscription_ids.join(',')
