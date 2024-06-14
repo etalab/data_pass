@@ -127,7 +127,8 @@ class HubEECertDCBridge < ApplicationBridge
 
       end
     rescue Faraday::BadRequestError => e
-      raise
+      Rails.logger.errors(e)
+      raise e
     end
 
     subscription_ids.join(',')
