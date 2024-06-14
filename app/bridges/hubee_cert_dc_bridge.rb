@@ -23,7 +23,7 @@ class HubEECertDCBridge < ApplicationBridge
   private
 
   def create_enrollment_in_token_manager(
-    authorization_id,
+    id,
     administrateur_metier_data,
     siret,
     updated_at,
@@ -90,7 +90,7 @@ class HubEECertDCBridge < ApplicationBridge
         req.headers['Authorization'] = "Bearer #{access_token}"
         req.headers['tag'] = 'Portail HubEE'
         req.body = {
-          datapassId: authorization_id,
+          datapassId: id,
           processCode: scope,
           subscriber: {
             type: 'SI',
@@ -119,7 +119,7 @@ class HubEECertDCBridge < ApplicationBridge
         }
       end
 
-      subscription_ids.push (create_subscription_response)['authorization_id']
+      subscription_ids.push (create_subscription_response)['id']
     end
 
     subscription_ids.join(',')
