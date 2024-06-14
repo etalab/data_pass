@@ -7,10 +7,10 @@ class HubEECertDCBridge < ApplicationBridge
     updated_at = @authorization_request[:updated_at]
     validated_at = @authorization_request.last_validated_at
     scopes = @authorization_request.data['scopes']
-    authorization_id = @authorization_request.authorizations.last.id
+    id = @authorization_request[:id]
 
     linked_token_manager_id = create_enrollment_in_token_manager(
-      authorization_id,
+      id,
       administrateur_metier,
       siret,
       updated_at,
@@ -123,7 +123,8 @@ class HubEECertDCBridge < ApplicationBridge
           }
         end
 
-        subscription_ids.push (create_subscription_response)['id']
+        subscription_ids.push(create_subscription_response.body['id'])
+
       end
     rescue Faraday::BadRequestError => e
       raise
