@@ -1,4 +1,4 @@
-class HubEEServiceAuthentication
+class HubEE::HubEEServiceAuthentication
   def initialize(client_id, client_secret, hubee_auth_url)
     @client_id = client_id
     @client_secret = client_secret
