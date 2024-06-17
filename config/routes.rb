@@ -42,9 +42,10 @@ Rails.application.routes.draw do
       resources :authorization_request_from_templates, only: %i[index create], path: 'templates'
     end
 
+    get 'demandes/:id/reopen-from-external', to: 'external_reopen_authorization_requests#create'
+
     resources :authorizations, only: %i[show], path: 'habilitations' do
       resources :reopen_authorizations, only: %w[new create], path: 'réouvrir', as: :reopen
-      get 'reopen-from-external', to: 'reopen_authorizations#create', as: :reopen_from_external
     end
   end
 
