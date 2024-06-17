@@ -1,11 +1,12 @@
 class HubEE::SubscriptionService
-  def initialize(api_host, access_token, authorization_request, etablissement, scope, administrateur_metier_data)
+  def initialize(api_host, access_token, id, authorization_request, etablissement_response, scope, administrateur_metier_data)
     @api_host = api_host
     @access_token = access_token
     @authorization_request = authorization_request
-    @etablissement = etablissement
+    @etablissement_response = etablissement_response
     @scope = scope
     @administrateur_metier_data = administrateur_metier_data
+    @id = id
   end
 
   def create_subscriptions
@@ -21,12 +22,12 @@ class HubEE::SubscriptionService
 
   def subscription_body
     {
-      datapassId: @authorization_request[:id],
+      datapassId: @id,
       processCode: @scope,
       subscriber: {
         type: 'SI',
         companyRegister: @authorization_request.organization[:siret],
-        branchCode: @etablissement[:code_commune]
+        branchCode: @etablissement_response[:code_commune]
       },
       accessMode: nil,
       notificationFrequency: 'unitaire',

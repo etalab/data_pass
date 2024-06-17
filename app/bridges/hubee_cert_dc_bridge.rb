@@ -2,19 +2,15 @@ class HubEECertDCBridge < ApplicationBridge
   def perform
     @authorization_request = @authorization_request.decorate
 
-    administrateur_metier = @authorization_request.contact_data_by_type(:administrateur_metier)
+    administrateur_metier_data = @authorization_request.contact_data_by_type(:administrateur_metier)
     siret = @authorization_request.organization[:siret]
-    updated_at = @authorization_request[:updated_at]
-    validated_at = @authorization_request.last_validated_at
     scopes = @authorization_request.data['scopes']
     id = @authorization_request[:id]
 
     linked_token_manager_id = create_enrollment_in_token_manager(
       id,
-      administrateur_metier,
+      administrateur_metier_data,
       siret,
-      updated_at,
-      validated_at,
       scopes
     )
     @authorization_request.update({ linked_token_manager_id: })
@@ -26,19 +22,11 @@ class HubEECertDCBridge < ApplicationBridge
     id,
     administrateur_metier_data,
     siret,
-    updated_at,
-    validated_at,
     scopes
   )
     etablissement = INSEESireneAPIClient.new.etablissement(siret:)['etablissement']
 
-    response = format_etablissement(etablissement)
-
-    # denomination = response[:denomination]
-    # sigle = response[:sigle]
-    # code_postal = response[:code_postal]
-    code_commune = response[:code_commune]
-    # libelle_commune = response[:libelle_commune]
+    etablissement_response = format_etablissement(etablissement)
 
     api_host = hubee_configuration[:host]
     hubee_auth_url = hubee_configuration[:auth_url]
@@ -50,42 +38,10 @@ class HubEECertDCBridge < ApplicationBridge
     token_response = token_service.retrieve_body
     access_token = JSON.parse(token_response.body)['access_token']
 
-    # 2.1 get organization
+    # 2.1 get organization or create organization
 
-    organization_service = HubEE::OrganizationService.new(api_host, access_token, siret, code_commune, response, administrateur_metier_data)
+    organization_service = HubEE::OrganizationService.new(api_host, access_token, siret, etablissement_response, administrateur_metier_data)
     organization_service.retrieve_or_create_organization
-
-    # begin
-    #   faraday_connection.get do |req|
-    #     req.url "#{api_host}/referential/v1/organizations/SI-#{siret}-#{code_commune}"
-    #     req.headers['Authorization'] = "Bearer #{access_token}"
-    #     req.headers['tag'] = 'Portail HubEE'
-    #   end
-    # rescue Faraday::ResourceNotFound => e
-    #   # 2.2 if organization does not exist, create the organization
-    #   if e.response_status == 404
-    #     faraday_connection.post do |req|
-    #       req.url "#{api_host}/referential/v1/organizations"
-    #       req.headers['Authorization'] = "Bearer #{access_token}"
-    #       req.headers['tag'] = 'Portail HubEE'
-    #       req.body = {
-    #         type: 'SI',
-    #         companyRegister: siret,
-    #         branchCode: code_commune,
-    #         name: denomination,
-    #         code: sigle,
-    #         country: 'France',
-    #         postalCode: code_postal,
-    #         territory: libelle_commune,
-    #         email: administrateur_metier_data[:email],
-    #         phoneNumber: administrateur_metier_data[:phone_number].delete(' ').delete('.').delete('-'),
-    #         status: 'Actif'
-    #       }
-    #     end
-    #   else
-    #     raise
-    #   end
-    # end
 
     # 3. create subscriptions
     subscription_ids = []
@@ -93,45 +49,11 @@ class HubEECertDCBridge < ApplicationBridge
     scopes = scopes.presence || ['CERTDC']
     begin
       scopes.each do |scope|
-        create_subscription_response = HubEE::SubscriptionService.new(api_host, access_token, @authorization_request, response, scope, administrateur_metier_data).create_subscriptions
+        create_subscription_response = HubEE::SubscriptionService.new(api_host, access_token, id, @authorization_request, etablissement_response, scope, administrateur_metier_data).create_subscriptions
         subscription_ids.push(create_subscription_response.body['id'])
-
-        # create_subscription_response = faraday_connection.post do |req|
-        #   req.url "#{api_host}/referential/v1/subscriptions"
-        #   req.headers['Authorization'] = "Bearer #{access_token}"
-        #   req.headers['tag'] = 'Portail HubEE'
-        #   req.body = {
-        #     datapassId: id,
-        #     processCode: scope,
-        #     subscriber: {
-        #       type: 'SI',
-        #       companyRegister: siret,
-        #       branchCode: code_commune
-        #     },
-        #     accessMode: nil,
-        #     notificationFrequency: 'unitaire',
-        #     activateDateTime: nil,
-        #     validateDateTime: validated_at.iso8601,
-        #     rejectDateTime: nil,
-        #     endDateTime: nil,
-        #     updateDateTime: updated_at.iso8601,
-        #     delegationActor: nil,
-        #     rejectionReason: nil,
-        #     status: 'Inactif',
-        #     email: administrateur_metier_data[:email],
-        #     localAdministrator: {
-        #       email: administrateur_metier_data[:email],
-        #       firstName: administrateur_metier_data[:given_name],
-        #       lastName: administrateur_metier_data[:family_name],
-        #       function: administrateur_metier_data[:job_title],
-        #       phoneNumber: administrateur_metier_data[:phone_number].delete(' ').delete('.').delete('-'),
-        #       mobileNumber: nil
-        #     }
-        #   }
-
       end
     rescue Faraday::BadRequestError => e
-      Rails.logger.errors(e)
+      Rails.logger.error(e)
       raise e
     end
 
