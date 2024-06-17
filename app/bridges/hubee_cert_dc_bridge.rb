@@ -1,14 +1,14 @@
 class HubEECertDCBridge < ApplicationBridge
   def perform
-    @authorization_request = @authorization_request.decorate
-
-    administrateur_metier_data = @authorization_request.contact_data_by_type(:administrateur_metier)
-    siret = @authorization_request.organization[:siret]
-    scopes = @authorization_request.data['scopes']
-    id = @authorization_request[:id]
+    authorization_request = @authorization_request.decorate
+    administrateur_metier_data = authorization_request.contact_data_by_type(:administrateur_metier)
+    siret = authorization_request.organization[:siret]
+    scopes = authorization_request.data['scopes']
+    id = authorization_request[:id]
 
     linked_token_manager_id = create_enrollment_in_token_manager(
       id,
+      authorization_request,
       administrateur_metier_data,
       siret,
       scopes
@@ -20,36 +20,46 @@ class HubEECertDCBridge < ApplicationBridge
 
   def create_enrollment_in_token_manager(
     id,
+    authorization_request,
     administrateur_metier_data,
     siret,
     scopes
   )
     etablissement = INSEESireneAPIClient.new.etablissement(siret:)['etablissement']
-
     etablissement_response = format_etablissement(etablissement)
 
-    api_host = hubee_configuration[:host]
+    access_token = get_token
+    get_or_create_organization(access_token, siret, etablissement_response, administrateur_metier_data)
+    create_subscription(access_token, id, authorization_request, etablissement_response, scopes, administrateur_metier_data)
+  end
+
+  def get_token
     hubee_auth_url = hubee_configuration[:auth_url]
     client_id = hubee_configuration[:client_id]
     client_secret = hubee_configuration[:client_secret]
 
-    # 1. get token
     token_service = HubEE::HubEEServiceAuthentication.new(client_id, client_secret, hubee_auth_url)
     token_response = token_service.retrieve_body
-    access_token = JSON.parse(token_response.body)['access_token']
 
-    # 2.1 get organization or create organization
+    JSON.parse(token_response.body)['access_token']
+  end
+
+  def get_or_create_organization(access_token, siret, etablissement_response, administrateur_metier_data)
+    api_host = hubee_configuration[:host]
 
     organization_service = HubEE::OrganizationService.new(api_host, access_token, siret, etablissement_response, administrateur_metier_data)
     organization_service.retrieve_or_create_organization
+  end
 
-    # 3. create subscriptions
+  def create_subscription(access_token, id, authorization_request, etablissement_response, scopes, administrateur_metier_data)
+    api_host = hubee_configuration[:host]
+
     subscription_ids = []
 
     scopes = scopes.presence || ['CERTDC']
     begin
       scopes.each do |scope|
-        create_subscription_response = HubEE::SubscriptionService.new(api_host, access_token, id, @authorization_request, etablissement_response, scope, administrateur_metier_data).create_subscriptions
+        create_subscription_response = HubEE::SubscriptionService.new(api_host, access_token, id, authorization_request, etablissement_response, scope, administrateur_metier_data).create_subscriptions
         subscription_ids.push(create_subscription_response.body['id'])
       end
     rescue Faraday::BadRequestError => e
