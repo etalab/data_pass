@@ -22,8 +22,7 @@ module AuthorizationExtensions::Modalities
         end
 
         validates :modalities, options[:validation] if options[:validation].present?
-        extra_attr
-        ibutes.push(:modalities)
+        extra_attributes.push(:modalities)
       end
     end
     # rubocop:enable Metrics/MethodLength
