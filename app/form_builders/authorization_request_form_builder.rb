@@ -123,10 +123,10 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
     end
   end
 
-  def dsfr_modality(scope, opts = {})
-    # disabled = opts.delete(:disabled)
+  def dsfr_modality(modality, opts = {})
+    disabled = opts.delete(:disabled)
 
-    # disabled = @object.disabled_scopes.include?(scope) if disabled.blank?
+    disabled = @object.disabled_modalities.include?(modality) if disabled.blank?
 
     @template.content_tag(:div, class: 'fr-checkbox-group') do
       @template.safe_join(
@@ -135,14 +135,14 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
             :modalities,
             {
               class: input_classes(opts),
-              **dsfr_scope_options(scope, disabled: false),
+              **dsfr_scope_options(modality, disabled: false),
               **enhance_input_options(opts).except(:class)
             },
-            scope.value,
+            modality.value,
             nil
           ),
-          dsfr_modality_label(scope),
-          include_scope_hidden_field?(scope, false) ? scope_hidden_field(scope) : nil
+          dsfr_modality_label(modality),
+          include_scope_hidden_field?(modality, false) ? scope_hidden_field(modality) : nil
         ].compact
       )
     end
@@ -159,7 +159,7 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
 
   def dsfr_scope_options(scope, disabled: false)
     {
-      disabled: false, #disabled || check_box_disabled || scope.included?,
+      disabled: disabled || check_box_disabled || scope.included?,
       checked: scope.included? || @object.scopes.include?(scope.value),
       multiple: true,
     }
