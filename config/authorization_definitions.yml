@@ -50,7 +50,7 @@ shared:
       - name: 'scopes'
       - name: 'contacts'
     scopes:
-      - name: "Données unités légales et établissements du répertoire Sirene - Insee (diffusibles et non-diffusibles)"
+      - name: "Données unités légales et établissements du répertoire Sirene - Insee (diffusibles et non-diffusibles) | 🔐"
         group: 'Informations générales'
         value: 'unites_legales_etablissements_insee'
         link: 'https://entreprise.api.gouv.fr/catalogue?APIEntreprise_Endpoint%5Bquery%5D=insee'
@@ -106,7 +106,7 @@ shared:
         group: "Informations financières"
         value: "chiffre_affaires_dgfip"
         link: "https://entreprise.api.gouv.fr/catalogue/dgfip/chiffres_affaires"
-      - name: "3 derniers bilans annuels - Banque de France"
+      - name: "3 derniers bilans annuels - Banque de France | 🔐"
         group: "Informations financières"
         value: "bilans_bdf"
         link: "https://entreprise.api.gouv.fr/catalogue/banque_de_france/bilans"
