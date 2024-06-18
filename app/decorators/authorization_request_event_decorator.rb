@@ -39,8 +39,6 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
   end
   # rubocop:enable Metrics/AbcSize
 
-  alias comment text # see WebhookEventSerializer
-
   def copied_from_authorization_request_id
     return unless name == 'copy'
 
