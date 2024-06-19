@@ -17,6 +17,7 @@ require 'simplecov'
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require 'capybara/rspec'
 require 'webmock/rspec'
+require 'vcr'
 
 RSpec.configure do |config|
   config.before(:all) do
@@ -43,6 +44,21 @@ RSpec.configure do |config|
     # a real object. This is generally recommended, and will default to
     # `true` in RSpec 4.
     mocks.verify_partial_doubles = true
+  end
+
+  VCR.configure do |config|
+    config.cassette_library_dir = 'spec/vcr_cassettes'
+    config.hook_into :webmock
+    config.configure_rspec_metadata!
+    config.allow_http_connections_when_no_cassette = true
+
+    # Filtrer les informations sensibles
+    config.filter_sensitive_data('<INSEE_CONSUMMER_KEY>') { Rails.application.credentials.insee_consumer_key }
+    config.filter_sensitive_data('<INSEE_CONSUMMER_SECRET>') { Rails.application.credentials.insee_consumer_secret }
+    config.filter_sensitive_data('<HUBEE_CLIENT_ID>') { Rails.application.credentials.hubee[:client_id] }
+    config.filter_sensitive_data('<HUBEE_CLIENT_SECRET>') { Rails.application.credentials.hubee[:client_secret] }
+    config.filter_sensitive_data('<HUBEE_AUTH_URL>') { Rails.application.credentials.hubee[:auth_url] }
+    config.filter_sensitive_data('<HUBEE_HOST>') { Rails.application.credentials.hubee[:host] }
   end
 
   # This option will default to `:apply_to_host_groups` in RSpec 4 (and will

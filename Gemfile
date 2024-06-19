@@ -73,4 +73,5 @@ group :test do
   gem 'rspec-rails', '6.1.2'
   gem 'simplecov', require: false
   gem 'webmock'
+  gem 'vcr'
 end
