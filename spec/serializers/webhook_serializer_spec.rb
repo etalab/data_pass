@@ -8,18 +8,25 @@ RSpec.describe WebhookSerializer, type: :serializer do
     it 'contains valid keys/values' do
       expect(serializable_hash).to include(
         event: 'whatever',
+        fired_at: instance_of(Integer),
         model_type: 'authorization_request/api_entreprise',
+        model_id: authorization_request.id,
+        data: hash_including(
+          id: authorization_request.id,
+          state: authorization_request.state,
+          form_uid: authorization_request.form_uid,
+          organization: hash_including(
+            siret: authorization_request.organization.siret,
+          ),
+          applicant: hash_including(
+            email: authorization_request.applicant.email,
+          ),
+          data: hash_including(
+            intitule: authorization_request.intitule,
+            scopes: authorization_request.scopes,
+          )
+        )
       )
-
-      expect(serializable_hash[:data]).to be_a(Hash)
-      expect(serializable_hash[:data][:state]).to eq('validated')
-      expect(serializable_hash[:data][:data][:intitule]).to eq(authorization_request.intitule)
-
-      expect(serializable_hash[:data][:applicant]).to be_a(Hash)
-      expect(serializable_hash[:data][:applicant][:id]).to eq(authorization_request.applicant_id)
-
-      expect(serializable_hash[:data][:organization]).to be_a(Hash)
-      expect(serializable_hash[:data][:organization][:siret]).to eq(authorization_request.organization.siret)
     end
   end
 end
