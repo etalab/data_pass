@@ -4,6 +4,7 @@ fr:
       steps:
         basic_infos: "Mon projet"
         personal_data: "Le traitement des données"
+        modalities: "Modalités d'appel"
         legal: "Le cadre juridique"
         scopes: "Les données"
         contacts: "Les personnes impliquées"
@@ -81,6 +82,10 @@ fr:
       scopes:
         info:
           title: Comment choisir les données ?
+
+      modalities:
+        title: Quelles modalités d’appel souhaitez vous utiliser ?
+        info: Sélectionnez au moins une des modélités d’appel dans la liste ci-dessous.
 
     hubee_cert_dc:
       administrateur_metier:

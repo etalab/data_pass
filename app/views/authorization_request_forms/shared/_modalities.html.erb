@@ -1,9 +1,21 @@
 <%= f.info_for(:modalities) %>
 
-<% @authorization_request.available_modalities.each do |modality| %>
-  <div class="modalities-group__grid">
-    <%= f.dsfr_modality modality %>
+<div class="modalities-block">
+  <h4 class="modalities-title">
+    <%= t('authorization_request_forms.default.modalities.title') %>
+  </h4>
+
+  <h6 class="modalities-title">
+    <%= t('authorization_request_forms.default.modalities.info') %>
+  </h6>
+
+  <div class="fr-form-group">
+    <% @authorization_request.available_modalities.each do |modality| %>
+      <div class="modalities-group__block">
+        <%= f.dsfr_modality modality %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>
 
 <%= f.hidden_field :modalities, value: '', name: "#{@authorization_request.model_name.param_key}[modalities][]" %>
