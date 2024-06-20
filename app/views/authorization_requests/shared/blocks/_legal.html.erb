@@ -6,8 +6,22 @@
   <%= simple_format(@authorization_request.cadre_juridique_nature) %>
 
   <% if @authorization_request.cadre_juridique_url.present? %>
-    Lien relatif au traitement : <%= link_to @authorization_request.cadre_juridique_url, @authorization_request.cadre_juridique_url, target: '_blank' %>
-  <% elsif @authorization_request.cadre_juridique_document.attached? %>
-    Document relatif au traitement : <%= link_to @authorization_request.cadre_juridique_document.filename, url_for(@authorization_request.cadre_juridique_document), target: '_blank' %>
+    <p>
+      <strong>
+        Lien relatif au traitement :
+      </strong>
+
+      <%= link_to @authorization_request.cadre_juridique_url, @authorization_request.cadre_juridique_url, target: '_blank' %>
+    </p>
+  <% end %>
+
+  <% if @authorization_request.cadre_juridique_document.attached? %>
+    <p>
+      <strong>
+        Document relatif au traitement :
+      </strong>
+
+      <%= link_to @authorization_request.cadre_juridique_document.filename, url_for(@authorization_request.cadre_juridique_document), target: '_blank' %>
+    </p>
   <% end %>
 <% end %>
