@@ -1,0 +1,42 @@
+.legal-border-card {
+    border: 1px solid var(--border-default-grey);
+    padding: 2rem 2rem 2rem 2rem;
+    margin-bottom: 2rem;
+}
+
+.legal-subtitle {
+    color: var(--text-action-high-blue-france);
+}
+
+.legal-bloc-space {
+    padding-top: 1.5rem;
+}
+
+.legal-text__bold {
+    font-weight: bold;
+}
+
+.legal-bloc-separation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 15vh;
+}
+
+.legal-line {
+    flex: 1;
+    height: 1px;
+    background-color: var(--border-default-grey);
+}
+
+.legal-centered__element {
+    padding: 0 1.25rem;
+}
+
+.legal-centered__element p {
+    margin: 0;
+}
+
+.legal-input__width {
+    max-width: 50%;
+}

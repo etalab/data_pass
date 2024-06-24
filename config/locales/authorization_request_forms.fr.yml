@@ -9,6 +9,7 @@ fr:
         contacts: "Les personnes impliquées"
         modalities: "Les modalités d'accès"
         finish: "La synthèse"
+
       terms_of_service_accepted:
         label: J'ai pris connaissance des&nbsp;<a href="%{link}" target="_blank">conditions générales d'utilisation</a>&nbsp;et je les valide.
       intitule:
@@ -183,6 +184,14 @@ fr:
     api_entreprise_atexo: *api_entreprise_contacts_editeur
 
     api_particulier:
+      steps:
+        basic_infos: "Mon projet"
+        personal_data: "Le traitement des données"
+        legal: "Justification du traitement des données personnelles"
+        scopes: "Les données"
+        contacts: "Les personnes impliquées"
+        finish: "La synthèse"
+
       modalities:
         intro: "Vous pourrez accéder au service API Particulier via les modalités ci-dessous :"
         values:
@@ -190,6 +199,7 @@ fr:
             label: Via un jeton d'accès, accompagné des paramètres usagers.
           formulaire_qf:
             label: Via l'utilisation du formulaire national QF (Quotient Familial). Plus d'infos <a href="https://quotient-familial.numerique.gouv.fr/" target="_blank">ici</a>.
+
       scopes:
         info:
           content: |
