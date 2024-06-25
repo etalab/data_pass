@@ -1,0 +1,17 @@
+#!/bin/bash
+
+app_name=datapass_reborn
+valid_environments=('production' 'staging' 'sandbox')
+
+if [ $# -eq 1 ] ; then
+  env=$1
+else
+  env="production"
+fi
+
+if ! [[ "${valid_environments[@]}" =~ $env ]]; then
+  echo "$env is not a valid environment"
+  exit 3
+fi
+
+ssh -t watchdoge -- /usr/local/bin/console_${app_name}_${env}.sh
