@@ -2,7 +2,7 @@
 
 user=skelz0r
 host=watchdoge
-pg_password=`cat app/migration/.pgpassword`
+v1_pg_password=`cat app/migration/.v1-pgpassword`
 
 cd /var/www/datapass_reborn_$RAILS_ENV/current
 
@@ -18,10 +18,11 @@ export RAILS_ENV LOCAL SKIP_DOCUMENT_VALIDATION
 
 echo ">> Maintenance mode ON"
 sudo cp app/migration/maintenance.html /var/www/html/maintenance_datapass_$RAILS_ENV.html
+sudo service nginx reload
 sudo chmod 644 /var/www/html/maintenance_datapass_$RAILS_ENV.html
 
-echo ">> Export des dumps"
-echo "localhost:5432:datapass_production:datapass_production:$pg_password" > ~/.pgpass && chmod 600 ~/.pgpass
+echo ">> Export des dumps de la v1"
+echo "localhost:5432:datapass_production:datapass_production:$v1_pg_password" > ~/.pgpass && chmod 600 ~/.pgpass
 tables=(enrollments users team_members events organizations documents snapshots snapshot_items)
 
 for table in "${tables[@]}"

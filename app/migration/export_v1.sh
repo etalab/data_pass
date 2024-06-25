@@ -2,7 +2,7 @@
 
 user=skelz0r
 host=watchdoge
-pg_password=`cat app/migration/.pgpassword`
+pg_password=`cat app/migration/.v1-pgpassword`
 
 echo ">> Init pg access"
 ssh $user@$host "echo \"localhost:5432:datapass_production:datapass_production:$pg_password\" > ~/.pgpass && chmod 600 ~/.pgpass && mkdir dumps 2> /dev/null"

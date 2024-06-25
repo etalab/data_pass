@@ -3,8 +3,11 @@ require 'csv'
 class MainImport
   include ImportUtils
 
+  attr_reader :skipped, :warned
+
   def initialize
     @skipped = []
+    @warned = []
   end
 
   def perform
@@ -12,10 +15,12 @@ class MainImport
     import(:users, { load_from_sql: true })
     authorization_requests = import(:authorization_requests, { dump_sql: true })
 
-    import(:authorization_request_events, { dump_sql: true, valid_authorization_request_ids: authorization_requests.pluck(:id) })
+    # import(:authorization_request_events, { dump_sql: true, valid_authorization_request_ids: authorization_requests.pluck(:id) })
 
-    export_skipped
-    print_skipped_stats
+    %i[warned skipped].each do |kind|
+      export(kind)
+      print_stats(kind)
+    end
   end
 
   private
@@ -24,43 +29,52 @@ class MainImport
     Import.const_get(klass_name.to_s.classify << 's').new(options.merge(global_options)).perform
   end
 
-  def export_skipped
-    log("# Skipped: #{@skipped.count}")
+  def export(kind)
+    data = public_send(kind)
+    log("# #{kind}: #{data.count}")
 
-    CSV.open(export_path, 'w') do |csv|
+    CSV.open(export_path(kind), 'w') do |csv|
       csv << %w[id target_api kind]
 
-      @skipped.each do |skipped|
-        csv << [skipped.id, skipped.target_api, skipped.kind]
+      data.each do |datum|
+        csv << [datum.id, datum.target_api, datum.kind]
       end
     end
   end
 
-  def print_skipped_stats
-    log('Skipped stats:')
+  def print_stats(kind)
+    data = public_send(kind)
+    log("#{kind.to_s.humanize} stats:")
 
     log('  - by target_api:')
-    @skipped.group_by(&:target_api).each do |target_api, skipped|
+    data.group_by(&:target_api).each do |target_api, skipped|
       log("  #{target_api}: #{skipped.count}")
     end
 
     log('  - by error type:')
-    @skipped.group_by(&:kind).each do |kind, skipped|
-      log("  #{kind}: #{skipped.count}")
+    data.group_by(&:kind).each do |k, skipped|
+      log("  #{k}: #{skipped.count}")
     end
   end
 
-  def export_path
-    Rails.root.join('app/migration/dumps/skipped.csv')
+  def export_path(kind)
+    Rails.root.join("app/migration/dumps/#{kind}.csv")
   end
 
   def global_options
     {
       authorization_requests_filter: ->(enrollment_row) do
-        %w[44082].exclude?(enrollment_row['id'])
+        %w[
+          5
+          26
+          129
+          25590
+          54115
+        ].exclude?(enrollment_row['id'])
       end,
-      authorization_requests_sql_where: 'target_api = \'api_entreprise\'',
+      authorization_requests_sql_where: 'target_api = \'api_particulier\'',
       skipped: @skipped,
+      warned: @warned,
     }
   end
 

@@ -5,7 +5,7 @@ class Import::AuthorizationRequests::Base
   include ImportUtils
   include LocalDatabaseUtils
 
-  class SkipRow < StandardError
+  class AbstractRow  < StandardError
     attr_reader :kind, :id, :target_api
 
     def initialize(kind = nil, id:, target_api:)
@@ -15,12 +15,16 @@ class Import::AuthorizationRequests::Base
     end
   end
 
+  class SkipRow < AbstractRow; end
+  class WarnRow < AbstractRow; end
+
   attr_reader :authorization_request, :enrollment_row, :team_members
 
-  def initialize(authorization_request, enrollment_row, team_members)
+  def initialize(authorization_request, enrollment_row, team_members, warned)
     @authorization_request = authorization_request
     @enrollment_row = enrollment_row
     @team_members = team_members
+    @warned = warned
   end
 
   def perform
@@ -62,6 +66,94 @@ class Import::AuthorizationRequests::Base
     team_member.to_h
   end
 
+  def affect_contact(from_contact, to_contact)
+    contact_data = find_team_member_by_type(from_contact)
+
+    contact_data['email'] = find_team_member_by_type('responsable_technique')['email'] if enrollment_row['id'] == '848' && to_contact == 'contact_metier'
+
+    if %w[draft archived changes_requested].include?(authorization_request.state)
+      affect_team_attributes(contact_data, to_contact)
+    elsif team_member_incomplete?(contact_data)
+      user = User.find_by(email: contact_data['email'])
+
+      if user && !team_member_incomplete?(user)
+        affect_team_attributes(user.attributes.slice(*AuthorizationRequest.contact_attributes), to_contact)
+        return
+      end
+
+      if contact_data['email']
+        others_team_members = database.execute('select * from team_members where email = ?', contact_data['email']).to_a.map do |row|
+          JSON.parse(row[-1]).to_h
+        end
+
+        potential_valid_team_member = others_team_members.select do |data|
+          %w[given_name family_name phone_number job].all? { |key| data[key].present? }
+        end.max do |data|
+          data['id'].to_i
+        end
+
+        if potential_valid_team_member
+          potential_valid_team_member['job_title'] ||= potential_valid_team_member.delete('job')
+
+          affect_team_attributes(potential_valid_team_member, to_contact)
+          return
+        end
+
+        potential_team_member_with_family_name = others_team_members.select do |data|
+          data['family_name'].present?
+        end.max do |data|
+          data['id'].to_i
+        end
+
+        if potential_team_member_with_family_name.present?
+          potential_team_member_with_family_name['job_title'] = potential_team_member_with_family_name.delete('job')
+
+          if potential_team_member_with_family_name['family_name'].present? && potential_team_member_with_family_name['family_name'].include?(' ')
+            potential_team_member_with_family_name['family_name'], potential_team_member_with_family_name['given_name'] = potential_team_member_with_family_name['family_name'].split(' ', 2)
+          else
+            potential_team_member_with_family_name['given_name'] = 'Non renseigné'
+          end
+
+          if potential_team_member_with_family_name['job_title'].blank?
+            potential_team_member_with_family_name['job_title'] = 'Non renseigné'
+          end
+
+          if potential_team_member_with_family_name['phone_number'].blank?
+            potential_team_member_with_family_name['phone_number'] = 'Non renseigné'
+          end
+
+          if %w[given_name family_name phone_number job_title].any? { |key| potential_team_member_with_family_name[key] == 'Non renseigné' }
+            warn_row!("#{to_contact}_incomplete".to_sym)
+          end
+
+          if %w[given_name family_name phone_number job_title].all? { |key| potential_team_member_with_family_name[key].present? }
+            affect_team_attributes(potential_team_member_with_family_name, to_contact)
+            return
+          end
+        end
+
+        if contact_data['email'].present?
+          %w[given_name family_name phone_number job_title].each do |key|
+            contact_data[key] = 'Non renseigné' if contact_data[key].blank?
+          end
+
+          affect_team_attributes(contact_data, to_contact)
+          return
+        end
+      end
+
+      byebug
+
+      if recent_validated_enrollment_exists?
+        skip_row!('incomplete_contact_data_with_new_enrollments')
+      else
+        skip_row!('incomplete_contact_data_without_new_enrollments')
+      end
+    else
+      affect_team_attributes(contact_data, to_contact)
+    end
+  end
+
   def affect_team_attributes(team_member_attributes, contact_type)
     AuthorizationRequest.contact_attributes.each do |contact_attribute|
       authorization_request.send(
@@ -87,6 +179,10 @@ class Import::AuthorizationRequests::Base
 
   def skip_row!(kind)
     raise SkipRow.new(kind.to_s, id: enrollment_row['id'], target_api: enrollment_row['target_api'])
+  end
+
+  def warn_row!(kind)
+    @warned << WarnRow.new(kind.to_s, id: enrollment_row['id'], target_api: enrollment_row['target_api'])
   end
 
   def attach_file(kind, row_data)

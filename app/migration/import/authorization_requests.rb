@@ -49,6 +49,7 @@ class Import::AuthorizationRequests < Import::Base
         active_storage_variant_records
         users
         organizations
+        organizations_users
       ]
     )
   end
@@ -173,6 +174,7 @@ class Import::AuthorizationRequests < Import::Base
       authorization_request,
       enrollment_row,
       fetch_team_members(enrollment_row['id']),
+      options[:warned],
     ).perform
   end
 
