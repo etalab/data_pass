@@ -5,8 +5,17 @@ class HubEEAPIClient
     end.get("https://hubee.fr/referential/v1/organizations/SI-#{organization.siret}-#{organization.code_commune}").body
   end
 
-  def create_subscription(hubee_organization, process_code)
-    # do nothing
+  def create_subscription(authorization_request, hubee_organization, process_code)
+    http_connection do |conn|
+      conn.headers['Authorization'] = "Bearer #{access_token}"
+      conn.request :json
+    end.post(
+      "https://hubee.fr/referential/v1/subscriptions",
+    ) do |req|
+      req.body = {
+        'datapassId': authorization_request.id,
+      }.to_json
+    end
   end
 
   def access_token
