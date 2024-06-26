@@ -22,6 +22,10 @@ class Organization < ApplicationRecord
     mon_compte_pro_payload['label']
   end
 
+  def code_commune
+    insee_payload['etablissement']['adresseEtablissement']['codeCommuneEtablissement']
+  end
+
   def categorie_juridique
     return unless insee_payload
 
