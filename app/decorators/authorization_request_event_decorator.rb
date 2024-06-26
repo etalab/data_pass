@@ -22,7 +22,7 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
     end
   end
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def text
     case name
     when 'refuse', 'request_changes', 'revoke'
@@ -34,10 +34,14 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
     when 'applicant_message', 'instructor_message'
       h.simple_format(entity.body)
     when 'transfer'
-      "#{entity.to.full_name} (#{entity.to.email})"
+      if entity.from_type == 'User'
+        "#{entity.to.full_name} (#{entity.to.email})"
+      else
+        "l'organisation #{entity.to.raison_sociale} (numéro SIRET : #{entity.to.siret})"
+      end
     end
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def copied_from_authorization_request_id
     return unless name == 'copy'

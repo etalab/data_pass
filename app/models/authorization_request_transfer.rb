@@ -1,9 +1,9 @@
 class AuthorizationRequestTransfer < ApplicationRecord
   belongs_to :authorization_request
   belongs_to :from,
-    class_name: 'User'
+    polymorphic: true
   belongs_to :to,
-    class_name: 'User'
+    polymorphic: true
 
   has_one :event,
     class_name: 'AuthorizationRequestEvent',
@@ -16,15 +16,23 @@ class AuthorizationRequestTransfer < ApplicationRecord
     class_name: 'User'
 
   validate :users_are_from_the_same_organization
-  validate :users_are_different
+  validate :entities_are_different
+  validate :entities_are_same_type
+
+  def entities_are_same_type
+    return if from_type == to_type
+
+    errors.add(:to, :different_type)
+  end
 
   def users_are_from_the_same_organization
+    return if from_type == 'Organization' || to_type == 'Organization'
     return if from.organization_ids.intersect?(to.organization_ids)
 
     errors.add(:to, :different_organization)
   end
 
-  def users_are_different
+  def entities_are_different
     return if from_id != to_id
 
     errors.add(:to, :different_user)

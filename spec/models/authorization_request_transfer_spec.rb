@@ -1,6 +1,18 @@
 RSpec.describe AuthorizationRequestTransfer do
   it 'has valid factories' do
     expect(build(:authorization_request_transfer)).to be_valid
+    expect(build(:authorization_request_transfer, entity: :organization)).to be_valid
+  end
+
+  describe 'entity kind validations' do
+    subject { build(:authorization_request_transfer, from:, to:) }
+
+    context 'when entities are different' do
+      let(:from) { create(:user) }
+      let(:to) { create(:organization) }
+
+      it { is_expected.not_to be_valid }
+    end
   end
 
   describe 'from and to users validation' do
@@ -27,5 +39,14 @@ RSpec.describe AuthorizationRequestTransfer do
         it { is_expected.to be_valid }
       end
     end
+  end
+
+  describe 'from and to organizations validation' do
+    subject { build(:authorization_request_transfer, from: from_organization, to: to_organization) }
+
+    let(:from_organization) { create(:organization) }
+    let(:to_organization) { create(:organization) }
+
+    it { is_expected.to be_valid }
   end
 end

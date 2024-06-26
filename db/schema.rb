@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_06_144601) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_26_133625) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pgcrypto"
@@ -79,6 +79,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_06_144601) do
     t.bigint "to_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "from_type", null: false
+    t.string "to_type", null: false
     t.index ["authorization_request_id"], name: "idx_on_authorization_request_id_a4275ef675"
     t.index ["from_id"], name: "index_authorization_request_transfers_on_from_id"
     t.index ["to_id"], name: "index_authorization_request_transfers_on_to_id"
@@ -282,8 +284,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_06_144601) do
   add_foreign_key "authorization_documents", "authorizations"
   add_foreign_key "authorization_request_changelogs", "authorization_requests"
   add_foreign_key "authorization_request_transfers", "authorization_requests"
-  add_foreign_key "authorization_request_transfers", "users", column: "from_id"
-  add_foreign_key "authorization_request_transfers", "users", column: "to_id"
   add_foreign_key "authorization_requests", "authorization_requests", column: "next_request_copied_id"
   add_foreign_key "authorizations", "authorization_requests", column: "request_id"
   add_foreign_key "authorizations", "users", column: "applicant_id"
