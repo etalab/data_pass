@@ -6,17 +6,32 @@ class ApplicationMailer < ActionMailer::Base
   before_action :extract_host
 
   def extract_host
-    ActionMailer::Base.default_url_options[:host] = current_host
+    if params[:authorization_request].present?
+      build_host_from_authorization_request(params[:authorization_request])
+    elsif params[:message].present?
+      build_host_from_authorization_request(params[:message].authorization_request)
+    end
   end
 
-  def current_host
+  def default_url_options
+    {
+      host: @host
+    }
+  end
+
+  def build_host_from_authorization_request(authorization_request)
+    subdomain = Subdomain.find_for_authorization_request(authorization_request)
+    @host = build_host_from_env(subdomain)
+  end
+
+  def build_host_from_env(subdomain)
     case Rails.env
     when 'production'
-      'https://api-entreprise.v2.datapass.api.gouv.fr'
+      "https://#{subdomain.id}.v2.datapass.api.gouv.fr"
     when 'test', 'development'
       'http://localhost:3000'
     else
-      "https://#{Rails.env}.api-entreprise.v2.datapass.api.gouv.fr"
+      "https://#{Rails.env}.#{subdomain.id}.v2.datapass.api.gouv.fr"
     end
   end
 end
