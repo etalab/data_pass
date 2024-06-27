@@ -8,6 +8,12 @@
 
         <h2 class="authorization-request-form-header__kind">
           <%= @authorization_request.definition.name %>
+
+          <% if @authorization_request.form.editor.present? %>
+            <span class="authorization-request-form-header__editor-name">
+              | <%= t('.editor_name', name: @authorization_request.form.editor.name) %>
+            </span>
+          <% end %>
         </h2>
 
         <%= render partial: "authorization_request_forms/shared/header_badge", locals: { authorization_request: @authorization_request } %>
