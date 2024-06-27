@@ -24,6 +24,12 @@ class Subdomain < StaticApplicationRecord
     )
   end
 
+  def self.find_for_authorization_request(authorization_request)
+    all.find do |subdomain|
+      subdomain.authorization_definitions.map(&:id).include?(authorization_request.definition.id)
+    end
+  end
+
   def authorization_request_types
     authorization_definitions.map(&:authorization_request_class).flatten.uniq.map(&:to_s)
   end
