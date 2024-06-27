@@ -223,6 +223,18 @@ authorization_request_forms:
         Info sur mon contact technique
 ```
 
+Il est possible, uniquement pour les infos des contacts, de modifier par
+formulaire. Par exemple pour le formulaire ayant l'id "mon-formulaire" pour
+le type d'habilitation "mon_api":
+
+```yaml
+authorization_request_forms:
+  mon_formulaire:
+    contact_technique:
+      info: |
+        Info sur mon contact technique spécifie à  mon_formulaire
+```
+
 ## 4. Ajouter la vue de complétion côté demandeur
 
 ### Personnalisation du démarrage

@@ -25,3 +25,12 @@
 .contact-card__attribute-value {
   font-weight: 600;
 }
+
+.contact-form-card__title {
+  color: var(--text-active-blue-france);
+  margin-bottom: 5px;
+}
+.contact-form-card__info {
+  margin-top: 0px;
+  font-size: 14px;
+}

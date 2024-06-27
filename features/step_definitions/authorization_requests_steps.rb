@@ -53,7 +53,7 @@ Quand('je clique sur {string} pour le formulaire {string}') do |cta_name, form_n
 end
 
 Quand('je remplis les informations du contact {string} avec :') do |string, table|
-  contact_title_node = find('h3', text: string)
+  contact_title_node = find('h6', text: string)
   contact_node = contact_title_node.find(:xpath, '..')
 
   within(contact_node) do

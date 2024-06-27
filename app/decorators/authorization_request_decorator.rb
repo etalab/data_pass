@@ -40,6 +40,12 @@ class AuthorizationRequestDecorator < ApplicationDecorator
       %w[family_name given_name job_title].include?(contact_attribute)
   end
 
+  def contact_info(contact_type)
+    t("authorization_request_forms.#{object.form.id.underscore}.#{contact_type}.info", default: nil) ||
+      t("authorization_request_forms.#{object.model_name.element}.#{contact_type}.info", default: nil) ||
+      t("authorization_request_forms.default.#{contact_type}.info", default: nil)
+  end
+
   private
 
   def lookup_i18n_key(subkey)

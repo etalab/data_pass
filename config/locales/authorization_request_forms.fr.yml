@@ -30,7 +30,7 @@ fr:
       contact_technique:
         title: Contact technique
         info: |
-          <strong>Le responsable technique</strong> recevra les accès techniques par mail (attention, ce courrier peut parfois passer en « courriers indésirables »). Cette personne sera contactée en cas de problème technique sur votre service. Le responsable technique peut être le contact technique de votre prestataire.
+          Cette personne sera contactée en cas de problème technique sur votre service. Le responsable technique peut être le contact technique de votre prestataire.
       contact_technique_family_name: &contact_family_name
         label: Nom
       contact_technique_given_name: &contact_given_name
@@ -42,6 +42,8 @@ fr:
 
       contact_metier:
         title: Contact métier
+        info: |
+          Cette personne sera contactée pour toute question métier sur votre service.
       contact_metier_family_name: *contact_family_name
       contact_metier_given_name: *contact_given_name
       contact_metier_email: *contact_email
@@ -49,7 +51,7 @@ fr:
 
       responsable_traitement:
         title: Responsable de traitement
-        info: <strong>Le responsable du traitement des données</strong> est la personne physique ou morale qui, seule ou conjointement avec d’autres, détermine les finalités et les moyens du traitement des données à caractère personnel. Seule une personne appartenant à l’organisme demandeur peut être renseignée. Cette personne sera notifiée par email à la validation de l’habilitation. Ses nom et prénom peuvent également être rendus publics. <a href="https://www.cnil.fr/fr/definition/responsable-de-traitement" target="_blank">Plus d’infos</a>.
+        info: Il détermine seule ou conjointement avec d’autres, les finalités et les moyens du traitement des données à caractère personnel. Cette personne sera notifiée par email lors de la validation de la demande. <a href="https://www.cnil.fr/fr/definition/responsable-de-traitement" target="_blank">Plus d’infos</a>.
       responsable_traitement_family_name: *contact_family_name
       responsable_traitement_given_name: *contact_given_name
       responsable_traitement_email: *contact_email
@@ -57,7 +59,7 @@ fr:
 
       delegue_protection_donnees:
         title: Délégué à la protection des données
-        info: <strong>Le délégué à la protection des données</strong> assure que l’organisation protège convenablement les données à caractère personnel, conformément à la législation en vigueur. C'est généralement une personne appartenant à l’organisme demandeur. Cette personne sera notifiée par email à la validation de l’habilitation. <a href="https://www.cnil.fr/fr/designation-dpo" target="_blank">Plus d’infos</a>.
+        info: Il s'assure que l'organisation protège convenablement les données à caractère personnel, conformément à la législation en vigueur. Cette personne sera notifiée par email lors de la validation de la demande. <a href="https://www.cnil.fr/fr/designation-dpo" target="_blank">Plus d’infos</a>.
       delegue_protection_donnees_family_name: *contact_family_name
       delegue_protection_donnees_given_name: *contact_given_name
       delegue_protection_donnees_email: *contact_email
@@ -83,14 +85,12 @@ fr:
           title: Comment choisir les données ?
 
     hubee_cert_dc:
-      administrateur_metier:
+      administrateur_metier: &hubee_administrateur_metier
         info: |
-          <strong>L’administrateur métier</strong> disposera des droits d’administration portail HubEE : gestion des abonnements et gestion des utilisateurs.
+          Il disposera des droits d’administration portail HubEE : gestion des abonnements et gestion des utilisateurs.
 
     hubee_dila:
-      administrateur_metier:
-        info: |
-          <strong>L’administrateur métier</strong> disposera des droits d’administration portail HubEE : gestion des abonnements et gestion des utilisateurs.
+      administrateur_metier: *hubee_administrateur_metier
       scopes:
         info:
           title: En quoi consistent ces démarches?
@@ -162,14 +162,24 @@ fr:
             ⚠️ Attention, quel que soit votre statut, le <a href="https://www.legifrance.gouv.fr/codes/texte_lc/LEGITEXT000031366350/2020-12-14/" target="_blank">CRPA (Code des relations entre le public et l’administration)</a>>, la <a href="https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000037307624/" target="_blank">loi ESSOC (pour un État au service d’une société de confiance)</a> ou la loi Lemaire (pour une République numérique) ne sont pas suffisants car ils indiquent un principe d’échange qui doit être complété par un cadre juridique précis pour l’utilisation envisagée.
       contact_metier:
         info: |
-          <strong>Le contact métier</strong> est la personne en charge des aspects fonctionnels de votre service, elle connaît notamment les données et les informations utiles pour simplifier les démarches des entreprises et des associations. Le contact métier sera notamment informé des nouvelles API disponibles. Il sera également notifié en cas d'incidents majeurs.
-          <br />
-          Si votre service métier a une adresse e-mail générique, n'hésitez pas à renseigner celle-ci.
+          Cette personne sera contactée pour toute question métier sur votre service. Celle-ci sera informée des nouvelles API et incidents majeurs.
       contact_technique:
         info: |
-          <strong>Le contact technique</strong> est la personne en charge de l'intégration de l'API Entreprise et de sa maintenance dans vos systèmes d'information. Le contact technique sera notifié de l'ensemble des opérations de maintenance et des incidents. Le contact technique sera en copie des notifications d'expiration du jeton.
-          <br />
-          Afin de garantir que votre service ne soit pas interrompu, merci de renseigner une adresse e-mail générique ou liste de diffusion fonctionnelle, afin que ce contact soit permanent et peu influencé par les changements de poste, congés ou autres.
+          Cette personne est en charge de l'intégration de l'API et de sa maintenance dans vos systèmes d'information. Le contact technique sera notifié de l'ensemble des opérations de maintenance et des incidents, ainsi qu'en copie des notifications d'expiration du jeton.
+
+    api_entreprise_setec_atexo: &api_entreprise_contacts_editeur
+      contact_metier:
+        info: |
+          Il s'agit de votre contact métier auprès de votre éditeur. Vous n'avez à priori pas besoin de le modifier.
+      contact_technique:
+        info: |
+          Il s'agit de votre contact technique auprès de votre éditeur. Vous n'avez à priori pas besoin de le modifier, sauf si vous avez un DSI qui veut gérer les accès.
+    api_entreprise_e_attestation: *api_entreprise_contacts_editeur
+    api_entreprise_e_attestation: *api_entreprise_contacts_editeur
+    api_entreprise_provigis: *api_entreprise_contacts_editeur
+    api_entreprise_achat_solution: *api_entreprise_contacts_editeur
+    api_entreprise_mgdis: *api_entreprise_contacts_editeur
+    api_entreprise_atexo: *api_entreprise_contacts_editeur
 
     api_particulier:
       scopes:
