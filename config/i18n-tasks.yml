@@ -127,6 +127,7 @@ ignore_unused:
 - 'errors.messages.*'
 - 'validates_timeliness.error_value_formats.*'
 - 'authorization_request_forms.*.*.info.{title,content}'
+- 'authorization_request_forms.*.modalities.values.*.label'
 - 'authorization_request_mailer.*.subject'
 - 'support.*'
 - 'authorization_request_forms.build.update.{reopening_,}error.*'
