@@ -201,6 +201,9 @@ api-particulier-arpege-concerto:
       - cnaf_allocataires
       - cnaf_enfants
       - cnaf_adresse
+    modalities:
+      - formulaire_qf
+      - params
 
 api-particulier-bl-enfance-berger-levrault:
   name: BL Enfance, Tarification services municipaux / Portail Famille

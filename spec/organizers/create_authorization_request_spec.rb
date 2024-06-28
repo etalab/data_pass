@@ -110,5 +110,39 @@ RSpec.describe CreateAuthorizationRequest, type: :organizer do
 
       it { is_expected.to be_success }
     end
+
+    describe 'API Particulier authorization request' do
+      let(:authorization_request_params) { ActionController::Parameters.new }
+
+      context 'with a form which has modalities on data key' do
+        let(:authorization_request_form) { AuthorizationRequestForm.find('api-particulier-arpege-concerto') }
+
+        it { is_expected.to be_success }
+
+        it 'creates an authorization request with modalities' do
+          expect { create_authorization_request }.to change(AuthorizationRequest, :count).by(1)
+
+          authorization_request = AuthorizationRequest.last
+
+          expect(authorization_request.modalities).to be_present
+          expect(authorization_request.modalities).to eq(%w[formulaire_qf params])
+        end
+      end
+
+      context 'with a form which has no modalities on data key' do
+        let(:authorization_request_form) { AuthorizationRequestForm.find('api-particulier') }
+
+        it { is_expected.to be_success }
+
+        it 'creates an authorization request with default modalities' do
+          expect { create_authorization_request }.to change(AuthorizationRequest, :count).by(1)
+
+          authorization_request = AuthorizationRequest.last
+
+          expect(authorization_request.modalities).to be_present
+          expect(authorization_request.modalities).to eq(%w[params])
+        end
+      end
+    end
   end
 end
