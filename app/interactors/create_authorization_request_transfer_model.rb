@@ -12,8 +12,8 @@ class CreateAuthorizationRequestTransferModel < ApplicationInteractor
   def authorization_request_transfer_params
     {
       authorization_request: context.authorization_request,
-      from: context.old_applicant,
-      to: context.new_applicant
+      from: context.old_entity,
+      to: context.new_entity,
     }
   end
 end
