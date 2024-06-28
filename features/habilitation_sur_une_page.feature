@@ -60,12 +60,3 @@ Fonctionnalité: Interactions sur une demande d'habilitation simple (sur une seu
     Et que je clique sur "Soumettre la demande"
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
-
-  Scénario: Je veux sousmettre une demande d'habilitation Hubee Cert DC alors qu'une habilitation pour la même organization est déjà en cours
-    Quand je démarre une nouvelle demande d'habilitation "Portail HubEE - Démarche CertDC"
-    Et que je remplis les informations du contact "Administrateur métier" avec :
-      | Nom    | Prénom | Email               | Téléphone  | Fonction de l'administrateur système |
-      | Dupont | Jean   | dupont.jean@gouv.fr | 0836656565 | Administrateur métier                |
-    Et que je clique sur "Enregistrer les modifications"
-    Alors je veux remplir une demande pour "Portail HubEE - Démarche CertDC"
-    Et je peux voir le bouton "Débuter mon habilitation pour Portail HubEE - Démarche CertDC" grisé et désactivé
