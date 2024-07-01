@@ -1,9 +1,9 @@
-<h3 class="with-icon">
+<h3 class="with-icon fr-mt-8w fr-mb-4w">
   <%= image_tag("authorization_requests/#{kind}-icon.svg") %>
   <%= t(".#{kind}_title") %>
 </h3>
 
-<div class="fr-grid-row">
+<div class="fr-grid-row fr-grid-row--gutters">
   <% authorization_requests.each do |authorization_request| %>
     <div class="fr-col-12 fr-col-md-6 fr-col-lg-4">
       <%= render partial: 'authorization_request_card', locals: { authorization_request: } %>
