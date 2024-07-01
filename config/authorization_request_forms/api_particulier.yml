@@ -9,6 +9,8 @@ api-particulier:
     - name: 'legal'
     - name: 'scopes'
     - name: 'contacts'
+  static_blocks:
+    - name: 'modalities'
 
 api-particulier-aiga:
   name: "iNoé, Tarification services municipaux / Portail Famille"
@@ -178,8 +180,20 @@ api-particulier-arpege-concerto:
   static_blocks:
   - name: basic_infos
   - name: personal_data
+  - name: modalities
   - name: legal
   - name: scopes
+  scopes_config:
+    disabled:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_enfants
+      - cnaf_adresse
+    displayed:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_enfants
+      - cnaf_adresse
   data:
     intitule: Récupération du Quotient Familial pour le service Périscolaire
     description: Notre commune module la facturation des services liés à l’enfance
