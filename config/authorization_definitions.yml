@@ -184,6 +184,7 @@ shared:
     webhook: true
     blocks:
       - name: 'basic_infos'
+      - name: 'modalities'
       - name: 'personal_data'
       - name: 'legal'
       - name: 'scopes'

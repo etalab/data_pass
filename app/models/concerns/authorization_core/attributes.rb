@@ -19,7 +19,29 @@ module AuthorizationCore::Attributes
 
           validates name, options[:validation] if options[:validation].present?
 
+          overwrite_array_accessor(name) if options[:type] == :array
+
           extra_attributes.push(name)
+        end
+      end
+
+      private
+
+      def self.overwrite_array_accessor(name)
+        define_method(name) do
+          data[name.to_s] ||= []
+
+          begin
+            JSON.parse(data[name.to_s]).sort
+          rescue StandardError
+            data[name.to_s].sort
+          end
+        end
+
+        define_method(:"#{name}=") do |value|
+          value = (value || []).compact_blank
+
+          super(value.sort)
         end
       end
     end
