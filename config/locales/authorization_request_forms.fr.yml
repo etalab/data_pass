@@ -4,11 +4,12 @@ fr:
       steps:
         basic_infos: "Mon projet"
         personal_data: "Le traitement des données"
-        legal: "Le cadre juridique"
+        legal: "Justification du traitement des données personnelles"
         scopes: "Les données"
         contacts: "Les personnes impliquées"
         modalities: "Les modalités d'accès"
         finish: "La synthèse"
+
       terms_of_service_accepted:
         label: J'ai pris connaissance des&nbsp;<a href="%{link}" target="_blank">conditions générales d'utilisation</a>&nbsp;et je les valide.
       intitule:
@@ -20,12 +21,12 @@ fr:
       duree_conservation_donnees_caractere_personnel:
         hint: <a href="https://www.cnil.fr/fr/les-durees-de-conservation-des-donnees" target="_blank">Plus d'infos</a>
       cadre_juridique_nature:
-        label: Précisez la nature et les références du texte vous autorisant à traiter les données
+        label: Précisez la nature et les références du texte vous autorisant à traiter les données *
         hint: loi, décret, arrêté, délibération, etc.
       cadre_juridique_url:
         label: URL du texte relatif au traitement
       cadre_juridique_document:
-        label: Joindre le document lui-même
+        label: Ajoutez votre document
         hint: 'Taille maximale: 10 Mo. Formats supportés: pdf'
 
       contact_technique:
@@ -80,6 +81,10 @@ fr:
       legal:
         info:
           title: Comment trouver le cadre juridique ?
+        justificatif:
+          title: Les justificatifs de votre cadre juridique *
+          description: Vous pouvez choisir d'indiquer une URL ou d'ajouter un fichier
+        cadre_juridique_url: Veuillez nous indiquer l'url du texte relatif au traitement des données personnelles
 
       scopes:
         info:
@@ -183,6 +188,19 @@ fr:
     api_entreprise_atexo: *api_entreprise_contacts_editeur
 
     api_particulier:
+      steps:
+        basic_infos: "Mon projet"
+        personal_data: "Le traitement des données"
+        legal: "Justification du traitement des données personnelles"
+        scopes: "Les données"
+        contacts: "Les personnes impliquées"
+        finish: "La synthèse"
+
+      cadre_juridique_nature:
+        label: Précisez la nature et les références du texte vous autorisant à traiter les données *
+      cadre_juridique_document:
+        label: Ajoutez votre délibération
+
       modalities:
         intro: "Vous pourrez accéder au service API Particulier via les modalités ci-dessous :"
         values:
@@ -190,11 +208,18 @@ fr:
             label: Via un jeton d'accès, accompagné des paramètres usagers.
           formulaire_qf:
             label: Via l'utilisation du formulaire national QF (Quotient Familial). Plus d'infos <a href="https://quotient-familial.numerique.gouv.fr/" target="_blank">ici</a>.
+
       scopes:
         info:
           content: |
             L'API Particulier vous donne accès à <a href="https://particulier.api.gouv.fr/catalogue" target="_blank">plusieurs API</a>. Chaque API transmet <strong>différentes données, regroupées dans des périmètres distincts</strong>. En effet, afin de respecter les principes de collecte, traitement et conservation de données définit par <a href="https://www.cnil.fr/fr/la-loi-informatique-et-libertes#article4" target="_blank">l'article 4 de la loi informatique et libertés</a>, vous devez sélectionner uniquement les données strictement nécessaires à votre téléservice. Le non-respect du principe de proportionnalité vous expose vis-à-vis de la CNIL. <strong>Chaque périmètre est formalisé par une case à cocher dans ce formulaire</strong>.
+
       legal:
+        subtitle: Pour les données CNAF
+        description: Vous souhaitez accéder, traiter et conserver des données personnelles. Quel est le cadre juridique qui autorise votre organisation à accéder à ces données ?
+        cadre_juridique_document:
+          title: Veuillez joindre la délibération du conseil municipal explicitant l'usage des données demandées.
+          description: Pour en savoir plus, consultez <a href="https://api.gouv.fr/guides/deliberation-api-part" target="_blank">notre guide sur ce qu’est une bonne délibération.</a>
         info:
           content: |
             <p>
