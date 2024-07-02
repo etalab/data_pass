@@ -19,17 +19,26 @@ Rails.application.routes.draw do
   patch '/settings/notifications', to: 'notifications_settings#update', as: :notifications_settings
 
   scope(path_names: { new: 'nouveau', edit: 'modifier' }) do
-    resources :authorization_requests, only: %w[index show], path: 'demandes' do
+    resources :authorization_requests, only: %w[show], path: 'demandes' do
       resources :messages, only: %w[index create], path: 'messages'
       resources :archive_authorization_requests, only: %w[new create], path: 'archiver', as: :archive
       resources :blocks, only: %w[edit update], path: 'blocs', controller: 'authorization_requests/blocks'
     end
 
+    resources :authorization_definitions, path: 'demandes', only: :index
+
+    scope 'demandes/:authorization_definition_id', module: :authorization_definitions  do
+      resources :forms, only: %w[index], path: 'formulaires', as: :authorization_definition_forms
+    end
+
     get '/demandes/:id/nouveau', to: 'authorization_requests#new', as: :new_authorization_request
-    get '/demandes/:authorization_definition_id/formulaires', to: 'authorization_request_forms#index', as: :choose_authorization_request_form
 
     scope(path: 'formulaires/:form_uid') do
       resources :authorization_request_forms, only: %w[new create show update], path: 'demande' do
+        collection do
+          get :start, path: 'commencer'
+        end
+
         member do
           get :summary, as: :summary, path: 'résumé'
         end

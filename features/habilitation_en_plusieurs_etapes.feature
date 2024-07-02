@@ -13,9 +13,39 @@ Fonctionnalité: Interactions sur une demande d'habilitation en plusieurs étape
     Sachant que je suis un demandeur
     Et que je me connecte
 
+  Scénario: Quand j'arrive sur une nouvelle demande en plusieurs étapes
+    Quand je veux remplir une demande pour "API Particulier" via le formulaire "Demande libre"
+    Et que je clique sur "Débuter mon habilitation"
+    Alors la page contient "Nom du projet"
+    Et la page contient "Prochaine étape"
+    Et la page ne contient pas "Supprimer"
+    Et la page contient "Enregistrer"
+    Et la page contient "Suivant"
+
   Scénario: J'enregistre une demande d'habilitation en plusieurs étapes sur la première étape
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "Demande libre"
     Et que je clique sur "Débuter mon habilitation"
     Et que je remplis "Nom du projet" avec "Je suis un projet"
+    Et que je remplis "Description du projet" avec "Je suis une description"
     Et que je clique sur "Enregistrer"
-    Et il y a un message de succès contenant "été sauvegardé"
+    Alors il y a un message de succès contenant "été sauvegardé"
+    Et la page contient "Nom du projet"
+    Et la page contient "Prochaine étape : Le traitement des données"
+
+  Scénario: J'enregistre en avançant une demande d'habilitation en plusieurs étapes depuis la première étape
+    Quand je veux remplir une demande pour "API Particulier" via le formulaire "Demande libre"
+    Et que je clique sur "Débuter mon habilitation"
+    Et que je remplis "Nom du projet" avec "Je suis un projet"
+    Et que je remplis "Description du projet" avec "Je suis une description"
+    Et que je clique sur "Suivant"
+    Alors il y a un message de succès contenant "été sauvegardé"
+    Et la page contient "Destinataire des données"
+    Et la page contient "Prochaine étape : Le cadre juridique"
+
+  Scénario: Je tente d'enregistrer une demande d'habilitation en plusieurs étapes depuis la première étape en cliquant sur suivant
+    Quand je veux remplir une demande pour "API Particulier" via le formulaire "Demande libre"
+    Et que je clique sur "Débuter mon habilitation"
+    Et que je clique sur "Suivant"
+    Alors il y a un message d'erreur contenant "Nom du projet doit être"
+    Et la page contient "Nom du projet"
+

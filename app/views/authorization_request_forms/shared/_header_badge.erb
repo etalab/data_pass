@@ -1,22 +1,25 @@
 <%# locals: (authorization_request:) -%>
 
 <p class="authorization-request-form-header__badges">
-<ul class="fr-badge-group">
-  <% if authorization_request.reopening? %>
-    <li>
-      <%= authorization_request_reopening_badge %>
-    </li>
-  <% end %>
-
-  <li>
-    <% if @authorization.present? %>
-      <span class="fr-badge fr-badge--no-icon"><%= t("authorization.badge", id: @authorization.id) %></span>
-    <% else %>
-      <span class="fr-badge fr-badge--no-icon"><%= t("authorization_request.badge", id: @authorization_request.id) %></span>
+  <ul class="fr-badge-group">
+    <% if authorization_request.reopening? %>
+      <li>
+        <%= authorization_request_reopening_badge %>
+      </li>
     <% end %>
-  </li>
-  <li>
-    <%= authorization_request_status_badge(authorization_request) %>
-  </li>
-</ul>
+
+    <% if @authorization.present? %>
+      <li>
+        <span class="fr-badge fr-badge--no-icon"><%= t("authorization.badge", id: @authorization.id) %></span>
+      </li>
+    <% elsif @authorization_request.persisted? %>
+      <li>
+        <span class="fr-badge fr-badge--no-icon"><%= t("authorization_request.badge", id: @authorization_request.id) %></span>
+      </li>
+    <% end %>
+
+    <li>
+      <%= authorization_request_status_badge(authorization_request) %>
+    </li>
+  </ul>
 </p>

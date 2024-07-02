@@ -194,3 +194,7 @@ Alors('je peux cocher {string}') do |checkbox_label|
 
   expect(page.find(checkbox_id, visible: :all)[:disabled]).to be_in([nil, false]), "Expected checkbox '#{checkbox_label}' to be enabled"
 end
+
+Alors('un champ contient {string}') do |text|
+  expect(all('input').any? { |input| input.value == text }).to be_truthy, "Expected to find a field with value '#{text}'"
+end

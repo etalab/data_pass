@@ -1,7 +1,12 @@
 module AuthorizationRequestsHelpers
   def start_authorization_request_form(form, disabled: false)
-    authorization_request_form_tag(form.authorization_request_class.new(form_uid: form.uid)) do |f|
-      f.button t('start_authorization_request_form.cta', authorization_name: form.authorization_definition.name), type: :submit, name: :start, id: dom_id(form, :start_authorization_request), class: %w[fr-btn fr-icon-save-line fr-btn--icon-left], disabled:
+    text = t('start_authorization_request_form.cta', authorization_name: form.authorization_definition.name)
+    css_classes = %w[fr-btn fr-icon-save-line fr-btn--icon-left]
+
+    if disabled
+      button_tag(text, class: css_classes, disabled: true, id: dom_id(form, :start_authorization_request))
+    else
+      link_to(text, start_authorization_request_forms_path(form_uid: form.id), class: css_classes, id: dom_id(form, :start_authorization_request))
     end
   end
 

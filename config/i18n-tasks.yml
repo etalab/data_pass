@@ -137,6 +137,7 @@ ignore_unused:
 - 'gdpr_contact_mailer.delegue_protection_donnees.subject'
 - 'gdpr_contact_mailer.responsable_traitement.subject'
 - 'instruction.authorization_requests.index.status.*'
+- 'wicked.*'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'
 # - 'simple_form.{placeholders,hints,labels}.*'

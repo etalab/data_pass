@@ -1,5 +1,5 @@
 <div class="authorization-request-form-wizard">
-  <% if !current_page?(previous_wizard_path) && !request.path.include?(previous_wizard_path) %>
+  <% if defined?(previous_wizard_path) && !current_page?(previous_wizard_path) && !request.path.include?(previous_wizard_path) %>
     <%= link_to t('authorization_request_forms.form.previous'), previous_wizard_path, id: :previous_authorization_request, class: %w(fr-btn fr-btn--secondary fr-icon-arrow-left-fill fr-btn--icon-left) %>
   <% else %>
     <div></div>

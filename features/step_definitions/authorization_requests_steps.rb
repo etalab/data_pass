@@ -41,7 +41,7 @@ Quand("je démarre une nouvelle demande d'habilitation {string}") do |string|
 end
 
 Quand("je démarre une nouvelle demande d'habilitation {string} avec le paramètre {string} égal à {string}") do |string, key, value|
-  visit choose_authorization_request_form_path(authorization_definition_id: find_authorization_definition_from_name(string).id, key => value)
+  visit authorization_definition_forms_path(authorization_definition_id: find_authorization_definition_from_name(string).id, key => value)
 end
 
 Quand('je clique sur {string} pour le formulaire {string}') do |cta_name, form_name|

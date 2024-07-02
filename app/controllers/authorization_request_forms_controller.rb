@@ -4,12 +4,9 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   include AuthorizationRequestsFlashes
 
   allow_unauthenticated_access only: [:new]
-  before_action :extract_authorization_request_form, except: [:index]
-  before_action :extract_authorization_request, only: %i[show summary update]
 
-  def index
-    @authorization_definition = AuthorizationDefinition.find(params[:authorization_definition_id])
-  end
+  before_action :extract_authorization_request_form
+  before_action :extract_authorization_request, only: %i[show summary update]
 
   def new
     @authorization_definition = @authorization_request_form.authorization_definition
@@ -21,6 +18,15 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
       save_redirect_path
       render 'authorization_requests/unauthenticated_start'
     end
+  end
+
+  def start
+    @authorization_request = BuildAuthorizationRequest.call(
+      authorization_request_form: @authorization_request_form,
+      applicant: current_user,
+    ).authorization_request.decorate
+
+    render view_path
   end
 
   def create
@@ -75,15 +81,33 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   def create_for_multiple_steps
     organizer = organizer_for_creation
 
-    authorization_request = organizer.authorization_request
+    @authorization_request = organizer.authorization_request
 
-    step_localized = t("wicked.#{authorization_request.form.steps.first[:name]}")
+    if organizer.success?
+      success_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.create')
 
-    redirect_to authorization_request_form_build_path(
-      form_uid: authorization_request.form_uid,
-      authorization_request_id: authorization_request.id,
-      id: step_localized,
-    )
+      redirect_to authorization_request_form_build_path(
+        form_uid: @authorization_request.form_uid,
+        authorization_request_id: @authorization_request.id,
+        id: next_step_localized,
+      )
+    else
+      error_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.build.update')
+
+      render view_path(@authorization_request.form.steps.first[:name])
+    end
+  end
+
+  def next_step_localized
+    t("wicked.#{next_submit? ? authorization_request_steps_names[1] : authorization_request_steps_names[0]}")
+  end
+
+  def authorization_request_steps_names
+    @authorization_request_form.steps.pluck(:name)
+  end
+
+  def build_step_for_create
+    next_submit? ? authorization_request_steps_names.first : nil
   end
 
   def redirect_to_current_build_step
@@ -106,6 +130,8 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     @authorization_request = organizer.authorization_request
 
     if organizer.success?
+      success_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.create')
+
       redirect_to authorization_request_form_path(form_uid: @authorization_request.form_uid, id: @authorization_request.id)
     else
       error_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.create_for_single_page_form')
@@ -115,9 +141,16 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   end
 
   def organizer_for_creation
+    authorization_request_create_params = if @authorization_request_form.multiple_steps?
+                                            authorization_request_params.merge(current_build_step: build_step_for_create)
+                                          else
+                                            authorization_request_params
+                                          end
+
     CreateAuthorizationRequest.call(
       user: current_user,
       authorization_request_form: @authorization_request_form,
+      authorization_request_params: authorization_request_create_params,
     )
   end
 
@@ -190,13 +223,19 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     params.key?(:submit)
   end
 
+  def next_submit?
+    params.key?(:next)
+  end
+
   def review?
     params.key?(:review)
   end
 
   def view_path(step = nil)
     if @authorization_request.form.multiple_steps?
-      "authorization_request_forms/build/#{step || params[:id] || 'start'}"
+      first_step = @authorization_request_form.steps.first[:name]
+
+      "authorization_request_forms/build/#{step || params[:id] || first_step}"
     elsif @authorization_request.form.single_page_view.present?
       @authorization_request.form.single_page_view
     else
