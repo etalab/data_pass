@@ -40,7 +40,7 @@ Fonctionnalité: Interactions sur une demande d'habilitation en plusieurs étape
     Et que je clique sur "Suivant"
     Alors il y a un message de succès contenant "été sauvegardé"
     Et la page contient "Destinataire des données"
-    Et la page contient "Prochaine étape : Le cadre juridique"
+    Et la page contient "Prochaine étape : Justification du traitement des données personnelles"
 
   Scénario: Je tente d'enregistrer une demande d'habilitation en plusieurs étapes depuis la première étape en cliquant sur suivant
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "Demande libre"
