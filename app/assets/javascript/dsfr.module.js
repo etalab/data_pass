@@ -1,4 +1,4 @@
-/*! DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 class State {
   constructor () {
@@ -59,7 +59,7 @@ const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.11.0'
+  version: '1.12.1'
 };
 
 class LogLevel {
@@ -1486,7 +1486,7 @@ class Instance {
     this._isEnabled = true;
     this._isDisposed = false;
     this._listeners = {};
-    this.handlingClick = this.handleClick.bind(this);
+    this._handlingClick = this.handleClick.bind(this);
     this._hashes = [];
     this._hash = '';
     this._keyListenerTypes = [];
@@ -1607,11 +1607,11 @@ class Instance {
   }
 
   listenClick (options) {
-    this.listen('click', this.handlingClick, options);
+    this.listen('click', this._handlingClick, options);
   }
 
   unlistenClick (options) {
-    this.unlisten('click', this.handlingClick, options);
+    this.unlisten('click', this._handlingClick, options);
   }
 
   handleClick (e) {}
@@ -2393,6 +2393,11 @@ class DisclosureButton extends Instance {
   }
 }
 
+const DisclosureSelector = {
+  PREVENT_CONCEAL: ns.attr.selector('prevent-conceal'),
+  GROUP: ns.attr('group')
+};
+
 class DisclosuresGroup extends Instance {
   constructor (disclosureInstanceClassName, jsAttribute) {
     super(jsAttribute);
@@ -2401,6 +2406,7 @@ class DisclosuresGroup extends Instance {
     this._index = -1;
     this._isRetrieving = false;
     this._hasRetrieved = false;
+    this._isGrouped = true;
   }
 
   static get instanceClassName () {
@@ -2412,6 +2418,7 @@ class DisclosuresGroup extends Instance {
     this.addAscent(DisclosureEmission.RETRIEVE, this.retrieve.bind(this));
     this.addAscent(DisclosureEmission.REMOVED, this.update.bind(this));
     this.descend(DisclosureEmission.GROUP);
+    this._isGrouped = this.getAttribute(DisclosureSelector.GROUP) !== 'false';
     this.update();
   }
 
@@ -2437,6 +2444,12 @@ class DisclosuresGroup extends Instance {
       },
       get hasFocus () {
         return scope.hasFocus;
+      },
+      set isGrouped (value) {
+        scope.isGrouped = value;
+      },
+      get isGrouped () {
+        return scope.isGrouped;
       }
     };
 
@@ -2525,7 +2538,7 @@ class DisclosuresGroup extends Instance {
       if (value === i) {
         if (!member.isDisclosed) member.disclose(true);
       } else {
-        if (member.isDisclosed) member.conceal(true);
+        if ((this.isGrouped || !this.canUngroup) && member.isDisclosed) member.conceal(true);
       }
     }
     this.apply();
@@ -2544,6 +2557,28 @@ class DisclosuresGroup extends Instance {
     const current = this.current;
     if (current) return current.hasFocus;
     return false;
+  }
+
+  set isGrouped (value) {
+    const isGrouped = !!value;
+    if (this._isGrouped === isGrouped) return;
+    this._isGrouped = isGrouped;
+    this.setAttribute(DisclosureSelector.GROUP, !!value);
+    this.update();
+  }
+
+  get isGrouped () {
+    return this._isGrouped;
+  }
+
+  get canUngroup () {
+    return false;
+  }
+
+  mutate (attributesNames) {
+    if (attributesNames.includes(DisclosureSelector.GROUP)) {
+      this.isGrouped = this.getAttribute(DisclosureSelector.GROUP) !== 'false';
+    }
   }
 
   apply () {}
@@ -2579,10 +2614,6 @@ const DisclosureType = {
   }
 };
 
-const DisclosureSelector = {
-  PREVENT_CONCEAL: ns.attr.selector('prevent-conceal')
-};
-
 class CollapseButton extends DisclosureButton {
   constructor () {
     super(DisclosureType.EXPAND);
@@ -2614,42 +2645,43 @@ class Collapse extends Disclosure {
 
   init () {
     super.init();
-    this.listen('transitionend', this.transitionend.bind(this));
+    this.listen('transitionend', this.endCollapsing.bind(this));
   }
 
-  transitionend (e) {
+  endCollapsing (e) {
+    if (!this._isCollpasing) return;
+    if (this._timeout) clearTimeout(this._timeout);
+    this._timeout = null;
+    this._isCollpasing = false;
     this.removeClass(CollapseSelector.COLLAPSING);
     if (!this.isDisclosed) {
       if (this.isLegacy) this.style.maxHeight = '';
-      else this.style.removeProperty('--collapse-max-height');
     }
   }
 
   unbound () {
     if (this.isLegacy) this.style.maxHeight = 'none';
-    else this.style.setProperty('--collapse-max-height', 'none');
   }
 
   disclose (withhold) {
     if (this.isDisclosed === true || !this.isEnabled) return false;
     this.unbound();
-    this.request(() => {
-      this.addClass(CollapseSelector.COLLAPSING);
-      this.adjust();
-      this.request(() => {
-        super.disclose(withhold);
-      });
-    });
+    this.collapsing(() => super.disclose(withhold));
   }
 
   conceal (withhold, preventFocus) {
     if (this.isDisclosed === false) return false;
+    this.collapsing(() => super.conceal(withhold, preventFocus));
+  }
+
+  collapsing (request) {
+    this._isCollpasing = true;
+    if (this._timeout) clearTimeout(this._timeout);
+    this.addClass(CollapseSelector.COLLAPSING);
+    this.adjust();
     this.request(() => {
-      this.addClass(CollapseSelector.COLLAPSING);
-      this.adjust();
-      this.request(() => {
-        super.conceal(withhold, preventFocus);
-      });
+      request();
+      this._timeout = setTimeout(this.endCollapsing.bind(this), 500);
     });
   }
 
@@ -2688,6 +2720,10 @@ class CollapsesGroup extends DisclosuresGroup {
 
   static get instanceClassName () {
     return 'CollapsesGroup';
+  }
+
+  get canUngroup () {
+    return true;
   }
 }
 
@@ -2923,9 +2959,15 @@ class Artwork extends Instance {
       const parser = new DOMParser();
       const xmlDoc = parser.parseFromString(xhr.responseText, 'text/html');
       this.realSvgContent = xmlDoc.getElementById(this.svgName);
-
       if (this.realSvgContent) {
-        this.realSvgContent.classList.add(this.node.classList);
+        if (this.realSvgContent.tagName === 'symbol') {
+          this.use = xmlDoc.querySelector('use[href="#' + this.svgName + '"]');
+          if (this.use) this.node.parentNode.insertBefore(this.use, this.node);
+        } else {
+          // deprecated svg structure
+          this.realSvgContent.classList.add(this.node.classList);
+        }
+
         this.replace();
       }
     };
@@ -3854,6 +3896,48 @@ api.card = {
 
 api.internals.register(api.card.CardSelector.DOWNLOAD, api.card.CardDownload);
 api.internals.register(api.card.CardSelector.DOWNLOAD_DETAIL, api.core.AssessDetail);
+
+const CheckboxSelector = {
+  INPUT: `${api.internals.ns.selector('checkbox-group')} input[type="checkbox"]`
+};
+
+const CheckboxEmission = {
+  CHANGE: api.internals.ns.emission('checkbox', 'change'),
+  RETRIEVE: api.internals.ns.emission('checkbox', 'retrieve')
+};
+
+class CheckboxInput extends api.core.Instance {
+  static get instanceClassName () {
+    return 'CheckboxInput';
+  }
+
+  constructor () {
+    super();
+    this._handlingChange = this.handleChange.bind(this);
+  }
+
+  init () {
+    this.node.addEventListener('change', this._handlingChange);
+    this.addDescent(CheckboxEmission.RETRIEVE, this._handlingChange);
+    this.handleChange();
+  }
+
+  get isChecked () {
+    return this.node.checked;
+  }
+
+  handleChange () {
+    this.ascend(CheckboxEmission.CHANGE, this.node);
+  }
+}
+
+api.checkbox = {
+  CheckboxSelector: CheckboxSelector,
+  CheckboxEmission: CheckboxEmission,
+  CheckboxInput: CheckboxInput
+};
+
+api.internals.register(api.checkbox.CheckboxSelector.INPUT, api.checkbox.CheckboxInput);
 
 const SegmentedSelector = {
   SEGMENTED: api.internals.ns.selector('segmented'),
@@ -4944,29 +5028,34 @@ class Navigation extends api.core.CollapsesGroup {
     super.init();
     this.clicked = false;
     this.out = false;
-    this.listen('focusout', this.focusOutHandler.bind(this));
-    this.listen('mousedown', this.mouseDownHandler.bind(this));
+    this.addEmission(api.core.RootEmission.CLICK, this._handleRootClick.bind(this));
+    this.listen('mousedown', this.handleMouseDown.bind(this));
     this.listenClick({ capture: true });
+    this.isResizing = true;
   }
 
   validate (member) {
     return super.validate(member) && member.element.node.matches(api.internals.legacy.isLegacy ? NavigationSelector.COLLAPSE_LEGACY : NavigationSelector.COLLAPSE);
   }
 
-  mouseDownHandler (e) {
+  handleMouseDown (e) {
     if (!this.isBreakpoint(api.core.Breakpoints.LG) || this.index === -1 || !this.current) return;
     this.position = this.current.node.contains(e.target) ? NavigationMousePosition.INSIDE : NavigationMousePosition.OUTSIDE;
     this.requestPosition();
   }
 
-  clickHandler (e) {
-    if (e.target.matches('a, button') && !e.target.matches('[aria-controls]') && !e.target.matches(api.core.DisclosureSelector.PREVENT_CONCEAL)) this.index = -1;
+  handleClick (e) {
+    if (e.target.matches('a, button') && !e.target.matches('[aria-controls]') && !e.target.matches(api.core.DisclosureSelector.PREVENT_CONCEAL)) {
+      this.index = -1;
+    }
   }
 
-  focusOutHandler (e) {
+  _handleRootClick (target) {
     if (!this.isBreakpoint(api.core.Breakpoints.LG)) return;
-    this.out = true;
-    this.requestPosition();
+    if (!this.node.contains(target)) {
+      this.out = true;
+      this.requestPosition();
+    }
   }
 
   requestPosition () {
@@ -5005,6 +5094,14 @@ class Navigation extends api.core.CollapsesGroup {
   set index (value) {
     if (value === -1 && this.current && this.current.hasFocus) this.current.focus();
     super.index = value;
+  }
+
+  get canUngroup () {
+    return !this.isBreakpoint(api.core.Breakpoints.LG);
+  }
+
+  resize () {
+    this.update();
   }
 }
 
@@ -5403,128 +5500,6 @@ api.internals.register(api.tab.TabSelector.PANEL, api.tab.TabPanel);
 api.internals.register(api.tab.TabSelector.GROUP, api.tab.TabsGroup);
 api.internals.register(api.tab.TabSelector.LIST, api.tab.TabsList);
 
-const TableEmission = {
-  SCROLLABLE: api.internals.ns.emission('table', 'scrollable'),
-  CHANGE: api.internals.ns.emission('table', 'change'),
-  CAPTION_HEIGHT: api.internals.ns.emission('table', 'captionheight')
-};
-
-const PADDING = '1rem'; // padding de 4v sur le caption
-
-class Table extends api.core.Instance {
-  static get instanceClassName () {
-    return 'Table';
-  }
-
-  init () {
-    this.addAscent(TableEmission.CAPTION_HEIGHT, this.setCaptionHeight.bind(this));
-  }
-
-  setCaptionHeight (value) {
-    this.setProperty('--table-offset', `calc(${value}px + ${PADDING})`);
-  }
-}
-
-const TableSelector = {
-  TABLE: api.internals.ns.selector('table'),
-  SHADOW: api.internals.ns.selector('table__shadow'),
-  SHADOW_LEFT: api.internals.ns.selector('table__shadow--left'),
-  SHADOW_RIGHT: api.internals.ns.selector('table__shadow--right'),
-  ELEMENT: `${api.internals.ns.selector('table')}:not(${api.internals.ns.selector('table--no-scroll')}) table`,
-  CAPTION: `${api.internals.ns.selector('table')} table caption`
-};
-
-const SCROLL_OFFSET = 8; // valeur en px du scroll avant laquelle le shadow s'active ou se desactive
-
-class TableElement extends api.core.Instance {
-  static get instanceClassName () {
-    return 'TableElement';
-  }
-
-  init () {
-    this.listen('scroll', this.scroll.bind(this));
-    this.content = this.querySelector('tbody');
-    this.isResizing = true;
-  }
-
-  get isScrolling () {
-    return this._isScrolling;
-  }
-
-  set isScrolling (value) {
-    if (this._isScrolling === value) return;
-    this._isScrolling = value;
-
-    if (value) {
-      this.addClass(TableSelector.SHADOW);
-      this.scroll();
-    } else {
-      this.removeClass(TableSelector.SHADOW);
-      this.removeClass(TableSelector.SHADOW_LEFT);
-      this.removeClass(TableSelector.SHADOW_RIGHT);
-    }
-  }
-
-  /* ajoute la classe fr-table__shadow-left ou fr-table__shadow-right sur fr-table en fonction d'une valeur de scroll et du sens (right, left) */
-  scroll () {
-    const isMin = this.node.scrollLeft <= SCROLL_OFFSET;
-    const max = this.content.offsetWidth - this.node.offsetWidth - SCROLL_OFFSET;
-    const isMax = Math.abs(this.node.scrollLeft) >= max;
-    const isRtl = document.documentElement.getAttribute('dir') === 'rtl';
-    const minSelector = isRtl ? TableSelector.SHADOW_RIGHT : TableSelector.SHADOW_LEFT;
-    const maxSelector = isRtl ? TableSelector.SHADOW_LEFT : TableSelector.SHADOW_RIGHT;
-
-    if (isMin) {
-      this.removeClass(minSelector);
-    } else {
-      this.addClass(minSelector);
-    }
-
-    if (isMax) {
-      this.removeClass(maxSelector);
-    } else {
-      this.addClass(maxSelector);
-    }
-  }
-
-  resize () {
-    this.isScrolling = this.content.offsetWidth > this.node.offsetWidth;
-  }
-
-  dispose () {
-    this.isScrolling = false;
-  }
-}
-
-class TableCaption extends api.core.Instance {
-  static get instanceClassName () {
-    return 'TableCaption';
-  }
-
-  init () {
-    this.height = 0;
-    this.isResizing = true;
-  }
-
-  resize () {
-    const height = this.getRect().height;
-    if (this.height === height) return;
-    this.height = height;
-    this.ascend(TableEmission.CAPTION_HEIGHT, height);
-  }
-}
-
-api.table = {
-  Table: Table,
-  TableElement: TableElement,
-  TableCaption: TableCaption,
-  TableSelector: TableSelector
-};
-
-api.internals.register(api.table.TableSelector.TABLE, api.table.Table);
-api.internals.register(api.table.TableSelector.ELEMENT, api.table.TableElement);
-api.internals.register(api.table.TableSelector.CAPTION, api.table.TableCaption);
-
 const TagEvent = {
   DISMISS: api.internals.ns.event('dismiss')
 };
@@ -5798,6 +5773,7 @@ class RangeModelStep extends RangeModel {
     super._update();
     const steps = this._rangeWidth / this._step;
     this._stepWidth = this._innerWidth / steps;
+    if (this._stepWidth < 1 || !isFinite(this._stepWidth)) this._stepWidth = 4;
     while (this._stepWidth < 4) this._stepWidth *= 2;
   }
 }
@@ -6068,8 +6044,9 @@ class RangeInput extends api.core.Instance {
   init () {
     this._init();
     this.node.value = this.getAttribute('value');
-    this.changing = this.change.bind(this);
-    this.node.addEventListener(this.isLegacy ? 'change' : 'input', this.changing);
+    this._changing = this.change.bind(this);
+    this._listenerType = this.isLegacy ? 'change' : 'input';
+    this.listen(this._listenerType, this._changing);
     if (this.isLegacy) this.addDescent(RangeEmission.ENABLE_POINTER, this._enablePointer.bind(this));
     this.change();
   }
@@ -6096,6 +6073,7 @@ class RangeInput extends api.core.Instance {
   setValue (value) {
     if (parseFloat(this.node.value) > value) {
       this.node.value = value;
+      this.dispatch('change', undefined, true);
       this.change();
     }
   }
@@ -6113,7 +6091,7 @@ class RangeInput extends api.core.Instance {
   }
 
   dispose () {
-    this.removeEventListener('input', this.changing);
+    if (this._listenerType) this.unlisten(this._listenerType, this._changing);
   }
 }
 
@@ -6131,6 +6109,7 @@ class RangeInput2 extends RangeInput {
   setValue (value) {
     if (parseFloat(this.node.value) < value) {
       this.node.value = value;
+      this.dispatch('change', undefined, true);
       this.change();
     }
   }
@@ -6225,8 +6204,21 @@ class HeaderLinks extends api.core.Instance {
     const toolsHtml = this.toolsLinks.innerHTML.replace(/  +/g, ' ');
     const menuHtml = this.menuLinks.innerHTML.replace(/  +/g, ' ');
     // Pour éviter de dupliquer des id, on ajoute un suffixe aux id et aria-controls duppliqués.
+    let toolsHtmlIdList = toolsHtml.match(/id="(.*?)"/gm) || [];
+
+    // on a besoin d'échapper les backslash dans la chaine de caractère
+    // eslint-disable-next-line no-useless-escape
+    toolsHtmlIdList = toolsHtmlIdList.map(element => element.replace('id=\"', '').replace('\"', ''));
+
+    const toolsHtmlAriaControlList = toolsHtml.match(/aria-controls="(.*?)"/gm);
     let toolsHtmlDuplicateId = toolsHtml.replace(/id="(.*?)"/gm, 'id="$1' + copySuffix + '"');
-    toolsHtmlDuplicateId = toolsHtmlDuplicateId.replace(/(<nav[.\s\S]*-translate [.\s\S]*) aria-controls="(.*?)"([.\s\S]*<\/nav>)/gm, '$1 aria-controls="$2' + copySuffix + '"$3');
+    if (toolsHtmlAriaControlList) {
+      for (const element of toolsHtmlAriaControlList) {
+        const ariaControlsValue = element.replace('aria-controls="', '').replace('"', '');
+        if (toolsHtmlIdList.includes(ariaControlsValue)) {
+          toolsHtmlDuplicateId = toolsHtmlDuplicateId.replace(`aria-controls="${ariaControlsValue}"`, `aria-controls="${ariaControlsValue + copySuffix}"`);
+        }      }
+    }
 
     if (toolsHtmlDuplicateId === menuHtml) return;
 
@@ -6246,11 +6238,6 @@ ${api.header.doc}`);
 }
 
 class HeaderModal extends api.core.Instance {
-  constructor () {
-    super();
-    this._clickHandling = this.clickHandler.bind(this);
-  }
-
   static get instanceClassName () {
     return 'HeaderModal';
   }
@@ -6268,7 +6255,7 @@ class HeaderModal extends api.core.Instance {
     const modal = this.element.getInstance('Modal');
     if (!modal) return;
     modal.isEnabled = true;
-    this.listen('click', this._clickHandling, { capture: true });
+    this.listenClick({ capture: true });
   }
 
   deactivateModal () {
@@ -6276,10 +6263,10 @@ class HeaderModal extends api.core.Instance {
     if (!modal) return;
     modal.conceal();
     modal.isEnabled = false;
-    this.unlisten('click', this._clickHandling, { capture: true });
+    this.unlistenClick({ capture: true });
   }
 
-  clickHandler (e) {
+  handleClick (e) {
     if (e.target.matches('a, button') && !e.target.matches('[aria-controls]') && !e.target.matches(api.core.DisclosureSelector.PREVENT_CONCEAL)) {
       const modal = this.element.getInstance('Modal');
       modal.conceal();
@@ -6364,4 +6351,186 @@ api.display = {
 };
 
 api.internals.register(api.display.DisplaySelector.DISPLAY, api.display.Display);
+
+const TableEmission = {
+  SCROLLABLE: api.internals.ns.emission('table', 'scrollable'),
+  CHANGE: api.internals.ns.emission('table', 'change'),
+  CAPTION_HEIGHT: api.internals.ns.emission('table', 'captionheight'),
+  CAPTION_WIDTH: api.internals.ns.emission('table', 'captionwidth')
+};
+
+class Table extends api.core.Instance {
+  static get instanceClassName () {
+    return 'Table';
+  }
+
+  init () {
+    this.addAscent(TableEmission.CAPTION_HEIGHT, this.setCaptionHeight.bind(this));
+  }
+
+  setCaptionHeight (value) {
+    this.setProperty('--table-offset', value);
+  }
+}
+
+class TableWrapper extends api.core.Instance {
+  static get instanceClassName () {
+    return 'TableWrapper';
+  }
+
+  init () {
+    this.addAscent(TableEmission.CAPTION_HEIGHT, this.setCaptionHeight.bind(this));
+  }
+
+  setCaptionHeight (value) {
+    requestAnimationFrame(() => this.ascend(TableEmission.CAPTION_HEIGHT, 0));
+    this.setProperty('--table-offset', value);
+  }
+}
+
+const TableSelector = {
+  TABLE: api.internals.ns.selector('table'),
+  TABLE_WRAPPER: [`${api.internals.ns.selector('table')} ${api.internals.ns.selector('table__wrapper')}`],
+  SHADOW: api.internals.ns.selector('table__shadow'),
+  SHADOW_LEFT: api.internals.ns.selector('table__shadow--left'),
+  SHADOW_RIGHT: api.internals.ns.selector('table__shadow--right'),
+  ELEMENT: [`${api.internals.ns.selector('table')}:not(${api.internals.ns.selector('table--no-scroll')}) table`],
+  CAPTION: `${api.internals.ns.selector('table')} table caption`,
+  ROW: `${api.internals.ns.selector('table')} tbody tr`,
+  COL: `${api.internals.ns.selector('table')} thead th`
+};
+
+const SCROLL_OFFSET = 0; // valeur en px du scroll avant laquelle le shadow s'active ou se desactive
+
+class TableElement extends api.core.Instance {
+  static get instanceClassName () {
+    return 'TableElement';
+  }
+
+  init () {
+    this.listen('scroll', this.scroll.bind(this));
+    this.content = this.querySelector('tbody');
+    this.tableOffsetHeight = 0;
+    this.isResizing = true;
+  }
+
+  get isScrolling () {
+    return this._isScrolling;
+  }
+
+  set isScrolling (value) {
+    if (this._isScrolling === value) return;
+    this._isScrolling = value;
+
+    if (value) {
+      this.addClass(TableSelector.SHADOW);
+      this.scroll();
+    } else {
+      this.removeClass(TableSelector.SHADOW);
+      this.removeClass(TableSelector.SHADOW_LEFT);
+      this.removeClass(TableSelector.SHADOW_RIGHT);
+    }
+  }
+
+  /* ajoute la classe fr-table__shadow-left ou fr-table__shadow-right sur fr-table en fonction d'une valeur de scroll et du sens (right, left) */
+  scroll () {
+    const isMin = this.node.scrollLeft <= SCROLL_OFFSET;
+    const max = this.content.offsetWidth - this.node.offsetWidth - SCROLL_OFFSET;
+    const isMax = Math.abs(this.node.scrollLeft) >= max;
+    const isRtl = document.documentElement.getAttribute('dir') === 'rtl';
+    const minSelector = isRtl ? TableSelector.SHADOW_RIGHT : TableSelector.SHADOW_LEFT;
+    const maxSelector = isRtl ? TableSelector.SHADOW_LEFT : TableSelector.SHADOW_RIGHT;
+
+    if (isMin) {
+      this.removeClass(minSelector);
+    } else {
+      this.addClass(minSelector);
+    }
+
+    if (isMax) {
+      this.removeClass(maxSelector);
+    } else {
+      this.addClass(maxSelector);
+    }
+  }
+
+  resize () {
+    this.isScrolling = this.content.offsetWidth > this.node.offsetWidth;
+  }
+
+  dispose () {
+    this.isScrolling = false;
+  }
+}
+
+const PADDING = '1rem'; // padding de 4v sur le caption
+class TableCaption extends api.core.Instance {
+  static get instanceClassName () {
+    return 'TableCaption';
+  }
+
+  init () {
+    this.height = 0;
+    this.isResizing = true;
+  }
+
+  resize () {
+    const height = this.getRect().height;
+    if (this.height === height) return;
+    this.height = height;
+    this.ascend(TableEmission.CAPTION_HEIGHT, `calc(${height}px + ${PADDING})`);
+  }
+}
+
+class TableRow extends api.core.Instance {
+  static get instanceClassName () {
+    return 'TableRow';
+  }
+
+  init () {
+    if (api.checkbox) {
+      this.addAscent(CheckboxEmission.CHANGE, this._handleCheckboxChange.bind(this));
+      this.descend(CheckboxEmission.RETRIEVE);
+    }
+  }
+
+  _handleCheckboxChange (node) {
+    if (node.name === 'row-select') {
+      this.isSelected = node.checked === true;
+    }
+  }
+
+  render () {
+    const height = this.getRect().height + 2;
+    if (this._height === height) return;
+    this._height = height;
+    this.setProperty('--row-height', `${this._height}px`);
+  }
+
+  get isSelected () {
+    return this._isSelected;
+  }
+
+  set isSelected (value) {
+    if (this._isSelected === value) return;
+    this.isRendering = value;
+    this._isSelected = value;
+    this.setAttribute('aria-selected', value);
+  }
+}
+
+api.table = {
+  Table: Table,
+  TableWrapper: TableWrapper,
+  TableElement: TableElement,
+  TableCaption: TableCaption,
+  TableSelector: TableSelector,
+  TableRow: TableRow
+};
+
+api.internals.register(api.table.TableSelector.TABLE, api.table.Table);
+api.internals.register(api.table.TableSelector.TABLE_WRAPPER, api.table.TableWrapper);
+api.internals.register(api.table.TableSelector.ELEMENT, api.table.TableElement);
+api.internals.register(api.table.TableSelector.CAPTION, api.table.TableCaption);
+api.internals.register(api.table.TableSelector.ROW, api.table.TableRow);
 //# sourceMappingURL=dsfr.module.js.map

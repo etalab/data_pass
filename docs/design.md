@@ -43,4 +43,4 @@ Concernant les [icônes](https://www.systeme-de-design.gouv.fr/elements-d-interf
 
 Concernant les [pictogrammes](https://www.systeme-de-design.gouv.fr/elements-d-interface/fondamentaux-techniques/pictogramme):
 
-1. Remplacer le dossier `app/assets/artwork` par le dossier `dist/artwork`
+1. Remplacer le dossier `app/assets/images/artwork` par le dossier `dist/artwork`
