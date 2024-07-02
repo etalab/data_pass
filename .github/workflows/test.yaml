@@ -165,6 +165,7 @@ jobs:
       - rb-lint
       - js-lint
       - unit-tests
+      - integration-tests
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
