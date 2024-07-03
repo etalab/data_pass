@@ -1,6 +1,0 @@
-<turbo-frame id="authorization_request_templates">
-  <%= form_with(url: authorization_request_from_templates_path(form_uid: @authorization_request_form.id), method: :post, data: { turbo_frame: "_top" }) do |f| %>
-    <%= f.select :template_uid, options_from_collection_for_select(@authorization_request_templates, :id, :name), {}, class: 'fr-select' %>
-    <%= f.button "Sélectionner", type: :submit, class: %(fr-btn) %>
-  <% end %>
-</turbo-frame>
