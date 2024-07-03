@@ -1,6 +1,6 @@
 class CreateAuthorizationRequestModel < ApplicationInteractor
   def call
-    context.authorization_request = authorization_request_class.create(authorization_request_create_params)
+    context.authorization_request.assign_attributes(authorization_request_create_params)
   end
 
   private
