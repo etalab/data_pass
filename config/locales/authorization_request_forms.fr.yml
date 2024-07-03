@@ -29,6 +29,11 @@ fr:
         label: Ajoutez votre document
         hint: 'Taille maximale: 10 Mo. Formats supportés: pdf'
 
+      contacts:
+        title: Quelles sont les personnes impliquées ?
+        info:
+          title: Comment renseigner la liste des contacts ?
+
       contact_technique:
         title: Contact technique
         info: |
@@ -73,10 +78,6 @@ fr:
       administrateur_metier_given_name: *contact_given_name
       administrateur_metier_email: *contact_email
       administrateur_metier_phone_number: *contact_phone_number
-
-      contacts:
-        info:
-          title: Comment renseigner la liste des contacts ?
 
       legal:
         info:
