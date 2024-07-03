@@ -94,7 +94,8 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     else
       error_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.build.update')
 
-      render view_path(@authorization_request.form.steps.first[:name])
+      render view_path(@authorization_request.form.steps.first[:name]),
+        status: :unprocessable_entity
     end
   end
 
