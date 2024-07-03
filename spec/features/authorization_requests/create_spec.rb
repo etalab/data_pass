@@ -16,4 +16,16 @@ RSpec.describe 'Starting a new authorization request' do
   it 'does not create a new authorization request (no longer persisted when starting)' do
     expect { subject }.not_to change(AuthorizationRequest, :count)
   end
+
+  describe 'tries to create an invalid authorization request (non-regression test)' do
+    let(:authorization_request_form) { AuthorizationRequestForm.find('api-entreprise') }
+
+    it 'does not create a new authorization request' do
+      subject
+
+      expect {
+        click_on 'Suivant'
+      }.not_to change(AuthorizationRequest, :count)
+    end
+  end
 end
