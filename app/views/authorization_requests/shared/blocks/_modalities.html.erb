@@ -1,6 +1,6 @@
 <%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { title: t('authorization_request_forms.default.steps.modalities'), block_id: :basic_infos, f:, editable: } do %>
-  <% if f.wording_for('intro', 'modalities') %>
-    <%= f.wording_for('intro', 'modalities').html_safe %>
+  <% if f.wording_for('modalities.intro') %>
+    <%= f.wording_for('modalities.intro').html_safe %>
   <% end %>
 
   <ul>

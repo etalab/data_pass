@@ -1,14 +1,14 @@
 <%= f.info_for(:legal) %>
 
 <div class="legal-border-card">
-  <% if f.wording_for('subtitle', 'legal') %>
+  <% if f.wording_for('legal.subtitle') %>
     <p class="fr-h5 legal-subtitle">
-      <%= f.wording_for('subtitle', 'legal') %>
+      <%= f.wording_for('legal.subtitle') %>
     </p>
   <% end %>
-  <% if f.wording_for('description', 'legal') %>
+  <% if f.wording_for('legal.description') %>
     <p>
-      <%= f.wording_for('description', 'legal') %>
+      <%= f.wording_for('legal.description') %>
     </p>
   <% end %>
 
@@ -21,16 +21,16 @@
   <div class="legal-bloc-space">
     <hr>
     <p class="fr-mt-3w">
-      <span class="fr-text--lg legal-text__bold"><%= f.wording_for('justificatif.title', 'legal') %></span>
+      <span class="fr-text--lg legal-text__bold"><%= f.wording_for('legal.justificatif.title') %></span>
       <br>
-      <%= f.wording_for('justificatif.description', 'legal') %>
+      <%= f.wording_for('legal.justificatif.description') %>
     </p>
 
     <% if @authorization_request_form.uid.include?('api-particulier') %>
       <p>
-        <span class="legal-text__bold"><%= f.wording_for('cadre_juridique_document.title', 'legal') %></span>
+        <span class="legal-text__bold"><%= f.wording_for('legal.cadre_juridique_document.title') %></span>
         <br>
-        <span class="fr-mt-1w"><%= f.wording_for('cadre_juridique_document.description', 'legal').html_safe %></span>
+        <span class="fr-mt-1w"><%= f.wording_for('legal.cadre_juridique_document.description').html_safe %></span>
       </p>
     <% end %>
   </div>
@@ -49,7 +49,7 @@
     <div class="legal-line"></div>
   </div>
 
-  <p class="legal-text__bold"><%= f.wording_for('cadre_juridique_url', 'legal') %></p>
+  <p class="legal-text__bold"><%= f.wording_for('legal.cadre_juridique_url') %></p>
 
   <fieldset class="fr-fieldset" aria-label="feedme" aria-describedby="name-1-fieldset-messages">
     <div class="fr-fieldset__element legal-input__width">

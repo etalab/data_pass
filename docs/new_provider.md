@@ -74,7 +74,7 @@ Pour [le formulaire](../config/authorization_request_forms.yml):
 
 ```yaml
   # Identifiant unique qui sera utilisé dans les URLs
-  mon-api:
+  mon-api-form:
     # Nom affiché en titre du formulaire. Par défaut celui de l'habilitation est
     # prise
     name: Mon API dans le formulaire
@@ -196,10 +196,12 @@ Ceux-ci servent quand il y a des problèmes de validation sur les attributs.
 Concernant les formulaires, l'affichage tire les valeurs dans cet ordre:
 
 1. Dans le fichier de traduction [`authorization_request_forms.fr.yml`](config/locales/authorization_request_forms.fr.yml),
-   clé correspondant au type de formulaire (exemple: `mon_api`)
-2. Dans le fichier de traduction [`authorization_request_forms.fr.yml`](config/locales/authorization_request_forms.fr.yml),
+   clé correspondant au type de formulaire (exemple: `mon-api-form`) ;
+1. Dans le fichier de traduction [`authorization_request_forms.fr.yml`](config/locales/authorization_request_forms.fr.yml),
+   clé correspondant au type d'habilitation (exemple: `mon_api`) ;
+1. Dans le fichier de traduction [`authorization_request_forms.fr.yml`](config/locales/authorization_request_forms.fr.yml),
    clé `default`
-3. Attributs (dans [`activerecord.fr.yml`](../config/locales/activerecord.fr.yml))
+1. Attributs (dans [`activerecord.fr.yml`](../config/locales/activerecord.fr.yml))
 
 Ce qui est exploité ici (liste non-exhaustive):
 
