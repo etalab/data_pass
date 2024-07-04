@@ -74,5 +74,9 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :api do
+    resources :frontal, only: :index
+  end
+
   mount GoodJob::Engine => '/workers'
 end
