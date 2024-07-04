@@ -12,7 +12,8 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
   end
 
   def wording_for(key)
-    I18n.t("authorization_request_forms.#{@object.model_name.element}.#{key}", default: nil) ||
+    I18n.t("authorization_request_forms.#{@object.form.uid.underscore}.#{key}", default: nil) ||
+      I18n.t("authorization_request_forms.#{@object.model_name.element}.#{key}", default: nil) ||
       I18n.t("authorization_request_forms.default.#{key}", default: nil)
   end
 
