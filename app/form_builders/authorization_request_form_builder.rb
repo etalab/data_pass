@@ -2,26 +2,26 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
   include DSFR::Accordion
 
   def hint_for(attribute)
-    wording_for(:hint, attribute) ||
+    wording_for("#{attribute}.hint") ||
       super
   end
 
   def label_value(attribute)
-    wording_for(:label, attribute) ||
+    wording_for("#{attribute}.label") ||
       super
   end
 
-  def wording_for(kind, attribute)
-    I18n.t("authorization_request_forms.#{@object.model_name.element}.#{attribute}.#{kind}", default: nil) ||
-      I18n.t("authorization_request_forms.default.#{attribute}.#{kind}", default: nil)
+  def wording_for(key)
+    I18n.t("authorization_request_forms.#{@object.model_name.element}.#{key}", default: nil) ||
+      I18n.t("authorization_request_forms.default.#{key}", default: nil)
   end
 
   def info_for(block)
     return if @template.namespace?(:instruction)
 
     info_wording = {
-      title: wording_for('info.title', block),
-      content: wording_for('info.content', block),
+      title: wording_for("#{block}.info.title"),
+      content: wording_for("#{block}.info.content"),
     }
 
     return unless info_wording
