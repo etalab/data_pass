@@ -51,3 +51,7 @@ h3.with-icon img {
   max-width: 7rem;
   padding: 1rem;
 }
+
+.bg-white {
+  background-color: white;
+}

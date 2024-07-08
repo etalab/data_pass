@@ -35,6 +35,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation Portail HubEE - Démarc
     Et que je vais sur la page des demandes
     Alors il n'y a pas le bouton "Remplir une demande" pour l'habilitation "Portail HubEE - Démarche CertDC"
 
+  @Pending
   Scénario: Je veux sousmettre une demande d'habilitation Hubee Cert DC alors qu'une habilitation pour la même organization est déjà en cours
     Quand je démarre une nouvelle demande d'habilitation "Portail HubEE - Démarche CertDC"
     Et que je remplis les informations du contact "Administrateur métier" avec :

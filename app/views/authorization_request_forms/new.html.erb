@@ -1,0 +1,85 @@
+<div class="fr-container--fluid authorization-request-form-new">
+  <div class="fr-grid-row fr-grid-row--middle">
+    <div class="fr-col-sm-12 fr-col-md-3 logo-wrapper">
+      <%= image_tag('sign-document.svg', alt: 'Sign document') %>
+    </div>
+
+    <div class="fr-col-md-9 text-wrapper">
+      <div class="fr-grid-row">
+        <div class="fr-col-md-1"></div>
+        <div class="fr-col-md-10">
+          <h2 class="fr-mt-16v">
+            <%= t('.title', authorization_name: @authorization_request_form.authorization_definition.name) %>
+          </h2>
+
+          <div class="fr-mb-4w">
+            <div class="border-frame-text fr-my-3w">
+              <% if @authorization_request_form.name.present? %>
+                <%= t('.organization.start_text_with_form_name', organization_raison_sociale: current_organization.raison_sociale, organization_siret: current_organization.siret, authorization_request_form_name: @authorization_request_form.name).html_safe %>
+              <% else %>
+                <%= t('.organization.start_text', organization_raison_sociale: current_organization.raison_sociale, organization_siret: current_organization.siret).html_safe %>
+              <% end %>
+            </div>
+
+            <% if @authorization_request_form.introduction.present? %>
+              <div class="fr-mt-16v">
+                <h5>
+                  <%= t('.intro.title') %>
+                </h5>
+
+                <%= simple_format(@authorization_request_form.introduction) %>
+              </div>
+            <% end %>
+
+            <% if @authorization_request_form.multiple_steps? %>
+              <% if policy(@authorization_request_form).new? %>
+                <h5>
+                  <%= t('.multiple_steps.title') %>
+                </h5>
+                <p>
+                  <%= t('.multiple_steps.description') %>
+
+                  <ol>
+                    <% @authorization_request_form.steps.each do |step| %>
+                      <li>
+                        <%= authorization_request_step_name(@authorization_request_form.authorization_request_class.new, step[:name]) %>
+                      </li>
+                    <% end %>
+                  </ol>
+
+                  <div class="flex-end__content fr-mt-3w">
+                    <%= start_authorization_request_form(@authorization_request_form) %>
+                  </div>
+                </p>
+              <% else %>
+                <div class="flex-end__content">
+                  <%= link_to t('.back_to_dashboard'), dashboard_path, class: %w[fr-btn fr-btn--secondary fr-mr-2w] %>
+                  <%= start_authorization_request_form(@authorization_request_form, disabled: true) %>
+                </div>
+              <% end %>
+            <% else %>
+              <p>
+                <h5>
+                  <%= t('.single_form.title') %>
+                </h5>
+
+                <%= t('.single_form.description') %>
+
+                <% if policy(@authorization_request_form).new? %>
+                  <div class="flex-end__content fr-mt-3w">
+                    <%= start_authorization_request_form(@authorization_request_form) %>
+                  </div>
+                <% else %>
+                  <div class="flex-end__content">
+                    <%= link_to t('.back_to_dashboard'), dashboard_path, class: %w[fr-btn fr-btn--secondary fr-mr-2w] %>
+                    <%= start_authorization_request_form(@authorization_request_form, disabled: true) %>
+                  </div>
+                <% end %>
+              </p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

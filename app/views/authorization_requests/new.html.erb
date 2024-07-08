@@ -5,109 +5,11 @@
     </h1>
   </div>
 
-  <div class="fr-mb-4w">
-    <% if @authorization_request_form.present? && @authorization_request_form.name.present? %>
-      <h5>
-        <% if @authorization_request_form.editor.present? %>
-          <%= t('.current_form_with_editor', authorization_request_form_name: @authorization_request_form.name, editor_name: @authorization_request_form.editor.name) %>
-        <% else %>
-          <%= t('.current_form', authorization_request_form_name: @authorization_request_form.name) %>
-        <% end %>
-      </h5>
-    <% end %>
-
-    <div class="border-frame-text fr-my-3w">
-      <%= t('.organization.start_text', organization_raison_sociale: current_organization.raison_sociale, organization_siret: current_organization.siret).html_safe %>
-    </div>
-
-    <% if registered_subdomain? %>
-      <div class="fr-alert fr-alert--warning fr-mb-2w">
-        <h3 class="fr-alert__title">
-          <%= t('.subdomain_warning.title', name: registered_subdomain.name) %>
-        </h3>
-        <p>
-          <%= t('.subdomain_warning.description', name: registered_subdomain.name).html_safe %>
-        </p>
-      </div>
-    <% end %>
-
-    <% if current_organization.authorization_requests.not_archived.where(type: @authorization_definition.authorization_request_class.name).any? %>
-      <div class="fr-notice fr-notice--warning fr-my-3w">
-        <div class="fr-container">
-          <div class="fr-notice__body">
-            <p class="fr-notice__title">
-              <%= t('authorization_request_forms.build.start.multiple_authorization_requests_warning.title') %>
-              <br/>
-              <%= t('authorization_request_forms.build.start.multiple_authorization_requests_warning.description') %>
-              <br/>
-              <%= link_to dashboard_path(id: 'organisation') do %>
-                <%= t('authorization_request_forms.build.start.multiple_authorization_requests_warning.cta_text') %>
-                <span class="fr-fi-arrow-right-line"></span>
-              <% end %>
-            </p>
-          </div>
-        </div>
-      </div>
-    <% end %>
-
-    <div class="fr-callout fr-icon-information-line">
-      <h3 class="fr-callout__title">
-        <%= t('.organization.callout.title') %>
-      </h3>
-      <p class="fr-callout__text">
-        <%= t('.organization.callout.text').html_safe %>
-      </p>
-        <%= form_with(url: "/auth/mon_compte_pro?prompt=select_organization", method: :post, data: { turbo: false }, class: 'inline') do |f| %>
-          <%= f.button t('.organization.change_cta'), id: 'change_current_organization', class: %w(fr-btn fr-btn--secondary) %>
-        <% end %>
-    </div>
-
-    <% if @authorization_request_form || @authorization_definition.available_forms.one? %>
-      <% authorization_request_form = @authorization_request_form || @authorization_definition.available_forms.first %>
-
-      <% if authorization_request_form.multiple_steps? %>
-        <% if policy(authorization_request_form).new? %>
-          <p>
-            <%= t('.multiple_steps.description') %>
-
-            <ol>
-              <% authorization_request_form.steps.each do |step| %>
-                <li>
-                  <%= authorization_request_step_name(authorization_request_form.authorization_request_class.new, step[:name]) %>
-                </li>
-              <% end %>
-            </ol>
-
-            <div class="flex-end__content fr-mt-3w">
-              <%= start_authorization_request_form(authorization_request_form) %>
-            </div>
-          </p>
-        <% else %>
-          <div class="flex-end__content">
-            <%= link_to t('.back_to_dashboard'), dashboard_path, class: %w[fr-btn fr-btn--secondary fr-mr-2w] %>
-            <%= start_authorization_request_form(authorization_request_form, disabled: true) %>
-          </div>
-        <% end %>
-      <% else %>
-        <p>
-          <%= t('.single_form.description') %>
-
-          <% if policy(authorization_request_form).new? %>
-            <div class="flex-end__content fr-mt-3w">
-              <%= start_authorization_request_form(authorization_request_form) %>
-            </div>
-          <% else %>
-          <div class="flex-end__content">
-              <%= link_to t('.back_to_dashboard'), dashboard_path, class: %w[fr-btn fr-btn--secondary fr-mr-2w] %>
-              <%= start_authorization_request_form(authorization_request_form, disabled: true) %>
-            </div>
-          <% end %>
-        </p>
-      <% end %>
-    <% else %>
-      <div class="flex-end__content">
-        <%= link_to t('.cta', authorization_name: @authorization_definition.name), authorization_definition_forms_path(authorization_definition_id: @authorization_definition.id), class: %w[fr-btn fr-btn--lg] %>
-      </div>
-    <% end %>
-  </div>
+  <%=
+    begin
+      render partial: "authorization_requests/new/#{@authorization_definition.id}"
+    rescue ActionView::MissingTemplate
+      render partial: "authorization_requests/new/default"
+    end
+  %>
 </div>
