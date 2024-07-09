@@ -2,6 +2,9 @@ api-entreprise:
   name: "Demande libre"
   default: true
   description: "Pour les utilisateurs expérimentés qui connaissent précisemment l'usage des données et les aspects techniques des APIs"
+  introduction: |
+    Ce formulaire est destiné aux utilisateurs expérimentés qui connaissent précisemment l'usage des données et les aspects techniques des APIs.
+    Il permet de formuler une demande libre en précisant les données et les services souhaités.
   authorization_request: 'APIEntreprise'
   steps:
     - name: 'basic_infos'
@@ -14,6 +17,9 @@ api-entreprise-marches-publics:
   name: "Marchés publics"
   description: "Facilitez le dépôt des candidatures et récupérez les justificatifs administratifs de vos utilisateurs."
   use_case: 'marches_publics'
+  introduction: |
+    Ce formulaire est destiné aux utilisateurs qui souhaitent développer eux-même leur logiciel de gestion des marchés publics.
+    Le cadre juridique et les données seront adaptés à ce cas d'usage, vous pourrez cependant demander des données supplémentaires si besoin.
   authorization_request: 'APIEntreprise'
   steps:
     - name: 'basic_infos'
@@ -43,6 +49,9 @@ api-entreprise-aides-publiques:
   name: "Aides publiques"
   description: "Faciliter le dépôt et l'instruction des aides publiques"
   use_case: 'aides_publiques'
+  introduction: |
+    Ce formulaire est destiné aux utilisateurs qui souhaitent développer eux-même leur logiciel de gestion des dépôts et instructions des aides publiques.
+    Les données seront adaptés à ce cas d'usage, vous pourrez cependant demander des données supplémentaires si besoin.
   authorization_request: 'APIEntreprise'
   steps:
     - name: 'basic_infos'
@@ -70,6 +79,9 @@ api-entreprise-subventions-associations:
   name: "Subventions des associations"
   description: "Faciliter le dépôt et l'instruction des demandes de subventions des associations."
   use_case: 'subventions_associations'
+  introduction: |
+    Ce formulaire est destiné aux utilisateurs qui souhaitent développer eux-même leur logiciel de gestion des dépôts et instructions des demandes de subventions des associations.
+    Les données seront adaptés à ce cas d'usage, vous pourrez cependant demander des données supplémentaires si besoin.
   authorization_request: 'APIEntreprise'
   steps:
     - name: 'basic_infos'
@@ -90,6 +102,10 @@ api-entreprise-portail-gru-preremplissage:
   name: "Portail GRU - Préremplissage"
   description: "Faciliter le pré-remplissage des usagers sur les portails GRU"
   use_case: 'portail_gru_preremplissage'
+  introduction: |
+    Ce formulaire est destiné aux utilisateurs souhaitant simplifier le parcours de leurs usagers sur les portails GRU.
+    L'ensemble des données disponibles via ce cas d'usage sont des données en "open data", vous ne pourrez pas demander de données supplémentaires.
+    Si vous souhaitez obtenir un accès à des données protégées, veuillez choisir un autre formulaire.
   authorization_request: 'APIEntreprise'
   steps:
     - name: 'basic_infos'
@@ -108,6 +124,9 @@ api-entreprise-portail-gru-instruction:
   name: "Portail GRU - Instruction des démarches"
   description: "Faciliter l'instruction des demandes sur les portails GRU"
   use_case: 'portail_gru_instruction'
+  introduction: |
+    Ce formulaire est destiné aux utilisateurs souhaitant faciliter l'instruction des demandes par des agents sur les portails GRU.
+    Les données seront adaptés à ce cas d'usage, et inclut des données protégées qui ne doivent être manipulées que par des agents habilités.
   authorization_request: 'APIEntreprise'
   steps:
     - name: 'basic_infos'
@@ -138,6 +157,8 @@ api-entreprise-portail-gru-instruction:
 api-entreprise-detection-fraude:
   name: "Détection de la fraude"
   description: "Ce cas d’usage est EXCLUSIVEMENT réservé aux administrations dont la détection des fraudes fait partie de ses missions."
+  introduction: |
+    Ce formulaire est destiné aux administrations souhaitant faciliter les procédures de détection des fraudes. Si votre adminitration n'a pas pour mission la détection des fraudes, veuillez choisir un autre formulaire.
   use_case: 'detection_fraude'
   authorization_request: 'APIEntreprise'
   steps:
@@ -165,6 +186,8 @@ api-entreprise-detection-fraude:
 api-entreprise-editeur:
   name: "Demande spécifique aux éditeurs de logiciels"
   description: "Pour les éditeurs de logiciels ayant des clients publics et souhaitant intégrer API Entreprise."
+  introduction: |
+    Ce formulaire est destiné aux éditeurs de logiciels souhaitant intégrer API Entreprise pour leurs clients publics.
   authorization_request: 'APIEntreprise'
   steps:
     - name: 'basic_infos'
@@ -197,6 +220,12 @@ api-entreprise-e-attestations:
   authorization_request: 'APIEntreprise'
   single_page_view: 'api_entreprise_through_editor'
   editor_id: 'e_attestations'
+  introduction: &introduction_api_entreprise_editor |
+    Ce formulaire simplifié vous permet d'obtenir une habilitation pour un logiciel pré-configuré de l'éditeur %{editor_name}.
+    Une partie des informations contractuelles sont fixes et ne peuvent être modifiées.
+    Celles-ci vous seront résumées à la fin, et ne nécessitent aucune intervention de votre part.
+
+    <strong>Vous aurez uniquement à renseigner les contacts liés à votre organisation</strong> dans l'écran suivant.
   static_blocks:
     - name: 'basic_infos'
     - name: 'personal_data'
@@ -236,6 +265,7 @@ api-entreprise-provigis:
   use_case: 'marches_publics'
   authorization_request: 'APIEntreprise'
   single_page_view: 'api_entreprise_through_editor'
+  introduction: *introduction_api_entreprise_editor
   editor_id: 'provigis'
   static_blocks:
     - name: 'basic_infos'
@@ -276,6 +306,7 @@ api-entreprise-achat-solution:
   use_case: 'marches_publics'
   authorization_request: 'APIEntreprise'
   single_page_view: 'api_entreprise_through_editor'
+  introduction: *introduction_api_entreprise_editor
   editor_id: 'achat_solution'
   static_blocks:
     - name: 'basic_infos'
@@ -316,6 +347,7 @@ api-entreprise-mgdis:
   use_case: 'aides_publiques'
   authorization_request: 'APIEntreprise'
   single_page_view: 'api_entreprise_through_editor'
+  introduction: *introduction_api_entreprise_editor
   editor_id: 'mgdis'
   static_blocks:
     - name: 'basic_infos'
@@ -360,6 +392,7 @@ api-entreprise-atexo:
   description: "Outil de dématérialisation des appels d’offres des marchés publics - Solution LOCAL TRUST MPE"
   use_case: 'marches_publics'
   single_page_view: 'api_entreprise_through_editor'
+  introduction: *introduction_api_entreprise_editor
   authorization_request: 'APIEntreprise'
   editor_id: 'atexo'
   static_blocks:
@@ -407,6 +440,7 @@ api-entreprise-setec-atexo:
   description: "Solution logicielle fournie par l'éditeur Setec."
   authorization_request: 'APIEntreprise'
   single_page_view: 'api_entreprise_through_editor'
+  introduction: *introduction_api_entreprise_editor
   use_case: 'marches_publics'
   editor_id: 'setec'
   static_blocks:

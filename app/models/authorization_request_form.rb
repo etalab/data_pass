@@ -12,6 +12,7 @@ class AuthorizationRequestForm < StaticApplicationRecord
   attr_writer :description,
     :startable_by_applicant,
     :data,
+    :introduction,
     :scopes_config,
     :public
 
@@ -28,6 +29,7 @@ class AuthorizationRequestForm < StaticApplicationRecord
         :description,
         :public,
         :use_case,
+        :introduction,
         :data,
         :single_page_view,
         :startable_by_applicant,
@@ -62,6 +64,12 @@ class AuthorizationRequestForm < StaticApplicationRecord
 
   def link
     link || provider.link
+  end
+
+  def introduction
+    return nil if @introduction.blank?
+
+    format(@introduction, editor_name: editor.try(:name), form_name: name)
   end
 
   def authorization_definition
