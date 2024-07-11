@@ -84,19 +84,23 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     @authorization_request = organizer.authorization_request
 
     if organizer.success?
-      success_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.create')
-
-      redirect_to authorization_request_form_build_path(
-        form_uid: @authorization_request.form_uid,
-        authorization_request_id: @authorization_request.id,
-        id: next_step_localized,
-      )
+      success_for_create_for_multiple_steps
     else
       error_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.build.update')
 
       render view_path(@authorization_request.form.steps.first[:name]),
         status: :unprocessable_entity
     end
+  end
+
+  def success_for_create_for_multiple_steps
+    success_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.create') unless next_submit?
+
+    redirect_to authorization_request_form_build_path(
+      form_uid: @authorization_request.form_uid,
+      authorization_request_id: @authorization_request.id,
+      id: next_step_localized,
+    )
   end
 
   def next_step_localized
