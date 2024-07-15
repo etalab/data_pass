@@ -7,7 +7,7 @@
   position: relative;
   background-color: #fff;
   border-radius: 0px;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  border: 1px solid #00000033;
   padding: var(--summary-block--padding-y) var(--summary-block--padding-x);
 
   margin-bottom: 50px;
