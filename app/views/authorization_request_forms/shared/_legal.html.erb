@@ -26,7 +26,7 @@
       <%= f.wording_for('legal.justificatif.description') %>
     </p>
 
-    <% if @authorization_request_form.uid.include?('api-particulier') %>
+    <% if f.wording_for('legal.cadre_juridique_document.title').present? && f.wording_for('legal.cadre_juridique_document.description').present? %>
       <p>
         <span class="legal-text__bold"><%= f.wording_for('legal.cadre_juridique_document.title') %></span>
         <br>
