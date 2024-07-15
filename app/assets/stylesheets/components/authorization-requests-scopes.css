@@ -13,12 +13,13 @@
 
 .scopes-group__grid {
   font-size: 1em;
+  padding: 1rem 0.5rem;
   display: grid;
 
-  --column-gap: 1.5em;
-  --row-gap: 2.0em;
+  --column-gap: 9rem;
+  --row-gap: 2rem;
 
-  grid-template-columns: repeat(3,1fr);
+  grid-template-columns: repeat(2, 1fr);
 
   grid-column-gap: var(--column-gap);
   -webkit-column-gap: var(--column-gap);
