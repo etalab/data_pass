@@ -1,7 +1,6 @@
 .scopes-group {
-  padding: 20px 20px;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border-default-grey);
   margin-bottom: 20px;
 }
 
