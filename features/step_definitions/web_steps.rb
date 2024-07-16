@@ -128,6 +128,10 @@ Alors("il y a un message d'info contenant {string}") do |text|
   expect(page).to have_css('.fr-alert.fr-alert--info', text:)
 end
 
+Alors('il y a une mise en avant contenant {string}') do |text|
+  expect(page).to have_css('.fr-callout', text:)
+end
+
 Alors('il y a au moins une erreur sur un champ') do
   expect(page).to have_css('.fr-input-group.fr-input-group--error')
 end
