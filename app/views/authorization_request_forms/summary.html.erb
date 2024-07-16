@@ -52,13 +52,10 @@
             Il s'agit d'une mise à jour d'une habilitation validée. Si celle-ci est rejetée, votre habilitation initiale sera toujours valide et les informations restaurées à la version initiale.
             
             <% if @authorization_request.static_blocks.any? %>
-              <br />
               Une partie des informations ci-dessous ont été pré-remplies en accord avec le type de formulaire que vous avez sélectionné et ne sont pas modifiables.
             <% end %>
             
-            <br />
-            <br />
-            Vous pouvez consulter à tout moment l'habilitation validée avec le bouton suivant :
+            Vous pouvez consulter à tout moment l'habilitation validée :
           </p>
           <%= link_to "Consulter l'habilitation validée n°#{@authorization_request.latest_authorization.id}", @authorization_request.latest_authorization, class:"fr-btn" %>
         </div>
