@@ -258,6 +258,7 @@ fr:
     build:
       header:
         editor_name: "Via l'éditeur %{name}"
+        update: Demande de mise à jour des informations
       start:
         multiple_authorization_requests_warning:
           title: L'organisation possède déjà une habilitation ou une demande en cours pour ce service.

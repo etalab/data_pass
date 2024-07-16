@@ -3,12 +3,17 @@
     <div class="fr-grid-row">
       <div class="fr-col-12 fr-col-md-8">
         <h1 class="authorization-request-form-header__name">
-          <%= @authorization_request.form.name %>
+          <% if @authorization_request.reopening? %>
+            <%= t('.update') %>
+          <% else %>
+            <%= @authorization_request.form.name %>
+          <% end %>
         </h1>
 
         <h2 class="authorization-request-form-header__kind">
+          <%= "#{@authorization_request.form.name} - " if @authorization_request.reopening? %>
           <%= @authorization_request.definition.name %>
-
+          
           <% if @authorization_request.form.editor.present? %>
             <span class="authorization-request-form-header__editor-name">
               | <%= t('.editor_name', name: @authorization_request.form.editor.name) %>
