@@ -1,0 +1,19 @@
+<h1 class="authorization-request-form-header__name">
+  <% if @authorization_request.reopening? %>
+    <span class="fr-icon-edit-box-fill fr-icon--lg fr-text-blue-france" aria-hidden="true"></span>
+    <%= t('.update') %>
+  <% else %>
+    <%= @authorization_request.form.name %>
+  <% end %>
+</h1>
+
+<h2 class="authorization-request-form-header__kind">
+  <%= "#{@authorization_request.form.name} - " if @authorization_request.reopening? %>
+  <%= @authorization_request.definition.name %>
+  
+  <% if @authorization_request.form.editor.present? %>
+    <span class="authorization-request-form-header__editor-name">
+      | <%= t('.editor_name', name: @authorization_request.form.editor.name) %>
+    </span>
+  <% end %>
+</h2>
