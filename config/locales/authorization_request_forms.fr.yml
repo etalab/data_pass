@@ -16,6 +16,8 @@ fr:
         hint: Cette information sera rendue publique
       description:
         label: Description du projet (à quoi va-t-il servir ? qui l'utilisera ?)
+      personal_data:
+        title: Comment seront traitées ces données personnelles ?
       destinataire_donnees_caractere_personnel:
         hint: <a href="https://www.cnil.fr/fr/definition/destinataire" target="_blank">Plus d'infos</a>
       duree_conservation_donnees_caractere_personnel:
