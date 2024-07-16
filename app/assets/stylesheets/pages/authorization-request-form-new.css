@@ -1,0 +1,11 @@
+.authorization-request-form-new {
+  background-color: var(--background-alt-grey);
+}
+
+.authorization-request-form-new .logo-wrapper {
+  text-align: center;
+}
+
+.authorization-request-form-new .text-wrapper {
+  background-color: var(--background-default-grey);
+}

@@ -91,6 +91,16 @@ Pour [le formulaire](../config/authorization_request_forms.yml):
     public: true
     # Optionnel. Prend celui de l'habilitation par défaut
     startable_by_applicant: true
+    # Optionnel. Permet d'avoir un texte d'introduction avant de commencer le
+    # formulaire. Celui-ci s'affiche après le choix du formulaire et avant la
+    # première étape. La page où se situe cette introduction est
+    # systématiquement affichée, si l'introduction du formulaire est vide la
+    # section est vide.
+    # Il est possible d'utiliser les variables `editor_name` et `form_name`, de
+    # la manière suivante: "L'éditeur %{editor_name}"
+    introduction: |
+      Je suis une introduction permettant d'introduire le formulaire dans ses
+      détails.
     # Optionnel. Permet de définir des options sur les scopes de la définition
     # au sein du formulaire.
     scopes_config:

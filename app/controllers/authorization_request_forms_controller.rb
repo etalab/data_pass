@@ -9,13 +9,13 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   before_action :extract_authorization_request, only: %i[show summary update]
 
   def new
-    @authorization_definition = @authorization_request_form.authorization_definition
     authorize @authorization_request_form, :new?
 
     if user_signed_in?
-      render 'authorization_requests/new'
+      render 'authorization_request_forms/new'
     else
       save_redirect_path
+      @authorization_definition = @authorization_request_form.authorization_definition
       render 'authorization_requests/unauthenticated_start'
     end
   end
