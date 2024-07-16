@@ -36,11 +36,11 @@ api-particulier-abelium:
   steps: &api_particulier_editor_steps_with_editable_scopes
     - name: scopes
     - name: legal
+    - name: personal_data
     - name: contacts
 
   static_blocks: &api_particulier_editor_static_blocks_with_editable_scopes
     - name: basic_infos
-    - name: personal_data
     - name: modalities
 
   scopes_config:
@@ -91,10 +91,10 @@ api-particulier-arpege-concerto:
     Assurez-vous d'être en possession de la délibération tarifaire justifiant l'usage de l'API, celle-ci vous sera demandé dans la prochaine étape.
   steps: &api_particulier_editor_steps_with_fixed_scopes
     - name: legal
+    - name: personal_data
     - name: contacts
   static_blocks: &api_particulier_editor_static_blocks_with_fixed_scopes
     - name: basic_infos
-    - name: personal_data
     - name: modalities
     - name: scopes
   scopes_config:
@@ -135,14 +135,8 @@ api-particulier-cantine-de-france:
   use_case: portail_famille_tarification
   introduction: *api_particulier_introduction_editor_with_fixed_scopes
   editor_id: jdealise
-  steps: &api_particulier_editor_steps_with_fixed_scopes
-    - name: legal
-    - name: contacts
-  static_blocks: &api_particulier_editor_static_blocks_with_fixed_scopes
-    - name: basic_infos
-    - name: personal_data
-    - name: scopes
-    - name: modalities
+  steps: *api_particulier_editor_steps_with_fixed_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
   scopes_config:
     disabled:
       - cnaf_quotient_familial

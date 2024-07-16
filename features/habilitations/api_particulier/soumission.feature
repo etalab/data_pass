@@ -42,6 +42,9 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
     * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
     * je clique sur "Suivant"
 
+    * je renseigne les infos concernant les données personnelles
+    * je clique sur "Suivant"
+
     * je renseigne les informations des contacts RGPD
     * je clique sur "Suivant"
 
@@ -64,6 +67,9 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
     * je clique sur "Suivant"
 
     * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
+    * je clique sur "Suivant"
+
+    * je renseigne les infos concernant les données personnelles
     * je clique sur "Suivant"
 
     * je renseigne les informations des contacts RGPD
@@ -93,6 +99,9 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
     * je renseigne le cadre légal
     * je clique sur "Suivant"
 
+    * je renseigne les infos concernant les données personnelles
+    * je clique sur "Suivant"
+
     * je renseigne les informations des contacts RGPD
     * je remplis les informations du contact "Contact technique" avec :
       | Nom    | Prénom  | Email               | Téléphone   | Fonction    |
@@ -115,6 +124,9 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
     Et que je clique sur "Débuter mon habilitation"
 
     * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
+    * je clique sur "Suivant"
+
+    * je renseigne les infos concernant les données personnelles
     * je clique sur "Suivant"
 
     * je renseigne les informations des contacts RGPD
