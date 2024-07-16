@@ -189,6 +189,8 @@ fr:
         title: Votre demande de mise à jour nécessite des modifications avant d'être validée
         description: *authorization_request_refused_description
     shared:
+      title:
+        update: Demande de mise à jour des informations
       blocks:
         scopes:
           legacy_scopes: "Les données suivantes ont été précédemment sélectionnées mais ne sont plus disponibles :"
@@ -258,7 +260,6 @@ fr:
     build:
       header:
         editor_name: "Via l'éditeur %{name}"
-        update: Demande de mise à jour des informations
       start:
         multiple_authorization_requests_warning:
           title: L'organisation possède déjà une habilitation ou une demande en cours pour ce service.

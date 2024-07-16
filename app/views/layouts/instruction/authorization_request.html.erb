@@ -4,13 +4,7 @@
       <div class="fr-container">
         <div class="fr-grid-row">
           <div class="fr-col-12 fr-col-md-8">
-            <h1 class="authorization-request-form-header__name">
-              <%= @authorization_request.form.name %>
-            </h1>
-
-            <h2 class="authorization-request-form-header__kind">
-              <%= @authorization_request.definition.name %>
-            </h2>
+            <%= render partial: "authorization_requests/shared/title" %>
 
             <div class="authorization-request-form-header__badges">
               <div class="fr-badge-group">
