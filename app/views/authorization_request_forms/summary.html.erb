@@ -46,19 +46,7 @@
 
     <% if @authorization_request.draft? %>
       <% if @authorization_request.reopening? && @authorization_request.applicant == current_user %>
-        <div class="fr-callout fr-icon-information-line">
-          <h3 class="fr-callout__title">Mise à jour de l'habilitation</h3>
-          <p class="fr-callout__text">
-            Il s'agit d'une mise à jour d'une habilitation validée. Si celle-ci est rejetée, votre habilitation initiale sera toujours valide et les informations restaurées à la version initiale.
-            
-            <% if @authorization_request.static_blocks.any? %>
-              Une partie des informations ci-dessous ont été pré-remplies en accord avec le type de formulaire que vous avez sélectionné et ne sont pas modifiables.
-            <% end %>
-            
-            Vous pouvez consulter à tout moment l'habilitation validée :
-          </p>
-          <%= link_to "Consulter l'habilitation validée n°#{@authorization_request.latest_authorization.id}", @authorization_request.latest_authorization, class:"fr-btn" %>
-        </div>
+        <%= render partial: 'authorization_requests/shared/reopening_callout', locals: { klass: 'fr-mt-6w' } %>
       <% else %>
         <h2>
           Récapitulatif de votre demande
