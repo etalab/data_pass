@@ -190,6 +190,7 @@ fr:
         description: *authorization_request_refused_description
     shared:
       title:
+        editor_name: "Via l'éditeur %{name}"
         update: Demande de mise à jour des informations
       blocks:
         scopes:
@@ -258,8 +259,6 @@ fr:
         duree_conservation_donnees_caractere_personnel_justification:
           warning: Cette durée excède la durée communément constatée (36 mois). Merci de justifier cette durée dans le champ ci-dessous
     build:
-      header:
-        editor_name: "Via l'éditeur %{name}"
       start:
         multiple_authorization_requests_warning:
           title: L'organisation possède déjà une habilitation ou une demande en cours pour ce service.
