@@ -1,4 +1,4 @@
-name: Continuous Integration
+name: CI
 
 on:
   push:
@@ -115,46 +115,26 @@ jobs:
             --env-file ./.github/workflows/test.env \
             --rm data_pass bundle exec rspec
 
-  integration-tests:
-    name: "Integration tests: Cucumber"
-    runs-on: ubuntu-latest
+  integration-tests-admin:
+    name: "Integration tests: admin"
     needs: build
-    services:
-      postgres:
-        image: postgres
-        ports: ["5432:5432"]
-        env:
-          POSTGRES_PASSWORD: dummy
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-      chrome:
-        image: browserless/chrome:latest
-        ports:
-          - "3333:3333"
-        env:
-          PORT: 3333
-          CONNECTION_TIMEOUT: 600000
-      redis:
-        image: redis
-        ports:
-          - "6379:6379"
-    steps:
-      - uses: docker/setup-buildx-action@v2
-      - uses: actions/cache@v3
-        with:
-          path: |
-            /tmp/data_pass.tar
-            ./.github/workflows/test.env
-          key: ${{ github.sha }}-data_pass
-      - run: docker load --input /tmp/data_pass.tar
-      - run: |
-          docker run \
-            --network="host" \
-            --env-file ./.github/workflows/test.env \
-            --rm data_pass bundle exec cucumber
+    uses: ./.github/workflows/reusable-integration-tests.yaml
+    with:
+      cucumber_options: "features/{instructeurs,reporters}/"
+  
+  integration-tests-habilitations:
+    name: "Integration tests: habilitations"
+    needs: build
+    uses: ./.github/workflows/reusable-integration-tests.yaml
+    with:
+      cucumber_options: "features/habilitations/"
+
+  integration-tests-others:
+    name: "Integration tests: others"
+    needs: build
+    uses: ./.github/workflows/reusable-integration-tests.yaml
+    with:
+      cucumber_options: "-e features/instructeurs/ -e features/habilitations/ -e features/reporters/"
 
   merge-with-main:
     name: "Merge develop with main"
@@ -165,7 +145,9 @@ jobs:
       - rb-lint
       - js-lint
       - unit-tests
-      - integration-tests
+      - integration-tests-admin
+      - integration-tests-habilitations
+      - integration-tests-others
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
