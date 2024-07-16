@@ -53,5 +53,5 @@ h3.with-icon img {
 }
 
 .bg-white {
-  background-color: white;
+  background-color: var(--background-default-grey);
 }
