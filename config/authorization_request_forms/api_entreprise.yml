@@ -489,8 +489,8 @@ api-entreprise-setec-atexo:
       - certifications_qualiopi_france_competences
 
 api-entreprise-inetum:
-  name: "ASTRE GF - Gestion financière des collectivités territoriales"
-  description: "Solution logicielle fournie par l'éditeur INETUM."
+  name: "ASTRE GF"
+  description: "Solution logicielle de gestion financière des collectivités territoriales"
   use_case: 'marches_publics'
   authorization_request: 'APIEntreprise'
   single_page_view: 'api_entreprise_through_editor'
@@ -504,10 +504,10 @@ api-entreprise-inetum:
   data:
     intitule: "Solution de gestion financière pour les services financiers des collectivités territoriales"
     description: "FEEDME"
-    
+
     destinataire_donnees_caractere_personnel: Agents instructeurs des marchés publics
     duree_conservation_donnees_caractere_personnel: 36
-    
+
     cadre_juridique_nature: |+
       Service numérique de conformité pour les administrations publiques dans le cadre du décret N°2011-1601 et de l’article D8222 du code du travail, offre de services d’intermédiation aux organismes publics, tel que défini par l’article 17, alinéa IV, du décret du 24 septembre 2014 et le décret lié à la commande publique n° 2016-360.
       https://www.legifrance.gouv.fr/codes/id/LEGIARTI000018520702/2011-12-31/
@@ -515,7 +515,7 @@ api-entreprise-inetum:
       Article R2143-13 du code de la commande publique. Concernant l’accès des acheteurs aux documents justificatifs et moyens de preuve.
       https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037730589
     cadre_juridique_url: https://www.legifrance.gouv.fr/codes/id/LEGIARTI000018520702/2011-12-31/
-    
+
     contact_technique_family_name: 'Testart'
     contact_technique_given_name: 'Baptiste'
     contact_technique_email: 'baptiste.testart@inetum.com'

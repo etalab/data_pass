@@ -18,6 +18,9 @@ shared:
   atexo:
     name: Atexo
     siret: '44090956200033'
+  inetum:
+    name: INETUM
+    siret: '34054699300668'
 
   aiga:
     name: Aiga
@@ -91,7 +94,3 @@ shared:
   coexya:
     name: Coexya
     siret: '43362470700017'
-
-  inetum:
-    name: INETUM SOFTWARE FRANCE
-    siret: '34054699300668'
