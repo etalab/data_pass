@@ -10,9 +10,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout
-      - uses: docker/setup-buildx-action
-      - uses: docker/build-push-action
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/build-push-action@v5
         with:
           context: .
           tags: data_pass:latest
@@ -21,7 +21,7 @@ jobs:
           cache-to: type=registry,ref=user/app:buildcache,mode=max
       - name: Cache image and ENV file
         id: data_pass-docker
-        uses: actions/cache
+        uses: actions/cache@v4
         with:
           path: |
             /tmp/data_pass.tar
