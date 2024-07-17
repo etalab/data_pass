@@ -1,5 +1,9 @@
 <div class="fr-col-12 fr-col-lg-6">
-  <div id="<%= dom_id(@authorization_request, contact_type) %>" class="fr-basic-card contact-form-card fr-m-2v">
+  <div id="<%= dom_id(@authorization_request, contact_type) %>" data-controller="fill-contact-data-with-applicant-data" class="fr-basic-card contact-form-card fr-m-2v" data-fill-contact-data-with-applicant-data-applicant-data-value="<%= current_user.attributes.slice('family_name', 'given_name', 'email', 'phone_number', 'job_title').to_json %>">
+    <button type="button" class="fr-btn fr-btn--secondary fr-btn--sm pull-right" data-action="click->fill-contact-data-with-applicant-data#perform">
+      <%= t('.its_me') %>
+    </button>
+
     <h6 class="contact-form-card__title">
       <%= t("authorization_request_forms.default.#{contact_type}.title") %>
     </h6>
