@@ -135,7 +135,9 @@ bin/stream-remote-logs
 3. `staging`, for the staging (E2E tests with others apps) ;
 4. `development`, for development/test.
 
-## Documentation
+## Documentations
+
+Check [this link](./docs/README.md)
 
 * [Conception technique/métier](./docs/conception.md)
 * [Ajout d'un nouveau fournisseur](./docs/new_provider.md)

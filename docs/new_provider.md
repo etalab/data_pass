@@ -14,12 +14,24 @@ peut-être obsolètes. Il y a par ailleurs des refactorisations logiques, mais
 potentiellement prématurés: il faut attendre d'intégrer plus de sources pour
 être sûr d'effectuer les refactorisations nécessaires.
 
-## 1. Fichiers de configurations
+## 1. Fichiers de configurations (liés aux modèles finaux)
 
 Une demande d'habilitation (le modèle) est lié à 1 ou plusieurs formulaires. Il
 faut à minima en remplir 1 de chaque et qu'ils soient liés.
 
-Pour [le modèle](../config/authorization_definitions.yml):
+D'un point de vue de la couche modèle il y a :
+
+1. `AuthorizationDefinition`, qui est un modèle statique, qui définie les
+   attributs du type d'habilitation ;
+2. `AuthorizationRequestForm`, qui est un modèle statique, qui définie les
+   attributs d'un formulaire associé à un type d'habilitation ;
+3. `AuthorizationRequest`, modèle en db, qui représente la demande effective
+   associé à une association. Celle-ci référence la définition et le modèle
+   associé au formulaire
+
+#### Configuration du `AuthorizationDefinition`
+
+Pour la configuration de la [définition (1.)](../config/authorization_definitions.yml):
 
 ```yaml
   # Il s'agit du nom de la classe en underscore. Ici `MonAPI`
@@ -70,7 +82,9 @@ Pour [le modèle](../config/authorization_definitions.yml):
       - name: personal_data
 ```
 
-Pour [le formulaire](../config/authorization_request_forms.yml):
+#### Configuration du `AuthorizationRequestForm`
+
+Pour la configuration d'un [formulaire (2.)](../config/authorization_request_forms.yml):
 
 ```yaml
   # Identifiant unique qui sera utilisé dans les URLs
@@ -87,10 +101,21 @@ Pour [le formulaire](../config/authorization_request_forms.yml):
     # Optionnel: Permet de spécifier la vue à utiliser dans le cas d'un
     # formulaire sur une seule page. Cette vue doit être placée dans `app/views/authorization_request_forms`
     single_page_view: 'api_entreprise_through_editor'
-    # Optionnel. Prend celui de l'habilitation par défaut
+    # Optionnel. Prend celui de l'habilitation par défaut (même définition
+    # qu'au dessus)
     public: true
-    # Optionnel. Prend celui de l'habilitation par défaut
+    # Optionnel. Prend celui de l'habilitation par défaut (même définition
+    # qu'au dessus)
     startable_by_applicant: true
+    # Optionnel. Identifiant (actuellement lié à aucune autre modèle) permettant
+    # de potentiellement effectuer des filtres avec des liens direct
+    # ( exemple: https://api-entreprise.v2.datapass.api.gouv.fr/demandes/api_entreprise/formulaires?use_case=marches_publics )
+    # Celui-ci sera plus exploité dans des itérations futures (en l'associant à
+    # un vrai modèle)
+    use_case: 'marches_publics'
+    # Optionnel. Identifiant associé à un fournisseur de données (défini en 1.1
+    # ci-dessous)
+    editor_id: mon-fournisseur
     # Optionnel. Permet d'avoir un texte d'introduction avant de commencer le
     # formulaire. Celui-ci s'affiche après le choix du formulaire et avant la
     # première étape. La page où se situe cette introduction est
@@ -114,9 +139,6 @@ Pour [le formulaire](../config/authorization_request_forms.yml):
       displayed:
         - scope3
         - scope4
-    # Optionnel. Données pré-rempli au démarrage du formulaire.
-    data:
-      intitule: "Mon intitulé"
     # Optionnel. Détermine les étapes ordonnées pour remplir ce formulaire. Si
     # ce champ n'est pas défini le formulaire sera sur une seule page pour le
     # demandeur. La dernière étape est
@@ -132,6 +154,9 @@ Pour [le formulaire](../config/authorization_request_forms.yml):
     # définitions ci-dessus
     static_blocks:
       - name: basic_infos
+    # Optionnel. Données pré-rempli au démarrage du formulaire.
+    data:
+      intitule: "Mon intitulé"
 ```
 
 ### 1.1 Ajout d'un nouveau fournisseur
@@ -289,10 +314,16 @@ Il faut créer le fichier `mon_api.html.erb` dans le dossier
 <% end %>
 ```
 
+A noter qu'il est possible de changer le nom de `mon_api` si vous précisez une
+valeur pour `single_page_view`
+
 ## 5. Ajout du test d'intégration Cucumber
 
 Créer le fichier `mon_api.feature` dans [`features/habilitations`](../features/habilitations) et
 remplissez en fonction de la spécification.
+
+A noter qu'il peut déjà exister des fichiers si le type d'habilitation existait
+déjà avant.
 
 ## 6. Importer les données existantes
 
