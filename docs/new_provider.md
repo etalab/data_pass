@@ -101,10 +101,21 @@ Pour la configuration d'un [formulaire (2.)](../config/authorization_request_for
     # Optionnel: Permet de spécifier la vue à utiliser dans le cas d'un
     # formulaire sur une seule page. Cette vue doit être placée dans `app/views/authorization_request_forms`
     single_page_view: 'api_entreprise_through_editor'
-    # Optionnel. Prend celui de l'habilitation par défaut
+    # Optionnel. Prend celui de l'habilitation par défaut (même définition
+    # qu'au dessus)
     public: true
-    # Optionnel. Prend celui de l'habilitation par défaut
+    # Optionnel. Prend celui de l'habilitation par défaut (même définition
+    # qu'au dessus)
     startable_by_applicant: true
+    # Optionnel. Identifiant (actuellement lié à aucune autre modèle) permettant
+    # de potentiellement effectuer des filtres avec des liens direct
+    # ( exemple: https://api-entreprise.v2.datapass.api.gouv.fr/demandes/api_entreprise/formulaires?use_case=marches_publics )
+    # Celui-ci sera plus exploité dans des itérations futures (en l'associant à
+    # un vrai modèle)
+    use_case: 'marches_publics'
+    # Optionnel. Identifiant associé à un fournisseur de données (défini en 1.1
+    # ci-dessous)
+    editor_id: mon-fournisseur
     # Optionnel. Permet d'avoir un texte d'introduction avant de commencer le
     # formulaire. Celui-ci s'affiche après le choix du formulaire et avant la
     # première étape. La page où se situe cette introduction est
@@ -128,9 +139,6 @@ Pour la configuration d'un [formulaire (2.)](../config/authorization_request_for
       displayed:
         - scope3
         - scope4
-    # Optionnel. Données pré-rempli au démarrage du formulaire.
-    data:
-      intitule: "Mon intitulé"
     # Optionnel. Détermine les étapes ordonnées pour remplir ce formulaire. Si
     # ce champ n'est pas défini le formulaire sera sur une seule page pour le
     # demandeur. La dernière étape est
@@ -146,6 +154,9 @@ Pour la configuration d'un [formulaire (2.)](../config/authorization_request_for
     # définitions ci-dessus
     static_blocks:
       - name: basic_infos
+    # Optionnel. Données pré-rempli au démarrage du formulaire.
+    data:
+      intitule: "Mon intitulé"
 ```
 
 ### 1.1 Ajout d'un nouveau fournisseur
@@ -303,10 +314,16 @@ Il faut créer le fichier `mon_api.html.erb` dans le dossier
 <% end %>
 ```
 
+A noter qu'il est possible de changer le nom de `mon_api` si vous précisez une
+valeur pour `single_page_view`
+
 ## 5. Ajout du test d'intégration Cucumber
 
 Créer le fichier `mon_api.feature` dans [`features/habilitations`](../features/habilitations) et
 remplissez en fonction de la spécification.
+
+A noter qu'il peut déjà exister des fichiers si le type d'habilitation existait
+déjà avant.
 
 ## 6. Importer les données existantes
 
