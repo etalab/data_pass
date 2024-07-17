@@ -14,12 +14,24 @@ peut-être obsolètes. Il y a par ailleurs des refactorisations logiques, mais
 potentiellement prématurés: il faut attendre d'intégrer plus de sources pour
 être sûr d'effectuer les refactorisations nécessaires.
 
-## 1. Fichiers de configurations
+## 1. Fichiers de configurations (liés aux modèles finaux)
 
 Une demande d'habilitation (le modèle) est lié à 1 ou plusieurs formulaires. Il
 faut à minima en remplir 1 de chaque et qu'ils soient liés.
 
-Pour [le modèle](../config/authorization_definitions.yml):
+D'un point de vue de la couche modèle il y a :
+
+1. `AuthorizationDefinition`, qui est un modèle statique, qui définie les
+   attributs du type d'habilitation ;
+2. `AuthorizationRequestForm`, qui est un modèle statique, qui définie les
+   attributs d'un formulaire associé à un type d'habilitation ;
+3. `AuthorizationRequest`, modèle en db, qui représente la demande effective
+   associé à une association. Celle-ci référence la définition et le modèle
+   associé au formulaire
+
+#### Configuration du `AuthorizationDefinition`
+
+Pour la configuration de la [définition (1.)](../config/authorization_definitions.yml):
 
 ```yaml
   # Il s'agit du nom de la classe en underscore. Ici `MonAPI`
@@ -70,7 +82,9 @@ Pour [le modèle](../config/authorization_definitions.yml):
       - name: personal_data
 ```
 
-Pour [le formulaire](../config/authorization_request_forms.yml):
+#### Configuration du `AuthorizationRequestForm`
+
+Pour la configuration d'un [formulaire (2.)](../config/authorization_request_forms.yml):
 
 ```yaml
   # Identifiant unique qui sera utilisé dans les URLs
