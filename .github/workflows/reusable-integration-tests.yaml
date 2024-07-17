@@ -1,0 +1,49 @@
+name: "Reusable integration tests"
+
+on:
+  workflow_call:
+    inputs:
+      cucumber_options:
+        required: true
+        type: string
+
+jobs:
+  reusable-integration-tests:
+    name: "Cucumber job"
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        ports: ["5432:5432"]
+        env:
+          POSTGRES_PASSWORD: dummy
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      chrome:
+        image: browserless/chrome:latest
+        ports:
+          - "3333:3333"
+        env:
+          PORT: 3333
+          CONNECTION_TIMEOUT: 600000
+      redis:
+        image: redis
+        ports:
+          - "6379:6379"
+    steps:
+      - uses: docker/setup-buildx-action@v2
+      - uses: actions/cache@v3
+        with:
+          path: |
+            /tmp/data_pass.tar
+            ./.github/workflows/test.env
+          key: ${{ github.sha }}-data_pass
+      - run: docker load --input /tmp/data_pass.tar
+      - run: |
+          docker run \
+            --network="host" \
+            --env-file ./.github/workflows/test.env \
+            --rm data_pass bundle exec cucumber ${{ inputs.cucumber_options }}
