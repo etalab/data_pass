@@ -1,4 +1,6 @@
 <%= authorization_request_form_tag(@authorization_request) do |f| %>
+  <%= render partial: "authorization_requests/shared/reopening_callout", locals: { type: :instructor } if @authorization_request.reopening? %>
+
   <%= render partial: 'authorization_requests/shared/organization_and_applicant' %>
 
   <div class="info-block">

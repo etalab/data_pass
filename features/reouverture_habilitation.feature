@@ -21,7 +21,7 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Et il y a un badge "Brouillon"
     Et la page ne contient pas "Archiver"
     Et la page ne contient pas "Récapitulatif de votre demande"
-    Et il y a un message d'info contenant "Mise à jour de l'habilitation"
+    Et il y a une mise en avant contenant "Mise à jour de l'habilitation"
 
   Scénario: Initialisation d'une réouverture d'une demande validée depuis la vue validée
     Quand j'ai 1 demande d'habilitation "API Entreprise" validée
