@@ -91,3 +91,7 @@ shared:
   coexya:
     name: Coexya
     siret: '43362470700017'
+
+  inetum:
+    name: INETUM SOFTWARE FRANCE
+    siret: '34054699300668'
