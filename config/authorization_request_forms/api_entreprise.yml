@@ -489,8 +489,8 @@ api-entreprise-setec-atexo:
       - certifications_qualiopi_france_competences
 
 api-entreprise-inetum:
-  name: "ASTRE GF"
-  description: "Solution logicielle de gestion financière des collectivités territoriales"
+  name: "Solution ASTRE GF"
+  description: "Gestion financière des collectivités territoriales"
   use_case: 'marches_publics'
   authorization_request: 'APIEntreprise'
   single_page_view: 'api_entreprise_through_editor'
@@ -502,7 +502,7 @@ api-entreprise-inetum:
     - name: 'legal'
     - name: 'scopes'
   data:
-    intitule: "Solution de gestion financière pour les services financiers des collectivités territoriales"
+    intitule: "Gestion financière pour les services financiers des collectivités territoriales"
     description: "FEEDME"
 
     destinataire_donnees_caractere_personnel: Agents instructeurs des marchés publics
