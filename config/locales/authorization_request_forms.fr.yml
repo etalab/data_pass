@@ -187,6 +187,10 @@ fr:
     api_entreprise_achat_solution: *api_entreprise_contacts_editeur
     api_entreprise_mgdis: *api_entreprise_contacts_editeur
     api_entreprise_atexo: *api_entreprise_contacts_editeur
+    api_entreprise_inetum:
+      contact_technique:
+        info: |
+          Il s'agit de votre contact technique auprès de votre éditeur. Vous n'avez à priori pas besoin de le modifier, sauf si vous avez un DSI qui veut gérer les accès.
 
     api_particulier:
       steps:
