@@ -17,8 +17,8 @@ jobs:
           context: .
           tags: data_pass:latest
           outputs: type=docker,dest=/tmp/data_pass.tar
-          cache-from: type=registry
-          cache-to: type=registry,mode=max
+          cache-from: type=registry,ref=user/app:buildcache
+          cache-to: type=registry,ref=user/app:buildcache,mode=max
       - name: Cache image and ENV file
         id: data_pass-docker
         uses: actions/cache@v3
