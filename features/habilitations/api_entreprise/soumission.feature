@@ -134,7 +134,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Entreprise
       | Solution Portail des aides            | MGDIS             |
 
   Scénario: Je soumets une demande d'habilitation de l'éditeur INETUM, où le contact métier n'est pas renseigné
-    Quand je veux remplir une demande pour "API Entreprise" via le formulaire "ASTRE GF" de l'éditeur "INETUM"
+    Quand je veux remplir une demande pour "API Entreprise" via le formulaire "Solution ASTRE GF" de l'éditeur "INETUM"
     Et que je clique sur "Débuter mon habilitation"
 
     * je renseigne les informations des contacts RGPD
