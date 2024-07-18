@@ -17,6 +17,8 @@ AllCops:
     - "vendor/**/*"
     - "sandbox/**/*"
     - "app/migration/**/*"
+    - "spec/bridges/hubee_cert_dc_bridge_spec.rb"
+    - "spec/services/hubee_api_client_spec.rb"
     - "tmp/**/*"
 
 FactoryBot/FactoryAssociationWithStrategy:
