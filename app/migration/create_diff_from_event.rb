@@ -195,7 +195,7 @@ class CreateDiffFromEvent
         end
 
         byebug if team_member.nil?
-        next if team_member['type'] == 'demandeur'
+        next if team_member['type'] == 'demandeur' || team_member_ids_is_demandeur?(team_member['id'])
 
         final_type = {
           'metier' => 'contact_metier',
@@ -352,5 +352,11 @@ class CreateDiffFromEvent
         datum
       end
     end
+  end
+
+  def team_member_ids_is_demandeur?(team_member_id)
+    %w[
+      206985
+    ].include?(team_member_id)
   end
 end
