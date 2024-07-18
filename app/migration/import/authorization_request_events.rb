@@ -41,7 +41,7 @@ class Import::AuthorizationRequestEvents < Import::Base
 
       create_event(event_row, name:, entity: message)
     when 'request_changes'
-      create_event(event_row, entity: InstructorModificationRequest.create!(authorization_request:, reason: event_row['comment']))
+      create_event(event_row, entity: InstructorModificationRequest.create!(authorization_request:, reason: event_row['comment'] || '(aucune raison mentionnée)'))
     when 'submit'
       create_event(event_row, entity: AuthorizationRequestChangelog.create!(authorization_request:, diff: build_event_diff(event_row, authorization_request)))
 
