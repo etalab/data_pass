@@ -15,7 +15,7 @@ class MainImport
     import(:users, { load_from_sql: true })
     authorization_requests = import(:authorization_requests, { dump_sql: true })
 
-    # import(:authorization_request_events, { dump_sql: true, valid_authorization_request_ids: authorization_requests.pluck(:id) })
+    import(:authorization_request_events, { dump_sql: true, valid_authorization_request_ids: authorization_requests.pluck(:id) })
 
     %i[warned skipped].each do |kind|
       export(kind)
