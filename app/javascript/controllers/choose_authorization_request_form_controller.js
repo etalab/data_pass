@@ -103,7 +103,9 @@ export default class extends Controller {
     })
     this.formsTarget.classList.add('fr-hidden')
     this.noTeamDisclaimerTarget.classList.add('fr-hidden')
-    this.editorAlreadyIntegratedTarget.classList.add('fr-hidden')
+    if (this.hasEditorAlreadyIntegratedTarget) {
+      this.editorAlreadyIntegratedTarget.classList.add('fr-hidden')
+    }
     this.noEditorDisclaimerTarget.classList.add('fr-hidden')
   }
 
@@ -113,18 +115,24 @@ export default class extends Controller {
 
   _showNoEditorDisclaimer () {
     this.noEditorDisclaimerTarget.classList.remove('fr-hidden')
-    this.editorAlreadyIntegratedTarget.classList.add('fr-hidden')
+    if (this.hasEditorAlreadyIntegratedTarget) {
+      this.editorAlreadyIntegratedTarget.classList.add('fr-hidden')
+    }
     this.formsTarget.classList.add('fr-hidden')
   }
 
   _showEditorAlreadyIntegrated () {
-    this.editorAlreadyIntegratedTarget.classList.remove('fr-hidden')
+    if (this.hasEditorAlreadyIntegratedTarget) {
+      this.editorAlreadyIntegratedTarget.classList.remove('fr-hidden')
+    }
     this.noEditorDisclaimerTarget.classList.add('fr-hidden')
     this.formsTarget.classList.add('fr-hidden')
   }
 
   _hideEditorAlreadyIntegrated () {
-    this.editorAlreadyIntegratedTarget.classList.add('fr-hidden')
+    if (this.hasEditorAlreadyIntegratedTarget) {
+      this.editorAlreadyIntegratedTarget.classList.add('fr-hidden')
+    }
   }
 
   _noForm () {
