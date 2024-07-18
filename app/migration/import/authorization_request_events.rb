@@ -13,7 +13,7 @@ class Import::AuthorizationRequestEvents < Import::Base
         entity = AuthorizationRequestChangelog.create!(authorization_request:, diff: build_event_diff(event_row, authorization_request, relevant_rows: [event_row]))
 
         create_event(event_row, name: 'admin_update', entity: entity)
-      elsif JSON.parse(event_row['diff']).except('_v').present?
+      elsif JSON.parse(event_row['diff'] || '{}').except('_v').present?
         create_event(event_row, entity: authorization_request)
       end
     when 'archive'
