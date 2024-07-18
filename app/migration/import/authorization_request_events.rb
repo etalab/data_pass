@@ -113,11 +113,14 @@ class Import::AuthorizationRequestEvents < Import::Base
 
   def extract_user_id(event_row, entity:)
     if all_legacy_users_id_to_email.keys.include?(event_row['user_id'].to_i)
-      legacy_user_id_to_user_id(event_row['user_id'])
+      legacy_user_id_to_user_id(event_row['user_id']) ||
+        create_user_from_legacy_id(event_row, entity)
     elsif %w[create update archive copy].include?(event_row['name'])
       entity.applicant_id
     elsif %w[submit].include?(event_row['name'])
       entity.authorization_request.applicant_id
+    else
+      raise "Unknown user_id for event #{event_row['name']}"
     end
   end
 
@@ -154,5 +157,39 @@ class Import::AuthorizationRequestEvents < Import::Base
     Authorization.where(
       request_id: authorization_request.id
     ).order(created_at: :desc).first
+  end
+
+  def create_user_from_legacy_id(event_row, entity)
+    legacy_user_id = event_row['user_id']
+    legacy_user_row = database.execute('select * from users where id = ?', legacy_user_id).first
+
+    case event_row['name']
+    when 'create', 'update', 'archive', 'submit', 'copy'
+      organization = entity.organization
+    when 'validate', 'request_changes', 'approve', 'refuse', 'revoke'
+      organization = extract_instruction_organization(entity)
+    else
+      raise "Unknown user_id for event #{event_row['name']}"
+    end
+
+    existing_user = User.find_by(external_id: legacy_user_row[1])
+
+    return existing_user.id if existing_user.present?
+
+    user = User.new(email: legacy_user_row[-1], external_id: legacy_user_row[1], current_organization: organization)
+    user.save!
+    user.id
+  end
+
+  def extract_instruction_organization(entity)
+    authorization_request = entity.authorization_request
+
+    case authorization_request.type
+    when 'AuthorizationRequest::APIParticulier'
+      @dinum_organization ||= Organization.find_by(siret: '13002526500013')
+    else
+      raise "Unknown authorization request type #{authorization_request.type} for instruction"
+    end
+
   end
 end
