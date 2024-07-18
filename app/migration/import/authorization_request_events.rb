@@ -112,6 +112,8 @@ class Import::AuthorizationRequestEvents < Import::Base
   end
 
   def extract_user_id(event_row, entity:)
+    return if %w(reminder_before_archive reminder).include?(event_row['name'])
+
     if all_legacy_users_id_to_email.keys.include?(event_row['user_id'].to_i)
       legacy_user_id_to_user_id(event_row['user_id']) ||
         create_user_from_legacy_id(event_row, entity)
