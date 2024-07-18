@@ -503,7 +503,8 @@ api-entreprise-inetum:
     - name: 'scopes'
   data:
     intitule: "Gestion financière pour les services financiers des collectivités territoriales"
-    description: "Gestion financière des collectivités territoriales"
+    description: "Astre GF est une solution logicielle Back office , de gestion financière destinée aux services financiers des collectivités territoriales. Les données "Insee , unités légales" récupérées via API entreprise permettent de fiabiliser la base des tiers des collectivités pour le suivi des contrats des marchés publics "
+  
 
     destinataire_donnees_caractere_personnel: Agents instructeurs des marchés publics
     duree_conservation_donnees_caractere_personnel: 36
