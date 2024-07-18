@@ -22,6 +22,26 @@ class Organization < ApplicationRecord
     mon_compte_pro_payload['label']
   end
 
+  def code_commune
+    insee_payload.dig('etablissement', 'adresseEtablissement', 'codeCommuneEtablissement')
+  end
+
+  def denomination
+    insee_payload.dig('etablissement', 'uniteLegale', 'denominationUniteLegale')
+  end
+
+  def sigle_unite_legale
+    insee_payload.dig('etablissement', 'uniteLegale', 'sigleUniteLegale')
+  end
+
+  def code_postal
+    insee_payload.dig('etablissement', 'adresseEtablissement', 'codePostalEtablissement')
+  end
+
+  def libele_commune
+    insee_payload.dig('etablissement', 'adresseEtablissement', 'libelleCommuneEtablissement')
+  end
+
   def categorie_juridique
     return unless insee_payload
 
