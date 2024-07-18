@@ -32,7 +32,7 @@ Fonctionnalité: Demandes d'habilitation ayant des configurations sur les scopes
 
   Scénario: Je consulte la page des scopes d'une demande d'habilitation où il y a des options de désactivation et d'affichage
 
-    Quand je veux remplir une demande pour "API Particulier" via le formulaire "Domino web 2.0, Tarification services municipaux / Portail Famille"
+    Quand je veux remplir une demande pour "API Particulier" via le formulaire "Domino web 2.0"
     Et que je clique sur "Débuter mon habilitation"
 
     Alors la page contient "Les données"

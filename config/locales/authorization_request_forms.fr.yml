@@ -16,6 +16,8 @@ fr:
         hint: Cette information sera rendue publique
       description:
         label: Description du projet (à quoi va-t-il servir ? qui l'utilisera ?)
+      personal_data:
+        title: Comment seront traitées ces données personnelles ?
       destinataire_donnees_caractere_personnel:
         hint: <a href="https://www.cnil.fr/fr/definition/destinataire" target="_blank">Plus d'infos</a>
       duree_conservation_donnees_caractere_personnel:
@@ -189,14 +191,6 @@ fr:
     api_entreprise_atexo: *api_entreprise_contacts_editeur
 
     api_particulier:
-      steps:
-        basic_infos: "Mon projet"
-        personal_data: "Le traitement des données"
-        legal: "Justification du traitement des données personnelles"
-        scopes: "Les données"
-        contacts: "Les personnes impliquées"
-        finish: "La synthèse"
-
       cadre_juridique_nature:
         label: Précisez la nature et les références du texte vous autorisant à traiter les données *
       cadre_juridique_document:
@@ -216,11 +210,7 @@ fr:
             L'API Particulier vous donne accès à <a href="https://particulier.api.gouv.fr/catalogue" target="_blank">plusieurs API</a>. Chaque API transmet <strong>différentes données, regroupées dans des périmètres distincts</strong>. En effet, afin de respecter les principes de collecte, traitement et conservation de données définit par <a href="https://www.cnil.fr/fr/la-loi-informatique-et-libertes#article4" target="_blank">l'article 4 de la loi informatique et libertés</a>, vous devez sélectionner uniquement les données strictement nécessaires à votre téléservice. Le non-respect du principe de proportionnalité vous expose vis-à-vis de la CNIL. <strong>Chaque périmètre est formalisé par une case à cocher dans ce formulaire</strong>.
 
       legal:
-        subtitle: Pour les données CNAF
         description: Vous souhaitez accéder, traiter et conserver des données personnelles. Quel est le cadre juridique qui autorise votre organisation à accéder à ces données ?
-        cadre_juridique_document:
-          title: Veuillez joindre la délibération du conseil municipal explicitant l'usage des données demandées.
-          description: Pour en savoir plus, consultez <a href="https://api.gouv.fr/guides/deliberation-api-part" target="_blank">notre guide sur ce qu’est une bonne délibération.</a>
         info:
           content: |
             <p>
@@ -228,7 +218,7 @@ fr:
             </p>
 
             <p>
-              Dans le cas où vous représenteriez une collectivité, veuillez joindre la délibération du conseil municipal explicitant l’usage des données demandées. Citer l’article 114-8 du code des relations entre le public et l’administration ne peut pas se substituer à la présence d’une délibération du conseil municipal.
+              Dans le cas où vous représenteriez une collectivité, veuillez joindre la délibération tarifiaire explicitant l’usage des données demandées. Citer l’article 114-8 du code des relations entre le public et l’administration ne peut pas se substituer à la présence d’une délibération du conseil municipal.
             </p>
 
             <p>
@@ -237,7 +227,58 @@ fr:
             <p>
               Pour en savoir plus, consultez <a href="https://api.gouv.fr/guides/deliberation-api-part">notre guide sur ce qu’est une bonne délibération.</a>
             </p>
-
+    api_particulier_abelium: &api_particulier_editor_common_wordings
+      legal:
+        justificatif:
+          title: Veuillez joindre la délibération tarifaire explicitant l'usage des données demandées.
+          description: Pour en savoir plus, consultez <a href="https://api.gouv.fr/guides/deliberation-api-part" target="_blank">notre guide sur ce qu’est une bonne délibération.</a>
+      cadre_juridique_url:
+        title: Veuillez indiquer l'url de de la délibération tarifiaire explicitant l'usage des données demandées.
+        label: URL de la délibération tarifaire
+      cadre_juridique_nature:
+        hint: Si vous avez plus d'informations à ajouter vous pouvez le faire à la suite des textes légaux ci-dessous
+    api_particulier_sigec_maelis:
+      <<: *api_particulier_editor_common_wordings
+    api_particulier_arpege_concerto:
+      <<: *api_particulier_editor_common_wordings
+    api_particulier_cantine_de_france:
+      <<: *api_particulier_editor_common_wordings
+    api_particulier_agora_plus:
+      <<: *api_particulier_editor_common_wordings
+    api_particulier_amiciel_malice:
+      <<: *api_particulier_editor_common_wordings
+    api_particulier_city_family_mushroom_software:
+      <<: *api_particulier_editor_common_wordings
+    api_particulier_civil_enfance_ciril_group:
+      <<: *api_particulier_editor_common_wordings
+    api_particulier_cosoluce_fluo:
+      <<: *api_particulier_editor_common_wordings
+    api_particulier_nfi:
+      <<: *api_particulier_editor_common_wordings
+    api_particulier_technocarte_ile:
+      <<: *api_particulier_editor_common_wordings
+    api_particulier_waigeo_myperischool:
+      <<: *api_particulier_editor_common_wordings
+    api_particulier_3d_ouest:
+      <<: *api_particulier_editor_common_wordings
+    api_particulier_aiga:
+      <<: *api_particulier_editor_common_wordings
+    api_particulier_bl_enfance_berger_levrault:
+      <<: *api_particulier_editor_common_wordings
+    api_particulier_docaposte_fast:
+      <<: *api_particulier_editor_common_wordings
+    api_particulier_odyssee_informatique_pandore:
+      <<: *api_particulier_editor_common_wordings
+    api_particulier_qiis_eticket:
+      <<: *api_particulier_editor_common_wordings
+    api_particulier_teamnet_axel:
+      <<: *api_particulier_editor_common_wordings
+    api_particulier_jvs_parascol:
+      <<: *api_particulier_editor_common_wordings
+    api_particulier_entrouvert_publik:
+      <<: *api_particulier_editor_common_wordings
+    api_particulier_coexya:
+      <<: *api_particulier_editor_common_wordings
     api_infinoe_production:
       sandbox_authorization_request:
         title: L'habilitation de bac à sable
