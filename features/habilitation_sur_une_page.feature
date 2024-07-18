@@ -66,3 +66,9 @@ Fonctionnalité: Interactions sur une demande d'habilitation simple (sur une seu
     Et que je clique sur "Débuter mon habilitation"
     Alors un champ contient "contact-setec@yopmail.com"
 
+  @javascript
+  Scénario: Je démarre une demande avec un contact à remplir et je clique sur "C'est moi"
+    Quand je démarre une nouvelle demande d'habilitation "Portail HubEE - Démarche CertDC"
+    Et que je clique sur "C'est moi"
+    Alors un champ contient "Dupont"
+

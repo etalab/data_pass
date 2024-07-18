@@ -137,7 +137,15 @@ Alors('il y a au moins une erreur sur un champ') do
 end
 
 Alors('debug') do
-  byebug # rubocop:disable Lint/Debugger
+  if javascript?
+    page.driver.debug(binding)
+  else
+    byebug # rubocop:disable Lint/Debugger
+  end
+end
+
+Quand(/wait (\d+)/) do |seconds|
+  sleep seconds.to_i
 end
 
 Quand('je rafraîchis la page') do

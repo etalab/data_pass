@@ -248,6 +248,8 @@ fr:
         your_organization:
           title: Vous faites cette demande pour
           update: Changer d'organisation
+      contact:
+        its_me: C'est moi
       personal_data:
         duree_conservation_donnees_caractere_personnel_justification:
           warning: Cette durée excède la durée communément constatée (36 mois). Merci de justifier cette durée dans le champ ci-dessous
