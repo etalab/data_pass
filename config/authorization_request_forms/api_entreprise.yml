@@ -503,7 +503,7 @@ api-entreprise-inetum:
     - name: 'scopes'
   data:
     intitule: "Gestion financière pour les services financiers des collectivités territoriales"
-    description: "FEEDME"
+    description: "Gestion financière des collectivités territoriales"
 
     destinataire_donnees_caractere_personnel: Agents instructeurs des marchés publics
     duree_conservation_donnees_caractere_personnel: 36
