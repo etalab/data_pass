@@ -18,6 +18,9 @@ shared:
   atexo:
     name: Atexo
     siret: '44090956200033'
+  inetum:
+    name: INETUM
+    siret: '34054699300668'
 
   aiga:
     name: Aiga

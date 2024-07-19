@@ -132,3 +132,22 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Entreprise
       | Dématérialisation des marchés publics | Atexo             |
       | Dématérialisation des marchés publics | SETEC             |
       | Solution Portail des aides            | MGDIS             |
+
+  Scénario: Je soumets une demande d'habilitation de l'éditeur INETUM, où le contact métier n'est pas renseigné
+    Quand je veux remplir une demande pour "API Entreprise" via le formulaire "Solution ASTRE GF" de l'éditeur "INETUM"
+    Et que je clique sur "Débuter mon habilitation"
+
+    * je renseigne les informations des contacts RGPD
+    * je remplis les informations du contact "Contact métier" avec :
+      | Nom    | Prénom  | Email                | Téléphone   | Fonction    |
+      | Dupont | Louis   | dupont.louis@gouv.fr | 08366565602 | Métier      |
+
+    * je clique sur "Enregistrer les modifications"
+    * je clique sur "Continuer vers le résumé"
+
+    * j'adhère aux conditions générales
+    * je clique sur "Soumettre la demande d'habilitation"
+
+    Alors il y a un message de succès contenant "soumise avec succès"
+    Et je suis sur la page "Demandes et habilitations"
+
