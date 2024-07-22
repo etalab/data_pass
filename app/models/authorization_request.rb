@@ -188,7 +188,7 @@ class AuthorizationRequest < ApplicationRecord
       type
       within_data
       state
-      created_at
+      last_submitted_at
     ]
   end
 

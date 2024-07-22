@@ -35,7 +35,7 @@
         <%
           %w[
             status
-            created_at
+            last_submitted_at
             organization
             project_name
             target_api
@@ -66,8 +66,8 @@
               <%= authorization_request_reopening_badge %>
             <% end %>
           </td>
-          <td class="authorization-request-created_at">
-            <%= authorization_request.created_at.strftime("%d/%m/%y") %>
+          <td class="authorization-request-last_submitted_at">
+            <%= authorization_request.last_submitted_at&.strftime("%d/%m/%y") || '-' %>
           </td>
           <td class="authorization-request-organization">
             <%= authorization_request.organization.raison_sociale %>
