@@ -14,6 +14,10 @@ RSpec.describe SubmitAuthorizationRequest do
           expect { submit_authorization_request }.to change { authorization_request.reload.state }.from('draft').to('submitted')
         end
 
+        it 'changes last_submitted_at to now' do
+          expect { submit_authorization_request }.to change { authorization_request.reload.last_submitted_at }.to(be_within(1.second).of(Time.current))
+        end
+
         include_examples 'creates an event', event_name: :submit
 
         describe 'versions diffing' do
