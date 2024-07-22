@@ -619,7 +619,7 @@ api-particulier-aiga:
     scopes:
       - cnaf_quotient_familial
     contact_technique_type: organization
-    contact_technique_email: tech@aiga.fr
+    contact_technique_email: api-particulier@aiga.fr
     contact_technique_phone_number: 0472532200
 
 api-particulier-bl-enfance-berger-levrault:
