@@ -43,6 +43,12 @@ class Import::AuthorizationRequestEvents < Import::Base
       create_event(event_row, entity: InstructorModificationRequest.create!(authorization_request:, reason: event_row['comment']))
     when 'submit'
       create_event(event_row, entity: AuthorizationRequestChangelog.create!(authorization_request:, diff: build_event_diff(event_row, authorization_request)))
+
+      event_created_at = DateTime.parse(event_row['created_at'])
+
+      if authorization_request.last_submitted_at.nil? || event_created_at > authorization_request.last_submitted_at
+        authorization_request.update!(last_submitted_at: event_created_at)
+      end
     when 'approve', 'validate'
       authorization_request.assign_attributes(
         last_validated_at: event_row['created_at'],
