@@ -74,16 +74,20 @@ RSpec.describe HubEECertDCBridge do
   end
 
   describe '#perform' do
-    let(:bridge) { instance_double(described_class) }
+    let(:bridge) { described_class.new(authorization_request) }
+
+    before do
+      allow(bridge).to receive(:find_or_create_organization).and_call_original
+    end
 
     it 'does not render en error' do
       expect { hubee_cert_dc_bridge }.not_to raise_error
     end
 
     it 'Finds or creates organization' do
-      expect(bridge).to receive(:find_or_create_organization)
+      expect(bridge).to receive(:find_or_create_organization).with(authorization_request)
 
-      hubee_cert_dc_bridge
+      bridge.perform
     end
 
     it 'Create a subscription to hubee with a subscription_body_payload and return a subscription_id' do
@@ -106,6 +110,7 @@ RSpec.describe HubEECertDCBridge do
         code_commune = authorization_request.organization.code_commune
 
         expect(hubee_api_client).to receive(:get_organization).with(siret, code_commune)
+
         hubee_cert_dc_bridge
       end
     end
