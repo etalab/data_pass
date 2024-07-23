@@ -32,16 +32,10 @@ RSpec.describe HubEECertDCBridge do
       bridge.perform
     end
 
-    it 'Create a subscription to hubee with a subscription_body_payload and return a subscription_id' do
-      expect(hubee_api_client).to receive(:create_subscription).with(subscription_body_payload(process_code))
+    it 'Creates and store subscription id' do
+      expect(bridge).to receive(:create_and_store_subscription).with(authorization_request, organization_bridge_payload.with_indifferent_access, process_code)
 
-      hubee_cert_dc_bridge
-    end
-
-    it 'Updates the authorization request with the linked token manager id from subscription payload' do
-      hubee_cert_dc_bridge
-
-      expect(authorization_request.reload.linked_token_manager_id).to eq('22')
+      bridge.perform
     end
   end
 
@@ -68,6 +62,20 @@ RSpec.describe HubEECertDCBridge do
 
         hubee_cert_dc_bridge
       end
+    end
+  end
+
+  describe '#create_and_store_subscription' do
+    it 'Creates a subscription to hubee with a subscription_body_payload and return a subscription_id' do
+      expect(hubee_api_client).to receive(:create_subscription).with(subscription_body_payload(process_code))
+
+      hubee_cert_dc_bridge
+    end
+
+    it 'Updates the authorization request with the linked token manager id from subscription payload' do
+      hubee_cert_dc_bridge
+
+      expect(authorization_request.reload.linked_token_manager_id).to eq('22')
     end
   end
 end
