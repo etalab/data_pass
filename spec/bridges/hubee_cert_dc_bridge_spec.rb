@@ -1,7 +1,7 @@
 RSpec.describe HubEECertDCBridge do
   subject(:hubee_cert_dc_bridge) { described_class.new(authorization_request).perform }
 
-  let(:hubee_api_client) { double('HubEEAPIClient') }
+  let(:hubee_api_client) { instance_double(HubEEAPIClient) }
 
   let(:authorization_request) { create(:authorization_request, id: 2, organization_id: organization.id, data: authorization_request_data, last_validated_at: 'Thu, 18 Jul 2024 14:00:55.500378000 CEST +02:00', updated_at: 'Thu, 18 Jul 2024 14:00:55.500378000 CEST +02:00', linked_token_manager_id: nil) }
   let(:authorization_request_data) { { 'administrateur_metier_email' => 'admin@yopmail.com', 'administrateur_metier_phone_number' => '01.23.45.67.89' } }
@@ -74,12 +74,14 @@ RSpec.describe HubEECertDCBridge do
   end
 
   describe '#perform' do
+    let(:bridge) { instance_double(described_class) }
+
     it 'does not render en error' do
       expect { hubee_cert_dc_bridge }.not_to raise_error
     end
 
     it 'Finds or creates organization' do
-      expect_any_instance_of(HubEECertDCBridge).to receive(:find_or_create_organization)
+      expect(bridge).to receive(:find_or_create_organization)
 
       hubee_cert_dc_bridge
     end
