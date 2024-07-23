@@ -58,4 +58,37 @@ module HubEEAPIClientMocks
       'validateDateTime' => '2024-07-18T14:00:55+02:00'
     }
   end
+
+  def response_error_missing_params
+    {
+      'errors' => [{ 'code' => 400, 'message' => "Bad Request : Validation failed.\n[ERROR][REQUEST][POST /referential/v1/organizations @body] Object has missing required properties ([\"branchCode\",\"companyRegister\",\"email\",\"name\",\"postalCode\",\"status\",\"territory\",\"type\"])" }]
+    }
+  end
+
+  def response_error_organization_already_exists
+    {
+      'errors' => [{ 'code' => 400, 'message' => 'Organization SI-21050136700010-00000 already exists' }]
+    }
+  end
+
+  def response_subscription_already_exists
+    {
+      'errors' => [{ 'code' => 400, 'message' => 'Subscription CERTDC for organization SI-21920023500014-92023 already exists' }]
+    }
+  end
+
+  def response_validation_failed
+    {
+      'errors' => [{
+        'code' => 400,
+        'message' => "Bad Request : Validation failed.\n[ERROR][REQUEST][POST /referential/v1/subscriptions @body] Instance failed to match all required schemas (matched only 1 out of 2)\n\t* /allOf/0: Object has missing required properties ([\"datapassId\",\"localAdministrator\",\"notificationFrequency\",\"processCode\",\"subscriber\"])\t\n\t- [ERROR] Object has missing required properties ([\"datapassId\",\"localAdministrator\",\"notificationFrequency\",\"processCode\",\"subscriber\"])"
+      }]
+    }
+  end
+
+  def subscription_response_error_500
+    {
+      'errors' => [{ 'code' => 500, 'message' => 'Internal Server Error' }]
+    }
+  end
 end

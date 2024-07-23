@@ -78,8 +78,6 @@ RSpec.describe HubEEAPIClient do
 
     context 'when it renders a 400 Bad Request Error' do
       context 'when there is missing parameters' do
-        let(:response_error_missing_params) { { 'errors' => [{ 'code' => 400, 'message' => "Bad Request : Validation failed.\n[ERROR][REQUEST][POST /referential/v1/organizations @body] Object has missing required properties ([\"branchCode\",\"companyRegister\",\"email\",\"name\",\"postalCode\",\"status\",\"territory\",\"type\"])" }] } }
-
         before do
           stub_request(:post, "#{api_host}/referential/v1/organizations")
             .with(
@@ -99,8 +97,6 @@ RSpec.describe HubEEAPIClient do
       end
 
       context 'when organization already exists' do
-        let(:response_error_organization_already_exists) { { 'errors' => [{ 'code' => 400, 'message' => 'Organization SI-21050136700010-00000 already exists' }] } }
-
         before do
           stub_request(:post, "#{api_host}/referential/v1/organizations")
             .with(
@@ -157,8 +153,6 @@ RSpec.describe HubEEAPIClient do
 
     context 'when subscription failed' do
       context 'when subscription already exists' do
-        let(:response) { { 'errors' => [{ 'code' => 400, 'message' => 'Subscription CERTDC for organization SI-21920023500014-92023 already exists' }] } }
-
         before do
           stub_request(:post, "#{api_host}/referential/v1/subscriptions")
             .with(
@@ -168,7 +162,7 @@ RSpec.describe HubEEAPIClient do
                 'content-type' => 'application/json',
               }
             )
-            .to_return(status: 400, body: response.to_json, headers: { 'Content-Type' => 'application/json' })
+            .to_return(status: 400, body: response_subscription_already_exists.to_json, headers: { 'Content-Type' => 'application/json' })
         end
 
         it 'renders an HubEEAPIClient::AlreadyExistsError' do
@@ -177,15 +171,6 @@ RSpec.describe HubEEAPIClient do
       end
 
       context 'when there is missing parameters' do
-        let(:response_validation_failed) do
-          {
-            'errors' => [{
-              'code' => 400,
-              'message' => "Bad Request : Validation failed.\n[ERROR][REQUEST][POST /referential/v1/subscriptions @body] Instance failed to match all required schemas (matched only 1 out of 2)\n\t* /allOf/0: Object has missing required properties ([\"datapassId\",\"localAdministrator\",\"notificationFrequency\",\"processCode\",\"subscriber\"])\t\n\t- [ERROR] Object has missing required properties ([\"datapassId\",\"localAdministrator\",\"notificationFrequency\",\"processCode\",\"subscriber\"])"
-            }]
-          }
-        end
-
         before do
           stub_request(:post, "#{api_host}/referential/v1/subscriptions")
             .with(
@@ -204,8 +189,6 @@ RSpec.describe HubEEAPIClient do
       end
 
       context 'when there is an Internal server error' do
-        let(:response_error_500) { { 'errors' => [{ 'code' => 500, 'message' => 'Internal Server Error' }] } }
-
         before do
           stub_request(:post, "#{api_host}/referential/v1/subscriptions")
             .with(
@@ -215,7 +198,7 @@ RSpec.describe HubEEAPIClient do
                 'content-type' => 'application/json',
               }
             )
-            .to_return(status: 500, body: response_error_500.to_json, headers: {})
+            .to_return(status: 500, body: subscription_response_error_500.to_json, headers: {})
         end
 
         it 'renders an error 500' do
