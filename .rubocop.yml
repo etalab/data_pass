@@ -248,3 +248,6 @@ Rails/ActionOrder:
 
 RSpec/ExampleWording:
   Enabled: false
+
+RSpec/SpecFilePathFormat:
+  Enabled: false
