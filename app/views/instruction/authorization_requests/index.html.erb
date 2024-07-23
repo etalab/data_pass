@@ -44,7 +44,7 @@
           ].each do |attr|
         %>
           <th scope="col">
-            <% if %w[form_name actions].exclude?(attr) %>
+            <% if %w[status last_submitted_at].include?(attr) %>
               <%= sort_link(@search_engine, attr) do %>
                 <%= t(".table.header.#{attr}") %>
               <% end %>
