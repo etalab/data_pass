@@ -36,26 +36,4 @@ module HubEECertDCBridgeMocks
       }
     }
   end
-
-  def subscription_response
-    {
-      'accessMode' => nil,
-      'activateDateTime' => nil,
-      'creationDateTime' => '2024-06-14T13:36:20.502+00:00',
-      'datapassId' => 2,
-      'delegationActor' => nil,
-      'email' => 'admin@yopmail.com',
-      'endDateTime' => nil,
-      'id' => '22',
-      'localAdministrator' => { 'email' => 'admin@yopmail.com' },
-      'notificationFrequency' => 'unitaire',
-      'processCode' => 'CERTDC',
-      'rejectDateTime' => nil,
-      'rejectionReason' => nil,
-      'status' => 'Inactif',
-      'subscriber' => { 'branchCode' => '213302722', 'companyRegister' => '21330272200011', 'type' => 'SI' },
-      'updateDateTime' => '2024-07-18T14:00:55+02:00',
-      'validateDateTime' => '2024-07-18T14:00:55+02:00'
-    }
-  end
 end
