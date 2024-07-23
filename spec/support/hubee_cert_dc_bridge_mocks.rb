@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module HubEECertDCBridgeMocks
-  def organization_payload
+  def organization_bridge_payload
     {
       type: 'SI',
       companyRegister: '21920023500014',

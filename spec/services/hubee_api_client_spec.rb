@@ -125,7 +125,6 @@ RSpec.describe HubEEAPIClient do
     subject(:create_subscription) { hubee_api_client.create_subscription(subscription_body) }
 
     context 'when subscription does not exist' do
-
       before do
         stub_request(:post, "#{api_host}/referential/v1/subscriptions")
           .with(

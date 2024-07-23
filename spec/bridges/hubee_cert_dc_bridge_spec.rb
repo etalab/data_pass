@@ -12,7 +12,7 @@ RSpec.describe HubEECertDCBridge do
 
   before do
     allow(HubEEAPIClient).to receive(:new).and_return(hubee_api_client)
-    allow(hubee_api_client).to receive_messages(get_organization: organization_payload.with_indifferent_access, create_subscription: subscription_response.with_indifferent_access)
+    allow(hubee_api_client).to receive_messages(get_organization: organization_bridge_payload.with_indifferent_access, create_subscription: subscription_response.with_indifferent_access)
   end
 
   describe '#perform' do
@@ -60,11 +60,11 @@ RSpec.describe HubEECertDCBridge do
     context 'when organization does not exists' do
       before do
         allow(hubee_api_client).to receive(:get_organization).and_raise(Faraday::ResourceNotFound)
-        allow(hubee_api_client).to receive(:create_organization).with(organization_payload).and_return(organization_payload)
+        allow(hubee_api_client).to receive(:create_organization).with(organization_bridge_payload).and_return(organization_bridge_payload)
       end
 
       it 'calls get_organization but returns a Faraday::ResourceNotFound' do
-        expect(hubee_api_client).to receive(:create_organization).with(organization_payload)
+        expect(hubee_api_client).to receive(:create_organization).with(organization_bridge_payload)
 
         hubee_cert_dc_bridge
       end
