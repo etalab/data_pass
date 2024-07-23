@@ -2,9 +2,7 @@ class HubEECertDCBridge < ApplicationBridge
   def perform
     hubee_organization = find_or_create_organization(authorization_request)
 
-    subscription_payload = hubee_api_client.create_subscription(subscription_body(authorization_request, hubee_organization, process_code))
-
-    authorization_request.update!(linked_token_manager_id: subscription_payload['id'])
+    create_and_store_subscription(authorization_request, hubee_organization, process_code)
   end
 
   private
@@ -20,6 +18,11 @@ class HubEECertDCBridge < ApplicationBridge
       organization_payload = organization_body(organization, authorization_request)
       hubee_api_client.create_organization(organization_payload)
     end
+  end
+
+  def create_and_store_subscription(authorization_request, hubee_organization, process_code)
+    subscription_payload = hubee_api_client.create_subscription(subscription_body(authorization_request, hubee_organization, process_code))
+    authorization_request.update!(linked_token_manager_id: subscription_payload['id'])
   end
 
   def organization_body(organization, authorization_request)
