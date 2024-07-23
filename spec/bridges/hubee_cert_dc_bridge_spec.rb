@@ -105,7 +105,7 @@ RSpec.describe HubEECertDCBridge do
 
   describe '#find_or_create_organization' do
     context 'when organization exists it calls the hubee API client' do
-      it 'To get the organization and return an organization payload' do
+      it 'gets the organization and return an organization payload' do
         siret = authorization_request.organization.siret
         code_commune = authorization_request.organization.code_commune
 
@@ -118,9 +118,10 @@ RSpec.describe HubEECertDCBridge do
     context 'when organization does not exists' do
       before do
         allow(hubee_api_client).to receive(:get_organization).and_raise(Faraday::ResourceNotFound)
+        allow(hubee_api_client).to receive(:create_organization).with(organization_payload).and_return(organization_payload)
       end
 
-      it 'call get_organization but returns a Faraday::ResourceNotFound' do
+      it 'calls get_organization but returns a Faraday::ResourceNotFound' do
         expect(hubee_api_client).to receive(:create_organization).with(organization_payload)
 
         hubee_cert_dc_bridge
