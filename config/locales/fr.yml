@@ -303,7 +303,7 @@ fr:
         table:
           caption: Liste des demandes en cours
           header:
-            status: Statut
+            state: Statut
             last_submitted_at: Dernière date de soumission
             organization: Organisation
             project_name: Projet

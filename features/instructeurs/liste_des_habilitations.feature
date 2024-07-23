@@ -27,3 +27,16 @@ Fonctionnalité: Instruction: liste des habilitations
     Et que je sélectionne "Validée" pour "État égal à"
     Et que je clique sur "Rechercher"
     Alors je vois 1 demande d'habilitation
+
+  Scénario: Trier par date de soumission fonctionne
+    Sachant qu'il y a 1 demande d'habilitation "API Entreprise" en attente
+    Et que je vais sur la page instruction
+    Et que je clique sur "Dernière date de soumission"
+    Alors je vois 1 demande d'habilitation
+
+  Scénario: Trier par statut fonctionne
+    Sachant qu'il y a 1 demande d'habilitation "API Entreprise" en attente
+    Et que je vais sur la page instruction
+    Et que je clique sur "Statut"
+    Alors je vois 1 demande d'habilitation
+
