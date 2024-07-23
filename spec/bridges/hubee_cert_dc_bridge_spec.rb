@@ -8,11 +8,16 @@ RSpec.describe HubEECertDCBridge do
 
   let(:organization) { create(:organization, id: 3, siret: '21920023500014') }
 
-  let(:process_code) { 'CERTDC' }
+  let(:organization_payload) { build(:hubee_organization_payload) }
+  let(:subscription_response) { build(:hubee_subscription_response_payload, :cert_dc) }
 
   before do
     allow(HubEEAPIClient).to receive(:new).and_return(hubee_api_client)
-    allow(hubee_api_client).to receive_messages(get_organization: organization_bridge_payload.with_indifferent_access, create_subscription: subscription_response.with_indifferent_access)
+    allow(hubee_api_client).to receive_messages(
+      create_organization: organization_payload.with_indifferent_access,
+      get_organization: organization_payload.with_indifferent_access,
+      create_subscription: subscription_response.with_indifferent_access
+    )
   end
 
   describe '#perform' do
@@ -33,14 +38,14 @@ RSpec.describe HubEECertDCBridge do
     end
 
     it 'Creates and store subscription id' do
-      expect(bridge).to receive(:create_and_store_subscription).with(authorization_request, organization_bridge_payload.with_indifferent_access)
+      expect(bridge).to receive(:create_and_store_subscription).with(authorization_request, organization_payload.with_indifferent_access)
 
       bridge.perform
     end
   end
 
   describe '#find_or_create_organization' do
-    context 'when organization exists it calls the hubee API client' do
+    context 'when organization exists' do
       it 'gets the organization and return an organization payload' do
         siret = authorization_request.organization.siret
         code_commune = authorization_request.organization.code_commune
@@ -54,11 +59,11 @@ RSpec.describe HubEECertDCBridge do
     context 'when organization does not exists' do
       before do
         allow(hubee_api_client).to receive(:get_organization).and_raise(Faraday::ResourceNotFound)
-        allow(hubee_api_client).to receive(:create_organization).with(organization_bridge_payload).and_return(organization_bridge_payload)
+        allow(hubee_api_client).to receive(:create_organization).with(organization_payload).and_return(organization_payload)
       end
 
-      it 'calls get_organization but returns a Faraday::ResourceNotFound' do
-        expect(hubee_api_client).to receive(:create_organization).with(organization_bridge_payload)
+      it 'calls create_organization' do
+        expect(hubee_api_client).to receive(:create_organization).with(organization_payload.deep_symbolize_keys)
 
         hubee_cert_dc_bridge
       end
@@ -66,8 +71,10 @@ RSpec.describe HubEECertDCBridge do
   end
 
   describe '#create_and_store_subscription' do
-    it 'Creates a subscription to hubee with a subscription_body_payload and return a subscription_id' do
-      expect(hubee_api_client).to receive(:create_subscription).with(subscription_body_payload(process_code))
+    let(:subscription_payload) { build(:hubee_subscription_payload, :cert_dc, datapassId: 2) }
+
+    it 'Creates a subscription to hubee and return a subscription_id' do
+      expect(hubee_api_client).to receive(:create_subscription).with(subscription_payload.deep_symbolize_keys)
 
       hubee_cert_dc_bridge
     end
