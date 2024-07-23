@@ -10,9 +10,10 @@ class Instruction::AuthorizationRequestsController < InstructionController
 
     base_relation = base_relation.none if search_terms_is_a_possible_id?
 
-    @q = base_relation.ransack(params[:q])
-    @q.sorts = 'last_submitted_at desc' if @q.sorts.empty?
-    @authorization_requests = build_ransack_result_with_order.page(params[:page])
+    @search_engine = base_relation.ransack(params[:q])
+    @search_engine.sorts = 'last_submitted_at desc' if @search_engine.sorts.empty?
+
+    @authorization_requests = build_search_engine_results_with_order_which_puts_null_as_last.page(params[:page])
   end
 
   def show
@@ -47,8 +48,8 @@ class Instruction::AuthorizationRequestsController < InstructionController
     /^\s*\d{1,10}\s*$/.match?(main_search_input)
   end
 
-  def build_ransack_result_with_order
-    @q.result(distinct: true).except(:order).order("#{@q.sorts.first.name} #{@q.sorts.first.dir} NULLS LAST")
+  def build_search_engine_results_with_order_which_puts_null_as_last
+    @search_engine.result(distinct: true).except(:order).order("#{@search_engine.sorts.first.name} #{@search_engine.sorts.first.dir} NULLS LAST")
   end
 
   def extract_authorization_request

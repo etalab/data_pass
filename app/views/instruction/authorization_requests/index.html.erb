@@ -1,6 +1,6 @@
 <p class="fr-h2 fr-mt-5w"><%= t('.table.caption') %></p>
 
-<%= search_form_for(@q, url: instruction_authorization_requests_path, html: { method: :get, data: { turbo: false }, class: %w[search-box] }) do |f| %>
+<%= search_form_for(@search_engine, url: instruction_authorization_requests_path, html: { method: :get, data: { turbo: false }, class: %w[search-box] }) do |f| %>
   <div class="search-inputs">
     <div class="fr-input-group main-input input">
       <%= f.label :within_data_or_organization_siret_or_applicant_email_or_applicant_family_name_cont, t('.search.main_input.label'), class: %w[fr-label] %>
@@ -45,7 +45,7 @@
         %>
           <th scope="col">
             <% if %w[form_name actions].exclude?(attr) %>
-              <%= sort_link(@q, attr) do %>
+              <%= sort_link(@search_engine, attr) do %>
                 <%= t(".table.header.#{attr}") %>
               <% end %>
             <% else %>
