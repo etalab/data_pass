@@ -33,7 +33,7 @@ RSpec.describe HubEECertDCBridge do
     end
 
     it 'Creates and store subscription id' do
-      expect(bridge).to receive(:create_and_store_subscription).with(authorization_request, organization_bridge_payload.with_indifferent_access, process_code)
+      expect(bridge).to receive(:create_and_store_subscription).with(authorization_request, organization_bridge_payload.with_indifferent_access)
 
       bridge.perform
     end
