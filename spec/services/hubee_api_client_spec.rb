@@ -31,7 +31,7 @@ RSpec.describe HubEEAPIClient do
     let(:siret) { '21920023500014' }
     let(:code_commune) { '75001' }
 
-    context 'when organization already exist' do
+    context 'when organization already exists in HubEE' do
       before do
         stub_request(:get, "#{api_host}/referential/v1/organizations/SI-#{siret}-#{code_commune}")
           .with(
@@ -47,13 +47,13 @@ RSpec.describe HubEEAPIClient do
                  .with(headers: { 'Authorization' => "Bearer #{access_token}" })).to have_been_requested
       end
 
-      it 'returns the hubee organization payload' do
+      it 'returns the HubEE organization payload' do
         expect(get_organization).to eq(organization_payload)
       end
     end
 
-    context 'when organization does not exist' do
-      context 'and returns a 404 not found error' do
+    context 'when organization does not exist in HubEE' do
+      context 'when it returns a 404 not found error' do
         before do
           stub_request(:get, "#{api_host}/referential/v1/organizations/SI-#{siret}-#{code_commune}")
             .with(
@@ -72,7 +72,7 @@ RSpec.describe HubEEAPIClient do
   describe '#create_organization' do
     subject(:create_organization) { hubee_api_client.create_organization(organization_payload) }
 
-    context 'when organization does not exist' do
+    context 'when organization does not exists in HubEE' do
       before do
         stub_request(:post, "#{api_host}/referential/v1/organizations")
           .with(
@@ -84,20 +84,6 @@ RSpec.describe HubEEAPIClient do
             }
           )
           .to_return(status: 200, body: organization_payload.to_json, headers: { 'Content-Type' => 'application/json' })
-      end
-
-      it 'calls the stubbed request' do
-        create_organization
-
-        expect(a_request(:post, "#{api_host}/referential/v1/organizations")
-                 .with(
-                   body: organization_payload.to_json,
-                   headers: {
-                     'Authorization' => "Bearer #{access_token}",
-                     'Content-Type' => 'application/json',
-                     'Tag' => 'Portail HubEE',
-                   }
-                 )).to have_been_requested
       end
 
       it 'creates the organization - Render 200' do
@@ -127,7 +113,7 @@ RSpec.describe HubEEAPIClient do
         end
       end
 
-      context 'when it is a conflict' do
+      context 'when organization already exists' do
         let(:response_error_organization_already_exists) { { 'errors' => [{ 'code' => 400, 'message' => 'Organization SI-21050136700010-00000 already exists' }] } }
 
         before do
