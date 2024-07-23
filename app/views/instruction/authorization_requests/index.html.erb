@@ -1,6 +1,6 @@
 <p class="fr-h2 fr-mt-5w"><%= t('.table.caption') %></p>
 
-<%= search_form_for(@q, url: instruction_authorization_requests_path, html: { method: :get, data: { turbo: false }, class: %w[search-box] }) do |f| %>
+<%= search_form_for(@search_engine, url: instruction_authorization_requests_path, html: { method: :get, data: { turbo: false }, class: %w[search-box] }) do |f| %>
   <div class="search-inputs">
     <div class="fr-input-group main-input input">
       <%= f.label :within_data_or_organization_siret_or_applicant_email_or_applicant_family_name_cont, t('.search.main_input.label'), class: %w[fr-label] %>
@@ -34,8 +34,8 @@
       <tr>
         <%
           %w[
-            status
-            created_at
+            state
+            last_submitted_at
             organization
             project_name
             target_api
@@ -44,8 +44,8 @@
           ].each do |attr|
         %>
           <th scope="col">
-            <% if %w[form_name actions].exclude?(attr) %>
-              <%= sort_link(@q, attr) do %>
+            <% if %w[state last_submitted_at].include?(attr) %>
+              <%= sort_link(@search_engine, attr) do %>
                 <%= t(".table.header.#{attr}") %>
               <% end %>
             <% else %>
@@ -66,8 +66,8 @@
               <%= authorization_request_reopening_badge %>
             <% end %>
           </td>
-          <td class="authorization-request-created_at">
-            <%= authorization_request.created_at.strftime("%d/%m/%y") %>
+          <td class="authorization-request-last_submitted_at">
+            <%= authorization_request.last_submitted_at&.strftime("%d/%m/%y") || '-' %>
           </td>
           <td class="authorization-request-organization">
             <%= authorization_request.organization.raison_sociale %>

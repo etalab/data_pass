@@ -303,8 +303,8 @@ fr:
         table:
           caption: Liste des demandes en cours
           header:
-            status: Statut
-            created_at: Date de création
+            state: Statut
+            last_submitted_at: Dernière date de soumission
             organization: Organisation
             project_name: Projet
             target_api: Nom de l'API
