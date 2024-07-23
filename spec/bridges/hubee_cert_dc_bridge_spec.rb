@@ -79,11 +79,13 @@ RSpec.describe HubEECertDCBridge do
     end
 
     it 'Finds or creates organization' do
-      allow(described_class.new(authorization_request)).to receive(:find_or_create_organization).with(authorization_request).and_return(organization_payload)
+      expect_any_instance_of(HubEECertDCBridge).to receive(:find_or_create_organization)
+
+      hubee_cert_dc_bridge
     end
 
     it 'Create a subscription to hubee with a subscription_body_payload and return a subscription_id' do
-      expect(hubee_api_client).to receive(:create_subscription).with(subscription_body_payload).and_return(subscription_response)
+      expect(hubee_api_client).to receive(:create_subscription).with(subscription_body_payload)
 
       hubee_cert_dc_bridge
     end
@@ -101,7 +103,7 @@ RSpec.describe HubEECertDCBridge do
         siret = authorization_request.organization.siret
         code_commune = authorization_request.organization.code_commune
 
-        expect(hubee_api_client).to receive(:get_organization).with(siret, code_commune).and_return(organization_payload)
+        expect(hubee_api_client).to receive(:get_organization).with(siret, code_commune)
         hubee_cert_dc_bridge
       end
     end
@@ -112,7 +114,7 @@ RSpec.describe HubEECertDCBridge do
       end
 
       it 'call get_organization but returns a Faraday::ResourceNotFound' do
-        expect(hubee_api_client).to receive(:create_organization).with(organization_payload).and_return(organization_payload)
+        expect(hubee_api_client).to receive(:create_organization).with(organization_payload)
 
         hubee_cert_dc_bridge
       end
