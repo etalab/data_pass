@@ -41,7 +41,7 @@ class Import::AuthorizationRequestEvents < Import::Base
 
       create_event(event_row, name:, entity: message)
     when 'request_changes'
-      create_event(event_row, entity: InstructorModificationRequest.create!(authorization_request:, reason: event_row['comment'] || '(aucune raison mentionnée)'))
+      create_event(event_row, entity: InstructorModificationRequest.create!(authorization_request:, reason: event_row['comment'] || default_reason))
     when 'submit'
       create_event(event_row, entity: AuthorizationRequestChangelog.create!(authorization_request:, diff: build_event_diff(event_row, authorization_request)))
 
@@ -63,9 +63,9 @@ class Import::AuthorizationRequestEvents < Import::Base
 
       create_event(event_row, entity: find_closest_authorization(event_row, authorization_request))
     when 'refuse'
-      create_event(event_row, entity: DenialOfAuthorization.create!(authorization_request:, reason: event_row['comment']))
+      create_event(event_row, entity: DenialOfAuthorization.create!(authorization_request:, reason: event_row['comment'] || default_reason))
     when 'revoke'
-      create_event(event_row, entity: RevocationOfAuthorization.create!(authorization_request:, reason: event_row['comment']))
+      create_event(event_row, entity: RevocationOfAuthorization.create!(authorization_request:, reason: event_row['comment'] || default_reason))
     when 'copy'
       return if authorization_request.copied_from_request.blank?
 
@@ -192,6 +192,9 @@ class Import::AuthorizationRequestEvents < Import::Base
     else
       raise "Unknown authorization request type #{authorization_request.type} for instruction"
     end
+  end
 
+  def default_reason
+    '(Aucune raison donnée : donnée absente en base de données)'
   end
 end
