@@ -42,6 +42,8 @@ class Import::AuthorizationRequests::Base
   def affect_scopes
     if enrollment_row['scopes'].blank? || enrollment_row['scopes'] == '{}'
       authorization_request.scopes = []
+    elsif enrollment_row['scopes'].is_a?(Array)
+      authorization_request.scopes = enrollment_row['scopes']
     else
       authorization_request.scopes = enrollment_row['scopes'][1..-2].split(',')
     end
