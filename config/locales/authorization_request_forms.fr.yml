@@ -35,6 +35,7 @@ fr:
 
       personal_data:
         title: Comment seront traitées ces données personnelles ?
+        subtitle: "Les données personnelles ne peuvent être conservées indéfiniment : une durée de conservation doit être déterminée en fonction de l’objectif ayant conduit à la collecte de ces données."
 
       legal:
         title: Quel est le cadre juridique qui encadre votre projet ?
