@@ -3,7 +3,7 @@
 
   <div id="<%= dom_id(@authorization_request, :summary) %>">
     <% if @authorization_request.changes_requested? %>
-      <div class="fr-alert fr-alert--warning fr-mb-2v">
+      <div class="fr-alert fr-alert--warning fr-my-3w">
         <h3 class="fr-alert__title">
           <% if @authorization_request.reopening? %>
             <%= t("authorization_requests.show.reopening_changes_requested.title") %>
