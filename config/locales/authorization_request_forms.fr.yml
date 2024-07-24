@@ -29,6 +29,10 @@ fr:
         label: Ajoutez votre document
         hint: 'Taille maximale: 10 Mo. Formats supportés: pdf'
 
+      basic_infos:
+        title: Décrivez nous votre projet
+        subtitle: Afin de vous donner accès aux données, nous avons besoin d’en savoir plus sur la manière dont vous souhaitez les utiliser.
+
       personal_data:
         title: Comment seront traitées ces données personnelles ?
 
