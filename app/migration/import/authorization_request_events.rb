@@ -187,7 +187,7 @@ class Import::AuthorizationRequestEvents < Import::Base
     authorization_request = entity.authorization_request
 
     case authorization_request.type
-    when 'AuthorizationRequest::APIParticulier'
+    when 'AuthorizationRequest::APIParticulier', 'AuthorizationRequest::APIEntreprise'
       @dinum_organization ||= Organization.find_by(siret: '13002526500013')
     else
       raise "Unknown authorization request type #{authorization_request.type} for instruction"
