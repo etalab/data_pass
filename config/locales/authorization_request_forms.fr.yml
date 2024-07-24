@@ -31,8 +31,15 @@ fr:
         label: Ajoutez votre document
         hint: 'Taille maximale: 10 Mo. Formats supportés: pdf'
 
+      scopes:
+        title: Quelles sont les données dont vous avez besoin ?
+        subtitle: Soyez raisonnable, ne demandez l’accès à une donnée que si elle est vraiment utile pour votre projet.
+        info:
+          title: Comment choisir les données ?
+
       contacts:
         title: Quelles sont les personnes impliquées ?
+        subtitle: Les personnes renseignés ici seront contactées en temps voulu selon leur implication dans la démarche.
         info:
           title: Comment renseigner la liste des contacts ?
 
@@ -88,10 +95,6 @@ fr:
           title: Les justificatifs de votre cadre juridique *
           description: Vous pouvez choisir d'indiquer une URL ou d'ajouter un fichier
         cadre_juridique_url: Veuillez nous indiquer l'url du texte relatif au traitement des données personnelles
-
-      scopes:
-        info:
-          title: Comment choisir les données ?
 
     hubee_cert_dc:
       administrateur_metier: &hubee_administrateur_metier

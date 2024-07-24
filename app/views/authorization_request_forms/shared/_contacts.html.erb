@@ -1,9 +1,3 @@
-<% if f.wording_for('contacts.title') %>
-  <h3 class="fr-my-5w">
-    <%= f.wording_for('contacts.title') %>
-  </h3>
-<% end %>
-
 <div class="fr-container-fluid">
   <div class="fr-grid-row">
     <% @authorization_request.contact_types.each do |contact_type| %>
