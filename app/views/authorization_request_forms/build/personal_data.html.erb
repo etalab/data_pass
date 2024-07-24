@@ -1,7 +1,7 @@
 <%= authorization_request_form(@authorization_request) do |f| %>
   <%= render partial: 'authorization_request_forms/shared/personal_data', locals: { f: } %>
   
-  <% content_for :outside_container do %>
+  <% content_for :sticky_bar do %>
     <%= render partial: 'authorization_request_forms/build/wizard_buttons', locals: { f: } %>
   <% end %>
 <% end %>

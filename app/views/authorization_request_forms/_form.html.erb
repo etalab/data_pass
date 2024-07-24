@@ -59,5 +59,12 @@
   <%= yield %>
 </div>
 
-<%= yield :outside_container %>
+<% if content_for? :sticky_bar %>
+  <div class="fr-my-5w fr-py-2w sticky-bar" data-controller="sticky-bar">
+    <div class="fr-container-fluid">
+      <%= yield :sticky_bar %>
+    </div>
+  </div>
+<% end %>
+
 
