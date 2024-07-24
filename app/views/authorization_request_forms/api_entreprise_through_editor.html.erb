@@ -7,5 +7,7 @@
     </div>
   </div>
 
-  <%= render partial: 'authorization_request_forms/shared/submit_buttons', locals: { f: f } %>
+  <% content_for :sticky_bar do %>
+    <%= render partial: 'authorization_request_forms/shared/submit_buttons', locals: { f: f } %>
+  <% end %>
 <% end %>

@@ -94,12 +94,10 @@
   </div>
 
    <% if policy(@authorization_request).submit? %>
-    <% content_for :outside_container do %>
-      <div class="fr-my-5w fr-py-2w sticky-bar" data-controller="sticky-bar">
+    <% content_for :sticky_bar do %>
         <div class="fr-container fr-grid-row fr-grid-row--right">
           <%= f.button t('authorization_request_forms.form.submit'), type: :submit, name: :submit, id: :submit_authorization_request, class: %w(fr-btn fr-icon-checkbox-line fr-btn--icon-left) %>
         </div>
-      </div>
     <% end %>
   <% end %>
 <% end %>
