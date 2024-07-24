@@ -13,7 +13,7 @@ export default class extends Controller {
 
   toggle_sticky_shadow_on_scroll () {
     const threshold = this.element.offsetTop - window.innerHeight + this.element.offsetHeight
-    console.log(window.scrollY > threshold)
+
     if (window.scrollY > threshold) {
       this.element.classList.remove('sticky-shadow')
     } else {
