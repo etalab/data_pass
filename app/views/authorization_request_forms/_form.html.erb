@@ -48,11 +48,11 @@
     </h3>
   <% end %>
 
-  <% if f.wording_for("#{step_key}.subtitle") %>
-    <p class="fr-col-md-8">
+  <p class="fr-col-md-8">
+    <% if f.wording_for("#{step_key}.subtitle") %>
       <%= f.wording_for("#{step_key}.subtitle") %>
-    </p>
-  <% end %>
+    <% end %>
+  </p>
 
   <%= yield %>
 </div>
