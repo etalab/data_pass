@@ -1,4 +1,4 @@
-<div class="fr-mb-5w fr-py-2w sticky-bar" data-controller="sticky-bar">
+<% content_for :sticky_bar do %>
   <div class="fr-container fr-grid-row">
     <div class="fr-col">
       <% if defined?(previous_wizard_path) && !current_page?(previous_wizard_path) && !request.path.include?(previous_wizard_path) %>
@@ -8,4 +8,4 @@
 
     <%= f.button t('authorization_request_forms.form.next'), name: :next, type: :submit, id: :next_authorization_request, class: %w(fr-btn fr-btn--primary fr-btn--icon-right fr-icon-arrow-right-fill) %>
   </div>
-</div>
+<% end %>
