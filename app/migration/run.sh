@@ -43,18 +43,28 @@ DISABLE_DATABASE_ENVIRONMENT_CHECK=1 sudo --preserve-env=RAILS_ENV,PATH,DISABLE_
 echo ">> Run main import script"
 sudo --preserve-env=RAILS_ENV,LOCAL,SKIP_DOCUMENT_VALIDATION -u datapass_reborn_$RAILS_ENV bundle exec rails runner "MainImport.new.perform"
 
-echo ">> Change authorization request id sequence"
-sudo --preserve-env=RAILS_ENV,LOCAL -u datapass_reborn_$RAILS_ENV bundle exec rails runner "ActiveRecord::Base.connection.execute(\"select setval('authorization_requests_id_seq', 87045, true);\")"
-
+# Utiliser la ligne ci-dessous pour récuperer les ids. instructor et reporter sont les 2 blocs, subscriber = email
+# User.with_at_least_one_role.to_a.select { |u| u.roles.any? { |r| r == 'api_particulier:subscriber' } }.map { |u| u.id }.join(' ')
 echo ">> Assign instructor roles"
 sudo --preserve-env=RAILS_ENV,LOCAL -u datapass_reborn_$RAILS_ENV bundle exec rails runner "
 ActiveRecord::Base.transaction do
-  User.where(external_id: %w[16574 243 33577 86663 3164 26213]).find_each do |user|
-    user.roles << 'api_entreprise:instructor'
+  User.where(external_id: %w[12477 18036 74756 1723 70021 161 66116 71841]).find_each do |user|
+    user.roles << 'api_particulier:instructor'
 
-    if %w[16574 33577].exclude?(user.external_id)
-      user.instruction_submit_notifications_for_api_entreprise = false
-      user.instruction_messages_notifications_for_api_entreprise = false
+    if %w[161 66116 71841].exclude?(user.external_id)
+      user.instruction_submit_notifications_for_api_particulier = false
+      user.instruction_messages_notifications_for_api_particulier  = false
+    end
+
+    user.save!
+  end
+
+  User.where(external_id: %w[25602 19622 12477 21419 66668 47004 18036 72513 21960 19778 72326 74460 74756 58908 9745 21792 11251 25601 1723 70021 66439 161 63 22151 66116 21645 15601 71841]).find_each do |user|
+    user.roles << 'api_particulier:reporter'
+
+    if %w[161 66116 71841].exclude?(user.external_id)
+      user.instruction_submit_notifications_for_api_particulier = false
+      user.instruction_messages_notifications_for_api_particulier  = false
     end
 
     user.save!
