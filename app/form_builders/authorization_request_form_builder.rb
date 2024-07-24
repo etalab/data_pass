@@ -33,7 +33,7 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
       info_wording[:content],
       {
         id: [@object.model_name.element, 'info', block].join('_'),
-        class: %w[fr-accordion--info fr-mb-3w],
+        class: %w[fr-accordion--info fr-mb-5w],
       },
     )
   end
