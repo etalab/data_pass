@@ -48,4 +48,8 @@ class AuthorizationRequests::BlocksController < AuthenticatedUserController
 
     raise ActiveRecord::RecordNotFound
   end
+
+  def layout_name
+    'authorization_request'
+  end
 end
