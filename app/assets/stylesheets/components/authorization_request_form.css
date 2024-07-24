@@ -34,14 +34,3 @@
 .authorization-request-form-header__actions .fr-btn {
   margin-left: 10px;
 }
-
-.authorization-request-form-wizard {
-  --authorization-request-form-wizard-offset: 30px;
-
-  width: calc(100% + calc(2 * var(--authorization-request-form-wizard-offset)));
-  margin-left: calc(-1 * var(--authorization-request-form-wizard-offset));
-
-  display: flex;
-  justify-content: space-between;
-  padding-bottom: 10px;
-}

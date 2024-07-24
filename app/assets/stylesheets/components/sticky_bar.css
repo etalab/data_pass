@@ -1,0 +1,10 @@
+.sticky-bar {
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+}
+.sticky-shadow {
+  box-shadow: 0 3px 9px var(--shadow-color);
+}
