@@ -1,8 +1,5 @@
 <%= authorization_request_form(@authorization_request) do |f| %>
   <%= render partial: 'authorization_request_forms/shared/basic_infos', locals: { f: } %>
-
-  <% content_for :sticky_bar do %>
-    <%= render partial: 'authorization_request_forms/build/wizard_buttons', locals: { f: } %>
-  <% end %>
+  <%= render partial: 'authorization_request_forms/build/wizard_buttons', locals: { f: } %>
 <% end %>
 
