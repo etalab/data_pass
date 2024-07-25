@@ -59,4 +59,8 @@ module ApplicationHelper
       "authorization_request.status.#{authorization_request.state}"
     end
   end
+
+  def within_wizard?
+    respond_to?(:wizard_path)
+  end
 end

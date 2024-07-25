@@ -5,7 +5,7 @@
 
   <div class="summary-block__ctas">
     <% if policy(@authorization_request).update? && editable %>
-      <% wicked_block_id = t('wicked').keys.include?(block_id) ? t("wicked.#{block_id}") : block_id %>
+      <% wicked_block_id = t("wicked.#{block_id}") %>
       <%= link_to 'Modifier', edit_authorization_request_block_path(@authorization_request, wicked_block_id), class: %w(fr-btn fr-btn--secondary fr-btn--sm) %>
     <% end %>
   </div>

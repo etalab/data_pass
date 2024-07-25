@@ -1,14 +1,12 @@
-<%  block_name ||= nil %>
-
-<% if  block_name && f.wording_for("#{ block_name}.title") %>
+<% if f.wording_for("#{block_name}.title") %>
   <div class="fr-my-5w">
     <h3 class="fr-mt-0 fr-mb-1w">
-      <%= f.wording_for("#{ block_name}.title") %>
+      <%= f.wording_for("#{block_name}.title") %>
     </h3>
 
-    <% if f.wording_for("#{ block_name}.subtitle") %>
+    <% if f.wording_for("#{block_name}.subtitle") %>
       <p class="fr-col-md-8">
-        <%= f.wording_for("#{ block_name}.subtitle") %>
+        <%= f.wording_for("#{block_name}.subtitle") %>
       </p>
     <% end %>
   </div>

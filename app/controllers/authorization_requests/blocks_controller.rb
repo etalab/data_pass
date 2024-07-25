@@ -1,18 +1,13 @@
 class AuthorizationRequests::BlocksController < AuthenticatedUserController
-  include Wicked::Wizard::Translated
-
   helper AuthorizationRequestsHelpers
   include AuthorizationRequestsFlashes
 
-  prepend_before_action :configure_steps
   before_action :extract_authorization_request
   before_action :validate_block_id
 
   helper_method :block_id
 
-  def edit
-    @no_stepper = true
-  end
+  def edit;end
 
   def update
     organizer = ReviewAuthorizationRequest.call(
@@ -45,7 +40,7 @@ class AuthorizationRequests::BlocksController < AuthenticatedUserController
   end
 
   def block_id
-    wizard_value(params[:id]) || params[:id]
+    I18n.t("wicked.#{params[:id]}")
   end
 
   def validate_block_id
@@ -56,9 +51,5 @@ class AuthorizationRequests::BlocksController < AuthenticatedUserController
 
   def layout_name
     'authorization_request'
-  end
-
-  def configure_steps
-    self.steps = I18n.t('wicked').keys
   end
 end
