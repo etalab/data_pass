@@ -294,27 +294,6 @@ shared:
         value: "allocation_adulte_handicape"
         group: "API Allocation Adulte Handicapé"
 
-  api_infinoe_sandbox:
-    name: "API INFINOE (Bac à sable)"
-    public: false
-    cgu_link: '/cgus/cgu_infinoe_bac_a_sable_v_2023_10.pdf'
-    provider: 'dgfip'
-    blocks:
-      - name: 'basic_infos'
-      - name: 'legal'
-      - name: 'contacts'
-
-  api_infinoe_production:
-    name: "API INFINOE (Production)"
-    public: false
-    cgu_link: '/cgus/cgu_infinoe_production_v_2023_10.pdf'
-    startable_by_applicant: false
-    provider: 'dgfip'
-    blocks:
-      - name: 'api_infinoe_production/recette_fonctionnelle'
-      - name: 'api_infinoe_production/homologation_securite'
-      - name: 'api_infinoe_production/volumetrie'
-
   api_service_national:
     name: "API Service National"
     description: "Vérifiez si un candidat est en règle vis-à-vis de ses obligations de Service National et peut s’inscrire au concours ou à l’examen dont vous êtes en charge."
