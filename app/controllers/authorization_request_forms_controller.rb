@@ -64,6 +64,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   end
 
   def summary
+    @no_stepper = true
     authorize @authorization_request
     @summary_before_submit = @authorization_request.filling?
   rescue Pundit::NotAuthorizedError

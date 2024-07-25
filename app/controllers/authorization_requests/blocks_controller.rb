@@ -10,7 +10,9 @@ class AuthorizationRequests::BlocksController < AuthenticatedUserController
 
   helper_method :block_id
 
-  def edit; end
+  def edit
+    @no_stepper = true
+  end
 
   def update
     organizer = ReviewAuthorizationRequest.call(
