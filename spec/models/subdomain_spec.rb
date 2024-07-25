@@ -18,7 +18,7 @@ RSpec.describe Subdomain do
     end
 
     context 'when authorization request is not linked to a subdomain' do
-      let(:authorization_request) { create(:authorization_request, :hubee_cert_dc) }
+      let(:authorization_request) { create(:authorization_request, :api_service_national) }
 
       it 'returns nil' do
         expect(subdomain).to be_nil
