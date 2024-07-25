@@ -1,7 +1,10 @@
 class AuthorizationRequests::BlocksController < AuthenticatedUserController
+  include Wicked::Wizard::Translated
+
   helper AuthorizationRequestsHelpers
   include AuthorizationRequestsFlashes
 
+  prepend_before_action :configure_steps
   before_action :extract_authorization_request
   before_action :validate_block_id
 
@@ -40,16 +43,20 @@ class AuthorizationRequests::BlocksController < AuthenticatedUserController
   end
 
   def block_id
-    params[:id]
+    wizard_value(params[:id]) || params[:id]
   end
 
   def validate_block_id
-    return if @authorization_request.editable_blocks.pluck(:name).include?(params[:id])
+    return if @authorization_request.editable_blocks.pluck(:name).include?(block_id)
 
     raise ActiveRecord::RecordNotFound
   end
 
   def layout_name
     'authorization_request'
+  end
+
+  def configure_steps
+    self.steps = I18n.t('wicked').keys
   end
 end
