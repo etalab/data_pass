@@ -1,7 +1,7 @@
 .message-bubble-cta {
   position: fixed;
-  bottom: 10px;
-  right: 50px;
+  bottom: 82px;
+  right: 1.5rem;
 
   padding: 20px;
   border: 1px solid var(--text-action-high-blue-france);
@@ -11,7 +11,13 @@
   cursor: pointer;
   z-index: 1000;
   border-radius: 50%;
-  text-decoration: none;
+  background-image: none;
+}
+@media (min-width: 1430px) {
+  .message-bubble-cta {
+    bottom: 39px;
+    right: 39px;
+  }
 }
 
 .message-bubble-cta:hover {
