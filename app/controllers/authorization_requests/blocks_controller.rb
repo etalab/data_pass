@@ -42,7 +42,7 @@ class AuthorizationRequests::BlocksController < AuthenticatedUserController
   end
 
   def block_id
-    reverse_wicked_of(params[:id])
+    helpers.reverse_wicked_of(params[:id])
   end
 
   def validate_block_id
