@@ -59,4 +59,8 @@ module ApplicationHelper
       "authorization_request.status.#{authorization_request.state}"
     end
   end
+
+  def reverse_wicked_of(translated_step_key)
+    I18n.t('wicked').select { |_k, v| v == translated_step_key }.keys.first
+  end
 end

@@ -25,7 +25,7 @@
     </div>
   <% end %>
     
-  <% step_key = I18n.t('wicked').select { |k,v| v == params[:id] }.keys.first if params[:id] %>
+  <% step_key = reverse_wicked_of(params[:id]) if params[:id] %>
 
   <% if @authorization_request.form.multiple_steps? && !@authorization_request.finished? && !@no_stepper %>
     <% step_key = @authorization_request.form.steps.first[:name] if step_key.blank? %>

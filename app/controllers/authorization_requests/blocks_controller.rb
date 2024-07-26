@@ -42,11 +42,11 @@ class AuthorizationRequests::BlocksController < AuthenticatedUserController
   end
 
   def block_id
-    I18n.t("wicked.#{params[:id]}")
+    reverse_wicked_of(params[:id])
   end
 
   def validate_block_id
-    return if @authorization_request.editable_blocks.pluck(:name).include?(block_id)
+    return if @authorization_request.editable_blocks.pluck(:name).include?(block_id.to_s)
 
     raise ActiveRecord::RecordNotFound
   end
