@@ -11,7 +11,7 @@
   cursor: pointer;
   z-index: 1000;
   border-radius: 50%;
-  text-decoration: none;
+  background-image: none;
 }
 
 .message-bubble-cta:hover {
