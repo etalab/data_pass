@@ -40,7 +40,7 @@ class Seeds
     send_message_to_instructors(authorization_request, body: 'Bonjour, je ne suis pas sûr du cadre légal de cette demande, pouvez-vous m\'aider ?')
     send_message_to_applicant(authorization_request, body: 'Bonjour, il faut que vous demandiez à votre DPO de vous fournir le document inférent à votre demande.')
 
-    authorization_request = create_request_changes_authorization_request(:api_entreprise, attributes: { intitule: 'Portail des aides dans le secteur du batîment' })
+    authorization_request = create_request_changes_authorization_request(:api_entreprise, attributes: { intitule: 'Portail des aides dans le secteur du bâtiment' })
     send_message_to_instructors(authorization_request, body: 'Bonjour, dois-je inclure les aides pour les particuliers ?')
     send_message_to_applicant(authorization_request, body: 'Bonjour, non il s\'agit uniquement des aides pour les entreprises.')
 
