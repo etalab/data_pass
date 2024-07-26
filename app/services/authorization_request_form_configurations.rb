@@ -17,7 +17,7 @@ class AuthorizationRequestFormConfigurations
 
   def config_raw
     data_providers_files.inject('') do |final_payload, file|
-      final_payload << File.read(file)
+      final_payload << "#{File.read(file)}\n"
     end
   end
 
