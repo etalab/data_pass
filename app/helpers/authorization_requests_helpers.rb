@@ -24,7 +24,7 @@ module AuthorizationRequestsHelpers
   end
 
   def within_edit?
-    defined?(block_id) == 'method'
+    action_name == 'edit'
   end
 
   # rubocop:disable Rails/HelperInstanceVariable
