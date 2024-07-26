@@ -19,12 +19,12 @@ module AuthorizationRequestsHelpers
   end
 
   def within_wizard?
-    new_multiple_steps_form? ||
-      defined?(wizard_path) == 'method'
+    build_controller? ||
+      authorization_request_first_step_build?
   end
 
   def within_edit?
-    defined?(block_id)
+    defined?(block_id) == 'method'
   end
 
   # rubocop:disable Rails/HelperInstanceVariable
@@ -39,10 +39,16 @@ module AuthorizationRequestsHelpers
 
   private
 
+  def build_controller?
+    controller_name == 'build' &&
+      action_name == 'show'
+  end
+
   # rubocop:disable Rails/HelperInstanceVariable
-  def new_multiple_steps_form?
+  def authorization_request_first_step_build?
     @authorization_request.form.multiple_steps? &&
-      @authorization_request.new_record?
+      controller_name == 'authorization_request_forms' &&
+      action_name == 'start'
   end
   # rubocop:enable Rails/HelperInstanceVariable
 
