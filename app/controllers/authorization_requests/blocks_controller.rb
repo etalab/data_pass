@@ -1,5 +1,6 @@
 class AuthorizationRequests::BlocksController < AuthenticatedUserController
   helper AuthorizationRequestsHelpers
+  include AuthorizationRequestsHelpers
   include AuthorizationRequestsFlashes
 
   before_action :extract_authorization_request
@@ -40,11 +41,11 @@ class AuthorizationRequests::BlocksController < AuthenticatedUserController
   end
 
   def block_id
-    params[:id]
+    english_step_name(params[:id])
   end
 
   def validate_block_id
-    return if @authorization_request.editable_blocks.pluck(:name).include?(params[:id])
+    return if @authorization_request.editable_blocks.pluck(:name).include?(block_id.to_s)
 
     raise ActiveRecord::RecordNotFound
   end

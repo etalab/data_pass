@@ -25,35 +25,17 @@
     </div>
   <% end %>
 
-  <% if @authorization_request.form.multiple_steps? && !@authorization_request.finished? %>
-    <% if params[:id] %>
-      <% step_key = I18n.t('wicked').select { |k,v| v == params[:id] }.keys.first %>
-    <% else %>
-      <% step_key =  @authorization_request.form.steps.first[:name] %>
-    <% end %>
-
-    <% if step_key.present? %>
-      <%=
-        dsfr_stepper(
-          current_step: authorization_request_step_name(@authorization_request, step_key),
-          steps: @authorization_request.form.steps.map { |step| authorization_request_step_name(@authorization_request, step[:name]) }
-        )
-      %>
-    <% end %>
+  <% if within_wizard? %>
+    <%=
+      dsfr_stepper(
+        current_step: authorization_request_step_name(@authorization_request, english_step_name(params[:id])),
+        steps: @authorization_request.form.steps.map { |step| authorization_request_step_name(@authorization_request, step[:name]) }
+      )
+    %>
   <% end %>
 
-  <% if f.wording_for("#{step_key}.title") %>
-    <div class="fr-my-5w">
-      <h3 class="fr-mt-0 fr-mb-1w">
-        <%= f.wording_for("#{step_key}.title") %>
-      </h3>
-
-      <% if f.wording_for("#{step_key}.subtitle") %>
-        <p class="fr-col-md-8">
-          <%= f.wording_for("#{step_key}.subtitle") %>
-        </p>
-      <% end %>
-    </div>
+  <% if within_wizard? || within_edit? %>
+    <%= render partial: "authorization_request_forms/shared/block_titles", locals: { f: f, block_name: english_step_name(params[:id]) } %>
   <% end %>
 
   <%= yield %>
@@ -66,5 +48,3 @@
     </div>
   </div>
 <% end %>
-
-

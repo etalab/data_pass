@@ -27,14 +27,6 @@ RSpec.describe 'Authorization requests access' do
         it_behaves_like 'an unauthorized access'
       end
     end
-
-    context 'with a form which is not startable by applicant' do
-      let(:authorization_request_form) { AuthorizationRequestForm.find('api-infinoe-production') }
-
-      context 'when there is no authorization request' do
-        it_behaves_like 'an unauthorized access'
-      end
-    end
   end
 
   describe 'show' do

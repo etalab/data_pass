@@ -18,7 +18,39 @@ module AuthorizationRequestsHelpers
     end
   end
 
+  def within_wizard?
+    build_controller? ||
+      authorization_request_first_step_build?
+  end
+
+  def within_edit?
+    action_name == 'edit'
+  end
+
+  # rubocop:disable Rails/HelperInstanceVariable
+  def english_step_name(translated_step_key = nil)
+    if translated_step_key.nil?
+      @authorization_request.form.steps.first[:name]
+    else
+      I18n.t('wicked').select { |_k, v| v == translated_step_key }.keys.first
+    end
+  end
+  # rubocop:enable Rails/HelperInstanceVariable
+
   private
+
+  def build_controller?
+    controller_name == 'build' &&
+      action_name == 'show'
+  end
+
+  # rubocop:disable Rails/HelperInstanceVariable
+  def authorization_request_first_step_build?
+    @authorization_request.form.multiple_steps? &&
+      controller_name == 'authorization_request_forms' &&
+      action_name == 'start'
+  end
+  # rubocop:enable Rails/HelperInstanceVariable
 
   def authorization_request_form_tag(authorization_request, url: nil, &)
     form_with(

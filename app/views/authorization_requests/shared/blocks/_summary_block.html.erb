@@ -5,7 +5,8 @@
 
   <div class="summary-block__ctas">
     <% if policy(@authorization_request).update? && editable %>
-      <%= link_to 'Modifier', edit_authorization_request_block_path(@authorization_request, block_id), class: %w(fr-btn fr-btn--secondary fr-btn--sm) %>
+      <% wicked_block_id = t("wicked.#{block_id}") %>
+      <%= link_to 'Modifier', edit_authorization_request_block_path(@authorization_request, wicked_block_id), class: %w(fr-btn fr-btn--secondary fr-btn--sm) %>
     <% end %>
   </div>
 

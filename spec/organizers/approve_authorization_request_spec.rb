@@ -58,21 +58,6 @@ RSpec.describe ApproveAuthorizationRequest do
       end
 
       include_examples 'creates an event', event_name: :approve, entity_type: :authorization
-
-      context 'with authorization request which has a bridge' do
-        let(:bridge) { instance_double(APIInfinoeSandboxBridge, perform: true) }
-        let!(:authorization_request) { create(:authorization_request, :api_infinoe_sandbox, :submitted) }
-
-        before do
-          allow(APIInfinoeSandboxBridge).to receive(:new).and_return(bridge)
-        end
-
-        it 'triggers the bridge' do
-          approve_authorization_request
-
-          expect(bridge).to have_received(:perform)
-        end
-      end
     end
 
     context 'with authorization request in draft state' do

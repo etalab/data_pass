@@ -13,7 +13,6 @@ Fonctionnalité: Instruction: modification des préférences de notifications pa
   Scénario: Je vois les préférences de notifications par email activées par défaut
     Alors l'interrupteur "Notifications pour les dépôts de demandes d'habilitations" dans le bloc de paramètres "API Entreprise" est activé
     Et l'interrupteur "Notifications pour les dépôts de demandes d'habilitations" dans le bloc de paramètres "API Particulier" est activé
-    Et la page ne contient pas "API INFINOE"
 
   @javascript
   Scénario: Je change une préférence de notification pour les soumissions

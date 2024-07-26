@@ -14,16 +14,6 @@ portail-hubee-demarches-dila:
     - hebergement_tourisme
     - je_change_de_coordonnees
 
-api-infinoe-sandbox:
-  authorization_request: 'APIInfinoeSandbox'
-  steps:
-    - name: 'basic_infos'
-    - name: 'legal'
-    - name: 'contacts'
-
-api-infinoe-production:
-  authorization_request: 'APIInfinoeProduction'
-
 api-service-national-inscription-concours-examen:
   name: "Inscription à un concours ou un examen (hors permis de conduire)"
   authorization_request: 'APIServiceNational'
