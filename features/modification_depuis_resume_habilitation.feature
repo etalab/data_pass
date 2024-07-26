@@ -14,6 +14,10 @@ Fonctionnalité: Modifications d'un formulaire depuis sa page de résumé
     Alors il n'y a pas de lien "Modifier" dans le bloc de résumé "Mon projet"
     Et il y a un lien "Modifier" dans le bloc de résumé "Les personnes impliquées"
 
+  Scénario: Le titre du bloc s'affiche lorsque l'on édite un bloc
+    Quand je clique sur "Modifier" dans le bloc de résumé "Les personnes impliquées"
+    Alors la page contient "Quelles sont les personnes impliquées ?"
+
   Scénario: Modification avec des données valides
     Quand je clique sur "Modifier" dans le bloc de résumé "Les personnes impliquées"
     Et que je remplis les informations du contact "Responsable de traitement" avec :
