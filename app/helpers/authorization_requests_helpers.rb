@@ -27,6 +27,7 @@ module AuthorizationRequestsHelpers
     defined?(block_id)
   end
 
+  # rubocop:disable Rails/HelperInstanceVariable
   def english_step_name(translated_step_key = nil)
     if translated_step_key.nil?
       @authorization_request.form.steps.first[:name]
@@ -34,13 +35,16 @@ module AuthorizationRequestsHelpers
       I18n.t('wicked').select { |_k, v| v == translated_step_key }.keys.first
     end
   end
+  # rubocop:enable Rails/HelperInstanceVariable
 
   private
 
+  # rubocop:disable Rails/HelperInstanceVariable
   def new_multiple_steps_form?
     @authorization_request.form.multiple_steps? &&
       @authorization_request.new_record?
   end
+  # rubocop:enable Rails/HelperInstanceVariable
 
   def authorization_request_form_tag(authorization_request, url: nil, &)
     form_with(
