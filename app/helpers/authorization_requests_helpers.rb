@@ -18,7 +18,29 @@ module AuthorizationRequestsHelpers
     end
   end
 
+  def within_wizard?
+    new_multiple_steps_form? ||
+      defined?(wizard_path) == 'method'
+  end
+
+  def within_edit?
+    defined?(block_id)
+  end
+
+  def english_step_name(translated_step_key = nil)
+    if translated_step_key.nil?
+      @authorization_request.form.steps.first[:name]
+    else
+      I18n.t('wicked').select { |_k, v| v == translated_step_key }.keys.first
+    end
+  end
+
   private
+
+  def new_multiple_steps_form?
+    @authorization_request.form.multiple_steps? &&
+      @authorization_request.new_record?
+  end
 
   def authorization_request_form_tag(authorization_request, url: nil, &)
     form_with(

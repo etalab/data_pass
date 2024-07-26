@@ -1,5 +1,6 @@
 class AuthorizationRequests::BlocksController < AuthenticatedUserController
   helper AuthorizationRequestsHelpers
+  include AuthorizationRequestsHelpers
   include AuthorizationRequestsFlashes
 
   before_action :extract_authorization_request
@@ -7,9 +8,7 @@ class AuthorizationRequests::BlocksController < AuthenticatedUserController
 
   helper_method :block_id
 
-  def edit
-    @no_stepper = true
-  end
+  def edit; end
 
   def update
     organizer = ReviewAuthorizationRequest.call(
@@ -42,7 +41,7 @@ class AuthorizationRequests::BlocksController < AuthenticatedUserController
   end
 
   def block_id
-    helpers.reverse_wicked_of(params[:id])
+    english_step_name(params[:id])
   end
 
   def validate_block_id
