@@ -7,7 +7,7 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
   end
 
   def label_value(attribute)
-    wording_for("#{attribute}.label") ||
+    wording_for("#{attribute}.label").try(:html_safe) ||
       super
   end
 
@@ -59,10 +59,7 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
   end
 
   def cgu_check_box(opts = {})
-    opts[:label_with_hint] = label(:terms_of_service_accepted, class: 'fr-label') do
-      I18n.t('authorization_request_forms.default.terms_of_service_accepted.label', link: @object.definition.cgu_link).html_safe
-    end
-
+    opts.merge!(required: true)
     opts[:class] ||= []
     opts[:class] << 'fr-input-group--error' if all_terms_not_accepted_error?(:terms_of_service_accepted)
 
@@ -70,6 +67,7 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
   end
 
   def data_protection_officer_informed_check_box(opts = {})
+    opts.merge!(required: true)
     opts[:class] ||= []
     opts[:class] << 'fr-input-group--error' if all_terms_not_accepted_error?(:data_protection_officer_informed)
 
