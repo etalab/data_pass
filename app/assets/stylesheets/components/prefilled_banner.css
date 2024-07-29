@@ -1,0 +1,27 @@
+.fr-notice__body {
+    display: flex;
+    align-items: center;
+}
+
+.fr_notice__icon {
+    display: flex;
+    width: 4.375rem;
+    height: 5.25rem;
+    padding: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    gap: 0.625rem;
+    flex-shrink: 0;
+}
+
+.fr-notice__title_custom {
+    display: block;
+    color: var(--text-default-grey);
+    font-size: 1.375rem;
+    font-weight: 700;
+    line-height: 1.74rem;
+}
+
+.fr-notice__desc {
+    color: var(--text-default-grey);
+}
