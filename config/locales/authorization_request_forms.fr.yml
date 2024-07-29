@@ -304,3 +304,251 @@ fr:
     api_particulier_coexya:
       <<: *api_particulier_editor_common_wordings
 
+    api_particulier_tarification_municipale_enfance:
+      description:
+        hint: |
+          Décrivez-nous précisémment votre projet :
+          <ul>
+            <li>Quels sont les services municipaux à l'enfance que vous souhaitez simplifier ?
+            </li>
+            <li>Quels sont les critères de tarification ou d'attribution justifiant de demander des données API Particulier ?
+            </li>
+            <li>Où apparaitront les données ? Qui pourra les voir ? S'agit-il d'un service en ligne pour les usagers et/ou d'un espace en ligne pour les agents municipaux ?
+            </li>
+          </ul>
+      destinataire_donnees_caractere_personnel: &api_particulier_use_cases_forms_destinataire_donnees_caractere_personnel
+        hint: <a href="https://www.cnil.fr/fr/definition/destinataire" target="_blank">Définition CNIL d'un destinataire</a>
+      duree_conservation_donnees_caractere_personnel: &api_particulier_use_cases_forms_duree_conservation_donnees_caractere_personnel
+        hint: <a href="https://www.cnil.fr/fr/les-durees-de-conservation-des-donnees" target="_blank">En savoir plus avec la CNIL</a>
+      cadre_juridique_nature: &api_particulier_use_cases_forms_cadre_juridique_nature
+        label:
+          Description du cadre juridique autorisant à traiter les données*
+        hint:
+          Le cadre général est déjà spécifié. Vous pouvez ajouter un cadre spécifique à votre situation. Veuillez citer le texte de la délibération qui spécifie les conditions tarifaires et mentionner la page.
+      legal: &api_particulier_use_cases_forms_legal_tarification
+        justificatif:
+            title: Délibération avec les conditions tarifaires*
+            description: Ce document doit permettre de justifier les données demandées. <a href="https://particulier.api.gouv.fr/faq#qu-est-ce-qu-une-bonne-deliberation-pour-acceder-a-api-particulier" target="_blank">En savoir plus sur la délibération attendue par API Particulier</a>
+      cadre_juridique_document: &api_particulier_use_cases_forms_cadre_juridique_document
+        label: Ajoutez le fichier de la délibération
+      cadre_juridique_url: &api_particulier_use_cases_forms_cadre_juridique_url
+        label: Indiquez une URL vers la délibération
+
+    api_particulier_aides_facultatives_regionales:
+      description:
+        hint: |
+          Décrivez-nous précisémment votre projet :
+          <ul>
+            <li>Quelles sont les aides facultatives régionales que vous souhaitez simplifier ?
+            </li>
+            <li>Quels sont les critères de tarification ou d'attribution justifiant de demander des données API Particulier ?
+            </li>
+            <li>Où apparaitront les données ? Qui pourra les voir ? S'agit-il d'un service en ligne pour les usagers et/ou d'un espace en ligne pour les agents municipaux ?
+            </li>
+          </ul>
+      destinataire_donnees_caractere_personnel: *api_particulier_use_cases_forms_destinataire_donnees_caractere_personnel
+      duree_conservation_donnees_caractere_personnel: *api_particulier_use_cases_forms_duree_conservation_donnees_caractere_personnel
+      cadre_juridique_nature: *api_particulier_use_cases_forms_cadre_juridique_nature
+      legal: &api_particulier_use_cases_forms_legal_aides
+        justificatif:
+            title: Délibération avec les conditions d'attribution*
+            description: Ce document doit permettre de justifier les données demandées. <a href="https://particulier.api.gouv.fr/faq#qu-est-ce-qu-une-bonne-deliberation-pour-acceder-a-api-particulier" target="_blank">En savoir plus sur la délibération attendue par API Particulier</a>
+      cadre_juridique_document: *api_particulier_use_cases_forms_cadre_juridique_document
+      cadre_juridique_url: *api_particulier_use_cases_forms_cadre_juridique_url
+
+    api_particulier_aides_facultatives_departementales:
+      description:
+        hint: |
+          Décrivez-nous précisémment votre projet :
+          <ul>
+            <li>Quelles sont les aides facultatives départementales que vous souhaitez simplifier ?
+            </li>
+            <li>Quels sont les critères de tarification ou d'attribution justifiant de demander des données API Particulier ?
+            </li>
+            <li>Où apparaitront les données ? Qui pourra les voir ? S'agit-il d'un service en ligne pour les usagers et/ou d'un espace en ligne pour les agents municipaux ?
+            </li>
+          </ul>
+      destinataire_donnees_caractere_personnel: *api_particulier_use_cases_forms_destinataire_donnees_caractere_personnel
+      duree_conservation_donnees_caractere_personnel: *api_particulier_use_cases_forms_duree_conservation_donnees_caractere_personnel
+      cadre_juridique_nature: *api_particulier_use_cases_forms_cadre_juridique_nature
+      legal: *api_particulier_use_cases_forms_legal_aides
+      cadre_juridique_document: *api_particulier_use_cases_forms_cadre_juridique_document
+      cadre_juridique_url: *api_particulier_use_cases_forms_cadre_juridique_url
+
+    api_particulier_tarification_cantines_lycees:
+      description:
+        hint: |
+          Décrivez-nous précisémment votre projet :
+          <ul>
+            <li>Quels sont les critères de tarification des cantines pour les lycéens justifiant de demander des données API Particulier ?
+            </li>
+            <li>Où apparaitront les données ? Qui pourra les voir ? S'agit-il d'un service en ligne pour les usagers et/ou d'un espace en ligne pour les agents municipaux ?
+            </li>
+          </ul>
+      destinataire_donnees_caractere_personnel: *api_particulier_use_cases_forms_destinataire_donnees_caractere_personnel
+      duree_conservation_donnees_caractere_personnel: *api_particulier_use_cases_forms_duree_conservation_donnees_caractere_personnel
+
+    api_particulier_tarification_cantines_colleges:
+      description:
+        hint: |
+          Décrivez-nous précisémment votre projet :
+          <ul>
+            <li>Quels sont les critères de tarification des cantines pour les lycéens justifiant de demander des données API Particulier ?
+            </li>
+            <li>Où apparaitront les données ? Qui pourra les voir ? S'agit-il d'un service en ligne pour les usagers et/ou d'un espace en ligne pour les agents municipaux ?
+            </li>
+          </ul>
+      destinataire_donnees_caractere_personnel: *api_particulier_use_cases_forms_destinataire_donnees_caractere_personnel
+      duree_conservation_donnees_caractere_personnel: *api_particulier_use_cases_forms_duree_conservation_donnees_caractere_personnel
+      cadre_juridique_nature: *api_particulier_use_cases_forms_cadre_juridique_nature
+      legal: *api_particulier_use_cases_forms_legal_tarification
+      cadre_juridique_document: *api_particulier_use_cases_forms_cadre_juridique_document
+      cadre_juridique_url: *api_particulier_use_cases_forms_cadre_juridique_url
+
+    api_particulier_aides_sociales_ccas:
+      description:
+        hint: |
+          Décrivez-nous précisémment votre projet :
+          <ul>
+            <li>Quelles sont les aides que vous souhaitez simplifier ?
+            </li>
+            <li>Quels sont les critères de tarification ou d'attribution justifiant de demander des données API Particulier ?
+            </li>
+            <li>Où apparaitront les données ? Qui pourra les voir ? S'agit-il d'un service en ligne pour les usagers et/ou d'un espace en ligne pour vos agents ?
+            </li>
+          </ul>
+      destinataire_donnees_caractere_personnel: *api_particulier_use_cases_forms_destinataire_donnees_caractere_personnel
+      duree_conservation_donnees_caractere_personnel: *api_particulier_use_cases_forms_duree_conservation_donnees_caractere_personnel
+
+    api_particulier_aides_sociales_ccas_dont_facultatives:
+      description:
+        hint: |
+          Décrivez-nous précisémment votre projet :
+           <ul>
+            <li>Quelles sont les aides que vous souhaitez simplifier ? Quelles sont les aides facultatives ?
+            </li>
+            <li>Quels sont les critères de tarification ou d'attribution justifiant de demander des données API Particulier ? Notamment pour les aides facultatives.
+            </li>
+            <li>Où apparaitront les données ? Qui pourra les voir ? S'agit-il d'un service en ligne pour les usagers et/ou d'un espace en ligne pour vos agents ?
+            </li>
+          </ul>
+      destinataire_donnees_caractere_personnel: *api_particulier_use_cases_forms_destinataire_donnees_caractere_personnel
+      duree_conservation_donnees_caractere_personnel: *api_particulier_use_cases_forms_duree_conservation_donnees_caractere_personnel
+      cadre_juridique_nature:
+        label:
+          Description du cadre juridique autorisant à traiter les données*
+        hint:
+          Le cadre général et spécifique est déjà spécifié. Veuillez citer le texte de la délibération du conseil d'administration qui spécifie les conditions d'attribution des aides facultatives.
+      legal:
+        justificatif:
+            title: Délibération du conseil d'administration du CCAS
+            description: <a href="https://particulier.api.gouv.fr/faq#qu-est-ce-qu-une-bonne-deliberation-pour-acceder-a-api-particulier" target="_blank">En savoir plus sur la délibération attendue par API Particulier</a>
+      cadre_juridique_document: *api_particulier_use_cases_forms_cadre_juridique_document
+      cadre_juridique_url: *api_particulier_use_cases_forms_cadre_juridique_url
+
+    api_particulier_tarification_transports:
+      description:
+        hint: |
+          Décrivez-nous précisémment votre projet :
+          <ul>
+            <li>
+              Décrivez-nous votre organisation en tant qu'autorité organisatrice de mobilité (AOM)
+            </li>
+            <li>
+              Quel transport organisez vous ? transport scolaire et/ou en transport en commun ?
+            </li>
+            <li>
+              Quels sont les critères de tarification de vos transports justifiant de demander des données API Particulier ?
+            </li>
+            <li>
+              Comment l'utilisation des données API Particulier simplifiera-t-elle la tarification pour vos usagers ?
+            </li>
+            <li>
+              Où apparaitront les données ? Qui pourra les voir ? S'agit-il d'un service en ligne pour les usagers et/ou d'un espace en ligne pour vos agents ?
+            </li>
+          </ul>
+      destinataire_donnees_caractere_personnel: *api_particulier_use_cases_forms_destinataire_donnees_caractere_personnel
+      duree_conservation_donnees_caractere_personnel: *api_particulier_use_cases_forms_duree_conservation_donnees_caractere_personnel
+      cadre_juridique_nature:
+        label:
+          Description du cadre juridique autorisant à traiter les données*
+        hint:
+          Le cadre général est déjà spécifié. Veuillez garder le cadre juridique spécifique à votre situation (transport en commun / transport scolaire / utilisation de la C2S). Veuillez citer le texte du document qui spécifie les conditions tarifaires et mentionner la page.
+      legal: *api_particulier_use_cases_forms_legal_tarification
+      cadre_juridique_document: *api_particulier_use_cases_forms_cadre_juridique_document
+      cadre_juridique_url: *api_particulier_use_cases_forms_cadre_juridique_url
+
+    api_particulier_gestion_rh_secteur_public:
+      description:
+        hint: |
+          Décrivez-nous précisémment votre projet :
+          <ul>
+            <li>Quels sont les critères de tarification des cantines pour les lycéens justifiant de demander des données API Particulier ?
+            </li>
+            <li>Où apparaitront les données ? Qui pourra les voir ? S'agit-il d'un service en ligne pour les usagers et/ou d'un espace en ligne pour les agents municipaux ?
+            </li>
+          </ul>
+      destinataire_donnees_caractere_personnel: *api_particulier_use_cases_forms_destinataire_donnees_caractere_personnel
+      duree_conservation_donnees_caractere_personnel: *api_particulier_use_cases_forms_duree_conservation_donnees_caractere_personnel
+      cadre_juridique_nature: *api_particulier_use_cases_forms_cadre_juridique_nature
+
+    api_infinoe_production:
+      sandbox_authorization_request:
+        title: L'habilitation de bac à sable
+        description: "L'habilitation de bac à sable associée est '%{authorization_request_name}', disponible à l'adresse suivante: %{authorization_request_link}"
+      recette_fonctionnelle:
+        title: La recette fonctionnelle
+        label: J'atteste avoir réalisé une recette fonctionnelle et qualifié mon téléservice.
+        info:
+          title: Comment effectuer une recette fonctionnelle ?
+          content: |
+            <p>
+              La qualification de votre téléservice est obligatoire tant pour votre homologation de sécurité ou vos obligations RGPD que pour demander l’entrée en production auprès de la DGFiP.
+            </p>
+
+            <p>
+              Pour vous accompagner dans vos travaux, un environnement de test est mis à votre disposition sur le portail des API de la DGFiP.
+            </p>
+
+            <p>
+              Le périmètre des réponses de cet environnement de test est fonctionnellement identique à l’environnement de production.
+            </p>
+
+            <p>
+              Un jeu de données fictives vous permet de valider l’intégration de quelques cas fonctionnels dans votre téléservice. L’environnement de test proposé par la DGFiP n’a donc pas vocation à recetter toutes les fonctionnalités du téléservice, qui doivent faire l’objet d’une recette interne.
+            </p>
+
+            <p>
+              A l’issue de vos travaux, veuillez attester de la qualification de votre téléservice.
+            </p>
+      volumetrie_appels_par_minute:
+        label: Quelle est la limitation de debit que vous souhaitez pour votre téléservice ?
+      homologation:
+        title: L'homologation de sécurité
+        info:
+          title: Pourquoi effectuer une homologation de sécurité ?
+          content: |
+            <p>
+              Le Référentiel Général de Sécurité (RGS 2.0) rend la démarche d’homologation obligatoire pour les SI relatifs aux échanges entre une autorité administrative et les usagers ou entre autorités administratives.
+            </p>
+
+            <p>
+              Complétez les informations relatives à l’homologation et déposez la décision formelle d’homologation (également appelée attestation formelle).
+            </p>
+
+            <p>
+              Toutefois, si votre organisme n’est pas soumis au RGS, vous pouvez remplir un questionnaire de sécurité à récupérer auprès de la DTNum à l’adresse mail suivante : <a href="mailto:dtnum.donnees.demande-acces@dgfip.finances.gouv.fr">dtnum.donnees.demande-acces@dgfip.finances.gouv.fr</a>, et à joindre dans le formulaire ci-dessous.
+            </p>
+      volumetrie:
+        title: Volumétrie attendue
+        info:
+          title: Pourquoi avons nous besoin de cette information ?
+          content:
+            <p>
+              Connaître les données relatives à la volumétrie de votre téléservice nous permet de vous offrir la meilleure qualité de service possible. Ces informations sont transmises aux fournisseurs de vos données pour prévenir les pics de charges.
+            </p>
+
+            <p>
+              Conformément aux modalités d’utilisation, nous nous réservons le droit de réduire ou couper les appels autorisés au fournisseur de service.
+            </p>
+

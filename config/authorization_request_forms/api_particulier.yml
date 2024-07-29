@@ -961,3 +961,251 @@ api-particulier-sigec-maelis:
     contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_sigec_contact_technique_family_name || 'Martin' %>"
     contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_sigec_contact_technique_phone_number || '0836656565' %>"
     contact_technique_job_title: Contact technique
+
+api-particulier-tarification-municipale-enfance:
+  name: Tarification sociale des services municipaux à l’enfance
+  description: Communes, calculez automatiquement le tarif de vos services municipaux à l'enfance - crèche, cantine, périscolaire, etc.
+  authorization_request: APIParticulier
+  use_case: tarification_municipale_enfance
+  introduction: |
+    En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier la <strong>"Tarification sociale des services municipaux à l'enfance"</strong>. <a href="https://particulier.api.gouv.fr/cas_usages/tarification_municipale_enfance">En savoir plus sur ce cas d'usage</a>.
+  steps:
+    - name: basic_infos
+    - name: scopes
+    - name: personal_data
+    - name: legal
+    - name: contacts
+  data:
+    intitule: Tarification sociale des services municipaux à l’enfance
+    cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration qui fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Délibération.[À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]"
+    scopes:
+      - cnaf_quotient_familial
+
+api-particulier-aides-facultatives-regionales:
+  name: Aides facultatives régionales
+  description: Régions, simplifiez l'attribution de vos aides facultatives.
+  authorization_request: APIParticulier
+  use_case: aides_facultatives
+  introduction: |
+    En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier l'attribution des <strong>"Aides facultatives régionales"</strong>. <a href="https://particulier.api.gouv.fr/cas_usages/aides_facultatives">En savoir plus sur ce cas d'usage</a>.
+  steps:
+    - name: basic_infos
+    - name: scopes
+    - name: personal_data
+    - name: legal
+    - name: contacts
+  data:
+    intitule: Aides facultatives régionales
+    cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration qui fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Cadre légal spécifique : [À PRÉCISER SI NÉCESSAIRE].\r\n- Délibération [À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]."
+
+api-particulier-aides-facultatives-departementales:
+  name: Aides facultatives départementales
+  description: Département, simplifiez l'attribution de vos aides facultatives.
+  authorization_request: APIParticulier
+  use_case: aides_facultatives
+  introduction: |
+    En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier l'attribution des <strong>"Aides facultatives départementales"</strong>. <a href="https://particulier.api.gouv.fr/cas_usages/aides_facultatives">En savoir plus sur ce cas d'usage</a>.
+  steps:
+    - name: basic_infos
+    - name: scopes
+    - name: personal_data
+    - name: legal
+    - name: contacts
+  data:
+    intitule: Aides facultatives départementales
+    cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration qui fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Cadre légal spécifique : [À PRÉCISER SI NÉCESSAIRE].\r\n- Délibération [À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]."
+
+api-particulier-tarification-cantines-lycees:
+  name: Tarification cantine lycées
+  description: Régions, calculez automatiquement le tarif de restauration scolaire des lycéens.
+  authorization_request: APIParticulier
+  use_case: cantines-colleges-lycees-tarification
+  introduction: |
+    En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier la <strong>"Tarification cantine des lycées"</strong>. <a href="https://particulier.api.gouv.fr/cas_usages/cantines-colleges-lycees-tarification">En savoir plus sur ce cas d'usage</a>.
+  scopes_config:
+    displayed:
+      - cnaf_quotient_familial
+  steps:
+    - name: basic_infos
+    - name: scopes
+    - name: personal_data
+    - name: legal
+    - name: contacts
+  data:
+    intitule: Tarification cantine lycées
+    cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Cadre légal spécifique aux régions : L'article L216-6 du Code de l’éducation qui donne compétence aux lycées pour la gestion des cantines.\r\n- La délibération [À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]"
+    scopes:
+      - cnaf_quotient_familial
+
+
+api-particulier-tarification-cantines-colleges:
+  name: Tarification cantine collèges
+  description: Départements, calculez automatiquement le tarif de restauration scolaire des lycéens.
+  authorization_request: APIParticulier
+  use_case: cantines-colleges-lycees-tarification
+  introduction: |
+    En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier la <strong>"Tarification cantine des collèges"</strong>. <a href="https://particulier.api.gouv.fr/cas_usages/cantines-colleges-lycees-tarification">En savoir plus sur ce cas d'usage</a>.
+  scopes_config:
+    displayed:
+      - cnaf_quotient_familial
+  steps:
+    - name: basic_infos
+    - name: scopes
+    - name: personal_data
+    - name: legal
+    - name: contacts
+  data:
+    intitule: Tarification cantine collèges
+    cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Cadre légal spécifique aux départements : L'article R531-52 du Code de l’éducation qui donne compétence aux collectivités pour fixer les tarifs des cantines.\r\n- La délibération [À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]"
+    scopes:
+    - cnaf_quotient_familial
+
+api-particulier-aides-sociales-ccas:
+  name: Aides sociales des CCAS
+  description: Centres communaux d’action sociale (CCAS), simplifiez l'attribution de vos aides sociales.
+  authorization_request: APIParticulier
+  use_case: ccas
+  introduction: |
+    En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier l'attribution d'<strong>"Aides sociales des CCAS"</strong>. <a href="https://particulier.api.gouv.fr/cas_usages/ccas">En savoir plus sur ce cas d'usage</a>.
+
+    ⚠️ Ce cas d'usage s'adresse uniquement Centres communaux d’action sociale (CCAS).
+  steps:
+    - name: basic_infos
+    - name: scopes
+    - name: personal_data
+    - name: contacts
+  static_blocks:
+    - name: legal
+  data:
+    intitule: Aides sociales des CCAS
+    cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Cadre légal spécifique aux CCAS : Les articles L.123-5 et R.123-2 du Code de l’Action Sociale et des familles qui confient aux CCAS la charge de mener une action générale de prévention et de développement social dans la commune par le biais de prestations en espèces, remboursables ou non et de prestations en nature."
+    cadre_juridique_url: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031106561/"
+    scopes:
+    - cnaf_quotient_familial
+
+
+api-particulier-aides-sociales-ccas-dont-facultatives:
+  name: Aides sociales des CCAS dont aides facultatives
+  description: Centres communaux d’action sociale (CCAS), simplifiez l'attribution de vos aides sociales et de vos aides facultatives.
+  authorization_request: APIParticulier
+  use_case: ccas
+  introduction: |
+    En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier l'attribution d'<strong>"Aides sociales des CCAS dont aides facultatives"</strong>. <a href="https://particulier.api.gouv.fr/cas_usages/ccas">En savoir plus sur ce cas d'usage</a>.
+
+    <strong>⚠️ Ce cas d'usage s'adresse uniquement Centres communaux d’action sociale (CCAS).</strong>
+  steps:
+    - name: basic_infos
+    - name: scopes
+    - name: personal_data
+    - name: legal
+    - name: contacts
+  data:
+    intitule: Aides sociales des CCAS dont aides facultatives
+    cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Cadre légal spécifique aux CCAS : Les articles L.123-5 et R.123-2 du Code de l’Action Sociale et des familles qui confient aux CCAS la charge de mener une action générale de prévention et de développement social dans la commune par le biais de prestations en espèces, remboursables ou non et de prestations en nature.\r\n- Cadre légal spécifique pour les aides facultatives des CCAS : L'article R.123-21 du Code de l’Action Sociale et des familles donnant toute liberté au CCAS pour définir les conditions d’attribution des aides sociales facultatives.\r\n- La délibération du conseil d'administration précisant les données nécessaires à l’attribution des aides facultatives [À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]."
+    scopes:
+    - cnaf_quotient_familial
+
+api-particulier-tarification-transports:
+  name: Tarification des transports
+  description: AOM, obtenez automatiquement les données nécessaires à l'attribution des tarifs réduits de transports.
+  authorization_request: APIParticulier
+  use_case: tarification_transports
+  introduction: |
+    En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier la <strong>"Tarification des transports"</strong>. <a href="https://particulier.api.gouv.fr/cas_usages/tarification_transports">En savoir plus sur ce cas d'usage</a>.
+
+    <strong>⚠️ Ce cas d'usage s'adresse uniquement aux autorités organisatrices de la mobilité (AOM).</strong>
+  steps:
+    - name: basic_infos
+    - name: scopes
+    - name: personal_data
+    - name: legal
+    - name: contacts
+  scopes_config:
+    disabled:
+      - allocation_soutien_familial
+      - prime_activite
+      - prime_activite_majoration
+    displayed:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_enfants
+      - cnaf_adresse
+      - pole_emploi_identite
+      - pole_emploi_contact
+      - pole_emploi_adresse
+      - pole_emploi_adresse
+      - pole_emploi_paiements
+      - men_statut_scolarite
+      - men_statut_boursier
+      - men_echelon_bourse
+      - mesri_identite
+      - mesri_admission
+      - mesri_inscription_etudiant
+      - mesri_inscription_autre
+      - mesri_etablissements
+      - cnous_echelon_bourse
+      - cnous_identite
+      - cnous_email
+      - cnous_periode_versement
+      - cnous_statut_bourse
+      - cnous_ville_etudes
+      - complementaire_sante_solidaire
+      - allocation_adulte_handicape
+      - revenu_solidarite_active
+      - revenu_solidarite_active_majoration
+  data:
+    intitule: Tarification des transports
+    cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Cadre légaux spécifiques : Les articles L1231-1 et L1231-3 du Code des transports pour les transports en commun ; les articles L. 3111-7 du Code des transports et L. 214-18 du Code de l’éducation pour les transports scolaires ; l'article L1113-1 du Code des transports en cas d'utilisation de la complémentaire santé solidaire comme critère de tarification [RETIRER LES MENTIONS INUTILES].\r\n- La délibération qui spécifie les conditions tarifaires [À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]."
+
+api-particulier-gestion-rh-secteur-public:
+  name: Gestion RH du secteur public
+  description: Administrations, facilitez le recrutement et la gestion administrative des agents publics
+  authorization_request: APIParticulier
+  use_case: gestion_rh_secteur_public
+  introduction: |
+    En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier la <strong>"Gestion RH du secteur public"</strong>. <a href="https://particulier.api.gouv.fr/cas_usages/tarification_transports">En savoir plus sur ce cas d'usage</a>.
+  steps:
+    - name: basic_infos
+    - name: scopes
+    - name: personal_data
+    - name: contacts
+  static_blocks:
+    - name: legal
+  scopes_config:
+    disabled:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_enfants
+      - cnaf_adresse
+      - pole_emploi_identite
+      - pole_emploi_contact
+      - pole_emploi_adresse
+      - pole_emploi_adresse
+      - pole_emploi_paiements
+      - men_statut_scolarite
+      - men_statut_boursier
+      - men_echelon_bourse
+      - cnous_echelon_bourse
+      - cnous_identite
+      - cnous_email
+      - cnous_periode_versement
+      - cnous_statut_bourse
+      - cnous_ville_etudes
+      - complementaire_sante_solidaire
+      - allocation_adulte_handicape
+      - allocation_soutien_familial
+      - revenu_solidarite_active
+      - revenu_solidarite_active_majoration
+      - prime_activite
+      - prime_activite_majoration
+  data:
+    intitule: Gestion RH du secteur public
+    cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager."
+    cadre_juridique_url: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000045213315"
+    scopes:
+    - mesri_identite
+    - mesri_admission
+    - mesri_inscription_etudiant
+    - mesri_inscription_autre
+    - mesri_etablissements
+
