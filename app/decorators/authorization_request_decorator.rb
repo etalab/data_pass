@@ -46,10 +46,24 @@ class AuthorizationRequestDecorator < ApplicationDecorator
       t("authorization_request_forms.default.#{contact_type}.info", default: nil)
   end
 
+  def required?(field)
+    required_fields.include? field
+  end
+
   private
 
   def lookup_i18n_key(subkey)
     t("authorization_request_forms.#{object.model_name.element}.#{subkey}", default: nil) ||
       t("authorization_request_forms.default.#{subkey}")
+  end
+
+  def required_fields
+    object
+      .class
+      .validators
+      .select{|v| v.is_a? ActiveRecord::Validations::PresenceValidator}
+      .map(&:attributes)
+      .flatten
+      #.to_sym
   end
 end
