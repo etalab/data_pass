@@ -147,9 +147,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def required_tag
-    # content_tag(:span, '*', class: "fr-ml-2w fr-text-error")
-    # If I include ActionView::Helpers to use #content_tag here, the form breaks
-    '<span class="fr-ml-1w fr-text-error">*</span>'.html_safe
+    @template.content_tag(:span, '*', class: "fr-ml-1w fr-text-error")
   end
 
   def hint(attribute)
