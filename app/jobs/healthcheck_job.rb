@@ -8,7 +8,7 @@ class HealthcheckJob < ApplicationJob
 
     http.head(healthcheck_uri.path)
   # rubocop:disable Lint/SuppressedException
-  rescue Socket::ResolutionError
+  rescue Socket::ResolutionError, Net::OpenTimeout
   end
   # rubocop:enable Lint/SuppressedException
 
