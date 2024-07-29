@@ -59,7 +59,7 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
   end
 
   def cgu_check_box(opts = {})
-    opts.merge!(required: true)
+    opts[:required] = true
     opts[:class] ||= []
     opts[:class] << 'fr-input-group--error' if all_terms_not_accepted_error?(:terms_of_service_accepted)
 
@@ -67,7 +67,7 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
   end
 
   def data_protection_officer_informed_check_box(opts = {})
-    opts.merge!(required: true)
+    opts[:required] = true
     opts[:class] ||= []
     opts[:class] << 'fr-input-group--error' if all_terms_not_accepted_error?(:data_protection_officer_informed)
 

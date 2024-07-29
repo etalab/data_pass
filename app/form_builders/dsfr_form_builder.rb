@@ -117,7 +117,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
     end
   end
 
-  def label_with_hint(attribute, opts={})
+  def label_with_hint(attribute, opts = {})
     label(attribute, class: 'fr-label') do
       label_value = [label_value(attribute)]
       label_value.push(required_tag) if opts[:required]
@@ -132,7 +132,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def required_tag
-    @template.content_tag(:span, '*', class: "fr-ml-1w fr-text-error")
+    @template.content_tag(:span, '*', class: 'fr-ml-1w fr-text-error')
   end
 
   def hint(attribute)
