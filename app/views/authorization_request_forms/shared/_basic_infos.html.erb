@@ -3,31 +3,31 @@
 <fieldset class="fr-fieldset" aria-label="feedme" aria-describedby="name-1-fieldset-messages">
   <% if @authorization_request.respond_to?(:intitule) %>
     <div class="fr-fieldset__element">
-      <%= f.dsfr_text_field :intitule, required: @authorization_request.required?(:intitule) %>
+      <%= f.dsfr_text_field :intitule, model: @authorization_request %>
     </div>
   <% end %>
 
   <% if @authorization_request.respond_to?(:description) %>
     <div class="fr-fieldset__element">
-      <%= f.dsfr_text_area :description, rows: 10, required: @authorization_request.required?(:description) %>
+      <%= f.dsfr_text_area :description, rows: 10, model: @authorization_request %>
     </div>
   <% end %>
 
   <% if @authorization_request.respond_to?(:maquette_projet) %>
     <div class="fr-fieldset__element">
-      <%= f.dsfr_file_field :maquette_projet, required: @authorization_request.required?(:maquette_projet) %>
+      <%= f.dsfr_file_field :maquette_projet, model: @authorization_request %>
     </div>
   <% end %>
 
   <% if @authorization_request.respond_to?(:date_prevue_mise_en_production) %>
     <div class="fr-fieldset__element">
-      <%= f.dsfr_date_field :date_prevue_mise_en_production, required: @authorization_request.required?(:date_prevue_mise_en_production) %>
+      <%= f.dsfr_date_field :date_prevue_mise_en_production, model: @authorization_request %>
     </div>
   <% end %>
 
   <% if @authorization_request.respond_to?(:volumetrie_approximative) %>
     <div class="fr-fieldset__element">
-      <%= f.dsfr_text_field :volumetrie_approximative, required: @authorization_request.required?(:volumetrie_approximative) %>
+      <%= f.dsfr_text_field :volumetrie_approximative, model: @authorization_request %>
     </div>
   <% end %>
 </fieldset>

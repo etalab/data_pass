@@ -120,7 +120,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
   def label_with_hint(attribute, opts={})
     label(attribute, class: 'fr-label') do
       label_value = [label_value(attribute)]
-      label_value.push(required_tag) if opts[:required]
+      label_value.push(required_tag) if opts[:model].required?(attribute)
 
       @template.safe_join(
         [
