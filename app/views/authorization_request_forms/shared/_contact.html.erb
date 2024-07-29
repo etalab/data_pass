@@ -20,9 +20,9 @@
 
         <div class="fr-fieldset__element">
           <% if contact_attribute == 'email' %>
-            <%= f.dsfr_email_field("#{contact_type}_#{contact_attribute}") %>
+            <%= f.dsfr_email_field("#{contact_type}_#{contact_attribute}", required: true) %>
           <% else %>
-            <%= f.dsfr_text_field("#{contact_type}_#{contact_attribute}") %>
+            <%= f.dsfr_text_field("#{contact_type}_#{contact_attribute}", required: true) %>
           <% end %>
         </div>
       <% end %>

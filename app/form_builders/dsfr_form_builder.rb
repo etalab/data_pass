@@ -98,23 +98,8 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
       )
     end
   end
-
-  def required?(field)
-    required_fields.include? field
-  end
-
+  
   private
-
-  def required_fields
-    @object
-      .object
-      .class
-      .validators
-      .select{|v| v.is_a? ActiveRecord::Validations::PresenceValidator}
-      .map(&:attributes)
-      .flatten
-      #.to_sym
-  end
 
   def dsfr_select_tag(attribute, choices, opts)
     select(attribute, choices, {}, class: 'fr-select', **enhance_input_options(opts).except(:class))
@@ -135,7 +120,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
   def label_with_hint(attribute, opts={})
     label(attribute, class: 'fr-label') do
       label_value = [label_value(attribute)]
-      label_value.push(required_tag) if required?(attribute)
+      label_value.push(required_tag) if opts[:required]
 
       @template.safe_join(
         [

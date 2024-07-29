@@ -14,14 +14,14 @@
 
   <fieldset class="fr-fieldset" aria-label="feedme" aria-describedby="name-1-fieldset-messages">
     <div class="fr-fieldset__element fr-mb-3w">
-      <%= f.dsfr_text_area :cadre_juridique_nature, rows: 5 %>
+      <%= f.dsfr_text_area :cadre_juridique_nature, rows: 5, required: true %>
     </div>
   </fieldset>
 
   <div class="legal-bloc-space">
     <hr>
     <p class="fr-mt-3w">
-      <span class="fr-text--lg legal-text__bold"><%= f.wording_for('legal.justificatif.title') %></span>
+      <span class="fr-text--lg legal-text__bold"><%= f.wording_for('legal.justificatif.title') %></span><span class="fr-ml-1w fr-text-error">*</span>
       <br>
       <%= f.wording_for('legal.justificatif.description').html_safe %>
     </p>

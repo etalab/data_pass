@@ -43,7 +43,7 @@ fr:
         info:
           title: Comment trouver le cadre juridique ?
         justificatif:
-          title: Les justificatifs de votre cadre juridique *
+          title: Les justificatifs de votre cadre juridique
           description: Vous pouvez choisir d'indiquer une URL ou d'ajouter un fichier
         cadre_juridique_url: Veuillez nous indiquer l'url du texte relatif au traitement des données personnelles
 
