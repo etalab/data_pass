@@ -6,6 +6,7 @@ class Import::AuthorizationRequests::APIParticulierAttributes < Import::Authoriz
     affect_form_uid
 
     cadre_juridique_present = affect_potential_legal_document
+    affect_potentiel_maquette_projet_document
 
     return if authorization_request.filling? || authorization_request.archived?
 
@@ -39,6 +40,14 @@ class Import::AuthorizationRequests::APIParticulierAttributes < Import::Authoriz
     else
       false
     end
+  end
+
+  def affect_potentiel_maquette_projet_document
+    row = csv('documents').find { |row| row['attachable_id'] == enrollment_row['id'] && row['type'] == 'Document::MaquetteProjet' }
+
+    return unless row
+
+    attach_file('maquette_projet', row)
   end
 
   def affect_duree_conservation_donnees_caractere_personnel_justification

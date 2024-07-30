@@ -36,6 +36,8 @@ class Import::AuthorizationRequests < Import::Base
       log("Errors: #{authorization_request.errors.full_messages.join("\n")}")
 
       byebug
+    rescue ActiveStorage::IntegrityError => e
+      byebug
     end
   end
 
