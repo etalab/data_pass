@@ -46,7 +46,23 @@ class AuthorizationRequestDecorator < ApplicationDecorator
       t("authorization_request_forms.default.#{contact_type}.info", default: nil)
   end
 
+  def prefilled_data?
+    return false unless form.multiple_steps?
+
+    object.form.steps.all? { |step| data_present_for_step?(step) }
+  end
+
   private
+
+  def data_present_for_step?(step)
+    return false if form.data.nil?
+
+    data.present? && !data_empty?(data, %w[scopes intitule description volumetrie_approximative date_prevue_mise_en_production])
+  end
+
+  def data_empty?(data, attributes = %w[scopes intitule description volumetrie_approximative date_prevue_mise_en_production])
+    attributes.all? { |attr| data[attr].blank? }
+  end
 
   def lookup_i18n_key(subkey)
     t("authorization_request_forms.#{object.model_name.element}.#{subkey}", default: nil) ||
