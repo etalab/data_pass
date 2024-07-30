@@ -37,9 +37,6 @@ sudo chown datapass_reborn_$RAILS_ENV:datapass_reborn_$RAILS_ENV app/migration/d
 echo ">> Create db sqlite"
 sudo -u datapass_reborn_$RAILS_ENV --preserve-env=RAILS_ENV bundle exec rails runner "ImportDataInLocalDb.new.perform(delete_db_file: false)"
 
-echo ">> Drop local database"
-DISABLE_DATABASE_ENVIRONMENT_CHECK=1 sudo --preserve-env=RAILS_ENV,PATH,DISABLE_DATABASE_ENVIRONMENT_CHECK -u datapass_reborn_$RAILS_ENV bundle exec rails db:schema:load
-
 echo ">> Run main import script"
 sudo --preserve-env=RAILS_ENV,LOCAL,SKIP_DOCUMENT_VALIDATION -u datapass_reborn_$RAILS_ENV bundle exec rails runner "MainImport.new.perform"
 
