@@ -2,7 +2,7 @@
 
 user=skelz0r
 host=watchdoge
-RAILS_ENV=staging
+RAILS_ENV=production
 pg_password=`cat app/migration/.v2-pgpassword-$RAILS_ENV`
 
 echo ">> Init pg access"
