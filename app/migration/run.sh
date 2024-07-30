@@ -5,7 +5,7 @@ host=watchdoge
 v1_pg_password=`cat app/migration/.v1-pgpassword`
 
 ## TODO TO CHANGE
-RAILS_ENV=production
+RAILS_ENV=sandbox
 SKIP_DOCUMENT_VALIDATION=true
 LOCAL=false
 ## END TODO
