@@ -5,9 +5,8 @@
         <%= image_tag "authorization_requests/survey.svg", alt: "Prefilled document logo" %>
       </div>
       <p>
-        <span class="fr-notice__title_custom">Nous avons pré-rempli des informations pour vous aider</span>
-        <span class="fr-notice__desc">Vous avez choisi le cas d'usage "Marchés publics", nous avons pré-rempli les
-          informations correspondantes, elles ne peuvent donc pas être modifiées.</span>
+        <span class="fr-notice__title_custom"><%= t('authorization_request_forms.default.prefill_data_info.title') %></span>
+        <span class="fr-notice__desc"><%= t('authorization_request_forms.default.prefill_data_info.description', name: @authorization_request.form.name) %> </span>
       </p>
     </div>
   </div>
