@@ -7,11 +7,14 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
     user.full_name
   end
 
+  # rubocop:disable Metrics/MethodLength
   def name
     case object.name
     when 'submit'
       if object.entity.diff.blank?
         'submit_without_changes'
+      elsif initial_submit_with_changed_prefilled? && changelog_diffs_without_unchanged_prefilled_values_and_new_values.blank?
+        'submit_with_unchanged_prefilled_values'
       elsif initial_submit_with_changed_prefilled?
         'initial_submit_with_changed_prefilled'
       elsif initial_submit?
@@ -23,6 +26,7 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
       object.name
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def text
@@ -32,7 +36,7 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
     when 'submit', 'admin_update'
       humanized_changelog
     when 'initial_submit_with_changed_prefilled'
-      humanized_changelog_without_blank_values
+      humanized_changelog_without_unchanged_prefilled_values_and_new_values
     when 'applicant_message', 'instructor_message'
       h.simple_format(entity.body)
     when 'transfer'
@@ -57,8 +61,8 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
     changelog_builder(changelog_diffs)
   end
 
-  def humanized_changelog_without_blank_values
-    changelog_builder(changelog_diffs_without_blank_values)
+  def humanized_changelog_without_unchanged_prefilled_values_and_new_values
+    changelog_builder(changelog_diffs_without_unchanged_prefilled_values_and_new_values)
   end
 
   def changelog_builder(diffs)
@@ -79,9 +83,17 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
     object.entity.diff
   end
 
-  def changelog_diffs_without_blank_values
-    changelog_diffs.reject { |_h, v| v[0].blank? }
+  # rubocop:disable Metrics/AbcSize
+  def changelog_diffs_without_unchanged_prefilled_values_and_new_values
+    changelog_diffs.reject do |h, v|
+      if authorization_request.form.data[h.to_sym].blank?
+        v[0].blank?
+      else
+        authorization_request.public_send(h) == authorization_request.form.data[h.to_sym]
+      end
+    end
   end
+  # rubocop:enable Metrics/AbcSize
 
   # rubocop:disable Metrics/AbcSize
   def build_scopes_change(values)

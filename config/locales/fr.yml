@@ -470,6 +470,9 @@ fr:
         submit_without_changes:
           text: |
             <strong>%{user_full_name}</strong> a soumis la demande sans effectuer de changement.
+        submit_with_unchanged_prefilled_values:
+          text: |
+            <strong>%{user_full_name}</strong> a soumis la demande sans effectuer de changement sur les données pré-remplies.
         approve:
           text: "<strong>%{user_full_name}</strong> a approuvé la demande"
           icon: checkbox-line
