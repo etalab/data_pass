@@ -171,7 +171,7 @@ fr:
         update: Demande de mise à jour des informations
       blocks:
         scopes:
-          legacy_scopes: "Les données suivantes ont été précédemment sélectionnées mais ne sont plus disponibles :"
+          legacy_scopes: "Les données suivantes ont été précédemment sélectionnées mais ne sont plus disponibles ou n'apparaissent pas dans le formulaire sélectionné :"
 
   start_authorization_request_form:
     cta: Débuter mon habilitation pour %{authorization_name}
