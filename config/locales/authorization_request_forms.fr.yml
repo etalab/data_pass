@@ -21,7 +21,7 @@ fr:
       duree_conservation_donnees_caractere_personnel:
         hint: <a href="https://www.cnil.fr/fr/les-durees-de-conservation-des-donnees" target="_blank">Plus d'infos</a>
       cadre_juridique_nature:
-        label: Précisez la nature et les références du texte vous autorisant à traiter les données *
+        label: Précisez la nature et les références du texte vous autorisant à traiter les données
         hint: loi, décret, arrêté, délibération, etc.
       cadre_juridique_url:
         label: URL du texte relatif au traitement
@@ -43,7 +43,7 @@ fr:
         info:
           title: Comment trouver le cadre juridique ?
         justificatif:
-          title: Les justificatifs de votre cadre juridique *
+          title: Les justificatifs de votre cadre juridique
           description: Vous pouvez choisir d'indiquer une URL ou d'ajouter un fichier
         cadre_juridique_url: Veuillez nous indiquer l'url du texte relatif au traitement des données personnelles
 

@@ -31,7 +31,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
     dsfr_input_group(attribute, opts) do
       @template.safe_join(
         [
-          label_with_hint(attribute),
+          label_with_hint(attribute, opts),
           file_field(attribute, class: 'fr-upload', autocomplete: 'off', **enhance_input_options(opts).except(:class)),
           error_message(attribute),
           link_to_file(attribute)
@@ -46,7 +46,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
         @template.safe_join(
           [
             check_box(attribute, class: input_classes(opts), disabled: check_box_disabled, **enhance_input_options(opts).except(:class)),
-            opts[:label_with_hint] || label_with_hint(attribute)
+            label_with_hint(attribute, opts)
           ]
         )
       end
@@ -91,7 +91,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
     @template.content_tag(:div, class: 'fr-select-group') do
       @template.safe_join(
         [
-          label_with_hint(attribute),
+          label_with_hint(attribute, opts),
           dsfr_select_tag(attribute, choices, opts),
           error_message(attribute)
         ]
@@ -109,7 +109,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
     dsfr_input_group(attribute, opts) do
       @template.safe_join(
         [
-          label_with_hint(attribute),
+          label_with_hint(attribute, opts),
           public_send(input_kind, attribute, class: input_classes(opts), autocomplete: 'off', **enhance_input_options(opts).except(:class)),
           error_message(attribute)
         ]
@@ -117,15 +117,22 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
     end
   end
 
-  def label_with_hint(attribute)
+  def label_with_hint(attribute, opts = {})
     label(attribute, class: 'fr-label') do
+      label_value = [label_value(attribute)]
+      label_value.push(required_tag) if opts[:required]
+
       @template.safe_join(
         [
-          label_value(attribute),
+          label_value,
           hint(attribute)
         ]
       )
     end
+  end
+
+  def required_tag
+    @template.content_tag(:span, '*', class: 'fr-ml-1w fr-text-error')
   end
 
   def hint(attribute)
