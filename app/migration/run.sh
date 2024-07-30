@@ -69,8 +69,8 @@ ActiveRecord::Base.transaction do
 end
 "
 
-# echo ">> Maintenance mode OFF"
-# sudo rm -f /var/www/html/maintenance_datapass.html
+echo ">> Maintenance mode OFF"
+sudo rm -f /var/www/html/maintenance_datapass_$RAILS_ENV.html
 
 echo ">> Cleaning up"
 rm -f ~/.pgpass

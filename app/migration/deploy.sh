@@ -26,7 +26,7 @@ ssh -A watchdoge -- sudo chmod 644 /var/www/datapass_reborn_$RAILS_ENV/current/a
 if [ $RAILS_ENV = 'sandbox' ] ; then
   v2_pg_password_sandbox=`cat app/migration/.v2-pgpassword-sandbox`
 
-  echo "Copy dump and execute it"
+  echo "[SANDBOX ONLY] Copy dump and execute it"
   scp app/migration/dumps/datapass_production_v2.dump watchdoge:.
   ssh -A watchdoge -- sudo mv datapass_production_v2.dump /var/www/datapass_reborn_$RAILS_ENV/current/app/migration/dumps
   ssh -A watchdoge -- sudo chown root:root /var/www/datapass_reborn_$RAILS_ENV/current/app/migration/dumps/datapass_production_v2.dump
