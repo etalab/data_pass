@@ -11,20 +11,22 @@ class CreateAuthorizationFromSnapshot
   def perform
     snapshot = find_closest_snapshot
 
+    authorization = Authorization.new(
+      request_id: authorization_request.id,
+      applicant: authorization_request.applicant,
+      created_at: event_datetime,
+    )
+
     # XXX Cas où il y a eu une révocation récente (dunno why ?)
     if snapshot.blank?
       data = authorization_request.data
+      authorization.data = data
     else
       snapshot_items = find_snapshot_items(snapshot)
-      data = build_data(snapshot_items)
+      build_data(authorization, snapshot_items)
     end
 
-    authorization = Authorization.create!(
-      request_id: authorization_request.id,
-      applicant: authorization_request.applicant,
-      data: build_data(snapshot_items),
-      created_at: event_datetime,
-    )
+    authorization.save!
 
     authorization_request.class.documents.each do |document_identifier|
       storage_file_model = authorization_request.public_send(document_identifier)
@@ -66,9 +68,26 @@ class CreateAuthorizationFromSnapshot
     database.execute('select * from snapshot_items where snapshot_id = ?', snapshot['id'])
   end
 
-  # FIXME que 26 raws clairement ça va se faire à la main je pense
-  def build_data(snapshot_items)
-    authorization_request.data
+  def build_data(authorization, raw_snapshot_items)
+    byebug if raw_snapshot_items.nil?
+    snapshot_items = raw_snapshot_items.map { |row| JSON.parse(row[-1]).to_h }
+
+    enrollment_row = JSON.parse(snapshot_items.find { |item| item['item_type'].starts_with?('Enrollment') }['object'])
+    team_members = snapshot_items.select { |item| item['item_type'].starts_with?('TeamMember') }.map { |item| JSON.parse(item['object']) }
+    temporary_authorization_request = AuthorizationRequest.const_get(authorization_request.type.split('::')[-1]).new
+
+    Kernel.const_get(
+      "Import::AuthorizationRequests::#{authorization_request.type.split('::')[-1]}Attributes"
+    ).new(
+      temporary_authorization_request,
+      enrollment_row,
+      team_members,
+      false,
+    ).perform
+
+    authorization.data = temporary_authorization_request.data
+
+    byebug if temporary_authorization_request.persisted?
   end
 
   def event_datetime

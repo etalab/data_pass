@@ -12,7 +12,7 @@
 Executez la commande: `./app/migration/local_run.sh`
 Cette commande est idempotent.
 
-Pour clean la db locale: `./app/migration/clean_local_db.sh`
+Pour tout clean en local et rebuild avec les dernières valeurs: `./app/migration/local_reset.sh`
 
 Il possible d'effectuer des filtrages sur les données importées (via les options
 globale de la classe principale [`MainImport`](./main_import.rb))

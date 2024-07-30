@@ -48,11 +48,7 @@ class Import::AuthorizationRequests::APIParticulierAttributes < Import::Authoriz
   end
 
   def affect_form_uid
-    form_uid = demarche_to_form_uid
-
-    return if form_uid.blank?
-
-    authorization_request.form_uid = form_uid
+    authorization_request.form_uid = demarche_to_form_uid
   end
 
   def demarche_to_form_uid
@@ -107,6 +103,8 @@ class Import::AuthorizationRequests::APIParticulierAttributes < Import::Authoriz
       'api-particulier-cosoluce-fluo'
     when 'sigec-maelis'
       'api-particulier-sigec-maelis'
+    else
+      'api-particulier'
     end
   end
 

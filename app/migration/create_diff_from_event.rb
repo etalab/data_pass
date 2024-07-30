@@ -21,7 +21,7 @@ class CreateDiffFromEvent
     final_diff = {}
 
     @relevant_rows.each do |row|
-      event_diff = JSON.parse(row['diff'])
+      event_diff = JSON.parse(row['diff'] || '{}')
 
       case event_diff['_v']
       when '2'
@@ -74,9 +74,11 @@ class CreateDiffFromEvent
     }.each do |old_contact_kind, new_contact_kind|
       {
         'family_name' => 'family_name',
+        'given_name' => 'given_name',
         'label' => 'family_name',
         'email' => 'email',
-        'phone_number' => 'phone_number'
+        'phone_number' => 'phone_number',
+        'job' => 'job_title',
       }.each do |old_attribute, new_attribute|
         value = event_diff.delete("#{old_contact_kind}_#{old_attribute}")
 
@@ -193,7 +195,7 @@ class CreateDiffFromEvent
         end
 
         byebug if team_member.nil?
-        next if team_member['type'] == 'demandeur'
+        next if team_member['type'] == 'demandeur' || team_member_ids_is_demandeur?(team_member['id'])
 
         final_type = {
           'metier' => 'contact_metier',
@@ -350,5 +352,11 @@ class CreateDiffFromEvent
         datum
       end
     end
+  end
+
+  def team_member_ids_is_demandeur?(team_member_id)
+    %w[
+      206985
+    ].include?(team_member_id)
   end
 end

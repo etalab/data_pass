@@ -13,7 +13,7 @@ class Import::AuthorizationRequestEvents < Import::Base
         entity = AuthorizationRequestChangelog.create!(authorization_request:, diff: build_event_diff(event_row, authorization_request, relevant_rows: [event_row]))
 
         create_event(event_row, name: 'admin_update', entity: entity)
-      elsif JSON.parse(event_row['diff']).except('_v').present?
+      elsif JSON.parse(event_row['diff'] || '{}').except('_v').present?
         create_event(event_row, entity: authorization_request)
       end
     when 'archive'
@@ -26,6 +26,7 @@ class Import::AuthorizationRequestEvents < Import::Base
       create_event(event_row, name: 'system_reminder', entity: authorization_request, user_id: nil)
     when 'import'
       # FIXME seulement hubee et FC
+      raise 'Not implemented'
     when 'notify'
       user_id = all_users_email_to_id[all_legacy_users_id_to_email[event_row['user_id'].to_i]]
 
@@ -40,7 +41,7 @@ class Import::AuthorizationRequestEvents < Import::Base
 
       create_event(event_row, name:, entity: message)
     when 'request_changes'
-      create_event(event_row, entity: InstructorModificationRequest.create!(authorization_request:, reason: event_row['comment']))
+      create_event(event_row, entity: InstructorModificationRequest.create!(authorization_request:, reason: event_row['comment'] || default_reason))
     when 'submit'
       create_event(event_row, entity: AuthorizationRequestChangelog.create!(authorization_request:, diff: build_event_diff(event_row, authorization_request)))
 
@@ -62,9 +63,9 @@ class Import::AuthorizationRequestEvents < Import::Base
 
       create_event(event_row, entity: find_closest_authorization(event_row, authorization_request))
     when 'refuse'
-      create_event(event_row, entity: DenialOfAuthorization.create!(authorization_request:, reason: event_row['comment']))
+      create_event(event_row, entity: DenialOfAuthorization.create!(authorization_request:, reason: event_row['comment'] || default_reason))
     when 'revoke'
-      create_event(event_row, entity: RevocationOfAuthorization.create!(authorization_request:, reason: event_row['comment']))
+      create_event(event_row, entity: RevocationOfAuthorization.create!(authorization_request:, reason: event_row['comment'] || default_reason))
     when 'copy'
       return if authorization_request.copied_from_request.blank?
 
@@ -111,12 +112,17 @@ class Import::AuthorizationRequestEvents < Import::Base
   end
 
   def extract_user_id(event_row, entity:)
+    return if %w(reminder_before_archive reminder).include?(event_row['name'])
+
     if all_legacy_users_id_to_email.keys.include?(event_row['user_id'].to_i)
-      legacy_user_id_to_user_id(event_row['user_id'])
+      legacy_user_id_to_user_id(event_row['user_id']) ||
+        create_user_from_legacy_id(event_row, entity)
     elsif %w[create update archive copy].include?(event_row['name'])
       entity.applicant_id
     elsif %w[submit].include?(event_row['name'])
       entity.authorization_request.applicant_id
+    else
+      raise "Unknown user_id for event #{event_row['name']}"
     end
   end
 
@@ -153,5 +159,42 @@ class Import::AuthorizationRequestEvents < Import::Base
     Authorization.where(
       request_id: authorization_request.id
     ).order(created_at: :desc).first
+  end
+
+  def create_user_from_legacy_id(event_row, entity)
+    legacy_user_id = event_row['user_id']
+    legacy_user_row = database.execute('select * from users where id = ?', legacy_user_id).first
+
+    case event_row['name']
+    when 'create', 'update', 'archive', 'submit', 'copy'
+      organization = entity.organization
+    when 'validate', 'request_changes', 'approve', 'refuse', 'revoke'
+      organization = extract_instruction_organization(entity)
+    else
+      raise "Unknown user_id for event #{event_row['name']}"
+    end
+
+    existing_user = User.find_by(external_id: legacy_user_row[1])
+
+    return existing_user.id if existing_user.present?
+
+    user = User.new(email: legacy_user_row[-1], external_id: legacy_user_row[1], current_organization: organization)
+    user.save!
+    user.id
+  end
+
+  def extract_instruction_organization(entity)
+    authorization_request = entity.authorization_request
+
+    case authorization_request.type
+    when 'AuthorizationRequest::APIParticulier', 'AuthorizationRequest::APIEntreprise'
+      @dinum_organization ||= Organization.find_by(siret: '13002526500013')
+    else
+      raise "Unknown authorization request type #{authorization_request.type} for instruction"
+    end
+  end
+
+  def default_reason
+    '(Aucune raison donnée : donnée absente en base de données)'
   end
 end
