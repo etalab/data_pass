@@ -208,7 +208,7 @@ class Import::AuthorizationRequests::Base
   end
 
   def dummy_pdf_as_io
-    @dummy_pdf_as_io ||= Rails.root.join('spec', 'fixtures', 'dummy.pdf').open
+    Rails.root.join('spec', 'fixtures', 'dummy.pdf').open
   end
 
   def extract_io(row_data)

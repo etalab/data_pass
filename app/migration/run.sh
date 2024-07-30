@@ -4,13 +4,13 @@ user=skelz0r
 host=watchdoge
 v1_pg_password=`cat app/migration/.v1-pgpassword`
 
-cd /var/www/datapass_reborn_$RAILS_ENV/current
-
 ## TODO TO CHANGE
 RAILS_ENV=production
 SKIP_DOCUMENT_VALIDATION=true
 LOCAL=false
 ## END TODO
+
+cd /var/www/datapass_reborn_$RAILS_ENV/current
 
 export RAILS_ENV LOCAL SKIP_DOCUMENT_VALIDATION
 

@@ -171,7 +171,7 @@ fr:
         update: Demande de mise à jour des informations
       blocks:
         scopes:
-          legacy_scopes: "Les données suivantes ont été précédemment sélectionnées mais ne sont plus disponibles :"
+          legacy_scopes: "Les données suivantes ont été précédemment sélectionnées mais ne sont plus disponibles ou n'apparaissent pas dans le formulaire sélectionné :"
 
   start_authorization_request_form:
     cta: Débuter mon habilitation pour %{authorization_name}
@@ -467,6 +467,12 @@ fr:
             La liste des changements depuis la dernière modération sont:
             %{text}
 
+        submit_without_changes:
+          text: |
+            <strong>%{user_full_name}</strong> a soumis la demande sans effectuer de changement.
+        submit_with_unchanged_prefilled_values:
+          text: |
+            <strong>%{user_full_name}</strong> a soumis la demande sans effectuer de changement sur les données pré-remplies.
         approve:
           text: "<strong>%{user_full_name}</strong> a approuvé la demande"
           icon: checkbox-line

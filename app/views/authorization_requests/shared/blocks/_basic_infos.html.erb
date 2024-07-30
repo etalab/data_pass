@@ -1,13 +1,35 @@
 <%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { title: t('authorization_request_forms.default.steps.basic_infos'), block_id: :basic_infos, f:, editable: } do %>
-  <strong>
-    <%= f.label_value(:intitule) %>
-  </strong>
+  <% if @authorization_request.respond_to?(:intitule) %>
+    <strong>
+      <%= f.label_value(:intitule) %>
+    </strong>
 
-  <%= simple_format(@authorization_request.intitule) %>
+    <%= simple_format(@authorization_request.intitule) %>
+  <% end %>
 
-  <strong>
-    <%= f.label_value(:description) %>
-  </strong>
+  <% if @authorization_request.respond_to?(:description) %>
+    <strong>
+      <%= f.label_value(:description) %>
+    </strong>
 
-  <%= simple_format(@authorization_request.description) %>
+    <%= simple_format(@authorization_request.description) %>
+  <% end %>
+
+  <% if @authorization_request.respond_to?(:maquette_projet) && @authorization_request.maquette_projet.attached? %>
+    <p>
+      <strong><%= f.label_value(:maquette_projet) %></strong> : <%= link_to @authorization_request.maquette_projet.filename, url_for(@authorization_request.maquette_projet), target: '_blank' %>
+    </p>
+  <% end %>
+
+  <% if @authorization_request.respond_to?(:date_prevue_mise_en_production) %>
+    <p>
+      <strong><%= f.label_value(:date_prevue_mise_en_production) %></strong> : <%= @authorization_request.date_prevue_mise_en_production || 'Non renseigné' %>
+    </p>
+  <% end %>
+
+  <% if @authorization_request.respond_to?(:volumetrie_approximative) %>
+    <p>
+      <strong><%= f.label_value(:volumetrie_approximative) %></strong> : <%= @authorization_request.volumetrie_approximative || 'Non renseigné' %>
+    </p>
+  <% end %>
 <% end %>
