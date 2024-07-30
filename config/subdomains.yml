@@ -12,6 +12,13 @@ shared:
     tagline: 'Habilitations juridiques pour API Particulier'
     authorization_definition_ids:
       - 'api_particulier'
+  hubee:
+    name: 'HubEE'
+    title: 'DataPass - HubEE'
+    tagline: 'Habilitations juridiques pour HubEE'
+    authorization_definition_ids:
+      - 'hubee_cert_dc'
+      - 'hubee_dila'
 test:
   api-entreprise:
     name: 'API Entreprise'
