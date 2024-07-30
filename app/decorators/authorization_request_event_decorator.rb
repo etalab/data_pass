@@ -10,7 +10,9 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
   def name
     case object.name
     when 'submit'
-      if initial_submit_with_changed_prefilled?
+      if object.entity.diff.blank?
+        'submit_without_changes'
+      elsif initial_submit_with_changed_prefilled?
         'initial_submit_with_changed_prefilled'
       elsif initial_submit?
         'initial_submit'
