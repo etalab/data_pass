@@ -5,25 +5,19 @@
   </p>
 
   <div class="fr-mt-2w">
-    <h3>
-      Cadre juridique
-    </h3>
+    <%= render partial: "authorization_request_forms/shared/block_titles", locals: { f: f, block_name: :legal } %>
 
     <%= render partial: 'authorization_request_forms/shared/legal', locals: { f: f } %>
   </div>
 
   <div class="fr-mt-2w">
-    <h3>
-      Gestion des données personnelles
-    </h3>
+    <%= render partial: "authorization_request_forms/shared/block_titles", locals: { f: f, block_name: :personal_data } %>
 
     <%= render partial: 'authorization_request_forms/shared/personal_data', locals: { f: } %>
   </div>
 
   <div class="fr-mt-2w">
-    <h3>
-      Les données
-    </h3>
+    <%= render partial: "authorization_request_forms/shared/block_titles", locals: { f: f, block_name: :scopes } %>
   </div>
 
   <div class="fr-container-fluid">
@@ -31,9 +25,7 @@
   </div>
 
   <div class="fr-mt-2w">
-    <h3>
-      Contacts légaux
-    </h3>
+    <%= render partial: "authorization_request_forms/shared/block_titles", locals: { f: f, block_name: :contacts } %>
 
     <div class="fr-container-fluid">
       <div class="fr-grid-row">
