@@ -46,28 +46,21 @@ class AuthorizationRequestDecorator < ApplicationDecorator
       t("authorization_request_forms.default.#{contact_type}.info", default: nil)
   end
 
-  def prefilled_data_single_page_view?
-    return false if form.data.nil?
+  def prefilled_data?(keys)
+    return false if object.form.data.nil?
 
-    return false unless single_page_view?
+    return false unless object.form.multiple_steps?
 
-    form.data.keys.any? { |key| data_present_for_key?(key) }
+    keys.any? do |key|
+      data_present_for_key?(key)
+    end
   end
 
   private
 
-  def single_page_view?
-    form.single_page_view.present?
-  end
-
   def data_present_for_key?(key)
-    data = form.data[key.to_sym]
-
-    data.present? && !data_empty?(data)
-  end
-
-  def data_empty?(data)
-    data.blank?
+    data = object.form.data[key]
+    data.present?
   end
 
   def lookup_i18n_key(subkey)

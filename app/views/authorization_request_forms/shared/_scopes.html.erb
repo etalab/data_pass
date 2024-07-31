@@ -1,3 +1,7 @@
+<% if @authorization_request.prefilled_data?(%i[scopes]) %>
+  <%= render partial: "authorization_request_forms/shared/prefilled_banner" %>
+<% end %>
+
 <%= f.info_for(:scopes) %>
 
 <% @authorization_request.available_scopes.group_by(&:group).each do |group_name, scopes| %>

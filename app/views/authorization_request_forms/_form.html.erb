@@ -38,7 +38,7 @@
     <%= render partial: "authorization_request_forms/shared/block_titles", locals: { f: f, block_name: english_step_name(params[:id]) } %>
   <% end %>
 
-  <% if @authorization_request.prefilled_data_single_page_view? %>
+  <% if !@authorization_request.form.multiple_steps? && @authorization_request.form.prefilled? %>
     <%= render partial: "authorization_request_forms/shared/prefilled_banner" %>
   <% end %>
 

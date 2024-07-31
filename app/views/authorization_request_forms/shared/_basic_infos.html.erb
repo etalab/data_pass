@@ -1,3 +1,7 @@
+<% if @authorization_request.prefilled_data?(%i[intitule description date_prevue_mise_en_production volumetrie_approximative]) %>
+  <%= render partial: "authorization_request_forms/shared/prefilled_banner" %>
+<% end %>
+
 <%= f.info_for(:basic_infos) %>
 
 <fieldset class="fr-fieldset" aria-label="feedme" aria-describedby="name-1-fieldset-messages">
