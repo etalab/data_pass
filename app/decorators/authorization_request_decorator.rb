@@ -49,19 +49,20 @@ class AuthorizationRequestDecorator < ApplicationDecorator
   def prefilled_data?
     return false unless form.multiple_steps?
 
-    object.form.steps.all? { |step| data_present_for_step?(step) }
+    form.data.keys.any? { |key| data_present_for_key?(key) }
   end
 
   private
 
-  def data_present_for_step?(step)
+  def data_present_for_key?(key)
     return false if form.data.nil?
 
-    data.present? && !data_empty?(data, %w[scopes intitule description volumetrie_approximative date_prevue_mise_en_production])
+    data = form.data[key.to_sym]
+    data.present? && !data_empty?(data)
   end
 
-  def data_empty?(data, attributes = %w[scopes intitule description volumetrie_approximative date_prevue_mise_en_production])
-    attributes.all? { |attr| data[attr].blank? }
+  def data_empty?(data)
+    data.blank?
   end
 
   def lookup_i18n_key(subkey)
