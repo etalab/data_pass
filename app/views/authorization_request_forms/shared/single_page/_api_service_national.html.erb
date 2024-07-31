@@ -1,20 +1,11 @@
 <%= authorization_request_form(@authorization_request) do |f| %>
-  <h3>
-    <%= t('authorization_request_forms.default.steps.basic_infos') %>
-  </h3>
-
+  <%= render partial: "authorization_request_forms/shared/block_titles", locals: { f: f, block_name: :basic_infos } %>
   <%= render partial: 'authorization_request_forms/shared/basic_infos', locals: { f: f } %>
 
-  <h3>
-    <%= t('authorization_request_forms.default.steps.personal_data') %>
-  </h3>
-
+  <%= render partial: "authorization_request_forms/shared/block_titles", locals: { f: f, block_name: :personal_data } %>
   <%= render partial: 'authorization_request_forms/shared/personal_data', locals: { f: f } %>
 
-  <h3>
-    <%= t('authorization_request_forms.default.steps.contacts') %>
-  </h3>
-
+  <%= render partial: "authorization_request_forms/shared/block_titles", locals: { f: f, block_name: :contacts } %>
   <%= f.contacts_infos(%i[responsable_traitement delegue_protection_donnees contact_technique]) %>
 
   <div class="fr-container-fluid">
