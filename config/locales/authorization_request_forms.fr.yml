@@ -208,7 +208,7 @@ fr:
 
     api_particulier:
       cadre_juridique_nature:
-        label: Précisez la nature et les références du texte vous autorisant à traiter les données *
+        label: Précisez la nature et les références du texte vous autorisant à traiter les données
       cadre_juridique_document:
         label: Ajoutez votre délibération
 
