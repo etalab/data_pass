@@ -596,11 +596,9 @@ api-particulier-aiga:
   editor_id: 'aiga'
   single_page_view: 'api_particulier_through_editor'
   use_case: 'portail_famille_tarification'
-  static_blocks:
-    - name: 'basic_infos'
-    - name: 'personal_data'
-    - name: 'legal'
-    - name: 'scopes'
+  static_blocks: &api_particulier_through_editor_static_blocks
+    - name: basic_infos
+    - name: modalities
   data:
     intitule: Facturation des familles inscrites aux CLSH, services périscolaires … des collectivités
     description: >-
@@ -630,11 +628,7 @@ api-particulier-bl-enfance-berger-levrault:
   single_page_view: 'api_particulier_through_editor'
   use_case: portail_famille_tarification
   editor_id: berger_levrault
-  static_blocks:
-  - name: basic_infos
-  - name: personal_data
-  - name: legal
-  - name: scopes
+  static_blocks: *api_particulier_through_editor_static_blocks
   data:
     intitule: Calcul du quotient familial pour la facturation des activités scolaires,
       périscolaires et loisirs
@@ -669,11 +663,7 @@ api-particulier-docaposte-fast:
   use_case: portail_famille_tarification
   single_page_view: 'api_particulier_through_editor_without_contact_technique'
   editor_id: docaposte
-  static_blocks:
-  - name: basic_infos
-  - name: personal_data
-  - name: legal
-  - name: scopes
+  static_blocks: *api_particulier_through_editor_static_blocks
   data:
     intitule: Récupération du Quotient Familial ainsi que les informations administratives
       (CAF et Impôts) pour les services Cantine et Garderie
@@ -708,11 +698,7 @@ api-particulier-odyssee-informatique-pandore:
   single_page_view: 'api_particulier_through_editor'
   use_case: portail_famille_tarification
   editor_id: odyssee_informatique
-  static_blocks:
-  - name: basic_infos
-  - name: personal_data
-  - name: legal
-  - name: scopes
+  static_blocks: *api_particulier_through_editor_static_blocks
   data:
     intitule: Récupération des données CNAF pour les services municipaux
     description: "La mairie souhaite bénéficier du service API Particulier pour les
@@ -748,11 +734,7 @@ api-particulier-qiis-eticket:
   use_case: portail_famille_tarification
   single_page_view: 'api_particulier_through_editor'
   editor_id: qiis
-  static_blocks:
-  - name: basic_infos
-  - name: personal_data
-  - name: legal
-  - name: scopes
+  static_blocks: *api_particulier_through_editor_static_blocks
   data:
     intitule: eTicket - Portail Famille
     description: "Cette démarche auprès des administrés nous permettra de récupérer
@@ -785,11 +767,7 @@ api-particulier-teamnet-axel:
   use_case: portail_famille_tarification
   single_page_view: 'api_particulier_through_editor_without_contact_technique'
   editor_id: teamnet
-  static_blocks:
-  - name: basic_infos
-  - name: personal_data
-  - name: legal
-  - name: scopes
+  static_blocks: *api_particulier_through_editor_static_blocks
   data:
     intitule: Déclaration des revenus et calcul du quotient familial pour actualiser
       les tarifs appliqués aux différentes prestations facturées
@@ -818,11 +796,7 @@ api-particulier-jvs-parascol:
   single_page_view: 'api_particulier_through_editor_without_contact_technique'
   use_case: portail_famille_tarification
   editor_id: jvs_mairistem
-  static_blocks:
-  - name: basic_infos
-  - name: personal_data
-  - name: legal
-  - name: scopes
+  static_blocks: *api_particulier_through_editor_static_blocks
   data:
     intitule: Facturation des familles pour les services périscolaires et loisirs
     description: "La commune/la structure intercommunale est chargée de la gestion
@@ -857,11 +831,7 @@ api-particulier-entrouvert-publik:
   use_case: portail_famille_tarification
   single_page_view: 'api_particulier_through_editor_without_contact_technique'
   editor_id: entrouvert
-  static_blocks:
-  - name: basic_infos
-  - name: personal_data
-  - name: legal
-  - name: scopes
+  static_blocks: *api_particulier_through_editor_static_blocks
   data:
     intitule: Calcul du tarif des activités péri-extrascolaires, petite enfance, socio-culturelles
       et sportives pour les enfants ou les adultes inscrits
@@ -885,11 +855,7 @@ api-particulier-ccas-melissandre-afi:
   single_page_view: 'api_particulier_through_editor'
   use_case: ccas
   editor_id: afi
-  static_blocks:
-  - name: basic_infos
-  - name: personal_data
-  - name: legal
-  - name: scopes
+  static_blocks: *api_particulier_through_editor_static_blocks
   data:
     intitule: Instructions des dossiers d'aides sociales
     description: 'Les agents du CCAS instruisent des dossiers de demandes d''aides
@@ -935,11 +901,7 @@ api-particulier-coexya:
   single_page_view: 'api_particulier_through_editor'
   use_case: portail_famille_tarification
   editor_id: coexya
-  static_blocks:
-  - name: basic_infos
-  - name: personal_data
-  - name: legal
-  - name: scopes
+  static_blocks: *api_particulier_through_editor_static_blocks
   data:
     intitule: Tarification sociale et solidaires des transports
     description: Aide à l'accès aux transports
@@ -969,11 +931,7 @@ api-particulier-sigec-maelis:
   single_page_view: 'api_particulier_through_editor'
   use_case: portail_famille_tarification
   editor_id: sigec
-  static_blocks:
-  - name: basic_infos
-  - name: personal_data
-  - name: legal
-  - name: scopes
+  static_blocks: *api_particulier_through_editor_static_blocks
   data:
     intitule: Récupération des données CNAF pour les services municipaux
     description: "La mairie souhaite bénéficier du service API Particulier pour les
