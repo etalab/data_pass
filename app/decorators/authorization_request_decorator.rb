@@ -49,11 +49,7 @@ class AuthorizationRequestDecorator < ApplicationDecorator
   def prefilled_data?
     return false if form.data.nil?
 
-    if form.multiple_steps?
-      form.data.keys.any? { |key| data_present_for_key?(key) }
-    else
-      form.data.keys.any? { |key| data_present_for_key?(key) }
-    end
+    form.data.keys.any? { |key| data_present_for_key?(key) }
   end
 
   private
