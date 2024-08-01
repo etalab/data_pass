@@ -69,11 +69,6 @@ shared:
         value: "open_data_associations_djepva"
         link: "https://entreprise.api.gouv.fr/catalogue/infogreffe/rcs/extrait"
         included: true
-      - name: "Bénéficiaires effectifs - Inpi | Open Data"
-        value: "open_data_beneficiaires_effectifs_inpi"
-        group: "Informations générales"
-        link: "https://entreprise.api.gouv.fr/catalogue/inpi/rne/beneficiaires_effectifs"
-        included: true
       - name: "N°TVA intracommunautaire français - Commission européenne | Open Data"
         value: "open_data_numero_tva_commission_europeenne"
         group: "Informations générales"
@@ -102,6 +97,10 @@ shared:
         group: 'Informations générales'
         value: "mandataires_sociaux_infogreffe"
         link: "https://entreprise.api.gouv.fr/catalogue/infogreffe/mandataires_sociaux"
+      - name: "Bénéficiaires effectifs - Inpi | 🔐"
+        value: "open_data_beneficiaires_effectifs_inpi"
+        group: "Informations générales"
+        link: "https://entreprise.api.gouv.fr/catalogue/inpi/rne/beneficiaires_effectifs"
       - name: "Chiffre d’affaires - DGFIP | 🔐"
         group: "Informations financières"
         value: "chiffre_affaires_dgfip"
