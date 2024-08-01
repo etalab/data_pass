@@ -17,6 +17,12 @@ Fonctionnalité: Modifications d'un formulaire depuis sa page de résumé
   Scénario: Le titre du bloc s'affiche lorsque l'on édite un bloc
     Quand je clique sur "Modifier" dans le bloc de résumé "Les personnes impliquées"
     Alors la page contient "Quelles sont les personnes impliquées ?"
+    Alors il y a un bouton "Retour à la synthèse"
+
+  Scénario: Annulation de la modification
+    Quand je clique sur "Modifier" dans le bloc de résumé "Les personnes impliquées"
+    Et que je clique sur "Retour à la synthèse"
+    Alors la page contient "Soumettre la demande d'habilitation"
 
   Scénario: Modification avec des données valides
     Quand je clique sur "Modifier" dans le bloc de résumé "Les personnes impliquées"

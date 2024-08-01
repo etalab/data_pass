@@ -2,8 +2,17 @@
   <%= render partial: "authorization_request_forms/shared/#{block_id}", locals: { f: } %>
 
   <% content_for :sticky_bar do %>
-    <div class="fr-container fr-grid-row fr-grid-row--right">
-      <%= f.button t('authorization_request_forms.form.save'), type: :submit, name: :save, id: :save_authorization_request, class: %w(fr-btn fr-btn--primary fr-icon-save-line fr-btn--icon-left) %>
+    <div class="fr-container fr-grid-row">
+      <div class="fr-col-12">
+        <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--icon-left fr-btns-group--between">
+          <li>
+            <%= link_to t('authorization_request_forms.form.back'), :back, class: %w(fr-btn fr-btn--secondary fr-icon-arrow-left-s-line-double fr-btn--icon-left) %>
+          </li>
+          <li>
+            <%= f.button t('authorization_request_forms.form.save'), type: :submit, name: :save, id: :save_authorization_request, class: %w(fr-btn fr-btn--primary fr-icon-save-line fr-btn--icon-left) %>
+          </li>
+        </ul>
+      </div>
     </div>
   <% end %>
 <% end %>
