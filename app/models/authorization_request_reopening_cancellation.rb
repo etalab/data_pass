@@ -18,6 +18,10 @@ class AuthorizationRequestReopeningCancellation < ApplicationRecord
       user == request.applicant
   end
 
+  def authorization_request
+    request
+  end
+
   private
 
   def authorization_request_type_underscored

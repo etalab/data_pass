@@ -58,6 +58,11 @@ class AuthorizationRequest < ApplicationRecord
     inverse_of: :authorization_request,
     dependent: :destroy
 
+  has_many :reopening_cancellations,
+    class_name: 'AuthorizationRequestReopeningCancellation',
+    inverse_of: :request,
+    dependent: :destroy
+
   has_many :authorizations,
     class_name: 'Authorization',
     inverse_of: :request,

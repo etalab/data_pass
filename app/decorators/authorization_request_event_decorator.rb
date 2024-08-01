@@ -7,7 +7,7 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
     user.full_name
   end
 
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def name
     case object.name
     when 'submit'
@@ -22,16 +22,22 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
       else
         'submit'
       end
+    when 'cancel_reopening'
+      if object.entity.from_instructor?
+        'cancel_reopening_from_instructor'
+      else
+        'cancel_reopening_from_applicant'
+      end
     else
       object.name
     end
   end
-  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def text
     case name
-    when 'refuse', 'request_changes', 'revoke'
+    when 'refuse', 'request_changes', 'revoke', 'cancel_reopening_from_instructor'
       h.simple_format(entity.reason)
     when 'submit', 'admin_update'
       humanized_changelog
