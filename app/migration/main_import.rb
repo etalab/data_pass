@@ -11,11 +11,11 @@ class MainImport
   end
 
   def perform
-    organizations = import(:organizations, { load_from_sql: ENV['LOCAL'] == 'true' })
-    import(:users, { load_from_sql: ENV['LOCAL'] == 'true' })
-    authorization_requests = import(:authorization_requests, { load_from_sql: ENV['LOCAL'] == 'true' })
+    organizations = import(:organizations, { load_from_sql: ENV['DUMP'] == 'true' })
+    import(:users, { load_from_sql: ENV['DUMP'] == 'true' })
+    authorization_requests = import(:authorization_requests, { load_from_sql: ENV['DUMP'] == 'true' })
 
-    import(:authorization_request_events, { dump_sql: ENV['LOCAL'] == 'true', valid_authorization_request_ids: authorization_requests.pluck(:id) })
+    import(:authorization_request_events, { dump_sql: ENV['DUMP'] == 'true', valid_authorization_request_ids: authorization_requests.pluck(:id) })
 
     %i[warned skipped].each do |kind|
       export(kind)
