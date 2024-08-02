@@ -577,6 +577,46 @@ api-particulier-agedi-proxima-enf:
       - formulaire_qf
       - params
 
+api-particulier-ecorestauration-loyfeey:
+  name: Loyfeey
+  description: Portail famille
+  authorization_request: APIParticulier
+  use_case: portail_famille_tarification
+  editor_id: ecorestauration
+  public: false
+  introduction: *api_particulier_introduction_editor_with_fixed_scopes
+  steps: *api_particulier_editor_steps_with_fixed_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
+  scopes_config:
+    disabled:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_adresse
+    displayed:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_enfants
+      - cnaf_adresse
+
+  data:
+    intitule: Tarification sur Quotient Familial des cantines
+    description: |
+      Logiciel utilisé à travers d'un front pour les inscriptions à la restauration scolaire (fournissent leurs information à la collectivité par l'API sans envoyer de document ou se déplacer) et par des agents habilités en back-office (récupèrent les informations familles des parents qui inscrivent leurs enfants à la restauration scolaire et obtiennent le résultat du calcul tarifaire automatique effectué par Loyfeey à partir des revenus de l'API)
+    cadre_juridique_nature: *api_particulier_cadre_juridique_portail_famille
+    scopes:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_adresse
+    # contact_technique_editable: false
+    contact_technique_email: "<%= Rails.application.credentials.api_particulier_ecorestauration_contact_technique_email || 'tech-ecorestauration@yopmail.com' %>"
+    contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_ecorestauration_contact_technique_given_name || 'Jean' %>"
+    contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_ecorestauration_contact_technique_family_name || 'Dupont' %>"
+    contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_ecorestauration_contact_technique_phone_number || '0836656565' %>"
+    contact_technique_job_title: Lead développeur
+    modalities:
+      - params
+      - formulaire_qf
+
 # ------------------------------- #
 # ------------------------------- #
 # ------------------------------- #

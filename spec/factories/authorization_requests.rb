@@ -277,6 +277,7 @@ FactoryBot.define do
       api-particulier-3d-ouest
       api-particulier-coexya
       api-particulier-agedi-proxima-enf
+      api-particulier-ecorestauration-loyfeey
     ].each do |form_uid|
       trait form_uid.tr('-', '_') do
         api_particulier

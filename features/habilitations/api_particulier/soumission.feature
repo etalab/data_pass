@@ -90,6 +90,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
       | Concerto opus             | Arpège            |
       | Civil Enfance             | Ciril GROUP       |
       | ILE - Kiosque famille     | Technocarte       |
+      | Loyfeey                   | Ecorestauration   |
 
   Plan du scénario: Je soumets une demande d'habilitation, en plusieurs étapes, d'un éditeur avec le contact technique non renseigné et des scopes non modifiables pour un cas d'usage lié au CCAS
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"

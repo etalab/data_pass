@@ -97,3 +97,6 @@ shared:
   agedi:
     name: AGEDI
     siret: '25770538400044'
+  ecorestauration:
+    name: Ecorestauration
+    siret: '82839976600025'
