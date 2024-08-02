@@ -59,6 +59,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
       | Domino web 2.0      | Abelium Collectivités     |
       | City Family         | Mushroom Software         |
       | NFI                 | Nord France Informatique  |
+      | Proxima.ENF         | AGEDI                     |
 
   Plan du scénario: Je soumets une demande d'habilitation, en plusieurs étapes, d'un éditeur avec le contact technique non renseigné et des scopes non modifiables pour un cas d'usage lié au portail famille ou à la tarification QF
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"

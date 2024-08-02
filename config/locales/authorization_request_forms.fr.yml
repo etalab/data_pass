@@ -281,6 +281,8 @@ fr:
       <<: *api_particulier_editor_common_wordings
     api_particulier_3d_ouest:
       <<: *api_particulier_editor_common_wordings
+    api_particulier_agedi_proxima_enf:
+      <<: *api_particulier_editor_common_wordings
     api_particulier_aiga:
       <<: *api_particulier_editor_common_wordings
     api_particulier_bl_enfance_berger_levrault:
