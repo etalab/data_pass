@@ -102,7 +102,7 @@ RSpec.describe SubmitAuthorizationRequest do
             end
 
             describe 'when it is not the first submit and there is a changelog' do
-              before do
+              let!(:previous_authorization_request_changelog) do
                 create(:authorization_request_changelog, authorization_request:)
               end
 
@@ -115,6 +115,16 @@ RSpec.describe SubmitAuthorizationRequest do
                   initial_scopes,
                   initial_scopes + %w[scope1 scope2]
                 ])
+              end
+
+              context 'when changelog has attributes no longer present on the model' do
+                let!(:previous_authorization_request_changelog) do
+                  create(:authorization_request_changelog, authorization_request:, diff: { 'old_attribute' => [nil, 'whatever'] })
+                end
+
+                it 'does not raise an error by ignoring attribute within diff building' do
+                  expect { submit_authorization_request }.not_to raise_error
+                end
               end
             end
           end

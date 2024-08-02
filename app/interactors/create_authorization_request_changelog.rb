@@ -18,6 +18,7 @@ class CreateAuthorizationRequestChangelog < ApplicationInteractor
   def create_changelog_with_diff
     create_changelog(
       reified_data.each_with_object({}) do |(key, old_value), diff|
+        next unless authorization_request.respond_to?(key)
         next if authorization_request.public_send(key) == old_value
 
         diff[key] = [old_value, authorization_request.public_send(key)]
