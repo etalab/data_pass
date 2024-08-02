@@ -30,9 +30,7 @@
 
     <div class="fr-container-fluid">
       <div class="fr-grid-row fr-grid-row--gutters">
-        <% %i[responsable_traitement delegue_protection_donnees].each do |contact_type| %>
-          <%= render partial: 'authorization_request_forms/shared/contact', locals: { contact_type:, f: } %>
-        <% end %>
+        <%= render partial: 'authorization_request_forms/shared/contact', locals: { contact_type: :delegue_protection_donnees, f: } %>
       </div>
     </div>
   </div>
