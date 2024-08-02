@@ -257,22 +257,28 @@ Quand('je renseigne la volumétrie') do
   )
 end
 
-Quand('je renseigne les informations des contacts RGPD') do
-  steps %(
-    * je remplis les informations du contact "Responsable de traitement" avec :
-      | Nom    | Prénom | Email               | Téléphone   | Fonction                  |
-      | Dupont | Jean   | dupont.jean@gouv.fr | 0836656560  | Responsable de traitement |
-    * je remplis les informations du contact "Délégué à la protection des données" avec :
-      | Nom    | Prénom  | Email                  | Téléphone   | Fonction    |
-      | Dupont | Jacques | dupont.jacques@gouv.fr | 08366565601 | Délégué     |
-  )
-end
-
 Quand('je renseigne les informations du contact technique') do
   steps %(
     * je remplis les informations du contact "Contact technique" avec :
       | Nom    | Prénom  | Email               | Téléphone   | Fonction    |
       | Dupont | Marc    | dupont.marc@gouv.fr | 08366565603 | Technique   |
+  )
+end
+
+Quand('je renseigne les informations des contacts RGPD') do
+  steps %(
+    * je renseigne les informations du délégué à la protection des données
+    * je remplis les informations du contact "Responsable de traitement" avec :
+      | Nom    | Prénom | Email               | Téléphone   | Fonction                  |
+      | Dupont | Jean   | dupont.jean@gouv.fr | 0836656560  | Responsable de traitement |
+  )
+end
+
+Quand('je renseigne les informations du délégué à la protection des données') do
+  steps %(
+    * je remplis les informations du contact "Délégué à la protection des données" avec :
+      | Nom    | Prénom  | Email                  | Téléphone   | Fonction    |
+      | Dupont | Jacques | dupont.jacques@gouv.fr | 08366565601 | Délégué     |
   )
 end
 
