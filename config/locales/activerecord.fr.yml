@@ -2,8 +2,8 @@ fr:
   activemodel:
     errors:
       messages: &active_record_messages_errors
-        email_unreachable: "n'est pas une adresse email joignable : celle-ci n'existe probablement pas. Veuillez soit mettre à jour cette adresse email, soit contacter le support à l'adresse datapass@api.gouv.fr en précisant votre numéro d'habilitation"
-        email_deliverability_unknown: "n'a pas pu être vérifiée : merci de contacter le support à l'adresse datapass@api.gouv.fr en précisant votre numéro d'habilitation"
+        email_unreachable: "n'est pas une adresse email joignable : celle-ci n'existe probablement pas. Veuillez soit mettre à jour cette adresse email. Si vous êtes sûr que cette adresse email est valide, contactez le support à l'adresse datapass@api.gouv.fr en précisant votre numéro d'habilitation pour que l'on valide manuellement cette adresse."
+        email_deliverability_unknown: "n'a pas pu être vérifiée : merci de vérifier que cette adresse email est bien valide. Si tel est le cas, contactez le support à l'adresse datapass@api.gouv.fr en précisant votre numéro d'habilitation ainsi que l'email pour que celle-ci soit validée manuellement."
       models:
         authorization_request_transfer:
           attributes:
@@ -86,7 +86,7 @@ fr:
           all_terms_not_accepted: Vous devez acceptez les conditions générales avant de continuer
           attributes:
             scopes:
-              blank: doivent au moins contenir un élément sélectionné ci-dessous
+              blank: "ne sont pas cochées : il faut au moins qu'une des données soit sélectionnée."
   ransack:
     attributes:
       authorization_request:

@@ -30,7 +30,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation Portail HubEE - Démarc
     Et que je clique sur "Suivant"
 
     Alors il y a un message d'erreur contenant "Une erreur est survenue lors de la sauvegarde de la demande d'habilitation"
-    Et il y a un message d'attention contenant "Les données doivent au moins contenir un élément sélectionné ci-dessous"
+    Et il y a un message d'erreur contenant "Les données ne sont pas cochées"
     Et je suis sur la page "Portail HubEE - Démarches DILA"
 
   Scénario: Je remplis une demande d'habilitation avec un champ du contact manquant

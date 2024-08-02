@@ -345,7 +345,6 @@ api-particulier-city-family-mushroom-software:
   scopes_config:
     disabled:
       - cnaf_quotient_familial
-      - cnaf_adresse
     displayed:
       - cnaf_quotient_familial
       - cnaf_allocataires
