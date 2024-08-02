@@ -1,13 +1,13 @@
 fr:
   authorization_request_forms:
     default:
-      steps:
+      steps: &authorization_request_forms_default_steps
         basic_infos: "Mon projet"
         personal_data: "Le traitement des données"
         legal: "Justification du traitement des données personnelles"
         scopes: "Les données"
         contacts: "Les personnes impliquées"
-        modalities: "Les modalités d'accès"
+        modalities: "Les modalités d'accès aux données"
         finish: "La synthèse"
 
       terms_of_service_accepted:
@@ -207,6 +207,9 @@ fr:
           Il s'agit de votre contact technique auprès de votre éditeur. Vous n'avez à priori pas besoin de le modifier, sauf si vous avez un DSI qui veut gérer les accès.
 
     api_particulier:
+      steps:
+        <<: *authorization_request_forms_default_steps
+        modalities: "Les modalités d'appel de l'API"
       cadre_juridique_nature:
         label: Précisez la nature et les références du texte vous autorisant à traiter les données
       cadre_juridique_document:
