@@ -59,8 +59,6 @@ api-particulier-abelium:
       L'Article L114-8 du Code des relations entre le public et l'administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usage
 
       L'article R531-52 du Code de l'éducation donne compétence aux collectivités pour fixer les tarifs des cantines.
-    destinataire_donnees_caractere_personnel: Agents du service
-    duree_conservation_donnees_caractere_personnel: 36
     scopes:
       - cnaf_quotient_familial
     # contact_technique_editable: false
@@ -113,11 +111,6 @@ api-particulier-arpege-concerto:
       L'Article L114-8 du Code des relations entre le public et l'administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usage
 
       L'Arrêté du 04/07/13 sur les téléservices
-    destinataire_donnees_caractere_personnel: |
-      * Agents instructeurs des dossiers d’inscription en multi-accueil
-      * Agents instructeurs des dossiers au guichet unique
-      * Agents instructeurs des dossiers d’inscription en accueil périscolaire
-    duree_conservation_donnees_caractere_personnel: 12
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -154,8 +147,6 @@ api-particulier-cantine-de-france:
     description: |
       La solution propose 3 portails, un dédié aux famille pour réaliser toutes les démarches, un second pour les gestionnaires de la collectivité et le dernier pour les agents pour réaliser le pointage sur une tablette ou un PC
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_qf
-    destinataire_donnees_caractere_personnel: Agents
-    duree_conservation_donnees_caractere_personnel: 36
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -195,8 +186,6 @@ api-particulier-agora-plus:
     description: |
       Récupération des données nécessaires pour le calcul des tarifs des différentes prestations
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_portail_famille
-    destinataire_donnees_caractere_personnel: Adresse du foyer
-    duree_conservation_donnees_caractere_personnel: 12
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -240,8 +229,6 @@ api-particulier-amiciel-malice:
       l'administration. En tant que collectivité territoriale, la délibération ci-jointe
       précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices,
       et précise les données nécessaires à son fonctionnement
-    destinataire_donnees_caractere_personnel: *api_particulier_cadre_juridique_nature_tarification_qf
-    duree_conservation_donnees_caractere_personnel: 36
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -287,10 +274,6 @@ api-particulier-ccas-arche-mc2:
     description: Logiciel utilisé par des agents habilités de CCAS/CIAS dans le cadre de l'instruction de dossier de demandes d'aides sociales
     cadre_juridique_nature: &api_particulier_cadre_juridique_nature_ccas |
       Article L. 312-1 et Article R123-5 du code de l'action sociale et des familles. Article L114-8 et Article R. 114-9-3 du code des relations entre le public et l'administration.
-    destinataire_donnees_caractere_personnel: agents instructeurs des demandes d'aides,
-      agents instructeurs des demandes d'inscriptions aux services à la personne,
-      ...
-    duree_conservation_donnees_caractere_personnel: 24
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -321,10 +304,6 @@ api-particulier-ccas-arpege:
       et les services à la personne du CCAS
     description: Logiciel utilisé par des agents habilités de CCAS/CIAS dans le cadre de l'instruction de dossier de demandes d'aides sociales
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_ccas
-    destinataire_donnees_caractere_personnel: agents instructeurs des demandes d'aides,
-      agents instructeurs des demandes d'inscriptions aux services à la personne,
-      ...
-    duree_conservation_donnees_caractere_personnel: 12
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -354,11 +333,6 @@ api-particulier-city-family-mushroom-software:
     intitule: Calcul du quotient familial pour la facturations des crèches, du périscolaire, du scolaire et de l’extrascolaire
     description: Gestion des activités enfance, jeunesse, petite enfance (facturations des crèches, du périscolaire, du scolaire et de l’extrascolaire). Portail famille et back-office
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_qf
-    destinataire_donnees_caractere_personnel: Il s'agit de l'agent en Mairie effectuant
-      la gestion des familles pour une facturation conforme à la délibération municipale.
-      La consultation des données n’est pas autorisée ni permise aux agents n’ayant
-      pas rapport au service.
-    duree_conservation_donnees_caractere_personnel: 24
     scopes:
       - cnaf_quotient_familial
     contact_technique_email: "<%= Rails.application.credentials.api_particulier_mushroom_software_contact_technique_email || 'tech-mushroom_software@yopmail.com' %>"
@@ -386,9 +360,6 @@ api-particulier-civil-enfance-ciril-group:
       L'application Civil Enfance est utilisée par les agents habilités des collectivités locales et notre portail famille en front est utilisé par les parents des enfants scolarisés dans ces communes.
       Récupération des données nécessaires pour le calcul des tarifs des différentes prestations. L'application est soit utilisée par les agents habilités des collectivités locales soit utilisée par les parents des enfants scolarisés dans ces communes en front sur le portail famille.
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_qf
-    destinataire_donnees_caractere_personnel: Agents de la collectivité en charge
-      des services enfance, petite enfance et jeunesse de la ville.
-    duree_conservation_donnees_caractere_personnel: 36
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -417,8 +388,6 @@ api-particulier-cosoluce-fluo:
     intitule: Récupération des données CNAF pour les services municipaux
     description: Logiciel utilisé par des agents habilités pour la facturation des cantines
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_qf
-    destinataire_donnees_caractere_personnel: Agents
-    duree_conservation_donnees_caractere_personnel: 36
     scopes:
       - cnaf_quotient_familial
     contact_technique_email: "<%= Rails.application.credentials.api_particulier_cosoluce_contact_technique_email || 'tech-cosoluce@yopmail.com' %>"
@@ -456,11 +425,6 @@ api-particulier-nfi:
       - en mairie pour le compte d'un administré spécifique dans le cas d'un administré n'ayant pas accès à Internet ou pour le compte de l'ensemble des administrés gérés dans le cadre du service et en cours de validité au moment du traitement
       Cela permet d'actualiser le quotient familial et d'être conforme à la délibération municipale fixant les coût des prestations en fonction du QF.
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_qf
-    destinataire_donnees_caractere_personnel: Il s'agit de l'agent en Mairie effectuant
-      la gestion des familles pour une facturation conforme à la délibération municipale.
-      La consultation des données n’est pas autorisée ni permise aux agents n’ayant
-      pas rapport au service.
-    duree_conservation_donnees_caractere_personnel: 24
     scopes:
       - cnaf_quotient_familial
     contact_technique_email: "<%= Rails.application.credentials.api_particulier_nfi_contact_technique_email || 'tech-nfi@yopmail.com' %>"
@@ -494,10 +458,6 @@ api-particulier-technocarte-ile:
       Le logiciel ILE permet aux agents en mairie de créer des familles, faire des inscriptions en crèche et inscriptions aux activités périscolaires, centre de loisirs et restauration, saisir les quotients familiaux pour facturer toutes ces activités.
       Le kiosque famille permet aux familles de faire des demandes d'inscriptions en direct et à terme de transmettre le quotient famille en utilisant l'API particulier - Hubee.
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_qf
-    destinataire_donnees_caractere_personnel: Agents instructeurs des dossiers au
-      guichet unique, Agents instructeurs des dossiers d’inscription en accueil périscolaire
-      et centre de loisirs
-    duree_conservation_donnees_caractere_personnel: 36
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -525,9 +485,6 @@ api-particulier-waigeo-myperischool:
       restauration scolaire et des accueils de loisirs.
     description: MyPérischool dispose d'un front accessible pour les citoyens et les agents pour la gestion de la petite enfance et des activités periscolaires
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_qf
-    destinataire_donnees_caractere_personnel: Agents de la collectivité en charge
-      des services enfance et jeunesse de la ville.
-    duree_conservation_donnees_caractere_personnel: 36
     scopes:
       - cnaf_quotient_familial
     # contact_technique_editable: false
@@ -569,8 +526,6 @@ api-particulier-3d-ouest:
       l'administration. En tant que collectivité territoriale, la délibération ci-jointe
       précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices,
       et précise les données nécessaires à son fonctionnement.
-    destinataire_donnees_caractere_personnel: Agents des services publics de la ville
-    duree_conservation_donnees_caractere_personnel: 36
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -611,8 +566,6 @@ api-particulier-aiga:
         En tant que collectivité territoriale, la délibération ci-jointe précise
         l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices,
         et précise les données nécessaires à son fonctionnement.
-    destinataire_donnees_caractere_personnel: Adresse du foyer
-    duree_conservation_donnees_caractere_personnel: 12
     scopes:
       - cnaf_quotient_familial
     contact_technique_type: organization
@@ -640,10 +593,6 @@ api-particulier-bl-enfance-berger-levrault:
       l'administration. En tant que collectivité territoriale, la délibération ci-jointe
       précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices,
       et précise les données nécessaires à son fonctionnement.
-    destinataire_donnees_caractere_personnel: Agent de la collectivité ( ou association)
-      en charge de l’inscription des familles ou en charge de la facturation des activités,
-      agent du service guichet unique.
-    duree_conservation_donnees_caractere_personnel: 36
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -680,9 +629,6 @@ api-particulier-docaposte-fast:
       l'administration. En tant que collectivité territoriale, la délibération ci-jointe
       précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices,
       et précise les données nécessaires à son fonctionnement.
-    destinataire_donnees_caractere_personnel: Agents instructeurs en charge de la
-      tarification et de la facturation des prestations aux familles
-    duree_conservation_donnees_caractere_personnel: 36
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -713,8 +659,6 @@ api-particulier-odyssee-informatique-pandore:
       l'administration. En tant que collectivité territoriale, la délibération ci-jointe
       précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices,
       et précise les données nécessaires à son fonctionnement.
-    destinataire_donnees_caractere_personnel: Service facturier de la collectivité
-    duree_conservation_donnees_caractere_personnel: 36
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -745,8 +689,6 @@ api-particulier-qiis-eticket:
       l'administration. En tant que collectivité territoriale, la délibération ci-jointe
       précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices,
       et précise les données nécessaires à son fonctionnement.
-    destinataire_donnees_caractere_personnel: Adresse du foyer
-    duree_conservation_donnees_caractere_personnel: 12
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -779,9 +721,6 @@ api-particulier-teamnet-axel:
       avec les revenus du foyer et le nombre de personnes qui composent le foyer."
     cadre_juridique_nature: Préciser la référence et le texte et de la délibération
       au format PDF vous autorisant à traiter les données.
-    destinataire_donnees_caractere_personnel: Agents instructeurs qui gèrent la facturation
-      des prestations de la Petite Enfance, du Scolaire et de l'extra-scolaire
-    duree_conservation_donnees_caractere_personnel: 36
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -813,9 +752,6 @@ api-particulier-jvs-parascol:
       l'administration. En tant que collectivité territoriale, la délibération ci-jointe
       précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices,
       et précise les données nécessaires à son fonctionnement.
-    destinataire_donnees_caractere_personnel: Agents instructeurs des dossiers d’inscription
-      (périscolaire, multi-accueil, guichet unique)
-    duree_conservation_donnees_caractere_personnel: 24
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -839,9 +775,6 @@ api-particulier-entrouvert-publik:
       leurs démarches en ligne via la plateforme de Gestion de la relation usager
       Publik de la collectivité, éditée par la société Entr'ouvert
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_portail_famille
-    destinataire_donnees_caractere_personnel: Agents instructeurs des dossiers "restauration
-      scolaire"
-    duree_conservation_donnees_caractere_personnel: 20
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -870,10 +803,6 @@ api-particulier-ccas-melissandre-afi:
       services.\r\nLorsque le calcul du montant des aides est à la libre appréciation
       du travailleur social ou de la commission d’attribution, préciser sur quels
       éléments se basent la décision."
-    destinataire_donnees_caractere_personnel: agents instructeurs des demandes d'aides,
-      agents instructeurs des demandes d'inscriptions aux services à la personne,
-      ...
-    duree_conservation_donnees_caractere_personnel: 12
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -907,8 +836,6 @@ api-particulier-coexya:
     cadre_juridique_nature: l'Article L114-8 du Code des relations entre le public
       et l'administration fixe le cadre général qui oblige l’administration à échanger
       des données lors d’une démarche d’un usager.
-    destinataire_donnees_caractere_personnel:
-    duree_conservation_donnees_caractere_personnel:
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -946,8 +873,6 @@ api-particulier-sigec-maelis:
       l'administration. En tant que collectivité territoriale, la délibération ci-jointe
       précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices,
       et précise les données nécessaires à son fonctionnement.
-    destinataire_donnees_caractere_personnel:
-    duree_conservation_donnees_caractere_personnel: 36
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
