@@ -89,7 +89,7 @@ class User < ApplicationRecord
   end
 
   def authorization_definition_roles_as(kind)
-    roles.select { |role| role.end_with?(":#{kind}") }.map do |role|
+    public_send(:"#{kind}_roles").map do |role|
       AuthorizationDefinition.find(role.split(':').first)
     end
   end
