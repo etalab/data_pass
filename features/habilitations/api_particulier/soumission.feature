@@ -22,7 +22,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
     * je coche "Quotient familial CAF & MSA"
     * je clique sur "Suivant"
 
-    * je renseigne les informations des contacts RGPD
+    * je renseigne les informations du délégué à la protection des données
     * je remplis les informations du contact "Contact technique" avec :
       | Nom    | Prénom  | Email               | Téléphone   | Fonction    |
       | Dupont | Marc    | dupont.marc@gouv.fr | 08366565603 | Technique   |
@@ -170,7 +170,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
     * je renseigne les infos concernant les données personnelles
     * je clique sur "Suivant"
 
-    * je renseigne les informations des contacts RGPD
+    * je renseigne les informations du délégué à la protection des données
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
@@ -198,7 +198,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
     * je renseigne les infos concernant les données personnelles
     * je clique sur "Suivant"
 
-    * je renseigne les informations des contacts RGPD
+    * je renseigne les informations du délégué à la protection des données
     * je remplis les informations du contact "Contact technique" avec :
       | Nom    | Prénom  | Email               | Téléphone   | Fonction    |
       | Dupont | Marc    | dupont.marc@gouv.fr | 08366565603 | Technique   |
@@ -230,7 +230,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
     * je renseigne les infos concernant les données personnelles
     * je clique sur "Suivant"
 
-    * je renseigne les informations des contacts RGPD
+    * je renseigne les informations du délégué à la protection des données
     * je remplis les informations du contact "Contact technique" avec :
       | Nom    | Prénom  | Email               | Téléphone   | Fonction    |
       | Dupont | Marc    | dupont.marc@gouv.fr | 08366565603 | Technique   |
@@ -257,7 +257,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
     * je renseigne les infos concernant les données personnelles
     * je clique sur "Suivant"
 
-    * je renseigne les informations des contacts RGPD
+    * je renseigne les informations du délégué à la protection des données
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
@@ -283,7 +283,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
-    * je renseigne les informations des contacts RGPD
+    * je renseigne les informations du délégué à la protection des données
     * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
     * je renseigne les infos concernant les données personnelles
 
@@ -308,7 +308,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
-    * je renseigne les informations des contacts RGPD
+    * je renseigne les informations du délégué à la protection des données
     * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
     * je renseigne les infos concernant les données personnelles
 
@@ -336,7 +336,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "Mélissandre" de l'éditeur "Agence Française d'Informatique (AFI)"
     Et que je clique sur "Débuter ma demande"
 
-    * je renseigne les informations des contacts RGPD
+    * je renseigne les informations du délégué à la protection des données
     * je renseigne le cadre légal
     * je renseigne les infos concernant les données personnelles
 
