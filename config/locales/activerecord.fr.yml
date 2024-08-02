@@ -86,7 +86,7 @@ fr:
           all_terms_not_accepted: Vous devez acceptez les conditions générales avant de continuer
           attributes:
             scopes:
-              blank: doivent au moins contenir un élément sélectionné ci-dessous
+              blank: "ne sont pas cochées : il faut au moins qu'une des données soit sélectionnée."
   ransack:
     attributes:
       authorization_request:
