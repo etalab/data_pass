@@ -41,14 +41,14 @@ echo ">> Run main import script"
 sudo --preserve-env=RAILS_ENV,LOCAL,SKIP_DOCUMENT_VALIDATION -u datapass_reborn_$RAILS_ENV bundle exec rails runner "MainImport.new.perform"
 
 # Utiliser la ligne ci-dessous pour récuperer les ids. instructor et reporter sont les 2 blocs, subscriber = email
-# User.with_at_least_one_role.to_a.select { |u| u.roles.any? { |r| r == 'api_particulier:subscriber' } }.map { |u| u.id }.join(' ')
+# User.with_at_least_one_role.to_a.select { |u| u.roles.any? { |r| r == 'api_particulier:subscriber' } }.map { |u| u.uid }.join(' ')
 echo ">> Assign instructor roles"
 sudo --preserve-env=RAILS_ENV,LOCAL -u datapass_reborn_$RAILS_ENV bundle exec rails runner "
 ActiveRecord::Base.transaction do
-  User.where(external_id: %w[12477 18036 74756 1723 70021 161 66116 71841]).find_each do |user|
+  User.where(external_id: %w[16574 26213 183892 3164 86663 78010 122526 243]).find_each do |user|
     user.roles << 'api_particulier:instructor'
 
-    if %w[161 66116 71841].exclude?(user.external_id)
+    if %w[78010 122526 243].exclude?(user.external_id)
       user.instruction_submit_notifications_for_api_particulier = false
       user.instruction_messages_notifications_for_api_particulier  = false
     end
@@ -56,10 +56,10 @@ ActiveRecord::Base.transaction do
     user.save!
   end
 
-  User.where(external_id: %w[25602 19622 12477 21419 66668 47004 18036 72513 21960 19778 72326 74460 74756 58908 9745 21792 11251 25601 1723 70021 66439 161 63 22151 66116 21645 15601 71841]).find_each do |user|
+  User.where(external_id: %w[45965 29397 16574 33577 78736 57483 26213  34758 28852 146936 163815 183892 68398 12912 15241 69166 3164 86663 78406 116 35009 78010 34178 46027 122526 243 34461]).find_each do |user|
     user.roles << 'api_particulier:reporter'
 
-    if %w[161 66116 71841].exclude?(user.external_id)
+    if %w[78010 122526 243].exclude?(user.external_id)
       user.instruction_submit_notifications_for_api_particulier = false
       user.instruction_messages_notifications_for_api_particulier  = false
     end
