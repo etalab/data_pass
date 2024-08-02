@@ -1,4 +1,4 @@
-<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { title: t('authorization_request_forms.default.steps.basic_infos'), block_id: :basic_infos, f:, editable: } do %>
+<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { title: f.wording_for('steps.basic_infos'), block_id: :basic_infos, f:, editable: } do %>
   <% if @authorization_request.respond_to?(:intitule) %>
     <strong>
       <%= f.label_value(:intitule) %>

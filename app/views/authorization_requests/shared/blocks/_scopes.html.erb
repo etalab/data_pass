@@ -1,4 +1,4 @@
-<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { title: t('authorization_request_forms.default.steps.scopes'), block_id: :scopes, f:, editable: } do %>
+<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { title: f.wording_for('steps.scopes'), block_id: :scopes, f:, editable: } do %>
   <% @authorization_request.available_scopes.group_by(&:group).each do |group_name, scopes| %>
     <div class="fr-form-group scopes-group">
       <h5 class="scopes-group__title">

@@ -1,4 +1,4 @@
-<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { title: t('authorization_request_forms.default.steps.legal'), block_id: :legal, f:, editable: } do %>
+<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { title: f.wording_for('steps.legal'), block_id: :legal, f:, editable: } do %>
   <strong>
     <%= f.label_value(:cadre_juridique_nature) %>
   </strong>
