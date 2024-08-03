@@ -44,6 +44,20 @@ RSpec.describe EmailVerifierJob do
         expect { verify_email }.not_to change(VerifiedEmail, :count)
       end
 
+      context 'when the email is whitelisted and verified more than 30 days ago' do
+        let!(:verified_email) { create(:verified_email, email:, status: 'whitelisted', verified_at: 31.days.ago) }
+
+        it 'does not call the email verifier API' do
+          verify_email
+
+          expect(EmailVerifierAPI).not_to have_received(:new)
+        end
+
+        it 'does not update model' do
+          expect { verified_email }.not_to change(verified_email, :updated_at)
+        end
+      end
+
       context 'when the email is already verified and deliverable' do
         let!(:verified_email) { create(:verified_email, email:, status: 'deliverable', verified_at:) }
 

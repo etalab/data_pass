@@ -11,6 +11,8 @@ class EmailVerifierJob < ApplicationJob
     return if verified_email.invalid?
 
     mark_email_as_safe!(verified_email) if user_exists_with_email?
+
+    return if verified_email.whitelisted?
     return if verified_email.recent? && verified_email.determined?
     return if email_verifier_status == 'unknown'
 
