@@ -7,32 +7,16 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
     user.full_name
   end
 
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def name
     case object.name
     when 'submit'
-      if object.entity.diff.blank?
-        'submit_without_changes'
-      elsif initial_submit_with_changed_prefilled? && changelog_diffs_without_unchanged_prefilled_values_and_new_values.blank?
-        'submit_with_unchanged_prefilled_values'
-      elsif initial_submit_with_changed_prefilled?
-        'initial_submit_with_changed_prefilled'
-      elsif initial_submit?
-        'initial_submit'
-      else
-        'submit'
-      end
+      name_for_submit
     when 'cancel_reopening'
-      if object.entity.from_instructor?
-        'cancel_reopening_from_instructor'
-      else
-        'cancel_reopening_from_applicant'
-      end
+      name_for_cancel_reopening
     else
       object.name
     end
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def text
@@ -62,6 +46,28 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
   end
 
   private
+
+  def name_for_submit
+    if object.entity.diff.blank?
+      'submit_without_changes'
+    elsif initial_submit_with_changed_prefilled? && changelog_diffs_without_unchanged_prefilled_values_and_new_values.blank?
+      'submit_with_unchanged_prefilled_values'
+    elsif initial_submit_with_changed_prefilled?
+      'initial_submit_with_changed_prefilled'
+    elsif initial_submit?
+      'initial_submit'
+    else
+      'submit'
+    end
+  end
+
+  def name_for_cancel_reopening
+    if object.entity.from_instructor?
+      'cancel_reopening_from_instructor'
+    else
+      'cancel_reopening_from_applicant'
+    end
+  end
 
   def humanized_changelog
     changelog_builder(changelog_diffs)
