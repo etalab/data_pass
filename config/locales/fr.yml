@@ -518,7 +518,7 @@ fr:
 
         cancel_reopening_from_instructor:
           text: |
-            <strong>%{user_full_name}</strong> a annulé la réouverture de l'habilitation pour la raison suivante :
+            L'instructeur <strong>%{user_full_name}</strong> a annulé la réouverture de l'habilitation pour la raison suivante :
 
             <blockquote>
               %{text}
