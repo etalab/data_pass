@@ -46,7 +46,45 @@ class AuthorizationRequestDecorator < ApplicationDecorator
       t("authorization_request_forms.default.#{contact_type}.info", default: nil)
   end
 
+  # def prefilled_data?(object, keys)
+  #   return false if object.form.data.nil?
+  #
+  #   return false unless object.form.multiple_steps?
+  #
+  #   keys.any? { |key| data_present_for_key?(object, key) }
+  # end
+  #
+  # private
+  #
+  # def data_present_for_key?(object, key)
+  #   data = object.form.data[key.to_sym]
+  #   data.present? && !data_empty?(data)
+  # end
+  #
+  # def data_empty?(data)
+  #   data.blank?
+  # end
+
+  def prefilled_data?(object, keys)
+    return false if object.form.data.nil?
+
+    return false unless object.form.multiple_steps?
+
+    keys.any? do |key|
+      data_present_for_key?(object, key)
+    end
+  end
+
   private
+
+  def data_present_for_key?(object, key)
+    data = object.form.data[key]
+    data.present? && !data_empty?(data)
+  end
+
+  def data_empty?(data)
+    data.blank?
+  end
 
   def lookup_i18n_key(subkey)
     t("authorization_request_forms.#{object.model_name.element}.#{subkey}", default: nil) ||

@@ -25,6 +25,7 @@
     </div>
   <% end %>
 
+
   <% if within_wizard? %>
     <%=
       dsfr_stepper(
@@ -34,8 +35,13 @@
     %>
   <% end %>
 
+
   <% if within_wizard? || within_edit? %>
     <%= render partial: "authorization_request_forms/shared/block_titles", locals: { f: f, block_name: english_step_name(params[:id]) } %>
+  <% end %>
+
+  <% if !@authorization_request.form.multiple_steps? && @authorization_request.form.prefilled? %>
+    <%= render partial: "authorization_request_forms/shared/prefilled_banner" %>
   <% end %>
 
   <%= yield %>
