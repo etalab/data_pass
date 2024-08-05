@@ -1,9 +1,12 @@
 .authorization-request-form-new {
   background-color: var(--background-alt-grey);
+  display: flex;
+  flex-direction: column;
 }
 
 .authorization-request-form-new .logo-wrapper {
   text-align: center;
+  place-self: center;
 }
 
 .authorization-request-form-new .text-wrapper {

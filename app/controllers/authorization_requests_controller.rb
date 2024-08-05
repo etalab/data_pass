@@ -6,6 +6,16 @@ class AuthorizationRequestsController < AuthenticatedUserController
   def new
     if user_signed_in?
       @authorization_definition = AuthorizationDefinition.find(id_sanitized)
+
+      custom_template_path = "authorization_requests/new/#{@authorization_definition.id}"
+
+      if template_exists? custom_template_path
+        render custom_template_path
+      elsif @authorization_definition.available_forms.many?
+        render 'authorization_requests/new/default', layout: 'form_introduction'
+      else
+        redirect_to new_authorization_request_form_path(form_uid: @authorization_definition.available_forms.first.id)
+      end
     else
       new_as_guest_user
     end

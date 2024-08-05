@@ -12,7 +12,7 @@ Fonctionnalité: Demandes d'habilitation ayant des configurations sur les scopes
 
   Scénario: Je consulte la page des scopes d'une demande d'habilitation où il n'y a pas d'options sur les scopes, où tous les scopes sont affichés
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "Demande libre"
-    Et que je clique sur "Débuter mon habilitation"
+    Et que je clique sur "Débuter ma demande"
 
     * je renseigne les infos de bases du projet
     * je remplis "Date de mise en production" avec "25/12/2042"
@@ -33,7 +33,7 @@ Fonctionnalité: Demandes d'habilitation ayant des configurations sur les scopes
   Scénario: Je consulte la page des scopes d'une demande d'habilitation où il y a des options de désactivation et d'affichage
 
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "Domino web 2.0"
-    Et que je clique sur "Débuter mon habilitation"
+    Et que je clique sur "Débuter ma demande"
 
     Alors la page contient "Les données"
     Et la page contient "API Quotient familial"

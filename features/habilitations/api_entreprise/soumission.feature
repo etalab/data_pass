@@ -8,7 +8,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Entreprise
 
   Scénario: Je soumets une demande d'habilitation libre valide
     Quand je veux remplir une demande pour "API Entreprise" via le formulaire "Demande libre"
-    Et que je clique sur "Débuter mon habilitation"
+    Et que je clique sur "Débuter ma demande"
 
     * je renseigne les infos de bases du projet
     * je clique sur "Suivant"
@@ -39,7 +39,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Entreprise
 
   Plan du scénario: Je soumets une demande d'habilitation pour un cas d'usage spécifique, dont le cadre légal est déjà rempli
     Quand je veux remplir une demande pour "API Entreprise" via le formulaire "<Cas d'usage>"
-    Et que je clique sur "Débuter mon habilitation"
+    Et que je clique sur "Débuter ma demande"
 
     * je renseigne les infos de bases du projet
     * je remplis "Date de mise en production" avec "25/12/2042"
@@ -74,7 +74,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Entreprise
 
   Plan du scénario: Je soumets une demande d'habilitation pour un cas d'usage spécifique, dont le cadre légal n'est pas rempli
     Quand je veux remplir une demande pour "API Entreprise" via le formulaire "<Cas d'usage>"
-    Et que je clique sur "Débuter mon habilitation"
+    Et que je clique sur "Débuter ma demande"
 
     * je renseigne les infos de bases du projet
     * je clique sur "Suivant"
@@ -111,7 +111,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Entreprise
 
   Plan du scénario: Je soumets une demande d'habilitation d'un éditeur
     Quand je veux remplir une demande pour "API Entreprise" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
-    Et que je clique sur "Débuter mon habilitation"
+    Et que je clique sur "Débuter ma demande"
 
     * je renseigne les informations des contacts RGPD
 
@@ -135,7 +135,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Entreprise
 
   Scénario: Je soumets une demande d'habilitation de l'éditeur INETUM, où le contact métier n'est pas renseigné
     Quand je veux remplir une demande pour "API Entreprise" via le formulaire "Solution ASTRE GF" de l'éditeur "INETUM"
-    Et que je clique sur "Débuter mon habilitation"
+    Et que je clique sur "Débuter ma demande"
 
     * je renseigne les informations des contacts RGPD
     * je remplis les informations du contact "Contact métier" avec :
