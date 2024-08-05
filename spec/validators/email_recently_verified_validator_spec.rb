@@ -47,6 +47,19 @@ RSpec.describe EmailRecentlyVerifiedValidator do
         expect(email_verifier_job).to have_received(:perform)
       end
     end
+
+    context 'when the email is whitelisted and was verified more than 1 month ago' do
+      let(:status) { :whitelisted }
+      let(:verified_at) { 3.months.ago }
+
+      it { is_expected.to be_valid }
+
+      it 'calls EmailVerifierJob' do
+        subject.valid?
+
+        expect(email_verifier_job).to have_received(:perform)
+      end
+    end
   end
 
   context 'when there is no verified email' do
