@@ -12,7 +12,16 @@ Fonctionnalité: Choix du type de formulalire pour API Particulier
   Scénario: Je choisis mon équipe de développeurs
     Quand je démarre une nouvelle demande d'habilitation "API Particulier"
     Et que je choisis "Vos développeurs"
-    Alors je vois au moins 1 tuiles
+    Alors je vois au moins 10 tuiles
+    Et je vois 1 tuile "Tarification sociale des services municipaux à l’enfance"
+    Et je vois 1 tuile "Aides facultatives régionales"
+    Et je vois 1 tuile "Aides facultatives départementales"
+    Et je vois 1 tuile "Tarification cantine lycées"
+    Et je vois 1 tuile "Tarification cantine collèges"
+    Et je vois au moins 1 tuile "Aides sociales des CCAS"
+    Et je vois 1 tuile "Aides sociales des CCAS dont aides facultatives"
+    Et je vois 1 tuile "Tarification des transports"
+    Et je vois 1 tuile "Gestion RH du secteur public"
     Et je vois 1 tuile "Demande libre"
 
   Scénario: Je choisis un éditeur ayant un formulaire
