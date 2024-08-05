@@ -98,7 +98,7 @@ shared:
         value: "mandataires_sociaux_infogreffe"
         link: "https://entreprise.api.gouv.fr/catalogue/infogreffe/mandataires_sociaux"
       - name: "Bénéficiaires effectifs - Inpi | 🔐"
-        value: "open_data_beneficiaires_effectifs_inpi"
+        value: "beneficiaires_effectifs_inpi"
         group: "Informations générales"
         link: "https://entreprise.api.gouv.fr/catalogue/inpi/rne/beneficiaires_effectifs"
       - name: "Chiffre d’affaires - DGFIP | 🔐"
