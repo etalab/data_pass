@@ -26,9 +26,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Entreprise
     * je remplis les informations du contact "Contact métier" avec :
       | Nom    | Prénom  | Email                | Téléphone   | Fonction    |
       | Dupont | Louis   | dupont.louis@gouv.fr | 08366565602 | Métier      |
-    * je remplis les informations du contact "Contact technique" avec :
-      | Nom    | Prénom  | Email               | Téléphone   | Fonction    |
-      | Dupont | Marc    | dupont.marc@gouv.fr | 08366565603 | Technique   |
+    * je renseigne les informations du contact technique
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
@@ -56,9 +54,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Entreprise
     * je remplis les informations du contact "Contact métier" avec :
       | Nom    | Prénom  | Email                | Téléphone   | Fonction    |
       | Dupont | Louis   | dupont.louis@gouv.fr | 08366565602 | Métier      |
-    * je remplis les informations du contact "Contact technique" avec :
-      | Nom    | Prénom  | Email               | Téléphone   | Fonction    |
-      | Dupont | Marc    | dupont.marc@gouv.fr | 08366565603 | Technique   |
+    * je renseigne les informations du contact technique
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
@@ -91,9 +87,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Entreprise
     * je remplis les informations du contact "Contact métier" avec :
       | Nom    | Prénom  | Email                | Téléphone   | Fonction    |
       | Dupont | Louis   | dupont.louis@gouv.fr | 08366565602 | Métier      |
-    * je remplis les informations du contact "Contact technique" avec :
-      | Nom    | Prénom  | Email               | Téléphone   | Fonction    |
-      | Dupont | Marc    | dupont.marc@gouv.fr | 08366565603 | Technique   |
+    * je renseigne les informations du contact technique
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales

@@ -235,6 +235,14 @@ Quand('je renseigne le cadre légal') do
   )
 end
 
+Quand('je renseigne les informations du contact technique') do
+  steps %(
+    * je remplis les informations du contact "Contact technique" avec :
+      | Nom    | Prénom  | Email               | Téléphone   | Fonction    |
+      | Dupont | Marc    | dupont.marc@gouv.fr | 08366565603 | Technique   |
+  )
+end
+
 Quand('je renseigne les informations du délégué à la protection des données') do
   steps %(
     * je remplis les informations du contact "Délégué à la protection des données" avec :
