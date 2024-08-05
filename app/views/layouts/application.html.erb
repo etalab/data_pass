@@ -32,11 +32,13 @@
     <%= render partial: 'shared/main_modal' %>
     <%= render partial: 'layouts/header' %>
 
-    <% if content_for?(:body) %>
-      <%= yield(:body) %>
-    <% else %>
-      <%= yield %>
-    <% end %>
+    <main>
+      <% if content_for?(:body) %>
+        <%= yield(:body) %>
+      <% else %>
+        <%= yield %>
+      <% end %>
+    </main>
 
     <%= render partial: 'layouts/footer' %>
   </body>
