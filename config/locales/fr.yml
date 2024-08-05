@@ -227,6 +227,7 @@ fr:
         title: Une erreur est survenue lors de la soumission de la demande de mise à jour de l'habilitation
         description: *common_authorization_requests_error_description
     form:
+      back: Retour à la synthèse
       reopen: Mettre à jour
       archive: Supprimer
       save_header: Enregistrer
