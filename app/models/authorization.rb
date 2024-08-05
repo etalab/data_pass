@@ -23,11 +23,7 @@ class Authorization < ApplicationRecord
     inverse_of: :entity,
     dependent: :destroy
 
-  delegate :name, to: :request
-
-  def kind
-    request.type.underscore.split('/').last
-  end
+  delegate :name, :kind, to: :request
 
   def request_as_validated
     request_as_validated = request.dup

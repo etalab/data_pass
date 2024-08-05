@@ -9,7 +9,7 @@ class AuthorizationRequestReopeningCancellation < ApplicationRecord
   def from_instructor?
     request.present? &&
       user.present? &&
-      user.instructor?(authorization_request_type_underscored)
+      user.instructor?(request.kind)
   end
 
   def from_applicant?
@@ -23,10 +23,6 @@ class AuthorizationRequestReopeningCancellation < ApplicationRecord
   end
 
   private
-
-  def authorization_request_type_underscored
-    request.type.underscore.split('/').last
-  end
 
   def user_is_applicant_or_instructor
     return if from_instructor?

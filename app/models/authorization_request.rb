@@ -115,6 +115,10 @@ class AuthorizationRequest < ApplicationRecord
     end
   end
 
+  def kind
+    type.underscore.split('/').last
+  end
+
   def definition
     self.class.definition
   end
