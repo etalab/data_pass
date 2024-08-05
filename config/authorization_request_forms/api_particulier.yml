@@ -971,9 +971,9 @@ api-particulier-tarification-municipale-enfance:
     En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier la <strong>"Tarification sociale des services municipaux à l'enfance"</strong>. <a href="https://particulier.api.gouv.fr/cas_usages/tarification_municipale_enfance">En savoir plus sur ce cas d'usage</a>.
   steps:
     - name: basic_infos
-    - name: scopes
     - name: personal_data
     - name: legal
+    - name: scopes
     - name: contacts
   data:
     intitule: Tarification sociale des services municipaux à l’enfance
@@ -990,9 +990,9 @@ api-particulier-aides-facultatives-regionales:
     En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier l'attribution des <strong>"Aides facultatives régionales"</strong>. <a href="https://particulier.api.gouv.fr/cas_usages/aides_facultatives">En savoir plus sur ce cas d'usage</a>.
   steps:
     - name: basic_infos
-    - name: scopes
     - name: personal_data
     - name: legal
+    - name: scopes
     - name: contacts
   data:
     intitule: Aides facultatives régionales
@@ -1007,9 +1007,9 @@ api-particulier-aides-facultatives-departementales:
     En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier l'attribution des <strong>"Aides facultatives départementales"</strong>. <a href="https://particulier.api.gouv.fr/cas_usages/aides_facultatives">En savoir plus sur ce cas d'usage</a>.
   steps:
     - name: basic_infos
-    - name: scopes
     - name: personal_data
     - name: legal
+    - name: scopes
     - name: contacts
   data:
     intitule: Aides facultatives départementales
@@ -1025,11 +1025,14 @@ api-particulier-tarification-cantines-lycees:
   scopes_config:
     displayed:
       - cnaf_quotient_familial
+      - men_statut_scolarite
+      - men_statut_boursier
+      - men_echelon_bourse
   steps:
     - name: basic_infos
-    - name: scopes
     - name: personal_data
     - name: legal
+    - name: scopes
     - name: contacts
   data:
     intitule: Tarification cantine lycées
@@ -1048,11 +1051,14 @@ api-particulier-tarification-cantines-colleges:
   scopes_config:
     displayed:
       - cnaf_quotient_familial
+      - men_statut_scolarite
+      - men_statut_boursier
+      - men_echelon_bourse
   steps:
     - name: basic_infos
-    - name: scopes
     - name: personal_data
     - name: legal
+    - name: scopes
     - name: contacts
   data:
     intitule: Tarification cantine collèges
@@ -1071,8 +1077,8 @@ api-particulier-aides-sociales-ccas:
     ⚠️ Ce cas d'usage s'adresse uniquement Centres communaux d’action sociale (CCAS).
   steps:
     - name: basic_infos
-    - name: scopes
     - name: personal_data
+    - name: scopes
     - name: contacts
   static_blocks:
     - name: legal
@@ -1095,9 +1101,9 @@ api-particulier-aides-sociales-ccas-dont-facultatives:
     <strong>⚠️ Ce cas d'usage s'adresse uniquement Centres communaux d’action sociale (CCAS).</strong>
   steps:
     - name: basic_infos
-    - name: scopes
     - name: personal_data
     - name: legal
+    - name: scopes
     - name: contacts
   data:
     intitule: Aides sociales des CCAS dont aides facultatives
@@ -1116,9 +1122,9 @@ api-particulier-tarification-transports:
     <strong>⚠️ Ce cas d'usage s'adresse uniquement aux autorités organisatrices de la mobilité (AOM).</strong>
   steps:
     - name: basic_infos
-    - name: scopes
     - name: personal_data
     - name: legal
+    - name: scopes
     - name: contacts
   scopes_config:
     disabled:
@@ -1166,11 +1172,10 @@ api-particulier-gestion-rh-secteur-public:
     En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier la <strong>"Gestion RH du secteur public"</strong>. <a href="https://particulier.api.gouv.fr/cas_usages/tarification_transports">En savoir plus sur ce cas d'usage</a>.
   steps:
     - name: basic_infos
-    - name: scopes
     - name: personal_data
-    - name: contacts
-  static_blocks:
     - name: legal
+    - name: scopes
+    - name: contacts
   scopes_config:
     disabled:
       - cnaf_quotient_familial
