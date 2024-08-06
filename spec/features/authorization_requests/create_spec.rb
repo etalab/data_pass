@@ -6,7 +6,7 @@ RSpec.describe 'Starting a new authorization request' do
   end
 
   let(:user) { create(:user) }
-  let(:authorization_request_form) { AuthorizationRequestForm.find('portail-hubee-demarche-certdc') }
+  let(:authorization_request_form) { AuthorizationRequestForm.find('hubee-cert-dc') }
   let(:authorization_request_class) { authorization_request_form.authorization_request_class }
 
   before do

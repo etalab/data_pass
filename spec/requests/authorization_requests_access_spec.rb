@@ -13,7 +13,7 @@ RSpec.describe 'Authorization requests access' do
     end
 
     context 'with a basic form' do
-      let(:authorization_request_form) { AuthorizationRequestForm.find('portail-hubee-demarche-certdc') }
+      let(:authorization_request_form) { AuthorizationRequestForm.find('hubee-cert-dc') }
 
       context 'when there is no authorization request' do
         it { is_expected.to have_http_status(:ok) }

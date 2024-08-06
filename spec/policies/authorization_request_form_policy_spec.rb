@@ -6,7 +6,7 @@ RSpec.describe AuthorizationRequestFormPolicy do
     let(:user) { create(:user) }
 
     describe 'HubEE' do
-      let(:authorization_request_form) { AuthorizationRequestForm.find('portail-hubee-demarche-certdc') }
+      let(:authorization_request_form) { AuthorizationRequestForm.find('hubee-cert-dc') }
 
       context 'when there already is an authorization_request is archived' do
         before { create(:authorization_request, :hubee_cert_dc, :archived, applicant: user) }
