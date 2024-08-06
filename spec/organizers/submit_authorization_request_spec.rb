@@ -55,7 +55,7 @@ RSpec.describe SubmitAuthorizationRequest do
                 )
 
                 expect(changelog.diff.except('intitule', 'scopes')).to eq(
-                  authorization_request.data.except('intitule', 'scopes').to_h { |k, _| [k, [nil, authorization_request.public_send(k)]] }
+                  authorization_request.data.except('intitule', 'scopes', 'contact_metier_type', 'contact_technique_type').to_h { |k, _| [k, [nil, authorization_request.public_send(k)]] }
                 )
               end
             end
@@ -75,6 +75,22 @@ RSpec.describe SubmitAuthorizationRequest do
               expect(changelog.diff).to eq({
                 'intitule' => [old_intitule, 'new intitule']
               })
+            end
+          end
+
+          describe 'with document change' do
+            let(:authorization_request_params) do
+              ActionController::Parameters.new(
+                intitule: 'new intitule',
+                cadre_juridique_document: Rack::Test::UploadedFile.new('spec/fixtures/another_dummy.pdf')
+              )
+            end
+
+            it 'stores only the name of the document' do
+              submit_authorization_request
+              changelog = authorization_request.changelogs.last
+
+              expect(changelog.diff['cadre_juridique_document']).to eq([nil, 'another_dummy.pdf'])
             end
           end
 
