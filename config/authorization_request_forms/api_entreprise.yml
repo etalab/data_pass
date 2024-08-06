@@ -42,7 +42,7 @@ api-entreprise-marches-publics:
       - attestation_sociale_urssaf
       - cotisations_msa
       - cotisations_probtp
-      - certification_cnetp
+      - attestation_cotisations_conges_payes_chomage_intemperies_cibtp_cnetp
       - certifications_qualiopi_france_competences
 
 api-entreprise-aides-publiques:
@@ -72,7 +72,7 @@ api-entreprise-aides-publiques:
       - attestation_sociale_urssaf
       - cotisations_msa
       - cotisations_probtp
-      - certification_cnetp
+      - attestation_cotisations_conges_payes_chomage_intemperies_cibtp_cnetp
       - certifications_qualiopi_france_competences
 
 api-entreprise-subventions-associations:
@@ -151,7 +151,7 @@ api-entreprise-portail-gru-instruction:
       - attestation_sociale_urssaf
       - cotisations_msa
       - cotisations_probtp
-      - certification_cnetp
+      - attestation_cotisations_conges_payes_chomage_intemperies_cibtp_cnetp
       - certifications_qualiopi_france_competences
 
 api-entreprise-detection-fraude:
@@ -180,7 +180,7 @@ api-entreprise-detection-fraude:
       - attestation_sociale_urssaf
       - cotisations_msa
       - cotisations_probtp
-      - certification_cnetp
+      - attestation_cotisations_conges_payes_chomage_intemperies_cibtp_cnetp
       - certifications_qualiopi_france_competences
 
 api-entreprise-editeur:
@@ -257,7 +257,7 @@ api-entreprise-e-attestations:
       - attestation_sociale_urssaf
       - cotisations_msa
       - cotisations_probtp
-      - certification_cnetp
+      - attestation_cotisations_conges_payes_chomage_intemperies_cibtp_cnetp
       - certifications_qualiopi_france_competences
 
 api-entreprise-provigis:
@@ -298,7 +298,7 @@ api-entreprise-provigis:
       - attestation_sociale_urssaf
       - cotisations_msa
       - cotisations_probtp
-      - certification_cnetp
+      - attestation_cotisations_conges_payes_chomage_intemperies_cibtp_cnetp
       - certifications_qualiopi_france_competences
 
 api-entreprise-achat-solution:
@@ -339,7 +339,7 @@ api-entreprise-achat-solution:
       - attestation_sociale_urssaf
       - cotisations_msa
       - cotisations_probtp
-      - certification_cnetp
+      - attestation_cotisations_conges_payes_chomage_intemperies_cibtp_cnetp
       - certifications_qualiopi_france_competences
 
 api-entreprise-mgdis:
@@ -384,7 +384,7 @@ La plateforme, mise en place pour permettre le dépôt de ces aides publiques et
       - attestation_sociale_urssaf
       - cotisations_msa
       - cotisations_probtp
-      - certification_cnetp
+      - attestation_cotisations_conges_payes_chomage_intemperies_cibtp_cnetp
       - certifications_qualiopi_france_competences
 
 
@@ -432,7 +432,7 @@ api-entreprise-atexo:
       - attestation_sociale_urssaf
       - cotisations_msa
       - cotisations_probtp
-      - certification_cnetp
+      - attestation_cotisations_conges_payes_chomage_intemperies_cibtp_cnetp
       - certifications_qualiopi_france_competences
 
 
@@ -486,7 +486,7 @@ api-entreprise-setec-atexo:
       - attestation_sociale_urssaf
       - cotisations_msa
       - cotisations_probtp
-      - certification_cnetp
+      - attestation_cotisations_conges_payes_chomage_intemperies_cibtp_cnetp
       - certifications_qualiopi_france_competences
 
 api-entreprise-inetum:
