@@ -19,7 +19,11 @@ module AuthorizationCore::Attributes
 
           validates name, options[:validation] if options[:validation].present?
 
-          overwrite_array_accessor(name) if options[:type] == :array
+          if options[:type] == :array
+            override_array_accessor(name)
+          else
+            override_primitive_write(name)
+          end
 
           extra_attributes.push(name)
         end
@@ -27,7 +31,12 @@ module AuthorizationCore::Attributes
 
       private
 
-      def self.overwrite_array_accessor(name)
+      def self.override_array_accessor(name)
+        override_array_reader(name)
+        override_array_writer(name)
+      end
+
+      def self.override_array_reader(name)
         define_method(name) do
           data[name.to_s] ||= []
 
@@ -37,11 +46,19 @@ module AuthorizationCore::Attributes
             data[name.to_s].sort
           end
         end
+      end
 
+      def self.override_array_writer(name)
         define_method(:"#{name}=") do |value|
-          value = (value || []).compact_blank
+          value = (value || []).compact_blank.map(&:strip).uniq
 
           super(value.sort)
+        end
+      end
+
+      def self.override_primitive_write(name)
+        define_method(:"#{name}=") do |value|
+          super(value.try(:strip) || value)
         end
       end
     end
