@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_01_212118) do
+ActiveRecord::Schema[7.2].define(version: 2024_08_06_172522) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pgcrypto"
@@ -123,8 +123,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_01_212118) do
     t.bigint "request_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug"
     t.index ["applicant_id"], name: "index_authorizations_on_applicant_id"
     t.index ["request_id"], name: "index_authorizations_on_request_id"
+    t.index ["slug", "request_id"], name: "index_authorizations_on_slug_and_request_id", unique: true
   end
 
   create_table "denial_of_authorizations", force: :cascade do |t|

@@ -1,4 +1,8 @@
 class Authorization < ApplicationRecord
+  extend FriendlyId
+
+  friendly_id :slug_candidates, use: :scoped, scope: :request
+
   validates :data, presence: true
 
   belongs_to :applicant,
@@ -57,5 +61,18 @@ class Authorization < ApplicationRecord
 
       request_as_validated.public_send(:"#{document}=", snapshoted_document.file.blob)
     end
+  end
+
+  def slug_candidates
+    [
+      :slug_created_at_as_date,
+      -> { "#{slug_created_at_as_date}--1" },
+      -> { "#{slug_created_at_as_date}--2" },
+      -> { "#{slug_created_at_as_date}--3" },
+    ]
+  end
+
+  def slug_created_at_as_date
+    (created_at || Date.current).strftime('%d-%m-%Y')
   end
 end

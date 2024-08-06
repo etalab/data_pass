@@ -2,7 +2,7 @@ class AuthorizationsController < AuthenticatedUserController
   helper AuthorizationRequestsHelpers
 
   def show
-    @authorization = Authorization.find(params[:id])
+    @authorization = AuthorizationRequest.find(params[:authorization_request_id]).authorizations.friendly.find(params[:id])
 
     authorize @authorization, :show?
 

@@ -10,7 +10,10 @@
 
     <% if @authorization.present? %>
       <li>
-        <span class="fr-badge fr-badge--no-icon"><%= t("authorization.badge", id: @authorization.id) %></span>
+        <span class="fr-badge fr-badge--no-icon"><%= t("authorization.badge", date: @authorization.created_at.strftime('%d/%m/%Y')) %></span>
+      </li>
+      <li>
+        <span class="fr-badge fr-badge--no-icon"><%= t("authorization_request.badge", id: @authorization.request.id) %></span>
       </li>
     <% elsif @authorization_request.persisted? %>
       <li>

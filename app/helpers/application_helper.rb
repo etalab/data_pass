@@ -59,4 +59,8 @@ module ApplicationHelper
       "authorization_request.status.#{authorization_request.state}"
     end
   end
+
+  def latest_authorization_path(authorization_request)
+    authorization_request_authorization_path(authorization_request, authorization_request.latest_authorization)
+  end
 end
