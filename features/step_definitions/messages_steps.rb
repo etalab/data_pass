@@ -29,6 +29,14 @@ Quand(/cette habilitation a un message (?:de l'|du )([^\s+]*) avec comme corps "
   end
 end
 
+Alors('il y a une bulle de messagerie') do
+  expect(page).to have_css('.message-bubble-cta')
+end
+
+Alors('il n\'y a pas de bulle de messagerie') do
+  expect(page).to have_no_css('.message-bubble-cta')
+end
+
 Alors('je vois un badge de nouveau message contenant {string}') do |message|
   expect(page).to have_css('.unread-message-dot', text: message)
 end
