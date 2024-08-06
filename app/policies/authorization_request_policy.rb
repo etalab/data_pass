@@ -47,8 +47,7 @@ class AuthorizationRequestPolicy < ApplicationPolicy
 
   def messages?
     record.persisted? &&
-      record.applicant == user &&
-      !record.validated?
+      record.applicant == user
   end
 
   def send_message?

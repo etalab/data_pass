@@ -27,11 +27,13 @@ Fonctionnalité: Consultation d'une demande d'habilitation
   Scénario: Je consulte une demande d'habilitation validée m'appartenant
     Quand je me rends sur une demande d'habilitation "API Entreprise" validée
     Alors il n'y a pas de bouton "Sauvegarder"
+    Et il y a une bulle de messagerie
     Et il y a un formulaire en mode résumé
 
   Scénario: Je consulte une demande d'habilitation simple en brouillon m'appartenant
     Quand je me rends sur une demande d'habilitation "Portail HubEE - Démarche CertDC" en brouillon
     Alors il y a un titre contenant "Portail HubEE - Démarche CertDC"
+    Et il y a une bulle de messagerie
     Et il y a un formulaire en une seule page
     Et il y a un bouton "Enregistrer"
 
@@ -44,6 +46,7 @@ Fonctionnalité: Consultation d'une demande d'habilitation
   Scénario: Je consulte une demande d'habilitation en plusieurs étapes en brouillon m'appartenant
     Quand je me rends sur une demande d'habilitation "API Entreprise" en brouillon
     Alors il y a un titre contenant "API Entreprise"
+    Et il y a une bulle de messagerie
     Et il y a un formulaire en plusieurs étapes
     Et il y a un bouton "Suivant"
 
@@ -52,6 +55,7 @@ Fonctionnalité: Consultation d'une demande d'habilitation
     Et que je clique sur "Toutes celles de l'organisation"
     Et que je clique sur "Consulter"
     Alors il y a un titre contenant "Portail HubEE - Démarche CertDC"
+    Et il n'y a pas de bulle de messagerie
     Et il y a un formulaire en mode résumé
     Et il n'y a pas de bouton "Enregistrer"
 
@@ -77,6 +81,7 @@ Fonctionnalité: Consultation d'une demande d'habilitation
     Et que je clique sur "J'y suis mentionné en contact"
     Et que je clique sur "Consulter"
     Alors il y a un titre contenant "Portail HubEE - Démarche CertDC"
+    Et il n'y a pas de bulle de messagerie
     Et il y a un formulaire en mode résumé
     Et il n'y a pas de bouton "Enregistrer"
     Et il y a un message d'info contenant "Vous avez été référencé comme administrateur métier"

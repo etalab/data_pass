@@ -34,8 +34,7 @@ class Instruction::AuthorizationRequestPolicy < ApplicationPolicy
 
   def send_message?
     show? &&
-      instructor_for_record? &&
-      !record.validated?
+      instructor_for_record?
   end
 
   def moderate?
