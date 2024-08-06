@@ -102,6 +102,22 @@ bundle exec cucumber
 COVERAGE=true bundle exec cucumber
 ```
 
+## Static security
+
+Through [Brakeman](https://github.com/presidentbeef/brakeman)
+
+With docker:
+
+```sh
+make security
+```
+
+Without docker:
+
+```sh
+./bin/brakeman
+```
+
 ## Deploy
 
 ```sh

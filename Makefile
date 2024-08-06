@@ -25,6 +25,9 @@ sh:
 lint:
 	$(DOCKER-RUN) web $(BUNDLE-EXEC) rubocop
 
+security:
+	$(DOCKER-RUN) web $(BUNDLE-EXEC) ./bin/brakeman
+
 js-lint:
 	$(DOCKER-RUN) web standard app/javascript
 
