@@ -116,6 +116,32 @@ FactoryBot.define do
       end
     end
 
+    trait :cancel_reopening do
+      trait :cancel_reopening_from_applicant
+
+      name { 'cancel_reopening' }
+
+      entity factory: %i[authorization_request_reopening_cancellation]
+
+      after(:build) do |authorization_request_event, evaluator|
+        next if evaluator.authorization_request.blank?
+
+        authorization_request_event.entity = build(:authorization_request_reopening_cancellation, request: evaluator.authorization_request)
+      end
+    end
+
+    trait :cancel_reopening_from_instructor do
+      name { 'cancel_reopening' }
+
+      entity { create(:authorization_request_reopening_cancellation, :from_instructor) }
+
+      after(:build) do |authorization_request_event, evaluator|
+        next if evaluator.authorization_request.blank?
+
+        authorization_request_event.entity = build(:authorization_request_reopening_cancellation, :from_instructor, request: evaluator.authorization_request)
+      end
+    end
+
     trait :copy do
       entity factory: %i[authorization_request api_entreprise]
       entity_is_authorization_request

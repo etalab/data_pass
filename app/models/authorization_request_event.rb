@@ -5,13 +5,15 @@ class AuthorizationRequestEvent < ApplicationRecord
     create
     refuse
     request_changes
-    reopen
     revoke
     submit
     update
     transfer
 
     copy
+
+    reopen
+    cancel_reopening
 
     applicant_message
     instructor_message
@@ -38,6 +40,7 @@ class AuthorizationRequestEvent < ApplicationRecord
     return if name == 'revoke' && entity_type == 'RevocationOfAuthorization'
     return if name == 'request_changes' && entity_type == 'InstructorModificationRequest'
     return if name == 'transfer' && entity_type == 'AuthorizationRequestTransfer'
+    return if name == 'cancel_reopening' && entity_type == 'AuthorizationRequestReopeningCancellation'
     return if %w[submit admin_update].include?(name) && entity_type == 'AuthorizationRequestChangelog'
     return if %w[approve reopen].include?(name) && entity_type == 'Authorization'
     return if %w[applicant_message instructor_message].include?(name) && entity_type == 'Message'

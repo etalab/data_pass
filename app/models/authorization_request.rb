@@ -58,6 +58,11 @@ class AuthorizationRequest < ApplicationRecord
     inverse_of: :authorization_request,
     dependent: :destroy
 
+  has_many :reopening_cancellations,
+    class_name: 'AuthorizationRequestReopeningCancellation',
+    inverse_of: :request,
+    dependent: :destroy
+
   has_many :authorizations,
     class_name: 'Authorization',
     inverse_of: :request,
@@ -108,6 +113,10 @@ class AuthorizationRequest < ApplicationRecord
     def definition
       @definition ||= AuthorizationDefinition.find(to_s.demodulize.underscore)
     end
+  end
+
+  def kind
+    type.underscore.split('/').last
   end
 
   def definition
@@ -174,6 +183,10 @@ class AuthorizationRequest < ApplicationRecord
 
     event :reopen do
       transition from: :validated, to: :draft, if: ->(authorization_request) { authorization_request.reopenable? }
+    end
+
+    event :cancel_reopening do
+      transition from: %i[draft changes_requested], to: :validated, if: ->(authorization_request) { authorization_request.reopening? }
     end
 
     event :revoke do

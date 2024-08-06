@@ -16,6 +16,7 @@ class AuthorizationRequestEventsQuery
 
   private
 
+  # rubocop:disable Metrics/AbcSize
   def model_ids
     [
       authorization_request.id,
@@ -26,8 +27,10 @@ class AuthorizationRequestEventsQuery
       authorization_request.authorization_ids,
       authorization_request.revocation_ids,
       authorization_request.transfer_ids,
+      authorization_request.reopening_cancellation_ids,
     ]
   end
+  # rubocop:enable Metrics/AbcSize
 
   def sql_query
     "(entity_id = ? and entity_type = 'AuthorizationRequest') or " \
@@ -37,6 +40,7 @@ class AuthorizationRequestEventsQuery
       "(entity_id in (?) and entity_type = 'Message') or " \
       "(entity_id in (?) and entity_type = 'Authorization') or" \
       "(entity_id in (?) and entity_type = 'RevocationOfAuthorization') or" \
-      "(entity_id in (?) and entity_type = 'AuthorizationRequestTransfer')"
+      "(entity_id in (?) and entity_type = 'AuthorizationRequestTransfer') or" \
+      "(entity_id in (?) and entity_type = 'AuthorizationRequestReopeningCancellation')"
   end
 end
