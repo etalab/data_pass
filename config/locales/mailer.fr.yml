@@ -133,7 +133,7 @@ fr:
 
   webhook_mailer:
     fail:
-      subject: \[ DataPass \] Erreur de communication avec votre %{authorization_definition_name}
+      subject: "[ DataPass ] Erreur de communication avec votre %{authorization_definition_name}"
       description: |
         DataPass cherche à notifier votre %{authorization_definition_name} depuis 10 minutes mais n’y parvient plus. Une habilitation DataPass n’a donc pas été transmise automatiquement à vos services.
 
