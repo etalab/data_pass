@@ -25,11 +25,14 @@ sh:
 lint:
 	$(DOCKER-RUN) web $(BUNDLE-EXEC) rubocop
 
-security:
-	$(DOCKER-RUN) web $(BUNDLE-EXEC) ./bin/brakeman
+fix-lint:
+	$(DOCKER-RUN) web $(BUNDLE-EXEC) rubocop -A
 
 js-lint:
 	$(DOCKER-RUN) web standard app/javascript
+
+security:
+	$(DOCKER-RUN) web $(BUNDLE-EXEC) ./bin/brakeman
 
 guard:
 	$(DOCKER-COMPOSE) up -d chrome
