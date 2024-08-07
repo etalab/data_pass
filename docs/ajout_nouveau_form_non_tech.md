@@ -4,7 +4,8 @@ Cette documentation est à destination des non-techniques souhaitant ajouter un
 nouveau formulaire à un type d'habilitation existante.
 
 Seul les sections 1. et 2. sont nécessaires pour obtenir un formulaire
-fonctionnel. Le reste est optionnel (mais fortement conseillé).
+fonctionnel. La section 4. est nécessaire pour faire passer les tests.
+Le reste est optionnel (mais fortement conseillé).
 
 ## 1. Configuration du modèle
 
@@ -49,7 +50,12 @@ type d'habilitation (ex: pour API Entreprise, l'attribute volumétrie possède u
 
 Se référer à [la documentation](./new_provider.md#3-configurer-les-formulations-via-li18n)
 
-## 4. Ajout du test d'intégration
+## 4. Ajout des factories
+
+Il faut se rendre dans le fichier
+[`spec/factories/authorization_requests.rb`](../spec/factories/authorization_requests.rb) et compléter avec le nom de la classe en underscore.
+
+## 5. Ajout du test d'intégration
 
 Le test permet de s'assurer programmatiquement que le formulaire est
 fonctionnel.

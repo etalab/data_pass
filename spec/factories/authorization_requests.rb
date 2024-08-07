@@ -276,6 +276,15 @@ FactoryBot.define do
       api-particulier-waigeo-myperischool
       api-particulier-3d-ouest
       api-particulier-coexya
+      api-particulier-tarification-municipale-enfance
+      api-particulier-aides-facultatives-regionales
+      api-particulier-aides-facultatives-departementales
+      api-particulier-tarification-cantines-lycees
+      api-particulier-tarification-cantines-colleges
+      api-particulier-aides-sociales-ccas
+      api-particulier-aides-sociales-ccas-dont-facultatives
+      api-particulier-tarification-transports
+      api-particulier-gestion-rh-secteur-public
     ].each do |form_uid|
       trait form_uid.tr('-', '_') do
         api_particulier
