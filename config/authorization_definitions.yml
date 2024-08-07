@@ -2,7 +2,7 @@
 shared:
   hubee_cert_dc:
     name: "Portail HubEE - Démarche CertDC"
-    description: "Certificats de Décès"
+    description: "Hub d'Échange de l'État - Formulaire d'abonnement à la démarche Certificats de Décès Électroniques Dématérialisés"
     cgu_link: '/cgus/20210212_dinum_hubee_cgu_v2_1_0_version_site.pdf'
     provider: 'hubee'
     public: true
@@ -11,7 +11,7 @@ shared:
 
   hubee_dila:
     name: "Portail HubEE - Démarches DILA"
-    description: "Acte d’État Civil, Démarche en ligne de préparation à la conclusion d’un Pacs, Recensement Citoyen Obligatoire, Déclaration d'hébergement touristique, Déclaration de Changement de Coordonnées"
+    description: "Hub d'Échange de l'État - Formulaire d'abonnement aux démarches du bouquet de services (service-public.fr)"
     cgu_link: '/cgus/20210212_dinum_hubee_cgu_v2_1_0_version_site.pdf'
     provider: 'hubee'
     public: true

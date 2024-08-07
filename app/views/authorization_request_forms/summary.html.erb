@@ -1,7 +1,7 @@
 <%= authorization_request_form(@authorization_request) do |f| %>
   <%= render partial: 'authorization_request_forms/current_user_mentions_alert' %>
 
-  <div id="<%= dom_id(@authorization_request, :summary) %>">
+  <div id="<%= dom_id(@authorization_request, :summary) %>" class="fr-mt-4w">
     <% if @authorization_request.changes_requested? %>
       <div class="fr-alert fr-alert--warning fr-my-3w">
         <h3 class="fr-alert__title">
@@ -83,6 +83,8 @@
         <%= render partial: "authorization_requests/shared/blocks/#{block[:name]}", locals: { f: f, editable: false } %>
       <% end %>
     <% else %>
+      <%= render partial: 'authorization_requests/shared/organization_and_applicant' %>
+
       <% @authorization_request.blocks.each do |block| %>
         <%= render partial: "authorization_requests/shared/blocks/#{block[:name]}", locals: { f: f, editable: false } %>
       <% end %>
