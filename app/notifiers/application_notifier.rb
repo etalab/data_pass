@@ -13,6 +13,10 @@ class ApplicationNotifier
 
   protected
 
+  def deliver_gdpr_emails
+    DeliverGDPRContactsMails.call(authorization_request:)
+  end
+
   def email_notification(name, params)
     AuthorizationRequestMailer.with(
       params.merge(
