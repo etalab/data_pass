@@ -7,6 +7,8 @@ class APIEntreculierNotifier < ApplicationNotifier
   end
 
   def validated(_params)
+    deliver_gdpr_emails
+
     RegisterOrganizationWithContactsOnCRMJob.perform_later(authorization_request.id)
   end
 
