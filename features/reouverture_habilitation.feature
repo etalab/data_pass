@@ -16,7 +16,7 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Et que je clique sur "Mettre à jour l'habilitation"
     Alors je suis sur la page "API Entreprise"
     Et il y a un message de succès contenant "a bien été réouverte"
-    Et Un webhook avec l'évènement "reopen" est envoyé
+    Et un webhook avec l'évènement "reopen" est envoyé
     Et il y a un badge "Mise à jour"
     Et il y a un badge "Brouillon"
     Et la page ne contient pas "Archiver"
@@ -84,6 +84,6 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Alors il y a un message de succès contenant "soumise avec succès"
     Et il y a un badge "Validée"
     Et il y a un badge "En cours"
-    Et Un webhook avec l'évènement "submit" est envoyé
+    Et un webhook avec l'évènement "submit" est envoyé
 
 
