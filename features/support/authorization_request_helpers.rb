@@ -41,6 +41,8 @@ def extract_state_from_french_status(status)
     'archived'
   when 'réouverte', 'réouvertes'
     'reopened'
+  when 'réouverte et soumise', 'réouvertes et soumises'
+    'reopened_and_submitted'
   when 'révoquée', 'révoquées'
     'revoked'
   else

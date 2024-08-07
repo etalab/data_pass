@@ -27,6 +27,13 @@ RSpec.describe AuthorizationRequest do
       expect(authorization_request).to be_reopening
     end
 
+    it 'has a valid reopened and submitted factory' do
+      authorization_request = create(:authorization_request, :api_entreprise, :reopened_and_submitted)
+
+      expect(authorization_request).to be_reopening
+      expect(authorization_request.state).to eq('submitted')
+    end
+
     it 'has a validated factory which creates an authorization' do
       authorization_request = create(:authorization_request, :api_entreprise, :validated)
 
