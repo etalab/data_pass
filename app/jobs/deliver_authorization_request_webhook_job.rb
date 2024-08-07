@@ -14,27 +14,27 @@ class DeliverAuthorizationRequestWebhookJob < ApplicationJob
     @attempts = job_data['tries_count']
   end
 
-  def perform(target_api, json, authorization_request_id)
-    return if webhook_url(target_api).blank?
-    return if verify_token(target_api).blank?
+  def perform(authorization_request_kind, json, authorization_request_id)
+    return if webhook_url(authorization_request_kind).blank?
+    return if verify_token(authorization_request_kind).blank?
 
     payload = JSON.parse(json)
 
-    response = request(target_api, payload)
+    response = request(authorization_request_kind, payload)
 
     if success_http_codes.include?(response.status)
       handle_success(response.body, authorization_request_id)
     else
-      handle_error(response, target_api, payload, authorization_request_id)
+      handle_error(response, authorization_request_kind, payload, authorization_request_id)
     end
   end
 
   private
 
-  def request(target_api, payload)
-    Faraday.new(webhook_uri(target_api).to_s).post(webhook_uri(target_api).path) do |req|
+  def request(authorization_request_kind, payload)
+    Faraday.new(webhook_uri(authorization_request_kind).to_s).post(webhook_uri(authorization_request_kind).path) do |req|
       req.headers['Content-Type'] = 'application/json'
-      req.headers['X-Hub-Signature-256'] = "sha256=#{generate_hub_signature(target_api, payload)}"
+      req.headers['X-Hub-Signature-256'] = "sha256=#{generate_hub_signature(authorization_request_kind, payload)}"
       req.body = payload.to_json
     end
   end
@@ -52,9 +52,9 @@ class DeliverAuthorizationRequestWebhookJob < ApplicationJob
     nil
   end
 
-  def handle_error(response, target_api, payload, _authorization_request_id)
-    track_error(response, target_api, payload)
-    notify_webhook_fail(target_api, payload, response) if attempts == TOTAL_ATTEMPTS
+  def handle_error(response, authorization_request_kind, payload, _authorization_request_id)
+    track_error(response, authorization_request_kind, payload)
+    notify_webhook_fail(authorization_request_kind, payload, response) if attempts == TOTAL_ATTEMPTS
     webhook_fail!
   end
 
@@ -64,10 +64,10 @@ class DeliverAuthorizationRequestWebhookJob < ApplicationJob
     raise WebhookDeliveryFailedError
   end
 
-  def track_error(response, target_api, payload)
+  def track_error(response, authorization_request_kind, payload)
     Sentry.set_extras(
       {
-        target_api:,
+        authorization_request_kind:,
         payload:,
         tries_count: attempts,
         webhook_response_status: response.status,
@@ -78,33 +78,33 @@ class DeliverAuthorizationRequestWebhookJob < ApplicationJob
     Sentry.capture_message("Fail to call target's api webhook endpoint")
   end
 
-  def notify_webhook_fail(target_api, payload, response)
+  def notify_webhook_fail(authorization_request_kind, payload, response)
     WebhookMailer.with(
-      target_api:,
+      authorization_request_kind:,
       payload:,
       webhook_response_status: response.status.to_i,
       webhook_response_body: response.body.to_s
     ).fail.deliver_later
   end
 
-  def generate_hub_signature(target_api, payload)
+  def generate_hub_signature(authorization_request_kind, payload)
     OpenSSL::HMAC.hexdigest(
       OpenSSL::Digest.new('sha256'),
-      verify_token(target_api),
+      verify_token(authorization_request_kind),
       payload.to_json
     )
   end
 
-  def webhook_uri(target_api)
-    URI(webhook_url(target_api))
+  def webhook_uri(authorization_request_kind)
+    URI(webhook_url(authorization_request_kind))
   end
 
-  def webhook_url(target_api)
-    Rails.application.credentials.webhooks.public_send(target_api)&.url
+  def webhook_url(authorization_request_kind)
+    Rails.application.credentials.webhooks.public_send(authorization_request_kind)&.url
   end
 
-  def verify_token(target_api)
-    Rails.application.credentials.webhooks.public_send(target_api)&.token
+  def verify_token(authorization_request_kind)
+    Rails.application.credentials.webhooks.public_send(authorization_request_kind)&.token
   end
 
   def success_http_codes

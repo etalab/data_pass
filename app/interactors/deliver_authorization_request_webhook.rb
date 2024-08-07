@@ -9,7 +9,7 @@ class DeliverAuthorizationRequestWebhook < ApplicationInteractor
 
   def job_params
     [
-      target_api,
+      authorization_request_kind,
       webhook_payload,
       context.authorization_request.id
     ]
@@ -22,7 +22,7 @@ class DeliverAuthorizationRequestWebhook < ApplicationInteractor
     ).to_json
   end
 
-  def target_api = context.authorization_request.definition.id
+  def authorization_request_kind = context.authorization_request.definition.id
 
   def can_deliver_webhook?
     context.authorization_request.definition.webhook?

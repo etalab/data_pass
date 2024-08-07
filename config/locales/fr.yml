@@ -308,7 +308,7 @@ fr:
             last_submitted_at: Dernière date de soumission
             organization: Organisation
             project_name: Projet
-            target_api: Nom de l'API
+            authorization_request_kind: Nom du fournisseur
             applicant_email: Email du demandeur
             actions: Actions
           actions:

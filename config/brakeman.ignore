@@ -99,7 +99,7 @@
       "check_name": "CrossSiteScripting",
       "message": "Unescaped model attribute",
       "file": "app/views/authorization_request_forms/new.html.erb",
-      "line": 18,
+      "line": 8,
       "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
       "code": "t(\".organization.start_text_with_form_name\", :organization_raison_sociale => current_organization.raison_sociale, :organization_siret => current_organization.siret, :authorization_request_form_name => AuthorizationRequestForm.find(params[:form_uid]).name)",
       "render_path": [
@@ -129,27 +129,27 @@
     {
       "warning_type": "Dangerous Send",
       "warning_code": 23,
-      "fingerprint": "c21411c87429fcc8e02428b35189e2a90b46f2a3f2d2569f171047f9a3ed1d68",
+      "fingerprint": "cd5690fd7ab199e5fa1e8ec5bebf78691dbc407680a2f4638f195c0c4396601b",
       "check_name": "Send",
       "message": "User controlled method execution",
       "file": "app/mailers/webhook_mailer.rb",
       "line": 15,
       "link": "https://brakemanscanner.org/docs/warning_types/dangerous_send/",
-      "code": "Rails.application.credentials.webhooks.public_send(params[:target_api])",
+      "code": "Rails.application.credentials.webhooks.public_send(params[:authorization_request_kind])",
       "render_path": null,
       "location": {
         "type": "method",
         "class": "WebhookMailer",
         "method": "instanciate_fail_view_variables"
       },
-      "user_input": "params[:target_api]",
+      "user_input": "params[:authorization_request_kind]",
       "confidence": "High",
       "cwe_id": [
         77
       ],
-      "note": "this is clearly a false positive as params[:target_api] is an entry in a authorization_definitions.yml"
+      "note": ""
     }
   ],
-  "updated": "2024-07-15 23:58:47 +0200",
+  "updated": "2024-08-07 17:28:32 +0200",
   "brakeman_version": "6.1.2"
 }

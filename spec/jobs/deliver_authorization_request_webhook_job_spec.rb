@@ -14,8 +14,8 @@ RSpec.describe DeliverAuthorizationRequestWebhookJob do
     Rails.application.credentials.webhooks.api_entreprise.token = nil
   end
 
-  let(:job_instance) { described_class.new(target_api, payload.to_json, authorization_request.id) }
-  let(:target_api) { 'api_entreprise' }
+  let(:job_instance) { described_class.new(authorization_request_kind, payload.to_json, authorization_request.id) }
+  let(:authorization_request_kind) { 'api_entreprise' }
   let(:payload) do
     {
       'lol' => 'oki'
@@ -145,7 +145,7 @@ RSpec.describe DeliverAuthorizationRequestWebhookJob do
                 'deliver_now',
                 {
                   params: {
-                    target_api:,
+                    authorization_request_kind:,
                     payload:,
                     webhook_response_status: status,
                     webhook_response_body: 'body',
