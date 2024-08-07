@@ -1,9 +1,9 @@
 <%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { title: f.wording_for('steps.contacts'), block_id: :contacts, f:, editable: } do %>
   <div class="fr-container-fluid">
-    <div class="fr-grid-row">
+    <div class="fr-grid-row fr-grid-row--gutters">
       <% @authorization_request.contact_types.each do |contact_type| %>
-        <div class="fr-col-12 fr-col-lg-6 fr-pr-4v fr-pb-4v">
-          <div id="<%= dom_id(@authorization_request, contact_type) %>" class="fr-basic-card contact-card">
+        <div class="fr-col-12 fr-col-lg-6">
+          <div id="<%= dom_id(@authorization_request, contact_type) %>" class="fr-basic-card contact-card height-100">
             <div class="contact-card__kind">
               <%= t("authorization_request_forms.default.#{contact_type}.title") %>
             </div>
