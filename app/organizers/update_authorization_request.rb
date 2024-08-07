@@ -7,7 +7,7 @@ class UpdateAuthorizationRequest < ApplicationOrganizer
   organize AssignParamsToAuthorizationRequest,
     VerifyContactsEmailsAsynchronously,
     CreateAuthorizationRequestEventModel,
-    DeliverAuthorizationRequestWebhook
+    DeliverAuthorizationRequestNotification
 
   after do
     context.authorization_request.save(context: context.save_context) ||

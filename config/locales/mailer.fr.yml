@@ -15,13 +15,13 @@ fr:
           text: L'équipe DataPass
 
   authorization_request_mailer:
-    validated:
+    approve:
       subject: Votre habilitation numéro %{authorization_request_id} vient d'être validée
       description: |
         Votre habilitation "%{authorization_request_name}" (numéro %{authorization_request_id}) a été validée par nos équipes.
 
         Vous pouvez consulter votre habilitation en suivant le lien suivant: %{authorization_request_url}
-    refused:
+    refuse:
       subject: Votre demande d'habilitation numéro %{authorization_request_id} a été refusée
       description: |
         Votre habilitation "%{authorization_request_name}" (numéro %{authorization_request_id}) a été refusée par nos équipes pour la raison suivante:
@@ -29,7 +29,7 @@ fr:
         %{authorization_request_denial_reason}
 
         Vous pouvez consulter votre habilitation en suivant le lien suivant: %{authorization_request_url}
-    revoked:
+    revoke:
       subject: Votre demande d'habilitation numéro %{authorization_request_id} a été révoquée.
       description: |
         Votre habilitation "%{authorization_request_name}" (numéro %{authorization_request_id}) a été révoquée par nos équipes pour la raison suivante:
@@ -37,7 +37,7 @@ fr:
         %{authorization_request_revocation_reason}
 
         Vous pouvez consulter votre habilitation en suivant le lien suivant: %{authorization_request_url}
-    changes_requested:
+    request_changes:
       subject: Votre demande d'habilitation numéro %{authorization_request_id} requiert des modification
       description: |
         Votre habilitation "%{authorization_request_name}" (numéro %{authorization_request_id}) requiert des modifications avant de pouvoir être validée.
@@ -47,13 +47,13 @@ fr:
         %{authorization_request_modification_request_reason}
 
         Vous pouvez consulter votre habilitation en suivant le lien suivant: %{authorization_request_url}
-    reopening_validated:
+    reopening_approve:
       subject: Votre réouverture d'habilitation numéro %{authorization_request_id} vient d'être validée
       description: |
         Votre réouverture d'habilitation "%{authorization_request_name}" (numéro %{authorization_request_id}) a été validée par nos équipes.
 
         Vous pouvez consulter votre habilitation mise à jour en suivant le lien suivant: %{authorization_request_url}
-    reopening_refused:
+    reopening_refuse:
       subject: Votre réouverture d'habilitation numéro %{authorization_request_id} a été refusée
       description: |
         Votre réouverture habilitation "%{authorization_request_name}" (numéro %{authorization_request_id}) a été refusée par nos équipes pour la raison suivante:
@@ -62,7 +62,7 @@ fr:
 
         Les modifications apportées ont donc été annulées. Votre ancienne habilitation est toujours valide, vous pouvez la consulter en suivant le lien suivant: %{authorization_request_url}
 
-    reopening_changes_requested:
+    reopening_request_changes:
       subject: Votre réouverture d'habilitation numéro %{authorization_request_id} requiert des modification
       description: |
         Votre réouverture d'habilitation "%{authorization_request_name}" (numéro %{authorization_request_id}) requiert des modifications avant de pouvoir être validée.
@@ -89,13 +89,13 @@ fr:
 
   instruction:
     authorization_request_mailer:
-      submitted:
+      submit:
         subject: Nouvelle demande d'habilitation sur DataPass
         description: |
           %{applicant_full_name} (%{applicant_email}) a soumis une nouvelle demande d'habilitation sur DataPass pour le compte de l'organisation %{organization_raison_sociale}
 
           Vous pouvez modérer cette demande d'habilitation en suivant le lien suivant: %{authorization_request_instruction_url}
-      reopening_submitted:
+      reopening_submit:
         subject: Nouvelle demande de réouverture d'habilitation sur DataPass
         description: |
           %{applicant_full_name} (%{applicant_email}) a soumis une nouvelle demande de réouverture d'habilitation sur DataPass pour le compte de l'organisation %{organization_raison_sociale}

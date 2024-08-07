@@ -10,7 +10,8 @@ RSpec.describe ReopenAuthorization do
     end
 
     context 'with authorization request is in validated state' do
-      let(:authorization_request) { create(:authorization_request, :api_entreprise, :validated) }
+      let!(:authorization_request) { create(:authorization_request, authorization_request_kind, :validated) }
+      let(:authorization_request_kind) { :api_entreprise }
 
       it { is_expected.to be_success }
 
@@ -23,6 +24,7 @@ RSpec.describe ReopenAuthorization do
       end
 
       include_examples 'creates an event', event_name: :reopen, entity_type: :authorization
+      include_examples 'delivers a webhook', event_name: :reopen
     end
 
     context 'with authorization request in draft state' do

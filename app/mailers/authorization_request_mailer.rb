@@ -1,6 +1,6 @@
 class AuthorizationRequestMailer < ApplicationMailer
-  %i[validated refused changes_requested revoked].each do |state|
-    [state, "reopening_#{state}"].each do |mth|
+  %i[approve refuse request_changes revoke].each do |event|
+    [event, "reopening_#{event}"].each do |mth|
       define_method(mth) do
         @authorization_request = params[:authorization_request]
 

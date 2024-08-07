@@ -6,7 +6,8 @@ RSpec.describe SubmitAuthorizationRequest do
 
     context 'with authorization request in draft state' do
       context 'with valid authorization request' do
-        let(:authorization_request) { create(:authorization_request, :api_entreprise, :draft, fill_all_attributes: true) }
+        let(:authorization_request) { create(:authorization_request, authorization_request_kind, :draft, fill_all_attributes: true) }
+        let(:authorization_request_kind) { :api_entreprise }
 
         it { is_expected.to be_success }
 
@@ -19,6 +20,7 @@ RSpec.describe SubmitAuthorizationRequest do
         end
 
         include_examples 'creates an event', event_name: :submit
+        include_examples 'delivers a webhook', event_name: :submit
 
         describe 'versions diffing' do
           let(:authorization_request_params) do
@@ -146,7 +148,7 @@ RSpec.describe SubmitAuthorizationRequest do
           end
 
           it 'notifies the instructors' do
-            expect { submit_authorization_request }.to have_enqueued_mail(Instruction::AuthorizationRequestMailer, :submitted)
+            expect { submit_authorization_request }.to have_enqueued_mail(Instruction::AuthorizationRequestMailer, :submit)
           end
         end
       end

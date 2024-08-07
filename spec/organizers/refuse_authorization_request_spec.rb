@@ -8,7 +8,8 @@ RSpec.describe RefuseAuthorizationRequest do
       let(:denial_of_authorization_params) { attributes_for(:denial_of_authorization) }
 
       context 'with authorization request in submitted state' do
-        let!(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :submitted) }
+        let!(:authorization_request) { create(:authorization_request, authorization_request_kind, :submitted) }
+        let(:authorization_request_kind) { :api_service_national }
 
         it { is_expected.to be_success }
 
@@ -25,7 +26,7 @@ RSpec.describe RefuseAuthorizationRequest do
         end
 
         it 'delivers an email' do
-          expect { refuse_authorization_request }.to have_enqueued_mail(AuthorizationRequestMailer, :refused)
+          expect { refuse_authorization_request }.to have_enqueued_mail(AuthorizationRequestMailer, :refuse)
         end
 
         context 'when it is a reopening' do
@@ -36,7 +37,7 @@ RSpec.describe RefuseAuthorizationRequest do
           end
 
           it 'delivers an email specific to reopening' do
-            expect { refuse_authorization_request }.to have_enqueued_mail(AuthorizationRequestMailer, :reopening_refused)
+            expect { refuse_authorization_request }.to have_enqueued_mail(AuthorizationRequestMailer, :reopening_refuse)
           end
 
           context 'when there was updates on the authorization request' do
@@ -54,6 +55,7 @@ RSpec.describe RefuseAuthorizationRequest do
         end
 
         include_examples 'creates an event', event_name: :refuse, entity_type: :denial_of_authorization
+        include_examples 'delivers a webhook', event_name: :refuse
       end
 
       context 'with authorization request in draft state' do

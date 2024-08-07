@@ -1,5 +1,5 @@
 class ExecuteAuthorizationRequestTransitionWithCallbacks < ApplicationOrganizer
   organize TriggerAuthorizationRequestEvent,
-    DeliverAuthorizationRequestNotification,
-    DeliverAuthorizationRequestWebhook
+    CreateAuthorizationRequestEventModel,
+    DeliverAuthorizationRequestNotification
 end

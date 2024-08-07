@@ -1,9 +1,9 @@
 RSpec.describe Instruction::AuthorizationRequestMailer do
-  describe '#submitted' do
+  describe '#submit' do
     subject(:mail) do
       described_class.with(
         authorization_request:
-      ).submitted
+      ).submit
     end
 
     let(:authorization_request) { create(:authorization_request, :api_entreprise, :submitted) }
@@ -33,11 +33,11 @@ RSpec.describe Instruction::AuthorizationRequestMailer do
     end
   end
 
-  describe '#reopening_submitted' do
+  describe '#reopening_submit' do
     subject(:mail) do
       described_class.with(
         authorization_request:
-      ).reopening_submitted
+      ).reopening_submit
     end
 
     let(:authorization_request) { create(:authorization_request, :api_entreprise, :submitted) }

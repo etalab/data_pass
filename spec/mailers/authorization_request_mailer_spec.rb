@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe AuthorizationRequestMailer do
-  describe '#validated' do
+  describe '#approve' do
     subject(:mail) do
       described_class.with(
         authorization_request:
-      ).validated
+      ).approve
     end
 
     let(:authorization_request) { create(:authorization_request, :api_entreprise, :validated) }
@@ -19,11 +19,11 @@ RSpec.describe AuthorizationRequestMailer do
     end
   end
 
-  describe '#refused' do
+  describe '#refuse' do
     subject(:mail) do
       described_class.with(
         authorization_request:
-      ).refused
+      ).refuse
     end
 
     let(:authorization_request) { create(:authorization_request, :api_entreprise, :refused) }
@@ -38,11 +38,11 @@ RSpec.describe AuthorizationRequestMailer do
     end
   end
 
-  describe '#changes_requested' do
+  describe '#request_changes' do
     subject(:mail) do
       described_class.with(
         authorization_request:
-      ).changes_requested
+      ).request_changes
     end
 
     let(:authorization_request) { create(:authorization_request, :api_entreprise, :changes_requested) }
@@ -57,11 +57,11 @@ RSpec.describe AuthorizationRequestMailer do
     end
   end
 
-  describe '#reopening_validated' do
+  describe '#reopening_approve' do
     subject(:mail) do
       described_class.with(
         authorization_request:
-      ).reopening_validated
+      ).reopening_approve
     end
 
     let(:authorization_request) { create(:authorization_request, :api_entreprise, :validated) }
@@ -76,11 +76,11 @@ RSpec.describe AuthorizationRequestMailer do
     end
   end
 
-  describe '#reopening_refused' do
+  describe '#reopening_refuse' do
     subject(:mail) do
       described_class.with(
         authorization_request:
-      ).reopening_refused
+      ).reopening_refuse
     end
 
     let(:authorization_request) { create(:authorization_request, :api_entreprise, :refused) }
@@ -96,11 +96,11 @@ RSpec.describe AuthorizationRequestMailer do
     end
   end
 
-  describe '#reopening_changes_requested' do
+  describe '#reopening_request_changes' do
     subject(:mail) do
       described_class.with(
         authorization_request:
-      ).reopening_changes_requested
+      ).reopening_request_changes
     end
 
     let(:authorization_request) { create(:authorization_request, :api_entreprise, :changes_requested) }

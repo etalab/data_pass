@@ -9,7 +9,7 @@ class CreateAuthorizationRequest < ApplicationOrganizer
     CreateAuthorizationRequestModel,
     AssignParamsToAuthorizationRequest,
     CreateAuthorizationRequestEventModel,
-    DeliverAuthorizationRequestWebhook
+    DeliverAuthorizationRequestNotification
 
   after do
     context.authorization_request.save ||

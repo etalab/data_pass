@@ -1,7 +1,14 @@
 class BaseNotifier < ApplicationNotifier
+  notifier_event_names.each do |event_name|
+    # rubocop:disable Lint/EmptyBlock
+    define_method(event_name) do |params|
+    end
+    # rubocop:enable Lint/EmptyBlock
+  end
+
   %w[
-    changes_requested
-    refused
+    request_changes
+    refuse
   ].each do |event|
     define_method(event) do |params|
       if authorization_request.already_been_validated?
@@ -12,31 +19,21 @@ class BaseNotifier < ApplicationNotifier
     end
   end
 
-  def validated(params)
+  def approve(params)
     deliver_gdpr_emails
 
     if params[:first_validation]
-      email_notification('validated', params)
+      email_notification('approve', params)
     else
-      email_notification('reopening_validated', params)
+      email_notification('reopening_approve', params)
     end
   end
 
-  def submitted(_params)
+  def submit(_params)
     Instruction::AuthorizationRequestMailer.with(
       authorization_request:
-    ).submitted.deliver_later
+    ).submit.deliver_later
   end
 
-  def revoked(params) = email_notification('revoked', params)
-
-  %w[
-    draft
-    archived
-  ].each do |event|
-    # rubocop:disable Lint/EmptyBlock
-    define_method(event) do |params|
-    end
-    # rubocop:enable Lint/EmptyBlock
-  end
+  def revoke(params) = email_notification('revoke', params)
 end

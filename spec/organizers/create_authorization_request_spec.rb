@@ -11,11 +11,11 @@ RSpec.describe CreateAuthorizationRequest, type: :organizer do
     let(:user) { create(:user) }
 
     context 'with basic form' do
-      let(:authorization_request_form) { AuthorizationRequestForm.find('hubee-cert-dc') }
+      let(:authorization_request_form) { AuthorizationRequestForm.find('api-entreprise') }
       let(:authorization_request_params) do
         ActionController::Parameters.new(
           invalid: 'invalid',
-          administrateur_metier_family_name: 'Dupont',
+          contact_metier_family_name: 'Dupont',
         )
       end
 
@@ -30,10 +30,22 @@ RSpec.describe CreateAuthorizationRequest, type: :organizer do
         expect(authorization_request.organization).to eq(user.current_organization)
         expect(authorization_request.form_uid).to eq(authorization_request_form.id)
 
-        expect(authorization_request.administrateur_metier_family_name).to eq('Dupont')
+        expect(authorization_request.contact_metier_family_name).to eq('Dupont')
       end
 
       include_examples 'creates an event', event_name: :create
+
+      context 'when authorization request has webhooks activated for all events' do
+        let(:authorization_request_kind) { :api_entreprise }
+
+        it 'delivers a webhook for this event' do
+          expect { subject }.to have_enqueued_job(DeliverAuthorizationRequestWebhookJob).with(
+            'api_entreprise',
+            a_string_matching('"event":"create"'),
+            instance_of(Integer),
+          ), 'Expected to have enqueued a webhook delivery job with the event name create'
+        end
+      end
     end
 
     context 'with a form which has default scopes on definition' do
