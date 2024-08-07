@@ -4,6 +4,35 @@
       <div class="fr-col-12 fr-col-lg-6">
         <div class="fr-basic-card height-100">
           <div class="contact-card__kind">
+            Demandeur
+          </div>
+
+          <div class="contact-card__full_name">
+            <%= @authorization_request.applicant.full_name %>
+          </div>
+
+          <%
+            %w[
+              job_title
+              email
+              phone_number
+            ].each do |user_attribute|
+          %>
+            <div class="contact-card__attribute">
+              <div class="contact-card__attribute-label">
+                <%= User.human_attribute_name(user_attribute) %>
+              </div>
+              <div class="contact-card__attribute-value">
+                <%= @authorization_request.applicant.public_send(user_attribute) %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="fr-col-12 fr-col-lg-6">
+        <div class="fr-basic-card height-100">
+          <div class="contact-card__kind">
             Organisation
           </div>
 
@@ -26,35 +55,6 @@
               </div>
               <div class="contact-card__attribute-value">
                 <%= @authorization_request.organization.public_send(organization_attribute) %>
-              </div>
-            </div>
-          <% end %>
-        </div>
-      </div>
-
-      <div class="fr-col-12 fr-col-lg-6">
-        <div class="fr-basic-card height-100">
-          <div class="contact-card__kind">
-            Demandeur
-          </div>
-
-          <div class="contact-card__full_name">
-            <%= @authorization_request.applicant.full_name %>
-          </div>
-
-          <%
-            %w[
-              job_title
-              email
-              phone_number
-            ].each do |user_attribute|
-          %>
-            <div class="contact-card__attribute">
-              <div class="contact-card__attribute-label">
-                <%= User.human_attribute_name(user_attribute) %>
-              </div>
-              <div class="contact-card__attribute-value">
-                <%= @authorization_request.applicant.public_send(user_attribute) %>
               </div>
             </div>
           <% end %>
