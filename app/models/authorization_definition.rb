@@ -66,6 +66,10 @@ class AuthorizationDefinition < StaticApplicationRecord
     (instructors + reporters).uniq
   end
 
+  def public_available_forms
+    available_forms.select(&:public)
+  end
+
   def available_forms
     AuthorizationRequestForm.where(authorization_request_class:).sort do |form|
       form.default ? 1 : 0
