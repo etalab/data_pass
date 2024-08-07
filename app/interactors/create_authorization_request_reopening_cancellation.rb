@@ -1,6 +1,6 @@
 class CreateAuthorizationRequestReopeningCancellation < ApplicationInteractor
   def call
-    context.authorization_request_reopening_cancellation = AuthorizationRequestReopeningCancellation.new(
+    context.authorization_request_reopening_cancellation = context.authorization_request.reopening_cancellations.build(
       authorization_request_reopening_cancellation_params,
     )
 
@@ -16,10 +16,8 @@ class CreateAuthorizationRequestReopeningCancellation < ApplicationInteractor
   private
 
   def authorization_request_reopening_cancellation_params
-    {
-      request: context.authorization_request,
-      reason: context.reason,
+    context.authorization_request_reopening_cancellation_params.merge(
       user: context.user,
-    }
+    )
   end
 end
