@@ -1,0 +1,2 @@
+class APIParticulierNotifier < APIEntreculierNotifier
+end

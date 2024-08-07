@@ -13,6 +13,8 @@ class BaseNotifier < ApplicationNotifier
   end
 
   def validated(params)
+    deliver_gdpr_emails
+
     if params[:first_validation]
       email_notification('validated', params)
     else
