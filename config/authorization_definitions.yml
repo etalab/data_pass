@@ -129,7 +129,7 @@ shared:
         group: "Informations de régularité"
         value: "cotisations_probtp"
         link: "https://entreprise.api.gouv.fr/catalogue/probtp/conformites_cotisations_retraite"
-      - name: "Attestation de cotisations congés payés & chômage-intempéries - CNETP & CIBTP | 🔐"
+      - name: "Certificats de cotisations congés payés & chômage-intempéries - CNETP & CIBTP | 🔐"
         group: "Informations de régularité"
         value: "attestation_cotisations_conges_payes_chomage_intemperies_cibtp_cnetp"
         link: "https://entreprise.api.gouv.fr/catalogue/cibtp/attestations_cotisations_conges_payes_chomage_intemperies"
