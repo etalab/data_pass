@@ -1,6 +1,6 @@
 :root {
-  --summary-block--padding-y: 20px;
-  --summary-block--padding-x: 30px;
+  --summary-block--padding-y: 32px;
+  --summary-block--padding-x: 32px;
 }
 
 .summary-block {
