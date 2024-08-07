@@ -7,7 +7,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
 
   Scénario: Je soumets une demande d'habilitation libre valide
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "Demande libre"
-    Et que je clique sur "Débuter mon habilitation"
+    Et que je clique sur "Débuter ma demande"
 
     * je renseigne les infos de bases du projet
     * je clique sur "Suivant"
@@ -35,7 +35,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
 
   Plan du scénario: Je soumets une demande d'habilitation, en plusieurs étapes, d'un éditeur avec le contact technique déjà renseigné et des scopes modifiables pour un cas d'usage lié au portail famille ou à la tarification QF
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
-    Et que je clique sur "Débuter mon habilitation"
+    Et que je clique sur "Débuter ma demande"
 
     * je clique sur "Suivant"
 
@@ -63,7 +63,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
 
   Plan du scénario: Je soumets une demande d'habilitation, en plusieurs étapes, d'un éditeur avec le contact technique non renseigné et des scopes non modifiables pour un cas d'usage lié au portail famille ou à la tarification QF
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
-    Et que je clique sur "Débuter mon habilitation"
+    Et que je clique sur "Débuter ma demande"
 
     * je clique sur "Suivant"
 
@@ -94,7 +94,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
 
   Plan du scénario: Je soumets une demande d'habilitation, en plusieurs étapes, d'un éditeur avec le contact technique non renseigné et des scopes non modifiables pour un cas d'usage lié au CCAS
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
-    Et que je clique sur "Débuter mon habilitation"
+    Et que je clique sur "Débuter ma demande"
 
     * je clique sur "Suivant"
 
@@ -123,7 +123,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
 
   Plan du scénario: Je soumets une demande d'habilitation, en plusieurs étapes, d'un éditeur avec le contact technique renseigné et des scopes non modifiables pour un cas d'usage lié au portail famille ou à la tarification QF
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
-    Et que je clique sur "Débuter mon habilitation"
+    Et que je clique sur "Débuter ma demande"
 
     * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
     * je clique sur "Suivant"
@@ -152,7 +152,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
 
   Plan du scénario: Je soumets une demande d'habilitation, présenté en une seule page, d'un éditeur avec le contact technique déjà renseigné pour un cas d'usage lié au portail famille ou à la tarification QF
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
-    Et que je clique sur "Débuter mon habilitation"
+    Et que je clique sur "Débuter ma demande"
 
     * je renseigne les informations des contacts RGPD
     * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
@@ -178,7 +178,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
 
   Plan du scénario: Je soumets une demande d'habilitation, présenté en une seule page, d'un éditeur avec le contact technique non renseigné pour un cas d'usage lié au portail famille ou à la tarification QF
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
-    Et que je clique sur "Débuter mon habilitation"
+    Et que je clique sur "Débuter ma demande"
 
     * je renseigne les informations des contacts RGPD
     * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
@@ -206,7 +206,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
 
   Scénario: Je soumets une demande d'habilitation, présenté en une seule page, de l'éditeur AFI avec le contact technique déjà renseigné pour un cas d'usage lié au CCAS
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "Mélissandre" de l'éditeur "Agence Française d'Informatique (AFI)"
-    Et que je clique sur "Débuter mon habilitation"
+    Et que je clique sur "Débuter ma demande"
 
     * je renseigne les informations des contacts RGPD
     * je renseigne le cadre légal

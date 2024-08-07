@@ -6,7 +6,7 @@ FactoryBot.define do
 
     terms_of_service_accepted { true }
     data_protection_officer_informed { true }
-    form_uid { 'portail-hubee-demarche-certdc' }
+    form_uid { 'hubee-cert-dc' }
     type { 'AuthorizationRequest::HubEECertDC' }
     linked_token_manager_id { nil }
 
@@ -195,12 +195,12 @@ FactoryBot.define do
 
     trait :portail_hubee_demarche_certdc do
       hubee_cert_dc
-      form_uid { 'portail-hubee-demarche-certdc' }
+      form_uid { 'hubee-cert-dc' }
     end
 
     trait :hubee_dila do
       type { 'AuthorizationRequest::HubEEDila' }
-      form_uid { 'portail-hubee-demarches-dila' }
+      form_uid { 'hubee-dila' }
       with_scopes
     end
 

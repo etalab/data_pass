@@ -148,8 +148,8 @@ fr:
       etape_3: Être habilité
       etape_4: Accéder au service
     new:
-      title: &start_new_habilitation_title Demander une habilitation pour %{authorization_name}
       default:
+        title: &start_new_habilitation_title Demander une habilitation pour %{authorization_name}
         multiple_forms:
           description: "Il existe plusieurs formulaires pour obtenir une habilitation à %{authorization_name}, sélectionnez celui qui correspond le mieux à votre cas d'usage :"
     show:
@@ -174,7 +174,7 @@ fr:
           legacy_scopes: "Les données suivantes ont été précédemment sélectionnées mais ne sont plus disponibles ou n'apparaissent pas dans le formulaire sélectionné :"
 
   start_authorization_request_form:
-    cta: Débuter mon habilitation pour %{authorization_name}
+    cta: Débuter ma demande
   authorization_request_forms:
     new:
       title: *start_new_habilitation_title
@@ -184,7 +184,7 @@ fr:
         start_text_with_form_name: "Vous êtes sur le point de démarrer une nouvelle demande d'habilitation pour le compte de <a href=\"https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}\" target=\"_blank\">%{organization_raison_sociale}</a> via le formulaire <strong>%{authorization_request_form_name}</strong>."
       intro:
         title: L'objectif du formulaire
-      cta: Débuter mon habilitation pour %{authorization_name}
+      cta: Débuter ma demande
       multiple_steps:
         title: "Les étapes de votre formulaire"
         description: "Cette demande s'effectue en plusieurs étapes. Vous pouvez à tout moment sauvegarder votre demande et la reprendre plus tard. Les étapes sont les suivantes :"

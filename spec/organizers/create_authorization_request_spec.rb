@@ -11,7 +11,7 @@ RSpec.describe CreateAuthorizationRequest, type: :organizer do
     let(:user) { create(:user) }
 
     context 'with basic form' do
-      let(:authorization_request_form) { AuthorizationRequestForm.find('portail-hubee-demarche-certdc') }
+      let(:authorization_request_form) { AuthorizationRequestForm.find('hubee-cert-dc') }
       let(:authorization_request_params) do
         ActionController::Parameters.new(
           invalid: 'invalid',

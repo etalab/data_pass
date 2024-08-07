@@ -63,7 +63,7 @@ Fonctionnalité: Interactions sur une demande d'habilitation simple (sur une seu
 
   Scénario: Je démarre une demande d'habilitation avec des données pré-remplies
     Quand je veux remplir une demande pour "API Entreprise" via le formulaire "Dématérialisation des marchés publics" de l'éditeur "SETEC"
-    Et que je clique sur "Débuter mon habilitation"
+    Et que je clique sur "Débuter ma demande"
     Alors un champ contient "contact-setec@yopmail.com"
 
   @javascript

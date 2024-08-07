@@ -48,14 +48,6 @@ Quand("je démarre une nouvelle demande d'habilitation {string} avec le paramèt
   visit new_authorization_request_path(id: find_authorization_definition_from_name(string).id, key => value)
 end
 
-Quand('je clique sur {string} pour le formulaire {string}') do |cta_name, form_name|
-  form_start_block = find('li', text: form_name)
-
-  within(form_start_block) do
-    click_link_or_button(cta_name)
-  end
-end
-
 Quand('je remplis les informations du contact {string} avec :') do |string, table|
   contact_title_node = find('h6', text: string)
   contact_node = contact_title_node.find(:xpath, '..')

@@ -15,7 +15,7 @@ Fonctionnalité: Interactions sur une demande d'habilitation en plusieurs étape
 
   Scénario: Quand j'arrive sur une nouvelle demande en plusieurs étapes
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "Demande libre"
-    Et que je clique sur "Débuter mon habilitation"
+    Et que je clique sur "Débuter ma demande"
     Alors la page contient "Nom du projet"
     Et la page contient "Prochaine étape"
     Et la page ne contient pas "Supprimer"
@@ -24,7 +24,7 @@ Fonctionnalité: Interactions sur une demande d'habilitation en plusieurs étape
 
   Scénario: J'enregistre une demande d'habilitation en plusieurs étapes sur la première étape
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "Demande libre"
-    Et que je clique sur "Débuter mon habilitation"
+    Et que je clique sur "Débuter ma demande"
     Et que je remplis "Nom du projet" avec "Je suis un projet"
     Et que je remplis "Description du projet" avec "Je suis une description"
     Et que je clique sur "Enregistrer"
@@ -34,7 +34,7 @@ Fonctionnalité: Interactions sur une demande d'habilitation en plusieurs étape
 
   Scénario: J'enregistre en avançant une demande d'habilitation en plusieurs étapes depuis la première étape
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "Demande libre"
-    Et que je clique sur "Débuter mon habilitation"
+    Et que je clique sur "Débuter ma demande"
     Et que je remplis "Nom du projet" avec "Je suis un projet"
     Et que je remplis "Description du projet" avec "Je suis une description"
     Et que je clique sur "Suivant"
@@ -44,7 +44,7 @@ Fonctionnalité: Interactions sur une demande d'habilitation en plusieurs étape
 
   Scénario: Je tente d'enregistrer une demande d'habilitation en plusieurs étapes depuis la première étape en cliquant sur suivant
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "Demande libre"
-    Et que je clique sur "Débuter mon habilitation"
+    Et que je clique sur "Débuter ma demande"
     Et que je clique sur "Suivant"
     Alors il y a un message d'erreur contenant "Nom du projet doit être"
     Et la page contient "Nom du projet"

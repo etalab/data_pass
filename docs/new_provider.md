@@ -275,19 +275,17 @@ authorization_request_forms:
 
 ### Personnalisation du démarrage
 
-Après la page où l'on rappelle l'organisation, il y a une page de sélection de
-formulaire. Si il y a plusieurs formulaires il y a par défaut une liste de
-formulaires générique. Il est possible de personnaliser cette page afin
-par exemple d'effectuer de l'aiguillage.
+Si il n'y a qu'un seul formulaire associé à la définition, alors on redirige directement vers le `new` du formulaire, c'est à dire `/formulaires/:form_uid/demande/nouveau`.
 
-C'est le cas pour API Entreprise, dont le fichier est présent [ici](../app/views/authorization_request_forms/index/_api_entreprise.html.erb)
+Si il y a plusieurs formulaires il y a par défaut la liste de formulaires générique de `authorization_requests/new/default.html.erb`. Il est possible de personnaliser cette page afin par exemple d'effectuer de l'aiguillage.
+
+C'est le cas pour API Entreprise, dont le fichier est présent [ici](../app/views/authorization_requests/new/api_entreprise.html.erb)
 
 Si vous avez besoin de faire la même chose pour un autre type d'habilitation, il
-suffit de créer une vue partielle dans le dossier
-[`app/views/authorization_request_forms/index/`] avec le nom en underscore du
-type d'habilitation.
+suffit de créer une vue dans le dossier
+[`app/views/authorization_requests/new/`] avec le nom en underscore du type d'habilitation.
 
-Pour API Entreprise => `_api_entreprise.html.erb`
+Pour API Entreprise => `api_entreprise.html.erb`
 
 ### 4.1 Cas du multi étapes
 
