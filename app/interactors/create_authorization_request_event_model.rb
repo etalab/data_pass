@@ -7,6 +7,10 @@ class CreateAuthorizationRequestEventModel < ApplicationInteractor
     )
   end
 
+  def rollback
+    context.authorization_request_event.destroy
+  end
+
   private
 
   def event_name
