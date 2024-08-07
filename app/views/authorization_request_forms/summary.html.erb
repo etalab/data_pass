@@ -83,6 +83,8 @@
         <%= render partial: "authorization_requests/shared/blocks/#{block[:name]}", locals: { f: f, editable: false } %>
       <% end %>
     <% else %>
+      <%= render partial: 'authorization_requests/shared/organization_and_applicant' %>
+
       <% @authorization_request.blocks.each do |block| %>
         <%= render partial: "authorization_requests/shared/blocks/#{block[:name]}", locals: { f: f, editable: false } %>
       <% end %>
