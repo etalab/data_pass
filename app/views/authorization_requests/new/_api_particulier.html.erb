@@ -95,7 +95,7 @@
     </p>
 
     <div class="fr-grid-row">
-      <% @authorization_definition.available_forms.map(&:decorate).each do |authorization_request_form| %>
+      <% @authorization_definition.public_available_forms.map(&:decorate).each do |authorization_request_form| %>
         <div data-choose-authorization-request-form-target="form" data-choose-authorization-request-form-tags="<%= authorization_request_form.tags.to_json %>" class="fr-col-md-6 fr-col-xl-4 fr-col-12 fr-p-3w">
           <%= render partial: 'authorization_request_forms/authorization_request_form_card', locals: { authorization_request_form: } %>
         </div>

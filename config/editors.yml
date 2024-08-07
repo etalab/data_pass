@@ -94,3 +94,9 @@ shared:
   coexya:
     name: Coexya
     siret: '43362470700017'
+  agedi:
+    name: AGEDI
+    siret: '25770538400044'
+  ecorestauration:
+    name: Ecorestauration
+    siret: '82839976600025'
