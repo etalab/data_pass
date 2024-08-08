@@ -1,6 +1,6 @@
 RSpec.describe HubEECertDCBridge do
-  describe '#perform' do
-    subject(:hubee_cert_dc_bridge) { described_class.perform_now(authorization_request) }
+  describe '#perform on approve' do
+    subject(:hubee_cert_dc_bridge) { described_class.perform_now(authorization_request, 'approve') }
 
     let(:hubee_api_client) { instance_double(HubEEAPIClient) }
 

@@ -5,5 +5,6 @@ class RevokeAuthorizationRequest < ApplicationOrganizer
   end
 
   organize CreateRevocationOfAuthorizationModel,
-    ExecuteAuthorizationRequestTransitionWithCallbacks
+    ExecuteAuthorizationRequestTransitionWithCallbacks,
+    ExecuteAuthorizationRequestBridge
 end
