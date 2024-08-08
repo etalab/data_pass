@@ -26,6 +26,21 @@ RSpec.describe ApproveAuthorizationRequest do
         expect { approve_authorization_request }.to have_enqueued_mail(GDPRContactMailer, :responsable_traitement)
       end
 
+      context 'when there is a bridge' do
+        let(:authorization_request_kind) { :hubee_cert_dc }
+        let(:hubee_cert_dc_bridge) { instance_double(HubEECertDCBridge, perform: true) }
+
+        before do
+          allow(HubEECertDCBridge).to receive(:new).and_return(hubee_cert_dc_bridge)
+        end
+
+        it 'executes the bridge' do
+          approve_authorization_request
+
+          expect(hubee_cert_dc_bridge).to have_received(:perform)
+        end
+      end
+
       context 'when it is a reopening' do
         let!(:authorization_request) { create(:authorization_request, :api_service_national, :reopened) }
 
