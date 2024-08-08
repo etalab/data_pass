@@ -30,13 +30,13 @@ RSpec.describe HubEECertDCBridge do
     end
 
     it 'Finds or creates organization' do
-      expect(bridge).to receive(:find_or_create_organization).with(authorization_request)
+      expect(bridge).to receive(:find_or_create_organization)
 
       bridge.perform
     end
 
     it 'Creates and store subscription id' do
-      expect(bridge).to receive(:create_and_store_subscription).with(authorization_request, organization_payload.with_indifferent_access)
+      expect(bridge).to receive(:create_and_store_subscription).with(organization_payload.with_indifferent_access)
 
       bridge.perform
     end
