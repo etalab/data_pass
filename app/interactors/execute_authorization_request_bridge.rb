@@ -2,7 +2,7 @@ class ExecuteAuthorizationRequestBridge < ApplicationInteractor
   def call
     return unless bridge_exists?
 
-    bridge.new(context.authorization_request).perform
+    bridge.perform_later(context.authorization_request)
   end
 
   private

@@ -1,11 +1,7 @@
-class ApplicationBridge
+class ApplicationBridge < ApplicationJob
   attr_reader :authorization_request
 
-  def initialize(authorization_request)
-    @authorization_request = authorization_request
-  end
-
-  def perform
+  def perform(_authorization_request)
     fail ::NotImplementedError
   end
 end

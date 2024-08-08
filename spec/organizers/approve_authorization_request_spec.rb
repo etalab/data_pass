@@ -28,16 +28,16 @@ RSpec.describe ApproveAuthorizationRequest do
 
       context 'when there is a bridge' do
         let(:authorization_request_kind) { :hubee_cert_dc }
-        let(:hubee_cert_dc_bridge) { instance_double(HubEECertDCBridge, perform: true) }
+        let(:hubee_cert_dc_bridge) { instance_double(HubEECertDCBridge, enqueue: true) }
 
         before do
           allow(HubEECertDCBridge).to receive(:new).and_return(hubee_cert_dc_bridge)
         end
 
-        it 'executes the bridge' do
+        it 'executes the bridge asynchronously' do
           approve_authorization_request
 
-          expect(hubee_cert_dc_bridge).to have_received(:perform)
+          expect(hubee_cert_dc_bridge).to have_received(:enqueue)
         end
       end
 
