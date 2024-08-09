@@ -1,4 +1,4 @@
-class Instruction::ApproveAuthorizationRequestsController < Instruction::AuthorizationRequestsController
+class Instruction::ApproveAuthorizationRequestsController < Instruction::AbstractAuthorizationRequestsController
   before_action :authorize_authorization_request_approval
 
   def new; end
@@ -17,10 +17,6 @@ class Instruction::ApproveAuthorizationRequestsController < Instruction::Authori
   end
 
   private
-
-  def extract_authorization_request
-    @authorization_request = AuthorizationRequest.find(params[:authorization_request_id])
-  end
 
   def authorize_authorization_request_approval
     authorize [:instruction, @authorization_request], :approve?

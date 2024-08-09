@@ -1,6 +1,4 @@
-class Instruction::AuthorizationRequestEventsController < Instruction::AuthorizationRequestsController
-  before_action :extract_authorization_request
-
+class Instruction::AuthorizationRequestEventsController < Instruction::AbstractAuthorizationRequestsController
   def index
     authorize [:instruction, @authorization_request], :show?
 
@@ -11,9 +9,5 @@ class Instruction::AuthorizationRequestEventsController < Instruction::Authoriza
 
   def layout_name
     'instruction/authorization_request'
-  end
-
-  def extract_authorization_request
-    @authorization_request = AuthorizationRequest.find(params[:authorization_request_id])
   end
 end

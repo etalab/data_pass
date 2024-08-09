@@ -1,4 +1,4 @@
-class Instruction::CancelAuthorizationReopeningsController < Instruction::AuthorizationRequestsController
+class Instruction::CancelAuthorizationReopeningsController < Instruction::AbstractAuthorizationRequestsController
   before_action :authorize_authorization_request_reopening_cancellation
 
   def new
@@ -26,10 +26,6 @@ class Instruction::CancelAuthorizationReopeningsController < Instruction::Author
     params.require(:authorization_request_reopening_cancellation).permit(
       :reason,
     )
-  end
-
-  def extract_authorization_request
-    @authorization_request = AuthorizationRequest.find(params[:authorization_request_id])
   end
 
   def authorize_authorization_request_reopening_cancellation

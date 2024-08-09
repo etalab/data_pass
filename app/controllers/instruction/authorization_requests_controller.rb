@@ -1,9 +1,6 @@
-class Instruction::AuthorizationRequestsController < InstructionController
-  helper AuthorizationRequestsHelpers
-  include AuthorizationRequestsFlashes
-
-  before_action :extract_authorization_request, except: [:index]
+class Instruction::AuthorizationRequestsController < Instruction::AbstractAuthorizationRequestsController
   before_action :redirect_to_searched_authorization_request, only: [:index]
+  skip_before_action :extract_authorization_request, only: :index
 
   def index
     base_relation = policy_scope([:instruction, AuthorizationRequest]).includes([:organization]).not_archived

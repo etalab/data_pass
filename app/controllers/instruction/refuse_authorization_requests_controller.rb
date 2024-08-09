@@ -1,4 +1,4 @@
-class Instruction::RefuseAuthorizationRequestsController < Instruction::AuthorizationRequestsController
+class Instruction::RefuseAuthorizationRequestsController < Instruction::AbstractAuthorizationRequestsController
   before_action :authorize_authorization_request_refusal
 
   def new
@@ -26,10 +26,6 @@ class Instruction::RefuseAuthorizationRequestsController < Instruction::Authoriz
     params.require(:denial_of_authorization).permit(
       :reason,
     )
-  end
-
-  def extract_authorization_request
-    @authorization_request = AuthorizationRequest.find(params[:authorization_request_id])
   end
 
   def authorize_authorization_request_refusal

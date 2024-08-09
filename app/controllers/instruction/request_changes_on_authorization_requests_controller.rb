@@ -1,4 +1,4 @@
-class Instruction::RequestChangesOnAuthorizationRequestsController < Instruction::AuthorizationRequestsController
+class Instruction::RequestChangesOnAuthorizationRequestsController < Instruction::AbstractAuthorizationRequestsController
   before_action :authorize_authorization_request_changes_request
 
   def new
@@ -26,10 +26,6 @@ class Instruction::RequestChangesOnAuthorizationRequestsController < Instruction
     params.require(:instructor_modification_request).permit(
       :reason,
     )
-  end
-
-  def extract_authorization_request
-    @authorization_request = AuthorizationRequest.find(params[:authorization_request_id])
   end
 
   def authorize_authorization_request_changes_request
