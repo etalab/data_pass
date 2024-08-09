@@ -3,13 +3,7 @@ require 'rails_helper'
 RSpec.describe DeliverAuthorizationRequestWebhookJob do
   subject(:deliver_authorization_request_webhook) { job_instance.perform_now }
 
-  before do
-    ActiveJob::Base.queue_adapter = :inline
-  end
-
   after do
-    ActiveJob::Base.queue_adapter = :test
-
     Rails.application.credentials.webhooks.api_entreprise.url = nil
     Rails.application.credentials.webhooks.api_entreprise.token = nil
   end
@@ -125,14 +119,12 @@ RSpec.describe DeliverAuthorizationRequestWebhookJob do
           deliver_authorization_request_webhook
         end
 
-        context 'when last retry_on attempt fails' do
-          let(:tries_count) { described_class::TOTAL_ATTEMPTS }
+        context 'when we reach the threshold to notify data provider' do
+          let(:tries_count) { described_class::THRESHOLD_TO_NOTIFY_DATA_PROVIDER }
           let(:response) { instance_double(Faraday::Response, status:, body: 'body') }
 
           before do
-            allow(job_instance).to receive_messages(request: response, attempts: described_class::TOTAL_ATTEMPTS)
-
-            ActiveJob::Base.queue_adapter = :test
+            allow(job_instance).to receive_messages(request: response, attempts: described_class::THRESHOLD_TO_NOTIFY_DATA_PROVIDER)
           end
 
           it 'sends an email through WebhookMailer to instructors' do

@@ -1,25 +1,24 @@
 class HubEECertDCBridge < ApplicationBridge
-  def perform
-    organization = find_or_create_organization(authorization_request)
+  def on_approve
+    organization_hubee_payload = find_or_create_organization
 
-    create_and_store_subscription(authorization_request, organization)
+    create_and_store_subscription(organization_hubee_payload)
   end
 
   private
 
-  def find_or_create_organization(authorization_request)
+  def find_or_create_organization
     hubee_api_client.get_organization(organization.siret, organization.code_commune)
   rescue Faraday::ResourceNotFound
-    organization_payload = organization_body(organization, authorization_request)
-    hubee_api_client.create_organization(organization_payload)
+    hubee_api_client.create_organization(organization_create_payload)
   end
 
-  def create_and_store_subscription(authorization_request, organization)
-    subscription_payload = hubee_api_client.create_subscription(subscription_body(authorization_request, organization, process_code))
-    authorization_request.update!(linked_token_manager_id: subscription_payload['id'])
+  def create_and_store_subscription(organization_hubee_payload)
+    subscription_hubee_payload = hubee_api_client.create_subscription(subscription_body(organization_hubee_payload, process_code))
+    authorization_request.update!(linked_token_manager_id: subscription_hubee_payload['id'])
   end
 
-  def organization_body(organization, authorization_request)
+  def organization_create_payload
     {
       type: 'SI',
       companyRegister: organization.siret,
@@ -35,14 +34,14 @@ class HubEECertDCBridge < ApplicationBridge
     }
   end
 
-  def subscription_body(authorization_request, organization, process_code)
+  def subscription_body(organization_hubee_payload, process_code)
     {
       datapassId: authorization_request.id,
       processCode: process_code,
       subscriber: {
-        type: organization[:type],
-        companyRegister: organization[:companyRegister],
-        branchCode: organization[:branchCode],
+        type: organization_hubee_payload[:type],
+        companyRegister: organization_hubee_payload[:companyRegister],
+        branchCode: organization_hubee_payload[:branchCode],
       },
       notificationFrequency: 'unitaire',
       validateDateTime: authorization_request.last_validated_at.iso8601,

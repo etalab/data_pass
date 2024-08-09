@@ -38,7 +38,25 @@ RSpec.describe AuthorizationRequestMailer do
     end
   end
 
-  describe '#request_changes' do
+  describe '#revoke' do
+    subject(:mail) do
+      described_class.with(
+        authorization_request:
+      ).revoke
+    end
+
+    let(:authorization_request) { create(:authorization_request, :api_entreprise, :revoked) }
+
+    it 'sends the email to the applicant' do
+      expect(mail.to).to eq([authorization_request.applicant.email])
+    end
+
+    it 'renders valid template' do
+      expect(mail.body.encoded).to match('a été révoquée')
+    end
+  end
+
+  describe '#changes_requested' do
     subject(:mail) do
       described_class.with(
         authorization_request:

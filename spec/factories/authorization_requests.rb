@@ -126,7 +126,7 @@ FactoryBot.define do
       fill_all_attributes { true }
 
       after(:build) do |authorization_request|
-        authorization_request.denials << build(:denial_of_authorization, authorization_request:)
+        authorization_request.revocations << build(:revocation_of_authorization, authorization_request:)
       end
     end
 
