@@ -2,7 +2,8 @@ RSpec.describe TransferAuthorizationRequestToNewOrganization, type: :organizer d
   describe '.call' do
     subject { described_class.call(authorization_request:, new_organization:, new_applicant:, user:) }
 
-    let(:authorization_request) { create(:authorization_request) }
+    let(:authorization_request) { create(:authorization_request, authorization_request_kind) }
+    let(:authorization_request_kind) { :api_service_national }
     let!(:old_organization) { authorization_request.organization }
     let(:new_organization) { create(:organization) }
     let(:new_applicant) { create(:user, current_organization: new_organization) }
@@ -25,27 +26,8 @@ RSpec.describe TransferAuthorizationRequestToNewOrganization, type: :organizer d
         )
       end
 
-      it 'creates an event with valid attributes' do
-        expect { subject }.to change(AuthorizationRequestEvent, :count).by(1)
-
-        expect(AuthorizationRequestEvent.last).to have_attributes(
-          name: 'transfer',
-          user:,
-          entity: instance_of(AuthorizationRequestTransfer),
-        )
-      end
-
-      context 'when authorization request has webhooks activated' do
-        let(:authorization_request) { create(:authorization_request, :api_entreprise) }
-
-        it 'delivers a webhook for transfer event' do
-          expect { subject }.to have_enqueued_job(DeliverAuthorizationRequestWebhookJob).with(
-            authorization_request.definition.id,
-            a_string_matching('"event":"transfer"'),
-            authorization_request.id,
-          )
-        end
-      end
+      include_examples 'creates an event', event_name: 'transfer', entity_type: :authorization_request_transfer
+      include_examples 'delivers a webhook', event_name: 'transfer'
     end
 
     context 'with invalid attributes' do

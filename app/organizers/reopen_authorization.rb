@@ -6,7 +6,5 @@ class ReopenAuthorization < ApplicationOrganizer
     context.authorization_request.assign_attributes(reopened_at: DateTime.now)
   end
 
-  organize TriggerAuthorizationRequestEvent,
-    CreateAuthorizationRequestEventModel,
-    DeliverAuthorizationRequestWebhook
+  organize ExecuteAuthorizationRequestTransitionWithCallbacks
 end

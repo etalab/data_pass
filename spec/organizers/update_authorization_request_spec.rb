@@ -8,7 +8,8 @@ RSpec.describe UpdateAuthorizationRequest, type: :organizer do
       )
     end
 
-    let(:authorization_request) { create(:authorization_request, :portail_hubee_demarche_certdc) }
+    let(:authorization_request) { create(:authorization_request, authorization_request_kind) }
+    let(:authorization_request_kind) { :portail_hubee_demarche_certdc }
 
     context 'with basic form and valid params' do
       let(:authorization_request_params) do
@@ -27,6 +28,7 @@ RSpec.describe UpdateAuthorizationRequest, type: :organizer do
       end
 
       include_examples 'creates an event', event_name: :update
+      include_examples 'delivers a webhook', event_name: :update
     end
 
     context 'with multi steps form' do

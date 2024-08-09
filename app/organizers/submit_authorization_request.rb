@@ -7,9 +7,8 @@ class SubmitAuthorizationRequest < ApplicationOrganizer
   end
 
   organize AssignParamsToAuthorizationRequest,
-    ExecuteAuthorizationRequestTransitionWithCallbacks,
     CreateAuthorizationRequestChangelog,
-    CreateAuthorizationRequestEventModel
+    ExecuteAuthorizationRequestTransitionWithCallbacks
 
   after do
     context.authorization_request.save(context: context.save_context) ||

@@ -1,15 +1,16 @@
 class DeliverAuthorizationRequestNotification < ApplicationInteractor
   def call
     notifier_klass.new(context.authorization_request).public_send(
-      current_authorization_request_state,
+      event_name,
       params,
     )
   end
 
   private
 
-  def current_authorization_request_state
-    context.authorization_request.state
+  def event_name
+    context.state_machine_event ||
+      context.event_name
   end
 
   def params

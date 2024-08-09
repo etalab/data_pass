@@ -5,7 +5,8 @@ RSpec.describe ApproveAuthorizationRequest do
     let(:user) { create(:user, :instructor, authorization_request_types: %w[api_service_national]) }
 
     context 'with authorization request in submitted state' do
-      let!(:authorization_request) { create(:authorization_request, :api_service_national, :submitted) }
+      let!(:authorization_request) { create(:authorization_request, authorization_request_kind, :submitted) }
+      let(:authorization_request_kind) { :api_service_national }
 
       it { is_expected.to be_success }
 
@@ -17,8 +18,12 @@ RSpec.describe ApproveAuthorizationRequest do
         expect { approve_authorization_request }.to change { authorization_request.reload.last_validated_at }
       end
 
-      it 'delivers an email' do
-        expect { approve_authorization_request }.to have_enqueued_mail(AuthorizationRequestMailer, :validated)
+      it 'delivers an email to applicant' do
+        expect { approve_authorization_request }.to have_enqueued_mail(AuthorizationRequestMailer, :approve)
+      end
+
+      it 'delivers GDPR emails' do
+        expect { approve_authorization_request }.to have_enqueued_mail(GDPRContactMailer, :responsable_traitement)
       end
 
       context 'when it is a reopening' do
@@ -29,7 +34,7 @@ RSpec.describe ApproveAuthorizationRequest do
         end
 
         it 'delivers an email specific to reopening' do
-          expect { approve_authorization_request }.to have_enqueued_mail(AuthorizationRequestMailer, :reopening_validated)
+          expect { approve_authorization_request }.to have_enqueued_mail(AuthorizationRequestMailer, :reopening_approve)
         end
       end
 
@@ -58,10 +63,11 @@ RSpec.describe ApproveAuthorizationRequest do
       end
 
       include_examples 'creates an event', event_name: :approve, entity_type: :authorization
+      include_examples 'delivers a webhook', event_name: :approve
     end
 
     context 'with authorization request in draft state' do
-      let!(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :draft) }
+      let!(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :draft, data: { what: :ever }) }
 
       it { is_expected.to be_failure }
 

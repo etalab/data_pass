@@ -6,7 +6,5 @@ class CancelAuthorizationReopening < ApplicationOrganizer
 
   organize CreateAuthorizationRequestReopeningCancellation,
     RestoreAuthorizationRequestToLatestAuthorization,
-    TriggerAuthorizationRequestEvent,
-    CreateAuthorizationRequestEventModel,
-    DeliverAuthorizationRequestWebhook
+    ExecuteAuthorizationRequestTransitionWithCallbacks
 end

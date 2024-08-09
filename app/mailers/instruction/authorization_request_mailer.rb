@@ -1,7 +1,7 @@
 class Instruction::AuthorizationRequestMailer < ApplicationMailer
   attr_reader :authorization_request
 
-  def submitted
+  def submit
     @authorization_request = params[:authorization_request]
 
     return if instructors_or_reporters_to_notify.empty?
@@ -14,7 +14,7 @@ class Instruction::AuthorizationRequestMailer < ApplicationMailer
     )
   end
 
-  def reopening_submitted
+  def reopening_submit
     @authorization_request = params[:authorization_request]
 
     return if instructors_or_reporters_to_notify.empty?

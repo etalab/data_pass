@@ -7,8 +7,7 @@ class ApproveAuthorizationRequest < ApplicationOrganizer
     }
   end
 
-  organize ExecuteAuthorizationRequestTransitionWithCallbacks,
-    ExecuteAuthorizationRequestBridge,
-    CreateAuthorization,
-    CreateAuthorizationRequestEventModel
+  organize CreateAuthorization,
+    ExecuteAuthorizationRequestTransitionWithCallbacks,
+    ExecuteAuthorizationRequestBridge
 end

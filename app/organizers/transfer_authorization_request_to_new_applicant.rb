@@ -10,5 +10,5 @@ class TransferAuthorizationRequestToNewApplicant < ApplicationOrganizer
   organize UpdateApplicantOnAuthorizationRequest,
     CreateAuthorizationRequestTransferModel,
     CreateAuthorizationRequestEventModel,
-    DeliverAuthorizationRequestWebhook
+    DeliverAuthorizationRequestNotification
 end

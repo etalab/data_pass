@@ -2,14 +2,14 @@ RSpec.describe WebhookMailer do
   describe '.fail' do
     subject(:mail) do
       described_class.with(
-        target_api:,
+        authorization_request_kind:,
         payload:,
         webhook_response_status:,
         webhook_response_body:
       ).fail
     end
 
-    let(:target_api) { 'api_entreprise' }
+    let(:authorization_request_kind) { 'api_entreprise' }
     let!(:api_entreprise_instructor) { create(:user, roles: ['api_entreprise:instructor']) }
     let!(:foreign_instructor) { create(:user, roles: ['api_particulier:instructor']) }
     let(:payload) { { lol: 'oki' } }

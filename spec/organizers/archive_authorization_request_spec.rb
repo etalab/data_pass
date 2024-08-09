@@ -5,7 +5,8 @@ RSpec.describe ArchiveAuthorizationRequest do
     let(:user) { create(:user) }
 
     context 'with authorization request in submitted state' do
-      let!(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :submitted) }
+      let!(:authorization_request) { create(:authorization_request, authorization_request_kind, :submitted) }
+      let(:authorization_request_kind) { :hubee_cert_dc }
 
       it { is_expected.to be_success }
 
@@ -14,6 +15,7 @@ RSpec.describe ArchiveAuthorizationRequest do
       end
 
       include_examples 'creates an event', event_name: :archive
+      include_examples 'delivers a webhook', event_name: :archive
     end
 
     context 'with authorization request in validated state' do

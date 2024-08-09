@@ -8,7 +8,8 @@ RSpec.describe RequestChangesOnAuthorizationRequest do
       let(:instructor_modification_request_params) { attributes_for(:instructor_modification_request) }
 
       context 'with authorization request in submitted state' do
-        let!(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :submitted) }
+        let!(:authorization_request) { create(:authorization_request, authorization_request_kind, :submitted) }
+        let(:authorization_request_kind) { :hubee_cert_dc }
 
         it { is_expected.to be_success }
 
@@ -21,7 +22,7 @@ RSpec.describe RequestChangesOnAuthorizationRequest do
         end
 
         it 'delivers an email' do
-          expect { request_changes_authorization_request }.to have_enqueued_mail(AuthorizationRequestMailer, :changes_requested)
+          expect { request_changes_authorization_request }.to have_enqueued_mail(AuthorizationRequestMailer, :request_changes)
         end
 
         context 'when it is a reopening' do
@@ -32,11 +33,12 @@ RSpec.describe RequestChangesOnAuthorizationRequest do
           end
 
           it 'delivers an email specific to reopening' do
-            expect { request_changes_authorization_request }.to have_enqueued_mail(AuthorizationRequestMailer, :reopening_changes_requested)
+            expect { request_changes_authorization_request }.to have_enqueued_mail(AuthorizationRequestMailer, :reopening_request_changes)
           end
         end
 
         include_examples 'creates an event', event_name: :request_changes, entity_type: :instructor_modification_request
+        include_examples 'delivers a webhook', event_name: :request_changes
       end
 
       context 'with authorization request in draft state' do
