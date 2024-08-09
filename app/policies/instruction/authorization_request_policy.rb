@@ -37,12 +37,19 @@ class Instruction::AuthorizationRequestPolicy < ApplicationPolicy
       instructor_for_record?
   end
 
+  def cancel_reopening?
+    show? &&
+      instructor_for_record? &&
+      record.can_cancel_reopening?
+  end
+
   def moderate?
     archive? ||
       approve? ||
       refuse? ||
       revoke? ||
-      request_changes?
+      request_changes? ||
+      cancel_reopening?
   end
 
   private
