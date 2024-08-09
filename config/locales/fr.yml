@@ -328,6 +328,7 @@ fr:
         refuse: Refuser
         request_changes: Demander des modifications
         revoke: Révoquer
+        cancel_reopening: Annuler la demande de réouverture
     approve_authorization_requests:
       new:
         initial:
@@ -397,6 +398,23 @@ fr:
       create:
         success:
           title: L'habilitation %{name} a été révoquée
+
+    cancel_authorization_reopenings:
+      new:
+        initial:
+          title: Annulation de la réouverture de l'habilitation
+          description:
+            organization: |
+              Vous êtes sur le point d'annuler la réouverture de l'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_raison_sociale}' (numéro de siret: %{organization_siret}).
+            disclaimer: |
+              <strong>Cette action est irréversible</strong>.
+              Merci de renseigner les motifs de cette annulation, ceci à des fins d'historisation.
+          cancel: Annuler
+          cancel_reopening: Annuler la réouverture de cette demande
+
+      create:
+        success:
+          title: La réouverture de l'habilitation %{name} a été annulée.
 
     request_changes_on_authorization_requests:
       new:

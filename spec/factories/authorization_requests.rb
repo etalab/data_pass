@@ -151,6 +151,11 @@ FactoryBot.define do
       end
     end
 
+    trait :reopened_and_submitted do
+      reopened
+      submitted
+    end
+
     trait :with_basic_infos do
       after(:build) do |authorization_request, evaluator|
         if authorization_request.need_complete_validation? || evaluator.fill_all_attributes

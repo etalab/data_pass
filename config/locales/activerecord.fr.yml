@@ -79,6 +79,9 @@ fr:
         reason: Indiquez les motifs de révocation
       instructor_modification_request:
         reason: Raison de la demande de modification
+      authorization_request_reopening_cancellation:
+        reason: Raison de l'annulation de la réouverture
+
     errors:
       messages: *active_record_messages_errors
       models:

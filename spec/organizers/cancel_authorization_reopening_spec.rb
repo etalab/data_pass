@@ -1,9 +1,10 @@
 RSpec.describe CancelAuthorizationReopening, type: :organizer do
   describe '.call' do
-    subject(:cancel_authorization_reopening) { described_class.call(authorization_request:, user:, reason:) }
+    subject(:cancel_authorization_reopening) { described_class.call(authorization_request:, user:, authorization_request_reopening_cancellation_params:) }
 
     let!(:authorization_request) { create(:authorization_request, authorization_request_kind, :reopened) }
     let(:authorization_request_kind) { :hubee_cert_dc }
+    let(:authorization_request_reopening_cancellation_params) { { reason: } }
     let(:reason) { 'Too old mate' }
 
     context 'when user is an instructor' do

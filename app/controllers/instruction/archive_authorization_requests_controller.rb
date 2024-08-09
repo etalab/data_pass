@@ -1,4 +1,4 @@
-class Instruction::ArchiveAuthorizationRequestsController < Instruction::AuthorizationRequestsController
+class Instruction::ArchiveAuthorizationRequestsController < Instruction::AbstractAuthorizationRequestsController
   before_action :authorize_authorization_request_archive
 
   def new
@@ -19,10 +19,6 @@ class Instruction::ArchiveAuthorizationRequestsController < Instruction::Authori
   end
 
   private
-
-  def extract_authorization_request
-    @authorization_request = AuthorizationRequest.find(params[:authorization_request_id])
-  end
 
   def authorize_authorization_request_archive
     authorize [:instruction, @authorization_request], :archive?

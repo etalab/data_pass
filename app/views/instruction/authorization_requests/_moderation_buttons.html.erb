@@ -29,6 +29,12 @@
           </li>
         <% end %>
 
+        <% if policy([:instruction, @authorization_request]).cancel_reopening? %>
+          <li>
+            <%= dsfr_main_modal_button(t('.cancel_reopening'), new_instruction_authorization_request_cancel_reopening_path(@authorization_request), class: %w(fr-translate__language fr-nav__link fr-icon-error-line)) %>
+          </li>
+        <% end %>
+
         <% if policy([:instruction, @authorization_request]).archive? %>
           <li>
             <%= dsfr_main_modal_button(t('.archive'), new_instruction_authorization_request_archive_path(@authorization_request), class: %w(fr-translate__language fr-nav__link fr-icon-delete-line)) %>

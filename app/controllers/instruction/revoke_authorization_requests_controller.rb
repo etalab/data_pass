@@ -1,4 +1,4 @@
-class Instruction::RevokeAuthorizationRequestsController < Instruction::AuthorizationRequestsController
+class Instruction::RevokeAuthorizationRequestsController < Instruction::AbstractAuthorizationRequestsController
   before_action :authorize_authorization_request_revocation
 
   def new
@@ -26,10 +26,6 @@ class Instruction::RevokeAuthorizationRequestsController < Instruction::Authoriz
     params.require(:revocation_of_authorization).permit(
       :reason,
     )
-  end
-
-  def extract_authorization_request
-    @authorization_request = AuthorizationRequest.find(params[:authorization_request_id])
   end
 
   def authorize_authorization_request_revocation
