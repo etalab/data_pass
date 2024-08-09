@@ -1,18 +1,11 @@
 class DeliverAuthorizationRequestWebhookJob < ApplicationJob
-  TOTAL_ATTEMPTS = 5
+  include KeepTrackOfJobAttempts
+
+  THRESHOLD_TO_NOTIFY_DATA_PROVIDER = 5
 
   class WebhookDeliveryFailedError < StandardError; end
 
   retry_on(WebhookDeliveryFailedError, wait: :polynomially_longer, attempts: :unlimited)
-
-  def serialize
-    super.merge('tries_count' => (@attempts || 1) + 1)
-  end
-
-  def deserialize(job_data)
-    super
-    @attempts = job_data['tries_count']
-  end
 
   def perform(authorization_request_kind, json, authorization_request_id)
     return if webhook_url(authorization_request_kind).blank?
@@ -54,11 +47,9 @@ class DeliverAuthorizationRequestWebhookJob < ApplicationJob
 
   def handle_error(response, authorization_request_kind, payload, _authorization_request_id)
     track_error(response, authorization_request_kind, payload)
-    notify_webhook_fail(authorization_request_kind, payload, response) if attempts == TOTAL_ATTEMPTS
+    notify_webhook_fail(authorization_request_kind, payload, response) if attempts == THRESHOLD_TO_NOTIFY_DATA_PROVIDER
     webhook_fail!
   end
-
-  attr_reader :attempts
 
   def webhook_fail!
     raise WebhookDeliveryFailedError
