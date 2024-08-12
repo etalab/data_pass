@@ -13,7 +13,7 @@ fr:
     scopes: 'donnees'
     contacts: 'contacts'
   authorization:
-    badge: habilitation n°%{id}
+    badge: habilitation du %{date}
   authorization_request:
     badge: demande n°%{id}
     status:

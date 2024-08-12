@@ -23,6 +23,8 @@ Rails.application.routes.draw do
       resources :messages, only: %w[index create], path: 'messages'
       resources :archive_authorization_requests, only: %w[new create], path: 'archiver', as: :archive
       resources :blocks, only: %w[edit update], path: 'blocs', controller: 'authorization_requests/blocks'
+
+      resources :authorizations, only: :show, path: 'habilitations'
     end
 
     resources :authorization_definitions, path: 'demandes', only: :index
@@ -53,7 +55,7 @@ Rails.application.routes.draw do
 
     get 'demandes/:id/reopen-from-external', to: 'external_reopen_authorization_requests#create'
 
-    resources :authorizations, only: %i[show], path: 'habilitations' do
+    resources :authorizations, only: [], path: 'habilitations' do
       resources :reopen_authorizations, only: %w[new create], path: 'réouvrir', as: :reopen
     end
   end

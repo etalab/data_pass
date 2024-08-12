@@ -21,7 +21,7 @@
           <div class="fr-col-12 fr-col-md-4">
             <div class="authorization-request-form-header__actions">
               <% if @authorization_request.reopening? && policy(@authorization_request.latest_authorization).show? %>
-                <%= link_to t('.view_authorization'), @authorization_request.latest_authorization, target: '_blank', class: 'fr-btn fr-btn--secondary' %>
+                <%= link_to t('.view_authorization'), latest_authorization_path(@authorization_request), target: '_blank', class: 'fr-btn fr-btn--secondary' %>
               <% end %>
 
               <% if policy([:instruction, @authorization_request]).moderate? %>

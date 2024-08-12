@@ -49,7 +49,7 @@
     </div>
 
     <% if authorization_request.already_been_validated? %>
-      <%= link_to t('.show_cta'), authorization_path(authorization_request.latest_authorization), class: %w(fr-btn fr-btn--sm) %>
+      <%= link_to t('.show_cta'), latest_authorization_path(authorization_request), class: %w(fr-btn fr-btn--sm) %>
     <% else %>
       <%= link_to t('.show_cta'), authorization_request_form_path(form_uid: authorization_request.form.uid, id: authorization_request.id), class: %w(fr-btn fr-btn--sm) %>
     <% end %>
