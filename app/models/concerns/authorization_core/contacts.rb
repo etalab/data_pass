@@ -1,6 +1,8 @@
 module AuthorizationCore::Contacts
   extend ActiveSupport::Concern
 
+  include AuthorizationCore::Attributes
+
   included do
     unless respond_to?(:contacts)
       def self.contact_types
@@ -42,6 +44,8 @@ module AuthorizationCore::Contacts
       def self.define_common_contact_attributes(kind, validation_condition:)
         %w[email phone_number].each do |attr|
           store_accessor :data, "#{kind}_#{attr}"
+          override_primitive_write("#{kind}_#{attr}")
+
           validates "#{kind}_#{attr}", presence: true, if: validation_condition
         end
 
@@ -52,6 +56,8 @@ module AuthorizationCore::Contacts
       def self.define_contact_person_attributes(kind, validation_condition:)
         %w[family_name given_name job_title].each do |attr|
           store_accessor :data, "#{kind}_#{attr}"
+          override_primitive_write("#{kind}_#{attr}")
+
           validates "#{kind}_#{attr}", presence: true, if: -> { send(:"#{kind}_type") == 'person' && validation_condition.call(self) }
         end
       end
