@@ -1,0 +1,14 @@
+.red-callout {
+  background-color: var(--background-contrast-error);
+  color: var(--text-default-error);
+  border-color: var(--red-marianne-425-625);
+  background-image: linear-gradient(0deg,var(--red-marianne-425-625),var(--red-marianne-425-625));
+}
+
+.red-callout h3 {
+  color: var(--text-default-error);
+}
+
+.red-callout::before {
+  color: var(--red-marianne-425-625);
+}

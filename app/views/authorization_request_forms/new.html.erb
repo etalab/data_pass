@@ -3,13 +3,28 @@
 </h2>
 
 <div class="fr-mb-4w">
-  <div class="border-frame-text fr-my-3w">
-    <% if @authorization_request_form.name.present? %>
-      <%= t('.organization.start_text_with_form_name', organization_raison_sociale: current_organization.raison_sociale, organization_siret: current_organization.siret, authorization_request_form_name: @authorization_request_form.name).html_safe %>
-    <% else %>
-      <%= t('.organization.start_text', organization_raison_sociale: current_organization.raison_sociale, organization_siret: current_organization.siret).html_safe %>
-    <% end %>
-  </div>
+  <% if policy(@authorization_request_form).create? %>
+    <div class="border-frame-text fr-my-3w">
+      <% if @authorization_request_form.name.present? %>
+        <%= t('.organization.start_text_with_form_name', organization_raison_sociale: current_organization.raison_sociale, organization_siret: current_organization.siret, authorization_request_form_name: @authorization_request_form.name).html_safe %>
+      <% else %>
+        <%= t('.organization.start_text', organization_raison_sociale: current_organization.raison_sociale, organization_siret: current_organization.siret).html_safe %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="fr-callout red-callout">
+      <h3 class="fr-callout__title">
+        <span class="fr-icon-information-fill fr-mr-1w"> </span>
+        <%= t('.unicity_callout.title')%>
+      </h3>
+      
+      <p class="fr-callout__text fr-my-3w">
+        <%= t('.unicity_callout.habilitation.content', organization_raison_sociale: current_organization.raison_sociale).html_safe %>
+      </p>
+
+      <%= link_to t('.unicity_callout.habilitation.cta'), "#", class: 'fr-link fr-btn--icon-right fr-icon-arrow-right-line' %>
+    </div>
+  <% end %>
 
   <% if @authorization_request_form.introduction.present? %>
     <div class="fr-my-16v">
