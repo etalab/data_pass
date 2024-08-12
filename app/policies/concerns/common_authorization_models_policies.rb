@@ -1,11 +1,12 @@
 module CommonAuthorizationModelsPolicies
   def new?
-    !unicity_constraint_violated? && !hubee_scope_uniqueness_constraint? &&
-      record.startable_by_applicant
+    record.startable_by_applicant
   end
 
   def create?
-    new?
+    new? &&
+      !unicity_constraint_violated? &&
+      !hubee_scope_uniqueness_constraint?
   end
 
   protected
