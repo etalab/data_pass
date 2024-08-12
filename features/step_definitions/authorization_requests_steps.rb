@@ -243,6 +243,14 @@ Quand('je renseigne les informations du contact technique') do
   )
 end
 
+Quand('je renseigne les informations du contact métier') do
+  steps %(
+    * je remplis les informations du contact "Contact métier" avec :
+      | Nom    | Prénom  | Email                | Téléphone   | Fonction    |
+      | Dupont | Louis   | dupont.louis@gouv.fr | 08366565602 | Métier      |
+  )
+end
+
 Quand('je renseigne les informations du délégué à la protection des données') do
   steps %(
     * je remplis les informations du contact "Délégué à la protection des données" avec :
