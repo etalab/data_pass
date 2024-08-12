@@ -50,7 +50,7 @@ end
 
 Quand('je remplis les informations du contact {string} avec :') do |string, table|
   contact_title_node = find('h6', text: string)
-  contact_node = contact_title_node.find(:xpath, '..')
+  contact_node = contact_title_node.find(:xpath, '../..')
 
   within(contact_node) do
     table.hashes[0].each do |field, value|
