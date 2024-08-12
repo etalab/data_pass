@@ -82,7 +82,7 @@
         <%= link_to t('authorization_request_forms.new.back_to_dashboard'), dashboard_path, class: %w[fr-btn fr-btn--secondary fr-icon-home-4-line fr-btn--icon-left fr-mr-2w] %>
       </div>
 
-      <%= start_authorization_request_form(@authorization_request_form, disabled: !policy(@authorization_request_form).new?) %>
+      <%= start_authorization_request_form(@authorization_request_form, disabled: !policy(@authorization_request_form).create?) %>
     </div>
   <% end %>
 </div>
