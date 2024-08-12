@@ -259,7 +259,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   end
 
   def extract_authorization_request_form
-    @authorization_request_form = AuthorizationRequestForm.find(params[:form_uid])
+    @authorization_request_form = AuthorizationRequestForm.find(params[:form_uid]).decorate
   end
 
   def review_authorization_request

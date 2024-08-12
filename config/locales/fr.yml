@@ -191,14 +191,14 @@ fr:
       single_form:
         title: "Les étapes de votre formulaire"
         description: "Cliquez sur le bouton ci-dessous pour démarrer le formulaire. Celui-ci se complètera en une seule page. Vous pourrez le sauvegarder et le reprendre plus tard."
-      unicity_callout:
-        title: Vous ne pouvez pas créer de nouvelle habilitation
-        habilitation:
-          content: Votre organisation <strong>%{organization_raison_sociale}</strong> possède déjà une habilitation pour ce service.
-          cta: Consulter l'habilitation existante
-        # demande: 
-        #   content: Votre organisation <strong>%{organization_raison_sociale}</strong> possède déjà une demande en cours pour ce service.
-        #   cta: Consulter la demande en cours
+    unicity_callout:
+      title: Vous ne pouvez pas créer de nouvelle habilitation
+      habilitation:
+        content: Votre organisation <strong>%{organization_raison_sociale}</strong> possède déjà une habilitation pour ce service.
+        cta: Consulter l'habilitation existante
+      demande: 
+        content: Votre organisation <strong>%{organization_raison_sociale}</strong> possède déjà une demande en cours pour ce service.
+        cta: Consulter la demande en cours
 
     create_for_single_page_form:
       error:
