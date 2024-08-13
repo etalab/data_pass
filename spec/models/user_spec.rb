@@ -177,6 +177,18 @@ RSpec.describe User do
       it { is_expected.to be_falsey }
     end
 
+    context 'when it sets to "0"' do
+      let(:user) { create(:user, instruction_submit_notifications_for_api_entreprise: '0') }
+
+      it { is_expected.to be_falsey }
+    end
+
+    context 'when it sets to "1"' do
+      let(:user) { create(:user, instruction_submit_notifications_for_api_entreprise: '1') }
+
+      it { is_expected.to be_truthy }
+    end
+
     context 'when it sets to true' do
       let(:user) { create(:user, instruction_submit_notifications_for_api_entreprise: true) }
 
