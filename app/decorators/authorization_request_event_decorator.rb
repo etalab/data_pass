@@ -101,11 +101,17 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
       if authorization_request.form.data[h.to_sym].blank?
         v[0].blank?
       else
-        authorization_request.public_send(h) == authorization_request.form.data[h.to_sym]
+        initial_diff_on_scopes_without_changed_values?(h, v) ||
+          authorization_request.public_send(h) == authorization_request.form.data[h.to_sym]
       end
     end
   end
   # rubocop:enable Metrics/AbcSize
+
+  def initial_diff_on_scopes_without_changed_values?(key, values)
+    key.to_s == 'scopes' &&
+      values[0].blank?
+  end
 
   # rubocop:disable Metrics/AbcSize
   def build_scopes_change(values)
