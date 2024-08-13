@@ -93,40 +93,6 @@
       "note": ""
     },
     {
-      "warning_type": "Cross-Site Scripting",
-      "warning_code": 2,
-      "fingerprint": "c1bda42e9d7e53d0eca66191e59bd6d87b26501925429499568431df9fc360cf",
-      "check_name": "CrossSiteScripting",
-      "message": "Unescaped model attribute",
-      "file": "app/views/authorization_request_forms/new.html.erb",
-      "line": 8,
-      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "t(\".organization.start_text_with_form_name\", :organization_raison_sociale => current_organization.raison_sociale, :organization_siret => current_organization.siret, :authorization_request_form_name => AuthorizationRequestForm.find(params[:form_uid]).name)",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "AuthorizationRequestFormsController",
-          "method": "new",
-          "line": 15,
-          "file": "app/controllers/authorization_request_forms_controller.rb",
-          "rendered": {
-            "name": "authorization_request_forms/new",
-            "file": "app/views/authorization_request_forms/new.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "authorization_request_forms/new"
-      },
-      "user_input": "AuthorizationRequestForm.find(params[:form_uid]).name",
-      "confidence": "Weak",
-      "cwe_id": [
-        79
-      ],
-      "note": ""
-    },
-    {
       "warning_type": "Dangerous Send",
       "warning_code": 23,
       "fingerprint": "cd5690fd7ab199e5fa1e8ec5bebf78691dbc407680a2f4638f195c0c4396601b",
@@ -150,6 +116,6 @@
       "note": ""
     }
   ],
-  "updated": "2024-08-07 17:28:32 +0200",
+  "updated": "2024-08-12 14:07:23 +0000",
   "brakeman_version": "6.1.2"
 }

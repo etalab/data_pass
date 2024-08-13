@@ -1,0 +1,11 @@
+<% callout_key = authorization_request.validated? ? 'habilitation' : 'demande' %>
+
+<div class="fr-callout red-callout">
+  <h3 class="fr-callout__title">
+    <span class="fr-icon-information-fill fr-mr-1w"> </span>
+    <%= t('.title')%>
+  </h3>
+        
+  <%= simple_format t(".#{callout_key}.content", organization_raison_sociale: current_organization.raison_sociale), { class: 'fr-callout__text fr-my-3w' }, wrapper_tag: 'p' %>
+  <%= link_to t(".#{callout_key}.cta", organization_raison_sociale: current_organization.raison_sociale), authorization_request_path(authorization_request), class: 'fr-link fr-btn--icon-right fr-icon-arrow-right-line' %>
+</div>

@@ -3,13 +3,18 @@
 </h2>
 
 <div class="fr-mb-4w">
-  <div class="border-frame-text fr-my-3w">
-    <% if @authorization_request_form.name.present? %>
-      <%= t('.organization.start_text_with_form_name', organization_raison_sociale: current_organization.raison_sociale, organization_siret: current_organization.siret, authorization_request_form_name: @authorization_request_form.name).html_safe %>
-    <% else %>
-      <%= t('.organization.start_text', organization_raison_sociale: current_organization.raison_sociale, organization_siret: current_organization.siret).html_safe %>
-    <% end %>
-  </div>
+  <% if policy(@authorization_request_form).create? %>
+    <div class="border-frame-text fr-my-3w">
+      <% if @authorization_request_form.name.present? %>
+        <%= simple_format t('.organization.start_text_with_form_name', organization_raison_sociale: current_organization.raison_sociale, organization_siret: current_organization.siret, authorization_request_form_name: @authorization_request_form.name), {}, wrapper_tag: 'div' %>
+      <% else %>
+        <%= simple_format t('.organization.start_text', organization_raison_sociale: current_organization.raison_sociale, organization_siret: current_organization.siret), {}, wrapper_tag: 'div' %>
+      <% end %>
+    </div>
+  <% else %>
+    <% authorization_request = @authorization_request_form.active_authorization_requests_for(current_organization).first %>
+    <%= render partial: "unicity_callout", locals: { authorization_request: } if authorization_request.present? %>
+  <% end %>
 
   <% if @authorization_request_form.introduction.present? %>
     <div class="fr-my-16v">
@@ -67,7 +72,7 @@
         <%= link_to t('authorization_request_forms.new.back_to_dashboard'), dashboard_path, class: %w[fr-btn fr-btn--secondary fr-icon-home-4-line fr-btn--icon-left fr-mr-2w] %>
       </div>
 
-      <%= start_authorization_request_form(@authorization_request_form, disabled: !policy(@authorization_request_form).new?) %>
+      <%= start_authorization_request_form(@authorization_request_form, disabled: !policy(@authorization_request_form).create?) %>
     </div>
   <% end %>
 </div>

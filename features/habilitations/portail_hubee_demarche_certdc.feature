@@ -30,17 +30,22 @@ Fonctionnalité: Soumission d'une demande d'habilitation Portail HubEE - Démarc
     Et il y a au moins une erreur sur un champ
     Et je suis sur la page "Portail HubEE - Démarche CertDC"
 
-  Scénario: Je veux démarrer une demande d'habilitation alors que j'ai déjà une habilitation
+  Scénario: Je veux démarrer une demande d'habilitation alors que j'ai déjà une habilitation validée
+    Quand j'ai déjà une demande d'habilitation "Portail HubEE - Démarche CertDC" validée
+    Et que je vais sur la page des demandes
+    Et que je clique sur "Remplir une demande" pour l'habilitation "Portail HubEE - Démarche CertDC"
+    Alors la page contient "Vous ne pouvez pas créer de nouvelle habilitation"
+    Et la page contient "possède déjà une habilitation"
+    Et je peux voir le bouton "Débuter ma demande" grisé et désactivé
+    Quand je clique sur "Consulter l'habilitation existante"
+    Alors la page contient "Validée"
+
+  Scénario: Je veux démarrer une demande d'habilitation alors que j'ai déjà une demande en cours
     Quand j'ai déjà une demande d'habilitation "Portail HubEE - Démarche CertDC" en cours
     Et que je vais sur la page des demandes
-    Alors il n'y a pas le bouton "Remplir une demande" pour l'habilitation "Portail HubEE - Démarche CertDC"
-
-  @Pending
-  Scénario: Je veux sousmettre une demande d'habilitation Hubee Cert DC alors qu'une habilitation pour la même organization est déjà en cours
-    Quand je démarre une nouvelle demande d'habilitation "Portail HubEE - Démarche CertDC"
-    Et que je remplis les informations du contact "Administrateur métier" avec :
-      | Nom    | Prénom | Email               | Téléphone  | Fonction de l'administrateur système |
-      | Dupont | Jean   | dupont.jean@gouv.fr | 0836656565 | Administrateur métier                |
-    Et que je clique sur "Enregistrer les modifications"
-    Alors je veux remplir une demande pour "Portail HubEE - Démarche CertDC"
-    Et je peux voir le bouton "Débuter ma demande pour Portail HubEE - Démarche CertDC" grisé et désactivé
+    Et que je clique sur "Remplir une demande" pour l'habilitation "Portail HubEE - Démarche CertDC"
+    Alors la page contient "Vous ne pouvez pas créer de nouvelle habilitation"
+    Et la page contient "possède déjà une demande en cours"
+    Et je peux voir le bouton "Débuter ma demande" grisé et désactivé
+    Quand je clique sur "Consulter la demande en cours"
+    Alors la page contient "Brouillon"

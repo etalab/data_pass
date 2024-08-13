@@ -24,6 +24,30 @@ RSpec.describe 'Authorization requests access' do
           create(:authorization_request, :portail_hubee_demarche_certdc, organization: user.current_organization)
         end
 
+        it { is_expected.to have_http_status(:ok) }
+      end
+    end
+  end
+
+  describe 'create' do
+    subject(:new_authorization_request) do
+      post authorization_request_forms_path(form_uid: authorization_request_form.uid)
+
+      response
+    end
+
+    context 'with a basic form' do
+      let(:authorization_request_form) { AuthorizationRequestForm.find('hubee-cert-dc') }
+
+      context 'when there is no authorization request' do
+        it { is_expected.to have_http_status(:found) }
+      end
+
+      context 'when there is one authorization request' do
+        before do
+          create(:authorization_request, :portail_hubee_demarche_certdc, organization: user.current_organization)
+        end
+
         it_behaves_like 'an unauthorized access'
       end
     end
