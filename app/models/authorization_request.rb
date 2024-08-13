@@ -315,4 +315,10 @@ class AuthorizationRequest < ApplicationRecord
 
     errors.add(:applicant, :belongs_to)
   end
+
+  def access_link
+    return nil if definition.access_link.blank? || linked_token_manager_id.blank?
+
+    format(definition.access_link, linked_token_manager_id:)
+  end
 end

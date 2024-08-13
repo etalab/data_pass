@@ -30,8 +30,8 @@ Fonctionnalité: Soumission d'une demande d'habilitation Portail HubEE - Démarc
     Et il y a au moins une erreur sur un champ
     Et je suis sur la page "Portail HubEE - Démarche CertDC"
 
-  Scénario: Je veux démarrer une demande d'habilitation alors que j'ai déjà une habilitation validée
-    Quand j'ai déjà une demande d'habilitation "Portail HubEE - Démarche CertDC" validée
+  Scénario: Je veux démarrer une demande d'habilitation alors que j'ai déjà une habilitation validée avec token
+    Quand j'ai déjà une demande d'habilitation "Portail HubEE - Démarche CertDC" validée avec token
     Et que je vais sur la page des demandes
     Et que je clique sur "Remplir une demande" pour l'habilitation "Portail HubEE - Démarche CertDC"
     Alors la page contient "Vous ne pouvez pas créer de nouvelle habilitation"
@@ -49,3 +49,17 @@ Fonctionnalité: Soumission d'une demande d'habilitation Portail HubEE - Démarc
     Et je peux voir le bouton "Débuter ma demande" grisé et désactivé
     Quand je clique sur "Consulter la demande en cours"
     Alors la page contient "Brouillon"
+
+  Scénario: Je vois un lien vers le portail HubEE quand je consulte une habilitation validée avec token
+    Quand j'ai déjà une demande d'habilitation "Portail HubEE - Démarche CertDC" validée avec token
+    Et que je vais sur la page du tableau de bord
+    Et que je clique sur "Consulter"
+    Alors il y a un titre contenant "Portail HubEE - Démarche CertDC"
+    Et la page contient un lien vers "portail.hubee.numerique.gouv.fr"
+
+  Scénario: Je ne vois aucun lien vers le portail HubEE quand je consulte une habilitation qui n'a jamais été validée
+    Quand j'ai déjà une demande d'habilitation "Portail HubEE - Démarche CertDC" en cours
+    Et que je vais sur la page du tableau de bord
+    Et que je clique sur "Consulter"
+    Alors il y a un titre contenant "Portail HubEE - Démarche CertDC"
+    Et la page ne contient aucun lien vers "portail.hubee.numerique.gouv.fr"

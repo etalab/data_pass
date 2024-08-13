@@ -4,6 +4,7 @@ class AuthorizationDefinition < StaticApplicationRecord
     :provider,
     :description,
     :link,
+    :access_link,
     :cgu_link,
     :scopes,
     :blocks
@@ -37,6 +38,7 @@ class AuthorizationDefinition < StaticApplicationRecord
         :description,
         :link,
         :cgu_link,
+        :access_link,
         :public,
         :startable_by_applicant,
       ).merge(

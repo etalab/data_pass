@@ -40,6 +40,14 @@ Alors('la page contient {string}') do |content|
   expect(page).to have_content(content)
 end
 
+Alors('la page contient un lien vers {string}') do |domain|
+  expect(page).to have_link(nil, href: /#{domain}/)
+end
+
+Alors('la page ne contient aucun lien vers {string}') do |domain|
+  expect(page).to have_no_link(nil, href: /#{domain}/)
+end
+
 Alors('la page ne contient pas {string}') do |content|
   expect(page).to have_no_content(content)
 end

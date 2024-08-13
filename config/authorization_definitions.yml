@@ -4,6 +4,7 @@ shared:
     name: "Portail HubEE - Démarche CertDC"
     description: "Hub d'Échange de l'État - Formulaire d'abonnement à la démarche Certificats de Décès Électroniques Dématérialisés"
     cgu_link: '/cgus/20210212_dinum_hubee_cgu_v2_1_0_version_site.pdf'
+    access_link: https://portail.hubee.numerique.gouv.fr
     provider: 'hubee'
     public: true
     blocks:
@@ -13,6 +14,7 @@ shared:
     name: "Portail HubEE - Démarches DILA"
     description: "Hub d'Échange de l'État - Formulaire d'abonnement aux démarches du bouquet de services (service-public.fr)"
     cgu_link: '/cgus/20210212_dinum_hubee_cgu_v2_1_0_version_site.pdf'
+    access_link: https://portail.hubee.numerique.gouv.fr
     provider: 'hubee'
     public: true
     blocks:
@@ -41,6 +43,7 @@ shared:
     provider: 'dinum'
     link: 'https://api.gouv.fr/les-api/api-entreprise'
     cgu_link: 'https://entreprise.api.gouv.fr/cgu'
+    access_link: https://entreprise.api.gouv.fr/compte/jetons/%{linked_token_manager_id}
     public: true
     blocks:
       - name: 'basic_infos'
@@ -178,6 +181,7 @@ shared:
     cgu_link: 'https://particulier.api.gouv.fr/cgu'
     provider: 'dinum'
     link: 'https://api.gouv.fr/les-api/api-particulier'
+    access_link: https://particulier.api.gouv.fr/compte/jetons/%{linked_token_manager_id}
     public: true
     blocks:
       - name: 'basic_infos'

@@ -44,6 +44,19 @@
       <% end %>
     <% end %>
 
+    <% if @authorization_request.access_link %>
+      <div class="fr-callout">
+        <h3 class="fr-callout__title">
+          <%= t('authorization_requests.show.access_callout.title') %>
+        </h3>
+
+        <%= simple_format t('authorization_requests.show.access_callout.content', access_name: @authorization_request.name), { class: 'fr-callout__text' }, wrapper_tag: 'p' %>
+
+        <%= link_to t('authorization_requests.show.access_callout.button'), @authorization_request.access_link, class: 'fr-btn fr-btn--icon-right fr-icon-external-link-line', target: :blank %>
+      </div>
+    <% end %>
+
+
     <% if @authorization_request.draft? %>
       <% if @authorization_request.reopening? && @authorization_request.applicant == current_user %>
         <%= render partial: 'authorization_requests/shared/reopening_callout', locals: { klass: 'fr-mt-6w' } %>

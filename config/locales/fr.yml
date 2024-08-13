@@ -165,6 +165,10 @@ fr:
       reopening_changes_requested:
         title: Votre demande de mise à jour nécessite des modifications avant d'être validée
         description: *authorization_request_refused_description
+      access_callout:
+        title: Votre accès est disponible
+        content: Votre accès <strong>%{access_name}</strong> a été créé, vous pouvez l'utiliser sur le lien ci-dessous. 
+        button: Utiliser mon accès 
     shared:
       title:
         editor_name: "Via l'éditeur %{name}"
