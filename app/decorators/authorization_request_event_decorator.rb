@@ -109,8 +109,10 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
 
   # rubocop:disable Metrics/AbcSize
   def build_scopes_change(values)
-    new_scopes = values[1] - values[0]
-    removed_scopes = values[0] - values[1]
+    initial_values = values[0].nil? && object.authorization_request.form.prefilled? ? object.authorization_request.form.data[:scopes] : values[0]
+
+    new_scopes = values[1] - initial_values
+    removed_scopes = initial_values - values[1]
 
     [
       new_scopes.map do |scope|
