@@ -1,12 +1,12 @@
 # language: fr
 
-Fonctionnalité: Soumission d'une demande d'habilitation Portail HubEE - Démarches DILA
+Fonctionnalité: Soumission d'une demande d'habilitation Démarches du bouquet de services (service-public.fr)
   Contexte:
     Sachant que je suis un demandeur
     Et que je me connecte
 
   Scénario: Je soumets une demande d'habilitation valide
-    Quand je démarre une nouvelle demande d'habilitation "Portail HubEE - Démarches DILA"
+    Quand je démarre une nouvelle demande d'habilitation "Démarches du bouquet de services (service-public.fr)"
     * je coche "AEC - Acte d’Etat Civil"
     * je coche "DDPACS - Démarche en ligne de préparation à la conclusion d’un Pacs"
     * je coche "RCO - Recensement Citoyen Obligatoire"
@@ -25,16 +25,16 @@ Fonctionnalité: Soumission d'une demande d'habilitation Portail HubEE - Démarc
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
 
-  Scénario: Je remplis une demande d'habilitation avec aucune démarche DILA cochée
-    Quand je démarre une nouvelle demande d'habilitation "Portail HubEE - Démarches DILA"
+  Scénario: Je remplis une demande d'habilitation avec aucune Démarches du bouquet de services (service-public.fr) cochée
+    Quand je démarre une nouvelle demande d'habilitation "Démarches du bouquet de services (service-public.fr)"
     Et que je clique sur "Suivant"
 
     Alors il y a un message d'erreur contenant "Une erreur est survenue lors de la sauvegarde de la demande d'habilitation"
     Et il y a un message d'erreur contenant "Les données ne sont pas cochées"
-    Et je suis sur la page "Portail HubEE - Démarches DILA"
+    Et je suis sur la page "Démarches du bouquet de services (service-public.fr)"
 
   Scénario: Je remplis une demande d'habilitation avec un champ du contact manquant
-    Quand je démarre une nouvelle demande d'habilitation "Portail HubEE - Démarches DILA"
+    Quand je démarre une nouvelle demande d'habilitation "Démarches du bouquet de services (service-public.fr)"
     * je coche "AEC - Acte d’Etat Civil"
     * je coche "DDPACS - Démarche en ligne de préparation à la conclusion d’un Pacs"
     * je coche "RCO - Recensement Citoyen Obligatoire"
@@ -49,10 +49,10 @@ Fonctionnalité: Soumission d'une demande d'habilitation Portail HubEE - Démarc
 
     Alors il y a un message d'erreur contenant "Une erreur est survenue lors de la sauvegarde de la demande d'habilitation"
     Et il y a au moins une erreur sur un champ
-    Et je suis sur la page "Portail HubEE - Démarches DILA"
+    Et je suis sur la page "Démarches du bouquet de services (service-public.fr)"
 
   Scénario: Je ne peux pas cocher un scope si celui-ci existe déjà dans une demande envoyée
-    Quand je démarre une nouvelle demande d'habilitation "Portail HubEE - Démarches DILA"
+    Quand je démarre une nouvelle demande d'habilitation "Démarches du bouquet de services (service-public.fr)"
     * je coche "AEC - Acte d’Etat Civil"
     * je clique sur "Suivant"
 
@@ -64,5 +64,5 @@ Fonctionnalité: Soumission d'une demande d'habilitation Portail HubEE - Démarc
     * j'adhère aux conditions générales
     * je clique sur "Soumettre la demande d'habilitation"
 
-    Et que je démarre une nouvelle demande d'habilitation "Portail HubEE - Démarches DILA"
+    Et que je démarre une nouvelle demande d'habilitation "Démarches du bouquet de services (service-public.fr)"
     Alors je ne peux pas cocher "AEC - Acte d’Etat Civil"

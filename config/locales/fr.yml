@@ -171,8 +171,9 @@ fr:
         button: Utiliser mon accès 
     shared:
       title:
-        editor_name: "Via l'éditeur %{name}"
         update: Demande de mise à jour des informations
+      subtitle:
+        editor_name: "Via l'éditeur %{name}"
       blocks:
         scopes:
           legacy_scopes: "Les données suivantes ont été précédemment sélectionnées mais ne sont plus disponibles ou n'apparaissent pas dans le formulaire sélectionné :"

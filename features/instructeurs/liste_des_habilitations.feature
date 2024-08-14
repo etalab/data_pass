@@ -10,7 +10,7 @@ Fonctionnalité: Instruction: liste des habilitations
 
   Scénario: Je vois les habilitations dont je suis instructeur
     Sachant qu'il y a 2 demandes d'habilitation "API Entreprise" en attente
-    Et qu'il y a 1 demande d'habilitation "Portail HubEE - Démarche CertDC" en attente
+    Et qu'il y a 1 demande d'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)" en attente
     Et que je vais sur la page instruction
     Alors je vois 2 demandes d'habilitation
 

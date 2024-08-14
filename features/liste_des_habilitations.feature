@@ -12,20 +12,20 @@ Fonctionnalité: Liste des habilitations
     Quand je vais sur la page des demandes
     Alors il y a un titre contenant "Demander une nouvelle habilitation"
     Et la page contient "API Entreprise"
-    Et la page contient "Portail HubEE - Démarche CertDC"
-    Et la page contient "Portail HubEE - Démarches DILA"
+    Et la page contient "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
+    Et la page contient "Démarches du bouquet de services (service-public.fr)"
     Et la page contient "API Service National"
 
   Scénario: Je démarre une nouvelle demande d'habilitation
     Quand je vais sur la page des demandes
-    Et que je clique sur "Remplir une demande" pour l'habilitation "Portail HubEE - Démarche CertDC"
+    Et que je clique sur "Remplir une demande" pour l'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
     Et que je clique sur "Débuter"
-    Alors il y a un titre contenant "Portail HubEE - Démarche CertDC"
+    Alors il y a un titre contenant "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
     Et il y a un bouton "Enregistrer les modifications"
 
   Scénario: Je démarre une nouvelle demande d'habilitation
     Quand je vais sur la page des demandes
-    Et que je clique sur "Remplir une demande" pour l'habilitation "Portail HubEE - Démarches DILA"
+    Et que je clique sur "Remplir une demande" pour l'habilitation "Démarches du bouquet de services (service-public.fr)"
     Et que je clique sur "Débuter"
-    Alors il y a un titre contenant "Portail HubEE - Démarches DILA"
+    Alors il y a un titre contenant "Démarches du bouquet de services (service-public.fr)"
     Et il y a un bouton "Suivant"
