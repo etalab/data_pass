@@ -63,3 +63,11 @@ Fonctionnalité: Soumission d'une demande d'habilitation Portail HubEE - Démarc
     Et que je clique sur "Consulter"
     Alors il y a un titre contenant "Portail HubEE - Démarche CertDC"
     Et la page ne contient aucun lien vers "portail.hubee.numerique.gouv.fr"
+
+  Scénario: Je ne vois aucun lien vers le portail HubEE quand je consulte une habilitation en réouverture avec token
+    Quand j'ai déjà une demande d'habilitation "Portail HubEE - Démarche CertDC" en réouverture avec token
+    Et que je vais sur la page du tableau de bord
+    Et que je clique sur le dernier "Consulter"
+    Alors il y a un titre contenant "Portail HubEE - Démarche CertDC"
+    Alors la page contient "Il s'agit d'une mise à jour d'une habilitation validée"
+    Et la page ne contient aucun lien vers "portail.hubee.numerique.gouv.fr"

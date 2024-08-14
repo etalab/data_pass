@@ -44,8 +44,8 @@
       <% end %>
     <% end %>
 
-    <% if @authorization_request.access_link %>
-      <div class="fr-callout">
+    <% if @authorization_request.access_link && @authorization_request.validated? %>
+      <div class="fr-callout fr-my-16v">
         <h3 class="fr-callout__title">
           <%= t('authorization_requests.show.access_callout.title') %>
         </h3>
