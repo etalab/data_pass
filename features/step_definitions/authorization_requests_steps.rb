@@ -291,18 +291,3 @@ Alors(/je vois (\d+) habilitation(?: "([^"]+)")?(?:(?: en)? (.+))?/) do |count, 
     expect(page).to have_css('.authorization-request-state', text: I18n.t("authorization_request.status.#{state}"), count:)
   end
 end
-
-Quand('le demandeur modifie le champ {string} avec la valeur {string} et soumet la demande') do |field, value|
-  latest_authorization = AuthorizationRequest.last
-
-  Capybara.using_session("applicant #{latest_authorization.applicant.id}") do
-    mock_mon_compte_pro(latest_authorization.applicant)
-
-    step 'je me connecte'
-    step "je me rends sur cette demande d'habilitation"
-    step 'je clique sur "Modifier"'
-    step "je remplis \"#{field}\" avec \"#{value}\""
-    step 'je clique sur "Enregistrer"'
-    step 'je clique sur "Soumettre"'
-  end
-end
