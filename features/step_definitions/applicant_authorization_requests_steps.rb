@@ -1,5 +1,5 @@
 Quand('le demandeur modifie le champ {string} avec la valeur {string}') do |field, value|
-  Capybara.using_session(applicant_session(AuthorizationRequest.last)) do
+  using_last_applicant_session do
     step "je me rends sur cette demande d'habilitation"
     step 'je clique sur "Modifier"'
     step "je remplis \"#{field}\" avec \"#{value}\""
@@ -8,7 +8,7 @@ Quand('le demandeur modifie le champ {string} avec la valeur {string}') do |fiel
 end
 
 Quand('le demandeur soumet la demande') do
-  Capybara.using_session(applicant_session(AuthorizationRequest.last)) do
+  using_last_applicant_session do
     step "je me rends sur cette demande d'habilitation"
     step 'je clique sur "Soumettre"'
   end

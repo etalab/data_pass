@@ -10,3 +10,7 @@ def applicant_session(authorization_request)
 
   @applicant_session
 end
+
+def using_last_applicant_session(&)
+  Capybara.using_session(applicant_session(AuthorizationRequest.last), &)
+end
