@@ -11,6 +11,10 @@ Fonctionnalité: Instruction: annuler une réouverture
     Quand je me rends sur une demande d'habilitation "API Particulier" réouverte
     Alors il y a un bouton "Annuler la demande de réouverture"
 
+  Scénario: Je peux annuler une réouverture sur une habilitation réouverte et soumise
+    Quand je me rends sur une demande d'habilitation "API Particulier" réouverte et soumise
+    Alors il y a un bouton "Annuler la demande de réouverture"
+
   Scénario: Je ne peux pas annuler une réouverture sur une habilitation qui n'a jamais été réouverte
     Quand je me rends sur une demande d'habilitation "API Particulier" à modérer
     Alors il n'y a pas de bouton "Annuler la demande de réouverture"
