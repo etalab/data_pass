@@ -42,6 +42,43 @@ RSpec.describe AuthorizationRequest do
     end
   end
 
+  describe '#access_link' do
+    subject { authorization_request.access_link }
+
+    let(:authorization_request) { create(:authorization_request, definition_key, linked_token_manager_id:) }
+    let(:linked_token_manager_id) { 'some_token' }
+
+    context 'with a simple access link' do
+      let(:definition_key) { :hubee_cert_dc }
+
+      it { is_expected.to eq 'https://portail.hubee.numerique.gouv.fr' }
+
+      context 'with an empty linked_token_manager_id' do
+        let(:linked_token_manager_id) { nil }
+
+        it { is_expected.to be_nil }
+      end
+    end
+
+    context 'with an interpolated access link' do
+      let(:definition_key) { :api_entreprise }
+
+      it { is_expected.to eq 'https://entreprise.api.gouv.fr/compte/jetons/some_token' }
+
+      context 'with an empty linked_token_manager_id' do
+        let(:linked_token_manager_id) { nil }
+
+        it { is_expected.to be_nil }
+      end
+    end
+
+    context 'with an empty access link' do
+      let(:definition_key) { :api_service_national }
+
+      it { is_expected.to be_nil }
+    end
+  end
+
   describe 'strip on attributes' do
     subject(:authorization_request) { build(:authorization_request, :api_entreprise, intitule: "  #{valid_intitule} ", contact_technique_email: "  #{valid_contact_technique_email}") }
 

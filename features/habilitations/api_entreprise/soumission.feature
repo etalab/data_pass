@@ -151,3 +151,16 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Entreprise
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
 
+  Scénario: Je vois un lien vers API entreprise quand je consulte une habilitation validée avec token
+    Quand j'ai déjà une demande d'habilitation "API Entreprise" validée avec token
+    Et que je vais sur la page du tableau de bord
+    Et que je clique sur "Consulter"
+    Alors il y a un titre contenant "API Entreprise"
+    Et la page contient un lien vers "entreprise.api.gouv.fr"
+
+  Scénario: Je ne vois aucun lien vers API entreprise quand je consulte une habilitation non validée
+    Quand j'ai déjà une demande d'habilitation "API Entreprise" en cours
+    Et que je vais sur la page du tableau de bord
+    Et que je clique sur "Consulter"
+    Alors il y a un titre contenant "API Entreprise"
+    Et la page ne contient aucun lien vers "entreprise.api.gouv.fr"

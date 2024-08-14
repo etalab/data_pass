@@ -6,12 +6,13 @@ Quand("j'ai déjà une demande d'habilitation {string} en cours") do |string|
   )
 end
 
-Quand("j'ai déjà une demande d'habilitation {string} validée") do |string|
+Quand("j'ai déjà une demande d'habilitation {string} validée avec token") do |string|
   FactoryBot.create(
     :authorization_request,
     find_factory_trait_from_name(string),
     :validated,
     applicant: current_user,
+    linked_token_manager_id: 'some_token'
   )
 end
 
