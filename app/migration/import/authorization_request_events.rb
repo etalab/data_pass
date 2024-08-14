@@ -51,13 +51,13 @@ class Import::AuthorizationRequestEvents < Import::Base
         authorization_request.update!(last_submitted_at: event_created_at)
       end
     when 'approve', 'validate'
-      authorization_request.assign_attributes(
+      authorization_request.update_attributes(
         last_validated_at: event_row['created_at'],
       )
 
       create_event(event_row, name: 'approve', entity: create_authorization(event_row, authorization_request))
     when 'reopen'
-      authorization_request.assign_attributes(
+      authorization_request.update_attributes(
         reopened_at: event_row['created_at'],
       )
 
