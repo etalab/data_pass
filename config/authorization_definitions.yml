@@ -1,8 +1,8 @@
 ---
 shared:
   hubee_cert_dc:
-    name: "Portail HubEE - Démarche CertDC"
-    description: "Hub d'Échange de l'État - Formulaire d'abonnement à la démarche Certificats de Décès Électroniques Dématérialisés"
+    name: "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
+    description: "Formulaire d'abonnement à la démarche Certificats de Décès Électroniques Dématérialisés"
     cgu_link: '/cgus/20210212_dinum_hubee_cgu_v2_1_0_version_site.pdf'
     access_link: https://portail.hubee.numerique.gouv.fr
     provider: 'hubee'
@@ -11,8 +11,8 @@ shared:
       - name: 'contacts'
 
   hubee_dila:
-    name: "Portail HubEE - Démarches DILA"
-    description: "Hub d'Échange de l'État - Formulaire d'abonnement aux démarches du bouquet de services (service-public.fr)"
+    name: "Démarches du bouquet de services (service-public.fr)"
+    description: "Formulaire d'abonnement aux démarches du bouquet de services (service-public.fr)"
     cgu_link: '/cgus/20210212_dinum_hubee_cgu_v2_1_0_version_site.pdf'
     access_link: https://portail.hubee.numerique.gouv.fr
     provider: 'hubee'
