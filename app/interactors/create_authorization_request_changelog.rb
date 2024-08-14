@@ -35,8 +35,14 @@ class CreateAuthorizationRequestChangelog < ApplicationInteractor
   end
 
   def reified_data
-    @reified_data ||= latest_changelog.diff.each_with_object(authorization_request_data) do |(key, value), latest_data|
-      latest_data[key] = value[1]
+    @reified_data ||= reified_data_as_array.compact.to_h
+  end
+
+  def reified_data_as_array
+    authorization_request_data_keys.map do |key|
+      newest_diff = previous_changelog_diffs.find { |diff| diff[key].present? }
+
+      [key, newest_diff[key].last] if newest_diff
     end
   end
 
@@ -47,6 +53,8 @@ class CreateAuthorizationRequestChangelog < ApplicationInteractor
 
       if data_changed_between_prefilling_and_submit?(default_value, actual_value)
         [attribute, [default_value, actual_value]]
+      elsif default_value.present?
+        [attribute, [default_value, default_value]]
       else
         [attribute, [nil, actual_value]]
       end
@@ -69,13 +77,13 @@ class CreateAuthorizationRequestChangelog < ApplicationInteractor
     end
   end
 
-  def latest_changelog
-    @latest_changelog ||= authorization_request.changelogs.last
+  def previous_changelog_diffs
+    @previous_changelog_diffs ||= authorization_request.changelogs.order(created_at: :desc).pluck(:diff)
   end
 
   def create_changelog(diff)
     context.changelog = authorization_request.changelogs.create!(
-      diff: diff.reject { |_, value| value[0].blank? && value[1].blank? }
+      diff:
     )
   end
 

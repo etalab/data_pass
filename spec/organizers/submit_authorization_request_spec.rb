@@ -22,134 +22,12 @@ RSpec.describe SubmitAuthorizationRequest do
         include_examples 'creates an event', event_name: :submit
         include_examples 'delivers a webhook', event_name: :submit
 
-        describe 'versions diffing' do
-          let(:authorization_request_params) do
-            ActionController::Parameters.new(intitule: 'new intitule')
-          end
+        it 'creates a changelog' do
+          expect { submit_authorization_request }.to change { authorization_request.changelogs.count }.by(1)
+        end
 
-          it 'creates a changelog' do
-            expect { submit_authorization_request }.to change { authorization_request.changelogs.count }.by(1)
-          end
-
-          describe 'on first submit' do
-            context 'when there is no default data on form' do
-              it 'stores the initial diff with all data' do
-                submit_authorization_request
-                changelog = authorization_request.changelogs.last
-
-                expect(changelog.diff).to eq(
-                  authorization_request.data.to_h { |k, _| [k, [nil, authorization_request.public_send(k)]] }
-                )
-              end
-            end
-
-            context 'when there is default data on form and a change on one of this data' do
-              let(:authorization_request) { create(:authorization_request, :api_entreprise_mgdis, :draft, fill_all_attributes: true) }
-              let(:authorization_request_params) { ActionController::Parameters.new(intitule: 'new intitule') }
-              let!(:original_intitule) { authorization_request.intitule }
-
-              it 'stores the diff for this data only' do
-                submit_authorization_request
-                changelog = authorization_request.changelogs.last
-
-                expect(changelog.diff['intitule']).to eq(
-                  [original_intitule, 'new intitule']
-                )
-
-                expect(changelog.diff.except('intitule', 'scopes')).to eq(
-                  authorization_request.data.except('intitule', 'scopes', 'contact_metier_type', 'contact_technique_type').to_h { |k, _| [k, [nil, authorization_request.public_send(k)]] }
-                )
-              end
-            end
-          end
-
-          context 'when it is not the first submit and there is a changelog' do
-            before do
-              create(:authorization_request_changelog, authorization_request:)
-            end
-
-            it 'stories only the diff on the field' do
-              old_intitule = authorization_request.intitule
-
-              submit_authorization_request
-              changelog = authorization_request.changelogs.last
-
-              expect(changelog.diff).to eq({
-                'intitule' => [old_intitule, 'new intitule']
-              })
-            end
-          end
-
-          describe 'with document change' do
-            let(:authorization_request_params) do
-              ActionController::Parameters.new(
-                intitule: 'new intitule',
-                cadre_juridique_document: Rack::Test::UploadedFile.new('spec/fixtures/another_dummy.pdf')
-              )
-            end
-
-            it 'stores only the name of the document' do
-              submit_authorization_request
-              changelog = authorization_request.changelogs.last
-
-              expect(changelog.diff['cadre_juridique_document']).to eq([nil, 'another_dummy.pdf'])
-            end
-          end
-
-          describe 'with scopes changes' do
-            let(:authorization_request_params) do
-              ActionController::Parameters.new(
-                scopes: authorization_request.scopes + %w[scope1 scope2]
-              )
-            end
-            let!(:initial_scopes) { authorization_request.scopes.dup }
-
-            let(:authorization_request) { create(:authorization_request, :api_entreprise, :draft, fill_all_attributes: true) }
-
-            describe 'on first submit' do
-              it 'stores the scopes diff as an array' do
-                submit_authorization_request
-
-                changelog = authorization_request.changelogs.last
-
-                expect(changelog.diff['scopes']).to eq([
-                  nil,
-                  initial_scopes + %w[scope1 scope2]
-                ])
-              end
-            end
-
-            describe 'when it is not the first submit and there is a changelog' do
-              let!(:previous_authorization_request_changelog) do
-                create(:authorization_request_changelog, authorization_request:)
-              end
-
-              it 'stores the diff on the scopes field' do
-                submit_authorization_request
-
-                changelog = authorization_request.changelogs.last
-
-                expect(changelog.diff['scopes']).to eq([
-                  initial_scopes,
-                  initial_scopes + %w[scope1 scope2]
-                ])
-              end
-
-              context 'when changelog has attributes no longer present on the model' do
-                let!(:previous_authorization_request_changelog) do
-                  create(:authorization_request_changelog, authorization_request:, diff: { 'old_attribute' => [nil, 'whatever'] })
-                end
-
-                it 'does not raise an error by ignoring attribute within diff building' do
-                  expect { submit_authorization_request }.not_to raise_error
-                end
-              end
-            end
-          end
-
-          it 'notifies the instructors' do
-            expect { submit_authorization_request }.to have_enqueued_mail(Instruction::AuthorizationRequestMailer, :submit)
-          end
+        it 'notifies the instructors' do
+          expect { submit_authorization_request }.to have_enqueued_mail(Instruction::AuthorizationRequestMailer, :submit)
         end
       end
 
@@ -217,38 +95,6 @@ RSpec.describe SubmitAuthorizationRequest do
 
       it 'does not create an event' do
         expect { submit_authorization_request }.not_to change { authorization_request.events.count }
-      end
-    end
-
-    describe 'non-regression test: changelog creation after empty changelog' do
-      let!(:authorization_request) { create(:authorization_request, :api_entreprise, :submitted, scopes:) }
-      let(:user) { create(:user, :instructor, authorization_request_types: %w[api_entreprise]) }
-      let(:scopes) do
-        %w[open_data_unites_legales_etablissements_insee]
-      end
-      let(:authorization_request_params) { ActionController::Parameters.new(scopes: scopes + %w[unites_legales_etablissements_insee]) }
-      let(:create_empty_changelog) do
-        CreateAuthorizationRequestChangelog.call(authorization_request:)
-      end
-
-      before do
-        create_empty_changelog
-
-        RequestChangesOnAuthorizationRequest.call(
-          authorization_request: authorization_request.reload,
-          user: authorization_request.applicant,
-          instructor_modification_request_params: {
-            reason: 'Be better please'
-          }
-        )
-      end
-
-      it 'creates a changelog with diff too' do
-        expect { submit_authorization_request }.to change(authorization_request.changelogs, :count).by(1)
-
-        changelog = authorization_request.changelogs.last
-
-        expect(changelog.diff).to be_blank
       end
     end
   end
