@@ -218,3 +218,7 @@ end
 Alors('un champ contient {string}') do |text|
   expect(all('input').any? { |input| input.value == text }).to be_truthy, "Expected to find a field with value '#{text}'"
 end
+
+Et('je peux voir le bouton {string} grisé et désactivé') do |string|
+  expect(page).to have_css('button[disabled]', text: string)
+end
