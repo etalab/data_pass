@@ -186,7 +186,7 @@ class AuthorizationRequest < ApplicationRecord
     end
 
     event :cancel_reopening do
-      transition from: %i[draft changes_requested], to: :validated, if: ->(authorization_request) { authorization_request.reopening? }
+      transition from: %i[draft changes_requested submitted], to: :validated, if: ->(authorization_request) { authorization_request.reopening? }
     end
 
     event :revoke do
