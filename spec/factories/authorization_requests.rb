@@ -86,15 +86,6 @@ FactoryBot.define do
       state { 'archived' }
     end
 
-    trait :changes_requested do
-      state { 'changes_requested' }
-      fill_all_attributes { true }
-
-      after(:build) do |authorization_request|
-        authorization_request.modification_requests << build(:instructor_modification_request, authorization_request:)
-      end
-    end
-
     trait :submitted do
       state { 'submitted' }
       fill_all_attributes { true }
@@ -112,7 +103,20 @@ FactoryBot.define do
       end
     end
 
+    trait :changes_requested do
+      submitted
+
+      state { 'changes_requested' }
+      fill_all_attributes { true }
+
+      after(:build) do |authorization_request|
+        authorization_request.modification_requests << build(:instructor_modification_request, authorization_request:)
+      end
+    end
+
     trait :refused do
+      submitted
+
       state { 'refused' }
       fill_all_attributes { true }
 
@@ -122,6 +126,8 @@ FactoryBot.define do
     end
 
     trait :revoked do
+      submitted
+
       state { 'revoked' }
       fill_all_attributes { true }
 
@@ -131,6 +137,8 @@ FactoryBot.define do
     end
 
     trait :validated do
+      submitted
+
       state { 'validated' }
       fill_all_attributes { true }
       last_validated_at { Time.zone.now }

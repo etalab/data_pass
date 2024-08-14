@@ -113,6 +113,8 @@ class CreateAuthorizationRequestChangelog < ApplicationInteractor
   end
 
   def authorization_request
-    context.authorization_request
+    @authorization_request ||= context.authorization_request.object
+  rescue NoMethodError
+    @authorization_request ||= context.authorization_request
   end
 end
