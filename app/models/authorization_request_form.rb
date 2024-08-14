@@ -50,9 +50,9 @@ class AuthorizationRequestForm < StaticApplicationRecord
     uid
   end
 
-  def name_with_authorization
+  def name_with_definition
     if @name
-      "#{authorization_definition.name} - #{@name}"
+      "#{@name} - #{authorization_definition.name}"
     else
       authorization_definition.name
     end
