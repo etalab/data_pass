@@ -272,6 +272,10 @@ Quand(/je me rends sur une habilitation "([^"]+)"(?: de l'organisation "([^"]+)"
   end
 end
 
+Quand('je me rends sur la dernière demande à instruire') do
+  visit instruction_authorization_request_path(AuthorizationRequest.last)
+end
+
 # https://rubular.com/r/dRUFmK5dzDpjJv
 Alors(/je vois (\d+) habilitation(?: "([^"]+)")?(?:(?: en)? (.+))?/) do |count, type, status|
   if type.present?
