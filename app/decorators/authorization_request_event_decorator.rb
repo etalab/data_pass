@@ -26,7 +26,7 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
     when 'applicant_message', 'instructor_message'
       h.simple_format(entity.body)
     when 'initial_submit', 'initial_submit_with_changed_prefilled', 'submit', 'submit_without_changes', 'submit_with_unchanged_prefilled_values', 'admin_update'
-      changelog_presenter.humanized_changelog
+      humanized_changelog
     when 'transfer'
       if entity.from_type == 'User'
         "#{entity.to.full_name} (#{entity.to.email})"
@@ -45,8 +45,16 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
 
   private
 
+  def humanized_changelog
+    h.content_tag(:ul) do
+      changelog_presenter.consolidated_changelog_entries.map { |entry|
+        h.content_tag(:li, entry)
+      }.join.html_safe
+    end
+  end
+
   def changelog_presenter
-    @changelog_presenter ||= AuthorizationRequestChangelogPresenter.new(entity, h)
+    @changelog_presenter ||= AuthorizationRequestChangelogPresenter.new(entity)
   end
 
   def name_for_cancel_reopening

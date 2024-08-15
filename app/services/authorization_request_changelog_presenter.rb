@@ -1,11 +1,12 @@
 class AuthorizationRequestChangelogPresenter
-  attr_reader :changelog, :h
+  include ActionView::Helpers::SanitizeHelper
+
+  attr_reader :changelog
 
   delegate :t, to: I18n
 
-  def initialize(changelog, h)
+  def initialize(changelog)
     @changelog = changelog
-    @h = h
   end
 
   def event_name
@@ -22,7 +23,7 @@ class AuthorizationRequestChangelogPresenter
     end
   end
 
-  def humanized_changelog
+  def consolidated_changelog_entries
     if event_name == 'initial_submit_with_changed_prefilled'
       changelog_builder(changelog_diff_without_unchanged_prefilled_values_and_new_values)
     else
@@ -33,17 +34,17 @@ class AuthorizationRequestChangelogPresenter
   private
 
   def changelog_builder(diffs)
-    h.content_tag(:ul) do
-      diffs.map { |attribute, values|
-        if attribute == 'scopes'
-          build_scopes_change(values)
-        elsif attribute == 'applicant_id'
-          h.content_tag(:li, build_applicant_change(attribute, values))
-        else
-          h.content_tag(:li, build_attribute_change(attribute, values))
-        end
-      }.flatten.join.html_safe
-    end
+    diffs.map { |attribute, values|
+      values = values.map { |v| sanitize(v) }
+
+      if attribute == 'scopes'
+        build_scopes_change(values)
+      elsif attribute == 'applicant_id'
+        build_applicant_change(attribute, values)
+      else
+        build_attribute_change(attribute, values)
+      end
+    }.flatten
   end
 
   # rubocop:disable Metrics/AbcSize
@@ -58,7 +59,6 @@ class AuthorizationRequestChangelogPresenter
   end
   # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize
   def build_scopes_change(values)
     initial_values = values[0] || []
     new_scopes = values[1] - initial_values
@@ -66,14 +66,13 @@ class AuthorizationRequestChangelogPresenter
 
     [
       new_scopes.map do |scope|
-        h.content_tag(:li, t('authorization_request_event.changelog_entry_new_scope', value: humanized_scope(scope)).html_safe)
+        t('authorization_request_event.changelog_entry_new_scope', value: humanized_scope(scope))
       end,
       removed_scopes.map do |scope|
-        h.content_tag(:li, t('authorization_request_event.changelog_entry_removed_scope', value: humanized_scope(scope)).html_safe)
+        t('authorization_request_event.changelog_entry_removed_scope', value: humanized_scope(scope))
       end
     ]
   end
-  # rubocop:enable Metrics/AbcSize
 
   def humanized_scope(scope_value)
     scope = authorization_request.definition.scopes.find { |s| s.value == scope_value }
@@ -97,7 +96,7 @@ class AuthorizationRequestChangelogPresenter
     t(
       'authorization_request_event.changelog_entry_with_null_old_value',
       attribute: authorization_request.class.human_attribute_name(attribute),
-      new_value: h.sanitize(values.last.to_s),
+      new_value: values.last.to_s,
     ).html_safe
   end
 
@@ -105,8 +104,8 @@ class AuthorizationRequestChangelogPresenter
     t(
       'authorization_request_event.changelog_entry',
       attribute: authorization_request.class.human_attribute_name(attribute),
-      old_value: h.sanitize(values.first.to_s),
-      new_value: h.sanitize(values.last.to_s),
+      old_value: values.first.to_s,
+      new_value: values.last.to_s,
     ).html_safe
   end
 
@@ -121,7 +120,7 @@ class AuthorizationRequestChangelogPresenter
         new_value: to_user.email,
       ).html_safe
     else
-      t('authorization_request_event.changelog_entry_applicant_with_missing_data')
+      t('authorization_request_event.changelog_entry_applicant_with_missing_data').html_safe
     end
   end
 
@@ -133,7 +132,7 @@ class AuthorizationRequestChangelogPresenter
     initial_submit? &&
       (
         from_form_with_prefilled_data_with_changes? ||
-          authorization_request_is_a_copy?
+        authorization_request_is_a_copy?
       )
   end
 
