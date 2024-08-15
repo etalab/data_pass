@@ -33,6 +33,128 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
 
+  Plan du scénario: Je soumets une demande d'habilitation pour un cas d'usage sans éditeur où je dois préciser le cadre légal et le lien vers la délibération
+    Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>"
+    Et que je clique sur "Débuter ma demande"
+
+    * je renseigne les infos de bases du projet
+    * je clique sur "Suivant"
+
+    * je renseigne les infos concernant les données personnelles
+    * je clique sur "Suivant"
+
+    * je remplis "Description du cadre juridique autorisant à traiter les données*" avec "Article 42"
+    * je remplis "Indiquez une URL vers la délibération" avec "https://legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000006430983&cidTexte=LEGITEXT000006070721"
+    * je clique sur "Suivant"
+
+    * je coche "Quotient familial CAF & MSA"
+    * je clique sur "Suivant"
+
+    * je renseigne les informations des contacts RGPD
+    * je remplis les informations du contact "Contact technique" avec :
+      | Nom    | Prénom  | Email               | Téléphone   | Fonction    |
+      | Dupont | Marc    | dupont.marc@gouv.fr | 08366565603 | Technique   |
+    * je clique sur "Suivant"
+
+    * j'adhère aux conditions générales
+    * je clique sur "Soumettre la demande d'habilitation"
+
+    Alors il y a un message de succès contenant "soumise avec succès"
+    Et je suis sur la page "Demandes et habilitations"
+
+    Exemples:
+      | Nom du formulaire                                        |
+      | Tarification sociale des services municipaux à l’enfance |
+      | Aides facultatives régionales                            |
+      | Aides facultatives départementales                       |
+      | Tarification cantine collèges                            |
+      | Aides sociales des CCAS dont aides facultatives          |
+      | Tarification des transports                              |
+
+  Scénario: Je soumets une demande d'habilitation pouri le cas d'usage "Tarification cantine lycées"
+    Quand je veux remplir une demande pour "API Particulier" via le formulaire "Tarification cantine lycées"
+    Et que je clique sur "Débuter ma demande"
+
+    * je renseigne les infos de bases du projet
+    * je clique sur "Suivant"
+
+    * je renseigne les infos concernant les données personnelles
+    * je clique sur "Suivant"
+
+    * je remplis "Précisez la nature et les références du texte vous autorisant à traiter les données" avec "Article 42"
+    * je remplis "URL du texte relatif au traitement" avec "https://legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000006430983&cidTexte=LEGITEXT000006070721"
+    * je clique sur "Suivant"
+
+    * je coche "Quotient familial CAF & MSA"
+    * je clique sur "Suivant"
+
+    * je renseigne les informations des contacts RGPD
+    * je remplis les informations du contact "Contact technique" avec :
+      | Nom    | Prénom  | Email               | Téléphone   | Fonction    |
+      | Dupont | Marc    | dupont.marc@gouv.fr | 08366565603 | Technique   |
+    * je clique sur "Suivant"
+
+    * j'adhère aux conditions générales
+    * je clique sur "Soumettre la demande d'habilitation"
+
+    Alors il y a un message de succès contenant "soumise avec succès"
+    Et je suis sur la page "Demandes et habilitations"
+
+
+  Scénario: Je soumets une demande d'habilitation pouri le cas d'usage "Aides sociales des CCAS"
+    Quand je veux remplir une demande pour "API Particulier" via le formulaire "Aides sociales des CCAS"
+    Et que je clique sur "Débuter ma demande"
+
+    * je renseigne les infos de bases du projet
+    * je clique sur "Suivant"
+
+    * je renseigne les infos concernant les données personnelles
+    * je clique sur "Suivant"
+
+    * je coche "Quotient familial CAF & MSA"
+    * je clique sur "Suivant"
+
+    * je renseigne les informations des contacts RGPD
+    * je remplis les informations du contact "Contact technique" avec :
+      | Nom    | Prénom  | Email               | Téléphone   | Fonction    |
+      | Dupont | Marc    | dupont.marc@gouv.fr | 08366565603 | Technique   |
+    * je clique sur "Suivant"
+
+    * j'adhère aux conditions générales
+    * je clique sur "Soumettre la demande d'habilitation"
+
+    Alors il y a un message de succès contenant "soumise avec succès"
+    Et je suis sur la page "Demandes et habilitations"
+
+  Scénario: Je soumets une demande d'habilitation pour le cas d'usage "Gestion RH du secteur public"
+    Quand je veux remplir une demande pour "API Particulier" via le formulaire "Gestion RH du secteur public"
+    Et que je clique sur "Débuter ma demande"
+
+    * je renseigne les infos de bases du projet
+    * je clique sur "Suivant"
+
+    * je renseigne les infos concernant les données personnelles
+    * je clique sur "Suivant"
+
+    * je remplis "Description du cadre juridique autorisant à traiter les données*" avec "Article 42"
+    * je remplis "URL du texte relatif au traitement" avec "https://legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000006430983&cidTexte=LEGITEXT000006070721"
+    * je clique sur "Suivant"
+
+    * "Identité de l'étudiant" est coché
+    * je clique sur "Suivant"
+
+    * je renseigne les informations des contacts RGPD
+    * je remplis les informations du contact "Contact technique" avec :
+      | Nom    | Prénom  | Email               | Téléphone   | Fonction    |
+      | Dupont | Marc    | dupont.marc@gouv.fr | 08366565603 | Technique   |
+    * je clique sur "Suivant"
+
+    * j'adhère aux conditions générales
+    * je clique sur "Soumettre la demande d'habilitation"
+
+    Alors il y a un message de succès contenant "soumise avec succès"
+    Et je suis sur la page "Demandes et habilitations"
+
   Plan du scénario: Je soumets une demande d'habilitation, en plusieurs étapes, d'un éditeur avec le contact technique déjà renseigné et des scopes modifiables pour un cas d'usage lié au portail famille ou à la tarification QF
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"

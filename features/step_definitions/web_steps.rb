@@ -94,6 +94,10 @@ Quand('je coche {string}') do |label|
   end
 end
 
+Alors('{string} est coché') do |label|
+  expect(page).to have_checked_field(label)
+end
+
 Alors('je peux voir dans le tableau {string}') do |caption, table|
   expect(page).to have_table(caption, with_rows: table.rows)
 end
