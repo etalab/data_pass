@@ -30,7 +30,6 @@ class AuthorizationRequestForm < StaticApplicationRecord
         :public,
         :use_case,
         :introduction,
-        :data,
         :single_page_view,
         :startable_by_applicant,
         :scopes_config,
@@ -38,6 +37,7 @@ class AuthorizationRequestForm < StaticApplicationRecord
         uid: uid.to_s,
         editor: hash[:editor_id].present? ? Editor.find(hash[:editor_id]) : nil,
         default: hash[:default] || false,
+        data: clean_data(hash[:data]),
         authorization_request_class: AuthorizationRequest.const_get(hash[:authorization_request]),
         steps: hash[:steps] || [],
         static_blocks: hash[:static_blocks] || [],
@@ -128,5 +128,14 @@ class AuthorizationRequestForm < StaticApplicationRecord
     organization
       .active_authorization_requests
       .where(type: authorization_request_class.to_s)
+  end
+
+  def self.clean_data(data)
+    data ||= {}
+    data.to_h do |key, value|
+      [key, value.strip]
+    rescue StandardError
+      [key, value]
+    end
   end
 end
