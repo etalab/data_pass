@@ -10,24 +10,29 @@ class AuthorizationRequestChangelogPresenter
   end
 
   def event_name
-    if changelog.diff.blank?
+    if first_changelog?
+      if !prefilled_data?
+        'initial_submit_without_prefilled_data'
+      elsif prefilled_changed?
+        'initial_submit_with_changes_on_prefilled_data'
+      else
+        'initial_submit_without_changes_on_prefilled_data'
+      end
+    elsif no_change?
       'submit_without_changes'
-    elsif initial_submit_with_changed_prefilled? && changelog_diff_without_unchanged_prefilled_values_and_new_values.blank?
-      'submit_with_unchanged_prefilled_values'
-    elsif initial_submit_with_changed_prefilled?
-      'initial_submit_with_changed_prefilled'
-    elsif initial_submit?
-      'initial_submit'
     else
-      'submit'
+      'submit_with_changes'
     end
   end
 
   def consolidated_changelog_entries
-    if event_name == 'initial_submit_with_changed_prefilled'
+    case event_name
+    when 'initial_submit_with_changes_on_prefilled_data'
       changelog_builder(changelog_diff_without_unchanged_prefilled_values_and_new_values)
+    when 'submit_with_changes'
+      changelog_builder(changelog_diff)
     else
-      changelog_builder(changelog.diff)
+      []
     end
   end
 
@@ -47,17 +52,15 @@ class AuthorizationRequestChangelogPresenter
     }.flatten
   end
 
-  # rubocop:disable Metrics/AbcSize
   def changelog_diff_without_unchanged_prefilled_values_and_new_values
-    changelog.diff.reject do |h, v|
-      if authorization_request.form.data[h.to_sym].blank?
-        v[0].blank?
-      else
-        authorization_request.public_send(h) == authorization_request.form.data[h.to_sym]
-      end
+    changelog_diff.select do |_, values|
+      values[0].present? && values[1] != values[0]
     end
   end
-  # rubocop:enable Metrics/AbcSize
+
+  def changelog_diff
+    changelog.diff.reject { |_, values| values[0] == values[1] }
+  end
 
   def build_scopes_change(values)
     initial_values = values[0] || []
@@ -124,34 +127,23 @@ class AuthorizationRequestChangelogPresenter
     end
   end
 
-  def initial_submit?
-    authorization_request.events.where(name: 'submit').order(created_at: :asc).first == changelog.event
+  def first_changelog?
+    changelog.initial?
   end
 
-  def initial_submit_with_changed_prefilled?
-    initial_submit? &&
-      (
-        from_form_with_prefilled_data_with_changes? ||
-        authorization_request_is_a_copy?
-      )
-  end
-
-  def from_form_with_prefilled_data_with_changes?
-    authorization_request.form.prefilled? &&
-      prefilled_changed?
+  def prefilled_data?
+    changelog.diff.any? { |_, values| values[0].present? }
   end
 
   def prefilled_changed?
-    authorization_request.form.data.any? do |key, value|
-      authorization_request.public_send(key) != value
-    end
+    changelog.diff.any? { |_, values| values[0].present? && values[0] != values[1] }
+  end
+
+  def no_change?
+    changelog.diff.empty?
   end
 
   def authorization_request
     changelog.authorization_request
-  end
-
-  def authorization_request_is_a_copy?
-    authorization_request.events.exists?(name: 'copy')
   end
 end
