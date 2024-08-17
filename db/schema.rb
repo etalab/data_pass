@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_08_13_083722) do
+ActiveRecord::Schema[7.2].define(version: 2024_08_17_105727) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pgcrypto"
@@ -57,6 +57,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_13_083722) do
     t.bigint "authorization_request_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "legacy", default: false
     t.index ["authorization_request_id"], name: "idx_on_authorization_request_id_b550d70011"
   end
 

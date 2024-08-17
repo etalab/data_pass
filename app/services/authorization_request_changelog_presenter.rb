@@ -10,6 +10,8 @@ class AuthorizationRequestChangelogPresenter
   end
 
   def event_name
+    return 'legacy_submit' if changelog.legacy?
+
     if first_changelog?
       if !prefilled_data?
         'initial_submit_without_prefilled_data'

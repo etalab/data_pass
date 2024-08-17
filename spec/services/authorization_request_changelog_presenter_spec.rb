@@ -29,6 +29,16 @@ RSpec.describe AuthorizationRequestChangelogPresenter do
   describe '#event_name' do
     subject { instance.event_name }
 
+    context 'when changelog is legacy' do
+      before do
+        changelog.update!(legacy: true)
+      end
+
+      let(:diff) { { what: 'ever' } }
+
+      it { is_expected.to eq('legacy_submit') }
+    end
+
     context 'when it is the first changelog' do
       context 'when all first values are nil (no prefilled data)' do
         let(:diff) { initial_no_prefilled_data_diff }
