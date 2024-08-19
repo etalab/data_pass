@@ -181,9 +181,16 @@ class Import::AuthorizationRequests < Import::Base
   end
 
   def import?(enrollment_row)
-    !old_unused?(enrollment_row) &&
-      !ignore?(enrollment_row['id']) &&
-      from_target_api_to_type(enrollment_row).present?
+    whitelisted_enrollment?(enrollment_row) ||
+      (
+        !old_unused?(enrollment_row) &&
+          !ignore?(enrollment_row['id']) &&
+          from_target_api_to_type(enrollment_row).present?
+      )
+  end
+
+  def whitelisted_enrollment?(enrollment_row)
+    (options[:authorization_request_ids] || []).include?(enrollment_row['id'].to_i)
   end
 
   def old_unused?(enrollment_row)

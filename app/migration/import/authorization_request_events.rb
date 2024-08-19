@@ -95,7 +95,8 @@ class Import::AuthorizationRequestEvents < Import::Base
     where_key = "#{model_tableize}_sql_where".to_sym
 
     query = 'SELECT raw_data FROM events'
-    query += " where authorization_request_id in (#{options[:valid_authorization_request_ids].join(',')})"
+    query += ' where (1=1)'
+    query += " and authorization_request_id in (#{options[:valid_authorization_request_ids].join(',')})" if options[:valid_authorization_request_ids].present?
     query += " and #{options[where_key]}" if options[where_key].present?
     query += ' ORDER BY created_at ASC'
     database.execute(query)

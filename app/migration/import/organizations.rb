@@ -1,6 +1,8 @@
 require 'json'
 
 class Import::Organizations < Import::Base
+  include LocalDatabaseUtils
+
   def extract(user_row)
     sanitize_user_organizations(user_row['organizations']).each do |organization_data|
       organization = Organization.find_or_initialize_by(siret: organization_data['siret'])
@@ -30,6 +32,11 @@ class Import::Organizations < Import::Base
   private
 
   def csv_or_table_to_loop
-    csv('users')
+    if options[:users_sql_where].present?
+      @rows_from_sql = true
+      database.execute("SELECT * FROM users WHERE #{options[:users_sql_where]}")
+    else
+      csv('users')
+    end
   end
 end
