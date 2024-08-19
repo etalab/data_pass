@@ -279,6 +279,7 @@ FactoryBot.define do
       api-particulier-cosoluce-fluo
       api-particulier-docaposte-fast
       api-particulier-entrouvert-publik
+      api-particulier-jcdeveloppement-familyclic
       api-particulier-jvs-parascol
       api-particulier-nfi
       api-particulier-odyssee-informatique-pandore
