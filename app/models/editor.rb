@@ -1,7 +1,8 @@
 class Editor < StaticApplicationRecord
   attr_accessor :id,
     :name,
-    :siret
+    :siret,
+    :already_integrated
 
   def self.all
     Rails.application.config_for(:editors).map do |uid, hash|
@@ -14,9 +15,14 @@ class Editor < StaticApplicationRecord
       hash.slice(
         :name,
         :siret,
+        :already_integrated,
       ).merge(
         id: uid.to_s,
       )
     )
+  end
+
+  def already_integrated?(scope:)
+    Array(already_integrated).include?(scope.to_s)
   end
 end

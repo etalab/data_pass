@@ -118,3 +118,60 @@ shared:
   monkey_factory:
     name: Monkey Factory
     siret: "780261986600048"
+  achatpublic:
+    name: "Achatpublic - achatpublic.com"
+    already_integrated: 
+      - api_entreprise
+  actradis:
+    name: "Actradis"
+    already_integrated: 
+      - api_entreprise
+
+  arnia:
+    name: "Arnia - Pack commande publique"
+    already_integrated: 
+      - api_entreprise
+  atline_services:
+    name: "Atline Services - marches-securises.fr"
+    already_integrated: 
+      - api_entreprise
+  aws_achat:
+    name: "AWS - AWS-achat"
+    already_integrated: 
+      - api_entreprise
+  axyus:
+    name: "Axyus"
+    already_integrated: 
+      - api_entreprise
+  dematis:
+    name: "Dematis - e-marchespublics.com"
+    already_integrated: 
+      - api_entreprise
+  entr_ouvert:
+    name: "Entr'ouvert - Publik"
+    already_integrated: 
+      - api_entreprise
+  klekoon:
+    name: "Klekoon - klekoon.com"
+    already_integrated: 
+      - api_entreprise
+  maximilien:
+    name: "Maximilien"
+    already_integrated: 
+      - api_entreprise
+  megalis_bretagne:
+    name: "Megalis Bretagne"
+    already_integrated: 
+      - api_entreprise
+  pictav_informatique:
+    name: "PICTAV Informatique"
+    already_integrated: 
+      - api_entreprise
+  smartglobal:
+    name: "SmartGlobal - Smart Global Governance"
+    already_integrated: 
+      - api_entreprise
+  solution_attestations:
+    name: "Solution Attestations"
+    already_integrated: 
+      - api_entreprise

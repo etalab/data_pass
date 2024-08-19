@@ -1,13 +1,12 @@
 <div
   id="<%= dom_id(authorization_request_form) %>"
   class="
-    fr-tile fr-tile--sm fr-tile--horizontal fr-enlarge-link
-    authorization-request-form-card
+    fr-tile fr-tile--horizontal fr-enlarge-link authorization-request-form-card
   "
 >
   <div class="fr-tile__body">
     <div class="fr-tile__content">
-      <h3 class="fr-tile__title">
+      <h3 class="fr-h6 fr-tile__title fr-text-title--blue-france">
         <%= link_to authorization_request_form.name,
         new_authorization_request_form_path(form_uid: authorization_request_form.id) %>
       </h3>
