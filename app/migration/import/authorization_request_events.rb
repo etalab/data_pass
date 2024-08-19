@@ -43,7 +43,7 @@ class Import::AuthorizationRequestEvents < Import::Base
     when 'request_changes'
       create_event(event_row, entity: InstructorModificationRequest.create!(authorization_request:, reason: event_row['comment'] || default_reason))
     when 'submit'
-      create_event(event_row, entity: AuthorizationRequestChangelog.create!(authorization_request:, diff: build_event_diff(event_row, authorization_request)))
+      create_event(event_row, entity: AuthorizationRequestChangelog.create!(authorization_request:, diff: build_event_diff(event_row, authorization_request), legacy: true))
 
       event_created_at = DateTime.parse(event_row['created_at'])
 
@@ -51,13 +51,13 @@ class Import::AuthorizationRequestEvents < Import::Base
         authorization_request.update!(last_submitted_at: event_created_at)
       end
     when 'approve', 'validate'
-      authorization_request.update_attributes(
+      authorization_request.update(
         last_validated_at: event_row['created_at'],
       )
 
       create_event(event_row, name: 'approve', entity: create_authorization(event_row, authorization_request))
     when 'reopen'
-      authorization_request.update_attributes(
+      authorization_request.update(
         reopened_at: event_row['created_at'],
       )
 
