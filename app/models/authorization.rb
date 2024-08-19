@@ -22,11 +22,6 @@ class Authorization < ApplicationRecord
     inverse_of: :authorization,
     dependent: :destroy
 
-  has_many :events,
-    class_name: 'AuthorizationRequestEvent',
-    inverse_of: :entity,
-    dependent: :destroy
-
   delegate :name, :kind, to: :request
 
   def request_as_validated
