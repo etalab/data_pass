@@ -7,6 +7,7 @@ shared:
     access_link: https://portail.hubee.numerique.gouv.fr
     provider: 'hubee'
     public: true
+    unique: true
     blocks:
       - name: 'contacts'
 
@@ -17,6 +18,7 @@ shared:
     access_link: https://portail.hubee.numerique.gouv.fr
     provider: 'hubee'
     public: true
+    unique: true
     blocks:
       - name: 'scopes'
       - name: 'contacts'

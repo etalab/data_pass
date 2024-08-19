@@ -7,7 +7,8 @@ class AuthorizationDefinition < StaticApplicationRecord
     :access_link,
     :cgu_link,
     :scopes,
-    :blocks
+    :blocks,
+    :unique
 
   attr_writer :startable_by_applicant,
     :public
@@ -41,6 +42,7 @@ class AuthorizationDefinition < StaticApplicationRecord
         :access_link,
         :public,
         :startable_by_applicant,
+        :unique,
       ).merge(
         id: uid.to_s,
         provider: DataProvider.find(hash[:provider]),
