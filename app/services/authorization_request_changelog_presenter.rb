@@ -42,7 +42,7 @@ class AuthorizationRequestChangelogPresenter
 
   def changelog_builder(diffs)
     diffs.map { |attribute, values|
-      values = values.map { |v| sanitize(v) }
+      values = sanitize_values(attribute, values)
 
       if attribute == 'scopes'
         build_scopes_change(values)
@@ -52,6 +52,17 @@ class AuthorizationRequestChangelogPresenter
         build_attribute_change(attribute, values)
       end
     }.flatten
+  end
+
+  def sanitize_values(attribute, values)
+    case attribute
+    when 'scopes'
+      values.map do |scopes|
+        sanitize_values('scope', scopes)
+      end
+    else
+      values.map { |value| sanitize(value) }
+    end
   end
 
   def changelog_diff_without_unchanged_prefilled_values_and_new_values
@@ -71,10 +82,10 @@ class AuthorizationRequestChangelogPresenter
 
     [
       new_scopes.map do |scope|
-        t('authorization_request_event.changelog_entry_new_scope', value: humanized_scope(scope))
+        t('authorization_request_event.changelog_entry_new_scope', value: humanized_scope(scope)).html_safe
       end,
       removed_scopes.map do |scope|
-        t('authorization_request_event.changelog_entry_removed_scope', value: humanized_scope(scope))
+        t('authorization_request_event.changelog_entry_removed_scope', value: humanized_scope(scope)).html_safe
       end
     ]
   end

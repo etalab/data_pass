@@ -131,5 +131,19 @@ RSpec.describe AuthorizationRequestChangelogPresenter do
         expect(changelog_entries[1]).to match(/Attr3.*initialisé.*value3/)
       end
     end
+
+    describe 'with scopes key within diff' do
+      let(:diff) do
+        {
+          'scopes' => [%w[scope1 scope2], %w[scope2 scope3]],
+        }
+      end
+
+      it 'displays adds and removes' do
+        expect(changelog_entries.count).to eq(2)
+        expect(changelog_entries[0]).to match(/Le périmètre de données.*scope3.*ajouté/)
+        expect(changelog_entries[1]).to match(/Le périmètre de données.*scope1.*retiré/)
+      end
+    end
   end
 end
