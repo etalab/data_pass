@@ -5,7 +5,7 @@ class AuthorizationRequestChangelog < ApplicationRecord
 
   has_one :event,
     class_name: 'AuthorizationRequestEvent',
-    inverse_of: :entity,
+    as: :entity,
     dependent: :destroy
 
   def initial?
