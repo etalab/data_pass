@@ -63,8 +63,11 @@ RSpec.describe AuthorizationRequestChangelogPresenter do
 
     context 'when it is not the first changelog' do
       before do
-        create(:authorization_request_event, :submit, authorization_request: changelog.authorization_request)
+        authorization_request_event = create(:authorization_request_event, :submit, authorization_request: changelog.authorization_request)
+        authorization_request_event.entity.update!(legacy:)
       end
+
+      let(:legacy) { false }
 
       context 'when there is no diff' do
         let(:diff) { {} }
@@ -80,6 +83,13 @@ RSpec.describe AuthorizationRequestChangelogPresenter do
         end
 
         it { is_expected.to eq('submit_with_changes') }
+      end
+
+      context 'when legacy is true on an old changelog' do
+        let(:legacy) { true }
+        let(:diff) { {} }
+
+        it { is_expected.to eq('legacy_submit') }
       end
     end
   end
