@@ -167,8 +167,8 @@ fr:
         description: *authorization_request_refused_description
       access_callout:
         title: Votre accès est disponible
-        content: Votre accès <strong>%{access_name}</strong> a été créé, vous pouvez l'utiliser sur le lien ci-dessous. 
-        button: Utiliser mon accès 
+        content: Votre accès <strong>%{access_name}</strong> a été créé, vous pouvez l'utiliser sur le lien ci-dessous.
+        button: Utiliser mon accès
     shared:
       title:
         update: Demande de mise à jour des informations
@@ -201,7 +201,7 @@ fr:
       habilitation:
         content: Votre organisation <strong>%{organization_raison_sociale}</strong> possède déjà une habilitation pour ce service.
         cta: Consulter l'habilitation existante
-      demande: 
+      demande:
         content: Votre organisation <strong>%{organization_raison_sociale}</strong> possède déjà une demande en cours pour ce service.
         cta: Consulter la demande en cours
 
@@ -480,31 +480,35 @@ fr:
           text: "<strong>%{user_full_name}</strong> a transféré la demande à <strong>%{text}</strong>"
         archive:
           text: "<strong>%{user_full_name}</strong> a supprimé la demande"
-        initial_submit:
-          text: "<strong>%{user_full_name}</strong> a soumis la demande"
-        initial_submit_with_changed_prefilled:
+        initial_submit_without_prefilled_data:
+          text: |
+            <strong>%{user_full_name}</strong> a soumis la demande
+        initial_submit_without_changes_on_prefilled_data:
+          text: |
+            <strong>%{user_full_name}</strong> a soumis la demande sans effectuer de changement sur les données pré-remplies.
+        initial_submit_with_changes_on_prefilled_data:
           text: |
             <strong>%{user_full_name}</strong> a soumis la demande
 
             <br />
 
-            Les données suivantes ont été modifiées par rapport aux informations initiales de la demande :
+            Les données suivantes ont été modifiées par rapport aux informations pré-remplies du formulaire :
             %{text}
-        submit:
+        submit_with_changes:
           text: |
             <strong>%{user_full_name}</strong> a soumis la demande.
 
             <br />
 
-            La liste des changements depuis la dernière modération sont:
+            La liste des changements depuis la dernière modération sont les suivants :
             %{text}
 
         submit_without_changes:
           text: |
             <strong>%{user_full_name}</strong> a soumis la demande sans effectuer de changement.
-        submit_with_unchanged_prefilled_values:
+        legacy_submit:
           text: |
-            <strong>%{user_full_name}</strong> a soumis la demande sans effectuer de changement sur les données pré-remplies.
+            <strong>%{user_full_name}</strong> a soumis la demande (certains changement ont pu être effectué mais ne sont pas actuellement affichables)
         approve:
           text: "<strong>%{user_full_name}</strong> a approuvé la demande"
           icon: checkbox-line

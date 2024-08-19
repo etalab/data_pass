@@ -3,8 +3,12 @@ class AuthorizationRequestChangelog < ApplicationRecord
 
   has_one :organization, through: :authorization_request
 
-  has_many :events,
+  has_one :event,
     class_name: 'AuthorizationRequestEvent',
-    inverse_of: :entity,
+    as: :entity,
     dependent: :destroy
+
+  def initial?
+    authorization_request.events.where(name: 'submit').order(created_at: :asc).limit(1).first == event
+  end
 end
