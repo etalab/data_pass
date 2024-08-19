@@ -5,9 +5,6 @@ hubee-cert-dc:
 hubee-dila:
   introduction: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nibh nisl, pulvinar a sapien sed, suscipit imperdiet nisl. Donec enim risus, mollis et lorem malesuada, varius fringilla lacus. Aenean pretium rutrum erat in finibus. Donec consequat vulputate dapibus. Ut blandit lacus quis elit hendrerit mattis. Aliquam imperdiet, nisi id interdum hendrerit, leo nulla rhoncus dui, at sollicitudin nibh enim eu tortor. In nisi ante, consectetur id sapien eget, dignissim aliquet lectus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla facilisi. Praesent et eleifend quam.
   authorization_request: 'HubEEDila'
-  steps:
-    - name: 'scopes'
-    - name: 'contacts'
   scopes:
     - etat_civil
     - depot_dossier_pacs

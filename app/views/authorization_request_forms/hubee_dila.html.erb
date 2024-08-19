@@ -1,4 +1,11 @@
 <%= authorization_request_form(@authorization_request) do |f| %>
+  <div class="fr-mt-4w">
+    <%= render partial: "authorization_requests/shared/organization_and_applicant" %>
+  </div>
+  
+  <%= render partial: "authorization_request_forms/shared/block_titles", locals: { f: f, block_name: :scopes } %>
+  <%= render partial: 'authorization_request_forms/shared/scopes', locals: { f: } %>
+  
   <%= render partial: "authorization_request_forms/shared/block_titles", locals: { f: f, block_name: :contacts } %>
   <%= render partial: 'authorization_request_forms/shared/contacts', locals: { f: } %>
   
