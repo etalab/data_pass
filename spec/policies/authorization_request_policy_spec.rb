@@ -23,7 +23,7 @@ RSpec.describe AuthorizationRequestPolicy do
     end
   end
 
-  describe '#create' do
+  describe '#create?' do
     subject { instance.create? }
 
     describe 'HubEE CertDC' do
@@ -55,6 +55,22 @@ RSpec.describe AuthorizationRequestPolicy do
         before { create(:authorization_request, :hubee_dila, applicant: user) }
 
         it { is_expected.to be_falsey }
+      end
+    end
+
+    describe 'API Service National' do
+      let(:authorization_request_class) { AuthorizationRequest::APIServiceNational }
+
+      context 'when there already is an authorization_request archived' do
+        before { create(:authorization_request, :api_service_national, :archived, applicant: user) }
+
+        it { is_expected.to be_truthy }
+      end
+
+      context 'when there already is another authorization_request not archived' do
+        before { create(:authorization_request, :api_service_national, applicant: user) }
+
+        it { is_expected.to be_truthy }
       end
     end
   end
