@@ -40,6 +40,16 @@ Fonctionnalité: Instruction: historique habilitation
     Et la page contient "Le champ Description du projet a changé de \"Description de la demande\" en \"Nouvelle valeur de description\""
 
   @DisableBullet
+  Scénario: Je vois un message simple indiquant la soumission d'une demande après une instruction, sans modification du demandeur
+    Quand il y a 1 demande d'habilitation "API Entreprise" en attente
+    Et que cette demande a été "sujet à modification"
+    Et que cette demande a été "soumise"
+    Et que je vais sur la page instruction
+    Et que je clique sur "Consulter"
+    Et que je clique sur "Historique"
+    Alors la page contient "a soumis la demande sans effectuer de changement"
+
+  @DisableBullet
   Scénario: Je vois un message simple indiquant la soumission d'une demande avec données pré-remplies non modifiées
     Quand il y a 1 demande d'habilitation "Solution Portail des aides" en brouillon
     Et que cette demande a été modifiée avec les informations suivantes :
