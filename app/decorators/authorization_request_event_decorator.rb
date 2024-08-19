@@ -25,7 +25,7 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
       h.simple_format(entity.reason)
     when 'applicant_message', 'instructor_message'
       h.simple_format(entity.body)
-    when 'initial_submit_without_changes_on_prefilled_data', 'submit_with_changes', 'admin_update'
+    when 'initial_submit_with_changes_on_prefilled_data', 'submit_with_changes', 'admin_update'
       humanized_changelog
     when 'transfer'
       if entity.from_type == 'User'
