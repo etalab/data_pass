@@ -155,5 +155,18 @@ RSpec.describe AuthorizationRequestChangelogPresenter do
         expect(changelog_entries[1]).to match(/Le périmètre de données.*scope1.*retiré/)
       end
     end
+
+    describe 'with an integer as a value' do
+      let(:diff) do
+        {
+          'attr1' => [1, 2],
+        }
+      end
+
+      it 'displays the integer' do
+        expect(changelog_entries.count).to eq(1)
+        expect(changelog_entries[0]).to match(/Attr1.*a changé.*1.*2/)
+      end
+    end
   end
 end

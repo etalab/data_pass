@@ -61,7 +61,11 @@ class AuthorizationRequestChangelogPresenter
         sanitize_values('scope', scopes)
       end
     else
-      values.map { |value| sanitize(value) }
+      values.map do |value|
+        sanitize(value)
+      rescue NoMethodError
+        value
+      end
     end
   end
 
