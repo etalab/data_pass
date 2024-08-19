@@ -78,10 +78,11 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
 
   private
 
+  # rubocop:disable Metrics/AbcSize
   def create_for_multiple_steps
     organizer = organizer_for_creation
 
-    @authorization_request = organizer.authorization_request
+    @authorization_request = organizer.authorization_request.decorate
 
     if organizer.success?
       success_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.create')
@@ -98,6 +99,8 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
         status: :unprocessable_entity
     end
   end
+
+  # rubocop:enable Metrics/AbcSize
 
   def next_step_localized
     t("wicked.#{next_submit? ? authorization_request_steps_names[1] : authorization_request_steps_names[0]}")

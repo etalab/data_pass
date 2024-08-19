@@ -1,4 +1,6 @@
-<% if @authorization_request.prefilled_data?(%i[contact_technique_email contact_metier_email ]) %>
+<% contact_email_fields = @authorization_request.contact_types.map { |contact_type| "#{contact_type}_email".to_sym }
+   if @authorization_request.prefilled_data?(contact_email_fields) %>
+
   <%= render partial: "authorization_request_forms/shared/prefilled_banner" %>
 <% end %>
 

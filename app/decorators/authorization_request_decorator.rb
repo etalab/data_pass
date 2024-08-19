@@ -47,21 +47,10 @@ class AuthorizationRequestDecorator < ApplicationDecorator
   end
 
   def prefilled_data?(keys)
-    return false if object.form.data.nil?
-
-    return false unless object.form.multiple_steps?
-
-    keys.any? do |key|
-      data_present_for_key?(key)
-    end
+    object.form.data.keys.intersect?(keys.map(&:to_sym))
   end
 
   private
-
-  def data_present_for_key?(key)
-    data = object.form.data[key]
-    data.present?
-  end
 
   def lookup_i18n_key(subkey)
     t("authorization_request_forms.#{object.model_name.element}.#{subkey}", default: nil) ||
