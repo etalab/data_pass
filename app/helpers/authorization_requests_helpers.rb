@@ -89,12 +89,4 @@ module AuthorizationRequestsHelpers
 
     authorization_request.filling?
   end
-
-  def hubee_dila_selected_scopes_for_current_organization(authorization_request = nil)
-    authorization_requests = AuthorizationRequest.where(type: 'AuthorizationRequest::HubEEDila', organization: current_organization.id, state: %w[draft validated submitted changes_requested])
-
-    authorization_requests = authorization_requests.where.not(id: authorization_request.id) if authorization_request.present?
-
-    authorization_requests.map(&:scopes).flatten.uniq.join(', ')
-  end
 end

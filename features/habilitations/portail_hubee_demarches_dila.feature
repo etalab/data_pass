@@ -50,19 +50,3 @@ Fonctionnalité: Soumission d'une demande d'habilitation Démarches du bouquet d
     Alors il y a un message d'erreur contenant "Une erreur est survenue lors de la sauvegarde de la demande d'habilitation"
     Et il y a au moins une erreur sur un champ
     Et je suis sur la page "Démarches du bouquet de services (service-public.fr)"
-
-  Scénario: Je ne peux pas cocher un scope si celui-ci existe déjà dans une demande envoyée
-    Quand je démarre une nouvelle demande d'habilitation "Démarches du bouquet de services (service-public.fr)"
-    * je coche "AEC - Acte d’Etat Civil"
-    * je clique sur "Suivant"
-
-    * je remplis les informations du contact "Administrateur métier" avec :
-      | Nom    | Prénom | Email               | Téléphone   | Fonction              |
-      | Dupont | Jean   | dupont.jean@gouv.fr | 0836656565  | Administrateur métier |
-    * je clique sur "Suivant"
-
-    * j'adhère aux conditions générales
-    * je clique sur "Soumettre la demande d'habilitation"
-
-    Et que je démarre une nouvelle demande d'habilitation "Démarches du bouquet de services (service-public.fr)"
-    Alors je ne peux pas cocher "AEC - Acte d’Etat Civil"
