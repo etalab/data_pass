@@ -25,7 +25,7 @@ Fonctionnalité: Liste des habilitations
 
   Scénario: Je démarre une nouvelle demande d'habilitation
     Quand je vais sur la page des demandes
-    Et que je clique sur "Remplir une demande" pour l'habilitation "Démarches du bouquet de services (service-public.fr)"
-    Et que je clique sur "Débuter"
-    Alors il y a un titre contenant "Démarches du bouquet de services (service-public.fr)"
+    Et que je clique sur "Remplir une demande" pour l'habilitation "API Service National"
+    Et que je clique sur "Demande libre"
+    Alors il y a un titre contenant "API Service National"
     Et il y a un bouton "Suivant"

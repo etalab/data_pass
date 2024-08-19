@@ -60,8 +60,8 @@ class AuthorizationRequestPolicy < ApplicationPolicy
     record.to_s
   end
 
-  def scopes
-    record.scopes
+  def authorization_definition
+    record.definition
   end
 
   private

@@ -9,7 +9,7 @@ RSpec.describe AuthorizationRequestPolicy do
     describe 'HubEE' do
       let(:authorization_request_class) { AuthorizationRequest::HubEECertDC }
 
-      context 'when there already is an authorization_request is archived' do
+      context 'when there already is an authorization_request archived' do
         before { create(:authorization_request, :hubee_cert_dc, :archived, applicant: user) }
 
         it { is_expected.to be_truthy }
@@ -23,13 +23,13 @@ RSpec.describe AuthorizationRequestPolicy do
     end
   end
 
-  describe '#create' do
+  describe '#create?' do
     subject { instance.create? }
 
-    describe 'HubEE' do
+    describe 'HubEE CertDC' do
       let(:authorization_request_class) { AuthorizationRequest::HubEECertDC }
 
-      context 'when there already is an authorization_request is archived' do
+      context 'when there already is an authorization_request archived' do
         before { create(:authorization_request, :hubee_cert_dc, :archived, applicant: user) }
 
         it { is_expected.to be_truthy }
@@ -39,6 +39,38 @@ RSpec.describe AuthorizationRequestPolicy do
         before { create(:authorization_request, :hubee_cert_dc, applicant: user) }
 
         it { is_expected.to be_falsey }
+      end
+    end
+
+    describe 'HubEE DILA' do
+      let(:authorization_request_class) { AuthorizationRequest::HubEEDila }
+
+      context 'when there already is an authorization_request archived' do
+        before { create(:authorization_request, :hubee_dila, :archived, applicant: user) }
+
+        it { is_expected.to be_truthy }
+      end
+
+      context 'when there already is another authorization_request not archived' do
+        before { create(:authorization_request, :hubee_dila, applicant: user) }
+
+        it { is_expected.to be_falsey }
+      end
+    end
+
+    describe 'API Service National' do
+      let(:authorization_request_class) { AuthorizationRequest::APIServiceNational }
+
+      context 'when there already is an authorization_request archived' do
+        before { create(:authorization_request, :api_service_national, :archived, applicant: user) }
+
+        it { is_expected.to be_truthy }
+      end
+
+      context 'when there already is another authorization_request not archived' do
+        before { create(:authorization_request, :api_service_national, applicant: user) }
+
+        it { is_expected.to be_truthy }
       end
     end
   end

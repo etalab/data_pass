@@ -8,11 +8,7 @@
 
     <div class="scopes-group__grid">
       <% scopes.each do |scope| %>
-        <% if hubee_dila_selected_scopes_for_current_organization(@authorization_request).include? scope.value %>
-          <%= f.dsfr_scope(scope, disabled: true) %>
-        <% else %>
-          <%= f.dsfr_scope scope %>
-        <% end %>
+        <%= f.dsfr_scope scope %>
       <% end %>
     </div>
   </div>
