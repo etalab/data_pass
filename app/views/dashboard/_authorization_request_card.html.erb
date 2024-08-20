@@ -1,62 +1,73 @@
 <% authorization_request = authorization_request.decorate %>
 
-<div class="authorization-request-card authorization-request" id="<%= dom_id(authorization_request) %>">
-  <div class="card-wrapper fr-mb-3w">
-    <div class="card-header">
-      <span class="fr-badge fr-badge--no-icon">
-        N°<%= authorization_request.id %>
-      </span>
+<div class="authorization-request-card authorization-request fr-mb-3w" id="<%= dom_id(authorization_request) %>">
+  <div class="card-wrapper">
 
-      <% if authorization_request.already_been_validated? %>
-        <span class="fr-badge fr-badge--no-icon fr-badge--success">
-          <%= t("authorization_request.status.validated") %>
-        </span>
-      <% else %>
-        <%= authorization_request_status_badge(authorization_request, no_icon: true) %>
+    <div class="card-content-badge-wrapper">
 
-        <% if policy(authorization_request).messages? && authorization_request.unread_messages_from_applicant_count > 0 %>
-          <div class="unread-message-dot">
-            <%= authorization_request.unread_messages_from_applicant_count %>
-          </div>
-        <% end %>
-      <% end %>
-    </div>
+      <div class="card-content">
+        <div class="card-title">
+          <%= truncate(authorization_request.name, length: 50) %>
+        </div>
 
-    <div class="card-provider">
-      <%= authorization_request.definition.name %>
-    </div>
+        <div class="card-details">
+          <% if authorization_request.only_in_contacts?(current_user) %>
+            <p class="fr-text--xs fr-text-grey fr-my-2w">
+              <%= authorization_request.definition.name + " - " + t('.current_user_mentions', contact_types: authorization_request.humanized_contact_types_for(current_user).to_sentence) %>
+            </p>
+          <% elsif authorization_request.applicant == current_user %>
+            <p class="fr-text--xs fr-text-grey fr-my-2w">
+              <%= authorization_request.definition.name + " - " + t('.current_user_is_applicant') %>
+            </p>
+          <% end %>
+        </div>
 
-    <div class="card-title">
-      <%= authorization_request.name %>
-    </div>
-
-    <% if authorization_request.respond_to?(:description) %>
-      <div class="card-description">
-        <%= truncate(authorization_request.description, length: 30) %>
+        <div class="card-description">
+          <p>
+            <%= t('.created_at', date: l(authorization_request.created_at, format: :long)) %>
+          </p>
+        </div>
       </div>
-    <% end %>
 
-    <div class="card-applicant-information">
-      <% if authorization_request.only_in_contacts?(current_user) %>
-        <p class="fr-text--xs fr-text-grey fr-my-2v">
-          <%= t('.current_user_mentions', contact_types: authorization_request.humanized_contact_types_for(current_user).to_sentence) %>
-        </p>
-      <% elsif authorization_request.applicant == current_user %>
-        <p class="fr-text--xs fr-text-grey fr-my-2v">
-          <%= t('.current_user_is_applicant') %>
-        </p>
-      <% end %>
+      <div class="card-badge">
+        <span class="fr-badge fr-badge--no-icon">
+          N°<%= authorization_request.id %>
+        </span>
+
+        <% if authorization_request.already_been_validated? %>
+          <span class="fr-badge fr-badge--no-icon fr-badge--success">
+            <%= t("authorization_request.status.validated") %>
+          </span>
+        <% else %>
+          <%= authorization_request_status_badge(authorization_request, no_icon: true) %>
+
+          <% if policy(authorization_request).messages? && authorization_request.unread_messages_from_applicant_count > 0 %>
+            <div class="unread-message-dot">
+              <%= authorization_request.unread_messages_from_applicant_count %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
     </div>
 
-    <% if authorization_request.already_been_validated? %>
-      <%= link_to t('.show_cta'), latest_authorization_path(authorization_request), class: %w(fr-btn fr-btn--sm) %>
-    <% else %>
-      <%= link_to t('.show_cta'), authorization_request_form_path(form_uid: authorization_request.form.uid, id: authorization_request.id), class: %w(fr-btn fr-btn--sm) %>
-    <% end %>
+    <div class="card-actions fr-mt-3w">
+      <div class="card-access-link">
+        <%= "Récupérer mon accès" %>
+        <%#= link_to "Récupérer mon accès", latest_authorization_path(authorization_request), class: %w(fr-link fr-link--lg) %>
+      </div>
 
-    <% if policy(authorization_request).reopen? %>
-      <%= dsfr_main_modal_button t('.reopen_cta'), new_authorization_reopen_path(authorization_request.latest_authorization), class: %w(fr-btn fr-btn--secondary fr-btn--sm) %>
-    <% end %>
+      <div class="card-btn">
+        <% if policy(authorization_request).reopen? %>
+          <%= dsfr_main_modal_button t('.reopen_cta'), new_authorization_reopen_path(authorization_request.latest_authorization), class: %w(fr-btn fr-btn--secondary fr-btn--sm) %>
+        <% end %>
+
+        <% if authorization_request.already_been_validated? %>
+          <%= link_to t('.show_cta'), latest_authorization_path(authorization_request), class: %w(fr-btn fr-btn--sm) %>
+        <% else %>
+          <%= link_to t('.show_cta'), authorization_request_form_path(form_uid: authorization_request.form.uid, id: authorization_request.id), class: %w(fr-btn fr-btn--sm) %>
+        <% end %>
+      </div>
+    </div>
   </div>
 
   <% if authorization_request.reopening? %>
