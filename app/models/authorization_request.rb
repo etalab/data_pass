@@ -158,7 +158,8 @@ class AuthorizationRequest < ApplicationRecord
     end
 
     event :refuse do
-      transition from: %i[changes_requested submitted], to: :refused
+      transition from: %i[changes_requested submitted], to: :refused, unless: ->(authorization_request) { authorization_request.reopening? }
+      transition from: %i[changes_requested submitted], to: :validated, if: ->(authorization_request) { authorization_request.reopening? }
     end
 
     event :request_changes do

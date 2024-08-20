@@ -52,6 +52,10 @@ RSpec.describe RefuseAuthorizationRequest do
               expect { refuse_authorization_request }.to change { authorization_request.reload.administrateur_metier_email }.from('new@gouv.fr').to('old@gouv.fr')
             end
           end
+
+          it 'changes state to validated (revert to latest valid state)' do
+            expect { refuse_authorization_request }.to change { authorization_request.reload.state }.from('submitted').to('validated')
+          end
         end
 
         include_examples 'creates an event', event_name: :refuse, entity_type: :denial_of_authorization
