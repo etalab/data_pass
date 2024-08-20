@@ -5,11 +5,6 @@ class Message < ApplicationRecord
     class_name: 'User',
     optional: true
 
-  has_many :events,
-    class_name: 'AuthorizationRequestEvent',
-    inverse_of: :entity,
-    dependent: :destroy
-
   belongs_to :authorization_request
 
   scope :unread, -> { where(read_at: nil) }
