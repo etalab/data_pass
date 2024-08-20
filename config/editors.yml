@@ -73,6 +73,9 @@ shared:
   jvs_mairistem:
     name: JVS-Mairistem
     siret: '32855218700069'
+  kosmos:
+    name: Kosmos
+    siret: '41922342500044'
   nfi:
     name: Nord France Informatique
     siret: '37996323400032'

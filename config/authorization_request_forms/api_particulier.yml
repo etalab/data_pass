@@ -776,6 +776,42 @@ api-particulier-capdemat-capdemat-evolution:
     modalities:
       - params
 
+api-particulier-kosmos:
+  name: Kosmos
+  description: Portail Tarification et Aide Restauration Scolaire
+  authorization_request: APIParticulier
+  use_case: cantines-colleges-lycees-tarification
+  editor_id: kosmos
+  public: false
+  introduction: *api_particulier_introduction_editor_with_fixed_scopes
+  steps: *api_particulier_editor_steps_with_fixed_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
+  scopes_config:
+    disabled:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_adresse
+      - cnaf_enfants
+    displayed:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_enfants
+      - cnaf_adresse
+
+  data:
+    intitule: Portail Tarification et Aide Restauration Scolaire
+    description: |
+      Logiciel utilisé directement par les citoyens au travers d'un front et par des agents habilités pour faciliter la gestion de la tarification des cantines.
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_portail_famille
+    scopes:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_adresse
+      - cnaf_enfants
+    modalities:
+      - formulaire_qf
+      - params
+
 # ------------------------------- #
 # ------------------------------- #
 # ------------------------------- #
