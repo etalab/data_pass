@@ -303,6 +303,8 @@ fr:
       <<: *api_particulier_editor_common_wordings
     api_particulier_coexya:
       <<: *api_particulier_editor_common_wordings
+    api_particulier_jcdeveloppement_familyclic:
+      <<: *api_particulier_editor_common_wordings
 
     api_particulier_tarification_municipale_enfance:
       description:

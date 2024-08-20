@@ -100,3 +100,6 @@ shared:
   ecorestauration:
     name: Ecorestauration
     siret: '82839976600025'
+  jcdeveloppement:
+    name: JCDeveloppement
+    siret: '75006664900013'
