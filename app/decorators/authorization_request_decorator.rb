@@ -46,6 +46,10 @@ class AuthorizationRequestDecorator < ApplicationDecorator
       t("authorization_request_forms.default.#{contact_type}.info", default: nil)
   end
 
+  def prefilled_data?(keys)
+    object.form.data.keys.intersect?(keys.map(&:to_sym))
+  end
+
   private
 
   def lookup_i18n_key(subkey)

@@ -1,0 +1,13 @@
+<div class="fr-notice fr-notice--info fr-notice--no-icon prefilled-banner fr-my-3w fr-p-0">
+  <div class="fr-container fr-p-0">
+    <div class="fr-grid-row fr-p-3w fr-col-md-10">
+      <div class="fr-grid-row fr-grid-row--center fr-grid-row--middle fr-mr-5w">
+        <%= image_tag "authorization_requests/survey.svg", alt: "Prefilled document logo" %>
+      </div>
+      <p>
+        <span class="fr-notice__title"><%= t('authorization_request_forms.default.prefill_data_info.title') %></span>
+        <span class="fr-notice__desc"><%= t('authorization_request_forms.default.prefill_data_info.description', name: @authorization_request.form.name) %> </span>
+      </p>
+    </div>
+  </div>
+</div>

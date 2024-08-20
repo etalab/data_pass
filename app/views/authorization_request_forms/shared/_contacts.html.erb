@@ -1,3 +1,7 @@
+<% if @authorization_request.prefilled_data?(contact_email_fields(@authorization_request)) %>
+  <%= render partial: "authorization_request_forms/shared/prefilled_banner" %>
+<% end %>
+
 <div class="fr-container-fluid">
   <div class="fr-grid-row fr-grid-row--gutters">
     <% @authorization_request.contact_types.each do |contact_type| %>
