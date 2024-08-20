@@ -592,6 +592,7 @@ api-particulier-ecorestauration-loyfeey:
       - cnaf_quotient_familial
       - cnaf_allocataires
       - cnaf_adresse
+      - cnaf_enfants
     displayed:
       - cnaf_quotient_familial
       - cnaf_allocataires
