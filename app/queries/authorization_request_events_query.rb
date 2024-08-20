@@ -6,15 +6,25 @@ class AuthorizationRequestEventsQuery
   end
 
   def perform
-    AuthorizationRequestEvent
+    events = AuthorizationRequestEvent
       .includes(%i[user entity])
       .where(
         sql_query,
         *model_ids,
+      ).order(
+        created_at: :desc,
       )
+
+    events = remove_adjacent_updates(events)
+
+    AuthorizationRequestEvent.where(id: events.map(&:id)).order(created_at: :desc)
   end
 
   private
+
+  def remove_adjacent_updates(events)
+    events.chunk_while { |e1, e2| e1.name == e2.name && e1.name == 'update' }.map(&:first)
+  end
 
   # rubocop:disable Metrics/AbcSize
   def model_ids

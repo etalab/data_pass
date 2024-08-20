@@ -21,5 +21,20 @@ RSpec.describe AuthorizationRequestEventsQuery, type: :FEEDME do
     it 'returns ordered events by creation date' do
       expect(events.first.name).to eq(AuthorizationRequestEvent::NAMES.first)
     end
+
+    context 'when there is multiple updates in a row' do
+      let!(:newest_update) { create(:authorization_request_event, :update, authorization_request:, created_at: 1.hour.ago) }
+      let!(:not_newest_update) { create(:authorization_request_event, :update, authorization_request:, created_at: 2.hours.ago) }
+      let!(:update_within_2_other_events) { create(:authorization_request_event, :update, authorization_request:, created_at: 2.days.ago + 1.hour) }
+
+      it 'returns only newest updates in a row' do
+        expect(events.count).to eq(AuthorizationRequestEvent::NAMES.count + 2)
+
+        expect(events).to include(newest_update)
+        expect(events).to include(update_within_2_other_events)
+
+        expect(events).not_to include(not_newest_update)
+      end
+    end
   end
 end

@@ -9,6 +9,6 @@ class AuthorizationRequestChangelog < ApplicationRecord
     dependent: :destroy
 
   def initial?
-    authorization_request.events.where(name: 'submit').order(created_at: :asc).limit(1).first == event
+    authorization_request.events.where(name: 'submit').reorder(created_at: :asc).limit(1).first == event
   end
 end
