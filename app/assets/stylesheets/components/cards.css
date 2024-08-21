@@ -15,10 +15,6 @@
 
 .authorization-request-card .card-title {
   color: var(--text-active-blue-france);
-  font-size: 1.5rem;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 2rem;
 }
 
 .authorization-request-card .card-badge {
@@ -26,8 +22,6 @@
   flex-direction: column;
   align-items: flex-end;
   gap: 0.5rem;
-  flex: 1 0 0;
-  align-self: stretch;
 }
 
 .authorization-request-card .card-actions {
@@ -38,20 +32,24 @@
 }
 
 .authorization-request-card .reopening-footer {
-  background-color: rgba(0, 0, 0, 0.02);
-  display: flex;
-  padding: 20px;
+  background-color: var(--background-alt-grey);
+  padding: 1.5rem;
 }
 
+.authorization-request-card .reopening-content {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
 
 .authorization-request-card .reopening-footer .title {
   color: var(--text-action-high-blue-france);
+  font-weight: 700;
   display: block;
 }
 
-.authorization-request-card .card-provider {
-  font-size: 12px;
-  color: grey;
+.authorization-request-card .reopening-badge {
+  align-content: center;
 }
 
 .authorization-request-card .unread-message-dot {

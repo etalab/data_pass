@@ -124,8 +124,10 @@ fr:
       current_user_is_applicant: Vous êtes le demandeur
       created_at: Créée le
       show_cta: Consulter
-      reopen_cta: Mettre à jour
       access_link_cta: Récupérer mon accès
+      reopen_title: Demande de mise à jour
+      reopen_date: Fait le
+      reopen_cta: Mettre à jour
 
   profile:
     edit:
