@@ -122,8 +122,10 @@ fr:
     authorization_request_card:
       current_user_mentions: Vous avez été référencé comme %{contact_types}
       current_user_is_applicant: Vous êtes le demandeur
+      created_at: Créée le
       show_cta: Consulter
       reopen_cta: Mettre à jour
+      access_link_cta: Récupérer mon accès
 
   profile:
     edit:

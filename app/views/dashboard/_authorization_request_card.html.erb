@@ -24,7 +24,7 @@
 
         <div class="card-description">
           <p>
-            <%= t('.created_at', date: l(authorization_request.created_at, format: :long)) %>
+            <%= t('.created_at') %> <%= l(authorization_request.created_at, format: '%d/%m/%Y') %>
           </p>
         </div>
       </div>
@@ -52,8 +52,7 @@
 
     <div class="card-actions fr-mt-3w">
       <div class="card-access-link">
-        <%= "Récupérer mon accès" %>
-        <%#= link_to "Récupérer mon accès", latest_authorization_path(authorization_request), class: %w(fr-link fr-link--lg) %>
+        <%= t('.access_link_cta') %>
       </div>
 
       <div class="card-btn">
