@@ -1,6 +1,6 @@
 <% if @authorization_requests.any? %>
   <% if @authorization_requests.changes_requested.without_reopening.any? %>
-    <%= render partial: 'authorization_requests', locals: { authorization_requests: @authorization_requests.changes_requested.without_reopening, kind: 'changes_requested' } %>
+    <%= render partial: 'authorization_requests_changes_requested', locals: { authorization_requests: @authorization_requests.changes_requested.without_reopening, kind: 'changes_requested' } %>
   <% end %>
 
   <% if @authorization_requests.validated_or_refused.any? %>
