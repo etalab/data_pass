@@ -30,16 +30,16 @@
       </div>
 
       <div class="card-badge">
-        <span class="fr-badge fr-badge--no-icon">
+        <span class="fr-badge">
           N°<%= authorization_request.id %>
         </span>
 
         <% if authorization_request.already_been_validated? %>
-          <span class="fr-badge fr-badge--no-icon fr-badge--success">
+          <span class="fr-badge fr-badge--success">
             <%= t("authorization_request.status.validated") %>
           </span>
         <% else %>
-          <%= authorization_request_status_badge(authorization_request, no_icon: true) %>
+          <%= authorization_request_status_badge(authorization_request) %>
 
           <% if policy(authorization_request).messages? && authorization_request.unread_messages_from_applicant_count > 0 %>
             <div class="unread-message-dot">
@@ -54,7 +54,7 @@
     <div class="card-actions">
       <div class="card-access-link">
         <% if authorization_request.access_link && authorization_request.validated? %>
-          <%= link_to t('.access_link_cta'), authorization_request.access_link, class: 'fr-link fr-icon-arrow-right-line fr-link--icon-right', target: :blank %>
+          <%= link_to t('.access_link_cta'), authorization_request.access_link, class: 'fr-link fr-icon-links-line fr-link--icon-left', target: :blank %>
         <% end %>
       </div>
 
@@ -86,7 +86,7 @@
         </div>
 
         <div class="reopening-badge">
-          <%= authorization_request_status_badge(authorization_request, no_icon: true) %>
+          <%= authorization_request_status_badge(authorization_request) %>
 
           <% if policy(authorization_request).messages? && authorization_request.unread_messages_from_applicant_count > 0 %>
             <div class="unread-message-dot">
