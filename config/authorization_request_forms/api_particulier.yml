@@ -657,40 +657,39 @@ api-particulier-jcdeveloppement-familyclic:
     modalities:
       - params
 
+api-particulier-aiga:
+  name: iNoé
+  description: Tarification cantine
+  authorization_request: APIParticulier
+  use_case: cantines-colleges-lycees-tarification
+  editor_id: aiga
+  introduction: *api_particulier_introduction_editor_with_fixed_scopes
+  steps: *api_particulier_editor_steps_with_fixed_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
+  scopes_config:
+    disabled:
+      - cnaf_quotient_familial
+    displayed:
+      - cnaf_quotient_familial
+
+  data:
+    intitule: Tarification sur Quotient Familial des cantines
+    description: |
+      Gestion de la tarification de la cantine en backoffice par des agents habilités
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_portail_famille
+    scopes:
+      - cnaf_quotient_familial
+    contact_technique_type: 'organization'
+    contact_technique_email: 'api-particulier@aiga.fr'
+    contact_technique_phone_number: '0472532200'
+    modalities:
+      - params
+
 # ------------------------------- #
 # ------------------------------- #
 # ------------------------------- #
 
 # Editeur single page (cas 1)
-api-particulier-aiga:
-  name: iNoé
-  description: Facturation des familles inscrites aux CLSH, services périscolaires … des collectivités
-  authorization_request: 'APIParticulier'
-  editor_id: 'aiga'
-  single_page_view: 'api_particulier_through_editor'
-  use_case: 'portail_famille_tarification'
-  static_blocks: &api_particulier_through_editor_static_blocks
-    - name: basic_infos
-    - name: modalities
-  data:
-    intitule: Facturation des familles inscrites aux CLSH, services périscolaires … des collectivités
-    description: >-
-        iNoé permet la facturation des prestations des activités périscolaires,
-        garderies et centres de loisirs des collectivités. La tarification aux
-        familles est dépendante du quotient familial, au plus juste quand récupéré
-        auprès de la CNAF.
-    cadre_juridique_nature: >-
-        L'article L114-8 du code des relations entre le public et l'administration
-        fixe le cadre général des échanges de données au sein de l'administration.
-        En tant que collectivité territoriale, la délibération ci-jointe précise
-        l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices,
-        et précise les données nécessaires à son fonctionnement.
-    scopes:
-      - cnaf_quotient_familial
-    contact_technique_type: organization
-    contact_technique_email: api-particulier@aiga.fr
-    contact_technique_phone_number: 0472532200
-
 api-particulier-bl-enfance-berger-levrault:
   name: BL Enfance
   description: Calcul du quotient familial pour la facturation des activités scolaires,
@@ -699,7 +698,9 @@ api-particulier-bl-enfance-berger-levrault:
   single_page_view: 'api_particulier_through_editor'
   use_case: portail_famille_tarification
   editor_id: berger_levrault
-  static_blocks: *api_particulier_through_editor_static_blocks
+  static_blocks: &api_particulier_through_editor_static_blocks
+    - name: basic_infos
+    - name: modalities
   data:
     intitule: Calcul du quotient familial pour la facturation des activités scolaires,
       périscolaires et loisirs
