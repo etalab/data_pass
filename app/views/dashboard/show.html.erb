@@ -3,16 +3,16 @@
     <%= render partial: 'authorization_requests_changes_requested', locals: { authorization_requests: @authorization_requests.changes_requested.without_reopening, kind: 'changes_requested' } %>
   <% end %>
 
-  <% if @authorization_requests.validated_or_refused.any? %>
-    <%= render partial: 'authorization_requests', locals: { authorization_requests: @authorization_requests.validated_or_refused, kind: 'validated_or_refused' } %>
+  <% if @authorization_requests.in_instructions.without_reopening.any? %>
+    <%= render partial: 'authorization_requests', locals: { authorization_requests: @authorization_requests.in_instructions.without_reopening, kind: 'pending' } %>
   <% end %>
 
   <% if @authorization_requests.drafts.without_reopening.any? %>
     <%= render partial: 'authorization_requests', locals: { authorization_requests: @authorization_requests.drafts.without_reopening, kind: 'draft' } %>
   <% end %>
 
-  <% if @authorization_requests.in_instructions.without_reopening.any? %>
-    <%= render partial: 'authorization_requests', locals: { authorization_requests: @authorization_requests.in_instructions.without_reopening, kind: 'pending' } %>
+  <% if @authorization_requests.validated_or_refused.any? %>
+    <%= render partial: 'authorization_requests', locals: { authorization_requests: @authorization_requests.validated_or_refused, kind: 'validated_or_refused' } %>
   <% end %>
 <% else %>
   <h3 class="center">

@@ -3,7 +3,7 @@
   <%= t("dashboard.authorization_requests.changes_requested_title") %>
 </h3>
 
-<div class="fr-grid-row fr-grid-row--gutters">
+<div class="fr-grid-row fr-grid-row--gutters dashboard-background__panel">
   <% authorization_requests.each do |authorization_request| %>
     <div class="fr-col-12 fr-col-sm-8 fr-col-md-6 fr-col-lg-4 fr-col-xl-4 ">
       <%= render partial: 'authorization_request_card_small', locals: { authorization_request: } %>
