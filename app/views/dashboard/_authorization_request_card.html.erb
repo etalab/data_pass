@@ -50,9 +50,12 @@
       </div>
     </div>
 
+
     <div class="card-actions">
       <div class="card-access-link">
-        <%= t('.access_link_cta') %>
+        <% if authorization_request.access_link && authorization_request.validated? %>
+          <%= link_to t('.access_link_cta'), authorization_request.access_link, class: 'fr-link fr-icon-arrow-right-line fr-link--icon-right', target: :blank %>
+        <% end %>
       </div>
 
       <div class="card-btn">
@@ -93,7 +96,7 @@
         </div>
       </div>
       <div class="reopening-link">
-        <%= link_to t('.show_cta'), authorization_request_form_path(form_uid: authorization_request.form.uid, id: authorization_request.id) %>
+        <%= link_to t('.show_cta'), authorization_request_form_path(form_uid: authorization_request.form.uid, id: authorization_request.id), class: %w(fr-text--sm fr-icon-arrow-right-line fr-link--icon-right) %>
       </div>
     </div>
   <% end %>
