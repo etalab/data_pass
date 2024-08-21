@@ -1,3 +1,5 @@
+/* Large  card */
+
 .authorization-request-card {
   position: relative;
   border: 1px solid var(--border-default-grey);
@@ -58,4 +60,25 @@
   position: absolute;
   top: -5px;
   right: -5px;
+}
+
+/* SMALL CARD */
+
+.authorization-request-card__small {
+  height: 100%;
+}
+
+.authorization-request-card__small .card-badge {
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: row;
+}
+
+.authorization-request-card__small .card-wrapper {
+  padding: 1.5rem;
+}
+
+.authorization-request-card__small .card-actions {
+  display: flex;
+  justify-content: flex-end;
 }

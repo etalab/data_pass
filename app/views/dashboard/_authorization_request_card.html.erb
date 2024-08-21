@@ -13,12 +13,10 @@
         <div class="card-details">
           <% if authorization_request.only_in_contacts?(current_user) %>
             <p class="fr-text--xs fr-text-grey fr-my-2w">
-              <%= authorization_request.definition.name + " - " + t('.current_user_mentions', contact_types: authorization_request.humanized_contact_types_for(current_user).to_sentence) %>
-            </p>
+              <%= "#{authorization_request.definition.name} - #{t('.current_user_mentions', contact_types: authorization_request.humanized_contact_types_for(current_user).to_sentence)}" %>            </p>
           <% elsif authorization_request.applicant == current_user %>
             <p class="fr-text--xs fr-text-grey fr-my-2w">
-              <%= authorization_request.definition.name + " - " + t('.current_user_is_applicant') %>
-            </p>
+              <%= "#{authorization_request.definition.name} - #{t('.current_user_is_applicant')}" %>            </p>
           <% end %>
         </div>
 

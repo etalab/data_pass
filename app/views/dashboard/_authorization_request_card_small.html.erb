@@ -1,0 +1,46 @@
+<% authorization_request = authorization_request.decorate %>
+
+<div class="authorization-request-card authorization-request-card__small authorization-request fr-mb-3w" id="<%= dom_id(authorization_request) %>">
+  <div class="card-wrapper">
+    <div class="card-badge">
+        <span class="fr-badge">
+          N°<%= authorization_request.id %>
+        </span>
+
+      <% if authorization_request.already_been_validated? %>
+          <span class="fr-badge fr-badge--success">
+            <%= t("authorization_request.status.validated") %>
+          </span>
+      <% else %>
+        <%= authorization_request_status_badge(authorization_request) %>
+
+        <% if policy(authorization_request).messages? && authorization_request.unread_messages_from_applicant_count > 0 %>
+          <div class="unread-message-dot">
+            <%= authorization_request.unread_messages_from_applicant_count %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="card-title fr-h6 fr-my-2w">
+      <%= truncate(authorization_request.name, length: 50) %>
+    </div>
+
+    <div class="card-details">
+      <% if authorization_request.only_in_contacts?(current_user) %>
+        <p class="fr-text--xs fr-text-grey fr-my-2w">
+          <%= "#{authorization_request.definition.name} - #{t('.current_user_mentions', contact_types: authorization_request.humanized_contact_types_for(current_user).to_sentence)}" %>
+        </p>
+      <% elsif authorization_request.applicant == current_user %>
+        <p class="fr-text--xs fr-text-grey fr-my-2w">
+          <%= authorization_request.definition.name + " - " + t('.current_user_is_applicant') %>
+        </p>
+      <% end %>
+    </div>
+
+    <div class="card-actions">
+      <%= link_to t('.show_cta'), authorization_request_form_path(form_uid: authorization_request.form.uid, id: authorization_request.id), class: %w(fr-btn fr-btn--sm) %>
+    </div>
+
+  </div>
+</div>
