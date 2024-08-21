@@ -50,6 +50,12 @@ class AuthorizationRequestPolicy < ApplicationPolicy
       record.applicant == user
   end
 
+  def contact_datapass_support?
+    record.definition.unique &&
+      record.validated? &&
+      record.applicant != user
+  end
+
   def send_message?
     messages?
   end
