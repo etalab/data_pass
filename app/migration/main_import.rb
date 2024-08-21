@@ -3,11 +3,12 @@ require 'csv'
 class MainImport
   include ImportUtils
 
-  attr_reader :skipped, :warned
+  attr_reader :skipped, :warned, :authorization_request_ids
 
-  def initialize
+  def initialize(authorization_request_ids: [])
     @skipped = []
     @warned = []
+    @authorization_request_ids = authorization_request_ids
   end
 
   def perform
@@ -15,7 +16,7 @@ class MainImport
     import(:users, { load_from_sql: ENV['DUMP'] == 'true' })
     authorization_requests = import(:authorization_requests, { load_from_sql: ENV['DUMP'] == 'true' })
 
-    import(:authorization_request_events, { dump_sql: ENV['DUMP'] == 'true', valid_authorization_request_ids: authorization_requests.pluck(:id) })
+    import(:authorization_request_events, { dump_sql: ENV['DUMP'] == 'true' })
 
     %i[warned skipped].each do |kind|
       export(kind)
@@ -26,7 +27,15 @@ class MainImport
   private
 
   def import(klass_name, options = {})
-    Import.const_get(klass_name.to_s.classify << 's').new(options.merge(global_options)).perform
+    if authorization_request_ids.any?
+      options[:authorization_request_ids] = authorization_request_ids
+
+      options[:authorization_requests_sql_where] = "id IN (#{authorization_request_ids.join(',')})"
+      options[:users_sql_where] = "id IN (select user_id from events where authorization_request_id IN (#{authorization_request_ids.join(',')})) or id IN (select user_id from enrollments where id IN(#{authorization_request_ids.join(',')}))"
+      options[:authorization_request_events_sql_where] = "authorization_request_id IN (#{authorization_request_ids.join(',')})"
+    end
+
+    Import.const_get(klass_name.to_s.classify << 's').new(global_options.merge(options)).perform
   end
 
   def export(kind)
@@ -76,9 +85,5 @@ class MainImport
       skipped: @skipped,
       warned: @warned,
     }
-  end
-
-  def authorization_request_ids
-    @authorization_request_ids ||= @authorization_requests.map(&:id)
   end
 end

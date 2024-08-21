@@ -44,25 +44,28 @@ class ImportDataInLocalDb
           CREATE TABLE users (
             id INTEGER PRIMARY KEY,
             uid TEXT,
-            email TEXT
+            email TEXT,
+            raw_data TEXT
           );
           create unique index users_id_index on users (id);
         ",
-        insert_statement: "INSERT INTO users (id, uid, email) VALUES (?, ?, ?)",
-        insert_data: ->(row) { [row['id'], row['uid'], row['email']] },
+        insert_statement: "INSERT INTO users (id, uid, email, raw_data) VALUES (?, ?, ?, ?)",
+        insert_data: ->(row) { [row['id'], row['uid'], row['email'], row.to_a.to_json] },
       },
       'events' => {
         table: "
           create table events (
             id INTEGER PRIMARY KEY,
+            user_id INTEGER,
             authorization_request_id INTEGER,
             created_at DATETIME,
             raw_data TEXT
           );
-          create index authorization_request_id_index on events (authorization_request_id);
+          create index authorization_request_events_user_id_index on events (user_id);
+          create index authorization_request_events_authorization_request_id_index on events (authorization_request_id);
         ",
-        insert_statement: "insert into events (id, authorization_request_id, created_at, raw_data) values (?, ?, ?, ?)",
-        insert_data: ->(row) { [row['id'], row['enrollment_id'], row['created_at'], row.to_a.to_json] }
+        insert_statement: "insert into events (id, user_id, authorization_request_id, created_at, raw_data) values (?, ?, ?, ?, ?)",
+        insert_data: ->(row) { [row['id'], row['user_id'], row['enrollment_id'], row['created_at'], row.to_a.to_json] }
       },
       'team_members' => {
         table: "
@@ -84,14 +87,16 @@ class ImportDataInLocalDb
             id INTEGER PRIMARY KEY,
             target_api TEXT,
             status TEXT,
+            user_id INTEGER,
             copied_from_enrollment_id INTEGER,
             raw_data TEXT
           );
           create index enrollment_id_index on enrollments (id);
+          create index enrollment_user_id_index on enrollments (user_id);
           create index enrollment_target_api_index on enrollments (target_api);
         ",
-        insert_statement: "insert into enrollments (id, target_api, status, copied_from_enrollment_id, raw_data) values (?, ?, ?, ?, ?)",
-        insert_data: ->(row) { [row['id'], row['target_api'], row['status'], row['copied_from_enrollment_id'], row.to_a.to_json] }
+        insert_statement: "insert into enrollments (id, target_api, status, user_id, copied_from_enrollment_id, raw_data) values (?, ?, ?, ?, ?, ?)",
+        insert_data: ->(row) { [row['id'], row['target_api'], row['status'], row['user_id'], row['copied_from_enrollment_id'], row.to_a.to_json] }
       },
       'snapshots' => {
         table: "
