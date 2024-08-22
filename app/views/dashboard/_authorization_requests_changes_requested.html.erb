@@ -1,9 +1,9 @@
-<h3 class="with-icon fr-mt-8w fr-mb-4w dashboard-title__panel">
+<h3 class="with-icon fr-mt-8w fr-mb-4w dashboard-title__panel fr-text-title--blue-france">
   <%= image_tag("authorization_requests/changes_requested-icon.svg") %>
   <%= t("dashboard.authorization_requests.changes_requested_title") %>
 </h3>
 
-<div class="fr-grid-row fr-grid-row--gutters dashboard-background__panel">
+<div class="fr-grid-row fr-grid-row--gutters fr-background-contrast--info">
   <% authorization_requests.each do |authorization_request| %>
     <div class="fr-col-12 fr-col-sm-8 fr-col-md-6 fr-col-lg-4 fr-col-xl-4 ">
       <%= render partial: 'authorization_request_card_small', locals: { authorization_request: } %>
