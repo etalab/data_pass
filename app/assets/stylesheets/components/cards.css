@@ -36,3 +36,9 @@
 .authorization-request-card__small .card__badge {
   flex-direction: row;
 }
+
+.authorization-request-card__small .card__actions {
+  position: absolute;
+  right: 1.5rem;
+  bottom: 1.5rem;
+}
