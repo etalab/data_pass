@@ -41,6 +41,11 @@
     <div class="card__actions flex-end__content">
       <%= link_to t('.show_cta'), authorization_request_form_path(form_uid: authorization_request.form.uid, id: authorization_request.id), class: %w(fr-btn fr-btn--sm) %>
     </div>
-
   </div>
+
+  <% if policy(authorization_request).messages? && authorization_request.unread_messages_from_applicant_count > 0 %>
+    <div class="unread-message-dot">
+      <%= authorization_request.unread_messages_from_applicant_count %>
+    </div>
+  <% end %>
 </div>

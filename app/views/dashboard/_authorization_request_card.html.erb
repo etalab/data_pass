@@ -75,16 +75,9 @@
     <%= render partial: 'card_reopening_footer', locals: { authorization_request: authorization_request } %>
   <% end %>
 
-          <% if policy(authorization_request).messages? && authorization_request.unread_messages_from_applicant_count > 0 %>
-            <div class="unread-message-dot">
-              <%= authorization_request.unread_messages_from_applicant_count %>
-            </div>
-          <% end %>
-        </div>
-      </div>
-      <div class="reopening__link">
-        <%= link_to t('.show_cta'), authorization_request_form_path(form_uid: authorization_request.form.uid, id: authorization_request.id), class: %w(fr-text--sm fr-icon-arrow-right-line fr-link--icon-right) %>
-      </div>
+  <% if policy(authorization_request).messages? && authorization_request.unread_messages_from_applicant_count > 0 %>
+    <div class="unread-message-dot">
+      <%= authorization_request.unread_messages_from_applicant_count %>
     </div>
   <% end %>
 </div>
