@@ -23,7 +23,7 @@ api-particulier-abelium:
   description: &api_particulier_form_description_petite_enfance |
     Gestion des structures de petites enfances, enfance et jeunesse
   authorization_request: APIParticulier
-  use_case: portail_famille_tarification
+  use_case: tarification_municipale_enfance
   editor_id: abelium
   introduction: &api_particulier_introduction_editor_with_editable_scopes |
     Ce formulaire simplifié vous permet d'obtenir une habilitation pour le logiciel %{form_name} de l'éditeur %{editor_name}.
@@ -55,7 +55,7 @@ api-particulier-abelium:
     intitule: Domino web 2.0 | Gestion des structures de petites enfances, enfance et jeunesse
     description: |
       Gestion des structures de petite enfance, enfance, jeunesse pour la facturation de la cantine le service periscolaire et extrascolaire
-    cadre_juridique_nature: &api_particulier_cadre_juridique_nature_portail_famille |
+    cadre_juridique_nature: &api_particulier_cadre_juridique_nature_tarification_municipale_enfance |
       L'Article L114-8 du Code des relations entre le public et l'administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usage
 
       L'article R531-52 du Code de l'éducation donne compétence aux collectivités pour fixer les tarifs des cantines.
@@ -79,7 +79,7 @@ api-particulier-arpege-concerto:
   description: &api_particulier_form_description_tarification_qf |
     Tarification sur Quotient Familial des prestations
   authorization_request: APIParticulier
-  use_case: portail_famille_tarification
+  use_case: tarification_municipale_enfance
   editor_id: arpege
   introduction: &api_particulier_introduction_editor_with_fixed_scopes |
     Ce formulaire simplifié vous permet d'obtenir une habilitation pour le logiciel %{form_name} de l'éditeur %{editor_name}.
@@ -125,7 +125,7 @@ api-particulier-cantine-de-france:
   name: Cantines de France
   description: *api_particulier_form_description_tarification_qf
   authorization_request: APIParticulier
-  use_case: portail_famille_tarification
+  use_case: tarification_municipale_enfance
   introduction: *api_particulier_introduction_editor_with_fixed_scopes
   editor_id: jdealise
   steps: *api_particulier_editor_steps_with_fixed_scopes
@@ -164,7 +164,7 @@ api-particulier-cantine-de-france:
 api-particulier-agora-plus:
   name: Agora Plus
   description: *api_particulier_form_description_tarification_qf
-  use_case: portail_famille_tarification
+  use_case: tarification_municipale_enfance
   introduction: *api_particulier_introduction_editor_with_fixed_scopes
   authorization_request: APIParticulier
   editor_id: agora_plus
@@ -185,7 +185,7 @@ api-particulier-agora-plus:
       et adultes)
     description: |
       Récupération des données nécessaires pour le calcul des tarifs des différentes prestations
-    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_portail_famille
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_municipale_enfance
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -204,7 +204,7 @@ api-particulier-amiciel-malice:
   description: *api_particulier_form_description_tarification_qf
   introduction: *api_particulier_introduction_editor_with_fixed_scopes
   authorization_request: APIParticulier
-  use_case: portail_famille_tarification
+  use_case: tarification_municipale_enfance
   editor_id: amiciel
   steps: *api_particulier_editor_steps_with_fixed_scopes
   static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
@@ -319,7 +319,7 @@ api-particulier-city-family-mushroom-software:
   steps: *api_particulier_editor_steps_with_editable_scopes
   static_blocks: *api_particulier_editor_static_blocks_with_editable_scopes
   authorization_request: APIParticulier
-  use_case: portail_famille_tarification
+  use_case: tarification_municipale_enfance
   editor_id: mushroom_software
   scopes_config:
     disabled:
@@ -351,7 +351,7 @@ api-particulier-civil-enfance-ciril-group:
   introduction: *api_particulier_introduction_editor_with_fixed_scopes
   steps: *api_particulier_editor_steps_with_fixed_scopes
   static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
-  use_case: portail_famille_tarification
+  use_case: tarification_municipale_enfance
   editor_id: ciril_group
   data:
     intitule: Déclaration et calcul du quotient familial pour la facturation des activités
@@ -376,7 +376,7 @@ api-particulier-cosoluce-fluo:
   introduction: *api_particulier_introduction_editor_with_fixed_scopes
   steps: *api_particulier_editor_steps_with_fixed_scopes
   static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
-  use_case: portail_famille_tarification
+  use_case: tarification_municipale_enfance
   editor_id: cosoluce
 
   scopes_config:
@@ -407,7 +407,7 @@ api-particulier-nfi:
   introduction: *api_particulier_introduction_editor_with_editable_scopes
   steps: *api_particulier_editor_steps_with_editable_scopes
   static_blocks: *api_particulier_editor_static_blocks_with_editable_scopes
-  use_case: portail_famille_tarification
+  use_case: tarification_municipale_enfance
   editor_id: nfi
   scopes_config:
     disabled:
@@ -442,7 +442,7 @@ api-particulier-technocarte-ile:
   introduction: *api_particulier_introduction_editor_with_fixed_scopes
   steps: *api_particulier_editor_steps_with_fixed_scopes
   static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
-  use_case: portail_famille_tarification
+  use_case: tarification_municipale_enfance
   editor_id: technocarte
   scopes_config:
     disabled:
@@ -469,7 +469,7 @@ api-particulier-waigeo-myperischool:
   name: MyPérischool
   description: *api_particulier_form_description_tarification_qf
   authorization_request: APIParticulier
-  use_case: portail_famille_tarification
+  use_case: tarification_municipale_enfance
   editor_id: waigeo
   introduction: *api_particulier_introduction_editor_with_fixed_scopes
   steps: *api_particulier_editor_steps_with_fixed_scopes
@@ -498,7 +498,7 @@ api-particulier-3d-ouest:
   name: Logiciel Enfance
   description: *api_particulier_form_description_tarification_qf
   authorization_request: APIParticulier
-  use_case: portail_famille_tarification
+  use_case: tarification_municipale_enfance
   editor_id: 3d_ouest
 
   introduction: *api_particulier_introduction_editor_with_fixed_scopes
@@ -542,7 +542,7 @@ api-particulier-agedi-proxima-enf:
   name: Proxima.ENF
   description: Portail famille
   authorization_request: APIParticulier
-  use_case: portail_famille_tarification
+  use_case: tarification_municipale_enfance
   editor_id: agedi
   public: false
   introduction: *api_particulier_introduction_editor_with_editable_scopes
@@ -561,7 +561,7 @@ api-particulier-agedi-proxima-enf:
     intitule: Tarification service enfance et récupération des quotients familiaux
     description: |
       Le logiciel Proxima.ENF permet la mise à jour des données familles dans le cadre d'un logiciel de gestion de l'accueil de l'enfance
-    cadre_juridique_nature: &api_particulier_cadre_juridique_portail_famille |
+    cadre_juridique_nature: &api_particulier_cadre_juridique_tarification_municipale_enfance |
       Cadre légal général : L'Article L114-8 du Code des relations entre le public et l'administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager
     scopes:
       - cnaf_quotient_familial
@@ -581,7 +581,7 @@ api-particulier-ecorestauration-loyfeey:
   name: Loyfeey
   description: Portail famille
   authorization_request: APIParticulier
-  use_case: portail_famille_tarification
+  use_case: tarification_municipale_enfance
   editor_id: ecorestauration
   public: false
   introduction: *api_particulier_introduction_editor_with_fixed_scopes
@@ -603,7 +603,7 @@ api-particulier-ecorestauration-loyfeey:
     intitule: Tarification sur Quotient Familial des cantines
     description: |
       Logiciel utilisé à travers d'un front pour les inscriptions à la restauration scolaire (fournissent leurs information à la collectivité par l'API sans envoyer de document ou se déplacer) et par des agents habilités en back-office (récupèrent les informations familles des parents qui inscrivent leurs enfants à la restauration scolaire et obtiennent le résultat du calcul tarifaire automatique effectué par Loyfeey à partir des revenus de l'API)
-    cadre_juridique_nature: *api_particulier_cadre_juridique_portail_famille
+    cadre_juridique_nature: *api_particulier_cadre_juridique_tarification_municipale_enfance
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -676,7 +676,7 @@ api-particulier-aiga:
     intitule: Tarification sur Quotient Familial des cantines
     description: |
       Gestion de la tarification de la cantine en backoffice par des agents habilités
-    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_portail_famille
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_municipale_enfance
     scopes:
       - cnaf_quotient_familial
     contact_technique_type: 'organization'
@@ -696,7 +696,7 @@ api-particulier-bl-enfance-berger-levrault:
     périscolaires et loisirs
   authorization_request: APIParticulier
   single_page_view: 'api_particulier_through_editor'
-  use_case: portail_famille_tarification
+  use_case: tarification_municipale_enfance
   editor_id: berger_levrault
   static_blocks: &api_particulier_through_editor_static_blocks
     - name: basic_infos
@@ -728,7 +728,7 @@ api-particulier-docaposte-fast:
   description: Récupération du Quotient Familial ainsi que les informations administratives
     (CAF et Impôts) pour les services Cantine et Garderie
   authorization_request: APIParticulier
-  use_case: portail_famille_tarification
+  use_case: tarification_municipale_enfance
   single_page_view: 'api_particulier_through_editor_without_contact_technique'
   editor_id: docaposte
   static_blocks: *api_particulier_through_editor_static_blocks
@@ -761,7 +761,7 @@ api-particulier-odyssee-informatique-pandore:
   description: Récupération des données CNAF pour les services municipaux
   authorization_request: APIParticulier
   single_page_view: 'api_particulier_through_editor'
-  use_case: portail_famille_tarification
+  use_case: tarification_municipale_enfance
   editor_id: odyssee_informatique
   static_blocks: *api_particulier_through_editor_static_blocks
   data:
@@ -794,7 +794,7 @@ api-particulier-qiis-eticket:
   name: eTicket
   description: eTicket - Portail Famille
   authorization_request: APIParticulier
-  use_case: portail_famille_tarification
+  use_case: tarification_municipale_enfance
   single_page_view: 'api_particulier_through_editor'
   editor_id: qiis
   static_blocks: *api_particulier_through_editor_static_blocks
@@ -825,7 +825,7 @@ api-particulier-teamnet-axel:
   description: Déclaration des revenus et calcul du quotient familial pour actualiser
     les tarifs appliqués aux différentes prestations facturées
   authorization_request: APIParticulier
-  use_case: portail_famille_tarification
+  use_case: tarification_municipale_enfance
   single_page_view: 'api_particulier_through_editor_without_contact_technique'
   editor_id: teamnet
   static_blocks: *api_particulier_through_editor_static_blocks
@@ -852,7 +852,7 @@ api-particulier-jvs-parascol:
   description: Facturation des familles pour les services périscolaires et loisirs
   authorization_request: APIParticulier
   single_page_view: 'api_particulier_through_editor_without_contact_technique'
-  use_case: portail_famille_tarification
+  use_case: tarification_municipale_enfance
   editor_id: jvs_mairistem
   static_blocks: *api_particulier_through_editor_static_blocks
   data:
@@ -883,7 +883,7 @@ api-particulier-entrouvert-publik:
   description: Calcul du tarif des activités péri-extrascolaires, petite enfance,
     socio-culturelles et sportives pour les enfants ou les adultes inscrits
   authorization_request: APIParticulier
-  use_case: portail_famille_tarification
+  use_case: tarification_municipale_enfance
   single_page_view: 'api_particulier_through_editor_without_contact_technique'
   editor_id: entrouvert
   static_blocks: *api_particulier_through_editor_static_blocks
@@ -894,7 +894,7 @@ api-particulier-entrouvert-publik:
       socio-culturelles et sportives pour la facturation des familles qui effectuent
       leurs démarches en ligne via la plateforme de Gestion de la relation usager
       Publik de la collectivité, éditée par la société Entr'ouvert
-    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_portail_famille
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_municipale_enfance
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -947,7 +947,7 @@ api-particulier-coexya:
   description: Tarification sociale et solidaires des transports
   authorization_request: APIParticulier
   single_page_view: 'api_particulier_through_editor'
-  use_case: portail_famille_tarification
+  use_case: tarification_municipale_enfance
   editor_id: coexya
   static_blocks: *api_particulier_through_editor_static_blocks
   data:
@@ -975,7 +975,7 @@ api-particulier-sigec-maelis:
   description: Récupération des données CNAF pour les services municipaux
   authorization_request: APIParticulier
   single_page_view: 'api_particulier_through_editor'
-  use_case: portail_famille_tarification
+  use_case: tarification_municipale_enfance
   editor_id: sigec
   static_blocks: *api_particulier_through_editor_static_blocks
   data:
