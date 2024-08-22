@@ -6,7 +6,7 @@
 <div class="fr-grid-row fr-grid-row--center fr-grid-row--middle">
   <% authorization_requests.each do |authorization_request| %>
     <div class="fr-col-12">
-      <%= render partial: 'authorization_request_card', locals: { authorization_request: } %>
+      <%= render partial: 'dashboard/card/authorization_request_card', locals: { authorization_request: } %>
     </div>
   <% end %>
 </div>

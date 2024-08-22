@@ -72,7 +72,7 @@
   </div>
 
   <% if authorization_request.reopening? %>
-    <%= render partial: 'card_reopening_footer', locals: { authorization_request: authorization_request } %>
+    <%= render partial: 'dashboard/card/card_reopening_footer', locals: { authorization_request: authorization_request } %>
   <% end %>
 
   <% if policy(authorization_request).messages? && authorization_request.unread_messages_from_applicant_count > 0 %>

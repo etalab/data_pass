@@ -119,22 +119,24 @@ fr:
       pending_title: Demandes en cours d'instruction
       changes_requested_title: Demandes à modifier
 
-    authorization_request_card:
-      current_user_mentions: Vous avez été référencé comme %{contact_types}
-      current_user_is_applicant: Vous êtes le demandeur
-      created_at: Créée le
-      show_cta: Consulter
-      access_link_cta: Récupérer mon accès
-      reopen_cta: Mettre à jour
+    card:
+      authorization_request_card:
+        current_user_mentions: Vous avez été référencé comme %{contact_types}
+        current_user_is_applicant: Vous êtes le demandeur
+        created_at: Créée le
+        show_cta: Consulter
+        access_link_cta: Récupérer mon accès
+        reopen_cta: Mettre à jour
 
-    card_reopening_footer:
-      reopen_title: Demande de mise à jour
-      reopen_date: Fait le
+      card_reopening_footer:
+        reopen_title: Demande de mise à jour
+        reopen_date: Fait le
+        show_cta: Consulter
 
-    authorization_request_card_small:
-      current_user_mentions: Vous avez été référencé comme %{contact_types}
-      current_user_is_applicant: Vous êtes le demandeur
-      show_cta: Consulter
+      authorization_request_card_small:
+        current_user_mentions: Vous avez été référencé comme %{contact_types}
+        current_user_is_applicant: Vous êtes le demandeur
+        show_cta: Consulter
 
   profile:
     edit:
