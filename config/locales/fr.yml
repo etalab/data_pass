@@ -125,9 +125,11 @@ fr:
       created_at: Créée le
       show_cta: Consulter
       access_link_cta: Récupérer mon accès
+      reopen_cta: Mettre à jour
+
+    card_reopening_footer:
       reopen_title: Demande de mise à jour
       reopen_date: Fait le
-      reopen_cta: Mettre à jour
 
     authorization_request_card_small:
       current_user_mentions: Vous avez été référencé comme %{contact_types}

@@ -72,20 +72,8 @@
   </div>
 
   <% if authorization_request.reopening? %>
-    <div class="reopening__footer fr-p-3w fr-background-alt--grey">
-      <div class="reopening__content flex-space-between__content fr-mb-3v">
-        <div>
-          <p class="reopening__title fr-text-title--blue-france fr-text--md font-weight-700 fr-m-0">
-            <%= t('.reopen_title') %>
-          </p>
-
-          <p class="fr-text--sm fr-mb-0">
-            <%= t('.reopen_date') %> <%= l authorization_request.reopened_at, format: '%d/%m/%Y' %>
-          </p>
-        </div>
-
-        <div class="reopening__badge">
-          <%= authorization_request_status_badge(authorization_request) %>
+    <%= render partial: 'card_reopening_footer', locals: { authorization_request: authorization_request } %>
+  <% end %>
 
           <% if policy(authorization_request).messages? && authorization_request.unread_messages_from_applicant_count > 0 %>
             <div class="unread-message-dot">
