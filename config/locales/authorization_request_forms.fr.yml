@@ -315,6 +315,8 @@ fr:
       <<: *api_particulier_editor_common_wordings
     api_particulier_kosmos_education:
       <<: *api_particulier_editor_common_wordings
+    api_particulier_monkey_factory_maasify:
+      <<: *api_particulier_editor_common_wordings
 
     api_particulier_tarification_municipale_enfance:
       description:
