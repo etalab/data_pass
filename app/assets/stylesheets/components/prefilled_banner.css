@@ -1,12 +1,10 @@
-.prefilled-banner .fr-notice__title {
-    display: block;
-    color: var(--text-default-grey);
-    font-size: 1.375rem;
-    font-weight: 700;
-    line-height: 1.74rem;
+.prefilled-banner .fr-notice__body_align {
+    display: flex;
+    align-items: center;
 }
 
-
-.prefilled-banner .fr-notice__desc {
-    color: var(--text-default-grey);
+.prefilled-banner .fr-notice__title {
+    display: block;
+    font-size: 1.375rem;
+    line-height: 1.74rem;
 }
