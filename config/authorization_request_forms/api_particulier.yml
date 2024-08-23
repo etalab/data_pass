@@ -150,6 +150,7 @@ api-particulier-cantine-de-france:
       - Les nouvelles familles arrivant sur la commune peuvent lors de la création de leurs comptes remonter l'ensemble des informations administratives grâce à API particulier,
       - Avoir la mise à jour des QF afin de mettre à jour les facturations des familles,
       - Dématérialiser les mises à jour de ces informations et de limiter les déplacements en mairie ou échange de courriers.
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_qf
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
