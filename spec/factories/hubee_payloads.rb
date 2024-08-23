@@ -82,6 +82,12 @@ FactoryBot.define do
       processCode { 'CERTDC' }
     end
 
+    HubEEDilaBridge::PROCESS_CODES.each do |scope, process_code|
+      trait scope do
+        processCode { process_code }
+      end
+    end
+
     factory :hubee_subscription_response_payload do
       id { '22' }
       accessMode { nil }

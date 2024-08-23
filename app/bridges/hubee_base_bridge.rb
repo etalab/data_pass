@@ -1,11 +1,5 @@
 class HubEEBaseBridge < ApplicationBridge
-  
   protected
-
-  def create_and_store_subscription(organization_hubee_payload, process_code)
-    subscription_hubee_payload = hubee_api_client.create_subscription(subscription_body(organization_hubee_payload, process_code))
-    authorization_request.update!(linked_token_manager_id: subscription_hubee_payload['id'])
-  end
 
   def organization_create_payload
     {
