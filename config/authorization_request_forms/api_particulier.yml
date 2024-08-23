@@ -122,7 +122,7 @@ api-particulier-arpege-concerto:
 # 1. Contact technique renseigné, non modifiable
 # 2. Scopes non modifiables
 api-particulier-cantine-de-france:
-  name: Cantines de France
+  name: Cantine de France
   description: *api_particulier_form_description_tarification_qf
   authorization_request: APIParticulier
   use_case: portail_famille_tarification
@@ -145,7 +145,11 @@ api-particulier-cantine-de-france:
     intitule: Récupération du Quotient Familial ainsi que les informations administratives
       (CAF et Impôts) pour les services Cantine et Garderie
     description: |
-      La solution propose 3 portails, un dédié aux famille pour réaliser toutes les démarches, un second pour les gestionnaires de la collectivité et le dernier pour les agents pour réaliser le pointage sur une tablette ou un PC
+       Récupération du Quotient Familial ainsi que les informations administratives (CAF et Impôts) pour les services péri et extra-scolaires. La mairie souhaite bénéficier du service API Particulier pour les besoins suivants :
+        - Le tarif des prestations de la collectivité est indexé sur le QF de chaque famille,
+        - Les nouvelles familles arrivant sur la commune peuvent lors de la création de leurs comptes remonter l'ensemble des informations administratives grâce à API particulier,
+        - Avoir la mise à jour des QF afin de mettre à jour les facturations des familles,
+        - Dématérialiser les mises à jour de ces informations et de limiter les déplacements en mairie ou échange de courriers.
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_qf
     scopes:
       - cnaf_quotient_familial
