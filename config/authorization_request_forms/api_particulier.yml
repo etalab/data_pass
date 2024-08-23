@@ -146,10 +146,10 @@ api-particulier-cantine-de-france:
       (CAF et Impôts) pour les services Cantine et Garderie
     description: |
        Récupération du Quotient Familial ainsi que les informations administratives (CAF et Impôts) pour les services péri et extra-scolaires. La mairie souhaite bénéficier du service API Particulier pour les besoins suivants :
-      - Le tarif des prestations de la collectivité est indexé sur le QF de chaque famille,
-      - Les nouvelles familles arrivant sur la commune peuvent lors de la création de leurs comptes remonter l'ensemble des informations administratives grâce à API particulier,
-      - Avoir la mise à jour des QF afin de mettre à jour les facturations des familles,
-      - Dématérialiser les mises à jour de ces informations et de limiter les déplacements en mairie ou échange de courriers.
+        - Le tarif des prestations de la collectivité est indexé sur le QF de chaque famille,
+        - Les nouvelles familles arrivant sur la commune peuvent lors de la création de leurs comptes remonter l'ensemble des informations administratives grâce à API particulier,
+        - Avoir la mise à jour des QF afin de mettre à jour les facturations des familles,
+        - Dématérialiser les mises à jour de ces informations et de limiter les déplacements en mairie ou échange de courriers.
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_qf
     scopes:
       - cnaf_quotient_familial
