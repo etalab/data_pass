@@ -64,6 +64,9 @@ shared:
   entrouvert:
     name: Entrouvert
     siret: '49108189900032'
+  exteno-partner:
+    name: Extenso Partner
+    siret: '79071848000037'
   jvs_mairistem:
     name: JVS-Mairistem
     siret: '32855218700069'
