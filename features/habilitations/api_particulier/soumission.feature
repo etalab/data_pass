@@ -269,7 +269,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
     Exemples:
       | Nom du formulaire     | Nom de l'éditeur          |
       | Agora Plus            | Agora Plus                |
-      | Cantines de France    | JDéalise                  |
+      | Cantine de France    | JDéalise                  |
       | Malice                | Amiciel                   |
       | Logiciel Enfance      | 3D Ouest                  |
       | MyPérischool          | Waigeo                    |
