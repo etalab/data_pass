@@ -18,6 +18,10 @@
             <p class="fr-text--xs fr-text-grey fr-my-2w">
               <%= "#{authorization_request.definition.name} - #{t('.current_user_is_applicant')}" %>
             </p>
+          <% else %>
+            <p class="fr-text--xs fr-text-grey fr-my-2w">
+              <%= "#{t('dashboard.card.authorization_request_card.applicant_request', definition_name: authorization_request.definition.name, applicant_full_name: authorization_request.applicant.full_name)}" %>
+            </p>
           <% end %>
         </div>
 
@@ -30,7 +34,7 @@
 
       <%= render partial: 'dashboard/card/card_badge', locals: { authorization_request: authorization_request } %>
     </div>
-    
+
     <div class="card__actions flex-space-between__content">
       <div class="card__access_link">
         <% if authorization_request.access_link && authorization_request.validated? %>
