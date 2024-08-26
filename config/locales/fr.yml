@@ -134,8 +134,6 @@ fr:
         show_cta: Consulter
 
       authorization_request_card_small:
-        current_user_mentions: Vous avez été référencé comme %{contact_types}
-        current_user_is_applicant: Vous êtes le demandeur
         show_cta: Consulter
 
   profile:

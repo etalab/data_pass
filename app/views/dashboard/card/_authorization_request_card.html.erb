@@ -30,8 +30,7 @@
 
       <%= render partial: 'dashboard/card/card_badge', locals: { authorization_request: authorization_request } %>
     </div>
-
-
+    
     <div class="card__actions flex-space-between__content">
       <div class="card__access_link">
         <% if authorization_request.access_link && authorization_request.validated? %>

@@ -1,23 +1,24 @@
 <% authorization_request = authorization_request.decorate %>
 
 <div class="authorization-request-card authorization-request-card__small authorization-request fr-background-default--grey height-100 fr-mb-3w" id="<%= dom_id(authorization_request) %>">
-  <div class="card__wrapper fr-p-3w">
+  <div class="card__wrapper fr-p-4w">
     <%= render partial: 'dashboard/card/card_badge', locals: { authorization_request: authorization_request } %>
+
+
+    <div class="card__details">
+      <p class="fr-text--xs fr-text-grey fr-my-2w">
+        <%= "#{authorization_request.definition.name}" %>
+      </p>
+    </div>
 
     <div class="card__title fr-text-title--blue-france fr-h6 fr-my-2w">
       <%= truncate(authorization_request.name, length: 50) %>
     </div>
 
-    <div class="card__details">
-      <% if authorization_request.only_in_contacts?(current_user) %>
-        <p class="fr-text--xs fr-text-grey fr-my-2w">
-          <%= "#{authorization_request.definition.name} - #{t('.current_user_mentions', contact_types: authorization_request.humanized_contact_types_for(current_user).to_sentence)}" %>
-        </p>
-      <% elsif authorization_request.applicant == current_user %>
-        <p class="fr-text--xs fr-text-grey fr-my-2w">
-          <%= "#{authorization_request.definition.name} - #{t('.current_user_is_applicant')}" %>
-        </p>
-      <% end %>
+    <div class="card__desc">
+      <p class="fr-text--sm">
+        <%= t('dashboard.card.authorization_request_card.created_at') %> <%= l(authorization_request.created_at, format: '%d/%m/%Y') %>
+      </p>
     </div>
 
     <div class="card__actions flex-end__content">
