@@ -30,7 +30,7 @@
 
       <div class="card__badge">
         <span class="fr-badge">
-          N°<%= authorization_request.id %>
+          <%= t("authorization_request.badge", id: authorization_request.id) %>
         </span>
 
         <% if authorization_request.already_been_validated? %>
