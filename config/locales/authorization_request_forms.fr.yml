@@ -309,7 +309,7 @@ fr:
       <<: *api_particulier_editor_common_wordings
     api_particulier_jcdeveloppement_familyclic:
       <<: *api_particulier_editor_common_wordings
-    api_particulier_extenso-partner_extenso-cloud:
+    api_particulier_extenso_partner_extenso-cloud:
       <<: *api_particulier_editor_common_wordings
 
     api_particulier_tarification_municipale_enfance:
