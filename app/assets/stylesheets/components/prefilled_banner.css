@@ -1,8 +1,3 @@
-.prefilled-banner .fr-notice__body_align {
-    display: flex;
-    align-items: center;
-}
-
 .prefilled-banner .fr-notice__title {
     display: block;
     font-size: 1.375rem;
