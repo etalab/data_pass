@@ -28,25 +28,7 @@
         </div>
       </div>
 
-      <div class="card__badge">
-        <span class="fr-badge">
-          <%= t("authorization_request.badge", id: authorization_request.id) %>
-        </span>
-
-        <% if authorization_request.already_been_validated? %>
-          <span class="fr-badge fr-badge--success">
-            <%= t("authorization_request.status.validated") %>
-          </span>
-        <% else %>
-          <%= authorization_request_status_badge(authorization_request) %>
-
-          <% if policy(authorization_request).messages? && authorization_request.unread_messages_from_applicant_count > 0 %>
-            <div class="unread-message-dot">
-              <%= authorization_request.unread_messages_from_applicant_count %>
-            </div>
-          <% end %>
-        <% end %>
-      </div>
+      <%= render partial: 'dashboard/card/card_badge', locals: { authorization_request: authorization_request } %>
     </div>
 
 

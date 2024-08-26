@@ -9,7 +9,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 0.5rem;
+  gap: 1rem;
 }
 
 .authorization-request-card .card__actions {
@@ -35,6 +35,7 @@
 
 .authorization-request-card__small .card__badge {
   flex-direction: row;
+  gap: 0.5rem;
 }
 
 .authorization-request-card__small .card__actions {
