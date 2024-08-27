@@ -33,6 +33,8 @@ def extract_state_from_french_status(status)
     'submitted'
   when 'brouillon', 'brouillons'
     'draft'
+  when 'brouillon et rempli', 'brouillons et remplis'
+    'draft_and_filled'
   when 'refusée', 'refusées'
     'refused'
   when 'validée', 'validées'
