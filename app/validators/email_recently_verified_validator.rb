@@ -8,8 +8,12 @@ class EmailRecentlyVerifiedValidator < ActiveModel::EachValidator
 
     if verified_email.blank?
       record.errors.add(attribute, :email_deliverability_unknown)
+
+      track_errors_on_sentry(record, attribute, :email_deliverability_unknown)
     elsif verified_email.unreachable?
       record.errors.add(attribute, :email_unreachable)
+
+      track_errors_on_sentry(record, attribute, :email_unreachable)
     end
   end
 
@@ -17,5 +21,17 @@ class EmailRecentlyVerifiedValidator < ActiveModel::EachValidator
 
   def create_or_refresh_verified_email!(email)
     EmailVerifierJob.new.perform(email)
+  end
+
+  def track_errors_on_sentry(record, attribute, error_type)
+    Sentry.capture_message(
+      'Fail to verify email deliverability',
+      extra: {
+        attribute:,
+        record_id: record.id,
+        record_type: record.class.name,
+        error_type:,
+      }
+    )
   end
 end
