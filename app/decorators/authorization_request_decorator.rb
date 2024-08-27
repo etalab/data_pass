@@ -47,6 +47,8 @@ class AuthorizationRequestDecorator < ApplicationDecorator
   end
 
   def prefilled_data?(keys)
+    return false unless object.form.multiple_steps?
+
     object.form.data.keys.intersect?(keys.map(&:to_sym))
   end
 
