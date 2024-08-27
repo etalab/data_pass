@@ -6,6 +6,10 @@ class EmailRecentlyVerifiedValidatable
     @email = email
   end
 
+  def id
+    1
+  end
+
   validates :email, email_recently_verified: true
 end
 
