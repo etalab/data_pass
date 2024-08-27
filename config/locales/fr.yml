@@ -121,9 +121,9 @@ fr:
 
     card:
       authorization_request_card:
-        current_user_mentions: Vous avez été référencé comme %{contact_types}
-        current_user_is_applicant: Vous êtes le demandeur
-        applicant_request: "%{definition_name} - %{applicant_full_name} a fait la demande"
+        current_user_mentions: "%{definition_name} - Vous avez été référencé comme %{contact_types}"
+        current_user_is_applicant: "%{definition_name} - Vous êtes le demandeur"
+        applicant_request: "%{definition_name} - %{applicant_full_name} est le demandeur"
         created_at: Créée le
         show_cta: Consulter
         access_link_cta: Récupérer mon accès

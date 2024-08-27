@@ -11,18 +11,9 @@
         </div>
 
         <div class="card__details">
-          <% if authorization_request.only_in_contacts?(current_user) %>
-            <p class="fr-text--xs fr-text-grey fr-my-2w">
-              <%= "#{authorization_request.definition.name} - #{t('.current_user_mentions', contact_types: authorization_request.humanized_contact_types_for(current_user).to_sentence)}" %>            </p>
-          <% elsif authorization_request.applicant == current_user %>
-            <p class="fr-text--xs fr-text-grey fr-my-2w">
-              <%= "#{authorization_request.definition.name} - #{t('.current_user_is_applicant')}" %>
-            </p>
-          <% else %>
-            <p class="fr-text--xs fr-text-grey fr-my-2w">
-              <%= "#{t('dashboard.card.authorization_request_card.applicant_request', definition_name: authorization_request.definition.name, applicant_full_name: authorization_request.applicant.full_name)}" %>
-            </p>
-          <% end %>
+          <p class="fr-text--xs fr-text-grey fr-my-2w">
+            <%= authorization_request.card_provider_applicant_details(current_user) %>
+          </p>
         </div>
 
         <div class="card__desc">

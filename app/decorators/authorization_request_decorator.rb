@@ -54,10 +54,32 @@ class AuthorizationRequestDecorator < ApplicationDecorator
     object.name.truncate(length)
   end
 
+  def card_provider_applicant_details(user)
+    if only_in_contacts?(user)
+      current_user_is_a_contact(user)
+    elsif object.applicant == user
+      current_user_is_applicant
+    else
+      default_applicant_full_name
+    end
+  end
+
   private
 
   def lookup_i18n_key(subkey)
     t("authorization_request_forms.#{object.model_name.element}.#{subkey}", default: nil) ||
       t("authorization_request_forms.default.#{subkey}")
+  end
+
+  def current_user_is_a_contact(user)
+    t('dashboard.card.authorization_request_card.current_user_mentions', definition_name: object.definition.name, contact_types: humanized_contact_types_for(user).to_sentence)
+  end
+
+  def current_user_is_applicant
+    t('dashboard.card.authorization_request_card.current_user_is_applicant', definition_name: object.definition.name)
+  end
+
+  def default_applicant_full_name
+    t('dashboard.card.authorization_request_card.applicant_request', definition_name: object.definition.name, applicant_full_name: object.applicant.full_name)
   end
 end

@@ -7,7 +7,7 @@
 
     <div class="card__details">
       <p class="fr-text--xs fr-text-grey fr-my-2w">
-        <%= "#{authorization_request.definition.name}" %>
+        <%= authorization_request.card_provider_applicant_details(current_user) %>
       </p>
     </div>
 
