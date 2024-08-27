@@ -61,6 +61,16 @@ Fonctionnalité: Interactions sur une demande d'habilitation simple (sur une seu
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
 
+  @FlushJobQueue
+  Scénario: Je soumets une demande d'habilitation valide émettant des webhooks
+    Quand je me rends sur une demande d'habilitation "Solution ASTRE GF" en brouillon et rempli
+    Et que je clique sur "Continuer vers le résumé"
+    Et que j'adhère aux conditions générales
+    Et que je clique sur "Soumettre la demande"
+    Alors il y a un message de succès contenant "soumise avec succès"
+    Et je suis sur la page "Demandes et habilitations"
+    Et un webhook avec l'évènement "submit" est envoyé
+
   Scénario: Je démarre une demande d'habilitation avec des données pré-remplies
     Quand je veux remplir une demande pour "API Entreprise" via le formulaire "Dématérialisation des marchés publics" de l'éditeur "SETEC"
     Et que je clique sur "Débuter ma demande"

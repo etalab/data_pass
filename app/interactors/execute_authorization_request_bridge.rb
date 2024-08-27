@@ -18,6 +18,6 @@ class ExecuteAuthorizationRequestBridge < ApplicationInteractor
   end
 
   def authorization_request_class
-    context.authorization_request.class.name.split('::').last
+    context.authorization_request.class_name.split('::').last
   end
 end

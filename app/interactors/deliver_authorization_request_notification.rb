@@ -18,7 +18,7 @@ class DeliverAuthorizationRequestNotification < ApplicationInteractor
   end
 
   def notifier_klass
-    "#{context.authorization_request.class.name.demodulize}Notifier".constantize
+    "#{context.authorization_request.class_name.demodulize}Notifier".constantize
   rescue NameError
     BaseNotifier
   end
