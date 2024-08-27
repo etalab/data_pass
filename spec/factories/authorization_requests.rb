@@ -82,6 +82,11 @@ FactoryBot.define do
       state { 'draft' }
     end
 
+    trait :draft_and_filled do
+      state { 'draft' }
+      fill_all_attributes { true }
+    end
+
     trait :archived do
       state { 'archived' }
     end

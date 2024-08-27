@@ -25,6 +25,14 @@ Fonctionnalité: Instruction: modération
     Et un email est envoyé contenant "vous a désigné(e) comme Délégué à la protection des données"
     Et il y a un message de succès contenant "a été validé"
 
+  @FlushJobQueue
+  Scénario: Je valide une demande d'habilitation qui déclenche un webhook
+    Sachant que je suis un instructeur "API Entreprise"
+    Quand je me rends sur une demande d'habilitation "API Entreprise" à modérer
+    Et je clique sur "Valider"
+    Et je clique sur "Valider la demande d'habilitation"
+    Alors un webhook avec l'évènement "approve" est envoyé
+
   @AvecCourriels
   Scénario: Je refuse une demande d'habilitation avec un message valide
     Quand je me rends sur une demande d'habilitation "API Service National" à modérer
@@ -35,6 +43,15 @@ Fonctionnalité: Instruction: modération
     Et je vois 1 demande d'habilitation "API Service National" refusée
     Et un email est envoyé contenant "Vous êtes une entreprise privée"
     Et il y a un message de succès contenant "a été refusé"
+
+  @FlushJobQueue
+  Scénario: Je refuse une demande d'habilitation qui déclenche un webhook
+    Sachant que je suis un instructeur "API Entreprise"
+    Quand je me rends sur une demande d'habilitation "API Entreprise" à modérer
+    Et je clique sur "Refuser"
+    Et que je remplis "Raison du refus" avec "Vous êtes une entreprise privée"
+    Et que je clique sur "Refuser la demande d'habilitation"
+    Alors un webhook avec l'évènement "refuse" est envoyé
 
   Scénario: Je refuse une demande d'habilitation avec un message invalide
     Quand je me rends sur une demande d'habilitation "API Service National" à modérer
@@ -53,7 +70,16 @@ Fonctionnalité: Instruction: modération
     Et un email est envoyé contenant "Précisez votre cas d'usage"
     Et il y a un message de succès contenant "demande de modifications"
 
-  Scénario: Je demande des modifications sur une demande d'habilitation avec un message valide
+  @FlushJobQueue
+  Scénario: Je demande des modifications sur une demande d'habilitation qui déclenche un webhook
+    Sachant que je suis un instructeur "API Entreprise"
+    Quand je me rends sur une demande d'habilitation "API Entreprise" à modérer
+    Et je clique sur "Demander des modifications"
+    Et que je remplis "Raison de la demande de modification" avec "Précisez votre cas d'usage"
+    Et que je clique sur "Envoyer la demande de modification"
+    Alors un webhook avec l'évènement "request_changes" est envoyé
+
+  Scénario: Je demande des modifications sur une demande d'habilitation avec un message invalide
     Quand je me rends sur une demande d'habilitation "API Service National" à modérer
     Et je clique sur "Demander des modifications"
     Et que je clique sur "Envoyer la demande de modification"
@@ -65,3 +91,11 @@ Fonctionnalité: Instruction: modération
     Et je clique sur "Supprimer la demande"
     Alors je suis sur la page "Liste des demandes en cours"
     Et il y a un message de succès contenant "a été supprimée"
+
+  @FlushJobQueue
+  Scénario: Je supprime une demande d'habilitation qui déclenche un webhook
+    Sachant que je suis un instructeur "API Entreprise"
+    Quand je me rends sur une demande d'habilitation "API Entreprise" en brouillon
+    Et je clique sur "Supprimer"
+    Et je clique sur "Supprimer la demande"
+    Alors un webhook avec l'évènement "archive" est envoyé
