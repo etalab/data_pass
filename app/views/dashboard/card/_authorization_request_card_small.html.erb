@@ -12,7 +12,7 @@
     </div>
 
     <div class="card__title fr-text-title--blue-france fr-h6 fr-my-2w">
-      <%= truncate(authorization_request.name, length: 50) %>
+      <%= authorization_request.truncated_name(50) %>
     </div>
 
     <div class="card__desc">

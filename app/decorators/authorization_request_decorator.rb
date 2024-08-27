@@ -50,6 +50,10 @@ class AuthorizationRequestDecorator < ApplicationDecorator
     object.form.data.keys.intersect?(keys.map(&:to_sym))
   end
 
+  def truncated_name(length)
+    object.name.truncate(length)
+  end
+
   private
 
   def lookup_i18n_key(subkey)
