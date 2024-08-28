@@ -76,7 +76,7 @@ cucumber_options = {
   cmd_additional_args: '--format progress --publish-quiet',
 
   # all_after_pass: false,
-  # all_on_start: false,
+  all_on_start: false,
   # keep_failed: false,
   # feature_sets: ['features/frontend', 'features/experimental'],
 

@@ -26,17 +26,22 @@ RSpec.describe ApproveAuthorizationRequest do
         expect { approve_authorization_request }.to have_enqueued_mail(GDPRContactMailer, :responsable_traitement)
       end
 
-      context 'when there is a bridge' do
-        let(:authorization_request_kind) { :hubee_cert_dc }
+      {
+        hubee_cert_dc: HubEECertDCBridge,
+        hubee_dila: HubEEDilaBridge,
+      }.each do |authorization_request_kind, bridge_class|
+        context "when there is a bridge for #{authorization_request_kind}" do
+          let(:authorization_request_kind) { authorization_request_kind }
 
-        before do
-          allow(HubEECertDCBridge).to receive(:perform_later)
-        end
+          before do
+            allow(bridge_class).to receive(:perform_later)
+          end
 
-        it 'executes the bridge asynchronously with approve event' do
-          approve_authorization_request
+          it 'executes the bridge asynchronously with approve event' do
+            approve_authorization_request
 
-          expect(HubEECertDCBridge).to have_received(:perform_later).with(authorization_request, :approve)
+            expect(bridge_class).to have_received(:perform_later).with(authorization_request, :approve)
+          end
         end
       end
 
