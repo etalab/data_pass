@@ -1,0 +1,13 @@
+<div class="card__badge">
+  <span class="fr-badge">
+    <%= t("authorization_request.badge", id: authorization_request.id) %>
+  </span>
+
+  <% if authorization_request.already_been_validated? %>
+    <span class="fr-badge fr-badge--success">
+      <%= t("authorization_request.status.validated") %>
+    </span>
+  <% else %>
+    <%= authorization_request_status_badge(authorization_request) %>
+  <% end %>
+</div>

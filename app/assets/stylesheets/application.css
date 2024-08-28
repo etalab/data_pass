@@ -57,6 +57,11 @@ h3.with-icon img {
   justify-content: flex-end;
 }
 
+.flex-space-between__content {
+  display: flex;
+  justify-content: space-between;
+}
+
 .border-frame-text {
   border: 1px solid var(--border-default-grey);
   padding: 1rem;
@@ -73,4 +78,8 @@ h3.with-icon img {
 
 .height-100 {
   height: 100%
+}
+
+.font-weight-700 {
+  font-weight: 700;
 }
