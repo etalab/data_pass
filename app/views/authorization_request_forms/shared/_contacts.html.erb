@@ -1,4 +1,4 @@
-<% if @authorization_request.multiple_steps_prefilled_data?(contact_email_fields(@authorization_request)) %>
+<% if @authorization_request.prefilled_data?(contact_email_fields(@authorization_request)) %>
   <%= render partial: "authorization_request_forms/shared/prefilled_banner" %>
 <% end %>
 

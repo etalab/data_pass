@@ -1,4 +1,4 @@
-<% if @authorization_request.multiple_steps_prefilled_data?(%i[destinataire_donnees_caractere_personnel duree_conservation_donnees_caractere_personnel]) %>
+<% if @authorization_request.display_prefilled_banner_for_each_block? && @authorization_request.prefilled_data?(%i[destinataire_donnees_caractere_personnel duree_conservation_donnees_caractere_personnel]) %>
   <%= render partial: "authorization_request_forms/shared/prefilled_banner" %>
 <% end %>
 

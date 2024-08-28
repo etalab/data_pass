@@ -1,4 +1,4 @@
-<% if @authorization_request.multiple_steps_prefilled_data?(%i[cadre_juridique_nature cadre_juridique_url]) %>
+<% if @authorization_request.display_prefilled_banner_for_each_block? && @authorization_request.prefilled_data?(%i[cadre_juridique_nature cadre_juridique_url]) %>
   <%= render partial: "authorization_request_forms/shared/prefilled_banner" %>
 <% end %>
 

@@ -46,9 +46,11 @@ class AuthorizationRequestDecorator < ApplicationDecorator
       t("authorization_request_forms.default.#{contact_type}.info", default: nil)
   end
 
-  def multiple_steps_prefilled_data?(keys)
-    return false unless object.form.multiple_steps?
+  def display_prefilled_banner_for_each_block?
+    object.form.multiple_steps?
+  end
 
+  def prefilled_data?(keys)
     object.form.data.keys.intersect?(keys.map(&:to_sym))
   end
 
