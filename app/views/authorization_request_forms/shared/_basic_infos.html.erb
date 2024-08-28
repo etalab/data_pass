@@ -1,4 +1,4 @@
-<% if @authorization_request.prefilled_data?(%i[intitule description date_prevue_mise_en_production volumetrie_approximative]) %>
+<% if @authorization_request.multiple_steps_prefilled_data?(%i[intitule description date_prevue_mise_en_production volumetrie_approximative]) %>
   <%= render partial: "authorization_request_forms/shared/prefilled_banner" %>
 <% end %>
 
