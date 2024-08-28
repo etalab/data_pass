@@ -220,6 +220,7 @@ class Import::AuthorizationRequests < Import::Base
   def from_target_api_to_type(enrollment)
     {
       'hubee_portail' => 'hubee_cert_dc',
+      'hubee_portail_dila' => 'hubee_dila',
       'api_entreprise' => 'api_entreprise',
       'api_particulier' => 'api_particulier',
     }[enrollment['target_api']].try(:classify)

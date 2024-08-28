@@ -18,6 +18,8 @@ class MainImport
 
     import(:authorization_request_events, { dump_sql: ENV['DUMP'] == 'true' })
 
+    HubeeImport.instance.post_main_import
+
     %i[warned skipped].each do |kind|
       export(kind)
       print_stats(kind)
@@ -81,7 +83,7 @@ class MainImport
           54115
         ].exclude?(enrollment_row['id'])
       end,
-      authorization_requests_sql_where: 'target_api = \'api_particulier\'',
+      authorization_requests_sql_where: 'target_api in (\'hubee_portail\', \'hubee_portail_dila\')',
       skipped: @skipped,
       warned: @warned,
     }
