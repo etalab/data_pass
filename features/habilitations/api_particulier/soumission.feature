@@ -348,7 +348,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
 
-Plan du scénario: Je soumets une demande d'habilitation, en plusieurs étapes, d'un éditeur avec le contact technique déjà renseigné et des scopes modifiables pour un cas d'usage lié à la tarification des transports
+Plan du scénario: Je soumets une demande d'habilitation, en plusieurs étapes, d'un éditeur dont le contact technique n'est pas renseigné et des scopes non modifiables pour un cas d'usage lié à la tarification des transports
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
