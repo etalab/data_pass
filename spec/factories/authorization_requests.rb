@@ -297,6 +297,7 @@ FactoryBot.define do
       api-particulier-coexya
       api-particulier-agedi-proxima-enf
       api-particulier-ecorestauration-loyfeey
+      api-particulier-extenso-partner-extenso-cloud
       api-particulier-tarification-municipale-enfance
       api-particulier-aides-facultatives-regionales
       api-particulier-aides-facultatives-departementales
