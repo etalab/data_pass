@@ -59,7 +59,7 @@
       <% if @authorization_request.reopening? && @authorization_request.applicant == current_user %>
         <%= render partial: 'authorization_requests/shared/reopening_callout', locals: { klass: 'fr-mt-6w' } %>
       <% else %>
-        <h2>
+        <h2 class="fr-h3">
           <%= t('authorization_request_forms.summary.title') %>
         </h2>
 

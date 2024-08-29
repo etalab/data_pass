@@ -5,16 +5,13 @@
 
 .summary-block {
   position: relative;
-  background-color: #fff;
-  border-radius: 0px;
+  background-color: var(--background-default-grey);
   border: 1px solid var(--border-default-grey);
   padding: var(--summary-block--padding-y) var(--summary-block--padding-x);
-
-  margin-bottom: 50px;
 }
 
 .summary-block.summary-block--fixed {
-  background-color: rgba(0, 0, 0, 0.03);
+  background-color: var(--background-default-grey-hover);
 }
 
 .summary-block__ctas {
@@ -25,6 +22,5 @@
 
 .summary-block__title {
   display: inline-block;
-  border-bottom: 5px solid var(--border-active-blue-france);
-  padding-bottom: 5px;
+  border-bottom: 4px solid var(--border-active-blue-france);
 }
