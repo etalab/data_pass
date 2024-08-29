@@ -1,4 +1,4 @@
-<% if @authorization_request.prefilled_data?(%i[scopes]) %>
+<% if @authorization_request.display_prefilled_banner_for_each_block? && @authorization_request.prefilled_data?(%i[scopes]) %>
   <%= render partial: "authorization_request_forms/shared/prefilled_banner" %>
 <% end %>
 
