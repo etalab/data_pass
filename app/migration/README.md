@@ -39,6 +39,8 @@ OVH_SECRET_ACCESS_KEY: OVH_SECRET_ACCESS_KEY
 OVH_REGION: reg
 ```
 
+Pour l'import d'HubEE il faut un fichier `.hubee_config.yml`
+
 ### 2.1 Ajout d'un nouveau type d'habilitation.
 
 1. Ajouter le mapping dans `Import::AuthorizationRequests#from_target_api_to_type`
