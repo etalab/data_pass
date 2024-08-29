@@ -24,6 +24,15 @@ class AuthorizationRequestDecorator < ApplicationDecorator
     blocks - editable_blocks
   end
 
+  def ordered_blocks
+    blocks.map do |block|
+      {
+        name: block[:name],
+        editable: object.form.static_blocks.pluck(:name).exclude?(block[:name])
+      }
+    end
+  end
+
   def blocks
     object.definition.blocks
   end

@@ -70,14 +70,10 @@
     <% end %>
 
     <% if @authorization_request.filling? %>
-      <% @authorization_request.editable_blocks.each do |block| %>
-        <%= render partial: "authorization_requests/shared/blocks/#{block[:name]}", locals: { f: f, editable: true } %>
-      <% end %>
-
       <%= render partial: 'authorization_requests/shared/organization_and_applicant' %>
 
-      <% @authorization_request.static_blocks.each do |block| %>
-        <%= render partial: "authorization_requests/shared/blocks/#{block[:name]}", locals: { f: f, editable: false } %>
+      <% @authorization_request.ordered_blocks.each do |block| %>
+        <%= render partial: "authorization_requests/shared/blocks/#{block[:name]}", locals: { f: f, editable: block[:editable] } %>
       <% end %>
     <% else %>
       <%= render partial: 'authorization_requests/shared/organization_and_applicant' %>
