@@ -802,7 +802,7 @@ api-particulier-kosmos-education:
     intitule: Portail Tarification et Aide Restauration Scolaire
     description: |
       Logiciel utilisé directement par les citoyens au travers d'un front et par des agents habilités pour faciliter la gestion de la tarification des cantines.
-    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_portail_famille
+    cadre_juridique_nature: l'Article L114-8 du Code des relations entre le public et l'administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usage. L'article R531-52 du Code de l'éducation donne compétence aux collectivités pour fixer les tarifs des cantines.
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
