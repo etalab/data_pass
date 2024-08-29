@@ -12,6 +12,9 @@ class ImportDataInLocalDb
       print "Importing #{name}... "
       time = Time.now
 
+      next if definition[:condition].present? && !definition[:condition].call
+      database.execute('drop table ' + name.to_s) if definition[:delete_db_before_import]
+
       begin
         database.execute definition[:table]
       rescue SQLite3::SQLException => e
@@ -135,6 +138,24 @@ class ImportDataInLocalDb
         ",
         insert_statement: "insert into documents (id, enrollment_id, raw_data) values (?, ?, ?)",
         insert_data: ->(row) { [row['id'], row['attachable_id'], row.to_a.to_json] }
+      },
+      'hubee_subscriptions' => {
+        table: "
+        create table hubee_subscriptions (
+          id TEXT PRIMARY KEY,
+          siret TEXT,
+          raw_data TEXT
+        );
+        create index hubee_subscription_siret_index on hubee_subscriptions (siret);
+        ",
+        insert_statement: "insert into hubee_subscriptions (id, siret, raw_data) values (?, ?, ?)",
+        insert_data: ->(row) do
+          final_row = row.map { |e| [e[0], (JSON.parse(e[1]) rescue e[1])] }.to_h
+
+          [final_row['id'], final_row['subscriber']['companyRegister'], final_row.to_json]
+        end,
+        # condition: -> { ENV['IMPORT_HUBEE'] == 'true' },
+        # delete_db_before_import: true,
       }
     }
   end
