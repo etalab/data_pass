@@ -28,18 +28,16 @@
       <% if @authorization.latest? && @authorization.request.reopening? %>
         <div class="fr-alert fr-alert--info fr-mb-4v">
           <h3 class="fr-alert__title">
-            Une mise à jour de cette demande est en cours.
+            <%= t('authorization_request_forms.summary.reopening_alerts.update_in_progress.title') %>
           </h3>
-
-          Vous avez initié une mise à jour de cette habilitation. Vous pouvez y accéder en cliquant ici : <%= link_to "Demande de mise à jour n°#{@authorization.request.id}", authorization_request_path(@authorization.request) %>
+          <%= t('authorization_request_forms.summary.reopening_alerts.update_in_progress.message', link: link_to("Demande de mise à jour n°#{@authorization.request.id}", authorization_request_path(@authorization.request))).html_safe %>
         </div>
       <% elsif !@authorization.latest? %>
         <div class="fr-alert fr-alert--warning fr-mb-4v">
           <h3 class="fr-alert__title">
-            Attention, vous consultez une version ancienne de cette habilitation
+            <%= t('authorization_request_forms.summary.reopening_alerts.old_version.title') %>
           </h3>
-
-          Il existe une version plus récente de cette habilitation que vous pouvez consulter en cliquant ici : <%= link_to "Habilitation n°#{@authorization_request.latest_authorization.id}", @authorization_request.latest_authorization %>
+          <%= t('authorization_request_forms.summary.reopening_alerts.old_version.message', link: link_to("Habilitation n°#{@authorization_request.latest_authorization.id}", @authorization_request.latest_authorization)).html_safe %>
         </div>
       <% end %>
     <% end %>
