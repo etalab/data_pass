@@ -6,7 +6,7 @@
         <%= t("authorization_request_forms.default.#{contact_type}.title") %>
       </h6>
       
-      <button type="button" class="fr-btn fr-btn--secondary fr-btn--sm" data-action="click->fill-contact-data-with-applicant-data#perform">
+      <button type="button" class="fr-btn fr-btn--secondary fr-btn--sm" data-action="click->fill-contact-data-with-applicant-data#perform click->modified-form#update"">
         <%= t('.its_me') %>
       </button>
     </div>
@@ -23,9 +23,15 @@
 
         <div class="fr-fieldset__element">
           <% if contact_attribute == 'email' %>
-            <%= f.dsfr_email_field("#{contact_type}_#{contact_attribute}", required: true) %>
+            <%= f.dsfr_email_field("#{contact_type}_#{contact_attribute}", required: true,
+                        data: {
+                          action: "keyup->modified-form#update",
+                        })  %>
           <% else %>
-            <%= f.dsfr_text_field("#{contact_type}_#{contact_attribute}", required: true) %>
+            <%= f.dsfr_text_field("#{contact_type}_#{contact_attribute}", required: true,
+                        data: {
+                          action: "keyup->modified-form#update",
+                        })  %>
           <% end %>
         </div>
       <% end %>

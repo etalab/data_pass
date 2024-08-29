@@ -58,6 +58,12 @@ module AuthorizationRequestsHelpers
       url: url || authorization_request_model_path(authorization_request),
       method: authorization_request_model_http_method(authorization_request),
       id: dom_id(authorization_request),
+      data: {
+        action: 'submit->modified-form#submit',
+        controller: 'modified-form',
+        modified_form_changed_value: false,
+        modified_form_prevent_submit_value: authorization_request.reopening?,
+      },
       builder: authorization_request_can_be_updated?(authorization_request) ? AuthorizationRequestFormBuilder : DisabledAuthorizationRequestFormBuilder, &
     )
   end

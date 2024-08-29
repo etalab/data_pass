@@ -24,6 +24,7 @@ Fonctionnalité: Modifications d'un formulaire depuis sa page de résumé
     Et que je clique sur "Retour à la synthèse"
     Alors la page contient "Soumettre la demande d'habilitation"
 
+  @javascript
   Scénario: Modification avec des données valides
     Quand je clique sur "Modifier" dans le bloc de résumé "Les personnes impliquées"
     Et que je remplis les informations du contact "Responsable de traitement" avec :
@@ -40,3 +41,12 @@ Fonctionnalité: Modifications d'un formulaire depuis sa page de résumé
       |         | Louis  | nouveau.louis@gouv.fr | 0836656560 | Directeur d'exploitation  |
     Et que je clique sur "Enregistrer les modifications"
     Alors il y a un message d'erreur contenant "lors de la sauvegarde"
+
+  @javascript
+  Scénario: Tentative de sauvegarde sans modification
+    Quand je clique sur "Modifier" dans le bloc de résumé "Les personnes impliquées"
+    Alors je peux voir le bouton "Enregistrer les modifications" grisé et désactivé
+    Et que je remplis "Fonction du responsable de traitement" avec "Directeur d'exploitation"
+    Et que je clique sur "Enregistrer les modifications"
+    Alors il y a un message de succès contenant "été sauvegardé"
+    Et la page contient "Récapitulatif de votre demande"

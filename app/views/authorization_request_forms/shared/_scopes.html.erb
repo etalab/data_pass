@@ -12,10 +12,12 @@
 
     <div class="scopes-group__grid">
       <% scopes.each do |scope| %>
-        <%= f.dsfr_scope scope %>
+        <%= f.dsfr_scope scope, data: { action: "change->modified-form#update" } %>
       <% end %>
     </div>
   </div>
 <% end %>
 
-<%= f.hidden_field :scopes, value: '', name: "#{@authorization_request.model_name.param_key}[scopes][]" %>
+<%= f.hidden_field :scopes,
+               value: "",
+               name: "#{@authorization_request.model_name.param_key}[scopes][]" %>
