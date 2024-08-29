@@ -258,6 +258,12 @@ fr:
         description: *common_authorization_requests_error_description
 
     summary:
+      title: Récapitulatif de votre demande
+      description: |
+        Vous avez complété toutes les étapes de votre demande !
+        <br />
+        Vous pouvez à présent la soumettre à l'équipe d’instruction après avoir lu nos conditions générales d’utilisation.
+
       reopening_alerts:
         update_in_progress:
           title: Une mise à jour de cette demande est en cours.

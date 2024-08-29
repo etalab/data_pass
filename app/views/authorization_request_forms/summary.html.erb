@@ -60,18 +60,11 @@
         <%= render partial: 'authorization_requests/shared/reopening_callout', locals: { klass: 'fr-mt-6w' } %>
       <% else %>
         <h2>
-          Récapitulatif de votre demande
+          <%= t('authorization_request_forms.summary.title') %>
         </h2>
 
         <p>
-          Vous avez complété toutes les étapes de votre demande.
-          <br />
-          Merci de vérifier que les informations ci-dessous sont correctes et d'accepter les conditions générales d'utilisation.
-
-          <% if @authorization_request.static_blocks.any? %>
-            <br />
-            Une partie des informations ci-dessous ont été pré-remplies en accord avec le type de formulaire que vous avez sélectionné et ne sont pas modifiables.
-          <% end %>
+          <%= t('authorization_request_forms.summary.description').html_safe %>
         </p>
       <% end %>
     <% end %>
@@ -80,13 +73,6 @@
       <% @authorization_request.editable_blocks.each do |block| %>
         <%= render partial: "authorization_requests/shared/blocks/#{block[:name]}", locals: { f: f, editable: true } %>
       <% end %>
-
-      <h3>
-        Les informations pré-remplies
-      </h3>
-      <p>
-        Les informations suivantes ont été pré-remplies et ne sont pas modifiables.
-      </p>
 
       <%= render partial: 'authorization_requests/shared/organization_and_applicant' %>
 
