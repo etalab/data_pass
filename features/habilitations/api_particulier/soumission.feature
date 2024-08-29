@@ -275,6 +275,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
       | MyPérischool          | Waigeo                    |
       | Fluo                  | Cosoluce                  |
       | iNoé                  | Aiga                      |
+      | CapDemat Evolution    | CapDemat                  |
 
 
   Plan du scénario: Je soumets une demande d'habilitation, présenté en une seule page, d'un éditeur avec le contact technique déjà renseigné pour un cas d'usage lié au portail famille ou à la tarification QF

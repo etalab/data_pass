@@ -52,6 +52,9 @@ shared:
   mushroom_software:
     name: Mushroom Software
     siret: '81122842800017'
+  capdemat:
+    name: CapDemat
+    siret: '79529105300010'
   ciril_group:
     name: Ciril GROUP
     siret: '30516304000119'
