@@ -1,9 +1,16 @@
 hubee-cert-dc:
-  introduction: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nibh nisl, pulvinar a sapien sed, suscipit imperdiet nisl. Donec enim risus, mollis et lorem malesuada, varius fringilla lacus. Aenean pretium rutrum erat in finibus. Donec consequat vulputate dapibus. Ut blandit lacus quis elit hendrerit mattis. Aliquam imperdiet, nisi id interdum hendrerit, leo nulla rhoncus dui, at sollicitudin nibh enim eu tortor. In nisi ante, consectetur id sapien eget, dignissim aliquet lectus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla facilisi. Praesent et eleifend quam.
+  introduction: En complétant ce formulaire, vous allez demander à recevoir par voie électronique le volet administratif du certificat de décès lorsque le médecin rédige le certificat de décès au moyen de l’application « CertDc »
   authorization_request: 'HubEECertDC'
 
 hubee-dila:
-  introduction: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nibh nisl, pulvinar a sapien sed, suscipit imperdiet nisl. Donec enim risus, mollis et lorem malesuada, varius fringilla lacus. Aenean pretium rutrum erat in finibus. Donec consequat vulputate dapibus. Ut blandit lacus quis elit hendrerit mattis. Aliquam imperdiet, nisi id interdum hendrerit, leo nulla rhoncus dui, at sollicitudin nibh enim eu tortor. In nisi ante, consectetur id sapien eget, dignissim aliquet lectus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla facilisi. Praesent et eleifend quam.
+  introduction: |
+    En complétant ce formulaire, vous allez demander l'accès à une ou plusieurs des démarches suivantes de la Direction de l'information légale et administrative (DILA) : 
+
+    ● AEC - Acte d’Etat Civil
+    ● DDPACS - Démarche en ligne de préparation à la conclusion d’un Pacs
+    ● RCO - Recensement Citoyen Obligatoire
+    ● DHTOUR - Déclaration d’hébergement touristique
+    ● JCC - Déclaration de Changement de Coordonnées
   authorization_request: 'HubEEDila'
   scopes:
     - etat_civil
