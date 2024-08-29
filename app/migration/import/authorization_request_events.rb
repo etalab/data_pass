@@ -25,8 +25,7 @@ class Import::AuthorizationRequestEvents < Import::Base
     when 'reminder_before_archive', 'reminder'
       create_event(event_row, name: 'system_reminder', entity: authorization_request, user_id: nil)
     when 'import'
-      # FIXME seulement hubee et FC
-      raise 'Not implemented'
+      create_event(event_row, name: 'system_import', entity: authorization_request, user_id: nil)
     when 'notify'
       user_id = all_users_email_to_id[all_legacy_users_id_to_email[event_row['user_id'].to_i]]
 

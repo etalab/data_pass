@@ -700,3 +700,6 @@ fr:
 
         system_archive:
           text: La demande d'habilitation a été archivée par le système
+
+        system_import:
+          text: La demande d'habilitation a été importé depuis une autre source

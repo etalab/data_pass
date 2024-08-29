@@ -22,6 +22,7 @@ class AuthorizationRequestEvent < ApplicationRecord
 
     system_reminder
     system_archive
+    system_import
   ].freeze
 
   belongs_to :user, optional: true
