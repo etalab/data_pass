@@ -812,6 +812,34 @@ api-particulier-kosmos-education:
       - formulaire_qf
       - params
 
+api-particulier-monkey-factory-maasify:
+  name: MaaSify
+  description: Tarification des transports
+  authorization_request: APIParticulier
+  use_case: tarification_transports
+  editor_id: monkey_factory
+  introduction: *api_particulier_introduction_editor_with_fixed_scopes
+  steps: *api_particulier_editor_steps_with_fixed_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
+  scopes_config:
+    disabled:
+      - pole_emploi_identite
+      - pole_emploi_contact
+    displayed:
+      - pole_emploi_identite
+      - pole_emploi_contact
+
+  data:
+    intitule: Tarification des transports
+    description: |
+      A travers nos médias digitaux (application mobile et/ou site web), un usager peut se créer un compte dans le but de consommer toutes les mobilités présentes sur le territoire.
+    cadre_juridique_nature: l'Article L114-8 du Code des relations entre le public et l'administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usage. Articles L1231-1 et L1231-3 du Code des transports
+    scopes:
+      - pole_emploi_identite
+      - pole_emploi_contact
+    modalities:
+      - params
+
 # ------------------------------- #
 # ------------------------------- #
 # ------------------------------- #

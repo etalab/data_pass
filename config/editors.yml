@@ -112,3 +112,6 @@ shared:
   jcdeveloppement:
     name: JCDeveloppement
     siret: '75006664900013'
+  monkey_factory:
+    name: Monkey Factory
+    siret: '780261986600048'

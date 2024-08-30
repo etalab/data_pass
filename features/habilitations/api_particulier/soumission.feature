@@ -175,7 +175,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
 
     * j'adhère aux conditions générales
     * je clique sur "Soumettre la demande d'habilitation"
-
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
 
@@ -187,7 +186,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
       | Proxima.ENF         | AGEDI                     |
       | FamilyClic          | JCDeveloppement           |
 
-  Plan du scénario: Je soumets une demande d'habilitation, en plusieurs étapes, d'un éditeur avec le contact technique non renseigné et des scopes non modifiables pour un cas d'usage lié au portail famille ou à la tarification QF
+   Plan du scénario: Je soumets une demande d'habilitation, en plusieurs étapes, d'un éditeur avec le contact technique non renseigné et des scopes non modifiables pour un cas d'usage lié au portail famille ou à la tarification QF
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
@@ -348,6 +347,35 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
 
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
+
+Plan du scénario: Je soumets une demande d'habilitation, en plusieurs étapes, d'un éditeur dont le contact technique n'est pas renseigné et des scopes non modifiables pour un cas d'usage lié à la tarification des transports
+    Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
+    Et que je clique sur "Débuter ma demande"
+
+    Et la page contient "Nous avons pré-rempli des informations pour vous aider"
+
+    * je clique sur "Suivant"
+
+    * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
+    * je clique sur "Suivant"
+
+    * je renseigne les infos concernant les données personnelles
+    * je clique sur "Suivant"
+
+    * je renseigne les informations des contacts RGPD
+    * je remplis les informations du contact "Contact technique" avec :
+      | Nom    | Prénom  | Email               | Téléphone   | Fonction    |
+      | Dupont | Marc    | dupont.marc@gouv.fr | 08366565603 | Technique   |
+    * je clique sur "Suivant"
+    Et j'adhère aux conditions générales
+    * je clique sur "Soumettre la demande d'habilitation"
+
+    Alors il y a un message de succès contenant "soumise avec succès"
+    Et je suis sur la page "Demandes et habilitations"
+
+    Exemples:
+      | Nom du formulaire   | Nom de l'éditeur          |
+      | MaaSify             | Monkey Factory            |
 
   Scénario: Je vois un lien vers API particulier quand je consulte une habilitation validée
     Quand j'ai déjà une demande d'habilitation "API Particulier" validée avec token
