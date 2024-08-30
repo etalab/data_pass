@@ -375,7 +375,7 @@ Plan du scénario: Je soumets une demande d'habilitation, en plusieurs étapes, 
 
     Exemples:
       | Nom du formulaire   | Nom de l'éditeur          |
-      | MaaSify             | Monkey Factory             |
+      | MaaSify             | Monkey Factory            |
 
   Scénario: Je vois un lien vers API particulier quand je consulte une habilitation validée
     Quand j'ai déjà une demande d'habilitation "API Particulier" validée avec token
