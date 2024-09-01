@@ -12,7 +12,7 @@ class Import::AuthorizationRequests < Import::Base
     user = fetch_applicant(enrollment_row)
 
     authorization_request.applicant = user
-    authorization_request.organization = fetch_organization(user, enrollment_row)
+    authorization_request.organization_id = fetch_organization(user, enrollment_row).try(:id)
 
     authorization_request.form_uid = fetch_form(authorization_request).id
     authorization_request.state = enrollment_row['status']
