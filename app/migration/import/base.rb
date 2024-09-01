@@ -65,6 +65,8 @@ class Import::Base
   def load_from_csv!
     log("# Importing #{model_tableize} from CSV file")
 
+    time = Time.now
+
     csv_or_table_to_loop.each do |row|
       row = format_row_from_sql(row) if rows_from_sql?
 
@@ -86,7 +88,7 @@ class Import::Base
 
     after_load_from_csv
 
-    log(" > #{@models.count} #{model_tableize} imported")
+    log(" > #{@models.count} #{model_tableize} imported (#{((Time.now - time) / 60).ceil}m)")
 
     dump_sql_file! if options[:dump_sql] || options[:load_from_sql]
 
