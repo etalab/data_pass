@@ -272,6 +272,9 @@ fr:
           title: Attention, vous consultez une version ancienne de cette habilitation
           message: "Il existe une version plus récente de cette habilitation que vous pouvez consulter en cliquant ici: %{link}"
 
+      summary_block:
+        message: Ces informations ne sont pas modifiables
+
     form:
       back: Retour à la synthèse
       message_datapass: 

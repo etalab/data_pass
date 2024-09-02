@@ -7,7 +7,7 @@
     <div class="summary-block__info fr-text--sm font-weight-700">
       <% if policy(@authorization_request).update? && !editable %>
         <span class="fr-icon-info-fill summary-block__icon"></span>
-        Ces informations ne sont pas modifiables
+        <%= t('authorization_request_forms.summary.summary_block.message') %>
       <% end %>
     </div>
   </div>
