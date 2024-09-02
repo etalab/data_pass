@@ -4,14 +4,18 @@
     current_page:  a page object for the currently displayed page
     total_pages:   total number of pages
     per_page:      number of items to fetch per page
-    remote:        data-remote
--%>
-<li>
-  <% if current_page.last? %>
-    <%= content_tag('a',  class: %w(fr-pagination__link fr-pagination__link--last), 'aria-disabled': true, role: 'link') do %>
-      <%= t('views.pagination.last') %>
+    remote:        data-remote -%>
+  <li>
+    <% if current_page.last? %>
+      <%= content_tag('a',  class: %w(fr-pagination__link fr-pagination__link--last), 'aria-disabled': true, role: 'link') do %>
+        <%= t("views.pagination.last") %>
+      <% end %>
+    <% else %>
+      <%= link_to t("views.pagination.last").html_safe,
+      url,
+      remote: remote,
+      class: %w[fr-pagination__link fr-pagination__link--last],
+      "aria-disabled": current_page.last?,
+      role: "link" %>
     <% end %>
-  <% else %>
-    <%= link_to t('views.pagination.last').html_safe, url, remote: remote, class: %w(fr-pagination__link fr-pagination__link--last), 'aria-disabled': current_page.last?, role: 'link' %>
-  <% end %>
-</li>
+  </li>

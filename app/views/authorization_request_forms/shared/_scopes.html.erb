@@ -18,4 +18,6 @@
   </div>
 <% end %>
 
-<%= f.hidden_field :scopes, value: '', name: "#{@authorization_request.model_name.param_key}[scopes][]" %>
+<%= f.hidden_field :scopes,
+               value: "",
+               name: "#{@authorization_request.model_name.param_key}[scopes][]" %>

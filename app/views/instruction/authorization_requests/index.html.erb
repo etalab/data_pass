@@ -1,30 +1,59 @@
-<p class="fr-h2 fr-mt-5w"><%= t('.table.caption') %></p>
+<p class="fr-h2 fr-mt-5w"><%= t(".table.caption") %></p>
 
 <%= search_form_for(@search_engine, url: instruction_authorization_requests_path, html: { method: :get, data: { turbo: false }, class: %w[search-box] }) do |f| %>
   <div class="search-inputs">
     <div class="fr-input-group main-input input">
-      <%= f.label :within_data_or_organization_siret_or_applicant_email_or_applicant_family_name_cont, t('.search.main_input.label'), class: %w[fr-label] %>
-      <%= f.search_field :within_data_or_organization_siret_or_applicant_email_or_applicant_family_name_cont, class: %[fr-input], placeholder: t('.search.main_input.placeholder') %>
+      <%= f.label :within_data_or_organization_siret_or_applicant_email_or_applicant_family_name_cont,
+              t(".search.main_input.label"),
+              class: %w[fr-label] %>
+      <%= f.search_field :within_data_or_organization_siret_or_applicant_email_or_applicant_family_name_cont,
+                     class: "fr-input",
+                     placeholder: t(".search.main_input.placeholder") %>
     </div>
 
     <% if current_user.authorization_definition_roles_as(:reporter).count > 1 %>
       <div class="fr-select-group input">
         <%= f.label :type_eq, class: %w[fr-label] %>
-        <% options = current_user.authorization_definition_roles_as(:reporter).map { |authorization_definition| [authorization_definition.name, authorization_definition.authorization_request_class.to_s] }%>
-        <%= f.select :type_eq, options_for_select([['Toutes les données', '']].concat(options), selected: params[:q].try(:[], :type_eq)), {}, class: %w[fr-select] %>
+        <% options =
+          current_user
+            .authorization_definition_roles_as(:reporter)
+            .map do |authorization_definition|
+              [
+                authorization_definition.name,
+                authorization_definition.authorization_request_class.to_s,
+              ]
+            end %>
+        <%= f.select :type_eq,
+                 options_for_select(
+                   [["Toutes les données", ""]].concat(options),
+                   selected: params[:q].try(:[], :type_eq),
+                 ),
+                 {},
+                 class: %w[fr-select] %>
       </div>
     <% end %>
 
     <div class="fr-select-group input">
       <%= f.label :state_eq, class: %w[fr-label] %>
 
-      <% options = AuthorizationRequest.state_machine.states.map { |s| s.name }.map { |e| [t("authorization_request.status.#{e}"), e] } %>
-      <%= f.select :state_eq, options_for_select([['Tous les status', '']].concat(options), selected: params[:q].try(:[], :state_eq) || 'Tous les status'), {}, class: %w[fr-select] %>
+      <% options =
+        AuthorizationRequest
+          .state_machine
+          .states
+          .map { |s| s.name }
+          .map { |e| [t("authorization_request.status.#{e}"), e] } %>
+      <%= f.select :state_eq,
+               options_for_select(
+                 [["Tous les status", ""]].concat(options),
+                 selected: params[:q].try(:[], :state_eq) || "Tous les status",
+               ),
+               {},
+               class: %w[fr-select] %>
     </div>
   </div>
 
   <div class="actions">
-    <%= f.button t('.search.btn'), type: :submit, class: %w[fr-btn fr-btn--primary] %>
+    <%= f.button t(".search.btn"), type: :submit, class: %w[fr-btn fr-btn--primary] %>
   </div>
 <% end %>
 
@@ -32,8 +61,7 @@
   <table>
     <thead>
       <tr>
-        <%
-          %w[
+        <% %w[
             state
             last_submitted_at
             organization
@@ -41,8 +69,7 @@
             authorization_request_kind
             applicant_email
             actions
-          ].each do |attr|
-        %>
+          ].each do |attr| %>
           <th scope="col">
             <% if %w[state last_submitted_at].include?(attr) %>
               <%= sort_link(@search_engine, attr) do %>
@@ -67,7 +94,7 @@
             <% end %>
           </td>
           <td class="authorization-request-last_submitted_at">
-            <%= authorization_request.last_submitted_at&.strftime("%d/%m/%y") || '-' %>
+            <%= authorization_request.last_submitted_at&.strftime("%d/%m/%y") || "-" %>
           </td>
           <td class="authorization-request-organization">
             <%= authorization_request.organization.raison_sociale %>
@@ -82,9 +109,11 @@
             <%= authorization_request.applicant.email %>
           </td>
           <td class="authorization-request-actions">
-            <%= link_to t('.table.actions.show'), instruction_authorization_request_path(authorization_request), class: %w(fr-btn fr-btn--sm) %>
+            <%= link_to t(".table.actions.show"),
+            instruction_authorization_request_path(authorization_request),
+            class: %w[fr-btn fr-btn--sm] %>
           </td>
-        </div>
+        </tr>
       <% end %>
     </tbody>
   </table>
