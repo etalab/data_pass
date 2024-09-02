@@ -1,24 +1,12 @@
-<div
-  class="
-    fr-notice fr-notice--info fr-notice--no-icon prefilled-banner fr-my-3w fr-p-0
-  "
->
+<div class="fr-notice fr-notice--info fr-notice--no-icon prefilled-banner fr-my-3w fr-p-0">
   <div class="fr-container fr-p-0">
     <div class="fr-notice__body fr-grid-row fr-col-10 fr-p-3w">
-      <div
-        class="
-          fr-notice__icone fr-grid-row fr-grid-row--center fr-grid-row--middle fr-mr-3w
-        "
-      >
+      <div class="fr-notice__icone fr-grid-row fr-grid-row--center fr-grid-row--middle  fr-mr-3w">
         <%= image_tag "authorization_requests/survey.svg", alt: "Prefilled document logo" %>
       </div>
       <p class="fr-col fr-grid-row fr-grid-row-middle">
-        <span class="fr-notice__title fr-text-title--grey"><%= t("authorization_request_forms.default.prefill_data_info.title") %></span>
-        <span class="fr-notice__desc fr-text-default--grey"><%= t(
-            "authorization_request_forms.default.prefill_data_info.description",
-            name: @authorization_request.form.name,
-          ) %>
-        </span>
+        <span class="fr-notice__title fr-text-title--grey"><%= t('authorization_request_forms.default.prefill_data_info.title') %></span>
+        <span class="fr-notice__desc fr-text-default--grey"><%= t('authorization_request_forms.default.prefill_data_info.description', name: @authorization_request.form.name) %> </span>
       </p>
     </div>
   </div>

@@ -4,38 +4,28 @@
       <div class="sub-header">
         <div>
           <h1 class="fr-m-0">
-            <%= t(".title") %>
+            <%= t('.title') %>
           </h1>
 
           <%= form_with(url: "/auth/mon_compte_pro?prompt=select_organization", method: :post, data: { turbo: false }, class: 'fr-pt-1w') do |f| %>
-            <%= f.button current_organization.raison_sociale,
-                     class: %w[
-                       fr-btn
-                       fr-btn--tertiary
-                       fr-btn--sm
-                       fr-btn--icon-left
-                       fr-icon-hotel-line
-                     ] %>
+            <%= f.button current_organization.raison_sociale, class: %w(fr-btn fr-btn--tertiary fr-btn--sm fr-btn--icon-left fr-icon-hotel-line) %>
           <% end %>
         </div>
 
         <div>
           <% if current_user.reporter? %>
-            <%= link_to t(".instruction_cta"),
-            instruction_path,
-            class: %w[fr-btn fr-btn--secondary fr-icon-file-add-fill fr-btn--icon-left] %>
+            <%= link_to t('.instruction_cta'), instruction_path, class: %w(fr-btn fr-btn--secondary fr-icon-file-add-fill fr-btn--icon-left) %>
           <% end %>
 
-          <%= link_to "Nouvelle habilitation",
-          authorization_definitions_path,
-          class: %w[fr-btn fr-btn--secondary fr-icon-add-line fr-btn--icon-left] %>
+          <%= link_to 'Nouvelle habilitation', authorization_definitions_path, class: %w(fr-btn fr-btn--secondary fr-icon-add-line fr-btn--icon-left) %>
         </div>
       </div>
     </div>
 
-    <%= render partial: "shared/alerts" %>
 
-    <% tabs = %w[moi organisation mentions] %>
+    <%= render partial: 'shared/alerts' %>
+
+    <% tabs = ['moi', 'organisation', 'mentions'] %>
 
     <div class="fr-tabs fr-pt-5w fr-mb-8w" data-controller="auto-height">
       <ul class="fr-tabs__list" role="tablist" aria-label="Menu secondaire">
@@ -43,19 +33,23 @@
           <% path = dashboard_show_path(id:) %>
 
           <li role="presentation">
-            <%= link_to t(".tabs.#{id}.title"),
-            path,
-            class: ["fr-tabs__tab"],
-            role: "tab",
-            id: "tab-#{id}",
-            tabindex: current_page?(path) ? "0" : "-1",
-            data: {
-              turbo_frame: "tab-#{id}-panel",
-            },
-            aria: {
-              selected: current_page?(path),
-              controls: "tab-#{id}-panel",
-            } %>
+            <%=
+              link_to t(".tabs.#{id}.title"),
+                path,
+                class: [
+                  'fr-tabs__tab',
+                ],
+                role: 'tab',
+                id: "tab-#{id}",
+                tabindex: current_page?(path) ? '0' : '-1',
+                data: {
+                  turbo_frame: "tab-#{id}-panel",
+                },
+                aria: {
+                  selected: current_page?(path),
+                  controls: "tab-#{id}-panel"
+                }
+            %>
           </li>
         <% end %>
       </ul>
@@ -63,14 +57,7 @@
       <% tabs.each do |id| %>
         <% path = dashboard_show_path(id:) %>
 
-        <turbo-frame
-          id="tab-<%= id %>-panel"
-          class="fr-tabs__panel fr-tabs__panel--selected"
-          role="tabpanel"
-          aria-labelledby="tab-<%= id %>"
-          tabindex="0"
-          data-turbo-action="advance"
-        >
+        <turbo-frame id="tab-<%= id %>-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tab-<%= id %>" tabindex="0" data-turbo-action="advance">
           <% if current_page?(path) %>
             <div data-auto-height-target="source">
               <%= yield %>
@@ -85,4 +72,4 @@
   </div>
 <% end %>
 
-<%= render template: "layouts/application" %>
+<%= render template: 'layouts/application' %>

@@ -6,19 +6,12 @@
           <div class="fr-header__brand-top">
             <div class="fr-header__logo">
               <p class="fr-logo">
-                République
-                <br>Française
+              République
+              <br>Française
               </p>
             </div>
             <div class="fr-header__navbar">
-              <button
-                class="fr-btn--menu fr-btn"
-                data-fr-opened="false"
-                aria-controls="modal-header-menu"
-                aria-haspopup="menu"
-                title="Menu"
-                id="fr-btn-menu-mobile-1"
-              >
+              <button class="fr-btn--menu fr-btn" data-fr-opened="false" aria-controls="modal-header-menu" aria-haspopup="menu" title="Menu" id="fr-btn-menu-mobile-1">
                 Menu
               </button>
             </div>
@@ -34,13 +27,13 @@
             <% if registered_subdomain? && registered_subdomain.title.present? %>
               <% title = registered_subdomain.title %>
             <% else %>
-              <% title = t(".title") %>
+              <% title = t('.title') %>
             <% end %>
 
             <% if registered_subdomain? && registered_subdomain.tagline.present? %>
               <% tagline = registered_subdomain.tagline %>
             <% else %>
-              <% tagline = t(".tagline") %>
+              <% tagline = t('.tagline') %>
             <% end %>
 
             <a href="/" title="Accueil - <%= title %>">
@@ -55,11 +48,11 @@
 
         </div>
         <div class="fr-header__tools">
-          <%= render partial: "layouts/header/tools" %>
+          <%= render partial: 'layouts/header/tools' %>
         </div>
       </div>
     </div>
   </div>
 
-  <%= render partial: "layouts/header/menu" %>
+  <%= render partial: 'layouts/header/menu' %>
 </header>

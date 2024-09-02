@@ -1,10 +1,9 @@
 <h2 class="authorization-request-form-header__kind">
   <%= subtitle %>
-
+  
   <% if @authorization_request.form.editor.present? %>
     <span class="authorization-request-form-header__editor-name">
-      |
-      <%= t(".editor_name", name: @authorization_request.form.editor.name) %>
+      | <%= t('.editor_name', name: @authorization_request.form.editor.name) %>
     </span>
   <% end %>
 </h2>

@@ -7,20 +7,16 @@
 <div class="legal-border-card">
   <% if f.wording_for('legal.nature.title') %>
     <p class="fr-h5 legal-subtitle">
-      <%= f.wording_for("legal.nature.title") %>
+      <%= f.wording_for('legal.nature.title') %>
     </p>
   <% end %>
   <% if f.wording_for('legal.nature.description') %>
     <p>
-      <%= f.wording_for("legal.nature.description") %>
+      <%= f.wording_for('legal.nature.description') %>
     </p>
   <% end %>
 
-  <fieldset
-    class="fr-fieldset"
-    aria-label="feedme"
-    aria-describedby="name-1-fieldset-messages"
-  >
+  <fieldset class="fr-fieldset" aria-label="feedme" aria-describedby="name-1-fieldset-messages">
     <div class="fr-fieldset__element fr-mb-3w">
       <%= f.dsfr_text_area :cadre_juridique_nature, rows: 5, required: true %>
     </div>
@@ -29,17 +25,13 @@
   <div class="legal-bloc-space">
     <hr>
     <p class="fr-mt-3w">
-      <span class="fr-text--lg legal-text__bold"><%= f.wording_for("legal.justificatif.title") %></span><span class="fr-ml-1w fr-text-error">*</span>
+      <span class="fr-text--lg legal-text__bold"><%= f.wording_for('legal.justificatif.title') %></span><span class="fr-ml-1w fr-text-error">*</span>
       <br>
-      <%= f.wording_for("legal.justificatif.description").html_safe %>
+      <%= f.wording_for('legal.justificatif.description').html_safe %>
     </p>
   </div>
 
-  <fieldset
-    class="fr-fieldset fr-mt-4w"
-    aria-label="feedme"
-    aria-describedby="name-1-fieldset-messages"
-  >
+  <fieldset class="fr-fieldset fr-mt-4w" aria-label="feedme" aria-describedby="name-1-fieldset-messages">
     <div class="fr-fieldset__element">
       <%= f.dsfr_file_field :cadre_juridique_document %>
     </div>
@@ -53,13 +45,9 @@
     <div class="legal-line"></div>
   </div>
 
-  <p class="legal-text__bold"><%= f.wording_for("legal.cadre_juridique_url.title") %></p>
+  <p class="legal-text__bold"><%= f.wording_for('legal.cadre_juridique_url.title') %></p>
 
-  <fieldset
-    class="fr-fieldset"
-    aria-label="feedme"
-    aria-describedby="name-1-fieldset-messages"
-  >
+  <fieldset class="fr-fieldset" aria-label="feedme" aria-describedby="name-1-fieldset-messages">
     <div class="fr-fieldset__element legal-input__width">
       <%= f.dsfr_url_field :cadre_juridique_url %>
     </div>

@@ -1,4 +1,4 @@
-<%= namespace = @authorization_request.reopening? ? "reopening" : "initial" %>
+<%= namespace = @authorization_request.reopening? ? 'reopening' : 'initial' %>
 
 <div class="simple-page-action-wrapper fr-pt-5w">
   <div class="fr-grid-row fr-grid-row--center">
@@ -7,20 +7,18 @@
         <%= form_with(model: @denial_of_authorization, url: instruction_authorization_request_refusal_index_path(@authorization_request), data: { turbo_frame: 'main-modal-content' }) do |f| %>
           <div class="fr-modal__content">
             <h1 class="fr-modal__title">
-              <%= t(
-                ".#{namespace}.title",
-                authorization_request_name: @authorization_request.name,
-              ) %>
+              <%= t(".#{namespace}.title", authorization_request_name: @authorization_request.name) %>
             </h1>
 
             <p>
-              <%= t(
-                ".#{namespace}.description.organization",
-                authorization_request_name: sanitize(@authorization_request.name),
-                organization_raison_sociale:
-                  @authorization_request.organization.raison_sociale,
-                organization_siret: @authorization_request.organization.siret,
-              ) %>
+              <%=
+                t(
+                  ".#{namespace}.description.organization",
+                  authorization_request_name: sanitize(@authorization_request.name),
+                  organization_raison_sociale: @authorization_request.organization.raison_sociale,
+                  organization_siret: @authorization_request.organization.siret,
+                )
+              %>
             </p>
 
             <p>
@@ -31,21 +29,9 @@
           </div>
 
           <div class="fr-modal__footer">
-            <div
-              class="
-                fr-btns-group fr-btns-group--right fr-btns-group--inline-reverse
-                fr-btns-group--inline-lg fr-btns-group--icon-left
-              "
-            >
-              <%= link_to t(".#{namespace}.cancel"),
-              "#",
-              class: %w[fr-btn fr-btn--secondary],
-              aria: {
-                controls: "main-modal",
-              } %>
-              <%= f.button t(".#{namespace}.refuse"),
-                       type: :submit,
-                       class: %w[fr-btn fr-btn--primary fr-icon-error-line fr-btn--icon-left] %>
+            <div class="fr-btns-group fr-btns-group--right fr-btns-group--inline-reverse fr-btns-group--inline-lg fr-btns-group--icon-left">
+              <%= link_to t(".#{namespace}.cancel"), '#', class: %w(fr-btn fr-btn--secondary), aria: { controls: 'main-modal' } %>
+              <%= f.button t(".#{namespace}.refuse"), type: :submit, class: %w(fr-btn fr-btn--primary fr-icon-error-line fr-btn--icon-left) %>
             </div>
           </div>
         <% end %>

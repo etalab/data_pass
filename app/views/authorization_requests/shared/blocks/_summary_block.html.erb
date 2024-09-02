@@ -1,7 +1,4 @@
-<div
-  class="summary-block <%= !editable ? 'summary-block--fixed' : '' %>"
-  id="<%= dom_id(@authorization_request, block_id) %>"
->
+<div class="summary-block <%= !editable ? 'summary-block--fixed' : '' %>" id="<%= dom_id(@authorization_request, block_id) %>">
   <h3 class="summary-block__title">
     <%= title %>
   </h3>
@@ -9,9 +6,7 @@
   <div class="summary-block__ctas">
     <% if policy(@authorization_request).update? && editable %>
       <% wicked_block_id = t("wicked.#{block_id}") %>
-      <%= link_to "Modifier",
-      edit_authorization_request_block_path(@authorization_request, wicked_block_id),
-      class: %w[fr-btn fr-btn--secondary fr-btn--sm] %>
+      <%= link_to 'Modifier', edit_authorization_request_block_path(@authorization_request, wicked_block_id), class: %w(fr-btn fr-btn--secondary fr-btn--sm) %>
     <% end %>
   </div>
 

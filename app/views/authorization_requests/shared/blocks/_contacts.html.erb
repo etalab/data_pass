@@ -3,10 +3,7 @@
     <div class="fr-grid-row fr-grid-row--gutters">
       <% @authorization_request.contact_types.each do |contact_type| %>
         <div class="fr-col-12 fr-col-lg-6">
-          <div
-            id="<%= dom_id(@authorization_request, contact_type) %>"
-            class="fr-basic-card contact-card"
-          >
+          <div id="<%= dom_id(@authorization_request, contact_type) %>" class="fr-basic-card contact-card">
             <div class="contact-card__kind">
               <%= t("authorization_request_forms.default.#{contact_type}.title") %>
             </div>
@@ -17,11 +14,13 @@
               </div>
             <% end %>
 
-            <% %w[
+            <%
+              %w[
                 job_title
                 email
                 phone_number
-              ].each do |contact_attribute| %>
+              ].each do |contact_attribute|
+            %>
               <% next if @authorization_request.public_send("#{contact_type}_type") == 'organization' && %w[job_title].include?(contact_attribute) %>
 
               <div class="contact-card__attribute">

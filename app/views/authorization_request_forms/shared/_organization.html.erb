@@ -1,33 +1,16 @@
-<% user =
-  (
-    if @authorization_request.present?
-      @authorization_request.applicant
-    else
-      current_user
-    end
-  ) %>
-<% organization =
-  (
-    if @authorization_request.present?
-      @authorization_request.organization
-    else
-      current_organization
-    end
-  ) %>
+<% user = @authorization_request.present? ? @authorization_request.applicant : current_user %>
+<% organization = @authorization_request.present? ? @authorization_request.organization : current_organization %>
 
 <div class="fr-container-fluid">
   <div class="fr-grid-row fr-grid-row--gutters">
     <div class="fr-col-12 fr-col-lg-6">
-      <div
-        id="<%= dom_id(user, :authorization_request_card) %>"
-        class="fr-basic-card"
-      >
+      <div id="<%= dom_id(user, :authorization_request_card) %>" class="fr-basic-card">
         <div class="fr-col">
           <h3>
             <% if namespace?(:instruction) %>
-              <%= t(".applicant.title") %>
+              <%= t('.applicant.title') %>
             <% else %>
-              <%= t(".you.title") %>
+              <%= t('.you.title') %>
             <% end %>
           </h3>
 
@@ -45,23 +28,20 @@
 
         <% if @authorization_request.blank? %>
           <%= form_with(url: "/auth/mon_compte_pro?prompt=update_userinfo", method: :post, data: { turbo: false }) do |f| %>
-            <%= f.button t(".you.update"), id: "update_infos", class: %w[fr-btn fr-mt-2w] %>
+            <%= f.button t('.you.update'), id: 'update_infos', class: %w(fr-btn fr-mt-2w) %>
           <% end %>
         <% end %>
       </div>
     </div>
 
     <div class="fr-col-12 fr-col-lg-6">
-      <div
-        id="<%= dom_id(organization, :authorization_request_card) %>"
-        class="fr-basic-card"
-      >
+      <div id="<%= dom_id(organization, :authorization_request_card) %>" class="fr-basic-card">
         <div class="fr-col">
           <h3>
             <% if namespace?(:instruction) || controller_name == 'profile' %>
-              <%= t(".organization.title") %>
+              <%= t('.organization.title') %>
             <% else %>
-              <%= t(".your_organization.title") %>
+              <%= t('.your_organization.title') %>
             <% end %>
           </h3>
 
@@ -79,9 +59,7 @@
 
         <% if @authorization_request.blank? %>
           <%= form_with(url: "/auth/mon_compte_pro?prompt=select_organization", method: :post, data: { turbo: false }) do |f| %>
-            <%= f.button t(".your_organization.update"),
-                     id: "change_current_organization",
-                     class: %w[fr-btn fr-mt-2w] %>
+            <%= f.button t('.your_organization.update'), id: 'change_current_organization', class: %w(fr-btn fr-mt-2w) %>
           <% end %>
         <% end %>
       </div>

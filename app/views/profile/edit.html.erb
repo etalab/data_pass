@@ -1,20 +1,17 @@
 <div class="sub-header">
   <h1 class="fr-m-0">
-    <%= t(".title") %>
+    <%= t('.title') %>
   </h1>
 </div>
 
-<%= render partial: "authorization_request_forms/shared/organization" %>
+<%= render partial: 'authorization_request_forms/shared/organization' %>
 
 <% if current_user.reporter? %>
   <h2 class="fr-mt-16v">
-    <%= t(".notifications.title") %>
+    <%= t('.notifications.title') %>
   </h2>
 
   <% current_user.authorization_definition_roles_as('reporter').each do |authorization_definition| %>
-    <%= render partial: "profile/authorization_notifications",
-    locals: {
-      authorization_definition:,
-    } %>
+    <%= render partial: 'profile/authorization_notifications', locals: { authorization_definition: } %>
   <% end %>
 <% end %>

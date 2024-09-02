@@ -2,13 +2,7 @@
   <%= yield %>
 
   <% if @authorization_request && policy(@authorization_request).messages? %>
-    <a
-      class="message-bubble-cta"
-      href="<%= authorization_request_messages_path(@authorization_request) %>"
-      aria-controls="main-modal"
-      data-fr-opened="false"
-      data-turbo-frame="main-modal-content"
-    >
+    <a class="message-bubble-cta" href="<%= authorization_request_messages_path(@authorization_request) %>" aria-controls="main-modal" data-fr-opened="false" data-turbo-frame="main-modal-content">
       <span class="fr-icon-question-answer-line">
       </span>
       <% if @authorization_request.unread_messages_from_applicant_count > 0 %>
@@ -20,4 +14,4 @@
   <% end %>
 <% end %>
 
-<%= render template: "layouts/application" %>
+<%= render template: 'layouts/application' %>

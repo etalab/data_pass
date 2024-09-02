@@ -3,15 +3,8 @@
     <%= render partial: "authorization_requests/shared/organization_and_applicant" %>
   </div>
 
-  <%= render partial: "authorization_request_forms/shared/block_titles",
-  locals: {
-    f: f,
-    block_name: :contacts,
-  } %>
-  <%= render partial: "authorization_request_forms/shared/contacts", locals: { f: } %>
+  <%= render partial: "authorization_request_forms/shared/block_titles", locals: { f: f, block_name: :contacts } %>
+  <%= render partial: 'authorization_request_forms/shared/contacts', locals: { f: } %>
 
-  <%= render partial: "authorization_request_forms/shared/submit_buttons",
-  locals: {
-    f:,
-  } %>
+  <%= render partial: 'authorization_request_forms/shared/submit_buttons', locals: { f: } %>
 <% end %>

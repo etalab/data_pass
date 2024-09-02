@@ -1,17 +1,9 @@
 <% authorization_request = authorization_request.decorate %>
 
-<div
-  class="
-    authorization-request-card authorization-request-card__small
-    authorization-request fr-background-default--grey height-100 fr-mb-3w
-  "
-  id="<%= dom_id(authorization_request) %>"
->
+<div class="authorization-request-card authorization-request-card__small authorization-request fr-background-default--grey height-100 fr-mb-3w" id="<%= dom_id(authorization_request) %>">
   <div class="card__wrapper fr-p-4w">
-    <%= render partial: "dashboard/card/card_badge",
-    locals: {
-      authorization_request: authorization_request,
-    } %>
+    <%= render partial: 'dashboard/card/card_badge', locals: { authorization_request: authorization_request } %>
+
 
     <div class="card__details">
       <p class="fr-text--xs fr-text-grey fr-my-2w">
@@ -25,18 +17,12 @@
 
     <div class="card__desc">
       <p class="fr-text--sm">
-        <%= t("dashboard.card.authorization_request_card.created_at") %>
-        <%= l(authorization_request.created_at, format: "%d/%m/%Y") %>
+        <%= t('dashboard.card.authorization_request_card.created_at') %> <%= l(authorization_request.created_at, format: '%d/%m/%Y') %>
       </p>
     </div>
 
     <div class="card__actions flex-end__content">
-      <%= link_to t(".show_cta"),
-      authorization_request_form_path(
-        form_uid: authorization_request.form.uid,
-        id: authorization_request.id,
-      ),
-      class: %w[fr-btn fr-btn--sm] %>
+      <%= link_to t('.show_cta'), authorization_request_form_path(form_uid: authorization_request.form.uid, id: authorization_request.id), class: %w(fr-btn fr-btn--sm) %>
     </div>
   </div>
 

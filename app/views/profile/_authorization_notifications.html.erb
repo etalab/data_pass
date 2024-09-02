@@ -7,18 +7,22 @@
     <%= form_with(model: current_user, url: notifications_settings_path, data: { controller: 'auto-submit' }) do |f| %>
       <% %w[submit_notifications messages_notifications].each do |notification_kind| %>
         <div class="fr-toggle">
-          <%= f.check_box "instruction_#{notification_kind}_for_#{authorization_definition.id.underscore}",
-                      class: "fr-toggle__input",
-                      data: {
-                        action: "change->auto-submit#perform",
-                      } %>
-          <%= f.label "instruction_#{notification_kind}_for_#{authorization_definition.id.underscore}",
-                  t(".instruction_#{notification_kind}"),
-                  class: "fr-toggle__label",
-                  data: {
-                    fr_checked_label: "Activées",
-                    fr_unchecked_label: "Désactivées",
-                  } %>
+          <%=
+            f.check_box "instruction_#{notification_kind}_for_#{authorization_definition.id.underscore}",
+              class: 'fr-toggle__input',
+              data: {
+                action: 'change->auto-submit#perform'
+              }
+          %>
+          <%=
+            f.label "instruction_#{notification_kind}_for_#{authorization_definition.id.underscore}",
+              t(".instruction_#{notification_kind}"),
+              class: 'fr-toggle__label',
+              data: {
+                fr_checked_label: 'Activées',
+                fr_unchecked_label: 'Désactivées',
+              }
+          %>
         </div>
       <% end %>
     <% end %>

@@ -1,5 +1,5 @@
 <%= authorization_request_form(@authorization_request) do |f| %>
-  <%= render partial: "authorization_request_forms/current_user_mentions_alert" %>
+  <%= render partial: 'authorization_request_forms/current_user_mentions_alert' %>
 
   <div id="<%= dom_id(@authorization_request, :summary) %>" class="fr-mt-4w">
     <% if @authorization_request.changes_requested? %>
@@ -13,7 +13,7 @@
         </h3>
 
         <% if @authorization_request.reopening? %>
-          <%= t("authorization_requests.show.reopening_changes_requested.description") %>
+          <%= t('authorization_requests.show.reopening_changes_requested.description') %>
         <% else %>
           <%= t("authorization_requests.show.changes_requested.description") %>
         <% end %>
@@ -30,21 +30,16 @@
           <h3 class="fr-alert__title">
             Une mise à jour de cette demande est en cours.
           </h3>
-          Vous avez initié une mise à jour de cette habilitation. Vous pouvez y
-          accéder en cliquant ici :
-          <%= link_to "Demande de mise à jour n°#{@authorization.request.id}",
-          authorization_request_path(@authorization.request) %>
+
+          Vous avez initié une mise à jour de cette habilitation. Vous pouvez y accéder en cliquant ici : <%= link_to "Demande de mise à jour n°#{@authorization.request.id}", authorization_request_path(@authorization.request) %>
         </div>
       <% elsif !@authorization.latest? %>
         <div class="fr-alert fr-alert--warning fr-mb-4v">
           <h3 class="fr-alert__title">
-            Attention, vous consultez une version ancienne de cette
-            habilitation
+            Attention, vous consultez une version ancienne de cette habilitation
           </h3>
-          Il existe une version plus récente de cette habilitation que vous
-          pouvez consulter en cliquant ici :
-          <%= link_to "Habilitation n°#{@authorization_request.latest_authorization.id}",
-          @authorization_request.latest_authorization %>
+
+          Il existe une version plus récente de cette habilitation que vous pouvez consulter en cliquant ici : <%= link_to "Habilitation n°#{@authorization_request.latest_authorization.id}", @authorization_request.latest_authorization %>
         </div>
       <% end %>
     <% end %>
@@ -52,29 +47,19 @@
     <% if @authorization_request.access_link && @authorization_request.validated? %>
       <div class="fr-callout fr-my-16v">
         <h3 class="fr-callout__title">
-          <%= t("authorization_requests.show.access_callout.title") %>
+          <%= t('authorization_requests.show.access_callout.title') %>
         </h3>
 
-        <%= simple_format t(
-          "authorization_requests.show.access_callout.content",
-          access_name: @authorization_request.name,
-        ),
-        { class: "fr-callout__text" },
-        wrapper_tag: "p" %>
+        <%= simple_format t('authorization_requests.show.access_callout.content', access_name: @authorization_request.name), { class: 'fr-callout__text' }, wrapper_tag: 'p' %>
 
-        <%= link_to t("authorization_requests.show.access_callout.button"),
-        @authorization_request.access_link,
-        class: "fr-btn fr-btn--icon-right fr-icon-external-link-line",
-        target: :blank %>
+        <%= link_to t('authorization_requests.show.access_callout.button'), @authorization_request.access_link, class: 'fr-btn fr-btn--icon-right fr-icon-external-link-line', target: :blank %>
       </div>
     <% end %>
 
+
     <% if @authorization_request.draft? %>
       <% if @authorization_request.reopening? && @authorization_request.applicant == current_user %>
-        <%= render partial: "authorization_requests/shared/reopening_callout",
-        locals: {
-          klass: "fr-mt-6w",
-        } %>
+        <%= render partial: 'authorization_requests/shared/reopening_callout', locals: { klass: 'fr-mt-6w' } %>
       <% else %>
         <h2>
           Récapitulatif de votre demande
@@ -82,14 +67,12 @@
 
         <p>
           Vous avez complété toutes les étapes de votre demande.
-          <br/>
-          Merci de vérifier que les informations ci-dessous sont correctes et
-          d'accepter les conditions générales d'utilisation.
+          <br />
+          Merci de vérifier que les informations ci-dessous sont correctes et d'accepter les conditions générales d'utilisation.
+
           <% if @authorization_request.static_blocks.any? %>
-            <br/>
-            Une partie des informations ci-dessous ont été pré-remplies en
-            accord avec le type de formulaire que vous avez sélectionné et ne
-            sont pas modifiables.
+            <br />
+            Une partie des informations ci-dessous ont été pré-remplies en accord avec le type de formulaire que vous avez sélectionné et ne sont pas modifiables.
           <% end %>
         </p>
       <% end %>
@@ -97,59 +80,39 @@
 
     <% if @authorization_request.filling? %>
       <% @authorization_request.editable_blocks.each do |block| %>
-        <%= render partial: "authorization_requests/shared/blocks/#{block[:name]}",
-        locals: {
-          f: f,
-          editable: true,
-        } %>
+        <%= render partial: "authorization_requests/shared/blocks/#{block[:name]}", locals: { f: f, editable: true } %>
       <% end %>
 
       <h3>
         Les informations pré-remplies
       </h3>
       <p>
-        Les informations suivantes ont été pré-remplies et ne sont pas
-        modifiables.
+        Les informations suivantes ont été pré-remplies et ne sont pas modifiables.
       </p>
 
-      <%= render partial: "authorization_requests/shared/organization_and_applicant" %>
+      <%= render partial: 'authorization_requests/shared/organization_and_applicant' %>
 
       <% @authorization_request.static_blocks.each do |block| %>
-        <%= render partial: "authorization_requests/shared/blocks/#{block[:name]}",
-        locals: {
-          f: f,
-          editable: false,
-        } %>
+        <%= render partial: "authorization_requests/shared/blocks/#{block[:name]}", locals: { f: f, editable: false } %>
       <% end %>
     <% else %>
-      <%= render partial: "authorization_requests/shared/organization_and_applicant" %>
+      <%= render partial: 'authorization_requests/shared/organization_and_applicant' %>
 
       <% @authorization_request.blocks.each do |block| %>
-        <%= render partial: "authorization_requests/shared/blocks/#{block[:name]}",
-        locals: {
-          f: f,
-          editable: false,
-        } %>
+        <%= render partial: "authorization_requests/shared/blocks/#{block[:name]}", locals: { f: f, editable: false } %>
       <% end %>
     <% end %>
 
     <% if @authorization_request.draft? && !@authorization_request.reopening? %>
-      <%= render partial: "authorization_request_forms/shared/tos_checkboxes",
-      locals: {
-        f: f,
-      } %>
+      <%= render partial: 'authorization_request_forms/shared/tos_checkboxes', locals: { f: f } %>
     <% end %>
   </div>
 
-  <% if policy(@authorization_request).submit? %>
+   <% if policy(@authorization_request).submit? %>
     <% content_for :sticky_bar do %>
-      <div class="fr-container fr-grid-row fr-grid-row--right">
-        <%= f.button t("authorization_request_forms.form.submit"),
-                 type: :submit,
-                 name: :submit,
-                 id: :submit_authorization_request,
-                 class: %w[fr-btn fr-icon-checkbox-line fr-btn--icon-left] %>
-      </div>
+        <div class="fr-container fr-grid-row fr-grid-row--right">
+          <%= f.button t('authorization_request_forms.form.submit'), type: :submit, name: :submit, id: :submit_authorization_request, class: %w(fr-btn fr-icon-checkbox-line fr-btn--icon-left) %>
+        </div>
     <% end %>
   <% end %>
 <% end %>

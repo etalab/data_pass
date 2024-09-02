@@ -2,24 +2,21 @@
   <div class="fr-col-sm-8 fr-col-offset-sm-2 fr-col-12">
     <div class="instruction-message-form">
       <h3>
-        <%= t(".form.title") %>
+        <%= t('.form.title') %>
       </h3>
 
       <% if policy([:instruction, @authorization_request]).send_message? %>
-        <%= render partial: "messages/form",
-        locals: {
-          url: instruction_authorization_request_messages_path(@authorization_request),
-        } %>
+        <%= render partial: 'messages/form', locals: { url: instruction_authorization_request_messages_path(@authorization_request) } %>
       <% end %>
     </div>
 
     <% if @messages.any? %>
       <div class="instruction-messages fr-mt-4v">
         <h3>
-          <%= t(".messages.title") %>
+          <%= t('.messages.title') %>
         </h3>
 
-        <%= render partial: "messages/message", collection: @messages %>
+        <%= render partial: 'messages/message', collection: @messages %>
       </div>
     <% end %>
   </div>
