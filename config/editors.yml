@@ -70,6 +70,9 @@ shared:
   extenso_partner:
     name: Extenso Partner
     siret: '79071848000037'
+  esabora:
+    name: Esabora
+    siret: '35408852800048'
   jvs_mairistem:
     name: JVS-Mairistem
     siret: '32855218700069'

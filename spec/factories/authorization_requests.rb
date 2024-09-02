@@ -301,6 +301,7 @@ FactoryBot.define do
       api-particulier-capdemat-capdemat-evolution
       api-particulier-kosmos-education
       api-particulier-monkey-factory-maasify
+      api-particulier-esabora-pourmesdossiers
       api-particulier-tarification-municipale-enfance
       api-particulier-aides-facultatives-regionales
       api-particulier-aides-facultatives-departementales
