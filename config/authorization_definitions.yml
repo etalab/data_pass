@@ -3,25 +3,25 @@ shared:
   hubee_cert_dc:
     name: "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
     description: "Formulaire d'abonnement à la démarche Certificats de Décès Électroniques Dématérialisés"
-    cgu_link: '/cgus/20210212_dinum_hubee_cgu_v2_1_0_version_site.pdf'
+    cgu_link: "/cgus/20210212_dinum_hubee_cgu_v2_1_0_version_site.pdf"
     access_link: https://portail.hubee.numerique.gouv.fr
-    provider: 'hubee'
+    provider: "hubee"
     public: true
     unique: true
     blocks:
-      - name: 'contacts'
+      - name: "contacts"
 
   hubee_dila:
     name: "Démarches du bouquet de services (service-public.fr)"
     description: "Formulaire d'abonnement aux démarches du bouquet de services (service-public.fr)"
-    cgu_link: '/cgus/20210212_dinum_hubee_cgu_v2_1_0_version_site.pdf'
+    cgu_link: "/cgus/20210212_dinum_hubee_cgu_v2_1_0_version_site.pdf"
     access_link: https://portail.hubee.numerique.gouv.fr
-    provider: 'hubee'
+    provider: "hubee"
     public: true
     unique: true
     blocks:
-      - name: 'scopes'
-      - name: 'contacts'
+      - name: "scopes"
+      - name: "contacts"
     scopes:
       - name: "AEC - Acte d’Etat Civil"
         value: "etat_civil"
@@ -42,22 +42,22 @@ shared:
   api_entreprise:
     name: "API Entreprise"
     description: "Entités administratives, simplifiez les démarches des entreprises et des associations en récupérant pour elles leurs informations administratives."
-    provider: 'dinum'
-    link: 'https://api.gouv.fr/les-api/api-entreprise'
-    cgu_link: 'https://entreprise.api.gouv.fr/cgu'
+    provider: "dinum"
+    link: "https://api.gouv.fr/les-api/api-entreprise"
+    cgu_link: "https://entreprise.api.gouv.fr/cgu"
     access_link: https://entreprise.api.gouv.fr/compte/jetons/%{linked_token_manager_id}
     public: true
     blocks:
-      - name: 'basic_infos'
-      - name: 'personal_data'
-      - name: 'legal'
-      - name: 'scopes'
-      - name: 'contacts'
+      - name: "basic_infos"
+      - name: "personal_data"
+      - name: "legal"
+      - name: "scopes"
+      - name: "contacts"
     scopes:
       - name: "Données unités légales et établissements du répertoire Sirene - Insee (diffusibles et non-diffusibles) | 🔐"
-        group: 'Informations générales'
-        value: 'unites_legales_etablissements_insee'
-        link: 'https://entreprise.api.gouv.fr/catalogue?APIEntreprise_Endpoint%5Bquery%5D=insee'
+        group: "Informations générales"
+        value: "unites_legales_etablissements_insee"
+        link: "https://entreprise.api.gouv.fr/catalogue?APIEntreprise_Endpoint%5Bquery%5D=insee"
       - name: "Données des unités légales et établissements diffusibles - Insee | Open Data"
         group: "Informations générales"
         value: "open_data_unites_legales_etablissements_insee"
@@ -90,15 +90,15 @@ shared:
         included: true
 
       - name: "Données associations - DJEPVA | 🔐"
-        group: 'Informations générales'
-        value: 'associations_djepva'
-        link: 'https://entreprise.api.gouv.fr/catalogue/djepva/associations'
+        group: "Informations générales"
+        value: "associations_djepva"
+        link: "https://entreprise.api.gouv.fr/catalogue/djepva/associations"
       - name: "Effectifs - GIP-MDS | 🔐"
-        group: 'Informations générales'
+        group: "Informations générales"
         value: "effectifs_urssaf"
         link: "https://entreprise.api.gouv.fr/catalogue/?APIEntreprise_Endpoint%5Bquery%5D=effectif%20gip"
       - name: "Mandataires sociaux - Infogreffe | 🔐"
-        group: 'Informations générales'
+        group: "Informations générales"
         value: "mandataires_sociaux_infogreffe"
         link: "https://entreprise.api.gouv.fr/catalogue/infogreffe/mandataires_sociaux"
       - name: "Bénéficiaires effectifs - Inpi | 🔐"
@@ -180,18 +180,18 @@ shared:
   api_particulier:
     name: "API Particulier"
     description: "Entités administratives, simplifiez les démarches des particuliers en récupérant pour eux leurs informations administratives (quotient familial CAF, composition familiale, statut demandeur d’emploi, étudiant et étudiant boursier)."
-    cgu_link: 'https://particulier.api.gouv.fr/cgu'
-    provider: 'dinum'
-    link: 'https://api.gouv.fr/les-api/api-particulier'
+    cgu_link: "https://particulier.api.gouv.fr/cgu"
+    provider: "dinum"
+    link: "https://api.gouv.fr/les-api/api-particulier"
     access_link: https://particulier.api.gouv.fr/compte/jetons/%{linked_token_manager_id}
     public: true
     blocks:
-      - name: 'basic_infos'
-      - name: 'modalities'
-      - name: 'personal_data'
-      - name: 'legal'
-      - name: 'scopes'
-      - name: 'contacts'
+      - name: "basic_infos"
+      - name: "modalities"
+      - name: "personal_data"
+      - name: "legal"
+      - name: "scopes"
+      - name: "contacts"
     scopes:
       - name: "Quotient familial CAF & MSA"
         value: "cnaf_quotient_familial"
@@ -258,7 +258,7 @@ shared:
       - name: "Identité de l'étudiant"
         value: "mesri_identite"
         group: "API Statut étudiant"
-      - name: "Statut étudiant \"admis\""
+      - name: 'Statut étudiant "admis"'
         value: "mesri_admission"
         group: "API Statut étudiant"
       - name: "Statut étudiant inscrit | Périmètre formation initiale"
@@ -301,22 +301,22 @@ shared:
     name: "API Service National"
     description: "Vérifiez si un candidat est en règle vis-à-vis de ses obligations de Service National et peut s’inscrire au concours ou à l’examen dont vous êtes en charge."
     public: true
-    cgu_link: 'https://presaje.sga.defense.gouv.fr/cgu-dln1f'
-    provider: 'ministere_des_armees'
+    cgu_link: "https://presaje.sga.defense.gouv.fr/cgu-dln1f"
+    provider: "ministere_des_armees"
     blocks:
-      - name: 'basic_infos'
-      - name: 'personal_data'
-      - name: 'legal'
-      - name: 'contacts'
+      - name: "basic_infos"
+      - name: "personal_data"
+      - name: "legal"
+      - name: "contacts"
 
   api_captchetat:
     name: "API CaptchEtat"
     description: "Générer un CAPTCHA pour sécuriser un service en ligne"
     public: true
-    link: 'https://api.gouv.fr/les-api/api-captchetat'
-    cgu_link: '/cgus/cgu_api_captchetat_v_1_2.pdf'
-    provider: 'aife'
+    link: "https://api.gouv.fr/les-api/api-captchetat"
+    cgu_link: "/cgus/cgu_api_captchetat_v_1_2.pdf"
+    provider: "aife"
     blocks:
-      - name: 'basic_infos'
-      - name: 'legal'
-      - name: 'contacts'
+      - name: "basic_infos"
+      - name: "legal"
+      - name: "contacts"

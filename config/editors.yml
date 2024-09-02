@@ -2,119 +2,119 @@
 shared:
   mgdis:
     name: MGDIS
-    siret: '32816124500027'
+    siret: "32816124500027"
   setec:
     name: SETEC
-    siret: '70200590100104'
+    siret: "70200590100104"
   e_attestations:
     name: e-Attestations
-    siret: '50382936800045'
+    siret: "50382936800045"
   provigis:
     name: Provigis
-    siret: '43196025100061'
+    siret: "43196025100061"
   achat_solution:
     name: Achat Solution
-    siret: '81449011600013'
+    siret: "81449011600013"
   atexo:
     name: Atexo
-    siret: '44090956200033'
+    siret: "44090956200033"
   inetum:
     name: INETUM
-    siret: '34054699300668'
+    siret: "34054699300668"
 
   aiga:
     name: Aiga
-    siret: '39825361700045'
+    siret: "39825361700045"
   abelium:
     name: Abelium Collectivités
-    siret: '42172024400050'
+    siret: "42172024400050"
   agora_plus:
     name: Agora Plus
-    siret: '48017088500010'
+    siret: "48017088500010"
   amiciel:
     name: Amiciel
-    siret: '44884396100013'
+    siret: "44884396100013"
   arpege:
     name: Arpège
-    siret: '35142130000036'
+    siret: "35142130000036"
   berger_levrault:
     name: Berger-Levrault
-    siret: '75580064600373'
+    siret: "75580064600373"
   jdealise:
     name: JDéalise
-    siret: '89255569900016'
+    siret: "89255569900016"
   arche_mc2:
     name: Arche MC2
-    siret: '38251931200088'
+    siret: "38251931200088"
   afi:
     name: Agence Française d'Informatique (AFI)
-    siret: '32275019100031'
+    siret: "32275019100031"
   mushroom_software:
     name: Mushroom Software
-    siret: '81122842800017'
+    siret: "81122842800017"
   capdemat:
     name: CapDemat
-    siret: '79529105300010'
+    siret: "79529105300010"
   ciril_group:
     name: Ciril GROUP
-    siret: '30516304000119'
+    siret: "30516304000119"
   cosoluce:
     name: Cosoluce
-    siret: '44321098400052'
+    siret: "44321098400052"
   docaposte:
     name: DOCAPOSTE
-    siret: '48847870200035'
+    siret: "48847870200035"
   entrouvert:
     name: Entrouvert
-    siret: '49108189900032'
+    siret: "49108189900032"
   extenso_partner:
     name: Extenso Partner
-    siret: '79071848000037'
+    siret: "79071848000037"
   esabora:
     name: Esabora
-    siret: '35408852800048'
+    siret: "35408852800048"
   jvs_mairistem:
     name: JVS-Mairistem
-    siret: '32855218700069'
+    siret: "32855218700069"
   kosmos:
     name: Kosmos
-    siret: '41922342500044'
+    siret: "41922342500044"
   nfi:
     name: Nord France Informatique
-    siret: '37996323400032'
+    siret: "37996323400032"
   odyssee_informatique:
     name: Odyssée Informatique
-    siret: '38812677300026'
+    siret: "38812677300026"
   qiis:
     name: Qiis
-    siret: '52834311400021'
+    siret: "52834311400021"
   sigec:
     name: SIGEC
-    siret: '33307306200015'
+    siret: "33307306200015"
   teamnet:
     name: Teamnet
-    siret: '33922000600078'
+    siret: "33922000600078"
   technocarte:
     name: Technocarte
-    siret: '38873581300056'
+    siret: "38873581300056"
   waigeo:
     name: Waigeo
-    siret: '80321944300014'
+    siret: "80321944300014"
   3d_ouest:
     name: 3D Ouest
-    siret: '44973625500018'
+    siret: "44973625500018"
   coexya:
     name: Coexya
-    siret: '43362470700017'
+    siret: "43362470700017"
   agedi:
     name: AGEDI
-    siret: '25770538400044'
+    siret: "25770538400044"
   ecorestauration:
     name: Ecorestauration
-    siret: '82839976600025'
+    siret: "82839976600025"
   jcdeveloppement:
     name: JCDeveloppement
-    siret: '75006664900013'
+    siret: "75006664900013"
   monkey_factory:
     name: Monkey Factory
-    siret: '780261986600048'
+    siret: "780261986600048"
