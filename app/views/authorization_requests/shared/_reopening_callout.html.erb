@@ -5,12 +5,16 @@
   <h3 class="fr-callout__title">Mise à jour de l'habilitation</h3>
   <p class="fr-callout__text">
     <% if type == :instructor %>
-      Une habilitation validée existe déjà, cette demande concerne une mise à jour des informations existantes.
+      Une habilitation validée existe déjà, cette demande concerne une mise à
+      jour des informations existantes.
     <% else %>
-      Il s'agit d'une mise à jour d'une habilitation validée. Si celle-ci est rejetée, votre habilitation initiale sera toujours valide et les informations restaurées à la version initiale.
-
-      Vous pouvez consulter à tout moment l'habilitation validée :
+      Il s'agit d'une mise à jour d'une habilitation validée. Si celle-ci est
+      rejetée, votre habilitation initiale sera toujours valide et les
+      informations restaurées à la version initiale. Vous pouvez consulter à
+      tout moment l'habilitation validée :
     <% end %>
   </p>
-  <%= link_to "Consulter l'habilitation validée n°#{@authorization_request.id}", latest_authorization_path(@authorization_request), class:"fr-btn" %>
+  <%= link_to "Consulter l'habilitation validée n°#{@authorization_request.id}",
+  latest_authorization_path(@authorization_request),
+  class: "fr-btn" %>
 </div>

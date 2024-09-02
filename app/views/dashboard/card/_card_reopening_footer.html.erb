@@ -1,12 +1,17 @@
 <div class="reopening__footer fr-p-3w fr-background-alt--grey">
   <div class="reopening__content flex-space-between__content fr-mb-3v">
     <div>
-      <p class="reopening__title fr-text-title--blue-france fr-text--md font-weight-700 fr-m-0">
-        <%= t('.reopen_title') %>
+      <p
+        class="
+          reopening__title fr-text-title--blue-france fr-text--md font-weight-700 fr-m-0
+        "
+      >
+        <%= t(".reopen_title") %>
       </p>
 
       <p class="fr-text--sm fr-mb-0">
-        <%= t('.reopen_date') %> <%= l authorization_request.reopened_at, format: '%d/%m/%Y' %>
+        <%= t(".reopen_date") %>
+        <%= l authorization_request.reopened_at, format: "%d/%m/%Y" %>
       </p>
     </div>
 
@@ -15,6 +20,11 @@
     </div>
   </div>
   <div class="reopening__link">
-    <%= link_to t('.show_cta'), authorization_request_form_path(form_uid: authorization_request.form.uid, id: authorization_request.id), class: %w(fr-text--sm fr-icon-arrow-right-line fr-link--icon-right) %>
+    <%= link_to t(".show_cta"),
+    authorization_request_form_path(
+      form_uid: authorization_request.form.uid,
+      id: authorization_request.id,
+    ),
+    class: %w[fr-text--sm fr-icon-arrow-right-line fr-link--icon-right] %>
   </div>
 </div>

@@ -10,22 +10,25 @@
               <div class="fr-badge-group">
 
                 <% if @authorization_request.reopening? %>
-                <%= authorization_request_reopening_badge %>
-              <% end %>
+                  <%= authorization_request_reopening_badge %>
+                <% end %>
 
                 <span class="fr-badge fr-badge--no-icon"><%= t("authorization_request.badge", id: @authorization_request.id) %></span>
-              <%= authorization_request_status_badge(@authorization_request) %>
+                <%= authorization_request_status_badge(@authorization_request) %>
               </div>
             </div>
           </div>
           <div class="fr-col-12 fr-col-md-4">
             <div class="authorization-request-form-header__actions">
               <% if @authorization_request.reopening? && policy(@authorization_request.latest_authorization).show? %>
-                <%= link_to t('.view_authorization'), latest_authorization_path(@authorization_request), target: '_blank', class: 'fr-btn fr-btn--secondary' %>
+                <%= link_to t(".view_authorization"),
+                latest_authorization_path(@authorization_request),
+                target: "_blank",
+                class: "fr-btn fr-btn--secondary" %>
               <% end %>
 
               <% if policy([:instruction, @authorization_request]).moderate? %>
-                <%= render partial: 'instruction/authorization_requests/moderation_buttons' %>
+                <%= render partial: "instruction/authorization_requests/moderation_buttons" %>
               <% end %>
             </div>
           </div>
@@ -33,20 +36,24 @@
       </div>
     </div>
 
-    <%
-      tabs = {
-        authorization_request: instruction_authorization_request_path(@authorization_request),
-        authorization_request_events: instruction_authorization_request_events_path(@authorization_request),
-        messages: instruction_authorization_request_messages_path(@authorization_request),
-      }
-    %>
+    <% tabs = {
+      authorization_request:
+        instruction_authorization_request_path(@authorization_request),
+      authorization_request_events:
+        instruction_authorization_request_events_path(@authorization_request),
+      messages:
+        instruction_authorization_request_messages_path(@authorization_request),
+    } %>
 
     <div class="fr-tabs" data-controller="auto-height">
-      <ul class="fr-tabs__list fr-container" role="tablist" aria-label="Menu secondaire">
+      <ul
+        class="fr-tabs__list fr-container"
+        role="tablist"
+        aria-label="Menu secondaire"
+      >
         <% tabs.each do |id, path| %>
           <li role="presentation">
-            <%=
-              link_to(
+            <%= link_to(
                 path,
                 class: [
                   'fr-tabs__tab',
@@ -62,8 +69,7 @@
                 aria: {
                   selected: current_page?(path),
                   controls: "tab-#{id}-panel"
-                }) do
-              %>
+                }) do %>
               <%= t(".tabs.#{id}.title") %>
               <% if id == :messages && @authorization_request.unread_messages_from_instructors_count > 0 %>
                 <span class="unread-message-dot fr-ml-2v">
@@ -76,9 +82,16 @@
       </ul>
 
       <% tabs.each do |id, path| %>
-        <turbo-frame id="tab-<%= id %>-panel" class="fr-tabs__panel fr-tabs__panel--selected fr-bg-white" role="tabpanel" aria-labelledby="tab-<%= id %>" tabindex="0" data-turbo-action="advance">
+        <turbo-frame
+          id="tab-<%= id %>-panel"
+          class="fr-tabs__panel fr-tabs__panel--selected fr-bg-white"
+          role="tabpanel"
+          aria-labelledby="tab-<%= id %>"
+          tabindex="0"
+          data-turbo-action="advance"
+        >
           <div class="fr-container">
-            <%= render partial: 'shared/alerts' %>
+            <%= render partial: "shared/alerts" %>
 
             <% if current_page?(path) %>
               <div data-auto-height-target="source">
@@ -95,4 +108,4 @@
   </div>
 <% end %>
 
-<%= render template: 'layouts/application' %>
+<%= render template: "layouts/application" %>

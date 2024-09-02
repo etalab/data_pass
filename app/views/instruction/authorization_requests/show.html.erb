@@ -1,7 +1,12 @@
 <%= authorization_request_form_tag(@authorization_request) do |f| %>
-  <%= render partial: "authorization_requests/shared/reopening_callout", locals: { type: :instructor } if @authorization_request.reopening? %>
+  <%= if @authorization_request.reopening?
+    render partial: "authorization_requests/shared/reopening_callout",
+    locals: {
+      type: :instructor,
+    }
+  end %>
 
-  <%= render partial: 'authorization_requests/shared/organization_and_applicant' %>
+  <%= render partial: "authorization_requests/shared/organization_and_applicant" %>
 
   <div class="info-block">
     <h3>
@@ -12,9 +17,12 @@
     </p>
   </div>
 
-
   <% @authorization_request.editable_blocks.each do |block| %>
-    <%= render partial: "authorization_requests/shared/blocks/#{block[:name]}", locals: { f: f, editable: true } %>
+    <%= render partial: "authorization_requests/shared/blocks/#{block[:name]}",
+    locals: {
+      f: f,
+      editable: true,
+    } %>
   <% end %>
 
   <% if @authorization_request.static_blocks.any? %>
@@ -23,12 +31,17 @@
         Les informations pré-remplies
       </h3>
       <p>
-        Ces informations suivantes ont été pré-remplies et ne sont pas modifiables.
+        Ces informations suivantes ont été pré-remplies et ne sont pas
+        modifiables.
       </p>
     </div>
 
     <% @authorization_request.static_blocks.each do |block| %>
-      <%= render partial: "authorization_requests/shared/blocks/#{block[:name]}", locals: { f: f, editable: false } %>
+      <%= render partial: "authorization_requests/shared/blocks/#{block[:name]}",
+      locals: {
+        f: f,
+        editable: false,
+      } %>
     <% end %>
   <% end %>
 <% end %>

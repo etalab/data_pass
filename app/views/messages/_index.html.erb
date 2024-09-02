@@ -1,7 +1,10 @@
 <div class="fr-modal__content">
   <% if policy(@authorization_request).send_message? %>
     <div class="message-form">
-      <%= render partial: 'form', locals: { url: authorization_request_messages_path(@authorization_request) } %>
+      <%= render partial: "form",
+      locals: {
+        url: authorization_request_messages_path(@authorization_request),
+      } %>
     </div>
   <% end %>
 
