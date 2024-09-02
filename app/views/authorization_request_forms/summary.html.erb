@@ -72,7 +72,7 @@
     <% if @authorization_request.filling? %>
       <%= render partial: 'authorization_requests/shared/organization_and_applicant' %>
 
-      <% @authorization_request.ordered_blocks.each do |block| %>
+      <% @authorization_request.blocks.each do |block| %>
         <%= render partial: "authorization_requests/shared/blocks/#{block[:name]}", locals: { f: f, editable: block[:editable] } %>
       <% end %>
     <% else %>
