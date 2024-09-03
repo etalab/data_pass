@@ -82,7 +82,7 @@ class CreateAuthorizationFromSnapshot
       temporary_authorization_request,
       enrollment_row,
       team_members,
-      false,
+      [],
     ).perform
 
     authorization.data = temporary_authorization_request.data
