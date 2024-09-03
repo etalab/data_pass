@@ -1,2 +1,1 @@
-bundle exec rails runner "HubeeImport.instance.build_csv_from_api'.
-
+bundle exec rails runner "HubEEImport.instance.build_csv_from_api"
