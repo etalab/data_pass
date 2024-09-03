@@ -1,8 +1,13 @@
 <% %i[error info success warning].each do |kind| %>
   <% if flash[kind].present? %>
-    <div class="fr-alert fr-alert--<%= kind %> fr-my-8v" id="<%= flash[kind]['id'] %>">
+    <div
+      class="
+        fr-alert fr-alert--<%= kind %> fr-my-8v
+      "
+      id="<%= flash[kind]['id'] %>"
+    >
       <h3 class="fr-alert__title">
-        <%= flash[kind]['title'] %>
+        <%= flash[kind]["title"] %>
       </h3>
 
       <% if flash[kind]['activemodel'] %>
@@ -12,10 +17,14 @@
           <% end %>
         </ul>
       <% elsif flash[kind]['description'] %>
-        <%= simple_format(flash[kind]['description']) %>
+        <%= simple_format(flash[kind]["description"]) %>
       <% end %>
 
-      <button class="fr-btn--close fr-btn" title="Masquer le message" onclick="const alert = this.parentNode; alert.parentNode.removeChild(alert)">
+      <button
+        class="fr-btn--close fr-btn"
+        title="Masquer le message"
+        onclick="const alert = this.parentNode; alert.parentNode.removeChild(alert)"
+      >
         Masquer le message
       </button>
     </div>

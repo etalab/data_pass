@@ -1,8 +1,15 @@
-<div id="<%= dom_id(authorization_request_form) %>" class="fr-tile fr-tile--sm fr-tile--horizontal fr-enlarge-link authorization-request-form-card">
+<div
+  id="<%= dom_id(authorization_request_form) %>"
+  class="
+    fr-tile fr-tile--sm fr-tile--horizontal fr-enlarge-link
+    authorization-request-form-card
+  "
+>
   <div class="fr-tile__body">
     <div class="fr-tile__content">
       <h3 class="fr-tile__title">
-        <%= link_to authorization_request_form.name, new_authorization_request_form_path(form_uid: authorization_request_form.id) %>
+        <%= link_to authorization_request_form.name,
+        new_authorization_request_form_path(form_uid: authorization_request_form.id) %>
       </h3>
       <p class="fr-tile__detail">
         <%= authorization_request_form.description %>
@@ -10,7 +17,8 @@
       <% if authorization_request_form.editor %>
         <div class="fr-tile__start">
           <p class="fr-badge fr-badge--sm">
-          Via l'éditeur <%= authorization_request_form.editor.name %>
+            Via l'éditeur
+            <%= authorization_request_form.editor.name %>
           </p>
         </div>
       <% end %>
@@ -19,7 +27,9 @@
   <% if authorization_request_form.use_case && File.exist?(Rails.root.join("app/assets/images/pictograms/authorization_requests/#{authorization_request_form.use_case}.svg")) %>
     <div class="fr-tile__header">
       <div class="fr-tile__pictogram">
-        <%= dsfr_custom_pictogram("pictograms/authorization_requests/#{authorization_request_form.use_case}.svg") %>
+        <%= dsfr_custom_pictogram(
+          "pictograms/authorization_requests/#{authorization_request_form.use_case}.svg",
+        ) %>
       </div>
     </div>
   <% end %>

@@ -1,25 +1,46 @@
 <h2 class="fr-mt-16v">
-  <%= t('.title', authorization_name: @authorization_request_form.authorization_definition.name) %>
+  <%= t(
+    ".title",
+    authorization_name: @authorization_request_form.authorization_definition.name,
+  ) %>
 </h2>
 
 <div class="fr-mb-4w">
   <% if policy(@authorization_request_form).create? %>
     <div class="border-frame-text fr-my-3w">
       <% if @authorization_request_form.name.present? %>
-        <%= simple_format t('.organization.start_text_with_form_name', organization_raison_sociale: current_organization.raison_sociale, organization_siret: current_organization.siret, authorization_request_form_name: @authorization_request_form.name), {}, wrapper_tag: 'div' %>
+        <%= simple_format t(
+          ".organization.start_text_with_form_name",
+          organization_raison_sociale: current_organization.raison_sociale,
+          organization_siret: current_organization.siret,
+          authorization_request_form_name: @authorization_request_form.name,
+        ),
+        {},
+        wrapper_tag: "div" %>
       <% else %>
-        <%= simple_format t('.organization.start_text', organization_raison_sociale: current_organization.raison_sociale, organization_siret: current_organization.siret), {}, wrapper_tag: 'div' %>
+        <%= simple_format t(
+          ".organization.start_text",
+          organization_raison_sociale: current_organization.raison_sociale,
+          organization_siret: current_organization.siret,
+        ),
+        {},
+        wrapper_tag: "div" %>
       <% end %>
     </div>
   <% else %>
-    <% authorization_request = @authorization_request_form.active_authorization_requests_for(current_organization).first %>
-    <%= render partial: "unicity_callout", locals: { authorization_request: } if authorization_request.present? %>
+    <% authorization_request =
+      @authorization_request_form.active_authorization_requests_for(
+        current_organization,
+      ).first %>
+    <%= if authorization_request.present?
+      render partial: "unicity_callout", locals: { authorization_request: }
+    end %>
   <% end %>
 
   <% if @authorization_request_form.introduction.present? %>
     <div class="fr-my-16v">
       <h5>
-        <%= t('.intro.title') %>
+        <%= t(".intro.title") %>
       </h5>
 
       <%= simple_format(@authorization_request_form.introduction) %>
@@ -29,22 +50,33 @@
   <% if @authorization_request_form.multiple_steps? %>
     <% if policy(@authorization_request_form).new? %>
       <h5>
-        <%= t('.multiple_steps.title') %>
+        <%= t(".multiple_steps.title") %>
       </h5>
       <p>
-        <%= t('.multiple_steps.description') %>
+        <%= t(".multiple_steps.description") %>
 
         <ol>
           <% @authorization_request_form.steps.each do |step| %>
             <li>
-              <%= authorization_request_step_name(@authorization_request_form.authorization_request_class.new, step[:name]) %>
+              <%= authorization_request_step_name(
+                @authorization_request_form.authorization_request_class.new,
+                step[:name],
+              ) %>
             </li>
           <% end %>
         </ol>
 
         <div class="fr-grid-row fr-my-16v">
           <div class="fr-col">
-            <%= link_to t('authorization_request_forms.new.back_to_dashboard'), dashboard_path, class: %w[fr-btn fr-btn--secondary fr-icon-home-4-line fr-btn--icon-left fr-mr-2w] %>
+            <%= link_to t("authorization_request_forms.new.back_to_dashboard"),
+            dashboard_path,
+            class: %w[
+              fr-btn
+              fr-btn--secondary
+              fr-icon-home-4-line
+              fr-btn--icon-left
+              fr-mr-2w
+            ] %>
           </div>
           <%= start_authorization_request_form(@authorization_request_form) %>
         </div>
@@ -52,7 +84,15 @@
     <% else %>
       <div class="fr-grid-row fr-my-16v">
         <div class="fr-col">
-          <%= link_to t('authorization_request_forms.new.back_to_dashboard'), dashboard_path, class: %w[fr-btn fr-btn--secondary fr-icon-home-4-line fr-btn--icon-left fr-mr-2w] %>
+          <%= link_to t("authorization_request_forms.new.back_to_dashboard"),
+          dashboard_path,
+          class: %w[
+            fr-btn
+            fr-btn--secondary
+            fr-icon-home-4-line
+            fr-btn--icon-left
+            fr-mr-2w
+          ] %>
         </div>
         <%= start_authorization_request_form(@authorization_request_form, disabled: true) %>
       </div>
@@ -60,19 +100,30 @@
   <% else %>
     <div class="fr-my-16v">
       <h5>
-        <%= t('.single_form.title') %>
+        <%= t(".single_form.title") %>
       </h5>
 
       <p>
-        <%= t('.single_form.description') %>
+        <%= t(".single_form.description") %>
       </p>
     </div>
     <div class="fr-grid-row fr-my-16v">
       <div class="fr-col">
-        <%= link_to t('authorization_request_forms.new.back_to_dashboard'), dashboard_path, class: %w[fr-btn fr-btn--secondary fr-icon-home-4-line fr-btn--icon-left fr-mr-2w] %>
+        <%= link_to t("authorization_request_forms.new.back_to_dashboard"),
+        dashboard_path,
+        class: %w[
+          fr-btn
+          fr-btn--secondary
+          fr-icon-home-4-line
+          fr-btn--icon-left
+          fr-mr-2w
+        ] %>
       </div>
 
-      <%= start_authorization_request_form(@authorization_request_form, disabled: !policy(@authorization_request_form).create?) %>
+      <%= start_authorization_request_form(
+        @authorization_request_form,
+        disabled: !policy(@authorization_request_form).create?,
+      ) %>
     </div>
   <% end %>
 </div>

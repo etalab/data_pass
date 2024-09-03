@@ -1,20 +1,21 @@
 <div class="fr-container">
   <div class="fr-grid-row fr-grid-row--middle">
-    <%= render partial: 'pages/shared/unauthenticated_pages/welcome_logo' %>
+    <%= render partial: "pages/shared/unauthenticated_pages/welcome_logo" %>
 
     <div class="fr-col-sm-12 fr-col-md-7 fr-my-5w">
       <div class="fr-connect-group">
         <h1>
-          <%= t('pages.home.title') %>
+          <%= t("pages.home.title") %>
         </h1>
 
         <p>
-          <%= simple_format(t '.sub_title', api_name: @authorization_definition.name) %>
+          <%= simple_format(t ".sub_title", api_name: @authorization_definition.name) %>
         </p>
 
-        <%= render partial: 'authorization_requests/shared/unauthenticated_pages/timeline_steps' %>
+        <%= render partial:
+          "authorization_requests/shared/unauthenticated_pages/timeline_steps" %>
         <hr/>
-        <%= render partial: 'pages/shared/unauthenticated_pages/mon_compte_pro' %>
+        <%= render partial: "pages/shared/unauthenticated_pages/mon_compte_pro" %>
       </div>
     </div>
   </div>

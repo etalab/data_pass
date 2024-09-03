@@ -2,16 +2,19 @@
   <div class="message__header">
     <div class="message__from">
       <% if message.from_applicant? %>
-        <%= message.from.full_name %> (demandeur)
+        <%= message.from.full_name %>
+        (demandeur)
       <% elsif message.from == current_user %>
         Vous
       <% else %>
-        <%= message.from.full_name %> (instructeur)
+        <%= message.from.full_name %>
+        (instructeur)
       <% end %>
     </div>
 
     <div class="message__date">
-      Le <%= l(message.sent_at, format: '%d/%m/%Y') %>
+      Le
+      <%= l(message.sent_at, format: "%d/%m/%Y") %>
     </div>
   </div>
 

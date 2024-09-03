@@ -1,6 +1,6 @@
 <div class="sub-header">
   <h1 class="fr-m-0">
-    <%= t('.title') %>
+    <%= t(".title") %>
   </h1>
 </div>
 
@@ -19,7 +19,9 @@
     </div>
     <% if policy(authorization_definition.authorization_request_class).new? %>
       <div class="data-provider-cta">
-        <%= link_to t('.cta'), new_authorization_request_path(id: authorization_definition.id.dasherize), class: %w(fr-btn fr-btn--sm) %>
+        <%= link_to t(".cta"),
+        new_authorization_request_path(id: authorization_definition.id.dasherize),
+        class: %w[fr-btn fr-btn--sm] %>
       </div>
     <% end %>
   </div>

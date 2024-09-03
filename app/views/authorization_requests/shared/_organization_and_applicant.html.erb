@@ -11,13 +11,11 @@
             <%= @authorization_request.applicant.full_name %>
           </div>
 
-          <%
-            %w[
+          <% %w[
               job_title
               email
               phone_number
-            ].each do |user_attribute|
-          %>
+            ].each do |user_attribute| %>
             <div class="contact-card__attribute">
               <div class="contact-card__attribute-label">
                 <%= User.human_attribute_name(user_attribute) %>
@@ -40,13 +38,11 @@
             <%= @authorization_request.organization.raison_sociale %>
           </div>
 
-          <%
-            %w[
+          <% %w[
               siret
               address
               code_naf_with_libelle
-            ].each do |organization_attribute|
-          %>
+            ].each do |organization_attribute| %>
             <% next unless @authorization_request.organization.public_send(organization_attribute).present? %>
 
             <div class="contact-card__attribute">

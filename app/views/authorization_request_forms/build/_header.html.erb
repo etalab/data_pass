@@ -1,30 +1,53 @@
 <div class="authorization-request-form-header">
   <div class="fr-container">
     <div class="fr-grid-row">
-      
+
       <div class="fr-col-12 fr-col-md-8">
         <%= render partial: "authorization_requests/shared/title" %>
 
-        <%= render partial: "authorization_request_forms/shared/header_badge", locals: { authorization_request: @authorization_request } %>
+        <%= render partial: "authorization_request_forms/shared/header_badge",
+        locals: {
+          authorization_request: @authorization_request,
+        } %>
       </div>
 
       <div class="fr-col-12 fr-col-md-4">
         <div class="authorization-request-form-header__actions">
           <% if policy(@authorization.try(:request) || @authorization_request).contact_datapass_support? %>
-            <%= link_to t('authorization_request_forms.form.message_datapass.button'), t('authorization_request_forms.form.message_datapass.mailto', authorization_id: @authorization_request.latest_authorization.id), class: "fr-btn fr-btn--sm fr-btn--tertiary fr-icon-mail-line fr-btn--icon-left" %>
+            <%= link_to t("authorization_request_forms.form.message_datapass.button"),
+            t(
+              "authorization_request_forms.form.message_datapass.mailto",
+              authorization_id: @authorization_request.latest_authorization.id,
+            ),
+            class: "fr-btn fr-btn--sm fr-btn--tertiary fr-icon-mail-line fr-btn--icon-left" %>
           <% end %>
 
           <% if policy(@authorization.try(:request) || @authorization_request).reopen? %>
-            <%= dsfr_main_modal_button t('authorization_request_forms.form.reopen'), new_authorization_reopen_path(@authorization_request.latest_authorization), class: %w(fr-btn fr-btn--secondary fr-btn--sm) %>
+            <%= dsfr_main_modal_button t("authorization_request_forms.form.reopen"),
+            new_authorization_reopen_path(@authorization_request.latest_authorization),
+            class: %w[fr-btn fr-btn--secondary fr-btn--sm] %>
           <% end %>
 
           <% if policy(@authorization_request).archive? %>
-            <%= dsfr_main_modal_button t('authorization_request_forms.form.archive'), new_authorization_request_archive_path(@authorization_request), id: :archive_authorization_request, class: %w(fr-btn fr-btn--sm fr-btn--secondary fr-btn--icon-left fr-icon-delete-line) %>
+            <%= dsfr_main_modal_button t("authorization_request_forms.form.archive"),
+            new_authorization_request_archive_path(@authorization_request),
+            id: :archive_authorization_request,
+            class: %w[
+              fr-btn
+              fr-btn--sm
+              fr-btn--secondary
+              fr-btn--icon-left
+              fr-icon-delete-line
+            ] %>
           <% end %>
 
           <% unless @summary_before_submit %>
             <% if policy(@authorization_request).update? %>
-              <%= f.button t('authorization_request_forms.form.save_header'), name: :save, type: :submit, id: :save_authorization_request_from_header, class: %w(fr-btn fr-btn--sm fr-icon-save-line fr-btn--icon-left) %>
+              <%= f.button t("authorization_request_forms.form.save_header"),
+                       name: :save,
+                       type: :submit,
+                       id: :save_authorization_request_from_header,
+                       class: %w[fr-btn fr-btn--sm fr-icon-save-line fr-btn--icon-left] %>
             <% end %>
           <% end %>
         </div>

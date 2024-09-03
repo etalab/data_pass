@@ -1,6 +1,12 @@
 <% authorization_request = authorization_request.decorate %>
 
-<div class="authorization-request-card authorization-request fr-background-default--grey fr-mb-3w" id="<%= dom_id(authorization_request) %>">
+<div
+  class="
+    authorization-request-card authorization-request fr-background-default--grey
+    fr-mb-3w
+  "
+  id="<%= dom_id(authorization_request) %>"
+>
   <div class="card__wrapper fr-p-10v">
 
     <div class="flex-space-between__content">
@@ -18,37 +24,56 @@
 
         <div class="card__desc">
           <p>
-            <%= t('.created_at') %> <%= l(authorization_request.created_at, format: '%d/%m/%Y') %>
+            <%= t(".created_at") %>
+            <%= l(authorization_request.created_at, format: "%d/%m/%Y") %>
           </p>
         </div>
       </div>
 
-      <%= render partial: 'dashboard/card/card_badge', locals: { authorization_request: authorization_request } %>
+      <%= render partial: "dashboard/card/card_badge",
+      locals: {
+        authorization_request: authorization_request,
+      } %>
     </div>
 
     <div class="card__actions flex-space-between__content">
       <div class="card__access_link">
         <% if authorization_request.access_link && authorization_request.validated? %>
-          <%= link_to t('.access_link_cta'), authorization_request.access_link, class: 'fr-link fr-icon-links-line fr-link--icon-left', target: :blank %>
+          <%= link_to t(".access_link_cta"),
+          authorization_request.access_link,
+          class: "fr-link fr-icon-links-line fr-link--icon-left",
+          target: :blank %>
         <% end %>
       </div>
 
       <div class="card__actions_btn">
         <% if policy(authorization_request).reopen? %>
-          <%= dsfr_main_modal_button t('.reopen_cta'), new_authorization_reopen_path(authorization_request.latest_authorization), class: %w(fr-btn fr-btn--secondary fr-btn--sm) %>
+          <%= dsfr_main_modal_button t(".reopen_cta"),
+          new_authorization_reopen_path(authorization_request.latest_authorization),
+          class: %w[fr-btn fr-btn--secondary fr-btn--sm] %>
         <% end %>
 
         <% if authorization_request.already_been_validated? %>
-          <%= link_to t('.show_cta'), latest_authorization_path(authorization_request), class: %w(fr-btn fr-btn--sm) %>
+          <%= link_to t(".show_cta"),
+          latest_authorization_path(authorization_request),
+          class: %w[fr-btn fr-btn--sm] %>
         <% else %>
-          <%= link_to t('.show_cta'), authorization_request_form_path(form_uid: authorization_request.form.uid, id: authorization_request.id), class: %w(fr-btn fr-btn--sm) %>
+          <%= link_to t(".show_cta"),
+          authorization_request_form_path(
+            form_uid: authorization_request.form.uid,
+            id: authorization_request.id,
+          ),
+          class: %w[fr-btn fr-btn--sm] %>
         <% end %>
       </div>
     </div>
   </div>
 
   <% if authorization_request.reopening? %>
-    <%= render partial: 'dashboard/card/card_reopening_footer', locals: { authorization_request: authorization_request } %>
+    <%= render partial: "dashboard/card/card_reopening_footer",
+    locals: {
+      authorization_request: authorization_request,
+    } %>
   <% end %>
 
   <% if policy(authorization_request).messages? && authorization_request.unread_messages_from_applicant_count > 0 %>

@@ -1,20 +1,29 @@
 <% if @authorization_request.reopening? %>
   <h1 class="authorization-request-form-header__name">
-    <span class="fr-icon-edit-box-fill fr-icon--lg fr-text-blue-france" aria-hidden="true"></span>
-    <%= t('.update') %>
+    <span
+      class="fr-icon-edit-box-fill fr-icon--lg fr-text-blue-france"
+      aria-hidden="true"
+    ></span>
+    <%= t(".update") %>
   </h1>
 
-  <%= render partial: "authorization_requests/shared/subtitle", locals: { subtitle: @authorization_request.form.name_with_definition } %>
+  <%= render partial: "authorization_requests/shared/subtitle",
+  locals: {
+    subtitle: @authorization_request.form.name_with_definition,
+  } %>
 
 <% elsif @authorization_request.form.name %>
   <h1 class="authorization-request-form-header__name">
     <%= @authorization_request.form.name %>
   </h1>
 
-  <%= render partial: "authorization_requests/shared/subtitle", locals: { subtitle: @authorization_request.definition.name } %>
+  <%= render partial: "authorization_requests/shared/subtitle",
+  locals: {
+    subtitle: @authorization_request.definition.name,
+  } %>
 
 <% else %>
   <h1 class="authorization-request-form-header__name">
-    <%= @authorization_request.definition.name  %>
+    <%= @authorization_request.definition.name %>
   </h1>
 <% end %>
