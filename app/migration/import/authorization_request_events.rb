@@ -166,7 +166,7 @@ class Import::AuthorizationRequestEvents < Import::Base
     legacy_user_row = database.execute('select * from users where id = ?', legacy_user_id).first
 
     case event_row['name']
-    when 'create', 'update', 'archive', 'submit', 'copy'
+    when 'create', 'update', 'archive', 'submit', 'copy', 'import'
       organization = entity.organization
     when 'validate', 'request_changes', 'approve', 'refuse', 'revoke'
       organization = extract_instruction_organization(entity)
@@ -189,6 +189,10 @@ class Import::AuthorizationRequestEvents < Import::Base
     case authorization_request.type
     when 'AuthorizationRequest::APIParticulier', 'AuthorizationRequest::APIEntreprise'
       @dinum_organization ||= Organization.find_by(siret: '13002526500013')
+    when 'AuthorizationRequest::HubEECertDC'
+      @dgs_organization ||= Organization.find_by(siret: '13001653800014')
+    when 'AuthorizationRequest::HubEEDila'
+      @dila_organization ||= Organization.find_by(siret: '13000918600011')
     else
       raise "Unknown authorization request type #{authorization_request.type} for instruction"
     end
