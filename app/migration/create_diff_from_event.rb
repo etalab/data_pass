@@ -63,6 +63,10 @@ class CreateDiffFromEvent
         'technical_team_value',
         'demarche',
         'updated_at',
+
+        'nom_application_metier',
+        'nom_editeur',
+        'numero_version',
       ]
     )
 
@@ -206,6 +210,7 @@ class CreateDiffFromEvent
           'dpo' => 'delegue_protection_donnees',
           'delegue_protection_donnees' => 'delegue_protection_donnees',
           'responsable_traitement' => 'responsable_traitement',
+          'responsable_metier' => 'administrateur_metier',
         }[team_member['type']]
 
         byebug if final_type.nil?
@@ -300,6 +305,21 @@ class CreateDiffFromEvent
   end
 
   def clean_keys(event_diff, keys)
+    additional_content_keys = (event_diff['additional_content'] || []).map { |ac| ac.keys }.flatten.uniq
+
+    additional_content_keys.each do |key|
+      byebug if event_diff[key].present?
+    end
+
+    (event_diff['additional_content'] || []).each do |data|
+      data.each do |key, value|
+
+        event_diff[key] = value
+      end
+    end
+
+    event_diff.delete('additional_content')
+
     keys.each do |key|
       event_diff.delete(key)
     end
