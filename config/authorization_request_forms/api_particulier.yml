@@ -104,9 +104,9 @@ api-particulier-arpege-concerto:
       - cnaf_quotient_familial
       - cnaf_allocataires
   data:
-    intitule: Tarification sur Quotient Familial des prestationse Périscolaire
+    intitule: Tarification sur Quotient Familial des prestations Périscolaire
     description: |
-      Le logiciel est utilisé par des agents habilités pour la saisie des QF en masse (petite enfance, enfance, jeunesse et adultes).
+      Le logiciel est utilisé par des agents habilités pour la saisie des QF en masse (enfance, jeunesse et adultes).
       Les citoyens à travers un portail internet peuvent demander la mise à jour de leur QF à travers l'API. La demande est ensuite traitée par un agent.
     cadre_juridique_nature:
       &api_particulier_cadre_juridique_nature_tarification_qf |
@@ -153,7 +153,7 @@ api-particulier-cantine-de-france:
        - Les nouvelles familles arrivant sur la commune peuvent lors de la création de leurs comptes remonter l'ensemble des informations administratives grâce à API particulier,
        - Avoir la mise à jour des QF afin de mettre à jour les facturations des familles,
        - Dématérialiser les mises à jour de ces informations et de limiter les déplacements en mairie ou échange de courriers.
-    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_qf
+    cadre_juridique_nature: L'article L114-8 du code des relations entre le public et l'administration fixe le cadre général des échanges de données au sein de l'administration. En tant que collectivité territoriale, la délibération ci-jointe précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices, et précise les données nécessaires à son fonctionnement.
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
