@@ -12,8 +12,10 @@ fr:
     legal: 'cadre-juridique'
     scopes: 'donnees'
     contacts: 'contacts'
+
   authorization:
     badge: habilitation du %{date}
+
   authorization_request:
     badge: demande n°%{id}
     status:
@@ -192,6 +194,7 @@ fr:
 
   start_authorization_request_form:
     cta: Débuter ma demande
+
   authorization_request_forms:
     new:
       title: *start_new_habilitation_title
@@ -208,6 +211,7 @@ fr:
       single_form:
         title: "Les étapes de votre formulaire"
         description: "Cliquez sur le bouton ci-dessous pour démarrer le formulaire. Celui-ci se complètera en une seule page. Vous pourrez le sauvegarder et le reprendre plus tard."
+
     unicity_callout:
       title: Vous ne pouvez pas créer de nouvelle habilitation
       habilitation:
@@ -240,6 +244,7 @@ fr:
       reopening_error: &authorization_requests_update_reopening_error
         title: Une erreur est survenue lors de la sauvegarde de la mise à jour de la demande d'habilitation
         description: *common_authorization_requests_error_description
+
     submit:
       success:
         title: La demande d'habilitation %{name} a été soumise avec succès
@@ -251,6 +256,25 @@ fr:
       reopening_error:
         title: Une erreur est survenue lors de la soumission de la demande de mise à jour de l'habilitation
         description: *common_authorization_requests_error_description
+
+    summary:
+      title: Récapitulatif de votre demande
+      description: |
+        Vous avez complété toutes les étapes de votre demande !
+        <br />
+        Vous pouvez à présent la soumettre à l'équipe d’instruction après avoir lu nos conditions générales d’utilisation.
+
+      reopening_alerts:
+        update_in_progress:
+          title: Une mise à jour de cette demande est en cours.
+          message: "Vous avez initié une mise à jour de cette habilitation. Vous pouvez y accéder en cliquant ici : %{link}"
+        old_version:
+          title: Attention, vous consultez une version ancienne de cette habilitation
+          message: "Il existe une version plus récente de cette habilitation que vous pouvez consulter en cliquant ici: %{link}"
+
+      summary_block:
+        message: Ces informations ne sont pas modifiables
+
     form:
       back: Retour à la synthèse
       message_datapass: 

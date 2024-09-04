@@ -28,18 +28,16 @@
       <% if @authorization.latest? && @authorization.request.reopening? %>
         <div class="fr-alert fr-alert--info fr-mb-4v">
           <h3 class="fr-alert__title">
-            Une mise à jour de cette demande est en cours.
+            <%= t('authorization_request_forms.summary.reopening_alerts.update_in_progress.title') %>
           </h3>
-
-          Vous avez initié une mise à jour de cette habilitation. Vous pouvez y accéder en cliquant ici : <%= link_to "Demande de mise à jour n°#{@authorization.request.id}", authorization_request_path(@authorization.request) %>
+          <%= t('authorization_request_forms.summary.reopening_alerts.update_in_progress.message', link: link_to("Demande de mise à jour n°#{@authorization.request.id}", authorization_request_path(@authorization.request))).html_safe %>
         </div>
       <% elsif !@authorization.latest? %>
         <div class="fr-alert fr-alert--warning fr-mb-4v">
           <h3 class="fr-alert__title">
-            Attention, vous consultez une version ancienne de cette habilitation
+            <%= t('authorization_request_forms.summary.reopening_alerts.old_version.title') %>
           </h3>
-
-          Il existe une version plus récente de cette habilitation que vous pouvez consulter en cliquant ici : <%= link_to "Habilitation n°#{@authorization_request.latest_authorization.id}", @authorization_request.latest_authorization %>
+          <%= t('authorization_request_forms.summary.reopening_alerts.old_version.message', link: link_to("Habilitation n°#{@authorization_request.latest_authorization.id}", @authorization_request.latest_authorization)).html_safe %>
         </div>
       <% end %>
     <% end %>
@@ -61,39 +59,21 @@
       <% if @authorization_request.reopening? && @authorization_request.applicant == current_user %>
         <%= render partial: 'authorization_requests/shared/reopening_callout', locals: { klass: 'fr-mt-6w' } %>
       <% else %>
-        <h2>
-          Récapitulatif de votre demande
+        <h2 class="fr-h3">
+          <%= t('authorization_request_forms.summary.title') %>
         </h2>
 
         <p>
-          Vous avez complété toutes les étapes de votre demande.
-          <br />
-          Merci de vérifier que les informations ci-dessous sont correctes et d'accepter les conditions générales d'utilisation.
-
-          <% if @authorization_request.static_blocks.any? %>
-            <br />
-            Une partie des informations ci-dessous ont été pré-remplies en accord avec le type de formulaire que vous avez sélectionné et ne sont pas modifiables.
-          <% end %>
+          <%= t('authorization_request_forms.summary.description').html_safe %>
         </p>
       <% end %>
     <% end %>
 
     <% if @authorization_request.filling? %>
-      <% @authorization_request.editable_blocks.each do |block| %>
-        <%= render partial: "authorization_requests/shared/blocks/#{block[:name]}", locals: { f: f, editable: true } %>
-      <% end %>
-
-      <h3>
-        Les informations pré-remplies
-      </h3>
-      <p>
-        Les informations suivantes ont été pré-remplies et ne sont pas modifiables.
-      </p>
-
       <%= render partial: 'authorization_requests/shared/organization_and_applicant' %>
 
-      <% @authorization_request.static_blocks.each do |block| %>
-        <%= render partial: "authorization_requests/shared/blocks/#{block[:name]}", locals: { f: f, editable: false } %>
+      <% @authorization_request.blocks.each do |block| %>
+        <%= render partial: "authorization_requests/shared/blocks/#{block[:name]}", locals: { f: f, editable: block[:editable] } %>
       <% end %>
     <% else %>
       <%= render partial: 'authorization_requests/shared/organization_and_applicant' %>
