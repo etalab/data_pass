@@ -13,6 +13,12 @@ class Import::AuthorizationRequests::HubEEDilaAttributes < Import::Authorization
     common_affect_data
   end
 
+  protected
+
+  def authorization_request_type
+    'AuthorizationRequest::HubEEDila'
+  end
+
   private
 
   def affect_additional_scopes(already_imported)

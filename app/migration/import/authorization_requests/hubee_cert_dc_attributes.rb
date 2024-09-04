@@ -41,8 +41,14 @@ class Import::AuthorizationRequests::HubEECertDCAttributes < Import::Authorizati
     affect_contact('responsable_metier', 'administrateur_metier')
 
     if authorization_request.state == 'validated'
-      authorization_request.organization.authorization_requests.where(type: 'AuthorizationRequest::HubEECertDC').delete_all
+      authorization_request.organization.authorization_requests.where(type: authorization_request_type).delete_all
     end
+  end
+
+  protected
+
+  def authorization_request_type
+    'AuthorizationRequest::HubEECertDC'
   end
 
   private
@@ -56,7 +62,7 @@ class Import::AuthorizationRequests::HubEECertDCAttributes < Import::Authorizati
   def other_models
     @other_models ||= [@all_models.find do |another_authorization_request|
       another_authorization_request.organization_id == authorization_request.organization_id &&
-        another_authorization_request.type == 'AuthorizationRequest::HubEECertDC'
+        another_authorization_request.type == authorization_request_type
     end].compact
   end
 
