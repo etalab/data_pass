@@ -226,3 +226,7 @@ end
 Et('je peux voir le bouton {string} grisé et désactivé') do |string|
   expect(page).to have_css('button[disabled]', text: string)
 end
+
+Alors('il y a un lien vers {string}') do |url|
+  expect(page).to have_link(href: url)
+end
