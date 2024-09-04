@@ -11,10 +11,12 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
       super
   end
 
-  def wording_for(key)
-    I18n.t("authorization_request_forms.#{@object.form.uid.underscore}.#{key}", default: nil) ||
-      I18n.t("authorization_request_forms.#{@object.model_name.element}.#{key}", default: nil) ||
-      I18n.t("authorization_request_forms.default.#{key}", default: nil)
+  def wording_for(key, opts = {})
+    opts[:default] = nil
+
+    I18n.t("authorization_request_forms.#{@object.form.uid.underscore}.#{key}", **opts) ||
+      I18n.t("authorization_request_forms.#{@object.model_name.element}.#{key}", **opts) ||
+      I18n.t("authorization_request_forms.default.#{key}", **opts)
   end
 
   def info_for(block)
@@ -62,6 +64,7 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
     opts[:required] = true
     opts[:class] ||= []
     opts[:class] << 'fr-input-group--error' if all_terms_not_accepted_error?(:terms_of_service_accepted)
+    opts[:label] = cgu_check_box_label
 
     dsfr_check_box(:terms_of_service_accepted, opts)
   end
@@ -176,5 +179,17 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
 
   def check_box_disabled
     readonly?
+  end
+
+  private
+
+  def cgu_check_box_label
+    label(
+      :terms_of_service_accepted,
+      [
+        wording_for('terms_of_service_accepted.label', link: object.definition.cgu_link).html_safe,
+        required_tag,
+      ].join(' ').html_safe
+    )
   end
 end

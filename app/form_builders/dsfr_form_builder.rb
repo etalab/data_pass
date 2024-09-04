@@ -46,7 +46,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
         @template.safe_join(
           [
             check_box(attribute, class: input_classes(opts), disabled: check_box_disabled, **enhance_input_options(opts).except(:class)),
-            label_with_hint(attribute, opts)
+            opts[:label] || label_with_hint(attribute, opts)
           ]
         )
       end

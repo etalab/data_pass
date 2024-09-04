@@ -48,6 +48,7 @@ Fonctionnalité: Interactions sur une demande d'habilitation simple (sur une seu
     Alors il y a un message d'erreur contenant "Une erreur est survenue lors de la soumission de la demande d'habilitation"
     Et je suis sur la page "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
     Et il y a un formulaire en mode résumé
+    Et il y a un lien vers "/cgus/20210212_dinum_hubee_cgu_v2_1_0_version_site.pdf"
 
   Scénario: Je soumets une demande d'habilitation valide en cochant les conditions générales
     Quand je démarre une nouvelle demande d'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
