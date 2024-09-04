@@ -2,6 +2,10 @@ class Import::AuthorizationRequests::HubEECertDCAttributes < Import::Authorizati
   def affect_data
     skip_row!(:already_imported_valid) if already_imported_valid?
 
+    common_affect_data
+  end
+
+  def common_affect_data
     case authorization_request.state
     when 'archived'
       skip_row!(:archived)
