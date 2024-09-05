@@ -9,8 +9,14 @@ After('@AvecCourriels') do
 end
 
 Alors('un email est envoyé contenant {string}') do |content|
-  matching =
-    ActionMailer::Base.deliveries.find { |email| email.body.include?(content) }
+  matching = ActionMailer::Base.deliveries.find { |email| email.body.include?(content) }
 
   expect(matching).to be_present
+end
+
+Alors('un email est envoyé contenant {string} à {string}') do |content, recipients|
+  matching = ActionMailer::Base.deliveries.find { |email| email.body.include?(content) }
+
+  expect(matching).to be_present
+  expect(matching.to).to eq(recipients.split('et').map(&:strip))
 end

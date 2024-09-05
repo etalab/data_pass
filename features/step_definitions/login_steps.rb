@@ -18,6 +18,19 @@ Sachantque('je suis un demandeur') do
   mock_mon_compte_pro(user)
 end
 
+Sachantque("je suis un demandeur pour l'organisation {string}") do |organization_name|
+  @current_user_email = 'demandeur@gouv.fr'
+  organization = find_or_create_organization_by_name(organization_name)
+  user = User.find_by(email: @current_user_email) || FactoryBot.create(:user, email: @current_user_email, current_organization: organization)
+
+  user.current_organization = organization
+  user.organizations << organization unless user.organizations.include?(organization)
+
+  user.save!
+
+  mock_mon_compte_pro(user)
+end
+
 Sachantque('je consulte le site ayant le sous-domaine {string}') do |subdomain|
   $previous_app_host = Capybara.app_host.dup
   Capybara.app_host = "http://#{subdomain}.localtest.me"
