@@ -5,13 +5,17 @@ class ApplicationMailer < ActionMailer::Base
 
   before_action :extract_host
 
+  # rubocop:disable Metrics/AbcSize
   def extract_host
     if params[:authorization_request].present?
       build_host_from_authorization_request(params[:authorization_request])
     elsif params[:message].present?
       build_host_from_authorization_request(params[:message].authorization_request)
+    elsif params[:authorization_request_transfer].present?
+      build_host_from_authorization_request(params[:authorization_request_transfer].authorization_request)
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def default_url_options
     {
