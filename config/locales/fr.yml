@@ -282,6 +282,7 @@ fr:
         mailto: "mailto:datapass@api.gouv.fr?subject=Demande de transfert d'habilitation&body=<votre message ici>%0D%0A%0D%0ANuméro d'habilitation: %{authorization_id}"
       reopen: Mettre à jour
       archive: Supprimer
+      transfer: Transférer la demande d'habilitation
       save_header: Enregistrer
       save: Enregistrer les modifications
       start: Démarrer
@@ -339,6 +340,45 @@ fr:
         title: L'habilitation %{name} a bien été réouverte
       error:
         title: Une erreur est survenue lors de la réouverture de l'habilitation %{name}
+
+  transfer_authorization_requests:
+    new_to_another:
+      title: Transférer ma demande d’habilitation
+      disclaimer: |
+        Vous êtes sur le point de transférer votre demande d’habilitation n°%{authorization_request_id} vers le compte d’un autre usager.
+        <br />
+        Une fois la demande envoyée, votre habilitation sera associée au compte du destinataire, vous pourrez toujours la consulter ou refaire un transfert sur votre compte.
+      cancel: Annuler
+      transfer: Valider le transfert
+      email_disclaimer: |
+        Pour que le transfert soit autorisé, il faut :
+        <p class="fr-info-text fr-mt-1w">Que l'utilisateur possède un compte sur DataPass</p>
+        <p class="fr-info-text">Que l'utilisateur appartiennent à la même organisation que la demande (numéro de siret : %{organization_siret})</p>
+      error:
+        title: Transfert de la demande impossible
+    create:
+      to_me:
+        success: La demande d’habilitation %{name} a bien été transférée sur votre compte.
+      to_another:
+        success: Votre demande d’habilitation %{name} a bien été transférée à l'utilisateur %{new_applicant_email}.
+        error:
+          email_not_found: |
+            Le destinataire ne possède pas de compte sur DataPass, il doit d’abord se connecter sur DataPass et sélectionner la même organisation que celle rattachée à cette demande (numéro de siret : %{organization_siret}).
+            <br />
+            Une fois son compte créé, vous pourrez alors réaliser le transfert de votre habilitation.
+          different_user: |
+            Vous ne pouvez pas transférer cette demande à la même personne
+          invalid_new_applicant: |
+            Le destinataire n'appartient pas à la même organisation que la demande d'habilitation (numero de siret %{organization_siret}). Celui-ci doit d'abord se connecter via MonComptePro avec cette organisation.
+
+    new_to_me:
+      title: Transfert d’une demande d’habilitation
+      disclaimer: |
+        Vous êtes sur le point de transférer la demande d’habilitation n°%{authorization_request_id} vers votre compte.
+        <br />
+        Une fois la demande envoyée, la demande d’habilitation sera associée à votre compte, vous pourrez toujours refaire un transfert vers un autre utilisateur.
+      cancel: Annuler
+      transfer: Valider le transfert vers mon compte
 
   messages:
     form:
@@ -494,7 +534,6 @@ fr:
 
         reopening_success:
           title: La demande de modifications de la mise à jour de l'habilitation %{name} a bien été envoyée au demandeur
-
     archive_authorization_requests:
       create:
         success: La demande d'habilitation %{name} a été supprimée avec succèss

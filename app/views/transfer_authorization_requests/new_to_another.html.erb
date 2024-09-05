@@ -1,0 +1,40 @@
+<div class="simple-page-action-wrapper fr-pt-5w">
+  <div class="fr-grid-row fr-grid-row--center">
+    <div class="fr-col-md-offset-1 fr-col-md-10">
+      <turbo-frame id="main-modal-content">
+        <%= form_with(model: @authorization_request_transfer, url: authorization_request_transfer_index_path(@authorization_request), data: { turbo_frame: 'main-modal-content' }) do |f| %>
+          <div class="fr-modal__content">
+            <h1 class="fr-modal__title">
+              <%= t('.title') %>
+            </h1>
+
+            <p>
+              <%= t('.disclaimer', authorization_request_id: @authorization_request.id).html_safe %>
+            </p>
+
+            <% if @error.present? %>
+              <div class="fr-alert fr-alert--error fr-my-2w">
+                <h3 class="fr-alert__title">
+                  <%= t('.error.title') %>
+                </h3>
+
+                <%= @error.html_safe %>
+              </div>
+            <% end %>
+
+            <%= f.dsfr_email_field :to, value: params[:authorization_request_transfer].try(:[], 'to'), required: true %>
+
+            <%= t('.email_disclaimer', organization_siret: @authorization_request.organization.siret).html_safe %>
+          </div>
+
+          <div class="fr-modal__footer">
+            <div class="fr-btns-group fr-btns-group--right fr-btns-group--inline-reverse fr-btns-group--inline-lg fr-btns-group--icon-left">
+              <%= link_to t('.cancel'), '#', class: %w(fr-btn fr-btn--secondary), aria: { controls: 'main-modal' } %>
+              <%= f.button t('.transfer'), type: :submit, class: %w(fr-btn fr-btn--primary fr-icon-success-line fr-btn--icon-left) %>
+            </div>
+          </div>
+        <% end %>
+      </turbo-frame>
+    </div>
+  </div>
+</div>

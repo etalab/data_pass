@@ -130,6 +130,7 @@ ignore_unused:
   - "authorization_request_mailer.*.subject"
   - "support.*"
   - "authorization_request_forms.build.update.{reopening_,}error.*"
+  - "transfer_authorization_requests.create.to_another.error.*"
   - "instruction.{approve,refuse,request_changes_on,revoke}_authorization_requests.create.{reopening_,}success.title"
   - "instruction.cancel_authorization_reopenings.create.success.title"
   - "gdpr_contact_mailer.delegue_protection_donnees.subject"

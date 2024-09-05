@@ -1,7 +1,7 @@
 <div class="authorization-request-form-header">
   <div class="fr-container">
     <div class="fr-grid-row">
-      
+
       <div class="fr-col-12 fr-col-md-8">
         <%= render partial: "authorization_requests/shared/title" %>
 
@@ -20,6 +20,10 @@
 
           <% if policy(@authorization_request).archive? %>
             <%= dsfr_main_modal_button t('authorization_request_forms.form.archive'), new_authorization_request_archive_path(@authorization_request), id: :archive_authorization_request, class: %w(fr-btn fr-btn--sm fr-btn--secondary fr-btn--icon-left fr-icon-delete-line) %>
+          <% end %>
+
+          <% if policy(@authorization.try(:request) || @authorization_request).transfer? %>
+            <%= dsfr_main_modal_button t('authorization_request_forms.form.transfer'), new_authorization_request_transfer_path(@authorization_request), id: :transfer_authorization_request, class: %w(fr-btn fr-btn--sm fr-btn--secondary fr-btn--icon-left fr-icon-refresh-fill) %>
           <% end %>
 
           <% unless @summary_before_submit %>

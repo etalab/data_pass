@@ -30,6 +30,7 @@ Fonctionnalité: Transfert de demandes d'habilitations par un utilisateur
 
 
 
+  @AvecCourriels
   Scénario: Je transfère une de mes habilitations à un autre utilisateur de mon organisation
     Sachant que "nouveau-demandeur@api.gouv.fr" appartient à mon organisation
     Et que je me rends sur une demande d'habilitation "API Entreprise" validée
@@ -37,7 +38,7 @@ Fonctionnalité: Transfert de demandes d'habilitations par un utilisateur
     Et que je remplis "Email du nouveau demandeur" avec "nouveau-demandeur@api.gouv.fr"
     Et que je clique sur "Valider le transfert"
     Alors il y a un message de succès contenant "transférée à l'utilisateur nouveau-demandeur@api.gouv.fr"
-    Et un email est envoyé contenant "transférer" à "nouveau-demandeur@api.gouv.fr et demandeur@gouv.fr"
+    Et un email est envoyé contenant "transférée" à "nouveau-demandeur@api.gouv.fr et demandeur@gouv.fr"
 
   Scénario: Je tente de transfèrer une de mes habilitations à un autre utilisateur qui n'est pas de mon organisation
     Sachant que "invalid-demandeur@api.gouv.fr" appartient à une autre organisation
@@ -56,9 +57,10 @@ Fonctionnalité: Transfert de demandes d'habilitations par un utilisateur
 
 
 
+  @AvecCourriels
   Scénario: Je me transfère une des habilitations de mon organisation
     Quand je me rends sur une demande d'habilitation "API Entreprise" de l'organisation "Ville de Clamart" validée
     Et que je clique sur "Transférer"
     Et que je clique sur "Valider le transfert"
     Alors il y a un message de succès contenant "transférée sur votre compte"
-    Et un email est envoyé contenant "transférer"
+    Et un email est envoyé contenant "transférée"

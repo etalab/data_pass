@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     resources :authorization_requests, only: %w[show], path: 'demandes' do
       resources :messages, only: %w[index create], path: 'messages'
       resources :archive_authorization_requests, only: %w[new create], path: 'archiver', as: :archive
+      resources :transfer_authorization_requests, only: %w[new create], path: 'transferer', as: :transfer
       resources :blocks, only: %w[edit update], path: 'blocs', controller: 'authorization_requests/blocks'
 
       resources :authorizations, only: :show, path: 'habilitations'

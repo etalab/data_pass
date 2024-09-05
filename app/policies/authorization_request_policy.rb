@@ -60,6 +60,16 @@ class AuthorizationRequestPolicy < ApplicationPolicy
     messages?
   end
 
+  def transfer?
+    record.persisted? &&
+      (
+        record.applicant == user || (
+          same_current_organization? &&
+            record.state == 'validated'
+        )
+      )
+  end
+
   protected
 
   def authorization_request_class
