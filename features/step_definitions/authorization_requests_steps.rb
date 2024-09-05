@@ -12,7 +12,7 @@ Quand("j'ai déjà une demande d'habilitation {string} validée avec token") do 
     find_factory_trait_from_name(string),
     :validated,
     applicant: current_user,
-    linked_token_manager_id: 'some_token'
+    external_provider_id: 'some_token'
   )
 end
 
@@ -22,7 +22,7 @@ Quand("j'ai déjà une demande d'habilitation {string} en réouverture avec toke
     find_factory_trait_from_name(string),
     :reopened,
     applicant: current_user,
-    linked_token_manager_id: 'some_token'
+    external_provider_id: 'some_token'
   )
 end
 

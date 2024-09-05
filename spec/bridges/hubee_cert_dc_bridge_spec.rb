@@ -25,10 +25,10 @@ RSpec.describe HubEECertDCBridge do
         hubee_cert_dc_bridge
       end
 
-      it 'updates linked_token_manager_id to HubEE subscription ID' do
+      it 'updates external_provider_id to HubEE subscription ID' do
         hubee_cert_dc_bridge
 
-        expect(authorization_request.reload.linked_token_manager_id).to eq(hubee_subscription_id)
+        expect(authorization_request.reload.external_provider_id).to eq(hubee_subscription_id)
       end
     end
   end

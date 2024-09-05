@@ -322,8 +322,8 @@ class AuthorizationRequest < ApplicationRecord
   end
 
   def access_link
-    return nil if definition.access_link.blank? || linked_token_manager_id.blank?
+    return nil if definition.access_link.blank? || external_provider_id.blank?
 
-    format(definition.access_link, linked_token_manager_id:)
+    format(definition.access_link, external_provider_id:)
   end
 end

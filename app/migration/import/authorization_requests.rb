@@ -16,7 +16,7 @@ class Import::AuthorizationRequests < Import::Base
 
     authorization_request.form_uid = fetch_form(authorization_request).id
     authorization_request.state = enrollment_row['status']
-    authorization_request.linked_token_manager_id = enrollment_row['linked_token_manager_id']
+    authorization_request.external_provider_id = enrollment_row['external_provider_id']
     authorization_request.copied_from_request = AuthorizationRequest.find(enrollment_row['copied_from_enrollment_id']) if enrollment_row['copied_from_enrollment_id'] && AuthorizationRequest.exists?(enrollment_row['copied_from_enrollment_id'])
 
     if authorization_request.state != 'draft'

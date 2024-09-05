@@ -8,7 +8,7 @@ FactoryBot.define do
     data_protection_officer_informed { true }
     form_uid { 'hubee-cert-dc' }
     type { 'AuthorizationRequest::HubEECertDC' }
-    linked_token_manager_id { nil }
+    external_provider_id { nil }
 
     after(:build) do |authorization_request, evaluator|
       authorization_request.data.stringify_keys!
