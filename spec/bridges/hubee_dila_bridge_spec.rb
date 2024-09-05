@@ -39,14 +39,14 @@ RSpec.describe HubEEDilaBridge do
         hubee_dila_bridge
       end
 
-      it 'stores all the HubEE subscription IDs in the linked_token_manager_id' do
+      it 'stores all the HubEE subscription IDs in the external_provider_id' do
         hubee_dila_bridge
 
-        expect(authorization_request.reload.linked_token_manager_id).to eq(etat_civil_and_depot_dossier_pacs_tokens)
+        expect(authorization_request.reload.external_provider_id).to eq(etat_civil_and_depot_dossier_pacs_tokens)
       end
 
       context 'with a reopened authorisation request with an added scope' do
-        let(:authorization_request) { create(:authorization_request, :hubee_dila, :reopened, organization:, scopes: %w[etat_civil depot_dossier_pacs recensement_citoyen], linked_token_manager_id: etat_civil_and_depot_dossier_pacs_tokens) }
+        let(:authorization_request) { create(:authorization_request, :hubee_dila, :reopened, organization:, scopes: %w[etat_civil depot_dossier_pacs recensement_citoyen], external_provider_id: etat_civil_and_depot_dossier_pacs_tokens) }
 
         it 'creates a subscription on HubEE linked to DataPass ID and the process code of the added scope' do
           expect(hubee_api_client).to receive(:create_subscription).with(
@@ -70,10 +70,10 @@ RSpec.describe HubEEDilaBridge do
           hubee_dila_bridge
         end
 
-        it 'stores all the HubEE subscription IDs in the linked_token_manager_id' do
+        it 'stores all the HubEE subscription IDs in the external_provider_id' do
           hubee_dila_bridge
 
-          expect(authorization_request.reload.linked_token_manager_id).to eq({ depot_dossier_pacs: hubee_subscription_id, etat_civil: hubee_subscription_id, recensement_citoyen: hubee_subscription_id }.to_json)
+          expect(authorization_request.reload.external_provider_id).to eq({ depot_dossier_pacs: hubee_subscription_id, etat_civil: hubee_subscription_id, recensement_citoyen: hubee_subscription_id }.to_json)
         end
       end
     end

@@ -99,7 +99,7 @@ RSpec.describe DeliverAuthorizationRequestWebhookJob do
           it 'stores this token id in authorization_request' do
             expect {
               deliver_authorization_request_webhook
-            }.to change { authorization_request.reload.linked_token_manager_id }.to('token_id')
+            }.to change { authorization_request.reload.external_provider_id }.to('token_id')
           end
         end
       end

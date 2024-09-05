@@ -39,7 +39,7 @@ class DeliverAuthorizationRequestWebhookJob < ApplicationJob
 
     authorization_request = AuthorizationRequest.find(authorization_request_id)
     authorization_request.update(
-      linked_token_manager_id: json['token_id']
+      external_provider_id: json['token_id']
     )
   rescue JSON::ParserError
     nil

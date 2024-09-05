@@ -45,7 +45,7 @@ shared:
     provider: 'dinum'
     link: 'https://api.gouv.fr/les-api/api-entreprise'
     cgu_link: 'https://entreprise.api.gouv.fr/cgu'
-    access_link: https://entreprise.api.gouv.fr/compte/jetons/%{linked_token_manager_id}
+    access_link: https://entreprise.api.gouv.fr/compte/jetons/%{external_provider_id}
     public: true
     blocks:
       - name: 'basic_infos'
@@ -183,7 +183,7 @@ shared:
     cgu_link: 'https://particulier.api.gouv.fr/cgu'
     provider: 'dinum'
     link: 'https://api.gouv.fr/les-api/api-particulier'
-    access_link: https://particulier.api.gouv.fr/compte/jetons/%{linked_token_manager_id}
+    access_link: https://particulier.api.gouv.fr/compte/jetons/%{external_provider_id}
     public: true
     blocks:
       - name: 'basic_infos'

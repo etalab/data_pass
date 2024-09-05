@@ -25,13 +25,13 @@ class HubEEDilaBridge < HubEEBaseBridge
 
   def create_and_store_subscription(organization_hubee_payload, scope)
     subscription_hubee_payload = hubee_api_client.create_subscription(subscription_body(organization_hubee_payload, process_code(scope)))
-    store_linked_token_manager_id(scope, subscription_hubee_payload['id'])
+    store_external_provider_id(scope, subscription_hubee_payload['id'])
   end
 
-  def store_linked_token_manager_id(scope, token)
+  def store_external_provider_id(scope, token)
     tokens = stored_tokens
     tokens[scope] = token
-    authorization_request.update!(linked_token_manager_id: tokens.to_json)
+    authorization_request.update!(external_provider_id: tokens.to_json)
   end
 
   def process_code(scope)
@@ -42,7 +42,7 @@ class HubEEDilaBridge < HubEEBaseBridge
   end
 
   def stored_tokens
-    JSON.parse(authorization_request.linked_token_manager_id || '{}')
+    JSON.parse(authorization_request.external_provider_id || '{}')
   end
 
   def former_scopes

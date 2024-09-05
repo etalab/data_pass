@@ -45,16 +45,16 @@ RSpec.describe AuthorizationRequest do
   describe '#access_link' do
     subject { authorization_request.access_link }
 
-    let(:authorization_request) { create(:authorization_request, definition_key, linked_token_manager_id:) }
-    let(:linked_token_manager_id) { 'some_token' }
+    let(:authorization_request) { create(:authorization_request, definition_key, external_provider_id:) }
+    let(:external_provider_id) { 'some_token' }
 
     context 'with a simple access link' do
       let(:definition_key) { :hubee_cert_dc }
 
       it { is_expected.to eq 'https://portail.hubee.numerique.gouv.fr' }
 
-      context 'with an empty linked_token_manager_id' do
-        let(:linked_token_manager_id) { nil }
+      context 'with an empty external_provider_id' do
+        let(:external_provider_id) { nil }
 
         it { is_expected.to be_nil }
       end
@@ -65,8 +65,8 @@ RSpec.describe AuthorizationRequest do
 
       it { is_expected.to eq 'https://entreprise.api.gouv.fr/compte/jetons/some_token' }
 
-      context 'with an empty linked_token_manager_id' do
-        let(:linked_token_manager_id) { nil }
+      context 'with an empty external_provider_id' do
+        let(:external_provider_id) { nil }
 
         it { is_expected.to be_nil }
       end
