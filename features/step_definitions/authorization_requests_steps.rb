@@ -139,22 +139,6 @@ Quand(/je me rends via l'espace usager sur une demande d'habilitation "([^"]+)"/
   visit authorization_request_path(authorization_request)
 end
 
-# https://rubular.com/r/0orApA5lrXMtTA
-Quand(/je me rends sur une demande d'habilitation "([^"]+)"(?: de l'organisation "([^"]+)")?(?: (?:en|à))? ?(.+)?/) do |type, organization_name, status|
-  attributes = {}
-  attributes[:organization] = find_or_create_organization_by_name(organization_name) if organization_name.present?
-
-  if current_user.reporter?
-    authorization_request = create_authorization_requests_with_status(type, status, 1, attributes).first
-
-    visit instruction_authorization_request_path(authorization_request)
-  else
-    authorization_request = create_authorization_requests_with_status(type, status, 1, attributes.merge(applicant: current_user)).first
-
-    visit authorization_request_path(authorization_request)
-  end
-end
-
 # https://rubular.com/r/t8v2hsttNnb9h3
 Quand(/(j'ai|il y a|mon organisation a) (\d+) demandes? d'habilitation "([^"]+)" ?(?:en )?(.+)?/) do |who, count, type, status|
   applicant = case who
@@ -275,8 +259,8 @@ Alors('un webhook avec l\'évènement {string} est envoyé') do |event_name|
   expect(webhook_job['arguments']).to match(webhook_job_arg)
 end
 
-# https://rubular.com/r/0orApA5lrXMtTA
-Quand(/je me rends sur une habilitation "([^"]+)"(?: de l'organisation "([^"]+)")?(?: (?:en|à))? ?(.+)?/) do |type, organization_name, status|
+# https://rubular.com/r/eAlfvtPiXB46Ec
+Quand(/je me rends sur une (?:demande d')?habilitation "([^"]+)"(?: de l'organisation "([^"]+)")?(?: (?:en|à))? ?(.+)?/) do |type, organization_name, status|
   attributes = {}
   attributes[:organization] = find_or_create_organization_by_name(organization_name) if organization_name.present?
 
@@ -285,7 +269,8 @@ Quand(/je me rends sur une habilitation "([^"]+)"(?: de l'organisation "([^"]+)"
 
     visit instruction_authorization_request_path(authorization_request)
   else
-    authorization_request = create_authorization_requests_with_status(type, status, 1, attributes.merge(applicant: current_user)).first
+    attributes[:applicant] = current_user if attributes[:organization].blank?
+    authorization_request = create_authorization_requests_with_status(type, status, 1, attributes).first
 
     visit authorization_request_path(authorization_request)
   end
