@@ -34,6 +34,8 @@ class AuthorizationRequestsController < AuthenticatedUserController
   private
 
   def show_as_authenticated_user
+    flash.keep
+
     authorize @authorization_request
 
     redirect_to authorization_request_form_path(form_uid: @authorization_request.form_uid, id: @authorization_request.id)

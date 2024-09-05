@@ -39,6 +39,10 @@ class ApplicationController < ActionController::Base
     'container'
   end
 
+  def turbo_request?
+    request.headers['HTTP_X_TURBO_REQUEST_ID'].present?
+  end
+
   private
 
   def flash_message(kind, title:, description:, id:, activemodel: false)
