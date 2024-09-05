@@ -16,6 +16,8 @@ fr:
         hint: Cette information sera rendue publique
       description:
         label: Description du projet (à quoi va-t-il servir ? qui l'utilisera ?)
+      maquette_projet:
+        hint: A fournir sous format PDF
       destinataire_donnees_caractere_personnel:
         hint: <a href="https://www.cnil.fr/fr/definition/destinataire" target="_blank">Plus d'infos</a>
       duree_conservation_donnees_caractere_personnel:
@@ -165,6 +167,8 @@ fr:
             </p>
 
     api_entreprise:
+      maquette_projet:
+        hint: Joindre une photo de votre projet, sous format PDF
       volumetrie_approximative:
         hint: Nombre de démarches ou dossiers traités dans l'année
       scopes:
