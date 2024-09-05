@@ -277,9 +277,6 @@ fr:
 
     form:
       back: Retour à la synthèse
-      message_datapass:
-        button: Contacter l'équipe Datapass
-        mailto: "mailto:datapass@api.gouv.fr?subject=Demande de transfert d'habilitation&body=<votre message ici>%0D%0A%0D%0ANuméro d'habilitation: %{authorization_id}"
       reopen: Mettre à jour
       archive: Supprimer
       transfer: Transférer la demande d'habilitation
