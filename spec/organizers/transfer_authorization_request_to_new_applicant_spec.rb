@@ -1,15 +1,17 @@
 RSpec.describe TransferAuthorizationRequestToNewApplicant, type: :organizer do
   describe '.call' do
-    subject { described_class.call(authorization_request:, new_applicant:, user:) }
+    subject { described_class.call(authorization_request:, new_applicant_email:, user:) }
 
     let(:organization) { authorization_request.organization }
     let(:authorization_request) { create(:authorization_request, authorization_request_kind) }
     let(:authorization_request_kind) { :api_service_national }
     let!(:old_applicant) { authorization_request.applicant }
-    let(:new_applicant) { create(:user, current_organization: organization) }
+    let(:new_applicant_email) { new_applicant.email }
     let(:user) { create(:user) }
 
     context 'with valid attributes' do
+      let(:new_applicant) { create(:user, current_organization: organization) }
+
       it { is_expected.to be_success }
 
       it 'transfers the authorization request to the new applicant' do
@@ -31,20 +33,44 @@ RSpec.describe TransferAuthorizationRequestToNewApplicant, type: :organizer do
     end
 
     context 'with invalid attributes' do
-      let(:new_applicant) { create(:user) }
+      context 'when new applicant does not belong to the same organization' do
+        let(:new_applicant) { create(:user) }
 
-      it { is_expected.to be_failure }
+        it { is_expected.to be_failure }
 
-      it 'does not transfer the authorization request to the new applicant' do
-        expect { subject }.not_to change { authorization_request.reload.applicant }
+        it 'does not transfer the authorization request to the new applicant' do
+          expect { subject }.not_to change { authorization_request.reload.applicant }
+        end
+
+        it 'does not create a new authorization request transfer' do
+          expect { subject }.not_to change(AuthorizationRequestTransfer, :count)
+        end
+
+        it 'does not create an event' do
+          expect { subject }.not_to change(AuthorizationRequestEvent, :count)
+        end
       end
 
-      it 'does not create a new authorization request transfer' do
-        expect { subject }.not_to change(AuthorizationRequestTransfer, :count)
-      end
+      context 'when email does not exists' do
+        let(:new_applicant_email) { 'unknown@gouv.fr' }
 
-      it 'does not create an event' do
-        expect { subject }.not_to change(AuthorizationRequestEvent, :count)
+        it 'affects an error specific to this unknown email' do
+          expect(subject.error).to eq(:email_not_found)
+        end
+
+        it { is_expected.to be_failure }
+
+        it 'does not transfer the authorization request to the new applicant' do
+          expect { subject }.not_to change { authorization_request.reload.applicant }
+        end
+
+        it 'does not create a new authorization request transfer' do
+          expect { subject }.not_to change(AuthorizationRequestTransfer, :count)
+        end
+
+        it 'does not create an event' do
+          expect { subject }.not_to change(AuthorizationRequestEvent, :count)
+        end
       end
     end
   end
