@@ -13,6 +13,7 @@ class TransferAuthorizationRequestToNewApplicant < ApplicationOrganizer
   organize UpdateApplicantOnAuthorizationRequest,
     CreateAuthorizationRequestTransferModel,
     CreateAuthorizationRequestEventModel,
+    SendAuthorizationRequestTransferEmailToUsers,
     DeliverAuthorizationRequestNotification
 
   private
