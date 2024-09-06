@@ -18,6 +18,8 @@ Rails.application.routes.draw do
 
   patch '/settings/notifications', to: 'notifications_settings#update', as: :notifications_settings
 
+  get '/public/demandes/:id', to: 'public/authorization_requests#show', as: :public_authorization_request
+
   scope(path_names: { new: 'nouveau', edit: 'modifier' }) do
     resources :authorization_requests, only: %w[show], path: 'demandes' do
       resources :messages, only: %w[index create], path: 'messages'
