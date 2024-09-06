@@ -1,5 +1,6 @@
 class WebhookAuthorizationRequestSerializer < ApplicationSerializer
   attributes :id,
+    :public_id,
     :state,
     :form_uid,
     :data
