@@ -2,12 +2,12 @@ fr:
   mailer:
     shared:
       header:
-        hello: 'Bonjour,'
+        hello: "Bonjour,"
       support:
         email: datapass@api.gouv.fr
       applicant:
         header:
-          text: 'Bonjour'
+          text: "Bonjour"
         footer:
           text: L'équipe %{authorization_definition_name}
       instruction:

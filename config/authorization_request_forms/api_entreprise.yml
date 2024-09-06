@@ -5,31 +5,31 @@ api-entreprise:
   introduction: |
     Ce formulaire est destiné aux utilisateurs expérimentés qui connaissent précisemment l'usage des données et les aspects techniques des APIs.
     Il permet de formuler une demande libre en précisant les données et les services souhaités.
-  authorization_request: 'APIEntreprise'
+  authorization_request: "APIEntreprise"
   steps:
-    - name: 'basic_infos'
-    - name: 'personal_data'
-    - name: 'legal'
-    - name: 'scopes'
-    - name: 'contacts'
+    - name: "basic_infos"
+    - name: "personal_data"
+    - name: "legal"
+    - name: "scopes"
+    - name: "contacts"
 
 api-entreprise-marches-publics:
   name: "Marchés publics"
   description: "Facilitez le dépôt des candidatures et récupérez les justificatifs administratifs de vos utilisateurs."
-  use_case: 'marches_publics'
+  use_case: "marches_publics"
   introduction: |
     Ce formulaire est destiné aux utilisateurs qui souhaitent développer eux-même leur logiciel de gestion des marchés publics.
     Le cadre juridique et les données seront adaptés à ce cas d'usage, vous pourrez cependant demander des données supplémentaires si besoin.
-  authorization_request: 'APIEntreprise'
+  authorization_request: "APIEntreprise"
   steps:
-    - name: 'basic_infos'
-    - name: 'personal_data'
-    - name: 'legal'
-    - name: 'scopes'
-    - name: 'contacts'
+    - name: "basic_infos"
+    - name: "personal_data"
+    - name: "legal"
+    - name: "scopes"
+    - name: "contacts"
   data:
-    cadre_juridique_nature: 'R2143-13 Code de la commande publique'
-    cadre_juridique_url: 'https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037730589'
+    cadre_juridique_nature: "R2143-13 Code de la commande publique"
+    cadre_juridique_url: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037730589"
     scopes:
       - unites_legales_etablissements_insee
       - associations_djepva
@@ -48,17 +48,17 @@ api-entreprise-marches-publics:
 api-entreprise-aides-publiques:
   name: "Aides publiques"
   description: "Faciliter le dépôt et l'instruction des aides publiques"
-  use_case: 'aides_publiques'
+  use_case: "aides_publiques"
   introduction: |
     Ce formulaire est destiné aux utilisateurs qui souhaitent développer eux-même leur logiciel de gestion des dépôts et instructions des aides publiques.
     Les données seront adaptés à ce cas d'usage, vous pourrez cependant demander des données supplémentaires si besoin.
-  authorization_request: 'APIEntreprise'
+  authorization_request: "APIEntreprise"
   steps:
-    - name: 'basic_infos'
-    - name: 'personal_data'
-    - name: 'legal'
-    - name: 'scopes'
-    - name: 'contacts'
+    - name: "basic_infos"
+    - name: "personal_data"
+    - name: "legal"
+    - name: "scopes"
+    - name: "contacts"
   data:
     scopes:
       - unites_legales_etablissements_insee
@@ -78,17 +78,17 @@ api-entreprise-aides-publiques:
 api-entreprise-subventions-associations:
   name: "Subventions des associations"
   description: "Faciliter le dépôt et l'instruction des demandes de subventions des associations."
-  use_case: 'subventions_associations'
+  use_case: "subventions_associations"
   introduction: |
     Ce formulaire est destiné aux utilisateurs qui souhaitent développer eux-même leur logiciel de gestion des dépôts et instructions des demandes de subventions des associations.
     Les données seront adaptés à ce cas d'usage, vous pourrez cependant demander des données supplémentaires si besoin.
-  authorization_request: 'APIEntreprise'
+  authorization_request: "APIEntreprise"
   steps:
-    - name: 'basic_infos'
-    - name: 'personal_data'
-    - name: 'legal'
-    - name: 'scopes'
-    - name: 'contacts'
+    - name: "basic_infos"
+    - name: "personal_data"
+    - name: "legal"
+    - name: "scopes"
+    - name: "contacts"
   data:
     scopes:
       - unites_legales_etablissements_insee
@@ -101,19 +101,19 @@ api-entreprise-subventions-associations:
 api-entreprise-portail-gru-preremplissage:
   name: "Portail GRU - Préremplissage"
   description: "Faciliter le pré-remplissage des usagers sur les portails GRU"
-  use_case: 'portail_gru_preremplissage'
+  use_case: "portail_gru_preremplissage"
   introduction: |
     Ce formulaire est destiné aux utilisateurs souhaitant simplifier le parcours de leurs usagers sur les portails GRU.
     L'ensemble des données disponibles via ce cas d'usage sont des données en "open data", vous ne pourrez pas demander de données supplémentaires.
     Si vous souhaitez obtenir un accès à des données protégées, veuillez choisir un autre formulaire.
-  authorization_request: 'APIEntreprise'
+  authorization_request: "APIEntreprise"
   steps:
-    - name: 'basic_infos'
-    - name: 'personal_data'
-    - name: 'legal'
-    - name: 'contacts'
+    - name: "basic_infos"
+    - name: "personal_data"
+    - name: "legal"
+    - name: "contacts"
   static_blocks:
-    - name: 'scopes'
+    - name: "scopes"
   data:
     intitule: "Démarches liées au portail de gestion relation usagers"
     description: "Accès aux données ouvertes permettant aux usagers de pré-remplir les informations liées à leurs entreprises."
@@ -123,17 +123,17 @@ api-entreprise-portail-gru-preremplissage:
 api-entreprise-portail-gru-instruction:
   name: "Portail GRU - Instruction des démarches"
   description: "Faciliter l'instruction des demandes sur les portails GRU"
-  use_case: 'portail_gru_instruction'
+  use_case: "portail_gru_instruction"
   introduction: |
     Ce formulaire est destiné aux utilisateurs souhaitant faciliter l'instruction des demandes par des agents sur les portails GRU.
     Les données seront adaptés à ce cas d'usage, et inclut des données protégées qui ne doivent être manipulées que par des agents habilités.
-  authorization_request: 'APIEntreprise'
+  authorization_request: "APIEntreprise"
   steps:
-    - name: 'basic_infos'
-    - name: 'personal_data'
-    - name: 'legal'
-    - name: 'scopes'
-    - name: 'contacts'
+    - name: "basic_infos"
+    - name: "personal_data"
+    - name: "legal"
+    - name: "scopes"
+    - name: "contacts"
   data:
     intitule: "Démarches liées au portail de gestion relation usagers"
     description: "Accès aux données ouvertes permettant aux usagers de pré-remplir les informations liées à leurs entreprises, ainsi qu'aux données protégées permettant l'instruction de demandes par des agents habilités"
@@ -159,14 +159,14 @@ api-entreprise-detection-fraude:
   description: "Ce cas d’usage est EXCLUSIVEMENT réservé aux administrations dont la détection des fraudes fait partie de ses missions."
   introduction: |
     Ce formulaire est destiné aux administrations souhaitant faciliter les procédures de détection des fraudes. Si votre adminitration n'a pas pour mission la détection des fraudes, veuillez choisir un autre formulaire.
-  use_case: 'detection_fraude'
-  authorization_request: 'APIEntreprise'
+  use_case: "detection_fraude"
+  authorization_request: "APIEntreprise"
   steps:
-    - name: 'basic_infos'
-    - name: 'personal_data'
-    - name: 'legal'
-    - name: 'scopes'
-    - name: 'contacts'
+    - name: "basic_infos"
+    - name: "personal_data"
+    - name: "legal"
+    - name: "scopes"
+    - name: "contacts"
   data:
     scopes:
       - unites_legales_etablissements_insee
@@ -188,14 +188,14 @@ api-entreprise-editeur:
   description: "Pour les éditeurs de logiciels ayant des clients publics et souhaitant intégrer API Entreprise."
   introduction: |
     Ce formulaire est destiné aux éditeurs de logiciels souhaitant intégrer API Entreprise pour leurs clients publics.
-  authorization_request: 'APIEntreprise'
-  use_case: 'specific_editeurs'
+  authorization_request: "APIEntreprise"
+  use_case: "specific_editeurs"
   steps:
-    - name: 'basic_infos'
-    - name: 'personal_data'
-    - name: 'legal'
-    - name: 'scopes'
-    - name: 'contacts'
+    - name: "basic_infos"
+    - name: "personal_data"
+    - name: "legal"
+    - name: "scopes"
+    - name: "contacts"
   data:
     intitule: "Merci de préciser le nom de votre solution logicielle"
     description: |+
@@ -217,10 +217,10 @@ api-entreprise-editeur:
 api-entreprise-e-attestations:
   name: "Conformité titulaires de marchés"
   description: "Logiciel de contrôle de conformité des opérateurs économiques en vue de l’attribution ou du suivi des marchés"
-  use_case: 'marches_publics'
-  authorization_request: 'APIEntreprise'
-  single_page_view: 'api_entreprise_through_editor'
-  editor_id: 'e_attestations'
+  use_case: "marches_publics"
+  authorization_request: "APIEntreprise"
+  single_page_view: "api_entreprise_through_editor"
+  editor_id: "e_attestations"
   introduction: &introduction_api_entreprise_editor |
     Ce formulaire simplifié vous permet d'obtenir une habilitation pour un logiciel pré-configuré de l'éditeur %{editor_name}.
     Une partie des informations contractuelles sont fixes et ne peuvent être modifiées.
@@ -228,21 +228,21 @@ api-entreprise-e-attestations:
 
     <strong>Vous aurez uniquement à renseigner les contacts liés à votre organisation</strong> dans l'écran suivant.
   static_blocks:
-    - name: 'basic_infos'
-    - name: 'personal_data'
-    - name: 'legal'
-    - name: 'scopes'
+    - name: "basic_infos"
+    - name: "personal_data"
+    - name: "legal"
+    - name: "scopes"
   data:
     intitule: "Logiciel de contrôle de conformité des opérateurs économiques en vue de l’attribution ou du suivi des marchés - Solution e-Attestations"
     description: "Dans le cadre des procédures de passation de marchés publics, nous mettons en place un outil, à destination de nos agents habilités en interne, leur permettant de récupérer les justificatifs nécessaires au dépôt et à l’instruction du dossier de candidature.\r\nL’accès à l’API Entreprise nous permettra d’accéder aux justificatifs sans avoir à les demander aux prestataires.\r\nCet outil s’appuie sur la solution de l’éditeur e-Attestations."
     cadre_juridique_nature: "Service numérique de conformité pour les administrations publiques dans le cadre du décret N°2011-1601 et de l’article D8222 du code du travail, offre de services d’intermédiation aux organismes publics, telle que définie par l’article 17, alinéa IV, du décret du 24 septembre 2014 et le décret lié à la commande publique n° 2016-360.\r\nhttps://www.legifrance.gouv.fr/codes/id/LEGIARTI000018520702/2011-12-31/\r\n\r\nArticle R2143-13 du code de la commande publique, concernant l’accès des acheteurs aux documents justificatifs et moyens de preuve :\r\nhttps://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037730589"
-    cadre_juridique_url: 'https://www.legifrance.gouv.fr/codes/id/LEGIARTI000018520702/2011-12-31/'
+    cadre_juridique_url: "https://www.legifrance.gouv.fr/codes/id/LEGIARTI000018520702/2011-12-31/"
     destinataire_donnees_caractere_personnel: "Services marchés d’organismes publics et collectivités locales"
     duree_conservation_donnees_caractere_personnel: 36
-    contact_metier_type: 'organization'
+    contact_metier_type: "organization"
     contact_metier_email: "<%= Rails.application.credentials.api_entreprise_e_attestations_contact_metier_email || 'metier-e-attestation@yopmail.com' %>"
     contact_metier_phone_number: "0158060016"
-    contact_technique_type: 'organization'
+    contact_technique_type: "organization"
     contact_technique_email: "<%= Rails.application.credentials.api_entreprise_e_attestations_contact_technique_email || 'tech-e-attestation@yopmail.com' %>"
     contact_technique_phone_number: "0158060010"
     scopes:
@@ -263,27 +263,27 @@ api-entreprise-e-attestations:
 api-entreprise-provigis:
   name: "Conformité titulaires de marchés"
   description: "Outil de contrôle de conformité des titulaires de marchés"
-  use_case: 'marches_publics'
-  authorization_request: 'APIEntreprise'
-  single_page_view: 'api_entreprise_through_editor'
+  use_case: "marches_publics"
+  authorization_request: "APIEntreprise"
+  single_page_view: "api_entreprise_through_editor"
   introduction: *introduction_api_entreprise_editor
-  editor_id: 'provigis'
+  editor_id: "provigis"
   static_blocks:
-    - name: 'basic_infos'
-    - name: 'personal_data'
-    - name: 'legal'
-    - name: 'scopes'
+    - name: "basic_infos"
+    - name: "personal_data"
+    - name: "legal"
+    - name: "scopes"
   data:
     intitule: "Outil de contrôle de conformité des titulaires de marchés - Solution Provigis"
     description: "Dans le cadre des procédures de passation de marchés publics, nous mettons en place un outil, à destination de nos agents habilités en interne, leur permettant de collecter, contrôler et stocker les documents de conformité de leurs prestataires et sous-traitants.\r\nL’accès à l’API Entreprise nous permettra d’accéder aux justificatifs sans avoir à les demander aux prestataires.\r\n\r\nCet outil s’appuie sur la solution de l’éditeur Provigis.\r\n\r\nhttps://www.provigis.com/"
     cadre_juridique_nature: "Service numérique de conformité pour les administrations publiques dans le cadre du décret N°2011-1601 et de l’article D8222 du code du travail, offre de services d’intermédiation aux organismes publics, telle que définie par l’article 17, alinéa IV, du décret du 24 septembre 2014 et le décret lié à la commande publique n° 2016-360.\r\nhttps://www.legifrance.gouv.fr/codes/id/LEGIARTI000018520702/2011-12-31/\r\n\r\nArticle R2143-13 du code de la commande publique. Concernant l’accès des acheteurs aux documents justificatifs et moyens de preuve.\r\nhttps://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037730589"
-    cadre_juridique_url: 'https://www.legifrance.gouv.fr/codes/id/LEGIARTI000018520702/2011-12-31/'
+    cadre_juridique_url: "https://www.legifrance.gouv.fr/codes/id/LEGIARTI000018520702/2011-12-31/"
     destinataire_donnees_caractere_personnel: "Services marchés d’organismes publics et collectivités locales"
     duree_conservation_donnees_caractere_personnel: 36
-    contact_metier_type: 'organization'
+    contact_metier_type: "organization"
     contact_metier_email: "<%= Rails.env.production? ? 'client.services@provigis.com' : 'metier-provigis@yopmail.com' %>"
     contact_metier_phone_number: "0183755520"
-    contact_technique_type: 'organization'
+    contact_technique_type: "organization"
     contact_technique_email: "<%= Rails.env.production? ? 'tech@provigis.com' : 'tech-provigis@yopmail.com' %>"
     contact_technique_phone_number: "0183755520"
     scopes:
@@ -304,16 +304,16 @@ api-entreprise-provigis:
 api-entreprise-achat-solution:
   name: "Conformité titulaires de marchés"
   description: "Outil de contrôle de conformité des candidats et titulaires de marchés publics"
-  use_case: 'marches_publics'
-  authorization_request: 'APIEntreprise'
-  single_page_view: 'api_entreprise_through_editor'
+  use_case: "marches_publics"
+  authorization_request: "APIEntreprise"
+  single_page_view: "api_entreprise_through_editor"
   introduction: *introduction_api_entreprise_editor
-  editor_id: 'achat_solution'
+  editor_id: "achat_solution"
   static_blocks:
-    - name: 'basic_infos'
-    - name: 'personal_data'
-    - name: 'legal'
-    - name: 'scopes'
+    - name: "basic_infos"
+    - name: "personal_data"
+    - name: "legal"
+    - name: "scopes"
   data:
     intitule: "Outil de contrôle de conformité des candidats et titulaires de marchés publics"
     description: "Dans le cadre des procédures de passation de marchés publics, nous mettons en place un outil, à destination des acheteurs adhérents, leur permettant de récupérer les justificatifs nécessaires au dépôt et à l’instruction du dossier de candidature ainsi qu’au contrôle périodique de la régularité fiscale et sociale des entreprises\r\nL’accès à l’API Entreprise nous permettra d’accéder aux justificatifs sans avoir à les demander aux prestataires.\r\nCet outil s’appuie sur la solution de l’éditeur Achat Solution.\r\n\r\nhttps://www.achat-solution.com/"
@@ -321,10 +321,10 @@ api-entreprise-achat-solution:
     cadre_juridique_url: "https://www.legifrance.gouv.fr/codes/id/LEGIARTI000018520702/2011-12-31/"
     destinataire_donnees_caractere_personnel: "Maître d’ouvrage, acheteurs publics dans le cadre de leurs contrôles de la régularité fiscale et sociale des entreprises"
     duree_conservation_donnees_caractere_personnel: 36
-    contact_metier_type: 'organization'
+    contact_metier_type: "organization"
     contact_metier_email: "<%= Rails.application.credentials.api_entreprise_achat_solution_contact_metier_email || 'metier-achat-solution@yopmail.com' %>"
     contact_metier_phone_number: "<%= Rails.application.credentials.api_entreprise_achat_solution_contact_metier_phone_number || '0836656565' %>"
-    contact_technique_type: 'organization'
+    contact_technique_type: "organization"
     contact_technique_email: "<%= Rails.application.credentials.api_entreprise_achat_solution_contact_technique_email || 'metier-achat-solution@yopmail.com' %>"
     contact_technique_phone_number: "<%= Rails.application.credentials.api_entreprise_achat_solution_contact_technique_phone_number || '0836656565' %>"
     scopes:
@@ -345,31 +345,32 @@ api-entreprise-achat-solution:
 api-entreprise-mgdis:
   name: "Solution Portail des aides"
   description: "Solution logicielle fournie par l'éditeur MGDIS."
-  use_case: 'aides_publiques'
-  authorization_request: 'APIEntreprise'
-  single_page_view: 'api_entreprise_through_editor'
+  use_case: "aides_publiques"
+  authorization_request: "APIEntreprise"
+  single_page_view: "api_entreprise_through_editor"
   introduction: *introduction_api_entreprise_editor
-  editor_id: 'mgdis'
+  editor_id: "mgdis"
   static_blocks:
-    - name: 'basic_infos'
-    - name: 'personal_data'
-    - name: 'legal'
-    - name: 'scopes'
+    - name: "basic_infos"
+    - name: "personal_data"
+    - name: "legal"
+    - name: "scopes"
   data:
     intitule: "Solution Portail des aides de l'éditeur MGDIS"
-    description: "Dans un objectif de dématérialisation des aides publiques, nous mettons en place un outil, à destination des usagers de notre organisme leur permettant de déposer des demandes d’aides/subventions, qui seront ensuite instruites par nos agents dans ce même outil.
-La demande d’accès à API Entreprise est effectuée dans le but de faciliter le dépôt et l’instruction des demandes d’aides publiques pour les entreprises et associations du territoire, et de récupérer les justificatifs administratifs de ces organisations demandant des aides publiques, sans avoir à les demander aux demandeurs d’aides.
+    description: |
+      Dans un objectif de dématérialisation des aides publiques, nous mettons en place un outil, à destination des usagers de notre organisme leur permettant de déposer des demandes d’aides/subventions, qui seront ensuite instruites par nos agents dans ce même outil.
+      La demande d’accès à API Entreprise est effectuée dans le but de faciliter le dépôt et l’instruction des demandes d’aides publiques pour les entreprises et associations du territoire, et de récupérer les justificatifs administratifs de ces organisations demandant des aides publiques, sans avoir à les demander aux demandeurs d’aides.
 
-La plateforme, mise en place pour permettre le dépôt de ces aides publiques et l’instruction de ces demandes, s’appuie sur la solution « Portail des Aides » de l’éditeur MGDIS."
+      La plateforme, mise en place pour permettre le dépôt de ces aides publiques et l’instruction de ces demandes, s’appuie sur la solution « Portail des Aides » de l’éditeur MGDIS."
     destinataire_donnees_caractere_personnel: Agents instructeurs des aides publiques
     duree_conservation_donnees_caractere_personnel: 36
     cadre_juridique_nature: "Décret n° 2019-31 du 18 janvier 2019 relatif aux échanges d’informations et de données entre administrations dans le cadre des démarches administratives et à l’expérimentation prévue par l’article 40 de la loi n° 2018-727 du 10 août 2018 pour un Etat au service d’une société de confiance"
     cadre_juridique_url: "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000038029589/"
 
-    contact_technique_type: 'organization'
+    contact_technique_type: "organization"
     contact_technique_email: &api_entreprise_mgdis_contact_email "<%= Rails.env.production? ? 'assistance@mgdis.fr' : 'contact-mgdis@yopmail.com' %>"
-    contact_technique_phone_number: &api_entreprise_mgdis_contact_phone_number '0297681828'
-    contact_metier_type: 'organization'
+    contact_technique_phone_number: &api_entreprise_mgdis_contact_phone_number "0297681828"
+    contact_metier_type: "organization"
     contact_metier_email: *api_entreprise_mgdis_contact_email
     contact_metier_phone_number: *api_entreprise_mgdis_contact_phone_number
     scopes:
@@ -387,20 +388,19 @@ La plateforme, mise en place pour permettre le dépôt de ces aides publiques et
       - attestation_cotisations_conges_payes_chomage_intemperies_cibtp_cnetp
       - certifications_qualiopi_france_competences
 
-
 api-entreprise-atexo:
   name: "Dématérialisation des marchés publics"
   description: "Outil de dématérialisation des appels d’offres des marchés publics - Solution LOCAL TRUST MPE"
-  use_case: 'marches_publics'
-  single_page_view: 'api_entreprise_through_editor'
+  use_case: "marches_publics"
+  single_page_view: "api_entreprise_through_editor"
   introduction: *introduction_api_entreprise_editor
-  authorization_request: 'APIEntreprise'
-  editor_id: 'atexo'
+  authorization_request: "APIEntreprise"
+  editor_id: "atexo"
   static_blocks:
-    - name: 'basic_infos'
-    - name: 'personal_data'
-    - name: 'legal'
-    - name: 'scopes'
+    - name: "basic_infos"
+    - name: "personal_data"
+    - name: "legal"
+    - name: "scopes"
   data:
     intitule: "Outil de dématérialisation des appels d’offres des marchés publics - Solution LOCAL TRUST MPE"
     description: "Afin de faciliter cette investigation du marché fournisseurs, ATEXO propose le module de Sourcing. Combiné au profil acheteur MPE, il permet aux entreprises de mettre en avant leurs informations.\r\nBasé sur l’open data et les renseignements des entreprises, ce module présente aux acheteurs des fiches fournisseurs complètes : établissements, éléments financiers, contrats publics, références significatives, expertises, contacts qualifiés, etc."
@@ -412,14 +412,13 @@ api-entreprise-atexo:
 
       Article R2143-13 du code de la commande publique. Concernant l’accès des acheteurs aux documents justificatifs et moyens de preuve.
       https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037730589
-    cadre_juridique_url: 'https://www.legifrance.gouv.fr/codes/id/LEGIARTI000018520702/2011-12-31/'
-
-    contact_technique_type: 'organization'
+    cadre_juridique_url: "https://www.legifrance.gouv.fr/codes/id/LEGIARTI000018520702/2011-12-31/"
+    contact_technique_type: "organization"
     contact_technique_email: "<%= Rails.env.production? ? 'produits@atexo.com' : 'produit-atexo@yopmail.com' %>"
-    contact_technique_phone_number: '0175440934'
-    contact_metier_type: 'organization'
+    contact_technique_phone_number: "0175440934"
+    contact_metier_type: "organization"
     contact_metier_email: "<%= Rails.application.credentials.api_entreprise_atexo_contact_metier_email || 'produit-atexo@yopmail.com' %>"
-    contact_metier_phone_number: '0153430678'
+    contact_metier_phone_number: "0153430678"
     scopes:
       - unites_legales_etablissements_insee
       - associations_djepva
@@ -435,20 +434,19 @@ api-entreprise-atexo:
       - attestation_cotisations_conges_payes_chomage_intemperies_cibtp_cnetp
       - certifications_qualiopi_france_competences
 
-
 api-entreprise-setec-atexo:
   name: "Dématérialisation des marchés publics"
   description: "Solution logicielle fournie par l'éditeur Setec."
-  authorization_request: 'APIEntreprise'
-  single_page_view: 'api_entreprise_through_editor'
+  authorization_request: "APIEntreprise"
+  single_page_view: "api_entreprise_through_editor"
   introduction: *introduction_api_entreprise_editor
-  use_case: 'marches_publics'
-  editor_id: 'setec'
+  use_case: "marches_publics"
+  editor_id: "setec"
   static_blocks:
-    - name: 'basic_infos'
-    - name: 'personal_data'
-    - name: 'legal'
-    - name: 'scopes'
+    - name: "basic_infos"
+    - name: "personal_data"
+    - name: "legal"
+    - name: "scopes"
   data:
     intitule: "Outil de dématérialisation des appels d’offres des marchés publics - Solution LOCAL TRUST MPE via SETEC"
     description: |+
@@ -466,12 +464,11 @@ api-entreprise-setec-atexo:
       Article R2143-13 du code de la commande publique. Concernant l’accès des acheteurs aux documents justificatifs et moyens de preuve.
       https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037730589
     cadre_juridique_url: https://www.legifrance.gouv.fr/codes/id/LEGIARTI000018520702/2011-12-31/
-
-    contact_technique_type: 'organization'
+    contact_technique_type: "organization"
     contact_technique_email: &api_entreprise_setec_atexo_contact_email "<%= Rails.application.credentials.api_entreprise_setec_atexo_contact_email || 'contact-setec@yopmail.com' %>"
     contact_technique_phone_number: &api_entreprise_setec_atexo_contact_phone_number "<%= Rails.application.credentials.api_entreprise_setec_atexo_contact_phone_number || '0836656565' %>"
 
-    contact_metier_type: 'organization'
+    contact_metier_type: "organization"
     contact_metier_email: *api_entreprise_setec_atexo_contact_email
     contact_metier_phone_number: *api_entreprise_setec_atexo_contact_phone_number
     scopes:
@@ -492,16 +489,16 @@ api-entreprise-setec-atexo:
 api-entreprise-inetum:
   name: "Solution ASTRE GF"
   description: "Gestion financière des collectivités territoriales"
-  use_case: 'marches_publics'
-  authorization_request: 'APIEntreprise'
-  single_page_view: 'api_entreprise_through_editor'
+  use_case: "marches_publics"
+  authorization_request: "APIEntreprise"
+  single_page_view: "api_entreprise_through_editor"
   introduction: *introduction_api_entreprise_editor
-  editor_id: 'inetum'
+  editor_id: "inetum"
   static_blocks:
-    - name: 'basic_infos'
-    - name: 'personal_data'
-    - name: 'legal'
-    - name: 'scopes'
+    - name: "basic_infos"
+    - name: "personal_data"
+    - name: "legal"
+    - name: "scopes"
   data:
     intitule: Gestion financière pour les services financiers des collectivités territoriales
     description: Astre GF est une solution logicielle Back office, de gestion financière destinée aux services financiers des collectivités territoriales. Les données "Insee , unités légales" récupérées via API entreprise permettent de fiabiliser la base des tiers des collectivités pour le suivi des contrats des marchés publics.
@@ -516,12 +513,11 @@ api-entreprise-inetum:
       Article R2143-13 du code de la commande publique. Concernant l’accès des acheteurs aux documents justificatifs et moyens de preuve.
       https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037730589
     cadre_juridique_url: https://www.legifrance.gouv.fr/codes/id/LEGIARTI000018520702/2011-12-31/
-
-    contact_technique_family_name: 'Testart'
-    contact_technique_given_name: 'Baptiste'
-    contact_technique_email: 'baptiste.testart@inetum.com'
-    contact_technique_job_title: 'Responsable développement'
-    contact_technique_phone_number: '0608723174'
+    contact_technique_family_name: "Testart"
+    contact_technique_given_name: "Baptiste"
+    contact_technique_email: "baptiste.testart@inetum.com"
+    contact_technique_job_title: "Responsable développement"
+    contact_technique_phone_number: "0608723174"
 
     scopes:
       - unites_legales_etablissements_insee

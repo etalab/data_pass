@@ -114,28 +114,28 @@ search:
 #     formality: prefer_less
 ## Do not consider these keys missing:
 ignore_missing:
-- 'authorization_request_mailer.subject'
-- 'gdpr_contact_mailer.subject'
+  - "authorization_request_mailer.subject"
+  - "gdpr_contact_mailer.subject"
 # - 'errors.messages.{accepted,blank,invalid,too_short,too_long}'
 # - '{devise,simple_form}.*'
 
 ## Consider these keys used:
 ignore_unused:
-- '{activerecord,activemodel}.attributes.*'
-- '{activerecord,activemodel}.errors.*'
-- 'ransack.attributes.*'
-- 'errors.messages.*'
-- 'validates_timeliness.error_value_formats.*'
-- 'authorization_request_forms.*'
-- 'authorization_request_mailer.*.subject'
-- 'support.*'
-- 'authorization_request_forms.build.update.{reopening_,}error.*'
-- 'instruction.{approve,refuse,request_changes_on,revoke}_authorization_requests.create.{reopening_,}success.title'
-- 'instruction.cancel_authorization_reopenings.create.success.title'
-- 'gdpr_contact_mailer.delegue_protection_donnees.subject'
-- 'gdpr_contact_mailer.responsable_traitement.subject'
-- 'instruction.authorization_requests.index.status.*'
-- 'wicked.*'
+  - "{activerecord,activemodel}.attributes.*"
+  - "{activerecord,activemodel}.errors.*"
+  - "ransack.attributes.*"
+  - "errors.messages.*"
+  - "validates_timeliness.error_value_formats.*"
+  - "authorization_request_forms.*"
+  - "authorization_request_mailer.*.subject"
+  - "support.*"
+  - "authorization_request_forms.build.update.{reopening_,}error.*"
+  - "instruction.{approve,refuse,request_changes_on,revoke}_authorization_requests.create.{reopening_,}success.title"
+  - "instruction.cancel_authorization_reopenings.create.success.title"
+  - "gdpr_contact_mailer.delegue_protection_donnees.subject"
+  - "gdpr_contact_mailer.responsable_traitement.subject"
+  - "instruction.authorization_requests.index.status.*"
+  - "wicked.*"
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'
 # - 'simple_form.{placeholders,hints,labels}.*'

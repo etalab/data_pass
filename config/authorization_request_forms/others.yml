@@ -1,6 +1,6 @@
 hubee-cert-dc:
   introduction: En complétant ce formulaire, vous allez demander à recevoir par voie électronique le volet administratif du certificat de décès lorsque le médecin rédige le certificat de décès au moyen de l’application « CertDc »
-  authorization_request: 'HubEECertDC'
+  authorization_request: "HubEECertDC"
 
 hubee-dila:
   introduction: |
@@ -11,7 +11,7 @@ hubee-dila:
     ● RCO - Recensement Citoyen Obligatoire
     ● DHTOUR - Déclaration d’hébergement touristique
     ● JCC - Déclaration de Changement de Coordonnées
-  authorization_request: 'HubEEDila'
+  authorization_request: "HubEEDila"
   scopes:
     - etat_civil
     - depot_dossier_pacs
@@ -21,7 +21,7 @@ hubee-dila:
 
 api-service-national-inscription-concours-examen:
   name: "Inscription à un concours ou un examen (hors permis de conduire)"
-  authorization_request: 'APIServiceNational'
+  authorization_request: "APIServiceNational"
   data:
     intitule: "Inscription à un concours ou un examen (hors permis de conduire)"
     description: "La candidature à un concours ou examens en France nécessite souvent l'inscription à un service national. Ce service permet au candidat d'être identifié et authentifié de manière sécurisée lors de son inscription."
@@ -32,7 +32,7 @@ api-service-national-inscription-concours-examen:
 
 api-service-national-obligation-service-national:
   name: "Accès à un statut exigeant d’être en règle avec les obligations de service national"
-  authorization_request: 'APIServiceNational'
+  authorization_request: "APIServiceNational"
   data:
     intitule: "Accès à un statut exigeant d’être en règle avec les obligations de service national"
     description:
@@ -43,16 +43,16 @@ api-service-national-obligation-service-national:
 
 api-service-national:
   name: "Demande libre"
-  authorization_request: 'APIServiceNational'
+  authorization_request: "APIServiceNational"
   steps:
-    - name: 'basic_infos'
-    - name: 'personal_data'
-    - name: 'legal'
-    - name: 'contacts'
+    - name: "basic_infos"
+    - name: "personal_data"
+    - name: "legal"
+    - name: "contacts"
 
 api-captchetat:
-  authorization_request: 'APICaptchEtat'
+  authorization_request: "APICaptchEtat"
   steps:
-    - name: 'basic_infos'
-    - name: 'legal'
-    - name: 'contacts'
+    - name: "basic_infos"
+    - name: "legal"
+    - name: "contacts"

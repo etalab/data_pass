@@ -1,36 +1,35 @@
 ---
 shared:
   api-entreprise:
-    name: 'API Entreprise'
-    title: 'DataPass - API Entreprise'
-    tagline: 'Habilitations juridiques pour API Entreprise'
+    name: "API Entreprise"
+    title: "DataPass - API Entreprise"
+    tagline: "Habilitations juridiques pour API Entreprise"
     authorization_definition_ids:
-      - 'api_entreprise'
+      - "api_entreprise"
   api-particulier:
-    name: 'API Particulier'
-    title: 'DataPass - API Particulier'
-    tagline: 'Habilitations juridiques pour API Particulier'
+    name: "API Particulier"
+    title: "DataPass - API Particulier"
+    tagline: "Habilitations juridiques pour API Particulier"
     authorization_definition_ids:
-      - 'api_particulier'
+      - "api_particulier"
   hubee:
-    name: 'HubEE'
-    title: 'DataPass - HubEE'
-    tagline: 'Habilitations juridiques pour HubEE'
+    name: "HubEE"
+    title: "DataPass - HubEE"
+    tagline: "Habilitations juridiques pour HubEE"
     authorization_definition_ids:
-      - 'hubee_cert_dc'
-      - 'hubee_dila'
+      - "hubee_cert_dc"
+      - "hubee_dila"
 test:
   api-entreprise:
-    name: 'API Entreprise'
-    title: 'DataPass - API Entreprise'
-    tagline: 'Habilitations juridiques pour API Entreprise'
+    name: "API Entreprise"
+    title: "DataPass - API Entreprise"
+    tagline: "Habilitations juridiques pour API Entreprise"
     authorization_definition_ids:
-      - 'api_entreprise'
+      - "api_entreprise"
   api-gouv:
-    name: 'API Gouv'
-    title: 'DataPass - API Gouv'
-    tagline: 'Habilitations juridiques pour API Entreprise & Particulier'
+    name: "API Gouv"
+    title: "DataPass - API Gouv"
+    tagline: "Habilitations juridiques pour API Entreprise & Particulier"
     authorization_definition_ids:
-      - 'api_entreprise'
-      - 'api_particulier'
-
+      - "api_entreprise"
+      - "api_particulier"
