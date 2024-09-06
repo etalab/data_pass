@@ -31,6 +31,12 @@ fix-lint:
 js-lint:
 	$(DOCKER-RUN) web standard app/javascript
 
+yaml-lint:
+	$(DOCKER-RUN) web prettier "config/**/*.yaml" "config/**/*.yml" "!config/cucumber.yml"
+
+fix-yaml-lint:
+	$(DOCKER-RUN) web prettier --write "config/**/*.yaml" "config/**/*.yml" "!config/cucumber.yml"
+
 security:
 	$(DOCKER-RUN) web $(BUNDLE-EXEC) ./bin/brakeman
 

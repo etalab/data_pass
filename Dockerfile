@@ -8,7 +8,7 @@ WORKDIR /app
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential git libpq-dev libvips pkg-config npm
 
-RUN npm install standard --global
+RUN npm install standard prettier --global
 
 COPY Gemfile Gemfile.lock ./
 RUN bundle install

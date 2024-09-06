@@ -1,0 +1,3 @@
+#!/bin/bash
+
+prettier --write "config/**/*.yml" "!config/cucumber.yml"
