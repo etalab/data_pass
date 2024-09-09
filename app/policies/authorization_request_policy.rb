@@ -56,12 +56,7 @@ class AuthorizationRequestPolicy < ApplicationPolicy
 
   def transfer?
     record.persisted? &&
-      (
-        record.applicant == user || (
-          same_current_organization? &&
-            record.state == 'validated'
-        )
-      )
+      same_current_organization?
   end
 
   protected
@@ -77,7 +72,8 @@ class AuthorizationRequestPolicy < ApplicationPolicy
   private
 
   def same_current_organization?
-    record.organization_id == current_organization.id
+    current_organization.present? &&
+      record.organization_id == current_organization.id
   end
 
   def review_authorization_request

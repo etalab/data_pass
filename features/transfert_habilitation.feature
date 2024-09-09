@@ -26,7 +26,7 @@ Fonctionnalité: Transfert de demandes d'habilitations par un utilisateur
 
   Scénario: Je ne vois pas de bouton de transfert d'habilitation sur une demande en brouillon de mon organisation
     Quand je me rends sur une demande d'habilitation "API Entreprise" de l'organisation "Ville de Clamart" en brouillon
-    Alors il n'y a pas de bouton "Transférer"
+    Alors il y a un bouton "Transférer"
 
 
 
