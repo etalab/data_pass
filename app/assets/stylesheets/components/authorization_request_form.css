@@ -30,8 +30,5 @@
   justify-content: flex-end;
   align-items: center;
   flex-wrap: wrap;
-}
-
-.authorization-request-form-header__actions .fr-btn {
-  margin-left: 10px;
+  gap: 10px;
 }
