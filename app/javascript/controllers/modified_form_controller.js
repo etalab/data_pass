@@ -1,12 +1,12 @@
 import { Controller } from '@hotwired/stimulus'
-import {useDirtyFormTracking, isDirty} from 'stimulus-library'
+import { useDirtyFormTracking, isDirty } from 'stimulus-library'
 
 export default class extends Controller {
   static targets = ['submit']
-  static values = {preventSubmit: Boolean }
+  static values = { preventSubmit: Boolean }
 
   connect () {
-    if (this.preventSubmitValue && this.hasSubmitTarget) { 
+    if (this.preventSubmitValue && this.hasSubmitTarget) {
       this.submitTarget.disabled = true
     }
     useDirtyFormTracking(this, this.element)
