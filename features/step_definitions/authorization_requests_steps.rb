@@ -178,6 +178,15 @@ Alors(/je vois (\d+) demandes? d'habilitation(?: "([^"]+)")?(?:(?: en)? (.+))?/)
   end
 end
 
+Alors("l'utilisateur {string} possède une demande d'habilitation {string}") do |email, definition_name|
+  user = User.find_by(email:)
+
+  user_session(user) do
+    visit dashboard_path
+    expect(page).to have_css('.authorization-request-definition-name', text: definition_name)
+  end
+end
+
 Quand('cette demande a été {string}') do |status|
   authorization_request = AuthorizationRequest.last
   user = User.last

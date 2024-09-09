@@ -38,6 +38,7 @@ Fonctionnalité: Transfert de demandes d'habilitations par un utilisateur
     Et que je remplis "Email du nouveau demandeur" avec "nouveau-demandeur@api.gouv.fr"
     Et que je clique sur "Valider le transfert"
     Alors il y a un message de succès contenant "transférée à l'utilisateur nouveau-demandeur@api.gouv.fr"
+    Et l'utilisateur "nouveau-demandeur@api.gouv.fr" possède une demande d'habilitation "API Entreprise"
     Et un email est envoyé contenant "transférée" à "nouveau-demandeur@api.gouv.fr et demandeur@gouv.fr"
 
   Scénario: Je tente de transfèrer une de mes habilitations à un autre utilisateur qui n'est pas de mon organisation
