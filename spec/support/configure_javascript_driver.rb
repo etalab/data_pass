@@ -25,6 +25,8 @@ remote_chrome =
 
 remote_options = remote_chrome ? { url: REMOTE_CHROME_URL } : {}
 
+inspector = ENV['INSPECTOR'] == 'true'
+
 Capybara.default_driver = :rack_test
 Capybara.javascript_driver = :cuprite
 Capybara.register_driver(:cuprite) do |app|
@@ -32,8 +34,8 @@ Capybara.register_driver(:cuprite) do |app|
     app,
     window_size: [1200, 800],
     browser_options: remote_chrome ? { 'no-sandbox' => nil } : {},
-    inspector: ENV.fetch('INSPECTOR', nil),
-    headless: ENV['HEADLESS'] != 'false', **remote_options
+    inspector:,
+    headless: !inspector && ENV['HEADLESS'] != 'false', **remote_options
   )
 end
 Capybara.server = :puma, { Silent: true }

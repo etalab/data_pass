@@ -100,6 +100,8 @@ COVERAGE=true bundle exec rspec
 bundle exec cucumber
 # E2Ewith coverage
 COVERAGE=true bundle exec cucumber
+# E2E in debugging mode
+INSPECTOR=true bundle exec cucumber
 ```
 
 ## Static security
