@@ -360,13 +360,13 @@ fr:
         success: Votre demande d’habilitation %{name} a bien été transférée à l'utilisateur %{new_applicant_email}.
         error:
           email_not_found: |
-            Le destinataire ne possède pas de compte sur DataPass, il doit d’abord se connecter sur DataPass et sélectionner la même organisation que celle rattachée à cette demande (numéro de siret : %{organization_siret}).
+            Le destinataire ne possède pas de compte sur DataPass, il doit d’abord se connecter sur DataPass et sélectionner la même organisation " %{organization_name} " (numero de siret %{organization_siret}) que celle rattachée à cette demande.
             <br />
             Une fois son compte créé, vous pourrez alors réaliser le transfert de votre habilitation.
           different_user: |
             Vous ne pouvez pas transférer cette demande à la même personne
           invalid_new_applicant: |
-            Le destinataire n'appartient pas à la même organisation que la demande d'habilitation (numero de siret %{organization_siret}). Celui-ci doit d'abord se connecter via MonComptePro avec cette organisation.
+            Le destinataire n'appartient pas à la même organisation " %{organization_name} " (numero de siret %{organization_siret}) que la demande d'habilitation. Celui-ci doit d'abord se connecter via MonComptePro avec cette organisation.
 
     new_to_me:
       title: Transfert d’une demande d’habilitation
