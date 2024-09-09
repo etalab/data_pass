@@ -23,8 +23,7 @@ Sachantque("je suis un demandeur pour l'organisation {string}") do |organization
   organization = find_or_create_organization_by_name(organization_name)
   user = User.find_by(email: @current_user_email) || FactoryBot.create(:user, email: @current_user_email, current_organization: organization)
 
-  user.current_organization = organization
-  user.organizations << organization unless user.organizations.include?(organization)
+  add_current_organization_to_user(user, organization)
 
   user.save!
 

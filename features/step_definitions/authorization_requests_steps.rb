@@ -305,8 +305,7 @@ Sachant('{string} appartient à mon organisation') do |email|
   current_user = User.find_by(email: @current_user_email)
 
   user = User.find_or_initialize_by(email:)
-  user.current_organization = current_user.current_organization
-  user.organizations << current_user.current_organization unless user.organizations.include?(current_user.current_organization)
+  add_current_organization_to_user(user, current_user.current_organization)
 
   user.save!
 end
@@ -315,8 +314,7 @@ Sachant('{string} appartient à une autre organisation') do |email|
   another_organization = FactoryBot.create(:organization)
 
   user = User.find_or_initialize_by(email:)
-  user.current_organization = another_organization
-  user.organizations << another_organization unless user.organizations.include?(another_organization)
+  add_current_organization_to_user(user, another_organization)
 
   user.save!
 end
