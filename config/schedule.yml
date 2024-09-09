@@ -2,8 +2,8 @@ development: {}
 
 production: &deployed
   healthcheck:
-    cron: '*/5 * * * *'
-    class: 'HealthcheckJob'
+    cron: "*/5 * * * *"
+    class: "HealthcheckJob"
 
 staging: *deployed
 sandbox: *deployed

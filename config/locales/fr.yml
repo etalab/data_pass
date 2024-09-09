@@ -1,17 +1,17 @@
 fr:
   support:
     array:
-      words_connector: ', '
-      two_words_connector: ' et '
-      last_word_connector: ' et '
+      words_connector: ", "
+      two_words_connector: " et "
+      last_word_connector: " et "
   form:
     no_file: Pas de fichier
   wicked:
-    basic_infos: 'informations-de-base'
-    personal_data: 'donnees-personnelles'
-    legal: 'cadre-juridique'
-    scopes: 'donnees'
-    contacts: 'contacts'
+    basic_infos: "informations-de-base"
+    personal_data: "donnees-personnelles"
+    legal: "cadre-juridique"
+    scopes: "donnees"
+    contacts: "contacts"
 
   authorization:
     badge: habilitation du %{date}
@@ -31,10 +31,10 @@ fr:
       responsable_traitement: Responsable de traitement
       delegue_protection_donnees: Délégué à la protection des données
   authorization_request_event:
-    changelog_entry: "Le champ <u>%{attribute}</u> a changé de \"%{old_value}\" en \"%{new_value}\""
+    changelog_entry: 'Le champ <u>%{attribute}</u> a changé de "%{old_value}" en "%{new_value}"'
     changelog_entry_new_scope: "Le périmètre de données <u>%{value}</u> a été ajouté."
     changelog_entry_removed_scope: "Le périmètre de données <u>%{value}</u> a été retiré."
-    changelog_entry_with_null_old_value: "Le champ <u>%{attribute}</u> a été initialisé à \"%{new_value}\""
+    changelog_entry_with_null_old_value: 'Le champ <u>%{attribute}</u> a été initialisé à "%{new_value}"'
     changelog_entry_applicant: "Le <u>demandeur</u> a été modifié de %{old_value} à %{new_value}."
     changelog_entry_applicant_with_missing_data: "Le <u>demandeur</u> a été modifié."
 
@@ -100,7 +100,8 @@ fr:
   pages:
     home:
       title: Bienvenue sur DataPass !
-      sub_title: DataPass, c’est le service qui vous permet de profiter facilement d’habilitations conformes entre
+      sub_title:
+        DataPass, c’est le service qui vous permet de profiter facilement d’habilitations conformes entre
         administrations et d’accéder à des données et services en accès restreint.
       mon_compte_pro_connexion: Pour suivre vos demandes d’habilitations
       mon_compte_pro_login: S’identifier avec
@@ -153,7 +154,6 @@ fr:
       title: Demander une nouvelle habilitation
       cta: Remplir une demande
 
-
   authorization_requests:
     unauthenticated_start:
       sub_title: "Vous souhaitez accédez à l’<strong>%{api_name}</strong> \n Votre demande d’habilitation va se dérouler en 4 étapes"
@@ -200,8 +200,8 @@ fr:
       title: *start_new_habilitation_title
       back_to_dashboard: Retour à l'accueil
       organization:
-        start_text: "Vous êtes sur le point de démarrer une nouvelle demande d'habilitation pour le compte de <a href=\"https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}\" target=\"_blank\">%{organization_raison_sociale}</a>."
-        start_text_with_form_name: "Vous êtes sur le point de démarrer une nouvelle demande d'habilitation pour le compte de <a href=\"https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}\" target=\"_blank\">%{organization_raison_sociale}</a> via le formulaire <strong>%{authorization_request_form_name}</strong>."
+        start_text: 'Vous êtes sur le point de démarrer une nouvelle demande d''habilitation pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_raison_sociale}</a>.'
+        start_text_with_form_name: 'Vous êtes sur le point de démarrer une nouvelle demande d''habilitation pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_raison_sociale}</a> via le formulaire <strong>%{authorization_request_form_name}</strong>.'
       intro:
         title: L'objectif du formulaire
       cta: Débuter ma demande
@@ -277,7 +277,7 @@ fr:
 
     form:
       back: Retour à la synthèse
-      message_datapass: 
+      message_datapass:
         button: Contacter l'équipe Datapass
         mailto: "mailto:datapass@api.gouv.fr?subject=Demande de transfert d'habilitation&body=<votre message ici>%0D%0A%0D%0ANuméro d'habilitation: %{authorization_id}"
       reopen: Mettre à jour

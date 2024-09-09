@@ -26,7 +26,7 @@ les seeds disponible [ici](app/lib/seeds.rb)
 
 * ruby 3.3.2
 * postressql >= 13
-* (optional) npm (for [standardjs](https://standardjs.com/))
+* (optional) npm (for [standardjs](https://standardjs.com/) and [prettier](https://prettier.io/))
 
 ## Install
 
