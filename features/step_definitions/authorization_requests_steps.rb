@@ -1,3 +1,11 @@
+Quand("il existe une demande d'habilitation {string} intitulée {string}") do |authorization_request_kind, authorization_request_name|
+  FactoryBot.create(
+    :authorization_request,
+    find_factory_trait_from_name(authorization_request_kind),
+    intitule: authorization_request_name,
+  )
+end
+
 Quand("j'ai déjà une demande d'habilitation {string} en cours") do |string|
   FactoryBot.create(
     :authorization_request,
@@ -300,4 +308,10 @@ Alors(/je vois (\d+) habilitation(?: "([^"]+)")?(?:(?: en)? (.+))?/) do |count, 
 
     expect(page).to have_css('.authorization-request-state', text: I18n.t("authorization_request.status.#{state}"), count:)
   end
+end
+
+Quand('je visite sa page publique') do
+  authorization_request = AuthorizationRequest.last
+
+  visit public_authorization_request_path(authorization_request.public_id)
 end
