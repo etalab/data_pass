@@ -56,7 +56,8 @@ class AuthorizationRequestPolicy < ApplicationPolicy
 
   def transfer?
     record.persisted? &&
-      same_current_organization?
+      same_current_organization? &&
+      (record.reopening? || record.state != 'draft')
   end
 
   protected

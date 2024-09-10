@@ -12,8 +12,12 @@ Fonctionnalité: Transfert de demandes d'habilitations par un utilisateur
     Quand je me rends sur une demande d'habilitation "API Entreprise" validée
     Alors il y a un bouton "Transférer"
 
-  Scénario: Je vois un bouton de transfert d'habilitation sur une de mes demandes en brouillon
+  Scénario: Je ne vois pas de bouton de transfert d'habilitation sur une de mes demandes en brouillon
     Quand je me rends sur une demande d'habilitation "API Entreprise" en brouillon
+    Alors il n'y a pas de bouton "Transférer"
+
+  Scénario: Je vois un bouton de transfert d'habilitation sur une de mes demandes en brouillon réouvert
+    Quand je me rends sur une demande d'habilitation "API Entreprise" réouverte
     Alors il y a un bouton "Transférer"
 
   Scénario: Je vois un bouton de transfert d'habilitation sur une de mes demandes soumise
@@ -26,7 +30,7 @@ Fonctionnalité: Transfert de demandes d'habilitations par un utilisateur
 
   Scénario: Je ne vois pas de bouton de transfert d'habilitation sur une demande en brouillon de mon organisation
     Quand je me rends sur une demande d'habilitation "API Entreprise" de l'organisation "Ville de Clamart" en brouillon
-    Alors il y a un bouton "Transférer"
+    Alors il n'y a pas de bouton "Transférer"
 
 
 
