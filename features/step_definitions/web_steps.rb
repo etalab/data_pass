@@ -65,7 +65,15 @@ Alors('le titre de la page contient {string}') do |text|
 end
 
 Quand('je remplis {string} avec {string}') do |label, value|
-  fill_in label, with: value
+  if javascript?
+    node = find_field(label)
+
+    value.split('').each do |char|
+      node.send_keys(char)
+    end
+  else
+    fill_in label, with: value
+  end
 end
 
 Quand('je clique sur {string} dans la rangée {string}') do |link, row|
