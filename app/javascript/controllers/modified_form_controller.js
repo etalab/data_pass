@@ -10,6 +10,8 @@ export default class extends Controller {
       this.submitTarget.disabled = true
     }
     useDirtyFormTracking(this, this.element)
+
+    this.update()
   }
 
   submit (event) {
