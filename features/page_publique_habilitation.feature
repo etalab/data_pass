@@ -7,4 +7,5 @@ Fonctionnalité: Consultation d'une demande d'habilitation via sa page public
     Sachant qu'il existe une demande d'habilitation "API Entreprise" intitulée "Ma superbe demande"
     Et que je visite sa page publique
     Alors la page contient "API Entreprise"
+    Et la page ne contient pas "Vous avez complété toutes les étapes de votre demande"
     Et la page contient "Ma superbe demande"
