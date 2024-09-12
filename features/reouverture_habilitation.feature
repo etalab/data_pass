@@ -2,7 +2,8 @@
 
 Fonctionnalité: Réouverture d'une habilitation validée
   Une habilitation validée peut être réouverte par un demandeur. Celle-ci peut
-  être resoumisse, revalidée ou refusée (ce qui annule les changements).
+  être ressoumise, revalidée ou refusée (ce qui annule les changements) et la 
+  réouverture peut être annulée
 
   Contexte:
     Sachant que je suis un demandeur
@@ -62,6 +63,16 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Et il y a un badge "Mise à jour"
     Et il y a un badge "Brouillon"
     Et il n'y a pas de bouton "Enregistrer"
+
+  Scénario: Annulation d'une demande de réouverture
+    Quand j'ai 1 demande d'habilitation "API Entreprise" réouverte
+    Et que je vais sur la page tableau de bord
+    Et que je clique sur le dernier "Consulter"
+    Alors il y a un bouton "Annuler la demande de réouverture"
+    Et que je clique sur "Annuler la demande de réouverture"
+    Alors il y a un bouton "Annuler la réouverture de cette demande"
+    Et que je clique sur "Annuler la réouverture de cette demande"
+    Alors il y a un message de succès contenant "a été annulée"
 
   Scénario: Soumission d'une habilitation fraîchement réouverte
     Quand j'ai 1 demande d'habilitation "API Entreprise" réouverte
