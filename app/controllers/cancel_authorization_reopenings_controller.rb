@@ -10,7 +10,7 @@ class CancelAuthorizationReopeningsController < AuthenticatedUserController
   end
 
   def create
-    organizer = CancelAuthorizationReopening.call(authorization_request_reopening_cancellation_params: {}, authorization_request: @authorization_request, user: current_user)
+    organizer = CancelAuthorizationReopening.call(authorization_request: @authorization_request, user: current_user)
 
     @authorization_request_reopening_cancellation = organizer.authorization_request_reopening_cancellation
 
