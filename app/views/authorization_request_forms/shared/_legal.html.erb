@@ -26,7 +26,7 @@
                        rows: 5,
                        required: true,
                        data: {
-                         action: "keyup->modified-form#update",
+                         action: "modified-form#update",
                        } %>
     </div>
   </fieldset>
@@ -48,7 +48,7 @@
     <div class="fr-fieldset__element">
       <%= f.dsfr_file_field :cadre_juridique_document,
                         data: {
-                          action: "change->modified-form#update",
+                          action: "modified-form#update",
                         } %>
     </div>
   </fieldset>
@@ -71,7 +71,7 @@
     <div class="fr-fieldset__element legal-input__width">
       <%= f.dsfr_url_field :cadre_juridique_url,
                        data: {
-                         action: "keyup->modified-form#update",
+                         action: "modified-form#update",
                        } %>
     </div>
   </fieldset>

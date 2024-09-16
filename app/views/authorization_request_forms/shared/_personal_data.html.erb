@@ -12,7 +12,7 @@
     <%= f.dsfr_text_field :destinataire_donnees_caractere_personnel,
                       required: true,
                       data: {
-                        action: "keyup->modified-form#update",
+                        action: "modified-form#update",
                       } %>
   </div>
 
@@ -25,7 +25,7 @@
                         model: @authorization_request,
                         required: true,
                         data: {
-                          action: "keyup->modified-form#update",
+                          action: "modified-form#update",
                         } %>
   </div>
 
@@ -39,7 +39,7 @@
 
     <%= f.dsfr_text_area :duree_conservation_donnees_caractere_personnel_justification,
                      data: {
-                       action: "keyup->modified-form#update",
+                       action: "modified-form#update",
                      } %>
   </div>
 </fieldset>

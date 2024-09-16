@@ -14,7 +14,7 @@
       <%= f.dsfr_text_field :intitule,
                         required: true,
                         data: {
-                          action: "keyup->modified-form#update",
+                          action: "modified-form#update",
                         } %>
     </div>
   <% end %>
@@ -25,7 +25,7 @@
                        rows: 10,
                        required: true,
                        data: {
-                         action: "keyup->modified-form#update",
+                         action: "modified-form#update",
                        } %>
     </div>
   <% end %>
@@ -34,7 +34,7 @@
     <div class="fr-fieldset__element">
       <%= f.dsfr_file_field :maquette_projet,
                         data: {
-                          action: "change->modified-form#update",
+                          action: "modified-form#update",
                         } %>
     </div>
   <% end %>
@@ -43,7 +43,7 @@
     <div class="fr-fieldset__element">
       <%= f.dsfr_date_field :date_prevue_mise_en_production,
                         data: {
-                          action: "change->modified-form#update",
+                          action: "modified-form#update",
                         } %>
     </div>
   <% end %>
@@ -52,7 +52,7 @@
     <div class="fr-fieldset__element">
       <%= f.dsfr_text_field :volumetrie_approximative,
                         data: {
-                          action: "keyup->modified-form#update",
+                          action: "modified-form#update",
                         } %>
     </div>
   <% end %>

@@ -25,12 +25,12 @@
           <% if contact_attribute == 'email' %>
             <%= f.dsfr_email_field("#{contact_type}_#{contact_attribute}", required: true,
                         data: {
-                          action: "keyup->modified-form#update",
+                          action: "modified-form#update",
                         })  %>
           <% else %>
             <%= f.dsfr_text_field("#{contact_type}_#{contact_attribute}", required: true,
                         data: {
-                          action: "keyup->modified-form#update",
+                          action: "modified-form#update",
                         })  %>
           <% end %>
         </div>
