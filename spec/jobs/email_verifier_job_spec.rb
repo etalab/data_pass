@@ -26,6 +26,36 @@ RSpec.describe EmailVerifierJob do
         expect { verify_email }.to change(VerifiedEmail, :count).by(1)
       end
 
+      it 'does not call the email verifier API' do
+        verify_email
+
+        expect(EmailVerifierAPI).not_to have_received(:new)
+      end
+
+      it 'sets the email as verified' do
+        verify_email
+
+        verified_email = VerifiedEmail.last
+
+        expect(verified_email.email).to eq(email)
+        expect(verified_email.status).to eq('deliverable')
+        expect(verified_email.verified_at).to be_within(1.second).of(Time.current)
+      end
+    end
+
+    context 'when it is a whitelisted domain' do
+      let(:email) { 'whatever@whatever.gouv.fr' }
+
+      it 'creates a verified email model' do
+        expect { verify_email }.to change(VerifiedEmail, :count).by(1)
+      end
+
+      it 'does not call the email verifier API' do
+        verify_email
+
+        expect(EmailVerifierAPI).not_to have_received(:new)
+      end
+
       it 'sets the email as verified' do
         verify_email
 
