@@ -4,6 +4,8 @@ class Import::AuthorizationRequests::HubEEDilaAttributes < Import::Authorization
       already_imported = other_models.find { |another_authorization_request| another_authorization_request.state == 'validated' }
 
       affect_additional_scopes(already_imported)
+
+      skip_row!(:already_imported)
     end
 
     affect_scopes
