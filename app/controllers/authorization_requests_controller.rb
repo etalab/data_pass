@@ -39,7 +39,7 @@ class AuthorizationRequestsController < AuthenticatedUserController
   end
 
   def set_facade
-    klass = NewAuthorizationRequest.facade(scope: params[:id])
+    klass = NewAuthorizationRequest.facade(definition_id: id_sanitized)
     @facade = klass.new(authorization_definition: @authorization_definition)
   end
 

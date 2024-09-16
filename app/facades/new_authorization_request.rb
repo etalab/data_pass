@@ -1,10 +1,10 @@
 class NewAuthorizationRequest
-  def self.facade(scope:)
-    new(scope:).facade
+  def self.facade(definition_id:)
+    new(definition_id:).facade
   end
 
-  def initialize(scope:)
-    @scope = scope
+  def initialize(definition_id:)
+    @definition_id = definition_id
   end
 
   def facade
@@ -15,9 +15,9 @@ class NewAuthorizationRequest
 
   private
 
-  attr_reader :scope
+  attr_reader :definition_id
 
   def api_entreprise?
-    /api.entreprise/.match?(scope)
+    definition_id == 'api_entreprise'
   end
 end
