@@ -10,10 +10,7 @@
 >
   <div class="fr-fieldset__element">
     <%= f.dsfr_text_field :destinataire_donnees_caractere_personnel,
-                      required: true,
-                      data: {
-                        action: "modified-form#update",
-                      } %>
+                      required: true %>
   </div>
 
   <div class="fr-fieldset__element">
@@ -23,10 +20,7 @@
                             "value",
                         },
                         model: @authorization_request,
-                        required: true,
-                        data: {
-                          action: "modified-form#update",
-                        } %>
+                        required: true %>
   </div>
 
   <div
@@ -37,9 +31,6 @@
       <%= t(".duree_conservation_donnees_caractere_personnel_justification.warning") %>
     </div>
 
-    <%= f.dsfr_text_area :duree_conservation_donnees_caractere_personnel_justification,
-                     data: {
-                       action: "modified-form#update",
-                     } %>
+    <%= f.dsfr_text_area :duree_conservation_donnees_caractere_personnel_justification %>
   </div>
 </fieldset>

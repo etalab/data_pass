@@ -11,6 +11,7 @@ export default class extends Controller {
 
       if (element) {
         element.value = this.applicantDataValue[field]
+        element.dispatchEvent(new Event('input', { bubbles: true }))
       }
     })
 

@@ -24,10 +24,7 @@
     <div class="fr-fieldset__element fr-mb-3w">
       <%= f.dsfr_text_area :cadre_juridique_nature,
                        rows: 5,
-                       required: true,
-                       data: {
-                         action: "modified-form#update",
-                       } %>
+                       required: true %>
     </div>
   </fieldset>
 
@@ -46,10 +43,7 @@
     aria-describedby="name-1-fieldset-messages"
   >
     <div class="fr-fieldset__element">
-      <%= f.dsfr_file_field :cadre_juridique_document,
-                        data: {
-                          action: "modified-form#update",
-                        } %>
+      <%= f.dsfr_file_field :cadre_juridique_document %>
     </div>
   </fieldset>
 
@@ -69,10 +63,7 @@
     aria-describedby="name-1-fieldset-messages"
   >
     <div class="fr-fieldset__element legal-input__width">
-      <%= f.dsfr_url_field :cadre_juridique_url,
-                       data: {
-                         action: "modified-form#update",
-                       } %>
+      <%= f.dsfr_url_field :cadre_juridique_url %>
     </div>
   </fieldset>
 </div>

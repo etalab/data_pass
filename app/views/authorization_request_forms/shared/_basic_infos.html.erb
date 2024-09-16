@@ -12,10 +12,7 @@
   <% if @authorization_request.respond_to?(:intitule) %>
     <div class="fr-fieldset__element">
       <%= f.dsfr_text_field :intitule,
-                        required: true,
-                        data: {
-                          action: "modified-form#update",
-                        } %>
+                        required: true %>
     </div>
   <% end %>
 
@@ -23,37 +20,25 @@
     <div class="fr-fieldset__element">
       <%= f.dsfr_text_area :description,
                        rows: 10,
-                       required: true,
-                       data: {
-                         action: "modified-form#update",
-                       } %>
+                       required: true %>
     </div>
   <% end %>
 
   <% if @authorization_request.respond_to?(:maquette_projet) %>
     <div class="fr-fieldset__element">
-      <%= f.dsfr_file_field :maquette_projet,
-                        data: {
-                          action: "modified-form#update",
-                        } %>
+      <%= f.dsfr_file_field :maquette_projet %>
     </div>
   <% end %>
 
   <% if @authorization_request.respond_to?(:date_prevue_mise_en_production) %>
     <div class="fr-fieldset__element">
-      <%= f.dsfr_date_field :date_prevue_mise_en_production,
-                        data: {
-                          action: "modified-form#update",
-                        } %>
+      <%= f.dsfr_date_field :date_prevue_mise_en_production %>
     </div>
   <% end %>
 
   <% if @authorization_request.respond_to?(:volumetrie_approximative) %>
     <div class="fr-fieldset__element">
-      <%= f.dsfr_text_field :volumetrie_approximative,
-                        data: {
-                          action: "modified-form#update",
-                        } %>
+      <%= f.dsfr_text_field :volumetrie_approximative %>
     </div>
   <% end %>
 </fieldset>

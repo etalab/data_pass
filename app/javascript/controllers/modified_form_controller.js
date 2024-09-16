@@ -3,10 +3,9 @@ import { useDirtyFormTracking, isDirty } from 'stimulus-library'
 
 export default class extends Controller {
   static targets = ['submit']
-  static values = { preventSubmit: Boolean }
 
   connect () {
-    if (this.preventSubmitValue && this.hasSubmitTarget) {
+    if (this.hasSubmitTarget) {
       this.submitTarget.disabled = true
     }
     useDirtyFormTracking(this, this.element)
@@ -15,7 +14,6 @@ export default class extends Controller {
   }
 
   submit (event) {
-    if (!this.preventSubmitValue) { return }
     if (isDirty(this.element)) { return }
 
     event.preventDefault()

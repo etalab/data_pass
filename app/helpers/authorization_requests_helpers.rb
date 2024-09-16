@@ -59,7 +59,7 @@ module AuthorizationRequestsHelpers
       method: authorization_request_model_http_method(authorization_request),
       id: dom_id(authorization_request),
       data: {
-        action: 'submit->modified-form#submit',
+        action: 'modified-form#submit form-dirtied->modified-form#update form-cleaned->modified-form#update',
         controller: 'modified-form',
         modified_form_prevent_submit_value: authorization_request.reopening?,
       },
