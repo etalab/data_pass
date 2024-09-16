@@ -68,7 +68,7 @@ Quand('je remplis {string} avec {string}') do |label, value|
   if javascript?
     node = find_field(label)
 
-    value.split('').each do |char|
+    value.chars.each do |char|
       node.send_keys(char)
     end
   else
