@@ -2,7 +2,7 @@
   <div class="fr-grid-row fr-grid-row--center">
     <div class="fr-col-md-offset-1 fr-col-md-10">
       <turbo-frame id="main-modal-content">
-        <%= form_with(model: @authorization_request_transfer, url: authorization_request_transfer_index_path(@authorization_request), data: { turbo_frame: 'main-modal-content' }) do |f| %>
+        <%= form_with(model: @authorization_request_transfer, url: authorization_request_transfer_index_path(@authorization_request), data: { turbo_frame: 'main-modal-content', action: 'modified-form#submit form-dirtied->modified-form#update form-cleaned->modified-form#update', controller: 'modified-form' }) do |f| %>
           <div class="fr-modal__content">
             <h1 class="fr-modal__title">
               <%= t('.title') %>
