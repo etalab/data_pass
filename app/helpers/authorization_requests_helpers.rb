@@ -10,8 +10,8 @@ module AuthorizationRequestsHelpers
     end
   end
 
-  def authorization_request_form(authorization_request, url: nil, &)
-    authorization_request_form_tag(authorization_request, url:) do |f|
+  def authorization_request_form(authorization_request, url: nil, form_options: {}, &)
+    authorization_request_form_tag(authorization_request, url:, form_options:) do |f|
       render(layout: 'authorization_request_forms/form', locals: { f: }) do
         yield f
       end
@@ -52,17 +52,16 @@ module AuthorizationRequestsHelpers
   end
   # rubocop:enable Rails/HelperInstanceVariable
 
-  def authorization_request_form_tag(authorization_request, url: nil, &)
+  def authorization_request_form_tag(authorization_request, url: nil, form_options: {}, &)
     form_with(
-      model: authorization_request,
-      url: url || authorization_request_model_path(authorization_request),
-      method: authorization_request_model_http_method(authorization_request),
-      id: dom_id(authorization_request),
-      data: {
-        action: 'modified-form#submit form-dirtied->modified-form#update form-cleaned->modified-form#update',
-        controller: 'modified-form',
-      },
-      builder: authorization_request_can_be_updated?(authorization_request) ? AuthorizationRequestFormBuilder : DisabledAuthorizationRequestFormBuilder, &
+      **form_options.merge(
+        model: authorization_request,
+        url: url || authorization_request_model_path(authorization_request),
+        method: authorization_request_model_http_method(authorization_request),
+        id: dom_id(authorization_request),
+        builder: authorization_request_can_be_updated?(authorization_request) ? AuthorizationRequestFormBuilder : DisabledAuthorizationRequestFormBuilder,
+      ),
+      &
     )
   end
 
