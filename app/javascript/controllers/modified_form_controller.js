@@ -2,12 +2,7 @@ import { Controller } from '@hotwired/stimulus'
 import { useDirtyFormTracking, isDirty } from 'stimulus-library'
 
 export default class extends Controller {
-  static targets = ['submit']
-
   connect () {
-    if (this.hasSubmitTarget) {
-      this.submitTarget.disabled = true
-    }
     useDirtyFormTracking(this, this.element)
 
     this.update()
@@ -20,12 +15,18 @@ export default class extends Controller {
   }
 
   update () {
-    if (!this.hasSubmitTarget) { return }
-
     if (isDirty(this.element)) {
-      this.submitTarget.disabled = false
+      this._toggleSubmitButtons(false)
     } else {
-      this.submitTarget.disabled = true
+      this._toggleSubmitButtons(true)
     }
+  }
+
+  //
+
+  _toggleSubmitButtons (state) {
+    this.element.querySelectorAll('button[type="submit"], input[type="submit"]').forEach((button) => {
+      button.disabled = state
+    })
   }
 }
