@@ -344,7 +344,7 @@ fr:
       disclaimer: |
         Vous êtes sur le point de transférer votre demande d’habilitation n°%{authorization_request_id} vers le compte d’un autre usager.
         <br />
-        Une fois la demande envoyée, votre habilitation sera associée au compte du destinataire, vous pourrez toujours la consulter ou refaire un transfert sur votre compte.
+        Une fois la demande envoyée, votre habilitation sera associée au compte du destinataire, vous pourrez toujours la consulter ou refaire un transfert vers votre compte.
       cancel: Annuler
       transfer: Valider le transfert
       email_disclaimer: |
