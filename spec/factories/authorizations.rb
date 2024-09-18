@@ -10,7 +10,12 @@ FactoryBot.define do
         evaluator.authorization_request_trait,
         :validated
       )
-      authorization.applicant = authorization.request.applicant
+      if authorization.applicant.nil?
+        authorization.applicant = authorization.request.applicant
+      else
+        authorization.request.applicant = authorization.applicant
+        authorization.request.organization = authorization.applicant.current_organization
+      end
       authorization.data = authorization.request.data.dup
 
       authorization.data['what'] = 'ever' if authorization.data.blank?
