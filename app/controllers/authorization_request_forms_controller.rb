@@ -131,7 +131,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   def create_for_single_page_form
     organizer = organizer_for_creation
 
-    @authorization_request = organizer.authorization_request
+    @authorization_request = organizer.authorization_request.decorate
 
     if organizer.success?
       success_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.create')
