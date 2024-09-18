@@ -114,5 +114,19 @@ RSpec.describe EmailRecentlyVerifiedValidator do
         expect(subject.errors[:email].to_s).to include('pu être vérifiée')
       end
     end
+
+    context 'when EmailVerifierJob raises a timeout error' do
+      before do
+        allow(email_verifier_job).to receive(:perform).and_raise(EmailVerifierAPI::TimeoutError)
+      end
+
+      it { is_expected.not_to be_valid }
+
+      it 'adds email_unreachable error on attribute' do
+        subject.valid?
+
+        expect(subject.errors[:email].to_s).to include('pu être vérifiée')
+      end
+    end
   end
 end

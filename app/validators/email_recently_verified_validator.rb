@@ -21,7 +21,10 @@ class EmailRecentlyVerifiedValidator < ActiveModel::EachValidator
 
   def create_or_refresh_verified_email!(email)
     EmailVerifierJob.new.perform(email)
+  # rubocop:disable Lint/SuppressedException
+  rescue EmailVerifierAPI::TimeoutError
   end
+  # rubocop:enable Lint/SuppressedException
 
   def track_errors_on_sentry(record, attribute, error_type)
     Sentry.capture_message(

@@ -1,6 +1,8 @@
 class EmailVerifierAPI
   attr_reader :email
 
+  class TimeoutError < StandardError; end
+
   def initialize(email)
     @email = email
   end
@@ -9,6 +11,8 @@ class EmailVerifierAPI
     return ok_status unless enable_email_verification?
 
     Emailable.verify(email).state
+  rescue Emailable::TimeoutError
+    raise TimeoutError
   end
 
   private
