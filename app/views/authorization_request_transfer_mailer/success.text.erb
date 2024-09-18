@@ -1,0 +1,14 @@
+Bonjour,
+
+<%=
+  t(
+    '.description',
+    authorization_request_id: @authorization_request.id,
+    authorization_request_name: @authorization_request.name,
+    new_applicant_email: @authorization_request_transfer.to.email,
+    old_applicant_email: @authorization_request_transfer.from.email,
+    authorization_request_url: authorization_request_url(@authorization_request),
+  )
+%>
+
+<%= render partial: 'mailer/shared/applicant/footer', locals: { authorization_definition_name: @authorization_request.definition.name } %>

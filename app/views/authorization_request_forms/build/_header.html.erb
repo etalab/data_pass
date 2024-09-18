@@ -1,7 +1,7 @@
 <div class="authorization-request-form-header">
   <div class="fr-container">
     <div class="fr-grid-row">
-      
+
       <div class="fr-col-12 fr-col-md-8">
         <%= render partial: "authorization_requests/shared/title" %>
 
@@ -10,8 +10,8 @@
 
       <div class="fr-col-12 fr-col-md-4">
         <div class="authorization-request-form-header__actions">
-          <% if policy(@authorization.try(:request) || @authorization_request).contact_datapass_support? %>
-            <%= link_to t('authorization_request_forms.form.message_datapass.button'), t('authorization_request_forms.form.message_datapass.mailto', authorization_id: @authorization_request.latest_authorization.id), class: "fr-btn fr-btn--sm fr-btn--tertiary fr-icon-mail-line fr-btn--icon-left" %>
+          <% if policy(@authorization.try(:request) || @authorization_request).transfer? %>
+            <%= dsfr_main_modal_button t('authorization_request_forms.form.transfer'), new_authorization_request_transfer_path(@authorization_request), id: :transfer_authorization_request, class: %w(fr-btn fr-btn--sm fr-btn--secondary fr-btn--icon-left fr-icon-refresh-fill) %>
           <% end %>
 
           <% if policy(@authorization.try(:request) || @authorization_request).reopen? %>

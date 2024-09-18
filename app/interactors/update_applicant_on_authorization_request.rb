@@ -6,4 +6,9 @@ class UpdateApplicantOnAuthorizationRequest < ApplicationInteractor
 
     context.fail!(error: :invalid_new_applicant)
   end
+
+  def rollback
+    context.authorization_request.applicant = context.old_applicant
+    context.authorization_request.save
+  end
 end

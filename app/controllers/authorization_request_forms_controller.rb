@@ -65,8 +65,19 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
 
   def summary
     authorize @authorization_request
+
+    flash.keep if turbo_request?
+
     @summary_before_submit = @authorization_request.filling?
   rescue Pundit::NotAuthorizedError
+    redirect_on_unauthorized_summary
+  end
+
+  private
+
+  def redirect_on_unauthorized_summary
+    flash.keep
+
     if AuthorizationRequestPolicy.new(pundit_user, @authorization_request).show?
       redirect_to authorization_request_form_path(form_uid: @authorization_request_form.uid, id: @authorization_request.id)
     elsif Instruction::AuthorizationRequestPolicy.new(pundit_user, @authorization_request).show?
@@ -75,8 +86,6 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
       raise
     end
   end
-
-  private
 
   # rubocop:disable Metrics/AbcSize
   def create_for_multiple_steps

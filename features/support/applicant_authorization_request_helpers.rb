@@ -1,14 +1,24 @@
-def applicant_session(authorization_request)
-  return @applicant_session if @applicant_session.present?
+# rubocop:disable Metrics/AbcSize
+def user_session(user)
+  return user_sessions[user.email] if user_sessions[user.email].present?
 
-  @applicant_session = Capybara::Session.new(Capybara.default_driver, Rails.application)
+  user_sessions[user.email] = Capybara::Session.new(Capybara.default_driver, Rails.application)
 
-  Capybara.using_session(@applicant_session) do
-    mock_mon_compte_pro(authorization_request.applicant)
+  Capybara.using_session(user_sessions[user.email]) do
+    mock_mon_compte_pro(user)
     step 'je me connecte'
   end
 
-  @applicant_session
+  @user_sessions[user.email]
+end
+# rubocop:enable Metrics/AbcSize
+
+def user_sessions
+  @user_sessions ||= {}
+end
+
+def applicant_session(authorization_request)
+  user_session(authorization_request.applicant)
 end
 
 def using_last_applicant_session(&)

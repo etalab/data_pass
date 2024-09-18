@@ -50,14 +50,14 @@ class AuthorizationRequestPolicy < ApplicationPolicy
       record.applicant == user
   end
 
-  def contact_datapass_support?
-    record.definition.unique &&
-      record.validated? &&
-      record.applicant != user
-  end
-
   def send_message?
     messages?
+  end
+
+  def transfer?
+    record.persisted? &&
+      same_current_organization? &&
+      (record.reopening? || record.state != 'draft')
   end
 
   protected
@@ -73,7 +73,8 @@ class AuthorizationRequestPolicy < ApplicationPolicy
   private
 
   def same_current_organization?
-    record.organization_id == current_organization.id
+    current_organization.present? &&
+      record.organization_id == current_organization.id
   end
 
   def review_authorization_request

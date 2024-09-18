@@ -4,7 +4,7 @@ class CreateAuthorizationRequestTransferModel < ApplicationInteractor
       authorization_request_transfer_params,
     )
 
-    context.fail!(error: :invalid_transfer) unless context.authorization_request_transfer.save
+    context.fail!(error: context.authorization_request_transfer.errors.first.type) unless context.authorization_request_transfer.save
   end
 
   private

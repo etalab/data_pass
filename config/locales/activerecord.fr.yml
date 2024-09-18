@@ -81,6 +81,8 @@ fr:
         reason: Raison de la demande de modification
       authorization_request_reopening_cancellation:
         reason: Raison de l'annulation de la réouverture
+      authorization_request_transfer:
+        to: Email du nouveau demandeur
 
     errors:
       messages: *active_record_messages_errors
