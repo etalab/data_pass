@@ -1,8 +1,18 @@
 import { Controller } from '@hotwired/stimulus'
 
 export default class extends Controller {
-  static targets = ['editors', 'editor', 'forms', 'form', 'noTeamDisclaimer', 'noEditorDisclaimer', 'editorAlreadyIntegrated']
+  static targets = [
+    'editors',
+    'editor',
+    'forms',
+    'form',
+    'noTeamDisclaimer',
+    'noEditorDisclaimer',
+    'editorAlreadyIntegrated'
+  ]
+
   static values = {
+    alreadyIntegratedEditors: Array,
     editors: Array,
     targetUseCase: String
   }
@@ -14,9 +24,7 @@ export default class extends Controller {
       case 'internal':
         this._hideEditors()
         this._hideEditorForms()
-        if (this.hasTargetUseCaseValue) {
-          this._hideOtherUseCaseForms()
-        }
+        this._hideOtherUseCaseForms()
         this._showFormsBlock()
         break
       case 'editor':
@@ -32,9 +40,11 @@ export default class extends Controller {
   chooseEditor (event) {
     const editor = event.target.value
 
-    if (editor === 'editor_already_integrated') {
+    if (this.alreadyIntegratedEditorsValue.includes(editor)) {
       this._showEditorAlreadyIntegrated()
       return
+    } else {
+      this._hideEditorAlreadyIntegrated()
     }
 
     this.formTargets.forEach((form) => {
@@ -47,19 +57,20 @@ export default class extends Controller {
       }
     })
 
-    if (this.hasTargetUseCaseValue) {
-      this._hideOtherUseCaseForms()
-    }
+    this._hideOtherUseCaseForms()
 
     if (this._noForm()) {
       this._showNoEditorDisclaimer()
     } else {
       this._showFormsBlock()
+      this._hideNoEditorDisclaimer()
     }
   }
 
   _getFormTags (form) {
-    return JSON.parse(form.getAttribute('data-choose-authorization-request-form-tags'))
+    return JSON.parse(
+      form.getAttribute('data-choose-authorization-request-form-tags')
+    )
   }
 
   _showEditors () {
@@ -113,12 +124,22 @@ export default class extends Controller {
     this.noTeamDisclaimerTarget.classList.remove('fr-hidden')
   }
 
+  _hideNoEditorDisclaimer () {
+    this.noEditorDisclaimerTarget.classList.add('fr-hidden')
+  }
+
   _showNoEditorDisclaimer () {
     this.noEditorDisclaimerTarget.classList.remove('fr-hidden')
     if (this.hasEditorAlreadyIntegratedTarget) {
       this.editorAlreadyIntegratedTarget.classList.add('fr-hidden')
     }
     this.formsTarget.classList.add('fr-hidden')
+  }
+
+  _hideEditorAlreadyIntegrated () {
+    if (this.hasEditorAlreadyIntegratedTarget) {
+      this.editorAlreadyIntegratedTarget.classList.add('fr-hidden')
+    }
   }
 
   _showEditorAlreadyIntegrated () {
@@ -129,12 +150,6 @@ export default class extends Controller {
     this.formsTarget.classList.add('fr-hidden')
   }
 
-  _hideEditorAlreadyIntegrated () {
-    if (this.hasEditorAlreadyIntegratedTarget) {
-      this.editorAlreadyIntegratedTarget.classList.add('fr-hidden')
-    }
-  }
-
   _noForm () {
     return this.formTargets.every((form) => {
       return form.classList.contains('fr-hidden')
@@ -142,10 +157,17 @@ export default class extends Controller {
   }
 
   _hideOtherUseCaseForms () {
+    if (!this.hasTargetUseCaseValue || this.targetUseCaseValue === '') {
+      return
+    }
+
     this.formTargets.forEach((form) => {
       const formTags = this._getFormTags(form)
 
-      if (!formTags.includes(this.targetUseCaseValue) && !formTags.includes('default')) {
+      if (
+        !formTags.includes(this.targetUseCaseValue) &&
+        !formTags.includes('default')
+      ) {
         form.classList.add('fr-hidden')
       }
     })

@@ -166,6 +166,27 @@ fr:
         title: &start_new_habilitation_title Demander une habilitation pour %{authorization_name}
         multiple_forms:
           description: "Il existe plusieurs formulaires pour obtenir une habilitation à %{authorization_name}, sélectionnez celui qui correspond le mieux à votre cas d'usage :"
+      step1:
+        title: Qui se charge techniquement de l'intégration de l'API ?
+        internal: Vos développeurs internes ou prestataires
+        internal_hint: Ils conçoivent une solution logicielle sur-mesure pour votre organisation
+        editor: Votre éditeur
+        editor_hint: Rien à coder, vous utilisez une solution clé en main proposée par un éditeur.
+        none: Ni équipe technique, ni éditeur
+        none_hint: Vous traitez tout manuellement.
+      step2:
+        title: Quel est votre éditeur de logiciel ?
+        no_editor: Aucun de ces éditeurs
+      step3:
+        use_case_intro_html:
+          Il existe plusieurs formulaires pour obtenir une habilitation à
+          %{name}, vos réponses ont permis de réduire le choix aux formulaires
+          ci-dessous.
+          <br/>
+          <br/>
+          En cas de doute, nous vous invitons à consulter le site d'<a href="%{base_url}" target="_blank">%{name}</a>, plus spécifiquement la page des
+          <a href="%{use_cases_url}" target="_blank">cas d'usages</a>.
+
     show:
       refused:
         title: Votre demande d'habilitation a été refusée
@@ -200,8 +221,8 @@ fr:
       title: *start_new_habilitation_title
       back_to_dashboard: Retour à l'accueil
       organization:
-        start_text: 'Vous êtes sur le point de démarrer une nouvelle demande d''habilitation pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_raison_sociale}</a>.'
-        start_text_with_form_name: 'Vous êtes sur le point de démarrer une nouvelle demande d''habilitation pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_raison_sociale}</a> via le formulaire <strong>%{authorization_request_form_name}</strong>.'
+        start_text: Vous êtes sur le point de démarrer une nouvelle demande d'habilitation pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_raison_sociale}</a>.
+        start_text_with_form_name: Vous êtes sur le point de démarrer une nouvelle demande d'habilitation pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_raison_sociale}</a> via le formulaire <strong>%{authorization_request_form_name}</strong>.
       intro:
         title: L'objectif du formulaire
       cta: Débuter ma demande

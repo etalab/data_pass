@@ -27,14 +27,15 @@ Fonctionnalité: Choix du type de formulalire pour API Particulier
   Scénario: Je choisis un éditeur ayant un formulaire
     Quand je démarre une nouvelle demande d'habilitation "API Particulier"
     Et que je choisis "Votre éditeur"
-    Et que je choisis "Aiga"
+    Et que je clique sur "E"
+    Et que je choisis "Entrouvert"
     Alors je vois 1 tuile
-    Et je vois 1 tuile "iNoé"
+    Et je vois 1 tuile "Publik Famille"
 
   Scénario: Je choisis un éditeur inconnu de API Particulier
     Quand je démarre une nouvelle demande d'habilitation "API Particulier"
     Et que je choisis "Votre éditeur"
-    Et que je choisis "Aucun de ces éditeurs"
+    Et que je clique sur "Aucun de ces éditeurs"
     Alors la page contient "Vous êtes éligible mais votre éditeur ne semble pas utiliser l'API Particulier"
 
   Scénario: Je choisis ni équipe technique ni éditeur

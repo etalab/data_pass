@@ -1,0 +1,72 @@
+<div class="fr-tabs">
+  <ul
+    class="fr-tabs__list"
+    role="tablist"
+    aria-label="Index alphabétique des éditeurs"
+  >
+    <% grouped_editors.each_with_index do |(first_letter, editors), index| %>
+      <li role="presentation">
+        <button
+          id="editors-tab-<%= index %>"
+          class="fr-tabs__tab"
+          tabindex="<%= index %>"
+          role="tab"
+          aria-selected="<%= index.zero? ? "true" : "false" %>"
+          aria-controls="editors-tab-<%= index %>-panel"
+        >
+          <%= first_letter %>
+        </button>
+      </li>
+    <% end %>
+  </ul>
+
+  <% grouped_editors.each_with_index do |(_, editors), index| %>
+    <div
+      id="editors-tab-<%= index %>-panel"
+      class="
+        fr-tabs__panel fr-tabs__panel--no-transform fr-pb-8w fr-pl-2w fr-pr-2w
+      "
+      role="tabpanel"
+      aria-labelledby="editors-tab-<%= index %>"
+    >
+      <% editors.each do |editor| %>
+        <div class="fr-fieldset__element">
+          <div class="fr-radio-group fr-radio-group--sm">
+            <input
+              type="radio"
+              id="<%= dom_id(editor) %>"
+              data-controller="scroll-to"
+              data-action="
+                click->choose-authorization-request-form#chooseEditor
+                click->scroll-to#go
+              "
+              data-scroll-to-target-value="<%= editor.scroll_target %>"
+              value="<%= editor.id %>"
+              name="editor"
+            >
+            <label class="fr-label" for="<%= dom_id(editor) %>">
+              <%= editor.name %>
+            </label>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+<div class="fr-mt-1w fr-mb-4w">
+  <button
+    class="fr-btn fr-btn--sm fr-btn--tertiary"
+    type="radio"
+    id="no_editor"
+    data-controller="scroll-to"
+    data-action="
+      click->choose-authorization-request-form#chooseEditor
+      click->scroll-to#go
+    "
+    data-scroll-to-target-value="no-editor-disclaimer"
+    value="none"
+    name="editor"
+  >
+    <%= t("authorization_requests.new.step2.no_editor") %>
+  </button>
+</div>

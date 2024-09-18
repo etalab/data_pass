@@ -3,10 +3,11 @@ class AuthorizationRequestsController < AuthenticatedUserController
 
   allow_unauthenticated_access only: %i[new show]
 
+  before_action :find_authorization_definition, only: %i[new]
+  before_action :set_facade, only: %i[new]
+
   def new
     if user_signed_in?
-      @authorization_definition = AuthorizationDefinition.find(id_sanitized)
-
       custom_template_path = "authorization_requests/new/#{@authorization_definition.id}"
 
       if template_exists? custom_template_path
@@ -32,6 +33,15 @@ class AuthorizationRequestsController < AuthenticatedUserController
   end
 
   private
+
+  def find_authorization_definition
+    @authorization_definition = AuthorizationDefinition.find(id_sanitized)
+  end
+
+  def set_facade
+    klass = NewAuthorizationRequest.facade(definition_id: id_sanitized)
+    @facade = klass.new(authorization_definition: @authorization_definition)
+  end
 
   def show_as_authenticated_user
     authorize @authorization_request

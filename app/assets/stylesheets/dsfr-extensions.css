@@ -21,6 +21,10 @@
   margin-right: auto;
 }
 
+.fr-tabs__panel.fr-tabs__panel--no-transform {
+  transition-duration: 0.3s, 0s;
+}
+
 /* Dropdown based on fr-translate component */
 
 .fr-dropdown.fr-translate .fr-translate__btn::before {
@@ -61,15 +65,11 @@
   color: var(--text-active-blue-france);
 }
 
-.fr-bg-alt-blue-france {
-  background-color: var(--background-action-low-blue-france);
-}
-
 /* Badge Icon */
 
 .fr-badge--purple-glycine::before,
 .fr-badge--secondary::before {
-  content: ""
+  content: "";
 }
 
 .fr-badge.fr-badge--info::before,

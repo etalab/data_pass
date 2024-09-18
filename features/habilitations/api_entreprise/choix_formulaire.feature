@@ -20,6 +20,7 @@ Fonctionnalité: Choix du type de formulalire pour API Entreprise
   Scénario: Je choisis un éditeur ayant un formulaire
     Quand je démarre une nouvelle demande d'habilitation "API Entreprise"
     Et que je choisis "Votre éditeur"
+    Et que je clique sur "M"
     Et que je choisis "MGDIS"
     Alors je vois 1 tuile
     Et je vois 1 tuile "Solution Portail des aides"
@@ -27,12 +28,13 @@ Fonctionnalité: Choix du type de formulalire pour API Entreprise
   Scénario: Je choisis un éditeur inconnu de API Entreprise
     Quand je démarre une nouvelle demande d'habilitation "API Entreprise"
     Et que je choisis "Votre éditeur"
-    Et que je choisis "Aucun de ces éditeurs"
+    Et que je clique sur "Aucun de ces éditeurs"
     Alors la page contient "Vous êtes éligible mais votre éditeur ne semble pas utiliser l'API Entreprise"
 
   Scénario: Je choisis un éditeur qui a déjà intégré API Entreprise sans avoir à demander une habilitation
     Quand je démarre une nouvelle demande d'habilitation "API Entreprise"
     Et que je choisis "Votre éditeur"
+    Et que je clique sur "A"
     Et que je choisis "Axyus"
     Alors la page contient "Bonne nouvelle ! Vous êtes éligible et votre éditeur/profil acheteur a déjà intégré l’API Entreprise."
 
@@ -49,14 +51,16 @@ Fonctionnalité: Choix du type de formulalire pour API Entreprise
     Et je vois 1 tuile "Marchés publics"
 
   Scénario: Je choisis un éditeur qui ne correspond pas au paramètre de cas d'usage
-    Quand je démarre une nouvelle demande d'habilitation "API Entreprise" avec le paramètre "use_case" égal à "marches_publics"
+  Quand je démarre une nouvelle demande d'habilitation "API Entreprise" avec le paramètre "use_case" égal à "marches_publics"
     Et que je choisis "Votre éditeur"
+    Et que je clique sur "M"
     Et que je choisis "MGDIS"
     Alors la page contient "Vous êtes éligible mais votre éditeur ne semble pas utiliser l'API Entreprise"
 
   Scénario: Je choisis un éditeur qui correspond au paramètre de cas d'usage
     Quand je démarre une nouvelle demande d'habilitation "API Entreprise" avec le paramètre "use_case" égal à "marches_publics"
     Et que je choisis "Votre éditeur"
+    Et que je clique sur "S"
     Et que je choisis "SETEC"
     Alors je vois 1 tuile
     Et je vois 1 tuile "Dématérialisation des marchés publics"
