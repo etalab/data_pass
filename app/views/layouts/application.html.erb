@@ -29,7 +29,14 @@
   </head>
 
   <body>
-    <%= render partial: 'shared/main_modal' %>
+    <%= render layout: 'shared/modal', locals: { id: 'main-modal' } do %>
+      <%= render partial: 'shared/loader' %>
+    <% end %>
+
+    <% if content_for?(:extra_modal) %>
+      <%= yield(:extra_modal) %>
+    <% end %>
+
     <%= render partial: 'layouts/header' %>
 
     <main>
