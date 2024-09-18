@@ -8,4 +8,8 @@ class PublicController < ApplicationController
   def user_signed_in?
     false
   end
+
+  def displayed_on_a_public_page?
+    true
+  end
 end
