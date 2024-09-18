@@ -35,7 +35,7 @@
 
       <div class="card__actions_btn">
         <% if policy(authorization_request).reopen? %>
-          <%= dsfr_main_modal_button t('.reopen_cta'), new_authorization_reopen_path(authorization_request.latest_authorization), class: %w(fr-btn fr-btn--secondary fr-btn--sm) %>
+          <%= dsfr_main_modal_button t('.reopen_cta'), url_for(controller: 'reopen_authorizations', action: 'new', authorization_request_id: authorization_request.id, authorization_id: authorization_request.latest_authorization.id), class: %w(fr-btn fr-btn--secondary fr-btn--sm) %>
         <% end %>
 
         <% if authorization_request.already_been_validated? %>

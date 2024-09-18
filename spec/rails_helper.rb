@@ -48,6 +48,7 @@ RSpec.configure do |config|
   config.include SessionsHelpers, type: :feature
   config.include FeaturesHelpers, type: :feature
   config.include FixturesHelpers
+  config.include ControllersHelpers, type: :controller
   config.include INSEESireneAPIMocks
   config.include HubEEAPIClientMocks
 

@@ -5,10 +5,7 @@ RSpec.describe ExternalReopenAuthorizationRequestsController do
     let(:user) { create(:user) }
 
     before do
-      session[:user_id] = {
-        'value' => user.id,
-        'expires_at' => 1.hour.from_now,
-      }
+      sign_in(user)
     end
 
     context 'when the authorization request is not validated' do
