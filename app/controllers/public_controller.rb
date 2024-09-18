@@ -9,7 +9,7 @@ class PublicController < ApplicationController
     false
   end
 
-  def public_page?
+  def displayed_on_a_public_page?
     true
   end
 end

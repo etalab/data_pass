@@ -2,7 +2,7 @@
   <%= render partial: 'authorization_request_forms/current_user_mentions_alert' %>
 
   <div id="<%= dom_id(@authorization_request, :summary) %>" class="fr-mt-4w">
-    <% if !public_page? && @authorization_request.changes_requested? %>
+    <% if !displayed_on_a_public_page? && @authorization_request.changes_requested? %>
       <div class="fr-alert fr-alert--warning fr-my-3w">
         <h3 class="fr-alert__title">
           <% if @authorization_request.reopening? %>
@@ -42,7 +42,7 @@
       <% end %>
     <% end %>
 
-    <% if !public_page? && @authorization_request.access_link && @authorization_request.validated? %>
+    <% if !displayed_on_a_public_page? && @authorization_request.access_link && @authorization_request.validated? %>
       <div class="fr-callout fr-my-16v">
         <h3 class="fr-callout__title">
           <%= t('authorization_requests.show.access_callout.title') %>
@@ -58,7 +58,7 @@
     <% if @authorization_request.draft? %>
       <% if @authorization_request.reopening? && @authorization_request.applicant == current_user %>
         <%= render partial: 'authorization_requests/shared/reopening_callout', locals: { klass: 'fr-mt-6w' } %>
-      <% elsif !public_page? %>
+      <% elsif !displayed_on_a_public_page? %>
         <h2 class="fr-h3">
           <%= t('authorization_request_forms.summary.title') %>
         </h2>

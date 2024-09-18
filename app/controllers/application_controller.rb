@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   helper ActiveLinks
 
-  helper_method :namespace?, :public_page?
+  helper_method :namespace?, :displayed_on_a_public_page?
 
   def current_namespace
     self.class.name.split('::').first
@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
     current_namespace.underscore == namespace.to_s
   end
 
-  def public_page?
+  def displayed_on_a_public_page?
     false
   end
 
