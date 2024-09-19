@@ -294,4 +294,30 @@ RSpec.describe AuthorizationRequest do
       end
     end
   end
+
+  describe 'cadre_juridique_url validation' do
+    subject(:authorization_request) do
+      authorization_request = create(:authorization_request, :api_entreprise, :changes_requested)
+      authorization_request.cadre_juridique_url = url
+      authorization_request
+    end
+
+    context 'with a valid url' do
+      let(:url) { 'https://example.com' }
+
+      it { is_expected.to be_valid(:submit) }
+    end
+
+    context 'with a valid url without schema' do
+      let(:url) { 'www.example.com' }
+
+      it { is_expected.to be_valid(:submit) }
+    end
+
+    context 'with an invalid url' do
+      let(:url) { 'invalid_url' }
+
+      it { is_expected.not_to be_valid(:submit) }
+    end
+  end
 end
