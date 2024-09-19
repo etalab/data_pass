@@ -15,8 +15,10 @@ class APIEntreculierNotifier < BaseNotifier
   def submit(_params)
     webhook_notification('submit')
 
+    mail_to_send = authorization_request.reopening? ? 'reopening_submit' : 'submit'
+
     Instruction::AuthorizationRequestMailer.with(
       authorization_request:
-    ).submit.deliver_later
+    ).public_send(mail_to_send).deliver_later
   end
 end
