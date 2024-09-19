@@ -711,10 +711,6 @@ api-particulier-extenso-partner-extenso-cloud:
   steps: *api_particulier_editor_steps_with_editable_scopes
   static_blocks: *api_particulier_editor_static_blocks_with_editable_scopes
   scopes_config:
-    disabled:
-      - cnaf_quotient_familial
-      - cnaf_adresse
-      - mesri_admission
     displayed:
       - cnaf_quotient_familial
       - cnaf_adresse
