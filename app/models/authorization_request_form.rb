@@ -69,6 +69,7 @@ class AuthorizationRequestForm < StaticApplicationRecord
   def introduction
     return nil if @introduction.blank?
 
+    @introduction.is_a?(Hash) ? @introduction[:introduction] || @introduction['introduction'] : @introduction
     format(@introduction, editor_name: editor.try(:name), form_name: name)
   end
 

@@ -158,10 +158,15 @@ fr:
   authorization_requests:
     unauthenticated_start:
       sub_title:
-        service: |
-          Vous souhaitez abonner votre structure au service <strong>%{authorization_definition_name}</strong>
-          <br/>
-          Votre demande d’habilitation va se dérouler en 4 étapes
+        service:
+          one: |
+            Vous souhaitez abonner votre structure au service <strong>%{authorization_definition_name}</strong>
+            <br/>
+            Votre demande d’habilitation va se dérouler en 4 étapes
+          other: |
+            Vous souhaitez abonner votre structure aux services <strong>%{authorization_definition_name}</strong>
+            <br/>
+            Votre demande d’habilitation va se dérouler en 4 étapes
         api: |
           Vous souhaitez accédez à l’<strong>%{authorization_definition_name}</strong>
           <br/>
@@ -232,20 +237,43 @@ fr:
 
   authorization_request_forms:
     new:
-      title: *start_new_habilitation_title
-      back_to_dashboard: Retour à l'accueil
-      organization:
-        start_text: Vous êtes sur le point de démarrer une nouvelle demande d'habilitation pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_raison_sociale}</a>.
-        start_text_with_form_name: Vous êtes sur le point de démarrer une nouvelle demande d'habilitation pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_raison_sociale}</a> via le formulaire <strong>%{authorization_request_form_name}</strong>.
-      intro:
-        title: L'objectif du formulaire
+      back_to_dashboard: Retour à l’accueil
+      api:
+        title: *start_new_habilitation_title
+        organization:
+          start_text: Vous êtes sur le point de démarrer une nouvelle demande d’habilitation pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_raison_sociale}</a>.
+          start_text_with_form_name: Vous êtes sur le point de démarrer une nouvelle demande d’habilitation pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_raison_sociale}</a> via le formulaire <strong>%{authorization_request_form_name}</strong>.
+        intro:
+          title: L’objectif du formulaire
+        single_form:
+          title: "Les étapes de votre formulaire"
+          description: "Cliquez sur le bouton ci-dessous pour démarrer le formulaire. Celui-ci se complètera en une seule page. Vous pourrez le sauvegarder et le reprendre plus tard."
+
+      service:
+        title:
+          one: Demander un abonnement à la %{authorization_name}
+          other: Demander un abonnement aux %{authorization_name}
+        organization:
+          start_text_with_form_name:
+            one: Vous êtes sur le point de démarrer une nouvelle demande d’abonnement pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_raison_sociale}</a> à la <strong>%{authorization_request_form_name}</strong>.
+            other: Vous êtes sur le point de démarrer une nouvelle demande d’abonnement pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_raison_sociale}</a> aux <strong>%{authorization_request_form_name}</strong>.
+        intro:
+          title: Les objectifs de votre demande d’abonnement
+        single_form:
+          title: "Les étapes de votre demande d’abonnement"
+          description: |
+            ● Étape 1: Complétez le formulaire d'une seule page.
+            ● Étape 2: Attendez que votre demande d'abonnement soit validée par l’équipe %{service_name}.
+            ● Étape 3: Demandez à l’Administrateur local que vous aurez choisi d’achever la procédure d’abonnement à la démarche sur le Portail HubEE.
+            Cela peut être vous.
+            <br />
+            Cliquez sur le bouton ci-dessous pour compléter la demande d’abonnement pour votre commune.
+            Si vous manquez de temps ou avez des questions, vous pourrez sauvegarder votre demande et la reprendre ultérieurement.
+
       cta: Débuter ma demande
       multiple_steps:
         title: "Les étapes de votre formulaire"
-        description: "Cette demande s'effectue en plusieurs étapes. Vous pouvez à tout moment sauvegarder votre demande et la reprendre plus tard. Les étapes sont les suivantes :"
-      single_form:
-        title: "Les étapes de votre formulaire"
-        description: "Cliquez sur le bouton ci-dessous pour démarrer le formulaire. Celui-ci se complètera en une seule page. Vous pourrez le sauvegarder et le reprendre plus tard."
+        description: "Cette demande s’effectue en plusieurs étapes. Vous pouvez à tout moment sauvegarder votre demande et la reprendre plus tard. Les étapes sont les suivantes :"
 
     unicity_callout:
       title: Vous ne pouvez pas créer de nouvelle habilitation

@@ -70,38 +70,15 @@
       "note": ""
     },
     {
-      "warning_type": "Command Injection",
-      "warning_code": 14,
-      "fingerprint": "82e458ff0f1e662fd87446a27900f8ce393735bbe730dc523817af7cf53f3f41",
-      "check_name": "Execute",
-      "message": "Possible command injection",
-      "file": "app/migration/import/base.rb",
-      "line": 59,
-      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
-      "code": "`pg_dump -a -d #{ActiveRecord::Base.connection.current_database} -t #{sql_table} > #{sql_file_path(sql_table)}`",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Import::Base",
-        "method": "dump_sql_file!"
-      },
-      "user_input": "ActiveRecord::Base.connection.current_database",
-      "confidence": "Medium",
-      "cwe_id": [
-        77
-      ],
-      "note": ""
-    },
-    {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
-      "fingerprint": "8cc63b2aec121ed7f45c7ec76737bedfa7dff8eee97c70cb7edce800ca1acd8b",
+      "fingerprint": "712a20596321855fb92133fd3ccece982c15690cafc6286050b0f944b75ca7b4",
       "check_name": "CrossSiteScripting",
       "message": "Unescaped model attribute",
       "file": "app/views/authorization_requests/unauthenticated_start.html.erb",
       "line": 12,
       "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "t(\".sub_title.#{AuthorizationRequestForm.find(params[:form_uid]).decorate.authorization_definition.kind}\", :authorization_definition_name => AuthorizationRequestForm.find(params[:form_uid]).decorate.authorization_definition.name)",
+      "code": "t(\".sub_title.#{AuthorizationRequestForm.find(params[:form_uid]).decorate.authorization_definition.kind}\", :authorization_definition_name => AuthorizationRequestForm.find(params[:form_uid]).decorate.authorization_definition.name, :count => (if (AuthorizationRequestForm.find(params[:form_uid]).decorate.authorization_definition.id == \"hubee_dila\") then\n  2\nelse\n  1\nend))",
       "render_path": [
         {
           "type": "controller",
@@ -123,6 +100,29 @@
       "confidence": "Weak",
       "cwe_id": [
         79
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "82e458ff0f1e662fd87446a27900f8ce393735bbe730dc523817af7cf53f3f41",
+      "check_name": "Execute",
+      "message": "Possible command injection",
+      "file": "app/migration/import/base.rb",
+      "line": 59,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "`pg_dump -a -d #{ActiveRecord::Base.connection.current_database} -t #{sql_table} > #{sql_file_path(sql_table)}`",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Import::Base",
+        "method": "dump_sql_file!"
+      },
+      "user_input": "ActiveRecord::Base.connection.current_database",
+      "confidence": "Medium",
+      "cwe_id": [
+        77
       ],
       "note": ""
     },
@@ -150,6 +150,6 @@
       "note": ""
     }
   ],
-  "updated": "2024-09-20 10:56:12 +0200",
+  "updated": "2024-09-23 16:10:10 +0200",
   "brakeman_version": "6.2.1"
 }
