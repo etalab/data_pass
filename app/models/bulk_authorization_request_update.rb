@@ -9,4 +9,8 @@ class BulkAuthorizationRequestUpdate < ApplicationRecord
 
     errors.add(:authorization_definition_uid, :invalid)
   end
+
+  def reason
+    format(self[:reason], humanized_application_date: application_date.to_date.strftime('%d/%m/%Y'))
+  end
 end
