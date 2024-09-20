@@ -349,3 +349,15 @@ Sachant('{string} appartient à une autre organisation') do |email|
 
   user.save!
 end
+
+Quand("une mise à jour globale a été effectuée sur les demandes d'habilitations {string}") do |authorization_definition_name|
+  definition = find_authorization_definition_from_name(authorization_definition_name)
+
+  AuthorizationRequest.last.update!(created_at: 2.days.ago)
+
+  BulkAuthorizationRequestUpdate.create!(
+    authorization_definition_uid: definition.id,
+    reason: 'Mise à jour globale',
+    application_date: 1.day.ago,
+  )
+end

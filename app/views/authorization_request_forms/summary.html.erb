@@ -3,6 +3,10 @@
 
   <div id="<%= dom_id(@authorization_request, :summary) %>" class="fr-mt-4w">
     <% if !displayed_on_a_public_page? %>
+      <% if @bulk_update.present? %>
+        <%= render partial: 'authorization_requests/bulk_update_modal' %>
+      <% end %>
+
       <% if @authorization_request.changes_requested? %>
         <div class="fr-alert fr-alert--warning fr-my-3w">
           <h3 class="fr-alert__title">
