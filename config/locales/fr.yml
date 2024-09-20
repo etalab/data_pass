@@ -44,6 +44,8 @@ fr:
       tagline: Habilitations juridiques
       tools:
         links:
+          instruction:
+            title: Espace instruction
           authorization_requests_index:
             title: Toutes mes habilitations
           sign_out:
@@ -58,7 +60,6 @@ fr:
 
     dashboard:
       title: Demandes et habilitations
-      instruction_cta: Espace instruction
       tabs:
         moi:
           title: J'en suis le demandeur
