@@ -98,6 +98,10 @@ class AuthorizationRequest < ApplicationRecord
     @bulk_updates ||= BulkAuthorizationRequestUpdate.where(authorization_definition_uid: definition.id, application_date: (created_at.to_date..)).order(:created_at)
   end
 
+  def latest_bulk_update
+    bulk_updates.order(application_date: :desc).limit(1).first
+  end
+
   scope :drafts, -> { where(state: 'draft') }
   scope :changes_requested, -> { where(state: 'changes_requested') }
   scope :in_instructions, -> { where(state: 'submitted') }

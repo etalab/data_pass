@@ -13,4 +13,8 @@ class BulkAuthorizationRequestUpdate < ApplicationRecord
   def reason
     format(self[:reason], humanized_application_date: application_date.to_date.strftime('%d/%m/%Y'))
   end
+
+  def authorization_definition
+    AuthorizationDefinition.find(authorization_definition_uid)
+  end
 end
