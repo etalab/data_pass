@@ -133,6 +133,14 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_02_161642) do
     t.index ["slug", "request_id"], name: "index_authorizations_on_slug_and_request_id", unique: true
   end
 
+  create_table "bulk_authorization_request_updates", force: :cascade do |t|
+    t.string "authorization_definition_uid", null: false
+    t.string "reason", null: false
+    t.date "application_date", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "denial_of_authorizations", force: :cascade do |t|
     t.string "reason", null: false
     t.bigint "authorization_request_id", null: false
