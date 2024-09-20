@@ -6,6 +6,7 @@ class AuthorizationDefinition < StaticApplicationRecord
     :link,
     :access_link,
     :cgu_link,
+    :kind,
     :scopes,
     :blocks,
     :unique
@@ -41,6 +42,7 @@ class AuthorizationDefinition < StaticApplicationRecord
         :cgu_link,
         :access_link,
         :public,
+        :kind,
         :startable_by_applicant,
         :unique,
       ).merge(

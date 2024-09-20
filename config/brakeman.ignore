@@ -93,6 +93,40 @@
       "note": ""
     },
     {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "8cc63b2aec121ed7f45c7ec76737bedfa7dff8eee97c70cb7edce800ca1acd8b",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/authorization_requests/unauthenticated_start.html.erb",
+      "line": 12,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "t(\".sub_title.#{AuthorizationRequestForm.find(params[:form_uid]).decorate.authorization_definition.kind}\", :authorization_definition_name => AuthorizationRequestForm.find(params[:form_uid]).decorate.authorization_definition.name)",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "AuthorizationRequestFormsController",
+          "method": "new",
+          "line": 19,
+          "file": "app/controllers/authorization_request_forms_controller.rb",
+          "rendered": {
+            "name": "authorization_requests/unauthenticated_start",
+            "file": "app/views/authorization_requests/unauthenticated_start.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "authorization_requests/unauthenticated_start"
+      },
+      "user_input": "AuthorizationRequestForm.find(params[:form_uid]).decorate",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
+    },
+    {
       "warning_type": "Dangerous Send",
       "warning_code": 23,
       "fingerprint": "cd5690fd7ab199e5fa1e8ec5bebf78691dbc407680a2f4638f195c0c4396601b",
@@ -116,6 +150,6 @@
       "note": ""
     }
   ],
-  "updated": "2024-08-12 14:07:23 +0000",
-  "brakeman_version": "6.1.2"
+  "updated": "2024-09-20 10:56:12 +0200",
+  "brakeman_version": "6.2.1"
 }
