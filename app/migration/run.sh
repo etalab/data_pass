@@ -1,14 +1,19 @@
 #!/bin/bash
 
+if [ -z "$1" ]; then
+  echo "Usage: $0 <rails_env>"
+  exit 1
+fi
+
 user=skelz0r
 host=watchdoge
 v1_pg_password=`cat app/migration/.v1-pgpassword`
+RAILS_ENV=$1
 
-## TODO TO CHANGE
-RAILS_ENV=sandbox
+## VARIABLES A POTENTIELLEMENT CHANGER
 SKIP_DOCUMENT_VALIDATION=true
 LOCAL=false
-## END TODO
+##
 
 cd /var/www/datapass_reborn_$RAILS_ENV/current
 
