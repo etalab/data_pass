@@ -3,7 +3,7 @@
 RAILS_ENV=sandbox
 
 # 1. Deploy latest version of code
-ssh -A watchdoge -- RAILS_APP_BRANCH=develop /usr/local/bin/rails_deploy_datapass_reborn_$RAILS_ENV.sh
+ssh -A watchdoge -- sudo RAILS_APP_BRANCH=develop -u ci_deploy /usr/local/bin/rails_deploy_datapass_reborn_$RAILS_ENV.sh
 
 # # 2. Copy pgpassword
 scp app/migration/.v1-pgpassword watchdoge:.
