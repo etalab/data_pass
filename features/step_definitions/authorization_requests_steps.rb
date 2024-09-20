@@ -397,3 +397,15 @@ Quand(%r{je me rends sur l'habilitation validée(?: du (\d{1,2}/\d{2}/\d{4}))?})
 
   visit authorization_request_authorization_path(authorization_request_id: authorization_request.id, id: authorization.id)
 end
+
+Quand("une mise à jour globale a été effectuée sur les demandes d'habilitations {string}") do |authorization_definition_name|
+  definition = find_authorization_definition_from_name(authorization_definition_name)
+
+  AuthorizationRequest.last.update!(created_at: 2.days.ago)
+
+  BulkAuthorizationRequestUpdate.create!(
+    authorization_definition_uid: definition.id,
+    reason: 'Mise à jour globale',
+    application_date: 1.day.ago,
+  )
+end
