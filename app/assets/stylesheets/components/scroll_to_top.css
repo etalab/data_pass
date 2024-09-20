@@ -1,0 +1,14 @@
+a.fr-scroll-to-top {
+  position: fixed;
+  bottom: 40px;
+  right: 60px;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+a.fr-scroll-to-top.show {
+  opacity: 1;
+  visibility: visible;
+}
