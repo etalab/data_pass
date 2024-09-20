@@ -94,6 +94,10 @@ class AuthorizationRequest < ApplicationRecord
     @events ||= AuthorizationRequestEventsQuery.new(self).perform
   end
 
+  def bulk_updates
+    @bulk_updates ||= BulkAuthorizationRequestUpdate.where(authorization_definition_uid: definition.id, application_date: (created_at.to_date..)).order(:created_at)
+  end
+
   scope :drafts, -> { where(state: 'draft') }
   scope :changes_requested, -> { where(state: 'changes_requested') }
   scope :in_instructions, -> { where(state: 'submitted') }
