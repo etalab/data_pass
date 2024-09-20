@@ -1,11 +1,24 @@
 <div class="fr-header__tools-links">
   <ul class="fr-links-group">
     <% if user_signed_in? %>
-      <li>
-        <a class="fr-link fr-icon-home-4-fill" href="<%= dashboard_path %>">
-          <%= t('.links.authorization_requests_index.title') %>
-        </a>
-      </li>
+      <% if namespace?(:instruction) %>
+        <li>
+          <a class="fr-link fr-icon-home-4-fill" href="<%= dashboard_path %>">
+            <%= t('.links.instruction_authorization_requests_index.title') %>
+          </a>
+        </li>
+        <li>
+          <a class="fr-link fr-icon-draft-fill" href="<%= instruction_path %>">
+            <%= t('.links.instruction.title') %>
+          </a>
+        </li>
+      <% else %>
+        <li>
+          <a class="fr-link fr-icon-home-4-fill" href="<%= dashboard_path %>">
+            <%= t('.links.authorization_requests_index.title') %>
+          </a>
+        </li>
+      <% end %>
       <li>
         <a class="fr-link fr-icon-user-fill" href="<%= profile_path %>">
           <%= current_user.full_name %>

@@ -44,6 +44,10 @@ fr:
       tagline: Habilitations juridiques
       tools:
         links:
+          instruction:
+            title: Espace instruction
+          instruction_authorization_requests_index:
+            title: Retour à l'espace usager
           authorization_requests_index:
             title: Toutes mes habilitations
           sign_out:
