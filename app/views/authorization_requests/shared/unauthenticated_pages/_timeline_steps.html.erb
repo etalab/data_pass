@@ -4,28 +4,28 @@
       <div>
         <%= image_tag "pictograms/homepage/identification.svg", alt: "identification", class: %w(fr-responsive-img) %>
       </div>
-      <div><%= t('authorization_requests.unauthenticated_start.etape_1') %></div>
+      <div><%= t('authorization_requests.unauthenticated_start.timeline_steps.step_1') %></div>
     </div>
 
     <div>
       <div>
         <%= image_tag "pictograms/homepage/demande.svg", alt: "identification", class: %w(fr-responsive-img) %>
       </div>
-      <div><%= t('authorization_requests.unauthenticated_start.etape_2') %></div>
+      <div><%= t('authorization_requests.unauthenticated_start.timeline_steps.step_2') %></div>
     </div>
 
     <div>
       <div>
         <%= image_tag "pictograms/homepage/habilitation.svg", alt: "identification", class: %w(fr-responsive-img) %>
       </div>
-      <div><%= t('authorization_requests.unauthenticated_start.etape_3') %></div>
+      <div><%= t('authorization_requests.unauthenticated_start.timeline_steps.step_3') %></div>
     </div>
 
     <div>
       <div>
         <%= image_tag "pictograms/homepage/token.svg", alt: "identification", class: %w(fr-responsive-img) %>
       </div>
-      <div><%= t('authorization_requests.unauthenticated_start.etape_4') %></div>
+      <div><%= t("authorization_requests.unauthenticated_start.timeline_steps.step_4.#{@authorization_definition.kind}") %></div>
     </div>
   </div>
 

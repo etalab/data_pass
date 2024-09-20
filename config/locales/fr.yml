@@ -156,11 +156,24 @@ fr:
 
   authorization_requests:
     unauthenticated_start:
-      sub_title: "Vous souhaitez accédez à l’<strong>%{api_name}</strong> \n Votre demande d’habilitation va se dérouler en 4 étapes"
-      etape_1: S’identifier avec MonComptePro
-      etape_2: Remplir ma demande
-      etape_3: Être habilité
-      etape_4: Accéder au service
+      sub_title:
+        service: |
+          Vous souhaitez abonner votre structure au service <strong>%{authorization_definition_name}</strong>
+          <br/>
+          Votre demande d’habilitation va se dérouler en 4 étapes
+        api: |
+          Vous souhaitez accédez à l’<strong>%{authorization_definition_name}</strong>
+          <br/>
+          Votre demande d’habilitation va se dérouler en 4 étapes
+      timeline_steps:
+        step_1: S’identifier avec MonComptePro
+        step_2: Remplir ma demande
+        step_3: Être habilité
+        step_4:
+          api: Obtenir le jeton d’accès
+          service: Accéder au service
+
+
     new:
       default:
         title: &start_new_habilitation_title Demander une habilitation pour %{authorization_name}
