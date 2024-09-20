@@ -1,5 +1,6 @@
 class AuthorizationRequestsController < AuthenticatedUserController
   helper AuthorizationRequestsHelpers
+  include SubdomainsHelper
 
   allow_unauthenticated_access only: %i[new show]
 
@@ -30,6 +31,10 @@ class AuthorizationRequestsController < AuthenticatedUserController
     else
       show_as_guest_user
     end
+  rescue ActiveRecord::RecordNotFound
+    raise unless registered_subdomain? && registered_subdomain.id == 'hubee'
+
+    redirect_to dashboard_path
   end
 
   private
