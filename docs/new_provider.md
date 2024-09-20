@@ -47,7 +47,7 @@ Pour la configuration de la [définition (1.)](../config/authorization_definitio
     link: https://mon-api.gouv.fr
     # Lien vers les CGU
     cgu_link: https://mon-api.gouv.fr/cgu.pdf
-    # Affiche ou non cette source de données dans l'index des formulaires
+    # Optionnel. Affiche ou non cette source de données dans l'index des formulaires. Par défaut à `true`
     public: true
     # Optionnel. Détermine si il ne peut y avoir qu'un seul formulaire par organisation. Par défaut à `false`
     unique: false
