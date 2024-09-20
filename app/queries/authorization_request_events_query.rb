@@ -38,6 +38,7 @@ class AuthorizationRequestEventsQuery
       authorization_request.revocation_ids,
       authorization_request.transfer_ids,
       authorization_request.reopening_cancellation_ids,
+      authorization_request.bulk_updates.pluck(:id),
     ]
   end
   # rubocop:enable Metrics/AbcSize
@@ -51,6 +52,7 @@ class AuthorizationRequestEventsQuery
       "(entity_id in (?) and entity_type = 'Authorization') or" \
       "(entity_id in (?) and entity_type = 'RevocationOfAuthorization') or" \
       "(entity_id in (?) and entity_type = 'AuthorizationRequestTransfer') or" \
-      "(entity_id in (?) and entity_type = 'AuthorizationRequestReopeningCancellation')"
+      "(entity_id in (?) and entity_type = 'AuthorizationRequestReopeningCancellation') or" \
+      "(entity_id in (?) and entity_type = 'BulkAuthorizationRequestUpdate')"
   end
 end
