@@ -1,5 +1,7 @@
 class Instruction::AuthorizationRequestsController < Instruction::AbstractAuthorizationRequestsController
   before_action :redirect_to_searched_authorization_request, only: [:index]
+  before_action :save_or_load_search_params, only: [:index]
+
   skip_before_action :extract_authorization_request, only: :index
 
   def index
@@ -51,5 +53,14 @@ class Instruction::AuthorizationRequestsController < Instruction::AbstractAuthor
 
   def extract_authorization_request
     @authorization_request = AuthorizationRequest.find(params[:id]).decorate
+  end
+
+  def save_or_load_search_params
+    session[search_key] = params[:q] if params[:q].present?
+    params[:q] = session[search_key] if params[:q].blank?
+  end
+
+  def search_key
+    :"#{controller_name}_#{action_name}_search"
   end
 end
