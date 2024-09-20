@@ -414,6 +414,7 @@ fr:
         table:
           caption: Liste des demandes en cours
           header:
+            id: N°
             state: Statut
             last_submitted_at: Dernière date de soumission
             organization: Organisation

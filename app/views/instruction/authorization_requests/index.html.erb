@@ -28,12 +28,13 @@
   </div>
 <% end %>
 
-<div class="fr-table fr-table--bordered fr-table--layout-fixed">
+<div class="fr-table fr-table--bordered">
   <table>
     <thead>
       <tr>
         <%
           %w[
+            id
             state
             last_submitted_at
             organization
@@ -44,7 +45,7 @@
           ].each do |attr|
         %>
           <th scope="col">
-            <% if %w[state last_submitted_at].include?(attr) %>
+            <% if %w[id state last_submitted_at].include?(attr) %>
               <%= sort_link(@search_engine, attr) do %>
                 <%= t(".table.header.#{attr}") %>
               <% end %>
@@ -59,6 +60,9 @@
     <tbody>
       <% @authorization_requests.each do |authorization_request| %>
         <tr id="<%= dom_id(authorization_request) %>" class="authorization-request">
+          <td class="authorization-request-id">
+            <%= authorization_request.id %>
+          </td>
           <td class="authorization-request-state">
             <%= authorization_request_status_badge(authorization_request, scope: :instruction) %>
 
