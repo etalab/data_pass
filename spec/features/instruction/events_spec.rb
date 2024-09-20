@@ -1,6 +1,6 @@
 RSpec.describe 'Instruction: habilitation events' do
   let(:user) { create(:user, :instructor) }
-  let(:authorization_request) { create(:authorization_request, :api_entreprise, applicant: user) }
+  let(:authorization_request) { create(:authorization_request, :api_entreprise, applicant: user, created_at: 1.month.ago) }
   let(:event_names_to_display) do
     AuthorizationRequestEvent::NAMES.dup + %w[cancel_reopening_from_instructor]
   end

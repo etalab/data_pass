@@ -707,6 +707,16 @@ fr:
             La liste des changements est :
             %{text}
 
+        bulk_update:
+          text: |
+            Une mise à jour globale sur ce type d'habilitation a été effectuée :
+
+            <br />
+
+            <blockquote>
+              %{text}
+            </blockquote>
+
         system_reminder:
           text: Une relance a été envoyé au demandeur
 
