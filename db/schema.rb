@@ -133,6 +133,16 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_02_161642) do
     t.index ["slug", "request_id"], name: "index_authorizations_on_slug_and_request_id", unique: true
   end
 
+  create_table "bulk_authorization_request_update_notification_reads", force: :cascade do |t|
+    t.bigint "bulk_authorization_request_update_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bulk_authorization_request_update_id", "user_id"], name: "idx_on_bulk_authorization_request_update_id_user_id_bc2529b038", unique: true
+    t.index ["bulk_authorization_request_update_id"], name: "idx_on_bulk_authorization_request_update_id_d1444698b3"
+    t.index ["user_id"], name: "idx_on_user_id_902915981d"
+  end
+
   create_table "bulk_authorization_request_updates", force: :cascade do |t|
     t.string "authorization_definition_uid", null: false
     t.string "reason", null: false
@@ -323,6 +333,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_02_161642) do
   add_foreign_key "authorization_requests", "authorization_requests", column: "next_request_copied_id"
   add_foreign_key "authorizations", "authorization_requests", column: "request_id"
   add_foreign_key "authorizations", "users", column: "applicant_id"
+  add_foreign_key "bulk_authorization_request_update_notification_reads", "bulk_authorization_request_updates"
+  add_foreign_key "bulk_authorization_request_update_notification_reads", "users"
   add_foreign_key "denial_of_authorizations", "authorization_requests"
   add_foreign_key "instructor_modification_requests", "authorization_requests"
   add_foreign_key "messages", "authorization_requests"
