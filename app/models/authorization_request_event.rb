@@ -19,6 +19,7 @@ class AuthorizationRequestEvent < ApplicationRecord
     instructor_message
 
     admin_update
+    bulk_update
 
     system_reminder
     system_archive
@@ -46,6 +47,7 @@ class AuthorizationRequestEvent < ApplicationRecord
     return if %w[approve reopen].include?(name) && entity_type == 'Authorization'
     return if %w[applicant_message instructor_message].include?(name) && entity_type == 'Message'
     return if %w[approve refuse request_changes revoke].exclude?(name) && entity_type == 'AuthorizationRequest'
+    return if %w[bulk_update].include?(name) && entity_type == 'BulkAuthorizationRequestUpdate'
 
     errors.add(:entity_type, :invalid)
   end
