@@ -18,13 +18,14 @@ class Import::AuthorizationRequests::Base
   class SkipRow < AbstractRow; end
   class WarnRow < AbstractRow; end
 
-  attr_reader :authorization_request, :enrollment_row, :team_members
+  attr_reader :authorization_request, :enrollment_row, :team_members, :all_model
 
-  def initialize(authorization_request, enrollment_row, team_members, warned)
+  def initialize(authorization_request, enrollment_row, team_members, warned, all_models=[])
     @authorization_request = authorization_request
     @enrollment_row = enrollment_row
     @team_members = team_members
     @warned = warned
+    @all_models = all_models
   end
 
   def perform

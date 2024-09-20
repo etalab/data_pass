@@ -1,14 +1,19 @@
 #!/bin/bash
 
+if [ -z "$1" ]; then
+  echo "Usage: $0 <rails_env>"
+  exit 1
+fi
+
 user=skelz0r
 host=watchdoge
 v1_pg_password=`cat app/migration/.v1-pgpassword`
+RAILS_ENV=$1
 
-## TODO TO CHANGE
-RAILS_ENV=sandbox
+## VARIABLES A POTENTIELLEMENT CHANGER
 SKIP_DOCUMENT_VALIDATION=true
 LOCAL=false
-## END TODO
+##
 
 cd /var/www/datapass_reborn_$RAILS_ENV/current
 
@@ -34,34 +39,55 @@ done
 sudo chown datapass_reborn_$RAILS_ENV:datapass_reborn_$RAILS_ENV app/migration/dumps
 sudo chown datapass_reborn_$RAILS_ENV:datapass_reborn_$RAILS_ENV app/migration/dumps/*
 
+echo ">> Run hubee import script"
+sudo --preserve-env=RAILS_ENV,LOCAL,SKIP_DOCUMENT_VALIDATION -u datapass_reborn_$RAILS_ENV bundle exec rails runner "HubEEImport.instance.build_csv_from_api"
+
 echo ">> Create db sqlite"
 sudo -u datapass_reborn_$RAILS_ENV --preserve-env=RAILS_ENV bundle exec rails runner "ImportDataInLocalDb.new.perform(delete_db_file: false)"
 
 echo ">> Run main import script"
 sudo --preserve-env=RAILS_ENV,LOCAL,SKIP_DOCUMENT_VALIDATION -u datapass_reborn_$RAILS_ENV bundle exec rails runner "MainImport.new.perform"
 
-# Utiliser la ligne ci-dessous pour récuperer les ids. instructor et reporter sont les 2 blocs, subscriber = email
-# User.with_at_least_one_role.to_a.select { |u| u.roles.any? { |r| r == 'api_particulier:subscriber' } }.map { |u| u.uid }.join(' ')
-echo ">> Assign instructor roles"
+# Faire tourner le script app/migration/build_instructor_migration.rb sur DataPass v1
+echo ">> Assign instructor/reporter roles"
 sudo --preserve-env=RAILS_ENV,LOCAL -u datapass_reborn_$RAILS_ENV bundle exec rails runner "
 ActiveRecord::Base.transaction do
-  User.where(external_id: %w[16574 26213 183892 3164 86663 78010 122526 243]).find_each do |user|
-    user.roles << 'api_particulier:instructor'
+  User.where(external_id: %w[22401 81204 118929 78744 250299]).find_each do |user|
+    user.roles << 'hubee_cert_dc:instructor'
 
-    if %w[78010 122526 243].exclude?(user.external_id)
-      user.instruction_submit_notifications_for_api_particulier = false
-      user.instruction_messages_notifications_for_api_particulier  = false
+    if %w[ 22401 81204 118929 78744 250299].exclude?(user.external_id)
+      user.instruction_submit_notifications_for_hubee_cert_dc = false
+      user.instruction_messages_notifications_for_hubee_cert_dc = false
     end
 
     user.save!
   end
+  User.where(external_id: %w[34228 34424 50762 34229  65959 22401 34283 26213  81204 118929 30206 78406 78744 116 68406 34178 122526 57483 78736 250299]).find_each do |user|
+    user.roles << 'hubee_cert_dc:reporter'
 
-  User.where(external_id: %w[45965 29397 16574 33577 78736 57483 26213  34758 28852 146936 163815 183892 68398 12912 15241 69166 3164 86663 78406 116 35009 78010 34178 46027 122526 243 34461]).find_each do |user|
-    user.roles << 'api_particulier:reporter'
+    if %w[ 22401 81204 118929 78744 250299].exclude?(user.external_id)
+      user.instruction_submit_notifications_for_hubee_cert_dc = false
+      user.instruction_messages_notifications_for_hubee_cert_dc = false
+    end
 
-    if %w[78010 122526 243].exclude?(user.external_id)
-      user.instruction_submit_notifications_for_api_particulier = false
-      user.instruction_messages_notifications_for_api_particulier  = false
+    user.save!
+  end
+  User.where(external_id: %w[85026 82789  195410 105596 37150 159065 83997 130064]).find_each do |user|
+    user.roles << 'hubee_dila:instructor'
+
+    if %w[42408 130064].exclude?(user.external_id)
+      user.instruction_submit_notifications_for_hubee_dila = false
+      user.instruction_messages_notifications_for_hubee_dila = false
+    end
+
+    user.save!
+  end
+  User.where(external_id: %w[34424 50762 34229  65959 85026  82789 26213   43079 93628 195410 93626 105596 37150 30206 78406 159065 116 68406 34178 40073 122526 83997 57483 130064 78736]).find_each do |user|
+    user.roles << 'hubee_dila:reporter'
+
+    if %w[42408 130064].exclude?(user.external_id)
+      user.instruction_submit_notifications_for_hubee_dila = false
+      user.instruction_messages_notifications_for_hubee_dila = false
     end
 
     user.save!

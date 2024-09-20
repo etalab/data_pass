@@ -16,7 +16,13 @@ class MainImport
     import(:users, { load_from_sql: ENV['DUMP'] == 'true' })
     authorization_requests = import(:authorization_requests, { load_from_sql: ENV['DUMP'] == 'true' })
 
-    import(:authorization_request_events, { dump_sql: ENV['DUMP'] == 'true' })
+    if types_to_import.any?
+      valid_authorization_request_ids = AuthorizationRequest.where(id: authorization_requests.pluck(:id), type: types_to_import).pluck(:id)
+    else
+      valid_authorization_request_ids = authorization_requests.pluck(:id)
+    end
+
+    import(:authorization_request_events, { dump_sql: ENV['DUMP'] == 'true', valid_authorization_request_ids: })
 
     %i[warned skipped].each do |kind|
       export(kind)
@@ -25,6 +31,13 @@ class MainImport
   end
 
   private
+
+  def types_to_import
+    %w[
+      AuthorizationRequest::HubEEDila
+      AuthorizationRequest::HubEECertDC
+    ]
+  end
 
   def import(klass_name, options = {})
     if authorization_request_ids.any?
@@ -39,9 +52,9 @@ class MainImport
   end
 
   def export(kind)
-    data = public_send(kind)
-    log("# #{kind}: #{data.count}")
+    return unless ENV['LOCAL'] == 'true'
 
+    data = public_send(kind)
     CSV.open(export_path(kind), 'w') do |csv|
       csv << %w[id target_api kind]
 
@@ -53,6 +66,7 @@ class MainImport
 
   def print_stats(kind)
     data = public_send(kind)
+    log("# #{kind}: #{data.count}")
     log("#{kind.to_s.humanize} stats:")
 
     log('  - by target_api:')
@@ -81,7 +95,7 @@ class MainImport
           54115
         ].exclude?(enrollment_row['id'])
       end,
-      authorization_requests_sql_where: 'target_api = \'api_particulier\'',
+      authorization_requests_sql_where: 'target_api in (\'hubee_portail\', \'hubee_portail_dila\') order by id desc',
       skipped: @skipped,
       warned: @warned,
     }

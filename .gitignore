@@ -49,10 +49,12 @@ app/migration/.ovh.yml
 app/migration/dumps/*.csv
 app/migration/dumps/*.dump
 app/migration/dumps/*.sql
+app/migration/dumps/*.json
+app/migration/dumps/data.db
+app/migration/.hubee_config.yml
 
 /config/credentials/staging.key
 
 # Ignore local Redis snapshots
 /dump.rdb
-app/migration/dumps/data.db
 .deploy_token

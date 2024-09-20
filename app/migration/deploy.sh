@@ -3,7 +3,7 @@
 RAILS_ENV=sandbox
 
 # 1. Deploy latest version of code
-ssh -A watchdoge -- RAILS_APP_BRANCH=develop /usr/local/bin/rails_deploy_datapass_reborn_$RAILS_ENV.sh
+ssh -A watchdoge -- sudo RAILS_APP_BRANCH=develop -u ci_deploy /usr/local/bin/rails_deploy_datapass_reborn_$RAILS_ENV.sh
 
 # # 2. Copy pgpassword
 scp app/migration/.v1-pgpassword watchdoge:.
@@ -22,6 +22,13 @@ scp app/migration/.ovh.yml watchdoge:.
 ssh -A watchdoge -- sudo mv .ovh.yml /var/www/datapass_reborn_$RAILS_ENV/current/app/migration/
 ssh -A watchdoge -- sudo chown root:root /var/www/datapass_reborn_$RAILS_ENV/current/app/migration/.ovh.yml
 ssh -A watchdoge -- sudo chmod 644 /var/www/datapass_reborn_$RAILS_ENV/current/app/migration/.ovh.yml
+
+# 4. Copy hubee credentials
+scp app/migration/.hubee_config.yml watchdoge:.
+ssh -A watchdoge -- sudo mv .hubee_config.yml /var/www/datapass_reborn_$RAILS_ENV/current/app/migration/
+ssh -A watchdoge -- sudo chown root:root /var/www/datapass_reborn_$RAILS_ENV/current/app/migration/.hubee_config.yml
+ssh -A watchdoge -- sudo chmod 644 /var/www/datapass_reborn_$RAILS_ENV/current/app/migration/.hubee_config.yml
+
 
 if [ $RAILS_ENV = 'sandbox' ] ; then
   v2_pg_password_sandbox=`cat app/migration/.v2-pgpassword-sandbox`

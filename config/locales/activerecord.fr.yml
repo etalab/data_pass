@@ -5,6 +5,7 @@ fr:
         email_unreachable: "n'est pas une adresse email joignable : celle-ci n'existe probablement pas. Veuillez soit mettre à jour cette adresse email. Si vous êtes sûr que cette adresse email est valide, contactez le support à l'adresse datapass@api.gouv.fr en précisant votre numéro d'habilitation pour que l'on valide manuellement cette adresse."
         email_deliverability_unknown: "n'a pas pu être vérifiée : merci de vérifier que cette adresse email est bien valide. Si tel est le cas, contactez le support à l'adresse datapass@api.gouv.fr en précisant votre numéro d'habilitation ainsi que l'email pour que celle-ci soit validée manuellement."
         url_format: "n'est pas un lien valide"
+        already_exists: "Une autre demande d'habilitation est déjà en cours ou validée pour cette organisation, il ne peut en avoir qu'une seule de ce type."
       models:
         authorization_request_transfer:
           attributes:

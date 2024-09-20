@@ -202,6 +202,14 @@ FactoryBot.define do
       user { nil }
     end
 
+    trait :system_import do
+      name { 'system_import' }
+
+      entity_is_authorization_request
+
+      user { nil }
+    end
+
     trait :system_archive do
       name { 'system_archive' }
 

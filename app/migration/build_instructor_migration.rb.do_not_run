@@ -1,0 +1,29 @@
+final_str = ''
+
+def extract_user_ids(role)
+  User.with_at_least_one_role.to_a.select { |u| u.roles.any? { |r| r == role } }.map { |u| u.uid }.join(' ')
+end
+
+{
+  'hubee_portail' => 'hubee_cert_dc',
+  'hubee_portail_dila' => 'hubee_dila',
+}.each do |from, to|
+  subscriber_ids_joined = extract_user_ids("#{from}:subscriber")
+
+  %w[instructor reporter].each do |role|
+    final_str << <<-EOF
+  User.where(external_id: %w[#{extract_user_ids("#{from}:#{role}")}]).find_each do |user|
+    user.roles << '#{to}:#{role}'
+
+    if %w[#{subscriber_ids_joined}].exclude?(user.external_id)
+      user.instruction_submit_notifications_for_#{to} = false
+      user.instruction_messages_notifications_for_#{to} = false
+    end
+
+    user.save!
+  end
+EOF
+  end
+end
+
+print final_str

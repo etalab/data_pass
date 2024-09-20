@@ -12,7 +12,7 @@ class Import::AuthorizationRequests < Import::Base
     user = fetch_applicant(enrollment_row)
 
     authorization_request.applicant = user
-    authorization_request.organization = fetch_organization(user, enrollment_row)
+    authorization_request.organization_id = fetch_organization(user, enrollment_row).try(:id)
 
     authorization_request.form_uid = fetch_form(authorization_request).id
     authorization_request.state = enrollment_row['status']
@@ -177,6 +177,7 @@ class Import::AuthorizationRequests < Import::Base
       enrollment_row,
       fetch_team_members(enrollment_row['id']),
       options[:warned],
+      @models,
     ).perform
   end
 
@@ -219,6 +220,7 @@ class Import::AuthorizationRequests < Import::Base
   def from_target_api_to_type(enrollment)
     {
       'hubee_portail' => 'hubee_cert_dc',
+      'hubee_portail_dila' => 'hubee_dila',
       'api_entreprise' => 'api_entreprise',
       'api_particulier' => 'api_particulier',
     }[enrollment['target_api']].try(:classify)
