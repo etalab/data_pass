@@ -21,7 +21,6 @@ Fonctionnalité: Instruction: modération
     Alors je suis sur la page "Liste des demandes en cours"
     Et je vois 1 demande d'habilitation "API Service National" validée
     Et un email est envoyé contenant "validé"
-    Et un email est envoyé contenant "vous a désigné(e) comme Responsable de traitement"
     Et un email est envoyé contenant "vous a désigné(e) comme Délégué à la protection des données"
     Et il y a un message de succès contenant "a été validé"
 

@@ -29,6 +29,10 @@ class StaticApplicationRecord
       end
     end
 
+    def exists?(conditions = {})
+      where(conditions).any?
+    end
+
     def find(id)
       all.find { |entry| entry.id == id } || fail(ActiveRecord::RecordNotFound)
     end
