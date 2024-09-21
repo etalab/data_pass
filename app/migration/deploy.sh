@@ -24,11 +24,10 @@ ssh -A watchdoge -- sudo chown root:root /var/www/datapass_reborn_$RAILS_ENV/cur
 ssh -A watchdoge -- sudo chmod 644 /var/www/datapass_reborn_$RAILS_ENV/current/app/migration/.ovh.yml
 
 # 4. Copy hubee credentials
-scp app/migration/.hubee_config.yml watchdoge:.
-ssh -A watchdoge -- sudo mv .hubee_config.yml /var/www/datapass_reborn_$RAILS_ENV/current/app/migration/
-ssh -A watchdoge -- sudo chown root:root /var/www/datapass_reborn_$RAILS_ENV/current/app/migration/.hubee_config.yml
-ssh -A watchdoge -- sudo chmod 644 /var/www/datapass_reborn_$RAILS_ENV/current/app/migration/.hubee_config.yml
-
+# scp app/migration/.hubee_config.yml watchdoge:.
+# ssh -A watchdoge -- sudo mv .hubee_config.yml /var/www/datapass_reborn_$RAILS_ENV/current/app/migration/
+# ssh -A watchdoge -- sudo chown root:root /var/www/datapass_reborn_$RAILS_ENV/current/app/migration/.hubee_config.yml
+# ssh -A watchdoge -- sudo chmod 644 /var/www/datapass_reborn_$RAILS_ENV/current/app/migration/.hubee_config.yml
 
 if [ $RAILS_ENV = 'sandbox' ] ; then
   v2_pg_password_sandbox=`cat app/migration/.v2-pgpassword-sandbox`
