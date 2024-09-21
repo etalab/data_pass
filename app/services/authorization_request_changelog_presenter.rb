@@ -30,17 +30,15 @@ class AuthorizationRequestChangelogPresenter
   def consolidated_changelog_entries
     case event_name
     when 'initial_submit_with_changes_on_prefilled_data'
-      changelog_builder(changelog_diff_without_unchanged_prefilled_values_and_new_values)
+      entries_builder(changelog_diff_without_unchanged_prefilled_values_and_new_values)
     when 'submit_with_changes'
-      changelog_builder(changelog_diff)
+      entries_builder(changelog_diff)
     else
       []
     end
   end
 
-  private
-
-  def changelog_builder(diffs)
+  def entries_builder(diffs)
     diffs.map { |attribute, values|
       values = sanitize_values(attribute, values)
 
@@ -53,6 +51,8 @@ class AuthorizationRequestChangelogPresenter
       end
     }.flatten
   end
+
+  private
 
   def sanitize_values(attribute, values)
     case attribute
