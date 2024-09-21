@@ -39,8 +39,8 @@ done
 sudo chown datapass_reborn_$RAILS_ENV:datapass_reborn_$RAILS_ENV app/migration/dumps
 sudo chown datapass_reborn_$RAILS_ENV:datapass_reborn_$RAILS_ENV app/migration/dumps/*
 
-echo ">> Run hubee import script"
-sudo --preserve-env=RAILS_ENV,LOCAL,SKIP_DOCUMENT_VALIDATION -u datapass_reborn_$RAILS_ENV bundle exec rails runner "HubEEImport.instance.build_csv_from_api"
+# echo ">> Run hubee import script"
+# sudo --preserve-env=RAILS_ENV,LOCAL,SKIP_DOCUMENT_VALIDATION -u datapass_reborn_$RAILS_ENV bundle exec rails runner "HubEEImport.instance.build_csv_from_api"
 
 echo ">> Create db sqlite"
 sudo -u datapass_reborn_$RAILS_ENV --preserve-env=RAILS_ENV bundle exec rails runner "ImportDataInLocalDb.new.perform(delete_db_file: false)"
@@ -52,54 +52,14 @@ sudo --preserve-env=RAILS_ENV,LOCAL,SKIP_DOCUMENT_VALIDATION -u datapass_reborn_
 echo ">> Assign instructor/reporter roles"
 sudo --preserve-env=RAILS_ENV,LOCAL -u datapass_reborn_$RAILS_ENV bundle exec rails runner "
 ActiveRecord::Base.transaction do
-  User.where(external_id: %w[22401 81204 118929 78744 250299]).find_each do |user|
-    user.roles << 'hubee_cert_dc:instructor'
-
-    if %w[ 22401 81204 118929 78744 250299].exclude?(user.external_id)
-      user.instruction_submit_notifications_for_hubee_cert_dc = false
-      user.instruction_messages_notifications_for_hubee_cert_dc = false
-    end
-
-    user.save!
-  end
-  User.where(external_id: %w[34228 34424 50762 34229  65959 22401 34283 26213  81204 118929 30206 78406 78744 116 68406 34178 122526 57483 78736 250299]).find_each do |user|
-    user.roles << 'hubee_cert_dc:reporter'
-
-    if %w[ 22401 81204 118929 78744 250299].exclude?(user.external_id)
-      user.instruction_submit_notifications_for_hubee_cert_dc = false
-      user.instruction_messages_notifications_for_hubee_cert_dc = false
-    end
-
-    user.save!
-  end
-  User.where(external_id: %w[85026 82789  195410 105596 37150 159065 83997 130064]).find_each do |user|
-    user.roles << 'hubee_dila:instructor'
-
-    if %w[42408 130064].exclude?(user.external_id)
-      user.instruction_submit_notifications_for_hubee_dila = false
-      user.instruction_messages_notifications_for_hubee_dila = false
-    end
-
-    user.save!
-  end
-  User.where(external_id: %w[34424 50762 34229  65959 85026  82789 26213   43079 93628 195410 93626 105596 37150 30206 78406 159065 116 68406 34178 40073 122526 83997 57483 130064 78736]).find_each do |user|
-    user.roles << 'hubee_dila:reporter'
-
-    if %w[42408 130064].exclude?(user.external_id)
-      user.instruction_submit_notifications_for_hubee_dila = false
-      user.instruction_messages_notifications_for_hubee_dila = false
-    end
-
-    user.save!
-  end
+  raise 'FEEDME'
 end
 "
-
-echo ">> Maintenance mode OFF"
-sudo rm -f /var/www/html/maintenance_datapass_$RAILS_ENV.html
-
 echo ">> Cleaning up"
 rm -f ~/.pgpass
 rm -rf ~/dumps
 
 echo ">> Done"
+
+echo ">>> Please run the following command to disable maintenance after post-migration operations described in https://pad.incubateur.net/xMY2MVZ1STexUrU8yfYMng?both"
+echo "sudo rm -f /var/www/html/maintenance_datapass_$RAILS_ENV.html"
