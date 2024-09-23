@@ -1468,3 +1468,27 @@ api-particulier-gestion-rh-secteur-public:
       - mesri_inscription_etudiant
       - mesri_inscription_autre
       - mesri_etablissements
+
+api-particulier-ds-statut-etudiant:
+  name: demarches-simplifiees.fr - Statut Étudiant pour la démarche "NOM"
+  description: |
+    Formulaire à destination des utilisateurs de demarches-simplifiees.fr
+  authorization_request: APIParticulier
+  introduction: |
+    Ce formulaire est destiné aux utilisateurs de demarches-simplifiees.fr qui souhaitent intégrer le service "Statut Étudiant" dans leur démarche "NOM"
+  steps:
+    # - name: basic_infos
+    # - name: personal_data
+    - name: legal
+    - name: scopes
+    - name: contacts
+  scopes_config:
+    displayed:
+      - mesri_identite
+      - mesri_admission
+      - mesri_inscription_etudiant
+      - mesri_inscription_autre
+      - mesri_etablissements
+  data:
+    cadre_juridique_nature: |
+      La démarche "NOM" permet de blablabla

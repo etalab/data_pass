@@ -510,6 +510,9 @@ fr:
         label: Description du cadre juridique autorisant à traiter les données*
         hint: Le cadre général est déjà spécifié. Vous pouvez ajouter un cadre spécifique à votre situation.
 
+    api_particulier_ds_statut_etudiant:
+      cadre_juridique_nature:
+        hint: Le cadre est déjà spécifié mais vous pouvez ajoutez des détails concernant la démarche "NOM"
     api_infinoe_production:
       sandbox_authorization_request:
         title: L'habilitation de bac à sable
