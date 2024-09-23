@@ -100,6 +100,8 @@ Rails.application.routes.draw do
     skip_controllers :applications, :authorized_applications
   end
 
+  get '/api-docs/v1.yaml', to: ->(env) { [200, { 'Content-Type' => 'application/yaml' }, [File.read(Rails.root.join('config/openapi/v1.yaml'))]] }
+
   namespace :api do
     resources :frontal, only: :index
 
