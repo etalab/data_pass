@@ -5,8 +5,9 @@ class AuthorizationRequestChangelogPresenter
 
   delegate :t, to: I18n
 
-  def initialize(changelog)
+  def initialize(changelog, from_admin: true)
     @changelog = changelog
+    @from_admin = from_admin
   end
 
   def event_name
@@ -28,6 +29,8 @@ class AuthorizationRequestChangelogPresenter
   end
 
   def consolidated_changelog_entries
+    return changelog_builder(changelog_diff) if from_admin?
+
     case event_name
     when 'initial_submit_with_changes_on_prefilled_data'
       changelog_builder(changelog_diff_without_unchanged_prefilled_values_and_new_values)
@@ -167,5 +170,9 @@ class AuthorizationRequestChangelogPresenter
 
   def authorization_request
     changelog.authorization_request
+  end
+
+  def from_admin?
+    @from_admin
   end
 end

@@ -18,15 +18,17 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
     end
   end
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def text
     case name
     when 'refuse', 'request_changes', 'revoke', 'cancel_reopening_from_instructor'
       h.simple_format(entity.reason)
     when 'applicant_message', 'instructor_message'
       h.simple_format(entity.body)
-    when 'initial_submit_with_changes_on_prefilled_data', 'submit_with_changes', 'admin_update'
+    when 'initial_submit_with_changes_on_prefilled_data', 'submit_with_changes'
       humanized_changelog
+    when 'admin_update'
+      humanized_changelog(from_admin: true)
     when 'transfer'
       if entity.from_type == 'User'
         "#{entity.to.full_name} (#{entity.to.email})"
@@ -35,7 +37,7 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
       end
     end
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def copied_from_authorization_request_id
     return unless name == 'copy'
@@ -45,16 +47,16 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
 
   private
 
-  def humanized_changelog
+  def humanized_changelog(from_admin: false)
     h.content_tag(:ul) do
-      changelog_presenter.consolidated_changelog_entries.map { |entry|
+      changelog_presenter(from_admin:).consolidated_changelog_entries.map { |entry|
         h.content_tag(:li, entry)
       }.join.html_safe
     end
   end
 
-  def changelog_presenter
-    @changelog_presenter ||= AuthorizationRequestChangelogPresenter.new(entity)
+  def changelog_presenter(from_admin: false)
+    @changelog_presenter ||= AuthorizationRequestChangelogPresenter.new(entity, from_admin:)
   end
 
   def name_for_cancel_reopening
