@@ -39,6 +39,7 @@ class User < ApplicationRecord
       )",
       [
         "#{authorization_request_type.underscore}:instructor",
+        "#{authorization_request_type.underscore}:developer",
         "#{authorization_request_type.underscore}:reporter",
       ]
     )
@@ -82,13 +83,15 @@ class User < ApplicationRecord
   def reporter_roles
     (roles.select { |role|
       role.end_with?(':reporter')
-    } + instructor_roles).uniq
+    } + instructor_roles + developer_roles).uniq
   end
 
   def instructor_roles
-    roles.select do |role|
-      role.end_with?(':instructor')
-    end
+    roles.select { |role| role.end_with?(':instructor') }
+  end
+
+  def developer_roles
+    roles.select { |role| role.end_with?(':developer') }
   end
 
   def reporter?(authorization_request_type = nil)
