@@ -78,4 +78,5 @@ group :test do
   gem 'rspec-rails', '7.0.1'
   gem 'simplecov', require: false
   gem 'webmock'
+  gem 'openapi3_parser'
 end
