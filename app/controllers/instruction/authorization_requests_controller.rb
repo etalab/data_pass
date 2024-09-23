@@ -9,7 +9,7 @@ class Instruction::AuthorizationRequestsController < Instruction::AbstractAuthor
 
     base_relation = base_relation.none if search_terms_is_a_possible_id?
 
-    @search_engine = base_relation.ransack(params[:q])
+    @search_engine = base_relation.ransack(params[:search_query])
     @search_engine.sorts = 'last_submitted_at desc' if @search_engine.sorts.empty?
 
     @authorization_requests = build_search_engine_results_with_order_which_puts_null_as_last.page(params[:page])
@@ -26,7 +26,7 @@ class Instruction::AuthorizationRequestsController < Instruction::AbstractAuthor
   def redirect_to_searched_authorization_request
     return unless search_terms_is_a_possible_id?
 
-    potential_authorization_request = AuthorizationRequest.find_by(id: params[:q][:within_data_or_organization_siret_or_applicant_email_or_applicant_family_name_cont].to_i)
+    potential_authorization_request = AuthorizationRequest.find_by(id: params[:search_query][:within_data_or_organization_siret_or_applicant_email_or_applicant_family_name_cont].to_i)
 
     return unless potential_authorization_request
 
@@ -38,9 +38,9 @@ class Instruction::AuthorizationRequestsController < Instruction::AbstractAuthor
   end
 
   def search_terms_is_a_possible_id?
-    return false if params[:q].blank?
+    return false if params[:search_query].blank?
 
-    main_search_input = params[:q][:within_data_or_organization_siret_or_applicant_email_or_applicant_family_name_cont]
+    main_search_input = params[:search_query][:within_data_or_organization_siret_or_applicant_email_or_applicant_family_name_cont]
 
     return false if main_search_input.blank?
 
@@ -56,8 +56,8 @@ class Instruction::AuthorizationRequestsController < Instruction::AbstractAuthor
   end
 
   def save_or_load_search_params
-    session[search_key] = params[:q] if params[:q].present?
-    params[:q] = session[search_key] if params[:q].blank?
+    session[search_key] = params[:search_query] if params[:search_query].present?
+    params[:search_query] = session[search_key] if params[:search_query].blank?
   end
 
   def search_key
