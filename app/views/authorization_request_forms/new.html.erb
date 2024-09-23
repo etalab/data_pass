@@ -1,24 +1,24 @@
 <h2 class="fr-mt-16v">
   <%= t(".#{@authorization_definition.kind}.title",
     authorization_name: @authorization_request_form.authorization_definition.name,
-    count: @authorization_request_form.authorization_definition.id == 'hubee_dila' ? 2 : 1) %>
+    provider_name: @authorization_request_form.authorization_definition.provider_name) %>
 </h2>
 
 <div class="fr-mb-4w">
   <% if policy(@authorization_request_form).create? %>
     <div class="border-frame-text fr-my-6w">
-      <% if @authorization_request_form.name.present? || @authorization_definition.kind == 'service' %>
+      <% if @authorization_request_form.name.present? %>
         <%= simple_format t(".#{@authorization_definition.kind}.organization.start_text_with_form_name",
           organization_raison_sociale: current_organization.raison_sociale,
           organization_siret: current_organization.siret,
-          authorization_request_form_name: @authorization_definition.kind == 'service' ? @authorization_request_form.authorization_definition.name : @authorization_request_form.name,
-          count: @authorization_request_form.authorization_definition.id == 'hubee_dila' ? 2 : 1),
+          authorization_request_form_name: @authorization_request_form.name,
+          provider_name: @authorization_request_form.authorization_definition.provider_name),
           {}, wrapper_tag: 'div' %>
       <% else %>
         <%= simple_format t(".#{@authorization_definition.kind}.organization.start_text",
           organization_raison_sociale: current_organization.raison_sociale,
           organization_siret: current_organization.siret,
-          count: @authorization_request_form.authorization_definition.id == 'hubee_dila' ? 2 : 1),
+          provider_name: @authorization_request_form.authorization_definition.provider_name),
           {}, wrapper_tag: 'div' %>
       <% end %>
     </div>
@@ -74,7 +74,7 @@
       </h5>
 
       <p>
-        <%= simple_format t(".#{@authorization_definition.kind}.single_form.description", service_name: @authorization_request_form.authorization_definition.service_name) %>
+        <%= simple_format t(".#{@authorization_definition.kind}.single_form.description", provider_name: @authorization_request_form.authorization_definition.provider_name) %>
       </p>
     </div>
     <div class="fr-grid-row fr-my-16v">

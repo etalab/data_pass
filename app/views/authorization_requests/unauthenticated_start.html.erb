@@ -10,9 +10,9 @@
 
         <p>
           <%= t(".sub_title.#{@authorization_definition.kind}",
-            authorization_definition_name: @authorization_definition.name,
-            count: @authorization_request_form.authorization_definition.id == 'hubee_dila' ? 2 : 1
-              ).html_safe %>
+                authorization_definition_name: @authorization_definition.name,
+                provider_name: @authorization_definition.provider_name,
+               ).html_safe %>
         </p>
 
         <%= render partial: 'authorization_requests/shared/unauthenticated_pages/timeline_steps' %>

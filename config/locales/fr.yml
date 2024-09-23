@@ -158,15 +158,10 @@ fr:
   authorization_requests:
     unauthenticated_start:
       sub_title:
-        service:
-          one: |
-            Vous souhaitez abonner votre structure au service <strong>%{authorization_definition_name}</strong>
-            <br/>
-            Votre demande d’habilitation va se dérouler en 4 étapes
-          other: |
-            Vous souhaitez abonner votre structure aux services <strong>%{authorization_definition_name}</strong>
-            <br/>
-            Votre demande d’habilitation va se dérouler en 4 étapes
+        service: |
+          Vous souhaitez abonner votre structure aux services du fournisseur <strong>%{provider_name}</strong>
+          <br/>
+          Votre demande d’habilitation va se dérouler en 4 étapes
         api: |
           Vous souhaitez accédez à l’<strong>%{authorization_definition_name}</strong>
           <br/>
@@ -250,20 +245,17 @@ fr:
           description: "Cliquez sur le bouton ci-dessous pour démarrer le formulaire. Celui-ci se complètera en une seule page. Vous pourrez le sauvegarder et le reprendre plus tard."
 
       service:
-        title:
-          one: Demander un abonnement à la %{authorization_name}
-          other: Demander un abonnement aux %{authorization_name}
+        title: "Demander un abonnement aux démarches %{provider_name}: %{authorization_name}"
         organization:
-          start_text_with_form_name:
-            one: Vous êtes sur le point de démarrer une nouvelle demande d’abonnement pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_raison_sociale}</a> à la <strong>%{authorization_request_form_name}</strong>.
-            other: Vous êtes sur le point de démarrer une nouvelle demande d’abonnement pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_raison_sociale}</a> aux <strong>%{authorization_request_form_name}</strong>.
+          start_text: |
+            Vous êtes sur le point de démarrer une nouvelle demande d’abonnement pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_raison_sociale}</a> aux services du fournisseur <strong>%{provider_name}</strong>.
         intro:
           title: Les objectifs de votre demande d’abonnement
         single_form:
           title: "Les étapes de votre demande d’abonnement"
           description: |
             ● Étape 1: Complétez le formulaire d'une seule page.
-            ● Étape 2: Attendez que votre demande d'abonnement soit validée par l’équipe %{service_name}.
+            ● Étape 2: Attendez que votre demande d'abonnement soit validée par l’équipe %{provider_name}.
             ● Étape 3: Demandez à l’Administrateur local que vous aurez choisi d’achever la procédure d’abonnement à la démarche sur le Portail HubEE.
             Cela peut être vous.
             <br />
