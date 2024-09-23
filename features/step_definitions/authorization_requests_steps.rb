@@ -327,3 +327,29 @@ Sachant('{string} appartient à une autre organisation') do |email|
 
   user.save!
 end
+
+Quand(%r{cette demande a déjà été validée le (\d{1,2}/\d{2}/\d{4})}) do |date_string|
+  date = Date.parse(date_string)
+  authorization_request = AuthorizationRequest.last
+
+  organizer = ApproveAuthorizationRequest.call(authorization_request:, user: User.first)
+
+  organizer.authorization.update!(
+    slug: date.strftime('%d-%m-%Y'),
+    created_at: date,
+  )
+end
+
+Quand(%r{je me rends sur l'habilitation validée(?: du (\d{1,2}/\d{2}/\d{4}))?}) do |date_string|
+  authorization_request = AuthorizationRequest.last
+
+  if date_string.present?
+    date = Date.parse(date_string)
+    authorization = authorization_request.authorizations.friendly.find(date.strftime('%d-%m-%Y'))
+    raise "Authorization not found for #{date}" if authorization.nil?
+  else
+    authorization = authorization_request.latest_authorization
+  end
+
+  visit authorization_request_authorization_path(authorization_request_id: authorization_request.id, id: authorization.id)
+end

@@ -116,3 +116,15 @@ Fonctionnalité: Consultation d'une demande d'habilitation
     Et il y a un formulaire en mode résumé
     Et il y a un message d'info contenant "Vous avez été référencé comme contact technique"
 
+  Scénario: Je consulte la dernière habilitation validée dont la demande a été réouverte
+    Quand j'ai 1 demande d'habilitation "API Entreprise" réouverte
+    Et que je me rends sur l'habilitation validée
+    Alors la page contient "Une mise à jour de cette demande est en cours"
+
+  Scénario: Je consulte une ancienne habilitation validée dont la demande a été réouverte
+    Quand j'ai 1 demande d'habilitation "API Entreprise" réouverte
+    Et que cette demande a déjà été validée le 01/01/2024
+    Et que cette demande a déjà été validée le 01/02/2024
+    Et que je me rends sur l'habilitation validée du 01/01/2024
+    Alors la page contient "Attention, vous consultez une version ancienne de cette habilitation"
+
