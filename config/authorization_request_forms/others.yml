@@ -3,7 +3,7 @@ hubee-cert-dc:
     La démarche CertDc permet au service État Civil de la mairie de votre commune de recevoir électroniquement les certificats de décès rédigés via l’application CertDc par les professionnels de santé.
 
     Depuis le 1er juin 2022, ces professionnels sont dans l’obligation d’utiliser cette application pour les décès survenus dans les établissements de santé et les établissements médico-sociaux.
-    Pour toute question concernant le fonctionnement de ces démarches, vous pouvez contacter le support dédié à l’adresse e-mail suivante: dgs-certdc@sante.gouv.fr.
+    Pour toute question concernant le fonctionnement de ces démarches, vous pouvez contacter le support dédié à l’adresse e-mail suivante: <a href="mailto:dgs-certdc@sante.gouv.fr">dgs-certdc@sante.gouv.fr</a>.
   authorization_request: "HubEECertDC"
 
 hubee-dila:

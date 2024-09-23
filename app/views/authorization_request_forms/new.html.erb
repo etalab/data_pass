@@ -29,10 +29,10 @@
 
   <% if @authorization_request_form.introduction.present? %>
     <div class="fr-my-16v">
-        <h5>
-          <%= t(".#{@authorization_definition.kind}.intro.title") %>
-        </h5>
-        <%= simple_format(@authorization_request_form.introduction) %>
+      <h5>
+        <%= t(".#{@authorization_definition.kind}.intro.title") %>
+      </h5>
+      <%= simple_format(@authorization_request_form.introduction) %>
     </div>
   <% end %>
 
