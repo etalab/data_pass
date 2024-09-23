@@ -72,6 +72,12 @@ class AuthorizationRequestForm < StaticApplicationRecord
     format(@introduction, editor_name: editor.try(:name), form_name: name)
   end
 
+  def scopes
+    return nil if @introduction.blank?
+
+    format(@scopes)
+  end
+
   def authorization_definition
     authorization_request_class.definition
   end

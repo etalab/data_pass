@@ -232,11 +232,25 @@ fr:
 
   authorization_request_forms:
     new:
-      title: *start_new_habilitation_title
+      api:
+        title: *start_new_habilitation_title
+        start_text: |
+          ce texte s'affiche dans le cas d'une API
+        organization:
+          start_text: Vous êtes sur le point de démarrer une nouvelle demande d'habilitation pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_raison_sociale}</a>.
+          start_text_with_form_name: Vous êtes sur le point de démarrer une nouvelle demande d'habilitation pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_raison_sociale}</a> via le formulaire <strong>%{authorization_request_form_name}</strong>.
+      service:
+        title:
+          one: Demander un abonnement à la %{authorization_name}
+          other: Demander un abonnement aux %{authorization_name}
+        organization:
+          start_text:
+            one: Vous êtes sur le point de démarrer une nouvelle demande d'abonnement pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_raison_sociale}</a>.
+            other: Vous êtes sur le point de démarrer une nouvelle demande d'abonnement pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_raison_sociale}</a>.
+          start_text_with_form_name:
+            one: Vous êtes sur le point de démarrer une nouvelle demande d'abonnement pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_raison_sociale}</a> à la <strong>%{authorization_request_form_name}</strong>.
+            other: Vous êtes sur le point de démarrer une nouvelle demande d'abonnement pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_raison_sociale}</a> aux <strong>%{authorization_request_form_name}</strong>.
       back_to_dashboard: Retour à l'accueil
-      organization:
-        start_text: Vous êtes sur le point de démarrer une nouvelle demande d'habilitation pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_raison_sociale}</a>.
-        start_text_with_form_name: Vous êtes sur le point de démarrer une nouvelle demande d'habilitation pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_raison_sociale}</a> via le formulaire <strong>%{authorization_request_form_name}</strong>.
       intro:
         title: L'objectif du formulaire
       cta: Débuter ma demande
