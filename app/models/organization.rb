@@ -19,7 +19,7 @@ class Organization < ApplicationRecord
     inverse_of: :organization
 
   def raison_sociale
-    mon_compte_pro_payload['label']
+    mon_compte_pro_payload['label'] || denomination
   end
 
   def code_commune
@@ -42,8 +42,12 @@ class Organization < ApplicationRecord
     insee_payload.dig('etablissement', 'adresseEtablissement', 'libelleCommuneEtablissement')
   end
 
+  def insee_payload
+    self[:insee_payload] || {}
+  end
+
   def categorie_juridique
-    return unless insee_payload
+    return if insee_payload.blank?
 
     CategorieJuridique.find(insee_payload['etablissement']['uniteLegale']['categorieJuridiqueUniteLegale'])
   rescue ActiveRecord::RecordNotFound
