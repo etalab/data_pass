@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  use_doorkeeper scope: '/api/oauth' do
+    skip_controllers :applications, :authorized_applications
+  end
+
   root 'pages#home'
 
   get 'auth/:provider/callback', to: 'sessions#create'

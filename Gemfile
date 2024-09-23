@@ -7,6 +7,8 @@ gem 'active_model_serializers', '~> 0.10.14'
 gem 'active_storage_validations'
 gem 'aws-sdk-s3', require: false
 gem 'bootsnap', require: false
+gem 'doorkeeper'
+gem 'doorkeeper-i18n'
 gem 'draper'
 gem 'emailable'
 gem 'importmap-rails', '~> 1.0'

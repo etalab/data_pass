@@ -18,6 +18,9 @@ AllCops:
     - "sandbox/**/*"
     - "app/migration/**/*"
     - "tmp/**/*"
+    - "config/initializers/doorkeeper.rb"
+    - "db/migrate/*_create_doorkeeper_tables.rb"
+    - "db/migrate/*_add_owner_to_application.rb"
 
 FactoryBot/FactoryAssociationWithStrategy:
   Enabled: false
