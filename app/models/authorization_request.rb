@@ -68,6 +68,11 @@ class AuthorizationRequest < ApplicationRecord
     inverse_of: :request,
     dependent: :destroy
 
+  has_many :changelogs,
+    class_name: 'AuthorizationRequestChangelog',
+    inverse_of: :authorization_request,
+    dependent: :destroy
+
   has_many :messages,
     dependent: :destroy
 
