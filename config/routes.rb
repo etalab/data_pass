@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  use_doorkeeper scope: '/api/oauth' do
-    skip_controllers :applications, :authorized_applications
-  end
-
   root 'pages#home'
 
   get 'auth/:provider/callback', to: 'sessions#create'
@@ -86,8 +82,16 @@ Rails.application.routes.draw do
     end
   end
 
+  use_doorkeeper scope: '/api/oauth' do
+    skip_controllers :applications, :authorized_applications
+  end
+
   namespace :api do
     resources :frontal, only: :index
+
+    namespace :v1 do
+      get '/me', to: 'credentials#me'
+    end
   end
 
   mount GoodJob::Engine => '/workers'
