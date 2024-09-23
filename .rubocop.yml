@@ -23,6 +23,7 @@ AllCops:
     - "app/migration/**/*"
     - "tmp/**/*"
     - "sandbox/**/*"
+    - "config/initializers/doorkeeper.rb"
 
 FactoryBot/FactoryAssociationWithStrategy:
   Enabled: false

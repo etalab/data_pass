@@ -9,6 +9,8 @@ gem 'caxlsx'
 gem 'aws-sdk-s3', require: false
 gem 'bootsnap', require: false
 gem 'csv'
+gem 'doorkeeper'
+gem 'doorkeeper-i18n'
 gem 'draper'
 gem 'emailable'
 gem 'importmap-rails', '~> 1.0'

@@ -187,6 +187,10 @@ GEM
       reline (>= 0.3.8)
     diff-lcs (1.5.1)
     docile (1.4.0)
+    doorkeeper (5.7.1)
+      railties (>= 5)
+    doorkeeper-i18n (5.2.7)
+      doorkeeper (>= 5.2)
     draper (4.0.2)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
@@ -635,6 +639,8 @@ DEPENDENCIES
   cuprite
   database_cleaner-active_record
   debug
+  doorkeeper
+  doorkeeper-i18n
   draper
   emailable
   factory_bot_rails

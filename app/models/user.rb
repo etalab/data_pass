@@ -46,6 +46,23 @@ class User < ApplicationRecord
 
   add_instruction_boolean_settings :submit_notifications, :messages_notifications
 
+  has_many :oauth_applications,
+    class_name: 'Doorkeeper::Application',
+    as: :owner,
+    dependent: :restrict_with_exception
+
+  has_many :access_grants,
+    class_name: 'Doorkeeper::AccessGrant',
+    foreign_key: :resource_owner_id,
+    inverse_of: :resource_owner,
+    dependent: :delete_all
+
+  has_many :access_tokens,
+    class_name: 'Doorkeeper::AccessToken',
+    foreign_key: :resource_owner_id,
+    inverse_of: :resource_owner,
+    dependent: :delete_all
+
   def full_name
     if family_name.present? && given_name.present?
       "#{family_name} #{given_name}"
