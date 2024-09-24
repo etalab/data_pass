@@ -47,7 +47,7 @@ class AuthorizationRequestPolicy < ApplicationPolicy
 
   def cancel_reopening?
     same_user_and_organization? &&
-      record.can_cancel_reopening?
+      record.can_cancel_reopening? && !record.submitted?
   end
 
   def messages?
