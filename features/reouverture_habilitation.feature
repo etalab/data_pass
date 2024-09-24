@@ -78,10 +78,13 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Quand j'ai 1 demande d'habilitation "API Entreprise" réouverte
     Et que je vais sur la page tableau de bord
     Et que je clique sur le dernier "Consulter"
+    Alors il y a un bouton "Annuler la demande de réouverture"
     Et que je clique sur "Soumettre"
     Alors il y a un message de succès contenant "soumise avec succès"
     Et il y a un badge "Validée"
     Et il y a un badge "En cours"
+    Et que je clique sur le dernier "Consulter"
+    Alors il n'y a pas de bouton "Annuler la demande de réouverture"
 
   @DisableBullet
   @FlushJobQueue
