@@ -319,7 +319,8 @@ fr:
       save: Enregistrer les modifications
       start: Démarrer
       submit: Soumettre la demande d'habilitation
-      cancel_reopening: Annuler la demande de réouverture
+      submit_reopening: Envoyer ma demande de modification
+      cancel_reopening: Annuler ma demande de modification
       review: Continuer vers le résumé
       previous: Précédent
       next: Suivant
@@ -708,15 +709,14 @@ fr:
   cancel_authorization_reopenings:
     new:
       initial:
-        title: Annulation de la réouverture de l'habilitation
+        title: Annulation de vos modifications
         description:
           organization: |
-            Vous êtes sur le point d'annuler la réouverture de l'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_raison_sociale}' (numéro de siret: %{organization_siret}).
+            Vous êtes sur le point d'annuler vos modifications, l'ensemble des changements que vous avez pu effectuer seront perdus. Votre habilitation quant à elle sera toujours valide.
           disclaimer: |
             <strong>Cette action est irréversible</strong>.
         cancel: Annuler
-        cancel_reopening: Annuler la réouverture de cette demande
-
+        cancel_reopening: Annuler ma demande de modification
     create:
       success:
         title: La réouverture de l'habilitation %{name} a été annulée.
