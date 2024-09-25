@@ -1,11 +1,13 @@
-
 <h2 class="fr-mt-16v">
   <%= t('.title', authorization_name: @authorization_definition.name) %>
 </h2>
 
 <div class="fr-mb-4w">
   <div class="border-frame-text fr-my-3w">
-    <%= t('authorization_request_forms.new.api.organization.start_text', organization_raison_sociale: current_organization.raison_sociale, organization_siret: current_organization.siret).html_safe %>
+    <%= simple_format t("authorization_request_forms.new.#{@authorization_definition.kind}.organization.start_text",
+      organization_raison_sociale: current_organization.raison_sociale,
+      organization_siret: current_organization.siret).html_safe,
+      {}, wrapper_tag: 'div' %>
   </div>
 
   <p>
