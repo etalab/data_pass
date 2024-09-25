@@ -336,7 +336,8 @@ paths:
     post:
       summary: Créer une nouvelle demande d'habilitation
       tags:
-        - Demandes d'habilitations
+        - Non implémenté
+      deprecated: true
       security:
         - OAuth2: [write_authorization_requests]
       requestBody:
@@ -384,7 +385,8 @@ paths:
     patch:
       summary: Mettre à jour une demande d'habilitation
       tags:
-        - Demandes d'habilitations
+        - Non implémenté
+      deprecated: true
       security:
         - OAuth2: [write_authorization_requests]
       parameters:
