@@ -1,0 +1,39 @@
+
+<div class="simple-page-action-wrapper fr-pt-5w">
+  <div class="fr-grid-row fr-grid-row--center">
+    <div class="fr-col-md-offset-1 fr-col-md-10">
+      <turbo-frame id="main-modal-content">
+        <%= form_with(model: @authorization_request_reopening_cancellation, url: authorization_request_cancel_reopening_index_path(@authorization_request), data: { turbo_frame: 'main-modal-content' }) do |f| %>
+          <div class="fr-modal__content">
+            <h1 class="fr-modal__title">
+              <%= t(".initial.title", authorization_request_name: @authorization_request.name) %>
+            </h1>
+
+            <p>
+              <%=
+                t(
+                  ".initial.description.organization",
+                  authorization_request_name: sanitize(@authorization_request.name),
+                  organization_raison_sociale: @authorization_request.organization.raison_sociale,
+                  organization_siret: @authorization_request.organization.siret,
+                )
+              %>
+            </p>
+
+            <p>
+              <%= t(".initial.description.disclaimer").html_safe %>
+            </p>
+
+          </div>
+
+          <div class="fr-modal__footer">
+            <div class="fr-btns-group fr-btns-group--right fr-btns-group--inline-reverse fr-btns-group--inline-lg fr-btns-group--icon-left">
+              <%= link_to t(".initial.cancel"), '#', class: %w(fr-btn fr-btn--secondary), aria: { controls: 'main-modal' } %>
+              <%= f.button t(".initial.cancel_reopening"), type: :submit, class: %w(fr-btn fr-btn--primary fr-icon-error-line fr-btn--icon-left) %>
+            </div>
+          </div>
+        <% end %>
+      </turbo-frame>
+    </div>
+  </div>
+</div>

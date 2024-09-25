@@ -2,7 +2,8 @@
 
 Fonctionnalité: Réouverture d'une habilitation validée
   Une habilitation validée peut être réouverte par un demandeur. Celle-ci peut
-  être resoumisse, revalidée ou refusée (ce qui annule les changements).
+  être ressoumise, revalidée ou refusée (ce qui annule les changements) et la 
+  réouverture peut être annulée
 
   Contexte:
     Sachant que je suis un demandeur
@@ -63,14 +64,28 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Et il y a un badge "Brouillon"
     Et il n'y a pas de bouton "Enregistrer"
 
+  Scénario: Annulation d'une demande de réouverture
+    Quand j'ai 1 demande d'habilitation "API Entreprise" réouverte
+    Et que je vais sur la page tableau de bord
+    Et que je clique sur le dernier "Consulter"
+    Alors il y a un bouton "Annuler ma demande de modification"
+    Et que je clique sur "Annuler ma demande de modification"
+    Alors il y a un titre contenant "Annulation de vos modifications"
+    Alors il y a un bouton "Annuler ma demande de modification"
+    Et que je clique sur "Annuler ma demande de modification"
+    Alors il y a un message de succès contenant "a été annulée"
+
   Scénario: Soumission d'une habilitation fraîchement réouverte
     Quand j'ai 1 demande d'habilitation "API Entreprise" réouverte
     Et que je vais sur la page tableau de bord
     Et que je clique sur le dernier "Consulter"
-    Et que je clique sur "Soumettre"
+    Alors il y a un bouton "Annuler ma demande de modification"
+    Et que je clique sur "Envoyer ma demande de modification"
     Alors il y a un message de succès contenant "soumise avec succès"
     Et il y a un badge "Validée"
     Et il y a un badge "En cours"
+    Et que je clique sur le dernier "Consulter"
+    Alors il n'y a pas de bouton "Annuler ma demande de modification"
 
   @DisableBullet
   @FlushJobQueue

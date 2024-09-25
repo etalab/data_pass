@@ -1,4 +1,8 @@
 class CreateAuthorizationRequestReopeningCancellation < ApplicationInteractor
+  before do
+    context.authorization_request_reopening_cancellation_params ||= {}
+  end
+
   def call
     context.authorization_request_reopening_cancellation = context.authorization_request.reopening_cancellations.build(
       authorization_request_reopening_cancellation_params,

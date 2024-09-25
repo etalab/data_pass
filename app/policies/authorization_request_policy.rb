@@ -45,6 +45,11 @@ class AuthorizationRequestPolicy < ApplicationPolicy
       record.can_reopen?
   end
 
+  def cancel_reopening?
+    same_user_and_organization? &&
+      record.can_cancel_reopening? && !record.submitted?
+  end
+
   def messages?
     record.persisted? &&
       record.applicant == user
