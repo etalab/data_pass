@@ -1,7 +1,5 @@
 <h2 class="fr-mt-16v">
-  <%= t(".#{@authorization_definition.kind}.title",
-    authorization_name: @authorization_request_form.authorization_definition.name,
-    provider_name: @authorization_request_form.authorization_definition.provider_name) %>
+  <%= t(".title", authorization_name: @authorization_request_form.authorization_definition.name) %>
 </h2>
 
 <div class="fr-mb-4w">
@@ -11,14 +9,12 @@
         <%= simple_format t(".#{@authorization_definition.kind}.organization.start_text_with_form_name",
           organization_raison_sociale: current_organization.raison_sociale,
           organization_siret: current_organization.siret,
-          authorization_request_form_name: @authorization_request_form.name,
-          provider_name: @authorization_request_form.authorization_definition.provider_name),
+          authorization_request_form_name: @authorization_request_form.name),
           {}, wrapper_tag: 'div' %>
       <% else %>
         <%= simple_format t(".#{@authorization_definition.kind}.organization.start_text",
           organization_raison_sociale: current_organization.raison_sociale,
-          organization_siret: current_organization.siret,
-          provider_name: @authorization_request_form.authorization_definition.provider_name),
+          organization_siret: current_organization.siret),
           {}, wrapper_tag: 'div' %>
       <% end %>
     </div>
@@ -30,7 +26,7 @@
   <% if @authorization_request_form.introduction.present? %>
     <div class="fr-my-16v">
       <h5>
-        <%= t(".#{@authorization_definition.kind}.intro.title") %>
+        <%= t(".intro.title") %>
       </h5>
       <%= simple_format(@authorization_request_form.introduction) %>
     </div>
@@ -70,11 +66,11 @@
   <% else %>
     <div class="fr-my-16v">
       <h5>
-        <%= t(".#{@authorization_definition.kind}.single_form.title") %>
+        <%= t(".single_form.title") %>
       </h5>
 
       <p>
-        <%= simple_format t(".#{@authorization_definition.kind}.single_form.description", provider_name: @authorization_request_form.authorization_definition.provider_name) %>
+        <%= simple_format t(".single_form.description", provider_name: @authorization_request_form.authorization_definition.provider_name) %>
       </p>
     </div>
     <div class="fr-grid-row fr-my-16v">

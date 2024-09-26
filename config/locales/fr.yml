@@ -159,7 +159,7 @@ fr:
     unauthenticated_start:
       sub_title:
         service: |
-          Vous souhaitez abonner votre structure aux services du fournisseur <strong>%{provider_name}</strong>
+          Vous souhaitez accéder au service : <strong>%{authorization_definition_name}</strong>
           <br/>
           Votre demande d’habilitation va se dérouler en 4 étapes
         api: |
@@ -177,7 +177,7 @@ fr:
 
     new:
       default:
-        title: &start_new_habilitation_title Demander une habilitation pour %{authorization_name}
+        title: &start_new_habilitation_title "Demander une habilitation à : %{authorization_name}"
         multiple_forms:
           description: "Il existe plusieurs formulaires pour obtenir une habilitation à %{authorization_name}, sélectionnez celui qui correspond le mieux à votre cas d'usage :"
       step1:
@@ -233,38 +233,23 @@ fr:
   authorization_request_forms:
     new:
       back_to_dashboard: Retour à l’accueil
+      title: *start_new_habilitation_title
       api:
-        title: *start_new_habilitation_title
         organization:
           start_text: Vous êtes sur le point de démarrer une nouvelle demande d’habilitation pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_raison_sociale}</a>.
           start_text_with_form_name: Vous êtes sur le point de démarrer une nouvelle demande d’habilitation pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_raison_sociale}</a> via le formulaire <strong>%{authorization_request_form_name}</strong>.
-        intro:
-          title: L’objectif du formulaire
-        single_form:
-          title: "Les étapes de votre formulaire"
-          description: "Cliquez sur le bouton ci-dessous pour démarrer le formulaire. Celui-ci se complètera en une seule page. Vous pourrez le sauvegarder et le reprendre plus tard."
-
       service:
-        title: "Demander un abonnement aux démarches %{provider_name}: %{authorization_name}"
         organization:
           start_text: |
-            Vous êtes sur le point de démarrer une nouvelle demande d’abonnement pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_raison_sociale}</a> aux services du fournisseur <strong>%{provider_name}</strong>.
-        intro:
-          title: Les objectifs de votre demande d’abonnement
-        single_form:
-          title: "Les étapes de votre demande d’abonnement"
-          description: |
-            ● Étape 1: Complétez le formulaire d'une seule page.
-            ● Étape 2: Attendez que votre demande d'abonnement soit validée par l’équipe %{provider_name}.
-            ● Étape 3: Demandez à l’Administrateur local que vous aurez choisi d’achever la procédure d’abonnement à la démarche sur le Portail HubEE.
-            Cela peut être vous.
-            <br />
-            Cliquez sur le bouton ci-dessous pour compléter la demande d’abonnement pour votre commune.
-            Si vous manquez de temps ou avez des questions, vous pourrez sauvegarder votre demande et la reprendre ultérieurement.
-
+            Vous êtes sur le point de démarrer une nouvelle demande d’abonnement pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_raison_sociale}</a>.
+      intro:
+        title: Les objectifs de ce formulaire
+      single_form:
+        title: Les étapes de votre formulaire
+        description: "Cliquez sur le bouton ci-dessous pour démarrer le formulaire. Celui-ci se complètera en une seule page. Vous pourrez le sauvegarder et le reprendre plus tard."
       cta: Débuter ma demande
       multiple_steps:
-        title: "Les étapes de votre formulaire"
+        title: Les étapes de votre formulaire
         description: "Cette demande s’effectue en plusieurs étapes. Vous pouvez à tout moment sauvegarder votre demande et la reprendre plus tard. Les étapes sont les suivantes :"
 
     unicity_callout:
