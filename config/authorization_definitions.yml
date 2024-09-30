@@ -6,7 +6,6 @@ shared:
     cgu_link: "/cgus/20210212_dinum_hubee_cgu_v2_1_0_version_site.pdf"
     access_link: https://portail.hubee.numerique.gouv.fr
     kind: 'service'
-    provider_name: 'CertDC'
     provider: "hubee"
     public: true
     unique: true
@@ -20,7 +19,6 @@ shared:
     access_link: https://portail.hubee.numerique.gouv.fr
     provider: "hubee"
     kind: 'service'
-    provider_name: 'DILA'
     public: true
     unique: true
     blocks:
@@ -47,7 +45,6 @@ shared:
     name: "API Entreprise"
     description: "Entités administratives, simplifiez les démarches des entreprises et des associations en récupérant pour elles leurs informations administratives."
     provider: "dinum"
-    provider_name: 'DINUM'
     kind: 'api'
     link: "https://api.gouv.fr/les-api/api-entreprise"
     cgu_link: "https://entreprise.api.gouv.fr/cgu"
@@ -188,7 +185,6 @@ shared:
     description: "Entités administratives, simplifiez les démarches des particuliers en récupérant pour eux leurs informations administratives (quotient familial CAF, composition familiale, statut demandeur d’emploi, étudiant et étudiant boursier)."
     cgu_link: "https://particulier.api.gouv.fr/cgu"
     provider: "dinum"
-    provider_name: 'DINUM'
     link: "https://api.gouv.fr/les-api/api-particulier"
     access_link: https://particulier.api.gouv.fr/compte/jetons/%{external_provider_id}
     kind: 'api'
@@ -312,7 +308,6 @@ shared:
     kind: 'api'
     cgu_link: "https://presaje.sga.defense.gouv.fr/cgu-dln1f"
     provider: "ministere_des_armees"
-    provider_name: 'Ministère des Armées'
     blocks:
       - name: "basic_infos"
       - name: "personal_data"
@@ -327,7 +322,6 @@ shared:
     link: "https://api.gouv.fr/les-api/api-captchetat"
     cgu_link: "/cgus/cgu_api_captchetat_v_1_2.pdf"
     provider: "aife"
-    provider_name: "Agence pour l'Information Financière de l'Etat"
     blocks:
       - name: "basic_infos"
       - name: "legal"
