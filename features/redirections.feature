@@ -22,7 +22,7 @@ Fonctionnalité: Démarrage d'habilitation par des internautes
     Sachant que je suis un demandeur
     Quand je veux remplir une demande pour "API Entreprise" via le formulaire "Demande libre"
     Alors je clique sur "S’identifier avec MonComptePro"
-    Alors je suis sur la page "Demander une habilitation pour API Entreprise"
+    Alors je suis sur la page "Demander une habilitation à : API Entreprise"
     Et la page contient "Dupont Jean"
 
   Scénario:  Un internaute veut accéder à son habilitation API Service National - formulaire "Demande libre"
@@ -40,4 +40,4 @@ Fonctionnalité: Démarrage d'habilitation par des internautes
     Alors il y a un titre contenant "Bienvenue sur DataPass !"
     Alors la page contient le logo du fournisseur de données "API Entreprise"
     Alors je clique sur "S’identifier avec MonComptePro"
-    Et la page contient "Demander une habilitation pour API Entreprise"
+    Et la page contient "Demander une habilitation à : API Entreprise"
