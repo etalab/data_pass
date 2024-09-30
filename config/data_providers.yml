@@ -1,13 +1,13 @@
 ---
 shared:
-  hubee:
-    name: HubEE
-    logo: hubee.png
-    link: https://hubee.numerique.gouv.fr/
   dgs:
     name: Organisation de la direction générale de la santé (DGS)
     logo: ministere_sante.jpg
     link: https://www.sante.gouv.fr/
+  dila:
+    name: Direction de l'information légale et administrative (DILA)
+    logo: dila_premier_ministre.jpg
+    link: https://www.dila.premier-ministre.gouv.fr/
   dinum:
     name: DINUM
     logo: dinum.png
