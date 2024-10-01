@@ -128,7 +128,8 @@ fr:
         current_user_mentions: "%{definition_name} - Vous avez été référencé comme %{contact_types}"
         current_user_is_applicant: "%{definition_name} - Vous êtes le demandeur"
         applicant_request: "%{definition_name} - %{applicant_full_name} est le demandeur"
-        created_at: Créée le
+        created_at: Créée le %{created_date}
+        created_and_udpated_at: Créée le %{created_date} et mise à jour le %{updated_date}
         show_cta: Consulter
         access_link_cta: Récupérer mon accès
         reopen_cta: Mettre à jour

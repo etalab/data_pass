@@ -18,7 +18,11 @@
 
         <div class="card__desc">
           <p>
-            <%= t('.created_at') %> <%= l(authorization_request.created_at, format: '%d/%m/%Y') %>
+            <% if authorization_request.reopening_validated? %>
+              <%= t('.created_and_udpated_at', created_date: l(authorization_request.created_at, format: '%d/%m/%Y'), updated_date: l(authorization_request.latest_authorization.created_at, format: '%d/%m/%Y')) %>
+            <% else %>
+              <%= t('.created_at', created_date: l(authorization_request.created_at, format: '%d/%m/%Y')) %>
+            <% end %>
           </p>
         </div>
       </div>
