@@ -221,6 +221,7 @@ fr:
     shared:
       title:
         update: Demande de mise à jour des informations
+        service_name: "Via %{name}"
       subtitle:
         editor_name: "Via l'éditeur %{name}"
       blocks:

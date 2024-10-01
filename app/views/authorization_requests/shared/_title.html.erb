@@ -17,4 +17,9 @@
   <h1 class="authorization-request-form-header__name">
     <%= @authorization_request.definition.name  %>
   </h1>
+  <% if @authorization_request.form.service_name.present? %>
+    <h2 class="authorization-request-form-header__service-name">
+      <%= t('.service_name', name: @authorization_request.form.service_name) %>
+    </h2>
+  <% end %>
 <% end %>
