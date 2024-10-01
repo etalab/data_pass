@@ -1,7 +1,8 @@
 RSpec.describe AuthorizationRequestChangelogPresenter do
-  let(:instance) { described_class.new(changelog) }
+  let(:instance) { described_class.new(changelog, from_admin:) }
   let(:changelog) { AuthorizationRequestChangelog.create!(diff:, authorization_request:) }
   let(:authorization_request) { create(:authorization_request) }
+  let(:from_admin) { false }
 
   let(:initial_no_prefilled_data_diff) do
     {
@@ -96,6 +97,23 @@ RSpec.describe AuthorizationRequestChangelogPresenter do
 
   describe '#consolidated_changelog_entries' do
     subject(:changelog_entries) { instance.consolidated_changelog_entries }
+
+    context 'when is from admin' do
+      let(:diff) do
+        {
+          'attr1' => %w[old_value1 new_value1],
+          'attr2' => %w[value2 value2],
+          'attr3' => [nil, 'value3'],
+        }
+      end
+      let(:from_admin) { true }
+
+      it 'displays only keys with changed data' do
+        expect(changelog_entries.count).to eq(2)
+        expect(changelog_entries[0]).to match(/Attr1.*a changé.*old_value1.*new_value1/)
+        expect(changelog_entries[1]).to match(/Attr3.*initialisé.*value3/)
+      end
+    end
 
     context 'when it is the first changelog' do
       context 'when all first values are nil (no prefilled data)' do
