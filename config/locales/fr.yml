@@ -223,6 +223,7 @@ fr:
       title:
         update: Demande de mise à jour des informations
       subtitle:
+        service_name: "Via %{name}"
         editor_name: "Via l'éditeur %{name}"
       blocks:
         scopes:

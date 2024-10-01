@@ -1,5 +1,8 @@
 ---
 shared:
+  hubee:
+    name: HubEE
+
   mgdis:
     name: MGDIS
     siret: "32816124500027"
