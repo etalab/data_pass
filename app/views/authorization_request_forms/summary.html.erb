@@ -97,7 +97,7 @@
               <%= dsfr_main_modal_button(t('authorization_request_forms.form.cancel_reopening'), new_authorization_request_cancel_reopening_path(@authorization_request), class: %w(fr-btn fr-btn--secondary fr-icon-arrow-left-s-line-double fr-btn--icon-left)) %>
             </li>
             <li class="fr-ml-auto">
-              <%= f.button t('authorization_request_forms.form.submit_reopening'), type: :submit, name: :submit, id: :submit_authorization_request, class: %w(fr-btn fr-icon-checkbox-line fr-btn--icon-left) %>
+              <%= f.button t('authorization_request_forms.form.submit_reopening'), disabled: !policy(@authorization_request).submit_reopening?, type: :submit, name: :submit, id: :submit_authorization_request, class: %w(fr-btn fr-icon-checkbox-line fr-btn--icon-left) %>
             </li>
           </ul>
         </div>

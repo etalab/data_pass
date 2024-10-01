@@ -320,4 +320,22 @@ RSpec.describe AuthorizationRequest do
       it { is_expected.not_to be_valid(:submit) }
     end
   end
+
+  describe '#changed_since_authorization?' do
+    subject { authorization_request.changed_since_authorization? }
+
+    let(:authorization_request) { create(:authorization_request, :api_entreprise, :validated) }
+
+    context 'when data has not changed' do
+      it { is_expected.to be false }
+    end
+
+    context 'when data has changed' do
+      before do
+        authorization_request.data['intitule'] = 'Meilleur titre'
+      end
+
+      it { is_expected.to be true }
+    end
+  end
 end
