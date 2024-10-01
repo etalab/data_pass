@@ -73,7 +73,9 @@ class AuthorizationRequestDecorator < ApplicationDecorator
   end
 
   def reopening_validated?
-    object.authorizations.count > 1
+    object.authorizations_count > 1
+  rescue NoMethodError
+    false
   end
 
   private
