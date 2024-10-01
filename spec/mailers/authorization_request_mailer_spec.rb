@@ -17,6 +17,24 @@ RSpec.describe AuthorizationRequestMailer do
     it 'renders valid template' do
       expect(mail.body.encoded).to match('a été validée')
     end
+
+    describe 'custom emails' do
+      describe 'HubEE CertDC' do
+        let(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :validated) }
+
+        it 'renders valid custom template' do
+          expect(mail.body.encoded).to match('Portail HubEE')
+        end
+      end
+
+      describe 'HubEE DILA' do
+        let(:authorization_request) { create(:authorization_request, :hubee_dila, :validated) }
+
+        it 'renders valid custom template' do
+          expect(mail.body.encoded).to match('Portail HubEE')
+        end
+      end
+    end
   end
 
   describe '#refuse' do
