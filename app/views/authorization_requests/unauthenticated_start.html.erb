@@ -9,7 +9,8 @@
         </h1>
 
         <p>
-          <%= t(".sub_title.#{@authorization_definition.kind}", authorization_definition_name: @authorization_definition.name).html_safe %>
+          <%= t(".sub_title.#{@authorization_definition.kind}",
+            authorization_definition_name: @authorization_definition.name).html_safe %>
         </p>
 
         <%= render partial: 'authorization_requests/shared/unauthenticated_pages/timeline_steps' %>
