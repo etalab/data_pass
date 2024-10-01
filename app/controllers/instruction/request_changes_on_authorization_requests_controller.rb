@@ -3,6 +3,8 @@ class Instruction::RequestChangesOnAuthorizationRequestsController < Instruction
 
   def new
     @instructor_modification_request = @authorization_request.modification_requests.build
+
+    AffectDefaultReasonToInstructionModificationRequest.call(instructor_modification_request: @instructor_modification_request)
   end
 
   def create
