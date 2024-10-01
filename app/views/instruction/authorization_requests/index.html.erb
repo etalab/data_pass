@@ -1,6 +1,6 @@
 <p class="fr-h2 fr-mt-5w"><%= t('.table.caption') %></p>
 
-<%= search_form_for(@search_engine, url: instruction_authorization_requests_path, html: { method: :get, data: { turbo: false }, class: %w[search-box] }) do |f| %>
+<%= search_form_for(@search_engine, url: instruction_authorization_requests_path, html: { method: :get, data: { controller: 'auto-submit-form', 'auto-submit-form-debounce-interval-value' => 300, 'auto-submit-form-event-mode-value' => 'input' }, class: %w[search-box] }) do |f| %>
   <div class="search-inputs">
     <div class="fr-input-group main-input input">
       <%= f.label :within_data_or_organization_siret_or_applicant_email_or_applicant_family_name_cont, t('.search.main_input.label'), class: %w[fr-label] %>
@@ -28,34 +28,35 @@
   </div>
 <% end %>
 
-<div class="fr-table fr-table--bordered">
-  <table>
-    <thead>
-      <tr>
-        <%
-          %w[
-            id
-            state
-            last_submitted_at
-            organization
-            project_name
-            authorization_request_kind
-            applicant_email
-            actions
-          ].each do |attr|
-        %>
-          <th scope="col">
-            <% if %w[id state last_submitted_at].include?(attr) %>
-              <%= sort_link(@search_engine, attr) do %>
+<turbo-frame id="authorization_requests_table">
+  <div class="fr-table fr-table--bordered">
+    <table>
+      <thead>
+        <tr>
+          <%
+            %w[
+              id
+              state
+              last_submitted_at
+              organization
+              project_name
+              authorization_request_kind
+              applicant_email
+              actions
+            ].each do |attr|
+          %>
+            <th scope="col">
+              <% if %w[id state last_submitted_at].include?(attr) %>
+                <%= sort_link(@search_engine, attr) do %>
+                  <%= t(".table.header.#{attr}") %>
+                <% end %>
+              <% else %>
                 <%= t(".table.header.#{attr}") %>
               <% end %>
-            <% else %>
-              <%= t(".table.header.#{attr}") %>
-            <% end %>
-          </th>
-        <% end %>
-      </tr>
-    </thead>
+            </th>
+          <% end %>
+        </tr>
+      </thead>
 
     <tbody>
       <% @authorization_requests.each do |authorization_request| %>
@@ -95,3 +96,4 @@
 </div>
 
 <%= paginate @authorization_requests %>
+</turbo-frame>
