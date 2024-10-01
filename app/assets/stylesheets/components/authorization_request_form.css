@@ -20,6 +20,12 @@
   font-weight: 100;
 }
 
+.authorization-request-form-header__service-name {
+  font-size: 1.2rem;
+  line-height: 1.7rem;
+}
+
+
 .authorization-request-form-header__badges {
   margin-bottom: 0;
 }
