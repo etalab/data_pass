@@ -10,7 +10,6 @@
       <strong>
         Lien relatif au traitement :
       </strong>
-
       <%= link_to @authorization_request.cadre_juridique_url, @authorization_request.cadre_juridique_url, target: '_blank' %>
     </p>
   <% end %>
@@ -20,8 +19,8 @@
       <strong>
         Document relatif au traitement :
       </strong>
-
-      <%= link_to @authorization_request.cadre_juridique_document.filename, url_for(@authorization_request.cadre_juridique_document), target: '_blank' %>
+      <br />
+      <%= link_to @authorization_request.cadre_juridique_document.filename, url_for(@authorization_request.cadre_juridique_document), target: '_blank', class: %w[fr-link--icon-left fr-icon-file-pdf-fill] %>
     </p>
   <% end %>
 <% end %>
