@@ -13,11 +13,10 @@
       <p class="fr-tile__detail">
         <%= authorization_request_form.description %>
       </p>
-      <% if authorization_request_form.editor %>
+      <% if authorization_request_form.service_provider %>
         <div class="fr-tile__start">
           <p class="fr-badge fr-badge--sm">
-            Via l'éditeur
-            <%= authorization_request_form.editor.name %>
+            <%= t("authorization_requests.shared.service_provider.through_#{authorization_request_form.service_provider.type}", service_provider_name: authorization_request_form.service_provider.name) %>
           </p>
         </div>
       <% end %>

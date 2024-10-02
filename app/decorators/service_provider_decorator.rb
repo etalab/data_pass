@@ -1,4 +1,4 @@
-class EditorDecorator < ApplicationDecorator
+class ServiceProviderDecorator < ApplicationDecorator
   delegate_all
 
   def scroll_target

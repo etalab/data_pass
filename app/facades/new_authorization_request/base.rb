@@ -16,7 +16,7 @@ class NewAuthorizationRequest::Base
   end
 
   def decorated_editors
-    @decorated_editors ||= EditorDecorator.decorate_collection(sorted_editors)
+    @decorated_editors ||= ServiceProviderDecorator.decorate_collection(sorted_editors)
   end
 
   def decorated_editors_ids

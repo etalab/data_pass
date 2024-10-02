@@ -5,7 +5,7 @@ hubee-cert-dc:
     Depuis le 1er juin 2022, ces professionnels sont dans l’obligation d’utiliser cette application pour les décès survenus dans les établissements de santé et les établissements médico-sociaux.
     Pour toute question concernant le fonctionnement de ces démarches, vous pouvez contacter le support dédié à l’adresse e-mail suivante: <a href="mailto:dgs-certdc@sante.gouv.fr">dgs-certdc@sante.gouv.fr</a>.
   authorization_request: "HubEECertDC"
-  editor_id: hubee
+  service_provider_id: hubee
 
 hubee-dila:
   introduction: |
@@ -17,7 +17,7 @@ hubee-dila:
     ● DHTOUR - Déclaration d’hébergement touristique
     ● JCC - Déclaration de Changement de Coordonnées
   authorization_request: "HubEEDila"
-  editor_id: hubee
+  service_provider_id: hubee
   scopes:
     - etat_civil
     - depot_dossier_pacs

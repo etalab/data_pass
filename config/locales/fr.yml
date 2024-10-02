@@ -222,9 +222,9 @@ fr:
     shared:
       title:
         update: Demande de mise à jour des informations
-      subtitle:
-        service_name: "Via %{name}"
-        editor_name: "Via l'éditeur %{name}"
+      service_provider:
+        through_editor: "Via l'éditeur %{service_provider_name}"
+        through_saas: "Via %{service_provider_name}"
       blocks:
         scopes:
           legacy_scopes: "Les données suivantes ont été précédemment sélectionnées mais ne sont plus disponibles ou n'apparaissent pas dans le formulaire sélectionné :"

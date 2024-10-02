@@ -119,14 +119,14 @@ Pour la configuration d'un [formulaire (2.)](../config/authorization_request_for
     use_case: 'marches_publics'
     # Optionnel. Identifiant associé à un fournisseur de données (défini en 1.1
     # ci-dessous)
-    editor_id: mon-fournisseur
+    service_provider_id: mon-fournisseur
     # Optionnel. Permet d'avoir un texte d'introduction avant de commencer le
     # formulaire. Celui-ci s'affiche après le choix du formulaire et avant la
     # première étape. La page où se situe cette introduction est
     # systématiquement affichée, si l'introduction du formulaire est vide la
     # section est vide.
-    # Il est possible d'utiliser les variables `editor_name` et `form_name`, de
-    # la manière suivante: "L'éditeur %{editor_name}"
+    # Il est possible d'utiliser les variables `service_provider_name` et `form_name`, de
+    # la manière suivante: "L'éditeur %{service_provider_name}"
     introduction: |
       Je suis une introduction permettant d'introduire le formulaire dans ses
       détails.

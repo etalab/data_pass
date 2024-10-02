@@ -29,7 +29,7 @@ RSpec.describe AuthorizationDefinition do
       expect(editors.count).to be > 0
 
       expect(editors).to be_all do |editor|
-        editor.is_a?(Editor)
+        editor.is_a?(ServiceProvider) && editor.editor?
       end
     end
 
