@@ -19,7 +19,7 @@ class Organization < ApplicationRecord
     inverse_of: :organization
 
   def raison_sociale
-    mon_compte_pro_payload['label'] || denomination
+    denomination
   end
 
   def code_commune
