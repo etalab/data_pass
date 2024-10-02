@@ -74,4 +74,32 @@ RSpec.describe AuthorizationRequestPolicy do
       end
     end
   end
+
+  describe '#submit_reopening?' do
+    subject { instance.submit_reopening? }
+
+    let(:authorization_request) { create(:authorization_request, :api_entreprise, :validated, applicant: user) }
+    let(:authorization_request_class) { authorization_request }
+
+    context 'when the user is from another organization' do
+      let(:another_user) { create(:user) }
+      let(:user_context) { UserContext.new(another_user) }
+
+      it { is_expected.to be false }
+    end
+
+    context 'when the user is from the same organization' do
+      context 'when data has not changed' do
+        it { is_expected.to be false }
+      end
+
+      context 'when data has changed' do
+        before do
+          authorization_request.data['intitule'] = 'Meilleur titre'
+        end
+
+        it { is_expected.to be true }
+      end
+    end
+  end
 end
