@@ -10,6 +10,18 @@ class JeCliqueOuPasAPIClient
     }
   end
 
+  def result(uuid)
+    response = Faraday.new.get(results_url(uuid), nil, headers)
+
+    parsed_response = JSON.parse(response.body)
+
+    {
+      is_malware: parsed_response['is_malware'],
+      analyzed_at: parsed_response['timestamp'],
+      error: parsed_response['error']
+    }
+  end
+
   private
 
   def headers
@@ -18,6 +30,10 @@ class JeCliqueOuPasAPIClient
 
   def analyze_url
     "#{host}/submit"
+  end
+
+  def results_url(uuid)
+    "#{host}/results/#{uuid}"
   end
 
   def host
