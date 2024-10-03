@@ -8,9 +8,18 @@ RSpec.describe RevokeAuthorizationRequest, type: :organizer do
       let(:revocation_of_authorization_params) { attributes_for(:revocation_of_authorization) }
 
       context 'with authorization request in validated state' do
-        let!(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :validated) }
+        let!(:authorization_request) { create(:authorization_request, authorization_request_kind, :validated) }
+        let(:authorization_request_kind) { :hubee_cert_dc }
 
         it { is_expected.to be_success }
+
+        include_examples 'creates an event', event_name: :revoke, entity_type: :revocation_of_authorization
+
+        context 'with webhooks' do
+          let(:authorization_request_kind) { :api_entreprise }
+
+          include_examples 'delivers a webhook', event_name: :revoke
+        end
 
         it 'creates a revocation of authorization' do
           expect { revoke_authorization_request }.to change(RevocationOfAuthorization, :count).by(1)
