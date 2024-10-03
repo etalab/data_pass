@@ -17,7 +17,7 @@
 
     <div class="card__desc">
       <p class="fr-text--sm">
-        <%= t('dashboard.card.authorization_request_card.created_at') %> <%= l(authorization_request.created_at, format: '%d/%m/%Y') %>
+        <%= t('dashboard.card.authorization_request_card.created_at', created_date: l(authorization_request.created_at, format: '%d/%m/%Y')) %>
       </p>
     </div>
 

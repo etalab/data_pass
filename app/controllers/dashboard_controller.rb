@@ -8,9 +8,9 @@ class DashboardController < AuthenticatedUserController
   def show
     case params[:id]
     when 'moi'
-      @authorization_requests = policy_scope(AuthorizationRequest).where(applicant: current_user)
+      @authorization_requests = policy_scope(base_relation).where(applicant: current_user)
     when 'organisation'
-      @authorization_requests = policy_scope(AuthorizationRequest)
+      @authorization_requests = policy_scope(base_relation)
     when 'mentions'
       @authorization_requests = AuthorizationRequestsMentionsQuery.new(current_user).perform(authorization_requests_relation)
     else
@@ -25,10 +25,17 @@ class DashboardController < AuthenticatedUserController
 
   def authorization_requests_relation
     if registered_subdomain?
-      AuthorizationRequest.where(type: registered_subdomain.authorization_request_types)
+      base_relation.where(type: registered_subdomain.authorization_request_types)
     else
-      AuthorizationRequest.all
+      base_relation.all
     end
+  end
+
+  def base_relation
+    AuthorizationRequest
+      .joins('left join authorizations on authorizations.request_id = authorization_requests.id')
+      .select('authorization_requests.*, count(authorizations.id) as authorizations_count')
+      .group('authorization_requests.id')
   end
 
   def layout_name

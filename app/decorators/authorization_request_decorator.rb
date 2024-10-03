@@ -72,6 +72,12 @@ class AuthorizationRequestDecorator < ApplicationDecorator
     end
   end
 
+  def reopening_validated?
+    object.authorizations_count > 1
+  rescue NoMethodError
+    false
+  end
+
   private
 
   def lookup_i18n_key(subkey)
