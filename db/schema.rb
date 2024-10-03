@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_02_161642) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_03_093735) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pgcrypto"
@@ -237,6 +237,17 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_02_161642) do
     t.index ["authorization_request_id"], name: "idx_on_authorization_request_id_a222f7b7d6"
   end
 
+  create_table "malware_scans", force: :cascade do |t|
+    t.datetime "analyzed_at", precision: nil
+    t.uuid "uuid", null: false
+    t.integer "safety_state", default: 0, null: false
+    t.bigint "attachment_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["attachment_id"], name: "index_malware_scans_on_attachment_id"
+    t.index ["uuid"], name: "index_malware_scans_on_uuid", unique: true
+  end
+
   create_table "messages", force: :cascade do |t|
     t.bigint "from_id", null: false
     t.bigint "authorization_request_id", null: false
@@ -317,6 +328,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_02_161642) do
   add_foreign_key "authorizations", "users", column: "applicant_id"
   add_foreign_key "denial_of_authorizations", "authorization_requests"
   add_foreign_key "instructor_modification_requests", "authorization_requests"
+  add_foreign_key "malware_scans", "active_storage_attachments", column: "attachment_id"
   add_foreign_key "messages", "authorization_requests"
   add_foreign_key "messages", "users", column: "from_id"
   add_foreign_key "revocation_of_authorizations", "authorization_requests"
