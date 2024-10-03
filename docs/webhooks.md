@@ -195,8 +195,10 @@ Si au bout de 5 essais le serveur distant n'a toujours pas répondu positivement
 un email d'erreur est envoyé aux instructeurs du type d'habilitation avec
 l'erreur exacte du serveur distant.
 
-Niveau sécurité, afin de garantir que la payload envoyée est bien émise par
-DataPass, 2 headers sont ajoutés à la requête :
+#### Sécurité
+
+Afin de garantir que la payload envoyée est bien émise par
+DataPass, 1 headers est ajouté à la requête :
 
 - `X-Hub-Signature-256`, `string` : [HMAC en SHA256 ( Hash-based Message Authentication Code
   )](https://fr.wikipedia.org/wiki/HMAC) ayant pour clé la valeur de jeton de
@@ -224,6 +226,8 @@ compute_hub_signature = 'sha256=' + OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new(
 # La valeur ci-dessous est true si la signature est valide
 Rack::Utils.secure_compare(hub_signature, compute_hub_signature)
 ```
+
+#### Sauvegarde d'un id associé à la demande sur DataPass
 
 Lors de l'événement `validate`, si votre système répond avec un ID de jeton
 celui-ci sera affecté à l’habilitation.
