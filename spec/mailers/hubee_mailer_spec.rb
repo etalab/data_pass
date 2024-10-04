@@ -11,7 +11,7 @@ RSpec.describe HubEEMailer, type: :mailer do
     end
 
     it 'renders the body' do
-      expect(mail.body.encoded).to match('FEEDME')
+      expect(mail.body.encoded).to match('HubEE')
     end
   end
 
@@ -25,7 +25,7 @@ RSpec.describe HubEEMailer, type: :mailer do
     end
 
     it 'renders the body' do
-      expect(mail.body.encoded).to match('FEEDME')
+      expect(mail.body.encoded).to match('HubEE')
     end
   end
 end
