@@ -83,3 +83,19 @@ Fonctionnalité: Interactions sur une demande d'habilitation simple (sur une seu
     Et que je clique sur "C'est moi"
     Alors un champ contient "Dupont"
 
+  @javascript
+  Scénario: Je démarre une demande avec un contact à remplir nécessitant un email nominatif
+    Quand je démarre une nouvelle demande d'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
+    Et que je remplis les informations du contact "Administrateur métier" avec :
+      | Email          |
+      | mairie@gouv.fr |
+    Alors il y a une erreur "doit être un email nominatif" sur le champ "Email"
+
+  @javascript
+  Scénario: Je démarre une demande avec un contact à remplir ne nécessitant pas un email nominatif
+    Quand je veux remplir une demande pour "API Entreprise" via le formulaire "Conformité titulaires de marchés" de l'éditeur "e-Attestations"
+    Et que je clique sur "Débuter ma demande"
+    Et que je remplis les informations du contact "Responsable de traitement" avec :
+      | Email          |
+      | mairie@gouv.fr |
+    Alors la page ne contient pas "doit être un email nominatif"

@@ -156,6 +156,11 @@ Alors('il y a au moins une erreur sur un champ') do
   expect(page).to have_css('.fr-input-group.fr-input-group--error')
 end
 
+Alors('il y a une erreur {string} sur le champ {string}') do |error, field|
+  node = find_field(field).find(:xpath, '..')
+  expect(node).to have_css('.fr-error-text', text: error)
+end
+
 Alors('debug') do
   if javascript?
     page.driver.debug(binding)

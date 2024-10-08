@@ -17,6 +17,4 @@ class Contact
       @authorization_request.data["#{@type}_#{attribute}"]
     end
   end
-
-  def read_attribute_for_serialization(attribute) = public_send(attribute)
 end
