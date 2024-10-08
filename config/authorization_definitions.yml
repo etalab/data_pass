@@ -230,10 +230,10 @@ shared:
       - name: "Statut élève scolarisé et identité"
         value: "men_statut_scolarite"
         group: "API Statut élève scolarisé et boursier"
-      - name: "Statut boursier"
+      - name: "Statut boursier (disponible en 2025)"
         value: "men_statut_boursier"
         group: "API Statut élève scolarisé et boursier"
-      - name: "Échelon de la bourse"
+      - name: "Échelon de la bourse (disponible en 2025)"
         value: "men_echelon_bourse"
         group: "API Statut élève scolarisé et boursier"
 
