@@ -75,11 +75,24 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Et que je clique sur "Annuler ma demande de modification"
     Alors il y a un message de succès contenant "a été annulée"
 
-  Scénario: Soumission d'une habilitation fraîchement réouverte
+  Scénario: Soumission impossible d'une habilitation fraîchement réouverte
     Quand j'ai 1 demande d'habilitation "API Entreprise" réouverte
     Et que je vais sur la page tableau de bord
     Et que je clique sur le dernier "Consulter"
     Alors il y a un bouton "Annuler ma demande de modification"
+    Et il n'y a pas de bouton "Envoyer ma demande de modification"
+
+  Scénario: Soumission d'une habilitation réouverte avec des modifications
+    Quand j'ai 1 demande d'habilitation "API Entreprise" réouverte
+    Et que je vais sur la page tableau de bord
+    Et que je clique sur le dernier "Consulter"
+    Alors il y a un bouton "Annuler ma demande de modification"
+    Et il n'y a pas de bouton "Envoyer ma demande de modification"
+    Quand je clique sur "Modifier" dans le bloc de résumé "Les personnes impliquées"
+    Et que je remplis les informations du contact "Responsable de traitement" avec :
+      | Nom     | Prénom | Email                 | Téléphone  | Fonction                  |
+      |Jean     | Louis  | nouveau.louis@gouv.fr | 0836656560 | Directeur associé d'exploitation  |
+    Et que je clique sur "Enregistrer les modifications"
     Et que je clique sur "Envoyer ma demande de modification"
     Alors il y a un message de succès contenant "soumise avec succès"
     Et il y a un badge "Validée"

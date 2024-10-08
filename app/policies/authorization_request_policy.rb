@@ -50,6 +50,11 @@ class AuthorizationRequestPolicy < ApplicationPolicy
       record.can_cancel_reopening? && !record.submitted?
   end
 
+  def submit_reopening?
+    same_user_and_organization? &&
+      changed_since_latest_approval?
+  end
+
   def messages?
     record.persisted? &&
       record.applicant == user
@@ -76,6 +81,10 @@ class AuthorizationRequestPolicy < ApplicationPolicy
   end
 
   private
+
+  def changed_since_latest_approval?
+    record.data != record.latest_authorization&.data
+  end
 
   def same_current_organization?
     current_organization.present? &&
