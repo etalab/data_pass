@@ -3,15 +3,15 @@
     <%= render partial: 'pages/shared/unauthenticated_pages/welcome_logo' %>
 
     <div class="fr-col-sm-12 fr-col-md-7 fr-my-5w">
+      <h1>
+        <%= t('.title') %>
+      </h1>
+
+      <p>
+        <%= t('.sub_title') %>
+      </p>
+
       <div class="fr-connect-group">
-        <h1>
-          <%= t('.title') %>
-        </h1>
-
-        <p>
-          <%= t('.sub_title') %>
-        </p>
-
         <%= render partial: 'pages/shared/unauthenticated_pages/pro_connect' %>
         <%= render partial: 'pages/shared/unauthenticated_pages/api_gouv' %>
       </div>
