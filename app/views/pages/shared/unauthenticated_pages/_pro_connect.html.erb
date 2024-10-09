@@ -1,0 +1,23 @@
+<div class="fr-mt-5w fr-mb-3w">
+  <div class="homepage-subtitle">
+    <div class="fr-h6">
+      <%= t('pages.home.pro_connect_connexion') %>
+    </div>
+  </div>
+  <%= form_with(url: '/auth/mon_compte_pro', method: :post, data: { turbo: false }) do |f| %>
+    <%= f.button class: %w(fr-connect fr-btn--sm fr-m-auto), id: 'login_pro_connect' do %>
+      <span class="fr-connect__login">
+        <%= t('pages.home.pro_connect_login') %>
+      </span>
+      <span class="fr-connect__brand">
+        <%= t('pages.home.pro_connect_brand') %>
+      </span>
+    <% end %>
+
+    <p>
+      <a href="https://www.proconnect.gouv.fr/" target="_blank" rel="noopener" title="Qu’est-ce que ProConnect ? - Nouvelle fenêtre">
+        <%= t('pages.home.pro_connect_subtitle') %>
+      </a>
+    </p>
+  <% end %>
+</div>

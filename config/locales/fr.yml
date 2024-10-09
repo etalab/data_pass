@@ -104,10 +104,10 @@ fr:
       sub_title:
         DataPass, c’est le service qui vous permet de profiter facilement d’habilitations conformes entre
         administrations et d’accéder à des données et services en accès restreint.
-      mon_compte_pro_connexion: Pour suivre vos demandes d’habilitations
-      mon_compte_pro_login: S’identifier avec
-      mon_compte_pro_brand: MonComptePro
-      mon_compte_pro_subtitle: Qu’est-ce que MonComptePro ?
+      pro_connect_connexion: Pour suivre vos demandes d’habilitations
+      pro_connect_login: S’identifier avec
+      pro_connect_brand: ProConnect
+      pro_connect_subtitle: Qu’est-ce que ProConnect ?
       api_gouv_title: Pour découvrir les APIs du service public
       api_gouv: api.gouv.fr
 
