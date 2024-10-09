@@ -168,7 +168,7 @@ fr:
           <br/>
           Votre demande d’habilitation va se dérouler en 4 étapes
       timeline_steps:
-        step_1: S’identifier avec MonComptePro
+        step_1: S’identifier avec ProConnect
         step_2: Remplir ma demande
         step_3: Être habilité
         step_4:
@@ -409,7 +409,7 @@ fr:
           different_user: |
             Vous ne pouvez pas transférer cette demande à la même personne
           invalid_new_applicant: |
-            Le destinataire n'appartient pas à la même organisation " %{organization_name} " (numero de siret %{organization_siret}) que la demande d'habilitation. Celui-ci doit d'abord se connecter via MonComptePro avec cette organisation.
+            Le destinataire n'appartient pas à la même organisation " %{organization_name} " (numero de siret %{organization_siret}) que la demande d'habilitation. Celui-ci doit d'abord se connecter via ProConnect avec cette organisation.
 
     new_to_me:
       title: Transfert d’une demande d’habilitation
