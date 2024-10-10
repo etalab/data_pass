@@ -1,177 +1,234 @@
 ---
 shared:
+  hubee:
+    type: saas
+    name: HubEE
+
   mgdis:
+    type: editor
     name: MGDIS
     siret: "32816124500027"
   setec:
+    type: editor
     name: SETEC
     siret: "70200590100104"
   e_attestations:
+    type: editor
     name: e-Attestations
     siret: "50382936800045"
   provigis:
+    type: editor
     name: Provigis
     siret: "43196025100061"
   achat_solution:
+    type: editor
     name: Achat Solution
     siret: "81449011600013"
   atexo:
+    type: editor
     name: Atexo
     siret: "44090956200033"
   inetum:
+    type: editor
     name: INETUM
     siret: "34054699300668"
 
   aiga:
+    type: editor
     name: Aiga
     siret: "39825361700045"
   abelium:
+    type: editor
     name: Abelium Collectivités
     siret: "42172024400050"
   agora_plus:
+    type: editor
     name: Agora Plus
     siret: "48017088500010"
   amiciel:
+    type: editor
     name: Amiciel
     siret: "44884396100013"
   arpege:
+    type: editor
     name: Arpège
     siret: "35142130000036"
   berger_levrault:
+    type: editor
     name: Berger-Levrault
     siret: "75580064600373"
   jdealise:
+    type: editor
     name: JDéalise
     siret: "89255569900016"
   arche_mc2:
+    type: editor
     name: Arche MC2
     siret: "38251931200088"
   afi:
+    type: editor
     name: Agence Française d'Informatique (AFI)
     siret: "32275019100031"
   mushroom_software:
+    type: editor
     name: Mushroom Software
     siret: "81122842800017"
   capdemat:
+    type: editor
     name: CapDemat
     siret: "79529105300010"
   ciril_group:
+    type: editor
     name: Ciril GROUP
     siret: "30516304000119"
   cosoluce:
+    type: editor
     name: Cosoluce
     siret: "44321098400052"
   docaposte:
+    type: editor
     name: DOCAPOSTE
     siret: "48847870200035"
   entrouvert:
+    type: editor
     name: Entrouvert
     siret: "49108189900032"
   extenso_partner:
+    type: editor
     name: Extenso Partner
     siret: "79071848000037"
   esabora:
+    type: editor
     name: Esabora
     siret: "35408852800048"
   jvs_mairistem:
+    type: editor
     name: JVS-Mairistem
     siret: "32855218700069"
   kosmos:
+    type: editor
     name: Kosmos
     siret: "41922342500044"
   nfi:
+    type: editor
     name: Nord France Informatique
     siret: "37996323400032"
   odyssee_informatique:
+    type: editor
     name: Odyssée Informatique
     siret: "38812677300026"
   qiis:
+    type: editor
     name: Qiis
     siret: "52834311400021"
   sigec:
+    type: editor
     name: SIGEC
     siret: "33307306200015"
   teamnet:
+    type: editor
     name: Teamnet
     siret: "33922000600078"
   technocarte:
+    type: editor
     name: Technocarte
     siret: "38873581300056"
   waigeo:
+    type: editor
     name: Waigeo
     siret: "80321944300014"
   3d_ouest:
+    type: editor
     name: 3D Ouest
     siret: "44973625500018"
   coexya:
+    type: editor
     name: Coexya
     siret: "43362470700017"
   agedi:
+    type: editor
     name: AGEDI
     siret: "25770538400044"
   ecorestauration:
+    type: editor
     name: Ecorestauration
     siret: "82839976600025"
   jcdeveloppement:
+    type: editor
     name: JCDeveloppement
     siret: "75006664900013"
   monkey_factory:
+    type: editor
     name: Monkey Factory
     siret: "780261986600048"
   achatpublic:
+    type: editor
     name: "Achatpublic - achatpublic.com"
     already_integrated: 
       - api_entreprise
   actradis:
+    type: editor
     name: "Actradis"
     already_integrated: 
       - api_entreprise
 
   arnia:
+    type: editor
     name: "Arnia - Pack commande publique"
     already_integrated: 
       - api_entreprise
   atline_services:
+    type: editor
     name: "Atline Services - marches-securises.fr"
     already_integrated: 
       - api_entreprise
   aws_achat:
+    type: editor
     name: "AWS - AWS-achat"
     already_integrated: 
       - api_entreprise
   axyus:
+    type: editor
     name: "Axyus"
     already_integrated: 
       - api_entreprise
   dematis:
+    type: editor
     name: "Dematis - e-marchespublics.com"
     already_integrated: 
       - api_entreprise
   entr_ouvert:
+    type: editor
     name: "Entr'ouvert - Publik"
     already_integrated: 
       - api_entreprise
   klekoon:
+    type: editor
     name: "Klekoon - klekoon.com"
     already_integrated: 
       - api_entreprise
   maximilien:
+    type: editor
     name: "Maximilien"
     already_integrated: 
       - api_entreprise
   megalis_bretagne:
+    type: editor
     name: "Megalis Bretagne"
     already_integrated: 
       - api_entreprise
   pictav_informatique:
+    type: editor
     name: "PICTAV Informatique"
     already_integrated: 
       - api_entreprise
   smartglobal:
+    type: editor
     name: "SmartGlobal - Smart Global Governance"
     already_integrated: 
       - api_entreprise
   solution_attestations:
+    type: editor
     name: "Solution Attestations"
     already_integrated: 
       - api_entreprise

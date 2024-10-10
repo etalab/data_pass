@@ -24,15 +24,15 @@ api-particulier-abelium:
     Gestion des structures de petites enfances, enfance et jeunesse
   authorization_request: APIParticulier
   use_case: tarification_municipale_enfance
-  editor_id: abelium
+  service_provider_id: abelium
   introduction: &api_particulier_introduction_editor_with_editable_scopes |
-    Ce formulaire simplifié vous permet d'obtenir une habilitation pour le logiciel %{form_name} de l'éditeur %{editor_name}.
+    Ce formulaire simplifié vous permet d'obtenir une habilitation pour le logiciel %{form_name} de l'éditeur %{service_provider_name}.
     Une partie des informations contractuelles sont fixes et ne peuvent être modifiées.
     Celles-ci vous seront résumées à la fin, et ne nécessitent aucune intervention de votre part.
 
     Assurez-vous d'être en possession de la délibération tarifaire justifiant l'usage de l'API, celle-ci vous sera demandé dans les prochaines étapes.
 
-    Votre éditeur %{editor_name} propose au sein de son logiciel de traiter des données supplémentaires sur les allocataires. Vous pourrez cocher ces données dans les étapes suivantes. Avant de les sélectionner assurez-vous que votre délibération mentionne bien ces données.
+    Votre éditeur %{service_provider_name} propose au sein de son logiciel de traiter des données supplémentaires sur les allocataires. Vous pourrez cocher ces données dans les étapes suivantes. Avant de les sélectionner assurez-vous que votre délibération mentionne bien ces données.
   steps: &api_particulier_editor_steps_with_editable_scopes
     - name: scopes
     - name: legal
@@ -81,9 +81,9 @@ api-particulier-arpege-concerto:
     Tarification sur Quotient Familial des prestations
   authorization_request: APIParticulier
   use_case: tarification_municipale_enfance
-  editor_id: arpege
+  service_provider_id: arpege
   introduction: &api_particulier_introduction_editor_with_fixed_scopes |
-    Ce formulaire simplifié vous permet d'obtenir une habilitation pour le logiciel %{form_name} de l'éditeur %{editor_name}.
+    Ce formulaire simplifié vous permet d'obtenir une habilitation pour le logiciel %{form_name} de l'éditeur %{service_provider_name}.
     Une partie des informations contractuelles sont fixes et ne peuvent être modifiées.
     Celles-ci vous seront résumées à la fin, et ne nécessitent aucune intervention de votre part.
 
@@ -129,7 +129,7 @@ api-particulier-cantine-de-france:
   authorization_request: APIParticulier
   use_case: tarification_municipale_enfance
   introduction: *api_particulier_introduction_editor_with_fixed_scopes
-  editor_id: jdealise
+  service_provider_id: jdealise
   steps: *api_particulier_editor_steps_with_fixed_scopes
   static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
   scopes_config:
@@ -174,7 +174,7 @@ api-particulier-agora-plus:
   use_case: tarification_municipale_enfance
   introduction: *api_particulier_introduction_editor_with_fixed_scopes
   authorization_request: APIParticulier
-  editor_id: agora_plus
+  service_provider_id: agora_plus
   steps: *api_particulier_editor_steps_with_fixed_scopes
   static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
   scopes_config:
@@ -213,7 +213,7 @@ api-particulier-amiciel-malice:
   introduction: *api_particulier_introduction_editor_with_fixed_scopes
   authorization_request: APIParticulier
   use_case: tarification_municipale_enfance
-  editor_id: amiciel
+  service_provider_id: amiciel
   steps: *api_particulier_editor_steps_with_fixed_scopes
   static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
   scopes_config:
@@ -259,9 +259,9 @@ api-particulier-ccas-arche-mc2:
     Instruction des dossiers de demandes d'aides sociales dans les CCAS/CIAS
   authorization_request: APIParticulier
   use_case: ccas
-  editor_id: arche_mc2
+  service_provider_id: arche_mc2
   introduction:
-    &api_particulier_introduction_editor_ccas_with_fixed_scopes Ce formulaire simplifié vous permet d'obtenir une habilitation pour le logiciel %{form_name} de l'éditeur %{editor_name}.
+    &api_particulier_introduction_editor_ccas_with_fixed_scopes Ce formulaire simplifié vous permet d'obtenir une habilitation pour le logiciel %{form_name} de l'éditeur %{service_provider_name}.
     Une partie des informations contractuelles sont fixes et ne peuvent être modifiées.
     Celles-ci vous seront résumées à la fin, et ne nécessitent aucune intervention de votre part.
   steps: *api_particulier_editor_steps_with_fixed_scopes
@@ -307,7 +307,7 @@ api-particulier-ccas-arpege:
 
   authorization_request: APIParticulier
   use_case: ccas
-  editor_id: arpege
+  service_provider_id: arpege
   data:
     intitule:
       Récupération du Quotient Familial pour les aides sociales facultatives
@@ -330,7 +330,7 @@ api-particulier-city-family-mushroom-software:
   static_blocks: *api_particulier_editor_static_blocks_with_editable_scopes
   authorization_request: APIParticulier
   use_case: tarification_municipale_enfance
-  editor_id: mushroom_software
+  service_provider_id: mushroom_software
   scopes_config:
     disabled:
       - cnaf_quotient_familial
@@ -362,7 +362,7 @@ api-particulier-civil-enfance-ciril-group:
   steps: *api_particulier_editor_steps_with_fixed_scopes
   static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
   use_case: tarification_municipale_enfance
-  editor_id: ciril_group
+  service_provider_id: ciril_group
   data:
     intitule:
       Déclaration et calcul du quotient familial pour la facturation des activités
@@ -388,7 +388,7 @@ api-particulier-cosoluce-fluo:
   steps: *api_particulier_editor_steps_with_fixed_scopes
   static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
   use_case: tarification_municipale_enfance
-  editor_id: cosoluce
+  service_provider_id: cosoluce
 
   scopes_config:
     disabled:
@@ -419,7 +419,7 @@ api-particulier-nfi:
   steps: *api_particulier_editor_steps_with_editable_scopes
   static_blocks: *api_particulier_editor_static_blocks_with_editable_scopes
   use_case: tarification_municipale_enfance
-  editor_id: nfi
+  service_provider_id: nfi
   scopes_config:
     disabled:
       - cnaf_quotient_familial
@@ -454,7 +454,7 @@ api-particulier-technocarte-ile:
   steps: *api_particulier_editor_steps_with_fixed_scopes
   static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
   use_case: tarification_municipale_enfance
-  editor_id: technocarte
+  service_provider_id: technocarte
   scopes_config:
     disabled:
       - cnaf_quotient_familial
@@ -482,7 +482,7 @@ api-particulier-waigeo-myperischool:
   description: *api_particulier_form_description_tarification_qf
   authorization_request: APIParticulier
   use_case: tarification_municipale_enfance
-  editor_id: waigeo
+  service_provider_id: waigeo
   introduction: *api_particulier_introduction_editor_with_fixed_scopes
   steps: *api_particulier_editor_steps_with_fixed_scopes
   static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
@@ -512,7 +512,7 @@ api-particulier-3d-ouest:
   description: *api_particulier_form_description_tarification_qf
   authorization_request: APIParticulier
   use_case: tarification_municipale_enfance
-  editor_id: 3d_ouest
+  service_provider_id: 3d_ouest
 
   introduction: *api_particulier_introduction_editor_with_fixed_scopes
   steps: *api_particulier_editor_steps_with_fixed_scopes
@@ -559,7 +559,7 @@ api-particulier-agedi-proxima-enf:
   description: Portail famille
   authorization_request: APIParticulier
   use_case: tarification_municipale_enfance
-  editor_id: agedi
+  service_provider_id: agedi
   public: false
   introduction: *api_particulier_introduction_editor_with_editable_scopes
   steps: *api_particulier_editor_steps_with_editable_scopes
@@ -599,7 +599,7 @@ api-particulier-ecorestauration-loyfeey:
   description: Portail famille
   authorization_request: APIParticulier
   use_case: tarification_municipale_enfance
-  editor_id: ecorestauration
+  service_provider_id: ecorestauration
   public: false
   introduction: *api_particulier_introduction_editor_with_fixed_scopes
   steps: *api_particulier_editor_steps_with_fixed_scopes
@@ -640,7 +640,7 @@ api-particulier-jcdeveloppement-familyclic:
   description: Tarification cantine
   authorization_request: APIParticulier
   use_case: cantines-colleges-lycees-tarification
-  editor_id: jcdeveloppement
+  service_provider_id: jcdeveloppement
   public: true
   introduction: *api_particulier_introduction_editor_with_editable_scopes
   steps: *api_particulier_editor_steps_with_editable_scopes
@@ -679,7 +679,7 @@ api-particulier-aiga:
   description: Tarification cantine
   authorization_request: APIParticulier
   use_case: cantines-colleges-lycees-tarification
-  editor_id: aiga
+  service_provider_id: aiga
   introduction: *api_particulier_introduction_editor_with_fixed_scopes
   steps: *api_particulier_editor_steps_with_fixed_scopes
   static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
@@ -706,7 +706,7 @@ api-particulier-extenso-partner-extenso-cloud:
   name: Extenso Cloud
   description: *api_particulier_form_description_tarification_qf
   authorization_request: APIParticulier
-  editor_id: extenso_partner
+  service_provider_id: extenso_partner
   introduction: *api_particulier_introduction_editor_with_editable_scopes
   steps: *api_particulier_editor_steps_with_editable_scopes
   static_blocks: *api_particulier_editor_static_blocks_with_editable_scopes
@@ -747,7 +747,7 @@ api-particulier-capdemat-capdemat-evolution:
   description: Tarification cantine
   authorization_request: APIParticulier
   use_case: cantines-colleges-lycees-tarification
-  editor_id: capdemat
+  service_provider_id: capdemat
   public: true
   introduction: *api_particulier_introduction_editor_with_fixed_scopes
   steps: *api_particulier_editor_steps_with_fixed_scopes
@@ -777,7 +777,7 @@ api-particulier-kosmos-education:
   description: Portail Tarification et Aide Restauration Scolaire
   authorization_request: APIParticulier
   use_case: cantines-colleges-lycees-tarification
-  editor_id: kosmos
+  service_provider_id: kosmos
   public: false
   introduction: *api_particulier_introduction_editor_with_fixed_scopes
   steps: *api_particulier_editor_steps_with_fixed_scopes
@@ -813,7 +813,7 @@ api-particulier-monkey-factory-maasify:
   description: Tarification des transports
   authorization_request: APIParticulier
   use_case: tarification_transports
-  editor_id: monkey_factory
+  service_provider_id: monkey_factory
   introduction: *api_particulier_introduction_editor_with_fixed_scopes
   steps: *api_particulier_editor_steps_with_fixed_scopes
   static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
@@ -841,7 +841,7 @@ api-particulier-esabora-pourmesdossiers:
   description: Tarification des transports
   authorization_request: APIParticulier
   use_case: tarification_transports
-  editor_id: esabora
+  service_provider_id: esabora
   public: true
   introduction: *api_particulier_introduction_editor_with_fixed_scopes
   steps: *api_particulier_editor_steps_with_fixed_scopes
@@ -890,7 +890,7 @@ api-particulier-bl-enfance-berger-levrault:
   authorization_request: APIParticulier
   single_page_view: "api_particulier_through_editor"
   use_case: tarification_municipale_enfance
-  editor_id: berger_levrault
+  service_provider_id: berger_levrault
   static_blocks: &api_particulier_through_editor_static_blocks
     - name: basic_infos
     - name: modalities
@@ -927,7 +927,7 @@ api-particulier-docaposte-fast:
   authorization_request: APIParticulier
   use_case: tarification_municipale_enfance
   single_page_view: "api_particulier_through_editor_without_contact_technique"
-  editor_id: docaposte
+  service_provider_id: docaposte
   static_blocks: *api_particulier_through_editor_static_blocks
   data:
     intitule:
@@ -961,7 +961,7 @@ api-particulier-odyssee-informatique-pandore:
   authorization_request: APIParticulier
   single_page_view: "api_particulier_through_editor"
   use_case: tarification_municipale_enfance
-  editor_id: odyssee_informatique
+  service_provider_id: odyssee_informatique
   static_blocks: *api_particulier_through_editor_static_blocks
   data:
     intitule: Récupération des données CNAF pour les services municipaux
@@ -997,7 +997,7 @@ api-particulier-qiis-eticket:
   authorization_request: APIParticulier
   use_case: tarification_municipale_enfance
   single_page_view: "api_particulier_through_editor"
-  editor_id: qiis
+  service_provider_id: qiis
   static_blocks: *api_particulier_through_editor_static_blocks
   data:
     intitule: eTicket - Portail Famille
@@ -1031,7 +1031,7 @@ api-particulier-teamnet-axel:
   authorization_request: APIParticulier
   use_case: tarification_municipale_enfance
   single_page_view: "api_particulier_through_editor_without_contact_technique"
-  editor_id: teamnet
+  service_provider_id: teamnet
   static_blocks: *api_particulier_through_editor_static_blocks
   data:
     intitule:
@@ -1060,7 +1060,7 @@ api-particulier-jvs-parascol:
   authorization_request: APIParticulier
   single_page_view: "api_particulier_through_editor_without_contact_technique"
   use_case: tarification_municipale_enfance
-  editor_id: jvs_mairistem
+  service_provider_id: jvs_mairistem
   static_blocks: *api_particulier_through_editor_static_blocks
   data:
     intitule: Facturation des familles pour les services périscolaires et loisirs
@@ -1095,7 +1095,7 @@ api-particulier-entrouvert-publik:
   authorization_request: APIParticulier
   use_case: tarification_municipale_enfance
   single_page_view: "api_particulier_through_editor_without_contact_technique"
-  editor_id: entrouvert
+  service_provider_id: entrouvert
   static_blocks: *api_particulier_through_editor_static_blocks
   data:
     intitule:
@@ -1118,7 +1118,7 @@ api-particulier-ccas-melissandre-afi:
   authorization_request: APIParticulier
   single_page_view: "api_particulier_through_editor"
   use_case: ccas
-  editor_id: afi
+  service_provider_id: afi
   static_blocks: *api_particulier_through_editor_static_blocks
   data:
     intitule: Instructions des dossiers d'aides sociales
@@ -1161,7 +1161,7 @@ api-particulier-coexya:
   authorization_request: APIParticulier
   single_page_view: "api_particulier_through_editor"
   use_case: tarification_municipale_enfance
-  editor_id: coexya
+  service_provider_id: coexya
   static_blocks: *api_particulier_through_editor_static_blocks
   data:
     intitule: Tarification sociale et solidaires des transports
@@ -1190,7 +1190,7 @@ api-particulier-sigec-maelis:
   authorization_request: APIParticulier
   single_page_view: "api_particulier_through_editor"
   use_case: tarification_municipale_enfance
-  editor_id: sigec
+  service_provider_id: sigec
   static_blocks: *api_particulier_through_editor_static_blocks
   data:
     intitule: Récupération des données CNAF pour les services municipaux

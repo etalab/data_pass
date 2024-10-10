@@ -45,15 +45,15 @@ Quand('je veux remplir une demande pour {string} via le formulaire {string}') do
   visit new_authorization_request_form_path(form_uid: authorization_request_forms.first.uid)
 end
 
-Quand('je veux remplir une demande pour {string} via le formulaire {string} de l\'éditeur {string}') do |authorization_request_name, authorization_request_form_name, editor_name|
+Quand('je veux remplir une demande pour {string} via le formulaire {string} de l\'éditeur {string}') do |authorization_request_name, authorization_request_form_name, service_provider_name|
   authorization_request_forms = AuthorizationRequestForm.where(
     name: authorization_request_form_name,
     authorization_request_class: find_authorization_request_class_from_name(authorization_request_name),
   ).select do |form|
-    form.editor.name == editor_name
+    form.service_provider.name == service_provider_name
   end
 
-  raise "More than one form found for #{authorization_request_name}, #{authorization_request_form_name} and #{editor_name}" if authorization_request_forms.count > 1
+  raise "More than one form found for #{authorization_request_name}, #{authorization_request_form_name} and #{service_provider_name}" if authorization_request_forms.count > 1
 
   visit new_authorization_request_form_path(form_uid: authorization_request_forms.first.uid)
 end

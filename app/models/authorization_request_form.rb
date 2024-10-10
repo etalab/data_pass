@@ -1,7 +1,7 @@
 class AuthorizationRequestForm < StaticApplicationRecord
   attr_accessor :uid,
     :name,
-    :editor,
+    :service_provider,
     :default,
     :use_case,
     :authorization_request_class,
@@ -35,7 +35,7 @@ class AuthorizationRequestForm < StaticApplicationRecord
         :scopes_config,
       ).merge(
         uid: uid.to_s,
-        editor: hash[:editor_id].present? ? Editor.find(hash[:editor_id]) : nil,
+        service_provider: hash[:service_provider_id].present? ? ServiceProvider.find(hash[:service_provider_id]) : nil,
         default: hash[:default] || false,
         data: clean_data(hash[:data]),
         authorization_request_class: AuthorizationRequest.const_get(hash[:authorization_request]),
@@ -69,7 +69,7 @@ class AuthorizationRequestForm < StaticApplicationRecord
   def introduction
     return nil if @introduction.blank?
 
-    format(@introduction, editor_name: editor.try(:name), form_name: name)
+    format(@introduction, service_provider_name: service_provider.try(:name), form_name: name)
   end
 
   def authorization_definition

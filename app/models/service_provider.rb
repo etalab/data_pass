@@ -1,11 +1,14 @@
-class Editor < StaticApplicationRecord
+class ServiceProvider < StaticApplicationRecord
   attr_accessor :id,
     :name,
     :siret,
+    :type,
     :already_integrated
 
+  TYPES = { saas: 'saas', editor: 'editor' }.freeze
+
   def self.all
-    Rails.application.config_for(:editors).map do |uid, hash|
+    Rails.application.config_for(:service_providers).map do |uid, hash|
       build(uid, hash)
     end
   end
@@ -15,6 +18,7 @@ class Editor < StaticApplicationRecord
       hash.slice(
         :name,
         :siret,
+        :type,
         :already_integrated,
       ).merge(
         id: uid.to_s,
@@ -24,5 +28,17 @@ class Editor < StaticApplicationRecord
 
   def already_integrated?(scope:)
     Array(already_integrated).include?(scope.to_s)
+  end
+
+  def self.editors
+    all.select(&:editor?)
+  end
+
+  def editor?
+    type == TYPES[:editor]
+  end
+
+  def saas?
+    type == TYPES[:saas]
   end
 end

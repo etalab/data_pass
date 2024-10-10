@@ -17,4 +17,9 @@
   <h1 class="authorization-request-form-header__name">
     <%= @authorization_request.definition.name  %>
   </h1>
+  <% if @authorization_request.form.service_provider.present? %>
+    <h2>
+      <%= render partial: "authorization_requests/shared/service_provider", locals: { name: @authorization_request.form.service_provider.name } %>
+    </h2>
+  <% end %>
 <% end %>

@@ -12,15 +12,15 @@ RSpec.shared_examples 'new authorization request facade' do
   describe '#decorated_editors' do
     subject(:decorated_editors) { facade.decorated_editors }
 
-    it { is_expected.to all(be_a(EditorDecorator)) }
+    it { is_expected.to all(be_a(ServiceProviderDecorator)) }
   end
 
   describe '#editors_index' do
     subject(:editors_index) { facade.editors_index }
 
     let(:decorated_editors) { [alpha_editor, digit_editor] }
-    let(:digit_editor) { Editor.new(name: '42 editor').decorate }
-    let(:alpha_editor) { Editor.new(name: 'A editor').decorate }
+    let(:digit_editor) { ServiceProvider.new(name: '42 editor').decorate }
+    let(:alpha_editor) { ServiceProvider.new(name: 'A editor').decorate }
     let(:sorted_indexed_editors) { [['123', [digit_editor]], ['A', [alpha_editor]]] }
 
     before do

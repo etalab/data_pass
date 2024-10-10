@@ -3,7 +3,7 @@ RSpec.describe NewAuthorizationRequest::DefaultFacade do
 
   let(:authorization_definition) { instance_double(AuthorizationDefinition, editors: [editor]) }
 
-  let(:editor) { Editor.all.first }
+  let(:editor) { ServiceProvider.editors.first }
 
   it_behaves_like 'new authorization request facade'
 

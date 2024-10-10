@@ -5,7 +5,7 @@ class AuthorizationRequestFormDecorator < ApplicationDecorator
     tags = []
 
     tags << 'default' if default
-    tags << editor.id if editor
+    tags << service_provider.id if service_provider
     tags << use_case if use_case
 
     tags

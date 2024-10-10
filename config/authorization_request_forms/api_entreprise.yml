@@ -220,9 +220,9 @@ api-entreprise-e-attestations:
   use_case: "marches_publics"
   authorization_request: "APIEntreprise"
   single_page_view: "api_entreprise_through_editor"
-  editor_id: "e_attestations"
+  service_provider_id: "e_attestations"
   introduction: &introduction_api_entreprise_editor |
-    Ce formulaire simplifié vous permet d'obtenir une habilitation pour un logiciel pré-configuré de l'éditeur %{editor_name}.
+    Ce formulaire simplifié vous permet d'obtenir une habilitation pour un logiciel pré-configuré de l'éditeur %{service_provider_name}.
     Une partie des informations contractuelles sont fixes et ne peuvent être modifiées.
     Celles-ci vous seront résumées à la fin, et ne nécessitent aucune intervention de votre part.
 
@@ -267,7 +267,7 @@ api-entreprise-provigis:
   authorization_request: "APIEntreprise"
   single_page_view: "api_entreprise_through_editor"
   introduction: *introduction_api_entreprise_editor
-  editor_id: "provigis"
+  service_provider_id: "provigis"
   static_blocks:
     - name: "basic_infos"
     - name: "personal_data"
@@ -308,7 +308,7 @@ api-entreprise-achat-solution:
   authorization_request: "APIEntreprise"
   single_page_view: "api_entreprise_through_editor"
   introduction: *introduction_api_entreprise_editor
-  editor_id: "achat_solution"
+  service_provider_id: "achat_solution"
   static_blocks:
     - name: "basic_infos"
     - name: "personal_data"
@@ -349,7 +349,7 @@ api-entreprise-mgdis:
   authorization_request: "APIEntreprise"
   single_page_view: "api_entreprise_through_editor"
   introduction: *introduction_api_entreprise_editor
-  editor_id: "mgdis"
+  service_provider_id: "mgdis"
   static_blocks:
     - name: "basic_infos"
     - name: "personal_data"
@@ -395,7 +395,7 @@ api-entreprise-atexo:
   single_page_view: "api_entreprise_through_editor"
   introduction: *introduction_api_entreprise_editor
   authorization_request: "APIEntreprise"
-  editor_id: "atexo"
+  service_provider_id: "atexo"
   static_blocks:
     - name: "basic_infos"
     - name: "personal_data"
@@ -441,7 +441,7 @@ api-entreprise-setec-atexo:
   single_page_view: "api_entreprise_through_editor"
   introduction: *introduction_api_entreprise_editor
   use_case: "marches_publics"
-  editor_id: "setec"
+  service_provider_id: "setec"
   static_blocks:
     - name: "basic_infos"
     - name: "personal_data"
@@ -493,7 +493,7 @@ api-entreprise-inetum:
   authorization_request: "APIEntreprise"
   single_page_view: "api_entreprise_through_editor"
   introduction: *introduction_api_entreprise_editor
-  editor_id: "inetum"
+  service_provider_id: "inetum"
   static_blocks:
     - name: "basic_infos"
     - name: "personal_data"
