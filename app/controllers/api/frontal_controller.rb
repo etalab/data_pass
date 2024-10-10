@@ -1,4 +1,4 @@
-class API::FrontalController < APIController
+class API::FrontalController < ActionController::API
   def index
     if frontal?
       render json: {

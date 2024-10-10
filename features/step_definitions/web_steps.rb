@@ -2,6 +2,10 @@ Quand("je me rends sur la page d'accueil") do
   visit root_path
 end
 
+Quand('je me rends sur le chemin {string}') do |string|
+  visit string
+end
+
 Quand('print the page') do
   log page.body
 end
