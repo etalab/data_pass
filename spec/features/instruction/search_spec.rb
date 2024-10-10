@@ -3,7 +3,7 @@ RSpec.describe 'Instruction: habilitation search' do
     visit instruction_authorization_requests_path
 
     within('#authorization_request_search') do
-      fill_in 'search_query_within_data_or_organization_siret_or_applicant_email_or_applicant_family_name_cont', with: search_text if use_search_text
+      fill_in 'instructor_search_input', with: search_text if use_search_text
       select state, from: 'search_query_state_eq' if state
       select type, from: 'search_query_type_eq' if type
 
@@ -12,7 +12,7 @@ RSpec.describe 'Instruction: habilitation search' do
   end
 
   let(:user) { create(:user, :instructor, authorization_request_types: %w[api_entreprise api_particulier]) }
-  let(:organization) { create(:organization) }
+  let(:organization) { create(:organization, siret: '13002526500013') }
 
   let!(:valid_searched_authorization_request) { create(:authorization_request, :api_entreprise, state: :validated, intitule:, organization:) }
 
@@ -90,6 +90,21 @@ RSpec.describe 'Instruction: habilitation search' do
     let(:type) { nil }
 
     it 'renders authorization request linked to this siret' do
+      search
+
+      expect(page).to have_css('.authorization-request', count: 1)
+      expect(page).to have_css(css_id(valid_searched_authorization_request))
+    end
+  end
+
+  context 'when we use organization raison sociale' do
+    let(:use_search_text) { true }
+    let(:search_text) { 'interministerielle' }
+    let(:intitule) { 'whatever' }
+    let(:state) { nil }
+    let(:type) { nil }
+
+    it 'renders authorization request linked to this raison sociale' do
       search
 
       expect(page).to have_css('.authorization-request', count: 1)

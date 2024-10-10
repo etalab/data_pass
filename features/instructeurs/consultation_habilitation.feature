@@ -9,7 +9,7 @@ Fonctionnalité: Instruction: consultation d'une habilitation
 
   Scénario: Je vois les informations sur l'organisation et le demandeur
     Quand je me rends sur une demande d'habilitation "API Entreprise" de l'organisation "Ville de Clamart" en brouillon
-    Alors la page contient "Ville de Clamart"
+    Alors la page contient "COMMUNE DE CLAMART"
     Et la page contient "1 PL MAURICE GUNSBOURG"
     Et la page contient "92140 CLAMART"
     Et la page contient "Dupont Jean"

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_06_081749) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_02_161642) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pgcrypto"
@@ -257,6 +257,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_06_081749) do
     t.datetime "updated_at", null: false
     t.jsonb "insee_payload"
     t.datetime "last_insee_payload_updated_at"
+    t.index "((((insee_payload -> 'etablissement'::text) -> 'uniteLegale'::text) ->> 'denominationUniteLegale'::text))", name: "index_organizations_on_denomination_unite_legale"
     t.index ["siret"], name: "index_organizations_on_siret", unique: true
   end
 

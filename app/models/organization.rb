@@ -19,7 +19,7 @@ class Organization < ApplicationRecord
     inverse_of: :organization
 
   def raison_sociale
-    mon_compte_pro_payload['label'] || denomination
+    denomination
   end
 
   def code_commune
@@ -57,6 +57,20 @@ class Organization < ApplicationRecord
   def self.ransackable_attributes(_auth_object = nil)
     %w[
       siret
+      raison_sociale
     ]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    []
+  end
+
+  ransacker :raison_sociale do |parent|
+    payload_node = parent.table[:insee_payload]
+
+    etablissement_node = Arel::Nodes::InfixOperation.new('->', payload_node, Arel::Nodes.build_quoted('etablissement'))
+    unite_legale_node = Arel::Nodes::InfixOperation.new('->', etablissement_node, Arel::Nodes.build_quoted('uniteLegale'))
+
+    Arel::Nodes::InfixOperation.new('->>', unite_legale_node, Arel::Nodes.build_quoted('denominationUniteLegale'))
   end
 end
