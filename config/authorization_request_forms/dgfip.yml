@@ -1,0 +1,12 @@
+api-impot-particulier-editeur:
+  name: API Impôt Particulier avec éditeur
+  description: TODO
+  introduction: |
+    Votre éditeur a déjà obtenu l'accès à la sandbox, vous n'avez plus qu'à obtenir l'accès en production via ce formulaire. 
+  authorization_request: APIImpotParticulier
+  steps:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: scopes
+    - name: contacts

@@ -344,5 +344,16 @@ FactoryBot.define do
       with_basic_infos
       with_cadre_juridique
     end
+
+    trait :api_impot_particulier_editeur do
+      type { 'AuthorizationRequest::APIImpotParticulier' }
+
+      form_uid { 'api-impot-particulier-editeur' }
+      with_basic_infos
+      with_cadre_juridique
+      with_personal_data
+      with_cadre_juridique
+      with_scopes
+    end
   end
 end
