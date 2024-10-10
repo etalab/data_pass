@@ -7,7 +7,8 @@ class UpdateAuthorizationRequest < ApplicationOrganizer
   organize AssignParamsToAuthorizationRequest,
     VerifyContactsEmailsAsynchronously,
     CreateAuthorizationRequestEventModel,
-    DeliverAuthorizationRequestNotification
+    DeliverAuthorizationRequestNotification,
+    RunMalwareScanOnAttachments
 
   after do
     context.authorization_request.save(context: context.save_context) ||
