@@ -1,9 +1,12 @@
 class ServiceProvider < StaticApplicationRecord
+  include ActiveModel::Serialization
+
   attr_accessor :id,
     :name,
     :siret,
     :type,
-    :already_integrated
+    :already_integrated,
+    :code_cog
 
   TYPES = { saas: 'saas', editor: 'editor' }.freeze
 
@@ -20,18 +23,19 @@ class ServiceProvider < StaticApplicationRecord
         :siret,
         :type,
         :already_integrated,
+        :code_cog,
       ).merge(
         id: uid.to_s,
       )
     )
   end
 
-  def already_integrated?(scope:)
-    Array(already_integrated).include?(scope.to_s)
-  end
-
   def self.editors
     all.select(&:editor?)
+  end
+
+  def already_integrated?(scope:)
+    Array(already_integrated).include?(scope.to_s)
   end
 
   def editor?
