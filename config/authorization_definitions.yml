@@ -333,7 +333,7 @@ shared:
     public: true
     kind: 'api'
     link: "https://api.gouv.fr/les-api/impot-particulier"
-    cgu_link: "TODO"
+    cgu_link: "/cgus/cgu_api_impot_particulier_production_hors_connexion_fc_decembre2022_v4.0.pdf"
     provider: "dgfip"
     blocks:
       - name: "basic_infos"
