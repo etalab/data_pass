@@ -463,3 +463,6 @@ shared:
       - name: Versement épargne retraite
         value: dgfip_EpargRetrDeduc
         group: Charges déductibles
+      - name: Indicateur d’éligibilité au LEP
+        value: dgfip_IndLep
+        group: Éligibilité Livret d’Épargne Populaire - établissements bancaires uniquement
