@@ -25,6 +25,20 @@ RSpec.describe HubEECertDCBridge do
           hubee_cert_dc_bridge
         end
 
+        it 'sends the data to create a local administrator in HubEE' do
+          expect(hubee_api_client).to receive(:create_subscription).with(
+            hash_including(
+              localAdministrator: {
+                email: 'jean.dupont.administrateur_metier@gouv.fr',
+                firstName: 'Jean Administrateur metier',
+                lastName: 'Dupont Administrateur metier',
+              }
+            )
+          )
+
+          hubee_cert_dc_bridge
+        end
+
         it 'updates external_provider_id to HubEE subscription ID' do
           hubee_cert_dc_bridge
 
