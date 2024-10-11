@@ -28,6 +28,20 @@ RSpec.describe HubEEDilaBridge do
         hubee_dila_bridge
       end
 
+      it 'sends the data to create a local administrator in HubEE' do
+        expect(hubee_api_client).to receive(:create_subscription).with(
+          hash_including(
+            localAdministrator: {
+              email: 'jean.dupont.administrateur_metier@gouv.fr',
+              firstName: 'Jean Administrateur metier',
+              lastName: 'Dupont Administrateur metier',
+            }
+          )
+        ).twice
+
+        hubee_dila_bridge
+      end
+
       it 'does not create a subscription on HubEE for the other scopes' do
         other_codes = (HubEEDilaBridge::PROCESS_CODES.values - %w[EtatCivil depotDossierPACS])
         other_codes.each do |process_code|

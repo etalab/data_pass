@@ -31,9 +31,15 @@ class HubEEBaseBridge < ApplicationBridge
       updateDateTime: authorization_request[:updated_at].iso8601,
       status: 'Inactif',
       email: authorization_request.administrateur_metier_email,
-      localAdministrator: {
-        email: authorization_request.administrateur_metier_email,
-      }
+      localAdministrator: local_administrator_data
+    }
+  end
+
+  def local_administrator_data
+    {
+      email: authorization_request.administrateur_metier_email,
+      firstName: authorization_request.administrateur_metier_given_name,
+      lastName: authorization_request.administrateur_metier_family_name,
     }
   end
 
