@@ -1,6 +1,6 @@
 <%= render partial: 'mailer/shared/applicant/header', locals: { entity_name: @authorization_request.applicant.full_name } %>
 
-Votre demande d’abonnement aux démarches service-public.fr pour : <%= @authorization_request.organization.raison_sociale %> a été validée.
+Votre demande d’abonnement aux démarches service-public.fr pour <%= @authorization_request.organization.raison_sociale %> a été validée.
 
 <% if @authorization_request.applicant.email == @authorization_request.administrateur_metier_email %>
   Un compte de type administrateur a été créé pour vous sur le Portail HubEE afin de finaliser la procédure d’abonnement.
