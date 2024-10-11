@@ -326,3 +326,143 @@ shared:
       - name: "basic_infos"
       - name: "legal"
       - name: "contacts"
+
+  api_impot_particulier:
+    name: "API Impôt Particulier"
+    description: "Raccordez-vous directement à la DGFiP pour récupérer les éléments fiscaux nécessaires à vos téléservices, éliminez le traitement et le stockage des pièces justificatives"
+    public: true
+    kind: 'api'
+    link: "https://api.gouv.fr/les-api/impot-particulier"
+    cgu_link: "/cgus/dgfip/cgu_api_impot_particulier_production_hors_connexion_fc_decembre2022_v4.0.pdf"
+    provider: "dgfip"
+    blocks:
+      - name: "basic_infos"
+      - name: "personal_data"
+      - name: "legal"
+      - name: "scopes"
+      - name: "contacts"
+    scopes:
+      - name: Dernière année de revenu
+        value: dgfip_annee_n_moins_1
+        group: Années sur lesquelles porte votre demande
+      - name: Avant-dernière année de revenu
+        value: dgfip_annee_n_moins_2
+        group: Années sur lesquelles porte votre demande
+      - name: Avant-avant-dernière année de revenu
+        value: dgfip_annee_n_moins_3
+        group: Années sur lesquelles porte votre demande
+      - name: Avant-dernière année de revenu, si la dernière année de revenu est indisponible
+        value: dgfip_annee_n_moins_2_si_indispo_n_moins_1
+        group: Années sur lesquelles porte votre demande
+      - name: Nom
+        value: dgfip_nmUsaDec1
+        group: État civil - déclarant 1
+      - name: Nom de naissance
+        value: dgfip_nmNaiDec1
+        group: État civil - déclarant 1
+      - name: Prénom(s)
+        value: dgfip_prnmDec1
+        group: État civil - déclarant 1
+      - name: Date de naissance
+        value: dgfip_dateNaisDec1
+        group: État civil - déclarant 1
+      - name: Nom
+        value: dgfip_nmUsaDec2
+        group: État civil - déclarant 2
+      - name: Nom de naissance
+        value: dgfip_nmNaiDec2
+        group: État civil - déclarant 2
+      - name: Prénom(s)
+        value: dgfip_prnmDec2
+        group: État civil - déclarant 2
+      - name: Date de naissance
+        value: dgfip_dateNaisDec2
+        group: État civil - déclarant 2
+      - name: Adresse déclarée au 1er Janvier
+        value: dgfip_aft
+        group: Adresse
+      - name: Situation de famille (marié, pacsé, célibataire, veuf divorcé)
+        value: dgfip_sitfam
+        group: Situation du foyer fiscal
+      - name: Nombre de parts
+        value: dgfip_nbpart
+        group: Situation du foyer fiscal
+      - name: Nombre de personnes à charge
+        value: dgfip_pac_nbPac
+        group: Situation du foyer fiscal
+      - name: Détail des personnes à charge et rattachées
+        value: dgfip_pac
+        group: Situation du foyer fiscal
+      - name: Parent isolé (case T)
+        value: dgfip_pariso
+        group: Situation du foyer fiscal
+      - name: Données fiscales au 31/12 en cas de décès d'un contribuable marié ou pacsé
+        value: dgfip_annee_df_au_3112_si_deces_ctb_mp
+        group: Situation du foyer fiscal
+      - name: Revenu fiscal de référence
+        value: dgfip_rfr
+        group: Agrégats fiscaux
+      - name: Montant de l’impôt sur les revenus soumis au barème (ligne 14)
+        value: dgfip_mntRevbareme
+        group: Agrégats fiscaux
+      - name: Indicateur de l’existence d’un déficit
+        value: dgfip_inddeficit
+        group: Agrégats fiscaux
+      - name: Indicateur ISF/IFI
+        value: dgfip_indiIFI
+        group: Agrégats fiscaux
+      - name: Catégorie 1 - Salaires, pensions, rentes
+        value: dgfip_RevDecl_Cat1_Tspr
+        group: Revenus catégoriels - revenus déclarés (avant application des abattements,
+          etc...)
+      - name: Catégorie 1 - Rentes viagères à titre onéreux
+        value: dgfip_RevDecl_Cat1_RentOn
+        group: Revenus catégoriels - revenus déclarés (avant application des abattements,
+          etc...)
+      - name: Catégorie 2 - Revenus de capitaux mobiliers
+        value: dgfip_RevDecl_Cat2_Rcm
+        group: Revenus catégoriels - revenus déclarés (avant application des abattements,
+          etc...)
+      - name: Catégorie 3 - Plus ou moins values
+        value: dgfip_RevDecl_Cat3_PMV
+        group: Revenus catégoriels - revenus déclarés (avant application des abattements,
+          etc...)
+      - name: Catégorie 4 - Revenus fonciers
+        value: dgfip_RevDecl_Cat4_Ref
+        group: Revenus catégoriels - revenus déclarés (avant application des abattements,
+          etc...)
+      - name: Catégorie 5 - Revenus des professions non salariées
+        value: dgfip_RevDecl_Cat5_NonSal
+        group: Revenus catégoriels - revenus déclarés (avant application des abattements,
+          etc...)
+      - name: Catégorie 1 - Salaires, pensions, rentes
+        value: dgfip_RevNets_Cat1_Tspr
+        group: Revenus catégoriels - revenus nets (après application des abattements, etc...)
+      - name: Catégorie 1 - Rentes viagères à titre onéreux
+        value: dgfip_RevNets_Cat1_RentOn
+        group: Revenus catégoriels - revenus nets (après application des abattements, etc...)
+      - name: Catégorie 2 - Revenus de capitaux mobiliers
+        value: dgfip_RevNets_Cat2_Rcm
+        group: Revenus catégoriels - revenus nets (après application des abattements, etc...)
+      - name: Catégorie 3 - Plus ou moins values
+        value: dgfip_RevNets_Cat3_PMV
+        group: Revenus catégoriels - revenus nets (après application des abattements, etc...)
+      - name: Catégorie 4 - Revenus fonciers
+        value: dgfip_RevNets_Cat4_Ref
+        group: Revenus catégoriels - revenus nets (après application des abattements, etc...)
+      - name: Catégorie 5 - Revenus des professions non salariées
+        value: dgfip_RevNets_Cat5_NonSal
+        group: Revenus catégoriels - revenus nets (après application des abattements, etc...)
+      - name: Pensions alimentaires déductibles - Pension alimentaire versées à enfant majeur
+        value: dgfip_PaDeduc_EnfMaj
+        group: Charges déductibles
+      - name: Pensions alimentaires déductibles - Autres pensions alimentaires versées (enfants
+          mineurs, ascendants, ...)
+        value: dgfip_PaDeduc_Autres
+        group: Charges déductibles
+      - name: Versement épargne retraite
+        value: dgfip_EpargRetrDeduc
+        group: Charges déductibles
+      - name: Indicateur d’éligibilité au LEP
+        value: dgfip_IndLep
+        group: Éligibilité Livret d’Épargne Populaire - établissements bancaires uniquement
