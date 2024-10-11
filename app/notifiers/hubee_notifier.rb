@@ -22,6 +22,6 @@ class HubEENotifier < BaseNotifier
   def notify_administrateur_metier
     HubEEMailer.with(
       authorization_request:,
-    ).public_send(:"administrateur_metier_#{kind}").deliver_later
+    ).administrateur_metier(kind).deliver_later
   end
 end

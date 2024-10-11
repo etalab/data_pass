@@ -7,7 +7,7 @@ RSpec.describe HubEENotifier, type: :notifier do
     before(:all) do
       class DummyHubEENotifier < HubEENotifier
         def kind
-          'cert_dc'
+          :cert_dc
         end
       end
     end
