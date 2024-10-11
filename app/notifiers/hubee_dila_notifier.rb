@@ -1,5 +1,5 @@
 class HubEEDilaNotifier < HubEENotifier
   def kind
-    'dila'
+    :dila
   end
 end

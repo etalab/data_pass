@@ -1,5 +1,5 @@
 class HubEECertDCNotifier < HubEENotifier
   def kind
-    'cert_dc'
+    :cert_dc
   end
 end

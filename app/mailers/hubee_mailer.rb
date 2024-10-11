@@ -1,23 +1,22 @@
 class HubEEMailer < ApplicationMailer
-  def administrateur_metier_cert_dc
+  def administrateur_metier(kind)
     @authorization_request = params[:authorization_request]
 
     mail(
       to: @authorization_request.administrateur_metier_email,
-      subject: subject_for(__method__)
+      subject: subject_for(kind),
+      template_name: "administrateur_metier_#{kind}"
     )
   end
 
-  alias administrateur_metier_dila administrateur_metier_cert_dc
-
-  def subject_for(name)
-    case name
-    when :administrateur_metier_cert_dc
+  def subject_for(kind)
+    case kind
+    when :cert_dc
       'Vous avez été désigné administrateur local HubEE pour une démarche CertDC'
-    when :administrateur_metier_dila
+    when :dila
       'Vous avez été désigné administrateur local HubEE pour des démarches service-public.fr'
     else
-      raise "Unknown email name: #{name}"
+      raise "Unknown hubee email kind: #{kind}"
     end
   end
 end
