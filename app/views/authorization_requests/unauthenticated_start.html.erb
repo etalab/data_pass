@@ -3,19 +3,19 @@
     <%= render partial: 'pages/shared/unauthenticated_pages/welcome_logo' %>
 
     <div class="fr-col-sm-12 fr-col-md-7 fr-my-5w">
+      <h1>
+        <%= t('pages.home.title') %>
+      </h1>
+
+      <p>
+        <%= t(".sub_title.#{@authorization_definition.kind}",
+          authorization_definition_name: @authorization_definition.name).html_safe %>
+      </p>
+
       <div class="fr-connect-group">
-        <h1>
-          <%= t('pages.home.title') %>
-        </h1>
-
-        <p>
-          <%= t(".sub_title.#{@authorization_definition.kind}",
-            authorization_definition_name: @authorization_definition.name).html_safe %>
-        </p>
-
         <%= render partial: 'authorization_requests/shared/unauthenticated_pages/timeline_steps' %>
         <hr/>
-        <%= render partial: 'pages/shared/unauthenticated_pages/mon_compte_pro' %>
+        <%= render partial: 'pages/shared/unauthenticated_pages/pro_connect' %>
       </div>
     </div>
   </div>
