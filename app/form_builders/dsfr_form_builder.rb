@@ -35,7 +35,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
           file_field(attribute, class: 'fr-upload', autocomplete: 'off', **enhance_input_options(opts).except(:class)),
           error_message(attribute),
           link_to_file(attribute)
-        ]
+        ].compact
       )
     end
   end
