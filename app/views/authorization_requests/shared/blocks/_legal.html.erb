@@ -15,12 +15,15 @@
   <% end %>
 
   <% if @authorization_request.cadre_juridique_document.attached? %>
-    <p>
+    <div>
       <strong>
         Document relatif au traitement :
       </strong>
       <br />
       <%= link_to @authorization_request.cadre_juridique_document.filename, url_for(@authorization_request.cadre_juridique_document), target: '_blank', class: %w[fr-link--icon-left fr-icon-file-pdf-fill] %>
-    </p>
+      <% if namespace?(:instruction) %>
+        <%= f.dsfr_malware_badge @authorization_request.cadre_juridique_document, class: 'fr-ml-1w' %>
+      <% end %>
+    </div>
   <% end %>
 <% end %>

@@ -16,6 +16,20 @@ fr:
   authorization:
     badge: habilitation du %{date}
 
+  malware_scan:
+    badge_class:
+      safe: success
+      unsafe: error
+      pending: info
+      ongoing_scan: new
+      unknown: warning
+    label:
+      safe: Fichier verifié
+      unsafe: Ce fichier est dangereux
+      pending: Fichier en attente d'analyse
+      ongoing_scan: Fichier en cours d'analyse
+      unknown: L'analyse antivirus a échouée
+
   authorization_request:
     badge: demande n°%{id}
     status:
