@@ -16,13 +16,16 @@
   <% end %>
 
   <% if @authorization_request.respond_to?(:maquette_projet) && @authorization_request.maquette_projet.attached? %>
-    <p>
+    <div class="fr-mb-5v">
       <strong>
         <%= f.label_value(:maquette_projet) %> :
       </strong>
       <br />
       <%= link_to @authorization_request.maquette_projet.filename, url_for(@authorization_request.maquette_projet), target: '_blank', class: %w[fr-link--icon-left fr-icon-file-pdf-fill] %>
-    </p>
+      <% if namespace?(:instruction) %>
+        <%= f.dsfr_malware_badge @authorization_request.maquette_projet, class: 'fr-ml-1w' %>
+      <% end %>
+    </div>
   <% end %>
 
   <% if @authorization_request.respond_to?(:date_prevue_mise_en_production) %>
