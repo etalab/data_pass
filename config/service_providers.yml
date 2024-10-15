@@ -53,10 +53,12 @@ shared:
     type: editor
     name: Arpège
     siret: "35142130000036"
+    code_cog: "44109"
   berger_levrault:
     type: editor
     name: Berger-Levrault
     siret: "75580064600373"
+    code_cog: "92012"
   jdealise:
     type: editor
     name: JDéalise
@@ -65,6 +67,7 @@ shared:
     type: editor
     name: Arche MC2
     siret: "38251931200088"
+    code_cog: "13001"
   afi:
     type: editor
     name: Agence Française d'Informatique (AFI)
@@ -85,6 +88,7 @@ shared:
     type: editor
     name: Cosoluce
     siret: "44321098400052"
+    code_cog: "5829C"
   docaposte:
     type: editor
     name: DOCAPOSTE
@@ -105,6 +109,7 @@ shared:
     type: editor
     name: JVS-Mairistem
     siret: "32855218700069"
+    code_cog: "51504"
   kosmos:
     type: editor
     name: Kosmos
@@ -117,6 +122,7 @@ shared:
     type: editor
     name: Odyssée Informatique
     siret: "38812677300026"
+    code_cog: "19123"
   qiis:
     type: editor
     name: Qiis
@@ -141,6 +147,7 @@ shared:
     type: editor
     name: 3D Ouest
     siret: "44973625500018"
+    code_cog: "22113"
   coexya:
     type: editor
     name: Coexya
@@ -149,6 +156,7 @@ shared:
     type: editor
     name: AGEDI
     siret: "25770538400044"
+    code_cog: "15014"
   ecorestauration:
     type: editor
     name: Ecorestauration
