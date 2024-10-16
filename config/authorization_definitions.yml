@@ -336,11 +336,12 @@ shared:
     cgu_link: "/cgus/dgfip/cgu_api_impot_particulier_production_hors_connexion_fc_decembre2022_v4.0.pdf"
     provider: "dgfip"
     blocks:
-      - name: "basic_infos"
-      - name: "personal_data"
-      - name: "legal"
-      - name: "scopes"
-      - name: "contacts"
+      - name: basic_infos
+      - name: personal_data
+      - name: legal
+      - name: scopes
+      - name: contacts
+      - name: safety_certification
     scopes:
       - name: Dernière année de revenu
         value: dgfip_annee_n_moins_1
