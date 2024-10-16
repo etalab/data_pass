@@ -10,6 +10,11 @@
   width: fit-content;
 }
 
+/* File input : clickable area was too large */
+.fr-upload-group {
+  width: fit-content;
+}
+
 /* Accordion */
 .fr-accordion .fr-collapse p:last-child {
   margin-bottom: 0;
