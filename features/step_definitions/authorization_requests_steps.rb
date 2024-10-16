@@ -230,8 +230,18 @@ end
 
 Quand('je renseigne le cadre légal') do
   steps %(
-    * je remplis "Précisez la nature et les références du texte vous autorisant à traiter les données" avec "Article 42"
+    * je remplis "Précisez la nature et les références du texte vous autorisant à traiter les données" avec "Josiane Homologation"
     * je remplis "URL du texte relatif au traitement" avec "https://legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000006430983&cidTexte=LEGITEXT000006070721"
+  )
+end
+
+Quand("Je renseigne l'homologation de sécurité") do
+  steps %(
+    * je remplis "Nom de l’autorité d’homologation ou du signataire du questionnaire de sécurité" avec "Article 42"
+    * je remplis "Fonction de l’autorité d’homologation ou du signataire du questionnaire de sécurité" avec "Représentant de l'autorité d'homologation des joints d'étanchéité de conduits d'évacuation de climatiseurs de morgue"
+    * je remplis "Date de début d’homologation ou de signature du questionnaire de sécurité" avec "2025-05-22"
+    * je remplis "Date de fin d’homologation" avec "2025-05-22"
+    * je remplis "La décision d’homologation ou le questionnaire de sécurité" avec le fichier "spec/fixtures/dummy.pdf"
   )
 end
 
