@@ -256,6 +256,14 @@ Quand('je renseigne les informations des contacts RGPD') do
   )
 end
 
+Quand('je renseigne les informations du contact technique') do
+  steps %(
+    * je remplis les informations du contact "Contact technique" avec :
+      | Nom    | Prénom  | Email               | Téléphone   | Fonction    |
+      | Dupont | Marc    | dupont.marc@gouv.fr | 08366565603 | Technique   |
+  )
+end
+
 Quand('il existe un instructeur pour cette demande d\'habilitation') do
   definition = AuthorizationRequest.last.definition
 
