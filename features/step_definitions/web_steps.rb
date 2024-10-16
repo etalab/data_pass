@@ -76,6 +76,10 @@ Quand('je remplis {string} avec {string}') do |label, value|
   end
 end
 
+Quand('je remplis {string} avec le fichier {string}') do |label, path|
+  attach_file(label, path)
+end
+
 Quand('je clique sur {string} dans la rangée {string}') do |link, row|
   within('tr', text: row) do
     click_link_or_button(link)

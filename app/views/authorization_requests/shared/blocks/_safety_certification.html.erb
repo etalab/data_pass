@@ -1,0 +1,44 @@
+<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { title: f.wording_for('steps.safety_certification'), block_id: :safety_certification, f:, editable: } do %>
+  <% if @authorization_request.respond_to?(:safety_certification_authority_name) %>
+    <strong>
+      <%= f.label_value(:safety_certification_authority_name) %>
+    </strong>
+
+    <%= simple_format(@authorization_request.safety_certification_authority_name) %>
+  <% end %>
+
+  <% if @authorization_request.respond_to?(:safety_certification_authority_function) %>
+    <strong>
+      <%= f.label_value(:safety_certification_authority_function) %>
+    </strong>
+
+    <%= simple_format(@authorization_request.safety_certification_authority_function) %>
+  <% end %>
+
+  <% if @authorization_request.respond_to?(:safety_certification_begin_date) %>
+    <strong>
+      <%= f.label_value(:safety_certification_begin_date) %>
+    </strong>
+
+    <%= simple_format(@authorization_request.safety_certification_begin_date) %>
+  <% end %>
+
+  <% if @authorization_request.respond_to?(:safety_certification_end_date) %>
+    <strong>
+      <%= f.label_value(:safety_certification_end_date) %>
+    </strong>
+
+    <%= simple_format(@authorization_request.safety_certification_end_date) %>
+  <% end %>
+
+
+  <% if @authorization_request.respond_to?(:safety_certification_document) && @authorization_request.safety_certification_document.attached? %>
+    <p>
+      <strong>
+        <%= f.label_value(:safety_certification_document) %> :
+      </strong>
+      <br />
+      <%= link_to @authorization_request.safety_certification_document.filename, url_for(@authorization_request.safety_certification_document), target: '_blank', class: %w[fr-link--icon-left fr-icon-file-pdf-fill] %>
+    </p>
+  <% end %>
+<% end %>
