@@ -5,6 +5,11 @@
   box-shadow: inset 0 -2px 0 0 rgb(0, 0, 0, 0.05);
 }
 
+/* Date input : date selector was too far left on large inputs */
+.fr-input[type="date"] {
+  width: fit-content;
+}
+
 /* Accordion */
 .fr-accordion .fr-collapse p:last-child {
   margin-bottom: 0;
