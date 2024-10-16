@@ -23,9 +23,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
     * je clique sur "Suivant"
 
     * je renseigne les informations des contacts RGPD
-    * je remplis les informations du contact "Contact technique" avec :
-      | Nom    | Prénom  | Email               | Téléphone   | Fonction    |
-      | Dupont | Marc    | dupont.marc@gouv.fr | 08366565603 | Technique   |
+    * je renseigne les informations du contact technique
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
@@ -52,9 +50,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
     * je clique sur "Suivant"
 
     * je renseigne les informations des contacts RGPD
-    * je remplis les informations du contact "Contact technique" avec :
-      | Nom    | Prénom  | Email               | Téléphone   | Fonction    |
-      | Dupont | Marc    | dupont.marc@gouv.fr | 08366565603 | Technique   |
+    * je renseigne les informations du contact technique
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
@@ -90,9 +86,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
     * je clique sur "Suivant"
 
     * je renseigne les informations des contacts RGPD
-    * je remplis les informations du contact "Contact technique" avec :
-      | Nom    | Prénom  | Email               | Téléphone   | Fonction    |
-      | Dupont | Marc    | dupont.marc@gouv.fr | 08366565603 | Technique   |
+    * je renseigne les informations du contact technique
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
@@ -116,9 +110,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
     * je clique sur "Suivant"
 
     * je renseigne les informations des contacts RGPD
-    * je remplis les informations du contact "Contact technique" avec :
-      | Nom    | Prénom  | Email               | Téléphone   | Fonction    |
-      | Dupont | Marc    | dupont.marc@gouv.fr | 08366565603 | Technique   |
+    * je renseigne les informations du contact technique
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
@@ -145,9 +137,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
     * je clique sur "Suivant"
 
     * je renseigne les informations des contacts RGPD
-    * je remplis les informations du contact "Contact technique" avec :
-      | Nom    | Prénom  | Email               | Téléphone   | Fonction    |
-      | Dupont | Marc    | dupont.marc@gouv.fr | 08366565603 | Technique   |
+    * je renseigne les informations du contact technique
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
@@ -199,9 +189,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
     * je clique sur "Suivant"
 
     * je renseigne les informations des contacts RGPD
-    * je remplis les informations du contact "Contact technique" avec :
-      | Nom    | Prénom  | Email               | Téléphone   | Fonction    |
-      | Dupont | Marc    | dupont.marc@gouv.fr | 08366565603 | Technique   |
+    * je renseigne les informations du contact technique
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
@@ -231,9 +219,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
     * je clique sur "Suivant"
 
     * je renseigne les informations des contacts RGPD
-    * je remplis les informations du contact "Contact technique" avec :
-      | Nom    | Prénom  | Email               | Téléphone   | Fonction    |
-      | Dupont | Marc    | dupont.marc@gouv.fr | 08366565603 | Technique   |
+    * je renseigne les informations du contact technique
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
@@ -312,9 +298,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
     * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
     * je renseigne les infos concernant les données personnelles
 
-    * je remplis les informations du contact "Contact technique" avec :
-      | Nom    | Prénom  | Email               | Téléphone   | Fonction    |
-      | Dupont | Marc    | dupont.marc@gouv.fr | 08366565603 | Technique   |
+    * je renseigne les informations du contact technique
 
     * je clique sur "Enregistrer les modifications"
     * je clique sur "Continuer vers le résumé"
@@ -364,9 +348,7 @@ Plan du scénario: Je soumets une demande d'habilitation, en plusieurs étapes, 
     * je clique sur "Suivant"
 
     * je renseigne les informations des contacts RGPD
-    * je remplis les informations du contact "Contact technique" avec :
-      | Nom    | Prénom  | Email               | Téléphone   | Fonction    |
-      | Dupont | Marc    | dupont.marc@gouv.fr | 08366565603 | Technique   |
+    * je renseigne les informations du contact technique
     * je clique sur "Suivant"
     Et j'adhère aux conditions générales
     * je clique sur "Soumettre la demande d'habilitation"
