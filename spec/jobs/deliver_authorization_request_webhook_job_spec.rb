@@ -120,7 +120,6 @@ RSpec.describe DeliverAuthorizationRequestWebhookJob do
         end
 
         context 'when we reach the threshold to notify data provider' do
-          let(:tries_count) { described_class::THRESHOLD_TO_NOTIFY_DATA_PROVIDER }
           let(:response) { instance_double(Faraday::Response, status:, body: 'body') }
 
           before do
