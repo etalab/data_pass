@@ -11,6 +11,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Entreprise
     Et que je clique sur "Débuter ma demande"
 
     * je renseigne les infos de bases du projet
+    * Je joins une maquette au projet "API Entreprise"
     * je clique sur "Suivant"
 
     * je renseigne les infos concernant les données personnelles
