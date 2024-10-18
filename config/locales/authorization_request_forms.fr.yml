@@ -321,6 +321,8 @@ fr:
       <<: *api_particulier_editor_common_wordings
     api_particulier_esabora_pourmesdossiers:
       <<: *api_particulier_editor_common_wordings
+    api_particulier_airweb:
+      <<: *api_particulier_editor_common_wordings
 
     api_particulier_tarification_municipale_enfance:
       description:
