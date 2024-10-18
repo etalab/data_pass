@@ -15,5 +15,12 @@ module AuthorizationExtensions::SafetyCertification
       :safety_certification_end_date,
       presence: true,
       if: -> { need_complete_validation?(:safety_certification) }
+
+    validates :safety_certification_end_date,
+      comparison: {
+        greater_than: :safety_certification_begin_date,
+        message: I18n.t('activerecord.errors.models.authorization_request.attributes.safety_certification_begin_date.comparison')
+      },
+      if: -> { need_complete_validation?(:safety_certification) }
   end
 end
