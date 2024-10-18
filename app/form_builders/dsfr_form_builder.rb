@@ -175,10 +175,11 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def link_to_file(attribute)
-    return unless @object.send(attribute).attached? && @object.send(attribute).persisted?
+    file = @object.send(attribute)
+    return unless file.attached? && file.persisted?
 
-    @template.content_tag(:div, class: 'fr-input-group__text') do
-      @template.link_to('Voir le document', rails_blob_path(@object.send(attribute), disposition: 'inline', only_path: true), target: '_blank', rel: 'noopener')
+    @template.content_tag(:div, class: 'fr-input-group__text fr-mt-1w') do
+      @template.link_to(file.filename, rails_blob_path(file, disposition: 'inline', only_path: true), target: '_blank', rel: 'noopener')
     end
   end
 
