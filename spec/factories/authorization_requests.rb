@@ -213,7 +213,7 @@ FactoryBot.define do
           authorization_request.safety_certification_authority_name ||= 'Josiane Homologation'
           authorization_request.safety_certification_authority_function ||= "Représentant de l'autorité d'homologation des joints d'étanchéité de conduits d'évacuation de climatiseurs de morgue"
           authorization_request.safety_certification_begin_date ||= '2025-05-22'
-          authorization_request.safety_certification_end_date ||= '2050-05-22'
+          authorization_request.safety_certification_end_date ||= '2050-05-23'
           authorization_request.safety_certification_document.attach(
             io: Rails.root.join('spec/fixtures/dummy.pdf').open,
             filename: 'dummy.pdf',
