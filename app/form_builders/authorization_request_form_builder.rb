@@ -85,21 +85,6 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
     end
   end
 
-  def dsfr_file_field(attribute, opts = {})
-    opts[:class] ||= 'fr-upload-group'
-
-    dsfr_input_group(attribute, opts) do
-      @template.safe_join(
-        [
-          label_with_hint(attribute, opts),
-          readonly? ? nil : file_field(attribute, class: 'fr-upload', autocomplete: 'off', **enhance_input_options(opts).except(:class)),
-          error_message(attribute),
-          link_to_file(attribute)
-        ].compact
-      )
-    end
-  end
-
   def dsfr_scope(scope, opts = {})
     disabled = opts.delete(:disabled)
 

@@ -35,7 +35,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
           file_field(attribute, class: 'fr-upload', autocomplete: 'off', **enhance_input_options(opts).except(:class)),
           error_message(attribute),
           link_to_file(attribute)
-        ]
+        ].compact
       )
     end
   end
@@ -96,6 +96,17 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
           error_message(attribute)
         ]
       )
+    end
+  end
+
+  def dsfr_malware_badge(attribute, opts = {})
+    safety_state = attribute.malware_scan&.safety_state || 'unknown'
+
+    badge_class = I18n.t("malware_scan.badge_class.#{safety_state}")
+    label = I18n.t("malware_scan.label.#{safety_state}")
+
+    @template.content_tag(:p, class: "fr-badge fr-badge--#{badge_class} malware-badge #{opts[:class]}") do
+      label_value(label)
     end
   end
 
