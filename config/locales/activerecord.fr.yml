@@ -100,6 +100,8 @@ fr:
           attributes:
             scopes:
               blank: "ne sont pas cochées : il faut au moins qu'une des données soit sélectionnée."
+            safety_certification_begin_date:
+              comparison: doit être supérieure à la date de début
   ransack:
     attributes:
       authorization_request:
