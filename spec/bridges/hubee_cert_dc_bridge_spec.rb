@@ -32,6 +32,8 @@ RSpec.describe HubEECertDCBridge do
                 email: 'jean.dupont.administrateur_metier@gouv.fr',
                 firstName: 'Jean Administrateur metier',
                 lastName: 'Dupont Administrateur metier',
+                function: 'Agent Administrateur metier',
+                phoneNumber: '0836656565',
               }
             )
           )
