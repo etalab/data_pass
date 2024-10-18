@@ -8,7 +8,7 @@
   </div>
 
   <div class="fr-fieldset__element">
-    <%= f.dsfr_number_field :duree_conservation_donnees_caractere_personnel, data: { 'personal-data-duree-conservation-justification-target': 'value' }, model: @authorization_request, required: true %>
+    <%= f.dsfr_number_field :duree_conservation_donnees_caractere_personnel, data: { 'personal-data-duree-conservation-justification-target': 'value' }, model: @authorization_request, required: true, width: "lg-2 md-3 sm-4", placeholder: "Exemple: 36" %>
   </div>
 
   <div class="fr-fieldset__element fr-hidden" data-personal-data-duree-conservation-justification-target="justificationBlock">
