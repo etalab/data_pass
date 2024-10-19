@@ -1,0 +1,16 @@
+<%= render partial: 'mailer/shared/applicant/header', locals: { entity_name: [@authorization_request.administrateur_metier_family_name, @authorization_request.administrateur_metier_given_name].join(' ') } %>
+
+Nous vous informons que votre commune vient d’être abonnée à la démarche CertDc, et que vous avez été désigné en tant qu’administrateur local HubEE par : <%= @authorization_request.applicant.full_name %>.
+
+En conséquence, un compte utilisateur a été créé pour vous sur le Portail HubEE afin de finaliser la procédure d’abonnement à la démarche.
+
+Voici les étapes à suivre :
+
+1. Créez votre mot de passe de connexion, en utilisant l’e-mail d’initialisation de mot de passe que vous avez reçu de HubEE. Si vous ne l’avez pas reçu, pensez à vérifier vos courriers indésirables.
+2. Activez et paramétrez votre abonnement à la démarche CertDc en suivant les instructions du Guide d’activation des abonnements : https://hubee.numerique.gouv.fr/docs/Etape%202_HubEE_Guide_Activation_Abonnements_Communes_v1.1.0.pdf
+
+Pour information, votre demande d’abonnement reste accessible en cliquant sur le lien suivant : <%= authorization_request_url(@authorization_request) %>
+
+Bien cordialement,
+
+<%= render partial: 'mailer/shared/applicant/footer', locals: { authorization_definition_name: @authorization_request.definition.name } %>
