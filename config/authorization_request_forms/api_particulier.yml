@@ -69,7 +69,6 @@ api-particulier-abelium:
     contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_abelium_collectivites_contact_technique_phone_number || '0836656565' %>"
     contact_technique_job_title: Support client
     modalities:
-      - formulaire_qf
       - params
 
 # Editeur (cas 3)
@@ -117,7 +116,6 @@ api-particulier-arpege-concerto:
       - cnaf_quotient_familial
       - cnaf_allocataires
     modalities:
-      - formulaire_qf
       - params
 
 # Editeur (cas 4)
@@ -164,7 +162,6 @@ api-particulier-cantine-de-france:
     contact_technique_phone_number: "0972473612"
     contact_technique_type: organization
     modalities:
-      - formulaire_qf
       - params
 
 # Editeur (cas 4)
@@ -203,7 +200,6 @@ api-particulier-agora-plus:
     contact_technique_phone_number: "0184160095"
     contact_technique_type: organization
     modalities:
-      - formulaire_qf
       - params
 
 # Editeur (cas 2)
@@ -319,7 +315,6 @@ api-particulier-ccas-arpege:
       - cnaf_allocataires
     modalities:
       - params
-      - formulaire_qf
 
 # Editeur (cas 5)
 api-particulier-city-family-mushroom-software:
@@ -351,7 +346,6 @@ api-particulier-city-family-mushroom-software:
     contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_mushroom_software_contact_technique_phone_number || '0836656565' %>"
     contact_technique_job_title: Directeur technique
     modalities:
-      - formulaire_qf
       - params
 
 api-particulier-civil-enfance-ciril-group:
@@ -409,7 +403,6 @@ api-particulier-cosoluce-fluo:
     contact_technique_job_title: Product Owner
     modalities:
       - params
-      - formulaire_qf
 
 api-particulier-nfi:
   name: NFI
@@ -475,7 +468,6 @@ api-particulier-technocarte-ile:
       - cnaf_allocataires
     modalities:
       - params
-      - formulaire_qf
 
 api-particulier-waigeo-myperischool:
   name: MyPérischool
@@ -633,7 +625,6 @@ api-particulier-ecorestauration-loyfeey:
     contact_technique_job_title: Lead développeur
     modalities:
       - params
-      - formulaire_qf
 
 api-particulier-jcdeveloppement-familyclic:
   name: FamilyClic
@@ -805,7 +796,6 @@ api-particulier-kosmos-education:
       - cnaf_adresse
       - cnaf_enfants
     modalities:
-      - formulaire_qf
       - params
 
 api-particulier-monkey-factory-maasify:
