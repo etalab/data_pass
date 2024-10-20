@@ -5,8 +5,6 @@ class ServiceProvider < StaticApplicationRecord
     :type,
     :already_integrated
 
-  TYPES = { saas: 'saas', editor: 'editor' }.freeze
-
   def self.all
     Rails.application.config_for(:service_providers).map do |uid, hash|
       build(uid, hash)
@@ -32,13 +30,5 @@ class ServiceProvider < StaticApplicationRecord
 
   def self.editors
     all.select(&:editor?)
-  end
-
-  def editor?
-    type == TYPES[:editor]
-  end
-
-  def saas?
-    type == TYPES[:saas]
   end
 end
