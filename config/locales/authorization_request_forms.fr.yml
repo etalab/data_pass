@@ -9,6 +9,7 @@ fr:
         contacts: "Les personnes impliquées"
         modalities: "Les modalités d'accès aux données"
         safety_certification: "Homologation de sécurité"
+        operational_acceptance: "Recette fonctionnelle"
         finish: "La synthèse"
 
       terms_of_service_accepted:
@@ -43,6 +44,28 @@ fr:
             <p>Le Référentiel Général de Sécurité (RGS 2.0) rend la démarche d’homologation obligatoire pour les SI relatifs aux échanges entre une autorité administrative et les usagers ou entre autorités administratives.</p>
             <p>Complétez les informations relatives à l’homologation et déposez la décision formelle d’homologation (également appelée attestation formelle).</p>
             <p>Toutefois, si votre organisme n’est pas soumis au RGS, vous pouvez remplir un questionnaire de sécurité à récupérer auprès de la DTNum à l’adresse mail suivante : <a href="mailto:dtnum.donnees.demande-acces@dgfip.finances.gouv.fr">dtnum.donnees.demande-acces@dgfip.finances.gouv.fr</a>, et à joindre dans le formulaire ci-dessous.</p>
+
+      operational_acceptance:
+        title: Recette fonctionelle
+        subtitle: La qualification de votre téléservice est obligatoire tant pour votre homologation de sécurité ou vos obligations RGPD que pour demander l’entrée en production auprès de la DGFiP.
+        info:
+          title: Comment effectuer cette recette fonctionnelle ? 
+          content: |
+            <p>
+              La qualification de votre téléservice est obligatoire tant pour votre homologation de sécurité ou vos obligations RGPD que pour demander l’entrée en production auprès de la DGFiP.
+            </p>
+            <p>
+              Pour vous accompagner dans vos travaux, un environnement de test est mis à votre disposition sur le portail des API de la DGFiP.
+            </p>
+            <p>
+              Le périmètre des réponses de cet environnement de test est fonctionnellement identique à l’environnement de production.
+            </p>
+            <p>
+              Un jeu de données fictives vous permet de valider l’intégration de quelques cas fonctionnels dans votre téléservice. L’environnement de test proposé par la DGFiP n’a donc pas vocation à recetter toutes les fonctionnalités du téléservice, qui doivent faire l’objet d’une recette interne.
+            </p>
+            <p>
+              A l’issue de vos travaux, veuillez attester de la qualification de votre téléservice.
+            </p>
 
       prefill_data_info:
         title: Nous avons pré-rempli des informations pour vous aider

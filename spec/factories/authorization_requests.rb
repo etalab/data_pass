@@ -223,6 +223,12 @@ FactoryBot.define do
       end
     end
 
+    trait :with_operational_acceptance do
+      after(:build) do |authorization_request, evaluator|
+        authorization_request.operational_acceptance_done = true if authorization_request.need_complete_validation? || evaluator.fill_all_attributes
+      end
+    end
+
     trait :hubee_cert_dc do
       type { 'AuthorizationRequest::HubEECertDC' }
     end
@@ -371,6 +377,7 @@ FactoryBot.define do
       with_cadre_juridique
       with_scopes
       with_safety_certification
+      with_operational_acceptance
     end
   end
 end

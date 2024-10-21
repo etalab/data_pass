@@ -9,5 +9,6 @@ api-impot-particulier-editeur:
     - name: personal_data
     - name: legal
     - name: scopes
-    - name: safety_certification
     - name: contacts
+    - name: operational_acceptance
+    - name: safety_certification
