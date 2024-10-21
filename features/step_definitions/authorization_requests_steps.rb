@@ -235,6 +235,16 @@ Quand('je renseigne le cadre légal') do
   )
 end
 
+Quand("Je renseigne l'homologation de sécurité") do
+  steps %(
+    * je remplis "Nom de l’autorité d’homologation ou du signataire du questionnaire de sécurité" avec "Josiane Homologation"
+    * je remplis "Fonction de l’autorité d’homologation ou du signataire du questionnaire de sécurité" avec "Représentant de l'autorité d'homologation des joints d'étanchéité de conduits d'évacuation de climatiseurs de morgue"
+    * je remplis "Date de début d’homologation ou de signature du questionnaire de sécurité" avec "2025-05-22"
+    * je remplis "Date de fin d’homologation" avec "2050-05-22"
+    * je remplis "La décision d’homologation ou le questionnaire de sécurité" avec le fichier "spec/fixtures/dummy.pdf"
+  )
+end
+
 Quand('je renseigne les informations des contacts RGPD') do
   steps %(
     * je remplis les informations du contact "Responsable de traitement" avec :
@@ -243,6 +253,14 @@ Quand('je renseigne les informations des contacts RGPD') do
     * je remplis les informations du contact "Délégué à la protection des données" avec :
       | Nom    | Prénom  | Email                  | Téléphone   | Fonction    |
       | Dupont | Jacques | dupont.jacques@gouv.fr | 08366565601 | Délégué     |
+  )
+end
+
+Quand('je renseigne les informations du contact technique') do
+  steps %(
+    * je remplis les informations du contact "Contact technique" avec :
+      | Nom    | Prénom  | Email               | Téléphone   | Fonction    |
+      | Dupont | Marc    | dupont.marc@gouv.fr | 08366565603 | Technique   |
   )
 end
 
