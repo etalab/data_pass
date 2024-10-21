@@ -48,6 +48,8 @@ fr:
         safety_certification_begin_date: Date de début d’homologation ou de signature du questionnaire de sécurité
         safety_certification_end_date: Date de fin d’homologation
 
+        operational_acceptance_done: J’atteste avoir réalisé une recette fonctionnelle et qualifié mon téléservice.
+
         scopes: Les données
 
         administrateur_metier_family_name: Nom de famille de l'administrateur système

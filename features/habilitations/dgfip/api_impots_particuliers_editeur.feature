@@ -20,11 +20,14 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
     * je coche "Dernière année de revenu"
     * je clique sur "Suivant"
 
-    * Je renseigne l'homologation de sécurité
-    * je clique sur "Suivant"
-
     * je renseigne les informations des contacts RGPD
     * je renseigne les informations du contact technique
+    * je clique sur "Suivant"
+
+    * Je renseigne la recette fonctionnelle
+    * je clique sur "Suivant"
+
+    * Je renseigne l'homologation de sécurité
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
@@ -46,6 +49,13 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
     * je clique sur "Suivant"
 
     * je coche "Dernière année de revenu"
+    * je clique sur "Suivant"
+
+    * je renseigne les informations des contacts RGPD
+    * je renseigne les informations du contact technique
+    * je clique sur "Suivant"
+    
+    * Je renseigne la recette fonctionnelle
     * je clique sur "Suivant"
 
     * je remplis "Nom de l’autorité d’homologation ou du signataire du questionnaire de sécurité" avec "Article 42"

@@ -341,6 +341,7 @@ shared:
       - name: legal
       - name: scopes
       - name: contacts
+      - name: operational_acceptance
       - name: safety_certification
     scopes:
       - name: Dernière année de revenu

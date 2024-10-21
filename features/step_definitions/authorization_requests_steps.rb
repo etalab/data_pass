@@ -245,6 +245,12 @@ Quand("Je renseigne l'homologation de sécurité") do
   )
 end
 
+Quand('Je renseigne la recette fonctionnelle') do
+  steps %(
+    * je coche "J’atteste avoir réalisé une recette fonctionnelle et qualifié mon téléservice."
+  )
+end
+
 Quand('je renseigne les informations des contacts RGPD') do
   steps %(
     * je remplis les informations du contact "Responsable de traitement" avec :
