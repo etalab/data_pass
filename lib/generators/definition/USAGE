@@ -1,0 +1,17 @@
+Description:
+    Génère un nouveau type d'habilitation, en ajoutant les configurations/modèles nécessaires.
+
+    Liste non exhaustive:
+    1. Le modèle `AuthorizationRequest`
+    2. La définition dans `config/authorization_definitions.yml`
+    3. Une configuration de formulaires par défaut dans `config/authorization_request_forms/france_generateur.yml`
+    4. Le trait de factory du modèle
+    5. Un test de feature
+
+Example:
+    bin/rails generate definition FranceGenerateur "Générateur de France"
+
+    This will create:
+      app/models/authorization_request/france_generateur.rb
+      config/authorization_request_forms/france_generateur.yml
+      features/habilitations/france_generateur.feature
