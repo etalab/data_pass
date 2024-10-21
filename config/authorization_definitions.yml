@@ -484,5 +484,7 @@ shared:
     scopes:
       - name: "Identifiant national"
         value: "idnat"
+        group: "Données"
       - name: "Données sectorielles"
         value: "donnees_sectorielles"
+        group: "Données"

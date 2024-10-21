@@ -178,6 +178,18 @@ fr:
               Hub d’Échange de l’État).
             </p>
 
+    api_pro_sante_connect:
+      scopes:
+        info:
+          title: En quoi consistent ces démarches?
+          content: |
+            <p>
+              <strong> Identifiant national </strong> : RPPS (ou ADELI).
+            </p>
+            <p>
+              <strong> Données sectorielle </strong> : type d’activité (salarié ou libéral) et lieu d’activité.
+            </p>
+
     api_entreprise:
       maquette_projet:
         hint: Joindre une photo de votre projet, sous format PDF
