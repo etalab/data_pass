@@ -136,6 +136,12 @@ fr-badge--grey {
   color: var(--grey-1000-50);
 }
 
+/* No line return in badges */
+
+.fr-badge {
+  white-space: nowrap;
+}
+
 /* ¯¯¯¯¯¯¯¯¯ *\
   BANDEAU NOTICE WARNING
 \* ˍˍˍˍˍˍˍˍˍ */

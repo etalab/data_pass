@@ -68,7 +68,7 @@
             <%= authorization_request_status_badge(authorization_request, scope: :instruction) %>
 
             <% if authorization_request.reopening? %>
-              <%= authorization_request_reopening_badge %>
+              <%= authorization_request_reopening_badge(klass: "fr-mt-1w") %>
             <% end %>
           </td>
           <td class="authorization-request-last_submitted_at">
