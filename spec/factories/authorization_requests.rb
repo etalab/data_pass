@@ -360,7 +360,7 @@ FactoryBot.define do
       with_basic_infos
       with_cadre_juridique
     end
-
+    
     trait :api_impot_particulier_editeur do
       type { 'AuthorizationRequest::APIImpotParticulier' }
 
@@ -371,6 +371,15 @@ FactoryBot.define do
       with_cadre_juridique
       with_scopes
       with_safety_certification
+    end
+
+    trait :api_pro_sante_connect do
+      type { 'AuthorizationRequest::APIProSanteConnect' }
+
+      form_uid { 'api-pro-sante-connect' }
+      with_basic_infos
+      with_cadre_juridique
+      with_scopes
     end
   end
 end
