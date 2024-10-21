@@ -10,6 +10,7 @@ fr:
         modalities: "Les modalités d'accès aux données"
         safety_certification: "Homologation de sécurité"
         operational_acceptance: "Recette fonctionnelle"
+        volumetrie: "La volumétrie"
         finish: "La synthèse"
 
       terms_of_service_accepted:
@@ -66,6 +67,19 @@ fr:
             <p>
               A l’issue de vos travaux, veuillez attester de la qualification de votre téléservice.
             </p>
+      
+      volumetrie:
+        title: La volumétrie
+        subtitle: Connaître les données relatives à la volumétrie de votre téléservice nous permet de vous offrir la meilleure qualité de service possible.
+        info:
+          title: Pourquoi avons nous besoin de cette information ?
+          content: |
+            <p>Connaître les données relatives à la volumétrie de votre téléservice nous permet de vous offrir la meilleure qualité de service possible. Ces informations sont transmises aux fournisseurs de vos données pour prévenir les pics de charges.</p>
+            <p>Conformément aux modalités d’utilisation, nous nous réservons le droit de réduire ou couper les appels autorisés au fournisseur de service.</p>
+      volumetrie_appels_par_minute:
+        label: Quelle limitation de débit souhaitez- vous pour votre téléservice ?
+      volumetrie_justification:
+        label: Pour quels motifs souhaitez-vous un débit plus grand que le minimum ?
 
       prefill_data_info:
         title: Nous avons pré-rempli des informations pour vous aider

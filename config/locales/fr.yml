@@ -14,6 +14,7 @@ fr:
     contacts: "contacts"
     safety_certification: "homologation-de-securite"
     operational_acceptance: "recette-fonctionnelle"
+    volumetrie: "volumetrie"
 
   authorization:
     badge: habilitation du %{date}

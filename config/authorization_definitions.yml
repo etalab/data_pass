@@ -343,6 +343,7 @@ shared:
       - name: contacts
       - name: operational_acceptance
       - name: safety_certification
+      - name: volumetrie
     scopes:
       - name: Dernière année de revenu
         value: dgfip_annee_n_moins_1
