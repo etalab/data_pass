@@ -224,6 +224,9 @@ GEM
     fugit (1.11.0)
       et-orbi (~> 1, >= 1.2.11)
       raabro (~> 1.4)
+    generator_spec (0.10.0)
+      activesupport (>= 3.0.0)
+      railties (>= 3.0.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
     good_job (3.99.1)
@@ -609,6 +612,7 @@ DEPENDENCIES
   faraday-retry
   foreman
   friendly_id (~> 5.5.0)
+  generator_spec
   good_job (~> 3.99)
   guard
   guard-cucumber
