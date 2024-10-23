@@ -3,7 +3,7 @@ RSpec.describe WebhookSerializer, type: :serializer do
     subject(:serializable_hash) { webhook_serializer.serializable_hash }
 
     let(:webhook_serializer) { described_class.new(authorization_request, 'whatever') }
-    let(:authorization_request) { create(:authorization_request, :api_entreprise, :validated) }
+    let(:authorization_request) { create(:authorization_request, :api_entreprise_mgdis, :validated) }
 
     it 'contains valid keys/values' do
       expect(serializable_hash).to include(
@@ -27,6 +27,8 @@ RSpec.describe WebhookSerializer, type: :serializer do
           )
         )
       )
+
+      expect(serializable_hash[:data][:service_provider][:siret]).to eq(authorization_request.service_provider.siret)
     end
   end
 end
