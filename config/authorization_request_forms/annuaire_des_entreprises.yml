@@ -1,0 +1,7 @@
+annuaire-des-entreprises:
+  description: FEEDME
+  default: true
+  introduction: |
+    Ceci est une introduction à remplir
+  authorization_request: AnnuaireDesEntreprise
+  single_page_view: annuaire_des_entreprises

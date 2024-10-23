@@ -1,0 +1,37 @@
+<%= authorization_request_form(@authorization_request) do |f| %>
+  <div class="fr-mt-2w">
+    <%= render partial: "authorization_request_forms/shared/block_titles", locals: { f: f, block_name: :basic_infos } %>
+
+    <%= f.info_for(:basic_infos) %>
+
+    <fieldset class="fr-fieldset" aria-label="feedme" aria-describedby="name-1-fieldset-messages">
+      <div class="fr-fieldset__element">
+        <%= f.dsfr_text_field :intitule, required: true %>
+      </div>
+
+      <div class="fr-fieldset__element">
+        <%= f.dsfr_text_area :description, rows: 10, required: true %>
+      </div>
+
+      <div class="fr-fieldset__element">
+        <%= f.dsfr_text_area :description_equipe, rows: 10, required: true %>
+      </div>
+    </fieldset>
+  </div>
+
+  <div class="fr-mt-2w">
+    <%= render partial: "authorization_request_forms/shared/block_titles", locals: { f: f, block_name: :legal } %>
+
+    <%= render partial: 'authorization_request_forms/shared/legal', locals: { f: f } %>
+  </div>
+
+  <div class="fr-mt-2w">
+    <%= render partial: "authorization_request_forms/shared/block_titles", locals: { f: f, block_name: :scopes } %>
+  </div>
+
+  <div class="fr-container-fluid">
+    <%= render partial: 'authorization_request_forms/shared/scopes', locals: { f: } %>
+  </div>
+
+  <%= render partial: 'authorization_request_forms/shared/submit_buttons', locals: { f: f } %>
+<% end %>

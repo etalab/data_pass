@@ -489,3 +489,23 @@ shared:
       - name: "Données sectorielles"
         value: "donnees_sectorielles"
         group: "Données"
+
+  annuaire_des_entreprise:
+    name: "L'Annuaires des Entreprises"
+    description: "FEEDME"
+    provider: "dinum"
+    kind: 'service'
+    link: "https://annuaire-entreprises.data.gouv.fr/"
+    # FEEDME
+    cgu_link: "https://annuaire-entreprises.data.gouv.fr/cgu"
+    # FEEDME
+    access_link: "https://annuaire-entreprises.data.gouv.fr/compte"
+    public: true
+    blocks:
+      - name: "basic_infos"
+      - name: "legal"
+    scopes:
+      - name: "Scope 1"
+        value: "value_1"
+      - name: "Scope 2"
+        value: "value_2"

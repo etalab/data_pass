@@ -39,7 +39,7 @@ fr:
         title: L’homologation de sécurité
         subtitle: Le Référentiel Général de Sécurité (RGS 2.0) rend la démarche d’homologation obligatoire pour les SI relatifs aux échanges entre une autorité administrative et les usagers ou entre autorités administratives.
         info:
-          title: Pourquoi effectuer une homologation de securité ? 
+          title: Pourquoi effectuer une homologation de securité ?
           content: |
             <p>Le Référentiel Général de Sécurité (RGS 2.0) rend la démarche d’homologation obligatoire pour les SI relatifs aux échanges entre une autorité administrative et les usagers ou entre autorités administratives.</p>
             <p>Complétez les informations relatives à l’homologation et déposez la décision formelle d’homologation (également appelée attestation formelle).</p>
@@ -49,7 +49,7 @@ fr:
         title: Recette fonctionelle
         subtitle: La qualification de votre téléservice est obligatoire tant pour votre homologation de sécurité ou vos obligations RGPD que pour demander l’entrée en production auprès de la DGFiP.
         info:
-          title: Comment effectuer cette recette fonctionnelle ? 
+          title: Comment effectuer cette recette fonctionnelle ?
           content: |
             <p>
               La qualification de votre téléservice est obligatoire tant pour votre homologation de sécurité ou vos obligations RGPD que pour demander l’entrée en production auprès de la DGFiP.
@@ -616,3 +616,7 @@ fr:
             <p>
             Conformément aux modalités d’utilisation, nous nous réservons le droit de réduire ou couper les appels autorisés au fournisseur de service.
             </p>
+    annuaire_des_entreprise:
+      description_equipe:
+        label: Description de l'équipe
+

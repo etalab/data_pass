@@ -388,5 +388,15 @@ FactoryBot.define do
       with_cadre_juridique
       with_scopes
     end
+
+    trait :annuaire_des_entreprises do
+      type { 'AuthorizationRequest::AnnuaireDesEntreprise' }
+
+      form_uid { 'annuaire-des-entreprises' }
+
+      with_basic_infos
+      with_cadre_juridique
+      with_scopes
+    end
   end
 end
