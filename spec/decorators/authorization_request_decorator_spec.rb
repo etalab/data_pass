@@ -26,5 +26,33 @@ RSpec.describe AuthorizationRequestDecorator, type: :decorator do
         it { is_expected.to be(false) }
       end
     end
+
+    describe 'with an authorization request which has scopes' do
+      context 'when form has prefilled scopes' do
+        let(:authorization_request_form) { :api_entreprise_mgdis }
+
+        context 'when keys include scopes' do
+          let(:keys) { %w[invalid scopes] }
+
+          it { is_expected.to be(true) }
+        end
+
+        context 'when keys do not include scopes' do
+          let(:keys) { %w[invalid] }
+
+          it { is_expected.to be(false) }
+        end
+      end
+
+      context 'when form has no prefilled scopes (non-regression test)' do
+        let(:authorization_request_form) { :api_impot_particulier_editeur }
+
+        context 'when keys include scopes' do
+          let(:keys) { %w[invalid scopes] }
+
+          it { is_expected.to be(false) }
+        end
+      end
+    end
   end
 end
