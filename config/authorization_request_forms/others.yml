@@ -62,3 +62,16 @@ api-captchetat:
     - name: "basic_infos"
     - name: "legal"
     - name: "contacts"
+
+api-pro-sante-connect:
+  introduction: |
+    L‘API Pro Santé Connect permet à des administrations, des éditeurs de logiciels ou des entreprises d’ajouter un bouton Pro Santé Connect, pour recueillir des données d’identité fiables et ainsi identifier les utilisateurs de leur service en ligne (en vue d’une entrée en relation ou connexion).
+  authorization_request: "APIProSanteConnect"
+  steps:
+    - name: "basic_infos"
+    - name: "legal"
+    - name: "scopes"
+    - name: "contacts"
+  data:
+    cadre_juridique_nature: "Arrêté du 24 mars 2021"
+    cadre_juridique_url: "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000043290292"

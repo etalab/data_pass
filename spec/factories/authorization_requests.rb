@@ -379,5 +379,14 @@ FactoryBot.define do
       with_safety_certification
       with_operational_acceptance
     end
+
+    trait :api_pro_sante_connect do
+      type { 'AuthorizationRequest::APIProSanteConnect' }
+
+      form_uid { 'api-pro-sante-connect' }
+      with_basic_infos
+      with_cadre_juridique
+      with_scopes
+    end
   end
 end
