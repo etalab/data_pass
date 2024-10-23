@@ -206,13 +206,12 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
       | Loyfeey                   | Ecorestauration   |
       | Kosmos Education          | Kosmos            |
 
-  Plan du scénario: Je soumets une demande d'habilitation, en plusieurs étapes, d'un éditeur avec le contact technique non renseigné et des scopes non modifiables pour un cas d'usage lié au CCAS
+  Plan du scénario: Je soumets une demande d'habilitation, en plusieurs étapes, d'un éditeur avec le contact technique non renseigné et des scopes non modifiables pour un cas d'usage lié au CCAS, où le cadre juridique est déjà renseigné
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
     * je clique sur "Suivant"
 
-    * je renseigne le cadre légal
     * je clique sur "Suivant"
 
     * je renseigne les infos concernant les données personnelles

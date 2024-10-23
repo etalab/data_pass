@@ -283,6 +283,7 @@ api-particulier-ccas-arche-mc2:
     description: Logiciel utilisé par des agents habilités de CCAS/CIAS dans le cadre de l'instruction de dossier de demandes d'aides sociales
     cadre_juridique_nature: &api_particulier_cadre_juridique_nature_ccas |
       Article L. 312-1 et Article R123-5 du code de l'action sociale et des familles. Article L114-8 et Article R. 114-9-3 du code des relations entre le public et l'administration.
+    cadre_juridique_url: &api_particulier_cadre_juridique_url_ccas_cnaf_scopes_only 'https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000038833680/'
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
@@ -314,6 +315,7 @@ api-particulier-ccas-arpege:
       et les services à la personne du CCAS
     description: Logiciel utilisé par des agents habilités de CCAS/CIAS dans le cadre de l'instruction de dossier de demandes d'aides sociales
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_ccas
+    cadre_juridique_url: *api_particulier_cadre_juridique_url_ccas_cnaf_scopes_only
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
