@@ -164,71 +164,71 @@ shared:
   achatpublic:
     type: editor
     name: "Achatpublic - achatpublic.com"
-    already_integrated: 
+    already_integrated:
       - api_entreprise
   actradis:
     type: editor
     name: "Actradis"
-    already_integrated: 
+    already_integrated:
       - api_entreprise
 
   arnia:
     type: editor
     name: "Arnia - Pack commande publique"
-    already_integrated: 
+    already_integrated:
       - api_entreprise
   atline_services:
     type: editor
     name: "Atline Services - marches-securises.fr"
-    already_integrated: 
+    already_integrated:
       - api_entreprise
   aws_achat:
     type: editor
     name: "AWS - AWS-achat"
-    already_integrated: 
+    already_integrated:
       - api_entreprise
   axyus:
     type: editor
     name: "Axyus"
-    already_integrated: 
+    already_integrated:
       - api_entreprise
   dematis:
     type: editor
     name: "Dematis - e-marchespublics.com"
-    already_integrated: 
+    already_integrated:
       - api_entreprise
   entr_ouvert:
     type: editor
     name: "Entr'ouvert - Publik"
-    already_integrated: 
+    already_integrated:
       - api_entreprise
   klekoon:
     type: editor
     name: "Klekoon - klekoon.com"
-    already_integrated: 
+    already_integrated:
       - api_entreprise
   maximilien:
     type: editor
     name: "Maximilien"
-    already_integrated: 
+    already_integrated:
       - api_entreprise
   megalis_bretagne:
     type: editor
     name: "Megalis Bretagne"
-    already_integrated: 
+    already_integrated:
       - api_entreprise
   pictav_informatique:
     type: editor
     name: "PICTAV Informatique"
-    already_integrated: 
+    already_integrated:
       - api_entreprise
   smartglobal:
     type: editor
     name: "SmartGlobal - Smart Global Governance"
-    already_integrated: 
+    already_integrated:
       - api_entreprise
   solution_attestations:
     type: editor
     name: "Solution Attestations"
-    already_integrated: 
+    already_integrated:
       - api_entreprise

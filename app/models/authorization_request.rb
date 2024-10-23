@@ -131,6 +131,8 @@ class AuthorizationRequest < ApplicationRecord
     @form ||= AuthorizationRequestForm.find(form_uid)
   end
 
+  delegate :service_provider, to: :form
+
   def name
     data['intitule'].presence ||
       definition.name.to_s

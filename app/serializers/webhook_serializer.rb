@@ -30,7 +30,7 @@ class WebhookSerializer
 
   def authorization_request_serialized
     WebhookAuthorizationRequestSerializer.new(authorization_request).serializable_hash(
-      include: %w[applicant organization]
+      include: %w[applicant organization service_provider]
     )
   end
 end

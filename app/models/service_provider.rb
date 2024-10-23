@@ -1,4 +1,6 @@
 class ServiceProvider < StaticApplicationRecord
+  include ActiveModel::Serialization
+
   attr_accessor :id,
     :name,
     :siret,
@@ -26,12 +28,12 @@ class ServiceProvider < StaticApplicationRecord
     )
   end
 
-  def already_integrated?(scope:)
-    Array(already_integrated).include?(scope.to_s)
-  end
-
   def self.editors
     all.select(&:editor?)
+  end
+
+  def already_integrated?(scope:)
+    Array(already_integrated).include?(scope.to_s)
   end
 
   def editor?
