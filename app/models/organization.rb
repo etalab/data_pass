@@ -19,7 +19,7 @@ class Organization < ApplicationRecord
     inverse_of: :organization
 
   def raison_sociale
-    denomination
+    denomination || "l'organisation #{siret} (nom inconnu)"
   end
 
   def code_commune

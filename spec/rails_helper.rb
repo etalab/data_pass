@@ -52,6 +52,9 @@ RSpec.configure do |config|
   config.include INSEESireneAPIMocks
   config.include HubEEAPIClientMocks
 
+  config.include GeneratorHelpers, type: :generator
+  config.include_context 'with generator', type: :generator
+
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.

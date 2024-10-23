@@ -127,7 +127,7 @@ RSpec.describe CreateAuthorizationRequest, type: :organizer do
       let(:authorization_request_params) { ActionController::Parameters.new }
 
       context 'with a form which has modalities on data key' do
-        let(:authorization_request_form) { AuthorizationRequestForm.find('api-particulier-arpege-concerto') }
+        let(:authorization_request_form) { AuthorizationRequestForm.find('api-particulier-3d-ouest') }
 
         it { is_expected.to be_success }
 

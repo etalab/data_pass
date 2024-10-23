@@ -336,11 +336,13 @@ shared:
     cgu_link: "/cgus/dgfip/cgu_api_impot_particulier_production_hors_connexion_fc_decembre2022_v4.0.pdf"
     provider: "dgfip"
     blocks:
-      - name: "basic_infos"
-      - name: "personal_data"
-      - name: "legal"
-      - name: "scopes"
-      - name: "contacts"
+      - name: basic_infos
+      - name: personal_data
+      - name: legal
+      - name: scopes
+      - name: contacts
+      - name: operational_acceptance
+      - name: safety_certification
     scopes:
       - name: Dernière année de revenu
         value: dgfip_annee_n_moins_1
@@ -466,3 +468,24 @@ shared:
       - name: Indicateur d’éligibilité au LEP
         value: dgfip_IndLep
         group: Éligibilité Livret d’Épargne Populaire - établissements bancaires uniquement
+
+  api_pro_sante_connect:
+    name: "API Pro Santé Connect"
+    description: "Authentifier les professionnels de la santé à partir du Répertoire Partagé des Professionnels de Santé (RPPS)."
+    public: true
+    kind: 'api'
+    link: "https://api.gouv.fr/les-api/api-pro-sante-connect"
+    cgu_link: "https://industriels.esante.gouv.fr/produits-et-services/pro-sante-connect/conditions-generale-d-utilisation-pro-sante-connect"
+    provider: "ans"
+    blocks:
+      - name: "basic_infos"
+      - name: "legal"
+      - name: "scopes"
+      - name: "contacts"
+    scopes:
+      - name: "Identifiant national"
+        value: "idnat"
+        group: "Données"
+      - name: "Données sectorielles"
+        value: "donnees_sectorielles"
+        group: "Données"

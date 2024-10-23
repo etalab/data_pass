@@ -8,6 +8,8 @@ fr:
         scopes: "Les données"
         contacts: "Les personnes impliquées"
         modalities: "Les modalités d'accès aux données"
+        safety_certification: "Homologation de sécurité"
+        operational_acceptance: "Recette fonctionnelle"
         finish: "La synthèse"
 
       terms_of_service_accepted:
@@ -17,7 +19,7 @@ fr:
       description:
         label: Description du projet (à quoi va-t-il servir ? qui l'utilisera ?)
       maquette_projet:
-        hint: A fournir sous format PDF
+        hint: "Taille maximale: 10 Mo. Formats supportés: pdf"
       destinataire_donnees_caractere_personnel:
         hint: <a href="https://www.cnil.fr/fr/definition/destinataire" target="_blank">Plus d'infos</a>
       duree_conservation_donnees_caractere_personnel:
@@ -30,6 +32,40 @@ fr:
       cadre_juridique_document:
         label: Ajoutez votre document
         hint: "Taille maximale: 10 Mo. Formats supportés: pdf"
+      safety_certification_document:
+        hint: "Taille maximale: 10 Mo. Formats supportés: pdf"
+
+      safety_certification:
+        title: L’homologation de sécurité
+        subtitle: Le Référentiel Général de Sécurité (RGS 2.0) rend la démarche d’homologation obligatoire pour les SI relatifs aux échanges entre une autorité administrative et les usagers ou entre autorités administratives.
+        info:
+          title: Pourquoi effectuer une homologation de securité ? 
+          content: |
+            <p>Le Référentiel Général de Sécurité (RGS 2.0) rend la démarche d’homologation obligatoire pour les SI relatifs aux échanges entre une autorité administrative et les usagers ou entre autorités administratives.</p>
+            <p>Complétez les informations relatives à l’homologation et déposez la décision formelle d’homologation (également appelée attestation formelle).</p>
+            <p>Toutefois, si votre organisme n’est pas soumis au RGS, vous pouvez remplir un questionnaire de sécurité à récupérer auprès de la DTNum à l’adresse mail suivante : <a href="mailto:dtnum.donnees.demande-acces@dgfip.finances.gouv.fr">dtnum.donnees.demande-acces@dgfip.finances.gouv.fr</a>, et à joindre dans le formulaire ci-dessous.</p>
+
+      operational_acceptance:
+        title: Recette fonctionelle
+        subtitle: La qualification de votre téléservice est obligatoire tant pour votre homologation de sécurité ou vos obligations RGPD que pour demander l’entrée en production auprès de la DGFiP.
+        info:
+          title: Comment effectuer cette recette fonctionnelle ? 
+          content: |
+            <p>
+              La qualification de votre téléservice est obligatoire tant pour votre homologation de sécurité ou vos obligations RGPD que pour demander l’entrée en production auprès de la DGFiP.
+            </p>
+            <p>
+              Pour vous accompagner dans vos travaux, un environnement de test est mis à votre disposition sur le portail des API de la DGFiP.
+            </p>
+            <p>
+              Le périmètre des réponses de cet environnement de test est fonctionnellement identique à l’environnement de production.
+            </p>
+            <p>
+              Un jeu de données fictives vous permet de valider l’intégration de quelques cas fonctionnels dans votre téléservice. L’environnement de test proposé par la DGFiP n’a donc pas vocation à recetter toutes les fonctionnalités du téléservice, qui doivent faire l’objet d’une recette interne.
+            </p>
+            <p>
+              A l’issue de vos travaux, veuillez attester de la qualification de votre téléservice.
+            </p>
 
       prefill_data_info:
         title: Nous avons pré-rempli des informations pour vous aider
@@ -163,6 +199,18 @@ fr:
               de la direction de l’information légale et administrative (DILA) qui en
               étudiera la faisabilité juridique (demande réalisée via le portail du
               Hub d’Échange de l’État).
+            </p>
+
+    api_pro_sante_connect:
+      scopes:
+        info:
+          title: En quoi consistent ces démarches?
+          content: |
+            <p>
+              <strong> Identifiant national </strong> : RPPS (ou ADELI).
+            </p>
+            <p>
+              <strong> Données sectorielle </strong> : type d’activité (salarié ou libéral) et lieu d’activité.
             </p>
 
     api_entreprise:

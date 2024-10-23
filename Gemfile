@@ -71,6 +71,7 @@ group :test do
   gem 'cucumber-rails', require: false
   gem 'cuprite'
   gem 'database_cleaner-active_record'
+  gem 'generator_spec'
   gem 'rack_session_access'
   gem 'rails-controller-testing'
   gem 'rspec-rails', '7.0.1'

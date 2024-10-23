@@ -1,5 +1,13 @@
 # Ajout d'un nouveau fournisseur
 
+Il existe un générateur `definition`:
+
+```sh
+bundle exec rails g definition
+```
+
+---
+
 La checklist globale:
 
 1. Ajouter le ou les entrée(s) dans les fichiers de config ;

@@ -12,6 +12,8 @@ fr:
     legal: "cadre-juridique"
     scopes: "donnees"
     contacts: "contacts"
+    safety_certification: "homologation-de-securite"
+    operational_acceptance: "recette-fonctionnelle"
 
   authorization:
     badge: habilitation du %{date}

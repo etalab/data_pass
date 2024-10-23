@@ -43,11 +43,11 @@ module ApplicationHelper
     end
   end
 
-  def authorization_request_reopening_badge
+  def authorization_request_reopening_badge(extra_css_class: nil)
     content_tag(
       :span,
       t('authorization_request.reopening'),
-      class: 'fr-badge fr-badge--purple-glycine',
+      class: "fr-badge fr-badge--purple-glycine #{extra_css_class}",
     )
   end
 

@@ -30,32 +30,6 @@ class UpdateOrganizationINSEEPayloadJob < ApplicationJob
   end
 
   def insee_payload
-    if Rails.env.development?
-      mocked_insee_payload_for_development
-    else
-      INSEESireneAPIClient.new.etablissement(siret: organization.siret)
-    end
-  end
-
-  def mocked_insee_payload_for_development
-    return organization.insee_payload if organization.insee_payload.present?
-
-    {
-      'etablissement' => {
-        'adresseEtablissement' => {
-          'numeroVoieEtablissement' => '1',
-          'typeVoieEtablissement' => 'PLACE',
-          'libelleVoieEtablissement' => "DE LA COMEDIE (c'est pas vrai)",
-          'codeCommuneEtablissement' => '69381',
-          'codePostalEtablissement' => '69001',
-          'libelleCommuneEtablissement' => "LYON (c'est pas vrai)"
-        },
-        'uniteLegale' => {
-          'denominationUniteLegale' => "COMMUNE DE LYON (c'est pas vrai)",
-          'categorieJuridiqueUniteLegale' => '7210',
-          'activitePrincipaleUniteLegale' => '84.11Z',
-        }
-      }
-    }
+    INSEESireneAPIClient.new.etablissement(siret: organization.siret)
   end
 end
