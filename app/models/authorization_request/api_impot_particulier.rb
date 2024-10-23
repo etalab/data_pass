@@ -14,5 +14,9 @@ class AuthorizationRequest::APIImpotParticulier < AuthorizationRequest
     presence: true, if: -> { need_complete_validation?(:scopes) }
   })
 
+  add_document :specific_requirements_document, content_type: ['application/xlsx'], size: { less_than: 10.megabytes }
+  add_attributes :specific_requirements_justification
+  validates :specific_requirements_document, presence: true, if: -> { need_complete_validation?(:specific_requirements_justification) }
+
   contact :contact_technique, validation_condition: ->(record) { record.need_complete_validation?(:contacts) }
 end
