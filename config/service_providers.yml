@@ -53,12 +53,10 @@ shared:
     type: editor
     name: Arpège
     siret: "35142130000036"
-    code_cog: "44109"
   berger_levrault:
     type: editor
     name: Berger-Levrault
     siret: "75580064600373"
-    code_cog: "92012"
   jdealise:
     type: editor
     name: JDéalise
@@ -67,7 +65,6 @@ shared:
     type: editor
     name: Arche MC2
     siret: "38251931200088"
-    code_cog: "13001"
   afi:
     type: editor
     name: Agence Française d'Informatique (AFI)
@@ -88,7 +85,6 @@ shared:
     type: editor
     name: Cosoluce
     siret: "44321098400052"
-    code_cog: "5829C"
   docaposte:
     type: editor
     name: DOCAPOSTE
@@ -109,7 +105,6 @@ shared:
     type: editor
     name: JVS-Mairistem
     siret: "32855218700069"
-    code_cog: "51504"
   kosmos:
     type: editor
     name: Kosmos
@@ -122,7 +117,6 @@ shared:
     type: editor
     name: Odyssée Informatique
     siret: "38812677300026"
-    code_cog: "19123"
   qiis:
     type: editor
     name: Qiis
@@ -147,7 +141,6 @@ shared:
     type: editor
     name: 3D Ouest
     siret: "44973625500018"
-    code_cog: "22113"
   coexya:
     type: editor
     name: Coexya
@@ -156,7 +149,6 @@ shared:
     type: editor
     name: AGEDI
     siret: "25770538400044"
-    code_cog: "15014"
   ecorestauration:
     type: editor
     name: Ecorestauration
@@ -172,71 +164,71 @@ shared:
   achatpublic:
     type: editor
     name: "Achatpublic - achatpublic.com"
-    already_integrated: 
+    already_integrated:
       - api_entreprise
   actradis:
     type: editor
     name: "Actradis"
-    already_integrated: 
+    already_integrated:
       - api_entreprise
 
   arnia:
     type: editor
     name: "Arnia - Pack commande publique"
-    already_integrated: 
+    already_integrated:
       - api_entreprise
   atline_services:
     type: editor
     name: "Atline Services - marches-securises.fr"
-    already_integrated: 
+    already_integrated:
       - api_entreprise
   aws_achat:
     type: editor
     name: "AWS - AWS-achat"
-    already_integrated: 
+    already_integrated:
       - api_entreprise
   axyus:
     type: editor
     name: "Axyus"
-    already_integrated: 
+    already_integrated:
       - api_entreprise
   dematis:
     type: editor
     name: "Dematis - e-marchespublics.com"
-    already_integrated: 
+    already_integrated:
       - api_entreprise
   entr_ouvert:
     type: editor
     name: "Entr'ouvert - Publik"
-    already_integrated: 
+    already_integrated:
       - api_entreprise
   klekoon:
     type: editor
     name: "Klekoon - klekoon.com"
-    already_integrated: 
+    already_integrated:
       - api_entreprise
   maximilien:
     type: editor
     name: "Maximilien"
-    already_integrated: 
+    already_integrated:
       - api_entreprise
   megalis_bretagne:
     type: editor
     name: "Megalis Bretagne"
-    already_integrated: 
+    already_integrated:
       - api_entreprise
   pictav_informatique:
     type: editor
     name: "PICTAV Informatique"
-    already_integrated: 
+    already_integrated:
       - api_entreprise
   smartglobal:
     type: editor
     name: "SmartGlobal - Smart Global Governance"
-    already_integrated: 
+    already_integrated:
       - api_entreprise
   solution_attestations:
     type: editor
     name: "Solution Attestations"
-    already_integrated: 
+    already_integrated:
       - api_entreprise

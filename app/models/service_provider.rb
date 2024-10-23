@@ -5,8 +5,7 @@ class ServiceProvider < StaticApplicationRecord
     :name,
     :siret,
     :type,
-    :already_integrated,
-    :code_cog
+    :already_integrated
 
   TYPES = { saas: 'saas', editor: 'editor' }.freeze
 
@@ -23,7 +22,6 @@ class ServiceProvider < StaticApplicationRecord
         :siret,
         :type,
         :already_integrated,
-        :code_cog,
       ).merge(
         id: uid.to_s,
       )
