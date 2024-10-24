@@ -9,6 +9,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Service National
 
   Scénario: Je soumets une demande d'habilitation libre valide
     Quand je clique sur "Demande libre"
+    Et que je clique sur "Débuter ma demande"
 
     * je renseigne les infos de bases du projet
     * je clique sur "Suivant"
@@ -32,6 +33,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Service National
 
   Scénario: Je soumets une demande d'habilitation Inscription à un concours ou un examen (hors permis de conduire) valide
     Quand je clique sur "Inscription à un concours ou un examen (hors permis de conduire)"
+    Et que je clique sur "Débuter ma demande"
 
     * je renseigne les infos de bases du projet
     * je renseigne les infos concernant les données personnelles
@@ -49,6 +51,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Service National
 
   Scénario: Je soumets une demande d'habilitation Accès à un statut exigeant d’être en règle avec les obligations de service national valide
     Quand je clique sur "Accès à un statut exigeant d’être en règle avec les obligations de service national"
+    Et que je clique sur "Débuter ma demande"
 
     * je renseigne les infos de bases du projet
     * je renseigne les infos concernant les données personnelles

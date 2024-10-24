@@ -27,5 +27,6 @@ Fonctionnalité: Liste des habilitations
     Quand je vais sur la page des demandes
     Et que je clique sur "Remplir une demande" pour l'habilitation "API Service National"
     Et que je clique sur "Demande libre"
+    Et que je clique sur "Débuter ma demande"
     Alors il y a un titre contenant "API Service National"
     Et il y a un bouton "Suivant"
