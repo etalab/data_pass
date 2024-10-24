@@ -1,6 +1,6 @@
 class JeCliqueOuPasAPIClient
   def analyze(file)
-    response = Faraday.new.post(analyze_url, file, headers)
+    response = Faraday.new(ssl: { client_cert: certificate }).post(analyze_url, file, headers)
 
     parsed_response = JSON.parse(response.body)
 
@@ -42,5 +42,9 @@ class JeCliqueOuPasAPIClient
 
   def token
     Rails.application.credentials.je_clique_ou_pas[:token]
+  end
+
+  def certificate
+    OpenSSL::X509::Certificate.new(Rails.application.credentials.je_clique_ou_pas[:certificate])
   end
 end
