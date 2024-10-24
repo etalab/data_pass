@@ -40,10 +40,6 @@ class AuthorizationRequest::APIImpotParticulier < AuthorizationRequest
     presence: true, if: -> { need_complete_validation?(:scopes) }
   })
 
-  # add_attributes :specific_requirements
-  # add_document :specific_requirements_document, content_type: %w[application/vnd.ms-excel application/vnd.openxmlformats-officedocument.spreadsheetml.sheet], size: { less_than: 10.megabytes },
-  #   validation: { presence: true, if: -> { specific_requirements.present? } }
-
   contact :contact_technique, validation_condition: ->(record) { record.need_complete_validation?(:contacts) }
 
   private
