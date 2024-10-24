@@ -28,6 +28,12 @@ module AuthorizationRequestsHelpers
   end
 
   # rubocop:disable Rails/HelperInstanceVariable
+  def within_summary?
+    @summary_before_submit.present?
+  end
+  # rubocop:enable Rails/HelperInstanceVariable
+
+  # rubocop:disable Rails/HelperInstanceVariable
   def english_step_name(translated_step_key = nil)
     if translated_step_key.nil?
       @authorization_request.form.steps.first[:name]
