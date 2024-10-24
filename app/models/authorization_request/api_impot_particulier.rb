@@ -29,7 +29,8 @@ class AuthorizationRequest::APIImpotParticulier < AuthorizationRequest
   ].freeze
 
   validate :validate_revenue_years_selection,
-    :validate_exclusive_years_scope_combination
+    :validate_exclusive_years_scope_combination,
+    :validate_incompatible_scopes
 
   add_document :maquette_projet, content_type: ['application/pdf'], size: { less_than: 10.megabytes }
 
