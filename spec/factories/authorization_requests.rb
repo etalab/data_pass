@@ -389,14 +389,18 @@ FactoryBot.define do
       with_scopes
     end
 
-    trait :annuaire_des_entreprises do
-      type { 'AuthorizationRequest::AnnuaireDesEntreprise' }
+    %w[
+      annuaire-des-entreprises-marches-publics
+      annuaire-des-entreprises-aides-publiques
+    ].each do |form_uid|
+      trait form_uid.tr('-', '_') do
+        type { 'AuthorizationRequest::AnnuaireDesEntreprise' }
 
-      form_uid { 'annuaire-des-entreprises' }
+        form_uid { form_uid }
 
-      with_basic_infos
-      with_cadre_juridique
-      with_scopes
+        with_basic_infos
+        with_cadre_juridique
+      end
     end
   end
 end

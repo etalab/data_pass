@@ -617,12 +617,11 @@ fr:
             Conformément aux modalités d’utilisation, nous nous réservons le droit de réduire ou couper les appels autorisés au fournisseur de service.
             </p>
     annuaire_des_entreprise:
-      basic_infos:
-        title: Les infos de base, à changer
-        subtitle: Le sous-titre à changer
+      steps:
+        <<: *authorization_request_forms_default_steps
+        basic_infos: Informations de base
+        legal: Cadre juridique relatif à la demande
       intitule:
-        label: Intitulé à changer
-        hint: Une info à changer aussi
-      description_equipe:
-        label: Description de l'équipe
+        label: Nom de votre équipe / département
+        hint: Cette information permettra de créer une équipe via la Régie et ainsi permettre à plusieurs personnes de votre équipe d'utiliser les fonctionnalités protégées de l'espace agent
 

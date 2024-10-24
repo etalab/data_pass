@@ -491,8 +491,8 @@ shared:
         group: "Données"
 
   annuaire_des_entreprise:
-    name: "L'Annuaires des Entreprises"
-    description: "FEEDME"
+    name: "Espace agent de l'Annuaire des Entreprises"
+    description: "Permet de consulter des données d'entreprises réservées aux agents de l'administration, certaines de ces données étant sous habilitation."
     provider: "dinum"
     kind: 'service'
     link: "https://annuaire-entreprises.data.gouv.fr/"
@@ -504,8 +504,3 @@ shared:
     blocks:
       - name: "basic_infos"
       - name: "legal"
-    scopes:
-      - name: "Scope 1"
-        value: "value_1"
-      - name: "Scope 2"
-        value: "value_2"
