@@ -384,7 +384,6 @@ FactoryBot.define do
       with_basic_infos
       with_cadre_juridique
       with_personal_data
-      with_cadre_juridique
       with_scopes
       with_safety_certification
       with_operational_acceptance
