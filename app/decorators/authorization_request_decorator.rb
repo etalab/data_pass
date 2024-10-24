@@ -55,7 +55,13 @@ class AuthorizationRequestDecorator < ApplicationDecorator
   end
 
   def prefilled_data?(keys)
-    object.form.data.keys.intersect?(keys.map(&:to_sym))
+    return false if empty_form_data?
+
+    form_data_keys = (object.form.data.keys - %i[scopes])
+    keys = keys.map(&:to_sym)
+
+    form_data_keys.intersect?(keys) ||
+      prefilled_scopes?(keys)
   end
 
   def truncated_name(length)
@@ -95,5 +101,17 @@ class AuthorizationRequestDecorator < ApplicationDecorator
 
   def default_applicant_full_name
     t('dashboard.card.authorization_request_card.applicant_request', definition_name: object.definition.name, applicant_full_name: object.applicant.full_name)
+  end
+
+  def prefilled_scopes?(keys)
+    return false unless object.form.data.key?(:scopes) && object.form.data[:scopes].present?
+
+    keys.include?(:scopes) &&
+      object.form.data[:scopes].any?
+  end
+
+  def empty_form_data?
+    object.form.data.blank? ||
+      object.form.data == { scopes: [] }
   end
 end
