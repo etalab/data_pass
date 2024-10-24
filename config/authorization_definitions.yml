@@ -490,3 +490,18 @@ shared:
       - name: "Données sectorielles"
         value: "donnees_sectorielles"
         group: "Données"
+
+  annuaire_des_entreprise:
+    name: "Espace agent de l'Annuaire des Entreprises"
+    description: "Permet de consulter des données d'entreprises réservées aux agents de l'administration, certaines de ces données étant sous habilitation."
+    provider: "dinum"
+    kind: 'service'
+    link: "https://annuaire-entreprises.data.gouv.fr/"
+    # FEEDME
+    cgu_link: "https://annuaire-entreprises.data.gouv.fr/cgu"
+    # FEEDME
+    access_link: "https://annuaire-entreprises.data.gouv.fr/compte"
+    public: true
+    blocks:
+      - name: "basic_infos"
+      - name: "legal"

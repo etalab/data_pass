@@ -399,5 +399,19 @@ FactoryBot.define do
       with_cadre_juridique
       with_scopes
     end
+
+    %w[
+      annuaire-des-entreprises-marches-publics
+      annuaire-des-entreprises-aides-publiques
+    ].each do |form_uid|
+      trait form_uid.tr('-', '_') do
+        type { 'AuthorizationRequest::AnnuaireDesEntreprise' }
+
+        form_uid { form_uid }
+
+        with_basic_infos
+        with_cadre_juridique
+      end
+    end
   end
 end
