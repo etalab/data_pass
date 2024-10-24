@@ -161,6 +161,10 @@ shared:
     type: editor
     name: Monkey Factory
     siret: "780261986600048"
+  airweb:
+    type: editor
+    name: Airweb
+    siret: "42815260700035"
   achatpublic:
     type: editor
     name: "Achatpublic - achatpublic.com"
@@ -171,7 +175,6 @@ shared:
     name: "Actradis"
     already_integrated:
       - api_entreprise
-
   arnia:
     type: editor
     name: "Arnia - Pack commande publique"
