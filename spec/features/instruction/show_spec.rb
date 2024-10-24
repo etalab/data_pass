@@ -10,7 +10,7 @@ RSpec.describe 'Instruction: show an habilitation' do
 
   it 'works for each form' do
     AuthorizationRequestForm.all.each do |authorization_request_form|
-      authorization_request = create(:authorization_request, authorization_request_form.uid.underscore)
+      authorization_request = create(:authorization_request, authorization_request_form.uid.underscore, fill_all_attributes: true)
 
       expect {
         visit instruction_authorization_request_path(authorization_request)
