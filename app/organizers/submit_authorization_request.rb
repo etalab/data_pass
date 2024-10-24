@@ -8,7 +8,8 @@ class SubmitAuthorizationRequest < ApplicationOrganizer
 
   organize AssignParamsToAuthorizationRequest,
     CreateAuthorizationRequestChangelog,
-    ExecuteAuthorizationRequestTransitionWithCallbacks
+    ExecuteAuthorizationRequestTransitionWithCallbacks,
+    RunMalwareScanOnAttachments
 
   after do
     context.authorization_request.save(context: context.save_context) ||
