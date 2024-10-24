@@ -14,11 +14,16 @@
     <%= t('.multiple_forms.description', authorization_name: @authorization_definition.name) %>
   </p>
 
-  <ol>
+  <div class="fr-grid-row fr-grid-row--center">
     <% @authorization_definition.available_forms.each do |authorization_request_form| %>
-      <li>
-        <%= link_to authorization_request_form.name, start_authorization_request_forms_path(form_uid: authorization_request_form.id), class: 'fr-link' %>
-      </li>
+      <div class="fr-col-md-4 fr-col-xl-4 fr-col-12 fr-p-2w">
+        <%=
+          render partial: "authorization_request_forms/authorization_request_form_card",
+            locals: {
+              authorization_request_form:,
+            }
+        %>
+      </div>
     <% end %>
-  </ol>
+  </div>
 </div>
