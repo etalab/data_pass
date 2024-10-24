@@ -1,0 +1,11 @@
+<%= f.info_for(:volumetrie) %>
+
+<fieldset class="fr-fieldset fr-mb-4w" data-controller="justification" data-justification-minimum-value="<%=@authorization_request.smallest_volumetrie%>">
+  <div class="fr-fieldset__element">
+    <%= f.dsfr_select :volumetrie_appels_par_minute, options_for_select(@authorization_request.available_volumetries, selected: @authorization_request.volumetrie_appels_par_minute || @authorization_request.smallest_volumetrie), required: true, include_blank: "Veuillez choisir une valeur de limitation de débit", "data-justification-target": "value" %>
+  </div>
+
+ <div class="fr-fieldset__element <%='fr-hidden' unless @authorization_request.volumetrie_is_not_the_smallest %>" data-justification-target="justification">
+    <%= f.dsfr_text_area :volumetrie_justification, rows: 8 %>
+  </div> 
+</fieldset>

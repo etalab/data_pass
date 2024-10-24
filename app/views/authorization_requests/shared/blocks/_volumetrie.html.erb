@@ -1,0 +1,23 @@
+<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { title: f.wording_for('steps.volumetrie'), block_id: :volumetrie, f:, editable: } do %>
+  <div class="summary-block__container">
+    <strong>
+      <%= f.label_value(:volumetrie_appels_par_minute) %>
+    </strong>
+
+    <p>
+      <%= @authorization_request.volumetrie_appels_par_minute %> appels / minute
+    </p>
+  </div>
+
+  <% if @authorization_request.volumetrie_justification.present? %>
+    <div class="summary-block__container">
+      <strong>
+        <%= f.label_value(:volumetrie_justification) %>
+      </strong>
+
+      <p>
+        <%= @authorization_request.volumetrie_justification %>
+      </p>
+    </div>
+  <% end%>
+<% end %>

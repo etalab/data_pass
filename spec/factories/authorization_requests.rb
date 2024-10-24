@@ -229,6 +229,15 @@ FactoryBot.define do
       end
     end
 
+    trait :with_volumetrie do
+      after(:build) do |authorization_request, evaluator|
+        if authorization_request.need_complete_validation? || evaluator.fill_all_attributes
+          authorization_request.volumetrie_appels_par_minute ||= 50
+          authorization_request.volumetrie_justification ||= nil
+        end
+      end
+    end
+
     trait :hubee_cert_dc do
       type { 'AuthorizationRequest::HubEECertDC' }
     end
@@ -379,6 +388,7 @@ FactoryBot.define do
       with_scopes
       with_safety_certification
       with_operational_acceptance
+      with_volumetrie
     end
 
     trait :api_pro_sante_connect do

@@ -235,7 +235,7 @@ Quand('je renseigne le cadre légal') do
   )
 end
 
-Quand("Je renseigne l'homologation de sécurité") do
+Quand("je renseigne l'homologation de sécurité") do
   steps %(
     * je remplis "Nom de l’autorité d’homologation ou du signataire du questionnaire de sécurité" avec "Josiane Homologation"
     * je remplis "Fonction de l’autorité d’homologation ou du signataire du questionnaire de sécurité" avec "Représentant de l'autorité d'homologation des joints d'étanchéité de conduits d'évacuation de climatiseurs de morgue"
@@ -245,9 +245,15 @@ Quand("Je renseigne l'homologation de sécurité") do
   )
 end
 
-Quand('Je renseigne la recette fonctionnelle') do
+Quand('je renseigne la recette fonctionnelle') do
   steps %(
     * je coche "J’atteste avoir réalisé une recette fonctionnelle et qualifié mon téléservice."
+  )
+end
+
+Quand('je renseigne la volumétrie') do
+  steps %(
+    * je sélectionne "50 appels / minute" pour "Quelle limitation de débit souhaitez- vous pour votre téléservice ?"
   )
 end
 

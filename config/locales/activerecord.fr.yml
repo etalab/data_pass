@@ -50,6 +50,9 @@ fr:
 
         operational_acceptance_done: J’atteste avoir réalisé une recette fonctionnelle et qualifié mon téléservice.
 
+        volumetrie_appels_par_minute: La limitation de débit
+        volumetrie_justification: La justification de la limitation de débit
+
         scopes: Les données
 
         administrateur_metier_family_name: Nom de famille de l'administrateur système
@@ -82,7 +85,6 @@ fr:
         delegue_protection_donnees_phone_number: Téléphone du délégué à la protection des données
         delegue_protection_donnees_job_title: Fonction du délégué à la protection des données
 
-        volumetrie_appels_par_minute: Volumétrie d'appels par minute
       denial_of_authorization:
         reason: Raison du refus
       revocation_of_authorization:

@@ -5,6 +5,13 @@ class AuthorizationRequest::APIImpotParticulier < AuthorizationRequest
   include AuthorizationExtensions::GDPRContacts
   include AuthorizationExtensions::OperationalAcceptance
   include AuthorizationExtensions::SafetyCertification
+  include AuthorizationExtensions::Volumetrie
+
+  VOLUMETRIES = {
+    '50 appels / minute': 50,
+    '200 appels / minute': 200,
+    '1000 appels / minute': 1000,
+  }.freeze
 
   add_document :maquette_projet, content_type: ['application/pdf'], size: { less_than: 10.megabytes }
 
