@@ -1,0 +1,5 @@
+.fr-blockquote-info {
+  border-left: 3px solid var(--text-action-high-blue-france);
+  padding-left: 1rem;
+  margin-left: 0.5rem;
+}

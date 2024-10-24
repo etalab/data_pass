@@ -71,7 +71,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_02_161642) do
     t.index ["entity_type", "entity_id"], name: "index_authorization_request_events_on_entity"
     t.index ["user_id"], name: "index_authorization_request_events_on_user_id"
     t.check_constraint "name::text !~~ 'system_%'::text AND user_id IS NOT NULL OR name::text ~~ 'system_%'::text", name: "user_id_not_null_unless_system_event"
-    t.check_constraint "name::text = 'refuse'::text AND entity_type::text = 'DenialOfAuthorization'::text OR name::text = 'request_changes'::text AND entity_type::text = 'InstructorModificationRequest'::text OR name::text = 'approve'::text AND entity_type::text = 'Authorization'::text OR name::text = 'reopen'::text AND entity_type::text = 'Authorization'::text OR name::text = 'submit'::text AND entity_type::text = 'AuthorizationRequestChangelog'::text OR name::text = 'admin_update'::text AND entity_type::text = 'AuthorizationRequestChangelog'::text OR name::text = 'applicant_message'::text AND entity_type::text = 'Message'::text OR name::text = 'instructor_message'::text AND entity_type::text = 'Message'::text OR name::text = 'revoke'::text AND entity_type::text = 'RevocationOfAuthorization'::text OR name::text = 'transfer'::text AND entity_type::text = 'AuthorizationRequestTransfer'::text OR name::text = 'cancel_reopening'::text AND entity_type::text = 'AuthorizationRequestReopeningCancellation'::text OR entity_type::text = 'AuthorizationRequest'::text", name: "entity_type_validation"
+    t.check_constraint "name::text = 'refuse'::text AND entity_type::text = 'DenialOfAuthorization'::text OR name::text = 'request_changes'::text AND entity_type::text = 'InstructorModificationRequest'::text OR name::text = 'approve'::text AND entity_type::text = 'Authorization'::text OR name::text = 'reopen'::text AND entity_type::text = 'Authorization'::text OR name::text = 'submit'::text AND entity_type::text = 'AuthorizationRequestChangelog'::text OR name::text = 'admin_update'::text AND entity_type::text = 'AuthorizationRequestChangelog'::text OR name::text = 'applicant_message'::text AND entity_type::text = 'Message'::text OR name::text = 'instructor_message'::text AND entity_type::text = 'Message'::text OR name::text = 'revoke'::text AND entity_type::text = 'RevocationOfAuthorization'::text OR name::text = 'transfer'::text AND entity_type::text = 'AuthorizationRequestTransfer'::text OR name::text = 'cancel_reopening'::text AND entity_type::text = 'AuthorizationRequestReopeningCancellation'::text OR name::text = 'bulk_update'::text AND entity_type::text = 'BulkAuthorizationRequestUpdate'::text OR entity_type::text = 'AuthorizationRequest'::text", name: "entity_type_validation"
   end
 
   create_table "authorization_request_reopening_cancellations", force: :cascade do |t|
@@ -131,6 +131,24 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_02_161642) do
     t.index ["applicant_id"], name: "index_authorizations_on_applicant_id"
     t.index ["request_id"], name: "index_authorizations_on_request_id"
     t.index ["slug", "request_id"], name: "index_authorizations_on_slug_and_request_id", unique: true
+  end
+
+  create_table "bulk_authorization_request_update_notification_reads", force: :cascade do |t|
+    t.bigint "bulk_authorization_request_update_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bulk_authorization_request_update_id", "user_id"], name: "idx_on_bulk_authorization_request_update_id_user_id_bc2529b038", unique: true
+    t.index ["bulk_authorization_request_update_id"], name: "idx_on_bulk_authorization_request_update_id_d1444698b3"
+    t.index ["user_id"], name: "idx_on_user_id_902915981d"
+  end
+
+  create_table "bulk_authorization_request_updates", force: :cascade do |t|
+    t.string "authorization_definition_uid", null: false
+    t.string "reason", null: false
+    t.date "application_date", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "denial_of_authorizations", force: :cascade do |t|
@@ -315,6 +333,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_02_161642) do
   add_foreign_key "authorization_requests", "authorization_requests", column: "next_request_copied_id"
   add_foreign_key "authorizations", "authorization_requests", column: "request_id"
   add_foreign_key "authorizations", "users", column: "applicant_id"
+  add_foreign_key "bulk_authorization_request_update_notification_reads", "bulk_authorization_request_updates"
+  add_foreign_key "bulk_authorization_request_update_notification_reads", "users"
   add_foreign_key "denial_of_authorizations", "authorization_requests"
   add_foreign_key "instructor_modification_requests", "authorization_requests"
   add_foreign_key "messages", "authorization_requests"

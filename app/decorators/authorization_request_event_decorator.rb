@@ -21,7 +21,7 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def text
     case name
-    when 'refuse', 'request_changes', 'revoke', 'cancel_reopening_from_instructor'
+    when 'refuse', 'request_changes', 'revoke', 'cancel_reopening_from_instructor', 'bulk_update'
       h.simple_format(entity.reason)
     when 'applicant_message', 'instructor_message'
       h.simple_format(entity.body)

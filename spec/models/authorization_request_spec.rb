@@ -320,4 +320,16 @@ RSpec.describe AuthorizationRequest do
       it { is_expected.not_to be_valid(:submit) }
     end
   end
+
+  describe '#bulk_updates' do
+    subject(:bulk_updates) { authorization_request.bulk_updates }
+
+    let(:authorization_request) { create(:authorization_request, :api_entreprise, created_at: 1.week.ago) }
+
+    let!(:invalid_bulk_update_different_uid) { create(:bulk_authorization_request_update, authorization_definition_uid: 'api_particulier') }
+    let!(:invalid_bulk_update_old_date) { create(:bulk_authorization_request_update, authorization_definition_uid: 'api_entreprise', application_date: 2.weeks.ago.to_date) }
+    let!(:valid_bulk_update) { create(:bulk_authorization_request_update, authorization_definition_uid: 'api_entreprise', application_date: 2.days.ago.to_date) }
+
+    it { is_expected.to contain_exactly(valid_bulk_update) }
+  end
 end
