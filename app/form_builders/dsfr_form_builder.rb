@@ -105,7 +105,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
   private
 
   def dsfr_select_tag(attribute, choices, opts)
-    select(attribute, choices, {}, class: 'fr-select', **enhance_input_options(opts).except(:class))
+    select(attribute, choices, { include_blank: opts[:include_blank] }, class: 'fr-select', **enhance_input_options(opts).except(:class))
   end
 
   def dsfr_input_field(attribute, input_kind, opts = {})
