@@ -5,7 +5,7 @@ RSpec.describe AuthorizationRequest do
         # rubocop:disable Performance/CollectionLiteralInLoop
         %w[draft validated].each do |state_name|
           # rubocop:enable Performance/CollectionLiteralInLoop
-          expect(build(:authorization_request, form.uid.underscore, state_name)).to be_valid
+          expect(build(:authorization_request, form.uid.underscore, state_name, fill_all_attributes: true)).to be_valid
         rescue ActiveRecord::RecordNotFound
           fail "Factory not found for form_uid: #{form.uid.underscore} and state: #{state_name}"
         end

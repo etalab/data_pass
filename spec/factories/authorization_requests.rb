@@ -199,10 +199,15 @@ FactoryBot.define do
     trait :with_scopes do
       after(:build) do |authorization_request, evaluator|
         if authorization_request.need_complete_validation? || evaluator.fill_all_attributes
-          next if authorization_request.scopes.any?
-
           authorization_request.scopes ||= []
-          authorization_request.scopes << authorization_request.available_scopes.first.value
+
+          next if authorization_request.scopes.present?
+
+          if authorization_request.is_a?(AuthorizationRequest::APIImpotParticulier)
+            authorization_request.scopes << 'dgfip_annee_n_moins_1'
+          elsif authorization_request.available_scopes.present?
+            authorization_request.scopes << authorization_request.available_scopes.first.value
+          end
         end
       end
     end
@@ -375,7 +380,6 @@ FactoryBot.define do
       with_basic_infos
       with_cadre_juridique
       with_personal_data
-      with_cadre_juridique
       with_scopes
       with_safety_certification
       with_operational_acceptance
