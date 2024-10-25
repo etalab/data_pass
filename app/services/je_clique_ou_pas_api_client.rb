@@ -1,9 +1,8 @@
 class JeCliqueOuPasAPIClient
-  def analyze(file_content)
-    @file_content = file_content
+  def analyze(attachment)
+    @blob = attachment.blob
 
-    response = Faraday.new(ssl: { cert_store: }).post(analyze_url, body, headers)
-
+    response = request_analyze_with_file
     parsed_response = JSON.parse(response.body)
 
     {
@@ -13,8 +12,7 @@ class JeCliqueOuPasAPIClient
   end
 
   def result(uuid)
-    response = Faraday.new.get(results_url(uuid), nil, headers)
-
+    response = request_results(uuid:)
     parsed_response = JSON.parse(response.body)
 
     {
@@ -26,14 +24,64 @@ class JeCliqueOuPasAPIClient
 
   private
 
-  def headers
-    {
-      'X-Auth-token': token
-    }
+  def request_analyze_with_file
+    with_temp_file do |file|
+      faraday_client(multipart: true).post(
+        analyze_url,
+        file_payload(file:),
+        headers(file:)
+      )
+    end
   end
 
-  def body
-    { file: @file_content }
+  def request_results(uuid:)
+    faraday_client.get(results_url(uuid), nil, headers)
+  end
+
+  def with_temp_file
+    temp_file = create_temp_file
+    yield temp_file
+  ensure
+    temp_file.close
+    temp_file.unlink
+  end
+
+  def create_temp_file
+    Tempfile.new(temp_file_params).tap do |file|
+      file.binmode
+      file.write(@blob.download)
+      file.rewind
+    end
+  end
+
+  def temp_file_params
+    [@blob.filename.base, @blob.filename.extension_with_delimiter]
+  end
+
+  def file_payload(file:)
+    { file: Faraday::Multipart::FilePart.new(file, @blob.content_type) }
+  end
+
+  def faraday_client(multipart: false)
+    Faraday.new(ssl: { cert_store: }) do |faraday|
+      if multipart
+        faraday.request :multipart
+        faraday.request :url_encoded
+        faraday.adapter Faraday.default_adapter
+      end
+    end
+  end
+
+  def headers(file: nil)
+    base_headers = { 'X-Auth-token': token }
+
+    return base_headers unless file
+
+    base_headers.merge(
+      'Content-Type': 'multipart/form-data',
+      'Content-Length': File.size(file).to_s,
+      'Transfer-Encoding': 'chunked'
+    )
   end
 
   def analyze_url

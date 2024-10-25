@@ -1,14 +1,13 @@
 RSpec.describe JeCliqueOuPasAPIClient do
-  let(:file) { 'dummy_file' }
+  let(:attachment) { create(:active_storage_attachment) }
   let(:uuid) { 'dummy_uuid' }
   let(:token) { Rails.application.credentials.je_clique_ou_pas[:token] }
 
   describe '#analyze' do
-    subject { described_class.new.analyze(file) }
+    subject { described_class.new.analyze(attachment) }
 
     before do
       stub_request(:post, "#{Rails.application.credentials.je_clique_ou_pas[:host]}/submit")
-        .with(body: { file: }, headers: { 'X-Auth-token' => token })
         .to_return(status:, body: response_body.to_json)
     end
 
