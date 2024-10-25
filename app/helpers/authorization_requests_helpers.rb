@@ -33,6 +33,11 @@ module AuthorizationRequestsHelpers
   end
   # rubocop:enable Rails/HelperInstanceVariable
 
+  def single_page_form?(authorization_request)
+    !authorization_request.display_prefilled_banner_for_each_block? &&
+      authorization_request.prefilled_data?(authorization_request.data.keys)
+  end
+
   # rubocop:disable Rails/HelperInstanceVariable
   def english_step_name(translated_step_key = nil)
     if translated_step_key.nil?
