@@ -1,6 +1,8 @@
 class JeCliqueOuPasAPIClient
-  def analyze(file)
-    response = Faraday.new.post(analyze_url, file, headers)
+  def analyze(file_content)
+    @file_content = file_content
+
+    response = Faraday.new(ssl: { cert_store: }).post(analyze_url, body, headers)
 
     parsed_response = JSON.parse(response.body)
 
@@ -25,7 +27,13 @@ class JeCliqueOuPasAPIClient
   private
 
   def headers
-    { 'X-Auth-token': token }
+    {
+      'X-Auth-token': token
+    }
+  end
+
+  def body
+    { file: @file_content }
   end
 
   def analyze_url
@@ -42,5 +50,13 @@ class JeCliqueOuPasAPIClient
 
   def token
     Rails.application.credentials.je_clique_ou_pas[:token]
+  end
+
+  def cert_store
+    OpenSSL::X509::Store.new.tap { |store| store.add_cert(certificate) }
+  end
+
+  def certificate
+    OpenSSL::X509::Certificate.new(Rails.application.credentials.je_clique_ou_pas[:certificate])
   end
 end

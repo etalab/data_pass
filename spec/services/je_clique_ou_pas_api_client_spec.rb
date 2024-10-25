@@ -8,7 +8,7 @@ RSpec.describe JeCliqueOuPasAPIClient do
 
     before do
       stub_request(:post, "#{Rails.application.credentials.je_clique_ou_pas[:host]}/submit")
-        .with(body: file, headers: { 'X-Auth-token' => token })
+        .with(body: { file: }, headers: { 'X-Auth-token' => token })
         .to_return(status:, body: response_body.to_json)
     end
 
