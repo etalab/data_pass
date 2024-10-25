@@ -9,8 +9,10 @@ RSpec.describe AuthorizationRequestEvent do
   end
 
   describe '#authorization_request' do
-    it 'works for each event' do
+    it 'works for each event (except bulk_update)' do
       AuthorizationRequestEvent::NAMES.each do |name|
+        next if name == 'bulk_update'
+
         expect(build(:authorization_request_event, name).authorization_request).to be_a(AuthorizationRequest), "for event #{name}"
       end
     end

@@ -257,22 +257,36 @@ Quand('je renseigne la volumétrie') do
   )
 end
 
-Quand('je renseigne les informations des contacts RGPD') do
-  steps %(
-    * je remplis les informations du contact "Responsable de traitement" avec :
-      | Nom    | Prénom | Email               | Téléphone   | Fonction                  |
-      | Dupont | Jean   | dupont.jean@gouv.fr | 0836656560  | Responsable de traitement |
-    * je remplis les informations du contact "Délégué à la protection des données" avec :
-      | Nom    | Prénom  | Email                  | Téléphone   | Fonction    |
-      | Dupont | Jacques | dupont.jacques@gouv.fr | 08366565601 | Délégué     |
-  )
-end
-
 Quand('je renseigne les informations du contact technique') do
   steps %(
     * je remplis les informations du contact "Contact technique" avec :
       | Nom    | Prénom  | Email               | Téléphone   | Fonction    |
       | Dupont | Marc    | dupont.marc@gouv.fr | 08366565603 | Technique   |
+  )
+end
+
+Quand('je renseigne les informations du contact métier') do
+  steps %(
+    * je remplis les informations du contact "Contact métier" avec :
+      | Nom    | Prénom  | Email                | Téléphone   | Fonction    |
+      | Dupont | Louis   | dupont.louis@gouv.fr | 08366565602 | Métier      |
+  )
+end
+
+Quand('je renseigne les informations des contacts RGPD') do
+  steps %(
+    * je renseigne les informations du délégué à la protection des données
+    * je remplis les informations du contact "Responsable de traitement" avec :
+      | Nom    | Prénom | Email               | Téléphone   | Fonction                  |
+      | Dupont | Jean   | dupont.jean@gouv.fr | 0836656560  | Responsable de traitement |
+  )
+end
+
+Quand('je renseigne les informations du délégué à la protection des données') do
+  steps %(
+    * je remplis les informations du contact "Délégué à la protection des données" avec :
+      | Nom    | Prénom  | Email                  | Téléphone   | Fonction    |
+      | Dupont | Jacques | dupont.jacques@gouv.fr | 08366565601 | Délégué     |
   )
 end
 
@@ -382,4 +396,16 @@ Quand(%r{je me rends sur l'habilitation validée(?: du (\d{1,2}/\d{2}/\d{4}))?})
   end
 
   visit authorization_request_authorization_path(authorization_request_id: authorization_request.id, id: authorization.id)
+end
+
+Quand("une mise à jour globale a été effectuée sur les demandes d'habilitations {string}") do |authorization_definition_name|
+  definition = find_authorization_definition_from_name(authorization_definition_name)
+
+  AuthorizationRequest.last.update!(created_at: 2.days.ago)
+
+  BulkAuthorizationRequestUpdate.create!(
+    authorization_definition_uid: definition.id,
+    reason: 'Mise à jour globale',
+    application_date: 1.day.ago,
+  )
 end

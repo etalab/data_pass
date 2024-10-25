@@ -7,6 +7,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
 
   before_action :extract_authorization_request_form
   before_action :extract_authorization_request, only: %i[show summary update]
+  before_action :extract_potential_bulk_update_notification, only: %i[summary]
 
   def new
     authorize @authorization_request_form, :new?
@@ -282,9 +283,12 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     )
   end
 
+  def extract_potential_bulk_update_notification
+    @bulk_update = BulkAuthorizationRequestUpdateNotificationExtractor.new(@authorization_request, current_user).perform
+  end
+
   def layout_name
     'authorization_request'
   end
 end
-
 # rubocop:enable Metrics/ClassLength

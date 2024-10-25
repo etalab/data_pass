@@ -1,0 +1,35 @@
+<% id = local_assigns[:id] || "modal-#{SecureRandom.hex(5)}" %>
+
+<dialog aria-labelledby="fr-modal-title-<%= id %>" id="<%= id %>" class="fr-modal" role="dialog">
+  <div class="fr-container fr-container--fluid fr-container-md">
+    <div class="fr-grid-row fr-grid-row--center">
+      <div class="<%= local_assigns[:col_sizes] || 'fr-col-12 fr-col-md-8 fr-col-lg-6' %>">
+        <div class="fr-modal__body">
+          <div class="fr-modal__header">
+            <button class="fr-btn--close fr-btn" title="Fermer la fenêtre modale" aria-controls="<%= id %>">
+              Fermer
+            </button>
+          </div>
+
+          <turbo-frame id="<%= id %>-content">
+            <%= yield %>
+          </turbo-frame>
+        </div>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<% if local_assigns[:display_immediatly] %>
+  <button data-fr-opened="false" aria-controls="<%= id %>" class="fr-hidden">
+    .
+  </button>
+
+  <script>
+    window.addEventListener('turbo:load', function() {
+      setTimeout(function() {
+        dsfr(document.getElementById('<%= id %>')).modal.disclose();
+      }, 100);
+    });
+  </script>
+<% end %>

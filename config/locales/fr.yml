@@ -231,6 +231,10 @@ fr:
       blocks:
         scopes:
           legacy_scopes: "Les données suivantes ont été précédemment sélectionnées mais ne sont plus disponibles ou n'apparaissent pas dans le formulaire sélectionné :"
+    bulk_update_modal:
+      title: Une mise à jour a été effectuée sur votre demande d'habilitation
+      description: |
+        Une mise à jour globale a été effectuée sur les habilitations %{authorization_definition_name} par l'équipe en charge de l'instruction de ces demandes. Le détail de cette mise à jour est expliquée ci-dessous :
 
   start_authorization_request_form:
     cta: Débuter ma demande
@@ -706,6 +710,16 @@ fr:
 
             La liste des changements est :
             %{text}
+
+        bulk_update:
+          text: |
+            Une mise à jour globale sur ce type d'habilitation a été effectuée :
+
+            <br />
+
+            <blockquote>
+              %{text}
+            </blockquote>
 
         system_reminder:
           text: Une relance a été envoyé au demandeur

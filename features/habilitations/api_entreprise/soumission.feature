@@ -23,9 +23,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Entreprise
     * je clique sur "Suivant"
 
     * je renseigne les informations des contacts RGPD
-    * je remplis les informations du contact "Contact métier" avec :
-      | Nom    | Prénom  | Email                | Téléphone   | Fonction    |
-      | Dupont | Louis   | dupont.louis@gouv.fr | 08366565602 | Métier      |
+    * je renseigne les informations du contact métier
     * je renseigne les informations du contact technique
     * je clique sur "Suivant"
 
@@ -51,9 +49,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Entreprise
     * je clique sur "Suivant"
 
     * je renseigne les informations des contacts RGPD
-    * je remplis les informations du contact "Contact métier" avec :
-      | Nom    | Prénom  | Email                | Téléphone   | Fonction    |
-      | Dupont | Louis   | dupont.louis@gouv.fr | 08366565602 | Métier      |
+    * je renseigne les informations du contact métier
     * je renseigne les informations du contact technique
     * je clique sur "Suivant"
 
@@ -84,9 +80,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Entreprise
     * je clique sur "Suivant"
 
     * je renseigne les informations des contacts RGPD
-    * je remplis les informations du contact "Contact métier" avec :
-      | Nom    | Prénom  | Email                | Téléphone   | Fonction    |
-      | Dupont | Louis   | dupont.louis@gouv.fr | 08366565602 | Métier      |
+    * je renseigne les informations du contact métier
     * je renseigne les informations du contact technique
     * je clique sur "Suivant"
 
@@ -132,9 +126,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Entreprise
     Et que je clique sur "Débuter ma demande"
 
     * je renseigne les informations des contacts RGPD
-    * je remplis les informations du contact "Contact métier" avec :
-      | Nom    | Prénom  | Email                | Téléphone   | Fonction    |
-      | Dupont | Louis   | dupont.louis@gouv.fr | 08366565602 | Métier      |
+    * je renseigne les informations du contact métier
 
     * je clique sur "Enregistrer les modifications"
     * je clique sur "Continuer vers le résumé"

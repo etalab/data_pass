@@ -1,0 +1,15 @@
+<%= content_for(:extra_modal) do %>
+  <%= render layout: 'shared/modal', locals: { id: 'bulk-migration-modal', col_sizes: 'fr-col-12 fr-col-md-8', display_immediatly: true } do %>
+    <div class="fr-modal__content">
+      <h1 class="fr-modal__title">
+        <%= t('authorization_requests.bulk_update_modal.title') %>
+      </h1>
+
+      <%= t('authorization_requests.bulk_update_modal.description', authorization_definition_name: @bulk_update.authorization_definition.name) %>
+
+      <div class="fr-mt-2v fr-blockquote-info">
+        <%= simple_format(@bulk_update.reason) %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
