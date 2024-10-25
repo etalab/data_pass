@@ -26,6 +26,8 @@ class HubEEDilaBridge < HubEEBaseBridge
   def create_and_store_subscription(organization_hubee_payload, scope)
     subscription_hubee_payload = hubee_api_client.create_subscription(subscription_body(organization_hubee_payload, process_code(scope)))
     store_external_provider_id(scope, subscription_hubee_payload['id'])
+  rescue HubEEAPIClient::AlreadyExistsError
+    # do nothing
   end
 
   def store_external_provider_id(scope, token)

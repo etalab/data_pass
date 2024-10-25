@@ -1,6 +1,6 @@
 RSpec.describe HubEEDilaBridge do
   describe '#perform on approve' do
-    subject(:hubee_dila_bridge) { described_class.perform_now(authorization_request, 'approve') }
+    subject(:hubee_dila_bridge) { described_class.new.perform(authorization_request, 'approve') }
 
     let(:authorization_request) { create(:authorization_request, :hubee_dila, :validated, organization:, scopes: %w[etat_civil depot_dossier_pacs]) }
     let(:organization) { create(:organization, siret: '21920023500014') }
@@ -59,6 +59,16 @@ RSpec.describe HubEEDilaBridge do
         hubee_dila_bridge
 
         expect(authorization_request.reload.external_provider_id).to eq(etat_civil_and_depot_dossier_pacs_tokens)
+      end
+
+      describe 'when scope already exists in HubEE' do
+        before do
+          allow(hubee_api_client).to receive(:create_subscription).and_raise(HubEEAPIClient::AlreadyExistsError)
+        end
+
+        it 'does not raise an error' do
+          expect { hubee_dila_bridge }.not_to raise_error
+        end
       end
 
       context 'with a reopened authorisation request with an added scope' do
