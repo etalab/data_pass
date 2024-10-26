@@ -38,7 +38,7 @@ Fonctionnalité: Interactions sur une demande d'habilitation en plusieurs étape
     Et que je remplis "Nom du projet" avec "Je suis un projet"
     Et que je remplis "Description du projet" avec "Je suis une description"
     Et que je clique sur "Suivant"
-    Alors il y a un message de succès contenant "été sauvegardé"
+    Alors il n'y a pas de message d'alerte contenant "été sauvegardé"
     Et la page contient "Destinataire des données"
     Et la page contient "Prochaine étape : Justification du traitement des données personnelles"
 
