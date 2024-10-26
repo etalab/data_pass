@@ -18,8 +18,7 @@ Fonctionnalité: Interactions sur une demande d'habilitation simple (sur une seu
 
   Scénario: Je veux me rendre au résumé d'une demande d'habilitation invalide
     Quand je démarre une nouvelle demande d'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
-    Et que je clique sur "Enregistrer les modifications"
-    Et que je clique sur "Continuer vers le résumé"
+    Et que j'enregistre et continue vers le résumé
     Alors il y a un message d'erreur contenant "Une erreur est survenue lors de la sauvegarde"
     Et il y a au moins une erreur sur un champ
     Et je suis sur la page "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
@@ -30,8 +29,7 @@ Fonctionnalité: Interactions sur une demande d'habilitation simple (sur une seu
     Et que je remplis les informations du contact "Administrateur métier" avec :
       | Nom    | Prénom | Email               | Téléphone   | Fonction de l'administrateur système |
       | Dupont | Jean   | dupont.jean@gouv.fr | 0836656565  | Administrateur métier                |
-    Et que je clique sur "Enregistrer les modifications"
-    Et que je clique sur "Continuer vers le résumé"
+    Et que j'enregistre et continue vers le résumé
     Alors je suis sur la page "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
     Et il y a un formulaire en mode résumé
     Et il y a un bouton "Supprimer"
@@ -42,8 +40,7 @@ Fonctionnalité: Interactions sur une demande d'habilitation simple (sur une seu
     Et que je remplis les informations du contact "Administrateur métier" avec :
       | Nom    | Prénom | Email               | Téléphone   | Fonction de l'administrateur système |
       | Dupont | Jean   | dupont.jean@gouv.fr | 0836656565  | Administrateur métier                |
-    Et que je clique sur "Enregistrer les modifications"
-    Et que je clique sur "Continuer vers le résumé"
+    Et que j'enregistre et continue vers le résumé
     Et que je clique sur "Soumettre la demande"
     Alors il y a un message d'erreur contenant "Une erreur est survenue lors de la soumission de la demande d'habilitation"
     Et je suis sur la page "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
@@ -55,8 +52,7 @@ Fonctionnalité: Interactions sur une demande d'habilitation simple (sur une seu
     Et que je remplis les informations du contact "Administrateur métier" avec :
       | Nom    | Prénom | Email               | Téléphone   | Fonction de l'administrateur système |
       | Dupont | Jean   | dupont.jean@gouv.fr | 0836656565  | Administrateur métier                |
-    Et que je clique sur "Enregistrer les modifications"
-    Et que je clique sur "Continuer vers le résumé"
+    Et que j'enregistre et continue vers le résumé
     Et que j'adhère aux conditions générales
     Et que je clique sur "Soumettre la demande"
     Alors il y a un message de succès contenant "soumise avec succès"

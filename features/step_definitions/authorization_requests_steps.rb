@@ -290,6 +290,13 @@ Quand('je renseigne les informations du délégué à la protection des données
   )
 end
 
+Quand("j'enregistre et continue vers le résumé") do
+  steps %(
+    * je clique sur "Enregistrer les modifications"
+    * je clique sur "Continuer vers le résumé"
+  )
+end
+
 Quand('il existe un instructeur pour cette demande d\'habilitation') do
   definition = AuthorizationRequest.last.definition
 
