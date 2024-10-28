@@ -51,6 +51,8 @@ RSpec.describe AuthorizationRequest::APIImpotParticulier, type: :model do
   end
 
   describe 'scopes validation of revenue years' do
+    before { authorization_request.current_build_step = 'scopes' }
+
     AuthorizationRequest::APIImpotParticulier::MANDATORY_REVENUE_YEARS.each do |year|
       context "with mandatory revenue year scope #{year}" do
         let(:scopes) { [year] }
@@ -67,6 +69,8 @@ RSpec.describe AuthorizationRequest::APIImpotParticulier, type: :model do
   end
 
   describe 'validation of exclusive revenue years scope combination' do
+    before { authorization_request.current_build_step = 'scopes' }
+
     AuthorizationRequest::APIImpotParticulier::EXCLUSIVE_REVENUE_YEARS.each do |exclusive_group|
       context "with valid exclusive years scope combination: #{exclusive_group.join(', ')}" do
         let(:scopes) { exclusive_group }
@@ -83,6 +87,8 @@ RSpec.describe AuthorizationRequest::APIImpotParticulier, type: :model do
   end
 
   describe 'validation with incompatible scopes' do
+    before { authorization_request.current_build_step = 'scopes' }
+
     incompatible_combinations = AuthorizationRequest::APIImpotParticulier::INCOMPATIBLE_SCOPES.combination(2).map(&:flatten)
 
     incompatible_combinations.each do |incompatible_scopes|
