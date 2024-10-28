@@ -29,7 +29,7 @@ fr:
       safe: Fichier verifié
       unsafe: Ce fichier est dangereux
       pending: Fichier en attente d'analyse
-      unknown: L'analyse antivirus a échouée
+      unknown: L'analyse antivirus a échoué
 
   authorization_request:
     badge: demande n°%{id}
