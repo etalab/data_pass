@@ -8,6 +8,8 @@
 
       <% if policy(@authorization_request).review? %>
         <%= f.button t('authorization_request_forms.form.review'), name: :review, type: :submit, id: :review_authorization_request, class: %w(fr-btn fr-icon-checkbox-line fr-btn--icon-left fr-mb-0) %>
+      <% elsif @authorization_request.form.single_page? %>
+        <%= f.button t('authorization_request_forms.form.save_and_review'), name: :review, type: :submit, id: :review_authorization_request, class: %w(fr-btn fr-icon-checkbox-line fr-btn--icon-left fr-mb-0) %>
       <% end %>
     </div>
   </div>

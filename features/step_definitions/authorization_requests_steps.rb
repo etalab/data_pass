@@ -292,8 +292,7 @@ end
 
 Quand("j'enregistre et continue vers le résumé") do
   steps %(
-    * je clique sur "Enregistrer les modifications"
-    * je clique sur "Continuer vers le résumé"
+    * je clique sur "Enregistrer et continuer vers le résumé"
   )
 end
 

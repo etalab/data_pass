@@ -336,6 +336,7 @@ fr:
       submit_reopening: Envoyer ma demande de modification
       cancel_reopening: Annuler ma demande de modification
       review: Continuer vers le résumé
+      save_and_review: Enregistrer et continuer vers le résumé
       previous: Précédent
       next: Suivant
     shared:
