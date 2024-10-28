@@ -207,6 +207,25 @@ Quand('cette demande a été {string}') do |status|
   raise 'Organizer failed' unless organizer.success?
 end
 
+Quand('Je joins une maquette au projet {string}') do |authorization_definition_name|
+  authorization_definition_id = find_authorization_definition_from_name(authorization_definition_name).id
+  attach_file("authorization_request_#{authorization_definition_id}_maquette_projet", Rails.root.join('spec/fixtures/dummy.pdf'))
+end
+
+Quand('cette habilitation a une pièce jointe {string}') do |safety_state|
+  attachment = AuthorizationRequest.last.maquette_projet.attach(Rails.root.join('spec/fixtures/dummy.pdf')).attachment
+
+  MalwareScan.create!(uuid: SecureRandom.uuid, attachment:, safety_state:)
+end
+
+Alors('un scan antivirus est lancé') do
+  malware_scan_jobs = ActiveJob::Base.queue_adapter.enqueued_jobs.select do |job|
+    job['job_class'] == 'MalwareScanJob' && job['arguments'].first.is_a?(Integer)
+  end
+
+  expect(malware_scan_jobs.count).to eq(1)
+end
+
 Quand("j'adhère aux conditions générales") do
   steps %(
     Quand je coche "conditions générales d'utilisation"
