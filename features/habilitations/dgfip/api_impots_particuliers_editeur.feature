@@ -5,7 +5,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
     Sachant que je suis un demandeur
     Et que je me connecte
     Quand je démarre une nouvelle demande d'habilitation "API Impôt Particulier"
-   
     * je renseigne les infos de bases du projet
     * je clique sur "Suivant"
 
@@ -15,31 +14,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
     * je renseigne le cadre légal
     * je clique sur "Suivant"
 
-  Scénario: Je soumets une demande d'habilitation sans scopes d'années de revenue cochés.
-    * je coche "Situation de famille (marié, pacsé, célibataire, veuf divorcé)"
-    * je clique sur "Suivant"
-
-    Alors la page contient "Une erreur est survenue lors de la sauvegarde de la demande d'habilitation"
-    Et la page contient "Les données sont invalides : Vous devez cocher au moins une année de revenus souhaitée avant de continuer"
-
-  Scénario: Je soumets une demande d'habilitation avec 2 scopes d'annéees de revenue cochés incompatible.
-    * je coche "Dernière année de revenu"
-    * je coche "Avant-dernière année de revenu, si la dernière année de revenu est indisponible"
-    * je clique sur "Suivant"
-
-    Alors la page contient "Une erreur est survenue lors de la sauvegarde de la demande d'habilitation"
-    Et la page contient "Les données sont invalides : Vous ne pouvez pas sélectionner la donnée 'avant dernière année de revenu, si la dernière année de revenu est indisponible' avec d'autres années de revenus"
-
-  Scénario: Je soumets une demande d'habilitation avec 2 scopes incompatibles.
-    * je coche "Dernière année de revenu"
-    * je coche "Données fiscales au 31/12 en cas de décès d'un contribuable marié ou pacsé"
-    * je coche "Versement épargne retraite"
-    * je clique sur "Suivant"
-
-    Alors la page contient "Une erreur est survenue lors de la sauvegarde de la demande d'habilitation"
-    Et la page contient "Les données sont invalides : Des données incompatibles entre elles ont été cochées. Pour connaître les modalités d’appel et de réponse de l’API Impôt particulier ainsi que les données proposées, vous pouvez consulter le guide de présentation de cette API dans la rubrique « Les données nécessaires > Comment choisir les données"
-
-  Scénario: Je soumets une demande d'habilitation valide
     * je coche "Dernière année de revenu"
     * je clique sur "Suivant"
 
@@ -50,6 +24,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
     * je renseigne la recette fonctionnelle
     * je clique sur "Suivant"
 
+  Scénario: Je soumets une demande d'habilitation valide
     * je renseigne l'homologation de sécurité
     * je clique sur "Suivant"
 
@@ -63,16 +38,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
     Et je suis sur la page "Demandes et habilitations"
 
   Scénario: Je soumets une demande d'habilitation dont la date de fin d'homologation est inférieure à la date de début
-    * je coche "Dernière année de revenu"
-    * je clique sur "Suivant"
-
-    * je renseigne les informations des contacts RGPD
-    * je renseigne les informations du contact technique
-    * je clique sur "Suivant"
-
-    * je renseigne la recette fonctionnelle
-    * je clique sur "Suivant"
-
     * je remplis "Nom de l’autorité d’homologation ou du signataire du questionnaire de sécurité" avec "Article 42"
     * je remplis "Fonction de l’autorité d’homologation ou du signataire du questionnaire de sécurité" avec "Représentant de l'autorité d'homologation des joints d'étanchéité de conduits d'évacuation de climatiseurs de morgue"
     * je remplis "La décision d’homologation ou le questionnaire de sécurité" avec le fichier "spec/fixtures/dummy.pdf"
@@ -84,16 +49,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
     Et la page contient "Date de fin d’homologation doit être supérieure à la date de début"
 
   Scénario: Je soumets une demande d'habilitation avec une haute volumétrie et aucune justification
-    * je coche "Dernière année de revenu"
-    * je clique sur "Suivant"
-
-    * je renseigne les informations des contacts RGPD
-    * je renseigne les informations du contact technique
-    * je clique sur "Suivant"
-
-    * je renseigne la recette fonctionnelle
-    * je clique sur "Suivant"
-
     * je renseigne l'homologation de sécurité
     * je clique sur "Suivant"
 
@@ -104,16 +59,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
     Et la page contient "La justification de la limitation de débit doit être rempli(e)"
 
   Scénario: Je soumets une demande d'habilitation avec une haute volumétrie et une justification
-    * je coche "Dernière année de revenu"
-    * je clique sur "Suivant"
-
-    * je renseigne les informations des contacts RGPD
-    * je renseigne les informations du contact technique
-    * je clique sur "Suivant"
-
-    * je renseigne la recette fonctionnelle
-    * je clique sur "Suivant"
-
     * je renseigne l'homologation de sécurité
     * je clique sur "Suivant"
 
