@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_03_093735) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_29_104935) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pgcrypto"
@@ -263,7 +263,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_03_093735) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["attachment_id"], name: "index_malware_scans_on_attachment_id"
-    t.index ["uuid"], name: "index_malware_scans_on_uuid", unique: true
+    t.index ["uuid"], name: "index_malware_scans_on_uuid"
   end
 
   create_table "messages", force: :cascade do |t|
