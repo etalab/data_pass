@@ -35,9 +35,9 @@ class AuthorizationRequest::APIImpotParticulier < AuthorizationRequest
     ]
   ].freeze
 
-  validate :validate_revenue_years_selection, if: -> { need_complete_validation?(:scopes) }
-  validate :validate_exclusive_years_scope_combination, if: -> { need_complete_validation?(:scopes) }
-  validate :validate_incompatible_scopes, if: -> { need_complete_validation?(:scopes) }
+  validate :revenue_years_selection, if: -> { need_complete_validation?(:scopes) }
+  validate :revenue_years_scopes_compatibility, if: -> { need_complete_validation?(:scopes) }
+  validate :scopes_compatibility, if: -> { need_complete_validation?(:scopes) }
 
   add_document :maquette_projet, content_type: ['application/pdf'], size: { less_than: 10.megabytes }
 
@@ -51,19 +51,19 @@ class AuthorizationRequest::APIImpotParticulier < AuthorizationRequest
 
   private
 
-  def validate_revenue_years_selection
+  def revenue_years_selection
     return if scopes.intersect?(MANDATORY_REVENUE_YEARS)
 
     errors.add(:scopes, :invalid, message: 'sont invalides : Vous devez cocher au moins une année de revenus souhaitée avant de continuer')
   end
 
-  def validate_exclusive_years_scope_combination
+  def revenue_years_scopes_compatibility
     return unless scope_exists_in_each_arrays?(*EXCLUSIVE_REVENUE_YEARS)
 
     errors.add(:scopes, :invalid, message: "sont invalides : Vous ne pouvez pas sélectionner la donnée 'avant dernière année de revenu, si la dernière année de revenu est indisponible' avec d'autres années de revenus")
   end
 
-  def validate_incompatible_scopes
+  def scopes_compatibility
     return unless scope_exists_in_each_arrays?(*INCOMPATIBLE_SCOPES)
 
     errors.add(:scopes, :invalid, message: 'sont invalides : Des données incompatibles entre elles ont été cochées. Pour connaître les modalités d’appel et de réponse de l’API Impôt particulier ainsi que les données proposées, vous pouvez consulter le guide de présentation de cette API dans la rubrique « Les données nécessaires > Comment choisir les données »')
