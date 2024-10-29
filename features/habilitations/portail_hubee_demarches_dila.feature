@@ -16,8 +16,8 @@ Fonctionnalité: Soumission d'une demande d'habilitation Démarches du bouquet d
     * je remplis les informations du contact "Administrateur métier" avec :
       | Nom    | Prénom | Email               | Téléphone   | Fonction              |
       | Dupont | Jean   | dupont.jean@gouv.fr | 0836656565  | Administrateur métier |
-    * je clique sur "Enregistrer les modifications"
-    * je clique sur "Continuer vers le résumé"
+
+    * j'enregistre et continue vers le résumé
 
     * j'adhère aux conditions générales
     * je clique sur "Soumettre la demande d'habilitation"
@@ -27,8 +27,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation Démarches du bouquet d
 
   Scénario: Je remplis une demande d'habilitation avec aucune Démarches du bouquet de services (service-public.fr) cochée
     Quand je démarre une nouvelle demande d'habilitation "Démarches du bouquet de services (service-public.fr)"
-    Et que je clique sur "Enregistrer les modifications"
-    Et que je clique sur "Continuer vers le résumé"
+    Et que j'enregistre et continue vers le résumé
 
     Alors il y a un message d'erreur contenant "Une erreur est survenue lors de la sauvegarde de la demande d'habilitation"
     Et il y a un message d'erreur contenant "Les données ne sont pas cochées"
@@ -45,8 +44,8 @@ Fonctionnalité: Soumission d'une demande d'habilitation Démarches du bouquet d
     * je remplis les informations du contact "Administrateur métier" avec :
       | Nom    | Prénom | Email               | Téléphone   | Fonction de l'administrateur système |
       | Dupont |        | dupont.jean@gouv.fr | 0836656565  | Administrateur métier |
-    * je clique sur "Enregistrer les modifications"
-    * je clique sur "Continuer vers le résumé"
+
+    * j'enregistre et continue vers le résumé
 
     Alors il y a un message d'erreur contenant "Une erreur est survenue lors de la sauvegarde de la demande d'habilitation"
     Et il y a au moins une erreur sur un champ

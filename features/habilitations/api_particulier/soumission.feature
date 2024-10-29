@@ -289,8 +289,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
     * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
     * je renseigne les infos concernant les données personnelles
 
-    * je clique sur "Enregistrer les modifications"
-    * je clique sur "Continuer vers le résumé"
+    * j'enregistre et continue vers le résumé
 
     * j'adhère aux conditions générales
     * je clique sur "Soumettre la demande d'habilitation"
@@ -317,8 +316,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
     * je renseigne les informations du contact technique
     * je renseigne les informations du contact métier
 
-    * je clique sur "Enregistrer les modifications"
-    * je clique sur "Continuer vers le résumé"
+    * j'enregistre et continue vers le résumé
 
     * j'adhère aux conditions générales
     * je clique sur "Soumettre la demande d'habilitation"
@@ -343,8 +341,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
     * je renseigne les informations du contact métier
     * je renseigne les informations du délégué à la protection des données
 
-    * je clique sur "Enregistrer les modifications"
-    * je clique sur "Continuer vers le résumé"
+    * j'enregistre et continue vers le résumé
 
     * j'adhère aux conditions générales
     * je clique sur "Soumettre la demande d'habilitation"
@@ -380,7 +377,7 @@ Plan du scénario: Je soumets une demande d'habilitation, en plusieurs étapes, 
     Exemples:
       | Nom du formulaire   | Nom de l'éditeur          |
       | MaaSify             | Monkey Factory            |
-      | Airweb             | Airweb          | 
+      | Airweb             | Airweb          |
   Scénario: Je vois un lien vers API particulier quand je consulte une habilitation validée
     Quand j'ai déjà une demande d'habilitation "API Particulier" validée avec token
     Et que je vais sur la page du tableau de bord

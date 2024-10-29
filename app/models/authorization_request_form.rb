@@ -124,6 +124,10 @@ class AuthorizationRequestForm < StaticApplicationRecord
     steps.any?
   end
 
+  def single_page?
+    !multiple_steps?
+  end
+
   def active_authorization_requests_for(organization)
     organization
       .active_authorization_requests

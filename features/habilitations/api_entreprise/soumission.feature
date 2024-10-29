@@ -106,8 +106,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Entreprise
 
     * je renseigne les informations des contacts RGPD
 
-    * je clique sur "Enregistrer les modifications"
-    * je clique sur "Continuer vers le résumé"
+    * j'enregistre et continue vers le résumé
 
     * j'adhère aux conditions générales
     * je clique sur "Soumettre la demande d'habilitation"
@@ -131,8 +130,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Entreprise
     * je renseigne les informations des contacts RGPD
     * je renseigne les informations du contact métier
 
-    * je clique sur "Enregistrer les modifications"
-    * je clique sur "Continuer vers le résumé"
+    * j'enregistre et continue vers le résumé
 
     * j'adhère aux conditions générales
     * je clique sur "Soumettre la demande d'habilitation"

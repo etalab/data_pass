@@ -138,6 +138,14 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   end
 
   def create_for_single_page_form
+    if review?
+      create_for_single_page_form_with_review
+    else
+      create_for_single_page_form_without_review
+    end
+  end
+
+  def create_for_single_page_form_without_review
     organizer = organizer_for_creation
 
     @authorization_request = organizer.authorization_request.decorate
@@ -146,6 +154,20 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
       success_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.create')
 
       redirect_to authorization_request_form_path(form_uid: @authorization_request.form_uid, id: @authorization_request.id)
+    else
+      error_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.create_for_single_page_form')
+
+      render view_path, status: :unprocessable_entity
+    end
+  end
+
+  def create_for_single_page_form_with_review
+    organizer = organizer_for_creation
+
+    @authorization_request = organizer.authorization_request.decorate
+
+    if organizer.success? && review_authorization_request.success?
+      redirect_to summary_authorization_request_form_path(form_uid: @authorization_request.form_uid, id: @authorization_request.id)
     else
       error_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.create_for_single_page_form')
 
