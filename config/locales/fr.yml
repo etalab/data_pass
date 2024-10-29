@@ -250,7 +250,7 @@ fr:
           applicant: |
             Il s'agit d'une mise à jour d'une habilitation validée. Si celle-ci est rejetée, votre habilitation initiale sera toujours valide et les informations restaurées à la version initiale.
 
-            Vous pouvez consulter à tout moment l'habilitation validée :
+            Vous pouvez consulter à tout moment la dernière habilitation validée :
         link:
           text: Consulter l'habilitation validée n°%{authorization_id}
     bulk_update_modal:

@@ -6,5 +6,5 @@
   <p class="fr-callout__text">
     <%= t(".text.#{type}") %>
   </p>
-  <%= link_to t('.link.text', authorization_id: @authorization_request.id), latest_authorization_path(@authorization_request), class:"fr-btn" %>
+  <%= link_to t('.link.text', authorization_id: @authorization_request.latest_authorization.id), latest_authorization_path(@authorization_request), class:"fr-btn" %>
 </div>
