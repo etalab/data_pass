@@ -35,9 +35,9 @@ class AuthorizationRequest::APIImpotParticulier < AuthorizationRequest
     ]
   ].freeze
 
-  validate :validate_revenue_years_selection, if: -> { current_build_step == 'scopes' }
-  validate :validate_exclusive_years_scope_combination, if: -> { current_build_step == 'scopes' }
-  validate :validate_incompatible_scopes, if: -> { current_build_step == 'scopes' }
+  validate :validate_revenue_years_selection, if: -> { need_complete_validation?(:scopes) }
+  validate :validate_exclusive_years_scope_combination, if: -> { need_complete_validation?(:scopes) }
+  validate :validate_incompatible_scopes, if: -> { need_complete_validation?(:scopes) }
 
   add_document :maquette_projet, content_type: ['application/pdf'], size: { less_than: 10.megabytes }
 
