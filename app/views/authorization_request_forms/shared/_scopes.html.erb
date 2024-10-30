@@ -18,4 +18,26 @@
   </div>
 <% end %>
 
+<div class="fr-form-group fr-my-5w">
+  <% if @authorization_request.respond_to?(:specific_requirements) %>
+    <h3 class="fr-mt-0 fr-mb-1w">Possédez-vous une expression de besoin spécifique?</h3>
+    <p>
+      Les partenaires ayant convenu avec la DGFiP un périmètre de données particulier peuvent
+      rattacher leur expression de besoin listant l'ensemble des données strictement nécessaires à leur cas d'usage. Si
+      vous n'avez pas encore contacté la DGFiP, vous pouvez les joindre à l'adresse
+      <a href="mailto:dtnum.donnees.demande-acces@dgfip.finances.gouv.fr">dtnum.donnees.demande-acces@dgfip.finances.gouv.fr</a>
+    </p>
+
+    <%= f.dsfr_check_box :specific_requirements %>
+  <% end %>
+</div>
+
+<fieldset class="fr-fieldset" aria-label="feedme" aria-describedby="name-1-fieldset-messages">
+  <% if @authorization_request.respond_to?(:specific_requirements_document) %>
+    <div class="fr-fieldset__element">
+      <%= f.dsfr_file_field :specific_requirements_document %>
+    </div>
+  <% end %>
+</fieldset>
+
 <%= f.hidden_field :scopes, value: '', name: "#{@authorization_request.model_name.param_key}[scopes][]" %>
