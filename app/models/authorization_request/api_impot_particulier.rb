@@ -20,11 +20,6 @@ class AuthorizationRequest::APIImpotParticulier < AuthorizationRequest
     dgfip_annee_n_moins_2_si_indispo_n_moins_1
   ].freeze
 
-  EXCLUSIVE_REVENUE_YEARS = [
-    %w[dgfip_annee_n_moins_2_si_indispo_n_moins_1],
-    %w[dgfip_annee_n_moins_1 dgfip_annee_n_moins_2 dgfip_annee_n_moins_3]
-  ].freeze
-
   INCOMPATIBLE_SCOPES = [
     %w[dgfip_annee_n_moins_2_si_indispo_n_moins_1 dgfip_annee_df_au_3112_si_deces_ctb_mp],
     %w[
