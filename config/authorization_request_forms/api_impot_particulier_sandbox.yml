@@ -1,0 +1,11 @@
+api-impot-particulier-sandbox:
+  description: TODO
+  introduction: |
+    Ceci est une introduction à remplir
+  authorization_request: APIImpotParticulierSandbox
+  steps:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: scopes
+    - name: contacts

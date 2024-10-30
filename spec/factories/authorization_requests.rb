@@ -426,5 +426,16 @@ FactoryBot.define do
         with_cadre_juridique
       end
     end
+
+    trait :api_impot_particulier_sandbox do
+      type { 'AuthorizationRequest::APIImpotParticulierSandbox' }
+
+      form_uid { 'api-impot-particulier-sandbox' }
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+      with_scopes
+    end
   end
 end
