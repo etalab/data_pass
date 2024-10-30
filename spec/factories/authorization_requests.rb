@@ -380,9 +380,14 @@ FactoryBot.define do
     trait :api_impot_particulier_editeur do
       type { 'AuthorizationRequest::APIImpotParticulier' }
 
+      after(:build) do |authorization_request, _evaluator|
+        next if authorization_request.scopes.any?
+
+        authorization_request.scopes << 'dgfip_annee_n_moins_1'
+      end
+
       form_uid { 'api-impot-particulier-editeur' }
       with_basic_infos
-      with_cadre_juridique
       with_personal_data
       with_cadre_juridique
       with_scopes

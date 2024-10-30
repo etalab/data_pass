@@ -5,7 +5,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
     Sachant que je suis un demandeur
     Et que je me connecte
     Quand je démarre une nouvelle demande d'habilitation "API Impôt Particulier"
-   
     * je renseigne les infos de bases du projet
     * je clique sur "Suivant"
 
@@ -49,7 +48,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
     Alors la page contient "Une erreur est survenue lors de la sauvegarde de la demande d'habilitation"
     Et la page contient "Date de fin d’homologation doit être supérieure à la date de début"
 
-Scénario: Je soumets une demande d'habilitation avec une haute volumétrie et aucune justification
+  Scénario: Je soumets une demande d'habilitation avec une haute volumétrie et aucune justification
     * je renseigne l'homologation de sécurité
     * je clique sur "Suivant"
 
@@ -59,7 +58,7 @@ Scénario: Je soumets une demande d'habilitation avec une haute volumétrie et a
     Alors la page contient "Une erreur est survenue lors de la sauvegarde de la demande d'habilitation"
     Et la page contient "La justification de la limitation de débit doit être rempli(e)"
 
-Scénario: Je soumets une demande d'habilitation avec une haute volumétrie et une justification
+  Scénario: Je soumets une demande d'habilitation avec une haute volumétrie et une justification
     * je renseigne l'homologation de sécurité
     * je clique sur "Suivant"
 
@@ -69,6 +68,6 @@ Scénario: Je soumets une demande d'habilitation avec une haute volumétrie et u
 
     * j'adhère aux conditions générales
     * je clique sur "Soumettre la demande d'habilitation"
-    
+
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
