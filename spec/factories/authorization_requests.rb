@@ -383,7 +383,7 @@ FactoryBot.define do
       after(:build) do |authorization_request, _evaluator|
         next if authorization_request.scopes.any?
 
-        authorization_request.scopes << 'dgfip_annee_n_moins_1' unless AuthorizationRequest::APIImpotParticulier::MANDATORY_REVENUE_YEARS.intersect?(authorization_request.scopes)
+        authorization_request.scopes << 'dgfip_annee_n_moins_1'
       end
 
       form_uid { 'api-impot-particulier-editeur' }
