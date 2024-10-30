@@ -1,7 +1,8 @@
 RSpec.describe AuthorizationRequest::APIImpotParticulier, type: :model do
-  subject(:authorization_request) { build(:authorization_request, :api_impot_particulier_editeur, fill_all_attributes: true, scopes:, volumetrie_appels_par_minute:, volumetrie_justification:, safety_certification_begin_date:, safety_certification_end_date:) }
+  subject(:authorization_request) { build(:authorization_request, :api_impot_particulier_editeur, fill_all_attributes: true, scopes:, specific_requirements:, volumetrie_appels_par_minute:, volumetrie_justification:, safety_certification_begin_date:, safety_certification_end_date:) }
 
   let(:scopes) { [] }
+  let(:specific_requirements) { nil }
   let(:volumetrie_appels_par_minute) { nil }
   let(:volumetrie_justification) { nil }
   let(:safety_certification_begin_date) { nil }
@@ -103,6 +104,42 @@ RSpec.describe AuthorizationRequest::APIImpotParticulier, type: :model do
 
         it { is_expected.to be_valid }
       end
+    end
+  end
+
+  describe 'specific requirements' do
+    before { authorization_request.current_build_step = 'scopes' }
+
+    context 'when specific requirement is not selected' do
+      let(:specific_requirements) { 'false' }
+
+      it { is_expected.to be_valid }
+    end
+
+    context 'when specific requirement is selected but no document is attached' do
+      let(:specific_requirements) { 'true' }
+
+      it 'has not document attached' do
+        expect(authorization_request.specific_requirements_document).not_to be_attached
+      end
+
+      it 'raise an error' do
+        expect(authorization_request.errors[:specific_requirements_document]).to include("Votre document d'expression de besoin spécifique doit être joint")
+      end
+
+      it { is_expected.not_to be_valid }
+    end
+
+    context 'when specific requirement is selected and one document is attached' do
+      let(:specific_requirements) { 'true' }
+
+      before { authorization_request.specific_requirements_document.attach(io: File.open('spec/fixtures/dummy.xlsx'), filename: 'dummy.xlsx') }
+
+      it 'attaches the specific requirements document' do
+        expect(authorization_request.specific_requirements_document).to be_attached
+      end
+
+      it { is_expected.to be_valid }
     end
   end
 end
