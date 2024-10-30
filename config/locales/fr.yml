@@ -243,6 +243,16 @@ fr:
       blocks:
         scopes:
           legacy_scopes: "Les données suivantes ont été précédemment sélectionnées mais ne sont plus disponibles ou n'apparaissent pas dans le formulaire sélectionné :"
+      reopening_callout:
+        text:
+          instructor: |
+            Une habilitation validée existe déjà, cette demande concerne une mise à jour des informations existantes.
+          applicant: |
+            Il s'agit d'une mise à jour d'une habilitation validée. Si celle-ci est rejetée, votre habilitation initiale sera toujours valide et les informations restaurées à la version initiale.
+
+            Vous pouvez consulter à tout moment la dernière habilitation validée :
+        link:
+          text: Consulter l'habilitation validée n°%{authorization_id}
     bulk_update_modal:
       title: Une mise à jour a été effectuée sur votre demande d'habilitation
       description: |
