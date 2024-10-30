@@ -1,4 +1,5 @@
 <%= authorization_request_form(@authorization_request) do |f| %>
+  <%= render partial: 'authorization_request_forms/shared/prefilled_banner_for_single_page_form' %>
 
   <%= render partial: "authorization_request_forms/shared/block_titles", locals: { f:, block_name: :contacts } %>
 

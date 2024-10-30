@@ -16,10 +16,6 @@
     <%= render partial: "authorization_request_forms/shared/block_titles", locals: { f: f, block_name: english_step_name(params[:id]) } %>
   <% end %>
 
-  <% if single_page_form?(@authorization_request) && !within_edit? && !within_summary? %>
-    <%= render partial: "authorization_request_forms/shared/prefilled_banner" %>
-  <% end %>
-
   <%= yield %>
 </div>
 

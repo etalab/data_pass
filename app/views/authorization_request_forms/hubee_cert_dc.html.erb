@@ -1,4 +1,6 @@
 <%= authorization_request_form(@authorization_request) do |f| %>
+  <%= render partial: 'authorization_request_forms/shared/prefilled_banner_for_single_page_form' %>
+
   <div class="fr-mt-4w">
     <%= render partial: "authorization_requests/shared/organization_and_applicant" %>
   </div>
