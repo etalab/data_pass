@@ -6,3 +6,4 @@
 * [Migration de l'ancienne stack (v1 -> v2)](./../app/migration/)
 * [Ajout d'un nouveau formulaire (métier)](./ajout_nouveau_form_non_tech.md)
 * [Webhooks](./webhooks.md)
+* [Guide sur les scopes](./modification_scopes.md)
