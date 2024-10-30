@@ -12,7 +12,6 @@ RSpec.describe AuthorizationRequest::APIImpotParticulier, type: :model do
 
     context 'with minimum volumetrie and no justification' do
       let(:volumetrie_appels_par_minute) { 50 }
-      let(:volumetrie_justification) { nil }
 
       it { is_expected.to be_valid }
     end
@@ -26,7 +25,6 @@ RSpec.describe AuthorizationRequest::APIImpotParticulier, type: :model do
 
     context 'with high volumetrie and no justification' do
       let(:volumetrie_appels_par_minute) { 200 }
-      let(:volumetrie_justification) { nil }
 
       it { is_expected.not_to be_valid }
     end
