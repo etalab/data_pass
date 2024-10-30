@@ -33,14 +33,19 @@ class AuthorizationRequest::APIImpotParticulier < AuthorizationRequest
   validate :at_least_one_revenue_year_has_been_selected, if: -> { need_complete_validation?(:scopes) }
   validate :revenue_years_scopes_compatibility, if: -> { need_complete_validation?(:scopes) }
   validate :scopes_compatibility, if: -> { need_complete_validation?(:scopes) }
+  validate :specific_requirements_document_presence, if: -> { (specific_requirements == true) && need_complete_validation?(:scopes) }
 
   add_document :maquette_projet, content_type: ['application/pdf'], size: { less_than: 10.megabytes }
 
   add_attributes :date_prevue_mise_en_production
-
   add_attributes :specific_requirements
-  add_document :specific_requirements_document, content_type: %w[application/vnd.ms-excel application/vnd.openxmlformats-officedocument.spreadsheetml.sheet], size: { less_than: 10.megabytes },
-    validation: { presence: true, if: -> { specific_requirements.present? } }
+
+  add_document :specific_requirements_document, content_type: %w[
+    application/vnd.oasis.opendocument.spreadsheet
+    application/vnd.ms-excel
+    application/vnd.sun.xml.calc
+    application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  ], size: { less_than: 10.megabytes }
 
   add_scopes(validation: {
     presence: true, if: -> { need_complete_validation?(:scopes) }
@@ -71,5 +76,11 @@ class AuthorizationRequest::APIImpotParticulier < AuthorizationRequest
 
   def scope_exists_in_each_arrays?(array_1, array_2)
     scopes.intersect?(array_1) && scopes.intersect?(array_2)
+  end
+
+  def specific_requirements_document_presence
+    return if specific_requirements_document.blank?
+
+    errors.add(:specific_requirements_document, message: 'est manquant : vous devez joindre votre document')
   end
 end
