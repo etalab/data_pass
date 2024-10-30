@@ -199,7 +199,7 @@ FactoryBot.define do
     trait :with_scopes do
       after(:build) do |authorization_request, evaluator|
         if authorization_request.need_complete_validation? || evaluator.fill_all_attributes
-          next if authorization_request.scopes.present?
+          next if authorization_request.scopes.any?
 
           authorization_request.scopes ||= []
           authorization_request.scopes << authorization_request.available_scopes.first.value
