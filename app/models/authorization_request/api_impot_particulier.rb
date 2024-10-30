@@ -35,7 +35,7 @@ class AuthorizationRequest::APIImpotParticulier < AuthorizationRequest
     ]
   ].freeze
 
-  validate :revenue_years_selection, if: -> { need_complete_validation?(:scopes) }
+  validate :at_least_one_revenue_year_has_been_selected, if: -> { need_complete_validation?(:scopes) }
   validate :revenue_years_scopes_compatibility, if: -> { need_complete_validation?(:scopes) }
   validate :scopes_compatibility, if: -> { need_complete_validation?(:scopes) }
 
@@ -51,7 +51,7 @@ class AuthorizationRequest::APIImpotParticulier < AuthorizationRequest
 
   private
 
-  def revenue_years_selection
+  def at_least_one_revenue_year_has_been_selected
     return if scopes.intersect?(MANDATORY_REVENUE_YEARS)
 
     errors.add(:scopes, :invalid, message: 'sont invalides : Vous devez cocher au moins une année de revenus souhaitée avant de continuer')
