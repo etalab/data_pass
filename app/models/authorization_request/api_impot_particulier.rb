@@ -38,6 +38,10 @@ class AuthorizationRequest::APIImpotParticulier < AuthorizationRequest
 
   add_attributes :date_prevue_mise_en_production
 
+  add_attributes :specific_requirements
+  add_document :specific_requirements_document, content_type: %w[application/vnd.ms-excel application/vnd.openxmlformats-officedocument.spreadsheetml.sheet], size: { less_than: 10.megabytes },
+    validation: { presence: true, if: -> { specific_requirements.present? } }
+
   add_scopes(validation: {
     presence: true, if: -> { need_complete_validation?(:scopes) }
   })
