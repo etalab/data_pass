@@ -58,7 +58,8 @@ class AuthorizationRequest::APIImpotParticulier < AuthorizationRequest
   end
 
   def revenue_years_scopes_compatibility
-    return unless scope_exists_in_each_arrays?(*EXCLUSIVE_REVENUE_YEARS)
+    return unless scopes.include?('dgfip_annee_n_moins_2_si_indispo_n_moins_1')
+    return unless scopes.intersect?(%w[dgfip_annee_n_moins_1 dgfip_annee_n_moins_2 dgfip_annee_n_moins_3])
 
     errors.add(:scopes, :invalid, message: "sont invalides : Vous ne pouvez pas sélectionner la donnée 'avant dernière année de revenu, si la dernière année de revenu est indisponible' avec d'autres années de revenus")
   end
