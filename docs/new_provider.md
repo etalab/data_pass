@@ -68,6 +68,12 @@ Pour la configuration de la [définition (1.)](../config/authorization_definitio
     # étapes (bac à sable puis production), lorsque la 1ere est validé la 2e est
     # crée par le système. Par défaut à `true`
     startable_by_applicant: false
+    # Optionel. Permet de définir des étapes (ex: sandbox -> production)
+    stage:
+      # Type: sandbox / production
+      type: sandbox
+      # ID de l'étape suivante
+      next: mon_api_production
     # Liste des diverses données débrayable pour la source de données
     scopes:
         # Nom humanisé de la donnée

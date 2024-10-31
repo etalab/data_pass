@@ -9,6 +9,7 @@ class AuthorizationDefinition < StaticApplicationRecord
     :kind,
     :scopes,
     :blocks,
+    :stage,
     :unique
 
   attr_writer :startable_by_applicant,
@@ -45,6 +46,7 @@ class AuthorizationDefinition < StaticApplicationRecord
         :kind,
         :startable_by_applicant,
         :unique,
+        :stage,
       ).merge(
         id: uid.to_s,
         provider: DataProvider.find(hash[:provider]),
@@ -86,6 +88,12 @@ class AuthorizationDefinition < StaticApplicationRecord
 
   def startable_by_applicant
     value_or_default(@startable_by_applicant, true)
+  end
+
+  def next_stage
+    return if stage.blank? || stage[:next].blank?
+
+    AuthorizationDefinition.find(stage[:next])
   end
 
   def authorization_request_class
