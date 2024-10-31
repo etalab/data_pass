@@ -17,11 +17,11 @@
   gap: 1rem;
 }
 
-.authorization-request-card .reopening__footer {
+.authorization-request-card .footer {
   border-bottom: 0.25rem solid var(--background-action-high-blue-france);
 }
 
-.authorization-request-card .reopening__badge {
+.authorization-request-card .footer__badge {
   align-content: center;
 }
 
