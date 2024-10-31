@@ -51,4 +51,20 @@ RSpec.describe AuthorizationDefinition do
 
     it { is_expected.to contain_exactly(valid_instructor, valid_instructor_with_multiple_authorization_type) }
   end
+
+  describe '#next_stage' do
+    subject(:next_stage) { instance.next_stage }
+
+    context 'when definition has no stage' do
+      let(:instance) { described_class.find('api_entreprise') }
+
+      it { is_expected.to be_nil }
+    end
+
+    context 'when definition has stages' do
+      let(:instance) { described_class.find('api_impot_particulier_sandbox') }
+
+      it { expect(next_stage.id).to eq('api_impot_particulier') }
+    end
+  end
 end

@@ -335,6 +335,8 @@ shared:
     link: "https://api.gouv.fr/les-api/impot-particulier"
     cgu_link: "/cgus/dgfip/cgu_api_impot_particulier_production_hors_connexion_fc_decembre2022_v4.0.pdf"
     provider: "dgfip"
+    stage:
+      type: production
     blocks:
       - name: basic_infos
       - name: personal_data
@@ -479,6 +481,9 @@ shared:
     cgu_link: "/cgus/dgfip/cgu_api_impot_particulier_bac_a_sable_connexion_hors_fc_septembre2020_v2.6.pdf"
     access_link: "https://api-impot-particulier-sandbox.gouv.fr/tokens/%<external_provider_id>s"
     public: true
+    stage:
+      type: sandbox
+      next: api_impot_particulier
     blocks:
       - name: basic_infos
       - name: personal_data
