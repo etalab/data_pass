@@ -155,6 +155,10 @@ fr:
         reopen_title: Demande de mise à jour
         reopen_date: Fait le
         show_cta: Consulter
+      stage_footer:
+        next_stage_title: Votre demande d’accès au bac à sable a été validée !
+        next_stage_subtitle: Vous pouvez poursuivre votre demande afin d’accéder à la production.
+        start_next_stage_cta: Démarrer ma demande d'habilitation en production
 
       authorization_request_card_small:
         show_cta: Consulter

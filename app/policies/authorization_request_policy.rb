@@ -71,6 +71,11 @@ class AuthorizationRequestPolicy < ApplicationPolicy
       (record.reopening? || record.state != 'draft')
   end
 
+  def start_next_stage?
+    record.definition.next_stage.present? &&
+      record.validated?
+  end
+
   protected
 
   def authorization_request_class
