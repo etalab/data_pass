@@ -33,6 +33,7 @@ class Seeds
   end
   # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize
   def create_authorization_requests_for_clamart
     create_validated_authorization_request(:api_entreprise, attributes: { intitule: "Portail des appels d'offres", applicant: demandeur })
 
@@ -49,7 +50,10 @@ class Seeds
 
     authorization_request = create_submitted_authorization_request(:api_entreprise, attributes: { intitule: 'Place des entreprises', applicant: another_demandeur })
     send_message_to_instructors(authorization_request, body: "Je ne suis pas sûr du cadre de cette demande, pouvez-vous m'aider ?")
+
+    create_validated_authorization_request(:api_impot_particulier_sandbox, attributes: { intitule: 'Demande de retraite progressive en ligne', applicant: demandeur })
   end
+  # rubocop:enable Metrics/AbcSize
 
   def create_authorization_requests_for_dinum
     create_validated_authorization_request(:api_entreprise, attributes: { intitule: 'Démarches simplifiées', applicant: foreign_demandeur, contact_metier_email: demandeur.email })
