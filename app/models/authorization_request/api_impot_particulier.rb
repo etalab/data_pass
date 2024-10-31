@@ -33,7 +33,7 @@ class AuthorizationRequest::APIImpotParticulier < AuthorizationRequest
   validate :at_least_one_revenue_year_has_been_selected, if: -> { need_complete_validation?(:scopes) }
   validate :revenue_years_scopes_compatibility, if: -> { need_complete_validation?(:scopes) }
   validate :scopes_compatibility, if: -> { need_complete_validation?(:scopes) }
-  validate :specific_requirements_document_presence, if: -> { (specific_requirements == true) && need_complete_validation?(:scopes) }
+  validate :specific_requirements_document_presence, if: -> { specific_requirements? && need_complete_validation?(:scopes) }
 
   add_document :maquette_projet, content_type: ['application/pdf'], size: { less_than: 10.megabytes }
 
@@ -79,8 +79,12 @@ class AuthorizationRequest::APIImpotParticulier < AuthorizationRequest
   end
 
   def specific_requirements_document_presence
-    return if specific_requirements_document.blank?
+    return if specific_requirements_document.present?
 
     errors.add(:specific_requirements_document, message: 'est manquant : vous devez joindre votre document')
+  end
+
+  def specific_requirements?
+    specific_requirements == '1'
   end
 end

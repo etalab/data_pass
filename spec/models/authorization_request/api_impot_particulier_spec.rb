@@ -112,17 +112,19 @@ RSpec.describe AuthorizationRequest::APIImpotParticulier, type: :model do
 
     describe 'Valid case' do
       context 'when specific requirement is not selected' do
-        let(:specific_requirements) { false }
+        let(:specific_requirements) { '0' }
 
         it { is_expected.to be_valid }
       end
 
       context 'when specific requirement is selected and one document is attached' do
-        let(:specific_requirements) { true }
+        let(:specific_requirements) { '1' }
+
+        before do
+          authorization_request.specific_requirements_document.attach(Rack::Test::UploadedFile.new('spec/fixtures/dummy.xlsx', 'application/vnd.ms-excel'))
+        end
 
         it 'attaches the specific requirements document' do
-          authorization_request.specific_requirements_document.attach(Rack::Test::UploadedFile.new('spec/fixtures/dummy.xlsx', 'application/vnd.ms-excel'))
-
           expect(authorization_request.specific_requirements_document).to be_attached
           expect(authorization_request.specific_requirements_document.filename).to eq('dummy.xlsx')
         end
@@ -133,7 +135,7 @@ RSpec.describe AuthorizationRequest::APIImpotParticulier, type: :model do
 
     describe 'Invalid case' do
       context 'when specific requirement is selected but no document is attached' do
-        let(:specific_requirements) { true }
+        let(:specific_requirements) { '1' }
 
         it 'has no document attached' do
           expect(authorization_request.specific_requirements_document).not_to be_attached
