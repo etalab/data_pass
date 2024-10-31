@@ -1,0 +1,25 @@
+<div class="footer fr-p-3w fr-background-alt--grey">
+  <div class="footer__content flex-space-between__content fr-mb-3v">
+    <div>
+      <p class="footer__title fr-text-title--blue-france fr-text--md font-weight-700 fr-m-0">
+        <%= t('.next_stage_title') %>
+      </p>
+
+      <p class="fr-text--sm fr-mb-0">
+        <%= t('.next_stage_subtitle') %>
+      </p>
+    </div>
+
+    <div class="footer__badge">
+      <% unless policy(authorization_request).start_next_stage? %>
+        <%= authorization_request_status_badge(authorization_request) %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="footer__actions">
+    <% if policy(authorization_request).start_next_stage? %>
+      <%= link_to t('.start_next_stage_cta'), '#', class: %w(fr-btn) %>
+    <% end %>
+  </div>
+</div>

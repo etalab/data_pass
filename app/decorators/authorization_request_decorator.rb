@@ -54,6 +54,12 @@ class AuthorizationRequestDecorator < ApplicationDecorator
     object.form.multiple_steps?
   end
 
+  def display_stage_footer?
+    object.definition.stage.present? &&
+      object.latest_authorization.present? &&
+      object.latest_authorization.request_as_validated.definition.next_stage.present?
+  end
+
   def prefilled_data?(keys)
     return false if empty_form_data?
 
