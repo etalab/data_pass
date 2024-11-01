@@ -23,7 +23,7 @@ RSpec.describe DefinitionGenerator, type: :generator do
     it { expect(file.read).to include(/^  france_generateur:/) }
 
     it 'is a valid YAML' do
-      expect { YAML.load_file(subject) }.not_to raise_error
+      expect { YAML.load_file(subject, aliases: true) }.not_to raise_error
     end
   end
 
@@ -34,7 +34,7 @@ RSpec.describe DefinitionGenerator, type: :generator do
     it { expect(file.read).to include('authorization_request: FranceGenerateur') }
 
     it 'is a valid YAML' do
-      expect { YAML.load_file(subject) }.not_to raise_error
+      expect { YAML.load_file(subject, aliases: true) }.not_to raise_error
     end
   end
 
