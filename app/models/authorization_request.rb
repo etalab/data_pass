@@ -208,6 +208,19 @@ class AuthorizationRequest < ApplicationRecord
       transition from: %i[draft changes_requested submitted], to: :validated, if: ->(authorization_request) { authorization_request.reopening? }
     end
 
+    event :start_next_stage do
+      transition from: :validated, to: :draft, if: ->(authorization_request) { authorization_request.definition.next_stage.present? }
+    end
+
+    after_transition on: :start_next_stage do |authorization_request|
+      authorization_request.update!(
+        type: authorization_request.definition.next_stage.authorization_request_class,
+        form_uid: authorization_request.definition.next_stage_form.id,
+        terms_of_service_accepted: false,
+        data_protection_officer_informed: false,
+      )
+    end
+
     event :revoke do
       transition from: :validated, to: :revoked
     end
