@@ -290,6 +290,7 @@ class AuthorizationRequest < ApplicationRecord
   def required_for_step?(step)
     return false if validation_context == :save_within_wizard
     return false if current_build_step.blank?
+    return false if steps_names.exclude?(step.to_s)
 
     step.nil? ||
       steps_names.index(step.to_s) <= steps_names.index(current_build_step)
