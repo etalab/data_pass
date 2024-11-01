@@ -267,6 +267,9 @@ fr:
   start_authorization_request_form:
     cta: Débuter ma demande
 
+  start_next_authorization_request_stage_form:
+    cta: Débuter ma demande
+
   authorization_request_forms:
     new:
       back_to_dashboard: Retour à l’accueil

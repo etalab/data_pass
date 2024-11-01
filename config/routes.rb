@@ -39,6 +39,9 @@ Rails.application.routes.draw do
 
     get '/demandes/:definition_id/nouveau', to: 'authorization_requests#new', as: :new_authorization_request
 
+    get '/demandes/:authorization_request_id/prochaine-etape', to: 'next_authorization_request_stage#new', as: :next_authorization_request_stage
+    post '/demandes/:authorization_request_id/prochaine-etape', to: 'next_authorization_request_stage#create'
+
     scope(path: 'formulaires/:form_uid') do
       resources :authorization_request_forms, only: %w[new create show update], path: 'demande' do
         collection do
