@@ -745,6 +745,10 @@ fr:
               %{text}
             </blockquote>
 
+
+        start_next_stage:
+          text: Le demandeur <strong>%{user_full_name}</strong> a démarré la demande d'habilitation pour la production
+
         system_reminder:
           text: Une relance a été envoyé au demandeur
 

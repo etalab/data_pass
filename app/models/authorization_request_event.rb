@@ -21,6 +21,8 @@ class AuthorizationRequestEvent < ApplicationRecord
     admin_update
     bulk_update
 
+    start_next_stage
+
     system_reminder
     system_archive
     system_import
