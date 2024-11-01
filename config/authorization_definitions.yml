@@ -483,7 +483,9 @@ shared:
     public: true
     stage:
       type: sandbox
-      next: api_impot_particulier
+      next:
+        id: api_impot_particulier
+        form_id: api-impot-particulier
     blocks:
       - name: basic_infos
       - name: personal_data

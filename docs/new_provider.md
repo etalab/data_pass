@@ -72,8 +72,10 @@ Pour la configuration de la [définition (1.)](../config/authorization_definitio
     stage:
       # Type: sandbox / production
       type: sandbox
-      # ID de l'étape suivante
-      next: mon_api_production
+      # Information concernant l'étape suivante, clé obligatoire si le type est sandbox
+      next:
+        id: api_impot_particulier
+        form_id: api-impot-particulier
     # Liste des diverses données débrayable pour la source de données
     scopes:
         # Nom humanisé de la donnée

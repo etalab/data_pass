@@ -90,10 +90,22 @@ class AuthorizationDefinition < StaticApplicationRecord
     value_or_default(@startable_by_applicant, true)
   end
 
+  def stage_type
+    return if stage.blank?
+
+    stage[:type]
+  end
+
   def next_stage
     return if stage.blank? || stage[:next].blank?
 
-    AuthorizationDefinition.find(stage[:next])
+    AuthorizationDefinition.find(stage[:next][:id])
+  end
+
+  def next_stage_form
+    return if next_stage.blank?
+
+    next_stage.available_forms.find { |form| form.id == stage[:next][:form_id] } || raise(ActiveRecord::RecordNotFound, "Couln't find form with id #{stage[:next][:form_id]}")
   end
 
   def authorization_request_class
