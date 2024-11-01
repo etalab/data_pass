@@ -37,7 +37,7 @@ Rails.application.routes.draw do
       resources :forms, only: %w[index], path: 'formulaires', as: :authorization_definition_forms
     end
 
-    get '/demandes/:id/nouveau', to: 'authorization_requests#new', as: :new_authorization_request
+    get '/demandes/:definition_id/nouveau', to: 'authorization_requests#new', as: :new_authorization_request
 
     scope(path: 'formulaires/:form_uid') do
       resources :authorization_request_forms, only: %w[new create show update], path: 'demande' do

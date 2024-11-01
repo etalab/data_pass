@@ -59,7 +59,7 @@ Quand('je veux remplir une demande pour {string} via le formulaire {string} de l
 end
 
 Quand('je veux remplir une demande pour {string}') do |authorization_request_name|
-  visit new_authorization_request_path(id: find_authorization_definition_from_name(authorization_request_name).id)
+  visit new_authorization_request_path(definition_id: find_authorization_definition_from_name(authorization_request_name).id)
 end
 
 Quand("je démarre une nouvelle demande d'habilitation {string}") do |string|
@@ -68,12 +68,12 @@ Quand("je démarre une nouvelle demande d'habilitation {string}") do |string|
   if authorization_definition.available_forms.one?
     visit start_authorization_request_forms_path(form_uid: authorization_definition.available_forms.first.uid)
   else
-    visit new_authorization_request_path(id: find_authorization_definition_from_name(string).id)
+    visit new_authorization_request_path(definition_id: find_authorization_definition_from_name(string).id)
   end
 end
 
 Quand("je démarre une nouvelle demande d'habilitation {string} avec le paramètre {string} égal à {string}") do |string, key, value|
-  visit new_authorization_request_path(id: find_authorization_definition_from_name(string).id, key => value)
+  visit new_authorization_request_path(definition_id: find_authorization_definition_from_name(string).id, key => value)
 end
 
 Quand('je remplis les informations du contact {string} avec :') do |string, table|
@@ -98,7 +98,7 @@ Quand('cette demande a été modifiée avec les informations suivantes :') do |t
 end
 
 Quand("je clique sur {string} pour l'habilitation {string}") do |cta_name, habilitation_name|
-  click_link cta_name, href: new_authorization_request_path(id: find_authorization_definition_from_name(habilitation_name).id.dasherize) # rubocop:disable Capybara/ClickLinkOrButtonStyle
+  click_link cta_name, href: new_authorization_request_path(definition_id: find_authorization_definition_from_name(habilitation_name).id.dasherize) # rubocop:disable Capybara/ClickLinkOrButtonStyle
 end
 
 Alors("il n'y a pas le bouton {string} pour l'habilitation {string}") do |text, habilitation_name|

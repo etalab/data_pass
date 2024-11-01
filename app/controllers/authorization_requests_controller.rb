@@ -76,6 +76,6 @@ class AuthorizationRequestsController < AuthenticatedUserController
   end
 
   def id_sanitized
-    params[:id].underscore
+    params[:definition_id].underscore
   end
 end
