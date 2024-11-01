@@ -315,7 +315,7 @@ class AuthorizationRequest < ApplicationRecord
 
   def reopening?
     %w[validated revoked].exclude?(state) &&
-      last_validated_at.present?
+      reopened_at.present?
   end
 
   def contact_types_for(user)
