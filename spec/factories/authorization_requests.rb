@@ -383,8 +383,10 @@ FactoryBot.define do
       with_cadre_juridique
     end
 
-    trait :api_impot_particulier_editeur do
+    trait :api_impot_particulier do
       type { 'AuthorizationRequest::APIImpotParticulier' }
+
+      form_uid { 'api-impot-particulier' }
 
       after(:build) do |authorization_request, _evaluator|
         next if authorization_request.scopes.any?
@@ -392,7 +394,6 @@ FactoryBot.define do
         authorization_request.scopes << 'dgfip_annee_n_moins_1'
       end
 
-      form_uid { 'api-impot-particulier-editeur' }
       with_basic_infos
       with_personal_data
       with_cadre_juridique
@@ -400,6 +401,12 @@ FactoryBot.define do
       with_safety_certification
       with_operational_acceptance
       with_volumetrie
+    end
+
+    trait :api_impot_particulier_editeur do
+      api_impot_particulier
+
+      form_uid { 'api-impot-particulier-editeur' }
     end
 
     trait :api_pro_sante_connect do
