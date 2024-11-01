@@ -10,6 +10,6 @@ class AuthorizationDefinitionsController < AuthenticatedUserController
 
     return unless @authorization_definitions.count == 1
 
-    redirect_to new_authorization_request_path(id: @authorization_definitions.first.id)
+    redirect_to new_authorization_request_path(definition_id: @authorization_definitions.first.id)
   end
 end
