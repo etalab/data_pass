@@ -20,7 +20,7 @@
     </div>
   <% else %>
     <% authorization_request = @authorization_request_form.active_authorization_requests_for(current_organization).first %>
-    <%= render partial: "unicity_callout", locals: { authorization_request: } if authorization_request.present? %>
+    <%= render partial: "authorization_request_forms/unicity_callout", locals: { authorization_request: } if authorization_request.present? %>
   <% end %>
 
   <% if @authorization_request_form.introduction.present? %>
@@ -33,7 +33,7 @@
   <% end %>
 
   <% if @authorization_request_form.multiple_steps? %>
-    <% if policy(@authorization_request_form).new? %>
+    <% if @authorization_request.present? || policy(@authorization_request_form).new? %>
       <h5>
         <%= t('.multiple_steps.title') %>
       </h5>
@@ -52,7 +52,12 @@
           <div class="fr-col">
             <%= link_to t('authorization_request_forms.new.back_to_dashboard'), dashboard_path, class: %w[fr-btn fr-btn--secondary fr-icon-home-4-line fr-btn--icon-left fr-mr-2w] %>
           </div>
-          <%= start_authorization_request_form(@authorization_request_form) %>
+
+          <% if @authorization_request.present? %>
+            <%= button_to t('start_next_authorization_request_stage_form.cta'), next_authorization_request_stage_path(@authorization_request), class: %w[fr-btn fr-icon-save-line fr-btn--icon-left] %>
+          <% else %>
+            <%= start_authorization_request_form(@authorization_request_form) %>
+          <% end %>
         </div>
       </p>
     <% else %>
@@ -60,6 +65,7 @@
         <div class="fr-col">
           <%= link_to t('authorization_request_forms.new.back_to_dashboard'), dashboard_path, class: %w[fr-btn fr-btn--secondary fr-icon-home-4-line fr-btn--icon-left fr-mr-2w] %>
         </div>
+
         <%= start_authorization_request_form(@authorization_request_form, disabled: true) %>
       </div>
     <% end %>
@@ -78,7 +84,11 @@
         <%= link_to t('authorization_request_forms.new.back_to_dashboard'), dashboard_path, class: %w[fr-btn fr-btn--secondary fr-icon-home-4-line fr-btn--icon-left fr-mr-2w] %>
       </div>
 
-      <%= start_authorization_request_form(@authorization_request_form, disabled: !policy(@authorization_request_form).create?) %>
+      <% if @authorization_request.present? %>
+        <%= button_to t('start_next_authorization_request_stage_form.cta'), next_authorization_request_stage_path(@authorization_request), class: %w[fr-btn fr-icon-save-line fr-btn--icon-left] %>
+      <% else %>
+        <%= start_authorization_request_form(@authorization_request_form, disabled: !policy(@authorization_request_form).create?) %>
+      <% end %>
     </div>
   <% end %>
 </div>
