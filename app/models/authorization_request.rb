@@ -171,6 +171,10 @@ class AuthorizationRequest < ApplicationRecord
       transition from: %i[draft changes_requested refused], to: :submitted, if: ->(authorization_request) { authorization_request.reopening? }
     end
 
+    after_transition to: :submitted do |authorization_request|
+      authorization_request.update(last_submitted_at: Time.zone.now)
+    end
+
     event :refuse do
       transition from: %i[changes_requested submitted], to: :refused, unless: ->(authorization_request) { authorization_request.reopening? }
       transition from: %i[changes_requested submitted], to: :validated, if: ->(authorization_request) { authorization_request.reopening? }
@@ -184,10 +188,6 @@ class AuthorizationRequest < ApplicationRecord
       transition from: :submitted, to: :validated
     end
 
-    after_transition to: :submitted do |authorization_request|
-      authorization_request.update(last_submitted_at: Time.zone.now)
-    end
-
     after_transition to: :validated do |authorization_request|
       authorization_request.update(last_validated_at: Time.zone.now)
     end
@@ -198,6 +198,10 @@ class AuthorizationRequest < ApplicationRecord
 
     event :reopen do
       transition from: :validated, to: :draft, if: ->(authorization_request) { authorization_request.reopenable? }
+    end
+
+    after_transition on: :reopen do |authorization_request|
+      authorization_request.update(reopened_at: Time.zone.now)
     end
 
     event :cancel_reopening do
