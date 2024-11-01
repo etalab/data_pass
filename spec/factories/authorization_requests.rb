@@ -166,7 +166,13 @@ FactoryBot.define do
 
     trait :reopened_and_submitted do
       reopened
-      submitted
+
+      after(:create) do |authorization_request|
+        SubmitAuthorizationRequest.call(
+          authorization_request: authorization_request,
+          user: authorization_request.applicant,
+        )
+      end
     end
 
     trait :with_basic_infos do
