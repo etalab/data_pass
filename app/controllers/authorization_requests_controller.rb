@@ -11,7 +11,7 @@ class AuthorizationRequestsController < AuthenticatedUserController
     if user_signed_in?
       custom_template_path = "authorization_requests/new/#{@authorization_definition.id}"
 
-      if template_exists? custom_template_path
+      if template_exists?(custom_template_path)
         render custom_template_path
       elsif @authorization_definition.available_forms.many?
         render 'authorization_requests/new/default', layout: 'form_introduction'
