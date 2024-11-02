@@ -73,7 +73,10 @@ class AuthorizationDefinition < StaticApplicationRecord
   end
 
   def public_available_forms
-    available_forms.select(&:public)
+    available_forms.select do |form|
+      form.public &&
+        form.startable_by_applicant
+    end
   end
 
   def available_forms
