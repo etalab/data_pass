@@ -77,13 +77,9 @@ class AuthorizationRequestForm < StaticApplicationRecord
   end
 
   def startable_by_applicant
-    value_or_default(
-      value_or_default(
-        @startable_by_applicant,
-        authorization_definition.startable_by_applicant
-      ),
-      true,
-    )
+    return false if next_stage_form?
+
+    value_or_default(@startable_by_applicant, authorization_definition.startable_by_applicant)
   end
 
   def public
@@ -140,6 +136,15 @@ class AuthorizationRequestForm < StaticApplicationRecord
       [key, value.strip]
     rescue StandardError
       [key, value]
+    end
+  end
+
+  private
+
+  def next_stage_form?
+    AuthorizationDefinition.all.any? do |definition|
+      definition.next_stage_form.present? &&
+        definition.next_stage_form.id == id
     end
   end
 end
