@@ -9,7 +9,15 @@ RSpec.describe Authorization do
     let!(:authorization) { authorization_request.latest_authorization }
     let!(:authorization_request) { create(:authorization_request, :api_entreprise, :validated, intitule: 'old intitule', maquette_projet: Rack::Test::UploadedFile.new('spec/fixtures/dummy.pdf', 'image/pdf')) }
 
-    it { expect(request_as_validated).to be_a(AuthorizationRequest) }
+    it { expect(request_as_validated).to be_a(AuthorizationRequest::APIEntreprise) }
+
+    context 'when linked request is not longer the same type (because of the stage)' do
+      before do
+        authorization.update!(authorization_request_class: 'AuthorizationRequest::APIParticulier')
+      end
+
+      it { expect(request_as_validated).to be_a(AuthorizationRequest::APIParticulier) }
+    end
 
     context 'when request has been reopened, with some data changed and a document updated' do
       before do
