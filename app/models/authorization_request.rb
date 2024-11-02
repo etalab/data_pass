@@ -189,7 +189,7 @@ class AuthorizationRequest < ApplicationRecord
     end
 
     after_transition to: :validated do |authorization_request|
-      authorization_request.update(last_validated_at: Time.zone.now)
+      authorization_request.update(last_validated_at: Time.zone.now, reopening: false)
     end
 
     event :archive do
@@ -201,7 +201,7 @@ class AuthorizationRequest < ApplicationRecord
     end
 
     after_transition on: :reopen do |authorization_request|
-      authorization_request.update(reopened_at: Time.zone.now)
+      authorization_request.update(reopened_at: Time.zone.now, reopening: true)
     end
 
     event :cancel_reopening do
@@ -312,11 +312,6 @@ class AuthorizationRequest < ApplicationRecord
   end
 
   delegate :reopenable?, to: :definition
-
-  def reopening?
-    %w[validated revoked].exclude?(state) &&
-      reopened_at.present?
-  end
 
   def contact_types_for(user)
     contact_type_key_values = data.select do |key, value|
