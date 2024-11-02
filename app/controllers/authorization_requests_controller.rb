@@ -13,10 +13,10 @@ class AuthorizationRequestsController < AuthenticatedUserController
 
       if template_exists?(custom_template_path)
         render custom_template_path
-      elsif @authorization_definition.available_forms.many?
+      elsif @authorization_definition.public_available_forms.many?
         render 'authorization_requests/new/default', layout: 'form_introduction'
       else
-        redirect_to new_authorization_request_form_path(form_uid: @authorization_definition.available_forms.first.id)
+        redirect_to new_authorization_request_form_path(form_uid: @authorization_definition.public_available_forms.first.id)
       end
     else
       new_as_guest_user
