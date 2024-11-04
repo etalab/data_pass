@@ -77,6 +77,11 @@ RSpec.describe AuthorizationRequest::APIImpotParticulier, type: :model do
         let(:scopes) { %w[dgfip_annee_n_moins_1 dgfip_annee_n_moins_2_si_indispo_n_moins_1] }
 
         it { is_expected.not_to be_valid }
+
+        it 'does render an error message for invalid exclusive years scope combination' do
+          authorization_request.valid?
+          expect(authorization_request.errors[:scopes]).to include("sont invalides : Vous ne pouvez pas sélectionner la donnée 'avant dernière année de revenu, si la dernière année de revenu est indisponible'")
+        end
       end
     end
 
@@ -97,6 +102,11 @@ RSpec.describe AuthorizationRequest::APIImpotParticulier, type: :model do
         let(:scopes) { %w[dgfip_annee_n_moins_2_si_indispo_n_moins_1 dgfip_annee_df_au_3112_si_deces_ctb_mp dgfip_indiIFI dgfip_RevDecl_Cat1_Tspr] }
 
         it { is_expected.not_to be_valid }
+
+        it 'does render an error message for invalid scope combination' do
+          authorization_request.valid?
+          expect(authorization_request.errors[:scopes]).to include('Des données incompatibles entre elles ont été cochées.')
+        end
       end
 
       context 'with valid incompatible scopes combination with at least one simple revenue years scope' do
@@ -105,20 +115,66 @@ RSpec.describe AuthorizationRequest::APIImpotParticulier, type: :model do
         it { is_expected.to be_valid }
       end
     end
+
+    describe 'specific requirements with no scopes' do
+      context 'when specific requirements is selected and no document attached' do
+        let(:specific_requirements) { '1' }
+        let(:scopes) { [] }
+
+        it { is_expected.not_to be_valid }
+
+        it 'does render an error message for specific requirements' do
+          authorization_request.valid?
+          expect(authorization_request.errors[:specific_requirements_document]).to include('est manquant : vous devez joindre votre document')
+        end
+
+        it 'does render en error message for data not selected' do
+          authorization_request.valid?
+          expect(authorization_request.errors[:scopes]).to include("Les données ne sont pas cochées : il faut au moins qu'une des données soit sélectionnée")
+        end
+
+        it 'does render en error message for invalid data' do
+          authorization_request.valid?
+          expect(authorization_request.errors[:scopes]).to include('sont invalides : Vous devez cocher au moins une année de revenus souhaitée avant de continuer')
+        end
+      end
+
+      context 'with specific requirements is selected with a document attached and no scope selected' do
+        let(:specific_requirements) { '1' }
+        let(:scopes) { [] }
+
+        before do
+          authorization_request.specific_requirements_document.attach(Rack::Test::UploadedFile.new('spec/fixtures/dummy.xlsx', 'application/vnd.ms-excel'))
+        end
+
+        it 'attaches the specific requirements document' do
+          expect(authorization_request.specific_requirements_document).to be_attached
+          expect(authorization_request.specific_requirements_document.filename).to eq('dummy.xlsx')
+        end
+
+        it { is_expected.to be_valid }
+
+        it 'does not render an error' do
+          expect(authorization_request.errors[:specific_requirements_document]).to be_empty
+        end
+      end
+    end
   end
 
-  describe 'specific requirements' do
+  describe 'specific requirements with scopes' do
     before { authorization_request.current_build_step = 'scopes' }
 
     describe 'Valid case' do
       context 'when specific requirement is not selected' do
         let(:specific_requirements) { '0' }
+        let(:scopes) { %w[dgfip_annee_n_moins_1] }
 
         it { is_expected.to be_valid }
       end
 
       context 'when specific requirement is selected and one document is attached' do
         let(:specific_requirements) { '1' }
+        let(:scopes) { %w[dgfip_annee_n_moins_1] }
 
         before do
           authorization_request.specific_requirements_document.attach(Rack::Test::UploadedFile.new('spec/fixtures/dummy.xlsx', 'application/vnd.ms-excel'))
@@ -136,12 +192,18 @@ RSpec.describe AuthorizationRequest::APIImpotParticulier, type: :model do
     describe 'Invalid case' do
       context 'when specific requirement is selected but no document is attached' do
         let(:specific_requirements) { '1' }
+        let(:scopes) { %w[dgfip_annee_n_moins_1] }
 
         it 'has no document attached' do
           expect(authorization_request.specific_requirements_document).not_to be_attached
         end
 
         it { is_expected.not_to be_valid }
+
+        it 'does render an error message for specific requirements' do
+          authorization_request.valid?
+          expect(authorization_request.errors[:specific_requirements_document]).to include('est manquant : vous devez joindre votre document')
+        end
       end
     end
   end
