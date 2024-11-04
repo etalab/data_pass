@@ -30,6 +30,16 @@ module AuthorizationCore::Scopes
 
           validates :scopes, options[:validation] if options[:validation].present?
         end
+
+        scope :with_scopes_intersecting, lambda { |scopes|
+          where("
+            EXISTS (
+              SELECT 1
+              FROM jsonb_array_elements_text((data -> 'scopes')::jsonb) AS scope
+              WHERE scope.value = ANY(ARRAY[?])
+            )",
+            scopes,)
+        }
       end
       # rubocop:enable Metrics/MethodLength
     end
