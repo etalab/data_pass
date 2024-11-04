@@ -198,7 +198,7 @@ FactoryBot.define do
 
     trait :with_scopes do
       after(:build) do |authorization_request, evaluator|
-        if authorization_request.need_complete_validation? || evaluator.fill_all_attributes && !evaluator.skip_scopes_build
+        if authorization_request.need_complete_validation? || (evaluator.fill_all_attributes && !evaluator.skip_scopes_build)
           next if authorization_request.scopes.any?
 
           authorization_request.scopes ||= []
@@ -406,9 +406,7 @@ FactoryBot.define do
       end
 
       after(:build) do |authorization_request, evaluator|
-        if !evaluator.skip_scopes_build && authorization_request.scopes.empty?
-          return authorization_request.scopes << 'dgfip_annee_n_moins_1'
-        end
+        authorization_request.scopes << 'dgfip_annee_n_moins_1' if !evaluator.skip_scopes_build && authorization_request.scopes.empty?
       end
 
       form_uid { 'api-impot-particulier-editeur' }
