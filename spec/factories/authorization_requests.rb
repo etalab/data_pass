@@ -198,7 +198,7 @@ FactoryBot.define do
 
     trait :with_scopes do
       after(:build) do |authorization_request, evaluator|
-        if authorization_request.need_complete_validation? || evaluator.fill_all_attributes
+        if authorization_request.need_complete_validation? || evaluator.fill_all_attributes && !evaluator.skip_scopes_build
           next if authorization_request.scopes.any?
 
           authorization_request.scopes ||= []
@@ -250,6 +250,11 @@ FactoryBot.define do
     trait :hubee_dila do
       type { 'AuthorizationRequest::HubEEDila' }
       form_uid { 'hubee-dila' }
+
+      transient do
+        skip_scopes_build { false }
+      end
+
       with_scopes
     end
 
@@ -260,6 +265,10 @@ FactoryBot.define do
     trait :api_entreprise do
       type { 'AuthorizationRequest::APIEntreprise' }
       form_uid { 'api-entreprise' }
+
+      transient do
+        skip_scopes_build { false }
+      end
 
       with_basic_infos
       with_personal_data
@@ -292,6 +301,10 @@ FactoryBot.define do
     trait :api_particulier do
       type { 'AuthorizationRequest::APIParticulier' }
       form_uid { 'api-particulier' }
+
+      transient do
+        skip_scopes_build { false }
+      end
 
       with_basic_infos
       with_personal_data
@@ -354,6 +367,10 @@ FactoryBot.define do
       type { 'AuthorizationRequest::APIServiceNational' }
       form_uid { 'api-service-national' }
 
+      transient do
+        skip_scopes_build { false }
+      end
+
       with_basic_infos
       with_personal_data
       with_cadre_juridique
@@ -372,6 +389,10 @@ FactoryBot.define do
     trait :api_captchetat do
       type { 'AuthorizationRequest::APICaptchEtat' }
 
+      transient do
+        skip_scopes_build { false }
+      end
+
       form_uid { 'api-captchetat' }
       with_basic_infos
       with_cadre_juridique
@@ -380,10 +401,14 @@ FactoryBot.define do
     trait :api_impot_particulier_editeur do
       type { 'AuthorizationRequest::APIImpotParticulier' }
 
-      after(:build) do |authorization_request, _evaluator|
-        next if authorization_request.scopes.any?
+      transient do
+        skip_scopes_build { false }
+      end
 
-        authorization_request.scopes << 'dgfip_annee_n_moins_1'
+      after(:build) do |authorization_request, evaluator|
+        if !evaluator.skip_scopes_build && authorization_request.scopes.empty?
+          return authorization_request.scopes << 'dgfip_annee_n_moins_1'
+        end
       end
 
       form_uid { 'api-impot-particulier-editeur' }
@@ -398,6 +423,10 @@ FactoryBot.define do
 
     trait :api_pro_sante_connect do
       type { 'AuthorizationRequest::APIProSanteConnect' }
+
+      transient do
+        skip_scopes_build { false }
+      end
 
       form_uid { 'api-pro-sante-connect' }
       with_basic_infos
