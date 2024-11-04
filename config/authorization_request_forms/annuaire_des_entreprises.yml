@@ -1,0 +1,33 @@
+annuaire-des-entreprises-marches-publics:
+  name: Marchés publics
+  description: Cas d'usage liés aux traitement des marchés publics
+  static_blocks: &annuaire_entreprises_static_blocks
+    - name: 'legal'
+  introduction: |
+    Ce formulaire vous permet d'accéder aux fonctionnalités spécifiques au cas d'usage des marchés publics.
+  authorization_request: AnnuaireDesEntreprise
+  single_page_view: annuaire_des_entreprises
+  data:
+    description: FEEDME Une description relative à l'utilisation du service
+    cadre_juridique_nature: |+
+      Service numérique de conformité pour les administrations publiques dans le cadre du décret N°2011-1601 et de l’article D8222 du code du travail, offre de services d’intermédiation aux organismes publics, tel que défini par l’article 17, alinéa IV, du décret du 24 septembre 2014 et le décret lié à la commande publique n° 2016-360.
+      https://www.legifrance.gouv.fr/codes/id/LEGIARTI000018520702/2011-12-31/
+
+      Article R2143-13 du code de la commande publique. Concernant l’accès des acheteurs aux documents justificatifs et moyens de preuve.
+      https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037730589
+    cadre_juridique_url: 'https://www.legifrance.gouv.fr/codes/id/LEGIARTI000018520702/2011-12-31/'
+
+annuaire-des-entreprises-aides-publiques:
+  name: Aides publiques
+  description: Cas d'usage liés aux traitement des aides publiques
+  static_blocks: *annuaire_entreprises_static_blocks
+  introduction: |
+    Ce formulaire vous permet d'accéder aux fonctionnalités spécifiques au cas d'usage des aides publiques
+  authorization_request: AnnuaireDesEntreprise
+  single_page_view: annuaire_des_entreprises
+  data:
+    description: FEEDME Une description relative à l'utilisation du service
+    cadre_juridique_nature: |+
+      Décret n° 2019-31 du 18 janvier 2019 relatif aux échanges d’informations et de données entre administrations dans le cadre des démarches administratives et à l’expérimentation prévue par l’article 40 de la loi n° 2018-727 du 10 août 2018 pour un Etat au service d’une société de confiance
+    cadre_juridique_url: 'https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000038029589/'
+

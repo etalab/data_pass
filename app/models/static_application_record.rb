@@ -34,7 +34,7 @@ class StaticApplicationRecord
     end
 
     def find(id)
-      all.find { |entry| entry.id == id } || fail(ActiveRecord::RecordNotFound)
+      all.find { |entry| entry.id == id } || fail(ActiveRecord::RecordNotFound, "Couldn't find #{name} with 'id'=#{id}")
     end
 
     def values_includes_entry_attribute?(entry, attr, values)
