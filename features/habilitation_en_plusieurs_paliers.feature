@@ -23,6 +23,17 @@ Fonctionnalité: Interactions avec des habilitations en plusieurs paliers (bac �
     Et que je vais sur la page du tableau de bord
     Alors il n'y a pas de bouton "Démarrer ma demande d'habilitation en production"
 
+  Scénario: Il y a un badge sandbox lors du démarrage d'une habilitation de bac à sable
+    Quand je démarre une nouvelle demande d'habilitation "API Impôt Particulier - Bac à sable"
+    Alors il y a un badge "Bac à sable"
+
+  Scénario: Il y a un badge production lors du démarrage d'une habilitation de production depuis une habilitation bac à sable
+    Quand j'ai 1 demande d'habilitation "API Impôt Particulier - Bac à sable" validée
+    Et que je vais sur la page du tableau de bord
+    Et que je clique sur "Démarrer ma demande d'habilitation en production"
+    Et que je clique sur "Débuter ma demande"
+    Alors il y a un badge "Production"
+
   Scénario: Je soumets une habilitation de production depuis une habilitation bac à sable
     Quand j'ai 1 demande d'habilitation "API Impôt Particulier - Bac à sable" validée
     Et que je vais sur la page du tableau de bord
