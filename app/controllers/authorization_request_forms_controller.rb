@@ -135,7 +135,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   end
 
   def current_build_step_cache_key
-    "authorization_request_form:#{@authorization_request.id}:current_build_step"
+    "authorization_request_form:#{@authorization_request.type.underscore}_#{@authorization_request.id}:current_build_step"
   end
 
   def create_for_single_page_form
