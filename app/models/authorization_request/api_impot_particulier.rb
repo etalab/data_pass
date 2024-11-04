@@ -30,9 +30,9 @@ class AuthorizationRequest::APIImpotParticulier < AuthorizationRequest
     ]
   ].freeze
 
-  validate :at_least_one_revenue_year_has_been_selected, if: -> { need_complete_validation?(:scopes) }
-  validate :revenue_years_scopes_compatibility, if: -> { need_complete_validation?(:scopes) }
-  validate :scopes_compatibility, if: -> { need_complete_validation?(:scopes) }
+  validate :at_least_one_revenue_year_has_been_selected, if: -> { need_complete_validation?(:scopes) && !skip_scopes_validation? }
+  validate :revenue_years_scopes_compatibility, if: -> { need_complete_validation?(:scopes) && !skip_scopes_validation? }
+  validate :scopes_compatibility, if: -> { need_complete_validation?(:scopes) && !skip_scopes_validation? }
   validate :specific_requirements_document_presence, if: -> { specific_requirements? && need_complete_validation?(:scopes) }
 
   add_document :maquette_projet, content_type: ['application/pdf'], size: { less_than: 10.megabytes }
@@ -48,7 +48,7 @@ class AuthorizationRequest::APIImpotParticulier < AuthorizationRequest
   ], size: { less_than: 10.megabytes }
 
   add_scopes(validation: {
-    presence: true, if: -> { need_complete_validation?(:scopes) }
+    presence: true, if: -> { need_complete_validation?(:scopes) && !skip_scopes_validation? }
   })
 
   contact :contact_technique, validation_condition: ->(record) { record.need_complete_validation?(:contacts) }
@@ -86,5 +86,9 @@ class AuthorizationRequest::APIImpotParticulier < AuthorizationRequest
 
   def specific_requirements?
     specific_requirements == '1'
+  end
+
+  def skip_scopes_validation?
+    specific_requirements? && specific_requirements_document.present?
   end
 end
