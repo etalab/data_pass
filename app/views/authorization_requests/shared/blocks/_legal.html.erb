@@ -20,9 +20,15 @@
         Document relatif au traitement :
       </strong>
       <br />
-      <%= link_to @authorization_request.cadre_juridique_document.filename, url_for(@authorization_request.cadre_juridique_document), target: '_blank', class: %w[fr-link--icon-left fr-icon-file-pdf-fill] %>
       <% if namespace?(:instruction) %>
+        <% if @authorization_request.cadre_juridique_document.unsafe? %>
+          <a aria-disabled="true"><%= @authorization_request.cadre_juridique_document.filename %></a>
+        <% else %>
+          <%= link_to @authorization_request.cadre_juridique_document.filename, url_for(@authorization_request.cadre_juridique_document), target: '_blank', class: %w[fr-link--icon-left fr-icon-file-pdf-fill] %>
+        <% end %>
         <%= f.dsfr_malware_badge @authorization_request.cadre_juridique_document, class: 'fr-ml-1w' %>
+      <% else %>
+        <%= link_to @authorization_request.cadre_juridique_document.filename, url_for(@authorization_request.cadre_juridique_document), target: '_blank', class: %w[fr-link--icon-left fr-icon-file-pdf-fill] %>
       <% end %>
     </div>
   <% end %>
