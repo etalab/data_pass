@@ -4,16 +4,16 @@ def find_authorization_request_class_from_name(name)
   AuthorizationRequest.const_get(authorization_definition.id.classify)
 end
 
-def find_authorization_definition_from_name(name)
-  AuthorizationDefinition.where(name:).first
+def find_authorization_definition_from_name(name, stage_type = nil)
+  AuthorizationDefinition.where({ name:, stage_type: }.compact).first
 end
 
 def find_authorization_request_form_from_name(name)
   AuthorizationRequestForm.where(name:).first
 end
 
-def find_factory_trait_from_name(name)
-  authorization_definition = find_authorization_definition_from_name(name)
+def find_factory_trait_from_name(name, stage = nil)
+  authorization_definition = find_authorization_definition_from_name(name, extract_stage_type(stage))
 
   return authorization_definition.authorization_request_class.to_s.underscore.split('/').last if authorization_definition
 
@@ -53,8 +53,17 @@ def extract_state_from_french_status(status)
 end
 # rubocop:enable Metrics/MethodLength, Metrics/CyclomaticComplexity
 
-# rubocop:disable Metrics/MethodLength
-def create_authorization_requests_with_status(type, status = nil, count = 1, attributes = {})
+def extract_stage_type(stage)
+  case stage
+  when 'Bac à sable'
+    'sandbox'
+  when 'Production'
+    'production'
+  end
+end
+
+# rubocop:disable Metrics/MethodLength, Metrics/ParameterLists
+def create_authorization_requests_with_status(type, status = nil, count = 1, stage = nil, attributes = {})
   attributes[:applicant] ||= FactoryBot.create(:user, current_organization: attributes[:organization])
 
   if status
@@ -62,7 +71,7 @@ def create_authorization_requests_with_status(type, status = nil, count = 1, att
       :authorization_request,
       count,
       extract_state_from_french_status(status),
-      find_factory_trait_from_name(type),
+      find_factory_trait_from_name(type, stage),
       organization: attributes[:applicant].current_organization,
       **attributes,
     )
@@ -70,10 +79,10 @@ def create_authorization_requests_with_status(type, status = nil, count = 1, att
     FactoryBot.create_list(
       :authorization_request,
       count,
-      find_factory_trait_from_name(type),
+      find_factory_trait_from_name(type, stage),
       organization: attributes[:applicant].current_organization,
       **attributes,
     )
   end
 end
-# rubocop:enable Metrics/MethodLength
+# rubocop:enable Metrics/MethodLength, Metrics/ParameterLists

@@ -62,13 +62,23 @@ Quand('je veux remplir une demande pour {string}') do |authorization_request_nam
   visit new_authorization_request_path(definition_id: find_authorization_definition_from_name(authorization_request_name).id)
 end
 
-Quand("je démarre une nouvelle demande d'habilitation {string}") do |string|
-  authorization_definition = find_authorization_definition_from_name(string)
+Quand("je démarre une nouvelle demande d'habilitation {string} à l'étape {string}") do |name, stage|
+  authorization_definition = find_authorization_definition_from_name(name, extract_stage_type(stage))
 
   if authorization_definition.available_forms.one?
     visit start_authorization_request_forms_path(form_uid: authorization_definition.available_forms.first.uid)
   else
-    visit new_authorization_request_path(definition_id: find_authorization_definition_from_name(string).id)
+    visit new_authorization_request_path(definition_id: find_authorization_definition_from_name(name).id)
+  end
+end
+
+Quand("je démarre une nouvelle demande d'habilitation {string}") do |name|
+  authorization_definition = find_authorization_definition_from_name(name, nil)
+
+  if authorization_definition.available_forms.one?
+    visit start_authorization_request_forms_path(form_uid: authorization_definition.available_forms.first.uid)
+  else
+    visit new_authorization_request_path(definition_id: find_authorization_definition_from_name(name).id)
   end
 end
 
@@ -139,8 +149,8 @@ Quand(/je me rends via l'espace usager sur une demande d'habilitation "([^"]+)"/
   visit authorization_request_path(authorization_request)
 end
 
-# https://rubular.com/r/t8v2hsttNnb9h3
-Quand(/(j'ai|il y a|mon organisation a) (\d+) demandes? d'habilitation "([^"]+)" ?(?:en )?(.+)?/) do |who, count, type, status|
+# https://rubular.com/r/WVasHhgcHlZSir
+Quand(/(j'ai|il y a|mon organisation a) (\d+) demandes? d'habilitation "([^"]+)" ?(?:à l'étape "([^"]+)")? ?(?:en )?(.+)?/) do |who, count, type, stage, status|
   applicant = case who
               when 'j\'ai'
                 current_user
@@ -148,7 +158,7 @@ Quand(/(j'ai|il y a|mon organisation a) (\d+) demandes? d'habilitation "([^"]+)"
                 create(:user, current_organization: current_user.current_organization)
               end
 
-  create_authorization_requests_with_status(type, status, count, applicant:)
+  create_authorization_requests_with_status(type, status, count, stage, applicant:)
 end
 
 Quand(/je suis mentionné dans (\d+) demandes? d'habilitation "([^"]+)" en tant que "([^"]+)"/) do |count, type, role_humanized|
@@ -160,7 +170,7 @@ Quand(/je suis mentionné dans (\d+) demandes? d'habilitation "([^"]+)" en tant 
     organization: foreign_user.current_organization,
   }
 
-  create_authorization_requests_with_status(type, 'soumise', count, options)
+  create_authorization_requests_with_status(type, 'soumise', count, nil, options)
 end
 
 # https://rubular.com/r/dRUFmK5dzDpjJv
@@ -343,12 +353,12 @@ Quand(/je me rends sur une (?:demande d')?habilitation "([^"]+)"(?: de l'organis
   attributes[:organization] = find_or_create_organization_by_name(organization_name) if organization_name.present?
 
   if current_user.instructor?
-    authorization_request = create_authorization_requests_with_status(type, status, 1, attributes).first
+    authorization_request = create_authorization_requests_with_status(type, status, 1, nil, attributes).first
 
     visit instruction_authorization_request_path(authorization_request)
   else
     attributes[:applicant] = current_user if attributes[:organization].blank?
-    authorization_request = create_authorization_requests_with_status(type, status, 1, attributes).first
+    authorization_request = create_authorization_requests_with_status(type, status, 1, nil, attributes).first
 
     visit authorization_request_path(authorization_request)
   end

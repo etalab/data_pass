@@ -473,7 +473,7 @@ shared:
         group: Éligibilité Livret d’Épargne Populaire - établissements bancaires uniquement
 
   api_impot_particulier_sandbox:
-    name: "API Impôt Particulier - Bac à sable"
+    name: "API Impôt Particulier"
     description: "Raccordez-vous directement à la DGFiP pour récupérer les éléments fiscaux nécessaires à vos téléservices, éliminez le traitement et le stockage des pièces justificatives"
     provider: "dgfip"
     kind: 'api'
