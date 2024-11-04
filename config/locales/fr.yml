@@ -369,6 +369,7 @@ fr:
       save_and_review: Enregistrer et continuer vers le résumé
       previous: Précédent
       next: Suivant
+      start_next_stage: Démarrer ma demande d'habilitation en production
     shared:
       organization:
         you:
