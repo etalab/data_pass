@@ -5,12 +5,18 @@ Fonctionnalité: Interactions avec des habilitations en plusieurs paliers (bac �
     Sachant que je suis un demandeur
     Et que je me connecte
 
-  Scénario: Je peux démarrer une habilitation de production depuis une habilitation bac à sable validée
+  Scénario: Je peux démarrer une habilitation de production depuis une habilitation bac à sable validée sur le tableau de bord
     Quand j'ai 1 demande d'habilitation "API Impôt Particulier" à l'étape "Bac à sable" validée
     Et que je vais sur la page du tableau de bord
     Alors il y a un bouton "Démarrer ma demande d'habilitation en production"
 
-  Scénario: Je ne peux pas démarrer une habilitation de production depuis une habilitation bac à sable en cours d'instruction
+  Scénario: Je peux démarrer une habilitation de production depuis une habilitation bac à sable validée sur sa page de résumé
+    Quand j'ai 1 demande d'habilitation "API Impôt Particulier" à l'étape "Bac à sable" validée
+    Et que je vais sur la page du tableau de bord
+    Et que je clique sur "Consulter"
+    Alors il y a un bouton "Démarrer ma demande d'habilitation en production"
+
+  Scénario: Je ne peux pas démarrer une habilitation de production depuis une habilitation bac à sable en cours d'instruction sur le tableau de bord
     Quand j'ai 1 demande d'habilitation "API Impôt Particulier" à l'étape "Bac à sable" en attente
     Et que je vais sur la page du tableau de bord
     Alors il n'y a pas de bouton "Démarrer ma demande d'habilitation en production"
