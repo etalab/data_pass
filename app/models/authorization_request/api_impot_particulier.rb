@@ -45,6 +45,7 @@ class AuthorizationRequest::APIImpotParticulier < AuthorizationRequest
     application/vnd.ms-excel
     application/vnd.sun.xml.calc
     application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    text/csv
   ], size: { less_than: 10.megabytes }
 
   add_scopes(validation: {
