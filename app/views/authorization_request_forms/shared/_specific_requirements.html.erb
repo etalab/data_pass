@@ -1,4 +1,4 @@
-<div class="fr-form-group fr-my-5w">
+<div class="fr-form-group fr-my-5w" data-controller="display-element" data-display-element-hidden-class="hidden">
   <h3 class="fr-mt-0 fr-mb-1w">
     <%= t('authorization_request_forms.default.scopes.specific_requirements.title') %>
   </h3>
@@ -11,15 +11,15 @@
     <a href="mailto:dtnum.donnees.demande-acces@dgfip.finances.gouv.fr">dtnum.donnees.demande-acces@dgfip.finances.gouv.fr</a>
   </p>
 
-  <%= f.dsfr_check_box :specific_requirements %>
-</div>
+  <%= f.dsfr_check_box :specific_requirements, data: { display_element_target: "checkbox", action: "click->display-element#showFieldset" } %>
 
-<div class="scopes-group">
-  <fieldset class="fr-fieldset fr-mt-3w" aria-label="feedme" aria-describedby="name-1-fieldset-messages">
-    <% if @authorization_request.respond_to?(:specific_requirements_document) %>
-      <div class="fr-fieldset__element">
-        <%= f.dsfr_file_field :specific_requirements_document %>
-      </div>
-    <% end %>
-  </fieldset>
+  <div class="scopes-group hidden" data-display-element-target="fieldset">
+    <fieldset class="fr-fieldset fr-mt-3w" aria-label="feedme" aria-describedby="name-1-fieldset-messages">
+      <% if @authorization_request.respond_to?(:specific_requirements_document) %>
+        <div class="fr-fieldset__element">
+          <%= f.dsfr_file_field :specific_requirements_document %>
+        </div>
+      <% end %>
+    </fieldset>
+  </div>
 </div>
