@@ -38,3 +38,17 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
 
     Alors la page contient "Une erreur est survenue lors de la sauvegarde de la demande d'habilitation"
     Et la page contient "Les données sont invalides : Des données incompatibles entre elles ont été cochées. Pour connaître les modalités d’appel et de réponse de l’API Impôt particulier ainsi que les données proposées, vous pouvez consulter le guide de présentation de cette API dans la rubrique « Les données nécessaires > Comment choisir les données"
+
+  @javascript
+  Scénario: Je soumets une demande d'habilitation sans scopes mais je joins un fichier d'expression de besoin spécifique.
+    * je coche "Oui j'ai une expressions de besoins spécifiques"
+    * je remplis "Ajoutez le fichier d'expression de besoins spécifique" avec le fichier "spec/fixtures/dummy.xlsx"
+    * je clique sur "Suivant"
+
+  Scénario: Je soumets une demande d'habilitation avec un scope en cochant le fichier de besoins spécifiques mais en oubliant de joindre le fichier.
+    * je coche "Dernière année de revenu"
+    * je coche "Oui j'ai une expressions de besoins spécifiques"
+    * je clique sur "Suivant"
+
+    Alors la page contient "Une erreur est survenue lors de la sauvegarde de la demande d'habilitation"
+    Et la page contient "Ajoutez le fichier d'expression de besoins spécifique est manquant : vous devez joindre votre document"
