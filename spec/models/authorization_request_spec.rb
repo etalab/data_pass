@@ -332,4 +332,16 @@ RSpec.describe AuthorizationRequest do
 
     it { is_expected.to contain_exactly(valid_bulk_update) }
   end
+
+  describe '.with_scopes_intersecting' do
+    subject { AuthorizationRequest::HubEEDila.with_scopes_intersecting(scopes) }
+
+    let(:scopes) { %w[etat_civil depot_dossier_pacs] }
+
+    let!(:valid_authorization_request_with_one_scope) { create(:authorization_request, :hubee_dila, scopes: %w[etat_civil]) }
+    let!(:valid_authorization_request_with_more_scopes) { create(:authorization_request, :hubee_dila, scopes: %w[etat_civil depot_dossier_pacs je_change_de_coordonnees]) }
+    let!(:invalid_authorization_request) { create(:authorization_request, :hubee_dila, scopes: %w[je_change_de_coordonnees]) }
+
+    it { is_expected.to contain_exactly(valid_authorization_request_with_one_scope, valid_authorization_request_with_more_scopes) }
+  end
 end
