@@ -142,9 +142,10 @@ class AuthorizationRequestForm < StaticApplicationRecord
   private
 
   def next_stage_form?
-    AuthorizationDefinition.all.any? do |definition|
-      definition.next_stage_form.present? &&
-        definition.next_stage_form.id == id
+    return false if authorization_definition.stage.nil?
+
+    (authorization_definition.stage[:previouses] || []).any? do |previous|
+      previous[:form_id] == id
     end
   end
 end

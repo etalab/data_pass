@@ -337,6 +337,9 @@ shared:
     provider: "dgfip"
     stage:
       type: production
+      previouses:
+        - id: api_impot_particulier_sandbox
+          form_id: api-impot-particulier
     blocks:
       - name: basic_infos
       - name: personal_data
