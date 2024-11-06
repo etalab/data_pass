@@ -36,7 +36,7 @@ class DefinitionGenerator < Rails::Generators::NamedBase
     kind: 'api'
     link: "https://#{name.underscore.dasherize}.gouv.fr/feedme-with-valid-url"
     cgu_link: "https://#{name.underscore.dasherize}.gouv.fr/cgu"
-    access_link: "https://#{name.underscore.dasherize}.gouv.fr/tokens/%<external_provider_id>s"
+    access_link: "https://#{name.underscore.dasherize}.gouv.fr/tokens/%<external_provider_id>"
     public: true
     blocks:
       - name: "basic_infos"
@@ -54,7 +54,7 @@ class DefinitionGenerator < Rails::Generators::NamedBase
     <<-FACTORY_DATA
 
     trait :#{name.underscore} do
-      type { '#{name.underscore}' }
+      type { 'AuthorizationRequest::#{name}' }
 
       form_uid { '#{name.underscore.dasherize}' }
 
