@@ -76,6 +76,16 @@ Pour la configuration de la [définition (1.)](../config/authorization_definitio
       next:
         id: api_impot_particulier
         form_id: api-impot-particulier
+      # Information concernant les étapes précédentes. Clé obligatoire si le
+      # type est production. Cette information mimique le comportement
+      # d'ActiveRecord qui implémente la réversabilité et permet ainsi de plus
+      # simplement faire les liens entre les modèles. Pour plus d'infos
+      # effectuer un `git blame` sur ces lignes
+      previouses:
+        - id: api_impot_particulier_sandbox
+          form_id: api-impot-particulier-sandbox
+        - id: api_impot_particulier_sandbox
+          form_id: api-impot-particulier-sandbox-editor
     # Liste des diverses données débrayable pour la source de données
     scopes:
         # Nom humanisé de la donnée
