@@ -28,12 +28,19 @@ module AuthorizationCore::Contacts
           define_contact_type_methods(kind)
           define_common_contact_attributes(kind, validation_condition:)
           define_contact_person_attributes(kind, validation_condition:)
-
+          define_contact_additional_attributes(kind, options)
           contacts << ContactDefinition.new(kind, options)
         end
       end
 
       private
+
+      def self.define_contact_additional_attributes(kind, options)
+        options[:additional_attributes]&.each do |attr|
+          store_accessor :data, "#{kind}_#{attr[:name]}"
+          override_primitive_write("#{kind}_#{attr[:name]}")
+        end
+      end
 
       def self.define_contact_type_methods(kind)
         validates "#{kind}_type", inclusion: { in: %w[person organization] }

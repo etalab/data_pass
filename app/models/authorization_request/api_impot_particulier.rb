@@ -42,7 +42,11 @@ class AuthorizationRequest::APIImpotParticulier < AuthorizationRequest
     presence: true, if: -> { need_complete_validation?(:scopes) }
   })
 
-  contact :contact_technique, validation_condition: ->(record) { record.need_complete_validation?(record.contacts_step) }
+  def contacts_step
+    :contacts_dgfip
+  end
+
+  contact :contact_technique, validation_condition: ->(record) { record.need_complete_validation?(record.contacts_step) }, options: { additional_attributes: [{ name: :fallback_email, type: :email }] }
 
   private
 

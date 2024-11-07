@@ -15,6 +15,7 @@ fr:
     safety_certification: "homologation-de-securite"
     operational_acceptance: "recette-fonctionnelle"
     volumetrie: "volumetrie"
+    contacts_dgfip: "contacts-dgfip"
 
   authorization:
     badge: habilitation du %{date}

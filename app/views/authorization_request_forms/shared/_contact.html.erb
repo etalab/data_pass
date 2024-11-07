@@ -35,6 +35,15 @@
           <% end %>
         </div>
       <% end %>
+      <% contact_definition.options.fetch(:additional_attributes, []).each do |additional_attribute| %>
+        <div class="fr-fieldset__element">
+          <% if additional_attribute[:type] == :email %>
+            <%= f.dsfr_email_field("#{contact_definition.type}_#{additional_attribute[:name]}") %>
+          <% else %>
+            <%= f.dsfr_text_field("#{contact_definition.type}_#{additional_attribute[:name]}") %>
+        <% end %>
+        </div>
+      <% end %>
     </fieldset>
   </div>
 </div>

@@ -64,9 +64,10 @@ class AssignParamsToAuthorizationRequest < ApplicationInteractor
   end
 
   def permitted_contacts
-    authorization_request_class.contact_types.each_with_object([]) do |contact_type, attributes|
+    authorization_request_class.contacts.each_with_object([]) do |contact, attributes|
       attributes.concat(
-        authorization_request_class.contact_attributes.map { |attribute| :"#{contact_type}_#{attribute}" }
+        authorization_request_class.contact_attributes.map { |attribute| :"#{contact.type}_#{attribute}" },
+        contact.options.fetch(:additional_attributes, []).map { |attribute| :"#{contact.type}_#{attribute[:name]}" }
       )
     end
   end
