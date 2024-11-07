@@ -153,7 +153,7 @@ RSpec.describe AuthorizationRequest::APIImpotParticulier, type: :model do
 
         it 'does render an error message for specific requirements' do
           authorization_request.valid?
-          expect(authorization_request.errors[:specific_requirements_document]).to include('est manquant : vous devez joindre votre document')
+          expect(authorization_request.errors[:specific_requirements_document]).to include('est manquant : vous devez ajoutez un fichier avant de passer à l’étape suivante')
         end
 
         it 'does render errors message for data not selected' do
@@ -231,7 +231,7 @@ RSpec.describe AuthorizationRequest::APIImpotParticulier, type: :model do
 
         it 'does render an error message for specific requirements' do
           authorization_request.valid?
-          expect(authorization_request.errors[:specific_requirements_document]).to include('est manquant : vous devez joindre votre document')
+          expect(authorization_request.errors[:specific_requirements_document]).to include('est manquant : vous devez ajoutez un fichier avant de passer à l’étape suivante')
         end
       end
     end

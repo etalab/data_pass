@@ -41,14 +41,14 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
 
   @javascript
   Scénario: Je soumets une demande d'habilitation sans scopes mais je joins un fichier d'expression de besoin spécifique.
-    * je coche "Oui j'ai une expressions de besoins spécifiques"
-    * je remplis "Ajoutez le fichier d'expression de besoins spécifique" avec le fichier "spec/fixtures/dummy.xlsx"
+    * je coche "Oui, j’ai une expression de besoin spécifique"
+    * je remplis "Ajoutez le fichier d’expression de vos besoins" avec le fichier "spec/fixtures/dummy.xlsx"
     * je clique sur "Suivant"
 
   Scénario: Je soumets une demande d'habilitation avec un scope en cochant le fichier de besoins spécifiques mais en oubliant de joindre le fichier.
     * je coche "Dernière année de revenu"
-    * je coche "Oui j'ai une expressions de besoins spécifiques"
+    * je coche "Oui, j’ai une expression de besoin spécifique"
     * je clique sur "Suivant"
 
     Alors la page contient "Une erreur est survenue lors de la sauvegarde de la demande d'habilitation"
-    Et la page contient "Ajoutez le fichier d'expression de besoins spécifique est manquant : vous devez joindre votre document"
+    Et la page contient "Ajoutez le fichier d’expression de vos besoins est manquant : vous devez ajoutez un fichier avant de passer à l’étape suivante"

@@ -82,7 +82,7 @@ class AuthorizationRequest::APIImpotParticulier < AuthorizationRequest
   def specific_requirements_document_presence
     return if specific_requirements_document.present?
 
-    errors.add(:specific_requirements_document, message: 'est manquant : vous devez joindre votre document')
+    errors.add(:specific_requirements_document, message: 'est manquant : vous devez ajoutez un fichier avant de passer à l’étape suivante')
   end
 
   def specific_requirements?
