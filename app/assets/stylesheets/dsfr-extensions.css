@@ -123,6 +123,17 @@
   -webkit-mask-image: url("icons/business/archive-fill.svg");
   mask-image: url("icons/business/archive-fill.svg");
 }
+.malware-badge.fr-badge--success::before,
+.malware-badge--sm.fr-badge--success::before {
+  -webkit-mask-image: url("icons/system/shield-fill.svg");
+  mask-image: url("icons/system/shield-fill.svg");
+}
+
+.malware-badge.fr-badge--info::before,
+.malware-badge--sm.fr-badge--info::before {
+  -webkit-mask-image: url("icons/system/search-fill.svg");
+  mask-image: url("icons/system/search-fill.svg");
+}
 
 /* Badge color */
 
