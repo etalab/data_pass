@@ -104,7 +104,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def dsfr_malware_badge(attribute, opts = {})
-    safety_state = attribute.malware_scan&.safety_state || 'unknown'
+    safety_state = attribute.malware_scan&.safety_state || 'absent'
 
     badge_class = I18n.t("malware_scan.badge_class.#{safety_state}")
     label = I18n.t("malware_scan.label.#{safety_state}")

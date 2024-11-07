@@ -25,11 +25,13 @@ fr:
       unsafe: error
       pending: info
       unknown: warning
+      absent: grey
     label:
       safe: Fichier verifié
-      unsafe: Ce fichier est dangereux
-      pending: Fichier en attente d'analyse
+      unsafe: Ce fichier contient un virus
+      pending: Fichier en cours d'analyse
       unknown: L'analyse antivirus a échoué
+      absent: Aucune analyse antivirus n'a été réalisée
 
   authorization_request:
     badge: demande n°%{id}
