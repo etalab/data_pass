@@ -56,7 +56,7 @@ fr:
         scopes: Les données
         specific_requirement_title: Possédez-vous une expression de besoin spécifique ?
         specific_requirements: Oui, j’ai une expression de besoin spécifique
-        specific_requirements_document: Ajoutez le fichier d’expression de vos besoins
+        specific_requirements_document: Expression de besoin spécifique
 
 
         administrateur_metier_family_name: Nom de famille de l'administrateur système
