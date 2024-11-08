@@ -5,7 +5,13 @@ def find_authorization_request_class_from_name(name)
 end
 
 def find_authorization_definition_from_name(name, stage_type = nil)
-  AuthorizationDefinition.where({ name:, stage_type: }.compact).first
+  definitions = AuthorizationDefinition.where({ name:, }.compact)
+
+  if stage_type
+    definitions.find { |definition| definition.stage.type == stage_type }
+  else
+    definitions.first
+  end
 end
 
 def find_authorization_request_form_from_name(name)

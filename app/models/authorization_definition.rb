@@ -46,10 +46,10 @@ class AuthorizationDefinition < StaticApplicationRecord
         :kind,
         :startable_by_applicant,
         :unique,
-        :stage,
       ).merge(
         id: uid.to_s,
         provider: DataProvider.find(hash[:provider]),
+        stage: Stage.new(hash[:stage]),
         scopes: (hash[:scopes] || []).map { |scope_data| AuthorizationRequestScope.new(scope_data) },
         blocks: hash[:blocks] || [],
       )
@@ -57,7 +57,7 @@ class AuthorizationDefinition < StaticApplicationRecord
   end
 
   def reopenable?
-    next_stage.blank?
+    !next_stage?
   end
 
   def instructors
@@ -93,23 +93,7 @@ class AuthorizationDefinition < StaticApplicationRecord
     value_or_default(@startable_by_applicant, true)
   end
 
-  def stage_type
-    return if stage.blank?
-
-    stage[:type]
-  end
-
-  def next_stage
-    return if stage.blank? || stage[:next].blank?
-
-    AuthorizationDefinition.find(stage[:next][:id])
-  end
-
-  def next_stage_form
-    return if next_stage.blank?
-
-    next_stage.available_forms.find { |form| form.id == stage[:next][:form_id] } || raise(ActiveRecord::RecordNotFound, "Couln't find form with id #{stage[:next][:form_id]}")
-  end
+  delegate :next_stage_form, :next_stage_definition, :next_stage?, to: :stage
 
   def authorization_request_class
     @authorization_request_class ||= AuthorizationRequest.const_get(id.classify)
