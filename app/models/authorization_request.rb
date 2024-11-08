@@ -209,12 +209,12 @@ class AuthorizationRequest < ApplicationRecord
     end
 
     event :start_next_stage do
-      transition from: :validated, to: :draft, if: ->(authorization_request) { authorization_request.definition.next_stage.present? }
+      transition from: :validated, to: :draft, if: ->(authorization_request) { authorization_request.definition.next_stage? }
     end
 
     after_transition on: :start_next_stage do |authorization_request|
       authorization_request.update!(
-        type: authorization_request.definition.next_stage.authorization_request_class,
+        type: authorization_request.definition.next_stage_definition.authorization_request_class,
         form_uid: authorization_request.definition.next_stage_form.id,
         terms_of_service_accepted: false,
         data_protection_officer_informed: false,

@@ -72,7 +72,7 @@ class AuthorizationRequestPolicy < ApplicationPolicy
   end
 
   def start_next_stage?
-    record.definition.next_stage.present? &&
+    record.definition.next_stage? &&
       record.validated?
   end
 
