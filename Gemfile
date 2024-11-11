@@ -75,7 +75,7 @@ group :test do
   gem 'generator_spec'
   gem 'rack_session_access'
   gem 'rails-controller-testing'
-  gem 'rspec-rails', '7.0.1'
+  gem 'rspec-rails', '7.1.0'
   gem 'simplecov', require: false
   gem 'webmock'
 end
