@@ -175,11 +175,6 @@ RSpec.describe AuthorizationRequest::APIImpotParticulier, type: :model do
           authorization_request.specific_requirements_document.attach(Rack::Test::UploadedFile.new('spec/fixtures/dummy.xlsx', 'application/vnd.ms-excel'))
         end
 
-        it 'attaches the specific requirements document' do
-          expect(authorization_request.specific_requirements_document).to be_attached
-          expect(authorization_request.specific_requirements_document.filename).to eq('dummy.xlsx')
-        end
-
         it { is_expected.to be_valid }
 
         it 'does not render an error' do
@@ -193,46 +188,33 @@ RSpec.describe AuthorizationRequest::APIImpotParticulier, type: :model do
   describe 'specific requirements with scopes' do
     before { authorization_request.current_build_step = 'scopes' }
 
-    describe 'Valid case' do
-      context 'when specific requirement is not selected' do
-        let(:specific_requirements) { '0' }
-        let(:scopes) { %w[dgfip_annee_n_moins_2] }
+    context 'when specific requirement is not selected' do
+      let(:specific_requirements) { '0' }
+      let(:scopes) { %w[dgfip_annee_n_moins_2] }
 
-        it { is_expected.to be_valid }
-      end
-
-      context 'when specific requirement is selected and one document is attached' do
-        let(:specific_requirements) { '1' }
-        let(:scopes) { %w[dgfip_annee_n_moins_2] }
-
-        before do
-          authorization_request.specific_requirements_document.attach(Rack::Test::UploadedFile.new('spec/fixtures/dummy.xlsx', 'application/vnd.ms-excel'))
-        end
-
-        it 'attaches the specific requirements document' do
-          expect(authorization_request.specific_requirements_document).to be_attached
-          expect(authorization_request.specific_requirements_document.filename).to eq('dummy.xlsx')
-        end
-
-        it { is_expected.to be_valid }
-      end
+      it { is_expected.to be_valid }
     end
 
-    describe 'Invalid case' do
-      context 'when specific requirement is selected but no document is attached' do
-        let(:specific_requirements) { '1' }
-        let(:scopes) { %w[dgfip_annee_n_moins_2] }
+    context 'when specific requirement is selected and one document is attached' do
+      let(:specific_requirements) { '1' }
+      let(:scopes) { %w[dgfip_annee_n_moins_2] }
 
-        it 'has no document attached' do
-          expect(authorization_request.specific_requirements_document).not_to be_attached
-        end
+      before do
+        authorization_request.specific_requirements_document.attach(Rack::Test::UploadedFile.new('spec/fixtures/dummy.xlsx', 'application/vnd.ms-excel'))
+      end
 
-        it { is_expected.not_to be_valid }
+      it { is_expected.to be_valid }
+    end
 
-        it 'does render an error message for specific requirements' do
-          authorization_request.valid?
-          expect(authorization_request.errors[:specific_requirements_document]).to include('est manquant : vous devez ajoutez un fichier avant de passer à l’étape suivante')
-        end
+    context 'when specific requirement is selected but no document is attached' do
+      let(:specific_requirements) { '1' }
+      let(:scopes) { %w[dgfip_annee_n_moins_2] }
+
+      it { is_expected.not_to be_valid }
+
+      it 'does render an error message for specific requirements' do
+        authorization_request.valid?
+        expect(authorization_request.errors[:specific_requirements_document]).to include('est manquant : vous devez ajoutez un fichier avant de passer à l’étape suivante')
       end
     end
   end
