@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '3.3.2'
+ruby '3.3.6'
 
 gem 'active_model_validates_intersection_of'
 gem 'active_model_serializers', '~> 0.10.14'
