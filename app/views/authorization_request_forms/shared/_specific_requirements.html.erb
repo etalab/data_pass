@@ -10,10 +10,8 @@
   <%= f.dsfr_check_box :specific_requirements, data: { toggle_element_display_based_on_checkbox_target: "checkbox", action: "click->toggle-element-display-based-on-checkbox#showFieldset" } %>
 
   <fieldset class="fr-fieldset fr-p-2w fr-mx-0-5v specific_requirements__border fr-hidden" aria-label="feedme" aria-describedby="name-1-fieldset-messages" data-toggle-element-display-based-on-checkbox-target="fieldset">
-    <% if @authorization_request.respond_to?(:specific_requirements_document) %>
-      <div class="fr-fieldset__element">
-        <%= f.dsfr_file_field :specific_requirements_document %>
-      </div>
-    <% end %>
+    <div class="fr-fieldset__element">
+      <%= f.dsfr_file_field :specific_requirements_document %>
+    </div>
   </fieldset>
 </div>
