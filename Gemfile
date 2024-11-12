@@ -32,8 +32,8 @@ gem 'propshaft'
 gem 'puma', '>= 5.0'
 gem 'pundit'
 gem 'ransack'
-gem 'rails', '~> 7.2.2'
-gem 'rails-i18n', '~> 7.0.10'
+gem 'rails', '~> 8.0'
+gem 'rails-i18n'
 gem 'redis', '>= 4.0.1'
 gem 'sentry-ruby'
 gem 'sentry-rails'
@@ -42,7 +42,6 @@ gem 'state_machines-activerecord'
 gem 'stimulus-rails'
 gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[ windows jruby ]
-gem 'validates_timeliness', '~> 7.0.0.beta1'
 gem 'wicked'
 
 group :development, :test do
@@ -69,7 +68,7 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'cucumber-rails', require: false
+  gem 'cucumber-rails', require: false, github: 'tagliala/cucumber-rails', branch: 'feature/589-rails-8'
   gem 'cuprite'
   gem 'database_cleaner-active_record'
   gem 'generator_spec'
