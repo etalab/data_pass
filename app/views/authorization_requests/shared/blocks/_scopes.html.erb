@@ -24,20 +24,7 @@
   <% end %>
 
   <% if @authorization_request.respond_to?(:specific_requirements) %>
-    <h3 class="fr-h5 fr-mt-5w"> <%= t('authorization_request_forms.default.scopes.specific_requirements.title') %></h3>
-    <%= f.dsfr_check_box :specific_requirements, disabled: true %>
+    <%= render partial: 'authorization_requests/shared/blocks/specific_requirements', locals: { f: f } %>
   <% end %>
 
-  <% if @authorization_request.respond_to?(:specific_requirements_document) && @authorization_request.specific_requirements_document.attached? %>
-    <p>
-      <strong>
-        Document de votre expression de besoin spécifique :
-      </strong>
-      <br/>
-      <%= link_to @authorization_request.specific_requirements_document.filename, url_for(@authorization_request.specific_requirements_document), target: '_blank', class: %w[fr-link--icon-left fr-icon-file-fill] %>
-      <% if namespace?(:instruction) %>
-        <%= f.dsfr_malware_badge @authorization_request.cadre_juridique_document, class: 'fr-ml-1w' %>
-      <% end %>
-    </p>
-  <% end %>
 <% end %>
