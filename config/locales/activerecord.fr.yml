@@ -54,8 +54,7 @@ fr:
         volumetrie_justification: La justification de la limitation de débit
 
         scopes: Les données
-        specific_requirement_title: Possédez-vous une expression de besoin spécifique ?
-        specific_requirements: Oui, j’ai une expression de besoin spécifique
+        specific_requirements: Expression de besoin spécifique
         specific_requirements_document: Expression de besoin spécifique
 
 

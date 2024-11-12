@@ -35,7 +35,10 @@ fr:
         hint: "Taille maximale: 10 Mo. Formats supportés: pdf"
       safety_certification_document:
         hint: "Taille maximale: 10 Mo. Formats supportés: pdf"
+      specific_requirements:
+        label: Oui, j'ai une expression de besoin spécifique
       specific_requirements_document:
+        label: Ajoutez le fichier d‘expression de vos besoins
         hint: |
           Taille maximale: 10 Mo. Formats supportés: .odf, .xlsx, .sxc, .csv
           <br />
@@ -115,10 +118,7 @@ fr:
           title: Comment choisir les données ?
         specific_requirements:
           title: Possédez-vous une expression de besoin spécifique ?
-          content: |
-            Les partenaires ayant convenu avec la DGFiP un périmètre de données particulier peuvent rattacher leur expression de besoin listant l’ensemble des données strictement nécessaires à leur cas d’usage.
-            Si vous n’avez pas encore contacté la DGFiP, vous pouvez les joindre à l’adresse
-            <a href="mailto:dtnum.donnees.demande-acces@dgfip.finances.gouv.fr" target="_blank">dtnum.donnees.demande-acces@dgfip.finances.gouv.fr</a>
+
       contacts:
         title: Quelles sont les personnes impliquées ?
         subtitle: Les personnes renseignées ici seront contactées en temps voulu selon leur implication dans la démarche.
@@ -651,3 +651,10 @@ fr:
         label: Nom de votre équipe / département
         hint: Cette information permettra de créer une équipe via la Régie et ainsi permettre à plusieurs personnes de votre équipe d'utiliser les fonctionnalités protégées de l'espace agent
 
+
+    api_impot_particulier_editeurs:
+      specific_requirements:
+        content: |
+          Les partenaires ayant convenu avec la DGFiP un périmètre de données particulier peuvent rattacher leur expression de besoin listant l’ensemble des données strictement nécessaires à leur cas d’usage.
+          Si vous n’avez pas encore contacté la DGFiP, vous pouvez les joindre à l’adresse
+          <a href="mailto:dtnum.donnees.demande-acces@dgfip.finances.gouv.fr" target="_blank">dtnum.donnees.demande-acces@dgfip.finances.gouv.fr</a>
