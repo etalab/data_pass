@@ -198,7 +198,7 @@ FactoryBot.define do
 
     trait :with_scopes do
       after(:build) do |authorization_request, evaluator|
-        if authorization_request.need_complete_validation? || (evaluator.fill_all_attributes && !evaluator.skip_scopes_build)
+        if authorization_request.need_complete_validation? || (evaluator.fill_all_attributes)
           next if authorization_request.scopes.any?
 
           authorization_request.scopes ||= []
@@ -413,7 +413,6 @@ FactoryBot.define do
       with_basic_infos
       with_personal_data
       with_cadre_juridique
-      with_scopes
       with_safety_certification
       with_operational_acceptance
       with_volumetrie
