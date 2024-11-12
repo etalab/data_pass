@@ -1,4 +1,4 @@
-<h3 class="fr-h5 fr-mt-5w"><%= t('authorization_request_forms.default.scopes.specific_requirements.title') %></h3>
+<h3 class="fr-h5 fr-mt-5w fr-text-action-high--blue-france"><%= t('authorization_request_forms.default.scopes.specific_requirements.title') %></h3>
 <%= f.dsfr_check_box :specific_requirements, disabled: true %>
 
 <% if @authorization_request.respond_to?(:specific_requirements_document) && @authorization_request.specific_requirements_document.attached? %>
