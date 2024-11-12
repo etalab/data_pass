@@ -1,4 +1,4 @@
-<div class="fr-form-group fr-my-5w" data-controller="display-element" data-display-element-hidden-class="hidden">
+<div class="fr-form-group fr-my-5w" data-controller="display-element" data-display-element-hidden-class="fr-hidden">
   <h3 class="fr-mt-0 fr-mb-1w">
     <%= t('authorization_request_forms.default.scopes.specific_requirements.title') %>
   </h3>
@@ -9,7 +9,7 @@
 
   <%= f.dsfr_check_box :specific_requirements, data: { display_element_target: "checkbox", action: "click->display-element#showFieldset" } %>
 
-  <fieldset class="fr-fieldset fr-p-2w fr-mx-0-5v specific_requirements__border hidden" aria-label="feedme" aria-describedby="name-1-fieldset-messages" data-display-element-target="fieldset">
+  <fieldset class="fr-fieldset fr-p-2w fr-mx-0-5v specific_requirements__border fr-hidden" aria-label="feedme" aria-describedby="name-1-fieldset-messages" data-display-element-target="fieldset">
     <% if @authorization_request.respond_to?(:specific_requirements_document) %>
       <div class="fr-fieldset__element">
         <%= f.dsfr_file_field :specific_requirements_document %>
