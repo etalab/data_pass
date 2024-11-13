@@ -18,11 +18,11 @@
     </div>
   </div>
 
-  <div class="footer__actions clearfix">
+  <div class="footer__actions fr-grid-row fr-grid-row--right">
     <% if policy(authorization_request).start_next_stage? %>
-      <%= link_to t('.start_next_stage_cta'), next_authorization_request_stage_path(authorization_request), class: %w(fr-btn pull-right) %>
+      <%= link_to t('.start_next_stage_cta'), next_authorization_request_stage_path(authorization_request), class: %w(fr-btn) %>
     <% else %>
-      <%= link_to t('.continue_next_stage_cta'), authorization_request_path(authorization_request), class: %w(fr-btn pull-right) %>
+      <%= link_to t('.continue_next_stage_cta'), authorization_request_path(authorization_request), class: %w(fr-btn) %>
     <% end %>
   </div>
 </div>
