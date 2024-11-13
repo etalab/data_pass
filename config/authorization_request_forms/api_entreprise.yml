@@ -1,7 +1,7 @@
 api-entreprise:
   name: "Demande libre"
   default: true
-  description: "Pour les administrations et collectivités dont le cas d'usage n'est pas disponible par formulaire et qui connaissent précisemment l'usage des données et les aspects techniques des APIs"
+  description: "Pour les administrations et collectivités dont le cas d'usage n'a pas de formulaire pré-congfiguré et qui connaissent précisemment l'usage des données et les aspects techniques des APIs"
   introduction: |
     Ce formulaire est destiné aux administrations et collectivités qui connaissent précisemment l'usage des données et les aspects techniques des APIs.
     Il permet de formuler une demande libre en précisant les données et les services souhaités. Le temps de traitement d'une demande libre par le service juridique peut être supérieur.
