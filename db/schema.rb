@@ -10,11 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_02_115614) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_13_093824) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
+  enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
-  enable_extension "plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -344,6 +344,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_02_115614) do
   add_foreign_key "authorization_request_reopening_cancellations", "users"
   add_foreign_key "authorization_request_transfers", "authorization_requests"
   add_foreign_key "authorization_requests", "authorization_requests", column: "next_request_copied_id"
+  add_foreign_key "authorization_requests", "users", column: "applicant_id"
   add_foreign_key "authorizations", "authorization_requests", column: "request_id"
   add_foreign_key "authorizations", "users", column: "applicant_id"
   add_foreign_key "bulk_authorization_request_update_notification_reads", "bulk_authorization_request_updates"
