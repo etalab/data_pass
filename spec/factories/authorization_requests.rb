@@ -423,6 +423,7 @@ FactoryBot.define do
     %w[
       annuaire-des-entreprises-marches-publics
       annuaire-des-entreprises-aides-publiques
+      annuaire-des-entreprises-lutte-contre-la-fraude
     ].each do |form_uid|
       trait form_uid.tr('-', '_') do
         type { 'AuthorizationRequest::AnnuaireDesEntreprise' }
