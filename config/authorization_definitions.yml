@@ -532,3 +532,47 @@ shared:
     blocks:
       - name: "basic_infos"
       - name: "legal"
+
+  france_connect:
+    name: France Connect
+    description: "Formulaires France Connect"
+    provider: "dinum"
+    kind: 'service'
+    link: "https://franceconnect.gouv.fr/"
+    cgu_link: "https://franceconnect.gouv.fr/mentions-legales"
+    public: true
+    blocks:
+      - name: "basic_infos"
+      - name: "personal_data"
+      - name: "legal"
+      - name: "scopes"
+      - name: "contacts"
+    scopes:
+      - name: "Nom de naissance"
+        value: "family_name"
+        group: "Identité pivot"
+      - name: "Prénoms"
+        value: "given_name"
+        group: "Identité pivot"
+      - name: "Date de naissance"
+        value: "birthdate"
+        group: "Identité pivot"
+      - name: "Ville de naissance"
+        value: "birthplace"
+        group: "Identité pivot"
+      - name: "Pays de naissance"
+        value: "birthcountry"
+        group: "Identité pivot"
+      - name: "Sexe"
+        value: "gender"
+        group: "Identité pivot"
+      - name: "Nom d'usage"
+        value: "preferred_username"
+        group: "Autres données"
+      - name: "Adresse électronique"
+        value: "email"
+        group: "Autres données"
+      - name: "Identifiant technique"
+        value: "openid"
+        group: "Données techniques"
+        included: true

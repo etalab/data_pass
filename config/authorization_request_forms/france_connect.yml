@@ -1,0 +1,70 @@
+france-connect:
+  name: Demande libre
+  description: Demande libre
+  introduction: |
+    Ceci est une introduction à remplir
+  authorization_request: FranceConnect
+  steps:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: scopes
+    - name: contacts
+
+france-connect-collectivite-administration:
+  name: Demande de collectivité / administration
+  description: Demande pour une collectivité ou une administration
+  introduction: |
+    Ceci est une introduction à remplir
+  authorization_request: FranceConnect
+  steps:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: scopes
+    - name: contacts
+  data:
+    cadre_juridique_nature: 'Arrêté du 8 novembre 2018'
+    cadre_juridique_url: 'https://www.legifrance.gouv.fr/loda/id/JORFTEXT000037611479'
+
+france-connect-collectivite-epermis:
+  name: Demande de collectivité - e-permis
+  description: Identification sur la plateforme e-permis
+  introduction: |
+    e-permis est une plateforme de suivie par voie électronique destinée aux pétitionnaires dans le cadre du projet de dématérialisation des demandes d’autorisation d’urbanisme (Démat ADS).
+    Les utilisateurs de la plateforme e-permis utiliseront donc FranceConnect pour s’identifier sur e-permis.
+  authorization_request: FranceConnect
+  steps:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: scopes
+    - name: contacts
+  data:
+    cadre_juridique_nature: 'Arrêté du 8 novembre 2018'
+    cadre_juridique_url: 'https://www.legifrance.gouv.fr/loda/id/JORFTEXT000037611479'
+    contact_technique_email: "<%= Rails.application.credentials.france_connect_collectivite_epermis_contact_technique_email || 'tech-franceconnect@yopmail.com' %>"
+    contact_technique_given_name: "<%= Rails.application.credentials.france_connect_collectivite_epermis_contact_technique_given_name || 'Jean' %>"
+    contact_technique_family_name: "<%= Rails.application.credentials.france_connect_collectivite_epermis_contact_technique_family_name || 'Dupont' %>"
+    contact_technique_phone_number: "<%= Rails.application.credentials.france_connect_collectivite_epermis_contact_technique_phone_number || '0836656565' %>"
+    contact_technique_job_title: CP
+    scopes:
+      - family_name
+      - given_name
+      - email
+
+france-connect-sante:
+  name: Demande d'un service numérique en santé
+  description: Demande d’un service numérique dans le domaine de la santé
+  introduction: |
+    Ceci est une introduction à remplir
+  authorization_request: FranceConnect
+  steps:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: scopes
+    - name: contacts
+  data:
+    cadre_juridique_nature: 'Arrêté du 28 mars 2022'
+    cadre_juridique_url: 'https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000045457991'

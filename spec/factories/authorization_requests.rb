@@ -444,5 +444,34 @@ FactoryBot.define do
       with_cadre_juridique
       with_scopes
     end
+
+    trait :france_connect do
+      type { 'AuthorizationRequest::FranceConnect' }
+
+      form_uid { 'france-connect' }
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+      with_scopes
+    end
+
+    trait :france_connect_collectivite_administration do
+      form_uid { 'france-connect-collectivite-administration' }
+
+      france_connect
+    end
+
+    trait :france_connect_collectivite_epermis do
+      form_uid { 'france-connect-collectivite-epermis' }
+
+      france_connect
+    end
+
+    trait :france_connect_sante do
+      form_uid { 'france-connect-sante' }
+
+      france_connect
+    end
   end
 end
