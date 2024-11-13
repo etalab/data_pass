@@ -36,9 +36,9 @@ fr:
       safety_certification_document:
         hint: "Taille maximale: 10 Mo. Formats supportés: pdf"
       specific_requirements:
-        label: Oui, j'ai une expression de besoin spécifique
+        label: Oui, j’ai une expression de besoin spécifique
       specific_requirements_document:
-        label: Ajoutez le fichier d‘expression de vos besoins
+        label: Ajoutez le fichier d’expression de vos besoins
         hint: |
           Taille maximale: 10 Mo. Formats supportés: .odf, .xlsx, .sxc, .csv
           <br />
