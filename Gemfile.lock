@@ -235,6 +235,8 @@ GEM
     fugit (1.11.0)
       et-orbi (~> 1, >= 1.2.11)
       raabro (~> 1.4)
+    gaffe (1.2.0)
+      rails (>= 4.0.0)
     generator_spec (0.10.0)
       activesupport (>= 3.0.0)
       railties (>= 3.0.0)
@@ -621,6 +623,7 @@ DEPENDENCIES
   faraday-retry
   foreman
   friendly_id (~> 5.5.0)
+  gaffe
   generator_spec
   good_job (~> 3.99)
   guard

@@ -1,0 +1,30 @@
+fr:
+  errors:
+    show:
+      not_found:
+        title: Page non trouvée
+        subtitle: La page que vous cherchez est introuvable. Veuillez nous excuser pour la gêne occasionnée.
+        sentence: |+
+          Si vous avez tapé l'adresse web dans le navigateur, vérifiez qu'elle est correcte. La page n’est peut-être plus disponible.
+          <br />Dans ce cas, pour continuer votre visite vous pouvez consulter notre page d’accueil.
+      internal_server_error:
+        title: Erreur inattendue
+        subtitle: Désolé, le service rencontre un problème, nous travaillons pour le résoudre le plus rapidement possible.
+        sentence: Essayez de rafraîchir la page ou bien réessayez plus tard.
+      bad_request:
+        title: "Cette requête n'est pas valide"
+        subtitle: "Votre navigateur a effectué une requête étrange .. réessayez"
+      forbidden:
+        title: "Accès refusé"
+        subtitle: "Désolé, vous n’êtes pas autorisé(e) à accéder à cette page."
+      method_not_allowed: &generic_error
+        title: "Erreur"
+        subtitle: &generic_subtitle "Une erreur s'est produite."
+      not_acceptable: *generic_error
+      not_implemented: *generic_error
+      unauthorized:
+        title: "Accès non autorisé"
+        subtitle: *generic_subtitle
+      unprocessable_entity:
+        title: "Impossible de mettre à jour cette ressource"
+        subtitle: *generic_subtitle
