@@ -1,3 +1,7 @@
+.fr-col-wrap {
+  flex-wrap: wrap;
+}
+
 /* form inputs readonly */
 .fr-input[readonly] {
   background-color: rgb(0, 0, 0, 0.02);

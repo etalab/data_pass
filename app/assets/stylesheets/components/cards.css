@@ -21,10 +21,6 @@
   border-bottom: 0.25rem solid var(--background-action-high-blue-france);
 }
 
-.authorization-request-card .footer__badge {
-  align-content: center;
-}
-
 .authorization-request-card .unread-message-dot {
   position: absolute;
   top: -5px;

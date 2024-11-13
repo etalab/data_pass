@@ -51,11 +51,11 @@ module ApplicationHelper
     )
   end
 
-  def authorization_request_stage_badge(authorization_request)
+  def authorization_request_stage_badge(authorization_request, css_class: nil)
     content_tag(
       :span,
       t("authorization_request.stage.#{authorization_request.definition.stage.type}"),
-      class: ['fr-badge', 'fr-badge--no-icon', authorization_request_stage_badge_class(authorization_request)],
+      class: ['fr-badge', 'fr-badge--no-icon', authorization_request_stage_badge_class(authorization_request), css_class],
     )
   end
 
