@@ -58,6 +58,14 @@ h3.with-icon img {
   justify-content: space-between;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
 .border-frame-text {
   border: 1px solid var(--border-default-grey);
   padding: 1rem;
