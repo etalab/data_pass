@@ -1,5 +1,9 @@
-.fr-col-wrap {
+.fr-flex-wrap {
   flex-wrap: wrap;
+}
+
+.fr-flex-grow {
+  flex-grow: 1;
 }
 
 /* form inputs readonly */
