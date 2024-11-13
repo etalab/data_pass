@@ -1,5 +1,5 @@
 <div class="footer fr-p-3w fr-background-alt--grey">
-  <div class="footer__content flex-space-between__content fr-mb-3v">
+  <div class="footer__content flex-space-between__content fr-col-wrap fr-mb-3v">
     <div>
       <p class="footer__title fr-text-title--blue-france fr-text--md font-weight-700 fr-m-0">
         <%= t('.next_stage_title') %>
@@ -10,12 +10,12 @@
       </p>
     </div>
 
-    <div class="footer__badge">
-      <% unless policy(authorization_request).start_next_stage? %>
-        <%= authorization_request_stage_badge(authorization_request) %>
+    <% unless policy(authorization_request).start_next_stage? %>
+      <div class="fr-grid-row fr-grid-row--middle fr-grid-row--right fr-py-1w">
+        <%= authorization_request_stage_badge(authorization_request, css_class: "fr-mr-1w") %>
         <%= authorization_request_status_badge(authorization_request) %>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
   </div>
 
   <div class="footer__actions fr-grid-row fr-grid-row--right">
