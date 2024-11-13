@@ -1,5 +1,5 @@
 <div class="footer fr-p-3w fr-background-alt--grey fr-grid-row flex-space-between__content">
-  <div class="footer__content flex-space-between__content fr-flex-wrap fr-flex-grow">
+  <div class="footer__content flex-space-between__content flex-wrap flex-grow">
     <div class="fr-mb-3v">
       <p class="footer__title fr-text-title--blue-france fr-text--md font-weight-700 fr-m-0">
         <%= t('.next_stage_title') %>
@@ -11,14 +11,14 @@
     </div>
 
     <% unless policy(authorization_request).start_next_stage? %>
-      <div class="fr-grid-row fr-grid-row--middle fr-grid-row--right fr-mb-3v fr-flex-grow">
+      <div class="fr-grid-row fr-grid-row--middle fr-grid-row--right fr-mb-3v flex-grow">
         <%= authorization_request_stage_badge(authorization_request, css_class: "fr-mr-1w") %>
         <%= authorization_request_status_badge(authorization_request) %>
       </div>
     <% end %>
   </div>
 
-  <div class="footer__actions fr-grid-row fr-grid-row--right fr-grid-row--middle fr-flex-grow">
+  <div class="footer__actions fr-grid-row fr-grid-row--right fr-grid-row--middle flex-grow">
     <% if policy(authorization_request).start_next_stage? %>
       <%= link_to t('.start_next_stage_cta'), next_authorization_request_stage_path(authorization_request), class: %w(fr-btn) %>
     <% else %>
