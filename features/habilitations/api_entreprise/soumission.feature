@@ -63,9 +63,9 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Entreprise
     Et je suis sur la page "Demandes et habilitations"
 
     Exemples:
-      | Cas d'usage                  |
-      | Marchés publics              |
-      | Portail GRU - Préremplissage |
+      | Cas d'usage                             |
+      | Marchés publics                         |
+      | Portail GRU - Préremplissage uniquement |
 
   Plan du scénario: Je soumets une demande d'habilitation pour un cas d'usage spécifique, dont le cadre légal n'est pas rempli
     Quand je veux remplir une demande pour "API Entreprise" via le formulaire "<Cas d'usage>"
@@ -94,11 +94,11 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Entreprise
     Et je suis sur la page "Demandes et habilitations"
 
     Exemples:
-      | Cas d'usage                             |
-      | Aides publiques                         |
-      | Subventions des associations            |
-      | Portail GRU - Instruction des démarches |
-      | Détection de la fraude                  |
+      | Cas d'usage                                               |
+      | Aides publiques                                           |
+      | Subventions des associations                              |
+      | Portail GRU - Pré-remplissage & instruction des démarches |
+      | Détection de la fraude                                    |
 
   Plan du scénario: Je soumets une demande d'habilitation d'un éditeur
     Quand je veux remplir une demande pour "API Entreprise" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
