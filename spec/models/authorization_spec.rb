@@ -7,7 +7,7 @@ RSpec.describe Authorization do
     subject(:request_as_validated) { authorization.request_as_validated }
 
     let!(:authorization) { authorization_request.latest_authorization }
-    let!(:authorization_request) { create(:authorization_request, :api_entreprise, :validated, intitule: 'old intitule', maquette_projet: Rack::Test::UploadedFile.new('spec/fixtures/dummy.pdf', 'image/pdf')) }
+    let!(:authorization_request) { create(:authorization_request, :api_entreprise, :validated, intitule: 'old intitule', maquette_projet: Rack::Test::UploadedFile.new('spec/fixtures/dummy.pdf', 'application/pdf')) }
 
     it { expect(request_as_validated).to be_a(AuthorizationRequest) }
 
