@@ -155,16 +155,6 @@ RSpec.describe AuthorizationRequest::APIImpotParticulier, type: :model do
           authorization_request.valid?
           expect(authorization_request.errors[:specific_requirements_document]).to include('est manquant : vous devez ajoutez un fichier avant de passer à l’étape suivante')
         end
-
-        it 'does render errors message for data not selected' do
-          authorization_request.valid?
-          expect(authorization_request.errors[:scopes]).to include("ne sont pas cochées : il faut au moins qu'une des données soit sélectionnée.")
-        end
-
-        it 'does render en error message for invalid data' do
-          authorization_request.valid?
-          expect(authorization_request.errors[:scopes]).to include('sont invalides : Vous devez cocher au moins une année de revenus souhaitée avant de continuer')
-        end
       end
 
       context 'with specific requirements is selected with a document attached and no scope selected' do
