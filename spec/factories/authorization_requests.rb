@@ -251,10 +251,6 @@ FactoryBot.define do
       type { 'AuthorizationRequest::HubEEDila' }
       form_uid { 'hubee-dila' }
 
-      transient do
-        skip_scopes_build { false }
-      end
-
       with_scopes
     end
 
@@ -265,10 +261,6 @@ FactoryBot.define do
     trait :api_entreprise do
       type { 'AuthorizationRequest::APIEntreprise' }
       form_uid { 'api-entreprise' }
-
-      transient do
-        skip_scopes_build { false }
-      end
 
       with_basic_infos
       with_personal_data
@@ -301,10 +293,6 @@ FactoryBot.define do
     trait :api_particulier do
       type { 'AuthorizationRequest::APIParticulier' }
       form_uid { 'api-particulier' }
-
-      transient do
-        skip_scopes_build { false }
-      end
 
       with_basic_infos
       with_personal_data
@@ -367,10 +355,6 @@ FactoryBot.define do
       type { 'AuthorizationRequest::APIServiceNational' }
       form_uid { 'api-service-national' }
 
-      transient do
-        skip_scopes_build { false }
-      end
-
       with_basic_infos
       with_personal_data
       with_cadre_juridique
@@ -388,10 +372,6 @@ FactoryBot.define do
 
     trait :api_captchetat do
       type { 'AuthorizationRequest::APICaptchEtat' }
-
-      transient do
-        skip_scopes_build { false }
-      end
 
       form_uid { 'api-captchetat' }
       with_basic_infos
@@ -420,10 +400,6 @@ FactoryBot.define do
 
     trait :api_pro_sante_connect do
       type { 'AuthorizationRequest::APIProSanteConnect' }
-
-      transient do
-        skip_scopes_build { false }
-      end
 
       form_uid { 'api-pro-sante-connect' }
       with_basic_infos
