@@ -172,7 +172,7 @@ RSpec.describe AuthorizationRequest::APIImpotParticulier, type: :model do
         let(:scopes) { [] }
 
         before do
-          authorization_request.specific_requirements_document.attach(Rack::Test::UploadedFile.new('spec/fixtures/dummy.xlsx', 'application/vnd.ms-excel'))
+          authorization_request.specific_requirements_document.attach(Rack::Test::UploadedFile.new('spec/fixtures/dummy.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'))
         end
 
         it { is_expected.to be_valid }
@@ -200,7 +200,7 @@ RSpec.describe AuthorizationRequest::APIImpotParticulier, type: :model do
       let(:scopes) { %w[dgfip_annee_n_moins_2] }
 
       before do
-        authorization_request.specific_requirements_document.attach(Rack::Test::UploadedFile.new('spec/fixtures/dummy.xlsx', 'application/vnd.ms-excel'))
+        authorization_request.specific_requirements_document.attach(Rack::Test::UploadedFile.new('spec/fixtures/dummy.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'))
       end
 
       it { is_expected.to be_valid }
