@@ -62,9 +62,9 @@ module ApplicationHelper
   def authorization_request_stage_badge_class(authorization_request)
     case authorization_request.definition.stage.type
     when 'sandbox'
-      'fr-badge--new'
+      'fr-badge--brown-caramel'
     when 'production'
-      'fr-badge--warning'
+      'fr-badge--orange-terre-battue'
     end
   end
 
