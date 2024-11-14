@@ -1,23 +1,23 @@
 import { Controller } from '@hotwired/stimulus'
 
 export default class extends Controller {
-  static targets = ['checkbox', 'fieldset']
+  static targets = ['checkbox', 'element']
   static classes = ['hidden']
 
   connect () {
-    this.showFieldset()
-    this.checkboxTarget.addEventListener('change', this.showFieldset.bind(this))
+    this.showElement()
+    this.checkboxTarget.addEventListener('change', this.showElement.bind(this))
   }
 
   show () {
-    this.fieldsetTarget.classList.remove(this.hiddenClass)
+    this.elementTarget.classList.remove(this.hiddenClass)
   }
 
   hide () {
-    this.fieldsetTarget.classList.add(this.hiddenClass)
+    this.elementTarget.classList.add(this.hiddenClass)
   }
 
-  showFieldset () {
+  showElement () {
     if (this.checkboxTarget.checked) {
       this.show()
     } else {
