@@ -55,7 +55,7 @@ fr:
 
         scopes: Les données
         specific_requirements: Expression de besoin spécifique
-        specific_requirements_document: Expression de besoin spécifique
+        specific_requirements_document: Document de l'expression de besoin spécifique
 
 
         administrateur_metier_family_name: Nom de famille de l'administrateur système

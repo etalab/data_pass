@@ -53,4 +53,4 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
     * je clique sur "Suivant"
 
     Alors la page contient "Une erreur est survenue lors de la sauvegarde de la demande d'habilitation"
-    Et la page contient "Expression de besoin spécifique est manquant : vous devez ajoutez un fichier avant de passer à l’étape suivante"
+    Et la page contient "Document de l'expression de besoin spécifique est manquant : vous devez ajoutez un fichier avant de passer à l’étape suivante"
