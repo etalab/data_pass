@@ -421,28 +421,22 @@ shared:
         group: Agrégats fiscaux
       - name: Catégorie 1 - Salaires, pensions, rentes
         value: dgfip_RevDecl_Cat1_Tspr
-        group: Revenus catégoriels - revenus déclarés (avant application des abattements,
-          etc...)
+        group: Revenus catégoriels - revenus déclarés (avant application des abattements, etc...)
       - name: Catégorie 1 - Rentes viagères à titre onéreux
         value: dgfip_RevDecl_Cat1_RentOn
-        group: Revenus catégoriels - revenus déclarés (avant application des abattements,
-          etc...)
+        group: Revenus catégoriels - revenus déclarés (avant application des abattements, etc...)
       - name: Catégorie 2 - Revenus de capitaux mobiliers
         value: dgfip_RevDecl_Cat2_Rcm
-        group: Revenus catégoriels - revenus déclarés (avant application des abattements,
-          etc...)
+        group: Revenus catégoriels - revenus déclarés (avant application des abattements, etc...)
       - name: Catégorie 3 - Plus ou moins values
         value: dgfip_RevDecl_Cat3_PMV
-        group: Revenus catégoriels - revenus déclarés (avant application des abattements,
-          etc...)
+        group: Revenus catégoriels - revenus déclarés (avant application des abattements, etc...)
       - name: Catégorie 4 - Revenus fonciers
         value: dgfip_RevDecl_Cat4_Ref
-        group: Revenus catégoriels - revenus déclarés (avant application des abattements,
-          etc...)
+        group: Revenus catégoriels - revenus déclarés (avant application des abattements, etc...)
       - name: Catégorie 5 - Revenus des professions non salariées
         value: dgfip_RevDecl_Cat5_NonSal
-        group: Revenus catégoriels - revenus déclarés (avant application des abattements,
-          etc...)
+        group: Revenus catégoriels - revenus déclarés (avant application des abattements, etc...)
       - name: Catégorie 1 - Salaires, pensions, rentes
         value: dgfip_RevNets_Cat1_Tspr
         group: Revenus catégoriels - revenus nets (après application des abattements, etc...)
@@ -464,8 +458,7 @@ shared:
       - name: Pensions alimentaires déductibles - Pension alimentaire versées à enfant majeur
         value: dgfip_PaDeduc_EnfMaj
         group: Charges déductibles
-      - name: Pensions alimentaires déductibles - Autres pensions alimentaires versées (enfants
-          mineurs, ascendants, ...)
+      - name: Pensions alimentaires déductibles - Autres pensions alimentaires versées (enfants mineurs, ascendants, ...)
         value: dgfip_PaDeduc_Autres
         group: Charges déductibles
       - name: Versement épargne retraite
