@@ -250,6 +250,7 @@ FactoryBot.define do
     trait :hubee_dila do
       type { 'AuthorizationRequest::HubEEDila' }
       form_uid { 'hubee-dila' }
+
       with_scopes
     end
 
@@ -380,17 +381,18 @@ FactoryBot.define do
     trait :api_impot_particulier_editeur do
       type { 'AuthorizationRequest::APIImpotParticulier' }
 
-      after(:build) do |authorization_request, _evaluator|
-        next if authorization_request.scopes.any?
+      transient do
+        skip_scopes_build { false }
+      end
 
-        authorization_request.scopes << 'dgfip_annee_n_moins_1'
+      after(:build) do |authorization_request, evaluator|
+        authorization_request.scopes << 'dgfip_annee_n_moins_1' if !evaluator.skip_scopes_build && authorization_request.scopes.empty?
       end
 
       form_uid { 'api-impot-particulier-editeur' }
       with_basic_infos
       with_personal_data
       with_cadre_juridique
-      with_scopes
       with_safety_certification
       with_operational_acceptance
       with_volumetrie

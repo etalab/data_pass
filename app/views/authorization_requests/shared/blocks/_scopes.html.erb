@@ -22,4 +22,9 @@
       <% end %>
     </ul>
   <% end %>
+
+  <% if @authorization_request.respond_to?(:specific_requirements) %>
+    <%= render partial: 'authorization_requests/shared/blocks/specific_requirements', locals: { f: f } %>
+  <% end %>
+
 <% end %>

@@ -18,4 +18,8 @@
   </div>
 <% end %>
 
+<% if @authorization_request.respond_to?(:specific_requirements) %>
+  <%= render partial: "authorization_request_forms/shared/specific_requirements", locals: { f: f } %>
+<% end %>
+
 <%= f.hidden_field :scopes, value: '', name: "#{@authorization_request.model_name.param_key}[scopes][]" %>

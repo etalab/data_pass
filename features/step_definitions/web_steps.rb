@@ -100,7 +100,7 @@ end
 
 Quand('je coche {string}') do |label|
   if javascript?
-    find('label', text: label)&.click
+    find('label', text: label, visible: :all)&.click
   else
     check label
   end

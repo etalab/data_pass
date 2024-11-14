@@ -30,16 +30,26 @@ class AuthorizationRequest::APIImpotParticulier < AuthorizationRequest
     ]
   ].freeze
 
-  validate :at_least_one_revenue_year_has_been_selected, if: -> { need_complete_validation?(:scopes) }
-  validate :revenue_years_scopes_compatibility, if: -> { need_complete_validation?(:scopes) }
-  validate :scopes_compatibility, if: -> { need_complete_validation?(:scopes) }
+  validate :at_least_one_revenue_year_has_been_selected, if: -> { need_complete_validation?(:scopes) && !specific_requirements? }
+  validate :revenue_years_scopes_compatibility, if: -> { need_complete_validation?(:scopes) && !specific_requirements? }
+  validate :scopes_compatibility, if: -> { need_complete_validation?(:scopes) && !specific_requirements? }
+  validate :specific_requirements_document_presence, if: -> { specific_requirements? && need_complete_validation?(:scopes) }
 
   add_document :maquette_projet, content_type: ['application/pdf'], size: { less_than: 10.megabytes }
 
   add_attributes :date_prevue_mise_en_production
+  add_attributes :specific_requirements
+
+  add_document :specific_requirements_document, content_type: %w[
+    application/vnd.oasis.opendocument.spreadsheet
+    application/vnd.ms-excel
+    application/vnd.sun.xml.calc
+    application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    text/csv
+  ], size: { less_than: 10.megabytes }
 
   add_scopes(validation: {
-    presence: true, if: -> { need_complete_validation?(:scopes) }
+    presence: true, if: -> { need_complete_validation?(:scopes) && !specific_requirements? }
   })
 
   contact :contact_technique, validation_condition: ->(record) { record.need_complete_validation?(:contacts) }
@@ -67,5 +77,15 @@ class AuthorizationRequest::APIImpotParticulier < AuthorizationRequest
 
   def scope_exists_in_each_arrays?(array_1, array_2)
     scopes.intersect?(array_1) && scopes.intersect?(array_2)
+  end
+
+  def specific_requirements_document_presence
+    return if specific_requirements_document.present?
+
+    errors.add(:specific_requirements_document, message: 'est manquant : vous devez ajoutez un fichier avant de passer à l’étape suivante')
+  end
+
+  def specific_requirements?
+    specific_requirements == '1'
   end
 end

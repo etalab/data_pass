@@ -1,0 +1,17 @@
+<div class="fr-form-group fr-my-5w" data-controller="toggle-element-display-based-on-checkbox" data-toggle-element-display-based-on-checkbox-hidden-class="fr-hidden">
+  <h3 class="fr-mt-0 fr-mb-1w">
+    <%= t('authorization_request_forms.default.scopes.specific_requirements.title') %>
+  </h3>
+
+  <p>
+    <%= t('authorization_request_forms.api_impot_particulier_editeurs.specific_requirements.content').html_safe %>
+  </p>
+
+  <%= f.dsfr_check_box :specific_requirements, data: { toggle_element_display_based_on_checkbox_target: "checkbox", action: "click->toggle-element-display-based-on-checkbox#showElement" } %>
+
+  <fieldset class="fr-fieldset fr-p-2w fr-mx-0-5v specific_requirements__border fr-hidden" aria-label="feedme" aria-describedby="name-1-fieldset-messages" data-toggle-element-display-based-on-checkbox-target="element">
+    <div class="fr-fieldset__element">
+      <%= f.dsfr_file_field :specific_requirements_document %>
+    </div>
+  </fieldset>
+</div>
