@@ -9,7 +9,7 @@
     <br/>
     <%= link_to @authorization_request.specific_requirements_document.filename, url_for(@authorization_request.specific_requirements_document), target: '_blank', class: %w[fr-link--icon-left fr-icon-file-fill] %>
     <% if namespace?(:instruction) %>
-      <%= f.dsfr_malware_badge @authorization_request.cadre_juridique_document, class: 'fr-ml-1w' %>
+      <%= f.dsfr_malware_badge @authorization_request.specific_requirements_document, class: 'fr-ml-1w' %>
     <% end %>
   </p>
 <% end %>
