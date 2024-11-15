@@ -1,10 +1,10 @@
 api-entreprise:
   name: "Demande libre"
   default: true
-  description: "Pour les utilisateurs expérimentés qui connaissent précisemment l'usage des données et les aspects techniques des APIs"
+  description: "Pour les administrations et collectivités dont le cas d'usage n'a pas de formulaire pré-congfiguré et qui connaissent précisemment l'usage des données et les aspects techniques des APIs"
   introduction: |
-    Ce formulaire est destiné aux utilisateurs expérimentés qui connaissent précisemment l'usage des données et les aspects techniques des APIs.
-    Il permet de formuler une demande libre en précisant les données et les services souhaités.
+    Ce formulaire est destiné aux administrations et collectivités qui connaissent précisemment l'usage des données et les aspects techniques des APIs.
+    Il permet de formuler une demande libre en précisant les données souhaitées. Le temps de traitement d'une demande libre par le service juridique peut être supérieur.
   authorization_request: "APIEntreprise"
   steps:
     - name: "basic_infos"
@@ -15,10 +15,10 @@ api-entreprise:
 
 api-entreprise-marches-publics:
   name: "Marchés publics"
-  description: "Facilitez le dépôt des candidatures et récupérez les justificatifs administratifs de vos utilisateurs."
+  description: "Simplifier le dépôt des candidatures et récupérer les justificatifs administratifs des entreprises/associations."
   use_case: "marches_publics"
   introduction: |
-    Ce formulaire est destiné aux utilisateurs qui souhaitent développer eux-même leur logiciel de gestion des marchés publics.
+    Ce formulaire est destiné aux administrations et collectivités qui souhaitent simplifier la candidature et l'instruction des marchés publics avec les données de l'API Entreprise.
     Le cadre juridique et les données seront adaptés à ce cas d'usage, vous pourrez cependant demander des données supplémentaires si besoin.
   authorization_request: "APIEntreprise"
   steps:
@@ -47,10 +47,10 @@ api-entreprise-marches-publics:
 
 api-entreprise-aides-publiques:
   name: "Aides publiques"
-  description: "Faciliter le dépôt et l'instruction des aides publiques"
+  description: "Simplifier le dépôt et l'instruction des demandes d'aides publiques et autres démarches d'accompagnement"
   use_case: "aides_publiques"
   introduction: |
-    Ce formulaire est destiné aux utilisateurs qui souhaitent développer eux-même leur logiciel de gestion des dépôts et instructions des aides publiques.
+    Ce formulaire est destiné aux administrations et collectivités qui souhaitent simplifier les demandes d'aides financières ou d'accompagnement pour les entreprises/assocations et leur instruction avec les données de l'API Entreprise.
     Les données seront adaptés à ce cas d'usage, vous pourrez cependant demander des données supplémentaires si besoin.
   authorization_request: "APIEntreprise"
   steps:
@@ -77,10 +77,10 @@ api-entreprise-aides-publiques:
 
 api-entreprise-subventions-associations:
   name: "Subventions des associations"
-  description: "Faciliter le dépôt et l'instruction des demandes de subventions des associations."
+  description: "Simplifier la dépôt et l'instruction des demandes de subventions des associations."
   use_case: "subventions_associations"
   introduction: |
-    Ce formulaire est destiné aux utilisateurs qui souhaitent développer eux-même leur logiciel de gestion des dépôts et instructions des demandes de subventions des associations.
+    Ce formulaire est destiné aux administrations et collectivités qui souhaitent simplifier les demandes de subventions des assocations et leur instruction avec les données de l'API Entreprise.
     Les données seront adaptés à ce cas d'usage, vous pourrez cependant demander des données supplémentaires si besoin.
   authorization_request: "APIEntreprise"
   steps:
@@ -99,13 +99,15 @@ api-entreprise-subventions-associations:
       - certifications_qualiopi_france_competences
 
 api-entreprise-portail-gru-preremplissage:
-  name: "Portail GRU - Préremplissage"
-  description: "Faciliter le pré-remplissage des usagers sur les portails GRU"
+  name: "Portail GRU - Préremplissage uniquement"
+  description: "Préremplir automatiquement les données opendata des entreprises & associations dans le front-office de votre portail GRU"
   use_case: "portail_gru_preremplissage"
   introduction: |
-    Ce formulaire est destiné aux utilisateurs souhaitant simplifier le parcours de leurs usagers sur les portails GRU.
+    Ce formulaire est destiné aux administrations et collectivités souhaitant pré-remplir automatiquement les démarches des entreprises & associations avec leurs données en open data, sur le front-office de leur portail GRU. 
+    
+    _Par exemple : pré-remplir les données générales et d'identité de l'entreprise ou de l'association lors de la création de son compte sur le portail._
     L'ensemble des données disponibles via ce cas d'usage sont des données en "open data", vous ne pourrez pas demander de données supplémentaires.
-    Si vous souhaitez obtenir un accès à des données protégées, veuillez choisir un autre formulaire.
+    Si vous souhaitez obtenir un accès à des données protégées, veuillez choisir le formulaire "Portail GRU - Pré-remplissage & instruction des démarches".
   authorization_request: "APIEntreprise"
   steps:
     - name: "basic_infos"
@@ -121,12 +123,12 @@ api-entreprise-portail-gru-preremplissage:
     cadre_juridique_url: "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000033202746/"
 
 api-entreprise-portail-gru-instruction:
-  name: "Portail GRU - Instruction des démarches"
-  description: "Faciliter l'instruction des demandes sur les portails GRU"
+  name: "Portail GRU - Pré-remplissage & instruction des démarches"
+  description: "Pré-remplir les informations opendata des entreprises & association et faciliter l'instruction des démarches sur les portails GRU"
   use_case: "portail_gru_instruction"
   introduction: |
-    Ce formulaire est destiné aux utilisateurs souhaitant faciliter l'instruction des demandes par des agents sur les portails GRU.
-    Les données seront adaptés à ce cas d'usage, et inclut des données protégées qui ne doivent être manipulées que par des agents habilités.
+    Ce formulaire est destiné aux administrations et collectivités souhaitant, non seulement pré-remplir automatiquement les démarches des entreprises & associations 
+    avec leurs données en open data, en front-office et back-office, mais aussi faciliter l'instruction des démarches par les agents publics, en back-office, grâce à l'accès à des données protégées.
   authorization_request: "APIEntreprise"
   steps:
     - name: "basic_infos"
@@ -156,9 +158,9 @@ api-entreprise-portail-gru-instruction:
 
 api-entreprise-detection-fraude:
   name: "Détection de la fraude"
-  description: "Ce cas d’usage est EXCLUSIVEMENT réservé aux administrations dont la détection des fraudes fait partie de ses missions."
+  description: "- EXCLUSIVEMENT réservé aux administrations compétentes - Faciliter et accélérer le traitement des dossiers d’enquête pour fraude."
   introduction: |
-    Ce formulaire est destiné aux administrations souhaitant faciliter les procédures de détection des fraudes. Si votre adminitration n'a pas pour mission la détection des fraudes, veuillez choisir un autre formulaire.
+    Ce formulaire est destiné exclusivement aux administrations dont la détection de la fraude est la mission et qui souhaitent faciliter les procédures de détection des fraudes avec les données de l'API Entreprise. Si votre adminitration n'a pas pour mission la détection des fraudes, veuillez choisir un autre formulaire.
   use_case: "detection_fraude"
   authorization_request: "APIEntreprise"
   steps:
@@ -184,10 +186,10 @@ api-entreprise-detection-fraude:
       - certifications_qualiopi_france_competences
 
 api-entreprise-editeur:
-  name: "Demande spécifique aux éditeurs de logiciels"
-  description: "Pour les éditeurs de logiciels ayant des clients publics et souhaitant intégrer API Entreprise."
+  name: "Formulaire spécifique aux éditeurs de logiciels"
+  description: "- EXCLUSIVEMENT réservé aux éditeurs de logiciels - souhaitant intégrer API Entreprise."
   introduction: |
-    Ce formulaire est destiné aux éditeurs de logiciels souhaitant intégrer API Entreprise pour leurs clients publics.
+    Ce formulaire est exclusivement destiné aux éditeurs de logiciels souhaitant intégrer API Entreprise pour leurs clients publics et ne vaut pas habilitation à être destinataire des données de l'API Entreprise.
   authorization_request: "APIEntreprise"
   use_case: "specific_editeurs"
   steps:
