@@ -128,7 +128,7 @@ api-entreprise-portail-gru-instruction:
   use_case: "portail_gru_instruction"
   introduction: |
     Ce formulaire est destiné aux administrations et collectivités souhaitant, non seulement pré-remplir automatiquement les démarches des entreprises & associations 
-    avec leurs données en open data, mais aussi faciliter l'instruction des démarches par les agents publics, en back-office, grâce à l'accès à des données protégées.
+    avec leurs données en open data, en front-office et back-office, mais aussi faciliter l'instruction des démarches par les agents publics, en back-office, grâce à l'accès à des données protégées.
   authorization_request: "APIEntreprise"
   steps:
     - name: "basic_infos"
