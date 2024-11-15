@@ -3,6 +3,14 @@
     <%= t("authorization_request.badge", id: authorization_request.id) %>
   </span>
 
+  <% if authorization_request.definition.stage.exists? %>
+    <% if authorization_request.latest_authorization %>
+      <%= authorization_request_stage_badge(authorization_request.latest_authorization.request_as_validated) %>
+    <% else %>
+      <%= authorization_request_stage_badge(authorization_request) %>
+    <% end %>
+  <% end %>
+
   <% if authorization_request.already_been_validated? %>
     <span class="fr-badge fr-badge--success">
       <%= t("authorization_request.status.validated") %>

@@ -21,10 +21,6 @@ turbo-frame {
   text-align: center;
 }
 
-.pull-right {
-  float: right;
-}
-
 .dashboard-sub-header {
   padding-left: 0.75rem;
 }
@@ -60,6 +56,14 @@ h3.with-icon img {
 .flex-space-between__content {
   display: flex;
   justify-content: space-between;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-grow {
+  flex-grow: 1;
 }
 
 .border-frame-text {

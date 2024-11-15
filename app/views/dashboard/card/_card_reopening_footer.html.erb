@@ -1,7 +1,7 @@
-<div class="reopening__footer fr-p-3w fr-background-alt--grey">
-  <div class="reopening__content flex-space-between__content fr-mb-3v">
+<div class="footer fr-p-3w fr-background-alt--grey">
+  <div class="footer__content flex-space-between__content fr-mb-3v">
     <div>
-      <p class="reopening__title fr-text-title--blue-france fr-text--md font-weight-700 fr-m-0">
+      <p class="footer__title fr-text-title--blue-france fr-text--md font-weight-700 fr-m-0">
         <%= t('.reopen_title') %>
       </p>
 
@@ -10,11 +10,11 @@
       </p>
     </div>
 
-    <div class="reopening__badge">
+    <div class="footer__badge">
       <%= authorization_request_status_badge(authorization_request) %>
     </div>
   </div>
-  <div class="reopening__link">
+  <div class="footer__link">
     <%= link_to t('.show_cta'), authorization_request_form_path(form_uid: authorization_request.form.uid, id: authorization_request.id), class: %w(fr-text--sm fr-icon-arrow-right-line fr-link--icon-right) %>
   </div>
 </div>

@@ -68,6 +68,18 @@ RSpec.describe ApproveAuthorizationRequest do
         expect(authorization.data).to eq(authorization_request.data)
       end
 
+      describe 'when it is an authorization request which is in a stage with previous steps and already an authorization' do
+        let(:authorization_request) { create(:authorization_request, :api_impot_particulier, :submitted) }
+
+        before do
+          create(:authorization, request: authorization_request)
+        end
+
+        it 'creates a new authorization' do
+          expect { approve_authorization_request }.to change(Authorization, :count).by(1)
+        end
+      end
+
       describe 'when there is attached documents' do
         let(:authorization_request) { create(:authorization_request, :api_entreprise, :submitted, documents: %i[cadre_juridique_document]) }
 

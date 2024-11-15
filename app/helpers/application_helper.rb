@@ -51,6 +51,23 @@ module ApplicationHelper
     )
   end
 
+  def authorization_request_stage_badge(authorization_request, css_class: nil)
+    content_tag(
+      :span,
+      t("authorization_request.stage.#{authorization_request.definition.stage.type}"),
+      class: ['fr-badge', 'fr-badge--no-icon', authorization_request_stage_badge_class(authorization_request), css_class],
+    )
+  end
+
+  def authorization_request_stage_badge_class(authorization_request)
+    case authorization_request.definition.stage.type
+    when 'sandbox'
+      'fr-badge--brown-caramel'
+    when 'production'
+      'fr-badge--orange-terre-battue'
+    end
+  end
+
   def authorization_request_status_badge_translation(authorization_request, scope)
     case scope
     when :instruction, 'instruction'

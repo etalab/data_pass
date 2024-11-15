@@ -44,6 +44,9 @@ fr:
       archived: Archivée
       revoked: Révoquée
     reopening: Mise à jour
+    stage:
+      sandbox: Bac à sable
+      production: Production
     contacts:
       responsable_traitement: Responsable de traitement
       delegue_protection_donnees: Délégué à la protection des données
@@ -155,6 +158,11 @@ fr:
         reopen_title: Demande de mise à jour
         reopen_date: Fait le
         show_cta: Consulter
+      stage_footer:
+        next_stage_title: Votre demande d’accès au bac à sable a été validée !
+        next_stage_subtitle: Vous pouvez poursuivre votre demande afin d’accéder à la production.
+        start_next_stage_cta: Démarrer ma demande d'habilitation en production
+        continue_next_stage_cta: Continuer ma demande d'habilitation en production
 
       authorization_request_card_small:
         show_cta: Consulter
@@ -263,6 +271,9 @@ fr:
   start_authorization_request_form:
     cta: Débuter ma demande
 
+  start_next_authorization_request_stage_form:
+    cta: Débuter ma demande
+
   authorization_request_forms:
     new:
       back_to_dashboard: Retour à l’accueil
@@ -358,6 +369,7 @@ fr:
       save_and_review: Enregistrer et continuer vers le résumé
       previous: Précédent
       next: Suivant
+      start_next_stage: Démarrer ma demande d'habilitation en production
     shared:
       organization:
         you:
@@ -740,6 +752,10 @@ fr:
             <blockquote>
               %{text}
             </blockquote>
+
+
+        start_next_stage:
+          text: Le demandeur <strong>%{user_full_name}</strong> a démarré la demande d'habilitation pour la production
 
         system_reminder:
           text: Une relance a été envoyé au demandeur

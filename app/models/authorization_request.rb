@@ -171,6 +171,10 @@ class AuthorizationRequest < ApplicationRecord
       transition from: %i[draft changes_requested refused], to: :submitted, if: ->(authorization_request) { authorization_request.reopening? }
     end
 
+    after_transition to: :submitted do |authorization_request|
+      authorization_request.update(last_submitted_at: Time.zone.now)
+    end
+
     event :refuse do
       transition from: %i[changes_requested submitted], to: :refused, unless: ->(authorization_request) { authorization_request.reopening? }
       transition from: %i[changes_requested submitted], to: :validated, if: ->(authorization_request) { authorization_request.reopening? }
@@ -184,12 +188,8 @@ class AuthorizationRequest < ApplicationRecord
       transition from: :submitted, to: :validated
     end
 
-    after_transition to: :submitted do |authorization_request|
-      authorization_request.update(last_submitted_at: Time.zone.now)
-    end
-
     after_transition to: :validated do |authorization_request|
-      authorization_request.update(last_validated_at: Time.zone.now)
+      authorization_request.update(last_validated_at: Time.zone.now, reopening: false)
     end
 
     event :archive do
@@ -200,8 +200,25 @@ class AuthorizationRequest < ApplicationRecord
       transition from: :validated, to: :draft, if: ->(authorization_request) { authorization_request.reopenable? }
     end
 
+    after_transition on: :reopen do |authorization_request|
+      authorization_request.update(reopened_at: Time.zone.now, reopening: true)
+    end
+
     event :cancel_reopening do
       transition from: %i[draft changes_requested submitted], to: :validated, if: ->(authorization_request) { authorization_request.reopening? }
+    end
+
+    event :start_next_stage do
+      transition from: :validated, to: :draft, if: ->(authorization_request) { authorization_request.definition.next_stage? }
+    end
+
+    after_transition on: :start_next_stage do |authorization_request|
+      authorization_request.update!(
+        type: authorization_request.definition.next_stage_definition.authorization_request_class,
+        form_uid: authorization_request.definition.next_stage_form.id,
+        terms_of_service_accepted: false,
+        data_protection_officer_informed: false,
+      )
     end
 
     event :revoke do
@@ -286,6 +303,7 @@ class AuthorizationRequest < ApplicationRecord
   def required_for_step?(step)
     return false if validation_context == :save_within_wizard
     return false if current_build_step.blank?
+    return false if steps_names.exclude?(step.to_s)
 
     step.nil? ||
       steps_names.index(step.to_s) <= steps_names.index(current_build_step)
@@ -308,11 +326,6 @@ class AuthorizationRequest < ApplicationRecord
   end
 
   delegate :reopenable?, to: :definition
-
-  def reopening?
-    %w[validated revoked].exclude?(state) &&
-      last_validated_at.present?
-  end
 
   def contact_types_for(user)
     contact_type_key_values = data.select do |key, value|

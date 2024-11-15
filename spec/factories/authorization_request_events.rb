@@ -194,6 +194,12 @@ FactoryBot.define do
       end
     end
 
+    trait :start_next_stage do
+      name { 'start_next_stage' }
+
+      entity_is_authorization_request
+    end
+
     trait :system_reminder do
       name { 'system_reminder' }
 

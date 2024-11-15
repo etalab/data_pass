@@ -335,6 +335,11 @@ shared:
     link: "https://api.gouv.fr/les-api/impot-particulier"
     cgu_link: "/cgus/dgfip/cgu_api_impot_particulier_production_hors_connexion_fc_decembre2022_v4.0.pdf"
     provider: "dgfip"
+    stage:
+      type: production
+      previouses:
+        - id: api_impot_particulier_sandbox
+          form_id: api-impot-particulier
     blocks:
       - name: basic_infos
       - name: personal_data
@@ -344,7 +349,7 @@ shared:
       - name: operational_acceptance
       - name: safety_certification
       - name: volumetrie
-    scopes:
+    scopes: &api_impot_particulier_scopes
       - name: Dernière année de revenu
         value: dgfip_annee_n_moins_1
         group: Années sur lesquelles porte votre demande
@@ -469,6 +474,28 @@ shared:
       - name: Indicateur d’éligibilité au LEP
         value: dgfip_IndLep
         group: Éligibilité Livret d’Épargne Populaire - établissements bancaires uniquement
+
+  api_impot_particulier_sandbox:
+    name: "API Impôt Particulier"
+    description: "Raccordez-vous directement à la DGFiP pour récupérer les éléments fiscaux nécessaires à vos téléservices, éliminez le traitement et le stockage des pièces justificatives"
+    provider: "dgfip"
+    kind: 'api'
+    link: "https://api.gouv.fr/les-api/impot-particulier"
+    cgu_link: "/cgus/dgfip/cgu_api_impot_particulier_bac_a_sable_connexion_hors_fc_septembre2020_v2.6.pdf"
+    access_link: "https://api-impot-particulier-sandbox.gouv.fr/tokens/%<external_provider_id>s"
+    public: true
+    stage:
+      type: sandbox
+      next:
+        id: api_impot_particulier
+        form_id: api-impot-particulier
+    blocks:
+      - name: basic_infos
+      - name: personal_data
+      - name: legal
+      - name: scopes
+      - name: contacts
+    scopes: *api_impot_particulier_scopes
 
   api_pro_sante_connect:
     name: "API Pro Santé Connect"

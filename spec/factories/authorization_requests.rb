@@ -166,7 +166,13 @@ FactoryBot.define do
 
     trait :reopened_and_submitted do
       reopened
-      submitted
+
+      after(:create) do |authorization_request|
+        SubmitAuthorizationRequest.call(
+          authorization_request: authorization_request,
+          user: authorization_request.applicant,
+        )
+      end
     end
 
     trait :with_basic_infos do
@@ -378,24 +384,31 @@ FactoryBot.define do
       with_cadre_juridique
     end
 
-    trait :api_impot_particulier_editeur do
+    trait :api_impot_particulier do
       type { 'AuthorizationRequest::APIImpotParticulier' }
 
       transient do
         skip_scopes_build { false }
       end
 
+      form_uid { 'api-impot-particulier' }
+
       after(:build) do |authorization_request, evaluator|
         authorization_request.scopes << 'dgfip_annee_n_moins_1' if !evaluator.skip_scopes_build && authorization_request.scopes.empty?
       end
 
-      form_uid { 'api-impot-particulier-editeur' }
       with_basic_infos
       with_personal_data
       with_cadre_juridique
       with_safety_certification
       with_operational_acceptance
       with_volumetrie
+    end
+
+    trait :api_impot_particulier_editeur do
+      api_impot_particulier
+
+      form_uid { 'api-impot-particulier-editeur' }
     end
 
     trait :api_pro_sante_connect do
@@ -419,6 +432,17 @@ FactoryBot.define do
         with_basic_infos
         with_cadre_juridique
       end
+    end
+
+    trait :api_impot_particulier_sandbox do
+      type { 'AuthorizationRequest::APIImpotParticulierSandbox' }
+
+      form_uid { 'api-impot-particulier-sandbox' }
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+      with_scopes
     end
   end
 end

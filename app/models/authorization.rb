@@ -24,8 +24,12 @@ class Authorization < ApplicationRecord
 
   delegate :name, :kind, to: :request
 
+  before_create do
+    self[:authorization_request_class] ||= request.type
+  end
+
   def request_as_validated
-    request_as_validated = request.dup
+    request_as_validated = authorization_request_class.constantize.new(request.dup.attributes.except('type'))
 
     request_as_validated.id = request.id
     request_as_validated.data = data

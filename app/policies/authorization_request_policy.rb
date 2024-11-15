@@ -47,7 +47,8 @@ class AuthorizationRequestPolicy < ApplicationPolicy
 
   def cancel_reopening?
     same_user_and_organization? &&
-      record.can_cancel_reopening? && !record.submitted?
+      record.can_cancel_reopening? &&
+      !record.submitted?
   end
 
   def submit_reopening?
@@ -68,6 +69,11 @@ class AuthorizationRequestPolicy < ApplicationPolicy
     record.persisted? &&
       same_current_organization? &&
       (record.reopening? || record.state != 'draft')
+  end
+
+  def start_next_stage?
+    record.definition.next_stage? &&
+      record.validated?
   end
 
   protected

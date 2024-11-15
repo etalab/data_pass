@@ -9,6 +9,7 @@ class AuthorizationDefinition < StaticApplicationRecord
     :kind,
     :scopes,
     :blocks,
+    :stage,
     :unique
 
   attr_writer :startable_by_applicant,
@@ -48,6 +49,7 @@ class AuthorizationDefinition < StaticApplicationRecord
       ).merge(
         id: uid.to_s,
         provider: DataProvider.find(hash[:provider]),
+        stage: Stage.new(hash[:stage]),
         scopes: (hash[:scopes] || []).map { |scope_data| AuthorizationRequestScope.new(scope_data) },
         blocks: hash[:blocks] || [],
       )
@@ -55,7 +57,7 @@ class AuthorizationDefinition < StaticApplicationRecord
   end
 
   def reopenable?
-    true
+    !next_stage?
   end
 
   def instructors
@@ -71,7 +73,10 @@ class AuthorizationDefinition < StaticApplicationRecord
   end
 
   def public_available_forms
-    available_forms.select(&:public)
+    available_forms.select do |form|
+      form.public &&
+        form.startable_by_applicant
+    end
   end
 
   def available_forms
@@ -87,6 +92,8 @@ class AuthorizationDefinition < StaticApplicationRecord
   def startable_by_applicant
     value_or_default(@startable_by_applicant, true)
   end
+
+  delegate :next_stage_form, :next_stage_definition, :next_stage?, to: :stage
 
   def authorization_request_class
     @authorization_request_class ||= AuthorizationRequest.const_get(id.classify)

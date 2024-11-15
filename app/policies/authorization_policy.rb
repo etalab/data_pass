@@ -1,6 +1,7 @@
 class AuthorizationPolicy < ApplicationPolicy
   def show?
-    authorization_request_policy.summary? ||
+    same_current_organization? ||
+      record.request.contact_types_for(user).any? ||
       user.instructor?(record.kind)
   end
 
@@ -10,5 +11,10 @@ class AuthorizationPolicy < ApplicationPolicy
 
   def authorization_request_policy
     @authorization_request_policy ||= AuthorizationRequestPolicy.new(user_context, record.authorization_request)
+  end
+
+  def same_current_organization?
+    current_organization.present? &&
+      record.organization == current_organization
   end
 end

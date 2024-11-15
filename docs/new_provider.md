@@ -68,6 +68,24 @@ Pour la configuration de la [définition (1.)](../config/authorization_definitio
     # étapes (bac à sable puis production), lorsque la 1ere est validé la 2e est
     # crée par le système. Par défaut à `true`
     startable_by_applicant: false
+    # Optionel. Permet de définir des étapes (ex: sandbox -> production)
+    stage:
+      # Type: sandbox / production
+      type: sandbox
+      # Information concernant l'étape suivante, clé obligatoire si le type est sandbox
+      next:
+        id: api_impot_particulier
+        form_id: api-impot-particulier
+      # Information concernant les étapes précédentes. Clé obligatoire si le
+      # type est production. Cette information mimique le comportement
+      # d'ActiveRecord qui implémente la réversabilité et permet ainsi de plus
+      # simplement faire les liens entre les modèles. Pour plus d'infos
+      # effectuer un `git blame` sur ces lignes
+      previouses:
+        - id: api_impot_particulier_sandbox
+          form_id: api-impot-particulier-sandbox
+        - id: api_impot_particulier_sandbox
+          form_id: api-impot-particulier-sandbox-editor
     # Liste des diverses données débrayable pour la source de données
     scopes:
         # Nom humanisé de la donnée
