@@ -100,7 +100,7 @@ api-entreprise-subventions-associations:
 
 api-entreprise-portail-gru-preremplissage:
   name: "Portail GRU - Préremplissage uniquement"
-  description: "Préremplir les informations opendata des entreprises & associations dans votre portail GRU"
+  description: "Préremplir automatiquement les données opendata des entreprises & associations dans le front-office de votre portail GRU"
   use_case: "portail_gru_preremplissage"
   introduction: |
     Ce formulaire est destiné aux administrations et collectivités souhaitant pré-remplir les démarches des entreprises & associations avec leurs données en open data.
