@@ -4,7 +4,7 @@ api-entreprise:
   description: "Pour les administrations et collectivités dont le cas d'usage n'a pas de formulaire pré-congfiguré et qui connaissent précisemment l'usage des données et les aspects techniques des APIs"
   introduction: |
     Ce formulaire est destiné aux administrations et collectivités qui connaissent précisemment l'usage des données et les aspects techniques des APIs.
-    Il permet de formuler une demande libre en précisant les données et les services souhaités. Le temps de traitement d'une demande libre par le service juridique peut être supérieur.
+    Il permet de formuler une demande libre en précisant les données souhaitées. Le temps de traitement d'une demande libre par le service juridique peut être supérieur.
   authorization_request: "APIEntreprise"
   steps:
     - name: "basic_infos"
@@ -47,10 +47,10 @@ api-entreprise-marches-publics:
 
 api-entreprise-aides-publiques:
   name: "Aides publiques"
-  description: "Simplifier le dépôt et l'instruction des demandes d'aides publiques"
+  description: "Simplifier le dépôt et l'instruction des demandes d'aides publiques et autres démarches d'accompagnement"
   use_case: "aides_publiques"
   introduction: |
-    Ce formulaire est destiné aux administrations et collectivités qui souhaitent simplifier les demandes d'aides pour les entreprises/assocations et leur instruction avec les données de l'API Entreprise.
+    Ce formulaire est destiné aux administrations et collectivités qui souhaitent simplifier les demandes d'aides financières ou d'accompagnement pour les entreprises/assocations et leur instruction avec les données de l'API Entreprise.
     Les données seront adaptés à ce cas d'usage, vous pourrez cependant demander des données supplémentaires si besoin.
   authorization_request: "APIEntreprise"
   steps:
@@ -100,10 +100,10 @@ api-entreprise-subventions-associations:
 
 api-entreprise-portail-gru-preremplissage:
   name: "Portail GRU - Préremplissage uniquement"
-  description: "Préremplir les informations opendata des usagers dans les démarches des portails GRU"
+  description: "Préremplir les informations opendata des entreprises & associations dans votre portail GRU"
   use_case: "portail_gru_preremplissage"
   introduction: |
-    Ce formulaire est destiné aux administrations et collectivités souhaitant pré-remplir les démarches de leur portail à destination des entreprises & associations avec leurs données en open data.
+    Ce formulaire est destiné aux administrations et collectivités souhaitant pré-remplir les démarches des entreprises & associations avec leurs données en open data.
     L'ensemble des données disponibles via ce cas d'usage sont des données en "open data", vous ne pourrez pas demander de données supplémentaires.
     Si vous souhaitez obtenir un accès à des données protégées, veuillez choisir le formulaire "Portail GRU - Pré-remplissage & instruction des démarches".
   authorization_request: "APIEntreprise"
@@ -122,11 +122,11 @@ api-entreprise-portail-gru-preremplissage:
 
 api-entreprise-portail-gru-instruction:
   name: "Portail GRU - Pré-remplissage & instruction des démarches"
-  description: "Pré-remplir les démarches avec l'opendata et faciliter l'instruction des démarches sur les portails GRU"
+  description: "Pré-remplir les informations opendata des entreprises & association et faciliter l'instruction des démarches sur les portails GRU"
   use_case: "portail_gru_instruction"
   introduction: |
     Ce formulaire est destiné aux administrations et collectivités souhaitant, non seulement pré-remplir les démarches des entreprises & associations 
-    avec leurs données en open data, mais aussi faciliter l'instruction des demandes par les agents, en leur donnant accès à des données protégées en back-office du portail GRU.
+    avec leurs données en open data, mais aussi faciliter l'instruction des démarches par les agents publics, en back-office, grâce à l'accès à des données protégées.
   authorization_request: "APIEntreprise"
   steps:
     - name: "basic_infos"
