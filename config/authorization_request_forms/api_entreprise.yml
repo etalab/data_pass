@@ -103,7 +103,9 @@ api-entreprise-portail-gru-preremplissage:
   description: "Préremplir automatiquement les données opendata des entreprises & associations dans le front-office de votre portail GRU"
   use_case: "portail_gru_preremplissage"
   introduction: |
-    Ce formulaire est destiné aux administrations et collectivités souhaitant pré-remplir les démarches des entreprises & associations avec leurs données en open data.
+    Ce formulaire est destiné aux administrations et collectivités souhaitant pré-remplir automatiquement les démarches des entreprises & associations avec leurs données en open data, sur le front-office de leur portail GRU. 
+    
+    _Par exemple : pré-remplir les données générales et d'identité de l'entreprise ou de l'association lors de la création de son compte sur le portail._
     L'ensemble des données disponibles via ce cas d'usage sont des données en "open data", vous ne pourrez pas demander de données supplémentaires.
     Si vous souhaitez obtenir un accès à des données protégées, veuillez choisir le formulaire "Portail GRU - Pré-remplissage & instruction des démarches".
   authorization_request: "APIEntreprise"
