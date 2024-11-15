@@ -7,16 +7,19 @@ RSpec.describe Authorization do
     subject(:request_as_validated) { authorization.request_as_validated }
 
     let!(:authorization) { authorization_request.latest_authorization }
-    let!(:authorization_request) { create(:authorization_request, :api_entreprise, :validated, intitule: 'old intitule', maquette_projet: Rack::Test::UploadedFile.new('spec/fixtures/dummy.pdf', 'application/pdf')) }
+    let!(:authorization_request) { create(:authorization_request, authorization_definition_kind, :validated, intitule: 'old intitule', maquette_projet: Rack::Test::UploadedFile.new('spec/fixtures/dummy.pdf', 'application/pdf')) }
+    let(:authorization_definition_kind) { :api_entreprise }
 
     it { expect(request_as_validated).to be_a(AuthorizationRequest::APIEntreprise) }
 
     context 'when linked request is not longer the same type (because of the stage)' do
+      let(:authorization_definition_kind) { :api_impot_particulier }
+
       before do
-        authorization.update!(authorization_request_class: 'AuthorizationRequest::APIParticulier')
+        authorization.update!(authorization_request_class: 'AuthorizationRequest::APIImpotParticulierSandbox')
       end
 
-      it { expect(request_as_validated).to be_a(AuthorizationRequest::APIParticulier) }
+      it { expect(request_as_validated).to be_a(AuthorizationRequest::APIImpotParticulierSandbox) }
     end
 
     context 'when request has been reopened, with some data changed and a document updated' do
