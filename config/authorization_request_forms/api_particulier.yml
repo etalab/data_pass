@@ -1519,3 +1519,37 @@ api-particulier-gestion-rh-secteur-public:
       - mesri_inscription_etudiant
       - mesri_inscription_autre
       - mesri_etablissements
+
+api-particulier-formulaire-de-collecte-du-quotient-familial:
+  name: Tarification sociale des services municipaux à l'enfance (via formulaire QF)
+  description: EXCLUSIVEMENT pour les petites communes sans éditeur - Accéder au quotient familial CAF & MSA pour simplifier la tarification sociale municipale à l'enfance par le biais du "formulaire de collecte du quotient familial" et du portail agent HubEE.
+  authorization_request: APIParticulier
+  use_case: formulaire_de_collecte_du_quotient_familial
+  introduction: |
+    Vous allez demander un accès à la solution clé en main du "Formulaire de collecte du quotient familial".
+
+    Dans le cadre de leur démarche de demande d'accès aux services municipaux à l'enfance, les usagers pourront vous transmettre leur quotient familial par le formulaire en s'identifiant via FranceConnect et vous pourrez ensuite récupérer les données sur HubEE pour calculer la tarification de l'usager.
+  steps:
+    - name: legal
+    - name: personal_data
+    - name: contacts
+  static_blocks:
+    - name: basic_infos
+    - name: modalities
+    - name: scopes
+  data:
+    intitule: Formulaire de collecte du quotient familial pour la tarification sociale des services municipaux à l’enfance
+    description: '-'
+    cadre_juridique_nature: |+
+      - Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration qui fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.
+    contact_technique_email: api-particulier@api.gouv.fr
+    contact_technique_phone_number: Non nécessaire
+    contact_technique_type: organization
+    destinataire_donnees_caractere_personnel: Agents de la municipalité
+    scopes:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_enfants
+      - cnaf_adresse
+    modalities:
+      - formulaire_qf

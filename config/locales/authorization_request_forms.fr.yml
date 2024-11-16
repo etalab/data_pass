@@ -584,6 +584,25 @@ fr:
         label: Description du cadre juridique autorisant à traiter les données*
         hint: Le cadre général est déjà spécifié. Vous pouvez ajouter un cadre spécifique à votre situation.
 
+    api_particulier_formulaire_de_collecte_du_quotient_familial:
+      contact_technique:
+        info: |
+          Il s'agit de l'équipe qui s'occupe de gérer le site Formulaire QF, vous n'avez pas besoin de modifier ces informations.
+
+      legal: &api_particulier_use_cases_forms_legal_tarification
+        justificatif:
+          title: Délibération avec les conditions tarifaires*
+          description: Ce document doit permettre de justifier les données demandées. <a href="https://particulier.api.gouv.fr/faq#qu-est-ce-qu-une-bonne-deliberation-pour-acceder-a-api-particulier" target="_blank">En savoir plus sur la délibération attendue par API Particulier</a>
+      cadre_juridique_nature:
+        &api_particulier_use_cases_forms_cadre_juridique_nature
+        label: Description du cadre juridique autorisant à traiter les données*
+        hint: Le cadre général est déjà spécifié. Vous pouvez ajouter un cadre spécifique à votre situation. Veuillez citer le texte de la délibération qui spécifie les conditions tarifaires et mentionner la page.
+      cadre_juridique_document:
+        &api_particulier_use_cases_forms_cadre_juridique_document
+        label: Ajoutez le fichier de la délibération
+      cadre_juridique_url: &api_particulier_use_cases_forms_cadre_juridique_url
+        label: Indiquez une URL vers la délibération
+
     api_infinoe_production:
       sandbox_authorization_request:
         title: L'habilitation de bac à sable
