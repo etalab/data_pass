@@ -55,7 +55,7 @@ class AuthorizationRequestDecorator < ApplicationDecorator
   end
 
   def display_stage_footer?
-    object.definition.stage.present? &&
+    object.definition.stage.exists? &&
       object.latest_authorization.present? &&
       object.latest_authorization.request_as_validated.definition.next_stage?
   end
