@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/tagliala/cucumber-rails.git
-  revision: 499545f4233fa09e1c9833a40a18afd072d325aa
+  revision: b750833e104bf39354d4a4077413a5847241d249
   branch: feature/589-rails-8
   specs:
     cucumber-rails (3.0.1)
@@ -414,7 +414,7 @@ GEM
     rack_session_access (0.2.0)
       builder (>= 2.0.0)
       rack (>= 1.0.0)
-    rackup (2.2.0)
+    rackup (2.2.1)
       rack (>= 3)
     rails (8.0.0)
       actioncable (= 8.0.0)
