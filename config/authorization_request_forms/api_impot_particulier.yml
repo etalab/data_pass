@@ -1,7 +1,7 @@
 api-impot-particulier-sandbox:
   description: TODO
   introduction: |
-    Ceci est une introduction à remplir
+    Vous désirez demander une habilitation à accéder au bac à sable de l'API Impôt Particulier.
   authorization_request: APIImpotParticulierSandbox
   steps: &api_impot_particulier_sandbox_steps
     - name: basic_infos
@@ -13,7 +13,7 @@ api-impot-particulier-sandbox:
 api-impot-particulier:
   description: TODO
   introduction: |
-    Votre éditeur a déjà obtenu l'accès à la sandbox, vous n'avez plus qu'à obtenir l'accès en production via ce formulaire.
+    Vous avez déjà obtenu l'accès à la sandbox, vous n'avez plus qu'à obtenir l'accès en production via ce formulaire.
   authorization_request: APIImpotParticulier
   static_blocks: *api_impot_particulier_sandbox_steps
   steps:

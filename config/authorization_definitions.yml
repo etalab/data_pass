@@ -483,7 +483,7 @@ shared:
     link: "https://api.gouv.fr/les-api/impot-particulier"
     cgu_link: "/cgus/dgfip/cgu_api_impot_particulier_bac_a_sable_connexion_hors_fc_septembre2020_v2.6.pdf"
     access_link: "https://api-impot-particulier-sandbox.gouv.fr/tokens/%<external_provider_id>s"
-    public: true
+    public: false
     stage:
       type: sandbox
       next:
