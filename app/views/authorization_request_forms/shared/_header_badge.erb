@@ -21,7 +21,7 @@
       </li>
     <% end %>
 
-    <% if authorization_request.definition.stage.present? %>
+    <% if authorization_request.definition.stage.exists? %>
       <li>
         <%= authorization_request_stage_badge(authorization_request) %>
       </li>
