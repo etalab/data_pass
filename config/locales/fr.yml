@@ -226,6 +226,14 @@ fr:
           <br/>
           En cas de doute, nous vous invitons à consulter le site d'<a href="%{base_url}" target="_blank">%{name}</a>, plus spécifiquement la page des
           <a href="%{use_cases_url}" target="_blank">cas d'usages</a>.
+      editor_with_sandbox:
+        title: Travaillez-vous avec un éditeur qui a déjà accès au bac à sable de cette API ?
+        subtitle: Si votre éditeur a déjà accès au bac à sable, vous serez redirigé directement vers une demande d'accès à l'environnement de production.
+        options: 
+          - label: Oui mon éditeur a déjà accès au bac à sable
+            value: true
+          - label: Non, nous n'avons pas encore accès au bac à sable
+            value: false
 
     show:
       refused:
@@ -369,6 +377,8 @@ fr:
       save_and_review: Enregistrer et continuer vers le résumé
       previous: Précédent
       next: Suivant
+      start_stage_generic: Démarrer ma demande d'habilitation
+      start_first_stage: Démarrer ma demande d'habilitation en bac à sable
       start_next_stage: Démarrer ma demande d'habilitation en production
     shared:
       organization:
