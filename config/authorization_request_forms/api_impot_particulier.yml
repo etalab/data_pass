@@ -1,7 +1,34 @@
 api-impot-particulier-sandbox:
   description: TODO
   introduction: |
-    Vous désirez demander une habilitation à accéder au bac à sable de l'API Impôt Particulier.
+    Notre équipe d’instruction étudiera votre demande en bac à sable, lorsqu’elle sera validée vous pourrez compléter la suite de votre demande.
+
+    <div class="intro-stepper">
+      <div class="step current">
+        <div class="step-number">1.</div>
+        <div class="step-content">
+          <h3>Le bac à sable</h3>
+          <p class="fr-text--xs">Dans un premier temps, une demande d’habilitation au <strong>bac à sable</strong> de l'API Impôt particulier</p>
+        </div>
+      </div>
+
+      <div class="step pending">
+        <div class="step-number">2.</div>
+        <div class="step-content">
+          <h3>La production</h3>
+          <p class="fr-text--xs">Dans un second temps, une demande d’habilitation à la <strong>production</strong> de l'API Impôt particulier</p>
+        </div>
+      </div>
+
+      <div class="step pending">
+        <div class="step-number">3.</div>
+        <div class="step-content">
+          <h3>Votre service est ouvert !</h3>
+          <p class="fr-text--xs">Une fois vos habilitations validées, vous pouvez ouvrir votre service !</p>
+        </div>
+      </div>
+    </div>
+
   authorization_request: APIImpotParticulierSandbox
   steps: &api_impot_particulier_sandbox_steps
     - name: basic_infos
@@ -13,7 +40,33 @@ api-impot-particulier-sandbox:
 api-impot-particulier:
   description: TODO
   introduction: |
-    Vous avez déjà obtenu l'accès à la sandbox, vous n'avez plus qu'à obtenir l'accès en production via ce formulaire.
+    Votre demande d'accès au bac à sable a été validée, vous pouvez à présent poursuivre votre demande en demandant les accès à la production.
+
+    <div class="intro-stepper">
+      <div class="step completed">
+        <div class="step-number">1.</div>
+        <div class="step-content">
+          <h3>Le bac à sable</h3>
+          <p class="fr-text--xs">Dans un premier temps, une demande d’habilitation au <strong>bac à sable</strong> de l'API Impôt particulier</p>
+        </div>
+      </div>
+
+      <div class="step current">
+        <div class="step-number">2.</div>
+        <div class="step-content">
+          <h3>La production</h3>
+          <p class="fr-text--xs">Dans un second temps, une demande d’habilitation à la <strong>production</strong> de l'API Impôt particulier</p>
+        </div>
+      </div>
+
+      <div class="step pending">
+        <div class="step-number">3.</div>
+        <div class="step-content">
+          <h3>Votre service est ouvert !</h3>
+          <p class="fr-text--xs">Une fois vos habilitations validées, vous pouvez ouvrir votre service !</p>
+        </div>
+      </div>
+    </div>
   authorization_request: APIImpotParticulier
   static_blocks: *api_impot_particulier_sandbox_steps
   steps:

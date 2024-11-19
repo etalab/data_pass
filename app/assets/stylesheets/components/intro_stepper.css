@@ -1,0 +1,74 @@
+.intro-stepper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  margin: 2rem 0;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.step-number {
+  font-size: 1.3rem;
+  font-weight: bold;
+  padding: 0.5rem;
+  padding-left: 0;
+  padding-bottom: 0;
+  margin-bottom: 0.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  justify-content: left;
+}
+
+:root {
+  --stepper-completed-color: #008941;
+  --stepper-current-color: #000091;
+  --stepper-pending-color: #666;
+}
+
+.completed .step-number {
+  color: var(--stepper-completed-color);
+}
+
+.current .step-number {
+  color: var(--stepper-current-color);
+}
+
+.pending .step-number {
+  color: var(--stepper-pending-color);
+}
+
+.completed .step-content {
+  border-color: var(--stepper-completed-color);
+}
+
+.current .step-content, .current h3 {
+  border-color: var(--stepper-current-color);
+  color: var(--stepper-current-color);
+}
+
+.pending .step-content, .pending h3 {
+  border-color: #666;
+  color: #666;
+}
+
+.step-content {
+  width: 100%;
+  border-top: 7px solid black;
+  padding-top: 5px;
+}
+
+.step-content h3 {
+  margin: 0;
+  font-size: 0.9rem;
+  margin-top: -5px;
+}
+
+.step + .step {
+  padding-left: 1rem;
+}
