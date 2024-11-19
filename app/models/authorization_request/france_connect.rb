@@ -13,5 +13,7 @@ class AuthorizationRequest::FranceConnect < AuthorizationRequest
     presence: true, if: -> { need_complete_validation?(:scopes) }
   })
 
+  add_checkbox :alternative_connexion
+
   contact :contact_technique, validation_condition: ->(record) { record.need_complete_validation?(:contacts) }
 end

@@ -642,6 +642,9 @@ fr:
             <p>
             Conformément aux modalités d’utilisation, nous nous réservons le droit de réduire ou couper les appels autorisés au fournisseur de service.
             </p>
+    france_connect:
+      alternative_connexion:
+        label: J’atteste que mon service propose une alternative à la connexion avec FranceConnect, et que cette alternative permet l’accès, dans des conditions analogues, à la même prestation de service public.
     annuaire_des_entreprise:
       steps:
         <<: *authorization_request_forms_default_steps

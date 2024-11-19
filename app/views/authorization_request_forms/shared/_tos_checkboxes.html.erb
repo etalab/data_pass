@@ -1,2 +1,6 @@
 <%= f.cgu_check_box %>
 <%= f.data_protection_officer_informed_check_box %>
+
+<% f.extra_checkboxes.each do |extra_checkbox_name| %>
+  <%= f.term_checkbox extra_checkbox_name %>
+<% end %>

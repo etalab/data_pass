@@ -3,6 +3,7 @@ class AuthorizationRequest < ApplicationRecord
   include AuthorizationCore::Documents
   include AuthorizationCore::Contacts
   include AuthorizationCore::Scopes
+  include AuthorizationCore::Checkboxes
 
   belongs_to :applicant,
     class_name: 'User',
@@ -151,7 +152,7 @@ class AuthorizationRequest < ApplicationRecord
   end
 
   def all_terms_accepted
-    return if terms_of_service_accepted && data_protection_officer_informed
+    return if terms_of_service_accepted && data_protection_officer_informed && all_extra_checkboxes_checked?
 
     errors.add(:base, :all_terms_not_accepted)
   end

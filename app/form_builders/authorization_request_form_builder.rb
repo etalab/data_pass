@@ -60,29 +60,30 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
     )
   end
 
-  def cgu_check_box(opts = {})
-    opts[:required] = true
-    opts[:class] ||= []
-    opts[:class] << 'fr-input-group--error' if all_terms_not_accepted_error?(:terms_of_service_accepted)
-    opts[:label] = cgu_check_box_label
-
-    dsfr_check_box(:terms_of_service_accepted, opts)
-  end
-
-  def data_protection_officer_informed_check_box(opts = {})
-    opts[:required] = true
-    opts[:class] ||= []
-    opts[:class] << 'fr-input-group--error' if all_terms_not_accepted_error?(:data_protection_officer_informed)
-
-    dsfr_check_box(:data_protection_officer_informed, opts)
-  end
-
-  def all_terms_not_accepted_error?(attribute)
-    return false if @object.public_send(attribute).present?
-
-    @object.errors.any? do |error|
-      error.attribute == :base && error.type == :all_terms_not_accepted
+  def cgu_check_box(_opts = {})
+    term_checkbox(:terms_of_service_accepted) do |options|
+      options[:label] = cgu_check_box_label
     end
+  end
+
+  def data_protection_officer_informed_check_box(_opts = {})
+    term_checkbox(:data_protection_officer_informed)
+  end
+
+  def extra_checkboxes
+    @object.extra_checkboxes
+  rescue NoMethodError
+    []
+  end
+
+  def term_checkbox(name, opts = {})
+    opts[:required] = true
+    opts[:class] ||= []
+    opts[:class] << 'fr-input-group--error' if all_terms_not_accepted_error?(name)
+
+    yield(opts) if block_given?
+
+    dsfr_check_box(name, opts)
   end
 
   def dsfr_scope(scope, opts = {})
@@ -176,5 +177,13 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
         required_tag,
       ].join(' ').html_safe
     )
+  end
+
+  def all_terms_not_accepted_error?(attribute)
+    return false if @object.public_send(attribute).present?
+
+    @object.errors.any? do |error|
+      error.attribute == :base && error.type == :all_terms_not_accepted
+    end
   end
 end
