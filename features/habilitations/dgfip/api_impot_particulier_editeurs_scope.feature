@@ -18,6 +18,10 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
     * je renseigne le cadre légal
     * je clique sur "Suivant"
 
+  Scénario: J'ouvre la documentation d'un groupe de scope
+    Et la page contient "documentation"
+    Et la page contient "En cochant la case Avant-dernière année de revenu, si la dernière année de revenu est indisponible"
+
   Scénario: Je soumets une demande d'habilitation sans scopes d'années de revenue cochés.
     * je coche "Situation de famille (marié, pacsé, célibataire, veuf divorcé)"
     * je clique sur "Suivant"
