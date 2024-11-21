@@ -4,6 +4,7 @@ api-particulier:
   description: Pour les utilisateurs expérimentés qui connaissent précisemment l'usage des données et les aspects techniques des APIs
   introduction: |
     Ce formulaire est destiné aux utilisateurs expérimentés qui connaissent précisemment l'usage des données et les aspects techniques des APIs.
+    <br />
     Il permet de formuler une demande libre en précisant les données et les services souhaités.
   authorization_request: APIParticulier
   steps:
@@ -27,11 +28,15 @@ api-particulier-abelium:
   service_provider_id: abelium
   introduction: &api_particulier_introduction_editor_with_editable_scopes |
     Ce formulaire simplifié vous permet d'obtenir une habilitation pour le logiciel %{form_name} de l'éditeur %{service_provider_name}.
+    <br />
     Une partie des informations contractuelles sont fixes et ne peuvent être modifiées.
+    <br />
     Celles-ci vous seront résumées à la fin, et ne nécessitent aucune intervention de votre part.
-
+    <br />
+    <br />
     Assurez-vous d'être en possession de la délibération tarifaire justifiant l'usage de l'API, celle-ci vous sera demandé dans les prochaines étapes.
-
+    <br />
+    <br />
     Votre éditeur %{service_provider_name} propose au sein de son logiciel de traiter des données supplémentaires sur les allocataires. Vous pourrez cocher ces données dans les étapes suivantes. Avant de les sélectionner assurez-vous que votre délibération mentionne bien ces données.
   steps: &api_particulier_editor_steps_with_editable_scopes
     - name: scopes
@@ -83,9 +88,12 @@ api-particulier-arpege-concerto:
   service_provider_id: arpege
   introduction: &api_particulier_introduction_editor_with_fixed_scopes |
     Ce formulaire simplifié vous permet d'obtenir une habilitation pour le logiciel %{form_name} de l'éditeur %{service_provider_name}.
+    <br />
     Une partie des informations contractuelles sont fixes et ne peuvent être modifiées.
+    <br />
     Celles-ci vous seront résumées à la fin, et ne nécessitent aucune intervention de votre part.
-
+    <br />
+    <br />
     Assurez-vous d'être en possession de la délibération tarifaire justifiant l'usage de l'API, celle-ci vous sera demandé dans la prochaine étape.
   steps: &api_particulier_editor_steps_with_fixed_scopes
     - name: legal
@@ -256,9 +264,11 @@ api-particulier-ccas-arche-mc2:
   authorization_request: APIParticulier
   use_case: ccas
   service_provider_id: arche_mc2
-  introduction:
-    &api_particulier_introduction_editor_ccas_with_fixed_scopes Ce formulaire simplifié vous permet d'obtenir une habilitation pour le logiciel %{form_name} de l'éditeur %{service_provider_name}.
+  introduction: &api_particulier_introduction_editor_ccas_with_fixed_scopes |+
+    Ce formulaire simplifié vous permet d'obtenir une habilitation pour le logiciel %{form_name} de l'éditeur %{service_provider_name}.
+    <br />
     Une partie des informations contractuelles sont fixes et ne peuvent être modifiées.
+    <br />
     Celles-ci vous seront résumées à la fin, et ne nécessitent aucune intervention de votre part.
   steps: *api_particulier_editor_steps_with_fixed_scopes
   static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
@@ -1367,7 +1377,8 @@ api-particulier-aides-sociales-ccas:
   use_case: ccas
   introduction: |
     En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier l'attribution d'<strong>"Aides sociales des CCAS"</strong>. <a href="https://particulier.api.gouv.fr/cas_usages/ccas">En savoir plus sur ce cas d'usage</a>.
-
+    <br />
+    <br />
     ⚠️ Ce cas d'usage s'adresse uniquement Centres communaux d’action sociale (CCAS).
   steps:
     - name: basic_infos
@@ -1390,7 +1401,8 @@ api-particulier-aides-sociales-ccas-dont-facultatives:
   use_case: ccas
   introduction: |
     En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier l'attribution d'<strong>"Aides sociales des CCAS dont aides facultatives"</strong>. <a href="https://particulier.api.gouv.fr/cas_usages/ccas">En savoir plus sur ce cas d'usage</a>.
-
+    <br />
+    <br />
     <strong>⚠️ Ce cas d'usage s'adresse uniquement Centres communaux d’action sociale (CCAS).</strong>
   steps:
     - name: basic_infos
@@ -1411,7 +1423,8 @@ api-particulier-tarification-transports:
   use_case: tarification_transports
   introduction: |
     En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier la <strong>"Tarification des transports"</strong>. <a href="https://particulier.api.gouv.fr/cas_usages/tarification_transports">En savoir plus sur ce cas d'usage</a>.
-
+    <br />
+    <br />
     <strong>⚠️ Ce cas d'usage s'adresse uniquement aux autorités organisatrices de la mobilité (AOM).</strong>
   steps:
     - name: basic_infos

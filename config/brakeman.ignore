@@ -70,6 +70,40 @@
       "note": ""
     },
     {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "6eea6349edf46d25cbb506142e0107e750167dcc48ed157a568068cd98768a24",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/authorization_request_forms/new.html.erb",
+      "line": 31,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "AuthorizationRequestForm.find(params[:form_uid]).decorate.introduction",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "AuthorizationRequestFormsController",
+          "method": "new",
+          "line": 16,
+          "file": "app/controllers/authorization_request_forms_controller.rb",
+          "rendered": {
+            "name": "authorization_request_forms/new",
+            "file": "app/views/authorization_request_forms/new.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "authorization_request_forms/new"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
+    },
+    {
       "warning_type": "Command Injection",
       "warning_code": 14,
       "fingerprint": "82e458ff0f1e662fd87446a27900f8ce393735bbe730dc523817af7cf53f3f41",
@@ -99,7 +133,7 @@
       "check_name": "CrossSiteScripting",
       "message": "Unescaped model attribute",
       "file": "app/views/authorization_requests/unauthenticated_start.html.erb",
-      "line": 12,
+      "line": 11,
       "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
       "code": "t(\".sub_title.#{AuthorizationRequestForm.find(params[:form_uid]).decorate.authorization_definition.kind}\", :authorization_definition_name => AuthorizationRequestForm.find(params[:form_uid]).decorate.authorization_definition.name)",
       "render_path": [
@@ -107,7 +141,7 @@
           "type": "controller",
           "class": "AuthorizationRequestFormsController",
           "method": "new",
-          "line": 19,
+          "line": 21,
           "file": "app/controllers/authorization_request_forms_controller.rb",
           "rendered": {
             "name": "authorization_requests/unauthenticated_start",
@@ -150,6 +184,6 @@
       "note": ""
     }
   ],
-  "updated": "2024-09-26 18:18:57 +0200",
-  "brakeman_version": "6.2.1"
+  "updated": "2024-11-19 07:38:19 +0100",
+  "brakeman_version": "6.2.2"
 }

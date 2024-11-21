@@ -28,7 +28,7 @@
       <h5>
         <%= t(".intro.title") %>
       </h5>
-      <%= simple_format(@authorization_request_form.introduction) %>
+      <%= @authorization_request_form.introduction.html_safe %>
     </div>
   <% end %>
 
