@@ -1,1 +1,1 @@
-default: --publish-quiet --tags 'not @pending'
+default: --publish-quiet --tags 'not @pending' --order random
