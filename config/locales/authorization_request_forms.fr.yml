@@ -654,7 +654,7 @@ fr:
         label: Nom de votre équipe / département
         hint: Cette information permettra de créer une équipe via la Régie et ainsi permettre à plusieurs personnes de votre équipe d'utiliser les fonctionnalités protégées de l'espace agent
 
-    api_impot_particulier_editeur:
+    api_impot_particulier_sandbox: &api_impot_particulier_sandbox
       scopes:
         info:
           title: Mode de fonctionnement de l’API Impôt particulier
@@ -665,7 +665,7 @@ fr:
         groups:
           'Années sur lesquelles porte votre demande': |
             Le calendrier de basculement des millésimes est détaillé dans la documentation accessible via la rubrique « Comment choisir les données ? ».
-            </br></br> 
+            </br></br>
              En cochant la case <strong>Avant-dernière année de revenu, si la dernière année de revenu est indisponible</strong>,
             vous optez pour récupérer les informations de l’avant-dernière année, lorsque celles de la dernière année ne sont pas disponibles.
             Cette option n’est pas possible si vous souhaitez des données fournies uniquement par la ressource facture /avis IR.
@@ -688,3 +688,5 @@ fr:
           Les partenaires ayant convenu avec la DGFiP un périmètre de données particulier peuvent rattacher leur expression de besoin listant l’ensemble des données strictement nécessaires à leur cas d’usage.
           Si vous n’avez pas encore contacté la DGFiP, vous pouvez les joindre à l’adresse
           <a href="mailto:dtnum.donnees.demande-acces@dgfip.finances.gouv.fr" target="_blank">dtnum.donnees.demande-acces@dgfip.finances.gouv.fr</a>
+
+    api_impot_particulier_editeur: *api_impot_particulier_sandbox
