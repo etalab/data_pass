@@ -11,7 +11,7 @@
     </p>
 
     <% if f.wording_for("scopes.groups.#{group_name.to_sym}").present? %>
-      <%= render partial: "authorization_request_forms/shared/helper_dgfip", locals: { f:, group_name: } %>
+      <%= render partial: "authorization_request_forms/shared/scopes_group_documentation_accordion", locals: { f:, group_name: } %>
     <% end %>
 
     <div class="scopes-group__grid">
