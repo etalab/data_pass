@@ -1,10 +1,10 @@
 <div class="fr-form-group fr-my-5w" data-controller="toggle-element-display-based-on-checkbox" data-toggle-element-display-based-on-checkbox-hidden-class="fr-hidden">
   <h3 class="fr-mt-0 fr-mb-1w">
-    <%= t('authorization_request_forms.default.scopes.specific_requirements.title') %>
+    <%= f.wording_for('specific_requirements.title') %>
   </h3>
 
   <p>
-    <%= t('authorization_request_forms.api_impot_particulier_editeur.specific_requirements.content').html_safe %>
+    <%= f.wording_for('specific_requirements.content').html_safe %>
   </p>
 
   <%= f.dsfr_check_box :specific_requirements, data: { toggle_element_display_based_on_checkbox_target: "checkbox", action: "click->toggle-element-display-based-on-checkbox#showElement" } %>
