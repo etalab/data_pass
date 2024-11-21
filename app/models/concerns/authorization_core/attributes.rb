@@ -21,6 +21,8 @@ module AuthorizationCore::Attributes
 
           if options[:type] == :array
             override_array_accessor(name)
+          elsif options[:type] == :boolean
+            override_boolean_reader(name)
           else
             override_primitive_write(name)
           end
@@ -53,6 +55,12 @@ module AuthorizationCore::Attributes
           value = (value || []).compact_blank.map(&:strip).uniq
 
           super(value.sort)
+        end
+      end
+
+      def self.override_boolean_reader(name)
+        define_method(name) do
+          %w[1 on].include?(data[name.to_s])
         end
       end
 
