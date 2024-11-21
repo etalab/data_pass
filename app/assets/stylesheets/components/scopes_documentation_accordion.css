@@ -1,0 +1,15 @@
+/* .fr-accordion--scopes-group-documentation { */
+.fr-accordion--scopes-group-documentation .fr-accordion__title,
+.fr-accordion--scopes-group-documentation .fr-collapse,
+.fr-accordion--scopes-group-documentation .fr-accordion__btn[aria-expanded=true] {
+  background-color: var(--background-alt-grey);
+}
+
+.fr-accordion--scopes-group-documentation .fr-collapse {
+  margin-left: 0;
+  width: 100%;
+}
+
+.fr-accordion--scopes-group-documentation .fr-accordion__btn {
+  color: var(--text-label-grey);
+}

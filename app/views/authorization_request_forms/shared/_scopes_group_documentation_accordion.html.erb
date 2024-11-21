@@ -1,0 +1,14 @@
+<section class="fr-accordion fr-accordion--scopes-group-documentation fr-mb-3w">
+  <% id = Base64.urlsafe_encode64(group_name) %>
+
+  <h3 class="fr-accordion__title">
+    <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-<%= id %>">
+      <span class="fr-icon-information-line fr-mr-2v" aria-hidden="true"></span>
+      Documentation
+    </button>
+  </h3>
+
+  <div class="fr-collapse" id="accordion-<%= id %>">
+    <%= f.wording_for(:scopes)[:groups][group_name.to_sym].html_safe %>
+  </div>
+</section>
