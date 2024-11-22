@@ -42,7 +42,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation Démarches du bouquet d
     * je coche "JCC - Déclaration de Changement de Coordonnées"
 
     * je remplis les informations du contact "Administrateur métier" avec :
-      | Nom    | Prénom | Email               | Téléphone   | Fonction de l'administrateur système |
+      | Nom    | Prénom | Email               | Téléphone   | Fonction de l'administrateur métier |
       | Dupont |        | dupont.jean@gouv.fr | 0836656565  | Administrateur métier |
 
     * j'enregistre et continue vers le résumé

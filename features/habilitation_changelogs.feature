@@ -15,4 +15,4 @@ Fonctionnalité: Création de changelog sur les habilitations soumises
     Et que le demandeur soumet la demande
     Et que je me rends sur la dernière demande à instruire
     Et que je clique sur "Historique"
-    Alors la page contient "Le champ Nom de famille de l'administrateur système a changé de \"Dupont Administrateur metier\" en \"Durand\""
+    Alors la page contient "Le champ Nom de famille de l'administrateur métier a changé de \"Dupont Administrateur metier\" en \"Durand\""

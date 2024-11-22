@@ -22,7 +22,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation Démarche Certificats d
   Scénario: Je soumets une demande d'habilitation avec un champ du contact manquant
     Quand je démarre une nouvelle demande d'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
     Et que je remplis les informations du contact "Administrateur métier" avec :
-      | Nom    | Prénom | Email               | Téléphone   | Fonction de l'administrateur système |
+      | Nom    | Prénom | Email               | Téléphone   | Fonction de l'administrateur métier |
       | Dupont |        | dupont.jean@gouv.fr | 0836656565  | Administrateur métier |
 
     Et que j'enregistre et continue vers le résumé
