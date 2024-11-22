@@ -58,11 +58,11 @@ fr:
         specific_requirements_document: Document de l'expression de besoin spécifique
 
 
-        administrateur_metier_family_name: Nom de famille de l'administrateur système
-        administrateur_metier_given_name: Prénom de l'administrateur système
-        administrateur_metier_email: Email de l'administrateur système
-        administrateur_metier_phone_number: Téléphone de l'administrateur système
-        administrateur_metier_job_title: Fonction de l'administrateur système
+        administrateur_metier_family_name: Nom de famille de l'administrateur métier
+        administrateur_metier_given_name: Prénom de l'administrateur métier
+        administrateur_metier_email: Email de l'administrateur métier
+        administrateur_metier_phone_number: Téléphone de l'administrateur métier
+        administrateur_metier_job_title: Fonction de l'administrateur métier
 
         contact_technique_family_name: Nom de famille du contact technique
         contact_technique_given_name: Prénom du contact technique
