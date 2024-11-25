@@ -22,6 +22,8 @@ class Authorization < ApplicationRecord
     inverse_of: :authorization,
     dependent: :destroy
 
+  scope :validated, -> { joins(:request).where(authorization_requests: { state: 'validated' }) }
+
   delegate :name, :kind, to: :request
 
   before_create do

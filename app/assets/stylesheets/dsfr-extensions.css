@@ -1,3 +1,8 @@
+/* small fieldset elements are inline and have the same width */
+.fr-fieldset__element.small {
+  flex-basis: 0px;
+}
+
 /* form inputs readonly */
 .fr-input[readonly] {
   background-color: rgb(0, 0, 0, 0.02);
