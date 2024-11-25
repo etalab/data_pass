@@ -1,7 +1,8 @@
 # Ajout d'un noveau block de formulaire à étapes
 
-Voici un exemple d'ajout de bloc avec le bloc d'homologation de sécurité d'Impôts Particulier : 
+Voici un exemple minimaliste d'ajout de bloc avec le bloc d'homologation de sécurité d'Impôts Particulier :
 - [Le commit](https://github.com/etalab/data_pass/commit/3ec0fd83f26b2485aba198ae48342440010d4bcb)
+**La lecture de ce commit est hautement conseillée !** Ce guide ne suffira probablement pas à lui seul.
 
 On va faire référence à cet exemple dans la suite de cette documentation.
 
