@@ -1,0 +1,13 @@
+formulaire-qf:
+  name: Tarification sociale des services municipaux à l'enfance
+  introduction: |
+    Accéder au quotient familial CAF & MSA pour simplifier la tarification sociale municipale à l'enfance par le biais du "formulaire de collecte du quotient familial" et du portail agent HubEE.
+  authorization_request: FormulaireQF
+  steps:
+    - name: legal
+    - name: personal_data
+    - name: contacts
+  data:
+    cadre_juridique_nature: |+
+      - Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration qui fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.
+    destinataire_donnees_caractere_personnel: Agents de la municipalité
