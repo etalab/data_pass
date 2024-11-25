@@ -69,7 +69,7 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'cucumber-rails', require: false, github: 'tagliala/cucumber-rails', branch: 'feature/589-rails-8'
+  gem 'cucumber-rails', require: false, github: 'cucumber/cucumber-rails'
   gem 'cuprite'
   gem 'database_cleaner-active_record'
   gem 'generator_spec'
