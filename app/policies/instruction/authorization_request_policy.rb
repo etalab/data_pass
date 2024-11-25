@@ -11,6 +11,7 @@ class Instruction::AuthorizationRequestPolicy < ApplicationPolicy
 
   def revoke?
     show? &&
+      instructor_for_record? &&
       record.can_revoke?
   end
 
