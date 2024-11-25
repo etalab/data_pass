@@ -88,7 +88,7 @@ fr:
         delegue_protection_donnees_phone_number: Téléphone du délégué à la protection des données
         delegue_protection_donnees_job_title: Fonction du délégué à la protection des données
 
-        franceconnect:
+        france_connect:
           alternative_connexion: Attestation de connexion alternative à FranceConnect
 
         france_connect_eidas: 'Niveau de garantie :'
