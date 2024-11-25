@@ -264,6 +264,10 @@ Quand('je renseigne le cadre légal') do
   )
 end
 
+Quand('je renseigne la catégorie FranceConnect Eidas') do
+  find('input[value="eidas_2"]').choose
+end
+
 Quand("je renseigne l'homologation de sécurité") do
   steps %(
     * je remplis "Nom de l’autorité d’homologation ou du signataire du questionnaire de sécurité" avec "Josiane Homologation"

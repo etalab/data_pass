@@ -91,6 +91,8 @@ fr:
         franceconnect:
           alternative_connexion: Attestation de connexion alternative à FranceConnect
 
+        france_connect_eidas: 'Niveau de garantie :'
+
       denial_of_authorization:
         reason: Raison du refus
       revocation_of_authorization:
@@ -101,6 +103,12 @@ fr:
         reason: Raison de l'annulation de la réouverture
       authorization_request_transfer:
         to: Email du nouveau demandeur
+
+    values:
+      authorization_request:
+        france_connect_eidas:
+          eidas_1: 'Niveau de garantie eiDAS 1'
+          eidas_2: 'Niveau de garantie eiDAS 2'
 
     errors:
       messages: *active_record_messages_errors

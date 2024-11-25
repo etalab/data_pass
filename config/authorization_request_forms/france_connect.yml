@@ -8,6 +8,7 @@ france-connect:
     - name: basic_infos
     - name: personal_data
     - name: legal
+    - name: france_connect_eidas
     - name: scopes
     - name: contacts
 
@@ -21,6 +22,7 @@ france-connect-collectivite-administration:
     - name: basic_infos
     - name: personal_data
     - name: legal
+    - name: france_connect_eidas
     - name: scopes
     - name: contacts
   data:
@@ -38,6 +40,7 @@ france-connect-collectivite-epermis:
     - name: basic_infos
     - name: personal_data
     - name: legal
+    - name: france_connect_eidas
     - name: scopes
     - name: contacts
   data:
@@ -63,6 +66,7 @@ france-connect-sante:
     - name: basic_infos
     - name: personal_data
     - name: legal
+    - name: france_connect_eidas
     - name: scopes
     - name: contacts
   data:

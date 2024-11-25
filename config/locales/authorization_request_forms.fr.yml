@@ -12,6 +12,7 @@ fr:
         operational_acceptance: "Recette fonctionnelle"
         volumetrie: "La volumétrie"
         finish: "La synthèse"
+        france_connect_eidas: "Niveau de garantie FranceConnect"
 
       terms_of_service_accepted:
         label: J'ai pris connaissance des&nbsp;<a href="%{link}" target="_blank">conditions générales d'utilisation</a>&nbsp;et je les valide.
@@ -169,6 +170,9 @@ fr:
       administrateur_metier_given_name: *contact_given_name
       administrateur_metier_email: *contact_email
       administrateur_metier_phone_number: *contact_phone_number
+
+    france_connect_eidas:
+      title: Le niveau de garantie attendu par votre service
 
     hubee_cert_dc:
       administrateur_metier: &hubee_administrateur_metier

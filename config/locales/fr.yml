@@ -15,6 +15,7 @@ fr:
     safety_certification: "homologation-de-securite"
     operational_acceptance: "recette-fonctionnelle"
     volumetrie: "volumetrie"
+    france_connect_eidas: "niveau-eidas"
 
   authorization:
     badge: habilitation du %{date}

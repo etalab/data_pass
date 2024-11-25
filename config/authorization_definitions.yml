@@ -538,6 +538,7 @@ shared:
       - name: "basic_infos"
       - name: "personal_data"
       - name: "legal"
+      - name: "france_connect_eidas"
       - name: "scopes"
       - name: "contacts"
     scopes:

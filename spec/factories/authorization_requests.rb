@@ -202,6 +202,12 @@ FactoryBot.define do
       end
     end
 
+    trait :with_france_connect_eidas do
+      after(:build) do |authorization_request, evaluator|
+        authorization_request.france_connect_eidas ||= 'eidas_1' if authorization_request.need_complete_validation? || evaluator.fill_all_attributes
+      end
+    end
+
     trait :with_scopes do
       after(:build) do |authorization_request, evaluator|
         if authorization_request.need_complete_validation? || evaluator.fill_all_attributes
@@ -455,6 +461,7 @@ FactoryBot.define do
       with_basic_infos
       with_personal_data
       with_cadre_juridique
+      with_france_connect_eidas
       with_scopes
     end
 

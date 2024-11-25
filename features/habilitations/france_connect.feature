@@ -18,6 +18,9 @@ Fonctionnalité: Soumission d'une demande d'habilitation France Connect
     * je renseigne le cadre légal
     * je clique sur "Suivant"
 
+    * je renseigne la catégorie FranceConnect Eidas
+    * je clique sur "Suivant"
+
     * je coche "Nom de naissance"
     * je clique sur "Suivant"
 
