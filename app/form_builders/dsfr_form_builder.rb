@@ -83,7 +83,9 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
         @template.safe_join(
           [
             radio_button(attribute, value, **opts),
-            label([attribute, value].join('_').to_sym, value: label_value(attribute))
+            label([attribute, value].join('_').to_sym) do
+              I18n.t("activerecord.values.#{@object.class.model_name.i18n_key}.#{attribute}.#{value}")
+            end
           ]
         )
       end
