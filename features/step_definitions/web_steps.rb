@@ -87,7 +87,11 @@ Quand('je clique sur {string} dans la rangée {string}') do |link, row|
 end
 
 Quand('je sélectionne {string} pour {string}') do |option, name|
-  select option, from: name
+  if javascript?
+    select(option, from: name).trigger('click')
+  else
+    select option, from: name
+  end
 end
 
 Quand('je choisis {string}') do |option|

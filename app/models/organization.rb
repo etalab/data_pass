@@ -73,4 +73,8 @@ class Organization < ApplicationRecord
 
     Arel::Nodes::InfixOperation.new('->>', unite_legale_node, Arel::Nodes.build_quoted('denominationUniteLegale'))
   end
+
+  def valid_authorizations_of(klass)
+    authorizations.validated.where(authorization_request_class: klass.to_s)
+  end
 end
