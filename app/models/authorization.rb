@@ -28,17 +28,19 @@ class Authorization < ApplicationRecord
     self[:authorization_request_class] ||= request.type
   end
 
+  # rubocop:disable Metrics/AbcSize
   def request_as_validated
     request_as_validated = authorization_request_class.constantize.new(request.dup.attributes.except('type'))
 
     request_as_validated.id = request.id
     request_as_validated.data = data
-    request_as_validated.state = 'validated'
+    request_as_validated.state = revoked? ? 'revoked' : 'validated'
     request_as_validated.created_at = created_at
     affect_snapshot_documents(request_as_validated)
 
     request_as_validated
   end
+  # rubocop:enable Metrics/AbcSize
 
   def latest?
     request.latest_authorization == self

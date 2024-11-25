@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_13_093824) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_25_105131) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_catalog.plpgsql"
@@ -130,6 +130,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_13_093824) do
     t.datetime "updated_at", null: false
     t.string "slug"
     t.string "authorization_request_class", null: false
+    t.boolean "revoked", default: false
     t.index ["applicant_id"], name: "index_authorizations_on_applicant_id"
     t.index ["request_id"], name: "index_authorizations_on_request_id"
     t.index ["slug", "request_id"], name: "index_authorizations_on_slug_and_request_id", unique: true

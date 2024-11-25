@@ -22,6 +22,16 @@ RSpec.describe Authorization do
       it { expect(request_as_validated).to be_a(AuthorizationRequest::APIImpotParticulierSandbox) }
     end
 
+    context 'when revoked is true' do
+      before do
+        authorization.update!(revoked: true)
+      end
+
+      it 'has a revoked state' do
+        expect(request_as_validated.state).to eq('revoked')
+      end
+    end
+
     context 'when request has been reopened, with some data changed and a document updated' do
       before do
         organizer = ReopenAuthorization.call(authorization:, user: authorization.applicant)

@@ -46,6 +46,7 @@ class Seeds
     send_message_to_applicant(authorization_request, body: 'Bonjour, non il s\'agit uniquement des aides pour les entreprises.')
 
     create_refused_authorization_request(:api_entreprise, attributes: { intitule: 'Statistiques sur les effectifs', applicant: demandeur })
+    create_revoked_authorization_request(:api_entreprise, attributes: { intitule: 'Loi énérgie', applicant: demandeur })
     create_reopened_authorization_request(:api_entreprise_mgdis, attributes: { applicant: demandeur })
 
     authorization_request = create_submitted_authorization_request(:api_entreprise, attributes: { intitule: 'Place des entreprises', applicant: another_demandeur })
@@ -178,6 +179,14 @@ class Seeds
     authorization_request = create_submitted_authorization_request(kind, attributes:)
 
     ApproveAuthorizationRequest.call(authorization_request:, user: api_entreprise_instructor).perform
+
+    authorization_request
+  end
+
+  def create_revoked_authorization_request(kind, attributes: {})
+    authorization_request = create_validated_authorization_request(kind, attributes:)
+
+    RevokeAuthorizationRequest.call(authorization_request:, user: api_entreprise_instructor, revocation_of_authorization_params: { reason: 'Le cadre légal est maintenant caduque' }).perform
 
     authorization_request
   end
