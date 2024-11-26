@@ -12,7 +12,7 @@ fr:
         operational_acceptance: "Recette fonctionnelle"
         volumetrie: "La volumétrie"
         finish: "La synthèse"
-        france_connect_eidas: "Niveau de garantie FranceConnect"
+        france_connect_eidas: "Niveau de garantie"
 
       terms_of_service_accepted:
         label: J'ai pris connaissance des&nbsp;<a href="%{link}" target="_blank">conditions générales d'utilisation</a>&nbsp;et je les valide.
@@ -170,9 +170,6 @@ fr:
       administrateur_metier_given_name: *contact_given_name
       administrateur_metier_email: *contact_email
       administrateur_metier_phone_number: *contact_phone_number
-
-    france_connect_eidas:
-      title: Le niveau de garantie attendu par votre service
 
     hubee_cert_dc:
       administrateur_metier: &hubee_administrateur_metier
@@ -647,6 +644,9 @@ fr:
             Conformément aux modalités d’utilisation, nous nous réservons le droit de réduire ou couper les appels autorisés au fournisseur de service.
             </p>
     france_connect:
+      france_connect_eidas:
+        title: Quel niveau de garantie souhaitez-vous ?
+        subtitle: Les niveaux de garantie eIDAS permettent d'apporter une garantie sur l'identité qui est fournie au fournisseur de service.
       alternative_connexion:
         label: J’atteste que mon service propose une alternative à la connexion avec FranceConnect, et que cette alternative permet l’accès, dans des conditions analogues, à la même prestation de service public.
     annuaire_des_entreprise:

@@ -51,6 +51,13 @@ fr:
     contacts:
       responsable_traitement: Responsable de traitement
       delegue_protection_donnees: Délégué à la protection des données
+    france_connect_eidas:
+      eidas_1_description: |
+          Le niveau recommandé si vous n'avez pas d'exigence particulière sur le niveau eIDAS
+      eidas_2_description: |+
+          Le niveau de garantie plus élevé. Vous trouverez plus d'informations sur <a href="https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?uri=CELEX:32015R1502&from=FR" target="_blank">le site de la réglementation eIDAS</a><br/>
+          Si vous êtes un acteur de sécurité privé, une facturation pourra être appliquée par certains fournisseurs d'identité.
+
   authorization_request_event:
     changelog_entry: 'Le champ <u>%{attribute}</u> a changé de "%{old_value}" en "%{new_value}"'
     changelog_entry_new_scope: "Le périmètre de données <u>%{value}</u> a été ajouté."

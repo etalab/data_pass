@@ -1,3 +1,10 @@
 <div class="fr-fieldset__element">
-  <%= f.dsfr_radio_buttons(:france_connect_eidas, ['eidas_1', 'eidas_2']) %>
+  <%= f.dsfr_radio_option(:france_connect_eidas, 'eidas_1') do %>
+    <legend class="fr-text-lg"><%= I18n.t("activerecord.values.authorization_request.france_connect_eidas.eidas_1") %></legend>
+    <small class="fr-text-grey fr-text--sm"><%= I18n.t('authorization_request.france_connect_eidas.eidas_1_description') %></small>
+  <% end %>
+  <%= f.dsfr_radio_option(:france_connect_eidas, 'eidas_2') do %>
+    <legend class="fr-text-lg"><%= I18n.t("activerecord.values.authorization_request.france_connect_eidas.eidas_2") %></legend>
+    <small class="fr-text-grey fr-text--sm"><%= I18n.t('authorization_request.france_connect_eidas.eidas_2_description').html_safe %></small>
+  <% end %>
 </div>
