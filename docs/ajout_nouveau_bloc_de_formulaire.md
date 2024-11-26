@@ -1,10 +1,11 @@
 # Ajout d'un noveau block de formulaire à étapes
 
-Voici un exemple minimaliste d'ajout de bloc avec le bloc d'homologation de sécurité d'Impôts Particulier :
-- [Le commit](https://github.com/etalab/data_pass/commit/3ec0fd83f26b2485aba198ae48342440010d4bcb)
-**La lecture de ce commit est hautement conseillée !** Ce guide ne suffira probablement pas à lui seul.
+Voici deux exemples minimalistes d'ajout de bloc:
+- [Bloc homologation de securité sur API Impôts Particulier](https://github.com/etalab/data_pass/commit/3ec0fd83f26b2485aba198ae48342440010d4bcb)
+- [Bloc Eidas sur FranceConnect](https://github.com/etalab/data_pass/commit/95e6c46dfabdd3f11daa7e2fa5aed2db172dab96)
+**La lecture de ces commits est hautement conseillée !** Ce guide ne suffira probablement pas à lui seul.
 
-On va faire référence à cet exemple dans la suite de cette documentation.
+On va faire référence au premier exemple dans la suite de cette documentation.
 
 ## Pour commencer avec la config du modèle
 
