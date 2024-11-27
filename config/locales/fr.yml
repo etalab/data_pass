@@ -241,7 +241,7 @@ fr:
         options:
           - label: Avec FranceConnect
             value: with_france_connect
-          - label: Via le numéro Fiscal (SPI)
+          - label: Via le numéro fiscal (SPI)
             value: with_spi
           - label: Via l'état civil
             value: with_etat_civil

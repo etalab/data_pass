@@ -1,1 +1,45 @@
-<!-- No need to implement it yet -->
+<% if @authorization_request.display_prefilled_banner_for_each_block? && @authorization_request.prefilled_data?(%i[modalities france_connect_authorization_id]) %>
+  <%= render partial: "authorization_request_forms/shared/prefilled_banner" %>
+<% end %>
+
+<%= f.info_for(:modalities) %>
+
+<div data-controller="choose-modalite-impot-particulier">
+  <div class="fr-col-lg-9 fr-mb-5w">
+
+  <%= 
+    f.dsfr_radio_buttons :modalities, 
+      @authorization_request.available_modalities, 
+      radio_group_class: "fr-radio-rich", 
+      fieldset_element_class: "small",
+      input_options: { "data-action": "click->choose-modalite-impot-particulier#trigger" }
+  %>
+
+  <div class="fr-col-lg-9 fr-mb-5w <%= 'fr-hidden' if @authorization_request.modalities != 'with_france_connect' %>" data-choose-modalite-impot-particulier-target="franceConnectSelectorContainer">
+    <% france_connect_authorizations = current_organization.valid_authorizations_of(AuthorizationRequest::FranceConnect) %>
+
+    <% if france_connect_authorizations.empty? %>
+      <div class="fr-callout red-callout">
+        <h3 class="fr-callout__title">
+          <%= t("authorization_requests.new.modalite.callout.title") %>
+        </h3>
+        <p class="fr-callout__text fr-my-3w">
+          <%= t("authorization_requests.new.modalite.callout.content") %>
+        </p>
+        <%= link_to  t("authorization_requests.new.modalite.callout.link"), new_authorization_request_form_path("france-connect"), class: "fr-link fr-btn--icon-right fr-icon-arrow-right-line" %>
+      </div>
+
+    <% else %>
+      <div class="fr-select-group">
+        <label class="fr-h4 fr-label" for="france_connect_authorization_id">
+          <%= t("authorization_requests.new.france_connect_authorization_selection.title") %>
+        </label>
+        <select class="fr-select" id="france_connect_authorization_id" name="france_connect_authorization_id" data-choose-modalite-impot-particulier-target="franceConnectSelector" data-action="click->choose-modalite-impot-particulier#showNextStageIfHabilitationSelected">
+          <% options = france_connect_authorizations.map{ |authorization| ["Habilitation du #{authorization.slug} - #{authorization.data["intitule"]}", authorization.id] } %>
+          <% options = [["Sélectionner une option", nil, hidden: true]] + options %>
+          <%= options_for_select options, selected: options.first[1] %>
+        </select>
+      </div>
+    <% end %>
+  </div>
+</div>

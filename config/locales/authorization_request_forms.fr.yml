@@ -112,6 +112,10 @@ fr:
           description: Vous pouvez choisir d'indiquer une URL ou d'ajouter un fichier
         cadre_juridique_url: Veuillez nous indiquer l'url du texte relatif au traitement des données personnelles
 
+      modalities:
+        title: Comment vos usagers accèderont aux données ?
+        subtitle: Cette API est FranceConnectée, vos utilisateurs peuvent donc utiliser FranceConnect pour vous transmettre directement les données dont vous avez besoin
+
       scopes:
         title: Quelles sont les données dont vous avez besoin ?
         subtitle: Soyez raisonnable, ne demandez l’accès à une donnée que si elle est vraiment utile pour votre projet.
@@ -659,6 +663,16 @@ fr:
         hint: Cette information permettra de créer une équipe via la Régie et ainsi permettre à plusieurs personnes de votre équipe d'utiliser les fonctionnalités protégées de l'espace agent
 
     api_impot_particulier_sandbox: &api_impot_particulier_sandbox
+      modalities:
+        label: ""
+        values:
+          with_france_connect:
+            label: Avec FranceConnect
+          with_spi:
+            label: Via le numéro fiscal (SPI)
+          with_etat_civil:
+            label: Via l'état civil
+
       scopes:
         info:
           title: Mode de fonctionnement de l’API Impôt particulier
