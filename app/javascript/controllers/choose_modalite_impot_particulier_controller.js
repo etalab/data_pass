@@ -10,7 +10,7 @@ export default class extends Controller {
       this.show(this.franceConnectSelectorContainerTarget)
 
       if (!this.hasFranceConnectSelectorTarget || !this.franceConnectSelectorTarget.value) {
-        this.hide(this.nextStageTarget)
+        this.hideNextStage()
       }
     } else {
       this.hide(this.franceConnectSelectorContainerTarget)
@@ -33,7 +33,15 @@ export default class extends Controller {
   }
 
   showNextStage () {
-    this.show(this.nextStageTarget)
+    if (this.hasNextStageTarget) {
+      this.show(this.nextStageTarget)
+    }
+  }
+
+  hideNextStage () {
+    if (this.hasNextStageTarget) {
+      this.hide(this.nextStageTarget)
+    }
   }
 
   show (element) {
