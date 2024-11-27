@@ -77,13 +77,13 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
     end
   end
 
-  def dsfr_radio_option(attribute, value, opts = {})
+  def dsfr_radio_option(attribute, value, opts = {}, &label)
     @template.content_tag(:div, class: 'fr-fieldset__element') do
       @template.content_tag(:div, class: 'fr-radio-group') do
         @template.safe_join(
           [
             radio_button(attribute, value, **opts),
-            label([attribute, value].join('_').to_sym, value: label_value(attribute))
+            label([attribute, value].join('_').to_sym) { yield(label) }
           ]
         )
       end
