@@ -664,7 +664,7 @@ fr:
 
     api_impot_particulier_sandbox: &api_impot_particulier_sandbox
       modalities:
-        label: ""
+        label: Modalité d'accès aux données
         values:
           with_france_connect:
             label: Avec FranceConnect
@@ -672,6 +672,8 @@ fr:
             label: Via le numéro fiscal (SPI)
           with_etat_civil:
             label: Via l'état civil
+      france_connect_authorization_id:
+        label: Sélectionnez une habilitation FranceConnect qui sera liée à cette demande
 
       scopes:
         info:

@@ -72,7 +72,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
     @template.content_tag(:fieldset, class: 'fr-fieldset') do
       @template.safe_join(
         [
-          label(attribute) ? nil : label_content,
+          label_content,
           choices.map { |choice| dsfr_radio_option(attribute, choice, opts) }
         ].compact
       )
@@ -96,8 +96,8 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
     @template.content_tag(:div, class: 'fr-select-group') do
       @template.safe_join(
         [
-          label_with_hint(attribute, opts),
-          dsfr_select_tag(attribute, choices, opts),
+          label_with_hint(attribute, opts.except(:input_options)),
+          dsfr_select_tag(attribute, choices, opts.merge(opts[:input_options])),
           error_message(attribute)
         ]
       )

@@ -9,13 +9,20 @@ export default class extends Controller {
     if (selectedOption === 'with_france_connect') {
       this.show(this.franceConnectSelectorContainerTarget)
 
+      if (this.hasFranceConnectSelectorTarget) {
+        this.franceConnectSelectorTarget.value = Array.from(this.franceConnectSelectorTarget.options).filter(option => option.value)[0].value
+        this.franceConnectSelectorTarget.required = "required"
+      }
+
       if (!this.hasFranceConnectSelectorTarget || !this.franceConnectSelectorTarget.value) {
         this.hideNextStage()
       }
     } else {
       this.hide(this.franceConnectSelectorContainerTarget)
+
       if (this.hasFranceConnectSelectorTarget) {
         this.franceConnectSelectorTarget.value = ''
+        this.franceConnectSelectorTarget.required = ""
       }
       this.showNextStage()
     }

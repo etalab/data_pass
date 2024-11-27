@@ -5,15 +5,16 @@
 <%= f.info_for(:modalities) %>
 
 <div data-controller="choose-modalite-impot-particulier">
-
-  <%= 
-    f.dsfr_radio_buttons :modalities, 
-      @authorization_request.available_modalities, 
-      required: true,
-      radio_group_class: "fr-radio-rich", 
-      fieldset_element_class: "small",
-      input_options: { "data-action": "click->choose-modalite-impot-particulier#trigger" }
-  %>
+  <div class="fr-col-lg-9">
+    <%= 
+      f.dsfr_radio_buttons :modalities, 
+        @authorization_request.available_modalities, 
+        required: true,
+        radio_group_class: "fr-radio-rich", 
+        fieldset_element_class: "small",
+        input_options: { "data-action": "click->choose-modalite-impot-particulier#trigger" }
+    %>
+  </div>
 
   <div class="fr-col-lg-9 fr-mb-5w <%= 'fr-hidden' if @authorization_request.modalities != 'with_france_connect' %>" data-choose-modalite-impot-particulier-target="franceConnectSelectorContainer">
     <% france_connect_authorizations = current_organization.valid_authorizations_of(AuthorizationRequest::FranceConnect) %>
@@ -30,16 +31,9 @@
       </div>
 
     <% else %>
-      <div class="fr-select-group">
-        <label class="fr-h4 fr-label" for="france_connect_authorization_id">
-          <%= t("authorization_requests.new.france_connect_authorization_selection.title") %>
-        </label>
-        <select class="fr-select" id="france_connect_authorization_id" name="france_connect_authorization_id" data-choose-modalite-impot-particulier-target="franceConnectSelector" data-action="click->choose-modalite-impot-particulier#showNextStageIfHabilitationSelected">
-          <% options = france_connect_authorizations.map{ |authorization| ["Habilitation du #{authorization.slug} - #{authorization.data["intitule"]}", authorization.id] } %>
-          <% options = [["Sélectionner une option", nil, hidden: true]] + options %>
-          <%= options_for_select options, selected: options.first[1] %>
-        </select>
-      </div>
+      <% options = france_connect_authorizations.map{ |authorization| ["Habilitation du #{authorization.slug} - #{authorization.data["intitule"]}", authorization.id] } %>
+      <% selected_option = @authorization_request.france_connect_authorization_id || france_connect_authorizations.first.id %>
+      <%= f.dsfr_select :france_connect_authorization_id, options_for_select(options, selected_option), class: %w[fr-select], include_blank: "Sélectionner une option", required: true, input_options: { "data-choose-modalite-impot-particulier-target": "franceConnectSelector" } %>
     <% end %>
   </div>
 </div>
