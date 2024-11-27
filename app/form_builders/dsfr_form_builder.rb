@@ -49,9 +49,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
         @template.safe_join(
           [
             check_box(attribute, class: input_classes(opts), disabled: check_box_disabled, **enhance_input_options(opts).except(:class)),
-            @template.content_tag(:label, class: 'fr-label', for: "#{object_name}_#{attribute}") do
-              @template.safe_join([opts[:label] || label_with_hint(attribute, opts)])
-            end
+            @template.safe_join([opts[:label] || label_with_hint(attribute, opts)])
           ]
         )
       end
@@ -135,12 +133,15 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
 
   def label_with_hint(attribute, opts = {})
     label(attribute, class: 'fr-label') do
-      label_value = [label_value(attribute)]
-      label_value.push(required_tag) if opts[:required]
+      label_text_container = @template.content_tag(:span) do
+        label_value = [label_value(attribute)]
+        label_value.push(required_tag) if opts[:required]
+        @template.safe_join(label_value)
+      end
 
       @template.safe_join(
         [
-          label_value,
+          label_text_container,
           hint(attribute)
         ]
       )
