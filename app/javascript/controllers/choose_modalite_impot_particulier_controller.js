@@ -11,7 +11,7 @@ export default class extends Controller {
 
       if (this.hasFranceConnectSelectorTarget) {
         this.franceConnectSelectorTarget.value = Array.from(this.franceConnectSelectorTarget.options).filter(option => option.value)[0].value
-        this.franceConnectSelectorTarget.required = "required"
+        this.franceConnectSelectorTarget.required = 'required'
       }
 
       if (!this.hasFranceConnectSelectorTarget || !this.franceConnectSelectorTarget.value) {
@@ -22,7 +22,7 @@ export default class extends Controller {
 
       if (this.hasFranceConnectSelectorTarget) {
         this.franceConnectSelectorTarget.value = ''
-        this.franceConnectSelectorTarget.required = ""
+        this.franceConnectSelectorTarget.required = ''
       }
       this.showNextStage()
     }
