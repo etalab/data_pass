@@ -579,7 +579,7 @@ shared:
     link: "https://quotient-familial.numerique.gouv.fr/"
     cgu_link: "https://quotient-familial.numerique.gouv.fr/cgu_administrations"
     access_link: "https://quotient-familial.numerique.gouv.fr/"
-    public: true
+    public: false
     blocks:
       - name: "legal"
       - name: "contacts"
