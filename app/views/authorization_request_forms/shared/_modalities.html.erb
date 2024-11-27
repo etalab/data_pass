@@ -31,7 +31,7 @@
       </div>
 
     <% else %>
-      <% options = france_connect_authorizations.map{ |authorization| ["Habilitation du #{authorization.slug} - #{authorization.data["intitule"]}", authorization.id] } %>
+      <% options = france_connect_authorizations.map{ |authorization| [authorization.full_name, authorization.id] } %>
       <% selected_option = @authorization_request.france_connect_authorization_id || france_connect_authorizations.first.id %>
       <%= f.dsfr_select :france_connect_authorization_id, options_for_select(options, selected_option), class: %w[fr-select], include_blank: "Sélectionner une option", required: true, input_options: { "data-choose-modalite-impot-particulier-target": "franceConnectSelector" } %>
     <% end %>

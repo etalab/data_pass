@@ -56,7 +56,7 @@
           <%= t("authorization_requests.new.france_connect_authorization_selection.title") %>
         </label>
         <select class="fr-select" id="france_connect_authorization_id" name="france_connect_authorization_id" data-choose-modalite-impot-particulier-target="franceConnectSelector" data-action="click->choose-modalite-impot-particulier#showNextStageIfHabilitationSelected">
-          <% options = france_connect_authorizations.map{ |authorization| ["Habilitation du #{authorization.slug} - #{authorization.data["intitule"]}", authorization.id] } %>
+          <% options = france_connect_authorizations.map{ |authorization| [authorization.full_name, authorization.id] } %>
           <% options = [["Sélectionner une option", nil, hidden: true]] + options %>
           <%= options_for_select options, selected: options.first[1] %>
         </select>

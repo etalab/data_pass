@@ -12,4 +12,9 @@ module AuthorizationExtensions::Modalities
   rescue NameError
     raise "Must declare a constant MODALITIES in the model #{self.class}, for example %w[with_france_connect with_spi]"
   end
+
+  def associated_france_connect_authorization
+    return nil if france_connect_authorization_id.blank?
+    Authorization.find(france_connect_authorization_id)
+  end
 end

@@ -56,6 +56,10 @@ class Authorization < ApplicationRecord
     request
   end
 
+  def full_name
+    "Habilitation du #{slug} : #{name}"
+  end
+
   private
 
   def affect_snapshot_documents(request_as_validated)
