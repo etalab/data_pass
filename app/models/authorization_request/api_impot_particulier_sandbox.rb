@@ -3,6 +3,9 @@ class AuthorizationRequest::APIImpotParticulierSandbox < AuthorizationRequest
   include AuthorizationExtensions::PersonalData
   include AuthorizationExtensions::CadreJuridique
   include AuthorizationExtensions::GDPRContacts
+  include AuthorizationExtensions::Modalities
+
+  MODALITIES = %i[with_france_connect with_spi with_etat_civil].freeze
 
   add_document :maquette_projet, content_type: ['application/pdf'], size: { less_than: 10.megabytes }
 
@@ -14,7 +17,4 @@ class AuthorizationRequest::APIImpotParticulierSandbox < AuthorizationRequest
 
   contact :contact_technique, validation_condition: ->(record) { record.need_complete_validation?(:contacts) }
 
-  add_attributes :modalities
-  add_attributes :france_connect_authorization_id
-  validates :modalities, presence: true, if: -> { need_complete_validation(:modalities) }
 end

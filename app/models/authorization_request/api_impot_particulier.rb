@@ -6,6 +6,9 @@ class AuthorizationRequest::APIImpotParticulier < AuthorizationRequest
   include AuthorizationExtensions::OperationalAcceptance
   include AuthorizationExtensions::SafetyCertification
   include AuthorizationExtensions::Volumetrie
+  include AuthorizationExtensions::Modalities
+
+  MODALITIES = %i[with_france_connect with_spi with_etat_civil].freeze
 
   VOLUMETRIES = {
     '50 appels / minute': 50,
@@ -53,10 +56,6 @@ class AuthorizationRequest::APIImpotParticulier < AuthorizationRequest
   })
 
   contact :contact_technique, validation_condition: ->(record) { record.need_complete_validation?(:contacts) }
-
-  add_attributes :modalities
-  add_attributes :france_connect_authorization_id
-  validates :modalities, presence: true, if: -> { need_complete_validation(:modalities) }
 
   private
 
