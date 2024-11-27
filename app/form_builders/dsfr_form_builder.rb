@@ -68,7 +68,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
       label_with_hint(attribute, opts.except(:input_options)),
       class: 'fr-fieldset__legend--regular fr-fieldset__legend'
     )
-    
+
     @template.content_tag(:fieldset, class: 'fr-fieldset') do
       @template.safe_join(
         [
@@ -84,7 +84,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
       @template.content_tag(:div, class: "fr-radio-group #{opts[:radio_group_class]}") do
         @template.safe_join(
           [
-            radio_button(attribute, value,**opts.merge(opts[:input_options])),
+            radio_button(attribute, value, **opts, **opts[:input_options]),
             label ? label([attribute, value].join('_').to_sym) { yield(label) } : label([attribute, value].join('_').to_sym, label_value("#{attribute}.values.#{value}"))
           ]
         )

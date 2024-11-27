@@ -16,5 +16,4 @@ class AuthorizationRequest::APIImpotParticulierSandbox < AuthorizationRequest
   })
 
   contact :contact_technique, validation_condition: ->(record) { record.need_complete_validation?(:contacts) }
-
 end

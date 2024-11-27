@@ -15,6 +15,7 @@ module AuthorizationExtensions::Modalities
 
   def associated_france_connect_authorization
     return nil if france_connect_authorization_id.blank?
+
     Authorization.find(france_connect_authorization_id)
   end
 end
