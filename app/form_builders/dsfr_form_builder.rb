@@ -97,7 +97,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
       @template.safe_join(
         [
           label_with_hint(attribute, opts.except(:input_options)),
-          dsfr_select_tag(attribute, choices, opts.merge(opts[:input_options])),
+          dsfr_select_tag(attribute, choices, opts.merge(opts[:input_options] || {})),
           error_message(attribute)
         ]
       )
