@@ -9,6 +9,7 @@
   <%= 
     f.dsfr_radio_buttons :modalities, 
       @authorization_request.available_modalities, 
+      required: true,
       radio_group_class: "fr-radio-rich", 
       fieldset_element_class: "small",
       input_options: { "data-action": "click->choose-modalite-impot-particulier#trigger" }
