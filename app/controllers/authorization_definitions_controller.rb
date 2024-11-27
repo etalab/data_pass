@@ -3,7 +3,7 @@ class AuthorizationDefinitionsController < AuthenticatedUserController
 
   def index
     @authorization_definitions = if registered_subdomain?
-                                   registered_subdomain.authorization_definitions
+                                   registered_subdomain.authorization_definitions.select(&:public)
                                  else
                                    AuthorizationDefinition.indexable
                                  end
