@@ -5,6 +5,7 @@ module AuthorizationExtensions::Modalities
     add_attributes :modalities
     add_attributes :france_connect_authorization_id
     validates :modalities, presence: true, if: -> { need_complete_validation?(:modalities) }
+    validates :france_connect_authorization_id, presence: true, if: -> { modalities == 'with_france_connect' && need_complete_validation?(:modalities) }
   end
 
   def available_modalities
