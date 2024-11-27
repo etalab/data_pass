@@ -54,6 +54,10 @@ class AuthorizationRequest::APIImpotParticulier < AuthorizationRequest
 
   contact :contact_technique, validation_condition: ->(record) { record.need_complete_validation?(:contacts) }
 
+  add_attributes :modalities
+  add_attributes :france_connect_authorization_id
+  validates :modalities, presence: true, if: -> { need_complete_validation(:modalities) }
+
   private
 
   def at_least_one_revenue_year_has_been_selected

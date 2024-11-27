@@ -34,6 +34,7 @@ api-impot-particulier-sandbox:
     - name: basic_infos
     - name: personal_data
     - name: legal
+    - name: modalities
     - name: scopes
     - name: contacts
 
@@ -84,6 +85,7 @@ api-impot-particulier-editeur:
     - name: basic_infos
     - name: personal_data
     - name: legal
+    - name: modalities
     - name: scopes
     - name: contacts
     - name: operational_acceptance
