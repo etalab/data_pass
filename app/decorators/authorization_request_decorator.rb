@@ -75,8 +75,8 @@ class AuthorizationRequestDecorator < ApplicationDecorator
       prefilled_scopes?(keys)
   end
 
-  def truncated_name(length)
-    object.name.truncate(length)
+  def card_name
+    base_card_name.truncate(50)
   end
 
   def card_provider_applicant_details(user)
@@ -125,4 +125,16 @@ class AuthorizationRequestDecorator < ApplicationDecorator
     object.form.data.blank? ||
       object.form.data == { scopes: [] }
   end
+
+  # rubocop:disable Metrics/AbcSize
+  def base_card_name
+    if object.data['intitule'].present?
+      object.data['intitule']
+    elsif object.form.name.present?
+      object.form.name
+    else
+      object.definition.name
+    end
+  end
+  # rubocop:enable Metrics/AbcSize
 end
