@@ -42,3 +42,4 @@ Capybara.server = :puma, { Silent: true }
 Capybara.server_host = '0.0.0.0'
 Capybara.always_include_port = true
 Capybara.app_host = "http://#{ENV.fetch('APP_HOST', `hostname`.strip&.downcase || '0.0.0.0')}" if remote_chrome
+Capybara.default_max_wait_time = 5

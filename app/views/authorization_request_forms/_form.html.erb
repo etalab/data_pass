@@ -17,6 +17,8 @@
   <% end %>
 
   <%= yield %>
+
+  <%= render partial: "authorization_request_forms/shared/hidden_params", locals: { f: f } %>
 </div>
 
 <% if content_for? :sticky_bar %>

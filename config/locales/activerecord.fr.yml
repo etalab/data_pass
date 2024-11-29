@@ -53,6 +53,10 @@ fr:
         volumetrie_appels_par_minute: La limitation de débit
         volumetrie_justification: La justification de la limitation de débit
 
+        modalities: La modalité d'accès aux données
+        france_connect_authorization_id: L'habilitation FranceConnect
+
+
         scopes: Les données
         specific_requirements: Expression de besoin spécifique
         specific_requirements_document: Document de l'expression de besoin spécifique
@@ -118,6 +122,8 @@ fr:
               blank: "ne sont pas cochées : il faut au moins qu'une des données soit sélectionnée."
             safety_certification_begin_date:
               comparison: doit être supérieure à la date de début
+            france_connect_authorization_id:
+              inclusion: n'est pas incluse dans la liste des habilitations validées de votre organization
   ransack:
     attributes:
       authorization_request:

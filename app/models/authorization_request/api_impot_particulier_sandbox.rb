@@ -3,8 +3,8 @@ class AuthorizationRequest::APIImpotParticulierSandbox < AuthorizationRequest
   include AuthorizationExtensions::PersonalData
   include AuthorizationExtensions::CadreJuridique
   include AuthorizationExtensions::GDPRContacts
-
   include DGFIPExtensions::APIImpotParticulierScopes
+  include DGFIPExtensions::APIImpotParticulierModalities
 
   add_document :maquette_projet, content_type: ['application/pdf'], size: { less_than: 10.megabytes }
 

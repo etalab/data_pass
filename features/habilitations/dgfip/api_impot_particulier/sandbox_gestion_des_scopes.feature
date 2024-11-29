@@ -16,6 +16,9 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
     * je renseigne le cadre légal
     * je clique sur "Suivant"
 
+    * je choisis "Via le numéro fiscal (SPI)"
+    * je clique sur "Suivant"
+
   @javascript
   Scénario: Je soumets une demande d'habilitation sans scopes mais je joins un fichier d'expression de besoin spécifique.
     * je coche "Oui, j’ai une expression de besoin spécifique"

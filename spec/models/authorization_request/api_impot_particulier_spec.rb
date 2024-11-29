@@ -5,21 +5,27 @@ RSpec.describe AuthorizationRequest::APIImpotParticulier, type: :model do
       :api_impot_particulier_production_avec_editeur,
       fill_all_attributes: true,
       skip_scopes_build: true,
+      modalities:,
+      france_connect_authorization_id:,
       scopes:,
       specific_requirements:,
       volumetrie_appels_par_minute:,
       volumetrie_justification:,
       safety_certification_begin_date:,
-      safety_certification_end_date:
+      safety_certification_end_date:,
+      organization:
     )
   end
 
+  let(:modalities) { nil }
+  let(:france_connect_authorization_id) { nil }
   let(:scopes) { [] }
   let(:specific_requirements) { nil }
   let(:volumetrie_appels_par_minute) { nil }
   let(:volumetrie_justification) { nil }
   let(:safety_certification_begin_date) { nil }
   let(:safety_certification_end_date) { nil }
+  let(:organization) { nil }
 
   describe 'volumetrie validation' do
     before { authorization_request.current_build_step = 'volumetrie' }
@@ -64,6 +70,67 @@ RSpec.describe AuthorizationRequest::APIImpotParticulier, type: :model do
       let(:safety_certification_end_date) { Date.yesterday }
 
       it { is_expected.not_to be_valid }
+    end
+  end
+
+  describe 'modalities validation' do
+    before { authorization_request.current_build_step = 'modalities' }
+
+    context 'with no value' do
+      before { authorization_request.modalities = nil }
+
+      it { is_expected.not_to be_valid }
+    end
+
+    context 'with bad value' do
+      let(:modalities) { 'bad_value' }
+
+      it { is_expected.not_to be_valid }
+    end
+
+    context 'with good value' do
+      let(:modalities) { 'with_spi' }
+
+      it { is_expected.to be_valid }
+    end
+
+    context 'with france connect' do
+      let(:modalities) { 'with_france_connect' }
+
+      context 'without any france connect authorization id' do
+        let(:france_connect_authorization_id) { nil }
+
+        it { is_expected.not_to be_valid }
+      end
+
+      context 'with an invalid france connect authorization id' do
+        let(:france_connect_authorization_id) { 0 }
+
+        it { is_expected.not_to be_valid }
+      end
+
+      context 'with a france connect authorization id from another organization' do
+        let(:validated_france_connect_authorization_request) { create(:authorization_request, :france_connect, :validated) }
+        let(:france_connect_authorization_id) { validated_france_connect_authorization_request.authorizations.first.id.to_s }
+
+        it { is_expected.not_to be_valid }
+      end
+
+      context 'with a revoked france connect authorization id from the same organization' do
+        let(:validated_france_connect_authorization_request) { create(:authorization_request, :france_connect, :revoked) }
+        let(:organization) { validated_france_connect_authorization_request.organization }
+        let(:france_connect_authorization_id) { validated_france_connect_authorization_request.authorizations.first.id.to_s }
+
+        it { is_expected.not_to be_valid }
+      end
+
+      context 'with a validated france connect authorization id from the same organization' do
+        let(:validated_france_connect_authorization_request) { create(:authorization_request, :france_connect, :validated) }
+        let(:organization) { validated_france_connect_authorization_request.organization }
+        let(:france_connect_authorization_id) { validated_france_connect_authorization_request.authorizations.first.id.to_s }
+
+        it { is_expected.to be_valid }
+      end
     end
   end
 
