@@ -528,7 +528,7 @@ shared:
 
   france_connect:
     name: France Connect
-    description: "Formulaires France Connect"
+    description: "Identifier les utilisateurs de votre site internet et accéder à certaines données d'identité certifiées."
     provider: "dinum"
     kind: 'service'
     link: "https://franceconnect.gouv.fr/"

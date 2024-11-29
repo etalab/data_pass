@@ -2,7 +2,7 @@ france-connect:
   name: Demande libre
   description: Demande libre
   introduction: |
-    Ceci est une introduction à remplir
+    Ce formulaire est destiné aux administrations, collectivités et entreprises (sous réserve d'éligibilité) souhaitant intégrer FranceConnect à leur service en ligne.
   authorization_request: FranceConnect
   steps:
     - name: basic_infos
@@ -16,7 +16,7 @@ france-connect-collectivite-administration:
   name: Demande de collectivité / administration
   description: Demande pour une collectivité ou une administration
   introduction: |
-    Ceci est une introduction à remplir
+    Ce formulaire est destiné aux administrations et collectivités souhaitant implementer le bouton FranceConnect pour permettre à leurs utilisateurs de s’identifier sur leurs services en ligne.
   authorization_request: FranceConnect
   steps:
     - name: basic_infos
@@ -60,7 +60,7 @@ france-connect-sante:
   name: Demande d'un service numérique en santé
   description: Demande d’un service numérique dans le domaine de la santé
   introduction: |
-    Ceci est une introduction à remplir
+       Ce formulaire est destiné aux organisations souhaitant implementer le bouton FranceConnect pour permettre à leurs utilisateurs de s’identifier dans le cas d'un service numérique en santé. Le cadre juridique associé à ce cas précis sera ainsi cité.
   authorization_request: FranceConnect
   steps:
     - name: basic_infos
