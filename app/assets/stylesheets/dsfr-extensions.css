@@ -180,3 +180,9 @@ fr-badge--grey {
   --active: var(--background-contrast-warning-active);
   color: var(--text-default-warning);
 }
+
+/* Nous on a des steppers à 9 étapes, OK ? Par ce qu'on a des formulaires VRAIMENT. TRES. SIMPLES. */
+.fr-stepper__steps[data-fr-steps="9"] {
+  --steps: 9;
+  --step-width: calc(100% / 9);
+}
