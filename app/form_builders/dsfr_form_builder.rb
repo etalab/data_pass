@@ -63,39 +63,51 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def dsfr_radio_buttons(attribute, choices, opts = {})
+    label_content = @template.content_tag(
+      :legend,
+      label_with_hint(attribute, opts.except(:input_options)),
+      class: 'fr-fieldset__legend--regular fr-fieldset__legend'
+    )
+
     @template.content_tag(:fieldset, class: 'fr-fieldset') do
       @template.safe_join(
         [
-          @template.content_tag(
-            :legend,
-            @object.class.human_attribute_name(attribute).concat(hint(attribute)).html_safe,
-            class: 'fr-fieldset__legend--regular fr-fieldset__legend'
-          ),
+          label_content,
           choices.map { |choice| dsfr_radio_option(attribute, choice, opts) }
-        ]
+        ].compact
       )
     end
   end
 
-  def dsfr_radio_option(attribute, value, opts = {}, &label)
-    @template.content_tag(:div, class: 'fr-fieldset__element') do
-      @template.content_tag(:div, class: 'fr-radio-group') do
+  def dsfr_radio_option(attribute, value, opts = { input_options: {} }, &label_block)
+    @template.content_tag(:div, class: "fr-fieldset__element #{opts[:fieldset_element_class]}") do
+      @template.content_tag(:div, class: "fr-radio-group #{opts[:radio_group_class]}") do
         @template.safe_join(
           [
-            radio_button(attribute, value, **opts),
-            label([attribute, value].join('_').to_sym) { yield(label) }
+            radio_button(attribute, value, **opts, **(opts[:input_options] || {})),
+            dsfr_radio_label(attribute, value, &label_block)
           ]
         )
       end
     end
   end
 
-  def dsfr_select(attribute, choices, opts = {})
+  def dsfr_radio_label(attribute, value, &label_block)
+    full_attribute = [attribute, value].join('_').to_sym
+
+    if block_given?
+      label(full_attribute) { yield(label_block) }
+    else
+      label(full_attribute, label_value("#{attribute}.values.#{value}"))
+    end
+  end
+
+  def dsfr_select(attribute, choices, opts = { input_options: {} })
     @template.content_tag(:div, class: 'fr-select-group') do
       @template.safe_join(
         [
-          label_with_hint(attribute, opts),
-          dsfr_select_tag(attribute, choices, opts),
+          label_with_hint(attribute, opts.except(:input_options)),
+          dsfr_select_tag(attribute, choices, **opts, **(opts[:input_options] || {})),
           error_message(attribute)
         ]
       )
