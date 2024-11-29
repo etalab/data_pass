@@ -45,7 +45,7 @@ RSpec.describe AuthorizationRequestDecorator, type: :decorator do
       end
 
       context 'when form has no prefilled scopes (non-regression test)' do
-        let(:authorization_request_form) { :api_impot_particulier_editeur }
+        let(:authorization_request_form) { :api_impot_particulier_production_avec_editeur }
 
         context 'when keys include scopes' do
           let(:keys) { %w[invalid scopes] }

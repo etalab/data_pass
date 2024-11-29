@@ -397,7 +397,7 @@ FactoryBot.define do
         skip_scopes_build { false }
       end
 
-      form_uid { 'api-impot-particulier' }
+      form_uid { 'api-impot-particulier-production' }
 
       after(:build) do |authorization_request, evaluator|
         authorization_request.scopes << 'dgfip_annee_n_moins_1' if !evaluator.skip_scopes_build && authorization_request.scopes.empty?
@@ -411,10 +411,14 @@ FactoryBot.define do
       with_volumetrie
     end
 
-    trait :api_impot_particulier_editeur do
+    trait :api_impot_particulier_production do
+      api_impot_particulier
+    end
+
+    trait :api_impot_particulier_production_avec_editeur do
       api_impot_particulier
 
-      form_uid { 'api-impot-particulier-editeur' }
+      form_uid { 'api-impot-particulier-production-avec-editeur' }
     end
 
     trait :api_pro_sante_connect do
