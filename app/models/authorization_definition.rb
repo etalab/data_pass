@@ -27,13 +27,6 @@ class AuthorizationDefinition < StaticApplicationRecord
     }.map(&:service_provider).uniq(&:id).sort_by(&:name)
   end
 
-  def self.indexable
-    where(
-      public: true,
-      startable_by_applicant: true,
-    )
-  end
-
   def self.build(uid, hash)
     new(
       hash.slice(

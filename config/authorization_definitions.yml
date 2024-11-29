@@ -570,3 +570,16 @@ shared:
         value: "openid"
         group: "Données techniques"
         included: true
+
+  formulaire_qf:
+    name: Formulaire d'accès au Quotient Familial
+    description: "Accéder au quotient familial CAF & MSA pour simplifier la tarification sociale municipale à l'enfance par le biais du \"formulaire de collecte du quotient familial\" et du portail agent HubEE."
+    provider: "dinum"
+    kind: 'service'
+    link: "https://quotient-familial.numerique.gouv.fr/"
+    cgu_link: "https://quotient-familial.numerique.gouv.fr/cgu_administrations"
+    access_link: "https://quotient-familial.numerique.gouv.fr/"
+    public: false
+    blocks:
+      - name: "legal"
+      - name: "contacts"

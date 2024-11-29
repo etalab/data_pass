@@ -482,5 +482,14 @@ FactoryBot.define do
 
       france_connect
     end
+
+    trait :formulaire_qf do
+      type { 'AuthorizationRequest::FormulaireQF' }
+
+      form_uid { 'formulaire-qf' }
+
+      with_cadre_juridique
+      with_personal_data
+    end
   end
 end

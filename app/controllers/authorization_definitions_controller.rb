@@ -2,11 +2,7 @@ class AuthorizationDefinitionsController < AuthenticatedUserController
   include SubdomainsHelper
 
   def index
-    @authorization_definitions = if registered_subdomain?
-                                   registered_subdomain.authorization_definitions
-                                 else
-                                   AuthorizationDefinition.indexable
-                                 end
+    @authorization_definitions = policy_scope(AuthorizationDefinition)
 
     return unless @authorization_definitions.count == 1
 

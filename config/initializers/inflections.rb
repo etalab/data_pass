@@ -19,6 +19,7 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.acronym 'INSEE'
   inflect.acronym 'NAF'
   inflect.acronym 'CRM'
+  inflect.acronym 'QF'
 
   inflect.acronym 'HubEE'
   inflect.acronym 'DC'

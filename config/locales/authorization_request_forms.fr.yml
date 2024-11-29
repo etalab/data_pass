@@ -694,3 +694,6 @@ fr:
           <a href="mailto:dtnum.donnees.demande-acces@dgfip.finances.gouv.fr" target="_blank">dtnum.donnees.demande-acces@dgfip.finances.gouv.fr</a>
 
     api_impot_particulier_editeur: *api_impot_particulier_sandbox
+
+    formulaire_qf:
+      legal: *api_particulier_editor_common_wordings

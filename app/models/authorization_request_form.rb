@@ -109,13 +109,6 @@ class AuthorizationRequestForm < StaticApplicationRecord
     @scopes_config || {}
   end
 
-  def self.indexable
-    where(
-      public: true,
-      startable_by_applicant: true,
-    )
-  end
-
   def multiple_steps?
     steps.any?
   end

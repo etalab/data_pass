@@ -12,6 +12,7 @@ shared:
     tagline: "Habilitations juridiques pour API Particulier"
     authorization_definition_ids:
       - "api_particulier"
+      - "formulaire_qf"
   hubee:
     name: "HubEE"
     title: "DataPass - HubEE"
