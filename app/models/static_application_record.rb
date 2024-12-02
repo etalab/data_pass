@@ -2,6 +2,8 @@ class StaticApplicationRecord
   include ActiveModel::Model
   include Draper::Decoratable
 
+  class EntryNotFound < StandardError; end
+
   def self.inherited(base)
     base.extend ClassMethods
 
@@ -34,7 +36,7 @@ class StaticApplicationRecord
     end
 
     def find(id)
-      all.find { |entry| entry.id == id } || fail(ActiveRecord::RecordNotFound, "Couldn't find #{name} with 'id'=#{id}")
+      all.find { |entry| entry.id == id } || fail(EntryNotFound, "Couldn't find #{name} with 'id'=#{id} within static entries")
     end
 
     def values_includes_entry_attribute?(entry, attr, values)
