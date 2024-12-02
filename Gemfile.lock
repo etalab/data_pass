@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/cucumber/cucumber-rails.git
-  revision: fafcc23c191460e7271e138b9244e8a493448702
+  revision: 7077deb4c8efd0eb5daad29186f353531fce423e
   specs:
-    cucumber-rails (3.0.1)
+    cucumber-rails (3.1.0)
       capybara (>= 3.11, < 4)
       cucumber (>= 5, < 10)
       railties (>= 5.2, < 9)
@@ -467,7 +467,7 @@ GEM
     redis-client (0.22.2)
       connection_pool
     regexp_parser (2.9.3)
-    reline (0.5.11)
+    reline (0.5.12)
       io-console (~> 0.5)
     request_store (1.5.1)
       rack (>= 1.4)
