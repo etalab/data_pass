@@ -131,7 +131,7 @@ FactoryBot.define do
     end
 
     trait :revoked do
-      submitted
+      validated
 
       state { 'revoked' }
       fill_all_attributes { true }
