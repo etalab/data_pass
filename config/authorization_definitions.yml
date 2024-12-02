@@ -339,7 +339,7 @@ shared:
       type: production
       previouses:
         - id: api_impot_particulier_sandbox
-          form_id: api-impot-particulier
+          form_id: api-impot-particulier-production
     blocks:
       - name: basic_infos
       - name: personal_data
@@ -481,7 +481,7 @@ shared:
       type: sandbox
       next:
         id: api_impot_particulier
-        form_id: api-impot-particulier
+        form_id: api-impot-particulier-production
     blocks:
       - name: basic_infos
       - name: personal_data

@@ -27,7 +27,7 @@ On va faire référence au premier exemple dans la suite de cette documentation.
 
 Il faut mettre à jour la factory du formulaire pour que ses tests restent valides :
 - Ajouter la factory `with_safety_certification` dans `spec/factories/authorization_requests.rb`
-- L'inclure dans la factory du form qui l'utilise (ici c'est `api_impot_particulier_editeur`)
+- L'inclure dans la factory du form qui l'utilise (ici c'est `api_impot_particulier_production_avec_editeur`)
 
 Il reste plus qu'à ajouter le test e2e, que l'on peut voir pour notre exemple dans [ce commit](https://github.com/etalab/data_pass/commit/fe4c8e9e4770a001d6d71f0cf6861f6fc9e6dd90) :
 - Faire la step `Quand("Je renseigne l'homologation de sécurité")`

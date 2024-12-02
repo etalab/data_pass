@@ -18,7 +18,7 @@ class AuthorizationDefinition::Stage
   def next_stage_form
     return nil if next_stage_definition.blank?
 
-    next_stage_definition.available_forms.find { |form| form.id == next_stage[:form_id] } || raise(ActiveRecord::RecordNotFound, "Couln't find form with id #{stage[:next][:form_id]}")
+    next_stage_definition.available_forms.find { |form| form.id == next_stage[:form_id] } || raise(ActiveRecord::RecordNotFound, "Couln't find form with id #{next_stage[:form_id]}")
   end
 
   def next_stage

@@ -37,7 +37,7 @@ api-impot-particulier-sandbox:
     - name: scopes
     - name: contacts
 
-api-impot-particulier:
+api-impot-particulier-production:
   description: TODO
   introduction: |
     Votre demande d'accès au bac à sable a été validée, vous pouvez à présent poursuivre votre demande en demandant les accès à la production.
@@ -74,7 +74,7 @@ api-impot-particulier:
     - name: safety_certification
     - name: volumetrie
 
-api-impot-particulier-editeur:
+api-impot-particulier-production-avec-editeur:
   name: API Impôt Particulier avec éditeur
   description: TODO
   introduction: |
