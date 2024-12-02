@@ -3,7 +3,7 @@ module SubdomainsHelper
 
   def registered_subdomain
     Subdomain.find(app_subdomain)
-  rescue ActiveRecord::RecordNotFound
+  rescue StaticApplicationRecord::EntryNotFound
     nil
   end
 
