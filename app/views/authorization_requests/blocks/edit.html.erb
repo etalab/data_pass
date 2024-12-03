@@ -1,5 +1,5 @@
 <%= authorization_request_form(@authorization_request, url: authorization_request_block_path([@authorization_request, block_id]), form_options: { data: { action: 'modified-form#submit form-dirtied->modified-form#update form-cleaned->modified-form#update', controller: 'modified-form' } }) do |f| %>
-  <%= render partial: "authorization_request_forms/shared/#{block_id}", locals: { f: } %>
+  <%= render partial: "authorization_request_forms/blocks/default/#{block_id}", locals: { f: } %>
 
   <% content_for :sticky_bar do %>
     <div class="fr-container fr-grid-row">

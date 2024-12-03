@@ -14,7 +14,7 @@
 
 
   <% @authorization_request.editable_blocks.each do |block| %>
-    <%= render partial: "authorization_requests/shared/blocks/#{block[:name]}", locals: { f: f, editable: true } %>
+    <%= render_custom_block_or_default(@authorization_request, block[:name], f:, editable: true) %>
   <% end %>
 
   <% if @authorization_request.static_blocks.any? %>
@@ -28,7 +28,7 @@
     </div>
 
     <% @authorization_request.static_blocks.each do |block| %>
-      <%= render partial: "authorization_requests/shared/blocks/#{block[:name]}", locals: { f: f, editable: false } %>
+      <%= render_custom_block_or_default(@authorization_request, block[:name], f:, editable: false) %>
     <% end %>
   <% end %>
 <% end %>

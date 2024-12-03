@@ -1,9 +1,9 @@
 RSpec.describe 'Authorizations config files' do
   def block_exists?(kind, name)
     if kind == 'edit'
-      base_path = 'app/views/authorization_request_forms/shared'
+      base_path = 'app/views/authorization_request_forms/blocks/default'
     elsif kind == 'show'
-      base_path = 'app/views/authorization_requests/shared/blocks/'
+      base_path = 'app/views/authorization_requests/blocks/default'
     else
       raise "Unknown kind: #{kind}"
     end

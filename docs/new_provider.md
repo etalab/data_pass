@@ -320,12 +320,14 @@ Pour API Entreprise => `api_entreprise.html.erb`
 ### 4.1 Cas du multi étapes
 
 Il faut s'assurer que pour chaque étape défini dans le fichier en 1. une vue
-existe dans le dossier [`app/views/authorization_request_forms/shared/`](../app/views/authorization_request_forms/shared/).
+existe dans le dossier [`app/views/authorization_request_forms/build/`](../app/views/authorization_request_forms/build/).
 
 Si ce n'est pas le cas il faut ajouter, pour une étape ayant pour nom
-`mon_etape`, le fichier `_mon_etape.html.erb`. Inspirez-vous des fichiers
-existants. Vous pouvez utiliser les méthodes de formulaire en `dsfr_` pour
+`mon_etape`, le fichier `mon_etape.html.erb`. Inspirez-vous des fichiers
+existants[^1]. Vous pouvez utiliser les méthodes de formulaire en `dsfr_` pour
 simplifier la génération des formulaires.
+
+[^1]: il est désormais possible de surcharger le rendu d'un block (de formulaire comme de résumé) en créant un partial sous un dossier nommé avec l'identifiant de la définition (par exemple: le block de "contacts" est surchargé pour les demandes "api_impot_particulier"). Quand cela n'est pas nécessaire le partial sous `default` est alors rendu. cf les méthodes `render_custom_form_or_default` et `render_custom_block_or_default`.
 
 ### 4.2 Cas du formulaire sur une page
 
