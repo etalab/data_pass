@@ -3,9 +3,19 @@
     <%= t("authorization_request.badge", id: authorization_request.id) %>
   </span>
 
-  <% if authorization_request.definition.stage.exists? %>
-    <% if authorization_request.latest_authorization %>
-      <%= authorization_request_stage_badge(authorization_request.latest_authorization.request_as_validated) %>
+  <div class="flex-wrap flew-grow flex-end__content fr-grid-row--top fr-col--xs">
+    <% if authorization_request.definition.stage.exists? %>
+      <% if authorization_request.latest_authorization %>
+        <%= authorization_request_stage_badge(authorization_request.latest_authorization.request_as_validated) %>
+      <% else %>
+        <%= authorization_request_stage_badge(authorization_request) %>
+      <% end %>
+    <% end %>
+
+    <% if authorization_request.already_been_validated? %>
+      <span class="fr-badge fr-badge--success fr-ml-2v">
+        <%= t("authorization_request.status.validated") %>
+      </span>
     <% else %>
       <%= authorization_request_stage_badge(authorization_request) %>
     <% end %>
