@@ -2,11 +2,19 @@
   <div class="footer__content flex-space-between__content flex-wrap flex-grow">
     <div class="fr-mb-3v">
       <p class="footer__title fr-text-title--blue-france fr-text--md font-weight-700 fr-m-0">
-        <%= t('.next_stage_title') %>
+        <% if authorization_request.stage_already_started? %>
+          <%= t('.next_stage_title_production') %>
+        <% else %>
+          <%= t('.next_stage_title') %>
+        <% end %>
       </p>
 
       <p class="fr-text--sm fr-mb-0">
+        <% if authorization_request.stage_already_started? %>
+          <%= t('.next_stage_subtitle_production') %>
+        <% else %>
         <%= t('.next_stage_subtitle') %>
+        <% end %>
       </p>
     </div>
 
@@ -22,7 +30,8 @@
     <% if policy(authorization_request).start_next_stage? %>
       <%= link_to t('.start_next_stage_cta'), next_authorization_request_stage_path(authorization_request), class: %w(fr-btn) %>
     <% else %>
-      <%= link_to t('.continue_next_stage_cta'), authorization_request_path(authorization_request), class: %w(fr-btn) %>
+      <%= link_to t('.show_cta'), authorization_request_path(authorization_request), class: %w(fr-btn) %>
     <% end %>
   </div>
+
 </div>

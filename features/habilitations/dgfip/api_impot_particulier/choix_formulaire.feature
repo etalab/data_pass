@@ -11,13 +11,13 @@ Fonctionnalité: Choix de la modalité d'appel et du stage du formulaire API Imp
   Scénario: J'ai déjà un éditeur qui a accès au bac à sable
     Et que je choisis "Via l'état civil"
     Et que je choisis "Oui mon éditeur a déjà accès au bac à sable"
-    Et que je clique sur "Démarrer ma demande d'habilitation en production"
+    Et que je clique sur "Démarrer ma demande d’habilitation en production"
     Alors la page contient "API Impôt Particulier avec éditeur"
-  
+
   Scénario: Je n'ai pas encore accès au bac à sable
     Et que je choisis "Via l'état civil"
     Et que je choisis "Non, nous n'avons pas encore accès au bac à sable"
-    Et que je clique sur "Démarrer ma demande d'habilitation en bac à sable"
+    Et que je clique sur "Démarrer ma demande d’habilitation en bac à sable"
     Alors la page contient "Le bac à sable"
 
   Scénario: Je veux accéder à l'API via FranceConnect alors que je n'ai pas d'habilitation FranceConnect
@@ -32,5 +32,5 @@ Fonctionnalité: Choix de la modalité d'appel et du stage du formulaire API Imp
     Et que je choisis "Avec FranceConnect"
     Et que je sélectionne "Habilitation du " pour "Sélectionnez une habilitation FranceConnect"
     Et que je choisis "Oui mon éditeur a déjà accès au bac à sable"
-    Et que je clique sur "Démarrer ma demande d'habilitation en production"
+    Et que je clique sur "Démarrer ma demande d’habilitation en production"
     Alors la page contient "API Impôt Particulier avec éditeur"
