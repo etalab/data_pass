@@ -25,10 +25,15 @@ class ApplicationMailer < ActionMailer::Base
 
   def build_host_from_authorization_request(authorization_request)
     subdomain = Subdomain.find_for_authorization_request(authorization_request)
-    @host = build_host_from_env(subdomain)
+
+    @host = if subdomain
+              build_host_from_env_and_subdomain(subdomain)
+            else
+              build_host_from_env
+            end
   end
 
-  def build_host_from_env(subdomain)
+  def build_host_from_env_and_subdomain(subdomain)
     case Rails.env
     when 'production'
       "https://#{subdomain.id}.v2.datapass.api.gouv.fr"
@@ -36,6 +41,15 @@ class ApplicationMailer < ActionMailer::Base
       'http://localhost:3000'
     else
       "https://#{Rails.env}.#{subdomain.id}.v2.datapass.api.gouv.fr"
+    end
+  end
+
+  def build_host_from_env
+    case Rails.env
+    when 'production'
+      'https://v2.datapass.api.gouv.fr'
+    else
+      "https://#{Rails.env}.v2.datapass.api.gouv.fr"
     end
   end
 end
