@@ -28,9 +28,9 @@
 
   <div class="footer__actions fr-grid-row fr-grid-row--right fr-grid-row--middle flex-grow">
     <% if policy(authorization_request).start_next_stage? %>
-      <%= link_to t('.start_next_stage_cta'), next_authorization_request_stage_path(authorization_request), class: %w(fr-btn) %>
+      <%= link_to t('.start_next_stage_cta'), next_authorization_request_stage_path(authorization_request), class: %w(fr-btn fr-btn--sm) %>
     <% else %>
-      <%= link_to t('.show_cta'), authorization_request_path(authorization_request), class: %w(fr-btn) %>
+      <%= link_to t('.show_cta'), authorization_request_path(authorization_request), class: %w(fr-btn fr-btn--sm) %>
     <% end %>
   </div>
 
