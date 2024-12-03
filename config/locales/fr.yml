@@ -170,8 +170,9 @@ fr:
         next_stage_title: Votre demande d’accès au bac à sable a été validée !
         next_stage_subtitle: Vous pouvez poursuivre votre demande afin d’accéder à la production.
         start_next_stage_cta: Démarrer ma demande d'habilitation en production
-        continue_next_stage_cta: Continuer ma demande d'habilitation en production
-
+        next_stage_title_production: Votre demande d'habilitation pour le passage en production a bien été soumise
+        next_stage_subtitle_production: Vous serez notifiés lorsque votre demande aura été instruite.
+        next_stage_cta_production: Consulter
       authorization_request_card_small:
         show_cta: Consulter
 
