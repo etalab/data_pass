@@ -1,5 +1,5 @@
-<div class="footer fr-p-3w fr-background-alt--grey fr-grid-row flex-space-between__content">
-  <div class="footer__content flex-space-between__content flex-wrap flex-grow">
+<div class="footer fr-p-3w fr-background-alt--grey flex-space-between__content fr-grid-row--middle">
+  <div class="footer__content">
     <div class="fr-mb-3v">
       <p class="footer__title fr-text-title--blue-france fr-text--md font-weight-700 fr-m-0">
         <% if authorization_request.stage_already_started? %>
@@ -13,25 +13,26 @@
         <% if authorization_request.stage_already_started? %>
           <%= t('.next_stage_subtitle_production') %>
         <% else %>
-        <%= t('.next_stage_subtitle') %>
+          <%= t('.next_stage_subtitle') %>
         <% end %>
       </p>
     </div>
+  </div>
 
+  <div class="footer__badge_action">
     <% if authorization_request.stage_already_started? %>
-      <div class="fr-grid-row fr-grid-row--middle fr-grid-row--right fr-mb-3v flex-grow">
-        <%= authorization_request_stage_badge(authorization_request, css_class: "fr-mr-1w") %>
-        <%= authorization_request_status_badge(authorization_request) %>
+      <div class="fr-mb-3v flex-wrap flew-grow fr-grid-row--top flex-end__content">
+        <%= authorization_request_stage_badge(authorization_request) %>
+        <span class="fr-ml-2v"><%= authorization_request_status_badge(authorization_request) %></span>
       </div>
     <% end %>
-  </div>
 
-  <div class="footer__actions fr-grid-row fr-grid-row--right fr-grid-row--middle flex-grow">
-    <% if policy(authorization_request).start_next_stage? %>
-      <%= link_to t('.start_next_stage_cta'), next_authorization_request_stage_path(authorization_request), class: %w(fr-btn) %>
-    <% else %>
-      <%= link_to t('.show_cta'), authorization_request_path(authorization_request), class: %w(fr-btn) %>
-    <% end %>
+    <div class="footer__actions flex-wrap flew-grow fr-grid-row--top flex-end__content">
+      <% if policy(authorization_request).start_next_stage? %>
+        <%= link_to t('.start_next_stage_cta'), next_authorization_request_stage_path(authorization_request), class: %w(fr-btn fr-btn--sm) %>
+      <% else %>
+        <%= link_to t('.show_cta'), authorization_request_path(authorization_request), class: %w(fr-btn fr-btn--sm) %>
+      <% end %>
+    </div>
   </div>
-
 </div>
