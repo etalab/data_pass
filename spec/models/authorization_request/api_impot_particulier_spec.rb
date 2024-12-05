@@ -130,6 +130,17 @@ RSpec.describe AuthorizationRequest::APIImpotParticulier, type: :model do
         let(:france_connect_authorization_id) { validated_france_connect_authorization_request.authorizations.first.id.to_s }
 
         it { is_expected.to be_valid }
+
+        describe 'when switched to spi and saved' do
+          before do
+            authorization_request.modalities = 'with_spi'
+            authorization_request.save
+          end
+
+          it 'removes the france_connect_authorization_id' do
+            expect(authorization_request.france_connect_authorization_id).to be_nil
+          end
+        end
       end
     end
   end

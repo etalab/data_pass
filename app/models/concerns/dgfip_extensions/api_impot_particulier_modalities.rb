@@ -11,12 +11,22 @@ module DGFIPExtensions::APIImpotParticulierModalities
     validates :france_connect_authorization_id,
       presence: true,
       inclusion: { in: ->(authorization_request) { authorization_request.organization.valid_authorizations_of(AuthorizationRequest::FranceConnect).pluck(:id).map(&:to_s) } },
-      if: -> { modalities == 'with_france_connect' && need_complete_validation?(:modalities) }
+      if: -> { with_france_connect? && need_complete_validation?(:modalities) }
+
+    before_save :remove_france_connect_authorization_if_not_with_france_connect
   end
 
   def associated_france_connect_authorization
     return nil if france_connect_authorization_id.blank?
 
     Authorization.find(france_connect_authorization_id)
+  end
+
+  def with_france_connect?
+    modalities == 'with_france_connect'
+  end
+
+  def remove_france_connect_authorization_if_not_with_france_connect
+    self.france_connect_authorization_id = nil unless with_france_connect?
   end
 end
