@@ -344,6 +344,7 @@ shared:
       - name: basic_infos
       - name: personal_data
       - name: legal
+      - name: modalities
       - name: scopes
       - name: contacts
       - name: operational_acceptance
@@ -486,6 +487,7 @@ shared:
       - name: basic_infos
       - name: personal_data
       - name: legal
+      - name: modalities
       - name: scopes
       - name: contacts
     scopes: *api_impot_particulier_scopes

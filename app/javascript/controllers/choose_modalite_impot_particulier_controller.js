@@ -1,39 +1,61 @@
 import { Controller } from '@hotwired/stimulus'
 
 export default class extends Controller {
-  static targets = ['franceConnectSelector', 'franceConnectSelectorContainer', 'nextStage', 'links']
+  static targets = ['modality', 'franceConnectSelector', 'franceConnectContainer', 'nextStage', 'links']
 
-  trigger (event) {
-    const selectedOption = event.target.value
+  trigger () {
+    const modalityValue = this.modalityTargets.find(modality => modality.checked).value
 
-    if (selectedOption === 'with_france_connect') {
-      this.show(this.franceConnectSelectorContainerTarget)
-
-      if (!this.hasFranceConnectSelectorTarget || !this.franceConnectSelectorTarget.value) {
-        this.hide(this.nextStageTarget)
-      }
+    if (modalityValue === 'with_france_connect') {
+      this.show(this.franceConnectContainerTarget)
+      this.showNextStageIfHabilitationSelected()
     } else {
-      this.hide(this.franceConnectSelectorContainerTarget)
-      if (this.hasFranceConnectSelectorTarget) {
-        this.franceConnectSelectorTarget.value = ''
-      }
+      this.hide(this.franceConnectContainerTarget)
+      this.emptyFranceConnectSelector()
       this.showNextStage()
     }
 
-    this.updateLinks({ modalite: selectedOption })
+    this.addToLinks({ 'attributes[modalities]': modalityValue })
   }
 
-  showNextStageIfHabilitationSelected (event) {
-    const franceConnectAuthorizationId = event.target.value
-
-    if (franceConnectAuthorizationId) {
-      this.updateLinks({ france_connect_authorization_id: franceConnectAuthorizationId })
+  showNextStageIfHabilitationSelected () {
+    if (this.hasFranceConnectSelectorTarget) {
+      this.franceConnectSelectorTarget.required = 'required'
+      const franceConnectAuthorizationId = this.valueOrDefaultFranceConnectAuthorizationId()
+      this.addToLinks({ 'attributes[france_connect_authorization_id]': franceConnectAuthorizationId })
       this.showNextStage()
+    } else {
+      this.hideNextStage()
+    }
+  }
+
+  valueOrDefaultFranceConnectAuthorizationId () {
+    if (!this.franceConnectSelectorTarget.value) {
+      const defaultValue = Array.from(this.franceConnectSelectorTarget.options).filter(option => option.value)[0].value
+      this.franceConnectSelectorTarget.value = defaultValue
+    }
+
+    return this.franceConnectSelectorTarget.value
+  }
+
+  emptyFranceConnectSelector () {
+    if (this.hasFranceConnectSelectorTarget) {
+      this.franceConnectSelectorTarget.value = null
+      this.franceConnectSelectorTarget.required = ''
+      this.removeFromLinks('attributes[france_connect_authorization_id]')
     }
   }
 
   showNextStage () {
-    this.show(this.nextStageTarget)
+    if (this.hasNextStageTarget) {
+      this.show(this.nextStageTarget)
+    }
+  }
+
+  hideNextStage () {
+    if (this.hasNextStageTarget) {
+      this.hide(this.nextStageTarget)
+    }
   }
 
   show (element) {
@@ -44,19 +66,31 @@ export default class extends Controller {
     element.classList.add('fr-hidden')
   }
 
-  updateLinks (params) {
+  addToLinks (params) {
     this.linksTargets.forEach((link) => {
-      this.updateLink(link, params)
+      this.addToLink(link, params)
     })
   }
 
-  updateLink (link, params) {
+  addToLink (link, params) {
     const url = new URL(link.href)
 
     Object.entries(params).forEach(entry => {
       url.searchParams.set(...entry)
     })
 
+    link.href = url
+  }
+
+  removeFromLinks (param) {
+    this.linksTargets.forEach((link) => {
+      this.removeFromLink(link, param)
+    })
+  }
+
+  removeFromLink (link, param) {
+    const url = new URL(link.href)
+    url.searchParams.delete(param)
     link.href = url
   }
 }

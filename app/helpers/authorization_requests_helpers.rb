@@ -1,4 +1,12 @@
 module AuthorizationRequestsHelpers
+  # rubocop:disable Rails/HelperInstanceVariable
+  def new_authorization_request_hidden_params
+    return { attributes: {} } if @authorization_request&.persisted? || params.slice(:attributes).blank?
+
+    params.slice(:attributes).permit![:attributes]
+  end
+  # rubocop:enable Rails/HelperInstanceVariable
+
   def start_authorization_request_form(form, disabled: false)
     text = t('start_authorization_request_form.cta', authorization_name: form.authorization_definition.name)
     css_classes = %w[fr-btn fr-icon-save-line fr-btn--icon-left]
@@ -6,7 +14,7 @@ module AuthorizationRequestsHelpers
     if disabled
       button_tag(text, class: css_classes, disabled: true, id: dom_id(form, :start_authorization_request))
     else
-      link_to(text, start_authorization_request_forms_path(form_uid: form.id), class: css_classes, id: dom_id(form, :start_authorization_request))
+      link_to(text, start_authorization_request_forms_path(form_uid: form.id, params: { attributes: new_authorization_request_hidden_params }), class: css_classes, id: dom_id(form, :start_authorization_request))
     end
   end
 

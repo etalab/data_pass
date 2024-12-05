@@ -96,7 +96,7 @@ end
 
 Quand('je choisis {string}') do |option|
   if javascript?
-    find('label', text: option)&.click
+    find('label', text: option, visible: :all)&.click
   else
     choose option
   end
@@ -111,7 +111,7 @@ Quand('je coche {string}') do |label|
 end
 
 Alors('{string} est coché') do |label|
-  expect(page).to have_checked_field(label)
+  expect(page).to have_checked_field(label, visible: :all)
 end
 
 Alors('je peux voir dans le tableau {string}') do |caption, table|
@@ -246,6 +246,10 @@ end
 
 Alors('un champ contient {string}') do |text|
   expect(all('input').any? { |input| input.value == text }).to be_truthy, "Expected to find a field with value '#{text}'"
+end
+
+Alors('le champ {string} est rempli') do |label|
+  expect(page).to have_field(label, with: /.+/)
 end
 
 Et('je peux voir le bouton {string} grisé et désactivé') do |string|

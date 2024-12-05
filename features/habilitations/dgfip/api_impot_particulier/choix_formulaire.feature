@@ -30,7 +30,36 @@ Fonctionnalité: Choix de la modalité d'appel et du stage du formulaire API Imp
     Sachant que mon organisation a 1 demande d'habilitation "France Connect" validée
     Et que je rafraîchis la page
     Et que je choisis "Avec FranceConnect"
-    Et que je sélectionne "Habilitation du " pour "Sélectionnez une habilitation FranceConnect"
-    Et que je choisis "Oui mon éditeur a déjà accès au bac à sable"
+    Alors le champ "Sélectionnez une habilitation FranceConnect qui sera liée à cette demande" est rempli
+    Quand je choisis "Oui mon éditeur a déjà accès au bac à sable"
     Et que je clique sur "Démarrer ma demande d’habilitation en production"
     Alors la page contient "API Impôt Particulier avec éditeur"
+
+  Scénario: Je veux accéder à l'API via l'Etat civil, et mon choix est retenu une fois arrivé au bloc de modalités d'accès
+    * je choisis "Via l'état civil"
+    * je choisis "Oui mon éditeur a déjà accès au bac à sable"
+    * je clique sur "Démarrer"
+    * je clique sur "Débuter ma demande"
+    * je renseigne les infos de bases du projet
+    * je clique sur "Suivant"
+    * je renseigne les infos concernant les données personnelles
+    * je clique sur "Suivant"
+    * je renseigne le cadre légal
+    * je clique sur "Suivant"
+    Alors "Via l'état civil" est coché
+
+  Scénario: Je veux accéder à l'API via FranceConnect, et mon choix est retenu une fois arrivé au bloc de modalités d'accès
+    Sachant que mon organisation a 1 demande d'habilitation "France Connect" validée
+    * je rafraîchis la page
+    * je choisis "Avec FranceConnect"
+    * je choisis "Oui mon éditeur a déjà accès au bac à sable"
+    * je clique sur "Démarrer"
+    * je clique sur "Débuter ma demande"
+    * je renseigne les infos de bases du projet
+    * je clique sur "Suivant"
+    * je renseigne les infos concernant les données personnelles
+    * je clique sur "Suivant"
+    * je renseigne le cadre légal
+    * je clique sur "Suivant"
+    Alors "Avec FranceConnect" est coché
+    Et le champ "Sélectionnez une habilitation FranceConnect qui sera liée à cette demande" est rempli

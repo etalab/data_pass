@@ -6,8 +6,8 @@ class AuthorizationRequest::APIImpotParticulier < AuthorizationRequest
   include AuthorizationExtensions::OperationalAcceptance
   include AuthorizationExtensions::SafetyCertification
   include AuthorizationExtensions::Volumetrie
-
   include DGFIPExtensions::APIImpotParticulierScopes
+  include DGFIPExtensions::APIImpotParticulierModalities
 
   VOLUMETRIES = {
     '50 appels / minute': 50,

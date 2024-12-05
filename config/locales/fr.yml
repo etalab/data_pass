@@ -7,15 +7,16 @@ fr:
   form:
     no_file: Pas de fichier
   wicked:
-    basic_infos: "informations-de-base"
-    personal_data: "donnees-personnelles"
-    legal: "cadre-juridique"
-    scopes: "donnees"
-    contacts: "contacts"
-    safety_certification: "homologation-de-securite"
-    operational_acceptance: "recette-fonctionnelle"
-    volumetrie: "volumetrie"
-    france_connect_eidas: "niveau-eidas"
+    basic_infos: informations-de-base
+    personal_data: donnees-personnelles
+    legal: cadre-juridique
+    modalities: modalites-d-appel
+    scopes: donnees
+    contacts: contacts
+    safety_certification: homologation-de-securite
+    operational_acceptance: recette-fonctionnelle
+    volumetrie: volumetrie
+    france_connect_eidas: niveau-eidas
 
   authorization:
     badge: habilitation du %{date}
@@ -235,22 +236,6 @@ fr:
           <br/>
           En cas de doute, nous vous invitons à consulter le site d'<a href="%{base_url}" target="_blank">%{name}</a>, plus spécifiquement la page des
           <a href="%{use_cases_url}" target="_blank">cas d'usages</a>.
-      modalite:
-        title: Comment vos usagers accèderont aux données ?
-        subtitle: Cette API est FranceConnectée, vos utilisateurs peuvent donc utiliser FranceConnect pour vous transmettre directement les données dont vous avez besoin
-        options:
-          - label: Avec FranceConnect
-            value: with_france_connect
-          - label: Via le numéro Fiscal (SPI)
-            value: with_spi
-          - label: Via l'état civil
-            value: with_etat_civil
-        callout:
-          title: Pour proposer FranceConnect à vos utilisateurs, il vous faudra au préalable demander une habilitation FranceConnect. 
-          content: Vous pourrez poursuivre votre demande d’habilitation à l’API Impôt Particulier lorsque votre habilitation FranceConnect sera validée.
-          link: Demander une habilitation FranceConnect
-      france_connect_authorization_selection:
-        title: Sélectionnez une habilitation FranceConnect qui sera liée à cette demande
       editor_with_sandbox:
         title: Travaillez-vous avec un éditeur qui a déjà accès au bac à sable de cette API ?
         subtitle: Si votre éditeur a déjà accès au bac à sable, vous serez redirigé directement vers une demande d'accès à l'environnement de production.

@@ -131,7 +131,7 @@ FactoryBot.define do
     end
 
     trait :revoked do
-      submitted
+      validated
 
       state { 'revoked' }
       fill_all_attributes { true }
@@ -232,6 +232,12 @@ FactoryBot.define do
             content_type: 'application/pdf',
           )
         end
+      end
+    end
+
+    trait :with_modalities do
+      after(:build) do |authorization_request, evaluator|
+        authorization_request.modalities ||= 'with_etat_civil' if authorization_request.need_complete_validation? || evaluator.fill_all_attributes
       end
     end
 
@@ -406,6 +412,7 @@ FactoryBot.define do
       with_basic_infos
       with_personal_data
       with_cadre_juridique
+      with_modalities
       with_safety_certification
       with_operational_acceptance
       with_volumetrie
@@ -454,6 +461,7 @@ FactoryBot.define do
       with_basic_infos
       with_personal_data
       with_cadre_juridique
+      with_modalities
       with_scopes
     end
 

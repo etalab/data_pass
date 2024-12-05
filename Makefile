@@ -31,6 +31,9 @@ fix-lint:
 js-lint:
 	$(DOCKER-RUN) web standard app/javascript
 
+fix-js-lint:
+	$(DOCKER-RUN) web standard --fix app/javascript
+
 yaml-lint:
 	$(DOCKER-RUN) web prettier "config/**/*.yaml" "config/**/*.yml" "!config/cucumber.yml"
 
