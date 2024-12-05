@@ -60,6 +60,8 @@ Rails.application.routes.draw do
       resources :authorization_request_from_templates, only: %i[index create], path: 'templates'
     end
 
+    get 'cgu_api_impot_particulier_bas', to: 'static_pages#cgu_api_impot_particulier_bas', as: :cgu_api_impot_particulier_bas
+
     get 'demandes/:id/reopen-from-external', to: 'external_reopen_authorization_requests#create'
 
     resources :authorization_requests, only: [] do
