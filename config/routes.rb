@@ -61,6 +61,7 @@ Rails.application.routes.draw do
     end
 
     get 'cgu_api_impot_particulier_bas', to: 'static_pages#cgu_api_impot_particulier_bas', as: :cgu_api_impot_particulier_bas
+    get 'cgu_api_impot_particulier_prod', to: 'static_pages#cgu_api_impot_particulier_prod', as: :cgu_api_impot_particulier_prod
 
     get 'demandes/:id/reopen-from-external', to: 'external_reopen_authorization_requests#create'
 
