@@ -333,7 +333,7 @@ shared:
     public: true
     kind: 'api'
     link: "https://api.gouv.fr/les-api/impot-particulier"
-    cgu_link: "/cgus/dgfip/cgu_api_impot_particulier_production_hors_connexion_fc_decembre2022_v4.0.pdf"
+    cgu_link: "/cgu_api_impot_particulier_prod"
     provider: "dgfip"
     stage:
       type: production
@@ -475,7 +475,7 @@ shared:
     provider: "dgfip"
     kind: 'api'
     link: "https://api.gouv.fr/les-api/impot-particulier"
-    cgu_link: "/cgus/dgfip/cgu_api_impot_particulier_bac_a_sable_connexion_hors_fc_septembre2020_v2.6.pdf"
+    cgu_link: "/cgu_api_impot_particulier_bas"
     access_link: "https://api-impot-particulier-sandbox.gouv.fr/tokens/%<external_provider_id>s"
     public: false
     stage:
