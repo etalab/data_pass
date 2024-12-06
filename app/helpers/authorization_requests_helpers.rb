@@ -3,7 +3,7 @@ module AuthorizationRequestsHelpers
   def new_authorization_request_hidden_params
     return { attributes: {} } if @authorization_request&.persisted? || params.slice(:attributes).blank?
 
-    params.slice(:attributes).permit![:attributes]
+    params.slice(:attributes).permit!
   end
   # rubocop:enable Rails/HelperInstanceVariable
 
@@ -14,7 +14,7 @@ module AuthorizationRequestsHelpers
     if disabled
       button_tag(text, class: css_classes, disabled: true, id: dom_id(form, :start_authorization_request))
     else
-      link_to(text, start_authorization_request_forms_path(form_uid: form.id, params: { attributes: new_authorization_request_hidden_params }), class: css_classes, id: dom_id(form, :start_authorization_request))
+      link_to(text, start_authorization_request_forms_path(form_uid: form.id, params: new_authorization_request_hidden_params), class: css_classes, id: dom_id(form, :start_authorization_request))
     end
   end
 
