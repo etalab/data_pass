@@ -32,7 +32,7 @@ Capybara.javascript_driver = :cuprite
 Capybara.register_driver(:cuprite) do |app|
   Capybara::Cuprite::Driver.new(
     app,
-    window_size: [1200, 800],
+    window_size: [2400, 1600],
     browser_options: remote_chrome ? { 'no-sandbox' => nil } : {},
     inspector:,
     headless: !inspector && ENV['HEADLESS'] != 'false', **remote_options
