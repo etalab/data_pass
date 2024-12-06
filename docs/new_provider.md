@@ -92,7 +92,7 @@ Pour la configuration de la [définition (1.)](../config/authorization_definitio
       - name: Nom de famille
         # Nom technique de la donnée
         value: family_name
-        # Optionnel. Nom du groupe pour cette donnée afin d'effectuer
+        # Nom du groupe pour cette donnée afin d'effectuer
         # un regroupement visuel
         group: Identité pivot
         # Optionnel. Lien vers des détails sur la donnée. Affiche un lien pour

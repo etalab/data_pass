@@ -25,4 +25,5 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.acronym 'DC'
 
   inflect.acronym 'CaptchEtat'
+  inflect.irregular 'Hermes', 'Hermes'
 end
