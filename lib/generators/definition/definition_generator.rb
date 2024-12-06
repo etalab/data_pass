@@ -47,6 +47,7 @@ class DefinitionGenerator < Rails::Generators::NamedBase
     scopes:
       - name: "Scope 1"
         value: "value_1"
+        group: "Groupe"
     YAML_DATA
   end
 
