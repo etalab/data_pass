@@ -73,6 +73,7 @@ fr:
         contact_technique_email: Email du contact technique
         contact_technique_phone_number: Téléphone du contact technique
         contact_technique_job_title: Fonction du contact technique
+        contact_technique_extra_email: Adresse email générique du contact technique
 
         contact_metier_family_name: Nom de famille du contact métier
         contact_metier_given_name: Prénom du contact métier
@@ -92,6 +93,9 @@ fr:
         delegue_protection_donnees_phone_number: Téléphone du délégué à la protection des données
         delegue_protection_donnees_job_title: Fonction du délégué à la protection des données
 
+        extra_organization_contact_name: Nom du contact supplémentaire
+        extra_organization_contact_email: Email du contact supplémentaire
+        
         france_connect:
           alternative_connexion: Attestation de connexion alternative à FranceConnect
 

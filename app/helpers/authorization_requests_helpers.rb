@@ -106,4 +106,10 @@ module AuthorizationRequestsHelpers
 
     authorization_request.filling?
   end
+
+  def render_custom_block_or_default(authorization_request, block, locals = {})
+    render partial: "authorization_requests/blocks/#{authorization_request.definition.id}/#{block}", locals:
+  rescue ActionView::MissingTemplate
+    render partial: "authorization_requests/blocks/default/#{block}", locals:
+  end
 end

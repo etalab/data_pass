@@ -95,18 +95,9 @@
       <% end %>
     <% end %>
 
-    <% if @authorization_request.filling? %>
-      <%= render partial: 'authorization_requests/shared/organization_and_applicant' %>
-
-      <% @authorization_request.blocks.each do |block| %>
-        <%= render partial: "authorization_requests/shared/blocks/#{block[:name]}", locals: { f: f, editable: block[:editable] } %>
-      <% end %>
-    <% else %>
-      <%= render partial: 'authorization_requests/shared/organization_and_applicant' %>
-
-      <% @authorization_request.blocks.each do |block| %>
-        <%= render partial: "authorization_requests/shared/blocks/#{block[:name]}", locals: { f: f, editable: false } %>
-      <% end %>
+    <%= render partial: 'authorization_requests/shared/organization_and_applicant' %>
+    <% @authorization_request.blocks.each do |block| %>
+      <%= render_custom_block_or_default(@authorization_request, block[:name], f:, editable: @authorization_request.filling? && block[:editable]) %>
     <% end %>
 
     <% if @authorization_request.draft? && !@authorization_request.reopening? %>

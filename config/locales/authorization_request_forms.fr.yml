@@ -134,6 +134,9 @@ fr:
         title: Contact technique
         info: |
           Cette personne sera contactée en cas de problème technique sur votre service. Le responsable technique peut être le contact technique de votre prestataire.
+        extra:
+          title: Contact supplémentaire
+          info: Nous avons besoin d’un contact supplémentaire auquel adresser nos demandes si le responsable technique n’est pas disponible
       contact_technique_family_name: &contact_family_name
         label: Nom
       contact_technique_given_name: &contact_given_name
@@ -289,6 +292,14 @@ fr:
         info: |
           Il s'agit de votre contact technique auprès de votre éditeur. Vous n'avez à priori pas besoin de le modifier, sauf si vous avez un DSI qui veut gérer les accès.
 
+    api_impot_particulier: &api_impot_particulier_generic
+      contact_organization:
+        title: Contact supplémentaire de l'organisation
+        info: Nous avons besoin d’un contact supplémentaire au sein de votre organisation auquel adresser nos demandes si vous n’êtes pas disponible
+      contact_technique:
+        extra:
+          title: Contact supplémentaire
+          info: Nous avons besoin d’un contact supplémentaire auquel adresser nos demandes si le responsable technique n’est pas disponible
     api_particulier:
       steps:
         <<: *authorization_request_forms_default_steps
@@ -663,6 +674,7 @@ fr:
         hint: Cette information permettra de créer une équipe via la Régie et ainsi permettre à plusieurs personnes de votre équipe d'utiliser les fonctionnalités protégées de l'espace agent
 
     api_impot_particulier_sandbox: &api_impot_particulier_sandbox
+      <<: *api_impot_particulier_generic
       modalities:
         title: Comment vos usagers accèderont aux données ?
         subtitle: Cette API est FranceConnectée, vos utilisateurs peuvent donc utiliser FranceConnect pour vous transmettre directement les données dont vous avez besoin

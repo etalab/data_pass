@@ -21,3 +21,9 @@ Alors("il n'y a pas de lien {string} dans le bloc de résumé {string}") do |but
     expect(page).to have_no_link(button_text)
   end
 end
+
+Alors('il y a {string} dans le bloc de résumé {string}') do |text, block_title|
+  summary_block_testing(block_title) do
+    expect(page).to have_content(text)
+  end
+end

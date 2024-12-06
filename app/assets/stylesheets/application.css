@@ -87,3 +87,7 @@ h3.with-icon img {
 .font-weight-700 {
   font-weight: 700;
 }
+
+.height-auto.height-auto {
+  height: auto;
+}

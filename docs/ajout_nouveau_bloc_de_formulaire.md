@@ -19,9 +19,11 @@ On va faire référence au premier exemple dans la suite de cette documentation.
 
 - Ajouter les wordings du block dans `config/locales/authorization_request_forms.fr.yml`
 - Ajouter les wordings des champs dans `config/locales/activerecord.fr.yml`
-- Faire une partial de form dans `app/views/authorization_request_forms/shared/_safety_certification.html.erb` avec les champs à remplir (séparer cette partial servira à réutiliser le bloc dans des formulaires single page, ou pour l'édition de champs directement dans le summary)
-- L'utiliser dans un vue pour la step de formulaire à étapes dans `app/views/authorization_request_forms/build/safety_certification.html.erb`
-- Faire une partial de show `app/views/authorization_requests/shared/blocks/_safety_certification.html.erb` pour afficher le block dans le sommaire
+- Faire une partial de form dans `app/views/authorization_request_forms/blocks/(default|definition_id)/_safety_certification.html.erb`[^1] avec les champs à remplir (séparer cette partial servira à réutiliser le bloc dans des formulaires single page, ou pour l'édition de champs directement dans le summary)
+- L'utiliser dans une vue pour la step de formulaire à étapes dans `app/views/authorization_request_forms/build/safety_certification.html.erb`
+- Faire une partial de show `app/views/authorization_requests/blocks/(default|definition_id)/_safety_certification.html.erb`[^1] pour afficher le block dans le sommaire
+
+[^1]: il est désormais possible de surcharger le rendu d'un block (de formulaire comme de résumé) en créant un partial sous un dossier nommé avec l'identifiant de la définition (par exemple: le block de "contacts" est surchargé pour les demandes "api_impot_particulier"). Quand cela n'est pas nécessaire le partial sous `default` est alors rendu. cf les méthodes `render_custom_form_or_default` et `render_custom_block_or_default`. 
 
 ## Puis des tests (tu peux commencer par les tests en vrai d'ailleurs)
 

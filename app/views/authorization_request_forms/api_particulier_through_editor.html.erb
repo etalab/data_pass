@@ -10,13 +10,13 @@
   <div class="fr-mt-2w">
     <%= render partial: "authorization_request_forms/shared/block_titles", locals: { f: f, block_name: :legal } %>
 
-    <%= render partial: 'authorization_request_forms/shared/legal', locals: { f: f } %>
+    <%= render partial: 'authorization_request_forms/blocks/default/legal', locals: { f: f } %>
   </div>
 
   <div class="fr-mt-2w">
     <%= render partial: "authorization_request_forms/shared/block_titles", locals: { f: f, block_name: :personal_data } %>
 
-    <%= render partial: 'authorization_request_forms/shared/personal_data', locals: { f: } %>
+    <%= render partial: 'authorization_request_forms/blocks/default/personal_data', locals: { f: } %>
   </div>
 
   <div class="fr-mt-2w">
@@ -24,7 +24,7 @@
   </div>
 
   <div class="fr-container-fluid">
-    <%= render partial: 'authorization_request_forms/shared/scopes', locals: { f: } %>
+    <%= render partial: 'authorization_request_forms/blocks/default/scopes', locals: { f: } %>
   </div>
 
   <div class="fr-mt-2w">

@@ -1,5 +1,5 @@
 <%= authorization_request_form(@authorization_request) do |f| %>
-  <%= render partial: 'authorization_request_forms/shared/scopes', locals: { f: } %>
+  <%= render_custom_form_or_default(@authorization_request, "scopes", { f: }) %>
   <%= render partial: 'authorization_request_forms/build/wizard_buttons', locals: { f: } %>
 <% end %>
 

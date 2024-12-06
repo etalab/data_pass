@@ -1,0 +1,85 @@
+<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { title: f.wording_for('steps.contacts'), block_id: :contacts, f:, editable: } do %>
+  <div class="fr-container-fluid">
+    <div class="fr-grid-row fr-grid-row--gutters">
+      <% @authorization_request.contact_types.each do |contact_type| %>
+        <div class="fr-col-12 fr-col-lg-6">
+          <div id="<%= dom_id(@authorization_request, contact_type) %>" class="fr-basic-card contact-card">
+            <div class="contact-card__kind">
+              <%= t("authorization_request_forms.default.#{contact_type}.title") %>
+            </div>
+
+            <% if @authorization_request.public_send("#{contact_type}_type") == 'person' %>
+              <div class="contact-card__full_name">
+                <%= @authorization_request.contact_full_name(contact_type) %>
+              </div>
+            <% end %>
+
+            <%
+              %w[
+                job_title
+                email
+                phone_number
+              ].each do |contact_attribute|
+            %>
+              <% next if @authorization_request.public_send("#{contact_type}_type") == 'organization' && %w[job_title].include?(contact_attribute) %>
+
+              <div class="contact-card__attribute">
+                <div class="contact-card__attribute-label">
+                  <%= f.label_value("#{contact_type}_#{contact_attribute}") %>
+                </div>
+                <div class="contact-card__attribute-value">
+                  <%= @authorization_request.public_send("#{contact_type}_#{contact_attribute}") %>
+                </div>
+              </div>
+            <% end %>
+
+            <% if contact_type == :contact_technique %>
+              <div>
+                <hr class="fr-mt-3w">
+                <span class="fr-text--lg legal-text__bold">
+                  <%= t("authorization_request_forms.api_impot_particulier.contact_technique.extra.title") %>
+                </span>
+                <div class="contact-card__attribute">
+                  <div class="contact-card__attribute-label">
+                    <%= f.label_value('contact_technique_extra_email') %>
+                  </div>
+                  <div class="contact-card__attribute-value">
+                    <%= @authorization_request.contact_technique_extra_email %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="fr-col-12 fr-col-lg-6">
+        <div class="fr-basic-card contact-card">
+          <div class="contact-card__kind">
+            <%= t("authorization_request_forms.api_impot_particulier.contact_organization.title") %>
+          </div>
+
+          <div class="contact-card__attribute">
+            <div class="contact-card__attribute-label">
+              <%= f.label_value("extra_organization_contact_name") %>
+            </div>
+            <div class="contact-card__attribute-value">
+              <%= @authorization_request.extra_organization_contact_name %>
+            </div>
+          </div>
+
+          <div class="contact-card__attribute">
+            <div class="contact-card__attribute-label">
+              <%= f.label_value('extra_organization_contact_email') %>
+            </div>
+            <div class="contact-card__attribute-value">
+              <%= @authorization_request.extra_organization_contact_email %>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+<% end %>
