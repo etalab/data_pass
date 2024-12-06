@@ -38,6 +38,7 @@ class AssignParamsToAuthorizationRequest < ApplicationInteractor
       scopes
       build_step
       contacts
+      modalities
     ].each_with_object([]) do |method, attributes|
       attributes.concat(send(:"permitted_#{method}"))
     end
@@ -55,6 +56,10 @@ class AssignParamsToAuthorizationRequest < ApplicationInteractor
     return [] unless authorization_request_class.scopes_enabled?
 
     [{ scopes: [] }]
+  end
+
+  def permitted_modalities
+    [{ modalities: [] }]
   end
 
   def permitted_build_step
