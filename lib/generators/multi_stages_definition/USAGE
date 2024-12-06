@@ -1,0 +1,18 @@
+Description:
+    Génère un nouveau type d'habilitation à étapes (sandbox/production), en ajoutant les configurations/modèles nécessaires.
+
+    Liste non exhaustive:
+    1. Les modèles `AuthorizationRequest` de sandbox et production
+    2. Les définitions dans `config/authorization_definitions.yml`
+    3. Les configurations de formulaires par défaut dans `config/authorization_request_forms/france_generateur.yml`
+    4. Les traits de factory du modèle
+    5. Un test de feature pour sandbox et production
+
+Example:
+    bin/rails generate multi_stages_definition FranceGenerateur "Générateur de France"
+
+    This will create:
+      app/models/authorization_request/france_generateur_sandbox.rb
+      app/models/authorization_request/france_generateur.rb
+      config/authorization_request_forms/france_generateur.yml
+      features/habilitations/france_generateur.feature
