@@ -9,6 +9,8 @@ class Import::AuthorizationRequests < Import::Base
   def extract(enrollment_row)
     authorization_request = find_or_build_authorization_request(enrollment_row)
 
+    authorization_request.raw_attributes_from_v1 = enrollment_row.to_h.to_json
+
     user = fetch_applicant(enrollment_row)
 
     authorization_request.applicant = user
