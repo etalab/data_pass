@@ -96,7 +96,7 @@ end
 
 Quand('je choisis {string}') do |option|
   if javascript?
-    find('label', text: option, visible: :all)&.click
+    find('label', text: option, visible: :all).trigger('click')
   else
     choose option
   end
@@ -104,7 +104,7 @@ end
 
 Quand('je coche {string}') do |label|
   if javascript?
-    find('label', text: label, visible: :all)&.click
+    find('label', text: label, visible: :all).trigger('click')
   else
     check label
   end
