@@ -76,8 +76,12 @@ RSpec.describe AuthorizationRequest::APIImpotParticulier, type: :model do
   describe 'modalities validation' do
     before { authorization_request.current_build_step = 'modalities' }
 
-    context 'with no value' do
-      before { authorization_request.modalities = nil }
+    it 'raises an error with a non array value' do
+      expect { authorization_request.modalities = 'coucou' }.to raise_error(TypeError)
+    end
+
+    context 'with empty value' do
+      before { authorization_request.modalities = [] }
 
       it { is_expected.not_to be_valid }
     end
