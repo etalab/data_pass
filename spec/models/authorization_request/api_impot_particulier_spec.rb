@@ -17,7 +17,7 @@ RSpec.describe AuthorizationRequest::APIImpotParticulier, type: :model do
     )
   end
 
-  let(:modalities) { nil }
+  let(:modalities) { ['with_spi'] }
   let(:france_connect_authorization_id) { nil }
   let(:scopes) { [] }
   let(:specific_requirements) { nil }
@@ -76,26 +76,38 @@ RSpec.describe AuthorizationRequest::APIImpotParticulier, type: :model do
   describe 'modalities validation' do
     before { authorization_request.current_build_step = 'modalities' }
 
+    context 'with a non array value' do
+      it 'raises a type error' do
+        expect { authorization_request.modalities = 'non array value' }.to raise_error(TypeError)
+      end
+    end
+
     context 'with no value' do
       before { authorization_request.modalities = nil }
 
       it { is_expected.not_to be_valid }
     end
 
+    context 'with empty value' do
+      before { authorization_request.modalities = [] }
+
+      it { is_expected.not_to be_valid }
+    end
+
     context 'with bad value' do
-      let(:modalities) { 'bad_value' }
+      let(:modalities) { ['bad_value'] }
 
       it { is_expected.not_to be_valid }
     end
 
     context 'with good value' do
-      let(:modalities) { 'with_spi' }
+      let(:modalities) { ['with_spi'] }
 
       it { is_expected.to be_valid }
     end
 
     context 'with france connect' do
-      let(:modalities) { 'with_france_connect' }
+      let(:modalities) { ['with_france_connect'] }
 
       context 'without any france connect authorization id' do
         let(:france_connect_authorization_id) { nil }
@@ -133,7 +145,7 @@ RSpec.describe AuthorizationRequest::APIImpotParticulier, type: :model do
 
         describe 'when switched to spi and saved' do
           before do
-            authorization_request.modalities = 'with_spi'
+            authorization_request.modalities = ['with_spi']
             authorization_request.save
           end
 

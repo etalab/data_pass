@@ -52,6 +52,8 @@ module AuthorizationCore::Attributes
 
       def self.override_array_writer(name)
         define_method(:"#{name}=") do |value|
+          raise(TypeError, "#{name} should be an array") unless value.is_a?(Array) || value.nil?
+
           value = (value || []).compact_blank.map(&:strip).uniq
 
           super(value.sort)
