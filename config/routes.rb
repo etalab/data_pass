@@ -93,5 +93,7 @@ Rails.application.routes.draw do
     resources :frontal, only: :index
   end
 
+  get '/dgfip/export', to: 'dgfip/export#show', as: :dgfip_export
+
   mount GoodJob::Engine => '/workers'
 end
