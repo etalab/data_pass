@@ -50,14 +50,14 @@ RSpec.describe DGFIPSpreadsheetGenerator, type: :service do
     end
 
     describe 'second line, legacy data' do
-      subject(:leagcy_data) do
+      subject(:legacy_data) do
         sheet_as_csv.to_a[1].to_h
       end
 
       it 'has valid data' do
         initial_data = JSON.parse(File.read('spec/fixtures/api_impot_particulier_v1_attributes.json'))
 
-        leagcy_data.each do |key, value|
+        legacy_data.each do |key, value|
           if key == 'additional_content'
             expect(JSON.parse(value)).to eq(initial_data[key])
           elsif initial_data[key].nil?
