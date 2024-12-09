@@ -23,7 +23,7 @@ module DGFIPExtensions::APIImpotParticulierModalities
   end
 
   def with_france_connect?
-    modalities == 'with_france_connect'
+    modalities.include? 'with_france_connect'
   end
 
   def remove_france_connect_authorization_if_not_with_france_connect

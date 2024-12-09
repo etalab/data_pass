@@ -237,7 +237,10 @@ FactoryBot.define do
 
     trait :with_modalities do
       after(:build) do |authorization_request, evaluator|
-        authorization_request.modalities ||= 'with_etat_civil' if authorization_request.need_complete_validation? || evaluator.fill_all_attributes
+        if authorization_request.need_complete_validation? || evaluator.fill_all_attributes
+          modality = authorization_request.available_modalities.last
+          authorization_request.modalities = [modality] if authorization_request.modalities.blank?
+        end
       end
     end
 

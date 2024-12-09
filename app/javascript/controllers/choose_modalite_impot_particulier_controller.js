@@ -15,7 +15,7 @@ export default class extends Controller {
       this.showNextStage()
     }
 
-    this.addToLinks({ 'attributes[modalities]': modalityValue })
+    this.addToLinks({ 'attributes[modalities][]': modalityValue })
   }
 
   showNextStageIfHabilitationSelected () {

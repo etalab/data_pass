@@ -1,3 +1,3 @@
 <% new_authorization_request_hidden_params[:attributes].each do |key, value| %>
-  <%= f.hidden_field key, value: %>
+  <%= f.hidden_field key, value:, multiple: value.is_a?(Array) %>
 <% end %>

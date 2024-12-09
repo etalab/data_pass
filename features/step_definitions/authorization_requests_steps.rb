@@ -161,6 +161,12 @@ Quand(/(j'ai|il y a|mon organisation a) (\d+) demandes? d'habilitation "([^"]+)"
   create_authorization_requests_with_status(type, status, count, stage, applicant:)
 end
 
+Quand("cette dernière demande d'habilitation s'appelait {string}") do |intitule|
+  last_authorization_request = AuthorizationRequest.last
+  last_authorization_request.intitule = intitule
+  last_authorization_request.save
+end
+
 Quand(/je suis mentionné dans (\d+) demandes? d'habilitation "([^"]+)" en tant que "([^"]+)"/) do |count, type, role_humanized|
   role = role_humanized.parameterize.underscore
   foreign_user = create(:user)
