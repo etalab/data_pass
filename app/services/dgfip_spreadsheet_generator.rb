@@ -24,16 +24,20 @@ class DGFIPSpreadsheetGenerator
 
   def build_row(authorization_request)
     if authorization_request.raw_attributes_from_v1.present?
-      build_legacy_row(JSON.parse(authorization_request.raw_attributes_from_v1))
+      build_legacy_row(authorization_request)
     else
       build_v2_row(authorization_request)
     end
   end
 
-  def build_legacy_row(raw_attributes_from_v1)
+  def build_legacy_row(authorization_request)
+    raw_attributes_from_v1 = JSON.parse(authorization_request.raw_attributes_from_v1)
+
     headers.map do |key|
       if key == 'additional_content'
         raw_attributes_from_v1[key].to_json
+      elsif key == 'insee_payload'
+        authorization_request.organization.insee_payload.to_json
       else
         raw_attributes_from_v1[key]
       end
@@ -60,6 +64,7 @@ class DGFIPSpreadsheetGenerator
       authorization_request.events.order(created_at: :desc).limit(1).first&.created_at,
       authorization_request.organization.siret,
       authorization_request.organization.raison_sociale,
+      authorization_request.organization.insee_payload.to_json,
     ]
   end
   # rubocop:enable Metrics/AbcSize
@@ -82,6 +87,7 @@ class DGFIPSpreadsheetGenerator
       updated_at
       siret
       nom_raison_sociale
+      insee_payload
     ]
   end
 

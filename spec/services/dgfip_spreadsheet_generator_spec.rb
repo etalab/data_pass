@@ -3,10 +3,11 @@ RSpec.describe DGFIPSpreadsheetGenerator, type: :service do
 
   let(:authorization_requests) do
     [
-      create(:authorization_request, :api_impot_particulier, fill_all_attributes: true),
-      create(:authorization_request, :api_impot_particulier, raw_attributes_from_v1: File.read('spec/fixtures/api_impot_particulier_v1_attributes.json'))
+      create(:authorization_request, :api_impot_particulier, organization:, fill_all_attributes: true),
+      create(:authorization_request, :api_impot_particulier, organization:, raw_attributes_from_v1: File.read('spec/fixtures/api_impot_particulier_v1_attributes.json'))
     ]
   end
+  let(:organization) { create(:organization, siret: '21920023500014') }
 
   it 'works' do
     expect {
@@ -43,9 +44,10 @@ RSpec.describe DGFIPSpreadsheetGenerator, type: :service do
       it 'has valid data' do
         expect(v2_data['target_api']).to eq('api_impot_particulier_production')
         expect(v2_data['demarche']).to eq('activites_periscolaires')
-        expect(v2_data['nom_raison_sociale']).to match('nom inconnu')
+        expect(v2_data['nom_raison_sociale']).to eq('COMMUNE DE CLAMART')
 
         expect(JSON.parse(v2_data['additional_content'])).to include('acces_etat_civil' => true)
+        expect(JSON.parse(v2_data['insee_payload'])).to be_present
       end
     end
 
@@ -57,7 +59,11 @@ RSpec.describe DGFIPSpreadsheetGenerator, type: :service do
       it 'has valid data' do
         initial_data = JSON.parse(File.read('spec/fixtures/api_impot_particulier_v1_attributes.json'))
 
+        expect(JSON.parse(legacy_data['insee_payload'])).to be_present
+
         legacy_data.each do |key, value|
+          next if key == 'insee_payload'
+
           if key == 'additional_content'
             expect(JSON.parse(value)).to eq(initial_data[key])
           elsif initial_data[key].nil?
