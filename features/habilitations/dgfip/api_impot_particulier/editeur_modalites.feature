@@ -44,3 +44,29 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
     Et que je choisis "Avec FranceConnect"
     Et que je clique sur "Suivant"
     Alors la page contient "Quelles sont les données dont vous avez besoin ?"
+
+  Scénario: Je choisis la modalité FranceConnect et je vais jusqu'au résumé final
+    Sachant que mon organisation a 1 demande d'habilitation "France Connect" validée
+    Et que cette dernière demande d'habilitation s'appelait "Demande d'accès à france connect pour mon appli"
+    Quand je rafraîchis la page
+
+    Et que je choisis "Avec FranceConnect"
+    * je clique sur "Suivant"
+
+    * je coche "Dernière année de revenu"
+    * je clique sur "Suivant"
+
+    * je renseigne les informations des contacts RGPD
+    * je renseigne les informations du contact technique
+    * je clique sur "Suivant"
+
+    * je renseigne la recette fonctionnelle
+    * je clique sur "Suivant"
+    * je renseigne l'homologation de sécurité
+    * je clique sur "Suivant"
+
+    * je renseigne la volumétrie
+    * je clique sur "Suivant"
+
+    Alors la page contient "Avec FranceConnect"
+    Et la page contient "Demande d'accès à france connect pour mon appli"

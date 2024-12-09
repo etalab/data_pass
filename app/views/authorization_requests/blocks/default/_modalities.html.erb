@@ -12,9 +12,9 @@
     <% end %>
   </ul>
 
-  <% if @authorization_request.try(:france_connect_authorization_id).present? && @authorization_request.modalities == 'with_france_connect' %>
+  <% if @authorization_request.try(:france_connect_authorization_id).present? && @authorization_request.with_france_connect? %>
     <p class="fr-pl-2w">
-      <%= @authorization_request.associated_france_connect_authorization.full_name %>
+      <%= @authorization_request.associated_france_connect_authorization.decorate.name_for_select %>
     </p>
   <% end %>
 <% end %>
