@@ -5,6 +5,10 @@ require:
   - rubocop-rspec
   - rubocop-rails
 
+inherit_mode:
+  merge:
+    - Exclude
+
 AllCops:
   NewCops: enable
   Exclude:
@@ -18,6 +22,7 @@ AllCops:
     - "sandbox/**/*"
     - "app/migration/**/*"
     - "tmp/**/*"
+    - "sandbox/**/*"
 
 FactoryBot/FactoryAssociationWithStrategy:
   Enabled: false
