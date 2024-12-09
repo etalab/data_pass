@@ -170,7 +170,9 @@ class Seeds
     user = extract_applicant(attributes)
     authorization_request = create_draft_authorization_request(kind, attributes:)
 
-    SubmitAuthorizationRequest.call(authorization_request:, user:).perform
+    organizer = SubmitAuthorizationRequest.call(authorization_request:, user:)
+
+    raise "Fail to submit authorization request: #{organizer}" unless organizer.success?
 
     authorization_request
   end
@@ -178,7 +180,9 @@ class Seeds
   def create_validated_authorization_request(kind, attributes: {})
     authorization_request = create_submitted_authorization_request(kind, attributes:)
 
-    ApproveAuthorizationRequest.call(authorization_request:, user: api_entreprise_instructor).perform
+    organizer = ApproveAuthorizationRequest.call(authorization_request:, user: api_entreprise_instructor)
+
+    raise "Fail to approve authorization request #{organizer}" unless organizer.success?
 
     authorization_request
   end
@@ -186,7 +190,9 @@ class Seeds
   def create_revoked_authorization_request(kind, attributes: {})
     authorization_request = create_validated_authorization_request(kind, attributes:)
 
-    RevokeAuthorizationRequest.call(authorization_request:, user: api_entreprise_instructor, revocation_of_authorization_params: { reason: 'Le cadre légal est maintenant caduque' }).perform
+    organizer = RevokeAuthorizationRequest.call(authorization_request:, user: api_entreprise_instructor, revocation_of_authorization_params: { reason: 'Le cadre légal est maintenant caduque' })
+
+    raise "Fail to revoked authorization request: #{organizer}" unless organizer.success?
 
     authorization_request
   end
