@@ -506,5 +506,28 @@ FactoryBot.define do
       with_cadre_juridique
       with_personal_data
     end
+
+    trait :api_hermes_sandbox do
+      type { 'AuthorizationRequest::APIHermesSandbox' }
+
+      form_uid { 'api-hermes-sandbox' }
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+    end
+
+    trait :api_hermes_production do
+      type { 'AuthorizationRequest::APIHermes' }
+
+      form_uid { 'api-hermes-production' }
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+      with_operational_acceptance
+      with_safety_certification
+      with_volumetrie
+    end
   end
 end

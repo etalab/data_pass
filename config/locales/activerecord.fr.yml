@@ -95,9 +95,12 @@ fr:
 
         extra_organization_contact_name: Nom du contact supplémentaire
         extra_organization_contact_email: Email du contact supplémentaire
-        
+
         france_connect:
           alternative_connexion: Attestation de connexion alternative à FranceConnect
+
+        api_hermes_sandbox:
+          dpd_homologation_checkbox: Attestation de déclaration d'un dpd et d'accomplissement de formalité d'homologation.
 
       denial_of_authorization:
         reason: Raison du refus

@@ -585,3 +585,48 @@ shared:
     blocks:
       - name: "legal"
       - name: "contacts"
+
+  api_hermes_sandbox:
+    name: API Hermes
+    description: "FEEDME"
+    provider: "dgfip"
+    kind: 'api'
+    link: "https://api.gouv.fr/producteurs/dgfip"
+    cgu_link: "/cgus/dgfip/cgu_bas_hermes_v.2023_11.pdf"
+    # FEEDME
+    access_link: "https://api-hermes.gouv.fr/tokens/%<external_provider_id>"
+    public: false
+    stage:
+      type: sandbox
+      next:
+        id: api_hermes
+        form_id: api-hermes-production
+    blocks:
+      - name: basic_infos
+      - name: personal_data
+      - name: legal
+      - name: contacts
+
+  api_hermes:
+    name: API Hermes
+    description: "FEEDME"
+    provider: "dgfip"
+    kind: 'api'
+    link: "https://api.gouv.fr/producteurs/dgfip"
+    cgu_link: "/cgus/dgfip/cgu_prod_hermes_v.2023_11.pdf"
+    # FEEDME
+    access_link: "https://api-hermes.gouv.fr/tokens/%<external_provider_id>"
+    public: false
+    stage:
+      type: production
+      previouses:
+        - id: api_hermes_sandbox
+          form_id: api-hermes-sandbox
+    blocks:
+      - name: basic_infos
+      - name: personal_data
+      - name: legal
+      - name: contacts
+      - name: operational_acceptance
+      - name: safety_certification
+      - name: volumetrie
