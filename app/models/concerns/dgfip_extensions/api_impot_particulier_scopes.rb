@@ -4,11 +4,26 @@ module DGFIPExtensions::APIImpotParticulierScopes
   SCOPE_ERROR_MESSAGES = {
                            revenue_years: {
                              group: 'Années sur lesquelles porte votre demande',
-                             message: 'Vous devez cocher au moins une année de revenus souhaitée avant de continuer'
+                             message: 'Vous devez cocher au moins une année de revenu souhaitée avant de continuer'
                            },
                            revenue_years_compatibility: {
                              group: 'Années sur lesquelles porte votre demande',
                              message: "Vous ne pouvez pas sélectionner la donnée 'avant dernière année de revenu, si la dernière année de revenu est indisponible' avec d'autres années de revenus"
+                           },
+                           income_data_incompatibility: {
+                             groups: [
+                               'Situation du foyer fiscal',
+                               'Agrégats fiscaux',
+                               'Revenus catégoriels - revenus déclarés (avant application des abattements, etc...)',
+                               'Revenus catégoriels - revenus nets (après application des abattements, etc...)',
+                               'Charges déductibles',
+                               "Éligibilité Livret d'Épargne Populaire - établissements bancaires uniquement"
+                             ],
+                             message: 'Des données incompatibles entre elles ont été cochées. Pour connaître les modalités d’appel et de réponse de l’API Impôt particulier ainsi que les données proposées, vous pouvez consulter le guide de présentation de cette API dans la rubrique « Les données nécessaires > Comment choisir les données »'
+                           },
+                           specific_requirements: {
+                             group: 'specific_requirements',
+                             message: "Vous devez ajouter un fichier avant de passer à l'étape suivante"
                            }
                          }.freeze
 
@@ -51,7 +66,6 @@ module DGFIPExtensions::APIImpotParticulierScopes
   def at_least_one_revenue_year_has_been_selected
     return if scopes.intersect?(MANDATORY_REVENUE_YEARS)
 
-    # errors.add(:scopes, :invalid, message: 'sont invalides : Vous devez cocher au moins une année de revenus souhaitée avant de continuer')
     errors.add(:revenue_years, SCOPE_ERROR_MESSAGES[:revenue_years][:message])
   end
 
@@ -59,14 +73,13 @@ module DGFIPExtensions::APIImpotParticulierScopes
     return unless scopes.include?('dgfip_annee_n_moins_2_si_indispo_n_moins_1')
     return unless scopes.intersect?(%w[dgfip_annee_n_moins_1 dgfip_annee_n_moins_2 dgfip_annee_n_moins_3])
 
-    # errors.add(:scopes, :invalid, message: "sont invalides : Vous ne pouvez pas sélectionner la donnée 'avant dernière année de revenu, si la dernière année de revenu est indisponible' avec d'autres années de revenus")
     errors.add(:revenue_years_compatibility, SCOPE_ERROR_MESSAGES[:revenue_years_compatibility][:message])
   end
 
   def scopes_compatibility
     return unless scope_exists_in_each_arrays?(*INCOMPATIBLE_SCOPES)
 
-    errors.add(:scopes, :invalid, message: 'sont invalides : Des données incompatibles entre elles ont été cochées. Pour connaître les modalités d’appel et de réponse de l’API Impôt particulier ainsi que les données proposées, vous pouvez consulter le guide de présentation de cette API dans la rubrique « Les données nécessaires > Comment choisir les données »')
+    errors.add(:income_data_incompatibility, SCOPE_ERROR_MESSAGES[:income_data_incompatibility][:message])
   end
 
   def scope_exists_in_each_arrays?(array_1, array_2)
@@ -76,7 +89,7 @@ module DGFIPExtensions::APIImpotParticulierScopes
   def specific_requirements_document_presence
     return if specific_requirements_document.present?
 
-    errors.add(:specific_requirements_document, message: 'est manquant : vous devez ajoutez un fichier avant de passer à l’étape suivante')
+    errors.add(:specific_requirements, SCOPE_ERROR_MESSAGES[:specific_requirements][:message])
   end
 
   def specific_requirements?
