@@ -246,7 +246,7 @@ FactoryBot.define do
 
     trait :with_operational_acceptance do
       after(:build) do |authorization_request, evaluator|
-        authorization_request.operational_acceptance_done = true if authorization_request.need_complete_validation? || evaluator.fill_all_attributes
+        authorization_request.operational_acceptance_done = '1' if authorization_request.need_complete_validation? || evaluator.fill_all_attributes
       end
     end
 
