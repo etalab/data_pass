@@ -1,6 +1,17 @@
 module DGFIPExtensions::APIImpotParticulierScopes
   extend ActiveSupport::Concern
 
+  SCOPE_ERROR_MESSAGES = {
+                           revenue_years: {
+                             group: 'Années sur lesquelles porte votre demande',
+                             message: 'Vous devez cocher au moins une année de revenus souhaitée avant de continuer'
+                           },
+                           revenue_years_compatibility: {
+                             group: 'Années sur lesquelles porte votre demande',
+                             message: "Vous ne pouvez pas sélectionner la donnée 'avant dernière année de revenu, si la dernière année de revenu est indisponible' avec d'autres années de revenus"
+                           }
+                         }.freeze
+
   MANDATORY_REVENUE_YEARS = %w[
     dgfip_annee_n_moins_1
     dgfip_annee_n_moins_2
@@ -40,14 +51,16 @@ module DGFIPExtensions::APIImpotParticulierScopes
   def at_least_one_revenue_year_has_been_selected
     return if scopes.intersect?(MANDATORY_REVENUE_YEARS)
 
-    errors.add(:scopes, :invalid, message: 'sont invalides : Vous devez cocher au moins une année de revenus souhaitée avant de continuer')
+    # errors.add(:scopes, :invalid, message: 'sont invalides : Vous devez cocher au moins une année de revenus souhaitée avant de continuer')
+    errors.add(:revenue_years, SCOPE_ERROR_MESSAGES[:revenue_years][:message])
   end
 
   def revenue_years_scopes_compatibility
     return unless scopes.include?('dgfip_annee_n_moins_2_si_indispo_n_moins_1')
     return unless scopes.intersect?(%w[dgfip_annee_n_moins_1 dgfip_annee_n_moins_2 dgfip_annee_n_moins_3])
 
-    errors.add(:scopes, :invalid, message: "sont invalides : Vous ne pouvez pas sélectionner la donnée 'avant dernière année de revenu, si la dernière année de revenu est indisponible' avec d'autres années de revenus")
+    # errors.add(:scopes, :invalid, message: "sont invalides : Vous ne pouvez pas sélectionner la donnée 'avant dernière année de revenu, si la dernière année de revenu est indisponible' avec d'autres années de revenus")
+    errors.add(:revenue_years_compatibility, SCOPE_ERROR_MESSAGES[:revenue_years_compatibility][:message])
   end
 
   def scopes_compatibility
