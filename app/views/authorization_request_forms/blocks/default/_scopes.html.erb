@@ -14,18 +14,13 @@
       <%= render partial: "authorization_request_forms/shared/scopes_group_documentation_accordion", locals: { f:, group_name: } %>
     <% end %>
 
-    <% if group_name == "Années sur lesquelles porte votre demande" %>
-      <% if @authorization_request.errors[:revenue_years].any? %>
-        <div class="fr-error-text">
-          <%= @authorization_request.errors[:revenue_years].first %>
-        </div>
-      <% end %>
-
-      <% if @authorization_request.errors[:revenue_years_compatibility].any? %>
-        <div class="fr-error-text">
-          <%= @authorization_request.errors[:revenue_years_compatibility].first %>
-        </div>
-      <% end %>
+    <% error_messages = error_messages_for_scope_group(@authorization_request, group_name) %>
+    <% if error_messages.any? %>
+      <div class="fr-error-text">
+        <% error_messages.each do |message| %>
+          <p><%= message %></p>
+        <% end %>
+      </div>
     <% end %>
 
     <div class="scopes-group__grid">
