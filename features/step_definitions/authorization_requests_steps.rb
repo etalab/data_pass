@@ -203,6 +203,21 @@ Alors("l'utilisateur {string} possède une demande d'habilitation {string}") do 
   end
 end
 
+Quand("un instructeur a révoqué la demande d'habilitation") do
+  authorization_request = AuthorizationRequest.last
+  instructor = create_instructor(authorization_request.definition.name)
+
+  using_user_session(instructor) do
+    visit instruction_authorization_request_path(authorization_request)
+
+    click_on 'Révoquer'
+
+    fill_in 'Indiquez les motifs de révocation', with: 'Je révoque cette demande pour des raisons de sécurité'
+
+    click_on 'Révoquer'
+  end
+end
+
 Quand('cette demande a été {string}') do |status|
   authorization_request = AuthorizationRequest.last
   user = User.last
