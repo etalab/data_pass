@@ -39,3 +39,10 @@ Fonctionnalité: Tableau de bord
     Alors je vois 1 demande d'habilitation
     Et la page contient "Vous avez été référencé comme contact métier"
 
+  Scénario: Je vois une habilitation révoquée
+    Quand j'ai 1 demande d'habilitation "API Entreprise" validée
+    Et que un instructeur a révoqué la demande d'habilitation
+    Et que je vais sur la page du tableau de bord
+    Alors je vois 1 demande d'habilitation
+    Et la page contient "Révoquée"
+

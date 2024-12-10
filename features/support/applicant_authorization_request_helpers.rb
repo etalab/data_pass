@@ -17,10 +17,10 @@ def user_sessions
   @user_sessions ||= {}
 end
 
-def applicant_session(authorization_request)
-  user_session(authorization_request.applicant)
+def using_user_session(user, &)
+  Capybara.using_session(user_session(user), &)
 end
 
 def using_last_applicant_session(&)
-  Capybara.using_session(applicant_session(AuthorizationRequest.last), &)
+  using_user_session(AuthorizationRequest.last.applicant, &)
 end
