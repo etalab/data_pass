@@ -9,4 +9,10 @@ class DataProvider < StaticApplicationRecord
       new(id: uid.to_s, **hash.symbolize_keys)
     end
   end
+
+  def authorization_definitions
+    @authorization_definitions ||= AuthorizationDefinition.all.select do |authorization_definition|
+      authorization_definition.provider.id == id
+    end
+  end
 end
