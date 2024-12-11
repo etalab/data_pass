@@ -17,7 +17,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôt Particulier 
     * je renseigne l'homologation de sécurité
     * je clique sur "Suivant"
 
-    * je renseigne la volumétrie
+    * je renseigne la volumétrie pour "API Impôt Particulier"
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
