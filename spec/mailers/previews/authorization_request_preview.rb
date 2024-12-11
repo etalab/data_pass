@@ -1,6 +1,13 @@
 class AuthorizationRequestPreview < ActionMailer::Preview
-  %w[changes_requested refused revoked validated].each do |state|
-    [state, "reopening_#{state}"].each do |mth|
+  {
+    changes_requested: :request_changes,
+    refused: :refuse,
+    revoked: :revoke,
+    validated: :approve
+  }.each do |state, event|
+    [event, "reopening_#{event}"].each do |mth|
+      next if mth == 'reopening_revoke'
+
       define_method mth do
         authorization_request_mailer_method(state, mth)
       end

@@ -5,6 +5,7 @@ class Seeds
 
     create_authorization_requests_for_clamart
     create_authorization_requests_for_dinum
+    FactoryBot.create(:authorization_request, :hubee_cert_dc, :validated)
   end
 
   def flushdb
