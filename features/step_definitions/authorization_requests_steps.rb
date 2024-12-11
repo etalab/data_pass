@@ -296,6 +296,13 @@ Quand('je renseigne la volumétrie') do
   )
 end
 
+Quand('je renseigne la volumétrie pour {string}') do |_string|
+  first_volumetrie_value = AuthorizationRequest.last.available_volumetries.keys.first
+  steps %(
+    * je sélectionne "#{first_volumetrie_value}" pour "Quelle limitation de débit souhaitez- vous pour votre téléservice ?"
+  )
+end
+
 Quand('je renseigne les informations du contact technique') do
   steps %(
     * je remplis les informations du contact "Contact technique" avec :
