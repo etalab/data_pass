@@ -631,6 +631,51 @@ shared:
       - name: safety_certification
       - name: volumetrie
 
+  api_e_contacts_sandbox:
+    name: API E-Contacts
+    description: "FEEDME"
+    provider: "dgfip"
+    kind: 'api'
+    link: "https://api.gouv.fr/producteurs/dgfip"
+    cgu_link: "/cgus/dgfip/prc_v1/cgu_bas_e_contacts_v.2023_11.pdf"
+    # FEEDME
+    access_link: "https://api-e-contacts.gouv.fr/tokens/%<external_provider_id>"
+    public: false
+    stage:
+      type: sandbox
+      next:
+        id: api_e_contacts
+        form_id: api-e-contacts-production
+    blocks:
+      - name: basic_infos
+      - name: personal_data
+      - name: legal
+      - name: contacts
+
+  api_e_contacts:
+    name: API E-Contacts
+    description: "FEEDME"
+    provider: "dgfip"
+    kind: 'api'
+    link: "https://api.gouv.fr/producteurs/dgfip"
+    cgu_link: "/cgus/dgfip/prc_v1/cgu_prod_e_contacts_v.2023_11.pdf"
+    # FEEDME
+    access_link: "https://api-e-contacts.gouv.fr/tokens/%<external_provider_id>"
+    public: false
+    stage:
+      type: production
+      previouses:
+        - id: api_e_contacts_sandbox
+          form_id: api-e-contacts-sandbox
+    blocks:
+      - name: basic_infos
+      - name: personal_data
+      - name: legal
+      - name: contacts
+      - name: operational_acceptance
+      - name: safety_certification
+      - name: volumetrie
+
   api_opale_sandbox:
     name: API OPALE
     description: "FEEDME"

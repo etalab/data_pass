@@ -530,6 +530,29 @@ FactoryBot.define do
       with_volumetrie
     end
 
+    trait :api_e_contacts_sandbox do
+      type { 'AuthorizationRequest::APIEContactsSandbox' }
+
+      form_uid { 'api-e-contacts-sandbox' }
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+    end
+
+    trait :api_e_contacts_production do
+      type { 'AuthorizationRequest::APIEContacts' }
+
+      form_uid { 'api-e-contacts-production' }
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+      with_safety_certification
+      with_operational_acceptance
+      with_volumetrie
+    end
+
     trait :api_opale_sandbox do
       type { 'AuthorizationRequest::APIOpaleSandbox' }
 

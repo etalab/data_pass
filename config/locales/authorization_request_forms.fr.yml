@@ -182,6 +182,7 @@ fr:
 
       dpd_homologation_checkbox:
         label: J’atteste que mon organisation devra déclarer à la DGFiP l’accomplissement des formalités en matière de protection des données à caractère personnel et qu’elle veillera à procéder à l’homologation de sécurité de son projet.
+
     hubee_cert_dc:
       administrateur_metier: &hubee_administrateur_metier
         info: |
