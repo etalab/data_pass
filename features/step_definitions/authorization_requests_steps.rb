@@ -291,16 +291,7 @@ Quand('je renseigne la recette fonctionnelle') do
 end
 
 Quand('je renseigne la volumétrie') do
-  steps %(
-    * je sélectionne "50 appels / minute" pour "Quelle limitation de débit souhaitez- vous pour votre téléservice ?"
-  )
-end
-
-Quand('je renseigne la volumétrie pour {string}') do |_string|
-  first_volumetrie_value = AuthorizationRequest.last.available_volumetries.keys.first
-  steps %(
-    * je sélectionne "#{first_volumetrie_value}" pour "Quelle limitation de débit souhaitez- vous pour votre téléservice ?"
-  )
+  find_field('Quelle limitation de débit souhaitez- vous pour votre téléservice ?').all('option').find { |option| option.value.present? }.select_option
 end
 
 Quand('je renseigne les informations du contact technique') do

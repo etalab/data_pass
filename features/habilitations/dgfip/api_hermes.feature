@@ -42,7 +42,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Hermes
     * je renseigne l'homologation de sécurité
     * je clique sur "Suivant"
 
-    * je renseigne la volumétrie pour "API Hermes"
+    * je renseigne la volumétrie
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
