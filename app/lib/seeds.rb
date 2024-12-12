@@ -5,7 +5,7 @@ class Seeds
 
     create_authorization_requests_for_clamart
     create_authorization_requests_for_dinum
-    FactoryBot.create(:authorization_request, :hubee_cert_dc, :validated)
+    create_validated_authorization_request(:portail_hubee_demarche_certdc, without: %i[description])
   end
 
   def flushdb
@@ -157,27 +157,27 @@ class Seeds
     )
   end
 
-  def create_draft_authorization_request(kind, attributes: {})
+  def create_draft_authorization_request(kind, attributes: {}, without: [])
     create_authorization_request_model(
       kind,
       attributes: attributes.merge(
         fill_all_attributes: true,
         description: random_description,
-      )
+      ).except(*without)
     )
   end
 
-  def create_submitted_authorization_request(kind, attributes: {})
+  def create_submitted_authorization_request(kind, attributes: {}, without: [])
     user = extract_applicant(attributes)
-    authorization_request = create_draft_authorization_request(kind, attributes:)
+    authorization_request = create_draft_authorization_request(kind, attributes:, without:)
 
     SubmitAuthorizationRequest.call(authorization_request:, user:).perform
 
     authorization_request
   end
 
-  def create_validated_authorization_request(kind, attributes: {})
-    authorization_request = create_submitted_authorization_request(kind, attributes:)
+  def create_validated_authorization_request(kind, attributes: {}, without: [])
+    authorization_request = create_submitted_authorization_request(kind, attributes:, without:)
 
     ApproveAuthorizationRequest.call(authorization_request:, user: api_entreprise_instructor).perform
 
