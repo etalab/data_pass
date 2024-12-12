@@ -540,10 +540,10 @@ FactoryBot.define do
       with_cadre_juridique
     end
 
-    trait :api_opale do
+    trait :api_opale_production do
       type { 'AuthorizationRequest::APIOpale' }
 
-      form_uid { 'api-opale' }
+      form_uid { 'api-opale-production' }
 
       with_basic_infos
       with_personal_data

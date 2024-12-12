@@ -644,7 +644,7 @@ shared:
       type: sandbox
       next:
         id: api_opale
-        form_id: api-opale
+        form_id: api-opale-production
     blocks:
       - name: basic_infos
       - name: personal_data

@@ -36,7 +36,7 @@ api-opale-sandbox:
     - name: legal
     - name: contacts
 
-api-opale:
+api-opale-production:
   description: TODO
   introduction: |
     Votre demande d'accès au bac à sable a été validée, vous pouvez à présent poursuivre votre demande en demandant les accès à la production.
