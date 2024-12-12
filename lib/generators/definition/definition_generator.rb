@@ -7,8 +7,8 @@ class DefinitionGenerator < Rails::Generators::NamedBase
     template 'authorization_request.rb.erb', "app/models/authorization_request/#{name.underscore}.rb"
   end
 
-  def insert_definition_infos
-    append_to_file 'config/authorization_definitions.yml', definition_data
+  def create_definition_file
+    template 'definition.yml.erb', "config/authorization_definitions/#{name.underscore}.yml"
   end
 
   def create_forms_file
@@ -26,30 +26,6 @@ class DefinitionGenerator < Rails::Generators::NamedBase
   end
 
   private
-
-  def definition_data
-    <<-YAML_DATA
-  #{name.underscore}:
-    name: #{humanized_name}
-    description: "FEEDME"
-    provider: "dinum"
-    kind: 'api'
-    link: "https://#{name.underscore.dasherize}.gouv.fr/feedme-with-valid-url"
-    cgu_link: "https://#{name.underscore.dasherize}.gouv.fr/cgu"
-    access_link: "https://#{name.underscore.dasherize}.gouv.fr/tokens/%<external_provider_id>"
-    public: true
-    blocks:
-      - name: "basic_infos"
-      - name: "personal_data"
-      - name: "legal"
-      - name: "scopes"
-      - name: "contacts"
-    scopes:
-      - name: "Scope 1"
-        value: "value_1"
-        group: "Groupe"
-    YAML_DATA
-  end
 
   def factory_data
     <<-FACTORY_DATA

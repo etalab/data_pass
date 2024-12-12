@@ -1,0 +1,57 @@
+<%= name.underscore %>_sandbox:
+  name: <%= humanized_name %>
+  description: "FEEDME"
+  provider: "<%= provider %>"
+  kind: 'api'
+  link: "https://<%= name.underscore.dasherize %>.gouv.fr/feedme-with-valid-url"
+  cgu_link: "https://<%= name.underscore.dasherize %>.gouv.fr/cgu"
+  access_link: "https://<%= name.underscore.dasherize %>.gouv.fr/tokens/%<external_provider_id>"
+  public: true
+  stage:
+    type: sandbox
+    next:
+      id: <%= name.underscore %>
+      form_id: <%= name.underscore.dasherize %>
+  blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+<% if scopes? %>
+    - name: scopes
+<% end %>
+    - name: contacts
+  <% if scopes? %>
+  scopes: &<%= name.underscore %>_scopes
+    - name: 'Scope 1'
+      value: 'value_1'
+      group: 'Groupe'
+  <% end %>
+
+<%= name.underscore %>:
+  name: <%= humanized_name %>
+  description: "FEEDME"
+  provider: "<%= provider %>"
+  kind: 'api'
+  link: "https://<%= name.underscore.dasherize %>.gouv.fr/feedme-with-valid-url"
+  cgu_link: "https://<%= name.underscore.dasherize %>.gouv.fr/cgu"
+  access_link: "https://<%= name.underscore.dasherize %>.gouv.fr/tokens/%<external_provider_id>"
+  public: true
+  stage:
+    type: production
+    previouses:
+      - id: <%= name.underscore %>_sandbox
+        form_id: <%= name.underscore.dasherize %>-sandbox
+  blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+<% if scopes? %>
+    - name: scopes
+<% end %>
+    - name: contacts
+    - name: operational_acceptance
+    - name: safety_certification
+    - name: volumetrie
+<% if scopes? %>
+  scopes: *<%= name.underscore %>_scopes
+<% end %>

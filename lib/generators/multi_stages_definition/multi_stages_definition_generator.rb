@@ -18,8 +18,8 @@ class MultiStagesDefinitionGenerator < Rails::Generators::NamedBase
     template 'authorization_request_production.rb.erb', "app/models/authorization_request/#{name.underscore}.rb"
   end
 
-  def insert_definitions_infos
-    append_to_file 'config/authorization_definitions.yml', definitions_data
+  def create_definition_file
+    template 'definition.yml.erb', "config/authorization_definitions/#{name.underscore}.yml"
   end
 
   def create_forms_file
@@ -48,65 +48,6 @@ class MultiStagesDefinitionGenerator < Rails::Generators::NamedBase
 
   def provider
     options.fetch(:provider, 'dinum').downcase
-  end
-
-  # rubocop:disable Metrics/AbcSize
-  def definitions_data
-    <<-YAML_DATA
-  #{name.underscore}_sandbox:
-    name: #{humanized_name}
-    description: "FEEDME"
-    provider: "#{provider}"
-    kind: 'api'
-    link: "https://#{name.underscore.dasherize}.gouv.fr/feedme-with-valid-url"
-    cgu_link: "https://#{name.underscore.dasherize}.gouv.fr/cgu"
-    access_link: "https://#{name.underscore.dasherize}.gouv.fr/tokens/%<external_provider_id>"
-    public: true
-    stage:
-      type: sandbox
-      next:
-        id: #{name.underscore}
-        form_id: #{name.underscore.dasherize}
-    blocks:
-      - name: basic_infos
-      - name: personal_data
-      - name: legal
-      #{scopes? ? '- name: scopes' : ''}
-      - name: contacts
-    #{if scopes?
-        "scopes: &#{name.underscore}_scopes
-      - name: 'Scope 1'
-        value: 'value_1'
-        group: 'Groupe'"
-      else
-        ''
-      end}
-
-  #{name.underscore}:
-    name: #{humanized_name}
-    description: "FEEDME"
-    provider: "#{provider}"
-    kind: 'api'
-    link: "https://#{name.underscore.dasherize}.gouv.fr/feedme-with-valid-url"
-    cgu_link: "https://#{name.underscore.dasherize}.gouv.fr/cgu"
-    access_link: "https://#{name.underscore.dasherize}.gouv.fr/tokens/%<external_provider_id>"
-    public: true
-    stage:
-      type: production
-      previouses:
-        - id: #{name.underscore}_sandbox
-          form_id: #{name.underscore.dasherize}-sandbox
-    blocks:
-      - name: basic_infos
-      - name: personal_data
-      - name: legal
-      #{scopes? ? '- name: scopes' : ''}
-      - name: contacts
-      - name: operational_acceptance
-      - name: safety_certification
-      - name: volumetrie
-    #{scopes? ? "scopes: *#{name.underscore}_scopes" : ''}
-    YAML_DATA
   end
 
   def factory_data
@@ -138,7 +79,6 @@ class MultiStagesDefinitionGenerator < Rails::Generators::NamedBase
     end
     FACTORY_DATA
   end
-  # rubocop:enable Metrics/AbcSize
 
   def end_of_factory_file
     /  end\nend/

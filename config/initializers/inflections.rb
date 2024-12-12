@@ -21,6 +21,8 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.acronym 'CRM'
   inflect.acronym 'QF'
 
+  inflect.acronym 'YAML'
+
   inflect.acronym 'HubEE'
   inflect.acronym 'DC'
 
