@@ -16,8 +16,8 @@ class AuthorizationDefinition < StaticApplicationRecord
     :public
 
   def self.all
-    Rails.application.config_for(:authorization_definitions).map do |uid, hash|
-      build(uid, hash)
+    AuthorizationDefinitionConfigurations.instance.all.map do |uid, hash|
+      build(uid, hash.deep_symbolize_keys)
     end
   end
 
