@@ -13,4 +13,7 @@ class AuthorizationRequest::<%= name.classify %>Sandbox < AuthorizationRequest
   })
 
   contact :contact_technique, validation_condition: ->(record) { record.need_complete_validation?(:contacts) }
+<% if dgfip? %>
+  add_checkbox :dpd_homologation_checkbox
+<% end %>
 end

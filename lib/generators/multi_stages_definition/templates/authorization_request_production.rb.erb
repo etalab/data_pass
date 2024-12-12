@@ -3,6 +3,7 @@ class AuthorizationRequest::<%= name.classify %> < AuthorizationRequest
   include AuthorizationExtensions::PersonalData
   include AuthorizationExtensions::CadreJuridique
   include AuthorizationExtensions::GDPRContacts
+<% if dgfip? %>
   include AuthorizationExtensions::OperationalAcceptance
   include AuthorizationExtensions::SafetyCertification
   include AuthorizationExtensions::Volumetrie
@@ -12,6 +13,7 @@ class AuthorizationRequest::<%= name.classify %> < AuthorizationRequest
     '200 appels / minute': 200,
     '1000 appels / minute': 1000,
   }.freeze
+<% end %>
 
   add_document :maquette_projet, content_type: ['application/pdf'], size: { less_than: 10.megabytes }
 

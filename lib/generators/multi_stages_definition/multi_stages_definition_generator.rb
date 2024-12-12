@@ -3,6 +3,11 @@ class MultiStagesDefinitionGenerator < Rails::Generators::NamedBase
 
   argument :humanized_name, type: :string
 
+  class_option :provider,
+    type: :string,
+    default: 'dinum',
+    desc: "Specify the provider, if it's dgfip it will add more stuffs"
+
   def create_models_file
     template 'authorization_request_sandbox.rb.erb', "app/models/authorization_request/#{name.underscore}_sandbox.rb"
     template 'authorization_request_production.rb.erb', "app/models/authorization_request/#{name.underscore}.rb"
@@ -28,13 +33,21 @@ class MultiStagesDefinitionGenerator < Rails::Generators::NamedBase
 
   private
 
+  def dgfip?
+    provider == 'dgfip'
+  end
+
+  def provider
+    options.fetch(:provider, 'dinum').downcase
+  end
+
   # rubocop:disable Metrics/AbcSize
   def definitions_data
     <<-YAML_DATA
   #{name.underscore}_sandbox:
     name: #{humanized_name}
     description: "FEEDME"
-    provider: "dinum"
+    provider: "#{provider}"
     kind: 'api'
     link: "https://#{name.underscore.dasherize}.gouv.fr/feedme-with-valid-url"
     cgu_link: "https://#{name.underscore.dasherize}.gouv.fr/cgu"
@@ -59,7 +72,7 @@ class MultiStagesDefinitionGenerator < Rails::Generators::NamedBase
   #{name.underscore}:
     name: #{humanized_name}
     description: "FEEDME"
-    provider: "dinum"
+    provider: "#{provider}"
     kind: 'api'
     link: "https://#{name.underscore.dasherize}.gouv.fr/feedme-with-valid-url"
     cgu_link: "https://#{name.underscore.dasherize}.gouv.fr/cgu"
