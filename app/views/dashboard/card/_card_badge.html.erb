@@ -12,7 +12,7 @@
     <% end %>
   <% end %>
 
-  <% if authorization_request.already_been_validated? %>
+  <% if authorization_request.already_been_validated? && !authorization_request.revoked? %>
     <span class="fr-badge fr-badge--success fr-ml-2v">
       <%= t("authorization_request.status.validated") %>
     </span>

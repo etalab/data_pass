@@ -53,6 +53,8 @@ class Seeds
     send_message_to_instructors(authorization_request, body: "Je ne suis pas sûr du cadre de cette demande, pouvez-vous m'aider ?")
 
     create_validated_authorization_request(:api_impot_particulier_sandbox, attributes: { intitule: 'Demande de retraite progressive en ligne', applicant: demandeur })
+
+    create_fully_approved_api_impot_particulier_authorization_request
   end
   # rubocop:enable Metrics/AbcSize
 
@@ -170,7 +172,9 @@ class Seeds
     user = extract_applicant(attributes)
     authorization_request = create_draft_authorization_request(kind, attributes:)
 
-    SubmitAuthorizationRequest.call(authorization_request:, user:).perform
+    organizer = SubmitAuthorizationRequest.call(authorization_request:, user:)
+
+    raise "Fail to submit authorization request: #{organizer}" unless organizer.success?
 
     authorization_request
   end
@@ -178,7 +182,9 @@ class Seeds
   def create_validated_authorization_request(kind, attributes: {})
     authorization_request = create_submitted_authorization_request(kind, attributes:)
 
-    ApproveAuthorizationRequest.call(authorization_request:, user: api_entreprise_instructor).perform
+    organizer = ApproveAuthorizationRequest.call(authorization_request:, user: api_entreprise_instructor)
+
+    raise "Fail to approve authorization request #{organizer}" unless organizer.success?
 
     authorization_request
   end
@@ -186,7 +192,9 @@ class Seeds
   def create_revoked_authorization_request(kind, attributes: {})
     authorization_request = create_validated_authorization_request(kind, attributes:)
 
-    RevokeAuthorizationRequest.call(authorization_request:, user: api_entreprise_instructor, revocation_of_authorization_params: { reason: 'Le cadre légal est maintenant caduque' }).perform
+    organizer = RevokeAuthorizationRequest.call(authorization_request:, user: api_entreprise_instructor, revocation_of_authorization_params: { reason: 'Le cadre légal est maintenant caduque' })
+
+    raise "Fail to revoked authorization request: #{organizer}" unless organizer.success?
 
     authorization_request
   end
@@ -236,6 +244,32 @@ class Seeds
       }.merge(attributes.except(:applicant))
     )
   end
+
+  # rubocop:disable Metrics/AbcSize
+  def create_fully_approved_api_impot_particulier_authorization_request
+    authorization_request = create_validated_authorization_request(:api_impot_particulier_sandbox, attributes: { intitule: 'PASS FAMILLE', applicant: demandeur, created_at: 3.days.ago })
+
+    StartNextAuthorizationRequestStage.call(authorization_request: authorization_request, user: authorization_request.applicant).perform
+
+    authorization_request = AuthorizationRequest.find(authorization_request.id)
+
+    valid_api_impot_particulier_production = FactoryBot.build(:authorization_request, :api_impot_particulier_production, fill_all_attributes: true)
+
+    valid_api_impot_particulier_production.class.extra_attributes.each do |key|
+      authorization_request.public_send(:"#{key}=", valid_api_impot_particulier_production.public_send(key))
+    end
+    authorization_request.safety_certification_document = dummy_file
+    authorization_request.terms_of_service_accepted = true
+    authorization_request.data_protection_officer_informed = true
+
+    authorization_request.save!
+
+    SubmitAuthorizationRequest.call(authorization_request: authorization_request.reload, user: authorization_request.applicant)
+    ApproveAuthorizationRequest.call(authorization_request: authorization_request.reload, user: api_entreprise_instructor)
+
+    raise 'Authorization request not validated' unless authorization_request.reload.validated?
+  end
+  # rubocop:enable Metrics/AbcSize
 
   def extract_applicant(attributes)
     attributes[:applicant] || demandeur
@@ -296,6 +330,10 @@ class Seeds
       "Demande d'autorisation pour utiliser les données de consommation énergétique pour recherche environnementale.",
       "Requête pour accéder aux archives judiciaires dans le but d'une étude sur la justice pénale."
     ].sample
+  end
+
+  def dummy_file
+    Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/dummy.pdf'), 'application/pdf')
   end
 
   def load_all_models!
