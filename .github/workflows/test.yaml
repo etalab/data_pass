@@ -137,12 +137,19 @@ jobs:
     with:
       cucumber_options: "features/{instructeurs,reporters}/"
 
-  integration-tests-habilitations:
-    name: "Integration tests: habilitations"
+  integration-tests-dgfip-habilitations:
+    name: "Integration tests: dgfip habilitations"
     needs: build
     uses: ./.github/workflows/reusable-integration-tests.yaml
     with:
-      cucumber_options: "features/habilitations/"
+      cucumber_options: "features/habilitations/dgfip/"
+
+  integration-tests-others-habilitations:
+    name: "Integration tests: other habilitations"
+    needs: build
+    uses: ./.github/workflows/reusable-integration-tests.yaml
+    with:
+      cucumber_options: "features/habilitations/ -e features/habilitations/dgfip/"
 
   integration-tests-others:
     name: "Integration tests: others"
@@ -162,7 +169,8 @@ jobs:
       - yaml-lint
       - unit-tests
       - integration-tests-admin
-      - integration-tests-habilitations
+      - integration-tests-dgfip-habilitations
+      - integration-tests-others-habilitations
       - integration-tests-others
     steps:
       - name: Checkout code
