@@ -92,18 +92,74 @@
       </fieldset>
     </div>
 
-    <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--icon-left fr-btns-group--between">
-      <li class="fr-ml-auto" data-choose-stage-target="defaultResult">
-        <button class="fr-btn" disabled>
-          <%= t("authorization_request_forms.form.start_stage_generic") %>
-        </button>
-      </li>
-      <li class="fr-ml-auto fr-hidden"  data-choose-stage-target="sandboxResult">
-        <%= link_to t('authorization_request_forms.form.start_first_stage'), new_authorization_request_form_path("api-impot-particulier-sandbox"), class: %w(fr-btn), "data-choose-modalite-impot-particulier-target": "links" %>
-      </li>
-      <li class="fr-ml-auto fr-hidden"  data-choose-stage-target="editorResult">
-        <%= link_to t('authorization_request_forms.form.start_next_stage'), new_authorization_request_form_path("api-impot-particulier-production-avec-editeur"), class: %w(fr-btn), "data-choose-modalite-impot-particulier-target": "links" %>
-      </li>
-    </ul>
+    <div
+      data-choose-authorization-request-form-target="forms"
+      data-choose-stage-target="sandboxResult"
+      id="forms"
+      class="fr-background-alt--blue-france fr-py-4w fr-hidden"
+    >
+      <%# TODO: Adapt facade to sandbox %>
+      <div class="fr-grid-row">
+        <div class="fr-col-md-10 fr-col-offset-1">
+          <p class="center fr-px-5w fr-py-1w">
+            <%= t(
+              "authorization_requests.new.step3.use_case_intro_html",
+              name: @facade.authorization_definition_name,
+              base_url: "https://particulier.api.gouv.fr",
+              use_cases_url: "https://particulier.api.gouv.fr/cas_usages",
+            ) %>
+          </p>
+
+          <div class="fr-grid-row fr-grid-row--center">
+            <% @facade.public_available_forms.each do |authorization_request_form| %>
+              <div
+                data-choose-authorization-request-form-target="form"
+                data-choose-authorization-request-form-tags="<%= authorization_request_form.tags.to_json %>"
+                class="fr-col-md-6 fr-col-xl-6 fr-col-12 fr-p-2w"
+              >
+                <%= render partial: "authorization_request_forms/authorization_request_form_card",
+                locals: {
+                  authorization_request_form:,
+                } %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      data-choose-authorization-request-form-target="forms"
+      data-choose-stage-target="editorResult"
+      id="forms"
+      class="fr-background-alt--blue-france fr-py-4w fr-hidden"
+    >
+      <%# TODO: Adapt facade to editor %>
+      <div class="fr-grid-row">
+        <div class="fr-col-md-10 fr-col-offset-1">
+          <p class="center fr-px-5w fr-py-1w">
+            <%= t(
+              "authorization_requests.new.step3.use_case_intro_html",
+              name: @facade.authorization_definition_name,
+              base_url: "https://particulier.api.gouv.fr",
+              use_cases_url: "https://particulier.api.gouv.fr/cas_usages",
+            ) %>
+          </p>
+          <div class="fr-grid-row fr-grid-row--center">
+            <% @facade.public_available_forms.each do |authorization_request_form| %>
+              <div
+                data-choose-authorization-request-form-target="form"
+                data-choose-authorization-request-form-tags="<%= authorization_request_form.tags.to_json %>"
+                class="fr-col-md-6 fr-col-xl-6 fr-col-12 fr-p-2w"
+              >
+                <%= render partial: "authorization_request_forms/authorization_request_form_card",
+                locals: {
+                  authorization_request_form:,
+                } %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
