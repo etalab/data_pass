@@ -8,6 +8,11 @@ class MultiStagesDefinitionGenerator < Rails::Generators::NamedBase
     default: 'dinum',
     desc: "Specify the provider, if it's dgfip it will add more stuffs"
 
+  class_option :scopes,
+    type: :boolean,
+    default: true,
+    desc: 'Add scopes'
+
   def create_models_file
     template 'authorization_request_sandbox.rb.erb', "app/models/authorization_request/#{name.underscore}_sandbox.rb"
     template 'authorization_request_production.rb.erb', "app/models/authorization_request/#{name.underscore}.rb"
@@ -37,6 +42,10 @@ class MultiStagesDefinitionGenerator < Rails::Generators::NamedBase
     provider == 'dgfip'
   end
 
+  def scopes?
+    options.fetch(:scopes)
+  end
+
   def provider
     options.fetch(:provider, 'dinum').downcase
   end
@@ -62,12 +71,16 @@ class MultiStagesDefinitionGenerator < Rails::Generators::NamedBase
       - name: basic_infos
       - name: personal_data
       - name: legal
-      - name: scopes
+      #{scopes? ? '- name: scopes' : ''}
       - name: contacts
-    scopes: &#{name.underscore}_scopes
-      - name: "Scope 1"
-        value: "value_1"
-        group: "Groupe"
+    #{if scopes?
+        "scopes: &#{name.underscore}_scopes
+      - name: 'Scope 1'
+        value: 'value_1'
+        group: 'Groupe'"
+      else
+        ''
+      end}
 
   #{name.underscore}:
     name: #{humanized_name}
@@ -87,12 +100,12 @@ class MultiStagesDefinitionGenerator < Rails::Generators::NamedBase
       - name: basic_infos
       - name: personal_data
       - name: legal
-      - name: scopes
+      #{scopes? ? '- name: scopes' : ''}
       - name: contacts
       - name: operational_acceptance
       - name: safety_certification
       - name: volumetrie
-    scopes: *#{name.underscore}_scopes
+    #{scopes? ? "scopes: *#{name.underscore}_scopes" : ''}
     YAML_DATA
   end
 
@@ -107,7 +120,7 @@ class MultiStagesDefinitionGenerator < Rails::Generators::NamedBase
       with_basic_infos
       with_personal_data
       with_cadre_juridique
-      with_scopes
+      #{scopes? ? 'with_scopes' : ''}
     end
 
     trait :#{name.underscore} do
@@ -118,7 +131,7 @@ class MultiStagesDefinitionGenerator < Rails::Generators::NamedBase
       with_basic_infos
       with_personal_data
       with_cadre_juridique
-      with_scopes
+      #{scopes? ? 'with_scopes' : ''}
       with_safety_certification
       with_operational_acceptance
       with_volumetrie

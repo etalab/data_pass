@@ -15,10 +15,10 @@ Fonctionnalité: Soumission d'une demande d'habilitation <%= humanized_name %>
 
     * je renseigne le cadre légal
     * je clique sur "Suivant"
-
+<% if scopes? %>
     * je coche "Scope 1"
     * je clique sur "Suivant"
-
+<% end %>
     * je renseigne les informations des contacts RGPD
     * je renseigne les informations du contact technique
     * je clique sur "Suivant"
