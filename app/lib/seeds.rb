@@ -5,7 +5,7 @@ class Seeds
 
     create_authorization_requests_for_clamart
     create_authorization_requests_for_dinum
-    FactoryBot.create(:authorization_request, :hubee_cert_dc, :validated)
+    create_validated_authorization_request(:portail_hubee_demarche_certdc, attributes: { description: nil })
   end
 
   def flushdb
@@ -160,10 +160,10 @@ class Seeds
   def create_draft_authorization_request(kind, attributes: {})
     create_authorization_request_model(
       kind,
-      attributes: attributes.merge(
+      attributes: {
         fill_all_attributes: true,
         description: random_description,
-      )
+      }.merge(attributes).compact
     )
   end
 
