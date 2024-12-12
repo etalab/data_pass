@@ -630,3 +630,46 @@ shared:
       - name: operational_acceptance
       - name: safety_certification
       - name: volumetrie
+
+  api_opale_sandbox:
+    name: API OPALE
+    description: "FEEDME"
+    provider: "dgfip"
+    kind: 'api'
+    link: "https://api-opale.gouv.fr/feedme-with-valid-url"
+    cgu_link: "/public/cgus/dgfip/cgu_bas_opale_v.2023_11.pdf"
+    access_link: "https://api-opale.gouv.fr/tokens/%<external_provider_id>"
+    public: false
+    stage:
+      type: sandbox
+      next:
+        id: api_opale
+        form_id: api-opale-production
+    blocks:
+      - name: basic_infos
+      - name: personal_data
+      - name: legal
+      - name: contacts
+
+  api_opale:
+    name: API OPALE
+    description: "FEEDME"
+    provider: "dgfip"
+    kind: 'api'
+    link: "https://api-opale.gouv.fr/feedme-with-valid-url"
+    cgu_link: "/public/cgus/dgfip/cgu_prod_opale_v.2023_11.pdf"
+    access_link: "https://api-opale.gouv.fr/tokens/%<external_provider_id>"
+    public: false
+    stage:
+      type: production
+      previouses:
+        - id: api_opale_sandbox
+          form_id: api-opale-sandbox
+    blocks:
+      - name: basic_infos
+      - name: personal_data
+      - name: legal
+      - name: contacts
+      - name: operational_acceptance
+      - name: safety_certification
+      - name: volumetrie
