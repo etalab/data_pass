@@ -14,6 +14,12 @@ class AuthorizationRequestPreview < ActionMailer::Preview
     end
   end
 
+  def approve_dgfip_sandbox
+    AuthorizationRequestMailer.with(
+      authorization_request: AuthorizationRequest::APIImpotParticulierSandbox.where(state: :validated).first
+    ).approve
+  end
+
   private
 
   def authorization_request_mailer_method(state, mth)
