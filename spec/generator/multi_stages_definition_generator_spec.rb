@@ -2,7 +2,7 @@ require 'generator_spec'
 require 'generators/multi_stages_definition/multi_stages_definition_generator'
 
 RSpec.describe MultiStagesDefinitionGenerator, type: :generator do
-  arguments ['FranceGenerateur', 'Generateur de France']
+  arguments ['FranceGenerateur', 'Generateur de France', '--provider=dgfip']
 
   before do
     import_for_generator('config/authorization_definitions.yml')

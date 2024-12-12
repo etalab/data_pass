@@ -7,10 +7,14 @@ class AuthorizationRequest::<%= name.classify %>Sandbox < AuthorizationRequest
   add_document :maquette_projet, content_type: ['application/pdf'], size: { less_than: 10.megabytes }
 
   add_attributes :date_prevue_mise_en_production
-
+<% if scopes? %>
   add_scopes(validation: {
     presence: true, if: -> { need_complete_validation?(:scopes) }
   })
+<% end %>
 
   contact :contact_technique, validation_condition: ->(record) { record.need_complete_validation?(:contacts) }
+<% if dgfip? %>
+  add_checkbox :dpd_homologation_checkbox
+<% end %>
 end

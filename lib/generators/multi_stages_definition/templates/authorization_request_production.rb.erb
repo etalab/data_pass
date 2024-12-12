@@ -3,6 +3,7 @@ class AuthorizationRequest::<%= name.classify %> < AuthorizationRequest
   include AuthorizationExtensions::PersonalData
   include AuthorizationExtensions::CadreJuridique
   include AuthorizationExtensions::GDPRContacts
+<% if dgfip? %>
   include AuthorizationExtensions::OperationalAcceptance
   include AuthorizationExtensions::SafetyCertification
   include AuthorizationExtensions::Volumetrie
@@ -12,14 +13,16 @@ class AuthorizationRequest::<%= name.classify %> < AuthorizationRequest
     '200 appels / minute': 200,
     '1000 appels / minute': 1000,
   }.freeze
+<% end %>
 
   add_document :maquette_projet, content_type: ['application/pdf'], size: { less_than: 10.megabytes }
 
   add_attributes :date_prevue_mise_en_production
-
+<% if scopes? %>
   add_scopes(validation: {
     presence: true, if: -> { need_complete_validation?(:scopes) }
   })
+<% end %>
 
   contact :contact_technique, validation_condition: ->(record) { record.need_complete_validation?(:contacts) }
 end

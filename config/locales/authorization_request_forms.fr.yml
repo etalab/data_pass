@@ -89,6 +89,8 @@ fr:
         label: Quelle limitation de débit souhaitez- vous pour votre téléservice ?
       volumetrie_justification:
         label: Pour quels motifs souhaitez-vous un débit plus grand que le minimum ?
+      volumetrie_approximative:
+        hint: Nombre de démarches ou dossiers traités dans l'année
 
       prefill_data_info:
         title: Nous avons pré-rempli des informations pour vous aider
@@ -178,6 +180,8 @@ fr:
       administrateur_metier_email: *contact_email
       administrateur_metier_phone_number: *contact_phone_number
 
+      dpd_homologation_checkbox:
+        label: J’atteste que mon organisation devra déclarer à la DGFiP l’accomplissement des formalités en matière de protection des données à caractère personnel et qu’elle veillera à procéder à l’homologation de sécurité de son projet.
     hubee_cert_dc:
       administrateur_metier: &hubee_administrateur_metier
         info: |
@@ -248,8 +252,6 @@ fr:
     api_entreprise:
       maquette_projet:
         hint: Joindre une photo de votre projet, sous format PDF
-      volumetrie_approximative:
-        hint: Nombre de démarches ou dossiers traités dans l'année
       scopes:
         info:
           content: |
@@ -687,10 +689,10 @@ fr:
           with_etat_civil:
             label: Via l'état civil
         callout:
-          title: Pour proposer FranceConnect à vos utilisateurs, il vous faudra au préalable demander une habilitation FranceConnect. 
+          title: Pour proposer FranceConnect à vos utilisateurs, il vous faudra au préalable demander une habilitation FranceConnect.
           content: Vous pourrez poursuivre votre demande d’habilitation à l’API Impôt Particulier lorsque votre habilitation FranceConnect sera validée.
           link: Demander une habilitation FranceConnect
-        
+
       france_connect_authorization_id:
         label: Sélectionnez une habilitation FranceConnect qui sera liée à cette demande
 
@@ -733,8 +735,3 @@ fr:
     formulaire_qf:
       legal: *api_particulier_editor_common_wordings
 
-    api_hermes_sandbox:
-      volumetrie_approximative:
-        hint: Nombre de démarches ou dossiers traités dans l'année
-      dpd_homologation_checkbox:
-        label: J’atteste que mon organisation devra déclarer à la DGFiP l’accomplissement des formalités en matière de protection des données à caractère personnel et qu’elle veillera à procéder à l’homologation de sécurité de son projet.

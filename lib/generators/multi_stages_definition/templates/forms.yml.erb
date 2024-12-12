@@ -8,7 +8,9 @@
     - name: basic_infos
     - name: personal_data
     - name: legal
+<% if scopes? %>
     - name: scopes
+<% end %>
     - name: contacts
 
 <%= name.underscore.dasherize %>:
