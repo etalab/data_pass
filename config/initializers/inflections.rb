@@ -27,3 +27,11 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.acronym 'CaptchEtat'
   inflect.irregular 'Hermes', 'Hermes'
 end
+
+class String
+  def classify
+    return 'APIEContacts' if %w[api_e_contacts APIEContacts].include?(self)
+
+    ActiveSupport::Inflector.classify(self)
+  end
+end
