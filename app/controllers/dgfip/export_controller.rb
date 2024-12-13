@@ -14,7 +14,9 @@ class DGFIP::ExportController < AuthenticatedUserController
   end
 
   def authorization_requests
-    AuthorizationRequest.where(form_uid: dgfip_form_uids)
+    AuthorizationRequest
+      .includes(:organization, :authorizations)
+      .where(form_uid: dgfip_form_uids)
   end
 
   def dgfip_form_uids
