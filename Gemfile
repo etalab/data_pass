@@ -5,6 +5,7 @@ ruby '3.3.6'
 gem 'active_model_validates_intersection_of'
 gem 'active_model_serializers', '~> 0.10.15'
 gem 'active_storage_validations'
+gem 'caxlsx'
 gem 'aws-sdk-s3', require: false
 gem 'bootsnap', require: false
 gem 'draper'
@@ -75,6 +76,7 @@ group :test do
   gem 'generator_spec'
   gem 'rack_session_access'
   gem 'rails-controller-testing'
+  gem 'roo'
   gem 'rspec-rails', '7.1.0'
   gem 'simplecov', require: false
   gem 'webmock'

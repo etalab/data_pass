@@ -1,0 +1,41 @@
+{
+  "id": 9001,
+  "scopes": [
+
+  ],
+  "siret": "13002526500013",
+  "status": "validated",
+  "cgu_approved": true,
+  "target_api": "api_impot_particulier_production",
+  "created_at": "2024-07-29 13:19:52 UTC",
+  "updated_at": "2024-10-02 09:26:32 UTC",
+  "linked_token_manager_id": null,
+  "nom_raison_sociale": "DINUM",
+  "previous_enrollment_id": 51,
+  "additional_content": {
+    "date_homologation": "2024-03-15",
+    "date_fin_homologation": "2027-12-31",
+    "recette_fonctionnelle": true,
+    "autorite_homologation_nom": "Mr Dupont Jeam",
+    "volumetrie_appels_par_minute": "50",
+    "autorite_homologation_fonction": "Président du monde"
+  },
+  "intitule": "Dites-le-nous une fois",
+  "description": null,
+  "fondement_juridique_title": "Réglement de la vie",
+  "fondement_juridique_url": null,
+  "data_retention_period": null,
+  "data_recipients": null,
+  "data_retention_comment": null,
+  "organization_id": 9001,
+  "copied_from_enrollment_id": null,
+  "demarche": null,
+  "type_projet": null,
+  "date_mise_en_production": null,
+  "volumetrie_approximative": null,
+  "dpo_is_informed": true,
+  "technical_team_type": null,
+  "technical_team_value": null,
+  "zip_code": "75004",
+  "last_validated_at": "2024-10-02 09:26:32 UTC"
+}
