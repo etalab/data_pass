@@ -50,7 +50,7 @@ class DGFIPSpreadsheetGenerator
       authorization_request.id,
       nil,
       # FIXME: pas forcément la dernière demande
-      authorization_request.definition.stage.exists? ? authorization_request.latest_authorization&.request_as_validated&.id : nil,
+      extract_previous_enrollment_id(authorization_request),
       extract_legacy_target_api(authorization_request),
       authorization_request.state,
       authorization_request.try(:intitule),
@@ -90,6 +90,25 @@ class DGFIPSpreadsheetGenerator
       insee_payload
     ]
   end
+
+  def extract_previous_enrollment_id(authorization_request)
+    if authorization_request.definition.stage.exists? && authorization_request.definition.stage.type == 'production'
+      extract_latest_sandbox_authorization_id(authorization_request) ||
+        authorization_request.try(:france_connect_authorization_id)
+    else
+      authorization_request.try(:france_connect_authorization_id)
+    end
+  end
+
+  # rubocop:disable Style/MultilineBlockChain
+  def extract_latest_sandbox_authorization_id(authorization_request)
+    authorization_request.authorizations.sort {
+      authorization_request.authorizations.map(&:created_at).max
+    }.find { |authorization|
+      authorization.request.definition.stage.type == 'sandbox'
+    }.try(:id)
+  end
+  # rubocop:enable Style/MultilineBlockChain
 
   # https://metabase.entreprise.api.gouv.fr/question/515
   # TODO mettre les bonnes valeurs
