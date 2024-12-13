@@ -444,10 +444,100 @@ FactoryBot.define do
       has_previous_authorization_validated
     end
 
-    trait :api_impot_particulier_production_avec_editeur do
+    trait :api_impot_particulier_production_editeur do
       api_impot_particulier_common
 
-      form_uid { 'api-impot-particulier-production-avec-editeur' }
+      form_uid { 'api-impot-particulier-production-editeur' }
+    end
+
+    trait :api_impot_particulier_stationnement_residentiel_sandbox do
+      api_impot_particulier
+      form_uid { 'api-impot-particulier-stationnement-residentiel-sandbox' }
+    end
+
+    trait :api_impot_particulier_stationnement_residentiel_production do
+      api_impot_particulier
+      form_uid { 'api-impot-particulier-stationnement-residentiel-production' }
+    end
+
+    trait :api_impot_particulier_stationnement_residentiel_editeur do
+      api_impot_particulier
+      form_uid { 'api-impot-particulier-stationnement-residentiel-editeur' }
+    end
+
+    trait :api_impot_particulier_place_creche_sandbox do
+      api_impot_particulier
+      form_uid { 'api-impot-particulier-place-creche-sandbox' }
+    end
+
+    trait :api_impot_particulier_place_creche_production do
+      api_impot_particulier
+      form_uid { 'api-impot-particulier-place-creche-production' }
+    end
+
+    trait :api_impot_particulier_place_creche_editeur do
+      api_impot_particulier
+      form_uid { 'api-impot-particulier-place-creche-editeur' }
+    end
+
+    trait :api_impot_particulier_activites_periscolaires_sandbox do
+      api_impot_particulier
+      form_uid { 'api-impot-particulier-activites-periscolaires-sandbox' }
+    end
+
+    trait :api_impot_particulier_activites_periscolaires_production do
+      api_impot_particulier
+      form_uid { 'api-impot-particulier-activites-periscolaires-production' }
+    end
+
+    trait :api_impot_particulier_activites_periscolaires_editeur do
+      api_impot_particulier
+      form_uid { 'api-impot-particulier-activites-periscolaires-editeur' }
+    end
+
+    trait :api_impot_particulier_cantine_scolaire_sandbox do
+      api_impot_particulier
+      form_uid { 'api-impot-particulier-cantine-scolaire-sandbox' }
+    end
+
+    trait :api_impot_particulier_cantine_scolaire_production do
+      api_impot_particulier
+      form_uid { 'api-impot-particulier-cantine-scolaire-production' }
+    end
+
+    trait :api_impot_particulier_cantine_scolaire_editeur do
+      api_impot_particulier
+      form_uid { 'api-impot-particulier-cantine-scolaire-editeur' }
+    end
+
+    trait :api_impot_particulier_aides_sociales_facultatives_sandbox do
+      api_impot_particulier
+      form_uid { 'api-impot-particulier-aides-sociales-facultatives-sandbox' }
+    end
+
+    trait :api_impot_particulier_aides_sociales_facultatives_production do
+      api_impot_particulier
+      form_uid { 'api-impot-particulier-aides-sociales-facultatives-production' }
+    end
+
+    trait :api_impot_particulier_aides_sociales_facultatives_editeur do
+      api_impot_particulier
+      form_uid { 'api-impot-particulier-aides-sociales-facultatives-editeur' }
+    end
+
+    trait :api_impot_particulier_carte_transport_sandbox do
+      api_impot_particulier
+      form_uid { 'api-impot-particulier-carte-transport-sandbox' }
+    end
+
+    trait :api_impot_particulier_carte_transport_production do
+      api_impot_particulier
+      form_uid { 'api-impot-particulier-carte-transport-production' }
+    end
+
+    trait :api_impot_particulier_carte_transport_editeur do
+      api_impot_particulier
+      form_uid { 'api-impot-particulier-carte-transport-editeur' }
     end
 
     trait :api_pro_sante_connect do
