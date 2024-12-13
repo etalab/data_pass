@@ -28,7 +28,11 @@ class DGFIP::ExportController < AuthenticatedUserController
   end
 
   def dgfip_authorization_definitions
-    @dgfip_authorization_definitions ||= DataProvider.find('dgfip').authorization_definitions
+    @dgfip_authorization_definitions ||= data_provider.authorization_definitions
+  end
+
+  def data_provider
+    @data_provider ||= DataProvider.find('dgfip')
   end
 
   def abort_if_not_admin_nor_dgfip_reporter
@@ -39,12 +43,6 @@ class DGFIP::ExportController < AuthenticatedUserController
   end
 
   def dgfip_reporter?
-    dgfip_authorization_definitions.map(&:id).intersect?(current_user_reporter_roles)
-  end
-
-  def current_user_reporter_roles
-    current_user.reporter_roles.map do |role|
-      role.split(':')[0]
-    end
+    data_provider.reporters.exists?(id: current_user.id)
   end
 end
