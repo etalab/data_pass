@@ -30,6 +30,11 @@ class AuthorizationDefinition::Stage
   end
 
   def previous_stages
-    @previouses || []
+    (@previouses || []).map do |previous|
+      {
+        definition: AuthorizationDefinition.find(previous[:id]),
+        form: AuthorizationRequestForm.find(previous[:form_id]),
+      }
+    end
   end
 end
