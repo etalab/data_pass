@@ -32,7 +32,7 @@ module DGFIPExtensions::APIImpotParticulierScopes
     validate :at_least_one_revenue_year_has_been_selected, if: -> { need_complete_validation?(:scopes) && !specific_requirements? }
     validate :revenue_years_scopes_compatibility, if: -> { need_complete_validation?(:scopes) && !specific_requirements? }
     validate :scopes_compatibility, if: -> { need_complete_validation?(:scopes) && !specific_requirements? }
-    validate :specific_requirements_document_presence, if: -> { specific_requirements? && need_complete_validation?(:scopes) }
+    validates :specific_requirements_document, presence: true, if: -> { specific_requirements? && need_complete_validation?(:scopes) }
   end
 
   private
@@ -58,12 +58,6 @@ module DGFIPExtensions::APIImpotParticulierScopes
 
   def scope_exists_in_each_arrays?(array_1, array_2)
     scopes.intersect?(array_1) && scopes.intersect?(array_2)
-  end
-
-  def specific_requirements_document_presence
-    return if specific_requirements_document.present?
-
-    errors.add(:specific_requirements_document, message: 'est manquant : vous devez ajoutez un fichier avant de passer à l’étape suivante')
   end
 
   def specific_requirements?
