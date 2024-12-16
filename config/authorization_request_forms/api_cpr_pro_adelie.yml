@@ -1,5 +1,5 @@
 api-cpr-pro-adelie-sandbox:
-  description: FEEDEME
+  description: FEED ME
   introduction: |
     Notre équipe d’instruction étudiera votre demande en bac à sable, lorsqu’elle sera validée vous pourrez compléter la suite de votre demande.
 
@@ -36,7 +36,7 @@ api-cpr-pro-adelie-sandbox:
     - name: contacts
 
 api-cpr-pro-adelie-production:
-  description: FEEDEME
+  description: FEED ME
   introduction: |
     Votre demande d'accès au bac à sable a été validée, vous pouvez à présent poursuivre votre demande en demandant les accès à la production.
 
