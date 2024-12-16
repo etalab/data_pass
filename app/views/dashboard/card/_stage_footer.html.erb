@@ -2,7 +2,7 @@
   <div class="footer__content">
     <div class="fr-mb-3v">
       <p class="footer__title fr-text-title--blue-france fr-text--md font-weight-700 fr-m-0">
-        <% if authorization_request.stage_already_started? %>
+        <% if authorization_request.next_stage_already_started? %>
           <%= t('.next_stage_title_production') %>
         <% else %>
           <%= t('.next_stage_title') %>
@@ -10,7 +10,7 @@
       </p>
 
       <p class="fr-text--sm fr-mb-0">
-        <% if authorization_request.stage_already_started? %>
+        <% if authorization_request.next_stage_already_started? %>
           <%= t('.next_stage_subtitle_production') %>
         <% else %>
           <%= t('.next_stage_subtitle') %>
@@ -20,7 +20,7 @@
   </div>
 
   <div class="footer__badge_action">
-    <% if authorization_request.stage_already_started? %>
+    <% if authorization_request.next_stage_already_started? %>
       <div class="fr-mb-3v flex-wrap flew-grow fr-grid-row--top flex-end__content">
         <%= authorization_request_stage_badge(authorization_request) %>
         <span class="fr-ml-2v"><%= authorization_request_status_badge(authorization_request) %></span>
