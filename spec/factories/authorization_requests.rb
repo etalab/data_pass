@@ -616,6 +616,8 @@ FactoryBot.define do
 
       form_uid { 'api-ocfi-production' }
 
+      has_previous_authorization_validated
+
       with_basic_infos
       with_personal_data
       with_cadre_juridique
@@ -639,6 +641,8 @@ FactoryBot.define do
 
       form_uid { 'api-e-pro-production' }
 
+      has_previous_authorization_validated
+
       with_basic_infos
       with_personal_data
       with_cadre_juridique
@@ -661,6 +665,8 @@ FactoryBot.define do
       type { 'AuthorizationRequest::APIRobf' }
 
       form_uid { 'api-robf-production' }
+
+      has_previous_authorization_validated
 
       with_basic_infos
       with_personal_data
