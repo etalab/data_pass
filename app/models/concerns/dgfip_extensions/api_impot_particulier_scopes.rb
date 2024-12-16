@@ -40,20 +40,20 @@ module DGFIPExtensions::APIImpotParticulierScopes
   def at_least_one_revenue_year_has_been_selected
     return if scopes.intersect?(MANDATORY_REVENUE_YEARS)
 
-    errors.add(:scopes, :invalid, message: 'sont invalides : Vous devez cocher au moins une année de revenus souhaitée avant de continuer')
+    errors.add(:scopes, :at_least_one_revenue_year_has_been_selected)
   end
 
   def revenue_years_scopes_compatibility
     return unless scopes.include?('dgfip_annee_n_moins_2_si_indispo_n_moins_1')
     return unless scopes.intersect?(%w[dgfip_annee_n_moins_1 dgfip_annee_n_moins_2 dgfip_annee_n_moins_3])
 
-    errors.add(:scopes, :invalid, message: "sont invalides : Vous ne pouvez pas sélectionner la donnée 'avant dernière année de revenu, si la dernière année de revenu est indisponible' avec d'autres années de revenus")
+    errors.add(:scopes, :revenue_years_scopes_compatibility)
   end
 
   def scopes_compatibility
     return unless scope_exists_in_each_arrays?(*INCOMPATIBLE_SCOPES)
 
-    errors.add(:scopes, :invalid, message: 'sont invalides : Des données incompatibles entre elles ont été cochées. Pour connaître les modalités d’appel et de réponse de l’API Impôt particulier ainsi que les données proposées, vous pouvez consulter le guide de présentation de cette API dans la rubrique « Les données nécessaires > Comment choisir les données »')
+    errors.add(:scopes, :scopes_compatibility)
   end
 
   def scope_exists_in_each_arrays?(array_1, array_2)
