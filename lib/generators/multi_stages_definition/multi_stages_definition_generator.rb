@@ -128,6 +128,8 @@ class MultiStagesDefinitionGenerator < Rails::Generators::NamedBase
 
       form_uid { '#{name.underscore.dasherize}' }
 
+      has_previous_authorization_validated
+
       with_basic_infos
       with_personal_data
       with_cadre_juridique
