@@ -925,47 +925,41 @@ api-particulier-airweb:
     modalities:
       - params
 
+api-particulier-bl-enfance-berger-levrault:
+  name: BL Enfance
+  description: Facturation des activités scolaires, périscolaires et loisirs
+  authorization_request: APIParticulier
+  use_case: tarification_municipale_enfance
+  service_provider_id: berger_levrault
+  introduction: *api_particulier_introduction_editor_with_fixed_scopes
+  steps: *api_particulier_editor_steps_with_fixed_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
+  scopes_config:
+    disabled:
+      - cnaf_quotient_familial
+    displayed:
+      - cnaf_quotient_familial
+
+  data:
+    intitule: Tarification sur Quotient Familial des activités scolaires, périscolaires et loisirs
+    description: |
+      Gestion de la tarification basée sur le quotient familial
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_municipale_enfance
+    scopes:
+      - cnaf_quotient_familial
+    contact_technique_email: "<%= Rails.application.credentials.api_particulier_berger_levrault_contact_technique_email || 'tech-bergerlevrault@yopmail.com' %>"
+    contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_berger_levrault_contact_technique_given_name || 'Jean' %>"
+    contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_berger_levrault_contact_technique_family_name || 'Dupont' %>"
+    contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_berger_levrault_contact_technique_phone_number || '0836656565' %>"
+    contact_technique_job_title: Cheffe de produit
+    modalities:
+      - params
+
 # ------------------------------- #
 # ------------------------------- #
 # ------------------------------- #
 
 # Editeur single page (cas 1)
-api-particulier-bl-enfance-berger-levrault:
-  name: BL Enfance
-  description:
-    Calcul du quotient familial pour la facturation des activités scolaires,
-    périscolaires et loisirs
-  authorization_request: APIParticulier
-  single_page_view: "api_particulier_through_editor"
-  use_case: tarification_municipale_enfance
-  service_provider_id: berger_levrault
-  static_blocks: &api_particulier_through_editor_static_blocks
-    - name: basic_infos
-    - name: modalities
-  data:
-    intitule:
-      Calcul du quotient familial pour la facturation des activités scolaires,
-      périscolaires et loisirs
-    description:
-      "La collectivité a voté un règlement intérieur où figure le tarif
-      des prestations liées aux activités scolaires et périscolaires, qui est fonction
-      du quotient familial. Il est donc nécessaire de récupérer ce dernier qui a été
-      transmis par la CAF.\r\nLa solution utilisée est BL.enfance de l’éditeur Berger-levrault."
-    cadre_juridique_nature:
-      L'article L114-8 du code des relations entre le public
-      et l'administration fixe le cadre général des échanges de données au sein de
-      l'administration. En tant que collectivité territoriale, la délibération ci-jointe
-      précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices,
-      et précise les données nécessaires à son fonctionnement.
-    scopes:
-      - cnaf_quotient_familial
-      - cnaf_allocataires
-      - cnaf_adresse
-    contact_technique_email: "<%= Rails.application.credentials.api_particulier_berger_levrault_contact_technique_email || 'tech-berger-levrault@yopmail.com' %>"
-    contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_berger_levrault_contact_technique_given_name || 'Jean' %>"
-    contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_berger_levrault_contact_technique_family_name || 'Dupont' %>"
-    contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_berger_levrault_contact_technique_phone_number || '0836656565' %>"
-    contact_technique_job_title: Contact technique
 
 api-particulier-docaposte-fast:
   name: FAST
@@ -976,7 +970,9 @@ api-particulier-docaposte-fast:
   use_case: tarification_municipale_enfance
   single_page_view: "api_particulier_through_editor_without_contact_technique"
   service_provider_id: docaposte
-  static_blocks: *api_particulier_through_editor_static_blocks
+  static_blocks: &api_particulier_through_editor_static_blocks
+    - name: basic_infos
+    - name: modalities
   data:
     intitule:
       Récupération du Quotient Familial ainsi que les informations administratives

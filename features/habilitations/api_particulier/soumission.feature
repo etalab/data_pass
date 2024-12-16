@@ -270,14 +270,15 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
     Exemples:
       | Nom du formulaire     | Nom de l'éditeur          |
       | Agora Plus            | Agora Plus                |
-      | Cantine de France    | JDéalise                  |
+      | Cantine de France     | JDéalise                  |
       | Malice                | Amiciel                   |
       | Logiciel Enfance      | 3D Ouest                  |
       | MyPérischool          | Waigeo                    |
       | Fluo                  | Cosoluce                  |
       | iNoé                  | Aiga                      |
       | CapDemat Evolution    | CapDemat                  |
-      | PourMesDossiers       | Esabora                  |
+      | PourMesDossiers       | Esabora                   |
+      | BL Enfance            | Berger-Levrault           |
 
 
   Plan du scénario: Je soumets une demande d'habilitation, présenté en une seule page, d'un éditeur avec le contact technique déjà renseigné pour un cas d'usage lié au portail famille ou à la tarification QF
@@ -300,7 +301,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
     Exemples:
       | Nom du formulaire | Nom de l'éditeur                      |
       | ICAR              | Coexya                                |
-      | BL Enfance        | Berger-Levrault                       |
       | Pandore           | Odyssée Informatique                  |
       | eTicket           | Qiis                                  |
       | Maelis Portail    | SIGEC                                 |
