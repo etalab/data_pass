@@ -621,5 +621,28 @@ FactoryBot.define do
       with_operational_acceptance
       with_volumetrie
     end
+
+    trait :api_robf_sandbox do
+      type { 'AuthorizationRequest::APIRobfSandbox' }
+
+      form_uid { 'api-robf-sandbox' }
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+    end
+
+    trait :api_robf_production do
+      type { 'AuthorizationRequest::APIRobf' }
+
+      form_uid { 'api-robf-production' }
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+      with_safety_certification
+      with_operational_acceptance
+      with_volumetrie
+    end
   end
 end
