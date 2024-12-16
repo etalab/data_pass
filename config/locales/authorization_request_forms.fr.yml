@@ -706,24 +706,16 @@ fr:
             <a href="/cgus/dgfip/presentation_de_l_api_impot_particulier_v2.8.pdf", target="_blank">Voir la documentation de l’API Impôt particulier</a>
         groups:
           'Années sur lesquelles porte votre demande': |
-            Le calendrier de basculement des millésimes est détaillé dans la documentation accessible via la rubrique « Comment choisir les données ? ».
-            </br></br>
-             En cochant la case <strong>Avant-dernière année de revenu, si la dernière année de revenu est indisponible</strong>,
+            En cochant la case <strong>Avant-dernière année de revenu, si la dernière année de revenu est indisponible</strong>,
             vous optez pour récupérer les informations de l’avant-dernière année, lorsque celles de la dernière année ne sont pas disponibles.
             Cette option n’est pas possible si vous souhaitez des données fournies uniquement par la ressource facture /avis IR.
-            </br>
-            Pour plus de précisions, consulter la documentation présente dans la rubrique « Comment choisir les données ? »
           'Situation du foyer fiscal': |
             En cochant la case <strong>Données fiscales au 31/12 en cas de décès d'un contribuable marié ou pacsé</strong>,
             vous optez pour récupérer les données fiscales de la période après décès d’un contribuable marié ou pacsé (à défaut aucune donnée fiscale n’est transmise).
             Cette option n’est pas possible si vous souhaitez des données fournies uniquement par la ressource facture /avis IR.
-            </br>
-            Pour plus de précisions, consulter la documentation présente dans la rubrique « Comment choisir les données ? »
           'Agrégats fiscaux': |
             <strong>Montant de l’impôt sur les revenus soumis au barème</strong> :
             Cette donnée n’intègre pas la taxation des revenus au taux effectif ou au taux proportionnel. Une expression de besoin spécifique est à réaliser si, après échanges avec DGFiP, ces types de taxation sont nécessaires.
-            </br>
-            Pour plus de précisions, consulter la documentation présente dans la rubrique « Comment choisir les données ? »
 
       specific_requirements:
         content: |
