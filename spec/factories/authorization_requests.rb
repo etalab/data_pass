@@ -575,5 +575,28 @@ FactoryBot.define do
       with_operational_acceptance
       with_volumetrie
     end
+
+    trait :api_ocfi_sandbox do
+      type { 'AuthorizationRequest::APIOcfiSandbox' }
+
+      form_uid { 'api-ocfi-sandbox' }
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+    end
+
+    trait :api_ocfi_production do
+      type { 'AuthorizationRequest::APIOcfi' }
+
+      form_uid { 'api-ocfi-production' }
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+      with_safety_certification
+      with_operational_acceptance
+      with_volumetrie
+    end
   end
 end

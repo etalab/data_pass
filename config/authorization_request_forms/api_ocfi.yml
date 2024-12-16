@@ -1,4 +1,4 @@
-api-opale-sandbox:
+api-ocfi-sandbox:
   description: FEEDME
   introduction: |
     Notre équipe d’instruction étudiera votre demande en bac à sable, lorsqu’elle sera validée vous pourrez compléter la suite de votre demande.
@@ -8,35 +8,34 @@ api-opale-sandbox:
         <div class="step-number">1.</div>
         <div class="step-content">
           <h3>Le bac à sable</h3>
-          <p class="fr-text--xs">Dans un premier temps, une demande d’habilitation au <strong>bac à sable</strong> de l'API OPALE</p>
+          <p class="fr-text--xs">Dans un premier temps, une demande d’habilitation au <strong>bac à sable</strong> de l'API OCFI</p>
         </div>
       </div>
 
       <div class="step pending">
         <div class="step-number">2.</div>
         <div class="step-content">
-          <h3>La production</h3>
-          <p class="fr-text--xs">Dans un second temps, une demande d’habilitation à la <strong>production</strong> de l'API OPALE</p>
+            <h3>La production</h3>
+            <p class="fr-text--xs">Dans un second temps, une demande d’habilitation à la <strong>production</strong> de l'API OCFI</p>
         </div>
       </div>
 
-      <div class="step pending">
-        <div class="step-number">3.</div>
-        <div class="step-content">
-          <h3>Votre service est ouvert !</h3>
-          <p class="fr-text--xs">Une fois vos habilitations validées, vous pouvez ouvrir votre service !</p>
+        <div class="step pending">
+          <div class="step-number">3.</div>
+          <div class="step-content">
+            <h3>Votre service est ouvert !</h3>
+            <p class="fr-text--xs">Une fois vos habilitations validées, vous pouvez ouvrir votre service !</p>
+          </div>
         </div>
       </div>
-    </div>
-
-  authorization_request: APIOpaleSandbox
-  steps: &api_opale_steps
+  authorization_request: APIOcfiSandbox
+  steps: &api_ocfi_steps
     - name: basic_infos
     - name: personal_data
     - name: legal
     - name: contacts
 
-api-opale-production:
+api-ocfi-production:
   description: FEEDME
   introduction: |
     Votre demande d'accès au bac à sable a été validée, vous pouvez à présent poursuivre votre demande en demandant les accès à la production.
@@ -46,7 +45,7 @@ api-opale-production:
         <div class="step-number">1.</div>
         <div class="step-content">
           <h3>Le bac à sable</h3>
-          <p class="fr-text--xs">Dans un premier temps, une demande d’habilitation au <strong>bac à sable</strong> de l'API OPALE</p>
+          <p class="fr-text--xs">Dans un premier temps, une demande d’habilitation au <strong>bac à sable</strong> de l'API OCFI</p>
         </div>
       </div>
 
@@ -54,7 +53,7 @@ api-opale-production:
         <div class="step-number">2.</div>
         <div class="step-content">
           <h3>La production</h3>
-          <p class="fr-text--xs">Dans un second temps, une demande d’habilitation à la <strong>production</strong> de l'API OPALE</p>
+          <p class="fr-text--xs">Dans un second temps, une demande d’habilitation à la <strong>production</strong> de l'API OCFI</p>
         </div>
       </div>
 
@@ -66,9 +65,8 @@ api-opale-production:
         </div>
       </div>
     </div>
-
-  authorization_request: APIOpale
-  static_blocks: *api_opale_steps
+  authorization_request: APIOcfi
+  static_blocks: *api_ocfi_steps
   steps:
     - name: operational_acceptance
     - name: legal
