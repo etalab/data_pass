@@ -598,5 +598,28 @@ FactoryBot.define do
       with_operational_acceptance
       with_volumetrie
     end
+
+    trait :api_e_pro_sandbox do
+      type { 'AuthorizationRequest::APIEProSandbox' }
+
+      form_uid { 'api-e-pro-sandbox' }
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+    end
+
+    trait :api_e_pro_production do
+      type { 'AuthorizationRequest::APIEPro' }
+
+      form_uid { 'api-e-pro-production' }
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+      with_safety_certification
+      with_operational_acceptance
+      with_volumetrie
+    end
   end
 end
