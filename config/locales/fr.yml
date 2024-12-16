@@ -239,7 +239,7 @@ fr:
       editor_with_sandbox:
         title: Travaillez-vous avec un éditeur qui a déjà accès au bac à sable de cette API ?
         subtitle: Si votre éditeur a déjà accès au bac à sable, vous serez redirigé directement vers une demande d'accès à l'environnement de production.
-        options: 
+        options:
           - label: Oui mon éditeur a déjà accès au bac à sable
             value: true
           - label: Non, nous n'avons pas encore accès au bac à sable
@@ -421,6 +421,8 @@ fr:
       title: Suppression de la demande d'habilitation %{authorization_request_name}
       disclaimer: |
         <strong>Cette action est irréversible</strong>. Veuillez vérifier que nous ne supprimez pas une demande légitime.
+      disclaimer_next_stage:
+        Cette demande d'autorisation est associée à au moins une demande précédente déjà validée, archiver cette demande archivera aussi toutes les demandes associées validées.
       cancel: Annuler
       archive: Supprimer la demande d'habilitation
     create:

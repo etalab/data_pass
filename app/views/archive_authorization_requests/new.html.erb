@@ -10,6 +10,12 @@
           <p>
             <%= t('.disclaimer').html_safe %>
           </p>
+
+          <% if @authorization_request.next_stage_already_started? %>
+            <div class="fr-alert fr-alert--warning">
+              <%= t('.disclaimer_next_stage') %>
+            </div>
+          <% end %>
         </div>
 
         <div class="fr-modal__footer">

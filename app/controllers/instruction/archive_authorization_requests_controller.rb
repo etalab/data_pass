@@ -20,6 +20,10 @@ class Instruction::ArchiveAuthorizationRequestsController < Instruction::Abstrac
 
   private
 
+  def extract_authorization_request
+    @authorization_request = AuthorizationRequest.find(params[:authorization_request_id]).decorate
+  end
+
   def authorize_authorization_request_archive
     authorize [:instruction, @authorization_request], :archive?
   end
