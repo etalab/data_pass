@@ -681,9 +681,9 @@ shared:
     description: "FEEDME"
     provider: "dgfip"
     kind: 'api'
-    # FEEDME
     link: "https://api.gouv.fr/producteurs/dgfip"
     cgu_link: "/public/cgus/dgfip/cgu_bas_opale_v.2023_11.pdf"
+    # FEED ME
     access_link: "https://api-opale.gouv.fr/tokens/%<external_provider_id>"
     public: false
     stage:
@@ -742,7 +742,6 @@ shared:
       - name: legal
       - name: contacts
 
-
   api_ocfi:
     name: API OCFI
     description: "FEEDME"
@@ -766,3 +765,49 @@ shared:
       - name: operational_acceptance
       - name: safety_certification
       - name: volumetrie
+
+  api_e_pro_sandbox:
+    name: API E-PRO
+    description: "FEEDME"
+    provider: "dgfip"
+    kind: 'api'
+    link: "https://api.gouv.fr/producteurs/dgfip"
+    cgu_link: "/public/cgus/dgfip/prc_v1/cgu_bas_e_pro_v.2023_11.pdf"
+    # FEEDME
+    access_link: "https://api-e-pro.gouv.fr/tokens/%<external_provider_id>"
+    public: false
+    stage:
+      type: sandbox
+      next:
+        id: api_e_pro
+        form_id: api-e-pro-production
+    blocks:
+      - name: basic_infos
+      - name: personal_data
+      - name: legal
+      - name: contacts
+
+  api_e_pro:
+    name: API E-PRO
+    description: "FEEDME"
+    provider: "dgfip"
+    kind: 'api'
+    link: "https://api.gouv.fr/producteurs/dgfip"
+    cgu_link: "/public/cgus/dgfip/prc_v1/cgu_prod_e_pro_v.2023_11.pdf"
+    # FEEDME
+    access_link: "https://api-e-pro.gouv.fr/tokens/%<external_provider_id>"
+    public: false
+    stage:
+      type: production
+      previouses:
+        - id: api_e_pro_sandbox
+          form_id: api-e-pro-sandbox
+    blocks:
+      - name: basic_infos
+      - name: personal_data
+      - name: legal
+      - name: contacts
+      - name: operational_acceptance
+      - name: safety_certification
+      - name: volumetrie
+
