@@ -88,7 +88,7 @@ fr:
       volumetrie_appels_par_minute:
         label: Quelle limitation de débit souhaitez- vous pour votre téléservice ?
       volumetrie_justification:
-        label: Pour quels motifs souhaitez-vous un débit plus grand que le minimum ?
+        label: Pour quels motifs souhaitez-vous un débit plus grand que le minimum ? <span class="fr-ml-1w fr-text-error">*</span>
       volumetrie_approximative:
         hint: Nombre de démarches ou dossiers traités dans l'année
 
