@@ -901,3 +901,48 @@ shared:
       - name: operational_acceptance
       - name: safety_certification
       - name: volumetrie
+
+  api_imprimfip_sandbox:
+    name: API IMPRIM’FIP
+    description: "FEEDME"
+    provider: "dgfip"
+    kind: 'api'
+    link: "https://www.data.gouv.fr/fr/dataservices/api-imprimfip/"
+    cgu_link: "/public/cgus/dgfip/cgu_bas_imprimfip_v.2023_09.pdf"
+    # FEEDME
+    access_link: "https://api-imprimfip.gouv.fr/tokens/%<external_provider_id>"
+    public: false
+    stage:
+      type: sandbox
+      next:
+        id: api_imprimfip
+        form_id: api-imprimfip-production
+    blocks:
+      - name: basic_infos
+      - name: personal_data
+      - name: legal
+      - name: contacts
+
+  api_imprimfip:
+    name: API IMPRIM’FIP
+    description: "FEEDME"
+    provider: "dgfip"
+    kind: 'api'
+    link: "https://www.data.gouv.fr/fr/dataservices/api-imprimfip/"
+    cgu_link: "/public/cgus/dgfip/cgu_prod_imprimfip_v.2023_09.pdf"
+    access_link: "https://api-imprimfip.gouv.fr/tokens/%<external_provider_id>"
+    public: false
+    stage:
+      type: production
+      previouses:
+        - id: api_imprimfip_sandbox
+          form_id: api-imprimfip-sandbox
+    blocks:
+      - name: basic_infos
+      - name: personal_data
+      - name: legal
+      - name: contacts
+      - name: operational_acceptance
+      - name: safety_certification
+      - name: volumetrie
+
