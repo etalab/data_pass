@@ -60,7 +60,7 @@ class AuthorizationRequestDecorator < ApplicationDecorator
       object.latest_authorization.request_as_validated.definition.next_stage?
   end
 
-  def stage_already_started?
+  def next_stage_already_started?
     display_stage_footer? &&
       !object.validated?
   end

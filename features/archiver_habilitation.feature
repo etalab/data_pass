@@ -30,3 +30,9 @@ Fonctionnalité: Supprimer une habilitation
     Et il y a un message de succès contenant "a été supprimée"
     Et un webhook avec l'évènement "archive" est envoyé
 
+  Scénario: Si je veux supprimer une de mes habilitations ayant une étape précédente, il y a un message d'alerte explicitant que cela archive l'entiéreté de la demande
+    Quand j'ai 1 demande d'habilitation "API Impôt Particulier" à l'étape "Production" en brouillon
+    Et que je me rends sur cette demande d'habilitation
+    Et que je clique sur "Supprimer"
+    Et debug
+    Alors il y a un message d'attention contenant "archiver cette demande archivera aussi toutes les demandes associées validées"

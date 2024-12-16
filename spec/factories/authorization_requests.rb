@@ -175,6 +175,17 @@ FactoryBot.define do
       end
     end
 
+    trait :has_previous_authorization_validated do
+      after(:create) do |authorization_request|
+        authorization_request.authorizations << Authorization.create!(
+          request: authorization_request,
+          applicant: authorization_request.applicant,
+          authorization_request_class: authorization_request.definition.stage.previous_stages[0][:definition].authorization_request_class,
+          data: authorization_request.data.presence || { 'what' => 'ever' },
+        )
+      end
+    end
+
     trait :with_basic_infos do
       after(:build) do |authorization_request, evaluator|
         if authorization_request.need_complete_validation? || evaluator.fill_all_attributes
@@ -399,7 +410,7 @@ FactoryBot.define do
       with_cadre_juridique
     end
 
-    trait :api_impot_particulier do
+    trait :api_impot_particulier_common do
       type { 'AuthorizationRequest::APIImpotParticulier' }
 
       transient do
@@ -421,12 +432,20 @@ FactoryBot.define do
       with_volumetrie
     end
 
+    trait :api_impot_particulier do
+      api_impot_particulier_common
+
+      has_previous_authorization_validated
+    end
+
     trait :api_impot_particulier_production do
-      api_impot_particulier
+      api_impot_particulier_common
+
+      has_previous_authorization_validated
     end
 
     trait :api_impot_particulier_production_avec_editeur do
-      api_impot_particulier
+      api_impot_particulier_common
 
       form_uid { 'api-impot-particulier-production-avec-editeur' }
     end
@@ -522,6 +541,8 @@ FactoryBot.define do
 
       form_uid { 'api-hermes-production' }
 
+      has_previous_authorization_validated
+
       with_basic_infos
       with_personal_data
       with_cadre_juridique
@@ -545,6 +566,8 @@ FactoryBot.define do
 
       form_uid { 'api-e-contacts-production' }
 
+      has_previous_authorization_validated
+
       with_basic_infos
       with_personal_data
       with_cadre_juridique
@@ -567,6 +590,8 @@ FactoryBot.define do
       type { 'AuthorizationRequest::APIOpale' }
 
       form_uid { 'api-opale-production' }
+
+      has_previous_authorization_validated
 
       with_basic_infos
       with_personal_data

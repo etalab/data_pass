@@ -17,7 +17,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
 
     * je renseigne le cadre légal
     * je clique sur "Suivant"
-    
+
     * je choisis "Via le numéro fiscal (SPI)"
     * je clique sur "Suivant"
 
@@ -47,7 +47,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
     * je clique sur "Suivant"
 
     Alors la page contient "Une erreur est survenue lors de la sauvegarde de la demande d'habilitation"
-    Et la page contient "Les données sont invalides : Des données incompatibles entre elles ont été cochées. Pour connaître les modalités d’appel et de réponse de l’API Impôt particulier ainsi que les données proposées, vous pouvez consulter le guide de présentation de cette API dans la rubrique « Les données nécessaires > Comment choisir les données"
+    Et la page contient "Les données sont invalides : Des données incompatibles entre elles ont été cochées"
 
   @javascript
   Scénario: Je soumets une demande d'habilitation sans scopes mais je joins un fichier d'expression de besoin spécifique.
@@ -63,4 +63,4 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
     * je clique sur "Suivant"
 
     Alors la page contient "Une erreur est survenue lors de la sauvegarde de la demande d'habilitation"
-    Et la page contient "Document de l'expression de besoin spécifique est manquant : vous devez ajoutez un fichier avant de passer à l’étape suivante"
+    Et la page contient "Document de l'expression de besoin spécifique doit être rempli(e)"

@@ -40,6 +40,14 @@ RSpec.describe AuthorizationRequest do
       expect(authorization_request).to be_validated
       expect(authorization_request.latest_authorization).to be_a(Authorization)
     end
+
+    describe 'with an authorization definition which has a previous stage, in whatever stage' do
+      it 'creates an authorization to one of the previous stage' do
+        authorization_request = create(:authorization_request, :api_impot_particulier_production, :draft)
+
+        expect(authorization_request.latest_authorization.authorization_request_class).to eq('AuthorizationRequest::APIImpotParticulierSandbox')
+      end
+    end
   end
 
   describe '#access_link' do
