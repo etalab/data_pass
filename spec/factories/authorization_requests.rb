@@ -669,5 +669,28 @@ FactoryBot.define do
       with_operational_acceptance
       with_volumetrie
     end
+
+    trait :api_cpr_pro_adelie_sandbox do
+      type { 'AuthorizationRequest::APICprProAdelieSandbox' }
+
+      form_uid { 'api-cpr-pro-adelie-sandbox' }
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+    end
+
+    trait :api_cpr_pro_adelie_production do
+      type { 'AuthorizationRequest::APICprProAdelie' }
+
+      form_uid { 'api-cpr-pro-adelie-production' }
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+      with_safety_certification
+      with_operational_acceptance
+      with_volumetrie
+    end
   end
 end
