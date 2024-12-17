@@ -10,13 +10,13 @@ Fonctionnalité: Choix de la modalité d'appel et du stage du formulaire API Imp
 
   Scénario: J'ai déjà un éditeur qui a accès au bac à sable
     Et que je choisis "Via l'état civil"
-    Et que je choisis "Oui mon éditeur a déjà accès au bac à sable"
+    Et que je choisis "Oui, j'ai un éditeur qui a déjà accès au bac à sable"
     Et que je clique sur "Démarrer ma demande d’habilitation en production"
     Alors la page contient "API Impôt Particulier avec éditeur"
 
   Scénario: Je n'ai pas encore accès au bac à sable
     Et que je choisis "Via l'état civil"
-    Et que je choisis "Non, nous n'avons pas encore accès au bac à sable"
+    Et que je choisis "Non, nous n'avons pas d'éditeur avec accès au bac à sable"
     Et que je clique sur "Démarrer ma demande d’habilitation en bac à sable"
     Alors la page contient "Le bac à sable"
 
@@ -31,13 +31,13 @@ Fonctionnalité: Choix de la modalité d'appel et du stage du formulaire API Imp
     Et que je rafraîchis la page
     Et que je choisis "Avec FranceConnect"
     Alors le champ "Sélectionnez une habilitation FranceConnect qui sera liée à cette demande" est rempli
-    Quand je choisis "Oui mon éditeur a déjà accès au bac à sable"
+    Quand je choisis "Oui, j'ai un éditeur qui a déjà accès au bac à sable"
     Et que je clique sur "Démarrer ma demande d’habilitation en production"
     Alors la page contient "API Impôt Particulier avec éditeur"
 
   Scénario: Je veux accéder à l'API via l'Etat civil, et mon choix est retenu une fois arrivé au bloc de modalités d'accès
     * je choisis "Via l'état civil"
-    * je choisis "Oui mon éditeur a déjà accès au bac à sable"
+    * je choisis "Oui, j'ai un éditeur qui a déjà accès au bac à sable"
     * je clique sur "Démarrer"
     * je clique sur "Débuter ma demande"
     * je renseigne les infos de bases du projet
@@ -52,7 +52,7 @@ Fonctionnalité: Choix de la modalité d'appel et du stage du formulaire API Imp
     Sachant que mon organisation a 1 demande d'habilitation "France Connect" validée
     * je rafraîchis la page
     * je choisis "Avec FranceConnect"
-    * je choisis "Oui mon éditeur a déjà accès au bac à sable"
+    * je choisis "Oui, j'ai un éditeur qui a déjà accès au bac à sable"
     * je clique sur "Démarrer"
     * je clique sur "Débuter ma demande"
     * je renseigne les infos de bases du projet
