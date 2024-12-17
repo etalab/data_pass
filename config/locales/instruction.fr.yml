@@ -2,13 +2,13 @@ fr:
   instruction:
     authorization_requests:
       index:
+        title: Liste des demandes en cours
         search:
           main_input:
             label: Rechercher dans toutes les habilitations
             placeholder: id, numéro de siret, intitulé...
           btn: Rechercher
         table:
-          caption: Liste des demandes en cours
           header:
             id: N°
             state: Statut

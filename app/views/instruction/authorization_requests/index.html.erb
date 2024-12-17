@@ -1,4 +1,6 @@
-<p class="fr-h2 fr-mt-5w"><%= t('.table.caption') %></p>
+<h2 class="fr-h2 fr-mt-5w">
+  <%= t('.title') %>
+</h2>
 
 <%= search_form_for(@search_engine, url: instruction_authorization_requests_path, html: { method: :get, data: { controller: 'auto-submit-form', 'auto-submit-form-debounce-interval-value' => 300, 'auto-submit-form-event-mode-value' => 'input', turbo_frame: 'authorization_requests_table' }, class: %w[search-box] }) do |f| %>
   <div class="search-inputs">
