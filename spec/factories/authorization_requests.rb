@@ -747,6 +747,31 @@ FactoryBot.define do
       with_volumetrie
     end
 
+    trait :api_mire_sandbox do
+      type { 'AuthorizationRequest::APIMireSandbox' }
+
+      form_uid { 'api-mire-sandbox' }
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+    end
+
+    trait :api_mire_production do
+      type { 'AuthorizationRequest::APIMire' }
+
+      form_uid { 'api-mire-production' }
+
+      has_previous_authorization_validated
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+      with_safety_certification
+      with_operational_acceptance
+      with_volumetrie
+    end
+
     trait :api_ensu_documents_sandbox do
       type { 'AuthorizationRequest::APIENSUDocumentsSandbox' }
 
