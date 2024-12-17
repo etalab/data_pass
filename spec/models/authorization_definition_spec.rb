@@ -8,14 +8,14 @@ RSpec.describe AuthorizationDefinition do
   describe '.available_forms' do
     subject(:available_forms) { instance.available_forms }
 
-    let(:instance) { described_class.find('api_entreprise') }
+    let(:instance) { described_class.find('api_impot_particulier') }
 
     it 'returns a list of all forms' do
       expect(available_forms.count).to be > 0
 
       expect(available_forms).to be_all do |form|
         form.is_a?(AuthorizationRequestForm) &&
-          form.authorization_request_class == AuthorizationRequest::APIEntreprise
+          form.authorization_request_class == AuthorizationRequest::APIImpotParticulier
       end
     end
   end

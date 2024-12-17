@@ -9,6 +9,7 @@ class NewAuthorizationRequest
 
   def facade
     return APIEntrepriseFacade if api_entreprise?
+    return APIImpotParticulierFacade if api_impot_particulier?
 
     DefaultFacade
   end
@@ -19,5 +20,9 @@ class NewAuthorizationRequest
 
   def api_entreprise?
     definition_id == 'api_entreprise'
+  end
+
+  def api_impot_particulier?
+    definition_id == 'api_impot_particulier'
   end
 end
