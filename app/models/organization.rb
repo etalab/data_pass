@@ -20,6 +20,10 @@ class Organization < ApplicationRecord
     class_name: 'AuthorizationRequest',
     inverse_of: :organization
 
+  has_many :instructor_draft_requests,
+    dependent: :destroy,
+    inverse_of: :organization
+
   def siret
     return if foreign?
 

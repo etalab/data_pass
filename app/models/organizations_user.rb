@@ -20,10 +20,8 @@ class OrganizationsUser < ApplicationRecord
   end
 
   def identity_provider
-    if identity_federator == 'unknown'
-      IdentityProvider.unknown
-    else
-      IdentityProvider.find(identity_provider_uid)
-    end
+    IdentityProvider.find(identity_provider_uid)
+  rescue EntryNotFound
+    IdentityProvider.unknown
   end
 end

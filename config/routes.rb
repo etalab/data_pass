@@ -20,6 +20,9 @@ Rails.application.routes.draw do
 
   get '/public/demandes/:id', to: 'public/authorization_requests#show', as: :public_authorization_request
 
+  get '/demandes-instructeurs/:id/finaliser', to: 'claim_instructor_draft_requests#show', as: :claim_instructor_draft_request
+  post '/demandes-instructeurs/:id/finaliser', to: 'claim_instructor_draft_requests#create'
+
   get '/stats', to: 'stats#index'
 
   scope(path_names: { new: 'nouveau', edit: 'modifier' }) do
@@ -116,6 +119,14 @@ Rails.application.routes.draw do
       resources :france_connected_authorizations, only: :index, path: 'habilitations-france-connectees'
 
       resources :messages, only: %w[index create], path: 'messages'
+    end
+
+    resources :instructor_draft_requests, path: 'instructeurs-demandes', except: :show do
+      collection do
+        get :start, path: 'commencer'
+      end
+
+      resources :invite, only: [:new, :create], controller: 'instructor_draft_requests/invite'
     end
   end
 
