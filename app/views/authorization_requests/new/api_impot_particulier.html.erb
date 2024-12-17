@@ -98,7 +98,6 @@
       id="forms"
       class="fr-background-alt--blue-france fr-py-4w fr-hidden"
     >
-      <%# TODO: Adapt facade to sandbox %>
       <div class="fr-grid-row">
         <div class="fr-col-md-10 fr-col-offset-1">
           <p class="center fr-px-5w fr-py-1w">
@@ -111,7 +110,7 @@
           </p>
 
           <div class="fr-grid-row fr-grid-row--center">
-            <% @facade.public_available_forms.each do |authorization_request_form| %>
+            <% @facade.public_available_forms_sandbox.each do |authorization_request_form| %>
               <div
                 data-choose-authorization-request-form-target="form"
                 data-choose-authorization-request-form-tags="<%= authorization_request_form.tags.to_json %>"
@@ -133,7 +132,6 @@
       id="forms"
       class="fr-background-alt--blue-france fr-py-4w fr-hidden"
     >
-      <%# TODO: Adapt facade to editor %>
       <div class="fr-grid-row">
         <div class="fr-col-md-10 fr-col-offset-1">
           <p class="center fr-px-5w fr-py-1w">

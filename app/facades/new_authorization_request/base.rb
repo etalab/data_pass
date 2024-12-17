@@ -39,6 +39,10 @@ class NewAuthorizationRequest::Base
     AuthorizationRequestFormDecorator.decorate_collection(authorization_definition.public_available_forms)
   end
 
+  def public_available_forms_sandbox
+    AuthorizationRequestFormDecorator.decorate_collection(authorization_definition.public_available_forms_sandbox)
+  end
+
   private
 
   def sorted_editors
