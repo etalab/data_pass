@@ -3,6 +3,12 @@
 <div class="fr-grid-row fr-grid-row--gutters">
   <p class="fr-h2 fr-mt-5w"><%= t('.title') %></p>
 
+  <div class="width-100">
+    <% if policy([:instruction, :authorization_request_instructor_draft]).enable? %>
+      <%= link_to t('.authorization_request_instructor_drafts_link'), instruction_authorization_request_instructor_drafts_path %>
+    <% end %>
+  </div>
+
   <turbo-frame id="tabs">
     <div class="fr-tabs fr-pt-5w fr-mb-8w" data-controller="auto-height">
       <ul class="fr-tabs__list" role="tablist" aria-label="Menu secondaire">
