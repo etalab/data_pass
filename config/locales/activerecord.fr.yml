@@ -128,6 +128,11 @@ fr:
       france_connect:
         contact_technique_phone_number: Le numéro de téléphone doit être un numéro de portable
 
+      instructor_draft_request:
+        applicant_email: Adresse email du demandeur
+        organization_siret: Numéro de SIRET de l'organisation
+        comment: Note associée à l'invitation
+
     values:
       authorization_request:
         france_connect_eidas:

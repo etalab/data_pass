@@ -67,6 +67,16 @@ class AuthorizationRequestForm < StaticApplicationRecord
     end
   end
 
+  def name_with_service_provider
+    if @name && service_provider
+      "#{@name} - #{service_provider.name}"
+    elsif @name
+      @name
+    else
+      authorization_definition.name
+    end
+  end
+
   def description
     @description || authorization_definition.description
   end

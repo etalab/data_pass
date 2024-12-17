@@ -98,6 +98,10 @@ fr:
             title: Toutes mes habilitations
           sign_out:
             title: Se déconnecter
+      menu:
+        instruction:
+          instructor_authorization_requests: Demandes initiés par des instructeurs
+          authorizations_and_requests: Demandes / habilitations
     footer:
       tagline: L'outil de gestion des habilitations juridiques pour les données à accès restreint.
       external_links:
@@ -105,6 +109,16 @@ fr:
         - service-public.fr
         - legifrance.gouv.fr
         - data.gouv.fr
+    claim_instructor_draft_request:
+      title: Finaliser votre demande " %{project_name} "
+      description: |
+        Vous êtes invité à compléter une demande d'habilitation pour %{definition_name} intitulé <strong>%{project_name}</strong> pour le compte de <strong>%{organization_name} (%{organization_legal_entity_id})</strong>.
+
+        <br />
+
+        Cette invitation vous a été envoyée par l'instructeur %{instructor_email}.
+
+      instructor_comment: Le mot de votre instructeur
 
     instruction:
       authorization_request:
@@ -694,3 +708,25 @@ fr:
       contact_support: "Contacter le support à l'adresse suivante:"
       email_subject: "Transfert demande n°%{authorization_request_id}"
       close: "Fermer"
+
+  instructor_draft_requests:
+    claim:
+      errors:
+        generic:
+          title: Une erreur est survenue lors de la revendication de la demande d'habilitation
+        not_same_user:
+          title: Vous ne pouvez pas finaliser cette demande d'habilitation
+          description: Cette demande d'habilitation a été créée pour un autre usager dont l'email correspond à %{obfuscated_email}.
+        already_claimed:
+          title: Vous ne pouvez pas finaliser cette demande d'habilitation
+          description: Cette demande d'habilitation a déjà été finalisée par un autre usager.
+        invalid_authorization_request:
+          title: Vous ne pouvez pas finaliser cette demande d'habilitation
+          description: Cette demande d'habilitation n'est pas dans un état permettant d'être finalisée. Veuillez contacter le support pour plus d'informations.
+        could_not_mark_draft_as_claimed:
+          title: Vous ne pouvez pas finaliser cette demande d'habilitation
+          description: Une erreur est survenue lors de la finalisation de cette demande d'habilitation. Veuillez contacter le support pour plus d'informations.
+  claim_instructor_draft_requests:
+    show:
+      description: Pour finaliser cette demande d'habilitation, cliquez sur le bouton ci-dessous
+      cta: Finaliser cette demande

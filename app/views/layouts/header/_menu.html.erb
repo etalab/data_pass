@@ -7,6 +7,21 @@
     <div class="fr-header__menu-links"></div>
     <nav class="fr-nav" id="navigation-header-menu" aria-label="Menu principal">
       <ul class="fr-nav__list">
+        <% if namespace?(:instruction) %>
+          <% if policy([:instruction, :instructor_draft_request]).enabled? %>
+            <li class="fr-nav__item">
+              <a class="fr-nav__link center" href="<%= instruction_demandes_path %>" target="_self">
+                <%= t('.instruction.authorizations_and_requests') %>
+              </a>
+            </li>
+
+            <li class="fr-nav__item">
+              <a class="fr-nav__link center" href="<%= instruction_instructor_draft_requests_path %>" target="_self">
+                <%= t('.instruction.instructor_authorization_requests') %>
+              </a>
+            </li>
+          <% end %>
+        <% end %>
       </ul>
     </nav>
   </div>

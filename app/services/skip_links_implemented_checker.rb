@@ -21,6 +21,8 @@ class SkipLinksImplementedChecker
     authorization_requests/blocks#update
     cancel_authorization_reopenings#new
     cancel_next_authorization_request_stage#new
+    claim_instructor_draft_requests#show
+    claim_instructor_draft_requests#create
 
     messages#index
     profile#edit
@@ -54,6 +56,13 @@ class SkipLinksImplementedChecker
     instruction/cancel_authorization_reopenings#create
     instruction/revoke_authorization_requests#new
     instruction/revoke_authorization_requests#create
+    instruction/instructor_draft_requests/invite#new
+    instruction/instructor_draft_requests/invite#create
+    instruction/instructor_draft_requests#index
+    instruction/instructor_draft_requests#new
+    instruction/instructor_draft_requests#start
+    instruction/instructor_draft_requests#edit
+    instruction/instructor_draft_requests#update
 
     admin#index
     admin/users_with_roles#index

@@ -3,7 +3,7 @@ class BuildAuthorizationRequest < ApplicationOrganizer
     context.authorization_request = context.authorization_request_form.authorization_request_class.new(
       form_uid: context.authorization_request_form.uid,
       applicant: context.applicant,
-      organization: context.applicant.current_organization,
+      organization: context.organization || context.applicant.current_organization,
     )
   end
 
