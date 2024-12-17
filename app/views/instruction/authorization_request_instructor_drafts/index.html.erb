@@ -1,0 +1,72 @@
+<h2 class="fr-h2 fr-mt-5w">
+  <%= t('.title') %>
+</h2>
+
+<% if policy([:instruction, :authorization_request_instructor_draft]).enable? %>
+  <%= link_to t('.new'), instruction_authorization_request_instructor_drafts_path %>
+<% end %>
+
+<turbo-frame id="authorization_requests_instructor_drafts_table">
+  <div class="fr-table fr-table--bordered">
+    <table>
+      <thead>
+        <tr>
+          <%
+            %w[
+              id
+              project_name
+              authorization_definition_name
+              applicant_email
+              organization
+              instructor_email
+              actions
+            ].each do |attr|
+          %>
+            <th scope="col">
+              <%= t(".table.header.#{attr}") %>
+            </th>
+          <% end %>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @authorization_request_instructor_drafts.each do |authorization_request_instructor_draft| %>
+          <tr id="<%= dom_id(authorization_request_instructor_draft) %>" class="authorization-request-instructor-draft">
+            <td class="authorization-request-instructor-draft--id">
+              <%= authorization_request_instructor_draft.id %>
+            </td>
+
+            <td class="authorization-request-instructor-draft--project_name">
+              <%= authorization_request_instructor_draft.project_name %>
+            </td>
+
+            <td class="authorization-request-instructor-draft--authorization_definition_name">
+              <%= authorization_request_instructor_draft.definition.name %>
+            </td>
+
+            <td class="authorization-request-instructor-draft--applicant_email">
+              <% if authorization_request_instructor_draft.applicant %>
+                <%= authorization_request_instructor_draft.applicant.email %>
+              <% end %>
+            </td>
+
+            <td class="authorization-request-instructor-draft--organization">
+              <% if authorization_request_instructor_draft.organization %>
+                <%= authorization_request_instructor_draft.organization.raison_sociale %>
+              <% end %>
+            </td>
+
+            <td class="authorization-request-instructor-draft--instructor_email">
+              <%= authorization_request_instructor_draft.instructor.email %>
+            </td>
+
+            <td class="authorization-request-instructor-draft--actions">
+              Actions
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</turbo-frame>
+

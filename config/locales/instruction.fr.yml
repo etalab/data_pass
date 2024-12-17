@@ -1,8 +1,23 @@
 fr:
   instruction:
+    authorization_request_instructor_drafts:
+      index:
+        title: Liste des demandes à partager
+        new: Créer une nouvelle demande d'habilitation à partager
+        table:
+          header:
+            id: N°
+            project_name: Projet
+            authorization_definition_name: Nom du fournisseur
+            applicant_email: Email du demandeur
+            organization: Organization
+            instructor_email: Email de l'instructeur
+            actions: Actions
+
     authorization_requests:
       index:
         title: Liste des demandes en cours
+        authorization_request_instructor_drafts_link: Liste des demandes d'habilitation à partager
         search:
           main_input:
             label: Rechercher dans toutes les habilitations
@@ -42,6 +57,7 @@ fr:
       index:
         title: Habilitations FranceConnectées associées
         show_cta: Consulter
+
     approve_authorization_requests:
       new:
         initial:
