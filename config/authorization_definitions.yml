@@ -951,7 +951,7 @@ shared:
     description: "FEEDME"
     provider: "dgfip"
     kind: 'api'
-    link: "https://api-satelit.gouv.fr/feedme-with-valid-url"
+    link: "https://api.gouv.fr/producteurs/dgfip"
     cgu_link: "/cgus/dgfip/pcr_v1/cgu_bas_satelit_v.2022_v1.pdf"
     # FEEDME
     access_link: "https://api-satelit.gouv.fr/tokens/%<external_provider_id>"
@@ -972,7 +972,7 @@ shared:
     description: "FEEDME"
     provider: "dgfip"
     kind: 'api'
-    link: "https://api-satelit.gouv.fr/feedme-with-valid-url"
+    link: "https://api.gouv.fr/producteurs/dgfip"
     cgu_link: "/cgus/dgfip/pcr_v1/cgu_prod_satelit_v.2022_v1.pdf"
     # FEEDME
     access_link: "https://api-satelit.gouv.fr/tokens/%<external_provider_id>"
