@@ -691,6 +691,8 @@ FactoryBot.define do
 
       form_uid { 'api-cpr-pro-adelie-production' }
 
+      has_previous_authorization_validated
+
       with_basic_infos
       with_personal_data
       with_cadre_juridique
@@ -713,6 +715,8 @@ FactoryBot.define do
       type { 'AuthorizationRequest::APIImprimfip' }
 
       form_uid { 'api-imprimfip-production' }
+
+      has_previous_authorization_validated
 
       with_basic_infos
       with_personal_data
