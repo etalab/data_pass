@@ -904,14 +904,14 @@ shared:
 
   api_imprimfip_sandbox:
     name: API IMPRIM’FIP
-    description: "FEEDME"
+    description: Utilisez la solution éditique IMPRIM’FIP pour délocaliser le traitement de vos courriers administratifs sortants (impression, mise sous pli, affranchissement et remise à La Poste) vers les centres éditiques industriels de la DGFIP.
     provider: "dgfip"
     kind: 'api'
     link: "https://www.data.gouv.fr/fr/dataservices/api-imprimfip/"
     cgu_link: "/public/cgus/dgfip/cgu_bas_imprimfip_v.2023_09.pdf"
     # FEEDME
     access_link: "https://api-imprimfip.gouv.fr/tokens/%<external_provider_id>"
-    public: false
+    public: true
     stage:
       type: sandbox
       next:
@@ -925,7 +925,7 @@ shared:
 
   api_imprimfip:
     name: API IMPRIM’FIP
-    description: "FEEDME"
+    description: Utilisez la solution éditique IMPRIM’FIP pour délocaliser le traitement de vos courriers administratifs sortants (impression, mise sous pli, affranchissement et remise à La Poste) vers les centres éditiques industriels de la DGFIP.
     provider: "dgfip"
     kind: 'api'
     link: "https://www.data.gouv.fr/fr/dataservices/api-imprimfip/"
