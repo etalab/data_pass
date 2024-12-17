@@ -62,6 +62,7 @@ fr:
             other: "%{count} résultats"
       show:
         title: Liste des demandes et habilitations
+        authorization_request_instructor_drafts_link: Liste des demandes initiés pour le compte d'une organisation
         tabs:
           demandes:
             title:
@@ -87,6 +88,7 @@ fr:
       index:
         title: Habilitations FranceConnectées associées
         show_cta: Consulter
+
     approve_authorization_requests:
       new:
         initial:
@@ -394,5 +396,36 @@ fr:
             Aucun utilisateur n'a été trouvé avec l'email fourni. L'utilisateur doit créer un compte pour que le transfert soit possible.
           invalid_new_applicant: |
             L'utilisateur doit appartenir à la même organisation (numéro de siret: %{organization_siret}).
+
+    authorization_request_instructor_drafts:
+      index:
+        title: Liste des demandes initiés pour le compte d'une organisation
+        new: Initier une nouvelle demande d'habilitation pour le compte d'une organisation
+        table:
+          header:
+            id: N°
+            project_name: Projet
+            authorization_definition_name: Nom du fournisseur
+            applicant_email: Email du demandeur
+            organization: Organisation associée
+            instructor_email: Email de l'instructeur
+            actions: Actions
+          actions:
+            edit: Modifier
+            delete: Supprimer
+            confirm_delete: Confirmer la suppression ? Cela supprimera ce brouillon et l'invitation associée.
+      edit:
+        new_title: Création d'une nouvelle demande " %{definition_name} " pour le compte d'une organisation
+        edit_title: Modification de la demande " %{definition_name} " pour le compte d'une organisation
+        save: Sauvegarder
+        cancel: Annuler
+      create:
+        success: Le brouillon de la demande d'habilitation a bien été sauvegardé
+        error: Veuillez renseigner à minima un champ
+      update:
+        success: Le brouillon de la demande d'habilitation a bien été mis à jour
+        error: Veuillez renseigner à minima un champ
+      destroy:
+        success: Le brouillon de la demande d'habilitation a bien été supprimé
 
 
