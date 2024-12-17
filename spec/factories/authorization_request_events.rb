@@ -172,6 +172,13 @@ FactoryBot.define do
       end
     end
 
+    trait :claim do
+      name { 'claim' }
+
+      entity factory: %i[instructor_draft_request]
+      authorization_request
+    end
+
     trait :applicant_message do
       name { 'applicant_message' }
 

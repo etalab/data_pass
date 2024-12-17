@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_12_154952) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_08_090804) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_catalog.plpgsql"
@@ -87,7 +87,30 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_12_154952) do
     t.index ["user_id"], name: "index_authorization_request_events_on_user_id"
     t.check_constraint "name::text !~~ 'system_%'::text AND user_id IS NOT NULL OR name::text ~~ 'system_%'::text", name: "user_id_not_null_unless_system_event"
     t.check_constraint "name::text = 'bulk_update'::text AND authorization_request_id IS NULL OR name::text <> 'bulk_update'::text AND authorization_request_id IS NOT NULL", name: "authorization_request_events_auth_req_id_not_null_except_bulk"
-    t.check_constraint "name::text = 'refuse'::text AND entity_type::text = 'DenialOfAuthorization'::text OR name::text = 'request_changes'::text AND entity_type::text = 'InstructorModificationRequest'::text OR name::text = 'approve'::text AND entity_type::text = 'Authorization'::text OR name::text = 'reopen'::text AND entity_type::text = 'Authorization'::text OR name::text = 'submit'::text AND entity_type::text = 'AuthorizationRequestChangelog'::text OR name::text = 'admin_update'::text AND entity_type::text = 'AuthorizationRequestChangelog'::text OR name::text = 'applicant_message'::text AND entity_type::text = 'Message'::text OR name::text = 'instructor_message'::text AND entity_type::text = 'Message'::text OR name::text = 'revoke'::text AND entity_type::text = 'RevocationOfAuthorization'::text OR name::text = 'transfer'::text AND entity_type::text = 'AuthorizationRequestTransfer'::text OR name::text = 'cancel_reopening'::text AND entity_type::text = 'AuthorizationRequestReopeningCancellation'::text OR name::text = 'bulk_update'::text AND entity_type::text = 'BulkAuthorizationRequestUpdate'::text OR entity_type::text = 'AuthorizationRequest'::text", name: "entity_type_validation"
+    t.check_constraint "name::text = 'refuse'::text AND entity_type::text = 'DenialOfAuthorization'::text OR name::text = 'request_changes'::text AND entity_type::text = 'InstructorModificationRequest'::text OR name::text = 'approve'::text AND entity_type::text = 'Authorization'::text OR name::text = 'reopen'::text AND entity_type::text = 'Authorization'::text OR name::text = 'submit'::text AND entity_type::text = 'AuthorizationRequestChangelog'::text OR name::text = 'admin_update'::text AND entity_type::text = 'AuthorizationRequestChangelog'::text OR name::text = 'applicant_message'::text AND entity_type::text = 'Message'::text OR name::text = 'instructor_message'::text AND entity_type::text = 'Message'::text OR name::text = 'revoke'::text AND entity_type::text = 'RevocationOfAuthorization'::text OR name::text = 'transfer'::text AND entity_type::text = 'AuthorizationRequestTransfer'::text OR name::text = 'cancel_reopening'::text AND entity_type::text = 'AuthorizationRequestReopeningCancellation'::text OR name::text = 'bulk_update'::text AND entity_type::text = 'BulkAuthorizationRequestUpdate'::text OR name::text = 'claim'::text AND entity_type::text = 'InstructorDraftRequest'::text OR entity_type::text = 'AuthorizationRequest'::text", name: "entity_type_validation"
+  end
+
+  create_table "instructor_draft_request_documents", force: :cascade do |t|
+    t.string "identifier", null: false
+    t.bigint "instructor_draft_request_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["instructor_draft_request_id"], name: "index_instructor_draft_request_documents_on_draft_request_id"
+  end
+
+  create_table "instructor_draft_requests", force: :cascade do |t|
+    t.string "authorization_request_class", null: false
+    t.hstore "data", null: false
+    t.uuid "public_id", default: -> { "gen_random_uuid()" }, null: false
+    t.integer "applicant_id"
+    t.integer "organization_id"
+    t.bigint "instructor_id", null: false
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "claimed", default: false, null: false
+    t.string "form_uid", null: false
+    t.index ["instructor_id"], name: "index_instructor_draft_requests_on_instructor_id"
   end
 
   create_table "authorization_request_reopening_cancellations", force: :cascade do |t|
@@ -447,6 +470,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_12_154952) do
   add_foreign_key "authorization_documents", "authorizations"
   add_foreign_key "authorization_request_changelogs", "authorization_requests"
   add_foreign_key "authorization_request_events", "authorization_requests"
+  add_foreign_key "instructor_draft_request_documents", "instructor_draft_requests"
+  add_foreign_key "instructor_draft_requests", "organizations"
+  add_foreign_key "instructor_draft_requests", "users", column: "applicant_id"
+  add_foreign_key "instructor_draft_requests", "users", column: "instructor_id"
   add_foreign_key "authorization_request_reopening_cancellations", "authorization_requests", column: "request_id"
   add_foreign_key "authorization_request_reopening_cancellations", "users"
   add_foreign_key "authorization_request_transfers", "authorization_requests"
