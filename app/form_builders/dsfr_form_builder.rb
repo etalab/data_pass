@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ClassLength
 class DSFRFormBuilder < ActionView::Helpers::FormBuilder
   include Rails.application.routes.url_helpers
 
@@ -29,7 +30,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
     opts[:class] ||= 'fr-upload-group'
 
     existing_file_link = link_to_files(attribute)
-    required = opts[:required] && !existing_file_link
+    required = required?(attribute, opts) && !existing_file_link
     hidden_fields = hidden_fields_for_existing_attachments(attribute, opts[:multiple])
 
     dsfr_input_group(attribute, opts) do
@@ -84,6 +85,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
   def dsfr_radio_option(attribute, value, opts = { input_options: {} }, &) # rubocop:disable Metrics/AbcSize
     return if opts[:skipped].is_a?(Proc) && opts[:skipped].call(value)
 
+    opts[:required] = required?(attribute, opts)
     opts[:checked] = opts[:checked].call(value) if opts[:checked].is_a? Proc
 
     @template.content_tag(:div, class: "fr-fieldset__element #{opts[:fieldset_element_class]}") do
@@ -109,6 +111,8 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def dsfr_select(attribute, choices, opts = { input_options: {} })
+    options[:required] = required?(attribute, opts)
+
     @template.content_tag(:div, class: 'fr-select-group') do
       @template.safe_join(
         [
@@ -138,6 +142,8 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def dsfr_input_field(attribute, input_kind, opts = {})
+    opts[:required] = required?(attribute, opts)
+
     dsfr_input_group(attribute, opts) do
       @template.safe_join(
         [
@@ -273,6 +279,16 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
     (@object.try(:object) || @object).class.human_attribute_name(attribute)
   end
 
+  def required?(attribute, options = {})
+    if options.key?(:required)
+      options[:required]
+    else
+      (@object.try(:object) || @object).class.validators_on(attribute).any? do |v|
+        %i[presence acceptance].include?(v.kind)
+      end
+    end
+  end
+
   def enhance_input_options(opts)
     opts
   end
@@ -281,3 +297,4 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
     false
   end
 end
+# rubocop:enable Metrics/ClassLength
