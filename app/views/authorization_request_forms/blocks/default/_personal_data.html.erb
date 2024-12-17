@@ -4,11 +4,11 @@
 
 <fieldset class="fr-fieldset" data-controller="justification" aria-label="feedme" aria-describedby="name-1-fieldset-messages" data-justification-minimum-value="36">
   <div class="fr-fieldset__element">
-    <%= f.dsfr_text_field :destinataire_donnees_caractere_personnel, required: true %>
+    <%= f.dsfr_text_field :destinataire_donnees_caractere_personnel %>
   </div>
 
   <div class="fr-fieldset__element">
-    <%= f.dsfr_number_field :duree_conservation_donnees_caractere_personnel, data: { 'justification-target': 'value' }, model: @authorization_request, required: true, width: "lg-2 md-3 sm-4", placeholder: "Exemple: 36" %>
+    <%= f.dsfr_number_field :duree_conservation_donnees_caractere_personnel, data: { 'justification-target': 'value' }, model: @authorization_request, width: "lg-2 md-3 sm-4", placeholder: "Exemple: 36" %>
   </div>
 
   <div class="fr-fieldset__element fr-hidden" data-justification-target="justification">
