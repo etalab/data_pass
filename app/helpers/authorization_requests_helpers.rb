@@ -107,9 +107,15 @@ module AuthorizationRequestsHelpers
     authorization_request.filling?
   end
 
-  def render_custom_block_or_default(authorization_request, block, locals = {})
-    render partial: "authorization_requests/blocks/#{authorization_request.definition.id}/#{block}", locals:
+  def render_custom_editable_block_or_default(authorization_request, block_id, locals = {})
+    render partial: "authorization_request_forms/blocks/#{authorization_request.definition.id}/#{block_id}", locals:
   rescue ActionView::MissingTemplate
-    render partial: "authorization_requests/blocks/default/#{block}", locals:
+    render partial: "authorization_request_forms/blocks/default/#{block_id}", locals:
+  end
+
+  def render_custom_block_or_default(authorization_request, block_id, locals = {})
+    render partial: "authorization_requests/blocks/#{authorization_request.definition.id}/#{block_id}", locals:
+  rescue ActionView::MissingTemplate
+    render partial: "authorization_requests/blocks/default/#{block_id}", locals:
   end
 end

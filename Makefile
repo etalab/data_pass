@@ -55,10 +55,6 @@ e2e:
 	$(DOCKER-COMPOSE) up -d chrome
 	$(DOCKER-RUN) web $(BUNDLE-EXEC) cucumber
 
-e2e-bis:
-	$(DOCKER-COMPOSE) up -d chrome
-	$(DOCKER-RUN) web $(BUNDLE-EXEC) cucumber features/sous-domaine_tableau_de_bord.feature features/habilitations/api_entreprise/choix_formulaire.feature --order random:6697
-
 console:
 	$(DOCKER-RUN) web bin/rails console
 
