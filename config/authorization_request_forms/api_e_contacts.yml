@@ -69,5 +69,6 @@ api-e-contacts-production:
   static_blocks: *api_e_contacts_steps
   steps:
     - name: operational_acceptance
+    - name: legal
     - name: safety_certification
     - name: volumetrie
