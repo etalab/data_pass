@@ -8,7 +8,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôt Particulier 
     Et que je me rends sur mon tableau de bord
 
   Scénario: Je soumets une demande d'habilitation valide
-    Quand je clique sur "Démarrer ma demande d’habilitation en production"
+    Quand je clique sur "Demande libre"
     Et que je clique sur "Débuter ma demande"
 
     * je renseigne la recette fonctionnelle
