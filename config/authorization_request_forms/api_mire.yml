@@ -1,4 +1,4 @@
-api-e-contacts-sandbox:
+api-mire-sandbox:
   description: FEED ME
   introduction: |
     Notre équipe d’instruction étudiera votre demande en bac à sable, lorsqu’elle sera validée vous pourrez compléter la suite de votre demande.
@@ -8,34 +8,34 @@ api-e-contacts-sandbox:
         <div class="step-number">1.</div>
         <div class="step-content">
           <h3>Le bac à sable</h3>
-          <p class="fr-text--xs">Dans un premier temps, une demande d’habilitation au <strong>bac à sable</strong> de l'API E-Contacts</p>
+          <p class="fr-text--xs">Dans un premier temps, une demande d’habilitation au <strong>bac à sable</strong> de l'API Mire</p>
         </div>
       </div>
 
       <div class="step pending">
         <div class="step-number">2.</div>
         <div class="step-content">
-          <h3>La production</h3>
-          <p class="fr-text--xs">Dans un second temps, une demande d’habilitation à la <strong>production</strong> de l'API E-Contacts</p>
+            <h3>La production</h3>
+            <p class="fr-text--xs">Dans un second temps, une demande d’habilitation à la <strong>production</strong> de l'API Mire</p>
         </div>
       </div>
 
-      <div class="step pending">
-        <div class="step-number">3.</div>
-        <div class="step-content">
-          <h3>Votre service est ouvert !</h3>
-          <p class="fr-text--xs">Une fois vos habilitations validées, vous pouvez ouvrir votre service !</p>
+        <div class="step pending">
+          <div class="step-number">3.</div>
+          <div class="step-content">
+            <h3>Votre service est ouvert !</h3>
+            <p class="fr-text--xs">Une fois vos habilitations validées, vous pouvez ouvrir votre service !</p>
+          </div>
         </div>
       </div>
-    </div>
-  authorization_request: APIEContactsSandbox
-  steps: &api_e_contacts_steps
+  authorization_request: APIMireSandbox
+  steps: &api_mire_steps
     - name: basic_infos
     - name: personal_data
     - name: legal
     - name: contacts
 
-api-e-contacts-production:
+api-mire-production:
   description: FEED ME
   introduction: |
     Votre demande d'accès au bac à sable a été validée, vous pouvez à présent poursuivre votre demande en demandant les accès à la production.
@@ -45,7 +45,7 @@ api-e-contacts-production:
         <div class="step-number">1.</div>
         <div class="step-content">
           <h3>Le bac à sable</h3>
-          <p class="fr-text--xs">Dans un premier temps, une demande d’habilitation au <strong>bac à sable</strong> de l'API E-Contacts</p>
+          <p class="fr-text--xs">Dans un premier temps, une demande d’habilitation au <strong>bac à sable</strong> de l'API Mire</p>
         </div>
       </div>
 
@@ -53,7 +53,7 @@ api-e-contacts-production:
         <div class="step-number">2.</div>
         <div class="step-content">
           <h3>La production</h3>
-          <p class="fr-text--xs">Dans un second temps, une demande d’habilitation à la <strong>production</strong> de l'API E-Contacts</p>
+          <p class="fr-text--xs">Dans un second temps, une demande d’habilitation à la <strong>production</strong> de l'API Mire</p>
         </div>
       </div>
 
@@ -65,8 +65,8 @@ api-e-contacts-production:
         </div>
       </div>
     </div>
-  authorization_request: APIEContacts
-  static_blocks: *api_e_contacts_steps
+  authorization_request: APIMire
+  static_blocks: *api_mire_steps
   steps:
     - name: operational_acceptance
     - name: legal
