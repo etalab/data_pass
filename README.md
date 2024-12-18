@@ -11,11 +11,11 @@ Version en ligne:
 Les comptes disponibles en simili-production (couple email/password sur
 ProConnect) :
 
-* `user@yopmail.com` / `user@yopmail.com`: simple demandeur qui possède
-    plusieurs habilitations sur
-    la première organisation de liste (Commune de Clamart)
-* `api-entreprise@yopmail.com` / `api-entreprise@yopmail.com`: instructeur pour
-    API Entreprise, sans habilitation
+- `user@yopmail.com` / `user@yopmail.com`: simple demandeur qui possède
+  plusieurs habilitations sur
+  la première organisation de liste (Commune de Clamart)
+- `api-entreprise@yopmail.com` / `api-entreprise@yopmail.com`: instructeur pour
+  API Entreprise, sans habilitation
 
 Le lien pour l'instruction: [https://sandbox.v2.datapass.api.gouv.fr/instruction](https://sandbox.v2.datapass.api.gouv.fr/instruction)
 
@@ -24,9 +24,9 @@ les seeds disponible [ici](app/lib/seeds.rb)
 
 # Requirements
 
-* ruby 3.3.6
-* postressql >= 13
-* (optional) npm (for [standardjs](https://standardjs.com/) and [prettier](https://prettier.io/))
+- ruby 3.3.6
+- postressql >= 13
+- (optional) npm (for [standardjs](https://standardjs.com/) and [prettier](https://prettier.io/))
 
 ## Install
 
@@ -81,6 +81,10 @@ Il est possible de bypass le login via ProConnect de cette manière en local :
 ## Tests
 
 With docker:
+
+Préparation de la base de données: `docker-compose run --rm web bundle exec rails db:create RAILS_ENV=test`
+
+Run les tests:
 
 ```sh
 # Unit
@@ -157,12 +161,12 @@ bin/stream-remote-logs
 
 Check [this link](./docs/README.md)
 
-* [Conception technique/métier](./docs/conception.md)
-* [Ajout d'un nouveau fournisseur](./docs/new_provider.md)
-* [Design System](./docs/design.md)
-* [Migration de l'ancienne stack](./app/migration/)
+- [Conception technique/métier](./docs/conception.md)
+- [Ajout d'un nouveau fournisseur](./docs/new_provider.md)
+- [Design System](./docs/design.md)
+- [Migration de l'ancienne stack](./app/migration/)
 
 ## Ressources externes
 
-* [(Pad) DataPase Reborn conception](https://pad.incubateur.net/laoh-IYETHyUfzUvK7Mjmw?both)
-* [(Pad) DataPass vs DS](https://pad.incubateur.net/KXZUoUBiQhqs6WwPUWGWLA?both)
+- [(Pad) DataPase Reborn conception](https://pad.incubateur.net/laoh-IYETHyUfzUvK7Mjmw?both)
+- [(Pad) DataPass vs DS](https://pad.incubateur.net/KXZUoUBiQhqs6WwPUWGWLA?both)
