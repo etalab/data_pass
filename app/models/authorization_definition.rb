@@ -92,6 +92,10 @@ class AuthorizationDefinition < StaticApplicationRecord
     end
   end
 
+  def default_form
+    available_forms.find(&:default)
+  end
+
   def available_forms
     AuthorizationRequestForm.where(authorization_request_class:).sort do |form|
       form.default ? 1 : 0
