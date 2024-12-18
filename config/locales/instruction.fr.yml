@@ -2,8 +2,8 @@ fr:
   instruction:
     authorization_request_instructor_drafts:
       index:
-        title: Liste des demandes à partager
-        new: Créer une nouvelle demande d'habilitation à partager
+        title: Liste des demandes initiés pour le compte d'une organisation
+        new: Initier une nouvelle demande d'habilitation pour le compte d'une organisation
         table:
           header:
             id: N°
@@ -17,7 +17,7 @@ fr:
     authorization_requests:
       index:
         title: Liste des demandes en cours
-        authorization_request_instructor_drafts_link: Liste des demandes d'habilitation à partager
+        authorization_request_instructor_drafts_link: Liste des demandes initiés pour le compte d'une organisation
         search:
           main_input:
             label: Rechercher dans toutes les habilitations
