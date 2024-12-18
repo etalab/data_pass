@@ -269,6 +269,10 @@ GEM
     hashdiff (1.1.1)
     hashie (5.0.0)
     highline (3.0.1)
+    hotwire-spark (0.1.2)
+      listen
+      rails (>= 8.0.0)
+      zeitwerk
     htmlentities (4.3.4)
     hubspot-api-client (19.0.0)
       json (~> 2.1, >= 2.1.0)
@@ -636,6 +640,7 @@ DEPENDENCIES
   guard
   guard-cucumber
   guard-rspec
+  hotwire-spark
   hubspot-api-client
   i18n-tasks
   importmap-rails (~> 1.0)
