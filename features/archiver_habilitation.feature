@@ -34,5 +34,4 @@ Fonctionnalité: Supprimer une habilitation
     Quand j'ai 1 demande d'habilitation "API Impôt Particulier" à l'étape "Production" en brouillon
     Et que je me rends sur cette demande d'habilitation
     Et que je clique sur "Supprimer"
-    Et debug
     Alors il y a un message d'attention contenant "archiver cette demande archivera aussi toutes les demandes associées validées"
