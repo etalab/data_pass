@@ -2,9 +2,7 @@
   <%= t('.title') %>
 </h2>
 
-<% if policy([:instruction, :authorization_request_instructor_draft]).enable? %>
-  <%= link_to t('.new'), instruction_authorization_request_instructor_drafts_path %>
-<% end %>
+<%= link_to t('.new'), new_instruction_authorization_request_instructor_draft_path %>
 
 <turbo-frame id="authorization_requests_instructor_drafts_table">
   <div class="fr-table fr-table--bordered">
