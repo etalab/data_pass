@@ -693,10 +693,8 @@ fr:
           title: Pour proposer FranceConnect à vos utilisateurs, il vous faudra au préalable demander une habilitation FranceConnect.
           content: Vous pourrez poursuivre votre demande d’habilitation à l’API Impôt Particulier lorsque votre habilitation FranceConnect sera validée.
           link: Demander une habilitation FranceConnect
-
       france_connect_authorization_id:
         label: Sélectionnez une habilitation FranceConnect qui sera liée à cette demande
-
       scopes:
         info:
           title: Mode de fonctionnement de l’API Impôt particulier
@@ -723,7 +721,28 @@ fr:
           Si vous n’avez pas encore contacté la DGFiP, vous pouvez les joindre à l’adresse
           <a href="mailto:dtnum.donnees.demande-acces@dgfip.finances.gouv.fr" target="_blank">dtnum.donnees.demande-acces@dgfip.finances.gouv.fr</a>
 
-    api_impot_particulier_production_editeur: *api_impot_particulier_sandbox
+    api_impot_particulier_production: &api_impot_particulier_production
+      <<: *api_impot_particulier_sandbox
+
+    api_impot_particulier_stationnement_residentiel_sandbox: *api_impot_particulier_sandbox
+    api_impot_particulier_place_creche_sandbox: *api_impot_particulier_sandbox
+    api_impot_particulier_activites_periscolaires_sandbox: *api_impot_particulier_sandbox
+    api_impot_particulier_cantine_scolaire_sandbox: *api_impot_particulier_sandbox
+    api_impot_particulier_aides_sociales_facultatives_sandbox: *api_impot_particulier_sandbox
+    api_impot_particulier_carte_transport_sandbox: *api_impot_particulier_sandbox
+    api_impot_particulier_production_editeur: *api_impot_particulier_production
+    api_impot_particulier_stationnement_residentiel_production: *api_impot_particulier_production
+    api_impot_particulier_stationnement_residentiel_editeur: *api_impot_particulier_production
+    api_impot_particulier_place_creche_production: *api_impot_particulier_production
+    api_impot_particulier_place_creche_editeur: *api_impot_particulier_production
+    api_impot_particulier_activites_periscolaires_production: *api_impot_particulier_production
+    api_impot_particulier_activites_periscolaires_editeur: *api_impot_particulier_production
+    api_impot_particulier_cantine_scolaire_production: *api_impot_particulier_production
+    api_impot_particulier_cantine_scolaire_editeur: *api_impot_particulier_production
+    api_impot_particulier_aides_sociales_facultatives_production: *api_impot_particulier_production
+    api_impot_particulier_aides_sociales_facultatives_editeur: *api_impot_particulier_production
+    api_impot_particulier_carte_transport_production: *api_impot_particulier_production
+    api_impot_particulier_carte_transport_editeur: *api_impot_particulier_production
 
     formulaire_qf:
       legal: *api_particulier_editor_common_wordings

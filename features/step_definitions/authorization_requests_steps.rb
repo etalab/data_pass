@@ -65,7 +65,7 @@ end
 Quand("je démarre une nouvelle demande d'habilitation {string} à l'étape {string}") do |name, stage|
   authorization_definition = find_authorization_definition_from_name(name, extract_stage_type(stage))
 
-  if authorization_definition.available_forms.one?
+  if authorization_definition.available_forms.any?
     visit start_authorization_request_forms_path(form_uid: authorization_definition.available_forms.first.uid)
   else
     visit new_authorization_request_path(definition_id: find_authorization_definition_from_name(name).id)
