@@ -15,7 +15,6 @@ Fonctionnalité: Instruction: gestion des demandes d'habilitations d'instructeur
   Scénario: Je peux voir les demande d'habilitations d'instructeur depuis la page d'instruction
     Quand je vais sur la page instruction
     Et que j'ai une demande d'habilitation à partager pour "API Entreprise" intitulée "Super secret"
-    Et que je clique sur "Liste des demandes d'habilitation à partager"
+    Et que je clique sur "Liste des demandes initiés pour le compte d'une organisation"
     Alors la page contient "Super secret"
     Et la page contient "API Entreprise"
-
