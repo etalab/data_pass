@@ -14,6 +14,6 @@ class GDPRContactMailerPreview < ActionMailer::Preview
   end
 
   def find_authorization_request_by(contact)
-    AuthorizationRequest.where.not("data ? '#{contact}_email'").first
+    AuthorizationRequest.where("data ? '#{contact}_email'").first
   end
 end
