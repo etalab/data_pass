@@ -2,7 +2,7 @@ RSpec.describe AuthorizationRequest::APIImpotParticulier, type: :model do
   subject(:authorization_request) do
     build(
       :authorization_request,
-      :api_impot_particulier_production_avec_editeur,
+      :api_impot_particulier_production_editeur,
       fill_all_attributes: true,
       skip_scopes_build: true,
       modalities:,

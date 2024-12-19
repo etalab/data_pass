@@ -1,11 +1,9 @@
 import { Controller } from '@hotwired/stimulus'
 
 export default class extends Controller {
-  static targets = ['defaultResult', 'editorResult', 'sandboxResult']
+  static targets = ['editorResult', 'sandboxResult']
 
   chooseEditorWithSandbox (event) {
-    this.defaultResultTarget.classList.add('fr-hidden')
-
     if (event.target.value === 'true') {
       this.editorResultTarget.classList.remove('fr-hidden')
       this.sandboxResultTarget.classList.add('fr-hidden')
