@@ -18,3 +18,20 @@ Fonctionnalité: Instruction: gestion des demandes d'habilitations d'instructeur
     Et que je clique sur "Liste des demandes initiés pour le compte d'une organisation"
     Alors la page contient "Super secret"
     Et la page contient "API Entreprise"
+
+  Scénario: Je crée une demande d'habilitation d'instructeur
+    Quand je vais sur la page instruction
+    Et que je clique sur "Liste des demandes initiés pour le compte d'une organisation"
+    Et que je clique sur "Initier une nouvelle demande d'habilitation"
+
+    * je renseigne les infos de bases du projet
+    # * je renseigne les infos concernant les données personnelles
+    # * je renseigne le cadre légal
+    # * je renseigne les informations des contacts RGPD
+    # * je renseigne les informations du contact métier
+    # * je renseigne les informations du contact technique
+
+    * je clique sur "Sauvegarder"
+
+    Alors il y a un message de succès contenant "La demande d'habilitation a bien été sauvegardée"
+
