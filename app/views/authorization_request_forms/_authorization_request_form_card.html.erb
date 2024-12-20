@@ -7,8 +7,7 @@
   <div class="fr-tile__body">
     <div class="fr-tile__content">
       <h3 class="fr-h6 fr-tile__title fr-text-title--blue-france">
-        <%= link_to authorization_request_form.name,
-        new_authorization_request_form_path(form_uid: authorization_request_form.id) %>
+        <%= link_to authorization_request_form.name, new_authorization_request_form_path(form_uid: authorization_request_form.id), **additional_link_attributes %>
       </h3>
       <p class="fr-tile__detail">
         <%= authorization_request_form.description %>
