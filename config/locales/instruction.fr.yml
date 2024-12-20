@@ -13,6 +13,11 @@ fr:
             organization: Organization
             instructor_email: Email de l'instructeur
             actions: Actions
+      new:
+        title: Création d'une nouvelle demande " %{definition_name} " pour le compte d'une organisation
+        save: Sauvegarder
+      create:
+        success: La demande d'habilitation a bien été sauvegardée
 
     authorization_requests:
       index:

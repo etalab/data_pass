@@ -22,6 +22,13 @@ class AuthorizationRequestInstructorDraft < ApplicationRecord
     @definition ||= AuthorizationDefinition.find(authorization_request_class.demodulize.underscore)
   end
 
+  def request
+    authorization_request_class.constantize.new(
+      data:,
+      form_uid: definition.default_form.id,
+    )
+  end
+
   private
 
   def instructor_for_authorization_request
