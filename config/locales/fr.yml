@@ -244,6 +244,9 @@ fr:
             value: true
           - label: Non, nous n'avons pas d'éditeur avec accès au bac à sable
             value: false
+      choose_form_title:
+        sandbox: "Choisissez le formulaire d'accès en bac à sable qui correspond le mieux à votre cas d'usage :"
+        editor: "Choisissez le formulaire d'accès en production qui correspond le mieux à votre cas d'usage :"
 
     show:
       refused:

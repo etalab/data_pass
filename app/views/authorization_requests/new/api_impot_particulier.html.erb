@@ -96,33 +96,36 @@
       data-choose-authorization-request-form-target="forms"
       data-choose-stage-target="sandboxResult"
       id="forms"
-      class="fr-background-alt--blue-france fr-py-4w fr-hidden"
+      class="fr-hidden"
     >
-      <div class="fr-grid-row">
-        <div class="fr-col-md-10 fr-col-offset-1">
-          <p class="center fr-px-5w fr-py-1w">
-            <%= t(
-              "authorization_requests.new.step3.use_case_intro_html",
-              name: @facade.authorization_definition_name,
-              base_url: "https://api.gouv.fr/les-api/impot-particulier",
-              use_cases_url: "https://api.gouv.fr/les-api/impot-particulier"
-            ) %>
-          </p>
+    <h2 class="fr-h4"><%= t("authorization_requests.new.choose_form_title.sandbox") %></h2>
+      <div class="fr-background-alt--blue-france fr-py-4w">
+        <div class="fr-grid-row">
+          <div class="fr-col-md-10 fr-col-offset-1">
+            <p class="center fr-px-5w fr-py-1w">
+              <%= t(
+                "authorization_requests.new.step3.use_case_intro_html",
+                name: @facade.authorization_definition_name,
+                base_url: "https://api.gouv.fr/les-api/impot-particulier",
+                use_cases_url: "https://api.gouv.fr/les-api/impot-particulier"
+              ) %>
+            </p>
 
-          <div class="fr-grid-row fr-grid-row--center">
-            <% @facade.public_available_forms_sandbox.each do |authorization_request_form| %>
-              <div
-                data-choose-authorization-request-form-target="form"
-                data-choose-authorization-request-form-tags="<%= authorization_request_form.tags.to_json %>"
-                class="fr-col-md-6 fr-col-xl-6 fr-col-12 fr-p-2w"
-              >
-                <%= render partial: "authorization_request_forms/authorization_request_form_card",
-                locals: {
-                  authorization_request_form:,
-                  additional_link_attributes: { "data-choose-modalite-impot-particulier-target": "links" }
-                } %>
-              </div>
-            <% end %>
+            <div class="fr-grid-row fr-grid-row--center">
+              <% @facade.public_available_forms_sandbox.each do |authorization_request_form| %>
+                <div
+                  data-choose-authorization-request-form-target="form"
+                  data-choose-authorization-request-form-tags="<%= authorization_request_form.tags.to_json %>"
+                  class="fr-col-md-6 fr-col-xl-6 fr-col-12 fr-p-2w"
+                >
+                  <%= render partial: "authorization_request_forms/authorization_request_form_card",
+                  locals: {
+                    authorization_request_form:,
+                    additional_link_attributes: { "data-choose-modalite-impot-particulier-target": "links" }
+                  } %>
+                </div>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
@@ -131,32 +134,35 @@
       data-choose-authorization-request-form-target="forms"
       data-choose-stage-target="editorResult"
       id="forms"
-      class="fr-background-alt--blue-france fr-py-4w fr-hidden"
+      class="fr-hidden"
     >
-      <div class="fr-grid-row">
-        <div class="fr-col-md-10 fr-col-offset-1">
-          <p class="center fr-px-5w fr-py-1w">
-            <%= t(
-              "authorization_requests.new.step3.use_case_intro_html",
-              name: @facade.authorization_definition_name,
-              base_url: "https://api.gouv.fr/les-api/impot-particulier",
-              use_cases_url: "https://api.gouv.fr/les-api/impot-particulier"
-            ) %>
-          </p>
-          <div class="fr-grid-row fr-grid-row--center">
-            <% @facade.public_available_forms.each do |authorization_request_form| %>
-              <div
-                data-choose-authorization-request-form-target="form"
-                data-choose-authorization-request-form-tags="<%= authorization_request_form.tags.to_json %>"
-                class="fr-col-md-6 fr-col-xl-6 fr-col-12 fr-p-2w"
-              >
-                <%= render partial: "authorization_request_forms/authorization_request_form_card",
-                locals: {
-                  authorization_request_form:,
-                  additional_link_attributes: { "data-choose-modalite-impot-particulier-target": "links" }
-                } %>
-              </div>
-            <% end %>
+      <h2 class="fr-h4"><%= t("authorization_requests.new.choose_form_title.editor") %></h2>
+      <div class="fr-background-alt--blue-france fr-py-4w">
+        <div class="fr-grid-row">
+          <div class="fr-col-md-10 fr-col-offset-1">
+            <p class="center fr-px-5w fr-py-1w">
+              <%= t(
+                "authorization_requests.new.step3.use_case_intro_html",
+                name: @facade.authorization_definition_name,
+                base_url: "https://api.gouv.fr/les-api/impot-particulier",
+                use_cases_url: "https://api.gouv.fr/les-api/impot-particulier"
+              ) %>
+            </p>
+            <div class="fr-grid-row fr-grid-row--center">
+              <% @facade.public_available_forms.each do |authorization_request_form| %>
+                <div
+                  data-choose-authorization-request-form-target="form"
+                  data-choose-authorization-request-form-tags="<%= authorization_request_form.tags.to_json %>"
+                  class="fr-col-md-6 fr-col-xl-6 fr-col-12 fr-p-2w"
+                >
+                  <%= render partial: "authorization_request_forms/authorization_request_form_card",
+                  locals: {
+                    authorization_request_form:,
+                    additional_link_attributes: { "data-choose-modalite-impot-particulier-target": "links" }
+                  } %>
+                </div>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
