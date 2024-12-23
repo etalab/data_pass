@@ -181,7 +181,7 @@ GEM
       database_cleaner-core (~> 2.0.0)
     database_cleaner-core (2.0.1)
     date (3.4.1)
-    debug (1.9.2)
+    debug (1.10.0)
       irb (~> 1.10)
       reline (>= 0.3.8)
     diff-lcs (1.5.1)
@@ -269,7 +269,7 @@ GEM
     hashdiff (1.1.1)
     hashie (5.0.0)
     highline (3.0.1)
-    hotwire-spark (0.1.2)
+    hotwire-spark (0.1.9)
       listen
       rails (>= 8.0.0)
       zeitwerk
@@ -349,7 +349,7 @@ GEM
     nenv (0.3.0)
     net-http (0.6.0)
       uri
-    net-imap (0.5.1)
+    net-imap (0.5.4)
       date
       net-protocol
     net-pop (0.1.2)
