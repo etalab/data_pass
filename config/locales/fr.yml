@@ -293,6 +293,7 @@ fr:
     cta: Débuter ma demande
 
   authorization_request_forms:
+    form_not_found: Le formulaire demandé n'existe pas
     new:
       back_to_dashboard: Retour à l’accueil
       title: *start_new_habilitation_title

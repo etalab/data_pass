@@ -3,6 +3,10 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   helper AuthorizationRequestsHelpers
   include AuthorizationRequestsFlashes
 
+  rescue_from StaticApplicationRecord::EntryNotFound do
+    redirect_to root_path, alert: t('authorization_request_forms.form_not_found')
+  end
+
   allow_unauthenticated_access only: [:new]
 
   before_action :extract_authorization_request_form
