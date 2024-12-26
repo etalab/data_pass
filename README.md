@@ -24,7 +24,7 @@ les seeds disponible [ici](app/lib/seeds.rb)
 
 # Requirements
 
-- ruby 3.3.6
+- ruby 3.4.1
 - postressql >= 13
 - (optional) npm (for [standardjs](https://standardjs.com/) and [prettier](https://prettier.io/))
 
