@@ -1,3 +1,20 @@
+GIT
+  remote: https://github.com/cucumber/cucumber-ruby.git
+  revision: 5cec9226789ab1742d5bc36ec3bc194906c58dbc
+  specs:
+    cucumber (9.2.0)
+      builder (~> 3.2)
+      cucumber-ci-environment (> 9, < 11)
+      cucumber-core (> 13, < 14)
+      cucumber-cucumber-expressions (~> 17.0)
+      cucumber-gherkin (> 24, < 28)
+      cucumber-html-formatter (> 20.3, < 22)
+      cucumber-messages (> 19, < 25)
+      diff-lcs (~> 1.5)
+      mini_mime (~> 1.1)
+      multi_test (~> 1.1)
+      sys-uname (~> 1.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -144,18 +161,6 @@ GEM
       bigdecimal
       rexml
     crass (1.0.6)
-    cucumber (9.2.0)
-      builder (~> 3.2)
-      cucumber-ci-environment (> 9, < 11)
-      cucumber-core (> 13, < 14)
-      cucumber-cucumber-expressions (~> 17.0)
-      cucumber-gherkin (> 24, < 28)
-      cucumber-html-formatter (> 20.3, < 22)
-      cucumber-messages (> 19, < 25)
-      diff-lcs (~> 1.5)
-      mini_mime (~> 1.1)
-      multi_test (~> 1.1)
-      sys-uname (~> 1.2)
     cucumber-ci-environment (10.0.1)
     cucumber-core (13.0.3)
       cucumber-gherkin (>= 27, < 28)
@@ -614,6 +619,7 @@ DEPENDENCIES
   byebug
   capybara
   caxlsx
+  cucumber!
   cucumber-rails
   cuprite
   database_cleaner-active_record
