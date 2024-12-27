@@ -8,6 +8,7 @@ gem 'active_storage_validations'
 gem 'caxlsx'
 gem 'aws-sdk-s3', require: false
 gem 'bootsnap', require: false
+gem 'csv'
 gem 'draper'
 gem 'emailable'
 gem 'importmap-rails', '~> 1.0'

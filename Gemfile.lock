@@ -161,6 +161,7 @@ GEM
       bigdecimal
       rexml
     crass (1.0.6)
+    csv (3.3.2)
     cucumber-ci-environment (10.0.1)
     cucumber-core (13.0.3)
       cucumber-gherkin (>= 27, < 28)
@@ -619,6 +620,7 @@ DEPENDENCIES
   byebug
   capybara
   caxlsx
+  csv
   cucumber!
   cucumber-rails
   cuprite
