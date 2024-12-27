@@ -1,3 +1,20 @@
+GIT
+  remote: https://github.com/cucumber/cucumber-ruby.git
+  revision: 5cec9226789ab1742d5bc36ec3bc194906c58dbc
+  specs:
+    cucumber (9.2.0)
+      builder (~> 3.2)
+      cucumber-ci-environment (> 9, < 11)
+      cucumber-core (> 13, < 14)
+      cucumber-cucumber-expressions (~> 17.0)
+      cucumber-gherkin (> 24, < 28)
+      cucumber-html-formatter (> 20.3, < 22)
+      cucumber-messages (> 19, < 25)
+      diff-lcs (~> 1.5)
+      mini_mime (~> 1.1)
+      multi_test (~> 1.1)
+      sys-uname (~> 1.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -144,18 +161,7 @@ GEM
       bigdecimal
       rexml
     crass (1.0.6)
-    cucumber (9.2.0)
-      builder (~> 3.2)
-      cucumber-ci-environment (> 9, < 11)
-      cucumber-core (> 13, < 14)
-      cucumber-cucumber-expressions (~> 17.0)
-      cucumber-gherkin (> 24, < 28)
-      cucumber-html-formatter (> 20.3, < 22)
-      cucumber-messages (> 19, < 25)
-      diff-lcs (~> 1.5)
-      mini_mime (~> 1.1)
-      multi_test (~> 1.1)
-      sys-uname (~> 1.2)
+    csv (3.3.2)
     cucumber-ci-environment (10.0.1)
     cucumber-core (13.0.3)
       cucumber-gherkin (>= 27, < 28)
@@ -225,9 +231,7 @@ GEM
       concurrent-ruby (~> 1.1)
       webrick (~> 1.7)
       websocket-driver (~> 0.7)
-    ffi (1.17.0-aarch64-linux-gnu)
-    ffi (1.17.0-arm64-darwin)
-    ffi (1.17.0-x86_64-linux-gnu)
+    ffi (1.17.0)
     foreman (0.88.1)
     formatador (1.1.0)
     friendly_id (5.5.1)
@@ -341,6 +345,7 @@ GEM
     matrix (0.4.2)
     method_source (1.1.0)
     mini_mime (1.1.5)
+    mini_portile2 (2.8.8)
     minitest (5.25.4)
     msgpack (1.7.2)
     multi_test (1.1.0)
@@ -359,11 +364,8 @@ GEM
     net-smtp (0.5.0)
       net-protocol
     nio4r (2.7.4)
-    nokogiri (1.17.2-aarch64-linux)
-      racc (~> 1.4)
-    nokogiri (1.17.2-arm64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.17.2-x86_64-linux)
+    nokogiri (1.17.2)
+      mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     notiffany (0.1.3)
       nenv (~> 0.1)
@@ -548,9 +550,8 @@ GEM
     snaky_hash (2.0.1)
       hashie
       version_gem (~> 1.1, >= 1.1.1)
-    sqlite3 (2.4.1-aarch64-linux-gnu)
-    sqlite3 (2.4.1-arm64-darwin)
-    sqlite3 (2.4.1-x86_64-linux-gnu)
+    sqlite3 (2.4.1)
+      mini_portile2 (~> 2.8.0)
     state_machines (0.6.0)
     state_machines-activemodel (0.9.0)
       activemodel (>= 6.0)
@@ -619,6 +620,8 @@ DEPENDENCIES
   byebug
   capybara
   caxlsx
+  csv
+  cucumber!
   cucumber-rails
   cuprite
   database_cleaner-active_record
@@ -682,7 +685,7 @@ DEPENDENCIES
   wicked
 
 RUBY VERSION
-   ruby 3.3.6p108
+   ruby 3.4.1p0
 
 BUNDLED WITH
    2.4.19

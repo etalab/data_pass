@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '3.3.6'
+ruby '3.4.1'
 
 gem 'active_model_validates_intersection_of'
 gem 'active_model_serializers', '~> 0.10.15'
@@ -8,6 +8,7 @@ gem 'active_storage_validations'
 gem 'caxlsx'
 gem 'aws-sdk-s3', require: false
 gem 'bootsnap', require: false
+gem 'csv'
 gem 'draper'
 gem 'emailable'
 gem 'importmap-rails', '~> 1.0'
@@ -71,6 +72,7 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'cucumber', require: false, github: 'cucumber/cucumber-ruby'
   gem 'cucumber-rails', require: false #, github: 'cucumber/cucumber-rails'
   gem 'cuprite'
   gem 'database_cleaner-active_record'
