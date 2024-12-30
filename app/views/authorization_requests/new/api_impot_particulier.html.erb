@@ -116,10 +116,11 @@
                 <div
                   data-choose-authorization-request-form-target="form"
                   data-choose-authorization-request-form-tags="<%= authorization_request_form.tags.to_json %>"
-                  class="fr-col-md-6 fr-col-xl-6 fr-col-12 fr-p-2w"
+                  class="fr-col-md-4 fr-col-xl-4 fr-col-12 fr-p-2w"
                 >
                   <%= render partial: "authorization_request_forms/authorization_request_form_card",
                   locals: {
+                    compact: true,
                     authorization_request_form:,
                     additional_link_attributes: { "data-choose-modalite-impot-particulier-target": "links" }
                   } %>
@@ -153,10 +154,11 @@
                 <div
                   data-choose-authorization-request-form-target="form"
                   data-choose-authorization-request-form-tags="<%= authorization_request_form.tags.to_json %>"
-                  class="fr-col-md-6 fr-col-xl-6 fr-col-12 fr-p-2w"
+                  class="fr-col-md-4 fr-col-xl-4 fr-col-12 fr-p-2w"
                 >
                   <%= render partial: "authorization_request_forms/authorization_request_form_card",
                   locals: {
+                    compact: true,
                     authorization_request_form:,
                     additional_link_attributes: { "data-choose-modalite-impot-particulier-target": "links" }
                   } %>

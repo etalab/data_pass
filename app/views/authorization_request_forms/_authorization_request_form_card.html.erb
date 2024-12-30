@@ -1,7 +1,7 @@
 <div
   id="<%= dom_id(authorization_request_form) %>"
   class="
-    fr-tile fr-tile--horizontal fr-enlarge-link authorization-request-form-card
+    fr-tile fr-tile--horizontal fr-enlarge-link authorization-request-form-card <%= 'fr-p-3w' if local_assigns[:compact] %>
   "
 >
   <div class="fr-tile__body">
@@ -9,7 +9,7 @@
       <h3 class="fr-h6 fr-tile__title fr-text-title--blue-france">
         <%= link_to authorization_request_form.name, new_authorization_request_form_path(form_uid: authorization_request_form.id), **(local_assigns.fetch(:additional_link_attributes, {})) %>
       </h3>
-      <p class="fr-tile__detail">
+      <p class="fr-tile__detail <%= 'fr-mt-0 fr-pb-7w' if local_assigns[:compact] %>">
         <%= authorization_request_form.description %>
       </p>
       <% if authorization_request_form.service_provider %>
@@ -22,7 +22,7 @@
     </div>
   </div>
   <% if authorization_request_form.use_case && File.exist?(Rails.root.join("app/assets/images/pictograms/authorization_requests/#{authorization_request_form.use_case}.svg")) %>
-    <div class="fr-tile__header">
+    <div class="fr-tile__header fr-mr-1w">
       <div class="fr-tile__pictogram">
         <%= dsfr_custom_pictogram(
           "pictograms/authorization_requests/#{authorization_request_form.use_case}.svg",
