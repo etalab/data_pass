@@ -5,8 +5,8 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
     Sachant que je suis un demandeur
     Et que je me connecte
 
-    Quand je démarre une nouvelle demande d'habilitation "API Impôt Particulier" à l'étape "Bac à sable"
-
+    Quand je veux remplir une demande pour API Impot Particulier via le formulaire "Demande libre (Bac à sable)" en bac à sable
+    * je clique sur "Débuter ma demande"
     * je renseigne les infos de bases du projet
     * je clique sur "Suivant"
 

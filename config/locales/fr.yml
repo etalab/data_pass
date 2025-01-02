@@ -236,14 +236,18 @@ fr:
           <br/>
           En cas de doute, nous vous invitons à consulter le site d'<a href="%{base_url}" target="_blank">%{name}</a>, plus spécifiquement la page des
           <a href="%{use_cases_url}" target="_blank">cas d'usages</a>.
-      editor_with_sandbox:
-        title: Travaillez-vous avec un éditeur qui a déjà accès au bac à sable de cette API ?
-        subtitle: Si votre éditeur a déjà accès au bac à sable, vous serez redirigé directement vers une demande d'accès à l'environnement de production.
-        options:
-          - label: Oui mon éditeur a déjà accès au bac à sable
-            value: true
-          - label: Non, nous n'avons pas encore accès au bac à sable
-            value: false
+      api_impot_particulier:
+        editor_with_sandbox:
+          title: Travaillez-vous avec un éditeur qui a déjà accès au bac à sable de cette API ?
+          subtitle: Si vous travaillez avec un éditeur et que cet éditeur a déjà accès au bac à sable, vous serez redirigé directement vers une demande d'accès à l'environnement de production.
+          options:
+            - label: Oui, j'ai un éditeur qui a déjà accès au bac à sable
+              value: true
+            - label: Non, nous n'avons pas d'éditeur avec accès au bac à sable
+              value: false
+        choose_form_title:
+          sandbox: "Choisissez le formulaire d'accès en bac à sable qui correspond le mieux à votre cas d'usage :"
+          editor: "Choisissez le formulaire d'accès en production qui correspond le mieux à votre cas d'usage :"
 
     show:
       refused:
