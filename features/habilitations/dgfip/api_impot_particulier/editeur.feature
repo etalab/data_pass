@@ -5,7 +5,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
     Sachant que je suis un demandeur
     Et que je me connecte
 
-    Quand je veux remplir une demande pour "API Impôt Particulier" via le formulaire "API Impôt Particulier avec éditeur"
+    Quand je veux remplir une demande pour "API Impôt Particulier" via le formulaire "Demande libre avec éditeur"
     Et que je clique sur "Débuter ma demande"
 
     * je renseigne les infos de bases du projet
