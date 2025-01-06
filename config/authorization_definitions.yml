@@ -174,11 +174,6 @@ shared:
         value: "open_data_certifications_qualifelec"
         link: "https://entreprise.api.gouv.fr/catalogue/qualifelec/certificats"
         included: true
-      - name: "Brevets, marques et modèles déposés - Inpi | Open Data"
-        group: "Certifications"
-        value: "open_data_brevets_marques_modeles_deposes_inpi"
-        link: "https://entreprise.api.gouv.fr/catalogue?APIEntreprise_Endpoint%5Bquery%5D=inpi%20d%C3%A9pos%C3%A9"
-        included: true
 
   api_particulier:
     name: "API Particulier"
