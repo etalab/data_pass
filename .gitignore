@@ -37,6 +37,7 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 /config/credentials/production.key
+/config/credentials/staging.key
 /config/credentials/sandbox.key
 
 .byebug_history
@@ -52,8 +53,6 @@ app/migration/dumps/*.sql
 app/migration/dumps/*.json
 app/migration/dumps/data.db
 app/migration/.hubee_config.yml
-
-/config/credentials/staging.key
 
 # Ignore local Redis snapshots
 /dump.rdb
