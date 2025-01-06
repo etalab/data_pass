@@ -30,8 +30,7 @@ class NewAuthorizationRequest::Base
   def editors_index
     @editors_index ||= decorated_editors.group_by { |editor|
       first_char = editor.name.upcase[0]
-      # if the first char is not a letter we group it under '123'
-      first_char.match?(/[A-Z]/) ? first_char : '123'
+      group_non_letter_within_123_label(first_char)
     }.sort
   end
 
@@ -43,5 +42,9 @@ class NewAuthorizationRequest::Base
 
   def sorted_editors
     editors.uniq.sort_by { |editor| editor.name.downcase }
+  end
+
+  def group_non_letter_within_123_label(char)
+    char.match?(/[A-Z]/) ? char : '123'
   end
 end
