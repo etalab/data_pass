@@ -13,9 +13,7 @@ class AuthorizationRequest::APIImpotParticulierSandbox < AuthorizationRequest
   add_attribute :contact_technique_extra_email, format: { with: URI::MailTo::EMAIL_REGEXP }
   add_attribute :extra_organization_contact_name
 
-  add_scopes(validation: {
-    presence: true, if: -> { need_complete_validation?(:scopes) }
-  })
+  add_scopes
 
   contact :contact_technique, validation_condition: ->(record) { record.need_complete_validation?(:contacts) }
 
