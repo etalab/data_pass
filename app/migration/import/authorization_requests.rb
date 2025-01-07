@@ -34,7 +34,7 @@ class Import::AuthorizationRequests < Import::Base
       authorization_request.save!
       @models << authorization_request
     rescue ActiveRecord::RecordInvalid => e
-      log("DataPass: https://datapass.api.gouv.fr/#{enrollment_row['target_api'].gsub('_', '-')}/#{enrollment_row['id']}")
+      log("DataPass: https://datapass.api.gouv.fr/#{enrollment_row['target_api'].gsub('_', '-')}/#{enrollment_row['id']} (status: #{enrollment_row['status']})")
       log("Errors: #{authorization_request.errors.full_messages.join("\n")}")
 
       byebug
