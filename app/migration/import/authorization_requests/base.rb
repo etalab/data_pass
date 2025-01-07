@@ -59,6 +59,29 @@ class Import::AuthorizationRequests::Base
     end
   end
 
+  def affect_potential_legal_document
+    return if authorization_request.cadre_juridique_url.present?
+
+    affect_potential_document('Document::LegalBasis', 'cadre_juridique_document')
+  end
+
+  def affect_potential_document(kind, field)
+    row = csv('documents').find { |row| row['attachable_id'] == enrollment_row['id'] && row['type'] == kind }
+
+    return false unless row
+
+    attach_file(field, row)
+    true
+  end
+
+  def affect_form_uid
+    form_uid = demarche_to_form_uid
+
+    return if form_uid.blank?
+
+    authorization_request.form_uid = form_uid
+  end
+
   def find_team_member_by_type(type)
     team_member = team_members.find { |team_member| team_member['type'] == type }
 
@@ -189,17 +212,24 @@ class Import::AuthorizationRequests::Base
   end
 
   def attach_file(kind, row_data)
-    filename, io = extract_attachable(row_data)
+    filename, io = extract_attachable(kind, row_data)
 
     authorization_request.public_send("#{kind}").attach(io:, filename:)
   end
 
-  def extract_attachable(row_data)
+  def extract_attachable(kind, row_data)
     if ENV['LOCAL'] == 'true'
-      [
-        'dummy.pdf',
-        dummy_pdf_as_io,
-      ]
+      if kind == 'specific_requirements_document'
+        [
+          'dummy.xlsx',
+          dummy_file_as_io('xlsx'),
+        ]
+      else
+        [
+          'dummy.pdf',
+          dummy_file_as_io('pdf'),
+        ]
+      end
     else
       [
         row_data['attachment'],
@@ -208,8 +238,8 @@ class Import::AuthorizationRequests::Base
     end
   end
 
-  def dummy_pdf_as_io
-    Rails.root.join('spec', 'fixtures', 'dummy.pdf').open
+  def dummy_file_as_io(extension)
+    Rails.root.join('spec', 'fixtures', "dummy.#{extension}").open
   end
 
   def extract_io(row_data)

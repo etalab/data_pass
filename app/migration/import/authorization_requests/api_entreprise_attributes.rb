@@ -29,14 +29,6 @@ class Import::AuthorizationRequests::APIEntrepriseAttributes < Import::Authoriza
     end
   end
 
-  def affect_form_uid
-    form_uid = demarche_to_form_uid
-
-    return if form_uid.blank?
-
-    authorization_request.form_uid = form_uid
-  end
-
   def demarche_to_form_uid
     case enrollment_row['demarche']
     when 'marches_publics'

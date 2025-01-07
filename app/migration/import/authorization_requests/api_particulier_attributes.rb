@@ -56,10 +56,6 @@ class Import::AuthorizationRequests::APIParticulierAttributes < Import::Authoriz
     authorization_request.duree_conservation_donnees_caractere_personnel_justification = 'Non renseigné'
   end
 
-  def affect_form_uid
-    authorization_request.form_uid = demarche_to_form_uid
-  end
-
   def demarche_to_form_uid
     case enrollment_row['demarche']
     when 'arpege-concerto'
