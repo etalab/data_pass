@@ -12,9 +12,9 @@ class MainImport
   end
 
   def perform
-    organizations = import(:organizations, { load_from_sql: ENV['DUMP'] == 'true' })
-    import(:users, { load_from_sql: ENV['DUMP'] == 'true' })
-    authorization_requests = import(:authorization_requests, { load_from_sql: ENV['DUMP'] == 'true' })
+    import(:organizations, { load_from_sql: true })
+    import(:users, { load_from_sql: true })
+    authorization_requests = import(:authorization_requests, { load_from_sql: false })
 
     if types_to_import.any?
       valid_authorization_request_ids = AuthorizationRequest.where(id: authorization_requests.pluck(:id), type: types_to_import).pluck(:id)
@@ -34,8 +34,6 @@ class MainImport
 
   def types_to_import
     %w[
-      AuthorizationRequest::HubEEDila
-      AuthorizationRequest::HubEECertDC
     ]
   end
 
@@ -88,14 +86,10 @@ class MainImport
     {
       authorization_requests_filter: ->(enrollment_row) do
         %w[
-          5
-          26
-          129
-          25590
-          54115
         ].exclude?(enrollment_row['id'])
       end,
-      authorization_requests_sql_where: 'target_api in (\'hubee_portail\', \'hubee_portail_dila\') order by id desc',
+      authorization_requests_sql_where: 'target_api in (\'api_impot_particulier_sandbox\') order by id desc',
+      # authorization_requests_sql_where: 'target_api not in (\'hubee_portail\', \'hubee_portail_dila\', \'api_entreprise\', \'api_particulier\') order by id desc',
       skipped: @skipped,
       warned: @warned,
     }

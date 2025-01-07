@@ -226,6 +226,7 @@ class Import::AuthorizationRequests < Import::Base
       'hubee_portail_dila' => 'hubee_dila',
       'api_entreprise' => 'api_entreprise',
       'api_particulier' => 'api_particulier',
+      'api_impot_particulier_sandbox' => 'api_impot_particulier_sandbox',
     }[enrollment['target_api']].try(:classify)
   end
 

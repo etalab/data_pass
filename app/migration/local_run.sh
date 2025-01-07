@@ -7,8 +7,8 @@ LOCAL=true bundle exec rails runner "ImportDataInLocalDb.new.perform(delete_db_f
 
 if [ $# -eq 1 ]; then
   echo "Run for $1 only"
-  DUMP=false LOCAL=true bundle exec rails runner "MainImport.new(authorization_request_ids: [$1]).perform"
+  DUMP=true LOCAL=true bundle exec rails runner "MainImport.new(authorization_request_ids: [$1]).perform"
 else
   echo "Run for all"
-  DUMP=false LOCAL=true bundle exec rails runner "MainImport.new.perform"
+  DUMP=true LOCAL=true bundle exec rails runner "MainImport.new.perform"
 fi
