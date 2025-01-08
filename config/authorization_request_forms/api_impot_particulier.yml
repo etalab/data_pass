@@ -104,7 +104,7 @@ api-impot-particulier-stationnement-residentiel-sandbox:
   description: Dites-le nous une fois - Stationnement Résidentiel (Bac à sable)
   introduction: TODO
   authorization_request: APIImpotParticulierSandbox
-  steps: &api_impot_particulier_sandbox_steps
+  steps: *api_impot_particulier_sandbox_steps
 
 api-impot-particulier-stationnement-residentiel-production:
   name: Stationnement résidentiel
@@ -134,7 +134,7 @@ api-impot-particulier-place-creche-sandbox:
   description: Dites-le nous une fois - Place en crèche (Bac à sable)
   introduction: TODO
   authorization_request: APIImpotParticulierSandbox
-  steps: &api_impot_particulier_sandbox_steps
+  steps: *api_impot_particulier_sandbox_steps
 
 api-impot-particulier-place-creche-production:
   name: Place en crèche
@@ -165,7 +165,7 @@ api-impot-particulier-activites-periscolaires-sandbox:
   description: Dites-le nous une fois - Activités périscolaires (Bac à sable)
   introduction: TODO
   authorization_request: APIImpotParticulierSandbox
-  steps: &api_impot_particulier_sandbox_steps
+  steps: *api_impot_particulier_sandbox_steps
 
 api-impot-particulier-activites-periscolaires-production:
   name: Activités périscolaires
@@ -195,7 +195,7 @@ api-impot-particulier-cantine-scolaire-sandbox:
   description: Dites-le nous une fois - Cantine scolaire (Bac à sable)
   introduction: TODO
   authorization_request: APIImpotParticulierSandbox
-  steps: &api_impot_particulier_sandbox_steps
+  steps: *api_impot_particulier_sandbox_steps
 
 api-impot-particulier-cantine-scolaire-production:
   name: Cantine scolaire
@@ -225,7 +225,7 @@ api-impot-particulier-aides-sociales-facultatives-sandbox:
   description: Dites-le nous une fois - Aides sociales facultatives (Bac à sable)
   introduction: TODO
   authorization_request: APIImpotParticulierSandbox
-  steps: &api_impot_particulier_sandbox_steps
+  steps: *api_impot_particulier_sandbox_steps
 
 api-impot-particulier-aides-sociales-facultatives-production:
   name: Aides sociales facultatives
@@ -255,7 +255,7 @@ api-impot-particulier-carte-transport-sandbox:
   description: Dites-le nous une fois - Carte de transport (Bac à sable)
   introduction: TODO
   authorization_request: APIImpotParticulierSandbox
-  steps: &api_impot_particulier_sandbox_steps
+  steps: *api_impot_particulier_sandbox_steps
 
 api-impot-particulier-carte-transport-production:
   name: Carte de transport

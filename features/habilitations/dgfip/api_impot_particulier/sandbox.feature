@@ -5,8 +5,8 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôt Particulier 
     Sachant que je suis un demandeur
     Et que je me connecte
 
-  Scénario: Je soumets une demande d'habilitation valide
-    Quand je veux remplir une demande pour API Impot Particulier via le formulaire "Demande libre (Bac à sable)" en bac à sable
+  Plan du scénario: Je soumets une demande d'habilitation valide
+    Quand je veux remplir une demande pour API Impot Particulier via le formulaire "<Nom du formulaire>" en bac à sable
     * je clique sur "Débuter ma demande"
     * je renseigne les infos de bases du projet
     * je clique sur "Suivant"
@@ -32,3 +32,14 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôt Particulier 
 
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
+
+    Exemples:
+      | Nom du formulaire                                        |
+
+      | Demande libre (Bac à sable)                              |
+      | Stationnement résidentiel (Bac à sable)                  |
+      | Place en crèche (Bac à sable)                            |
+      | Activités périscolaires (Bac à sable)                    |
+      | Cantine scolaire (Bac à sable)                           |
+      | Aides sociales facultatives (Bac à sable)                |
+      | Carte de transport (Bac à sable)                         |
