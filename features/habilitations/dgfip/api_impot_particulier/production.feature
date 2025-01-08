@@ -4,10 +4,10 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôt Particulier 
   Contexte:
     Sachant que je suis un demandeur
     Et que je me connecte
-    Et que j'ai 1 demande d'habilitation "API Impôt Particulier" à l'étape "Bac à sable" validée
+    Et que j'ai 1 demande d'habilitation "API Impôt Particulier" via le formulaire "<Nom du formulaire>" à l'étape "Bac à sable" validée
     Et que je me rends sur mon tableau de bord
 
-  Scénario: Je soumets une demande d'habilitation valide
+  Plan du scénario: Je soumets une demande d'habilitation valide
     Quand je clique sur "Démarrer ma demande d’habilitation en production"
     Et que je clique sur "Débuter ma demande"
 
@@ -25,3 +25,14 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôt Particulier 
 
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
+
+    Exemples:
+      | Nom du formulaire                                        |
+
+      | Demande libre (Bac à sable)                              |
+      | Stationnement résidentiel (Bac à sable)                  |
+      | Place en crèche (Bac à sable)                            |
+      | Activités périscolaires (Bac à sable)                    |
+      | Cantine scolaire (Bac à sable)                           |
+      | Aides sociales facultatives (Bac à sable)                |
+      | Carte de transport (Bac à sable)                         |

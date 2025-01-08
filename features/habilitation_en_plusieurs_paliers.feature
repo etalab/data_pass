@@ -30,7 +30,7 @@ Fonctionnalité: Interactions avec des habilitations en plusieurs paliers (bac �
     Alors il n'y a pas de bouton "Démarrer ma demande d’habilitation en production"
 
   Scénario: Il y a un badge sandbox lors du démarrage d'une habilitation de bac à sable
-    Quand je veux remplir une demande pour API Impot Particulier via le formulaire "Demande libre (Bac à sable)" en bac à sable
+    Quand je veux remplir une demande pour "API Impôt Particulier" via le formulaire "Demande libre (Bac à sable)" à l'étape "Bac à sable"
     Et que je clique sur "Débuter ma demande"
     Alors il y a un badge "Bac à sable"
 
