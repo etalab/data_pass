@@ -16,7 +16,7 @@ class Import::AuthorizationRequests < Import::Base
     authorization_request.applicant = user
     authorization_request.organization_id = fetch_organization(user, enrollment_row).try(:id)
 
-    authorization_request.form_uid = fetch_form(authorization_request).id
+    authorization_request.form_uid = fetch_form(authorization_request).try(:id)
     authorization_request.state = enrollment_row['status']
     authorization_request.external_provider_id = enrollment_row['external_provider_id']
     authorization_request.copied_from_request = AuthorizationRequest.find(enrollment_row['copied_from_enrollment_id']) if enrollment_row['copied_from_enrollment_id'] && AuthorizationRequest.exists?(enrollment_row['copied_from_enrollment_id'])
@@ -28,7 +28,7 @@ class Import::AuthorizationRequests < Import::Base
       )
     end
 
-    handle_authorization_request_type_specific_fields(authorization_request, enrollment_row)
+    authorization_request = handle_authorization_request_type_specific_fields(authorization_request, enrollment_row)
 
     begin
       authorization_request.save!
@@ -227,6 +227,7 @@ class Import::AuthorizationRequests < Import::Base
       'api_entreprise' => 'api_entreprise',
       'api_particulier' => 'api_particulier',
       'api_impot_particulier_sandbox' => 'api_impot_particulier_sandbox',
+      'api_impot_particulier_production' => 'api_impot_particulier',
     }[enrollment['target_api']].try(:classify)
   end
 

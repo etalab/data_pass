@@ -24,7 +24,6 @@ class Import::AuthorizationRequests::APIImpotParticulierSandboxAttributes < Impo
   end
 
   def affect_modalities
-    additional_content = JSON.parse(enrollment_row['additional_content']) || {}
     authorization_request.modalities ||= []
 
     {
@@ -106,5 +105,9 @@ class Import::AuthorizationRequests::APIImpotParticulierSandboxAttributes < Impo
 
   def attributes_with_possible_null_values
     ['destinataire_donnees_caractere_personnel']
+  end
+
+  def additional_content
+    @additional_content ||= JSON.parse(enrollment_row['additional_content'])
   end
 end
