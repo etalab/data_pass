@@ -1,15 +1,12 @@
 <div
   id="<%= dom_id(authorization_request_form) %>"
-  class="
-    fr-tile fr-tile--horizontal fr-enlarge-link authorization-request-form-card <%= 'fr-p-3w' if local_assigns[:compact] %>
-  "
->
+  class="fr-tile fr-tile--horizontal fr-enlarge-link authorization-request-form-card fr-p-3w">
   <div class="fr-tile__body">
     <div class="fr-tile__content">
       <h3 class="fr-h6 fr-tile__title fr-text-title--blue-france">
         <%= link_to authorization_request_form.name, new_authorization_request_form_path(form_uid: authorization_request_form.id), **(local_assigns.fetch(:additional_link_attributes, {})) %>
       </h3>
-      <p class="fr-tile__detail <%= 'fr-mt-0 fr-pb-7w' if local_assigns[:compact] %>">
+      <p class="fr-tile__detail fr-mt-0 fr-pb-7w">
         <%= authorization_request_form.description %>
       </p>
       <% if authorization_request_form.service_provider %>
