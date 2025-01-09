@@ -807,3 +807,5 @@ fr:
     create:
       success:
         title: La réouverture de l'habilitation %{name} a été annulée.
+      error: Une erreur s'est produite, merci de contacter le support
+

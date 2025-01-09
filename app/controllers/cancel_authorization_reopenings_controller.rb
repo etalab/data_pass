@@ -20,7 +20,7 @@ class CancelAuthorizationReopeningsController < AuthenticatedUserController
       redirect_to dashboard_path,
         status: :see_other
     else
-      render 'new'
+      render 'new', alert: t('.error')
     end
   end
 
