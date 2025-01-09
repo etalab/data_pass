@@ -77,8 +77,8 @@ RSpec.describe AuthorizationRequest::APIImpotParticulier, type: :model do
     before { authorization_request.current_build_step = 'modalities' }
 
     context 'with a non array value' do
-      it 'raises a type error' do
-        expect { authorization_request.modalities = 'non array value' }.to raise_error(TypeError)
+      it 'raises an error' do
+        expect { authorization_request.modalities = 'non array value' }.to raise_error(JSON::ParserError)
       end
     end
 

@@ -52,6 +52,7 @@ module AuthorizationCore::Attributes
 
       def self.override_array_writer(name)
         define_method(:"#{name}=") do |value|
+          value = JSON.parse(value) if value.is_a?(String)
           raise(TypeError, "#{name} should be an array") unless value.is_a?(Array) || value.nil?
 
           value = (value || []).compact_blank.map(&:strip).uniq
