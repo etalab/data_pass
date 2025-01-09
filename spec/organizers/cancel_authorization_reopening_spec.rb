@@ -33,6 +33,30 @@ RSpec.describe CancelAuthorizationReopening, type: :organizer do
           it 'reverts attributes to latest authorization data' do
             expect { cancel_authorization_reopening }.to change { authorization_request.reload.administrateur_metier_email }.from('new@gouv.fr').to('old@gouv.fr')
           end
+
+          describe 'when there is changes between the latest authorization keys and the actual authorization request' do
+            let(:authorization) { authorization_request.latest_authorization }
+
+            before do
+              authorization.data['responsable_traitement_email'] = 'user@gouv.fr'
+              authorization.data.delete 'administrateur_metier_email'
+              authorization.save!
+            end
+
+            it { is_expected.to be_success }
+
+            it 'changes authorization request state to validated' do
+              expect { cancel_authorization_reopening }.to change { authorization_request.reload.state }.from('draft').to('validated')
+            end
+
+            it 'does not update on old keys' do
+              expect { cancel_authorization_reopening }.not_to change { authorization_request.data['responsable_traitement_email'] }
+            end
+
+            it 'does not update on keys missing from the snapshot' do
+              expect { cancel_authorization_reopening }.not_to change { authorization_request.data['administrateur_metier_email'] }
+            end
+          end
         end
 
         include_examples 'creates an event', event_name: :cancel_reopening, entity_type: :authorization_request_reopening_cancellation
