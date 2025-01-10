@@ -1,4 +1,4 @@
-<% if @authorization_request.reopening? %>
+<% if @authorization_request.reopening? && @authorization.blank? %>
   <h1 class="authorization-request-form-header__name">
     <span class="fr-icon-edit-box-fill fr-icon--lg fr-text-blue-france" aria-hidden="true"></span>
     <%= t('.update') %>

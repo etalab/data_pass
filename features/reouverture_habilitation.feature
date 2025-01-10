@@ -54,6 +54,8 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Et il n'y a pas de bouton "Mettre à jour"
     Et il n'y a pas de bouton "Enregistrer"
     Et il y a un message d'info contenant "Une mise à jour de cette habilitation est en cours."
+    Et il n'y a pas de titre contenant "Demande de mise à jour des informations"
+    Et il n'y a pas de badge "Mise à jour"
 
   Scénario: Consultation de la demande de mise à jour associée à une réouverture
     Quand j'ai 1 demande d'habilitation "API Entreprise" réouverte
@@ -62,6 +64,7 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Alors je suis sur la page "API Entreprise"
     Et il y a un badge "Mise à jour"
     Et il y a un badge "Brouillon"
+    Et il y a un titre contenant "Demande de mise à jour des informations"
     Et il n'y a pas de bouton "Enregistrer"
 
   Scénario: Annulation d'une demande de réouverture

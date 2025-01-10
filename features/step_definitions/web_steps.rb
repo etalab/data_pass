@@ -21,6 +21,17 @@ Alors('je suis sur la page {string}') do |text|
   step "il y a un titre contenant \"#{text}\""
 end
 
+Alors("il n'y a pas de titre contenant {string}") do |text|
+  elements = [
+    page.all('h1').first,
+    page.all('p.fr-h2').first,
+    page.all('h2').first,
+    page.all('table caption').first,
+  ]
+
+  expect(elements.none? { |element| element&.text&.include?(text) }).to be_truthy
+end
+
 Quand(/je clique sur (le (?:dernier|premier) )?"([^"]+)"\s*$/) do |position, label|
   case position
   when 'le dernier '
@@ -225,6 +236,10 @@ end
 
 Alors('il y a un badge {string}') do |text|
   expect(page).to have_css('.fr-badge', text:)
+end
+
+Alors("il n'y a pas de badge {string}") do |text|
+  expect(page).to have_no_css('.fr-badge', text:)
 end
 
 Alors('la page contient le logo du fournisseur de données {string}') do |authorization_definition|
