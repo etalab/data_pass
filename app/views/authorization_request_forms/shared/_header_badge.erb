@@ -2,7 +2,7 @@
 
 <div class="authorization-request-form-header__badges">
   <ul class="fr-badge-group">
-    <% if authorization_request.reopening? %>
+    <% if authorization_request.reopening? && @authorization.blank? %>
       <li>
         <%= authorization_request_reopening_badge %>
       </li>
