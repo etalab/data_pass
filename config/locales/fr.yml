@@ -368,7 +368,7 @@ fr:
 
       reopening_alerts:
         update_in_progress:
-          title: Une mise à jour de cette demande est en cours.
+          title: Une mise à jour de cette habilitation est en cours.
           message: "Vous avez initié une mise à jour de cette habilitation. Vous pouvez y accéder en cliquant ici : %{link}"
         old_version:
           title: Attention, vous consultez une version ancienne de cette habilitation

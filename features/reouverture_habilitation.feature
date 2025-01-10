@@ -53,7 +53,7 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Et il y a un badge "Validée"
     Et il n'y a pas de bouton "Mettre à jour"
     Et il n'y a pas de bouton "Enregistrer"
-    Et il y a un message d'info contenant "Une mise à jour de cette demande est en cours."
+    Et il y a un message d'info contenant "Une mise à jour de cette habilitation est en cours."
 
   Scénario: Consultation de la demande de mise à jour associée à une réouverture
     Quand j'ai 1 demande d'habilitation "API Entreprise" réouverte

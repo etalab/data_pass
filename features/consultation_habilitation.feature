@@ -119,7 +119,7 @@ Fonctionnalité: Consultation d'une demande d'habilitation
   Scénario: Je consulte la dernière habilitation validée dont la demande a été réouverte
     Quand j'ai 1 demande d'habilitation "API Entreprise" réouverte
     Et que je me rends sur l'habilitation validée
-    Alors la page contient "Une mise à jour de cette demande est en cours"
+    Alors la page contient "Une mise à jour de cette habilitation est en cours"
 
   Scénario: Je consulte une ancienne habilitation validée dont la demande a été réouverte
     Quand j'ai 1 demande d'habilitation "API Entreprise" réouverte
