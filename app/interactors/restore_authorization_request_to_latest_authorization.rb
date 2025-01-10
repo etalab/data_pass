@@ -2,14 +2,14 @@ class RestoreAuthorizationRequestToLatestAuthorization < ApplicationInteractor
   def call
     return if latest_authorization.nil?
 
-    restore_attributes!
+    fill_authorization_request_with_latest_authorization_data!
 
     authorization_request.save
   end
 
   private
 
-  def restore_attributes!
+  def fill_authorization_request_with_latest_authorization_data!
     interactor = AssignParamsToAuthorizationRequest.call(
       authorization_request:,
       authorization_request_params:,
