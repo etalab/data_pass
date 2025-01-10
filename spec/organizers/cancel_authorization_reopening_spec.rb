@@ -34,7 +34,7 @@ RSpec.describe CancelAuthorizationReopening, type: :organizer do
             expect { cancel_authorization_reopening }.to change { authorization_request.reload.administrateur_metier_email }.from('new@gouv.fr').to('old@gouv.fr')
           end
 
-          describe 'when there is changes between the latest authorization keys and the actual authorization request' do
+          describe 'when there are changes between the latest authorization keys and the actual authorization request' do
             let(:authorization) { authorization_request.latest_authorization }
 
             before do
