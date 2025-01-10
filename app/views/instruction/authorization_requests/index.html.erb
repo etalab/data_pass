@@ -58,9 +58,9 @@
         </tr>
       </thead>
 
-    <tbody>
+    <tbody data-controller="clickable-rows">
       <% @authorization_requests.each do |authorization_request| %>
-        <tr id="<%= dom_id(authorization_request) %>" class="authorization-request">
+        <tr id="<%= dom_id(authorization_request) %>" class="authorization-request clickable-row" data-action="click->clickable-rows#visit" data-href="<%= instruction_authorization_request_path(authorization_request) %>">
           <td class="authorization-request-id">
             <%= authorization_request.id %>
           </td>
