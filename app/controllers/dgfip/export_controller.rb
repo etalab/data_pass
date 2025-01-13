@@ -17,6 +17,7 @@ class DGFIP::ExportController < AuthenticatedUserController
     AuthorizationRequest
       .includes(:organization, :authorizations)
       .where(form_uid: dgfip_form_uids)
+      .where.not(state: 'archived')
   end
 
   def dgfip_form_uids
