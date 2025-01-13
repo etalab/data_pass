@@ -678,17 +678,17 @@ fr:
             <strong>%{user_full_name}</strong> a soumis la demande sans effectuer de changement sur les données pré-remplies.
         initial_submit_with_changes_on_prefilled_data:
           text: |
-            <strong>%{user_full_name}</strong> a soumis la demande
-
-            <br />
+            <p class="fr-mb-2w">
+              <strong>%{user_full_name}</strong> a soumis la demande
+            </p>
 
             Les données suivantes ont été modifiées par rapport aux informations pré-remplies du formulaire :
             %{text}
         submit_with_changes:
           text: |
-            <strong>%{user_full_name}</strong> a soumis la demande.
-
-            <br />
+            <p class="fr-mb-2w">
+              <strong>%{user_full_name}</strong> a soumis la demande.
+            </p>
 
             La liste des changements depuis la dernière modération sont les suivants :
             %{text}
