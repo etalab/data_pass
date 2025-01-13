@@ -72,8 +72,8 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'cucumber', require: false, github: 'cucumber/cucumber-ruby'
-  gem 'cucumber-rails', require: false #, github: 'cucumber/cucumber-rails'
+  gem 'cucumber'
+  gem 'cucumber-rails', require: false
   gem 'cuprite'
   gem 'database_cleaner-active_record'
   gem 'generator_spec'
