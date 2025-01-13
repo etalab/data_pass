@@ -1,19 +1,19 @@
 GIT
   remote: https://github.com/cucumber/cucumber-ruby.git
-  revision: 5cec9226789ab1742d5bc36ec3bc194906c58dbc
+  revision: 89b8990319ed9fb5b059255ee16e2c8a3c1c6631
   specs:
     cucumber (9.2.0)
+      base64 (~> 0.2)
       builder (~> 3.2)
       cucumber-ci-environment (> 9, < 11)
-      cucumber-core (> 13, < 14)
+      cucumber-core (~> 15.0)
       cucumber-cucumber-expressions (~> 17.0)
-      cucumber-gherkin (> 24, < 28)
       cucumber-html-formatter (> 20.3, < 22)
-      cucumber-messages (> 19, < 25)
       diff-lcs (~> 1.5)
+      logger (~> 1.6)
       mini_mime (~> 1.1)
       multi_test (~> 1.1)
-      sys-uname (~> 1.2)
+      sys-uname (~> 1.3)
 
 GEM
   remote: https://rubygems.org/
@@ -163,17 +163,17 @@ GEM
     crass (1.0.6)
     csv (3.3.2)
     cucumber-ci-environment (10.0.1)
-    cucumber-core (13.0.3)
-      cucumber-gherkin (>= 27, < 28)
-      cucumber-messages (>= 20, < 23)
+    cucumber-core (15.0.0)
+      cucumber-gherkin (> 27, < 30)
+      cucumber-messages (> 25, < 28)
       cucumber-tag-expressions (> 5, < 7)
     cucumber-cucumber-expressions (17.1.0)
       bigdecimal
-    cucumber-gherkin (27.0.0)
-      cucumber-messages (>= 19.1.4, < 23)
+    cucumber-gherkin (29.0.0)
+      cucumber-messages (> 25, < 26)
     cucumber-html-formatter (21.7.0)
       cucumber-messages (> 19, < 27)
-    cucumber-messages (22.0.0)
+    cucumber-messages (25.0.1)
     cucumber-rails (3.1.0)
       capybara (>= 3.11, < 4)
       cucumber (>= 5, < 10)
