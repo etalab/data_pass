@@ -29,6 +29,12 @@
           <% end %>
         </div>
       </div>
+
+      <% if @authorization && policy([:instruction, @authorization_request]).show? %>
+        <div class="fr-pb-2w fr-pl-1w">
+          Cette habilitation a été délivrée suite à la <%= link_to "demande N°#{@authorization_request.id}", instruction_authorization_request_authorizations_path(@authorization_request), class: 'fr-link' %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

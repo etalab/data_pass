@@ -84,6 +84,7 @@ Rails.application.routes.draw do
       resources :cancel_authorization_reopenings, only: %w[new create], path: 'annuler_reouverture', as: :cancel_reopening
 
       resources :authorization_request_events, only: :index, path: 'historique', as: :events
+      resources :authorizations, only: :index, path: 'habilitations'
 
       resources :messages, only: %w[index create], path: 'messages'
     end

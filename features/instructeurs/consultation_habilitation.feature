@@ -1,7 +1,7 @@
 # language: fr
 
-Fonctionnalité: Instruction: consultation d'une habilitation
-  Un instructeur peut consulter une habilitation et y voir des informations relatives aux entités
+Fonctionnalité: Instruction: consultation d'une demande d'habilitation
+  Un instructeur peut consulter une demande d'habilitation et y voir des informations relatives aux entités
 
   Contexte:
     Sachant que je suis un instructeur "API Entreprise"
@@ -19,3 +19,19 @@ Fonctionnalité: Instruction: consultation d'une habilitation
     Quand je me rends sur une demande d'habilitation "API Entreprise" réouverte
     Alors il y a un bouton "Consulter l'habilitation"
 
+  Scénario: Je ne vois pas d'onglet pour consulter les habilitations d'une demande sans habilitation
+    Quand je me rends sur une demande d'habilitation "API Entreprise" en brouillon
+    Alors la page ne contient pas "Toutes les habilitations"
+
+  Scénario: Je vois un onglet pour consulter les habilitations d'une demande validée
+    Quand je me rends sur une demande d'habilitation "API Entreprise" validée
+    Et que je clique sur "Toutes les habilitations"
+    Alors la page contient "Historique des habilitations liées à cette demande"
+
+  Scénario: Je peux naviguer d'une demande validée à une habilitation et revenir sur la demande
+    Quand je me rends sur une demande d'habilitation "API Entreprise" validée
+    Et que je clique sur "Toutes les habilitations"
+    Et que je clique sur "Consulter l'habilitation"
+    Alors la page contient "Cette habilitation a été délivrée suite à la demande N°"
+    Et que je clique sur "demande N°"
+    Alors la page contient "Toutes les habilitations"

@@ -56,6 +56,10 @@ class Authorization < ApplicationRecord
     request
   end
 
+  def definition
+    authorization_request_class.constantize.definition
+  end
+
   private
 
   def affect_snapshot_documents(request_as_validated)

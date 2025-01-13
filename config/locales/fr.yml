@@ -107,6 +107,9 @@ fr:
           authorization_request_events:
             title: Historique
             icon: time-line
+          authorizations:
+            title: Toutes les habilitations
+            icon: archive-line
           messages:
             title: Messagerie
             icon: question-answer-line
@@ -792,6 +795,10 @@ fr:
 
         system_import:
           text: La demande d'habilitation a été importé depuis une autre source
+    authorizations:
+      index:
+        title: Historique des habilitations liées à cette demande
+        show_cta: Consulter l'habilitation
 
   cancel_authorization_reopenings:
     new:
