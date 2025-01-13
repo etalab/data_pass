@@ -288,7 +288,7 @@ fr:
 
             Vous pouvez consulter à tout moment la dernière habilitation validée :
         link:
-          text: Consulter l'habilitation validée n°%{authorization_id}
+          text: Consulter l'habilitation validée du %{authorization_created_at}
     bulk_update_modal:
       title: Une mise à jour a été effectuée sur votre demande d'habilitation
       description: |
