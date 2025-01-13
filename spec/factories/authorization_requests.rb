@@ -181,7 +181,7 @@ FactoryBot.define do
           request: authorization_request,
           applicant: authorization_request.applicant,
           authorization_request_class: authorization_request.definition.stage.previous_stages[0][:definition].authorization_request_class,
-          data: authorization_request.data.presence || { 'what' => 'ever' },
+          data: authorization_request.data.presence || { 'what' => 'ever' }
         )
       end
     end

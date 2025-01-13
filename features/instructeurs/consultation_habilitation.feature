@@ -5,6 +5,7 @@ Fonctionnalité: Instruction: consultation d'une demande d'habilitation
 
   Contexte:
     Sachant que je suis un instructeur "API Entreprise"
+    Et que je suis un instructeur "API Impôt Particulier"
     Et que je me connecte
 
   Scénario: Je vois les informations sur l'organisation et le demandeur
@@ -35,3 +36,15 @@ Fonctionnalité: Instruction: consultation d'une demande d'habilitation
     Alors la page contient "Cette habilitation a été délivrée suite à la demande N°"
     Et que je clique sur "demande N°"
     Alors la page contient "Toutes les habilitations"
+
+  Scénario: Je vois les habilitations de sandbox et production d'une demande DGFiP validée
+    Quand je me rends sur une demande d'habilitation "API Impôt Particulier" validée
+    Et que je clique sur "Toutes les habilitations"
+    Alors la page contient "Bac à sable"
+    Et la page contient "Production"
+
+  Scénario: Je ne voit pas de mention de production dans le titre d'une habilitation sandbox
+    Quand je me rends sur une demande d'habilitation "API Impôt Particulier" validée
+    Et que je clique sur "Toutes les habilitations"
+    Et que je clique sur le dernier "Consulter l'habilitation"
+    Alors la page ne contient pas "Production"

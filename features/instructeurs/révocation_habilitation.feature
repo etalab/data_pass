@@ -10,7 +10,7 @@ Fonctionnalité: Instruction: révocation d'habilitation
   @AvecCourriels
   @DisableBullet
   Scénario: Je révoque une habilitation avec un message valide
-    Quand je me rends sur une habilitation "API Service National" validée
+    Quand je me rends sur une demande d'habilitation "API Service National" validée
     Et je clique sur "Révoquer"
     Et que je remplis "Indiquez les motifs de révocation" avec "Une nouvelle demande a été validée"
     Et que je clique sur "Révoquer l'habilitation"

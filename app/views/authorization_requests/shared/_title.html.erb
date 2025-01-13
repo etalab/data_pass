@@ -1,4 +1,9 @@
-<% if @authorization_request.reopening? && @authorization.blank? %>
+<% if @authorization.present? %>
+  <h1 class="authorization-request-form-header__name fr-mb-2w">
+    <%= @authorization.definition.name  %>
+  </h1>
+
+<% elsif @authorization_request.reopening? %>
   <h1 class="authorization-request-form-header__name">
     <span class="fr-icon-edit-box-fill fr-icon--lg fr-text-blue-france" aria-hidden="true"></span>
     <%= t('.update') %>
