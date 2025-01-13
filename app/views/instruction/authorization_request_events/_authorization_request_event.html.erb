@@ -21,6 +21,17 @@
     ).html_safe
   %>
 
+  <% if authorization_request_event.name == 'approve' %>
+    <div class="fr-mt-1w fr-ml-3w">
+      <%= link_to(
+        t('.approve.view_authorization'),
+        authorization_request_authorization_path(authorization_request_event.authorization_request, authorization_request_event.authorization),
+        target: '_blank',
+        class: 'fr-link'
+      ) %>
+    </div>
+  <% end %>
+
   <%= time_tag authorization_request_event.created_at do %>
     <%= authorization_request_event.created_at.strftime("%d/%m/%Y") %>
   <% end %>

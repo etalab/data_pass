@@ -703,6 +703,7 @@ fr:
           text: "<strong>%{user_full_name}</strong> a approuvé la demande"
           icon: checkbox-line
           color: success
+          view_authorization: Consulter l'habilitation
         request_changes:
           text: |
             <strong>%{user_full_name}</strong> a demandé des modifications sur la demande:

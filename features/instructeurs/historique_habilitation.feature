@@ -92,3 +92,11 @@ Fonctionnalité: Instruction: historique habilitation
     Et que je clique sur "Historique"
     Alors la page contient "Les données suivantes ont été modifiées par rapport aux informations pré-remplies du formulaire"
 
+  @DisableBullet
+  Scénario: Je vois un lien vers l'habilitation sur l'évènement de validation
+    Quand il y a 1 demande d'habilitation "Solution Portail des aides" soumise
+    Et que cette demande a été "validée"
+    Et que je vais sur la page instruction
+    Et que je clique sur "Consulter"
+    Et que je clique sur "Historique"
+    Alors la page contient un lien vers "demandes/.+/habilitations/.+"
