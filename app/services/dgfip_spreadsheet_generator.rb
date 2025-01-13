@@ -172,7 +172,7 @@ class DGFIPSpreadsheetGenerator
     if authorization_request.type.include?('Sandbox')
       authorization_request.type.split('::')[-1].underscore
     elsif authorization_request.form.id.include?('editeur')
-      "#{authorization_request.type.split('::')[-1].underscore}_editeur"
+      "#{authorization_request.type.split('::')[-1].underscore}_unique"
     else
       "#{authorization_request.type.split('::')[-1].underscore}_production"
     end
