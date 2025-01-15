@@ -84,12 +84,6 @@ class Import::AuthorizationRequests::APIImpotParticulierSandboxAttributes < Impo
     end
   end
 
-  def recent_validated_enrollment_exists?
-    bool = database.execute('select id from enrollments where copied_from_enrollment_id = ? and status = "validated" limit 1;', enrollment_row['id']).any?
-    database.close
-    bool
-  end
-
   def attributes_mapping
     {
       "intitule" => "intitule",
@@ -105,9 +99,5 @@ class Import::AuthorizationRequests::APIImpotParticulierSandboxAttributes < Impo
 
   def attributes_with_possible_null_values
     ['destinataire_donnees_caractere_personnel']
-  end
-
-  def additional_content
-    @additional_content ||= JSON.parse(enrollment_row['additional_content'])
   end
 end

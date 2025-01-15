@@ -16,7 +16,7 @@ class Import::AuthorizationRequests < Import::Base
     authorization_request.applicant = user
     authorization_request.organization_id = fetch_organization(user, enrollment_row).try(:id)
 
-    authorization_request.form_uid = fetch_form(authorization_request).try(:id)
+    authorization_request.form_uid ||= fetch_form(authorization_request).try(:id)
     authorization_request.state = enrollment_row['status']
     authorization_request.external_provider_id = enrollment_row['external_provider_id']
     authorization_request.copied_from_request = AuthorizationRequest.find(enrollment_row['copied_from_enrollment_id']) if enrollment_row['copied_from_enrollment_id'] && AuthorizationRequest.exists?(enrollment_row['copied_from_enrollment_id'])
@@ -40,6 +40,11 @@ class Import::AuthorizationRequests < Import::Base
       byebug
     rescue ActiveStorage::IntegrityError => e
       byebug
+    ensure
+      ($dummy_files || {}).each do |key, value|
+        value.close
+      end
+      $dummy_files = nil
     end
   end
 
@@ -228,6 +233,7 @@ class Import::AuthorizationRequests < Import::Base
       'api_particulier' => 'api_particulier',
       'api_impot_particulier_sandbox' => 'api_impot_particulier_sandbox',
       'api_impot_particulier_production' => 'api_impot_particulier',
+      'franceconnect' => 'france_connect',
     }[enrollment['target_api']].try(:classify)
   end
 

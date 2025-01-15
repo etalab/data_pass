@@ -29,7 +29,11 @@ class Import::AuthorizationRequests::Base
   end
 
   def perform
-    affect_data
+    begin
+      affect_data
+    ensure
+      database.close
+    end
 
     authorization_request
   end
@@ -168,7 +172,7 @@ class Import::AuthorizationRequests::Base
         end
       end
 
-      byebug
+      # byebug
 
       if recent_validated_enrollment_exists?
         skip_row!('incomplete_contact_data_with_new_enrollments')
@@ -217,6 +221,10 @@ class Import::AuthorizationRequests::Base
     authorization_request.public_send("#{kind}").attach(io:, filename:)
   end
 
+  def additional_content
+    @additional_content ||= JSON.parse(enrollment_row['additional_content'])
+  end
+
   def extract_attachable(kind, row_data)
     if ENV['LOCAL'] == 'true'
       if kind == 'specific_requirements_document'
@@ -239,7 +247,15 @@ class Import::AuthorizationRequests::Base
   end
 
   def dummy_file_as_io(extension)
-    Rails.root.join('spec', 'fixtures', "dummy.#{extension}").open
+    $dummy_files ||= {}
+    $dummy_files[extension] ||= Rails.root.join('spec', 'fixtures', "dummy.#{extension}").open
+    $dummy_files[extension]
+  end
+
+  def recent_validated_enrollment_exists?
+    bool = database.execute('select id from enrollments where copied_from_enrollment_id = ? and status = "validated" limit 1;', enrollment_row['id']).any?
+    database.close
+    bool
   end
 
   def extract_io(row_data)

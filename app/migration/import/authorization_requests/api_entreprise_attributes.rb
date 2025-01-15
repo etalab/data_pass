@@ -66,12 +66,6 @@ class Import::AuthorizationRequests::APIEntrepriseAttributes < Import::Authoriza
     authorization_request.duree_conservation_donnees_caractere_personnel = 'Non renseigné'
   end
 
-  def recent_validated_enrollment_exists?
-    bool = database.execute('select id from enrollments where copied_from_enrollment_id = ? and status = "validated" limit 1;', enrollment_row['id']).any?
-    database.close
-    bool
-  end
-
   def attributes_mapping
     {
       "intitule" => "intitule",
