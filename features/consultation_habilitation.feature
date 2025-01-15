@@ -128,3 +128,7 @@ Fonctionnalité: Consultation d'une demande d'habilitation
     Et que je me rends sur l'habilitation validée du 01/01/2024
     Alors la page contient "Attention, vous consultez une version ancienne de cette habilitation"
 
+  Scénario: Je consulte une habilitation sandbox validée dont la demande a obtenu une habilitation production
+    Quand j'ai 1 demande d'habilitation "API Impôt Particulier" validée
+    Et que je me rends sur la première habilitation validée
+    Alors la page ne contient pas "Attention, vous consultez une version ancienne de cette habilitation"
