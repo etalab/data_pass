@@ -22,6 +22,10 @@ class Authorization < ApplicationRecord
     inverse_of: :authorization,
     dependent: :destroy
 
+  has_many :authorization_request_event,
+    as: :entity,
+    dependent: :nullify
+
   scope :validated, -> { joins(:request).where(authorization_requests: { state: 'validated' }) }
 
   delegate :name, :kind, to: :request
@@ -62,6 +66,14 @@ class Authorization < ApplicationRecord
 
   def definition
     authorization_request_class.constantize.definition
+  end
+
+  def approving_instructor
+    authorization_request_event
+      .where(name: 'approve')
+      .order(created_at: :desc)
+      .first
+      .try(:user)
   end
 
   private
