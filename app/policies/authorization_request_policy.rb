@@ -72,7 +72,8 @@ class AuthorizationRequestPolicy < ApplicationPolicy
   end
 
   def start_next_stage?
-    record.definition.next_stage? &&
+    same_user_and_organization? &&
+      record.definition.next_stage? &&
       record.validated?
   end
 

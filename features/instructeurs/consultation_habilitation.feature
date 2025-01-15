@@ -43,8 +43,14 @@ Fonctionnalité: Instruction: consultation d'une demande d'habilitation
     Alors la page contient "Bac à sable"
     Et la page contient "Production"
 
-  Scénario: Je ne voit pas de mention de production dans le titre d'une habilitation sandbox
+  Scénario: Je ne vois pas de mention de production dans le titre d'une habilitation sandbox
     Quand je me rends sur une demande d'habilitation "API Impôt Particulier" validée
     Et que je clique sur "Toutes les habilitations"
     Et que je clique sur le dernier "Consulter l'habilitation"
     Alors la page ne contient pas "Production"
+
+  Scénario: Je ne vois pas de bouton "Démarrer ma demande d’habilitation en production" sur une habilitation sandbox
+    Quand je me rends sur une demande d'habilitation "API Impôt Particulier" validée
+    Et que je clique sur "Toutes les habilitations"
+    Et que je clique sur le dernier "Consulter l'habilitation"
+    Et la page ne contient pas "Démarrer ma demande d’habilitation en production"
