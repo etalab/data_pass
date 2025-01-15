@@ -19,7 +19,8 @@ fr:
     france_connect_eidas: niveau-eidas
 
   authorization:
-    badge: habilitation du %{date}
+    id_badge: habilitation N°%{id}
+    date_badge: du %{date}
 
   malware_scan:
     badge_class:
