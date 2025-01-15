@@ -22,7 +22,7 @@ class Authorization < ApplicationRecord
     inverse_of: :authorization,
     dependent: :destroy
 
-  has_many :authorization_request_event,
+  has_many :authorization_request_events,
     as: :entity,
     dependent: :nullify
 
@@ -69,7 +69,7 @@ class Authorization < ApplicationRecord
   end
 
   def approving_instructor
-    authorization_request_event
+    authorization_request_events
       .where(name: 'approve')
       .order(created_at: :desc)
       .first

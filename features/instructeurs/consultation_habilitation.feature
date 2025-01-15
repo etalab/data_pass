@@ -33,7 +33,7 @@ Fonctionnalité: Instruction: consultation d'une demande d'habilitation
     Quand je me rends sur une demande d'habilitation "API Entreprise" validée
     Et que je clique sur "Toutes les habilitations"
     Et que je clique sur "Consulter l'habilitation"
-    Alors la page contient "Cette habilitation a été délivrée suite à la demande N°"
+    Alors la page contient "Cette habilitation est liée à la demande N°"
     Et que je clique sur "demande N°"
     Alors la page contient "Toutes les habilitations"
 

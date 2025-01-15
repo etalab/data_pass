@@ -32,12 +32,12 @@
 
       <% if @authorization && policy([:instruction, @authorization_request]).show? %>
         <div class="fr-pb-2w fr-pl-1w">
-          Cette habilitation a été validée 
+          Cette habilitation est liée à la <%= link_to "demande N°#{@authorization_request.id}", instruction_authorization_request_authorizations_path(@authorization_request), class: 'fr-link' %>
           <% if @authorization.approving_instructor %>
-            par
+            et a été validée par
             <strong><%=@authorization.approving_instructor.email%></strong>
           <% end %>
-          durant la <%= link_to "demande N°#{@authorization_request.id}", instruction_authorization_request_authorizations_path(@authorization_request), class: 'fr-link' %>
+          
         </div>
       <% end %>
     </div>
