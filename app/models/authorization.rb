@@ -45,7 +45,11 @@ class Authorization < ApplicationRecord
   # rubocop:enable Metrics/AbcSize
 
   def latest?
-    request.latest_authorization == self
+    if definition.stage.exists?
+      request.latest_authorization_of_class(authorization_request_class) == self
+    else
+      request.latest_authorization == self
+    end
   end
 
   def latest
