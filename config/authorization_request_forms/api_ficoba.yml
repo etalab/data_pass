@@ -1,0 +1,25 @@
+api-ficoba-sandbox:
+  name: Si vous avez plusieurs formulaires, mettez un nom, sinon supprimer le nom
+  description: TODO
+  introduction: |
+    Ceci est une introduction à remplir
+  authorization_request: APIFicobaSandbox
+  steps: &api_ficoba_steps
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: modalities
+    - name: scopes
+    - name: contacts
+
+api-ficoba-production:
+  name: Si vous avez plusieurs formulaires, mettez un nom, sinon supprimer le nom
+  description: TODO
+  introduction: |
+    Ceci est une introduction à remplir
+  authorization_request: APIFicoba
+  static_blocks: *api_ficoba_steps
+  steps:
+    - name: operational_acceptance
+    - name: safety_certification
+    - name: volumetrie

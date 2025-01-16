@@ -1257,3 +1257,83 @@ shared:
       - name: operational_acceptance
       - name: safety_certification
       - name: volumetrie
+  api_ficoba_sandbox:
+    name: API Ficoba
+    description: "Accédez aux coordonnées bancaires d'un usager connues de l’administration fiscale (DGFIP) et transmises par les établissements bancaires."
+    provider: "dgfip"
+    kind: 'api'
+    link: "https://www.data.gouv.fr/fr/dataservices/api-fichier-des-comptes-bancaires-et-assimiles-ficoba/"
+    cgu_link: "/cgus/dgfip/cgu_api_ficoba_bac_a_sable_decembre2020_v1.1.pdf"
+    # FEEDME
+    access_link: "https://api-ficoba.gouv.fr/tokens/%<external_provider_id>"
+    public: true
+    stage:
+      type: sandbox
+      next:
+        id: api_ficoba_production
+        form_id: api-ficoba-production
+    blocks:
+      - name: basic_infos
+      - name: personal_data
+      - name: legal
+      - name: modalities
+      - name: scopes
+      - name: contacts
+    scopes: &api_ficoba_scopes
+      - name: 'dgfip_ficoba_etat_civil_denomination'
+        value: 'État civil / Raison sociale du titulaire du compte'
+        group: 'Informations compte'
+      - name: 'dgfip_ficoba_adresse'
+        value: 'Adresse'
+        group: 'Informations compte'
+      - name: 'dgfip_ficoba_compte'
+        value: 'Numéro du compte ouvert et caractéristiques'
+        group: 'Informations compte'
+      - name: 'dgfip_ficoba_etablissement_bancaire'
+        value: 'Etablissement / Guichet bancaire / Adresse'
+        group: 'Informations compte'
+      - name: 'dgfip_ficoba_date'
+        value: 'Droit sur le compte et date effective'
+        group: 'Informations compte'
+      - name: 'dgfip_ficoba_restitution_verification'
+        value: 'Restitution vérification (O/N) et date de clôture le cas échéant'
+        group: 'Informations compte'
+      - name: 'dgfip_ficoba_nombre_comptes'
+        value: 'Nombre de comptes trouvés'
+        group: 'Contrôles multi-détention PER'
+      - name: 'dgfip_ficoba_iban'
+        value: 'IBAN'
+        group: 'Contrôles multi-détention PER'
+      - name: 'dgfip_ficoba_date_ouverture'
+        value: 'Date d’ouverture'
+        group: 'Contrôles multi-détention PER'
+      - name: 'dgfip_ficoba_motif_ouverture'
+        value: 'Motif d’ouverture'
+        group: 'Contrôles multi-détention PER'
+
+  api_ficoba:
+    name: API Ficoba
+    description: "Accédez aux coordonnées bancaires d'un usager connues de l’administration fiscale (DGFIP) et transmises par les établissements bancaires."
+    provider: "dgfip"
+    kind: 'api'
+    link: "https://www.data.gouv.fr/fr/dataservices/api-fichier-des-comptes-bancaires-et-assimiles-ficoba/"
+    cgu_link: "/cgus/dgfip/cgu_api_ficoba_production.pdf"
+    # FEEDME
+    access_link: "https://api-ficoba.gouv.fr/tokens/%<external_provider_id>"
+    public: false
+    stage:
+      type: production
+      previouses:
+        - id: api_ficoba_sandbox
+          form_id: api-ficoba-sandbox
+    blocks:
+      - name: basic_infos
+      - name: personal_data
+      - name: legal
+      - name: modalities
+      - name: scopes
+      - name: contacts
+      - name: operational_acceptance
+      - name: safety_certification
+      - name: volumetrie
+    scopes: *api_ficoba_scopes
