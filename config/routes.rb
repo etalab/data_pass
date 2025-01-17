@@ -101,6 +101,7 @@ Rails.application.routes.draw do
   end
 
   get '/api-docs/v1.yaml', to: ->(env) { [200, { 'Content-Type' => 'application/yaml', 'Content-Disposition' => 'inline;filename="datapass-v1.yaml"' }, [File.read(Rails.root.join('config/openapi/v1.yaml'))]] }, as: :open_api_v1
+  get '/developpeurs', to: redirect('/developpeurs/documentation')
   get '/developpeurs/documentation', to: 'open_api#show'
 
   namespace :api do
@@ -108,6 +109,8 @@ Rails.application.routes.draw do
 
     namespace :v1 do
       get '/me', to: 'credentials#me'
+
+      resources :authorization_requests, path: 'demandes', only: :index
     end
   end
 

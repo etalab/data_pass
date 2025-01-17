@@ -124,7 +124,7 @@ components:
 
     Utilisateur:
       type: object
-      description: Utilisateur. L'ensemble des informations, excepté l'identifiant, sont issue de MonComptePro.
+      description: Utilisateur. L'ensemble des informations, excepté l'identifiant, sont issue de ProConnect.
       properties:
         id:
           type: integer
@@ -152,7 +152,7 @@ components:
 
     Organisation:
       type: object
-      description: Organisation. Les informations renvoyées sont tiré de l'INSEE et de MonComptePro.
+      description: Organisation. Les informations renvoyées sont tiré de l'INSEE et de ProConnect.
       properties:
         id:
           type: integer
@@ -273,6 +273,13 @@ components:
               - detail
 
   responses:
+    NotFoundError:
+      description: Resource non trouvée
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
     UnauthorizedError:
       description: Accès non autorisé - le jeton n'est pas valide ou absent.
       content:
@@ -297,7 +304,7 @@ components:
 paths:
   /demandes:
     get:
-      summary: Récupérer la liste des demandes d'habilitations
+      summary: Récupérer la liste des demandes d'habilitations associé aux droits développeur de l'utilisateur
       tags:
         - Demandes d'habilitations
       security:
@@ -333,6 +340,8 @@ paths:
           $ref: '#/components/responses/UnauthorizedError'
         403:
           $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
     post:
       summary: Créer une nouvelle demande d'habilitation
       tags:
