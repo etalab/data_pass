@@ -391,6 +391,8 @@ paths:
               schema:
                 allOf:
                   - $ref: '#/components/schemas/Demande'
+        404:
+          $ref: '#/components/responses/NotFoundError'
     patch:
       summary: Mettre à jour une demande d'habilitation
       tags:
