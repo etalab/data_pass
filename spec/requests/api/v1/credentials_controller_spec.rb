@@ -4,6 +4,11 @@ RSpec.describe 'Credentials', type: :request do
       get '/api/v1/me'
 
       expect(response).to have_http_status(:unauthorized)
+      expect(response.parsed_body['errors']).to include(
+        hash_including(
+          status: '401'
+        )
+      )
     end
   end
 

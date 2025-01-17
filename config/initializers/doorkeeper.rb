@@ -324,7 +324,7 @@ Doorkeeper.configure do
   #   Doorkeeper::Errors::TokenForbidden, Doorkeeper::Errors::TokenExpired,
   #   Doorkeeper::Errors::TokenRevoked, Doorkeeper::Errors::TokenUnknown
   #
-  # handle_auth_errors :raise
+  handle_auth_errors :raise
   #
   # If you want to redirect back to the client application in accordance with
   # https://datatracker.ietf.org/doc/html/rfc6749#section-4.1.2.1, you can set
