@@ -2,7 +2,11 @@ class Instruction::AuthorizationsController < Instruction::AbstractAuthorization
   def index
     authorize [:instruction, @authorization_request], :show?
 
-    @authorizations = AuthorizationRequest.find(params[:authorization_request_id]).authorizations.order(created_at: :desc)
+    @authorizations = AuthorizationRequest
+      .find(params[:authorization_request_id])
+      .authorizations
+      .includes(:approving_instructor)
+      .order(created_at: :desc)
   end
 
   private

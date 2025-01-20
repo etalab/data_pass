@@ -26,6 +26,16 @@ class Authorization < ApplicationRecord
     as: :entity,
     dependent: :nullify
 
+  has_one :approve_authorization_request_event,
+    -> { where(name: 'approve').order(created_at: :desc).limit(1) },
+    dependent: :nullify,
+    class_name: 'AuthorizationRequestEvent',
+    inverse_of: :entity
+
+  has_one :approving_instructor,
+    through: :approve_authorization_request_event,
+    source: :user
+
   scope :validated, -> { joins(:request).where(authorization_requests: { state: 'validated' }) }
 
   delegate :name, :kind, to: :request
@@ -66,14 +76,6 @@ class Authorization < ApplicationRecord
 
   def definition
     authorization_request_class.constantize.definition
-  end
-
-  def approving_instructor
-    authorization_request_events
-      .where(name: 'approve')
-      .order(created_at: :desc)
-      .first
-      .try(:user)
   end
 
   private
