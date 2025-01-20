@@ -23,8 +23,8 @@ class Instruction::RefuseAuthorizationRequestsController < Instruction::Abstract
   private
 
   def denial_of_authorization_params
-    params.require(:denial_of_authorization).permit(
-      :reason,
+    params.expect(
+      denial_of_authorization: [:reason],
     )
   end
 
