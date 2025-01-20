@@ -60,4 +60,10 @@ class AuthorizationRequestEvent < ApplicationRecord
   rescue NoMethodError
     entity
   end
+
+  def authorization
+    entity.authorization
+  rescue NoMethodError
+    entity
+  end
 end

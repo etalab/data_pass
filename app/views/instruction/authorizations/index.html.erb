@@ -1,0 +1,40 @@
+<h3> <%= t('.title') %> </h3>
+
+<ul class="fr-mt-2w fr-p-0">
+  <% @authorizations.each do |authorization| %>
+    <li class="authorization-row fr-mb-4w fr-pb-2w">
+      <div class="fr-grid-row fr-grid-row--middle">
+        <div class="fr-col">
+          <ul class="fr-badge-group">
+            <li>
+              <span class="fr-badge fr-badge--no-icon">
+                <%= t("authorization.id_badge", id: authorization.id) %>
+              </span>
+            </li>
+            <li>
+              <span class="fr-badge fr-badge--no-icon">
+                <%= t("authorization.date_badge", date: authorization.created_at.strftime('%d/%m/%Y')) %>
+              </span>
+            </li>
+
+            <% if authorization.definition.stage.exists? %>
+              <li>
+                <%= authorization_stage_badge(authorization) %>
+              </li>
+            <% end %>
+          </ul>
+
+          <% if authorization.approving_instructor.present? %>
+            <div>
+              Validé par <strong><%= authorization.approving_instructor.email %></strong>
+            </div>
+          <% end %>
+        </div>
+
+        <div>
+          <%= link_to t('.show_cta'), authorization_request_authorization_path(@authorization_request, authorization), class: "fr-btn" %>
+        </div>
+      </div>
+    </li>
+  <% end %>
+</ul>

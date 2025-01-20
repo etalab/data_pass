@@ -19,7 +19,8 @@ fr:
     france_connect_eidas: niveau-eidas
 
   authorization:
-    badge: habilitation du %{date}
+    id_badge: habilitation N°%{id}
+    date_badge: du %{date}
 
   malware_scan:
     badge_class:
@@ -107,6 +108,9 @@ fr:
           authorization_request_events:
             title: Historique
             icon: time-line
+          authorizations:
+            title: Toutes les habilitations
+            icon: archive-line
           messages:
             title: Messagerie
             icon: question-answer-line
@@ -284,7 +288,7 @@ fr:
 
             Vous pouvez consulter à tout moment la dernière habilitation validée :
         link:
-          text: Consulter l'habilitation validée n°%{authorization_id}
+          text: Consulter l'habilitation validée du %{authorization_created_at}
     bulk_update_modal:
       title: Une mise à jour a été effectuée sur votre demande d'habilitation
       description: |
@@ -674,17 +678,17 @@ fr:
             <strong>%{user_full_name}</strong> a soumis la demande sans effectuer de changement sur les données pré-remplies.
         initial_submit_with_changes_on_prefilled_data:
           text: |
-            <strong>%{user_full_name}</strong> a soumis la demande
-
-            <br />
+            <p class="fr-mb-2w">
+              <strong>%{user_full_name}</strong> a soumis la demande
+            </p>
 
             Les données suivantes ont été modifiées par rapport aux informations pré-remplies du formulaire :
             %{text}
         submit_with_changes:
           text: |
-            <strong>%{user_full_name}</strong> a soumis la demande.
-
-            <br />
+            <p class="fr-mb-2w">
+              <strong>%{user_full_name}</strong> a soumis la demande.
+            </p>
 
             La liste des changements depuis la dernière modération sont les suivants :
             %{text}
@@ -699,6 +703,7 @@ fr:
           text: "<strong>%{user_full_name}</strong> a approuvé la demande"
           icon: checkbox-line
           color: success
+          view_authorization: Consulter l'habilitation
         request_changes:
           text: |
             <strong>%{user_full_name}</strong> a demandé des modifications sur la demande:
@@ -792,6 +797,10 @@ fr:
 
         system_import:
           text: La demande d'habilitation a été importé depuis une autre source
+    authorizations:
+      index:
+        title: Historique des habilitations liées à cette demande
+        show_cta: Consulter l'habilitation
 
   cancel_authorization_reopenings:
     new:

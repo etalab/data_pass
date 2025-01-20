@@ -22,6 +22,20 @@ class Authorization < ApplicationRecord
     inverse_of: :authorization,
     dependent: :destroy
 
+  has_many :authorization_request_events,
+    as: :entity,
+    dependent: :nullify
+
+  has_one :approve_authorization_request_event,
+    -> { where(name: 'approve').order(created_at: :desc).limit(1) },
+    dependent: :nullify,
+    class_name: 'AuthorizationRequestEvent',
+    inverse_of: :entity
+
+  has_one :approving_instructor,
+    through: :approve_authorization_request_event,
+    source: :user
+
   scope :validated, -> { joins(:request).where(authorization_requests: { state: 'validated' }) }
 
   delegate :name, :kind, to: :request
@@ -45,7 +59,11 @@ class Authorization < ApplicationRecord
   # rubocop:enable Metrics/AbcSize
 
   def latest?
-    request.latest_authorization == self
+    if definition.stage.exists?
+      request.latest_authorization_of_class(authorization_request_class) == self
+    else
+      request.latest_authorization == self
+    end
   end
 
   def latest
@@ -54,6 +72,10 @@ class Authorization < ApplicationRecord
 
   def authorization_request
     request
+  end
+
+  def definition
+    authorization_request_class.constantize.definition
   end
 
   private

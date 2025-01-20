@@ -62,4 +62,64 @@ RSpec.describe Authorization do
       end
     end
   end
+
+  describe '#latest?' do
+    subject { authorization.latest? }
+
+    let!(:authorization) { authorization_request.latest_authorization }
+    let!(:authorization_request) { create(:authorization_request, :validated) }
+
+    it { is_expected.to be true }
+
+    context 'when there is a newer authorization' do
+      before do
+        create(:authorization, request: authorization_request)
+      end
+
+      it { is_expected.to be false }
+    end
+
+    context 'when the definition has stages and the authorization is sandbox' do
+      let!(:authorization_request) { create(:authorization_request, :api_impot_particulier_production, :validated) }
+      let!(:authorization) { authorization_request.authorizations.order(created_at: :asc).first }
+
+      context 'when a newer production authorization exists' do
+        it { is_expected.to be true }
+      end
+
+      context 'when a newer sandbox authorization exists' do
+        before do
+          create(:authorization, request: authorization_request, authorization_request_class: authorization.authorization_request_class, created_at: Date.tomorrow)
+        end
+
+        it { is_expected.to be false }
+      end
+    end
+  end
+
+  describe '#approving_instructor' do
+    subject { authorization.approving_instructor }
+
+    let!(:authorization) { create(:authorization) }
+
+    context 'when there is no approving instructor' do
+      it { is_expected.to be_nil }
+    end
+
+    context 'when there is an approve event' do
+      let!(:event) { create(:authorization_request_event, entity: authorization, name: 'approve') }
+
+      it { is_expected.to eq(event.user) }
+    end
+
+    context 'when there is several approve events' do
+      let!(:events) do
+        create_list(:authorization_request_event, 3, entity: authorization, name: 'approve') do |event, index|
+          event.update(created_at: Time.zone.now - index.days)
+        end
+      end
+
+      it { is_expected.to eq(events.first.user) }
+    end
+  end
 end

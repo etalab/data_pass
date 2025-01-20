@@ -382,7 +382,7 @@ Alors('un webhook avec l\'évènement {string} est envoyé') do |event_name|
 end
 
 # https://rubular.com/r/eAlfvtPiXB46Ec
-Quand(/je me rends sur une (?:demande d')?habilitation "([^"]+)"(?: de l'organisation "([^"]+)")?(?: (?:en|à))? ?(.+)?/) do |type, organization_name, status|
+Quand(/je me rends sur une demande d'habilitation "([^"]+)"(?: de l'organisation "([^"]+)")?(?: (?:en|à))? ?(.+)?/) do |type, organization_name, status|
   attributes = {}
   attributes[:organization] = find_or_create_organization_by_name(organization_name) if organization_name.present?
 

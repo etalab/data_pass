@@ -177,11 +177,19 @@ FactoryBot.define do
 
     trait :has_previous_authorization_validated do
       after(:create) do |authorization_request|
+        if authorization_request.authorizations.empty?
+          previous_authorization_created_at = authorization_request.created_at
+        else
+          date_offset = (authorization_request.latest_authorization.created_at - authorization_request.created_at) / 2
+          previous_authorization_created_at = authorization_request.created_at + date_offset
+        end
+
         authorization_request.authorizations << Authorization.create!(
           request: authorization_request,
           applicant: authorization_request.applicant,
           authorization_request_class: authorization_request.definition.stage.previous_stages[0][:definition].authorization_request_class,
           data: authorization_request.data.presence || { 'what' => 'ever' },
+          created_at: previous_authorization_created_at
         )
       end
     end
