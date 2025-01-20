@@ -20,7 +20,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôt Particulier 
 
     * je choisis "Via le numéro fiscal (SPI)"
     * je clique sur "Suivant"
-    
+
     * je coche "Dernière année de revenu"
     * je clique sur "Suivant"
 
@@ -29,6 +29,9 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôt Particulier 
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
+
+    * je coche "J’atteste que mon organisation devra déclarer à la DGFiP l’accomplissement des formalités en matière de protection des données à caractère personnel et qu’elle veillera à procéder à l’homologation de sécurité de son projet."
+
     * je clique sur "Soumettre la demande d'habilitation"
 
     Alors il y a un message de succès contenant "soumise avec succès"
