@@ -53,7 +53,7 @@ class Seeds
     authorization_request = create_submitted_authorization_request(:api_entreprise, attributes: { intitule: 'Place des entreprises', applicant: another_demandeur })
     send_message_to_instructors(authorization_request, body: "Je ne suis pas sûr du cadre de cette demande, pouvez-vous m'aider ?")
 
-    create_validated_authorization_request(:api_impot_particulier_sandbox, attributes: { intitule: 'Demande de retraite progressive en ligne', applicant: demandeur, data: { 'dpd_homologation_checkbox' => '1' } })
+    create_validated_authorization_request(:api_impot_particulier_sandbox, attributes: { intitule: 'Demande de retraite progressive en ligne', applicant: demandeur })
 
     create_fully_approved_api_impot_particulier_authorization_request
   end
@@ -248,7 +248,7 @@ class Seeds
 
   # rubocop:disable Metrics/AbcSize
   def create_fully_approved_api_impot_particulier_authorization_request
-    authorization_request = create_validated_authorization_request(:api_impot_particulier_sandbox, attributes: { intitule: 'PASS FAMILLE', applicant: demandeur, data: { 'dpd_homologation_checkbox' => '1' }, created_at: 3.days.ago })
+    authorization_request = create_validated_authorization_request(:api_impot_particulier_sandbox, attributes: { intitule: 'PASS FAMILLE', applicant: demandeur, created_at: 3.days.ago })
 
     StartNextAuthorizationRequestStage.call(authorization_request: authorization_request, user: authorization_request.applicant).perform
 
