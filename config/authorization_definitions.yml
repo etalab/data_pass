@@ -1076,3 +1076,47 @@ shared:
       - name: safety_certification
       - name: volumetrie
 
+  api_rial_sandbox:
+    name: API Rial (Répertoire Inter-Administratif des Locaux)
+    description: Raccordez-vous directement à la DGFiP pour récupérer les données des locaux connus par l’administration fiscale (caractéristiques, surface, adresse, identifiant cadastral, lots de copropriété).
+    provider: "dgfip"
+    kind: 'api'
+    link: "https://api.gouv.fr/les-api/api_rial"
+    cgu_link: "/cgus/dgfip/cgu_bas_api_rial_v2024-11.pdf"
+    # FEEDME
+    access_link: "https://api-rial.gouv.fr/tokens/%<external_provider_id>"
+    public: true
+    stage:
+      type: sandbox
+      next:
+        id: api_rial
+        form_id: api-rial-production
+    blocks:
+      - name: basic_infos
+      - name: personal_data
+      - name: legal
+      - name: contacts
+
+  api_rial:
+    name: API Rial
+    description: Raccordez-vous directement à la DGFiP pour récupérer les données des locaux connus par l’administration fiscale (caractéristiques, surface, adresse, identifiant cadastral, lots de copropriété)
+    provider: "dgfip"
+    kind: 'api'
+    link: "https://api.gouv.fr/les-api/api_rial"
+    cgu_link: "/cgus/dgfip/cgu_prod_api_rial_v2024-11.pdf"
+    # FEEDME
+    access_link: "https://api-rial.gouv.fr/tokens/%<external_provider_id>"
+    public: false
+    stage:
+      type: production
+      previouses:
+        - id: api_rial_sandbox
+          form_id: api-rial-sandbox
+    blocks:
+      - name: basic_infos
+      - name: personal_data
+      - name: legal
+      - name: contacts
+      - name: operational_acceptance
+      - name: safety_certification
+      - name: volumetrie
