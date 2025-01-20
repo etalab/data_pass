@@ -23,8 +23,8 @@ class Instruction::RevokeAuthorizationRequestsController < Instruction::Abstract
   private
 
   def revocation_of_authorization_params
-    params.require(:revocation_of_authorization).permit(
-      :reason,
+    params.expect(
+      revocation_of_authorization: [:reason],
     )
   end
 

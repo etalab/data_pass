@@ -23,8 +23,8 @@ class Instruction::CancelAuthorizationReopeningsController < Instruction::Abstra
   private
 
   def authorization_request_reopening_cancellation_params
-    params.require(:authorization_request_reopening_cancellation).permit(
-      :reason,
+    params.expect(
+      authorization_request_reopening_cancellation: [:reason],
     )
   end
 

@@ -25,8 +25,8 @@ class Instruction::RequestChangesOnAuthorizationRequestsController < Instruction
   private
 
   def instructor_modification_request_params
-    params.require(:instructor_modification_request).permit(
-      :reason,
+    params.expect(
+      instructor_modification_request: [:reason],
     )
   end
 

@@ -10,7 +10,7 @@ module ApplicationHelper
   end
 
   def displays_provider_logo?
-    @authorization_definition.present? && @display_provider_logo_in_header # rubocop:disable Naming/HelperInstanceVariable
+    @authorization_definition.present? && @display_provider_logo_in_header # rubocop:disable Rails/HelperInstanceVariable
   end
 
   def authorization_request_status_badge(authorization_request, no_icon: false, scope: nil)

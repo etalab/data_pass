@@ -8,8 +8,8 @@ class NotificationsSettingsController < AuthenticatedUserController
   private
 
   def settings_params
-    params.require(:user).permit(
-      *notifications_permitted_settings
+    params.expect(
+      user: [*notifications_permitted_settings]
     )
   end
 

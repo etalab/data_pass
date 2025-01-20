@@ -41,8 +41,8 @@ class MessagesController < AuthenticatedUserController
   end
 
   def message_params
-    params.require(:message).permit(
-      :body,
+    params.expect(
+      message: [:body],
     )
   end
 
