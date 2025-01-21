@@ -103,9 +103,25 @@ class Import::AuthorizationRequests < Import::Base
       '77564141800014' => '77564141800089',
     }[enrollment_row['siret']]
 
-    return if new_potential_siret.blank?
+    if new_potential_siret.present?
+      user.organizations.find_by(siret: new_potential_siret)
+    else
+      organization = build_organization(enrollment_row['siret'])
 
-    user.organizations.find_by(siret: new_potential_siret)
+      begin
+        organization.save!
+      rescue ActiveRecord::RecordInvalid => e
+        if e.record.errors.include?(:siret)
+          raise Import::AuthorizationRequests::Base::SkipRow.new(:invalid_siret_for_unknown_user_and_organization, id: enrollment_row['id'], target_api: enrollment_row['target_api'])
+        else
+          raise
+        end
+      end
+
+      user.organizations << organization
+
+      organization
+    end
   end
 
   def authorization_ids_where_user_belongs_to_organization
@@ -143,11 +159,8 @@ class Import::AuthorizationRequests < Import::Base
       )
     )
 
-    organization = Organization.find_or_initialize_by(siret: enrollment_row['siret'])
-    organization.assign_attributes(
-      mon_compte_pro_payload: { siret: enrollment_row['siret'], manual_creation: true },
-      last_mon_compte_pro_updated_at: DateTime.now,
-    )
+    organization = build_organization(enrollment_row['siret'])
+
     begin
       organization.save!
     rescue ActiveRecord::RecordInvalid => e
@@ -164,6 +177,19 @@ class Import::AuthorizationRequests < Import::Base
     user.save!
 
     user
+  end
+
+  def build_organization(siret)
+    organization = Organization.find_or_initialize_by(siret: siret)
+
+    return organization if organization.persisted?
+
+    organization.assign_attributes(
+      mon_compte_pro_payload: { siret:, manual_creation: true },
+      last_mon_compte_pro_updated_at: DateTime.now,
+    )
+
+    organization
   end
 
   def fetch_form(authorization_request)
