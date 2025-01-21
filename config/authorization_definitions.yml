@@ -1257,6 +1257,7 @@ shared:
       - name: operational_acceptance
       - name: safety_certification
       - name: volumetrie
+
   api_ficoba_sandbox:
     name: API Ficoba
     description: "Accédez aux coordonnées bancaires d'un usager connues de l’administration fiscale (DGFIP) et transmises par les établissements bancaires."
@@ -1281,35 +1282,21 @@ shared:
       - name: contacts
     scopes: &api_ficoba_scopes
       - name: 'dgfip_ficoba_etat_civil_denomination'
-        value: 'État civil / Raison sociale du titulaire du compte'
-        group: 'Informations compte'
+        value: 'État civil ou dénomination'
+        group: 'Information du compte'
       - name: 'dgfip_ficoba_adresse'
         value: 'Adresse'
-        group: 'Informations compte'
+        group: 'Information du compte'
       - name: 'dgfip_ficoba_compte'
-        value: 'Numéro du compte ouvert et caractéristiques'
-        group: 'Informations compte'
+        value: 'Désignation du compte'
+        included: true
+        group: 'Information du compte'
       - name: 'dgfip_ficoba_etablissement_bancaire'
-        value: 'Etablissement / Guichet bancaire / Adresse'
-        group: 'Informations compte'
+        value: 'Établissement bancaire'
+        group: 'Information du compte'
       - name: 'dgfip_ficoba_date'
-        value: 'Droit sur le compte et date effective'
-        group: 'Informations compte'
-      - name: 'dgfip_ficoba_restitution_verification'
-        value: 'Restitution vérification (O/N) et date de clôture le cas échéant'
-        group: 'Informations compte'
-      - name: 'dgfip_ficoba_nombre_comptes'
-        value: 'Nombre de comptes trouvés'
-        group: 'Contrôles multi-détention PER'
-      - name: 'dgfip_ficoba_iban'
-        value: 'IBAN'
-        group: 'Contrôles multi-détention PER'
-      - name: 'dgfip_ficoba_date_ouverture'
-        value: 'Date d’ouverture'
-        group: 'Contrôles multi-détention PER'
-      - name: 'dgfip_ficoba_motif_ouverture'
-        value: 'Motif d’ouverture'
-        group: 'Contrôles multi-détention PER'
+        value: 'Date'
+        group: 'Information du compte'
 
   api_ficoba:
     name: API Ficoba
