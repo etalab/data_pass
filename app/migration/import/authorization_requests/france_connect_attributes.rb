@@ -35,12 +35,10 @@ class Import::AuthorizationRequests::FranceConnectAttributes < Import::Authoriza
 
   def extract_eidas
     case additional_content['eidas_level']
-    when '1'
-      'eidas_1'
     when '2'
       'eidas_2'
     else
-      skip_row!(:eidas_missing)
+      'eidas_1'
     end
   end
 
