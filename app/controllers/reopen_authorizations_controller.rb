@@ -41,10 +41,10 @@ class ReopenAuthorizationsController < AuthenticatedUserController
   def extract_authorization_request_class
     return if params[:authorization_request_class].blank?
 
-    request_classes_hash = AuthorizationDefinition.all_request_classes.to_h { |klass| [klass.to_s, klass] }
+    request_classes_hash = AuthorizationDefinition.all_request_classes.index_by(&:to_s)
     actual_authorization_request_class = request_classes_hash[params[:authorization_request_class]]
 
-    raise ActionController::UnpermittedParameters unless actual_authorization_request_class.present?
+    raise ActionController::UnpermittedParameters if actual_authorization_request_class.blank?
 
     @authorization_request_class = actual_authorization_request_class
   end
