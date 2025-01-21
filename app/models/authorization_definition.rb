@@ -50,7 +50,7 @@ class AuthorizationDefinition < StaticApplicationRecord
   end
 
   def reopenable?
-    !next_stage?
+    true
   end
 
   def instructors
@@ -86,9 +86,13 @@ class AuthorizationDefinition < StaticApplicationRecord
     value_or_default(@startable_by_applicant, true)
   end
 
-  delegate :next_stage_form, :next_stage_definition, :next_stage?, to: :stage
+  delegate :next_stage_form, :next_stage_definition, :next_stage?, :previous_stage_form, to: :stage
 
   def authorization_request_class
     @authorization_request_class ||= AuthorizationRequest.const_get(id.classify)
+  end
+
+  def self.all_request_classes
+    all.map(&:authorization_request_class)
   end
 end

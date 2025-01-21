@@ -95,6 +95,14 @@ class AuthorizationRequest < ApplicationRecord
     authorizations.where(authorization_request_class: authorization_request_class).order(created_at: :desc).limit(1).first
   end
 
+  def available_classes_for_reopen
+    authorizations.distinct.pluck(:authorization_request_class).map(&:constantize)
+  end
+
+  def can_reopen_to_class?(authorization_request_class)
+    available_classes_for_reopen.include? authorization_request_class
+  end
+
   def events
     @events ||= AuthorizationRequestEventsQuery.new(self).perform
   end

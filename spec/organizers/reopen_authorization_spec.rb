@@ -36,5 +36,38 @@ RSpec.describe ReopenAuthorization do
         expect { reopen_authorization_request }.not_to change { authorization_request.reload.state }
       end
     end
+
+    context 'with an authorization_request_class to transition to' do
+      subject(:reopen_authorization_request) { described_class.call(authorization:, user:, authorization_request_class:) }
+
+      let(:authorization_request) { create(:authorization_request, :api_impot_particulier, :validated) }
+      let(:authorization_request_class) { AuthorizationRequest::APIImpotParticulierSandbox }
+
+      it 'transitions the authorization request to a previous stage' do
+        expect { reopen_authorization_request }.to change { AuthorizationRequest.find(authorization_request.id).class }.from(AuthorizationRequest::APIImpotParticulier).to(AuthorizationRequest::APIImpotParticulierSandbox)
+      end
+
+      it "transistions the authorization request's form to the previous stage's form" do
+        expect { reopen_authorization_request }.to change { AuthorizationRequest.find(authorization_request.id).form_uid }.from('api-impot-particulier-production').to('api-impot-particulier-sandbox')
+      end
+
+      context 'when the authorization_request_class is from the same stage' do
+        let(:authorization_request_class) { AuthorizationRequest::APIImpotParticulier }
+
+        it "doesn't transitions the authorization_request class" do
+          expect { reopen_authorization_request }.not_to change { AuthorizationRequest.find(authorization_request.id).class }
+        end
+
+        it "doesn't transitions the authorization_request form" do
+          expect { reopen_authorization_request }.not_to change { AuthorizationRequest.find(authorization_request.id).form_uid }
+        end
+      end
+
+      context 'when the authorization_request_class is not an available reopen class' do
+        let(:authorization_request_class) { AuthorizationRequest::APIHermes }
+
+        it { is_expected.to be_failure }
+      end
+    end
   end
 end

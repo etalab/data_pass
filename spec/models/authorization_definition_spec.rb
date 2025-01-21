@@ -67,4 +67,26 @@ RSpec.describe AuthorizationDefinition do
       it { expect(next_stage_definition.id).to eq('api_impot_particulier') }
     end
   end
+
+  describe '#previous_stage_form' do
+    subject(:previous_stage_form) { instance.previous_stage_form(authorization_request_class) }
+
+    context 'when definition has no stage' do
+      let(:instance) { described_class.find('api_entreprise') }
+      let(:authorization_request_class) { AuthorizationRequest::APIEntreprise }
+
+      it { is_expected.to be_nil }
+    end
+
+    context 'when definition has stages' do
+      let(:instance) { described_class.find('api_impot_particulier') }
+      let(:authorization_request_class) { AuthorizationRequest::APIImpotParticulierSandbox }
+
+      it { is_expected.to be_a AuthorizationRequestForm }
+
+      it 'selects the previous stage form' do
+        expect(previous_stage_form.id).to eq('api-impot-particulier-sandbox')
+      end
+    end
+  end
 end

@@ -78,6 +78,10 @@ class Authorization < ApplicationRecord
     authorization_request_class.constantize.definition
   end
 
+  def can_reopen_to_another_stage?
+    authorization_request.available_classes_for_reopen.count > 1
+  end
+
   private
 
   def affect_snapshot_documents(request_as_validated)

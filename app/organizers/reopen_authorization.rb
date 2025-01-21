@@ -5,5 +5,5 @@ class ReopenAuthorization < ApplicationOrganizer
     context.authorization_request = context.authorization.request
   end
 
-  organize ExecuteAuthorizationRequestTransitionWithCallbacks
+  organize TransitionAuthorizationRequestToPreviousStage, ExecuteAuthorizationRequestTransitionWithCallbacks
 end

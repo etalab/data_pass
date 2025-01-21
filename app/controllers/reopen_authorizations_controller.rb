@@ -1,5 +1,5 @@
 class ReopenAuthorizationsController < AuthenticatedUserController
-  before_action :extract_authorization
+  before_action :extract_authorization, :extract_authorization_request_class
   before_action :authorize_authorization_reopening
 
   def new; end
@@ -22,6 +22,7 @@ class ReopenAuthorizationsController < AuthenticatedUserController
     ReopenAuthorization.call(
       authorization: @authorization,
       user: current_user,
+      authorization_request_class: @authorization_request_class
     )
   end
 
@@ -35,6 +36,17 @@ class ReopenAuthorizationsController < AuthenticatedUserController
   def extract_authorization
     authorization_request = AuthorizationRequest.find(params[:authorization_request_id])
     @authorization = authorization_request.authorizations.friendly.find(params[:authorization_id])
+  end
+
+  def extract_authorization_request_class
+    return if params[:authorization_request_class].blank?
+
+    request_classes_hash = AuthorizationDefinition.all_request_classes.to_h { |klass| [klass.to_s, klass] }
+    actual_authorization_request_class = request_classes_hash[params[:authorization_request_class]]
+
+    raise ActionController::UnpermittedParameters unless actual_authorization_request_class.present?
+
+    @authorization_request_class = actual_authorization_request_class
   end
 
   def authorize_authorization_reopening
