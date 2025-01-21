@@ -1,12 +1,12 @@
 # language: fr
 
-Fonctionnalité: Soumission d'une demande d'habilitation API Ficoba
+Fonctionnalité: Soumission d'une demande d'habilitation API FICOBA
   Contexte:
     Sachant que je suis un demandeur
     Et que je me connecte
 
   Scénario: Je soumets une demande d'habilitation valide à l'étape Bac à sable
-    * je démarre une nouvelle demande d'habilitation "API Ficoba" à l'étape "Bac à sable"
+    * je démarre une nouvelle demande d'habilitation "API Fichier des Comptes Bancaires et Assimilés (FICOBA)" à l'étape "Bac à sable"
     * je renseigne les infos de bases du projet
     * je clique sur "Suivant"
 
@@ -16,7 +16,10 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Ficoba
     * je renseigne le cadre légal
     * je clique sur "Suivant"
 
-    * je coche "Numéro du compte ouvert et caractéristiques"
+    * je choisis "Via le Numéro fiscal (SPI)"
+    * je clique sur "Suivant"
+
+    * je coche "État civil ou dénomination"
     * je clique sur "Suivant"
 
     * je renseigne les informations des contacts RGPD
@@ -33,7 +36,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Ficoba
     Et je suis sur la page "Demandes et habilitations"
 
   Scénario: Je soumets une demande d'habilitation valide à l'étape Production
-    Quand j'ai 1 demande d'habilitation "API Ficoba" à l'étape "Bac à sable" validée
+    Quand j'ai 1 demande d'habilitation "API Fichier des Comptes Bancaires et Assimilés (FICOBA)" à l'étape "Bac à sable" validée
     Et que je me rends sur mon tableau de bord
     Et je clique sur "Démarrer ma demande d’habilitation en production"
     Et que je clique sur "Débuter ma demande"
