@@ -1109,6 +1109,7 @@ FactoryBot.define do
       with_basic_infos
       with_personal_data
       with_cadre_juridique
+      with_dpd_homologation_checkbox
     end
 
     trait :api_rial_production do
@@ -1136,6 +1137,7 @@ FactoryBot.define do
       with_cadre_juridique
       with_modalities
       with_scopes
+      with_dpd_homologation_checkbox
     end
 
     trait :api_ficoba_production do
