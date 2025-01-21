@@ -58,7 +58,7 @@ class AuthorizationDefinition < StaticApplicationRecord
   end
 
   def reopenable?
-    !next_stage?
+    true
   end
 
   def instructors

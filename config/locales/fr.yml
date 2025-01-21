@@ -463,8 +463,14 @@ fr:
       invalid_request: |
         Attention, vous réouvrez une demande qui possède des données invalides ou manquantes, vous pourrez avoir
         des erreurs inattendues, si c'était le cas merci de contacter le support
+      warning_for_stages:
+        title: Vos mises à jour peuvent concerner votre habilitation bac à sable
+        content: "Pour savoir si les mises à jour que vous désirez effectuer nécessitent de passer d'abord par une mise à jour de l'habilitation bac à sable, contactez le fournisseur de données : <br /><a class=\"fr-link\" target=\"_blank\" href=\"mailto:dtnum.donnees.demande-acces@dgfip.finances.gouv.fr\">dtnum.donnees.demande-acces@dgfip.finances.gouv.fr</a>"
       cancel: Annuler
       reopen: Mettre à jour l'habilitation
+      reopen_to_stage:
+        sandbox: Mettre à jour l'habilitation bac à sable
+        production: Mettre à jour l'habilitation de production
     create:
       success:
         title: L'habilitation %{name} a bien été réouverte

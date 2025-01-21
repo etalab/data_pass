@@ -6,7 +6,6 @@
           <h1 class="fr-modal__title">
             <%= t('.title', authorization_name: @authorization.name) %>
           </h1>
-
           <p>
             <%= t('.disclaimer').html_safe %>
           </p>
@@ -16,13 +15,35 @@
               <%= t('.invalid_request') %>
             </p>
           <% end %>
+
+          <% if @authorization.reopenable_to_another_stage? %>
+            <div class="fr-alert fr-alert--warning">
+              <h3 class="fr-alert__title"><%= t('.warning_for_stages.title') %></h3>
+              <p><%= t('.warning_for_stages.content').html_safe %>
+            </div>
+          <% end %>
         </div>
 
         <div class="fr-modal__footer">
-          <div class="fr-btns-group fr-btns-group--right fr-btns-group--inline-reverse fr-btns-group--inline-lg fr-btns-group--icon-left">
-            <%= link_to t('.cancel'), '#', class: %w(fr-btn fr-btn--secondary), aria: { controls: 'main-modal' } %>
-            <%= button_to t('.reopen'), url_for(controller: 'reopen_authorizations', action: 'create', authorization_request_id: @authorization.request_id, authorization_id: @authorization.id), class: %w(fr-btn fr-btn--primary fr-icon-success-line fr-btn--icon-left) %>
-          </div>
+          <% if @authorization.reopenable_to_another_stage? %>
+            <div class="reopen-stage-buttons-container">
+              <div class="reopen-stage-buttons">
+                <% @authorization.request.latest_authorizations_of_each_stage.each do |authorization| %>
+                  <%= button_to t(".reopen_to_stage.#{authorization.definition.stage.type}"), url_for(controller: 'reopen_authorizations', action: 'create', authorization_request_id: @authorization.request_id, authorization_id: authorization.id), class: "fr-btn fr-btn--primary fr-icon-success-line fr-btn--icon-left reopen-stage-button" %>
+                <% end %>
+              </div>
+
+              <div class="reopen-stage-cancel">
+                <%= link_to t('.cancel'), '#', class: %w(fr-btn fr-btn--secondary), aria: { controls: 'main-modal' } %>
+              </div>
+            </div>
+
+          <% else %>
+            <div class="fr-btns-group fr-btns-group--right fr-btns-group--inline fr-btns-group--inline-lg fr-btns-group--icon-left">
+              <%= button_to t('.reopen'), url_for(controller: 'reopen_authorizations', action: 'create', authorization_request_id: @authorization.request_id, authorization_id: @authorization.id), class: %w(fr-btn fr-btn--primary fr-icon-success-line fr-btn--icon-left) %>
+              <%= link_to t('.cancel'), '#', class: %w(fr-btn fr-btn--secondary), aria: { controls: 'main-modal' } %>
+            </div>
+          <% end %>
         </div>
       </turbo-frame>
     </div>
