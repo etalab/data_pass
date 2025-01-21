@@ -1259,7 +1259,7 @@ shared:
       - name: volumetrie
 
   api_ficoba_sandbox:
-    name: API Ficoba
+    name: API Fichier des Comptes Bancaires et Assimilés (FICOBA)
     description: "Accédez aux coordonnées bancaires d'un usager connues de l’administration fiscale (DGFIP) et transmises par les établissements bancaires."
     provider: "dgfip"
     kind: 'api'
@@ -1299,7 +1299,7 @@ shared:
         group: 'Information du compte'
 
   api_ficoba:
-    name: API Ficoba
+    name: API Fichiers des Comptes Bancaires et Assimilés (FICOBA)
     description: "Accédez aux coordonnées bancaires d'un usager connues de l’administration fiscale (DGFIP) et transmises par les établissements bancaires."
     provider: "dgfip"
     kind: 'api'
