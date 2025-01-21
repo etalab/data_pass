@@ -14,7 +14,10 @@ class MainImport
   def perform
     import(:organizations, { load_from_sql: true })
     import(:users, { load_from_sql: true })
-    authorization_requests = import(:authorization_requests, { load_from_sql: false })
+
+    import_extra_authorization_requests_sql_data
+
+    authorization_requests = import(:authorization_requests, { load_from_sql: false, dump_sql: true })
 
     if types_to_import.any?
       valid_authorization_request_ids = AuthorizationRequest.where(id: authorization_requests.pluck(:id), type: types_to_import).pluck(:id)
@@ -31,6 +34,14 @@ class MainImport
   end
 
   private
+
+  def import_extra_authorization_requests_sql_data
+    Dir[Rails.root.join('app/migration/dumps/authorization_requests_sql_to_load/*.sql')].each do |file|
+      log("# Importing authorization requests file #{file}")
+
+      `psql -d #{ActiveRecord::Base.connection.current_database} -f #{file}`
+    end
+  end
 
   def types_to_import
     %w[
@@ -95,8 +106,8 @@ class MainImport
         # %w[63955 64669].include?(enrollment_row['id'])
         true
       end,
-      authorization_requests_sql_where: 'target_api in (\'franceconnect\') order by id',
-      # authorization_requests_sql_where: 'target_api in (\'api_impot_particulier_sandbox\', \'api_impot_particulier_production\') order by case when target_api like \'%_sandbox\' then 1 else 2 end',
+      # authorization_requests_sql_where: 'target_api in (\'franceconnect\') order by id',
+      authorization_requests_sql_where: 'target_api in (\'api_impot_particulier_sandbox\', \'api_impot_particulier_production\', \'api_impot_particulier_fc_sandbox\', \'api_impot_particulier_fc_production\') order by case when target_api = \'franceconnect\' then 1 when target_api like \'%_sandbox\' then 2 else 3 end',
       skipped: @skipped,
       warned: @warned,
     }
