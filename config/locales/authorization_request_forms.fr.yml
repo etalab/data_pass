@@ -865,3 +865,27 @@ fr:
       <<: *api_ficoba_sandbox
 
     api_ficoba_production_editeur: *api_ficoba_production
+
+    api_r2p_sandbox: &api_r2p_sandbox
+      modalities:
+        subtitle: "" # TODO
+        values:
+          with_acces_etat_civil:
+            label: Recherche par état civil complet - Restitution de l’état civil complet, de l’adresse et de l’identifiant fiscal (SPI)
+          with_acces_spi:
+            label: Recherche par identifiant fiscal (SPI) - Restitution de l’état civil complet, de l’adresse et de l’identifiant fiscal (SPI)
+          with_acces_etat_civil_et_adresse:
+            label: Recherche par état civil dégradé et éléments d’adresse - Restitution de l’état civil complet, de l’adresse et de l’identifiant fiscal (SPI)
+          with_acces_etat_civil_restitution_spi:
+            label: Recherche par état civil complet - Restitution de l’identifiant fiscal (SPI)
+          with_acces_etat_civil_complet_adresse:
+            label: Recherche par état civil complet - Restitution de l’état civil complet, de l’adresse et du code postal
+          with_acces_etat_civil_degrade_adresse:
+            label: Recherche par état civil dégradé et éléments d’adresse - Restitution de l’état civil complet, de l’adresse et du code postal
+
+    api_r2p_ordonnateur_sandbox: *api_r2p_sandbox
+    api_r2p_appel_spi_sandbox: *api_r2p_sandbox
+    api_r2p_production_editeur: *api_r2p_sandbox
+    api_r2p_ordonnateur_production_editeur: *api_r2p_sandbox
+    api_r2p_appel_spi_production_editeur: *api_r2p_sandbox
+

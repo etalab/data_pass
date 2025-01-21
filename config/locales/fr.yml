@@ -268,6 +268,11 @@ fr:
       api_ficoba:
         with_or_without_editor: *with_or_without_editor_block
         choose_form_title: "Choisissez le formulaire d’accès correspondant le mieux à votre cas d’usage :"
+      api_r2p:
+        editor_choice: Travaillez-vous avec un éditeur qui a déjà accès au bac à sable de cette API ?
+        use_case:
+          with_editor: Oui, j'ai un éditeur qui a déjà accès au bac à sable
+          without_editor: Non, nous n'avons pas d'éditeur avec accès au bac à sable
 
     show:
       refused:
