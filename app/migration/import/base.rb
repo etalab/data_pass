@@ -80,11 +80,7 @@ class Import::Base
         print 's'
         options[:skipped] << e
 
-        begin
-          e.authorization_request.save(validate: false) if ENV['SKIP_VALIDATION'] == 'true'
-        rescue ActiveStorage::IntegrityError => ebis
-          byebug
-        end
+        e.authorization_request.save(validate: false) if ENV['SKIP_VALIDATION'] == 'true'
       rescue => e
         log(" ERROR: #{e.message}")
         log(e.backtrace.join("\n"))
