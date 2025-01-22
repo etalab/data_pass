@@ -19,7 +19,8 @@ class Import::AuthorizationRequests < Import::Base
     authorization_request.form_uid ||= fetch_form(authorization_request).try(:id)
     authorization_request.state = enrollment_row['status']
     authorization_request.external_provider_id = enrollment_row['external_provider_id']
-    authorization_request.copied_from_request = AuthorizationRequest.find(enrollment_row['copied_from_enrollment_id']) if enrollment_row['copied_from_enrollment_id'] && AuthorizationRequest.exists?(enrollment_row['copied_from_enrollment_id'])
+    # FIXME to delete, will use raw data anyway
+    # authorization_request.copied_from_request = AuthorizationRequest.find(enrollment_row['copied_from_enrollment_id']) if enrollment_row['copied_from_enrollment_id'] && AuthorizationRequest.exists?(enrollment_row['copied_from_enrollment_id'])
 
     if authorization_request.state != 'draft'
       authorization_request.assign_attributes(
@@ -112,7 +113,7 @@ class Import::AuthorizationRequests < Import::Base
         organization.save!
       rescue ActiveRecord::RecordInvalid => e
         if e.record.errors.include?(:siret)
-          raise Import::AuthorizationRequests::Base::SkipRow.new(:invalid_siret_for_unknown_user_and_organization, id: enrollment_row['id'], target_api: enrollment_row['target_api'])
+          raise Import::AuthorizationRequests::Base::SkipRow.new(:invalid_siret_for_unknown_user_and_organization, id: enrollment_row['id'], target_api: enrollment_row['target_api'], authorization_request: e.record)
         else
           raise
         end
@@ -165,7 +166,7 @@ class Import::AuthorizationRequests < Import::Base
       organization.save!
     rescue ActiveRecord::RecordInvalid => e
       if e.record.errors.include?(:siret)
-        raise Import::AuthorizationRequests::Base::SkipRow.new(:invalid_siret_for_unknown_user_and_organization, id: enrollment_row['id'], target_api: enrollment_row['target_api'])
+        raise Import::AuthorizationRequests::Base::SkipRow.new(:invalid_siret_for_unknown_user_and_organization, id: enrollment_row['id'], target_api: enrollment_row['target_api'], authorization_request: e.record)
       else
         raise
       end
@@ -258,7 +259,9 @@ class Import::AuthorizationRequests < Import::Base
       'api_entreprise' => 'api_entreprise',
       'api_particulier' => 'api_particulier',
       'api_impot_particulier_sandbox' => 'api_impot_particulier_sandbox',
+      'api_impot_particulier_fc_sandbox' => 'api_impot_particulier_sandbox',
       'api_impot_particulier_production' => 'api_impot_particulier',
+      'api_impot_particulier_fc_production' => 'api_impot_particulier',
       'franceconnect' => 'france_connect',
     }[enrollment['target_api']].try(:classify)
   end

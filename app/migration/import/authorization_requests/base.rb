@@ -6,12 +6,13 @@ class Import::AuthorizationRequests::Base
   include LocalDatabaseUtils
 
   class AbstractRow  < StandardError
-    attr_reader :kind, :id, :target_api
+    attr_reader :kind, :id, :target_api, :authorization_request
 
-    def initialize(kind = nil, id:, target_api:)
+    def initialize(kind = nil, id:, target_api:, authorization_request:)
       @kind = kind
       @id = id
       @target_api = target_api
+      @authorization_request = authorization_request
     end
   end
 
@@ -208,11 +209,11 @@ class Import::AuthorizationRequests::Base
   end
 
   def skip_row!(kind)
-    raise SkipRow.new(kind.to_s, id: enrollment_row['id'], target_api: enrollment_row['target_api'])
+    raise SkipRow.new(kind.to_s, id: enrollment_row['id'], target_api: enrollment_row['target_api'], authorization_request:)
   end
 
   def warn_row!(kind)
-    @warned << WarnRow.new(kind.to_s, id: enrollment_row['id'], target_api: enrollment_row['target_api'])
+    @warned << WarnRow.new(kind.to_s, id: enrollment_row['id'], target_api: enrollment_row['target_api'], authorization_request:)
   end
 
   def attach_file(kind, row_data)
@@ -223,6 +224,13 @@ class Import::AuthorizationRequests::Base
 
   def additional_content
     @additional_content ||= JSON.parse(enrollment_row['additional_content'])
+  end
+
+  def affect_duree_conservation_donnees_caractere_personnel_justification
+    return if authorization_request.duree_conservation_donnees_caractere_personnel.blank?
+    return unless authorization_request.duree_conservation_donnees_caractere_personnel > 36 && authorization_request.duree_conservation_donnees_caractere_personnel_justification.blank?
+
+    authorization_request.duree_conservation_donnees_caractere_personnel_justification = 'Non renseigné'
   end
 
   def extract_attachable(kind, row_data)
@@ -249,6 +257,7 @@ class Import::AuthorizationRequests::Base
   def dummy_file_as_io(extension)
     $dummy_files ||= {}
     $dummy_files[extension] ||= Rails.root.join('spec', 'fixtures', "dummy.#{extension}").open
+    $dummy_files[extension].rewind
     $dummy_files[extension]
   end
 
