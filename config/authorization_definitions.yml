@@ -1281,21 +1281,21 @@ shared:
       - name: scopes
       - name: contacts
     scopes: &api_ficoba_scopes
-      - name: dgfip_ficoba_etat_civil_denomination
-        value: État civil ou dénomination
+      - name: État civil ou dénomination
+        value: dgfip_ficoba_etat_civil_denomination
         group: Information du compte
-      - name: dgfip_ficoba_adresse
-        value: Adresse
+      - name: Adresse
+        value: dgfip_ficoba_adresse
         group: Information du compte
-      - name: dgfip_ficoba_compte
-        value: Désignation du compte
+      - name: Désignation du compte
+        value: dgfip_ficoba_compte
         included: true
         group: Information du compte
-      - name: dgfip_ficoba_etablissement_bancaire
-        value: Établissement bancaire
+      - name: Établissement bancaire
+        value: dgfip_ficoba_etablissement_bancaire
         group: Information du compte
-      - name: dgfip_ficoba_date
-        value: Date
+      - name: Date
+        value: dgfip_ficoba_date
         group: Information du compte
 
   api_ficoba:
