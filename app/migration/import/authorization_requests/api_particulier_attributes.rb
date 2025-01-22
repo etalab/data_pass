@@ -50,12 +50,6 @@ class Import::AuthorizationRequests::APIParticulierAttributes < Import::Authoriz
     attach_file('maquette_projet', row)
   end
 
-  def affect_duree_conservation_donnees_caractere_personnel_justification
-    return unless authorization_request.duree_conservation_donnees_caractere_personnel > 36 && authorization_request.duree_conservation_donnees_caractere_personnel_justification.blank?
-
-    authorization_request.duree_conservation_donnees_caractere_personnel_justification = 'Non renseigné'
-  end
-
   def demarche_to_form_uid
     case enrollment_row['demarche']
     when 'arpege-concerto'

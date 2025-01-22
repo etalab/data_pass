@@ -11,6 +11,8 @@ class Import::AuthorizationRequests::FranceConnectAttributes < Import::Authoriza
     return if authorization_request.valid?
 
     skip_row!(:invalid_cadre_juridique) if authorization_request.errors[:cadre_juridique_url].any?
+    skip_row!(:no_scopes) if authorization_request.scopes.blank?
+    skip_row!(:no_destinataire_donnees_caractere_personnel) if authorization_request.destinataire_donnees_caractere_personnel.blank?
   end
 
   def affect_contacts

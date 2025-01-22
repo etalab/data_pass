@@ -8,7 +8,13 @@ class Import::AuthorizationRequests::APIImpotParticulierAttributes < Import::Aut
     affect_safety_certification
     affect_volumetrie
 
+    handle_franceconnect
+
     authorization_request.state = enrollment_row['status']
+
+    return if authorization_request.valid?
+
+    skip_row!(:invalid_cadre_juridique) if authorization_request.errors[:cadre_juridique_url].any?
   end
 
   private
@@ -23,6 +29,14 @@ class Import::AuthorizationRequests::APIImpotParticulierAttributes < Import::Aut
     @authorization_request = AuthorizationRequest.find(enrollment_row['id'])
   rescue ActiveRecord::RecordNotFound
     skip_row!(:sandbox_missing)
+  end
+
+  def handle_franceconnect
+    return unless enrollment_row['target_api'] == 'api_impot_particulier_fc_production'
+
+    authorization_request.modalities ||= []
+    authorization_request.modalities << 'with_france_connect'
+    authorization_request.modalities = authorization_request.modalities.uniq
   end
 
   # FIXME

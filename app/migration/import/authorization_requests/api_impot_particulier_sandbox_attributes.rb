@@ -8,6 +8,12 @@ class Import::AuthorizationRequests::APIImpotParticulierSandboxAttributes < Impo
     affect_modalities
     # affect_form_uid
     handle_incompatible_scopes_error
+
+    affect_duree_conservation_donnees_caractere_personnel_justification
+
+    return if authorization_request.valid?
+
+    skip_row!(:invalid_cadre_juridique) if authorization_request.errors[:cadre_juridique_url].any?
   end
 
   def handle_incompatible_scopes_error
@@ -35,12 +41,24 @@ class Import::AuthorizationRequests::APIImpotParticulierSandboxAttributes < Impo
       authorization_request.modalities = authorization_request.modalities.concat([to])
     end
 
+    affect_franceconnect_data if with_franceconnect?
+
     authorization_request.modalities = authorization_request.modalities.uniq
 
     return if authorization_request.modalities.present?
     return if %w[refused validated].exclude?(authorization_request.state)
 
     skip_row!("no_modalities_in_status_#{authorization_request.state}")
+  end
+
+  def with_franceconnect?
+    return unless enrollment_row['previous_enrollment_id'].present?
+
+    authorization_request.modalities << 'with_france_connect'
+  end
+
+  def affect_franceconnect_data
+    authorization_request.france_connect_authorization_id = enrollment_row['previous_enrollment_id']
   end
 
   def affect_contacts
@@ -53,6 +71,7 @@ class Import::AuthorizationRequests::APIImpotParticulierSandboxAttributes < Impo
     end
   end
 
+  # FIXME check https://metabase.entreprise.api.gouv.fr/dashboard/50-datapass-exploration?nom_de_l%27api_(target_api)=api_impot_particulier_sandbox
   def demarche_to_form_uid
     case enrollment_row['demarche']
     when 'marches_publics'
