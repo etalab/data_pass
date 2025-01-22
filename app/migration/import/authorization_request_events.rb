@@ -156,8 +156,11 @@ class Import::AuthorizationRequestEvents < Import::Base
   end
 
   def find_closest_authorization(event_row, authorization_request)
+    event_created_at_as_datetime = DateTime.parse(event_row['created_at'])
+
     Authorization.where(
       request_id: authorization_request.id
+      created_at: (event_created_at_as_datetime-10.seconds..event_created_at_as_datetime+10.seconds),
     ).order(created_at: :desc).first
   end
 
