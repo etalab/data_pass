@@ -79,6 +79,12 @@ class Import::Base
       rescue Import::AuthorizationRequests::Base::SkipRow => e
         print 's'
         options[:skipped] << e
+
+        begin
+          e.authorization_request.save(validate: false) if ENV['SKIP_VALIDATION'] == 'true'
+        rescue ActiveStorage::IntegrityError => ebis
+          byebug
+        end
       rescue => e
         log(" ERROR: #{e.message}")
         log(e.backtrace.join("\n"))
