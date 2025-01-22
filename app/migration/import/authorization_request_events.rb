@@ -3,7 +3,7 @@ class Import::AuthorizationRequestEvents < Import::Base
   include UserLegacyUtils
 
   def extract(event_row)
-    authorization_request = AuthorizationRequest.find(event_row['enrollment_id'])
+    authorization_request = options[:authorization_request] || AuthorizationRequest.find(event_row['enrollment_id'])
 
     case event_row['name']
     when 'create'
@@ -50,6 +50,8 @@ class Import::AuthorizationRequestEvents < Import::Base
         authorization_request.update!(last_submitted_at: event_created_at)
       end
     when 'approve', 'validate'
+      return if options[:create_from_authorization_request_import].blank? && authorization_request.type == 'AuthorizationRequest::FranceConnect'
+
       authorization_request.update(
         last_validated_at: event_row['created_at'],
       )
@@ -159,7 +161,7 @@ class Import::AuthorizationRequestEvents < Import::Base
     event_created_at_as_datetime = DateTime.parse(event_row['created_at'])
 
     Authorization.where(
-      request_id: authorization_request.id
+      request_id: authorization_request.id,
       created_at: (event_created_at_as_datetime-10.seconds..event_created_at_as_datetime+10.seconds),
     ).order(created_at: :desc).first
   end

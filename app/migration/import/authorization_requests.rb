@@ -33,6 +33,7 @@ class Import::AuthorizationRequests < Import::Base
 
     begin
       authorization_request.save!
+      after_save_authorization_request(authorization_request, enrollment_row)
       @models << authorization_request
     rescue ActiveRecord::RecordInvalid => e
       log("DataPass: https://datapass.api.gouv.fr/#{enrollment_row['target_api'].gsub('_', '-')}/#{enrollment_row['id']} (status: #{enrollment_row['status']})")
@@ -50,6 +51,12 @@ class Import::AuthorizationRequests < Import::Base
   end
 
   private
+
+  def after_save_authorization_request(authorization_request, enrollment_row)
+    return unless @authorization_request_type_specific_field_builder.respond_to?(:after_save)
+
+    @authorization_request_type_specific_field_builder.after_save(authorization_request, enrollment_row)
+  end
 
   def sql_tables_to_save
     super.concat(
@@ -204,7 +211,7 @@ class Import::AuthorizationRequests < Import::Base
   end
 
   def handle_authorization_request_type_specific_fields(authorization_request, enrollment_row)
-    Kernel.const_get(
+    @authorization_request_type_specific_field_builder = Kernel.const_get(
       "Import::AuthorizationRequests::#{authorization_request.type.split('::')[-1]}Attributes"
     ).new(
       authorization_request,
@@ -212,7 +219,8 @@ class Import::AuthorizationRequests < Import::Base
       fetch_team_members(enrollment_row['id']),
       options[:warned],
       @models,
-    ).perform
+    )
+    @authorization_request_type_specific_field_builder.perform
   end
 
   def import?(enrollment_row)

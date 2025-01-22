@@ -223,7 +223,7 @@ class Import::AuthorizationRequests::Base
   end
 
   def additional_content
-    @additional_content ||= JSON.parse(enrollment_row['additional_content'])
+    @additional_content ||= enrollment_row['additional_content'].is_a?(String) ? JSON.parse(enrollment_row['additional_content']) : enrollment_row['additional_content']
   end
 
   def affect_duree_conservation_donnees_caractere_personnel_justification
