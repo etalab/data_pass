@@ -101,7 +101,8 @@ Pour la configuration de la [définition (1.)](../config/authorization_definitio
         # Optionnel. Détermine si la donnée est forcément incluse. Cela permet
         # d'afficher des données grisés et cochés à l'utilisateur pour l'informer
         # que ces données seront disponibles avec son habilitation. Par défaut à
-        # false
+        # false. Il n'est donc pas nécessaire de spécifier le scope dans
+        # l'option `scopes_config->disabled` du formulaire.
         included: true
     # Liste des blocs à afficher dans le résumé
     # Ces blocs peuvent correspondre aux 'steps' des formulaires définis
