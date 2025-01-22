@@ -31,9 +31,9 @@ fr:
         Vous pouvez consulter votre habilitation en suivant le lien suivant: %{authorization_request_url}
 
       need_homologation: |
-        L'utilisation de %{authorization_definition_name} nécessite d’homologuer* l’application destinatrice des données et que votre registre de traitement mentionne les données d’appelle collectées et les données reçues.
+        L'utilisation de %{authorization_definition_name} nécessite d’homologuer* l’application destinatrice des données et que votre registre de traitement mentionne les données d’appel collectées et les données reçues.
 
-        *L’anssi vous accompagne dans la sécurisation de vos application : https://www.monservicesecurise.cyber.gouv.fr
+        *L’ANSSI vous accompagne dans la sécurisation de vos applications : https://www.monservicesecurise.cyber.gouv.fr
     refuse:
       subject: Votre demande d'habilitation numéro %{authorization_request_id} a été refusée
       description: |
