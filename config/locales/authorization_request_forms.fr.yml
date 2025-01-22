@@ -792,7 +792,6 @@ fr:
       legal: *api_particulier_editor_common_wordings
 
     api_ficoba_sandbox: &api_ficoba_sandbox
-      #      <<: *api_ficoba_production_editeur
       modalities:
         title: Comment vos usagers accèderont aux données ?
         subtitle: ''
@@ -852,3 +851,8 @@ fr:
             Le non-respect du principe de proportionnalité vous expose vis à vis de la
             CNIL.
             </p>
+
+    api_ficoba_production: &api_ficoba_production
+      <<: *api_ficoba_sandbox
+
+    api_ficoba_production_editeur: *api_ficoba_production

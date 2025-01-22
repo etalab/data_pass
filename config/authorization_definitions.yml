@@ -1271,7 +1271,7 @@ shared:
     stage:
       type: sandbox
       next:
-        id: api_ficoba_production
+        id: api_ficoba
         form_id: api-ficoba-production
     blocks:
       - name: basic_infos
@@ -1281,22 +1281,22 @@ shared:
       - name: scopes
       - name: contacts
     scopes: &api_ficoba_scopes
-      - name: 'dgfip_ficoba_etat_civil_denomination'
-        value: 'État civil ou dénomination'
-        group: 'Information du compte'
-      - name: 'dgfip_ficoba_adresse'
-        value: 'Adresse'
-        group: 'Information du compte'
-      - name: 'dgfip_ficoba_compte'
-        value: 'Désignation du compte'
+      - name: dgfip_ficoba_etat_civil_denomination
+        value: État civil ou dénomination
+        group: Information du compte
+      - name: dgfip_ficoba_adresse
+        value: Adresse
+        group: Information du compte
+      - name: dgfip_ficoba_compte
+        value: Désignation du compte
         included: true
-        group: 'Information du compte'
-      - name: 'dgfip_ficoba_etablissement_bancaire'
-        value: 'Établissement bancaire'
-        group: 'Information du compte'
-      - name: 'dgfip_ficoba_date'
-        value: 'Date'
-        group: 'Information du compte'
+        group: Information du compte
+      - name: dgfip_ficoba_etablissement_bancaire
+        value: Établissement bancaire
+        group: Information du compte
+      - name: dgfip_ficoba_date
+        value: Date
+        group: Information du compte
 
   api_ficoba:
     name: API Fichiers des Comptes Bancaires et Assimilés (FICOBA)
