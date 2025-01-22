@@ -10,7 +10,7 @@
 
 <h2 class="fr-h4"><%= t("authorization_request_forms.api_impot_particulier_sandbox.modalities.title") %></h2>
 
-<div data-controller="choose-modalite-impot-particulier">
+<div data-controller="choose-modalite-with-france-connect">
   <div class="fr-col-lg-9 fr-mb-5w">
     <p class=""><%= t("authorization_request_forms.api_impot_particulier_sandbox.modalities.subtitle").html_safe %></p>
 
@@ -22,8 +22,8 @@
                     type="radio"
                     id="modalite_<%= value %>"
                     name="modalite"
-                    data-action="click->choose-modalite-impot-particulier#trigger"
-                    data-choose-modalite-impot-particulier-target="modality"
+                    data-action="click->choose-modalite-with-france-connect#trigger"
+                    data-choose-modalite-with-france-connect-target="modality"
             >
             <label class="fr-label" for="modalite_<%= value %>">
               <%= options[:label] %>
@@ -37,7 +37,7 @@
     </fieldset>
   </div>
 
-  <div class="fr-col-lg-9 fr-mb-5w fr-hidden" data-choose-modalite-impot-particulier-target="franceConnectContainer">
+  <div class="fr-col-lg-9 fr-mb-5w fr-hidden" data-choose-modalite-with-france-connect-target="franceConnectContainer">
     <% france_connect_authorizations = current_organization.valid_authorizations_of(AuthorizationRequest::FranceConnect).map(&:decorate) %>
 
     <% if france_connect_authorizations.empty? %>
@@ -56,7 +56,7 @@
         <label class="fr-h4 fr-label" for="france_connect_authorization_id">
           <%= t("authorization_request_forms.api_impot_particulier_sandbox.france_connect_authorization_id.label") %>
         </label>
-        <select class="fr-select" id="france_connect_authorization_id" name="france_connect_authorization_id" data-choose-modalite-impot-particulier-target="franceConnectSelector" data-action="click->choose-modalite-impot-particulier#trigger">
+        <select class="fr-select" id="france_connect_authorization_id" name="france_connect_authorization_id" data-choose-modalite-with-france-connect-target="franceConnectSelector" data-action="click->choose-modalite-with-france-connect#trigger">
           <% options = france_connect_authorizations.map{ |authorization| [authorization.name_for_select, authorization.id] } %>
           <%= options_for_select options, selected: options.first[1] %>
         </select>
@@ -64,7 +64,7 @@
     <% end %>
   </div>
 
-  <div data-controller="choose-stage" data-choose-modalite-impot-particulier-target="nextStage" class="fr-hidden">
+  <div data-controller="choose-stage" data-choose-modalite-with-france-connect-target="nextStage" class="fr-hidden">
     <h2 class="fr-h4"><%= t("authorization_requests.new.api_impot_particulier.editor_with_sandbox.title") %></h2>
 
     <div class="fr-col-lg-9">
@@ -121,7 +121,7 @@
                   <%= render partial: "authorization_request_forms/authorization_request_form_card",
                   locals: {
                     authorization_request_form:,
-                    additional_link_attributes: { "data-choose-modalite-impot-particulier-target": "links" }
+                    additional_link_attributes: { "data-choose-modalite-with-france-connect-target": "links" }
                   } %>
                 </div>
               <% end %>
@@ -158,7 +158,7 @@
                   <%= render partial: "authorization_request_forms/authorization_request_form_card",
                   locals: {
                     authorization_request_form:,
-                    additional_link_attributes: { "data-choose-modalite-impot-particulier-target": "links" }
+                    additional_link_attributes: { "data-choose-modalite-with-france-connect-target": "links" }
                   } %>
                 </div>
               <% end %>

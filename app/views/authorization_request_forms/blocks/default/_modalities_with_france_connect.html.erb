@@ -1,0 +1,44 @@
+<% if @authorization_request.display_prefilled_banner_for_each_block? && @authorization_request.prefilled_data?(%i[modalities france_connect_authorization_id]) %>
+  <%= render partial: "authorization_request_forms/shared/prefilled_banner" %>
+<% end %>
+
+<%= f.info_for(:modalities) %>
+
+<div data-controller="choose-modalite-with-france-connect">
+  <div class="fr-col-lg-9">
+    <%=
+      f.dsfr_radio_buttons :modalities,
+        @authorization_request.available_modalities,
+        required: true,
+        multiple: true,
+        radio_group_class: "fr-radio-rich",
+        fieldset_element_class: "small",
+        checked: ->(value) { @authorization_request.modalities.include?(value) },
+        input_options: {
+          "data-action": "click->choose-modalite-with-france-connect#trigger",
+          "data-choose-modalite-with-france-connect-target": "modality"
+        }
+    %>
+  </div>
+
+  <div class="fr-col-lg-9 fr-mb-5w <%= 'fr-hidden' unless @authorization_request.with_france_connect? %>" data-choose-modalite-with-france-connect-target="franceConnectContainer">
+    <% france_connect_authorizations = current_organization.valid_authorizations_of(AuthorizationRequest::FranceConnect).map(&:decorate) %>
+
+    <% if france_connect_authorizations.empty? %>
+      <div class="fr-callout red-callout">
+        <h3 class="fr-callout__title">
+          <%= t("authorization_request_forms.api_impot_particulier_sandbox.modalities.callout.title") %>
+        </h3>
+        <p class="fr-callout__text fr-my-3w">
+          <%= t("authorization_request_forms.api_impot_particulier_sandbox.modalities.callout.content") %>
+        </p>
+        <%= link_to  t("authorization_request_forms.api_impot_particulier_sandbox.modalities.callout.link"), new_authorization_request_form_path("france-connect"), class: "fr-link fr-btn--icon-right fr-icon-arrow-right-line" %>
+      </div>
+
+    <% else %>
+      <% options = france_connect_authorizations.map{ |authorization| [authorization.name_for_select, authorization.id] } %>
+      <% selected_option = @authorization_request.france_connect_authorization_id || france_connect_authorizations.first.id %>
+      <%= f.dsfr_select :france_connect_authorization_id, options_for_select(options, selected_option), class: %w[fr-select], include_blank: "Sélectionner une option", required: true, input_options: { "data-choose-modalite-with-france-connect-target": "franceConnectSelector" } %>
+    <% end %>
+  </div>
+</div>
