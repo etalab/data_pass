@@ -108,6 +108,11 @@ shared:
         value: "beneficiaires_effectifs_inpi"
         group: "Informations générales"
         link: "https://entreprise.api.gouv.fr/catalogue/inpi/rne/beneficiaires_effectifs"
+      - name: "Actes et bilans - Inpi"
+        value: "open_data_actes_bilans_inpi"
+        group: "Informations générales"
+        link: "https://entreprise.api.gouv.fr/catalogue/inpi/rne/actes_bilans"
+        included: true
       - name: "Chiffre d’affaires - DGFIP | 🔐"
         group: "Informations financières"
         value: "chiffre_affaires_dgfip"
