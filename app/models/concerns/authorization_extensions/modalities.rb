@@ -24,5 +24,4 @@ module AuthorizationExtensions::Modalities
   def with_france_connect?
     modalities.include? 'with_france_connect'
   end
-
 end
