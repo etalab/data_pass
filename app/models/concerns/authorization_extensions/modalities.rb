@@ -20,4 +20,9 @@ module AuthorizationExtensions::Modalities
   def mandatory_modalities?
     false
   end
+
+  def with_france_connect?
+    modalities.include? 'with_france_connect'
+  end
+
 end
