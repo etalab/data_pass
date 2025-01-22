@@ -1156,5 +1156,11 @@ FactoryBot.define do
       with_operational_acceptance
       with_volumetrie
     end
+
+    trait :api_ficoba_production_editeur do
+      api_ficoba_production
+
+      form_uid { 'api-ficoba-production-editeur' }
+    end
   end
 end
