@@ -1,0 +1,15 @@
+<div class="fr-col-lg-9">
+  <%=
+    f.dsfr_radio_buttons :modalities,
+                         @authorization_request.available_modalities,
+                         required: true,
+                         multiple: true,
+                         radio_group_class: "fr-radio-rich",
+                         fieldset_element_class: "small",
+                         checked: ->(value) { @authorization_request.modalities.include?(value) }
+    # input_options: {
+    #   "data-action": "click->choose-modalite-impot-particulier#trigger",
+    #   "data-choose-modalite-impot-particulier-target": "modality"
+    # }
+  %>
+</div>
