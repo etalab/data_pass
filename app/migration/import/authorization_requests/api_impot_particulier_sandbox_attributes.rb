@@ -52,13 +52,15 @@ class Import::AuthorizationRequests::APIImpotParticulierSandboxAttributes < Impo
   end
 
   def with_franceconnect?
-    return unless enrollment_row['previous_enrollment_id'].present?
-
-    authorization_request.modalities << 'with_france_connect'
+    enrollment_row['previous_enrollment_id'].present?
   end
 
   def affect_franceconnect_data
-    authorization_request.france_connect_authorization_id = enrollment_row['previous_enrollment_id']
+    authorization_request.modalities = authorization_request.modalities.concat(['with_france_connect'])
+
+    france_connect_authorization = AuthorizationRequest::FranceConnect.find_by(id: enrollment_row['previous_enrollment_id'])
+
+    authorization_request.france_connect_authorization_id = france_connect_authorization.latest_authorization.id.to_s
   end
 
   def affect_contacts

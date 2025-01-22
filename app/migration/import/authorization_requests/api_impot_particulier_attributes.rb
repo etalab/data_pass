@@ -35,7 +35,7 @@ class Import::AuthorizationRequests::APIImpotParticulierAttributes < Import::Aut
     return unless enrollment_row['target_api'] == 'api_impot_particulier_fc_production'
 
     authorization_request.modalities ||= []
-    authorization_request.modalities << 'with_france_connect'
+    authorization_request.modalities = authorization_request.modalities.concat(['with_france_connect'])
     authorization_request.modalities = authorization_request.modalities.uniq
   end
 
