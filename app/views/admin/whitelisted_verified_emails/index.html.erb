@@ -1,3 +1,7 @@
+<%= content_for(:header_action) do %>
+  <%= link_to t('.add'), new_admin_whitelisted_verified_email_path, class: %[fr-btn] %>
+<% end %>
+
 <turbo-frame id="verified_emails_table">
   <div class="fr-table fr-table--bordered">
     <div class="fr-table__container">

@@ -14,3 +14,12 @@ Fonctionnalité: Espace admin: emails en liste blanche
     Et que je me rends sur le module "Emails vérifiés" de l'espace administrateur
     Alors la page contient "liste-blanche@gouv.fr"
     Et la page ne contient pas "delivrable@gouv.fr"
+
+  Scénario: Je peux ajouter un email en liste blanche
+    Quand je me rends sur le module "Emails vérifiés" de l'espace administrateur
+    Et que je clique sur "Ajouter un email"
+    Et que je remplis "Email" avec "nouveau@gouv.fr"
+    Et que je clique sur "Valider"
+    Alors la page contient "nouveau@gouv.fr"
+    Et il y a un message de succès contenant "a été ajouté"
+

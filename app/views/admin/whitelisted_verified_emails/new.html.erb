@@ -1,0 +1,10 @@
+<div class="fr-container">
+  <div class="fr-grid-row">
+    <div class="fr-col-6">
+      <%= form_with(model: @verified_email, url: admin_whitelisted_verified_emails_path) do |f| %>
+        <%= f.dsfr_email_field :email, required: true %>
+        <%= f.submit t('.cta'), class: %w[fr-btn fr-btn--sm] %>
+      <% end %>
+    </div>
+  </div>
+</div>
