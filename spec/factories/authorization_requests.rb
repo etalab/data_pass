@@ -1125,5 +1125,31 @@ FactoryBot.define do
       with_operational_acceptance
       with_volumetrie
     end
+
+    trait :api_infinoe_sandbox do
+      type { 'AuthorizationRequest::APIInfinoeSandbox' }
+
+      form_uid { 'api-infinoe-sandbox' }
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+      with_dpd_homologation_checkbox
+    end
+
+    trait :api_infinoe_production do
+      type { 'AuthorizationRequest::APIInfinoe' }
+
+      form_uid { 'api-infinoe-production' }
+
+      has_previous_authorization_validated
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+      with_safety_certification
+      with_operational_acceptance
+      with_volumetrie
+    end
   end
 end
