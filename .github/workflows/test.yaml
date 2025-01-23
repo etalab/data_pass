@@ -130,12 +130,19 @@ jobs:
             --env-file ./.github/workflows/test.env \
             --rm data_pass bundle exec rspec
 
+  integration-tests-instruction:
+    name: "Integration tests: instruction"
+    needs: build
+    uses: ./.github/workflows/reusable-integration-tests.yaml
+    with:
+      cucumber_options: "features/{instructeurs,reporters}/"
+
   integration-tests-admin:
     name: "Integration tests: admin"
     needs: build
     uses: ./.github/workflows/reusable-integration-tests.yaml
     with:
-      cucumber_options: "features/{instructeurs,reporters}/"
+      cucumber_options: "features/admin/"
 
   integration-tests-dgfip-habilitations:
     name: "Integration tests: dgfip habilitations"
@@ -156,7 +163,7 @@ jobs:
     needs: build
     uses: ./.github/workflows/reusable-integration-tests.yaml
     with:
-      cucumber_options: "-e features/instructeurs/ -e features/habilitations/ -e features/reporters/"
+      cucumber_options: "-e features/instructeurs/ -e features/habilitations/ -e features/reporters/ -e features/admin/"
 
   merge-with-main:
     name: "Merge develop with main"
@@ -169,6 +176,7 @@ jobs:
       - yaml-lint
       - unit-tests
       - integration-tests-admin
+      - integration-tests-instruction
       - integration-tests-dgfip-habilitations
       - integration-tests-others-habilitations
       - integration-tests-others
