@@ -203,6 +203,7 @@ class AuthorizationRequest < ApplicationRecord
     end
 
     after_transition to: :validated do |authorization_request|
+      # TODO : if next stage present in the previous habilitations, then keep the reopening state
       authorization_request.update(last_validated_at: Time.zone.now, reopening: false)
     end
 
