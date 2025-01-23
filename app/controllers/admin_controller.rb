@@ -1,7 +1,11 @@
 class AdminController < AuthenticatedUserController
   before_action :check_user_is_admin!
 
-  def index; end
+  layout 'admin'
+
+  def index
+    render layout: 'application'
+  end
 
   def check_user_is_admin!
     return if current_user.admin?

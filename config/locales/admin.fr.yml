@@ -2,3 +2,11 @@ fr:
   admin:
     index:
       title: Espace administrateur
+    whitelisted_verified_emails:
+      index:
+        title: Emails en liste blanche
+        table:
+          header:
+            email: Email
+            created_at: Date de création
+            actions: Actions
