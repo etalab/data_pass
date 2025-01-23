@@ -12,7 +12,8 @@ fr:
             actions: Actions
         add: Ajouter un email
       new:
-        title: Ajouter un email en liste blanche
+        title: &whitelisted_verified_emails_form_title Ajouter un email en liste blanche
         cta: Valider
       create:
+        title: *whitelisted_verified_emails_form_title
         success: L'email %{verified_email_email} a été ajouté avec succès
