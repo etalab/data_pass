@@ -90,6 +90,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get '/admin', to: 'admin#index', as: :admin
+
   namespace :api do
     resources :frontal, only: :index
   end

@@ -4,6 +4,17 @@ def current_user
   @current_user ||= User.find_by(email: @current_user_email)
 end
 
+def create_admin
+  email = 'admin@gouv.fr'
+  user = User.find_by(email:) || FactoryBot.create(:user, email:)
+
+  user.roles << 'admin'
+  user.roles.uniq!
+  user.save!
+
+  user
+end
+
 def create_instructor(kind)
   create_user_with_role(:instructor, kind)
 end
