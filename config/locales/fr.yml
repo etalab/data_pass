@@ -74,6 +74,8 @@ fr:
       tagline: Habilitations juridiques
       tools:
         links:
+          admin:
+            title: Espace admin
           instruction:
             title: Espace instruction
           authorization_requests_index:
