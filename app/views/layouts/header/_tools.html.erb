@@ -6,6 +6,13 @@
           <%= t('.links.authorization_requests_index.title') %>
         </a>
       </li>
+      <% if current_user.admin? %>
+        <li>
+          <a class="fr-link fr-icon-todo-fill" href="<%= admin_path %>">
+            <%= t('.links.admin.title') %>
+          </a>
+        </li>
+      <% end %>
       <% if current_user.reporter? %>
         <li>
           <a class="fr-link fr-icon-draft-fill" href="<%= instruction_path %>">

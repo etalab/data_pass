@@ -1,0 +1,19 @@
+fr:
+  admin:
+    index:
+      title: Espace administrateur
+    whitelisted_verified_emails:
+      index:
+        title: Emails en liste blanche
+        table:
+          header:
+            email: Email
+            created_at: Date de création
+            actions: Actions
+        add: Ajouter un email
+      new:
+        title: &whitelisted_verified_emails_form_title Ajouter un email en liste blanche
+        cta: Valider
+      create:
+        title: *whitelisted_verified_emails_form_title
+        success: L'email %{verified_email_email} a été ajouté avec succès

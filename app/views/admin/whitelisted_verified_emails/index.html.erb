@@ -1,0 +1,48 @@
+<%= content_for(:header_action) do %>
+  <%= link_to t('.add'), new_admin_whitelisted_verified_email_path, class: %[fr-btn] %>
+<% end %>
+
+<turbo-frame id="verified_emails_table">
+  <div class="fr-table fr-table--bordered">
+    <div class="fr-table__container">
+      <div class="fr-table__content">
+        <table>
+          <thead>
+            <tr>
+              <%
+                %w[
+                  email
+                  created_at
+                  actions
+                ].each do |attr|
+              %>
+                <th scope="col">
+                  <%= t(".table.header.#{attr}") %>
+                </th>
+              <% end %>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @verified_emails.each do |verified_email| %>
+              <tr id="<%= dom_id(verified_email) %>">
+                <td class="verified-email-email">
+                  <%= verified_email.email %>
+                </td>
+                <td class="verified-email-created_at">
+                  <%= verified_email.created_at.to_date %>
+                </td>
+                <td class="verified-email-actions">
+                  Supprimer
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <%= paginate @verified_emails %>
+</turbo-frame>
+

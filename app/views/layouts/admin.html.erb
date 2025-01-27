@@ -1,0 +1,25 @@
+<%= content_for(:body) do %>
+  <div class="fr-container">
+    <div class="dashboard-sub-header">
+      <div class="sub-header">
+        <div>
+          <h1 class="fr-m-0">
+            <%= t("admin.#{controller_name}.#{action_name}.title") %>
+          </h1>
+        </div>
+
+        <% if content_for?(:header_action) %>
+          <div>
+            <%= content_for(:header_action) %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <%= render partial: 'shared/alerts' %>
+
+    <%= yield %>
+  </div>
+<% end %>
+
+<%= render template: 'layouts/application' %>

@@ -65,6 +65,21 @@ Sachantque('je suis un rapporteur {string}') do |kind|
   end
 end
 
+Sachantque('je suis un administrateur') do
+  user = create_admin
+
+  if @current_user_email.blank?
+    @current_user_email = user.email
+    mock_mon_compte_pro(user)
+  end
+
+  if @current_user_email != user.email
+    current_user.roles << 'admin'
+    current_user.roles.uniq!
+    current_user.save!
+  end
+end
+
 Sachantque('je me connecte') do
   steps %(
     Quand je me rends sur la page d'accueil

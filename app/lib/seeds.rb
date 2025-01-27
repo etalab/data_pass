@@ -278,23 +278,25 @@ class Seeds
 
   def create_all_verified_emails
     User.find_each do |user|
-      create_verified_email(user.email)
+      create_verified_email(user.email, 'deliverable')
     end
+
+    create_verified_email('unknown-but-whitelisted@wanadoo.fr', 'whitelisted')
 
     AuthorizationRequest.find_each do |authorization_request|
       authorization_request.class.contact_types.each do |contact_type|
-        create_verified_email(authorization_request.send(:"#{contact_type}_email"))
+        create_verified_email(authorization_request.send(:"#{contact_type}_email"), 'deliverable')
       end
     end
   end
 
-  def create_verified_email(email)
+  def create_verified_email(email, status)
     return if email.blank?
     return if VerifiedEmail.exists?(email:)
 
     VerifiedEmail.create!(
       email:,
-      status: 'deliverable',
+      status:,
       verified_at: Time.zone.now,
     )
   end

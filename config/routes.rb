@@ -90,6 +90,12 @@ Rails.application.routes.draw do
     end
   end
 
+  get '/admin', to: 'admin#index', as: :admin
+
+  namespace :admin do
+    resources :whitelisted_verified_emails, only: %w[index new create], path: 'emails-verifies'
+  end
+
   namespace :api do
     resources :frontal, only: :index
   end
