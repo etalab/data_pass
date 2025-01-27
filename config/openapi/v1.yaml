@@ -430,6 +430,8 @@ paths:
     get:
       tags:
         - Définitions et formulaires
+        - Non implémenté
+      deprecated: true
       summary: Récupérer la liste des définitions
       security:
         - OAuth2: [read_authorization_requests]
@@ -451,6 +453,8 @@ paths:
       summary: Récupérer la liste des formulaires pour une définition
       tags:
         - Définitions et formulaires
+        - Non implémenté
+      deprecated: true
       security:
         - OAuth2: [read_authorization_requests]
       parameters:
