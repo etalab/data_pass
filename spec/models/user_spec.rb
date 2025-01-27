@@ -22,12 +22,13 @@ RSpec.describe User do
 
     let(:authorization_request_type) { 'api_entreprise' }
 
+    let!(:valid_developer) { create(:user, :developer, authorization_request_types: %i[api_entreprise]) }
     let!(:valid_instructor) { create(:user, :instructor, authorization_request_types: %i[api_entreprise]) }
     let!(:valid_instructor_with_multiple_authorization_type) { create(:user, :instructor, authorization_request_types: %i[api_entreprise api_particulier]) }
     let!(:invalid_instructor) { create(:user, :instructor, authorization_request_types: %i[api_particulier]) }
     let!(:valid_reporter) { create(:user, :reporter, authorization_request_types: %i[api_entreprise]) }
 
-    it { is_expected.to contain_exactly(valid_reporter, valid_instructor, valid_instructor_with_multiple_authorization_type) }
+    it { is_expected.to contain_exactly(valid_reporter, valid_developer, valid_instructor, valid_instructor_with_multiple_authorization_type) }
   end
 
   describe '#reporter?' do

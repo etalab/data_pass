@@ -9,6 +9,8 @@ gem 'caxlsx'
 gem 'aws-sdk-s3', require: false
 gem 'bootsnap', require: false
 gem 'csv'
+gem 'doorkeeper'
+gem 'doorkeeper-i18n'
 gem 'draper'
 gem 'emailable'
 gem 'importmap-rails', '~> 1.0'
@@ -83,4 +85,5 @@ group :test do
   gem 'rspec-rails', '7.1.0'
   gem 'simplecov', require: false
   gem 'webmock'
+  gem 'openapi3_parser'
 end

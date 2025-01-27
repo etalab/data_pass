@@ -39,12 +39,30 @@ class User < ApplicationRecord
       )",
       [
         "#{authorization_request_type.underscore}:instructor",
+        "#{authorization_request_type.underscore}:developer",
         "#{authorization_request_type.underscore}:reporter",
       ]
     )
   }
 
   add_instruction_boolean_settings :submit_notifications, :messages_notifications
+
+  has_many :oauth_applications,
+    class_name: 'Doorkeeper::Application',
+    as: :owner,
+    dependent: :restrict_with_exception
+
+  has_many :access_grants,
+    class_name: 'Doorkeeper::AccessGrant',
+    foreign_key: :resource_owner_id,
+    inverse_of: :resource_owner,
+    dependent: :delete_all
+
+  has_many :access_tokens,
+    class_name: 'Doorkeeper::AccessToken',
+    foreign_key: :resource_owner_id,
+    inverse_of: :resource_owner,
+    dependent: :delete_all
 
   def full_name
     if family_name.present? && given_name.present?
@@ -65,13 +83,15 @@ class User < ApplicationRecord
   def reporter_roles
     (roles.select { |role|
       role.end_with?(':reporter')
-    } + instructor_roles).uniq
+    } + instructor_roles + developer_roles).uniq
   end
 
   def instructor_roles
-    roles.select do |role|
-      role.end_with?(':instructor')
-    end
+    roles.select { |role| role.end_with?(':instructor') }
+  end
+
+  def developer_roles
+    roles.select { |role| role.end_with?(':developer') }
   end
 
   def reporter?(authorization_request_type = nil)

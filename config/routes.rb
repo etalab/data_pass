@@ -96,8 +96,22 @@ Rails.application.routes.draw do
     resources :whitelisted_verified_emails, only: %w[index new create], path: 'emails-verifies'
   end
 
+  use_doorkeeper scope: '/api/oauth' do
+    skip_controllers :applications, :authorized_applications
+  end
+
+  get '/api-docs/v1.yaml', to: ->(env) { [200, { 'Content-Type' => 'application/yaml', 'Content-Disposition' => 'inline;filename="datapass-v1.yaml"' }, [File.read(Rails.root.join('config/openapi/v1.yaml'))]] }, as: :open_api_v1
+  get '/developpeurs', to: redirect('/developpeurs/documentation')
+  get '/developpeurs/documentation', to: 'open_api#show'
+
   namespace :api do
     resources :frontal, only: :index
+
+    namespace :v1 do
+      get '/me', to: 'credentials#me'
+
+      resources :authorization_requests, path: 'demandes', only: %i[index show]
+    end
   end
 
   get '/dgfip/export', to: 'dgfip/export#show', as: :dgfip_export

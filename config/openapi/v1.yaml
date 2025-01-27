@@ -1,0 +1,478 @@
+openapi: 3.0.0
+info:
+  title: API DataPass
+  description: |
+    Seule la gestion des demandes d'habilitations (lecture/écriture) est accessible sur cette version.
+
+    L'authentification s'effectue via OAuth2, avec les scopes suivants:
+    - `read_authorization_requests` -> accès en lecture aux demandes d'habilitations
+    - `write_authorization_requests` -> accès en écriture aux demandes d'habilitations
+
+    Ces scopes sont optionnels. Le seul scope par défaut est `public`
+
+    A noter qu'un client OAuth2 est associé à un utilisateur, et que les types de demandes d'habilitations accessibles sont régies par les droits associés à cet utilisateur. Pour qu'un utilisateur puisse manipuler à travers l'API les demandes d'habilitations d'un certain type, il doit être référencé comme étant développeur pour ce type. Pour cela, il faut qu'un administrateur l'ajoute manuellement.
+
+    Le type d'habilitation est associé à la ressource `Definition`, les formulaires eux à la resource `Formulaire`.
+
+    Chaque `Demande` possède une clé `data` qui correspond aux attributs associés à ce type d'habilitation, celles-ci sont défini dans la ressource `Definition->attributs`
+  version: 0.1.0
+servers:
+  - description: Production
+    url: https://v2.datapass.api.gouv.fr/api/v1
+  - description: Staging
+    url: https://staging.v2.datapass.api.gouv.fr/api/v1
+  - description: Sandbox
+    url: https://sandbox.v2.datapass.api.gouv.fr/api/v1
+  - description: Développement (local)
+    url: http://localhost:3000/api/v1
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://v2.datapass.api.gouv.fr/api/oauth/authorize
+          tokenUrl: https://v2.datapass.api.gouv.fr/api/oauth/token
+          scopes:
+            read_authorization_requests: Accès en lecture sur les demandes d'habilitation autorisés pour l'utilisateur
+            write_authorization_requests: Accès en écriture sur les demandes d'habilitation autorisés pour l'utilisateur
+            public: Scope pour l'accès aux données publiques et de base (/me)
+  schemas:
+    BaseDemande:
+      type: object
+      properties:
+        definition_id:
+          type: string
+          example: api_particulier
+          description: ID technique de la définition du type de demande d'habilitation. La liste est récupérable via le endpoint `/api/v1/definitions`
+        form_id:
+          type: string
+          example: api-particulier
+          description: ID technique du formulaire. La liste est récupérable via le endpoint `/api/v1/definitions/{definition_id}/formulaires`
+        data:
+          type: object
+          additionalProperties: true
+          description: Données associées à la demande. La liste des clés acceptées est régie par le type de définition, dans la clé `attributs`
+          example:
+            intitule: Ma demande
+            descrition: La description de la demande
+            scopes:
+              - cnaf_quotient_familial
+              - cnaf_allocataires
+        status:
+          type: string
+          example: draft
+          description: Status de la demande
+          enum:
+            - draft
+            - submitted
+            - changes_requested
+            - validated
+            - refused
+            - archived
+            - revoked
+
+    Demande:
+      description: Demande d'habilitation
+      allOf:
+        - type: object
+          properties:
+            id:
+              type: integer
+              example: 51
+              description: Identifiant technique de la demande
+            public_id:
+              type: string
+              format: uuid
+              example: 33e18ac4-8dc3-456d-8985-01871d80fec2
+              description: Identifiant public de la demande. A l'aide de cet identifiant il est possible de consulter la demande sans être connecté. Le chemin est `/public/demandes/{public_id}`.
+            applicant:
+              $ref: '#/components/schemas/Utilisateur'
+            organization:
+              $ref: '#/components/schemas/Organisation'
+        - $ref: '#/components/schemas/BaseDemande'
+
+    CreationDemande:
+      description: Payload pour la création d'une demande d'habilitation
+      allOf:
+        - $ref: '#/components/schemas/BaseDemande'
+        - type: object
+          properties:
+            organization_siret:
+              type: string
+              example: '13002526500013'
+              description: Numéro de siret de l'organisation a associer à la demande
+            applicant_email:
+              type: string
+              example: utilisateur@gouv.fr
+              description: Email du demandeur a associer à la demande
+
+    MiseAJourDemande:
+      description: Payload pour la mise à jour d'une demande d'habilitation
+      type: object
+      properties:
+        data:
+          type: object
+          additionalProperties: true
+          description: Données associées à la demande. La liste des clés acceptées est régie par le type de définition, dans la clé `attributs`
+          example:
+            intitule: Ma demande
+            descrition: La description de la demande
+            scopes:
+              - scope1
+              - scope2
+
+    Utilisateur:
+      type: object
+      description: Utilisateur. L'ensemble des informations, excepté l'identifiant, sont issue de ProConnect.
+      properties:
+        id:
+          type: integer
+          example: 42
+          description: Identifiant technique de l'utilisateur
+        email:
+          type: string
+          example: utilisateur@gouv.fr
+          description: Courriel de l'utilisateur
+        family_name:
+          type: string
+          example: Dupont
+          description: Nom de famille de l'utilisateur
+          nullable: true
+        given_name:
+          type: string
+          example: Jean
+          description: Prénom de l'utilisateur
+          nullable: true
+        job_title:
+          type: string
+          example: Maire
+          description: Intitulé de poste de l'utilisateur
+          nullable: true
+
+    Organisation:
+      type: object
+      description: Organisation. Les informations renvoyées sont tiré de l'INSEE et de ProConnect.
+      properties:
+        id:
+          type: integer
+          example: 51
+          description: Identifiant technique de l'organisation
+        siret:
+          type: string
+          example: '13002526500013'
+          description: Numéro de siret de l'organisation
+        raison_sociale:
+          type: string
+          description: Raison sociale de l'organisation. Cette information provient de l'INSEE
+          example: Direction interministerielle du numerique (DINUM)
+          nullable: true
+
+    Definition:
+      type: object
+      description: Type d'habilitation, décrivant les champs associés aux demandes
+      properties:
+        id:
+          type: string
+          example: api_particulier
+          description: Identifiant de la définition. Celui-ci est unique.
+        name:
+          type: string
+          example: API Particulier
+          description: Nom de la définition
+        description:
+          type: string
+          example: L'API Particulier permet d'accéder à des données d'usagers
+          description: Description de la définition
+        attributes:
+          type: object
+          description: |
+            Liste des attributs associés à cette définition, sous la forme `nom: type`. Cette clé permet de déterminer les attributs dans la clé `Demande->data`. Les valeurs possibles sont uniquement `string` et `array`, les `array` sont de niveau 1 et possède uniquement des `string`
+          example:
+            intitule: string
+            description: string
+            scopes: array
+        scopes:
+          description: Scopes disponibles (vide si aucun scope)
+          type: array
+          items:
+            $ref: '#/components/schemas/ScopeDefinition'
+
+    ScopeDefinition:
+      type: object
+      description: Définition associé à un scope
+      properties:
+        name:
+          description: Nom du scope
+          example: Quotient familial CAF & MSA
+          type: string
+        value:
+          description: Valeur (technique) du scope
+          example: cnaf_quotient_familial
+          type: string
+
+    Formulaire:
+      type: object
+      description: Formulaire associé à un type d'habilitation. Un type d'habilitation peut avoir 1 ou plusieurs formulaires (en fonction du cas d'usage)
+      properties:
+        id:
+          type: string
+          example: formulaire_1
+          description: Identifiant du formulaire. Celui-ci est unique (i.e. non scopé à une définition).
+        name:
+          type: string
+          example: Formulaire pour l'éditeur UMadCorp
+          description: Nom du formulaire
+        description:
+          type: string
+          example: Ce formulaire est spécifique à l'éditeur UMadCorp et permet d'obtenir une habilitation pour le logiciel SisiLaFamille
+          description: Description du formulaire
+        definition_id:
+          type: string
+          example: api_particulier
+          description: Identidiant de la définition à laquelle le formulaire est rattaché
+        default_data:
+          type: object
+          description: Données par défaut associées aux attributs définie dans la définition. Ces données sont affectées à une demande à la création. Si à la création des données sont passé en paramètre, les données par défaut sont ignorés.
+          example:
+            intitule: "Intitulé par défaut"
+            description: "Description par défaut"
+
+    ErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              status:
+                type: string
+                description: "Le code d'état HTTP associé à l'erreur."
+                example: "422"
+              source:
+                type: object
+                properties:
+                  pointer:
+                    type: string
+                    description: "Un pointeur JSON indiquant l'attribut source de l'erreur."
+                    example: "/data/attributes/nom"
+                required:
+                  - pointer
+              title:
+                type: string
+                description: "Un titre court pour l'erreur."
+                example: "Validation Error"
+              detail:
+                type: string
+                description: "Un message détaillé décrivant l'erreur."
+                example: "Le nom ne peut pas être vide."
+            required:
+              - status
+              - title
+              - detail
+
+  responses:
+    NotFoundError:
+      description: Resource non trouvée
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+    UnauthorizedError:
+      description: Accès non autorisé - le jeton n'est pas valide ou absent.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+    ForbiddenError:
+      description: Accès interdit - les scopes associés au jeton ne permettent pas d'effectuer cette action.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+    ValidationError:
+      description: La sauvegarde ou la mise à jour a échoué.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+paths:
+  /demandes:
+    get:
+      summary: Récupérer la liste des demandes d'habilitations associé aux droits développeur de l'utilisateur
+      tags:
+        - Demandes d'habilitations
+      security:
+        - OAuth2: [read_authorization_requests]
+      parameters:
+        - name: limit
+          in: query
+          description: Nombre maximum de demandes à récupérer
+          required: false
+          schema:
+            type: integer
+            default: 10
+            minimum: 1
+            maximum: 100
+        - name: offset
+          in: query
+          description: Nombre de demandes à sauter avant de commencer à récupérer les résultats
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+      responses:
+        200:
+          description: Liste des demandes récupérée avec succès
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Demande'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+    post:
+      summary: Créer une nouvelle demande d'habilitation
+      tags:
+        - Non implémenté
+      deprecated: true
+      security:
+        - OAuth2: [write_authorization_requests]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreationDemande'
+      responses:
+        201:
+          description: Demande d'habilitation créée avec succès
+          content:
+            application/json:
+              schema:
+                allOf:
+                 - $ref: '#/components/schemas/Demande'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        422:
+          $ref: '#/components/responses/ValidationError'
+  /demandes/{id}:
+    get:
+      summary: Récupérer une demande d'habilitation
+      tags:
+        - Demandes d'habilitations
+      security:
+        - OAuth2: [read_authorization_requests]
+      parameters:
+        - name: id
+          in: path
+          description: Identifiant de la demande d'habilitation
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Demande d'habilitation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Demande'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+    patch:
+      summary: Mettre à jour une demande d'habilitation
+      tags:
+        - Non implémenté
+      deprecated: true
+      security:
+        - OAuth2: [write_authorization_requests]
+      parameters:
+        - name: id
+          in: path
+          description: Identifiant de la demande d'habilitation
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MiseAJourDemande'
+      responses:
+        200:
+          description: Demande d'habilitation mise à jour avec succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Demande'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        422:
+          $ref: '#/components/responses/ValidationError'
+  /definitions:
+    get:
+      tags:
+        - Définitions et formulaires
+        - Non implémenté
+      deprecated: true
+      summary: Récupérer la liste des définitions
+      security:
+        - OAuth2: [read_authorization_requests]
+      responses:
+        200:
+          description: Liste des définitions récupérée avec succès
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Definition'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+  /definitions/{id}/formulaires:
+    get:
+      summary: Récupérer la liste des formulaires pour une définition
+      tags:
+        - Définitions et formulaires
+        - Non implémenté
+      deprecated: true
+      security:
+        - OAuth2: [read_authorization_requests]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Liste des formulaires récupérée avec succès
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Formulaire'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'

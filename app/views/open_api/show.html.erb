@@ -1,0 +1,29 @@
+<div id="redoc_container">
+</div>
+
+<script>
+  function initRedoc() {
+    var uri = '<%= open_api_v1_path %>';
+
+    Redoc.init(
+      uri,
+      {
+        jsonSampleExpandLevel: 'all',
+        expandResponses: '200',
+        expandSingleSchemaField: true,
+        schemaExpansionLevel: 'all'
+      },
+      document.getElementById('redoc_container')
+    )
+  }
+
+  var redocScript = document.createElement("script");
+
+  redocScript.src = "https://cdn.jsdelivr.net/npm/redoc@latest/bundles/redoc.standalone.js";
+
+  redocScript.onload = function () {
+    initRedoc();
+  };
+
+  document.documentElement.firstChild.appendChild(redocScript);
+</script>

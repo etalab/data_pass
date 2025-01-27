@@ -11,7 +11,11 @@ class WebhookAuthorizationRequestSerializer < ApplicationSerializer
 
   def data
     object.data.keys.index_with { |key|
-      object.public_send(key)
-    }.symbolize_keys
+      begin
+        object.public_send(key)
+      rescue NoMethodError
+        nil
+      end
+    }.compact.symbolize_keys
   end
 end

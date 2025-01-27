@@ -4,13 +4,15 @@ module Authentication
   included do
     before_action :authenticate_user!
 
-    helper_method :current_user, :current_organization, :user_signed_in?
+    helper_method :current_user, :current_organization, :user_signed_in? if respond_to?(:helper_method)
   end
 
   class_methods do
     def allow_unauthenticated_access(**)
       skip_before_action(:authenticate_user!, **)
     end
+
+    alias_method :api_mode!, :allow_unauthenticated_access
   end
 
   def sign_in_path
@@ -52,10 +54,14 @@ module Authentication
   end
 
   def valid_user_session?
-    session[:user_id].present? &&
-      session[:user_id]['value'].present? &&
-      session[:user_id]['expires_at'].present? &&
-      session[:user_id]['expires_at'] > Time.current
+    user_id_session.present? &&
+      user_id_session['value'].present? &&
+      user_id_session['expires_at'].present? &&
+      user_id_session['expires_at'] > Time.current
+  end
+
+  def user_id_session
+    session[:user_id]
   end
 
   def save_redirect_path
@@ -63,7 +69,7 @@ module Authentication
   end
 
   def current_user
-    @current_user ||= User.find_by(id: session[:user_id].try(:[], 'value'))
+    @current_user ||= User.find_by(id: user_id_session.try(:[], 'value'))
   end
 
   def current_organization
