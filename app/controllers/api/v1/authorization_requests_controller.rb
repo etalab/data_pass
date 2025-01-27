@@ -10,7 +10,7 @@ class API::V1::AuthorizationRequestsController < API::V1Controller
         each_serializer: API::V1::AuthorizationRequestSerializer,
         status: :ok
     else
-      render_error(404, title: 'Non trouvé', detail: 'Aucune demande n\'a été trouvé')
+      render_error(404, title: 'Non trouvé', detail: 'Aucune demande n\'a été trouvée')
     end
   end
 
@@ -23,7 +23,7 @@ class API::V1::AuthorizationRequestsController < API::V1Controller
       serializer: API::V1::AuthorizationRequestSerializer,
       status: :ok
   rescue ActiveRecord::RecordNotFound
-    render_error(404, title: 'Non trouvé', detail: 'Aucune demande n\'a été trouvé')
+    render_error(404, title: 'Non trouvé', detail: 'Aucune demande n\'a été trouvée')
   end
 
   private
