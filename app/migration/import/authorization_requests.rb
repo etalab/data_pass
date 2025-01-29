@@ -290,6 +290,8 @@ class Import::AuthorizationRequests < Import::Base
       'api_ensu_documents_production' => 'api_ensu_documents',
       'api_hermes_sandbox' => 'api_hermes_sandbox',
       'api_hermes_production' => 'api_hermes',
+      'api_imprimfip_sandbox' => 'api_imprimfip_sandbox',
+      'api_imprimfip_production' => 'api_imprimfip',
     }[enrollment['target_api']].try(:classify)
   end
 
