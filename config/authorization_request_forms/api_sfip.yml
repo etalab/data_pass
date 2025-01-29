@@ -1,0 +1,262 @@
+# Demandes libres
+api-sfip-sandbox:
+  name: Demande libre (Bac à sable)
+  public: true
+  default: true
+  description: TODO
+  introduction: &api_sfip_sandbox_form_introduction |
+    Notre équipe d’instruction étudiera votre demande en bac à sable, lorsqu’elle sera validée vous pourrez compléter la suite de votre demande.
+
+    <div class="intro-stepper">
+      <div class="step current">
+        <div class="step-number">1.</div>
+        <div class="step-content">
+          <h3>Le bac à sable</h3>
+          <p class="fr-text--xs">Dans un premier temps, une demande d’habilitation au <strong>bac à sable</strong> de l'API Impôt particulier</p>
+        </div>
+      </div>
+
+      <div class="step pending">
+        <div class="step-number">2.</div>
+        <div class="step-content">
+          <h3>La production</h3>
+          <p class="fr-text--xs">Dans un second temps, une demande d’habilitation à la <strong>production</strong> de l'API Impôt particulier</p>
+        </div>
+      </div>
+
+      <div class="step pending">
+        <div class="step-number">3.</div>
+        <div class="step-content">
+          <h3>Votre service est ouvert !</h3>
+          <p class="fr-text--xs">Une fois vos habilitations validées, vous pouvez ouvrir votre service !</p>
+        </div>
+      </div>
+    </div>
+  authorization_request: APISFiPSandbox
+  steps: &api_sfip_sandbox_steps
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: scopes
+    - name: contacts
+
+api-sfip-production:
+  name: Demande libre (Production)
+  public: false
+  introduction: &api_sfip_production_form_introduction |
+    Votre demande d'accès au bac à sable a été validée, vous pouvez à présent poursuivre votre demande en demandant les accès à la production.
+
+    <div class="intro-stepper">
+      <div class="step completed">
+        <div class="step-number">1.</div>
+        <div class="step-content">
+          <h3>Le bac à sable</h3>
+          <p class="fr-text--xs">Dans un premier temps, une demande d’habilitation au <strong>bac à sable</strong> de l'API Impôt particulier</p>
+        </div>
+      </div>
+
+      <div class="step current">
+        <div class="step-number">2.</div>
+        <div class="step-content">
+          <h3>La production</h3>
+          <p class="fr-text--xs">Dans un second temps, une demande d’habilitation à la <strong>production</strong> de l'API Impôt particulier</p>
+        </div>
+      </div>
+
+      <div class="step pending">
+        <div class="step-number">3.</div>
+        <div class="step-content">
+          <h3>Votre service est ouvert !</h3>
+          <p class="fr-text--xs">Une fois vos habilitations validées, vous pouvez ouvrir votre service !</p>
+        </div>
+      </div>
+    </div>
+  authorization_request: APISFiP
+  static_blocks: *api_sfip_sandbox_steps
+  steps: &api_sfip_production_steps
+    - name: operational_acceptance
+    - name: safety_certification
+    - name: volumetrie
+
+api-sfip-production-editeur:
+  name: Demande libre avec éditeur
+  public: true
+  default: true
+  description: TODO
+  introduction: &api_sfip_editor_form_introduction |
+    Votre éditeur a déjà obtenu l'accès à la sandbox, vous n'avez plus qu'à obtenir l'accès en production via ce formulaire.
+  authorization_request: APISFiP
+  steps: &api_sfip_editor_steps
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: scopes
+    - name: contacts
+    - name: operational_acceptance
+    - name: safety_certification
+    - name: volumetrie
+
+# Stationnement résidentiel
+api-sfip-stationnement-residentiel-sandbox:
+  name: Stationnement résidentiel (Bac à sable)
+  public: true
+  use_case: stationnement_residentiel
+  description: Dites-le nous une fois - Stationnement Résidentiel (Bac à sable)
+  introduction: *api_sfip_sandbox_form_introduction
+  authorization_request: APISFiPSandbox
+  steps: *api_sfip_sandbox_steps
+
+api-sfip-stationnement-residentiel-production:
+  name: Stationnement résidentiel
+  public: false
+  use_case: stationnement_residentiel
+  introduction: *api_sfip_production_form_introduction
+  authorization_request: APISFiP
+  static_blocks: *api_sfip_sandbox_steps
+  steps: *api_sfip_production_steps
+
+api-sfip-stationnement-residentiel-editeur:
+  name: Stationnement résidentiel
+  public: true
+  use_case: stationnement_residentiel
+  description: Dites-le nous une fois - Stationnement Résidentiel (avec Éditeur)
+  authorization_request: APISFiP
+  introduction: *api_sfip_editor_form_introduction
+  steps: *api_sfip_editor_steps
+
+# Place en crèche
+api-sfip-place-creche-sandbox:
+  name: Place en crèche (Bac à sable)
+  public: true
+  use_case: place_creche
+  description: Dites-le nous une fois - Place en crèche (Bac à sable)
+  introduction: *api_sfip_sandbox_form_introduction
+  authorization_request: APISFiPSandbox
+  steps: *api_sfip_sandbox_steps
+
+api-sfip-place-creche-production:
+  name: Place en crèche
+  public: false
+  use_case: place_creche
+  introduction: *api_sfip_production_form_introduction
+  authorization_request: APISFiP
+  static_blocks: *api_sfip_sandbox_steps
+  steps: *api_sfip_production_steps
+
+api-sfip-place-creche-editeur:
+  name: Place en crèche
+  public: true
+  use_case: place_creche
+  description: Dites-le nous une fois - Place en crèche (avec Éditeur)
+  introduction: *api_sfip_editor_form_introduction
+  authorization_request: APISFiP
+  steps: *api_sfip_editor_steps
+
+# Activités périscolaires
+api-sfip-activites-periscolaires-sandbox:
+  name: Activités périscolaires (Bac à sable)
+  public: true
+  use_case: activites_periscolaires
+  description: Dites-le nous une fois - Activités périscolaires (Bac à sable)
+  introduction: *api_sfip_sandbox_form_introduction
+  authorization_request: APISFiPSandbox
+  steps: *api_sfip_sandbox_steps
+
+api-sfip-activites-periscolaires-production:
+  name: Activités périscolaires
+  public: false
+  use_case: activites_periscolaires
+  introduction: *api_sfip_production_form_introduction
+  authorization_request: APISFiP
+  static_blocks: *api_sfip_sandbox_steps
+  steps: *api_sfip_production_steps
+
+api-sfip-activites-periscolaires-editeur:
+  name: Activités périscolaires
+  public: true
+  use_case: activites_periscolaires
+  description: Dites-le nous une fois - Activités périscolaires (avec Éditeur)
+  introduction: *api_sfip_editor_form_introduction
+  authorization_request: APISFiP
+  steps: *api_sfip_editor_steps
+
+# Cantine scolaire
+api-sfip-cantine-scolaire-sandbox:
+  name: Cantine scolaire (Bac à sable)
+  public: true
+  use_case: cantine_scolaire
+  description: Dites-le nous une fois - Cantine scolaire (Bac à sable)
+  introduction: *api_sfip_sandbox_form_introduction
+  authorization_request: APISFiPSandbox
+  steps: *api_sfip_sandbox_steps
+
+api-sfip-cantine-scolaire-production:
+  name: Cantine scolaire
+  public: false
+  introduction: *api_sfip_production_form_introduction
+  authorization_request: APISFiP
+  static_blocks: *api_sfip_sandbox_steps
+  steps: *api_sfip_production_steps
+
+api-sfip-cantine-scolaire-editeur:
+  name: Cantine scolaire
+  public: true
+  use_case: cantine_scolaire
+  description: Dites-le nous une fois - Cantine scolaire (avec Éditeur)
+  introduction: *api_sfip_editor_form_introduction
+  authorization_request: APISFiP
+  steps: *api_sfip_editor_steps
+
+# Aides sociales facultatives
+api-sfip-aides-sociales-facultatives-sandbox:
+  name: Aides sociales facultatives (Bac à sable)
+  public: true
+  use_case: subventions_associations
+  description: Dites-le nous une fois - Aides sociales facultatives (Bac à sable)
+  introduction: *api_sfip_sandbox_form_introduction
+  authorization_request: APISFiPSandbox
+  steps: *api_sfip_sandbox_steps
+
+api-sfip-aides-sociales-facultatives-production:
+  name: Aides sociales facultatives
+  public: false
+  introduction: *api_sfip_production_form_introduction
+  authorization_request: APISFiP
+  static_blocks: *api_sfip_sandbox_steps
+  steps: *api_sfip_production_steps
+
+api-sfip-aides-sociales-facultatives-editeur:
+  name: Aides sociales facultatives
+  public: true
+  use_case: subventions_associations
+  description: Dites-le nous une fois - Aides sociales facultatives (avec Éditeur)
+  introduction: *api_sfip_editor_form_introduction
+  authorization_request: APISFiP
+  steps: *api_sfip_editor_steps
+
+# Carte de transport
+api-sfip-carte-transport-sandbox:
+  name: Carte de transport (Bac à sable)
+  public: true
+  use_case: carte_transport
+  description: Dites-le nous une fois - Carte de transport (Bac à sable)
+  introduction: *api_sfip_sandbox_form_introduction
+  authorization_request: APISFiPSandbox
+  steps: *api_sfip_sandbox_steps
+
+api-sfip-carte-transport-production:
+  name: Carte de transport
+  public: false
+  introduction: *api_sfip_production_form_introduction
+  authorization_request: APISFiP
+  static_blocks: *api_sfip_sandbox_steps
+  steps: *api_sfip_production_steps
+
+api-sfip-carte-transport-editeur:
+  name: Carte de transport
+  public: true
+  use_case: carte_transport
+  description: Dites-le nous une fois - Carte de transport (avec Éditeur)
+  introduction: *api_sfip_editor_form_introduction
+  authorization_request: APISFiP
+  steps: *api_sfip_editor_steps

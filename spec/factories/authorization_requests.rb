@@ -576,6 +576,139 @@ FactoryBot.define do
       form_uid { 'api-impot-particulier-carte-transport-editeur' }
     end
 
+    trait :api_sfip_common do
+      transient do
+        skip_scopes_build { false }
+      end
+
+      after(:build) do |authorization_request, evaluator|
+        authorization_request.scopes << 'dgfip_annee_n_moins_1' if !evaluator.skip_scopes_build && authorization_request.scopes.empty?
+      end
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+
+      with_dpd_homologation_checkbox
+    end
+
+    trait :api_sfip_sandbox do
+      api_sfip_common
+
+      type { 'AuthorizationRequest::APISFiPSandbox' }
+
+      form_uid { 'api-sfip-sandbox' }
+    end
+
+    trait :api_sfip_production do
+      api_sfip_common
+
+      type { 'AuthorizationRequest::APISFiP' }
+
+      form_uid { 'api-sfip-production' }
+
+      has_previous_authorization_validated
+
+      with_safety_certification
+      with_operational_acceptance
+      with_volumetrie
+    end
+
+    trait :api_sfip_production_editeur do
+      api_sfip_production
+      form_uid { 'api-sfip-production-editeur' }
+    end
+
+    trait :api_sfip_stationnement_residentiel_sandbox do
+      api_sfip_sandbox
+      form_uid { 'api-sfip-stationnement-residentiel-sandbox' }
+    end
+
+    trait :api_sfip_stationnement_residentiel_production do
+      api_sfip_production
+      form_uid { 'api-sfip-stationnement-residentiel-production' }
+    end
+
+    trait :api_sfip_stationnement_residentiel_editeur do
+      api_sfip_production
+      form_uid { 'api-sfip-stationnement-residentiel-editeur' }
+    end
+
+    trait :api_sfip_place_creche_sandbox do
+      api_sfip_sandbox
+      form_uid { 'api-sfip-place-creche-sandbox' }
+    end
+
+    trait :api_sfip_place_creche_production do
+      api_sfip_production
+      form_uid { 'api-sfip-place-creche-production' }
+    end
+
+    trait :api_sfip_place_creche_editeur do
+      api_sfip_production
+      form_uid { 'api-sfip-place-creche-editeur' }
+    end
+
+    trait :api_sfip_activites_periscolaires_sandbox do
+      api_sfip_sandbox
+      form_uid { 'api-sfip-activites-periscolaires-sandbox' }
+    end
+
+    trait :api_sfip_activites_periscolaires_production do
+      api_sfip_production
+      form_uid { 'api-sfip-activites-periscolaires-production' }
+    end
+
+    trait :api_sfip_activites_periscolaires_editeur do
+      api_sfip_production
+      form_uid { 'api-sfip-activites-periscolaires-editeur' }
+    end
+
+    trait :api_sfip_cantine_scolaire_sandbox do
+      api_sfip_sandbox
+      form_uid { 'api-sfip-cantine-scolaire-sandbox' }
+    end
+
+    trait :api_sfip_cantine_scolaire_production do
+      api_sfip_production
+      form_uid { 'api-sfip-cantine-scolaire-production' }
+    end
+
+    trait :api_sfip_cantine_scolaire_editeur do
+      api_sfip_production
+      form_uid { 'api-sfip-cantine-scolaire-editeur' }
+    end
+
+    trait :api_sfip_aides_sociales_facultatives_sandbox do
+      api_sfip_sandbox
+      form_uid { 'api-sfip-aides-sociales-facultatives-sandbox' }
+    end
+
+    trait :api_sfip_aides_sociales_facultatives_production do
+      api_sfip_production
+      form_uid { 'api-sfip-aides-sociales-facultatives-production' }
+    end
+
+    trait :api_sfip_aides_sociales_facultatives_editeur do
+      api_sfip_production
+      form_uid { 'api-sfip-aides-sociales-facultatives-editeur' }
+    end
+
+    trait :api_sfip_carte_transport_sandbox do
+      api_sfip_sandbox
+      form_uid { 'api-sfip-carte-transport-sandbox' }
+    end
+
+    trait :api_sfip_carte_transport_production do
+      api_sfip_production
+      form_uid { 'api-sfip-carte-transport-production' }
+    end
+
+    trait :api_sfip_carte_transport_editeur do
+      api_sfip_production
+      form_uid { 'api-sfip-carte-transport-editeur' }
+    end
+
     trait :api_pro_sante_connect do
       type { 'AuthorizationRequest::APIProSanteConnect' }
 

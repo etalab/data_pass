@@ -244,7 +244,7 @@ fr:
           En cas de doute, nous vous invitons à consulter le site d'<a href="%{base_url}" target="_blank">%{name}</a>, plus spécifiquement la page des
           <a href="%{use_cases_url}" target="_blank">cas d'usages</a>.
       api_impot_particulier:
-        editor_with_sandbox:
+        editor_with_sandbox: &with_or_without_editor_block
           title: Travaillez-vous avec un éditeur qui a déjà accès au bac à sable de cette API ?
           subtitle: Si vous travaillez avec un éditeur et que cet éditeur a déjà accès au bac à sable, vous serez redirigé directement vers une demande d'accès à l'environnement de production.
           options:
@@ -255,6 +255,9 @@ fr:
         choose_form_title:
           sandbox: "Choisissez le formulaire d'accès en bac à sable qui correspond le mieux à votre cas d'usage :"
           editor: "Choisissez le formulaire d'accès en production qui correspond le mieux à votre cas d'usage :"
+      api_sfip:
+        with_or_without_editor: *with_or_without_editor_block
+        choose_form_title: "Choisissez le formulaire d'accès correspond le mieux à votre cas d'usage :"
 
     show:
       refused:
