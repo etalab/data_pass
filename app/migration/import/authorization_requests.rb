@@ -19,6 +19,7 @@ class Import::AuthorizationRequests < Import::Base
     authorization_request.form_uid ||= fetch_form(authorization_request).try(:id)
     authorization_request.state = enrollment_row['status']
     authorization_request.external_provider_id = enrollment_row['external_provider_id']
+    authorization_request.last_validated_at = enrollment_row['last_validated_at']
     # FIXME to delete, will use raw data anyway
     # authorization_request.copied_from_request = AuthorizationRequest.find(enrollment_row['copied_from_enrollment_id']) if enrollment_row['copied_from_enrollment_id'] && AuthorizationRequest.exists?(enrollment_row['copied_from_enrollment_id'])
 
@@ -228,8 +229,14 @@ class Import::AuthorizationRequests < Import::Base
       (
         !old_unused?(enrollment_row) &&
           !ignore?(enrollment_row['id']) &&
+          !more_recent_validated_production?(enrollment_row) &&
           from_target_api_to_type(enrollment_row).present?
       )
+  end
+
+  def more_recent_validated_production?(enrollment_row)
+    enrollment_row['target_api'] =~ /_production$/ &&
+      database.execute("select id from enrollments where status = 'validated' and copied_from_enrollment_id = ?", enrollment_row['id']).any?
   end
 
   def whitelisted_enrollment?(enrollment_row)
