@@ -99,16 +99,16 @@ class Import::AuthorizationRequests < Import::Base
     end
 
     new_potential_siret = {
-      # PM => DINUM
-      '11000101300017' => '13002526500013',
-      # Agence de la recherche fermée
-      '13000250400020' => '13000250400038',
-      # DRJSCS => DREETS
-      '13001252900017' => '13002921800018',
-      # Recia
-      '18450311800020' => '12002503600035',
-      # Port de strasbourg
-      '77564141800014' => '77564141800089',
+      # # PM => DINUM
+      # '11000101300017' => '13002526500013',
+      # # Agence de la recherche fermée
+      # '13000250400020' => '13000250400038',
+      # # DRJSCS => DREETS
+      # '13001252900017' => '13002921800018',
+      # # Recia
+      # '18450311800020' => '12002503600035',
+      # # Port de strasbourg
+      # '77564141800014' => '77564141800089',
     }[enrollment_row['siret']]
 
     if new_potential_siret.present?
@@ -271,6 +271,8 @@ class Import::AuthorizationRequests < Import::Base
       'api_impot_particulier_production' => 'api_impot_particulier',
       'api_impot_particulier_fc_production' => 'api_impot_particulier',
       'franceconnect' => 'france_connect',
+      'api_rial_sandbox' => 'api_rial_sandbox',
+      'api_rial_production' => 'api_rial',
     }[enrollment['target_api']].try(:classify)
   end
 
