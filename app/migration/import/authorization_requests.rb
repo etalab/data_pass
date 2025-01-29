@@ -292,6 +292,10 @@ class Import::AuthorizationRequests < Import::Base
       'api_hermes_production' => 'api_hermes',
       'api_imprimfip_sandbox' => 'api_imprimfip_sandbox',
       'api_imprimfip_production' => 'api_imprimfip',
+      'api_mire_sandbox' => 'api_mire_sandbox',
+      'api_mire_production' => 'api_mire',
+      'api_ocfi_sandbox' => 'api_ocfi_sandbox',
+      'api_ocfi_production' => 'api_ocfi',
     }[enrollment['target_api']].try(:classify)
   end
 
