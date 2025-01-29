@@ -2,8 +2,9 @@
 api-impot-particulier-sandbox:
   name: Demande libre (Bac à sable)
   public: true
+  default: true
   description: TODO
-  introduction: |
+  introduction: &api_impot_particulier_sandbox_form_introduction |
     Notre équipe d’instruction étudiera votre demande en bac à sable, lorsqu’elle sera validée vous pourrez compléter la suite de votre demande.
 
     <div class="intro-stepper">
@@ -43,7 +44,7 @@ api-impot-particulier-sandbox:
 api-impot-particulier-production:
   name: Demande libre (Production)
   public: false
-  introduction: |
+  introduction: &api_impot_particulier_production_form_introduction |
     Votre demande d'accès au bac à sable a été validée, vous pouvez à présent poursuivre votre demande en demandant les accès à la production.
 
     <div class="intro-stepper">
@@ -73,7 +74,7 @@ api-impot-particulier-production:
     </div>
   authorization_request: APIImpotParticulier
   static_blocks: *api_impot_particulier_sandbox_steps
-  steps:
+  steps: &api_impot_particulier_production_steps
     - name: operational_acceptance
     - name: safety_certification
     - name: volumetrie
@@ -81,8 +82,9 @@ api-impot-particulier-production:
 api-impot-particulier-production-editeur:
   name: Demande libre avec éditeur
   public: true
+  default: true
   description: TODO
-  introduction: |
+  introduction: &api_impot_particulier_editor_form_introduction |
     Votre éditeur a déjà obtenu l'accès à la sandbox, vous n'avez plus qu'à obtenir l'accès en production via ce formulaire.
   authorization_request: APIImpotParticulier
   steps: &api_impot_particulier_editor_steps
@@ -102,28 +104,26 @@ api-impot-particulier-stationnement-residentiel-sandbox:
   public: true
   use_case: stationnement_residentiel
   description: Dites-le nous une fois - Stationnement Résidentiel (Bac à sable)
-  introduction: TODO
+  introduction: *api_impot_particulier_sandbox_form_introduction
   authorization_request: APIImpotParticulierSandbox
   steps: *api_impot_particulier_sandbox_steps
 
 api-impot-particulier-stationnement-residentiel-production:
   name: Stationnement résidentiel
   public: false
-  introduction: TODO
+  use_case: stationnement_residentiel
+  introduction: *api_impot_particulier_production_form_introduction
   authorization_request: APIImpotParticulier
   static_blocks: *api_impot_particulier_sandbox_steps
-  steps:
-    - name: operational_acceptance
-    - name: safety_certification
-    - name: volumetrie
+  steps: *api_impot_particulier_production_steps
 
 api-impot-particulier-stationnement-residentiel-editeur:
   name: Stationnement résidentiel
   public: true
   use_case: stationnement_residentiel
   description: Dites-le nous une fois - Stationnement Résidentiel (avec Éditeur)
-  introduction: TODO
   authorization_request: APIImpotParticulier
+  introduction: *api_impot_particulier_editor_form_introduction
   steps: *api_impot_particulier_editor_steps
 
 # Place en crèche
@@ -132,28 +132,25 @@ api-impot-particulier-place-creche-sandbox:
   public: true
   use_case: place_creche
   description: Dites-le nous une fois - Place en crèche (Bac à sable)
-  introduction: TODO
+  introduction: *api_impot_particulier_sandbox_form_introduction
   authorization_request: APIImpotParticulierSandbox
   steps: *api_impot_particulier_sandbox_steps
 
 api-impot-particulier-place-creche-production:
   name: Place en crèche
   public: false
-  description: Dites-le nous une fois - Place en crèche (Production)
-  introduction: TODO
+  use_case: place_creche
+  introduction: *api_impot_particulier_production_form_introduction
   authorization_request: APIImpotParticulier
   static_blocks: *api_impot_particulier_sandbox_steps
-  steps:
-    - name: operational_acceptance
-    - name: safety_certification
-    - name: volumetrie
+  steps: *api_impot_particulier_production_steps
 
 api-impot-particulier-place-creche-editeur:
   name: Place en crèche
   public: true
   use_case: place_creche
   description: Dites-le nous une fois - Place en crèche (avec Éditeur)
-  introduction: TODO
+  introduction: *api_impot_particulier_editor_form_introduction
   authorization_request: APIImpotParticulier
   steps: *api_impot_particulier_editor_steps
 
@@ -163,27 +160,25 @@ api-impot-particulier-activites-periscolaires-sandbox:
   public: true
   use_case: activites_periscolaires
   description: Dites-le nous une fois - Activités périscolaires (Bac à sable)
-  introduction: TODO
+  introduction: *api_impot_particulier_sandbox_form_introduction
   authorization_request: APIImpotParticulierSandbox
   steps: *api_impot_particulier_sandbox_steps
 
 api-impot-particulier-activites-periscolaires-production:
   name: Activités périscolaires
   public: false
-  introduction: TODO
+  use_case: activites_periscolaires
+  introduction: *api_impot_particulier_production_form_introduction
   authorization_request: APIImpotParticulier
   static_blocks: *api_impot_particulier_sandbox_steps
-  steps:
-    - name: operational_acceptance
-    - name: safety_certification
-    - name: volumetrie
+  steps: *api_impot_particulier_production_steps
 
 api-impot-particulier-activites-periscolaires-editeur:
   name: Activités périscolaires
   public: true
   use_case: activites_periscolaires
   description: Dites-le nous une fois - Activités périscolaires (avec Éditeur)
-  introduction: TODO
+  introduction: *api_impot_particulier_editor_form_introduction
   authorization_request: APIImpotParticulier
   steps: *api_impot_particulier_editor_steps
 
@@ -193,27 +188,24 @@ api-impot-particulier-cantine-scolaire-sandbox:
   public: true
   use_case: cantine_scolaire
   description: Dites-le nous une fois - Cantine scolaire (Bac à sable)
-  introduction: TODO
+  introduction: *api_impot_particulier_sandbox_form_introduction
   authorization_request: APIImpotParticulierSandbox
   steps: *api_impot_particulier_sandbox_steps
 
 api-impot-particulier-cantine-scolaire-production:
   name: Cantine scolaire
   public: false
-  introduction: TODO
+  introduction: *api_impot_particulier_production_form_introduction
   authorization_request: APIImpotParticulier
   static_blocks: *api_impot_particulier_sandbox_steps
-  steps:
-    - name: operational_acceptance
-    - name: safety_certification
-    - name: volumetrie
+  steps: *api_impot_particulier_production_steps
 
 api-impot-particulier-cantine-scolaire-editeur:
   name: Cantine scolaire
   public: true
   use_case: cantine_scolaire
   description: Dites-le nous une fois - Cantine scolaire (avec Éditeur)
-  introduction: TODO
+  introduction: *api_impot_particulier_editor_form_introduction
   authorization_request: APIImpotParticulier
   steps: *api_impot_particulier_editor_steps
 
@@ -223,27 +215,24 @@ api-impot-particulier-aides-sociales-facultatives-sandbox:
   public: true
   use_case: subventions_associations
   description: Dites-le nous une fois - Aides sociales facultatives (Bac à sable)
-  introduction: TODO
+  introduction: *api_impot_particulier_sandbox_form_introduction
   authorization_request: APIImpotParticulierSandbox
   steps: *api_impot_particulier_sandbox_steps
 
 api-impot-particulier-aides-sociales-facultatives-production:
   name: Aides sociales facultatives
   public: false
-  introduction: TODO
+  introduction: *api_impot_particulier_production_form_introduction
   authorization_request: APIImpotParticulier
   static_blocks: *api_impot_particulier_sandbox_steps
-  steps:
-    - name: operational_acceptance
-    - name: safety_certification
-    - name: volumetrie
+  steps: *api_impot_particulier_production_steps
 
 api-impot-particulier-aides-sociales-facultatives-editeur:
   name: Aides sociales facultatives
   public: true
   use_case: subventions_associations
   description: Dites-le nous une fois - Aides sociales facultatives (avec Éditeur)
-  introduction: TODO
+  introduction: *api_impot_particulier_editor_form_introduction
   authorization_request: APIImpotParticulier
   steps: *api_impot_particulier_editor_steps
 
@@ -253,26 +242,23 @@ api-impot-particulier-carte-transport-sandbox:
   public: true
   use_case: carte_transport
   description: Dites-le nous une fois - Carte de transport (Bac à sable)
-  introduction: TODO
+  introduction: *api_impot_particulier_sandbox_form_introduction
   authorization_request: APIImpotParticulierSandbox
   steps: *api_impot_particulier_sandbox_steps
 
 api-impot-particulier-carte-transport-production:
   name: Carte de transport
   public: false
-  introduction: TODO
+  introduction: *api_impot_particulier_production_form_introduction
   authorization_request: APIImpotParticulier
   static_blocks: *api_impot_particulier_sandbox_steps
-  steps:
-    - name: operational_acceptance
-    - name: safety_certification
-    - name: volumetrie
+  steps: *api_impot_particulier_production_steps
 
 api-impot-particulier-carte-transport-editeur:
   name: Carte de transport
   public: true
   use_case: carte_transport
   description: Dites-le nous une fois - Carte de transport (avec Éditeur)
-  introduction: TODO
+  introduction: *api_impot_particulier_editor_form_introduction
   authorization_request: APIImpotParticulier
   steps: *api_impot_particulier_editor_steps
