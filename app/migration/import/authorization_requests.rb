@@ -296,6 +296,8 @@ class Import::AuthorizationRequests < Import::Base
       'api_mire_production' => 'api_mire',
       'api_ocfi_sandbox' => 'api_ocfi_sandbox',
       'api_ocfi_production' => 'api_ocfi',
+      'api_opale_sandbox' => 'api_opale_sandbox',
+      'api_opale_production' => 'api_opale',
     }[enrollment['target_api']].try(:classify)
   end
 
