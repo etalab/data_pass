@@ -273,6 +273,8 @@ class Import::AuthorizationRequests < Import::Base
       'franceconnect' => 'france_connect',
       'api_rial_sandbox' => 'api_rial_sandbox',
       'api_rial_production' => 'api_rial',
+      'api_cpr_pro_sandbox' => 'api_cpr_pro_adelie_sandbox',
+      'api_cpr_pro_production' => 'api_cpr_pro_adelie',
     }[enrollment['target_api']].try(:classify)
   end
 
