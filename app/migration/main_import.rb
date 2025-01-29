@@ -15,7 +15,7 @@ class MainImport
     import(:organizations, { load_from_sql: true })
     import(:users, { load_from_sql: true })
 
-    import_extra_authorization_requests_sql_data
+    # import_extra_authorization_requests_sql_data
 
     authorization_requests = import(:authorization_requests, { load_from_sql: false, dump_sql: true })
 
@@ -96,22 +96,31 @@ class MainImport
   def global_options
     {
       authorization_requests_filter: ->(enrollment_row) do
-        %w[
-          64447 64348 62067 6195 6033 5055 4438 4436 4433 4198 4166 4162 4159 4157 4155
-          4153 4151 4149 4147 4145 4143 4140 4138 4136 4134 4132 4130 4127 4125 4123
-          4121 4119 4117 4115 4113 4109 4106 4104 4101 4098 4096 4094 4092 4090 4088
-          3932 3540 54510 54497 43297 40647 40116 39580 14323 51640 49730 49191 48323
-          23657 14770 45463 45442 43965 43816 5893 4442 45173 3666
-        ].exclude?(enrollment_row['id'])
-        # %w[63955 64669].include?(enrollment_row['id'])
-        %w[
-          1465
-        ].exclude?(enrollment_row['id'])
+        true
       end,
-      authorization_requests_sql_where: 'target_api in (\'franceconnect\') order by id',
       # authorization_requests_sql_where: 'target_api in (\'franceconnect\', \'api_impot_particulier_fc_sandbox\', \'api_impot_particulier_fc_production\') order by case when target_api = \'franceconnect\' then 1 when target_api like \'%_sandbox\' then 2 else 3 end',
+      authorization_requests_sql_where: "target_api in (#{target_apis_to_import}) order by case when target_api = 'franceconnect' then 1 when target_api like '%_sandbox' then 2 else 3 end",
       skipped: @skipped,
       warned: @warned,
     }
+  end
+
+  def target_apis_to_import
+    %w[
+      api_rial
+      api_cpr_pro
+      api_e_contacts
+      api_e_pro
+      api_ensu_documents
+      api_hermes
+      api_imprimfip
+      api_mire
+      api_ocfi
+      api_opale
+      api_robf
+      api_satelit
+    ].map do |name|
+      ["'#{name}_sandbox'", "'#{name}_production'"]
+    end.flatten.join(', ')
   end
 end
