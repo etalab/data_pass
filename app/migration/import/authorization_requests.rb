@@ -288,6 +288,8 @@ class Import::AuthorizationRequests < Import::Base
       'api_e_pro_production' => 'api_e_pro',
       'api_ensu_documents_sandbox' => 'api_ensu_documents_sandbox',
       'api_ensu_documents_production' => 'api_ensu_documents',
+      'api_hermes_sandbox' => 'api_hermes_sandbox',
+      'api_hermes_production' => 'api_hermes',
     }[enrollment['target_api']].try(:classify)
   end
 
