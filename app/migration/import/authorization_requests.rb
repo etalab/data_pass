@@ -279,6 +279,8 @@ class Import::AuthorizationRequests < Import::Base
       'api_e_contacts_production' => 'api_e_contacts',
       'api_e_pro_sandbox' => 'api_e_pro_sandbox',
       'api_e_pro_production' => 'api_e_pro',
+      'api_ensu_documents_sandbox' => 'api_ensu_documents_sandbox',
+      'api_ensu_documents_production' => 'api_ensu_documents',
     }[enrollment['target_api']].try(:classify)
   end
 
