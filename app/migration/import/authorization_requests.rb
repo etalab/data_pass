@@ -277,6 +277,8 @@ class Import::AuthorizationRequests < Import::Base
       'api_cpr_pro_production' => 'api_cpr_pro_adelie',
       'api_e_contacts_sandbox' => 'api_e_contacts_sandbox',
       'api_e_contacts_production' => 'api_e_contacts',
+      'api_e_pro_sandbox' => 'api_e_pro_sandbox',
+      'api_e_pro_production' => 'api_e_pro',
     }[enrollment['target_api']].try(:classify)
   end
 
