@@ -51,6 +51,17 @@ class User < ApplicationRecord
     )
   }
 
+  scope :admin, lambda {
+    where(
+      "EXISTS (
+        SELECT 1
+        FROM unnest(roles) AS role
+        WHERE role in (?)
+      )",
+      ['admin']
+    )
+  }
+
   add_instruction_boolean_settings :submit_notifications, :messages_notifications
 
   has_many :oauth_applications,
