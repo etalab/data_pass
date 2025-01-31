@@ -8,21 +8,8 @@ class NewAuthorizationRequest
   end
 
   def facade
-    return APIEntrepriseFacade if api_entreprise?
-    return APIImpotParticulierFacade if api_impot_particulier?
-
+    Kernel.const_get("NewAuthorizationRequest::#{@definition_id.camelize}Facade")
+  rescue NameError
     DefaultFacade
-  end
-
-  private
-
-  attr_reader :definition_id
-
-  def api_entreprise?
-    definition_id == 'api_entreprise'
-  end
-
-  def api_impot_particulier?
-    definition_id == 'api_impot_particulier'
   end
 end
