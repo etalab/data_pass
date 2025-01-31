@@ -573,6 +573,45 @@ shared:
       name: Enregistrement d’un mandat SEPA pour un compte identifié par son siret ou nir
       included: true
 
+  api_declaration_cesu:
+    name: API Tierce Déclaration CESU
+    description: "Connectez-vous directement à l’Urssaf pour accéder aux services du Cesu pour le compte d’un particulier employeur en tant que tiers-déclarant"
+    provider: "urssaf"
+    kind: 'api'
+    link: "https://api.gouv.fr/les-api/api-declaration-cesu"
+    cgu_link: "/cgus/cgu_api_declaration_cesu_v1.pdf"
+    access_link: "https://api-declaration-cesu.gouv.fr/tokens/%<external_provider_id>"
+    public: true
+    blocks:
+      - name: "basic_infos"
+      - name: "personal_data"
+      - name: "legal"
+      - name: "scopes"
+      - name: "contacts"
+      - name: 'supporting_documents'
+    scopes:
+    - value: api_cesu050
+      name: Télédéclaration du salaire
+      included: true
+    - value: api_cesu040
+      name: Obtention du montant estimé des cotisations sociales
+      included: true
+    - value: api_cesu030
+      name: Enregistrement de mandat
+      included: true
+    - value: api_cesu031
+      name: Annulation de mandat
+      included: true
+    - value: api_cesu020
+      name: Vérification compte CESU PE
+      included: true
+    - value: api_cesu021
+      name: Vérification compte CESU SP
+      included: true
+    - value: api_cesu010
+      name: Inscription PE au régime CESU
+      included: true
+
   france_connect:
     name: France Connect
     description: "Identifier les utilisateurs de votre site internet et accéder à certaines données d'identité certifiées."
