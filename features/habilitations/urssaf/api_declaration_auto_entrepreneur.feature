@@ -17,7 +17,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Tierce Déclaration
     * je renseigne les informations du contact technique
     * je clique sur "Suivant"
 
-    * je remplis "Attestation fiscale" avec le fichier "spec/fixtures/dummy.pdf"
+    * je remplis "Attestation de régularité fiscale" avec le fichier "spec/fixtures/dummy.pdf"
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales

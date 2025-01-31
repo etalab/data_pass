@@ -22,7 +22,7 @@ fr:
       description:
         label: Description du projet (à quoi va-t-il servir ? qui l'utilisera ?)
       maquette_projet:
-        hint: "Taille maximale: 10 Mo. Formats supportés: pdf"
+        hint: &pdf_input_hint "Taille maximale: 10 Mo. Formats supportés: pdf"
       destinataire_donnees_caractere_personnel:
         hint: <a href="https://www.cnil.fr/fr/definition/destinataire" target="_blank">Plus d'infos</a>
       duree_conservation_donnees_caractere_personnel:
@@ -34,9 +34,9 @@ fr:
         label: URL du texte relatif au traitement
       cadre_juridique_document:
         label: Ajoutez votre document
-        hint: "Taille maximale: 10 Mo. Formats supportés: pdf"
+        hint: *pdf_input_hint
       safety_certification_document:
-        hint: "Taille maximale: 10 Mo. Formats supportés: pdf"
+        hint: *pdf_input_hint
       specific_requirements:
         label: Oui, j’ai une expression de besoin spécifique
       specific_requirements_document:
@@ -48,6 +48,10 @@ fr:
 
       supporting_documents:
         title: Les pièces justificatifs
+      attestation_fiscale:
+        label: Attestation de régularité fiscale
+        hint: *pdf_input_hint
+
       safety_certification:
         title: L’homologation de sécurité
         subtitle: Le Référentiel Général de Sécurité (RGS 2.0) rend la démarche d’homologation obligatoire pour les SI relatifs aux échanges entre une autorité administrative et les usagers ou entre autorités administratives.
