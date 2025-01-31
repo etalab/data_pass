@@ -9,6 +9,10 @@ class AuthorizationDefinition::Stage
     type.present?
   end
 
+  def name
+    I18n.t("authorization_request.stage.#{type}")
+  end
+
   def next_stage_definition
     AuthorizationDefinition.find(next_stage[:id])
   rescue NotExists
