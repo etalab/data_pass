@@ -1,0 +1,30 @@
+Bonjour,
+
+L'utilisateur <%= @user.email %> s'est vu affecter des nouveaux droits sur les habilitations.
+
+<% if @new_roles.any? %>
+La liste des rôles ajoutés est la suivante :
+
+<% @new_roles.each do |role| %>
+* <%= role %>
+<% end %>
+<% end %>
+
+<% if @old_roles.any? %>
+La liste des rôles retirés est la suivante :
+
+<% @old_roles.each do |role| %>
+* <%= role %>
+<% end %>
+<% end %>
+
+La liste finale est la suivante :
+
+<% @user.roles.each do |role| %>
+* <%= role %>
+<% end %>
+
+Vous êtes notifié car vous êtes un administrateur de DataPass.
+
+Cordialement,
+L'équipe DataPass
