@@ -1,7 +1,8 @@
 # language: fr
 
 Fonctionnalité: Espace admin: utilisateurs avec rôles
-  En tant qu'administrateur, je peux voir les utilisateurs possédant des rôles
+  En tant qu'administrateur, je peux voir les utilisateurs possédant des rôles. Je peux ajouter et mettre à jours
+  des rôles sur les utilisateurs.
 
   Contexte:
     Sachant que je suis un administrateur
@@ -41,4 +42,33 @@ Fonctionnalité: Espace admin: utilisateurs avec rôles
     Et que je remplis "Rechercher un utilisateur" avec "no-role@gouv.fr"
     Et que je clique sur "Rechercher"
     Alors la page ne contient pas "no-role@gouv.fr"
+
+  Scénario: Je peux modifier des rôles sur un utilisateur
+    Quand il y a l'utilisateur "api-entreprise@gouv.fr" avec le rôle "Instructeur" pour "API Entreprise"
+    Et que je me rends sur le module "Utilisateurs avec rôles" de l'espace administrateur
+    Et que je clique sur "Éditer" pour l'utilisateur "api-entreprise@gouv.fr"
+    Et que je remplis "Role" avec "api_entreprise:reporter"
+    Et que je clique sur "Mettre à jour"
+    Alors il y a un message de succès contenant "mis à jour"
+    Et la page contient "api_entreprise:reporter"
+    Et la page ne contient pas "api_entreprise:instructor"
+
+  Scénario: Je veux ajouter des rôles à un utilisateur sans rôle
+    Quand il y a l'utilisateur "api-entreprise@gouv.fr" sans rôle
+    Et que je me rends sur le module "Utilisateurs avec rôles" de l'espace administrateur
+    Et que je clique sur "Ajouter des rôles à un utilisateur"
+    Et que je remplis "Email" avec "api-entreprise@gouv.fr"
+    Et que je remplis "Role" avec "api_entreprise:reporter"
+    Et que je clique sur "Mettre à jour"
+    Alors il y a un message de succès contenant "mis à jour"
+    Et la page contient "api_entreprise:reporter"
+
+  Scénario: Je veux ajouter des rôles à un utilisateur qui n'existe pas
+    Quand il y a l'utilisateur "api-entreprise@gouv.fr" sans rôle
+    Et que je me rends sur le module "Utilisateurs avec rôles" de l'espace administrateur
+    Et que je clique sur "Ajouter des rôles à un utilisateur"
+    Et que je remplis "Email" avec "inconnu@gouv.fr"
+    Et que je remplis "Role" avec "api_entreprise:reporter"
+    Et que je clique sur "Mettre à jour"
+    Alors il y a un message d'erreur contenant "n'existe pas"
 

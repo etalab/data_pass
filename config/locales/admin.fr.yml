@@ -5,6 +5,7 @@ fr:
     users_with_roles:
       index:
         title: Utilisateurs avec rôles
+        add: Ajouter des rôles à un utilisateur sans rôle
         search:
           main_input:
             label: Rechercher un utilisateur avec son email
@@ -17,6 +18,27 @@ fr:
             roles: Roles
             created_at: Date de création
             actions: Actions
+        edit: Éditer
+      new:
+        title: Ajouter un rôle à un utilisateur
+        form: &admin_users_with_roles_new_form
+          email:
+            label: Email
+            placeholder: user@gouv.fr
+          roles:
+            label: Rôles
+            placeholder: "api_entreprise:instructor\napi_particulier:reporter"
+        cta: Mettre à jour les rôles
+      update: &admin_user_with_roles_create
+        success: L'utilisateur %{user_email} a été mis à jour avec succès
+        error: Une erreur est survenue
+      create:
+        <<: *admin_user_with_roles_create
+        title: Ajouter un rôle à un utilisateur
+        not_found: L'utilisateur avec l'email %{user_email} n'existe pas
+      edit:
+        title: Éditer les rôles de l'utilisateur
+        form: *admin_users_with_roles_new_form
 
     whitelisted_verified_emails:
       index:
