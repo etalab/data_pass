@@ -11,8 +11,9 @@ fr:
         safety_certification: "Homologation de sécurité"
         operational_acceptance: "Recette fonctionnelle"
         volumetrie: "La volumétrie"
-        finish: "La synthèse"
         france_connect_eidas: "Niveau de garantie"
+        supporting_documents: "Pièces justificatives"
+        finish: "La synthèse"
 
       terms_of_service_accepted:
         label: J'ai pris connaissance des&nbsp;<a href="%{link}" target="_blank">conditions générales d'utilisation</a>&nbsp;et je les valide.
@@ -45,6 +46,8 @@ fr:
           <br />
           Attention : seule l'expression de besoin en données ayant déjà été partagée avec la DGFiP peut être rattachée à votre habilitation.
 
+      supporting_documents:
+        title: Les pièces justificatifs
       safety_certification:
         title: L’homologation de sécurité
         subtitle: Le Référentiel Général de Sécurité (RGS 2.0) rend la démarche d’homologation obligatoire pour les SI relatifs aux échanges entre une autorité administrative et les usagers ou entre autorités administratives.
@@ -675,6 +678,15 @@ fr:
       intitule:
         label: Nom de votre équipe / département
         hint: Cette information permettra de créer une équipe via la Régie et ainsi permettre à plusieurs personnes de votre équipe d'utiliser les fonctionnalités protégées de l'espace agent
+
+    api_declaration_auto_entrepreneur:
+      supporting_documents:
+        info:
+          title: Pourquoi avons nous besoin de votre attestation de régularité fiscale ?
+          content: |
+            Afin de vérifier que vous êtes en pleine connaissance de vos obligations fiscales (paiement de la TVA et de l’impôt sur le revenu ou sur les sociétés selon votre situation), merci de joindre une attestation fiscale justifiant de la régularité de votre situation fiscale.
+
+            <a href="https://www.impots.gouv.fr/portail/professionnel/questions/comment-obtenir-une-attestation-de-regularite-fiscale" target="_blank">Comment obtenir une attestation de régularité fiscale ?</a>
 
     api_impot_particulier_sandbox: &api_impot_particulier_sandbox
       <<: *api_impot_particulier_generic
