@@ -591,6 +591,25 @@ FactoryBot.define do
       end
     end
 
+    trait :api_declaration_auto_entrepreneur do
+      type { 'AuthorizationRequest::APIDeclarationAutoEntrepreneur' }
+
+      form_uid { 'api-declaration-auto-entrepreneur' }
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+      with_scopes
+
+      after(:build) do |authorization_request|
+        authorization_request.attestation_fiscale.attach(
+          io: Rails.root.join('spec/fixtures/dummy.pdf').open,
+          filename: 'dummy.pdf',
+          content_type: 'application/pdf',
+        )
+      end
+    end
+
     trait :api_impot_particulier_sandbox do
       type { 'AuthorizationRequest::APIImpotParticulierSandbox' }
 

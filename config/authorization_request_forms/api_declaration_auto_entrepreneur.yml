@@ -1,0 +1,14 @@
+api-declaration-auto-entrepreneur:
+  introduction: ''
+  authorization_request: APIDeclarationAutoEntrepreneur
+  steps:
+    - name: basic_infos
+    - name: personal_data
+    - name: contacts
+    - name: supporting_documents
+  static_blocks:
+    - name: legal
+    - name: scopes
+  data:
+    cadre_juridique_nature: Articles L.133-11, R133-43 et R133-44 du Code de Sécurité sociale
+    cadre_juridique_url: https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000033686041/
