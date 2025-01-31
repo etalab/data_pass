@@ -20,6 +20,10 @@ class User < ApplicationRecord
     class_name: 'Authorization',
     inverse_of: :applicant
 
+  has_many :admin_events,
+    inverse_of: :admin,
+    dependent: :restrict_with_exception
+
   scope :with_roles, -> { where("roles <> '{}'") }
 
   scope :instructor_for, lambda { |authorization_request_type|

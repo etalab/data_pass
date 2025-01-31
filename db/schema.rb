@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_06_144515) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_31_124408) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_catalog.plpgsql"
@@ -42,6 +42,19 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_06_144515) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "admin_events", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "admin_id", null: false
+    t.string "entity_type", null: false
+    t.bigint "entity_id", null: false
+    t.json "before_attributes", default: {}
+    t.json "after_attributes", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["admin_id"], name: "index_admin_events_on_admin_id"
+    t.index ["entity_type", "entity_id"], name: "index_admin_events_on_entity"
   end
 
   create_table "authorization_documents", force: :cascade do |t|
@@ -385,6 +398,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_06_144515) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "admin_events", "users", column: "admin_id"
   add_foreign_key "authorization_documents", "authorizations"
   add_foreign_key "authorization_request_changelogs", "authorization_requests"
   add_foreign_key "authorization_request_reopening_cancellations", "authorization_requests", column: "request_id"
