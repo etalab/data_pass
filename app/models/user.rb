@@ -20,6 +20,8 @@ class User < ApplicationRecord
     class_name: 'Authorization',
     inverse_of: :applicant
 
+  scope :with_roles, -> { where("roles <> '{}'") }
+
   scope :instructor_for, lambda { |authorization_request_type|
     where("
       EXISTS (
@@ -118,6 +120,28 @@ class User < ApplicationRecord
     %w[
       family_name
       email
+      api_role
     ]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[
+      organizations
+    ]
+  end
+
+  ransacker :api_role do |_parent|
+    Arel.sql <<-SQL.squish
+      COALESCE(
+        array_to_string(
+          ARRAY(
+            SELECT split_part(elem, ':', 1)
+            FROM unnest(users.roles) AS elem
+          ),
+          ','
+        ),
+        ''
+      )
+    SQL
   end
 end

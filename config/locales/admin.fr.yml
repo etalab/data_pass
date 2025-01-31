@@ -2,6 +2,22 @@ fr:
   admin:
     index:
       title: Espace administrateur
+    users_with_roles:
+      index:
+        title: Utilisateurs avec rôles
+        search:
+          main_input:
+            label: Rechercher un utilisateur avec son email
+            placeholder: user@gouv.fr
+          btn: Rechercher
+        table:
+          header:
+            email: Email
+            organizations: Organisations
+            roles: Roles
+            created_at: Date de création
+            actions: Actions
+
     whitelisted_verified_emails:
       index:
         title: Emails en liste blanche

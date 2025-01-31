@@ -1,0 +1,82 @@
+<%= search_form_for(@search_engine, url: admin_users_with_roles_path, html: { method: :get, data: { controller: 'auto-submit-form', 'auto-submit-form-debounce-interval-value' => 500, 'auto-submit-form-event-mode-value' => 'input', turbo_frame: 'users_table' }, class: %w[search-box] }) do |f| %>
+  <div class="search-inputs">
+    <div class="fr-input-group main-input input">
+      <%= f.label :email_eq, t('.search.main_input.label'), class: %w[fr-label] %>
+      <%= f.search_field :email_eq, class: %[fr-input], placeholder: t('.search.main_input.placeholder') %>
+    </div>
+
+    <div class="fr-select-group input">
+      <%= f.label :api_role_cont, 'API rôle égal à', class: %w[fr-label] %>
+      <% options = AuthorizationDefinition.all.map { |ad| [ad.name_with_stage, ad.id] } %>
+      <%= f.select :api_role_cont, options_for_select([['Toutes les données', '']].concat(options), selected: params[:search_query].try(:[], :api_role_cont)), {}, class: %w[fr-select] %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= f.button t('.search.btn'), type: :submit, class: %w[fr-btn fr-btn--primary] %>
+  </div>
+<% end %>
+
+<turbo-frame id="users_with_roles_table">
+  <div class="fr-table fr-table--bordered">
+    <div class="fr-table__container">
+      <div class="fr-table__content">
+        <table>
+          <thead>
+            <tr>
+              <%
+                %w[
+                  email
+                  organizations
+                  roles
+                  created_at
+                  actions
+                ].each do |attr|
+              %>
+                <th scope="col">
+                  <%= t(".table.header.#{attr}") %>
+                </th>
+              <% end %>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @users.each do |user| %>
+              <tr id="<%= dom_id(user) %>" class="user">
+                <td class="user-email">
+                  <%= user.email %>
+                </td>
+                <td class="user-organizations">
+                  <ul>
+                    <% user.organizations.each do |organization| %>
+                      <li>
+                        <%= organization.raison_sociale %> (<%= link_to organization.siret, "https://annuaire-entreprises.data.gouv.fr/etablissement/#{organization.siret}", target: '_blank' %>)
+                      </li>
+                    <% end %>
+                  </ul>
+                </td>
+                <td class="user-roles">
+                  <ul>
+                    <% user.roles.each do |role| %>
+                      <li>
+                        <%= role %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </td>
+                <td class="user-created_at">
+                  <%= user.created_at.to_date %>
+                </td>
+                <td class="user-actions">
+                  Edit
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <%= paginate @users %>
+</turbo-frame>

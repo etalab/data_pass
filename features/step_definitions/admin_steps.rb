@@ -9,3 +9,7 @@ end
 Alors("je suis sur l'espace administrateur") do
   expect(page).to have_current_path(/admin/)
 end
+
+Alors('la page contient {int} utilisateurs') do |count|
+  expect(page).to have_css('.user', count:)
+end
