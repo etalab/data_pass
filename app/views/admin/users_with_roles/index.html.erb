@@ -33,7 +33,6 @@
                   email
                   organizations
                   roles
-                  created_at
                   actions
                 ].each do |attr|
               %>
@@ -67,9 +66,6 @@
                       </li>
                     <% end %>
                   </ul>
-                </td>
-                <td class="user-created_at">
-                  <%= user.created_at.to_date %>
                 </td>
                 <td class="user-actions">
                   <%= link_to t('.edit'), edit_admin_users_with_role_path(user), class: %[fr-btn fr-btn--sm] %>
