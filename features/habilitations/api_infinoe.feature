@@ -38,6 +38,9 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Infinoé
     * je renseigne la recette fonctionnelle
     * je clique sur "Suivant"
 
+    * je renseigne le cadre légal
+    * je clique sur "Suivant"
+
     * je renseigne l'homologation de sécurité
     * je clique sur "Suivant"
 
