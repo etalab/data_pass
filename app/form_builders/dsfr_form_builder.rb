@@ -79,7 +79,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
     end
   end
 
-  def dsfr_radio_option(attribute, value, opts = { input_options: {} }, &label_block)
+  def dsfr_radio_option(attribute, value, opts = { input_options: {} }, &)
     opts[:checked] = opts[:checked].call(value) if opts[:checked].is_a? Proc
 
     @template.content_tag(:div, class: "fr-fieldset__element #{opts[:fieldset_element_class]}") do
@@ -87,7 +87,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
         @template.safe_join(
           [
             radio_button(attribute, value, **opts.except(:checked_proc), **(opts[:input_options] || {})),
-            dsfr_radio_label(attribute, value, &label_block)
+            dsfr_radio_label(attribute, value, &)
           ]
         )
       end
