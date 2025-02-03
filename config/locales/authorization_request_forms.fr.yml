@@ -612,11 +612,11 @@ fr:
 
     api_infinoe_production:
       sandbox_authorization_request:
-        title: L'habilitation de bac à sable
-        description: "L'habilitation de bac à sable associée est '%{authorization_request_name}', disponible à l'adresse suivante: %{authorization_request_link}"
+        title: L’habilitation de bac à sable
+        description: "L’habilitation de bac à sable associée est '%{authorization_request_name}', disponible à l’adresse suivante: %{authorization_request_link}"
       recette_fonctionnelle:
         title: La recette fonctionnelle
-        label: J'atteste avoir réalisé une recette fonctionnelle et qualifié mon téléservice.
+        label: J’atteste avoir réalisé une recette fonctionnelle et qualifié mon téléservice.
         info:
           title: Comment effectuer une recette fonctionnelle ?
           content: |
@@ -642,7 +642,7 @@ fr:
       volumetrie_appels_par_minute:
         label: Quelle limitation de débit souhaitez-vous pour votre téléservice ?
       homologation:
-        title: L'homologation de sécurité
+        title: L’homologation de sécurité
         info:
           title: Pourquoi effectuer une homologation de sécurité ?
           content: |
@@ -668,6 +668,7 @@ fr:
             <p>
             Conformément aux modalités d’utilisation, nous nous réservons le droit de réduire ou couper les appels autorisés au fournisseur de service.
             </p>
+
     france_connect:
       france_connect_eidas:
         title: Quel niveau de garantie souhaitez-vous ?
