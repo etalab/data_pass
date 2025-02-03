@@ -235,6 +235,10 @@ fr:
         title: Quel est votre éditeur de logiciel ?
         no_editor: Aucun de ces éditeurs
       step3:
+        single_use_case_intro_html:
+          Il n’existe qu’un seul formulaire pour obtenir une habilitation à
+          %{name}, vous pouvez le remplir ci-dessous.
+          <br/>
         use_case_intro_html:
           Il existe plusieurs formulaires pour obtenir une habilitation à
           %{name}, vos réponses ont permis de réduire le choix aux formulaires
