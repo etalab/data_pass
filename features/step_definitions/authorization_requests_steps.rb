@@ -482,6 +482,8 @@ Quand("une mise à jour globale a été effectuée sur les demandes d'habilitati
   )
 end
 
-Quand("je montre la page") do
+# rubocop:disable Lint/Debugger
+Quand('je montre la page') do
   save_and_open_page
 end
+# rubocop:enable Lint/Debugger
