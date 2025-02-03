@@ -792,3 +792,9 @@ fr:
     formulaire_qf:
       legal: *api_particulier_editor_common_wordings
 
+    api_infinoe_sandbox: &api_infinoe_sandbox
+      <<: *api_infinoe_sandbox
+    api_infinoe_production: &api_infinoe_production
+      <<: *api_infinoe_sandbox
+
+    api_infinoe_production_editeur: *api_infinoe_production
