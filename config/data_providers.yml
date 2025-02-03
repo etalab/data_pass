@@ -28,3 +28,7 @@ shared:
     name: Agence du Numérique en Santé (ANS)
     logo: logo-ans.png
     link: https://esante.gouv.fr/
+  urssaf:
+    name: URSSAF
+    logo: urssaf.jpg
+    link: https://www.urssaf.fr/

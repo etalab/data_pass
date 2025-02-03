@@ -27,6 +27,7 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.acronym 'CaptchEtat'
   inflect.irregular 'Hermes', 'Hermes'
   inflect.acronym 'ENSU'
+  inflect.acronym 'CESU'
 end
 
 class String
