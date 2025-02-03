@@ -640,7 +640,7 @@ fr:
               A l’issue de vos travaux, veuillez attester de la qualification de votre téléservice.
             </p>
       volumetrie_appels_par_minute:
-        label: Quelle est la limitation de debit que vous souhaitez pour votre téléservice ?
+        label: Quelle limitation de débit souhaitez-vous pour votre téléservice ?
       homologation:
         title: L'homologation de sécurité
         info:
