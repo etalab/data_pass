@@ -36,3 +36,7 @@ shared:
     name: Ministère de l'Éducation Nationale et de la Jeunesse
     logo: menj.png
     link: https://www.education.gouv.fr/
+  cnam:
+    name: CNAM
+    logo: cnam.jpg
+    link: https://www.assurance-maladie.ameli.fr/
