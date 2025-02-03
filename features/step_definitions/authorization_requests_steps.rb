@@ -320,7 +320,7 @@ Quand('je renseigne la recette fonctionnelle') do
 end
 
 Quand('je renseigne la volumétrie') do
-  find_field('Quelle limitation de débit souhaitez- vous pour votre téléservice ?').all('option').find { |option| option.value.present? }.select_option
+  find_field('Quelle limitation de débit souhaitez-vous pour votre téléservice ?').all('option').find { |option| option.value.present? }.select_option
 end
 
 Quand('je renseigne les informations du contact technique') do
