@@ -1,0 +1,41 @@
+<div class="fr-container">
+  <div class="fr-grid-row">
+    <div class="fr-col-6">
+      <%= form_with(model: @user, url: @user.persisted? ? admin_users_with_role_path(@user) : admin_users_with_roles_path) do |f| %>
+        <%= f.dsfr_email_field :email, required: true, disabled: @user.persisted?, placeholder: t('.form.email.placeholder') %>
+        <%= f.dsfr_text_area :roles, value: @user.roles.split(',').join("\n"), required: true, placeholder: t('.form.roles.placeholder'), rows: 20 %>
+        <%= f.submit t('.cta'), class: %w[fr-btn fr-btn--sm] %>
+      <% end %>
+    </div>
+
+    <div class="fr-col-6 fr-pl-4v">
+      <h3>Instructions</h3>
+
+      <p>
+        Dans le champ "Rôles" : mettre 1 rôle par ligne, de la forme <code>habilitation_code:role_code</code>.
+      </p>
+
+      <hr />
+
+      <strong>Liste des rôles</strong>
+
+      <ul>
+        <li>Rapporteur (code: reporter)</li>
+        <li>Instructeur (code: instructor)</li>
+        <li>Développeur (code: developer)</li>
+      </ul>
+
+      <hr />
+
+      <strong>Liste des habilitations</strong>
+
+      <ul>
+        <% AuthorizationDefinition.all.each do |authorization_definition| %>
+          <li>
+            <%= authorization_definition.name_with_stage %> (code: <%= authorization_definition.id %>)
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

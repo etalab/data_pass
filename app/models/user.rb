@@ -20,6 +20,12 @@ class User < ApplicationRecord
     class_name: 'Authorization',
     inverse_of: :applicant
 
+  has_many :admin_events,
+    inverse_of: :admin,
+    dependent: :restrict_with_exception
+
+  scope :with_roles, -> { where("roles <> '{}'") }
+
   scope :instructor_for, lambda { |authorization_request_type|
     where("
       EXISTS (
@@ -42,6 +48,17 @@ class User < ApplicationRecord
         "#{authorization_request_type.underscore}:developer",
         "#{authorization_request_type.underscore}:reporter",
       ]
+    )
+  }
+
+  scope :admin, lambda {
+    where(
+      "EXISTS (
+        SELECT 1
+        FROM unnest(roles) AS role
+        WHERE role in (?)
+      )",
+      ['admin']
     )
   }
 
@@ -118,6 +135,28 @@ class User < ApplicationRecord
     %w[
       family_name
       email
+      api_role
     ]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[
+      organizations
+    ]
+  end
+
+  ransacker :api_role do |_parent|
+    Arel.sql <<-SQL.squish
+      COALESCE(
+        array_to_string(
+          ARRAY(
+            SELECT split_part(elem, ':', 1)
+            FROM unnest(users.roles) AS elem
+          ),
+          ','
+        ),
+        ''
+      )
+    SQL
   end
 end

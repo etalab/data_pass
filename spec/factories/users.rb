@@ -56,5 +56,11 @@ FactoryBot.define do
         end
       end
     end
+
+    trait :admin do
+      after(:build) do |user|
+        user.roles << 'admin'
+      end
+    end
   end
 end

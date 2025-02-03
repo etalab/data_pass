@@ -49,6 +49,14 @@ class AuthorizationDefinition < StaticApplicationRecord
     )
   end
 
+  def name_with_stage
+    if stage.exists?
+      "#{name} (#{stage.name})"
+    else
+      name
+    end
+  end
+
   def reopenable?
     !next_stage?
   end
