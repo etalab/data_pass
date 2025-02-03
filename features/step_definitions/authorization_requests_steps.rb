@@ -481,3 +481,7 @@ Quand("une mise à jour globale a été effectuée sur les demandes d'habilitati
     application_date: 1.day.ago,
   )
 end
+
+Quand("je montre la page") do
+  save_and_open_page
+end

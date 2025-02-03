@@ -1,6 +1,6 @@
 api-infinoe-sandbox:
   name: Demande libre (Bac à sable)
-  description: FEED ME
+  description: TODO
   introduction: |
     Notre équipe d’instruction étudiera votre demande en bac à sable, lorsqu’elle sera validée vous pourrez compléter la suite de votre demande.
 
@@ -30,7 +30,7 @@ api-infinoe-sandbox:
         </div>
       </div>
   authorization_request: APIInfinoeSandbox
-  steps: &api_infinoe_steps
+  steps: &api_infinoe_sandbox_steps
     - name: basic_infos
     - name: personal_data
     - name: legal
@@ -38,7 +38,7 @@ api-infinoe-sandbox:
 
 api-infinoe-production:
   name: Demande Libre (Production)
-  description: FEED ME
+  description: TODO
   introduction: |
     Votre demande d'accès au bac à sable a été validée, vous pouvez à présent poursuivre votre demande en demandant les accès à la production.
 
@@ -68,8 +68,25 @@ api-infinoe-production:
       </div>
     </div>
   authorization_request: APIInfinoe
-  static_blocks: *api_infinoe_steps
+  static_blocks: *api_infinoe_sandbox_steps
   steps:
+    - name: operational_acceptance
+    - name: legal
+    - name: safety_certification
+    - name: volumetrie
+
+api-infinoe-production-editeur:
+  name: Demande Libre avec éditeur
+  default: true
+  description: TODO
+  introduction: |
+    Votre éditeur a déjà obtenu l'accès à la sandbox, vous n'avez plus qu'à obtenir l'accès en production via ce formulaire.
+  authorization_request: APIInfinoe
+  steps:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: contacts
     - name: operational_acceptance
     - name: safety_certification
     - name: volumetrie
