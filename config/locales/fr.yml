@@ -224,6 +224,14 @@ fr:
         title: &start_new_habilitation_title "Demander une habilitation à : %{authorization_name}"
         multiple_forms:
           description: "Il existe plusieurs formulaires pour obtenir une habilitation à %{authorization_name}, sélectionnez celui qui correspond le mieux à votre cas d'usage :"
+        use_case:
+          title: Des formulaires sont disponibles pour vous aider
+          description: Nous vous proposons un ou des modèles(s) correspondant à un cas d'usage similaire au votre, en choisissant un modèle, certaines parties du formulaire peuvent être pré-remplies.
+        no_france_connect_callout:
+          title: Vous ne possédez pas d'habilitation à FranceConnect
+          content: Pour pouvoir soumettre une demande " %{definition_name} " vous devez posséder une habilitation à FranceConnect validée. Vous pouvez en demander une en cliquant sur le lien ci-dessous
+          link: Demander une habilitation FranceConnect
+
       step1:
         title: Qui se charge techniquement de l'intégration de l'API ?
         internal: Vos développeurs internes ou prestataires

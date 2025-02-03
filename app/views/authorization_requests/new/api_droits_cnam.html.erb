@@ -1,0 +1,64 @@
+<div class="sub-header">
+  <h1>
+    <%= t(
+      "authorization_requests.new.default.title",
+      authorization_name: @facade.authorization_definition_name,
+    ) %>
+  </h1>
+</div>
+
+<% france_connect_authorizations = current_organization.valid_authorizations_of(AuthorizationRequest::FranceConnect).map(&:decorate) %>
+
+<div data-controller="choose-france-connect">
+  <% if france_connect_authorizations.empty? %>
+    <div class="fr-callout red-callout">
+      <h3 class="fr-callout__title">
+        <%= t("authorization_requests.new.default.no_france_connect_callout.title") %>
+      </h3>
+      <p class="fr-callout__text fr-my-3w">
+        <%= t("authorization_requests.new.default.no_france_connect_callout.content", definition_name: @authorization_definition.name) %>
+      </p>
+      <%= link_to  t("authorization_requests.new.default.no_france_connect_callout.link"), new_authorization_request_form_path("france-connect"), class: "fr-link fr-btn--icon-right fr-icon-arrow-right-line" %>
+    </div>
+  <% else %>
+    <div class="fr-select-group">
+      <label class="fr-h4 fr-label" for="france_connect_authorization_id">
+        <%= t("authorization_request_forms.api_impot_particulier_sandbox.france_connect_authorization_id.label") %>
+      </label>
+
+      <select class="fr-select" id="france_connect_authorization_id" name="france_connect_authorization_id" data-choose-france-connect-target="franceConnectSelector" data-action="click->choose-france-connect#trigger">
+        <% options = france_connect_authorizations.map{ |authorization| [authorization.name_for_select, authorization.id] } %>
+        <%= options_for_select options, selected: options.first[1] %>
+      </select>
+    </div>
+
+    <div class="fr-background-alt--blue-france fr-py-4w">
+      <div class="fr-grid-row">
+        <div class="fr-col-md-10 fr-col-offset-1">
+          <div class="center fr-px-5w fr-py-1w">
+            <h3>
+              <%= t("authorization_requests.new.default.use_case.title") %>
+            </h3>
+            <p>
+              <%= t("authorization_requests.new.default.use_case.description") %>
+            </p>
+          </div>
+
+          <div class="fr-grid-row fr-grid-row--center">
+            <% @authorization_definition.public_available_forms.each do |authorization_request_form| %>
+              <div class="fr-col-md-4 fr-col-xl-4 fr-col-12 fr-p-2w">
+                <%=
+                  render partial: "authorization_request_forms/authorization_request_form_card",
+                    locals: {
+                      authorization_request_form:,
+                      additional_link_attributes: { "data-choose-france-connect-target": "links" },
+                    }
+                  %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

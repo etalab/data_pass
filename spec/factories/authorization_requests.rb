@@ -299,6 +299,15 @@ FactoryBot.define do
       end
     end
 
+    trait :with_france_connect do
+      after(:build) do |authorization_request, evaluator|
+        if authorization_request.need_complete_validation? || evaluator.fill_all_attributes
+          validated_france_connect_authorization_request = create(:authorization_request, :france_connect, :validated, applicant: authorization_request.applicant, organization: authorization_request.organization)
+          authorization_request.france_connect_authorization_id = validated_france_connect_authorization_request.latest_authorization.id.to_s
+        end
+      end
+    end
+
     trait :hubee_cert_dc do
       type { 'AuthorizationRequest::HubEECertDC' }
     end
@@ -726,6 +735,23 @@ FactoryBot.define do
       end
     end
 
+    %w[
+      api-droits-cnam
+      api-droits-cnam-etablissement-de-soin
+      api-droits-cnam-organisme-complementaire
+    ].each do |form_uid|
+      trait form_uid.tr('-', '_') do
+        type { 'AuthorizationRequest::APIDroitsCNAM' }
+
+        form_uid { 'api-droits-cnam' }
+
+        with_basic_infos
+        with_personal_data
+        with_cadre_juridique
+        with_france_connect
+      end
+    end
+
     trait :api_declaration_auto_entrepreneur do
       type { 'AuthorizationRequest::APIDeclarationAutoEntrepreneur' }
 
@@ -760,7 +786,6 @@ FactoryBot.define do
       with_cadre_juridique
       with_modalities
       with_scopes
-      with_france_connect
     end
 
     trait :france_connect do
