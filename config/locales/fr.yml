@@ -257,7 +257,10 @@ fr:
           editor: "Choisissez le formulaire d'accès en production qui correspond le mieux à votre cas d'usage :"
       api_sfip:
         with_or_without_editor: *with_or_without_editor_block
-        choose_form_title: "Choisissez le formulaire d'accès correspond le mieux à votre cas d'usage :"
+        choose_form_title: "Choisissez le formulaire d’accès correspondant le mieux à votre cas d’usage :"
+      api_infinoe:
+        with_or_without_editor: *with_or_without_editor_block
+        choose_form_title: "Choisissez le formulaire d’accès correspondant le mieux à votre cas d’usage :"
 
     show:
       refused:
