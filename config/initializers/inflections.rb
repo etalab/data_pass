@@ -28,6 +28,7 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'Hermes', 'Hermes'
   inflect.acronym 'ENSU'
   inflect.acronym 'CESU'
+  inflect.acronym 'SFiP'
 end
 
 class String
