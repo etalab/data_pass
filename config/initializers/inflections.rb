@@ -31,6 +31,7 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.acronym 'SFiP'
   inflect.acronym 'INFINOE'
   inflect.acronym 'R2P'
+  inflect.acronym 'CNAM'
 end
 
 class String
