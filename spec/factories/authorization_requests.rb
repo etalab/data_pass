@@ -33,6 +33,10 @@ FactoryBot.define do
             authorization_request.public_send(:"#{contact_type}_#{attribute}=", value)
           end
         end
+
+        authorization_request.extra_checkboxes.each do |checkbox|
+          authorization_request.public_send(:"#{checkbox}=", '1')
+        end
       end
     end
 
@@ -285,12 +289,6 @@ FactoryBot.define do
       end
     end
 
-    trait :with_dpd_homologation_checkbox do
-      after(:build) do |authorization_request, evaluator|
-        authorization_request.data['dpd_homologation_checkbox'] = '1' if authorization_request.need_complete_validation? || evaluator.fill_all_attributes
-      end
-    end
-
     trait :with_attestation_fiscale do
       after(:build) do |authorization_request|
         authorization_request.attestation_fiscale.attach(
@@ -485,8 +483,6 @@ FactoryBot.define do
     trait :api_impot_particulier_stationnement_residentiel_sandbox do
       api_impot_particulier
       form_uid { 'api-impot-particulier-stationnement-residentiel-sandbox' }
-
-      with_dpd_homologation_checkbox
     end
 
     trait :api_impot_particulier_stationnement_residentiel_production do
@@ -502,8 +498,6 @@ FactoryBot.define do
     trait :api_impot_particulier_place_creche_sandbox do
       api_impot_particulier
       form_uid { 'api-impot-particulier-place-creche-sandbox' }
-
-      with_dpd_homologation_checkbox
     end
 
     trait :api_impot_particulier_place_creche_production do
@@ -519,8 +513,6 @@ FactoryBot.define do
     trait :api_impot_particulier_activites_periscolaires_sandbox do
       api_impot_particulier
       form_uid { 'api-impot-particulier-activites-periscolaires-sandbox' }
-
-      with_dpd_homologation_checkbox
     end
 
     trait :api_impot_particulier_activites_periscolaires_production do
@@ -536,8 +528,6 @@ FactoryBot.define do
     trait :api_impot_particulier_cantine_scolaire_sandbox do
       api_impot_particulier
       form_uid { 'api-impot-particulier-cantine-scolaire-sandbox' }
-
-      with_dpd_homologation_checkbox
     end
 
     trait :api_impot_particulier_cantine_scolaire_production do
@@ -553,8 +543,6 @@ FactoryBot.define do
     trait :api_impot_particulier_aides_sociales_facultatives_sandbox do
       api_impot_particulier
       form_uid { 'api-impot-particulier-aides-sociales-facultatives-sandbox' }
-
-      with_dpd_homologation_checkbox
     end
 
     trait :api_impot_particulier_aides_sociales_facultatives_production do
@@ -570,8 +558,6 @@ FactoryBot.define do
     trait :api_impot_particulier_carte_transport_sandbox do
       api_impot_particulier
       form_uid { 'api-impot-particulier-carte-transport-sandbox' }
-
-      with_dpd_homologation_checkbox
     end
 
     trait :api_impot_particulier_carte_transport_production do
@@ -596,8 +582,6 @@ FactoryBot.define do
       with_basic_infos
       with_personal_data
       with_cadre_juridique
-
-      with_dpd_homologation_checkbox
     end
 
     trait :api_sfip_sandbox do
@@ -776,7 +760,6 @@ FactoryBot.define do
       with_cadre_juridique
       with_modalities
       with_scopes
-      with_dpd_homologation_checkbox
     end
 
     trait :france_connect do
@@ -826,7 +809,6 @@ FactoryBot.define do
       with_basic_infos
       with_personal_data
       with_cadre_juridique
-      with_dpd_homologation_checkbox
     end
 
     trait :api_hermes_production do
@@ -852,7 +834,6 @@ FactoryBot.define do
       with_basic_infos
       with_personal_data
       with_cadre_juridique
-      with_dpd_homologation_checkbox
     end
 
     trait :api_e_contacts_production do
@@ -878,7 +859,6 @@ FactoryBot.define do
       with_basic_infos
       with_personal_data
       with_cadre_juridique
-      with_dpd_homologation_checkbox
     end
 
     trait :api_opale_production do
@@ -904,7 +884,6 @@ FactoryBot.define do
       with_basic_infos
       with_personal_data
       with_cadre_juridique
-      with_dpd_homologation_checkbox
     end
 
     trait :api_ocfi_production do
@@ -930,7 +909,6 @@ FactoryBot.define do
       with_basic_infos
       with_personal_data
       with_cadre_juridique
-      with_dpd_homologation_checkbox
     end
 
     trait :api_e_pro_production do
@@ -956,7 +934,6 @@ FactoryBot.define do
       with_basic_infos
       with_personal_data
       with_cadre_juridique
-      with_dpd_homologation_checkbox
     end
 
     trait :api_robf_production do
@@ -982,7 +959,6 @@ FactoryBot.define do
       with_basic_infos
       with_personal_data
       with_cadre_juridique
-      with_dpd_homologation_checkbox
     end
 
     trait :api_cpr_pro_adelie_production do
@@ -1008,7 +984,6 @@ FactoryBot.define do
       with_basic_infos
       with_personal_data
       with_cadre_juridique
-      with_dpd_homologation_checkbox
     end
 
     trait :api_imprimfip_production do
@@ -1034,7 +1009,6 @@ FactoryBot.define do
       with_basic_infos
       with_personal_data
       with_cadre_juridique
-      with_dpd_homologation_checkbox
     end
 
     trait :api_satelit_production do
@@ -1060,7 +1034,6 @@ FactoryBot.define do
       with_basic_infos
       with_personal_data
       with_cadre_juridique
-      with_dpd_homologation_checkbox
     end
 
     trait :api_mire_production do
@@ -1086,7 +1059,6 @@ FactoryBot.define do
       with_basic_infos
       with_personal_data
       with_cadre_juridique
-      with_dpd_homologation_checkbox
     end
 
     trait :api_ensu_documents_production do
@@ -1112,7 +1084,6 @@ FactoryBot.define do
       with_basic_infos
       with_personal_data
       with_cadre_juridique
-      with_dpd_homologation_checkbox
     end
 
     trait :api_rial_production do
@@ -1138,7 +1109,6 @@ FactoryBot.define do
       with_basic_infos
       with_personal_data
       with_cadre_juridique
-      with_dpd_homologation_checkbox
     end
 
     trait :api_infinoe_production do
@@ -1186,7 +1156,6 @@ FactoryBot.define do
       with_cadre_juridique
       with_modalities
       with_scopes
-      with_dpd_homologation_checkbox
     end
 
     trait :api_ficoba_production do
@@ -1233,7 +1202,6 @@ FactoryBot.define do
     with_personal_data
     with_cadre_juridique
     with_modalities
-    with_dpd_homologation_checkbox
   end
 
   trait :api_r2p_production do
