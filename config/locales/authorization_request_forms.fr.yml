@@ -13,6 +13,7 @@ fr:
         volumetrie: "La volumétrie"
         france_connect_eidas: "Niveau de garantie"
         supporting_documents: "Pièces justificatives"
+        france_connect: "Habilitation FranceConnect"
         finish: "La synthèse"
 
       terms_of_service_accepted:
@@ -48,6 +49,8 @@ fr:
 
       supporting_documents:
         title: Les pièces justificatifs
+      france_connect:
+        title: Habilitation FranceConnect
       attestation_fiscale:
         label: Attestation de régularité fiscale
         hint: *pdf_input_hint

@@ -760,6 +760,7 @@ FactoryBot.define do
       with_cadre_juridique
       with_modalities
       with_scopes
+      with_france_connect
     end
 
     trait :france_connect do

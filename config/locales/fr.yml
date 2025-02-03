@@ -18,6 +18,7 @@ fr:
     volumetrie: volumetrie
     france_connect_eidas: niveau-eidas
     supporting_documents: pieces-justificatives
+    france_connect: france-connect
 
   authorization:
     id_badge: habilitation N°%{id}
