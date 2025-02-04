@@ -1,0 +1,9 @@
+api-indemnites-journalieres-cnam:
+  name: Demande libre
+  authorization_request: APIIndemnitesJournalieresCNAM
+  steps:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: france_connect
+    - name: contacts

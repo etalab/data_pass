@@ -752,6 +752,17 @@ FactoryBot.define do
       end
     end
 
+    trait :api_indemnites_journalieres_cnam do
+      type { 'AuthorizationRequest::APIIndemnitesJournalieresCNAM' }
+
+      form_uid { 'api-indemnites-journalieres-cnam' }
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+      with_france_connect
+    end
+
     trait :api_declaration_auto_entrepreneur do
       type { 'AuthorizationRequest::APIDeclarationAutoEntrepreneur' }
 
