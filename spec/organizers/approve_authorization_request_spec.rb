@@ -26,6 +26,10 @@ RSpec.describe ApproveAuthorizationRequest do
         expect { approve_authorization_request }.to have_enqueued_mail(GDPRContactMailer, :responsable_traitement)
       end
 
+      it 'stores the form_uid of the authorization_request in the generated authorization' do
+        expect { approve_authorization_request }.to change { authorization_request.authorizations.where(form_uid: authorization_request.form_uid).count }.from(0).to(1)
+      end
+
       {
         hubee_cert_dc: HubEECertDCBridge,
         hubee_dila: HubEEDilaBridge,

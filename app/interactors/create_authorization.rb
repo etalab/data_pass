@@ -32,6 +32,7 @@ class CreateAuthorization < ApplicationInteractor
     {
       data: authorization_request.data,
       applicant: authorization_request.applicant,
+      form_uid: authorization_request.form_uid,
     }
   end
 end
