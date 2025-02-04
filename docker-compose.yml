@@ -1,11 +1,13 @@
 services:
   web:
     image: data_pass
+    command: [rdbg, -n, --open, --host, 0.0.0.0, --port, '12345', -c, --, rails, server, -b, 0.0.0.0]
     build: .
     volumes:
       - "./:/app"
     ports:
       - "3000:3000"
+      - 12345:12345
     env_file:
       - '.env.docker'
     depends_on:
