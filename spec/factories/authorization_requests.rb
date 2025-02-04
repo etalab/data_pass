@@ -1152,4 +1152,9 @@ FactoryBot.define do
       with_volumetrie
     end
   end
+
+  trait :api_infinoe_production_editeur do
+    api_infinoe_production
+    form_uid { 'api-infinoe-production-editeur' }
+  end
 end
