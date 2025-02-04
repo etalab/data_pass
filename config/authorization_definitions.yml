@@ -1258,6 +1258,29 @@ shared:
       - name: safety_certification
       - name: volumetrie
 
+  api_infinoe:
+    name: API Infinoé
+    description: "FEEDME"
+    provider: "dgfip"
+    kind: 'api'
+    link: "https://www.data.gouv.fr/fr/organizations/ministere-de-leconomie-des-finances-et-de-lindustrie/"
+    cgu_link: "/cgus/dgfip/cgu_infinoe_production_v_2023_10.pdf"
+    access_link: "https://api-infinoe.gouv.fr/tokens/%<external_provider_id>"
+    public: false
+    stage:
+      type: production
+      previouses:
+        - id: api_infinoe_sandbox
+          form_id: api-infinoe-sandbox
+    blocks:
+      - name: basic_infos
+      - name: personal_data
+      - name: legal
+      - name: contacts
+      - name: operational_acceptance
+      - name: safety_certification
+      - name: volumetrie
+
   api_infinoe_sandbox:
     name: API Infinoé
     description: "FEEDME"
@@ -1277,26 +1300,3 @@ shared:
       - name: personal_data
       - name: legal
       - name: contacts
-
-  api_infinoe:
-    name: API Infinoé
-    description: "FEEDME"
-    provider: "dgfip"
-    kind: 'api'
-    link: "https://www.data.gouv.fr/fr/organizations/ministere-de-leconomie-des-finances-et-de-lindustrie/"
-    cgu_link: "public/cgus/dgfip/cgu_infinoe_production_v_2023_10.pdf"
-    access_link: "https://api-infinoe.gouv.fr/tokens/%<external_provider_id>"
-    public: false
-    stage:
-      type: production
-      previouses:
-        - id: api_infinoe_sandbox
-          form_id: api-infinoe-sandbox
-    blocks:
-      - name: basic_infos
-      - name: personal_data
-      - name: legal
-      - name: contacts
-      - name: operational_acceptance
-      - name: safety_certification
-      - name: volumetrie

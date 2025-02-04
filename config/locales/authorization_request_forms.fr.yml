@@ -793,6 +793,5 @@ fr:
     api_sfip_carte_transport_production: *api_sfip_production
     api_sfip_carte_transport_editeur: *api_sfip_production
 
-
     formulaire_qf:
       legal: *api_particulier_editor_common_wordings
