@@ -1,7 +1,9 @@
 api-infinoe-sandbox:
   name: Demande libre (Bac à sable)
-  description: TODO
-  introduction: |
+  default: true
+  description: &api_infinoe_description |
+    LʼAPI INFINOE permet à chaque organisme public national de transmettre les écritures budgétaires, comptables et financières à lʼapplication INFINOE (Informations Financières des Organismes de l’État) développée par la Direction Générale des Finances Publiques.
+  introduction: &api_infinoe_sandbox_form_introduction |
     Notre équipe d’instruction étudiera votre demande en bac à sable, lorsqu’elle sera validée vous pourrez compléter la suite de votre demande.
 
     <div class="intro-stepper">
@@ -38,8 +40,8 @@ api-infinoe-sandbox:
 
 api-infinoe-production:
   name: Demande libre (Production)
-  description: TODO
-  introduction: |
+  description: *api_infinoe_description
+  introduction: &api_infinoe_production_form_introduction |
     Votre demande d'accès au bac à sable a été validée, vous pouvez à présent poursuivre votre demande en demandant les accès à la production.
 
     <div class="intro-stepper">
@@ -69,7 +71,7 @@ api-infinoe-production:
     </div>
   authorization_request: APIINFINOE
   static_blocks: *api_infinoe_sandbox_steps
-  steps:
+  steps: &api_infinoe_production_steps
     - name: operational_acceptance
     - name: legal
     - name: safety_certification
@@ -78,11 +80,11 @@ api-infinoe-production:
 api-infinoe-production-editeur:
   name: Demande libre avec éditeur
   default: true
-  description: TODO
-  introduction: |
+  description: *api_infinoe_description
+  introduction: &api_infinoe_production_editeur_form_intro |
     Votre éditeur a déjà obtenu l'accès à la sandbox, vous n'avez plus qu'à obtenir l'accès en production via ce formulaire.
   authorization_request: APIINFINOE
-  steps:
+  steps: &api_infinoe_editor_steps
     - name: basic_infos
     - name: personal_data
     - name: legal
@@ -90,3 +92,57 @@ api-infinoe-production-editeur:
     - name: operational_acceptance
     - name: safety_certification
     - name: volumetrie
+
+# Envoi automatisé des écritures
+api-infinoe-envoi-automatise-ecritures-sandbox:
+  name: Envoi automatisé des écritures (Bac à sable)
+  use_case: envoi_automatise_des_ecritures
+  description: *api_infinoe_description
+  introduction: *api_infinoe_sandbox_form_introduction
+  authorization_request: APIINFINOESandbox
+  steps: *api_infinoe_sandbox_steps
+  data:
+    intitule: &api_infinoe_envoi_auto_intitule |
+      INFINOE
+    description: &api_infinoe_envoi_auto_description |
+      LʼAPI Infinoé permet à chaque organisme public national de transmettre les écritures budgétaires, comptables et financières à lʼapplication Infinoé (Informations Financières des Organismes de l’État) développée par la Direction Générale des Finances Publiques.
+    destinataire_donnees_caractere_personnel: &api_infinoe_envoi_auto_destinataire_donnees_caractere_personnel |
+      La DGFIP est destinataire des données budgétaires, comptables et référentielles
+    duree_conservation_donnees_caractere_personnel: &api_infinoe_envoi_auto_duree_conservation_donnees_caractere_personnel |
+      0
+    cadre_juridique_nature: &api_infinoe_envoi_auto_cadre_juridique_nature |
+      Décret n°2012-1246 du 7 novembre 2012 relatif à la gestion budgétaire et comptable publique
+    cadre_juridique_url: &api_infinoe_envoi_auto_cadre_juridique_url |
+      https://www.legifrance.gouv.fr/loda/id/JORFTEXT000026597003/
+
+api-infinoe-envoi-automatise-ecritures-production:
+  name: Envoi automatisé des écritures
+  use_case: envoi_automatise_des_ecritures
+  description: *api_infinoe_description
+  introduction: *api_infinoe_production_form_introduction
+  authorization_request: APIINFINOE
+  static_blocks: *api_infinoe_sandbox_steps
+  steps: *api_infinoe_production_steps
+  data:
+    intitule: *api_infinoe_envoi_auto_intitule
+    description: *api_infinoe_envoi_auto_description
+    destinataire_donnees_caractere_personnel: *api_infinoe_envoi_auto_destinataire_donnees_caractere_personnel
+    duree_conservation_donnees_caractere_personnel: *api_infinoe_envoi_auto_duree_conservation_donnees_caractere_personnel
+    cadre_juridique_nature: *api_infinoe_envoi_auto_cadre_juridique_nature
+    cadre_juridique_url: *api_infinoe_envoi_auto_cadre_juridique_url
+
+
+api-infinoe-envoi-automatise-ecritures-production-editeur:
+  name: Envoi automatisé des écritures avec éditeur
+  use_case: envoi_automatise_des_ecritures
+  description: *api_infinoe_description
+  introduction: *api_infinoe_production_editeur_form_intro
+  authorization_request: APIINFINOE
+  steps: *api_infinoe_editor_steps
+  data:
+    intitule: *api_infinoe_envoi_auto_intitule
+    description: *api_infinoe_envoi_auto_description
+    destinataire_donnees_caractere_personnel: *api_infinoe_envoi_auto_destinataire_donnees_caractere_personnel
+    duree_conservation_donnees_caractere_personnel: *api_infinoe_envoi_auto_duree_conservation_donnees_caractere_personnel
+    cadre_juridique_nature: *api_infinoe_envoi_auto_cadre_juridique_nature
+    cadre_juridique_url: *api_infinoe_envoi_auto_cadre_juridique_url

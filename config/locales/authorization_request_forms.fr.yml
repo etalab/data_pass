@@ -674,6 +674,10 @@ fr:
 
     api_infinoe_production_editeur: *api_infinoe_production
 
+    api_infinoe_envoi_automatise_ecritures_sandbox: *api_infinoe_sandbox
+    api_infinoe_envoi_automatise_ecritures_production: *api_infinoe_production
+    api_infinoe_envoi_automatise_ecritures_production_editeur: *api_infinoe_production
+
     france_connect:
       france_connect_eidas:
         title: Quel niveau de garantie souhaitez-vous ?
