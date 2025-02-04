@@ -7,7 +7,8 @@
   </h1>
 </div>
 
-<div data-controller="choose-authorization-request-form-with-or-without-editors">
+<div data-controller="choose-authorization-request-form-with-or-without-editors"
+     data-choose-authorization-request-form-with-or-without-editors-hidden-class="fr-hidden">
   <h2 class="fr-h4"><%= t(".with_or_without_editor.title") %></h2>
 
   <div class="fr-col-lg-9">
@@ -35,6 +36,7 @@
   <div
     class="fr-hidden"
     data-choose-authorization-request-form-with-or-without-editors-target="withEditorsSection"
+    data-choose-authorization-request-form-with-or-without-editors-hidden-class="fr-hidden"
   >
     <h2 class="fr-h4">
       <%= t(".choose_form_title") %>
@@ -73,6 +75,7 @@
   <div
     class="fr-hidden"
     data-choose-authorization-request-form-with-or-without-editors-target="withoutEditorsSection"
+    data-choose-authorization-request-form-with-or-without-editors-hidden-class="fr-hidden"
   >
     <h2 class="fr-h4">
       <%= t(".choose_form_title") %>
