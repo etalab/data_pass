@@ -1127,7 +1127,7 @@ FactoryBot.define do
     end
 
     trait :api_infinoe_sandbox do
-      type { 'AuthorizationRequest::APIInfinoeSandbox' }
+      type { 'AuthorizationRequest::APIINFINOESandbox' }
 
       form_uid { 'api-infinoe-sandbox' }
 
@@ -1138,7 +1138,7 @@ FactoryBot.define do
     end
 
     trait :api_infinoe_production do
-      type { 'AuthorizationRequest::APIInfinoe' }
+      type { 'AuthorizationRequest::APIINFINOE' }
 
       form_uid { 'api-infinoe-production' }
 

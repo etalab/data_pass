@@ -1,4 +1,4 @@
-class AuthorizationRequest::APIInfinoeSandbox < AuthorizationRequest
+class AuthorizationRequest::APIINFINOESandbox < AuthorizationRequest
   include AuthorizationExtensions::BasicInfos
   include AuthorizationExtensions::PersonalData
   include AuthorizationExtensions::CadreJuridique

@@ -1259,7 +1259,7 @@ shared:
       - name: volumetrie
 
   api_infinoe:
-    name: API Infinoé
+    name: API INFINOE
     description: "FEEDME"
     provider: "dgfip"
     kind: 'api'
@@ -1282,7 +1282,7 @@ shared:
       - name: volumetrie
 
   api_infinoe_sandbox:
-    name: API Infinoé
+    name: API INFINOE
     description: "FEEDME"
     provider: "dgfip"
     kind: 'api'

@@ -1,12 +1,12 @@
 # language: fr
 
 @javascript
-Fonctionnalité: Choix du formulaire API Infinoé
+Fonctionnalité: Choix du formulaire API INFINOE
 
   Contexte:
     Sachant que je suis un demandeur
     Et que je me connecte
-    Quand je veux remplir une demande pour "API Infinoé"
+    Quand je veux remplir une demande pour "API INFINOE"
 
   Scénario: J’ai déjà un éditeur qui a accès au bac à sable
     Quand je choisis "Oui, j’ai un éditeur qui a déjà accès au bac à sable"

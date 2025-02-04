@@ -1,12 +1,12 @@
 # language: fr
 
-Fonctionnalité: Soumission d'une demande d'habilitation API Infinoé
+Fonctionnalité: Soumission d'une demande d'habilitation API INFINOE
   Contexte:
     Sachant que je suis un demandeur
     Et que je me connecte
 
   Scénario: Je soumets une demande d'habilitation de bac à sable valide
-    Quand je veux remplir une demande pour "API Infinoé" via le formulaire "Demande libre (Bac à sable)" à l'étape "Bac à sable"
+    Quand je veux remplir une demande pour "API INFINOE" via le formulaire "Demande libre (Bac à sable)" à l'étape "Bac à sable"
 
     * je clique sur "Débuter ma demande"
     * je renseigne les infos de bases du projet
@@ -32,7 +32,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Infinoé
     Et je suis sur la page "Demandes et habilitations"
 
   Scénario: Je soumets une demande d'habilitation de production valide
-    Quand j'ai 1 demande d'habilitation "API Infinoé" via le formulaire "Demande libre (Bac à sable)" à l'étape "Bac à sable" validée
+    Quand j'ai 1 demande d'habilitation "API INFINOE" via le formulaire "Demande libre (Bac à sable)" à l'étape "Bac à sable" validée
     Et que je me rends sur mon tableau de bord
     Et je clique sur "Démarrer ma demande d’habilitation en production"
     Et que je clique sur "Débuter ma demande"

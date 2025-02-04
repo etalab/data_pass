@@ -1,5 +1,5 @@
 class NewAuthorizationRequest
-  class APIInfinoeFacade < Base
+  class APIINFINOEFacade < Base
     def public_available_without_editor_forms
       AuthorizationRequestFormDecorator.decorate_collection(authorization_definition_sandbox.public_available_forms)
     end

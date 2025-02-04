@@ -9,7 +9,7 @@ api-infinoe-sandbox:
         <div class="step-number">1.</div>
         <div class="step-content">
           <h3>Le bac à sable</h3>
-          <p class="fr-text--xs">Dans un premier temps, une demande d’habilitation au <strong>bac à sable</strong> de l'API Infinoé</p>
+          <p class="fr-text--xs">Dans un premier temps, une demande d’habilitation au <strong>bac à sable</strong> de l'API INFINOE</p>
         </div>
       </div>
 
@@ -17,7 +17,7 @@ api-infinoe-sandbox:
         <div class="step-number">2.</div>
         <div class="step-content">
             <h3>La production</h3>
-            <p class="fr-text--xs">Dans un second temps, une demande d’habilitation à la <strong>production</strong> de l'API Infinoé</p>
+            <p class="fr-text--xs">Dans un second temps, une demande d’habilitation à la <strong>production</strong> de l'API INFINOE</p>
         </div>
       </div>
 
@@ -29,7 +29,7 @@ api-infinoe-sandbox:
           </div>
         </div>
       </div>
-  authorization_request: APIInfinoeSandbox
+  authorization_request: APIINFINOESandbox
   steps: &api_infinoe_sandbox_steps
     - name: basic_infos
     - name: personal_data
@@ -47,7 +47,7 @@ api-infinoe-production:
         <div class="step-number">1.</div>
         <div class="step-content">
           <h3>Le bac à sable</h3>
-          <p class="fr-text--xs">Dans un premier temps, une demande d’habilitation au <strong>bac à sable</strong> de l'API Infinoé</p>
+          <p class="fr-text--xs">Dans un premier temps, une demande d’habilitation au <strong>bac à sable</strong> de l'API INFINOE</p>
         </div>
       </div>
 
@@ -55,7 +55,7 @@ api-infinoe-production:
         <div class="step-number">2.</div>
         <div class="step-content">
           <h3>La production</h3>
-          <p class="fr-text--xs">Dans un second temps, une demande d’habilitation à la <strong>production</strong> de l'API Infinoé</p>
+          <p class="fr-text--xs">Dans un second temps, une demande d’habilitation à la <strong>production</strong> de l'API INFINOE</p>
         </div>
       </div>
 
@@ -67,7 +67,7 @@ api-infinoe-production:
         </div>
       </div>
     </div>
-  authorization_request: APIInfinoe
+  authorization_request: APIINFINOE
   static_blocks: *api_infinoe_sandbox_steps
   steps:
     - name: operational_acceptance
@@ -81,7 +81,7 @@ api-infinoe-production-editeur:
   description: TODO
   introduction: |
     Votre éditeur a déjà obtenu l'accès à la sandbox, vous n'avez plus qu'à obtenir l'accès en production via ce formulaire.
-  authorization_request: APIInfinoe
+  authorization_request: APIINFINOE
   steps:
     - name: basic_infos
     - name: personal_data
