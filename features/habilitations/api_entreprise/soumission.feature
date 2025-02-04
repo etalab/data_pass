@@ -100,7 +100,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Entreprise
       | Portail GRU - Pré-remplissage & instruction des démarches |
       | Détection de la fraude                                    |
 
-  Plan du scénario: Je soumets une demande d'habilitation d'un éditeur
+  Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec tous les contacts renseignés
     Quand je veux remplir une demande pour "API Entreprise" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
@@ -115,16 +115,16 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Entreprise
     Et je suis sur la page "Demandes et habilitations"
 
     Exemples:
-      | Nom du formulaire                     | Nom de l'éditeur  |
-      | Conformité titulaires de marchés      | e-Attestations    |
-      | Conformité titulaires de marchés      | Provigis          |
-      | Conformité titulaires de marchés      | Achat Solution    |
-      | Dématérialisation des marchés publics | Atexo             |
-      | Dématérialisation des marchés publics | SETEC             |
-      | Solution Portail des aides            | MGDIS             |
+      | Nom du formulaire                                         | Nom de l'éditeur  |
+      | Conformité titulaires de marchés                          | e-Attestations    |
+      | Conformité titulaires de marchés                          | Provigis          |
+      | Conformité titulaires de marchés                          | Achat Solution    |
+      | Dématérialisation des marchés publics                     | Atexo             |
+      | Dématérialisation des marchés publics                     | SETEC             |
+      | Solution Portail des aides                                | MGDIS             |
 
-  Scénario: Je soumets une demande d'habilitation de l'éditeur INETUM, où le contact métier n'est pas renseigné
-    Quand je veux remplir une demande pour "API Entreprise" via le formulaire "Solution ASTRE GF" de l'éditeur "INETUM"
+  Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact métier manquant
+    Quand je veux remplir une demande pour "API Entreprise" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
     * je renseigne les informations des contacts RGPD
@@ -137,6 +137,12 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Entreprise
 
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
+
+    Exemples:
+      | Nom du formulaire                                         | Nom de l'éditeur  |
+      | Solution ASTRE GF                                         | INETUM            |
+      | Portail GRU - Pré-remplissage & instruction des démarches | Entr'ouvert       |
+
 
   Scénario: Je vois un lien vers API entreprise quand je consulte une habilitation validée avec token
     Quand j'ai déjà une demande d'habilitation "API Entreprise" validée avec token

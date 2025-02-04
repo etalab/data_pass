@@ -28,7 +28,7 @@ Fonctionnalité: Choix du type de formulalire pour API Particulier
     Quand je démarre une nouvelle demande d'habilitation "API Particulier"
     Et que je choisis "Votre éditeur"
     Et que je clique sur "E"
-    Et que je choisis "Entrouvert"
+    Et que je choisis "Entr'ouvert"
     Alors je vois 1 tuile
     Et je vois 1 tuile "Publik Famille"
 

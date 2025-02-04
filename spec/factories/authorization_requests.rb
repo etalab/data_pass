@@ -339,6 +339,7 @@ FactoryBot.define do
       api-entreprise-atexo
       api-entreprise-setec-atexo
       api-entreprise-inetum
+      api-entreprise-entrouvert
     ].each do |form_uid|
       trait form_uid.tr('-', '_') do
         api_entreprise
