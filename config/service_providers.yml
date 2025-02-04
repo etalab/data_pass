@@ -32,6 +32,10 @@ shared:
     type: editor
     name: INETUM
     siret: "34054699300668"
+  entrouvert:
+    type: editor
+    name: "Entr'ouvert"
+    siret: '44317013900036'
 
   aiga:
     type: editor
@@ -89,10 +93,6 @@ shared:
     type: editor
     name: DOCAPOSTE
     siret: "48847870200035"
-  entrouvert:
-    type: editor
-    name: Entrouvert
-    siret: "49108189900032"
   extenso_partner:
     type: editor
     name: Extenso Partner

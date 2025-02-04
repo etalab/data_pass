@@ -327,7 +327,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
     Exemples:
       | Nom du formulaire         | Nom de l'éditeur      |
       | FAST                      | DOCAPOSTE             |
-      | Publik Famille            | Entrouvert            |
+      | Publik Famille            | Entr'ouvert           |
       | Parascol                  | JVS-Mairistem         |
       | Axel                      | Teamnet               |
 
