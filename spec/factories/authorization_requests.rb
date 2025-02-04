@@ -139,6 +139,10 @@ FactoryBot.define do
       after(:build) do |authorization_request|
         authorization_request.revocations << build(:revocation_of_authorization, authorization_request:)
       end
+
+      after(:create) do |authorization_request|
+        authorization_request.authorizations.update_all(revoked: true) # rubocop:disable Rails/SkipsModelValidations
+      end
     end
 
     trait :validated do
