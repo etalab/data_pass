@@ -302,6 +302,7 @@ class Import::AuthorizationRequests < Import::Base
       'api_robf_production' => 'api_robf',
       'api_satelit_sandbox' => 'api_satelit_sandbox',
       'api_satelit_production' => 'api_satelit',
+      'api_declaration_auto_entrepreneur' => 'api_declaration_auto_entrepreneur',
     }[enrollment['target_api']].try(:classify)
   end
 
