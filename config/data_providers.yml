@@ -32,3 +32,7 @@ shared:
     name: URSSAF
     logo: urssaf.jpg
     link: https://www.urssaf.fr/
+  menj:
+    name: Ministère de l'Éducation Nationale et de la Jeunesse
+    logo: menj.png
+    link: https://www.education.gouv.fr/
