@@ -1258,6 +1258,33 @@ shared:
       - name: safety_certification
       - name: volumetrie
 
+  api_ficoba:
+    name: API Fichier des Comptes Bancaires et Assimilés (FICOBA)
+    description: "Accédez aux coordonnées bancaires d'un usager connues de l’administration fiscale (DGFIP) et transmises par les établissements bancaires."
+    provider: "dgfip"
+    kind: 'api'
+    link: "https://www.data.gouv.fr/fr/dataservices/api-fichier-des-comptes-bancaires-et-assimiles-ficoba/"
+    cgu_link: "/cgus/dgfip/cgu_api_ficoba_production.pdf"
+    # FEEDME
+    access_link: "https://api-ficoba.gouv.fr/tokens/%<external_provider_id>"
+    public: false
+    stage:
+      type: production
+      previouses:
+        - id: api_ficoba_sandbox
+          form_id: api-ficoba-sandbox
+    blocks:
+      - name: basic_infos
+      - name: personal_data
+      - name: legal
+      - name: modalities
+      - name: scopes
+      - name: contacts
+      - name: operational_acceptance
+      - name: safety_certification
+      - name: volumetrie
+    scopes: *api_ficoba_scopes
+
   api_ficoba_sandbox:
     name: API Fichier des Comptes Bancaires et Assimilés (FICOBA)
     description: "Accédez aux coordonnées bancaires d'un usager connues de l’administration fiscale (DGFIP) et transmises par les établissements bancaires."
@@ -1297,30 +1324,3 @@ shared:
       - name: Date
         value: dgfip_ficoba_date
         group: Information du compte
-
-  api_ficoba:
-    name: API Fichier des Comptes Bancaires et Assimilés (FICOBA)
-    description: "Accédez aux coordonnées bancaires d'un usager connues de l’administration fiscale (DGFIP) et transmises par les établissements bancaires."
-    provider: "dgfip"
-    kind: 'api'
-    link: "https://www.data.gouv.fr/fr/dataservices/api-fichier-des-comptes-bancaires-et-assimiles-ficoba/"
-    cgu_link: "/cgus/dgfip/cgu_api_ficoba_production.pdf"
-    # FEEDME
-    access_link: "https://api-ficoba.gouv.fr/tokens/%<external_provider_id>"
-    public: false
-    stage:
-      type: production
-      previouses:
-        - id: api_ficoba_sandbox
-          form_id: api-ficoba-sandbox
-    blocks:
-      - name: basic_infos
-      - name: personal_data
-      - name: legal
-      - name: modalities
-      - name: scopes
-      - name: contacts
-      - name: operational_acceptance
-      - name: safety_certification
-      - name: volumetrie
-    scopes: *api_ficoba_scopes
