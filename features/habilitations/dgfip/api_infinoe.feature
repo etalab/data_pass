@@ -5,8 +5,10 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Infinoé
     Sachant que je suis un demandeur
     Et que je me connecte
 
-  Scénario: Je soumets une demande d'habilitation valide à l'étape Bac à sable
-    * je démarre une nouvelle demande d'habilitation "API Infinoé" à l'étape "Bac à sable"
+  Scénario: Je soumets une demande d'habilitation de bac à sable valide
+    Quand je veux remplir une demande pour "API Infinoé" via le formulaire "Demande libre (Bac à sable)" à l'étape "Bac à sable"
+
+    * je clique sur "Débuter ma demande"
     * je renseigne les infos de bases du projet
     * je clique sur "Suivant"
 
@@ -29,8 +31,8 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Infinoé
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
 
-  Scénario: Je soumets une demande d'habilitation valide à l'étape Production
-    Quand j'ai 1 demande d'habilitation "API Infinoé" à l'étape "Bac à sable" validée
+  Scénario: Je soumets une demande d'habilitation de production valide
+    Quand j'ai 1 demande d'habilitation "API Infinoé" via le formulaire "Demande libre (Bac à sable)" à l'étape "Bac à sable" validée
     Et que je me rends sur mon tableau de bord
     Et je clique sur "Démarrer ma demande d’habilitation en production"
     Et que je clique sur "Débuter ma demande"
