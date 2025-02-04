@@ -1155,61 +1155,72 @@ FactoryBot.define do
       with_operational_acceptance
       with_volumetrie
     end
-  end
 
-  trait :api_infinoe_production_editeur do
-    api_infinoe_production
-    form_uid { 'api-infinoe-production-editeur' }
-  end
+    trait :api_infinoe_production_editeur do
+      api_infinoe_production
+      form_uid { 'api-infinoe-production-editeur' }
+    end
 
-  trait :api_infinoe_envoi_automatise_ecritures_sandbox do
-    api_infinoe_sandbox
-    form_uid { 'api-infinoe-envoi-automatise-ecritures-sandbox' }
-  end
+    trait :api_infinoe_envoi_automatise_ecritures_sandbox do
+      api_infinoe_sandbox
+      form_uid { 'api-infinoe-envoi-automatise-ecritures-sandbox' }
+    end
 
-  trait :api_infinoe_envoi_automatise_ecritures_production do
-    api_infinoe_production
-    form_uid { 'api-infinoe-envoi-automatise-ecritures-production' }
-  end
+    trait :api_infinoe_envoi_automatise_ecritures_production do
+      api_infinoe_production
+      form_uid { 'api-infinoe-envoi-automatise-ecritures-production' }
+    end
 
-  trait :api_infinoe_envoi_automatise_ecritures_production_editeur do
-    api_infinoe_production
-    form_uid { 'api-infinoe-envoi-automatise-ecritures-production-editeur' }
-  end
+    trait :api_infinoe_envoi_automatise_ecritures_production_editeur do
+      api_infinoe_production
+      form_uid { 'api-infinoe-envoi-automatise-ecritures-production-editeur' }
+    end
 
-  trait :api_ficoba_sandbox do
-    type { 'AuthorizationRequest::APIFicobaSandbox' }
+    trait :api_ficoba_sandbox do
+      type { 'AuthorizationRequest::APIFicobaSandbox' }
 
-    form_uid { 'api-ficoba-sandbox' }
+      form_uid { 'api-ficoba-sandbox' }
 
-    with_basic_infos
-    with_personal_data
-    with_cadre_juridique
-    with_modalities
-    with_scopes
-    with_dpd_homologation_checkbox
-  end
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+      with_modalities
+      with_scopes
+      with_dpd_homologation_checkbox
+    end
 
-  trait :api_ficoba_production do
-    type { 'AuthorizationRequest::APIFicoba' }
+    trait :api_ficoba_production do
+      type { 'AuthorizationRequest::APIFicoba' }
 
-    form_uid { 'api-ficoba-production' }
+      form_uid { 'api-ficoba-production' }
 
-    has_previous_authorization_validated
+      has_previous_authorization_validated
 
-    with_basic_infos
-    with_personal_data
-    with_cadre_juridique
-    with_modalities
-    with_scopes
-    with_safety_certification
-    with_operational_acceptance
-    with_volumetrie
-  end
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+      with_modalities
+      with_scopes
+      with_safety_certification
+      with_operational_acceptance
+      with_volumetrie
+    end
 
-  trait :api_ficoba_production_editeur do
-    api_ficoba_production
+    trait :api_ficoba_production_editeur do
+      api_ficoba_production
 
-    form_uid { 'api-ficoba-production-editeur' }
+      form_uid { 'api-ficoba-production-editeur' }
+    end
+
+    trait :api_scolarite do
+      type { 'AuthorizationRequest::APIScolarite' }
+
+      form_uid { 'api-scolarite' }
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+      with_scopes
+    end
   end
 end

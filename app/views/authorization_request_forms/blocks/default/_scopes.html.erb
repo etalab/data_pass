@@ -6,12 +6,14 @@
 
 <% @authorization_request.available_scopes.group_by(&:group).each do |group_name, scopes| %>
   <div class="fr-form-group scopes-group">
-    <p class="scopes-group__title fr-text--lg">
-      <%= group_name %>
-    </p>
+    <% if group_name.present? %>
+      <p class="scopes-group__title fr-text--lg">
+        <%= group_name %>
+      </p>
 
-    <% if f.wording_for("scopes.groups.#{group_name.to_sym}").present? %>
-      <%= render partial: "authorization_request_forms/shared/scopes_group_documentation_accordion", locals: { f:, group_name: } %>
+      <% if f.wording_for("scopes.groups.#{group_name.to_sym}").present? %>
+        <%= render partial: "authorization_request_forms/shared/scopes_group_documentation_accordion", locals: { f:, group_name: } %>
+      <% end %>
     <% end %>
 
     <div class="scopes-group__grid">
