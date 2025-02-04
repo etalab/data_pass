@@ -304,6 +304,9 @@ class Import::AuthorizationRequests < Import::Base
       'api_satelit_production' => 'api_satelit',
       'api_declaration_auto_entrepreneur' => 'api_declaration_auto_entrepreneur',
       'api_declaration_cesu' => 'api_declaration_cesu',
+      'api_sfip_sandbox' => 'api_sfip_sandbox',
+      'api_sfip_production' => 'api_sfip',
+      'api_sfip_unique' => 'api_sfip',
     }[enrollment['target_api']].try(:classify)
   end
 
