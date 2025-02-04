@@ -30,7 +30,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/lib/seeds.rb",
-      "line": 18,
+      "line": 19,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "ActiveRecord::Base.connection.execute(\"TRUNCATE TABLE #{table} CASCADE;\")",
       "render_path": null,
@@ -84,7 +84,7 @@
           "type": "controller",
           "class": "AuthorizationRequestFormsController",
           "method": "new",
-          "line": 16,
+          "line": 20,
           "file": "app/controllers/authorization_request_forms_controller.rb",
           "rendered": {
             "name": "authorization_request_forms/new",
@@ -141,7 +141,7 @@
           "type": "controller",
           "class": "AuthorizationRequestFormsController",
           "method": "new",
-          "line": 21,
+          "line": 25,
           "file": "app/controllers/authorization_request_forms_controller.rb",
           "rendered": {
             "name": "authorization_requests/unauthenticated_start",
@@ -182,8 +182,30 @@
         77
       ],
       "note": ""
+    },
+    {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "f7b89e7a16053d1ff4ee5f354ba065a2297647f963533cf8d684a31be5bc6697",
+      "check_name": "Execute",
+      "message": "Possible command injection",
+      "file": "app/migration/main_import.rb",
+      "line": 42,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "`psql -d #{ActiveRecord::Base.connection.current_database} -f #{file}`",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "MainImport",
+        "method": "import_extra_authorization_requests_sql_data"
+      },
+      "user_input": "ActiveRecord::Base.connection.current_database",
+      "confidence": "Medium",
+      "cwe_id": [
+        77
+      ],
+      "note": ""
     }
   ],
-  "updated": "2024-11-19 07:38:19 +0100",
-  "brakeman_version": "6.2.2"
+  "brakeman_version": "7.0.0"
 }

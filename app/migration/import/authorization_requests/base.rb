@@ -6,12 +6,13 @@ class Import::AuthorizationRequests::Base
   include LocalDatabaseUtils
 
   class AbstractRow  < StandardError
-    attr_reader :kind, :id, :target_api
+    attr_reader :kind, :id, :target_api, :authorization_request
 
-    def initialize(kind = nil, id:, target_api:)
+    def initialize(kind = nil, id:, target_api:, authorization_request:)
       @kind = kind
       @id = id
       @target_api = target_api
+      @authorization_request = authorization_request
     end
   end
 
@@ -29,7 +30,11 @@ class Import::AuthorizationRequests::Base
   end
 
   def perform
-    affect_data
+    begin
+      affect_data
+    ensure
+      database.close
+    end
 
     authorization_request
   end
@@ -57,6 +62,29 @@ class Import::AuthorizationRequests::Base
 
       authorization_request.public_send("#{to}=", data)
     end
+  end
+
+  def affect_potential_legal_document
+    return if authorization_request.cadre_juridique_url.present?
+
+    affect_potential_document('Document::LegalBasis', 'cadre_juridique_document')
+  end
+
+  def affect_potential_document(kind, field)
+    row = csv('documents').find { |row| row['attachable_id'] == enrollment_row['id'] && row['type'] == kind }
+
+    return false unless row
+
+    attach_file(field, row)
+    true
+  end
+
+  def affect_form_uid
+    form_uid = demarche_to_form_uid
+
+    return if form_uid.blank?
+
+    authorization_request.form_uid = form_uid
   end
 
   def find_team_member_by_type(type)
@@ -145,7 +173,7 @@ class Import::AuthorizationRequests::Base
         end
       end
 
-      byebug
+      # byebug
 
       if recent_validated_enrollment_exists?
         skip_row!('incomplete_contact_data_with_new_enrollments')
@@ -181,25 +209,43 @@ class Import::AuthorizationRequests::Base
   end
 
   def skip_row!(kind)
-    raise SkipRow.new(kind.to_s, id: enrollment_row['id'], target_api: enrollment_row['target_api'])
+    raise SkipRow.new(kind.to_s, id: enrollment_row['id'], target_api: enrollment_row['target_api'], authorization_request:)
   end
 
   def warn_row!(kind)
-    @warned << WarnRow.new(kind.to_s, id: enrollment_row['id'], target_api: enrollment_row['target_api'])
+    @warned << WarnRow.new(kind.to_s, id: enrollment_row['id'], target_api: enrollment_row['target_api'], authorization_request:)
   end
 
   def attach_file(kind, row_data)
-    filename, io = extract_attachable(row_data)
+    filename, io = extract_attachable(kind, row_data)
 
     authorization_request.public_send("#{kind}").attach(io:, filename:)
   end
 
-  def extract_attachable(row_data)
+  def additional_content
+    @additional_content ||= enrollment_row['additional_content'].is_a?(String) ? JSON.parse(enrollment_row['additional_content']) : enrollment_row['additional_content']
+  end
+
+  def affect_duree_conservation_donnees_caractere_personnel_justification
+    return if authorization_request.duree_conservation_donnees_caractere_personnel.blank?
+    return unless authorization_request.duree_conservation_donnees_caractere_personnel > 36 && authorization_request.duree_conservation_donnees_caractere_personnel_justification.blank?
+
+    authorization_request.duree_conservation_donnees_caractere_personnel_justification = 'Non renseigné'
+  end
+
+  def extract_attachable(kind, row_data)
     if ENV['LOCAL'] == 'true'
-      [
-        'dummy.pdf',
-        dummy_pdf_as_io,
-      ]
+      if kind == 'specific_requirements_document'
+        [
+          'dummy.xlsx',
+          dummy_file_as_io('xlsx'),
+        ]
+      else
+        [
+          'dummy.pdf',
+          dummy_file_as_io('pdf'),
+        ]
+      end
     else
       [
         row_data['attachment'],
@@ -208,8 +254,17 @@ class Import::AuthorizationRequests::Base
     end
   end
 
-  def dummy_pdf_as_io
-    Rails.root.join('spec', 'fixtures', 'dummy.pdf').open
+  def dummy_file_as_io(extension)
+    $dummy_files ||= {}
+    $dummy_files[extension] ||= Rails.root.join('spec', 'fixtures', "dummy.#{extension}").open
+    $dummy_files[extension].rewind
+    $dummy_files[extension]
+  end
+
+  def recent_validated_enrollment_exists?
+    bool = database.execute('select id from enrollments where copied_from_enrollment_id = ? and status = "validated" limit 1;', enrollment_row['id']).any?
+    database.close
+    bool
   end
 
   def extract_io(row_data)

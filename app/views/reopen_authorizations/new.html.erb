@@ -10,6 +10,12 @@
           <p>
             <%= t('.disclaimer').html_safe %>
           </p>
+
+          <% unless @authorization.request.valid? %>
+            <p class="fr-error">
+              <%= t('.invalid_request') %>
+            </p>
+          <% end %>
         </div>
 
         <div class="fr-modal__footer">

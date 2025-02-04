@@ -450,6 +450,9 @@ fr:
         <br />
         <br />
         Votre habilitation restera valide quelque soit l'issue de la demande de mise à jour.
+      invalid_request: |
+        Attention, vous réouvrez une demande qui possède des données invalides ou manquantes, vous pourrez avoir
+        des erreurs inattendues, si c'était le cas merci de contacter le support
       cancel: Annuler
       reopen: Mettre à jour l'habilitation
     create:

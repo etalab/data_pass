@@ -36,7 +36,7 @@ class Authorization < ApplicationRecord
     through: :approve_authorization_request_event,
     source: :user
 
-  scope :validated, -> { joins(:request).where(authorization_requests: { state: 'validated' }) }
+  scope :validated, -> { where(revoked: false) }
 
   delegate :name, :kind, to: :request
 

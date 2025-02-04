@@ -12,9 +12,12 @@ class MainImport
   end
 
   def perform
-    organizations = import(:organizations, { load_from_sql: ENV['DUMP'] == 'true' })
-    import(:users, { load_from_sql: ENV['DUMP'] == 'true' })
-    authorization_requests = import(:authorization_requests, { load_from_sql: ENV['DUMP'] == 'true' })
+    import(:organizations, { load_from_sql: true })
+    import(:users, { load_from_sql: true })
+
+    # import_extra_authorization_requests_sql_data
+
+    authorization_requests = import(:authorization_requests, { load_from_sql: false, dump_sql: true })
 
     if types_to_import.any?
       valid_authorization_request_ids = AuthorizationRequest.where(id: authorization_requests.pluck(:id), type: types_to_import).pluck(:id)
@@ -22,7 +25,7 @@ class MainImport
       valid_authorization_request_ids = authorization_requests.pluck(:id)
     end
 
-    import(:authorization_request_events, { dump_sql: ENV['DUMP'] == 'true', valid_authorization_request_ids: })
+    # import(:authorization_request_events, { dump_sql: ENV['DUMP'] == 'true', valid_authorization_request_ids: })
 
     %i[warned skipped].each do |kind|
       export(kind)
@@ -32,10 +35,16 @@ class MainImport
 
   private
 
+  def import_extra_authorization_requests_sql_data
+    Dir[Rails.root.join('app/migration/dumps/authorization_requests_sql_to_load/*.sql')].sort.each do |file|
+      log("# Importing file #{File.basename(file)}")
+
+      `psql -d #{ActiveRecord::Base.connection.current_database} -f #{file}`
+    end
+  end
+
   def types_to_import
     %w[
-      AuthorizationRequest::HubEEDila
-      AuthorizationRequest::HubEECertDC
     ]
   end
 
@@ -56,10 +65,10 @@ class MainImport
 
     data = public_send(kind)
     CSV.open(export_path(kind), 'w') do |csv|
-      csv << %w[id target_api kind]
+      csv << %w[id target_api kind url]
 
       data.each do |datum|
-        csv << [datum.id, datum.target_api, datum.kind]
+        csv << [datum.id, datum.target_api, datum.kind, "https://datapass.api.gouv.fr/#{datum.target_api.gsub('_', '-')}/#{datum.id}"]
       end
     end
   end
@@ -87,17 +96,31 @@ class MainImport
   def global_options
     {
       authorization_requests_filter: ->(enrollment_row) do
-        %w[
-          5
-          26
-          129
-          25590
-          54115
-        ].exclude?(enrollment_row['id'])
+        true
       end,
-      authorization_requests_sql_where: 'target_api in (\'hubee_portail\', \'hubee_portail_dila\') order by id desc',
+      # authorization_requests_sql_where: 'target_api in (\'franceconnect\', \'api_impot_particulier_fc_sandbox\', \'api_impot_particulier_fc_production\') order by case when target_api = \'franceconnect\' then 1 when target_api like \'%_sandbox\' then 2 else 3 end',
+      authorization_requests_sql_where: "target_api in (#{target_apis_to_import}) order by case when target_api = 'franceconnect' then 1 when target_api like '%_sandbox' then 2 else 3 end",
       skipped: @skipped,
       warned: @warned,
     }
+  end
+
+  def target_apis_to_import
+    %w[
+      api_rial
+      api_cpr_pro
+      api_e_contacts
+      api_e_pro
+      api_ensu_documents
+      api_hermes
+      api_imprimfip
+      api_mire
+      api_ocfi
+      api_opale
+      api_robf
+      api_satelit
+    ].map do |name|
+      ["'#{name}_sandbox'", "'#{name}_production'"]
+    end.flatten.join(', ')
   end
 end

@@ -16,10 +16,12 @@ class Import::AuthorizationRequests < Import::Base
     authorization_request.applicant = user
     authorization_request.organization_id = fetch_organization(user, enrollment_row).try(:id)
 
-    authorization_request.form_uid = fetch_form(authorization_request).id
+    authorization_request.form_uid ||= fetch_form(authorization_request).try(:id)
     authorization_request.state = enrollment_row['status']
     authorization_request.external_provider_id = enrollment_row['external_provider_id']
-    authorization_request.copied_from_request = AuthorizationRequest.find(enrollment_row['copied_from_enrollment_id']) if enrollment_row['copied_from_enrollment_id'] && AuthorizationRequest.exists?(enrollment_row['copied_from_enrollment_id'])
+    authorization_request.last_validated_at = enrollment_row['last_validated_at']
+    # FIXME to delete, will use raw data anyway
+    # authorization_request.copied_from_request = AuthorizationRequest.find(enrollment_row['copied_from_enrollment_id']) if enrollment_row['copied_from_enrollment_id'] && AuthorizationRequest.exists?(enrollment_row['copied_from_enrollment_id'])
 
     if authorization_request.state != 'draft'
       authorization_request.assign_attributes(
@@ -28,22 +30,34 @@ class Import::AuthorizationRequests < Import::Base
       )
     end
 
-    handle_authorization_request_type_specific_fields(authorization_request, enrollment_row)
+    authorization_request = handle_authorization_request_type_specific_fields(authorization_request, enrollment_row)
 
     begin
       authorization_request.save!
+      after_save_authorization_request(authorization_request, enrollment_row)
       @models << authorization_request
     rescue ActiveRecord::RecordInvalid => e
-      log("DataPass: https://datapass.api.gouv.fr/#{enrollment_row['target_api'].gsub('_', '-')}/#{enrollment_row['id']}")
+      log("DataPass: https://datapass.api.gouv.fr/#{enrollment_row['target_api'].gsub('_', '-')}/#{enrollment_row['id']} (status: #{enrollment_row['status']})")
       log("Errors: #{authorization_request.errors.full_messages.join("\n")}")
 
       byebug
     rescue ActiveStorage::IntegrityError => e
       byebug
+    ensure
+      ($dummy_files || {}).each do |key, value|
+        value.close
+      end
+      $dummy_files = nil
     end
   end
 
   private
+
+  def after_save_authorization_request(authorization_request, enrollment_row)
+    return unless @authorization_request_type_specific_field_builder.respond_to?(:after_save)
+
+    @authorization_request_type_specific_field_builder.after_save(authorization_request, enrollment_row)
+  end
 
   def sql_tables_to_save
     super.concat(
@@ -86,21 +100,37 @@ class Import::AuthorizationRequests < Import::Base
     end
 
     new_potential_siret = {
-      # PM => DINUM
-      '11000101300017' => '13002526500013',
-      # Agence de la recherche fermée
-      '13000250400020' => '13000250400038',
-      # DRJSCS => DREETS
-      '13001252900017' => '13002921800018',
-      # Recia
-      '18450311800020' => '12002503600035',
-      # Port de strasbourg
-      '77564141800014' => '77564141800089',
+      # # PM => DINUM
+      # '11000101300017' => '13002526500013',
+      # # Agence de la recherche fermée
+      # '13000250400020' => '13000250400038',
+      # # DRJSCS => DREETS
+      # '13001252900017' => '13002921800018',
+      # # Recia
+      # '18450311800020' => '12002503600035',
+      # # Port de strasbourg
+      # '77564141800014' => '77564141800089',
     }[enrollment_row['siret']]
 
-    return if new_potential_siret.blank?
+    if new_potential_siret.present?
+      user.organizations.find_by(siret: new_potential_siret)
+    else
+      organization = build_organization(enrollment_row['siret'])
 
-    user.organizations.find_by(siret: new_potential_siret)
+      begin
+        organization.save!
+      rescue ActiveRecord::RecordInvalid => e
+        if e.record.errors.include?(:siret)
+          raise Import::AuthorizationRequests::Base::SkipRow.new(:invalid_siret_for_unknown_user_and_organization, id: enrollment_row['id'], target_api: enrollment_row['target_api'], authorization_request: e.record)
+        else
+          raise
+        end
+      end
+
+      user.organizations << organization
+
+      organization
+    end
   end
 
   def authorization_ids_where_user_belongs_to_organization
@@ -138,16 +168,13 @@ class Import::AuthorizationRequests < Import::Base
       )
     )
 
-    organization = Organization.find_or_initialize_by(siret: enrollment_row['siret'])
-    organization.assign_attributes(
-      mon_compte_pro_payload: { siret: enrollment_row['siret'], manual_creation: true },
-      last_mon_compte_pro_updated_at: DateTime.now,
-    )
+    organization = build_organization(enrollment_row['siret'])
+
     begin
       organization.save!
     rescue ActiveRecord::RecordInvalid => e
       if e.record.errors.include?(:siret)
-        raise Import::AuthorizationRequests::Base::SkipRow.new(:invalid_siret_for_unknown_user_and_organization, id: enrollment_row['id'], target_api: enrollment_row['target_api'])
+        raise Import::AuthorizationRequests::Base::SkipRow.new(:invalid_siret_for_unknown_user_and_organization, id: enrollment_row['id'], target_api: enrollment_row['target_api'], authorization_request: e.record)
       else
         raise
       end
@@ -161,6 +188,19 @@ class Import::AuthorizationRequests < Import::Base
     user
   end
 
+  def build_organization(siret)
+    organization = Organization.find_or_initialize_by(siret: siret)
+
+    return organization if organization.persisted?
+
+    organization.assign_attributes(
+      mon_compte_pro_payload: { siret:, manual_creation: true },
+      last_mon_compte_pro_updated_at: DateTime.now,
+    )
+
+    organization
+  end
+
   def fetch_form(authorization_request)
     if authorization_request.definition.available_forms.one?
       authorization_request.definition.available_forms.first
@@ -172,7 +212,7 @@ class Import::AuthorizationRequests < Import::Base
   end
 
   def handle_authorization_request_type_specific_fields(authorization_request, enrollment_row)
-    Kernel.const_get(
+    @authorization_request_type_specific_field_builder = Kernel.const_get(
       "Import::AuthorizationRequests::#{authorization_request.type.split('::')[-1]}Attributes"
     ).new(
       authorization_request,
@@ -180,7 +220,8 @@ class Import::AuthorizationRequests < Import::Base
       fetch_team_members(enrollment_row['id']),
       options[:warned],
       @models,
-    ).perform
+    )
+    @authorization_request_type_specific_field_builder.perform
   end
 
   def import?(enrollment_row)
@@ -188,8 +229,14 @@ class Import::AuthorizationRequests < Import::Base
       (
         !old_unused?(enrollment_row) &&
           !ignore?(enrollment_row['id']) &&
+          !more_recent_validated_production?(enrollment_row) &&
           from_target_api_to_type(enrollment_row).present?
       )
+  end
+
+  def more_recent_validated_production?(enrollment_row)
+    enrollment_row['target_api'] =~ /_production$/ &&
+      database.execute("select id from enrollments where status = 'validated' and copied_from_enrollment_id = ?", enrollment_row['id']).any?
   end
 
   def whitelisted_enrollment?(enrollment_row)
@@ -198,6 +245,7 @@ class Import::AuthorizationRequests < Import::Base
 
   def old_unused?(enrollment_row)
     %w[refused revoked changes_requested draft archived].include?(enrollment_row['status']) &&
+      enrollment_row['last_validated_at'].blank? &&
       DateTime.parse(enrollment_row['created_at']) < DateTime.new(2022, 1, 1)
   end
 
@@ -225,6 +273,35 @@ class Import::AuthorizationRequests < Import::Base
       'hubee_portail_dila' => 'hubee_dila',
       'api_entreprise' => 'api_entreprise',
       'api_particulier' => 'api_particulier',
+      'api_impot_particulier_sandbox' => 'api_impot_particulier_sandbox',
+      'api_impot_particulier_fc_sandbox' => 'api_impot_particulier_sandbox',
+      'api_impot_particulier_production' => 'api_impot_particulier',
+      'api_impot_particulier_fc_production' => 'api_impot_particulier',
+      'franceconnect' => 'france_connect',
+      'api_rial_sandbox' => 'api_rial_sandbox',
+      'api_rial_production' => 'api_rial',
+      'api_cpr_pro_sandbox' => 'api_cpr_pro_adelie_sandbox',
+      'api_cpr_pro_production' => 'api_cpr_pro_adelie',
+      'api_e_contacts_sandbox' => 'api_e_contacts_sandbox',
+      'api_e_contacts_production' => 'api_e_contacts',
+      'api_e_pro_sandbox' => 'api_e_pro_sandbox',
+      'api_e_pro_production' => 'api_e_pro',
+      'api_ensu_documents_sandbox' => 'api_ensu_documents_sandbox',
+      'api_ensu_documents_production' => 'api_ensu_documents',
+      'api_hermes_sandbox' => 'api_hermes_sandbox',
+      'api_hermes_production' => 'api_hermes',
+      'api_imprimfip_sandbox' => 'api_imprimfip_sandbox',
+      'api_imprimfip_production' => 'api_imprimfip',
+      'api_mire_sandbox' => 'api_mire_sandbox',
+      'api_mire_production' => 'api_mire',
+      'api_ocfi_sandbox' => 'api_ocfi_sandbox',
+      'api_ocfi_production' => 'api_ocfi',
+      'api_opale_sandbox' => 'api_opale_sandbox',
+      'api_opale_production' => 'api_opale',
+      'api_robf_sandbox' => 'api_robf_sandbox',
+      'api_robf_production' => 'api_robf',
+      'api_satelit_sandbox' => 'api_satelit_sandbox',
+      'api_satelit_production' => 'api_satelit',
     }[enrollment['target_api']].try(:classify)
   end
 

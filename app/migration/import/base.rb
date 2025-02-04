@@ -77,7 +77,10 @@ class Import::Base
         extract(row)
         print '.'
       rescue Import::AuthorizationRequests::Base::SkipRow => e
+        print 's'
         options[:skipped] << e
+
+        e.authorization_request.save(validate: false) if ENV['SKIP_VALIDATION'] == 'true'
       rescue => e
         log(" ERROR: #{e.message}")
         log(e.backtrace.join("\n"))
