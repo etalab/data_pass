@@ -610,7 +610,10 @@ fr:
         label: Description du cadre juridique autorisant à traiter les données*
         hint: Le cadre général est déjà spécifié. Vous pouvez ajouter un cadre spécifique à votre situation.
 
-    api_infinoe_production:
+    api_infinoe_sandbox: &api_infinoe_sandbox
+
+    api_infinoe_production: &api_infinoe_production
+      <<: *api_infinoe_sandbox
       sandbox_authorization_request:
         title: L’habilitation de bac à sable
         description: "L’habilitation de bac à sable associée est '%{authorization_request_name}', disponible à l’adresse suivante: %{authorization_request_link}"
@@ -668,6 +671,8 @@ fr:
             <p>
             Conformément aux modalités d’utilisation, nous nous réservons le droit de réduire ou couper les appels autorisés au fournisseur de service.
             </p>
+
+    api_infinoe_production_editeur: *api_infinoe_production
 
     france_connect:
       france_connect_eidas:
@@ -791,10 +796,3 @@ fr:
 
     formulaire_qf:
       legal: *api_particulier_editor_common_wordings
-
-    api_infinoe_sandbox: &api_infinoe_sandbox
-      <<: *api_infinoe_sandbox
-    api_infinoe_production: &api_infinoe_production
-      <<: *api_infinoe_sandbox
-
-    api_infinoe_production_editeur: *api_infinoe_production
