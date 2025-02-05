@@ -1157,4 +1157,19 @@ FactoryBot.define do
     api_infinoe_production
     form_uid { 'api-infinoe-production-editeur' }
   end
+
+  trait :api_infinoe_envoi_automatise_ecritures_sandbox do
+    api_infinoe_sandbox
+    form_uid { 'api-infinoe-envoi-automatise-ecritures-sandbox' }
+  end
+
+  trait :api_infinoe_envoi_automatise_ecritures_production do
+    api_infinoe_production
+    form_uid { 'api-infinoe-envoi-automatise-ecritures-production' }
+  end
+
+  trait :api_infinoe_envoi_automatise_ecritures_production_editeur do
+    api_infinoe_production
+    form_uid { 'api-infinoe-envoi-automatise-ecritures-production-editeur' }
+  end
 end
