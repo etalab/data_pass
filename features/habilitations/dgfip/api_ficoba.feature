@@ -6,7 +6,9 @@ Fonctionnalité: Soumission d'une demande d'habilitation API FICOBA
     Et que je me connecte
 
   Scénario: Je soumets une demande d'habilitation valide à l'étape Bac à sable
-    * je démarre une nouvelle demande d'habilitation "API Fichier des Comptes Bancaires et Assimilés (FICOBA)" à l'étape "Bac à sable"
+    Quand je veux remplir une demande pour "API Fichier des Comptes Bancaires et Assimilés (FICOBA)" via le formulaire "Demande libre (Bac à sable)" à l'étape "Bac à sable"
+
+    * je clique sur "Débuter ma demande"
     * je renseigne les infos de bases du projet
     * je clique sur "Suivant"
 
