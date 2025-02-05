@@ -1,0 +1,88 @@
+<div class="sub-header">
+  <h1>
+    <%= t(
+          "authorization_requests.new.default.title",
+          authorization_name: @facade.authorization_definition_name,
+        ) %>
+  </h1>
+</div>
+
+<div data-controller="choose-authorization-request-form-with-or-without-editors"
+     data-choose-authorization-request-form-with-or-without-editors-hidden-class="fr-hidden">
+  <h2 class="fr-h4"><%= t(".with_or_without_editor.title") %></h2>
+
+  <div class="fr-col-lg-9">
+    <p><%= t(".with_or_without_editor.subtitle").html_safe %></p>
+    <fieldset class="fr-fieldset" aria-labelledby="radio-rich-legend radio-rich-messages">
+      <% t(".with_or_without_editor.options").each do |option| %>
+        <div class="fr-fieldset__element">
+          <div class="fr-radio-group fr-radio-rich">
+            <input
+              value="<%= option[:value] %>"
+              type="radio"
+              id="editor_<%= option[:value] %>"
+              name="editor"
+              data-action="click->choose-authorization-request-form-with-or-without-editors#toggleEditor">
+            <label class="fr-label" for="editor_<%= option[:value] %>">
+              <%= option[:label] %>
+            </label>
+          </div>
+        </div>
+      <% end %>
+    </fieldset>
+  </div>
+
+  <!--   Section avec éditeurs -->
+  <div
+    class="fr-hidden"
+    data-choose-authorization-request-form-with-or-without-editors-target="withEditorsSection"
+    data-choose-authorization-request-form-with-or-without-editors-hidden-class="fr-hidden">
+    <h2 class="fr-h4"><%= t(".choose_form_title") %></h2>
+    <div class="fr-background-alt--blue-france fr-py-4w">
+      <div class="fr-grid-row">
+        <div class="fr-col-md-10 fr-col-offset-1">
+          <p class="center fr-px-5w fr-py-1w">
+            <%= t("authorization_requests.new.step3.single_use_case_intro_html", name: @facade.authorization_definition_name) %>
+          </p>
+          <div class="fr-grid-row fr-grid-row--center">
+            <% @facade.public_available_editor_forms.each do |authorization_request_form| %>
+              <div
+                data-choose-authorization-request-form-with-or-without-editors-target="form"
+                data-choose-authorization-request-form-tags="<%= authorization_request_form.tags.to_json %>"
+                class="fr-col-md-4 fr-col-xl-4 fr-col-12 fr-p-2w">
+                <%= render partial: "authorization_request_forms/authorization_request_form_card", locals: { authorization_request_form: } %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section sans éditeurs -->
+  <div
+    class="fr-hidden"
+    data-choose-authorization-request-form-with-or-without-editors-target="withoutEditorsSection"
+    data-choose-authorization-request-form-with-or-without-editors-hidden-class="fr-hidden">
+    <h2 class="fr-h4"><%= t(".choose_form_title") %></h2>
+    <div class="fr-background-alt--blue-france fr-py-4w">
+      <div class="fr-grid-row">
+        <div class="fr-col-md-10 fr-col-offset-1">
+          <p class="center fr-px-5w fr-py-1w">
+            <%= t("authorization_requests.new.step3.single_use_case_intro_html", name: @facade.authorization_definition_name) %>
+          </p>
+          <div class="fr-grid-row fr-grid-row--center">
+            <% @facade.public_available_without_editor_forms.each do |authorization_request_form| %>
+              <div
+                data-choose-authorization-request-form-with-or-without-editors-target="form"
+                data-choose-authorization-request-form-tags="<%= authorization_request_form.tags.to_json %>"
+                class="fr-col-md-4 fr-col-xl-4 fr-col-12 fr-p-2w">
+                <%= render partial: "authorization_request_forms/authorization_request_form_card", locals: { authorization_request_form: } %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
