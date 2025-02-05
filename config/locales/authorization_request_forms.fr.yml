@@ -93,7 +93,7 @@ fr:
             <p>Connaître les données relatives à la volumétrie de votre téléservice nous permet de vous offrir la meilleure qualité de service possible. Ces informations sont transmises aux fournisseurs de vos données pour prévenir les pics de charges.</p>
             <p>Conformément aux modalités d’utilisation, nous nous réservons le droit de réduire ou couper les appels autorisés au fournisseur de service.</p>
       volumetrie_appels_par_minute:
-        label: Quelle limitation de débit souhaitez- vous pour votre téléservice ?
+        label: Quelle limitation de débit souhaitez-vous pour votre téléservice ?
       volumetrie_justification:
         label: Pour quels motifs souhaitez-vous un débit plus grand que le minimum ? <span class="fr-ml-1w fr-text-error">*</span>
       volumetrie_approximative:
@@ -610,13 +610,16 @@ fr:
         label: Description du cadre juridique autorisant à traiter les données*
         hint: Le cadre général est déjà spécifié. Vous pouvez ajouter un cadre spécifique à votre situation.
 
-    api_infinoe_production:
+    api_infinoe_sandbox: &api_infinoe_sandbox
+
+    api_infinoe_production: &api_infinoe_production
+      <<: *api_infinoe_sandbox
       sandbox_authorization_request:
-        title: L'habilitation de bac à sable
-        description: "L'habilitation de bac à sable associée est '%{authorization_request_name}', disponible à l'adresse suivante: %{authorization_request_link}"
+        title: L’habilitation de bac à sable
+        description: "L’habilitation de bac à sable associée est '%{authorization_request_name}', disponible à l’adresse suivante: %{authorization_request_link}"
       recette_fonctionnelle:
         title: La recette fonctionnelle
-        label: J'atteste avoir réalisé une recette fonctionnelle et qualifié mon téléservice.
+        label: J’atteste avoir réalisé une recette fonctionnelle et qualifié mon téléservice.
         info:
           title: Comment effectuer une recette fonctionnelle ?
           content: |
@@ -640,9 +643,9 @@ fr:
               A l’issue de vos travaux, veuillez attester de la qualification de votre téléservice.
             </p>
       volumetrie_appels_par_minute:
-        label: Quelle est la limitation de debit que vous souhaitez pour votre téléservice ?
+        label: Quelle limitation de débit souhaitez-vous pour votre téléservice ?
       homologation:
-        title: L'homologation de sécurité
+        title: L’homologation de sécurité
         info:
           title: Pourquoi effectuer une homologation de sécurité ?
           content: |
@@ -668,6 +671,13 @@ fr:
             <p>
             Conformément aux modalités d’utilisation, nous nous réservons le droit de réduire ou couper les appels autorisés au fournisseur de service.
             </p>
+
+    api_infinoe_production_editeur: *api_infinoe_production
+
+    api_infinoe_envoi_automatise_ecritures_sandbox: *api_infinoe_sandbox
+    api_infinoe_envoi_automatise_ecritures_production: *api_infinoe_production
+    api_infinoe_envoi_automatise_ecritures_production_editeur: *api_infinoe_production
+
     france_connect:
       france_connect_eidas:
         title: Quel niveau de garantie souhaitez-vous ?
@@ -786,7 +796,6 @@ fr:
     api_sfip_aides_sociales_facultatives_editeur: *api_sfip_production
     api_sfip_carte_transport_production: *api_sfip_production
     api_sfip_carte_transport_editeur: *api_sfip_production
-
 
     formulaire_qf:
       legal: *api_particulier_editor_common_wordings

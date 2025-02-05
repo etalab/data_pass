@@ -2,9 +2,15 @@ import { Controller } from '@hotwired/stimulus'
 
 export default class extends Controller {
   static targets = ['withEditorsSection', 'withoutEditorsSection']
+  static classes = ['hidden']
 
   toggleEditor (event) {
-    if (event.target.value === 'true') {
+    const shouldShowEditors = event.currentTarget.value === 'true'
+    this.toggleEditorState(shouldShowEditors)
+  }
+
+  toggleEditorState (shouldShowEditors) {
+    if (shouldShowEditors) {
       this.show(this.withEditorsSectionTarget)
       this.hide(this.withoutEditorsSectionTarget)
     } else {
@@ -14,10 +20,10 @@ export default class extends Controller {
   }
 
   show (element) {
-    element.classList.remove('fr-hidden')
+    element.classList.remove(this.hiddenClass)
   }
 
   hide (element) {
-    element.classList.add('fr-hidden')
+    element.classList.add(this.hiddenClass)
   }
 }

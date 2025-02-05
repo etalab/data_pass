@@ -58,7 +58,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
     * je renseigne l'homologation de sécurité
     * je clique sur "Suivant"
 
-    * je sélectionne "200 appels / minute" pour "Quelle limitation de débit souhaitez- vous pour votre téléservice ?"
+    * je sélectionne "200 appels / minute" pour "Quelle limitation de débit souhaitez-vous pour votre téléservice ?"
     * je clique sur "Suivant"
 
     Alors la page contient "Une erreur est survenue lors de la sauvegarde de la demande d'habilitation"
@@ -68,7 +68,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
     * je renseigne l'homologation de sécurité
     * je clique sur "Suivant"
 
-    * je sélectionne "200 appels / minute" pour "Quelle limitation de débit souhaitez- vous pour votre téléservice ?"
+    * je sélectionne "200 appels / minute" pour "Quelle limitation de débit souhaitez-vous pour votre téléservice ?"
     * je remplis "Pour quels motifs souhaitez-vous un débit plus grand que le minimum ?" avec "Une super justification"
     * je clique sur "Suivant"
 

@@ -235,6 +235,10 @@ fr:
         title: Quel est votre éditeur de logiciel ?
         no_editor: Aucun de ces éditeurs
       step3:
+        single_use_case_intro_html:
+          Il n’existe qu’un seul formulaire pour obtenir une habilitation à
+          %{name}, vous pouvez le remplir ci-dessous.
+          <br/>
         use_case_intro_html:
           Il existe plusieurs formulaires pour obtenir une habilitation à
           %{name}, vos réponses ont permis de réduire le choix aux formulaires
@@ -248,16 +252,19 @@ fr:
           title: Travaillez-vous avec un éditeur qui a déjà accès au bac à sable de cette API ?
           subtitle: Si vous travaillez avec un éditeur et que cet éditeur a déjà accès au bac à sable, vous serez redirigé directement vers une demande d'accès à l'environnement de production.
           options:
-            - label: Oui, j'ai un éditeur qui a déjà accès au bac à sable
+            - label: Oui, j’ai un éditeur qui a déjà accès au bac à sable
               value: true
-            - label: Non, nous n'avons pas d'éditeur avec accès au bac à sable
+            - label: Non, nous n’avons pas d’éditeur avec accès au bac à sable
               value: false
         choose_form_title:
-          sandbox: "Choisissez le formulaire d'accès en bac à sable qui correspond le mieux à votre cas d'usage :"
-          editor: "Choisissez le formulaire d'accès en production qui correspond le mieux à votre cas d'usage :"
+          sandbox: "Choisissez le formulaire d’accès en bac à sable qui correspond le mieux à votre cas d’usage :"
+          editor: "Choisissez le formulaire d’accès en production qui correspond le mieux à votre cas d’usage :"
       api_sfip:
         with_or_without_editor: *with_or_without_editor_block
-        choose_form_title: "Choisissez le formulaire d'accès correspond le mieux à votre cas d'usage :"
+        choose_form_title: "Choisissez le formulaire d’accès correspondant le mieux à votre cas d’usage :"
+      api_infinoe:
+        with_or_without_editor: *with_or_without_editor_block
+        choose_form_title: "Choisissez le formulaire d’accès correspondant le mieux à votre cas d’usage :"
 
     show:
       refused:

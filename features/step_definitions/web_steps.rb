@@ -212,6 +212,12 @@ Quand('je me rends sur mon tableau de bord') do
   visit dashboard_path
 end
 
+# rubocop:disable Lint/Debugger
+Quand('je montre la page') do
+  save_and_open_page
+end
+# rubocop:enable Lint/Debugger
+
 Alors("il n'y a pas de champ éditable") do
   all('input').each do |input|
     expect(input).to be_readonly if %w[hidden checkbox].exclude?(input[:type])

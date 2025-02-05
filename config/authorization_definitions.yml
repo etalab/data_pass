@@ -1258,6 +1258,49 @@ shared:
       - name: safety_certification
       - name: volumetrie
 
+  api_infinoe:
+    name: API INFINOE
+    description: "FEEDME"
+    provider: "dgfip"
+    kind: 'api'
+    link: "https://www.data.gouv.fr/fr/organizations/ministere-de-leconomie-des-finances-et-de-lindustrie/"
+    cgu_link: "/cgus/dgfip/cgu_infinoe_production_v_2023_10.pdf"
+    access_link: "https://api-infinoe.gouv.fr/tokens/%<external_provider_id>"
+    public: false
+    stage:
+      type: production
+      previouses:
+        - id: api_infinoe_sandbox
+          form_id: api-infinoe-sandbox
+    blocks:
+      - name: basic_infos
+      - name: personal_data
+      - name: legal
+      - name: contacts
+      - name: operational_acceptance
+      - name: safety_certification
+      - name: volumetrie
+
+  api_infinoe_sandbox:
+    name: API INFINOE
+    description: "FEEDME"
+    provider: "dgfip"
+    kind: 'api'
+    link: "https://www.data.gouv.fr/fr/organizations/ministere-de-leconomie-des-finances-et-de-lindustrie/"
+    cgu_link: "/cgus/dgfip/cgu_infinoe_bac_a_sable_v_2023_10.pdf"
+    access_link: "https://api-infinoe.gouv.fr/tokens/%<external_provider_id>"
+    public: false
+    stage:
+      type: sandbox
+      next:
+        id: api_infinoe
+        form_id: api-infinoe-production
+    blocks:
+      - name: basic_infos
+      - name: personal_data
+      - name: legal
+      - name: contacts
+
   api_ficoba:
     name: API Fichier des Comptes Bancaires et Assimilés (FICOBA)
     description: "Accédez aux coordonnées bancaires d'un usager connues de l’administration fiscale (DGFIP) et transmises par les établissements bancaires."
