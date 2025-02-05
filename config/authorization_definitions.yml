@@ -1326,7 +1326,23 @@ shared:
       - name: operational_acceptance
       - name: safety_certification
       - name: volumetrie
-    scopes: *api_ficoba_scopes
+    scopes: &api_ficoba_scopes
+      - name: État civil ou dénomination
+        value: dgfip_ficoba_etat_civil_denomination
+        group: Information du compte
+      - name: Adresse
+        value: dgfip_ficoba_adresse
+        group: Information du compte
+      - name: Désignation du compte
+        value: dgfip_ficoba_compte
+        included: true
+        group: Information du compte
+      - name: Établissement bancaire
+        value: dgfip_ficoba_etablissement_bancaire
+        group: Information du compte
+      - name: Date
+        value: dgfip_ficoba_date
+        group: Information du compte
 
   api_ficoba_sandbox:
     name: API Fichier des Comptes Bancaires et Assimilés (FICOBA)
@@ -1350,20 +1366,4 @@ shared:
       - name: modalities
       - name: scopes
       - name: contacts
-    scopes: &api_ficoba_scopes
-      - name: État civil ou dénomination
-        value: dgfip_ficoba_etat_civil_denomination
-        group: Information du compte
-      - name: Adresse
-        value: dgfip_ficoba_adresse
-        group: Information du compte
-      - name: Désignation du compte
-        value: dgfip_ficoba_compte
-        included: true
-        group: Information du compte
-      - name: Établissement bancaire
-        value: dgfip_ficoba_etablissement_bancaire
-        group: Information du compte
-      - name: Date
-        value: dgfip_ficoba_date
-        group: Information du compte
+    scopes: *api_ficoba_scopes
