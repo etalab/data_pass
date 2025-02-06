@@ -247,6 +247,13 @@ fr:
           <br/>
           En cas de doute, nous vous invitons à consulter le site d'<a href="%{base_url}" target="_blank">%{name}</a>, plus spécifiquement la page des
           <a href="%{use_cases_url}" target="_blank">cas d'usages</a>.
+        use_case_intro_without_use_case_url_html:
+          Il existe plusieurs formulaires pour obtenir une habilitation à
+          %{name}, vos réponses ont permis de réduire le choix aux formulaires
+          ci-dessous.
+          <br/>
+          <br/>
+          En cas de doute, nous vous invitons à consulter le site d'<a href="%{base_url}" target="_blank">%{name}</a>.
       api_impot_particulier:
         editor_with_sandbox: &with_or_without_editor_block
           title: Travaillez-vous avec un éditeur qui a déjà accès au bac à sable de cette API ?

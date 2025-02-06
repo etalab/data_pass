@@ -125,6 +125,7 @@ ignore_unused:
   - "{activerecord,activemodel}.errors.*"
   - "ransack.attributes.*"
   - "errors.messages.*"
+  - "authorization_requests.new.step3.*"
   - "authorization_request_forms.*"
   - "authorization_request_mailer.*.subject"
   - "support.*"
