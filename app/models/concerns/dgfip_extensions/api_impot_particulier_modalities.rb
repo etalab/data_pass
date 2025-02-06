@@ -22,10 +22,6 @@ module DGFIPExtensions::APIImpotParticulierModalities
     Authorization.find(france_connect_authorization_id)
   end
 
-  def with_france_connect?
-    modalities.include? 'with_france_connect'
-  end
-
   def remove_france_connect_authorization_if_not_with_france_connect
     self.france_connect_authorization_id = nil unless with_france_connect?
   end

@@ -32,7 +32,7 @@
     </fieldset>
   </div>
 
-  <!-- Section avec éditeurs -->
+  <!--   Section avec éditeurs -->
   <div
     class="fr-hidden"
     data-choose-authorization-request-form-with-or-without-editors-target="withEditorsSection"
@@ -42,12 +42,7 @@
       <div class="fr-grid-row">
         <div class="fr-col-md-10 fr-col-offset-1">
           <p class="center fr-px-5w fr-py-1w">
-            <%= t(
-                  "authorization_requests.new.step3.use_case_intro_html",
-                  name: @facade.authorization_definition_name,
-                  base_url: "https://www.data.gouv.fr/fr/dataservices/",
-                  use_cases_url: "https://www.data.gouv.fr/fr/dataservices/"
-                ) %>
+            <%= t("authorization_requests.new.step3.single_use_case_intro_html", name: @facade.authorization_definition_name) %>
           </p>
           <div class="fr-grid-row fr-grid-row--center">
             <% @facade.public_available_editor_forms.each do |authorization_request_form| %>
@@ -74,12 +69,7 @@
       <div class="fr-grid-row">
         <div class="fr-col-md-10 fr-col-offset-1">
           <p class="center fr-px-5w fr-py-1w">
-            <%= t(
-                  "authorization_requests.new.step3.use_case_intro_html",
-                  name: @facade.authorization_definition_name,
-                  base_url: "https://www.data.gouv.fr/fr/dataservices/",
-                  use_cases_url: "https://www.data.gouv.fr/fr/dataservices/"
-                ) %>
+            <%= t("authorization_requests.new.step3.single_use_case_intro_html", name: @facade.authorization_definition_name) %>
           </p>
           <div class="fr-grid-row fr-grid-row--center">
             <% @facade.public_available_without_editor_forms.each do |authorization_request_form| %>
