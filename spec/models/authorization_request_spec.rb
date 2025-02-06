@@ -353,6 +353,22 @@ RSpec.describe AuthorizationRequest do
     it { is_expected.to contain_exactly(valid_authorization_request_with_one_scope, valid_authorization_request_with_more_scopes) }
   end
 
+  describe '#latest_authorizations_of_each_stage' do
+    subject { authorization_request.latest_authorizations_of_each_stage }
+
+    let(:authorization_request) { create(:authorization_request, :api_impot_particulier_production, :validated) }
+    let(:sandbox_authorization) { authorization_request.authorizations.find_by(authorization_request_class: 'AuthorizationRequest::APIImpotParticulierSandbox') }
+    let(:production_authorization) { authorization_request.authorizations.find_by(authorization_request_class: 'AuthorizationRequest::APIImpotParticulier') }
+
+    it { is_expected.to eq([sandbox_authorization, production_authorization]) }
+
+    context 'when there is a newer sandbox authorization' do
+      let!(:new_sandbox_authorization) { create(:authorization, request: authorization_request, authorization_request_class: 'AuthorizationRequest::APIImpotParticulierSandbox', created_at: Date.tomorrow) }
+
+      it { is_expected.to eq([new_sandbox_authorization, production_authorization]) }
+    end
+  end
+
   describe '#latest_authorization_of_class' do
     subject { authorization_request.latest_authorization_of_class(request_class) }
 

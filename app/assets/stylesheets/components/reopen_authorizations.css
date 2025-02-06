@@ -1,0 +1,18 @@
+.reopen-stage-buttons-container {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+}
+
+.reopen-stage-buttons {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.reopen-stage-cancel {
+  display: flex;
+  align-items: flex-end;
+  height: 100%;
+}

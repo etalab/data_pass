@@ -114,3 +114,18 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Alors il y a un badge "Validée"
 
 
+  Scénario: Initialisation d'une réouverture bac à sable d'une demande validée en production
+    Quand j'ai 1 demande d'habilitation "API Impôt Particulier" validée
+    Et que je vais sur la page tableau de bord
+    Et que je clique sur "Mettre à jour"
+    Et que je clique sur "Mettre à jour l'habilitation bac à sable"
+    Alors je suis sur la page "Demande libre (Bac à sable) - API Impôt Particulier"
+    Et il y a un message de succès contenant "a bien été réouverte"
+
+  Scénario: Initialisation d'une réouverture production d'une demande validée en production
+    Quand j'ai 1 demande d'habilitation "API Impôt Particulier" validée
+    Et que je vais sur la page tableau de bord
+    Et que je clique sur "Mettre à jour"
+    Et que je clique sur "Mettre à jour l'habilitation de production"
+    Alors je suis sur la page "Demande libre (Production) - API Impôt Particulier"
+    Et il y a un message de succès contenant "a bien été réouverte"

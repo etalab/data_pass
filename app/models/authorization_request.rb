@@ -91,6 +91,12 @@ class AuthorizationRequest < ApplicationRecord
     authorizations.order(created_at: :desc).limit(1).first
   end
 
+  def latest_authorizations_of_each_stage
+    authorizations.group_by(&:authorization_request_class).map do |_, authorizations|
+      authorizations.max_by(&:created_at)
+    end
+  end
+
   def latest_authorization_of_class(authorization_request_class)
     authorizations.where(authorization_request_class: authorization_request_class).order(created_at: :desc).limit(1).first
   end

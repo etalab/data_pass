@@ -188,12 +188,15 @@ FactoryBot.define do
           previous_authorization_created_at = authorization_request.created_at + date_offset
         end
 
+        previous_stage = authorization_request.definition.stage.previous_stages[0]
+
         authorization_request.authorizations << Authorization.create!(
           request: authorization_request,
           applicant: authorization_request.applicant,
-          authorization_request_class: authorization_request.definition.stage.previous_stages[0][:definition].authorization_request_class,
+          authorization_request_class: previous_stage[:definition].authorization_request_class,
           data: authorization_request.data.presence || { 'what' => 'ever' },
-          created_at: previous_authorization_created_at
+          created_at: previous_authorization_created_at,
+          form_uid: previous_stage[:form].id
         )
       end
     end

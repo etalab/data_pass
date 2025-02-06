@@ -58,6 +58,10 @@ class Authorization < ApplicationRecord
   end
   # rubocop:enable Metrics/AbcSize
 
+  def reopenable?
+    latest?
+  end
+
   def latest?
     if definition.stage.exists?
       request.latest_authorization_of_class(authorization_request_class) == self
@@ -76,6 +80,10 @@ class Authorization < ApplicationRecord
 
   def definition
     authorization_request_class.constantize.definition
+  end
+
+  def reopenable_to_another_stage?
+    authorization_request.latest_authorizations_of_each_stage.count > 1
   end
 
   private
