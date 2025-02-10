@@ -13,7 +13,12 @@
             type="radio"
             id="editor_<%= option[:value] %>"
             name="editor"
-            data-action="click->choose-authorization-request-form-with-or-without-editors#toggleEditor"
+            data-controller="scroll-to"
+            data-action="
+              click->choose-authorization-request-form-with-or-without-editors#toggleEditor
+              click->scroll-to#go
+            "
+            data-scroll-to-target-value=<%= "form_section_#{option[:value] ? 'withEditorsSection' : 'withoutEditorsSection'}" %>
           >
           <label class="fr-label" for="editor_<%= option[:value] %>">
             <%= option[:label] %>
@@ -27,8 +32,11 @@
 <% [[:withEditorsSection, @facade.public_available_editor_forms], [:withoutEditorsSection, @facade.public_available_without_editor_forms]].each do |section, forms| %>
   <div
     class="fr-hidden"
+    id="form_section_<%= section %>"
     data-choose-authorization-request-form-with-or-without-editors-target="<%= section %>"
-    data-choose-authorization-request-form-with-or-without-editors-hidden-class="fr-hidden">
+    data-choose-authorization-request-form-with-or-without-editors-hidden-class="fr-hidden"
+    data-scroll-to-target-value="form_section_<%= section %>"
+  >
     <h2 class="fr-h4"><%= t("authorization_requests.new.#{form_name}.choose_form_title", form_name:) %></h2>
     <div class="fr-background-alt--blue-france fr-py-4w">
       <div class="fr-grid-row">
