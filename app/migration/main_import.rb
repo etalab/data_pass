@@ -65,10 +65,10 @@ class MainImport
 
     data = public_send(kind)
     CSV.open(export_path(kind), 'w') do |csv|
-      csv << %w[id target_api kind url]
+      csv << %w[id target_api kind status url]
 
       data.each do |datum|
-        csv << [datum.id, datum.target_api, datum.kind, "https://datapass.api.gouv.fr/#{datum.target_api.gsub('_', '-')}/#{datum.id}"]
+        csv << [datum.id, datum.target_api, datum.kind, datum.status, "https://datapass.api.gouv.fr/#{datum.target_api.gsub('_', '-')}/#{datum.id}"]
       end
     end
   end

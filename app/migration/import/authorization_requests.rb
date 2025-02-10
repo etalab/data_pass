@@ -174,7 +174,7 @@ class Import::AuthorizationRequests < Import::Base
       organization.save!
     rescue ActiveRecord::RecordInvalid => e
       if e.record.errors.include?(:siret)
-        raise Import::AuthorizationRequests::Base::SkipRow.new(:invalid_siret_for_unknown_user_and_organization, id: enrollment_row['id'], target_api: enrollment_row['target_api'], authorization_request: e.record)
+        raise Import::AuthorizationRequests::Base::SkipRow.new(:invalid_siret_for_unknown_user_and_organization, id: enrollment_row['id'], target_api: enrollment_row['target_api'], authorization_request: e.record, status: enrollment_row['status'])
       else
         raise
       end
