@@ -82,7 +82,7 @@ group :test do
   gem 'rack_session_access'
   gem 'rails-controller-testing'
   gem 'roo'
-  gem 'rspec-rails', '7.1.0'
+  gem 'rspec-rails', '7.1.1'
   gem 'simplecov', require: false
   gem 'webmock'
   gem 'openapi3_parser'
