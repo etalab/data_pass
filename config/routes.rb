@@ -20,6 +20,8 @@ Rails.application.routes.draw do
 
   get '/public/demandes/:id', to: 'public/authorization_requests#show', as: :public_authorization_request
 
+  get '/stats', to: 'stats#index'
+
   scope(path_names: { new: 'nouveau', edit: 'modifier' }) do
     resources :authorization_requests, only: %w[show], path: 'demandes' do
       resources :messages, only: %w[index create], path: 'messages'
