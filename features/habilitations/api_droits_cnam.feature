@@ -26,6 +26,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API de droits à l'Assu
     * je renseigne le cadre légal
     * je clique sur "Suivant"
 
+    * je sélectionne la première option pour "L'habilitation FranceConnect"
     * je clique sur "Suivant"
 
     * je renseigne les informations des contacts RGPD

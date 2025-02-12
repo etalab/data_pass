@@ -105,6 +105,16 @@ Quand('je sélectionne {string} pour {string}') do |option, name|
   end
 end
 
+Quand('je sélectionne la première option pour {string}') do |name|
+  unempty_option = find(:select, name).all('option').find { |option| option.value.present? }
+
+  if javascript?
+    select(unempty_option.text, from: name).trigger('click')
+  else
+    select(unempty_option.text, from: name)
+  end
+end
+
 Quand('je choisis {string}') do |option|
   if javascript?
     find('label', text: option, visible: :all).trigger('click')
