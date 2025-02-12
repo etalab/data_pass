@@ -1,0 +1,24 @@
+
+<% if @authorization_request.display_prefilled_banner_for_each_block? && @authorization_request.prefilled_data?(%i[modalities france_connect_authorization_id]) %>
+  <%= render partial: "authorization_request_forms/shared/prefilled_banner" %>
+<% end %>
+
+<%= f.info_for(:modalities) %>
+
+<div>
+  <div class="fr-col-lg-9">
+    <% @authorization_request.available_modalities.each do |modality| %>
+      <div class="fr-input-group">
+        <div class="fr-checkbox-group">
+          <%=
+            f.checkbox :modalities,
+              {multiple: true, checked: @authorization_request.modalities.include?(modality), class: 'fr-checkbox-group'},
+              modality,
+              nil 
+          %>
+          <%= f.label(:modalities, value: modality, class: 'fr-label') { |_b| raw(t("authorization_request_forms.#{@authorization_request.form_uid.underscore}.modalities.values.#{modality}.label")) } %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

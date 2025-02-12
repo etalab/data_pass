@@ -1367,3 +1367,48 @@ shared:
       - name: scopes
       - name: contacts
     scopes: *api_ficoba_scopes
+
+  api_r2p_sandbox:
+    name: API R2P
+    description: Récupérez les données connues par l’administration fiscale (DGFIP) sur une personne physique (état civil, adresse, identifiant fiscal)
+    provider: "dgfip"
+    kind: 'api'
+    link: "https://www.data.gouv.fr/fr/dataservices/api-recherche-des-personnes-physiques-r2p/"
+    cgu_link: "/cgus/dgfip/cgu_api_r2p_bac_a_sable_septembre2020_v2.6.pdf"
+    access_link: "https://api-r2p.gouv.fr/tokens/%<external_provider_id>" # TODO
+    public: false
+    stage:
+      type: sandbox
+      next:
+        id: api_r2p
+        form_id: api-r2p-production
+    blocks:
+      - name: basic_infos
+      - name: personal_data
+      - name: legal
+      - name: modalities
+      - name: contacts
+
+  api_r2p:
+    name: API R2P
+    description: Récupérez les données connues par l’administration fiscale (DGFIP) sur une personne physique (état civil, adresse, identifiant fiscal)
+    provider: "dgfip"
+    kind: 'api'
+    link: "https://www.data.gouv.fr/fr/dataservices/api-recherche-des-personnes-physiques-r2p/"
+    cgu_link: "/cgus/dgfip/cgu_api_r2p_production_septembre2020_v2.5.pdf"
+    access_link: "https://api-r2p.gouv.fr/tokens/%<external_provider_id>" # TODO
+    public: true
+    stage:
+      type: production
+      previouses:
+        - id: api_r2p_sandbox
+          form_id: api-r2p-sandbox
+    blocks:
+      - name: basic_infos
+      - name: personal_data
+      - name: legal
+      - name: modalities
+      - name: contacts
+      - name: operational_acceptance
+      - name: safety_certification
+      - name: volumetrie

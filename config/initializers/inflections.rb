@@ -30,6 +30,7 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.acronym 'CESU'
   inflect.acronym 'SFiP'
   inflect.acronym 'INFINOE'
+  inflect.acronym 'R2P'
 end
 
 class String

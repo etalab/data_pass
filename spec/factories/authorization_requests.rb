@@ -1212,4 +1212,67 @@ FactoryBot.define do
 
     form_uid { 'api-ficoba-production-editeur' }
   end
+
+  trait :api_r2p_sandbox do
+    type { 'AuthorizationRequest::APIR2PSandbox' }
+
+    form_uid { 'api-r2p-sandbox' }
+
+    with_basic_infos
+    with_personal_data
+    with_cadre_juridique
+    with_modalities
+    with_dpd_homologation_checkbox
+  end
+
+  trait :api_r2p_production do
+    type { 'AuthorizationRequest::APIR2P' }
+
+    form_uid { 'api-r2p-production' }
+
+    has_previous_authorization_validated
+
+    with_basic_infos
+    with_personal_data
+    with_cadre_juridique
+    with_modalities
+    with_safety_certification
+    with_operational_acceptance
+    with_volumetrie
+  end
+
+  trait :api_r2p_ordonnateur_sandbox do
+    api_r2p_sandbox
+    form_uid { 'api-r2p-ordonnateur-sandbox' }
+  end
+
+  trait :api_r2p_ordonnateur_production do
+    api_r2p_production
+    form_uid { 'api-r2p-ordonnateur-production' }
+  end
+
+  trait :api_r2p_appel_spi_sandbox do
+    api_r2p_sandbox
+    form_uid { 'api-r2p-appel-spi-sandbox' }
+  end
+
+  trait :api_r2p_appel_spi_production do
+    api_r2p_production
+    form_uid { 'api-r2p-appel-spi-production' }
+  end
+
+  trait :api_r2p_ordonnateur_production_editeur do
+    api_r2p_production
+    form_uid { 'api-r2p-ordonnateur-production-editeur' }
+  end
+
+  trait :api_r2p_appel_spi_production_editeur do
+    api_r2p_production
+    form_uid { 'api-r2p-appel-spi-production-editeur' }
+  end
+
+  trait :api_r2p_production_editeur do
+    api_r2p_production
+    form_uid { 'api-r2p-production-editeur' }
+  end
 end

@@ -121,7 +121,8 @@ Quand('je coche {string}') do |label|
   if javascript?
     find('label', text: label, visible: :all).trigger('click')
   else
-    check label
+    label = find('label', text: label, visible: :all)
+    find_by_id(label[:for]).set(true)
   end
 end
 

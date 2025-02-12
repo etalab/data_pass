@@ -1,0 +1,157 @@
+api-r2p-sandbox:
+  name: Demande libre (Bac à sable)
+  public: true
+  description: TODO
+  introduction: |
+    Notre équipe d’instruction étudiera votre demande en bac à sable, lorsqu’elle sera validée vous pourrez compléter la suite de votre demande.
+
+    <div class="intro-stepper">
+      <div class="step current">
+        <div class="step-number">1.</div>
+        <div class="step-content">
+          <h3>Le bac à sable</h3>
+          <p class="fr-text--xs">Dans un premier temps, une demande d’habilitation au <strong>bac à sable</strong> de l'API R2P</p>
+        </div>
+      </div>
+
+      <div class="step pending">
+        <div class="step-number">2.</div>
+        <div class="step-content">
+          <h3>La production</h3>
+          <p class="fr-text--xs">Dans un second temps, une demande d’habilitation à la <strong>production</strong> de l'API R2P</p>
+        </div>
+      </div>
+
+      <div class="step pending">
+        <div class="step-number">3.</div>
+        <div class="step-content">
+          <h3>Votre service est ouvert !</h3>
+          <p class="fr-text--xs">Une fois vos habilitations validées, vous pouvez ouvrir votre service !</p>
+        </div>
+      </div>
+    </div>
+  authorization_request: APIR2PSandbox
+  steps: &api_r2p_sandbox_steps
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: modalities
+    - name: contacts
+
+api-r2p-production:
+  name: Demande libre (Production)
+  public: false
+  description: TODO
+  introduction: |
+    Votre demande d'accès au bac à sable a été validée, vous pouvez à présent poursuivre votre demande en demandant les accès à la production.
+
+    <div class="intro-stepper">
+      <div class="step completed">
+        <div class="step-number">1.</div>
+        <div class="step-content">
+          <h3>Le bac à sable</h3>
+          <p class="fr-text--xs">Dans un premier temps, une demande d’habilitation au <strong>bac à sable</strong> de l'API Impôt particulier</p>
+        </div>
+      </div>
+
+      <div class="step current">
+        <div class="step-number">2.</div>
+        <div class="step-content">
+          <h3>La production</h3>
+          <p class="fr-text--xs">Dans un second temps, une demande d’habilitation à la <strong>production</strong> de l'API Impôt particulier</p>
+        </div>
+      </div>
+
+      <div class="step pending">
+        <div class="step-number">3.</div>
+        <div class="step-content">
+          <h3>Votre service est ouvert !</h3>
+          <p class="fr-text--xs">Une fois vos habilitations validées, vous pouvez ouvrir votre service !</p>
+        </div>
+      </div>
+    </div>
+  authorization_request: APIR2P
+  static_blocks: *api_r2p_sandbox_steps
+  steps: &api_r2p_steps
+    - name: operational_acceptance
+    - name: safety_certification
+    - name: volumetrie
+
+api-r2p-ordonnateur-sandbox:
+  name: Demande Ordonnateur (Bac à sable)
+  public: true
+  use_case: ordonnateur
+  description: Ordonnateur (fiabilisation des bases tiers des collectivités)
+  authorization_request: APIR2PSandbox
+  steps: *api_r2p_sandbox_steps
+  data:
+    intitule: Ordonnateur (fiabilisation des bases tiers des collectivités)
+    cadre_juridique_nature: Décret n° 2022-814 du 16 mai 2022 relatif aux conditions dans lesquelles les collectivités territoriales, les établissements publics qui leur sont rattachés et les établissements publics sociaux et médico-sociaux peuvent obtenir communication des éléments d’identification de leurs débiteurs en application de l’article L. 135 ZN du livre des procédures fiscales.
+    cadre_juridique_url: https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000045802934
+    modalities:
+      - with_acces_etat_civil
+      - with_acces_spi
+      - with_acces_etat_civil_et_adresse
+
+api-r2p-ordonnateur-production:
+  name: Demande Ordonnateur
+  public: false
+  use_case: ordonnateur
+  description: Ordonnateur (fiabilisation des bases tiers des collectivités)
+  authorization_request: APIR2P
+  steps: *api_r2p_steps
+  
+api-r2p-appel-spi-sandbox:
+  name: Restitution du numéro fiscal (SPI) pour appel de l’API Impôt particulier (Bac à sable)
+  public: true
+  use_case: appel_api_impot_particulier
+  description: Restitution du numéro fiscal (SPI) pour appel de l’API Impôt particulier
+  authorization_request: APIR2PSandbox
+  steps: *api_r2p_sandbox_steps
+  data:
+    intitule: Restitution du numéro fiscal (SPI) pour appel de l’API Impôt particulier
+    modalities:
+      - with_acces_etat_civil_restitution_spi
+
+api-r2p-appel-spi-production:
+  name: Restitution du numéro fiscal (SPI) pour appel de l’API Impôt particulier
+  public: false
+  use_case: ordonnateur
+  description: Restitution du numéro fiscal (SPI) pour appel de l’API Impôt particulier
+  authorization_request: APIR2P
+  steps: *api_r2p_steps
+
+api-r2p-production-editeur:
+  name: Demande libre avec éditeur
+  public: true
+  description: TODO
+  introduction: |
+    Votre éditeur a déjà obtenu l'accès à la sandbox, vous n'avez plus qu'à obtenir l'accès en production via ce formulaire.
+  authorization_request: APIR2P
+  steps: &api_r2p_editor_steps
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: modalities
+    - name: contacts
+    - name: operational_acceptance
+    - name: safety_certification
+    - name: volumetrie
+
+api-r2p-ordonnateur-production-editeur:
+  name: Ordonnateur avec éditeur
+  public: true
+  use_case: ordonnateur
+  description: Ordonnateur (fiabilisation des bases tiers des collectivités) avec éditeur
+  introduction: TODO
+  authorization_request: APIR2P
+  steps: *api_r2p_editor_steps
+
+api-r2p-appel-spi-production-editeur:
+  name: Restitution du numéro fiscal (SPI) pour appel de l’API Impôt particulier avec éditeur
+  public: true
+  use_case: appel_api_impot_particulier
+  description: Restitution du numéro fiscal (SPI) pour appel de l’API Impôt particulier avec éditeur
+  introduction: TODO
+  authorization_request: APIR2P
+  steps: *api_r2p_editor_steps
