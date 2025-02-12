@@ -6,10 +6,6 @@ Quand('je me rends sur le chemin {string}') do |string|
   visit string
 end
 
-Quand('print the page') do
-  log page.body
-end
-
 Alors('il y a un titre contenant {string}') do |text|
   elements = [
     page.all('h1').first,
@@ -187,14 +183,6 @@ end
 Alors('il y a une erreur {string} sur le champ {string}') do |error, field|
   node = find_field(field).find(:xpath, '..')
   expect(node).to have_css('.fr-error-text', text: error)
-end
-
-Alors('debug') do
-  if javascript?
-    page.driver.debug(binding)
-  else
-    byebug # rubocop:disable Lint/Debugger
-  end
 end
 
 Quand(/wait (\d+)/) do |seconds|
