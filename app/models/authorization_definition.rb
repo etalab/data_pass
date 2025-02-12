@@ -61,6 +61,10 @@ class AuthorizationDefinition < StaticApplicationRecord
     true
   end
 
+  def need_homologation?
+    %w[api_entreprise api_particulier].include?(id)
+  end
+
   def instructors
     User.instructor_for(id)
   end

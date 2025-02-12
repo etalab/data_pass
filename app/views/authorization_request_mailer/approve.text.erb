@@ -9,4 +9,13 @@
   )
 %>
 
+<% if @authorization_request.definition.need_homologation? %>
+  <%=
+    t(
+      '.need_homologation',
+      authorization_definition_name: @authorization_request.definition.name,
+    )
+  %>
+<% end %>
+
 <%= render partial: 'mailer/shared/applicant/footer', locals: { authorization_definition_name: @authorization_request.definition.name } %>
