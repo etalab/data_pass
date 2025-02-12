@@ -14,7 +14,7 @@ export default class extends Controller {
 
   valueOrDefaultFranceConnectAuthorizationId () {
     if (!this.franceConnectSelectorTarget.value) {
-      const defaultValue = Array.from(this.franceConnectSelectorTarget.options).filter(option => option.value)[0].value
+      const defaultValue = Array.from(this.franceConnectSelectorTarget.options).find(option => option.defaultSelected).value
       this.franceConnectSelectorTarget.value = defaultValue
     }
     return this.franceConnectSelectorTarget.value
