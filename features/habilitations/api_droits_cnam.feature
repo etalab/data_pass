@@ -10,7 +10,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation API de droits à l'Assu
     Alors la page contient "Vous ne possédez pas d'habilitation à FranceConnect"
     Et la page ne contient pas "Demande libre"
 
-  @javascript
   Plan du scénario: Je soumets une demande d'habilitation valide
     Sachant que mon organisation a 1 demande d'habilitation "France Connect" validée
     Et je veux remplir une demande pour "API de droits à l'Assurance Maladie"

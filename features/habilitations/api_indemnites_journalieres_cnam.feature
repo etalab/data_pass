@@ -10,7 +10,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Indemnités Journal
     Alors la page contient "Vous ne possédez pas d'habilitation à FranceConnect"
     Et la page ne contient pas "Demande libre"
 
-  @javascript
   Scénario: Je soumets une demande d'habilitation valide
     Sachant que mon organisation a 1 demande d'habilitation "France Connect" validée
     Et je veux remplir une demande pour "API Indemnités Journalières de la CNAM"
