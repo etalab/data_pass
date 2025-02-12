@@ -37,6 +37,7 @@ class Seeds
   # rubocop:disable Metrics/AbcSize
   def create_authorization_requests_for_clamart
     create_validated_authorization_request(:api_entreprise, attributes: { intitule: "Portail des appels d'offres", applicant: demandeur })
+    create_validated_authorization_request(:france_connect, attributes: { intitule: 'Connexion FranceConnect', applicant: demandeur })
 
     authorization_request = create_request_changes_authorization_request(:api_entreprise, attributes: { intitule: 'Portail des aides publiques', applicant: another_demandeur })
     send_message_to_instructors(authorization_request, body: 'Bonjour, je ne suis pas sûr du cadre légal de cette demande, pouvez-vous m\'aider ?')

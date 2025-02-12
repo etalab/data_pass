@@ -2,7 +2,7 @@
   <% if f.wording_for('modalities.intro') %>
     <%= f.wording_for('modalities.intro').html_safe %>
   <% end %>
-  
+
   <% modalities = @authorization_request.modalities.is_a?(Array) ? @authorization_request.modalities : [@authorization_request.modalities] %>
   <ul>
     <% modalities.each do |modality| %>
@@ -14,7 +14,7 @@
 
   <% if @authorization_request.try(:france_connect_authorization_id).present? && @authorization_request.with_france_connect? %>
     <p class="fr-pl-2w">
-      <%= @authorization_request.associated_france_connect_authorization.decorate.name_for_select %>
+      <%= @authorization_request.france_connect_authorization.decorate.name_for_select %>
     </p>
   <% end %>
 <% end %>

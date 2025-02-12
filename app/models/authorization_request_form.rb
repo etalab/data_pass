@@ -1,6 +1,5 @@
 class AuthorizationRequestForm < StaticApplicationRecord
   attr_accessor :uid,
-    :name,
     :service_provider,
     :default,
     :use_case,
@@ -9,7 +8,8 @@ class AuthorizationRequestForm < StaticApplicationRecord
     :steps,
     :static_blocks
 
-  attr_writer :description,
+  attr_writer :name,
+    :description,
     :startable_by_applicant,
     :data,
     :introduction,
@@ -48,6 +48,10 @@ class AuthorizationRequestForm < StaticApplicationRecord
 
   def id
     uid
+  end
+
+  def name
+    @name || authorization_definition.name
   end
 
   def name_with_definition

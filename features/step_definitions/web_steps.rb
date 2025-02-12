@@ -6,10 +6,6 @@ Quand('je me rends sur le chemin {string}') do |string|
   visit string
 end
 
-Quand('print the page') do
-  log page.body
-end
-
 Alors('il y a un titre contenant {string}') do |text|
   elements = [
     page.all('h1').first,
@@ -109,6 +105,16 @@ Quand('je sélectionne {string} pour {string}') do |option, name|
   end
 end
 
+Quand('je sélectionne la première option pour {string}') do |name|
+  unempty_option = find(:select, name).all('option').find { |option| option.value.present? }
+
+  if javascript?
+    select(unempty_option.text, from: name).trigger('click')
+  else
+    select(unempty_option.text, from: name)
+  end
+end
+
 Quand('je choisis {string}') do |option|
   if javascript?
     find('label', text: option, visible: :all).trigger('click')
@@ -187,14 +193,6 @@ end
 Alors('il y a une erreur {string} sur le champ {string}') do |error, field|
   node = find_field(field).find(:xpath, '..')
   expect(node).to have_css('.fr-error-text', text: error)
-end
-
-Alors('debug') do
-  if javascript?
-    page.driver.debug(binding)
-  else
-    byebug # rubocop:disable Lint/Debugger
-  end
 end
 
 Quand(/wait (\d+)/) do |seconds|
