@@ -38,5 +38,11 @@ RSpec.describe Organization do
 
       it { is_expected.to be_closed }
     end
+
+    context 'with organization without insee payload' do
+      let(:organization) { build(:organization, siret: '41040946000756') }
+
+      it { is_expected.not_to be_closed }
+    end
   end
 end

@@ -47,6 +47,8 @@ class Organization < ApplicationRecord
   end
 
   def closed?
+    return false if insee_payload.blank?
+
     insee_latest_etablissement_period['etatAdministratifEtablissement'] == 'F'
   end
 
