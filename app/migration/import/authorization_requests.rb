@@ -307,6 +307,8 @@ class Import::AuthorizationRequests < Import::Base
       'api_sfip_sandbox' => 'api_sfip_sandbox',
       'api_sfip_production' => 'api_sfip',
       'api_sfip_unique' => 'api_sfip',
+      'api_droits_cnam' => 'api_droits_cnam',
+      'api_indemnites_journalieres_cnam' => 'api_indemnites_journalieres_cnam',
     }[enrollment['target_api']].try(:classify)
   end
 
