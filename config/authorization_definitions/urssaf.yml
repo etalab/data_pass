@@ -1,0 +1,85 @@
+api_declaration_auto_entrepreneur:
+  name: API Tierce Déclaration auto-entrepreneur
+  description: "Connectez-vous directement à l’Urssaf pour déclarer les chiffres d’affaires pour le compte d’un auto-entrepreneur en tant que tiers-déclarant"
+  provider: "urssaf"
+  kind: 'api'
+  link: "https://api.gouv.fr/les-api/api-declaration-auto-entrepreneur"
+  cgu_link: "https://portailapi.urssaf.fr/images/Documentation/CGU_TDAE_V1.pdf"
+  access_link: "https://api-declaration-auto-entrepreneur.gouv.fr/tokens/%<external_provider_id>"
+  public: true
+  blocks:
+    - name: "basic_infos"
+    - name: "personal_data"
+    - name: "legal"
+    - name: "scopes"
+    - name: "contacts"
+    - name: 'supporting_documents'
+  scopes:
+  - value: api040
+    name: Estimation des cotisations sociales
+    included: true
+  - value: api075
+    name: Récupération de la liste des mandats SEPA rattachés à un compte à partir de son siret ou nir
+    included: true
+  - value: api030
+    name: Notification de mandat de tierce déclaration
+    included: true
+  - value: api031
+    name: Annulation de mandat de tierce déclaration
+    included: true
+  - value: api071
+    name: Révocation d’un mandat SEPA d’un compte
+    included: true
+  - value: api020
+    name: Récupération de compte URSSAF AE
+    included: true
+  - value: api050
+    name: Télédéclaration de chiffres d’affaires
+    included: true
+  - value: api060
+    name: Télépaiement SEPA
+    included: true
+  - value: api070
+    name: Enregistrement d’un mandat SEPA pour un compte identifié par son siret ou nir
+    included: true
+
+api_declaration_cesu:
+  name: API Tierce Déclaration CESU
+  description: "Connectez-vous directement à l’Urssaf pour accéder aux services du Cesu pour le compte d’un particulier employeur en tant que tiers-déclarant"
+  provider: "urssaf"
+  kind: 'api'
+  link: "https://api.gouv.fr/les-api/api-declaration-cesu"
+  cgu_link: "/cgus/cgu_api_declaration_cesu_v1.pdf"
+  access_link: "https://api-declaration-cesu.gouv.fr/tokens/%<external_provider_id>"
+  public: true
+  blocks:
+    - name: "basic_infos"
+    - name: "personal_data"
+    - name: "legal"
+    - name: "scopes"
+    - name: "contacts"
+    - name: 'supporting_documents'
+  scopes:
+  - value: api_cesu050
+    name: Télédéclaration du salaire
+    included: true
+  - value: api_cesu040
+    name: Obtention du montant estimé des cotisations sociales
+    included: true
+  - value: api_cesu030
+    name: Enregistrement de mandat
+    included: true
+  - value: api_cesu031
+    name: Annulation de mandat
+    included: true
+  - value: api_cesu020
+    name: Vérification compte CESU PE
+    included: true
+  - value: api_cesu021
+    name: Vérification compte CESU SP
+    included: true
+  - value: api_cesu010
+    name: Inscription PE au régime CESU
+    included: true
+
+

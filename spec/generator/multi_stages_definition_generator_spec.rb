@@ -5,7 +5,6 @@ RSpec.describe MultiStagesDefinitionGenerator, type: :generator do
   arguments ['FranceGenerateur', 'Generateur de France', '--provider=dgfip']
 
   before do
-    import_for_generator('config/authorization_definitions.yml')
     import_for_generator('spec/factories/authorization_requests.rb')
 
     run_generator
@@ -24,10 +23,10 @@ RSpec.describe MultiStagesDefinitionGenerator, type: :generator do
   end
 
   describe 'definition YAML file' do
-    subject(:file) { generator_file('config/authorization_definitions.yml') }
+    subject(:file) { generator_file('config/authorization_definitions/france_generateur.yml') }
 
-    it { expect(file.read).to include(/^  france_generateur_sandbox:/) }
-    it { expect(file.read).to include(/^  france_generateur:/) }
+    it { expect(file.read).to include(/^france_generateur_sandbox:/) }
+    it { expect(file.read).to include(/^france_generateur:/) }
 
     it 'is a valid YAML' do
       expect { YAML.load_file(subject, aliases: true) }.not_to raise_error
