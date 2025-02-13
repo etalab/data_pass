@@ -122,7 +122,13 @@ class User < ApplicationRecord
   end
 
   def admin?
-    roles.include?('admin')
+    roles.include?('admin') ||
+      bug_bounty_users_within_staging_env?
+  end
+
+  def bug_bounty_users_within_staging_env?
+    Rails.env.staging? &&
+      /-ywhadmin@yopmail.com$/.match?(email)
   end
 
   def authorization_definition_roles_as(kind)
