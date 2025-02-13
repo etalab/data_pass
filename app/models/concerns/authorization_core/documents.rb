@@ -15,6 +15,15 @@ module AuthorizationCore::Documents
           documents << name
         end
       end
+
+      def self.add_multiple_documents(name, validation_options = {})
+        class_eval do
+          has_many_attached name
+          validates name, validation_options unless ENV['SKIP_DOCUMENT_VALIDATION']
+
+          documents << name
+        end
+      end
     end
   end
 end
