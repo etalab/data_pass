@@ -14,12 +14,4 @@ class AbstractINSEEAPIClient
       yield(conn) if block
     end
   end
-
-  def consumer_key
-    Rails.application.credentials.insee_consumer_key
-  end
-
-  def consumer_secret
-    Rails.application.credentials.insee_consumer_secret
-  end
 end
