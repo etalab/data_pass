@@ -14,13 +14,15 @@ class CreateAuthorization < ApplicationInteractor
 
   def snapshot_documents!
     authorization_request.class.documents.each do |document_identifier|
-      storage_file_model = authorization_request.public_send(document_identifier)
-      next if storage_file_model.blank?
+      storage_file_models = authorization_request.public_send(document_identifier)
+      next if storage_file_models.blank?
 
-      document = context.authorization.documents.create!(
-        identifier: document_identifier,
-      )
-      document.file.attach(storage_file_model.blob)
+      storage_file_models.each do |storage_file_model|
+        document = context.authorization.documents.create!(
+          identifier: document_identifier,
+        )
+        document.file.attach(storage_file_model.blob)
+      end
     end
   end
 

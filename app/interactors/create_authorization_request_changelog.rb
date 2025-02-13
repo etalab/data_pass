@@ -70,10 +70,23 @@ class CreateAuthorizationRequestChangelog < ApplicationInteractor
   end
 
   def authorization_request_value_for_diff(key)
-    if authorization_request.class.documents.include?(key.to_sym)
-      authorization_request.public_send(key).filename
+    if document_key?(key)
+      document_value_for_diff(key)
     else
       authorization_request.public_send(key)
+    end
+  end
+
+  def document_key?(key)
+    authorization_request.class.documents.include?(key.to_sym)
+  end
+
+  def document_value_for_diff(key)
+    attachment = authorization_request.public_send(key)
+    if attachment.is_a?(ActiveStorage::Attached::Many)
+      attachment.map(&:filename).join(', ')
+    else
+      attachment.filename
     end
   end
 
