@@ -29,11 +29,11 @@ class CreateAuthorizationFromSnapshot
     authorization.save!
 
     authorization_request.class.documents.each do |document_identifier|
-      storage_file_model = authorization_request.public_send(document_identifier)
+      storage_file_model = authorization_request.public_send(document_identifier.name.to_sym)
       next if storage_file_model.blank?
 
       document = authorization.documents.create!(
-        identifier: document_identifier,
+        identifier: document_identifier.name.to_sym,
       )
       document.file.attach(storage_file_model.blob)
     end

@@ -156,5 +156,30 @@ RSpec.describe CreateAuthorizationRequest, type: :organizer do
         end
       end
     end
+
+    describe 'documents assignation' do
+      let(:authorization_request_form) { AuthorizationRequestForm.find('api-entreprise') }
+
+      let(:authorization_request_params) do
+        ActionController::Parameters.new(
+          maquette_projet: Rack::Test::UploadedFile.new('spec/fixtures/dummy.pdf', 'application/pdf'),
+          cadre_juridique_document: [
+            Rack::Test::UploadedFile.new('spec/fixtures/dummy.pdf', 'application/pdf'),
+            Rack::Test::UploadedFile.new('spec/fixtures/dummy.pdf', 'application/pdf'),
+          ]
+        )
+      end
+
+      it { is_expected.to be_a_success }
+
+      it 'works' do
+        create_authorization_request
+
+        last_authorization_request = AuthorizationRequest.last
+
+        expect(last_authorization_request.maquette_projet).to be_attached
+        expect(last_authorization_request.cadre_juridique_document.blobs.count).to eq(2)
+      end
+    end
   end
 end
