@@ -9,6 +9,8 @@ class AuthorizationRequestsController < AuthenticatedUserController
 
   def new
     if user_signed_in?
+      authorize :authorization_request, :new?
+
       custom_template_path = "authorization_requests/new/#{@authorization_definition.id}"
 
       if template_exists?(custom_template_path)
@@ -21,6 +23,8 @@ class AuthorizationRequestsController < AuthenticatedUserController
     else
       new_as_guest_user
     end
+  rescue Pundit::NotAuthorizedError
+    render 'closed_organization'
   end
 
   def show

@@ -18,6 +18,19 @@ Sachantque('je suis un demandeur') do
   mock_mon_compte_pro(user)
 end
 
+Sachantque('je suis un demandeur d\'une organisation fermée') do
+  @current_user_email = 'demandeur@gouv.fr'
+  user = User.find_by(email: @current_user_email) || FactoryBot.create(:user, email: @current_user_email)
+
+  closed_organization = Organization.find_by(siret: '21920023500022') || FactoryBot.create(:organization, siret: '21920023500022')
+
+  closed_organization.users << user
+  user.current_organization = closed_organization
+  user.save!
+
+  mock_mon_compte_pro(user)
+end
+
 Sachantque("je suis un demandeur pour l'organisation {string}") do |organization_name|
   @current_user_email = 'demandeur@gouv.fr'
   organization = find_or_create_organization_by_name(organization_name)

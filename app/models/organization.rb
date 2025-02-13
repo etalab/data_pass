@@ -46,6 +46,12 @@ class Organization < ApplicationRecord
     self[:insee_payload] || {}
   end
 
+  def closed?
+    return false if insee_payload.blank?
+
+    insee_latest_etablissement_period['etatAdministratifEtablissement'] == 'F'
+  end
+
   def categorie_juridique
     return if insee_payload.blank?
 
@@ -76,5 +82,15 @@ class Organization < ApplicationRecord
 
   def valid_authorizations_of(klass)
     authorizations.validated.where(authorization_request_class: klass.to_s)
+  end
+
+  private
+
+  def insee_latest_etablissement_period
+    return unless insee_payload['etablissement']
+
+    insee_payload['etablissement']['periodesEtablissement'].find do |period|
+      period['dateFin'].nil?
+    end
   end
 end
