@@ -290,6 +290,16 @@ fr:
           with_editor: Oui, j'ai un éditeur qui a déjà accès au bac à sable
           without_editor: Non, nous n'avons pas d'éditeur avec accès au bac à sable
 
+    closed_organization:
+      title: Désolé, vous ne pouvez pas faire de nouvelle demande
+      subtitle: Pourquoi ?
+      reason: |
+        Vous êtes connecté pour le compte de <strong>%{organization_raison_sociale}</strong> (SIRET : %{organization_siret}) et cette organisation est fermée, vous ne pouvez donc pas soumettre de nouvelle demande d’habilitation.
+      change_organization: Changer d’organisation
+      error:
+        description: Vous pensez que c’est une erreur ?
+        cta: Contactez le support
+
     show:
       refused:
         title: Votre demande d'habilitation a été refusée

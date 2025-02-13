@@ -1,0 +1,37 @@
+<main role="main" class="fr-container fr-my-8w">
+  <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle fr-grid-row--center">
+    <div class="fr-col-12 fr-col-md-6">
+      <h1 class="fr-h1">
+        <%= t('.title') %>
+      </h1>
+      <h2 class="fr-h6 fr-mt-3v">
+        <%= t('.subtitle') %>
+      </h2>
+      <p class="fr-text--lg">
+        <%= t('.reason', organization_raison_sociale: current_organization.raison_sociale, organization_siret: current_organization.siret).html_safe %>
+      </p>
+
+      <%= form_with(url: "/auth/mon_compte_pro?prompt=select_organization", method: :post, data: { turbo: false }, class: 'fr-pt-1w') do |f| %>
+        <%= f.button t('.change_organization'), class: %w(fr-btn) %>
+      <% end %>
+
+      <div class="fr-mt-12v">
+        <%= t('.error.description') %>
+
+        <div class="fr-mt-2v">
+          <a class="fr-btn fr-btn--icon-left fr-icon-mail-line fr-btn--secondary" href="mailto:<%= t("mailer.shared.support.email") %>">
+            <%= t('.error.cta') %>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="fr-col-12 fr-col-md-6 fr-mt-5v fr-mt-md-0">
+      <div class="fr-grid-row fr-grid-row--center">
+        <div class="fr-col-6 fr-col--offset-3 fr-col-md-8 fr-col-md--offset-2 fr-text--center">
+          <%= image_tag 'denied.svg' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

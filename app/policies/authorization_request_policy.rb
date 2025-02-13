@@ -1,6 +1,10 @@
 class AuthorizationRequestPolicy < ApplicationPolicy
   include CommonAuthorizationModelsPolicies
 
+  def new?
+    !current_organization.closed?
+  end
+
   def show?
     same_user_and_organization? &&
       record.draft?
