@@ -1,0 +1,907 @@
+api_impot_particulier:
+  name: "API Impôt Particulier"
+  description: "Raccordez-vous directement à la DGFiP pour récupérer les éléments fiscaux nécessaires à vos téléservices, éliminez le traitement et le stockage des pièces justificatives"
+  public: true
+  kind: 'api'
+  link: "https://api.gouv.fr/les-api/impot-particulier"
+  cgu_link: "/cgu_api_impot_particulier_prod"
+  provider: "dgfip"
+  stage:
+    type: production
+    previouses:
+      - id: api_impot_particulier_sandbox
+        form_id: api-impot-particulier-sandbox
+  blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: modalities
+    - name: scopes
+    - name: contacts
+    - name: operational_acceptance
+    - name: safety_certification
+    - name: volumetrie
+  scopes: &api_impot_particulier_scopes
+    - name: Dernière année de revenu
+      value: dgfip_annee_n_moins_1
+      group: Années sur lesquelles porte votre demande
+    - name: Avant-dernière année de revenu
+      value: dgfip_annee_n_moins_2
+      group: Années sur lesquelles porte votre demande
+    - name: Avant-avant-dernière année de revenu
+      value: dgfip_annee_n_moins_3
+      group: Années sur lesquelles porte votre demande
+    - name: Avant-dernière année de revenu, si la dernière année de revenu est indisponible
+      value: dgfip_annee_n_moins_2_si_indispo_n_moins_1
+      group: Années sur lesquelles porte votre demande
+    - name: Nom
+      value: dgfip_nmUsaDec1
+      group: État civil - déclarant 1
+    - name: Nom de naissance
+      value: dgfip_nmNaiDec1
+      group: État civil - déclarant 1
+    - name: Prénom(s)
+      value: dgfip_prnmDec1
+      group: État civil - déclarant 1
+    - name: Date de naissance
+      value: dgfip_dateNaisDec1
+      group: État civil - déclarant 1
+    - name: Nom
+      value: dgfip_nmUsaDec2
+      group: État civil - déclarant 2
+    - name: Nom de naissance
+      value: dgfip_nmNaiDec2
+      group: État civil - déclarant 2
+    - name: Prénom(s)
+      value: dgfip_prnmDec2
+      group: État civil - déclarant 2
+    - name: Date de naissance
+      value: dgfip_dateNaisDec2
+      group: État civil - déclarant 2
+    - name: Adresse déclarée au 1er Janvier
+      value: dgfip_aft
+      group: Adresse
+    - name: Situation de famille (marié, pacsé, célibataire, veuf divorcé)
+      value: dgfip_sitfam
+      group: Situation du foyer fiscal
+    - name: Nombre de parts
+      value: dgfip_nbpart
+      group: Situation du foyer fiscal
+    - name: Nombre de personnes à charge
+      value: dgfip_pac_nbPac
+      group: Situation du foyer fiscal
+    - name: Détail des personnes à charge et rattachées
+      value: dgfip_pac
+      group: Situation du foyer fiscal
+    - name: Parent isolé (case T)
+      value: dgfip_pariso
+      group: Situation du foyer fiscal
+    - name: Données fiscales au 31/12 en cas de décès d'un contribuable marié ou pacsé
+      value: dgfip_annee_df_au_3112_si_deces_ctb_mp
+      group: Situation du foyer fiscal
+    - name: Revenu fiscal de référence
+      value: dgfip_rfr
+      group: Agrégats fiscaux
+    - name: Montant de l’impôt sur les revenus soumis au barème (ligne 14)
+      value: dgfip_mntRevbareme
+      group: Agrégats fiscaux
+    - name: Indicateur de l’existence d’un déficit
+      value: dgfip_inddeficit
+      group: Agrégats fiscaux
+    - name: Indicateur ISF/IFI
+      value: dgfip_indiIFI
+      group: Agrégats fiscaux
+    - name: Catégorie 1 - Salaires, pensions, rentes
+      value: dgfip_RevDecl_Cat1_Tspr
+      group: Revenus catégoriels - revenus déclarés (avant application des abattements, etc...)
+    - name: Catégorie 1 - Rentes viagères à titre onéreux
+      value: dgfip_RevDecl_Cat1_RentOn
+      group: Revenus catégoriels - revenus déclarés (avant application des abattements, etc...)
+    - name: Catégorie 2 - Revenus de capitaux mobiliers
+      value: dgfip_RevDecl_Cat2_Rcm
+      group: Revenus catégoriels - revenus déclarés (avant application des abattements, etc...)
+    - name: Catégorie 3 - Plus ou moins values
+      value: dgfip_RevDecl_Cat3_PMV
+      group: Revenus catégoriels - revenus déclarés (avant application des abattements, etc...)
+    - name: Catégorie 4 - Revenus fonciers
+      value: dgfip_RevDecl_Cat4_Ref
+      group: Revenus catégoriels - revenus déclarés (avant application des abattements, etc...)
+    - name: Catégorie 5 - Revenus des professions non salariées
+      value: dgfip_RevDecl_Cat5_NonSal
+      group: Revenus catégoriels - revenus déclarés (avant application des abattements, etc...)
+    - name: Catégorie 1 - Salaires, pensions, rentes
+      value: dgfip_RevNets_Cat1_Tspr
+      group: Revenus catégoriels - revenus nets (après application des abattements, etc...)
+    - name: Catégorie 1 - Rentes viagères à titre onéreux
+      value: dgfip_RevNets_Cat1_RentOn
+      group: Revenus catégoriels - revenus nets (après application des abattements, etc...)
+    - name: Catégorie 2 - Revenus de capitaux mobiliers
+      value: dgfip_RevNets_Cat2_Rcm
+      group: Revenus catégoriels - revenus nets (après application des abattements, etc...)
+    - name: Catégorie 3 - Plus ou moins values
+      value: dgfip_RevNets_Cat3_PMV
+      group: Revenus catégoriels - revenus nets (après application des abattements, etc...)
+    - name: Catégorie 4 - Revenus fonciers
+      value: dgfip_RevNets_Cat4_Ref
+      group: Revenus catégoriels - revenus nets (après application des abattements, etc...)
+    - name: Catégorie 5 - Revenus des professions non salariées
+      value: dgfip_RevNets_Cat5_NonSal
+      group: Revenus catégoriels - revenus nets (après application des abattements, etc...)
+    - name: Pensions alimentaires déductibles - Pension alimentaire versées à enfant majeur
+      value: dgfip_PaDeduc_EnfMaj
+      group: Charges déductibles
+    - name: Pensions alimentaires déductibles - Autres pensions alimentaires versées (enfants mineurs, ascendants, ...)
+      value: dgfip_PaDeduc_Autres
+      group: Charges déductibles
+    - name: Versement épargne retraite
+      value: dgfip_EpargRetrDeduc
+      group: Charges déductibles
+    - name: Indicateur d’éligibilité au LEP
+      value: dgfip_IndLep
+      group: Éligibilité Livret d’Épargne Populaire - établissements bancaires uniquement
+
+api_impot_particulier_sandbox:
+  name: "API Impôt Particulier"
+  description: "Raccordez-vous directement à la DGFiP pour récupérer les éléments fiscaux nécessaires à vos téléservices, éliminez le traitement et le stockage des pièces justificatives"
+  provider: "dgfip"
+  kind: 'api'
+  link: "https://api.gouv.fr/les-api/impot-particulier"
+  cgu_link: "/cgu_api_impot_particulier_bas"
+  access_link: "https://api-impot-particulier-sandbox.gouv.fr/tokens/%<external_provider_id>s"
+  public: false
+  stage:
+    type: sandbox
+    next:
+      id: api_impot_particulier
+      form_id: api-impot-particulier-production
+  blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: modalities
+    - name: scopes
+    - name: contacts
+  scopes: *api_impot_particulier_scopes
+
+api_sfip:
+  name: API Courtier fonctionnel SFiP
+  description: &api_sfip_description "Raccordez-vous directement au courtier SFiP pour récupérer les données nécessaires à vos téléservices. Ce nouveau service rassemblera pour vous les données strictement nécessaires issues de différentes API de la DGFiP, en excluant les données intermédiaires."
+  provider: "dgfip"
+  kind: 'api'
+  link: "https://api-sfip.gouv.fr/feedme-with-valid-url"
+  cgu_link: "cgus/dgfip/cgu_api_impot_particulier_production_hors_connexion_fc_decembre2022_v4.0.pdf"
+  access_link: "https://api-sfip.gouv.fr/tokens/%<external_provider_id>"
+  public: true
+  stage:
+    type: production
+    previouses:
+      - id: api_sfip_sandbox
+        form_id: api-sfip-sandbox
+  blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: scopes
+    - name: contacts
+    - name: operational_acceptance
+    - name: safety_certification
+    - name: volumetrie
+  scopes: *api_impot_particulier_scopes
+
+api_sfip_sandbox:
+  name: API Courtier fonctionnel SFiP
+  description: *api_sfip_description
+  provider: "dgfip"
+  kind: 'api'
+  link: "https://api-sfip.gouv.fr/feedme-with-valid-url"
+  cgu_link: "cgus/dgfip/cgu_api_impot_particulier_bac_a_sable_connexion_hors_fc_septembre2020_v2.6.pdf"
+  access_link: "https://api-sfip.gouv.fr/tokens/%<external_provider_id>"
+  public: false
+  stage:
+    type: sandbox
+    next:
+      id: api_sfip
+      form_id: api-sfip-production
+  blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: scopes
+    - name: contacts
+  scopes: *api_impot_particulier_scopes
+
+api_hermes_sandbox:
+  name: API Hermes
+  description: "FEEDME"
+  provider: "dgfip"
+  kind: 'api'
+  link: "https://api.gouv.fr/producteurs/dgfip"
+  cgu_link: "/cgus/dgfip/cgu_bas_hermes_v.2023_11.pdf"
+  # FEEDME
+  access_link: "https://api-hermes.gouv.fr/tokens/%<external_provider_id>"
+  public: false
+  stage:
+    type: sandbox
+    next:
+      id: api_hermes
+      form_id: api-hermes-production
+  blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: contacts
+
+api_hermes:
+  name: API Hermes
+  description: "FEEDME"
+  provider: "dgfip"
+  kind: 'api'
+  link: "https://api.gouv.fr/producteurs/dgfip"
+  cgu_link: "/cgus/dgfip/cgu_prod_hermes_v.2023_11.pdf"
+  # FEEDME
+  access_link: "https://api-hermes.gouv.fr/tokens/%<external_provider_id>"
+  public: false
+  stage:
+    type: production
+    previouses:
+      - id: api_hermes_sandbox
+        form_id: api-hermes-sandbox
+  blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: contacts
+    - name: operational_acceptance
+    - name: safety_certification
+    - name: volumetrie
+
+api_e_contacts_sandbox:
+  name: API E-Contacts
+  description: "FEEDME"
+  provider: "dgfip"
+  kind: 'api'
+  link: "https://api.gouv.fr/producteurs/dgfip"
+  cgu_link: "/cgus/dgfip/prc_v1/cgu_bas_e_contacts_v.2023_11.pdf"
+  # FEEDME
+  access_link: "https://api-e-contacts.gouv.fr/tokens/%<external_provider_id>"
+  public: false
+  stage:
+    type: sandbox
+    next:
+      id: api_e_contacts
+      form_id: api-e-contacts-production
+  blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: contacts
+
+api_e_contacts:
+  name: API E-Contacts
+  description: "FEEDME"
+  provider: "dgfip"
+  kind: 'api'
+  link: "https://api.gouv.fr/producteurs/dgfip"
+  cgu_link: "/cgus/dgfip/prc_v1/cgu_prod_e_contacts_v.2023_11.pdf"
+  # FEEDME
+  access_link: "https://api-e-contacts.gouv.fr/tokens/%<external_provider_id>"
+  public: false
+  stage:
+    type: production
+    previouses:
+      - id: api_e_contacts_sandbox
+        form_id: api-e-contacts-sandbox
+  blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: contacts
+    - name: operational_acceptance
+    - name: safety_certification
+    - name: volumetrie
+
+api_opale_sandbox:
+  name: API OPALE
+  description: "FEEDME"
+  provider: "dgfip"
+  kind: 'api'
+  link: "https://api.gouv.fr/producteurs/dgfip"
+  cgu_link: "/cgus/dgfip/pcr_v1/cgu_bas_opale_v.2023_11.pdf"
+  # FEED ME
+  access_link: "https://api-opale.gouv.fr/tokens/%<external_provider_id>"
+  public: false
+  stage:
+    type: sandbox
+    next:
+      id: api_opale
+      form_id: api-opale-production
+  blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: contacts
+
+api_opale:
+  name: API OPALE
+  description: "FEEDME"
+  provider: "dgfip"
+  kind: 'api'
+  link: "https://api.gouv.fr/producteurs/dgfip"
+  cgu_link: "/cgus/dgfip/pcr_v1/cgu_prod_opale_v.2023_11.pdf"
+  # FEEDME
+  access_link: "https://api-opale.gouv.fr/tokens/%<external_provider_id>"
+  public: false
+  stage:
+    type: production
+    previouses:
+      - id: api_opale_sandbox
+        form_id: api-opale-sandbox
+  blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: contacts
+    - name: operational_acceptance
+    - name: safety_certification
+    - name: volumetrie
+
+api_ocfi_sandbox:
+  name: API OCFI
+  description: "FEEDME"
+  provider: "dgfip"
+  kind: 'api'
+  link: "https://api.gouv.fr/producteurs/dgfip"
+  cgu_link: "/cgus/dgfip/pcr_v1/cgu_bas_ocfi_v.2023_11.pdf"
+  # FEEDME
+  access_link: "https://api-ocfi.gouv.fr/tokens/%<external_provider_id>"
+  public: false
+  stage:
+    type: sandbox
+    next:
+      id: api_ocfi
+      form_id: api-ocfi-production
+  blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: contacts
+
+api_ocfi:
+  name: API OCFI
+  description: "FEEDME"
+  provider: "dgfip"
+  kind: 'api'
+  link: "https://api.gouv.fr/producteurs/dgfip"
+  cgu_link: "/cgus/dgfip/prc_v1/cgu_prod_ocfi_v.2023_11.pdf"
+  # FEEDME
+  access_link: "https://api-ocfi.gouv.fr/tokens/%<external_provider_id>"
+  public: false
+  stage:
+    type: production
+    previouses:
+      - id: api_ocfi_sandbox
+        form_id: api-ocfi-sandbox
+  blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: contacts
+    - name: operational_acceptance
+    - name: safety_certification
+    - name: volumetrie
+
+api_e_pro_sandbox:
+  name: API E-PRO
+  description: "FEEDME"
+  provider: "dgfip"
+  kind: 'api'
+  link: "https://api.gouv.fr/producteurs/dgfip"
+  cgu_link: "/cgus/dgfip/prc_v1/cgu_bas_e_pro_v.2023_11.pdf"
+  # FEEDME
+  access_link: "https://api-e-pro.gouv.fr/tokens/%<external_provider_id>"
+  public: false
+  stage:
+    type: sandbox
+    next:
+      id: api_e_pro
+      form_id: api-e-pro-production
+  blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: contacts
+
+api_e_pro:
+  name: API E-PRO
+  description: "FEEDME"
+  provider: "dgfip"
+  kind: 'api'
+  link: "https://api.gouv.fr/producteurs/dgfip"
+  cgu_link: "/cgus/dgfip/prc_v1/cgu_prod_e_pro_v.2023_11.pdf"
+  # FEEDME
+  access_link: "https://api-e-pro.gouv.fr/tokens/%<external_provider_id>"
+  public: false
+  stage:
+    type: production
+    previouses:
+      - id: api_e_pro_sandbox
+        form_id: api-e-pro-sandbox
+  blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: contacts
+    - name: operational_acceptance
+    - name: safety_certification
+    - name: volumetrie
+
+api_robf_sandbox:
+  name: API ROBF
+  description: "FEEDME"
+  provider: "dgfip"
+  kind: 'api'
+  link: "https://api.gouv.fr/producteurs/dgfip"
+  cgu_link: "/cgus/dgfip/prc_v1/cgu_bas_robf_v.2023_11.pdf"
+  # FEEDME
+  access_link: "https://api-robf.gouv.fr/tokens/%<external_provider_id>"
+  public: false
+  stage:
+    type: sandbox
+    next:
+      id: api_robf
+      form_id: api-robf-production
+  blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: contacts
+
+
+api_robf:
+  name: API ROBF
+  description: "FEEDME"
+  provider: "dgfip"
+  kind: 'api'
+  link: "https://api.gouv.fr/producteurs/dgfip"
+  cgu_link: "/cgus/dgfip/prc_v1/cgu_prod_robf_v.2023_11.pdf"
+  # FEEDME
+  access_link: "https://api-robf.gouv.fr/tokens/%<external_provider_id>"
+  public: false
+  stage:
+    type: production
+    previouses:
+      - id: api_robf_sandbox
+        form_id: api-robf-sandbox
+  blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: contacts
+    - name: operational_acceptance
+    - name: safety_certification
+    - name: volumetrie
+
+api_cpr_pro_adelie_sandbox:
+  name: API CPR PRO-ADELIE
+  description: "FEEDME"
+  provider: "dgfip"
+  kind: 'api'
+  link: "https://api.gouv.fr/producteurs/dgfip"
+  cgu_link: "/cgus/dgfip/prc_v1/cgu_bas_cpr_pro_v.2023_11.pdf"
+  # FEEDME
+  access_link: "https://api-pro-adelie.gouv.fr/tokens/%<external_provider_id>"
+  public: false
+  stage:
+    type: sandbox
+    next:
+      id: api_cpr_pro_adelie
+      form_id: api-cpr-pro-adelie-production
+  blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: contacts
+
+api_cpr_pro_adelie:
+  name: API CPR PRO-ADELIE
+  description: "FEEDME"
+  provider: "dgfip"
+  kind: 'api'
+  link: "https://api.gouv.fr/producteurs/dgfip"
+  cgu_link: "/cgus/dgfip/prc_v1/cgu_prod_cpr_pro_v.2023_11.pdf"
+  # FEEDME
+  access_link: "https://api-pro-adelie.gouv.fr/tokens/%<external_provider_id>"
+  public: false
+  stage:
+    type: production
+    previouses:
+      - id: api_cpr_pro_adelie_sandbox
+        form_id: api-cpr-pro-adelie-sandbox
+  blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: contacts
+    - name: operational_acceptance
+    - name: safety_certification
+    - name: volumetrie
+
+api_imprimfip_sandbox:
+  name: API IMPRIM’FIP
+  description: Utilisez la solution éditique IMPRIM’FIP pour délocaliser le traitement de vos courriers administratifs sortants (impression, mise sous pli, affranchissement et remise à La Poste) vers les centres éditiques industriels de la DGFIP.
+  provider: "dgfip"
+  kind: 'api'
+  link: "https://www.data.gouv.fr/fr/dataservices/api-imprimfip/"
+  cgu_link: "/cgus/dgfip/cgu_bas_imprimfip_v.2023_09.pdf"
+  # FEEDME
+  access_link: "https://api-imprimfip.gouv.fr/tokens/%<external_provider_id>"
+  public: true
+  stage:
+    type: sandbox
+    next:
+      id: api_imprimfip
+      form_id: api-imprimfip-production
+  blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: contacts
+
+api_imprimfip:
+  name: API IMPRIM’FIP
+  description: Utilisez la solution éditique IMPRIM’FIP pour délocaliser le traitement de vos courriers administratifs sortants (impression, mise sous pli, affranchissement et remise à La Poste) vers les centres éditiques industriels de la DGFIP.
+  provider: "dgfip"
+  kind: 'api'
+  link: "https://www.data.gouv.fr/fr/dataservices/api-imprimfip/"
+  cgu_link: "/cgus/dgfip/cgu_prod_imprimfip_v.2023_09.pdf"
+  access_link: "https://api-imprimfip.gouv.fr/tokens/%<external_provider_id>"
+  public: false
+  stage:
+    type: production
+    previouses:
+      - id: api_imprimfip_sandbox
+        form_id: api-imprimfip-sandbox
+  blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: contacts
+    - name: operational_acceptance
+    - name: safety_certification
+    - name: volumetrie
+
+api_satelit_sandbox:
+  name: API Satelit
+  description: "FEEDME"
+  provider: "dgfip"
+  kind: 'api'
+  link: "https://api.gouv.fr/producteurs/dgfip"
+  cgu_link: "/cgus/dgfip/pcr_v1/cgu_bas_satelit_v.2022_v1.pdf"
+  # FEEDME
+  access_link: "https://api-satelit.gouv.fr/tokens/%<external_provider_id>"
+  public: false
+  stage:
+    type: sandbox
+    next:
+      id: api_satelit
+      form_id: api-satelit-production
+  blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: contacts
+
+api_satelit:
+  name: API Satelit
+  description: "FEEDME"
+  provider: "dgfip"
+  kind: 'api'
+  link: "https://api.gouv.fr/producteurs/dgfip"
+  cgu_link: "/cgus/dgfip/pcr_v1/cgu_prod_satelit_v.2022_v1.pdf"
+  # FEEDME
+  access_link: "https://api-satelit.gouv.fr/tokens/%<external_provider_id>"
+  public: false
+  stage:
+    type: production
+    previouses:
+      - id: api_satelit_sandbox
+        form_id: api-satelit-sandbox
+  blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: contacts
+    - name: operational_acceptance
+    - name: safety_certification
+    - name: volumetrie
+
+api_mire_sandbox:
+  name: API Mire
+  description: "FEEDME"
+  provider: "dgfip"
+  kind: 'api'
+  link: "https://api.gouv.fr/producteurs/dgfip"
+  cgu_link: "/cgus/dgfip/pcr_v1/cgu_bas_mire_v.2023_11.pdf"
+  # FEEDME
+  access_link: "https://api-mire.gouv.fr/tokens/%<external_provider_id>"
+  public: false
+  stage:
+    type: sandbox
+    next:
+      id: api_mire
+      form_id: api-mire-production
+  blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: contacts
+
+api_mire:
+  name: API Mire
+  description: "FEEDME"
+  provider: "dgfip"
+  kind: 'api'
+  link: "https://api.gouv.fr/producteurs/dgfip"
+  cgu_link: "/cgus/dgfip/pcr_v1/cgu_prod_mire_v.2023_11.pdf"
+  # FEEDME
+  access_link: "https://api-mire.gouv.fr/tokens/%<external_provider_id>"
+  public: false
+  stage:
+    type: production
+    previouses:
+      - id: api_mire_sandbox
+        form_id: api-mire-sandbox
+  blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: contacts
+    - name: operational_acceptance
+    - name: safety_certification
+    - name: volumetrie
+
+api_ensu_documents_sandbox:
+  name: API ENSU Documents
+  description: "FEEDME"
+  provider: "dgfip"
+  kind: 'api'
+  link: "https://api.gouv.fr/producteurs/dgfip"
+  cgu_link: "/cgus/dgfip/pcr_v1/cgu_bas_ensu_doc_v.2023_11.pdf"
+  # FEEDME
+  access_link: "https://api-ensu-documents.gouv.fr/tokens/%<external_provider_id>"
+  public: false
+  stage:
+    type: sandbox
+    next:
+      id: api_ensu_documents
+      form_id: api-ensu-documents-production
+  blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: contacts
+
+api_ensu_documents:
+  name: API ENSU Documents
+  description: "FEEDME"
+  provider: "dgfip"
+  kind: 'api'
+  link: "https://api.gouv.fr/producteurs/dgfip"
+  cgu_link: "/cgus/dgfip/pcr_v1/cgu_prod_ensu_doc_v.2023_11.pdf"
+  # FEEDME
+  access_link: "https://api-ensu-documents.gouv.fr/tokens/%<external_provider_id>"
+  public: false
+  stage:
+    type: production
+    previouses:
+      - id: api_ensu_documents_sandbox
+        form_id: api-ensu-documents-sandbox
+  blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: contacts
+    - name: operational_acceptance
+    - name: safety_certification
+    - name: volumetrie
+
+api_rial_sandbox:
+  name: API Rial (Répertoire Inter-Administratif des Locaux)
+  description: Raccordez-vous directement à la DGFiP pour récupérer les données des locaux connus par l’administration fiscale (caractéristiques, surface, adresse, identifiant cadastral, lots de copropriété).
+  provider: "dgfip"
+  kind: 'api'
+  link: "https://api.gouv.fr/les-api/api_rial"
+  cgu_link: "/cgus/dgfip/cgu_bas_api_rial_v2024-11.pdf"
+  # FEEDME
+  access_link: "https://api-rial.gouv.fr/tokens/%<external_provider_id>"
+  public: true
+  stage:
+    type: sandbox
+    next:
+      id: api_rial
+      form_id: api-rial-production
+  blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: contacts
+
+api_rial:
+  name: API Rial
+  description: Raccordez-vous directement à la DGFiP pour récupérer les données des locaux connus par l’administration fiscale (caractéristiques, surface, adresse, identifiant cadastral, lots de copropriété)
+  provider: "dgfip"
+  kind: 'api'
+  link: "https://api.gouv.fr/les-api/api_rial"
+  cgu_link: "/cgus/dgfip/cgu_prod_api_rial_v2024-11.pdf"
+  # FEEDME
+  access_link: "https://api-rial.gouv.fr/tokens/%<external_provider_id>"
+  public: false
+  stage:
+    type: production
+    previouses:
+      - id: api_rial_sandbox
+        form_id: api-rial-sandbox
+  blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: contacts
+    - name: operational_acceptance
+    - name: safety_certification
+    - name: volumetrie
+
+api_infinoe:
+  name: API INFINOE
+  description: "FEEDME"
+  provider: "dgfip"
+  kind: 'api'
+  link: "https://www.data.gouv.fr/fr/organizations/ministere-de-leconomie-des-finances-et-de-lindustrie/"
+  cgu_link: "/cgus/dgfip/cgu_infinoe_production_v_2023_10.pdf"
+  access_link: "https://api-infinoe.gouv.fr/tokens/%<external_provider_id>"
+  public: false
+  stage:
+    type: production
+    previouses:
+      - id: api_infinoe_sandbox
+        form_id: api-infinoe-sandbox
+  blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: contacts
+    - name: operational_acceptance
+    - name: safety_certification
+    - name: volumetrie
+
+api_infinoe_sandbox:
+  name: API INFINOE
+  description: "FEEDME"
+  provider: "dgfip"
+  kind: 'api'
+  link: "https://www.data.gouv.fr/fr/organizations/ministere-de-leconomie-des-finances-et-de-lindustrie/"
+  cgu_link: "/cgus/dgfip/cgu_infinoe_bac_a_sable_v_2023_10.pdf"
+  access_link: "https://api-infinoe.gouv.fr/tokens/%<external_provider_id>"
+  public: false
+  stage:
+    type: sandbox
+    next:
+      id: api_infinoe
+      form_id: api-infinoe-production
+  blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: contacts
+
+api_ficoba:
+  name: API Fichier des Comptes Bancaires et Assimilés (FICOBA)
+  description: "Accédez aux coordonnées bancaires d'un usager connues de l’administration fiscale (DGFIP) et transmises par les établissements bancaires."
+  provider: "dgfip"
+  kind: 'api'
+  link: "https://www.data.gouv.fr/fr/dataservices/api-fichier-des-comptes-bancaires-et-assimiles-ficoba/"
+  cgu_link: "/cgus/dgfip/cgu_api_ficoba_production.pdf"
+  # FEEDME
+  access_link: "https://api-ficoba.gouv.fr/tokens/%<external_provider_id>"
+  public: false
+  stage:
+    type: production
+    previouses:
+      - id: api_ficoba_sandbox
+        form_id: api-ficoba-sandbox
+  blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: modalities
+    - name: scopes
+    - name: contacts
+    - name: operational_acceptance
+    - name: safety_certification
+    - name: volumetrie
+  scopes: &api_ficoba_scopes
+    - name: État civil ou dénomination
+      value: dgfip_ficoba_etat_civil_denomination
+      group: Information du compte
+    - name: Adresse
+      value: dgfip_ficoba_adresse
+      group: Information du compte
+    - name: Désignation du compte
+      value: dgfip_ficoba_compte
+      included: true
+      group: Information du compte
+    - name: Établissement bancaire
+      value: dgfip_ficoba_etablissement_bancaire
+      group: Information du compte
+    - name: Date
+      value: dgfip_ficoba_date
+      group: Information du compte
+
+api_ficoba_sandbox:
+  name: API Fichier des Comptes Bancaires et Assimilés (FICOBA)
+  description: "Accédez aux coordonnées bancaires d'un usager connues de l’administration fiscale (DGFIP) et transmises par les établissements bancaires."
+  provider: "dgfip"
+  kind: 'api'
+  link: "https://www.data.gouv.fr/fr/dataservices/api-fichier-des-comptes-bancaires-et-assimiles-ficoba/"
+  cgu_link: "/cgus/dgfip/cgu_api_ficoba_bac_a_sable_decembre2020_v1.1.pdf"
+  # FEEDME
+  access_link: "https://api-ficoba.gouv.fr/tokens/%<external_provider_id>"
+  public: true
+  stage:
+    type: sandbox
+    next:
+      id: api_ficoba
+      form_id: api-ficoba-production
+  blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: modalities
+    - name: scopes
+    - name: contacts
+  scopes: *api_ficoba_scopes
+
+api_r2p_sandbox:
+  name: API R2P
+  description: Récupérez les données connues par l’administration fiscale (DGFIP) sur une personne physique (état civil, adresse, identifiant fiscal)
+  provider: "dgfip"
+  kind: 'api'
+  link: "https://www.data.gouv.fr/fr/dataservices/api-recherche-des-personnes-physiques-r2p/"
+  cgu_link: "/cgus/dgfip/cgu_api_r2p_bac_a_sable_septembre2020_v2.6.pdf"
+  access_link: "https://api-r2p.gouv.fr/tokens/%<external_provider_id>" # TODO
+  public: false
+  stage:
+    type: sandbox
+    next:
+      id: api_r2p
+      form_id: api-r2p-production
+  blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: modalities
+    - name: contacts
+
+api_r2p:
+  name: API R2P
+  description: Récupérez les données connues par l’administration fiscale (DGFIP) sur une personne physique (état civil, adresse, identifiant fiscal)
+  provider: "dgfip"
+  kind: 'api'
+  link: "https://www.data.gouv.fr/fr/dataservices/api-recherche-des-personnes-physiques-r2p/"
+  cgu_link: "/cgus/dgfip/cgu_api_r2p_production_septembre2020_v2.5.pdf"
+  access_link: "https://api-r2p.gouv.fr/tokens/%<external_provider_id>" # TODO
+  public: true
+  stage:
+    type: production
+    previouses:
+      - id: api_r2p_sandbox
+        form_id: api-r2p-sandbox
+  blocks:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: modalities
+    - name: contacts
+    - name: operational_acceptance
+    - name: safety_certification
+    - name: volumetrie
+

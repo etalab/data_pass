@@ -1,0 +1,41 @@
+hubee_cert_dc:
+  name: "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
+  description: "Formulaire d'abonnement à la démarche Certificats de Décès Électroniques Dématérialisés"
+  cgu_link: "/cgus/20210212_dinum_hubee_cgu_v2_1_0_version_site.pdf"
+  access_link: https://portail.hubee.numerique.gouv.fr
+  kind: 'service'
+  provider: "dgs"
+  public: true
+  unique: true
+  blocks:
+    - name: "contacts"
+
+hubee_dila:
+  name: "Démarches du bouquet de services (service-public.fr)"
+  description: "Formulaire d'abonnement aux démarches du bouquet de services (service-public.fr)"
+  cgu_link: "/cgus/20210212_dinum_hubee_cgu_v2_1_0_version_site.pdf"
+  access_link: https://portail.hubee.numerique.gouv.fr
+  provider: "dila"
+  kind: 'service'
+  public: true
+  unique: true
+  blocks:
+    - name: "scopes"
+    - name: "contacts"
+  scopes:
+    - name: "AEC - Acte d’Etat Civil"
+      value: "etat_civil"
+      group: "Démarches en ligne auxquelles vous souhaitez abonner votre commune"
+    - name: "DDPACS - Démarche en ligne de préparation à la conclusion d’un Pacs"
+      value: "depot_dossier_pacs"
+      group: "Démarches en ligne auxquelles vous souhaitez abonner votre commune"
+    - name: "RCO - Recensement Citoyen Obligatoire"
+      value: "recensement_citoyen"
+      group: "Démarches en ligne auxquelles vous souhaitez abonner votre commune"
+    - name: "DHTOUR - Déclaration d’hébergement touristique"
+      value: "hebergement_tourisme"
+      group: "Démarches en ligne auxquelles vous souhaitez abonner votre commune"
+    - name: "JCC - Déclaration de Changement de Coordonnées"
+      value: "je_change_de_coordonnees"
+      group: "Démarches en ligne auxquelles vous souhaitez abonner votre commune"
+

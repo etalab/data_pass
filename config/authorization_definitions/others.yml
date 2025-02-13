@@ -1,0 +1,86 @@
+api_service_national:
+  name: "API Service National"
+  description: "Vérifiez si un candidat est en règle vis-à-vis de ses obligations de Service National et peut s’inscrire au concours ou à l’examen dont vous êtes en charge."
+  public: true
+  kind: 'api'
+  cgu_link: "https://presaje.sga.defense.gouv.fr/cgu-dln1f"
+  provider: "ministere_des_armees"
+  blocks:
+    - name: "basic_infos"
+    - name: "personal_data"
+    - name: "legal"
+    - name: "contacts"
+
+api_captchetat:
+  name: "API CaptchEtat"
+  description: "Générer un CAPTCHA pour sécuriser un service en ligne"
+  public: true
+  kind: 'api'
+  link: "https://api.gouv.fr/les-api/api-captchetat"
+  cgu_link: "/cgus/cgu_api_captchetat_v_1_2.pdf"
+  provider: "aife"
+  blocks:
+    - name: "basic_infos"
+    - name: "legal"
+    - name: "contacts"
+
+api_scolarite:
+  name: "API scolarité de l'élève"
+  description: "Statut scolarisé et statut boursier d'un élève du primaire, collège ou lycée."
+  provider: "menj"
+  kind: 'api'
+  link: "https://api.gouv.fr/les-api/api-scolarite-ministere-education-nationale"
+  cgu_link: "/cgus/cgu_api_scolarite.pdf"
+  access_link: "https://api-scolarite.gouv.fr/tokens/%<external_provider_id>"
+  public: true
+  blocks:
+    - name: "basic_infos"
+    - name: "personal_data"
+    - name: "legal"
+    - name: "scopes"
+    - name: "contacts"
+  scopes:
+    - name: 'Statut scolarité'
+      value: 'men_statut_scolarite'
+    - name: 'Statut boursier'
+      value: 'men_statut_boursier'
+    - name: 'Échelon de la bourse'
+      value: 'men_echelon_bourse'
+
+api_pro_sante_connect:
+  name: "API Pro Santé Connect"
+  description: "Authentifier les professionnels de la santé à partir du Répertoire Partagé des Professionnels de Santé (RPPS)."
+  public: true
+  kind: 'api'
+  link: "https://api.gouv.fr/les-api/api-pro-sante-connect"
+  cgu_link: "https://industriels.esante.gouv.fr/produits-et-services/pro-sante-connect/conditions-generale-d-utilisation-pro-sante-connect"
+  provider: "ans"
+  blocks:
+    - name: "basic_infos"
+    - name: "legal"
+    - name: "scopes"
+    - name: "contacts"
+  scopes:
+    - name: "Identifiant national"
+      value: "idnat"
+      group: "Données"
+    - name: "Données sectorielles"
+      value: "donnees_sectorielles"
+      group: "Données"
+
+annuaire_des_entreprise:
+  name: "Espace agent de l'Annuaire des Entreprises"
+  description: "Permet de consulter des données d'entreprises réservées aux agents de l'administration, certaines de ces données étant sous habilitation."
+  provider: "dinum"
+  kind: 'service'
+  link: "https://annuaire-entreprises.data.gouv.fr/"
+  # FEEDME
+  cgu_link: "https://annuaire-entreprises.data.gouv.fr/cgu"
+  # FEEDME
+  access_link: "https://annuaire-entreprises.data.gouv.fr/compte"
+  public: true
+  blocks:
+    - name: "basic_infos"
+    - name: "legal"
+
+
