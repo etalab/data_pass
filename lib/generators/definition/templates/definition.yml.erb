@@ -1,0 +1,19 @@
+<%= name.underscore %>:
+  name: <%= humanized_name %>
+  description: "FEEDME"
+  provider: "dinum"
+  kind: 'api'
+  link: "https://<%= name.underscore.dasherize %>.gouv.fr/feedme-with-valid-url"
+  cgu_link: "https://<%= name.underscore.dasherize %>.gouv.fr/cgu"
+  access_link: "https://<%= name.underscore.dasherize %>.gouv.fr/tokens/%<external_provider_id>"
+  public: true
+  blocks:
+    - name: "basic_infos"
+    - name: "personal_data"
+    - name: "legal"
+    - name: "scopes"
+    - name: "contacts"
+  scopes:
+    - name: "Scope 1"
+      value: "value_1"
+      group: "Groupe"
