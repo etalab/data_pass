@@ -3,7 +3,7 @@ api-impot-particulier-sandbox:
   name: Demande libre (Bac à sable)
   public: true
   default: true
-  description: TODO
+  description: Pour les utilisateurs ayant besoin de réaliser une recette fonctionnelle en environnement de bac à sable.
   introduction: &api_impot_particulier_sandbox_form_introduction |
     Notre équipe d’instruction étudiera votre demande en bac à sable, lorsqu’elle sera validée vous pourrez compléter la suite de votre demande.
 
@@ -83,7 +83,7 @@ api-impot-particulier-production-editeur:
   name: Demande libre avec éditeur
   public: true
   default: true
-  description: TODO
+  description: Pour les utilisateurs travaillant avec un éditeur ayant déjà effectué une recette fonctionnelle.
   introduction: &api_impot_particulier_editor_form_introduction |
     Votre éditeur a déjà obtenu l'accès à la sandbox, vous n'avez plus qu'à obtenir l'accès en production via ce formulaire.
   authorization_request: APIImpotParticulier

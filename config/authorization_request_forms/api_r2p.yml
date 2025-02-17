@@ -1,7 +1,7 @@
 api-r2p-sandbox:
   name: Demande libre (Bac à sable)
   public: true
-  description: TODO
+  description: Pour les utilisateurs ayant besoin de réaliser une recette fonctionnelle en environnement de bac à sable.
   introduction: |
     Notre équipe d’instruction étudiera votre demande en bac à sable, lorsqu’elle sera validée vous pourrez compléter la suite de votre demande.
 
@@ -41,7 +41,7 @@ api-r2p-sandbox:
 api-r2p-production:
   name: Demande libre (Production)
   public: false
-  description: TODO
+  description: Pour les utilisateurs ayant déjà réalisé une recette fonctionnelle en bac à sable et souhaitant obtenir des accès en production.
   introduction: |
     Votre demande d'accès au bac à sable a été validée, vous pouvez à présent poursuivre votre demande en demandant les accès à la production.
 
@@ -124,7 +124,7 @@ api-r2p-appel-spi-production:
 api-r2p-production-editeur:
   name: Demande libre avec éditeur
   public: true
-  description: TODO
+  description: Pour les utilisateurs travaillant avec un éditeur ayant déjà effectué une recette fonctionnelle.
   introduction: |
     Votre éditeur a déjà obtenu l'accès à la sandbox, vous n'avez plus qu'à obtenir l'accès en production via ce formulaire.
   authorization_request: APIR2P
@@ -143,7 +143,7 @@ api-r2p-ordonnateur-production-editeur:
   public: true
   use_case: ordonnateur
   description: Ordonnateur (fiabilisation des bases tiers des collectivités) avec éditeur
-  introduction: TODO
+  introduction: Pour les utilisateurs travaillant avec un éditeur et cherchant à fiabiliser des bases tiers des collectivités.
   authorization_request: APIR2P
   steps: *api_r2p_editor_steps
 
@@ -152,6 +152,6 @@ api-r2p-appel-spi-production-editeur:
   public: true
   use_case: appel_api_impot_particulier
   description: Restitution du numéro fiscal (SPI) pour appel de l’API Impôt particulier avec éditeur
-  introduction: TODO
+  introduction: Pour les utilisateurs travaillant avec un éditeur et souhaitant restituer le SPI pour appel de l'API Impôt Particulier.
   authorization_request: APIR2P
   steps: *api_r2p_editor_steps
