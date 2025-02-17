@@ -1307,4 +1307,15 @@ FactoryBot.define do
   trait :pro_connect_fs do
     pro_connect_service_provider
   end
+
+  trait :pro_connect_identity_provider do
+    pro_connect_service_provider
+
+    type { 'AuthorizationRequest::ProConnectIdentityProvider' }
+    form_uid { 'pro-connect-fi' }
+  end
+
+  trait :pro_connect_fi do
+    pro_connect_identity_provider
+  end
 end

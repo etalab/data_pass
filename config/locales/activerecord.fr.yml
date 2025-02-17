@@ -101,6 +101,10 @@ fr:
         france_connect:
           alternative_connexion: Attestation de connexion alternative à FranceConnect
 
+      authorization_request/pro_connect_identity_provider:
+        authorize_service_providers_to_connect: J’autorise tous les fournisseurs de services de la fonction publique à utiliser les données transmises par ProConnect pour procéder à l’authentification de leurs utilisateurs.
+
+
       denial_of_authorization:
         reason: Raison du refus
       revocation_of_authorization:

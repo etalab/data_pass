@@ -892,7 +892,7 @@ fr:
     api_r2p_appel_spi_production_editeur: *api_r2p_sandbox
 
     pro_connect_service_provider:
-      modalities:
+      modalities: &pro_connect_modalities
         title: La plateforme sera accessible depuis
         info:
           title: Comment choisir le mode d’accès ?
@@ -905,7 +905,8 @@ fr:
             label: RIE (Réseau Interministériel de l’État)
           internet:
             label: Internet
-
+    pro_connect_identity_provider:
+      modalities: *pro_connect_modalities
 
 
 
