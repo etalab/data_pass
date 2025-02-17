@@ -5,6 +5,10 @@ class AuthorizationDefinition::Stage
 
   class NotExists < StandardError; end
 
+  def ==(other)
+    type == other.type && self.next == other.next && previouses == other.previouses
+  end
+
   def exists?
     type.present?
   end

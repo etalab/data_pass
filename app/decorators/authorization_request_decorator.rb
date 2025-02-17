@@ -55,13 +55,23 @@ class AuthorizationRequestDecorator < ApplicationDecorator
   end
 
   def display_stage_footer?
-    object.definition.stage.exists? &&
-      object.latest_authorization.present? &&
-      object.latest_authorization.request_as_validated.definition.next_stage?
+    incomplete_multi_stage_with_authorization? &&
+      (demand_status.ready_for_next_stage? ||
+      demand_status.next_stage_in_progress?)
+  end
+
+  def display_card_reopening_footer?
+    demand_status.ongoing_reopening? && !(demand_status.multi_stage? && demand_status.ready_for_next_stage?)
+  end
+
+  def incomplete_multi_stage_with_authorization?
+    object.latest_authorization.present? &&
+      demand_status.multi_stage? &&
+      demand_status.incomplete_cycle?
   end
 
   def next_stage_already_started?
-    display_stage_footer? &&
+    incomplete_multi_stage_with_authorization? &&
       !object.validated?
   end
 
@@ -96,6 +106,10 @@ class AuthorizationRequestDecorator < ApplicationDecorator
   end
 
   private
+
+  def demand_status
+    @demand_status ||= DemandStatus.new(object)
+  end
 
   def lookup_i18n_key(subkey)
     t("authorization_request_forms.#{object.model_name.element}.#{subkey}", default: nil) ||
