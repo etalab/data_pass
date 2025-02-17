@@ -177,7 +177,9 @@ fr:
         show_cta: Consulter
       stage_footer:
         next_stage_title: Votre demande d’accès au bac à sable a été validée !
+        next_stage_reopening_title: Votre demande de réouverture d’accès au bac à sable a été validée !
         next_stage_subtitle: Vous pouvez poursuivre votre demande afin d’accéder à la production.
+        next_stage_reopening_subtitle: Vous pouvez poursuivre votre demande afin d’accéder à la production.
         start_next_stage_cta: Démarrer ma demande d’habilitation en production
         next_stage_title_production: Votre demande d’accès à la production
         next_stage_subtitle_production: Vous serez notifiés lorsque votre demande aura été instruite.

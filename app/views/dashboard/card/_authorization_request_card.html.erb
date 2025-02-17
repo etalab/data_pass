@@ -51,7 +51,7 @@
     </div>
   </div>
 
-  <% if authorization_request.reopening? %>
+  <% if authorization_request.reopening? && !authorization_request.validated? %>
     <%= render partial: 'dashboard/card/card_reopening_footer', locals: { authorization_request: authorization_request } %>
   <% end %>
 
