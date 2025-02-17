@@ -98,6 +98,10 @@ class AuthorizationDefinition < StaticApplicationRecord
     value_or_default(@startable_by_applicant, true)
   end
 
+  def multi_stage?
+    stage.exists?
+  end
+
   delegate :next_stage_form, :next_stage_definition, :next_stage?, to: :stage
 
   def authorization_request_class

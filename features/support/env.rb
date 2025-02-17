@@ -60,3 +60,8 @@ Seeds.new.flushdb
 Kredis.redis.flushdb
 
 ActiveJob::Base.queue_adapter = :test
+
+Bullet.add_safelist type: :unused_eager_loading, class_name: 'AuthorizationRequest', association: :authorizations
+AuthorizationRequestForm.all.map(&:authorization_request_class).each do |klass|
+  Bullet.add_safelist type: :unused_eager_loading, class_name: klass.to_s, association: :authorizations
+end

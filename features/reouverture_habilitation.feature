@@ -121,6 +121,18 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Et que je clique sur "Mettre à jour l'habilitation bac à sable"
     Alors je suis sur la page "Demande libre (Bac à sable) - API Impôt Particulier"
     Et il y a un message de succès contenant "a bien été réouverte"
+    Quand je clique sur "Modifier" dans le bloc de résumé "Les personnes impliquées"
+    Et que je remplis les informations du contact "Responsable de traitement" avec :
+      | Nom     | Prénom | Email                 | Téléphone  | Fonction                  |
+      |Jean     | Louis  | nouveau.louis@gouv.fr | 0836656560 | Directeur associé d'exploitation  |
+    Et que je clique sur "Enregistrer les modifications"
+    Et que j'adhère aux conditions générales
+    Et que je coche "J’atteste que mon organisation devra déclarer à la DGFiP l’accomplissement des formalités en matière de protection des données à caractère personnel et qu’elle veillera à procéder à l’homologation de sécurité de son projet."
+    Et que je clique sur "Envoyer ma demande de modification"
+    Alors il y a un message de succès contenant "soumise avec succès"
+    Et il y a un badge "Bac à sable"
+    Et il y a un badge "En cours"
+
 
   Scénario: Initialisation d'une réouverture production d'une demande validée en production
     Quand j'ai 1 demande d'habilitation "API Impôt Particulier" validée
@@ -129,3 +141,40 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Et que je clique sur "Mettre à jour l'habilitation de production"
     Alors je suis sur la page "Demande libre (Production) - API Impôt Particulier"
     Et il y a un message de succès contenant "a bien été réouverte"
+
+  Scénario: Je peux terminer un cycle de réouverture d'une demande avec plusieurs paliers
+    Quand j'ai 1 demande d'habilitation "API Impôt Particulier" validée
+    Et que je vais sur la page tableau de bord
+    Et que je clique sur "Mettre à jour"
+    Et que je clique sur "Mettre à jour l'habilitation bac à sable"
+    Alors je suis sur la page "Demande libre (Bac à sable) - API Impôt Particulier"
+    Et il y a un message de succès contenant "a bien été réouverte"
+    Quand je clique sur "Modifier" dans le bloc de résumé "Les personnes impliquées"
+    Et que je remplis les informations du contact "Responsable de traitement" avec :
+      | Nom     | Prénom | Email                 | Téléphone  | Fonction                  |
+      |Jean     | Louis  | nouveau.louis@gouv.fr | 0836656560 | Directeur associé d'exploitation  |
+    Et que je clique sur "Enregistrer les modifications"
+    Et que j'adhère aux conditions générales
+    Et que je coche "J’atteste que mon organisation devra déclarer à la DGFiP l’accomplissement des formalités en matière de protection des données à caractère personnel et qu’elle veillera à procéder à l’homologation de sécurité de son projet."
+    Et que je clique sur "Envoyer ma demande de modification"
+    Alors il y a un message de succès contenant "soumise avec succès"
+    Et qu'un instructeur a validé la demande d'habilitation
+    Et que je vais sur la page tableau de bord
+    Et il y a un badge "Bac à sable"
+    Et il y a un badge "Validé"
+    Et la page ne contient pas "Demande de mise à jour"
+    Et que je vais sur la page tableau de bord
+    Alors je clique sur "Démarrer ma demande d’habilitation en production"
+    Et je clique sur "Débuter ma demande"
+    Et que j'adhère aux conditions générales
+    Et je clique sur "Envoyer ma demande de modification"
+    Et il y a un badge "Bac à sable"
+    Et il y a un badge "Validé"
+    Et il y a un badge "Production"
+    Et il y a un badge "En cours"
+    Et la page contient "Demande de mise à jour"
+    Alors un instructeur a validé la demande d'habilitation
+    Et que je vais sur la page tableau de bord
+    Et il y a un badge "Production"
+    Et il y a un badge "Validé"
+    Et la page ne contient pas "Demande de mise à jour"

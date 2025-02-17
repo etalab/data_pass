@@ -103,7 +103,7 @@
       <%= render_custom_block_or_default(@authorization_request, block[:name], f:, editable: @authorization_request.filling? && block[:editable]) %>
     <% end %>
 
-    <% if @authorization_request.draft? && !@authorization_request.reopening? && !displayed_on_a_public_page? %>
+    <% if @authorization_request.draft? && !displayed_on_a_public_page? %>
       <%= render partial: 'authorization_request_forms/shared/tos_checkboxes', locals: { f: f } %>
     <% end %>
   </div>
@@ -142,6 +142,18 @@
           <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--icon-left fr-btns-group--between">
             <li class="fr-ml-auto">
               <%= link_to t('authorization_request_forms.form.start_next_stage'), next_authorization_request_stage_path(@authorization_request), class: %w(fr-btn fr-mb-0) %>
+            </li>
+          </ul>
+        </div>
+      </div>
+    <% end %>
+  <% elsif policy(@authorization_request).ongoing_request? %>
+    <% content_for :sticky_bar do %>
+      <div class="fr-container fr-grid-row">
+        <div class="fr-col-12">
+          <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--icon-left fr-btns-group--between">
+            <li class="fr-ml-auto">
+              <%= link_to t('authorization_request_forms.form.ongoing_request'), authorization_request_path(@authorization_request), class: %w(fr-btn fr-mb-0) %>
             </li>
           </ul>
         </div>

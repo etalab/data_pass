@@ -183,7 +183,9 @@ fr:
         show_cta: Consulter
       stage_footer:
         next_stage_title: Votre demande d’accès au bac à sable a été validée !
+        next_stage_reopening_title: Votre demande de réouverture d’accès au bac à sable a été validée !
         next_stage_subtitle: Vous pouvez poursuivre votre demande afin d’accéder à la production.
+        next_stage_reopening_subtitle: Vous pouvez poursuivre votre demande afin d’accéder à la production.
         start_next_stage_cta: Démarrer ma demande d’habilitation en production
         next_stage_title_production: Votre demande d’accès à la production
         next_stage_subtitle_production: Vous serez notifiés lorsque votre demande aura été instruite.
@@ -452,6 +454,7 @@ fr:
       start_stage_generic: Démarrer ma demande d’habilitation
       start_first_stage: Démarrer ma demande d’habilitation en bac à sable
       start_next_stage: Démarrer ma demande d’habilitation en production
+      ongoing_request: Reprendre ma demande d'habilitation en cours
     shared:
       organization:
         you:
@@ -679,6 +682,8 @@ fr:
           cancel_reopening: Annuler la réouverture de cette demande
 
       create:
+        reopening_success:
+          title: La réouverture de l'habilitation %{name} a été annulée.
         success:
           title: La réouverture de l'habilitation %{name} a été annulée.
 
@@ -871,6 +876,8 @@ fr:
         cancel: Annuler
         cancel_reopening: Annuler ma demande de modification
     create:
+      reopening_success:
+        title: La réouverture de l'habilitation %{name} a été annulée.
       success:
         title: La réouverture de l'habilitation %{name} a été annulée.
       error: Une erreur s'est produite, merci de contacter le support
