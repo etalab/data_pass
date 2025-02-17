@@ -14,15 +14,10 @@ class CreateAuthorization < ApplicationInteractor
 
   def snapshot_documents!
     authorization_request.class.documents.each do |document_identifier|
-      storage_file_models = authorization_request.public_send(document_identifier)
-      next if storage_file_models.blank?
+      storage_file_model = authorization_request.public_send(document_identifier)
+      next if storage_file_model.blank?
 
-      storage_file_models.each do |storage_file_model|
-        document = context.authorization.documents.create!(
-          identifier: document_identifier,
-        )
-        document.file.attach(storage_file_model.blob)
-      end
+      create_document_snapshots(storage_file_model, document_identifier)
     end
   end
 
@@ -36,5 +31,30 @@ class CreateAuthorization < ApplicationInteractor
       applicant: authorization_request.applicant,
       form_uid: authorization_request.form_uid,
     }
+  end
+
+  def create_document_snapshots(storage_file_model, document_identifier)
+    if storage_file_model.respond_to?(:any?)
+      create_multiple_documents(storage_file_model, document_identifier)
+    else
+      create_single_document(storage_file_model, document_identifier)
+    end
+  end
+
+  def create_multiple_documents(storage_files, document_identifier)
+    storage_files.each do |file|
+      create_and_attach_document(file, document_identifier)
+    end
+  end
+
+  def create_single_document(storage_file, document_identifier)
+    create_and_attach_document(storage_file, document_identifier)
+  end
+
+  def create_and_attach_document(file, document_identifier)
+    document = context.authorization.documents.create!(
+      identifier: document_identifier
+    )
+    document.file.attach(file.blob)
   end
 end
