@@ -1291,4 +1291,20 @@ FactoryBot.define do
     api_r2p_production
     form_uid { 'api-r2p-production-editeur' }
   end
+
+  trait :pro_connect_service_provider do
+    type { 'AuthorizationRequest::ProConnectServiceProvider' }
+
+    form_uid { 'pro-connect-fs' }
+
+    with_basic_infos
+    with_personal_data
+    with_cadre_juridique
+    with_modalities
+    with_scopes
+  end
+
+  trait :pro_connect_fs do
+    pro_connect_service_provider
+  end
 end

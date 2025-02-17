@@ -1,0 +1,19 @@
+<% if @authorization_request.display_prefilled_banner_for_each_block? && @authorization_request.prefilled_data?(%i[modalities france_connect_authorization_id]) %>
+  <%= render partial: "authorization_request_forms/shared/prefilled_banner" %>
+<% end %>
+
+<%= f.info_for(:modalities) %>
+
+<div>
+  <div class="fr-col-lg-9">
+    <%=
+      f.dsfr_check_boxes :modalities,
+        @authorization_request.available_modalities,
+        required: true,
+        label: false,
+        radio_group_class: "fr-radio-rich",
+        fieldset_element_class: "small",
+        checked: ->(value) { @authorization_request.modalities.include?(value) }
+    %>
+  </div>
+</div>
