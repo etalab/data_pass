@@ -126,7 +126,6 @@ fr:
 
       modalities:
         title: Comment vos usagers accèderont aux données ?
-        subtitle: Cette API est FranceConnectée, vos utilisateurs peuvent donc utiliser FranceConnect pour vous transmettre directement les données dont vous avez besoin
 
       scopes:
         title: Quelles sont les données dont vous avez besoin ?
@@ -891,4 +890,23 @@ fr:
     api_r2p_production_editeur: *api_r2p_sandbox
     api_r2p_ordonnateur_production_editeur: *api_r2p_sandbox
     api_r2p_appel_spi_production_editeur: *api_r2p_sandbox
+
+    pro_connect_service_provider:
+      modalities: &pro_connect_modalities
+        title: La plateforme sera accessible depuis
+        info:
+          title: Comment choisir le mode d’accès ?
+          content: |
+            Précisez si votre projet sera accessible depuis le Réseau Interministériel de l’État (RIE), depuis Internet, ou à la fois depuis le RIE et Internet.
+
+            Vous trouverez plus d’information sur notre <a href="https://github.com/france-connect/Documentation-AgentConnect/blob/main/doc_fi/pilotage_fca/plateformes_fi.md" target="_blank">documentation en ligne</a>.
+        values:
+          rie:
+            label: RIE (Réseau Interministériel de l’État)
+          internet:
+            label: Internet
+    pro_connect_identity_provider:
+      modalities: *pro_connect_modalities
+
+
 

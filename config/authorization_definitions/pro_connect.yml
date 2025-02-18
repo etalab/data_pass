@@ -1,0 +1,64 @@
+pro_connect_service_provider:
+  name: ProConnect - Fournisseur de services
+  description: Le solution officielle qui vous identifie en tant que professionnel.
+  provider: "dinum"
+  kind: 'api'
+  link: "https://api.gouv.fr/les-api/agent-connect"
+  cgu_link: "/cgus/cgu_agentconnect_fs.pdf"
+  access_link: "https://pro-connect-fs.gouv.fr/tokens/%<external_provider_id>"
+  public: true
+  blocks:
+    - name: "basic_infos"
+    - name: "personal_data"
+    - name: "legal"
+    - name: "scopes"
+    - name: "modalities"
+    - name: "contacts"
+  scopes:
+    - name: OpenID
+      value: openid
+      included: true
+    - name: Nom de l'agent
+      value: usual_name
+    - name: Prénom de l'agent
+      value: given_name
+    - name: Adresse électronique professionnelle de l'agent
+      value: email
+    - name: Numéro SIRET de l’organisation de rattachement
+      value: siret
+
+pro_connect_identity_provider:
+  name: ProConnect - Fournisseur d'identité
+  description: Le solution officielle qui vous identifie en tant que professionnel.
+  provider: "dinum"
+  kind: 'api'
+  link: "https://api.gouv.fr/les-api/agent-connect"
+  cgu_link: "/cgus/cgu_agentconnect_fi.pdf"
+  access_link: "https://pro-connect-fi.gouv.fr/tokens/%<external_provider_id>"
+  public: true
+  blocks:
+    - name: "basic_infos"
+    - name: "personal_data"
+    - name: "legal"
+    - name: "scopes"
+    - name: "modalities"
+    - name: "contacts"
+  scopes:
+    - name: Identifiant technique
+      value: uid
+      included: true
+    - name: Nom de l'agent
+      value: usual_name
+      included: true
+    - name: Prénom de l'agent
+      value: given_name
+      included: true
+    - name: Adresse électronique professionnelle de l'agent
+      value: email
+      included: true
+    - name: Numéro de téléphone professionnel de l'agent
+      value: phone
+    - name: Numéro SIRET de l’organisation de rattachement
+      value: siret
+
+
