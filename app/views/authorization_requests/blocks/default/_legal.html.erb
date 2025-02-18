@@ -20,7 +20,7 @@
         Document relatif au traitement :
       </strong>
       <br />
-      <% @authorization_request.cadre_juridique_document.each do |document| %>
+      <% Array(@authorization_request.cadre_juridique_document).each do |document| %>
 
         <% if namespace?(:instruction) %>
           <% if document.unsafe? %>
