@@ -15,4 +15,8 @@ module AuthorizationExtensions::FranceConnect
 
     Authorization.find(france_connect_authorization_id)
   end
+
+  def with_france_connect?
+    true
+  end
 end

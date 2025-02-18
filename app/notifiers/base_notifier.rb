@@ -22,6 +22,8 @@ class BaseNotifier < ApplicationNotifier
   def approve(params)
     deliver_gdpr_emails
 
+    notify_france_connect if authorization_request.with_france_connect?
+
     if params[:first_validation]
       email_notification('approve', params)
     else
@@ -36,4 +38,10 @@ class BaseNotifier < ApplicationNotifier
   end
 
   def revoke(params) = email_notification('revoke', params)
+
+  private
+
+  def notify_france_connect
+    FranceConnectMailer.with(authorization_request:).new_scopes.deliver_later
+  end
 end
