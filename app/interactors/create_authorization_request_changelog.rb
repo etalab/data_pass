@@ -83,11 +83,7 @@ class CreateAuthorizationRequestChangelog < ApplicationInteractor
 
   def document_value_for_diff(key)
     attachment = authorization_request.public_send(key)
-    if attachment.is_a?(ActiveStorage::Attached::Many)
-      attachment.map(&:filename).join(', ')
-    else
-      attachment.filename
-    end
+    Array(attachment).map(&:filename).join(', ').presence
   end
 
   def previous_changelog_diffs
