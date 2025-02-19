@@ -20,6 +20,10 @@ class ProjectStatus
     authorization_request.definition.stage
   end
 
+  def ready_for_next_stage?
+    authorization_request.validated? && !final_stage?
+  end
+
   def next_stage
     authorization_request.definition.next_stage_definition&.stage
   end
@@ -37,11 +41,7 @@ class ProjectStatus
   end
 
   def finished_cycle?
-    debugger
-    return false if reopening && !final_stage?
-    return true if final_stage? && !reopening
-
-    false
+    !reopening && final_stage? && authorization_request.validated?
   end
 
   class HabilitationStatus

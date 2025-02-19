@@ -448,6 +448,7 @@ fr:
       start_stage_generic: Démarrer ma demande d’habilitation
       start_first_stage: Démarrer ma demande d’habilitation en bac à sable
       start_next_stage: Démarrer ma demande d’habilitation en production
+      ongoing_request: Reprendre ma demande d'habilitation en cours
     shared:
       organization:
         you:
