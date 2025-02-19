@@ -97,6 +97,10 @@ class AuthorizationRequest < ApplicationRecord
     end
   end
 
+  def latest_authorization_of_stage(stage)
+    authorizations.where(authorization_request_class: stage).order(created_at: :desc).limit(1).first
+  end
+
   def latest_authorization_of_class(authorization_request_class)
     authorizations.where(authorization_request_class: authorization_request_class).order(created_at: :desc).limit(1).first
   end
