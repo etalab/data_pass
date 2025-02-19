@@ -1,0 +1,14 @@
+api_ingres:
+  name: API Ingres
+  description: "Récupérez l'ensemble des référentiels utilisés par les Systèmes d'Information des Ressources Humaines de la Fonction Publique d'Etat"
+  provider: "cisirh"
+  kind: 'api'
+  link: "https://api.gouv.fr/les-api/API_Ingres_Nomenclatures"
+  cgu_link: "/cgus/cgu_api_ingres.pdf"
+  access_link: "https://api-ingres.gouv.fr/tokens/%<external_provider_id>"
+  public: true
+  blocks:
+    - name: "basic_infos"
+    - name: "personal_data"
+    - name: "legal"
+    - name: "contacts"

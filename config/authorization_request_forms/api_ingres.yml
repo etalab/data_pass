@@ -1,0 +1,7 @@
+api-ingres:
+  authorization_request: APIIngres
+  steps:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: contacts
