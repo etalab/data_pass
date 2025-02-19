@@ -22,7 +22,5 @@ module AuthorizationCore::Checkboxes
     end
   end
 
-  def extra_checkboxes
-    self.class.extra_checkboxes
-  end
+  delegate :extra_checkboxes, to: :class
 end

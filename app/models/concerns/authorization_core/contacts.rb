@@ -76,7 +76,5 @@ module AuthorizationCore::Contacts
     self.class.contacts
   end
 
-  def contact_types
-    self.class.contact_types
-  end
+  delegate :contact_types, to: :class
 end

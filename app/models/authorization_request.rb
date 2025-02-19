@@ -134,17 +134,13 @@ class AuthorizationRequest < ApplicationRecord
     end
   end
 
-  def class_name
-    self.class.name
-  end
+  delegate :name, to: :class, prefix: true
 
   def kind
     type.underscore.split('/').last
   end
 
-  def definition
-    self.class.definition
-  end
+  delegate :definition, to: :class
 
   def form
     @form ||= AuthorizationRequestForm.find(form_uid)
