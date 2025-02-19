@@ -224,6 +224,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
       class: 'fr-mb-1v'
     )
   end
+
   def input_width_class(opts)
     return '' if opts[:width].blank?
 
