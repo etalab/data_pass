@@ -4,7 +4,7 @@ RSpec.describe TransferAuthorizationRequestToNewApplicant, type: :organizer do
 
     let(:organization) { authorization_request.organization }
     let(:authorization_request) { create(:authorization_request, authorization_request_kind) }
-    let(:authorization_request_kind) { :api_service_national }
+    let(:authorization_request_kind) { :api_scolarite }
     let!(:old_applicant) { authorization_request.applicant }
     let(:new_applicant_email) { new_applicant.email }
     let(:user) { create(:user) }

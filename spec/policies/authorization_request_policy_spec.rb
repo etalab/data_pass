@@ -57,22 +57,6 @@ RSpec.describe AuthorizationRequestPolicy do
         it { is_expected.to be_falsey }
       end
     end
-
-    describe 'API Service National' do
-      let(:authorization_request_class) { AuthorizationRequest::APIServiceNational }
-
-      context 'when there already is an authorization_request archived' do
-        before { create(:authorization_request, :api_service_national, :archived, applicant: user) }
-
-        it { is_expected.to be_truthy }
-      end
-
-      context 'when there already is another authorization_request not archived' do
-        before { create(:authorization_request, :api_service_national, applicant: user) }
-
-        it { is_expected.to be_truthy }
-      end
-    end
   end
 
   describe '#submit_reopening?' do

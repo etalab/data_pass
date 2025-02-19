@@ -81,7 +81,7 @@ RSpec.describe AuthorizationRequest do
     end
 
     context 'with an empty access link' do
-      let(:definition_key) { :api_service_national }
+      let(:definition_key) { :api_scolarite }
 
       it { is_expected.to be_nil }
     end
