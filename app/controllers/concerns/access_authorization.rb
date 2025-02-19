@@ -11,9 +11,7 @@ module AccessAuthorization
     end
   end
 
-  def pundit_user
-    self.class.pundit_user
-  end
+  delegate :pundit_user, to: :class
 
   def user_not_authorized
     flash[:error] = {
