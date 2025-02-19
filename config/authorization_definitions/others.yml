@@ -1,16 +1,3 @@
-api_service_national:
-  name: "API Service National"
-  description: "Vérifiez si un candidat est en règle vis-à-vis de ses obligations de Service National et peut s’inscrire au concours ou à l’examen dont vous êtes en charge."
-  public: true
-  kind: 'api'
-  cgu_link: "https://presaje.sga.defense.gouv.fr/cgu-dln1f"
-  provider: "ministere_des_armees"
-  blocks:
-    - name: "basic_infos"
-    - name: "personal_data"
-    - name: "legal"
-    - name: "contacts"
-
 api_captchetat:
   name: "API CaptchEtat"
   description: "Générer un CAPTCHA pour sécuriser un service en ligne"
@@ -31,7 +18,6 @@ api_scolarite:
   kind: 'api'
   link: "https://api.gouv.fr/les-api/api-scolarite-ministere-education-nationale"
   cgu_link: "/cgus/cgu_api_scolarite.pdf"
-  access_link: "https://api-scolarite.gouv.fr/tokens/%<external_provider_id>"
   public: true
   blocks:
     - name: "basic_infos"
