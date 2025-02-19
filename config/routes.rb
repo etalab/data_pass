@@ -62,6 +62,7 @@ Rails.application.routes.draw do
       resources :authorization_request_from_templates, only: %i[index create], path: 'templates'
     end
 
+    get 'accessibilite', to: 'pages#accessibilite', as: :accessibilite
     get 'cgu_api_impot_particulier_bas', to: 'pages#cgu_api_impot_particulier_bas', as: :cgu_api_impot_particulier_bas
     get 'cgu_api_impot_particulier_prod', to: 'pages#cgu_api_impot_particulier_prod', as: :cgu_api_impot_particulier_prod
 
