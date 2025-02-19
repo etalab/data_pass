@@ -356,6 +356,10 @@ class AuthorizationRequest < ApplicationRecord
     errors.add(:applicant, :belongs_to)
   end
 
+  def with_france_connect?
+    false
+  end
+
   def access_link
     return nil if definition.access_link.blank? || external_provider_id.blank?
 
