@@ -3,7 +3,7 @@ RSpec.describe TransferAuthorizationRequestToNewOrganization, type: :organizer d
     subject { described_class.call(authorization_request:, new_organization:, new_applicant:, user:) }
 
     let(:authorization_request) { create(:authorization_request, authorization_request_kind) }
-    let(:authorization_request_kind) { :api_service_national }
+    let(:authorization_request_kind) { :api_scolarite }
     let!(:old_organization) { authorization_request.organization }
     let(:new_organization) { create(:organization) }
     let(:new_applicant) { create(:user, current_organization: new_organization) }
