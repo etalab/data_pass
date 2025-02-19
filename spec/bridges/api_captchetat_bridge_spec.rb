@@ -21,7 +21,7 @@ RSpec.describe APICaptchEtatBridge, type: :bridge do
     subject(:trigger_bridge) { described_class.new.perform(authorization_request, 'approve') }
 
     before do
-      allow_any_instance_of(PISTEAPIClient).to receive(:create_subscription).and_return(create_subscription_piste_payload) # rubocop:disable RSpec/AnyInstance
+      allow(PISTEAPIClient).to receive(:create_subscription).and_return(create_subscription_piste_payload)
     end
 
     it 'affects external_provider_id to authorization request' do

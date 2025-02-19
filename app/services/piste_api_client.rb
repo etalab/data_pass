@@ -3,6 +3,10 @@
 require 'faraday'
 
 class PISTEAPIClient
+  def self.create_subscription(authorization_request)
+    new.create_subscription(authorization_request)
+  end
+
   def create_subscription(authorization_request)
     response = Faraday.post(create_subscription_url) do |req|
       payload = {
