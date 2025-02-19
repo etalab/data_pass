@@ -71,6 +71,12 @@ class Import::AuthorizationRequests::Base
     affect_potential_document('Document::LegalBasis', 'cadre_juridique_document')
   end
 
+  def affect_potential_maquette_projet
+    return if authorization_request.cadre_juridique_url.present?
+
+    affect_potential_document('Document::MaquetteProjet', 'maquette_projet')
+  end
+
   def affect_potential_document(kind, field)
     row = csv('documents').find { |row| row['attachable_id'] == enrollment_row['id'] && row['type'] == kind }
 
