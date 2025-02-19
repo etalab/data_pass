@@ -14,4 +14,8 @@ class PagesController < ApplicationController
   def cgu_api_impot_particulier_prod
     render 'static_pages/cgu_api_impot_particulier_prod'
   end
+
+  def accessibilite
+    render 'static_pages/accessibilite'
+  end
 end
