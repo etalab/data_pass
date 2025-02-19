@@ -143,11 +143,11 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
     hidden_field(:scopes, value: scope.value, name: "#{@object.model_name.param_key}[scopes][]")
   end
 
-  def link_to_file(attribute)
-    link_to_file = super
+  def link_to_files(attribute)
+    link_to_files = super
 
-    if link_to_file.present?
-      link_to_file
+    if link_to_files.present?
+      link_to_files
     elsif readonly?
       I18n.t('form.no_file')
     else
