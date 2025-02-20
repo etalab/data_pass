@@ -90,10 +90,12 @@ class Authorization < ApplicationRecord
 
   def affect_snapshot_documents(request_as_validated)
     request_as_validated.class.documents.each do |document|
-      snapshoted_document = documents.find_by(identifier: document)
-      next if snapshoted_document.nil?
+      snapshoted_documents = documents.where(identifier: document)
+      next if snapshoted_documents.empty?
 
-      request_as_validated.public_send(:"#{document}=", snapshoted_document.file.blob)
+      snapshoted_documents.each do |snapshoted_document|
+        request_as_validated.public_send(:"#{document}=", snapshoted_document.file.blob)
+      end
     end
   end
 

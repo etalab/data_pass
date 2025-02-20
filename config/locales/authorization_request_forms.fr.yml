@@ -305,6 +305,12 @@ fr:
           Il s'agit de votre contact technique auprès de votre éditeur. Vous n'avez à priori pas besoin de le modifier, sauf si vous avez un DSI qui veut gérer les accès.
 
     api_impot_particulier: &api_impot_particulier_generic
+      legal:
+        justificatif:
+          description: Vous pouvez choisir d'indiquer une URL ou d'ajouter un ou plusieurs fichiers
+      cadre_juridique_document:
+        label: Ajoutez votre ou vos documents
+        hint: *pdf_input_hint
       contact_organization:
         title: Contact supplémentaire de l'organisation
         info: Nous avons besoin d’un contact supplémentaire au sein de votre organisation auquel adresser nos demandes si vous n’êtes pas disponible
