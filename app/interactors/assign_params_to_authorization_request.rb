@@ -49,11 +49,7 @@ class AssignParamsToAuthorizationRequest < ApplicationInteractor
   end
 
   def permitted_documents
-    permitted_document_types = authorization_request_class.documents.map(&:to_sym)
-
-    permitted_document_types.map do |document|
-      { document => [] }
-    end
+    authorization_request_class.documents.map(&:permitted_attribute)
   end
 
   def permitted_scopes

@@ -16,6 +16,14 @@ module AuthorizationCore::Documents
     def single?
       !multiple?
     end
+
+    def permitted_attribute
+      if multiple?
+        { name.to_sym => [] }
+      else
+        name.to_sym
+      end
+    end
   end
 
   included do
