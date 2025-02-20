@@ -28,6 +28,7 @@ ActiveSupport::Inflector.inflections do |inflect|
 
   inflect.acronym 'CaptchEtat'
   inflect.irregular 'Hermes', 'Hermes'
+  inflect.irregular 'Ingres', 'Ingres'
   inflect.acronym 'ENSU'
   inflect.acronym 'CESU'
   inflect.acronym 'SFiP'

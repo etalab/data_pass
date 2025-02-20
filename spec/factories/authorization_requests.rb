@@ -1318,4 +1318,14 @@ FactoryBot.define do
   trait :pro_connect_fi do
     pro_connect_identity_provider
   end
+
+  trait :api_ingres do
+    type { 'AuthorizationRequest::APIIngres' }
+
+    form_uid { 'api-ingres' }
+
+    with_basic_infos
+    with_personal_data
+    with_cadre_juridique
+  end
 end
