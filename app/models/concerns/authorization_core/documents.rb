@@ -1,6 +1,23 @@
 module AuthorizationCore::Documents
   extend ActiveSupport::Concern
 
+  class DocumentType
+    attr_reader :name
+
+    def initialize(name:, multiple:)
+      @name = name
+      @multiple = multiple
+    end
+
+    def multiple?
+      @multiple
+    end
+
+    def single?
+      !multiple?
+    end
+  end
+
   included do
     unless respond_to?(:documents)
       def self.documents
@@ -12,7 +29,7 @@ module AuthorizationCore::Documents
           has_one_attached name
           validates name, validation_options unless ENV['SKIP_DOCUMENT_VALIDATION']
 
-          documents << name
+          documents << DocumentType.new(name:, multiple: false)
         end
       end
 
@@ -21,7 +38,7 @@ module AuthorizationCore::Documents
           has_many_attached name
           validates name, validation_options unless ENV['SKIP_DOCUMENT_VALIDATION']
 
-          documents << name
+          documents << DocumentType.new(name:, multiple: true)
         end
       end
     end
