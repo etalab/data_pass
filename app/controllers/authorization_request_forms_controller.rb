@@ -71,6 +71,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
 
   def summary
     authorize @authorization_request
+    @authorization_request_policy = policy(@authorization_request)
 
     flash.keep if turbo_request?
 
