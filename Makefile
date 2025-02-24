@@ -1,8 +1,4 @@
-ifeq ($(shell which docker-compose),)
-	DOCKER-COMPOSE = docker compose
-else
-	DOCKER-COMPOSE = docker-compose
-endif
+DOCKER-COMPOSE = docker compose
 DOCKER-RUN = $(DOCKER-COMPOSE) run --rm --entrypoint=""
 BUNDLE-EXEC = bundle exec
 
@@ -10,6 +6,7 @@ STOP-SERVICES = which systemctl > /dev/null && sudo systemctl stop postgresql re
 
 build:
 	$(DOCKER-COMPOSE) build
+	$(DOCKER-RUN) web bundle exec rails db:create RAILS_ENV=test
 
 up:
 	$(DOCKER-COMPOSE) up web db redis worker
