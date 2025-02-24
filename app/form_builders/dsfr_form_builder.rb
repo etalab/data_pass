@@ -246,12 +246,12 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
       Array(files).filter_map { |file|
         next unless file.persisted?
 
-        create_file_link(file)
+        link_to_blob_file_within_files(file)
       }.join('<br>').html_safe
     end
   end
 
-  def create_file_link(file)
+  def link_to_blob_file_within_files(file)
     @template.link_to(
       file.filename,
       rails_blob_path(file, disposition: 'inline', only_path: true),
