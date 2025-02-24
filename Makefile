@@ -6,6 +6,8 @@ endif
 DOCKER-RUN = $(DOCKER-COMPOSE) run --rm --entrypoint=""
 BUNDLE-EXEC = bundle exec
 
+STOP-SERVICES = which systemctl > /dev/null && sudo systemctl stop postgresql redis || true
+
 build:
 	$(DOCKER-COMPOSE) build
 
@@ -48,10 +50,12 @@ guard:
 	$(DOCKER-RUN) web $(BUNDLE-EXEC) guard
 
 tests:
+	$(STOP-SERVICES)
 	$(DOCKER-COMPOSE) up -d chrome
 	$(DOCKER-RUN) web $(BUNDLE-EXEC) rspec
 
 e2e:
+	$(STOP-SERVICES)
 	$(DOCKER-COMPOSE) up -d chrome
 	$(DOCKER-RUN) web $(BUNDLE-EXEC) cucumber
 
