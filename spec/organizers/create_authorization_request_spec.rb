@@ -172,7 +172,7 @@ RSpec.describe CreateAuthorizationRequest, type: :organizer do
 
       it { is_expected.to be_a_success }
 
-      it 'works' do
+      it 'works for single and multirple documents' do
         create_authorization_request
 
         last_authorization_request = AuthorizationRequest.last

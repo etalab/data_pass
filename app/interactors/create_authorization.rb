@@ -30,7 +30,7 @@ class CreateAuthorization < ApplicationInteractor
 
   def attach_files_to_document(document, storage_file_model)
     Array(storage_file_model).each do |file|
-      document.file.attach(file.blob)
+      document.files.attach(file.blob)
     end
   end
 

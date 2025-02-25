@@ -93,7 +93,9 @@ class Authorization < ApplicationRecord
       snapshoted_document = documents.find_by(identifier: document.name)
       next if snapshoted_document.nil?
 
-      request_as_validated.public_send(:"#{document.name}=", snapshoted_document.file.blob)
+      Array(snapshoted_document.files).each do |file|
+        request_as_validated.public_send(:"#{document.name}").attach(file.blob)
+      end
     end
   end
 
