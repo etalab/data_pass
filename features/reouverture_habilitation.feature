@@ -89,6 +89,7 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Quand j'ai 1 demande d'habilitation "API Entreprise" réouverte
     Et que je vais sur la page tableau de bord
     Et que je clique sur le dernier "Consulter"
+    Alors montre moi la page
     Alors il y a un bouton "Annuler ma demande de modification"
     Et il n'y a pas de bouton "Envoyer ma demande de modification"
     Quand je clique sur "Modifier" dans le bloc de résumé "Les personnes impliquées"

@@ -57,7 +57,7 @@ class AuthorizationRequestPolicy < ApplicationPolicy
 
   def submit_reopening?
     same_user_and_organization? &&
-      changed_since_latest_approval? # c'est ça qui saoule là tout de suite, y'a pas de changement mais le bouton est actif
+      changed_since_latest_approval?
   end
 
   def messages?

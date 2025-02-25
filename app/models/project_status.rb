@@ -16,16 +16,30 @@ class ProjectStatus
     end
   end
 
+  def cycles
+    @cycles ||= habilitations.slice_when { |current, nextie| !current.next_stage&.exists? || nextie.next_stage&.exists? }.to_a.map do |stages|
+      Cycle.new(stages)
+    end
+  end
+
+  def multi_stage?
+    definitions.map(&:stage).any?(&:exists?)
+  end
+
+  def ongoing_cycle?
+    cycles.last&.ongoing?
+  end
+
   def stage
-    authorization_request.definition.stage
+    latest_habilitation.stage || authiorization_request.definition.stage
   end
 
   def ready_for_next_stage?
-    authorization_request.validated? && !final_stage?
+    authorization_request.validated? && next_stage.exists?
   end
 
   def next_stage
-    authorization_request.definition.next_stage_definition&.stage
+    latest_habilitation.next_stage || authorization_request.definition.next_stage_definition&.stage
   end
 
   def final_stage?
@@ -35,13 +49,23 @@ class ProjectStatus
   def ongoing_reopening?
     return false unless reopening
 
-    return false if final_stage?
-
     true
   end
 
-  def finished_cycle?
-    !reopening && final_stage? && authorization_request.validated?
+  class Cycle
+    attr_reader :stages
+
+    def initialize(stages)
+      @stages = stages
+    end
+
+    def complete?
+      stages.last.next_stage.nil? || !stages.last.next_stage.exists?
+    end
+
+    def ongoing?
+      !complete?
+    end
   end
 
   class HabilitationStatus
@@ -57,5 +81,19 @@ class ProjectStatus
     def stage
       habilitation.definition.stage
     end
+
+    def next_stage
+      habilitation.definition.next_stage_definition&.stage
+    end
+  end
+
+  private
+
+  def definitions
+    [authorization_request.definition] + authorization_request.authorizations.map(&:definition)
+  end
+
+  def latest_habilitation
+    habilitations.last
   end
 end

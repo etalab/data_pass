@@ -205,7 +205,8 @@ class AuthorizationRequest < ApplicationRecord
     end
 
     after_transition to: :validated do |authorization_request|
-      authorization_request.update(last_validated_at: Time.zone.now, reopening: ProjectStatus.new(authorization_request).ongoing_reopening?)
+      ps = ProjectStatus.new(authorization_request)
+      authorization_request.update(last_validated_at: Time.zone.now, reopening: ps.ongoing_reopening? && ps.cycles.any?(&:complete?))
     end
 
     event :archive do

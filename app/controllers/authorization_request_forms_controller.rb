@@ -255,6 +255,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
       redirect_to dashboard_path
     else
       error_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.submit', include_model_errors: true)
+      @authorization_request_policy = policy(@authorization_request)
 
       render 'summary', status: :unprocessable_entity
     end
