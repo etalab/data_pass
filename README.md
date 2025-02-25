@@ -82,7 +82,7 @@ Il est possible de bypass le login via ProConnect de cette manière en local :
 
 With docker:
 
-Préparation de la base de données: `docker-compose run --rm web bundle exec rails db:create RAILS_ENV=test`
+Préparation de la base de données: `docker-compose run --rm web bundle exec rails db:create RAILS_ENV=test` (devrait avoir été lancé par `make build`)
 
 Run les tests:
 
