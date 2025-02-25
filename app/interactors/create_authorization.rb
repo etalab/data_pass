@@ -14,7 +14,7 @@ class CreateAuthorization < ApplicationInteractor
 
   def snapshot_documents!
     authorization_request.class.documents.each do |document_identifier|
-      storage_file_model = authorization_request.public_send(document_identifier.name.to_sym)
+      storage_file_model = authorization_request.public_send(document_identifier.name)
       next if storage_file_model.blank?
 
       document = create_document(document_identifier)
@@ -24,7 +24,7 @@ class CreateAuthorization < ApplicationInteractor
 
   def create_document(document_identifier)
     context.authorization.documents.create!(
-      identifier: document_identifier.name.to_sym,
+      identifier: document_identifier.name,
     )
   end
 
