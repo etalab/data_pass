@@ -7,6 +7,7 @@ class Public::AuthorizationRequestsController < PublicController
     @authorization_request = AuthorizationRequest.find_by(public_id: params[:id])
 
     if @authorization_request
+      @authorization_request_policy = policy(@authorization_request)
       @authorization_request = @authorization_request.decorate
 
       render 'authorization_request_forms/summary', layout: 'authorization_request'
