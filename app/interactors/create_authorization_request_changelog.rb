@@ -78,18 +78,13 @@ class CreateAuthorizationRequestChangelog < ApplicationInteractor
   end
 
   def document_key?(key)
-    authorization_request.class.documents.map { |document| document.name.to_s }.include?(key.to_s)
+    authorization_request_data_documents_keys.include?(key.to_s)
   end
 
   def document_value_for_diff(key)
-    document_type = authorization_request.class.documents.find { |document| document.name == key.to_sym }
     attachment = authorization_request.public_send(key)
 
-    if document_type.multiple?
-      Array(attachment).map(&:filename).join(', ').presence
-    else
-      attachment&.filename
-    end
+    Array(attachment).map(&:filename).join(', ').presence
   end
 
   def previous_changelog_diffs
@@ -118,7 +113,7 @@ class CreateAuthorizationRequestChangelog < ApplicationInteractor
   end
 
   def authorization_request_data_documents_keys
-    authorization_request.class.documents.map { |document| document.name.to_s }
+    @authorization_request_data_documents_keys ||= authorization_request.class.documents.map { |document| document.name.to_s }
   end
 
   def authorization_request_data_contact_attributes_keys
