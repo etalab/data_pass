@@ -10,7 +10,7 @@ module AuthorizationCore::Documents
     end
 
     def permitted_attribute
-      if @multiple?
+      if @multiple
         { name.to_sym => [] }
       else
         name.to_sym

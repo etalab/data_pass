@@ -58,7 +58,7 @@ RSpec.describe Authorization do
       end
 
       it 'does not restore the new document on request' do
-        expect(authorization_request.reload.maquette_projet.filename.to_s).to eq('another_dummy.pdf')
+        expect(authorization_request.reload.maquette_projet.filename).to eq('another_dummy.pdf')
       end
     end
   end
