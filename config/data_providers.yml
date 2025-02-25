@@ -40,3 +40,8 @@ shared:
     name: CNAM
     logo: cnam.jpg
     link: https://www.assurance-maladie.ameli.fr/
+
+  cisirh:
+    name: Centre Interministériel des Systèmes d'Information relatifs aux Ressources Humaines
+    logo: cisirh.png
+    link: https://www.economie.gouv.fr/cisirh
