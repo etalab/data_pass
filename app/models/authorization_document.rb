@@ -1,7 +1,7 @@
 class AuthorizationDocument < ApplicationRecord
   belongs_to :authorization
 
-  has_one_attached :file
+  has_many_attached :files
 
   validates :identifier, presence: true
 end

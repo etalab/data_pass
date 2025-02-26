@@ -28,7 +28,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
   def dsfr_file_field(attribute, opts = {})
     opts[:class] ||= 'fr-upload-group'
 
-    existing_file_link = link_to_file(attribute)
+    existing_file_link = link_to_files(attribute)
     required = opts[:required] && !existing_file_link
 
     dsfr_input_group(attribute, opts) do
@@ -238,13 +238,27 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
     )
   end
 
-  def link_to_file(attribute)
-    file = @object.send(attribute)
-    return unless file.attached? && file.persisted?
+  def link_to_files(attribute)
+    files = @object.send(attribute)
+    return unless files.attached?
 
     @template.content_tag(:div, class: 'fr-input-group__text fr-mt-1w') do
-      @template.link_to(file.filename, rails_blob_path(file, disposition: 'inline', only_path: true), target: '_blank', rel: 'noopener')
+      Array(files).filter_map { |file|
+        next unless file.persisted?
+
+        link_to_blob_file_within_files(file)
+      }.join('<br>').html_safe
     end
+  end
+
+  def link_to_blob_file_within_files(file)
+    @template.link_to(
+      file.filename,
+      rails_blob_path(file, disposition: 'inline', only_path: true),
+      target: '_blank',
+      rel: 'noopener',
+      class: 'fr-mb-1v'
+    )
   end
 
   def input_width_class(opts)
