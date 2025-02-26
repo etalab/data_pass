@@ -53,8 +53,7 @@
 
   <% if ProjectStatus.new(authorization_request).ongoing_reopening? && !(ProjectStatus.new(authorization_request).multi_stage? && ProjectStatus.new(authorization_request).ready_for_next_stage?) %>
     <%= render partial: 'dashboard/card/card_reopening_footer', locals: { authorization_request: authorization_request } %>
-  <% end %>
-  <% if authorization_request.display_stage_footer? && ProjectStatus.new(authorization_request).ready_for_next_stage? %>
+  <% elsif authorization_request.display_stage_footer? && ProjectStatus.new(authorization_request).ready_for_next_stage? || ProjectStatus.new(authorization_request).next_stage_in_progress? %>
     <%= render partial: 'dashboard/card/stage_footer', locals: { authorization_request: authorization_request } %>
   <% end %>
 
