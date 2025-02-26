@@ -9,7 +9,7 @@ RSpec.describe RefuseAuthorizationRequest do
 
       context 'with authorization request in submitted state' do
         let!(:authorization_request) { create(:authorization_request, authorization_request_kind, :submitted) }
-        let(:authorization_request_kind) { :api_service_national }
+        let(:authorization_request_kind) { :api_scolarite }
 
         it { is_expected.to be_success }
 

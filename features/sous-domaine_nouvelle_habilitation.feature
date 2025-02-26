@@ -13,7 +13,7 @@ Fonctionnalité: Démarrage d'une habilitation en fonction du sous-domaine.
     Alors la page contient "Demander une nouvelle habilitation"
     Et la page contient "API Entreprise"
     Et la page contient "API Particulier"
-    Et la page contient "API Service National"
+    Et la page contient "API scolarité de l'élève"
 
   Scénario: Je peux démarrer uniquement les demandes référencés dans la configuration de sous-domaine
     Sachant que je consulte le site ayant le sous-domaine "api-gouv"
@@ -22,7 +22,7 @@ Fonctionnalité: Démarrage d'une habilitation en fonction du sous-domaine.
     Alors la page contient "Demander une nouvelle habilitation"
     Et la page contient "API Entreprise"
     Et la page contient "API Particulier"
-    Et la page ne contient pas "API Service National"
+    Et la page ne contient pas "API scolarité de l'élève"
 
   Scénario: Dans le cas où seul 1 demande est possible, je suis immédiatement redirigé sur la page de cette demande
     Sachant que je consulte le site ayant le sous-domaine "api-entreprise"

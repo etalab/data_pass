@@ -2,11 +2,11 @@ RSpec.describe ApproveAuthorizationRequest do
   describe '.call' do
     subject(:approve_authorization_request) { described_class.call(authorization_request:, user:) }
 
-    let(:user) { create(:user, :instructor, authorization_request_types: %w[api_service_national]) }
+    let(:user) { create(:user, :instructor, authorization_request_types: %w[api_scolarite]) }
 
     context 'with authorization request in submitted state' do
       let!(:authorization_request) { create(:authorization_request, authorization_request_kind, :submitted) }
-      let(:authorization_request_kind) { :api_service_national }
+      let(:authorization_request_kind) { :api_scolarite }
 
       it { is_expected.to be_success }
 
@@ -50,7 +50,7 @@ RSpec.describe ApproveAuthorizationRequest do
       end
 
       context 'when it is a reopening' do
-        let!(:authorization_request) { create(:authorization_request, :api_service_national, :reopened) }
+        let!(:authorization_request) { create(:authorization_request, :api_scolarite, :reopened) }
 
         before do
           authorization_request.update!(state: 'submitted')

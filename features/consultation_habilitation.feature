@@ -38,8 +38,8 @@ Fonctionnalité: Consultation d'une demande d'habilitation
     Et il y a un bouton "Enregistrer"
 
   Scénario: Je consulte une demande d'habilitation en plusieurs étapes en brouillon m'appartenant
-    Quand je me rends sur une demande d'habilitation "API Service National" en brouillon
-    Alors il y a un titre contenant "API Service National"
+    Quand je me rends sur une demande d'habilitation "API scolarité de l'élève" en brouillon
+    Alors il y a un titre contenant "API scolarité de l'élève"
     Et il y a un formulaire en plusieurs étapes
     Et il y a un bouton "Enregistrer"
 
