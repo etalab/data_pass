@@ -31,15 +31,19 @@ class ProjectStatus
   end
 
   def stage
-    latest_habilitation.stage || authiorization_request.definition.stage
+    latest_habilitation&.stage || authiorization_request.definition.stage
   end
 
   def ready_for_next_stage?
     authorization_request.validated? && next_stage&.exists?
   end
 
+  def next_stage_in_progress?
+    authorization_request.submitted? && next_stage&.exists?
+  end
+
   def next_stage
-    latest_habilitation.next_stage || authorization_request.definition.next_stage_definition&.stage
+    latest_habilitation&.next_stage || authorization_request.definition.next_stage_definition&.stage
   end
 
   def final_stage?
