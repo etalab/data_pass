@@ -35,7 +35,7 @@ class ProjectStatus
   end
 
   def ready_for_next_stage?
-    authorization_request.validated? && next_stage.exists?
+    authorization_request.validated? && next_stage&.exists?
   end
 
   def next_stage
@@ -43,7 +43,7 @@ class ProjectStatus
   end
 
   def final_stage?
-    next_stage.nil?
+    next_stage.nil? || !next_stage.exists?
   end
 
   def ongoing_reopening?
