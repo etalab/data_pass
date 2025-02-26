@@ -3,17 +3,32 @@
 class INSEEAPIAuthentication < AbstractINSEEAPIClient
   def access_token
     http_connection.post(
-      'https://api.insee.fr/token',
-      'grant_type=client_credentials',
+      'https://auth.insee.net/auth/realms/apim-gravitee/protocol/openid-connect/token',
       {
-        'Authorization' => "Basic #{encoded_client_id_and_secret}",
-      },
+        'grant_type' => 'password',
+        'client_id' => client_id,
+        'client_secret' => client_secret,
+        'username' => username,
+        'password' => password,
+      }.to_query,
     ).body['access_token']
   end
 
   private
 
-  def encoded_client_id_and_secret
-    Base64.strict_encode64("#{consumer_key}:#{consumer_secret}")
+  def client_id
+    Rails.application.credentials.insee_client_id
+  end
+
+  def client_secret
+    Rails.application.credentials.insee_client_secret
+  end
+
+  def username
+    Rails.application.credentials.insee_username
+  end
+
+  def password
+    Rails.application.credentials.insee_password
   end
 end

@@ -1,7 +1,7 @@
 class INSEESireneAPIClient < AbstractINSEEAPIClient
   def etablissement(siret:)
     http_connection.get(
-      "https://api.insee.fr/entreprises/sirene/V3.11/siret/#{siret}",
+      "https://api.insee.fr/api-sirene/prive/3.11/siret/#{siret}",
     ).body
   end
 
