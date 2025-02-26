@@ -12,17 +12,41 @@
     %>
   </div>
 
-  <div class="fr-col">
-    <%=
-      t(
+  <%
+    message_content = t(
         ".#{authorization_request_event.name}.text",
-        **{
-          user_full_name: authorization_request_event.user_full_name,
-          text: authorization_request_event.text,
-          copied_from_authorization_request_id: authorization_request_event.copied_from_authorization_request_id,
-        }.compact
+        ** {
+             user_full_name: authorization_request_event.user_full_name,
+             text: authorization_request_event.text,
+             copied_from_authorization_request_id: authorization_request_event.copied_from_authorization_request_id,
+           }.compact
       ).html_safe
-    %>
+  %>
+
+  <div class="fr-col"
+       data-controller="show-and-hide"
+       data-show-and-hide-targets-value="#<%= dom_id(authorization_request_event, :summary) %>, #<%= dom_id(authorization_request_event, :details) %>">
+
+    <div id="<%= dom_id(authorization_request_event, :summary) %>">
+      <%= strip_tags(message_content.split(':').first) %>
+      <% if authorization_request_event.text.present? %>
+        <br/>
+        <button class="fr-link"
+                data-action="click->show-and-hide#trigger"
+                data-show-and-hide-target-param="#<%= dom_id(authorization_request_event, :details) %>">
+          voir le message
+        </button>
+      <% end %>
+    </div>
+
+    <div id="<%= dom_id(authorization_request_event, :details) %>" class="fr-hidden">
+      <%= message_content %>
+      <button class="fr-link"
+              data-action="click->show-and-hide#trigger"
+              data-show-and-hide-target-param="#<%= dom_id(authorization_request_event, :summary) %>">
+        masquer le message
+      </button>
+    </div>
 
     <% if authorization_request_event.name == 'approve' %>
       <div class="fr-mt-1w">
