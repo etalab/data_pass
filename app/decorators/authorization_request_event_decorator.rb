@@ -51,7 +51,8 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
   end
 
   def message_summary
-    h.strip_tags(message_content.split(':').first)
+    content = message_content.to_s
+    h.strip_tags(content.split(/[:：]/).first || content)
   end
 
   def copied_from_authorization_request_id
