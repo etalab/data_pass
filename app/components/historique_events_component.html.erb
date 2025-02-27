@@ -4,10 +4,7 @@
       content_tag(
         :span,
         '',
-        class: [
-          "fr-icon-#{t(".#{authorization_request_event.name}.icon", default: 'error-warning-line')}",
-          "fr-text-#{t(".#{authorization_request_event.name}.color", default: 'info')}",
-        ]
+        class: icon_class
       )
     %>
   </div>
@@ -17,8 +14,8 @@
        data-show-and-hide-targets-value="#<%= dom_id(authorization_request_event, :summary) %>, #<%= dom_id(authorization_request_event, :details) %>">
 
     <div id="<%= dom_id(authorization_request_event, :summary) %>">
-      <%= authorization_request_event.message_summary %>
-      <% if authorization_request_event.text.present? %>
+      <%= message_summary %>
+      <% if text_present? %>
         <br/>
         <button class="fr-link"
                 data-action="click->show-and-hide#trigger"
@@ -29,7 +26,7 @@
     </div>
 
     <div id="<%= dom_id(authorization_request_event, :details) %>" class="fr-hidden">
-      <%= authorization_request_event.message_content %>
+      <%= message_content %>
       <button class="fr-link"
               data-action="click->show-and-hide#trigger"
               data-show-and-hide-target-param="#<%= dom_id(authorization_request_event, :summary) %>">
