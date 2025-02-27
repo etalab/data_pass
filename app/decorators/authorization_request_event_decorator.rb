@@ -39,6 +39,21 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
+  def message_content
+    h.t(
+      "instruction.authorization_request_events.authorization_request_event.#{name}.text",
+      ** {
+        user_full_name: user_full_name,
+        text: text,
+        copied_from_authorization_request_id: copied_from_authorization_request_id,
+      }.compact
+    ).html_safe
+  end
+
+  def message_summary
+    h.strip_tags(message_content.split(':').first)
+  end
+
   def copied_from_authorization_request_id
     return unless name == 'copy'
 
