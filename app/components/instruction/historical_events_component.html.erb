@@ -36,7 +36,7 @@
     <% if authorization_request_event.name == 'approve' %>
       <div class="fr-mt-1w">
         <%= link_to(
-          t('.approve.view_authorization'),
+              t('instruction.authorization_request_events.authorization_request_event.approve.view_authorization'),
           authorization_request_authorization_path(authorization_request_event.authorization_request, authorization_request_event.authorization),
           target: '_blank',
           class: 'fr-link'
