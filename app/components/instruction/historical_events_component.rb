@@ -13,26 +13,26 @@ class Instruction::HistoricalEventsComponent < ViewComponent::Base
   end
 
   def message_summary
-    content = message_content.to_s
+    content = stripped_message_content
 
     summary = if content.include?(':')
       content.split(':', 2).first
     elsif content.include?("\n")
       content.split("\n", 2).first
     else
-      plain_content = strip_tags(content)
-      words = plain_content.split
-      words.size <= 10 ? plain_content : "#{words.first(10).join(' ')}..."
+      words = content.split
+      words.size <= 10 ? content : "#{words.first(10).join(' ')}..."
     end
 
-    strip_tags(summary)
+    add_colon_if_needed(summary, content)
   end
 
   def message_content
     return @message_content if defined?(@message_content)
 
-    I18n.t(
-      "instruction.authorization_request_events.authorization_request_event.#{authorization_request_event.name}.text",
+    @message_content =
+      I18n.t(
+        "instruction.authorization_request_events.authorization_request_event.#{authorization_request_event.name}.text",
       ** {
            user_full_name: authorization_request_event.user_full_name,
            text: authorization_request_event.text,
@@ -45,10 +45,19 @@ class Instruction::HistoricalEventsComponent < ViewComponent::Base
     authorization_request_event.text.present?
   end
 
-  # Delegate helper methods to the view context
-  # We use helpers only in the template, not in the component methods
   delegate :dom_id, :strip_tags, :t, :time_tag, :link_to,
            :authorization_request_authorization_path,
            :content_tag,
            to: :helpers
+
+  private
+
+  def stripped_message_content
+    strip_tags(message_content.to_s)
+  end
+
+  def add_colon_if_needed(summary, content)
+    summary += ':' if summary != content && !summary.strip.end_with?(':')
+    summary
+  end
 end
