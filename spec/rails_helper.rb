@@ -7,6 +7,7 @@ abort('The Rails environment is running in production mode!') if Rails.env.produ
 require 'rspec/rails'
 require 'capybara/rails'
 require 'rack_session_access/capybara'
+require 'view_component/test_helpers'
 
 Rails.root.glob('spec/support/**/*.rb').each { |f| require f }
 
@@ -54,6 +55,8 @@ RSpec.configure do |config|
 
   config.include GeneratorHelpers, type: :generator
   config.include_context 'with generator', type: :generator
+
+  config.include ViewComponent::TestHelpers, type: :component
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
