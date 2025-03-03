@@ -6,7 +6,7 @@ class Instruction::HistoricalEventsComponent < ViewComponent::Base
   end
 
   def message_summary
-    content = stripped_message_content
+    content = message_content.to_s
 
     summary = if content.include?(':')
                 content.split(':', 2).first
@@ -17,7 +17,7 @@ class Instruction::HistoricalEventsComponent < ViewComponent::Base
                 words.size <= 10 ? content : "#{words.first(10).join(' ')}..."
               end
 
-    add_colon_if_needed(summary, content)
+    add_colon_if_needed(summary, content).html_safe
   end
 
   def message_content
@@ -44,10 +44,6 @@ class Instruction::HistoricalEventsComponent < ViewComponent::Base
     to: :helpers
 
   private
-
-  def stripped_message_content
-    strip_tags(message_content.to_s)
-  end
 
   def add_colon_if_needed(summary, content)
     summary += ':' if summary != content && !summary.strip.end_with?(':')
