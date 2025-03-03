@@ -5,13 +5,6 @@ class Instruction::HistoricalEventsComponent < ViewComponent::Base
     @authorization_request_event = authorization_request_event
   end
 
-  def icon_class
-    [
-      "fr-icon-#{t(".#{authorization_request_event.name}.icon", default: 'error-warning-line')}",
-      "fr-text-#{t(".#{authorization_request_event.name}.color", default: 'info')}",
-    ]
-  end
-
   def message_summary
     content = stripped_message_content
 
