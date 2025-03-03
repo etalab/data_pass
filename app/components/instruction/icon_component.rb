@@ -6,8 +6,19 @@ class Instruction::IconComponent < ViewComponent::Base
     'revoke' => { icon: 'close-circle-line', color: 'error' },
   }.freeze
 
-  def initialize(event_name:)
+  def initialize(event_name:, **options)
     @event_name = event_name
+    @options = options
+  end
+
+  def call
+    content_tag(
+      :i,
+      nil,
+      class: icon_class,
+      aria: { hidden: true },
+      **@options
+    )
   end
 
   def icon_class
