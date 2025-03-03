@@ -1,4 +1,4 @@
-class HistoriqueEventsComponent < ViewComponent::Base
+class Instruction::HistoricalEventsComponent < ViewComponent::Base
   attr_reader :authorization_request_event
 
   def initialize(authorization_request_event:)
