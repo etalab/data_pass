@@ -81,6 +81,11 @@ class AuthorizationRequestPolicy < ApplicationPolicy
       record.validated?
   end
 
+  def ongoing_request?
+    same_user_and_organization? &&
+      record.draft?
+  end
+
   protected
 
   def authorization_request_class
@@ -94,7 +99,7 @@ class AuthorizationRequestPolicy < ApplicationPolicy
   private
 
   def changed_since_latest_approval?
-    record.data != record.latest_authorization&.data
+    record.data != record.latest_authorization_of_stage(record.class_name)&.data
   end
 
   def same_current_organization?

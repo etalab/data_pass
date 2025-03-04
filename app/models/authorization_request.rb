@@ -97,6 +97,10 @@ class AuthorizationRequest < ApplicationRecord
     end
   end
 
+  def latest_authorization_of_stage(stage)
+    authorizations.where(authorization_request_class: stage).order(created_at: :desc).limit(1).first
+  end
+
   def latest_authorization_of_class(authorization_request_class)
     authorizations.where(authorization_request_class: authorization_request_class).order(created_at: :desc).limit(1).first
   end
@@ -197,7 +201,8 @@ class AuthorizationRequest < ApplicationRecord
     end
 
     after_transition to: :validated do |authorization_request|
-      authorization_request.update(last_validated_at: Time.zone.now, reopening: false)
+      ps = ProjectStatus.new(authorization_request)
+      authorization_request.update(last_validated_at: Time.zone.now, reopening: authorization_request.reopening && !ps.final_stage? && ps.cycles.any?(&:complete?))
     end
 
     event :archive do
