@@ -93,7 +93,7 @@ RSpec.describe ApproveAuthorizationRequest do
           authorization = Authorization.last
 
           expect(authorization.documents.count).to eq(1)
-          expect(authorization.documents.first.file.blob).to eq(authorization_request.cadre_juridique_document.blob)
+          expect(authorization.documents.first.files.blobs).to match_array(authorization_request.cadre_juridique_document.blobs)
         end
       end
 

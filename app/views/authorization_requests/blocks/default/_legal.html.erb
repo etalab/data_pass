@@ -20,16 +20,25 @@
         Document relatif au traitement :
       </strong>
       <br />
-      <% if namespace?(:instruction) %>
-        <% if @authorization_request.cadre_juridique_document.unsafe? %>
-          <a aria-disabled="true"><%= @authorization_request.cadre_juridique_document.filename %></a>
-        <% else %>
-          <%= link_to @authorization_request.cadre_juridique_document.filename, url_for(@authorization_request.cadre_juridique_document), target: '_blank', class: %w[fr-link--icon-left fr-icon-file-pdf-fill] %>
+
+      <div class="fr-grid-row fr-mt-1w">
+        <% Array(@authorization_request.cadre_juridique_document).each do |document| %>
+          <div class="fr-col-8 fr-mb-1w">
+            <% if namespace?(:instruction) %>
+              <% if document.unsafe? %>
+                <div class="fr-link fr-link--icon-left fr-icon-file-pdf-fill">
+                  <a aria-disabled="true"><%= document.filename %></a>
+                </div>
+              <% else %>
+                <%= link_to document.filename, url_for(document), target: '_blank', class: %w[fr-link--icon-left fr-icon-file-pdf-fill] %>
+              <% end %>
+              <%= f.dsfr_malware_badge document, class: 'fr-ml-1w' %>
+            <% else %>
+              <%= link_to document.filename, url_for(document), target: '_blank', class: %w[fr-link--icon-left fr-icon-file-pdf-fill] %>
+            <% end %>
+          </div>
         <% end %>
-        <%= f.dsfr_malware_badge @authorization_request.cadre_juridique_document, class: 'fr-ml-1w' %>
-      <% else %>
-        <%= link_to @authorization_request.cadre_juridique_document.filename, url_for(@authorization_request.cadre_juridique_document), target: '_blank', class: %w[fr-link--icon-left fr-icon-file-pdf-fill] %>
-      <% end %>
+      </div>
     </div>
   <% end %>
 <% end %>

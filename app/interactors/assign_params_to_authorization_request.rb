@@ -49,7 +49,7 @@ class AssignParamsToAuthorizationRequest < ApplicationInteractor
   end
 
   def permitted_documents
-    authorization_request_class.documents.map(&:to_sym)
+    authorization_request_class.documents.map(&:permitted_attribute)
   end
 
   def permitted_scopes
