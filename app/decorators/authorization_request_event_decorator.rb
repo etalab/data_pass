@@ -2,9 +2,7 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
   delegate_all
 
   def user_full_name
-    return unless user
-
-    user.full_name
+    user&.full_name
   end
 
   def name
@@ -18,26 +16,20 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
     end
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def text
     case name
     when 'refuse', 'request_changes', 'revoke', 'cancel_reopening_from_instructor', 'bulk_update'
-      h.simple_format(entity.reason)
+      format_text(entity.reason)
     when 'applicant_message', 'instructor_message'
-      h.simple_format(entity.body)
+      format_text(entity.body)
     when 'initial_submit_with_changes_on_prefilled_data', 'submit_with_changes'
       humanized_changelog
     when 'admin_update'
       humanized_changelog(from_admin: true)
     when 'transfer'
-      if entity.from_type == 'User'
-        "#{entity.to.full_name} (#{entity.to.email})"
-      else
-        "l'organisation #{entity.to.raison_sociale} (numéro SIRET : #{entity.to.siret})"
-      end
+      format_transfer_text
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def copied_from_authorization_request_id
     return unless name == 'copy'
@@ -46,6 +38,18 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
   end
 
   private
+
+  def format_text(content)
+    h.simple_format(content)
+  end
+
+  def format_transfer_text
+    if entity.from_type == 'User'
+      "#{entity.to.full_name} (#{entity.to.email})"
+    else
+      "l'organisation #{entity.to.raison_sociale} (numéro SIRET : #{entity.to.siret})"
+    end
+  end
 
   def humanized_changelog(from_admin: false)
     h.content_tag(:ul) do
