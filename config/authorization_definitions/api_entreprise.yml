@@ -70,6 +70,10 @@ api_entreprise:
       group: "Informations générales"
       link: "https://entreprise.api.gouv.fr/catalogue/inpi/rne/actes_bilans"
       included: true
+    - name: "Liens capitalistiques - DGFIP | 🔐"
+      group: "Informations générales"
+      value: "liens_capitalistiques_dgfip"
+      link: "https://entreprise.api.gouv.fr/catalogue/dgfip/liens_capitalistiques"
     - name: "Chiffre d’affaires - DGFIP | 🔐"
       group: "Informations financières"
       value: "chiffre_affaires_dgfip"
