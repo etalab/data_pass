@@ -37,6 +37,10 @@ class AuthorizationRequestEventDecorator < ApplicationDecorator
     entity.copied_from_request.id
   end
 
+  def to_key
+    nil
+  end
+
   private
 
   def format_text(content)
