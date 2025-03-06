@@ -39,7 +39,7 @@ class ProjectStatus
   end
 
   def stage
-    latest_habilitation&.stage || authiorization_request.definition.stage
+    latest_habilitation&.stage || authorization_request.definition.stage
   end
 
   def ready_for_next_stage?

@@ -55,9 +55,9 @@ class AuthorizationRequestDecorator < ApplicationDecorator
   end
 
   def display_stage_footer?
-    (truc_a_nommer &&
-      project_status.ready_for_next_stage?) ||
-      project_status.next_stage_in_progress?
+    truc_a_nommer &&
+      (project_status.ready_for_next_stage? ||
+      project_status.next_stage_in_progress?)
   end
 
   def display_card_reopening_footer?
@@ -65,10 +65,10 @@ class AuthorizationRequestDecorator < ApplicationDecorator
   end
 
   def truc_a_nommer
+    # project_status.multi_stage? && project_status.incomplete_cycle?
     object.definition.stage.exists? &&
       object.latest_authorization.present? &&
       object.latest_authorization.request_as_validated.definition.next_stage?
-    # project_status.multi_stage? && project_status.incomplete_cycle?
   end
 
   def next_stage_already_started?
