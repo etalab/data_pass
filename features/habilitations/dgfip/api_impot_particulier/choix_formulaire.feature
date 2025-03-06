@@ -10,13 +10,13 @@ Fonctionnalité: Choix de la modalité d'appel et du stage du formulaire API Imp
 
   Scénario: J’ai déjà un éditeur qui a accès au bac à sable
     Et que je choisis "Via l'état civil"
-    Et que je choisis "Oui, j’ai un éditeur qui a déjà accès au bac à sable"
+    Et que je choisis "Oui, j’ai un éditeur qui a finalisé et validé ses développements en bac à sable"
     Et que je clique sur "Demande libre avec éditeur"
     Alors la page contient "Demande libre avec éditeur"
 
   Scénario: Je n’ai pas encore accès au bac à sable
     Et que je choisis "Via l'état civil"
-    Et que je choisis "Non, nous n’avons pas d’éditeur avec accès au bac à sable"
+    Et que je choisis "Non, nous n’avons pas d’éditeur qui a finalisé et validé ses développements en bac à sable"
     Et que je clique sur "Demande libre (Bac à sable)"
     Alors la page contient "Le bac à sable"
 
@@ -31,13 +31,13 @@ Fonctionnalité: Choix de la modalité d'appel et du stage du formulaire API Imp
     Et que je rafraîchis la page
     Et que je choisis "Avec FranceConnect"
     Alors le champ "Sélectionnez une habilitation FranceConnect qui sera liée à cette demande" est rempli
-    Quand je choisis "Oui, j’ai un éditeur qui a déjà accès au bac à sable"
+    Quand je choisis "Oui, j’ai un éditeur qui a finalisé et validé ses développements en bac à sable"
     Et que je clique sur "Demande libre avec éditeur"
     Alors la page contient "Demande libre avec éditeur"
 
   Scénario: Je veux accéder à l’API via l’Etat civil, et mon choix est retenu une fois arrivé au bloc de modalités d’accès
     * je choisis "Via l'état civil"
-    * je choisis "Oui, j’ai un éditeur qui a déjà accès au bac à sable"
+    * je choisis "Oui, j’ai un éditeur qui a finalisé et validé ses développements en bac à sable"
     * je clique sur "Demande libre avec éditeur"
     * je clique sur "Débuter ma demande"
     * je renseigne les infos de bases du projet
@@ -52,7 +52,7 @@ Fonctionnalité: Choix de la modalité d'appel et du stage du formulaire API Imp
     Sachant que mon organisation a 1 demande d'habilitation "France Connect" validée
     * je rafraîchis la page
     * je choisis "Avec FranceConnect"
-    * je choisis "Oui, j’ai un éditeur qui a déjà accès au bac à sable"
+    * je choisis "Oui, j’ai un éditeur qui a finalisé et validé ses développements en bac à sable"
     * je clique sur "Demande libre"
     * je clique sur "Débuter ma demande"
     * je renseigne les infos de bases du projet
