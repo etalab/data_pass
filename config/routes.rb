@@ -33,6 +33,8 @@ Rails.application.routes.draw do
       resources :authorizations, only: :show, path: 'habilitations'
     end
 
+    resources :authorizations, only: :show, path: 'habilitations'
+
     resources :authorization_definitions, path: 'demandes', only: :index
 
     scope 'demandes/:authorization_definition_id', module: :authorization_definitions  do
