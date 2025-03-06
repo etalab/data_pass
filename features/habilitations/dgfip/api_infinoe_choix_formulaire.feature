@@ -9,7 +9,7 @@ Fonctionnalité: Choix du formulaire API INFINOE
     Quand je veux remplir une demande pour "API INFINOE"
 
   Scénario: J’ai déjà un éditeur qui a accès au bac à sable
-    Quand je choisis "Oui, j’ai un éditeur qui a finalisé et validé ses développements en environnement de bac à sable"
+    Quand je choisis "Oui, j’ai un éditeur qui a finalisé et validé ses développements en bac à sable"
     Et que je clique sur "Demande libre avec éditeur"
     Alors la page contient "Demande libre avec éditeur"
 
