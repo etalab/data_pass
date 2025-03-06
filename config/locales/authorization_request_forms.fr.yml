@@ -3,17 +3,17 @@ fr:
     default:
       steps: &authorization_request_forms_default_steps
         basic_infos: "Mon projet"
-        personal_data: "Le traitement des données"
-        legal: "Justification du traitement des données personnelles"
+        personal_data: "Le traitement des données personnelles"
+        legal: "Le cadre juridique"
         scopes: "Les données"
         contacts: "Les personnes impliquées"
         modalities: "Les modalités d'accès aux données"
-        safety_certification: "Homologation de sécurité"
-        operational_acceptance: "Recette fonctionnelle"
+        safety_certification: "L'homologation de sécurité"
+        operational_acceptance: "La recette fonctionnelle"
         volumetrie: "La volumétrie"
-        france_connect_eidas: "Niveau de garantie"
-        supporting_documents: "Pièces justificatives"
-        france_connect: "Habilitation FranceConnect"
+        france_connect_eidas: "Le niveau de garantie"
+        supporting_documents: "Les pièces justificatives"
+        france_connect: "L'habilitation FranceConnect"
         finish: "La synthèse"
 
       terms_of_service_accepted:
@@ -48,7 +48,7 @@ fr:
           Attention : seule l'expression de besoin en données ayant déjà été partagée avec la DGFiP peut être rattachée à votre habilitation.
 
       supporting_documents:
-        title: Les pièces justificatifs
+        title: Les pièces justificatives
       france_connect:
         title: Habilitation FranceConnect
       attestation_fiscale:
