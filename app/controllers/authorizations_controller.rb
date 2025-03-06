@@ -6,6 +6,7 @@ class AuthorizationsController < AuthenticatedUserController
   def show
     authorize @authorization, :show?
 
+    @authorization_request_policy = policy(@authorization.request)
     @authorization_request = @authorization.request_as_validated.decorate
 
     render 'authorization_request_forms/summary'

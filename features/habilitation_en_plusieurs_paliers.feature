@@ -61,3 +61,6 @@ Fonctionnalité: Interactions avec des habilitations en plusieurs paliers (bac �
 
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
+    Et il y a un badge "Production"
+    Et il y a un badge "En cours"
+    Et la page contient "Votre demande d’accès à la production"
