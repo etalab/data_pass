@@ -265,12 +265,12 @@ fr:
           En cas de doute, nous vous invitons à consulter le site d'<a href="%{base_url}" target="_blank">%{name}</a>.
       api_impot_particulier:
         editor_with_sandbox: &with_or_without_editor_block
-          title: Travaillez-vous avec un éditeur qui a déjà accès au bac à sable de cette API ?
-          subtitle: Si vous travaillez avec un éditeur et que cet éditeur a déjà accès au bac à sable, vous serez redirigé directement vers une demande d'accès à l'environnement de production.
+          title: Travaillez-vous avec un éditeur qui a finalisé et validé ses développements en environnement de bac à sable de cette API ?
+          subtitle: Si vous travaillez avec un éditeur et que cet éditeur a déjà finalisé et validé ses développements en bac à sable, vous serez redirigé directement vers une demande d'accès à l'environnement de production.
           options:
-            - label: Oui, j’ai un éditeur qui a déjà accès au bac à sable
+            - label: Oui, j’ai un éditeur qui a finalisé et validé ses développements en bac à sable
               value: true
-            - label: Non, nous n’avons pas d’éditeur avec accès au bac à sable
+            - label: Non, nous n’avons pas d’éditeur qui a finalisé et validé ses développements en bac à sable
               value: false
         choose_form_title:
           sandbox: "Choisissez le formulaire d’accès en bac à sable qui correspond le mieux à votre cas d’usage :"
@@ -285,10 +285,10 @@ fr:
         with_or_without_editor: *with_or_without_editor_block
         choose_form_title: "Choisissez le formulaire d’accès correspondant le mieux à votre cas d’usage :"
       api_r2p:
-        editor_choice: Travaillez-vous avec un éditeur qui a déjà accès au bac à sable de cette API ?
+        editor_choice: Travaillez-vous avec un éditeur qui a finalisé et validé ses développements en environnement de bac à sable de cette API ?
         use_case:
-          with_editor: Oui, j'ai un éditeur qui a déjà accès au bac à sable
-          without_editor: Non, nous n'avons pas d'éditeur avec accès au bac à sable
+          with_editor: Oui, j'ai un éditeur qui a déjà finalisé et validé ses développements bac à sable
+          without_editor: Non, nous n'avons pas d'éditeur avec finalisé et validé ses développements bac à sable
 
     closed_organization:
       title: Désolé, vous ne pouvez pas faire de nouvelle demande
