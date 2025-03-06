@@ -201,8 +201,7 @@ class AuthorizationRequest < ApplicationRecord
     end
 
     after_transition to: :validated do |authorization_request|
-      ps = ProjectStatus.new(authorization_request)
-      authorization_request.update(last_validated_at: Time.zone.now, reopening: authorization_request.reopening && !ps.final_stage? && ps.cycles.any?(&:complete?))
+      authorization_request.update(last_validated_at: Time.zone.now, reopening: authorization_request.keep_reopening?)
     end
 
     event :archive do
@@ -365,5 +364,15 @@ class AuthorizationRequest < ApplicationRecord
     return nil if definition.access_link.blank? || external_provider_id.blank?
 
     format(definition.access_link, external_provider_id:)
+  end
+
+  def keep_reopening?
+    reopening? && !project_status.final_stage? && project_status.completed_cycles.positive?
+  end
+
+  private
+
+  def project_status
+    @project_status ||= ProjectStatus.new(self)
   end
 end

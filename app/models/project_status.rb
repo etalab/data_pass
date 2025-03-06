@@ -22,6 +22,14 @@ class ProjectStatus
     end
   end
 
+  def completed_cycles
+    cycles.count(&:complete?)
+  end
+
+  def incomplete_cycle?
+    cycles.last&.ongoing?
+  end
+
   def multi_stage?
     definitions.map(&:stage).any?(&:exists?)
   end

@@ -55,13 +55,24 @@ class AuthorizationRequestDecorator < ApplicationDecorator
   end
 
   def display_stage_footer?
+    (truc_a_nommer &&
+      project_status.ready_for_next_stage?) ||
+      project_status.next_stage_in_progress?
+  end
+
+  def display_card_reopening_footer?
+    project_status.ongoing_reopening? && !(project_status.multi_stage? && project_status.ready_for_next_stage?)
+  end
+
+  def truc_a_nommer
     object.definition.stage.exists? &&
       object.latest_authorization.present? &&
       object.latest_authorization.request_as_validated.definition.next_stage?
+    # project_status.multi_stage? && project_status.incomplete_cycle?
   end
 
   def next_stage_already_started?
-    display_stage_footer? &&
+    truc_a_nommer &&
       !object.validated?
   end
 
@@ -96,6 +107,10 @@ class AuthorizationRequestDecorator < ApplicationDecorator
   end
 
   private
+
+  def project_status
+    @project_status ||= ProjectStatus.new(object)
+  end
 
   def lookup_i18n_key(subkey)
     t("authorization_request_forms.#{object.model_name.element}.#{subkey}", default: nil) ||

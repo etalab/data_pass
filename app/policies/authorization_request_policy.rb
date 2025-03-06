@@ -99,7 +99,13 @@ class AuthorizationRequestPolicy < ApplicationPolicy
   private
 
   def changed_since_latest_approval?
-    record.data != record.latest_authorization_of_stage(record.class_name)&.data
+    record.data != record.latest_authorization_of_stage(original_record.class_name)&.data
+  end
+
+  def original_record
+    return record.object if record.decorated?
+
+    record
   end
 
   def same_current_organization?
