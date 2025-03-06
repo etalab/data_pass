@@ -13,7 +13,7 @@ Fonctionnalité: Choix du formulaire API SFiP
     Alors la page contient "Demande libre avec éditeur"
 
   Scénario: Je n’ai pas d'éditeur
-    Et que je choisis "Non, nous n’avons pas d’éditeur avec accès au bac à sable"
+    Et que je choisis "Non, nous n’avons pas d’éditeur qui a finalisé et validé ses développements en bac à sable"
     Et que je clique sur "Demande libre (Bac à sable)"
     Alors la page contient "Demande libre (Bac à sable)"
 
