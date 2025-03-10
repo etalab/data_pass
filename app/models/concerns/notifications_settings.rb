@@ -22,7 +22,7 @@ module NotificationsSettings
         when '0'
           false
         else
-          settings[method_name].nil? ? true : settings[method_name]
+          settings[method_name].nil? || settings[method_name]
         end
       end
     end

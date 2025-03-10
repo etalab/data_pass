@@ -122,7 +122,7 @@ Quand('cette demande a été modifiée avec les informations suivantes :') do |t
 end
 
 Quand("je clique sur {string} pour l'habilitation {string}") do |cta_name, habilitation_name|
-  click_link cta_name, href: new_authorization_request_path(definition_id: find_authorization_definition_from_name(habilitation_name).id.dasherize) # rubocop:disable Capybara/ClickLinkOrButtonStyle
+  click_link cta_name, href: new_authorization_request_path(definition_id: find_authorization_definition_from_name(habilitation_name).id.dasherize)
 end
 
 Alors("il n'y a pas le bouton {string} pour l'habilitation {string}") do |text, habilitation_name|

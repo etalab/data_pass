@@ -8,10 +8,10 @@ end
 
 Alors('il y a un titre contenant {string}') do |text|
   elements = [
-    page.all('h1').first,
-    page.all('p.fr-h2').first,
-    page.all('h2').first,
-    page.all('table caption').first,
+    page.first('h1'),
+    page.first('p.fr-h2'),
+    page.first('h2'),
+    page.first('table caption'),
   ]
 
   expect(elements.any? { |element| element&.text&.include?(text) }).to be_truthy
@@ -23,10 +23,10 @@ end
 
 Alors("il n'y a pas de titre contenant {string}") do |text|
   elements = [
-    page.all('h1').first,
-    page.all('p.fr-h2').first,
-    page.all('h2').first,
-    page.all('table caption').first,
+    page.first('h1'),
+    page.first('p.fr-h2'),
+    page.first('h2'),
+    page.first('table caption'),
   ]
 
   expect(elements.none? { |element| element&.text&.include?(text) }).to be_truthy
@@ -37,7 +37,7 @@ Quand(/je clique sur (le (?:dernier|premier) )?"([^"]+)"\s*$/) do |position, lab
   when 'le dernier '
     page.all('a', text: label).last.click
   when 'le premier '
-    page.all('a', text: label).first.click
+    page.first('a', text: label).click
   else
     if javascript?
       find(:link_or_button, label).trigger('click')
