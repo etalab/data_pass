@@ -252,6 +252,31 @@ Quand('cette demande a été {string}') do |status|
   raise 'Organizer failed' unless organizer.success?
 end
 
+Quand('cette demande a été {string} avec le message {string}') do |status, message|
+  authorization_request = AuthorizationRequest.last
+  user = User.last
+
+  organizer = case extract_state_from_french_status(status)
+              when 'changes_requested'
+                params = attributes_for(:instructor_modification_request).merge(reason: message)
+                RequestChangesOnAuthorizationRequest.call(
+                  authorization_request: authorization_request,
+                  user: user,
+                  instructor_modification_request_params: params
+                )
+              when 'rejected'
+                RefuseAuthorizationRequest.call(
+                  authorization_request: authorization_request,
+                  user: user,
+                  rejection_reason: message
+                )
+              else
+                raise "Status with message not implemented for: #{state}"
+              end
+
+  raise 'Organizer failed' unless organizer.success?
+end
+
 Quand('Je joins une maquette au projet {string}') do |authorization_definition_name|
   authorization_definition_id = find_authorization_definition_from_name(authorization_definition_name).id
   attach_file("authorization_request_#{authorization_definition_id}_maquette_projet", Rails.root.join('spec/fixtures/dummy.pdf'))
