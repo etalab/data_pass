@@ -71,6 +71,7 @@ api-entreprise-aides-publiques:
       - chiffre_affaires_dgfip
       - bilans_bdf
       # - liasses_fiscales_dgfip
+      - liens_capitalistiques_dgfip
       - attestation_fiscale_dgfip
       - attestation_sociale_urssaf
       - cotisations_msa
