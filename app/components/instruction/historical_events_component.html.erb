@@ -1,0 +1,49 @@
+<li id="<%= dom_id(authorization_request_event) %>" class="fr-grid-row">
+  <div class="fr-mr-1w">
+    <%= render(Instruction::IconComponent.new(event_name: authorization_request_event.name))
+    %>
+  </div>
+
+  <div class="fr-col"
+       data-controller="show-and-hide"
+       data-show-and-hide-targets-value="#<%= dom_id(authorization_request_event, :summary) %>, #<%= dom_id(authorization_request_event, :details) %>">
+
+    <div id="<%= dom_id(authorization_request_event, :summary) %>">
+      <%= message_summary %>
+      <% if text_present? %>
+        <br/>
+        <button class="fr-link"
+                data-action="click->show-and-hide#trigger"
+                data-show-and-hide-target-param="#<%= dom_id(authorization_request_event, :details) %>">
+          <%= t('components.historical_events.show_message') %>
+        </button>
+      <% end %>
+    </div>
+
+    <div id="<%= dom_id(authorization_request_event, :details) %>" class="fr-hidden">
+      <%= message_content %>
+      <button class="fr-link"
+              data-action="click->show-and-hide#trigger"
+              data-show-and-hide-target-param="#<%= dom_id(authorization_request_event, :summary) %>">
+        <%= t('components.historical_events.hide_message') %>
+      </button>
+    </div>
+
+    <% if authorization_request_event.name == 'approve' %>
+      <div class="fr-mt-1w">
+        <%= link_to(
+              t('instruction.authorization_request_events.authorization_request_event.approve.view_authorization'),
+          authorization_request_authorization_path(authorization_request_event.authorization_request, authorization_request_event.authorization),
+          target: '_blank',
+          class: 'fr-link'
+        ) %>
+      </div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= time_tag authorization_request_event.created_at do %>
+      <%= authorization_request_event.created_at.strftime("%d/%m/%Y") %>
+    <% end %>
+  </div>
+</li>
