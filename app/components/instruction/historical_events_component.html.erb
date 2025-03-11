@@ -10,7 +10,7 @@
 
     <div id="<%= dom_id(authorization_request_event, :message_summary) %>">
       <%= message_summary %>
-      <% if text_present? %>
+      <% if message_expandable? %>
         <br/>
         <button class="fr-link"
                 data-action="click->show-and-hide#trigger"

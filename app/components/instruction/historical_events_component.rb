@@ -33,6 +33,10 @@ class Instruction::HistoricalEventsComponent < ViewComponent::Base
     @text_content
   end
 
+  def message_expandable?
+    text&.present?
+  end
+
   # rubocop:disable Metrics/AbcSize
   def transfer_text
     return unless name == 'transfer'
@@ -102,5 +106,4 @@ class Instruction::HistoricalEventsComponent < ViewComponent::Base
     :content_tag,
     to: :helpers
   delegate :user_full_name, to: :authorization_request_event
-  delegate :present?, to: :text, prefix: true, allow_nil: true
 end
