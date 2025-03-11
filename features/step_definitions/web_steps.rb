@@ -7,12 +7,7 @@ Quand('je me rends sur le chemin {string}') do |string|
 end
 
 Alors('il y a un titre contenant {string}') do |text|
-  elements = [
-    page.all('h1'),
-    page.all('p.fr-h2'),
-    page.all('h2'),
-    page.all('table caption'),
-  ].flatten
+  elements = page.all('h1, p.fr-h2, h2, table caption')
 
   expect(elements.any? { |element| element&.text&.include?(text) }).to be_truthy
 end
@@ -22,12 +17,7 @@ Alors('je suis sur la page {string}') do |text|
 end
 
 Alors("il n'y a pas de titre contenant {string}") do |text|
-  elements = [
-    page.all('h1'),
-    page.all('p.fr-h2'),
-    page.all('h2'),
-    page.all('table caption'),
-  ].flatten
+  elements = page.all('h1, p.fr-h2, h2, table caption')
 
   expect(elements.none? { |element| element&.text&.include?(text) }).to be_truthy
 end
