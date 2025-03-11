@@ -747,7 +747,7 @@ fr:
           message_details: |
             <p class="fr-mt-2w">
               Les données suivantes ont été modifiées par rapport aux informations pré-remplies du formulaire :
-              %{text}
+              %{message_details_text}
             </p>
         submit_with_changes:
           message_summary: |
@@ -757,7 +757,7 @@ fr:
           message_details: |
             <p class="fr-mt-2w">
               La liste des changements depuis la dernière modération est la suivante :
-              %{text}
+              %{message_details_text}
             </p>
         submit_without_changes:
           message_summary: |
@@ -774,21 +774,21 @@ fr:
             <strong>%{user_full_name}</strong> a demandé des modifications sur la demande :
           message_details: |
             <blockquote>
-              %{text}
+              %{message_details_text}
             </blockquote>
         refuse:
           message_summary: |
             <strong>%{user_full_name}</strong> a refusé la demande :
           message_details: |
             <blockquote>
-              %{text}
+              %{message_details_text}
             </blockquote>
         revoke:
           message_summary: |
             <strong>%{user_full_name}</strong> a révoqué la demande :
           message_details: |
             <blockquote>
-              %{text}
+              %{message_details_text}
             </blockquote>
 
         copy:
@@ -808,7 +808,7 @@ fr:
             L'instructeur <strong>%{user_full_name}</strong> a annulé la réouverture de l'habilitation pour la raison suivante :
           message_details: |
             <blockquote>
-              %{text}
+              %{message_details_text}
             </blockquote>
 
         applicant_message:
@@ -816,7 +816,7 @@ fr:
             Le demandeur <strong>%{user_full_name}</strong> a envoyé un message :
           message_details: |
             <blockquote>
-              %{text}
+              %{message_details_text}
             </blockquote>
 
         instructor_message:
@@ -824,7 +824,7 @@ fr:
             L'instructeur <strong>%{user_full_name}</strong> a envoyé un message :
           message_details: |
             <blockquote>
-              %{text}
+              %{message_details_text}
             </blockquote>
 
         admin_update:
@@ -833,14 +833,14 @@ fr:
 
           message_details: |
             La liste des changements est la suivante :
-            %{text}
+            %{message_details_text}
 
         bulk_update:
           message_summary: |
             Une mise à jour globale sur ce type d'habilitation a été effectuée :
           message_details: |
             <blockquote>
-              %{text}
+              %{message_details_text}
             </blockquote>
 
         start_next_stage:
