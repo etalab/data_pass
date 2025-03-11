@@ -70,6 +70,11 @@ fr:
     changelog_entry_applicant: "Le <u>demandeur</u> a été modifié de %{old_value} à %{new_value}."
     changelog_entry_applicant_with_missing_data: "Le <u>demandeur</u> a été modifié."
 
+  components:
+    historical_events:
+      show_message: "voir le message"
+      hide_message: "masquer le message"
+
   layouts:
     header:
       title: DataPass
@@ -118,6 +123,7 @@ fr:
           messages:
             title: Messagerie
             icon: question-answer-line
+
 
   application:
     user_not_authorized:
@@ -718,141 +724,136 @@ fr:
         title: Derniers événements liés à cette demande
       authorization_request_event:
         create:
-          text: "<strong>%{user_full_name}</strong> a crée la demande"
+          message_summary: |
+            <strong>%{user_full_name}</strong> a crée la demande.
         update:
-          text: "<strong>%{user_full_name}</strong> a mis à jour la demande"
-
+          message_summary: |
+            <strong>%{user_full_name}</strong> a mis à jour la demande.
         transfer:
-          text: "<strong>%{user_full_name}</strong> a transféré la demande à <strong>%{text}</strong>"
+          message_summary: |
+            <strong>%{user_full_name}</strong> a transféré la demande à <strong>%{transfer_text}</strong>.
         archive:
-          text: "<strong>%{user_full_name}</strong> a supprimé la demande"
+          message_summary: |
+            <strong>%{user_full_name}</strong> a supprimé la demande.
         initial_submit_without_prefilled_data:
-          text: |
-            <strong>%{user_full_name}</strong> a soumis la demande
+          message_summary: |
+            <strong>%{user_full_name}</strong> a soumis la demande.
         initial_submit_without_changes_on_prefilled_data:
-          text: |
+          message_summary: |
             <strong>%{user_full_name}</strong> a soumis la demande sans effectuer de changement sur les données pré-remplies.
         initial_submit_with_changes_on_prefilled_data:
-          text: |
-            <p class="fr-mb-2w">
-              <strong>%{user_full_name}</strong> a soumis la demande
+          message_summary: |
+            <strong>%{user_full_name}</strong> a soumis la demande :
+          message_details: |
+            <p class="fr-mt-2w">
+              Les données suivantes ont été modifiées par rapport aux informations pré-remplies du formulaire :
+              %{text}
             </p>
-
-            Les données suivantes ont été modifiées par rapport aux informations pré-remplies du formulaire :
-            %{text}
         submit_with_changes:
-          text: |
+          message_summary: |
             <p class="fr-mb-2w">
-              <strong>%{user_full_name}</strong> a soumis la demande.
+              <strong>%{user_full_name}</strong> a soumis la demande :
             </p>
-
-            La liste des changements depuis la dernière modération sont les suivants :
-            %{text}
-
+          message_details: |
+            <p class="fr-mt-2w">
+              La liste des changements depuis la dernière modération est la suivante :
+              %{text}
+            </p>
         submit_without_changes:
-          text: |
-            <strong>%{user_full_name}</strong> a soumis la demande sans effectuer de changement.
+          message_summary: |
+            <strong>%{user_full_name}</strong> a soumis la demande sans effectuer de changement :
         legacy_submit:
-          text: |
-            <strong>%{user_full_name}</strong> a soumis la demande (certains changement ont pu être effectué mais ne sont pas actuellement affichables)
+          message_summary: |
+            <strong>%{user_full_name}</strong> a soumis la demande (certains changement ont pu être effectué mais ne sont pas actuellement affichables).
         approve:
-          text: "<strong>%{user_full_name}</strong> a approuvé la demande"
-          icon: checkbox-line
-          color: success
+          message_summary: |
+            <strong>%{user_full_name}</strong> a approuvé la demande.
           view_authorization: Consulter l'habilitation
         request_changes:
-          text: |
-            <strong>%{user_full_name}</strong> a demandé des modifications sur la demande:
-
+          message_summary: |
+            <strong>%{user_full_name}</strong> a demandé des modifications sur la demande :
+          message_details: |
             <blockquote>
               %{text}
             </blockquote>
-          icon: pencil-line
-          color: warning
         refuse:
-          text: |
-            <strong>%{user_full_name}</strong> a refusé la demande:
-
+          message_summary: |
+            <strong>%{user_full_name}</strong> a refusé la demande :
+          message_details: |
             <blockquote>
               %{text}
             </blockquote>
-          icon: close-circle-line
-          color: error
         revoke:
-          text: |
-            <strong>%{user_full_name}</strong> a révoqué la demande:
-
+          message_summary: |
+            <strong>%{user_full_name}</strong> a révoqué la demande :
+          message_details: |
             <blockquote>
               %{text}
             </blockquote>
-          icon: close-circle-line
-          color: error
 
         copy:
-          text: |
-            <strong>%{user_full_name}</strong> a copié la demande %{copied_from_authorization_request_id}
+          message_summary: |
+            <strong>%{user_full_name}</strong> a copié la demande %{copied_from_authorization_request_id}.
 
         reopen:
-          text: <strong>%{user_full_name}</strong> a réouvert l'habilitation
+          message_summary: |
+            <strong>%{user_full_name}</strong> a réouvert l'habilitation.
 
         cancel_reopening_from_applicant:
-          text: <strong>%{user_full_name}</strong> a annulé la réouverture de l'habilitation
+          message_summary: |
+            <strong>%{user_full_name}</strong> a annulé la réouverture de l'habilitation.
 
         cancel_reopening_from_instructor:
-          text: |
+          message_summary: |
             L'instructeur <strong>%{user_full_name}</strong> a annulé la réouverture de l'habilitation pour la raison suivante :
-
+          message_details: |
             <blockquote>
               %{text}
             </blockquote>
 
         applicant_message:
-          text: |
-            Le demandeur <strong>%{user_full_name}</strong> a envoyé un message:
-
+          message_summary: |
+            Le demandeur <strong>%{user_full_name}</strong> a envoyé un message :
+          message_details: |
             <blockquote>
               %{text}
             </blockquote>
 
         instructor_message:
-          text: |
-            L'instructeur <strong>%{user_full_name}</strong> a envoyé un message:
-
+          message_summary: |
+            L'instructeur <strong>%{user_full_name}</strong> a envoyé un message :
+          message_details: |
             <blockquote>
               %{text}
             </blockquote>
 
         admin_update:
-          text: |
-            L'administrateur <strong>%{user_full_name}</strong> a mis à jour la demande.
+          message_summary: |
+            L'administrateur <strong>%{user_full_name}</strong> a mis à jour la demande :
 
-            <br />
-
-            La liste des changements est :
+          message_details: |
+            La liste des changements est la suivante :
             %{text}
 
         bulk_update:
-          text: |
+          message_summary: |
             Une mise à jour globale sur ce type d'habilitation a été effectuée :
-
-            <br />
-
+          message_details: |
             <blockquote>
               %{text}
             </blockquote>
 
-
         start_next_stage:
-          text: Le demandeur <strong>%{user_full_name}</strong> a démarré la demande d'habilitation pour la production
+          message_summary: Le demandeur <strong>%{user_full_name}</strong> a démarré la demande d'habilitation pour la production
 
         system_reminder:
-          text: Une relance a été envoyé au demandeur
+          message_summary: Une relance a été envoyé au demandeur
 
         system_archive:
-          text: La demande d'habilitation a été archivée par le système
+          message_summary: La demande d'habilitation a été archivée par le système
 
         system_import:
-          text: La demande d'habilitation a été importé depuis une autre source
+          message_summary: La demande d'habilitation a été importé depuis une autre source
     authorizations:
       index:
         title: Historique des habilitations liées à cette demande
