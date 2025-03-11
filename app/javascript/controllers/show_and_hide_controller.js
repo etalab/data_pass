@@ -43,6 +43,6 @@ export default class extends Controller {
 
   _elementsToHide (exceptSelector) {
     const filteredSelector = this.targetsValue.split(',').filter(target => target !== exceptSelector).join(',')
-    return this.element.querySelectorAll(filteredSelector)
+    return filteredSelector.trim() ? this.element.querySelectorAll(filteredSelector) : []
   }
 }
