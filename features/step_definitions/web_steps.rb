@@ -8,11 +8,11 @@ end
 
 Alors('il y a un titre contenant {string}') do |text|
   elements = [
-    page.first('h1'),
-    page.first('p.fr-h2'),
-    page.first('h2'),
-    page.first('table caption'),
-  ]
+    page.all('h1'),
+    page.all('p.fr-h2'),
+    page.all('h2'),
+    page.all('table caption'),
+  ].flatten
 
   expect(elements.any? { |element| element&.text&.include?(text) }).to be_truthy
 end
@@ -23,11 +23,11 @@ end
 
 Alors("il n'y a pas de titre contenant {string}") do |text|
   elements = [
-    page.first('h1'),
-    page.first('p.fr-h2'),
-    page.first('h2'),
-    page.first('table caption'),
-  ]
+    page.all('h1'),
+    page.all('p.fr-h2'),
+    page.all('h2'),
+    page.all('table caption'),
+  ].flatten
 
   expect(elements.none? { |element| element&.text&.include?(text) }).to be_truthy
 end
