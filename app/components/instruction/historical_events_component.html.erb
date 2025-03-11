@@ -6,25 +6,25 @@
 
   <div class="fr-col"
        data-controller="show-and-hide"
-       data-show-and-hide-targets-value="#<%= dom_id(authorization_request_event, :summary) %>, #<%= dom_id(authorization_request_event, :details) %>">
+       data-show-and-hide-targets-value="#<%= dom_id(authorization_request_event, :message_summary) %>, #<%= dom_id(authorization_request_event, :message_content) %>">
 
-    <div id="<%= dom_id(authorization_request_event, :summary) %>">
+    <div id="<%= dom_id(authorization_request_event, :message_summary) %>">
       <%= message_summary %>
       <% if text_present? %>
         <br/>
         <button class="fr-link"
                 data-action="click->show-and-hide#trigger"
-                data-show-and-hide-target-param="#<%= dom_id(authorization_request_event, :details) %>">
+                data-show-and-hide-target-param="#<%= dom_id(authorization_request_event, :message_content) %>">
           <%= t('components.historical_events.show_message') %>
         </button>
       <% end %>
     </div>
 
-    <div id="<%= dom_id(authorization_request_event, :details) %>" class="fr-hidden">
+    <div id="<%= dom_id(authorization_request_event, :message_content) %>" class="fr-hidden">
       <%= message_content %>
       <button class="fr-link"
               data-action="click->show-and-hide#trigger"
-              data-show-and-hide-target-param="#<%= dom_id(authorization_request_event, :summary) %>">
+              data-show-and-hide-target-param="#<%= dom_id(authorization_request_event, :message_summary) %>">
         <%= t('components.historical_events.hide_message') %>
       </button>
     </div>
