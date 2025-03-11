@@ -79,6 +79,24 @@ class Instruction::HistoricalEventsComponent < ViewComponent::Base
     authorization_request_event.copied_from_request&.id
   end
 
+  def external_link
+    return unless authorization_request_event.name == 'approve'
+
+    link_to(
+      t('instruction.authorization_request_events.authorization_request_event.approve.view_authorization'),
+      authorization_request_authorization_path(authorization_request_event.authorization_request, authorization_request_event.authorization),
+      target: '_blank',
+      class: 'fr-link',
+      rel: 'noopener'
+    )
+  end
+
+  def formatted_created_at_date
+    time_tag authorization_request_event.created_at do
+      authorization_request_event.created_at.strftime("%d/%m/%Y")
+    end
+  end
+
   private
 
   def humanized_changelog(from_admin: false)
