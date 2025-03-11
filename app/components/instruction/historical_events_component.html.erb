@@ -29,21 +29,14 @@
       </button>
     </div>
 
-    <% if authorization_request_event.name == 'approve' %>
+    <% if external_link.present? %>
       <div class="fr-mt-1w">
-        <%= link_to(
-              t('instruction.authorization_request_events.authorization_request_event.approve.view_authorization'),
-          authorization_request_authorization_path(authorization_request_event.authorization_request, authorization_request_event.authorization),
-          target: '_blank',
-          class: 'fr-link'
-        ) %>
+        <%= external_link %>
       </div>
     <% end %>
   </div>
 
   <div>
-    <%= time_tag authorization_request_event.created_at do %>
-      <%= authorization_request_event.created_at.strftime("%d/%m/%Y") %>
-    <% end %>
+    <%= formatted_created_at_date %>
   </div>
 </li>
