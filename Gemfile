@@ -47,6 +47,7 @@ gem 'state_machines-activerecord'
 gem 'stimulus-rails'
 gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[ windows jruby ]
+gem "view_component"
 gem 'wicked'
 
 group :development, :test do
@@ -84,6 +85,7 @@ group :test do
   gem 'roo'
   gem 'rspec-rails', '7.1.1'
   gem 'simplecov', require: false
+  gem "view_component"
   gem 'webmock'
   gem 'openapi3_parser'
 end
