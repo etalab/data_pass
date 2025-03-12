@@ -1,4 +1,6 @@
 class Instruction::HistoricalEventsComponent < ViewComponent::Base
+  with_collection_parameter :authorization_request_event
+
   attr_reader :authorization_request_event
 
   def initialize(authorization_request_event:)
