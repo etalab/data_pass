@@ -3,7 +3,5 @@
 </h3>
 
 <ul class="authorization-request-events">
-  <% @events.each do |event| %>
-    <%= render(Instruction::HistoricalEventsComponent.new(authorization_request_event: event)) %>
-  <% end %>
+  <%= render(Instruction::HistoricalEventsComponent.with_collection(@events)) %>
 </ul>
