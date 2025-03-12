@@ -3,11 +3,7 @@ class ExternalLinkComponent < ViewComponent::Base
     @text = text
     @path = path
     @i18n_key = i18n_key
-    @options = {
-      target: '_blank',
-      class: 'fr-link',
-      rel: 'noopener'
-    }.merge(options)
+    @options = default_options.merge(options)
   end
 
   def call
@@ -24,5 +20,13 @@ class ExternalLinkComponent < ViewComponent::Base
 
   def link_text
     @text || (@i18n_key.present? ? t(@i18n_key) : '')
+  end
+
+  def default_options
+    {
+      target: '_blank',
+      class: 'fr-link',
+      rel: 'noopener'
+    }
   end
 end
