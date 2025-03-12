@@ -42,7 +42,7 @@ RSpec.describe HistoricalAuthorizationRequestEventComponent, type: :component do
 
       it 'returns false' do
         render_inline(subject)
-        byebug
+
         expect(subject.message_expandable?).to be(false)
       end
     end
