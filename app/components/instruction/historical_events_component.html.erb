@@ -29,9 +29,15 @@
       </button>
     </div>
 
-    <% if external_link.present? %>
+    <% if external_link? %>
       <div class="fr-mt-1w">
-        <%= external_link %>
+        <%= render ExternalLinkComponent.new(
+          i18n_key: 'instruction.authorization_request_events.authorization_request_event.approve.view_authorization',
+          path: authorization_request_authorization_path(
+            authorization_request_event.authorization_request,
+            authorization_request_event.authorization
+          )
+        ) %>
       </div>
     <% end %>
   </div>
