@@ -30,7 +30,6 @@ class AuthorizationRequestEvent < ApplicationRecord
 
   belongs_to :user, optional: true
   belongs_to :entity, polymorphic: true
-  belongs_to :copied_from_request, class_name: 'AuthorizationRequestEvent', optional: true
 
   validates :user, presence: true, unless: -> { name.try(:starts_with?, 'system_') }
   validates :name, inclusion: { in: NAMES }
