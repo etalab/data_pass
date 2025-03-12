@@ -9,7 +9,7 @@ class Instruction::HistoricalEventsComponent < ViewComponent::Base
 
   def before_render
     @text_content = case name
-                    when 'request_changes'
+                    when 'request_changes', 'revoke', 'refuse'
                       helpers.simple_format(authorization_request_event.entity.reason)
                     when 'applicant_message', 'instructor_message'
                       helpers.simple_format(authorization_request_event.entity.body)
