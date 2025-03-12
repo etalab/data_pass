@@ -1,4 +1,4 @@
-RSpec.describe Instruction::IconComponent, type: :component do
+RSpec.describe IconComponent, type: :component do
   describe '#call' do
     context "when event_name is 'approve'" do
       it 'renders the correct icon and color class' do
