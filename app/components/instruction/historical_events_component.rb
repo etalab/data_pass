@@ -86,9 +86,7 @@ class Instruction::HistoricalEventsComponent < ViewComponent::Base
   end
 
   def formatted_created_at_date
-    time_tag authorization_request_event.created_at do
-      authorization_request_event.created_at.strftime("%d/%m/%Y")
-    end
+    authorization_request_event.created_at.strftime('%d/%m/%Y')
   end
 
   private
@@ -113,7 +111,7 @@ class Instruction::HistoricalEventsComponent < ViewComponent::Base
     end
   end
 
-  delegate :dom_id, :strip_tags, :t, :time_tag, :link_to,
+  delegate :dom_id, :strip_tags, :t, :link_to,
     :authorization_request_authorization_path,
     :content_tag,
     to: :helpers
