@@ -3,7 +3,7 @@ class ExternalLinkComponent < ViewComponent::Base
     @text = text
     @path = path
     @i18n_key = i18n_key
-    @options = default_options.merge(options)
+    @options = merge_options(options)
   end
 
   def call
@@ -28,5 +28,11 @@ class ExternalLinkComponent < ViewComponent::Base
       class: 'fr-link',
       rel: 'noopener'
     }
+  end
+
+  def merge_options(custom_options)
+    merged_options = default_options.merge(custom_options.except(:class))
+    merged_options[:class] = [default_options[:class], custom_options[:class]].compact.join(' ')
+    merged_options
   end
 end
