@@ -1,6 +1,6 @@
 <li id="<%= dom_id(authorization_request_event) %>" class="fr-grid-row">
   <div class="fr-mr-1w">
-    <%= render(Instruction::IconComponent.new(event_name: authorization_request_event.name))
+    <%= render(HistoricalEventIconComponent.new(name: authorization_request_event.name))
     %>
   </div>
 

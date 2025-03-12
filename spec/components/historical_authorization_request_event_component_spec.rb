@@ -1,4 +1,4 @@
-RSpec.describe Instruction::HistoricalEventsComponent, type: :component do
+RSpec.describe HistoricalAuthorizationRequestEventComponent, type: :component do
   subject { described_class.new(authorization_request_event: authorization_request_event) }
 
   let(:authorization_request_event) { create(:authorization_request_event, :request_changes) }
@@ -30,20 +30,20 @@ RSpec.describe Instruction::HistoricalEventsComponent, type: :component do
     end
   end
 
-  describe '#text_present?' do
-    context 'when text is present' do
+  describe '#message_expandable?' do
+    context 'when message_details_text is present' do
       it 'returns true' do
-        expect(subject.text_present?).to be(true)
+        expect(subject.message_expandable?).to be(true)
       end
     end
 
-    context 'when text is nil' do
+    context 'when message_details_text is nil' do
       let(:authorization_request_event) { create(:authorization_request_event, :approve) }
 
       it 'returns false' do
         render_inline(subject)
-
-        expect(subject.text_present?).to be(false)
+        byebug
+        expect(subject.message_expandable?).to be(false)
       end
     end
   end
