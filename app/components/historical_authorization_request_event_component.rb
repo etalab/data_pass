@@ -1,4 +1,4 @@
-class Instruction::HistoricalEventsComponent < ViewComponent::Base
+class HistoricalAuthorizationRequestEventComponent < ViewComponent::Base
   with_collection_parameter :authorization_request_event
 
   attr_reader :authorization_request_event
@@ -66,7 +66,7 @@ class Instruction::HistoricalEventsComponent < ViewComponent::Base
   end
 
   def message_details
-    return nil if message_details_text.blank?
+    # return nil if message_details_text.blank?
 
     I18n.t(
       "instruction.authorization_request_events.authorization_request_event.#{name}.message_details",
@@ -78,7 +78,7 @@ class Instruction::HistoricalEventsComponent < ViewComponent::Base
   def copied_from_authorization_request_id
     return unless name == 'copy'
 
-    authorization_request_event.copied_from_request&.id
+    authorization_request_event.entity.copied_from_request&.id
   end
 
   def external_link?
