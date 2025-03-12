@@ -66,7 +66,7 @@ class HistoricalAuthorizationRequestEventComponent < ViewComponent::Base
   end
 
   def message_details
-    # return nil if message_details_text.blank?
+    return nil if message_details_text.blank?
 
     I18n.t(
       "instruction.authorization_request_events.authorization_request_event.#{name}.message_details",
