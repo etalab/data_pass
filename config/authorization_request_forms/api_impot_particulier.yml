@@ -98,33 +98,52 @@ api-impot-particulier-production-editeur:
     - name: safety_certification
     - name: volumetrie
 
-# Stationnement résidentiel
-api-impot-particulier-stationnement-residentiel-sandbox:
-  name: Stationnement résidentiel (Bac à sable)
+# Cantine scolaire
+api-impot-particulier-cantine-scolaire-sandbox:
+  name: Cantine scolaire (Bac à sable)
   public: true
-  use_case: stationnement_residentiel
-  description: Dites-le nous une fois - Stationnement Résidentiel (Bac à sable)
+  use_case: cantine_scolaire
+  description: Dites-le nous une fois - Cantine scolaire (Bac à sable)
   introduction: *api_impot_particulier_sandbox_form_introduction
   authorization_request: APIImpotParticulierSandbox
   steps: *api_impot_particulier_sandbox_steps
+  data:
+    intitule: Dites-le-nous une fois – Cantine scolaire
+    description: |
+      Simplification de la souscription à la cantine scolaire pour les usagers par l’utilisation des données fiscales fournies par la DGFiP afin de déterminer les tarifs applicables.
+      (A compléter par le demandeur)
+    destinataire_donnees_caractere_personnel: Agents instructeurs des demandes de souscription à la cantine scolaire
+    cadre_juridique_nature:
+      - Règlement (UE) 2016/679 du Parlement européen et du Conseil du 27 avril 2016, relatif à la protection des personnes physiques à l’égard du traitement des données à caractère personnel et à la libre circulation de ces données (RGPD)
+      - Les articles L. 114-8 et suivants du code des relations entre le public et l’administration (CRPA)
+      - Délibération de la collectivité (ou autre fondement juridique)
 
-api-impot-particulier-stationnement-residentiel-production:
-  name: Stationnement résidentiel
+api-impot-particulier-cantine-scolaire-production:
+  name: Cantine scolaire
   public: false
-  use_case: stationnement_residentiel
   introduction: *api_impot_particulier_production_form_introduction
   authorization_request: APIImpotParticulier
   static_blocks: *api_impot_particulier_sandbox_steps
   steps: *api_impot_particulier_production_steps
 
-api-impot-particulier-stationnement-residentiel-editeur:
-  name: Stationnement résidentiel
+api-impot-particulier-cantine-scolaire-editeur:
+  name: Cantine scolaire
   public: true
-  use_case: stationnement_residentiel
-  description: Dites-le nous une fois - Stationnement Résidentiel (avec Éditeur)
-  authorization_request: APIImpotParticulier
+  use_case: cantine_scolaire
+  description: Dites-le nous une fois - Cantine scolaire (avec Éditeur)
   introduction: *api_impot_particulier_editor_form_introduction
+  authorization_request: APIImpotParticulier
   steps: *api_impot_particulier_editor_steps
+  data:
+    intitule: Dites-le-nous une fois – Cantine scolaire
+    description: |
+      Simplification de la souscription à la cantine scolaire pour les usagers par l’utilisation des données fiscales fournies par la DGFiP afin de déterminer les tarifs applicables.
+      (A compléter par le demandeur)
+    destinataire_donnees_caractere_personnel: Agents instructeurs des demandes de souscription à la cantine scolaire
+    cadre_juridique_nature:
+      - Règlement (UE) 2016/679 du Parlement européen et du Conseil du 27 avril 2016, relatif à la protection des personnes physiques à l’égard du traitement des données à caractère personnel et à la libre circulation de ces données (RGPD)
+      - Les articles L. 114-8 et suivants du code des relations entre le public et l’administration (CRPA)
+      - Délibération de la collectivité (ou autre fondement juridique)
 
 # Place en crèche
 api-impot-particulier-place-creche-sandbox:
@@ -135,6 +154,16 @@ api-impot-particulier-place-creche-sandbox:
   introduction: *api_impot_particulier_sandbox_form_introduction
   authorization_request: APIImpotParticulierSandbox
   steps: *api_impot_particulier_sandbox_steps
+  data:
+    intitule: Dites-le nous une fois - Place en crèche
+    description: |
+      Simplification des demandes de place en crèche pour les usagers par l’utilisation des données fiscales fournies par la DGFiP.
+      (A compléter par le demandeur)
+    destinataire_donnees_caractere_personnel: Agents instructeurs des demandes de place en crèche
+    cadre_juridique_nature:
+      - Règlement (UE) 2016/679 du Parlement européen et du Conseil du 27 avril 2016, relatif à la protection des personnes physiques à l’égard du traitement des données à caractère personnel et à la libre circulation de ces données (RGPD)
+      - Les articles L. 114-8 et suivants du code des relations entre le public et l’administration (CRPA)
+      - Délibération de la collectivité (ou autre fondement juridique)
 
 api-impot-particulier-place-creche-production:
   name: Place en crèche
@@ -153,19 +182,39 @@ api-impot-particulier-place-creche-editeur:
   introduction: *api_impot_particulier_editor_form_introduction
   authorization_request: APIImpotParticulier
   steps: *api_impot_particulier_editor_steps
+  data:
+    intitule: Dites-le nous une fois - Place en crèche
+    description: |
+      Simplification des demandes de place en crèche pour les usagers par l’utilisation des données fiscales fournies par la DGFiP.
+      (A compléter par le demandeur)
+    destinataire_donnees_caractere_personnel: Agents instructeurs des demandes de place en crèche
+    cadre_juridique_nature:
+      - Règlement (UE) 2016/679 du Parlement européen et du Conseil du 27 avril 2016, relatif à la protection des personnes physiques à l’égard du traitement des données à caractère personnel et à la libre circulation de ces données (RGPD)
+      - Les articles L. 114-8 et suivants du code des relations entre le public et l’administration (CRPA)
+      - Délibération de la collectivité (ou autre fondement juridique)
 
-# Activités périscolaires
+# Activités périscolaires et assimilés
 api-impot-particulier-activites-periscolaires-sandbox:
-  name: Activités périscolaires (Bac à sable)
+  name: Activités périscolaires et assimilés (Bac à sable)
   public: true
   use_case: activites_periscolaires
-  description: Dites-le nous une fois - Activités périscolaires (Bac à sable)
+  description: Dites-le nous une fois - Activités périscolaires et assimilés (Bac à sable)
   introduction: *api_impot_particulier_sandbox_form_introduction
   authorization_request: APIImpotParticulierSandbox
   steps: *api_impot_particulier_sandbox_steps
+  data:
+    intitule: Dites-le-nous une fois – Activités périscolaires et assimilés
+    description: |
+      Simplification de la souscription aux activités périscolaires pour les usagers par l’utilisation des données fiscales fournies par la DGFiP afin de déterminer les tarifs applicables.
+      (A compléter par le demandeur)
+    destinataire_donnees_caractere_personnel: Agents instructeurs des demandes de souscription aux activités périscolaires
+    cadre_juridique_nature:
+      - Règlement (UE) 2016/679 du Parlement européen et du Conseil du 27 avril 2016, relatif à la protection des personnes physiques à l’égard du traitement des données à caractère personnel et à la libre circulation de ces données (RGPD)
+      - Les articles L. 114-8 et suivants du code des relations entre le public et l’administration (CRPA)
+      - Délibération de la collectivité (ou autre fondement juridique)
 
 api-impot-particulier-activites-periscolaires-production:
-  name: Activités périscolaires
+  name: Activités périscolaires et assimilés
   public: false
   use_case: activites_periscolaires
   introduction: *api_impot_particulier_production_form_introduction
@@ -174,40 +223,71 @@ api-impot-particulier-activites-periscolaires-production:
   steps: *api_impot_particulier_production_steps
 
 api-impot-particulier-activites-periscolaires-editeur:
-  name: Activités périscolaires
+  name: Activités périscolaires et assimilés
   public: true
   use_case: activites_periscolaires
-  description: Dites-le nous une fois - Activités périscolaires (avec Éditeur)
+  description: Dites-le nous une fois - Activités périscolaires et assimilés (avec Éditeur)
   introduction: *api_impot_particulier_editor_form_introduction
   authorization_request: APIImpotParticulier
   steps: *api_impot_particulier_editor_steps
+  data:
+    intitule: Dites-le-nous une fois – Activités périscolaires et assimilés
+    description: |
+      Simplification de la souscription aux activités périscolaires pour les usagers par l’utilisation des données fiscales fournies par la DGFiP afin de déterminer les tarifs applicables.
+      (A compléter par le demandeur)
+    destinataire_donnees_caractere_personnel: Agents instructeurs des demandes de souscription aux activités périscolaires
+    cadre_juridique_nature:
+      - Règlement (UE) 2016/679 du Parlement européen et du Conseil du 27 avril 2016, relatif à la protection des personnes physiques à l’égard du traitement des données à caractère personnel et à la libre circulation de ces données (RGPD)
+      - Les articles L. 114-8 et suivants du code des relations entre le public et l’administration (CRPA)
+      - Délibération de la collectivité (ou autre fondement juridique)
 
-# Cantine scolaire
-api-impot-particulier-cantine-scolaire-sandbox:
-  name: Cantine scolaire (Bac à sable)
+# Stationnement résidentiel
+api-impot-particulier-stationnement-residentiel-sandbox:
+  name: Stationnement résidentiel (Bac à sable)
   public: true
-  use_case: cantine_scolaire
-  description: Dites-le nous une fois - Cantine scolaire (Bac à sable)
+  use_case: stationnement_residentiel
+  description: Dites-le nous une fois - Stationnement Résidentiel (Bac à sable)
   introduction: *api_impot_particulier_sandbox_form_introduction
   authorization_request: APIImpotParticulierSandbox
   steps: *api_impot_particulier_sandbox_steps
+  data:
+    intitule: Dites-le nous une fois - Stationnement Résidentiel
+    description: |
+      Simplification des demandes de carte de stationnement résidentiel pour les usagers par l’utilisation des données fiscales fournies par la DGFiP.
+      (A compléter par le demandeur)
+    destinataire_donnees_caractere_personnel: Agents instructeurs des demandes de carte de stationnement résidentiel
+    cadre_juridique_nature:
+      - Règlement (UE) 2016/679 du Parlement européen et du Conseil du 27 avril 2016, relatif à la protection des personnes physiques à l’égard du traitement des données à caractère personnel et à la libre circulation de ces données (RGPD)
+      - Les articles L. 114-8 et suivants du code des relations entre le public et l’administration (CRPA)
+      - Délibération de la collectivité (ou autre fondement juridique)
 
-api-impot-particulier-cantine-scolaire-production:
-  name: Cantine scolaire
+api-impot-particulier-stationnement-residentiel-production:
+  name: Stationnement résidentiel
   public: false
+  use_case: stationnement_residentiel
   introduction: *api_impot_particulier_production_form_introduction
   authorization_request: APIImpotParticulier
   static_blocks: *api_impot_particulier_sandbox_steps
   steps: *api_impot_particulier_production_steps
 
-api-impot-particulier-cantine-scolaire-editeur:
-  name: Cantine scolaire
+api-impot-particulier-stationnement-residentiel-editeur:
+  name: Stationnement résidentiel
   public: true
-  use_case: cantine_scolaire
-  description: Dites-le nous une fois - Cantine scolaire (avec Éditeur)
-  introduction: *api_impot_particulier_editor_form_introduction
+  use_case: stationnement_residentiel
+  description: Dites-le nous une fois - Stationnement Résidentiel (avec Éditeur)
   authorization_request: APIImpotParticulier
+  introduction: *api_impot_particulier_editor_form_introduction
   steps: *api_impot_particulier_editor_steps
+  data:
+    intitule: Dites-le nous une fois - Stationnement Résidentiel
+    description: |
+      Simplification des demandes de carte de stationnement résidentiel pour les usagers par l’utilisation des données fiscales fournies par la DGFiP.
+      (A compléter par le demandeur)
+    destinataire_donnees_caractere_personnel: Agents instructeurs des demandes de carte de stationnement résidentiel
+    cadre_juridique_nature:
+      - Règlement (UE) 2016/679 du Parlement européen et du Conseil du 27 avril 2016, relatif à la protection des personnes physiques à l’égard du traitement des données à caractère personnel et à la libre circulation de ces données (RGPD)
+      - Les articles L. 114-8 et suivants du code des relations entre le public et l’administration (CRPA)
+      - Délibération de la collectivité (ou autre fondement juridique)
 
 # Aides sociales facultatives
 api-impot-particulier-aides-sociales-facultatives-sandbox:
@@ -218,6 +298,16 @@ api-impot-particulier-aides-sociales-facultatives-sandbox:
   introduction: *api_impot_particulier_sandbox_form_introduction
   authorization_request: APIImpotParticulierSandbox
   steps: *api_impot_particulier_sandbox_steps
+  data:
+    intitule: Dites-le-nous une fois – Aides sociales facultatives
+    description: |
+      Simplification des demandes d’aides sociales facultatives pour les usagers par l’utilisation des données fiscales fournies par la DGFiP pour déterminer l’éligibilité au service.
+      (A compléter par le demandeur)
+    destinataire_donnees_caractere_personnel: Agents instructeurs des demandes d’aides sociales facultatives
+    cadre_juridique_nature:
+      - Règlement (UE) 2016/679 du Parlement européen et du Conseil du 27 avril 2016, relatif à la protection des personnes physiques à l’égard du traitement des données à caractère personnel et à la libre circulation de ces données (RGPD)
+      - Les articles L. 114-8 et suivants du code des relations entre le public et l’administration (CRPA)
+      - Délibération de la collectivité (ou autre fondement juridique)
 
 api-impot-particulier-aides-sociales-facultatives-production:
   name: Aides sociales facultatives
@@ -235,6 +325,16 @@ api-impot-particulier-aides-sociales-facultatives-editeur:
   introduction: *api_impot_particulier_editor_form_introduction
   authorization_request: APIImpotParticulier
   steps: *api_impot_particulier_editor_steps
+  data:
+    intitule: Dites-le-nous une fois – Aides sociales facultatives
+    description: |
+      Simplification des demandes d’aides sociales facultatives pour les usagers par l’utilisation des données fiscales fournies par la DGFiP pour déterminer l’éligibilité au service.
+      (A compléter par le demandeur)
+    destinataire_donnees_caractere_personnel: Agents instructeurs des demandes d’aides sociales facultatives
+    cadre_juridique_nature:
+      - Règlement (UE) 2016/679 du Parlement européen et du Conseil du 27 avril 2016, relatif à la protection des personnes physiques à l’égard du traitement des données à caractère personnel et à la libre circulation de ces données (RGPD)
+      - Les articles L. 114-8 et suivants du code des relations entre le public et l’administration (CRPA)
+      - Délibération de la collectivité (ou autre fondement juridique)
 
 # Carte de transport
 api-impot-particulier-carte-transport-sandbox:
@@ -245,6 +345,17 @@ api-impot-particulier-carte-transport-sandbox:
   introduction: *api_impot_particulier_sandbox_form_introduction
   authorization_request: APIImpotParticulierSandbox
   steps: *api_impot_particulier_sandbox_steps
+  data:
+    intitule: Dites-le-nous une fois – Carte de transport
+    description: |
+      Simplification de la souscription à la carte de transport pour les usagers par l’utilisation des données fiscales fournies par la DGFiP pour déterminer le tarif applicable.
+      (A compléter par le demandeur)
+    destinataire_donnees_caractere_personnel: Agents instructeurs des demandes de carte de transport
+    cadre_juridique_nature:
+      - Règlement (UE) 2016/679 du Parlement européen et du Conseil du 27 avril 2016, relatif à la protection des personnes physiques à l’égard du traitement des données à caractère personnel et à la libre circulation de ces données (RGPD)
+      - Les articles L. 114-8 et suivants du code des relations entre le public et l’administration (CRPA)
+      - Délibération de la collectivité (ou autre fondement juridique)
+
 
 api-impot-particulier-carte-transport-production:
   name: Carte de transport
@@ -262,3 +373,13 @@ api-impot-particulier-carte-transport-editeur:
   introduction: *api_impot_particulier_editor_form_introduction
   authorization_request: APIImpotParticulier
   steps: *api_impot_particulier_editor_steps
+  data:
+    intitule: Dites-le-nous une fois – Carte de transport
+    description: |
+      Simplification de la souscription à la carte de transport pour les usagers par l’utilisation des données fiscales fournies par la DGFiP pour déterminer le tarif applicable.
+      (A compléter par le demandeur)
+    destinataire_donnees_caractere_personnel: Agents instructeurs des demandes de carte de transport
+    cadre_juridique_nature:
+      - Règlement (UE) 2016/679 du Parlement européen et du Conseil du 27 avril 2016, relatif à la protection des personnes physiques à l’égard du traitement des données à caractère personnel et à la libre circulation de ces données (RGPD)
+      - Les articles L. 114-8 et suivants du code des relations entre le public et l’administration (CRPA)
+      - Délibération de la collectivité (ou autre fondement juridique)
