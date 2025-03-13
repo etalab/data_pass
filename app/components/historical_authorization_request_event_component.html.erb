@@ -20,14 +20,16 @@
       <% end %>
     </div>
 
-    <div id="<%= dom_id(authorization_request_event, :message_content) %>" class="fr-hidden">
-      <%= message_content %>
-      <button class="fr-link"
-              data-action="click->show-and-hide#trigger"
-              data-show-and-hide-target-param="#<%= dom_id(authorization_request_event, :message_summary) %>">
-        <%= t('components.historical_events.hide_message') %>
-      </button>
-    </div>
+    <% if message_expandable? %>
+      <div id="<%= dom_id(authorization_request_event, :message_content) %>" class="fr-hidden">
+        <%= message_content %>
+        <button class="fr-link"
+                data-action="click->show-and-hide#trigger"
+                data-show-and-hide-target-param="#<%= dom_id(authorization_request_event, :message_summary) %>">
+          <%= t('components.historical_events.hide_message') %>
+        </button>
+      </div>
+    <% end %>
 
     <% if external_link? %>
       <div class="fr-mt-1w">
