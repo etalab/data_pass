@@ -37,12 +37,10 @@ RSpec.describe HistoricalAuthorizationRequestEventComponent, type: :component do
       end
     end
 
-    context 'when message_details_text is nil' do
+    context 'when message_details_text is not present' do
       let(:authorization_request_event) { create(:authorization_request_event, :approve) }
 
       it 'returns false' do
-        render_inline(subject)
-
         expect(subject.message_expandable?).to be(false)
       end
     end

@@ -36,7 +36,7 @@ class HistoricalAuthorizationRequestEventComponent < ViewComponent::Base
   end
 
   def message_expandable?
-    message_details_text&.present?
+    message_details_text.present?
   end
 
   # rubocop:disable Metrics/AbcSize
@@ -66,8 +66,6 @@ class HistoricalAuthorizationRequestEventComponent < ViewComponent::Base
   end
 
   def message_details
-    return nil if message_details_text.blank?
-
     I18n.t(
       "instruction.authorization_request_events.authorization_request_event.#{name}.message_details",
       message_details_text: message_details_text,
