@@ -232,6 +232,13 @@ Quand("un instructeur a révoqué la demande d'habilitation") do
   end
 end
 
+Quand("un instructeur a validé la demande d'habilitation") do
+  authorization_request = AuthorizationRequest.last
+  instructor = create_instructor(authorization_request.definition.id)
+  instructor.update!(roles: AuthorizationDefinition.all.map { |definition| "#{definition.id}:instructor" })
+  ApproveAuthorizationRequest.call(authorization_request: authorization_request, user: instructor)
+end
+
 Quand('cette demande a été {string}') do |status|
   authorization_request = AuthorizationRequest.last
   user = User.last
