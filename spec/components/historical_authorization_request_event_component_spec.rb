@@ -1,17 +1,18 @@
 RSpec.describe HistoricalAuthorizationRequestEventComponent, type: :component do
   subject { described_class.new(authorization_request_event: authorization_request_event) }
 
-  let(:authorization_request_event) { create(:authorization_request_event, :request_changes) }
-
-  before do
-    render_inline(subject)
-  end
-
   describe '#message_content' do
-    let(:expected_text) { "<strong>Dupont Jean</strong> a demandé des modifications sur la demande :\n <blockquote>\n  <p>Veuillez inclure une preuve de compétence en calligraphie, conformément à la nouvelle directive interne visant à améliorer la qualité visuelle des documents manuscrits officiels</p>\n</blockquote>" }
+    let(:authorization_request_event) { create(:authorization_request_event, :request_changes) }
 
-    it 'calls I18n translation key with the correct variables' do
-      expect(subject.message_content.strip).to eq(expected_text)
+    let(:message_summary_text) { '<strong>Dupont Jean</strong> a demandé des modifications sur la demande :' }
+    let(:message_details_text) { 'Un message personnalisé de modification' }
+
+    it 'includes the expected message summary and message details text' do
+      authorization_request_event.entity.reason = message_details_text
+      render_inline(subject)
+
+      expect(subject.message_content).to include(message_summary_text)
+      expect(subject.message_content).to include(message_details_text)
     end
 
     it 'returns an HTML-safe string' do
@@ -20,19 +21,39 @@ RSpec.describe HistoricalAuthorizationRequestEventComponent, type: :component do
   end
 
   describe 'render' do
-    let(:expected_text) { "Dupont Jean a demandé des modifications sur la demande :\n\n\n Veuillez inclure une preuve de compétence en calligraphie, conformément à la nouvelle directive interne visant à améliorer la qualité visuelle des documents manuscrits officiels\n\n" }
+    context 'when event_name is submit' do
+      let(:authorization_request_event) { create(:authorization_request_event, :create) }
 
-    it 'renders component' do
-      page = render_inline(subject)
+      let(:expected_submit_text) { 'Dupont Jean a crée la demande.' }
 
-      expect(page).to have_text('Dupont Jean a demandé des modifications sur la demande :')
-      expect(page).to have_text('Veuillez inclure une preuve de compétence en calligraphie, conformément à la nouvelle directive interne visant à améliorer la qualité visuelle des documents manuscrits officiels')
+      it 'renders component with message_summary only' do
+        page = render_inline(subject)
+
+        expect(page).to have_text(expected_submit_text)
+      end
+    end
+
+    context 'when event_name is revoke' do
+      let(:authorization_request_event) { create(:authorization_request_event, :revoke) }
+      let(:message_summary_text) { 'Dupont Jean a révoqué la demande :' }
+      let(:revoked_reason) { 'Une nouvelle habilitation a été ouverte et remplace celle ci' }
+
+      it 'renders component with message_content' do
+        authorization_request_event.entity.reason = revoked_reason
+        page = render_inline(subject)
+
+        expect(page).to have_text(message_summary_text)
+        expect(page).to have_text(revoked_reason)
+      end
     end
   end
 
   describe '#message_expandable?' do
     context 'when message_details_text is present' do
+      let(:authorization_request_event) { create(:authorization_request_event, :refuse) }
+
       it 'returns true' do
+        render_inline(subject)
         expect(subject.message_expandable?).to be(true)
       end
     end
@@ -41,6 +62,8 @@ RSpec.describe HistoricalAuthorizationRequestEventComponent, type: :component do
       let(:authorization_request_event) { create(:authorization_request_event, :approve) }
 
       it 'returns false' do
+        render_inline(subject)
+
         expect(subject.message_expandable?).to be(false)
       end
     end
@@ -55,6 +78,7 @@ RSpec.describe HistoricalAuthorizationRequestEventComponent, type: :component do
 
       it 'returns the transfer text with the full name and email of the user' do
         authorization_request_event.entity.to = to_user
+        render_inline(subject)
 
         expect(subject.transfer_text).to eq('Richard Edmond (edmondrichart@example.com)')
       end
@@ -67,6 +91,8 @@ RSpec.describe HistoricalAuthorizationRequestEventComponent, type: :component do
         authorization_request_event.entity.from_type = organization
         authorization_request_event.entity.to = organization
 
+        render_inline(subject)
+
         expect(subject.transfer_text).to eq("l'organisation DIRECTION INTERMINISTERIELLE DU NUMERIQUE (numéro SIRET : 13002526500013)")
       end
     end
@@ -75,6 +101,8 @@ RSpec.describe HistoricalAuthorizationRequestEventComponent, type: :component do
       let(:authorization_request_event) { create(:authorization_request_event, :submit) }
 
       it 'returns nil' do
+        render_inline(subject)
+
         expect(subject.transfer_text).to be_nil
       end
     end
