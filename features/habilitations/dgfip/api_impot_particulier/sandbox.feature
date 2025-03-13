@@ -43,7 +43,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôt Particulier 
       | Demande libre (Bac à sable)                              |
       | Stationnement résidentiel (Bac à sable)                  |
       | Place en crèche (Bac à sable)                            |
-      | Activités périscolaires (Bac à sable)                    |
+      | Activités périscolaires et assimilés (Bac à sable)                    |
       | Cantine scolaire (Bac à sable)                           |
       | Aides sociales facultatives (Bac à sable)                |
       | Carte de transport (Bac à sable)                         |
