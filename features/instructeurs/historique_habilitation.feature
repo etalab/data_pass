@@ -99,4 +99,4 @@ Fonctionnalité: Instruction: historique habilitation
     Et que je vais sur la page instruction
     Et que je clique sur "Consulter"
     Et que je clique sur "Historique"
-    Alors la page contient un lien vers "demandes/.+/habilitations/.+"
+    Alors la page contient un lien vers "/habilitations/.+"
