@@ -10,7 +10,7 @@
         <%= t("authorization_request_forms.default.#{contact_definition.type}.title") %>
       </h6>
 
-      <% if contact_definition.type.in?([:contact_technique, :contact_metier, :administrateur_metier]) %>
+      <% if contact_definition.fill_data_with_applicant_data? %>
         <button type="button" class="fr-btn fr-btn--secondary fr-btn--sm" data-action="fill-contact-data-with-applicant-data#perform">
           <%= t('.its_me') %>
         </button>
