@@ -86,6 +86,6 @@ module ApplicationHelper
   end
 
   def latest_authorization_path(authorization_request)
-    authorization_request_authorization_path(authorization_request, authorization_request.latest_authorization)
+    authorization_path(authorization_request.latest_authorization)
   end
 end

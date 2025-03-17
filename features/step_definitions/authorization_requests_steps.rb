@@ -467,7 +467,7 @@ Quand(%r{je me rends sur l'habilitation validée(?: du (\d{1,2}/\d{2}/\d{4}))?})
     authorization = authorization_request.latest_authorization
   end
 
-  visit authorization_request_authorization_path(authorization_request_id: authorization_request.id, id: authorization.id)
+  visit authorization_path(authorization)
 end
 
 Quand("une mise à jour globale a été effectuée sur les demandes d'habilitations {string}") do |authorization_definition_name|
