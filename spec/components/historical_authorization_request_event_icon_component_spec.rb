@@ -41,4 +41,3 @@ RSpec.describe HistoricalAuthorizationRequestEventIconComponent, type: :componen
     end
   end
 end
-

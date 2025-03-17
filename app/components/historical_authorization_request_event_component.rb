@@ -76,7 +76,7 @@ class HistoricalAuthorizationRequestEventComponent < ViewComponent::Base
   def copied_from_authorization_request_id
     return unless name == 'copy'
 
-    authorization_request_event.entity.copied_from_request_id
+    authorization_request_event.entity.copied_from_request.id
   end
 
   def external_link?
