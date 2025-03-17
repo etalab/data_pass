@@ -21,8 +21,9 @@ class IconComponent < ViewComponent::Base
   end
 
   def icon_class
-    name = available_icons[@name] || (raise 'Invalid icon')
+    icon = available_icons[@name]
+    raise 'Invalid icon' unless icon
 
-    %W[fr-icon-#{name[:icon]} fr-text-#{name[:color]}].join(' ')
+    %W[fr-icon-#{icon[:icon]} fr-text-#{icon[:color]}].join(' ')
   end
 end

@@ -1,43 +1,40 @@
 RSpec.describe IconComponent, type: :component do
-  describe '#call' do
-    context "when event_name is 'approve'" do
-      it 'renders the correct icon and color class' do
-        render_inline(described_class.new(event_name: 'approve'))
+  let(:component_class) do
+    Class.new(IconComponent) do
+      def self.name
+        'TestIconComponent'
+      end
 
-        expect(page).to have_css("i.fr-icon-checkbox-line.fr-text-success[aria-hidden='true']")
+      private
+
+      def available_icons
+        {
+          'approve' => { icon: 'checkbox-line', color: 'success' },
+          'request_changes' => { icon: 'pencil-line', color: 'warning' },
+          'refuse' => { icon: 'close-circle-line', color: 'error' },
+          'revoke' => { icon: 'close-circle-line', color: 'error' }
+        }
       end
     end
+  end
 
-    context "when event_name is 'request_changes'" do
-      it 'renders the correct icon and color class' do
-        render_inline(described_class.new(event_name: 'request_changes'))
+  let(:component) { component_class.new(name: icon_name) }
 
-        expect(page).to have_css("i.fr-icon-pencil-line.fr-text-warning[aria-hidden='true']")
-      end
+  context 'when icon is valid' do
+    let(:icon_name) { 'approve' }
+
+    it 'renders the correct icon and color class' do
+      render_inline(component)
+
+      expect(page).to have_css('i.fr-icon-checkbox-line.fr-text-success[aria-hidden="true"]')
     end
+  end
 
-    context "when event_name is 'refuse'" do
-      it 'renders the correct icon and color class' do
-        render_inline(described_class.new(event_name: 'refuse'))
+  context 'when icon is invalid' do
+    let(:icon_name) { 'checkbox' }
 
-        expect(page).to have_css("i.fr-icon-close-circle-line.fr-text-error[aria-hidden='true']")
-      end
-    end
-
-    context "when event_name is 'revoke'" do
-      it "renders the same icon and color class as 'refuse'" do
-        render_inline(described_class.new(event_name: 'revoke'))
-
-        expect(page).to have_css("i.fr-icon-close-circle-line.fr-text-error[aria-hidden='true']")
-      end
-    end
-
-    context 'when event_name is unknown' do
-      it 'renders the default icon and color' do
-        render_inline(described_class.new(event_name: 'unknown_event'))
-
-        expect(page).to have_css("i.fr-icon-error-warning-line.fr-text-info[aria-hidden='true']")
-      end
+    it 'raises an error' do
+      expect { render_inline(component) }.to raise_error('Invalid icon')
     end
   end
 end
