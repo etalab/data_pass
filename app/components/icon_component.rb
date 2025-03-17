@@ -1,4 +1,4 @@
-class IconComponent < ViewComponent::Base
+class IconComponent < ApplicationComponent
   def initialize(name:, **options)
     @name = name
     @options = options

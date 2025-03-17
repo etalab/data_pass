@@ -1,5 +1,7 @@
-class HistoricalAuthorizationRequestEventComponent < ViewComponent::Base
+class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
   with_collection_parameter :authorization_request_event
+
+  delegate :user_full_name, to: :authorization_request_event
 
   attr_reader :authorization_request_event
 
@@ -108,10 +110,4 @@ class HistoricalAuthorizationRequestEventComponent < ViewComponent::Base
       'cancel_reopening_from_applicant'
     end
   end
-
-  delegate :dom_id, :strip_tags, :t, :link_to,
-    :authorization_request_authorization_path,
-    :content_tag,
-    to: :helpers
-  delegate :user_full_name, to: :authorization_request_event
 end

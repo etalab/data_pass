@@ -1,4 +1,4 @@
-class LinkComponent < ViewComponent::Base
+class LinkComponent < ApplicationComponent
   def initialize(text: nil, path: nil, i18n_key: nil, **options)
     @text = text
     @path = path
