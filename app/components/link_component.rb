@@ -1,4 +1,4 @@
-class ExternalLinkComponent < ViewComponent::Base
+class LinkComponent < ViewComponent::Base
   def initialize(text: nil, path: nil, i18n_key: nil, **options)
     @text = text
     @path = path

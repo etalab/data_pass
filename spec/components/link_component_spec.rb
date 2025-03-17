@@ -1,4 +1,4 @@
-RSpec.describe ExternalLinkComponent, type: :component do
+RSpec.describe LinkComponent, type: :component do
   describe '#call' do
     let(:path) { 'https://example.com' }
     let(:text) { 'Visiter le site' }
