@@ -14,11 +14,7 @@ class AuthorizationsController < AuthenticatedUserController
   private
 
   def set_authorization
-    @authorization = if params[:authorization_request_id]
-                       AuthorizationRequest.find(params[:authorization_request_id]).authorizations.friendly.find(params[:id])
-                     else
-                       Authorization.friendly.find(params[:id])
-                     end
+    @authorization = Authorization.friendly.find(params[:id])
   end
 
   def layout_name

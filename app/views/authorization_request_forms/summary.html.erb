@@ -63,7 +63,7 @@
           <h3 class="fr-alert__title">
             <%= t('authorization_request_forms.summary.reopening_alerts.old_version.title') %>
           </h3>
-          <%= t('authorization_request_forms.summary.reopening_alerts.old_version.message', link: link_to("Habilitation n°#{@authorization_request.latest_authorization.id}", authorization_request_authorization_path(authorization_request_id: @authorization.request.id, id: @authorization.request.latest_authorization.slug))).html_safe %>
+          <%= t('authorization_request_forms.summary.reopening_alerts.old_version.message', link: link_to("Habilitation n°#{@authorization_request.latest_authorization.id}", authorization_path(@authorization_request.latest_authorization))).html_safe %>
         </div>
       <% end %>
     <% end %>

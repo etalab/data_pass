@@ -8,7 +8,7 @@ RSpec.describe 'Authorization with legacy scopes' do
   before do
     sign_in(user)
 
-    visit authorization_request_authorization_path(authorization_request, authorization_request.latest_authorization)
+    visit authorization_path(authorization_request.latest_authorization)
   end
 
   it 'displays legacy scopes' do

@@ -1,7 +1,7 @@
 class Authorization < ApplicationRecord
   extend FriendlyId
 
-  friendly_id :slug_candidates, use: :scoped, scope: :request
+  friendly_id :slug_candidates, use: :slugged
 
   validates :data, presence: true
 
@@ -101,14 +101,14 @@ class Authorization < ApplicationRecord
 
   def slug_candidates
     [
-      :slug_created_at_as_date,
-      -> { "#{slug_created_at_as_date}--1" },
-      -> { "#{slug_created_at_as_date}--2" },
-      -> { "#{slug_created_at_as_date}--3" },
+      :authorization_request_id_with_date,
+      -> { "#{authorization_request_id_with_date}--1" },
+      -> { "#{authorization_request_id_with_date}--2" },
+      -> { "#{authorization_request_id_with_date}--3" },
     ]
   end
 
-  def slug_created_at_as_date
-    (created_at || Date.current).strftime('%d-%m-%Y')
+  def authorization_request_id_with_date
+    "#{request.id}--#{(created_at || Date.current).strftime('%d-%m-%Y')}"
   end
 end
