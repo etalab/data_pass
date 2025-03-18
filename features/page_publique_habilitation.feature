@@ -9,3 +9,5 @@ Fonctionnalité: Consultation d'une demande d'habilitation via sa page public
     Alors la page contient "API Entreprise"
     Et la page ne contient pas "Vous avez complété toutes les étapes de votre demande"
     Et la page contient "Ma superbe demande"
+    Et la page ne contient pas "Les personnes impliquées"
+    Et la page ne contient pas "Demandeur"
