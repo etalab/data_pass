@@ -2,24 +2,17 @@ class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
   with_collection_parameter :authorization_request_event
 
   delegate :user_full_name, to: :authorization_request_event
+  delegate :authorization_request_authorization_path, to: :helpers
 
   attr_reader :authorization_request_event
+  alias event authorization_request_event
 
   def initialize(authorization_request_event:)
     @authorization_request_event = authorization_request_event
   end
 
   def before_render
-    @text_content = case name
-                    when 'request_changes', 'revoke', 'refuse'
-                      helpers.simple_format(authorization_request_event.entity.reason)
-                    when 'applicant_message', 'instructor_message'
-                      helpers.simple_format(authorization_request_event.entity.body)
-                    when 'initial_submit_with_changes_on_prefilled_data', 'submit_with_changes'
-                      humanized_changelog
-                    when 'admin_update'
-                      humanized_changelog(from_admin: true)
-                    end
+    message_details_text
   end
 
   def name
@@ -34,7 +27,16 @@ class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
   end
 
   def message_details_text
-    @text_content
+    @message_details_text ||= case name
+      when 'request_changes', 'revoke', 'refuse'
+        helpers.simple_format(authorization_request_event.entity.reason)
+      when 'applicant_message', 'instructor_message'
+        helpers.simple_format(authorization_request_event.entity.body)
+      when 'initial_submit_with_changes_on_prefilled_data', 'submit_with_changes'
+        humanized_changelog
+      when 'admin_update'
+        humanized_changelog(from_admin: true)
+    end
   end
 
   def message_expandable?
@@ -45,10 +47,10 @@ class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
   def transfer_text
     return unless name == 'transfer'
 
-    if authorization_request_event.entity.from_type == 'User'
-      "#{authorization_request_event.entity.to.full_name} (#{authorization_request_event.entity.to.email})"
+    if event.entity.from_type == 'User'
+      "#{event.entity.to.full_name} (#{event.entity.to.email})"
     else
-      "l'organisation #{authorization_request_event.entity.to.raison_sociale} (numéro SIRET : #{authorization_request_event.entity.to.siret})"
+      "l'organisation #{event.entity.to.raison_sociale} (numéro SIRET : #{event.entity.to.siret})"
     end
   end
 
@@ -61,32 +63,32 @@ class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
   def message_summary
     I18n.t(
       "instruction.authorization_request_events.authorization_request_event.#{name}.message_summary",
-      user_full_name: authorization_request_event.user_full_name,
-      copied_from_authorization_request_id: copied_from_authorization_request_id,
-      transfer_text: transfer_text
+      user_full_name: event.user_full_name,
+      copied_from_authorization_request_id:,
+      transfer_text:
     ).html_safe
   end
 
   def message_details
     I18n.t(
       "instruction.authorization_request_events.authorization_request_event.#{name}.message_details",
-      message_details_text: message_details_text,
-      copied_from_authorization_request_id: copied_from_authorization_request_id
+      message_details_text:,
+      copied_from_authorization_request_id:
     ).html_safe
   end
 
   def copied_from_authorization_request_id
     return unless name == 'copy'
 
-    authorization_request_event.entity.copied_from_request.id
+    event.entity.copied_from_request.id
   end
 
   def external_link?
-    authorization_request_event.name == 'approve'
+    event.name == 'approve'
   end
 
   def formatted_created_at_date
-    authorization_request_event.created_at.strftime('%d/%m/%Y')
+    event.created_at.strftime('%d/%m/%Y')
   end
 
   private
@@ -100,11 +102,11 @@ class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
   end
 
   def changelog_presenter(from_admin: false)
-    @changelog_presenter ||= AuthorizationRequestChangelogPresenter.new(authorization_request_event.entity, from_admin:)
+    @changelog_presenter ||= AuthorizationRequestChangelogPresenter.new(event.entity, from_admin:)
   end
 
   def name_for_cancel_reopening
-    if authorization_request_event.entity.from_instructor?
+    if event.entity.from_instructor?
       'cancel_reopening_from_instructor'
     else
       'cancel_reopening_from_applicant'

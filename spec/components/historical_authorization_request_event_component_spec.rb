@@ -16,6 +16,8 @@ RSpec.describe HistoricalAuthorizationRequestEventComponent, type: :component do
     end
 
     it 'returns an HTML-safe string' do
+      render_inline(subject)
+
       expect(subject.message_content).to be_html_safe
     end
   end
