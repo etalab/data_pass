@@ -28,22 +28,21 @@ class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
 
   def message_details_text
     @message_details_text ||= case name
-      when 'request_changes', 'revoke', 'refuse'
-        simple_format(entity.reason)
-      when 'applicant_message', 'instructor_message'
-        simple_format(entity.body)
-      when 'initial_submit_with_changes_on_prefilled_data', 'submit_with_changes'
-        humanized_changelog
-      when 'admin_update'
-        humanized_changelog(from_admin: true)
-    end
+                              when 'request_changes', 'revoke', 'refuse'
+                                simple_format(entity.reason)
+                              when 'applicant_message', 'instructor_message'
+                                simple_format(entity.body)
+                              when 'initial_submit_with_changes_on_prefilled_data', 'submit_with_changes'
+                                humanized_changelog
+                              when 'admin_update'
+                                humanized_changelog(from_admin: true)
+                              end
   end
 
   def message_expandable?
     message_details_text.present?
   end
 
-  # rubocop:disable Metrics/AbcSize
   def transfer_text
     return unless name == 'transfer'
 
@@ -53,8 +52,6 @@ class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
       "l'organisation #{entity.to.raison_sociale} (numéro SIRET : #{entity.to.siret})"
     end
   end
-
-  # rubocop:enable Metrics/AbcSize
 
   def message_content
     @message_content ||= "#{message_summary} #{message_details}".html_safe

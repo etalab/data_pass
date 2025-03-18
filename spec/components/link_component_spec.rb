@@ -21,7 +21,7 @@ RSpec.describe LinkComponent, type: :component do
 
       expect(component).to have_link('Visiter le site', href: 'https://example.com')
       expect(component).to have_css("a.fr-link[rel='noopener']")
-      expect(component).not_to have_css("a[target='_blank']")
+      expect(component).to have_no_css("a[target='_blank']")
     end
 
     it 'applies custom options while preserving default values' do
@@ -30,7 +30,6 @@ RSpec.describe LinkComponent, type: :component do
         path: path,
         class: 'my-other-class',
         target: '_blank'
-
       ))
 
       expect(component).to have_css('a.fr-link.my-other-class')

@@ -6,7 +6,6 @@ class LinkComponent < ApplicationComponent
   end
 
   def call
-
     link_to(
       @text,
       @path,
