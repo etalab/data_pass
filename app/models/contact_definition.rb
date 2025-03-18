@@ -1,7 +1,7 @@
 class ContactDefinition
   attr_reader :type, :options
 
-  FILLABLE_WITH_APPLICANT_DATA_TYPES = %i[contact_technique contact_metier administrateur_metier].freeze
+  EXCLUDED_FROM_APPLICANT_DATA_TYPES = %i[responsable_traitement delegue_protection_donnees].freeze
 
   def initialize(type, options = {})
     @type = type
@@ -14,7 +14,7 @@ class ContactDefinition
 
   def fill_data_with_applicant_data?
     options.fetch(:fillable_with_applicant_data) do
-      type.in?(FILLABLE_WITH_APPLICANT_DATA_TYPES)
+      !type.in?(EXCLUDED_FROM_APPLICANT_DATA_TYPES)
     end
   end
 end

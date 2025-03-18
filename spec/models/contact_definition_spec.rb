@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe ContactDefinition do
   describe '#fill_data_with_applicant_data?' do
-    it 'returns true for contact types in FILLABLE_WITH_APPLICANT_DATA_TYPES' do
+    it 'returns true for contact types not in EXCLUDED_FROM_APPLICANT_DATA_TYPES' do
       contact_definition = described_class.new(:contact_metier)
       expect(contact_definition.fill_data_with_applicant_data?).to be(true)
 
@@ -11,9 +11,12 @@ RSpec.describe ContactDefinition do
 
       contact_definition = described_class.new(:administrateur_metier)
       expect(contact_definition.fill_data_with_applicant_data?).to be(true)
+
+      contact_definition = described_class.new(:any_other_contact_type)
+      expect(contact_definition.fill_data_with_applicant_data?).to be(true)
     end
 
-    it 'returns false for contact types not in FILLABLE_WITH_APPLICANT_DATA_TYPES' do
+    it 'returns false for contact types in EXCLUDED_FROM_APPLICANT_DATA_TYPES' do
       contact_definition = described_class.new(:responsable_traitement)
       expect(contact_definition.fill_data_with_applicant_data?).to be(false)
 
