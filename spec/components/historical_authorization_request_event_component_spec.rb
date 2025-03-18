@@ -56,7 +56,7 @@ RSpec.describe HistoricalAuthorizationRequestEventComponent, type: :component do
 
       it 'returns true' do
         render_inline(subject)
-        expect(subject.message_expandable?).to be(true)
+        expect(rendered_content).to have_selector('button[data-action="click->show-and-hide#trigger"]')
       end
     end
 
@@ -65,8 +65,7 @@ RSpec.describe HistoricalAuthorizationRequestEventComponent, type: :component do
 
       it 'returns false' do
         render_inline(subject)
-
-        expect(subject.message_expandable?).to be(false)
+        expect(rendered_content).not_to have_selector('button[data-action="click->show-and-hide#trigger"]')
       end
     end
   end
