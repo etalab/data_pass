@@ -13,6 +13,8 @@ class ContactDefinition
   end
 
   def fill_data_with_applicant_data?
-    type.in?(FILLABLE_WITH_APPLICANT_DATA_TYPES)
+    options.fetch(:fillable_with_applicant_data) do
+      type.in?(FILLABLE_WITH_APPLICANT_DATA_TYPES)
+    end
   end
 end
