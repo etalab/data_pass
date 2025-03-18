@@ -1,7 +1,7 @@
 class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
   with_collection_parameter :authorization_request_event
 
-  delegate :user_full_name, to: :authorization_request_event
+  delegate :user_full_name, :entity, to: :authorization_request_event
   delegate :authorization_request_authorization_path, to: :helpers
 
   attr_reader :authorization_request_event
@@ -29,9 +29,9 @@ class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
   def message_details_text
     @message_details_text ||= case name
       when 'request_changes', 'revoke', 'refuse'
-        helpers.simple_format(authorization_request_event.entity.reason)
+        simple_format(entity.reason)
       when 'applicant_message', 'instructor_message'
-        helpers.simple_format(authorization_request_event.entity.body)
+        simple_format(entity.body)
       when 'initial_submit_with_changes_on_prefilled_data', 'submit_with_changes'
         humanized_changelog
       when 'admin_update'
@@ -47,10 +47,10 @@ class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
   def transfer_text
     return unless name == 'transfer'
 
-    if event.entity.from_type == 'User'
-      "#{event.entity.to.full_name} (#{event.entity.to.email})"
+    if entity.from_type == 'User'
+      "#{entity.to.full_name} (#{entity.to.email})"
     else
-      "l'organisation #{event.entity.to.raison_sociale} (numéro SIRET : #{event.entity.to.siret})"
+      "l'organisation #{entity.to.raison_sociale} (numéro SIRET : #{entity.to.siret})"
     end
   end
 
@@ -80,7 +80,7 @@ class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
   def copied_from_authorization_request_id
     return unless name == 'copy'
 
-    event.entity.copied_from_request.id
+    entity.copied_from_request.id
   end
 
   def external_link?
@@ -102,7 +102,7 @@ class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
   end
 
   def changelog_presenter(from_admin: false)
-    @changelog_presenter ||= AuthorizationRequestChangelogPresenter.new(event.entity, from_admin:)
+    @changelog_presenter ||= AuthorizationRequestChangelogPresenter.new(entity, from_admin:)
   end
 
   def name_for_cancel_reopening
