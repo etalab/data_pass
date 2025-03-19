@@ -96,11 +96,14 @@
     <% end %>
 
     <%= render partial: 'authorization_requests/shared/organization_and_applicant' %>
+
     <% @authorization_request.blocks.each do |block| %>
+      <% next if block[:name].to_s == 'contacts' && displayed_on_a_public_page? %>
+
       <%= render_custom_block_or_default(@authorization_request, block[:name], f:, editable: @authorization_request.filling? && block[:editable]) %>
     <% end %>
 
-    <% if @authorization_request.draft? && !@authorization_request.reopening? %>
+    <% if @authorization_request.draft? && !@authorization_request.reopening? && !displayed_on_a_public_page? %>
       <%= render partial: 'authorization_request_forms/shared/tos_checkboxes', locals: { f: f } %>
     <% end %>
   </div>
