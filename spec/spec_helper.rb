@@ -17,6 +17,7 @@ require 'simplecov'
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require 'capybara/rspec'
 require 'webmock/rspec'
+require 'state_machines-rspec'
 
 RSpec.configure do |config|
   config.before(:all) do
@@ -99,4 +100,5 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+  config.include StateMachinesRspec::Matchers
 end

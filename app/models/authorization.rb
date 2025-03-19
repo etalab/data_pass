@@ -44,6 +44,29 @@ class Authorization < ApplicationRecord
     self[:authorization_request_class] ||= request.type
   end
 
+  state_machine initial: :active do
+    state :active
+    state :obsolete
+    state :revoked
+
+    event :deprecate do
+      transition from: :active, to: :obsolete
+    end
+
+    event :revoke do
+      transition from: :active, to: :revoked
+    end
+  end
+
+  # TODO : remove when the state machine is fully functional
+  def revoked?
+    if ENV.fetch('FEATURE_USE_AUTH_STATES', 'false') == 'true'
+      self[:state] == 'revoked'
+    else
+      self[:revoked]
+    end
+  end
+
   # rubocop:disable Metrics/AbcSize
   def request_as_validated
     request_as_validated = authorization_request_class.constantize.new(request.dup.attributes.except('type'))
