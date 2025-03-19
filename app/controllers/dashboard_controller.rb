@@ -5,7 +5,7 @@ class DashboardController < AuthenticatedUserController
     redirect_to dashboard_show_path(id: 'moi')
   end
 
-  def show
+  def show # rubocop:disable Metrics/AbcSize
     case params[:id]
     when 'moi'
       @authorization_requests = policy_scope(base_relation).where(applicant: current_user)
@@ -18,7 +18,7 @@ class DashboardController < AuthenticatedUserController
       return
     end
 
-    @authorization_requests = @authorization_requests.not_archived.order(created_at: :desc)
+    @authorization_requests = @authorization_requests.not_archived.order(created_at: :desc).includes(:authorizations)
   end
 
   private
