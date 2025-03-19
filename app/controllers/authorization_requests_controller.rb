@@ -64,7 +64,6 @@ class AuthorizationRequestsController < AuthenticatedUserController
 
   def show_as_guest_user
     @authorization_definition = @authorization_request.definition
-
     save_redirect_path
     @display_provider_logo_in_header = true
 
@@ -75,8 +74,15 @@ class AuthorizationRequestsController < AuthenticatedUserController
     @authorization_definition = AuthorizationDefinition.find(id_sanitized)
     save_redirect_path
     @display_provider_logo_in_header = true
+    fetch_processing_time
 
     render 'authorization_requests/unauthenticated_start'
+  end
+
+  def fetch_processing_time
+    url = URI('https://metabase.entreprise.api.gouv.fr/public/question/4c5e0ed6-bbd9-498e-a61a-34f5ee39f84b.json')
+    response_body = URI.parse(url).open.read
+    @processing_time = JSON.parse(response_body)[0]['average_days']
   end
 
   def id_sanitized

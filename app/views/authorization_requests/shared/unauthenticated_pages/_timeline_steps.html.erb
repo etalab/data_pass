@@ -1,3 +1,5 @@
+<%# locals: (processing_time:) -%>
+
 <div class="steps-timeline">
   <div class="next-steps">
     <div>
@@ -37,7 +39,7 @@
     <div>
       <div class="step">
       </div>
-      <div class="time-indication">~ 5 jour(s)</div>
+      <div class="time-indication">~ <%= processing_time || 90 %> jours</div>
     </div>
     <div>
       <div class="step">
