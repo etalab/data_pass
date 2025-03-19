@@ -47,6 +47,7 @@ gem 'state_machines-activerecord'
 gem 'stimulus-rails'
 gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[ windows jruby ]
+gem "view_component"
 gem 'wicked'
 
 group :development, :test do

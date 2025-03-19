@@ -1,0 +1,50 @@
+<li id="<%= dom_id(authorization_request_event) %>" class="fr-grid-row">
+  <div class="fr-mr-1w">
+    <%= render(HistoricalAuthorizationRequestEventIconComponent.new(name: authorization_request_event.name))
+    %>
+  </div>
+
+  <div class="fr-col"
+       data-controller="show-and-hide"
+       data-show-and-hide-targets-value="#<%= dom_id(authorization_request_event, :message_summary) %>, #<%= dom_id(authorization_request_event, :message_content) %>">
+
+    <div id="<%= dom_id(authorization_request_event, :message_summary) %>">
+      <%= message_summary %>
+      <% if message_expandable? %>
+        <br/>
+        <button class="fr-link"
+                data-action="click->show-and-hide#trigger"
+                data-show-and-hide-target-param="#<%= dom_id(authorization_request_event, :message_content) %>">
+          <%= t('components.historical_events.show_message') %>
+        </button>
+      <% end %>
+    </div>
+
+    <% if message_expandable? %>
+      <div id="<%= dom_id(authorization_request_event, :message_content) %>" class="fr-hidden">
+        <%= message_content %>
+        <button class="fr-link"
+                data-action="click->show-and-hide#trigger"
+                data-show-and-hide-target-param="#<%= dom_id(authorization_request_event, :message_summary) %>">
+          <%= t('components.historical_events.hide_message') %>
+        </button>
+      </div>
+    <% end %>
+
+    <% if external_link? %>
+      <div class="fr-mt-1w">
+        <%= render LinkComponent.new(
+          text: t('instruction.authorization_request_events.authorization_request_event.approve.view_authorization'),
+          path: authorization_request_authorization_path(
+            authorization_request_event.authorization_request,
+            authorization_request_event.authorization
+          )
+        ) %>
+      </div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= formatted_created_at_date %>
+  </div>
+</li>

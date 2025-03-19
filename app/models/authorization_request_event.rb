@@ -36,6 +36,8 @@ class AuthorizationRequestEvent < ApplicationRecord
 
   validate :entity_type_is_authorized
 
+  delegate :full_name, to: :user, prefix: true, allow_nil: true
+
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
   def entity_type_is_authorized
     return if name.blank? || entity_type.blank?
