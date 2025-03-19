@@ -3,6 +3,59 @@ RSpec.describe Authorization do
     expect(build(:authorization)).to be_valid
   end
 
+  describe 'state machine' do
+    it { is_expected.to have_states :active, :inactive, :revoked }
+    it { is_expected.to handle_events :deactivate, :revoke }
+
+    describe 'transitions' do
+      subject(:authorization) { build(:authorization) }
+
+      it { is_expected.to transition_from :active, to_state: :inactive, on_event: :deactivate }
+      it { is_expected.to transition_from :active, to_state: :revoked, on_event: :revoke }
+    end
+
+    # TODO : remove when the state machine is fully functional
+    describe '#revoked?' do
+      subject(:revoked) { authorization.revoked? }
+
+      let(:authorization) { build(:authorization, revoked: revoked_attribute, state: state_attribute) }
+      let(:revoked_attribute) { true }
+      let(:state_attribute) { :revoked }
+
+      context 'when not using the feature flag' do
+        context 'when the revoked attribute is true' do
+          let(:state_attribute) { :active }
+
+          it { is_expected.to be true }
+        end
+
+        context 'when the revoked attribute is false' do
+          let(:revoked_attribute) { false }
+
+          it { is_expected.to be false }
+        end
+      end
+
+      context 'when using the feature flag' do
+        before do
+          ENV['FEATURE_USE_AUTH_STATES'] = 'true'
+        end
+
+        context 'when the state is revoked' do
+          let(:revoked_attribute) { false }
+
+          it { is_expected.to be true }
+        end
+
+        context 'when the state is not revoked' do
+          let(:state_attribute) { :active }
+
+          it { is_expected.to be false }
+        end
+      end
+    end
+  end
+
   describe '#request_as_validated' do
     subject(:request_as_validated) { authorization.request_as_validated }
 
