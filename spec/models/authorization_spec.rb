@@ -10,7 +10,7 @@ RSpec.describe Authorization do
     describe 'transitions' do
       subject(:authorization) { build(:authorization) }
 
-      it { is_expected.to transition_from :active, to_state: :obsolete, on_event: :deprecate }
+      it { is_expected.to transition_from :active, :obsolete, to_state: :obsolete, on_event: :deprecate }
       it { is_expected.to transition_from :active, to_state: :revoked, on_event: :revoke }
     end
 

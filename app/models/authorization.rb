@@ -50,7 +50,7 @@ class Authorization < ApplicationRecord
     state :revoked
 
     event :deprecate do
-      transition from: :active, to: :obsolete
+      transition from: %i[active obsolete], to: :obsolete
     end
 
     event :revoke do
