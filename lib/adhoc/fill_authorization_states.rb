@@ -1,38 +1,26 @@
-class FillAuthorizationStates < BaseInteractor
-  class LatestAuthorizationForRequest
-    attr_reader :authorizations
-
-    def initialize(auth_requests)
-      @authorizations = scope_for(auth_requests).group_by(&:request_id)
-    end
-
-    def for_request(auth_request)
-      @authorization[auth_request.id] || []
-    end
-
-    private
-
-    def scope_for(auth_requests)
-      ranked_auths = Authorization.where(request_id: auth_requests).select(<<-SQL)
-        authorizations.*,
-        dense_rank() OVER (
-          PARTITION BY authorizations.request_id
-          ORDER BY authorizations.id DESC
-        ) AS authorization_rank
-      SQL
-
-      Authorization.from(ranked_auths, "authorizations").where("authorization_rank <= 1").where.not(state: :revoked)
-    end
-  end  
-
-  latest_auths = LatestAuthorizationForRequest.new(AuthorizationRequest.all)
-  latest_auths.authorizations.each do |request_id, auths|
-    puts "#{request_id} -> #{auths.first.form_uid}"
-  end
-
+class Adhoc::FillAuthorizationStates < ApplicationInteractor
   def call
     Authorization.where(revoked: true).update_all(state: :revoked)
     Authorization.where(revoked: false).update_all(state: :inactive)
+    Authorization.where(id: last_authorizations_by_stage_ids).update_all(state: :active)
+  end
 
+  private
+
+  # https://claude.ai/share/a27acb83-d2d0-4f73-9232-4e0cbc479274
+  def last_authorizations_by_stage_ids
+    subquery = Authorization
+      .select('id, request_id, form_uid, created_at,
+               ROW_NUMBER() OVER (PARTITION BY request_id, form_uid ORDER BY created_at DESC) as rn')
+      .to_sql
+
+    result = Authorization.connection.execute(<<-SQL)
+      SELECT request_id, array_agg(id) as authorization_ids
+      FROM (#{subquery}) as latest_auths
+      WHERE rn = 1
+      GROUP BY request_id
+    SQL
+
+    result.map { |row| row['authorization_ids'].tr('{}', '').split(',').map(&:to_i) }.flatten
   end
 end
