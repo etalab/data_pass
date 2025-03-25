@@ -37,7 +37,10 @@
           <% end %>
         </div>
       <% end %>
+
+      <% if local_assigns[:extra_block] %>
+        <%= local_assigns[:extra_block] %>
+      <% end %>
     </fieldset>
   </div>
 </div>
-
