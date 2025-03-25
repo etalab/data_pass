@@ -52,6 +52,8 @@ module ApplicationHelper
   end
 
   def authorization_request_stage_badge(authorization_request, css_class: nil)
+    return unless authorization_request.definition.stage.exists?
+
     stage_badge(authorization_request.definition.stage.type, css_class: css_class)
   end
 

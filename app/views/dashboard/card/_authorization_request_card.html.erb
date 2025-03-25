@@ -51,11 +51,9 @@
     </div>
   </div>
 
-  <% if authorization_request.reopening? %>
+  <% if authorization_request.display_card_reopening_footer? %>
     <%= render partial: 'dashboard/card/card_reopening_footer', locals: { authorization_request: authorization_request } %>
-  <% end %>
-
-  <% if authorization_request.display_stage_footer? %>
+  <% elsif authorization_request.display_card_stage_footer? %>
     <%= render partial: 'dashboard/card/stage_footer', locals: { authorization_request: authorization_request } %>
   <% end %>
 

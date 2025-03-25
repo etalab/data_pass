@@ -97,6 +97,10 @@ class AuthorizationRequest < ApplicationRecord
     end
   end
 
+  def latest_authorization_of_stage(stage)
+    authorizations.where(authorization_request_class: stage).order(created_at: :desc).limit(1).first
+  end
+
   def latest_authorization_of_class(authorization_request_class)
     authorizations.where(authorization_request_class: authorization_request_class).order(created_at: :desc).limit(1).first
   end
@@ -118,7 +122,7 @@ class AuthorizationRequest < ApplicationRecord
   scope :in_instructions, -> { where(state: 'submitted') }
   scope :validated, -> { where(state: 'validated') }
   scope :refused, -> { where(state: 'refused') }
-  scope :validated_or_refused, -> { where('state in (?) or last_validated_at is not null', %w[validated refused]) }
+  scope :validated_or_refused, -> { where('authorization_requests.state in (?) or last_validated_at is not null', %w[validated refused]) }
   scope :not_archived, -> { where.not(state: 'archived') }
   scope :without_reopening, -> { where(last_validated_at: nil) }
   scope :revoked, -> { where(state: 'revoked') }
@@ -197,7 +201,7 @@ class AuthorizationRequest < ApplicationRecord
     end
 
     after_transition to: :validated do |authorization_request|
-      authorization_request.update(last_validated_at: Time.zone.now, reopening: false)
+      authorization_request.update(last_validated_at: Time.zone.now, reopening: authorization_request.keep_reopening?)
     end
 
     event :archive do
@@ -360,5 +364,18 @@ class AuthorizationRequest < ApplicationRecord
     return nil if definition.access_link.blank? || external_provider_id.blank?
 
     format(definition.access_link, external_provider_id:)
+  end
+
+  def keep_reopening?
+    return false unless definition.multi_stage?
+
+    any_next_stage_authorization_exists?
+  end
+
+  def any_next_stage_authorization_exists?
+    return false unless definition.multi_stage?
+    return false unless definition.next_stage?
+
+    latest_authorization_of_class(definition.next_stage_definition.authorization_request_class.to_s).present?
   end
 end

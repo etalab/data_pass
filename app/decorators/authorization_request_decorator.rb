@@ -54,15 +54,37 @@ class AuthorizationRequestDecorator < ApplicationDecorator
     object.form.multiple_steps?
   end
 
-  def display_stage_footer?
-    object.definition.stage.exists? &&
-      object.latest_authorization.present? &&
-      object.latest_authorization.request_as_validated.definition.next_stage?
+  def display_card_stage_footer? # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    return false unless definition.multi_stage?
+
+    if definition.stage.type == 'sandbox'
+      return false if (draft? || submitted?) && !any_next_stage_authorization_exists?
+      return false if reopening? && !any_next_stage_authorization_exists?
+      return false if reopening? && any_next_stage_authorization_exists? && (draft? || submitted?)
+    else
+      return false if reopening?
+      return true if draft? || submitted?
+      return false unless definition.next_stage?
+    end
+
+    validated? || submitted?
+  end
+
+  def display_card_reopening_footer?
+    if definition.multi_stage?
+      !display_card_stage_footer? &&
+        reopening?
+    else
+      reopening?
+    end
   end
 
   def next_stage_already_started?
-    display_stage_footer? &&
-      !object.validated?
+    return false unless definition.multi_stage?
+
+    return false if definition.stage.type == 'sandbox'
+
+    draft? || submitted?
   end
 
   def prefilled_data?(keys)
