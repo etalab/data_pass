@@ -55,6 +55,20 @@ class Authorization < ApplicationRecord
 
     event :revoke do
       transition from: :active, to: :revoked
+      transition from: :obsolete, to: :obsolete
+    end
+
+    event :rollback_revoke do
+      transition from: :revoked, to: :active
+      transition from: :obsolete, to: :obsolete
+    end
+
+    after_transition on: :revoke do |authorization, _transition|
+      authorization.update(revoked: true)
+    end
+
+    after_transition on: :rollback_revoke do |authorization, _transition|
+      authorization.update(revoked: false)
     end
   end
 
