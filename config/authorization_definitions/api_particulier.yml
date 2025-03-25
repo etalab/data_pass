@@ -57,9 +57,11 @@ api_particulier:
     - name: "Statut boursier (disponible en 2025)"
       value: "men_statut_boursier"
       group: "API Statut élève scolarisé et boursier"
+      disabled: true
     - name: "Échelon de la bourse (disponible en 2025)"
       value: "men_echelon_bourse"
       group: "API Statut élève scolarisé et boursier"
+      disabled: true
     - name: "Établissement"
       value: "men_statut_etablissement"
       group: "API Statut élève scolarisé et boursier"
