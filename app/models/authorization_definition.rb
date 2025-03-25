@@ -43,7 +43,7 @@ class AuthorizationDefinition < StaticApplicationRecord
         id: uid.to_s,
         provider: DataProvider.find(hash[:provider]),
         stage: Stage.new(hash[:stage]),
-        scopes: (hash[:scopes] || []).map { |scope_data| AuthorizationRequestScope.new(scope_data) },
+        scopes: (hash[:scopes] || []).map { |scope_data| AuthorizationDefinition::Scope.new(scope_data) },
         blocks: hash[:blocks] || [],
       )
     )
