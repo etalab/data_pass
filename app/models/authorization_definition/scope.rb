@@ -1,4 +1,4 @@
-class AuthorizationRequestScope
+class AuthorizationDefinition::Scope
   attr_reader :name,
     :value,
     :group,
