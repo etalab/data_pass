@@ -42,6 +42,7 @@ Rails.application.routes.draw do
     end
 
     get '/demandes/:definition_id/nouveau', to: 'authorization_requests#new', as: :new_authorization_request
+    get '/demandes/:definition/processing_time', to: 'authorization_request_stats#processing_time', as: :processing_time
 
     get '/demandes/:authorization_request_id/prochaine-etape', to: 'next_authorization_request_stage#new', as: :next_authorization_request_stage
     post '/demandes/:authorization_request_id/prochaine-etape', to: 'next_authorization_request_stage#create'
