@@ -94,17 +94,20 @@ api_particulier:
     - name: "Identité de l'étudiant"
       value: "mesri_identite"
       group: "API Statut étudiant"
-    - name: 'Statut étudiant "admis"'
-      value: "mesri_admission"
+    - name: 'Admission étudiant'
+      value: 'mesri_admissions'
       group: "API Statut étudiant"
-    - name: "Statut étudiant inscrit | Périmètre formation initiale"
-      value: "mesri_inscription_etudiant"
+    - name: "Statut de l'inscription de l'étudiant"
+      value: 'mesri_admission_inscrit'
       group: "API Statut étudiant"
-    - name: "Statut étudiant inscrit | Périmètre formation continue"
-      value: "mesri_inscription_autre"
+    - name: "Régime de formation"
+      value: 'mesri_admission_regime_formation'
       group: "API Statut étudiant"
-    - name: "Liste des établissements"
-      value: "mesri_etablissements"
+    - name: "Code Cog de la commune de l'établissement"
+      value: 'mesri_admission_commune_etudes'
+      group: "API Statut étudiant"
+    - name: "Donnée de l'établissement"
+      value: 'mesri_admission_etablissement_etudes'
       group: "API Statut étudiant"
 
     - name: "Statut C2S"
