@@ -8,6 +8,7 @@ class ApproveAuthorizationRequest < ApplicationOrganizer
   end
 
   organize CreateAuthorization,
+    DeprecatePreviousAuthorizations,
     ExecuteAuthorizationRequestTransitionWithCallbacks,
     ExecuteAuthorizationRequestBridge
 end
