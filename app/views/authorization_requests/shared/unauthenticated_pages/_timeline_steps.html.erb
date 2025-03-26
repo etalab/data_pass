@@ -4,48 +4,56 @@
       <div>
         <%= image_tag "pictograms/homepage/identification.svg", alt: "identification", class: %w(fr-responsive-img) %>
       </div>
-      <div><%= t('authorization_requests.unauthenticated_start.timeline_steps.step_1') %></div>
+      <div>
+        <%= t('authorization_requests.unauthenticated_start.timeline_steps.step_1') %>
+      </div>
     </div>
 
     <div>
       <div>
         <%= image_tag "pictograms/homepage/demande.svg", alt: "identification", class: %w(fr-responsive-img) %>
       </div>
-      <div><%= t('authorization_requests.unauthenticated_start.timeline_steps.step_2') %></div>
+      <div>
+        <%= t('authorization_requests.unauthenticated_start.timeline_steps.step_2') %>
+      </div>
     </div>
 
     <div>
       <div>
         <%= image_tag "pictograms/homepage/habilitation.svg", alt: "identification", class: %w(fr-responsive-img) %>
       </div>
-      <div><%= t('authorization_requests.unauthenticated_start.timeline_steps.step_3') %></div>
+      <div>
+        <%= t('authorization_requests.unauthenticated_start.timeline_steps.step_3') %>
+      </div>
     </div>
 
     <div>
       <div>
         <%= image_tag "pictograms/homepage/token.svg", alt: "identification", class: %w(fr-responsive-img) %>
       </div>
-      <div><%= t("authorization_requests.unauthenticated_start.timeline_steps.step_4.#{@authorization_definition.kind}") %></div>
+      <div>
+        <%= t("authorization_requests.unauthenticated_start.timeline_steps.step_4.#{@authorization_definition.kind}") %>
+      </div>
     </div>
   </div>
 
   <div class="timeline">
     <div>
-      <div class="step">
+      <div class="step"></div>
+    </div>
+    <div>
+      <div class="step"></div>
+      <div class="time-indication">
+        <%= turbo_frame_tag 'processing-time', src: processing_time_path(definition: @authorization_definition.id) do %>
+          <div>calcul en cours...</div>
+        <% end %>
       </div>
     </div>
     <div>
-      <div class="step">
-      </div>
-      <div class="time-indication">~ 5 jour(s)</div>
+      <div class="step"></div>
     </div>
     <div>
-      <div class="step">
-      </div>
-    </div>
-    <div>
-      <div class="step">
-      </div>
+      <div class="step"></div>
     </div>
   </div>
 </div>
