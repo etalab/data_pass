@@ -35,7 +35,10 @@ class CreateAuthorizationFromSnapshot
       document = authorization.documents.create!(
         identifier: document_identifier.name,
       )
-      document.file.attach(storage_file_model.blob)
+
+      Array(storage_file_model).each do |file|
+        document.files.attach(file.blob)
+      end
     end
 
     authorization
