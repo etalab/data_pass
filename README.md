@@ -16,6 +16,7 @@ ProConnect) :
   la première organisation de liste (Commune de Clamart)
 - `api-entreprise@yopmail.com` / `api-entreprise@yopmail.com`: instructeur pour
   API Entreprise, sans habilitation
+- `datapass@yopmail.com` pour un compte admin / toute instruction
 
 Le lien pour l'instruction: [https://sandbox.v2.datapass.api.gouv.fr/instruction](https://sandbox.v2.datapass.api.gouv.fr/instruction)
 
