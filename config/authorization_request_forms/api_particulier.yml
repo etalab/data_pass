@@ -1462,10 +1462,11 @@ api-particulier-tarification-transports:
       - men_statut_boursier
       - men_echelon_bourse
       - mesri_identite
-      - mesri_admission
-      - mesri_inscription_etudiant
-      - mesri_inscription_autre
-      - mesri_etablissements
+      - mesri_admissions
+      - mesri_admission_inscrit
+      - mesri_admission_regime_formation
+      - mesri_admission_commune_etudes
+      - mesri_admission_etablissement_etudes
       - cnous_echelon_bourse
       - cnous_identite
       - cnous_email
@@ -1528,7 +1529,8 @@ api-particulier-gestion-rh-secteur-public:
     cadre_juridique_url: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000045213315"
     scopes:
       - mesri_identite
-      - mesri_admission
-      - mesri_inscription_etudiant
-      - mesri_inscription_autre
-      - mesri_etablissements
+      - mesri_admissions
+      - mesri_admission_inscrit
+      - mesri_admission_regime_formation
+      - mesri_admission_commune_etudes
+      - mesri_admission_etablissement_etudes
