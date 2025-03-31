@@ -720,6 +720,7 @@ DEPENDENCIES
   stimulus-rails
   turbo-rails
   tzinfo-data
+  uri (= 1.0.3)
   view_component
   web-console
   webmock
