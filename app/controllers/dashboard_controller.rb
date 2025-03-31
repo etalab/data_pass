@@ -5,7 +5,7 @@ class DashboardController < AuthenticatedUserController
     redirect_to dashboard_show_path(id: 'moi')
   end
 
-  def show # rubocop:disable Metrics/AbcSize
+  def show
     case params[:id]
     when 'moi'
       @authorization_requests = policy_scope(base_relation).where(applicant: current_user)
