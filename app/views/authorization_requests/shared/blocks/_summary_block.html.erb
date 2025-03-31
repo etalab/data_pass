@@ -1,8 +1,8 @@
 <div class="summary-block <%= !editable ? 'summary-block--fixed' : '' %> fr-mb-6w" id="<%= dom_id(@authorization_request, block_id) %>">
   <div class="summary-block__header">
-    <h3 class="summary-block__title fr-h4 fr-pb-1-5v">
+    <h2 class="summary-block__title fr-h4 fr-pb-1-5v">
       <%= title %>
-    </h3>
+    </h2>
 
     <div class="summary-block__info fr-text--sm font-weight-700">
       <% if policy(@authorization_request).update? && !editable %>

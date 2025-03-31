@@ -1,0 +1,5 @@
+<% if demande.only_in_contacts?(current_user) %>
+  <div class="fr-alert fr-alert--info fr-my-3w">
+    <%= t('.text', contact_types: demande.humanized_contact_types_for(current_user).to_sentence) %>
+  </div>
+<% end %>

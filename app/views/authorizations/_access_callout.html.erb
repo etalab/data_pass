@@ -1,0 +1,15 @@
+<% if !displayed_on_a_public_page? && authorization.request.access_link && authorization.request.validated? %>
+  <div class="fr-callout fr-my-16v">
+    <h2 class="fr-callout__title fr-h3">
+      <%= t('authorization_requests.show.access_callout.title') %>
+    </h2>
+
+    <%= simple_format t('authorization_requests.show.access_callout.content', access_name: authorization_request.name),
+                     { class: 'fr-callout__text' }, wrapper_tag: 'p' %>
+
+    <%= link_to t('authorization_requests.show.access_callout.button'),
+                authorization_request.access_link,
+                class: 'fr-btn fr-btn--icon-right fr-icon-external-link-line',
+                target: '_blank' %>
+  </div>
+<% end %>

@@ -1,0 +1,9 @@
+.authorization-header__actions {
+    display: flex;
+    height: 100%;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-content: center;
+}

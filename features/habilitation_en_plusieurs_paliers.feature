@@ -10,7 +10,8 @@ Fonctionnalité: Interactions avec des habilitations en plusieurs paliers (bac �
     Et que je vais sur la page du tableau de bord
     Alors il y a un bouton "Démarrer ma demande d’habilitation en production"
 
-  Scénario: Je peux démarrer une habilitation de production depuis une habilitation bac à sable validée sur sa page de résumé
+  # TODO Scenario a modifier lorsque les demandes validées ne seront plus affichées sur le tableau de bord mais dans un onglet habilitations
+  Scénario: Je peux démarrer une demande de production depuis une habilitation bac à sable active
     Quand j'ai 1 demande d'habilitation "API Impôt Particulier" à l'étape "Bac à sable" validée
     Et que je vais sur la page du tableau de bord
     Et que je clique sur "Consulter"

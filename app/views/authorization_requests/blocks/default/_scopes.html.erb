@@ -1,9 +1,9 @@
 <%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { title: f.wording_for('steps.scopes'), block_id: :scopes, f:, editable: } do %>
   <% @authorization_request.available_scopes.group_by(&:group).each do |group_name, scopes| %>
     <div class="fr-form-group scopes-group">
-      <h5 class="scopes-group__title">
+      <h3 class="scopes-group__title fr-h5">
         <%= group_name %>
-      </h5>
+      </h3>
 
       <div class="scopes-group__grid">
         <% scopes.each do |scope| %>

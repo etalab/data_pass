@@ -140,11 +140,11 @@ Alors('il y a un formulaire en une seule page') do
 end
 
 Alors('il y a un formulaire en mode résumé') do
-  expect(page).to have_xpath('//*[starts-with(@id, "summary_authorization_request_")]')
+  expect(page).to have_xpath('//*[starts-with(@id, "summary_authorization")]')
 end
 
 Alors("il n'y a pas de formulaire en mode résumé") do
-  expect(page).to have_no_xpath('//*[starts-with(@id, "summary_authorization_request_")]')
+  expect(page).to have_no_xpath('//*[starts-with(@id, "summary_authorization")]')
 end
 
 Quand('je me rends sur cette demande d\'habilitation') do
