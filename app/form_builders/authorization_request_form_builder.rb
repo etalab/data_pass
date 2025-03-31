@@ -122,7 +122,7 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
 
   def dsfr_scope_options(scope, disabled: false)
     {
-      disabled: disabled || check_box_disabled || scope.included?,
+      disabled: disabled || check_box_disabled || scope.included? || scope.disabled?,
       checked: scope.included? || @object.scopes.include?(scope.value),
       multiple: true,
     }
