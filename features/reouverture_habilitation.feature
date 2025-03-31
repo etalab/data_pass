@@ -45,12 +45,12 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Et que je vais sur la page tableau de bord
     Alors la page contient la date du jour au format court
 
-  Scénario: Consultation de l'habilitation validée associée à une réouverture
+  Scénario: Consultation de l'habilitation associée à une réouverture
     Quand j'ai 1 demande d'habilitation "API Entreprise" réouverte
     Et que je vais sur la page tableau de bord
     Et que je clique sur le premier "Consulter"
     Alors je suis sur la page "API Entreprise"
-    Et il y a un badge "Validée"
+    Et il y a un badge "active"
     Et il n'y a pas de bouton "Mettre à jour"
     Et il n'y a pas de bouton "Enregistrer"
     Et il y a un message d'info contenant "Une mise à jour de cette habilitation est en cours."
@@ -111,7 +111,7 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Et que cette demande a été "refusée"
     Et que je vais sur la page tableau de bord
     Et que je clique sur le dernier "Consulter"
-    Alors il y a un badge "Validée"
+    Alors il y a un badge "active"
 
 
   Scénario: Initialisation d'une réouverture bac à sable d'une demande validée en production
@@ -188,7 +188,7 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Et que je vais sur la page tableau de bord
     Et que je clique sur le premier "Consulter"
     Alors je suis sur la page "API Tierce Déclaration CESU"
-    Et il y a un badge "Validée"
+    Et il y a un badge "active"
     Et il n'y a pas de bouton "Mettre à jour"
 
   Scénario: Absence du bouton "Mettre à jour" sur le tableau de bord pour l'habilitation API Tierce Déclaration CESU après désactivation de l'option 'reopening'
