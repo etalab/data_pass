@@ -5,13 +5,40 @@ RSpec.describe Authorization do
 
   describe 'state machine' do
     it { is_expected.to have_states :active, :obsolete, :revoked }
-    it { is_expected.to handle_events :deprecate, :revoke }
+    it { is_expected.to handle_events :deprecate, :revoke, when: :active }
+    it { is_expected.to handle_events :deprecate, :revoke, :rollback_revoke, when: :obsolete }
+    it { is_expected.to handle_events :rollback_revoke, when: :revoked }
 
     describe 'transitions' do
       subject(:authorization) { build(:authorization) }
 
-      it { is_expected.to transition_from :active, to_state: :obsolete, on_event: :deprecate }
+      it { is_expected.to transition_from :active, :obsolete, to_state: :obsolete, on_event: :deprecate }
       it { is_expected.to transition_from :active, to_state: :revoked, on_event: :revoke }
+      it { is_expected.to transition_from :obsolete, to_state: :obsolete, on_event: :revoke }
+      it { is_expected.to transition_from :revoked, to_state: :active, on_event: :rollback_revoke }
+      it { is_expected.to transition_from :obsolete, to_state: :obsolete, on_event: :rollback_revoke }
+
+      describe 'after_transitions' do
+        describe 'revoke' do
+          subject(:revoke) { authorization.revoke }
+
+          it 'marks the authorization as revoked' do
+            expect { revoke }.to change(authorization, :revoked).from(false).to(true)
+          end
+        end
+
+        describe 'rollback_revoke' do
+          subject(:rollback_revoke) { authorization.rollback_revoke }
+
+          before do
+            authorization.revoke!
+          end
+
+          it 'marks the authorization as not revoked' do
+            expect { rollback_revoke }.to change(authorization, :revoked).from(true).to(false)
+          end
+        end
+      end
     end
 
     # TODO : remove when the state machine is fully functional
