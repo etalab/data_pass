@@ -85,6 +85,7 @@ group :test do
   gem 'rails-controller-testing'
   gem 'roo'
   gem 'rspec-rails', '7.1.1'
+  gem 'state_machines-rspec'
   gem 'simplecov', require: false
   gem 'webmock'
   gem 'openapi3_parser'
