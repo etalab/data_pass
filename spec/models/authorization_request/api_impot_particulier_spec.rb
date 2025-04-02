@@ -193,7 +193,7 @@ RSpec.describe AuthorizationRequest::APIImpotParticulier, type: :model do
 
         it 'does render an error message for invalid exclusive years scope combination' do
           authorization_request.valid?
-          expect(authorization_request.errors[:scopes]).to include("sont invalides : Vous ne pouvez pas sélectionner la donnée 'avant dernière année de revenu, si la dernière année de revenu est indisponible' avec d'autres années de revenus")
+          expect(authorization_request.errors[:scopes]).to include("sont invalides : Vous ne pouvez pas sélectionner la donnée 'Avant-dernière année de revenu, si la dernière année de revenu est indisponible' avec d'autres années de revenus")
         end
       end
     end

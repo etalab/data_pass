@@ -38,7 +38,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
     * je clique sur "Suivant"
 
     Alors la page contient "Une erreur est survenue lors de la sauvegarde de la demande d'habilitation"
-    Et la page contient "Les données sont invalides : Vous ne pouvez pas sélectionner la donnée 'avant dernière année de revenu, si la dernière année de revenu est indisponible' avec d'autres années de revenus"
+    Et la page contient "Les données sont invalides : Vous ne pouvez pas sélectionner la donnée 'Avant-dernière année de revenu, si la dernière année de revenu est indisponible' avec d'autres années de revenus"
 
   Scénario: Je soumets une demande d'habilitation avec 2 scopes incompatibles.
     * je coche "Dernière année de revenu (N-1)"
