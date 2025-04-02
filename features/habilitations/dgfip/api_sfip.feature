@@ -18,7 +18,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Courtier fonctionne
     * je renseigne le cadre légal
     * je clique sur "Suivant"
 
-    * je coche "Dernière année de revenu"
+    * je coche "Dernière année de revenu (N-1)"
     * je clique sur "Suivant"
 
     * je renseigne les informations des contacts RGPD

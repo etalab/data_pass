@@ -53,7 +53,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
     Et que je choisis "Avec FranceConnect"
     * je clique sur "Suivant"
 
-    * je coche "Dernière année de revenu"
+    * je coche "Dernière année de revenu (N-1)"
     * je clique sur "Suivant"
 
     * je renseigne les informations des contacts RGPD
