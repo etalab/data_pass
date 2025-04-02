@@ -740,7 +740,7 @@ fr:
             <a href="/cgus/dgfip/presentation_de_l_api_impot_particulier_v2.8.pdf", target="_blank">Voir la documentation de l’API Impôt particulier</a>
         groups:
           'Années sur lesquelles porte votre demande': |
-            En cochant la case <strong>Avant-dernière année de revenu, si la dernière année de revenu est indisponible</strong>,
+            En cochant la case <strong>Avant-dernière année de revenu, si la dernière année de revenu est indisponible (N-1 ou N-2)</strong>,
             vous optez pour récupérer les informations de l’avant-dernière année, lorsque celles de la dernière année ne sont pas disponibles.
             Cette option n’est pas possible si vous souhaitez des données fournies uniquement par la ressource facture /avis IR.
           'Situation du foyer fiscal': |

@@ -21,7 +21,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôt Particulier 
     * je choisis "Via le numéro fiscal (SPI)"
     * je clique sur "Suivant"
 
-    * je coche "Dernière année de revenu"
+    * je coche "Dernière année de revenu (N-1)"
     * je clique sur "Suivant"
 
     * je renseigne les informations des contacts RGPD

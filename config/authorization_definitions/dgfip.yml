@@ -22,16 +22,16 @@ api_impot_particulier:
     - name: safety_certification
     - name: volumetrie
   scopes: &api_impot_particulier_scopes
-    - name: Dernière année de revenu
+    - name: Dernière année de revenu (N-1)
       value: dgfip_annee_n_moins_1
       group: Années sur lesquelles porte votre demande
-    - name: Avant-dernière année de revenu
+    - name: Avant-dernière année de revenu (N-2)
       value: dgfip_annee_n_moins_2
       group: Années sur lesquelles porte votre demande
-    - name: Avant-avant-dernière année de revenu
+    - name: Avant-avant-dernière année de revenu (N-3)
       value: dgfip_annee_n_moins_3
       group: Années sur lesquelles porte votre demande
-    - name: Avant-dernière année de revenu, si la dernière année de revenu est indisponible
+    - name: Avant-dernière année de revenu, si la dernière année de revenu est indisponible (N-1 ou N-2)
       value: dgfip_annee_n_moins_2_si_indispo_n_moins_1
       group: Années sur lesquelles porte votre demande
     - name: Nom

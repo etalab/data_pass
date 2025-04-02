@@ -33,15 +33,15 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
     Et la page contient "Les données sont invalides : Vous devez cocher au moins une année de revenus souhaitée avant de continuer"
 
   Scénario: Je soumets une demande d'habilitation avec 2 scopes d'annéees de revenue cochés incompatible.
-    * je coche "Dernière année de revenu"
-    * je coche "Avant-dernière année de revenu, si la dernière année de revenu est indisponible"
+    * je coche "Dernière année de revenu (N-1)"
+    * je coche "Avant-dernière année de revenu, si la dernière année de revenu est indisponible (N-1 ou N-2)"
     * je clique sur "Suivant"
 
     Alors la page contient "Une erreur est survenue lors de la sauvegarde de la demande d'habilitation"
-    Et la page contient "Les données sont invalides : Vous ne pouvez pas sélectionner la donnée 'avant dernière année de revenu, si la dernière année de revenu est indisponible' avec d'autres années de revenus"
+    Et la page contient "Les données sont invalides : Vous ne pouvez pas sélectionner la donnée 'Avant-dernière année de revenu, si la dernière année de revenu est indisponible' avec d'autres années de revenus"
 
   Scénario: Je soumets une demande d'habilitation avec 2 scopes incompatibles.
-    * je coche "Dernière année de revenu"
+    * je coche "Dernière année de revenu (N-1)"
     * je coche "Données fiscales au 31/12 en cas de décès d'un contribuable marié ou pacsé"
     * je coche "Versement épargne retraite"
     * je clique sur "Suivant"
@@ -58,7 +58,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
     Alors la page contient "Les personnes impliquées"
 
   Scénario: Je soumets une demande d'habilitation avec un scope en cochant le fichier de besoins spécifiques mais en oubliant de joindre le fichier.
-    * je coche "Dernière année de revenu"
+    * je coche "Dernière année de revenu (N-1)"
     * je coche "Oui, j’ai une expression de besoin spécifique"
     * je clique sur "Suivant"
 
