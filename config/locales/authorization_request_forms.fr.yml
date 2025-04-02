@@ -273,6 +273,7 @@ fr:
              - justifiant la nécessité d’accéder aux données demandées à travers l’API ;
              - justifiant que vous êtes légalement habilité, en raison de vos missions, à accéder à ces données.
             <br/>
+            <br/>
             ⚠️ Attention, quel que soit votre statut, la seule citation du <a href="https://www.legifrance.gouv.fr/codes/texte_lc/LEGITEXT000031366350/2020-12-14/" target="_blank">CRPA (Code des relations entre le public et l’administration)</a>, de la <a href="https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000037307624/" target="_blank">loi ESSOC (pour un État au service d’une société de confiance)</a> ou de la loi Lemaire (pour une République numérique) n’est pas suffisante. Le principe d’échange doit être complété par la mention du cadre juridique précis pour l’utilisation envisagée.
       contact_metier:
         info: |
@@ -343,11 +344,15 @@ fr:
               - justifiant la nécessité d'accéder aux données demandées à travers l'API,
               - justifiant que vous êtes légalement habilité, en raison de vos missions, à accéder à ces données.
               <br/>
+              <br/>
               Dans le cas où vous représenteriez une collectivité, veuillez joindre la délibération tarifiaire explicitant l’usage des données demandées. Citer l’article 114-8 du code des relations entre le public et l’administration ne peut pas se substituer à la présence d’une délibération du conseil municipal.
+              <br/>
               <br/>
               ⚠️ Attention, la seule citation de l’article 114-8 du code des relations entre le public et l’administration ne suffit pas, et ne peut pas se substituer à la transmission d’une délibération de votre collectivité territoriale fixant les modalités et les conditions d’utilisation des données.
               <br/>
+              <br/>
               Important : si vous avez déjà une délibération qui expose le mode de fonctionnement d’une démarche, par exemple et détaillant les barèmes de facturation des services et/ou les données nécessaires à l’instruction, vous pouvez la transmettre. Il n’est pas nécessaire dans un tel cas de procéder à une nouvelle délibération.
+              <br/>
               <br/>
               Pour en savoir plus, consultez <a href="https://api.gouv.fr/guides/deliberation-api-part">notre guide sur les délibérations permettant d'accéder à l'API Particulier.</a>
     api_particulier_abelium: &api_particulier_editor_common_wordings
