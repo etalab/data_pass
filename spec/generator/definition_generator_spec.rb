@@ -1,7 +1,7 @@
 require 'generator_spec'
 require 'generators/definition/definition_generator'
 
-RSpec.describe DefinitionGenerator, type: :generator do
+RSpec.describe DefinitionGenerator do
   arguments ['FranceGenerateur', 'Generateur de France']
 
   before do

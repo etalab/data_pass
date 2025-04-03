@@ -1,4 +1,4 @@
-RSpec.describe AuthorizationRequestReopeningCancellation, type: :model do
+RSpec.describe AuthorizationRequestReopeningCancellation do
   it 'has valid factories' do
     expect(build(:authorization_request_reopening_cancellation)).to be_valid
     expect(build(:authorization_request_reopening_cancellation, :from_instructor)).to be_valid

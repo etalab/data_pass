@@ -1,4 +1,4 @@
-RSpec.describe PagesController, type: :controller do
+RSpec.describe PagesController do
   describe 'GET #cgu_api_impot_particulier_bas' do
     it 'returns a 200 response' do
       get :cgu_api_impot_particulier_bas

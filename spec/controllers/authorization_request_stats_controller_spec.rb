@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe AuthorizationRequestStatsController, type: :controller do
+RSpec.describe AuthorizationRequestStatsController do
   describe 'GET #processing_time' do
     let(:processing_days) { 13 }
     let(:authorization_request_class) { 'AuthorizationRequest::APIEntreprise' }

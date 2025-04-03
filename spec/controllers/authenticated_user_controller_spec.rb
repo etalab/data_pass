@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe AuthenticatedUserController, type: :controller do
+RSpec.describe AuthenticatedUserController do
   controller(AuthenticatedUserController) do
     def show
       render plain: 'ok'

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe FranceConnectMailer, type: :mailer do
+RSpec.describe FranceConnectMailer do
   describe 'new_scopes' do
     let(:mail) { described_class.with(authorization_request:).new_scopes }
 

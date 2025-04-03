@@ -1,4 +1,4 @@
-RSpec.describe 'OpenAPI files', type: :request do
+RSpec.describe 'OpenAPI files' do
   it 'works and render a valid OpenAPI file' do
     get '/api-docs/v1.yaml'
 

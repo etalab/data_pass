@@ -1,4 +1,4 @@
-RSpec.describe AuthorizationRequest::APIImpotParticulier, type: :model do
+RSpec.describe AuthorizationRequest::APIImpotParticulier do
   subject(:authorization_request) do
     build(
       :authorization_request,

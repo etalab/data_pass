@@ -1,4 +1,4 @@
-RSpec.describe 'API: Credentials', type: :request do
+RSpec.describe 'API: Credentials' do
   context 'when unauthorized' do
     it 'returns unauthorized' do
       get '/api/v1/me'

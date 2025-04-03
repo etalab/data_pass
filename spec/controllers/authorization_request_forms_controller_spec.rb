@@ -1,4 +1,4 @@
-RSpec.describe AuthorizationRequestFormsController, type: :controller do
+RSpec.describe AuthorizationRequestFormsController do
   describe 'GET #new' do
     subject(:new_authorization_request_form) { get :new, params: { form_uid: } }
 

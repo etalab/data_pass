@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe HubEEMailer, type: :mailer do
+RSpec.describe HubEEMailer do
   describe '#administrateur_metier' do
     context 'with cert_dc' do
       let(:mail) { described_class.with(authorization_request:).administrateur_metier(:cert_dc) }
