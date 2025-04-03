@@ -24,4 +24,4 @@
 - Use RSpec expectations syntax for tests
 - JavaScript follows StandardJS conventions
 - DO NOT use comments, use meaningful variables and methods names
-
+- All files should end with a newline
