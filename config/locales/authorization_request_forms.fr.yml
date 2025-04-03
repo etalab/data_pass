@@ -269,17 +269,12 @@ fr:
       legal:
         info:
           content: |
-            L’accès à l’API Entreprise se fait sous réserve que son utilisation soit justifiée. Chaque donnée requiert la fourniture d’un cadre juridique précis. Par exemple, si vous êtes une administration centrale, une agence d’État, un opérateur, ou un service déconcentré, il vous faudra transmettre le décret ou l’arrêté justifiant votre demande.
-
-            <br />
-            <br />
-
-            La loi Lemaire pour une République numérique du 7 octobre 2016 suffit si vous demandez des données publiques ; c‘est-à-dire les données n‘ayant pas de 🔐 devant leur nom.
-
-            <br />
-            <br />
-
-            ⚠️ Attention, quel que soit votre statut, le <a href="https://www.legifrance.gouv.fr/codes/texte_lc/LEGITEXT000031366350/2020-12-14/" target="_blank">CRPA (Code des relations entre le public et l’administration)</a>>, la <a href="https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000037307624/" target="_blank">loi ESSOC (pour un État au service d’une société de confiance)</a> ou la loi Lemaire (pour une République numérique) ne sont pas suffisants car ils indiquent un principe d’échange qui doit être complété par un cadre juridique précis pour l’utilisation envisagée.
+            Afin de bénéficier du raccordement à l’API Entreprises en tant qu’administration, vous devez fournir le cadre légal et/ou réglementaire :
+             - justifiant la nécessité d’accéder aux données demandées à travers l’API ;
+             - justifiant que vous êtes légalement habilité, en raison de vos missions, à accéder à ces données.
+            <br/>
+            <br/>
+            ⚠️ Attention, quel que soit votre statut, la seule citation du <a href="https://www.legifrance.gouv.fr/codes/texte_lc/LEGITEXT000031366350/2020-12-14/" target="_blank">CRPA (Code des relations entre le public et l’administration)</a>, de la <a href="https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000037307624/" target="_blank">loi ESSOC (pour un État au service d’une société de confiance)</a> ou de la loi Lemaire (pour une République numérique) n’est pas suffisante. Le principe d’échange doit être complété par la mention du cadre juridique précis pour l’utilisation envisagée.
       contact_metier:
         info: |
           Cette personne sera contactée pour toute question métier sur votre service. Celle-ci sera informée des nouvelles API et incidents majeurs.
@@ -345,20 +340,21 @@ fr:
         #   description: Vous souhaitez accéder, traiter et conserver des données personnelles. Quel est le cadre juridique qui autorise votre organisation à accéder à ces données ?
         info:
           content: |
-            <p>
-              Pour pouvoir bénéficier du raccordement à l’API Particulier, le cadre légal et réglementaire des fournisseurs de service doit permettre à la DINUM de transmettre des données personnelles à votre entité administrative. Merci de le compléter.
-            </p>
-
-            <p>
+              Afin de bénéficier du raccordement à l’API Particulier en tant qu’administration, vous devez fournir le cadre légal et/ou réglementaire :
+              - justifiant la nécessité d'accéder aux données demandées à travers l'API,
+              - justifiant que vous êtes légalement habilité, en raison de vos missions, à accéder à ces données.
+              <br/>
+              <br/>
               Dans le cas où vous représenteriez une collectivité, veuillez joindre la délibération tarifiaire explicitant l’usage des données demandées. Citer l’article 114-8 du code des relations entre le public et l’administration ne peut pas se substituer à la présence d’une délibération du conseil municipal.
-            </p>
-
-            <p>
-              Important : à priori, vous n’avez pas de nouvelle délibération à réaliser. Il vous suffit de déposer la dernière délibération tarifaire qui détaille les barèmes de facturation des services, ou le règlement qui décrit les données nécessaires à une instruction.
-            </p>
-            <p>
-              Pour en savoir plus, consultez <a href="https://api.gouv.fr/guides/deliberation-api-part">notre guide sur ce qu’est une bonne délibération.</a>
-            </p>
+              <br/>
+              <br/>
+              ⚠️ Attention, la seule citation de l’article 114-8 du code des relations entre le public et l’administration ne suffit pas, et ne peut pas se substituer à la transmission d’une délibération de votre collectivité territoriale fixant les modalités et les conditions d’utilisation des données.
+              <br/>
+              <br/>
+              Important : si vous avez déjà une délibération qui expose le mode de fonctionnement d’une démarche, par exemple et détaillant les barèmes de facturation des services et/ou les données nécessaires à l’instruction, vous pouvez la transmettre. Il n’est pas nécessaire dans un tel cas de procéder à une nouvelle délibération.
+              <br/>
+              <br/>
+              Pour en savoir plus, consultez <a href="https://api.gouv.fr/guides/deliberation-api-part">notre guide sur les délibérations permettant d'accéder à l'API Particulier.</a>
     api_particulier_abelium: &api_particulier_editor_common_wordings
       legal:
         justificatif:
