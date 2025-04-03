@@ -57,3 +57,4 @@ app/migration/.hubee_config.yml
 # Ignore local Redis snapshots
 /dump.rdb
 .deploy_token
+.aider*
