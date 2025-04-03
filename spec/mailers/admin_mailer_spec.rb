@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe AdminMailer, type: :mailer do
+RSpec.describe AdminMailer do
   describe '#notify_user_roles_change' do
     let(:mail) { described_class.with(user:, old_roles: %w[api_entreprise:reporter]).notify_user_roles_change }
 

@@ -1,4 +1,4 @@
-RSpec.describe ReopenAuthorizationsController, type: :controller do
+RSpec.describe ReopenAuthorizationsController do
   subject(:get_new_reopening) { get :new, params: { authorization_id: authorization.id, authorization_request_id: authorization.request_id } }
 
   let!(:valid_authorization) { create(:authorization, applicant: user, slug: friendly_id) }
@@ -23,7 +23,7 @@ RSpec.describe ReopenAuthorizationsController, type: :controller do
     let(:authorization) { invalid_authorization }
 
     it 'redirects to dashboard path' do
-      expect(get_new_reopening).to have_http_status(302)
+      expect(get_new_reopening).to have_http_status(:found)
       expect(response).to redirect_to(dashboard_path)
     end
   end

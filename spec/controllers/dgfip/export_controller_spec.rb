@@ -1,4 +1,4 @@
-RSpec.describe DGFIP::ExportController, type: :controller do
+RSpec.describe DGFIP::ExportController do
   describe '#show' do
     subject(:get_spreadsheet) { get :show }
 
@@ -10,19 +10,19 @@ RSpec.describe DGFIP::ExportController, type: :controller do
       context 'when admin' do
         let(:user) { create(:user, roles: %w[admin]) }
 
-        it { is_expected.to have_http_status(200) }
+        it { is_expected.to have_http_status(:ok) }
       end
 
       context 'when dgfip reporter' do
         let(:user) { create(:user, roles: %w[api_impot_particulier:reporter]) }
 
-        it { is_expected.to have_http_status(200) }
+        it { is_expected.to have_http_status(:ok) }
       end
 
       context 'when another reporter' do
         let(:user) { create(:user, roles: %w[api_whatever:reporter]) }
 
-        it { is_expected.to have_http_status(403) }
+        it { is_expected.to have_http_status(:forbidden) }
       end
     end
 

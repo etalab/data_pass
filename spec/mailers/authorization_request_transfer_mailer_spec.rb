@@ -1,4 +1,4 @@
-RSpec.describe AuthorizationRequestTransferMailer, type: :mailer do
+RSpec.describe AuthorizationRequestTransferMailer do
   describe '#success' do
     subject(:mail) do
       described_class.with(

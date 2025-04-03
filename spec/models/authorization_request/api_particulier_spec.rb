@@ -1,4 +1,4 @@
-RSpec.describe AuthorizationRequest::APIParticulier, type: :model do
+RSpec.describe AuthorizationRequest::APIParticulier do
   describe 'modalities attribute' do
     subject { authorization_request.modalities }
 

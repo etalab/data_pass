@@ -4,6 +4,7 @@ plugins:
   - rubocop-rspec
   - rubocop-capybara
   - rubocop-factory_bot
+  - rubocop-rspec_rails
 
 inherit_mode:
   merge:
