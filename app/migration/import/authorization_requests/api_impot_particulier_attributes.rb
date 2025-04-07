@@ -1,4 +1,6 @@
 class Import::AuthorizationRequests::APIImpotParticulierAttributes < Import::AuthorizationRequests::APIImpotParticulierSandboxAttributes
+  include Import::AuthorizationRequests::DGFIPProduction
+
   def affect_data
     migrate_from_sandbox_to_production!
 
