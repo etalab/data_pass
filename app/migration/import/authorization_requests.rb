@@ -60,16 +60,16 @@ class Import::AuthorizationRequests < Import::Base
   end
 
   def sql_tables_to_save
-    super.concat(
-      %w[
-        active_storage_blobs
-        active_storage_attachments
-        active_storage_variant_records
-        users
-        organizations
-        organizations_users
-      ]
-    )
+    %w[
+      users
+      organizations
+      organizations_users
+      active_storage_blobs
+      active_storage_attachments
+      active_storage_variant_records
+      authorization_requests
+      authorizations
+    ]
   end
 
   def find_team_member(kind, enrollment_id)
