@@ -3,6 +3,7 @@ RSpec.describe ProcessingTimeQuery, type: :query do
     subject(:average_days) { described_class.new(authorization_request_class).perform }
 
     let(:authorization_request_class) { nil }
+    let(:initial_datetime) { DateTime.new(2025, 3, 1) }
 
     before do
       api_entreprise_request = create(:authorization_request, :api_entreprise)
@@ -17,25 +18,25 @@ RSpec.describe ProcessingTimeQuery, type: :query do
       create(:authorization_request_event,
         name: 'submit',
         entity: api_entreprise_changelog,
-        created_at: 30.days.ago,
+        created_at: initial_datetime - 30.days,
         user: api_entreprise_request.applicant)
 
       create(:authorization_request_event,
         name: 'submit',
         entity: api_particulier_changelog,
-        created_at: 20.days.ago,
+        created_at: initial_datetime - 20.days,
         user: api_particulier_request.applicant)
 
       create(:authorization_request_event,
         name: 'approve',
         entity: api_entreprise_authorization,
-        created_at: 20.days.ago,
+        created_at: initial_datetime - 20.days,
         user: api_entreprise_request.applicant)
 
       create(:authorization_request_event,
         name: 'approve',
         entity: api_particulier_authorization,
-        created_at: 5.days.ago,
+        created_at: initial_datetime - 5.days,
         user: api_particulier_request.applicant)
     end
 
