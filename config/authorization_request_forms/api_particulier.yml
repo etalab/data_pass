@@ -974,7 +974,7 @@ api-particulier-noethys:
   scopes_config:
     disabled:
       - cnaf_quotient_familial
-      - cnaf_allocatairese
+      - cnaf_allocataires
       - cnaf_enfants
     displayed:
       - cnaf_quotient_familial
@@ -1008,7 +1008,7 @@ api-particulier-carte-plus:
   scopes_config:
     disabled:
       - cnaf_quotient_familial
-      - cnaf_allocatairese
+      - cnaf_allocataires
       - cnaf_enfants
     displayed:
       - cnaf_quotient_familial
@@ -1047,7 +1047,7 @@ api-particulier-resagenda:
   scopes_config:
     disabled:
       - cnaf_quotient_familial
-      - cnaf_allocatairese
+      - cnaf_allocataires
       - cnaf_enfants
     displayed:
       - cnaf_quotient_familial
