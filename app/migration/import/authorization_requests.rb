@@ -319,6 +319,7 @@ class Import::AuthorizationRequests < Import::Base
       'api_ficoba_sandbox' => 'api_ficoba_sandbox',
       'api_ficoba_production' => 'api_ficoba',
       'api_ficoba_unique' => 'api_ficoba',
+      'agent_connect_fi' => 'pro_connect_identity_provider',
     }[enrollment['target_api']].try(:classify)
   end
 
