@@ -1,6 +1,7 @@
 class Import::AuthorizationRequests::APIRialSandboxAttributes < Import::AuthorizationRequests::DGFIPSandboxAttributes
   def affect_data
     affect_attributes
+    affect_scopes
     affect_contacts
     affect_potential_legal_document
     affect_potential_specific_requirements
