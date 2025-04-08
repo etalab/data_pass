@@ -73,7 +73,7 @@ class CreateAuthorizationFromSnapshot
 
   def build_data(authorization, raw_snapshot_items)
     if no_reopening?
-      authorization.data = authorization_request.data
+      authorization.data = authorization_request.data.dup
     else
       byebug if raw_snapshot_items.nil?
       snapshot_items = raw_snapshot_items.map { |row| JSON.parse(row[-1]).to_h }
@@ -81,6 +81,7 @@ class CreateAuthorizationFromSnapshot
       enrollment_row = JSON.parse(snapshot_items.find { |item| item['item_type'].starts_with?('Enrollment') }['object'])
       team_members = snapshot_items.select { |item| item['item_type'].starts_with?('TeamMember') }.map { |item| JSON.parse(item['object']) }
       temporary_authorization_request = AuthorizationRequest.const_get(authorization_request.type.split('::')[-1]).new
+      temporary_authorization_request.form_uid = temporary_authorization_request.definition.available_forms.first.uid
 
       begin
         Kernel.const_get(
@@ -92,10 +93,14 @@ class CreateAuthorizationFromSnapshot
           [],
         ).perform
       rescue Import::AuthorizationRequests::Base::SkipRow => e
-        print "SkipRow for AuthorizationRequestEvent (not relevant): #{e.inspect}"
+        print "SkipRow for AuthorizationRequestEvent (not relevant): #{e.inspect}\n"
+
+        authorization.data = authorization_request.data.dup
+
+        return
       end
 
-      authorization.data = temporary_authorization_request.data
+      authorization.data = temporary_authorization_request.data.dup
 
       byebug if temporary_authorization_request.persisted?
     end
