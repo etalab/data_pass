@@ -321,6 +321,7 @@ class Import::AuthorizationRequests < Import::Base
       'api_ficoba_unique' => 'api_ficoba',
       'agent_connect_fi' => 'pro_connect_identity_provider',
       'agent_connect_fs' => 'pro_connect_service_provider',
+      'api_ingres' => 'api_ingres',
     }[enrollment['target_api']].try(:classify)
   end
 
