@@ -313,6 +313,9 @@ class Import::AuthorizationRequests < Import::Base
       'api_infinoe_sandbox' => 'api_infinoe_sandbox',
       'api_infinoe_production' => 'api_infinoe',
       'api_infinoe_unique' => 'api_infinoe',
+      'api_r2p_sandbox' => 'api_r2p_sandbox',
+      'api_r2p_production' => 'api_r2p',
+      'api_r2p_unique' => 'api_r2p',
     }[enrollment['target_api']].try(:classify)
   end
 
