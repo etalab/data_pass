@@ -366,6 +366,8 @@ class CreateDiffFromEvent
 
     event_diff.delete('additional_content')
 
+    event_diff.delete_if { |key, _| key.to_s.start_with?('acces_') }
+
     keys.each do |key|
       event_diff.delete(key)
     end
