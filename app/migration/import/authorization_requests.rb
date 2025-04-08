@@ -322,7 +322,8 @@ class Import::AuthorizationRequests < Import::Base
       'agent_connect_fi' => 'pro_connect_identity_provider',
       'agent_connect_fs' => 'pro_connect_service_provider',
       'api_ingres' => 'api_ingres',
-      'api_pro_sante_connect' => 'api_pro_sante_connect'
+      'api_pro_sante_connect' => 'api_pro_sante_connect',
+      'api_scolarite' => 'api_scolarite',
     }[enrollment['target_api']].try(:classify)
   end
 
