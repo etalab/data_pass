@@ -165,6 +165,22 @@ shared:
     type: editor
     name: Airweb
     siret: "42815260700035"
+  noethys:
+    type: editor
+    name: Noethys
+    siret: "79511947800027."
+  carte_plus:
+    type: editor
+    name: Carte Plus
+    siret: "44514802600021"
+  resagenda:
+    type: editor
+    name: Res'Agenda
+    siret: "50067719000034"
+  ganesh_education:
+    type: editor
+    name: Ganesh Education
+    siret: "90135601400018"
   achatpublic:
     type: editor
     name: "Achatpublic - achatpublic.com"
