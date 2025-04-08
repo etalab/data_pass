@@ -16,6 +16,8 @@ module Import::AuthorizationRequests::DGFIPProduction
   end
 
   def affect_safety_certification
+    return unless authorization_request.respond_to?(:safety_certification_authority_name)
+
     {
       'autorite_homologation_nom' => 'safety_certification_authority_name',
       'autorite_homologation_fonction' => 'safety_certification_authority_function',
