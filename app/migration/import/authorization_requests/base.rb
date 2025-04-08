@@ -15,6 +15,10 @@ class Import::AuthorizationRequests::Base
       @authorization_request = authorization_request
       @status = status
     end
+
+    def inspect
+      "#{target_api}##{id} (status: #{status}) error kind: #{kind}"
+    end
   end
 
   class SkipRow < AbstractRow; end
