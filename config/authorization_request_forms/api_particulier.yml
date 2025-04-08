@@ -80,7 +80,7 @@ api-particulier-abelium:
 # 1. Contact technique non renseigné
 # 2. Scopes non modifiables
 api-particulier-arpege-concerto:
-  name: Concerto opus
+  name: Concerto
   description: &api_particulier_form_description_tarification_qf |
     Tarification sur Quotient Familial des prestations
   authorization_request: APIParticulier
