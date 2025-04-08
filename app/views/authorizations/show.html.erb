@@ -1,4 +1,4 @@
-<%= render AuthorizationHeaderComponent.new(authorization: @authorization, authorization_request: @authorization_request) %>
+<%= render AuthorizationHeaderComponent.new(authorization: @authorization, authorization_request: @authorization_request, current_user: current_user) %>
 
 <div class="fr-container">
   <div id="<%= dom_id(@authorization_request, :summary) %>" class="fr-mt-4w">

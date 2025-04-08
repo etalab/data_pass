@@ -1,9 +1,10 @@
 class AuthorizationHeaderComponent < ApplicationComponent
-  attr_reader :authorization, :authorization_request
+  attr_reader :authorization, :authorization_request, :current_user
 
-  def initialize(authorization:, authorization_request:)
+  def initialize(authorization:, authorization_request:, current_user:)
     @authorization = authorization
     @authorization_request = authorization_request
+    @current_user = current_user
   end
 
   private
@@ -19,6 +20,6 @@ class AuthorizationHeaderComponent < ApplicationComponent
   end
 
   def show_contact_support_button?
-    authorization.revoked? || authorization.state == 'revoked'
+    (authorization.revoked? || authorization.state == 'revoked') && authorization.applicant == @current_user
   end
 end

@@ -29,7 +29,7 @@
             <% end %>
 
             <% if helpers.policy(authorization_request).start_next_stage? %>
-              <%= helpers.link_to t('dashboard.card.stage_footer.start_next_stage_cta'),
+              <%= helpers.dsfr_main_modal_button t('dashboard.card.stage_footer.start_next_stage_cta'),
                                   next_authorization_request_stage_path(authorization_request),
                                   class: %w(fr-btn fr-btn--sm),
                                   id: "start-production-form-button" %>
