@@ -79,6 +79,7 @@ class CreateDiffFromEvent
         'type_de_depenses',
         'previous_enrollment_id',
         'authorize_access_to_service_providers',
+        'accept_agentconnect_implementation_alternative',
       ]
     )
 
@@ -195,6 +196,7 @@ class CreateDiffFromEvent
         'type_de_depenses',
         'previous_enrollment_id',
         'authorize_access_to_service_providers',
+        'accept_agentconnect_implementation_alternative',
       ]
     )
 
