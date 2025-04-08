@@ -213,7 +213,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
 
     Exemples:
       | Nom du formulaire         | Nom de l'éditeur  |
-      | Concerto opus             | Arpège            |
+      | Concerto                  | Arpège            |
       | Civil Enfance             | Ciril GROUP       |
       | ILE - Kiosque famille     | Technocarte       |
       | Loyfeey                   | Ecorestauration   |
