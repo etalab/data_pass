@@ -1,4 +1,6 @@
 class AuthorizationHeaderComponent < ApplicationComponent
+  attr_reader :authorization, :authorization_request
+
   def initialize(authorization:, authorization_request:)
     @authorization = authorization
     @authorization_request = authorization_request
@@ -6,5 +8,13 @@ class AuthorizationHeaderComponent < ApplicationComponent
 
   private
 
-  attr_reader :authorization, :authorization_request
+  def state_badge_html_class
+    if authorization.revoked?
+      'fr-badge--error'
+    elsif authorization.state == 'obsolete'
+      ''
+    elsif authorization.state == 'active'
+      'fr-badge--success'
+    end
+  end
 end
