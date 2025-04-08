@@ -310,6 +310,9 @@ class Import::AuthorizationRequests < Import::Base
       'api_droits_cnam' => 'api_droits_cnam',
       'api_indemnites_journalieres_cnam' => 'api_indemnites_journalieres_cnam',
       'api_captchetat' => 'api_captchetat',
+      'api_infinoe_sandbox' => 'api_infinoe_sandbox',
+      'api_infinoe_production' => 'api_infinoe',
+      'api_infinoe_unique' => 'api_infinoe',
     }[enrollment['target_api']].try(:classify)
   end
 
