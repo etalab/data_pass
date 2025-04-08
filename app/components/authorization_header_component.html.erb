@@ -1,7 +1,7 @@
 <div class="authorization-header fr-background-action-high--blue-france">
   <div class="fr-container">
     <div class="fr-grid-row">
-      <div class="fr-col-12">
+      <div class="fr-col-12 fr-col-md-8">
         <h1 class="fr-h3 fr-mt-15v fr-mb-1-5v fr-text-inverted--blue-france">
           <span class="fr-icon-award-fill" aria-hidden="true"></span>
           Habilitation à <%= authorization.definition.name %>
@@ -16,6 +16,33 @@
           <div class="fr-badge fr-badge--sm fr-badge--success">
             <%= authorization.state %>
           </div>
+        </div>
+      </div>
+
+      <div class="fr-col-12 fr-col-md-4">
+        <div class="authorization-request-form-header__actions">
+          <% if authorization.state == 'active' && !authorization.revoked? %>
+            <%= helpers.dsfr_main_modal_button t('authorization_request_forms.form.reopen'), url_for(controller: 'reopen_authorizations', action: 'new', authorization_request_id: authorization_request&.id, authorization_id: authorization_request.latest_authorization.id), class: %w(fr-btn fr-btn--sm fr-btn--icon-left fr-icon-edit-box-line aria-hidden="true") %>
+
+            <% if authorization.request && authorization_request && helpers.policy(authorization.request).try(:transfer?) %>
+              <%= helpers.dsfr_main_modal_button t('authorization_request_forms.form.transfer'), new_authorization_request_transfer_path(authorization_request), id: :transfer_authorization_request, class: %w(fr-btn fr-btn--sm fr-btn-secondary fr-btn--icon-left fr-icon-arrow-up-down-line aria-hidden="true") %>
+            <% end %>
+
+            <% if helpers.policy(authorization_request).start_next_stage? %>
+              <%= helpers.link_to t('dashboard.card.stage_footer.start_next_stage_cta'), 
+                  next_authorization_request_stage_path(authorization_request), 
+                  class: %w(fr-btn fr-btn--sm), 
+                  id: "start-production-button" %>
+            <% end %>
+          <% elsif authorization.revoked? %>
+            <%= render LinkComponent.new(
+              text: t('authorization_request_forms.form.contact_support'),
+              path: "mailto:datapass@api.gouv.fr",
+              class: %w(fr-btn fr-btn--sm fr-btn-icon-left fr-icon-mail-line),
+              id: "contact-support-button",
+              "aria-hidden": "true"
+            ) %>
+          <% end %>
         </div>
       </div>
     </div>
