@@ -74,7 +74,6 @@ api-infinoe-production:
   steps: &api_infinoe_production_steps
     - name: operational_acceptance
     - name: legal
-    - name: safety_certification
     - name: volumetrie
 
 api-infinoe-production-editeur:
@@ -90,7 +89,6 @@ api-infinoe-production-editeur:
     - name: legal
     - name: contacts
     - name: operational_acceptance
-    - name: safety_certification
     - name: volumetrie
 
 # Envoi automatisé des écritures
