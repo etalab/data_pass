@@ -47,18 +47,18 @@ class Import::AuthorizationRequestEvents < Import::Base
       event_created_at = DateTime.parse(event_row['created_at'])
 
       if authorization_request.last_submitted_at.nil? || event_created_at > authorization_request.last_submitted_at
-        authorization_request.update!(last_submitted_at: event_created_at)
+        authorization_request.assign_attributes(last_submitted_at: event_created_at)
       end
     when 'approve', 'validate'
       return if options[:create_from_authorization_request_import].blank? && authorization_request.type == 'AuthorizationRequest::FranceConnect'
 
-      authorization_request.update(
+      authorization_request.assign_attributes(
         last_validated_at: event_row['created_at'],
       )
 
       create_event(event_row, name: 'approve', entity: create_authorization(event_row, authorization_request))
     when 'reopen'
-      authorization_request.update(
+      authorization_request.assign_attributes(
         reopened_at: event_row['created_at'],
       )
 
@@ -72,6 +72,8 @@ class Import::AuthorizationRequestEvents < Import::Base
 
       create_event(event_row, entity: authorization_request)
     end
+
+    authorization_request.save(validate: false)
   end
 
   private
@@ -158,12 +160,9 @@ class Import::AuthorizationRequestEvents < Import::Base
   end
 
   def find_closest_authorization(event_row, authorization_request)
-    event_created_at_as_datetime = DateTime.parse(event_row['created_at'])
-
-    Authorization.where(
-      request_id: authorization_request.id,
-      created_at: (event_created_at_as_datetime-10.seconds..event_created_at_as_datetime+10.seconds),
-    ).order(created_at: :desc).first
+    authorization_request.authorizations.sort_by do |authorization|
+      (authorization.created_at.to_i - DateTime.parse(event_row['created_at']).to_i).abs
+    end.first
   end
 
   def create_user_from_legacy_id(event_row, entity)
