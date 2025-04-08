@@ -78,8 +78,7 @@ class CreateDiffFromEvent
         'code_ic',
         'type_de_depenses',
         'previous_enrollment_id',
-        'acces_spi',
-        'acces_etat_civil',
+        'authorize_access_to_service_providers',
       ]
     )
 
@@ -195,8 +194,7 @@ class CreateDiffFromEvent
         'code_ic',
         'type_de_depenses',
         'previous_enrollment_id',
-        'acces_spi',
-        'acces_etat_civil',
+        'authorize_access_to_service_providers',
       ]
     )
 
