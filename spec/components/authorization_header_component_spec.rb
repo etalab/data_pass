@@ -3,7 +3,7 @@ RSpec.describe AuthorizationHeaderComponent, type: :component do
   let(:authorization_request) { authorization.request }
 
   describe 'header information' do
-    subject { render_inline(described_class.new(authorization: authorization, authorization_request: authorization_request)) }
+    subject { render_inline(described_class.new(authorization: authorization, authorization_request: authorization_request, current_user: authorization.applicant)) }
 
     it 'renders the authorization header with correct information' do
       expect(subject.css('h1').text).to include("Habilitation à #{authorization.definition.name}")
@@ -15,7 +15,7 @@ RSpec.describe AuthorizationHeaderComponent, type: :component do
 
   describe 'action buttons for different states' do
     context 'when authorization is active' do
-      subject { render_inline(described_class.new(authorization: active_authorization, authorization_request: active_authorization.request)) }
+      subject { render_inline(described_class.new(authorization: active_authorization, authorization_request: active_authorization.request, current_user: active_authorization.applicant)) }
 
       let(:active_authorization) { create(:authorization) }
 
@@ -30,7 +30,7 @@ RSpec.describe AuthorizationHeaderComponent, type: :component do
     end
 
     context 'when authorization is revoked' do
-      subject { render_inline(described_class.new(authorization: revoked_authorization, authorization_request: revoked_authorization.request)) }
+      subject { render_inline(described_class.new(authorization: revoked_authorization, authorization_request: revoked_authorization.request, current_user: revoked_authorization.applicant)) }
 
       let(:revoked_authorization) { create(:authorization) }
 
@@ -44,7 +44,7 @@ RSpec.describe AuthorizationHeaderComponent, type: :component do
     end
 
     context 'when authorization is obsolete' do
-      subject { render_inline(described_class.new(authorization: obsolete_authorization, authorization_request: obsolete_authorization.request)) }
+      subject { render_inline(described_class.new(authorization: obsolete_authorization, authorization_request: obsolete_authorization.request, current_user: obsolete_authorization.applicant)) }
 
       let(:obsolete_authorization) { create(:authorization) }
 
@@ -58,14 +58,32 @@ RSpec.describe AuthorizationHeaderComponent, type: :component do
     end
 
     context 'when policy allows start_next_stage' do
-      subject { render_inline(described_class.new(authorization: sandbox_authorization, authorization_request: sandbox_request)) }
-
       let(:sandbox_request) { create(:authorization_request, :api_impot_particulier_sandbox, :validated, fill_all_attributes: true) }
-      let(:sandbox_authorization) { create(:authorization, request: sandbox_request, state: 'active') }
+      let(:sandbox_authorization) { create(:authorization, request: sandbox_request) }
+
+      before do
+        sandbox_authorization.state = 'active'
+        sandbox_authorization.revoked = false
+      end
+
+      class TestAuthorizationHeaderComponent < AuthorizationHeaderComponent
+        def can_start_next_stage?
+          true
+        end
+      end
 
       it 'would display the start production button if policy allows' do
-        # In a real integration test, this would work when the policy returns true
-        expect(subject.css('#start-production-form-button')).to be_present
+        component = TestAuthorizationHeaderComponent.new(
+          authorization: sandbox_authorization,
+          authorization_request: sandbox_request,
+          current_user: sandbox_authorization.applicant
+        )
+
+        result = render_inline(component)
+
+        button = result.css('a.fr-btn').last
+        expect(button['title']).to include('Démarrer ma demande d’habilitation en production')
+        expect(result.css("a.fr-btn[href*='/prochaine-etape']")).to be_present
       end
     end
   end
