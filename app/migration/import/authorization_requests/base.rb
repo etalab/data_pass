@@ -51,6 +51,8 @@ class Import::AuthorizationRequests::Base
   end
 
   def affect_scopes
+    return unless authorization_request.class.scopes_enabled?
+
     if enrollment_row['scopes'].blank? || enrollment_row['scopes'] == '{}'
       authorization_request.scopes = []
     elsif enrollment_row['scopes'].is_a?(Array)
