@@ -14,6 +14,7 @@ class Adhoc::FillAuthorizationStates < ApplicationInteractor
     subquery = Authorization
       .select('id, request_id, form_uid, created_at,
                ROW_NUMBER() OVER (PARTITION BY request_id, form_uid ORDER BY created_at DESC) as rn')
+      .where(revoked: false)
       .to_sql
 
     result = Authorization.connection.execute(<<-SQL.squish)
