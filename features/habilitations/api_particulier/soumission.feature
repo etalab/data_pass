@@ -218,6 +218,8 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
       | ILE - Kiosque famille     | Technocarte       |
       | Loyfeey                   | Ecorestauration   |
       | Kosmos Education          | Kosmos            |
+      | Noethys                   | Noethys           |
+      | Res'Agenda                | Res'Agenda        |
 
   Plan du scénario: Je soumets une demande d'habilitation, en plusieurs étapes, d'un éditeur avec le contact technique non renseigné et des scopes non modifiables pour un cas d'usage lié au CCAS, où le cadre juridique est déjà renseigné
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
@@ -279,6 +281,8 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
       | CapDemat Evolution    | CapDemat                  |
       | PourMesDossiers       | Esabora                   |
       | BL Enfance            | Berger-Levrault           |
+      | Carte Plus            | Carte Plus                |
+      | Ganesh Education      | Ganesh Education          |
 
 
   Plan du scénario: Je soumets une demande d'habilitation, présenté en une seule page, d'un éditeur avec le contact technique déjà renseigné pour un cas d'usage lié au portail famille ou à la tarification QF
