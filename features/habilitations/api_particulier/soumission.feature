@@ -186,6 +186,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
       | NFI                 | Nord France Informatique  |
       | Proxima.ENF         | AGEDI                     |
       | FamilyClic          | JCDeveloppement           |
+      | Carte Plus          | Carte Plus                |
 
    Plan du scénario: Je soumets une demande d'habilitation, en plusieurs étapes, d'un éditeur avec le contact technique non renseigné et des scopes non modifiables pour un cas d'usage lié au portail famille ou à la tarification QF
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
@@ -218,6 +219,33 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
       | ILE - Kiosque famille     | Technocarte       |
       | Loyfeey                   | Ecorestauration   |
       | Kosmos Education          | Kosmos            |
+
+   Plan du scénario: Je soumets une demande d'habilitation, en plusieurs étapes, d'un éditeur avec le contact technique non renseigné et des scopes modifiables pour un cas d'usage lié au portail famille ou à la tarification QF
+    Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
+    Et que je clique sur "Débuter ma demande"
+
+    * je clique sur "Suivant"
+
+    * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
+    * je clique sur "Suivant"
+
+    * je renseigne les infos concernant les données personnelles
+    * je clique sur "Suivant"
+
+    * je renseigne les informations du délégué à la protection des données
+    * je renseigne les informations du contact technique
+    * je renseigne les informations du contact métier
+
+    * je clique sur "Suivant"
+
+    * j'adhère aux conditions générales
+    * je clique sur "Soumettre la demande d'habilitation"
+
+    Alors il y a un message de succès contenant "soumise avec succès"
+    Et je suis sur la page "Demandes et habilitations"
+
+    Exemples:
+      | Nom du formulaire         | Nom de l'éditeur  |
       | Noethys                   | Noethys           |
       | Res'Agenda                | Res'Agenda        |
 
@@ -281,9 +309,32 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
       | CapDemat Evolution    | CapDemat                  |
       | PourMesDossiers       | Esabora                   |
       | BL Enfance            | Berger-Levrault           |
-      | Carte Plus            | Carte Plus                |
-      | Ganesh Education      | Ganesh Education          |
 
+ Plan du scénario: Je soumets une demande d'habilitation, en plusieurs étapes, d'un éditeur avec le contact technique déjà renseigné, sans cas d'usage
+    Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
+    Et que je clique sur "Débuter ma demande"
+
+    * je remplis "Précisez la nature et les références du texte vous autorisant à traiter les données" avec "Article 42"
+    * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
+    * je clique sur "Suivant"
+
+    * je renseigne les infos concernant les données personnelles
+    * je clique sur "Suivant"
+
+    * je renseigne les informations du délégué à la protection des données
+    * je renseigne les informations du contact technique
+    * je renseigne les informations du contact métier
+    * je clique sur "Suivant"
+
+    * j'adhère aux conditions générales
+    * je clique sur "Soumettre la demande d'habilitation"
+
+    Alors il y a un message de succès contenant "soumise avec succès"
+    Et je suis sur la page "Demandes et habilitations"
+
+    Exemples:
+      | Nom du formulaire     | Nom de l'éditeur          |
+      | Ganesh Education      | Ganesh Education          |
 
   Plan du scénario: Je soumets une demande d'habilitation, présenté en une seule page, d'un éditeur avec le contact technique déjà renseigné pour un cas d'usage lié au portail famille ou à la tarification QF
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
@@ -382,6 +433,7 @@ Plan du scénario: Je soumets une demande d'habilitation, en plusieurs étapes, 
       | Nom du formulaire   | Nom de l'éditeur          |
       | MaaSify             | Monkey Factory            |
       | Airweb             | Airweb          |
+
   Scénario: Je vois un lien vers API particulier quand je consulte une habilitation validée
     Quand j'ai déjà une demande d'habilitation "API Particulier" validée avec token
     Et que je vais sur la page du tableau de bord
