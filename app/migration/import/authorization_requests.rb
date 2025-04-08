@@ -316,6 +316,9 @@ class Import::AuthorizationRequests < Import::Base
       'api_r2p_sandbox' => 'api_r2p_sandbox',
       'api_r2p_production' => 'api_r2p',
       'api_r2p_unique' => 'api_r2p',
+      'api_ficoba_sandbox' => 'api_ficoba_sandbox',
+      'api_ficoba_production' => 'api_ficoba',
+      'api_ficoba_unique' => 'api_ficoba',
     }[enrollment['target_api']].try(:classify)
   end
 
