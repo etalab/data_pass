@@ -65,7 +65,7 @@ RSpec.describe AuthorizationHeaderComponent, type: :component do
 
       it 'would display the start production button if policy allows' do
         # In a real integration test, this would work when the policy returns true
-        expect(subject.css('#start-production-button')).to be_present
+        expect(subject.css('#start-production-form-button')).to be_present
       end
     end
   end

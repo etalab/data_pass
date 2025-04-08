@@ -17,4 +17,8 @@ class AuthorizationHeaderComponent < ApplicationComponent
       'fr-badge--success'
     end
   end
+
+  def show_contact_support_button?
+    authorization.revoked? || authorization.state == 'revoked'
+  end
 end

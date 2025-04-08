@@ -29,20 +29,18 @@
             <% end %>
 
             <% if helpers.policy(authorization_request).start_next_stage? %>
-              <%= helpers.link_to t('dashboard.card.stage_footer.start_next_stage_cta'), 
-                  next_authorization_request_stage_path(authorization_request), 
-                  class: %w(fr-btn fr-btn--sm), 
-                  id: "start-production-button" %>
+              <%= helpers.link_to t('dashboard.card.stage_footer.start_next_stage_cta'),
+                                  next_authorization_request_stage_path(authorization_request),
+                                  class: %w(fr-btn fr-btn--sm),
+                                  id: "start-production-form-button" %>
             <% end %>
-          <% elsif authorization.revoked? %>
-            <%= render LinkComponent.new(
-              text: t('authorization_request_forms.form.contact_support'),
-              path: "mailto:datapass@api.gouv.fr",
-              class: %w(fr-btn fr-btn--sm fr-btn-icon-left fr-icon-mail-line),
-              id: "contact-support-button",
-              "aria-hidden": "true"
-            ) %>
-          <% end %>
+          <% elsif show_contact_support_button? %>
+            <%= helpers.dsfr_main_modal_button t('authorization_request_forms.form.contact_support'),
+                                               "mailto:datapass@api.gouv.fr",
+                                               id: "contact-support-button",
+                                               class: %w(fr-btn fr-btn--sm fr-btn--icon-left fr-icon-mail-line aria-hidden="true") %>
+
+        <% end %>
         </div>
       </div>
     </div>
