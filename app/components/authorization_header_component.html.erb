@@ -9,7 +9,7 @@
         <p class="fr-text-inverted--blue-france">
           <%= authorization.name %>
         </p>
-        <div class="fr-mb-15v fr-badges-group">
+        <div class="fr-mb-10v fr-badges-group">
           <div class="fr-badge fr-badge--sm fr-badge--blue-ecume">
             Habilitation n°<%= authorization.id %>
           </div>
@@ -22,7 +22,9 @@
       <div class="fr-col-12 fr-col-md-4">
         <div class="authorization-request-form-header__actions">
           <% if authorization.state == 'active' && !authorization.revoked? %>
-            <%= helpers.dsfr_main_modal_button t('authorization_request_forms.form.reopen'), url_for(controller: 'reopen_authorizations', action: 'new', authorization_request_id: authorization_request&.id, authorization_id: authorization_request.latest_authorization.id), class: %w(fr-btn fr-btn--sm fr-btn--icon-left fr-icon-edit-box-line aria-hidden="true") %>
+            <% if can_reopen? %>
+              <%= helpers.dsfr_main_modal_button t('authorization_request_forms.form.reopen'), url_for(controller: 'reopen_authorizations', action: 'new', authorization_request_id: authorization_request&.id, authorization_id: authorization_request.latest_authorization.id), class: %w(fr-btn fr-btn--sm fr-btn--icon-left fr-icon-edit-box-line aria-hidden="true") %>
+            <% end %>
 
             <% if can_transfer? %>
               <%= helpers.dsfr_main_modal_button t('authorization_request_forms.form.transfer'), new_authorization_request_transfer_path(authorization_request), id: :transfer_authorization_request, class: %w(fr-btn fr-btn--sm fr-btn-secondary fr-btn--icon-left fr-icon-arrow-up-down-line aria-hidden="true") %>
@@ -38,9 +40,20 @@
             <%= helpers.dsfr_main_modal_button t('authorization_request_forms.form.contact_support'),
                                                "mailto:datapass@api.gouv.fr",
                                                class: %w(fr-btn fr-btn--sm fr-btn--icon-left fr-icon-mail-line aria-hidden="true") %>
-        <% end %>
+          <% end %>
         </div>
       </div>
+
+      <% if can_show_instruction? %>
+        <div class="fr-pb-3w fr-pl-1w fr-text-inverted--blue-france">
+          Cette habilitation est liée à
+          la <%= link_to "demande N°#{@authorization_request.id}", instruction_authorization_request_authorizations_path(@authorization_request), class: 'fr-link fr-text-inverted--blue-france' %>
+          <% if @authorization.approving_instructor %>
+            et a été validée par
+            <strong><%= @authorization.approving_instructor.email %></strong>
+          <% end %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

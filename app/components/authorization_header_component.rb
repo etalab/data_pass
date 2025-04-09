@@ -8,18 +8,26 @@ class AuthorizationHeaderComponent < ApplicationComponent
   end
 
   def can_transfer?
-    return false unless authorization.request && authorization_request
+    policy(authorization.try(:request) || authorization_request).transfer?
+  rescue StandardError
+    false
+  end
 
-    begin
-      policy(authorization.request).try(:transfer?) || false
-    rescue NoMethodError
-      false
-    end
+  def can_reopen?
+    policy(authorization.try(:request) || authorization_request).reopen?
+  rescue StandardError
+    false
   end
 
   def can_start_next_stage?
     policy(authorization_request).try(:start_next_stage?) || false
   rescue NoMethodError
+    false
+  end
+
+  def can_show_instruction?
+    policy([:instruction, authorization_request]).show?
+  rescue StandardError
     false
   end
 
