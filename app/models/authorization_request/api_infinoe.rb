@@ -4,7 +4,6 @@ class AuthorizationRequest::APIINFINOE < AuthorizationRequest
   include AuthorizationExtensions::CadreJuridique
   include AuthorizationExtensions::GDPRContacts
   include AuthorizationExtensions::OperationalAcceptance
-  include AuthorizationExtensions::SafetyCertification
   include AuthorizationExtensions::Volumetrie
 
   VOLUMETRIES = {
