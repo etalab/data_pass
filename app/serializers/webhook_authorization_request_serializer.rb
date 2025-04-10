@@ -1,9 +1,13 @@
 class WebhookAuthorizationRequestSerializer < ApplicationSerializer
   attributes :id,
     :public_id,
+    :type,
     :state,
     :form_uid,
-    :data
+    :data,
+    :created_at,
+    :last_submitted_at,
+    :last_validated_at
 
   has_one :organization, serializer: WebhookOrganizationSerializer
   has_one :applicant, serializer: WebhookUserSerializer
