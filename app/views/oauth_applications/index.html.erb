@@ -1,0 +1,40 @@
+<div class="sub-header">
+  <h1 class="fr-m-0">
+    <%= t('.title') %>
+  </h1>
+</div>
+
+<div class="fr-mt-16v">
+  <%= t('.description_html') %>
+</div>
+
+<div class="fr-table">
+  <div class="fr-table__wrapper">
+    <div class="fr-table__container">
+      <div class="fr-table__content">
+        <table>
+          <thead>
+            <tr>
+              <th><%= t('.table.headers.name') %></th>
+              <th><%= t('.table.headers.credentials') %></th>
+              <th><%= t('.table.headers.scopes') %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @applications.each do |app| %>
+              <tr>
+                <td><%= app.name %></td>
+                <td>
+                  <%= t('.table.row.client_id') %>: <%= app.uid %>
+                  <br>
+                  <%= t('.table.row.client_secret') %>: <%= app.secret %>
+                </td>
+                <td><%= app.scopes %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
