@@ -1,0 +1,35 @@
+<div class="authorization-header fr-background-action-high--blue-france">
+  <div class="fr-container">
+    <div class="fr-grid-row">
+      <div class="fr-col-12 fr-col-md-8">
+        <h1 class="fr-h3 fr-mt-15v fr-mb-1-5v fr-text-inverted--blue-france">
+          <span class="fr-icon-award-fill" aria-hidden="true"></span>
+          Habilitation à <%= authorization.definition.name %>
+        </h1>
+        <div class="fr-display-flex fr-align-items-center">
+        <p class="fr-text-inverted--blue-france">
+          <span class="fr-mr-1v"><%= authorization.name %></span>
+          <%= render partial: 'authorizations/sandbox_production_badge', locals: { authorization: @authorization } %>
+        </p>
+        </div>
+
+        <div class="fr-mb-10v fr-badges-group">
+          <div class="fr-badge fr-badge--sm fr-badge--blue-ecume">
+            Habilitation n°<%= authorization.id %>
+          </div>
+          <div class="fr-badge fr-badge--sm <%= state_badge_html_class %>">
+            <%= authorization.state %>
+          </div>
+        </div>
+      </div>
+      <div class="fr-col-12 fr-col-md-4">
+        <%= render partial: 'authorizations/btn_authorization_header_actions', locals: { authorization: @authorization } %>
+      </div>
+    </div>
+
+    <% if policy([:instruction, @authorization.request]).show? %>
+      <%= render partial: 'authorizations/instruction_header_info', locals: { authorization: @authorization } %>
+    <% end %>
+    </div>
+  </div>
+</div>
