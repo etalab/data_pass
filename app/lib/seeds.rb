@@ -1,6 +1,7 @@
 class Seeds
   def perform
     create_entities
+    create_oauth_app
     create_all_verified_emails
 
     create_authorization_requests_for_clamart
@@ -110,7 +111,7 @@ class Seeds
       job_title: 'Responsable des instructions',
       phone_number: '0423456789',
       current_organization: dinum_organization,
-      roles: ['api_entreprise:instructor']
+      roles: ['api_entreprise:instructor', 'api_entreprise:developer']
     )
   end
 
@@ -288,6 +289,16 @@ class Seeds
         create_verified_email(authorization_request.send(:"#{contact_type}_email"), 'deliverable')
       end
     end
+  end
+
+  def create_oauth_app
+    Doorkeeper::Application.create!(
+      name: 'API Entreprise',
+      redirect_uri: 'http://whatever.fr/callback',
+      uid: 'client_id',
+      secret: 'so_secret',
+      owner: api_entreprise_instructor,
+    )
   end
 
   def create_verified_email(email, status)
