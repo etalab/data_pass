@@ -4,9 +4,7 @@ Rails.application.routes.draw do
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')
 
-  if Rails.env.development?
-    get 'local-sign-in', to: 'authenticated_user#bypass_login'
-  end
+  get 'local-sign-in', to: 'authenticated_user#bypass_login' if Rails.env.development?
 
   get 'compte/deconnexion', to: 'sessions#destroy', as: :signout
 
@@ -37,7 +35,7 @@ Rails.application.routes.draw do
 
     resources :authorization_definitions, path: 'demandes', only: :index
 
-    scope 'demandes/:authorization_definition_id', module: :authorization_definitions  do
+    scope 'demandes/:authorization_definition_id', module: :authorization_definitions do
       resources :forms, only: %w[index], path: 'formulaires', as: :authorization_definition_forms
     end
 
@@ -107,7 +105,7 @@ Rails.application.routes.draw do
     skip_controllers :applications, :authorized_applications
   end
 
-  get '/api-docs/v1.yaml', to: ->(env) { [200, { 'Content-Type' => 'application/yaml', 'Content-Disposition' => 'inline;filename="datapass-v1.yaml"' }, [File.read(Rails.root.join('config/openapi/v1.yaml'))]] }, as: :open_api_v1
+  get '/api-docs/v1.yaml', to: ->(_env) { [200, { 'Content-Type' => 'application/yaml', 'Content-Disposition' => 'inline;filename="datapass-v1.yaml"' }, [File.read(Rails.root.join('config/openapi/v1.yaml'))]] }, as: :open_api_v1
   get '/developpeurs', to: redirect('/developpeurs/documentation')
   get '/developpeurs/applications', to: 'oauth_applications#index', as: :oauth_applications
   get '/developpeurs/documentation', to: 'open_api#show'
