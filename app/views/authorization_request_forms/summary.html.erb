@@ -6,48 +6,60 @@
       <%= render partial: 'authorization_requests/bulk_update_modal' %>
     <% end %>
 
-    <% if !displayed_on_a_public_page? && @authorization_request.changes_requested? %>
-      <div class="fr-alert fr-alert--warning fr-my-3w">
-        <h3 class="fr-alert__title">
+    <% if !displayed_on_a_public_page? %>
+      <% if @authorization_request.changes_requested? %>
+        <div class="fr-alert fr-alert--warning fr-my-3w">
+          <h3 class="fr-alert__title">
+            <% if @authorization_request.reopening? %>
+              <%= t("authorization_requests.show.reopening_changes_requested.title") %>
+            <% else %>
+              <%= t("authorization_requests.show.changes_requested.title") %>
+            <% end %>
+          </h3>
+
           <% if @authorization_request.reopening? %>
-            <%= t("authorization_requests.show.reopening_changes_requested.title") %>
+            <%= t('authorization_requests.show.reopening_changes_requested.description') %>
           <% else %>
-            <%= t("authorization_requests.show.changes_requested.title") %>
+            <%= t("authorization_requests.show.changes_requested.description") %>
           <% end %>
-        </h3>
 
-        <% if @authorization_request.reopening? %>
-          <%= t('authorization_requests.show.reopening_changes_requested.description') %>
-        <% else %>
-          <%= t("authorization_requests.show.changes_requested.description") %>
-        <% end %>
+          <blockquote>
+            <%= simple_format(@authorization_request.modification_request.reason) %>
+          </blockquote>
+        </div>
+      <% end %>
 
-        <blockquote>
-          <%= simple_format(@authorization_request.modification_request.reason) %>
-        </blockquote>
-      </div>
-    <% end %>
+      <% if @authorization_request.refused? %>
+        <div class="fr-alert fr-alert--error fr-mb-2v">
+          <h3 class="fr-alert__title">
+            <% if @authorization_request.reopening? %>
+              <%= t("authorization_requests.show.reopening_refused.title") %>
+            <% else %>
+              <%= t("authorization_requests.show.refused.title") %>
+            <% end %>
+          </h3>
 
-    <% if !displayed_on_a_public_page? && @authorization_request.refused? %>
-      <div class="fr-alert fr-alert--error fr-mb-2v">
-        <h3 class="fr-alert__title">
           <% if @authorization_request.reopening? %>
-            <%= t("authorization_requests.show.reopening_refused.title") %>
+            <%= t('authorization_requests.show.reopening_refused.description') %>
           <% else %>
-            <%= t("authorization_requests.show.refused.title") %>
+            <%= t("authorization_requests.show.refused.description") %>
           <% end %>
-        </h3>
 
-        <% if @authorization_request.reopening? %>
-          <%= t('authorization_requests.show.reopening_refused.description') %>
-        <% else %>
-          <%= t("authorization_requests.show.refused.description") %>
-        <% end %>
+          <blockquote>
+            <%= simple_format(@authorization_request.denial.reason) %>
+          </blockquote>
+        </div>
+      <% end %>
 
-        <blockquote>
-          <%= simple_format(@authorization_request.denial.reason) %>
-        </blockquote>
-      </div>
+      <% if @authorization_request.dirty_from_v1? %>
+        <div class="fr-alert fr-alert--warning fr-mb-2v">
+          <h3 class="fr-alert__title">
+            <%= t('authorization_requests.show.dirty_from_v1.title') %>
+          </h3>
+
+          <%= t('authorization_requests.show.dirty_from_v1.description') %>
+        </div>
+      <% end %>
     <% end %>
 
     <% if @authorization %>
