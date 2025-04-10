@@ -17,15 +17,15 @@ class MainImport
 
     # import_extra_authorization_requests_sql_data
 
-    authorization_requests = import(:authorization_requests, { load_from_sql: false, dump_sql: true })
+    authorization_requests = import(:authorization_requests, { load_from_sql: false, dump_sql: false })
 
     if types_to_import.any?
       valid_authorization_request_ids = AuthorizationRequest.where(id: authorization_requests.pluck(:id), type: types_to_import).pluck(:id)
     else
-      valid_authorization_request_ids = authorization_requests.pluck(:id)
+      valid_authorization_request_ids = AuthorizationRequest.where(id: authorization_requests.pluck(:id)).where.not(type: already_imported_authorization_request_types).pluck(:id)
     end
 
-    # import(:authorization_request_events, { dump_sql: ENV['DUMP'] == 'true', valid_authorization_request_ids: })
+    import(:authorization_request_events, { dump_sql: ENV['DUMP'] == 'true', valid_authorization_request_ids: })
 
     %i[warned skipped].each do |kind|
       export(kind)
@@ -54,7 +54,7 @@ class MainImport
 
       options[:authorization_requests_sql_where] = "id IN (#{authorization_request_ids.join(',')})"
       options[:users_sql_where] = "id IN (select user_id from events where authorization_request_id IN (#{authorization_request_ids.join(',')})) or id IN (select user_id from enrollments where id IN(#{authorization_request_ids.join(',')}))"
-      options[:authorization_request_events_sql_where] = "authorization_request_id IN (#{authorization_request_ids.join(',')})"
+      options[:authorization_request_events_sql_where] = "authorization_request_id IN (#{authorization_request_ids.join(',')}) order by id asc"
     end
 
     Import.const_get(klass_name.to_s.classify << 's').new(global_options.merge(options)).perform
@@ -65,10 +65,10 @@ class MainImport
 
     data = public_send(kind)
     CSV.open(export_path(kind), 'w') do |csv|
-      csv << %w[id target_api kind url]
+      csv << %w[id target_api kind status url]
 
       data.each do |datum|
-        csv << [datum.id, datum.target_api, datum.kind, "https://datapass.api.gouv.fr/#{datum.target_api.gsub('_', '-')}/#{datum.id}"]
+        csv << [datum.id, datum.target_api, datum.kind, datum.status, "https://datapass.api.gouv.fr/#{datum.target_api.gsub('_', '-')}/#{datum.id}"]
       end
     end
   end
@@ -96,13 +96,39 @@ class MainImport
   def global_options
     {
       authorization_requests_filter: ->(enrollment_row) do
-        true
+        %w[
+          1596
+          4442
+          8995
+          13496
+          21360
+          30364
+          65009
+          937
+          59995
+          63295
+          6522
+          7367
+          12359
+          8443
+          9005
+        ].exclude?(enrollment_row['id'])
       end,
       # authorization_requests_sql_where: 'target_api in (\'franceconnect\', \'api_impot_particulier_fc_sandbox\', \'api_impot_particulier_fc_production\') order by case when target_api = \'franceconnect\' then 1 when target_api like \'%_sandbox\' then 2 else 3 end',
+      # authorization_requests_sql_where: "target_api not in (#{target_apis_not_to_import}) order by case when target_api = 'franceconnect' then 1 when target_api like '%_sandbox' then 2 else 3 end",
       authorization_requests_sql_where: "target_api in (#{target_apis_to_import}) order by case when target_api = 'franceconnect' then 1 when target_api like '%_sandbox' then 2 else 3 end",
       skipped: @skipped,
       warned: @warned,
     }
+  end
+
+  def target_apis_not_to_import
+    %w[
+      api_entreprise
+      api_particulier
+      hubee_portail
+      hubee_portail_dila
+    ].map { |t| "'#{t}'" }.join(',')
   end
 
   def target_apis_to_import
@@ -119,8 +145,32 @@ class MainImport
       api_opale
       api_robf
       api_satelit
+      api_sfip
     ].map do |name|
       ["'#{name}_sandbox'", "'#{name}_production'"]
-    end.flatten.join(', ')
+    end.concat(
+      [
+        "'api_declaration_auto_entrepreneur'",
+        "'api_declaration_cesu'",
+        "'franceconnect'",
+      ]
+    ).flatten.join(', ')
+
+    %w[
+      api_ficoba
+    ].map do |name|
+      ["'#{name}_sandbox'", "'#{name}_production'", "'#{name}_unique'"]
+    end.flatten.join(',')
+
+    "'api_scolarite'"
+  end
+
+  def already_imported_authorization_request_types
+    %w[
+      AuthorizationRequest::APIEntreprise
+      AuthorizationRequest::APIParticulier
+      AuthorizationRequest::HubEECertDC
+      AuthorizationRequest::HubEEDila
+    ]
   end
 end

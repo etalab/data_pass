@@ -80,7 +80,7 @@ class Import::Base
         print 's'
         options[:skipped] << e
 
-        e.authorization_request.save(validate: false) if ENV['SKIP_VALIDATION'] == 'true'
+        e.authorization_request.save(validate: false) if ENV['SKIP_VALIDATION'] == 'true' && e.kind.to_sym != :sandbox_missing
       rescue => e
         log(" ERROR: #{e.message}")
         log(e.backtrace.join("\n"))

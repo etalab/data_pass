@@ -18,7 +18,7 @@ class Import::AuthorizationRequests < Import::Base
 
     authorization_request.form_uid ||= fetch_form(authorization_request).try(:id)
     authorization_request.state = enrollment_row['status']
-    authorization_request.external_provider_id = enrollment_row['external_provider_id']
+    authorization_request.external_provider_id = enrollment_row['linked_token_manager_id']
     authorization_request.last_validated_at = enrollment_row['last_validated_at']
     # FIXME to delete, will use raw data anyway
     # authorization_request.copied_from_request = AuthorizationRequest.find(enrollment_row['copied_from_enrollment_id']) if enrollment_row['copied_from_enrollment_id'] && AuthorizationRequest.exists?(enrollment_row['copied_from_enrollment_id'])
@@ -60,16 +60,16 @@ class Import::AuthorizationRequests < Import::Base
   end
 
   def sql_tables_to_save
-    super.concat(
-      %w[
-        active_storage_blobs
-        active_storage_attachments
-        active_storage_variant_records
-        users
-        organizations
-        organizations_users
-      ]
-    )
+    %w[
+      users
+      organizations
+      organizations_users
+      active_storage_blobs
+      active_storage_attachments
+      active_storage_variant_records
+      authorization_requests
+      authorizations
+    ]
   end
 
   def find_team_member(kind, enrollment_id)
@@ -174,7 +174,7 @@ class Import::AuthorizationRequests < Import::Base
       organization.save!
     rescue ActiveRecord::RecordInvalid => e
       if e.record.errors.include?(:siret)
-        raise Import::AuthorizationRequests::Base::SkipRow.new(:invalid_siret_for_unknown_user_and_organization, id: enrollment_row['id'], target_api: enrollment_row['target_api'], authorization_request: e.record)
+        raise Import::AuthorizationRequests::Base::SkipRow.new(:invalid_siret_for_unknown_user_and_organization, id: enrollment_row['id'], target_api: enrollment_row['target_api'], authorization_request: e.record, status: enrollment_row['status'])
       else
         raise
       end
@@ -302,6 +302,28 @@ class Import::AuthorizationRequests < Import::Base
       'api_robf_production' => 'api_robf',
       'api_satelit_sandbox' => 'api_satelit_sandbox',
       'api_satelit_production' => 'api_satelit',
+      'api_declaration_auto_entrepreneur' => 'api_declaration_auto_entrepreneur',
+      'api_declaration_cesu' => 'api_declaration_cesu',
+      'api_sfip_sandbox' => 'api_sfip_sandbox',
+      'api_sfip_production' => 'api_sfip',
+      'api_sfip_unique' => 'api_sfip',
+      'api_droits_cnam' => 'api_droits_cnam',
+      'api_indemnites_journalieres_cnam' => 'api_indemnites_journalieres_cnam',
+      'api_captchetat' => 'api_captchetat',
+      'api_infinoe_sandbox' => 'api_infinoe_sandbox',
+      'api_infinoe_production' => 'api_infinoe',
+      'api_infinoe_unique' => 'api_infinoe',
+      'api_r2p_sandbox' => 'api_r2p_sandbox',
+      'api_r2p_production' => 'api_r2p',
+      'api_r2p_unique' => 'api_r2p',
+      'api_ficoba_sandbox' => 'api_ficoba_sandbox',
+      'api_ficoba_production' => 'api_ficoba',
+      'api_ficoba_unique' => 'api_ficoba',
+      'agent_connect_fi' => 'pro_connect_identity_provider',
+      'agent_connect_fs' => 'pro_connect_service_provider',
+      'api_ingres' => 'api_ingres',
+      'api_pro_sante_connect' => 'api_pro_sante_connect',
+      'api_scolarite' => 'api_scolarite',
     }[enrollment['target_api']].try(:classify)
   end
 

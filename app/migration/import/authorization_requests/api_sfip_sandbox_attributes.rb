@@ -1,15 +1,43 @@
-class Import::AuthorizationRequests::APIRialSandboxAttributes < Import::AuthorizationRequests::DGFIPSandboxAttributes
+class Import::AuthorizationRequests::APISFiPSandboxAttributes < Import::AuthorizationRequests::DGFIPSandboxAttributes
   def affect_data
-    affect_attributes
     affect_scopes
+    affect_attributes
     affect_contacts
     affect_potential_legal_document
     affect_potential_specific_requirements
+    # affect_form_uid
+    handle_incompatible_scopes_error
+
     affect_duree_conservation_donnees_caractere_personnel_justification
 
     return if authorization_request.valid?
 
     skip_row!(:invalid_cadre_juridique) if authorization_request.errors[:cadre_juridique_url].any?
+  end
+
+  # api-sfip-carte-transport-sandbox et api-sfip-stationnement-residentiel-sandbox non présent https://metabase.entreprise.api.gouv.fr/dashboard/50?nom_de_l%27api_(target_api)=api_sfip_sandbox
+  def demarche_to_form_uid
+    case enrollment_row['demarche']
+    when 'aides_sociales_facultatives'
+      'api-sfip-sandbox-aides-sociales-facultatives-sandbox'
+    when 'cantine_scolaire'
+      'api-sfip-cantine-scolaire-sandbox'
+    when 'activites_periscolaires'
+      'api-sfip-activites-periscolaires-sandbox'
+    when 'place_creche'
+      'api-sfip-place-creche-sandbox'
+    when 'eligibilite_lep', 'migration_api_particulier'
+      'api-sfip-sandbox'
+    else
+      'api-sfip-sandbox'
+    end
+  end
+
+  def handle_incompatible_scopes_error
+    return if authorization_request.valid?
+    return unless authorization_request.errors[:scopes].any?
+
+    skip_row!("invalid_scopes_in_status_#{authorization_request.state}")
   end
 
   def affect_contacts
