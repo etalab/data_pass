@@ -4,6 +4,11 @@ module ApplicationHelper
   include DSFR::Modal
   include DSFR::Pictogram
 
+  def obfuscate(text)
+    stars = '*' * (text.length - 5)
+    "#{stars}#{text[-5..]}"
+  end
+
   def provider_logo_image_tag(authorization_definition, options = {})
     options = options.merge(alt: "Logo du fournisseur de données \" #{authorization_definition.provider.name}\"")
     image_tag("data_providers/#{authorization_definition.provider.logo}", options)

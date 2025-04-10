@@ -78,6 +78,29 @@ Sachantque('je suis un rapporteur {string}') do |kind|
   end
 end
 
+Sachantque('je suis un développeur {string}') do |kind|
+  user = create_reporter(kind)
+
+  if @current_user_email.blank?
+    @current_user_email = user.email
+    mock_mon_compte_pro(user)
+  end
+
+  if @current_user_email != user.email
+    current_user.roles << "#{find_factory_trait_from_name(kind)}:reporter"
+    current_user.roles << "#{find_factory_trait_from_name(kind)}:developer"
+    current_user.roles.uniq!
+    current_user.save!
+  end
+
+  Doorkeeper::Application.create!(
+    name: 'Accès API Entreprise',
+    uid: 'client_id',
+    secret: 'so_secret',
+    owner: user,
+  )
+end
+
 Sachantque('je suis un administrateur') do
   user = create_admin
 

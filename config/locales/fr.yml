@@ -885,3 +885,19 @@ fr:
   stats:
     index:
       title: Statistiques d'utilisation
+  oauth_applications:
+    index:
+      title: Mes applications
+      description_html: |
+        Vous pouvez consulter vos applications OAuth depuis cette page.
+        <br />
+        <br />
+        Pour toute question, vous pouvez consulter notre <a href="%{documentation_url}">documentation</a>.
+      table:
+        headers:
+          name: Nom de l'application
+          credentials: Identifiants
+          scopes: Scopes
+        row:
+          client_id: Id
+          client_secret: Secret

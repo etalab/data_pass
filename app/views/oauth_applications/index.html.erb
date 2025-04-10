@@ -1,0 +1,46 @@
+<div class="sub-header">
+  <h1 class="fr-m-0">
+    <%= t('.title') %>
+  </h1>
+</div>
+
+<div class="fr-mt-16v">
+  <%= t('.description_html', documentation_url: developpeurs_documentation_url) %>
+</div>
+
+<div class="fr-table">
+  <div class="fr-table__wrapper">
+    <div class="fr-table__container">
+      <div class="fr-table__content">
+        <table>
+          <thead>
+            <tr>
+              <th><%= t('.table.headers.name') %></th>
+              <th><%= t('.table.headers.credentials') %></th>
+              <th><%= t('.table.headers.scopes') %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @applications.each do |app| %>
+              <tr>
+                <td><%= app.name %></td>
+                <td>
+                  <span data-controller="clipboard" data-clipboard-content-value="<%= app.uid %>">
+                    <%= t('.table.row.client_id') %>: <%= obfuscate(app.uid) %>
+                    <button class="fr-btn fr-btn--tertiary-no-outline fr-btn--sm" data-action="click->clipboard#copy">Copier</button>
+                  </span>
+                  <br>
+                  <span data-controller="clipboard" data-clipboard-content-value="<%= app.secret %>">
+                  <%= t('.table.row.client_secret') %>: <%= obfuscate(app.secret) %>
+                    <button class="fr-btn fr-btn--tertiary-no-outline fr-btn--sm" data-action="click->clipboard#copy">Copier</button>
+                  </span>
+                </td>
+                <td><%= app.scopes %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
