@@ -294,7 +294,6 @@ class Seeds
   def create_oauth_app
     Doorkeeper::Application.create!(
       name: 'API Entreprise',
-      redirect_uri: 'http://whatever.fr/callback',
       uid: 'client_id',
       secret: 'so_secret',
       owner: api_entreprise_instructor,
