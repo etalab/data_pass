@@ -326,6 +326,9 @@ fr:
         title: Votre accès est disponible
         content: Votre accès <strong>%{access_name}</strong> a été créé, vous pouvez l'utiliser sur le lien ci-dessous.
         button: Utiliser mon accès
+      dirty_from_v1:
+        title: Cette demande d'habilitation ou habilitation est importée de la v1 de DataPass
+        description: Celle-ci présente des données incomplètes, manquantes ou corrompues. Par conséquent, certaines actions ne sont pas disponibles, telles que la réouverture ou le transfert. Si vous voulez effectuer des actions sur cette demande ou habilitation, merci de contacter le support à l'adresse datapass@api.gouv.fr
     shared:
       title:
         update: Demande de mise à jour des informations
