@@ -917,3 +917,16 @@ fr:
             label: Internet
     pro_connect_identity_provider:
       modalities: *pro_connect_modalities
+
+    le_taxi:
+      technical_team_type:
+        values:
+          editor:
+            label: Via mon éditeur de logiciel
+          internal:
+            label: Via mon équipe de développeur
+          other:
+            label: Autre
+
+
+

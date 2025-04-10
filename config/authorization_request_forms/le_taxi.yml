@@ -1,0 +1,28 @@
+le-taxi:
+  name: Demande libre
+  description: Si aucun des autres formulaires ne correspond à votre cas d'usage, merci d'utiliser celui-ci
+  authorization_request: LeTaxi
+  default: true
+  steps: &le-taxi-steps
+    - name: technical_team
+    - name: basic_infos
+    - name: personal_data
+    - name: contacts
+
+le-taxi-chauffeur:
+  name: Applicatif chauffeur
+  description: Pour gérer les groupements, centrale, application pour indépendants..
+  authorization_request: LeTaxi
+  steps: *le-taxi-steps
+
+le-taxi-client:
+  name: Applicatif client
+  description: Moteur de recherche de taxis, application multimodale..
+  authorization_request: LeTaxi
+  steps: *le-taxi-steps
+
+le-taxi-client-chauffeur:
+  name: Applicatif chauffeur et applicatif client
+  description: Pour gérer les groupements, centrale, application pour indépendants, moteur de recherche de taxis, application multimodale..
+  authorization_request: LeTaxi
+  steps: *le-taxi-steps

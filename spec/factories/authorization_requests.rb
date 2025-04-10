@@ -1315,4 +1315,25 @@ FactoryBot.define do
     with_personal_data
     with_cadre_juridique
   end
+
+  trait :le_taxi do
+    type { 'AuthorizationRequest::LeTaxi' }
+
+    form_uid { 'le-taxi' }
+
+    with_basic_infos
+    with_technical_team
+    with_personal_data
+  end
+
+  %w[
+    le-taxi-chauffeur
+    le-taxi-client
+    le-taxi-client-chauffeur
+  ].each do |form_uid|
+    trait form_uid.tr('-', '_') do
+      le_taxi
+      form_uid { form_uid }
+    end
+  end
 end

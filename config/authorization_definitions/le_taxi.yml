@@ -1,0 +1,14 @@
+le_taxi:
+  name: API le.Taxi
+  description: "Un clic, un taxi"
+  provider: "dinum"
+  kind: 'api'
+  link: "https://api.gouv.fr/les-api/le-taxi"
+  cgu_link: "https://le.taxi/assets/documents/CGU.pdf"
+  access_link: "https://le-taxi.gouv.fr/tokens/%<external_provider_id>"
+  public: true
+  blocks:
+    - name: "technical_team"
+    - name: "basic_infos"
+    - name: "personal_data"
+    - name: "contacts"
