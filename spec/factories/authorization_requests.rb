@@ -214,6 +214,12 @@ FactoryBot.define do
       end
     end
 
+    trait :with_technical_team do
+      after(:build) do |authorization_request, evaluator|
+        authorization_request.technical_team_type = 'internal' if authorization_request.need_complete_validation? || evaluator.fill_all_attributes
+      end
+    end
+
     trait :with_personal_data do
       after(:build) do |authorization_request, evaluator|
         if authorization_request.need_complete_validation? || evaluator.fill_all_attributes
@@ -1307,5 +1313,26 @@ FactoryBot.define do
     with_basic_infos
     with_personal_data
     with_cadre_juridique
+  end
+
+  trait :le_taxi do
+    type { 'AuthorizationRequest::LeTaxi' }
+
+    form_uid { 'le-taxi' }
+
+    with_basic_infos
+    with_technical_team
+    with_personal_data
+  end
+
+  %w[
+    le-taxi-chauffeur
+    le-taxi-client
+    le-taxi-client-chauffeur
+  ].each do |form_uid|
+    trait form_uid.tr('-', '_') do
+      le_taxi
+      form_uid { form_uid }
+    end
   end
 end

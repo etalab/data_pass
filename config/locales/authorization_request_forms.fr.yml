@@ -3,6 +3,7 @@ fr:
     default:
       steps: &authorization_request_forms_default_steps
         basic_infos: "Mon projet"
+        technical_team: "L'équipe technique"
         personal_data: "Le traitement des données personnelles"
         legal: "Le cadre juridique"
         scopes: "Les données"
@@ -15,7 +16,6 @@ fr:
         supporting_documents: "Les pièces justificatives"
         france_connect: "L'habilitation FranceConnect"
         finish: "La synthèse"
-
       terms_of_service_accepted:
         label: J'ai pris connaissance des&nbsp;<a href="%{link}" target="_blank">conditions générales d'utilisation</a>&nbsp;et je les valide.
       intitule:
@@ -28,6 +28,10 @@ fr:
         hint: <a href="https://www.cnil.fr/fr/definition/destinataire" target="_blank">Plus d'infos</a>
       duree_conservation_donnees_caractere_personnel:
         hint: <a href="https://www.cnil.fr/fr/les-durees-de-conservation-des-donnees" target="_blank">Plus d'infos</a>
+      technical_team_type:
+        label: Qui s'occupe des aspects techniques et informatiques ?
+      technical_team_value:
+        label: Merci de préciser qui s'occupera de ces aspects techniques et informatiques
       cadre_juridique_nature:
         label: Précisez la nature et les références du texte vous autorisant à traiter les données
         hint: loi, décret, arrêté, délibération, etc.
@@ -109,6 +113,10 @@ fr:
       basic_infos:
         title: Décrivez nous votre projet
         subtitle: Afin de vous donner accès aux données, nous avons besoin d’en savoir plus sur la manière dont vous souhaitez les utiliser.
+
+
+      technical_team:
+        title: Équipe en charge des développements techniques
 
       personal_data:
         title: Comment seront traitées ces données personnelles ?
@@ -909,6 +917,16 @@ fr:
             label: Internet
     pro_connect_identity_provider:
       modalities: *pro_connect_modalities
+
+    le_taxi:
+      technical_team_type:
+        values:
+          editor:
+            label: Via mon éditeur de logiciel
+          internal:
+            label: Via mon équipe de développeur
+          other:
+            label: Autre
 
 
 
