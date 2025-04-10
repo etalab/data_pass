@@ -1,0 +1,33 @@
+<div class="authorization-header__actions">
+  <% if policy(authorization).reopen? %>
+    <%= dsfr_main_modal_button t('authorization_request_forms.form.reopen'),
+                               url_for(controller: 'reopen_authorizations',
+                                       action: 'new',
+                                       authorization_request_id: authorization.request&.id,
+                                       authorization_id: authorization.request.latest_authorization.id),
+                               title: "Mettez à jour votre habilitation",
+                               class: %w(fr-btn fr-btn--sm fr-btn--icon-left fr-icon-edit-box-line aria-hidden="true") %>
+  <% end %>
+
+  <% if policy(authorization).transfer? %>
+    <%= dsfr_main_modal_button t('authorization_request_forms.form.transfer'),
+                               new_authorization_request_transfer_path(authorization.request, type: :change_organization),
+                               id: :transfer_authorization_request,
+                               title: "Transférer l'habilitation à un autre utilisateur de votre organisation",
+                               class: %w(fr-btn fr-btn--sm fr-btn-secondary fr-btn--icon-left fr-icon-arrow-up-down-line aria-hidden="true") %>
+  <% end %>
+
+  <% if policy(authorization).start_next_stage? %>
+    <%= dsfr_main_modal_button t('dashboard.card.stage_footer.start_next_stage_cta'),
+                               next_authorization_request_stage_path(@authorization_request),
+                               title: "Démarrer une nouvelle demande d'habilitation pour l'environnement de production",
+                               class: %w(fr-btn fr-btn--sm) %>
+  <% end %>
+
+  <% if policy(authorization).show_contact_support? %>
+    <%= dsfr_main_modal_button t('authorization_request_forms.form.contact_support'),
+                               "mailto:datapass@api.gouv.fr",
+                               subject: "Habilitation #{authorization.id} révoquée",
+                               class: %w(fr-btn fr-btn--sm fr-btn--icon-left fr-icon-mail-line aria-hidden="true") %>
+  <% end %>
+</div>

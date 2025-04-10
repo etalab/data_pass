@@ -1,16 +1,18 @@
-<%= render AuthorizationHeaderComponent.new(authorization: @authorization, authorization_request: @authorization_request, current_user: current_user) %>
+<div class="authorization-header fr-background-action-high--blue-france">
+  <%= render AuthorizationHeaderComponent.new(authorization: @authorization, current_user: current_user) %>
+</div>
 
 <div class="fr-container">
   <div id="<%= dom_id(@authorization_request, :summary) %>" class="fr-mt-4w">
-    <%= render partial: 'authorization_request_forms/current_user_mentions_alert', locals: { authorization_request: @authorization_request } %>
+    <%= render partial: 'authorization_request_forms/current_user_mentions_alert', locals: { authorization_request: @authorization.request } %>
     <%= render partial: 'authorization_requests/bulk_update_modal' if @bulk_update.present? %>
-    <%= render partial: 'authorizations/alerts', locals: { authorization: @authorization, authorization_request: @authorization_request } %>
+    <%= render partial: 'authorizations/alerts', locals: { authorization: @authorization, authorization_request: @authorization.request } %>
 
-    <% if !displayed_on_a_public_page? && @authorization_request.access_link && @authorization_request.validated? %>
-      <%= render partial: 'authorizations/access_callout', locals: { authorization_request: @authorization_request } %>
+    <% if !displayed_on_a_public_page? && @authorization.request.access_link && @authorization.request.validated? %>
+      <%= render partial: 'authorizations/access_callout', locals: { authorization_request: @authorization.request } %>
     <% end %>
   </div>
 
-  <%= render partial: 'authorization_requests/shared/organization_and_applicant', locals: { authorization_request: @authorization_request } %>
+  <%= render partial: 'authorization_requests/shared/organization_and_applicant', locals: { authorization_request: @authorization.request } %>
   <%= render partial: 'authorizations/blocks', locals: { authorization_request: @authorization_request } %>
 </div>
