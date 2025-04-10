@@ -1,7 +1,7 @@
 RSpec.describe 'API: Authorization requests' do
   let(:user) { create(:user, :developer, authorization_request_types: %w[api_entreprise]) }
   let(:application) { create(:oauth_application, owner: user) }
-  let(:access_token) { create(:access_token, application:, resource_owner_id: user.id) }
+  let(:access_token) { create(:access_token, application:) }
 
   describe 'index' do
     subject(:get_index) do

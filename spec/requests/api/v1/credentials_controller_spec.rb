@@ -15,7 +15,7 @@ RSpec.describe 'API: Credentials' do
   context 'when authorized' do
     let(:user) { create(:user) }
     let(:application) { create(:oauth_application, owner: user) }
-    let(:access_token) { create(:access_token, application:, resource_owner_id: user.id) }
+    let(:access_token) { create(:access_token, application:) }
 
     it 'returns the current user' do
       get '/api/v1/me', params: {}, headers: { 'Authorization' => "Bearer #{access_token.token}" }
