@@ -34,6 +34,9 @@ fr:
         date_prevue_mise_en_production: Date de mise en production prévue
         volumetrie_approximative: Volumétrie approximative
 
+        technical_team_type: La typologie de l'équipe technique
+        technical_team_value: L'intitule de l'équipe technique
+
         destinataire_donnees_caractere_personnel: Destinataire des données
         duree_conservation_donnees_caractere_personnel: Durée de conservation des données en mois
         duree_conservation_donnees_caractere_personnel_justification: Justification de la durée de conservation des données

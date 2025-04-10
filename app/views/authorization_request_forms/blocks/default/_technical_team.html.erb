@@ -1,0 +1,26 @@
+<% if @authorization_request.display_prefilled_banner_for_each_block? && @authorization_request.prefilled_data?(%i[technical_team_type technical_team_value]) %>
+  <%= render partial: "authorization_request_forms/shared/prefilled_banner" %>
+<% end %>
+
+<%= f.info_for(:technical_team) %>
+
+<fieldset class="fr-fieldset" aria-label="feedme" aria-describedby="name-1-fieldset-messages"
+  data-controller="toggle-element-display-based-on-select-options"
+  data-toggle-element-display-based-on-select-options-show-on-value='<%= @authorization_request.technical_team_types_requiring_values %>'>
+  <div class="fr-fieldset__element">
+    <%=
+      f.dsfr_select :technical_team_type,
+        options_for_select(@authorization_request.available_technical_team_types, selected: @authorization_request.technical_team_type),
+        required: true,
+        include_blank: "Veuillez choisir une valeur" ,
+        data: {
+          toggle_element_display_based_on_select_options_target: "select",
+          action: "change->toggle-element-display-based-on-select-options#change"
+        }
+      %>
+  </div>
+
+  <div class="fr-fieldset__element" data-toggle-element-display-based-on-select-options-target="toggle">
+    <%= f.dsfr_text_field :technical_team_value %>
+  </div>
+</div>

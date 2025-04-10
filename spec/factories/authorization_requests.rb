@@ -214,6 +214,12 @@ FactoryBot.define do
       end
     end
 
+    trait :with_technical_team do
+      after(:build) do |authorization_request, evaluator|
+        authorization_request.technical_team_type = 'internal' if authorization_request.need_complete_validation? || evaluator.fill_all_attributes
+      end
+    end
+
     trait :with_personal_data do
       after(:build) do |authorization_request, evaluator|
         if authorization_request.need_complete_validation? || evaluator.fill_all_attributes
