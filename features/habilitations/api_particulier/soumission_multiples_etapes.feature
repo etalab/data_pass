@@ -1,6 +1,6 @@
 # language: fr
 
-Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
+Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plusiuers étapes)
   Contexte:
     Sachant que je suis un demandeur
     Et que je me connecte
@@ -156,7 +156,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
 
-  Plan du scénario: Je soumets une demande d'habilitation, en plusieurs étapes, d'un éditeur avec le contact technique déjà renseigné et des scopes modifiables pour un cas d'usage lié au portail famille ou à la tarification QF
+  Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique déjà renseigné et des scopes modifiables pour un cas d'usage lié au portail famille ou à la tarification QF
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
@@ -188,7 +188,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
       | FamilyClic          | JCDeveloppement           |
       | Carte Plus          | Carte Plus                |
 
-   Plan du scénario: Je soumets une demande d'habilitation, en plusieurs étapes, d'un éditeur avec le contact technique non renseigné et des scopes non modifiables pour un cas d'usage lié au portail famille ou à la tarification QF
+   Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique non renseigné et des scopes non modifiables pour un cas d'usage lié au portail famille ou à la tarification QF
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
@@ -220,7 +220,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
       | Loyfeey                   | Ecorestauration   |
       | Kosmos Education          | Kosmos            |
 
-   Plan du scénario: Je soumets une demande d'habilitation, en plusieurs étapes, d'un éditeur avec le contact technique non renseigné et des scopes modifiables pour un cas d'usage lié au portail famille ou à la tarification QF
+   Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique non renseigné et des scopes modifiables pour un cas d'usage lié au portail famille ou à la tarification QF
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
@@ -249,7 +249,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
       | Noethys                   | Noethys           |
       | Res'Agenda                | Res'Agenda        |
 
-  Plan du scénario: Je soumets une demande d'habilitation, en plusieurs étapes, d'un éditeur avec le contact technique non renseigné et des scopes non modifiables pour un cas d'usage lié au CCAS, où le cadre juridique est déjà renseigné
+  Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique non renseigné et des scopes non modifiables pour un cas d'usage lié au CCAS, où le cadre juridique est déjà renseigné
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
@@ -277,7 +277,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
       | Sonate                    | Arpège            |
       | Millésime Action Sociale  | Arche MC2         |
 
-  Plan du scénario: Je soumets une demande d'habilitation, en plusieurs étapes, d'un éditeur avec le contact technique renseigné et des scopes non modifiables pour un cas d'usage lié au portail famille ou à la tarification QF
+  Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique renseigné et des scopes non modifiables pour un cas d'usage lié au portail famille ou à la tarification QF
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
@@ -310,7 +310,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
       | PourMesDossiers       | Esabora                   |
       | BL Enfance            | Berger-Levrault           |
 
- Plan du scénario: Je soumets une demande d'habilitation, en plusieurs étapes, d'un éditeur avec le contact technique déjà renseigné, sans cas d'usage
+ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique déjà renseigné, sans cas d'usage
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
@@ -336,75 +336,8 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
       | Nom du formulaire     | Nom de l'éditeur          |
       | Ganesh Education      | Ganesh Education          |
 
-  Plan du scénario: Je soumets une demande d'habilitation, présenté en une seule page, d'un éditeur avec le contact technique déjà renseigné pour un cas d'usage lié au portail famille ou à la tarification QF
-    Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
-    Et que je clique sur "Débuter ma demande"
 
-    * je renseigne les informations du délégué à la protection des données
-    * je renseigne les informations du contact métier
-    * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
-    * je renseigne les infos concernant les données personnelles
-
-    * j'enregistre et continue vers le résumé
-
-    * j'adhère aux conditions générales
-    * je clique sur "Soumettre la demande d'habilitation"
-
-    Alors il y a un message de succès contenant "soumise avec succès"
-    Et je suis sur la page "Demandes et habilitations"
-
-    Exemples:
-      | Nom du formulaire | Nom de l'éditeur                      |
-      | ICAR              | Coexya                                |
-      | Pandore           | Odyssée Informatique                  |
-      | eTicket           | Qiis                                  |
-      | Maelis Portail    | SIGEC                                 |
-
-  Plan du scénario: Je soumets une demande d'habilitation, présenté en une seule page, d'un éditeur avec le contact technique non renseigné pour un cas d'usage lié au portail famille ou à la tarification QF
-    Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
-    Et que je clique sur "Débuter ma demande"
-
-    * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
-    * je renseigne les infos concernant les données personnelles
-
-    * je renseigne les informations du délégué à la protection des données
-    * je renseigne les informations du contact technique
-    * je renseigne les informations du contact métier
-
-    * j'enregistre et continue vers le résumé
-
-    * j'adhère aux conditions générales
-    * je clique sur "Soumettre la demande d'habilitation"
-
-    Alors il y a un message de succès contenant "soumise avec succès"
-    Et je suis sur la page "Demandes et habilitations"
-
-    Exemples:
-      | Nom du formulaire         | Nom de l'éditeur      |
-      | FAST                      | DOCAPOSTE             |
-      | Publik Famille            | Entr'ouvert           |
-      | Parascol                  | JVS-Mairistem         |
-      | Axel                      | Teamnet               |
-
-  Scénario: Je soumets une demande d'habilitation, présenté en une seule page, de l'éditeur AFI avec le contact technique déjà renseigné pour un cas d'usage lié au CCAS
-    Quand je veux remplir une demande pour "API Particulier" via le formulaire "Mélissandre" de l'éditeur "Agence Française d'Informatique (AFI)"
-    Et que je clique sur "Débuter ma demande"
-
-    * je renseigne le cadre légal
-    * je renseigne les infos concernant les données personnelles
-
-    * je renseigne les informations du contact métier
-    * je renseigne les informations du délégué à la protection des données
-
-    * j'enregistre et continue vers le résumé
-
-    * j'adhère aux conditions générales
-    * je clique sur "Soumettre la demande d'habilitation"
-
-    Alors il y a un message de succès contenant "soumise avec succès"
-    Et je suis sur la page "Demandes et habilitations"
-
-Plan du scénario: Je soumets une demande d'habilitation, en plusieurs étapes, d'un éditeur dont le contact technique n'est pas renseigné et des scopes non modifiables pour un cas d'usage lié à la tarification des transports
+Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le contact technique n'est pas renseigné et des scopes non modifiables pour un cas d'usage lié à la tarification des transports
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
@@ -433,17 +366,3 @@ Plan du scénario: Je soumets une demande d'habilitation, en plusieurs étapes, 
       | Nom du formulaire   | Nom de l'éditeur          |
       | MaaSify             | Monkey Factory            |
       | Airweb             | Airweb          |
-
-  Scénario: Je vois un lien vers API particulier quand je consulte une habilitation validée
-    Quand j'ai déjà une demande d'habilitation "API Particulier" validée avec token
-    Et que je vais sur la page du tableau de bord
-    Et que je clique sur "Consulter"
-    Alors il y a un titre contenant "API Particulier"
-    Et la page contient un lien vers "particulier.api.gouv.fr"
-
-  Scénario: Je ne vois aucun lien vers API particulier quand je consulte une habilitation non validée
-    Quand j'ai déjà une demande d'habilitation "API Particulier" en cours
-    Et que je vais sur la page du tableau de bord
-    Et que je clique sur "Consulter"
-    Alors il y a un titre contenant "API Particulier"
-    Et la page ne contient aucun lien vers "particulier.api.gouv.fr"
