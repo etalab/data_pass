@@ -93,6 +93,8 @@ make tests
 make e2e
 ```
 
+Vous pouvez passer un dossier ou un fichier de test en argument (ex: `make tests spec/controllers`)
+
 Without docker:
 
 ```sh

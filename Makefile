@@ -49,12 +49,12 @@ guard:
 tests:
 	$(STOP-SERVICES)
 	$(DOCKER-COMPOSE) up -d chrome
-	$(DOCKER-RUN) web $(BUNDLE-EXEC) rspec
+	$(DOCKER-RUN) web $(BUNDLE-EXEC) rspec $(filter-out $@,$(MAKECMDGOALS))
 
 e2e:
 	$(STOP-SERVICES)
 	$(DOCKER-COMPOSE) up -d chrome
-	$(DOCKER-RUN) web $(BUNDLE-EXEC) cucumber
+	$(DOCKER-RUN) web $(BUNDLE-EXEC) cucumber $(filter-out $@,$(MAKECMDGOALS))
 
 console:
 	$(DOCKER-RUN) web bin/rails console
@@ -67,3 +67,7 @@ replant:
 
 prepare_db:
 	$(DOCKER-RUN) web bin/rails db:schema:load
+
+%:
+	@:
+
