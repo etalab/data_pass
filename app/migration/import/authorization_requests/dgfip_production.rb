@@ -2,13 +2,35 @@ module Import::AuthorizationRequests::DGFIPProduction
   def migrate_from_sandbox_to_production!
     @authorization_request = AuthorizationRequest.find(enrollment_row['previous_enrollment_id'])
 
+    json = Kredis.json "authorization_request_data_#{enrollment_row['previous_enrollment_id']}"
+    json.value = @authorization_request.data
+
     authorization_request.update!(type: "AuthorizationRequest::#{self.class.to_s.split('::')[-1].sub('Attributes', '')}", state: 'draft', id: enrollment_row['id'])
 
-    ActiveStorage::Attachment.where(record_type: 'AuthorizationRequest', record_id: enrollment_row['previous_enrollment_id']).update_all(record_id: enrollment_row['id'])
+    attachments = ActiveStorage::Attachment.where(record_type: 'AuthorizationRequest', record_id: enrollment_row['previous_enrollment_id'])
+
+    json = Kredis.json "authorization_request_attachments_#{enrollment_row['previous_enrollment_id']}"
+    json.value = { 'ids' => attachments.pluck(:id) }
+
+    attachments.update_all(record_id: enrollment_row['id'])
 
     @authorization_request = AuthorizationRequest.find(enrollment_row['id'])
-  rescue ActiveRecord::RecordNotFound
-    skip_row!(:sandbox_missing)
+  rescue ActiveRecord::RecordNotFound => e
+    if e.id == enrollment_row['previous_enrollment_id']
+      lookup_from_first_migrated_production!
+    else
+      skip_row!(:sandbox_missing)
+    end
+  end
+
+  def lookup_from_first_migrated_production!
+    @authorization_request.data = Kredis.json("authorization_request_data_#{enrollment_row['previous_enrollment_id']}").value
+    attachments = ActiveStorage::Attachment.where(id: Kredis.json("authorization_request_attachments_#{enrollment_row['previous_enrollment_id']}").value['ids']).dup
+
+    attachments.each do |attachment|
+      attachment.record_id = @authorization_request.id
+      attachment.save(validate: false)
+    end
   end
 
   def affect_operational_acceptance
@@ -47,5 +69,4 @@ module Import::AuthorizationRequests::DGFIPProduction
 
     authorization_request.volumetrie_justification = 'Non renseignée'
   end
-
 end
