@@ -72,7 +72,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
       | Aides sociales des CCAS dont aides facultatives          |
       | Tarification des transports                              |
 
-  Scénario: Je soumets une demande d'habilitation pouri le cas d'usage "Tarification cantine lycées"
+  Scénario: Je soumets une demande d'habilitation pour le cas d'usage "Tarification cantine lycées"
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "Tarification cantine lycées"
     Et que je clique sur "Débuter ma demande"
 
@@ -102,7 +102,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier
     Et je suis sur la page "Demandes et habilitations"
 
 
-  Scénario: Je soumets une demande d'habilitation pouri le cas d'usage "Aides sociales des CCAS"
+  Scénario: Je soumets une demande d'habilitation pour le cas d'usage "Aides sociales des CCAS"
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "Aides sociales des CCAS"
     Et que je clique sur "Débuter ma demande"
 
