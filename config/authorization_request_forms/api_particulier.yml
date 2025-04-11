@@ -1089,10 +1089,11 @@ api-particulier-ganesh-education:
       - cnous_statut_boursier
       - cnous_echelon_bourse
       - mesri_identite
-      - mesri_admission
-      - mesri_inscription_etudiant
-      - mesri_inscription_autre
-      - mesri_etablissements
+      - mesri_admissions
+      - mesri_admission_inscrit
+      - mesri_admission_regime_formation
+      - mesri_admission_commune_etudes
+      - mesri_admission_etablissement_etudes
   data:
     intitule: Gestion de la scolarité des établissements d'enseignement supérieur
     description: |
@@ -1101,10 +1102,11 @@ api-particulier-ganesh-education:
       - cnous_statut_boursier
       - cnous_echelon_bourse
       - mesri_identite
-      - mesri_admission
-      - mesri_inscription_etudiant
-      - mesri_inscription_autre
-      - mesri_etablissements
+      - mesri_admissions
+      - mesri_admission_inscrit
+      - mesri_admission_regime_formation
+      - mesri_admission_commune_etudes
+      - mesri_admission_etablissement_etudes
     modalities:
       - params
     contact_technique_email: "<%= Rails.application.credentials.api_particulier_ganesh_education_contact_technique_email || 'tech-qiis@yopmail.com' %>"
