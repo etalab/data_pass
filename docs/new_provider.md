@@ -104,6 +104,13 @@ Pour la configuration de la [définition (1.)](../config/authorization_definitio
         # false. Il n'est donc pas nécessaire de spécifier le scope dans
         # l'option `scopes_config->disabled` du formulaire.
         included: true
+        # Optionnel. Détermine si la donnée est désactivée. Cela permet
+        # d'afficher des données grisés et non cochés à l'utilisateur, ceci permet
+        # par exemple d'afficher des futures données disponibles ou plus disponibles.
+        # Par défaut à false. Il n'est donc pas nécessaire de spécifier le scope dans
+        # l'option `scopes_config->disabled` du formulaire.
+        disabled: true
+
     # Liste des blocs à afficher dans le résumé
     # Ces blocs peuvent correspondre aux 'steps' des formulaires définis
     # ci-dessous, mais ce n'est pas une obligation. Chaque bloc doit être défini

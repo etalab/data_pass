@@ -1,9 +1,8 @@
-class AuthorizationRequestScope
+class AuthorizationDefinition::Scope
   attr_reader :name,
     :value,
     :group,
-    :link,
-    :included
+    :link
 
   def initialize(properties)
     @name = properties.fetch(:name)
@@ -11,10 +10,15 @@ class AuthorizationRequestScope
     @group = properties.fetch(:group, nil)
     @link = properties.fetch(:link, nil)
     @included = properties.fetch(:included, false)
+    @disabled = properties.fetch(:disabled, false)
   end
 
   def included?
-    included
+    @included
+  end
+
+  def disabled?
+    @disabled
   end
 
   def link?

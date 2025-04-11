@@ -412,6 +412,10 @@ FactoryBot.define do
       api-particulier-monkey-factory-maasify
       api-particulier-esabora-pourmesdossiers
       api-particulier-airweb
+      api-particulier-noethys
+      api-particulier-resagenda
+      api-particulier-carte-plus
+      api-particulier-ganesh-education
       api-particulier-tarification-municipale-enfance
       api-particulier-aides-facultatives-regionales
       api-particulier-aides-facultatives-departementales

@@ -28,6 +28,9 @@ api_particulier:
       value: "cnaf_adresse"
       group: "API Quotient familial CAF & MSA"
 
+    - name: "Identifiant France Travail"
+      value: "pole_emploi_identifiant"
+      group: "API Statut demandeur d'emploi"
     - name: "Statut demandeur d'emploi et identité"
       value: "pole_emploi_identite"
       group: "API Statut demandeur d'emploi"
@@ -45,14 +48,25 @@ api_particulier:
       value: "pole_emploi_paiements"
       group: "API Paiements France Travail"
 
-    - name: "Statut élève scolarisé et identité"
+    - name: "Données d'identité de l'élève"
+      value: "men_statut_identite"
+      group: "API Statut élève scolarisé et boursier"
+    - name: "Statut élève scolarisé"
       value: "men_statut_scolarite"
       group: "API Statut élève scolarisé et boursier"
     - name: "Statut boursier (disponible en 2025)"
       value: "men_statut_boursier"
       group: "API Statut élève scolarisé et boursier"
+      disabled: true
     - name: "Échelon de la bourse (disponible en 2025)"
       value: "men_echelon_bourse"
+      group: "API Statut élève scolarisé et boursier"
+      disabled: true
+    - name: "Code UAI et code ministère de tutelle de l'établissement"
+      value: "men_statut_etablissement"
+      group: "API Statut élève scolarisé et boursier"
+    - name: "Module élémentaire formation"
+      value: "men_statut_module_elementaire_formation"
       group: "API Statut élève scolarisé et boursier"
 
     - name: "Statut étudiant boursier"
@@ -80,17 +94,21 @@ api_particulier:
     - name: "Identité de l'étudiant"
       value: "mesri_identite"
       group: "API Statut étudiant"
-    - name: 'Statut étudiant "admis"'
-      value: "mesri_admission"
+    - name: "Liste des admissions de l'étudiant"
+      value: 'mesri_admissions'
       group: "API Statut étudiant"
-    - name: "Statut étudiant inscrit | Périmètre formation initiale"
-      value: "mesri_inscription_etudiant"
+    - name: "Statut inscrit"
+      description: "Pour chacune des admissions retournées, indique si le statut de l'étudiant est passé à inscrit."
+      value: 'mesri_admission_inscrit'
       group: "API Statut étudiant"
-    - name: "Statut étudiant inscrit | Périmètre formation continue"
-      value: "mesri_inscription_autre"
+    - name: "Régime de formation"
+      value: 'mesri_admission_regime_formation'
       group: "API Statut étudiant"
-    - name: "Liste des établissements"
-      value: "mesri_etablissements"
+    - name: "Code COG Insee de la commune de l'établissement"
+      value: 'mesri_admission_commune_etudes'
+      group: "API Statut étudiant"
+    - name: "Appelation et code UAI de l'établissement"
+      value: 'mesri_admission_etablissement_etudes'
       group: "API Statut étudiant"
 
     - name: "Statut C2S"
