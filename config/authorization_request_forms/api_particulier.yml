@@ -718,7 +718,7 @@ api-particulier-extenso-partner-extenso-cloud:
       - cnaf_quotient_familial
       - cnaf_adresse
       - mesri_identite
-      - mesri_admission
+      - mesri_admissions
 
   data:
     intitule: Tarification du stationnement résidentiel
@@ -736,7 +736,7 @@ api-particulier-extenso-partner-extenso-cloud:
       - cnaf_quotient_familial
       - cnaf_adresse
       - mesri_identite
-      - mesri_admission
+      - mesri_admissions
     contact_technique_email: "<%= Rails.application.credentials.api_particulier_extenso_partner_contact_technique_email || 'tech-extenso-partner@yopmail.com' %>"
     contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_extenso_partner_contact_technique_given_name || 'Jeanne' %>"
     contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_extenso_partner_contact_technique_family_name || 'Martin' %>"
@@ -894,9 +894,9 @@ api-particulier-airweb:
       - cnaf_quotient_familial
       - pole_emploi_identite
       - mesri_identite
-      - mesri_admission
-      - mesri_inscription_etudiant
-      - mesri_inscription_autre
+      - mesri_admissions
+      - mesri_admission_inscrit
+      - mesri_admission_commune_etudes
       - cnous_statut_boursier
       - men_echelon_bourse
       - revenu_solidarite_active
@@ -910,9 +910,9 @@ api-particulier-airweb:
       - cnaf_quotient_familial
       - pole_emploi_identite
       - mesri_identite
-      - mesri_admission
-      - mesri_inscription_etudiant
-      - mesri_inscription_autre
+      - mesri_admissions
+      - mesri_admission_inscrit
+      - mesri_admission_commune_etudes
       - cnous_statut_boursier
       - men_echelon_bourse
       - revenu_solidarite_active
