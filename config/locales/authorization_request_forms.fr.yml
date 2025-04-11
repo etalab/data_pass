@@ -433,6 +433,14 @@ fr:
       <<: *api_particulier_editor_common_wordings
     api_particulier_airweb:
       <<: *api_particulier_editor_common_wordings
+    api_particulier_noethys:
+      <<: *api_particulier_editor_common_wordings
+    api_particulier_carte_plus:
+      <<: *api_particulier_editor_common_wordings
+    api_particulier_resagenda:
+      <<: *api_particulier_editor_common_wordings
+    api_particulier_ganesh_education:
+      <<: *api_particulier_editor_common_wordings
 
     api_particulier_tarification_municipale_enfance:
       description:
