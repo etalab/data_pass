@@ -48,7 +48,7 @@ api_particulier:
       value: "pole_emploi_paiements"
       group: "API Paiements France Travail"
 
-    - name: "Identité"
+    - name: "Données d'identité de l'élève"
       value: "men_statut_identite"
       group: "API Statut élève scolarisé et boursier"
     - name: "Statut élève scolarisé"
@@ -62,7 +62,7 @@ api_particulier:
       value: "men_echelon_bourse"
       group: "API Statut élève scolarisé et boursier"
       disabled: true
-    - name: "Établissement"
+    - name: "Code UAI et code ministère de tutelle de l'établissement"
       value: "men_statut_etablissement"
       group: "API Statut élève scolarisé et boursier"
     - name: "Module élémentaire formation"
@@ -94,19 +94,20 @@ api_particulier:
     - name: "Identité de l'étudiant"
       value: "mesri_identite"
       group: "API Statut étudiant"
-    - name: 'Admission étudiant'
+    - name: "Liste des admissions de l'étudiant"
       value: 'mesri_admissions'
       group: "API Statut étudiant"
-    - name: "Statut de l'inscription de l'étudiant"
+    - name: "Statut inscrit"
+      description: "Pour chacune des admissions retournées, indique si le statut de l'étudiant est passé à inscrit."
       value: 'mesri_admission_inscrit'
       group: "API Statut étudiant"
     - name: "Régime de formation"
       value: 'mesri_admission_regime_formation'
       group: "API Statut étudiant"
-    - name: "Code Cog de la commune de l'établissement"
+    - name: "Code COG Insee de la commune de l'établissement"
       value: 'mesri_admission_commune_etudes'
       group: "API Statut étudiant"
-    - name: "Donnée de l'établissement"
+    - name: "Appelation et code UAI de l'établissement"
       value: 'mesri_admission_etablissement_etudes'
       group: "API Statut étudiant"
 
