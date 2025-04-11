@@ -25,7 +25,7 @@ les seeds disponible [ici](app/lib/seeds.rb)
 # Requirements
 
 - ruby 3.4.1
-- postressql >= 13
+- postgresql >= 13
 - (optional) npm (for [standardjs](https://standardjs.com/) and [prettier](https://prettier.io/))
 
 ## Install
@@ -80,7 +80,7 @@ Il est possible de bypass le login via ProConnect de cette manière en local :
 
 ## Tests
 
-With docker:
+### With docker
 
 Préparation de la base de données: `docker-compose run --rm web bundle exec rails db:create RAILS_ENV=test` (devrait avoir été lancé par `make build`)
 
@@ -93,7 +93,11 @@ make tests
 make e2e
 ```
 
-Without docker:
+Vous pouvez passer un dossier ou un fichier de test en argument (ex: `make tests spec/controllers`)
+
+### Without docker
+
+⚠️Il est déconseillé de run plus d'un test à la fois sans Docker car cela peut entrainer des échecs de tests.
 
 ```sh
 # Unit
