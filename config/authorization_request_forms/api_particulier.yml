@@ -1081,10 +1081,11 @@ api-particulier-ganesh-education:
       - cnous_statut_boursier
       - cnous_echelon_bourse
       - mesri_identite
-      - mesri_admission
-      - mesri_inscription_etudiant
-      - mesri_inscription_autre
-      - mesri_etablissements
+      - mesri_admissions
+      - mesri_admission_inscrit
+      - mesri_admission_regime_formation
+      - mesri_admission_commune_etudes
+      - mesri_admission_etablissement_etudes
     displayed:
       - cnous_statut_boursier
       - cnous_echelon_bourse
@@ -1351,6 +1352,7 @@ api-particulier-ccas-melissandre-afi:
       - pole_emploi_adresse
       - pole_emploi_inscription
       - mesri_identite
+      - mesri_admission_inscrit
       - cnous_statut_bourse
       - cnous_identite
     contact_technique_email: "<%= Rails.application.credentials.api_particulier_afi_contact_technique_email || 'tech-afi@yopmail.com' %>"
