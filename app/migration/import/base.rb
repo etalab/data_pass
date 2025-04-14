@@ -77,11 +77,18 @@ class Import::Base
         extract(row)
         print '.'
       rescue Import::AuthorizationRequests::Base::SkipRow => e
-        print 's'
         options[:skipped] << e
 
         e.authorization_request.dirty_from_v1 = true if e.authorization_request.respond_to?(:dirty_from_v1)
-        e.authorization_request.save(validate: false) if ENV['SKIP_VALIDATION'] == 'true' && e.kind.to_sym != :sandbox_missing
+
+        begin
+          e.authorization_request.save(validate: false)
+        rescue => e
+          print 's'
+          next
+        end
+
+        print 'i'
       rescue => e
         log(" ERROR: #{e.message}")
         log(e.backtrace.join("\n"))
