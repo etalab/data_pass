@@ -22,14 +22,47 @@
           </div>
         </div>
       </div>
+
       <div class="fr-col-12 fr-col-md-4">
-        <%= render partial: 'authorizations/btn_authorization_header_actions', locals: { authorization: @authorization } %>
+        <%#= render partial: 'authorizations/btn_authorization_header_actions', locals: { authorization: @authorization } %>
+        <div class="authorization-header__actions">
+          <% if helpers.policy(authorization).reopen? %>
+            <%= helpers.dsfr_main_modal_button t('authorization_request_forms.form.reopen'),
+                                               url_for(controller: 'reopen_authorizations',
+                                                       action: 'new',
+                                                       authorization_request_id: authorization.request&.id,
+                                                       authorization_id: authorization.request.latest_authorization.id),
+                                               title: "Mettez à jour votre habilitation",
+                                               class: %w(fr-btn fr-btn--sm fr-btn--icon-left fr-icon-edit-box-line aria-hidden="true") %>
+          <% end %>
+
+          <% if helpers.policy(authorization).transfer? %>
+            <%= helpers.dsfr_main_modal_button t('authorization_request_forms.form.transfer'),
+                                               new_authorization_request_transfer_path(authorization.request, type: :change_organization),
+                                               id: :transfer_authorization_request,
+                                               title: "Transférer l'habilitation à un autre utilisateur de votre organisation",
+                                               class: %w(fr-btn fr-btn--sm fr-btn-secondary fr-btn--icon-left fr-icon-arrow-up-down-line aria-hidden="true") %>
+          <% end %>
+
+          <% if helpers.policy(authorization).start_next_stage? %>
+            <%= link_to t('dashboard.card.stage_footer.start_next_stage_cta'),
+                        next_authorization_request_stage_path(authorization.request),
+                        title: "Démarrer une nouvelle demande d'habilitation pour l'environnement de production",
+                        class: %w(fr-btn fr-btn--sm) %>
+          <% end %>
+
+          <% if helpers.policy(authorization).show_contact_support? %>
+            <%= helpers.dsfr_main_modal_button t('authorization_request_forms.form.contact_support'),
+                                               "mailto:datapass@api.gouv.fr",
+                                               subject: "Habilitation #{authorization.id} révoquée",
+                                               class: %w(fr-btn fr-btn--sm fr-btn--icon-left fr-icon-mail-line aria-hidden="true") %>
+          <% end %>
+        </div>
       </div>
     </div>
 
-    <% if policy([:instruction, @authorization.request]).show? %>
+    <% if helpers.policy([:instruction, @authorization.request]).show? %>
       <%= render partial: 'authorizations/instruction_header_info', locals: { authorization: @authorization } %>
     <% end %>
-    </div>
   </div>
 </div>

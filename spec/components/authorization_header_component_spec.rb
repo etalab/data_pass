@@ -1,12 +1,52 @@
 RSpec.describe AuthorizationHeaderComponent, type: :component do
-  let(:authorization) { create(:authorization) }
+  let(:auth_policy) { instance_double(AuthorizationPolicy, reopen?: true, transfer?: false, start_next_stage?: false, show_contact_support?: false) }
+  let(:instruction_policy) { instance_double(Instruction::AuthorizationRequestPolicy, show?: false) }
 
-  describe 'header information' do
-    subject { render_inline(described_class.new(authorization: authorization, current_user: authorization.applicant)) }
+  let(:authorization) { create(:authorization) }
+  let(:authorization_request) do
+    instance_double(AuthorizationRequest,
+      id: 123,
+      latest_authorization: authorization,
+      name: 'Test Authorization Request',)
+  end
+
+  let(:helpers_stub) do
+    double('Helpers').tap do |helpers|
+      allow(helpers).to receive(:policy) do |record|
+        if record.is_a?(Array) && record.first == :instruction
+          instruction_policy
+        else
+          auth_policy
+        end
+      end
+
+      allow(helpers).to receive(:t, &:to_s)
+      allow(helpers).to receive(:link_to) { |text, _path, _opts = {}| text }
+      allow(helpers).to receive(:dsfr_main_modal_button) { |*args| args.first }
+      allow(helpers).to receive_messages(url_for: '/mocked/path', new_authorization_request_transfer_path: '/mocked/transfer/path', next_authorization_request_stage_path: '/mocked/next/stage/path', render: '')
+    end
+  end
+
+  let(:component) do
+    component = described_class.new(authorization: authorization, current_user: authorization.applicant)
+    allow(component).to receive(:helpers).and_return(helpers_stub)
+    component
+  end
+
+  before do
+    allow(authorization).to receive(:request).and_return(authorization_request)
+  end
+
+  context 'when rendering the component' do
+    subject { render_inline(component) }
+
+    it 'renders correctly without error' do
+      expect(subject).to have_css('.fr-badge')
+    end
 
     it 'renders the authorization header with correct information' do
       expect(subject.css('h1').text).to include("Habilitation à #{authorization.definition.name}")
-      expect(subject.css('p').text).to include(authorization.name)
+      expect(subject.css('p').text).to include(authorization.name.to_s)
       expect(subject.css('.fr-badge').text).to include("Habilitation n°#{authorization.id}")
       expect(subject.css('.fr-badge').text).to include(authorization.state)
     end
@@ -14,13 +54,11 @@ RSpec.describe AuthorizationHeaderComponent, type: :component do
 
   describe 'badge styling' do
     context 'when authorization is active' do
-      subject { render_inline(described_class.new(authorization: active_authorization, current_user: active_authorization.applicant)) }
-
-      let(:active_authorization) { create(:authorization) }
+      subject { render_inline(component) }
 
       before do
-        active_authorization.state = 'active'
-        active_authorization.revoked = false
+        authorization.state = 'active'
+        authorization.revoked = false
       end
 
       it 'shows a success badge' do
@@ -29,12 +67,11 @@ RSpec.describe AuthorizationHeaderComponent, type: :component do
     end
 
     context 'when authorization is revoked' do
-      subject { render_inline(described_class.new(authorization: revoked_authorization, current_user: revoked_authorization.applicant)) }
-
-      let(:revoked_authorization) { create(:authorization) }
+      subject { render_inline(component) }
 
       before do
-        revoked_authorization.revoked = true
+        authorization.state = 'revoked'
+        authorization.revoked = true
       end
 
       it 'shows an error badge' do
@@ -43,12 +80,10 @@ RSpec.describe AuthorizationHeaderComponent, type: :component do
     end
 
     context 'when authorization is obsolete' do
-      subject { render_inline(described_class.new(authorization: obsolete_authorization, current_user: obsolete_authorization.applicant)) }
-
-      let(:obsolete_authorization) { create(:authorization) }
+      subject { render_inline(component) }
 
       before do
-        obsolete_authorization.state = 'obsolete'
+        authorization.state = 'obsolete'
       end
 
       it 'shows a plain badge' do

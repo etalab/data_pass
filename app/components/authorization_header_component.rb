@@ -9,12 +9,10 @@ class AuthorizationHeaderComponent < ApplicationComponent
   private
 
   def state_badge_html_class
-    if authorization.revoked?
-      'fr-badge--error'
-    elsif authorization.state == 'obsolete'
-      ''
-    elsif authorization.state == 'active'
-      'fr-badge--success'
+    case authorization.state
+    when 'revoked' then 'fr-badge--error'
+    when 'active' then 'fr-badge--success'
+    else ''
     end
   end
 end
