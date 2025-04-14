@@ -11,7 +11,10 @@ class CreateAuthorizationFromSnapshot
   def perform
     snapshot = find_closest_snapshot
 
+    authorization_id = Authorization.where(id: authorization_request.id).any? ? nil : authorization_request.id
+
     authorization = Authorization.new(
+      id: authorization_id,
       request_id: authorization_request.id,
       applicant: authorization_request.applicant,
       created_at: event_datetime,
