@@ -8,7 +8,7 @@
     authorization_request_organization: @authorization_request.organization.raison_sociale,
     authorization_request_contact_kind: contact_kind,
     authorization_request_name: @authorization_request.name,
-    authorization_request_definition_name: @authorization_request.definition.name,
+    authorization_request_definition_name: @authorization_request.definition.name_with_stage,
     authorization_request_url: authorization_request_url(@authorization_request),
     data_pass_support_email: t("mailer.shared.support.email")
   ).html_safe
