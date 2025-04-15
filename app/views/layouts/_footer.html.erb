@@ -27,22 +27,16 @@
     <div class="fr-footer__bottom">
       <ul class="fr-footer__bottom-list">
         <li class="fr-footer__bottom-item">
-          <a class="fr-footer__bottom-link" href="#">Plan du site</a>
-        </li>
-        <li class="fr-footer__bottom-item">
           <%= link_to "Accessibilité: non conforme", accessibilite_path, class: "fr-footer__bottom-link" %>
         </li>
         <li class="fr-footer__bottom-item">
-          <a class="fr-footer__bottom-link" href="<%= '#' %>">Mentions légales</a>
+          <a class="fr-footer__bottom-link" href="<%= '#' %>">Politique de confidentialité</a>
         </li>
         <li class="fr-footer__bottom-item">
-          <a class="fr-footer__bottom-link" href="#">Données personnelles</a>
+          <%= link_to "Conditions Générales d'Utilisation", "cgus/cgu_datapass.pdf", class: "fr-footer__bottom-link" %>
         </li>
         <li class="fr-footer__bottom-item">
-          <a class="fr-footer__bottom-link" href="<%= '#' %>">Conditions Générales d'Utilisation</a>
-        </li>
-        <li class="fr-footer__bottom-item">
-          <a class="fr-footer__bottom-link" href="<%= '#' %>">Statistiques publiques</a>
+          <a class="fr-footer__bottom-link" href="<%= stats_path %>">Statistiques publiques</a>
         </li>
       </ul>
       <div class="fr-footer__bottom-copy">
