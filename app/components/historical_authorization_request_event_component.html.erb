@@ -34,7 +34,7 @@
     <% if external_link? %>
       <div class="fr-mt-1w">
         <%= render LinkComponent.new(
-          text: t('instruction.authorization_request_events.authorization_request_event.approve.view_authorization'),
+          text: t('instruction.authorization_request_events.authorization_request_event.approve.view_authorization', authorization: authorization_request_event.authorization.id).html_safe,
           path: authorization_request_authorization_path(
             authorization_request_event.authorization_request,
             authorization_request_event.authorization

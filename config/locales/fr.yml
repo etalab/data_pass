@@ -774,7 +774,7 @@ fr:
         approve:
           message_summary: |
             <strong>%{user_full_name}</strong> a approuvé la demande.
-          view_authorization: Consulter l'habilitation
+          view_authorization: Consulter l'habilitation N°<strong>%{authorization}</strong>.
         request_changes:
           message_summary: |
             <strong>%{user_full_name}</strong> a demandé des modifications sur la demande :
