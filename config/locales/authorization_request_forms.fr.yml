@@ -738,7 +738,7 @@ fr:
           'Années sur lesquelles porte votre demande': |
             En cochant la case <strong>Avant-dernière année de revenu, si la dernière année de revenu est indisponible (N-1 ou N-2)</strong>,
             vous optez pour récupérer les informations de l’avant-dernière année, lorsque celles de la dernière année ne sont pas disponibles.
-            Cette option n’est pas possible si vous souhaitez des données fournies uniquement par la ressource facture /avis IR.
+            Les données fournies uniquement par la ressource facture/avis IR ne seront pas accessibles. Pour en savoir plus, merci de consulter la documentation fonctionnelle.
           'Situation du foyer fiscal': |
             En cochant la case <strong>Données fiscales au 31/12 en cas de décès d'un contribuable marié ou pacsé</strong>,
             vous optez pour récupérer les données fiscales de la période après décès d’un contribuable marié ou pacsé (à défaut aucune donnée fiscale n’est transmise).
@@ -749,7 +749,7 @@ fr:
 
       specific_requirements:
         content: |
-          Les partenaires ayant convenu avec la DGFiP un périmètre de données particulier peuvent rattacher leur expression de besoin listant l’ensemble des données strictement nécessaires à leur cas d’usage.
+          Les partenaires ayant convenu avec la DGFiP un périmètre de données particulier peuvent rattacher leur expression de besoin listant les données supplémentaires et strictement nécessaires à leur cas d’usage.
           Si vous n’avez pas encore contacté la DGFiP, vous pouvez les joindre à l’adresse
           <a href="mailto:dtnum.donnees.demande-acces@dgfip.finances.gouv.fr" target="_blank">dtnum.donnees.demande-acces@dgfip.finances.gouv.fr</a>
 
