@@ -36,10 +36,18 @@ class TransferAuthorizationRequestsController < AuthenticatedUserController
 
   def transfer_authorization_request_params
     {
-      new_applicant_email: to_new_applicant == :to_another ? params[:authorization_request_transfer][:to] : current_user.email,
+      new_applicant_email:,
       authorization_request: @authorization_request,
       user: current_user,
     }
+  end
+
+  def new_applicant_email
+    if to_new_applicant == :to_another
+      params.dig(:authorization_request_transfer, :to)
+    else
+      current_user.email
+    end
   end
 
   def extract_authorization_request
