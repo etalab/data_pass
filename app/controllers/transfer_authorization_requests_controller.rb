@@ -36,7 +36,7 @@ class TransferAuthorizationRequestsController < AuthenticatedUserController
 
   def transfer_authorization_request_params
     {
-      new_applicant_email: to_new_applicant == :to_another ? params[:authorization_request_transfer][:to] : current_user.email,
+      new_applicant_email: to_new_applicant == :to_another ? params.expect(authorization_request_transfer: [:to])[:to] : current_user.email,
       authorization_request: @authorization_request,
       user: current_user,
     }
