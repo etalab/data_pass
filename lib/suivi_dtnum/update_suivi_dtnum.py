@@ -67,16 +67,16 @@ def process_demande(demande, input_content, output_content):
         else:
             add_new_rows(demande, output_content)
     else:
-        update_rows(matching_rows, demande)
+        add_updated_rows(matching_rows, demande)
 
 
 def add_new_rows(demande, output_content):
     print(f"New demande #{demande['id']}", end="", flush=True)
     habilitations = api_client.get_habilitations_of_demande(demande['id'])
-    print(habilitations)
+    
 
 
-def update_rows(rows, demande):
+def add_updated_rows(rows, demande):
     print(".", end="", flush=True)
     
         
