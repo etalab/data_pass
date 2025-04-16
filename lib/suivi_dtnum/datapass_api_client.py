@@ -93,3 +93,10 @@ class DataPassApiClient:
             dict: The demande data or None if not found
         """
         return self._make_authenticated_request(f'/api/v1/demandes/{demande_id}') 
+    
+    def get_habilitations_of_demande(self, demande_id):
+        """
+        Get all habilitations of a demande
+        """
+        return self._make_authenticated_request(f'/api/v1/demandes/{demande_id}/habilitations')
+    

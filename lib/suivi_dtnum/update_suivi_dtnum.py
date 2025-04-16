@@ -31,6 +31,7 @@ def read_original_file():
         print("Continuing with API testing only...")
         return None
 
+
 def get_all_demandes(api_client):
     print("Iterating on all demandes from datapass...")
     
@@ -54,6 +55,7 @@ def get_all_demandes(api_client):
     print(f"Total demandes retrieved: {len(all_demandes)}")
     return all_demandes
 
+
 def process_demande(demande, input_content, output_content):
     # Find rows matching the demande id - convert column values to int for comparison
     matching_rows = input_content[input_content['N° Demande v2'] == demande['id']]
@@ -70,10 +72,14 @@ def process_demande(demande, input_content, output_content):
 
 def add_new_rows(demande, output_content):
     print(f"New demande #{demande['id']}", end="", flush=True)
+    habilitations = api_client.get_habilitations_of_demande(demande['id'])
+    print(habilitations)
 
-def update_rows(matching_rows, demande):
+
+def update_rows(rows, demande):
     print(".", end="", flush=True)
-    # print(f"Updating rows for demande #{demande['id']}")
+    
+        
 
 
 def generate_output_content(all_demandes, input_content):
