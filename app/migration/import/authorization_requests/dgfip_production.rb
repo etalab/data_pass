@@ -5,18 +5,57 @@ module Import::AuthorizationRequests::DGFIPProduction
     json = Kredis.json "authorization_request_data_#{enrollment_row['previous_enrollment_id']}"
     json.value = @authorization_request.data
 
-    ActiveRecord::Base.transaction do
-      authorization_request.update!(type: "AuthorizationRequest::#{self.class.to_s.split('::')[-1].sub('Attributes', '')}", state: 'draft', id: enrollment_row['id'])
-
-      Authorization.where(request_id: enrollment_row['previous_enrollment_id']).update_all(request_id: enrollment_row['id'])
-    end
-
     attachments = ActiveStorage::Attachment.where(record_type: 'AuthorizationRequest', record_id: enrollment_row['previous_enrollment_id'])
-
     json = Kredis.json "authorization_request_attachments_#{enrollment_row['previous_enrollment_id']}"
     json.value = { 'ids' => attachments.pluck(:id) }
 
-    attachments.update_all(record_id: enrollment_row['id'])
+    new_type = "AuthorizationRequest::#{self.class.to_s.split('::')[-1].sub('Attributes', '')}"
+    new_id = enrollment_row['id']
+    previous_id = enrollment_row['previous_enrollment_id']
+
+    sql = <<-SQL
+    BEGIN;
+    SET session_replication_role = 'replica';
+
+    UPDATE authorization_requests
+    SET type = '#{new_type}',
+        state = 'draft',
+        id = #{new_id}
+    WHERE id = #{previous_id};
+
+    UPDATE messages
+    SET authorization_request_id = #{new_id}
+    WHERE authorization_request_id = #{previous_id};
+
+    UPDATE authorization_request_changelogs
+    SET authorization_request_id = #{new_id}
+    WHERE authorization_request_id = #{previous_id};
+
+    UPDATE instructor_modification_requests
+    SET authorization_request_id = #{new_id}
+    WHERE authorization_request_id = #{previous_id};
+
+    UPDATE denial_of_authorizations
+    SET authorization_request_id = #{new_id}
+    WHERE authorization_request_id = #{previous_id};
+
+    UPDATE revocation_of_authorizations
+    SET authorization_request_id = #{new_id}
+    WHERE authorization_request_id = #{previous_id};
+
+    UPDATE authorization_request_transfers
+    SET authorization_request_id = #{new_id}
+    WHERE authorization_request_id = #{previous_id};
+
+    UPDATE authorizations
+    SET request_id = #{new_id}
+    WHERE request_id = #{previous_id};
+
+    SET session_replication_role = 'origin';
+    COMMIT;
+    SQL
+
+    ActiveRecord::Base.connection.execute(sql)
 
     @authorization_request = AuthorizationRequest.find(enrollment_row['id'])
   rescue ActiveRecord::RecordNotFound => e
