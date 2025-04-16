@@ -58,20 +58,23 @@ def get_all_demandes(api_client):
 
 
 def process_demande(demande, output_content):
-    habilitations = api_client.get_habilitations_of_demande(demande['id'])
-    
+    habilitations = demande['authorizations']
+
     if len(habilitations) == 0:
         add_demande_row(demande, output_content)
     else:
         for habilitation in habilitations:
-            add_habilitation_row(habilitation, output_content)
+            add_habilitation_row(demande, habilitation, output_content)
         # TODO if demande is in some specific status, add another row for the demande.
+        if demande['state'] in ["submitted", "changes_requested", "refused"]:
+            add_demande_row(demande, output_content)
+
 
 def add_demande_row(demande, output_content):
     print(".", end="", flush=True)
     output_content.append(demande)
 
-def add_habilitation_row(habilitation, output_content):
+def add_habilitation_row(demande, habilitation, output_content):
     print(".", end="", flush=True)
     output_content.append(habilitation)
     
