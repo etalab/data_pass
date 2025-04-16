@@ -1,5 +1,8 @@
 #!/bin/bash
-scp watchdoge:dump-all-2025-04-16.sql ./lib/suivi_dtnum/sources/
+
+dump_file="dump-all-2025-04-16-1.sql"
+
+scp watchdoge:$dump_file ./lib/suivi_dtnum/sources/
 
 # This script imports a SQL dump into the development database in Docker
 # It first drops all existing tables and then imports the dump
@@ -8,8 +11,11 @@ scp watchdoge:dump-all-2025-04-16.sql ./lib/suivi_dtnum/sources/
 docker compose exec db psql -U postgres -d development -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
 
 # Copy the SQL dump to the container and import it
-docker compose cp "lib/suivi_dtnum/sources/dump-all-2025-04-16.sql" db:/tmp/dump.sql
+docker compose cp "lib/suivi_dtnum/sources/$dump_file" db:/tmp/dump.sql
 docker compose exec db psql -U postgres -d development -f /tmp/dump.sql
 
 # Note: You might see errors about role "skelz0r" not existing, but these can be safely ignored
 # as they don't affect the data import. The tables will be owned by the postgres user instead.
+
+# Execute create_dgfip_developer_user.rb through Rails console in the web container
+# docker compose exec web bundle exec rails runner lib/suivi_dtnum/create_dgfip_developer_user.rb
