@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   layout :custom_layout
 
-  default_form_builder DSFRFormBuilder
+  default_form_builder DsfrFormBuilder
 
   helper ActiveLinks
 

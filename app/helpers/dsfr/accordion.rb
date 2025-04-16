@@ -1,4 +1,4 @@
-module DSFR::Accordion
+module Dsfr::Accordion
   def dsfr_accordion(title, content, options = {})
     options[:id] ||= SecureRandom.uuid
 

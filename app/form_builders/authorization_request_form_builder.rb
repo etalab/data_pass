@@ -1,5 +1,5 @@
-class AuthorizationRequestFormBuilder < DSFRFormBuilder
-  include DSFR::Accordion
+class AuthorizationRequestFormBuilder < DsfrFormBuilder
+  include Dsfr::Accordion
 
   def hint_for(attribute)
     wording_for("#{attribute}.hint") ||

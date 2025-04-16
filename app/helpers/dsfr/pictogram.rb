@@ -1,4 +1,4 @@
-module DSFR::Pictogram
+module Dsfr::Pictogram
   def dsfr_pictogram(image_name)
     template.content_tag(:svg, aria: { hidden: true }, class: 'fr-artwork', viewBox: '0 0 80 80', width: '80px', height: '80px') do
       %w[decorative minor major].map { |type|

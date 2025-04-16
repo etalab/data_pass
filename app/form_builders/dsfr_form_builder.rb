@@ -1,4 +1,4 @@
-class DSFRFormBuilder < ActionView::Helpers::FormBuilder
+class DsfrFormBuilder < ActionView::Helpers::FormBuilder
   include Rails.application.routes.url_helpers
 
   def dsfr_text_field(attribute, opts = {})

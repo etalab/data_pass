@@ -1,8 +1,8 @@
 module ApplicationHelper
-  include DSFR::Stepper
-  include DSFR::Accordion
-  include DSFR::Modal
-  include DSFR::Pictogram
+  include Dsfr::Stepper
+  include Dsfr::Accordion
+  include Dsfr::Modal
+  include Dsfr::Pictogram
 
   def obfuscate(text)
     stars = '*' * (text.length - 5)
