@@ -58,3 +58,8 @@ app/migration/.hubee_config.yml
 /dump.rdb
 .deploy_token
 .aider*
+
+# Ignore "DTNUM suivi" sources and python virtual env
+lib/suivi_dtnum/sources/*
+lib/suivi_dtnum/__pycache__
+venv/
