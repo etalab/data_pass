@@ -72,7 +72,7 @@ module AuthorizationCore::Scopes
   end
 
   def recently_created?
-    created_at && created_at > Date.new(2025, 0o4, 10) # Ajustez cette date selon votre calendrier
+    created_at && created_at > Date.new(2025, 4, 10) # TODO: Ajuster la date
   end
 
   private
