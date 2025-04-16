@@ -5,7 +5,7 @@ class Import::AuthorizationRequests::APISFiPSandboxAttributes < Import::Authoriz
     affect_contacts
     affect_potential_legal_document
     affect_potential_specific_requirements
-    # affect_form_uid
+    affect_form_uid
     handle_incompatible_scopes_error
 
     affect_duree_conservation_donnees_caractere_personnel_justification
@@ -19,7 +19,7 @@ class Import::AuthorizationRequests::APISFiPSandboxAttributes < Import::Authoriz
   def demarche_to_form_uid
     case enrollment_row['demarche']
     when 'aides_sociales_facultatives'
-      'api-sfip-sandbox-aides-sociales-facultatives-sandbox'
+      'api-sfip-aides-sociales-facultatives-sandbox'
     when 'cantine_scolaire'
       'api-sfip-cantine-scolaire-sandbox'
     when 'activites_periscolaires'
