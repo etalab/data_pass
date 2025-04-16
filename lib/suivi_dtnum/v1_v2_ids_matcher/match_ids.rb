@@ -31,7 +31,9 @@ module SuiviDtnum
               
               if authorizations.any?
                 # Create a row for each authorization
-                authorizations.each do |authorization|
+                # Actually we do it only when the authorization has the same id as the v1_id, cause the others should not exit
+                # (it's getting fixed in the next dump)
+                authorizations.where(id: v1_id).each do |authorization|
                   csv << [v1_id, request.id, authorization.id]
                 end
               else
