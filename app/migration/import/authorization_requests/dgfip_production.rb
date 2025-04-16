@@ -5,7 +5,11 @@ module Import::AuthorizationRequests::DGFIPProduction
     json = Kredis.json "authorization_request_data_#{enrollment_row['previous_enrollment_id']}"
     json.value = @authorization_request.data
 
-    authorization_request.update!(type: "AuthorizationRequest::#{self.class.to_s.split('::')[-1].sub('Attributes', '')}", state: 'draft', id: enrollment_row['id'])
+    ActiveRecord::Base.transaction do
+      authorization_request.update!(type: "AuthorizationRequest::#{self.class.to_s.split('::')[-1].sub('Attributes', '')}", state: 'draft', id: enrollment_row['id'])
+
+      Authorization.where(request_id: enrollment_row['previous_enrollment_id']).update_all(request_id: enrollment_row['id'])
+    end
 
     attachments = ActiveStorage::Attachment.where(record_type: 'AuthorizationRequest', record_id: enrollment_row['previous_enrollment_id'])
 
