@@ -95,6 +95,9 @@ api_impot_particulier:
     - name: Indicateur ISF/IFI
       value: dgfip_indiIFI
       group: Agrégats fiscaux
+    - name: Revenu Brut Global (RBG)
+      value: dgfip_rbg
+      group: Agrégats fiscaux
     - name: Catégorie 1 - Salaires, pensions, rentes
       value: dgfip_RevDecl_Cat1_Tspr
       group: Revenus catégoriels - revenus déclarés (avant application des abattements, etc...)
