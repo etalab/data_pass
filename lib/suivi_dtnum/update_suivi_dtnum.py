@@ -1,3 +1,4 @@
+import json
 import sys
 import os
 import pandas as pd
@@ -56,28 +57,24 @@ def get_all_demandes(api_client):
     return all_demandes
 
 
-def process_demande(demande, input_content, output_content):
-    # Find rows matching the demande id - convert column values to int for comparison
-    matching_rows = input_content[input_content['N° Demande v2'] == demande['id']]
-
-    if matching_rows.empty:
-        # If the demande is archived, it's ok to not find it in the input file
-        if demande['state'] == "archived":
-            return
-        else:
-            add_new_rows(demande, output_content)
-    else:
-        add_updated_rows(matching_rows, demande)
-
-
-def add_new_rows(demande, output_content):
-    print(f"New demande #{demande['id']}", end="", flush=True)
+def process_demande(demande, output_content):
     habilitations = api_client.get_habilitations_of_demande(demande['id'])
     
+    if len(habilitations) == 0:
+        add_demande_row(demande, output_content)
+    else:
+        for habilitation in habilitations:
+            add_habilitation_row(habilitation, output_content)
+        # TODO if demande is in some specific status, add another row for the demande.
 
-
-def add_updated_rows(rows, demande):
+def add_demande_row(demande, output_content):
     print(".", end="", flush=True)
+    output_content.append(demande)
+
+def add_habilitation_row(habilitation, output_content):
+    print(".", end="", flush=True)
+    output_content.append(habilitation)
+    
     
         
 
@@ -87,9 +84,14 @@ def generate_output_content(all_demandes, input_content):
     print("Processing demandes...")
 
     for demande in all_demandes:
-        process_demande(demande, input_content, output_content)
+        process_demande(demande, output_content)
 
     print("Done.")
+
+    # TODO merge input content with output content
+    # the key is the combo id demande + id habilitation
+    # careful : sometimes we will have a demande who became an habilitation, in that case the combo is not ok
+    # we should have a way to know if the habilitation is a new one or an updated one
     
     return output_content
 
@@ -116,6 +118,10 @@ if __name__ == "__main__":
         # Get all demandes using pagination
         all_demandes = get_all_demandes(api_client)
         output_content = generate_output_content(all_demandes, input_content)
-        print(len(output_content))
+        print(f"#{len(output_content)} rows generated")
+        
+        # print the output content in a file
+        with open("lib/suivi_dtnum/sources/test_output_content.json", "w") as f:
+            json.dump(output_content, f)
     else:
         print("Failed to obtain API token from datapass")
