@@ -1,0 +1,10 @@
+<% if namespace?(:instruction) %>
+  <% if document.unsafe? %>
+    <a aria-disabled="true"><%= document.filename %></a>
+  <% else %>
+    <%= link_to document.filename, url_for(document), target: '_blank', class: %w[fr-link--icon-left fr-icon-file-pdf-fill] %>
+  <% end %>
+  <%= f.dsfr_malware_badge document, class: 'fr-ml-1w' %>
+<% else %>
+  <%= link_to document.filename, url_for(document), target: '_blank', class: %w[fr-link--icon-left fr-icon-file-pdf-fill] %>
+<% end %>
