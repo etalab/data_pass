@@ -8,4 +8,6 @@ class API::V1::AuthorizationRequestSerializer < ActiveModel::Serializer
     :created_at,
     :last_submitted_at,
     :last_validated_at
+
+  has_many :authorizations, serializer: API::V1::AuthorizationSerializer, key: :habilitations
 end
