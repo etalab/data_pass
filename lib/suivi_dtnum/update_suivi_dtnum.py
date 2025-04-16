@@ -41,7 +41,7 @@ def get_all_demandes(api_client):
     limit = 100
     
     while True:
-        demandes_page = api_client.get_demandes(limit=limit, offset=offset, states=["submitted", "changes_requested", "validated", "refused", "archived", "revoked"])
+        demandes_page = api_client.get_demandes(limit=limit, offset=offset, states=["submitted", "changes_requested", "validated", "refused", "revoked"])
         if not demandes_page or len(demandes_page) == 0:
             break
             
@@ -92,7 +92,7 @@ def generate_output_content(all_demandes, input_content):
     # the key is the combo id demande + id habilitation
     # careful : sometimes we will have a demande who became an habilitation, in that case the combo is not ok
     # we should have a way to know if the habilitation is a new one or an updated one
-    
+
     return output_content
 
 if __name__ == "__main__":
