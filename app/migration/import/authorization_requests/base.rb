@@ -100,6 +100,10 @@ class Import::AuthorizationRequests::Base
     authorization_request.form_uid = form_uid
   end
 
+  def demarche_to_form_uid
+    fail NoImplementedError
+  end
+
   def find_team_member_by_type(type)
     team_member = team_members.find { |team_member| team_member['type'] == type }
 
