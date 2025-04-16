@@ -11,6 +11,7 @@ class AuthorizationDefinition::Scope
     @link = properties.fetch(:link, nil)
     @included = properties.fetch(:included, false)
     @disabled = properties.fetch(:disabled, false)
+    @deprecated = properties.fetch(:deprecated, false)
   end
 
   def included?
@@ -19,6 +20,10 @@ class AuthorizationDefinition::Scope
 
   def disabled?
     @disabled
+  end
+
+  def deprecated?
+    @deprecated
   end
 
   def link?

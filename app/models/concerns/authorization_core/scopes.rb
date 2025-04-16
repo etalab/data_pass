@@ -48,6 +48,8 @@ module AuthorizationCore::Scopes
   def available_scopes
     @available_scopes ||= if displayed_scope_values
                             definition.scopes.select { |scope| displayed_scope_values.include?(scope.value) }
+                          elsif new_record? || recently_created?
+                            definition.scopes.reject(&:deprecated?)
                           else
                             definition.scopes
                           end
@@ -61,8 +63,16 @@ module AuthorizationCore::Scopes
     @disabled_scopes ||= definition.scopes.select { |scope| disabled_scope_values.include?(scope.value) }
   end
 
+  def deprecated_scopes
+    @deprecated_scopes ||= definition.scopes.select(&:deprecated?)
+  end
+
   def legacy_scope_values
     scopes - available_scopes.map(&:value)
+  end
+
+  def recently_created?
+    created_at && created_at > Date.new(2025, 0o4, 10) # Ajustez cette date selon votre calendrier
   end
 
   private
