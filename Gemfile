@@ -11,6 +11,7 @@ gem 'bootsnap', require: false
 gem 'csv'
 gem 'doorkeeper'
 gem 'doorkeeper-i18n'
+gem 'dsfr-view-components'
 gem 'draper'
 gem 'emailable'
 gem 'importmap-rails', '~> 1.0'

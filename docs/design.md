@@ -17,30 +17,4 @@ fonctionne assez bien (grid, button etc etc .. tout ça fonctionne)
 
 ## Installation de la dernière version du DSFR
 
-Avant toute chose, [téléchargez la dernière version
-disponible](https://github.com/GouvernementFR/dsfr/releases)
-
-Il y a quelques manipulations à respecter pour que cela fonctionne:
-
-Concernant le CSS:
-
-1. Remplacer le fichier `app/assets/stylesheets/dsfr.css` par le fichier du même nom dans `dist/dsfr`
-2. Chercher l'ensemble des déclarations des font-face de Marianne et Spectral
-   dans le fichier, et le supprimer. En effet c'est le fichier
-   `app/assets/stylesheets/dsfr-fonts.scss` qui s'occupe de déclarer les fonts
-
-Concernant le js:
-
-1. Remplacer le fichier `app/javascripts/dsfr.module.js` par le fichier
-   du même nom dans `dist/dsfr`
-
-Concernant les [icônes](https://www.systeme-de-design.gouv.fr/elements-d-interface/fondamentaux-techniques/icone):
-
-1. Remplacer le fichier `app/assets/stylesheets/dsfr-utility.css` par le fichier `dist/utility/utility.css`
-2. Remplacer le dossier `app/assets/icons` par le dossier `dist/icons`
-3. Dans les fichiers `dsfr-utility.css` et `dsfr.css`, remplacez tous les liens
-   des icones de `../icons/whatever` en `icons/whatever`
-
-Concernant les [pictogrammes](https://www.systeme-de-design.gouv.fr/elements-d-interface/fondamentaux-techniques/pictogramme):
-
-1. Remplacer le dossier `app/assets/images/artwork` par le dossier `dist/artwork`
+Il suffit de bump la version de `dsfr-assets`
