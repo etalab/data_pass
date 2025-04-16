@@ -1,18 +1,18 @@
 module Dsfr::Accordion
-  def dsfr_accordion(title, content, options = {})
+  def legacy_dsfr_accordion(title, content, options = {})
     options[:id] ||= SecureRandom.uuid
 
     template.content_tag(:section, class: (options[:class] || []) << 'fr-accordion') do
       [
-        dsfr_accordion_title(title, options),
-        dsfr_accordion_content(content, options)
+        legacy_dsfr_accordion_title(title, options),
+        legacy_dsfr_accordion_content(content, options)
       ].join.html_safe
     end
   end
 
   private
 
-  def dsfr_accordion_title(title, options)
+  def legacy_dsfr_accordion_title(title, options)
     template.content_tag(:h3, class: 'fr-accordion__title') do
       template.button_tag(
         title,
@@ -26,7 +26,7 @@ module Dsfr::Accordion
     end
   end
 
-  def dsfr_accordion_content(content, options)
+  def legacy_dsfr_accordion_content(content, options)
     template.content_tag(:div, class: 'fr-collapse', id: options[:id]) do
       content.html_safe
     end

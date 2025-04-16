@@ -30,7 +30,7 @@ class AuthorizationRequestFormBuilder < DsfrFormBuilder
     return unless info_wording
     return unless %i[title content].all? { |key| info_wording[key].present? }
 
-    dsfr_accordion(
+    legacy_dsfr_accordion(
       info_wording[:title],
       info_wording[:content],
       {
@@ -45,7 +45,7 @@ class AuthorizationRequestFormBuilder < DsfrFormBuilder
 
     contacts ||= @object.contact_types
 
-    dsfr_accordion(
+    legacy_dsfr_accordion(
       I18n.t('authorization_request_forms.default.contacts.info.title'),
       contacts.reduce('') do |content, contact|
         contact_content = I18n.t("authorization_request_forms.#{@object.model_name.element}.#{contact}.info", default: nil) ||
