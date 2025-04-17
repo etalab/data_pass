@@ -8,16 +8,34 @@ RSpec.describe 'API: Authorization requests' do
       get '/api/v1/demandes', headers: { 'Authorization' => "Bearer #{access_token.token}" }
     end
 
+    context 'when there is not a developer role associated to the user' do
+      it 'responds with an empty array' do
+        get_index
+
+        expect(response).to have_http_status(:ok)
+        expect(response.parsed_body).to be_empty
+      end
+    end
+
     context 'when there is at least one authorization request associated to one of the user developer role' do
-      let!(:valid_authorization_request) { create(:authorization_request, :api_entreprise) }
+      let!(:valid_draft_authorization_request) { create(:authorization_request, :api_entreprise) }
+      let!(:valid_revoked_authorization_request) { create(:authorization_request, :api_entreprise, :revoked) }
       let!(:invalid_authorization_request) { create(:authorization_request, :api_particulier) }
 
       it 'reponds OK with data' do
         get_index
 
         expect(response).to have_http_status(:ok)
+        expect(response.parsed_body.count).to eq(2)
+        expect(response.parsed_body[0]['id']).to eq(valid_draft_authorization_request.id)
+      end
+
+      it 'returns only requests with the given state' do
+        get '/api/v1/demandes?state[]=revoked', headers: { 'Authorization' => "Bearer #{access_token.token}" }
+
+        expect(response).to have_http_status(:ok)
         expect(response.parsed_body.count).to eq(1)
-        expect(response.parsed_body[0]['id']).to eq(valid_authorization_request.id)
+        expect(response.parsed_body[0]['id']).to eq(valid_revoked_authorization_request.id)
       end
     end
   end
@@ -29,7 +47,7 @@ RSpec.describe 'API: Authorization requests' do
 
     let(:id) { authorization_request.id }
 
-    context 'with valid authorization request' do
+    context 'when the user is a developer for the authorization request' do
       let(:authorization_request) { create(:authorization_request, :api_entreprise) }
 
       it 'responds OK with data' do
@@ -40,7 +58,7 @@ RSpec.describe 'API: Authorization requests' do
       end
     end
 
-    context 'with invalid authorization request' do
+    context 'when the user is not a developer for the authorization request' do
       let(:authorization_request) { create(:authorization_request, :api_particulier) }
 
       it 'responds 404' do

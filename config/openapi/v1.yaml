@@ -74,33 +74,71 @@ components:
 
     Demande:
       description: Demande d'habilitation
-      allOf:
-        - type: object
-          properties:
-            id:
-              type: integer
-              example: 51
-              description: Identifiant technique de la demande
-            public_id:
-              type: string
-              format: uuid
-              example: 33e18ac4-8dc3-456d-8985-01871d80fec2
-              description: Identifiant public de la demande. A l'aide de cet identifiant il est possible de consulter la demande sans être connecté. Le chemin est `/public/demandes/{public_id}`.
-            applicant:
-              $ref: '#/components/schemas/Utilisateur'
-            organization:
-              $ref: '#/components/schemas/Organisation'
-        - $ref: '#/components/schemas/BaseDemande'
+      properties:
+        id:
+          type: integer
+          example: 123
+          description: Identifiant unique de la demande
+        public_id:
+          type: string
+          example: "ABC123"
+          description: Identifiant public de la demande
+        type:
+          type: string
+          example: "AuthorizationRequest"
+          description: Type de la demande
+        state:
+          type: string
+          example: "submitted"
+          description: État actuel de la demande
+          enum:
+            - draft
+            - submitted
+            - changes_requested
+            - validated
+            - refused
+            - archived
+            - revoked
+        form_uid:
+          type: string
+          example: "formulaire_api"
+          description: Identifiant du formulaire utilisé pour la demande
+        data:
+          type: object
+          description: Données spécifiques associées à la demande
+          additionalProperties: true
+        created_at:
+          type: string
+          format: date-time
+          description: Date de création de la demande
+        last_submitted_at:
+          type: string
+          format: date-time
+          description: Date de la dernière soumission de la demande
+          nullable: true
+        last_validated_at:
+          type: string
+          format: date-time
+          description: Date de la dernière validation de la demande
+          nullable: true
+      required:
+        - id
+        - public_id
+        - type
+        - state
+        - form_uid
+        - data
+        - created_at
 
     CreationDemande:
       description: Payload pour la création d'une demande d'habilitation
       allOf:
-        - $ref: '#/components/schemas/BaseDemande'
+        - $ref: "#/components/schemas/BaseDemande"
         - type: object
           properties:
             organization_siret:
               type: string
-              example: '13002526500013'
+              example: "13002526500013"
               description: Numéro de siret de l'organisation a associer à la demande
             applicant_email:
               type: string
@@ -124,35 +162,48 @@ components:
 
     Utilisateur:
       type: object
-      description: Utilisateur. L'ensemble des informations, excepté l'identifiant, sont issue de ProConnect.
+      description: Utilisateur associé à la demande ou à l'événement
       properties:
         id:
           type: integer
           example: 42
           description: Identifiant technique de l'utilisateur
+        uid:
+          type: string
+          example: "external-uid-123"
+          description: Identifiant externe de l'utilisateur
         email:
           type: string
           example: utilisateur@gouv.fr
-          description: Courriel de l'utilisateur
-        family_name:
-          type: string
-          example: Dupont
-          description: Nom de famille de l'utilisateur
-          nullable: true
+          description: Adresse email de l'utilisateur
         given_name:
           type: string
-          example: Jean
+          example: "Jean"
           description: Prénom de l'utilisateur
+          nullable: true
+        family_name:
+          type: string
+          example: "Dupont"
+          description: Nom de famille de l'utilisateur
+          nullable: true
+        phone_number:
+          type: string
+          example: "+33123456789"
+          description: Numéro de téléphone de l'utilisateur
           nullable: true
         job_title:
           type: string
-          example: Maire
-          description: Intitulé de poste de l'utilisateur
+          example: "Responsable informatique"
+          description: Titre du poste de l'utilisateur
           nullable: true
+      required:
+        - id
+        - email
+        - uid
 
     Organisation:
       type: object
-      description: Organisation. Les informations renvoyées sont tiré de l'INSEE et de ProConnect.
+      description: Organisation associée à la demande
       properties:
         id:
           type: integer
@@ -160,13 +211,16 @@ components:
           description: Identifiant technique de l'organisation
         siret:
           type: string
-          example: '13002526500013'
-          description: Numéro de siret de l'organisation
+          example: "13002526500013"
+          description: Numéro de SIRET de l'organisation
         raison_sociale:
           type: string
-          description: Raison sociale de l'organisation. Cette information provient de l'INSEE
-          example: Direction interministerielle du numerique (DINUM)
+          example: Direction interministérielle du numerique (DINUM)
+          description: Raison sociale de l'organisation
           nullable: true
+      required:
+        - id
+        - siret
 
     Definition:
       type: object
@@ -196,7 +250,7 @@ components:
           description: Scopes disponibles (vide si aucun scope)
           type: array
           items:
-            $ref: '#/components/schemas/ScopeDefinition'
+            $ref: "#/components/schemas/ScopeDefinition"
 
     ScopeDefinition:
       type: object
@@ -237,7 +291,85 @@ components:
           example:
             intitule: "Intitulé par défaut"
             description: "Description par défaut"
-
+    ServiceProvider:
+      type: object
+      description: Prestataire de service associé à la demande
+      properties:
+        id:
+          type: integer
+          example: 456
+          description: Identifiant unique du prestataire de service
+        siret:
+          type: string
+          example: "12345678901234"
+          description: Numéro SIRET du prestataire
+        type:
+          type: string
+          example: "SoftwareVendor"
+          description: Type de prestataire de service
+      required:
+        - id
+        - siret
+        - type
+    Habilitation:
+      type: object
+      description: Habilitation associée à une demande
+      properties:
+        id:
+          type: integer
+          example: 789
+          description: Identifiant unique de l'habilitation
+        slug:
+          type: string
+          example: "habilitation-123"
+          description: Slug de l'habilitation
+        form_uid:
+          type: string
+          example: "formulaire_api"
+          description: Identifiant du formulaire utilisé pour l'habilitation
+        revoked:
+          type: boolean
+          example: false
+          description: Indique si l'habilitation a été révoquée
+        state:
+          type: string
+          example: "active"
+          description: État de l'habilitation
+        created_at:
+          type: string
+          format: date-time
+          description: Date de création de l'habilitation
+        data:
+          type: object
+          description: Données spécifiques associées à l'habilitation
+          additionalProperties: true
+      required:
+        - id
+        - slug
+        - form_uid
+        - revoked
+        - state
+        - created_at
+    AuthorizationRequestEvent:
+      type: object
+      description: Événement associé à une demande d'habilitation
+      properties:
+        id:
+          type: integer
+          example: 1011
+          description: Identifiant unique de l'événement
+        name:
+          type: string
+          example: "validation"
+          description: Nom de l'événement
+        created_at:
+          type: string
+          format: date-time
+          description: Date et heure de l'événement
+      required:
+        - id
+        - name
+        - created_at
     ErrorResponse:
       type: object
       properties:
@@ -271,6 +403,36 @@ components:
               - status
               - title
               - detail
+    Me:
+      type: object
+      description: Informations sur l'utilisateur courant associé au jeton OAuth2
+      properties:
+        id:
+          type: integer
+          example: 42
+          description: Identifiant technique de l'utilisateur
+        email:
+          type: string
+          example: utilisateur@gouv.fr
+          description: Adresse email de l'utilisateur
+        family_name:
+          type: string
+          example: "Dupont"
+          description: Nom de famille de l'utilisateur
+          nullable: true
+        given_name:
+          type: string
+          example: "Jean"
+          description: Prénom de l'utilisateur
+          nullable: true
+        job_title:
+          type: string
+          example: "Responsable informatique"
+          description: Titre du poste de l'utilisateur
+          nullable: true
+      required:
+        - id
+        - email
 
   responses:
     NotFoundError:
@@ -278,30 +440,47 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: "#/components/schemas/ErrorResponse"
 
     UnauthorizedError:
       description: Accès non autorisé - le jeton n'est pas valide ou absent.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: "#/components/schemas/ErrorResponse"
 
     ForbiddenError:
       description: Accès interdit - les scopes associés au jeton ne permettent pas d'effectuer cette action.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: "#/components/schemas/ErrorResponse"
 
     ValidationError:
       description: La sauvegarde ou la mise à jour a échoué.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: "#/components/schemas/ErrorResponse"
 
 paths:
+  /me:
+    get:
+      summary: Récupérer les informations de l'utilisateur courant
+      tags:
+        - Utilisateur
+      security:
+        - OAuth2: [public]
+      responses:
+        200:
+          description: Informations de l'utilisateur
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Me"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+
   /demandes:
     get:
       summary: Récupérer la liste des demandes d'habilitations associé aux droits développeur de l'utilisateur
@@ -327,6 +506,15 @@ paths:
             type: integer
             default: 0
             minimum: 0
+        - name: state
+          in: query
+          description: "Filtrer les demandes par statut (ex: draft, submitted, validated, refused, archived, revoked). Peut être un tableau (ex: state[]=draft&state[]=submitted)"
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+              enum: [draft, submitted, changes_requested, validated, refused, archived, revoked]
       responses:
         200:
           description: Liste des demandes récupérée avec succès
@@ -335,13 +523,13 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Demande'
+                  $ref: "#/components/schemas/Demande"
         401:
-          $ref: '#/components/responses/UnauthorizedError'
+          $ref: "#/components/responses/UnauthorizedError"
         403:
-          $ref: '#/components/responses/ForbiddenError'
+          $ref: "#/components/responses/ForbiddenError"
         404:
-          $ref: '#/components/responses/NotFoundError'
+          $ref: "#/components/responses/NotFoundError"
     post:
       summary: Créer une nouvelle demande d'habilitation
       tags:
@@ -354,7 +542,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreationDemande'
+              $ref: "#/components/schemas/CreationDemande"
       responses:
         201:
           description: Demande d'habilitation créée avec succès
@@ -362,13 +550,13 @@ paths:
             application/json:
               schema:
                 allOf:
-                 - $ref: '#/components/schemas/Demande'
+                  - $ref: "#/components/schemas/Demande"
         401:
-          $ref: '#/components/responses/UnauthorizedError'
+          $ref: "#/components/responses/UnauthorizedError"
         403:
-          $ref: '#/components/responses/ForbiddenError'
+          $ref: "#/components/responses/ForbiddenError"
         422:
-          $ref: '#/components/responses/ValidationError'
+          $ref: "#/components/responses/ValidationError"
   /demandes/{id}:
     get:
       summary: Récupérer une demande d'habilitation
@@ -390,9 +578,9 @@ paths:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/Demande'
+                  - $ref: "#/components/schemas/Demande"
         404:
-          $ref: '#/components/responses/NotFoundError'
+          $ref: "#/components/responses/NotFoundError"
     patch:
       summary: Mettre à jour une demande d'habilitation
       tags:
@@ -412,20 +600,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MiseAJourDemande'
+              $ref: "#/components/schemas/MiseAJourDemande"
       responses:
         200:
           description: Demande d'habilitation mise à jour avec succès
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Demande'
+                $ref: "#/components/schemas/Demande"
         401:
-          $ref: '#/components/responses/UnauthorizedError'
+          $ref: "#/components/responses/UnauthorizedError"
         403:
-          $ref: '#/components/responses/ForbiddenError'
+          $ref: "#/components/responses/ForbiddenError"
         422:
-          $ref: '#/components/responses/ValidationError'
+          $ref: "#/components/responses/ValidationError"
   /definitions:
     get:
       tags:
@@ -443,11 +631,11 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Definition'
+                  $ref: "#/components/schemas/Definition"
         401:
-          $ref: '#/components/responses/UnauthorizedError'
+          $ref: "#/components/responses/UnauthorizedError"
         403:
-          $ref: '#/components/responses/ForbiddenError'
+          $ref: "#/components/responses/ForbiddenError"
   /definitions/{id}/formulaires:
     get:
       summary: Récupérer la liste des formulaires pour une définition
@@ -476,3 +664,65 @@ paths:
           $ref: '#/components/responses/UnauthorizedError'
         403:
           $ref: '#/components/responses/ForbiddenError'
+
+  /demandes/{id}/habilitations:
+    get:
+      summary: Récupérer les habilitations associées à une demande d'habilitation
+      tags:
+        - Habilitations
+      security:
+        - OAuth2: [read_authorization_requests]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Identifiant de la demande d'habilitation
+          schema:
+            type: string
+      responses:
+        200:
+          description: Liste des habilitations associées à la demande
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Habilitation'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+
+  /demandes/{id}/events:
+    get:
+      summary: Récupérer les événements associés à une demande d'habilitation
+      tags:
+        - Événements
+      security:
+        - OAuth2: [read_authorization_requests]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Identifiant de la demande d'habilitation
+          schema:
+            type: string
+      responses:
+        200:
+          description: Liste des événements associés à la demande
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AuthorizationRequestEvent'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+
+
