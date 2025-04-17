@@ -49,7 +49,7 @@ module AuthorizationCore::Scopes
     @available_scopes ||= if displayed_scope_values
                             definition.scopes.select { |scope| displayed_scope_values.include?(scope.value) }
                           elsif new_record? || recently_created?
-                            definition.scopes.reject(&:deprecated?)
+                            definition.scopes.reject { |scope| scope.deprecated_for?(self) }
                           else
                             definition.scopes
                           end
@@ -67,12 +67,17 @@ module AuthorizationCore::Scopes
     @deprecated_scopes ||= definition.scopes.select(&:deprecated?)
   end
 
+  def scope_deprecated?(scope_value)
+    scope = definition.scopes.find { |s| s.value == scope_value }
+    scope&.deprecated_for?(self)
+  end
+
   def legacy_scope_values
     scopes - available_scopes.map(&:value)
   end
 
   def recently_created?
-    created_at && created_at > Date.new(2025, 4, 10) # TODO: Ajuster la date
+    created_at.present?
   end
 
   private
