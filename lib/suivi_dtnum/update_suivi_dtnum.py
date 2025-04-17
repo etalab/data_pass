@@ -58,36 +58,59 @@ def get_all_demandes(api_client):
 
 
 def process_demande(demande, output_content):
-    habilitations = demande['authorizations']
+    habilitations = demande['habilitations']
 
     if len(habilitations) == 0:
-        add_demande_row(demande, output_content)
+        output_content = add_demande_row(demande, output_content)
     else:
         for habilitation in habilitations:
-            add_habilitation_row(demande, habilitation, output_content)
-        # TODO if demande is in some specific status, add another row for the demande.
+            output_content = add_habilitation_row(demande, habilitation, output_content)
+        # If the demande is still being instructed, add another row for the demande.
         if demande['state'] in ["submitted", "changes_requested", "refused"]:
-            add_demande_row(demande, output_content)
+            output_content = add_demande_row(demande, output_content)
+    
+    return output_content
 
 
 def add_demande_row(demande, output_content):
     print(".", end="", flush=True)
-    output_content.append(demande)
+    row = format_demande_row(demande)
+    return pd.concat([output_content, pd.DataFrame([row])], ignore_index=True)
 
 def add_habilitation_row(demande, habilitation, output_content):
     print(".", end="", flush=True)
-    output_content.append(habilitation)
+    row = format_habilitation_row(demande, habilitation)
+    return pd.concat([output_content, pd.DataFrame([row])], ignore_index=True)
+
+
+def format_demande_row(demande):
+    row = {}
+    row["N° Demande v2"] = demande["id"]
     
-    
+    # Add the DataPass v1 ID if available in raw_attributes_from_v1
+    if "raw_attributes_from_v1" in demande and demande["raw_attributes_from_v1"]:
+        try:
+            raw_attributes = json.loads(demande["raw_attributes_from_v1"])
+            if "id" in raw_attributes:
+                row["N° DataPass v1"] = raw_attributes["id"]
+        except json.JSONDecodeError:
+            print(f"Warning: Could not parse raw_attributes_from_v1 for demande {demande['id']}")
         
+    return row
+
+def format_habilitation_row(demande, habilitation):
+    row = format_demande_row(demande)
+    row["N° Habilitation v2"] = habilitation["id"]
+
+    return row
 
 
 def generate_output_content(all_demandes, input_content):
-    output_content = []
+    output_content = pd.DataFrame()
     print("Processing demandes...")
 
     for demande in all_demandes:
-        process_demande(demande, output_content)
+        output_content = process_demande(demande, output_content)
 
     print("Done.")
 
@@ -123,8 +146,7 @@ if __name__ == "__main__":
         output_content = generate_output_content(all_demandes, input_content)
         print(f"#{len(output_content)} rows generated")
         
-        # print the output content in a file
-        with open("lib/suivi_dtnum/sources/test_output_content.json", "w") as f:
-            json.dump(output_content, f)
+        # print the output content in a csv file
+        output_content.to_csv("lib/suivi_dtnum/sources/test_output_content.csv", index=False)
     else:
         print("Failed to obtain API token from datapass")
