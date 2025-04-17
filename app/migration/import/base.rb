@@ -83,6 +83,7 @@ class Import::Base
 
         begin
           e.authorization_request.save(validate: false)
+          @models << e.authorization_request
         rescue => e
           print 's'
           next
