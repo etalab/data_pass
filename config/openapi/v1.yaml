@@ -121,6 +121,17 @@ components:
           format: date-time
           description: Date de la dernière validation de la demande
           nullable: true
+        organization:
+          $ref: '#/components/schemas/Organisation'
+        applicant:
+          $ref: '#/components/schemas/Utilisateur'
+        service_provider:
+          $ref: '#/components/schemas/ServiceProvider'
+        habilitations:
+          type: array
+          description: Liste des habilitations associées à la demande
+          items:
+            $ref: '#/components/schemas/Habilitation'
       required:
         - id
         - public_id

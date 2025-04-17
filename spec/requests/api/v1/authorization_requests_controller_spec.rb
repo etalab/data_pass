@@ -37,6 +37,33 @@ RSpec.describe 'API: Authorization requests' do
         expect(response.parsed_body.count).to eq(1)
         expect(response.parsed_body[0]['id']).to eq(valid_revoked_authorization_request.id)
       end
+
+      context 'when authorization request has authorizations' do
+        let!(:authorization) { create(:authorization, request: valid_draft_authorization_request) }
+
+        it 'includes habilitations in the response' do
+          get_index
+
+          expect(response).to have_http_status(:ok)
+          expect(response.parsed_body[0]['habilitations']).to be_present
+          expect(response.parsed_body[0]['habilitations'].first['id']).to eq(authorization.id)
+        end
+
+        it 'includes correct habilitation attributes' do
+          get_index
+
+          auth_response = response.parsed_body[0]['habilitations'].first
+          expect(auth_response).to include('id', 'slug', 'form_uid', 'state', 'created_at')
+        end
+      end
+
+      context 'when authorization request has no authorizations' do
+        it 'returns an empty habilitations array' do
+          get_index
+
+          expect(response.parsed_body[0]['habilitations']).to eq([])
+        end
+      end
     end
   end
 
@@ -55,6 +82,26 @@ RSpec.describe 'API: Authorization requests' do
 
         expect(response).to have_http_status(:ok)
         expect(response.parsed_body['id']).to eq(authorization_request.id)
+      end
+
+      context 'when authorization request has authorizations' do
+        let!(:authorization) { create(:authorization, request: authorization_request) }
+
+        it 'includes habilitations in the response' do
+          get_show
+
+          expect(response).to have_http_status(:ok)
+          expect(response.parsed_body['habilitations']).to be_present
+          expect(response.parsed_body['habilitations'].first['id']).to eq(authorization.id)
+        end
+      end
+
+      context 'when authorization request has no authorizations' do
+        it 'returns an empty habilitations array' do
+          get_show
+
+          expect(response.parsed_body['habilitations']).to eq([])
+        end
       end
     end
 

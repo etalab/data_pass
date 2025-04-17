@@ -3,6 +3,7 @@ class API::V1::AuthorizationRequestsController < API::V1Controller
 
   def index
     authorization_requests = AuthorizationRequest
+      .includes(:authorizations)
       .where(type: current_user_authorization_request_types)
       .merge(state_filter)
       .offset(params[:offset])
@@ -10,12 +11,14 @@ class API::V1::AuthorizationRequestsController < API::V1Controller
 
     render json: authorization_requests,
       each_serializer: API::V1::AuthorizationRequestSerializer,
+      include: ['habilitations'],
       status: :ok
   end
 
   def show
     render json: @authorization_request,
       serializer: API::V1::AuthorizationRequestSerializer,
+      include: ['habilitations'],
       status: :ok
   end
 
