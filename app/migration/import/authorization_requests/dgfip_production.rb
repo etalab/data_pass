@@ -1,6 +1,16 @@
 module Import::AuthorizationRequests::DGFIPProduction
   def migrate_from_sandbox_to_production!
-    @authorization_request = AuthorizationRequest.find(enrollment_row['previous_enrollment_id'])
+    authorization_request = AuthorizationRequest.find_by(id: enrollment_row['previous_enrollment_id'])
+
+    return if authorization_request.blank?
+
+    @authorization_request = authorization_request
+
+    new_type = "AuthorizationRequest::#{self.class.to_s.split('::')[-1].sub('Attributes', '')}"
+    new_id = enrollment_row['id']
+    previous_id = enrollment_row['previous_enrollment_id']
+
+    return if @authorization_request.type == new_type
 
     json = Kredis.json "authorization_request_data_#{enrollment_row['previous_enrollment_id']}"
     json.value = @authorization_request.data
@@ -8,10 +18,6 @@ module Import::AuthorizationRequests::DGFIPProduction
     attachments = ActiveStorage::Attachment.where(record_type: 'AuthorizationRequest', record_id: enrollment_row['previous_enrollment_id'])
     json = Kredis.json "authorization_request_attachments_#{enrollment_row['previous_enrollment_id']}"
     json.value = { 'ids' => attachments.pluck(:id) }
-
-    new_type = "AuthorizationRequest::#{self.class.to_s.split('::')[-1].sub('Attributes', '')}"
-    new_id = enrollment_row['id']
-    previous_id = enrollment_row['previous_enrollment_id']
 
     sql = <<-SQL
     BEGIN;

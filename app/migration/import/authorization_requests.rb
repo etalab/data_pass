@@ -40,7 +40,7 @@ class Import::AuthorizationRequests < Import::Base
       log("DataPass: https://datapass.api.gouv.fr/#{enrollment_row['target_api'].gsub('_', '-')}/#{enrollment_row['id']} (status: #{enrollment_row['status']})")
       log("Errors: #{authorization_request.errors.full_messages.join("\n")}")
 
-      byebug
+      raise Import::AuthorizationRequests::Base::SkipRow.new(:unknown, id: authorization_request.id, target_api: enrollment_row['target_api'], authorization_request:, status: enrollment_row['status'])
     rescue ActiveStorage::IntegrityError => e
       byebug
     ensure
@@ -225,18 +225,19 @@ class Import::AuthorizationRequests < Import::Base
   end
 
   def import?(enrollment_row)
+    options[:global_enrollment_ids_to_import_for_events] << enrollment_row['id'] if more_recent_ongoing_production?(enrollment_row) && %w[refused archived].exclude?(enrollment_row['status'])
+
     whitelisted_enrollment?(enrollment_row) ||
       (
         !old_unused?(enrollment_row) &&
-          !ignore?(enrollment_row['id']) &&
-          !more_recent_validated_production?(enrollment_row) &&
+          !more_recent_ongoing_production?(enrollment_row) &&
           from_target_api_to_type(enrollment_row).present?
       )
   end
 
-  def more_recent_validated_production?(enrollment_row)
-    enrollment_row['target_api'] =~ /_production$/ &&
-      database.execute("select id from enrollments where status = 'validated' and copied_from_enrollment_id = ?", enrollment_row['id']).any?
+  def more_recent_ongoing_production?(enrollment_row)
+    enrollment_row['target_api'].match?(/_production$/) &&
+      database.execute("select id from enrollments where status in ('validated', 'draft', 'changes_requested', 'submitted') and previous_enrollment_id = ? and id > ?", [enrollment_row['previous_enrollment_id'], enrollment_row['id']]).any?
   end
 
   def whitelisted_enrollment?(enrollment_row)
@@ -247,15 +248,6 @@ class Import::AuthorizationRequests < Import::Base
     %w[refused revoked changes_requested draft archived].include?(enrollment_row['status']) &&
       enrollment_row['last_validated_at'].blank? &&
       DateTime.parse(enrollment_row['created_at']) < DateTime.new(2022, 1, 1)
-  end
-
-  def ignore?(enrollment_id)
-    [
-      # Draft ~3 mois, boîte fermée
-      '54815',
-      # Irrelevant
-      '1124',
-    ].include?(enrollment_id)
   end
 
   def find_or_build_authorization_request(enrollment_row)

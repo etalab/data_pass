@@ -3,10 +3,14 @@ class Import::AuthorizationRequestEvents < Import::Base
   include UserLegacyUtils
 
   def extract(event_row)
-    authorization_request = options[:authorization_request] || AuthorizationRequest.find(event_row['enrollment_id'])
+    authorization_request = extract_authorization_request(event_row)
+    # byebug if authorization_request.blank?
+    return if authorization_request.blank?
 
     case event_row['name']
     when 'create'
+      return if authorization_request.definition.stage.exists? && authorization_request.definition.stage.type == 'production'
+
       create_event(event_row, entity: authorization_request)
     when 'update'
       if from_admin?(event_row)
@@ -69,6 +73,7 @@ class Import::AuthorizationRequestEvents < Import::Base
       create_event(event_row, entity: RevocationOfAuthorization.create!(authorization_request:, reason: event_row['comment'] || default_reason))
     when 'copy'
       return if authorization_request.copied_from_request.blank?
+      return if authorization_request.definition.stage.exists? && authorization_request.definition.stage.type == 'prodcution'
 
       create_event(event_row, entity: authorization_request)
     end
@@ -99,10 +104,19 @@ class Import::AuthorizationRequestEvents < Import::Base
 
     query = 'SELECT raw_data FROM events'
     query += ' where (1=1)'
-    query += " and authorization_request_id in (#{options[:valid_authorization_request_ids].join(',')})" if options[:valid_authorization_request_ids].present?
+    query += " and authorization_request_id in (#{build_authorization_request_ids})" if options[:valid_authorization_request_ids].present?
     query += " and #{options[where_key]}" if options[where_key].present?
     query += ' ORDER BY created_at ASC'
+
     database.execute(query)
+  end
+
+  def build_authorization_request_ids
+    (
+      options[:valid_authorization_request_ids].concat(
+        options[:global_enrollment_ids_to_import_for_events],
+      )
+    ).join(',')
   end
 
   def create_event(event_row, extra_params = {})
@@ -200,6 +214,19 @@ class Import::AuthorizationRequestEvents < Import::Base
     else
       raise "Unknown authorization request type #{authorization_request.type} for instruction"
     end
+  end
+
+  def extract_authorization_request(event_row)
+    AuthorizationRequest.find_by(id: event_row['enrollment_id']) ||
+      AuthorizationRequest.where(
+        id: database.execute(
+          'select id from enrollments where previous_enrollment_id = ? and id > ?',
+          database.execute(
+            'select previous_enrollment_id from enrollments where id = ?',
+            [event_row['enrollment_id']]
+          )[0] + [event_row['enrollment_id']]
+        ).flatten
+      ).first
   end
 
   def default_reason
