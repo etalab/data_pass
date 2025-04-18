@@ -4,6 +4,7 @@ import os
 import pandas as pd
 from datetime import datetime
 from datapass_api_client import DataPassApiClient
+import datapass_data_correspondances as data_correspondances
 
 # Define paths relative to the script's directory
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -85,6 +86,8 @@ def add_habilitation_row(demande, habilitation, output_content):
 def format_demande_row(demande):
     row = {}
     row["N° Demande v2"] = demande["id"]
+    row["N° Habilitation v2"] = ""
+    row["API"] = data_correspondances.new_api_names[demande["type"]]
     return row
 
 def format_habilitation_row(demande, habilitation):
