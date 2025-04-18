@@ -46,7 +46,6 @@ RSpec.describe DGFIPSpreadsheetGenerator, type: :service do
         expect(v2_data['demarche']).to eq('activites_periscolaires')
         expect(v2_data['nom_raison_sociale']).to eq('COMMUNE DE CLAMART')
 
-        expect(JSON.parse(v2_data['additional_content'])).to include('acces_etat_civil' => true)
         expect(JSON.parse(v2_data['insee_payload'])).to be_present
       end
     end

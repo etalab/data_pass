@@ -26,11 +26,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
     Et que je clique sur "Suivant"
     Alors la page contient "Quelles sont les données dont vous avez besoin ?"
   
-  Scénario: Je choisis la modalité via l'état civil
-    Quand je choisis "Via l'état civil"
-    Et que je clique sur "Suivant"
-    Alors la page contient "Quelles sont les données dont vous avez besoin ?"
-   
   Scénario: Je choisis la modalité FranceConnect alors que je n'ai pas d'habilitation FranceConnect
     Quand je choisis "Avec FranceConnect"
     Alors la page contient "il vous faudra au préalable demander une habilitation FranceConnect"

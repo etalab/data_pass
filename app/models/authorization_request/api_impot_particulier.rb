@@ -11,7 +11,10 @@ class AuthorizationRequest::APIImpotParticulier < AuthorizationRequest
 
   VOLUMETRIES = {
     '50 appels / minute': 50,
+    '100 appels / minute': 100,
     '200 appels / minute': 200,
+    '500 appels / minute': 500,
+    '750 appels / minute': 750,
     '1000 appels / minute': 1000,
   }.freeze
 
