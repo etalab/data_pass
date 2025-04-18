@@ -35,7 +35,7 @@ v1_ids.each do |v1_id|
           matched_ids << [v1_id, request.id, authorization.id]
         # log the others as extra, they should not exist
         else
-          extra_authorizations_ids << [v1_id, request.id, authorization.id]
+          extra_authorizations_ids << [v1_id, request.id, authorization.id, request.type]
         end
 
         # If no authorization was found with the same id as the v1_id, create a row with empty habilitation_v2_id to not skip a row
@@ -80,7 +80,7 @@ if extra_authorizations_ids.any?
   puts "Found #{extra_authorizations_ids.length} extra authorizations ids -> see extra_authorizations_ids.csv"
 
   CSV.open('lib/suivi_dtnum/v1_v2_ids_matcher/extra_authorizations_ids.csv', 'w') do |csv|
-    csv << ['datapass_v1_id', 'demande_v2_id', 'habilitation_v2_id']
+    csv << ['datapass_v1_id', 'demande_v2_id', 'habilitation_v2_id', 'demande_type']
     extra_authorizations_ids.each do |row|
       csv << row
     end
