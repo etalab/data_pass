@@ -9,7 +9,6 @@ import datapass_data_correspondances as data_correspondances
 # Define paths relative to the script's directory
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 ORIGINAL_FILE_PATH = os.path.join(SCRIPT_DIR, "sources", "Fichier de suivi DTNUM 1404 with v2 ids.ods")
-MATCHED_IDS_PATH = os.path.join(SCRIPT_DIR, "v1_v2_ids_matcher", "matched_ids.csv")
 OUTPUT_FILE_PATH = os.path.join(SCRIPT_DIR, "sources", f"Fichier de suivi DTNUM with v2 ids {datetime.now().strftime('%Y%m%d')}.ods")
 
 def read_original_file():
