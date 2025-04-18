@@ -1,8 +1,8 @@
 #!/bin/bash
 
-dump_file="dump-all-2025-04-16-1.sql"
+dump_file="dump-all-2025-04-18.sql"
 
-scp watchdoge:$dump_file ./lib/suivi_dtnum/sources/
+# scp watchdoge:$dump_file ./lib/suivi_dtnum/sources/
 
 # This script imports a SQL dump into the development database in Docker
 # It first drops all existing tables and then imports the dump
@@ -18,4 +18,4 @@ docker compose exec db psql -U postgres -d development -f /tmp/dump.sql
 # as they don't affect the data import. The tables will be owned by the postgres user instead.
 
 # Execute create_dgfip_developer_user.rb through Rails console in the web container
-# docker compose exec web bundle exec rails runner lib/suivi_dtnum/create_dgfip_developer_user.rb
+docker compose exec web bundle exec rails runner lib/suivi_dtnum/create_dgfip_developer_user.rb
