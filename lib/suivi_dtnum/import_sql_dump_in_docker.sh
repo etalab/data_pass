@@ -2,7 +2,7 @@
 
 dump_file="dump-all-2025-04-18.sql"
 
-# scp watchdoge:$dump_file ./lib/suivi_dtnum/sources/
+scp watchdoge:$dump_file ./lib/suivi_dtnum/sources/
 
 # This script imports a SQL dump into the development database in Docker
 # It first drops all existing tables and then imports the dump
@@ -16,6 +16,9 @@ docker compose exec db psql -U postgres -d development -f /tmp/dump.sql
 
 # Note: You might see errors about role "skelz0r" not existing, but these can be safely ignored
 # as they don't affect the data import. The tables will be owned by the postgres user instead.
+
+# Generate the matched ids file
+docker compose exec web bundle exec rails runner lib/suivi_dtnum/v1_v2_ids_matcher/match_ids.rb
 
 # Execute create_dgfip_developer_user.rb through Rails console in the web container
 docker compose exec web bundle exec rails runner lib/suivi_dtnum/create_dgfip_developer_user.rb
