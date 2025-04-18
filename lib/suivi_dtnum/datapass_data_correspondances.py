@@ -1,4 +1,4 @@
-new_api_names = {
+api_names = {
 "AuthorizationRequest::APICprProAdelie":"CPR PRO",
 "AuthorizationRequest::APIEContacts":"E-Contacts",
 "AuthorizationRequest::APIENSUDocuments":"Ensu documents",
@@ -32,4 +32,40 @@ new_api_names = {
 "AuthorizationRequest::APIRobfSandbox":"ROBF",
 "AuthorizationRequest::APISFiPSandbox":"SFiP",
 "AuthorizationRequest::APISatelitSandbox":"Satelit"
+}
+
+api_environnments = {
+"AuthorizationRequest::APICprProAdelie":"Production ",
+"AuthorizationRequest::APIEContacts":"Production",
+"AuthorizationRequest::APIENSUDocuments":"Production",
+"AuthorizationRequest::APIEPro":"Production",
+"AuthorizationRequest::APIFicoba":"Production",
+"AuthorizationRequest::APIHermes":"Production",
+"AuthorizationRequest::APIImpotParticulier":"Production",
+"AuthorizationRequest::APIINFINOE":"Production",
+"AuthorizationRequest::APIMire":"Production",
+"AuthorizationRequest::APIOcfi":"Production",
+"AuthorizationRequest::APIOpale":"Production",
+"AuthorizationRequest::APIR2P":"Production",
+"AuthorizationRequest::APIRial":"Production",
+"AuthorizationRequest::APIRobf":"Production",
+"AuthorizationRequest::APISFiP":"Production",
+"AuthorizationRequest::APISatelit":"Production",
+
+"AuthorizationRequest::APICprProAdelieSandbox":"Sandbox",
+"AuthorizationRequest::APIEContactsSandbox":"Sandbox",
+"AuthorizationRequest::APIENSUDocumentsSandbox":"Sandbox",
+"AuthorizationRequest::APIEProSandbox":"Sandbox",
+"AuthorizationRequest::APIFicobaSandbox":"Sandbox",
+"AuthorizationRequest::APIHermesSandbox":"Sandbox",
+"AuthorizationRequest::APIImpotParticulierSandbox":"Sandbox",
+"AuthorizationRequest::APIINFINOESandbox":"Sandbox",
+"AuthorizationRequest::APIMireSandbox":"Sandbox",
+"AuthorizationRequest::APIOcfiSandbox":"Sandbox",
+"AuthorizationRequest::APIOpaleSandbox":"Sandbox",
+"AuthorizationRequest::APIR2PSandbox":"Sandbox",
+"AuthorizationRequest::APIRialSandbox":"Sandbox",
+"AuthorizationRequest::APIRobfSandbox":"Sandbox",
+"AuthorizationRequest::APISFiPSandbox":"Sandbox",
+"AuthorizationRequest::APISatelitSandbox":"Sandbox"
 }
