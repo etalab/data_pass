@@ -89,6 +89,9 @@ def format_demande_row(demande):
     row["API"] = data_correspondances.api_names[demande["type"]]
     row["Environnement"] = data_correspondances.api_environnments[demande["type"]]
     row["Type"] = "Avenant" if demande["reopening"] else "Initial"
+    row["Nom projet"] = demande["data"]["intitule"] if "intitule" in demande["data"] else ""
+    row["Description projet"] = demande["data"]["description"] if "description" in demande["data"] else ""
+    row["Modèle pré-rempli / cas d'usage"] = data_correspondances.match_cas_dusage(demande["form_uid"])
     return row
 
 def format_habilitation_row(demande, habilitation):
@@ -141,6 +144,6 @@ if __name__ == "__main__":
         print(f"#{len(output_content)} rows generated")
         
         # print the output content in a csv file
-        output_content.to_csv("lib/suivi_dtnum/sources/test_output_content.csv", index=False)
+        output_content.to_csv("lib/suivi_dtnum/sources/test_output_content.csv", index=False, quoting=1)
     else:
         print("Failed to obtain API token from datapass")

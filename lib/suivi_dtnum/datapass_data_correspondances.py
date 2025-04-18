@@ -1,3 +1,5 @@
+import re
+
 api_names = {
 "AuthorizationRequest::APICprProAdelie":"CPR PRO",
 "AuthorizationRequest::APIEContacts":"E-Contacts",
@@ -69,3 +71,42 @@ api_environnments = {
 "AuthorizationRequest::APISFiPSandbox":"Sandbox",
 "AuthorizationRequest::APISatelitSandbox":"Sandbox"
 }
+
+# Regex pattern-based matching for use cases
+cas_dusage_patterns = [
+    # CITP patterns
+    (r'activites-periscolaires', 'CITP - activités périscolaires'),
+    (r'aides-sociales-facultatives', 'CITP - aides sociales facultatives'),
+    (r'apicantine-scolaire', 'CITP - cantine scolaire'),
+    (r'apicarte-transport', 'CITP - carte de transport'),
+    (r'apiplace-creche', 'CITP - place en crèche'),
+    (r'apistationnement-residentiel', 'CITP - stationnement résidentiel'),
+    
+    # Récupération de données fiscales
+    (r'api-impot-particulier$', 'Récupération de données fiscales'),
+    
+    # Ordonnateur
+    (r'api-r2p-ordonnateur', 'Ordonnateur - fiabilisation des bases tiers (collectivités)'),
+    
+    # Envoi automatisé des écritures
+    (r'api-infinoe-envoi-automatise-ecritures', 'Envoi automatisé des écritures'),
+    
+    # Default case (when no specific pattern matches)
+    (r'.*', 'Saisie libre')
+]
+
+def match_cas_dusage(key):
+    # Try to find a match in the patterns
+    for pattern, value in cas_dusage_patterns:
+        if re.match(pattern, key):
+            return value
+    
+    # If no match found, return default
+    return 'Saisie libre'
+
+
+
+# Missing values that aren't covered by patterns yet:
+# - 'migration_api_particulier': 'Migration SVAIR',
+# - 'eligibilite_lep': 'Éligibilité LEP',
+# - 'quotient_familial': 'Calcul du quotient familial',
