@@ -77,14 +77,23 @@ class Import::Base
         extract(row)
         print '.'
       rescue Import::AuthorizationRequests::Base::SkipRow => e
-        print 's'
         options[:skipped] << e
 
-        e.authorization_request.save(validate: false) if ENV['SKIP_VALIDATION'] == 'true'
-      rescue => e
-        log(" ERROR: #{e.message}")
-        log(e.backtrace.join("\n"))
+        e.authorization_request.dirty_from_v1 = true if e.authorization_request.respond_to?(:dirty_from_v1)
 
+        begin
+          e.authorization_request.save(validate: false)
+          @models << e.authorization_request
+        rescue => e
+          print 's'
+          next
+        end
+
+        print 'i'
+      rescue => e
+        log(" ERROR ##{row['id']} #{e.message}\n")
+
+        log(e.backtrace.join("\n"))
         byebug if ENV['LOCAL'].present?
       end
     end

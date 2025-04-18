@@ -1,15 +1,35 @@
-class Import::AuthorizationRequests::APIRialSandboxAttributes < Import::AuthorizationRequests::DGFIPSandboxAttributes
+class Import::AuthorizationRequests::ProConnectIdentityProviderAttributes < Import::AuthorizationRequests::Base
   def affect_data
     affect_attributes
     affect_scopes
+    affect_modalities
     affect_contacts
     affect_potential_legal_document
-    affect_potential_specific_requirements
     affect_duree_conservation_donnees_caractere_personnel_justification
 
     return if authorization_request.valid?
 
     skip_row!(:invalid_cadre_juridique) if authorization_request.errors[:cadre_juridique_url].any?
+  end
+
+  def affect_modalities
+    authorization_request.modalities ||= []
+
+    {
+      'acces_rie' => 'rie',
+      'acces_internet' => 'internet',
+    }.each do |from, to|
+      next unless additional_content[from]
+
+      authorization_request.modalities = authorization_request.modalities.concat([to])
+    end
+
+    authorization_request.modalities = authorization_request.modalities.uniq
+
+    return if authorization_request.modalities.present?
+    return if %w[refused validated].exclude?(authorization_request.state)
+
+    skip_row!("no_modalities_in_status_#{authorization_request.state}")
   end
 
   def affect_contacts

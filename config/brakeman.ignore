@@ -30,7 +30,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/lib/seeds.rb",
-      "line": 19,
+      "line": 18,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "ActiveRecord::Base.connection.execute(\"TRUNCATE TABLE #{table} CASCADE;\")",
       "render_path": null,
@@ -127,6 +127,29 @@
       "note": ""
     },
     {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "8765b017fff5aa9b7531ac3a0e5bec12210d05bf6433cb7980f642a2a6862978",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/migration/import/authorization_requests/dgfip_production.rb",
+      "line": 64,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.execute(\"    BEGIN;\\n    SET session_replication_role = 'replica';\\n\\n    UPDATE authorization_requests\\n    SET type = '#{\"AuthorizationRequest::#{self.class.to_s.split(\"::\")[-1].sub(\"Attributes\", \"\")}\"}',\\n        state = 'draft',\\n        id = #{enrollment_row[\"id\"]}\\n    WHERE id = #{enrollment_row[\"previous_enrollment_id\"]};\\n\\n    UPDATE messages\\n    SET authorization_request_id = #{enrollment_row[\"id\"]}\\n    WHERE authorization_request_id = #{enrollment_row[\"previous_enrollment_id\"]};\\n\\n    UPDATE authorization_request_changelogs\\n    SET authorization_request_id = #{enrollment_row[\"id\"]}\\n    WHERE authorization_request_id = #{enrollment_row[\"previous_enrollment_id\"]};\\n\\n    UPDATE instructor_modification_requests\\n    SET authorization_request_id = #{enrollment_row[\"id\"]}\\n    WHERE authorization_request_id = #{enrollment_row[\"previous_enrollment_id\"]};\\n\\n    UPDATE denial_of_authorizations\\n    SET authorization_request_id = #{enrollment_row[\"id\"]}\\n    WHERE authorization_request_id = #{enrollment_row[\"previous_enrollment_id\"]};\\n\\n    UPDATE revocation_of_authorizations\\n    SET authorization_request_id = #{enrollment_row[\"id\"]}\\n    WHERE authorization_request_id = #{enrollment_row[\"previous_enrollment_id\"]};\\n\\n    UPDATE authorization_request_transfers\\n    SET authorization_request_id = #{enrollment_row[\"id\"]}\\n    WHERE authorization_request_id = #{enrollment_row[\"previous_enrollment_id\"]};\\n\\n    UPDATE authorizations\\n    SET request_id = #{enrollment_row[\"id\"]}\\n    WHERE request_id = #{enrollment_row[\"previous_enrollment_id\"]};\\n\\n    SET session_replication_role = 'origin';\\n    COMMIT;\\n\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Import::AuthorizationRequests::DGFIPProduction",
+        "method": "migrate_from_sandbox_to_production!"
+      },
+      "user_input": "self.class.to_s.split(\"::\")[-1].sub(\"Attributes\", \"\")",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
       "fingerprint": "8cc63b2aec121ed7f45c7ec76737bedfa7dff8eee97c70cb7edce800ca1acd8b",
@@ -190,7 +213,7 @@
       "check_name": "Execute",
       "message": "Possible command injection",
       "file": "app/migration/main_import.rb",
-      "line": 42,
+      "line": 51,
       "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
       "code": "`psql -d #{ActiveRecord::Base.connection.current_database} -f #{file}`",
       "render_path": null,

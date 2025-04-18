@@ -6,13 +6,18 @@ class Import::AuthorizationRequests::Base
   include LocalDatabaseUtils
 
   class AbstractRow  < StandardError
-    attr_reader :kind, :id, :target_api, :authorization_request
+    attr_reader :kind, :id, :target_api, :authorization_request, :status
 
-    def initialize(kind = nil, id:, target_api:, authorization_request:)
+    def initialize(kind = nil, id:, target_api:, authorization_request:, status:)
       @kind = kind
       @id = id
       @target_api = target_api
       @authorization_request = authorization_request
+      @status = status
+    end
+
+    def inspect
+      "#{target_api}##{id} (status: #{status}) error kind: #{kind}"
     end
   end
 
@@ -46,6 +51,8 @@ class Import::AuthorizationRequests::Base
   end
 
   def affect_scopes
+    return unless authorization_request.class.scopes_enabled?
+
     if enrollment_row['scopes'].blank? || enrollment_row['scopes'] == '{}'
       authorization_request.scopes = []
     elsif enrollment_row['scopes'].is_a?(Array)
@@ -70,6 +77,12 @@ class Import::AuthorizationRequests::Base
     affect_potential_document('Document::LegalBasis', 'cadre_juridique_document')
   end
 
+  def affect_potential_maquette_projet
+    return if authorization_request.cadre_juridique_url.present?
+
+    affect_potential_document('Document::MaquetteProjet', 'maquette_projet')
+  end
+
   def affect_potential_document(kind, field)
     row = csv('documents').find { |row| row['attachable_id'] == enrollment_row['id'] && row['type'] == kind }
 
@@ -85,6 +98,10 @@ class Import::AuthorizationRequests::Base
     return if form_uid.blank?
 
     authorization_request.form_uid = form_uid
+  end
+
+  def demarche_to_form_uid
+    fail NoImplementedError
   end
 
   def find_team_member_by_type(type)
@@ -209,11 +226,11 @@ class Import::AuthorizationRequests::Base
   end
 
   def skip_row!(kind)
-    raise SkipRow.new(kind.to_s, id: enrollment_row['id'], target_api: enrollment_row['target_api'], authorization_request:)
+    raise SkipRow.new(kind.to_s, id: enrollment_row['id'], target_api: enrollment_row['target_api'], authorization_request:, status: enrollment_row['status'])
   end
 
   def warn_row!(kind)
-    @warned << WarnRow.new(kind.to_s, id: enrollment_row['id'], target_api: enrollment_row['target_api'], authorization_request:)
+    @warned << WarnRow.new(kind.to_s, id: enrollment_row['id'], target_api: enrollment_row['target_api'], authorization_request:, status: enrollment_row['status'])
   end
 
   def attach_file(kind, row_data)

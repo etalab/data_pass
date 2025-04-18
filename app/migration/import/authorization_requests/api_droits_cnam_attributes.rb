@@ -1,10 +1,11 @@
-class Import::AuthorizationRequests::APIRialSandboxAttributes < Import::AuthorizationRequests::DGFIPSandboxAttributes
+class Import::AuthorizationRequests::APIDroitsCNAMAttributes < Import::AuthorizationRequests::DGFIPSandboxAttributes
   def affect_data
     affect_attributes
-    affect_scopes
     affect_contacts
     affect_potential_legal_document
-    affect_potential_specific_requirements
+    affect_franceconnect_data
+    affect_form_uid
+
     affect_duree_conservation_donnees_caractere_personnel_justification
 
     return if authorization_request.valid?
@@ -19,6 +20,17 @@ class Import::AuthorizationRequests::APIRialSandboxAttributes < Import::Authoriz
       'delegue_protection_donnees' => 'delegue_protection_donnees',
     }.each do |from_contact, to_contact|
       affect_contact(from_contact, to_contact)
+    end
+  end
+
+  def demarche_to_form_uid
+    case enrollment_row['demarche']
+    when 'organisme_complementaire'
+      'api-droits-cnam-organisme-complementaire'
+    when 'etablissement_de_soin'
+      'api-droits-cnam-etablissement-de-soin'
+    else
+      'api-droits-cnam'
     end
   end
 
@@ -37,5 +49,13 @@ class Import::AuthorizationRequests::APIRialSandboxAttributes < Import::Authoriz
 
   def attributes_with_possible_null_values
     ['destinataire_donnees_caractere_personnel']
+  end
+
+  def affect_franceconnect_data
+    france_connect_authorization = AuthorizationRequest::FranceConnect.find_by(id: enrollment_row['previous_enrollment_id'])
+
+    return unless france_connect_authorization
+
+    authorization_request.france_connect_authorization_id = france_connect_authorization.latest_authorization.id.to_s
   end
 end

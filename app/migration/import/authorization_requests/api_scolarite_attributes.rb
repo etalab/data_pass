@@ -1,10 +1,9 @@
-class Import::AuthorizationRequests::APIRialSandboxAttributes < Import::AuthorizationRequests::DGFIPSandboxAttributes
+class Import::AuthorizationRequests::APIScolariteAttributes < Import::AuthorizationRequests::Base
   def affect_data
     affect_attributes
-    affect_scopes
     affect_contacts
+    affect_scopes
     affect_potential_legal_document
-    affect_potential_specific_requirements
     affect_duree_conservation_donnees_caractere_personnel_justification
 
     return if authorization_request.valid?
@@ -32,6 +31,7 @@ class Import::AuthorizationRequests::APIRialSandboxAttributes < Import::Authoriz
       "data_recipients" => "destinataire_donnees_caractere_personnel",
       "data_retention_period" => "duree_conservation_donnees_caractere_personnel",
       "data_retention_comment" => "duree_conservation_donnees_caractere_personnel_justification",
+      "volumetrie_approximative" => "volumetrie_approximative",
     }
   end
 
