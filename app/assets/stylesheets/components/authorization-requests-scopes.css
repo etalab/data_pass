@@ -41,3 +41,14 @@
 .specific_requirements__border {
   border: 1px solid var(--border-default-grey);
 }
+
+.fr-checkbox-group--deprecated {
+  .fr-label {
+    color: var(--text-action-high-grey);
+  }
+
+  .scope-badge {
+    margin-left: 0.5rem;
+    vertical-align: middle;
+  }
+}

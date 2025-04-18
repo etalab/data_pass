@@ -160,12 +160,22 @@ class AuthorizationRequest < ApplicationRecord
 
   with_options on: :submit do
     validate :all_terms_accepted
+    validate :no_deprecated_scopes_selected
   end
 
   def all_terms_accepted
     return if terms_of_service_accepted && data_protection_officer_informed && all_extra_checkboxes_checked?
 
     errors.add(:base, :all_terms_not_accepted)
+  end
+
+  def no_deprecated_scopes_selected
+    return unless self.class.scopes_enabled?
+
+    deprecated_selected_scopes = scopes.select { |scope_value| scope_deprecated?(scope_value) }
+    return if deprecated_selected_scopes.empty?
+
+    errors.add(:scopes, :contains_deprecated_scopes, scopes: deprecated_selected_scopes.join(', '))
   end
 
   # rubocop:disable Metrics/BlockLength

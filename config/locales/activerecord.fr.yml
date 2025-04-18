@@ -133,6 +133,7 @@ fr:
           attributes:
             scopes:
               blank: "ne sont pas cochées : il faut au moins qu'une des données soit sélectionnée."
+              contains_deprecated_scopes: "contient des données qui ne sont plus disponibles (%{scopes}). Veuillez les décocher avant de soumettre votre demande."
             safety_certification_begin_date:
               comparison: doit être supérieure à la date de début
             france_connect_authorization_id:

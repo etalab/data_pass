@@ -101,6 +101,39 @@ RSpec.describe AuthorizationRequest do
     end
   end
 
+  describe '#no_deprecated_scopes_selected validation' do
+    let(:authorization_request) do
+      create(:authorization_request, :api_impot_particulier_sandbox, :draft, created_at: 2.months.ago, scopes: [valid_scope], fill_all_attributes: true)
+    end
+
+    let(:deprecated_scope) { 'deprecated_scope' }
+    let(:valid_scope) { 'dgfip_annee_n_moins_1' }
+
+    before do
+      allow(authorization_request).to receive(:scope_deprecated?).with(deprecated_scope).and_return(true)
+      allow(authorization_request).to receive(:scope_deprecated?).with(valid_scope).and_return(false)
+    end
+
+    context 'when no deprecated scopes are selected' do
+      it 'is valid on submit' do
+        expect(authorization_request).to be_valid(:submit)
+        expect(authorization_request.errors[:scopes]).to be_empty
+      end
+    end
+
+    context 'when selecting scopes that are now deprecated' do
+      it 'is not valid and add an error for deprecated scopes when submitting the authorization request' do
+        authorization_request.scopes = [valid_scope, deprecated_scope]
+        authorization_request.save
+        authorization_request.updated_at = 15.days.ago
+        authorization_request.save
+
+        expect(authorization_request).not_to be_valid(:submit)
+        expect(authorization_request.errors[:scopes]).to include(/contient des données qui ne sont plus disponibles/)
+      end
+    end
+  end
+
   describe 'destroy' do
     subject(:destroy) { authorization_request.destroy }
 
