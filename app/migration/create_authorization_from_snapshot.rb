@@ -29,6 +29,8 @@ class CreateAuthorizationFromSnapshot
       build_data(authorization, snapshot_items)
     end
 
+    handle_state(authorization)
+
     authorization.save!
 
     authorization_request.class.documents.each do |document_identifier|
@@ -93,6 +95,7 @@ class CreateAuthorizationFromSnapshot
         enrollment_row,
         team_members,
         [],
+        safe_mode: true,
       ).perform
     rescue Import::AuthorizationRequests::Base::SkipRow => e
       print "SkipRow for AuthorizationRequestEvent (not relevant): #{e.inspect}\n"
@@ -105,6 +108,20 @@ class CreateAuthorizationFromSnapshot
     authorization.data = temporary_authorization_request.data.dup
 
     byebug if temporary_authorization_request.persisted?
+  end
+
+  def handle_state(authorization)
+    state_to_affect = 'obsolete'
+
+    if @authorization_request.state == 'revoked'
+      authorization.state = 'revoked'
+      authorization.revoked = true
+      state_to_affect = 'revoked'
+    end
+
+    Authorization.where(request_id: @authorization_request.id).update_all(
+      state: state_to_affect,
+    )
   end
 
   def event_datetime

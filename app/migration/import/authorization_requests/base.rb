@@ -26,12 +26,13 @@ class Import::AuthorizationRequests::Base
 
   attr_reader :authorization_request, :enrollment_row, :team_members, :all_model
 
-  def initialize(authorization_request, enrollment_row, team_members, warned, all_models=[])
+  def initialize(authorization_request, enrollment_row, team_members, warned, all_models=[], safe_mode: false)
     @authorization_request = authorization_request
     @enrollment_row = enrollment_row
     @team_members = team_members
     @warned = warned
     @all_models = all_models
+    @safe_mode = safe_mode
   end
 
   def perform
@@ -226,6 +227,7 @@ class Import::AuthorizationRequests::Base
   end
 
   def skip_row!(kind)
+    return if @safe_mode
     raise SkipRow.new(kind.to_s, id: enrollment_row['id'], target_api: enrollment_row['target_api'], authorization_request:, status: enrollment_row['status'])
   end
 
