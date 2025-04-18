@@ -5,15 +5,15 @@ puts "Generating the match of datapass v1 ids with demande & habilitation v2 ids
 v1_ids = CSV.read('lib/suivi_dtnum/v1_v2_ids_matcher/datapass_v1_ids.csv', headers: true).map { |row| row['N° DataPass'] }
 
 # Find AuthorizationRequests where raw_attributes_from_v1 contains any of the v1_ids
-matching_requests = AuthorizationRequest.where(
+matching_requests_with_v1_id = AuthorizationRequest.where(
   "raw_attributes_from_v1::jsonb->>'id' IN (?)", v1_ids
 ).includes(:authorizations)
 
-puts "Found #{matching_requests.count} matching authorization_requests"
+puts "Found #{matching_requests_with_v1_id.count} matching authorization_requests"
 
 # Create a hash of v1_id => [request, authorizations] for quick lookup
 v1_to_demande_v2_map = {}
-matching_requests.each do |request|
+matching_requests_with_v1_id.each do |request|
   v1_id = JSON.parse(request.raw_attributes_from_v1)['id']
   v1_to_demande_v2_map[v1_id] = [request, request.authorizations]
 end
