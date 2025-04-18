@@ -18,29 +18,59 @@ matching_requests.each do |request|
   v1_to_v2_map[v1_id] = [request, request.authorizations]
 end
 
+# Create the result data as an array first
+results = []
+matched_ids = []
+
+v1_ids.each do |v1_id|
+  if v1_to_v2_map.key?(v1_id)
+    request, authorizations = v1_to_v2_map[v1_id]
+    
+    if authorizations.any?
+      # Create a row for each authorization
+      # Actually we do it only when the authorization has the same id as the v1_id, cause the others should not exit
+      # (it's getting fixed in the next dump)
+      authorizations_with_matching_id = authorizations.where(id: v1_id)
+      
+      if authorizations_with_matching_id.any?
+        authorizations_with_matching_id.each do |authorization|
+          results << [v1_id, request.id, authorization.id]
+          matched_ids << v1_id
+        end
+      else
+        # If no matching authorizations, create a row with empty habilitation_v2_id
+        results << [v1_id, request.id, nil]
+        matched_ids << v1_id
+      end
+    else
+      # If no authorizations, create a row with empty habilitation_v2_id
+      results << [v1_id, request.id, nil]
+      matched_ids << v1_id
+    end
+  else
+    # If no matching request found, create a row with only the v1_id
+    results << [v1_id, nil, nil]
+    matched_ids << v1_id
+  end
+end
+
+# Check for missing v1_ids
+if matched_ids.length != v1_ids.length
+  puts "Warning: Not all v1_ids were processed"
+  puts "v1_ids.length: #{v1_ids.length}"
+  puts "matched_ids.uniq.length: #{matched_ids.length}"
+
+  # Find the missing v1_ids
+  missing_v1_ids = v1_ids - matched_ids.uniq
+  puts "Missing v1_ids: #{missing_v1_ids.join(', ')}"
+end
+
 # Output results to CSV
 CSV.open('lib/suivi_dtnum/v1_v2_ids_matcher/matched_ids.csv', 'w') do |csv|
   csv << ['datapass_v1_id', 'demande_v2_id', 'habilitation_v2_id']
   
-  v1_ids.each do |v1_id|
-    if v1_to_v2_map.key?(v1_id)
-      request, authorizations = v1_to_v2_map[v1_id]
-      
-      if authorizations.any?
-        # Create a row for each authorization
-        # Actually we do it only when the authorization has the same id as the v1_id, cause the others should not exit
-        # (it's getting fixed in the next dump)
-        authorizations.where(id: v1_id).each do |authorization|
-          csv << [v1_id, request.id, authorization.id]
-        end
-      else
-        # If no authorizations, create a row with empty habilitation_v2_id
-        csv << [v1_id, request.id, nil]
-      end
-    else
-      # If no matching request found, create a row with only the v1_id
-      csv << [v1_id, nil, nil]
-    end
+  results.each do |row|
+    csv << row
   end
 end
 
