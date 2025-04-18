@@ -12,10 +12,10 @@ matching_requests = AuthorizationRequest.where(
 puts "Found #{matching_requests.count} matching authorization_requests"
 
 # Create a hash of v1_id => [request, authorizations] for quick lookup
-v1_to_v2_map = {}
+v1_to_demande_v2_map = {}
 matching_requests.each do |request|
   v1_id = JSON.parse(request.raw_attributes_from_v1)['id']
-  v1_to_v2_map[v1_id] = [request, request.authorizations]
+  v1_to_demande_v2_map[v1_id] = [request, request.authorizations]
 end
 
 # Create the result data as an array first
@@ -24,8 +24,8 @@ extra_authorizations_ids = []
 row_with_no_authorization_id_equal_to_v1_id = []
 
 v1_ids.each do |v1_id|
-  if v1_to_v2_map.key?(v1_id)
-    request, authorizations = v1_to_v2_map[v1_id]
+  if v1_to_demande_v2_map.key?(v1_id)
+    request, authorizations = v1_to_demande_v2_map[v1_id]
 
     # Create a row for each authorization
     if authorizations.any?
