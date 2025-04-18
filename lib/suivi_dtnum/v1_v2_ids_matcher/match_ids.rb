@@ -8,8 +8,19 @@ v1_ids = CSV.read('lib/suivi_dtnum/v1_v2_ids_matcher/datapass_v1_ids.csv', heade
 matching_requests_with_v1_id = AuthorizationRequest.where(
   "raw_attributes_from_v1::jsonb->>'id' IN (?)", v1_ids
 ).includes(:authorizations)
+puts "Found #{matching_requests_with_v1_id.count} matching authorization_requests with v1_ids"
 
-puts "Found #{matching_requests_with_v1_id.count} matching authorization_requests"
+
+matching_requests_with_v1_previous_enrollment_id_ = AuthorizationRequest.where(
+  "raw_attributes_from_v1::jsonb->>'previous_enrollment_id' IN (?)", v1_ids
+).includes(:authorizations)
+puts "Found #{matching_requests_with_v1_previous_enrollment_id_.count} matching authorization_requests with v1_previous_enrollment_id"
+
+
+matching_requests_with_v1_copied_from_enrollment_id = AuthorizationRequest.where(
+  "raw_attributes_from_v1::jsonb->>'copied_from_enrollment_id' IN (?)", v1_ids
+).includes(:authorizations)
+puts "Found #{matching_requests_with_v1_copied_from_enrollment_id.count} matching authorization_requests with v1_copied_from_enrollment_id"
 
 # Create a hash of v1_id => [request, authorizations] for quick lookup
 v1_to_demande_v2_map = {}
