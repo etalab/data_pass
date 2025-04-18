@@ -33,8 +33,9 @@ v1_ids.each do |v1_id|
         # keep the authorization with the same id as the v1_id
         if authorization.id == v1_id.to_i
           matched_ids << [v1_id, request.id, authorization.id]
-        # log the others as extra, they should not exist
         else
+          # log the others as extra, they should not exist
+          # TODO check if its "normal" because of a copy id or sandbox id before adding it to the extra authorizations ids
           extra_authorizations_ids << [v1_id, request.id, authorization.id, request.type]
         end
 
@@ -52,6 +53,7 @@ v1_ids.each do |v1_id|
     end
   else
     # If no matching request found, create a row with only the v1_id
+    # TODO actually we should not add it, we should have found it in the extra authorizations ids
     matched_ids << [v1_id, nil, nil]
   end
 end
