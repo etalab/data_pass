@@ -121,6 +121,15 @@ components:
           format: date-time
           description: Date de la dernière validation de la demande
           nullable: true
+        reopening:
+          type: boolean
+          description: Indique si la demande est en cours de réouverture
+          example: false
+        reopened_at:
+          type: string
+          format: date-time
+          description: Date à laquelle la demande a été réouverte
+          nullable: true
         organization:
           $ref: '#/components/schemas/Organisation'
         applicant:
