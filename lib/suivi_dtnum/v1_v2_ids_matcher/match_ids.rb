@@ -11,22 +11,27 @@ matching_requests_with_v1_id = AuthorizationRequest.where(
 puts "Found #{matching_requests_with_v1_id.count} matching authorization_requests with v1_ids"
 
 
-matching_requests_with_v1_previous_enrollment_id_ = AuthorizationRequest.where(
-  "raw_attributes_from_v1::jsonb->>'previous_enrollment_id' IN (?)", v1_ids
-).includes(:authorizations)
-puts "Found #{matching_requests_with_v1_previous_enrollment_id_.count} matching authorization_requests with v1_previous_enrollment_id"
+# matching_requests_with_v1_previous_enrollment_id_ = AuthorizationRequest.where(
+#   "raw_attributes_from_v1::jsonb->>'previous_enrollment_id' IN (?)", v1_ids
+# ).includes(:authorizations)
+# puts "Found #{matching_requests_with_v1_previous_enrollment_id_.count} matching authorization_requests with v1_previous_enrollment_id"
 
+# matching_requests_with_v1_copied_from_enrollment_id = AuthorizationRequest.where(
+#   "raw_attributes_from_v1::jsonb->>'copied_from_enrollment_id' IN (?)", v1_ids
+# ).includes(:authorizations)
+# puts "Found #{matching_requests_with_v1_copied_from_enrollment_id.count} matching authorization_requests with v1_copied_from_enrollment_id"
 
-matching_requests_with_v1_copied_from_enrollment_id = AuthorizationRequest.where(
-  "raw_attributes_from_v1::jsonb->>'copied_from_enrollment_id' IN (?)", v1_ids
-).includes(:authorizations)
-puts "Found #{matching_requests_with_v1_copied_from_enrollment_id.count} matching authorization_requests with v1_copied_from_enrollment_id"
 
 # Create a hash of v1_id => [request, authorizations] for quick lookup
 v1_to_demande_v2_map = {}
+all_habilitations_v2 = {}
 matching_requests_with_v1_id.each do |request|
   v1_id = JSON.parse(request.raw_attributes_from_v1)['id']
-  v1_to_demande_v2_map[v1_id] = [request, request.authorizations]
+  v1_to_demande_v2_map[v1_id] = { request:, authorizations: request.authorizations }
+
+  request.authorizations.each do |authorization|
+    all_habilitations_v2[authorization.id] = { v1_id: v1_id, request: request, authorization: authorization }
+  end
 end
 
 # Create the result data as an array first
@@ -36,7 +41,9 @@ row_with_no_authorization_id_equal_to_v1_id = []
 
 v1_ids.each do |v1_id|
   if v1_to_demande_v2_map.key?(v1_id)
-    request, authorizations = v1_to_demande_v2_map[v1_id]
+    # We found the v1_id in the raw_attributes_from_v1.id of demandes v2
+    request = v1_to_demande_v2_map[v1_id][:request]
+    authorizations = v1_to_demande_v2_map[v1_id][:authorizations]
 
     # Create a row for each authorization
     if authorizations.any?
@@ -46,7 +53,8 @@ v1_ids.each do |v1_id|
           matched_ids << [v1_id, request.id, authorization.id]
         else
           # log the others as extra, they should not exist
-          # TODO check if its "normal" because of a copy id or sandbox id before adding it to the extra authorizations ids
+          # check if its "normal" because of a copy id or sandbox id before adding it to the extra authorizations ids
+          # check this by finding the v1_id in all_habilitations_v2
           extra_authorizations_ids << [v1_id, request.id, authorization.id, request.type]
         end
 
@@ -62,6 +70,14 @@ v1_ids.each do |v1_id|
       # If no authorizations, create a row with empty habilitation_v2_id
       matched_ids << [v1_id, request.id, nil]
     end
+
+  elsif all_habilitations_v2.key?(v1_id.to_i)
+    # we found the v1_id in all_habilitations_v2, because it was a copy id or sandbox id
+    # and it was merged with the other v1_id
+    habilitation_v2_data = all_habilitations_v2[v1_id.to_i]
+    authorization = habilitation_v2_data[:authorization]
+    request = habilitation_v2_data[:request]
+    matched_ids << [v1_id, request.id, authorization.id]
   else
     # If no matching request found, create a row with only the v1_id
     # TODO actually we should not add it, we should have found it in the extra authorizations ids
@@ -90,6 +106,12 @@ end
 
 
 if extra_authorizations_ids.any?
+  # Cleanup the extra_authorizations_ids to remove the ones that were found by the v1_id in matched_ids 
+  # because they are not extra, they are just merged with another v1_id
+  extra_authorizations_ids = extra_authorizations_ids.reject do |row|
+    matched_ids.any? { |matched_id| matched_id[2] == row[2] }
+  end
+
   puts "Found #{extra_authorizations_ids.length} extra authorizations ids -> see extra_authorizations_ids.csv"
 
   CSV.open('lib/suivi_dtnum/v1_v2_ids_matcher/extra_authorizations_ids.csv', 'w') do |csv|
