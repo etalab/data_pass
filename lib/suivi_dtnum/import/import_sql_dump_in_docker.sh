@@ -21,4 +21,4 @@ docker compose exec db psql -U postgres -d development -f /tmp/dump.sql
 docker compose exec web bundle exec rails runner lib/suivi_dtnum/v1_v2_ids_matcher/match_ids.rb
 
 # Execute create_dgfip_developer_user.rb through Rails console in the web container
-docker compose exec web bundle exec rails runner lib/suivi_dtnum/create_dgfip_developer_user.rb
+docker compose exec web bundle exec rails runner lib/suivi_dtnum/import/create_dgfip_developer_user.rb
