@@ -11,7 +11,6 @@ ORIGINAL_FILE_PATH = os.path.join(SCRIPT_DIR, "sources", "Fichier de suivi DTNUM
 MATCHED_IDS_PATH = os.path.join(SCRIPT_DIR, "v1_v2_ids_matcher", "matched_ids.csv")
 OUTPUT_FILE_PATH = os.path.join(SCRIPT_DIR, "sources", f"Fichier de suivi DTNUM with v2 ids {datetime.now().strftime('%Y%m%d')}.ods")
 
-
 def read_original_file():
     print(f"Reading original file from {ORIGINAL_FILE_PATH}...")
     
@@ -86,22 +85,11 @@ def add_habilitation_row(demande, habilitation, output_content):
 def format_demande_row(demande):
     row = {}
     row["N° Demande v2"] = demande["id"]
-    
-    # Add the DataPass v1 ID if available in raw_attributes_from_v1
-    if "raw_attributes_from_v1" in demande and demande["raw_attributes_from_v1"]:
-        try:
-            raw_attributes = json.loads(demande["raw_attributes_from_v1"])
-            if "id" in raw_attributes:
-                row["N° DataPass v1"] = raw_attributes["id"]
-        except json.JSONDecodeError:
-            print(f"Warning: Could not parse raw_attributes_from_v1 for demande {demande['id']}")
-        
     return row
 
 def format_habilitation_row(demande, habilitation):
     row = format_demande_row(demande)
     row["N° Habilitation v2"] = habilitation["id"]
-
     return row
 
 
@@ -144,6 +132,7 @@ if __name__ == "__main__":
         # Get all demandes using pagination
         all_demandes = get_all_demandes(api_client)
         output_content = generate_output_content(all_demandes, input_content)
+        
         print(f"#{len(output_content)} rows generated")
         
         # print the output content in a csv file
