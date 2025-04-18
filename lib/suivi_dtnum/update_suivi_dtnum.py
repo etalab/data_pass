@@ -87,7 +87,7 @@ def format_demande_row(demande):
     row["N° Demande v2"] = demande["id"]
     row["N° Habilitation v2"] = ""
     row["API"] = data_correspondances.api_names[demande["type"]]
-    row["Environnement"] = data_correspondances.api_environnments[demande["type"]]
+    row["Environnement"] = data_correspondances.match_environnement(demande["form_uid"])
     row["Type"] = "Avenant" if demande["reopening"] else "Initial"
     row["Nom projet"] = demande["data"]["intitule"] if "intitule" in demande["data"] else ""
     row["Description projet"] = demande["data"]["description"] if "description" in demande["data"] else ""

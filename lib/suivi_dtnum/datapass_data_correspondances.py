@@ -36,71 +36,44 @@ api_names = {
 "AuthorizationRequest::APISatelitSandbox":"Satelit"
 }
 
-api_environnments = {
-"AuthorizationRequest::APICprProAdelie":"Production ",
-"AuthorizationRequest::APIEContacts":"Production",
-"AuthorizationRequest::APIENSUDocuments":"Production",
-"AuthorizationRequest::APIEPro":"Production",
-"AuthorizationRequest::APIFicoba":"Production",
-"AuthorizationRequest::APIHermes":"Production",
-"AuthorizationRequest::APIImpotParticulier":"Production",
-"AuthorizationRequest::APIINFINOE":"Production",
-"AuthorizationRequest::APIMire":"Production",
-"AuthorizationRequest::APIOcfi":"Production",
-"AuthorizationRequest::APIOpale":"Production",
-"AuthorizationRequest::APIR2P":"Production",
-"AuthorizationRequest::APIRial":"Production",
-"AuthorizationRequest::APIRobf":"Production",
-"AuthorizationRequest::APISFiP":"Production",
-"AuthorizationRequest::APISatelit":"Production",
+environnement_patterns = [
+    [r'-sandbox$', 'Sandbox'],
+    [r'-production$', 'Production'],
+    [r'-editeur$', 'Unique'],
+]
 
-"AuthorizationRequest::APICprProAdelieSandbox":"Sandbox",
-"AuthorizationRequest::APIEContactsSandbox":"Sandbox",
-"AuthorizationRequest::APIENSUDocumentsSandbox":"Sandbox",
-"AuthorizationRequest::APIEProSandbox":"Sandbox",
-"AuthorizationRequest::APIFicobaSandbox":"Sandbox",
-"AuthorizationRequest::APIHermesSandbox":"Sandbox",
-"AuthorizationRequest::APIImpotParticulierSandbox":"Sandbox",
-"AuthorizationRequest::APIINFINOESandbox":"Sandbox",
-"AuthorizationRequest::APIMireSandbox":"Sandbox",
-"AuthorizationRequest::APIOcfiSandbox":"Sandbox",
-"AuthorizationRequest::APIOpaleSandbox":"Sandbox",
-"AuthorizationRequest::APIR2PSandbox":"Sandbox",
-"AuthorizationRequest::APIRialSandbox":"Sandbox",
-"AuthorizationRequest::APIRobfSandbox":"Sandbox",
-"AuthorizationRequest::APISFiPSandbox":"Sandbox",
-"AuthorizationRequest::APISatelitSandbox":"Sandbox"
-}
+def match_environnement(form_uid):
+    for pattern, value in environnement_patterns:
+        if re.search(pattern, form_uid):
+            return value
+    return 'Environnement non trouvé'
 
 # Regex pattern-based matching for use cases
 cas_dusage_patterns = [
     # CITP patterns
     (r'activites-periscolaires', 'CITP - activités périscolaires'),
     (r'aides-sociales-facultatives', 'CITP - aides sociales facultatives'),
-    (r'apicantine-scolaire', 'CITP - cantine scolaire'),
-    (r'apicarte-transport', 'CITP - carte de transport'),
-    (r'apiplace-creche', 'CITP - place en crèche'),
-    (r'apistationnement-residentiel', 'CITP - stationnement résidentiel'),
+    (r'cantine-scolaire', 'CITP - cantine scolaire'),
+    (r'carte-transport', 'CITP - carte de transport'),
+    (r'place-creche', 'CITP - place en crèche'),
+    (r'stationnement-residentiel', 'CITP - stationnement résidentiel'),
     
     # Récupération de données fiscales
-    (r'api-impot-particulier$', 'Récupération de données fiscales'),
+    (r'api-r2p-(sandbox|production|editeur)$', 'Récupération de données fiscales'),
     
     # Ordonnateur
     (r'api-r2p-ordonnateur', 'Ordonnateur - fiabilisation des bases tiers (collectivités)'),
     
     # Envoi automatisé des écritures
     (r'api-infinoe-envoi-automatise-ecritures', 'Envoi automatisé des écritures'),
-    
-    # Default case (when no specific pattern matches)
-    (r'.*', 'Saisie libre')
 ]
 
-def match_cas_dusage(key):
+def match_cas_dusage(form_uid):
     # Try to find a match in the patterns
     for pattern, value in cas_dusage_patterns:
-        if re.match(pattern, key):
+        if re.search(pattern, form_uid):
             return value
-    
+
     # If no match found, return default
     return 'Saisie libre'
 
