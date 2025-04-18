@@ -3,6 +3,8 @@ class Import::AuthorizationRequests::APIR2PSandboxAttributes < Import::Authoriza
     affect_modalities
 
     super
+
+    affect_form_uid
   end
 
   def affect_modalities
@@ -27,5 +29,16 @@ class Import::AuthorizationRequests::APIR2PSandboxAttributes < Import::Authoriza
     return if %w[refused validated].exclude?(authorization_request.state)
 
     skip_row!("no_modalities_in_status_#{authorization_request.state}")
+  end
+
+  def demarche_to_form_uid
+    case enrollment_row['demarche']
+    when 'ordonnateur'
+      'api-r2p-ordonnateur-sandbox'
+    when 'appel_api_impot_particulier'
+      'api-r2p-appel-spi-sandbox'
+    else
+      'api-r2p-sandbox'
+    end
   end
 end

@@ -1,6 +1,7 @@
 class Import::AuthorizationRequests::APIFicobaSandboxAttributes < Import::AuthorizationRequests::APIRialSandboxAttributes
   def affect_data
     affect_modalities
+    affect_form_uid
 
     super
   end
@@ -26,5 +27,9 @@ class Import::AuthorizationRequests::APIFicobaSandboxAttributes < Import::Author
     return if %w[refused validated].exclude?(authorization_request.state)
 
     skip_row!("no_modalities_in_status_#{authorization_request.state}")
+  end
+
+  def demarche_to_form_uid
+    'api-ficoba-sandbox'
   end
 end

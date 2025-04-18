@@ -17,8 +17,28 @@ class Import::AuthorizationRequests::APISFiPAttributes < Import::AuthorizationRe
     skip_row!(:invalid_cadre_juridique) if authorization_request.errors[:cadre_juridique_url].any?
   end
 
-  # FIXME
-  def affect_form_uid
-    authorization_request.form_uid = authorization_request.definition.available_forms.first.id
+  def demarche_to_form_uid
+    form_uid = case enrollment_row['demarche']
+      when 'aides_sociales_facultatives'
+        'api-sfip-aides-sociales-facultatives-sandbox'
+      when 'cantine_scolaire'
+        'api-sfip-cantine-scolaire-sandbox'
+      when 'activites_periscolaires'
+        'api-sfip-activites-periscolaires-sandbox'
+      when 'place_creche'
+        'api-sfip-place-creche-sandbox'
+      when 'stationnement_residentiel', 'carte_stationnement'
+        'api-sfip-stationnement-residentiel-sandbox'
+      when 'carte_transport'
+        'api-sfip-carte-transport-sandbox'
+      when 'eligibilite_lep', 'migration_api_particulier'
+        'api-sfip-sandbox'
+      else
+        'api-sfip-sandbox'
+      end
+
+    form_uid += '-editeur' if enrollment_row['target_api'] =~ /_unique$/
+
+    form_uid
   end
 end

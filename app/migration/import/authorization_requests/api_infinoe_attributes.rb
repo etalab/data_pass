@@ -5,16 +5,15 @@ class Import::AuthorizationRequests::APIINFINOEAttributes < Import::Authorizatio
   end
 
   def demarche_to_form_uid
-    if enrollment_row['target_api'] =~ /_unique$/
-      'api-infinoe-envoi-automatise-ecritures-production-editeur'
-    else
-      case enrollment_row['demarche']
+    form_uid = case enrollment_row['demarche']
       when 'envoi_ecritures'
         'api-infinoe-envoi-automatise-ecritures-production'
       else
         'api-infinoe-production'
       end
-    end
-  end
 
+    form_uid += '-editeur' if enrollment_row['target_api'] =~ /_unique$/
+
+    form_uid
+  end
 end

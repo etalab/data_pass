@@ -15,7 +15,6 @@ class Import::AuthorizationRequests::APISFiPSandboxAttributes < Import::Authoriz
     skip_row!(:invalid_cadre_juridique) if authorization_request.errors[:cadre_juridique_url].any?
   end
 
-  # api-sfip-carte-transport-sandbox et api-sfip-stationnement-residentiel-sandbox non présent https://metabase.entreprise.api.gouv.fr/dashboard/50?nom_de_l%27api_(target_api)=api_sfip_sandbox
   def demarche_to_form_uid
     case enrollment_row['demarche']
     when 'aides_sociales_facultatives'
@@ -26,6 +25,10 @@ class Import::AuthorizationRequests::APISFiPSandboxAttributes < Import::Authoriz
       'api-sfip-activites-periscolaires-sandbox'
     when 'place_creche'
       'api-sfip-place-creche-sandbox'
+    when 'stationnement_residentiel', 'carte_stationnement'
+      'api-sfip-stationnement-residentiel-sandbox'
+    when 'carte_transport'
+      'api-sfip-carte-transport-sandbox'
     when 'eligibilite_lep', 'migration_api_particulier'
       'api-sfip-sandbox'
     else

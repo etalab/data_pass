@@ -55,35 +55,26 @@ class Import::AuthorizationRequests::APIImpotParticulierSandboxAttributes < Impo
     end
   end
 
-  # FIXME check https://metabase.entreprise.api.gouv.fr/dashboard/50-datapass-exploration?nom_de_l%27api_(target_api)=api_impot_particulier_sandbox
   def demarche_to_form_uid
     case enrollment_row['demarche']
-    when 'marches_publics'
-      'api-entreprise-marches-publics'
-    when 'aides_publiques'
-      'api-entreprise-aides-publiques'
-    when 'subventions_associations'
-      'api-entreprise-subventions-associations'
-    when 'portail_gru'
-      'api-entreprise-portail-gru-preremplissage'
-    when 'portail_gru_instruction'
-      'api-entreprise-portail-gru-instruction'
-    when 'detection_fraude'
-      'api-entreprise-detection-fraude'
-    when 'e_attestations'
-      'api-entreprise-e-attestations'
-    when 'provigis'
-      'api-entreprise-provigis'
-    when 'achat_solution'
-      'api-entreprise-achat-solution'
-    when 'atexo'
-      'api-entreprise-atexo'
-    when 'mgdis'
-      'api-entreprise-mgdis'
-    when 'setec'
-      'api-entreprise-setec-atexo'
-    when 'editeur'
-      'api-entreprise-editeur'
+    when 'eligibilite_lep', 'quotient_familial', 'default'
+      'api-impot-particulier-sandbox'
+    when 'migration_api_particulier'
+      'api-impot-particulier-sandbox'
+    when 'activites_periscolaires'
+      'api-impot-particulier-activites-periscolaires-sandbox'
+    when 'aides_sociales_facultatives'
+      'api-impot-particulier-aides-sociales-facultatives-sandbox'
+    when 'cantine_scolaire'
+      'api-impot-particulier-cantine-scolaire-sandbox'
+    when 'carte_transport'
+      'api-impot-particulier-carte-transport-sandbox'
+    when 'place_creche'
+      'api-impot-particulier-place-creche-sandbox'
+    when 'stationnement_residentiel', 'carte_stationnement'
+      'api-impot-particulier-stationnement-residentiel-sandbox'
+    else
+      'api-impot-particulier-sandbox'
     end
   end
 
