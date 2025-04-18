@@ -89,17 +89,12 @@ def format_demande_row(demande):
     row["N° Habilitation v2"] = ""
     row["API"] = data_correspondances.api_names[demande["type"]]
     row["Environnement"] = data_correspondances.api_environnments[demande["type"]]
-    row["Type"] = "Initial"
+    row["Type"] = "Avenant" if demande["reopening"] else "Initial"
     return row
 
 def format_habilitation_row(demande, habilitation):
     row = format_demande_row(demande)
     row["N° Habilitation v2"] = habilitation["id"]
-
-    # if the demande has one other validated habilitation of the same type, it's an avenant
-    print(habilitation)
-    if demande["habilitations"].count(lambda h  : h["type"] == habilitation["type"] and not h["revoked"]) > 1:
-        row["Type"] = "Avenant"
     
     return row
 
