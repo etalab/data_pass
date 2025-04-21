@@ -130,7 +130,7 @@ components:
           format: date-time
           description: Date à laquelle la demande a été réouverte
           nullable: true
-        organization:
+        organisation:
           $ref: '#/components/schemas/Organisation'
         applicant:
           $ref: '#/components/schemas/Utilisateur'
@@ -149,6 +149,7 @@ components:
         - form_uid
         - data
         - created_at
+        - organisation
 
     CreationDemande:
       description: Payload pour la création d'une demande d'habilitation
@@ -237,6 +238,11 @@ components:
           type: string
           example: Direction interministérielle du numerique (DINUM)
           description: Raison sociale de l'organisation
+          nullable: true
+        insee_payload:
+          type: object
+          description: Données INSEE associées à l'organisation
+          additionalProperties: true
           nullable: true
       required:
         - id

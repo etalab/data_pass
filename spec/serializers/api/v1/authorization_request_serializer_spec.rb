@@ -20,5 +20,15 @@ RSpec.describe API::V1::AuthorizationRequestSerializer, type: :serializer do
         data: authorization_request.data,
       )
     end
+
+    it 'includes the organization' do
+      expect(serializable_hash).to have_key(:organisation)
+      expect(serializable_hash[:organisation]).to include(
+        id: authorization_request.organization.id,
+        siret: authorization_request.organization.siret,
+        raison_sociale: authorization_request.organization.raison_sociale,
+        insee_payload: authorization_request.organization.insee_payload
+      )
+    end
   end
 end
