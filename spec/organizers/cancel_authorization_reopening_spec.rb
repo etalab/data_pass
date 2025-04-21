@@ -59,8 +59,8 @@ RSpec.describe CancelAuthorizationReopening, type: :organizer do
           end
         end
 
-        include_examples 'creates an event', event_name: :cancel_reopening, entity_type: :authorization_request_reopening_cancellation
-        include_examples 'delivers a webhook', event_name: :cancel_reopening
+        it_behaves_like 'creates an event', event_name: :cancel_reopening, entity_type: :authorization_request_reopening_cancellation
+        it_behaves_like 'delivers a webhook', event_name: :cancel_reopening
       end
 
       context 'with invalid attributes' do
@@ -110,8 +110,8 @@ RSpec.describe CancelAuthorizationReopening, type: :organizer do
           end
         end
 
-        include_examples 'creates an event', event_name: :cancel_reopening, entity_type: :authorization_request_reopening_cancellation
-        include_examples 'delivers a webhook', event_name: :cancel_reopening
+        it_behaves_like 'creates an event', event_name: :cancel_reopening, entity_type: :authorization_request_reopening_cancellation
+        it_behaves_like 'delivers a webhook', event_name: :cancel_reopening
       end
 
       context 'with invalid attributes' do

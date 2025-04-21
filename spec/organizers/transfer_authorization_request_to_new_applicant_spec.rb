@@ -32,8 +32,8 @@ RSpec.describe TransferAuthorizationRequestToNewApplicant, type: :organizer do
         expect { subject }.to have_enqueued_mail(AuthorizationRequestTransferMailer, :success)
       end
 
-      include_examples 'creates an event', event_name: 'transfer', entity: :authorization_request_transfer
-      include_examples 'delivers a webhook', event_name: 'transfer'
+      it_behaves_like 'creates an event', event_name: 'transfer', entity: :authorization_request_transfer
+      it_behaves_like 'delivers a webhook', event_name: 'transfer'
     end
 
     context 'with invalid attributes' do

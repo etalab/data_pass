@@ -52,7 +52,7 @@ RSpec.describe StartNextAuthorizationRequestStage, type: :organizer do
             expect(authorization_request.data_protection_officer_informed).to be_falsey
           end
 
-          include_examples 'creates an event', event_name: :start_next_stage
+          it_behaves_like 'creates an event', event_name: :start_next_stage
           # include_examples 'delivers a notification', event_name: :start_next_stage
         end
       end

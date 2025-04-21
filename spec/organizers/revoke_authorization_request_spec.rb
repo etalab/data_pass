@@ -13,12 +13,12 @@ RSpec.describe RevokeAuthorizationRequest, type: :organizer do
 
         it { is_expected.to be_success }
 
-        include_examples 'creates an event', event_name: :revoke, entity_type: :revocation_of_authorization
+        it_behaves_like 'creates an event', event_name: :revoke, entity_type: :revocation_of_authorization
 
         context 'with webhooks' do
           let(:authorization_request_kind) { :api_entreprise }
 
-          include_examples 'delivers a webhook', event_name: :revoke
+          it_behaves_like 'delivers a webhook', event_name: :revoke
         end
 
         it 'creates a revocation of authorization' do

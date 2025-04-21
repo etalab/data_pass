@@ -58,8 +58,8 @@ RSpec.describe RefuseAuthorizationRequest do
           end
         end
 
-        include_examples 'creates an event', event_name: :refuse, entity_type: :denial_of_authorization
-        include_examples 'delivers a webhook', event_name: :refuse
+        it_behaves_like 'creates an event', event_name: :refuse, entity_type: :denial_of_authorization
+        it_behaves_like 'delivers a webhook', event_name: :refuse
       end
 
       context 'with authorization request in draft state' do

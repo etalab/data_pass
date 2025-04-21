@@ -14,8 +14,8 @@ RSpec.describe ArchiveAuthorizationRequest do
         expect { archive_authorization_request }.to change { authorization_request.reload.state }.from('submitted').to('archived')
       end
 
-      include_examples 'creates an event', event_name: :archive
-      include_examples 'delivers a webhook', event_name: :archive
+      it_behaves_like 'creates an event', event_name: :archive
+      it_behaves_like 'delivers a webhook', event_name: :archive
     end
 
     context 'with authorization request in validated state' do

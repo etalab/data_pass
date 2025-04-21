@@ -10,9 +10,9 @@ RSpec.describe HubEEDilaBridge do
     let(:hubee_subscription_id) { '1234567890' }
     let(:etat_civil_and_depot_dossier_pacs_tokens) { { depot_dossier_pacs: hubee_subscription_id, etat_civil: hubee_subscription_id }.to_json }
 
-    include_examples 'with mocked hubee API client'
+    it_behaves_like 'with mocked hubee API client'
 
-    include_examples 'organization creation in hubee on approve'
+    it_behaves_like 'organization creation in hubee on approve'
 
     describe 'subscription creation' do
       it 'creates a subscription on HubEE linked to DataPass ID and a process code for each scope' do
