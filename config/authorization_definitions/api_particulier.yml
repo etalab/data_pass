@@ -7,6 +7,7 @@ api_particulier:
   access_link: https://particulier.api.gouv.fr/compte/jetons/%{external_provider_id}
   kind: 'api'
   public: true
+  support_email: "support@particulier.api.gouv.fr"
   blocks:
     - name: "basic_infos"
     - name: "modalities"
@@ -145,6 +146,7 @@ formulaire_qf:
   link: "https://quotient-familial.numerique.gouv.fr/"
   cgu_link: "https://quotient-familial.numerique.gouv.fr/cgu_administrations"
   access_link: "https://quotient-familial.numerique.gouv.fr/"
+  support_email: "support@particulier.api.gouv.fr"
   public: false
   blocks:
     - name: "legal"
