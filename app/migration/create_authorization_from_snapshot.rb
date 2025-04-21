@@ -22,7 +22,8 @@ class CreateAuthorizationFromSnapshot
       created_at: event_datetime,
     )
 
-    # XXX Cas où il y a eu une révocation récente (dunno why ?)
+    # XXX principalement le cas de la fake réouverture de 2021, on save ici avec des données dummy mais on clean
+    # plus tard
     if snapshot.blank?
       data = authorization_request.data
       authorization.data = data
@@ -69,9 +70,9 @@ class CreateAuthorizationFromSnapshot
       )
     end
 
-    if data.empty?
-      data = database.execute('select * from snapshots where id = ?', event_row['entity_id'])
-    end
+    data = database.execute('select * from snapshots where id = ?', event_row['entity_id']) if data.empty?
+
+    return if data.empty?
 
     JSON.parse(data[0][-1]).to_h
   end
