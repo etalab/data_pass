@@ -1,4 +1,12 @@
 module DSFR::Accordion
+  def dsfr_accordion_group(options = {}, &)
+    options[:class] ||= []
+    options[:class] << 'fr-accordions-group'
+    template.content_tag(:div, class: options[:class]) do
+      template.capture(&)
+    end
+  end
+
   def dsfr_accordion(title, options = {}, &)
     options[:id] ||= SecureRandom.uuid
 
