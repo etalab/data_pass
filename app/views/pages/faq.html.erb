@@ -1,0 +1,57 @@
+<h1 class="fr-mt-5v">FAQ</h1>
+
+<%= dsfr_accordion do |accordion| %>
+  <% accordion.with_section(title: "J’ai une question concernant mon habilitation.") do %>
+    <div class="fr-table">
+      <div class="dfr-table__wrapper">
+        <div class="fr-table__container">
+          <div class="fr-table__content">
+            <table>
+              <thead>
+                <tr>
+                  <td>
+                    Nature de l'habilitation
+                  </td>
+                  <td>
+                    Contact
+                  </td>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% AuthorizationDefinition.all.each do |authorization_definition| %>
+                  <tr>
+                    <td>
+                      <%= authorization_definition.name_with_stage %>
+                    </td>
+                    <td>
+                      <a href="mailto:<%= authorization_definition.support_email %>?subject=Contact via la FAQ de datapass.api.gouv.fr">Écrire à l'équipe</a>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <% accordion.with_section(title: "Comment puis-je modifier les coordonnées de mon compte ?") do %>
+    Si vous souhaitez modifier les coordonnées de votre compte (par exemple si cela vous a été demandé dans le cadre d’une demande d’habilitation), rendez-vous <%= link_to "ici", profile_path %>.
+    <br />
+    A noter : Vous ne pouvez pas modifier l’adresse mail associée au compte. Si vous souhaitez utiliser une autre adresse mail, merci de créer un nouveau compte sur ProConnect.
+  <% end %>
+
+  <% accordion.with_section(title: "Puis-je rejoindre une autre organisation que celle à laquelle je suis rattaché(e) ?") do %>
+    Tout à fait, vous pouvez le faire <%= link_to "ici", profile_path %>.
+  <% end %>
+
+  <% accordion.with_section(title: "Puis-je demander une habilitation pour une organisation étrangère ?") do %>
+    Non, DataPass ne permet de demander des habilitations juridiques que pour les organisations enregistrées auprès de l’INSEE.
+  <% end %>
+
+  <% accordion.with_section(title: "Je ne trouve pas la réponse à ma question.") do %>
+    Vous pouvez <a href="mailto:<%= t("mailer.shared.support.email") %>?subject=Contact via la FAQ de datapass.api.gouv.fr">nous poser votre question directement.</a>
+  <% end %>
+<% end %>
