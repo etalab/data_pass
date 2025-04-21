@@ -35,26 +35,6 @@ class Import::AuthorizationRequests::FranceConnectAttributes < Import::Authoriza
     end
   end
 
-  def after_save(authorization_request, row)
-    @authorization_request = authorization_request
-
-    create_approved_events
-  end
-
-  def create_approved_events
-    @database = SQLite3::Database.new(db_path)
-
-    event_rows = database.execute('select * from events where authorization_request_id = ?', enrollment_row['id']).to_a.map do |row|
-      JSON.parse(row[-1]).to_h
-    end.select { |e| e['name'] == 'validate' }
-
-    event_rows.map do |event_row|
-      Import::AuthorizationRequestEvents.new(authorization_request:, create_from_authorization_request_import: true).send(:extract, event_row)
-    end
-
-    @database.close
-  end
-
   def extract_eidas
     case additional_content['eidas_level']
     when '2'
