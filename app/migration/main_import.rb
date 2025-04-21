@@ -27,6 +27,8 @@ class MainImport
 
     # import(:authorization_request_events, { dump_sql: ENV['DUMP'] == 'true', valid_authorization_request_ids: })
 
+    clean_extra_authorizations_from_old_fake_reopening!
+
     %i[warned skipped].each do |kind|
       export(kind)
       print_stats(kind)
@@ -121,6 +123,51 @@ class MainImport
       api_satelit
     ].map do |name|
       ["'#{name}_sandbox'", "'#{name}_production'"]
-    end.flatten.join(', ')
+    end.concat(
+      [
+        "'api_declaration_auto_entrepreneur'",
+        "'api_declaration_cesu'",
+        "'franceconnect'",
+      ]
+    ).flatten.join(', ')
+
+    %w[
+      api_impot_particulier
+    ].map do |name|
+      ["'#{name}_sandbox'", "'#{name}_production'", "'#{name}_unique'"]
+    end.concat(["'franceconnect'"]).flatten.join(', ')
+  end
+
+  def clean_extra_authorizations_from_old_fake_reopening!
+    authorizations = Authorization.where(
+      authorization_request_class: [
+        'AuthorizationRequest::APIFicoba',
+        'AuthorizationRequest::APIR2P',
+        'AuthorizationRequest::APIFicobaSandbox',
+        'AuthorizationRequest::APIR2PSandbox',
+      ],
+      id: (100_000..)
+    )
+
+    AuthorizationRequestEvent.includes(:entity).where(
+      entity_type: 'Authorization',
+      entity_id: authorizations.pluck(:id),
+    ).find_each do |event|
+      first_authorization = event.entity.request.authorizations.order(created_at: :asc).first
+
+      event.entity_id = first_authorization.id
+      event.save!
+    end
+
+    authorizations.destroy_all
+  end
+
+  def already_imported_authorization_request_types
+    %w[
+      AuthorizationRequest::APIEntreprise
+      AuthorizationRequest::APIParticulier
+      AuthorizationRequest::HubEECertDC
+      AuthorizationRequest::HubEEDila
+    ]
   end
 end
