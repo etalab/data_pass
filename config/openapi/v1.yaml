@@ -243,7 +243,6 @@ components:
           type: object
           description: Données INSEE associées à l'organisation
           additionalProperties: true
-          nullable: true
       required:
         - id
         - siret
