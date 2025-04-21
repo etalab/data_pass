@@ -20,8 +20,7 @@ class Import::AuthorizationRequests < Import::Base
     authorization_request.state = enrollment_row['status']
     authorization_request.external_provider_id = enrollment_row['linked_token_manager_id']
     authorization_request.last_validated_at = enrollment_row['last_validated_at']
-    # FIXME to delete, will use raw data anyway
-    # authorization_request.copied_from_request = AuthorizationRequest.find(enrollment_row['copied_from_enrollment_id']) if enrollment_row['copied_from_enrollment_id'] && AuthorizationRequest.exists?(enrollment_row['copied_from_enrollment_id'])
+    authorization_request.copied_from_request_id = enrollment_row['copied_from_enrollment_id']
 
     if authorization_request.state != 'draft'
       authorization_request.assign_attributes(
@@ -42,7 +41,7 @@ class Import::AuthorizationRequests < Import::Base
 
       raise Import::AuthorizationRequests::Base::SkipRow.new(:unknown, id: authorization_request.id, target_api: enrollment_row['target_api'], authorization_request:, status: enrollment_row['status'])
     rescue ActiveStorage::IntegrityError => e
-      byebug
+      # byebug
     ensure
       ($dummy_files || {}).each do |key, value|
         value.close
@@ -202,13 +201,7 @@ class Import::AuthorizationRequests < Import::Base
   end
 
   def fetch_form(authorization_request)
-    if authorization_request.definition.available_forms.one?
-      authorization_request.definition.available_forms.first
-    else
-      authorization_request.definition.available_forms.find do |form|
-        form.id.underscore == authorization_request.class.name.demodulize.underscore
-      end
-    end
+    authorization_request.definition.available_forms.first
   end
 
   def handle_authorization_request_type_specific_fields(authorization_request, enrollment_row)
