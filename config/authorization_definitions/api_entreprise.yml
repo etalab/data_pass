@@ -4,6 +4,7 @@ api_entreprise:
   provider: "dinum"
   kind: 'api'
   link: "https://api.gouv.fr/les-api/api-entreprise"
+  support_email: "support@entreprise.api.gouv.fr"
   cgu_link: "https://entreprise.api.gouv.fr/cgu"
   access_link: https://entreprise.api.gouv.fr/compte/jetons/%{external_provider_id}
   public: true

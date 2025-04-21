@@ -3,6 +3,7 @@ hubee_cert_dc:
   description: "Formulaire d'abonnement à la démarche Certificats de Décès Électroniques Dématérialisés"
   cgu_link: "/cgus/20210212_dinum_hubee_cgu_v2_1_0_version_site.pdf"
   access_link: https://portail.hubee.numerique.gouv.fr
+  support_email: "dgs-certdc@sante.gouv.fr"
   kind: 'service'
   provider: "dgs"
   public: true
@@ -15,6 +16,7 @@ hubee_dila:
   description: "Formulaire d'abonnement aux démarches du bouquet de services (service-public.fr)"
   cgu_link: "/cgus/20210212_dinum_hubee_cgu_v2_1_0_version_site.pdf"
   access_link: https://portail.hubee.numerique.gouv.fr
+  support_email: "support.partenaires@service-public.fr"
   provider: "dila"
   kind: 'service'
   public: true

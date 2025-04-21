@@ -20,6 +20,14 @@ RSpec.describe AuthorizationDefinition do
     end
   end
 
+  describe '#support_email' do
+    it 'is present on each definition' do
+      described_class.all.each do |definition|
+        expect(definition.support_email).to be_present, "#{definition.id} support email is missing"
+      end
+    end
+  end
+
   describe '#editors' do
     subject(:editors) { instance.editors }
 
