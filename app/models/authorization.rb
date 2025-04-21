@@ -11,8 +11,7 @@ class Authorization < ApplicationRecord
 
   belongs_to :request,
     class_name: 'AuthorizationRequest',
-    inverse_of: :authorizations,
-    dependent: :destroy
+    inverse_of: :authorizations
 
   has_one :organization,
     through: :request
