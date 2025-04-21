@@ -363,6 +363,10 @@ components:
           type: object
           description: Données spécifiques associées à l'habilitation
           additionalProperties: true
+        authorization_request_class:
+          type: string
+          example: "AuthorizationRequest::APIParticulier"
+          description: Classe de la demande d'autorisation associée à l'habilitation
       required:
         - id
         - slug
@@ -370,6 +374,7 @@ components:
         - revoked
         - state
         - created_at
+        - authorization_request_class
     AuthorizationRequestEvent:
       type: object
       description: Événement associé à une demande d'habilitation

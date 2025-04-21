@@ -14,6 +14,7 @@ RSpec.describe API::V1::AuthorizationSerializer, type: :serializer do
         state: authorization.state,
         created_at: authorization.created_at,
         data: authorization.data,
+        authorization_request_class: authorization.authorization_request_class,
       )
     end
   end
