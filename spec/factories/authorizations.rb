@@ -19,7 +19,6 @@ FactoryBot.define do
       authorization.data = authorization.request.data.dup
 
       authorization.data['what'] = 'ever' if authorization.data.blank?
-      authorization.form_uid ||= authorization.request.form_uid
     end
   end
 end

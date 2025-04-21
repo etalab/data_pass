@@ -200,7 +200,6 @@ FactoryBot.define do
           authorization_request_class: previous_stage[:definition].authorization_request_class,
           data: authorization_request.data.presence || { 'what' => 'ever' },
           created_at: previous_authorization_created_at,
-          form_uid: previous_stage[:form].id
         )
       end
     end

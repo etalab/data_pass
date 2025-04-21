@@ -53,7 +53,7 @@ RSpec.describe 'API: Authorization requests' do
           get_index
 
           auth_response = response.parsed_body[0]['habilitations'].first
-          expect(auth_response).to include('id', 'slug', 'form_uid', 'state', 'created_at')
+          expect(auth_response).to include('id', 'slug', 'state', 'created_at')
         end
       end
 
