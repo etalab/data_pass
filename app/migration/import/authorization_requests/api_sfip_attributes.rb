@@ -20,24 +20,28 @@ class Import::AuthorizationRequests::APISFiPAttributes < Import::AuthorizationRe
   def demarche_to_form_uid
     form_uid = case enrollment_row['demarche']
       when 'aides_sociales_facultatives'
-        'api-sfip-aides-sociales-facultatives-sandbox'
+        'api-sfip-aides-sociales-facultatives'
       when 'cantine_scolaire'
-        'api-sfip-cantine-scolaire-sandbox'
+        'api-sfip-cantine-scolaire'
       when 'activites_periscolaires'
-        'api-sfip-activites-periscolaires-sandbox'
+        'api-sfip-activites-periscolaires'
       when 'place_creche'
-        'api-sfip-place-creche-sandbox'
+        'api-sfip-place-creche'
       when 'stationnement_residentiel', 'carte_stationnement'
-        'api-sfip-stationnement-residentiel-sandbox'
+        'api-sfip-stationnement-residentiel'
       when 'carte_transport'
-        'api-sfip-carte-transport-sandbox'
+        'api-sfip-carte-transport'
       when 'eligibilite_lep', 'migration_api_particulier'
-        'api-sfip-sandbox'
+        'api-sfip'
       else
-        'api-sfip-sandbox'
+        'api-sfip'
       end
 
-    form_uid += '-editeur' if enrollment_row['target_api'] =~ /_unique$/
+    if enrollment_row['target_api'] =~ /_unique$/
+      form_uid += '-editeur'
+    else
+      form_uid += '-production'
+    end
 
     form_uid
   end

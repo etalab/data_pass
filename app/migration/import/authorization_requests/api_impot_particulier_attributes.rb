@@ -32,23 +32,23 @@ class Import::AuthorizationRequests::APIImpotParticulierAttributes < Import::Aut
   def demarche_to_form_uid
     form_uid = case enrollment_row['demarche']
       when 'eligibilite_lep', 'quotient_familial', 'default'
-        'api-impot-particulier-sandbox'
+        'api-impot-particulier-production'
       when 'migration_api_particulier'
-        'api-impot-particulier-sandbox'
+        'api-impot-particulier-production'
       when 'activites_periscolaires'
-        'api-impot-particulier-activites-periscolaires-sandbox'
+        'api-impot-particulier-activites-periscolaires-production'
       when 'aides_sociales_facultatives'
-        'api-impot-particulier-aides-sociales-facultatives-sandbox'
+        'api-impot-particulier-aides-sociales-facultatives-production'
       when 'cantine_scolaire'
-        'api-impot-particulier-cantine-scolaire-sandbox'
+        'api-impot-particulier-cantine-scolaire-production'
       when 'carte_transport'
-        'api-impot-particulier-carte-transport-sandbox'
+        'api-impot-particulier-carte-transport-production'
       when 'place_creche'
-        'api-impot-particulier-place-creche-sandbox'
+        'api-impot-particulier-place-creche-production'
       when 'stationnement_residentiel', 'carte_stationnement'
-        'api-impot-particulier-stationnement-residentiel-sandbox'
+        'api-impot-particulier-stationnement-residentiel-production'
       else
-        'api-impot-particulier-sandbox'
+        'api-impot-particulier-production'
       end
 
     form_uid += '-editeur' if enrollment_row['target_api'] =~ /_unique$/
