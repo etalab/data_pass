@@ -72,9 +72,6 @@ class Import::AuthorizationRequestEvents < Import::Base
     when 'revoke'
       create_event(event_row, entity: RevocationOfAuthorization.create!(authorization_request:, reason: event_row['comment'] || default_reason))
     when 'copy'
-      return if authorization_request.copied_from_request.blank?
-      return if authorization_request.definition.stage.exists? && authorization_request.definition.stage.type == 'prodcution'
-
       create_event(event_row, entity: authorization_request)
     end
 
