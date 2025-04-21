@@ -605,9 +605,9 @@ FactoryBot.define do
       with_volumetrie
     end
 
-    trait :api_sfip_production_editeur do
+    trait :api_sfip_editeur do
       api_sfip_production
-      form_uid { 'api-sfip-production-editeur' }
+      form_uid { 'api-sfip-editeur' }
     end
 
     trait :api_sfip_stationnement_residentiel_sandbox do
