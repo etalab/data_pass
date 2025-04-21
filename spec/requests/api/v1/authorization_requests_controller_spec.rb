@@ -93,6 +93,7 @@ RSpec.describe 'API: Authorization requests' do
           expect(response).to have_http_status(:ok)
           expect(response.parsed_body['habilitations']).to be_present
           expect(response.parsed_body['habilitations'].first['id']).to eq(authorization.id)
+          expect(response.parsed_body['habilitations'].first['authorization_request_class']).to eq(authorization.authorization_request_class)
         end
       end
 

@@ -18,6 +18,7 @@ RSpec.describe 'API: Authorizations' do
         expect(response).to have_http_status(:ok)
         expect(response.parsed_body.count).to eq(1)
         expect(response.parsed_body[0]['id']).to eq(authorization.id)
+        expect(response.parsed_body[0]['authorization_request_class']).to eq(authorization.authorization_request_class)
       end
     end
 

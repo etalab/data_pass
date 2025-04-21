@@ -5,5 +5,6 @@ class API::V1::AuthorizationSerializer < ActiveModel::Serializer
     :revoked,
     :state,
     :created_at,
-    :data
+    :data,
+    :authorization_request_class
 end
