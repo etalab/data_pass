@@ -6,6 +6,7 @@ Fonctionnalité: Instruction: messagerie
 
   Contexte:
     Sachant que je suis un instructeur "API Entreprise"
+    Et que je suis un instructeur "API Impôt Particulier"
     Et que je me connecte
 
   Scénario: Je vois l'historique des messages
@@ -42,3 +43,6 @@ Fonctionnalité: Instruction: messagerie
     Et que je clique sur "Messagerie"
     Alors il y a un bouton "Envoyer"
 
+  Scénario: Je ne peux pas consulter ni envoyer de messages sur un type de demande sans messagerie activée
+    Quand je me rends sur une demande d'habilitation "API Impôt Particulier" à modérer
+    Alors la page ne contient pas "Messagerie"

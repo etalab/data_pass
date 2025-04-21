@@ -33,8 +33,13 @@ class Instruction::AuthorizationRequestPolicy < ApplicationPolicy
       record.can_archive?
   end
 
+  def messages?
+    feature_enabled?(:messages) &&
+      show?
+  end
+
   def send_message?
-    show? &&
+    messages? &&
       instructor_for_record?
   end
 
@@ -65,6 +70,10 @@ class Instruction::AuthorizationRequestPolicy < ApplicationPolicy
 
   def authorization_request_type
     record.type.underscore.split('/').last
+  end
+
+  def feature_enabled?(name)
+    record.definition.feature?(name)
   end
 
   class Scope < Scope

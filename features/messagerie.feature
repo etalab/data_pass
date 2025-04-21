@@ -48,3 +48,10 @@ Fonctionnalité: Messagerie lié à des demandes
     Et que je clique sur "Envoyer"
     Alors la page contient "Bonjour, je suis le demandeur"
     Et un email est envoyé contenant "nouveau message"
+
+  Scénario: Je ne peux pas consulter ni envoyer de messages sur un type de demande sans messagerie activée
+    Quand j'ai 1 demande d'habilitation "API Impôt Particulier" à l'étape "Bac à sable" en brouillon
+    Et que il existe un instructeur pour cette demande d'habilitation
+    Et que je me rends sur cette demande d'habilitation
+    Alors il n'y a pas de bulle de messagerie
+

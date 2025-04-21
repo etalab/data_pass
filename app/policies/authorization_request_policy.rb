@@ -61,7 +61,8 @@ class AuthorizationRequestPolicy < ApplicationPolicy
   end
 
   def messages?
-    record.persisted? &&
+    feature_enabled?(:messaging) &&
+      record.persisted? &&
       record.applicant == user
   end
 
@@ -94,6 +95,10 @@ class AuthorizationRequestPolicy < ApplicationPolicy
 
   def authorization_definition
     record.definition
+  end
+
+  def feature_enabled?(name)
+    authorization_definition.feature?(name)
   end
 
   private

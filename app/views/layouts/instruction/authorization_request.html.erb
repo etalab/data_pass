@@ -40,8 +40,8 @@
       tabs = {
         authorization_request: instruction_authorization_request_path(@authorization_request),
         authorization_request_events: instruction_authorization_request_events_path(@authorization_request),
-        messages: instruction_authorization_request_messages_path(@authorization_request),
-      }
+        messages: @authorization_request.definition.feature?(:messaging) ? instruction_authorization_request_messages_path(@authorization_request) : nil,
+      }.compact
 
       if @authorization_request.authorizations.any?
         tabs[:authorizations] = instruction_authorization_request_authorizations_path(@authorization_request)
