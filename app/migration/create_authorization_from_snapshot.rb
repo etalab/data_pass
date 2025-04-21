@@ -69,7 +69,9 @@ class CreateAuthorizationFromSnapshot
       )
     end
 
-    return if data.empty?
+    if data.empty?
+      data = database.execute('select * from snapshots where id = ?', event_row['entity_id'])
+    end
 
     JSON.parse(data[0][-1]).to_h
   end
