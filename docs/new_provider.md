@@ -55,6 +55,8 @@ Pour la configuration de la [définition (1.)](../config/authorization_definitio
     link: https://mon-api.gouv.fr
     # Lien vers les CGU
     cgu_link: https://mon-api.gouv.fr/cgu.pdf
+    # Lien pour récupérer son accès. Ce lien peut interpoler la variable `external_provider_id`
+    access_link:  https://mon-api.gouv.fr/compte/tokens/%{external_provider_id}
     # Type de service. Valeurs possibles: api, service.
     # Cette valeur sert principalement à personnaliser les textes, notamment sur la page de
     # démarrage d'une demande.
