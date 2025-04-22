@@ -157,6 +157,9 @@ class MainImport
       first_authorization = event.entity.request.authorizations.order(created_at: :asc).first
 
       event.entity_id = first_authorization.id
+      first_authorization.state = first_authorization.request.state == 'revoked' ? 'revoked' : 'active'
+
+      first_authorization.save!
       event.save!
     end
 
