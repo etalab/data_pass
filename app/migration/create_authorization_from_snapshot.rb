@@ -124,7 +124,10 @@ class CreateAuthorizationFromSnapshot
       state_to_affect = 'revoked'
     end
 
-    Authorization.where(request_id: @authorization_request.id).update_all(
+    Authorization.where(
+      request_id: @authorization_request.id,
+      authorization_request_class: @authorization_request.class.name,
+    ).update_all(
       state: state_to_affect,
     )
   end
