@@ -51,16 +51,32 @@ module DGFIPExtensions::APIImpotParticulierScopes
   end
 
   def scopes_compatibility
-    return unless scope_exists_in_each_arrays?(*INCOMPATIBLE_SCOPES)
+    active_scopes = scopes - deprecated_scopes
+
+    return unless scope_exists_in_each_arrays?(active_scopes, * INCOMPATIBLE_SCOPES)
 
     errors.add(:scopes, :scopes_compatibility)
   end
 
-  def scope_exists_in_each_arrays?(array_1, array_2)
-    scopes.intersect?(array_1) && scopes.intersect?(array_2)
+  def scope_exists_in_each_arrays?(active_scopes, array_1, array_2)
+    active_scopes.intersect?(array_1) && active_scopes.intersect?(array_2)
   end
 
   def specific_requirements?
     specific_requirements == '1'
+  end
+
+  def deprecated_scopes
+    @deprecated_scopes ||= begin
+      yaml_file = Rails.root.join('config/authorization_definitions/dgfip.yml')
+      if File.exist?(yaml_file)
+        yaml_content = YAML.load_file(yaml_file, aliases: true)
+        yaml_content.filter_map do |scope, details|
+          scope if details.is_a?(Hash) && details['deprecated_since'].present?
+        end
+      else
+        []
+      end
+    end
   end
 end
