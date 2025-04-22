@@ -142,6 +142,48 @@ RSpec.describe AuthorizationRequest do
     end
   end
 
+  describe 'archive conditions' do
+    subject { authorization_request.can_archive? }
+
+    context 'when authorization request has at least one authorization' do
+      let(:authorization_request) { create(:authorization, state:).request }
+
+      context 'when authorization is active' do
+        let(:state) { 'active' }
+
+        it { is_expected.to be_falsey }
+      end
+    end
+
+    context 'when authorization request has no authorizations' do
+      let(:authorization_request) { create(:authorization_request, :api_entreprise, state:) }
+
+      context 'when authorization request is in draft state' do
+        let(:state) { 'draft' }
+
+        it { is_expected.to be_truthy }
+      end
+
+      context 'when authorization request is in submitted state' do
+        let(:state) { 'submitted' }
+
+        it { is_expected.to be_falsey }
+      end
+
+      context 'when authorization request is in request changes state' do
+        let(:state) { 'changes_requested' }
+
+        it { is_expected.to be_falsey }
+      end
+
+      context 'when authorization request is in refused state' do
+        let(:state) { 'refused' }
+
+        it { is_expected.to be_truthy }
+      end
+    end
+  end
+
   describe 'save context' do
     subject(:save_authorization_request) { authorization_request.save(context:) }
 

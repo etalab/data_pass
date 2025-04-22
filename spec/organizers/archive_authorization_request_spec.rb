@@ -4,14 +4,14 @@ RSpec.describe ArchiveAuthorizationRequest do
 
     let(:user) { create(:user) }
 
-    context 'with authorization request in submitted state' do
-      let!(:authorization_request) { create(:authorization_request, authorization_request_kind, :submitted) }
+    context 'with authorization request in draft state' do
+      let!(:authorization_request) { create(:authorization_request, authorization_request_kind, :draft) }
       let(:authorization_request_kind) { :hubee_cert_dc }
 
       it { is_expected.to be_success }
 
       it 'changes state to archived' do
-        expect { archive_authorization_request }.to change { authorization_request.reload.state }.from('submitted').to('archived')
+        expect { archive_authorization_request }.to change { authorization_request.reload.state }.from('draft').to('archived')
       end
 
       it_behaves_like 'creates an event', event_name: :archive
