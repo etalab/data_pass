@@ -111,6 +111,19 @@ module Import::AuthorizationRequests::DGFIPProduction
     authorization_request.safety_certification_end_date = (Date.parse(authorization_request.safety_certification_begin_date) + 1.day).to_s
   end
 
+  def call_sandbox_affect_attributes!
+    klass = self.class.to_s.sub('Attributes', 'SandboxAttributes').constantize
+
+    @authorization_request = klass.new(
+      @authorization_request,
+      @enrollment_row,
+      @team_members,
+      @warned,
+      @all_models,
+      safe_mode: @safe_mode,
+    ).perform
+  end
+
   def affect_volumetrie
     authorization_request.volumetrie_appels_par_minute = additional_content['volumetrie_appels_par_minute'].try(:to_i)
 

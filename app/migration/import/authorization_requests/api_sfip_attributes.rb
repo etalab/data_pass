@@ -2,7 +2,11 @@ class Import::AuthorizationRequests::APISFiPAttributes < Import::AuthorizationRe
   include Import::AuthorizationRequests::DGFIPProduction
 
   def affect_data
-    migrate_from_sandbox_to_production! unless enrollment_row['target_api'] =~ /_unique$/
+    if enrollment_row['target_api'] =~ /_unique$/
+      call_sandbox_affect_attributes!
+    else
+      migrate_from_sandbox_to_production!
+    end
 
     affect_form_uid
 
