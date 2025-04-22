@@ -262,6 +262,8 @@ class Import::AuthorizationRequests < Import::Base
       'api_impot_particulier_fc_sandbox' => 'api_impot_particulier_sandbox',
       'api_impot_particulier_production' => 'api_impot_particulier',
       'api_impot_particulier_fc_production' => 'api_impot_particulier',
+      'api_impot_particulier_fc_unique' => 'api_impot_particulier',
+      'api_impot_particulier_unique' => 'api_impot_particulier',
       'franceconnect' => 'france_connect',
       'api_rial_sandbox' => 'api_rial_sandbox',
       'api_rial_production' => 'api_rial',
