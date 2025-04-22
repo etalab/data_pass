@@ -48,10 +48,8 @@ module AuthorizationCore::Scopes
   def available_scopes
     @available_scopes ||= if displayed_scope_values
                             definition.scopes.select { |scope| displayed_scope_values.include?(scope.value) }
-                          elsif new_record? || recently_created?
-                            definition.scopes.reject { |scope| scope.deprecated_for?(self) }
                           else
-                            definition.scopes
+                            definition.scopes.reject { |scope| scope.deprecated_for?(self) }
                           end
   end
 

@@ -88,20 +88,8 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
     dsfr_check_box(name, opts)
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
   def dsfr_scope(scope, opts = {})
-    disabled = opts.delete(:disabled)
-
-    disabled = @object.disabled_scopes.include?(scope) if disabled.blank?
-
-    deprecated = scope.deprecated?
-
-    should_disable_deprecated =
-      deprecated && (@object.new_record? || @object.recently_created?)
-
-    css_classes = ['fr-checkbox-group']
-    css_classes << 'fr-checkbox-group--deprecated' if deprecated
-    css_classes.join(' ')
+    disabled = determine_scope_disabled_state(scope, opts.delete(:disabled))
 
     @template.content_tag(:div, class: 'fr-checkbox-group') do
       @template.safe_join(
@@ -110,20 +98,24 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
             :scopes,
             {
               class: input_classes(opts),
-              **dsfr_scope_options(scope, disabled: disabled || should_disable_deprecated),
+              **dsfr_scope_options(scope, disabled: disabled),
               **enhance_input_options(opts).except(:class)
             },
             scope.value,
-            nil
+            '',
           ),
-          dsfr_scope_label(scope, deprecated: deprecated),
-          include_scope_hidden_field?(scope, disabled || should_disable_deprecated) ? scope_hidden_field(scope) : nil
+          dsfr_scope_label(scope),
+          include_scope_hidden_field?(scope, disabled) ? scope_hidden_field(scope) : nil
         ].compact
       )
     end
   end
 
-  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
+  def determine_scope_disabled_state(scope, disabled_option)
+    return true if disabled_option || scope.deprecated?
+
+    @object.disabled_scopes.include?(scope) if disabled_option.blank?
+  end
 
   def include_scope_hidden_field?(scope, disabled)
     if disabled
@@ -142,12 +134,12 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
     }
   end
 
-  def dsfr_scope_label(scope, deprecated: false)
+  def dsfr_scope_label(scope)
     label(:scopes, class: 'fr-label', value: scope.value) do
       @template.safe_join(
         [
           scope.name,
-          deprecated ? @template.content_tag(:span, 'Déprécié', class: 'fr-badge fr-badge--sm fr-badge--warning fr-mx-1w') : nil,
+          scope.deprecated? ? @template.content_tag(:span, 'Déprécié', class: 'fr-badge fr-badge--sm fr-badge--warning fr-mx-1w') : nil,
           scope.link? ? @template.link_to('', scope.link, { target: '_blank', rel: 'noopener' }) : nil
         ].compact
       )
