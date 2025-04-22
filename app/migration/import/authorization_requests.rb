@@ -239,6 +239,7 @@ class Import::AuthorizationRequests < Import::Base
   def old_unused?(enrollment_row)
     %w[refused revoked changes_requested draft archived].include?(enrollment_row['status']) &&
       enrollment_row['last_validated_at'].blank? &&
+      %w[sandbox production unique].none? { |target_suffix| enrollment_row['target_api'].match?(/_#{target_suffix}$/) } &&
       DateTime.parse(enrollment_row['created_at']) < DateTime.new(2022, 1, 1)
   end
 
