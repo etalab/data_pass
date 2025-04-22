@@ -91,8 +91,8 @@ class Import::Base
       rescue => e
         log(" ERROR ##{row['id']} #{e.message}\n")
 
-        log(e.backtrace.join("\n"))
-        byebug if ENV['LOCAL'].present?
+        # log(e.backtrace.join("\n"))
+        # byebug if ENV['LOCAL'].present?
       end
     end
 
