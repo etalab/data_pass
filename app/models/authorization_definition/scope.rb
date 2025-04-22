@@ -1,5 +1,5 @@
 class AuthorizationDefinition::Scope
-  attr_reader :name, :value, :group, :link, :deprecated_since
+  attr_reader :name, :value, :group, :link
 
   def initialize(properties)
     @name = properties.fetch(:name)
@@ -8,9 +8,7 @@ class AuthorizationDefinition::Scope
     @link = properties.fetch(:link, nil)
     @included = properties.fetch(:included, false)
     @disabled = properties.fetch(:disabled, false)
-    @deprecated = properties.fetch(:deprecated, false)
     @deprecated_since = properties.fetch(:deprecated_since, nil)
-    @deprecated_since = Date.parse(@deprecated_since) if @deprecated_since.is_a?(String)
   end
 
   def included?
@@ -21,16 +19,24 @@ class AuthorizationDefinition::Scope
     @disabled
   end
 
+  def deprecated_date
+    return nil if @deprecated_since.blank?
+
+    begin
+      @deprecated_since.is_a?(String) ? Date.parse(@deprecated_since) : @deprecated_since
+    rescue TypeError
+      nil
+    end
+  end
+
   def deprecated?
-    @deprecated || @deprecated_since.present?
+    deprecated_date.present? && deprecated_date < Time.zone.today
   end
 
   def deprecated_for?(entity)
-    return true if @deprecated
     return false if @deprecated_since.nil?
 
-    entity_date = entity.respond_to?(:created_at) && entity.created_at ? entity.created_at.to_date : nil
-    entity_date.present? && entity_date >= @deprecated_since
+    (entity.created_at || Time.zone.today) >= @deprecated_since
   end
 
   def link?

@@ -67,16 +67,6 @@ module DGFIPExtensions::APIImpotParticulierScopes
   end
 
   def deprecated_scopes
-    @deprecated_scopes ||= begin
-      yaml_file = Rails.root.join('config/authorization_definitions/dgfip.yml')
-      if File.exist?(yaml_file)
-        yaml_content = YAML.load_file(yaml_file, aliases: true)
-        yaml_content.filter_map do |scope, details|
-          scope if details.is_a?(Hash) && details['deprecated_since'].present?
-        end
-      else
-        []
-      end
-    end
+    @deprecated_scopes ||= scopes.select { |scope| scope_deprecated?(scope) }
   end
 end
