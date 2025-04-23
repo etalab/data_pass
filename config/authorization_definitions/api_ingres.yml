@@ -6,6 +6,7 @@ api_ingres:
   link: "https://api.gouv.fr/les-api/API_Ingres_Nomenclatures"
   cgu_link: "/cgus/cgu_api_ingres.pdf"
   access_link: "https://api-ingres.gouv.fr/tokens/%<external_provider_id>"
+  support_email: "api.cisirh@finances.gouv.fr"
   public: true
   blocks:
     - name: "basic_infos"

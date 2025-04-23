@@ -6,6 +6,7 @@ pro_connect_service_provider:
   link: "https://api.gouv.fr/les-api/agent-connect"
   cgu_link: "/cgus/cgu_agentconnect_fs.pdf"
   access_link: "https://pro-connect-fs.gouv.fr/tokens/%<external_provider_id>"
+  support_email: "support.partenaires@agentconnect.gouv.fr"
   public: true
   blocks:
     - name: "basic_infos"
@@ -35,6 +36,7 @@ pro_connect_identity_provider:
   link: "https://api.gouv.fr/les-api/agent-connect"
   cgu_link: "/cgus/cgu_agentconnect_fi.pdf"
   access_link: "https://pro-connect-fi.gouv.fr/tokens/%<external_provider_id>"
+  support_email: "support.partenaires@agentconnect.gouv.fr"
   public: true
   blocks:
     - name: "basic_infos"

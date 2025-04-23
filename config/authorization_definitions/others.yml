@@ -5,6 +5,7 @@ api_captchetat:
   kind: 'api'
   link: "https://api.gouv.fr/les-api/api-captchetat"
   cgu_link: "/cgus/cgu_api_captchetat_v_1_2.pdf"
+  support_email: "piste.aife@finances.gouv.fr"
   provider: "aife"
   blocks:
     - name: "basic_infos"
@@ -18,6 +19,7 @@ api_scolarite:
   kind: 'api'
   link: "https://api.gouv.fr/les-api/api-scolarite-ministere-education-nationale"
   cgu_link: "/cgus/cgu_api_scolarite.pdf"
+  support_email: "api-sco-eleve_contacts@education.gouv.fr"
   public: true
   blocks:
     - name: "basic_infos"
@@ -40,6 +42,7 @@ api_pro_sante_connect:
   kind: 'api'
   link: "https://api.gouv.fr/les-api/api-pro-sante-connect"
   cgu_link: "https://industriels.esante.gouv.fr/produits-et-services/pro-sante-connect/conditions-generale-d-utilisation-pro-sante-connect"
+  support_email: "prosanteconnect.editeurs@esante.gouv.fr"
   provider: "ans"
   blocks:
     - name: "basic_infos"
@@ -64,6 +67,7 @@ annuaire_des_entreprise:
   cgu_link: "https://annuaire-entreprises.data.gouv.fr/cgu"
   # FEEDME
   access_link: "https://annuaire-entreprises.data.gouv.fr/compte"
+  support_email: "support@annuaire-entreprises.data.gouv.fr"
   public: true
   blocks:
     - name: "basic_infos"

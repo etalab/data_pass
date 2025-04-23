@@ -32,12 +32,13 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
 
     dsfr_accordion(
       info_wording[:title],
-      info_wording[:content],
       {
         id: [@object.model_name.element, 'info', block].join('_'),
         class: %w[fr-accordion--info fr-mb-5w],
-      },
-    )
+      }
+    ) do
+      info_wording[:content]
+    end
   end
 
   def contacts_infos(contacts = nil)
@@ -47,17 +48,18 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
 
     dsfr_accordion(
       I18n.t('authorization_request_forms.default.contacts.info.title'),
-      contacts.reduce('') do |content, contact|
-        contact_content = I18n.t("authorization_request_forms.#{@object.model_name.element}.#{contact}.info", default: nil) ||
-          I18n.t("authorization_request_forms.default.#{contact}.info")
-
-        content << "<p>#{contact_content}</p>"
-      end,
       {
         id: [@object.model_name.element, 'info_contacts'].join('_'),
         class: %w[fr-accordion--info fr-mb-3w],
-      },
-    )
+      }
+    ) do
+      contacts.reduce('') do |content, contact|
+        contact_content = I18n.t("authorization_request_forms.#{@object.model_name.element}.#{contact}.info", default: nil) ||
+                          I18n.t("authorization_request_forms.default.#{contact}.info")
+
+        content << "<p>#{contact_content}</p>"
+      end
+    end
   end
 
   def cgu_check_box(_opts = {})

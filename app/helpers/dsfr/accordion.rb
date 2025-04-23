@@ -1,11 +1,19 @@
 module DSFR::Accordion
-  def dsfr_accordion(title, content, options = {})
+  def dsfr_accordion_group(options = {}, &)
+    options[:class] ||= []
+    options[:class] << 'fr-accordions-group'
+    template.content_tag(:div, class: options[:class]) do
+      template.capture(&)
+    end
+  end
+
+  def dsfr_accordion(title, options = {}, &)
     options[:id] ||= SecureRandom.uuid
 
     template.content_tag(:section, class: (options[:class] || []) << 'fr-accordion') do
       [
         dsfr_accordion_title(title, options),
-        dsfr_accordion_content(content, options)
+        dsfr_accordion_content(options, &)
       ].join.html_safe
     end
   end
@@ -26,9 +34,9 @@ module DSFR::Accordion
     end
   end
 
-  def dsfr_accordion_content(content, options)
+  def dsfr_accordion_content(options, &)
     template.content_tag(:div, class: 'fr-collapse', id: options[:id]) do
-      content.html_safe
+      template.capture(&)
     end
   end
 
