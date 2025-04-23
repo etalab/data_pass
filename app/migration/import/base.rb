@@ -83,7 +83,7 @@ class Import::Base
           e.authorization_request.save(validate: false)
           @models << e.authorization_request
         rescue => e
-          print 's'
+          print '❌'
           next
         end
 
@@ -93,6 +93,11 @@ class Import::Base
 
         # log(e.backtrace.join("\n"))
         # byebug if ENV['LOCAL'].present?
+      ensure
+        ($dummy_files || {}).each do |key, value|
+          value.close
+        end
+        $dummy_files = nil
       end
     end
 

@@ -1,6 +1,66 @@
 class Import::AuthorizationRequests < Import::Base
   include LocalDatabaseUtils
 
+  MAPPING_V1_V2_TYPES = {
+    'hubee_portail' => 'hubee_cert_dc',
+    'hubee_portail_dila' => 'hubee_dila',
+    'api_entreprise' => 'api_entreprise',
+    'api_particulier' => 'api_particulier',
+    'api_impot_particulier_sandbox' => 'api_impot_particulier_sandbox',
+    'api_impot_particulier_fc_sandbox' => 'api_impot_particulier_sandbox',
+    'api_impot_particulier_production' => 'api_impot_particulier',
+    'api_impot_particulier_fc_production' => 'api_impot_particulier',
+    'api_impot_particulier_fc_unique' => 'api_impot_particulier',
+    'api_impot_particulier_unique' => 'api_impot_particulier',
+    'franceconnect' => 'france_connect',
+    'api_rial_sandbox' => 'api_rial_sandbox',
+    'api_rial_production' => 'api_rial',
+    'api_cpr_pro_sandbox' => 'api_cpr_pro_adelie_sandbox',
+    'api_cpr_pro_production' => 'api_cpr_pro_adelie',
+    'api_e_contacts_sandbox' => 'api_e_contacts_sandbox',
+    'api_e_contacts_production' => 'api_e_contacts',
+    'api_e_pro_sandbox' => 'api_e_pro_sandbox',
+    'api_e_pro_production' => 'api_e_pro',
+    'api_ensu_documents_sandbox' => 'api_ensu_documents_sandbox',
+    'api_ensu_documents_production' => 'api_ensu_documents',
+    'api_hermes_sandbox' => 'api_hermes_sandbox',
+    'api_hermes_production' => 'api_hermes',
+    'api_imprimfip_sandbox' => 'api_imprimfip_sandbox',
+    'api_imprimfip_production' => 'api_imprimfip',
+    'api_mire_sandbox' => 'api_mire_sandbox',
+    'api_mire_production' => 'api_mire',
+    'api_ocfi_sandbox' => 'api_ocfi_sandbox',
+    'api_ocfi_production' => 'api_ocfi',
+    'api_opale_sandbox' => 'api_opale_sandbox',
+    'api_opale_production' => 'api_opale',
+    'api_robf_sandbox' => 'api_robf_sandbox',
+    'api_robf_production' => 'api_robf',
+    'api_satelit_sandbox' => 'api_satelit_sandbox',
+    'api_satelit_production' => 'api_satelit',
+    'api_declaration_auto_entrepreneur' => 'api_declaration_auto_entrepreneur',
+    'api_declaration_cesu' => 'api_declaration_cesu',
+    'api_sfip_sandbox' => 'api_sfip_sandbox',
+    'api_sfip_production' => 'api_sfip',
+    'api_sfip_unique' => 'api_sfip',
+    'api_droits_cnam' => 'api_droits_cnam',
+    'api_indemnites_journalieres_cnam' => 'api_indemnites_journalieres_cnam',
+    'api_captchetat' => 'api_captchetat',
+    'api_infinoe_sandbox' => 'api_infinoe_sandbox',
+    'api_infinoe_production' => 'api_infinoe',
+    'api_infinoe_unique' => 'api_infinoe',
+    'api_r2p_sandbox' => 'api_r2p_sandbox',
+    'api_r2p_production' => 'api_r2p',
+    'api_r2p_unique' => 'api_r2p',
+    'api_ficoba_sandbox' => 'api_ficoba_sandbox',
+    'api_ficoba_production' => 'api_ficoba',
+    'api_ficoba_unique' => 'api_ficoba',
+    'agent_connect_fi' => 'pro_connect_identity_provider',
+    'agent_connect_fs' => 'pro_connect_service_provider',
+    'api_ingres' => 'api_ingres',
+    'api_pro_sante_connect' => 'api_pro_sante_connect',
+    'api_scolarite' => 'api_scolarite',
+  }
+
   def initialize(options)
     super(options)
     @team_members = {}
@@ -41,11 +101,6 @@ class Import::AuthorizationRequests < Import::Base
       raise Import::AuthorizationRequests::Base::SkipRow.new(:unknown, id: authorization_request.id, target_api: enrollment_row['target_api'], authorization_request:, status: enrollment_row['status'])
     rescue ActiveStorage::IntegrityError => e
       # byebug
-    ensure
-      ($dummy_files || {}).each do |key, value|
-        value.close
-      end
-      $dummy_files = nil
     end
   end
 
@@ -253,65 +308,7 @@ class Import::AuthorizationRequests < Import::Base
   end
 
   def from_target_api_to_type(enrollment)
-    {
-      'hubee_portail' => 'hubee_cert_dc',
-      'hubee_portail_dila' => 'hubee_dila',
-      'api_entreprise' => 'api_entreprise',
-      'api_particulier' => 'api_particulier',
-      'api_impot_particulier_sandbox' => 'api_impot_particulier_sandbox',
-      'api_impot_particulier_fc_sandbox' => 'api_impot_particulier_sandbox',
-      'api_impot_particulier_production' => 'api_impot_particulier',
-      'api_impot_particulier_fc_production' => 'api_impot_particulier',
-      'api_impot_particulier_fc_unique' => 'api_impot_particulier',
-      'api_impot_particulier_unique' => 'api_impot_particulier',
-      'franceconnect' => 'france_connect',
-      'api_rial_sandbox' => 'api_rial_sandbox',
-      'api_rial_production' => 'api_rial',
-      'api_cpr_pro_sandbox' => 'api_cpr_pro_adelie_sandbox',
-      'api_cpr_pro_production' => 'api_cpr_pro_adelie',
-      'api_e_contacts_sandbox' => 'api_e_contacts_sandbox',
-      'api_e_contacts_production' => 'api_e_contacts',
-      'api_e_pro_sandbox' => 'api_e_pro_sandbox',
-      'api_e_pro_production' => 'api_e_pro',
-      'api_ensu_documents_sandbox' => 'api_ensu_documents_sandbox',
-      'api_ensu_documents_production' => 'api_ensu_documents',
-      'api_hermes_sandbox' => 'api_hermes_sandbox',
-      'api_hermes_production' => 'api_hermes',
-      'api_imprimfip_sandbox' => 'api_imprimfip_sandbox',
-      'api_imprimfip_production' => 'api_imprimfip',
-      'api_mire_sandbox' => 'api_mire_sandbox',
-      'api_mire_production' => 'api_mire',
-      'api_ocfi_sandbox' => 'api_ocfi_sandbox',
-      'api_ocfi_production' => 'api_ocfi',
-      'api_opale_sandbox' => 'api_opale_sandbox',
-      'api_opale_production' => 'api_opale',
-      'api_robf_sandbox' => 'api_robf_sandbox',
-      'api_robf_production' => 'api_robf',
-      'api_satelit_sandbox' => 'api_satelit_sandbox',
-      'api_satelit_production' => 'api_satelit',
-      'api_declaration_auto_entrepreneur' => 'api_declaration_auto_entrepreneur',
-      'api_declaration_cesu' => 'api_declaration_cesu',
-      'api_sfip_sandbox' => 'api_sfip_sandbox',
-      'api_sfip_production' => 'api_sfip',
-      'api_sfip_unique' => 'api_sfip',
-      'api_droits_cnam' => 'api_droits_cnam',
-      'api_indemnites_journalieres_cnam' => 'api_indemnites_journalieres_cnam',
-      'api_captchetat' => 'api_captchetat',
-      'api_infinoe_sandbox' => 'api_infinoe_sandbox',
-      'api_infinoe_production' => 'api_infinoe',
-      'api_infinoe_unique' => 'api_infinoe',
-      'api_r2p_sandbox' => 'api_r2p_sandbox',
-      'api_r2p_production' => 'api_r2p',
-      'api_r2p_unique' => 'api_r2p',
-      'api_ficoba_sandbox' => 'api_ficoba_sandbox',
-      'api_ficoba_production' => 'api_ficoba',
-      'api_ficoba_unique' => 'api_ficoba',
-      'agent_connect_fi' => 'pro_connect_identity_provider',
-      'agent_connect_fs' => 'pro_connect_service_provider',
-      'api_ingres' => 'api_ingres',
-      'api_pro_sante_connect' => 'api_pro_sante_connect',
-      'api_scolarite' => 'api_scolarite',
-    }[enrollment['target_api']].try(:classify)
+    MAPPING_V1_V2_TYPES[enrollment['target_api']].try(:classify)
   end
 
   def csv_or_table_to_loop
