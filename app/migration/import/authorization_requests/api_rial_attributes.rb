@@ -12,6 +12,8 @@ class Import::AuthorizationRequests::APIRialAttributes < Import::AuthorizationRe
     affect_safety_certification
     affect_volumetrie
 
+    authorization_request.form_uid = authorization_request.form_uid.gsub('-sandbox', '-production') if authorization_request.form_uid.include?('-sandbox') && enrollment_row['target_api'] !~ /_unique$/
+
     authorization_request.state = enrollment_row['status']
 
     return if authorization_request.valid?
