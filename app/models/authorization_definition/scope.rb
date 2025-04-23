@@ -24,7 +24,7 @@ class AuthorizationDefinition::Scope
 
     begin
       @deprecated_since.is_a?(String) ? Date.parse(@deprecated_since) : @deprecated_since
-    rescue TypeError
+    rescue TypeError, ArgumentError
       nil
     end
   end
@@ -36,7 +36,11 @@ class AuthorizationDefinition::Scope
   def deprecated_for?(entity)
     return false if @deprecated_since.nil?
 
-    (entity.created_at || Time.zone.today) >= @deprecated_since
+    date = deprecated_date
+    return false if date.nil?
+
+    entity_date = entity.created_at.nil? ? Time.zone.today : entity.created_at.to_date
+    entity_date >= date
   end
 
   def link?
