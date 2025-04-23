@@ -120,7 +120,7 @@ module Import::AuthorizationRequests::DGFIPProduction
       @team_members,
       @warned,
       @all_models,
-      safe_mode: @safe_mode,
+      safe_mode: true,
     ).perform
   end
 
