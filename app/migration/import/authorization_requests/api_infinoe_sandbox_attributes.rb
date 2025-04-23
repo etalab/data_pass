@@ -1,7 +1,7 @@
 class Import::AuthorizationRequests::APIINFINOESandboxAttributes < Import::AuthorizationRequests::APIRialSandboxAttributes
   def affect_data
-    super
     affect_form_uid
+    super
   end
 
   def demarche_to_form_uid

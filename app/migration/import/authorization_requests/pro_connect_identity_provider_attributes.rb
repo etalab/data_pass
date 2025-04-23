@@ -10,6 +10,7 @@ class Import::AuthorizationRequests::ProConnectIdentityProviderAttributes < Impo
     return if authorization_request.valid?
 
     skip_row!(:invalid_cadre_juridique) if authorization_request.errors[:cadre_juridique_url].any?
+    skip_row!("no_modalities_in_status_#{authorization_request.state}") unless authorization_request.modalities.present?
   end
 
   def affect_modalities
@@ -25,11 +26,6 @@ class Import::AuthorizationRequests::ProConnectIdentityProviderAttributes < Impo
     end
 
     authorization_request.modalities = authorization_request.modalities.uniq
-
-    return if authorization_request.modalities.present?
-    return if %w[refused validated].exclude?(authorization_request.state)
-
-    skip_row!("no_modalities_in_status_#{authorization_request.state}")
   end
 
   def affect_contacts

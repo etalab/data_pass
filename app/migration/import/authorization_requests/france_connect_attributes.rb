@@ -4,7 +4,6 @@ class Import::AuthorizationRequests::FranceConnectAttributes < Import::Authoriza
     affect_attributes
     affect_contacts
     affect_potential_legal_document
-    # affect_not_specified_to_duree_conservation
     affect_form_uid
     authorization_request.france_connect_eidas = extract_eidas
 

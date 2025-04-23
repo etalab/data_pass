@@ -4,6 +4,8 @@ class Import::AuthorizationRequests::APIFicobaSandboxAttributes < Import::Author
     affect_form_uid
 
     super
+
+    skip_row!("no_modalities_in_status_#{authorization_request.state}") unless authorization_request.modalities.present?
   end
 
   def affect_modalities
@@ -22,11 +24,6 @@ class Import::AuthorizationRequests::APIFicobaSandboxAttributes < Import::Author
     end
 
     authorization_request.modalities = authorization_request.modalities.uniq
-
-    return if authorization_request.modalities.present?
-    return if %w[refused validated].exclude?(authorization_request.state)
-
-    skip_row!("no_modalities_in_status_#{authorization_request.state}")
   end
 
   def demarche_to_form_uid

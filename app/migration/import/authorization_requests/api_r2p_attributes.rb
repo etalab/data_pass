@@ -1,7 +1,7 @@
 class Import::AuthorizationRequests::APIR2PAttributes < Import::AuthorizationRequests::APIRialAttributes
   def affect_data
-    super
     affect_form_uid
+    super
   end
 
   def demarche_to_form_uid

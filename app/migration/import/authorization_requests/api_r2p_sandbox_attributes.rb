@@ -1,10 +1,11 @@
 class Import::AuthorizationRequests::APIR2PSandboxAttributes < Import::AuthorizationRequests::APIRialSandboxAttributes
   def affect_data
     affect_modalities
+    affect_form_uid
 
     super
 
-    affect_form_uid
+    skip_row!("no_modalities_in_status_#{authorization_request.state}") unless authorization_request.modalities.present?
   end
 
   def affect_modalities
@@ -24,11 +25,6 @@ class Import::AuthorizationRequests::APIR2PSandboxAttributes < Import::Authoriza
     end
 
     authorization_request.modalities = authorization_request.modalities.uniq
-
-    return if authorization_request.modalities.present?
-    return if %w[refused validated].exclude?(authorization_request.state)
-
-    skip_row!("no_modalities_in_status_#{authorization_request.state}")
   end
 
   def demarche_to_form_uid

@@ -6,21 +6,15 @@ class Import::AuthorizationRequests::APIImpotParticulierSandboxAttributes < Impo
     affect_potential_legal_document
     affect_potential_specific_requirements
     affect_modalities
-    # affect_form_uid
-    handle_incompatible_scopes_error
+    affect_form_uid
 
     affect_duree_conservation_donnees_caractere_personnel_justification
 
     return if authorization_request.valid?
 
+    skip_row!("invalid_scopes_in_status_#{authorization_request.state}") if authorization_request.errors[:scopes].any?
     skip_row!(:invalid_cadre_juridique) if authorization_request.errors[:cadre_juridique_url].any?
-  end
-
-  def handle_incompatible_scopes_error
-    return if authorization_request.valid?
-    return unless authorization_request.errors[:scopes].any?
-
-    skip_row!("invalid_scopes_in_status_#{authorization_request.state}")
+    skip_row!("no_modalities_in_status_#{authorization_request.state}") unless authorization_request.modalities.present?
   end
 
   def affect_modalities
@@ -38,11 +32,6 @@ class Import::AuthorizationRequests::APIImpotParticulierSandboxAttributes < Impo
     affect_franceconnect_data if with_franceconnect?
 
     authorization_request.modalities = authorization_request.modalities.uniq
-
-    return if authorization_request.modalities.present?
-    return if %w[refused validated].exclude?(authorization_request.state)
-
-    skip_row!("no_modalities_in_status_#{authorization_request.state}")
   end
 
   def affect_contacts
