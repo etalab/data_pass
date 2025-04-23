@@ -1,7 +1,9 @@
 <h1 class="fr-mt-5v">FAQ</h1>
 
+<h2 class="fr-h6 fr-mt-5v">Comment peut-on vous aider ?</h2>
+
 <%= dsfr_accordion_group(class: ['my-faq']) do %>
-  <%= dsfr_accordion "J’ai une question concernant mon habilitation.", id: 'faq-habilitation' do %>
+  <%= dsfr_accordion "J’ai une question concernant mon habilitation.", id: 'probleme-habilitation' do %>
     <div class="fr-table">
       <div class="fr-table__wrapper">
         <div class="fr-table__container">
@@ -9,8 +11,8 @@
             <table>
               <thead>
                 <tr>
-                  <td>Nature de l'habilitation</td>
-                  <td>Contact</td>
+                  <th>Nature de l’habilitation</th>
+                  <th>Contact</th>
                 </tr>
               </thead>
               <tbody>
@@ -19,7 +21,7 @@
                     <td><%= authorization_definition.name_with_stage %></td>
                     <td>
                       <a href="mailto:<%= authorization_definition.support_email %>?subject=Contact via la FAQ">
-                        Écrire à l'équipe
+                        Écrire à l’équipe
                       </a>
                     </td>
                   </tr>
@@ -32,20 +34,24 @@
     </div>
   <% end %>
 
-  <%= dsfr_accordion "Comment puis-je modifier les coordonnées de mon compte ?", id: 'faq-modif-coord' do %>
-    Si vous souhaitez modifier les coordonnées de votre compte (par exemple dans le cadre d’une demande d’habilitation), rendez‑vous <%= link_to "ici", profile_path %>.<br />
-    Note : l’adresse mail ne peut pas être modifiée. Pour en changer, créez un nouveau compte.
+  <%= dsfr_accordion "Comment puis-je modifier les coordonnées de mon compte ?", id: 'changement-contact' do %>
+    Si vous souhaitez modifier les coordonnées de votre compte (par exemple si cela vous a été demandé dans le cadre d’une demande d’habilitation), <%= link_to " rendez‑vous ici", profile_path %>.
+    <br>
+    <br>
+    A Noter : Vous ne pouvez pas modifier l’adresse mail associé au compte. Si vous souhaitez utiliser une autre adresse mail, merci de <%= link_to "créer un nouveau compte", root_path %>.
   <% end %>
 
-  <%= dsfr_accordion "Puis-je rejoindre une autre organisation ?", id: 'faq-autre-org' do %>
-    Tout à fait, vous pouvez le faire <%= link_to "ici", profile_path %>.
+  <%= dsfr_accordion "Puis-je rejoindre une autre organisation ?", id: 'ajout-siret' do %>
+    Tout à fait, vous pouvez <%= link_to "le faire ici", profile_path %>.
   <% end %>
 
-  <%= dsfr_accordion "Puis-je demander une habilitation pour une organisation étrangère ?", id: 'faq-org-etrangere' do %>
-    Non, DataPass ne permet de demander des habilitations que pour les organisations INSEE.
+  <%= dsfr_accordion "Puis-je demander une habilitation pour une organisation étrangère ?", id: 'organisation-etrangere' do %>
+    Non, DataPass ne permet de demander des habilitations juridiques que pour les organisations enregistrées auprès de l’INSEE.
   <% end %>
 
-  <%= dsfr_accordion "Je ne trouve pas la réponse à ma question.", id: 'faq-autre' do %>
-    Vous pouvez <a href="mailto:<%= t("mailer.shared.support.email") %>?subject=Contact via la FAQ">nous contacter directement</a>.
+  <%= dsfr_accordion "Je ne trouve pas la réponse à ma question.", id: 'contact' do %>
+    Vous pouvez
+    <a href="mailto:<%= t("mailer.shared.support.email") %>?subject=Contact via la FAQ">nous poser votre question
+      directement</a>.
   <% end %>
 <% end %>
