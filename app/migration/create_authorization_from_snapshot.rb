@@ -92,8 +92,9 @@ class CreateAuthorizationFromSnapshot
     temporary_authorization_request.applicant = authorization_request.applicant
     temporary_authorization_request.form_uid = temporary_authorization_request.definition.available_forms.first.uid
 
-    if temporary_authorization_request.definition.stage.exists? && temporary_authorization_request.definition.stage.type == 'production'
+    if temporary_authorization_request.definition.stage.exists? && temporary_authorization_request.definition.stage.type == 'production' && authorization_request.form_uid.exclude?('-editeur')
       sandbox_authorization = authorization_request.authorizations.where(authorization_request_class: authorization_request.class.name + 'Sandbox', state: 'active').order(created_at: :desc).limit(1).first
+      # byebug if sandbox_authorization.nil?
       temporary_authorization_request.data = sandbox_authorization.data
     end
 
