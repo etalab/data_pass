@@ -257,12 +257,12 @@ class Import::AuthorizationRequests::Base
       if kind == 'specific_requirements_document'
         [
           'dummy.xlsx',
-          dummy_file_as_io('xlsx'),
+          dummy_file_as_io(kind, 'xlsx'),
         ]
       else
         [
           'dummy.pdf',
-          dummy_file_as_io('pdf'),
+          dummy_file_as_io(kind, 'pdf'),
         ]
       end
     else
@@ -273,11 +273,12 @@ class Import::AuthorizationRequests::Base
     end
   end
 
-  def dummy_file_as_io(extension)
+  def dummy_file_as_io(kind, extension)
+    key = "#{kind}_#{extension}"
     $dummy_files ||= {}
-    $dummy_files[extension] ||= Rails.root.join('spec', 'fixtures', "dummy.#{extension}").open
-    $dummy_files[extension].rewind
-    $dummy_files[extension]
+    $dummy_files[key] ||= Rails.root.join('spec', 'fixtures', "dummy.#{extension}").open
+    $dummy_files[key].rewind
+    $dummy_files[key]
   end
 
   def recent_validated_enrollment_exists?
