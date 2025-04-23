@@ -1,8 +1,6 @@
 class Import::AuthorizationRequests::APIFicobaAttributes < Import::AuthorizationRequests::APIRialAttributes
-  def affect_data
+  def extra_affect_data
     affect_form_uid
-
-    super
   end
 
   def demarche_to_form_uid

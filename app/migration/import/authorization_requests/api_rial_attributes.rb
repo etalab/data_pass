@@ -6,6 +6,8 @@ class Import::AuthorizationRequests::APIRialAttributes < Import::AuthorizationRe
       migrate_from_sandbox_to_production!
     end
 
+    extra_affect_data
+
     affect_operational_acceptance
     affect_safety_certification
     affect_volumetrie
@@ -16,4 +18,8 @@ class Import::AuthorizationRequests::APIRialAttributes < Import::AuthorizationRe
 
     skip_row!(:invalid_cadre_juridique) if authorization_request.errors[:cadre_juridique_url].any?
   end
+
+  private
+
+  def extra_affect_data; end
 end
