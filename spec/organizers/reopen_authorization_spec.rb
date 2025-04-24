@@ -23,8 +23,8 @@ RSpec.describe ReopenAuthorization do
         expect { reopen_authorization_request }.to change { authorization_request.reload.reopened_at.try(:to_i) }.from(nil).to(Time.zone.now.to_i)
       end
 
-      include_examples 'creates an event', event_name: :reopen, entity_type: :authorization
-      include_examples 'delivers a webhook', event_name: :reopen
+      it_behaves_like 'creates an event', event_name: :reopen, entity_type: :authorization
+      it_behaves_like 'delivers a webhook', event_name: :reopen
     end
 
     context 'with authorization request in draft state' do

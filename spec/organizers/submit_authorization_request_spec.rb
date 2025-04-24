@@ -19,8 +19,8 @@ RSpec.describe SubmitAuthorizationRequest do
           expect { submit_authorization_request }.to change { authorization_request.reload.last_submitted_at }.to(be_within(1.second).of(Time.current))
         end
 
-        include_examples 'creates an event', event_name: :submit
-        include_examples 'delivers a webhook', event_name: :submit
+        it_behaves_like 'creates an event', event_name: :submit
+        it_behaves_like 'delivers a webhook', event_name: :submit
 
         it 'creates a changelog' do
           expect { submit_authorization_request }.to change { authorization_request.changelogs.count }.by(1)

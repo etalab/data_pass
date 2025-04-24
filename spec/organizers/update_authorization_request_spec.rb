@@ -27,8 +27,8 @@ RSpec.describe UpdateAuthorizationRequest, type: :organizer do
         }.to change { authorization_request.reload.administrateur_metier_family_name }.to('New Dupont')
       end
 
-      include_examples 'creates an event', event_name: :update
-      include_examples 'delivers a webhook', event_name: :update
+      it_behaves_like 'creates an event', event_name: :update
+      it_behaves_like 'delivers a webhook', event_name: :update
     end
 
     context 'with multi steps form' do

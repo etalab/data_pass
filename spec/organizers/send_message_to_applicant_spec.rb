@@ -39,6 +39,6 @@ RSpec.describe SendMessageToApplicant do
       expect(authorization_request.unread_messages_from_instructors_count).to eq(0)
     end
 
-    include_examples 'creates an event', event_name: :instructor_message, entity_type: :message
+    it_behaves_like 'creates an event', event_name: :instructor_message, entity_type: :message
   end
 end

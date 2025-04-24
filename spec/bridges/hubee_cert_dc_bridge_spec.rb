@@ -9,8 +9,8 @@ RSpec.describe HubEECertDCBridge do
     let(:subscription_response) { build(:hubee_subscription_response_payload, id: hubee_subscription_id) }
     let(:hubee_subscription_id) { '1234567890' }
 
-    include_examples 'with mocked hubee API client'
-    include_examples 'organization creation in hubee on approve'
+    include_context 'with mocked hubee API client'
+    it_behaves_like 'organization creation in hubee on approve'
 
     describe 'subscription creation' do
       context 'when client works' do

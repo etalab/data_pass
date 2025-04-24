@@ -97,8 +97,8 @@ RSpec.describe ApproveAuthorizationRequest do
         end
       end
 
-      include_examples 'creates an event', event_name: :approve, entity_type: :authorization
-      include_examples 'delivers a webhook', event_name: :approve
+      it_behaves_like 'creates an event', event_name: :approve, entity_type: :authorization
+      it_behaves_like 'delivers a webhook', event_name: :approve
     end
 
     context 'with authorization request in draft state' do

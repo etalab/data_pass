@@ -37,8 +37,8 @@ RSpec.describe RequestChangesOnAuthorizationRequest do
           end
         end
 
-        include_examples 'creates an event', event_name: :request_changes, entity_type: :instructor_modification_request
-        include_examples 'delivers a webhook', event_name: :request_changes
+        it_behaves_like 'creates an event', event_name: :request_changes, entity_type: :instructor_modification_request
+        it_behaves_like 'delivers a webhook', event_name: :request_changes
       end
 
       context 'with authorization request in draft state' do
