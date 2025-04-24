@@ -22,11 +22,11 @@ class AuthorizationDefinition::Scope
   def deprecated_date
     return nil if @deprecated_since.blank?
 
-    begin
-      @deprecated_since.is_a?(String) ? Date.parse(@deprecated_since) : @deprecated_since
-    rescue TypeError, ArgumentError
-      nil
-    end
+    return @deprecated_since if @deprecated_since.is_a?(Date)
+
+    Date.parse(@deprecated_since)
+  rescue TypeError, ArgumentError
+    nil
   end
 
   def deprecated?
