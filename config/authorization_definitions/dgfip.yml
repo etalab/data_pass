@@ -7,6 +7,8 @@ api_impot_particulier:
   cgu_link: "/cgu_api_impot_particulier_prod"
   provider: "dgfip"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
+  features: &dgfip_features
+    messaging: false
   stage:
     type: production
     previouses:
@@ -151,6 +153,7 @@ api_impot_particulier_sandbox:
   access_link: "https://api-impot-particulier-sandbox.gouv.fr/tokens/%<external_provider_id>s"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
+  features: *dgfip_features
   stage:
     type: sandbox
     next:
@@ -175,6 +178,7 @@ api_sfip:
   access_link: "https://api-sfip.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: true
+  features: *dgfip_features
   stage:
     type: production
     previouses:
@@ -201,6 +205,7 @@ api_sfip_sandbox:
   access_link: "https://api-sfip.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
+  features: *dgfip_features
   stage:
     type: sandbox
     next:
@@ -225,6 +230,7 @@ api_hermes_sandbox:
   access_link: "https://api-hermes.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
+  features: *dgfip_features
   stage:
     type: sandbox
     next:
@@ -247,6 +253,7 @@ api_hermes:
   access_link: "https://api-hermes.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
+  features: *dgfip_features
   stage:
     type: production
     previouses:
@@ -272,6 +279,7 @@ api_e_contacts_sandbox:
   access_link: "https://api-e-contacts.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
+  features: *dgfip_features
   stage:
     type: sandbox
     next:
@@ -294,6 +302,7 @@ api_e_contacts:
   access_link: "https://api-e-contacts.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
+  features: *dgfip_features
   stage:
     type: production
     previouses:
@@ -319,6 +328,7 @@ api_opale_sandbox:
   access_link: "https://api-opale.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
+  features: *dgfip_features
   stage:
     type: sandbox
     next:
@@ -341,6 +351,7 @@ api_opale:
   access_link: "https://api-opale.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
+  features: *dgfip_features
   stage:
     type: production
     previouses:
@@ -366,6 +377,7 @@ api_ocfi_sandbox:
   access_link: "https://api-ocfi.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
+  features: *dgfip_features
   stage:
     type: sandbox
     next:
@@ -388,6 +400,7 @@ api_ocfi:
   access_link: "https://api-ocfi.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
+  features: *dgfip_features
   stage:
     type: production
     previouses:
@@ -413,6 +426,7 @@ api_e_pro_sandbox:
   access_link: "https://api-e-pro.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
+  features: *dgfip_features
   stage:
     type: sandbox
     next:
@@ -435,6 +449,7 @@ api_e_pro:
   access_link: "https://api-e-pro.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
+  features: *dgfip_features
   stage:
     type: production
     previouses:
@@ -460,6 +475,7 @@ api_robf_sandbox:
   access_link: "https://api-robf.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
+  features: *dgfip_features
   stage:
     type: sandbox
     next:
@@ -483,6 +499,7 @@ api_robf:
   access_link: "https://api-robf.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
+  features: *dgfip_features
   stage:
     type: production
     previouses:
@@ -508,6 +525,7 @@ api_cpr_pro_adelie_sandbox:
   access_link: "https://api-pro-adelie.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
+  features: *dgfip_features
   stage:
     type: sandbox
     next:
@@ -530,6 +548,7 @@ api_cpr_pro_adelie:
   access_link: "https://api-pro-adelie.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
+  features: *dgfip_features
   stage:
     type: production
     previouses:
@@ -555,6 +574,7 @@ api_imprimfip_sandbox:
   access_link: "https://api-imprimfip.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: true
+  features: *dgfip_features
   stage:
     type: sandbox
     next:
@@ -576,6 +596,7 @@ api_imprimfip:
   access_link: "https://api-imprimfip.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
+  features: *dgfip_features
   stage:
     type: production
     previouses:
@@ -601,6 +622,7 @@ api_satelit_sandbox:
   access_link: "https://api-satelit.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
+  features: *dgfip_features
   stage:
     type: sandbox
     next:
@@ -623,6 +645,7 @@ api_satelit:
   access_link: "https://api-satelit.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
+  features: *dgfip_features
   stage:
     type: production
     previouses:
@@ -648,6 +671,7 @@ api_mire_sandbox:
   access_link: "https://api-mire.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
+  features: *dgfip_features
   stage:
     type: sandbox
     next:
@@ -670,6 +694,7 @@ api_mire:
   access_link: "https://api-mire.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
+  features: *dgfip_features
   stage:
     type: production
     previouses:
@@ -695,6 +720,7 @@ api_ensu_documents_sandbox:
   access_link: "https://api-ensu-documents.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
+  features: *dgfip_features
   stage:
     type: sandbox
     next:
@@ -717,6 +743,7 @@ api_ensu_documents:
   access_link: "https://api-ensu-documents.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
+  features: *dgfip_features
   stage:
     type: production
     previouses:
@@ -742,6 +769,7 @@ api_rial_sandbox:
   access_link: "https://api-rial.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: true
+  features: *dgfip_features
   stage:
     type: sandbox
     next:
@@ -764,6 +792,7 @@ api_rial:
   access_link: "https://api-rial.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
+  features: *dgfip_features
   stage:
     type: production
     previouses:
@@ -788,6 +817,7 @@ api_infinoe:
   access_link: "https://api-infinoe.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
+  features: *dgfip_features
   stage:
     type: production
     previouses:
@@ -812,6 +842,7 @@ api_infinoe_sandbox:
   access_link: "https://api-infinoe.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
+  features: *dgfip_features
   stage:
     type: sandbox
     next:
@@ -834,6 +865,7 @@ api_ficoba:
   access_link: "https://api-ficoba.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
+  features: *dgfip_features
   stage:
     type: production
     previouses:
@@ -878,6 +910,7 @@ api_ficoba_sandbox:
   access_link: "https://api-ficoba.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: true
+  features: *dgfip_features
   stage:
     type: sandbox
     next:
@@ -902,6 +935,7 @@ api_r2p_sandbox:
   access_link: "https://api-r2p.gouv.fr/tokens/%<external_provider_id>" # TODO
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
+  features: *dgfip_features
   stage:
     type: sandbox
     next:
@@ -924,6 +958,7 @@ api_r2p:
   access_link: "https://api-r2p.gouv.fr/tokens/%<external_provider_id>" # TODO
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: true
+  features: *dgfip_features
   stage:
     type: production
     previouses:

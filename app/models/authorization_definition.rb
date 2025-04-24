@@ -10,6 +10,7 @@ class AuthorizationDefinition < StaticApplicationRecord
     :kind,
     :scopes,
     :blocks,
+    :features,
     :stage,
     :unique
 
@@ -47,6 +48,7 @@ class AuthorizationDefinition < StaticApplicationRecord
         stage: Stage.new(hash[:stage]),
         scopes: (hash[:scopes] || []).map { |scope_data| AuthorizationDefinition::Scope.new(scope_data) },
         blocks: hash[:blocks] || [],
+        features: Hash(hash[:features]).transform_keys(&:to_sym),
       )
     )
   end
@@ -61,6 +63,10 @@ class AuthorizationDefinition < StaticApplicationRecord
 
   def reopenable?
     true
+  end
+
+  def feature?(name)
+    features.fetch(name.to_sym, true)
   end
 
   def need_homologation?

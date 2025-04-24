@@ -3,7 +3,7 @@ class Instruction::MessagesController < InstructionController
   before_action :mark_messages_as_read!, only: [:index]
 
   def index
-    authorize [:instruction, @authorization_request], :show?
+    authorize [:instruction, @authorization_request], :messages?
 
     extract_messages
     @message = Message.new
