@@ -29,4 +29,6 @@ class AuthorizationRequest::APIImpotParticulier < AuthorizationRequest
   add_scopes
 
   contact :contact_technique, validation_condition: ->(record) { record.need_complete_validation?(:contacts) }
+
+  add_checkbox :dpd_homologation_checkbox
 end
