@@ -34,13 +34,10 @@ class AuthorizationDefinition::Scope
   end
 
   def deprecated_for?(entity)
-    return false if @deprecated_since.nil?
-
-    date = deprecated_date
-    return false if date.nil?
+    return false unless deprecated_date
 
     entity_date = entity.created_at.nil? ? Time.zone.today : entity.created_at.to_date
-    entity_date >= date
+    entity_date >= deprecated_date
   end
 
   def link?

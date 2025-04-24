@@ -51,22 +51,16 @@ module DGFIPExtensions::APIImpotParticulierScopes
   end
 
   def scopes_compatibility
-    active_scopes = scopes - deprecated_scopes
-
-    return unless scope_exists_in_each_arrays?(active_scopes, * INCOMPATIBLE_SCOPES)
+    return unless scope_exists_in_each_arrays?(*INCOMPATIBLE_SCOPES)
 
     errors.add(:scopes, :scopes_compatibility)
   end
 
-  def scope_exists_in_each_arrays?(active_scopes, array_1, array_2)
-    active_scopes.intersect?(array_1) && active_scopes.intersect?(array_2)
+  def scope_exists_in_each_arrays?(array_1, array_2)
+    scopes.intersect?(array_1) && scopes.intersect?(array_2)
   end
 
   def specific_requirements?
     specific_requirements == '1'
-  end
-
-  def deprecated_scopes
-    @deprecated_scopes ||= scopes.select { |scope| scope_deprecated?(scope) }
   end
 end
