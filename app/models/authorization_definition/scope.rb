@@ -16,7 +16,7 @@ class AuthorizationDefinition::Scope
   end
 
   def disabled?
-    @disabled
+    @disabled || deprecated?
   end
 
   def deprecated_date
@@ -25,7 +25,7 @@ class AuthorizationDefinition::Scope
     return @deprecated_since if @deprecated_since.is_a?(Date)
 
     Date.parse(@deprecated_since)
-  rescue TypeError, ArgumentError
+  rescue TypeError, Date::Error
     nil
   end
 
