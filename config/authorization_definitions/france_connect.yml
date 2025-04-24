@@ -4,7 +4,7 @@ france_connect:
   provider: "dinum"
   kind: 'service'
   link: "https://franceconnect.gouv.fr/"
-  cgu_link: "https://franceconnect.gouv.fr/mentions-legales"
+  cgu_link: "https://franceconnect.gouv.fr/cgu"
   support_email: "support.partenaires@franceconnect.gouv.fr"
   public: true
   blocks:
