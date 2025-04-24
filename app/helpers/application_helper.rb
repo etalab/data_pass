@@ -95,4 +95,16 @@ module ApplicationHelper
   def latest_authorization_path(authorization_request)
     authorization_path(authorization_request.latest_authorization)
   end
+
+  def instruction_tabs_for(authorization_request)
+    tabs = {
+      authorization_request: instruction_authorization_request_path(authorization_request),
+      authorization_request_events: instruction_authorization_request_events_path(authorization_request),
+    }
+
+    tabs[:messages] = instruction_authorization_request_messages_path(authorization_request) if authorization_request.definition.feature?(:messaging)
+    tabs[:authorizations] = instruction_authorization_request_authorizations_path(authorization_request) if authorization_request.authorizations.any?
+
+    tabs
+  end
 end
