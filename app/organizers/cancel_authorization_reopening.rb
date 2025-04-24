@@ -5,6 +5,6 @@ class CancelAuthorizationReopening < ApplicationOrganizer
   end
 
   organize CreateAuthorizationRequestReopeningCancellation,
-    RestoreAuthorizationRequestToLatestAuthorization,
-    ExecuteAuthorizationRequestTransitionWithCallbacks
+    ExecuteAuthorizationRequestTransitionWithCallbacks,
+    RestoreAuthorizationRequestToLatestAuthorization
 end

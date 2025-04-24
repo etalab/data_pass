@@ -286,6 +286,7 @@ class Seeds
     authorization_request.safety_certification_document = dummy_file
     authorization_request.terms_of_service_accepted = true
     authorization_request.data_protection_officer_informed = true
+    authorization_request.dpd_homologation_checkbox = '1'
 
     authorization_request.save!
 
