@@ -25,8 +25,4 @@ class TransitionAuthorizationRequestToStageOfAuthorization < ApplicationInteract
   def authorization
     context.authorization
   end
-
-  def authorization_definition
-    authorization.definition
-  end
 end
