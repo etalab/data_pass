@@ -25,7 +25,7 @@ class MainImport
       # "target_api in ('api_impot_particulier_sandbox') order by id asc",
       # "target_api in ('api_impot_particulier_production') order by id asc",
     ].each do |where_sql|
-      authorization_requests = import(:authorization_requests, { load_from_sql: false, dump_sql: false, authorization_requests_sql_where: where_sql})
+      authorization_requests = import(:authorization_requests, { load_from_sql: false, dump_sql: true, authorization_requests_sql_where: where_sql})
 
       if types_to_import.any?
         valid_authorization_request_ids = AuthorizationRequest.where(id: authorization_requests.pluck(:id), type: types_to_import).pluck(:id)
@@ -33,7 +33,7 @@ class MainImport
         valid_authorization_request_ids = AuthorizationRequest.where(id: authorization_requests.pluck(:id)).where.not(type: already_imported_authorization_request_types).pluck(:id)
       end
 
-      import(:authorization_request_events, { dump_sql: false, valid_authorization_request_ids: }) unless authorization_requests.blank?
+      import(:authorization_request_events, { dump_sql: true, valid_authorization_request_ids: }) unless authorization_requests.blank?
     end
 
     clean_extra_authorizations_from_old_fake_reopening!
@@ -119,7 +119,14 @@ class MainImport
         # FC 5 sandbox, 3 productions. 1 prod sur la 1e sandbox, 2 sur la dernière
         # %w[58238 58413 59563 56274 55743 52499 53440].include?(enrollment_row['id'])
 
-        true
+        # Mega cas de la mort qui tue https://mattermost.incubateur.net/betagouv/pl/qu3sfayxfi8x7qop8j8i4bs9kr
+        # [885, 8896, 8995, 9938, 13496, 1778, 21360, 22116, 23633, 25118, 31019, 48439, 50215].include?(enrollment_row['id'].to_i)
+
+        # XXX Global ignore
+        [
+          '13233', # cas complexe++ où production révoqué mais existe une production validée
+          '4441','4442','6522','4649','4650','7356','7367','8383', # FIXME organisations étrangères
+        ].exclude?(enrollment_row['id'])
       end,
       # authorization_requests_sql_where: 'target_api in (\'franceconnect\', \'api_impot_particulier_fc_sandbox\', \'api_impot_particulier_fc_production\') order by case when target_api = \'franceconnect\' then 1 when target_api like \'%_sandbox\' then 2 else 3 end',
       authorization_requests_sql_where: "target_api not in (#{target_apis_not_to_import}) order by case when target_api = 'franceconnect' then 1 when target_api like '%_sandbox' then 2 else 3 end",
