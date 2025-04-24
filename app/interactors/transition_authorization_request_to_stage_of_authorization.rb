@@ -17,9 +17,7 @@ class TransitionAuthorizationRequestToStageOfAuthorization < ApplicationInteract
   end
 
   def lookup_form_id_from_previous_stages
-    authorization.request.definition.stage.previous_stages.find { |stage|
-      stage[:definition].authorization_request_class.to_s == authorization.authorization_request_class
-    }[:form].uid
+    authorization.request.definition.stage.find_previous_stage_for_authorization(authorization)[:form].uid
   end
 
   def authorization

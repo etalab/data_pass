@@ -19,6 +19,12 @@ class AuthorizationDefinition::Stage
     # do nothing
   end
 
+  def find_previous_stage_for_authorization(authorization)
+    previous_stages.find do |previous|
+      previous[:definition].authorization_request_class.to_s == authorization.authorization_request_class
+    end
+  end
+
   def next_stage_form
     return nil if next_stage_definition.blank?
 
