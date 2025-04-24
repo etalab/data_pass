@@ -32,6 +32,8 @@ api-impot-particulier-sandbox:
         </div>
       </div>
     </div>
+
+    Afin de vous accompagner dans votre démarche de demande d'accès à une API DGFiP, vous êtes invités à consulter notre documentation sur le parcours de souscription. Celle-ci vous donnera des informations générales concernant les API et les API à la DGFiP mais également des précisions concernant le parcours d'instruction et les prérequis nécessaires à l'analyse par la DGFiP de votre demande. 
   authorization_request: APIImpotParticulierSandbox
   steps: &api_impot_particulier_sandbox_steps
     - name: basic_infos
