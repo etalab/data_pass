@@ -48,7 +48,7 @@ class AuthorizationDefinition < StaticApplicationRecord
         stage: Stage.new(hash[:stage]),
         scopes: (hash[:scopes] || []).map { |scope_data| AuthorizationDefinition::Scope.new(scope_data) },
         blocks: hash[:blocks] || [],
-        features: (hash[:features] || {}).transform_keys(&:to_sym),
+        features: Hash(hash[:features]).transform_keys(&:to_sym),
       )
     )
   end
