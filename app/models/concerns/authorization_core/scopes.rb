@@ -65,17 +65,8 @@ module AuthorizationCore::Scopes
     @deprecated_scopes ||= definition.scopes.select(&:deprecated?)
   end
 
-  def scope_deprecated?(scope_value)
-    scope = definition.scopes.find { |s| s.value == scope_value }
-    scope&.deprecated_for?(self)
-  end
-
   def legacy_scope_values
     scopes - available_scopes.map(&:value)
-  end
-
-  def recently_created?
-    created_at.present?
   end
 
   private
