@@ -61,10 +61,6 @@ module AuthorizationCore::Scopes
     @disabled_scopes ||= definition.scopes.select { |scope| disabled_scope_values.include?(scope.value) }
   end
 
-  def deprecated_scopes
-    @deprecated_scopes ||= definition.scopes.select(&:deprecated?)
-  end
-
   def legacy_scope_values
     scopes - available_scopes.map(&:value)
   end
