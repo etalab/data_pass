@@ -90,7 +90,7 @@ class PostMigrationInspector
 
   def authorization_requests_have_valid_authorization?
     bad_requests = AuthorizationRequest
-      .where("reopened_at IS NOT NULL OR authorization_requests.state = 'approved'")
+      .where("(reopened_at IS NOT NULL and authorizations.state != 'revoked') OR authorization_requests.state = 'approved'")
       .left_joins(:authorizations)
       .group("authorization_requests.id")
       .having(<<~SQL)
@@ -163,14 +163,12 @@ class PostMigrationInspector
 
     log("Production requests validated without enough authorizations (#{requests.count}): #{requests.pluck(:id, :type)}\n") if requests.any?
 
-    requests.blank?
-
     # XXX a priori que des demandes qui ont des demandes plus récentes more_recent_ongoing_production? renvoi true
     data = database.execute("select id, previous_enrollment_id from enrollments where target_api like '%_production'")
     # byebug
 
-    requests = AuthorizationRequest.where(id: data.map { |d| d[0] })
-    missing_request_ids = data.map { |d| d[0] }- requests.pluck(:id)
+    requests_2 = AuthorizationRequest.where(id: data.map { |d| d[0] })
+    missing_request_ids = data.map { |d| d[0] }- requests_2.pluck(:id)
 
     data = data.reject { |d| missing_request_ids.exclude?(d[0]) }
     data = clean_requests_when_more_recent_exists?(data)
