@@ -387,6 +387,7 @@ FactoryBot.define do
       api-particulier-ccas-arche-mc2
       api-particulier-ccas-arpege
       api-particulier-ccas-melissandre-afi
+      api-particulier-ccas-paxtel
       api-particulier-city-family-mushroom-software
       api-particulier-civil-enfance-ciril-group
       api-particulier-cosoluce-fluo
@@ -418,8 +419,8 @@ FactoryBot.define do
       api-particulier-paxtel
       api-particulier-ypok
       api-particulier-ars-data
-      api-particulier-ars-e1os
-      api-particulier-ars-acheteza
+      api-particulier-e1os
+      api-particulier-acheteza
       api-particulier-tarification-municipale-enfance
       api-particulier-aides-facultatives-regionales
       api-particulier-aides-facultatives-departementales

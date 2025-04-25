@@ -1205,7 +1205,7 @@ api-particulier-ypok:
   steps: *api_particulier_editor_steps_with_editable_scopes
   static_blocks: *api_particulier_editor_static_blocks_with_editable_scopes
   use_case: tarification_municipale_enfance
-  service_provider_id: ygrc
+  service_provider_id: ypok
   scopes_config:
     disabled:
       - cnaf_quotient_familial
