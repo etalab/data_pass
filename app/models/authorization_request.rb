@@ -69,6 +69,12 @@ class AuthorizationRequest < ApplicationRecord
     inverse_of: :request,
     dependent: :destroy
 
+  has_many :active_authorizations,
+    -> { where(state: 'active') },
+    class_name: 'Authorization',
+    inverse_of: :request,
+    dependent: :destroy
+
   has_many :messages,
     dependent: :destroy
 
@@ -205,7 +211,7 @@ class AuthorizationRequest < ApplicationRecord
     end
 
     event :archive do
-      transition from: all - %i[archived validated], to: :archived, unless: ->(authorization_request) { authorization_request.reopening? }
+      transition from: all - %i[submitted changes_requested archived validated], to: :archived, unless: ->(authorization_request) { authorization_request.active_authorizations.any? }
     end
 
     event :reopen do
