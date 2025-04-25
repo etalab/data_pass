@@ -26,7 +26,7 @@ class Instruction::AuthorizationRequestsController < Instruction::AbstractAuthor
   def redirect_to_searched_authorization_request
     return unless search_terms_is_a_possible_id?
 
-    potential_authorization_request = AuthorizationRequest.find_by(id: params[:search_query][:within_data_or_organization_name_or_organization_siret_or_applicant_email_or_applicant_family_name_cont].to_i)
+    potential_authorization_request = AuthorizationRequest.find_by(id: params[:search_query][main_search_input_key])
 
     return unless potential_authorization_request
 
@@ -40,7 +40,7 @@ class Instruction::AuthorizationRequestsController < Instruction::AbstractAuthor
   def search_terms_is_a_possible_id?
     return false if params[:search_query].blank?
 
-    main_search_input = params[:search_query][:within_data_or_organization_name_or_organization_siret_or_applicant_email_or_applicant_family_name_cont]
+    main_search_input = params[:search_query][main_search_input_key]
 
     return false if main_search_input.blank?
 
@@ -58,6 +58,10 @@ class Instruction::AuthorizationRequestsController < Instruction::AbstractAuthor
   def save_or_load_search_params
     session[search_key] = params[:search_query] if params[:search_query].present?
     params[:search_query] = session[search_key] if params[:search_query].blank?
+  end
+
+  def main_search_input_key
+    :within_data_or_organization_name_or_organization_legal_entity_id_or_applicant_email_or_applicant_family_name_cont
   end
 
   def search_key

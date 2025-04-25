@@ -8,6 +8,7 @@ class UpdateOrganizationINSEEPayloadJob < ApplicationJob
     @organization = Organization.find(organization_id)
 
     return if last_update_within_24h?
+    return if organization.foreign?
 
     update_organization_insee_payload
   # rubocop:disable Lint/SuppressedException

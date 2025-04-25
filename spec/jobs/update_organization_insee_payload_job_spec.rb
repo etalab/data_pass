@@ -11,6 +11,16 @@ RSpec.describe UpdateOrganizationINSEEPayloadJob do
     end
   end
 
+  context 'with foreign organization' do
+    let(:organization_id) { create(:organization, :foreign).id }
+
+    it 'does not call the API' do
+      expect(INSEESireneAPIClient).not_to receive(:new)
+
+      update_organization_insee_payload_job
+    end
+  end
+
   context 'with valid organization' do
     let(:organization_id) { organization.id }
 

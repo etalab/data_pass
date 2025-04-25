@@ -2,28 +2,28 @@ class OrganizationDecorator < ApplicationDecorator
   delegate_all
 
   def code_naf_with_libelle
-    return if code_naf.blank?
+    with_legal_entity_info(:code_naf_with_libelle) do
+      return if code_naf.blank?
 
-    [
-      code_naf,
-      CodeNAF.find(code_naf).libelle,
-    ].join(' - ')
-  end
-
-  def code_naf
-    return unless insee_payload?
-
-    unite_legale_insee_payload['activitePrincipaleUniteLegale']
+      [
+        code_naf,
+        CodeNAF.find(code_naf).libelle,
+      ].join(' - ')
+    end
   end
 
   def address
-    return unless insee_payload?
+    with_legal_entity_info(:address) do
+      return unless insee_payload?
 
-    [
-      address_first_line,
-      address_second_line,
-    ].compact.join('<br />').html_safe
+      [
+        address_first_line,
+        address_second_line,
+      ].compact.join('<br />').html_safe
+    end
   end
+
+  private
 
   def address_first_line
     return unless insee_payload?
@@ -44,7 +44,11 @@ class OrganizationDecorator < ApplicationDecorator
     ].compact.join(' ')
   end
 
-  private
+  def code_naf
+    return unless insee_payload?
+
+    unite_legale_insee_payload['activitePrincipaleUniteLegale']
+  end
 
   def unite_legale_insee_payload
     etablissement_insee_payload['uniteLegale']
@@ -58,8 +62,12 @@ class OrganizationDecorator < ApplicationDecorator
     etablissement_insee_payload['adresseEtablissement']
   end
 
-  def insee_payload
-    object.insee_payload
+  def with_legal_entity_info(attr_name)
+    if legal_entity_registry == 'insee_sirene'
+      yield
+    else
+      extra_legal_entity_infos[attr_name.to_s]
+    end
   end
 
   def insee_payload?

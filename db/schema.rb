@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_21_084542) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_25_130021) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_catalog.plpgsql"
@@ -343,15 +343,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_21_084542) do
   end
 
   create_table "organizations", force: :cascade do |t|
-    t.string "siret", null: false
+    t.string "siret"
     t.jsonb "mon_compte_pro_payload", default: {}, null: false
     t.datetime "last_mon_compte_pro_updated_at", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.jsonb "insee_payload"
     t.datetime "last_insee_payload_updated_at"
+    t.string "legal_entity_id", null: false
+    t.string "legal_entity_registry", default: "insee_sirene", null: false
+    t.jsonb "extra_legal_entity_infos"
     t.index "((((insee_payload -> 'etablissement'::text) -> 'uniteLegale'::text) ->> 'denominationUniteLegale'::text))", name: "index_organizations_on_denomination_unite_legale"
-    t.index ["siret"], name: "index_organizations_on_siret", unique: true
+    t.index ["legal_entity_id", "legal_entity_registry"], name: "idx_on_legal_entity_id_legal_entity_registry_7d149bf422", unique: true
   end
 
   create_table "organizations_users", id: false, force: :cascade do |t|

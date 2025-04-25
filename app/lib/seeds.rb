@@ -150,7 +150,7 @@ class Seeds
 
   def create_organization(siret:, name:)
     Organization.create!(
-      siret:,
+      legal_entity_id: siret,
       last_mon_compte_pro_updated_at: DateTime.now,
       mon_compte_pro_payload: {
         label: name

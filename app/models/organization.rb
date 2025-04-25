@@ -1,5 +1,8 @@
 class Organization < ApplicationRecord
-  validates :siret, presence: true, uniqueness: true, siret: true
+  self.ignored_columns += %w[siret]
+
+  validates :legal_entity_id, presence: true, uniqueness: { scope: :legal_entity_registry }
+  validates :legal_entity_id, siret: true, if: -> { legal_entity_registry == 'insee_sirene' }
 
   validates :mon_compte_pro_payload, presence: true
   validates :last_mon_compte_pro_updated_at, presence: true
@@ -18,8 +21,14 @@ class Organization < ApplicationRecord
     class_name: 'AuthorizationRequest',
     inverse_of: :organization
 
+  def siret
+    return if foreign?
+
+    legal_entity_id
+  end
+
   def name
-    denomination || "l'organisation #{siret} (nom inconnu)"
+    denomination || "l'organisation #{legal_entity_id} (nom inconnu)"
   end
 
   def denomination
@@ -30,6 +39,10 @@ class Organization < ApplicationRecord
     self[:insee_payload] || {}
   end
 
+  def foreign?
+    legal_entity_registry != 'insee_sirene'
+  end
+
   def closed?
     return false if insee_payload.blank?
 
@@ -38,7 +51,7 @@ class Organization < ApplicationRecord
 
   def self.ransackable_attributes(_auth_object = nil)
     %w[
-      siret
+      legal_entity_id
       name
     ]
   end

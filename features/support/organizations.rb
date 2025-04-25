@@ -1,5 +1,5 @@
 def find_or_create_organization_by_name(name)
-  Organization.find_by(siret: organization_name_to_siret(name)) ||
+  Organization.find_by(legal_entity_id: organization_name_to_siret(name), legal_entity_registry: 'insee_sirene') ||
     create(:organization, name:, siret: organization_name_to_siret(name))
 end
 
