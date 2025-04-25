@@ -13,6 +13,7 @@ class PostMigrationInspector
       check("All DGFIP productions have a form uid from production (-production or -editeur)", authorization_request_production_have_a_form_uid_from_production?)
       check("All DGFIP productions non-orphan (i.e. a copy exists and is legit) have an intitule", authorization_request_production_have_an_intitule?)
       check("All documents are imported", documents_imported?)
+      check("Users have roles/subscriptions", users_roles?)
     end
   end
 
@@ -166,7 +167,6 @@ class PostMigrationInspector
 
     # XXX a priori que des demandes qui ont des demandes plus récentes more_recent_ongoing_production? renvoi true
     data = database.execute("select id, previous_enrollment_id from enrollments where target_api like '%_production'")
-    # byebug
 
     requests_2 = AuthorizationRequest.where(id: data.map { |d| d[0] })
     missing_request_ids = data.map { |d| d[0] }- requests_2.pluck(:id)
@@ -212,7 +212,6 @@ class PostMigrationInspector
 
       next if bool
 
-      byebug
       missing_ids = valid_ids - attachment_ids
 
       log("Documents kind #{document_data[0]} not imported (#{missing_ids.count}): #{missing_ids}\n") unless bool
@@ -222,6 +221,14 @@ class PostMigrationInspector
     end
 
     valid
+  end
+
+  def users_roles?
+    user = User.find_by(external_id: '74062')
+
+    user.roles.include?('api_pro_sante_connect:reporter') &&
+      user.instruction_submit_notifications_for_api_pro_sante_connect &&
+      user.instruction_messages_notifications_for_api_pro_sante_connect
   end
 
   def format_row(row)

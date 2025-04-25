@@ -20,6 +20,8 @@ class Import::Users < Import::Base
     user.current_organization = user_organizations.first if user.current_organization.blank?
     user.organizations << user.current_organization unless user.organizations.include?(user.current_organization)
 
+    handle_roles(user, user_row)
+
     user.save!
 
     @models << user
@@ -53,6 +55,32 @@ class Import::Users < Import::Base
       Organization.where(siret: sirets)
     else
       []
+    end
+  end
+
+  def handle_roles(user, user_row)
+    user.roles ||= []
+
+    return if user.roles.any?
+    return if user_row['roles'].blank?
+
+    user.roles << 'admin' if user_row['roles'].include?('administrator')
+
+    Import::AuthorizationRequests::MAPPING_V1_V2_TYPES.each do |old_type, new_type|
+      change_subscription = false
+
+      if user_row['roles'].include?("#{old_type}:instructor")
+        user.roles << "#{new_type}:instructor"
+        change_subscription = true
+      elsif user_row['roles'].include?("#{old_type}:reporter")
+        user.roles << "#{new_type}:reporter"
+        change_subscription = true
+      end
+
+      if change_subscription && user_row['roles'].exclude?("#{old_type}:subscriber")
+        user.public_send("instruction_submit_notifications_for_#{new_type}=", false)
+        user.public_send("instruction_messages_notifications_for_#{new_type}=", false)
+      end
     end
   end
 
