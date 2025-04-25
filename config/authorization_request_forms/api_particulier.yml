@@ -1148,10 +1148,10 @@ api-particulier-jvs-mairistem:
       - cnaf_allocataires
       - cnaf_enfants
       - cnaf_adresse
-    contact_technique_email: "<%= Rails.application.credentials.api_particulier_jvs_parascol_contact_technique_email || 'tech-3douest@yopmail.com' %>"
-    contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_jvs_parascol_contact_technique_given_name || 'Jeanne' %>"
-    contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_jvs_parascol_contact_technique_family_name || 'Martin' %>"
-    contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_jvs_parascol_contact_technique_phone_number || '0836656565' %>"
+    contact_technique_email: "<%= Rails.application.credentials.api_particulier_jvs_mairistem_contact_technique_email || 'tech-3douest@yopmail.com' %>"
+    contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_jvs_mairistem_contact_technique_given_name || 'Jeanne' %>"
+    contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_jvs_mairistem_contact_technique_family_name || 'Martin' %>"
+    contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_jvs_mairistem_contact_technique_phone_number || '0836656565' %>"
     contact_technique_job_title: Contact technique
     modalities:
       - params
