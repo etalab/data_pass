@@ -15,7 +15,7 @@ RSpec.describe HubEEAPIClient do
     subject(:get_organization) { hubee_api_client.get_organization(siret, code_commune) }
 
     let(:siret) { authorization_request.organization.siret }
-    let(:code_commune) { authorization_request.organization.code_commune }
+    let(:code_commune) { '92023' }
     let(:organization_payload) { build(:hubee_organization_payload, organization:, authorization_request:) }
 
     context 'when organization already exists in HubEE' do

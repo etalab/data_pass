@@ -10,11 +10,7 @@ FactoryBot.define do
     after(:build) do |hubee_organization_payload, evaluator|
       if evaluator.organization.present?
         hubee_organization_payload['companyRegister'] = evaluator.organization.siret
-        hubee_organization_payload['branchCode'] = evaluator.organization.code_commune
         hubee_organization_payload['name'] = evaluator.organization.denomination
-        hubee_organization_payload['code'] = evaluator.organization.sigle_unite_legale
-        hubee_organization_payload['postalCode'] = evaluator.organization.code_postal
-        hubee_organization_payload['territory'] = evaluator.organization.libele_commune
       end
 
       if evaluator.authorization_request.present?
@@ -55,21 +51,16 @@ FactoryBot.define do
         hubee_subscription_payload['email'] = evaluator.authorization_request.administrateur_metier_email
         hubee_subscription_payload['localAdministrator'] = { 'email' => evaluator.authorization_request.administrateur_metier_email }
       end
-
-      hubee_subscription_payload['subscriber'] =
-        if evaluator.organization.present?
-          {
-            'type' => 'SI',
-            'companyRegister' => evaluator.organization.siret,
-            'branchCode' => evaluator.organization.code_commune,
-          }
-        end
     end
 
     datapassId { 1 }
     processCode { 'SOME CODE' }
     subscriber do
-      nil
+      {
+        'type' => 'SI',
+        'companyRegister' => '21920023500014',
+        'branchCode' => '92023',
+      }
     end
     notificationFrequency { 'unitaire' }
     validateDateTime { '2024-07-18T14:00:55+02:00' }
