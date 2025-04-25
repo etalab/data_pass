@@ -413,7 +413,7 @@ fr:
       <<: *api_particulier_editor_common_wordings
     api_particulier_teamnet_axel:
       <<: *api_particulier_editor_common_wordings
-    api_particulier_jvs_parascol:
+    api_particulier_jvs_mairistem:
       <<: *api_particulier_editor_common_wordings
     api_particulier_entrouvert_publik:
       <<: *api_particulier_editor_common_wordings

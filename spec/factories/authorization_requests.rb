@@ -393,7 +393,7 @@ FactoryBot.define do
       api-particulier-docaposte-fast
       api-particulier-entrouvert-publik
       api-particulier-jcdeveloppement-familyclic
-      api-particulier-jvs-parascol
+      api-particulier-jvs-mairistem
       api-particulier-nfi
       api-particulier-odyssee-informatique-pandore
       api-particulier-qiis-eticket
