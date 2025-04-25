@@ -35,7 +35,7 @@ class RegisterOrganizationWithContactsOnCRMJob < ApplicationJob
     crm_client.create_company(
       siret: organization.siret,
       name: organization.name,
-      categorie_juridique: organization.categorie_juridique.try(:code),
+      categorie_juridique: organization_categorie_juridique.try(:code),
       n_datapass: authorization_request.id.to_s,
       bouquets_utilises: extract_bouquet(:company)
     )
@@ -188,6 +188,14 @@ class RegisterOrganizationWithContactsOnCRMJob < ApplicationJob
     else
       contact.type.to_s
     end
+  end
+
+  def organization_categorie_juridique
+    return if organization.insee_payload.blank?
+
+    CategorieJuridique.find(organization.insee_payload['etablissement']['uniteLegale']['categorieJuridiqueUniteLegale'])
+  rescue ActiveRecord::RecordNotFound
+    nil
   end
 
   def organization

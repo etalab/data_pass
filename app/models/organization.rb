@@ -36,14 +36,6 @@ class Organization < ApplicationRecord
     insee_latest_etablissement_period['etatAdministratifEtablissement'] == 'F'
   end
 
-  def categorie_juridique
-    return if insee_payload.blank?
-
-    CategorieJuridique.find(insee_payload['etablissement']['uniteLegale']['categorieJuridiqueUniteLegale'])
-  rescue ActiveRecord::RecordNotFound
-    nil
-  end
-
   def self.ransackable_attributes(_auth_object = nil)
     %w[
       siret
