@@ -1086,7 +1086,7 @@ api-particulier-ganesh-education:
       - mesri_admission_inscrit
       - mesri_admission_regime_formation
       - mesri_admission_commune_etudes
-      - mesri_admission_etablissement_etudes 
+      - mesri_admission_etablissement_etudes
     displayed:
       - cnous_statut_boursier
       - cnous_echelon_bourse
