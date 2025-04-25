@@ -464,7 +464,6 @@ FactoryBot.define do
 
     trait :api_impot_particulier do
       api_impot_particulier_common
-      dpd_homologation_checkbox { '1' } 
 
       has_previous_authorization_validated
     end
