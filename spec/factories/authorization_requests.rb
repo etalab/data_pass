@@ -419,6 +419,7 @@ FactoryBot.define do
       api-particulier-ypok
       api-particulier-ars-data
       api-particulier-ars-e1os
+      api-particulier-ars-acheteza
       api-particulier-tarification-municipale-enfance
       api-particulier-aides-facultatives-regionales
       api-particulier-aides-facultatives-departementales

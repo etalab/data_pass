@@ -1294,6 +1294,31 @@ api-particulier-e1os:
     modalities:
       - params
 
+api-particulier-acheteza:
+  name: AchetezA
+  description: Facturation des familles pour les services scolaire et cantine
+  authorization_request: APIParticulier
+  introduction: *api_particulier_introduction_editor_with_fixed_scopes
+  steps: *api_particulier_editor_steps_with_fixed_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
+  use_case: tarification_municipale_enfance
+  service_provider_id: acheteza
+  scopes_config:
+    disabled:
+      - cnaf_quotient_familial
+    displayed:
+      - cnaf_quotient_familial
+
+  data:
+    intitule: Facturation des familles pour les services scolaire et cantine
+    description: |
+      Gestion de la facturation de la cantine et du service periscolaire
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_qf
+    scopes:
+      - cnaf_quotient_familial
+    modalities:
+      - params
+
 # ------------------------------- #
 # ------------------------------- #
 # ------------------------------- #

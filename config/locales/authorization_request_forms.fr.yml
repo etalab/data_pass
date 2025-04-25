@@ -449,6 +449,8 @@ fr:
       <<: *api_particulier_editor_common_wordings
     api_particulier_e1os:
       <<: *api_particulier_editor_common_wordings
+    api_particulier_acheteza:
+      <<: *api_particulier_editor_common_wordings
 
     api_particulier_tarification_municipale_enfance:
       description:
