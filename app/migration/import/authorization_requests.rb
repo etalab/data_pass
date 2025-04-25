@@ -59,6 +59,7 @@ class Import::AuthorizationRequests < Import::Base
     'api_ingres' => 'api_ingres',
     'api_pro_sante_connect' => 'api_pro_sante_connect',
     'api_scolarite' => 'api_scolarite',
+    'le_taxi' => 'le_taxi',
   }
 
   def initialize(options)

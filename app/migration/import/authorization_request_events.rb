@@ -206,6 +206,8 @@ class Import::AuthorizationRequestEvents < Import::Base
       @dgs_organization ||= Organization.find_by(siret: '13001653800014')
     when 'AuthorizationRequest::HubEEDila'
       @dila_organization ||= Organization.find_by(siret: '13000918600011')
+    when 'AuthorizationRequest::LeTaxi'
+      @le_taxi_organization ||= Organization.find_by(siret: '12000018700027')
     else
       raise "Unknown authorization request type #{authorization_request.type} for instruction"
     end

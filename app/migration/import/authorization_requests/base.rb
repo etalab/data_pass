@@ -79,8 +79,6 @@ class Import::AuthorizationRequests::Base
   end
 
   def affect_potential_maquette_projet
-    return if authorization_request.cadre_juridique_url.present?
-
     affect_potential_document('Document::MaquetteProjet', 'maquette_projet')
   end
 
