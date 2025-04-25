@@ -6,6 +6,7 @@ class API::V1::AuthorizationRequestSerializer < ActiveModel::Serializer
     :form_uid,
     :data,
     :created_at,
+    :updated_at,
     :last_submitted_at,
     :last_validated_at,
     :reopening,

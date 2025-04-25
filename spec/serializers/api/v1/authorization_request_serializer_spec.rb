@@ -13,6 +13,7 @@ RSpec.describe API::V1::AuthorizationRequestSerializer, type: :serializer do
         state: authorization_request.state,
         form_uid: authorization_request.form_uid,
         created_at: authorization_request.created_at,
+        updated_at: authorization_request.updated_at,
         last_submitted_at: authorization_request.last_submitted_at,
         last_validated_at: authorization_request.last_validated_at,
         reopening: authorization_request.reopening,

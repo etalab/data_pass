@@ -111,6 +111,10 @@ components:
           type: string
           format: date-time
           description: Date de création de la demande
+        updated_at:
+          type: string
+          format: date-time
+          description: Date de dernière mise à jour de la demande
         last_submitted_at:
           type: string
           format: date-time
@@ -149,6 +153,7 @@ components:
         - form_uid
         - data
         - created_at
+        - updated_at
         - organisation
 
     CreationDemande:
