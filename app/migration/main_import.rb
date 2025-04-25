@@ -165,6 +165,7 @@ class MainImport
 
       event.entity_id = first_authorization.id
       first_authorization.state = first_authorization.request.state == 'revoked' ? 'revoked' : 'active'
+      first_authorization.state = first_authorization.request.state == 'refused' ? 'refused' : 'active'
 
       first_authorization.save!
       event.save!
