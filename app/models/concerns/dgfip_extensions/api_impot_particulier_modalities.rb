@@ -1,7 +1,7 @@
 module DGFIPExtensions::APIImpotParticulierModalities
   extend ActiveSupport::Concern
 
-  MODALITIES = %w[with_france_connect with_spi].freeze
+  MODALITIES = %w[with_france_connect with_spi with_etat_civil].freeze
 
   included do
     include AuthorizationExtensions::Modalities
