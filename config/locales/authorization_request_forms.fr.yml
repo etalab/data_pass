@@ -413,7 +413,7 @@ fr:
       <<: *api_particulier_editor_common_wordings
     api_particulier_teamnet_axel:
       <<: *api_particulier_editor_common_wordings
-    api_particulier_jvs_mairistem:
+    api_particulier_jvs_parascol:
       <<: *api_particulier_editor_common_wordings
     api_particulier_entrouvert_publik:
       <<: *api_particulier_editor_common_wordings
@@ -440,16 +440,6 @@ fr:
     api_particulier_resagenda:
       <<: *api_particulier_editor_common_wordings
     api_particulier_ganesh_education:
-      <<: *api_particulier_editor_common_wordings
-    api_particulier_paxtel:
-      <<: *api_particulier_editor_common_wordings
-    api_particulier_ypok:
-      <<: *api_particulier_editor_common_wordings
-    api_particulier_ars_data:
-      <<: *api_particulier_editor_common_wordings
-    api_particulier_e1os:
-      <<: *api_particulier_editor_common_wordings
-    api_particulier_acheteza:
       <<: *api_particulier_editor_common_wordings
 
     api_particulier_tarification_municipale_enfance:

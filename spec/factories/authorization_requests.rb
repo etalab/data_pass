@@ -393,7 +393,7 @@ FactoryBot.define do
       api-particulier-docaposte-fast
       api-particulier-entrouvert-publik
       api-particulier-jcdeveloppement-familyclic
-      api-particulier-jvs-mairistem
+      api-particulier-jvs-parascol
       api-particulier-nfi
       api-particulier-odyssee-informatique-pandore
       api-particulier-qiis-eticket
@@ -415,11 +415,6 @@ FactoryBot.define do
       api-particulier-resagenda
       api-particulier-carte-plus
       api-particulier-ganesh-education
-      api-particulier-paxtel
-      api-particulier-ypok
-      api-particulier-ars-data
-      api-particulier-ars-e1os
-      api-particulier-ars-acheteza
       api-particulier-tarification-municipale-enfance
       api-particulier-aides-facultatives-regionales
       api-particulier-aides-facultatives-departementales
