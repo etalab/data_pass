@@ -9,7 +9,6 @@ RSpec.describe API::V1::AuthorizationSerializer, type: :serializer do
       expect(serializable_hash).to include(
         id: authorization.id,
         slug: authorization.slug,
-        form_uid: authorization.form_uid,
         revoked: authorization.revoked,
         state: authorization.state,
         created_at: authorization.created_at,
