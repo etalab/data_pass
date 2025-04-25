@@ -135,12 +135,13 @@ class ImportDataInLocalDb
           create table documents (
             id INTEGER PRIMARY KEY,
             enrollment_id INTEGER,
+            type TEXT,
             raw_data TEXT
           );
           create index document_enrollment_id_index on documents (enrollment_id);
         ",
-        insert_statement: "insert into documents (id, enrollment_id, raw_data) values (?, ?, ?)",
-        insert_data: ->(row) { [row['id'], row['attachable_id'], row.to_a.to_json] }
+        insert_statement: "insert into documents (id, enrollment_id, type, raw_data) values (?, ?, ?, ?)",
+        insert_data: ->(row) { [row['id'], row['attachable_id'], row['type'], row.to_a.to_json] }
       },
       'hubee_subscriptions' => {
         table: "
