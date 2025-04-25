@@ -172,7 +172,7 @@ class Import::AuthorizationRequests::Base
           end
 
           if %w[given_name family_name phone_number job_title].any? { |key| potential_team_member_with_family_name[key] == 'Non renseigné' }
-            warn_row!("#{to_contact}_incomplete".to_sym)
+            warn_row("#{to_contact}_incomplete".to_sym)
           end
 
           if %w[given_name family_name phone_number job_title].all? { |key| potential_team_member_with_family_name[key].present? }
@@ -194,9 +194,9 @@ class Import::AuthorizationRequests::Base
       # byebug
 
       if recent_validated_enrollment_exists?
-        skip_row!('incomplete_contact_data_with_new_enrollments')
+        warn_row('incomplete_contact_data_with_new_enrollments')
       else
-        skip_row!('incomplete_contact_data_without_new_enrollments')
+        warn_row('incomplete_contact_data_without_new_enrollments')
       end
     else
       affect_team_attributes(contact_data, to_contact)
@@ -231,8 +231,8 @@ class Import::AuthorizationRequests::Base
     raise SkipRow.new(kind.to_s, id: enrollment_row['id'], target_api: enrollment_row['target_api'], authorization_request:, status: enrollment_row['status'])
   end
 
-  def warn_row!(kind)
-    @warned << WarnRow.new(kind.to_s, id: enrollment_row['id'], target_api: enrollment_row['target_api'], authorization_request:, status: enrollment_row['status'])
+  def warn_row(kind)
+    @warned << WarnRow.new(kind.to_s, id: enrollment_row['id'], target_api: enrollment_row['target_api'], authorization_request: authorization_request.dup, status: enrollment_row['status'])
   end
 
   def attach_file(kind, row_data)
@@ -283,7 +283,6 @@ class Import::AuthorizationRequests::Base
 
   def recent_validated_enrollment_exists?
     bool = database.execute('select id from enrollments where copied_from_enrollment_id = ? and status = "validated" limit 1;', enrollment_row['id']).any?
-    database.close
     bool
   end
 
