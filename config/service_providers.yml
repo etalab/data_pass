@@ -181,6 +181,26 @@ shared:
     type: editor
     name: Ganesh Education
     siret: "90135601400018"
+  paxtel:
+    type: editor
+    name: Paxtel
+    siret: "34219218400063"
+  ypok:
+    type: editor
+    name: Ypok
+    siret: "43494076300064"
+  ars-data:
+    type: editor
+    name: Ars Data
+    siret: "34095890900061"
+  e1os:
+    type: editor
+    name: E1OS
+    siret: "89276429100027"
+  acheteza:
+    type: editor
+    name: AchetezA
+    siret: "82037074000012"
   achatpublic:
     type: editor
     name: "Achatpublic - achatpublic.com"
