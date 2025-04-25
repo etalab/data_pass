@@ -12,6 +12,7 @@ class PostMigrationInspector
       check("All authorizations approved or reopened have a valid authorization", authorization_requests_have_valid_authorization?)
       check("All DGFIP productions have a form uid from production (-production or -editeur)", authorization_request_production_have_a_form_uid_from_production?)
       check("All DGFIP productions non-orphan (i.e. a copy exists and is legit) have an intitule", authorization_request_production_have_an_intitule?)
+      check("All documents are imported", documents_imported?)
     end
   end
 
@@ -188,6 +189,39 @@ class PostMigrationInspector
     data.reject do |d|
       sandbox_authorization_already_linked_to_another_request.include?(d[1])
     end
+  end
+
+  def documents_imported?
+    documents = database.execute("SELECT type, '[' || GROUP_CONCAT(enrollment_id, ',') || ']' AS ids FROM documents where type in ('Document::AttestationFiscale', 'Document::DecisionHomologation', 'Document::ExpressionBesoinSpecifique', 'Document::LegalBasis', 'Document::MaquetteProjet') GROUP BY type;")
+
+    mapping = {
+      'Document::AttestationFiscale' => 'attestation_fiscale',
+      'Document::DecisionHomologation' => 'safety_certification_document',
+      'Document::ExpressionBesoinSpecifique' => 'specific_requirements_document',
+      'Document::LegalBasis' => 'cadre_juridique_document',
+      'Document::MaquetteProjet' => 'maquette_projet',
+    }
+
+    valid = true
+
+    documents.each do |document_data|
+      valid_ids = AuthorizationRequest.where(id: JSON.parse(document_data[1])).pluck(:id)
+      attachment_ids = ActiveStorage::Attachment.where(name: mapping[document_data[0]]).where(record_id: valid_ids).pluck(:record_id)
+
+      bool = attachment_ids.count == valid_ids.count
+
+      next if bool
+
+      byebug
+      missing_ids = valid_ids - attachment_ids
+
+      log("Documents kind #{document_data[0]} not imported (#{missing_ids.count}): #{missing_ids}\n") unless bool
+      next if bool
+
+      valid = false
+    end
+
+    valid
   end
 
   def format_row(row)
