@@ -1118,7 +1118,7 @@ api-particulier-ganesh-education:
     contact_technique_job_title: Contact technique
 
 api-particulier-jvs-mairistem:
-  name: Parascol
+  name: Mairistem
   description: Facturation des familles pour les services périscolaires et loisirs
   authorization_request: APIParticulier
   introduction: *api_particulier_introduction_editor_with_fixed_scopes
