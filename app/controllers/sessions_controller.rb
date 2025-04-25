@@ -46,7 +46,7 @@ class SessionsController < ApplicationController
 
     success_message(
       title: t('sessions.change_current_organization.success.title'),
-      description: t('sessions.change_current_organization.success.description', organization_name: current_organization.raison_sociale, organization_siret: current_organization.siret),
+      description: t('sessions.change_current_organization.success.description', organization_name: current_organization.name, organization_siret: current_organization.siret),
     )
 
     redirect_to after_prompt_path

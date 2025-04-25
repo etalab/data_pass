@@ -8,7 +8,7 @@
           </h1>
 
           <%= form_with(url: "/auth/mon_compte_pro?prompt=select_organization", method: :post, data: { turbo: false }, class: 'fr-pt-1w') do |f| %>
-            <%= f.button current_organization.raison_sociale, class: %w(fr-btn fr-btn--tertiary fr-btn--sm fr-btn--icon-left fr-icon-hotel-line) %>
+            <%= f.button current_organization.name, class: %w(fr-btn fr-btn--tertiary fr-btn--sm fr-btn--icon-left fr-icon-hotel-line) %>
           <% end %>
         </div>
 

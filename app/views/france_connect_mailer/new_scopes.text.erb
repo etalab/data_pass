@@ -1,6 +1,6 @@
 Bonjour,
 
-Une <%= @authorization_request.reopening? ? 'mise à jour' : 'habilitation' %> <%= @authorization_request.definition.name %> pour le FS <%= @authorization_request.organization.raison_sociale %> (identifiant DataPass de l’<%= @authorization_request.reopening? ? 'mise à jour' : 'habilitation' %> FranceConnect associée : <%= @france_connect_authorization_request.id %>) vient d’être validée.
+Une <%= @authorization_request.reopening? ? 'mise à jour' : 'habilitation' %> <%= @authorization_request.definition.name %> pour le FS <%= @authorization_request.organization.name %> (identifiant DataPass de l’<%= @authorization_request.reopening? ? 'mise à jour' : 'habilitation' %> FranceConnect associée : <%= @france_connect_authorization_request.id %>) vient d’être validée.
 
 En conséquence, merci d’autoriser les scopes suivant pour le sus-mentionné FS :
 

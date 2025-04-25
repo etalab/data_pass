@@ -49,7 +49,7 @@ class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
     if entity.from_type == 'User'
       "#{entity.to.full_name} (#{entity.to.email})"
     else
-      "l'organisation #{entity.to.raison_sociale} (numéro SIRET : #{entity.to.siret})"
+      "l'organisation #{entity.to.name} (numéro SIRET : #{entity.to.siret})"
     end
   end
 

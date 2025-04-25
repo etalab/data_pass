@@ -234,7 +234,7 @@ components:
           type: string
           example: "13002526500013"
           description: Numéro de SIRET de l'organisation
-        raison_sociale:
+        name:
           type: string
           example: Direction interministérielle du numerique (DINUM)
           description: Raison sociale de l'organisation

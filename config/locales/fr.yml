@@ -303,7 +303,7 @@ fr:
       title: Désolé, vous ne pouvez pas faire de nouvelle demande
       subtitle: Pourquoi ?
       reason: |
-        Vous êtes connecté pour le compte de <strong>%{organization_raison_sociale}</strong> (SIRET : %{organization_siret}) et cette organisation est fermée, vous ne pouvez donc pas soumettre de nouvelle demande d’habilitation.
+        Vous êtes connecté pour le compte de <strong>%{organization_name}</strong> (SIRET : %{organization_siret}) et cette organisation est fermée, vous ne pouvez donc pas soumettre de nouvelle demande d’habilitation.
       change_organization: Changer d’organisation
       error:
         description: Vous pensez que c’est une erreur ?
@@ -362,8 +362,8 @@ fr:
       back_to_dashboard: Retour à l’accueil
       title: *start_new_habilitation_title
       organization:
-        start_text: Vous êtes sur le point de démarrer une nouvelle demande d’habilitation pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_raison_sociale}</a>.
-        start_text_with_form_name: Vous êtes sur le point de démarrer une nouvelle demande d’habilitation pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_raison_sociale}</a> via le formulaire <strong>%{authorization_request_form_name}</strong>.
+        start_text: Vous êtes sur le point de démarrer une nouvelle demande d’habilitation pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_name}</a>.
+        start_text_with_form_name: Vous êtes sur le point de démarrer une nouvelle demande d’habilitation pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_name}</a> via le formulaire <strong>%{authorization_request_form_name}</strong>.
       intro:
         title: Les objectifs de ce formulaire
       single_form:
@@ -377,10 +377,10 @@ fr:
     unicity_callout:
       title: Vous ne pouvez pas créer de nouvelle habilitation
       habilitation:
-        content: Votre organisation <strong>%{organization_raison_sociale}</strong> possède déjà une habilitation pour ce service.
+        content: Votre organisation <strong>%{organization_name}</strong> possède déjà une habilitation pour ce service.
         cta: Consulter l'habilitation existante
       demande:
-        content: Votre organisation <strong>%{organization_raison_sociale}</strong> possède déjà une demande en cours pour ce service.
+        content: Votre organisation <strong>%{organization_name}</strong> possède déjà une demande en cours pour ce service.
         cta: Consulter la demande en cours
 
     create_for_single_page_form:
@@ -605,7 +605,7 @@ fr:
           title: Validation de la demande d'habilitation
           description:
             organization: |
-              Vous êtes sur le point de valider la demande d'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_raison_sociale}' (numéro de siret: %{organization_siret}).
+              Vous êtes sur le point de valider la demande d'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_name}' (numéro de siret: %{organization_siret}).
             disclaimer: |
               <strong>Cette action est irréversible</strong>. Veuillez vérifier que la demande d'habilitation est bien conforme aux règles de gestion.
           cancel: Annuler
@@ -614,7 +614,7 @@ fr:
           title: Validation de la demande de mise à jour de l'habilitation.
           description:
             organization: |
-              Vous êtes sur le point de valider la demande de mise à jour de l'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_raison_sociale}' (numéro de siret: %{organization_siret}).
+              Vous êtes sur le point de valider la demande de mise à jour de l'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_name}' (numéro de siret: %{organization_siret}).
             disclaimer: |
               <strong>Cette action est irréversible</strong>. Veuillez vérifier que la demande de mise à jour de l'habilitation est bien conforme aux règles de gestion.
           cancel: Annuler
@@ -631,7 +631,7 @@ fr:
           title: Refus de la demande d'habilitation
           description:
             organization: |
-              Vous êtes sur le point de refuser la demande d'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_raison_sociale}' (numéro de siret: %{organization_siret}).
+              Vous êtes sur le point de refuser la demande d'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_name}' (numéro de siret: %{organization_siret}).
             disclaimer: |
               <strong>Cette action est irréversible</strong>.
               Merci de renseigner une raison ci-dessous qui sera communiquée au demandeur.
@@ -641,7 +641,7 @@ fr:
           title: Refus de la demande de mise à jour de l'habilitation
           description:
             organization: |
-              Vous êtes sur le point de refuser la demande de mise à jour de l'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_raison_sociale}' (numéro de siret: %{organization_siret}).
+              Vous êtes sur le point de refuser la demande de mise à jour de l'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_name}' (numéro de siret: %{organization_siret}).
             disclaimer: |
               Merci de renseigner une raison ci-dessous qui sera communiquée au demandeur. A noter que lors du refus, les modifications apportées par le demandeur depuis le début de la réouverture seront annulées. L'habilitation sera toujours valide.
           cancel: Annuler
@@ -658,7 +658,7 @@ fr:
           title: Révocation de l'habilitation
           description:
             organization: |
-              Vous êtes sur le point de révoquer cette habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_raison_sociale}' (numéro de siret: %{organization_siret}).
+              Vous êtes sur le point de révoquer cette habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_name}' (numéro de siret: %{organization_siret}).
             disclaimer: |
               <strong>Cette action est irréversible</strong>.
               Merci de renseigner les motifs qui seront communiqués au demandeur.
@@ -675,7 +675,7 @@ fr:
           title: Annulation de la réouverture de l'habilitation
           description:
             organization: |
-              Vous êtes sur le point d'annuler la réouverture de l'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_raison_sociale}' (numéro de siret: %{organization_siret}).
+              Vous êtes sur le point d'annuler la réouverture de l'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_name}' (numéro de siret: %{organization_siret}).
             disclaimer: |
               <strong>Cette action est irréversible</strong>.
               Merci de renseigner les motifs de cette annulation, ceci à des fins d'historisation.
@@ -694,7 +694,7 @@ fr:
           title: Demande de modifications
           description:
             organization: |
-              Vous êtes sur le point de demander des modifications sur la demande d'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_raison_sociale}' (numéro de siret: %{organization_siret}).
+              Vous êtes sur le point de demander des modifications sur la demande d'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_name}' (numéro de siret: %{organization_siret}).
             disclaimer: |
               Merci de renseigner les raisons ci-dessous qui sera communiquée au demandeur.
           cancel: Annuler
@@ -703,7 +703,7 @@ fr:
           title: Demande de modifications
           description:
             organization: |
-              Vous êtes sur le point de demander des modifications sur la mise à jour de l'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_raison_sociale}' (numéro de siret: %{organization_siret}).
+              Vous êtes sur le point de demander des modifications sur la mise à jour de l'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_name}' (numéro de siret: %{organization_siret}).
             disclaimer: |
               Merci de renseigner les raisons ci-dessous qui sera communiquée au demandeur.
           cancel: Annuler

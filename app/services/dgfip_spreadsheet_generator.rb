@@ -63,7 +63,7 @@ class DGFIPSpreadsheetGenerator
       authorization_request.created_at,
       authorization_request.events.order(created_at: :desc).limit(1).first&.created_at,
       authorization_request.organization.siret,
-      authorization_request.organization.raison_sociale,
+      authorization_request.organization.name,
       authorization_request.organization.insee_payload.to_json,
     ]
   end

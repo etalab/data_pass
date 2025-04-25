@@ -18,7 +18,7 @@ class Organization < ApplicationRecord
     class_name: 'AuthorizationRequest',
     inverse_of: :organization
 
-  def raison_sociale
+  def name
     denomination || "l'organisation #{siret} (nom inconnu)"
   end
 
@@ -63,7 +63,7 @@ class Organization < ApplicationRecord
   def self.ransackable_attributes(_auth_object = nil)
     %w[
       siret
-      raison_sociale
+      name
     ]
   end
 
@@ -71,7 +71,7 @@ class Organization < ApplicationRecord
     []
   end
 
-  ransacker :raison_sociale do |parent|
+  ransacker :name do |parent|
     payload_node = parent.table[:insee_payload]
 
     etablissement_node = Arel::Nodes::InfixOperation.new('->', payload_node, Arel::Nodes.build_quoted('etablissement'))

@@ -7,13 +7,13 @@
     <div class="border-frame-text fr-my-6w">
       <% if @authorization_request_form.name.present? %>
         <%= simple_format t(".organization.start_text_with_form_name",
-          organization_raison_sociale: current_organization.raison_sociale,
+          organization_name: current_organization.name,
           organization_siret: current_organization.siret,
           authorization_request_form_name: @authorization_request_form.name),
           {}, wrapper_tag: 'div' %>
       <% else %>
         <%= simple_format t(".organization.start_text",
-          organization_raison_sociale: current_organization.raison_sociale,
+          organization_name: current_organization.name,
           organization_siret: current_organization.siret),
           {}, wrapper_tag: 'div' %>
       <% end %>

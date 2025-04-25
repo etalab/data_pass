@@ -1,5 +1,5 @@
 class WebhookOrganizationSerializer < ApplicationSerializer
   attributes :id,
-    :raison_sociale,
+    :name,
     :siret
 end
