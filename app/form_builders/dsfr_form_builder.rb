@@ -79,7 +79,9 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
     end
   end
 
-  def dsfr_radio_option(attribute, value, opts = { input_options: {} }, &)
+  def dsfr_radio_option(attribute, value, opts = { input_options: {} }, &) # rubocop:disable Metrics/AbcSize
+    return if opts[:skipped].is_a?(Proc) && opts[:skipped].call(value)
+
     opts[:checked] = opts[:checked].call(value) if opts[:checked].is_a? Proc
 
     @template.content_tag(:div, class: "fr-fieldset__element #{opts[:fieldset_element_class]}") do
