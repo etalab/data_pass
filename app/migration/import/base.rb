@@ -79,6 +79,8 @@ class Import::Base
       rescue Import::AuthorizationRequests::Base::SkipRow => e
         options[:skipped] << e
 
+        e.authorization_request.dirty_from_v1 = true if e.authorization_request.respond_to?(:dirty_from_v1)
+
         begin
           e.authorization_request.save(validate: false)
           @models << e.authorization_request
