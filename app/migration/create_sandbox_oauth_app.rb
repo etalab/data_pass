@@ -21,7 +21,7 @@ class CreateSandboxOauthApp
   end
 
   def dev_organization
-    organization = Organization.find_or_initialize_by(siret: "91952090800014")
+    organization = Organization.find_or_initialize_by(legal_entity_id: "91952090800014", legal_entity_registry: "insee_sirene")
     organization.mon_compte_pro_payload = { manuel: true } if organization.mon_compte_pro_payload.blank?
     organization.last_mon_compte_pro_updated_at ||= DateTime.now
     organization.save!

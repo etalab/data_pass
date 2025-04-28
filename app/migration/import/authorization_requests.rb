@@ -141,6 +141,12 @@ class Import::AuthorizationRequests < Import::Base
   def fetch_organization(user, enrollment_row)
     return if user.blank?
 
+    if enrollment_row['siret'].length != 14
+      organization = Organization.find_by(legal_entity_id: enrollment_row['siret'], legal_entity_registry: 'other')
+      user.organizations << organization
+      return organization
+    end
+
     organization = user.organizations.find do |organization|
       organization.siret == enrollment_row['siret']
     end
@@ -182,7 +188,6 @@ class Import::AuthorizationRequests < Import::Base
       end
 
       user.organizations << organization
-
       organization
     end
   end
@@ -227,7 +232,7 @@ class Import::AuthorizationRequests < Import::Base
     begin
       organization.save!
     rescue ActiveRecord::RecordInvalid => e
-      if e.record.errors.include?(:siret)
+      if e.record.errors.include?(:legal_entity_id)
         raise Import::AuthorizationRequests::Base::SkipRow.new(:invalid_siret_for_unknown_user_and_organization, id: enrollment_row['id'], target_api: enrollment_row['target_api'], authorization_request: e.record, status: enrollment_row['status'])
       else
         raise
@@ -243,7 +248,8 @@ class Import::AuthorizationRequests < Import::Base
   end
 
   def build_organization(siret)
-    organization = Organization.find_or_initialize_by(siret: siret)
+    legal_entity_registry = siret.length == 14 ? 'insee_sirene' : 'other'
+    organization = Organization.find_or_initialize_by(legal_entity_id: siret, legal_entity_registry:)
 
     return organization if organization.persisted?
 

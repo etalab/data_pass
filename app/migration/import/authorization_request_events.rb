@@ -201,13 +201,13 @@ class Import::AuthorizationRequestEvents < Import::Base
 
     case authorization_request.type
     when 'AuthorizationRequest::APIParticulier', 'AuthorizationRequest::APIEntreprise'
-      @dinum_organization ||= Organization.find_by(siret: '13002526500013')
+      @dinum_organization ||= Organization.find_by(legal_entity_id: '13002526500013', legal_entity_registry: "insee_sirene")
     when 'AuthorizationRequest::HubEECertDC'
-      @dgs_organization ||= Organization.find_by(siret: '13001653800014')
+      @dgs_organization ||= Organization.find_by(legal_entity_id: '13001653800014', legal_entity_registry: "insee_sirene")
     when 'AuthorizationRequest::HubEEDila'
-      @dila_organization ||= Organization.find_by(siret: '13000918600011')
+      @dila_organization ||= Organization.find_by(legal_entity_id: '13000918600011', legal_entity_registry: "insee_sirene")
     when 'AuthorizationRequest::LeTaxi'
-      @le_taxi_organization ||= Organization.find_by(siret: '12000018700027')
+      @le_taxi_organization ||= Organization.find_by(legal_entity_id: '12000018700027', legal_entity_registry: "insee_sirene")
     else
       raise "Unknown authorization request type #{authorization_request.type} for instruction"
     end

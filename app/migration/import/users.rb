@@ -3,7 +3,7 @@ class Import::Users < Import::Base
 
   def extract(user_row)
     user = User.find_or_initialize_by(email: user_row['email'].downcase.strip)
-    user_organizations = Organization.where(siret: sanitize_user_organizations(user_row['organizations']).map { |org| org['siret'] }).distinct
+    user_organizations = Organization.where(legal_entity_id: sanitize_user_organizations(user_row['organizations']).map { |org| org['siret'] }).distinct
 
     user.phone_number ||= user_row['phone_number']
     user.created_at ||= user_row['created_at']
@@ -52,7 +52,7 @@ class Import::Users < Import::Base
     }[user_external_id]
 
     if sirets.present?
-      Organization.where(siret: sirets)
+      Organization.where(legal_entity_id: sirets)
     else
       []
     end
@@ -85,7 +85,7 @@ class Import::Users < Import::Base
   end
 
   def organization_sirets
-    @organization_sirets ||= Organization.pluck(:siret)
+    @organization_sirets ||= Organization.pluck(:legal_entity_id)
   end
 
   def csv_or_table_to_loop
