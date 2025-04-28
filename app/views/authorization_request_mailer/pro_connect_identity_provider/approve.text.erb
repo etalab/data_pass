@@ -4,7 +4,7 @@ Votre <%= @authorization_request.reopening? ? 'mise à jour' : 'habilitation' %>
 Vous pouvez maintenant vous rendre sur le site demarches-simplifiees.fr afin de remplir le formulaire de demande d'enrôlement : https://www.demarches-simplifiees.fr/commencer/demande-creation-fi-fca
 Une fois ce formulaire rempli, nous pourrons procéder au raccordement.
 
-N'hésitez pas à nous solliciter sur support.partenaires@agentconnect.gouv.fr
+N'hésitez pas à nous solliciter sur <%= @authorization_request.definition.support_email %>
 
 Bien cordialement,
 
