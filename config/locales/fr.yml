@@ -153,7 +153,7 @@ fr:
       pro_connect_brand: ProConnect
       pro_connect_subtitle: Qu’est-ce que ProConnect ?
       api_gouv_title: Pour découvrir les APIs du service public
-      api_gouv: api.gouv.fr
+      api_gouv: data.gouv.fr
 
   dashboard:
     show:
