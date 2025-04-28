@@ -1,13 +1,5 @@
-<%= render partial: 'mailer/shared/applicant/header', locals: { entity_name: @authorization_request.applicant.full_name } %>
+<% content_for :api_specificity do %>
+  Spécificité de l'API Impôt particulier : comme indiqué dans sa documentation fonctionnelle (disponible sur le DataPass d'accès à l'environnement bac à sable et sur le portail des API de la DGFiP), nous vous rappelons qu'une donnée est disponible à partir du moment où l'année fiscale, à laquelle elle se rapporte, a fait l'objet d'une taxation. Le paragraphe \"Calendrier de taxation des impôts des particuliers\" de la documentation fonctionnelle vous renseigne sur les dates prévisionnelles de taxation. Il est mis à jour chaque année. Sauf demande particulière du partenaire, l'API Impôt particulier suit ce calendrier.
+<% end %>
 
-<%=
-  t(
-    '.description',
-    authorization_request_id: @authorization_request.id,
-    authorization_request_name: @authorization_request.name,
-    authorization_request_url: authorization_request_url(@authorization_request),
-    authorization_request_next_stage_url: next_authorization_request_stage_url(@authorization_request)
-  )
-%>
-
-<%= render partial: 'mailer/shared/applicant/footer', locals: { authorization_definition_name: @authorization_request.definition.name } %>
+<%= render template: 'authorization_request_mailer/shared/dgfip_sandbox/approve.text.erb' %>
