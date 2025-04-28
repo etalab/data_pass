@@ -17,7 +17,6 @@ class CreateAuthorizationFromSnapshot
     authorization = Authorization.new(
       id: authorization_id,
       request_id: authorization_request.id,
-      form_uid: authorization_request.form_uid,
       applicant: authorization_request.applicant,
       created_at: event_datetime,
     )
