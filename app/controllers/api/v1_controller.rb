@@ -1,5 +1,5 @@
 class API::V1Controller < APIController
-  include ApiPagination
+  include APIPagination
 
   rescue_from Doorkeeper::Errors::TokenUnknown, with: :render_unauthorized_error
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_error

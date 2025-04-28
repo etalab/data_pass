@@ -33,6 +33,6 @@ class API::V1::AuthorizationRequestsControllerTest < ActionDispatch::Integration
     get '/api/v1/demandes', params: { limit: 2000 }, headers: { Authorization: "Bearer #{@token.token}" }
     assert_response :success
     json_response = JSON.parse(response.body)
-    assert_equal 20, json_response.size # or ApiPagination::MAX_LIMIT if more were available
+    assert_equal 20, json_response.size # or APIPagination::MAX_LIMIT if more were available
   end
 end

@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class ApiPaginationTest < ActiveSupport::TestCase
+class APIPaginationTest < ActiveSupport::TestCase
   class DummyController
-    include ApiPagination
+    include APIPagination
   end
 
   setup do
@@ -24,8 +24,8 @@ class ApiPaginationTest < ActiveSupport::TestCase
   end
 
   test 'returns the maximum limit when limit exceeds the maximum' do
-    assert_equal ApiPagination::MAX_LIMIT, @controller.limit_records(ApiPagination::MAX_LIMIT + 1)
-    assert_equal ApiPagination::MAX_LIMIT, @controller.limit_records(9999)
+    assert_equal APIPagination::MAX_LIMIT, @controller.limit_records(APIPagination::MAX_LIMIT + 1)
+    assert_equal APIPagination::MAX_LIMIT, @controller.limit_records(9999)
   end
 
   test 'accepts a custom default limit' do
