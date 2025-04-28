@@ -77,7 +77,7 @@ RSpec.describe 'Authorization request with scopes' do
 
       click_on 'submit_authorization_request'
 
-      expect(authorization_request.reload.scopes).to match_array((default_scopes + additional_scopes))
+      expect(authorization_request.reload.scopes).to match_array(default_scopes + additional_scopes)
     end
   end
 end
