@@ -274,7 +274,7 @@ api_e_contacts_sandbox:
   provider: "dgfip"
   kind: 'api'
   link: "https://api.gouv.fr/producteurs/dgfip"
-  cgu_link: "/cgus/dgfip/prc_v1/cgu_bas_e_contacts_v.2023_11.pdf"
+  cgu_link: "/cgus/dgfip/pcr_v1/cgu_bas_e_contacts_v.2023_11.pdf"
   # FEEDME
   access_link: "https://api-e-contacts.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
@@ -297,7 +297,7 @@ api_e_contacts:
   provider: "dgfip"
   kind: 'api'
   link: "https://api.gouv.fr/producteurs/dgfip"
-  cgu_link: "/cgus/dgfip/prc_v1/cgu_prod_e_contacts_v.2023_11.pdf"
+  cgu_link: "/cgus/dgfip/pcr_v1/cgu_prod_e_contacts_v.2023_11.pdf"
   # FEEDME
   access_link: "https://api-e-contacts.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
@@ -395,7 +395,7 @@ api_ocfi:
   provider: "dgfip"
   kind: 'api'
   link: "https://api.gouv.fr/producteurs/dgfip"
-  cgu_link: "/cgus/dgfip/prc_v1/cgu_prod_ocfi_v.2023_11.pdf"
+  cgu_link: "/cgus/dgfip/pcr_v1/cgu_prod_ocfi_v.2023_11.pdf"
   # FEEDME
   access_link: "https://api-ocfi.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
@@ -421,7 +421,7 @@ api_e_pro_sandbox:
   provider: "dgfip"
   kind: 'api'
   link: "https://api.gouv.fr/producteurs/dgfip"
-  cgu_link: "/cgus/dgfip/prc_v1/cgu_bas_e_pro_v.2023_11.pdf"
+  cgu_link: "/cgus/dgfip/pcr_v1/cgu_bas_e_pro_v.2023_11.pdf"
   # FEEDME
   access_link: "https://api-e-pro.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
@@ -444,7 +444,7 @@ api_e_pro:
   provider: "dgfip"
   kind: 'api'
   link: "https://api.gouv.fr/producteurs/dgfip"
-  cgu_link: "/cgus/dgfip/prc_v1/cgu_prod_e_pro_v.2023_11.pdf"
+  cgu_link: "/cgus/dgfip/pcr_v1/cgu_prod_e_pro_v.2023_11.pdf"
   # FEEDME
   access_link: "https://api-e-pro.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
@@ -470,7 +470,7 @@ api_robf_sandbox:
   provider: "dgfip"
   kind: 'api'
   link: "https://api.gouv.fr/producteurs/dgfip"
-  cgu_link: "/cgus/dgfip/prc_v1/cgu_bas_robf_v.2023_11.pdf"
+  cgu_link: "/cgus/dgfip/pcr_v1/cgu_bas_robf_v.2023_11.pdf"
   # FEEDME
   access_link: "https://api-robf.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
@@ -494,7 +494,7 @@ api_robf:
   provider: "dgfip"
   kind: 'api'
   link: "https://api.gouv.fr/producteurs/dgfip"
-  cgu_link: "/cgus/dgfip/prc_v1/cgu_prod_robf_v.2023_11.pdf"
+  cgu_link: "/cgus/dgfip/pcr_v1/cgu_prod_robf_v.2023_11.pdf"
   # FEEDME
   access_link: "https://api-robf.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
@@ -520,7 +520,7 @@ api_cpr_pro_adelie_sandbox:
   provider: "dgfip"
   kind: 'api'
   link: "https://api.gouv.fr/producteurs/dgfip"
-  cgu_link: "/cgus/dgfip/prc_v1/cgu_bas_cpr_pro_v.2023_11.pdf"
+  cgu_link: "/cgus/dgfip/pcr_v1/cgu_bas_cpr_pro_v.2023_11.pdf"
   # FEEDME
   access_link: "https://api-pro-adelie.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
@@ -543,7 +543,7 @@ api_cpr_pro_adelie:
   provider: "dgfip"
   kind: 'api'
   link: "https://api.gouv.fr/producteurs/dgfip"
-  cgu_link: "/cgus/dgfip/prc_v1/cgu_prod_cpr_pro_v.2023_11.pdf"
+  cgu_link: "/cgus/dgfip/pcr_v1/cgu_prod_cpr_pro_v.2023_11.pdf"
   # FEEDME
   access_link: "https://api-pro-adelie.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
