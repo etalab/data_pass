@@ -1,0 +1,10 @@
+<%= render partial: 'mailer/shared/applicant/header', locals: { entity_name: @authorization_request.applicant.full_name } %>
+
+Votre <%= @authorization_request.reopening? ? 'mise à jour' : 'habilitation' %> a été validée. Pour la consulter, veuillez cliquer sur le lien suivant <%= authorization_request_url(@authorization_request) %>.
+Vous pouvez maintenant vous rendre sur le site demarches-simplifiees.fr afin de remplir le formulaire de demande d'enrôlement : https://www.demarches-simplifiees.fr/commencer/demande-creation-fs-fca
+Une fois ce formulaire rempli, nous pourrons vous transmettre les clés correspondantes.
+N'hésitez pas à nous solliciter sur support.partenaires@agentconnect.gouv.fr
+
+Bien cordialement,
+
+<%= render partial: 'mailer/shared/applicant/footer', locals: { authorization_definition_name: @authorization_request.definition.name } %>

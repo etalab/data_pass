@@ -1,0 +1,10 @@
+<%= render partial: 'mailer/shared/applicant/header', locals: { entity_name: @authorization_request.applicant.full_name } %>
+
+Votre <%= @authorization_request.reopening? ? 'mise à jour' : 'habilitation' %> a été validée. Les accès se font désormais de façon sécurisée via l’application PISTE de l’AIFE : https://piste.gouv.fr/
+Il faut vous créer un compte, créer votre application puis sélectionner la ou les API qui vous conviennent et demander un accès.
+Une fois cet accès validé, vous pourrez recevoir les identifiants techniques à utiliser pour appeler nos APIs.
+Pour consulter cette <%= @authorization_request.reopening? ? 'mise à jour' : 'habilitation' %>, veuillez cliquer sur le lien suivant <%= authorization_request_url(@authorization_request) %> .
+
+Bien cordialement,
+
+<%= render partial: 'mailer/shared/applicant/footer', locals: { authorization_definition_name: @authorization_request.definition.name } %>
