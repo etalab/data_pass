@@ -11,8 +11,7 @@ class Authorization < ApplicationRecord
 
   belongs_to :request,
     class_name: 'AuthorizationRequest',
-    inverse_of: :authorizations,
-    dependent: :destroy
+    inverse_of: :authorizations
 
   has_one :organization,
     through: :request
@@ -27,7 +26,7 @@ class Authorization < ApplicationRecord
     dependent: :nullify
 
   has_one :approve_authorization_request_event,
-    -> { where(name: 'approve').order(created_at: :desc).limit(1) },
+    -> { where(name: 'approve').order(created_at: :desc) },
     dependent: :nullify,
     class_name: 'AuthorizationRequestEvent',
     inverse_of: :entity

@@ -44,13 +44,15 @@ class AuthorizationRequestPolicy < ApplicationPolicy
   end
 
   def reopen?
-    record.persisted? &&
+    !record.dirty_from_v1? &&
+      record.persisted? &&
       same_user_and_organization? &&
       record.can_reopen?
   end
 
   def cancel_reopening?
-    same_user_and_organization? &&
+    !record.dirty_from_v1? &&
+      same_user_and_organization? &&
       record.can_cancel_reopening? &&
       !record.submitted?
   end
@@ -71,7 +73,8 @@ class AuthorizationRequestPolicy < ApplicationPolicy
   end
 
   def transfer?
-    record.persisted? &&
+    !record.dirty_from_v1? &&
+      record.persisted? &&
       same_current_organization? &&
       (record.reopening? || record.state != 'draft')
   end

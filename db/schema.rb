@@ -9,7 +9,6 @@
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
-
 ActiveRecord::Schema[8.0].define(version: 2025_04_25_130021) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -129,6 +128,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_25_130021) do
     t.uuid "public_id", default: -> { "gen_random_uuid()" }
     t.boolean "reopening", default: false
     t.text "raw_attributes_from_v1"
+    t.boolean "dirty_from_v1", default: false
     t.index ["applicant_id"], name: "index_authorization_requests_on_applicant_id"
     t.index ["next_request_copied_id"], name: "index_authorization_requests_on_next_request_copied_id"
     t.index ["organization_id"], name: "index_authorization_requests_on_organization_id"

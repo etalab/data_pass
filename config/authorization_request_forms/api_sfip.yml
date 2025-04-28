@@ -78,7 +78,7 @@ api-sfip-production:
     - name: safety_certification
     - name: volumetrie
 
-api-sfip-production-editeur:
+api-sfip-editeur:
   name: Demande libre avec éditeur
   public: true
   default: true
