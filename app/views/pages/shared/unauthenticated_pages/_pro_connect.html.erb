@@ -1,8 +1,8 @@
 <div class="fr-mt-5w fr-mb-3w">
   <div class="homepage-subtitle">
-    <div class="fr-h6">
+    <h2 class="fr-h6">
       <%= t('pages.home.pro_connect_connexion') %>
-    </div>
+    </h2>
   </div>
   <%= form_with(url: '/auth/mon_compte_pro', method: :post, data: { turbo: false }) do |f| %>
     <%= f.button class: %w(fr-connect fr-m-auto), id: 'login_pro_connect' do %>
