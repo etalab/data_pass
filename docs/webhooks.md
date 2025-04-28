@@ -121,7 +121,7 @@ Un exemple de payload pour `model_data`:
   // Payload de l'organisation
   "organization": {
     "id": 9002,
-    "raison_sociale": "UMAD CORP",
+    "name": "UMAD CORP",
     "siret": "98043033400022"
   },
   // Payload du demandeur

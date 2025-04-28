@@ -53,7 +53,7 @@
                   <ul>
                     <% user.organizations.each do |organization| %>
                       <li>
-                        <%= organization.raison_sociale %> (<%= link_to organization.siret, "https://annuaire-entreprises.data.gouv.fr/etablissement/#{organization.siret}", target: '_blank' %>)
+                        <%= organization.name %> (<%= link_to organization.siret, "https://annuaire-entreprises.data.gouv.fr/etablissement/#{organization.siret}", target: '_blank' %>)
                       </li>
                     <% end %>
                   </ul>

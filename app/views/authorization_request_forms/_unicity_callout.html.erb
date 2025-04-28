@@ -6,6 +6,6 @@
     <%= t('.title')%>
   </h3>
         
-  <%= simple_format t(".#{callout_key}.content", organization_raison_sociale: current_organization.raison_sociale), { class: 'fr-callout__text fr-my-3w' }, wrapper_tag: 'p' %>
-  <%= link_to t(".#{callout_key}.cta", organization_raison_sociale: current_organization.raison_sociale), authorization_request_path(authorization_request), class: 'fr-link fr-btn--icon-right fr-icon-arrow-right-line' %>
+  <%= simple_format t(".#{callout_key}.content", organization_name: current_organization.name), { class: 'fr-callout__text fr-my-3w' }, wrapper_tag: 'p' %>
+  <%= link_to t(".#{callout_key}.cta", organization_name: current_organization.name), authorization_request_path(authorization_request), class: 'fr-link fr-btn--icon-right fr-icon-arrow-right-line' %>
 </div>

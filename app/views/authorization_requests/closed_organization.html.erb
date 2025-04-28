@@ -8,7 +8,7 @@
         <%= t('.subtitle') %>
       </h2>
       <p class="fr-text--lg">
-        <%= t('.reason', organization_raison_sociale: current_organization.raison_sociale, organization_siret: current_organization.siret).html_safe %>
+        <%= t('.reason', organization_name: current_organization.name, organization_siret: current_organization.siret).html_safe %>
       </p>
 
       <%= form_with(url: "/auth/mon_compte_pro?prompt=select_organization", method: :post, data: { turbo: false }, class: 'fr-pt-1w') do |f| %>

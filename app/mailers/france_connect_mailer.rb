@@ -14,6 +14,6 @@ class FranceConnectMailer < ApplicationMailer
   private
 
   def new_scopes_subject(authorization_request)
-    "[DataPass] nouveaux scopes pour \"#{authorization_request.organization.raison_sociale} - #{authorization_request.id}\""
+    "[DataPass] nouveaux scopes pour \"#{authorization_request.organization.name} - #{authorization_request.id}\""
   end
 end

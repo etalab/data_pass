@@ -11,7 +11,8 @@ class FindOrCreateOrganization < ApplicationInteractor
 
   def find_or_initialize_organization
     Organization.where(
-      siret: info_payload['siret'],
+      legal_entity_id: info_payload['siret'],
+      legal_entity_registry: 'insee_sirene',
     ).first_or_initialize
   end
 

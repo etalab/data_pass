@@ -4,8 +4,8 @@ default: &default
 
 development:
   <<: *default
-  database: <%= ENV.fetch('POSTGRES_DB') { 'development' } %>
+  database: <%= ENV.fetch('POSTGRES_DB') { 'data_pass_development' } %>
 
 test:
   <<: *default
-  database: <%= ENV.fetch('POSTGRES_DB') { 'test' } %>
+  database: <%= ENV.fetch('POSTGRES_DB') { 'data_pass_test' } %>

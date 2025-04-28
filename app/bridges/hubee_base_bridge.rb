@@ -5,12 +5,12 @@ class HubEEBaseBridge < ApplicationBridge
     {
       type: 'SI',
       companyRegister: organization.siret,
-      branchCode: organization.code_commune,
+      branchCode: organization_code_commune,
       name: organization.denomination,
-      code: organization.sigle_unite_legale,
+      code: organization_sigle_unite_legale,
       country: 'France',
-      postalCode: organization.code_postal,
-      territory: organization.libele_commune,
+      postalCode: organization_code_postal,
+      territory: organization_libelle_commune,
       email: authorization_request.administrateur_metier_email,
       phoneNumber: authorization_request.administrateur_metier_phone_number.gsub(/[ .-]/, ''),
       status: 'Actif'
@@ -46,13 +46,29 @@ class HubEEBaseBridge < ApplicationBridge
   end
 
   def find_or_create_organization
-    hubee_api_client.get_organization(organization.siret, organization.code_commune)
+    hubee_api_client.get_organization(organization.siret, organization_code_commune)
   rescue Faraday::ResourceNotFound
     hubee_api_client.create_organization(organization_create_payload)
   end
 
   def hubee_api_client
     @hubee_api_client ||= HubEEAPIClient.new
+  end
+
+  def organization_code_commune
+    organization.insee_payload.dig('etablissement', 'adresseEtablissement', 'codeCommuneEtablissement')
+  end
+
+  def organization_sigle_unite_legale
+    organization.insee_payload.dig('etablissement', 'uniteLegale', 'sigleUniteLegale')
+  end
+
+  def organization_libelle_commune
+    organization.insee_payload.dig('etablissement', 'adresseEtablissement', 'libelleCommuneEtablissement')
+  end
+
+  def organization_code_postal
+    organization.insee_payload.dig('etablissement', 'adresseEtablissement', 'codePostalEtablissement')
   end
 
   def organization

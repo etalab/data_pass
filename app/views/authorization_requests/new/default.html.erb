@@ -5,7 +5,7 @@
 <div class="fr-mb-4w">
   <div class="border-frame-text fr-my-3w">
     <%= simple_format t("authorization_request_forms.new.organization.start_text",
-      organization_raison_sociale: current_organization.raison_sociale,
+      organization_name: current_organization.name,
       organization_siret: current_organization.siret).html_safe,
       {}, wrapper_tag: 'div' %>
   </div>

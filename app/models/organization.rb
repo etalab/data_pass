@@ -1,5 +1,8 @@
 class Organization < ApplicationRecord
-  validates :siret, presence: true, uniqueness: true, siret: true
+  self.ignored_columns += %w[siret]
+
+  validates :legal_entity_id, presence: true, uniqueness: { scope: :legal_entity_registry }
+  validates :legal_entity_id, siret: true, if: -> { legal_entity_registry == 'insee_sirene' }
 
   validates :mon_compte_pro_payload, presence: true
   validates :last_mon_compte_pro_updated_at, presence: true
@@ -18,32 +21,26 @@ class Organization < ApplicationRecord
     class_name: 'AuthorizationRequest',
     inverse_of: :organization
 
-  def raison_sociale
-    denomination || "l'organisation #{siret} (nom inconnu)"
+  def siret
+    return if foreign?
+
+    legal_entity_id
   end
 
-  def code_commune
-    insee_payload.dig('etablissement', 'adresseEtablissement', 'codeCommuneEtablissement')
+  def name
+    denomination || "l'organisation #{legal_entity_id} (nom inconnu)"
   end
 
   def denomination
     insee_payload.dig('etablissement', 'uniteLegale', 'denominationUniteLegale')
   end
 
-  def sigle_unite_legale
-    insee_payload.dig('etablissement', 'uniteLegale', 'sigleUniteLegale')
-  end
-
-  def code_postal
-    insee_payload.dig('etablissement', 'adresseEtablissement', 'codePostalEtablissement')
-  end
-
-  def libele_commune
-    insee_payload.dig('etablissement', 'adresseEtablissement', 'libelleCommuneEtablissement')
-  end
-
   def insee_payload
     self[:insee_payload] || {}
+  end
+
+  def foreign?
+    legal_entity_registry != 'insee_sirene'
   end
 
   def closed?
@@ -52,18 +49,10 @@ class Organization < ApplicationRecord
     insee_latest_etablissement_period['etatAdministratifEtablissement'] == 'F'
   end
 
-  def categorie_juridique
-    return if insee_payload.blank?
-
-    CategorieJuridique.find(insee_payload['etablissement']['uniteLegale']['categorieJuridiqueUniteLegale'])
-  rescue ActiveRecord::RecordNotFound
-    nil
-  end
-
   def self.ransackable_attributes(_auth_object = nil)
     %w[
-      siret
-      raison_sociale
+      legal_entity_id
+      name
     ]
   end
 
@@ -71,7 +60,7 @@ class Organization < ApplicationRecord
     []
   end
 
-  ransacker :raison_sociale do |parent|
+  ransacker :name do |parent|
     payload_node = parent.table[:insee_payload]
 
     etablissement_node = Arel::Nodes::InfixOperation.new('->', payload_node, Arel::Nodes.build_quoted('etablissement'))

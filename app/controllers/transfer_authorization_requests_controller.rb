@@ -61,7 +61,7 @@ class TransferAuthorizationRequestsController < AuthenticatedUserController
   def affect_local_error(organizer)
     @error = t(
       ".#{to_new_applicant}.error.#{organizer.error}",
-      organization_name: @authorization_request.organization.raison_sociale,
+      organization_name: @authorization_request.organization.name,
       organization_siret: @authorization_request.organization.siret,
     )
   end
