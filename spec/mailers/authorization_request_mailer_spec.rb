@@ -34,6 +34,14 @@ RSpec.describe AuthorizationRequestMailer do
           expect(mail.body.encoded).to match('Portail HubEE')
         end
       end
+
+      describe 'API R2P sandbox' do
+        let(:authorization_request) { create(:authorization_request, :api_r2p_sandbox, :validated) }
+
+        it 'renders valid custom template' do
+          expect(mail.body.encoded).to match('DGFiP')
+        end
+      end
     end
   end
 
