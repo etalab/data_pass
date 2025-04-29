@@ -36,6 +36,9 @@ class MainImport
       import(:authorization_request_events, { dump_sql: true, valid_authorization_request_ids: }) unless authorization_requests.blank?
     end
 
+    # import(:authorization_requests, { load_from_sql: true })
+    # import(:authorization_request_events, { load_from_sql: true })
+
     clean_extra_authorizations_from_old_fake_reopening!
 
     %i[warned skipped].each do |kind|
@@ -125,7 +128,7 @@ class MainImport
         # XXX Global ignore
         [
           '13233', # cas complexe++ où production révoqué mais existe une production validée
-          '4441','4442','6522','4649','4650','7356','7367','8383', # FIXME organisations étrangères
+          # '4441','4442','6522','4649','4650','7356','7367','8383', # FIXME organisations étrangères
         ].exclude?(enrollment_row['id'])
       end,
       # authorization_requests_sql_where: 'target_api in (\'franceconnect\', \'api_impot_particulier_fc_sandbox\', \'api_impot_particulier_fc_production\') order by case when target_api = \'franceconnect\' then 1 when target_api like \'%_sandbox\' then 2 else 3 end',
@@ -165,7 +168,7 @@ class MainImport
 
       event.entity_id = first_authorization.id
       first_authorization.state = first_authorization.request.state == 'revoked' ? 'revoked' : 'active'
-      first_authorization.state = first_authorization.request.state == 'refused' ? 'refused' : 'active'
+      first_authorization.state = first_authorization.request.state == 'refused' ? 'obsolete' : 'active'
 
       first_authorization.save!
       event.save!
