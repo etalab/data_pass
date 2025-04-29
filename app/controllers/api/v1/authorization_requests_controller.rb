@@ -7,7 +7,7 @@ class API::V1::AuthorizationRequestsController < API::V1Controller
       .where(type: current_user_authorization_request_types)
       .merge(state_filter)
       .offset(params[:offset])
-      .limit(params.fetch(:limit, 10))
+      .limit(maxed_limit(params[:limit]))
 
     render json: authorization_requests,
       each_serializer: API::V1::AuthorizationRequestSerializer,
