@@ -108,8 +108,6 @@ class PostMigrationInspector
     v1_sandbox_ids = database.execute("select id from enrollments where target_api like '%_sandbox' and status in ('validated', 'revoked')").flatten
 
     sandbox_missing_ids = v1_sandbox_ids - Authorization.where("authorization_request_class like '%Sandbox'").pluck(:id)
-    # FIXME foreign organizations, will be fixed in the future
-    sandbox_missing_ids -= [4441, 4442, 6522]
     log("Missing ids for sandbox (#{sandbox_missing_ids.count}): #{sandbox_missing_ids}\n") if sandbox_missing_ids.any?
 
     sandbox_missing_ids.blank?
@@ -174,9 +172,6 @@ class PostMigrationInspector
     data = data.reject { |d| missing_request_ids.exclude?(d[0]) }
     data = clean_requests_when_more_recent_exists?(data)
     missing_request_ids = data.map { |d| d[0] }
-
-    # FIXME foreign organizations, will be fixed in the future
-    missing_request_ids -= [4649, 4650, 7356, 7367]
 
     log("Missing requests ids for production (#{missing_request_ids.count}): #{missing_request_ids}\n") if missing_request_ids.any?
 
