@@ -12,7 +12,7 @@ api-impot-particulier-sandbox:
         <div class="step-number">1.</div>
         <div class="step-content">
           <h3>Le bac à sable</h3>
-          <p class="fr-text--xs">Dans un premier temps, une demande d’habilitation au <strong>bac à sable</strong> de l'API Impôt particulier</p>
+          <p class="fr-text--xs">Dans un premier temps, une demande d’habilitation au <strong>bac à sable</strong> de l’API Impôt particulier</p>
         </div>
       </div>
 
@@ -20,7 +20,7 @@ api-impot-particulier-sandbox:
         <div class="step-number">2.</div>
         <div class="step-content">
           <h3>La production</h3>
-          <p class="fr-text--xs">Dans un second temps, une demande d’habilitation à la <strong>production</strong> de l'API Impôt particulier</p>
+          <p class="fr-text--xs">Dans un second temps, une demande d’habilitation à la <strong>production</strong> de l’API Impôt particulier</p>
         </div>
       </div>
 
@@ -33,7 +33,7 @@ api-impot-particulier-sandbox:
       </div>
     </div>
 
-    Afin de vous accompagner dans votre démarche de demande d'accès à une API DGFiP, vous êtes invités à consulter notre documentation sur le parcours de souscription. Celle-ci vous donnera des informations générales concernant les API et les API à la DGFiP mais également des précisions concernant le parcours d'instruction et les prérequis nécessaires à l'analyse par la DGFiP de votre demande. 
+    Afin de vous accompagner dans votre démarche de demande d'accès à une API DGFiP, vous êtes invités à consulter notre documentation sur le parcours de souscription. Celle-ci vous donnera des informations générales concernant les API et les API à la DGFiP mais également des précisions concernant le parcours d’instruction et les prérequis nécessaires à l’analyse par la DGFiP de votre demande.
   authorization_request: APIImpotParticulierSandbox
   steps: &api_impot_particulier_sandbox_steps
     - name: basic_infos
@@ -47,14 +47,14 @@ api-impot-particulier-production:
   name: Demande libre (Production)
   public: false
   introduction: &api_impot_particulier_production_form_introduction |
-    Votre demande d'accès au bac à sable a été validée, vous pouvez à présent poursuivre votre demande en demandant les accès à la production.
+    Votre demande d’accès au bac à sable a été validée, vous pouvez à présent poursuivre votre demande en demandant les accès à la production.
 
     <div class="intro-stepper">
       <div class="step completed">
         <div class="step-number">1.</div>
         <div class="step-content">
           <h3>Le bac à sable</h3>
-          <p class="fr-text--xs">Dans un premier temps, une demande d’habilitation au <strong>bac à sable</strong> de l'API Impôt particulier</p>
+          <p class="fr-text--xs">Dans un premier temps, une demande d’habilitation au <strong>bac à sable</strong> de l’API Impôt particulier</p>
         </div>
       </div>
 
@@ -62,7 +62,7 @@ api-impot-particulier-production:
         <div class="step-number">2.</div>
         <div class="step-content">
           <h3>La production</h3>
-          <p class="fr-text--xs">Dans un second temps, une demande d’habilitation à la <strong>production</strong> de l'API Impôt particulier</p>
+          <p class="fr-text--xs">Dans un second temps, une demande d’habilitation à la <strong>production</strong> de l’API Impôt particulier</p>
         </div>
       </div>
 
@@ -87,7 +87,7 @@ api-impot-particulier-production-editeur:
   default: true
   description: Pour les utilisateurs travaillant avec un éditeur ayant déjà effectué une recette fonctionnelle.
   introduction: &api_impot_particulier_editor_form_introduction |
-    Votre éditeur a déjà obtenu l'accès à la sandbox, vous n'avez plus qu'à obtenir l'accès en production via ce formulaire.
+    Votre éditeur a déjà obtenu l’accès à la sandbox, vous n’avez plus qu’à obtenir l’accès en production via ce formulaire.
   authorization_request: APIImpotParticulier
   steps: &api_impot_particulier_editor_steps
     - name: basic_infos
