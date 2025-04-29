@@ -4,15 +4,19 @@ class SessionsController < ApplicationController
   allow_unauthenticated_access only: [:create]
 
   def create
-    authenticate_user
-
-    case request.env['omniauth.params']['prompt']
-    when 'select_organization'
-      change_current_organization
-    when 'update_userinfo'
-      update_user
+    if authenticate_user
+      case request.env['omniauth.params']['prompt']
+      when 'select_organization'
+        change_current_organization
+      when 'update_userinfo'
+        update_user
+      else
+        post_sign_in
+      end
     else
-      post_sign_in
+      warning_message(title: 'Impossible de se connecter avec ce compte sur cet environnment, merci de contacter le support')
+
+      redirect_to root_path
     end
   end
 
@@ -29,7 +33,11 @@ class SessionsController < ApplicationController
 
     organizer = AuthenticateUser.call(mon_compte_pro_omniauth_payload: request.env['omniauth.auth'])
 
+    return false if organizer.failure?
+
     sign_in(organizer.user)
+
+    true
   end
 
   def post_sign_in
