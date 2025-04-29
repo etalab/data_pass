@@ -97,8 +97,8 @@ fr:
         info:
           title: Pourquoi avons nous besoin de cette information ?
           content: |
-            <p>Connaître les données relatives à la volumétrie de votre téléservice nous permet de vous offrir la meilleure qualité de service possible. Ces informations sont transmises aux fournisseurs de vos données pour prévenir les pics de charges.</p>
-            <p>Conformément aux modalités d’utilisation, nous nous réservons le droit de réduire ou couper les appels autorisés au fournisseur de service.</p>
+            Connaître les données relatives à la volumétrie de votre téléservice nous permet de vous offrir la meilleure qualité de service possible. Ces informations sont transmises aux fournisseurs de vos données pour prévenir les pics de charges.
+            Conformément aux modalités d’utilisation, nous nous réservons le droit de réduire ou couper les appels autorisés au fournisseur de service.
       volumetrie_appels_par_minute:
         label: Quelle limitation de débit souhaitez-vous pour votre téléservice ?
       volumetrie_justification:
