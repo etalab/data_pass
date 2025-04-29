@@ -200,7 +200,7 @@ class Import::AuthorizationRequestEvents < Import::Base
     authorization_request = entity.authorization_request
 
     case authorization_request.type
-    when 'AuthorizationRequest::APIParticulier', 'AuthorizationRequest::APIEntreprise'
+    when 'AuthorizationRequest::APIParticulier', 'AuthorizationRequest::APIEntreprise', 'AuthorizationRequest::FranceConnect'
       @dinum_organization ||= Organization.find_by(legal_entity_id: '13002526500013', legal_entity_registry: "insee_sirene")
     when 'AuthorizationRequest::HubEECertDC'
       @dgs_organization ||= Organization.find_by(legal_entity_id: '13001653800014', legal_entity_registry: "insee_sirene")
