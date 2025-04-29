@@ -8,7 +8,7 @@ api-mire-sandbox:
         <div class="step-number">1.</div>
         <div class="step-content">
           <h3>Le bac à sable</h3>
-          <p class="fr-text--xs">Dans un premier temps, une demande d’habilitation au <strong>bac à sable</strong> de l'API Mire</p>
+          <p class="fr-text--xs">Dans un premier temps, une demande d’habilitation au <strong>bac à sable</strong> de l'API MIRE</p>
         </div>
       </div>
 
@@ -16,7 +16,7 @@ api-mire-sandbox:
         <div class="step-number">2.</div>
         <div class="step-content">
             <h3>La production</h3>
-            <p class="fr-text--xs">Dans un second temps, une demande d’habilitation à la <strong>production</strong> de l'API Mire</p>
+            <p class="fr-text--xs">Dans un second temps, une demande d’habilitation à la <strong>production</strong> de l'API MIRE</p>
         </div>
       </div>
 
@@ -45,7 +45,7 @@ api-mire-production:
         <div class="step-number">1.</div>
         <div class="step-content">
           <h3>Le bac à sable</h3>
-          <p class="fr-text--xs">Dans un premier temps, une demande d’habilitation au <strong>bac à sable</strong> de l'API Mire</p>
+          <p class="fr-text--xs">Dans un premier temps, une demande d’habilitation au <strong>bac à sable</strong> de l'API MIRE</p>
         </div>
       </div>
 
@@ -53,7 +53,7 @@ api-mire-production:
         <div class="step-number">2.</div>
         <div class="step-content">
           <h3>La production</h3>
-          <p class="fr-text--xs">Dans un second temps, une demande d’habilitation à la <strong>production</strong> de l'API Mire</p>
+          <p class="fr-text--xs">Dans un second temps, une demande d’habilitation à la <strong>production</strong> de l'API MIRE</p>
         </div>
       </div>
 

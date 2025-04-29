@@ -661,7 +661,7 @@ api_satelit:
     - name: volumetrie
 
 api_mire_sandbox:
-  name: API Mire
+  name: API MIRE
   description: "FEEDME"
   provider: "dgfip"
   kind: 'api'
@@ -684,7 +684,7 @@ api_mire_sandbox:
     - name: contacts
 
 api_mire:
-  name: API Mire
+  name: API MIRE
   description: "FEEDME"
   provider: "dgfip"
   kind: 'api'
