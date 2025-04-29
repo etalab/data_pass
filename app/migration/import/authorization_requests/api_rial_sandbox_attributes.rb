@@ -4,6 +4,7 @@ class Import::AuthorizationRequests::APIRialSandboxAttributes < Import::Authoriz
     affect_scopes
     affect_contacts
     affect_potential_legal_document
+    affect_potential_maquette_projet
     affect_potential_specific_requirements
     affect_duree_conservation_donnees_caractere_personnel_justification
 
