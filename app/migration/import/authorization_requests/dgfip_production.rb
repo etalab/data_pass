@@ -56,7 +56,13 @@ module Import::AuthorizationRequests::DGFIPProduction
     UPDATE authorizations
     SET request_id = #{new_id}
     WHERE request_id = #{previous_id};
+    SQL
 
+    attachments.each do |attachment|
+      sql << "UPDATE active_storage_attachments SET record_id = #{new_id} WHERE id = #{attachment.id};\n"
+    end
+
+    sql << <<-SQL
     SET session_replication_role = 'origin';
     COMMIT;
     SQL

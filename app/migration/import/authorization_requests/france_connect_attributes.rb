@@ -24,16 +24,6 @@ class Import::AuthorizationRequests::FranceConnectAttributes < Import::Authoriza
     end
   end
 
-  def affect_potential_legal_document
-    return if authorization_request.cadre_juridique_url.present?
-
-    row = csv('documents').find { |row| row['attachable_id'] == enrollment_row['id'] && row['type'] == 'Document::LegalBasis' }
-
-    if row
-      attach_file('cadre_juridique_document', row)
-    end
-  end
-
   def extract_eidas
     case additional_content['eidas_level']
     when '2'

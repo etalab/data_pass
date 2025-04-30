@@ -73,8 +73,6 @@ class Import::AuthorizationRequests::Base
   end
 
   def affect_potential_legal_document
-    return if authorization_request.cadre_juridique_url.present?
-
     affect_potential_document('Document::LegalBasis', 'cadre_juridique_document')
   end
 
