@@ -1,7 +1,7 @@
 class BaseNotifier < ApplicationNotifier
   notifier_event_names.each do |event_name|
     # rubocop:disable Lint/EmptyBlock
-    define_method(event_name) do |params|
+    define_method(event_name) do |_params|
     end
     # rubocop:enable Lint/EmptyBlock
   end
