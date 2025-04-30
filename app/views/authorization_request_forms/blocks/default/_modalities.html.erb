@@ -6,14 +6,22 @@
 
 <div>
   <div class="fr-col-lg-9">
-    <%=
-      f.dsfr_radio_buttons :modalities,
-        @authorization_request.available_modalities,
-        required: true,
-        multiple: true,
-        radio_group_class: "fr-radio-rich",
-        fieldset_element_class: "small",
-        checked: ->(value) { @authorization_request.modalities.include?(value) }
-    %>
+    <% @authorization_request.available_modalities.each do |modality| %>
+      <div class="fr-input-group">
+        <div class="fr-checkbox-group">
+          <%=
+            f.checkbox :modalities,
+              {
+                multiple: true,
+                checked: @authorization_request.modalities.include?(modality),
+                class: 'fr-checkbox-group'
+              },
+              modality,
+              nil
+          %>
+          <%= f.dsfr_radio_label(:modalities, modality) %>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>

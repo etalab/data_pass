@@ -18,7 +18,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API FICOBA
     * je renseigne le cadre légal
     * je clique sur "Suivant"
 
-    * je choisis "Via le Numéro fiscal (SPI)"
+    * je coche "Via le Numéro fiscal (SPI)"
     * je clique sur "Suivant"
 
     * je coche "État civil ou dénomination"
@@ -71,7 +71,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API FICOBA
     * je renseigne le cadre légal
     * je clique sur "Suivant"
 
-    * je choisis "Via le Numéro fiscal (SPI)"
+    * je coche "Via le Numéro fiscal (SPI)"
     * je clique sur "Suivant"
 
     * je coche "État civil ou dénomination"
