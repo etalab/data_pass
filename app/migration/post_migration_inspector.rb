@@ -207,6 +207,8 @@ class PostMigrationInspector
         valid_ids -= AuthorizationRequest::APIINFINOE.pluck(:id)
       elsif mapping[document_data[0]] == 'cadre_juridique_document'
         valid_ids -= AuthorizationRequest::LeTaxi.pluck(:id)
+      elsif mapping[document_data[0]] == 'maquette_projet'
+        valid_ids -= AuthorizationRequest::APIProSanteConnect.pluck(:id)
       end
 
       bool = attachment_ids.count == valid_ids.count

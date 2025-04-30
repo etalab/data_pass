@@ -4,6 +4,7 @@ class Import::AuthorizationRequests::APIDeclarationAutoEntrepreneurAttributes < 
     affect_attributes
     affect_contacts
     affect_potential_legal_document
+    affect_potential_maquette_projet
     affect_potential_attestation_fiscale_document
     affect_form_uid
   end

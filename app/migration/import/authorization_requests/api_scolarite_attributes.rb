@@ -4,6 +4,7 @@ class Import::AuthorizationRequests::APIScolariteAttributes < Import::Authorizat
     affect_contacts
     affect_scopes
     affect_potential_legal_document
+    affect_potential_maquette_projet
     affect_duree_conservation_donnees_caractere_personnel_justification
 
     return if authorization_request.valid?

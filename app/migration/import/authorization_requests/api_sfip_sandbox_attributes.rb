@@ -4,6 +4,7 @@ class Import::AuthorizationRequests::APISFiPSandboxAttributes < Import::Authoriz
     affect_attributes
     affect_contacts
     affect_potential_legal_document
+    affect_potential_maquette_projet
     affect_potential_specific_requirements
     affect_form_uid
     handle_incompatible_scopes_error
