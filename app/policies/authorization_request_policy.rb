@@ -73,7 +73,8 @@ class AuthorizationRequestPolicy < ApplicationPolicy
   end
 
   def transfer?
-    !record.dirty_from_v1? &&
+    feature_enabled?(:transfer) &&
+      !record.dirty_from_v1? &&
       record.persisted? &&
       same_current_organization? &&
       (record.reopening? || record.state != 'draft')
