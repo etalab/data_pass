@@ -343,6 +343,10 @@ class AuthorizationRequest < ApplicationRecord
     last_validated_at.present?
   end
 
+  def is_reopening?
+    authorizations.count > 1 || reopening?
+  end
+
   delegate :reopenable?, to: :definition
 
   def contact_types_for(user)

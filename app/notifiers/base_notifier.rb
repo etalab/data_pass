@@ -11,7 +11,7 @@ class BaseNotifier < ApplicationNotifier
     refuse
   ].each do |event|
     define_method(event) do |params|
-      if authorization_request.already_been_validated?
+      if authorization_request.is_reopening?
         email_notification("reopening_#{event}", params)
       else
         email_notification(event, params)
