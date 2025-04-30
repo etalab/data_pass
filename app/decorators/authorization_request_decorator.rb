@@ -63,11 +63,16 @@ class AuthorizationRequestDecorator < ApplicationDecorator
       return false if reopening? && any_next_stage_authorization_exists? && (draft? || submitted?)
     else
       return false if reopening?
+      return false if last_stage_request_without_previous_stages_authorizations? && (draft? || submitted?)
       return true if draft? || submitted?
       return false unless definition.next_stage?
     end
 
     validated? || submitted?
+  end
+
+  def last_stage_request_without_previous_stages_authorizations?
+    authorization_request.authorizations.where.not(authorization_request_class: type).none?
   end
 
   def display_card_reopening_footer?
