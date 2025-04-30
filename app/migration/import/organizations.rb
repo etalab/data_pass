@@ -20,16 +20,16 @@ class Import::Organizations < Import::Base
   end
 
   def after_load_from_csv
-    return if Organization.find_by(legal_entity_id: '89991311500015', legal_entity_registry: 'insee_sirene').present?
-
-    @models << Organization.create!(
-      legal_entity_id: '89991311500015',
-      legal_entity_registry: 'insee_sirene',
-      mon_compte_pro_payload: {
-        siret: '89991311500015',
-      },
-      last_mon_compte_pro_updated_at: 1.year.ago,
-    )
+    if Organization.find_by(legal_entity_id: '89991311500015', legal_entity_registry: 'insee_sirene').blank?
+      @models << Organization.create!(
+        legal_entity_id: '89991311500015',
+        legal_entity_registry: 'insee_sirene',
+        mon_compte_pro_payload: {
+          siret: '89991311500015',
+        },
+        last_mon_compte_pro_updated_at: 1.year.ago,
+      )
+    end
 
     [
       {
@@ -47,6 +47,7 @@ class Import::Organizations < Import::Base
         },
       }
     ].each do |organization_data|
+      next if Organization.find_by(legal_entity_id: organization_data[:legal_entity_id], legal_entity_registry: 'other').present?
       @models << Organization.create!(
         organization_data.merge(
           mon_compte_pro_payload: {
