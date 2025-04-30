@@ -73,7 +73,7 @@ Pour la configuration de la [définition (1.)](../config/authorization_definitio
     # crée par le système. Par défaut à `true`
     startable_by_applicant: false
     # Optionel. Permet de désactiver des fonctionnalités pour ce type de
-    # demande. Seul messaging est supporté pour le moment
+    # demande. Seul messaging et transfer sont supportés pour le moment
     features:
       messaging: false
     # Optionel. Permet de définir des étapes (ex: sandbox -> production)

@@ -32,7 +32,10 @@ Fonctionnalité: Transfert de demandes d'habilitations par un utilisateur
     Quand je me rends sur une demande d'habilitation "API Entreprise" de l'organisation "Ville de Clamart" en brouillon
     Alors il n'y a pas de bouton "Transférer"
 
-
+  Scénario: Je ne vois pas de bouton de transfert d'habilitation sur une de mes demandes validée sans les transferts activés
+    Quand j'ai 1 demande d'habilitation "API Impôt Particulier" à l'étape "Bac à sable" validée
+    Et que je me rends sur cette demande d'habilitation
+    Alors il n'y a pas de bouton "Transférer"
 
   @AvecCourriels
   Scénario: Je transfère une de mes habilitations à un autre utilisateur de mon organisation

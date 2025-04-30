@@ -9,6 +9,7 @@ api_impot_particulier:
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   features: &dgfip_features
     messaging: false
+    transfer: false
   stage:
     type: production
     previouses:
