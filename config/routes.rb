@@ -71,6 +71,8 @@ Rails.application.routes.draw do
 
     get 'demandes/:id/reopen-from-external', to: 'external_reopen_authorization_requests#create'
 
+    get 'redirect-from-v1/:id', to: 'redirect_from_v1#show', as: :redirect_from_v1
+
     resources :authorization_requests, only: [] do
       resources :authorizations, only: [] do
         resources :reopen_authorizations, only: %w[new create]
