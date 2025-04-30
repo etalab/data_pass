@@ -207,7 +207,7 @@ class AuthorizationRequest < ApplicationRecord
     end
 
     after_transition to: :validated do |authorization_request|
-      authorization_request.update(last_validated_at: Time.zone.now, reopening: authorization_request.keep_reopening?)
+      authorization_request.update(last_validated_at: Time.zone.now)
     end
 
     event :archive do
@@ -219,7 +219,7 @@ class AuthorizationRequest < ApplicationRecord
     end
 
     after_transition on: :reopen do |authorization_request|
-      authorization_request.update(reopened_at: Time.zone.now, reopening: true)
+      authorization_request.update(reopened_at: Time.zone.now)
     end
 
     event :cancel_reopening do
@@ -343,8 +343,11 @@ class AuthorizationRequest < ApplicationRecord
     last_validated_at.present?
   end
 
-  def is_reopening?
-    authorizations.count > 1 || reopening?
+  self.ignored_columns += %w[reopening]
+
+  def reopening?
+    authorizations.where(authorization_request_class: type).any? &&
+      %w[validated revoked].exclude?(state)
   end
 
   delegate :reopenable?, to: :definition
@@ -374,12 +377,6 @@ class AuthorizationRequest < ApplicationRecord
     return nil if definition.access_link.blank? || external_provider_id.blank?
 
     format(definition.access_link, external_provider_id:)
-  end
-
-  def keep_reopening?
-    return false unless definition.multi_stage?
-
-    any_next_stage_authorization_exists?
   end
 
   def any_next_stage_authorization_exists?
