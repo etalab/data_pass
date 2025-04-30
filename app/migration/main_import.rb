@@ -175,6 +175,9 @@ class MainImport
     end
 
     authorizations.destroy_all
+
+    # Hardcode update because of N authorizations requests in production with one refused and the fake reopening
+    Authorization.where(request_id: [3296, 3297, 8965, 34605, 35745, 48751, 51887, 54360, 54361]).update_all(state: 'active')
   end
 
   def already_imported_authorization_request_types
