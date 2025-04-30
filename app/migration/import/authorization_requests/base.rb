@@ -81,10 +81,11 @@ class Import::AuthorizationRequests::Base
   end
 
   def affect_potential_document(kind, field)
-    row = csv('documents').find { |row| row['attachable_id'] == enrollment_row['id'] && row['type'] == kind }
+    row = database.execute('select * from documents where enrollment_id = ? and type = ?', [enrollment_row['id'], kind]).to_a.first
 
     return false unless row
 
+    row = JSON.parse(row[-1]).to_h
     attach_file(field, row)
     true
   end
