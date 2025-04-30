@@ -200,8 +200,14 @@ class PostMigrationInspector
     valid = true
 
     documents.each do |document_data|
-      valid_ids = AuthorizationRequest.where(id: JSON.parse(document_data[1])).pluck(:id)
+      valid_ids = AuthorizationRequest.where(id: JSON.parse(document_data[1])).where.not(type: types_not_to_import).pluck(:id)
       attachment_ids = ActiveStorage::Attachment.where(name: mapping[document_data[0]]).where(record_id: valid_ids).pluck(:record_id)
+
+      if mapping[document_data[0]] == 'safety_certification_document'
+        valid_ids -= AuthorizationRequest::APIINFINOE.pluck(:id)
+      elsif mapping[document_data[0]] == 'cadre_juridique_document'
+        valid_ids -= AuthorizationRequest::LeTaxi.pluck(:id)
+      end
 
       bool = attachment_ids.count == valid_ids.count
 
@@ -211,6 +217,7 @@ class PostMigrationInspector
 
       log("Documents kind #{document_data[0]} not imported (#{missing_ids.count}): #{missing_ids}\n") unless bool
       next if bool
+      byebug
 
       valid = false
     end
@@ -236,6 +243,15 @@ class PostMigrationInspector
 
   def dgfip_production_definitions
     @dgfip_production_definitions ||= dgfip_definitions.select { |definition| definition.stage.type == 'production' }
+  end
+
+  def types_not_to_import
+    %w[
+      AuthorizationRequest::APIEntreprise
+      AuthorizationRequest::APIParticulier
+      AuthorizationRequest::HubEECertDC
+      AuthorizationRequest::HubEEDila
+    ]
   end
 
   def log(text)
