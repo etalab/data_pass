@@ -81,7 +81,7 @@ class Import::AuthorizationRequests::Base
   end
 
   def affect_potential_document(kind, field)
-    row = database.execute('select * from documents where enrollment_id = ? and type = ?', [enrollment_row['id'], kind]).to_a.first
+    row = database.execute('select * from documents where enrollment_id = ? and type = ? order by id desc limit 1', [enrollment_row['id'], kind]).to_a.first
 
     return false unless row
 
