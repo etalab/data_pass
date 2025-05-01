@@ -208,17 +208,14 @@ class PostMigrationInspector
       elsif mapping[document_data[0]] == 'cadre_juridique_document'
         valid_ids -= AuthorizationRequest::LeTaxi.pluck(:id)
       elsif mapping[document_data[0]] == 'maquette_projet'
-        valid_ids -= AuthorizationRequest::APIProSanteConnect.pluck(:id)
+        valid_ids -= AuthorizationRequest.where(type: %w[AuthorizationRequest::APIProSanteConnect AuthorizationRequest::APIIngres]).pluck(:id)
       end
-
-      bool = attachment_ids.count == valid_ids.count
-
-      next if bool
 
       missing_ids = valid_ids - attachment_ids
 
+      next unless missing_ids.any?
+
       log("Documents kind #{document_data[0]} not imported (#{missing_ids.count}): #{missing_ids}\n") unless bool
-      next if bool
       byebug
 
       valid = false
