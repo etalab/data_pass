@@ -3,7 +3,11 @@
 RAILS_ENV=sandbox
 
 # 1. Deploy latest version of code
-ssh -A watchdoge -- sudo RAILS_APP_BRANCH=develop -u ci_deploy /usr/local/bin/rails_deploy_datapass_reborn_$RAILS_ENV.sh
+if [ $RAILS_ENV = 'sandbox' ] ; then
+  ssh -A watchdoge -- sudo RAILS_APP_BRANCH=sandbox/migration-friendly -u ci_deploy /usr/local/bin/rails_deploy_datapass_reborn_$RAILS_ENV.sh
+else
+  ssh -A watchdoge -- sudo RAILS_APP_BRANCH=develop -u ci_deploy /usr/local/bin/rails_deploy_datapass_reborn_$RAILS_ENV.sh
+fi
 
 # 2. Copy pgpassword
 scp app/migration/.v1-pgpassword watchdoge:.
@@ -31,8 +35,8 @@ ssh -A watchdoge -- sudo chmod 644 /var/www/datapass_reborn_$RAILS_ENV/current/a
 
 if [ $RAILS_ENV = 'sandbox' ] ; then
   v2_pg_password_sandbox=`cat app/migration/.v2-pgpassword-sandbox`
-  # pg_dump --clean -F c -b -v -h localhost -d development -f sandbox/datapass_v2.dump
-  dump_to_load=sandbox/dump-all-2025-04-24-2.dump # app/migration/dumps/datapass_production_v2.dump
+  # pg_dump --clean -F c -b -v -h localhost -d development -f sandbox/latest.dump
+  dump_to_load=sandbox/latest.dump # app/migration/dumps/datapass_production_v2.dump
 
   echo "[SANDBOX ONLY] Copy dump and execute it"
   scp $dump_to_load watchdoge:datapass_production_v2.dump
@@ -45,6 +49,7 @@ if [ $RAILS_ENV = 'sandbox' ] ; then
   rm pgpass
 
   ssh -A watchdoge -- cd /var/www/datapass_reborn_sandbox/current ; sudo -u datapass_reborn_sandbox rails runner "CreateSandboxOAuthApp.new.perform" -e sandbox
+  ssh -A watchdoge -- cd /var/www/datapass_reborn_sandbox/current ; sudo RAILS_ENV=sandbox -u datapass_reborn_sandbox bundle exec rails db:environment:set
   ssh -A watchdoge -- pg_restore --clean -d datapass_reborn_sandbox -U datapass_reborn_sandbox -h localhost -p 5432 /var/www/datapass_reborn_$RAILS_ENV/current/app/migration/dumps/datapass_production_v2.dump
   ssh -A watchdoge -- rm -f ~/.pgpass
 fi
