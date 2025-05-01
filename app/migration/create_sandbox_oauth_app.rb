@@ -1,6 +1,6 @@
 class CreateSandboxOauthApp
   def perform
-    return if Rails.env.production?
+    return unless Rails.env.sandbox?
 
     app = create_sandbox_oauth_app
 
@@ -29,6 +29,6 @@ class CreateSandboxOauthApp
   end
 
   def create_sandbox_oauth_app
-    Doorkeeper::Application.create!(name: "DGFiP", owner: dev_user)
+    Doorkeeper::Application.create!(name: "DGFiP", owner: dev_user, uid: Rails.credentials.dig(:tmp_dgfip_oauth_app_id), secret: Rails.credentials.dig(:sandbox, :tmp_dgfip_oauth_app_secret))
   end
 end
