@@ -13,6 +13,7 @@ class Import::AuthorizationRequests::APIImpotParticulierAttributes < Import::Aut
     affect_operational_acceptance
     affect_safety_certification
     affect_volumetrie
+    affect_extra_cadre_juridique
 
     handle_franceconnect
 

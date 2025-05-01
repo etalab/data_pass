@@ -13,6 +13,7 @@ class Import::AuthorizationRequests::APISFiPAttributes < Import::AuthorizationRe
     affect_operational_acceptance
     affect_safety_certification
     affect_volumetrie
+    affect_extra_cadre_juridique
 
     authorization_request.state = enrollment_row['status']
 

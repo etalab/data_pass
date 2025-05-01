@@ -137,4 +137,20 @@ module Import::AuthorizationRequests::DGFIPProduction
 
     authorization_request.volumetrie_justification = 'Non renseignée'
   end
+
+  def affect_extra_cadre_juridique
+    return if enrollment_row['target_api'] =~ /_unique$/
+
+    affect_potential_document('Document::LegalBasis', 'cadre_juridique_document')
+
+    authorization_request.valid?
+
+    if authorization_request.errors[:cadre_juridique_url].any? && enrollment_row['fondement_juridique_url'].present?
+      authorization_request.cadre_juridique_url = enrollment_row['fondement_juridique_url']
+    else
+      authorization_request.cadre_juridique_url ||= enrollment_row['fondement_juridique_url']
+    end
+
+    authorization_request.cadre_juridique_nature ||= enrollment_row['fondement_juridique_title']
+  end
 end
