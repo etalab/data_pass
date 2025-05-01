@@ -5,7 +5,9 @@ class Import::Organizations < Import::Base
 
   def extract(user_row)
     sanitize_user_organizations(user_row['organizations']).each do |organization_data|
-      organization = Organization.find_or_initialize_by(siret: organization_data['siret'])
+      next if organization_data['siret'].length != 14
+
+      organization = Organization.find_or_initialize_by(legal_entity_id: organization_data['siret'])
 
       organization.mon_compte_pro_payload = organization_data if organization.mon_compte_pro_payload.blank?
       organization.last_mon_compte_pro_updated_at ||= DateTime.current
@@ -18,15 +20,44 @@ class Import::Organizations < Import::Base
   end
 
   def after_load_from_csv
-    return if Organization.find_by(siret: '89991311500015').present?
+    if Organization.find_by(legal_entity_id: '89991311500015', legal_entity_registry: 'insee_sirene').blank?
+      @models << Organization.create!(
+        legal_entity_id: '89991311500015',
+        legal_entity_registry: 'insee_sirene',
+        mon_compte_pro_payload: {
+          siret: '89991311500015',
+        },
+        last_mon_compte_pro_updated_at: 1.year.ago,
+      )
+    end
 
-    @models << Organization.create!(
-      siret: '89991311500015',
-      mon_compte_pro_payload: {
-        siret: '89991311500015',
+    [
+      {
+        legal_entity_id: '19S08179',
+        legal_entity_registry: 'monaco',
+        extra_legal_entity_infos: {
+          'denomination' => 'SOCIETE DE BANQUE MONACO',
+        }
       },
-      last_mon_compte_pro_updated_at: 1.year.ago,
-    )
+      {
+        legal_entity_id: 'ISN:0000000107219812',
+        legal_entity_registry: 'isin',
+        extra_legal_entity_infos: {
+          'denomination' => 'HÔPITAUX UNIVERSITAIRES GENÈVE (HUG)',
+        },
+      }
+    ].each do |organization_data|
+      next if Organization.find_by(legal_entity_id: organization_data[:legal_entity_id], legal_entity_registry: 'other').present?
+      @models << Organization.create!(
+        organization_data.merge(
+          mon_compte_pro_payload: {
+            no_data: true,
+          },
+          last_mon_compte_pro_updated_at: 9000.minutes.ago,
+          legal_entity_registry: 'other',
+        )
+      )
+    end
   end
 
   private

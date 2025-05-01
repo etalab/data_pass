@@ -39,9 +39,11 @@ class CreateDiffFromEvent
       changes.uniq.count == 1
     end
 
-    database.close
-
     final_diff
+  rescue => e
+    byebug
+  ensure
+    database.close
   end
 
   private
@@ -57,16 +59,27 @@ class CreateDiffFromEvent
         'zip_code',
         'nom_raison_sociale',
         'responsable_traitement_id',
-        'cgu_approved',
-        'dpo_is_informed',
         'technical_team_type',
         'technical_team_value',
         'demarche',
         'updated_at',
-
         'nom_application_metier',
         'nom_editeur',
         'numero_version',
+        'ips_de_production',
+        'nombre_demandes_mensuelles',
+        'nombre_demandes_annuelle',
+        'pic_demandes_par_heure',
+        'eidas_1',
+        'eidas_2',
+        'eidas_level',
+        'utilisation_franceconnect_autre_projet',
+        'date_integration',
+        'code_ic',
+        'type_de_depenses',
+        'previous_enrollment_id',
+        'authorize_access_to_service_providers',
+        'accept_agentconnect_implementation_alternative',
       ]
     )
 
@@ -98,7 +111,11 @@ class CreateDiffFromEvent
       next unless authorization_request.class.extra_attributes.include?(new_attribute.to_sym)
       next if value.nil?
 
-      final_diff[new_attribute] = value.map { |v| sanitize_data(v) }
+      if value.is_a?(Array)
+        final_diff[new_attribute] = value.map { |v| sanitize_data(v) }
+      else
+        final_diff[new_attribute] = [nil, value]
+      end
     end
 
     if event_diff['contacts']
@@ -110,6 +127,8 @@ class CreateDiffFromEvent
         'metier' => 'contact_metier',
         'technique' => 'contact_technique',
       }.each do |old_contact_kind, new_contact_kind|
+        next if from.nil?
+
         valid_from_contact = from.find { |contact| contact['id'] == old_contact_kind }
 
         next unless valid_from_contact.present?
@@ -163,9 +182,21 @@ class CreateDiffFromEvent
         'zip_code',
         'technical_team_type',
         'technical_team_value',
-        'cgu_approved',
         'demarche',
-        'dpo_is_informed',
+        'ips_de_production',
+        'nombre_demandes_mensuelles',
+        'nombre_demandes_annuelle',
+        'pic_demandes_par_heure',
+        'eidas_1',
+        'eidas_2',
+        'eidas_level',
+        'utilisation_franceconnect_autre_projet',
+        'date_integration',
+        'code_ic',
+        'type_de_depenses',
+        'previous_enrollment_id',
+        'authorize_access_to_service_providers',
+        'accept_agentconnect_implementation_alternative',
       ]
     )
 
@@ -272,6 +303,12 @@ class CreateDiffFromEvent
           final_diff['maquette_projet'] = [nil, document_diff['attachment'][0]]
         when 'Document::LegalBasis'
           final_diff['cadre_juridique_document'] = [nil, document_diff['attachment'][0]]
+        when 'Document::AttestationFiscale'
+          final_diff['attestation_fiscale'] = [nil, document_diff['attachment'][0]]
+        when 'Document::ExpressionBesoinSpecifique'
+          final_diff['specific_requirements_document'] = [nil, document_diff['attachment'][0]]
+        when 'Document::DecisionHomologation'
+          final_diff['safety_certification_document'] = [nil, document_diff['attachment'][0]]
         else
           byebug
         end
@@ -301,10 +338,20 @@ class CreateDiffFromEvent
       'data_recipients' => 'destinataire_donnees_caractere_personnel',
       'data_retention_period' => 'duree_conservation_donnees_caractere_personnel',
       'data_retention_comment' => 'duree_conservation_donnees_caractere_personnel_justification',
+      'production_date' => 'date_prevue_mise_en_production',
+      'autorite_homologation_nom' => 'safety_certification_authority_name',
+      'autorite_homologation_fonction' => 'safety_certification_authority_function',
+      'date_homologation' => 'safety_certification_begin_date',
+      'date_fin_homologation' => 'safety_certification_end_date',
+      'volumetrie_appels_par_minute' => 'volumetrie_appels_par_minute'
     }
   end
 
   def clean_keys(event_diff, keys)
+    keys = keys.concat(checkbox_keys)
+
+    event_diff['additional_content'] = [event_diff['additional_content']] if event_diff['additional_content'].is_a?(Hash)
+
     additional_content_keys = (event_diff['additional_content'] || []).map { |ac| ac.keys }.flatten.uniq
 
     additional_content_keys.each do |key|
@@ -313,12 +360,13 @@ class CreateDiffFromEvent
 
     (event_diff['additional_content'] || []).each do |data|
       data.each do |key, value|
-
         event_diff[key] = value
       end
     end
 
     event_diff.delete('additional_content')
+
+    event_diff.delete_if { |key, _| key.to_s.start_with?('acces_') }
 
     keys.each do |key|
       event_diff.delete(key)
@@ -378,5 +426,15 @@ class CreateDiffFromEvent
     %w[
       206985
     ].include?(team_member_id)
+  end
+
+  def checkbox_keys
+    %w[
+      has_alternative_authentication_methods
+      rgpd_general_agreement
+      cgu_approved
+      dpo_is_informed
+      recette_fonctionnelle
+    ]
   end
 end

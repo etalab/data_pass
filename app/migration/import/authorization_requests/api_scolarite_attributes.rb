@@ -1,18 +1,15 @@
-class Import::AuthorizationRequests::FranceConnectAttributes < Import::AuthorizationRequests::Base
+class Import::AuthorizationRequests::APIScolariteAttributes < Import::AuthorizationRequests::Base
   def affect_data
-    affect_scopes
     affect_attributes
     affect_contacts
+    affect_scopes
     affect_potential_legal_document
     affect_potential_maquette_projet
-    affect_form_uid
-    authorization_request.france_connect_eidas = extract_eidas
+    affect_duree_conservation_donnees_caractere_personnel_justification
 
     return if authorization_request.valid?
 
     skip_row!(:invalid_cadre_juridique) if authorization_request.errors[:cadre_juridique_url].any?
-    skip_row!(:no_scopes) if authorization_request.scopes.blank?
-    skip_row!(:no_destinataire_donnees_caractere_personnel) if authorization_request.destinataire_donnees_caractere_personnel.blank?
   end
 
   def affect_contacts
@@ -25,28 +22,6 @@ class Import::AuthorizationRequests::FranceConnectAttributes < Import::Authoriza
     end
   end
 
-  def extract_eidas
-    case additional_content['eidas_level']
-    when '2'
-      'eidas_2'
-    else
-      'eidas_1'
-    end
-  end
-
-  def demarche_to_form_uid
-    case enrollment_row['demarche']
-    when 'collectivite'
-      'france-connect-collectivite-administration'
-    when 'epermis'
-      'france-connect-collectivite-epermis'
-    when 'sns'
-      'france-connect-sante'
-    else
-      'france-connect'
-    end
-  end
-
   def attributes_mapping
     {
       "intitule" => "intitule",
@@ -54,14 +29,14 @@ class Import::AuthorizationRequests::FranceConnectAttributes < Import::Authoriza
       "fondement_juridique_title" => "cadre_juridique_nature",
       "fondement_juridique_url" => "cadre_juridique_url",
       "date_mise_en_production" => "date_prevue_mise_en_production",
-      "volumetrie_approximative" => "volumetrie_approximative",
       "data_recipients" => "destinataire_donnees_caractere_personnel",
       "data_retention_period" => "duree_conservation_donnees_caractere_personnel",
       "data_retention_comment" => "duree_conservation_donnees_caractere_personnel_justification",
+      "volumetrie_approximative" => "volumetrie_approximative",
     }
   end
 
   def attributes_with_possible_null_values
-    ['duree_conservation_donnees_caractere_personnel_justification']
+    ['destinataire_donnees_caractere_personnel']
   end
 end

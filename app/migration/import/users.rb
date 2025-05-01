@@ -3,7 +3,7 @@ class Import::Users < Import::Base
 
   def extract(user_row)
     user = User.find_or_initialize_by(email: user_row['email'].downcase.strip)
-    user_organizations = Organization.where(siret: sanitize_user_organizations(user_row['organizations']).map { |org| org['siret'] }).distinct
+    user_organizations = Organization.where(legal_entity_id: sanitize_user_organizations(user_row['organizations']).map { |org| org['siret'] }).distinct
 
     user.phone_number ||= user_row['phone_number']
     user.created_at ||= user_row['created_at']
@@ -19,6 +19,8 @@ class Import::Users < Import::Base
 
     user.current_organization = user_organizations.first if user.current_organization.blank?
     user.organizations << user.current_organization unless user.organizations.include?(user.current_organization)
+
+    handle_roles(user, user_row)
 
     user.save!
 
@@ -50,14 +52,40 @@ class Import::Users < Import::Base
     }[user_external_id]
 
     if sirets.present?
-      Organization.where(siret: sirets)
+      Organization.where(legal_entity_id: sirets)
     else
       []
     end
   end
 
+  def handle_roles(user, user_row)
+    user.roles ||= []
+
+    return if user.roles.any?
+    return if user_row['roles'].blank?
+
+    user.roles << 'admin' if user_row['roles'].include?('administrator')
+
+    Import::AuthorizationRequests::MAPPING_V1_V2_TYPES.each do |old_type, new_type|
+      change_subscription = false
+
+      if user_row['roles'].include?("#{old_type}:instructor")
+        user.roles << "#{new_type}:instructor"
+        change_subscription = true
+      elsif user_row['roles'].include?("#{old_type}:reporter")
+        user.roles << "#{new_type}:reporter"
+        change_subscription = true
+      end
+
+      if change_subscription && user_row['roles'].exclude?("#{old_type}:subscriber")
+        user.public_send("instruction_submit_notifications_for_#{new_type}=", false)
+        user.public_send("instruction_messages_notifications_for_#{new_type}=", false)
+      end
+    end
+  end
+
   def organization_sirets
-    @organization_sirets ||= Organization.pluck(:siret)
+    @organization_sirets ||= Organization.pluck(:legal_entity_id)
   end
 
   def csv_or_table_to_loop

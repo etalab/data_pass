@@ -3,10 +3,14 @@ class Import::AuthorizationRequestEvents < Import::Base
   include UserLegacyUtils
 
   def extract(event_row)
-    authorization_request = options[:authorization_request] || AuthorizationRequest.find(event_row['enrollment_id'])
+    authorization_request = extract_authorization_request(event_row)
+    # byebug if authorization_request.blank?
+    return if authorization_request.blank?
 
     case event_row['name']
     when 'create'
+      return if authorization_request.definition.stage.exists? && authorization_request.definition.stage.type == 'production'
+
       create_event(event_row, entity: authorization_request)
     when 'update'
       if from_admin?(event_row)
@@ -47,18 +51,16 @@ class Import::AuthorizationRequestEvents < Import::Base
       event_created_at = DateTime.parse(event_row['created_at'])
 
       if authorization_request.last_submitted_at.nil? || event_created_at > authorization_request.last_submitted_at
-        authorization_request.update!(last_submitted_at: event_created_at)
+        authorization_request.assign_attributes(last_submitted_at: event_created_at)
       end
     when 'approve', 'validate'
-      return if options[:create_from_authorization_request_import].blank? && authorization_request.type == 'AuthorizationRequest::FranceConnect'
-
-      authorization_request.update(
+      authorization_request.assign_attributes(
         last_validated_at: event_row['created_at'],
       )
 
       create_event(event_row, name: 'approve', entity: create_authorization(event_row, authorization_request))
     when 'reopen'
-      authorization_request.update(
+      authorization_request.assign_attributes(
         reopened_at: event_row['created_at'],
       )
 
@@ -68,10 +70,10 @@ class Import::AuthorizationRequestEvents < Import::Base
     when 'revoke'
       create_event(event_row, entity: RevocationOfAuthorization.create!(authorization_request:, reason: event_row['comment'] || default_reason))
     when 'copy'
-      return if authorization_request.copied_from_request.blank?
-
       create_event(event_row, entity: authorization_request)
     end
+
+    authorization_request.save(validate: false)
   end
 
   private
@@ -97,10 +99,19 @@ class Import::AuthorizationRequestEvents < Import::Base
 
     query = 'SELECT raw_data FROM events'
     query += ' where (1=1)'
-    query += " and authorization_request_id in (#{options[:valid_authorization_request_ids].join(',')})" if options[:valid_authorization_request_ids].present?
+    query += " and authorization_request_id in (#{build_authorization_request_ids})" if options[:valid_authorization_request_ids].present?
     query += " and #{options[where_key]}" if options[where_key].present?
     query += ' ORDER BY created_at ASC'
+
     database.execute(query)
+  end
+
+  def build_authorization_request_ids
+    (
+      options[:valid_authorization_request_ids].concat(
+        options[:global_enrollment_ids_to_import_for_events],
+      )
+    ).join(',')
   end
 
   def create_event(event_row, extra_params = {})
@@ -158,12 +169,9 @@ class Import::AuthorizationRequestEvents < Import::Base
   end
 
   def find_closest_authorization(event_row, authorization_request)
-    event_created_at_as_datetime = DateTime.parse(event_row['created_at'])
-
-    Authorization.where(
-      request_id: authorization_request.id,
-      created_at: (event_created_at_as_datetime-10.seconds..event_created_at_as_datetime+10.seconds),
-    ).order(created_at: :desc).first
+    authorization_request.authorizations.sort_by do |authorization|
+      (authorization.created_at.to_i - DateTime.parse(event_row['created_at']).to_i).abs
+    end.first
   end
 
   def create_user_from_legacy_id(event_row, entity)
@@ -192,15 +200,30 @@ class Import::AuthorizationRequestEvents < Import::Base
     authorization_request = entity.authorization_request
 
     case authorization_request.type
-    when 'AuthorizationRequest::APIParticulier', 'AuthorizationRequest::APIEntreprise'
-      @dinum_organization ||= Organization.find_by(siret: '13002526500013')
+    when 'AuthorizationRequest::APIParticulier', 'AuthorizationRequest::APIEntreprise', 'AuthorizationRequest::FranceConnect'
+      @dinum_organization ||= Organization.find_by(legal_entity_id: '13002526500013', legal_entity_registry: "insee_sirene")
     when 'AuthorizationRequest::HubEECertDC'
-      @dgs_organization ||= Organization.find_by(siret: '13001653800014')
+      @dgs_organization ||= Organization.find_by(legal_entity_id: '13001653800014', legal_entity_registry: "insee_sirene")
     when 'AuthorizationRequest::HubEEDila'
-      @dila_organization ||= Organization.find_by(siret: '13000918600011')
+      @dila_organization ||= Organization.find_by(legal_entity_id: '13000918600011', legal_entity_registry: "insee_sirene")
+    when 'AuthorizationRequest::LeTaxi'
+      @le_taxi_organization ||= Organization.find_by(legal_entity_id: '12000018700027', legal_entity_registry: "insee_sirene")
     else
       raise "Unknown authorization request type #{authorization_request.type} for instruction"
     end
+  end
+
+  def extract_authorization_request(event_row)
+    AuthorizationRequest.find_by(id: event_row['enrollment_id']) ||
+      AuthorizationRequest.where(
+        id: database.execute(
+          'select id from enrollments where previous_enrollment_id = ? and id > ?',
+          database.execute(
+            'select previous_enrollment_id from enrollments where id = ?',
+            [event_row['enrollment_id']]
+          )[0] + [event_row['enrollment_id']]
+        ).flatten
+      ).first
   end
 
   def default_reason

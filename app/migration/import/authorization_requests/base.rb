@@ -6,13 +6,18 @@ class Import::AuthorizationRequests::Base
   include LocalDatabaseUtils
 
   class AbstractRow  < StandardError
-    attr_reader :kind, :id, :target_api, :authorization_request
+    attr_reader :kind, :id, :target_api, :authorization_request, :status
 
-    def initialize(kind = nil, id:, target_api:, authorization_request:)
+    def initialize(kind = nil, id:, target_api:, authorization_request:, status:)
       @kind = kind
       @id = id
       @target_api = target_api
       @authorization_request = authorization_request
+      @status = status
+    end
+
+    def inspect
+      "#{target_api}##{id} (status: #{status}) error kind: #{kind}"
     end
   end
 
@@ -21,12 +26,13 @@ class Import::AuthorizationRequests::Base
 
   attr_reader :authorization_request, :enrollment_row, :team_members, :all_model
 
-  def initialize(authorization_request, enrollment_row, team_members, warned, all_models=[])
+  def initialize(authorization_request, enrollment_row, team_members, warned, all_models=[], safe_mode: false)
     @authorization_request = authorization_request
     @enrollment_row = enrollment_row
     @team_members = team_members
     @warned = warned
     @all_models = all_models
+    @safe_mode = safe_mode
   end
 
   def perform
@@ -46,6 +52,8 @@ class Import::AuthorizationRequests::Base
   end
 
   def affect_scopes
+    return unless authorization_request.class.scopes_enabled?
+
     if enrollment_row['scopes'].blank? || enrollment_row['scopes'] == '{}'
       authorization_request.scopes = []
     elsif enrollment_row['scopes'].is_a?(Array)
@@ -65,16 +73,19 @@ class Import::AuthorizationRequests::Base
   end
 
   def affect_potential_legal_document
-    return if authorization_request.cadre_juridique_url.present?
-
     affect_potential_document('Document::LegalBasis', 'cadre_juridique_document')
   end
 
+  def affect_potential_maquette_projet
+    affect_potential_document('Document::MaquetteProjet', 'maquette_projet')
+  end
+
   def affect_potential_document(kind, field)
-    row = csv('documents').find { |row| row['attachable_id'] == enrollment_row['id'] && row['type'] == kind }
+    row = database.execute('select * from documents where enrollment_id = ? and type = ? order by id desc limit 1', [enrollment_row['id'], kind]).to_a.first
 
     return false unless row
 
+    row = JSON.parse(row[-1]).to_h
     attach_file(field, row)
     true
   end
@@ -85,6 +96,10 @@ class Import::AuthorizationRequests::Base
     return if form_uid.blank?
 
     authorization_request.form_uid = form_uid
+  end
+
+  def demarche_to_form_uid
+    fail NoImplementedError
   end
 
   def find_team_member_by_type(type)
@@ -154,7 +169,7 @@ class Import::AuthorizationRequests::Base
           end
 
           if %w[given_name family_name phone_number job_title].any? { |key| potential_team_member_with_family_name[key] == 'Non renseigné' }
-            warn_row!("#{to_contact}_incomplete".to_sym)
+            warn_row("#{to_contact}_incomplete".to_sym)
           end
 
           if %w[given_name family_name phone_number job_title].all? { |key| potential_team_member_with_family_name[key].present? }
@@ -176,9 +191,9 @@ class Import::AuthorizationRequests::Base
       # byebug
 
       if recent_validated_enrollment_exists?
-        skip_row!('incomplete_contact_data_with_new_enrollments')
+        warn_row('incomplete_contact_data_with_new_enrollments')
       else
-        skip_row!('incomplete_contact_data_without_new_enrollments')
+        warn_row('incomplete_contact_data_without_new_enrollments')
       end
     else
       affect_team_attributes(contact_data, to_contact)
@@ -209,11 +224,12 @@ class Import::AuthorizationRequests::Base
   end
 
   def skip_row!(kind)
-    raise SkipRow.new(kind.to_s, id: enrollment_row['id'], target_api: enrollment_row['target_api'], authorization_request:)
+    return if @safe_mode
+    raise SkipRow.new(kind.to_s, id: enrollment_row['id'], target_api: enrollment_row['target_api'], authorization_request:, status: enrollment_row['status'])
   end
 
-  def warn_row!(kind)
-    @warned << WarnRow.new(kind.to_s, id: enrollment_row['id'], target_api: enrollment_row['target_api'], authorization_request:)
+  def warn_row(kind)
+    @warned << WarnRow.new(kind.to_s, id: enrollment_row['id'], target_api: enrollment_row['target_api'], authorization_request: authorization_request.dup, status: enrollment_row['status'])
   end
 
   def attach_file(kind, row_data)
@@ -238,12 +254,12 @@ class Import::AuthorizationRequests::Base
       if kind == 'specific_requirements_document'
         [
           'dummy.xlsx',
-          dummy_file_as_io('xlsx'),
+          dummy_file_as_io(kind, 'xlsx'),
         ]
       else
         [
           'dummy.pdf',
-          dummy_file_as_io('pdf'),
+          dummy_file_as_io(kind, 'pdf'),
         ]
       end
     else
@@ -254,16 +270,16 @@ class Import::AuthorizationRequests::Base
     end
   end
 
-  def dummy_file_as_io(extension)
+  def dummy_file_as_io(kind, extension)
+    key = "#{kind}_#{extension}"
     $dummy_files ||= {}
-    $dummy_files[extension] ||= Rails.root.join('spec', 'fixtures', "dummy.#{extension}").open
-    $dummy_files[extension].rewind
-    $dummy_files[extension]
+    $dummy_files[key] ||= Rails.root.join('spec', 'fixtures', "dummy.#{extension}").open
+    $dummy_files[key].rewind
+    $dummy_files[key]
   end
 
   def recent_validated_enrollment_exists?
     bool = database.execute('select id from enrollments where copied_from_enrollment_id = ? and status = "validated" limit 1;', enrollment_row['id']).any?
-    database.close
     bool
   end
 

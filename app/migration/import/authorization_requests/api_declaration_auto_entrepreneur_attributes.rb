@@ -1,16 +1,16 @@
-class Import::AuthorizationRequests::APIRialSandboxAttributes < Import::AuthorizationRequests::DGFIPSandboxAttributes
+class Import::AuthorizationRequests::APIDeclarationAutoEntrepreneurAttributes < Import::AuthorizationRequests::Base
   def affect_data
-    affect_attributes
     affect_scopes
+    affect_attributes
     affect_contacts
     affect_potential_legal_document
     affect_potential_maquette_projet
-    affect_potential_specific_requirements
-    affect_duree_conservation_donnees_caractere_personnel_justification
+    affect_potential_attestation_fiscale_document
+    affect_form_uid
+  end
 
-    return if authorization_request.valid?
-
-    skip_row!(:invalid_cadre_juridique) if authorization_request.errors[:cadre_juridique_url].any?
+  def affect_form_uid
+    authorization_request.form_uid = 'api-declaration-auto-entrepreneur'
   end
 
   def affect_contacts
@@ -23,13 +23,16 @@ class Import::AuthorizationRequests::APIRialSandboxAttributes < Import::Authoriz
     end
   end
 
+  def affect_potential_attestation_fiscale_document
+    affect_potential_document('Document::AttestationFiscale', 'attestation_fiscale')
+  end
+
   def attributes_mapping
     {
       "intitule" => "intitule",
       "description" => "description",
       "fondement_juridique_title" => "cadre_juridique_nature",
       "fondement_juridique_url" => "cadre_juridique_url",
-      "date_mise_en_production" => "date_prevue_mise_en_production",
       "data_recipients" => "destinataire_donnees_caractere_personnel",
       "data_retention_period" => "duree_conservation_donnees_caractere_personnel",
       "data_retention_comment" => "duree_conservation_donnees_caractere_personnel_justification",

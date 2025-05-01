@@ -92,14 +92,17 @@ class ImportDataInLocalDb
             status TEXT,
             user_id INTEGER,
             copied_from_enrollment_id INTEGER,
+            previous_enrollment_id INTEGER,
             raw_data TEXT
           );
           create index enrollment_id_index on enrollments (id);
           create index enrollment_user_id_index on enrollments (user_id);
           create index enrollment_target_api_index on enrollments (target_api);
+          create index enrollment_copied_from_enrollment_id_index on enrollments (copied_from_enrollment_id);
+          create index enrollment_previous_enrollment_id_index on enrollments (previous_enrollment_id);
         ",
-        insert_statement: "insert into enrollments (id, target_api, status, user_id, copied_from_enrollment_id, raw_data) values (?, ?, ?, ?, ?, ?)",
-        insert_data: ->(row) { [row['id'], row['target_api'], row['status'], row['user_id'], row['copied_from_enrollment_id'], row.to_a.to_json] }
+        insert_statement: "insert into enrollments (id, target_api, status, user_id, copied_from_enrollment_id, previous_enrollment_id, raw_data) values (?, ?, ?, ?, ?, ?, ?)",
+        insert_data: ->(row) { [row['id'], row['target_api'], row['status'], row['user_id'], row['copied_from_enrollment_id'], row['previous_enrollment_id'], row.to_a.to_json] }
       },
       'snapshots' => {
         table: "
@@ -132,12 +135,13 @@ class ImportDataInLocalDb
           create table documents (
             id INTEGER PRIMARY KEY,
             enrollment_id INTEGER,
+            type TEXT,
             raw_data TEXT
           );
           create index document_enrollment_id_index on documents (enrollment_id);
         ",
-        insert_statement: "insert into documents (id, enrollment_id, raw_data) values (?, ?, ?)",
-        insert_data: ->(row) { [row['id'], row['attachable_id'], row.to_a.to_json] }
+        insert_statement: "insert into documents (id, enrollment_id, type, raw_data) values (?, ?, ?, ?)",
+        insert_data: ->(row) { [row['id'], row['attachable_id'], row['type'], row.to_a.to_json] }
       },
       'hubee_subscriptions' => {
         table: "

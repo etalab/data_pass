@@ -1,18 +1,17 @@
-class Import::AuthorizationRequests::FranceConnectAttributes < Import::AuthorizationRequests::Base
+class Import::AuthorizationRequests::APIDroitsCNAMAttributes < Import::AuthorizationRequests::DGFIPSandboxAttributes
   def affect_data
-    affect_scopes
     affect_attributes
     affect_contacts
     affect_potential_legal_document
     affect_potential_maquette_projet
+    affect_franceconnect_data
     affect_form_uid
-    authorization_request.france_connect_eidas = extract_eidas
+
+    affect_duree_conservation_donnees_caractere_personnel_justification
 
     return if authorization_request.valid?
 
     skip_row!(:invalid_cadre_juridique) if authorization_request.errors[:cadre_juridique_url].any?
-    skip_row!(:no_scopes) if authorization_request.scopes.blank?
-    skip_row!(:no_destinataire_donnees_caractere_personnel) if authorization_request.destinataire_donnees_caractere_personnel.blank?
   end
 
   def affect_contacts
@@ -25,25 +24,14 @@ class Import::AuthorizationRequests::FranceConnectAttributes < Import::Authoriza
     end
   end
 
-  def extract_eidas
-    case additional_content['eidas_level']
-    when '2'
-      'eidas_2'
-    else
-      'eidas_1'
-    end
-  end
-
   def demarche_to_form_uid
     case enrollment_row['demarche']
-    when 'collectivite'
-      'france-connect-collectivite-administration'
-    when 'epermis'
-      'france-connect-collectivite-epermis'
-    when 'sns'
-      'france-connect-sante'
+    when 'organisme_complementaire'
+      'api-droits-cnam-organisme-complementaire'
+    when 'etablissement_de_soin'
+      'api-droits-cnam-etablissement-de-soin'
     else
-      'france-connect'
+      'api-droits-cnam'
     end
   end
 
@@ -54,7 +42,6 @@ class Import::AuthorizationRequests::FranceConnectAttributes < Import::Authoriza
       "fondement_juridique_title" => "cadre_juridique_nature",
       "fondement_juridique_url" => "cadre_juridique_url",
       "date_mise_en_production" => "date_prevue_mise_en_production",
-      "volumetrie_approximative" => "volumetrie_approximative",
       "data_recipients" => "destinataire_donnees_caractere_personnel",
       "data_retention_period" => "duree_conservation_donnees_caractere_personnel",
       "data_retention_comment" => "duree_conservation_donnees_caractere_personnel_justification",
@@ -62,6 +49,14 @@ class Import::AuthorizationRequests::FranceConnectAttributes < Import::Authoriza
   end
 
   def attributes_with_possible_null_values
-    ['duree_conservation_donnees_caractere_personnel_justification']
+    ['destinataire_donnees_caractere_personnel']
+  end
+
+  def affect_franceconnect_data
+    france_connect_authorization = AuthorizationRequest::FranceConnect.find_by(id: enrollment_row['previous_enrollment_id'])
+
+    return unless france_connect_authorization
+
+    authorization_request.france_connect_authorization_id = france_connect_authorization.latest_authorization.id.to_s
   end
 end

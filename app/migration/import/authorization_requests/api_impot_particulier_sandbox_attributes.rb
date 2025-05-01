@@ -4,23 +4,18 @@ class Import::AuthorizationRequests::APIImpotParticulierSandboxAttributes < Impo
     affect_attributes
     affect_contacts
     affect_potential_legal_document
+    affect_potential_maquette_projet
     affect_potential_specific_requirements
     affect_modalities
-    # affect_form_uid
-    handle_incompatible_scopes_error
+    affect_form_uid
 
     affect_duree_conservation_donnees_caractere_personnel_justification
 
     return if authorization_request.valid?
 
+    skip_row!("invalid_scopes_in_status_#{authorization_request.state}") if authorization_request.errors[:scopes].any?
     skip_row!(:invalid_cadre_juridique) if authorization_request.errors[:cadre_juridique_url].any?
-  end
-
-  def handle_incompatible_scopes_error
-    return if authorization_request.valid?
-    return unless authorization_request.errors[:scopes].any?
-
-    skip_row!("invalid_scopes_in_status_#{authorization_request.state}")
+    skip_row!("no_modalities_in_status_#{authorization_request.state}") unless authorization_request.modalities.present?
   end
 
   def affect_modalities
@@ -38,11 +33,6 @@ class Import::AuthorizationRequests::APIImpotParticulierSandboxAttributes < Impo
     affect_franceconnect_data if with_franceconnect?
 
     authorization_request.modalities = authorization_request.modalities.uniq
-
-    return if authorization_request.modalities.present?
-    return if %w[refused validated].exclude?(authorization_request.state)
-
-    skip_row!("no_modalities_in_status_#{authorization_request.state}")
   end
 
   def affect_contacts
@@ -55,35 +45,26 @@ class Import::AuthorizationRequests::APIImpotParticulierSandboxAttributes < Impo
     end
   end
 
-  # FIXME check https://metabase.entreprise.api.gouv.fr/dashboard/50-datapass-exploration?nom_de_l%27api_(target_api)=api_impot_particulier_sandbox
   def demarche_to_form_uid
     case enrollment_row['demarche']
-    when 'marches_publics'
-      'api-entreprise-marches-publics'
-    when 'aides_publiques'
-      'api-entreprise-aides-publiques'
-    when 'subventions_associations'
-      'api-entreprise-subventions-associations'
-    when 'portail_gru'
-      'api-entreprise-portail-gru-preremplissage'
-    when 'portail_gru_instruction'
-      'api-entreprise-portail-gru-instruction'
-    when 'detection_fraude'
-      'api-entreprise-detection-fraude'
-    when 'e_attestations'
-      'api-entreprise-e-attestations'
-    when 'provigis'
-      'api-entreprise-provigis'
-    when 'achat_solution'
-      'api-entreprise-achat-solution'
-    when 'atexo'
-      'api-entreprise-atexo'
-    when 'mgdis'
-      'api-entreprise-mgdis'
-    when 'setec'
-      'api-entreprise-setec-atexo'
-    when 'editeur'
-      'api-entreprise-editeur'
+    when 'eligibilite_lep', 'quotient_familial', 'default'
+      'api-impot-particulier-sandbox'
+    when 'migration_api_particulier'
+      'api-impot-particulier-sandbox'
+    when 'activites_periscolaires'
+      'api-impot-particulier-activites-periscolaires-sandbox'
+    when 'aides_sociales_facultatives'
+      'api-impot-particulier-aides-sociales-facultatives-sandbox'
+    when 'cantine_scolaire'
+      'api-impot-particulier-cantine-scolaire-sandbox'
+    when 'carte_transport'
+      'api-impot-particulier-carte-transport-sandbox'
+    when 'place_creche'
+      'api-impot-particulier-place-creche-sandbox'
+    when 'stationnement_residentiel', 'carte_stationnement'
+      'api-impot-particulier-stationnement-residentiel-sandbox'
+    else
+      'api-impot-particulier-sandbox'
     end
   end
 

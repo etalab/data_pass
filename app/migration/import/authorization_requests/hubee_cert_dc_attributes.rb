@@ -27,7 +27,7 @@ class Import::AuthorizationRequests::HubEECertDCAttributes < Import::Authorizati
     fetch_missing_organization if authorization_request.organization.blank?
 
     if responsable_metier_email.blank?
-      warn_row!(:affect_applicant_to_administrateur_metier)
+      warn_row(:affect_applicant_to_administrateur_metier)
 
       team_members.map! do |team_member|
         if team_member['type'] == 'responsable_metier'
@@ -81,7 +81,7 @@ class Import::AuthorizationRequests::HubEECertDCAttributes < Import::Authorizati
 
     return organization if organization.present?
 
-    warn_row!(:create_organization)
+    warn_row(:create_organization)
     new_organization = (Organization.find_by(siret: enrollment_row['siret']) || create_organization!)
 
     authorization_request.applicant.organizations << new_organization
@@ -89,14 +89,14 @@ class Import::AuthorizationRequests::HubEECertDCAttributes < Import::Authorizati
   end
 
   def create_applicant!
-    warn_row!(:missing_applicant)
+    warn_row(:missing_applicant)
 
     applicant_email = responsable_metier_email || subscription_email
 
     organization = Organization.find_by(siret: enrollment_row['siret'])
 
     if organization.blank?
-      warn_row!(:missing_organization)
+      warn_row(:missing_organization)
 
       organization = create_organization!
     end

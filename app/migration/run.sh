@@ -48,13 +48,6 @@ sudo -u datapass_reborn_$RAILS_ENV --preserve-env=RAILS_ENV bundle exec rails ru
 echo ">> Run main import script"
 sudo --preserve-env=RAILS_ENV,LOCAL,SKIP_DOCUMENT_VALIDATION -u datapass_reborn_$RAILS_ENV bundle exec rails runner "MainImport.new.perform"
 
-# Faire tourner le script app/migration/build_instructor_migration.rb sur DataPass v1
-echo ">> Assign instructor/reporter roles"
-sudo --preserve-env=RAILS_ENV,LOCAL -u datapass_reborn_$RAILS_ENV bundle exec rails runner "
-ActiveRecord::Base.transaction do
-  raise 'FEEDME'
-end
-"
 echo ">> Cleaning up"
 rm -f ~/.pgpass
 rm -rf ~/dumps

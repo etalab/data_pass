@@ -8,6 +8,7 @@ class MainImport
   def initialize(authorization_request_ids: [])
     @skipped = []
     @warned = []
+    @global_enrollment_ids_to_import_for_events = []
     @authorization_request_ids = authorization_request_ids
   end
 
@@ -17,15 +18,28 @@ class MainImport
 
     # import_extra_authorization_requests_sql_data
 
-    authorization_requests = import(:authorization_requests, { load_from_sql: false, dump_sql: true })
+    [
+      "target_api = 'franceconnect' order by id asc",
+      "target_api like '%_sandbox' order by id asc",
+      "target_api not in (#{target_apis_not_to_import}) and target_api not like '%_sandbox' and target_api != 'franceconnect' order by id asc",
+      # "target_api in ('api_impot_particulier_sandbox') order by id asc",
+      # "target_api in ('api_impot_particulier_production') order by id asc",
+    ].each do |where_sql|
+      authorization_requests = import(:authorization_requests, { load_from_sql: false, dump_sql: true, authorization_requests_sql_where: where_sql})
 
-    if types_to_import.any?
-      valid_authorization_request_ids = AuthorizationRequest.where(id: authorization_requests.pluck(:id), type: types_to_import).pluck(:id)
-    else
-      valid_authorization_request_ids = authorization_requests.pluck(:id)
+      if types_to_import.any?
+        valid_authorization_request_ids = AuthorizationRequest.where(id: authorization_requests.pluck(:id), type: types_to_import).pluck(:id)
+      else
+        valid_authorization_request_ids = AuthorizationRequest.where(id: authorization_requests.pluck(:id)).where.not(type: already_imported_authorization_request_types).pluck(:id)
+      end
+
+      import(:authorization_request_events, { dump_sql: true, valid_authorization_request_ids: }) unless authorization_requests.blank?
     end
 
-    # import(:authorization_request_events, { dump_sql: ENV['DUMP'] == 'true', valid_authorization_request_ids: })
+    # import(:authorization_requests, { load_from_sql: true })
+    # import(:authorization_request_events, { load_from_sql: true })
+
+    clean_extra_authorizations_from_old_fake_reopening!
 
     %i[warned skipped].each do |kind|
       export(kind)
@@ -35,6 +49,10 @@ class MainImport
 
   private
 
+  def types_to_import
+    %w[]
+  end
+
   def import_extra_authorization_requests_sql_data
     Dir[Rails.root.join('app/migration/dumps/authorization_requests_sql_to_load/*.sql')].sort.each do |file|
       log("# Importing file #{File.basename(file)}")
@@ -43,18 +61,13 @@ class MainImport
     end
   end
 
-  def types_to_import
-    %w[
-    ]
-  end
-
   def import(klass_name, options = {})
     if authorization_request_ids.any?
       options[:authorization_request_ids] = authorization_request_ids
 
       options[:authorization_requests_sql_where] = "id IN (#{authorization_request_ids.join(',')})"
       options[:users_sql_where] = "id IN (select user_id from events where authorization_request_id IN (#{authorization_request_ids.join(',')})) or id IN (select user_id from enrollments where id IN(#{authorization_request_ids.join(',')}))"
-      options[:authorization_request_events_sql_where] = "authorization_request_id IN (#{authorization_request_ids.join(',')})"
+      options[:authorization_request_events_sql_where] = "authorization_request_id IN (#{authorization_request_ids.join(',')}) order by id asc"
     end
 
     Import.const_get(klass_name.to_s.classify << 's').new(global_options.merge(options)).perform
@@ -65,10 +78,10 @@ class MainImport
 
     data = public_send(kind)
     CSV.open(export_path(kind), 'w') do |csv|
-      csv << %w[id target_api kind url]
+      csv << %w[id target_api kind status url]
 
       data.each do |datum|
-        csv << [datum.id, datum.target_api, datum.kind, "https://datapass.api.gouv.fr/#{datum.target_api.gsub('_', '-')}/#{datum.id}"]
+        csv << [datum.id, datum.target_api, datum.kind, datum.status, "https://datapass.api.gouv.fr/#{datum.target_api.gsub('_', '-')}/#{datum.id}"]
       end
     end
   end
@@ -96,31 +109,83 @@ class MainImport
   def global_options
     {
       authorization_requests_filter: ->(enrollment_row) do
-        true
+        # 1 sandbox 2 productions validés API IP FC
+        # %w[1560 1561 1858 12996].include?(enrollment_row['id'])
+
+        # API IP avec 1 sandbox -> 4 productions
+        # %w[42429 44675 51940 61032 44701].include?(enrollment_row['id'])
+
+        # Demandes FC invalides à creuser car pas d'habilitation (mais approve exists)
+        # %[1596 59995 63295 4441 4442 6522 7367].exclude?(enrollment_row['id'])
+        # FC 2 sandbox, dernière sandbox 2 production, dont 1 crée avant la sandbox
+        # %w[51496 60027 59601 64532].include?(enrollment_row['id'])
+        # FC 5 sandbox, 3 productions. 1 prod sur la 1e sandbox, 2 sur la dernière
+        # %w[58238 58413 59563 56274 55743 52499 53440].include?(enrollment_row['id'])
+
+        # Mega cas de la mort qui tue https://mattermost.incubateur.net/betagouv/pl/qu3sfayxfi8x7qop8j8i4bs9kr
+        # [885, 8896, 8995, 9938, 13496, 1778, 21360, 22116, 23633, 25118, 31019, 48439, 50215].include?(enrollment_row['id'].to_i)
+
+        # XXX Global ignore
+        [
+          '13233', # cas complexe++ où production révoqué mais existe une production validée
+          # '4441','4442','6522','4649','4650','7356','7367','8383', # FIXME organisations étrangères
+        ].exclude?(enrollment_row['id'])
       end,
       # authorization_requests_sql_where: 'target_api in (\'franceconnect\', \'api_impot_particulier_fc_sandbox\', \'api_impot_particulier_fc_production\') order by case when target_api = \'franceconnect\' then 1 when target_api like \'%_sandbox\' then 2 else 3 end',
-      authorization_requests_sql_where: "target_api in (#{target_apis_to_import}) order by case when target_api = 'franceconnect' then 1 when target_api like '%_sandbox' then 2 else 3 end",
+      authorization_requests_sql_where: "target_api not in (#{target_apis_not_to_import}) order by case when target_api = 'franceconnect' then 1 when target_api like '%_sandbox' then 2 else 3 end",
+      # authorization_requests_sql_where: "target_api in (#{target_apis_to_import}) order by case when target_api = 'franceconnect' then 1 when target_api like '%_sandbox' then 2 else 3 end",
       skipped: @skipped,
       warned: @warned,
+      global_enrollment_ids_to_import_for_events: @global_enrollment_ids_to_import_for_events,
     }
   end
 
-  def target_apis_to_import
+  def target_apis_not_to_import
     %w[
-      api_rial
-      api_cpr_pro
-      api_e_contacts
-      api_e_pro
-      api_ensu_documents
-      api_hermes
-      api_imprimfip
-      api_mire
-      api_ocfi
-      api_opale
-      api_robf
-      api_satelit
-    ].map do |name|
-      ["'#{name}_sandbox'", "'#{name}_production'"]
-    end.flatten.join(', ')
+      api_entreprise
+      api_particulier
+      hubee_portail
+      hubee_portail_dila
+    ].map { |t| "'#{t}'" }.join(',')
+  end
+
+  def clean_extra_authorizations_from_old_fake_reopening!
+    authorizations = Authorization.where(
+      authorization_request_class: [
+        'AuthorizationRequest::APIFicoba',
+        'AuthorizationRequest::APIR2P',
+        'AuthorizationRequest::APIFicobaSandbox',
+        'AuthorizationRequest::APIR2PSandbox',
+      ],
+      id: (100_000..)
+    )
+
+    AuthorizationRequestEvent.includes(:entity).where(
+      entity_type: 'Authorization',
+      entity_id: authorizations.pluck(:id),
+    ).find_each do |event|
+      first_authorization = event.entity.request.authorizations.order(created_at: :asc).first
+
+      event.entity_id = first_authorization.id
+      first_authorization.state = first_authorization.request.state == 'revoked' ? 'revoked' : 'active'
+      first_authorization.state = first_authorization.request.state == 'refused' ? 'obsolete' : 'active'
+
+      first_authorization.save!
+      event.save!
+    end
+
+    authorizations.destroy_all
+
+    # Hardcode update because of N authorizations requests in production with one refused and the fake reopening
+    Authorization.where(request_id: [3296, 3297, 8965, 34605, 35745, 48751, 51887, 54360, 54361]).update_all(state: 'active')
+  end
+
+  def already_imported_authorization_request_types
+    %w[
+      AuthorizationRequest::APIEntreprise
+      AuthorizationRequest::APIParticulier
+      AuthorizationRequest::HubEECertDC
+      AuthorizationRequest::HubEEDila
+    ]
   end
 end
