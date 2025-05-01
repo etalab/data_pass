@@ -48,10 +48,12 @@ if [ $RAILS_ENV = 'sandbox' ] ; then
   ssh -A watchdoge -- chmod 600 .pgpass
   rm pgpass
 
-  ssh -A watchdoge -- cd /var/www/datapass_reborn_sandbox/current ; sudo -u datapass_reborn_sandbox bundle exec rails runner "CreateSandboxOauthApp.new.perform" -e sandbox
-  ssh -A watchdoge -- cd /var/www/datapass_reborn_sandbox/current ; sudo RAILS_ENV=sandbox -u datapass_reborn_sandbox bundle exec rails db:environment:set
   ssh -A watchdoge -- pg_restore --clean -d datapass_reborn_sandbox -U datapass_reborn_sandbox -h localhost -p 5432 /var/www/datapass_reborn_$RAILS_ENV/current/app/migration/dumps/datapass_production_v2.dump
   ssh -A watchdoge -- rm -f ~/.pgpass
+
+  echo "Deploy on sandbox done, please execute the following commands within /var/www/datapass_reborn_sandbox/current to finish the setup:"
+  echo "  sudo -u datapass_reborn_sandbox bundle exec rails runner "CreateSandboxOauthApp.new.perform" -e sandbox"
+  echo "  sudo -u datapass_reborn_sandbox bundle exec rails db:environment:set RAILS_ENV=sandbox"
 fi
 
 # Optional: cp local built data to speed-up import
