@@ -337,7 +337,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
       | CapDemat Evolution    | CapDemat                  |
       | PourMesDossiers       | Esabora                   |
       | BL Enfance            | Berger-Levrault           |
-      | Mairistem              | JVS-Mairistem             |
+      | Mairistem             | JVS-Mairistem             |
       | Epéris                | E1os                      |
 
  Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique déjà renseigné, sans cas d'usage
