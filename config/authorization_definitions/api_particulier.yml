@@ -138,6 +138,10 @@ api_particulier:
       value: "allocation_adulte_handicape"
       group: "API Allocation Adulte Handicapé"
 
+    - name: "Statut Service National"
+      value: "dsnj_statut_service_national"
+      group: "API Service National"
+
 formulaire_qf:
   name: Formulaire d'accès au Quotient Familial
   description: "Accéder au quotient familial CAF & MSA pour simplifier la tarification sociale municipale à l'enfance par le biais du \"formulaire de collecte du quotient familial\" et du portail agent HubEE."
