@@ -338,7 +338,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
       | PourMesDossiers       | Esabora                   |
       | BL Enfance            | Berger-Levrault           |
       | Mairistem             | JVS-Mairistem             |
-      | Epéris                | E1os                      |
+      | Epéris                | E1OS                      |
 
  Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique déjà renseigné, sans cas d'usage
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
