@@ -129,43 +129,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
     end
   end
 
-  def dsfr_check_boxes(attribute, choices, opts = {})
-    @template.content_tag(:fieldset, class: 'fr-fieldset') do
-      if opts[:label]
-        @template.safe_join(
-          [dsfr_check_boxes_legend(attribute, opts)] +
-          choices.map { |choice| dsfr_check_box_option(attribute, choice, opts.dup) }
-        )
-      else
-        @template.safe_join(
-          choices.map { |choice| dsfr_check_box_option(attribute, choice, opts.dup) }
-        )
-      end
-    end
-  end
-
   private
-
-  def dsfr_check_boxes_legend(attribute, opts)
-    @template.content_tag(
-      :legend,
-      label_with_hint(attribute, opts.except(:input_options)),
-      class: 'fr-fieldset__legend--regular fr-fieldset__legend'
-    )
-  end
-
-  def dsfr_check_box_option(attribute, value, opts = {})
-    is_checked = opts[:checked].respond_to?(:call) ? opts[:checked].call(value) : false
-
-    checkbox = check_box(attribute, { multiple: true, checked: is_checked }, value, nil)
-    label_content = dsfr_radio_label(attribute, value)
-
-    @template.content_tag(:div, class: "fr-fieldset__element #{opts[:fieldset_element_class]}") do
-      @template.content_tag(:div, class: "fr-checkbox-group #{opts[:radio_group_class]}") do
-        @template.safe_join([checkbox, label_content])
-      end
-    end
-  end
 
   def dsfr_select_tag(attribute, choices, opts)
     select(attribute, choices, { include_blank: opts[:include_blank] }, class: 'fr-select', **enhance_input_options(opts).except(:class))
