@@ -359,6 +359,7 @@ api-particulier-city-family-mushroom-software:
     contact_technique_job_title: Directeur technique
     modalities:
       - params
+      - formulaire_qf
 
 api-particulier-civil-enfance-ciril-group:
   name: Civil Enfance
@@ -1116,6 +1117,208 @@ api-particulier-ganesh-education:
     contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_ganesh_education_contact_technique_phone_number || '0836656565' %>"
     contact_technique_job_title: Contact technique
 
+api-particulier-jvs-mairistem:
+  name: Mairistem
+  description: Facturation des familles pour les services périscolaires et loisirs
+  authorization_request: APIParticulier
+  introduction: *api_particulier_introduction_editor_with_fixed_scopes
+  steps: *api_particulier_editor_steps_with_fixed_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
+  use_case: tarification_municipale_enfance
+  service_provider_id: jvs_mairistem 
+  scopes_config:
+    disabled:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_enfants
+      - cnaf_adresse
+    displayed:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_enfants
+      - cnaf_adresse
+
+  data:
+    intitule: Facturation des familles pour les services périscolaires et loisirs
+    description: |
+      Récupération de quotient familial par des agents habilités pour le compte d'un administré spécifique.
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_qf
+    scopes:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_enfants
+      - cnaf_adresse
+    contact_technique_email: "<%= Rails.application.credentials.api_particulier_jvs_mairistem_contact_technique_email || 'tech-mairistem@yopmail.com' %>"
+    contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_jvs_mairistem_contact_technique_given_name || 'Jeanne' %>"
+    contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_jvs_mairistem_contact_technique_family_name || 'Martin' %>"
+    contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_jvs_mairistem_contact_technique_phone_number || '0836656565' %>"
+    contact_technique_job_title: Contact technique
+    modalities:
+      - params
+
+api-particulier-ccas-paxtel:
+  name: Paxtel
+  description: &api_particulier_form_description_ccas |
+    Instruction des dossiers de demandes d'aides sociales dans les CCAS/CIAS
+  authorization_request: APIParticulier
+  use_case: ccas
+  service_provider_id: paxtel
+  introduction: &api_particulier_introduction_editor_ccas_with_fixed_scopes 
+  steps: *api_particulier_editor_steps_with_fixed_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
+  scopes_config:
+    disabled:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_enfants
+      - revenu_solidarite_active
+    displayed:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_enfants
+      - revenu_solidarite_active
+
+  data:
+    intitule: Instructions des dossiers d'aides sociales
+    description: Logiciel utilisé par des agents habilités de CCAS/CIAS dans le cadre de l'instruction de dossier de demandes d'aides sociales
+    cadre_juridique_nature: &api_particulier_cadre_juridique_nature_ccas |
+      Article L. 312-1 et Article R123-5 du code de l'action sociale et des familles. Article L114-8 et Article R. 114-9-3 du code des relations entre le public et l'administration.
+    cadre_juridique_url: &api_particulier_cadre_juridique_url_ccas_cnaf_scopes_only 'https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000038833680/'
+    scopes:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_enfants
+      - revenu_solidarite_active
+    contact_technique_email: "<%= Rails.application.credentials.api_particulier_paxtel_contact_technique_email || 'tech-paxtel@yopmail.com' %>"
+    contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_paxtel_contact_technique_given_name || 'Jeanne' %>"
+    contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_paxtel_contact_technique_family_name || 'Martin' %>"
+    contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_paxtel_contact_technique_phone_number || '0836656565' %>"
+    contact_technique_job_title: Contact technique
+    modalities:
+      - params
+
+api-particulier-ypok:
+  name: YGRC
+  description: Facturation des familles pour les services enfance
+  authorization_request: APIParticulier
+  introduction: *api_particulier_introduction_editor_with_editable_scopes
+  steps: *api_particulier_editor_steps_with_editable_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_editable_scopes
+  use_case: tarification_municipale_enfance
+  service_provider_id: ypok
+  scopes_config:
+    disabled:
+      - cnaf_quotient_familial
+    displayed:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_enfants
+      - cnaf_adresse
+
+  data:
+    intitule: Facturation des familles pour les services enfance
+    description: |
+      Gestion des structures enfance, jeunesse pour la facturation de la cantine, le service periscolaire et extrascolaire
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_qf
+    scopes:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_enfants
+      - cnaf_adresse
+    contact_technique_email: "<%= Rails.application.credentials.api_particulier_ypok_contact_technique_email || 'tech-ypok@yopmail.com' %>"
+    contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_ypok_contact_technique_given_name || 'Jeanne' %>"
+    contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_ypok_contact_technique_family_name || 'Martin' %>"
+    contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_ypok_contact_technique_phone_number || '0836656565' %>"
+    contact_technique_job_title: Contact technique
+    modalities:
+      - params
+
+api-particulier-ars-data:
+  name: DuoNET
+  description: Tarification des activités d'enseignements artistiques
+  authorization_request: APIParticulier
+  introduction: *api_particulier_introduction_editor_with_fixed_scopes
+  steps: *api_particulier_editor_steps_with_fixed_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
+  service_provider_id: ars-data
+  scopes_config:
+    disabled:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+    displayed:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+
+  data:
+    intitule: Tarification des activités d'enseignements artistiques
+    description: |
+      Gestion de la tarification des activités d'enseignements artistiques dans les conservatoires et théâtre
+    scopes:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+    contact_technique_email: "<%= Rails.application.credentials.api_particulier_ars_data_contact_technique_email || 'tech-ars-data@yopmail.com' %>"
+    contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_ars_data_contact_technique_given_name || 'Jeanne' %>"
+    contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_ars_data_contact_technique_family_name || 'Martin' %>"
+    contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_ars_data_contact_technique_phone_number || '0836656565' %>"
+    contact_technique_job_title: Contact technique
+    modalities:
+      - params
+
+api-particulier-e1os:
+  name: Epéris
+  description: Facturation des familles pour les services scolaire et cantine
+  authorization_request: APIParticulier
+  introduction: *api_particulier_introduction_editor_with_fixed_scopes
+  steps: *api_particulier_editor_steps_with_fixed_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
+  use_case: tarification_municipale_enfance
+  service_provider_id: e1os
+  scopes_config:
+    disabled:
+      - cnaf_quotient_familial
+    displayed:
+      - cnaf_quotient_familial
+
+  data:
+    intitule: Facturation des familles pour les services scolaire et cantine
+    description: |
+      Gestion de la facturation de la cantine et du service periscolaire
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_qf
+    scopes:
+      - cnaf_quotient_familial
+    contact_technique_email: "<%= Rails.application.credentials.api_particulier_e1os_contact_technique_email || 'tech-e1os@yopmail.com' %>"
+    contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_e1os_contact_technique_given_name || 'Jeanne' %>"
+    contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_e1os_contact_technique_family_name || 'Martin' %>"
+    contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_e1os_contact_technique_phone_number || '0836656565' %>"
+    contact_technique_job_title: Contact technique
+    modalities:
+      - params
+
+api-particulier-acheteza:
+  name: AchetezA
+  description: Facturation des familles pour les services scolaire et cantine
+  authorization_request: APIParticulier
+  introduction: *api_particulier_introduction_editor_with_fixed_scopes
+  steps: *api_particulier_editor_steps_with_fixed_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
+  use_case: tarification_municipale_enfance
+  service_provider_id: acheteza
+  scopes_config:
+    disabled:
+      - cnaf_quotient_familial
+    displayed:
+      - cnaf_quotient_familial
+
+  data:
+    intitule: Facturation des familles pour les services scolaire et cantine
+    description: |
+      Gestion de la facturation de la cantine et du service periscolaire
+    cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_qf
+    scopes:
+      - cnaf_quotient_familial
+    modalities:
+      - params
+
 # ------------------------------- #
 # ------------------------------- #
 # ------------------------------- #
@@ -1259,39 +1462,6 @@ api-particulier-teamnet-axel:
       - cnaf_enfants
       - cnaf_adresse
 
-api-particulier-jvs-parascol:
-  name: Parascol
-  description: Facturation des familles pour les services périscolaires et loisirs
-  authorization_request: APIParticulier
-  single_page_view: "api_particulier_through_editor_without_contact_technique"
-  use_case: tarification_municipale_enfance
-  service_provider_id: jvs_mairistem
-  static_blocks: *api_particulier_through_editor_static_blocks
-  data:
-    intitule: Facturation des familles pour les services périscolaires et loisirs
-    description:
-      "La commune/la structure intercommunale est chargée de la gestion
-      de la facturation des services liés à l'Enfance.\r\nDans ce cadre, elle a besoin
-      de récupérer des informations concernant la famille et ses éléments de revenus
-      et de quotient familial.\r\nAfin d'avoir des informations fiables sur ces points
-      et pour éviter de réclamer certains justificatifs, l'utilisation d'API Particulier
-      semble adaptée.\r\nLe logiciel utilisé est Parascol, édité par JVS-MAIRISTEM.\r\nL'Espace
-      Famille, proposé en complément de Parascol, permet aux familles (entre autres
-      mises à jour de leur dossier ou inscription) de déclarer leurs ressources et
-      calculer leur quotient familial, sans avoir à se déplacer en mairie. Là encore,
-      l'utilisation d'API Particulier représente un véritable plus pour les familles."
-    cadre_juridique_nature:
-      L'article L114-8 du code des relations entre le public
-      et l'administration fixe le cadre général des échanges de données au sein de
-      l'administration. En tant que collectivité territoriale, la délibération ci-jointe
-      précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices,
-      et précise les données nécessaires à son fonctionnement.
-    scopes:
-      - cnaf_quotient_familial
-      - cnaf_allocataires
-      - cnaf_enfants
-      - cnaf_adresse
-
 api-particulier-entrouvert-publik:
   name: Publik Famille
   description:
@@ -1352,7 +1522,6 @@ api-particulier-ccas-melissandre-afi:
       - pole_emploi_adresse
       - pole_emploi_inscription
       - mesri_identite
-      - mesri_admission_inscrit
       - cnous_statut_bourse
       - cnous_identite
     contact_technique_email: "<%= Rails.application.credentials.api_particulier_afi_contact_technique_email || 'tech-afi@yopmail.com' %>"
