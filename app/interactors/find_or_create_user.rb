@@ -2,6 +2,7 @@ class FindOrCreateUser < ApplicationInteractor
   include MonCompteProPayloads
 
   def call
+    context.fail! unless whitelisted?
     context.user = find_or_initialize_user
     assign_attributes
     context.user.save
@@ -32,5 +33,11 @@ class FindOrCreateUser < ApplicationInteractor
     ).merge(
       context.user_attributes || {}
     )
+  end
+
+  def whitelisted?
+    Rails.env.sandbox? &&
+      Rails.application.credentials.sandbox_whitelisted_emails.present? &&
+      Rails.application.credentials.sandbox_whitelisted_emails.include?(info_payload['email'])
   end
 end
