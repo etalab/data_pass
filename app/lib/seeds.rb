@@ -30,6 +30,7 @@ class Seeds
     dinum_organization.users << api_entreprise_reporter
     dinum_organization.users << foreign_demandeur
     dinum_organization.users << data_pass_admin
+    dinum_organization.users << dgfip_instructor_developer
   end
   # rubocop:enable Metrics/AbcSize
 
@@ -136,8 +137,30 @@ class Seeds
     )
   end
 
+  def dgfip_instructor_developer
+    @dgfip_instructor_developer ||= User.create!(
+      email: 'dgfip@yopmail.com',
+      roles: all_dgfip_instructor_roles + all_dgfip_developer_roles,
+      current_organization: dinum_organization,
+    )
+  end
+
   def all_authorization_definition_instructor_roles
     AuthorizationDefinition.all.map { |definition| "#{definition.id}:instructor" }
+  end
+
+  def all_dgfip_authorizations_definitions
+    AuthorizationDefinition
+      .all
+      .select { |definition| definition.provider.id == 'dgfip' }
+  end
+
+  def all_dgfip_developer_roles
+    all_dgfip_authorizations_definitions.map { |definition| "#{definition.id}:developer" }
+  end
+
+  def all_dgfip_instructor_roles
+    all_dgfip_authorizations_definitions.map { |definition| "#{definition.id}:instructor" }
   end
 
   def clamart_organization

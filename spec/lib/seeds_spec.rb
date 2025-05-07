@@ -13,6 +13,12 @@ RSpec.describe Seeds do
         perform
       }.not_to raise_error
     end
+
+    it 'creates a dgfip user' do
+      expect {
+        perform
+      }.to change(User.where(email: 'dgfip@yopmail.com'), :count).by(1)
+    end
   end
 
   describe '#flushdb' do
