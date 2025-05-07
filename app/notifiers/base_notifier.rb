@@ -11,7 +11,7 @@ class BaseNotifier < ApplicationNotifier
     refuse
   ].each do |event|
     define_method(event) do |params|
-      if params[:reopening_params]
+      if params[:first_validation]
         email_notification("reopening_#{event}", params)
       else
         email_notification(event, params)

@@ -3,7 +3,7 @@ class RefuseAuthorizationRequest < ApplicationOrganizer
     context.state_machine_event = :refuse
     context.event_entity = :denial_of_authorization
     context.authorization_request_notifier_params = {
-      reopening_params: context.authorization_request.reopening?
+      first_validation: context.authorization_request.reopening?
     }
   end
 
