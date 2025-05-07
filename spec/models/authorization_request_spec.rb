@@ -436,4 +436,43 @@ RSpec.describe AuthorizationRequest do
       end
     end
   end
+
+  describe '#reopening?' do
+    subject { authorization_request.reopening? }
+
+    let(:authorization_request) { create(:authorization_request, :api_entreprise, state: state) }
+
+    context 'when there are authorizations with the same class' do
+      before do
+        create(:authorization, request: authorization_request, authorization_request_class: authorization_request.type)
+      end
+
+      context 'when state is not "validated" or "revoked"' do
+        let(:state) { 'submitted' }
+
+        it { is_expected.to be_truthy }
+      end
+
+      context 'when state is "validated"' do
+        let(:state) { 'validated' }
+
+        it { is_expected.to be_falsey }
+      end
+
+      context 'when state is "revoked"' do
+        let(:state) { 'revoked' }
+
+        it { is_expected.to be_falsey }
+      end
+    end
+
+    context 'when there are no authorizations with the same class' do
+      let(:authorization) { create(:authorization, request: authorization_request, authorization_request_class: :api_infinoe_sandbox)}
+      let(:state) { 'submitted' }
+
+      it 'returns false' do
+        expect(authorization_request.reopening?).to be false
+      end
+    end
+  end
 end
