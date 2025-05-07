@@ -1323,7 +1323,7 @@ api-particulier-dialog:
   steps: *api_particulier_editor_steps_with_editable_scopes
   static_blocks: *api_particulier_editor_static_blocks_with_editable_scopes
   use_case: aides_facultatives
-  service_provider_id: memberz
+  service_provider_id: dialog
   scopes_config:
     displayed:
       - cnaf_quotient_familial
