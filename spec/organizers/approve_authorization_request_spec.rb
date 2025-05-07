@@ -57,6 +57,46 @@ RSpec.describe ApproveAuthorizationRequest do
         end
       end
 
+      context 'with sandbox authorization request' do
+        let!(:authorization_request) { create(:authorization_request, :api_impot_particulier_sandbox, :submitted) }
+
+        it 'delivers an approval email' do
+          expect { approve_authorization_request }.to have_enqueued_mail(AuthorizationRequestMailer, :approve)
+        end
+
+        context 'when it is a reopening' do
+          let!(:authorization_request) { create(:authorization_request, :api_impot_particulier_sandbox, :reopened) }
+
+          before do
+            authorization_request.update!(state: 'submitted')
+          end
+
+          it 'delivers an email specific to reopening' do
+            expect { approve_authorization_request }.to have_enqueued_mail(AuthorizationRequestMailer, :reopening_approve)
+          end
+        end
+      end
+
+      context 'with production authorization request' do
+        let!(:authorization_request) { create(:authorization_request, :api_impot_particulier_production, :submitted) }
+
+        it 'delivers an approval email' do
+          expect { approve_authorization_request }.to have_enqueued_mail(AuthorizationRequestMailer, :approve)
+        end
+
+        context 'when it is a reopening' do
+          let!(:authorization_request) { create(:authorization_request, :api_impot_particulier_production, :reopened) }
+
+          before do
+            authorization_request.update!(state: 'submitted')
+          end
+
+          it 'delivers an email specific to reopening' do
+            expect { approve_authorization_request }.to have_enqueued_mail(AuthorizationRequestMailer, :reopening_approve)
+          end
+        end
+      end
+
       it 'creates a new authorization with snapshoted data' do
         expect { approve_authorization_request }.to change(Authorization, :count).by(1)
 
