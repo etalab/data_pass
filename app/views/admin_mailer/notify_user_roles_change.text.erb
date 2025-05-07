@@ -10,10 +10,10 @@ La liste des rôles ajoutés est la suivante :
 <% end %>
 <% end %>
 
-<% if @old_roles.any? %>
+<% if @removed_roles.any? %>
 La liste des rôles retirés est la suivante :
 
-<% @old_roles.each do |role| %>
+<% @removed_roles.each do |role| %>
 * <%= role %>
 <% end %>
 <% end %>
