@@ -1,4 +1,6 @@
 class AuthorizationRequest < ApplicationRecord
+  self.ignored_columns += %w[reopening]
+
   include AuthorizationCore::Attributes
   include AuthorizationCore::Documents
   include AuthorizationCore::Contacts
@@ -343,7 +345,6 @@ class AuthorizationRequest < ApplicationRecord
     last_validated_at.present?
   end
 
-  self.ignored_columns += %w[reopening]
 
   def reopening?
     authorizations.where(authorization_request_class: type).any? &&
