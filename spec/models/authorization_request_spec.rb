@@ -467,7 +467,7 @@ RSpec.describe AuthorizationRequest do
     end
 
     context 'when there are no authorizations with the same class' do
-      let(:authorization) { create(:authorization, request: authorization_request, authorization_request_class: :api_infinoe_sandbox)}
+      let(:authorization) { create(:authorization, request: authorization_request, authorization_request_class: :api_infinoe_sandbox) }
       let(:state) { 'submitted' }
 
       it 'returns false' do
