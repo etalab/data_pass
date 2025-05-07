@@ -2,7 +2,7 @@
   <%= render partial: 'authorization_request_forms/shared/prefilled_banner_for_single_page_form' %>
 
   <div class="fr-mt-4w">
-    <%= render partial: "authorization_requests/shared/organization_and_applicant" %>
+    <%= render partial: 'demandes_habilitations/organization_and_applicant', locals: { demande: @authorization_request } %>
   </div>
 
   <%= render partial: "authorization_request_forms/shared/block_titles", locals: { f: f, block_name: :contacts } %>

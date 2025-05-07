@@ -10,8 +10,9 @@ class AuthorizationPolicy < ApplicationPolicy
   end
 
   def reopen?
-    user_is_applicant_and_active_authorization? ||
-      user_has_at_least_one_contact_type_with_active_authorization?
+    (user_is_applicant_and_active_authorization? ||
+      user_has_at_least_one_contact_type_with_active_authorization?) &&
+      record.request.can_reopen?
   end
 
   def transfer?

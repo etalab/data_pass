@@ -45,7 +45,7 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Et que je vais sur la page tableau de bord
     Alors la page contient la date du jour au format court
 
-  Scénario: Consultation de l'habilitation validée associée à une réouverture
+  Scénario: Consultation de l'habilitation associée à une réouverture
     Quand j'ai 1 demande d'habilitation "API Entreprise" réouverte
     Et que je vais sur la page tableau de bord
     Et que je clique sur le premier "Consulter"

@@ -9,7 +9,7 @@
         <div class="fr-display-flex fr-align-items-center">
         <p class="fr-text-inverted--blue-france">
           <span class="fr-mr-1v"><%= authorization.name %></span>
-          <%= render partial: 'authorizations/sandbox_production_badge', locals: { authorization: @authorization } %>
+          <%= render partial: 'authorizations/sandbox_production_badge', locals: { authorization: authorization } %>
         </p>
         </div>
 
@@ -33,7 +33,8 @@
                                                        authorization_request_id: authorization.request&.id,
                                                        authorization_id: authorization.request.latest_authorization.id),
                                                title: "Mettez à jour votre habilitation",
-                                               class: %w(fr-btn fr-btn--sm fr-btn--icon-left fr-icon-edit-box-line aria-hidden="true") %>
+                                               class: %w(fr-btn fr-btn--sm fr-btn--icon-left fr-icon-edit-box-line),
+                                               aria_hidden: "true" %>
           <% end %>
 
           <% if helpers.policy(authorization).transfer? %>
@@ -41,10 +42,11 @@
                                                new_authorization_request_transfer_path(authorization.request, type: :change_organization),
                                                id: :transfer_authorization_request,
                                                title: "Transférer l'habilitation à un autre utilisateur de votre organisation",
-                                               class: %w(fr-btn fr-btn--sm fr-btn-secondary fr-btn--icon-left fr-icon-arrow-up-down-line aria-hidden="true") %>
+                                               class: %w(fr-btn fr-btn--sm fr-btn-secondary fr-btn--icon-left fr-icon-arrow-up-down-line),
+                                               aria_hidden: "true" %>
           <% end %>
 
-          <% if helpers.policy(authorization).start_next_stage? %>
+          <% if helpers.policy(authorization).start_next_stage? && !authorization.request.reopening %>
             <%= link_to t('dashboard.card.stage_footer.start_next_stage_cta'),
                         next_authorization_request_stage_path(authorization.request),
                         title: "Démarrer une nouvelle demande d'habilitation pour l'environnement de production",
