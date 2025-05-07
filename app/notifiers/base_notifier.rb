@@ -11,7 +11,7 @@ class BaseNotifier < ApplicationNotifier
     refuse
   ].each do |event|
     define_method(event) do |params|
-      if params[:first_validation]
+      if params[:within_reopening]
         email_notification("reopening_#{event}", params)
       else
         email_notification(event, params)
@@ -24,7 +24,7 @@ class BaseNotifier < ApplicationNotifier
 
     notify_france_connect if authorization_request.with_france_connect?
 
-    if params[:first_validation]
+    if params[:within_reopening]
       email_notification('approve', params)
     else
       email_notification('reopening_approve', params)
