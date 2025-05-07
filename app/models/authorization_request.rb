@@ -345,7 +345,6 @@ class AuthorizationRequest < ApplicationRecord
     last_validated_at.present?
   end
 
-
   def reopening?
     authorizations.where(authorization_request_class: type).any? &&
       %w[validated revoked].exclude?(state)
