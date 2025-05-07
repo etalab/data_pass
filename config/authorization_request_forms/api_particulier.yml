@@ -730,11 +730,7 @@ api-particulier-extenso-partner-extenso-cloud:
   data:
     intitule: Tarification du stationnement résidentiel
     description:
-      Dans un esprit de simplification et de sécurité, les collectivités
-      pourront utiliser API Particulier pour récupérer les quotients familiaux des
-      administrés afin de faciliter la facturation des services enfance et périscolaire.
-      L’utilisation d’API Particulier est un vrai plus pour dématérialiser les mises
-      à jour de ces informations
+      Le logiciel permet la gestion des abonnements de stationnement (résidentiels). Il est disponible en 2 parties, 1 backoffice pour les agents du service public et 1 frontoffice à destination des administrés.
     cadre_juridique_nature:
       L'article L114-8 du code des relations entre le public
       et l'administration fixe le cadre général des échanges de données au sein de
@@ -1535,7 +1531,7 @@ api-particulier-coexya:
   description: Tarification sociale et solidaires des transports
   authorization_request: APIParticulier
   single_page_view: "api_particulier_through_editor"
-  use_case: tarification_municipale_enfance
+  use_case: tarification_transports
   service_provider_id: coexya
   static_blocks: *api_particulier_through_editor_static_blocks
   data:
