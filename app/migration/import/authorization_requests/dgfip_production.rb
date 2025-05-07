@@ -21,14 +21,55 @@ module Import::AuthorizationRequests::DGFIPProduction
 
     sql = <<-SQL
     BEGIN;
-    SET session_replication_role = 'replica';
 
-    UPDATE authorization_requests
-    SET type = '#{new_type}',
-        state = 'draft',
-        id = #{new_id}
+    -- Créer une copie avec le nouvel ID
+    INSERT INTO authorization_requests (
+      id,
+      type,
+      state,
+      organization_id,
+      applicant_id,
+      terms_of_service_accepted,
+      data_protection_officer_informed,
+      data,
+      last_validated_at,
+      created_at,
+      updated_at,
+      form_uid,
+      reopened_at,
+      external_provider_id,
+      next_request_copied_id,
+      last_submitted_at,
+      public_id,
+      reopening,
+      raw_attributes_from_v1,
+      dirty_from_v1
+    )
+    SELECT
+      #{new_id},
+      '#{new_type}',
+      'draft',
+      organization_id,
+      applicant_id,
+      terms_of_service_accepted,
+      data_protection_officer_informed,
+      (SELECT data FROM authorization_requests WHERE id = #{previous_id})::text::hstore,
+      last_validated_at,
+      created_at,
+      updated_at,
+      form_uid,
+      reopened_at,
+      external_provider_id,
+      next_request_copied_id,
+      last_submitted_at,
+      public_id,
+      reopening,
+      raw_attributes_from_v1,
+      dirty_from_v1
+    FROM authorization_requests
     WHERE id = #{previous_id};
 
+    -- Mettre à jour toutes les références
     UPDATE messages
     SET authorization_request_id = #{new_id}
     WHERE authorization_request_id = #{previous_id};
@@ -56,14 +97,15 @@ module Import::AuthorizationRequests::DGFIPProduction
     UPDATE authorizations
     SET request_id = #{new_id}
     WHERE request_id = #{previous_id};
-    SQL
 
-    attachments.each do |attachment|
-      sql << "UPDATE active_storage_attachments SET record_id = #{new_id} WHERE id = #{attachment.id};\n"
-    end
+    UPDATE active_storage_attachments
+    SET record_id = #{new_id}
+    WHERE record_type = 'AuthorizationRequest' AND record_id = #{previous_id};
 
-    sql << <<-SQL
-    SET session_replication_role = 'origin';
+    -- Supprimer l'ancien enregistrement
+    DELETE FROM authorization_requests
+    WHERE id = #{previous_id};
+
     COMMIT;
     SQL
 

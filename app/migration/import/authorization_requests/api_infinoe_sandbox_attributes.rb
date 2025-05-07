@@ -7,9 +7,9 @@ class Import::AuthorizationRequests::APIINFINOESandboxAttributes < Import::Autho
   def demarche_to_form_uid
     case enrollment_row['demarche']
     when 'envoi_ecritures'
-      'api-infinoe-envoi-automatise-ecritures-production'
+      'api-infinoe-envoi-automatise-ecritures-sandbox'
     else
-      'api-infinoe-production'
+      'api-infinoe-sandbox'
     end
   end
 end

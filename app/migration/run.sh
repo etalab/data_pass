@@ -6,7 +6,6 @@ if [ -z "$1" ]; then
 fi
 
 user=skelz0r
-host=watchdoge
 v1_pg_password=`cat app/migration/.v1-pgpassword`
 RAILS_ENV=$1
 
@@ -47,6 +46,9 @@ sudo -u datapass_reborn_$RAILS_ENV --preserve-env=RAILS_ENV bundle exec rails ru
 
 echo ">> Run main import script"
 sudo --preserve-env=RAILS_ENV,LOCAL,SKIP_DOCUMENT_VALIDATION -u datapass_reborn_$RAILS_ENV bundle exec rails runner "MainImport.new.perform"
+
+echo ">> Run post migration inspector"
+sudo --preserve-env=RAILS_ENV,LOCAL,SKIP_DOCUMENT_VALIDATION -u datapass_reborn_$RAILS_ENV bundle exec rails runner "PostMigrationInspector.new.perform"
 
 echo ">> Cleaning up"
 rm -f ~/.pgpass
