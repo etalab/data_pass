@@ -62,6 +62,46 @@ RSpec.describe RefuseAuthorizationRequest do
         it_behaves_like 'delivers a webhook', event_name: :refuse
       end
 
+      context 'with sandbox authorization request' do
+        let!(:authorization_request) { create(:authorization_request, :api_impot_particulier_sandbox, :submitted) }
+
+        it 'delivers a refusal email' do
+          expect { refuse_authorization_request }.to have_enqueued_mail(AuthorizationRequestMailer, :refuse)
+        end
+
+        context 'when it is a reopening' do
+          let!(:authorization_request) { create(:authorization_request, :api_impot_particulier_sandbox, :reopened) }
+
+          before do
+            authorization_request.update!(state: 'submitted')
+          end
+
+          it 'delivers an email specific to reopening' do
+            expect { refuse_authorization_request }.to have_enqueued_mail(AuthorizationRequestMailer, :reopening_refuse)
+          end
+        end
+      end
+
+      context 'with production authorization request' do
+        let!(:authorization_request) { create(:authorization_request, :api_impot_particulier_production, :submitted) }
+
+        it 'delivers a refusal email' do
+          expect { refuse_authorization_request }.to have_enqueued_mail(AuthorizationRequestMailer, :refuse)
+        end
+
+        context 'when it is a reopening' do
+          let!(:authorization_request) { create(:authorization_request, :api_impot_particulier_production, :reopened) }
+
+          before do
+            authorization_request.update!(state: 'submitted')
+          end
+
+          it 'delivers an email specific to reopening' do
+            expect { refuse_authorization_request }.to have_enqueued_mail(AuthorizationRequestMailer, :reopening_refuse)
+          end
+        end
+      end
+
       context 'with authorization request in draft state' do
         let!(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :draft) }
 

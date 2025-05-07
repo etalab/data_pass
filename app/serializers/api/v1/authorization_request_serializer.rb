@@ -13,4 +13,8 @@ class API::V1::AuthorizationRequestSerializer < ActiveModel::Serializer
 
   has_many :authorizations, serializer: API::V1::AuthorizationSerializer, key: :habilitations
   has_one :organization, serializer: API::V1::OrganizationSerializer, key: :organisation
+
+  def reopening
+    object.reopening?
+  end
 end

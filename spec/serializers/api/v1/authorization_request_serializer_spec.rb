@@ -15,7 +15,7 @@ RSpec.describe API::V1::AuthorizationRequestSerializer, type: :serializer do
         created_at: authorization_request.created_at,
         last_submitted_at: authorization_request.last_submitted_at,
         last_validated_at: authorization_request.last_validated_at,
-        reopening: authorization_request.reopening,
+        reopening: authorization_request.reopening?,
         reopened_at: authorization_request.reopened_at,
         data: authorization_request.data,
       )
