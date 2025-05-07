@@ -901,7 +901,7 @@ api-particulier-airweb:
       - mesri_admission_inscrit
       - mesri_admission_commune_etudes
       - cnous_statut_boursier
-      - men_echelon_bourse
+      - cnous_echelon_bourse
       - revenu_solidarite_active
       - complementaire_sante_solidaire
 
@@ -918,7 +918,7 @@ api-particulier-airweb:
       - mesri_admission_inscrit
       - mesri_admission_commune_etudes
       - cnous_statut_boursier
-      - men_echelon_bourse
+      - cnous_echelon_bourse
       - revenu_solidarite_active
       - complementaire_sante_solidaire
     # contact_technique_editable: false
@@ -1315,6 +1315,64 @@ api-particulier-acheteza:
     modalities:
       - params
 
+api-particulier-dialog:
+  name: Memberz
+  description: Dématérialisation des dispositifs d'aides et de subventions communales, départementales ou régionales
+  authorization_request: APIParticulier
+  introduction: *api_particulier_introduction_editor_with_editable_scopes
+  steps: *api_particulier_editor_steps_with_editable_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_editable_scopes
+  use_case: aides_facultatives
+  service_provider_id: memberz
+  scopes_config:
+    displayed:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_enfants
+      - cnaf_adresse
+      - mesri_identite
+      - mesri_admissions
+      - mesri_admission_inscrit
+      - mesri_admission_commune_etudes
+      - mesri_admission_regime_formation
+      - cnous_statut_boursier
+      - cnous_echelon_bourse
+      - men_statut_identite
+      - men_statut_scolarite
+      - men_statut_boursier
+      - men_echelon_bourse
+
+
+  data:
+    intitule: Dématérialisation des dispositifs d'aides et de subventions
+    description: |
+      Dématérialisation des dispositifs d'aides et de subventions communales, départementales ou régionales
+    cadre_juridique_nature: 
+      L'article L114-8 du code des relations entre le public et l'administration fixe le cadre général des échanges de données au sein de l'administration. En tant que collectivité territoriale, la délibération ci-jointe précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices, et précise les données nécessaires à son fonctionnement.
+    scopes:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_enfants
+      - cnaf_adresse
+      - mesri_identite
+      - mesri_admissions
+      - mesri_admission_inscrit
+      - mesri_admission_commune_etudes
+      - mesri_admission_regime_formation
+      - cnous_statut_boursier
+      - cnous_echelon_bourse
+      - men_statut_identite
+      - men_statut_scolarite
+      - men_statut_boursier
+      - men_echelon_bourse
+    contact_technique_email: "<%= Rails.application.credentials.api_particulier_dialog_contact_technique_email || 'tech-dialog@yopmail.com' %>"
+    contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_dialog_contact_technique_given_name || 'Jeanne' %>"
+    contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_dialog_contact_technique_family_name || 'Martin' %>"
+    contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_dialog_contact_technique_phone_number || '0836656565' %>"
+    contact_technique_job_title: Contact technique
+    modalities:
+      - params
+
 # ------------------------------- #
 # ------------------------------- #
 # ------------------------------- #
@@ -1545,6 +1603,8 @@ api-particulier-coexya:
       - cnaf_quotient_familial
       - cnaf_allocataires
       - cnaf_adresse
+      - cnous_statut_bourse
+      - cnous_echelon_bourse
       - men_statut_scolarite
       - men_statut_boursier
       - men_echelon_bourse
