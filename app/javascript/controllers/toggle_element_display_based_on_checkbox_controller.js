@@ -11,10 +11,12 @@ export default class extends Controller {
 
   show () {
     this.elementTarget.classList.remove(this.hiddenClass)
+    this.elementTarget.disabled = false
   }
 
   hide () {
     this.elementTarget.classList.add(this.hiddenClass)
+    this.elementTarget.disabled = true
   }
 
   showElement () {
