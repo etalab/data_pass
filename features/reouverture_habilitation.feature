@@ -113,7 +113,6 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Et que je clique sur le dernier "Consulter"
     Alors il y a un badge "Validée"
 
-
   Scénario: Initialisation d'une réouverture bac à sable d'une demande validée en production
     Quand j'ai 1 demande d'habilitation "API Impôt Particulier" validée
     Et que je vais sur la page tableau de bord
@@ -133,6 +132,24 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Et il y a un badge "Bac à sable"
     Et il y a un badge "En cours"
 
+  Scénario: Annulation d'une demande de réouverture multi stage
+    Quand j'ai 1 demande d'habilitation "API Impôt Particulier" validée
+    Et que je vais sur la page tableau de bord
+    Et que je clique sur "Mettre à jour"
+    Et que je clique sur "Mettre à jour l'habilitation bac à sable"
+    Alors je suis sur la page "Demande libre (Bac à sable) - API Impôt Particulier"
+    Et il y a un message de succès contenant "a bien été réouverte"
+    Quand que je vais sur la page tableau de bord
+    Alors il y a un badge "Bac à sable"
+    Et il y a un badge "Brouillon"
+    Quand je clique sur le dernier "Consulter"
+    Alors il y a un bouton "Annuler ma demande de modification"
+    Et que je clique sur "Annuler ma demande de modification"
+    Alors il y a un titre contenant "Annulation de vos modifications"
+    Alors il y a un bouton "Annuler ma demande de modification"
+    Et que je clique sur "Annuler ma demande de modification"
+    Alors il y a un badge "Production"
+    Et il y a un badge "Validée"
 
   Scénario: Initialisation d'une réouverture production d'une demande validée en production
     Quand j'ai 1 demande d'habilitation "API Impôt Particulier" validée
