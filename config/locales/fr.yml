@@ -894,10 +894,10 @@ fr:
       title: Statistiques d'utilisation
   oauth_applications:
     index:
-      title: Mes credentials API
+      title: Mes clefs d'accès API
       documentation_url: Voir la documentation API
       description_html: Liste de vos applications OAuth et de leurs credentials API
-      list_of_habilitations_description: "Vos credentials API vous permettent d'accéder aux demandes et habilitations suivantes"
+      list_of_habilitations_description: "Vos clefs d'accès API vous permettent d'accéder aux demandes et habilitations suivantes"
       table:
         headers:
           name: Nom de l'application

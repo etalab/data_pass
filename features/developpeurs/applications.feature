@@ -17,9 +17,9 @@ Fonctionnalité: Développeurs: consultation de ses applications
 
   Scénario: Je peux voir mon application
     Quand je me rends sur le chemin "/developpeurs/applications"
-    Alors la page contient "Mes credentials API"
+    Alors la page contient "Mes clefs d'accès API"
     Et la page contient "Accès API Entreprise"
     Et la page contient "Secret: ****ecret"
     Et il y a un bouton "Copier"
-    Et la page contient "Vos credentials API vous permettent d'accéder aux demandes et habilitations suivantes :"
+    Et la page contient "Vos clefs d'accès API vous permettent d'accéder aux demandes et habilitations suivantes"
     Et la page contient "api_entreprise"
