@@ -895,11 +895,9 @@ fr:
   oauth_applications:
     index:
       title: Mes credentials API
-      description_html: |
-        Liste de vos applications Oauth et de leurs credentials API
-        <br />
-        <br />
-        <a href="%{documentation_url}">Voir la documentation API</a>.
+      documentation_url: Voir la documentation API
+      description_html: Liste de vos applications OAuth et de leurs credentials API
+      list_of_habilitations_description: "Vos credentials API vous permettent d'accéder aux demandes et habilitations suivantes"
       table:
         headers:
           name: Nom de l'application

@@ -4,7 +4,9 @@
   </h1>
 </div>
 
-<div class="fr-mt-16v">
+<%= link_to t('.documentation_url'), developpeurs_documentation_url, class: 'fr-btn fr-btn--secondary' %>
+
+<div class="fr-mt-2w">
   <%= t('.description_html', documentation_url: developpeurs_documentation_url) %>
 </div>
 
@@ -43,9 +45,11 @@
       </div>
     </div>
   </div>
+</div>
 
+<div class="fr-mt-2w">
   <p class="fr-mt-2w fr-mb-1w">
-    <strong>Vos credentials API vous permettent d'accéder aux demandes et habilitations suivantes :</strong>
+    <strong><%= t('.list_of_habilitations_description') %></strong>
   </p>
   <ul>
     <% current_user.developer_roles.map{ |role| role.split(':').first }.each do |authorization_definition_name| %>
