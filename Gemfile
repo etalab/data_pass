@@ -72,6 +72,7 @@ group :development do
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
   gem 'rubocop-rspec_rails', require: false
+  gem 'tidewave'
   gem 'web-console'
 end
 
