@@ -199,6 +199,10 @@ fr:
       title: Votre compte
       notifications:
         title: Notifications par emails
+      developer:
+        title: Vous avez un accès développeur
+        applications_link: Voir mes credentials API
+        documentation_link: Voir la documentation API
     authorization_notifications:
       instruction_submit_notifications: Notifications pour les dépôts de demandes d'habilitations
       instruction_messages_notifications: Notifications pour les nouveaux messages sur les demandes d'habilitations
@@ -890,12 +894,12 @@ fr:
       title: Statistiques d'utilisation
   oauth_applications:
     index:
-      title: Mes applications
+      title: Mes credentials API
       description_html: |
-        Vous pouvez consulter vos applications OAuth depuis cette page.
+        Liste de vos applications Oauth et de leurs credentials API
         <br />
         <br />
-        Pour toute question, vous pouvez consulter notre <a href="%{documentation_url}">documentation</a>.
+        <a href="%{documentation_url}">Voir la documentation API</a>.
       table:
         headers:
           name: Nom de l'application

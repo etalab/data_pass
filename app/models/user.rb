@@ -121,6 +121,10 @@ class User < ApplicationRecord
     end
   end
 
+  def developer?
+    developer_roles.any?
+  end
+
   def admin?
     roles.include?('admin') ||
       bug_bounty_users_within_staging_env?
