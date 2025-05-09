@@ -43,4 +43,15 @@
       </div>
     </div>
   </div>
+
+  <p class="fr-mt-2w fr-mb-1w">
+    <strong>Vos credentials API vous permettent d'accéder aux demandes et habilitations suivantes :</strong>
+  </p>
+  <ul>
+    <% current_user.developer_roles.map{ |role| role.split(':').first }.each do |authorization_definition_name| %>
+      <li>
+        <%= authorization_definition_name %>
+      </li>
+    <% end %>
+  </ul>
 </div>
