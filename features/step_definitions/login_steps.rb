@@ -86,12 +86,10 @@ Sachantque('je suis un développeur {string}') do |kind|
     mock_mon_compte_pro(user)
   end
 
-  if @current_user_email != user.email
-    current_user.roles << "#{find_factory_trait_from_name(kind)}:reporter"
-    current_user.roles << "#{find_factory_trait_from_name(kind)}:developer"
-    current_user.roles.uniq!
-    current_user.save!
-  end
+  current_user.roles << "#{find_factory_trait_from_name(kind)}:reporter" if @current_user_email != user.email
+  current_user.roles << "#{find_factory_trait_from_name(kind)}:developer"
+  current_user.roles.uniq!
+  current_user.save!
 
   Doorkeeper::Application.create!(
     name: 'Accès API Entreprise',
