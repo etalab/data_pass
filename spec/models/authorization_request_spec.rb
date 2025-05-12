@@ -101,6 +101,14 @@ RSpec.describe AuthorizationRequest do
     end
   end
 
+  describe 'html sanitization' do
+    subject(:authorization_request) { build(:authorization_request, :api_entreprise, intitule: '"hello" <script>alert("XSS")</script>') }
+
+    it 'removes HTML tags on write' do
+      expect(authorization_request.intitule).to eq('"hello" alert("XSS")')
+    end
+  end
+
   describe 'destroy' do
     subject(:destroy) { authorization_request.destroy }
 

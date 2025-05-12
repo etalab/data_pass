@@ -741,6 +741,7 @@ DEPENDENCIES
   interactor
   kaminari
   kredis
+  loofah
   mailjet
   omniauth
   omniauth-oauth2
