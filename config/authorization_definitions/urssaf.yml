@@ -54,6 +54,8 @@ api_declaration_cesu:
   access_link: "https://api-declaration-cesu.gouv.fr/tokens/%<external_provider_id>"
   support_email: "habilitation-api@urssaf.fr"
   public: true
+  features:
+    reopening: false
   blocks:
     - name: "basic_infos"
     - name: "personal_data"
