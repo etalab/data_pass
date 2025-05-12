@@ -25,9 +25,9 @@ class BaseNotifier < ApplicationNotifier
     notify_france_connect if authorization_request.with_france_connect?
 
     if params[:within_reopening]
-      email_notification('approve', params)
-    else
       email_notification('reopening_approve', params)
+    else
+      email_notification('approve', params)
     end
   end
 
