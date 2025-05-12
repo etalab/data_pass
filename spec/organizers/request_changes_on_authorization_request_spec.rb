@@ -41,46 +41,6 @@ RSpec.describe RequestChangesOnAuthorizationRequest do
         it_behaves_like 'delivers a webhook', event_name: :request_changes
       end
 
-      context 'with sandbox authorization request' do
-        let!(:authorization_request) { create(:authorization_request, :api_impot_particulier_sandbox, :submitted) }
-
-        it 'delivers a request changes email' do
-          expect { request_changes_authorization_request }.to have_enqueued_mail(AuthorizationRequestMailer, :request_changes)
-        end
-
-        context 'when it is a reopening' do
-          let!(:authorization_request) { create(:authorization_request, :api_impot_particulier_sandbox, :reopened) }
-
-          before do
-            authorization_request.update!(state: 'submitted')
-          end
-
-          it 'delivers an email specific to reopening' do
-            expect { request_changes_authorization_request }.to have_enqueued_mail(AuthorizationRequestMailer, :reopening_request_changes)
-          end
-        end
-      end
-
-      context 'with production authorization request' do
-        let!(:authorization_request) { create(:authorization_request, :api_impot_particulier_production, :submitted) }
-
-        it 'delivers a request changes email' do
-          expect { request_changes_authorization_request }.to have_enqueued_mail(AuthorizationRequestMailer, :request_changes)
-        end
-
-        context 'when it is a reopening' do
-          let!(:authorization_request) { create(:authorization_request, :api_impot_particulier_production, :reopened) }
-
-          before do
-            authorization_request.update!(state: 'submitted')
-          end
-
-          it 'delivers an email specific to reopening' do
-            expect { request_changes_authorization_request }.to have_enqueued_mail(AuthorizationRequestMailer, :reopening_request_changes)
-          end
-        end
-      end
-
       context 'with authorization request in draft state' do
         let!(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :draft) }
 

@@ -440,38 +440,138 @@ RSpec.describe AuthorizationRequest do
   describe '#reopening?' do
     subject { authorization_request.reopening? }
 
-    let(:authorization_request) { create(:authorization_request, :api_entreprise, state: state) }
+    context 'with single stage authorization definition' do
+      let(:authorization_request) { create(:authorization_request, :api_entreprise, state: state) }
 
-    context 'when there are authorizations with the same class' do
-      before do
-        create(:authorization, request: authorization_request, authorization_request_class: authorization_request.type)
+      context 'when there is already an authorization attached to this request' do
+        before do
+          create(:authorization, request: authorization_request, authorization_request_class: authorization_request.type)
+        end
+
+        context 'when state is validated' do
+          let(:state) { 'validated' }
+
+          it { is_expected.to be_falsey }
+        end
+
+        context 'when state is revoked' do
+          let(:state) { 'revoked' }
+
+          it { is_expected.to be_falsey }
+        end
+
+        context 'when state is not validated nor revoked' do
+          let(:state) { 'submitted' }
+
+          it { is_expected.to be_truthy }
+        end
       end
 
-      context 'when state is not "validated" or "revoked"' do
-        let(:state) { 'submitted' }
+      context 'when there is no authorization attached to this request' do
+        context 'when state is validated' do
+          let(:state) { 'validated' }
 
-        it { is_expected.to be_truthy }
-      end
+          it { is_expected.to be_falsey }
+        end
 
-      context 'when state is "validated"' do
-        let(:state) { 'validated' }
+        context 'when state is revoked' do
+          let(:state) { 'revoked' }
 
-        it { is_expected.to be_falsey }
-      end
+          it { is_expected.to be_falsey }
+        end
 
-      context 'when state is "revoked"' do
-        let(:state) { 'revoked' }
+        context 'when state is not validated nor revoked' do
+          let(:state) { 'submitted' }
 
-        it { is_expected.to be_falsey }
+          it { is_expected.to be_falsey }
+        end
       end
     end
 
-    context 'when there are no authorizations with the same class' do
-      let(:authorization) { create(:authorization, request: authorization_request, authorization_request_class: :api_infinoe_sandbox) }
-      let(:state) { 'submitted' }
+    context 'with multiple stage authorization definition' do
+      let(:authorization_request) { create(:authorization_request, :api_impot_particulier_sandbox, state: state) }
 
-      it 'returns false' do
-        expect(authorization_request.reopening?).to be false
+      context 'when request is in sandbox stage' do
+        context 'when there is no authorization' do
+          context 'when it is not validated nor revoked' do
+            let(:state) { 'submitted' }
+
+            it { is_expected.to be_falsey }
+          end
+        end
+
+        context 'when there is one sandbox authorization' do
+          before do
+            create(:authorization, request: authorization_request, authorization_request_class: authorization_request.type)
+          end
+
+          context 'when it is not validated nor revoked' do
+            let(:state) { 'submitted' }
+
+            it { is_expected.to be_truthy }
+          end
+        end
+
+        context 'when there is one sandbox and production authorization' do
+          before do
+            create(:authorization, request: authorization_request, authorization_request_class: authorization_request.type)
+            create(:authorization, request: authorization_request, authorization_request_class: 'AuthorizationRequest::APIImpotParticulier')
+          end
+
+          context 'when it is validated' do
+            let(:state) { 'validated' }
+
+            it { is_expected.to be_falsey }
+          end
+
+          context 'when it is revoked' do
+            let(:state) { 'revoked' }
+
+            it { is_expected.to be_falsey }
+          end
+
+          context 'when it is not validated nor revoked' do
+            let(:state) { 'submitted' }
+
+            it { is_expected.to be_truthy }
+          end
+        end
+      end
+
+      context 'when request is in production stage' do
+        let(:authorization_request) { create(:authorization_request, :api_impot_particulier_production, state: state) }
+
+        context 'when there is no authorization' do
+          context 'when it is not validated nor revoked' do
+            let(:state) { 'submitted' }
+
+            it { is_expected.to be_falsey }
+          end
+
+          context 'when it is validated' do
+            let(:state) { 'validated' }
+
+            it { is_expected.to be_falsey }
+          end
+        end
+
+        context 'when there is one production authorization' do
+          before do
+            create(:authorization, request: authorization_request, authorization_request_class: authorization_request.type)
+          end
+
+          context 'when it is not validated nor revoked' do
+            let(:state) { 'submitted' }
+
+            it { is_expected.to be_truthy }
+          end
+
+          context 'when it is validated' do
+            let(:state) { 'validated' }
+
+            it { is_expected.to be_falsey }
+          end
+        end
       end
     end
   end
