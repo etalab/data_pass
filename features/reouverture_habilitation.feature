@@ -2,7 +2,7 @@
 
 Fonctionnalité: Réouverture d'une habilitation validée
   Une habilitation validée peut être réouverte par un demandeur. Celle-ci peut
-  être ressoumise, revalidée ou refusée (ce qui annule les changements) et la 
+  être ressoumise, revalidée ou refusée (ce qui annule les changements) et la
   réouverture peut être annulée
 
   Contexte:
@@ -182,3 +182,17 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Et il y a un badge "Production"
     Et il y a un badge "Validé"
     Et la page ne contient pas "Demande de mise à jour"
+
+  Scénario: Absence du bouton de réouverture sur la page de l'habilitation API Tierce Déclaration CESU après désactivation de l'option 'reopening'
+    Quand j'ai 1 demande d'habilitation "API Tierce Déclaration CESU" validée
+    Et que je vais sur la page tableau de bord
+    Et que je clique sur le premier "Consulter"
+    Alors je suis sur la page "API Tierce Déclaration CESU"
+    Et il y a un badge "Validée"
+    Et il n'y a pas de bouton "Mettre à jour"
+
+  Scénario: Absence du bouton "Mettre à jour" sur le tableau de bord pour l'habilitation API Tierce Déclaration CESU après désactivation de l'option 'reopening'
+    Quand j'ai 1 demande d'habilitation "API Tierce Déclaration CESU" validée
+    Et que je vais sur la page tableau de bord
+    Et il y a un badge "Validée"
+    Et il n'y a pas de bouton "Mettre à jour"
