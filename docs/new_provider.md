@@ -17,15 +17,15 @@ La checklist globale:
 5. Ajouter un test d'intégration Cucumber ;
 6. Importer les données existantes.
 
-Disclaimer: La procédure est amené à évoluer rapidement, et certains parties seront
+Disclaimer : La procédure est amené à évoluer rapidement, et certaines parties seront
 peut-être obsolètes. Il y a par ailleurs des refactorisations logiques, mais
-potentiellement prématurés: il faut attendre d'intégrer plus de sources pour
+potentiellement prématurés : il faut attendre d'intégrer plus de sources pour
 être sûr d'effectuer les refactorisations nécessaires.
 
 ## 1. Fichiers de configurations (liés aux modèles finaux)
 
-Une demande d'habilitation (le modèle) est lié à 1 ou plusieurs formulaires. Il
-faut à minima en remplir 1 de chaque et qu'ils soient liés.
+Une demande d'habilitation (le modèle) est lié à un ou plusieurs formulaires. Il
+faut à minima en remplir un de chaque et qu'ils soient liés.
 
 D'un point de vue de la couche modèle il y a :
 
@@ -51,7 +51,7 @@ Pour la configuration de la [définition (1.)](../config/authorization_definitio
     description: Une description
     # ID du provider (cf 1.1 plus bas)
     provider: dinum
-    # Optionel. Lien pour en savoir plus. Par défaut le lien du fournisseur est pris
+    # Optionnel. Lien pour en savoir plus. Par défaut le lien du fournisseur est pris
     link: https://mon-api.gouv.fr
     # Lien vers les CGU
     cgu_link: https://mon-api.gouv.fr/cgu.pdf
@@ -59,24 +59,26 @@ Pour la configuration de la [définition (1.)](../config/authorization_definitio
     access_link:  https://mon-api.gouv.fr/compte/tokens/%{external_provider_id}
     # Email de support
     support_email: support@mon-api.gouv.fr
-    # Type de service. Valeurs possibles: api, service.
+    # Type de service. Valeurs possibles : api, service.
     # Cette valeur sert principalement à personnaliser les textes, notamment sur la page de
     # démarrage d'une demande.
     kind: 'api'
     # Optionnel. Affiche ou non cette source de données dans l'index des formulaires. Par défaut à `true`
     public: true
-    # Optionnel. Détermine si il ne peut y avoir qu'un seul formulaire par organisation. Par défaut à `false`
+    # Optionnel. Détermine s'il ne peut y avoir qu'un seul formulaire par organisation. Par défaut à `false`
     unique: false
-    # Optionel. Détermine si ce formulaire peut être démarrer à l'initiative de
+    # Optionnel. Détermine si ce formulaire peut être démarré à l'initiative de
     # l'utilisateur. Cet attribut sert principalement aux habilitations en 2
-    # étapes (bac à sable puis production), lorsque la 1ere est validé la 2e est
+    # étapes (bac à sable puis production), lorsque la 1ʳᵉ est validé la 2e est
     # crée par le système. Par défaut à `true`
     startable_by_applicant: false
-    # Optionel. Permet de désactiver des fonctionnalités pour ce type de
-    # demande. Seul messaging et transfer sont supportés pour le moment
+    # Optionnel. Permet de désactiver des fonctionnalités pour ce type de
+    # demande. Seules la messagerie (messaging), le transfert et la réouverture (reopening) sont supportés pour le moment
     features:
       messaging: false
-    # Optionel. Permet de définir des étapes (ex: sandbox -> production)
+      transfer: false
+      reopening: false
+    # Optionnel. Permet de définir des étapes (ex : sandbox -> production)
     stage:
       # Type: sandbox / production
       type: sandbox
@@ -86,7 +88,7 @@ Pour la configuration de la [définition (1.)](../config/authorization_definitio
         form_id: api-impot-particulier
       # Information concernant les étapes précédentes. Clé obligatoire si le
       # type est production. Cette information mimique le comportement
-      # d'ActiveRecord qui implémente la réversabilité et permet ainsi de plus
+      # d'ActiveRecord qui implémente la réversibilité et permet ainsi de plus
       # simplement faire les liens entre les modèles. Pour plus d'infos
       # effectuer un `git blame` sur ces lignes
       previouses:
@@ -94,7 +96,7 @@ Pour la configuration de la [définition (1.)](../config/authorization_definitio
           form_id: api-impot-particulier-sandbox
         - id: api_impot_particulier_sandbox
           form_id: api-impot-particulier-sandbox-editor
-    # Liste des diverses données débrayable pour la source de données
+    # Liste des diverses données débrayables pour la source de données
     scopes:
         # Nom humanisé de la donnée
       - name: Nom de famille
@@ -107,16 +109,16 @@ Pour la configuration de la [définition (1.)](../config/authorization_definitio
         # en savoir plus sur cette donnée.
         link: https://mon-api.gouv.fr/documentation/nom-de-famille
         # Optionnel. Détermine si la donnée est forcément incluse. Cela permet
-        # d'afficher des données grisés et cochés à l'utilisateur pour l'informer
+        # d'afficher des données grisées et cochés à l'utilisateur pour l'informer
         # que ces données seront disponibles avec son habilitation. Par défaut à
         # false. Il n'est donc pas nécessaire de spécifier le scope dans
-        # l'option `scopes_config->disabled` du formulaire.
+        # l'option `scopes_config→disabled` du formulaire.
         included: true
         # Optionnel. Détermine si la donnée est désactivée. Cela permet
-        # d'afficher des données grisés et non cochés à l'utilisateur, ceci permet
+        # d'afficher des données grisées et non cochés à l'utilisateur, ceci permet
         # par exemple d'afficher des futures données disponibles ou plus disponibles.
         # Par défaut à false. Il n'est donc pas nécessaire de spécifier le scope dans
-        # l'option `scopes_config->disabled` du formulaire.
+        # l'option `scopes_config→disabled` du formulaire.
         disabled: true
 
     # Liste des blocs à afficher dans le résumé
@@ -144,18 +146,18 @@ Pour la configuration d'un [formulaire (2.)](../config/authorization_request_for
     # Nom de la classe du modèle associé (défini dans l'étape 2). Permet de
     # faire le lien avec la définition plus haut
     authorization_request: MonAPI
-    # Optionnel: Permet de spécifier la vue à utiliser dans le cas d'un
+    # Optionnel : Permet de spécifier la vue à utiliser dans le cas d'un
     # formulaire sur une seule page. Cette vue doit être placée dans `app/views/authorization_request_forms`
     single_page_view: 'api_entreprise_through_editor'
     # Optionnel. Prend celui de l'habilitation par défaut (même définition
-    # qu'au dessus)
+    # qu'au-dessus)
     public: true
     # Optionnel. Prend celui de l'habilitation par défaut (même définition
-    # qu'au dessus)
+    # qu'au-dessus)
     startable_by_applicant: true
     # Optionnel. Identifiant (actuellement lié à aucune autre modèle) permettant
-    # de potentiellement effectuer des filtres avec des liens direct
-    # ( exemple: https://api-entreprise.v2.datapass.api.gouv.fr/demandes/api_entreprise/formulaires?use_case=marches_publics )
+    # de potentiellement effectuer des filtres avec des liens directs
+    # (exemple : https://api-entreprise.v2.datapass.api.gouv.fr/demandes/api_entreprise/formulaires?use_case=marches_publics)
     # Celui-ci sera plus exploité dans des itérations futures (en l'associant à
     # un vrai modèle)
     use_case: 'marches_publics'
@@ -168,15 +170,15 @@ Pour la configuration d'un [formulaire (2.)](../config/authorization_request_for
     # systématiquement affichée, si l'introduction du formulaire est vide la
     # section est vide.
     # Il est possible d'utiliser les variables `service_provider_name` et `form_name`, de
-    # la manière suivante: "L'éditeur %{service_provider_name}"
+    # la manière suivante : "L'éditeur %{service_provider_name}".
     introduction: |
       Je suis une introduction permettant d'introduire le formulaire dans ses
       détails.
     # Optionnel. Permet de définir des options sur les scopes de la définition
     # au sein du formulaire.
     scopes_config:
-      # Optionnel. Scopes (par valeur) qui auront leur checkbox désactivés. A
-      # noter que le scope peut-être présent (grace à la clé `data`) ci-dessous.
+      # Optionnel. Scopes (par valeur) qui auront leur checkbox désactivés. À
+      # noter que le scope peut être présent (grace à la clé `data`) ci-dessous.
       disabled:
         - scope1
         - scope2
@@ -193,7 +195,7 @@ Pour la configuration d'un [formulaire (2.)](../config/authorization_request_for
       - name: basic_infos
       - name: personal_data
     # Détermine les blocs qui sont statiques, à afficher dans le résumé.
-    # Un bloc statique est un bloc qui n'a pas vocation a être modifié par le
+    # Un bloc statique est un bloc qui n'a pas vocation à être modifié par le
     # demandeur, par exemple dans le cas de formulaires d'éditeurs, certaines
     # infos comme les infos du projet sont déjà connues et fixes.
     # Ces blocs doivent matcher sur la clé `name` avec les `blocks` des
@@ -207,13 +209,13 @@ Pour la configuration d'un [formulaire (2.)](../config/authorization_request_for
 
 ### 1.1 Ajout d'un nouveau fournisseur
 
-Si il s'agit d'un nouveau fournisseur, il faut l'ajouter dans
+S'il s'agit d'un nouveau fournisseur, il faut l'ajouter dans
 [`config/data_providers.yml`](../config/data_providers.yml)
 
-Le format:
+Le format :
 
 ```yaml
-  # Identifiant unique du fournisseur, utilisé dans le form au dessus
+  # Identifiant unique du fournisseur, utilisé dans le form au-dessus
   mon-fournisseur:
     name: Mon Fournisseur
     logo: mon-fournisseur.png
@@ -223,7 +225,7 @@ Le format:
 ## 2. Ajouter et configurer le modèle de données
 
 En reprenant l'exemple ci-dessus, il faut créer le fichier
-`app/models/authorization_request/mon_api.rb` avec le contenu (minimal) suivant:
+`app/models/authorization_request/mon_api.rb` avec le contenu (minimal) suivant :
 
 ```ruby
 class AuthorizationRequest::MonAPI < AuthorizationRequest
@@ -234,7 +236,7 @@ Certains formulaires possèdent des blocs communs, certains de ces blocs ont ét
 identifiés et placés dans le dossier
 [`app/models/concerns/authorization_extensions`](../app/models/concerns/authorization_extensions).
 
-De manière plus bas niveau, une liste de méthode disponibles pour ajouter des attributs au formulaire:
+De manière plus bas niveau, une liste de méthode disponibles pour ajouter des attributs au formulaire :
 
 * `add_attribute :attribut1` pour ajouter un attribut ayant pour nom `attribut1`
     de type texte ;
@@ -248,9 +250,9 @@ De manière plus bas niveau, une liste de méthode disponibles pour ajouter des 
 Il est fortement conseillé d'utiliser les blocs dans un premier temps, et
 ces méthodes outils dans un second temps, qui permettent de dynamiquement
 accepter les modifications lors du cycle de vie de la demande, et de
-pré-configurer plus rapidement les vues.
+préconfigurer plus rapidement les vues.
 
-Exemple:
+Exemple :
 
 ```ruby
 class AuthorizationRequest::MonAPI < AuthorizationRequest
@@ -274,7 +276,7 @@ Il faut à minima définir les noms des attributs définis dans le modèle. Cela
 passe dans le fichier de locale [`activerecord.fr.yml`](../config/locales/activerecord.fr.yml)).
 Ceux-ci servent quand il y a des problèmes de validation sur les attributs.
 
-Concernant les formulaires, l'affichage tire les valeurs dans cet ordre:
+Concernant les formulaires, l'affichage tire les valeurs dans cet ordre :
 
 1. Dans le fichier de traduction [`authorization_request_forms.fr.yml`](config/locales/authorization_request_forms.fr.yml),
    clé correspondant au type de formulaire (exemple: `mon-api-form`) ;
@@ -291,9 +293,9 @@ Ce qui est exploité ici (liste non-exhaustive):
 3. Les titres
 4. Les blocs d'infos
 
-A noter que l'on peut ajouter d'autres clés non-conventionnelles.
+À noter que l'on peut ajouter d'autres clés non-conventionnelles.
 
-A noter que pour le point 4., les contacts sont définis de manière unitaire, si
+À noter que pour le point 4., les contacts sont définis de manière unitaire, si
 vous voulez par exemple modifier ou ajouter des infos sur le contact
 `contact_technique` pour le modèle `MonAPI`:
 
@@ -307,7 +309,7 @@ authorization_request_forms:
 
 Il est possible, uniquement pour les infos des contacts, de modifier par
 formulaire. Par exemple pour le formulaire ayant l'id "mon-formulaire" pour
-le type d'habilitation "mon_api":
+le type d'habilitation "mon_api" :
 
 ```yaml
 authorization_request_forms:
@@ -321,9 +323,9 @@ authorization_request_forms:
 
 ### Personnalisation du démarrage
 
-Si il n'y a qu'un seul formulaire associé à la définition, alors on redirige directement vers le `new` du formulaire, c'est à dire `/formulaires/:form_uid/demande/nouveau`.
+S'il n'y a qu'un seul formulaire associé à la définition, alors on redirige directement vers le `new` du formulaire, c'est-à-dire `/formulaires/:form_uid/demande/nouveau`.
 
-Si il y a plusieurs formulaires il y a par défaut la liste de formulaires générique de `authorization_requests/new/default.html.erb`. Il est possible de personnaliser cette page afin par exemple d'effectuer de l'aiguillage.
+S'il y a plusieurs formulaires il y a par défaut la liste de formulaires générique de `authorization_requests/new/default.html.erb`. Il est possible de personnaliser cette page afin par exemple d'effectuer de l'aiguillage.
 
 C'est le cas pour API Entreprise, dont le fichier est présent [ici](../app/views/authorization_requests/new/api_entreprise.html.erb)
 
@@ -335,10 +337,10 @@ Pour API Entreprise => `api_entreprise.html.erb`
 
 ### 4.1 Cas du multi étapes
 
-Il faut s'assurer que pour chaque étape défini dans le fichier en 1. une vue
+Il faut s'assurer que pour chaque étape définie dans le fichier en 1. Une vue
 existe dans le dossier [`app/views/authorization_request_forms/build/`](../app/views/authorization_request_forms/build/).
 
-Si ce n'est pas le cas il faut ajouter, pour une étape ayant pour nom
+Si ce n'est pas le cas, il faut ajouter, pour une étape ayant pour nom
 `mon_etape`, le fichier `mon_etape.html.erb`. Inspirez-vous des fichiers
 existants[^1]. Vous pouvez utiliser les méthodes de formulaire en `dsfr_` pour
 simplifier la génération des formulaires.
@@ -348,7 +350,7 @@ simplifier la génération des formulaires.
 ### 4.2 Cas du formulaire sur une page
 
 Il faut créer le fichier `mon_api.html.erb` dans le dossier
-[`app/views/authorization_request_forms/`](../app/views/authorization_request_forms/) avec le markup minimal:
+[`app/views/authorization_request_forms/`](../app/views/authorization_request_forms/) avec le markup minimal :
 
 ```erb
 <%= authorization_request_form(@authorization_request) do |f| %>
@@ -359,7 +361,7 @@ Il faut créer le fichier `mon_api.html.erb` dans le dossier
 <% end %>
 ```
 
-A noter qu'il est possible de changer le nom de `mon_api` si vous précisez une
+À noter qu'il est possible de changer le nom de `mon_api` si vous précisez une
 valeur pour `single_page_view`
 
 ## 5. Ajout du test d'intégration Cucumber
@@ -367,10 +369,10 @@ valeur pour `single_page_view`
 Créer le fichier `mon_api.feature` dans [`features/habilitations`](../features/habilitations) et
 remplissez en fonction de la spécification.
 
-A noter qu'il peut déjà exister des fichiers si le type d'habilitation existait
+À noter qu'il peut déjà exister des fichiers si le type d'habilitation existait
 déjà avant.
 
 ## 6. Importer les données existantes
 
-Si il s'agit d'un nouveau formulaire sans donnée, il n'y a rien à faire.
+S'il s'agit d'un nouveau formulaire sans donnée, il n'y a rien à faire.
 Sinon, vous pouvez vous référer au [README](../app/migration/README.md) associé.
