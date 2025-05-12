@@ -3,7 +3,7 @@
     <%= f.label_value(:cadre_juridique_nature) %>
   </strong>
 
-  <%= simple_format(@authorization_request.cadre_juridique_nature) %>
+  <%= simple_format_without_html_tags(@authorization_request.cadre_juridique_nature) %>
 
   <% if @authorization_request.cadre_juridique_url.present? %>
     <p>

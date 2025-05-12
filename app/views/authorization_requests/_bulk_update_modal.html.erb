@@ -8,7 +8,7 @@
       <%= t('authorization_requests.bulk_update_modal.description', authorization_definition_name: @bulk_update.authorization_definition.name) %>
 
       <div class="fr-mt-2v fr-blockquote-info">
-        <%= simple_format(@bulk_update.reason) %>
+        <%= simple_format_without_html_tags(@bulk_update.reason) %>
       </div>
     </div>
   <% end %>

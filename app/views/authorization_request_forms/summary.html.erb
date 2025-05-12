@@ -24,7 +24,7 @@
           <% end %>
 
           <blockquote>
-            <%= simple_format(@authorization_request.modification_request.reason) %>
+            <%= simple_format_without_html_tags(@authorization_request.modification_request.reason) %>
           </blockquote>
         </div>
       <% end %>
@@ -46,7 +46,7 @@
           <% end %>
 
           <blockquote>
-            <%= simple_format(@authorization_request.denial.reason) %>
+            <%= simple_format_without_html_tags(@authorization_request.denial.reason) %>
           </blockquote>
         </div>
       <% end %>

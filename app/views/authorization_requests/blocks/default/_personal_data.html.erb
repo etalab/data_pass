@@ -3,7 +3,7 @@
     <%= f.label_value(:destinataire_donnees_caractere_personnel) %>
   </strong>
 
-  <%= simple_format(@authorization_request.destinataire_donnees_caractere_personnel) %>
+  <%= simple_format_without_html_tags(@authorization_request.destinataire_donnees_caractere_personnel) %>
 
   <strong>
     <%= f.label_value(:duree_conservation_donnees_caractere_personnel) %>
@@ -18,7 +18,7 @@
       </strong>
 
       <p>
-        <%= simple_format(@authorization_request.duree_conservation_donnees_caractere_personnel_justification) %>
+        <%= simple_format_without_html_tags(@authorization_request.duree_conservation_donnees_caractere_personnel_justification) %>
       </p>
     </div>
   <% end %>
