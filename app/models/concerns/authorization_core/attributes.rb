@@ -73,6 +73,8 @@ module AuthorizationCore::Attributes
         end
       end
 
+      private
+
       def sanitize_html(value)
         return if value.blank?
 
