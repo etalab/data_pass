@@ -895,6 +895,7 @@ api-particulier-airweb:
   scopes_config:
     displayed:
       - cnaf_quotient_familial
+      - cnaf_adresse
       - pole_emploi_identite
       - mesri_identite
       - mesri_admissions
@@ -904,6 +905,8 @@ api-particulier-airweb:
       - cnous_echelon_bourse
       - revenu_solidarite_active
       - complementaire_sante_solidaire
+      - men_statut_scolarite
+      - men_statut_etablissement
 
   data:
     intitule: Tarification des transports
