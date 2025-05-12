@@ -44,7 +44,8 @@ class Instruction::AuthorizationRequestPolicy < ApplicationPolicy
   end
 
   def cancel_reopening?
-    show? &&
+    feature_enabled?(:reopening) &&
+      show? &&
       instructor_for_record? &&
       record.can_cancel_reopening?
   end

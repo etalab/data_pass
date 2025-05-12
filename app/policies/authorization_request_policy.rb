@@ -52,14 +52,16 @@ class AuthorizationRequestPolicy < ApplicationPolicy
   end
 
   def cancel_reopening?
-    !record.dirty_from_v1? &&
+    feature_enabled?(:reopening) &&
+      !record.dirty_from_v1? &&
       same_user_and_organization? &&
       record.can_cancel_reopening? &&
       !record.submitted?
   end
 
   def submit_reopening?
-    same_user_and_organization? &&
+    feature_enabled?(:reopening) &&
+      same_user_and_organization? &&
       changed_since_latest_approval?
   end
 
