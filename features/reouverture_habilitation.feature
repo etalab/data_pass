@@ -132,6 +132,10 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Alors il y a un message de succès contenant "soumise avec succès"
     Et il y a un badge "Bac à sable"
     Et il y a un badge "En cours"
+    Et qu'un instructeur a validé la demande d'habilitation
+    Et que je vais sur la page tableau de bord
+    Alors la page contient "Votre demande de réouverture d’accès au bac à sable a été validée !"
+
 
 
   Scénario: Initialisation d'une réouverture production d'une demande validée en production

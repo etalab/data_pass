@@ -5,7 +5,7 @@
         <% if authorization_request.next_stage_already_started? %>
           <%= t('.next_stage_title_production') %>
         <% else %>
-          <% if authorization_request.reopening? %> 
+          <% if authorization_request.reopening_validated? %>
             <%= t('.next_stage_reopening_title') %>
           <% else %>
             <%= t('.next_stage_title') %>
@@ -17,7 +17,7 @@
         <% if authorization_request.next_stage_already_started? %>
           <%= t('.next_stage_subtitle_production') %>
         <% else %>
-          <% if authorization_request.reopening? %> 
+          <% if authorization_request.reopening_validated? %>
             <%= t('.next_stage_reopening_subtitle') %>
           <% else %>
             <%= t('.next_stage_subtitle') %>
