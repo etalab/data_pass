@@ -730,7 +730,7 @@ api-particulier-extenso-partner-extenso-cloud:
   data:
     intitule: Tarification du stationnement résidentiel
     description:
-      Le logiciel permet la gestion des abonnements de stationnement (résidentiels). Il est disponible en 2 parties, 1 backoffice pour les agents du service public et 1 frontoffice à destination des administrés.
+      Le logiciel permet la gestion des abonnements de stationnement (résidentiels). Il est disponible en 2 parties, 1 back-office pour les agents du service public et 1 front-office à destination des administrés.
     cadre_juridique_nature:
       L'article L114-8 du code des relations entre le public
       et l'administration fixe le cadre général des échanges de données au sein de
