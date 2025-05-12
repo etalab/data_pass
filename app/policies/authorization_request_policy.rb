@@ -44,7 +44,8 @@ class AuthorizationRequestPolicy < ApplicationPolicy
   end
 
   def reopen?
-    !record.dirty_from_v1? &&
+    feature_enabled?(:reopening) &&
+      !record.dirty_from_v1? &&
       record.persisted? &&
       same_user_and_organization? &&
       record.can_reopen?
