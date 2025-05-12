@@ -201,6 +201,10 @@ shared:
     type: editor
     name: AchetezA
     siret: "82037074000012"
+  dialog:
+    type: editor
+    name: Dialog
+    siret: "92219530000020"
   achatpublic:
     type: editor
     name: "Achatpublic - achatpublic.com"

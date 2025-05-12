@@ -730,11 +730,7 @@ api-particulier-extenso-partner-extenso-cloud:
   data:
     intitule: Tarification du stationnement résidentiel
     description:
-      Dans un esprit de simplification et de sécurité, les collectivités
-      pourront utiliser API Particulier pour récupérer les quotients familiaux des
-      administrés afin de faciliter la facturation des services enfance et périscolaire.
-      L’utilisation d’API Particulier est un vrai plus pour dématérialiser les mises
-      à jour de ces informations
+      Le logiciel permet la gestion des abonnements de stationnement (résidentiels). Il est disponible en 2 parties, 1 back-office pour les agents du service public et 1 front-office à destination des administrés.
     cadre_juridique_nature:
       L'article L114-8 du code des relations entre le public
       et l'administration fixe le cadre général des échanges de données au sein de
@@ -899,15 +895,18 @@ api-particulier-airweb:
   scopes_config:
     displayed:
       - cnaf_quotient_familial
+      - cnaf_adresse
       - pole_emploi_identite
       - mesri_identite
       - mesri_admissions
       - mesri_admission_inscrit
       - mesri_admission_commune_etudes
       - cnous_statut_boursier
-      - men_echelon_bourse
+      - cnous_echelon_bourse
       - revenu_solidarite_active
       - complementaire_sante_solidaire
+      - men_statut_scolarite
+      - men_statut_etablissement
 
   data:
     intitule: Tarification des transports
@@ -922,7 +921,7 @@ api-particulier-airweb:
       - mesri_admission_inscrit
       - mesri_admission_commune_etudes
       - cnous_statut_boursier
-      - men_echelon_bourse
+      - cnous_echelon_bourse
       - revenu_solidarite_active
       - complementaire_sante_solidaire
     # contact_technique_editable: false
@@ -1319,6 +1318,64 @@ api-particulier-acheteza:
     modalities:
       - params
 
+api-particulier-dialog:
+  name: Memberz
+  description: Dématérialisation des dispositifs d'aides et de subventions communales, départementales ou régionales
+  authorization_request: APIParticulier
+  introduction: *api_particulier_introduction_editor_with_editable_scopes
+  steps: *api_particulier_editor_steps_with_editable_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_editable_scopes
+  use_case: aides_facultatives
+  service_provider_id: dialog
+  scopes_config:
+    displayed:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_enfants
+      - cnaf_adresse
+      - mesri_identite
+      - mesri_admissions
+      - mesri_admission_inscrit
+      - mesri_admission_commune_etudes
+      - mesri_admission_regime_formation
+      - cnous_statut_boursier
+      - cnous_echelon_bourse
+      - men_statut_identite
+      - men_statut_scolarite
+      - men_statut_boursier
+      - men_echelon_bourse
+
+
+  data:
+    intitule: Dématérialisation des dispositifs d'aides et de subventions
+    description: |
+      Dématérialisation des dispositifs d'aides et de subventions communales, départementales ou régionales
+    cadre_juridique_nature: 
+      L'article L114-8 du code des relations entre le public et l'administration fixe le cadre général des échanges de données au sein de l'administration. En tant que collectivité territoriale, la délibération ci-jointe précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices, et précise les données nécessaires à son fonctionnement.
+    scopes:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_enfants
+      - cnaf_adresse
+      - mesri_identite
+      - mesri_admissions
+      - mesri_admission_inscrit
+      - mesri_admission_commune_etudes
+      - mesri_admission_regime_formation
+      - cnous_statut_boursier
+      - cnous_echelon_bourse
+      - men_statut_identite
+      - men_statut_scolarite
+      - men_statut_boursier
+      - men_echelon_bourse
+    contact_technique_email: "<%= Rails.application.credentials.api_particulier_dialog_contact_technique_email || 'tech-dialog@yopmail.com' %>"
+    contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_dialog_contact_technique_given_name || 'Jeanne' %>"
+    contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_dialog_contact_technique_family_name || 'Martin' %>"
+    contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_dialog_contact_technique_phone_number || '0836656565' %>"
+    contact_technique_job_title: Contact technique
+    modalities:
+      - params
+
 # ------------------------------- #
 # ------------------------------- #
 # ------------------------------- #
@@ -1535,7 +1592,7 @@ api-particulier-coexya:
   description: Tarification sociale et solidaires des transports
   authorization_request: APIParticulier
   single_page_view: "api_particulier_through_editor"
-  use_case: tarification_municipale_enfance
+  use_case: tarification_transports
   service_provider_id: coexya
   static_blocks: *api_particulier_through_editor_static_blocks
   data:
@@ -1549,6 +1606,8 @@ api-particulier-coexya:
       - cnaf_quotient_familial
       - cnaf_allocataires
       - cnaf_adresse
+      - cnous_statut_bourse
+      - cnous_echelon_bourse
       - men_statut_scolarite
       - men_statut_boursier
       - men_echelon_bourse
