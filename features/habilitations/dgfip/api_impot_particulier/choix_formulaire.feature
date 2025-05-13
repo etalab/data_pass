@@ -9,7 +9,7 @@ Fonctionnalité: Choix de la modalité d'appel et du stage du formulaire API Imp
     Quand je veux remplir une demande pour "API Impôt Particulier"
 
   Scénario: Je veux accèder à l'API via l'état civil
-    Alors la page contient "cliquez-ici pour faire une demande API Courtier fonctionnel SFiP"
+    Alors la page contient "Cliquez-ici pour faire une demande"
 
   Scénario: J’ai déjà un éditeur qui a accès au bac à sable
     Et que je choisis "Via le numéro fiscal (SPI)"

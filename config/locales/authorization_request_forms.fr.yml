@@ -732,7 +732,6 @@ fr:
         title: Comment vos usagers accèderont aux données ?
         subtitle_html: |
           <p>Cette API est FranceConnectée, vos utilisateurs peuvent donc utiliser FranceConnect pour vous transmettre directement les données dont vous avez besoin.</p>
-          <p>Vous cherchez la modalité d'accès "via l'Etat civil", <a href="%{sfip_url}">cliquez-ici pour faire une demande API Courtier fonctionnel SFiP</a>.</p>
         label: Modalité d'accès aux données
         values:
           with_france_connect:
@@ -745,6 +744,12 @@ fr:
           title: Pour proposer FranceConnect à vos utilisateurs, il vous faudra au préalable demander une habilitation FranceConnect.
           content: Vous pourrez poursuivre votre demande d’habilitation à l’API Impôt Particulier lorsque votre habilitation FranceConnect sera validée.
           link: Demander une habilitation FranceConnect
+        alert:
+          title: Vous cherchez la modalité d’accès État civil ?
+          content: |
+            Cette modalité d’accès est uniquement disponible via l’API Courtier fonctionnel SFiP.
+            <br/>
+            <a href="%{sfip_url}">Cliquez-ici pour faire une demande <span class="fr-icon-arrow-right-line" aria-hidden="true"></span></a>.
       france_connect_authorization_id:
         label: Sélectionnez une habilitation FranceConnect qui sera liée à cette demande
       scopes:
