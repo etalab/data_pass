@@ -1391,8 +1391,18 @@ api-particulier-coexya:
   single_page_view: "api_particulier_through_editor"
   use_case: tarification_transports
   service_provider_id: coexya
-  static_blocks: *api_particulier_through_editor_static_blocks
-  
+  scopes_config:
+    displayed:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_adresse
+      - cnous_statut_bourse
+      - cnous_echelon_bourse
+      - men_statut_scolarite
+      - men_statut_boursier
+      - men_echelon_bourse
+      - complementaire_sante_solidaire
+
   data:
     intitule: Tarification sociale et solidaires des transports
     description: Aide à l'accès aux transports
