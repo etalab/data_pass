@@ -12,7 +12,7 @@
 
 <div data-controller="choose-modalite-with-france-connect">
   <div class="fr-col-lg-9 fr-mb-5w">
-    <%= t("authorization_request_forms.api_impot_particulier_sandbox.modalities.subtitle_html", sfip_url: new_authorization_request_path(definition_id: :api_sfip)) %>
+    <%= t("authorization_request_forms.api_impot_particulier_sandbox.modalities.subtitle_html") %>
 
     <fieldset class="fr-fieldset" id="radio-rich" aria-labelledby="radio-rich-legend radio-rich-messages">
       <% t("authorization_request_forms.api_impot_particulier_sandbox.modalities.values").each do |value, options| %>
@@ -36,6 +36,15 @@
       <div class="fr-messages-group" id="radio-rich-messages" aria-live="polite">
       </div>
     </fieldset>
+
+    <div class="fr-alert fr-alert--info">
+      <h3 class="fr-alert__title">
+        <%= t("authorization_request_forms.api_impot_particulier_sandbox.modalities.alert.title") %>
+      </h3>
+      <p>
+        <%= t("authorization_request_forms.api_impot_particulier_sandbox.modalities.alert.content", sfip_url: new_authorization_request_path(definition_id: :api_sfip)).html_safe %>
+      </p>
+    </div>
   </div>
 
   <div class="fr-col-lg-9 fr-mb-5w fr-hidden" data-choose-modalite-with-france-connect-target="franceConnectContainer">
