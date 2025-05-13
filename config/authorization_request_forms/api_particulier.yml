@@ -647,9 +647,9 @@ api-particulier-ecorestauration-loyfeey:
 
 api-particulier-jcdeveloppement-familyclic:
   name: FamilyClic
-  description: Tarification cantine
+  description: Portail famille
   authorization_request: APIParticulier
-  use_case: cantines-colleges-lycees-tarification
+  use_case: tarification_municipale_enfance
   service_provider_id: jcdeveloppement
   public: true
   introduction: *api_particulier_introduction_editor_with_editable_scopes
@@ -907,6 +907,7 @@ api-particulier-airweb:
       - complementaire_sante_solidaire
       - men_statut_scolarite
       - men_statut_etablissement
+      - allocation_adulte_handicape
 
   data:
     intitule: Tarification des transports
@@ -924,12 +925,19 @@ api-particulier-airweb:
       - cnous_echelon_bourse
       - revenu_solidarite_active
       - complementaire_sante_solidaire
+      - allocation_adulte_handicape
     # contact_technique_editable: false
     contact_technique_email: "<%= Rails.application.credentials.api_particulier_airweb_contact_technique_email || 'tech-airweb@yopmail.com' %>"
     contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_airweb_contact_technique_given_name || 'Jean' %>"
     contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_airweb_contact_technique_family_name || 'Dupont' %>"
     contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_airweb_contact_technique_phone_number || '0836656565' %>"
     contact_technique_job_title: Directeur technique
+    # delegue_protection_donnees_editable: true
+    delegue_protection_donnees_email: "<%= Rails.application.credentials.api_particulier_airweb_delegue_protection_donnees_email || 'dpo-airweb@yopmail.com' %>"
+    delegue_protection_donnees_given_name: "<%= Rails.application.credentials.api_particulier_airweb_delegue_protection_donnees_given_name || 'Jean' %>"
+    delegue_protection_donnees_family_name: "<%= Rails.application.credentials.api_particulier_airweb_delegue_protection_donnees_family_name || 'Dupont' %>"
+    delegue_protection_donnees_phone_number: "<%= Rails.application.credentials.api_particulier_airweb_delegue_protection_donnees_phone_number || '0836656565' %>"
+    delegue_protection_donnees_job_title: Chef de projet
     modalities:
       - params
 
@@ -1376,6 +1384,39 @@ api-particulier-dialog:
     modalities:
       - params
 
+api-particulier-coexya:
+  name: ICAR
+  description: Tarification sociale et solidaires des transports
+  authorization_request: APIParticulier
+  single_page_view: "api_particulier_through_editor"
+  use_case: tarification_transports
+  service_provider_id: coexya
+  static_blocks: *api_particulier_through_editor_static_blocks
+  
+  data:
+    intitule: Tarification sociale et solidaires des transports
+    description: Aide à l'accès aux transports
+    cadre_juridique_nature:
+      l'Article L114-8 du Code des relations entre le public
+      et l'administration fixe le cadre général qui oblige l’administration à échanger
+      des données lors d’une démarche d’un usager.
+    scopes:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_adresse
+      - cnous_statut_bourse
+      - cnous_echelon_bourse
+      - men_statut_scolarite
+      - men_statut_boursier
+      - men_echelon_bourse
+      - complementaire_sante_solidaire
+    contact_technique_email: "<%= Rails.application.credentials.api_particulier_coexya_contact_technique_email || 'tech-coexya@yopmail.com' %>"
+    contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_coexya_contact_technique_given_name || 'Jeanne' %>"
+    contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_coexya_contact_technique_family_name || 'Martin' %>"
+    contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_coexya_contact_technique_phone_number || '0836656565' %>"
+    contact_technique_job_title: Contact technique
+
+
 # ------------------------------- #
 # ------------------------------- #
 # ------------------------------- #
@@ -1585,37 +1626,6 @@ api-particulier-ccas-melissandre-afi:
     contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_afi_contact_technique_given_name || 'Jeanne' %>"
     contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_afi_contact_technique_family_name || 'Martin' %>"
     contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_afi_contact_technique_phone_number || '0836656565' %>"
-    contact_technique_job_title: Contact technique
-
-api-particulier-coexya:
-  name: ICAR
-  description: Tarification sociale et solidaires des transports
-  authorization_request: APIParticulier
-  single_page_view: "api_particulier_through_editor"
-  use_case: tarification_transports
-  service_provider_id: coexya
-  static_blocks: *api_particulier_through_editor_static_blocks
-  data:
-    intitule: Tarification sociale et solidaires des transports
-    description: Aide à l'accès aux transports
-    cadre_juridique_nature:
-      l'Article L114-8 du Code des relations entre le public
-      et l'administration fixe le cadre général qui oblige l’administration à échanger
-      des données lors d’une démarche d’un usager.
-    scopes:
-      - cnaf_quotient_familial
-      - cnaf_allocataires
-      - cnaf_adresse
-      - cnous_statut_bourse
-      - cnous_echelon_bourse
-      - men_statut_scolarite
-      - men_statut_boursier
-      - men_echelon_bourse
-      - complementaire_sante_solidaire
-    contact_technique_email: "<%= Rails.application.credentials.api_particulier_coexya_contact_technique_email || 'tech-coexya@yopmail.com' %>"
-    contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_coexya_contact_technique_given_name || 'Jeanne' %>"
-    contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_coexya_contact_technique_family_name || 'Martin' %>"
-    contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_coexya_contact_technique_phone_number || '0836656565' %>"
     contact_technique_job_title: Contact technique
 
 api-particulier-sigec-maelis:
