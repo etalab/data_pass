@@ -1,6 +1,6 @@
-<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { title: f.wording_for('steps.france_connect_eidas'), block_id: :france_connect_eidas, f:, editable: } do %>
+<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { authorization_request:, title: f.wording_for('steps.france_connect_eidas'), block_id: :france_connect_eidas, f:, editable: } do %>
   <div class="summary-block__container">
-    <%= I18n.t("activerecord.values.authorization_request.france_connect_eidas.#{@authorization_request.france_connect_eidas}") %>
+    <%= I18n.t("activerecord.values.authorization_request.france_connect_eidas.#{authorization_request.france_connect_eidas}") %>
   </div>
 <% end %>
 

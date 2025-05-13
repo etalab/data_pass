@@ -1,48 +1,48 @@
-<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { title: f.wording_for('steps.basic_infos'), block_id: :basic_infos, f:, editable: } do %>
-  <% if @authorization_request.respond_to?(:intitule) %>
+<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { authorization_request:, title: f.wording_for('steps.basic_infos'), block_id: :basic_infos, f:, editable: } do %>
+  <% if authorization_request.respond_to?(:intitule) %>
     <strong>
       <%= f.label_value(:intitule) %>
     </strong>
 
-    <%= simple_format_without_html_tags(@authorization_request.intitule) %>
+    <%= simple_format_without_html_tags(authorization_request.intitule) %>
   <% end %>
 
-  <% if @authorization_request.respond_to?(:description) %>
+  <% if authorization_request.respond_to?(:description) %>
     <strong>
       <%= f.label_value(:description) %>
     </strong>
 
-    <%= simple_format_without_html_tags(@authorization_request.description) %>
+    <%= simple_format_without_html_tags(authorization_request.description) %>
   <% end %>
 
-  <% if @authorization_request.respond_to?(:maquette_projet) && @authorization_request.maquette_projet.attached? %>
+  <% if authorization_request.respond_to?(:maquette_projet) && authorization_request.maquette_projet.attached? %>
     <div class="fr-mb-5v">
       <strong>
         <%= f.label_value(:maquette_projet) %> :
       </strong>
       <br />
       <% if namespace?(:instruction) %>
-        <% if @authorization_request.maquette_projet.unsafe? %>
-          <a aria-disabled="true"><%= @authorization_request.maquette_projet.filename %></a>
+        <% if authorization_request.maquette_projet.unsafe? %>
+          <a aria-disabled="true"><%= authorization_request.maquette_projet.filename %></a>
         <% else %>
-          <%= link_to @authorization_request.maquette_projet.filename, url_for(@authorization_request.maquette_projet), target: '_blank', class: %w[fr-link--icon-left fr-icon-file-pdf-fill] %>
+          <%= link_to authorization_request.maquette_projet.filename, url_for(authorization_request.maquette_projet), target: '_blank', class: %w[fr-link--icon-left fr-icon-file-pdf-fill] %>
         <% end %>
-        <%= f.dsfr_malware_badge @authorization_request.maquette_projet, class: 'fr-ml-1w' %>
+        <%= f.dsfr_malware_badge authorization_request.maquette_projet, class: 'fr-ml-1w' %>
       <% else %>
-        <%= link_to @authorization_request.maquette_projet.filename, url_for(@authorization_request.maquette_projet), target: '_blank', class: %w[fr-link--icon-left fr-icon-file-pdf-fill] %>
+        <%= link_to authorization_request.maquette_projet.filename, url_for(authorization_request.maquette_projet), target: '_blank', class: %w[fr-link--icon-left fr-icon-file-pdf-fill] %>
       <% end %>
     </div>
   <% end %>
 
-  <% if @authorization_request.respond_to?(:date_prevue_mise_en_production) %>
+  <% if authorization_request.respond_to?(:date_prevue_mise_en_production) %>
     <p>
-      <strong><%= f.label_value(:date_prevue_mise_en_production) %></strong> : <%= @authorization_request.date_prevue_mise_en_production || 'Non renseigné' %>
+      <strong><%= f.label_value(:date_prevue_mise_en_production) %></strong> : <%= authorization_request.date_prevue_mise_en_production || 'Non renseigné' %>
     </p>
   <% end %>
 
-  <% if @authorization_request.respond_to?(:volumetrie_approximative) %>
+  <% if authorization_request.respond_to?(:volumetrie_approximative) %>
     <p>
-      <strong><%= f.label_value(:volumetrie_approximative) %></strong> : <%= @authorization_request.volumetrie_approximative || 'Non renseigné' %>
+      <strong><%= f.label_value(:volumetrie_approximative) %></strong> : <%= authorization_request.volumetrie_approximative || 'Non renseigné' %>
     </p>
   <% end %>
 <% end %>
