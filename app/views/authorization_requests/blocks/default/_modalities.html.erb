@@ -1,19 +1,19 @@
-<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { title: f.wording_for('steps.modalities'), block_id: :modalities, f:, editable: } do %>
+<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { authorization_request:, title: f.wording_for('steps.modalities'), block_id: :modalities, f:, editable: } do %>
   <% if f.wording_for('modalities.intro') %>
     <%= f.wording_for('modalities.intro').html_safe %>
   <% end %>
 
   <ul>
-    <% Array(@authorization_request.modalities).each do |modality| %>
+    <% Array(authorization_request.modalities).each do |modality| %>
       <li>
         <%= f.label_value("modalities.values.#{modality}").html_safe %>
       </li>
     <% end %>
   </ul>
 
-  <% if @authorization_request.try(:france_connect_authorization_id).present? && @authorization_request.with_france_connect? %>
+  <% if authorization_request.try(:france_connect_authorization_id).present? && authorization_request.with_france_connect? %>
     <p class="fr-pl-2w">
-      <%= @authorization_request.france_connect_authorization.decorate.name_for_select %>
+      <%= authorization_request.france_connect_authorization.decorate.name_for_select %>
     </p>
   <% end %>
 <% end %>
