@@ -1,7 +1,7 @@
 <%= authorization_request_form_tag(@authorization_request) do |f| %>
   <%= render partial: "authorization_requests/shared/reopening_callout", locals: { type: :instructor } if @authorization_request.reopening? %>
 
-  <%= render partial: 'authorization_requests/shared/organization_and_applicant' %>
+  <%= render partial: 'demandes_habilitations/organization_and_applicant', locals: { demande: @authorization_request } %>
 
   <div class="info-block">
     <h3>

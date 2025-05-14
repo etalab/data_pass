@@ -1,14 +1,19 @@
 class AuthorizationsController < AuthenticatedUserController
-  helper AuthorizationRequestsHelpers
+  helper DemandesHabilitations::CommonHelper
 
   before_action :set_authorization, only: :show
+  decorates_assigned :authorization
 
   def show
     authorize @authorization, :show?
 
-    @authorization_request = @authorization.request_as_validated.decorate
-
-    render 'authorization_request_forms/summary'
+    # @authorization_request = @authorization.request_as_validated.decorate
+    @form_builder = AuthorizationRequestFormBuilder.new(
+      'authorization_request',
+      @authorization.request,
+      view_context,
+      {}
+    )
   end
 
   private

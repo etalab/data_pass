@@ -1,0 +1,70 @@
+<div class="authorization-header fr-background-action-high--blue-france">
+  <div class="fr-container">
+    <div class="fr-grid-row">
+      <div class="fr-col-12 fr-col-md-8">
+        <h1 class="fr-h3 fr-mt-15v fr-mb-1-5v fr-text-inverted--blue-france">
+          <span class="fr-icon-award-fill" aria-hidden="true"></span>
+          Habilitation à <%= authorization.definition.name %>
+        </h1>
+        <div class="fr-display-flex fr-align-items-center">
+        <p class="fr-text-inverted--blue-france">
+          <span class="fr-mr-1v"><%= authorization.name %></span>
+          <%= render partial: 'authorizations/sandbox_production_badge', locals: { authorization: authorization } %>
+        </p>
+        </div>
+
+        <div class="fr-mb-10v fr-badges-group">
+          <div class="fr-badge fr-badge--sm fr-badge--blue-ecume">
+            Habilitation n°<%= authorization.id %>
+          </div>
+          <div class="fr-badge fr-badge--sm <%= state_badge_html_class %>">
+            <%= authorization.state %>
+          </div>
+        </div>
+      </div>
+
+      <div class="fr-col-12 fr-col-md-4">
+        <div class="authorization-header__actions">
+          <% if policy(authorization).reopen? %>
+            <%= dsfr_main_modal_button t('authorization_request_forms.form.reopen'),
+                                               url_for(controller: 'reopen_authorizations',
+                                                       action: 'new',
+                                                       authorization_request_id: authorization.request&.id,
+                                                       authorization_id: authorization.request.latest_authorization.id),
+                                               title: "Mettez à jour votre habilitation",
+                                               class: %w(fr-btn fr-btn--sm fr-btn--icon-left fr-icon-edit-box-line),
+                                               aria_hidden: "true" %>
+          <% end %>
+
+          <% if policy(authorization).transfer? %>
+            <%= dsfr_main_modal_button t('authorization_request_forms.form.transfer'),
+                                               new_authorization_request_transfer_path(authorization.request, type: :change_organization),
+                                               id: :transfer_authorization_request,
+                                               title: "Transférer l'habilitation à un autre utilisateur de votre organisation",
+                                               class: %w(fr-btn fr-btn--sm fr-btn-secondary fr-btn--icon-left fr-icon-arrow-up-down-line),
+                                               aria_hidden: "true" %>
+          <% end %>
+
+          <% if policy(authorization).start_next_stage? && !authorization.request.reopening? %>
+            <%= link_to t('dashboard.card.stage_footer.start_next_stage_cta'),
+                        next_authorization_request_stage_path(authorization.request),
+                        title: "Démarrer une nouvelle demande d'habilitation pour l'environnement de production",
+                        class: %w(fr-btn fr-btn--sm) %>
+          <% end %>
+
+          <% if policy(authorization).contact_support? %>
+            <%= dsfr_main_modal_button t('authorization_request_forms.form.contact_support'),
+                                               "mailto:datapass@api.gouv.fr",
+                                               subject: "Habilitation #{authorization.id} révoquée",
+                                               class: %w(fr-btn fr-btn--sm fr-btn--icon-left fr-icon-mail-line),
+                                               aria_hidden: "true" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <% if policy([:instruction, @authorization.request]).show? %>
+      <%= render partial: 'authorizations/instruction_header_info', locals: { authorization: @authorization } %>
+    <% end %>
+  </div>
+</div>
