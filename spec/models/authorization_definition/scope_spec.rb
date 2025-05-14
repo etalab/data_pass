@@ -4,7 +4,7 @@ RSpec.describe AuthorizationDefinition::Scope do
       scope = described_class.new(
         name: 'Test Scope',
         value: 'test_scope',
-        deprecated_since: Date.yesterday
+        deprecated_since: Date.yesterday.to_s
       )
 
       expect(scope).to be_deprecated
@@ -23,20 +23,10 @@ RSpec.describe AuthorizationDefinition::Scope do
       scope = described_class.new(
         name: 'Test Scope',
         value: 'test_scope',
-        deprecated_since: Date.tomorrow
+        deprecated_since: Date.tomorrow.to_s
       )
 
       expect(scope).not_to be_deprecated
-    end
-
-    it 'handles string dates for deprecated_since' do
-      scope = described_class.new(
-        name: 'Test Scope',
-        value: 'test_scope',
-        deprecated_since: Date.yesterday.to_s
-      )
-
-      expect(scope).to be_deprecated
     end
   end
 
@@ -45,7 +35,7 @@ RSpec.describe AuthorizationDefinition::Scope do
     let(:created_at) { Time.zone.now }
 
     context 'when scope has deprecated_since date' do
-      let(:deprecated_date) { Date.parse('2025-04-17') }
+      let(:deprecated_date) { '2025-04-17' }
       let(:scope) do
         described_class.new(
           name: 'Test Scope',
