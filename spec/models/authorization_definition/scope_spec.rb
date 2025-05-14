@@ -30,7 +30,11 @@ RSpec.describe AuthorizationDefinition::Scope do
     end
   end
 
-  describe '#deprecated_for?' do
+  describe '#entity_created_after_deprecation_date?' do
+    subject do
+      scope.entity_created_after_deprecation_date?(authorization_request)
+    end
+
     let(:authorization_request) { instance_double(AuthorizationRequest, created_at: created_at) }
     let(:created_at) { Time.zone.now }
 
@@ -47,25 +51,19 @@ RSpec.describe AuthorizationDefinition::Scope do
       context 'when entity was created before the deprecation date' do
         let(:created_at) { Date.parse('2025-04-16').to_time }
 
-        it 'returns false' do
-          expect(scope.deprecated_for?(authorization_request)).to be false
-        end
+        it { is_expected.to be(false) }
       end
 
       context 'when entity was created on the deprecation date' do
         let(:created_at) { deprecated_date.to_time }
 
-        it 'returns true' do
-          expect(scope.deprecated_for?(authorization_request)).to be true
-        end
+        it { is_expected.to be(true) }
       end
 
       context 'when entity was created after the deprecation date' do
         let(:created_at) { Date.parse('2025-04-18').to_time }
 
-        it 'returns true' do
-          expect(scope.deprecated_for?(authorization_request)).to be true
-        end
+        it { is_expected.to be(true) }
       end
 
       context 'when entity has no created_at date' do
@@ -73,41 +71,14 @@ RSpec.describe AuthorizationDefinition::Scope do
 
         it 'returns false when today is before deprecation date' do
           travel_to Date.parse('2025-04-16') do
-            expect(scope.deprecated_for?(authorization_request)).to be false
+            expect(subject).to be false
           end
         end
 
         it 'returns true when today is on or after deprecation date' do
           travel_to Date.parse('2025-04-17') do
-            expect(scope.deprecated_for?(authorization_request)).to be true
+            expect(subject).to be true
           end
-        end
-      end
-    end
-
-    context 'when scope has deprecated_since as a String' do
-      let(:deprecated_date_string) { '2025-04-17' }
-      let(:scope) do
-        described_class.new(
-          name: 'Test Scope',
-          value: 'test_scope',
-          deprecated_since: deprecated_date_string
-        )
-      end
-
-      context 'when entity was created before the deprecation date' do
-        let(:created_at) { Date.parse('2025-04-16').to_time }
-
-        it 'returns false' do
-          expect(scope.deprecated_for?(authorization_request)).to be false
-        end
-      end
-
-      context 'when entity was created on or after the deprecation date' do
-        let(:created_at) { Date.parse('2025-05-19').to_time }
-
-        it 'returns true' do
-          expect(scope.deprecated_for?(authorization_request)).to be true
         end
       end
     end
@@ -120,9 +91,7 @@ RSpec.describe AuthorizationDefinition::Scope do
         )
       end
 
-      it 'returns false' do
-        expect(scope.deprecated_for?(authorization_request)).to be false
-      end
+      it { is_expected.to be(false) }
     end
 
     context 'when deprecated_since is an invalid date string' do
@@ -134,9 +103,7 @@ RSpec.describe AuthorizationDefinition::Scope do
         )
       end
 
-      it 'returns false' do
-        expect(scope.deprecated_for?(authorization_request)).to be false
-      end
+      it { is_expected.to be(false) }
     end
   end
 end

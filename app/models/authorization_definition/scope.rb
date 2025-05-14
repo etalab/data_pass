@@ -29,7 +29,7 @@ class AuthorizationDefinition::Scope
     deprecated_date.present? && deprecated_date < Time.zone.today
   end
 
-  def deprecated_for?(entity)
+  def entity_created_after_deprecation_date?(entity)
     return false unless deprecated_date
 
     entity_date = entity.created_at.nil? ? Time.zone.today : entity.created_at.to_date
