@@ -214,8 +214,26 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
       Array(files).filter_map { |file|
         next unless file.persisted?
 
-        link_to_blob_file_within_files(file)
+        link_to_blob_file_with_remove_button(attribute, file)
       }.join('<br>').html_safe
+    end
+  end
+
+  def link_to_blob_file_with_remove_button(attribute, file)
+    field_id = "#{@object_name}_#{attribute}_#{file.id}_signed_id"
+
+    @template.content_tag(:div, class: 'file-with-remove-button') do
+      [
+        link_to_blob_file_within_files(file),
+        @template.content_tag(:button,
+          'Supprimer',
+          type: 'button',
+          class: 'fr-icon-delete-line fr-btn fr-btn--sm fr-btn--tertiary-no-outline fr-ml-1w',
+          data: {
+            field_id: field_id,
+            action: 'click->remove-attached-file#removeFile'
+          })
+      ].join.html_safe
     end
   end
 
