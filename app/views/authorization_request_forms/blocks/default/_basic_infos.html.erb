@@ -18,7 +18,7 @@
   <% end %>
 
   <% if @authorization_request.respond_to?(:maquette_projet) %>
-    <div class="fr-fieldset__element">
+    <div class="fr-fieldset__element" data-controller="remove-attached-file">
       <%= f.dsfr_file_field :maquette_projet %>
     </div>
   <% end %>
