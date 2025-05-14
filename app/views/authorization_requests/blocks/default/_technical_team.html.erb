@@ -10,6 +10,6 @@
       <%= f.label_value(:technical_team_value) %>
     </strong>
 
-    <%= simple_format(@authorization_request.technical_team_value) %>
+    <%= simple_format_without_html_tags(@authorization_request.technical_team_value) %>
   <% end %>
 <% end %>

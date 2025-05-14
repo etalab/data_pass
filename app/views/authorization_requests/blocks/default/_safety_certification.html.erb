@@ -4,7 +4,7 @@
       <%= f.label_value(:safety_certification_authority_name) %>
     </strong>
 
-    <%= simple_format(@authorization_request.safety_certification_authority_name) %>
+    <%= simple_format_without_html_tags(@authorization_request.safety_certification_authority_name) %>
   <% end %>
 
   <% if @authorization_request.respond_to?(:safety_certification_authority_function) %>
@@ -12,7 +12,7 @@
       <%= f.label_value(:safety_certification_authority_function) %>
     </strong>
 
-    <%= simple_format(@authorization_request.safety_certification_authority_function) %>
+    <%= simple_format_without_html_tags(@authorization_request.safety_certification_authority_function) %>
   <% end %>
 
   <% if @authorization_request.respond_to?(:safety_certification_begin_date) %>
@@ -20,7 +20,7 @@
       <%= f.label_value(:safety_certification_begin_date) %>
     </strong>
 
-    <%= simple_format(@authorization_request.safety_certification_begin_date) %>
+    <%= simple_format_without_html_tags(@authorization_request.safety_certification_begin_date) %>
   <% end %>
 
   <% if @authorization_request.respond_to?(:safety_certification_end_date) %>
@@ -28,7 +28,7 @@
       <%= f.label_value(:safety_certification_end_date) %>
     </strong>
 
-    <%= simple_format(@authorization_request.safety_certification_end_date) %>
+    <%= simple_format_without_html_tags(@authorization_request.safety_certification_end_date) %>
   <% end %>
 
 

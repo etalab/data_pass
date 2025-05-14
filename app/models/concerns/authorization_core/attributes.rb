@@ -16,7 +16,6 @@ module AuthorizationCore::Attributes
       def self.add_attribute(name, options = {})
         class_eval do
           store_accessor :data, name
-
           validates name, options[:validation] if options[:validation].present?
 
           if options[:type] == :array
@@ -56,6 +55,7 @@ module AuthorizationCore::Attributes
           raise(TypeError, "#{name} should be an array") unless value.is_a?(Array) || value.nil?
 
           value = (value || []).compact_blank.map(&:strip).uniq
+          value.map! { |v| sanitize_html(v) }
 
           super(value.sort)
         end
@@ -69,8 +69,16 @@ module AuthorizationCore::Attributes
 
       def self.override_primitive_write(name)
         define_method(:"#{name}=") do |value|
-          super(value.try(:strip) || value)
+          super(sanitize_html(value.try(:strip) || value))
         end
+      end
+
+      private
+
+      def sanitize_html(value)
+        return if value.blank?
+
+        CGI.unescapeHTML(Loofah.fragment(value.to_s).scrub!(:strip).to_text)
       end
     end
   end

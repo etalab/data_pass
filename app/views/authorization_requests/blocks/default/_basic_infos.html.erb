@@ -4,7 +4,7 @@
       <%= f.label_value(:intitule) %>
     </strong>
 
-    <%= simple_format(@authorization_request.intitule) %>
+    <%= simple_format_without_html_tags(@authorization_request.intitule) %>
   <% end %>
 
   <% if @authorization_request.respond_to?(:description) %>
@@ -12,7 +12,7 @@
       <%= f.label_value(:description) %>
     </strong>
 
-    <%= simple_format(@authorization_request.description) %>
+    <%= simple_format_without_html_tags(@authorization_request.description) %>
   <% end %>
 
   <% if @authorization_request.respond_to?(:maquette_projet) && @authorization_request.maquette_projet.attached? %>

@@ -9,6 +9,10 @@ module ApplicationHelper
     "#{stars}#{text[-5..]}"
   end
 
+  def simple_format_without_html_tags(text, html_options = {}, options = {})
+    simple_format(text, html_options, { sanitize_options: { tags: [], attributes: [] } }.merge(options))
+  end
+
   def provider_logo_image_tag(authorization_definition, options = {})
     options = options.merge(alt: "Logo du fournisseur de données \" #{authorization_definition.provider.name}\"")
     image_tag("data_providers/#{authorization_definition.provider.logo}", options)
