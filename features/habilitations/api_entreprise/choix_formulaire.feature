@@ -13,7 +13,8 @@ Fonctionnalité: Choix du type de formulalire pour API Entreprise
     Quand je démarre une nouvelle demande d'habilitation "API Entreprise"
     Et que je choisis "Vos développeurs"
     Alors je vois au moins 3 tuiles
-    Et je vois 1 tuile "Demande libre"
+    Et je vois 0 tuile "Demande libre"
+    Et la page contient "Remplir le questionnaire"
     Et je vois 1 tuile "Marchés publics"
     Et je vois 1 tuile "Aides publiques"
 
@@ -46,8 +47,7 @@ Fonctionnalité: Choix du type de formulalire pour API Entreprise
   Scénario: Je choisis mon équipe de développeurs avec le paramètre de cas d'usage
     Quand je démarre une nouvelle demande d'habilitation "API Entreprise" avec le paramètre "use_case" égal à "marches_publics"
     Et que je choisis "Vos développeurs"
-    Alors je vois 2 tuiles
-    Et je vois 1 tuile "Demande libre"
+    Alors je vois 1 tuiles
     Et je vois 1 tuile "Marchés publics"
 
   Scénario: Je choisis un éditeur qui ne correspond pas au paramètre de cas d'usage

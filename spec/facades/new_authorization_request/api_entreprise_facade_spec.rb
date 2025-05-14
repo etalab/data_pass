@@ -1,7 +1,7 @@
 RSpec.describe NewAuthorizationRequest::APIEntrepriseFacade do
   subject(:facade) { described_class.new(authorization_definition:) }
 
-  let(:authorization_definition) { instance_double(AuthorizationDefinition, editors: [editor]) }
+  let(:authorization_definition) { instance_double(AuthorizationDefinition, editors: [editor], public_available_forms: AuthorizationRequestForm.all) }
   let(:an_already_integrated_editor) { an_object_having_attributes(already_integrated: ['api_entreprise']) }
   let(:editor) { ServiceProvider.editors.first }
 
@@ -33,5 +33,13 @@ RSpec.describe NewAuthorizationRequest::APIEntrepriseFacade do
     subject(:editors) { facade.editors }
 
     it { is_expected.to include(editor, an_already_integrated_editor) }
+  end
+
+  describe '#public_available_forms' do
+    subject(:public_available_forms) { facade.public_available_forms }
+
+    it 'does not include Demande libre' do
+      expect(public_available_forms).not_to include(AuthorizationRequestForm.find('api-entreprise'))
+    end
   end
 end
