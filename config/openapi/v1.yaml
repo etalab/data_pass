@@ -18,6 +18,8 @@ info:
 
     Consultez [la documentation sur le cycle de vie d'une demande](https://github.com/etalab/data_pass/blob/main/docs/lifecycle_documentation.md) pour comprendre comment les différents états d'une demande et de ses habilitations sont gérés.
 
+    Pour le cas d'une habilitation avec étapes Bac à Sable et Production, consultez [la documentation sur le cycle de vie d'une demande avec étapes](https://github.com/etalab/data_pass/blob/main/docs/lifecycle_documentation_with_stages.md) pour comprendre comment la transition d'étape est gérée.
+
   version: 0.1.0
 servers:
   - description: Production
