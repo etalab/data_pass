@@ -34,6 +34,22 @@ RSpec.describe User do
   describe '#reporter?' do
     subject { user.reporter?(authorization_request_type) }
 
+    context 'when user is an admin' do
+      let(:user) { create(:user, :admin) }
+
+      context 'without authorization_request_type' do
+        let(:authorization_request_type) { nil }
+
+        it { is_expected.to be_truthy }
+      end
+
+      context 'with authorization_request_type' do
+        let(:authorization_request_type) { 'api_entreprise' }
+
+        it { is_expected.to be_truthy }
+      end
+    end
+
     context 'when user is not a reporter' do
       let(:user) { build(:user) }
 

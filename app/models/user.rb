@@ -112,6 +112,7 @@ class User < ApplicationRecord
   end
 
   def reporter?(authorization_request_type = nil)
+    return true if admin?
     return true if instructor?(authorization_request_type)
 
     if authorization_request_type
