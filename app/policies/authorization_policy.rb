@@ -2,7 +2,7 @@ class AuthorizationPolicy < ApplicationPolicy
   def show?
     same_current_organization? ||
       record.request.contact_types_for(user).any? ||
-      user.instructor?(record.kind)
+      user.reporter?(record.kind)
   end
 
   delegate :reopen?, to: :authorization_request_policy
