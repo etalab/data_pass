@@ -92,6 +92,7 @@ Metrics/ClassLength:
   Exclude:
     - "app/lib/seeds.rb"
     - "app/models/authorization_request.rb"
+    - "app/form_builders/dsfr_form_builder.rb"
 
 Naming/MethodParameterName:
   AllowedNames:
