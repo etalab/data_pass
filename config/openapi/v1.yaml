@@ -246,6 +246,10 @@ components:
           type: string
           example: "active"
           description: État de l'habilitation
+          enum:
+            - active
+            - obsolete
+            - revoked
         created_at:
           type: string
           format: date-time
