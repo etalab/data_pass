@@ -198,7 +198,7 @@ components:
           nullable: true
         insee_payload:
           type: object
-          description: Données INSEE associées à l'organisation
+          description: Données INSEE associées à l'organisation. Voir [la documentation sur l'API Sirene](https://portail-api.insee.fr/catalog/api/2ba0e549-5587-3ef1-9082-99cd865de66f?aq=ALL) et spécifiquement le endpoint `GET /siret/{siret}` de [le fichier Open API](https://api-apimanager.insee.fr/portal/environments/DEFAULT/apis/2ba0e549-5587-3ef1-9082-99cd865de66f/pages/6548510e-c3e1-3099-be96-6edf02870699/content) pour plus d'informations.
           additionalProperties: true
       required:
         - id
