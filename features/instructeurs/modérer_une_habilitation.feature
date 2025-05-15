@@ -14,7 +14,7 @@ Fonctionnalité: Instruction: modération
     Et il n'y a pas de champ éditable
 
   @AvecCourriels
-  Scénario: Je valide une demande d'habilitation
+  Scénario: Je valide une demande d'habilitation soumise
     Quand je me rends sur une demande d'habilitation "API scolarité de l'élève" à modérer
     Et je clique sur "Valider"
     Et je clique sur "Valider la demande d'habilitation"
@@ -23,6 +23,13 @@ Fonctionnalité: Instruction: modération
     Et un email est envoyé contenant "validé"
     Et un email est envoyé contenant "vous a désigné(e) comme Délégué à la protection des données"
     Et il y a un message de succès contenant "a été validé"
+
+  Scénario: Je valide une demande d'habilitation en attente de modification
+    Quand je me rends sur une demande d'habilitation "API scolarité de l'élève" en attente de modification
+    Et je clique sur "Valider"
+    Et je clique sur "Valider la demande d'habilitation"
+    Alors je suis sur la page "Liste des demandes en cours"
+    Et je vois 1 demande d'habilitation "API scolarité de l'élève" validée
 
   @FlushJobQueue
   Scénario: Je valide une demande d'habilitation qui déclenche un webhook

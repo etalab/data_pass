@@ -205,7 +205,7 @@ class AuthorizationRequest < ApplicationRecord
     end
 
     event :approve do
-      transition from: :submitted, to: :validated
+      transition from: %i[changes_requested submitted], to: :validated
     end
 
     after_transition to: :validated do |authorization_request|
