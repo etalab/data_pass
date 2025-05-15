@@ -283,4 +283,3 @@ end
 Alors('le lien de téléchargement de pièce jointe est désactivé') do
   expect(page).to have_css('a[aria-disabled="true"]', text: 'dummy.pdf')
 end
-
