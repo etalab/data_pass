@@ -6,50 +6,53 @@
 
 <%= link_to t('.documentation_url'), developpeurs_documentation_url, class: 'fr-btn fr-btn--secondary' %>
 
-<div class="fr-mt-2w">
-  <%= t('.description_html', documentation_url: developpeurs_documentation_url) %>
-</div>
+<% if @applications.any? %>
+  <div class="fr-mt-2w">
+    <%= t('.description_html') %>
+  </div>
 
-<div class="fr-table">
-  <div class="fr-table__wrapper">
-    <div class="fr-table__container">
-      <div class="fr-table__content">
-        <table>
-          <thead>
-            <tr>
-              <th><%= t('.table.headers.name') %></th>
-              <th><%= t('.table.headers.credentials') %></th>
-              <th><%= t('.table.headers.scopes') %></th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @applications.each do |app| %>
+  <div class="fr-table">
+    <div class="fr-table__wrapper">
+      <div class="fr-table__container">
+        <div class="fr-table__content">
+          <table>
+            <thead>
               <tr>
-                <td><%= app.name %></td>
-                <td>
-                  <span data-controller="clipboard" data-clipboard-content-value="<%= app.uid %>">
-                    <%= t('.table.row.client_id') %>: <%= obfuscate(app.uid) %>
-                    <button class="fr-btn fr-btn--tertiary-no-outline fr-btn--sm" data-action="click->clipboard#copy">Copier</button>
-                  </span>
-                  <br>
-                  <span data-controller="clipboard" data-clipboard-content-value="<%= app.secret %>">
-                  <%= t('.table.row.client_secret') %>: <%= obfuscate(app.secret) %>
-                    <button class="fr-btn fr-btn--tertiary-no-outline fr-btn--sm" data-action="click->clipboard#copy">Copier</button>
-                  </span>
-                </td>
-                <td><%= app.scopes %></td>
+                <th><%= t('.table.headers.name') %></th>
+                <th><%= t('.table.headers.credentials') %></th>
+                <th><%= t('.table.headers.scopes') %></th>
               </tr>
-            <% end %>
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              <% @applications.each do |app| %>
+                <tr>
+                  <td><%= app.name %></td>
+                  <td>
+                    <span data-controller="clipboard" data-clipboard-content-value="<%= app.uid %>">
+                      <%= t('.table.row.client_id') %>: <%= obfuscate(app.uid) %>
+                      <button class="fr-btn fr-btn--tertiary-no-outline fr-btn--sm" data-action="click->clipboard#copy">Copier</button>
+                    </span>
+                    <br>
+                    <span data-controller="clipboard" data-clipboard-content-value="<%= app.secret %>">
+                    <%= t('.table.row.client_secret') %>: <%= obfuscate(app.secret) %>
+                      <button class="fr-btn fr-btn--tertiary-no-outline fr-btn--sm" data-action="click->clipboard#copy">Copier</button>
+                    </span>
+                  </td>
+                  <td><%= app.scopes %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
-</div>
+<% end %>
 
-<div class="fr-mt-2w">
-  <p class="fr-mt-2w fr-mb-1w">
-    <strong><%= t('.list_of_habilitations_description') %></strong>
+<% if current_user.developer_roles.any? %>
+  <div class="fr-mt-2w">
+    <p class="fr-mt-2w fr-mb-1w">
+      <strong><%= t('.list_of_habilitations_description') %></strong>
   </p>
   <ul>
     <% current_user.developer_roles.map{ |role| role.split(':').first }.each do |authorization_definition_name| %>
@@ -57,5 +60,12 @@
         <%= authorization_definition_name %>
       </li>
     <% end %>
-  </ul>
-</div>
+    </ul>
+  </div>
+<% else %>
+  <div class="fr-mt-2w">
+    <p class="fr-mt-2w fr-mb-1w">
+      <strong><%= t('.no_developer_roles') %></strong>
+    </p>
+  </div>
+<% end %>

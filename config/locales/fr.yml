@@ -898,6 +898,7 @@ fr:
       documentation_url: Voir la documentation API
       description_html: Liste de vos applications OAuth et de leurs credentials API
       list_of_habilitations_description: "Vos clefs d'accès API vous permettent d'accéder aux demandes et habilitations suivantes"
+      no_developer_roles: Vous n'avez pas de clefs d'accès API, contactez un administrateur pour en obtenir.
       table:
         headers:
           name: Nom de l'application
