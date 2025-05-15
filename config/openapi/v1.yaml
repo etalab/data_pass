@@ -559,6 +559,82 @@ paths:
         404:
           $ref: '#/components/responses/NotFoundError'
 
+  /habilitations:
+    get:
+      summary: Liste des habilitations
+      description: Récupère la liste des habilitations auxquelles l'utilisateur a accès.
+      tags:
+        - Habilitations
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - name: limit
+          in: query
+          description: Nombre maximum d'habilitations à récupérer
+          required: false
+          schema:
+            type: integer
+            default: 10
+            minimum: 1
+            maximum: 1000
+        - name: offset
+          in: query
+          description: Nombre d'habilitations à sauter avant de commencer à récupérer les résultats
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+        - name: state
+          in: query
+          description: "Filtrer les habilitations par statut (ex: active, obsolete, revoked). Peut être un tableau (ex: state[]=active&state[]=obsolete)"
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+              enum: [active, obsolete, revoked]
+      responses:
+        200:
+          description: Liste des habilitations récupérée avec succès
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Habilitation"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+        403:
+          $ref: "#/components/responses/ForbiddenError"
+
+  /habilitations/{id}:
+    get:
+      summary: Récupérer une habilitation
+      description: Récupère les détails d'une habilitation spécifique.
+      tags:
+        - Habilitations
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - name: id
+          in: path
+          description: Identifiant de l'habilitation
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Habilitation récupérée avec succès
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Habilitation"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+        403:
+          $ref: "#/components/responses/ForbiddenError"
+        404:
+          $ref: "#/components/responses/NotFoundError"
+
   /me:
     get:
       summary: Récupérer les informations de l'utilisateur courant

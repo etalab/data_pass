@@ -23,4 +23,10 @@ class APIController < ActionController::API
       .where(type: current_user_authorization_request_types)
       .find(params[:authorization_request_id] || params[:id])
   end
+
+  def set_authorization
+    @authorization = Authorization
+      .where(authorization_request_class: current_user_authorization_request_types)
+      .find(params[:authorization_id] || params[:id])
+  end
 end
