@@ -11,7 +11,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en une
 
     * je renseigne les informations du délégué à la protection des données
     * je renseigne les informations du contact métier
-    * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
+    * je remplis "URL" avec "https://mairie.fr/deliberation-tarifaire.pdf"
     * je renseigne les infos concernant les données personnelles
 
     * j'enregistre et continue vers le résumé
