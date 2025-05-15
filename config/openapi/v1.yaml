@@ -240,12 +240,11 @@ components:
         revoked:
           type: boolean
           example: false
-          description: Indique si l'habilitation a été révoquée (Deprecated)
-          deprecated: true
+          description: Indique si l'habilitation a été révoquée. Ce booléen fait foi pour l'état révoqué de l'habilitation. (Une habilitation peut être `state:obsolete` et `revoked:true`).
         state:
           type: string
           example: "active"
-          description: État de l'habilitation
+          description: État de l'habilitation. L'état `obsolete` est utilisé pour indiquer que l'habilitation n'est plus active suite à la génération d'une nouvelle habilitation du même type par la même demande.
           enum:
             - active
             - obsolete
