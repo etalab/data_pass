@@ -75,7 +75,7 @@ module AuthorizationRequestsHelpers
         url: url || authorization_request_model_path(authorization_request),
         method: authorization_request_model_http_method(authorization_request),
         id: dom_id(authorization_request),
-        builder: authorization_request_can_be_updated?(authorization_request) ? AuthorizationRequestFormBuilder : DisabledAuthorizationRequestFormBuilder
+        builder: authorization_request_can_be_updated?(authorization_request) ? AuthorizationRequestFormBuilder : DisabledAuthorizationRequestFormBuilder,
       ),
       &
     )
