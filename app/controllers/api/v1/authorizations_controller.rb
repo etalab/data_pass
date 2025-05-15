@@ -3,19 +3,22 @@ class API::V1::AuthorizationsController < API::V1Controller
 
   def show
     render json: @authorization,
-      serializer: API::V1::AuthorizationSerializer,
+      serializer: API::V1::AuthorizationDetailedSerializer,
+      include: %w[organisation],
       status: :ok
   end
 
   def index
     @authorizations = Authorization
+      .includes(:organization)
       .where(authorization_request_class: current_user_authorization_request_types)
       .merge(state_filter)
       .offset(params[:offset])
       .limit(maxed_limit(params[:limit]))
 
     render json: @authorizations,
-      each_serializer: API::V1::AuthorizationSerializer,
+      each_serializer: API::V1::AuthorizationDetailedSerializer,
+      include: %w[organisation],
       status: :ok
   end
 

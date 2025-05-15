@@ -18,6 +18,8 @@ RSpec.describe 'API: Authorizations' do
         expect(response).to have_http_status(:ok)
         expect(response.parsed_body['id']).to eq(authorization.id)
         expect(response.parsed_body['authorization_request_class']).to eq(authorization.authorization_request_class)
+        expect(response.parsed_body['organisation']).to be_present
+        expect(response.parsed_body['organisation']['siret']).to eq(authorization.organization.siret)
       end
     end
 
@@ -48,6 +50,8 @@ RSpec.describe 'API: Authorizations' do
         expect(response).to have_http_status(:ok)
         expect(response.parsed_body.count).to eq(3)
         expect(response.parsed_body.pluck('id')).to match_array(authorizations.pluck(:id))
+        expect(response.parsed_body.first['organisation']).to be_present
+        expect(response.parsed_body.first['organisation']['siret']).to be_present
       end
     end
 
