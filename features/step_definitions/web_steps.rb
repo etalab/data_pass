@@ -122,6 +122,12 @@ Quand('je coche {string}') do |label|
   end
 end
 
+Quand('je supprime le document {string}') do |document_name|
+  within('.file-with-remove-button', text: document_name) do
+    click_button(text: 'Supprimer')
+  end
+end
+
 Alors('{string} est coché') do |label|
   expect(page).to have_checked_field(label, visible: :all)
 end
@@ -277,3 +283,4 @@ end
 Alors('le lien de téléchargement de pièce jointe est désactivé') do
   expect(page).to have_css('a[aria-disabled="true"]', text: 'dummy.pdf')
 end
+
