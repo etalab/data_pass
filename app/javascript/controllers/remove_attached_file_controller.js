@@ -1,7 +1,6 @@
 import { Controller } from '@hotwired/stimulus'
-
 export default class extends Controller {
-  removeFile(event) {
+  removeFile (event) {
     const button = event.currentTarget
     const fieldId = button.dataset.fieldId
 
