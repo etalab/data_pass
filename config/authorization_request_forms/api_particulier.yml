@@ -1389,6 +1389,8 @@ api-particulier-coexya:
   description: Tarification sociale et solidaires des transports
   authorization_request: APIParticulier
   single_page_view: "api_particulier_through_editor"
+  steps: *api_particulier_editor_steps_with_editable_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_editable_scopes
   use_case: tarification_transports
   service_provider_id: coexya
   scopes_config:
