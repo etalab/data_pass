@@ -274,6 +274,10 @@ components:
         - $ref: "#/components/schemas/Habilitation"
         - type: object
           properties:
+            demande_id:
+              type: integer
+              example: 123
+              description: Identifiant de la demande d'habilitation associée
             organization:
               $ref: "#/components/schemas/Organisation"
 
