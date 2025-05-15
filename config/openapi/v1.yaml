@@ -38,7 +38,7 @@ tags:
 
       A noter qu'un client OAuth2 est associé à un utilisateur, et que les types de demandes d'habilitations accessibles sont régies par les droits associés à cet utilisateur. Pour qu'un utilisateur puisse manipuler à travers l'API les demandes d'habilitations d'un certain type, il doit être référencé comme étant développeur pour ce type d'habilitation dans DataPass. Pour cela, il faut qu'un administrateur l'ajoute manuellement.
 
-      Vous pouvez consulter les droits de développeurs que vous avez ainsi que votre `client_id` et `client_secret` sur [votre profil](https://v2.datapass.api.gouv.fr/developpeurs//applications)
+      Vous pouvez consulter les droits de développeurs que vous avez ainsi que votre `client_id` et `client_secret` sur [votre profil](https://v2.datapass.api.gouv.fr/developpeurs/applications)
   - name: Demandes d'habilitations
     description: Les demandes d'habilitations représentent les données soumises via un formulaire par un demandeur. Une demande est liée à une définition, un formulaire, une organisation et un utilisateur (le demandeur).
   - name: Habilitations
