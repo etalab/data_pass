@@ -21,16 +21,7 @@
         <%= f.label_value(:maquette_projet) %> :
       </strong>
       <br />
-      <% if namespace?(:instruction) %>
-        <% if @authorization_request.maquette_projet.unsafe? %>
-          <a aria-disabled="true"><%= @authorization_request.maquette_projet.filename %></a>
-        <% else %>
-          <%= link_to @authorization_request.maquette_projet.filename, url_for(@authorization_request.maquette_projet), target: '_blank', class: %w[fr-link--icon-left fr-icon-file-pdf-fill] %>
-        <% end %>
-        <%= f.dsfr_malware_badge @authorization_request.maquette_projet, class: 'fr-ml-1w' %>
-      <% else %>
-        <%= link_to @authorization_request.maquette_projet.filename, url_for(@authorization_request.maquette_projet), target: '_blank', class: %w[fr-link--icon-left fr-icon-file-pdf-fill] %>
-      <% end %>
+      <%= render 'shared/document_with_malware_badge', document: @authorization_request.maquette_projet, f: f %>
     </div>
   <% end %>
 
