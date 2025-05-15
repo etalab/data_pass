@@ -529,36 +529,6 @@ paths:
         404:
           $ref: "#/components/responses/NotFoundError"
 
-  /demandes/{id}/habilitations:
-    get:
-      summary: Récupérer les habilitations associées à une demande d'habilitation
-      description: Récupère la liste des habilitations associées à une demande d'habilitation spécifique.
-      tags:
-        - Habilitations
-      parameters:
-        - $ref: '#/components/parameters/Authorization'
-        - name: id
-          in: path
-          required: true
-          description: Identifiant de la demande d'habilitation
-          schema:
-            type: string
-      responses:
-        200:
-          description: Liste des habilitations associées à la demande
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Habilitation'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-
   /demandes/{id}/events:
     get:
       summary: Récupérer les événements associés à une demande d'habilitation
