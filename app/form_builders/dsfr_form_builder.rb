@@ -30,6 +30,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
 
     existing_file_link = link_to_files(attribute)
     required = opts[:required] && !existing_file_link
+    hidden_fields = hidden_fields_for_existing_attachments(attribute, opts[:multiple])
 
     dsfr_input_group(attribute, opts) do
       @template.safe_join(
@@ -38,6 +39,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
           file_field(attribute, class: 'fr-upload', autocomplete: 'off', required:, **enhance_input_options(opts).except(:class, :required)),
           error_message(attribute),
           existing_file_link,
+          hidden_fields,
         ].compact
       )
     end
@@ -225,6 +227,26 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
       rel: 'noopener',
       class: 'fr-mb-1v'
     )
+  end
+
+  def hidden_fields_for_existing_attachments(attribute, multiple)
+    files = @object.send(attribute)
+    return unless files.attached?
+
+    @template.safe_join(
+      Array(files).filter_map do |file|
+        next unless file.persisted?
+
+        create_hidden_field_for_file(attribute, file, multiple: multiple)
+      end
+    )
+  end
+
+  def create_hidden_field_for_file(attribute, file, multiple: false)
+    field_name = "#{@object_name}[#{attribute}]#{multiple ? '[]' : ''}"
+    field_id = "#{@object_name}_#{attribute}_#{file.id}_signed_id"
+
+    @template.hidden_field_tag(field_name, file.signed_id, id: field_id)
   end
 
   def input_width_class(opts)
