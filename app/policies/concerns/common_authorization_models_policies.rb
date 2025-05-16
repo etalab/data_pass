@@ -1,6 +1,7 @@
 module CommonAuthorizationModelsPolicies
   def new?
-    record.startable_by_applicant
+    record.startable_by_applicant &&
+      active_organization?
   end
 
   def create?
@@ -18,6 +19,11 @@ module CommonAuthorizationModelsPolicies
   end
 
   private
+
+  def active_organization?
+    current_organization.blank? ||
+      !current_organization.closed?
+  end
 
   def unicity_constraint_violated?
     return false unless authorization_definition.unique
