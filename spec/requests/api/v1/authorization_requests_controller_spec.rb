@@ -64,6 +64,33 @@ RSpec.describe 'API: Authorization requests' do
           expect(response.parsed_body[0]['habilitations']).to eq([])
         end
       end
+
+      context 'when authorization request has events' do
+        let!(:event) { create(:authorization_request_event, entity: valid_draft_authorization_request) }
+
+        it 'includes events in the response' do
+          get_index
+
+          expect(response).to have_http_status(:ok)
+          expect(response.parsed_body[0]['events']).to be_present
+          expect(response.parsed_body[0]['events'].first['id']).to eq(event.id)
+        end
+
+        it 'includes correct event attributes' do
+          get_index
+
+          event_response = response.parsed_body[0]['events'].first
+          expect(event_response).to include('id', 'name', 'created_at')
+        end
+      end
+
+      context 'when authorization request has no events' do
+        it 'returns an empty events array' do
+          get_index
+
+          expect(response.parsed_body[0]['events']).to eq([])
+        end
+      end
     end
   end
 
@@ -102,6 +129,33 @@ RSpec.describe 'API: Authorization requests' do
           get_show
 
           expect(response.parsed_body['habilitations']).to eq([])
+        end
+      end
+
+      context 'when authorization request has events' do
+        let!(:event) { create(:authorization_request_event, entity: authorization_request) }
+
+        it 'includes events in the response' do
+          get_show
+
+          expect(response).to have_http_status(:ok)
+          expect(response.parsed_body['events']).to be_present
+          expect(response.parsed_body['events'].first['id']).to eq(event.id)
+        end
+
+        it 'includes correct event attributes' do
+          get_show
+
+          event_response = response.parsed_body['events'].first
+          expect(event_response).to include('id', 'name', 'created_at')
+        end
+      end
+
+      context 'when authorization request has no events' do
+        it 'returns an empty events array' do
+          get_show
+
+          expect(response.parsed_body['events']).to eq([])
         end
       end
     end
