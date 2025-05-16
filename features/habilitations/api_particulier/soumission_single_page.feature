@@ -24,7 +24,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en une
 
     Exemples:
       | Nom du formulaire | Nom de l'éditeur                      |
-      | ICAR              | Coexya                                |
       | Pandore           | Odyssée Informatique                  |
       | eTicket           | Qiis                                  |
       | Maelis Portail    | SIGEC                                 |
