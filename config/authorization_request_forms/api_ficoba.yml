@@ -42,6 +42,7 @@ api-ficoba-sandbox:
 api-ficoba-production:
   name: Demande libre (Production)
   public: false
+  startable_by_applicant: false
   description: Pour les utilisateurs ayant déjà réalisé une recette fonctionnelle en bac à sable et souhaitant obtenir des accès en production.
   introduction: |
     Votre demande d'accès au bac à sable a été validée, vous pouvez à présent poursuivre votre demande en demandant les accès à la production.

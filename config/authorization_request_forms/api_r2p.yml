@@ -41,6 +41,7 @@ api-r2p-sandbox:
 api-r2p-production:
   name: Demande libre (Production)
   public: false
+  startable_by_applicant: false
   description: Pour les utilisateurs ayant déjà réalisé une recette fonctionnelle en bac à sable et souhaitant obtenir des accès en production.
   introduction: |
     Votre demande d'accès au bac à sable a été validée, vous pouvez à présent poursuivre votre demande en demandant les accès à la production.
@@ -96,11 +97,12 @@ api-r2p-ordonnateur-sandbox:
 api-r2p-ordonnateur-production:
   name: Demande Ordonnateur
   public: false
+  startable_by_applicant: false
   use_case: ordonnateur
   description: Ordonnateur (fiabilisation des bases tiers des collectivités)
   authorization_request: APIR2P
   steps: *api_r2p_steps
-  
+
 api-r2p-appel-spi-sandbox:
   name: Restitution du numéro fiscal (SPI) pour appel de l’API Impôt particulier (Bac à sable)
   public: true
@@ -116,6 +118,7 @@ api-r2p-appel-spi-sandbox:
 api-r2p-appel-spi-production:
   name: Restitution du numéro fiscal (SPI) pour appel de l’API Impôt particulier
   public: false
+  startable_by_applicant: false
   use_case: ordonnateur
   description: Restitution du numéro fiscal (SPI) pour appel de l’API Impôt particulier
   authorization_request: APIR2P

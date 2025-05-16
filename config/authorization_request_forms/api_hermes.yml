@@ -36,6 +36,7 @@ api-hermes-sandbox:
     - name: contacts
 
 api-hermes-production:
+  startable_by_applicant: false
   description: FEEDME
   introduction: |
     Votre demande d'accès au bac à sable a été validée, vous pouvez à présent poursuivre votre demande en demandant les accès à la production.
