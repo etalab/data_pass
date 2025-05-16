@@ -198,7 +198,7 @@ components:
           nullable: true
         insee_payload:
           type: object
-          description: Données INSEE associées à l'organisation
+          description: Données INSEE associées à l'organisation. Voir [la documentation sur l'API Sirene](https://portail-api.insee.fr/catalog/api/2ba0e549-5587-3ef1-9082-99cd865de66f?aq=ALL) et spécifiquement le endpoint `GET /siret/{siret}` de [le fichier Open API](https://api-apimanager.insee.fr/portal/environments/DEFAULT/apis/2ba0e549-5587-3ef1-9082-99cd865de66f/pages/6548510e-c3e1-3099-be96-6edf02870699/content) pour plus d'informations.
           additionalProperties: true
       required:
         - id
@@ -227,7 +227,7 @@ components:
 
     Habilitation:
       type: object
-      description: Habilitation associée à une demande
+      description: Habilitation délivrée à une organisation
       properties:
         id:
           type: integer
@@ -268,6 +268,18 @@ components:
         - state
         - created_at
         - authorization_request_class
+
+    HabilitationDetailed:
+      allOf:
+        - $ref: "#/components/schemas/Habilitation"
+        - type: object
+          properties:
+            request_id:
+              type: integer
+              example: 123
+              description: Identifiant de la demande d'habilitation associée. Pour obtenir le détail de la demande, utilisez le endpoint `GET /demandes/{id}` avec `request_id` comme identifiant.
+            organization:
+              $ref: "#/components/schemas/Organisation"
 
     AuthorizationRequestEvent:
       type: object
@@ -529,36 +541,6 @@ paths:
         404:
           $ref: "#/components/responses/NotFoundError"
 
-  /demandes/{id}/habilitations:
-    get:
-      summary: Récupérer les habilitations associées à une demande d'habilitation
-      description: Récupère la liste des habilitations associées à une demande d'habilitation spécifique.
-      tags:
-        - Habilitations
-      parameters:
-        - $ref: '#/components/parameters/Authorization'
-        - name: id
-          in: path
-          required: true
-          description: Identifiant de la demande d'habilitation
-          schema:
-            type: string
-      responses:
-        200:
-          description: Liste des habilitations associées à la demande
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Habilitation'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-
   /demandes/{id}/events:
     get:
       summary: Récupérer les événements associés à une demande d'habilitation
@@ -588,6 +570,84 @@ paths:
           $ref: '#/components/responses/ForbiddenError'
         404:
           $ref: '#/components/responses/NotFoundError'
+
+  /habilitations:
+    get:
+      summary: Liste des habilitations
+      description: Récupère la liste des habilitations auxquelles l'utilisateur a accès.
+      tags:
+        - Habilitations
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - name: limit
+          in: query
+          description: Nombre maximum d'habilitations à récupérer
+          required: false
+          schema:
+            type: integer
+            default: 10
+            minimum: 1
+            maximum: 1000
+        - name: offset
+          in: query
+          description: Nombre d'habilitations à sauter avant de commencer à récupérer les résultats
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+        - name: state
+          in: query
+          description: "Filtrer les habilitations par statut (ex: active, obsolete, revoked). Peut être un tableau (ex: state[]=active&state[]=obsolete)"
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+              enum: [active, obsolete, revoked]
+      responses:
+        200:
+          description: Liste des habilitations récupérée avec succès
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  allOf:
+                    - $ref: "#/components/schemas/HabilitationDetailed"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+        403:
+          $ref: "#/components/responses/ForbiddenError"
+
+  /habilitations/{id}:
+    get:
+      summary: Récupérer une habilitation
+      description: Récupère les détails d'une habilitation spécifique.
+      tags:
+        - Habilitations
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - name: id
+          in: path
+          description: Identifiant de l'habilitation
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Habilitation récupérée avec succès
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/HabilitationDetailed"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+        403:
+          $ref: "#/components/responses/ForbiddenError"
+        404:
+          $ref: "#/components/responses/NotFoundError"
 
   /me:
     get:
