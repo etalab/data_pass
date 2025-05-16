@@ -2,7 +2,7 @@ class Instruction::AuthorizationRequestEventsController < Instruction::AbstractA
   def index
     authorize [:instruction, @authorization_request], :show?
 
-    @events = @authorization_request.events.order(created_at: :desc)
+    @events = @authorization_request.events.includes(%i[user entity]).order(created_at: :desc)
   end
 
   private

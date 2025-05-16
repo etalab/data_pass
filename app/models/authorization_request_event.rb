@@ -30,6 +30,7 @@ class AuthorizationRequestEvent < ApplicationRecord
 
   belongs_to :user, optional: true
   belongs_to :entity, polymorphic: true
+  belongs_to :authorization_request, optional: true
 
   validates :user, presence: true, unless: -> { name.try(:starts_with?, 'system_') }
   validates :name, inclusion: { in: NAMES }
@@ -56,12 +57,6 @@ class AuthorizationRequestEvent < ApplicationRecord
     errors.add(:entity_type, :invalid)
   end
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-
-  def authorization_request
-    entity.authorization_request
-  rescue NoMethodError
-    entity
-  end
 
   def authorization
     entity.authorization

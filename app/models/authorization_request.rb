@@ -80,9 +80,9 @@ class AuthorizationRequest < ApplicationRecord
   has_many :messages,
     dependent: :destroy
 
-  has_many :events,
+  has_many :events_without_bulk_update,
     class_name: 'AuthorizationRequestEvent',
-    inverse_of: :entity,
+    inverse_of: :authorization_request,
     dependent: :destroy
 
   has_one :copied_from_request,

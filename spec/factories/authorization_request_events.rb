@@ -8,6 +8,18 @@ FactoryBot.define do
       authorization_request { nil }
     end
 
+    after(:build) do |authorization_request_event, evaluator|
+      next if authorization_request_event.name == 'bulk_update'
+
+      authorization_request_event.authorization_request = if evaluator.authorization_request.present?
+                                                            evaluator.authorization_request
+                                                          elsif authorization_request_event.entity_type == 'AuthorizationRequest'
+                                                            authorization_request_event.entity
+                                                          else
+                                                            authorization_request_event.entity.authorization_request
+                                                          end
+    end
+
     trait :entity_is_authorization_request do
       after(:build) do |authorization_request_event, evaluator|
         next if evaluator.authorization_request.blank?
