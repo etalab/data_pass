@@ -274,10 +274,10 @@ components:
         - $ref: "#/components/schemas/Habilitation"
         - type: object
           properties:
-            demande_id:
+            request_id:
               type: integer
               example: 123
-              description: Identifiant de la demande d'habilitation associée
+              description: Identifiant de la demande d'habilitation associée. Pour obtenir le détail de la demande, utilisez le endpoint `GET /demandes/{id}` avec `request_id` comme identifiant.
             organization:
               $ref: "#/components/schemas/Organisation"
 
