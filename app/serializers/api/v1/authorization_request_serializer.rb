@@ -21,7 +21,7 @@ class API::V1::AuthorizationRequestSerializer < ActiveModel::Serializer
 
   def events
     ActiveModel::Serializer::CollectionSerializer.new(
-      object.events,
+      object.events_without_bulk_update,
       serializer: API::V1::AuthorizationRequestEventSerializer
     )
   end
