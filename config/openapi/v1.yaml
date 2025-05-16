@@ -130,7 +130,7 @@ components:
             $ref: '#/components/schemas/Habilitation'
         events:
           type: array
-          description: Liste des événements associés à la demande.
+          description: Liste des événements associés à la demande. L'événement de mise à jour global (`bulk_update`) n'est pas présent dans cette liste (pour des questions de performances).
           items:
             $ref: '#/components/schemas/AuthorizationRequestEvent'
       required:
@@ -361,7 +361,7 @@ components:
               - status
               - title
               - detail
-    
+
     Me:
       type: object
       description: Informations sur l'utilisateur courant associé au jeton OAuth2
@@ -426,7 +426,7 @@ paths:
     post:
       summary: Obtenir un jeton OAuth2
       description: |
-        Obtenir un jeton OAuth2 pour accéder aux ressources de l'API. 
+        Obtenir un jeton OAuth2 pour accéder aux ressources de l'API.
       tags:
         - Authentification
       security: []

@@ -4,6 +4,7 @@ class CreateAuthorizationRequestEventModel < ApplicationInteractor
       name: event_name,
       user: context.user,
       entity:,
+      authorization_request:,
     )
   end
 
@@ -12,6 +13,12 @@ class CreateAuthorizationRequestEventModel < ApplicationInteractor
   end
 
   private
+
+  def authorization_request
+    entity.authorization_request
+  rescue StandardError
+    entity
+  end
 
   def event_name
     context.event_name ||

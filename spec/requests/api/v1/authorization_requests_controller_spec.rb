@@ -3,6 +3,14 @@ RSpec.describe 'API: Authorization requests' do
   let(:application) { create(:oauth_application, owner: user) }
   let(:access_token) { create(:access_token, application:) }
 
+  before(:all) do
+    Bullet.enable = false
+  end
+
+  after(:all) do
+    Bullet.enable = true
+  end
+
   describe 'index' do
     subject(:get_index) do
       get '/api/v1/demandes', headers: { 'Authorization' => "Bearer #{access_token.token}" }

@@ -3,7 +3,7 @@ class API::V1::AuthorizationRequestsController < API::V1Controller
 
   def index
     authorization_requests = AuthorizationRequest
-      .includes(:authorizations, :organization)
+      .includes(:authorizations, :organization, :events_without_bulk_update)
       .where(type: current_user_authorization_request_types)
       .merge(state_filter)
       .offset(params[:offset])
