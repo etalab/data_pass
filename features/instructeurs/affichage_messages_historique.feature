@@ -1,6 +1,6 @@
 # language: fr
 
-@javascript
+@javascript @DisableBullet
 Fonctionnalité: Instruction: affichage des messages dans l'historique
   En tant qu'instructeur
   Je veux pouvoir voir et masquer les messages détaillés dans l'historique des habilitations

@@ -7,7 +7,6 @@ class AuthorizationRequestEventsQuery
 
   def perform
     events = AuthorizationRequestEvent
-      .includes(%i[authorization_request])
       .where(
         "(authorization_request_id = ? AND name != 'bulk_update') OR " \
         "(entity_id in (?) AND entity_type = 'BulkAuthorizationRequestUpdate')",
