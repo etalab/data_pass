@@ -4,6 +4,7 @@ class Import::AuthorizationRequestEvents < Import::Base
 
   def extract(event_row)
     authorization_request = extract_authorization_request(event_row)
+    @authorization_request = authorization_request
     # byebug if authorization_request.blank?
     return if authorization_request.blank?
 
@@ -120,6 +121,7 @@ class Import::AuthorizationRequestEvents < Import::Base
         name: event_row['name'],
         user_id: extract_user_id(event_row, entity: extra_params[:entity]),
         created_at: event_row['created_at'],
+        authorization_request: @authorization_request,
       }.merge(extra_params)
     )
   end

@@ -106,6 +106,10 @@ module Import::AuthorizationRequests::DGFIPProduction
     SET next_request_copied_id = #{new_id}
     WHERE next_request_copied_id = #{previous_id};
 
+    UPDATE authorization_request_events
+    SET authorization_request_id = #{new_id}
+    WHERE authorization_request_id = #{previous_id};
+
     -- Supprimer l'ancien enregistrement
     DELETE FROM authorization_requests
     WHERE id = #{previous_id};
