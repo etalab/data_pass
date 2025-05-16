@@ -12,7 +12,7 @@
           <% end %>
         </div>
 
-        <% if app_subdomain != 'v2' %>
+        <% if registered_subdomain? %>
           <div>
             <%= link_to 'Nouvelle habilitation', authorization_definitions_path, class: %w(fr-btn fr-btn--secondary fr-icon-add-line fr-btn--icon-left) %>
           </div>
