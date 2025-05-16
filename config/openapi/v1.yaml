@@ -128,6 +128,11 @@ components:
           description: Liste des habilitations associées à la demande.
           items:
             $ref: '#/components/schemas/Habilitation'
+        events:
+          type: array
+          description: Liste des événements associés à la demande.
+          items:
+            $ref: '#/components/schemas/AuthorizationRequestEvent'
       required:
         - id
         - public_id
@@ -291,8 +296,29 @@ components:
           description: Identifiant unique de l'événement
         name:
           type: string
-          example: "validation"
+          example: "approve"
           description: Nom de l'événement
+          enum:
+            - approve
+            - archive
+            - create
+            - refuse
+            - request_changes
+            - revoke
+            - submit
+            - update
+            - transfer
+            - copy
+            - reopen
+            - cancel_reopening
+            - applicant_message
+            - instructor_message
+            - admin_update
+            - bulk_update
+            - start_next_stage
+            - system_reminder
+            - system_archive
+            - system_import
         created_at:
           type: string
           format: date-time
@@ -470,7 +496,7 @@ paths:
   /demandes:
     get:
       summary: Liste des demandes d'habilitations
-      description: Récupère la liste des demandes d'habilitations associées aux droits développeur de l'utilisateur.
+      description: Récupère la liste des demandes d'habilitations associées aux droits développeur de l'utilisateur. La réponse inclut les habilitations, l'organisation et les événements associés à chaque demande.
       tags:
         - Demandes d'habilitations
       parameters:
@@ -519,7 +545,7 @@ paths:
   /demandes/{id}:
     get:
       summary: Récupérer une demande d'habilitation
-      description: Récupère les détails d'une demande d'habilitation spécifique.
+      description: Récupère les détails d'une demande d'habilitation spécifique. La réponse inclut les habilitations, l'organisation et les événements associés à la demande.
       tags:
         - Demandes d'habilitations
       parameters:
