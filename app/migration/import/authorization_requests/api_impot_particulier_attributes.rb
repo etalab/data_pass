@@ -56,7 +56,7 @@ class Import::AuthorizationRequests::APIImpotParticulierAttributes < Import::Aut
         'api-impot-particulier-production'
       end
 
-    form_uid += '-editeur' if enrollment_row['target_api'] =~ /_unique$/
+    form_uid = form_uid.gsub('-production', '-editeur') if enrollment_row['target_api'] =~ /_unique$/
 
     form_uid
   end
