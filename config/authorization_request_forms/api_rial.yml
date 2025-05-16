@@ -45,6 +45,7 @@ api-rial-sandbox:
 
 api-rial-production:
   description: FEED ME
+  startable_by_applicant: false
   introduction: |
     Votre demande d'accès au bac à sable a été validée, vous pouvez à présent poursuivre votre demande en demandant les accès à la production.
 

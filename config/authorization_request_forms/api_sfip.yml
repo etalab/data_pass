@@ -43,6 +43,7 @@ api-sfip-sandbox:
 api-sfip-production:
   name: Demande libre (Production)
   public: false
+  startable_by_applicant: false
   introduction: &api_sfip_production_form_introduction |
     Votre demande d'accès au bac à sable a été validée, vous pouvez à présent poursuivre votre demande en demandant les accès à la production.
 
@@ -119,6 +120,7 @@ api-sfip-stationnement-residentiel-sandbox:
 api-sfip-stationnement-residentiel-production:
   name: Stationnement résidentiel
   public: false
+  startable_by_applicant: false
   use_case: stationnement_residentiel
   introduction: *api_sfip_production_form_introduction
   authorization_request: APISFiP
@@ -167,6 +169,7 @@ api-sfip-place-creche-sandbox:
 api-sfip-place-creche-production:
   name: Place en crèche
   public: false
+  startable_by_applicant: false
   use_case: place_creche
   introduction: *api_sfip_production_form_introduction
   authorization_request: APISFiP
@@ -215,6 +218,7 @@ api-sfip-activites-periscolaires-sandbox:
 api-sfip-activites-periscolaires-production:
   name: Activités périscolaires
   public: false
+  startable_by_applicant: false
   use_case: activites_periscolaires
   introduction: *api_sfip_production_form_introduction
   authorization_request: APISFiP
@@ -263,6 +267,7 @@ api-sfip-cantine-scolaire-sandbox:
 api-sfip-cantine-scolaire-production:
   name: Cantine scolaire
   public: false
+  startable_by_applicant: false
   introduction: *api_sfip_production_form_introduction
   authorization_request: APISFiP
   static_blocks: *api_sfip_sandbox_steps
@@ -310,6 +315,7 @@ api-sfip-aides-sociales-facultatives-sandbox:
 api-sfip-aides-sociales-facultatives-production:
   name: Aides sociales facultatives
   public: false
+  startable_by_applicant: false
   introduction: *api_sfip_production_form_introduction
   authorization_request: APISFiP
   static_blocks: *api_sfip_sandbox_steps
@@ -357,6 +363,7 @@ api-sfip-carte-transport-sandbox:
 api-sfip-carte-transport-production:
   name: Carte de transport
   public: false
+  startable_by_applicant: false
   introduction: *api_sfip_production_form_introduction
   authorization_request: APISFiP
   static_blocks: *api_sfip_sandbox_steps

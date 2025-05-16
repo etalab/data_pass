@@ -40,6 +40,7 @@ api-infinoe-sandbox:
 
 api-infinoe-production:
   name: Demande libre (Production)
+  startable_by_applicant: false
   description: *api_infinoe_description
   introduction: &api_infinoe_production_form_introduction |
     Votre demande d'accès au bac à sable a été validée, vous pouvez à présent poursuivre votre demande en demandant les accès à la production.
@@ -114,6 +115,7 @@ api-infinoe-envoi-automatise-ecritures-sandbox:
       https://www.legifrance.gouv.fr/loda/id/JORFTEXT000026597003/
 
 api-infinoe-envoi-automatise-ecritures-production:
+  startable_by_applicant: false
   name: Envoi automatisé des écritures
   use_case: envoi_automatise_des_ecritures
   description: *api_infinoe_description

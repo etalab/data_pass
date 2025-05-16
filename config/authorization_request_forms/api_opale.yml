@@ -38,6 +38,7 @@ api-opale-sandbox:
 
 api-opale-production:
   description: FEEDME
+  startable_by_applicant: false
   introduction: |
     Votre demande d'accès au bac à sable a été validée, vous pouvez à présent poursuivre votre demande en demandant les accès à la production.
 
