@@ -806,7 +806,7 @@ fr:
 
         copy:
           message_summary: |
-            <strong>%{user_full_name}</strong> a copié la demande %{copied_from_authorization_request_id}.
+            <strong>%{user_full_name}</strong> a copié %{copied_from_authorization_request_id}.
 
         reopen:
           message_summary: |
