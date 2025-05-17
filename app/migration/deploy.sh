@@ -1,6 +1,6 @@
 #!/bin/bash
 
-RAILS_ENV=sandbox
+RAILS_ENV=production
 HOST=watchdoge5
 SANDBOX_BRANCH=migration/scripts
 

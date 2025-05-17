@@ -47,29 +47,6 @@
       "note": ""
     },
     {
-      "warning_type": "SQL Injection",
-      "warning_code": 0,
-      "fingerprint": "4f1a3ad8cf5d4264e5a03c99a97814882e8829a0425cc09b8073cdf2688ea3b3",
-      "check_name": "SQL",
-      "message": "Possible SQL injection",
-      "file": "app/migration/import/authorization_requests/dgfip_production.rb",
-      "line": 120,
-      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "ActiveRecord::Base.connection.execute(\"    BEGIN;\\n\\n    -- Cr\\u00E9er une copie avec le nouvel ID\\n    INSERT INTO authorization_requests (\\n      id,\\n      type,\\n      state,\\n      organization_id,\\n      applicant_id,\\n      terms_of_service_accepted,\\n      data_protection_officer_informed,\\n      data,\\n      last_validated_at,\\n      created_at,\\n      updated_at,\\n      form_uid,\\n      reopened_at,\\n      external_provider_id,\\n      next_request_copied_id,\\n      last_submitted_at,\\n      public_id,\\n      reopening,\\n      raw_attributes_from_v1,\\n      dirty_from_v1\\n    )\\n    SELECT\\n      #{enrollment_row[\"id\"]},\\n      '#{\"AuthorizationRequest::#{self.class.to_s.split(\"::\")[-1].sub(\"Attributes\", \"\")}\"}',\\n      'draft',\\n      organization_id,\\n      applicant_id,\\n      terms_of_service_accepted,\\n      data_protection_officer_informed,\\n      (SELECT data FROM authorization_requests WHERE id = #{enrollment_row[\"previous_enrollment_id\"]})::text::hstore,\\n      last_validated_at,\\n      created_at,\\n      updated_at,\\n      form_uid,\\n      reopened_at,\\n      external_provider_id,\\n      next_request_copied_id,\\n      last_submitted_at,\\n      public_id,\\n      reopening,\\n      raw_attributes_from_v1,\\n      dirty_from_v1\\n    FROM authorization_requests\\n    WHERE id = #{enrollment_row[\"previous_enrollment_id\"]};\\n\\n    -- Mettre \\u00E0 jour toutes les r\\u00E9f\\u00E9rences\\n    UPDATE messages\\n    SET authorization_request_id = #{enrollment_row[\"id\"]}\\n    WHERE authorization_request_id = #{enrollment_row[\"previous_enrollment_id\"]};\\n\\n    UPDATE authorization_request_changelogs\\n    SET authorization_request_id = #{enrollment_row[\"id\"]}\\n    WHERE authorization_request_id = #{enrollment_row[\"previous_enrollment_id\"]};\\n\\n    UPDATE instructor_modification_requests\\n    SET authorization_request_id = #{enrollment_row[\"id\"]}\\n    WHERE authorization_request_id = #{enrollment_row[\"previous_enrollment_id\"]};\\n\\n    UPDATE denial_of_authorizations\\n    SET authorization_request_id = #{enrollment_row[\"id\"]}\\n    WHERE authorization_request_id = #{enrollment_row[\"previous_enrollment_id\"]};\\n\\n    UPDATE revocation_of_authorizations\\n    SET authorization_request_id = #{enrollment_row[\"id\"]}\\n    WHERE authorization_request_id = #{enrollment_row[\"previous_enrollment_id\"]};\\n\\n    UPDATE authorization_request_transfers\\n    SET authorization_request_id = #{enrollment_row[\"id\"]}\\n    WHERE authorization_request_id = #{enrollment_row[\"previous_enrollment_id\"]};\\n\\n    UPDATE authorizations\\n    SET request_id = #{enrollment_row[\"id\"]}\\n    WHERE request_id = #{enrollment_row[\"previous_enrollment_id\"]};\\n\\n    UPDATE active_storage_attachments\\n    SET record_id = #{enrollment_row[\"id\"]}\\n    WHERE record_type = 'AuthorizationRequest' AND record_id = #{enrollment_row[\"previous_enrollment_id\"]};\\n\\n    UPDATE authorization_requests\\n    SET next_request_copied_id = #{enrollment_row[\"id\"]}\\n    WHERE next_request_copied_id = #{enrollment_row[\"previous_enrollment_id\"]};\\n\\n    UPDATE authorization_request_events\\n    SET authorization_request_id = #{enrollment_row[\"id\"]}\\n    WHERE authorization_request_id = #{enrollment_row[\"previous_enrollment_id\"]};\\n\\n    -- Supprimer l'ancien enregistrement\\n    DELETE FROM authorization_requests\\n    WHERE id = #{enrollment_row[\"previous_enrollment_id\"]};\\n\\n    COMMIT;\\n\")",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Import::AuthorizationRequests::DGFIPProduction",
-        "method": "migrate_from_sandbox_to_production!"
-      },
-      "user_input": "enrollment_row[\"id\"]",
-      "confidence": "Medium",
-      "cwe_id": [
-        89
-      ],
-      "note": ""
-    },
-    {
       "warning_type": "Command Injection",
       "warning_code": 14,
       "fingerprint": "5405cb37f1a10f05145513812f4db702ff679d899371eee59a7c390969a5c8b9",
@@ -203,6 +180,29 @@
       "confidence": "High",
       "cwe_id": [
         77
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "f64a2910a7e91adc71503b7522bcaaccdaffa3eb2a37e7198c5a94cfad59560e",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/migration/import/authorization_requests/dgfip_production.rb",
+      "line": 120,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.execute(\"    BEGIN;\\n\\n    -- Cr\\u00E9er une copie avec le nouvel ID\\n    INSERT INTO authorization_requests (\\n      id,\\n      type,\\n      state,\\n      organization_id,\\n      applicant_id,\\n      terms_of_service_accepted,\\n      data_protection_officer_informed,\\n      data,\\n      last_validated_at,\\n      created_at,\\n      updated_at,\\n      form_uid,\\n      reopened_at,\\n      external_provider_id,\\n      copied_from_request_id,\\n      last_submitted_at,\\n      public_id,\\n      reopening,\\n      raw_attributes_from_v1,\\n      dirty_from_v1\\n    )\\n    SELECT\\n      #{enrollment_row[\"id\"]},\\n      '#{\"AuthorizationRequest::#{self.class.to_s.split(\"::\")[-1].sub(\"Attributes\", \"\")}\"}',\\n      'draft',\\n      organization_id,\\n      applicant_id,\\n      terms_of_service_accepted,\\n      data_protection_officer_informed,\\n      (SELECT data FROM authorization_requests WHERE id = #{enrollment_row[\"previous_enrollment_id\"]})::text::hstore,\\n      last_validated_at,\\n      created_at,\\n      updated_at,\\n      form_uid,\\n      reopened_at,\\n      external_provider_id,\\n      copied_from_request_id,\\n      last_submitted_at,\\n      public_id,\\n      reopening,\\n      raw_attributes_from_v1,\\n      dirty_from_v1\\n    FROM authorization_requests\\n    WHERE id = #{enrollment_row[\"previous_enrollment_id\"]};\\n\\n    -- Mettre \\u00E0 jour toutes les r\\u00E9f\\u00E9rences\\n    UPDATE messages\\n    SET authorization_request_id = #{enrollment_row[\"id\"]}\\n    WHERE authorization_request_id = #{enrollment_row[\"previous_enrollment_id\"]};\\n\\n    UPDATE authorization_request_changelogs\\n    SET authorization_request_id = #{enrollment_row[\"id\"]}\\n    WHERE authorization_request_id = #{enrollment_row[\"previous_enrollment_id\"]};\\n\\n    UPDATE instructor_modification_requests\\n    SET authorization_request_id = #{enrollment_row[\"id\"]}\\n    WHERE authorization_request_id = #{enrollment_row[\"previous_enrollment_id\"]};\\n\\n    UPDATE denial_of_authorizations\\n    SET authorization_request_id = #{enrollment_row[\"id\"]}\\n    WHERE authorization_request_id = #{enrollment_row[\"previous_enrollment_id\"]};\\n\\n    UPDATE revocation_of_authorizations\\n    SET authorization_request_id = #{enrollment_row[\"id\"]}\\n    WHERE authorization_request_id = #{enrollment_row[\"previous_enrollment_id\"]};\\n\\n    UPDATE authorization_request_transfers\\n    SET authorization_request_id = #{enrollment_row[\"id\"]}\\n    WHERE authorization_request_id = #{enrollment_row[\"previous_enrollment_id\"]};\\n\\n    UPDATE authorizations\\n    SET request_id = #{enrollment_row[\"id\"]}\\n    WHERE request_id = #{enrollment_row[\"previous_enrollment_id\"]};\\n\\n    UPDATE active_storage_attachments\\n    SET record_id = #{enrollment_row[\"id\"]}\\n    WHERE record_type = 'AuthorizationRequest' AND record_id = #{enrollment_row[\"previous_enrollment_id\"]};\\n\\n    UPDATE authorization_requests\\n    SET copied_from_request_id = #{enrollment_row[\"id\"]}\\n    WHERE copied_from_request_id = #{enrollment_row[\"previous_enrollment_id\"]};\\n\\n    UPDATE authorization_request_events\\n    SET authorization_request_id = #{enrollment_row[\"id\"]}\\n    WHERE authorization_request_id = #{enrollment_row[\"previous_enrollment_id\"]};\\n\\n    -- Supprimer l'ancien enregistrement\\n    DELETE FROM authorization_requests\\n    WHERE id = #{enrollment_row[\"previous_enrollment_id\"]};\\n\\n    COMMIT;\\n\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Import::AuthorizationRequests::DGFIPProduction",
+        "method": "migrate_from_sandbox_to_production!"
+      },
+      "user_input": "enrollment_row[\"id\"]",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
       ],
       "note": ""
     },

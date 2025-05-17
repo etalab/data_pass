@@ -81,7 +81,12 @@ class Import::AuthorizationRequests < Import::Base
     authorization_request.state = enrollment_row['status']
     authorization_request.external_provider_id = enrollment_row['linked_token_manager_id']
     authorization_request.last_validated_at = enrollment_row['last_validated_at']
-    authorization_request.copied_from_request = AuthorizationRequest.find_by(id: enrollment_row['copied_from_enrollment_id'])
+
+    if enrollment_row['copied_from_enrollment_id']
+      if AuthorizationRequest.where(id: enrollment_row['copied_from_enrollment_id']).limit(1).any?
+        authorization_request.copied_from_request_id = enrollment_row['copied_from_enrollment_id']
+      end
+    end
 
     if authorization_request.state != 'draft'
       authorization_request.assign_attributes(

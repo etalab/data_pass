@@ -38,7 +38,7 @@ module Import::AuthorizationRequests::DGFIPProduction
       form_uid,
       reopened_at,
       external_provider_id,
-      next_request_copied_id,
+      copied_from_request_id,
       last_submitted_at,
       public_id,
       reopening,
@@ -60,7 +60,7 @@ module Import::AuthorizationRequests::DGFIPProduction
       form_uid,
       reopened_at,
       external_provider_id,
-      next_request_copied_id,
+      copied_from_request_id,
       last_submitted_at,
       public_id,
       reopening,
@@ -103,8 +103,8 @@ module Import::AuthorizationRequests::DGFIPProduction
     WHERE record_type = 'AuthorizationRequest' AND record_id = #{previous_id};
 
     UPDATE authorization_requests
-    SET next_request_copied_id = #{new_id}
-    WHERE next_request_copied_id = #{previous_id};
+    SET copied_from_request_id = #{new_id}
+    WHERE copied_from_request_id = #{previous_id};
 
     UPDATE authorization_request_events
     SET authorization_request_id = #{new_id}
