@@ -77,8 +77,8 @@ class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
   def copied_from_authorization_request_id
     return unless name == 'copy'
 
-    if entity.present?
-      "la demande #{entity.copied_from_request.id}"
+    if entity.present? && entity.copied_from_request_id.present?
+      "la demande #{entity.copied_from_request_id}"
     else
       'une demande qui n\'existe plus (celle-ci a été supprimée ou fusionnée avec cette demande)'
     end

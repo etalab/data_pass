@@ -166,7 +166,8 @@ FactoryBot.define do
 
         copied_from_authorization_request = create(:authorization_request, :validated, authorization_request_trait, applicant: authorization_request.applicant)
 
-        authorization_request_event.entity.copied_from_request = copied_from_authorization_request
+        authorization_request_event.entity.copied_from_request_id = copied_from_authorization_request.id
+        authorization_request_event.entity.save
       end
     end
 

@@ -1,5 +1,5 @@
 class AuthorizationRequest < ApplicationRecord
-  self.ignored_columns += %w[reopening]
+  self.ignored_columns += %w[reopening next_request_copied_id]
 
   include AuthorizationCore::Attributes
   include AuthorizationCore::Documents
@@ -85,15 +85,16 @@ class AuthorizationRequest < ApplicationRecord
     inverse_of: :authorization_request,
     dependent: :destroy
 
-  has_one :copied_from_request,
-    inverse_of: :next_request_copied,
+  belongs_to :copied_from_request,
+    inverse_of: :copies,
     class_name: 'AuthorizationRequest',
-    dependent: :nullify
-
-  belongs_to :next_request_copied,
-    class_name: 'AuthorizationRequest',
-    inverse_of: :copied_from_request,
     optional: true
+
+  has_many :copies,
+    class_name: 'AuthorizationRequest',
+    foreign_key: :copied_from_request_id,
+    inverse_of: :copied_from_request,
+    dependent: :nullify
 
   def latest_authorization
     authorizations.order(created_at: :desc).limit(1).first

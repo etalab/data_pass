@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_16_130557) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_17_112759) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_catalog.plpgsql"
@@ -127,14 +127,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_16_130557) do
     t.string "form_uid", null: false
     t.datetime "reopened_at"
     t.string "external_provider_id"
-    t.bigint "next_request_copied_id"
     t.datetime "last_submitted_at"
     t.uuid "public_id", default: -> { "gen_random_uuid()" }
     t.boolean "reopening", default: false
     t.text "raw_attributes_from_v1"
     t.boolean "dirty_from_v1", default: false
+    t.integer "copied_from_request_id"
     t.index ["applicant_id"], name: "index_authorization_requests_on_applicant_id"
-    t.index ["next_request_copied_id"], name: "index_authorization_requests_on_next_request_copied_id"
+    t.index ["copied_from_request_id"], name: "idx_authorization_requests_copied_from_request_id"
     t.index ["organization_id"], name: "index_authorization_requests_on_organization_id"
     t.index ["public_id"], name: "index_authorization_requests_on_public_id"
     t.index ["type", "organization_id"], name: "index_authorization_requests_on_type_and_organization_id", unique: true, where: "(((type)::text = 'AuthorizationRequest::HubEECertDC'::text) AND ((state)::text <> 'archived'::text))"
@@ -414,7 +414,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_16_130557) do
   add_foreign_key "authorization_request_reopening_cancellations", "authorization_requests", column: "request_id"
   add_foreign_key "authorization_request_reopening_cancellations", "users"
   add_foreign_key "authorization_request_transfers", "authorization_requests"
-  add_foreign_key "authorization_requests", "authorization_requests", column: "next_request_copied_id"
+  add_foreign_key "authorization_requests", "authorization_requests", column: "copied_from_request_id", name: "fk_authorization_requests_copied_from_request", on_delete: :nullify
   add_foreign_key "authorization_requests", "users", column: "applicant_id"
   add_foreign_key "authorizations", "authorization_requests", column: "request_id"
   add_foreign_key "authorizations", "users", column: "applicant_id"

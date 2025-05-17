@@ -301,7 +301,7 @@ RSpec.describe AuthorizationRequest do
     let(:authorization_request) { create(:authorization_request, :api_entreprise, :validated) }
 
     it { expect(authorization_request_copy.copied_from_request).to eq(authorization_request) }
-    it { expect(authorization_request.next_request_copied).to eq(authorization_request_copy) }
+    it { expect(authorization_request.copies).to include(authorization_request_copy) }
   end
 
   describe '#legacy_scope_values' do
