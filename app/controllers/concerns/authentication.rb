@@ -3,6 +3,7 @@ module Authentication
 
   included do
     before_action :authenticate_user!
+    before_action :identify_user_on_error_tracking_system
 
     helper_method :current_user, :current_organization, :user_signed_in? if respond_to?(:helper_method)
   end
@@ -10,6 +11,7 @@ module Authentication
   class_methods do
     def allow_unauthenticated_access(**)
       skip_before_action(:authenticate_user!, **)
+      skip_before_action(:identify_user_on_error_tracking_system, **)
     end
 
     alias_method :api_mode!, :allow_unauthenticated_access
@@ -74,5 +76,11 @@ module Authentication
 
   def current_organization
     @current_organization ||= current_user&.current_organization
+  end
+
+  def identify_user_on_error_tracking_system
+    return unless user_signed_in?
+
+    Sentry.set_user(id: current_user.id)
   end
 end
