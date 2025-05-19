@@ -123,8 +123,14 @@ Quand('je coche {string}') do |label|
 end
 
 Quand('je supprime le document {string}') do |document_name|
-  within('.file-with-remove-button', text: document_name) do
-    click_button(text: 'Supprimer')
+  if javascript?
+    within('.file-with-remove-button', text: document_name) do
+      find('button', text: 'Supprimer', visible: :all).trigger('click')
+    end
+  else
+    within('.file-with-remove-button', text: document_name) do
+      click_button(text: 'Supprimer')
+    end
   end
 end
 
