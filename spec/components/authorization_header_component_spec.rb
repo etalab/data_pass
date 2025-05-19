@@ -37,7 +37,7 @@ RSpec.describe AuthorizationHeaderComponent, type: :component do
       expect(subject.css('h1').text).to include("Habilitation à #{authorization.definition.name}")
       expect(subject.css('p').text).to include(authorization.name.to_s)
       expect(subject.css('.fr-badge').text).to include("Habilitation n°#{authorization.id}")
-      expect(subject.css('.fr-badge').text).to include(authorization.state)
+      expect(subject.css('.fr-badge').text).to include(component.translated_state)
     end
   end
 
