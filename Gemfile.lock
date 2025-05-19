@@ -179,9 +179,9 @@ GEM
       cucumber (>= 5, < 10)
       railties (>= 5.2, < 9)
     cucumber-tag-expressions (6.1.2)
-    cuprite (0.17)
+    cuprite (0.15.1)
       capybara (~> 3.0)
-      ferrum (~> 0.17.0)
+      ferrum (~> 0.15.0)
     database_cleaner-active_record (2.2.1)
       activerecord (>= 5.a)
       database_cleaner-core (~> 2.0.0)
@@ -265,9 +265,8 @@ GEM
       json (~> 2.0)
       mime-types (~> 3.4)
       rack (~> 3.1)
-    ferrum (0.17.1)
+    ferrum (0.15)
       addressable (~> 2.5)
-      base64 (~> 0.2)
       concurrent-ruby (~> 1.1)
       webrick (~> 1.7)
       websocket-driver (~> 0.7)
@@ -713,7 +712,7 @@ DEPENDENCIES
   csv
   cucumber
   cucumber-rails
-  cuprite
+  cuprite (= 0.15.1)
   database_cleaner-active_record
   debug
   doorkeeper
