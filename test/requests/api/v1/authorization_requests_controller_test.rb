@@ -3,7 +3,7 @@ require 'test_helper'
 class API::V1::AuthorizationRequestsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @user = create(:user, :with_developer_role, developer_roles: ['api_entreprise:instructeur'])
-    @token = create(:doorkeeper_access_token, resource_owner_id: @user.id, scopes: ['read_authorization_requests'])
+    @token = create(:doorkeeper_access_token, resource_owner_id: @user.id, scopes: ['read_authorizations'])
 
     # Create test data
     @organization = create(:organization)
