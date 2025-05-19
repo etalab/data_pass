@@ -39,7 +39,11 @@
           </div>
 
           <div class="contact-card__full_name">
-            <%= @authorization_request.organization.name %>
+            <% if @authorization_request.organization.foreign? %>
+              <%= @authorization_request.organization.name %>
+            <% else %>
+              <%= link_to @authorization_request.organization.name, "https://annuaire-entreprises.data.gouv.fr/etablissement/#{@authorization_request.organization.siret}", alt: "Lien vers l'annuaire", target: '_blank' %>
+            <% end %>
           </div>
 
           <%
