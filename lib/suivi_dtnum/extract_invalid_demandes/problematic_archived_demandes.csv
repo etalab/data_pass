@@ -5,7 +5,7 @@ demande_id,form,state,diagnostic
 49071,api-impot-particulier-sandbox,draft,BROUILLON JAMAIS SOUMIS
 51506,api-entreprise,validated,PAS DE LA DGFIP
 53071,hubee-cert-dc,validated,PAS DE LA DGFIP
-53782,api-impot-particulier-production,draft,PROBLEM REEL
+53782,api-impot-particulier-production,draft,Sandbox validée puis BROUILLON de production JAMAIS SOUMIS
 57086,api-pro-sante-connect,validated,PAS DE LA DGFIP
 57862,hubee-dila,validated,PAS DE LA DGFIP
 59839,hubee-cert-dc,validated,PAS DE LA DGFIP
