@@ -9,7 +9,11 @@
     <%= f.label_value(:duree_conservation_donnees_caractere_personnel) %>
   </strong>
 
-  <%= @authorization_request.duree_conservation_donnees_caractere_personnel %> mois.
+  <% if @authorization_request.duree_conservation_donnees_caractere_personnel.blank? %>
+    Non renseignée
+  <% else %>
+    <%= @authorization_request.duree_conservation_donnees_caractere_personnel %> mois.
+  <% end %>
 
   <% if @authorization_request.duree_conservation_donnees_caractere_personnel_more_than_3_years? && @authorization_request.duree_conservation_donnees_caractere_personnel_justification.present? %>
     <div>
