@@ -14,6 +14,31 @@ class INSEEAPIAuthentication < AbstractINSEEAPIClient
     ).body['access_token']
   end
 
+  protected
+
+  def http_connection
+    super do |conn|
+      conn.request :retry, retry_options
+    end
+  end
+
+  def retry_options
+    {
+      max: 5,
+      interval: 0.05,
+      interval_randomness: 0.5,
+      backoff_factor: 2,
+      exceptions: [
+        Faraday::ConnectionFailed,
+        Faraday::TimeoutError,
+        Faraday::ParsingError,
+        Faraday::ClientError,
+        Faraday::ServerError,
+        Faraday::UnauthorizedError,
+      ],
+    }
+  end
+
   private
 
   def client_id
