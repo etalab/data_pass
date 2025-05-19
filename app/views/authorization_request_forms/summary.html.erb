@@ -57,7 +57,23 @@
             <%= t('authorization_requests.show.dirty_from_v1.title') %>
           </h3>
 
-          <%= t('authorization_requests.show.dirty_from_v1.description') %>
+          <p>
+            <%= t('authorization_requests.show.dirty_from_v1.description') %>
+          </p>
+
+          <% unless @authorization_request.valid?(:submit) %>
+            <p class="fr-mt-2w">
+              <%= t('authorization_requests.show.dirty_from_v1.errors_title') %>
+            </p>
+
+            <ul>
+              <% @authorization_request.errors.full_messages.each do |message| %>
+                <li>
+                  <%= message %>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
         </div>
       <% end %>
     <% end %>
