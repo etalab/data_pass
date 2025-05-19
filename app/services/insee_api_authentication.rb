@@ -2,16 +2,18 @@
 
 class INSEEAPIAuthentication < AbstractINSEEAPIClient
   def access_token
-    http_connection.post(
-      'https://auth.insee.net/auth/realms/apim-gravitee/protocol/openid-connect/token',
-      {
-        'grant_type' => 'password',
-        'client_id' => client_id,
-        'client_secret' => client_secret,
-        'username' => username,
-        'password' => password,
-      }.to_query,
-    ).body['access_token']
+    Retriable.retriable(on: Faraday::UnauthorizedError, tries: 5) do
+      http_connection.post(
+        'https://auth.insee.net/auth/realms/apim-gravitee/protocol/openid-connect/token',
+        {
+          'grant_type' => 'password',
+          'client_id' => client_id,
+          'client_secret' => client_secret,
+          'username' => username,
+          'password' => password,
+        }.to_query,
+      ).body['access_token']
+    end
   end
 
   private
