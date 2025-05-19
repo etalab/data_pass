@@ -1,0 +1,18 @@
+demande_id,form,state,diagnostic
+41064,api-impot-particulier-sandbox,draft,BROUILLON JAMAIS SOUMIS
+48428,api-impot-particulier-sandbox,draft,BROUILLON JAMAIS SOUMIS
+49034,api-impot-particulier-sandbox,draft,BROUILLON JAMAIS SOUMIS
+49071,api-impot-particulier-sandbox,draft,BROUILLON JAMAIS SOUMIS
+51506,api-entreprise,validated,PAS DE LA DGFIP
+53071,hubee-cert-dc,validated,PAS DE LA DGFIP
+53782,api-impot-particulier-production,draft,PROBLEM REEL
+57086,api-pro-sante-connect,validated,PAS DE LA DGFIP
+57862,hubee-dila,validated,PAS DE LA DGFIP
+59839,hubee-cert-dc,validated,PAS DE LA DGFIP
+59988,france-connect,archived,PAS DE LA DGFIP
+60470,api-particulier-arpege-concerto,changes_requested,PAS DE LA DGFIP
+60471,api-entreprise-editeur,changes_requested,PAS DE LA DGFIP
+60581,api-captchetat,validated,PAS DE LA DGFIP
+60599,hubee-cert-dc,validated,PAS DE LA DGFIP
+63921,france-connect,validated,PAS DE LA DGFIP
+64142,api-r2p-production-editeur,draft,BROUILLON JAMAIS SOUMIS
