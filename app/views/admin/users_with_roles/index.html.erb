@@ -5,8 +5,8 @@
 <%= search_form_for(@search_engine, url: admin_users_with_roles_path, html: { method: :get, data: { controller: 'auto-submit-form', 'auto-submit-form-debounce-interval-value' => 500, 'auto-submit-form-event-mode-value' => 'input', turbo_frame: 'users_table' }, class: %w[search-box] }) do |f| %>
   <div class="search-inputs">
     <div class="fr-input-group main-input input">
-      <%= f.label :email_eq, t('.search.main_input.label'), class: %w[fr-label] %>
-      <%= f.search_field :email_eq, class: %[fr-input], placeholder: t('.search.main_input.placeholder') %>
+      <%= f.label :email_cont, t('.search.main_input.label'), class: %w[fr-label] %>
+      <%= f.search_field :email_cont, class: %[fr-input], placeholder: t('.search.main_input.placeholder') %>
     </div>
 
     <div class="fr-select-group input">
