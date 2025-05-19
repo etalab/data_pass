@@ -1,6 +1,6 @@
 class API::V1::AuthorizationsController < API::V1Controller
   before_action :set_authorization, only: :show
-  before_action -> { doorkeeper_authorize! :read_authorization_requests }, only: :index
+  before_action -> { doorkeeper_authorize! :read_authorizations }, only: :index
 
   def show
     render json: @authorization,

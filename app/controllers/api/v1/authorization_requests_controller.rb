@@ -1,6 +1,6 @@
 class API::V1::AuthorizationRequestsController < API::V1Controller
   before_action :set_authorization_request, only: [:show]
-  before_action -> { doorkeeper_authorize! :read_authorization_requests }, only: %i[index show]
+  before_action -> { doorkeeper_authorize! :read_authorizations }, only: %i[index show]
 
   def index
     authorization_requests = AuthorizationRequest
