@@ -1,7 +1,10 @@
-invalid_ar = AuthorizationRequest.where(dirty_from_v1: true)
+dgfip_authorizations_definitions = AuthorizationDefinition.all.select { |definition| definition.provider.id == 'dgfip' }
+dgfip_authorizations_types = dgfip_authorizations_definitions.map { |definition| definition.authorization_request_class.to_s }
+
+invalid_ar = AuthorizationRequest.where(dirty_from_v1: true, type: dgfip_authorizations_types)
 
 invalid_ar_with_errors = invalid_ar.map do |ar| 
-  begin 
+  begin
     if ar.valid?
       nil
     else
