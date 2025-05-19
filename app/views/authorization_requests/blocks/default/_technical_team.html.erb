@@ -1,4 +1,4 @@
-<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { title: f.wording_for('steps.basic_infos'), block_id: :basic_infos, f:, editable: } do %>
+<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { title: f.wording_for('steps.technical_team'), block_id: :technical_team, f:, editable: } do %>
   <strong>
     <%= f.label_value(:technical_team_type) %>
   </strong>
@@ -6,10 +6,12 @@
   <%= f.label_value("technical_team.values.#{@authorization_request.technical_team_type}") %>
 
   <% if @authorization_request.technical_team_value.present? %>
-    <strong>
-      <%= f.label_value(:technical_team_value) %>
-    </strong>
+    <p>
+      <strong>
+        <%= f.label_value(:technical_team_value) %>
+      </strong>
 
-    <%= simple_format_without_html_tags(@authorization_request.technical_team_value) %>
+      <%= @authorization_request.technical_team_value %>
+    </p>
   <% end %>
 <% end %>

@@ -107,6 +107,13 @@ fr:
 
       technical_team:
         title: Équipe en charge des développements techniques
+        values:
+          editor:
+            label: Mon éditeur de logiciel
+          internal:
+            label: Mon équipe de développeurs
+          other:
+            label: Autre
 
       personal_data:
         title: Comment seront traitées ces données personnelles ?
