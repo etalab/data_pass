@@ -3,7 +3,7 @@ dgfip_authorizations_types = dgfip_authorizations_definitions.map { |definition|
 
 invalid_ar = AuthorizationRequest.where(dirty_from_v1: true, type: dgfip_authorizations_types)
 
-invalid_ar_with_errors = invalid_ar.map do |ar| 
+invalid_ar_with_errors = invalid_ar.map do |ar|
   begin
     if ar.valid?
       nil
@@ -25,3 +25,14 @@ csv_string = CSV.generate(force_quotes: true) do |csv|
 end
 
 puts csv_string
+
+
+## habilitations liées à une demande refusée
+
+refused_ar_with_hab = AuthorizationRequest
+  .where(type: dgfip_authorizations_types, state: 'refused')
+  .joins(:authorizations)
+  .where(authorizations: { state: %w[active obsolete] })
+  .where("authorization_requests.type = authorizations.authorization_request_class")
+
+refused_ar_with_hab.count
