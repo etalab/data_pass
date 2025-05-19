@@ -5,7 +5,7 @@ class Instruction::AuthorizationRequestsController < Instruction::AbstractAuthor
   skip_before_action :extract_authorization_request, only: :index
 
   def index
-    base_relation = policy_scope([:instruction, AuthorizationRequest]).includes([:organization]).not_archived
+    base_relation = policy_scope([:instruction, AuthorizationRequest]).includes([:organization])
 
     base_relation = base_relation.none if search_terms_is_a_possible_id?
 
