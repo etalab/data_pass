@@ -80,9 +80,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation API INFINOE
     * je renseigne les informations du contact technique
     * je clique sur "Suivant"
 
-    * je renseigne la recette fonctionnelle
-    * je clique sur "Suivant"
-
     * je renseigne la volumétrie
     * je clique sur "Suivant"
 

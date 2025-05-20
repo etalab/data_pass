@@ -137,7 +137,6 @@ api-r2p-production-editeur:
     - name: legal
     - name: modalities
     - name: contacts
-    - name: operational_acceptance
     - name: safety_certification
     - name: volumetrie
 
