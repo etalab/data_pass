@@ -1,0 +1,6 @@
+fr:
+  components:
+    historical_events:
+      show_message: "voir le message"
+      hide_message: "masquer le message"
+
