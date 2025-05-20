@@ -97,7 +97,6 @@ api-impot-particulier-production-editeur:
     - name: modalities
     - name: scopes
     - name: contacts
-    - name: operational_acceptance
     - name: safety_certification
     - name: volumetrie
 

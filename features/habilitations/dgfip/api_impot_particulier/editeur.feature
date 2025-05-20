@@ -1,6 +1,6 @@
 # language: fr
 
-Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particuliers avec éditeur
+Fonctionnalité: Soumission d'une demande d'habilitation API Impôt Particulier avec éditeur
   Contexte:
     Sachant que je suis un demandeur
     Et que je me connecte
@@ -25,9 +25,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
 
     * je renseigne les informations des contacts RGPD
     * je renseigne les informations du contact technique
-    * je clique sur "Suivant"
-
-    * je renseigne la recette fonctionnelle
     * je clique sur "Suivant"
 
   Scénario: Je soumets une demande d'habilitation valide
