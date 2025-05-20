@@ -1,4 +1,4 @@
-# Modifications (ajout, retrait) de scopes
+# Modifications (ajout, retrait, dépréciation) de scopes
 
 ## Définition
 
@@ -14,6 +14,35 @@ scopes:
     # Valeur technique, doit être unique
     value: bilans_des_entreprises
 ```
+
+#### Scopes dépréciés avec l'option d'affichage `deprecated_since`
+
+Le système de gestion des scopes permet d'identifier et de gérer des scopes qui sont dépréciés mais encore
+fonctionnels pour une période donnée. Cette fonctionnalité utilise l'attribut `deprecated_since` dans le fichier de
+configuration YAML.
+
+#### Configuration
+
+Les scopes dépréciés sont définis dans le fichier `config/authorization_definitions/dgfip.yml` avec la structure
+suivante :
+
+```yaml
+scopes:
+  # Nom affiché
+  - name: Bilans des entreprises
+    # Valeur technique, doit être unique
+    value: bilans_des_entreprises
+    # Date de dépréciation au format ISO 8601
+    deprecated_since: 2023-10-01
+```
+
+#### Comportement
+
+Lorsqu'un scope est marqué comme déprécié :
+
+1. Un avertissement est affiché aux utilisateurs pour les demandes et habilitations utilisant un scope qui est marqué
+   comme déprécié
+2. Il sera progressivement retiré des interfaces utilisateur
 
 Le détail de l'ensemble des clés possibles se trouve [ici](new_provider.md#configuration-du-authorizationdefinition)
 

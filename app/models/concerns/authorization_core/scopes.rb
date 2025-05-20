@@ -49,7 +49,7 @@ module AuthorizationCore::Scopes
     @available_scopes ||= if displayed_scope_values
                             definition.scopes.select { |scope| displayed_scope_values.include?(scope.value) }
                           else
-                            definition.scopes
+                            definition.scopes.reject { |scope| scope.entity_created_after_deprecation_date?(self) }
                           end
   end
 
