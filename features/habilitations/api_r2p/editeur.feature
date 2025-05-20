@@ -26,9 +26,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation API R2P éditeur
     * je renseigne les informations du contact technique
     * je clique sur "Suivant"
 
-    * je renseigne la recette fonctionnelle
-    * je clique sur "Suivant"
-
     * je renseigne l'homologation de sécurité
     * je clique sur "Suivant"
 
