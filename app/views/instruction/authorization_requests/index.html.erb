@@ -10,7 +10,7 @@
     <% if current_user.authorization_definition_roles_as(:reporter).count > 1 %>
       <div class="fr-select-group input">
         <%= f.label :type_eq, class: %w[fr-label] %>
-        <% options = current_user.authorization_definition_roles_as(:reporter).map { |authorization_definition| [authorization_definition.name, authorization_definition.authorization_request_class.to_s] }%>
+        <% options = current_user.authorization_definition_roles_as(:reporter).map { |authorization_definition| [authorization_definition.name_with_stage, authorization_definition.authorization_request_class.to_s] }%>
         <%= f.select :type_eq, options_for_select([['Toutes les données', '']].concat(options), selected: params[:search_query].try(:[], :type_eq)), {}, class: %w[fr-select] %>
       </div>
     <% end %>
