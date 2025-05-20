@@ -102,7 +102,7 @@ api_impot_particulier:
     - name: Catégorie 1 - Salaires, pensions, rentes
       value: dgfip_RevDecl_Cat1_Tspr
       group: Revenus catégoriels - revenus déclarés (avant application des abattements, etc...)
-      deprecated_since: &deprecation_date_category "2025-04-17"
+      deprecated_since: &deprecation_date_category "2025-05-20"
     - name: Catégorie 1 - Rentes viagères à titre onéreux
       value: dgfip_RevDecl_Cat1_RentOn
       group: Revenus catégoriels - revenus déclarés (avant application des abattements, etc...)
