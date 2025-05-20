@@ -28,7 +28,7 @@ class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
 
   def message_details_text
     @message_details_text ||= case name
-                              when 'request_changes', 'revoke', 'refuse'
+                              when 'request_changes', 'revoke', 'refuse', 'bulk_update'
                                 simple_format(entity.reason)
                               when 'applicant_message', 'instructor_message'
                                 simple_format(entity.body)
