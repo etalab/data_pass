@@ -59,8 +59,16 @@ class Instruction::AuthorizationRequestsController < Instruction::AbstractAuthor
   end
 
   def save_or_load_search_params
-    session[search_key] = params[:search_query] if params[:search_query].present?
-    params[:search_query] = session[search_key] if params[:search_query].blank?
+    save_search_params
+    load_search_params
+  end
+
+  def save_search_params
+    cookies[search_key] = { value: params[:search_query].to_json, expires: 1.month.from_now } if params[:search_query].present?
+  end
+
+  def load_search_params
+    params[:search_query] = JSON.parse(cookies[search_key] || '{}') if params[:search_query].blank?
   end
 
   def main_search_input_key
