@@ -50,6 +50,18 @@ RSpec.describe HistoricalAuthorizationRequestEventComponent, type: :component do
     end
   end
 
+  describe '#message_details_text' do
+    context 'when event_name is bulk_updates' do
+      let(:authorization_request_event) { create(:authorization_request_event, :bulk_update) }
+
+      it 'returns the message details text' do
+        render_inline(subject)
+
+        expect(subject.message_details_text).to include(authorization_request_event.entity.reason)
+      end
+    end
+  end
+
   describe '#message_expandable?' do
     context 'when message_details_text is present' do
       let(:authorization_request_event) { create(:authorization_request_event, :refuse) }
