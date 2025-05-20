@@ -591,6 +591,7 @@ fr:
             actions: Actions
           actions:
             show: Consulter
+        all_status: Tous les status (sauf Supprimée)
         status:
           draft: Brouillon
           changes_requested: A modifier
