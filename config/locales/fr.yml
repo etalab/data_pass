@@ -71,11 +71,6 @@ fr:
     changelog_entry_applicant: "Le <u>demandeur</u> a été modifié de %{old_value} à %{new_value}."
     changelog_entry_applicant_with_missing_data: "Le <u>demandeur</u> a été modifié."
 
-  components:
-    historical_events:
-      show_message: "voir le message"
-      hide_message: "masquer le message"
-
   layouts:
     header:
       title: DataPass
