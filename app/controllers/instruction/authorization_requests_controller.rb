@@ -4,8 +4,10 @@ class Instruction::AuthorizationRequestsController < Instruction::AbstractAuthor
 
   skip_before_action :extract_authorization_request, only: :index
 
+  # rubocop:disable Metrics/AbcSize
   def index
     base_relation = policy_scope([:instruction, AuthorizationRequest]).includes([:organization])
+    base_relation = base_relation.not_archived if params.dig('search_query', 'state_eq').blank?
 
     base_relation = base_relation.none if search_terms_is_a_possible_id?
 
@@ -14,6 +16,7 @@ class Instruction::AuthorizationRequestsController < Instruction::AbstractAuthor
 
     @authorization_requests = build_search_engine_results_with_order_which_puts_null_as_last.page(params[:page])
   end
+  # rubocop:enable Metrics/AbcSize
 
   def show
     authorize [:instruction, @authorization_request]

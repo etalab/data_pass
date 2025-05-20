@@ -47,7 +47,7 @@ fr:
       submitted: En cours d'instruction
       validated: Validée
       refused: Refusée
-      archived: Archivée
+      archived: Supprimée
       revoked: Révoquée
     reopening: Mise à jour
     stage:
@@ -591,13 +591,14 @@ fr:
             actions: Actions
           actions:
             show: Consulter
+        all_status: Tous les status (sauf Supprimée)
         status:
           draft: Brouillon
           changes_requested: A modifier
           submitted: En cours
           validated: Validée
           refused: Refusée
-          archived: Archivée
+          archived: Supprimée
           revoked: Révoquée
       moderation_buttons:
         title: Instruire la demande
