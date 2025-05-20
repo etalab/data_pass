@@ -50,6 +50,42 @@ RSpec.describe HistoricalAuthorizationRequestEventComponent, type: :component do
     end
   end
 
+  describe 'expand/collapse link text' do
+    context 'with changelog kind of event' do
+      let(:authorization_request_event) { create(:authorization_request_event, :admin_update) }
+
+      it 'uses show/hide changelog' do
+        page = render_inline(subject)
+
+        expect(page).to have_text('voir les modifications')
+        expect(page).to have_text('masquer les modifications')
+      end
+    end
+
+    context 'with message kind of event' do
+      let(:authorization_request_event) { create(:authorization_request_event, :applicant_message) }
+
+      it 'uses show/hide message' do
+        page = render_inline(subject)
+
+        expect(page).to have_text('voir le message')
+        expect(page).to have_text('masquer le message')
+      end
+    end
+  end
+
+  describe '#message_details_text' do
+    context 'when event_name is bulk_updates' do
+      let(:authorization_request_event) { create(:authorization_request_event, :bulk_update) }
+
+      it 'returns the message details text' do
+        render_inline(subject)
+
+        expect(subject.message_details_text).to include(authorization_request_event.entity.reason)
+      end
+    end
+  end
+
   describe '#message_expandable?' do
     context 'when message_details_text is present' do
       let(:authorization_request_event) { create(:authorization_request_event, :refuse) }

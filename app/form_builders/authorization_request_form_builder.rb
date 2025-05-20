@@ -24,7 +24,7 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
 
     info_wording = {
       title: wording_for("#{block}.info.title"),
-      content: wording_for("#{block}.info.content"),
+      content: wording_for("#{block}.info.content")&.html_safe,
     }
 
     return unless info_wording
@@ -89,9 +89,7 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
   end
 
   def dsfr_scope(scope, opts = {})
-    disabled = opts.delete(:disabled)
-
-    disabled = @object.disabled_scopes.include?(scope) if disabled.blank?
+    disabled = determine_scope_disabled_state(scope, opts.delete(:disabled))
 
     @template.content_tag(:div, class: 'fr-checkbox-group') do
       @template.safe_join(
@@ -100,17 +98,23 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
             :scopes,
             {
               class: input_classes(opts),
-              **dsfr_scope_options(scope, disabled:),
+              **dsfr_scope_options(scope, disabled: disabled),
               **enhance_input_options(opts).except(:class)
             },
             scope.value,
-            nil
+            '',
           ),
           dsfr_scope_label(scope),
           include_scope_hidden_field?(scope, disabled) ? scope_hidden_field(scope) : nil
         ].compact
       )
     end
+  end
+
+  def determine_scope_disabled_state(scope, disabled_option)
+    return true if disabled_option || scope.deprecated?
+
+    @object.disabled_scopes.include?(scope) if disabled_option.blank?
   end
 
   def include_scope_hidden_field?(scope, disabled)
@@ -135,6 +139,7 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
       @template.safe_join(
         [
           scope.name,
+          scope.deprecated? ? @template.content_tag(:span, 'Déprécié', class: 'fr-badge fr-badge--sm fr-badge--warning fr-mx-1w') : nil,
           scope.link? ? @template.link_to('', scope.link, { target: '_blank', rel: 'noopener' }) : nil
         ].compact
       )

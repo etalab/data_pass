@@ -4,7 +4,7 @@ class AuthorizationDecorator < ApplicationDecorator
   decorates_association :request
 
   def name_for_select
-    "Habilitation du #{formatted_date} : #{name}"
+    "Habilitation n°#{id} du #{formatted_date} : #{name}"
   end
 
   private

@@ -8,9 +8,9 @@
     </div>
 
     <% if current_user.authorization_definition_roles_as(:reporter).count > 1 %>
-      <div class="fr-select-group input">
+      <div class="fr-select-group input type_habilitation">
         <%= f.label :type_eq, class: %w[fr-label] %>
-        <% options = current_user.authorization_definition_roles_as(:reporter).map { |authorization_definition| [authorization_definition.name, authorization_definition.authorization_request_class.to_s] }%>
+        <% options = current_user.authorization_definition_roles_as(:reporter).map { |authorization_definition| [authorization_definition.name_with_stage, authorization_definition.authorization_request_class.to_s] }%>
         <%= f.select :type_eq, options_for_select([['Toutes les données', '']].concat(options), selected: params[:search_query].try(:[], :type_eq)), {}, class: %w[fr-select] %>
       </div>
     <% end %>
@@ -19,7 +19,8 @@
       <%= f.label :state_eq, class: %w[fr-label] %>
 
       <% options = AuthorizationRequest.state_machine.states.map { |s| s.name }.map { |e| [t("authorization_request.status.#{e}"), e] } %>
-      <%= f.select :state_eq, options_for_select([['Tous les status', '']].concat(options), selected: params[:search_query].try(:[], :state_eq) || 'Tous les status'), {}, class: %w[fr-select] %>
+      <% default_option = t('.all_status') %>
+      <%= f.select :state_eq, options_for_select([[default_option, '']].concat(options), selected: params[:search_query].try(:[], :state_eq) || default_option), {}, class: %w[fr-select] %>
     </div>
   </div>
 

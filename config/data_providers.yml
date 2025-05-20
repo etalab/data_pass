@@ -45,3 +45,8 @@ shared:
     name: Centre Interministériel des Systèmes d'Information relatifs aux Ressources Humaines
     logo: cisirh.png
     link: https://www.economie.gouv.fr/cisirh
+
+  mtes:
+    name: Ministère de la Transition écologique
+    logo: mtes.jpg
+    link: https://www.ecologie.gouv.fr/

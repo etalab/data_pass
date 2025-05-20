@@ -1,6 +1,13 @@
 fr:
   authorization_request_forms:
     default:
+      contact_organization:
+        title: Contact supplémentaire de l'organisation
+        info: Nous avons besoin d'un contact supplémentaire au sein de votre organisation auquel adresser nos demandes si vous n'êtes pas disponible
+      contact_technique_extra:
+        title: Contact supplémentaire
+        info: Nous avons besoin d'un contact supplémentaire auquel adresser nos demandes si le responsable technique n'est pas disponible
+
       steps: &authorization_request_forms_default_steps
         basic_infos: "Mon projet"
         technical_team: "L'équipe technique"
@@ -311,13 +318,6 @@ fr:
       cadre_juridique_document:
         label: Ajoutez votre ou vos documents
         hint: *pdf_input_hint
-      contact_organization:
-        title: Contact supplémentaire de l'organisation
-        info: Nous avons besoin d’un contact supplémentaire au sein de votre organisation auquel adresser nos demandes si vous n’êtes pas disponible
-      contact_technique:
-        extra:
-          title: Contact supplémentaire
-          info: Nous avons besoin d’un contact supplémentaire auquel adresser nos demandes si le responsable technique n’est pas disponible
     api_particulier:
       steps:
         <<: *authorization_request_forms_default_steps
@@ -919,6 +919,7 @@ fr:
           with_acces_etat_civil_degrade_adresse:
             label: Recherche par état civil dégradé et éléments d’adresse - Restitution de l’état civil complet, de l’adresse et du code postal
 
+    api_r2p_production: *api_r2p_sandbox
     api_r2p_ordonnateur_sandbox: *api_r2p_sandbox
     api_r2p_appel_spi_sandbox: *api_r2p_sandbox
     api_r2p_production_editeur: *api_r2p_sandbox
@@ -951,6 +952,20 @@ fr:
             label: Via mon équipe de développeur
           other:
             label: Autre
+
+    api_mobilic:
+      steps:
+        <<: *authorization_request_forms_default_steps
+        basic_infos: "Ma demande d'interfaçage"
+      basic_infos:
+        title: Décrivez nous votre logiciel
+        subtitle: Afin de vous donner accès aux données, nous avons besoin d’en savoir plus sur la manière dont vous souhaitez les utiliser.
+      intitule:
+        label: Nom du logiciel
+        hint: Un texte à changer ici
+      description:
+        label: Description du flux opérationnel
+        hint: Texte à personnaliser pour aider l'utilisateur
 
 
 

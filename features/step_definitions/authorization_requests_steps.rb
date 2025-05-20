@@ -148,7 +148,7 @@ Alors("il n'y a pas de formulaire en mode résumé") do
 end
 
 Quand('je me rends sur cette demande d\'habilitation') do
-  authorization_request = AuthorizationRequest.last
+  authorization_request = @authorization_request || AuthorizationRequest.last
 
   if current_user.instructor?
     visit instruction_authorization_request_path(authorization_request)
@@ -314,6 +314,13 @@ Quand('je renseigne les infos de bases du projet') do
   steps %(
     * je remplis "Nom du projet" avec "Conquérir le monde"
     * je remplis "Description du projet" avec "Comment chaque soir"
+  )
+end
+
+Quand('je renseigne les infos logiciel du projet') do
+  steps %(
+    * je remplis "Nom du logiciel" avec "Le logiciel qui conquiert le monde"
+    * je remplis "Description du flux opérationnel" avec "Comment chaque matin"
   )
 end
 

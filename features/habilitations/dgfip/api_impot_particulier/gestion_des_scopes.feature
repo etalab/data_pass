@@ -43,7 +43,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
   Scénario: Je soumets une demande d'habilitation avec 2 scopes incompatibles.
     * je coche "Dernière année de revenu (N-1)"
     * je coche "Données fiscales au 31/12 en cas de décès d'un contribuable marié ou pacsé"
-    * je coche "Versement épargne retraite"
+    * je coche "Indicateur ISF/IFI"
     * je clique sur "Suivant"
 
     Alors la page contient "Une erreur est survenue lors de la sauvegarde de la demande d'habilitation"

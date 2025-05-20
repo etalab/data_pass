@@ -38,7 +38,6 @@
         <%= f.label_value(:safety_certification_document) %> :
       </strong>
       <br />
-      <%= link_to authorization_request.safety_certification_document.filename, url_for(authorization_request.safety_certification_document), target: '_blank', class: %w[fr-link--icon-left fr-icon-file-pdf-fill] %>
-    </p>
+      <%= render 'shared/display_document', document: authorization_request.safety_certification_document, f: f %>
   <% end %>
 <% end %>

@@ -61,7 +61,7 @@ class AuthorizationRequestForms::BuildController < AuthorizationRequestFormsCont
   end
 
   def save_current_step
-    session[current_build_step_cache_key] = next_step
+    cookies[current_build_step_cache_key] = { value: next_step, expires: 7.days.from_now }
   end
 
   def extract_authorization_request
