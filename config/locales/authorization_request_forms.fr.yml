@@ -919,6 +919,7 @@ fr:
           with_acces_etat_civil_degrade_adresse:
             label: Recherche par état civil dégradé et éléments d’adresse - Restitution de l’état civil complet, de l’adresse et du code postal
 
+    api_r2p_production: *api_r2p_sandbox
     api_r2p_ordonnateur_sandbox: *api_r2p_sandbox
     api_r2p_appel_spi_sandbox: *api_r2p_sandbox
     api_r2p_production_editeur: *api_r2p_sandbox
