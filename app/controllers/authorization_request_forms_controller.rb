@@ -129,7 +129,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   end
 
   def redirect_to_current_build_step
-    step = session.fetch(current_build_step_cache_key, t("wicked.#{@authorization_request_form.steps.first[:name]}"))
+    step = cookies.fetch(current_build_step_cache_key, t("wicked.#{@authorization_request_form.steps.first[:name]}"))
 
     redirect_to authorization_request_form_build_path(
       form_uid: @authorization_request_form.uid,
@@ -139,7 +139,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   end
 
   def current_build_step_cache_key
-    "authorization_request_form:#{@authorization_request.type.underscore}_#{@authorization_request.id}:current_build_step"
+    "demande_#{@authorization_request.id}_build_step"
   end
 
   def create_for_single_page_form
