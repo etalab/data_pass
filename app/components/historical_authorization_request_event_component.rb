@@ -113,4 +113,13 @@ class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
       'cancel_reopening_from_applicant'
     end
   end
+
+  def event_kind
+    case event.name
+    when 'refuse', 'revoke', 'request_changes', 'applicant_message', 'instructor_message', 'bulk_update'
+      :message
+    when 'submit', 'admin_update'
+      :changelog
+    end
+  end
 end
