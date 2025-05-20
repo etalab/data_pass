@@ -1,24 +1,17 @@
 .search-box .search-inputs {
   display: flex;
   flex-wrap: wrap;
+  gap: 1rem;
 }
 
-.search-box .search-inputs > .input {
+.search-box .search-inputs > .input.main-input {
   flex-grow: 1;
-  flex-shrink: 1;
 }
 
-.search-box .search-inputs > .input {
-  flex-basis: 25%;
-  padding: 1rem 0 1rem 1rem;
-}
-
-.search-box .search-inputs > .input:first-child {
-  padding-left: 0;
-  flex-basis: 50%;
+.search-box .search-inputs > .input.type_habilitation {
+  max-width: 300px;
 }
 
 .search-box .actions {
-  margin: -1rem 0 0.5rem 0;
   text-align: right;
 }

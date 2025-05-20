@@ -32,7 +32,7 @@ Fonctionnalité: Instruction: liste des habilitations
     Sachant qu'il y a 1 demande d'habilitation "API Entreprise" en attente
     Et qu'il y a 1 demande d'habilitation "API Entreprise" archivée
     Et que je vais sur la page instruction
-    Et que je sélectionne "Archivée" pour "État égal à"
+    Et que je sélectionne "Supprimée" pour "État égal à"
     Et que je clique sur "Rechercher"
     Alors je vois 1 demande d'habilitation
 
