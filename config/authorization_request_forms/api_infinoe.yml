@@ -89,7 +89,6 @@ api-infinoe-production-editeur:
     - name: personal_data
     - name: legal
     - name: contacts
-    - name: operational_acceptance
     - name: volumetrie
 
 # Envoi automatisé des écritures
