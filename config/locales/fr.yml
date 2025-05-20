@@ -71,11 +71,6 @@ fr:
     changelog_entry_applicant: "Le <u>demandeur</u> a été modifié de %{old_value} à %{new_value}."
     changelog_entry_applicant_with_missing_data: "Le <u>demandeur</u> a été modifié."
 
-  components:
-    historical_events:
-      show_message: "voir le message"
-      hide_message: "masquer le message"
-
   layouts:
     header:
       title: DataPass
@@ -847,8 +842,10 @@ fr:
             L'administrateur <strong>%{user_full_name}</strong> a mis à jour la demande :
 
           message_details: |
-            La liste des changements est la suivante :
-            %{message_details_text}
+            <p class="fr-mt-2w">
+              La liste des changements est la suivante :
+              %{message_details_text}
+            </p>
 
         bulk_update:
           message_summary: |
