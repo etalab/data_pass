@@ -47,7 +47,7 @@ fr:
       submitted: En cours d'instruction
       validated: Validée
       refused: Refusée
-      archived: Archivée
+      archived: Supprimée
       revoked: Révoquée
     reopening: Mise à jour
     stage:
@@ -597,7 +597,7 @@ fr:
           submitted: En cours
           validated: Validée
           refused: Refusée
-          archived: Archivée
+          archived: Supprimée
           revoked: Révoquée
       moderation_buttons:
         title: Instruire la demande
