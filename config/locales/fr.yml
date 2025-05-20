@@ -846,8 +846,10 @@ fr:
             L'administrateur <strong>%{user_full_name}</strong> a mis à jour la demande :
 
           message_details: |
-            La liste des changements est la suivante :
-            %{message_details_text}
+            <p class="fr-mt-2w">
+              La liste des changements est la suivante :
+              %{message_details_text}
+            </p>
 
         bulk_update:
           message_summary: |
