@@ -28,7 +28,7 @@ class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
 
   def message_details_text
     @message_details_text ||= case name
-                              when 'request_changes', 'revoke', 'refuse'
+                              when 'request_changes', 'revoke', 'refuse', 'bulk_update'
                                 simple_format(entity.reason)
                               when 'applicant_message', 'instructor_message'
                                 simple_format(entity.body)
@@ -111,6 +111,15 @@ class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
       'cancel_reopening_from_instructor'
     else
       'cancel_reopening_from_applicant'
+    end
+  end
+
+  def event_kind
+    case event.name
+    when 'refuse', 'revoke', 'request_changes', 'applicant_message', 'instructor_message', 'bulk_update'
+      :message
+    when 'submit', 'admin_update'
+      :changelog
     end
   end
 end
