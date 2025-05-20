@@ -15,7 +15,7 @@
         <button class="fr-link"
                 data-action="click->show-and-hide#trigger"
                 data-show-and-hide-target-param="#<%= dom_id(authorization_request_event, :message_content) %>">
-          <%= t('components.historical_events.show_message') %>
+          <%= t("components.historical_events.show_#{event_kind}") %>
         </button>
       <% end %>
     </div>
@@ -26,7 +26,7 @@
         <button class="fr-link"
                 data-action="click->show-and-hide#trigger"
                 data-show-and-hide-target-param="#<%= dom_id(authorization_request_event, :message_summary) %>">
-          <%= t('components.historical_events.hide_message') %>
+          <%= t("components.historical_events.hide_#{event_kind}") %>
         </button>
       </div>
     <% end %>

@@ -3,4 +3,6 @@ fr:
     historical_events:
       show_message: "voir le message"
       hide_message: "masquer le message"
+      show_changelog: "voir les modifications"
+      hide_changelog: "masquer les modifications"
 
