@@ -16,4 +16,6 @@ class AuthorizationRequest::APIENSUDocuments < AuthorizationRequest
   add_attributes :date_prevue_mise_en_production
 
   contact :contact_technique, validation_condition: ->(record) { record.need_complete_validation?(:contacts) }
+
+  add_checkbox :dpd_homologation_checkbox
 end
