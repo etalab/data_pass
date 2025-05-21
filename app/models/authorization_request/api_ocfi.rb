@@ -6,6 +6,7 @@ class AuthorizationRequest::APIOcfi < AuthorizationRequest
   include AuthorizationExtensions::OperationalAcceptance
   include AuthorizationExtensions::SafetyCertification
   include AuthorizationExtensions::Volumetrie
+  include DGFIPExtensions::ExtraContactsInfos
 
   VOLUMETRIES = {
     '500 appels / minute': 500,
