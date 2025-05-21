@@ -7,6 +7,7 @@ class AuthorizationRequest::APIFicoba < AuthorizationRequest
   include AuthorizationExtensions::SafetyCertification
   include AuthorizationExtensions::Volumetrie
   include AuthorizationExtensions::Modalities
+  include DGFIPExtensions::ExtraContactsInfos
 
   MODALITIES = %w[with_ficoba_iban with_ficoba_spi with_ficoba_siren with_ficoba_personne_physique with_ficoba_personne_morale].freeze
 

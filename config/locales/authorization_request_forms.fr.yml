@@ -1,6 +1,13 @@
 fr:
   authorization_request_forms:
     default:
+      contact_organization:
+        title: Contact supplémentaire de l'organisation
+        info: Nous avons besoin d'un contact supplémentaire au sein de votre organisation auquel adresser nos demandes si vous n'êtes pas disponible
+      contact_technique_extra:
+        title: Contact supplémentaire
+        info: Nous avons besoin d'un contact supplémentaire auquel adresser nos demandes si le responsable technique n'est pas disponible
+
       steps: &authorization_request_forms_default_steps
         basic_infos: "Mon projet"
         technical_team: "L'équipe technique"
@@ -311,13 +318,6 @@ fr:
       cadre_juridique_document:
         label: Ajoutez votre ou vos documents
         hint: *pdf_input_hint
-      contact_organization:
-        title: Contact supplémentaire de l'organisation
-        info: Nous avons besoin d’un contact supplémentaire au sein de votre organisation auquel adresser nos demandes si vous n’êtes pas disponible
-      contact_technique:
-        extra:
-          title: Contact supplémentaire
-          info: Nous avons besoin d’un contact supplémentaire auquel adresser nos demandes si le responsable technique n’est pas disponible
     api_particulier:
       steps:
         <<: *authorization_request_forms_default_steps
