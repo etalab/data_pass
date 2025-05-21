@@ -1,0 +1,20 @@
+<% extra_block_content = capture do %>
+  <% if contact_definition.type == :contact_technique %>
+    <div class="fr-fieldset__element">
+      <hr class="fr-mt-3w">
+
+      <p>
+        <span class="fr-text--lg legal-text__bold">
+          <%= t("authorization_request_forms.api_impot_particulier.contact_technique.extra.title") %>
+        </span>
+
+        <br>
+        <%= t("authorization_request_forms.api_impot_particulier.contact_technique.extra.info") %>
+      </p>
+
+      <%= f.dsfr_email_field(:contact_technique_extra_email) %>
+    </div>
+  <% end %>
+<% end %>
+
+<%= render partial: 'authorization_request_forms/shared/contact', locals: local_assigns.merge(extra_block: extra_block_content) %>
