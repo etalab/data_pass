@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   include NotificationsSettings
 
+  ROLES = %w[reporter instructor developer].freeze
+
   validates :email, presence: true, uniqueness: true
   before_save { email.downcase! }
 
