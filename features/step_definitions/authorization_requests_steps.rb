@@ -317,6 +317,13 @@ Quand('je renseigne les infos de bases du projet') do
   )
 end
 
+Quand('je renseigne les infos logiciel du projet') do
+  steps %(
+    * je remplis "Nom du logiciel" avec "Le logiciel qui conquiert le monde"
+    * je remplis "Description du flux opérationnel" avec "Comment chaque matin"
+  )
+end
+
 Quand('je renseigne les infos concernant les données personnelles') do
   steps %(
     * je remplis "Destinataire des données" avec "Minus et Cortex"

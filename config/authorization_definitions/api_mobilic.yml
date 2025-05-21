@@ -1,0 +1,13 @@
+api_mobilic:
+  name: API Mobilic
+  description: "FEEDME"
+  provider: "mtes"
+  kind: 'api'
+  link: "https://www.data.gouv.fr/fr/dataservices/api-mobilic/l"
+  cgu_link: "https://cgu-api.mobilic.beta.gouv.fr/"
+  access_link: "https://api-mobilic.gouv.fr/tokens/%<external_provider_id>"
+  public: true
+  blocks:
+    - name: "basic_infos"
+    - name: "personal_data"
+    - name: "contacts"
