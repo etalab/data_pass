@@ -956,7 +956,7 @@ fr:
     api_mobilic:
       steps:
         <<: *authorization_request_forms_default_steps
-        basic_infos: "Mes infos Logiciel"
+        basic_infos: "Ma demande d'interfaçage"
       basic_infos:
         title: Décrivez nous votre logiciel
         subtitle: Afin de vous donner accès aux données, nous avons besoin d’en savoir plus sur la manière dont vous souhaitez les utiliser.
