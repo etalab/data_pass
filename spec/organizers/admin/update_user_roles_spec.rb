@@ -44,7 +44,7 @@ RSpec.describe Admin::UpdateUserRoles, type: :organizer do
 
     describe 'with invalid roles' do
       context 'when it is an invalid authorization request type' do
-        let(:roles) { %w[invalid_role:instructor] }
+        let(:roles) { user.roles + %w[invalid_role:instructor] }
 
         it 'does not update with this role' do
           expect {
@@ -54,7 +54,7 @@ RSpec.describe Admin::UpdateUserRoles, type: :organizer do
       end
 
       context 'when it is an invalid role' do
-        let(:roles) { %w[api_particulier:invalid_role] }
+        let(:roles) { user.roles + %w[api_particulier:invalid_role] }
 
         it 'does not update with this role' do
           expect {
