@@ -6,6 +6,7 @@ class AuthorizationRequest::APIHermes < AuthorizationRequest
   include AuthorizationExtensions::OperationalAcceptance
   include AuthorizationExtensions::SafetyCertification
   include AuthorizationExtensions::Volumetrie
+  include DGFIPExtensions::ExtraContactsInfos
 
   VOLUMETRIES = {
     '200 appels / minute': 200,

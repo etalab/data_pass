@@ -6,6 +6,7 @@ class AuthorizationRequest::APIRial < AuthorizationRequest
   include AuthorizationExtensions::OperationalAcceptance
   include AuthorizationExtensions::SafetyCertification
   include AuthorizationExtensions::Volumetrie
+  include DGFIPExtensions::ExtraContactsInfos
 
   VOLUMETRIES = {
     '50 appels / minute': 50,
