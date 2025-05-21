@@ -1345,4 +1345,13 @@ FactoryBot.define do
       form_uid { form_uid }
     end
   end
+
+  trait :api_mobilic do
+    type { 'AuthorizationRequest::APIMobilic' }
+
+    form_uid { 'api-mobilic' }
+
+    with_basic_infos
+    with_personal_data
+  end
 end
