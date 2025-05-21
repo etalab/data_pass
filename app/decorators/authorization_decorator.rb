@@ -2,7 +2,7 @@ class AuthorizationDecorator < ApplicationDecorator
   delegate_all
 
   def name_for_select
-    "Habilitation du #{formatted_date} : #{name}"
+    "Habilitation n°#{id} du #{formatted_date} : #{name}"
   end
 
   private
