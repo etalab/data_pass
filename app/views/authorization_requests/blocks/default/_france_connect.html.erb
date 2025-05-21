@@ -1,7 +1,7 @@
 <%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { title: f.wording_for('steps.france_connect'), block_id: :france_connect, f:, editable: } do %>
   <p class="fr-pl-2w">
     <% if @authorization_request.france_connect_authorization %>
-      <%= @authorization_request.france_connect_authorization.decorate.name_for_select %>
+      <%= link_to @authorization_request.france_connect_authorization.decorate.name_for_select, @authorization_request.france_connect_authorization %>
     <% else %>
       Aucune habilitation FranceConnect n'est lié à cette demande.
     <% end %>
