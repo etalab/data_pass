@@ -116,6 +116,9 @@ fr:
           authorizations:
             title: Toutes les habilitations
             icon: archive-line
+          france_connected_authorizations:
+            title: Habilitations FranceConnectées
+            icon: lock-line
           messages:
             title: Messagerie
             icon: question-answer-line

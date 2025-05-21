@@ -37,6 +37,10 @@ fr:
         request_changes: Demander des modifications
         revoke: Révoquer
         cancel_reopening: Annuler la demande de réouverture
+    france_connected_authorizations:
+      index:
+        title: Habilitations FranceConnectées associées
+        show_cta: Consulter
     approve_authorization_requests:
       new:
         initial:

@@ -1,0 +1,38 @@
+<h3><%= t('.title') %></h3>
+
+<ul class="fr-mt-2w fr-p-0">
+  <% @france_connected_authorizations.each do |authorization| %>
+    <li class="authorization-row fr-mb-4w fr-pb-2w">
+      <div class="fr-grid-row fr-grid-row--middle">
+        <div class="fr-col">
+          <ul class="fr-badge-group">
+            <li>
+              <span class="fr-badge fr-badge--no-icon">
+                <%= t("authorization.id_badge", id: authorization.id) %>
+              </span>
+            </li>
+            <li>
+              <span class="fr-badge fr-badge--no-icon">
+                <%= t("authorization.date_badge", date: authorization.created_at.strftime('%d/%m/%Y')) %>
+              </span>
+            </li>
+
+            <% if authorization.definition.stage.exists? %>
+              <li>
+                <%= authorization_stage_badge(authorization) %>
+              </li>
+            <% end %>
+          </ul>
+
+          <div>
+            Habilitation pour <strong><%= authorization.definition.name %></strong> intitulée " <%= authorization.name %> "
+          </div>
+        </div>
+
+        <div>
+          <%= link_to t('.show_cta'), authorization_path(authorization), class: "fr-btn" %>
+        </div>
+      </div>
+    </li>
+  <% end %>
+</ul>

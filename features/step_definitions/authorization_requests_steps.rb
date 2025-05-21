@@ -148,7 +148,7 @@ Alors("il n'y a pas de formulaire en mode résumé") do
 end
 
 Quand('je me rends sur cette demande d\'habilitation') do
-  authorization_request = AuthorizationRequest.last
+  authorization_request = @authorization_request || AuthorizationRequest.last
 
   if current_user.instructor?
     visit instruction_authorization_request_path(authorization_request)
