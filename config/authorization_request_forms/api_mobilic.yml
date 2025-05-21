@@ -1,0 +1,9 @@
+api-mobilic:
+  description: TODO
+  introduction: |
+    Ceci est une introduction à remplir
+  authorization_request: APIMobilic
+  steps:
+    - name: basic_infos
+    - name: personal_data
+    - name: contacts
