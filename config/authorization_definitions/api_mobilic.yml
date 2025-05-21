@@ -7,6 +7,7 @@ api_mobilic:
   cgu_link: "https://cgu-api.mobilic.beta.gouv.fr/"
   access_link: "https://api-mobilic.gouv.fr/tokens/%<external_provider_id>"
   public: true
+  support_email: TODO
   blocks:
     - name: "basic_infos"
     - name: "personal_data"
