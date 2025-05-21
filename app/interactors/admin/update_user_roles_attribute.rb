@@ -1,6 +1,6 @@
 class Admin::UpdateUserRolesAttribute < ApplicationInteractor
   def call
-    user.roles = valid_roles if valid_roles.any?
+    user.roles = valid_roles
     user.roles.uniq!
     user.save
   end
