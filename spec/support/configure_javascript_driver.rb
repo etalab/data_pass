@@ -23,7 +23,15 @@ remote_chrome =
     false
   end
 
-remote_options = remote_chrome ? { url: REMOTE_CHROME_URL } : {}
+if remote_chrome
+  remote_options = {
+    url: REMOTE_CHROME_URL,
+    process_timeout: 20,
+    timeout: 10,
+  }
+else
+  remote_chrome = {}
+end
 
 inspector = ENV['INSPECTOR'] == 'true'
 
