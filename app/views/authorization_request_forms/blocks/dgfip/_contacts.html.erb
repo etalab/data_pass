@@ -1,0 +1,32 @@
+<% if @authorization_request.prefilled_data?(contact_email_fields(@authorization_request)) %>
+  <%= render partial: "authorization_request_forms/shared/prefilled_banner" %>
+<% end %>
+
+<div class="fr-container-fluid">
+  <div class="fr-grid-row fr-grid-row--gutters">
+    <% @authorization_request.contact_definitions.each do |contact_definition| %>
+      <%= render partial: 'authorization_request_forms/blocks/api_impot_particulier/contact', locals: { contact_definition:, f: } %>
+    <% end %>
+
+    <div class="fr-col-12 fr-col-lg-6">
+      <div class="fr-basic-card contact-form-card height-auto">
+        <div class="fr-grid-row fr-grid-row--top">
+          <h6 class="contact-form-card__title fr-col fr-mr-2w">
+            <%= t("authorization_request_forms.api_impot_particulier.contact_organization.title") %>
+          </h6>
+        </div>
+
+        <p class="contact-form-card__info">
+          <%= @authorization_request.contact_info(:contact_organization).to_s.html_safe %>
+        </p>
+
+        <fieldset class="fr-fieldset" aria-label="feedme" aria-describedby="name-1-fieldset-messages">
+          <div class="fr-fieldset__element">
+            <%= f.dsfr_email_field("extra_organization_contact_email") %>
+            <%= f.dsfr_text_field("extra_organization_contact_name") %>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+</div>
