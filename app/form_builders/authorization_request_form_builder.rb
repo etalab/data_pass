@@ -24,7 +24,7 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
 
     info_wording = {
       title: wording_for("#{block}.info.title"),
-      content: wording_for("#{block}.info.content"),
+      content: wording_for("#{block}.info.content")&.html_safe,
     }
 
     return unless info_wording
