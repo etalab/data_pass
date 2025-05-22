@@ -1,7 +1,7 @@
 <%= f.info_for(:supporting_documents) %>
 
 <% if @authorization_request.respond_to?(:attestation_fiscale) %>
-  <fieldset class="fr-fieldset fr-mb-4w" data-controller="remove-attached-file">
+  <fieldset class="fr-fieldset fr-mb-4w">
     <div class="fr-fieldset__element">
       <%= f.dsfr_file_field :attestation_fiscale, required: true %>
     </div>
