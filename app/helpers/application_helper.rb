@@ -108,7 +108,14 @@ module ApplicationHelper
 
     tabs[:messages] = instruction_authorization_request_messages_path(authorization_request) if authorization_request.definition.feature?(:messaging)
     tabs[:authorizations] = instruction_authorization_request_authorizations_path(authorization_request) if authorization_request.authorizations.any?
+    tabs[:france_connected_authorizations] = instruction_authorization_request_france_connected_authorizations_path(authorization_request) if france_connected_authorizations?(authorization_request)
 
     tabs
+  end
+
+  private
+
+  def france_connected_authorizations?(authorization_request)
+    authorization_request.definition.id == 'france_connect' && authorization_request.france_connected_authorizations.exists?
   end
 end

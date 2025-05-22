@@ -305,8 +305,14 @@ FactoryBot.define do
     end
 
     trait :with_france_connect do
+      transient do
+        france_connect_authorization { nil }
+      end
+
       after(:build) do |authorization_request, evaluator|
-        if authorization_request.need_complete_validation? || evaluator.fill_all_attributes
+        if evaluator.france_connect_authorization.present?
+          authorization_request.france_connect_authorization_id = evaluator.france_connect_authorization.id.to_s
+        elsif authorization_request.need_complete_validation? || evaluator.fill_all_attributes
           validated_france_connect_authorization_request = create(:authorization_request, :france_connect, :validated, applicant: authorization_request.applicant, organization: authorization_request.organization)
           authorization_request.france_connect_authorization_id = validated_france_connect_authorization_request.latest_authorization.id.to_s
         end
