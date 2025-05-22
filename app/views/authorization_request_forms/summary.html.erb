@@ -61,13 +61,13 @@
             <%= t('authorization_requests.show.dirty_from_v1.description') %>
           </p>
 
-          <% unless @authorization_request.valid?(:submit) %>
+          <% if @authorization_request.dirty_related_errors.any? %>
             <p class="fr-mt-2w">
               <%= t('authorization_requests.show.dirty_from_v1.errors_title') %>
             </p>
 
             <ul>
-              <% @authorization_request.errors.full_messages.each do |message| %>
+              <% @authorization_request.dirty_related_errors.full_messages.each do |message| %>
                 <li>
                   <%= message %>
                 </li>
