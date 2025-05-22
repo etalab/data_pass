@@ -11,11 +11,11 @@ class AuthorizationDefinition < StaticApplicationRecord
     :scopes,
     :blocks,
     :features,
-    :stage,
-    :unique
+    :stage
 
   attr_writer :startable_by_applicant,
-    :public
+    :public,
+    :unique
 
   def self.all
     AuthorizationDefinitionConfigurations.instance.all.map do |uid, hash|
@@ -100,6 +100,10 @@ class AuthorizationDefinition < StaticApplicationRecord
 
   def public
     value_or_default(@public, true)
+  end
+
+  def unique
+    value_or_default(@unique, false)
   end
 
   def startable_by_applicant
