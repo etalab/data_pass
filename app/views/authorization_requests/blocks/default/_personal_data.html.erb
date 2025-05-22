@@ -1,28 +1,28 @@
-<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { title: f.wording_for('steps.personal_data'), block_id: :personal_data, f:, editable: } do %>
+<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { authorization_request:, title: f.wording_for('steps.personal_data'), block_id: :personal_data, f:, editable: } do %>
   <strong>
     <%= f.label_value(:destinataire_donnees_caractere_personnel) %>
   </strong>
 
-  <%= simple_format_without_html_tags(@authorization_request.destinataire_donnees_caractere_personnel) %>
+  <%= simple_format_without_html_tags(authorization_request.destinataire_donnees_caractere_personnel) %>
 
   <strong>
     <%= f.label_value(:duree_conservation_donnees_caractere_personnel) %>
   </strong>
 
-  <% if @authorization_request.duree_conservation_donnees_caractere_personnel.blank? %>
+  <% if authorization_request.duree_conservation_donnees_caractere_personnel.blank? %>
     Non renseignée
   <% else %>
-    <%= @authorization_request.duree_conservation_donnees_caractere_personnel %> mois.
+    <%= authorization_request.duree_conservation_donnees_caractere_personnel %> mois.
   <% end %>
 
-  <% if @authorization_request.duree_conservation_donnees_caractere_personnel_more_than_3_years? && @authorization_request.duree_conservation_donnees_caractere_personnel_justification.present? %>
+  <% if authorization_request.duree_conservation_donnees_caractere_personnel_more_than_3_years? && authorization_request.duree_conservation_donnees_caractere_personnel_justification.present? %>
     <div>
       <strong>
         <%= f.label_value(:duree_conservation_donnees_caractere_personnel_justification) %>
       </strong>
 
       <p>
-        <%= simple_format_without_html_tags(@authorization_request.duree_conservation_donnees_caractere_personnel_justification) %>
+        <%= simple_format_without_html_tags(authorization_request.duree_conservation_donnees_caractere_personnel_justification) %>
       </p>
     </div>
   <% end %>

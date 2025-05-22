@@ -364,6 +364,10 @@ fr:
   start_next_authorization_request_stage_form:
     cta: Débuter ma demande
 
+  demandes_habilitations:
+    current_user_mentions_alert:
+      text: Vous avez été référencé comme %{contact_types} dans cette habilitation.
+  
   authorization_request_forms:
     form_not_found: Le formulaire demandé n'existe pas
     new:
@@ -399,8 +403,6 @@ fr:
         title: Une erreur est survenue lors de la sauvegarde de la demande de mise à jour de l'habilitation
         description: *common_authorization_requests_error_description
 
-    current_user_mentions_alert:
-      text: Vous avez été référencé comme %{contact_types} dans cette habilitation.
     create:
       success: &authorization_request_forms_create_success
         title: La demande d'habilitation %{name} a été sauvegardée avec succès
@@ -450,6 +452,7 @@ fr:
       reopen: Mettre à jour
       archive: Supprimer
       transfer: Transférer
+      contact_support: Contacter le support
       save_header: Enregistrer
       save: Enregistrer les modifications
       start: Démarrer

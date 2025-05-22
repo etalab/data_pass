@@ -1,6 +1,8 @@
 class AuthorizationDecorator < ApplicationDecorator
   delegate_all
 
+  decorates_association :request
+
   def name_for_select
     "Habilitation du #{formatted_date} : #{name}"
   end

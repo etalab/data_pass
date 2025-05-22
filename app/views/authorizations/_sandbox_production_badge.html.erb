@@ -1,0 +1,6 @@
+<% if authorization.request.class.name.include?('Sandbox') %>
+  <span class="fr-badge fr-badge--sm fr-badge--no-icon fr-badge--brown-caramel">Bac à sable</span>
+<% end %>
+<% if authorization.request.class.name.include?('Production') %>
+  <span class="fr-badge fr-badge--sm fr-badge--no-icon fr-badge--orange-terre-battue">Production</span>
+<% end %>

@@ -1,4 +1,6 @@
 module AuthorizationRequestsHelpers
+  include DemandesHabilitations::CommonHelper
+
   # rubocop:disable Rails/HelperInstanceVariable
   def new_authorization_request_hidden_params
     return { attributes: {} } if @authorization_request&.persisted? || params.slice(:attributes).blank?
@@ -108,14 +110,8 @@ module AuthorizationRequestsHelpers
   end
 
   def render_custom_editable_block_or_default(authorization_request, block_id, locals = {})
-    render partial: "authorization_request_forms/blocks/#{authorization_request.definition.id}/#{block_id}", locals:
+    render partial: "authorization_request_forms/blocks/#{authorization_request.definition.id}/#{block_id}", locals: { authorization_request:, **locals }
   rescue ActionView::MissingTemplate
-    render partial: "authorization_request_forms/blocks/default/#{block_id}", locals:
-  end
-
-  def render_custom_block_or_default(authorization_request, block_id, locals = {})
-    render partial: "authorization_requests/blocks/#{authorization_request.definition.id}/#{block_id}", locals:
-  rescue ActionView::MissingTemplate
-    render partial: "authorization_requests/blocks/default/#{block_id}", locals:
+    render partial: "authorization_request_forms/blocks/default/#{block_id}", locals: { authorization_request:, **locals }
   end
 end
