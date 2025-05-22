@@ -6,6 +6,10 @@ class AuthorizationHeaderComponent < ApplicationComponent
     @current_user = current_user
   end
 
+  def translated_state
+    I18n.t(authorization.state, scope: 'authorization.states', default: authorization.state)
+  end
+
   private
 
   def state_badge_html_class
