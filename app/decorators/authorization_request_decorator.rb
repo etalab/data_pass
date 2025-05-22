@@ -122,6 +122,13 @@ class AuthorizationRequestDecorator < ApplicationDecorator
     false
   end
 
+  def errors_linked_to_dirty
+    return [] unless object.dirty_from_v1?
+    return [] if object.valid?(:submit)
+
+    object.errors.reject { |e| e.type == :all_terms_not_accepted }
+  end
+
   private
 
   def lookup_i18n_key(subkey)
