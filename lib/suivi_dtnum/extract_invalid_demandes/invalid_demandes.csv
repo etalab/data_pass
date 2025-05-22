@@ -1,5 +1,11 @@
 "demande_id","form","state","errors"
 "60843","api-impot-particulier-activites-periscolaires-sandbox","refused","La modalité d'accès aux données doit être rempli(e)"
+"6710","api-impot-particulier-production","validated","La décision d’homologation ou le questionnaire de sécurité doit être rempli(e)
+Nom de l’autorité d’homologation ou du signataire du questionnaire de sécurité doit être rempli(e)
+Fonction de l’autorité d’homologation ou du signataire du questionnaire de sécurité doit être rempli(e)
+Date de début d’homologation ou de signature du questionnaire de sécurité doit être rempli(e)
+Date de fin d’homologation doit être rempli(e)
+Date de fin d’homologation doit être supérieure à la date de début"
 "7197","api-impot-particulier-sandbox","validated","Durée de conservation des données en mois doit être rempli(e)
 Email du responsable de traitement doit être rempli(e)
 Téléphone du responsable de traitement doit être rempli(e)
@@ -4406,7 +4412,6 @@ Les données sont invalides : Des données incompatibles entre elles ont été c
 "61531","api-impot-particulier-aides-sociales-facultatives-sandbox","validated","La modalité d'accès aux données doit être rempli(e)"
 "61648","api-impot-particulier-aides-sociales-facultatives-sandbox","validated","La modalité d'accès aux données doit être rempli(e)"
 "61721","api-impot-particulier-activites-periscolaires-editeur","refused","La modalité d'accès aux données doit être rempli(e)"
-"62087","api-infinoe-sandbox","validated","Lien vers le texte relatif au cadre juridique n'est pas un lien valide"
 "62814","api-infinoe-sandbox","validated","Lien vers le texte relatif au cadre juridique n'est pas un lien valide"
 "64312","api-sfip-sandbox","refused","Lien vers le texte relatif au cadre juridique n'est pas un lien valide
 Les données ne sont pas cochées : il faut au moins qu'une des données soit sélectionnée."
