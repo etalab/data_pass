@@ -101,7 +101,10 @@ class JeCliqueOuPasAPIClient
   end
 
   def cert_store
-    OpenSSL::X509::Store.new.tap { |store| store.add_cert(certificate) }
+    OpenSSL::X509::Store.new.tap do |store|
+      store.set_default_paths
+      store.add_cert(certificate)
+    end
   end
 
   def certificate
