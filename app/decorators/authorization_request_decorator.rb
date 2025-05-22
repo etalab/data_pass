@@ -122,7 +122,7 @@ class AuthorizationRequestDecorator < ApplicationDecorator
     false
   end
 
-  def errors_linked_to_dirty
+  def dirty_related_errors
     return [] unless object.dirty_from_v1?
     return [] if object.valid?(:submit)
 
