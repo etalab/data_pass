@@ -24,7 +24,7 @@
       <div class="fr-grid-row fr-mt-1w">
         <% Array(@authorization_request.cadre_juridique_document).each do |document| %>
           <div class="fr-col-8 fr-mb-1w">
-            <%= render 'shared/document_with_malware_badge', document: document, f: f %>
+            <%= render 'shared/display_document', document: document, f: f %>
           </div>
         <% end %>
       </div>

@@ -38,6 +38,6 @@
         <%= f.label_value(:safety_certification_document) %> :
       </strong>
       <br />
-      <%= render 'shared/document_with_malware_badge', document: @authorization_request.safety_certification_document, f: f %>
+      <%= render 'shared/display_document', document: @authorization_request.safety_certification_document, f: f %>
   <% end %>
 <% end %>

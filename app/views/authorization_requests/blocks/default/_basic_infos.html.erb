@@ -21,7 +21,7 @@
         <%= f.label_value(:maquette_projet) %> :
       </strong>
       <br />
-      <%= render 'shared/document_with_malware_badge', document: @authorization_request.maquette_projet, f: f %>
+      <%= render 'shared/display_document', document: @authorization_request.maquette_projet, f: f %>
     </div>
   <% end %>
 
