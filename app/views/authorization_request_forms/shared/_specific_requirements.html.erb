@@ -7,9 +7,9 @@
     <%= f.wording_for('specific_requirements.content').html_safe %>
   </p>
 
-  <%= f.dsfr_check_box :specific_requirements, data: { toggle_element_display_based_on_checkbox_target: "checkbox", action: "click->toggle-element-display-based-on-checkbox#showElement" } %>
+  <%= f.dsfr_check_box :specific_requirements, {}, { data: { toggle_element_display_based_on_checkbox_target: "checkbox", action: "click->toggle-element-display-based-on-checkbox#showElement" }} %>
 
-  <fieldset class="fr-fieldset fr-p-2w fr-mx-0-5v specific_requirements__border" aria-label="selectionner-votre-fichier" aria-describedby="expression-besoin-specifique" data-controller="remove-attached-file" data-toggle-element-display-based-on-checkbox-target="element" disabled>
+  <fieldset class="fr-fieldset fr-p-2w fr-mx-0-5v specific_requirements__border" aria-label="selectionner-votre-fichier" aria-describedby="expression-besoin-specifique" data-toggle-element-display-based-on-checkbox-target="element" disabled>
     <div id="expression-besoin-specifique" class="fr-fieldset__element">
       <%= f.dsfr_file_field :specific_requirements_document %>
     </div>
