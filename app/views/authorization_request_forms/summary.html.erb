@@ -61,7 +61,7 @@
             <%= t('authorization_requests.show.dirty_from_v1.description') %>
           </p>
 
-          <% unless @authorization_request.valid?(:submit) %>
+          <% if !@authorization_request.valid?(:submit) && @authorization_request.errors.any? { |e| e.type == :all_terms_not_accepted } %>
             <p class="fr-mt-2w">
               <%= t('authorization_requests.show.dirty_from_v1.errors_title') %>
             </p>
