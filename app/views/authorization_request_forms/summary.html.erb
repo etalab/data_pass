@@ -67,9 +67,9 @@
             </p>
 
             <ul>
-              <% @authorization_request.dirty_related_errors.full_messages.each do |message| %>
+              <% @authorization_request.dirty_related_errors.each do |error| %>
                 <li>
-                  <%= message %>
+                  <%= error.full_message %>
                 </li>
               <% end %>
             </ul>
