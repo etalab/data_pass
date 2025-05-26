@@ -11,10 +11,6 @@ class AuthorizationDecorator < ApplicationDecorator
     I18n.t(state, scope: 'authorization.states', default: state)
   end
 
-  def translated_state
-    I18n.t(state, scope: 'authorization.states', default: state)
-  end
-
   private
 
   def formatted_date
