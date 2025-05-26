@@ -28,12 +28,6 @@ class AuthorizationHeaderComponent < ApplicationComponent
     end
   end
 
-  def alt_button_class(base_classes)
-    return base_classes unless %w[revoked obsolete].include?(authorization.state)
-
-    base_classes.reject { |classe| classe == 'fr-btn--secondary__custom' }
-  end
-
   private
 
   def state_badge_html_class

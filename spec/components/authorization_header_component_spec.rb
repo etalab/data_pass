@@ -147,35 +147,5 @@ RSpec.describe AuthorizationHeaderComponent, type: :component do
         end
       end
     end
-
-    describe '#alt_button_class' do
-      let(:base_classes) { %w[fr-btn fr-btn--sm fr-btn--secondary__custom] }
-
-      context 'when authorization is active' do
-        before { authorization.state = 'active' }
-
-        it 'returns unchanged classes' do
-          expect(component.alt_button_class(base_classes)).to eq(base_classes)
-        end
-      end
-
-      context 'when authorization is revoked' do
-        before { authorization.state = 'revoked' }
-
-        it 'removes fr-btn--secondary_custom class' do
-          expect(component.alt_button_class(base_classes)).not_to include('fr-btn--secondary__custom')
-          expect(component.alt_button_class(base_classes)).to eq(%w[fr-btn fr-btn--sm])
-        end
-      end
-
-      context 'when authorization is obsolete' do
-        before { authorization.state = 'obsolete' }
-
-        it 'removes fr-btn--secondary_custom' do
-          expect(component.alt_button_class(base_classes)).not_to include('fr-btn--secondary_custom')
-          expect(component.alt_button_class(base_classes)).to eq(%w[fr-btn fr-btn--sm])
-        end
-      end
-    end
   end
 end
