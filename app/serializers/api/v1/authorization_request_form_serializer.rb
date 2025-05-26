@@ -4,7 +4,8 @@ class API::V1::AuthorizationRequestFormSerializer < ActiveModel::Serializer
     :description,
     :use_case,
     :authorization_request_class,
-    :prefilled?
+    :prefilled?,
+    :data
 
   def authorization_request_class
     object.authorization_request_class.to_s

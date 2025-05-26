@@ -52,7 +52,8 @@ RSpec.describe 'API: Authorization request forms' do
             'description',
             'use_case',
             'authorization_request_class',
-            'prefilled?'
+            'prefilled?',
+            'data'
           )
         end
 
@@ -63,6 +64,19 @@ RSpec.describe 'API: Authorization request forms' do
           forms.each do |form|
             expect(form['authorization_request_class']).to eq('AuthorizationRequest::APIEntreprise')
           end
+        end
+
+        it 'returns data for prefilled forms' do
+          get_index
+
+          form = response.parsed_body.find { |f| f['uid'] == 'api-entreprise-marches-publics' }
+          expect(form['data']).to be_present
+          expect(form['data']).to be_a(Hash)
+          expect(form['data']).to include(
+            'cadre_juridique_nature',
+            'cadre_juridique_url',
+            'scopes'
+          )
         end
 
         it 'includes boolean attributes with correct types' do
