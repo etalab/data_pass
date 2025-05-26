@@ -46,17 +46,6 @@ RSpec.describe 'API: Authorization definitions' do
         expect(definition).to include(
           'id',
           'name',
-          'provider',
-          'description',
-          'link',
-          'access_link',
-          'cgu_link',
-          'support_email',
-          'kind',
-          'scopes',
-          'blocks',
-          'features',
-          'stage',
           'name_with_stage',
           'multi_stage?',
           'authorization_request_class'
@@ -82,22 +71,6 @@ RSpec.describe 'API: Authorization definitions' do
 
         definition = response.parsed_body[0]
         expect(definition['multi_stage?']).to be(false)
-      end
-
-      it 'includes scopes array' do
-        get_index
-
-        definition = response.parsed_body[0]
-        expect(definition['scopes']).to be_an(Array)
-        expect(definition['scopes']).not_to be_empty
-      end
-
-      it 'includes blocks array' do
-        get_index
-
-        definition = response.parsed_body[0]
-        expect(definition['blocks']).to be_an(Array)
-        expect(definition['blocks']).not_to be_empty
       end
     end
 
@@ -134,38 +107,29 @@ RSpec.describe 'API: Authorization definitions' do
         expect(definition_ids).to contain_exactly('api_impot_particulier', 'api_impot_particulier_sandbox')
       end
 
-      it 'returns correct stage information for sandbox definition' do
+      it 'returns correct name_with_stage for sandbox definition' do
         get_index
 
         sandbox_definition = response.parsed_body.find { |d| d['id'] == 'api_impot_particulier_sandbox' }
-
-        expect(sandbox_definition['multi_stage?']).to be(true)
         expect(sandbox_definition['name_with_stage']).to eq('API Impôt Particulier (Bac à sable)')
-        expect(sandbox_definition['stage']).to include(
-          'type' => 'sandbox',
-          'next' => include(
-            'id' => 'api_impot_particulier',
-            'form_id' => 'api-impot-particulier-production'
-          )
-        )
       end
 
-      it 'returns correct stage information for production definition' do
+      it 'returns correct name_with_stage for production definition' do
         get_index
 
         production_definition = response.parsed_body.find { |d| d['id'] == 'api_impot_particulier' }
-
-        expect(production_definition['multi_stage?']).to be(true)
         expect(production_definition['name_with_stage']).to eq('API Impôt Particulier (Production)')
-        expect(production_definition['stage']).to include(
-          'type' => 'production',
-          'previouses' => include(
-            include(
-              'id' => 'api_impot_particulier_sandbox',
-              'form_id' => 'api-impot-particulier-sandbox'
-            )
-          )
-        )
+      end
+
+      it 'returns correct multi_stage values for both definitions' do
+        get_index
+
+        definitions = response.parsed_body
+        sandbox_def = definitions.find { |d| d['id'] == 'api_impot_particulier_sandbox' }
+        production_def = definitions.find { |d| d['id'] == 'api_impot_particulier' }
+
+        expect(sandbox_def['multi_stage?']).to be(true)
+        expect(production_def['multi_stage?']).to be(true)
       end
 
       it 'returns correct authorization_request_classes for each definition' do
@@ -177,19 +141,6 @@ RSpec.describe 'API: Authorization definitions' do
 
         expect(sandbox_def['authorization_request_class']).to eq('AuthorizationRequest::APIImpotParticulierSandbox')
         expect(production_def['authorization_request_class']).to eq('AuthorizationRequest::APIImpotParticulier')
-      end
-
-      it 'includes stage-specific attributes in both definitions' do
-        get_index
-
-        definitions = response.parsed_body
-
-        definitions.each do |definition|
-          expect(definition['stage']).to be_present
-          expect(definition['stage']['type']).to be_in(%w[sandbox production])
-          expect(definition['multi_stage?']).to be(true)
-          expect(definition['name_with_stage']).to include('API Impôt Particulier')
-        end
       end
     end
 
@@ -288,17 +239,6 @@ RSpec.describe 'API: Authorization definitions' do
           expect(definition).to include(
             'id',
             'name',
-            'provider',
-            'description',
-            'link',
-            'access_link',
-            'cgu_link',
-            'support_email',
-            'kind',
-            'scopes',
-            'blocks',
-            'features',
-            'stage',
             'name_with_stage',
             'multi_stage?',
             'authorization_request_class'
@@ -362,19 +302,18 @@ RSpec.describe 'API: Authorization definitions' do
           expect(response.parsed_body['name']).to eq('API Impôt Particulier')
         end
 
-        it 'returns correct stage information for sandbox' do
+        it 'returns correct name_with_stage for sandbox' do
+          get_show
+
+          definition = response.parsed_body
+          expect(definition['name_with_stage']).to eq('API Impôt Particulier (Bac à sable)')
+        end
+
+        it 'returns correct multi_stage value for sandbox' do
           get_show
 
           definition = response.parsed_body
           expect(definition['multi_stage?']).to be(true)
-          expect(definition['name_with_stage']).to eq('API Impôt Particulier (Bac à sable)')
-          expect(definition['stage']).to include(
-            'type' => 'sandbox',
-            'next' => include(
-              'id' => 'api_impot_particulier',
-              'form_id' => 'api-impot-particulier-production'
-            )
-          )
         end
 
         it 'returns correct authorization_request_class for sandbox' do
@@ -396,21 +335,18 @@ RSpec.describe 'API: Authorization definitions' do
           expect(response.parsed_body['name']).to eq('API Impôt Particulier')
         end
 
-        it 'returns correct stage information for production' do
+        it 'returns correct name_with_stage for production' do
+          get_show
+
+          definition = response.parsed_body
+          expect(definition['name_with_stage']).to eq('API Impôt Particulier (Production)')
+        end
+
+        it 'returns correct multi_stage value for production' do
           get_show
 
           definition = response.parsed_body
           expect(definition['multi_stage?']).to be(true)
-          expect(definition['name_with_stage']).to eq('API Impôt Particulier (Production)')
-          expect(definition['stage']).to include(
-            'type' => 'production',
-            'previouses' => include(
-              include(
-                'id' => 'api_impot_particulier_sandbox',
-                'form_id' => 'api-impot-particulier-sandbox'
-              )
-            )
-          )
         end
 
         it 'returns correct authorization_request_class for production' do

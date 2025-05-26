@@ -407,127 +407,6 @@ components:
           type: string
           example: "API Entreprise"
           description: Nom de la définition d'habilitation
-        provider:
-          type: object
-          description: Fournisseur de données associé à cette définition
-          additionalProperties: true
-        description:
-          type: string
-          example: "Entités administratives, simplifiez les démarches des entreprises..."
-          description: Description de la définition d'habilitation
-        link:
-          type: string
-          example: "https://api.gouv.fr/les-api/api-entreprise"
-          description: Lien vers la documentation de l'API
-          nullable: true
-        access_link:
-          type: string
-          example: "https://entreprise.api.gouv.fr/compte/jetons/%{external_provider_id}"
-          description: Lien d'accès à l'API avec template pour l'ID du fournisseur
-          nullable: true
-        cgu_link:
-          type: string
-          example: "https://entreprise.api.gouv.fr/cgu"
-          description: Lien vers les conditions générales d'utilisation
-          nullable: true
-        support_email:
-          type: string
-          example: "support@entreprise.api.gouv.fr"
-          description: Email de support pour cette API
-          nullable: true
-        kind:
-          type: string
-          example: "api"
-          description: Type de service (api, service, etc.)
-        scopes:
-          type: array
-          description: Liste des périmètres de données disponibles
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-                example: "Données unités légales et établissements"
-                description: Nom du périmètre
-              value:
-                type: string
-                example: "unites_legales_etablissements_insee"
-                description: Valeur technique du périmètre
-              group:
-                type: string
-                example: "Informations générales"
-                description: Groupe auquel appartient ce périmètre
-              link:
-                type: string
-                example: "https://entreprise.api.gouv.fr/catalogue"
-                description: Lien vers la documentation de ce périmètre
-                nullable: true
-              included:
-                type: boolean
-                example: false
-                description: Indique si ce périmètre est inclus par défaut
-              disabled:
-                type: boolean
-                example: false
-                description: Indique si ce périmètre est désactivé
-              deprecated_since:
-                type: string
-                format: date
-                example: "2025-05-20"
-                description: Date de dépréciation de ce périmètre
-                nullable: true
-        blocks:
-          type: array
-          description: Liste des blocs de formulaire utilisés pour cette définition
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-                example: "basic_infos"
-                description: Nom du bloc de formulaire
-        features:
-          type: object
-          description: Fonctionnalités activées pour cette définition
-          additionalProperties: true
-        stage:
-          type: object
-          description: Information sur l'étape (sandbox/production) de cette définition
-          properties:
-            type:
-              type: string
-              example: "sandbox"
-              description: Type d'étape
-              enum: [sandbox, production]
-            next:
-              type: object
-              description: Étape suivante (pour les étapes sandbox)
-              properties:
-                id:
-                  type: string
-                  example: "api_impot_particulier"
-                  description: ID de l'étape suivante
-                form_id:
-                  type: string
-                  example: "api-impot-particulier-production"
-                  description: ID du formulaire pour l'étape suivante
-              nullable: true
-            previouses:
-              type: array
-              description: Étapes précédentes (pour les étapes production)
-              items:
-                type: object
-                properties:
-                  id:
-                    type: string
-                    example: "api_impot_particulier_sandbox"
-                    description: ID de l'étape précédente
-                  form_id:
-                    type: string
-                    example: "api-impot-particulier-sandbox"
-                    description: ID du formulaire de l'étape précédente
-              nullable: true
-          nullable: true
         name_with_stage:
           type: string
           example: "API Impôt Particulier (Bac à sable)"
@@ -543,11 +422,6 @@ components:
       required:
         - id
         - name
-        - description
-        - kind
-        - scopes
-        - blocks
-        - features
         - name_with_stage
         - multi_stage?
         - authorization_request_class
@@ -912,48 +786,22 @@ paths:
                   value:
                     - id: "api_entreprise"
                       name: "API Entreprise"
-                      description: "Entités administratives, simplifiez les démarches des entreprises..."
-                      kind: "api"
-                      multi_stage?: false
                       name_with_stage: "API Entreprise"
+                      multi_stage?: false
                       authorization_request_class: "AuthorizationRequest::ApiEntreprise"
-                      scopes: []
-                      blocks: []
-                      features: {}
-                      stage: null
                 multi_stage:
                   summary: Définitions multi-étapes (API Impôt Particulier)
                   value:
                     - id: "api_impot_particulier_sandbox"
                       name: "API Impôt Particulier"
-                      description: "Raccordez-vous directement à la DGFiP..."
-                      kind: "api"
-                      multi_stage?: true
                       name_with_stage: "API Impôt Particulier (Bac à sable)"
+                      multi_stage?: true
                       authorization_request_class: "AuthorizationRequest::ApiImpotParticulier"
-                      stage:
-                        type: "sandbox"
-                        next:
-                          id: "api_impot_particulier"
-                          form_id: "api-impot-particulier-production"
-                      scopes: []
-                      blocks: []
-                      features: {}
                     - id: "api_impot_particulier"
                       name: "API Impôt Particulier"
-                      description: "Raccordez-vous directement à la DGFiP..."
-                      kind: "api"
-                      multi_stage?: true
                       name_with_stage: "API Impôt Particulier (Production)"
+                      multi_stage?: true
                       authorization_request_class: "AuthorizationRequest::ApiImpotParticulier"
-                      stage:
-                        type: "production"
-                        previouses:
-                          - id: "api_impot_particulier_sandbox"
-                            form_id: "api-impot-particulier-sandbox"
-                      scopes: []
-                      blocks: []
-                      features: {}
         401:
           $ref: "#/components/responses/UnauthorizedError"
         403:
@@ -996,17 +844,6 @@ paths:
                   value:
                     id: api_entreprise
                     name: API Entreprise
-                    provider: DINUM
-                    description: Accédez aux informations et aux documents administratifs des entreprises
-                    link: https://entreprise.api.gouv.fr/
-                    access_link: https://datapass.api.gouv.fr/api-entreprise
-                    cgu_link: https://entreprise.api.gouv.fr/cgu
-                    support_email: support@entreprise.api.gouv.fr
-                    kind: api
-                    scopes: []
-                    blocks: []
-                    features: []
-                    stage: null
                     name_with_stage: API Entreprise
                     multi_stage?: false
                     authorization_request_class: AuthorizationRequest::APIEntreprise
@@ -1015,22 +852,6 @@ paths:
                   value:
                     id: api_impot_particulier_sandbox
                     name: API Impôt Particulier
-                    provider: DGFiP
-                    description: Accédez aux données fiscales des particuliers
-                    link: https://impot-particulier.api.gouv.fr/
-                    access_link: https://datapass.api.gouv.fr/api-impot-particulier-sandbox
-                    cgu_link: https://impot-particulier.api.gouv.fr/cgu
-                    support_email: support@impot-particulier.api.gouv.fr
-                    kind: api
-                    scopes: []
-                    blocks: []
-                    features: []
-                    stage:
-                      type: sandbox
-                      next:
-                        id: api_impot_particulier
-                        form_id: api-impot-particulier-production
-                      previouses: []
                     name_with_stage: API Impôt Particulier (Bac à sable)
                     multi_stage?: true
                     authorization_request_class: AuthorizationRequest::APIImpotParticulierSandbox
@@ -1039,22 +860,6 @@ paths:
                   value:
                     id: api_impot_particulier
                     name: API Impôt Particulier
-                    provider: DGFiP
-                    description: Accédez aux données fiscales des particuliers
-                    link: https://impot-particulier.api.gouv.fr/
-                    access_link: https://datapass.api.gouv.fr/api-impot-particulier-production
-                    cgu_link: https://impot-particulier.api.gouv.fr/cgu
-                    support_email: support@impot-particulier.api.gouv.fr
-                    kind: api
-                    scopes: []
-                    blocks: []
-                    features: []
-                    stage:
-                      type: production
-                      next: null
-                      previouses:
-                        - id: api_impot_particulier_sandbox
-                          form_id: api-impot-particulier-sandbox
                     name_with_stage: API Impôt Particulier (Production)
                     multi_stage?: true
                     authorization_request_class: AuthorizationRequest::APIImpotParticulier
