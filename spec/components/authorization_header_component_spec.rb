@@ -94,4 +94,58 @@ RSpec.describe AuthorizationHeaderComponent, type: :component do
       end
     end
   end
+
+  describe 'styling based on authorization state' do
+    describe '#header_background_class' do
+      context 'when authorization is active' do
+        before { authorization.state = 'active' }
+
+        it 'returns blue background class' do
+          expect(component.header_background_class).to eq('fr-background-action-high--blue-france')
+        end
+      end
+
+      context 'when authorization is revoked' do
+        before { authorization.state = 'revoked' }
+
+        it 'returns grey background class' do
+          expect(component.header_background_class).to eq('fr-background-alt--grey')
+        end
+      end
+
+      context 'when authorization is obsolete' do
+        before { authorization.state = 'obsolete' }
+
+        it 'returns grey background class' do
+          expect(component.header_background_class).to eq('fr-background-alt--grey')
+        end
+      end
+    end
+
+    describe '#header_text_class' do
+      context 'when authorization is active' do
+        before { authorization.state = 'active' }
+
+        it 'returns inverted text class with active modifier' do
+          expect(component.header_text_class).to eq('fr-text-inverted--blue-france')
+        end
+      end
+
+      context 'when authorization is revoked' do
+        before { authorization.state = 'revoked' }
+
+        it 'returns mention grey text class with revoked modifier' do
+          expect(component.header_text_class).to eq('fr-text-mention-grey')
+        end
+      end
+
+      context 'when authorization is obsolete' do
+        before { authorization.state = 'obsolete' }
+
+        it 'returns mention grey text class with revoked modifier' do
+          expect(component.header_text_class).to eq('fr-text-mention-grey')
+        end
+      end
+    end
+  end
 end
