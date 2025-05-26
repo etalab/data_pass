@@ -127,7 +127,7 @@ api-sfip-stationnement-residentiel-production:
   steps: *api_sfip_production_steps
 
 api-sfip-stationnement-residentiel-editeur:
-  name: Stationnement résidentiel
+  name: Stationnement résidentiel (avec Éditeur)
   public: true
   use_case: stationnement_residentiel
   description: Dites-le nous une fois - Stationnement Résidentiel (avec Éditeur)
@@ -176,7 +176,7 @@ api-sfip-place-creche-production:
   steps: *api_sfip_production_steps
 
 api-sfip-place-creche-editeur:
-  name: Place en crèche
+  name: Place en crèche (avec Éditeur)
   public: true
   use_case: place_creche
   description: Dites-le nous une fois - Place en crèche (avec Éditeur)
@@ -225,7 +225,7 @@ api-sfip-activites-periscolaires-production:
   steps: *api_sfip_production_steps
 
 api-sfip-activites-periscolaires-editeur:
-  name: Activités périscolaires
+  name: Activités périscolaires (avec Éditeur)
   public: true
   use_case: activites_periscolaires
   description: Dites-le nous une fois - Activités périscolaires (avec Éditeur)
@@ -273,7 +273,7 @@ api-sfip-cantine-scolaire-production:
   steps: *api_sfip_production_steps
 
 api-sfip-cantine-scolaire-editeur:
-  name: Cantine scolaire
+  name: Cantine scolaire (avec Éditeur)
   public: true
   use_case: cantine_scolaire
   description: Dites-le nous une fois - Cantine scolaire (avec Éditeur)
@@ -321,7 +321,7 @@ api-sfip-aides-sociales-facultatives-production:
   steps: *api_sfip_production_steps
 
 api-sfip-aides-sociales-facultatives-editeur:
-  name: Aides sociales facultatives
+  name: Aides sociales facultatives (avec Éditeur)
   public: true
   use_case: subventions_associations
   description: Dites-le nous une fois - Aides sociales facultatives (avec Éditeur)
@@ -369,7 +369,7 @@ api-sfip-carte-transport-production:
   steps: *api_sfip_production_steps
 
 api-sfip-carte-transport-editeur:
-  name: Carte de transport
+  name: Carte de transport (avec Éditeur)
   public: true
   use_case: carte_transport
   description: Dites-le nous une fois - Carte de transport (avec Éditeur)
