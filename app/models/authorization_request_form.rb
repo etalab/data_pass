@@ -1,4 +1,6 @@
 class AuthorizationRequestForm < StaticApplicationRecord
+  include ActiveModel::Serialization
+
   attr_accessor :uid,
     :service_provider,
     :default,

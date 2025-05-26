@@ -75,7 +75,7 @@ components:
         type:
           type: string
           example: "AuthorizationRequest::APIImpotParticulier"
-          description: Type de la demande. (TODO ajouter le endpoint de liste des définitions d'habilitations)
+          description: Type de la demande. Voir le endpoint `GET /definitions` pour la liste des définitions d'habilitations auxquelles vous avez accès.
         state:
           type: string
           example: "submitted"
@@ -91,10 +91,10 @@ components:
         form_uid:
           type: string
           example: "api-particulier-cantine-de-france"
-          description: Identifiant du formulaire utilisé pour la demande. (TODO ajouter le endpoint de liste des formulaires)
+          description: Identifiant du formulaire utilisé pour la demande. Voir le endpoint `GET /definitions/{id}/formulaires` pour la liste des formulaires disponibles d'une définition d'habilitation.
         data:
           type: object
-          description: Données remplies par le demandeur dans le formulaire. (TODO ajouter le endpoint de liste des définitions d'habilitations)
+          description: Données remplies par le demandeur dans le formulaire. Voir le endpoint `GET /definitions/{id}` pour la liste des attributs de la définition d'habilitation.
           additionalProperties: true
         created_at:
           type: string
@@ -551,6 +551,69 @@ components:
         - name_with_stage
         - multi_stage?
         - authorization_request_class
+
+    AuthorizationRequestForm:
+      type: object
+      description: Formulaire de demande d'habilitation associé à une définition d'habilitation
+      properties:
+        uid:
+          type: string
+          example: "api-entreprise"
+          description: Identifiant unique du formulaire
+        name:
+          type: string
+          example: "API Entreprise"
+          description: Nom du formulaire
+        description:
+          type: string
+          example: "Accédez aux informations et aux documents administratifs des entreprises"
+          description: Description du formulaire
+        default:
+          type: boolean
+          example: true
+          description: Indique si le formulaire est le formulaire par défaut pour la définition
+        public:
+          type: boolean
+          example: true
+          description: Indique si le formulaire est public
+        use_case:
+          type: string
+          example: null
+          description: Cas d'utilisation du formulaire
+        authorization_request_class:
+          type: string
+          example: "AuthorizationRequest::APIEntreprise"
+          description: Classe de demande d'autorisation associée au formulaire
+        steps:
+          type: array
+          description: Étapes du formulaire
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                example: "basic_infos"
+                description: Nom de l'étape
+              label:
+                type: string
+                example: "Informations de base"
+                description: Libellé de l'étape
+        multiple_steps?:
+          type: boolean
+          example: false
+          description: Indique si le formulaire est multi-étapes, typiquement sandbox / production
+        single_page?:
+          type: boolean
+          example: true
+          description: Indique si le formulaire est présenté en une seule page
+        startable_by_applicant:
+          type: boolean
+          example: true
+          description: Indique si le formulaire peut être initié par le demandeur
+        prefilled?:
+          type: boolean
+          example: false
+          description: Indique si le formulaire est prérempli
 
   responses:
     NotFoundError:
@@ -1041,5 +1104,97 @@ paths:
                   error:
                     type: string
                     example: "Not Found"
-        '500':
-          $ref: '#/components/responses/InternalServerError'
+
+  /definitions/{id}/formulaires:
+    get:
+      tags:
+        - Définitions d'habilitations
+      summary: Liste des formulaires disponibles pour une définition d'habilitation
+      description: |
+        Récupère la liste des formulaires disponibles pour une définition d'habilitation spécifique.
+        
+        L'utilisateur doit avoir un rôle développeur pour le type d'habilitation correspondant.
+        Si l'utilisateur n'a pas accès à cette définition, une erreur 404 est retournée.
+        
+        Les formulaires permettent de créer des demandes d'habilitation avec différentes configurations, nottamment pour préremplir des données afin de simplifier l'accès à différents cas d'usage bien identifiés.
+      operationId: getAuthorizationDefinitionForms
+      security:
+        - BearerAuth: [read_authorizations]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Identifiant unique de la définition d'habilitation
+          schema:
+            type: string
+            example: api_entreprise
+      responses:
+        '200':
+          description: Liste des formulaires récupérée avec succès
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AuthorizationRequestForm'
+              examples:
+                single_stage_forms:
+                  summary: Formulaires pour définition simple (API Entreprise)
+                  value:
+                    - uid: "api-entreprise"
+                      name: "API Entreprise"
+                      description: "Accédez aux informations et aux documents administratifs des entreprises"
+                      default: true
+                      public: true
+                      use_case: null
+                      authorization_request_class: "AuthorizationRequest::APIEntreprise"
+                      steps: []
+                      multiple_steps?: false
+                      single_page?: true
+                      startable_by_applicant: true
+                      prefilled?: false
+                    - uid: "api-entreprise-marches-publics"
+                      name: "API Entreprise - Marchés publics"
+                      description: "Formulaire spécialisé pour les marchés publics"
+                      default: false
+                      public: true
+                      use_case: "Marchés publics"
+                      authorization_request_class: "AuthorizationRequest::APIEntreprise"
+                      steps: []
+                      multiple_steps?: false
+                      single_page?: true
+                      startable_by_applicant: true
+                      prefilled?: true
+                multi_stage_forms:
+                  summary: Formulaires pour définition multi-étapes (API Impôt Particulier Sandbox)
+                  value:
+                    - uid: "api-impot-particulier-sandbox"
+                      name: "API Impôt Particulier"
+                      description: "Accédez aux données fiscales des particuliers en mode bac à sable"
+                      default: true
+                      public: true
+                      use_case: null
+                      authorization_request_class: "AuthorizationRequest::APIImpotParticulierSandbox"
+                      steps:
+                        - name: "basic_infos"
+                          label: "Informations de base"
+                        - name: "scopes"
+                          label: "Données demandées"
+                        - name: "legal"
+                          label: "Cadre juridique"
+                      multiple_steps?: true
+                      single_page?: false
+                      startable_by_applicant: true
+                      prefilled?: false
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Définition d'habilitation non trouvée ou accès non autorisé
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Not Found"
