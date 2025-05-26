@@ -24,6 +24,10 @@ fr:
   authorization:
     id_badge: habilitation N°%{id}
     date_badge: du %{date}
+    states:
+      active: "Active"
+      revoked: "Révoquée"
+      obsolete: "Obsolète"
 
   malware_scan:
     badge_class:

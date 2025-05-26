@@ -7,6 +7,10 @@ class AuthorizationDecorator < ApplicationDecorator
     "Habilitation n°#{id} du #{formatted_date} : #{name}"
   end
 
+  def translated_state
+    I18n.t(state, scope: 'authorization.states', default: state)
+  end
+
   private
 
   def formatted_date
