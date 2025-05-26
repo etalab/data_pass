@@ -929,3 +929,117 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         403:
           $ref: "#/components/responses/ForbiddenError"
+
+  /definitions/{id}:
+    get:
+      tags:
+        - Définitions d'habilitations
+      summary: Récupérer une définition d'habilitation spécifique
+      description: |
+        Récupère les détails d'une définition d'habilitation spécifique par son identifiant.
+        
+        L'utilisateur doit avoir un rôle développeur pour le type d'habilitation correspondant.
+        Si l'utilisateur n'a pas accès à cette définition, une erreur 404 est retournée.
+        
+        Pour les définitions multi-étapes (comme API Impôt Particulier), chaque étape (sandbox/production) 
+        a son propre identifiant et ses propres informations de stage.
+      operationId: getAuthorizationDefinition
+      security:
+        - BearerAuth: [read_authorizations]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Identifiant unique de la définition d'habilitation
+          schema:
+            type: string
+            example: api_impot_particulier_sandbox
+      responses:
+        '200':
+          description: Définition d'habilitation récupérée avec succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthorizationDefinition'
+              examples:
+                single_stage:
+                  summary: Définition simple (API Entreprise)
+                  value:
+                    id: api_entreprise
+                    name: API Entreprise
+                    provider: DINUM
+                    description: Accédez aux informations et aux documents administratifs des entreprises
+                    link: https://entreprise.api.gouv.fr/
+                    access_link: https://datapass.api.gouv.fr/api-entreprise
+                    cgu_link: https://entreprise.api.gouv.fr/cgu
+                    support_email: support@entreprise.api.gouv.fr
+                    kind: api
+                    scopes: []
+                    blocks: []
+                    features: []
+                    stage: null
+                    name_with_stage: API Entreprise
+                    multi_stage?: false
+                    authorization_request_class: AuthorizationRequest::APIEntreprise
+                multi_stage_sandbox:
+                  summary: Définition multi-étapes - Sandbox (API Impôt Particulier)
+                  value:
+                    id: api_impot_particulier_sandbox
+                    name: API Impôt Particulier
+                    provider: DGFiP
+                    description: Accédez aux données fiscales des particuliers
+                    link: https://impot-particulier.api.gouv.fr/
+                    access_link: https://datapass.api.gouv.fr/api-impot-particulier-sandbox
+                    cgu_link: https://impot-particulier.api.gouv.fr/cgu
+                    support_email: support@impot-particulier.api.gouv.fr
+                    kind: api
+                    scopes: []
+                    blocks: []
+                    features: []
+                    stage:
+                      type: sandbox
+                      next:
+                        id: api_impot_particulier
+                        form_id: api-impot-particulier-production
+                      previouses: []
+                    name_with_stage: API Impôt Particulier (Bac à sable)
+                    multi_stage?: true
+                    authorization_request_class: AuthorizationRequest::APIImpotParticulierSandbox
+                multi_stage_production:
+                  summary: Définition multi-étapes - Production (API Impôt Particulier)
+                  value:
+                    id: api_impot_particulier
+                    name: API Impôt Particulier
+                    provider: DGFiP
+                    description: Accédez aux données fiscales des particuliers
+                    link: https://impot-particulier.api.gouv.fr/
+                    access_link: https://datapass.api.gouv.fr/api-impot-particulier-production
+                    cgu_link: https://impot-particulier.api.gouv.fr/cgu
+                    support_email: support@impot-particulier.api.gouv.fr
+                    kind: api
+                    scopes: []
+                    blocks: []
+                    features: []
+                    stage:
+                      type: production
+                      next: null
+                      previouses:
+                        - id: api_impot_particulier_sandbox
+                          form_id: api-impot-particulier-sandbox
+                    name_with_stage: API Impôt Particulier (Production)
+                    multi_stage?: true
+                    authorization_request_class: AuthorizationRequest::APIImpotParticulier
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Définition d'habilitation non trouvée ou accès non autorisé
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Not Found"
+        '500':
+          $ref: '#/components/responses/InternalServerError'

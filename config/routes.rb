@@ -127,7 +127,7 @@ Rails.application.routes.draw do
 
       resources :authorizations, path: 'habilitations', only: %i[index show]
 
-      resources :authorization_definitions, path: 'definitions', only: %i[index]
+      resources :authorization_definitions, path: 'definitions', only: %i[index show]
     end
   end
 

@@ -241,4 +241,211 @@ RSpec.describe 'API: Authorization definitions' do
       end
     end
   end
+
+  describe 'GET /api/v1/definitions/:id' do
+    subject(:get_show) do
+      get "/api/v1/definitions/#{definition_id}", headers: { 'Authorization' => "Bearer #{access_token.token}" }
+    end
+
+    let(:definition_id) { 'api_entreprise' }
+
+    context 'when user is not authenticated' do
+      it 'responds with unauthorized' do
+        get "/api/v1/definitions/#{definition_id}"
+
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+
+    context 'when user has no developer roles' do
+      let(:user) { create(:user) }
+
+      it 'responds with not found' do
+        get_show
+
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+
+    context 'when user has developer role for api_entreprise' do
+      let(:user) { create(:user, :developer, authorization_request_types: %w[api_entreprise]) }
+
+      context 'when requesting api_entreprise definition' do
+        let(:definition_id) { 'api_entreprise' }
+
+        it 'responds OK with the definition' do
+          get_show
+
+          expect(response).to have_http_status(:ok)
+          expect(response.parsed_body['id']).to eq('api_entreprise')
+          expect(response.parsed_body['name']).to eq('API Entreprise')
+        end
+
+        it 'includes all expected attributes in the response' do
+          get_show
+
+          definition = response.parsed_body
+          expect(definition).to include(
+            'id',
+            'name',
+            'provider',
+            'description',
+            'link',
+            'access_link',
+            'cgu_link',
+            'support_email',
+            'kind',
+            'scopes',
+            'blocks',
+            'features',
+            'stage',
+            'name_with_stage',
+            'multi_stage?',
+            'authorization_request_class'
+          )
+        end
+
+        it 'returns correct authorization_request_class' do
+          get_show
+
+          definition = response.parsed_body
+          expect(definition['authorization_request_class']).to eq('AuthorizationRequest::APIEntreprise')
+        end
+
+        it 'returns correct name_with_stage' do
+          get_show
+
+          definition = response.parsed_body
+          expect(definition['name_with_stage']).to eq('API Entreprise')
+        end
+
+        it 'returns correct multi_stage value' do
+          get_show
+
+          definition = response.parsed_body
+          expect(definition['multi_stage?']).to be(false)
+        end
+      end
+
+      context 'when requesting a definition the user does not have access to' do
+        let(:definition_id) { 'api_particulier' }
+
+        it 'responds with not found' do
+          get_show
+
+          expect(response).to have_http_status(:not_found)
+        end
+      end
+
+      context 'when requesting a non-existent definition' do
+        let(:definition_id) { 'non_existent' }
+
+        it 'responds with not found' do
+          get_show
+
+          expect(response).to have_http_status(:not_found)
+        end
+      end
+    end
+
+    context 'when user has developer role for api_impot_particulier (multi-stage)' do
+      let(:user) { create(:user, :developer, authorization_request_types: %w[api_impot_particulier api_impot_particulier_sandbox]) }
+
+      context 'when requesting sandbox definition' do
+        let(:definition_id) { 'api_impot_particulier_sandbox' }
+
+        it 'responds OK with the sandbox definition' do
+          get_show
+
+          expect(response).to have_http_status(:ok)
+          expect(response.parsed_body['id']).to eq('api_impot_particulier_sandbox')
+          expect(response.parsed_body['name']).to eq('API Impôt Particulier')
+        end
+
+        it 'returns correct stage information for sandbox' do
+          get_show
+
+          definition = response.parsed_body
+          expect(definition['multi_stage?']).to be(true)
+          expect(definition['name_with_stage']).to eq('API Impôt Particulier (Bac à sable)')
+          expect(definition['stage']).to include(
+            'type' => 'sandbox',
+            'next' => include(
+              'id' => 'api_impot_particulier',
+              'form_id' => 'api-impot-particulier-production'
+            )
+          )
+        end
+
+        it 'returns correct authorization_request_class for sandbox' do
+          get_show
+
+          definition = response.parsed_body
+          expect(definition['authorization_request_class']).to eq('AuthorizationRequest::APIImpotParticulierSandbox')
+        end
+      end
+
+      context 'when requesting production definition' do
+        let(:definition_id) { 'api_impot_particulier' }
+
+        it 'responds OK with the production definition' do
+          get_show
+
+          expect(response).to have_http_status(:ok)
+          expect(response.parsed_body['id']).to eq('api_impot_particulier')
+          expect(response.parsed_body['name']).to eq('API Impôt Particulier')
+        end
+
+        it 'returns correct stage information for production' do
+          get_show
+
+          definition = response.parsed_body
+          expect(definition['multi_stage?']).to be(true)
+          expect(definition['name_with_stage']).to eq('API Impôt Particulier (Production)')
+          expect(definition['stage']).to include(
+            'type' => 'production',
+            'previouses' => include(
+              include(
+                'id' => 'api_impot_particulier_sandbox',
+                'form_id' => 'api-impot-particulier-sandbox'
+              )
+            )
+          )
+        end
+
+        it 'returns correct authorization_request_class for production' do
+          get_show
+
+          definition = response.parsed_body
+          expect(definition['authorization_request_class']).to eq('AuthorizationRequest::APIImpotParticulier')
+        end
+      end
+    end
+
+    context 'when user has multiple developer roles' do
+      let(:user) { create(:user, :developer, authorization_request_types: %w[api_entreprise api_particulier]) }
+
+      context 'when requesting api_entreprise definition' do
+        let(:definition_id) { 'api_entreprise' }
+
+        it 'responds OK with api_entreprise definition' do
+          get_show
+
+          expect(response).to have_http_status(:ok)
+          expect(response.parsed_body['id']).to eq('api_entreprise')
+        end
+      end
+
+      context 'when requesting api_particulier definition' do
+        let(:definition_id) { 'api_particulier' }
+
+        it 'responds OK with api_particulier definition' do
+          get_show
+
+          expect(response).to have_http_status(:ok)
+          expect(response.parsed_body['id']).to eq('api_particulier')
+        end
+      end
+    end
+  end
 end
