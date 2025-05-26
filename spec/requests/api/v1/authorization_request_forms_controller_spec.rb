@@ -50,14 +50,8 @@ RSpec.describe 'API: Authorization request forms' do
             'uid',
             'name',
             'description',
-            'default',
-            'public',
             'use_case',
             'authorization_request_class',
-            'steps',
-            'multiple_steps?',
-            'single_page?',
-            'startable_by_applicant',
             'prefilled?'
           )
         end
@@ -75,19 +69,7 @@ RSpec.describe 'API: Authorization request forms' do
           get_index
 
           form = response.parsed_body.first
-          expect(form['default']).to be_in([true, false])
-          expect(form['public']).to be_in([true, false])
-          expect(form['multiple_steps?']).to be_in([true, false])
-          expect(form['single_page?']).to be_in([true, false])
-          expect(form['startable_by_applicant']).to be_in([true, false])
           expect(form['prefilled?']).to be_in([true, false])
-        end
-
-        it 'includes steps as an array' do
-          get_index
-
-          form = response.parsed_body.first
-          expect(form['steps']).to be_an(Array)
         end
 
         it 'returns forms with unique UIDs' do
@@ -96,14 +78,6 @@ RSpec.describe 'API: Authorization request forms' do
           forms = response.parsed_body
           uids = forms.map { |form| form['uid'] }
           expect(uids).to eq(uids.uniq)
-        end
-
-        it 'includes at least one default form' do
-          get_index
-
-          forms = response.parsed_body
-          default_forms = forms.select { |form| form['default'] }
-          expect(default_forms.count).to be >= 1
         end
       end
 

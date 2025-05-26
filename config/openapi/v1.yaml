@@ -568,14 +568,6 @@ components:
           type: string
           example: "Accédez aux informations et aux documents administratifs des entreprises"
           description: Description du formulaire
-        default:
-          type: boolean
-          example: true
-          description: Indique si le formulaire est le formulaire par défaut pour la définition
-        public:
-          type: boolean
-          example: true
-          description: Indique si le formulaire est public
         use_case:
           type: string
           example: null
@@ -584,32 +576,6 @@ components:
           type: string
           example: "AuthorizationRequest::APIEntreprise"
           description: Classe de demande d'autorisation associée au formulaire
-        steps:
-          type: array
-          description: Étapes du formulaire
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-                example: "basic_infos"
-                description: Nom de l'étape
-              label:
-                type: string
-                example: "Informations de base"
-                description: Libellé de l'étape
-        multiple_steps?:
-          type: boolean
-          example: false
-          description: Indique si le formulaire est multi-étapes, typiquement sandbox / production
-        single_page?:
-          type: boolean
-          example: true
-          description: Indique si le formulaire est présenté en une seule page
-        startable_by_applicant:
-          type: boolean
-          example: true
-          description: Indique si le formulaire peut être initié par le demandeur
         prefilled?:
           type: boolean
           example: false
@@ -1144,26 +1110,14 @@ paths:
                     - uid: "api-entreprise"
                       name: "API Entreprise"
                       description: "Accédez aux informations et aux documents administratifs des entreprises"
-                      default: true
-                      public: true
                       use_case: null
                       authorization_request_class: "AuthorizationRequest::APIEntreprise"
-                      steps: []
-                      multiple_steps?: false
-                      single_page?: true
-                      startable_by_applicant: true
                       prefilled?: false
                     - uid: "api-entreprise-marches-publics"
                       name: "API Entreprise - Marchés publics"
                       description: "Formulaire spécialisé pour les marchés publics"
-                      default: false
-                      public: true
                       use_case: "Marchés publics"
                       authorization_request_class: "AuthorizationRequest::APIEntreprise"
-                      steps: []
-                      multiple_steps?: false
-                      single_page?: true
-                      startable_by_applicant: true
                       prefilled?: true
                 multi_stage_forms:
                   summary: Formulaires pour définition multi-étapes (API Impôt Particulier Sandbox)
@@ -1171,20 +1125,8 @@ paths:
                     - uid: "api-impot-particulier-sandbox"
                       name: "API Impôt Particulier"
                       description: "Accédez aux données fiscales des particuliers en mode bac à sable"
-                      default: true
-                      public: true
                       use_case: null
                       authorization_request_class: "AuthorizationRequest::APIImpotParticulierSandbox"
-                      steps:
-                        - name: "basic_infos"
-                          label: "Informations de base"
-                        - name: "scopes"
-                          label: "Données demandées"
-                        - name: "legal"
-                          label: "Cadre juridique"
-                      multiple_steps?: true
-                      single_page?: false
-                      startable_by_applicant: true
                       prefilled?: false
         '401':
           $ref: '#/components/responses/Unauthorized'
