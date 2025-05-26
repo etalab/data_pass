@@ -1,13 +1,15 @@
 class AuthorizationHeaderComponent < ApplicationComponent
   attr_reader :authorization, :current_user
 
+  delegate :translated_state, to: :decorated_authorization
+
   def initialize(authorization:, current_user:)
     @authorization = authorization
     @current_user = current_user
   end
 
-  def translated_state
-    I18n.t(authorization.state, scope: 'authorization.states', default: authorization.state)
+  def decorated_authorization
+    @decorated_authorization ||= authorization.decorate
   end
 
   private

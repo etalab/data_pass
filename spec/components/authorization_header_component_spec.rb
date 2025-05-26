@@ -37,7 +37,7 @@ RSpec.describe AuthorizationHeaderComponent, type: :component do
       expect(subject.css('h1').text).to include("Habilitation à #{authorization.definition.name}")
       expect(subject.css('p').text).to include(authorization.name.to_s)
       expect(subject.css('.fr-badge').text).to include("Habilitation n°#{authorization.id}")
-      expect(subject.css('.fr-badge').text).to include(component.translated_state)
+      expect(subject.css('.fr-badge').text).to include(I18n.t(authorization.state, scope: 'authorization.states', default: authorization.state))
     end
   end
 
@@ -53,6 +53,10 @@ RSpec.describe AuthorizationHeaderComponent, type: :component do
       it 'shows a success badge' do
         expect(subject.css('.fr-badge--success')).to be_present
       end
+
+      it 'shows an active translation text' do
+        expect(subject.css('.fr-badge').text).to include('Active')
+      end
     end
 
     context 'when authorization is revoked' do
@@ -65,6 +69,10 @@ RSpec.describe AuthorizationHeaderComponent, type: :component do
 
       it 'shows an error badge' do
         expect(subject.css('.fr-badge--error')).to be_present
+      end
+
+      it 'shows a revoked translation text' do
+        expect(subject.css('.fr-badge').text).to include('Révoquée')
       end
     end
 
@@ -79,6 +87,10 @@ RSpec.describe AuthorizationHeaderComponent, type: :component do
         badge = subject.css('.fr-badge').last
         expect(badge['class']).not_to include('fr-badge--success')
         expect(badge['class']).not_to include('fr-badge--error')
+      end
+
+      it 'shows an obsolete translated text' do
+        expect(subject.css('.fr-badge').text).to include('Obsolète')
       end
     end
   end
