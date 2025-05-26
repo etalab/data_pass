@@ -1,4 +1,6 @@
 class AuthorizationDefinition < StaticApplicationRecord
+  include ActiveModel::Serialization
+
   attr_accessor :id,
     :name,
     :provider,
