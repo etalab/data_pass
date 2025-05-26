@@ -419,12 +419,28 @@ components:
           type: string
           example: "AuthorizationRequest::ApiImpotParticulier"
           description: Classe de demande d'autorisation associée à cette définition
+        data:
+          type: array
+          description: |
+            Liste des attributs que le demandeur peut remplir lors de la soumission d'une demande pour cette définition d'habilitation.
+            Inclut les extra_attributes de la classe d'autorisation et 'scopes' si des scopes sont disponibles.
+          items:
+            type: string
+          example: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
+        scopes:
+          type: array
+          description: Liste des valeurs de scopes disponibles pour cette définition d'habilitation
+          items:
+            type: string
+          example: ["unites_legales_etablissements_insee", "open_data_unites_legales_etablissements_insee", "open_data_extrait_rcs_infogreffe"]
       required:
         - id
         - name
         - name_with_stage
         - multi_stage?
         - authorization_request_class
+        - data
+        - scopes
 
     AuthorizationRequestForm:
       type: object
@@ -800,6 +816,8 @@ paths:
                       name_with_stage: "API Entreprise"
                       multi_stage?: false
                       authorization_request_class: "AuthorizationRequest::ApiEntreprise"
+                      data: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
+                      scopes: ["unites_legales_etablissements_insee", "open_data_unites_legales_etablissements_insee", "open_data_extrait_rcs_infogreffe"]
                 multi_stage:
                   summary: Définitions multi-étapes (API Impôt Particulier)
                   value:
@@ -808,11 +826,15 @@ paths:
                       name_with_stage: "API Impôt Particulier (Bac à sable)"
                       multi_stage?: true
                       authorization_request_class: "AuthorizationRequest::ApiImpotParticulier"
+                      data: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
+                      scopes: ["dgfip_annee_n_moins_1", "dgfip_rfr", "dgfip_sitfam", "dgfip_nbpart", "dgfip_pac"]
                     - id: "api_impot_particulier"
                       name: "API Impôt Particulier"
                       name_with_stage: "API Impôt Particulier (Production)"
                       multi_stage?: true
                       authorization_request_class: "AuthorizationRequest::ApiImpotParticulier"
+                      data: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
+                      scopes: ["dgfip_annee_n_moins_1", "dgfip_rfr", "dgfip_sitfam", "dgfip_nbpart", "dgfip_pac"]
         401:
           $ref: "#/components/responses/UnauthorizedError"
         403:
@@ -858,6 +880,8 @@ paths:
                     name_with_stage: API Entreprise
                     multi_stage?: false
                     authorization_request_class: AuthorizationRequest::APIEntreprise
+                    data: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
+                    scopes: ["unites_legales_etablissements_insee", "open_data_unites_legales_etablissements_insee", "open_data_extrait_rcs_infogreffe"]
                 multi_stage_sandbox:
                   summary: Définition multi-étapes - Sandbox (API Impôt Particulier)
                   value:
@@ -866,6 +890,8 @@ paths:
                     name_with_stage: API Impôt Particulier (Bac à sable)
                     multi_stage?: true
                     authorization_request_class: AuthorizationRequest::APIImpotParticulierSandbox
+                    data: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
+                    scopes: ["dgfip_annee_n_moins_1", "dgfip_rfr", "dgfip_sitfam", "dgfip_nbpart", "dgfip_pac"]
                 multi_stage_production:
                   summary: Définition multi-étapes - Production (API Impôt Particulier)
                   value:
@@ -874,6 +900,8 @@ paths:
                     name_with_stage: API Impôt Particulier (Production)
                     multi_stage?: true
                     authorization_request_class: AuthorizationRequest::APIImpotParticulier
+                    data: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
+                    scopes: ["dgfip_annee_n_moins_1", "dgfip_rfr", "dgfip_sitfam", "dgfip_nbpart", "dgfip_pac"]
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
@@ -929,7 +957,7 @@ paths:
                       use_case: null
                       authorization_request_class: "AuthorizationRequest::APIEntreprise"
                       prefilled?: false
-                      data: null
+                      data: ["cadre_juridique_nature", "cadre_juridique_url", "scopes"]
                     - uid: "api-entreprise-marches-publics"
                       name: "API Entreprise - Marchés publics"
                       description: "Formulaire spécialisé pour les marchés publics"
@@ -951,7 +979,8 @@ paths:
                       use_case: null
                       authorization_request_class: "AuthorizationRequest::APIImpotParticulierSandbox"
                       prefilled?: false
-                      data: null
+                      data: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
+                      scopes: ["dgfip_annee_n_moins_1", "dgfip_rfr", "dgfip_sitfam", "dgfip_nbpart", "dgfip_pac"]
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':

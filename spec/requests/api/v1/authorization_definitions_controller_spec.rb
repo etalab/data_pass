@@ -48,7 +48,9 @@ RSpec.describe 'API: Authorization definitions' do
           'name',
           'name_with_stage',
           'multi_stage?',
-          'authorization_request_class'
+          'authorization_request_class',
+          'data',
+          'scopes'
         )
       end
 
@@ -72,6 +74,31 @@ RSpec.describe 'API: Authorization definitions' do
         definition = response.parsed_body[0]
         expect(definition['multi_stage?']).to be(false)
       end
+
+      it 'returns correct data attribute with extra_attributes and scopes' do
+        get_index
+
+        definition = response.parsed_body[0]
+        expect(definition['data']).to be_a(Array)
+        expect(definition['scopes']).to be_a(Array)
+
+        extra_attributes = AuthorizationRequest::APIEntreprise.extra_attributes
+        extra_attributes.each do |attr|
+          expect(definition['data']).to include(attr.to_s)
+        end
+
+        expect(definition['data']).to include('scopes')
+      end
+
+      it 'returns scopes as array of scope values' do
+        get_index
+
+        definition = response.parsed_body[0]
+        scopes = definition['scopes']
+        expect(scopes).to be_a(Array)
+        # Verify scopes contain expected API Entreprise scope values from config
+        expect(scopes).to include('unites_legales_etablissements_insee', 'open_data_unites_legales_etablissements_insee', 'open_data_extrait_rcs_infogreffe')
+      end
     end
 
     context 'when user has developer role for api_particulier' do
@@ -91,6 +118,31 @@ RSpec.describe 'API: Authorization definitions' do
 
         definition = response.parsed_body[0]
         expect(definition['authorization_request_class']).to eq('AuthorizationRequest::APIParticulier')
+      end
+
+      it 'returns correct data attribute with extra_attributes and scopes' do
+        get_index
+
+        definition = response.parsed_body[0]
+        expect(definition['data']).to be_a(Array)
+        expect(definition['scopes']).to be_a(Array)
+
+        extra_attributes = AuthorizationRequest::APIParticulier.extra_attributes
+        extra_attributes.each do |attr|
+          expect(definition['data']).to include(attr.to_s)
+        end
+
+        expect(definition['data']).to include('scopes')
+      end
+
+      it 'returns scopes as array of scope values for API Particulier' do
+        get_index
+
+        definition = response.parsed_body[0]
+        scopes = definition['scopes']
+        expect(scopes).to be_a(Array)
+        # Verify scopes contain expected API Particulier scope values from config
+        expect(scopes).to include('cnaf_quotient_familial', 'cnaf_allocataires', 'pole_emploi_identifiant')
       end
     end
 
@@ -141,6 +193,45 @@ RSpec.describe 'API: Authorization definitions' do
 
         expect(sandbox_def['authorization_request_class']).to eq('AuthorizationRequest::APIImpotParticulierSandbox')
         expect(production_def['authorization_request_class']).to eq('AuthorizationRequest::APIImpotParticulier')
+      end
+
+      it 'returns correct data attribute for both sandbox and production definitions' do
+        get_index
+
+        definitions = response.parsed_body
+        sandbox_def = definitions.find { |d| d['id'] == 'api_impot_particulier_sandbox' }
+        production_def = definitions.find { |d| d['id'] == 'api_impot_particulier' }
+
+        [sandbox_def, production_def].each do |definition|
+          expect(definition['data']).to be_a(Array)
+          expect(definition['scopes']).to be_a(Array)
+        end
+
+        # Verify sandbox definition contains extra_attributes from sandbox class
+        extra_attributes_sandbox = AuthorizationRequest::APIImpotParticulierSandbox.extra_attributes
+        extra_attributes_sandbox.each do |attr|
+          expect(sandbox_def['data']).to include(attr.to_s)
+        end
+
+        # Verify production definition contains extra_attributes from production class
+        extra_attributes_production = AuthorizationRequest::APIImpotParticulier.extra_attributes
+        extra_attributes_production.each do |attr|
+          expect(production_def['data']).to include(attr.to_s)
+        end
+      end
+
+      it 'returns correct scopes for both sandbox and production definitions' do
+        get_index
+
+        definitions = response.parsed_body
+        sandbox_def = definitions.find { |d| d['id'] == 'api_impot_particulier_sandbox' }
+        production_def = definitions.find { |d| d['id'] == 'api_impot_particulier' }
+
+        # Both should have the same scopes as they reference the same scopes config
+        expected_scopes = %w[dgfip_annee_n_moins_1 dgfip_rfr dgfip_sitfam dgfip_nbpart dgfip_pac]
+
+        expect(sandbox_def['scopes']).to include(*expected_scopes)
+        expect(production_def['scopes']).to include(*expected_scopes)
       end
     end
 
@@ -241,7 +332,9 @@ RSpec.describe 'API: Authorization definitions' do
             'name',
             'name_with_stage',
             'multi_stage?',
-            'authorization_request_class'
+            'authorization_request_class',
+            'data',
+            'scopes'
           )
         end
 
@@ -264,6 +357,30 @@ RSpec.describe 'API: Authorization definitions' do
 
           definition = response.parsed_body
           expect(definition['multi_stage?']).to be(false)
+        end
+
+        it 'returns correct data attribute with extra_attributes and scopes' do
+          get_show
+
+          definition = response.parsed_body
+          expect(definition['data']).to be_a(Array)
+          expect(definition['scopes']).to be_a(Array)
+
+          extra_attributes = AuthorizationRequest::APIEntreprise.extra_attributes
+          extra_attributes.each do |attr|
+            expect(definition['data']).to include(attr.to_s)
+          end
+
+          expect(definition['data']).to include('scopes')
+        end
+
+        it 'returns scopes as array of scope values' do
+          get_show
+
+          definition = response.parsed_body
+          scopes = definition['scopes']
+          expect(scopes).to be_a(Array)
+          expect(scopes).to include('unites_legales_etablissements_insee', 'open_data_unites_legales_etablissements_insee', 'open_data_extrait_rcs_infogreffe')
         end
       end
 
@@ -322,6 +439,21 @@ RSpec.describe 'API: Authorization definitions' do
           definition = response.parsed_body
           expect(definition['authorization_request_class']).to eq('AuthorizationRequest::APIImpotParticulierSandbox')
         end
+
+        it 'returns correct data attribute for sandbox definition' do
+          get_show
+
+          definition = response.parsed_body
+          expect(definition['data']).to be_a(Array)
+          expect(definition['scopes']).to be_a(Array)
+
+          extra_attributes = AuthorizationRequest::APIImpotParticulierSandbox.extra_attributes
+          extra_attributes.each do |attr|
+            expect(definition['data']).to include(attr.to_s)
+          end
+
+          expect(definition['data']).to include('scopes')
+        end
       end
 
       context 'when requesting production definition' do
@@ -354,6 +486,21 @@ RSpec.describe 'API: Authorization definitions' do
 
           definition = response.parsed_body
           expect(definition['authorization_request_class']).to eq('AuthorizationRequest::APIImpotParticulier')
+        end
+
+        it 'returns correct data attribute for production definition' do
+          get_show
+
+          definition = response.parsed_body
+          expect(definition['data']).to be_a(Array)
+          expect(definition['scopes']).to be_a(Array)
+
+          extra_attributes = AuthorizationRequest::APIImpotParticulier.extra_attributes
+          extra_attributes.each do |attr|
+            expect(definition['data']).to include(attr.to_s)
+          end
+
+          expect(definition['data']).to include('scopes')
         end
       end
     end

@@ -142,8 +142,8 @@ RSpec.describe 'API: Authorization request forms' do
         api_entreprise_user = create(:user, :developer, authorization_request_types: %w[api_entreprise])
         api_entreprise_application = create(:oauth_application, owner: api_entreprise_user)
         api_entreprise_access_token = create(:access_token, application: api_entreprise_application)
-        
-        get "/api/v1/definitions/api_entreprise/formulaires", headers: { 'Authorization' => "Bearer #{api_entreprise_access_token.token}" }
+
+        get '/api/v1/definitions/api_entreprise/formulaires', headers: { 'Authorization' => "Bearer #{api_entreprise_access_token.token}" }
         api_entreprise_forms = response.parsed_body
 
         # Forms should be different
@@ -250,4 +250,4 @@ RSpec.describe 'API: Authorization request forms' do
       end
     end
   end
-end 
+end
