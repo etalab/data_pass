@@ -50,6 +50,12 @@ tags:
   - name: Utilisateurs
 
 components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Bearer token d'authentification obtenu via le endpoint OAuth2 `/oauth/token`
   parameters:
     Authorization:
       name: Authorization
@@ -855,7 +861,7 @@ paths:
         a son propre identifiant et ses propres informations de stage.
       operationId: getAuthorizationDefinition
       security:
-        - BearerAuth: [read_authorizations]
+        - BearerAuth: []
       parameters:
         - name: id
           in: path
@@ -903,7 +909,7 @@ paths:
                     data: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
                     scopes: ["dgfip_annee_n_moins_1", "dgfip_rfr", "dgfip_sitfam", "dgfip_nbpart", "dgfip_pac"]
         '401':
-          $ref: '#/components/responses/Unauthorized'
+          $ref: '#/components/responses/UnauthorizedError'
         '404':
           description: Définition d'habilitation non trouvée ou accès non autorisé
           content:
@@ -929,7 +935,7 @@ paths:
         Les formulaires permettent de créer des demandes d'habilitation avec différentes configurations, nottamment pour préremplir des données afin de simplifier l'accès à différents cas d'usage bien identifiés.
       operationId: getAuthorizationDefinitionForms
       security:
-        - BearerAuth: [read_authorizations]
+        - BearerAuth: []
       parameters:
         - name: id
           in: path
@@ -982,7 +988,7 @@ paths:
                       data: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
                       scopes: ["dgfip_annee_n_moins_1", "dgfip_rfr", "dgfip_sitfam", "dgfip_nbpart", "dgfip_pac"]
         '401':
-          $ref: '#/components/responses/Unauthorized'
+          $ref: '#/components/responses/UnauthorizedError'
         '404':
           description: Définition d'habilitation non trouvée ou accès non autorisé
           content:
