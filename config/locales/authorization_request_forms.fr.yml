@@ -810,28 +810,8 @@ fr:
 
     api_sfip_sandbox: &api_sfip_sandbox
       <<: *api_impot_particulier_sandbox
-    api_sfip_production: &api_sfip_production
+    api_sfip: &api_sfip_production
       <<: *api_sfip_sandbox
-
-    api_sfip_stationnement_residentiel_sandbox: *api_sfip_sandbox
-    api_sfip_place_creche_sandbox: *api_sfip_sandbox
-    api_sfip_activites_periscolaires_sandbox: *api_sfip_sandbox
-    api_sfip_cantine_scolaire_sandbox: *api_sfip_sandbox
-    api_sfip_aides_sociales_facultatives_sandbox: *api_sfip_sandbox
-    api_sfip_carte_transport_sandbox: *api_sfip_sandbox
-    api_sfip_production_editeur: *api_sfip_production
-    api_sfip_stationnement_residentiel_production: *api_sfip_production
-    api_sfip_stationnement_residentiel_editeur: *api_sfip_production
-    api_sfip_place_creche_production: *api_sfip_production
-    api_sfip_place_creche_editeur: *api_sfip_production
-    api_sfip_activites_periscolaires_production: *api_sfip_production
-    api_sfip_activites_periscolaires_editeur: *api_sfip_production
-    api_sfip_cantine_scolaire_production: *api_sfip_production
-    api_sfip_cantine_scolaire_editeur: *api_sfip_production
-    api_sfip_aides_sociales_facultatives_production: *api_sfip_production
-    api_sfip_aides_sociales_facultatives_editeur: *api_sfip_production
-    api_sfip_carte_transport_production: *api_sfip_production
-    api_sfip_carte_transport_editeur: *api_sfip_production
 
     formulaire_qf:
       legal: *api_particulier_editor_common_wordings
