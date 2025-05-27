@@ -1,0 +1,19 @@
+<% if authorization.latest? && authorization.request.reopening? %>
+  <div class="fr-alert fr-alert--info fr-mb-4v">
+    <h2 class="fr-alert__title fr-h3">
+      <%= t('authorization_request_forms.summary.reopening_alerts.update_in_progress.title') %>
+    </h2>
+    <%= t('authorization_request_forms.summary.reopening_alerts.update_in_progress.message',
+          link: link_to("Demande de mise à jour n°#{authorization.request.id}",
+                        authorization_request_path(authorization.request))).html_safe %>
+  </div>
+<% elsif !authorization.latest? %>
+  <div class="fr-alert fr-alert--warning fr-mb-4v">
+    <h3 class="fr-alert__title">
+      <%= t('authorization_request_forms.summary.reopening_alerts.old_version.title') %>
+    </h3>
+    <%= t('authorization_request_forms.summary.reopening_alerts.old_version.message',
+          link: link_to("Habilitation n°#{authorization_request.latest_authorization.id}",
+                        authorization_path(authorization_request.latest_authorization))).html_safe %>
+  </div>
+<% end %>

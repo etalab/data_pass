@@ -1,0 +1,12 @@
+.fr-h3.fr-text-mention-grey {
+  color: #666666;
+}
+
+.fr-btn--secondary__custom {
+  background-color: white;
+
+  --hover: inherit;
+  --active: inherit;
+  color: var(--text-action-high-blue-france);
+  box-shadow: inset 0 0 0 1px var(--border-action-high-blue-france);
+}

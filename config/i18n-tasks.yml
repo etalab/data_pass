@@ -141,6 +141,7 @@ ignore_unused:
   - "instruction.authorization_requests.index.status.*"
   - "wicked.*"
   - 'admin.*'
+  - 'authorization.states.*'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'
 # - 'simple_form.{placeholders,hints,labels}.*'

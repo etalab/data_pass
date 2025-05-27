@@ -1,8 +1,14 @@
 class AuthorizationDecorator < ApplicationDecorator
   delegate_all
 
+  decorates_association :request
+
   def name_for_select
     "Habilitation n°#{id} du #{formatted_date} : #{name}"
+  end
+
+  def translated_state
+    I18n.t(state, scope: 'authorization.states', default: state)
   end
 
   private

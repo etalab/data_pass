@@ -1,0 +1,15 @@
+<div class="authorization-header fr-background-action-high--blue-france">
+  <%= render AuthorizationHeaderComponent.new(authorization: authorization, current_user: current_user) %>
+</div>
+
+<div class="fr-container">
+  <div id="<%= dom_id(authorization, :summary) %>" class="fr-mt-4w">
+    <!-- alerts -->
+    <%= render partial: 'demandes_habilitations/current_user_mentions_alert', locals: { demande: authorization.request } %>
+    <%= render partial: 'authorizations/alerts', locals: { authorization: , authorization_request: authorization.request } %>
+    <%= render partial: 'authorizations/access_callout', locals: { authorization_request: authorization.request } %>
+    <!-- content -->
+    <%= render partial: 'demandes_habilitations/organization_and_applicant', locals: { demande: authorization.request } %>
+    <%= render partial: 'authorizations/blocks', locals: { authorization_request: authorization.request, form_builder: @form_builder } %>
+  </div>
+</div>

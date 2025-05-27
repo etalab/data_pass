@@ -1,12 +1,12 @@
-<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { title: f.wording_for('steps.supporting_documents'), block_id: :supporting_documents, f:, editable: } do %>
-  <% if @authorization_request.respond_to?(:attestation_fiscale) %>
+<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { authorization_request:, title: f.wording_for('steps.supporting_documents'), block_id: :supporting_documents, f:, editable: } do %>
+  <% if authorization_request.respond_to?(:attestation_fiscale) %>
     <p>
       <strong>
         <%= f.label_value(:attestation_fiscale) %> :
       </strong>
       <br />
-      <% if @authorization_request.attestation_fiscale.attached? %>
-        <%= link_to @authorization_request.attestation_fiscale.filename, url_for(@authorization_request.attestation_fiscale), target: '_blank', class: %w[fr-link--icon-left fr-icon-file-pdf-fill] %>
+      <% if authorization_request.attestation_fiscale.attached? %>
+        <%= link_to authorization_request.attestation_fiscale.filename, url_for(authorization_request.attestation_fiscale), target: '_blank', class: %w[fr-link--icon-left fr-icon-file-pdf-fill] %>
       <% else %>
         Document manquant
       <% end %>

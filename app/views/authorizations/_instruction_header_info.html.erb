@@ -1,0 +1,8 @@
+<div class="fr-pb-3w fr-pl-1w fr-text-inverted--blue-france">
+  Cette habilitation est liée à
+  la <%= link_to "demande N°#{authorization.request.id}", instruction_authorization_request_authorizations_path(authorization.request), class: 'fr-link fr-text-inverted--blue-france' %>
+  <% if authorization.approving_instructor %>
+    et a été validée par
+    <strong><%= authorization.approving_instructor.email %></strong>
+  <% end %>
+</div>

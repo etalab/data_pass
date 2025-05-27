@@ -1,5 +1,5 @@
 <%= authorization_request_form(@authorization_request) do |f| %>
-  <%= render partial: 'authorization_request_forms/current_user_mentions_alert' %>
+  <%= render partial: 'demandes_habilitations/current_user_mentions_alert', locals: { demande: @authorization_request } %>
 
   <div id="<%= dom_id(@authorization_request, :summary) %>" class="fr-mt-4w">
     <% if @bulk_update.present? %>
@@ -123,7 +123,7 @@
       <% end %>
     <% end %>
 
-    <%= render partial: 'authorization_requests/shared/organization_and_applicant' %>
+    <%= render partial: 'demandes_habilitations/organization_and_applicant', locals: { demande: @authorization_request } %>
 
     <% @authorization_request.blocks.each do |block| %>
       <% next if block[:name].to_s == 'contacts' && displayed_on_a_public_page? %>
