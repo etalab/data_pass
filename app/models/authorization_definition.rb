@@ -25,6 +25,18 @@ class AuthorizationDefinition < StaticApplicationRecord
     end
   end
 
+  def self.where(params)
+    all.select do |definition|
+      params.all? do |key, value|
+        definition_value = definition.send(key)
+        value = [value] unless value.is_a?(Array)
+        definition_value = definition_value.to_s if key == :authorization_request_class
+
+        value.include?(definition_value)
+      end
+    end
+  end
+
   def editors
     available_forms.select { |form|
       form.service_provider.present? && form.service_provider.editor?

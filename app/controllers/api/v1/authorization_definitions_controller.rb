@@ -3,9 +3,7 @@ class API::V1::AuthorizationDefinitionsController < API::V1Controller
   before_action :set_authorization_definition, only: %i[show]
 
   def index
-    authorization_definitions = AuthorizationDefinition.all.select do |definition|
-      current_user_authorization_request_types.include?(definition.authorization_request_class.to_s)
-    end
+    authorization_definitions = AuthorizationDefinition.where(authorization_request_class: current_user_authorization_request_types)
 
     render json: authorization_definitions,
       each_serializer: API::V1::AuthorizationDefinitionSerializer,
