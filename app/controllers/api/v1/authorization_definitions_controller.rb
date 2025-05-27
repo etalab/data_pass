@@ -19,10 +19,7 @@ class API::V1::AuthorizationDefinitionsController < API::V1Controller
   private
 
   def set_authorization_definition
-    @authorization_definition = AuthorizationDefinition.all.find do |definition|
-      definition.id == params[:id] &&
-        current_user_authorization_request_types.include?(definition.authorization_request_class.to_s)
-    end
+    @authorization_definition = AuthorizationDefinition.find_by(id: params[:id], authorization_request_class: current_user_authorization_request_types)
 
     head :not_found unless @authorization_definition
   end

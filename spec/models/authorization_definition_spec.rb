@@ -66,6 +66,22 @@ RSpec.describe AuthorizationDefinition do
     end
   end
 
+  describe '.find_by' do
+    it 'returns the definition when one is found' do
+      result = described_class.find_by(id: 'api_entreprise')
+      expect(result.id).to eq('api_entreprise')
+    end
+
+    it 'returns the first definition when multiple definitions are found' do
+      result = described_class.find_by(id: %w[api_entreprise api_particulier])
+      expect(result.id).to eq('api_entreprise')
+    end
+
+    it 'returns nil when no definition is found' do
+      expect(described_class.find_by(id: 'non_existent_id')).to be_nil
+    end
+  end
+
   describe '.available_forms' do
     subject(:available_forms) { instance.available_forms }
 
