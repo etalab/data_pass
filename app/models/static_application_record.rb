@@ -1,6 +1,7 @@
 class StaticApplicationRecord
   include ActiveModel::Model
   include Draper::Decoratable
+  include ActiveModel::Serialization
 
   class EntryNotFound < StandardError; end
 
