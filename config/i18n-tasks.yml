@@ -131,6 +131,8 @@ ignore_unused:
   - "support.*"
   - "authorization_request_forms.build.update.{reopening_,}error.*"
   - "transfer_authorization_requests.create.to_another.error.*"
+  - "instruction.transfer_authorization_requests.{new,create}.error.{email_not_found,invalid_email,invalid_new_applicant}"
+  - "instruction.transfer_authorization_requests.create.success.title"
   - "instruction.{approve,refuse,request_changes_on,revoke}_authorization_requests.create.{reopening_,}success.title"
   - "instruction.cancel_authorization_reopenings.create.reopening_success.title"
   - "cancel_authorization_reopenings.create.reopening_success.title"

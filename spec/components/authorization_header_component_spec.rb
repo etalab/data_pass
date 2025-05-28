@@ -1,5 +1,5 @@
 RSpec.describe AuthorizationHeaderComponent, type: :component do
-  let(:auth_policy) { instance_double(AuthorizationPolicy, reopen?: true, transfer?: false, start_next_stage?: false, contact_support?: false) }
+  let(:auth_policy) { instance_double(AuthorizationPolicy, reopen?: true, transfer?: false, manual_transfer_from_instructor?: false, start_next_stage?: false, contact_support?: false) }
   let(:authorization) { create(:authorization) }
   let(:instruction_policy) { instance_double(Instruction::AuthorizationRequestPolicy, show?: false) }
 

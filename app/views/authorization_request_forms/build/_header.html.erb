@@ -12,6 +12,8 @@
         <div class="authorization-request-form-header__actions">
           <% if policy(@authorization.try(:request) || @authorization_request).transfer? %>
             <%= dsfr_main_modal_button t('authorization_request_forms.form.transfer'), new_authorization_request_transfer_path(@authorization_request), id: :transfer_authorization_request, class: %w(fr-btn fr-btn--sm fr-btn--secondary fr-btn--icon-left fr-icon-refresh-fill) %>
+          <% elsif policy(@authorization.try(:request) || @authorization_request).manual_transfer_from_instructor? %>
+            <%= dsfr_main_modal_button t('authorization_request_forms.form.transfer'), new_authorization_request_manual_transfer_path(@authorization_request), id: :manual_transfer_authorization_request, class: %w(fr-btn fr-btn--sm fr-btn--secondary fr-btn--icon-left fr-icon-refresh-fill) %>
           <% end %>
 
           <% if policy(@authorization.try(:request) || @authorization_request).reopen? %>
@@ -37,7 +39,7 @@
             et a été validée par
             <strong><%=@authorization.approving_instructor.email%></strong>
           <% end %>
-          
+
         </div>
       <% end %>
     </div>

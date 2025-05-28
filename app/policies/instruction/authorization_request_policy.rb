@@ -50,6 +50,13 @@ class Instruction::AuthorizationRequestPolicy < ApplicationPolicy
       record.can_cancel_reopening?
   end
 
+  def transfer?
+    show? &&
+      instructor_for_record? &&
+      record.persisted? &&
+      (record.reopening? || record.state != 'draft')
+  end
+
   def moderate?
     archive? ||
       approve? ||
