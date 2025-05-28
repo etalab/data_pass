@@ -80,6 +80,12 @@ class Authorization < ApplicationRecord
     end
   end
 
+  def access_link
+    return nil if definition.access_link.blank? || request.external_provider_id.blank?
+
+    format(definition.access_link, external_provider_id:)
+  end
+
   # rubocop:disable Metrics/AbcSize
   def request_as_validated
     request_as_validated = authorization_request_class.constantize.new(request.dup.attributes.except('type'))

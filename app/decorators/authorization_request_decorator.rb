@@ -3,6 +3,10 @@ class AuthorizationRequestDecorator < ApplicationDecorator
 
   decorates_association :organization
 
+  def to_partial_path
+    'authorization_requests/card'
+  end
+
   def only_in_contacts?(user)
     user != object.applicant &&
       object.contact_types_for(user).present?
