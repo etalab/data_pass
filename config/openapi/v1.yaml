@@ -81,11 +81,11 @@ components:
         definition_id:
           type: string
           example: "api_entreprise"
-          description: Identifiant de la définition d'habilitation associée à cette demande
+          description: Identifiant de la définition d'habilitation associée à cette demande. Voir le endpoint `GET /definitions` pour la liste des définitions d'habilitations auxquelles vous avez accès.
         type:
           type: string
           example: "AuthorizationRequest::APIImpotParticulier"
-          description: Type de la demande. Voir le endpoint `GET /definitions` pour la liste des définitions d'habilitations auxquelles vous avez accès.
+          description: Type de la demande.
         state:
           type: string
           example: "submitted"
@@ -282,7 +282,7 @@ components:
         definition_id:
           type: string
           example: "api_entreprise"
-          description: Identifiant de la définition d'habilitation associée à cette habilitation
+          description: Identifiant de la définition d'habilitation associée à cette habilitation. Voir le endpoint `GET /definitions` pour la liste des définitions d'habilitations auxquelles vous avez accès.
       required:
         - id
         - slug
@@ -525,7 +525,7 @@ components:
         definition_id:
           type: string
           example: "api_entreprise"
-          description: Identifiant de la définition d'habilitation associée à ce formulaire
+          description: Identifiant de la définition d'habilitation associée à ce formulaire. Voir le endpoint `GET /definitions` pour la liste des définitions d'habilitations auxquelles vous avez accès.
         data:
           type: object
           description: Données préremplies du formulaire. Présent uniquement pour les formulaires avec prefilled? = true. Contient les valeurs par défaut pour certains champs du formulaire.
