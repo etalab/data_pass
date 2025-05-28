@@ -100,14 +100,16 @@ RSpec.describe 'API: Authorization definitions' do
         expect(definition['data']).to include('scopes')
       end
 
-      it 'returns scopes as array of scope values' do
+      it 'returns scopes as array of scope objects' do
         get_index
 
         definition = response.parsed_body[0]
         scopes = definition['scopes']
         expect(scopes).to be_a(Array)
-        # Verify scopes contain expected API Entreprise scope values from config
-        expect(scopes).to include('unites_legales_etablissements_insee', 'open_data_unites_legales_etablissements_insee', 'open_data_extrait_rcs_infogreffe')
+
+        # Verify scopes contain expected API Entreprise scope values
+        scope_values = scopes.map { |scope| scope['value'] }
+        expect(scope_values).to include('unites_legales_etablissements_insee', 'open_data_unites_legales_etablissements_insee', 'open_data_extrait_rcs_infogreffe')
       end
     end
 
@@ -145,14 +147,16 @@ RSpec.describe 'API: Authorization definitions' do
         expect(definition['data']).to include('scopes')
       end
 
-      it 'returns scopes as array of scope values for API Particulier' do
+      it 'returns scopes as array of scope objects for API Particulier' do
         get_index
 
         definition = response.parsed_body[0]
         scopes = definition['scopes']
         expect(scopes).to be_a(Array)
-        # Verify scopes contain expected API Particulier scope values from config
-        expect(scopes).to include('cnaf_quotient_familial', 'cnaf_allocataires', 'pole_emploi_identifiant')
+
+        # Verify scopes contain expected API Particulier scope values
+        scope_values = scopes.map { |scope| scope['value'] }
+        expect(scope_values).to include('cnaf_quotient_familial', 'cnaf_allocataires', 'pole_emploi_identifiant')
       end
     end
 
@@ -238,10 +242,13 @@ RSpec.describe 'API: Authorization definitions' do
         production_def = definitions.find { |d| d['id'] == 'api_impot_particulier' }
 
         # Both should have the same scopes as they reference the same scopes config
-        expected_scopes = %w[dgfip_annee_n_moins_1 dgfip_rfr dgfip_sitfam dgfip_nbpart dgfip_pac]
+        expected_scope_values = %w[dgfip_annee_n_moins_1 dgfip_rfr dgfip_sitfam dgfip_nbpart dgfip_pac]
 
-        expect(sandbox_def['scopes']).to include(*expected_scopes)
-        expect(production_def['scopes']).to include(*expected_scopes)
+        sandbox_scope_values = sandbox_def['scopes'].map { |scope| scope['value'] }
+        production_scope_values = production_def['scopes'].map { |scope| scope['value'] }
+
+        expect(sandbox_scope_values).to include(*expected_scope_values)
+        expect(production_scope_values).to include(*expected_scope_values)
       end
     end
 
@@ -383,13 +390,16 @@ RSpec.describe 'API: Authorization definitions' do
           expect(definition['data']).to include('scopes')
         end
 
-        it 'returns scopes as array of scope values' do
+        it 'returns scopes as array of scope objects' do
           get_show
 
           definition = response.parsed_body
           scopes = definition['scopes']
           expect(scopes).to be_a(Array)
-          expect(scopes).to include('unites_legales_etablissements_insee', 'open_data_unites_legales_etablissements_insee', 'open_data_extrait_rcs_infogreffe')
+
+          # Verify scopes contain expected API Entreprise scope values
+          scope_values = scopes.map { |scope| scope['value'] }
+          expect(scope_values).to include('unites_legales_etablissements_insee', 'open_data_unites_legales_etablissements_insee', 'open_data_extrait_rcs_infogreffe')
         end
       end
 

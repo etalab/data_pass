@@ -21,6 +21,9 @@ class API::V1::AuthorizationDefinitionSerializer < ActiveModel::Serializer
   end
 
   def scopes
-    object.scopes.map(&:value)
+    ActiveModel::Serializer::CollectionSerializer.new(
+      object.scopes,
+      serializer: API::V1::ScopeSerializer
+    )
   end
 end

@@ -336,6 +336,51 @@ components:
         - name
         - created_at
 
+    Scope:
+      type: object
+      description: Scope (donnée) disponible pour une définition d'habilitation
+      properties:
+        name:
+          type: string
+          example: "Nom de famille"
+          description: Nom humanisé de la donnée
+        value:
+          type: string
+          example: "family_name"
+          description: Nom technique de la donnée
+        group:
+          type: string
+          example: "Identité pivot"
+          description: Nom du groupe pour cette donnée afin d'effectuer un regroupement visuel
+          nullable: true
+        link:
+          type: string
+          example: "https://mon-api.gouv.fr/documentation/nom-de-famille"
+          description: Lien vers des détails sur la donnée
+          nullable: true
+        included:
+          type: boolean
+          example: true
+          description: Détermine si la donnée est forcément incluse. Cela permet d'afficher des données grisées et cochées à l'utilisateur pour l'informer que ces données seront disponibles avec son habilitation.
+        disabled:
+          type: boolean
+          example: false
+          description: Détermine si la donnée est désactivée. Cela permet d'afficher des données grisées et non cochées à l'utilisateur, ceci permet par exemple d'afficher des futures données disponibles ou plus disponibles.
+        deprecated:
+          type: boolean
+          example: false
+          description: Détermine si la donnée est dépréciée. Cela permet d'afficher les données dépréciées des demandes et habilitations passées.
+        deprecated_date:
+          type: string
+          format: date-time
+          description: Date de dépréciation de la donnée. Présent si `deprecated` est `true`.
+          nullable: true
+      required:
+        - name
+        - value
+        - included
+        - disabled
+
     ErrorResponse:
       type: object
       properties:
@@ -431,10 +476,9 @@ components:
           example: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
         scopes:
           type: array
-          description: Liste des valeurs de scopes disponibles pour cette définition d'habilitation
+          description: Liste des scopes disponibles pour cette définition d'habilitation avec leurs métadonnées complètes
           items:
-            type: string
-          example: ["unites_legales_etablissements_insee", "open_data_unites_legales_etablissements_insee", "open_data_extrait_rcs_infogreffe"]
+            $ref: '#/components/schemas/Scope'
       required:
         - id
         - name
@@ -815,7 +859,15 @@ paths:
                       multi_stage?: false
                       authorization_request_class: "AuthorizationRequest::ApiEntreprise"
                       data: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
-                      scopes: ["unites_legales_etablissements_insee", "open_data_unites_legales_etablissements_insee", "open_data_extrait_rcs_infogreffe"]
+                      scopes: 
+                        - name: "Unités légales et établissements INSEE"
+                          value: "unites_legales_etablissements_insee"
+                          group: "Informations générales"
+                          link: null
+                          included: false
+                          disabled: false
+                          deprecated: false
+                          deprecated_date: null
                 multi_stage:
                   summary: Définitions multi-étapes (API Impôt Particulier)
                   value:
@@ -825,14 +877,30 @@ paths:
                       multi_stage?: true
                       authorization_request_class: "AuthorizationRequest::ApiImpotParticulier"
                       data: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
-                      scopes: ["dgfip_annee_n_moins_1", "dgfip_rfr", "dgfip_sitfam", "dgfip_nbpart", "dgfip_pac"]
+                      scopes: 
+                        - name: "Revenu fiscal de référence"
+                          value: "dgfip_rfr"
+                          group: "Données fiscales"
+                          link: null
+                          included: false
+                          disabled: false
+                          deprecated: false
+                          deprecated_date: null
                     - id: "api_impot_particulier"
                       name: "API Impôt Particulier"
                       name_with_stage: "API Impôt Particulier (Production)"
                       multi_stage?: true
                       authorization_request_class: "AuthorizationRequest::ApiImpotParticulier"
                       data: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
-                      scopes: ["dgfip_annee_n_moins_1", "dgfip_rfr", "dgfip_sitfam", "dgfip_nbpart", "dgfip_pac"]
+                      scopes: 
+                        - name: "Revenu fiscal de référence"
+                          value: "dgfip_rfr"
+                          group: "Données fiscales"
+                          link: null
+                          included: false
+                          disabled: false
+                          deprecated: false
+                          deprecated_date: null
         401:
           $ref: "#/components/responses/UnauthorizedError"
         403:
@@ -879,7 +947,15 @@ paths:
                     multi_stage?: false
                     authorization_request_class: AuthorizationRequest::APIEntreprise
                     data: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
-                    scopes: ["unites_legales_etablissements_insee", "open_data_unites_legales_etablissements_insee", "open_data_extrait_rcs_infogreffe"]
+                    scopes: 
+                      - name: "Unités légales et établissements INSEE"
+                        value: "unites_legales_etablissements_insee"
+                        group: "Informations générales"
+                        link: null
+                        included: false
+                        disabled: false
+                        deprecated: false
+                        deprecated_date: null
                 multi_stage_sandbox:
                   summary: Définition multi-étapes - Sandbox (API Impôt Particulier)
                   value:
@@ -889,7 +965,15 @@ paths:
                     multi_stage?: true
                     authorization_request_class: AuthorizationRequest::APIImpotParticulierSandbox
                     data: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
-                    scopes: ["dgfip_annee_n_moins_1", "dgfip_rfr", "dgfip_sitfam", "dgfip_nbpart", "dgfip_pac"]
+                    scopes: 
+                      - name: "Revenu fiscal de référence"
+                        value: "dgfip_rfr"
+                        group: "Données fiscales"
+                        link: null
+                        included: false
+                        disabled: false
+                        deprecated: false
+                        deprecated_date: null
                 multi_stage_production:
                   summary: Définition multi-étapes - Production (API Impôt Particulier)
                   value:
@@ -899,7 +983,15 @@ paths:
                     multi_stage?: true
                     authorization_request_class: AuthorizationRequest::APIImpotParticulier
                     data: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
-                    scopes: ["dgfip_annee_n_moins_1", "dgfip_rfr", "dgfip_sitfam", "dgfip_nbpart", "dgfip_pac"]
+                    scopes: 
+                      - name: "Revenu fiscal de référence"
+                        value: "dgfip_rfr"
+                        group: "Données fiscales"
+                        link: null
+                        included: false
+                        disabled: false
+                        deprecated: false
+                        deprecated_date: null
         '401':
           $ref: '#/components/responses/UnauthorizedError'
         '404':
