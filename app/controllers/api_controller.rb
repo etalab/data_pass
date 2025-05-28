@@ -29,4 +29,10 @@ class APIController < ActionController::API
       .where(authorization_request_class: current_user_authorization_request_types)
       .find(params[:authorization_id] || params[:id])
   end
+
+  def set_authorization_definition
+    @authorization_definition = AuthorizationDefinition.find_by(id: params[:id], authorization_request_class: current_user_authorization_request_types)
+
+    head :not_found unless @authorization_definition
+  end
 end
