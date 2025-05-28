@@ -7,7 +7,9 @@ class Organization < ApplicationRecord
   validates :mon_compte_pro_payload, presence: true
   validates :last_mon_compte_pro_updated_at, presence: true
 
-  has_and_belongs_to_many :users
+  has_many :organization_users,
+    dependent: :destroy
+  has_many :users, through: :organization_users
 
   has_many :authorization_requests,
     dependent: :restrict_with_exception

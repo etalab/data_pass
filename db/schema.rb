@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_21_112216) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_28_170152) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_catalog.plpgsql"
@@ -365,6 +365,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_21_112216) do
   create_table "organizations_users", id: false, force: :cascade do |t|
     t.bigint "organization_id"
     t.bigint "user_id"
+    t.string "identity_provider_uid", null: false
+    t.datetime "created_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.datetime "updated_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.index ["organization_id", "user_id"], name: "index_organizations_users_on_organization_id_and_user_id", unique: true
     t.index ["organization_id"], name: "index_organizations_users_on_organization_id"
     t.index ["user_id"], name: "index_organizations_users_on_user_id"
   end
