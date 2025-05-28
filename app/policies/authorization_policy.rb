@@ -25,6 +25,11 @@ class AuthorizationPolicy < ApplicationPolicy
       authorization_request_policy.transfer?
   end
 
+  def manual_transfer_from_instructor?
+    record.active? &&
+      authorization_request_policy.manual_transfer_from_instructor?
+  end
+
   private
 
   def authorization_request_policy

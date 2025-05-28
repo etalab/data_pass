@@ -1,0 +1,16 @@
+<div class="simple-page-action-wrapper fr-pt-5w">
+  <div class="fr-grid-row fr-grid-row--center">
+    <div class="fr-col-md-offset-1 fr-col-md-10">
+      <turbo-frame id="main-modal-content">
+        <p class="fr-px-10v fr-py-5w">
+          La fonctionnalité de transfert de demande est désactivé pour les demandes d'habilitation " <%= @authorization_request.definition.name_with_stage %> ".
+
+          <br />
+          <br />
+
+          Merci de contacter le fournisseur de données pour leur demander d'effectuer le transfert, en fournissant l'email de la nouvelle personne en charge de l'habilitation et en vous assurant que celle-ci se soit connectée une fois sur DataPass sous l'organisation <%= @authorization_request.organization.denomination %> (siret: <%= @authorization_request.organization.siret %>) : <%= link_to @authorization_request.definition.support_email, "mailto:#{@authorization_request.definition.support_email}?subject=Demande de transfert pour la demande d'habilitation #{@authorization_request.id}" %>.
+        </p>
+      </turbo-frame>
+    </div>
+  </div>
+</div>

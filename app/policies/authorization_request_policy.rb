@@ -78,9 +78,12 @@ class AuthorizationRequestPolicy < ApplicationPolicy
   def transfer?
     feature_enabled?(:transfer) &&
       !record.dirty_from_v1? &&
-      record.persisted? &&
-      same_current_organization? &&
-      (record.reopening? || record.state != 'draft')
+      common_transfer?
+  end
+
+  def manual_transfer_from_instructor?
+    !feature_enabled?(:transfer) &&
+      common_transfer?
   end
 
   def start_next_stage?
@@ -95,6 +98,12 @@ class AuthorizationRequestPolicy < ApplicationPolicy
   end
 
   protected
+
+  def common_transfer?
+    record.persisted? &&
+      same_current_organization? &&
+      (record.reopening? || record.state != 'draft')
+  end
 
   def authorization_request_class
     record.to_s

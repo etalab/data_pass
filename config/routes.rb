@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       resources :messages, only: %w[index create], path: 'messages'
       resources :archive_authorization_requests, only: %w[new create], path: 'archiver', as: :archive
       resources :transfer_authorization_requests, only: %w[new create], path: 'transferer', as: :transfer
+      resources :manual_transfer_authorization_requests, only: %w[new], path: 'demande-de-transfert', as: :manual_transfer
       resources :blocks, only: %w[edit update], path: 'blocs', controller: 'authorization_requests/blocks'
       resources :cancel_authorization_reopenings, only: %w[new create], path: 'annuler_reouverture', as: :cancel_reopening
 
