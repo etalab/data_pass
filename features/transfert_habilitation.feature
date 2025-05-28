@@ -36,7 +36,7 @@ Fonctionnalité: Transfert de demandes d'habilitations par un utilisateur
     Quand j'ai 1 demande d'habilitation "API Impôt Particulier" à l'étape "Bac à sable" validée
     Et que je me rends sur cette demande d'habilitation
     Et que je clique sur "Transférer"
-    Alors la page contient "Merci de contacter le fournisseur de données"
+    Alors la page contient "La fonctionnalité de transfert automatique n'est pas disponible"
 
   @AvecCourriels
   Scénario: Je transfère une de mes habilitations à un autre utilisateur de mon organisation
