@@ -28,11 +28,9 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
   def dsfr_file_field(attribute, opts = {})
     opts[:class] ||= 'fr-upload-group'
 
-    is_has_many = @object.class.reflect_on_attachment(attribute)&.macro == :has_many_attached
-
     existing_file_link = link_to_files(attribute)
     required = opts[:required] && !existing_file_link
-    hidden_fields = (hidden_fields_for_existing_attachments(attribute, true) if is_has_many)
+    hidden_fields = (hidden_fields_for_existing_attachments(attribute, true) if multiple_attachments?(attribute))
 
     dsfr_input_group(attribute, opts) do
       @template.safe_join(
@@ -281,6 +279,10 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
 
   def check_box_disabled
     false
+  end
+
+  def multiple_attachments?(attribute)
+    @object.class.reflect_on_attachment(attribute)&.macro == :has_many_attached
   end
 
   class << self
