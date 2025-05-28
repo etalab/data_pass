@@ -49,6 +49,19 @@ end
 
 Rails.application.config.middleware.use OmniAuth::Builder do
   provider :mon_compte_pro, setup: setup_proc
+
+  provider(
+    :proconnect,
+    {
+      client_id: Rails.application.credentials.proconnect_client_id,
+      client_secret: Rails.application.credentials.proconnect_client_secret,
+      proconnect_domain: Rails.application.credentials.proconnect_url,
+      # proconnect_domain: %w[development test].include?(Rails.env) ? 'https://fca.integ01.dev-agentconnect.fr/api/v2' : 'https://auth.agentconnect.gouv.fr/api/v2',
+      redirect_uri: URI('http://localhost:3000/auth/proconnect/callback').to_s,
+      # post_logout_redirect_uri: 'http://localhost:3000',
+      scope: 'openid given_name usual_name email uid siret organizational_unit phone',
+    }
+  )
 end
 
 OmniAuth.config.test_mode = Rails.env.test?
