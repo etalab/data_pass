@@ -413,10 +413,6 @@ components:
           type: string
           example: "API Entreprise"
           description: Nom de la définition d'habilitation
-        name_with_stage:
-          type: string
-          example: "API Impôt Particulier (Bac à sable)"
-          description: Nom de la définition avec indication de l'étape si applicable
         multi_stage?:
           type: boolean
           example: true

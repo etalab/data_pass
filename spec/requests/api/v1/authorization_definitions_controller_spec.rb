@@ -46,7 +46,6 @@ RSpec.describe 'API: Authorization definitions' do
         expect(definition).to include(
           'id',
           'name',
-          'name_with_stage',
           'multi_stage?',
           'authorization_request_class',
           'data',
@@ -61,11 +60,22 @@ RSpec.describe 'API: Authorization definitions' do
         expect(definition['authorization_request_class']).to eq('AuthorizationRequest::APIEntreprise')
       end
 
-      it 'returns correct name_with_stage' do
+      it 'returns correct name' do
         get_index
 
         definition = response.parsed_body[0]
-        expect(definition['name_with_stage']).to eq('API Entreprise')
+        expect(definition['name']).to eq('API Entreprise')
+      end
+
+      context 'when definition is multi-stage' do
+        let(:user) { create(:user, :developer, authorization_request_types: %w[api_impot_particulier_sandbox]) }
+
+        it 'returns correct name' do
+          get_index
+
+          definition = response.parsed_body[0]
+          expect(definition['name']).to eq('API Impôt Particulier (Bac à sable)')
+        end
       end
 
       it 'returns correct multi_stage value' do
@@ -159,18 +169,18 @@ RSpec.describe 'API: Authorization definitions' do
         expect(definition_ids).to contain_exactly('api_impot_particulier', 'api_impot_particulier_sandbox')
       end
 
-      it 'returns correct name_with_stage for sandbox definition' do
+      it 'returns correct name for sandbox definition' do
         get_index
 
         sandbox_definition = response.parsed_body.find { |d| d['id'] == 'api_impot_particulier_sandbox' }
-        expect(sandbox_definition['name_with_stage']).to eq('API Impôt Particulier (Bac à sable)')
+        expect(sandbox_definition['name']).to eq('API Impôt Particulier (Bac à sable)')
       end
 
-      it 'returns correct name_with_stage for production definition' do
+      it 'returns correct name for production definition' do
         get_index
 
         production_definition = response.parsed_body.find { |d| d['id'] == 'api_impot_particulier' }
-        expect(production_definition['name_with_stage']).to eq('API Impôt Particulier (Production)')
+        expect(production_definition['name']).to eq('API Impôt Particulier (Production)')
       end
 
       it 'returns correct multi_stage values for both definitions' do
@@ -330,7 +340,6 @@ RSpec.describe 'API: Authorization definitions' do
           expect(definition).to include(
             'id',
             'name',
-            'name_with_stage',
             'multi_stage?',
             'authorization_request_class',
             'data',
@@ -345,11 +354,11 @@ RSpec.describe 'API: Authorization definitions' do
           expect(definition['authorization_request_class']).to eq('AuthorizationRequest::APIEntreprise')
         end
 
-        it 'returns correct name_with_stage' do
+        it 'returns correct name' do
           get_show
 
           definition = response.parsed_body
-          expect(definition['name_with_stage']).to eq('API Entreprise')
+          expect(definition['name']).to eq('API Entreprise')
         end
 
         it 'returns correct multi_stage value' do
@@ -416,14 +425,14 @@ RSpec.describe 'API: Authorization definitions' do
 
           expect(response).to have_http_status(:ok)
           expect(response.parsed_body['id']).to eq('api_impot_particulier_sandbox')
-          expect(response.parsed_body['name']).to eq('API Impôt Particulier')
+          expect(response.parsed_body['name']).to eq('API Impôt Particulier (Bac à sable)')
         end
 
-        it 'returns correct name_with_stage for sandbox' do
+        it 'returns correct name for sandbox' do
           get_show
 
           definition = response.parsed_body
-          expect(definition['name_with_stage']).to eq('API Impôt Particulier (Bac à sable)')
+          expect(definition['name']).to eq('API Impôt Particulier (Bac à sable)')
         end
 
         it 'returns correct multi_stage value for sandbox' do
@@ -464,14 +473,14 @@ RSpec.describe 'API: Authorization definitions' do
 
           expect(response).to have_http_status(:ok)
           expect(response.parsed_body['id']).to eq('api_impot_particulier')
-          expect(response.parsed_body['name']).to eq('API Impôt Particulier')
+          expect(response.parsed_body['name']).to eq('API Impôt Particulier (Production)')
         end
 
-        it 'returns correct name_with_stage for production' do
+        it 'returns correct name for production' do
           get_show
 
           definition = response.parsed_body
-          expect(definition['name_with_stage']).to eq('API Impôt Particulier (Production)')
+          expect(definition['name']).to eq('API Impôt Particulier (Production)')
         end
 
         it 'returns correct multi_stage value for production' do
