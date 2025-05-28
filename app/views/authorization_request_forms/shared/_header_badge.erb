@@ -2,15 +2,11 @@
 
 <div class="authorization-request-form-header__badges">
   <ul class="fr-badge-group">
-    <% if authorization_request.reopening? && @authorization.blank? %>
-      <li>
-        <%= authorization_request_reopening_badge %>
-      </li>
-    <% end %>
+    <%= authorization_request_reopening_badge(authorization_request) %>
 
     <% if @authorization.present? %>
       <li>
-        <span class="fr-badge fr-badge--no-icon"><%= t("authorization.id_badge", id: @authorization.id) %></span>
+        <span class="fr-badge fr-badge--no-icon"><%= t("authorization.badge", id: @authorization.id) %></span>
       </li>
       <li>
         <span class="fr-badge fr-badge--no-icon"><%= t("authorization.date_badge", date: @authorization.created_at.strftime('%d/%m/%Y')) %></span>
