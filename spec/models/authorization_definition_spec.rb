@@ -42,7 +42,7 @@ RSpec.describe AuthorizationDefinition do
     context 'when filtering by multiple criteria' do
       it 'returns definitions that match all criteria' do
         result = described_class.where(
-          authorization_request_class: %w[AuthorizationRequest::APIImpotParticulier AuthorizationRequest::APIEntreprise], 
+          authorization_request_class: %w[AuthorizationRequest::APIImpotParticulier AuthorizationRequest::APIEntreprise],
           id: 'api_impot_particulier'
         )
         expect(result.map(&:id)).to eq ['api_impot_particulier']

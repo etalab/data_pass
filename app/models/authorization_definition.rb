@@ -23,14 +23,6 @@ class AuthorizationDefinition < StaticApplicationRecord
     end
   end
 
-  def self.find_by(params)
-    result = where(params)
-
-    return nil unless result.size >= 1
-
-    result.first
-  end
-
   def editors
     available_forms.select { |form|
       form.service_provider.present? && form.service_provider.editor?

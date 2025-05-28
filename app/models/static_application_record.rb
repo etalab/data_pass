@@ -40,6 +40,10 @@ class StaticApplicationRecord
       all.find { |entry| entry.id == id } || fail(EntryNotFound, "Couldn't find #{name} with 'id'=#{id} within static entries")
     end
 
+    def find_by(params)
+      where(params).first
+    end
+
     def values_includes_entry_attribute?(entry, attr, values)
       entry_attribute_value = entry.public_send(attr)
       entry_attribute_value = entry_attribute_value.to_s if attr == :authorization_request_class
