@@ -1,10 +1,12 @@
 class AuthorizationPolicy < ApplicationPolicy
   def contact_support?
-    record.revoked? && record.applicant == user
+    record.revoked? &&
+      record.applicant == user
   end
 
   def reopen?
-    record.active? && authorization_request_policy.reopen?
+    record.active? &&
+      authorization_request_policy.reopen?
   end
 
   def show?
@@ -14,11 +16,13 @@ class AuthorizationPolicy < ApplicationPolicy
   end
 
   def start_next_stage?
-    record.active? && authorization_request_policy.start_next_stage?
+    record.active? &&
+      authorization_request_policy.start_next_stage?
   end
 
   def transfer?
-    record.active? && authorization_request_policy.transfer?
+    record.active? &&
+      authorization_request_policy.transfer?
   end
 
   private
