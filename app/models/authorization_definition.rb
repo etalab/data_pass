@@ -23,18 +23,6 @@ class AuthorizationDefinition < StaticApplicationRecord
     end
   end
 
-  def self.where(params)
-    all.select do |definition|
-      params.all? do |key, value|
-        definition_value = definition.send(key)
-        value = [value] unless value.is_a?(Array)
-        definition_value = definition_value.to_s if key == :authorization_request_class
-
-        value.include?(definition_value)
-      end
-    end
-  end
-
   def self.find_by(params)
     result = where(params)
 
@@ -113,7 +101,7 @@ class AuthorizationDefinition < StaticApplicationRecord
   end
 
   def available_forms
-    AuthorizationRequestForm.where(authorization_request_class:).sort do |form|
+    AuthorizationRequestForm.where(authorization_request_class: authorization_request_class.to_s).sort do |form|
       form.default ? 1 : 0
     end
   end
