@@ -4,7 +4,6 @@ class API::V1::AuthorizationRequestFormSerializer < ActiveModel::Serializer
     :description,
     :use_case,
     :authorization_request_class,
-    :prefilled?,
     :data
 
   def authorization_request_class
@@ -12,8 +11,4 @@ class API::V1::AuthorizationRequestFormSerializer < ActiveModel::Serializer
   end
 
   delegate :multiple_steps?, to: :object
-
-  delegate :single_page?, to: :object
-
-  delegate :prefilled?, to: :object
 end

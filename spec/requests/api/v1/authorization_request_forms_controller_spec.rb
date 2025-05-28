@@ -52,7 +52,6 @@ RSpec.describe 'API: Authorization request forms' do
             'description',
             'use_case',
             'authorization_request_class',
-            'prefilled?',
             'data'
           )
         end
@@ -77,13 +76,6 @@ RSpec.describe 'API: Authorization request forms' do
             'cadre_juridique_url',
             'scopes'
           )
-        end
-
-        it 'includes boolean attributes with correct types' do
-          get_index
-
-          form = response.parsed_body.first
-          expect(form['prefilled?']).to be_in([true, false])
         end
 
         it 'returns forms with unique UIDs' do

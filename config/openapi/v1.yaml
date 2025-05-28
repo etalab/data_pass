@@ -468,10 +468,6 @@ components:
           type: string
           example: "AuthorizationRequest::APIEntreprise"
           description: Classe de demande d'autorisation associée au formulaire
-        prefilled?:
-          type: boolean
-          example: false
-          description: Indique si le formulaire est prérempli
         data:
           type: object
           description: Données préremplies du formulaire. Présent uniquement pour les formulaires avec prefilled? = true. Contient les valeurs par défaut pour certains champs du formulaire.
