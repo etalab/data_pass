@@ -21,6 +21,6 @@ class API::V1::AuthorizationRequestSerializer < ActiveModel::Serializer
   end
 
   def definition_id
-    AuthorizationDefinition.find_by(authorization_request_class: object.type).id
+    AuthorizationDefinition.find_by(authorization_request_class: object.type)&.id
   end
 end

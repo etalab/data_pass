@@ -384,6 +384,6 @@ class AuthorizationRequest < ApplicationRecord
     return false unless definition.multi_stage?
     return false unless definition.next_stage?
 
-    latest_authorization_of_class(definition.next_stage_definition.authorization_request_class.to_s).present?
+    latest_authorization_of_class(definition.next_stage_definition.authorization_request_class).present?
   end
 end

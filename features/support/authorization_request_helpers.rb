@@ -1,7 +1,7 @@
 def find_authorization_request_class_from_name(name, stage_type = nil)
   authorization_definition = find_authorization_definition_from_name(name, stage_type)
 
-  AuthorizationRequest.const_get(authorization_definition.id.classify).to_s
+  AuthorizationRequest.const_get(authorization_definition.id.classify)
 end
 
 def find_authorization_definition_from_name(name, stage_type = nil)
