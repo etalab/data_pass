@@ -97,16 +97,6 @@ fr:
         - legifrance.gouv.fr
         - data.gouv.fr
 
-    dashboard:
-      title: Demandes et habilitations
-      tabs:
-        moi:
-          title: J'en suis le demandeur
-        organisation:
-          title: Toutes celles de l'organisation
-        mentions:
-          title: J'y suis mentionné en contact
-
     instruction:
       authorization_request:
         view_authorization: Consulter l'habilitation
@@ -159,15 +149,32 @@ fr:
 
   dashboard:
     show:
-      no_authorization_requests:
-        moi: Vous n'avez aucune habilitation ou demande en cours.
-        organisation: Votre organization ne possède aucune habilitation ou demande en cours.
-        mentions: Vous n'êtes mentionné dans aucune habilitation ou demande en cours.
-    authorization_requests:
-      validated_or_refused_title: Mes habilitations
-      draft_title: Demandes en brouillon
-      pending_title: Demandes en cours d'instruction
-      changes_requested_title: Demandes à modifier
+      title: Demandes et habilitations
+      tabs:
+        demandes:
+          title: Les demandes
+        habilitations:
+          title: Les habilitations
+        <!-- moi: -->
+        <!--   title: J'en suis le demandeur -->
+        <!-- organisation: -->
+        <!--   title: Toutes celles de l'organisation -->
+        <!-- mentions: -->
+        <!--   title: J'y suis mentionné en contact -->
+      <!-- no_authorization_requests: -->
+      <!--   moi: Vous n'avez aucune habilitation ou demande en cours. -->
+      <!--   organisation: Votre organization ne possède aucune habilitation ou demande en cours. -->
+      <!--   mentions: Vous n'êtes mentionné dans aucune habilitation ou demande en cours. -->
+      lists:
+        validated_or_refused_title: Mes habilitations
+        draft_title: Demandes en brouillon
+        pending_title: Demandes en cours d'instruction
+        changes_requested_title: Demandes à modifier
+    <!-- authorization_requests: -->
+    <!--   validated_or_refused_title: Mes habilitations -->
+    <!--   draft_title: Demandes en brouillon -->
+    <!--   pending_title: Demandes en cours d'instruction -->
+    <!--   changes_requested_title: Demandes à modifier -->
 
     card:
       authorization_request_card:
@@ -215,6 +222,15 @@ fr:
       cta: Remplir une demande
 
   authorization_requests:
+    card:
+      created_at: Créée le %{created_date}
+      created_and_udpated_at: Créée le %{created_date} et mise à jour le %{updated_date}
+      current_user_mentions: "%{definition_name} - Vous avez été référencé comme %{contact_types}"
+      current_user_is_applicant: "%{definition_name} - Vous êtes le demandeur"
+      applicant_request: "%{definition_name} - %{applicant_full_name} est le demandeur"
+      show_cta: Consulter
+      access_link_cta: Récupérer mon accès
+      reopen_cta: Mettre à jour
     unauthenticated_start:
       sub_title:
         service: |

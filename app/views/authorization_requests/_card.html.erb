@@ -1,23 +1,23 @@
-<% authorization_request = authorization_request.decorate %>
-
 <div class="authorization-request-card authorization-request fr-background-default--grey " id="<%= dom_id(authorization_request) %>">
   <div class="card__wrapper fr-p-10v">
 
     <div class="flex-space-between__content">
 
       <div class="card__content">
-        <div class="card__title fr-text-title--blue-france fr-h4 fr-m-0">
+        <div class="card__title fr-text-title--blue-france fr-h4 fr-m-0 fr-icon-draft-fill">
           <%= authorization_request.card_name %>
         </div>
 
-        <div class="card__details">
-          <p class="fr-text--xs fr-text-mention--grey fr-my-2w">
+        <p class="fr-card__desc">
+        Demande d’habilitation à <%= authorization_request.definition.name %> via le formulaire <%= authorization_request.form.name %>
+        </p>
+
+        <div class="fr-card__end">
+          <p class="fr-card__detail fr-icon-user-fill">
             <%= authorization_request.card_provider_applicant_details(current_user) %>
           </p>
-        </div>
-
-        <div class="card__desc">
-          <p>
+          
+          <p class="fr-card__detail fr-icon-calendar-2-fill">
             <% if authorization_request.reopening_validated? %>
               <%= t('.created_and_udpated_at', created_date: l(authorization_request.created_at, format: '%d/%m/%Y'), updated_date: l(authorization_request.latest_authorization.created_at, format: '%d/%m/%Y')) %>
             <% else %>
@@ -63,3 +63,4 @@
     </div>
   <% end %>
 </div>
+

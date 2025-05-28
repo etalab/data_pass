@@ -1,0 +1,56 @@
+<% authorization = authorization.decorate %>
+
+<div class="authorization-request-card authorization-request fr-background-default--grey " id="<%= dom_id(authorization) %>">
+  <div class="card__wrapper fr-p-10v">
+
+    <div class="flex-space-between__content">
+
+      <div class="card__content">
+        <div class="card__title fr-text-title--blue-france fr-h4 fr-m-0">
+          <%= authorization.card_name %>
+        </div>
+
+        <div class="card__details">
+          <p class="fr-text--xs fr-text-grey fr-my-2w">
+            <%= authorization.card_provider_applicant_details(current_user) %>
+          </p>
+        </div>
+
+        <div class="card__desc">
+          <p>
+            <% if authorization.reopening_validated? %>
+              <%= t('.created_and_udpated_at', created_date: l(authorization.created_at, format: '%d/%m/%Y'), updated_date: l(authorization.latest_authorization.created_at, format: '%d/%m/%Y')) %>
+            <% else %>
+              <%= t('.created_at', created_date: l(authorization.created_at, format: '%d/%m/%Y')) %>
+            <% end %>
+          </p>
+        </div>
+      </div>
+
+      <%= render partial: 'dashboard/card/card_badge', locals: { authorization_request: authorization.request } %>
+    </div>
+
+    <div class="card__actions flex-space-between__content">
+      <div class="card__access_link">
+        <% if authorization.access_link && authorization.validated? %>
+          <%= link_to t('.access_link_cta'), authorization.access_link, class: 'fr-link fr-icon-links-line fr-link--icon-left', target: :blank %>
+        <% end %>
+      </div>
+
+      <div class="card__actions_btn">
+        <% if policy(authorization).reopen? %>
+          <%= dsfr_main_modal_button t('.reopen_cta'), url_for(controller: 'reopen_authorizations', action: 'new', authorization_request_id: authorization.request.id, authorization_id: authorization.request.latest_authorization.id), class: %w(fr-btn fr-btn--secondary fr-btn--sm) %>
+        <% end %>
+
+          <%= link_to t('.show_cta'), authorization_path(authorization), class: %w(fr-btn fr-btn--sm) %>
+      </div>
+    </div>
+  </div>
+
+  <% if authorization.request.display_card_reopening_footer? %>
+    <%= render partial: 'dashboard/card/card_reopening_footer', locals: { authorization_request: authorization.request } %>
+  <% elsif authorization.request.display_card_stage_footer? %>
+    <%= render partial: 'dashboard/card/stage_footer', locals: { authorization_request: authorization.request } %>
+  <% end %>
+</div>
+
