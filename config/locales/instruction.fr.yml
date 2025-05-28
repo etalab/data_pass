@@ -1,14 +1,34 @@
 fr:
   instruction:
+    authorization_request_instructor_drafts:
+      index:
+        title: Liste des demandes initiés pour le compte d'une organisation
+        new: Initier une nouvelle demande d'habilitation pour le compte d'une organisation
+        table:
+          header:
+            id: N°
+            project_name: Projet
+            authorization_definition_name: Nom du fournisseur
+            applicant_email: Email du demandeur
+            organization: Organization
+            instructor_email: Email de l'instructeur
+            actions: Actions
+      new:
+        title: Création d'une nouvelle demande " %{definition_name} " pour le compte d'une organisation
+        save: Sauvegarder
+      create:
+        success: La demande d'habilitation a bien été sauvegardée
+
     authorization_requests:
       index:
+        title: Liste des demandes en cours
+        authorization_request_instructor_drafts_link: Liste des demandes initiés pour le compte d'une organisation
         search:
           main_input:
             label: Rechercher dans toutes les habilitations
             placeholder: id, numéro de siret, intitulé...
           btn: Rechercher
         table:
-          caption: Liste des demandes en cours
           header:
             id: N°
             state: Statut
@@ -41,6 +61,7 @@ fr:
       index:
         title: Habilitations FranceConnectées associées
         show_cta: Consulter
+
     approve_authorization_requests:
       new:
         initial:
@@ -308,5 +329,3 @@ fr:
       index:
         title: Historique des habilitations liées à cette demande
         show_cta: Consulter l'habilitation
-
-

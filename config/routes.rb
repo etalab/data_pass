@@ -97,6 +97,8 @@ Rails.application.routes.draw do
 
       resources :messages, only: %w[index create], path: 'messages'
     end
+
+    resources :authorization_request_instructor_drafts, path: 'instructeurs-demandes'
   end
 
   get '/admin', to: 'admin#index', as: :admin
