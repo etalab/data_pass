@@ -30,7 +30,7 @@ class SessionsController < ApplicationController
   def authenticate_user
     sign_out if user_signed_in?
 
-    organizer = AuthenticateUser.call(mon_compte_pro_omniauth_payload: request.env['omniauth.auth'])
+    organizer = AuthenticateUserThroughMonComptePro.call(mon_compte_pro_omniauth_payload: request.env['omniauth.auth'])
 
     sign_in(organizer.user)
   end

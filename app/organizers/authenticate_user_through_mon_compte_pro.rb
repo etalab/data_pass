@@ -1,4 +1,4 @@
-class AuthenticateUser < ApplicationOrganizer
+class AuthenticateUserThroughMonComptePro < ApplicationOrganizer
   organize FindOrCreateOrganization,
     UpdateOrganizationINSEEPayload,
     FindOrCreateUser,

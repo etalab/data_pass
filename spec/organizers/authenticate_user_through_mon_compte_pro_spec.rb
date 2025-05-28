@@ -1,4 +1,4 @@
-RSpec.describe AuthenticateUser do
+RSpec.describe AuthenticateUserThroughMonComptePro do
   describe '#call' do
     subject(:authenticate_user) { described_class.call(mon_compte_pro_omniauth_payload:) }
 
