@@ -2,14 +2,39 @@
   <div class="fr-grid-row fr-grid-row--center">
     <div class="fr-col-md-offset-1 fr-col-md-10">
       <turbo-frame id="main-modal-content">
-        <p class="fr-px-10v fr-py-5w">
-          La fonctionnalité de transfert de demande est désactivé pour les demandes d'habilitation " <%= @authorization_request.definition.name_with_stage %> ".
+        <div class="fr-modal__content">
+          <h1 class="fr-modal__title">
+            Transfert manuel requis
+          </h1>
 
-          <br />
-          <br />
+          <p class="fr-text--lg">
+            La fonctionnalité de transfert automatique n'est pas disponible pour "<%= @authorization_request.definition.name_with_stage %>".
+          </p>
 
-          Merci de contacter le fournisseur de données pour leur demander d'effectuer le transfert, en fournissant l'email de la nouvelle personne en charge de l'habilitation et en vous assurant que celle-ci se soit connectée une fois sur DataPass sous l'organisation <%= @authorization_request.organization.denomination %> (siret: <%= @authorization_request.organization.siret %>) : <%= link_to @authorization_request.definition.support_email, "mailto:#{@authorization_request.definition.support_email}?subject=Demande de transfert pour la demande d'habilitation #{@authorization_request.id}" %>.
-        </p>
+          <p>
+            Pour transférer la demande d'habilitation n°<strong><%= @authorization_request.id %></strong>, contactez le fournisseur de données en précisant l'email de la nouvelle personne en charge.
+          </p>
+
+          <div class="fr-callout fr-callout--brown-caramel">
+            <p class="fr-callout__text">
+              <strong>Important :</strong> La nouvelle personne doit s'être connectée au moins une fois sur DataPass avec l'organisation <%= @authorization_request.organization.name %> (siret: <%= @authorization_request.organization.legal_entity_id %>) pour que le transfert soit possible.
+            </p>
+          </div>
+
+            <p>
+            Contacter le support à l'adresse suivante:
+              <%= mail_to @authorization_request.definition.support_email,
+                          @authorization_request.definition.support_email,
+                          subject: "Transfert demande n°#{@authorization_request.id}",
+                          class: "fr-link fr-link--icon-right fr-icon-mail-line" %>
+            </p>
+        </div>
+
+        <div class="fr-modal__footer">
+          <div class="fr-btns-group fr-btns-group--right">
+            <%= link_to "Fermer", '#', class: %w(fr-btn fr-btn--secondary), aria: { controls: 'main-modal' } %>
+          </div>
+        </div>
       </turbo-frame>
     </div>
   </div>
