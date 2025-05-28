@@ -9,7 +9,7 @@ RSpec.describe 'Dashboard' do
     it 'redirects to /moi' do
       get dashboard_show_path(id: 'invalid')
 
-      expect(response).to redirect_to(dashboard_show_path(id: 'moi'))
+      expect(response).to redirect_to(dashboard_show_path(id: 'demandes'))
     end
   end
 end

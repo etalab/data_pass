@@ -53,7 +53,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation Démarche Certificats d
 
   Scénario: Je vois un lien vers le portail HubEE quand je consulte une habilitation validée avec token
     Quand j'ai déjà une demande d'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)" validée avec token
-    Et que je vais sur la page du tableau de bord
+    Et que je me rends sur mon tableau de bord habilitations
     Et que je clique sur "Consulter"
     Alors il y a un titre contenant "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
     Et la page contient un lien vers "portail.hubee.numerique.gouv.fr"

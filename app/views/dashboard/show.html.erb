@@ -1,21 +1,69 @@
-<% if @authorization_requests.any? %>
-  <% if @authorization_requests.changes_requested.without_reopening.any? %>
-    <%= render partial: 'authorization_requests_changes_requested', locals: { authorization_requests: @authorization_requests.changes_requested.without_reopening, kind: 'changes_requested' } %>
-  <% end %>
+<div class="fr-container">
+  <div class="dashboard-sub-header">
+    <div class="sub-header">
+      <div>
+        <h1 class="fr-m-0">
+          <%= t('.title') %>
+        </h1>
 
-  <% if @authorization_requests.in_instructions.without_reopening.any? %>
-    <%= render partial: 'authorization_requests', locals: { authorization_requests: @authorization_requests.in_instructions.without_reopening, kind: 'pending' } %>
-  <% end %>
+        <%= form_with(url: "/auth/mon_compte_pro?prompt=select_organization", method: :post, data: { turbo: false }, class: 'fr-pt-1w') do |f| %>
+          <%= f.button current_organization.name, class: %w(fr-btn fr-btn--tertiary fr-btn--sm fr-btn--icon-left fr-icon-hotel-line) %>
+        <% end %>
+      </div>
 
-  <% if @authorization_requests.drafts.without_reopening.any? %>
-    <%= render partial: 'authorization_requests', locals: { authorization_requests: @authorization_requests.drafts.without_reopening, kind: 'draft' } %>
-  <% end %>
+      <% if app_subdomain != 'v2' %>
+        <div>
+          <%= link_to t('authorization_definitions.index.title'), authorization_definitions_path, class: %w(fr-btn fr-btn--secondary fr-icon-add-line fr-btn--icon-left) %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 
-  <% if @authorization_requests.validated_or_refused.any? %>
-    <%= render partial: 'authorization_requests', locals: { authorization_requests: @authorization_requests.validated_or_refused, kind: 'validated_or_refused' } %>
-  <% end %>
-<% else %>
-  <h3 class="center">
-    <%= t(".no_authorization_requests.#{params[:id]}") %>
-  </h3>
-<% end %>
+  <%= render partial: 'shared/alerts' %>
+
+  <div class="fr-tabs fr-pt-5w fr-mb-8w" data-controller="auto-height">
+    <ul class="fr-tabs__list" role="tablist" aria-label="Menu secondaire">
+      <% @tabs.each do |tab| %>
+        <li role="presentation">
+          <%=
+            link_to t(".tabs.#{tab.id}.title"),
+              tab.path,
+              class: [
+                'fr-tabs__tab',
+              ],
+              role: 'tab',
+              id: "tab-#{tab.id}",
+              tabindex: current_page?(tab.path) ? '0' : '-1',
+              data: {
+                turbo_frame: "tab-#{tab.id}-panel",
+              },
+              aria: {
+                selected: current_page?(tab.path),
+                controls: "tab-#{tab.id}-panel"
+              }
+          %>
+        </li>
+      <% end %>
+    </ul>
+    
+    <% @tabs.each do |tab| %>
+      <turbo-frame id="tab-<%= tab.id %>-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tab-<%= tab.id %>" tabindex="0" data-turbo-action="advance">
+        <% if current_page?(tab.path) %>
+          <div data-auto-height-target="source">
+            <% @highlighted_categories.each do |category, items| %>
+              <% next if items.empty? %>
+              <%= render partial: 'highlighted_list', locals: { items: items.decorate, kind: category } %>
+            <% end %>
+            <% @categories.each do |category, items| %>
+              <% next if items.empty? %>
+              <%= render partial: 'list', locals: { items: items.decorate, kind: category } %>
+            <% end %>
+          </div>
+        <% else %>
+          <div data-auto-height-target="destination">
+          </div>
+        <% end %>
+      </turbo-frame>
+    <% end %>
+  </div>
+</div>

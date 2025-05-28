@@ -1,46 +1,32 @@
+<% return if authorization_request.next_stage_already_started? %>
+<% return unless policy(authorization_request).start_next_stage? %>
+<% return unless authorization.definition.stage.type == "sandbox" %>
+
 <div class="footer fr-p-3w fr-background-alt--grey flex-space-between__content fr-grid-row--middle">
   <div class="footer__content">
     <div class="fr-mb-3v">
       <p class="footer__title fr-text-title--blue-france fr-text--md font-weight-700 fr-m-0">
-        <% if authorization_request.next_stage_already_started? %>
-          <%= t('.next_stage_title_production') %>
+        <% if authorization_request.reopening_validated? %>
+          <%= t('.next_stage_reopening_title') %>
         <% else %>
-          <% if authorization_request.reopening_validated? %>
-            <%= t('.next_stage_reopening_title') %>
-          <% else %>
-            <%= t('.next_stage_title') %>
-          <% end %>
+          <%= t('.next_stage_title') %>
         <% end %>
       </p>
 
       <p class="fr-text--sm fr-mb-0">
-        <% if authorization_request.next_stage_already_started? %>
-          <%= t('.next_stage_subtitle_production') %>
+        <% if authorization_request.reopening_validated? %>
+          <%= t('.next_stage_reopening_subtitle') %>
         <% else %>
-          <% if authorization_request.reopening_validated? %>
-            <%= t('.next_stage_reopening_subtitle') %>
-          <% else %>
-            <%= t('.next_stage_subtitle') %>
-          <% end %>
+          <%= t('.next_stage_subtitle') %>
         <% end %>
       </p>
     </div>
   </div>
 
   <div class="footer__badge_action">
-    <% if authorization_request.next_stage_already_started? %>
-      <div class="fr-mb-3v flex-wrap flew-grow fr-grid-row--top flex-end__content">
-        <%= authorization_request_stage_badge(authorization_request) %>
-        <span class="fr-ml-2v"><%= authorization_request_status_badge(authorization_request) %></span>
-      </div>
-    <% end %>
-
     <div class="footer__actions flex-wrap flew-grow fr-grid-row--top flex-end__content">
-      <% if policy(authorization_request).start_next_stage? %>
-        <%= link_to t('.start_next_stage_cta'), next_authorization_request_stage_path(authorization_request), class: %w(fr-btn fr-btn--sm) %>
-      <% else %>
-        <%= link_to t('.show_cta'), authorization_request_path(authorization_request), class: %w(fr-btn fr-btn--sm) %>
-      <% end %>
+      <%= link_to t('.start_next_stage_cta'), next_authorization_request_stage_path(authorization_request), class: %w(fr-btn fr-btn--sm) %>
     </div>
   </div>
 </div>
+

@@ -469,7 +469,7 @@ Alors(/je vois (\d+) habilitation(?: "([^"]+)")?(?:(?: en)? (.+))?/) do |count, 
   if type.present?
     expect(page).to have_css('.authorization-request-definition-name', text: type, count:)
   else
-    expect(page).to have_css('.authorization-request', count:)
+    expect(page).to have_css('.authorization', count:)
   end
 
   if status.present?

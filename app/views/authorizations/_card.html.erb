@@ -1,0 +1,70 @@
+<div class="paired-cards authorization">
+  <div class="authorization-request-card <%= authorization.background_color_class %>" id="<%= dom_id(authorization) %>">
+    <div class="card__wrapper fr-px-10v fr-py-8v">
+
+      <div class="flex-space-between__content">
+
+        <div class="card__content">
+          <div class="card__title <%= authorization.color_class %> fr-h4 fr-m-0 fr-icon-award-fill">
+            <%= authorization.title %>
+          </div>
+          <div class="<%= authorization.color_class %> fr-text--lg fr-m-0 fr-ml-4w">
+            <%= authorization.name %>
+          </div>
+        </div>
+
+        <div class="card__badge">
+          <span class="fr-badge">
+            <%= t("authorization.badge", id: authorization.id) %>
+          </span>
+
+          <div class="flex-wrap flew-grow flex-end__content fr-grid-row--top fr-col--xs">
+            <%= authorization_request_stage_badge(authorization.request_as_validated) %>
+            <%= authorization_request_status_badge(authorization) %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="authorization-request-card">
+    <div class="card__wrapper fr-px-10v fr-py-8v">
+
+      <div class="flex-space-between__content">
+        <div class="card__content">
+          <div class="fr-card__desc fr-mt-0">
+            <p class="fr-text--md">
+              <%= t '.description', form_name: authorization.request.form.name %>
+            </p>
+          </div>
+
+          <div class="fr-card__end">
+            <%= authorization.applicant_details %>
+ 
+            <p class="fr-card__detail fr-icon-check-line">
+              <%= t '.validated_at', date: l(authorization.created_at, format: '%d/%m/%Y') %>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card__actions flex-space-between__content">
+        <div class="card__access_link">
+          <% if authorization.access_link && authorization.active? %>
+            <%= link_to t('.access_link_cta'), authorization.access_link, class: 'fr-link fr-icon-links-line fr-link--icon-left', target: :blank %>
+          <% end %>
+        </div>
+        <div class="card__actions_btn">
+          <% if policy(authorization).reopen? %>
+            <%= dsfr_main_modal_button t('.reopen_cta'), url_for(controller: 'reopen_authorizations', action: 'new', authorization_request_id: authorization.request.id, authorization_id: authorization.id), class: %w(fr-btn fr-btn--secondary fr-btn--sm) %>
+          <% end %>
+
+          <%= link_to t('.show_cta'), authorization_path(authorization), class: %w(fr-btn fr-btn--sm) %>
+        </div>
+      </div>
+    </div>
+
+    <%= render partial: 'dashboard/card/stage_footer', locals: { authorization_request: authorization.request, authorization: } %>
+  </div>
+</div>
+

@@ -91,3 +91,10 @@ h3.with-icon img {
 .height-auto.height-auto {
   height: auto;
 }
+
+.paired-cards .authorization-request-card:first-child {
+  border-bottom: 0;
+}
+.paired-cards .authorization-request-card:last-child {
+  border-top: 0;
+}
