@@ -1,6 +1,7 @@
 class API::V1::AuthorizationRequestSerializer < ActiveModel::Serializer
   attributes :id,
     :public_id,
+    :definition_id,
     :type,
     :state,
     :form_uid,
@@ -17,5 +18,9 @@ class API::V1::AuthorizationRequestSerializer < ActiveModel::Serializer
 
   def reopening
     object.reopening?
+  end
+
+  def definition_id
+    AuthorizationDefinition.find_by(authorization_request_class: object.type).id
   end
 end

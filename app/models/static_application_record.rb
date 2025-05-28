@@ -46,7 +46,11 @@ class StaticApplicationRecord
 
     def values_includes_entry_attribute?(entry, attr, values)
       entry_attribute_value = entry.public_send(attr)
-      entry_attribute_value = entry_attribute_value.to_s if attr == :authorization_request_class
+
+      if attr == :authorization_request_class
+        entry_attribute_value = entry_attribute_value.to_s
+        values = values.map(&:to_s)
+      end
 
       Array.wrap(values).include?(entry_attribute_value)
     end

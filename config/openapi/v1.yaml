@@ -78,6 +78,10 @@ components:
           type: string
           example: "ABC123"
           description: Identifiant public de la demande
+        definition_id:
+          type: string
+          example: "api_entreprise"
+          description: Identifiant de la définition d'habilitation associée à cette demande
         type:
           type: string
           example: "AuthorizationRequest::APIImpotParticulier"
@@ -144,6 +148,7 @@ components:
       required:
         - id
         - public_id
+        - definition_id
         - type
         - state
         - form_uid
@@ -274,6 +279,10 @@ components:
           type: string
           example: "AuthorizationRequest::APIParticulier"
           description: Classe de la demande d'autorisation associée à l'habilitation
+        definition_id:
+          type: string
+          example: "api_entreprise"
+          description: Identifiant de la définition d'habilitation associée à cette habilitation
       required:
         - id
         - slug
@@ -281,6 +290,7 @@ components:
         - state
         - created_at
         - authorization_request_class
+        - definition_id
 
     HabilitationDetailed:
       allOf:
@@ -512,6 +522,10 @@ components:
           type: string
           example: "AuthorizationRequest::APIEntreprise"
           description: Classe de demande d'autorisation associée au formulaire
+        definition_id:
+          type: string
+          example: "api_entreprise"
+          description: Identifiant de la définition d'habilitation associée à ce formulaire
         data:
           type: object
           description: Données préremplies du formulaire. Présent uniquement pour les formulaires avec prefilled? = true. Contient les valeurs par défaut pour certains champs du formulaire.
