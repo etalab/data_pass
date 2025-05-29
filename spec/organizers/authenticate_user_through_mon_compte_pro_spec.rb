@@ -1,4 +1,4 @@
-RSpec.describe AuthenticateUser do
+RSpec.describe AuthenticateUserThroughMonComptePro do
   describe '#call' do
     subject(:authenticate_user) { described_class.call(mon_compte_pro_omniauth_payload:) }
 
@@ -25,7 +25,11 @@ RSpec.describe AuthenticateUser do
     end
 
     context 'when user already exists and have another current organization' do
-      let!(:user) { create(:user, external_id: mon_compte_pro_omniauth_payload['uid'], email: mon_compte_pro_omniauth_payload['info']['email']) }
+      let!(:user) do
+        create(:user, email: mon_compte_pro_omniauth_payload['info']['email'], skip_organization_creation: true).tap do |u|
+          u.add_to_organization(create(:organization), current: true)
+        end
+      end
 
       it 'changes the current organization' do
         expect {

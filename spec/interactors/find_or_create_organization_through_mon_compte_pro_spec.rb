@@ -1,4 +1,4 @@
-RSpec.describe FindOrCreateOrganization do
+RSpec.describe FindOrCreateOrganizationThroughMonComptePro do
   describe '#call' do
     subject(:find_or_create_user) { described_class.call(mon_compte_pro_omniauth_payload:) }
 
