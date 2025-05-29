@@ -11,9 +11,9 @@ class OrganizationsUser < ApplicationRecord
   def set_as_current!
     transaction do
       # rubocop:disable Rails/SkipsModelValidations
-      user.organizations_users.where(current: true).update_all(current: false)
+      user.organizations_users.where.not(organization_id: organization_id).where(current: true).update_all(current: false)
       # rubocop:enable Rails/SkipsModelValidations
-      update!(current: true)
+      update!(current: true) unless current?
     end
   end
 end
