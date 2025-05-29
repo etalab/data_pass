@@ -13,6 +13,7 @@ FactoryBot.define do
     transient do
       skip_organization_creation { false }
     end
+
     after(:build) do |user, evaluator|
       next if evaluator.skip_organization_creation
 
