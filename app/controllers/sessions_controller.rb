@@ -4,19 +4,16 @@ class SessionsController < ApplicationController
   allow_unauthenticated_access only: [:create]
 
   def create
-    Rails.logger.debug request.env['omniauth.auth'].to_hash.inspect
-    redirect_to root_path
+    authenticate_user
 
-    # authenticate_user
-    #
-    # case request.env['omniauth.params']['prompt']
-    # when 'select_organization'
-    #   change_current_organization
-    # when 'update_userinfo'
-    #   update_user
-    # else
-    #   post_sign_in
-    # end
+    case request.env['omniauth.params']['prompt']
+    when 'select_organization'
+      change_current_organization
+    when 'update_userinfo'
+      update_user
+    else
+      post_sign_in
+    end
   end
 
   def destroy
