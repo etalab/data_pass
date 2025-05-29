@@ -42,7 +42,7 @@ class SessionsController < ApplicationController
   end
 
   def change_current_organization
-    ChangeCurrentOrganization.call(
+    ChangeCurrentOrganizationThroughMonComptePro.call(
       user: current_user,
       mon_compte_pro_omniauth_payload: request.env['omniauth.auth'],
     )

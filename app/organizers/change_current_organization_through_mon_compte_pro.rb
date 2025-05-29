@@ -1,4 +1,4 @@
-class ChangeCurrentOrganization < ApplicationOrganizer
+class ChangeCurrentOrganizationThroughMonComptePro < ApplicationOrganizer
   organize FindOrCreateOrganizationThroughMonComptePro,
     UpdateOrganizationINSEEPayload,
     ChangeUserCurrentOrganization,
