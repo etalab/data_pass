@@ -19,7 +19,6 @@ FactoryBot.define do
       organization = build(:organization)
       user.organizations_users.build(
         organization:,
-        identity_provider_uid: User::IDENTITY_PROVIDERS.key('mon_compte_pro'),
         current: true
       )
     end

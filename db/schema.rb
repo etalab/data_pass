@@ -365,7 +365,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_28_171646) do
   create_table "organizations_users", id: false, force: :cascade do |t|
     t.bigint "organization_id"
     t.bigint "user_id"
-    t.string "identity_provider_uid", null: false
+    t.string "identity_provider_uid", default: "71144ab3-ee1a-4401-b7b3-79b44f7daeeb", null: false
     t.datetime "created_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
     t.datetime "updated_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
     t.boolean "current", default: false, null: false
@@ -392,11 +392,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_28_171646) do
     t.string "external_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "current_organization_id"
     t.string "phone_number"
     t.boolean "phone_number_verified", default: false
     t.string "roles", default: [], array: true
     t.jsonb "settings", default: {}
-    t.bigint "current_organization_id"
+    t.index ["current_organization_id"], name: "index_users_on_current_organization_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["external_id"], name: "index_users_on_external_id", unique: true, where: "(external_id IS NOT NULL)"
     t.index ["settings"], name: "index_users_on_settings", using: :gin

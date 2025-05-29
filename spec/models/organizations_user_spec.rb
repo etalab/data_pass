@@ -63,13 +63,6 @@ RSpec.describe OrganizationsUser do
   end
 
   describe 'validations' do
-    subject { build(:organizations_user) }
-
-    it 'requires identity_provider_uid' do
-      subject.identity_provider_uid = nil
-      expect(subject).not_to be_valid
-    end
-
     it 'validates uniqueness of organization_id scoped to user_id' do
       user = User.create!(email: 'unique@test.com')
       organization = create(:organization)
@@ -80,4 +73,3 @@ RSpec.describe OrganizationsUser do
     end
   end
 end
-

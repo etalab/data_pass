@@ -1,5 +1,5 @@
 class AddUserToOrganization < ApplicationInteractor
   def call
-    context.organization.users << context.user unless context.organization.users.include?(context.user)
+    context.user.add_to_organization(context.organization)
   end
 end

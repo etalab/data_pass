@@ -196,4 +196,10 @@ class User < ApplicationRecord
     organization_user = organizations_users.find_or_initialize_by(organization:)
     organization_user.set_as_current! if organization_user.persisted?
   end
+
+  def add_to_organization(organization, current: false)
+    org_user = organizations_users.find_or_create_by(organization:)
+    org_user.set_as_current! if current
+    org_user
+  end
 end
