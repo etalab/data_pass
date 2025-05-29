@@ -169,7 +169,9 @@ Quand(/(j'ai|il y a|mon organisation a) (\d+) demandes? d'habilitation "([^"]+)"
               when 'j\'ai'
                 current_user
               when 'mon organisation a'
-                create(:user, current_organization: current_user.current_organization)
+                user = create(:user)
+                user.add_to_organization(current_user.current_organization, current: true)
+                user
               end
 
   create_authorization_requests_with_status(type, status, count, stage, form, applicant:)
