@@ -6,8 +6,6 @@ class OrganizationsUser < ApplicationRecord
 
   validates :organization_id, uniqueness: { scope: :user_id }
 
-  before_validation :set_default_identity_provider_uid
-
   scope :current, -> { where(current: true) }
 
   def set_as_current!
