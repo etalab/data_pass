@@ -2,8 +2,8 @@ class AuthenticateUserThroughMonComptePro < ApplicationOrganizer
   organize FindOrCreateOrganizationThroughMonComptePro,
     UpdateOrganizationINSEEPayload,
     FindOrCreateUserThroughMonComptePro,
-    ChangeUserCurrentOrganization,
-    AddUserToOrganization
+    AddUserToOrganization,
+    ChangeUserCurrentOrganization
 
   after do
     context.organization.save!
