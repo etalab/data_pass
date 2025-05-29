@@ -3,7 +3,7 @@ FactoryBot.define do
     initialize_with { attributes.stringify_keys }
 
     transient do
-      data_identity_id { User::IDENTITY_PROVIDERS.invert['mon_compte_pro'] }
+      data_identity_id { SecureRandom.uuid }
       siret
     end
 
@@ -53,7 +53,7 @@ FactoryBot.define do
 
   factory :organization_hash_from_proconnect, class: Hash do
     transient do
-      data_identity_id { User::IDENTITY_PROVIDERS.invert['mon_compte_pro'] }
+      data_identity_id { SecureRandom.uuid }
     end
 
     after(:build) do |payload, evaluator|
