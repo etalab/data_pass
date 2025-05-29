@@ -1,7 +1,7 @@
 class AuthenticateUserThroughMonComptePro < ApplicationOrganizer
-  organize FindOrCreateOrganization,
+  organize FindOrCreateOrganizationThroughMonComptePro,
     UpdateOrganizationINSEEPayload,
-    FindOrCreateUser,
+    FindOrCreateUserThroughMonComptePro,
     ChangeUserCurrentOrganization,
     AddUserToOrganization
 

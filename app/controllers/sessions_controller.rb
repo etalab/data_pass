@@ -56,7 +56,7 @@ class SessionsController < ApplicationController
   end
 
   def update_user
-    FindOrCreateUser.call(
+    FindOrCreateUserThroughMonComptePro.call(
       mon_compte_pro_omniauth_payload: request.env['omniauth.auth'],
     )
 

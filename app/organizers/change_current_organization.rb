@@ -1,5 +1,5 @@
 class ChangeCurrentOrganization < ApplicationOrganizer
-  organize FindOrCreateOrganization,
+  organize FindOrCreateOrganizationThroughMonComptePro,
     UpdateOrganizationINSEEPayload,
     ChangeUserCurrentOrganization,
     AddUserToOrganization

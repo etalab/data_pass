@@ -4,9 +4,6 @@ class Organization < ApplicationRecord
   validates :legal_entity_id, presence: true, uniqueness: { scope: :legal_entity_registry }
   validates :legal_entity_id, siret: true, if: -> { legal_entity_registry == 'insee_sirene' }
 
-  validates :mon_compte_pro_payload, presence: true
-  validates :last_mon_compte_pro_updated_at, presence: true
-
   has_many :organizations_users,
     dependent: :destroy
   has_many :users, through: :organizations_users

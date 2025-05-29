@@ -50,4 +50,17 @@ FactoryBot.define do
     iat { Time.now.to_i }
     iss { 'https://agentconnect.fr/api/v2' }
   end
+
+  factory :organization_hash_from_proconnect, class: Hash do
+    transient do
+      data_identity_id { User::IDENTITY_PROVIDERS.invert['mon_compte_pro'] }
+    end
+
+    after(:build) do |payload, evaluator|
+      payload['idp_id'] = evaluator.data_identity_id || (raise 'data_identity_id is required for organization_hash_from_proconnect factory')
+    end
+
+    initialize_with { attributes.stringify_keys }
+    siret
+  end
 end
