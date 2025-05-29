@@ -44,7 +44,10 @@ FactoryBot.define do
       if authorization_request.applicant.nil? && authorization_request.organization.nil?
         applicant = create(:user)
         organization = create(:organization)
-        applicant.organizations << organization
+        applicant.organizations_users.build(
+          organization:,
+          identity_provider_uid: User::IDENTITY_PROVIDERS.key('mon_compte_pro'),
+        )
 
         authorization_request.applicant = applicant
         authorization_request.organization = organization

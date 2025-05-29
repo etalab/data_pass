@@ -10,9 +10,18 @@ FactoryBot.define do
     email_verified { true }
     external_id
 
-    after(:build) do |user|
-      user.current_organization ||= build(:organization, users: [user])
-      user.organizations << user.current_organization
+    transient do
+      skip_organization_creation { false }
+    end
+    after(:build) do |user, evaluator|
+      next if evaluator.skip_organization_creation
+
+      organization = build(:organization)
+      user.organizations_users.build(
+        organization:,
+        identity_provider_uid: User::IDENTITY_PROVIDERS.key('mon_compte_pro'),
+        current: true
+      )
     end
 
     trait :reporter do

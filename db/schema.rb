@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_28_170152) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_28_171646) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_catalog.plpgsql"
@@ -368,8 +368,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_28_170152) do
     t.string "identity_provider_uid", null: false
     t.datetime "created_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
     t.datetime "updated_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.boolean "current", default: false, null: false
     t.index ["organization_id", "user_id"], name: "index_organizations_users_on_organization_id_and_user_id", unique: true
     t.index ["organization_id"], name: "index_organizations_users_on_organization_id"
+    t.index ["user_id", "current"], name: "index_organizations_users_on_user_id_and_current", where: "(current = true)"
     t.index ["user_id"], name: "index_organizations_users_on_user_id"
   end
 
@@ -390,12 +392,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_28_170152) do
     t.string "external_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "current_organization_id"
     t.string "phone_number"
     t.boolean "phone_number_verified", default: false
     t.string "roles", default: [], array: true
     t.jsonb "settings", default: {}
-    t.index ["current_organization_id"], name: "index_users_on_current_organization_id"
+    t.bigint "current_organization_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["external_id"], name: "index_users_on_external_id", unique: true, where: "(external_id IS NOT NULL)"
     t.index ["settings"], name: "index_users_on_settings", using: :gin
