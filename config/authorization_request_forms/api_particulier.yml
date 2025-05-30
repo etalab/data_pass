@@ -11,10 +11,9 @@ api-particulier:
     - name: basic_infos
     - name: personal_data
     - name: legal
+    - name: modalities
     - name: scopes
     - name: contacts
-  static_blocks:
-    - name: modalities
 
 # Editeur (cas 2)
 # 1. Contact technique renseigné et non modifiable

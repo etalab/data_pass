@@ -334,6 +334,12 @@ fr:
             label: Via un jeton d'accès, accompagné des paramètres usagers.
           formulaire_qf:
             label: Via l'utilisation du formulaire national QF (Quotient Familial). Plus d'infos&nbsp;<a href="https://quotient-familial.numerique.gouv.fr/" target="_blank">ici</a>.
+          france_connect:
+            label: Via FranceConnect
+        callout:
+          title: Pour proposer FranceConnect à vos utilisateurs, il vous faudra au préalable demander une habilitation FranceConnect.
+          content: Vous pouvez demander cette habilitation en remplissant le formulaire ci-dessous. Une fois votre demande validée, vous pourrez sélectionner FranceConnect dans les modalités d'appel de l'API Particulier. Vous pouvez cependant dès à présent utiliser les autres modalités d'appel de l'API Particulier, et réouvrir la demande ultérieurement pour ajouter FranceConnect.
+          link: Demander une habilitation FranceConnect
 
       scopes:
         info:
