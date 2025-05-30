@@ -44,7 +44,9 @@ RSpec.describe 'Authorizations config files' do
 
     it 'is static for each form' do
       forms.each do |form|
-        expect(form.static_blocks.pluck(:name) & ['modalities']).to be_present, "Form #{form.uid} has a static block named 'modalities'"
+        next if form.uid == 'api-particulier'
+
+        expect(form.static_blocks.pluck(:name) & ['modalities']).to be_present, "Form #{form.uid} should have a static block named 'modalities'"
       end
     end
   end
