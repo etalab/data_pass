@@ -914,7 +914,7 @@ api-particulier-airweb:
     description: |
       Nos clients sont les Autorités organisatrices de transport. Grâce aux e-boutiques Airweb mobiles, les utilisateurs peuvent acheter et stocker leurs titres de transport sur leur smartphone, et les valider directement dans les véhicules via flash de QRcodes
     cadre_juridique_nature: l'Article L114-8 du Code des relations entre le public et l'administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usage. Articles L1231-1 et L1231-3 du Code des transports.
-    scopes: 
+    scopes:
       - cnaf_quotient_familial
       - pole_emploi_identite
       - mesri_identite
@@ -1106,7 +1106,7 @@ api-particulier-ganesh-education:
   initialize_with:
     intitule: Gestion de la scolarité des établissements d'enseignement supérieur
     description: |
-      Le logiciel est utilisé par des agents en back-office et des utilisateurs habilités pour la gestion de la scolarité des établissements d'enseignement supérieur 
+      Le logiciel est utilisé par des agents en back-office et des utilisateurs habilités pour la gestion de la scolarité des établissements d'enseignement supérieur
     scopes:
       - cnous_statut_boursier
       - cnous_echelon_bourse
@@ -1132,7 +1132,7 @@ api-particulier-jvs-mairistem:
   steps: *api_particulier_editor_steps_with_fixed_scopes
   static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
   use_case: tarification_municipale_enfance
-  service_provider_id: jvs_mairistem 
+  service_provider_id: jvs_mairistem
   scopes_config:
     disabled:
       - cnaf_quotient_familial
@@ -1170,7 +1170,7 @@ api-particulier-ccas-paxtel:
   authorization_request: APIParticulier
   use_case: ccas
   service_provider_id: paxtel
-  introduction: &api_particulier_introduction_editor_ccas_with_fixed_scopes 
+  introduction: &api_particulier_introduction_editor_ccas_with_fixed_scopes
   steps: *api_particulier_editor_steps_with_fixed_scopes
   static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
   scopes_config:
@@ -1358,7 +1358,7 @@ api-particulier-dialog:
     intitule: Dématérialisation des dispositifs d'aides et de subventions
     description: |
       Dématérialisation des dispositifs d'aides et de subventions communales, départementales ou régionales
-    cadre_juridique_nature: 
+    cadre_juridique_nature:
       L'article L114-8 du code des relations entre le public et l'administration fixe le cadre général des échanges de données au sein de l'administration. En tant que collectivité territoriale, la délibération ci-jointe précise l'objet du téléservice, selon l'arrêté du 04/07/13 sur les téléservices, et précise les données nécessaires à son fonctionnement.
     scopes:
       - cnaf_quotient_familial
