@@ -25,6 +25,8 @@ Fonctionnalité: Demandes d'habilitation ayant des configurations sur les scopes
     * je remplis "URL du texte relatif au traitement" avec "https://legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000006430983&cidTexte=LEGITEXT000006070721"
     * je clique sur "Suivant"
 
+    * je clique sur "Suivant"
+
     Alors la page contient "Les données"
     Et la page contient "API Quotient familial"
     Et la page contient "API Statut étudiant boursier"

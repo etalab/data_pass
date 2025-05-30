@@ -3,8 +3,9 @@ class AuthorizationRequest::APIParticulier < AuthorizationRequest
   include AuthorizationExtensions::PersonalData
   include AuthorizationExtensions::CadreJuridique
   include AuthorizationExtensions::Modalities
+  include AuthorizationExtensions::FranceConnect
 
-  MODALITIES = %w[params formulaire_qf].freeze
+  MODALITIES = %w[params formulaire_qf france_connect].freeze
 
   add_documents :maquette_projet, content_type: ['application/pdf'], size: { less_than: 10.megabytes }
 
@@ -33,5 +34,10 @@ class AuthorizationRequest::APIParticulier < AuthorizationRequest
 
   def mandatory_modalities?
     true
+  end
+
+  def requires_france_connect_authorization?
+    need_complete_validation?(:modalities) &&
+      modalities.include?('france_connect')
   end
 end
