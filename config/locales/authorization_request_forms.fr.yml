@@ -333,7 +333,7 @@ fr:
           params:
             label: Via un jeton d'accès, accompagné des paramètres usagers.
           formulaire_qf:
-            label: Via l'utilisation du formulaire national QF (Quotient Familial). Plus d'infos <a href="https://quotient-familial.numerique.gouv.fr/" target="_blank">ici</a>.
+            label: Via l'utilisation du formulaire national QF (Quotient Familial). Plus d'infos&nbsp;<a href="https://quotient-familial.numerique.gouv.fr/" target="_blank">ici</a>.
 
       scopes:
         info:
