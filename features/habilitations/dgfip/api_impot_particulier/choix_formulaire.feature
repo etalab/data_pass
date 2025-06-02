@@ -30,7 +30,7 @@ Fonctionnalité: Choix de la modalité d'appel et du stage du formulaire API Imp
     Et la page ne contient pas "Demande libre"
 
   Scénario: Je veux accéder à l’API via FranceConnect et j’ai déjà une habilitation FranceConnect
-    Sachant que mon organisation a 1 demande d'habilitation "France Connect" validée
+    Sachant que mon organisation a 1 demande d'habilitation "FranceConnect" validée
     Et que je rafraîchis la page
     Et que je choisis "Avec FranceConnect"
     Alors le champ "Sélectionnez une habilitation FranceConnect qui sera liée à cette demande" est rempli
@@ -52,7 +52,7 @@ Fonctionnalité: Choix de la modalité d'appel et du stage du formulaire API Imp
     Alors "Via le numéro fiscal (SPI)" est coché
 
   Scénario: Je veux accéder à l’API via FranceConnect, et mon choix est retenu une fois arrivé au bloc de modalités d’accès
-    Sachant que mon organisation a 1 demande d'habilitation "France Connect" validée
+    Sachant que mon organisation a 1 demande d'habilitation "FranceConnect" validée
     * je rafraîchis la page
     * je choisis "Avec FranceConnect"
     * je choisis "Oui, j’ai un éditeur qui a finalisé et validé ses développements en bac à sable"
