@@ -45,11 +45,11 @@ module ApplicationHelper
       %w[fr-badge--warning]
     when 'submitted'
       %w[fr-badge--info]
-    when 'validated'
+    when 'validated', 'active'
       %w[fr-badge--success]
     when 'refused', 'revoked'
       %w[fr-badge--error]
-    when 'archived'
+    when 'archived', 'obsolete'
       %w[fr-badge--secondary]
     end
   end
@@ -76,7 +76,7 @@ module ApplicationHelper
     content_tag(
       :span,
       t("authorization_request.stage.#{stage_type}"),
-      class: ['fr-badge', 'fr-badge--no-icon', 'fr-mb-1w', stage_badge_class(stage_type), css_class],
+      class: ['fr-badge', 'fr-badge--no-icon', 'fr-mr-1w', stage_badge_class(stage_type), css_class],
     )
   end
 

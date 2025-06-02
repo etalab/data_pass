@@ -3,8 +3,20 @@ class AuthorizationDecorator < ApplicationDecorator
 
   decorates_association :request
 
+  def to_partial_path
+    'authorizations/card'
+  end
+
   def card_name
     base_card_name.truncate(50)
+  end
+
+  def applicant_details
+    highlighted = object.applicant == h.current_user
+
+    h.content_tag(:p, class: ['fr-card__detail', 'fr-icon-user-fill', { 'fr-text-title--blue-france': highlighted }]) do
+      card_provider_applicant_details(h.current_user)
+    end
   end
 
   def card_provider_applicant_details(user)
@@ -16,10 +28,12 @@ class AuthorizationDecorator < ApplicationDecorator
       default_applicant_full_name
     end
   end
+
   def only_in_contacts?(user)
     user != object.applicant &&
       object.contact_types_for(user).present?
   end
+
   def reopening_validated?
     object.request.authorizations.where(authorization_request_class: object.authorization_request_class).count > 1
   rescue NoMethodError
@@ -59,7 +73,6 @@ class AuthorizationDecorator < ApplicationDecorator
   def default_applicant_full_name
     t('dashboard.card.authorization_request_card.applicant_request', definition_name: object.definition.name, applicant_full_name: object.applicant.full_name)
   end
-
 
   def formatted_date
     I18n.l(created_at.to_date, format: :long)

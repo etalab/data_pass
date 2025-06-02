@@ -22,7 +22,7 @@ fr:
     france_connect: france-connect
 
   authorization:
-    id_badge: habilitation N°%{id}
+    badge: habilitation n°%{id}
     date_badge: du %{date}
     states:
       active: "Active"
@@ -170,6 +170,8 @@ fr:
         draft_title: Demandes en brouillon
         pending_title: Demandes en cours d'instruction
         changes_requested_title: Demandes à modifier
+        active_title: Habilitations actives
+        revoked_title: Habilitations révoquées
     <!-- authorization_requests: -->
     <!--   validated_or_refused_title: Mes habilitations -->
     <!--   draft_title: Demandes en brouillon -->
@@ -178,9 +180,9 @@ fr:
 
     card:
       authorization_request_card:
-        current_user_mentions: "%{definition_name} - Vous avez été référencé comme %{contact_types}"
-        current_user_is_applicant: "%{definition_name} - Vous êtes le demandeur"
-        applicant_request: "%{definition_name} - %{applicant_full_name} est le demandeur"
+        current_user_mentions: "vous avez été référencé comme %{contact_types}"
+        current_user_is_applicant: "vous êtes le demandeur"
+        applicant_request: "%{applicant_full_name} est le demandeur"
         created_at: Créée le %{created_date}
         created_and_udpated_at: Créée le %{created_date} et mise à jour le %{updated_date}
         show_cta: Consulter
@@ -220,6 +222,17 @@ fr:
     index:
       title: Demander une nouvelle habilitation
       cta: Remplir une demande
+
+  authorizations:
+    card:
+      created_at: Créée le %{created_date}
+      created_and_udpated_at: Créée le %{created_date} et mise à jour le %{updated_date}
+      current_user_mentions: "%{definition_name} - Vous avez été référencé comme %{contact_types}"
+      current_user_is_applicant: "%{definition_name} - Vous êtes le demandeur"
+      applicant_request: "%{definition_name} - %{applicant_full_name} est le demandeur"
+      show_cta: Consulter
+      access_link_cta: Récupérer mon accès
+      reopen_cta: Mettre à jour
 
   authorization_requests:
     card:

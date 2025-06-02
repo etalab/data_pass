@@ -110,13 +110,11 @@ class AuthorizationRequestDecorator < ApplicationDecorator
     base_card_name.truncate(50)
   end
 
-  def card_provider_applicant_details(user)
-    if only_in_contacts?(user)
-      current_user_is_a_contact(user)
-    elsif object.applicant == user
-      current_user_is_applicant
-    else
-      default_applicant_full_name
+  def applicant_details
+    highlighted = object.applicant == h.current_user
+
+    h.content_tag(:p, class: ["fr-card__detail", "fr-icon-user-fill", "fr-text-title--blue-france": highlighted]) do
+      card_provider_applicant_details(h.current_user)
     end
   end
 
@@ -135,21 +133,31 @@ class AuthorizationRequestDecorator < ApplicationDecorator
 
   private
 
+  def card_provider_applicant_details(user)
+    if only_in_contacts?(user)
+      current_user_is_a_contact(user)
+    elsif object.applicant == user
+      current_user_is_applicant
+    else
+      default_applicant_full_name
+    end
+  end
+
   def lookup_i18n_key(subkey)
     t("authorization_request_forms.#{object.model_name.element}.#{subkey}", default: nil) ||
       t("authorization_request_forms.default.#{subkey}")
   end
 
   def current_user_is_a_contact(user)
-    t('dashboard.card.authorization_request_card.current_user_mentions', definition_name: object.definition.name, contact_types: humanized_contact_types_for(user).to_sentence)
+    t('dashboard.card.authorization_request_card.current_user_mentions', contact_types: humanized_contact_types_for(user).to_sentence)
   end
 
   def current_user_is_applicant
-    t('dashboard.card.authorization_request_card.current_user_is_applicant', definition_name: object.definition.name)
+    t('dashboard.card.authorization_request_card.current_user_is_applicant')
   end
 
   def default_applicant_full_name
-    t('dashboard.card.authorization_request_card.applicant_request', definition_name: object.definition.name, applicant_full_name: object.applicant.full_name)
+    t('dashboard.card.authorization_request_card.applicant_request', applicant_full_name: object.applicant.full_name)
   end
 
   def prefilled_scopes?(keys)

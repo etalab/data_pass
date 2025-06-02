@@ -13,9 +13,7 @@
         </p>
 
         <div class="fr-card__end">
-          <p class="fr-card__detail fr-icon-user-fill">
-            <%= authorization_request.card_provider_applicant_details(current_user) %>
-          </p>
+          <%= authorization_request.applicant_details %>
           
           <p class="fr-card__detail fr-icon-calendar-2-fill">
             <% if authorization_request.reopening_validated? %>
