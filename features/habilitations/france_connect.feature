@@ -1,12 +1,12 @@
 # language: fr
 
-Fonctionnalité: Soumission d'une demande d'habilitation France Connect
+Fonctionnalité: Soumission d'une demande d'habilitation FranceConnect
   Contexte:
     Sachant que je suis un demandeur
     Et que je me connecte
 
   Plan du scénario: Je soumets une demande d'habilitation valide
-    Quand je veux remplir une demande pour "France Connect" via le formulaire "<Nom du formulaire>"
+    Quand je veux remplir une demande pour "FranceConnect" via le formulaire "<Nom du formulaire>"
     Et que je clique sur "Débuter ma demande"
 
     * je renseigne les infos de bases du projet

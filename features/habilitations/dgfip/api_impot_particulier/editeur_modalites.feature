@@ -34,15 +34,15 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôt Particulier 
     Alors il y a un message d'erreur contenant "L'habilitation FranceConnect doit être rempli(e)"
    
   Scénario: Je choisis la modalité FranceConnect alors que j'ai une habilitation FranceConnect
-    Sachant que mon organisation a 1 demande d'habilitation "France Connect" validée
+    Sachant que mon organisation a 1 demande d'habilitation "FranceConnect" validée
     Quand je rafraîchis la page
     Et que je choisis "Avec FranceConnect"
     Et que je clique sur "Suivant"
     Alors la page contient "Quelles sont les données dont vous avez besoin ?"
 
   Scénario: Je choisis la modalité FranceConnect et je vais jusqu'au résumé final
-    Sachant que mon organisation a 1 demande d'habilitation "France Connect" validée
-    Et que cette dernière demande d'habilitation s'appelait "Demande d'accès à france connect pour mon appli"
+    Sachant que mon organisation a 1 demande d'habilitation "FranceConnect" validée
+    Et que cette dernière demande d'habilitation s'appelait "Demande d'accès à franceconnect pour mon appli"
     Quand je rafraîchis la page
 
     Et que je choisis "Avec FranceConnect"
@@ -62,4 +62,4 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôt Particulier 
     * je clique sur "Suivant"
 
     Alors la page contient "Avec FranceConnect"
-    Et la page contient "Demande d'accès à france connect pour mon appli"
+    Et la page contient "Demande d'accès à franceconnect pour mon appli"

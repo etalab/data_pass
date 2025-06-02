@@ -8,7 +8,7 @@ Fonctionnalité: Habilitation avec des cases à cocher supplémentaires
     Sachant que je suis un demandeur
     Et que je me connecte
 
-    Et que je veux remplir une demande pour "France Connect" via le formulaire "Demande libre"
+    Et que je veux remplir une demande pour "FranceConnect" via le formulaire "Demande libre"
     Et que je clique sur "Débuter ma demande"
 
     * je renseigne les infos de bases du projet

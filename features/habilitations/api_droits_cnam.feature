@@ -11,7 +11,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API de droits à l'Assu
     Et la page ne contient pas "Demande libre"
 
   Plan du scénario: Je soumets une demande d'habilitation valide
-    Sachant que mon organisation a 1 demande d'habilitation "France Connect" validée
+    Sachant que mon organisation a 1 demande d'habilitation "FranceConnect" validée
     Et je veux remplir une demande pour "API de droits à l'Assurance Maladie"
     * je clique sur "<Nom du formulaire>"
     * je clique sur "Débuter ma demande"

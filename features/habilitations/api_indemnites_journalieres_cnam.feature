@@ -11,7 +11,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Indemnités Journal
     Et la page ne contient pas "Demande libre"
 
   Scénario: Je soumets une demande d'habilitation valide
-    Sachant que mon organisation a 1 demande d'habilitation "France Connect" validée
+    Sachant que mon organisation a 1 demande d'habilitation "FranceConnect" validée
     Et je veux remplir une demande pour "API Indemnités Journalières de la CNAM"
     * je clique sur "Demande libre"
     * je clique sur "Débuter ma demande"

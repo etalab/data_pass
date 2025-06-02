@@ -1,4 +1,4 @@
-When('il y a une demande d\'habilitation "France Connect" validée avec une habilitation FranceConnectée') do
+When('il y a une demande d\'habilitation "FranceConnect" validée avec une habilitation FranceConnectée') do
   organization = create(:organization)
 
   @authorization_request = france_connect_authorization_request = create(
