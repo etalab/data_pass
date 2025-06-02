@@ -1,0 +1,41 @@
+<div class="simple-page-action-wrapper fr-pt-5w">
+  <div class="fr-grid-row fr-grid-row--center">
+    <div class="fr-col-md-offset-1 fr-col-md-10">
+      <turbo-frame id="main-modal-content">
+        <div class="fr-modal__content">
+          <h1 class="fr-modal__title">
+            <%= t('.title') %>
+          </h1>
+
+          <p class="fr-text--lg">
+            <%= t('.feature_unavailable', definition_name: @authorization_request.definition.name_with_stage) %>
+          </p>
+
+          <p>
+            <%= t('.transfer_instructions', authorization_request_id: content_tag(:strong, @authorization_request.id)).html_safe %>
+          </p>
+
+          <div class="fr-callout fr-callout--brown-caramel">
+            <p class="fr-callout__text">
+              <strong><%= t('.important_notice.title') %></strong> <%= t('.important_notice.content', organization_name: @authorization_request.organization.name, siret: @authorization_request.organization.legal_entity_id) %>
+            </p>
+          </div>
+
+            <p>
+            <%= t('.contact_support') %>
+              <%= mail_to @authorization_request.definition.support_email,
+                          @authorization_request.definition.support_email,
+                          subject: t('.email_subject', authorization_request_id: @authorization_request.id),
+                          class: "fr-link fr-link--icon-right fr-icon-mail-line" %>
+            </p>
+        </div>
+
+        <div class="fr-modal__footer">
+          <div class="fr-btns-group fr-btns-group--right">
+            <%= link_to t('.close'), '#', class: %w(fr-btn fr-btn--secondary), aria: { controls: 'main-modal' } %>
+          </div>
+        </div>
+      </turbo-frame>
+    </div>
+  </div>
+</div>

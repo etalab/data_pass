@@ -369,7 +369,7 @@ fr:
   demandes_habilitations:
     current_user_mentions_alert:
       text: Vous avez été référencé comme %{contact_types} dans cette habilitation.
-  
+
   authorization_request_forms:
     form_not_found: Le formulaire demandé n'existe pas
     new:
@@ -543,7 +543,7 @@ fr:
       email_disclaimer: |
         Pour que le transfert soit autorisé, il faut :
         <p class="fr-info-text fr-mt-1w">Que l'utilisateur possède un compte sur DataPass</p>
-        <p class="fr-info-text">Que l'utilisateur appartiennent à la même organisation que la demande (numéro de siret : %{organization_siret})</p>
+        <p class="fr-info-text">Que l'utilisateur appartiennent à la même organisation que la demande (" %{organization_name} ", numéro de siret : %{organization_siret})</p>
       error:
         title: Transfert de la demande impossible
     create:
@@ -610,3 +610,14 @@ fr:
         row:
           client_id: Id
           client_secret: Secret
+  manual_transfer_authorization_requests:
+    new:
+      title: "Transfert manuel requis"
+      feature_unavailable: "La fonctionnalité de transfert automatique n'est pas disponible pour \"%{definition_name}\"."
+      transfer_instructions: "Pour transférer la demande d'habilitation n°%{authorization_request_id}, contactez le fournisseur de données en précisant l'email de la nouvelle personne en charge."
+      important_notice:
+        title: "Important :"
+        content: "La nouvelle personne doit s'être connectée au moins une fois sur DataPass avec l'organisation %{organization_name} (siret: %{siret}) pour que le transfert soit possible."
+      contact_support: "Contacter le support à l'adresse suivante:"
+      email_subject: "Transfert demande n°%{authorization_request_id}"
+      close: "Fermer"

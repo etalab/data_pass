@@ -4,7 +4,7 @@
       <div class="fr-col-12 fr-col-md-8">
         <h1 class="fr-h3 fr-mt-15v fr-mb-1-5v <%= header_text_class %>">
           <span class="fr-icon-award-fill" aria-hidden="true"></span>
-          Habilitation à <%= authorization.definition.name %>
+          <%= t('components.authorization_header_component.title', definition_name: authorization.definition.name) %>
         </h1>
         <div class="fr-display-flex fr-align-items-center">
         <p class="<%= header_text_class %>">
@@ -15,7 +15,7 @@
 
         <div class="fr-mb-10v fr-badges-group">
           <div class="fr-badge fr-badge--sm fr-badge--blue-ecume">
-            Habilitation n°<%= authorization.id %>
+            <%= t('components.authorization_header_component.authorization_badge', authorization_id: authorization.id) %>
           </div>
           <div class="fr-badge fr-badge--sm <%= state_badge_html_class %>">
             <%= translated_state %>
@@ -31,7 +31,7 @@
                                                        action: 'new',
                                                        authorization_request_id: authorization.request&.id,
                                                        authorization_id: authorization.request.latest_authorization.id),
-                                               title: "Mettez à jour votre habilitation",
+                                               title: t('components.authorization_header_component.reopen_modal_title'),
                                                class: "fr-btn fr-btn--sm fr-btn--icon-left fr-icon-edit-box-line",
                                                aria_hidden: "true" %>
           <% end %>
@@ -40,7 +40,14 @@
             <%= dsfr_main_modal_button t('authorization_request_forms.form.transfer'),
                                                new_authorization_request_transfer_path(authorization.request, type: :change_organization),
                                                id: :transfer_authorization_request,
-                                               title: "Transférer l'habilitation à un autre utilisateur de votre organisation",
+                                               title: t('components.authorization_header_component.transfer_modal_title'),
+                                               class: "fr-btn fr-btn--sm fr-btn--icon-left fr-icon-arrow-up-down-line fr-btn--secondary__custom",
+                                               aria_hidden: "true" %>
+          <% elsif policy(authorization).manual_transfer_from_instructor? %>
+            <%= dsfr_main_modal_button t('authorization_request_forms.form.transfer'),
+                                               new_authorization_request_manual_transfer_path(authorization.request, type: :change_organization),
+                                               id: :transfer_authorization_request,
+                                               title: t('components.authorization_header_component.transfer_modal_title'),
                                                class: "fr-btn fr-btn--sm fr-btn--icon-left fr-icon-arrow-up-down-line fr-btn--secondary__custom",
                                                aria_hidden: "true" %>
           <% end %>
@@ -48,14 +55,14 @@
           <% if policy(authorization).start_next_stage? && !authorization.request.reopening? %>
             <%= link_to t('dashboard.card.stage_footer.start_next_stage_cta'),
                         next_authorization_request_stage_path(authorization.request),
-                        title: "Démarrer une nouvelle demande d'habilitation pour l'environnement de production",
+                        title: t('components.authorization_header_component.start_next_stage_title'),
                         class: "fr-btn fr-btn--sm fr-btn--secondary__custom" %>
           <% end %>
 
           <% if policy(authorization).contact_support? %>
             <%= dsfr_main_modal_button t('authorization_request_forms.form.contact_support'),
                                                "mailto:datapass@api.gouv.fr",
-                                               subject: "Habilitation #{authorization.id} révoquée",
+                                               subject: t('components.authorization_header_component.contact_support_subject', authorization_id: authorization.id),
                                                class: "fr-btn fr-btn--sm fr-btn--icon-left fr-icon-mail-line",
                                                aria_hidden: "true" %>
           <% end %>

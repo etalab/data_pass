@@ -37,6 +37,7 @@ fr:
         request_changes: Demander des modifications
         revoke: Révoquer
         cancel_reopening: Annuler la demande de réouverture
+        transfer: Transférer
     france_connected_authorizations:
       index:
         title: Habilitations FranceConnectées associées
@@ -308,5 +309,32 @@ fr:
       index:
         title: Historique des habilitations liées à cette demande
         show_cta: Consulter l'habilitation
+    transfer_authorization_requests:
+      new:
+        title: Transférer la demande d'habilitation
+        disclaimer: |
+          Vous êtes sur le point de transférer la demande d'habilitation n°%{authorization_request_id} vers le compte d'un autre usager.
+          <br />
+          Une fois la demande transférée, elle sera associée au compte du destinataire.
+        cancel: Annuler
+        transfer: Valider le transfert
+        email_disclaimer: |
+          Pour que le transfert soit autorisé, il faut :
+          <ul>
+            <li>L'email doit correspondre à un compte existant</li>
+            <li>Le compte doit appartenir à la même organisation " %{organization_name} " (siret: %{organization_siret})</li>
+          </ul>
+        error:
+          title: Une erreur est survenue
+          email_not_found: |
+            Aucun utilisateur n'a été trouvé avec l'email fourni. L'utilisateur doit créer un compte pour que le transfert soit possible.
+      create:
+        success:
+          title: La demande d'habilitation '%{name}' a été transférée avec succès.
+        error:
+          email_not_found: |
+            Aucun utilisateur n'a été trouvé avec l'email fourni. L'utilisateur doit créer un compte pour que le transfert soit possible.
+          invalid_new_applicant: |
+            L'utilisateur doit appartenir à la même organisation (numéro de siret: %{organization_siret}).
 
 
