@@ -24,7 +24,7 @@
 
             <%= f.dsfr_email_field :to, value: params[:authorization_request_transfer].try(:[], 'to'), required: true %>
 
-            <%= t('.email_disclaimer', organization_siret: @authorization_request.organization.siret).html_safe %>
+            <%= t('.email_disclaimer', organization_name: @authorization_request.organization.name, organization_siret: @authorization_request.organization.siret).html_safe %>
           </div>
 
           <div class="fr-modal__footer">

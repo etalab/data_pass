@@ -322,7 +322,7 @@ fr:
           Pour que le transfert soit autorisé, il faut :
           <ul>
             <li>L'email doit correspondre à un compte existant</li>
-            <li>Le compte doit appartenir à la même organisation (numéro de siret: %{organization_siret})</li>
+            <li>Le compte doit appartenir à la même organisation " %{organization_name} " (siret: %{organization_siret})</li>
           </ul>
         error:
           title: Une erreur est survenue

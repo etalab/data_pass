@@ -543,7 +543,7 @@ fr:
       email_disclaimer: |
         Pour que le transfert soit autorisé, il faut :
         <p class="fr-info-text fr-mt-1w">Que l'utilisateur possède un compte sur DataPass</p>
-        <p class="fr-info-text">Que l'utilisateur appartiennent à la même organisation que la demande (numéro de siret : %{organization_siret})</p>
+        <p class="fr-info-text">Que l'utilisateur appartiennent à la même organisation que la demande (" %{organization_name} ", numéro de siret : %{organization_siret})</p>
       error:
         title: Transfert de la demande impossible
     create:

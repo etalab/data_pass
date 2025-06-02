@@ -47,40 +47,6 @@
       "note": ""
     },
     {
-      "warning_type": "Cross-Site Scripting",
-      "warning_code": 2,
-      "fingerprint": "41d080308aa59ee13656da6b35e827b7fac14c4d726c04ba85a751d0db514a35",
-      "check_name": "CrossSiteScripting",
-      "message": "Unescaped model attribute",
-      "file": "app/views/instruction/transfer_authorization_requests/new.html.erb",
-      "line": 27,
-      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "t(\".email_disclaimer\", :organization_siret => AuthorizationRequest.find(params[:authorization_request_id]).organization.siret)",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "Instruction::TransferAuthorizationRequestsController",
-          "method": "new",
-          "line": 6,
-          "file": "app/controllers/instruction/transfer_authorization_requests_controller.rb",
-          "rendered": {
-            "name": "instruction/transfer_authorization_requests/new",
-            "file": "app/views/instruction/transfer_authorization_requests/new.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "instruction/transfer_authorization_requests/new"
-      },
-      "user_input": "AuthorizationRequest.find(params[:authorization_request_id]).organization",
-      "confidence": "Weak",
-      "cwe_id": [
-        79
-      ],
-      "note": ""
-    },
-    {
       "warning_type": "Command Injection",
       "warning_code": 14,
       "fingerprint": "5405cb37f1a10f05145513812f4db702ff679d899371eee59a7c390969a5c8b9",
@@ -188,6 +154,40 @@
         "template": "authorization_requests/unauthenticated_start"
       },
       "user_input": "AuthorizationRequestForm.find(params[:form_uid]).decorate",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "8dba018bf19f02c4fb98214cb26b879f0c0f6f0206d921cd3d7a86d3db5f3e10",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/instruction/transfer_authorization_requests/new.html.erb",
+      "line": 27,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "t(\".email_disclaimer\", :organization_name => AuthorizationRequest.find(params[:authorization_request_id]).organization.name, :organization_siret => AuthorizationRequest.find(params[:authorization_request_id]).organization.siret)",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Instruction::TransferAuthorizationRequestsController",
+          "method": "new",
+          "line": 6,
+          "file": "app/controllers/instruction/transfer_authorization_requests_controller.rb",
+          "rendered": {
+            "name": "instruction/transfer_authorization_requests/new",
+            "file": "app/views/instruction/transfer_authorization_requests/new.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "instruction/transfer_authorization_requests/new"
+      },
+      "user_input": "AuthorizationRequest.find(params[:authorization_request_id]).organization",
       "confidence": "Weak",
       "cwe_id": [
         79
