@@ -106,29 +106,29 @@ RSpec.describe AuthorizationRequest::APIImpotParticulier do
       it { is_expected.to be_valid }
     end
 
-    context 'with france connect' do
+    context 'with franceconnect' do
       let(:modalities) { ['with_france_connect'] }
 
-      context 'without any france connect authorization id' do
+      context 'without any franceconnect authorization id' do
         let(:france_connect_authorization_id) { nil }
 
         it { is_expected.not_to be_valid }
       end
 
-      context 'with an invalid france connect authorization id' do
+      context 'with an invalid franceconnect authorization id' do
         let(:france_connect_authorization_id) { 0 }
 
         it { is_expected.not_to be_valid }
       end
 
-      context 'with a france connect authorization id from another organization' do
+      context 'with a franceconnect authorization id from another organization' do
         let(:validated_france_connect_authorization_request) { create(:authorization_request, :france_connect, :validated) }
         let(:france_connect_authorization_id) { validated_france_connect_authorization_request.authorizations.first.id.to_s }
 
         it { is_expected.not_to be_valid }
       end
 
-      context 'with a revoked france connect authorization id from the same organization' do
+      context 'with a revoked franceconnect authorization id from the same organization' do
         let(:validated_france_connect_authorization_request) { create(:authorization_request, :france_connect, :revoked) }
         let(:organization) { validated_france_connect_authorization_request.organization }
         let(:france_connect_authorization_id) { validated_france_connect_authorization_request.authorizations.first.id.to_s }
@@ -136,7 +136,7 @@ RSpec.describe AuthorizationRequest::APIImpotParticulier do
         it { is_expected.not_to be_valid }
       end
 
-      context 'with a validated france connect authorization id from the same organization' do
+      context 'with a validated franceconnect authorization id from the same organization' do
         let(:validated_france_connect_authorization_request) { create(:authorization_request, :france_connect, :validated) }
         let(:organization) { validated_france_connect_authorization_request.organization }
         let(:france_connect_authorization_id) { validated_france_connect_authorization_request.authorizations.first.id.to_s }
