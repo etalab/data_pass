@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ModuleLength
 module ApplicationHelper
   include DSFR::Stepper
   include DSFR::Accordion
@@ -120,3 +121,4 @@ module ApplicationHelper
     authorization_request.definition.id == 'france_connect' && authorization_request.france_connected_authorizations.exists?
   end
 end
+# rubocop:enable Metrics/ModuleLength
