@@ -18,7 +18,6 @@ RSpec.describe 'API: Authorization definitions' do
         'name',
         'multi_stage?',
         'authorization_request_class',
-        'data_attributes',
         'scopes'
       )
     end
@@ -68,16 +67,7 @@ RSpec.describe 'API: Authorization definitions' do
                      response.parsed_body
                    end
 
-      expect(definition['data_attributes']).to be_a(Array)
       expect(definition['scopes']).to be_a(Array)
-
-      extra_attributes_class = expected_definition[:authorization_request_class].constantize
-      extra_attributes = extra_attributes_class.extra_attributes
-      extra_attributes.each do |attr|
-        expect(definition['data_attributes']).to include(attr.to_s)
-      end
-
-      expect(definition['data_attributes']).to include('scopes')
     end
 
     it 'returns scopes as array of scope objects' do
@@ -150,20 +140,7 @@ RSpec.describe 'API: Authorization definitions' do
       production_def_response = definitions.find { |d| d['id'] == production_def[:id] }
 
       [sandbox_def_response, production_def_response].each do |definition|
-        expect(definition['data_attributes']).to be_a(Array)
         expect(definition['scopes']).to be_a(Array)
-      end
-
-      # Verify sandbox definition contains extra_attributes from sandbox class
-      extra_attributes_sandbox = sandbox_def[:authorization_request_class].constantize.extra_attributes
-      extra_attributes_sandbox.each do |attr|
-        expect(sandbox_def_response['data_attributes']).to include(attr.to_s)
-      end
-
-      # Verify production definition contains extra_attributes from production class
-      extra_attributes_production = production_def[:authorization_request_class].constantize.extra_attributes
-      extra_attributes_production.each do |attr|
-        expect(production_def_response['data_attributes']).to include(attr.to_s)
       end
     end
 

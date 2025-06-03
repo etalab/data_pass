@@ -104,7 +104,7 @@ components:
           description: Identifiant du formulaire utilisé pour la demande. Voir le endpoint `GET /definitions/{id}/formulaires` pour la liste des formulaires disponibles d'une définition d'habilitation.
         data:
           type: object
-          description: Données remplies par le demandeur dans le formulaire. Voir le endpoint `GET /definitions/{id}` pour la liste des attributs de la définition d'habilitation.
+          description: Données remplies par le demandeur dans le formulaire.
           additionalProperties: true
         created_at:
           type: string
@@ -476,14 +476,6 @@ components:
           type: string
           example: "AuthorizationRequest::ApiImpotParticulier"
           description: Classe de demande d'autorisation associée à cette définition
-        data_attributes:
-          type: array
-          description: |
-            Liste des attributs que le demandeur peut remplir lors de la soumission d'une demande pour cette définition d'habilitation.
-            Inclut les extra_attributes de la classe d'autorisation et 'scopes' si des scopes sont disponibles.
-          items:
-            type: string
-          example: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
         scopes:
           type: array
           description: Liste des scopes disponibles pour cette définition d'habilitation avec leurs métadonnées complètes
@@ -495,7 +487,6 @@ components:
         - name_with_stage
         - multi_stage?
         - authorization_request_class
-        - data
         - scopes
 
     AuthorizationRequestForm:
