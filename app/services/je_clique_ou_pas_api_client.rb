@@ -6,13 +6,12 @@ class JeCliqueOuPasAPIClient
     parsed_response = JSON.parse(response.body)
 
     {
-      uuid: parsed_response['uuid'],
       error: parsed_response['error']
     }
   end
 
-  def result(uuid)
-    response = request_results(uuid:)
+  def result(id_or_sha256)
+    response = request_results(id_or_sha256:)
     parsed_response = JSON.parse(response.body)
 
     {
@@ -34,8 +33,8 @@ class JeCliqueOuPasAPIClient
     end
   end
 
-  def request_results(uuid:)
-    faraday_client.get(results_url(uuid), nil, headers)
+  def request_results(id_or_sha256:)
+    faraday_client.get(results_url(id_or_sha256), nil, headers)
   end
 
   def with_temp_file
@@ -88,8 +87,8 @@ class JeCliqueOuPasAPIClient
     "#{host}/submit"
   end
 
-  def results_url(uuid)
-    "#{host}/results/#{uuid}"
+  def results_url(id_or_sha256)
+    "#{host}/results/#{id_or_sha256}"
   end
 
   def host

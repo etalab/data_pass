@@ -292,7 +292,7 @@ end
 Quand('cette habilitation a une pièce jointe {string}') do |safety_state|
   attachment = AuthorizationRequest.last.maquette_projet.attach(Rails.root.join('spec/fixtures/dummy.pdf')).attachment
 
-  MalwareScan.create!(uuid: SecureRandom.uuid, attachment:, safety_state:)
+  MalwareScan.create!(sha256: SecureRandom.hex(32), attachment:, safety_state:)
 end
 
 Alors('un scan antivirus est lancé') do
