@@ -1,3 +1,8 @@
+def mock_identity_federators(user)
+  mock_proconnect(user)
+  mock_mon_compte_pro(user)
+end
+
 def mock_mon_compte_pro(user)
   OmniAuth.config.mock_auth[:mon_compte_pro] = OmniAuth::AuthHash.new({
     provider: :mon_compte_pro,
@@ -11,11 +16,28 @@ def mock_mon_compte_pro(user)
   })
 end
 
+def mock_proconnect(user)
+  proconnect_omniauth_payload = build(
+    :proconnect_omniauth_payload,
+    extra: {
+      'raw_info' => attributes_for(:proconnect_raw_info_payload, email: user.email, sub: user.external_id, siret: user.current_organization.siret)
+    }
+  )
+
+  OmniAuth.config.mock_auth[:proconnect] = OmniAuth::AuthHash.new(
+    {
+      provider: :proconnect,
+    }.merge(proconnect_omniauth_payload)
+  )
+
+  stub_request(:get, "#{Rails.application.credentials.proconnect_url}/.well-known/openid-configuration")
+end
+
 Sachantque('je suis un demandeur') do
   @current_user_email = 'demandeur@gouv.fr'
   user = User.find_by(email: @current_user_email) || FactoryBot.create(:user, email: @current_user_email)
 
-  mock_mon_compte_pro(user)
+  mock_identity_federators(user)
 end
 
 Sachantque('je suis un demandeur d\'une organisation fermée') do
@@ -28,7 +50,7 @@ Sachantque('je suis un demandeur d\'une organisation fermée') do
   user.current_organization = closed_organization
   user.save!
 
-  mock_mon_compte_pro(user)
+  mock_identity_federators(user)
 end
 
 Sachantque("je suis un demandeur pour l'organisation {string}") do |organization_name|
@@ -40,7 +62,7 @@ Sachantque("je suis un demandeur pour l'organisation {string}") do |organization
 
   user.save!
 
-  mock_mon_compte_pro(user)
+  mock_identity_federators(user)
 end
 
 Sachantque('je consulte le site ayant le sous-domaine {string}') do |subdomain|
@@ -53,7 +75,7 @@ Sachantque('je suis un instructeur {string}') do |kind|
 
   if @current_user_email.blank?
     @current_user_email = user.email
-    mock_mon_compte_pro(user)
+    mock_identity_federators(user)
   end
 
   if @current_user_email != user.email
@@ -68,7 +90,7 @@ Sachantque('je suis un rapporteur {string}') do |kind|
 
   if @current_user_email.blank?
     @current_user_email = user.email
-    mock_mon_compte_pro(user)
+    mock_identity_federators(user)
   end
 
   if @current_user_email != user.email
@@ -83,7 +105,7 @@ Sachantque('je suis un développeur {string}') do |kind|
 
   if @current_user_email.blank?
     @current_user_email = user.email
-    mock_mon_compte_pro(user)
+    mock_identity_federators(user)
   end
 
   current_user.roles << "#{find_factory_trait_from_name(kind)}:reporter" if @current_user_email != user.email
@@ -104,7 +126,7 @@ Sachantque('je suis un administrateur') do
 
   if @current_user_email.blank?
     @current_user_email = user.email
-    mock_mon_compte_pro(user)
+    mock_identity_federators(user)
   end
 
   if @current_user_email != user.email
@@ -117,6 +139,13 @@ end
 Sachantque('je me connecte') do
   steps %(
     Quand je me rends sur la page d'accueil
+    Et que je clique sur "S’identifier avec ProConnect"
+  )
+end
+
+Sachantque('je me connecte via ProConnect') do
+  steps %(
+    Quand je me rends sur le chemin "proconnect-connexion"
     Et que je clique sur "S’identifier avec ProConnect"
   )
 end
