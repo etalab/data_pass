@@ -48,7 +48,7 @@ RSpec.describe 'API: Authorization definitions' do
           'name',
           'multi_stage?',
           'authorization_request_class',
-          'data',
+          'data_attributes',
           'scopes'
         )
       end
@@ -85,19 +85,19 @@ RSpec.describe 'API: Authorization definitions' do
         expect(definition['multi_stage?']).to be(false)
       end
 
-      it 'returns correct data attribute with extra_attributes and scopes' do
+      it 'returns correct attributes with extra_attributes and scopes' do
         get_index
 
         definition = response.parsed_body[0]
-        expect(definition['data']).to be_a(Array)
+        expect(definition['data_attributes']).to be_a(Array)
         expect(definition['scopes']).to be_a(Array)
 
         extra_attributes = AuthorizationRequest::APIEntreprise.extra_attributes
         extra_attributes.each do |attr|
-          expect(definition['data']).to include(attr.to_s)
+          expect(definition['data_attributes']).to include(attr.to_s)
         end
 
-        expect(definition['data']).to include('scopes')
+        expect(definition['data_attributes']).to include('scopes')
       end
 
       it 'returns scopes as array of scope objects' do
@@ -132,19 +132,19 @@ RSpec.describe 'API: Authorization definitions' do
         expect(definition['authorization_request_class']).to eq('AuthorizationRequest::APIParticulier')
       end
 
-      it 'returns correct data attribute with extra_attributes and scopes' do
+      it 'returns correct attributes with extra_attributes and scopes' do
         get_index
 
         definition = response.parsed_body[0]
-        expect(definition['data']).to be_a(Array)
+        expect(definition['data_attributes']).to be_a(Array)
         expect(definition['scopes']).to be_a(Array)
 
         extra_attributes = AuthorizationRequest::APIParticulier.extra_attributes
         extra_attributes.each do |attr|
-          expect(definition['data']).to include(attr.to_s)
+          expect(definition['data_attributes']).to include(attr.to_s)
         end
 
-        expect(definition['data']).to include('scopes')
+        expect(definition['data_attributes']).to include('scopes')
       end
 
       it 'returns scopes as array of scope objects for API Particulier' do
@@ -209,7 +209,7 @@ RSpec.describe 'API: Authorization definitions' do
         expect(production_def['authorization_request_class']).to eq('AuthorizationRequest::APIImpotParticulier')
       end
 
-      it 'returns correct data attribute for both sandbox and production definitions' do
+      it 'returns correct attributes for both sandbox and production definitions' do
         get_index
 
         definitions = response.parsed_body
@@ -217,20 +217,20 @@ RSpec.describe 'API: Authorization definitions' do
         production_def = definitions.find { |d| d['id'] == 'api_impot_particulier' }
 
         [sandbox_def, production_def].each do |definition|
-          expect(definition['data']).to be_a(Array)
+          expect(definition['data_attributes']).to be_a(Array)
           expect(definition['scopes']).to be_a(Array)
         end
 
         # Verify sandbox definition contains extra_attributes from sandbox class
         extra_attributes_sandbox = AuthorizationRequest::APIImpotParticulierSandbox.extra_attributes
         extra_attributes_sandbox.each do |attr|
-          expect(sandbox_def['data']).to include(attr.to_s)
+          expect(sandbox_def['data_attributes']).to include(attr.to_s)
         end
 
         # Verify production definition contains extra_attributes from production class
         extra_attributes_production = AuthorizationRequest::APIImpotParticulier.extra_attributes
         extra_attributes_production.each do |attr|
-          expect(production_def['data']).to include(attr.to_s)
+          expect(production_def['data_attributes']).to include(attr.to_s)
         end
       end
 
@@ -349,7 +349,7 @@ RSpec.describe 'API: Authorization definitions' do
             'name',
             'multi_stage?',
             'authorization_request_class',
-            'data',
+            'data_attributes',
             'scopes'
           )
         end
@@ -375,19 +375,19 @@ RSpec.describe 'API: Authorization definitions' do
           expect(definition['multi_stage?']).to be(false)
         end
 
-        it 'returns correct data attribute with extra_attributes and scopes' do
+        it 'returns correct attributes with extra_attributes and scopes' do
           get_show
 
           definition = response.parsed_body
-          expect(definition['data']).to be_a(Array)
+          expect(definition['data_attributes']).to be_a(Array)
           expect(definition['scopes']).to be_a(Array)
 
           extra_attributes = AuthorizationRequest::APIEntreprise.extra_attributes
           extra_attributes.each do |attr|
-            expect(definition['data']).to include(attr.to_s)
+            expect(definition['data_attributes']).to include(attr.to_s)
           end
 
-          expect(definition['data']).to include('scopes')
+          expect(definition['data_attributes']).to include('scopes')
         end
 
         it 'returns scopes as array of scope objects' do
@@ -459,19 +459,19 @@ RSpec.describe 'API: Authorization definitions' do
           expect(definition['authorization_request_class']).to eq('AuthorizationRequest::APIImpotParticulierSandbox')
         end
 
-        it 'returns correct data attribute for sandbox definition' do
+        it 'returns correct attributes for sandbox definition' do
           get_show
 
           definition = response.parsed_body
-          expect(definition['data']).to be_a(Array)
+          expect(definition['data_attributes']).to be_a(Array)
           expect(definition['scopes']).to be_a(Array)
 
           extra_attributes = AuthorizationRequest::APIImpotParticulierSandbox.extra_attributes
           extra_attributes.each do |attr|
-            expect(definition['data']).to include(attr.to_s)
+            expect(definition['data_attributes']).to include(attr.to_s)
           end
 
-          expect(definition['data']).to include('scopes')
+          expect(definition['data_attributes']).to include('scopes')
         end
       end
 
@@ -507,19 +507,19 @@ RSpec.describe 'API: Authorization definitions' do
           expect(definition['authorization_request_class']).to eq('AuthorizationRequest::APIImpotParticulier')
         end
 
-        it 'returns correct data attribute for production definition' do
+        it 'returns correct attributes for production definition' do
           get_show
 
           definition = response.parsed_body
-          expect(definition['data']).to be_a(Array)
+          expect(definition['data_attributes']).to be_a(Array)
           expect(definition['scopes']).to be_a(Array)
 
           extra_attributes = AuthorizationRequest::APIImpotParticulier.extra_attributes
           extra_attributes.each do |attr|
-            expect(definition['data']).to include(attr.to_s)
+            expect(definition['data_attributes']).to include(attr.to_s)
           end
 
-          expect(definition['data']).to include('scopes')
+          expect(definition['data_attributes']).to include('scopes')
         end
       end
     end

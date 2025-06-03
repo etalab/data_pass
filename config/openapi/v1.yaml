@@ -476,7 +476,7 @@ components:
           type: string
           example: "AuthorizationRequest::ApiImpotParticulier"
           description: Classe de demande d'autorisation associée à cette définition
-        data:
+        data_attributes:
           type: array
           description: |
             Liste des attributs que le demandeur peut remplir lors de la soumission d'une demande pour cette définition d'habilitation.
