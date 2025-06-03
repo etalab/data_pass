@@ -3,6 +3,190 @@ RSpec.describe 'API: Authorization definitions' do
   let(:application) { create(:oauth_application, owner: user) }
   let(:access_token) { create(:access_token, application:) }
 
+  shared_examples 'validates definition attributes' do |expected_definition|
+    it 'includes all expected attributes in the response' do
+      subject
+
+      definition = if response.parsed_body.is_a?(Array)
+                     response.parsed_body.find { |d| d['id'] == expected_definition[:id] }
+                   else
+                     response.parsed_body
+                   end
+
+      expect(definition).to include(
+        'id',
+        'name',
+        'multi_stage?',
+        'authorization_request_class',
+        'data_attributes',
+        'scopes'
+      )
+    end
+
+    it 'returns correct authorization_request_class' do
+      subject
+
+      definition = if response.parsed_body.is_a?(Array)
+                     response.parsed_body.find { |d| d['id'] == expected_definition[:id] }
+                   else
+                     response.parsed_body
+                   end
+
+      expect(definition['authorization_request_class']).to eq(expected_definition[:authorization_request_class])
+    end
+
+    it 'returns correct name' do
+      subject
+
+      definition = if response.parsed_body.is_a?(Array)
+                     response.parsed_body.find { |d| d['id'] == expected_definition[:id] }
+                   else
+                     response.parsed_body
+                   end
+
+      expect(definition['name']).to eq(expected_definition[:name])
+    end
+
+    it 'returns correct multi_stage value' do
+      subject
+
+      definition = if response.parsed_body.is_a?(Array)
+                     response.parsed_body.find { |d| d['id'] == expected_definition[:id] }
+                   else
+                     response.parsed_body
+                   end
+
+      expect(definition['multi_stage?']).to be(expected_definition[:multi_stage])
+    end
+
+    it 'returns correct attributes with extra_attributes and scopes' do
+      subject
+
+      definition = if response.parsed_body.is_a?(Array)
+                     response.parsed_body.find { |d| d['id'] == expected_definition[:id] }
+                   else
+                     response.parsed_body
+                   end
+
+      expect(definition['data_attributes']).to be_a(Array)
+      expect(definition['scopes']).to be_a(Array)
+
+      extra_attributes_class = expected_definition[:authorization_request_class].constantize
+      extra_attributes = extra_attributes_class.extra_attributes
+      extra_attributes.each do |attr|
+        expect(definition['data_attributes']).to include(attr.to_s)
+      end
+
+      expect(definition['data_attributes']).to include('scopes')
+    end
+
+    it 'returns scopes as array of scope objects' do
+      subject
+
+      definition = if response.parsed_body.is_a?(Array)
+                     response.parsed_body.find { |d| d['id'] == expected_definition[:id] }
+                   else
+                     response.parsed_body
+                   end
+
+      scopes = definition['scopes']
+      expect(scopes).to be_a(Array)
+
+      scope_values = scopes.map { |scope| scope['value'] }
+      expected_definition[:expected_scope_values].each do |expected_scope|
+        expect(scope_values).to include(expected_scope)
+      end
+    end
+  end
+
+  shared_examples 'validates multi-stage definitions' do |sandbox_def, production_def|
+    it 'responds OK with both sandbox and production definitions' do
+      subject
+
+      expect(response).to have_http_status(:ok)
+      expect(response.parsed_body.count).to eq(2)
+
+      definition_ids = response.parsed_body.map { |d| d['id'] }
+      expect(definition_ids).to contain_exactly(sandbox_def[:id], production_def[:id])
+    end
+
+    it 'returns correct names for both definitions' do
+      subject
+
+      sandbox_definition = response.parsed_body.find { |d| d['id'] == sandbox_def[:id] }
+      production_definition = response.parsed_body.find { |d| d['id'] == production_def[:id] }
+
+      expect(sandbox_definition['name']).to eq(sandbox_def[:name])
+      expect(production_definition['name']).to eq(production_def[:name])
+    end
+
+    it 'returns correct multi_stage values for both definitions' do
+      subject
+
+      definitions = response.parsed_body
+      sandbox_def_response = definitions.find { |d| d['id'] == sandbox_def[:id] }
+      production_def_response = definitions.find { |d| d['id'] == production_def[:id] }
+
+      expect(sandbox_def_response['multi_stage?']).to be(sandbox_def[:multi_stage])
+      expect(production_def_response['multi_stage?']).to be(production_def[:multi_stage])
+    end
+
+    it 'returns correct authorization_request_classes for each definition' do
+      subject
+
+      definitions = response.parsed_body
+      sandbox_def_response = definitions.find { |d| d['id'] == sandbox_def[:id] }
+      production_def_response = definitions.find { |d| d['id'] == production_def[:id] }
+
+      expect(sandbox_def_response['authorization_request_class']).to eq(sandbox_def[:authorization_request_class])
+      expect(production_def_response['authorization_request_class']).to eq(production_def[:authorization_request_class])
+    end
+
+    it 'returns correct attributes for both sandbox and production definitions' do
+      subject
+
+      definitions = response.parsed_body
+      sandbox_def_response = definitions.find { |d| d['id'] == sandbox_def[:id] }
+      production_def_response = definitions.find { |d| d['id'] == production_def[:id] }
+
+      [sandbox_def_response, production_def_response].each do |definition|
+        expect(definition['data_attributes']).to be_a(Array)
+        expect(definition['scopes']).to be_a(Array)
+      end
+
+      # Verify sandbox definition contains extra_attributes from sandbox class
+      extra_attributes_sandbox = sandbox_def[:authorization_request_class].constantize.extra_attributes
+      extra_attributes_sandbox.each do |attr|
+        expect(sandbox_def_response['data_attributes']).to include(attr.to_s)
+      end
+
+      # Verify production definition contains extra_attributes from production class
+      extra_attributes_production = production_def[:authorization_request_class].constantize.extra_attributes
+      extra_attributes_production.each do |attr|
+        expect(production_def_response['data_attributes']).to include(attr.to_s)
+      end
+    end
+
+    it 'returns correct scopes for both sandbox and production definitions' do
+      subject
+
+      definitions = response.parsed_body
+      sandbox_def_response = definitions.find { |d| d['id'] == sandbox_def[:id] }
+      production_def_response = definitions.find { |d| d['id'] == production_def[:id] }
+
+      sandbox_scope_values = sandbox_def_response['scopes'].map { |scope| scope['value'] }
+      production_scope_values = production_def_response['scopes'].map { |scope| scope['value'] }
+
+      sandbox_def[:expected_scope_values].each do |expected_scope|
+        expect(sandbox_scope_values).to include(expected_scope)
+      end
+
+      production_def[:expected_scope_values].each do |expected_scope|
+        expect(production_scope_values).to include(expected_scope)
+      end
+    end
+  end
+
   describe 'GET /api/v1/definitions' do
     subject(:get_index) do
       get '/api/v1/definitions', headers: { 'Authorization' => "Bearer #{access_token.token}" }
@@ -39,33 +223,13 @@ RSpec.describe 'API: Authorization definitions' do
         expect(response.parsed_body[0]['name']).to eq('API Entreprise')
       end
 
-      it 'includes all expected attributes in the response' do
-        get_index
-
-        definition = response.parsed_body[0]
-        expect(definition).to include(
-          'id',
-          'name',
-          'multi_stage?',
-          'authorization_request_class',
-          'data_attributes',
-          'scopes'
-        )
-      end
-
-      it 'returns correct authorization_request_class' do
-        get_index
-
-        definition = response.parsed_body[0]
-        expect(definition['authorization_request_class']).to eq('AuthorizationRequest::APIEntreprise')
-      end
-
-      it 'returns correct name' do
-        get_index
-
-        definition = response.parsed_body[0]
-        expect(definition['name']).to eq('API Entreprise')
-      end
+      it_behaves_like 'validates definition attributes', {
+        id: 'api_entreprise',
+        name: 'API Entreprise',
+        multi_stage: false,
+        authorization_request_class: 'AuthorizationRequest::APIEntreprise',
+        expected_scope_values: %w[unites_legales_etablissements_insee open_data_unites_legales_etablissements_insee open_data_extrait_rcs_infogreffe]
+      }
 
       context 'when definition is multi-stage' do
         let(:user) { create(:user, :developer, authorization_request_types: %w[api_impot_particulier_sandbox]) }
@@ -76,40 +240,6 @@ RSpec.describe 'API: Authorization definitions' do
           definition = response.parsed_body[0]
           expect(definition['name']).to eq('API Impôt Particulier (Bac à sable)')
         end
-      end
-
-      it 'returns correct multi_stage value' do
-        get_index
-
-        definition = response.parsed_body[0]
-        expect(definition['multi_stage?']).to be(false)
-      end
-
-      it 'returns correct attributes with extra_attributes and scopes' do
-        get_index
-
-        definition = response.parsed_body[0]
-        expect(definition['data_attributes']).to be_a(Array)
-        expect(definition['scopes']).to be_a(Array)
-
-        extra_attributes = AuthorizationRequest::APIEntreprise.extra_attributes
-        extra_attributes.each do |attr|
-          expect(definition['data_attributes']).to include(attr.to_s)
-        end
-
-        expect(definition['data_attributes']).to include('scopes')
-      end
-
-      it 'returns scopes as array of scope objects' do
-        get_index
-
-        definition = response.parsed_body[0]
-        scopes = definition['scopes']
-        expect(scopes).to be_a(Array)
-
-        # Verify scopes contain expected API Entreprise scope values
-        scope_values = scopes.map { |scope| scope['value'] }
-        expect(scope_values).to include('unites_legales_etablissements_insee', 'open_data_unites_legales_etablissements_insee', 'open_data_extrait_rcs_infogreffe')
       end
     end
 
@@ -125,131 +255,33 @@ RSpec.describe 'API: Authorization definitions' do
         expect(response.parsed_body[0]['name']).to eq('API Particulier')
       end
 
-      it 'returns correct authorization_request_class' do
-        get_index
-
-        definition = response.parsed_body[0]
-        expect(definition['authorization_request_class']).to eq('AuthorizationRequest::APIParticulier')
-      end
-
-      it 'returns correct attributes with extra_attributes and scopes' do
-        get_index
-
-        definition = response.parsed_body[0]
-        expect(definition['data_attributes']).to be_a(Array)
-        expect(definition['scopes']).to be_a(Array)
-
-        extra_attributes = AuthorizationRequest::APIParticulier.extra_attributes
-        extra_attributes.each do |attr|
-          expect(definition['data_attributes']).to include(attr.to_s)
-        end
-
-        expect(definition['data_attributes']).to include('scopes')
-      end
-
-      it 'returns scopes as array of scope objects for API Particulier' do
-        get_index
-
-        definition = response.parsed_body[0]
-        scopes = definition['scopes']
-        expect(scopes).to be_a(Array)
-
-        # Verify scopes contain expected API Particulier scope values
-        scope_values = scopes.map { |scope| scope['value'] }
-        expect(scope_values).to include('cnaf_quotient_familial', 'cnaf_allocataires', 'pole_emploi_identifiant')
-      end
+      it_behaves_like 'validates definition attributes', {
+        id: 'api_particulier',
+        name: 'API Particulier',
+        multi_stage: false,
+        authorization_request_class: 'AuthorizationRequest::APIParticulier',
+        expected_scope_values: %w[cnaf_quotient_familial cnaf_allocataires pole_emploi_identifiant]
+      }
     end
 
     context 'when user has developer role for api_impot_particulier (multi-stage)' do
       let(:user) { create(:user, :developer, authorization_request_types: %w[api_impot_particulier api_impot_particulier_sandbox]) }
 
-      it 'responds OK with both sandbox and production definitions' do
-        get_index
-
-        expect(response).to have_http_status(:ok)
-        expect(response.parsed_body.count).to eq(2)
-
-        definition_ids = response.parsed_body.map { |d| d['id'] }
-        expect(definition_ids).to contain_exactly('api_impot_particulier', 'api_impot_particulier_sandbox')
-      end
-
-      it 'returns correct name for sandbox definition' do
-        get_index
-
-        sandbox_definition = response.parsed_body.find { |d| d['id'] == 'api_impot_particulier_sandbox' }
-        expect(sandbox_definition['name']).to eq('API Impôt Particulier (Bac à sable)')
-      end
-
-      it 'returns correct name for production definition' do
-        get_index
-
-        production_definition = response.parsed_body.find { |d| d['id'] == 'api_impot_particulier' }
-        expect(production_definition['name']).to eq('API Impôt Particulier (Production)')
-      end
-
-      it 'returns correct multi_stage values for both definitions' do
-        get_index
-
-        definitions = response.parsed_body
-        sandbox_def = definitions.find { |d| d['id'] == 'api_impot_particulier_sandbox' }
-        production_def = definitions.find { |d| d['id'] == 'api_impot_particulier' }
-
-        expect(sandbox_def['multi_stage?']).to be(true)
-        expect(production_def['multi_stage?']).to be(true)
-      end
-
-      it 'returns correct authorization_request_classes for each definition' do
-        get_index
-
-        definitions = response.parsed_body
-        sandbox_def = definitions.find { |d| d['id'] == 'api_impot_particulier_sandbox' }
-        production_def = definitions.find { |d| d['id'] == 'api_impot_particulier' }
-
-        expect(sandbox_def['authorization_request_class']).to eq('AuthorizationRequest::APIImpotParticulierSandbox')
-        expect(production_def['authorization_request_class']).to eq('AuthorizationRequest::APIImpotParticulier')
-      end
-
-      it 'returns correct attributes for both sandbox and production definitions' do
-        get_index
-
-        definitions = response.parsed_body
-        sandbox_def = definitions.find { |d| d['id'] == 'api_impot_particulier_sandbox' }
-        production_def = definitions.find { |d| d['id'] == 'api_impot_particulier' }
-
-        [sandbox_def, production_def].each do |definition|
-          expect(definition['data_attributes']).to be_a(Array)
-          expect(definition['scopes']).to be_a(Array)
-        end
-
-        # Verify sandbox definition contains extra_attributes from sandbox class
-        extra_attributes_sandbox = AuthorizationRequest::APIImpotParticulierSandbox.extra_attributes
-        extra_attributes_sandbox.each do |attr|
-          expect(sandbox_def['data_attributes']).to include(attr.to_s)
-        end
-
-        # Verify production definition contains extra_attributes from production class
-        extra_attributes_production = AuthorizationRequest::APIImpotParticulier.extra_attributes
-        extra_attributes_production.each do |attr|
-          expect(production_def['data_attributes']).to include(attr.to_s)
-        end
-      end
-
-      it 'returns correct scopes for both sandbox and production definitions' do
-        get_index
-
-        definitions = response.parsed_body
-        sandbox_def = definitions.find { |d| d['id'] == 'api_impot_particulier_sandbox' }
-        production_def = definitions.find { |d| d['id'] == 'api_impot_particulier' }
-
-        # Both should have the same scopes as they reference the same scopes config
-        expected_scope_values = %w[dgfip_annee_n_moins_1 dgfip_rfr dgfip_sitfam dgfip_nbpart dgfip_pac]
-
-        sandbox_scope_values = sandbox_def['scopes'].map { |scope| scope['value'] }
-        production_scope_values = production_def['scopes'].map { |scope| scope['value'] }
-
-        expect(sandbox_scope_values).to include(*expected_scope_values)
-        expect(production_scope_values).to include(*expected_scope_values)
-      end
+      it_behaves_like 'validates multi-stage definitions',
+        {
+          id: 'api_impot_particulier_sandbox',
+          name: 'API Impôt Particulier (Bac à sable)',
+          multi_stage: true,
+          authorization_request_class: 'AuthorizationRequest::APIImpotParticulierSandbox',
+          expected_scope_values: %w[dgfip_annee_n_moins_1 dgfip_rfr dgfip_sitfam dgfip_nbpart dgfip_pac]
+        },
+        {
+          id: 'api_impot_particulier',
+          name: 'API Impôt Particulier (Production)',
+          multi_stage: true,
+          authorization_request_class: 'AuthorizationRequest::APIImpotParticulier',
+          expected_scope_values: %w[dgfip_annee_n_moins_1 dgfip_rfr dgfip_sitfam dgfip_nbpart dgfip_pac]
+        }
     end
 
     context 'when user has multiple developer roles' do
@@ -340,67 +372,13 @@ RSpec.describe 'API: Authorization definitions' do
           expect(response.parsed_body['name']).to eq('API Entreprise')
         end
 
-        it 'includes all expected attributes in the response' do
-          get_show
-
-          definition = response.parsed_body
-          expect(definition).to include(
-            'id',
-            'name',
-            'multi_stage?',
-            'authorization_request_class',
-            'data_attributes',
-            'scopes'
-          )
-        end
-
-        it 'returns correct authorization_request_class' do
-          get_show
-
-          definition = response.parsed_body
-          expect(definition['authorization_request_class']).to eq('AuthorizationRequest::APIEntreprise')
-        end
-
-        it 'returns correct name' do
-          get_show
-
-          definition = response.parsed_body
-          expect(definition['name']).to eq('API Entreprise')
-        end
-
-        it 'returns correct multi_stage value' do
-          get_show
-
-          definition = response.parsed_body
-          expect(definition['multi_stage?']).to be(false)
-        end
-
-        it 'returns correct attributes with extra_attributes and scopes' do
-          get_show
-
-          definition = response.parsed_body
-          expect(definition['data_attributes']).to be_a(Array)
-          expect(definition['scopes']).to be_a(Array)
-
-          extra_attributes = AuthorizationRequest::APIEntreprise.extra_attributes
-          extra_attributes.each do |attr|
-            expect(definition['data_attributes']).to include(attr.to_s)
-          end
-
-          expect(definition['data_attributes']).to include('scopes')
-        end
-
-        it 'returns scopes as array of scope objects' do
-          get_show
-
-          definition = response.parsed_body
-          scopes = definition['scopes']
-          expect(scopes).to be_a(Array)
-
-          # Verify scopes contain expected API Entreprise scope values
-          scope_values = scopes.map { |scope| scope['value'] }
-          expect(scope_values).to include('unites_legales_etablissements_insee', 'open_data_unites_legales_etablissements_insee', 'open_data_extrait_rcs_infogreffe')
-        end
+        it_behaves_like 'validates definition attributes', {
+          id: 'api_entreprise',
+          name: 'API Entreprise',
+          multi_stage: false,
+          authorization_request_class: 'AuthorizationRequest::APIEntreprise',
+          expected_scope_values: %w[unites_legales_etablissements_insee open_data_unites_legales_etablissements_insee open_data_extrait_rcs_infogreffe]
+        }
       end
 
       context 'when requesting a definition the user does not have access to' do
@@ -438,41 +416,13 @@ RSpec.describe 'API: Authorization definitions' do
           expect(response.parsed_body['name']).to eq('API Impôt Particulier (Bac à sable)')
         end
 
-        it 'returns correct name for sandbox' do
-          get_show
-
-          definition = response.parsed_body
-          expect(definition['name']).to eq('API Impôt Particulier (Bac à sable)')
-        end
-
-        it 'returns correct multi_stage value for sandbox' do
-          get_show
-
-          definition = response.parsed_body
-          expect(definition['multi_stage?']).to be(true)
-        end
-
-        it 'returns correct authorization_request_class for sandbox' do
-          get_show
-
-          definition = response.parsed_body
-          expect(definition['authorization_request_class']).to eq('AuthorizationRequest::APIImpotParticulierSandbox')
-        end
-
-        it 'returns correct attributes for sandbox definition' do
-          get_show
-
-          definition = response.parsed_body
-          expect(definition['data_attributes']).to be_a(Array)
-          expect(definition['scopes']).to be_a(Array)
-
-          extra_attributes = AuthorizationRequest::APIImpotParticulierSandbox.extra_attributes
-          extra_attributes.each do |attr|
-            expect(definition['data_attributes']).to include(attr.to_s)
-          end
-
-          expect(definition['data_attributes']).to include('scopes')
-        end
+        it_behaves_like 'validates definition attributes', {
+          id: 'api_impot_particulier_sandbox',
+          name: 'API Impôt Particulier (Bac à sable)',
+          multi_stage: true,
+          authorization_request_class: 'AuthorizationRequest::APIImpotParticulierSandbox',
+          expected_scope_values: %w[dgfip_annee_n_moins_1 dgfip_rfr dgfip_sitfam dgfip_nbpart dgfip_pac]
+        }
       end
 
       context 'when requesting production definition' do
@@ -486,41 +436,13 @@ RSpec.describe 'API: Authorization definitions' do
           expect(response.parsed_body['name']).to eq('API Impôt Particulier (Production)')
         end
 
-        it 'returns correct name for production' do
-          get_show
-
-          definition = response.parsed_body
-          expect(definition['name']).to eq('API Impôt Particulier (Production)')
-        end
-
-        it 'returns correct multi_stage value for production' do
-          get_show
-
-          definition = response.parsed_body
-          expect(definition['multi_stage?']).to be(true)
-        end
-
-        it 'returns correct authorization_request_class for production' do
-          get_show
-
-          definition = response.parsed_body
-          expect(definition['authorization_request_class']).to eq('AuthorizationRequest::APIImpotParticulier')
-        end
-
-        it 'returns correct attributes for production definition' do
-          get_show
-
-          definition = response.parsed_body
-          expect(definition['data_attributes']).to be_a(Array)
-          expect(definition['scopes']).to be_a(Array)
-
-          extra_attributes = AuthorizationRequest::APIImpotParticulier.extra_attributes
-          extra_attributes.each do |attr|
-            expect(definition['data_attributes']).to include(attr.to_s)
-          end
-
-          expect(definition['data_attributes']).to include('scopes')
-        end
+        it_behaves_like 'validates definition attributes', {
+          id: 'api_impot_particulier',
+          name: 'API Impôt Particulier (Production)',
+          multi_stage: true,
+          authorization_request_class: 'AuthorizationRequest::APIImpotParticulier',
+          expected_scope_values: %w[dgfip_annee_n_moins_1 dgfip_rfr dgfip_sitfam dgfip_nbpart dgfip_pac]
+        }
       end
     end
 
