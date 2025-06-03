@@ -27,7 +27,7 @@ class SessionsController < ApplicationController
   def authenticate_user
     sign_out if user_signed_in?
 
-    organizer = AuthenticateUser.call(mon_compte_pro_omniauth_payload: request.env['omniauth.auth'])
+    organizer = AuthenticateUserThroughMonComptePro.call(mon_compte_pro_omniauth_payload: request.env['omniauth.auth'])
 
     sign_in(organizer.user)
   end
@@ -39,7 +39,7 @@ class SessionsController < ApplicationController
   end
 
   def change_current_organization
-    ChangeCurrentOrganization.call(
+    ChangeCurrentOrganizationThroughMonComptePro.call(
       user: current_user,
       mon_compte_pro_omniauth_payload: request.env['omniauth.auth'],
     )
@@ -53,7 +53,7 @@ class SessionsController < ApplicationController
   end
 
   def update_user
-    FindOrCreateUser.call(
+    FindOrCreateUserThroughMonComptePro.call(
       mon_compte_pro_omniauth_payload: request.env['omniauth.auth'],
     )
 
