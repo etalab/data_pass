@@ -1,4 +1,4 @@
-class FindOrCreateUser < ApplicationInteractor
+class FindOrCreateUserThroughMonComptePro < ApplicationInteractor
   include MonCompteProPayloads
 
   def call
