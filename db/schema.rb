@@ -349,8 +349,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_05_114241) do
 
   create_table "organizations", force: :cascade do |t|
     t.string "siret"
-    t.jsonb "mon_compte_pro_payload", default: {}, null: false
-    t.datetime "last_mon_compte_pro_updated_at", null: false
+    t.jsonb "mon_compte_pro_payload", default: {}
+    t.datetime "last_mon_compte_pro_updated_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.jsonb "insee_payload"
@@ -358,6 +358,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_05_114241) do
     t.string "legal_entity_id", null: false
     t.string "legal_entity_registry", default: "insee_sirene", null: false
     t.jsonb "extra_legal_entity_infos"
+    t.jsonb "proconnect_payload", default: {}
+    t.datetime "last_proconnect_updated_at"
     t.index "((((insee_payload -> 'etablissement'::text) -> 'uniteLegale'::text) ->> 'denominationUniteLegale'::text))", name: "index_organizations_on_denomination_unite_legale"
     t.index ["legal_entity_id", "legal_entity_registry"], name: "idx_on_legal_entity_id_legal_entity_registry_7d149bf422", unique: true
   end
