@@ -169,7 +169,9 @@ Quand(/(j'ai|il y a|mon organisation a) (\d+) demandes? d'habilitation "([^"]+)"
               when 'j\'ai'
                 current_user
               when 'mon organisation a'
-                create(:user, current_organization: current_user.current_organization)
+                user = create(:user)
+                user.add_to_organization(current_user.current_organization, current: true)
+                user
               end
 
   create_authorization_requests_with_status(type, status, count, stage, form, applicant:)
@@ -468,7 +470,7 @@ end
 Sachant('{string} appartient à mon organisation') do |email|
   current_user = User.find_by(email: @current_user_email)
 
-  user = User.find_or_initialize_by(email:)
+  user = User.find_or_create_by(email:)
   add_current_organization_to_user(user, current_user.current_organization)
 
   user.save!
@@ -477,10 +479,8 @@ end
 Sachant('{string} appartient à une autre organisation') do |email|
   another_organization = FactoryBot.create(:organization)
 
-  user = User.find_or_initialize_by(email:)
+  user = User.find_or_create_by(email:)
   add_current_organization_to_user(user, another_organization)
-
-  user.save!
 end
 
 Quand(%r{cette demande a déjà été validée le (\d{1,2}/\d{2}/\d{4})}) do |date_string|

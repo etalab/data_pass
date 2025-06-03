@@ -365,7 +365,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_05_114241) do
   create_table "organizations_users", id: false, force: :cascade do |t|
     t.bigint "organization_id"
     t.bigint "user_id"
+    t.string "identity_provider_uid", default: "71144ab3-ee1a-4401-b7b3-79b44f7daeeb", null: false
+    t.datetime "created_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.datetime "updated_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.boolean "current", default: false, null: false
+    t.index ["organization_id", "user_id"], name: "index_organizations_users_on_organization_id_and_user_id", unique: true
     t.index ["organization_id"], name: "index_organizations_users_on_organization_id"
+    t.index ["user_id", "current"], name: "index_organizations_users_on_user_id_and_current", where: "(current = true)"
     t.index ["user_id"], name: "index_organizations_users_on_user_id"
   end
 
