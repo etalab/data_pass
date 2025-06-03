@@ -1,5 +1,11 @@
 class User < ApplicationRecord
+  self.ignored_columns += %w[current_organization_id]
+
   include NotificationsSettings
+
+  IDENTITY_PROVIDERS = {
+    '71144ab3-ee1a-4401-b7b3-79b44f7daeeb' => 'mon_compte_pro',
+  }.freeze
 
   ROLES = %w[reporter instructor developer].freeze
 
@@ -8,9 +14,20 @@ class User < ApplicationRecord
 
   validates :external_id, uniqueness: true, allow_nil: true
 
-  belongs_to :current_organization, class_name: 'Organization'
+  has_many :organizations_users,
+    dependent: :destroy
 
-  has_and_belongs_to_many :organizations
+  has_many :organizations, through: :organizations_users
+
+  has_one :current_organization_user,
+    -> { current },
+    class_name: 'OrganizationsUser',
+    dependent: :nullify,
+    inverse_of: :user
+
+  has_one :current_organization,
+    through: :current_organization_user,
+    source: :organization
 
   has_many :authorization_requests_as_applicant,
     dependent: :restrict_with_exception,
@@ -171,5 +188,19 @@ class User < ApplicationRecord
         ''
       )
     SQL
+  end
+
+  def current_organization=(organization)
+    return if organization.nil?
+
+    organization_user = organizations_users.find_or_initialize_by(organization:)
+    organization_user.set_as_current! if organization_user.persisted?
+  end
+
+  def add_to_organization(organization, current: false, identity_provider_uid: nil)
+    org_user = organizations_users.find_or_create_by(organization:)
+    org_user.update!(identity_provider_uid:) if identity_provider_uid
+    org_user.set_as_current! if current
+    org_user
   end
 end
