@@ -2,7 +2,7 @@ module AuthorizationExtensions::SafetyCertification
   extend ActiveSupport::Concern
 
   included do
-    add_document :safety_certification_document, content_type: ['application/pdf'], size: { less_than: 10.megabytes }
+    add_documents :safety_certification_document, content_type: ['application/pdf'], size: { less_than: 10.megabytes }
     add_attribute :safety_certification_authority_name
     add_attribute :safety_certification_authority_function
     add_attribute :safety_certification_begin_date

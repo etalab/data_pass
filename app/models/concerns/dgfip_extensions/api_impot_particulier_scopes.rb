@@ -16,7 +16,7 @@ module DGFIPExtensions::APIImpotParticulierScopes
   included do
     add_attributes :specific_requirements
 
-    add_document :specific_requirements_document, content_type: %w[
+    add_documents :specific_requirements_document, content_type: %w[
       application/vnd.oasis.opendocument.spreadsheet
       application/vnd.ms-excel
       application/vnd.sun.xml.calc

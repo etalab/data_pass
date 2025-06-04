@@ -3,12 +3,12 @@ class AuthorizationRequest::APICaptchEtat < AuthorizationRequest
   include AuthorizationExtensions::GDPRContacts
 
   add_attribute :cadre_juridique_nature
-  add_document :cadre_juridique_document, content_type: ['application/pdf'], size: { less_than: 10.megabytes }
+  add_documents :cadre_juridique_document, content_type: ['application/pdf'], size: { less_than: 10.megabytes }
   add_attribute :cadre_juridique_url
 
   validates :cadre_juridique_url, format: { with: %r{\A((http|https)://)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(/[\w\-._~:\/?#\[\]@!$&'()*+,;%=]*)?\z}, message: I18n.t('activemodel.errors.messages.url_format') }, allow_blank: true, if: -> { need_complete_validation?(:legal) }
 
-  add_document :maquette_projet, content_type: ['application/pdf'], size: { less_than: 10.megabytes }
+  add_documents :maquette_projet, content_type: ['application/pdf'], size: { less_than: 10.megabytes }
 
   add_attributes :date_prevue_mise_en_production,
     :volumetrie_approximative

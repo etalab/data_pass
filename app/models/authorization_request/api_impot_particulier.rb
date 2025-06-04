@@ -19,7 +19,7 @@ class AuthorizationRequest::APIImpotParticulier < AuthorizationRequest
     '1000 appels / minute': 1000,
   }.freeze
 
-  add_document :maquette_projet, content_type: ['application/pdf'], size: { less_than: 10.megabytes }
+  add_documents :maquette_projet, content_type: ['application/pdf'], size: { less_than: 10.megabytes }
 
   add_attributes :date_prevue_mise_en_production
 

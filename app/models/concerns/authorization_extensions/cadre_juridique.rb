@@ -2,7 +2,7 @@ module AuthorizationExtensions::CadreJuridique
   extend ActiveSupport::Concern
 
   included do
-    add_multiple_documents :cadre_juridique_document, content_type: ['application/pdf'], size: { less_than: 10.megabytes }, if: -> { need_complete_validation?(:legal) }
+    add_documents :cadre_juridique_document, content_type: ['application/pdf'], size: { less_than: 10.megabytes }, if: -> { need_complete_validation?(:legal) }
     add_attribute :cadre_juridique_url
 
     validate :cadre_juridique_document_or_cadre_juridique_url_present, if: -> { need_complete_validation?(:legal) }
