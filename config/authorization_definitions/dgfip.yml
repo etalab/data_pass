@@ -849,7 +849,6 @@ api_infinoe:
     - name: legal
     - name: contacts
     - name: operational_acceptance
-    - name: safety_certification
     - name: volumetrie
 
 api_infinoe_sandbox:
