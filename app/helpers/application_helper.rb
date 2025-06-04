@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ModuleLength
 module ApplicationHelper
   include DSFR::Stepper
   include DSFR::Accordion
@@ -27,6 +28,7 @@ module ApplicationHelper
       :span,
       t(authorization_request_status_badge_translation(authorization_request, scope)),
       class: [
+        'fr-ml-1w',
         'fr-badge',
         no_icon ? 'fr-badge--no-icon' : nil,
       ]
@@ -74,7 +76,7 @@ module ApplicationHelper
     content_tag(
       :span,
       t("authorization_request.stage.#{stage_type}"),
-      class: ['fr-badge', 'fr-badge--no-icon', stage_badge_class(stage_type), css_class],
+      class: ['fr-badge', 'fr-badge--no-icon', 'fr-mb-1w', stage_badge_class(stage_type), css_class],
     )
   end
 
@@ -119,3 +121,4 @@ module ApplicationHelper
     authorization_request.definition.id == 'france_connect' && authorization_request.france_connected_authorizations.exists?
   end
 end
+# rubocop:enable Metrics/ModuleLength
