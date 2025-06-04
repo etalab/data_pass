@@ -65,7 +65,6 @@ api-entreprise-aides-publiques:
   scopes_config:
     disabled:
       - beneficiaires_effectifs_inpi
-      - liasses_fiscales_dgfip
       - bilans_bdf
   data:
     scopes:
