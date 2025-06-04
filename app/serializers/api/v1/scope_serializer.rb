@@ -1,4 +1,6 @@
 class API::V1::ScopeSerializer < ActiveModel::Serializer
+  delegate :deprecated_date, to: :object
+
   attributes :name,
     :value,
     :group,
@@ -19,6 +21,4 @@ class API::V1::ScopeSerializer < ActiveModel::Serializer
   def deprecated
     object.deprecated?
   end
-
-  delegate :deprecated_date, to: :object
 end

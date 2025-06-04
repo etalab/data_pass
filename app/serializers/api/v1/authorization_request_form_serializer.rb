@@ -1,4 +1,6 @@
 class API::V1::AuthorizationRequestFormSerializer < ActiveModel::Serializer
+  delegate :multiple_steps?, to: :object
+
   attributes :uid,
     :name,
     :description,
@@ -10,8 +12,6 @@ class API::V1::AuthorizationRequestFormSerializer < ActiveModel::Serializer
   def authorization_request_class
     object.authorization_request_class.to_s
   end
-
-  delegate :multiple_steps?, to: :object
 
   def definition_id
     AuthorizationDefinition.find_by(authorization_request_class: object.authorization_request_class).id
