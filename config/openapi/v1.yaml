@@ -1022,7 +1022,7 @@ paths:
         L'utilisateur doit avoir un rôle développeur pour le type d'habilitation correspondant.
         Si l'utilisateur n'a pas accès à cette définition, une erreur 404 est retournée.
         
-        Les formulaires permettent de créer des demandes d'habilitation avec différentes configurations, nottamment pour préremplir des données afin de simplifier l'accès à différents cas d'usage bien identifiés.
+        Les formulaires permettent de créer des demandes d'habilitation avec différentes configurations, notamment pour préremplir des données afin de simplifier l'accès à différents cas d'usage bien identifiés.
       operationId: getAuthorizationDefinitionForms
       security:
         - BearerAuth: []
