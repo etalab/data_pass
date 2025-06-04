@@ -9,7 +9,10 @@ class RattachementsAFaire
     read_csv
     identify_rattachements_to_make
 
+    @bad_groups = remove_groups_already_attached
+
     p @groups.values.map(&:count).group_by(&:itself).map { |k, v| [k, v.count] }
+    p @bad_groups.values.map(&:count).group_by(&:itself).map { |k, v| [k, v.count] }
   end
 
   def read_csv
@@ -46,6 +49,12 @@ class RattachementsAFaire
     group.find do |row|
       group.none? { |r| r["N° DataPass copié"] == row["N° DataPass v1"]}
     end
+  end
+
+  def remove_groups_already_attached
+    @groups.select do |id, group|
+      group.map { |r| r["N° Demande v2"] }.uniq.count > 1
+    end.to_h
   end
 end
 
