@@ -6,7 +6,7 @@ class AuthorizationRequest::APISFiPSandbox < AuthorizationRequest
   include DGFIPExtensions::APIImpotParticulierScopes
   include DGFIPExtensions::ExtraContactsInfos
 
-  add_document :maquette_projet, content_type: ['application/pdf'], size: { less_than: 10.megabytes }
+  add_documents :maquette_projet, content_type: ['application/pdf'], size: { less_than: 10.megabytes }
 
   add_attributes :date_prevue_mise_en_production
 
