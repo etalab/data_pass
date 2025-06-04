@@ -385,6 +385,7 @@ components:
           format: date-time
           description: Date de dépréciation de la donnée. Présent si `deprecated` est `true`.
           nullable: true
+          example: "2025-05-20"
       required:
         - name
         - value
