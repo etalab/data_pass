@@ -33,7 +33,7 @@ api-entreprise-marches-publics:
     disabled:
       - beneficiaires_effectifs_inpi
       - liasses_fiscales_dgfip
-      - 
+      - bilans_bdf
   data:
     cadre_juridique_nature: "R2143-13 Code de la commande publique"
     cadre_juridique_url: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037730589"
@@ -106,13 +106,20 @@ api-entreprise-subventions-associations:
     - name: "legal"
     - name: "scopes"
     - name: "contacts"
+  scopes_config:
+    disabled:
+      - unites_legales_etablissements_insee
+      - associations_djepva
+    displayed:
+      - unites_legales_etablissements_insee
+      - associations_djepva
+      - effectifs_urssaf
+      - certifications_qualiopi_france_competences
   data:
     scopes:
       - unites_legales_etablissements_insee
       - associations_djepva
       - effectifs_urssaf
-      # - attestation_fiscale_dgfip
-      # - attestation_sociale_urssaf
       - certifications_qualiopi_france_competences
 
 api-entreprise-portail-gru-preremplissage:
