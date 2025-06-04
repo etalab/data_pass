@@ -838,7 +838,7 @@ paths:
         Récupère la liste des définitions d'habilitations auxquelles l'utilisateur a accès en tant que développeur.
         
         Les définitions d'habilitations décrivent les types d'habilitations disponibles, leurs caractéristiques, 
-        leurs étapes (sandbox/production) et les données qu'elles permettent d'accéder.
+        leurs étapes (sandbox/production) et les données auxquelles elles permettent d'accéder.
         
         L'accès aux définitions est filtré en fonction des droits développeur de l'utilisateur. 
         Seules les définitions pour lesquelles l'utilisateur a un rôle développeur sont retournées.
