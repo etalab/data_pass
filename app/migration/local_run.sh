@@ -1,9 +1,14 @@
 #!/bin/bash
 
+# ./app/migration/export_v2.sh
 bundle exec rails db:drop db:create || exit 1
 bundle exec rails db:environment:set RAILS_ENV=development
 pg_restore -h localhost -d development app/migration/dumps/datapass_production_v2.dump 2> /dev/null
 bundle exec rails db:migrate
+LOCAL=true bundle exec rails runner "u=User.find_or_initialize_by(email: 'user@yopmail.com');o = Organization.first;u.current_organization=o;u.organizations << o;u.save!;u.roles = AuthorizationDefinition.all.map { |a| [a.id,'instructor'].join(':') }; u.save!"
+
+exit
+
 LOCAL=true bundle exec rails runner "ImportDataInLocalDb.new.perform(delete_db_file: false)"
 
 if [ $# -eq 1 ]; then
