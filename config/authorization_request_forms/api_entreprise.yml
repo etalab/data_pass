@@ -65,24 +65,17 @@ api-entreprise-aides-publiques:
   scopes_config:
     disabled:
       - beneficiaires_effectifs_inpi
-      - bilans_bdf
   data:
     scopes:
       - unites_legales_etablissements_insee
       - associations_djepva
-      # - effectifs_urssaf
       - mandataires_sociaux_infogreffe
       - chiffre_affaires_dgfip
-      # - bilans_bdf
-      # - liasses_fiscales_dgfip
-      # - beneficiaires_effectifs_inpi
-      # - liens_capitalistiques_dgfip
+      - liasses_fiscales_dgfip
+      - liens_capitalistiques_dgfip
       - attestation_fiscale_dgfip
       - attestation_sociale_urssaf
       - cotisations_msa
-      # - cotisations_probtp
-      # - attestation_cotisations_conges_payes_chomage_intemperies_cibtp_cnetp
-      # - certifications_qualiopi_france_competences
 api-entreprise-subventions-associations:
   name: "Subventions des associations"
   description: "Simplifier la dépôt et l'instruction des demandes de subventions des associations."
