@@ -29,23 +29,30 @@ api-entreprise-marches-publics:
     - name: "legal"
     - name: "scopes"
     - name: "contacts"
+  scopes_config:
+    disabled:
+      - beneficiaires_effectifs_inpi
+      - liasses_fiscales_dgfip
+      - 
   data:
     cadre_juridique_nature: "R2143-13 Code de la commande publique"
     cadre_juridique_url: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037730589"
     scopes:
       - unites_legales_etablissements_insee
       - associations_djepva
-      - effectifs_urssaf
-      - mandataires_sociaux_infogreffe
+      # - effectifs_urssaf
+      # - mandataires_sociaux_infogreffe
       - chiffre_affaires_dgfip
-      - bilans_bdf
-      - liasses_fiscales_dgfip
+      # - bilans_bdf
+      # - beneficiaires_effectifs_inpi
+      # - liasses_fiscales_dgfip
+      # - liens_capitalistiques_dgfip
       - attestation_fiscale_dgfip
       - attestation_sociale_urssaf
       - cotisations_msa
-      - cotisations_probtp
-      - attestation_cotisations_conges_payes_chomage_intemperies_cibtp_cnetp
-      - certifications_qualiopi_france_competences
+      # - cotisations_probtp
+      # - attestation_cotisations_conges_payes_chomage_intemperies_cibtp_cnetp
+      # - certifications_qualiopi_france_competences
 
 api-entreprise-aides-publiques:
   name: "Aides publiques"
