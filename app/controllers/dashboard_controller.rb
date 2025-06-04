@@ -17,17 +17,17 @@ class DashboardController < AuthenticatedUserController
     when 'demandes'
       @items = policy_scope(base_relation).not_archived.order(created_at: :desc)
       @highlighted_categories = {
-        changes_requested: @items.changes_requested.without_reopening,
+        changes_requested: @items.changes_requested,
       }
-      @categories = { 
-        pending: @items.in_instructions.without_reopening,
-        draft: @items.drafts.without_reopening,
-        validated_or_refused: @items.validated_or_refused.without_reopening,
+      @categories = {
+        pending: @items.in_instructions,
+        draft: @items.drafts,
+        validated_or_refused: @items.validated_or_refused,
       }
     when 'habilitations'
       @items = current_user.authorizations_as_applicant.order(created_at: :desc)
       @highlighted_categories = {}
-      @categories = { 
+      @categories = {
         active: @items.where(state: :active),
         revoked: @items.where(state: :revoked),
       }
@@ -56,7 +56,7 @@ class DashboardController < AuthenticatedUserController
     end
 
     @authorization_requests = @authorization_requests.not_archived.order(created_at: :desc)
-    
+
     # render :show_v1, layout: 'dashboard'
   end
 

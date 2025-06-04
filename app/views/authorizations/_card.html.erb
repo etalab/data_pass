@@ -19,10 +19,7 @@
           </span>
 
           <div class="flex-wrap flew-grow flex-end__content fr-grid-row--top fr-col--xs">
-            <% if authorization.definition.stage.exists? %>
-              <%= authorization_request_stage_badge(authorization.request_as_validated) %>
-            <% end %>
-
+            <%= authorization_request_stage_badge(authorization.request_as_validated) %>
             <%= authorization_request_status_badge(authorization) %>
           </div>
         </div>
@@ -58,6 +55,10 @@
           <% end %>
         </div>
         <div class="card__actions_btn">
+          <% if policy(authorization).reopen? %>
+            <%= dsfr_main_modal_button t('.reopen_cta'), url_for(controller: 'reopen_authorizations', action: 'new', authorization_request_id: authorization.request.id, authorization_id: authorization.id), class: %w(fr-btn fr-btn--secondary fr-btn--sm) %>
+          <% end %>
+
           <%= link_to t('.show_cta'), authorization_path(authorization), class: %w(fr-btn fr-btn--sm) %>
         </div>
       </div>

@@ -54,7 +54,9 @@ module ApplicationHelper
     end
   end
 
-  def authorization_request_reopening_badge(extra_css_class: nil)
+  def authorization_request_reopening_badge(authorization_request, extra_css_class: nil)
+    return unless authorization_request.reopening?
+
     content_tag(
       :span,
       t('authorization_request.reopening'),
