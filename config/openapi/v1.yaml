@@ -44,7 +44,7 @@ tags:
   - name: Habilitations
     description: Les habilitations sont générées lors de la validation d'une demande d'habilitation par un instructeur. Elles contiennent les données de la demande au moment de la validation.
   - name: Définitions d'habilitations
-    description: Les définitions d'habilitations décrivent les types d'habilitations disponibles, leurs caractéristiques, leurs étapes (sandbox/production) et les données auquelles permettent d'accéder.
+    description: Les définitions d'habilitations décrivent les types d'habilitations disponibles, leurs caractéristiques, leurs étapes (sandbox/production) et les données auxquelles permettent d'accéder.
   - name: Événements
     description: Les événements représentent toutes les actions effectuées sur les demandes d'habilitations.
   - name: Utilisateurs
