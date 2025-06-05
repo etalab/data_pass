@@ -105,7 +105,7 @@ api-sfip-stationnement-residentiel-sandbox:
   introduction: *api_sfip_sandbox_form_introduction
   authorization_request: APISFiPSandbox
   steps: *api_sfip_sandbox_steps
-  data:
+  initialize_with:
     intitule: Dites-le nous une fois - Stationnement Résidentiel
     description: |
       Simplification des demandes de carte de stationnement résidentiel pour les usagers par l’utilisation des données fiscales fournies par la DGFiP.
@@ -134,7 +134,7 @@ api-sfip-stationnement-residentiel-editeur:
   authorization_request: APISFiP
   introduction: *api_sfip_editor_form_introduction
   steps: *api_sfip_editor_steps
-  data:
+  initialize_with:
     intitule: Dites-le nous une fois - Stationnement Résidentiel
     description: |
       Simplification des demandes de carte de stationnement résidentiel pour les usagers par l’utilisation des données fiscales fournies par la DGFiP.
@@ -154,7 +154,7 @@ api-sfip-place-creche-sandbox:
   introduction: *api_sfip_sandbox_form_introduction
   authorization_request: APISFiPSandbox
   steps: *api_sfip_sandbox_steps
-  data:
+  initialize_with:
     intitule: Dites-le nous une fois - Place en crèche
     description: |
       Simplification des demandes de place en crèche pour les usagers par l’utilisation des données fiscales fournies par la DGFiP.
@@ -183,7 +183,7 @@ api-sfip-place-creche-editeur:
   introduction: *api_sfip_editor_form_introduction
   authorization_request: APISFiP
   steps: *api_sfip_editor_steps
-  data:
+  initialize_with:
     intitule: Dites-le nous une fois - Place en crèche
     description: |
       Simplification des demandes de place en crèche pour les usagers par l’utilisation des données fiscales fournies par la DGFiP.
@@ -203,7 +203,7 @@ api-sfip-activites-periscolaires-sandbox:
   introduction: *api_sfip_sandbox_form_introduction
   authorization_request: APISFiPSandbox
   steps: *api_sfip_sandbox_steps
-  data:
+  initialize_with:
     intitule: Dites-le-nous une fois – Activités périscolaires et assimilés
     description: |
       Simplification de la souscription aux activités périscolaires pour les usagers par l’utilisation des données fiscales fournies par la DGFiP afin de déterminer les tarifs applicables.
@@ -232,7 +232,7 @@ api-sfip-activites-periscolaires-editeur:
   introduction: *api_sfip_editor_form_introduction
   authorization_request: APISFiP
   steps: *api_sfip_editor_steps
-  data:
+  initialize_with:
     intitule: Dites-le-nous une fois – Activités périscolaires et assimilés
     description: |
       Simplification de la souscription aux activités périscolaires pour les usagers par l’utilisation des données fiscales fournies par la DGFiP afin de déterminer les tarifs applicables.
@@ -252,7 +252,7 @@ api-sfip-cantine-scolaire-sandbox:
   introduction: *api_sfip_sandbox_form_introduction
   authorization_request: APISFiPSandbox
   steps: *api_sfip_sandbox_steps
-  data:
+  initialize_with:
     intitule: Dites-le-nous une fois – Cantine scolaire
     description: |
       Simplification de la souscription à la cantine scolaire pour les usagers par l’utilisation des données fiscales fournies par la DGFiP afin de déterminer les tarifs applicables.
@@ -280,7 +280,7 @@ api-sfip-cantine-scolaire-editeur:
   introduction: *api_sfip_editor_form_introduction
   authorization_request: APISFiP
   steps: *api_sfip_editor_steps
-  data:
+  initialize_with:
     intitule: Dites-le-nous une fois – Cantine scolaire
     description: |
       Simplification de la souscription à la cantine scolaire pour les usagers par l’utilisation des données fiscales fournies par la DGFiP afin de déterminer les tarifs applicables.
@@ -300,7 +300,7 @@ api-sfip-aides-sociales-facultatives-sandbox:
   introduction: *api_sfip_sandbox_form_introduction
   authorization_request: APISFiPSandbox
   steps: *api_sfip_sandbox_steps
-  data:
+  initialize_with:
     intitule: Dites-le-nous une fois – Aides sociales facultatives
     description: |
       Simplification des demandes d’aides sociales facultatives pour les usagers par l’utilisation des données fiscales fournies par la DGFiP pour déterminer l’éligibilité au service.
@@ -328,7 +328,7 @@ api-sfip-aides-sociales-facultatives-editeur:
   introduction: *api_sfip_editor_form_introduction
   authorization_request: APISFiP
   steps: *api_sfip_editor_steps
-  data:
+  initialize_with:
     intitule: Dites-le-nous une fois – Aides sociales facultatives
     description: |
       Simplification des demandes d’aides sociales facultatives pour les usagers par l’utilisation des données fiscales fournies par la DGFiP pour déterminer l’éligibilité au service.
@@ -348,7 +348,7 @@ api-sfip-carte-transport-sandbox:
   introduction: *api_sfip_sandbox_form_introduction
   authorization_request: APISFiPSandbox
   steps: *api_sfip_sandbox_steps
-  data:
+  initialize_with:
     intitule: Dites-le-nous une fois – Carte de transport
     description: |
       Simplification de la souscription à la carte de transport pour les usagers par l’utilisation des données fiscales fournies par la DGFiP pour déterminer le tarif applicable.
@@ -376,7 +376,7 @@ api-sfip-carte-transport-editeur:
   introduction: *api_sfip_editor_form_introduction
   authorization_request: APISFiP
   steps: *api_sfip_editor_steps
-  data:
+  initialize_with:
     intitule: Dites-le-nous une fois – Carte de transport
     description: |
       Simplification de la souscription à la carte de transport pour les usagers par l’utilisation des données fiscales fournies par la DGFiP pour déterminer le tarif applicable.

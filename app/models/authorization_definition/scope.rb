@@ -25,6 +25,14 @@ class AuthorizationDefinition::Scope
     nil
   end
 
+  def available?(request)
+    return false if entity_created_after_deprecation_date?(request)
+    return false if hidden_by_config?(request)
+    return true if request.form.scopes_config[:displayed].blank?
+
+    request.form.scopes_config[:displayed].include?(value)
+  end
+
   def deprecated?
     deprecated_date.present? && deprecated_date < Time.zone.today
   end
@@ -38,5 +46,21 @@ class AuthorizationDefinition::Scope
 
   def link?
     link.present?
+  end
+
+  def disabled_by_config?(request)
+    disabled_config = request.form.scopes_config[:disabled]
+    return false if disabled_config.blank?
+
+    disabled_config.include?(value)
+  end
+
+  private
+
+  def hidden_by_config?(request)
+    hide_config = request.form.scopes_config[:hide]
+    return false if hide_config.blank?
+
+    hide_config.include?(value)
   end
 end
