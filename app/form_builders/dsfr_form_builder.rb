@@ -27,13 +27,14 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
 
   # rubocop:disable Metrics/AbcSize
   def dsfr_file_field(attribute, opts = {})
+    opts[:multiple] ||= true
     opts[:class] ||= 'fr-upload-group'
     opts[:data] ||= { controller: 'remove-attached-file' }
     opts[:data][:removeAttachedFileTarget] = 'file'
 
     existing_file_link = link_to_files(attribute)
     required = opts[:required] && !existing_file_link
-    hidden_fields = hidden_fields_for_existing_attachments(attribute) if multiple_attachments?(attribute)
+    hidden_fields = hidden_fields_for_existing_attachments(attribute) if opts[:multiple]
 
     dsfr_input_group(attribute, opts) do
       @template.safe_join(
