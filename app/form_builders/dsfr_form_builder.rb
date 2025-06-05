@@ -29,8 +29,9 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
   def dsfr_file_field(attribute, opts = {})
     opts[:multiple] ||= true
     opts[:class] ||= 'fr-upload-group'
-    opts[:data] ||= { controller: 'remove-attached-file' }
-    opts[:data][:removeAttachedFileTarget] = 'file'
+    opts[:input_group_options] ||= {}
+    opts[:input_group_options][:data] ||= { controller: 'remove-attached-file' }
+    opts[:input_group_options][:data][:removeAttachedFileTarget] = 'file'
 
     existing_file_link = link_to_files(attribute)
     required = opts[:required] && !existing_file_link
@@ -50,12 +51,12 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
   end
   # rubocop:enable Metrics/AbcSize
 
-  def dsfr_check_box(attribute, opts = {}, check_box_opts = {})
+  def dsfr_check_box(attribute, opts = {})
     dsfr_input_group(attribute, opts) do
       @template.content_tag(:div, class: 'fr-checkbox-group') do
         @template.safe_join(
           [
-            check_box(attribute, class: input_classes(check_box_opts), disabled: check_box_disabled, **enhance_input_options(check_box_opts).except(:class, :label)),
+            check_box(attribute, class: input_classes(opts), disabled: check_box_disabled, **enhance_input_options(opts).except(:class, :label)),
             @template.safe_join([opts[:label] || label_with_hint(attribute, opts)])
           ]
         )
@@ -64,8 +65,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def dsfr_input_group(attribute, opts, &block)
-    html_options = { class: input_group_classes(attribute, opts) }
-    html_options[:data] = opts[:data] if opts[:data]
+    html_options = { class: input_group_classes(attribute, opts) }.merge(opts[:input_group_options] || {})
 
     @template.content_tag(:div, html_options) do
       yield(block)
