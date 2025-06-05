@@ -32,6 +32,11 @@ class AuthorizationRequest::APIParticulier < AuthorizationRequest
     data['modalities'] = %w[params]
   end
 
+  def with_france_connect?
+    modalities.include?('france_connect') &&
+      france_connect_authorization_id.present?
+  end
+
   def mandatory_modalities?
     true
   end
