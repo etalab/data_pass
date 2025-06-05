@@ -286,7 +286,7 @@ end
 
 Quand('Je joins une maquette au projet {string}') do |authorization_definition_name|
   authorization_definition_id = find_authorization_definition_from_name(authorization_definition_name).id
-  attach_file("authorization_request_#{authorization_definition_id}_maquette_projet[]",
+  attach_file("authorization_request_#{authorization_definition_id}_maquette_projet",
     [
       Rails.root.join('spec/fixtures/dummy.pdf')
     ])
