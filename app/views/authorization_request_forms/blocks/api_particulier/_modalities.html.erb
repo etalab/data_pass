@@ -7,6 +7,8 @@
 <div data-controller="choose-modality-checkbox-with-france-connect">
   <div class="fr-col-lg-9">
     <% @authorization_request.available_modalities.each do |modality| %>
+      <% next if modality == 'formulaire_qf' %>
+
       <div class="fr-input-group">
         <div class="fr-checkbox-group">
           <%=

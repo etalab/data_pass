@@ -1,6 +1,6 @@
 # language: fr
 
-Fonctionnalité: Soumission d'une demande d'habilitation API Particulier avec la modalité FranceConnect
+Fonctionnalité: Soumission d'une demande d'habilitation API Particulier avec les modalités
   Contexte:
     Sachant que je suis un demandeur
     Et que je me connecte
@@ -30,3 +30,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier avec la
     Et que je coche "Via FranceConnect"
     Et que je clique sur "Suivant"
     Alors la page contient "Quelles sont les données dont vous avez besoin ?"
+
+  Scénario: Je ne vois pas la modalité Formulaire national QF
+    Alors la page ne contient pas "formulaire national QF"
+    Et la page contient "Comment vos usagers accèderont aux données ?"
