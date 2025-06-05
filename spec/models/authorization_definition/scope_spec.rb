@@ -227,5 +227,115 @@ RSpec.describe AuthorizationDefinition::Scope do
         end
       end
     end
+
+    context 'when hide option is configured' do
+      context 'when scope is in hide list' do
+        let(:scopes_config) { { hide: %w[test_scope other_scope] } }
+
+        context 'when scope is not deprecated' do
+          let(:scope) do
+            described_class.new(
+              name: 'Test Scope',
+              value: 'test_scope'
+            )
+          end
+
+          it { is_expected.to be false }
+        end
+
+        context 'when scope is deprecated but entity was created before deprecation' do
+          let(:deprecated_date) { '2025-04-17' }
+          let(:created_at) { Date.parse('2025-04-16').to_time }
+          let(:scope) do
+            described_class.new(
+              name: 'Test Scope',
+              value: 'test_scope',
+              deprecated_since: deprecated_date
+            )
+          end
+
+          it { is_expected.to be false }
+        end
+      end
+
+      context 'when scope is not in hide list' do
+        let(:scopes_config) { { hide: %w[other_scope] } }
+
+        context 'when scope is not deprecated' do
+          let(:scope) do
+            described_class.new(
+              name: 'Test Scope',
+              value: 'test_scope'
+            )
+          end
+
+          it { is_expected.to be true }
+        end
+      end
+
+      context 'when both hide and displayed are configured' do
+        context 'when scope is in hide list (hide takes precedence)' do
+          let(:scopes_config) { { hide: %w[test_scope], displayed: %w[test_scope other_scope] } }
+          let(:scope) do
+            described_class.new(
+              name: 'Test Scope',
+              value: 'test_scope'
+            )
+          end
+
+          it 'returns false due to hide taking precedence over displayed' do
+            expect(subject).to be false
+          end
+        end
+
+        context 'when scope is not in hide list but is in displayed list' do
+          let(:scopes_config) { { hide: %w[other_scope], displayed: %w[test_scope another_scope] } }
+          let(:scope) do
+            described_class.new(
+              name: 'Test Scope',
+              value: 'test_scope'
+            )
+          end
+
+          it { is_expected.to be true }
+        end
+
+        context 'when scope is not in hide list and not in displayed list' do
+          let(:scopes_config) { { hide: %w[other_scope], displayed: %w[another_scope] } }
+          let(:scope) do
+            described_class.new(
+              name: 'Test Scope',
+              value: 'test_scope'
+            )
+          end
+
+          it { is_expected.to be false }
+        end
+      end
+
+      context 'when hide list is empty' do
+        let(:scopes_config) { { hide: [] } }
+        let(:scope) do
+          described_class.new(
+            name: 'Test Scope',
+            value: 'test_scope'
+          )
+        end
+
+        it { is_expected.to be true }
+      end
+
+      context 'when hide list is nil' do
+        let(:scopes_config) { { hide: nil } }
+        let(:scope) do
+          described_class.new(
+            name: 'Test Scope',
+            value: 'test_scope'
+          )
+        end
+
+        it { is_expected.to be true }
+      end
+    end
   end
 end
