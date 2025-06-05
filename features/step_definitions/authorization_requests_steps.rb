@@ -286,7 +286,10 @@ end
 
 Quand('Je joins une maquette au projet {string}') do |authorization_definition_name|
   authorization_definition_id = find_authorization_definition_from_name(authorization_definition_name).id
-  attach_file("authorization_request_#{authorization_definition_id}_maquette_projet", Rails.root.join('spec/fixtures/dummy.pdf'))
+  attach_file("authorization_request_#{authorization_definition_id}_maquette_projet",
+    [
+      Rails.root.join('spec/fixtures/dummy.pdf')
+    ])
 end
 
 Quand('je joins 2 documents au cadre juridique du projet {string}') do |authorization_definition_name|
@@ -299,7 +302,7 @@ Quand('je joins 2 documents au cadre juridique du projet {string}') do |authoriz
 end
 
 Quand('cette habilitation a une pièce jointe {string}') do |safety_state|
-  attachment = AuthorizationRequest.last.maquette_projet.attach(Rails.root.join('spec/fixtures/dummy.pdf')).attachment
+  attachment = AuthorizationRequest.last.maquette_projet.attach([Rails.root.join('spec/fixtures/dummy.pdf')]).first
 
   MalwareScan.create!(sha256: SecureRandom.hex(32), attachment:, safety_state:)
 end
