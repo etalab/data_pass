@@ -7,6 +7,8 @@ class AuthorizationRequest::HubEEDila < AuthorizationRequest
 
   contact :administrateur_metier, validation_condition: ->(record) { record.need_complete_validation?(:contacts) }, options: { required_personal_email: true }
 
+  validates :administrateur_metier_phone_number, french_phone_number: true, if: ->(record) { record.need_complete_validation?(:contacts) }
+
   private
 
   def scopes_not_already_selected_in_another_organization_authorization_request
