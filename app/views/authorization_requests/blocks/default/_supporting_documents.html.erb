@@ -6,7 +6,7 @@
       </strong>
       <br />
       <% if authorization_request.attestation_fiscale.attached? %>
-        <%= link_to authorization_request.attestation_fiscale.filename, url_for(authorization_request.attestation_fiscale), target: '_blank', class: %w[fr-link--icon-left fr-icon-file-pdf-fill] %>
+        <%= render 'shared/display_documents', documents: authorization_request.attestation_fiscale, f: f %>
       <% else %>
         Document manquant
       <% end %>

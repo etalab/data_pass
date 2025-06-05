@@ -1,0 +1,5 @@
+<% Array(documents).each do |document| %>
+  <div class="fr-col-8 fr-mb-1w">
+    <%= render 'shared/display_document', document: document, f: f %>
+  </div>
+<% end %>
