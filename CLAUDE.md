@@ -20,8 +20,16 @@
 - Indentation: 2 spaces
 - Naming: snake_case for methods/variables, CamelCase for classes
 - Controllers should be RESTful when possible
-- Test files should follow the same structure as the application
-- Use RSpec expectations syntax for tests
 - JavaScript follows StandardJS conventions
 - DO NOT use comments, use meaningful variables and methods names
 - All files should end with a newline
+
+## Tests
+
+- Test files should follow the same structure as the application
+- Use RSpec expectations syntax for tests
+- Do not test associations and validations directly, focus on behavior
+
+## Git
+
+- When you move files, use `git mv` to keep history.

@@ -29,10 +29,11 @@ module Authentication
     dashboard_path
   end
 
-  def sign_in(user)
+  def sign_in(user, identity_federator:)
     session[:user_id] = {
       value: user.id,
-      expires_at: 1.month.from_now
+      expires_at: 1.month.from_now,
+      identity_federator:,
     }
 
     @current_user = user
@@ -41,6 +42,10 @@ module Authentication
   def sign_out
     session.delete(:user_id)
     @current_user = nil
+  end
+
+  def current_identity_federator
+    user_id_session&.dig('identity_federator') || 'mon_compte_pro'
   end
 
   def authenticate_user!

@@ -1,4 +1,4 @@
-class FindOrCreateOrganization < ApplicationInteractor
+class FindOrCreateOrganizationThroughMonComptePro < ApplicationInteractor
   include MonCompteProPayloads
 
   def call
