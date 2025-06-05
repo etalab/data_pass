@@ -7,7 +7,7 @@ class RestoreAuthorizationRequestToLatestAuthorization < ApplicationInteractor
 
     fill_authorization_request_with_latest_authorization_data!
 
-    authorization_request.save
+    authorization_request.save(validate: false)
   end
 
   private
@@ -16,7 +16,7 @@ class RestoreAuthorizationRequestToLatestAuthorization < ApplicationInteractor
     interactor = AssignParamsToAuthorizationRequest.call(
       authorization_request:,
       authorization_request_params:,
-      save_context: :submit,
+      skip_validation: true,
     )
     authorization_request.type = latest_authorization.authorization_request_class
 
