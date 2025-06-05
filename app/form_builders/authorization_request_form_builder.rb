@@ -162,6 +162,12 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
     end
   end
 
+  def dsfr_file_field(attribute, opts = {})
+    opts[:multiple] = true
+
+    super
+  end
+
   def enhance_input_options(opts)
     super.merge(readonly: readonly?)
   end
