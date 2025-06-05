@@ -34,7 +34,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
 
     existing_file_link = link_to_files(attribute)
     required = opts[:required] && !existing_file_link
-    hidden_fields = hidden_fields_for_existing_attachments(attribute) if opts[:multiple]
+    hidden_fields = hidden_fields_for_existing_attachments(attribute)
 
     dsfr_input_group(attribute, opts) do
       @template.safe_join(
@@ -269,7 +269,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def create_hidden_field_for_file(attribute, file)
-    field_name = multiple_attachments?(attribute) ? "#{@object_name}[#{attribute}][]" : "#{@object_name}[#{attribute}]"
+    field_name = "#{@object_name}[#{attribute}][]"
     field_id = "#{@object_name}_#{attribute}_#{file.id}_signed_id"
 
     @template.hidden_field_tag(field_name, file.signed_id, id: field_id)
