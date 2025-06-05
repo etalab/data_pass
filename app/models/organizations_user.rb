@@ -5,6 +5,7 @@ class OrganizationsUser < ApplicationRecord
   belongs_to :user
 
   validates :organization_id, uniqueness: { scope: :user_id }
+  validates :identity_federator, inclusion: { in: %w[mon_compte_pro pro_connect] }
 
   scope :current, -> { where(current: true) }
 
