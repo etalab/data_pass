@@ -283,7 +283,7 @@ class Seeds
     valid_api_impot_particulier_production.class.extra_attributes.each do |key|
       authorization_request.public_send(:"#{key}=", valid_api_impot_particulier_production.public_send(key))
     end
-    authorization_request.safety_certification_document = dummy_file
+    authorization_request.safety_certification_document.attach([dummy_file])
     authorization_request.terms_of_service_accepted = true
     authorization_request.data_protection_officer_informed = true
     authorization_request.dpd_homologation_checkbox = '1'
@@ -370,7 +370,11 @@ class Seeds
   end
 
   def dummy_file
-    Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/dummy.pdf'), 'application/pdf')
+    {
+      io: Rails.root.join('spec/fixtures/dummy.pdf').open,
+      filename: 'dummy.pdf',
+      content_type: 'application/pdf'
+    }
   end
 
   def load_all_models!

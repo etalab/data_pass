@@ -262,9 +262,13 @@ FactoryBot.define do
           authorization_request.safety_certification_begin_date ||= '2025-05-22'
           authorization_request.safety_certification_end_date ||= '2050-05-23'
           authorization_request.safety_certification_document.attach(
-            io: Rails.root.join('spec/fixtures/dummy.pdf').open,
-            filename: 'dummy.pdf',
-            content_type: 'application/pdf',
+            [
+              {
+                io: Rails.root.join('spec/fixtures/dummy.pdf').open,
+                filename: 'dummy.pdf',
+                content_type: 'application/pdf',
+              }
+            ]
           )
         end
       end
@@ -297,9 +301,13 @@ FactoryBot.define do
     trait :with_attestation_fiscale do
       after(:build) do |authorization_request|
         authorization_request.attestation_fiscale.attach(
-          io: Rails.root.join('spec/fixtures/dummy.pdf').open,
-          filename: 'dummy.pdf',
-          content_type: 'application/pdf',
+          [
+            {
+              io: Rails.root.join('spec/fixtures/dummy.pdf').open,
+              filename: 'dummy.pdf',
+              content_type: 'application/pdf'
+            }
+          ]
         )
       end
     end
