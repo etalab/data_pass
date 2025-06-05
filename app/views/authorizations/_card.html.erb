@@ -31,7 +31,6 @@
     <div class="card__wrapper fr-px-10v fr-py-8v">
 
       <div class="flex-space-between__content">
-
         <div class="card__content">
           <div class="fr-card__desc fr-mt-0">
             <p class="fr-text--md">Via le formulaire <%= authorization.request.form.name %></p>
@@ -39,13 +38,12 @@
 
           <div class="fr-card__end">
             <%= authorization.applicant_details %>
-            
+ 
             <p class="fr-card__detail fr-icon-check-line">
               Validée le <%= l(authorization.created_at, format: '%d/%m/%Y') %>
             </p>
           </div>
         </div>
-
       </div>
 
       <div class="card__actions flex-space-between__content">
@@ -63,6 +61,8 @@
         </div>
       </div>
     </div>
+
+    <%= render partial: 'dashboard/card/stage_footer', locals: { authorization_request: authorization.request } %>
   </div>
 </div>
 
