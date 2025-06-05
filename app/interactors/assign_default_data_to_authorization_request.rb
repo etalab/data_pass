@@ -8,6 +8,6 @@ class AssignDefaultDataToAuthorizationRequest < ApplicationInteractor
   private
 
   def default_data
-    context.authorization_request_form.data
+    context.authorization_request_form.initialize_with
   end
 end

@@ -178,7 +178,7 @@ Pour la configuration d'un [formulaire (2.)](../config/authorization_request_for
     # au sein du formulaire.
     scopes_config:
       # Optionnel. Scopes (par valeur) qui auront leur checkbox désactivés. À
-      # noter que le scope peut être présent (grace à la clé `data`) ci-dessous.
+      # noter que le scope peut être présent (grace à la clé `initialize_with`) ci-dessous.
       disabled:
         - scope1
         - scope2
@@ -203,7 +203,7 @@ Pour la configuration d'un [formulaire (2.)](../config/authorization_request_for
     static_blocks:
       - name: basic_infos
     # Optionnel. Données pré-rempli au démarrage du formulaire.
-    data:
+    initialize_with:
       intitule: "Mon intitulé"
 ```
 
