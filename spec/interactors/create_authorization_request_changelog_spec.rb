@@ -25,7 +25,7 @@ RSpec.describe CreateAuthorizationRequestChangelog, type: :interactor do
 
         context 'with a form with prefilled data' do
           let(:form_uid) { :api_entreprise_mgdis }
-          let(:authorization_request_form_data) { authorization_request.form.data.stringify_keys }
+          let(:authorization_request_form_data) { authorization_request.form.initialize_with.stringify_keys }
 
           describe 'not prefilled key' do
             it 'stores a diff this key, with first value being nil, and second value being the current value' do

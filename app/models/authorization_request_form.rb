@@ -11,7 +11,7 @@ class AuthorizationRequestForm < StaticApplicationRecord
   attr_writer :name,
     :description,
     :startable_by_applicant,
-    :data,
+    :initialize_with,
     :introduction,
     :scopes_config,
     :public
@@ -37,7 +37,7 @@ class AuthorizationRequestForm < StaticApplicationRecord
         uid: uid.to_s,
         service_provider: hash[:service_provider_id].present? ? ServiceProvider.find(hash[:service_provider_id]) : nil,
         default: hash[:default] || false,
-        data: clean_data(hash[:data]),
+        initialize_with: clean_data(hash[:initialize_with]),
         authorization_request_class: AuthorizationRequest.const_get(hash[:authorization_request]),
         steps: hash[:steps] || [],
         static_blocks: hash[:static_blocks] || [],
@@ -91,27 +91,29 @@ class AuthorizationRequestForm < StaticApplicationRecord
   end
 
   def prefilled?
-    @data.present?
+    @initialize_with.present?
   end
 
-  def data
-    data = @data || {}
+  def initialize_with
+    initialize_with = @initialize_with || {}
 
     if authorization_definition.scopes.any?
       included_scopes = authorization_definition.scopes.select(&:included?)
 
-      data[:scopes] ||= []
-      data[:scopes] += included_scopes.map(&:value)
-      data[:scopes].sort!
-      data[:scopes].uniq!
+      initialize_with[:scopes] ||= []
+      initialize_with[:scopes] += included_scopes.map(&:value)
+      initialize_with[:scopes].sort!
+      initialize_with[:scopes].uniq!
     end
 
-    data
+    initialize_with
   end
 
   def scopes_config
     @scopes_config || {}
   end
+
+  alias data initialize_with
 
   def multiple_steps?
     steps.any?
@@ -127,9 +129,9 @@ class AuthorizationRequestForm < StaticApplicationRecord
       .where(type: authorization_request_class.to_s)
   end
 
-  def self.clean_data(data)
-    data ||= {}
-    data.to_h do |key, value|
+  def self.clean_data(initialize_with)
+    initialize_with ||= {}
+    initialize_with.to_h do |key, value|
       [key, value.strip]
     rescue StandardError
       [key, value]

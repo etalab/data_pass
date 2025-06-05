@@ -13,7 +13,7 @@ FactoryBot.define do
     after(:build) do |authorization_request, evaluator|
       authorization_request.data.stringify_keys!
 
-      authorization_request.form.data.each do |key, value|
+      authorization_request.form.initialize_with.each do |key, value|
         next if authorization_request.data[key.to_s].present?
 
         authorization_request.public_send(:"#{key}=", value)
