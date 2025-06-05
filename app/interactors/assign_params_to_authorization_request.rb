@@ -4,7 +4,7 @@ class AssignParamsToAuthorizationRequest < ApplicationInteractor
       valid_authorization_request_params
     )
 
-    return if context.authorization_request.valid?(context.save_context)
+    return if context.authorization_request.valid?(context.save_context) || context.skip_validation
 
     context.fail!
   end
