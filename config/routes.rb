@@ -128,6 +128,10 @@ Rails.application.routes.draw do
       end
 
       resources :authorizations, path: 'habilitations', only: %i[index show]
+
+      resources :authorization_definitions, path: 'definitions', only: %i[index show]
+
+      resources :authorization_request_forms, path: 'definitions/:id/formulaires', only: %i[index]
     end
   end
 
