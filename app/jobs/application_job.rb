@@ -4,4 +4,9 @@ class ApplicationJob < ActiveJob::Base
 
   # Most jobs are safe to ignore if the underlying records are no longer available
   # discard_on ActiveJob::DeserializationError
+  def perform(*)
+    return unless ENV['FRONTAL'] == 'true'
+
+    super
+  end
 end
