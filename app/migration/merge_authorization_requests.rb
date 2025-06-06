@@ -1,0 +1,124 @@
+class MergeAuthorizationRequests
+  attr_reader :from_id, :to_id
+
+  def initialize(from_id, to_id)
+    @from_id = from_id
+    @to_id = to_id
+  end
+
+  def perform
+    check_existence_of_requests!
+    answer = display_infos
+
+    return if answer.downcase != 'y'
+
+    run_sql
+
+    displays_results
+  end
+
+  private
+
+  def display_infos
+    print "from:\n"
+    print "> https://v1.datapass.api.gouv.fr/api-sfip-sandbox/#{from_id}\n"
+    print "> https://datapass.api.gouv.fr/demandes/#{from_id}\n"
+    print "\n"
+    print "to:\n"
+    print "> https://v1.datapass.api.gouv.fr/api-sfip-sandbox/#{to_id}\n"
+    print "> https://datapass.api.gouv.fr/demandes/#{to_id}\n"
+    print "\n"
+    if @to_request.copied_from_request_id != @from_request.id
+      print "WARNING: The request to merge into (#{to_id}) was not copied from the request to merge from (#{from_id}).\n"
+    else
+      print "The request to merge into (#{to_id}) was copied from the request to merge from (#{from_id}).\n"
+    end
+
+    print "Continue? (Y/n)\n"
+    STDIN.gets.chomp
+  end
+
+  def displays_results
+    print "DONE\n"
+
+    unless Rails.env.production?
+      print "> http://localhost:3000/demandes/#{to_id}\n"
+      print "> http://localhost:5000/demandes/#{to_id}\n"
+    end
+
+    print "> https://datapass.api.gouv.fr/demandes/#{to_id}\n"
+
+    next_copy = AuthorizationRequest.find_by(copied_from_request_id: @to_request.id)
+
+    if next_copy
+      print "Next copy exists\n"
+      print "> https://v1.datapass.api.gouv.fr/api-sfip-sandbox/#{next_copy.id}\n"
+      print "> https://datapass.api.gouv.fr/demandes/#{next_copy.id}\n"
+      print "Run: MergeAuthorizationRequests.new(#{next_copy.id}, #{to_id}).perform\n"
+    end
+  end
+
+  def check_existence_of_requests!
+    @from_request = AuthorizationRequest.find_by(id: from_id)
+    @to_request = AuthorizationRequest.find_by(id: to_id)
+
+    print "Run ./app/migration/local_run.sh to populate the database\n" if !Rails.env.production? && (@from_request.nil? || @to_request.nil?)
+
+    raise ActiveRecord::RecordNotFound, "Authorization request with id #{from_id} does not exist." unless @from_request
+    raise ActiveRecord::RecordNotFound, "Authorization request with id #{to_id} does not exist." unless @to_request
+
+    if @from_request == @to_request
+      raise ArgumentError, "Cannot merge the same authorization request (id: #{from_id}) into itself."
+    end
+  end
+
+  def run_sql
+    sql = <<-SQL
+    BEGIN;
+
+    UPDATE messages
+    SET authorization_request_id = #{to_id}
+    WHERE authorization_request_id = #{from_id};
+
+    UPDATE authorization_request_changelogs
+    SET authorization_request_id = #{to_id}
+    WHERE authorization_request_id = #{from_id};
+
+    UPDATE instructor_modification_requests
+    SET authorization_request_id = #{to_id}
+    WHERE authorization_request_id = #{from_id};
+
+    UPDATE denial_of_authorizations
+    SET authorization_request_id = #{to_id}
+    WHERE authorization_request_id = #{from_id};
+
+    UPDATE revocation_of_authorizations
+    SET authorization_request_id = #{to_id}
+    WHERE authorization_request_id = #{from_id};
+
+    UPDATE authorization_request_transfers
+    SET authorization_request_id = #{to_id}
+    WHERE authorization_request_id = #{from_id};
+
+    UPDATE authorizations
+    SET request_id = #{to_id}
+    WHERE request_id = #{from_id};
+
+    UPDATE active_storage_attachments
+    SET record_id = #{to_id}
+    WHERE record_type = 'AuthorizationRequest' AND record_id = #{from_id};
+
+    UPDATE authorization_request_events
+    SET authorization_request_id = #{to_id}
+    WHERE authorization_request_id = #{from_id};
+
+    -- Supprimer l'ancien enregistrement
+    DELETE FROM authorization_requests
+    WHERE id = #{from_id};
+
+    COMMIT;
+    SQL
+
+    ActiveRecord::Base.connection.execute(sql)
+  end
+end
