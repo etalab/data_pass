@@ -365,8 +365,14 @@ api-particulier-civil-enfance-ciril-group:
   description: *api_particulier_form_description_petite_enfance
   authorization_request: APIParticulier
   introduction: *api_particulier_introduction_editor_with_fixed_scopes
-  steps: *api_particulier_editor_steps_with_fixed_scopes
-  static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
+  steps:
+    - name: legal
+    - name: personal_data
+    - name: modalities
+    - name: contacts
+  static_blocks:
+    - name: basic_infos
+    - name: scopes
   use_case: tarification_municipale_enfance
   service_provider_id: ciril_group
   initialize_with:
@@ -383,7 +389,6 @@ api-particulier-civil-enfance-ciril-group:
       - cnaf_enfants
       - cnaf_adresse
     modalities:
-      # - franceconnect
       - params
 
 api-particulier-cosoluce-fluo:
@@ -946,7 +951,6 @@ api-particulier-airweb:
     delegue_protection_donnees_job_title: Chef de projet
     modalities:
       - params
-      - france_connect
 
 api-particulier-bl-enfance-berger-levrault:
   name: BL Enfance
@@ -1489,7 +1493,6 @@ api-particulier-keolis:
       - allocation_adulte_handicape
     modalities:
       - params
-      - france_connect
 
 api-particulier-mgdis-tarification-cantines-lycees:
   name: Aiden, Tarification cantine
@@ -1530,7 +1533,6 @@ api-particulier-mgdis-tarification-cantines-lycees:
     contact_technique_job_title: Responsable produit
     modalities:
       - params
-      - france_connect
 
 # ------------------------------- #
 # ------------------------------- #
