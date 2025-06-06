@@ -198,6 +198,7 @@ api-entreprise-detection-fraude:
       - cotisations_probtp
       - attestation_cotisations_conges_payes_chomage_intemperies_cibtp_cnetp
       - certifications_qualiopi_france_competences
+      - liens_capitalistiques_dgfip
 
 api-entreprise-editeur:
   name: "Formulaire spécifique aux éditeurs de logiciels"
