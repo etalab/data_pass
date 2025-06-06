@@ -931,6 +931,7 @@ api-particulier-airweb:
     contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_airweb_contact_technique_phone_number || '0836656565' %>"
     contact_technique_job_title: Directeur technique
     modalities:
+      # - franceconnect
       - params
 
 api-particulier-bl-enfance-berger-levrault:
@@ -1316,6 +1317,7 @@ api-particulier-acheteza:
     scopes:
       - cnaf_quotient_familial
     modalities:
+      # - franceconnect
       - params
 
 api-particulier-dialog:
