@@ -152,6 +152,12 @@ api-entreprise-portail-gru-instruction:
     - name: "legal"
     - name: "scopes"
     - name: "contacts"
+  scopes_config:
+    disabled:
+      - beneficiaires_effectifs_inpi
+      - bilans_bdf
+      - liasses_fiscales_dgfip
+      - liens_capitalistiques_dgfip
   data:
     intitule: "Démarches liées au portail de gestion relation usagers"
     description: "Accès aux données ouvertes permettant aux usagers de pré-remplir les informations liées à leurs entreprises, ainsi qu'aux données protégées permettant l'instruction de demandes par des agents habilités"
@@ -160,17 +166,9 @@ api-entreprise-portail-gru-instruction:
     scopes:
       - unites_legales_etablissements_insee
       - associations_djepva
-      - effectifs_urssaf
-      - mandataires_sociaux_infogreffe
-      - chiffre_affaires_dgfip
-      # - bilans_bdf
-      # - liasses_fiscales_dgfip
       - attestation_fiscale_dgfip
       - attestation_sociale_urssaf
       - cotisations_msa
-      - cotisations_probtp
-      - attestation_cotisations_conges_payes_chomage_intemperies_cibtp_cnetp
-      - certifications_qualiopi_france_competences
 
 api-entreprise-detection-fraude:
   name: "Détection de la fraude"
