@@ -10,8 +10,9 @@ class MergeAuthorizationRequests
     check_existence_of_requests!
     answer = display_infos
 
-    return if answer.downcase != 'y'
+    return unless answer.downcase == 'y' || answer.empty?
 
+    mark_from_authorizations_as_obsolete!
     run_sql
 
     displays_results
@@ -20,11 +21,11 @@ class MergeAuthorizationRequests
   private
 
   def display_infos
-    print "from:\n"
+    print "from (#{@from_request.type} state: #{@from_request.state}):\n"
     print "> https://v1.datapass.api.gouv.fr/api-sfip-sandbox/#{from_id}\n"
     print "> https://datapass.api.gouv.fr/demandes/#{from_id}\n"
     print "\n"
-    print "to:\n"
+    print "to (#{@from_request.type} state: #{@to_request.state}):\n"
     print "> https://v1.datapass.api.gouv.fr/api-sfip-sandbox/#{to_id}\n"
     print "> https://datapass.api.gouv.fr/demandes/#{to_id}\n"
     print "\n"
@@ -54,18 +55,21 @@ class MergeAuthorizationRequests
       print "Next copy exists\n"
       print "> https://v1.datapass.api.gouv.fr/api-sfip-sandbox/#{next_copy.id}\n"
       print "> https://datapass.api.gouv.fr/demandes/#{next_copy.id}\n"
-      print "Run: MergeAuthorizationRequests.new(#{next_copy.id}, #{to_id}).perform\n"
+      print "> Authorizations ids: #{next_copy.authorizations.pluck(:id).join(', ')}\n"
+      print "Run: MergeAuthorizationRequests.new(#{to_id}, #{next_copy.id}).perform\n"
     end
   end
 
   def check_existence_of_requests!
-    @from_request = AuthorizationRequest.find_by(id: from_id)
-    @to_request = AuthorizationRequest.find_by(id: to_id)
-
+    @from_request = AuthorizationRequest.find_by(id: from_id) || Authorization.find_by(id: from_id)&.request
+    @to_request = AuthorizationRequest.find_by(id: to_id) || Authorization.find_by(id: to_id)&.request
     print "Run ./app/migration/local_run.sh to populate the database\n" if !Rails.env.production? && (@from_request.nil? || @to_request.nil?)
 
     raise ActiveRecord::RecordNotFound, "Authorization request with id #{from_id} does not exist." unless @from_request
     raise ActiveRecord::RecordNotFound, "Authorization request with id #{to_id} does not exist." unless @to_request
+
+    @from_id = @from_request&.id
+    @to_id = @to_request&.id
 
     if @from_request == @to_request
       raise ArgumentError, "Cannot merge the same authorization request (id: #{from_id}) into itself."
@@ -120,5 +124,11 @@ class MergeAuthorizationRequests
     SQL
 
     ActiveRecord::Base.connection.execute(sql)
+  end
+
+  def mark_from_authorizations_as_obsolete!
+    Authorization.where(request_id: from_id).find_each do |authorization|
+      authorization.deprecate
+    end
   end
 end
