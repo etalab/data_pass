@@ -109,6 +109,9 @@ Metrics/MethodLength:
     - hash
     - array
 
+Naming/PredicateMethod:
+  Enabled: false
+
 RSpec/NestedGroups:
   Enabled: false
 
