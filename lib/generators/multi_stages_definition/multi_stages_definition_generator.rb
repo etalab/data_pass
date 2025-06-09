@@ -61,7 +61,7 @@ class MultiStagesDefinitionGenerator < Rails::Generators::NamedBase
       with_basic_infos
       with_personal_data
       with_cadre_juridique
-      #{scopes? ? 'with_scopes' : ''}
+      #{'with_scopes' if scopes?}
     end
 
     trait :#{name.underscore} do
@@ -74,7 +74,7 @@ class MultiStagesDefinitionGenerator < Rails::Generators::NamedBase
       with_basic_infos
       with_personal_data
       with_cadre_juridique
-      #{scopes? ? 'with_scopes' : ''}
+      #{'with_scopes' if scopes?}
       with_safety_certification
       with_operational_acceptance
       with_volumetrie
