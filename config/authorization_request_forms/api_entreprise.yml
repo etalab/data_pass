@@ -154,9 +154,6 @@ api-entreprise-portail-gru-instruction:
   scopes_config:
     disabled:
       - beneficiaires_effectifs_inpi
-      - bilans_bdf
-      - liasses_fiscales_dgfip
-      - liens_capitalistiques_dgfip
   data:
     intitule: "Démarches liées au portail de gestion relation usagers"
     description: "Accès aux données ouvertes permettant aux usagers de pré-remplir les informations liées à leurs entreprises, ainsi qu'aux données protégées permettant l'instruction de demandes par des agents habilités"
