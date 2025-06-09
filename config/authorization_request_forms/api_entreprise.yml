@@ -32,7 +32,6 @@ api-entreprise-marches-publics:
   scopes_config:
     disabled:
       - beneficiaires_effectifs_inpi
-      - bilans_bdf
   data:
     cadre_juridique_nature: "R2143-13 Code de la commande publique"
     cadre_juridique_url: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037730589"
