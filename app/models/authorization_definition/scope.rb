@@ -28,9 +28,8 @@ class AuthorizationDefinition::Scope
   def available?(request)
     return false if entity_created_after_deprecation_date?(request)
     return false if hidden_by_config?(request)
-    return true if request.form.scopes_config[:displayed].blank?
 
-    request.form.scopes_config[:displayed].include?(value)
+    displayed_by_config?(request)
   end
 
   def deprecated?
@@ -56,6 +55,13 @@ class AuthorizationDefinition::Scope
   end
 
   private
+
+  def displayed_by_config?(request)
+    display_config = request.form.scopes_config[:displayed]
+    return true if display_config.blank?
+
+    display_config.include?(value)
+  end
 
   def hidden_by_config?(request)
     hide_config = request.form.scopes_config[:hide]
