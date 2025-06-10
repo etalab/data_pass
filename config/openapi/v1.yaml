@@ -85,7 +85,8 @@ components:
         type:
           type: string
           example: "AuthorizationRequest::APIImpotParticulier"
-          description: Type de la demande.
+          description: "**DÉPRÉCIÉ** - Type de la demande. Utilisez `definition_id` à la place pour identifier le type d'habilitation."
+          deprecated: true
         state:
           type: string
           example: "submitted"
@@ -278,7 +279,8 @@ components:
         authorization_request_class:
           type: string
           example: "AuthorizationRequest::APIParticulier"
-          description: Classe de la demande d'autorisation associée à l'habilitation
+          description: "**DÉPRÉCIÉ** - Classe de la demande d'autorisation associée à l'habilitation. Utilisez `definition_id` à la place pour identifier le type d'habilitation."
+          deprecated: true
         definition_id:
           type: string
           example: "api_entreprise"
@@ -476,7 +478,8 @@ components:
         authorization_request_class:
           type: string
           example: "AuthorizationRequest::ApiImpotParticulier"
-          description: Classe de demande d'autorisation associée à cette définition
+          description: "**DÉPRÉCIÉ** - Classe de demande d'autorisation associée à cette définition. Utilisez `definition_id` à la place pour identifier le type d'habilitation."
+          deprecated: true
         scopes:
           type: array
           description: Liste des scopes disponibles pour cette définition d'habilitation avec leurs métadonnées complètes
@@ -485,7 +488,6 @@ components:
       required:
         - id
         - name
-        - name_with_stage
         - multi_stage?
         - authorization_request_class
         - scopes
@@ -513,7 +515,8 @@ components:
         authorization_request_class:
           type: string
           example: "AuthorizationRequest::APIEntreprise"
-          description: Classe de demande d'autorisation associée au formulaire
+          description: "**DÉPRÉCIÉ** - Classe de demande d'autorisation associée au formulaire. Utilisez `definition_id` à la place pour identifier le type d'habilitation."
+          deprecated: true
         definition_id:
           type: string
           example: "api_entreprise"
@@ -863,7 +866,6 @@ paths:
                       name: "API Entreprise"
                       name_with_stage: "API Entreprise"
                       multi_stage?: false
-                      authorization_request_class: "AuthorizationRequest::ApiEntreprise"
                       data: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
                       scopes: 
                         - name: "Unités légales et établissements INSEE"
@@ -881,7 +883,6 @@ paths:
                       name: "API Impôt Particulier"
                       name_with_stage: "API Impôt Particulier (Bac à sable)"
                       multi_stage?: true
-                      authorization_request_class: "AuthorizationRequest::ApiImpotParticulier"
                       data: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
                       scopes: 
                         - name: "Revenu fiscal de référence"
@@ -896,7 +897,6 @@ paths:
                       name: "API Impôt Particulier"
                       name_with_stage: "API Impôt Particulier (Production)"
                       multi_stage?: true
-                      authorization_request_class: "AuthorizationRequest::ApiImpotParticulier"
                       data: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
                       scopes: 
                         - name: "Revenu fiscal de référence"
@@ -951,7 +951,6 @@ paths:
                     name: API Entreprise
                     name_with_stage: API Entreprise
                     multi_stage?: false
-                    authorization_request_class: AuthorizationRequest::APIEntreprise
                     data: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
                     scopes: 
                       - name: "Unités légales et établissements INSEE"
@@ -969,7 +968,6 @@ paths:
                     name: API Impôt Particulier
                     name_with_stage: API Impôt Particulier (Bac à sable)
                     multi_stage?: true
-                    authorization_request_class: AuthorizationRequest::APIImpotParticulierSandbox
                     data: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
                     scopes: 
                       - name: "Revenu fiscal de référence"
@@ -987,7 +985,6 @@ paths:
                     name: API Impôt Particulier
                     name_with_stage: API Impôt Particulier (Production)
                     multi_stage?: true
-                    authorization_request_class: AuthorizationRequest::APIImpotParticulier
                     data: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
                     scopes: 
                       - name: "Revenu fiscal de référence"
@@ -1051,14 +1048,12 @@ paths:
                       name: "API Entreprise"
                       description: "Accédez aux informations et aux documents administratifs des entreprises"
                       use_case: null
-                      authorization_request_class: "AuthorizationRequest::APIEntreprise"
                       prefilled?: false
                       data: ["cadre_juridique_nature", "cadre_juridique_url", "scopes"]
                     - uid: "api-entreprise-marches-publics"
                       name: "API Entreprise - Marchés publics"
                       description: "Formulaire spécialisé pour les marchés publics"
                       use_case: "Marchés publics"
-                      authorization_request_class: "AuthorizationRequest::APIEntreprise"
                       prefilled?: true
                       data:
                         cadre_juridique_nature: "Marchés publics"
@@ -1073,7 +1068,6 @@ paths:
                       name: "API Impôt Particulier"
                       description: "Accédez aux données fiscales des particuliers en mode bac à sable"
                       use_case: null
-                      authorization_request_class: "AuthorizationRequest::APIImpotParticulierSandbox"
                       prefilled?: false
                       data: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
                       scopes: ["dgfip_annee_n_moins_1", "dgfip_rfr", "dgfip_sitfam", "dgfip_nbpart", "dgfip_pac"]
