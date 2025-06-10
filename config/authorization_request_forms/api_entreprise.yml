@@ -29,23 +29,19 @@ api-entreprise-marches-publics:
     - name: "legal"
     - name: "scopes"
     - name: "contacts"
+  scopes_config:
+    disabled:
+      - beneficiaires_effectifs_inpi
   data:
     cadre_juridique_nature: "R2143-13 Code de la commande publique"
     cadre_juridique_url: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037730589"
     scopes:
       - unites_legales_etablissements_insee
       - associations_djepva
-      - effectifs_urssaf
-      - mandataires_sociaux_infogreffe
       - chiffre_affaires_dgfip
-      - bilans_bdf
-      - liasses_fiscales_dgfip
       - attestation_fiscale_dgfip
       - attestation_sociale_urssaf
       - cotisations_msa
-      - cotisations_probtp
-      - attestation_cotisations_conges_payes_chomage_intemperies_cibtp_cnetp
-      - certifications_qualiopi_france_competences
 
 api-entreprise-aides-publiques:
   name: "Aides publiques"
@@ -91,14 +87,28 @@ api-entreprise-subventions-associations:
     - name: "legal"
     - name: "scopes"
     - name: "contacts"
+  scopes_config:
+    hide:
+      - open_data_extrait_rcs_infogreffe
+      - beneficiaires_effectifs_inpi
+      - open_data_actes_bilans_inpi
+      - mandataires_sociaux_infogreffe
+      - open_data_numero_tva_commission_europeenne
+      - open_data_immatriculation_eori_douanes
+      - chiffre_affaires_dgfip
+      - cotisations_msa
+      - cotisations_probtp
+      - open_data_carte_pro_travaux_publics_fntp
+      - attestation_cotisations_conges_payes_chomage_intemperies_cibtp_cnetp
   data:
     scopes:
       - unites_legales_etablissements_insee
       - associations_djepva
-      - effectifs_urssaf
-      # - attestation_fiscale_dgfip
-      # - attestation_sociale_urssaf
-      - certifications_qualiopi_france_competences
+      - attestation_fiscale_dgfip
+      - attestation_sociale_urssaf
+      - bilans_bdf
+      - liasses_fiscales_dgfip
+      - liens_capitalistiques_dgfip
 
 api-entreprise-portail-gru-preremplissage:
   name: "Portail GRU - Préremplissage uniquement"
@@ -141,6 +151,9 @@ api-entreprise-portail-gru-instruction:
     - name: "legal"
     - name: "scopes"
     - name: "contacts"
+  scopes_config:
+    disabled:
+      - beneficiaires_effectifs_inpi
   data:
     intitule: "Démarches liées au portail de gestion relation usagers"
     description: "Accès aux données ouvertes permettant aux usagers de pré-remplir les informations liées à leurs entreprises, ainsi qu'aux données protégées permettant l'instruction de demandes par des agents habilités"
@@ -149,17 +162,9 @@ api-entreprise-portail-gru-instruction:
     scopes:
       - unites_legales_etablissements_insee
       - associations_djepva
-      - effectifs_urssaf
-      - mandataires_sociaux_infogreffe
-      - chiffre_affaires_dgfip
-      # - bilans_bdf
-      # - liasses_fiscales_dgfip
       - attestation_fiscale_dgfip
       - attestation_sociale_urssaf
       - cotisations_msa
-      - cotisations_probtp
-      - attestation_cotisations_conges_payes_chomage_intemperies_cibtp_cnetp
-      - certifications_qualiopi_france_competences
 
 api-entreprise-detection-fraude:
   name: "Détection de la fraude"
@@ -189,6 +194,7 @@ api-entreprise-detection-fraude:
       - cotisations_probtp
       - attestation_cotisations_conges_payes_chomage_intemperies_cibtp_cnetp
       - certifications_qualiopi_france_competences
+      - liens_capitalistiques_dgfip
 
 api-entreprise-editeur:
   name: "Formulaire spécifique aux éditeurs de logiciels"
