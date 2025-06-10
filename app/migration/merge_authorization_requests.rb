@@ -1,18 +1,21 @@
 class MergeAuthorizationRequests
-  attr_reader :from_id, :to_id
+  attr_reader :from_id, :to_id, :auto
 
-  def initialize(from_id, to_id)
+  def initialize(from_id, to_id, auto: false)
     @from_id = from_id
     @to_id = to_id
+    @auto = auto
   end
 
   def perform
     return if redis_backend_handled.elements.include?(from_id.to_s)
 
     check_existence_of_requests!
-    answer = display_infos
-
-    return unless answer.downcase == 'y' || answer.empty?
+    
+    unless @auto
+      answer = display_infos
+      return unless answer.downcase == 'y' || answer.empty?
+    end
 
     mark_from_authorizations_as_obsolete!
     run_sql
@@ -65,14 +68,18 @@ class MergeAuthorizationRequests
       print "> https://datapass.api.gouv.fr/demandes/#{next_copy.id}\n"
       print "> Authorizations ids: #{next_copy.authorizations.pluck(:id).join(', ')}\n"
       print "Run: MergeAuthorizationRequests.new(#{to_id}, #{next_copy.id}).perform\n"
-      print "Do you want to merge the next copy? (Y/n)\n"
-
-      answer = gets.chomp
-
-      if answer.downcase == 'y' || answer.empty?
-        MergeAuthorizationRequests.new(to_id, next_copy.id).perform
+      
+      if @auto
+        MergeAuthorizationRequests.new(to_id, next_copy.id, auto: true).perform
       else
-        print "Skipping next copy merge.\n"
+        print "Do you want to merge the next copy? (Y/n)\n"
+        answer = gets.chomp
+
+        if answer.downcase == 'y' || answer.empty?
+          MergeAuthorizationRequests.new(to_id, next_copy.id).perform
+        else
+          print "Skipping next copy merge.\n"
+        end
       end
     end
   end
