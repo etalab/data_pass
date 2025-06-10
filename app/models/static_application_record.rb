@@ -1,6 +1,7 @@
 class StaticApplicationRecord
   include ActiveModel::Model
   include Draper::Decoratable
+  include ActiveModel::Serialization
 
   class EntryNotFound < StandardError; end
 
@@ -39,8 +40,20 @@ class StaticApplicationRecord
       all.find { |entry| entry.id == id } || fail(EntryNotFound, "Couldn't find #{name} with 'id'=#{id} within static entries")
     end
 
+    def find_by(params)
+      where(params).first
+    end
+
     def values_includes_entry_attribute?(entry, attr, values)
-      Array.wrap(values).include?(entry.public_send(attr))
+      entry_attribute_value = entry.public_send(attr)
+      array_values = Array.wrap(values)
+
+      if attr == :authorization_request_class
+        entry_attribute_value = entry_attribute_value.to_s
+        array_values = array_values.map(&:to_s)
+      end
+
+      array_values.include?(entry_attribute_value)
     end
   end
 

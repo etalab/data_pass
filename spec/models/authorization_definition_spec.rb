@@ -5,6 +5,83 @@ RSpec.describe AuthorizationDefinition do
     end
   end
 
+  describe '.where' do
+    context 'when filtering by exact match' do
+      it 'returns definitions that match the exact value with id attribute' do
+        result = described_class.where(id: 'api_entreprise')
+        expect(result.map(&:id)).to eq ['api_entreprise']
+      end
+
+      it 'returns definitions that match the provider with name attribute' do
+        result = described_class.where(name: 'API Entreprise')
+        expect(result.map(&:name)).to eq ['API Entreprise']
+      end
+    end
+
+    context 'when filtering by array inclusion' do
+      it 'returns definitions when the attribute value is included in the provided array' do
+        definition_ids = %w[api_entreprise api_particulier]
+        result = described_class.where(id: definition_ids)
+
+        expect(result.map(&:id)).to match_array(definition_ids)
+      end
+    end
+
+    context 'when filtering by authorization_request_class' do
+      it 'returns definitions that match the authorization_request_class as a string for exact match' do
+        result = described_class.where(authorization_request_class: 'AuthorizationRequest::APIEntreprise')
+        expect(result.map(&:id)).to eq ['api_entreprise']
+      end
+
+      it 'returns definitions that match the authorization_request_class as a string for array inclusion' do
+        result = described_class.where(authorization_request_class: %w[AuthorizationRequest::APIEntreprise AuthorizationRequest::APIImpotParticulier])
+        expect(result.map(&:id)).to match_array(%w[api_entreprise api_impot_particulier])
+      end
+    end
+
+    context 'when filtering by multiple criteria' do
+      it 'returns definitions that match all criteria' do
+        result = described_class.where(
+          authorization_request_class: %w[AuthorizationRequest::APIImpotParticulier AuthorizationRequest::APIEntreprise],
+          id: 'api_impot_particulier'
+        )
+        expect(result.map(&:id)).to eq ['api_impot_particulier']
+      end
+    end
+
+    context 'when filtering with empty parameters' do
+      it 'returns all definitions when given empty hash' do
+        result = described_class.where({})
+
+        expect(result.map(&:id)).to match_array(described_class.all.map(&:id))
+      end
+    end
+
+    context 'when filtering by non-existent attribute' do
+      it 'raises an error when trying to access non-existent attribute' do
+        expect {
+          described_class.where(non_existent_attribute: 'value')
+        }.to raise_error(NoMethodError)
+      end
+    end
+  end
+
+  describe '.find_by' do
+    it 'returns the definition when one is found' do
+      result = described_class.find_by(id: 'api_entreprise')
+      expect(result.id).to eq('api_entreprise')
+    end
+
+    it 'returns the first definition when multiple definitions are found' do
+      result = described_class.find_by(id: %w[api_entreprise api_particulier])
+      expect(result.id).to eq('api_entreprise')
+    end
+
+    it 'returns nil when no definition is found' do
+      expect(described_class.find_by(id: 'non_existent_id')).to be_nil
+    end
+  end
+
   describe '.available_forms' do
     subject(:available_forms) { instance.available_forms }
 

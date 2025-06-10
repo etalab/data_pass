@@ -1,4 +1,6 @@
 class AuthorizationDefinition::Scope
+  include ActiveModel::Serialization
+
   attr_reader :name, :value, :group, :link
 
   def initialize(properties)

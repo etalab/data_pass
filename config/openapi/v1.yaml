@@ -43,11 +43,19 @@ tags:
     description: Les demandes d'habilitations représentent les données soumises via un formulaire par un demandeur. Une demande est liée à une définition, un formulaire, une organisation et un utilisateur (le demandeur).
   - name: Habilitations
     description: Les habilitations sont générées lors de la validation d'une demande d'habilitation par un instructeur. Elles contiennent les données de la demande au moment de la validation.
+  - name: Définitions d'habilitations
+    description: Les définitions d'habilitations décrivent les types d'habilitations disponibles, leurs caractéristiques, leurs étapes (sandbox/production) et les données auxquelles permettent d'accéder.
   - name: Événements
     description: Les événements représentent toutes les actions effectuées sur les demandes d'habilitations.
   - name: Utilisateurs
 
 components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Bearer token d'authentification obtenu via le endpoint OAuth2 `/oauth/token`
   parameters:
     Authorization:
       name: Authorization
@@ -70,10 +78,15 @@ components:
           type: string
           example: "ABC123"
           description: Identifiant public de la demande
+        definition_id:
+          type: string
+          example: "api_entreprise"
+          description: Identifiant de la définition d'habilitation associée à cette demande. Voir le endpoint `GET /definitions` pour la liste des définitions d'habilitations auxquelles vous avez accès.
         type:
           type: string
           example: "AuthorizationRequest::APIImpotParticulier"
-          description: Type de la demande. (TODO ajouter le endpoint de liste des définitions d'habilitations)
+          description: "**DÉPRÉCIÉ** - Type de la demande. Utilisez `definition_id` à la place pour identifier le type d'habilitation."
+          deprecated: true
         state:
           type: string
           example: "submitted"
@@ -89,10 +102,10 @@ components:
         form_uid:
           type: string
           example: "api-particulier-cantine-de-france"
-          description: Identifiant du formulaire utilisé pour la demande. (TODO ajouter le endpoint de liste des formulaires)
+          description: Identifiant du formulaire utilisé pour la demande. Voir le endpoint `GET /definitions/{id}/formulaires` pour la liste des formulaires disponibles d'une définition d'habilitation.
         data:
           type: object
-          description: Données remplies par le demandeur dans le formulaire. (TODO ajouter le endpoint de liste des définitions d'habilitations)
+          description: Données remplies par le demandeur dans le formulaire.
           additionalProperties: true
         created_at:
           type: string
@@ -136,6 +149,7 @@ components:
       required:
         - id
         - public_id
+        - definition_id
         - type
         - state
         - form_uid
@@ -265,7 +279,12 @@ components:
         authorization_request_class:
           type: string
           example: "AuthorizationRequest::APIParticulier"
-          description: Classe de la demande d'autorisation associée à l'habilitation
+          description: "**DÉPRÉCIÉ** - Classe de la demande d'autorisation associée à l'habilitation. Utilisez `definition_id` à la place pour identifier le type d'habilitation."
+          deprecated: true
+        definition_id:
+          type: string
+          example: "api_entreprise"
+          description: Identifiant de la définition d'habilitation associée à cette habilitation. Voir le endpoint `GET /definitions` pour la liste des définitions d'habilitations auxquelles vous avez accès.
       required:
         - id
         - slug
@@ -273,6 +292,7 @@ components:
         - state
         - created_at
         - authorization_request_class
+        - definition_id
 
     HabilitationDetailed:
       allOf:
@@ -327,6 +347,52 @@ components:
         - id
         - name
         - created_at
+
+    Scope:
+      type: object
+      description: Scope (donnée) disponible pour une définition d'habilitation
+      properties:
+        name:
+          type: string
+          example: "Nom de famille"
+          description: Nom humanisé de la donnée
+        value:
+          type: string
+          example: "family_name"
+          description: Nom technique de la donnée
+        group:
+          type: string
+          example: "Identité pivot"
+          description: Nom du groupe pour cette donnée afin d'effectuer un regroupement visuel
+          nullable: true
+        link:
+          type: string
+          example: "https://mon-api.gouv.fr/documentation/nom-de-famille"
+          description: Lien vers des détails sur la donnée
+          nullable: true
+        included:
+          type: boolean
+          example: true
+          description: Détermine si la donnée est forcément incluse. Cela permet d'afficher des données grisées et cochées à l'utilisateur pour l'informer que ces données seront disponibles avec son habilitation.
+        disabled:
+          type: boolean
+          example: false
+          description: Détermine si la donnée est désactivée. Cela permet d'afficher des données grisées et non cochées à l'utilisateur, ceci permet par exemple d'afficher des futures données disponibles ou plus disponibles.
+        deprecated:
+          type: boolean
+          example: false
+          description: Détermine si la donnée est dépréciée. Cela permet d'afficher les données dépréciées des demandes et habilitations passées.
+        deprecated_date:
+          type: string
+          format: date-time
+          description: Date de dépréciation de la donnée. Présent si `deprecated` est `true`.
+          nullable: true
+          example: "2025-05-20"
+      required:
+        - name
+        - value
+        - included
+        - disabled
 
     ErrorResponse:
       type: object
@@ -392,6 +458,81 @@ components:
       required:
         - id
         - email
+
+    AuthorizationDefinition:
+      type: object
+      description: Définition d'habilitation décrivant un type d'habilitation disponible
+      properties:
+        id:
+          type: string
+          example: "api_entreprise"
+          description: Identifiant unique de la définition d'habilitation
+        name:
+          type: string
+          example: "API Entreprise"
+          description: Nom de la définition d'habilitation
+        multi_stage?:
+          type: boolean
+          example: true
+          description: Indique si cette définition fait partie d'un processus multi-étapes
+        authorization_request_class:
+          type: string
+          example: "AuthorizationRequest::ApiImpotParticulier"
+          description: "**DÉPRÉCIÉ** - Classe de demande d'autorisation associée à cette définition. Utilisez `definition_id` à la place pour identifier le type d'habilitation."
+          deprecated: true
+        scopes:
+          type: array
+          description: Liste des scopes disponibles pour cette définition d'habilitation avec leurs métadonnées complètes
+          items:
+            $ref: '#/components/schemas/Scope'
+      required:
+        - id
+        - name
+        - multi_stage?
+        - authorization_request_class
+        - scopes
+
+    AuthorizationRequestForm:
+      type: object
+      description: Formulaire de demande d'habilitation associé à une définition d'habilitation
+      properties:
+        uid:
+          type: string
+          example: "api-entreprise"
+          description: Identifiant unique du formulaire
+        name:
+          type: string
+          example: "API Entreprise"
+          description: Nom du formulaire
+        description:
+          type: string
+          example: "Accédez aux informations et aux documents administratifs des entreprises"
+          description: Description du formulaire
+        use_case:
+          type: string
+          example: null
+          description: Cas d'utilisation du formulaire
+        authorization_request_class:
+          type: string
+          example: "AuthorizationRequest::APIEntreprise"
+          description: "**DÉPRÉCIÉ** - Classe de demande d'autorisation associée au formulaire. Utilisez `definition_id` à la place pour identifier le type d'habilitation."
+          deprecated: true
+        definition_id:
+          type: string
+          example: "api_entreprise"
+          description: Identifiant de la définition d'habilitation associée à ce formulaire. Voir le endpoint `GET /definitions` pour la liste des définitions d'habilitations auxquelles vous avez accès.
+        data:
+          type: object
+          description: Données préremplies du formulaire. Présent uniquement pour les formulaires avec prefilled? = true. Contient les valeurs par défaut pour certains champs du formulaire.
+          additionalProperties: true
+          example:
+            cadre_juridique_nature: "Marchés publics"
+            cadre_juridique_url: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037703425/"
+            scopes:
+              - "entreprises"
+              - "etablissements"
+          nullable: true
+
   responses:
     NotFoundError:
       description: Resource non trouvée
@@ -692,3 +833,253 @@ paths:
                 $ref: "#/components/schemas/Me"
         401:
           $ref: "#/components/responses/UnauthorizedError"
+
+  /definitions:
+    get:
+      summary: Liste des définitions d'habilitations
+      description: |
+        Récupère la liste des définitions d'habilitations auxquelles l'utilisateur a accès en tant que développeur.
+        
+        Les définitions d'habilitations décrivent les types d'habilitations disponibles, leurs caractéristiques, 
+        leurs étapes (sandbox/production) et les données auxquelles elles permettent d'accéder.
+        
+        L'accès aux définitions est filtré en fonction des droits développeur de l'utilisateur. 
+        Seules les définitions pour lesquelles l'utilisateur a un rôle développeur sont retournées.
+      tags:
+        - Définitions d'habilitations
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+      responses:
+        200:
+          description: Liste des définitions d'habilitations récupérée avec succès
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AuthorizationDefinition"
+              examples:
+                single_stage:
+                  summary: Définition simple (API Entreprise)
+                  value:
+                    - id: "api_entreprise"
+                      name: "API Entreprise"
+                      name_with_stage: "API Entreprise"
+                      multi_stage?: false
+                      data: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
+                      scopes: 
+                        - name: "Unités légales et établissements INSEE"
+                          value: "unites_legales_etablissements_insee"
+                          group: "Informations générales"
+                          link: null
+                          included: false
+                          disabled: false
+                          deprecated: false
+                          deprecated_date: null
+                multi_stage:
+                  summary: Définitions multi-étapes (API Impôt Particulier)
+                  value:
+                    - id: "api_impot_particulier_sandbox"
+                      name: "API Impôt Particulier"
+                      name_with_stage: "API Impôt Particulier (Bac à sable)"
+                      multi_stage?: true
+                      data: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
+                      scopes: 
+                        - name: "Revenu fiscal de référence"
+                          value: "dgfip_rfr"
+                          group: "Données fiscales"
+                          link: null
+                          included: false
+                          disabled: false
+                          deprecated: false
+                          deprecated_date: null
+                    - id: "api_impot_particulier"
+                      name: "API Impôt Particulier"
+                      name_with_stage: "API Impôt Particulier (Production)"
+                      multi_stage?: true
+                      data: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
+                      scopes: 
+                        - name: "Revenu fiscal de référence"
+                          value: "dgfip_rfr"
+                          group: "Données fiscales"
+                          link: null
+                          included: false
+                          disabled: false
+                          deprecated: false
+                          deprecated_date: null
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+        403:
+          $ref: "#/components/responses/ForbiddenError"
+
+  /definitions/{id}:
+    get:
+      tags:
+        - Définitions d'habilitations
+      summary: Récupérer une définition d'habilitation spécifique
+      description: |
+        Récupère les détails d'une définition d'habilitation spécifique par son identifiant.
+        
+        L'utilisateur doit avoir un rôle développeur pour le type d'habilitation correspondant.
+        Si l'utilisateur n'a pas accès à cette définition, une erreur 404 est retournée.
+        
+        Pour les définitions multi-étapes (comme API Impôt Particulier), chaque étape (sandbox/production) 
+        a son propre identifiant et ses propres informations de stage.
+      operationId: getAuthorizationDefinition
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Identifiant unique de la définition d'habilitation
+          schema:
+            type: string
+            example: api_impot_particulier_sandbox
+      responses:
+        '200':
+          description: Définition d'habilitation récupérée avec succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthorizationDefinition'
+              examples:
+                single_stage:
+                  summary: Définition simple (API Entreprise)
+                  value:
+                    id: api_entreprise
+                    name: API Entreprise
+                    name_with_stage: API Entreprise
+                    multi_stage?: false
+                    data: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
+                    scopes: 
+                      - name: "Unités légales et établissements INSEE"
+                        value: "unites_legales_etablissements_insee"
+                        group: "Informations générales"
+                        link: null
+                        included: false
+                        disabled: false
+                        deprecated: false
+                        deprecated_date: null
+                multi_stage_sandbox:
+                  summary: Définition multi-étapes - Sandbox (API Impôt Particulier)
+                  value:
+                    id: api_impot_particulier_sandbox
+                    name: API Impôt Particulier
+                    name_with_stage: API Impôt Particulier (Bac à sable)
+                    multi_stage?: true
+                    data: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
+                    scopes: 
+                      - name: "Revenu fiscal de référence"
+                        value: "dgfip_rfr"
+                        group: "Données fiscales"
+                        link: null
+                        included: false
+                        disabled: false
+                        deprecated: false
+                        deprecated_date: null
+                multi_stage_production:
+                  summary: Définition multi-étapes - Production (API Impôt Particulier)
+                  value:
+                    id: api_impot_particulier
+                    name: API Impôt Particulier
+                    name_with_stage: API Impôt Particulier (Production)
+                    multi_stage?: true
+                    data: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
+                    scopes: 
+                      - name: "Revenu fiscal de référence"
+                        value: "dgfip_rfr"
+                        group: "Données fiscales"
+                        link: null
+                        included: false
+                        disabled: false
+                        deprecated: false
+                        deprecated_date: null
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Définition d'habilitation non trouvée ou accès non autorisé
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Not Found"
+
+  /definitions/{id}/formulaires:
+    get:
+      tags:
+        - Définitions d'habilitations
+      summary: Liste des formulaires disponibles pour une définition d'habilitation
+      description: |
+        Récupère la liste des formulaires disponibles pour une définition d'habilitation spécifique.
+        
+        L'utilisateur doit avoir un rôle développeur pour le type d'habilitation correspondant.
+        Si l'utilisateur n'a pas accès à cette définition, une erreur 404 est retournée.
+        
+        Les formulaires permettent de créer des demandes d'habilitation avec différentes configurations, notamment pour préremplir des données afin de simplifier l'accès à différents cas d'usage bien identifiés.
+      operationId: getAuthorizationDefinitionForms
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Identifiant unique de la définition d'habilitation
+          schema:
+            type: string
+            example: api_entreprise
+      responses:
+        '200':
+          description: Liste des formulaires récupérée avec succès
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AuthorizationRequestForm'
+              examples:
+                single_stage_forms:
+                  summary: Formulaires pour définition simple (API Entreprise)
+                  value:
+                    - uid: "api-entreprise"
+                      name: "API Entreprise"
+                      description: "Accédez aux informations et aux documents administratifs des entreprises"
+                      use_case: null
+                      prefilled?: false
+                      data: ["cadre_juridique_nature", "cadre_juridique_url", "scopes"]
+                    - uid: "api-entreprise-marches-publics"
+                      name: "API Entreprise - Marchés publics"
+                      description: "Formulaire spécialisé pour les marchés publics"
+                      use_case: "Marchés publics"
+                      prefilled?: true
+                      data:
+                        cadre_juridique_nature: "Marchés publics"
+                        cadre_juridique_url: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037703425/"
+                        scopes:
+                          - "entreprises"
+                          - "etablissements"
+                multi_stage_forms:
+                  summary: Formulaires pour définition multi-étapes (API Impôt Particulier Sandbox)
+                  value:
+                    - uid: "api-impot-particulier-sandbox"
+                      name: "API Impôt Particulier"
+                      description: "Accédez aux données fiscales des particuliers en mode bac à sable"
+                      use_case: null
+                      prefilled?: false
+                      data: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
+                      scopes: ["dgfip_annee_n_moins_1", "dgfip_rfr", "dgfip_sitfam", "dgfip_nbpart", "dgfip_pac"]
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Définition d'habilitation non trouvée ou accès non autorisé
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Not Found"
