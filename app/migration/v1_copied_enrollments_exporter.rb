@@ -7,7 +7,9 @@ class V1CopiedEnrollmentsExporter
   def perform
     copy_chains = build_copy_chains
     generate_csv(copy_chains)
+    generate_ids_file(copy_chains)
     Rails.logger.debug 'CSV exported to: sandbox/v1_copied_enrollments.csv'
+    Rails.logger.debug 'IDs file exported to: sandbox/validated_copy_ids.rb'
     Rails.logger.debug { "Found #{copy_chains.values.flatten.count} enrollments with copied_from_enrollment_id or previous_enrollment_id" }
     Rails.logger.debug { "Grouped into #{copy_chains.count} copy chains" }
   end
@@ -188,6 +190,33 @@ class V1CopiedEnrollmentsExporter
 
   def v2_redirect_link(enrollment)
     "https://datapass.api.gouv.fr/redirect-from-v1/#{enrollment[:id]}"
+  end
+
+  def generate_ids_file(copy_chains)
+    ensure_sandbox_directory_exists
+
+    validated_copy_ids = {}
+
+    copy_chains.each do |root_id, chain|
+      if all_enrollments_validated?(chain)
+        copied_enrollment = chain.find { |enrollment| enrollment[:copied_from_enrollment_id] }
+        validated_copy_ids[root_id] = copied_enrollment[:id] if copied_enrollment
+      end
+    end
+
+    File.open('sandbox/validated_copy_ids.rb', 'w') do |file|
+      file.puts 'def ids'
+      file.puts '  {'
+      validated_copy_ids.each do |from_id, to_id|
+        file.puts "    #{from_id} => #{to_id},"
+      end
+      file.puts '  }'
+      file.puts 'end'
+    end
+  end
+
+  def all_enrollments_validated?(chain)
+    chain.all? { |enrollment| 'validated' == enrollment[:status] }
   end
 
   def ensure_sandbox_directory_exists
