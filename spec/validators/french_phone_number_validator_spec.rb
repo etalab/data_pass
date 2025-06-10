@@ -61,6 +61,79 @@ RSpec.describe FrenchPhoneNumberValidator do
       end
     end
 
+    context 'with French overseas territories' do
+      it 'accepts Guadeloupe, Saint-Martin, Saint-Barthélemy numbers (+590)' do
+        valid_numbers = [
+          '+590 6 12 34 56 78',
+          '+590612345678',
+          '+590-6-12-34-56-78',
+          '+590.6.12.34.56.78'
+        ]
+
+        valid_numbers.each do |number|
+          subject.phone_number = number
+          expect(subject).to be_valid, "Expected '#{number}' to be valid"
+        end
+      end
+
+      it 'accepts French Guiana numbers (+594)' do
+        valid_numbers = [
+          '+594 6 12 34 56 78',
+          '+594612345678',
+          '+594-6-12-34-56-78',
+          '+594.6.12.34.56.78'
+        ]
+
+        valid_numbers.each do |number|
+          subject.phone_number = number
+          expect(subject).to be_valid, "Expected '#{number}' to be valid"
+        end
+      end
+
+      it 'accepts Martinique numbers (+596)' do
+        valid_numbers = [
+          '+596 6 12 34 56 78',
+          '+596612345678',
+          '+596-6-12-34-56-78',
+          '+596.6.12.34.56.78'
+        ]
+
+        valid_numbers.each do |number|
+          subject.phone_number = number
+          expect(subject).to be_valid, "Expected '#{number}' to be valid"
+        end
+      end
+
+      it 'accepts New Caledonia numbers (+687)' do
+        valid_numbers = [
+          '+687 12 34 56',
+          '+687123456',
+          '+687-12-34-56',
+          '+687.12.34.56'
+        ]
+
+        valid_numbers.each do |number|
+          subject.phone_number = number
+          expect(subject).to be_valid, "Expected '#{number}' to be valid"
+        end
+      end
+
+      it 'rejects overseas territory numbers with wrong format' do
+        invalid_numbers = [
+          '+590 0 12 34 56 78',  # 0 is not valid after +590
+          '+594 12 34 56 7',     # too short
+          '+596 12 34 56 789',   # too long
+          '+687 12 34 56 78',    # too long for New Caledonia
+          '+687 1 23 45',        # too short for New Caledonia
+        ]
+
+        invalid_numbers.each do |number|
+          subject.phone_number = number
+          expect(subject).not_to be_valid, "Expected '#{number}' to be invalid"
+        end
+      end
+    end
+
     context 'with different separators' do
       it 'accepts numbers with dashes' do
         valid_numbers = [
