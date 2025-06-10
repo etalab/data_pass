@@ -143,6 +143,7 @@ fr:
               scopes_compatibility: 'sont invalides : Des données incompatibles entre elles ont été cochées. Pour connaître les modalités d’appel et de réponse de l’API Impôt particulier ainsi que les données proposées, vous pouvez consulter la documentation dans la rubrique "mode de fonctionnement de l’API Impôt Particulier"'
               revenue_years_scopes_compatibility: "sont invalides : Vous ne pouvez pas sélectionner la donnée 'Avant-dernière année de revenu, si la dernière année de revenu est indisponible' avec d'autres années de revenus"
               at_least_one_revenue_year_has_been_selected: 'sont invalides : Vous devez cocher au moins une année de revenus souhaitée avant de continuer'
+              lep_scope_exclusivity: "sont invalides : La donnée d’indicateur d’éligibilité au LEP ne peut être demandée que seule. Veuillez décocher cette case, ou décocher toutes les autres si vous souhaitez vérifier l’éligibilité au LEP."
         authorization_request/api_impot_particulier: *api_impot_particulier_errors
         authorization_request/api_sfip_sandbox: *api_impot_particulier_errors
 
