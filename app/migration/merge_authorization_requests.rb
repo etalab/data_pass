@@ -7,6 +7,8 @@ class MergeAuthorizationRequests
   end
 
   def perform
+    return if redis_backend_handled.elements.include?(from_id.to_s)
+
     check_existence_of_requests!
     answer = display_infos
 
@@ -15,10 +17,16 @@ class MergeAuthorizationRequests
     mark_from_authorizations_as_obsolete!
     run_sql
 
+    redis_backend_handled << from_id.to_s
+
     displays_results
   end
 
   private
+
+  def redis_backend_handled
+    @redis_backend_handled ||= Kredis.list "merged_authorization_request_ids"
+  end
 
   def display_infos
     print "from (#{@from_request.type} state: #{@from_request.state}):\n"
@@ -57,6 +65,15 @@ class MergeAuthorizationRequests
       print "> https://datapass.api.gouv.fr/demandes/#{next_copy.id}\n"
       print "> Authorizations ids: #{next_copy.authorizations.pluck(:id).join(', ')}\n"
       print "Run: MergeAuthorizationRequests.new(#{to_id}, #{next_copy.id}).perform\n"
+      print "Do you want to merge the next copy? (Y/n)\n"
+
+      answer = gets.chomp
+
+      if answer.downcase == 'y' || answer.empty?
+        MergeAuthorizationRequests.new(to_id, next_copy.id).perform
+      else
+        print "Skipping next copy merge.\n"
+      end
     end
   end
 

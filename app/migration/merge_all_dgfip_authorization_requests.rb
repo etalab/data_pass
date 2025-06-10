@@ -1,7 +1,11 @@
 class MergeAllDGFIPAuthorizationRequests
   def perform
     ids.each do |from_id, to_id|
-      MergeAuthorizationRequests.new(from_id, to_id).perform
+      begin
+        MergeAuthorizationRequests.new(from_id, to_id).perform
+      rescue ArgumentError
+        print "Already merged or same request: #{from_id} into #{to_id}\n"
+      end
     end
   end
 
