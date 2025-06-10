@@ -56,7 +56,7 @@ api-particulier-abelium:
       - cnaf_allocataires
       - cnaf_enfants
       - cnaf_adresse
-  data:
+  initialize_with:
     intitule: Domino web 2.0 | Gestion des structures de petites enfances, enfance et jeunesse
     description: |
       Gestion des structures de petite enfance, enfance, jeunesse pour la facturation de la cantine le service periscolaire et extrascolaire
@@ -110,7 +110,7 @@ api-particulier-arpege-concerto:
     displayed:
       - cnaf_quotient_familial
       - cnaf_allocataires
-  data:
+  initialize_with:
     intitule: Tarification sur Quotient Familial des prestations Périscolaire
     description: |
       Le logiciel est utilisé par des agents habilités pour la saisie des QF en masse (enfance, jeunesse et adultes).
@@ -149,7 +149,7 @@ api-particulier-cantine-de-france:
       - cnaf_allocataires
       - cnaf_enfants
       - cnaf_adresse
-  data:
+  initialize_with:
     intitule:
       Récupération du Quotient Familial ainsi que les informations administratives
       (CAF et Impôts) pour les services Cantine et Garderie
@@ -191,7 +191,7 @@ api-particulier-agora-plus:
       - cnaf_quotient_familial
       - cnaf_allocataires
       - cnaf_adresse
-  data:
+  initialize_with:
     intitule:
       Dématérialisation du calcul du quotient/taux d'effort pour les structures
       gérés par les administrations/collectivités (petite enfance, enfance, jeunesse
@@ -232,7 +232,7 @@ api-particulier-amiciel-malice:
       - cnaf_enfants
       - cnaf_adresse
 
-  data:
+  initialize_with:
     intitule:
       Récupération des données de la famille pour l'inscription et la facturation
       en crèche, cantine, périscolaire, extrascolaire, transports scolaires
@@ -284,7 +284,7 @@ api-particulier-ccas-arche-mc2:
       - cnaf_enfants
       - cnaf_adresse
 
-  data:
+  initialize_with:
     intitule: Instructions des dossiers d'aides sociales
     description: Logiciel utilisé par des agents habilités de CCAS/CIAS dans le cadre de l'instruction de dossier de demandes d'aides sociales
     cadre_juridique_nature: &api_particulier_cadre_juridique_nature_ccas |
@@ -315,7 +315,7 @@ api-particulier-ccas-arpege:
   authorization_request: APIParticulier
   use_case: ccas
   service_provider_id: arpege
-  data:
+  initialize_with:
     intitule:
       Récupération du Quotient Familial pour les aides sociales facultatives
       et les services à la personne du CCAS
@@ -346,7 +346,7 @@ api-particulier-city-family-mushroom-software:
       - cnaf_allocataires
       - cnaf_enfants
       - cnaf_adresse
-  data:
+  initialize_with:
     intitule: Calcul du quotient familial pour la facturations des crèches, du périscolaire, du scolaire et de l’extrascolaire
     description: Gestion des activités enfance, jeunesse, petite enfance (facturations des crèches, du périscolaire, du scolaire et de l’extrascolaire). Portail famille et back-office
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_qf
@@ -370,7 +370,7 @@ api-particulier-civil-enfance-ciril-group:
   static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
   use_case: tarification_municipale_enfance
   service_provider_id: ciril_group
-  data:
+  initialize_with:
     intitule:
       Déclaration et calcul du quotient familial pour la facturation des activités
       du portail famille
@@ -402,7 +402,7 @@ api-particulier-cosoluce-fluo:
       - cnaf_quotient_familial
     displayed:
       - cnaf_quotient_familial
-  data:
+  initialize_with:
     intitule: Récupération des données CNAF pour les services municipaux
     description: Logiciel utilisé par des agents habilités pour la facturation des cantines
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_qf
@@ -434,7 +434,7 @@ api-particulier-nfi:
       - cnaf_allocataires
       - cnaf_adresse
       - cnaf_enfants
-  data:
+  initialize_with:
     intitule: Gestion de la relation client sur le portail famille
     description: |
       Récupération de quotient familial :
@@ -468,7 +468,7 @@ api-particulier-technocarte-ile:
     displayed:
       - cnaf_quotient_familial
       - cnaf_allocataires
-  data:
+  initialize_with:
     intitule:
       Récupération du Quotient Familial pour le service Enfance (Périscolaire,
       centre de loisirs)
@@ -503,7 +503,7 @@ api-particulier-waigeo-myperischool:
       - cnaf_adresse
       - cnaf_enfants
 
-  data:
+  initialize_with:
     intitule:
       Calcul de la tarification pour la facturation des services périscolaires,
       restauration scolaire et des accueils de loisirs.
@@ -537,7 +537,7 @@ api-particulier-3d-ouest:
       - cnaf_quotient_familial
       - cnaf_allocataires
 
-  data:
+  initialize_with:
     intitule:
       Tarification Services Enfance et récupération des quotients familiaux
       avec le logiciel Enfance 3D OUEST
@@ -584,7 +584,7 @@ api-particulier-agedi-proxima-enf:
       - cnaf_enfants
       - cnaf_adresse
 
-  data:
+  initialize_with:
     intitule: Tarification service enfance et récupération des quotients familiaux
     description: |
       Le logiciel Proxima.ENF permet la mise à jour des données familles dans le cadre d'un logiciel de gestion de l'accueil de l'enfance
@@ -627,7 +627,7 @@ api-particulier-ecorestauration-loyfeey:
       - cnaf_enfants
       - cnaf_adresse
 
-  data:
+  initialize_with:
     intitule: Tarification sur Quotient Familial des cantines
     description: |
       Logiciel utilisé à travers d'un front pour les inscriptions à la restauration scolaire (fournissent leurs information à la collectivité par l'API sans envoyer de document ou se déplacer) et par des agents habilités en back-office (récupèrent les informations familles des parents qui inscrivent leurs enfants à la restauration scolaire et obtiennent le résultat du calcul tarifaire automatique effectué par Loyfeey à partir des revenus de l'API)
@@ -666,7 +666,7 @@ api-particulier-jcdeveloppement-familyclic:
       - cnaf_enfants
       - cnaf_adresse
 
-  data:
+  initialize_with:
     intitule: Tarification sur Quotient Familial des cantines
     description: |
       FamilyClic est destiné aux citoyens et aux agents des mairies pour la gestion de la tarification des cantines. La partie API est réservée aux agents et permet de vérifier le QF des familles.
@@ -699,7 +699,7 @@ api-particulier-aiga:
     displayed:
       - cnaf_quotient_familial
 
-  data:
+  initialize_with:
     intitule: Tarification sur Quotient Familial des cantines
     description: |
       Gestion de la tarification de la cantine en backoffice par des agents habilités
@@ -727,7 +727,7 @@ api-particulier-extenso-partner-extenso-cloud:
       - mesri_identite
       - mesri_admissions
 
-  data:
+  initialize_with:
     intitule: Tarification du stationnement résidentiel
     description:
       Le logiciel permet la gestion des abonnements de stationnement (résidentiels). Il est disponible en 2 parties, 1 back-office pour les agents du service public et 1 front-office à destination des administrés.
@@ -764,7 +764,7 @@ api-particulier-capdemat-capdemat-evolution:
     displayed:
       - cnaf_quotient_familial
 
-  data:
+  initialize_with:
     intitule: Tarification sur Quotient Familial des cantines
     description: Logiciel de Gestion de la Relation usager à destination des collectivités intégrant un portail pour les citoyens et un back office agent.
     cadre_juridique_nature: l'Article L114-8 du Code des relations entre le public et l'administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usage. L'article R531-52 du Code de l'éducation donne compétence aux collectivités pour fixer les tarifs des cantines.
@@ -800,7 +800,7 @@ api-particulier-kosmos-education:
       - cnaf_enfants
       - cnaf_adresse
 
-  data:
+  initialize_with:
     intitule: Portail Tarification et Aide Restauration Scolaire
     description: |
       Logiciel utilisé directement par les citoyens au travers d'un front et par des agents habilités pour faciliter la gestion de la tarification des cantines.
@@ -830,7 +830,7 @@ api-particulier-monkey-factory-maasify:
       - pole_emploi_identite
       - pole_emploi_contact
 
-  data:
+  initialize_with:
     intitule: Tarification des transports
     description: |
       A travers nos médias digitaux (application mobile et/ou site web), un usager peut se créer un compte dans le but de consommer toutes les mobilités présentes sur le territoire.
@@ -863,7 +863,7 @@ api-particulier-esabora-pourmesdossiers:
       - cnaf_enfants
       - cnaf_adresse
 
-  data:
+  initialize_with:
     intitule: Tarification des transports
     description: |
       Logiciel de gestion de la tarification sociale et solidaire des transports en backoffice.
@@ -909,7 +909,7 @@ api-particulier-airweb:
       - men_statut_etablissement
       - allocation_adulte_handicape
 
-  data:
+  initialize_with:
     intitule: Tarification des transports
     description: |
       Nos clients sont les Autorités organisatrices de transport. Grâce aux e-boutiques Airweb mobiles, les utilisateurs peuvent acheter et stocker leurs titres de transport sur leur smartphone, et les valider directement dans les véhicules via flash de QRcodes
@@ -955,7 +955,7 @@ api-particulier-bl-enfance-berger-levrault:
       - cnaf_quotient_familial
     displayed:
       - cnaf_quotient_familial
-  data:
+  initialize_with:
     intitule: Tarification sur Quotient Familial des activités scolaires, périscolaires et loisirs
     description: |
       Gestion de la tarification basée sur le quotient familial
@@ -989,7 +989,7 @@ api-particulier-noethys:
       - cnaf_allocataires
       - cnaf_adresse
       - cnaf_enfants
-  data:
+  initialize_with:
     intitule: Récupération du Quotient Familial pour le service enfance (Périscolaire, centre de loisirs)
     description: |
       Récupération de quotient familial :
@@ -1023,7 +1023,7 @@ api-particulier-carte-plus:
       - cnaf_allocataires
       - cnaf_adresse
       - cnaf_enfants
-  data:
+  initialize_with:
     intitule: Récupération du Quotient Familial pour le service enfance (Périscolaire, centre de loisirs)
     description: |
       Récupération de quotient familial :
@@ -1062,7 +1062,7 @@ api-particulier-resagenda:
       - cnaf_allocataires
       - cnaf_adresse
       - cnaf_enfants
-  data:
+  initialize_with:
     intitule: Récupération du Quotient Familial pour le service enfance (Périscolaire, centre de loisirs)
     description: |
       Récupération de quotient familial :
@@ -1103,7 +1103,7 @@ api-particulier-ganesh-education:
       - mesri_admission_regime_formation
       - mesri_admission_commune_etudes
       - mesri_admission_etablissement_etudes
-  data:
+  initialize_with:
     intitule: Gestion de la scolarité des établissements d'enseignement supérieur
     description: |
       Le logiciel est utilisé par des agents en back-office et des utilisateurs habilités pour la gestion de la scolarité des établissements d'enseignement supérieur 
@@ -1145,7 +1145,7 @@ api-particulier-jvs-mairistem:
       - cnaf_enfants
       - cnaf_adresse
 
-  data:
+  initialize_with:
     intitule: Facturation des familles pour les services périscolaires et loisirs
     description: |
       Récupération de quotient familial par des agents habilités pour le compte d'un administré spécifique.
@@ -1185,7 +1185,7 @@ api-particulier-ccas-paxtel:
       - cnaf_enfants
       - revenu_solidarite_active
 
-  data:
+  initialize_with:
     intitule: Instructions des dossiers d'aides sociales
     description: Logiciel utilisé par des agents habilités de CCAS/CIAS dans le cadre de l'instruction de dossier de demandes d'aides sociales
     cadre_juridique_nature: &api_particulier_cadre_juridique_nature_ccas |
@@ -1222,7 +1222,7 @@ api-particulier-ypok:
       - cnaf_enfants
       - cnaf_adresse
 
-  data:
+  initialize_with:
     intitule: Facturation des familles pour les services enfance
     description: |
       Gestion des structures enfance, jeunesse pour la facturation de la cantine, le service periscolaire et extrascolaire
@@ -1256,7 +1256,7 @@ api-particulier-ars-data:
       - cnaf_quotient_familial
       - cnaf_allocataires
 
-  data:
+  initialize_with:
     intitule: Tarification des activités d'enseignements artistiques
     description: |
       Gestion de la tarification des activités d'enseignements artistiques dans les conservatoires et théâtre
@@ -1286,7 +1286,7 @@ api-particulier-e1os:
     displayed:
       - cnaf_quotient_familial
 
-  data:
+  initialize_with:
     intitule: Facturation des familles pour les services scolaire et cantine
     description: |
       Gestion de la facturation de la cantine et du service periscolaire
@@ -1316,7 +1316,7 @@ api-particulier-acheteza:
     displayed:
       - cnaf_quotient_familial
 
-  data:
+  initialize_with:
     intitule: Facturation des familles pour les services scolaire et cantine
     description: |
       Gestion de la facturation de la cantine et du service periscolaire
@@ -1354,7 +1354,7 @@ api-particulier-dialog:
       - men_echelon_bourse
 
 
-  data:
+  initialize_with:
     intitule: Dématérialisation des dispositifs d'aides et de subventions
     description: |
       Dématérialisation des dispositifs d'aides et de subventions communales, départementales ou régionales
@@ -1405,7 +1405,7 @@ api-particulier-coexya:
       - men_echelon_bourse
       - complementaire_sante_solidaire
 
-  data:
+  initialize_with:
     intitule: Tarification sociale et solidaires des transports
     description: Aide à l'accès aux transports
     cadre_juridique_nature:
@@ -1449,7 +1449,7 @@ api-particulier-docaposte-fast:
   static_blocks: &api_particulier_through_editor_static_blocks
     - name: basic_infos
     - name: modalities
-  data:
+  initialize_with:
     intitule:
       Récupération du Quotient Familial ainsi que les informations administratives
       (CAF et Impôts) pour les services Cantine et Garderie
@@ -1483,7 +1483,7 @@ api-particulier-odyssee-informatique-pandore:
   use_case: tarification_municipale_enfance
   service_provider_id: odyssee_informatique
   static_blocks: *api_particulier_through_editor_static_blocks
-  data:
+  initialize_with:
     intitule: Récupération des données CNAF pour les services municipaux
     description:
       "La mairie souhaite bénéficier du service API Particulier pour les
@@ -1519,7 +1519,7 @@ api-particulier-qiis-eticket:
   single_page_view: "api_particulier_through_editor"
   service_provider_id: qiis
   static_blocks: *api_particulier_through_editor_static_blocks
-  data:
+  initialize_with:
     intitule: eTicket - Portail Famille
     description:
       "Cette démarche auprès des administrés nous permettra de récupérer
@@ -1553,7 +1553,7 @@ api-particulier-teamnet-axel:
   single_page_view: "api_particulier_through_editor_without_contact_technique"
   service_provider_id: teamnet
   static_blocks: *api_particulier_through_editor_static_blocks
-  data:
+  initialize_with:
     intitule:
       Déclaration des revenus et calcul du quotient familial pour actualiser
       les tarifs appliqués aux différentes prestations facturées
@@ -1584,7 +1584,7 @@ api-particulier-entrouvert-publik:
   single_page_view: "api_particulier_through_editor_without_contact_technique"
   service_provider_id: entrouvert
   static_blocks: *api_particulier_through_editor_static_blocks
-  data:
+  initialize_with:
     intitule:
       Calcul du tarif des activités péri-extrascolaires, petite enfance, socio-culturelles
       et sportives pour les enfants ou les adultes inscrits
@@ -1607,7 +1607,7 @@ api-particulier-ccas-melissandre-afi:
   use_case: ccas
   service_provider_id: afi
   static_blocks: *api_particulier_through_editor_static_blocks
-  data:
+  initialize_with:
     intitule: Instructions des dossiers d'aides sociales
     description:
       "Les agents du CCAS instruisent des dossiers de demandes d'aides
@@ -1650,7 +1650,7 @@ api-particulier-sigec-maelis:
   use_case: tarification_municipale_enfance
   service_provider_id: sigec
   static_blocks: *api_particulier_through_editor_static_blocks
-  data:
+  initialize_with:
     intitule: Récupération des données CNAF pour les services municipaux
     description:
       "La mairie souhaite bénéficier du service API Particulier pour les
@@ -1692,7 +1692,7 @@ api-particulier-tarification-municipale-enfance:
     - name: legal
     - name: scopes
     - name: contacts
-  data:
+  initialize_with:
     intitule: Tarification sociale des services municipaux à l’enfance
     cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration qui fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Délibération.[À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]"
     scopes:
@@ -1713,7 +1713,7 @@ api-particulier-aides-facultatives-regionales:
     - name: contacts
   static_blocks:
     - name: modalities
-  data:
+  initialize_with:
     intitule: Aides facultatives régionales
     cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration qui fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Cadre légal spécifique : [À PRÉCISER SI NÉCESSAIRE].\r\n- Délibération [À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]."
 
@@ -1732,7 +1732,7 @@ api-particulier-aides-facultatives-departementales:
     - name: contacts
   static_blocks:
     - name: modalities
-  data:
+  initialize_with:
     intitule: Aides facultatives départementales
     cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration qui fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Cadre légal spécifique : [À PRÉCISER SI NÉCESSAIRE].\r\n- Délibération [À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]."
 
@@ -1757,7 +1757,7 @@ api-particulier-tarification-cantines-lycees:
     - name: contacts
   static_blocks:
     - name: modalities
-  data:
+  initialize_with:
     intitule: Tarification cantine lycées
     cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Cadre légal spécifique aux régions : L'article L216-6 du Code de l’éducation qui donne compétence aux lycées pour la gestion des cantines.\r\n- La délibération [À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]"
     scopes:
@@ -1784,7 +1784,7 @@ api-particulier-tarification-cantines-colleges:
     - name: legal
     - name: scopes
     - name: contacts
-  data:
+  initialize_with:
     intitule: Tarification cantine collèges
     cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Cadre légal spécifique aux départements : L'article R531-52 du Code de l’éducation qui donne compétence aux collectivités pour fixer les tarifs des cantines.\r\n- La délibération [À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]"
     scopes:
@@ -1808,7 +1808,7 @@ api-particulier-aides-sociales-ccas:
   static_blocks:
     - name: modalities
     - name: legal
-  data:
+  initialize_with:
     intitule: Aides sociales des CCAS
     cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Cadre légal spécifique aux CCAS : Les articles L.123-5 et R.123-2 du Code de l’Action Sociale et des familles qui confient aux CCAS la charge de mener une action générale de prévention et de développement social dans la commune par le biais de prestations en espèces, remboursables ou non et de prestations en nature."
     cadre_juridique_url: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031106561/"
@@ -1833,7 +1833,7 @@ api-particulier-aides-sociales-ccas-dont-facultatives:
     - name: contacts
   static_blocks:
     - name: modalities
-  data:
+  initialize_with:
     intitule: Aides sociales des CCAS dont aides facultatives
     cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Cadre légal spécifique aux CCAS : Les articles L.123-5 et R.123-2 du Code de l’Action Sociale et des familles qui confient aux CCAS la charge de mener une action générale de prévention et de développement social dans la commune par le biais de prestations en espèces, remboursables ou non et de prestations en nature.\r\n- Cadre légal spécifique pour les aides facultatives des CCAS : L'article R.123-21 du Code de l’Action Sociale et des familles donnant toute liberté au CCAS pour définir les conditions d’attribution des aides sociales facultatives.\r\n- La délibération du conseil d'administration précisant les données nécessaires à l’attribution des aides facultatives [À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]."
     scopes:
@@ -1891,7 +1891,7 @@ api-particulier-tarification-transports:
       - allocation_adulte_handicape
       - revenu_solidarite_active
       - revenu_solidarite_active_majoration
-  data:
+  initialize_with:
     intitule: Tarification des transports
     cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Cadre légaux spécifiques : Les articles L1231-1 et L1231-3 du Code des transports pour les transports en commun ; les articles L. 3111-7 du Code des transports et L. 214-18 du Code de l’éducation pour les transports scolaires ; l'article L1113-1 du Code des transports en cas d'utilisation de la complémentaire santé solidaire comme critère de tarification [RETIRER LES MENTIONS INUTILES].\r\n- La délibération qui spécifie les conditions tarifaires [À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]."
 
@@ -1937,7 +1937,7 @@ api-particulier-gestion-rh-secteur-public:
       - revenu_solidarite_active_majoration
       - prime_activite
       - prime_activite_majoration
-  data:
+  initialize_with:
     intitule: Gestion RH du secteur public
     cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager."
     cadre_juridique_url: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000045213315"

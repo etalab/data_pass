@@ -48,7 +48,7 @@ class CreateAuthorizationRequestChangelog < ApplicationInteractor
 
   def initial_diff_with_prefilled_form
     authorization_request_data_keys.to_h do |attribute|
-      default_value = authorization_request.form.data[attribute.to_sym]
+      default_value = authorization_request.form.initialize_with[attribute.to_sym]
       actual_value = authorization_request_value_for_diff(attribute)
 
       if data_changed_between_prefilling_and_submit?(default_value, actual_value)

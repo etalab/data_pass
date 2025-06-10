@@ -46,11 +46,7 @@ module AuthorizationCore::Scopes
   end
 
   def available_scopes
-    @available_scopes ||= if displayed_scope_values
-                            definition.scopes.select { |scope| displayed_scope_values.include?(scope.value) }
-                          else
-                            definition.scopes.reject { |scope| scope.entity_created_after_deprecation_date?(self) }
-                          end
+    @available_scopes ||= definition.scopes.select { |scope| scope.available?(self) }
   end
 
   def included_scopes
@@ -58,22 +54,10 @@ module AuthorizationCore::Scopes
   end
 
   def disabled_scopes
-    @disabled_scopes ||= definition.scopes.select { |scope| disabled_scope_values.include?(scope.value) }
+    @disabled_scopes ||= definition.scopes.select { |scope| scope.disabled_by_config?(self) }
   end
 
   def legacy_scope_values
     scopes - available_scopes.map(&:value)
-  end
-
-  private
-
-  def disabled_scope_values
-    form.scopes_config[:disabled].presence || []
-  end
-
-  def displayed_scope_values
-    return if form.scopes_config[:displayed].blank?
-
-    form.scopes_config[:displayed]
   end
 end

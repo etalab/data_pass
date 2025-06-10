@@ -7,7 +7,7 @@ annuaire-des-entreprises-marches-publics:
     Ce formulaire vous permet d'accéder aux fonctionnalités spécifiques au cas d'usage des marchés publics.
   authorization_request: AnnuaireDesEntreprise
   single_page_view: annuaire_des_entreprises
-  data:
+  initialize_with:
     description: FEEDME Une description relative à l'utilisation du service
     cadre_juridique_nature: |+
       Service numérique de conformité pour les administrations publiques dans le cadre du décret N°2011-1601 et de l’article D8222 du code du travail, offre de services d’intermédiation aux organismes publics, tel que défini par l’article 17, alinéa IV, du décret du 24 septembre 2014 et le décret lié à la commande publique n° 2016-360.
@@ -25,7 +25,7 @@ annuaire-des-entreprises-aides-publiques:
     Ce formulaire vous permet d'accéder aux fonctionnalités spécifiques au cas d'usage des aides publiques
   authorization_request: AnnuaireDesEntreprise
   single_page_view: annuaire_des_entreprises
-  data:
+  initialize_with:
     description: FEEDME Une description relative à l'utilisation du service
     cadre_juridique_nature: |+
       Décret n° 2019-31 du 18 janvier 2019 relatif aux échanges d’informations et de données entre administrations dans le cadre des démarches administratives et à l’expérimentation prévue par l’article 40 de la loi n° 2018-727 du 10 août 2018 pour un Etat au service d’une société de confiance
@@ -39,7 +39,7 @@ annuaire-des-entreprises-lutte-contre-la-fraude:
     Ce formulaire vous permet d'accéder aux fonctionnalités spécifiques au cas d'usage de la lutte contre la fraude
   authorization_request: AnnuaireDesEntreprise
   single_page_view: annuaire_des_entreprises
-  data:
+  initialize_with:
     description: FEEDME Une description relative à l'utilisation du service
     cadre_juridique_nature: |+
       FEEDME
@@ -53,7 +53,7 @@ annuaire-des-entreprises-subventions-associations:
     Ce formulaire vous permet d'accéder aux fonctionnalités spécifiques au cas d'usage de subventions de fonctionnement des associations
   authorization_request: AnnuaireDesEntreprise
   single_page_view: annuaire_des_entreprises
-  data:
+  initialize_with:
     description: FEEDME Une description relative à l'utilisation du service
     cadre_juridique_nature: |+
       FEEDME

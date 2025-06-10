@@ -95,7 +95,7 @@ class AuthorizationRequestDecorator < ApplicationDecorator
   def prefilled_data?(keys)
     return false if empty_form_data?
 
-    form_data_keys = (object.form.data.keys - %i[scopes])
+    form_data_keys = (object.form.initialize_with.keys - %i[scopes])
     keys = keys.map(&:to_sym)
 
     form_data_keys.intersect?(keys) ||
@@ -149,15 +149,15 @@ class AuthorizationRequestDecorator < ApplicationDecorator
   end
 
   def prefilled_scopes?(keys)
-    return false unless object.form.data.key?(:scopes) && object.form.data[:scopes].present?
+    return false unless object.form.initialize_with.key?(:scopes) && object.form.initialize_with[:scopes].present?
 
     keys.include?(:scopes) &&
-      object.form.data[:scopes].any?
+      object.form.initialize_with[:scopes].any?
   end
 
   def empty_form_data?
-    object.form.data.blank? ||
-      object.form.data == { scopes: [] }
+    object.form.initialize_with.blank? ||
+      object.form.initialize_with == { scopes: [] }
   end
 
   # rubocop:disable Metrics/AbcSize

@@ -175,15 +175,23 @@ Pour la configuration d'un [formulaire (2.)](../config/authorization_request_for
       Je suis une introduction permettant d'introduire le formulaire dans ses
       détails.
     # Optionnel. Permet de définir des options sur les scopes de la définition
-    # au sein du formulaire.
+    # au sein du formulaire. Une docu plus complète est disponible dans
+    # ../docs/scopes_config.md
     scopes_config:
       # Optionnel. Scopes (par valeur) qui auront leur checkbox désactivés. À
-      # noter que le scope peut être présent (grace à la clé `data`) ci-dessous.
+      # noter que le scope peut être présent (grace à la clé `initialize_with`) ci-dessous.
       disabled:
         - scope1
         - scope2
+      # Optionnel. Scopes (par valeur) qui seront masqués/cachés dans le formulaire.
+      # Cette option prend la précédence sur `displayed` - si un scope est dans
+      # `hide`, il ne sera pas affiché même s'il est dans `displayed`.
+      hide:
+        - scope5
+        - scope6
       # Optionnel. Scopes (par valeur) qui seront affichés. Si cette clé est
       # omise l'ensemble des scopes de la définition sont affichés.
+      # Note: Si `hide` est configuré, il prend la précédence sur cette liste.
       displayed:
         - scope3
         - scope4
@@ -203,7 +211,7 @@ Pour la configuration d'un [formulaire (2.)](../config/authorization_request_for
     static_blocks:
       - name: basic_infos
     # Optionnel. Données pré-rempli au démarrage du formulaire.
-    data:
+    initialize_with:
       intitule: "Mon intitulé"
 ```
 

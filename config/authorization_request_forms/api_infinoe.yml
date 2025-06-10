@@ -99,7 +99,7 @@ api-infinoe-envoi-automatise-ecritures-sandbox:
   introduction: *api_infinoe_sandbox_form_introduction
   authorization_request: APIINFINOESandbox
   steps: *api_infinoe_sandbox_steps
-  data:
+  initialize_with:
     intitule: &api_infinoe_envoi_auto_intitule |
       INFINOE
     description: &api_infinoe_envoi_auto_description |
@@ -122,7 +122,7 @@ api-infinoe-envoi-automatise-ecritures-production:
   authorization_request: APIINFINOE
   static_blocks: *api_infinoe_sandbox_steps
   steps: *api_infinoe_production_steps
-  data:
+  initialize_with:
     intitule: *api_infinoe_envoi_auto_intitule
     description: *api_infinoe_envoi_auto_description
     destinataire_donnees_caractere_personnel: *api_infinoe_envoi_auto_destinataire_donnees_caractere_personnel
@@ -138,7 +138,7 @@ api-infinoe-envoi-automatise-ecritures-production-editeur:
   introduction: *api_infinoe_production_editeur_form_intro
   authorization_request: APIINFINOE
   steps: *api_infinoe_editor_steps
-  data:
+  initialize_with:
     intitule: *api_infinoe_envoi_auto_intitule
     description: *api_infinoe_envoi_auto_description
     destinataire_donnees_caractere_personnel: *api_infinoe_envoi_auto_destinataire_donnees_caractere_personnel
