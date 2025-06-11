@@ -1,24 +1,36 @@
 class MergeAuthorizationRequests
-  attr_reader :from_id, :to_id
+  attr_reader :from_id, :to_id, :auto
 
-  def initialize(from_id, to_id)
+  def initialize(from_id, to_id, auto: false)
     @from_id = from_id
     @to_id = to_id
+    @auto = auto
   end
 
   def perform
-    check_existence_of_requests!
-    answer = display_infos
+    return if redis_backend_handled.elements.include?(from_id.to_s)
 
-    return unless answer.downcase == 'y' || answer.empty?
+    check_existence_of_requests!
+    check_all_requests_validated!
+
+    unless @auto
+      answer = display_infos
+      return unless answer.downcase == 'y' || answer.empty?
+    end
 
     mark_from_authorizations_as_obsolete!
     run_sql
+
+    redis_backend_handled << from_id.to_s
 
     displays_results
   end
 
   private
+
+  def redis_backend_handled
+    @redis_backend_handled ||= Kredis.list "merged_authorization_request_ids"
+  end
 
   def display_infos
     print "from (#{@from_request.type} state: #{@from_request.state}):\n"
@@ -57,6 +69,19 @@ class MergeAuthorizationRequests
       print "> https://datapass.api.gouv.fr/demandes/#{next_copy.id}\n"
       print "> Authorizations ids: #{next_copy.authorizations.pluck(:id).join(', ')}\n"
       print "Run: MergeAuthorizationRequests.new(#{to_id}, #{next_copy.id}).perform\n"
+
+      if @auto
+        MergeAuthorizationRequests.new(to_id, next_copy.id, auto: true).perform
+      else
+        print "Do you want to merge the next copy? (Y/n)\n"
+        answer = gets.chomp
+
+        if answer.downcase == 'y' || answer.empty?
+          MergeAuthorizationRequests.new(to_id, next_copy.id).perform
+        else
+          print "Skipping next copy merge.\n"
+        end
+      end
     end
   end
 
@@ -74,6 +99,40 @@ class MergeAuthorizationRequests
     if @from_request == @to_request
       raise ArgumentError, "Cannot merge the same authorization request (id: #{from_id}) into itself."
     end
+  end
+
+  def check_all_requests_validated!
+    copy_chain = build_copy_chain
+    non_validated_requests = copy_chain.reject { |request| request.state == 'validated' }
+
+    if non_validated_requests.any?
+      non_validated_states = non_validated_requests.map { |r| "#{r.id}:#{r.state}" }.join(', ')
+      raise ArgumentError, "Cannot merge authorization requests that are not validated. Non-validated requests found: #{non_validated_states}"
+    end
+  end
+
+  def build_copy_chain
+    chain = [@from_request, @to_request]
+
+    # Find all requests in the copy chain by following copied_from_request_id relationships
+    current = @to_request
+    while current&.copied_from_request_id && current.copied_from_request_id != current.id
+      parent = AuthorizationRequest.find_by(id: current.copied_from_request_id) || Authorization.find_by(id: current.copied_from_request_id)&.request
+      break unless parent
+      break if chain.include?(parent) # Prevent infinite loops
+
+      chain.unshift(parent) unless chain.include?(parent)
+      current = parent
+    end
+
+    # Also check for any requests that copy from the current chain
+    chain_ids = chain.map(&:id)
+    additional_copies = AuthorizationRequest.where(copied_from_request_id: chain_ids).to_a
+    additional_copies.each do |copy|
+      chain << copy unless chain.include?(copy)
+    end
+
+    chain.uniq
   end
 
   def run_sql
