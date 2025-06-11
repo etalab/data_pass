@@ -12,6 +12,10 @@ fr:
             to:
               different_user: "doit être différent du demandeur actuel"
               different_organization: "n'appartient pas à la même organisation que le demandeur actuel."
+        impersonation:
+          attributes:
+            user:
+              cannot_be_same_as_admin: "ne peut pas être identique à l'administrateur"
   activerecord:
     attributes:
       user:

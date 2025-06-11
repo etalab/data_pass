@@ -4,6 +4,7 @@ class CreateImpersonations < ActiveRecord::Migration[8.0]
       t.references :user, null: false, foreign_key: true
       t.references :admin, null: false, foreign_key: { to_table: :users }
       t.text :reason
+      t.datetime :finished_at
 
       t.timestamps
     end

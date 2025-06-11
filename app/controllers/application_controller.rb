@@ -80,44 +80,21 @@ class ApplicationController < ActionController::Base
              when 'DELETE' then 'destroy'
              end
 
-    model_info = extract_model_info_from_request
+    model = model_to_track
+    return unless model
 
-    if model_info[:model_type] && model_info[:model_id]
-      ImpersonationAction.create!(
-        impersonation: impersonation,
-        action: action,
-        model_type: model_info[:model_type],
-        model_id: model_info[:model_id]
-      )
-    end
+    ImpersonationAction.create!(
+      impersonation: impersonation,
+      action: action,
+      model_type: model.class.name,
+      model_id: model.id
+    )
   rescue StandardError => e
     Rails.logger.error "Failed to track impersonation action: #{e.message}"
   end
 
-  def extract_model_info_from_request
-    controller_parts = controller_name.singularize.camelize
-    
-    model_type = controller_parts
-    model_id = params[:id]
-
-    if controller_parts.include?('::')
-      namespace, model = controller_parts.split('::', 2)
-      model_type = model
-    end
-
-    { model_type: model_type, model_id: model_id }
+  def model_to_track
+    raise NotImplementedError, 'Controllers that need impersonation tracking must implement #model_to_track'
   end
 
-  def current_impersonation
-    return unless impersonating?
-    
-    @current_impersonation ||= Impersonation.where(
-      user: current_user,
-      admin: true_user
-    ).where('created_at > ?', 24.hours.ago).last
-  end
-
-  def impersonating?
-    respond_to?(:true_user) && respond_to?(:current_user) && true_user && current_user && true_user != current_user
-  end
 end

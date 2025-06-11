@@ -4,20 +4,26 @@ class Admin::ImpersonateController < AdminController
   end
 
   def create
-    user = find_user_for_impersonation
-    return unless user
-
-    return if validate_not_self_impersonation(user)
-
-    impersonation = create_impersonation(user)
-    impersonate_user(user)
-    log_impersonation_start(impersonation)
-
-    success_message(
-      title: 'Impersonation activée',
-      description: "Vous êtes maintenant connecté en tant que #{user.email}"
+    result = StartImpersonation.call(
+      user_identifier: impersonation_params[:email],
+      admin: current_user,
+      reason: impersonation_params[:reason],
+      session: session
     )
-    redirect_to dashboard_path
+
+    if result.success?
+      success_message(
+        title: I18n.t('admin.impersonate.success.title'),
+        description: I18n.t('admin.impersonate.success.description', email: result.target_user.email)
+      )
+      redirect_to dashboard_path
+    else
+      error_message(
+        title: I18n.t('admin.impersonate.errors.title'),
+        description: I18n.t("admin.impersonate.errors.#{result.error}")
+      )
+      redirect_to new_admin_impersonate_path
+    end
   end
 
   def destroy
@@ -37,44 +43,5 @@ class Admin::ImpersonateController < AdminController
 
   def impersonation_params
     params.expect(impersonation: %i[email reason])
-  end
-
-  def find_user_for_impersonation
-    user = User.find_by(email: impersonation_params[:email])
-    return user if user
-
-    error_message(
-      title: 'Utilisateur introuvable',
-      description: "Aucun utilisateur avec l'email #{impersonation_params[:email]}"
-    )
-    redirect_to new_admin_impersonate_path
-    nil
-  end
-
-  def validate_not_self_impersonation(user)
-    return false unless user == current_user
-
-    error_message(
-      title: 'Erreur',
-      description: 'Vous ne pouvez pas vous impersonner vous-même'
-    )
-    redirect_to new_admin_impersonate_path
-    true
-  end
-
-  def create_impersonation(user)
-    Impersonation.create!(
-      user: user,
-      admin: current_user,
-      reason: impersonation_params[:reason]
-    )
-  end
-
-  def log_impersonation_start(impersonation)
-    AdminEvent.create!(
-      admin: current_user,
-      name: 'impersonate_start',
-      entity: impersonation
-    )
   end
 end

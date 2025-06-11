@@ -3,14 +3,6 @@ Sachantque('il existe un utilisateur {string}') do |email|
 end
 
 Sachantque('j\'impersonne l\'utilisateur {string}') do |email|
-  user = User.find_by(email: email)
-  
-  Impersonation.create!(
-    user: user,
-    admin: current_user,
-    reason: 'Test impersonation'
-  )
-  
   visit new_admin_impersonate_path
   fill_in 'Email de l\'utilisateur', with: email
   fill_in 'Raison de l\'impersonation', with: 'Test impersonation'

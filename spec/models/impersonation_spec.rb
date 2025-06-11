@@ -1,35 +1,57 @@
 require 'rails_helper'
 
 RSpec.describe Impersonation do
-  it 'has a valid factory' do
-    expect(build(:impersonation)).to be_valid
-  end
-
-  describe 'associations' do
-    it 'belongs to user' do
-      impersonation = build(:impersonation)
-      expect(impersonation).to respond_to(:user)
-      expect(impersonation.user).to be_a(User)
-    end
-
-    it 'belongs to admin' do
-      impersonation = build(:impersonation)
-      expect(impersonation).to respond_to(:admin)
-      expect(impersonation.admin).to be_a(User)
-    end
-
-    it 'has many impersonation_actions' do
-      impersonation = create(:impersonation)
-      action = create(:impersonation_action, impersonation: impersonation)
-      expect(impersonation.impersonation_actions).to include(action)
-    end
-  end
-
   describe 'validations' do
     it 'requires a reason' do
       impersonation = build(:impersonation, reason: nil)
       expect(impersonation).not_to be_valid
       expect(impersonation.errors[:reason]).to be_present
+    end
+
+    it 'validates that user and admin must be different' do
+      user = create(:user)
+      impersonation = build(:impersonation, user: user, admin: user)
+      expect(impersonation).not_to be_valid
+      expect(impersonation.errors[:user]).to include('ne peut pas être identique à l\'administrateur')
+    end
+  end
+
+  describe 'scopes' do
+    let(:active_impersonation) { create(:impersonation) }
+    let(:finished_impersonation) { create(:impersonation, finished_at: 1.hour.ago) }
+
+    it 'returns active impersonations' do
+      expect(Impersonation.active).to include(active_impersonation)
+      expect(Impersonation.active).not_to include(finished_impersonation)
+    end
+
+    it 'returns finished impersonations' do
+      expect(Impersonation.finished).to include(finished_impersonation)
+      expect(Impersonation.finished).not_to include(active_impersonation)
+    end
+  end
+
+  describe '#active?' do
+    it 'returns true when finished_at is nil' do
+      impersonation = build(:impersonation, finished_at: nil)
+      expect(impersonation).to be_active
+    end
+
+    it 'returns false when finished_at is present' do
+      impersonation = build(:impersonation, finished_at: 1.hour.ago)
+      expect(impersonation).not_to be_active
+    end
+  end
+
+  describe '#finish!' do
+    it 'sets finished_at to current time' do
+      impersonation = create(:impersonation)
+      expect(impersonation.finished_at).to be_nil
+
+      travel_to Time.current do
+        impersonation.finish!
+        expect(impersonation.finished_at).to be_within(1.second).of(Time.current)
+      end
     end
   end
 end

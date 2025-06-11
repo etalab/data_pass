@@ -83,4 +83,17 @@ module Authentication
 
     Sentry.set_user(id: current_user.id)
   end
+
+  def current_impersonation
+    return unless impersonating?
+    
+    @current_impersonation ||= Impersonation.where(
+      user: current_user,
+      admin: true_user
+    ).where('created_at > ?', 24.hours.ago).last
+  end
+
+  def impersonating?
+    respond_to?(:true_user) && respond_to?(:current_user) && true_user && current_user && true_user != current_user
+  end
 end

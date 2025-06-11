@@ -58,3 +58,12 @@ fr:
     impersonate:
       new:
         title: "Impersonner un utilisateur"
+      success:
+        title: "Impersonation activée"
+        description: "Vous êtes maintenant connecté en tant que %{email}"
+      errors:
+        title: "Erreur"
+        user_not_found: "Aucun utilisateur trouvé avec cet identifiant"
+        unauthorized: "Vous n'avez pas les permissions nécessaires"
+        cannot_impersonate_admin: "Vous ne pouvez pas impersonner un autre administrateur"
+        cannot_impersonate_self: "Vous ne pouvez pas vous impersonner vous-même"
