@@ -40,4 +40,8 @@ class ReopenAuthorizationsController < AuthenticatedUserController
   def authorize_authorization_reopening
     authorize @authorization, :reopen?
   end
+
+  def model_to_track_for_impersonation
+    @authorization
+  end
 end
