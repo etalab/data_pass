@@ -1,6 +1,6 @@
 class Admin::FinishImpersonationRecord < ApplicationInteractor
   def call
-    return unless context.impersonation
+    return if context.impersonation.finished_at.present?
 
     context.impersonation.finish!
   end
