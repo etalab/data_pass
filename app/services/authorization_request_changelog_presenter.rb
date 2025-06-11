@@ -11,7 +11,7 @@ class AuthorizationRequestChangelogPresenter
   end
 
   def event_name
-    return 'legacy_submit' if any_changelog_legacy?
+    return legacy_changelog_name if any_changelog_legacy?
 
     if first_changelog?
       if !prefilled_data?
@@ -34,7 +34,7 @@ class AuthorizationRequestChangelogPresenter
     case event_name
     when 'initial_submit_with_changes_on_prefilled_data'
       changelog_builder(changelog_diff_without_unchanged_prefilled_values_and_new_values)
-    when 'submit_with_changes'
+    when 'submit_with_changes', 'legacy_submit_with_changes'
       changelog_builder(changelog_diff)
     else
       []
@@ -42,6 +42,14 @@ class AuthorizationRequestChangelogPresenter
   end
 
   private
+
+  def legacy_changelog_name
+    if no_change?
+      'legacy_submit_without_changes'
+    else
+      'legacy_submit_with_changes'
+    end
+  end
 
   def changelog_builder(diffs)
     diffs.map { |attribute, values|
