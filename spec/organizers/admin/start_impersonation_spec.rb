@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe StartImpersonation do
+RSpec.describe Admin::StartImpersonation do
   describe '.call' do
     let(:admin) { create(:user, roles: ['admin']) }
     let(:target_user) { create(:user) }

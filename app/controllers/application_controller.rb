@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   helper ActiveLinks
 
   before_action :track_impersonation_action, if: :impersonating?
-  
+
   helper_method :namespace?, :displayed_on_a_public_page?
 
   def current_namespace
@@ -68,18 +68,44 @@ class ApplicationController < ActionController::Base
   end
 
   def track_impersonation_action
-    return unless %w[POST PUT PATCH DELETE].include?(request.method)
-    return if request.path.start_with?('/admin/impersonate')
+    return unless should_track_impersonation_action?
 
     impersonation = current_impersonation
     return unless impersonation
 
-    action = case request.method
-             when 'POST' then 'create'
-             when 'PUT', 'PATCH' then 'update'
-             when 'DELETE' then 'destroy'
-             end
+    return handle_finished_impersonation if impersonation.finished_at.present?
 
+    create_impersonation_action_record(impersonation)
+  rescue StandardError => e
+    Rails.logger.error "Failed to track impersonation action: #{e.message}"
+  end
+
+  def stop_invalid_impersonation
+    session.delete(:impersonated_user_id)
+    session.delete(:impersonation_id)
+
+    error_message(
+      title: I18n.t('admin.impersonate.errors.title'),
+      description: I18n.t('admin.impersonate.errors.session_expired')
+    )
+    redirect_to dashboard_path
+  end
+
+  def model_to_track
+    raise NotImplementedError, 'Controllers that need impersonation tracking must implement #model_to_track'
+  end
+
+  def should_track_impersonation_action?
+    %w[POST PUT PATCH DELETE].include?(request.method) &&
+      !request.path.start_with?('/admin/impersonate')
+  end
+
+  def handle_finished_impersonation
+    stop_invalid_impersonation
+  end
+
+  def create_impersonation_action_record(impersonation)
+    action = determine_action_from_method
     model = model_to_track
     return unless model
 
@@ -87,14 +113,16 @@ class ApplicationController < ActionController::Base
       impersonation: impersonation,
       action: action,
       model_type: model.class.name,
-      model_id: model.id
+      model_id: model.id,
+      controller: self.class.name
     )
-  rescue StandardError => e
-    Rails.logger.error "Failed to track impersonation action: #{e.message}"
   end
 
-  def model_to_track
-    raise NotImplementedError, 'Controllers that need impersonation tracking must implement #model_to_track'
+  def determine_action_from_method
+    case request.method
+    when 'POST' then 'create'
+    when 'PUT', 'PATCH' then 'update'
+    when 'DELETE' then 'destroy'
+    end
   end
-
 end

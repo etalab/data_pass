@@ -1,8 +1,9 @@
 FactoryBot.define do
   factory :impersonation_action do
-    association :impersonation
+    impersonation
     action { 'create' }
     model_type { 'AuthorizationRequest' }
     model_id { 1 }
+    controller { 'AuthorizationRequestsController' }
   end
 end

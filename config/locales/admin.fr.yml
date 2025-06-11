@@ -70,3 +70,4 @@ fr:
         unauthorized: "Vous n'avez pas les permissions nécessaires"
         cannot_impersonate_admin: "Vous ne pouvez pas impersonner un autre administrateur"
         cannot_impersonate_self: "Vous ne pouvez pas vous impersonner vous-même"
+        session_expired: "Votre session d'impersonation a expiré"

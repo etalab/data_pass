@@ -316,5 +316,9 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   def layout_name
     'authorization_request'
   end
+
+  def model_to_track
+    @authorization_request
+  end
 end
 # rubocop:enable Metrics/ClassLength

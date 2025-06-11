@@ -52,4 +52,8 @@ class Admin::UsersWithRolesController < AdminController
   def user_params
     params.expect(user: %i[email roles])
   end
+
+  def model_to_track
+    @user
+  end
 end

@@ -14,17 +14,16 @@ class Admin::ImpersonateController < AdminController
   end
 
   def destroy
-    AdminEvent.create!(
+    Admin::StopImpersonation.call(
       admin: true_user,
-      name: 'impersonate_stop',
-      entity: current_user
+      current_user: current_user,
+      impersonation: current_impersonation,
+      session: session
     )
-
-    stop_impersonating_user
 
     success_message(
       title: I18n.t('admin.impersonate.stop.title'),
-      description: I18n.t('admin.impersonate.stop.description', email: current_user.email)
+      description: I18n.t('admin.impersonate.stop.description', email: true_user.email)
     )
     redirect_to admin_path
   end
@@ -36,7 +35,7 @@ class Admin::ImpersonateController < AdminController
   end
 
   def start_impersonation
-    StartImpersonation.call(
+    Admin::StartImpersonation.call(
       user_identifier: impersonation_params[:email],
       admin: current_user,
       reason: impersonation_params[:reason],

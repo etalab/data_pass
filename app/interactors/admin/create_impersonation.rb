@@ -2,8 +2,6 @@ class Admin::CreateImpersonation < ApplicationInteractor
   def call
     validate_target_user
     create_impersonation_record
-    start_impersonation_session
-    track_admin_event
   end
 
   private
@@ -18,19 +16,6 @@ class Admin::CreateImpersonation < ApplicationInteractor
       user: context.target_user,
       admin: context.admin,
       reason: context.reason
-    )
-  end
-
-  def start_impersonation_session
-    context.session[:impersonated_user_id] = context.target_user.id
-    context.session[:impersonation_id] = context.impersonation.id
-  end
-
-  def track_admin_event
-    AdminEvent.create!(
-      admin: context.admin,
-      name: 'impersonate_user',
-      entity: context.impersonation
     )
   end
 end

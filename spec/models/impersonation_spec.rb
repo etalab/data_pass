@@ -21,13 +21,13 @@ RSpec.describe Impersonation do
     let(:finished_impersonation) { create(:impersonation, finished_at: 1.hour.ago) }
 
     it 'returns active impersonations' do
-      expect(Impersonation.active).to include(active_impersonation)
-      expect(Impersonation.active).not_to include(finished_impersonation)
+      expect(described_class.active).to include(active_impersonation)
+      expect(described_class.active).not_to include(finished_impersonation)
     end
 
     it 'returns finished impersonations' do
-      expect(Impersonation.finished).to include(finished_impersonation)
-      expect(Impersonation.finished).not_to include(active_impersonation)
+      expect(described_class.finished).to include(finished_impersonation)
+      expect(described_class.finished).not_to include(active_impersonation)
     end
   end
 
@@ -48,7 +48,7 @@ RSpec.describe Impersonation do
       impersonation = create(:impersonation)
       expect(impersonation.finished_at).to be_nil
 
-      travel_to Time.current do
+      freeze_time do
         impersonation.finish!
         expect(impersonation.finished_at).to be_within(1.second).of(Time.current)
       end

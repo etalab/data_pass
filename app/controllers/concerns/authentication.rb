@@ -86,7 +86,7 @@ module Authentication
 
   def current_impersonation
     return unless impersonating?
-    
+
     @current_impersonation ||= Impersonation.where(
       user: current_user,
       admin: true_user

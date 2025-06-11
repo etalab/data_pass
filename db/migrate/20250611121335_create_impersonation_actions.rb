@@ -5,6 +5,7 @@ class CreateImpersonationActions < ActiveRecord::Migration[8.0]
       t.string :action
       t.string :model_type
       t.integer :model_id
+      t.string :controller
 
       t.timestamps
     end

@@ -17,6 +17,9 @@ fr:
             user:
               cannot_be_same_as_admin: "ne peut pas être identique à l'administrateur"
   activerecord:
+    errors:
+      messages:
+        cannot_be_same_as_admin: "ne peut pas être identique à l'administrateur"
     attributes:
       user:
         job_title: Poste occupé

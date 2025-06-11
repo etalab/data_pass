@@ -9,7 +9,7 @@ Sachantque('j\'impersonne l\'utilisateur {string}') do |email|
   click_button 'Commencer l\'impersonation'
 end
 
-Sachantqu('il existe une habilitation {string} en {string}') do |definition, target_api|
+Sachantqu('il existe une habilitation {string} en {string}') do |definition, _target_api|
   # Authorization definitions are loaded from config files, no need to create them
   definition_exists = AuthorizationDefinition.find(definition)
   raise "Authorization definition '#{definition}' not found" unless definition_exists
@@ -41,5 +41,5 @@ Alors('je devrais voir {string}') do |content|
 end
 
 Alors('je ne devrais pas voir {string}') do |content|
-  expect(page).not_to have_content(content)
+  expect(page).to have_no_content(content)
 end
