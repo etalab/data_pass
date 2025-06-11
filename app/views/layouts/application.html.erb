@@ -40,6 +40,18 @@
 
     <%= render partial: 'layouts/header' %>
 
+    <% if respond_to?(:current_user) && respond_to?(:true_user) && current_user != true_user %>
+      <div id="impersonate_warning" class="fr-alert fr-alert--warning" style="margin-bottom: 0; border-radius: 0;">
+        <div class="fr-container">
+          <div class="fr-alert__body">
+            <p class="fr-alert__title">Mode impersonation activé</p>
+            <p>Vous (<%= true_user.email %>) êtes connecté en tant que <%= current_user.email %></p>
+            <%= button_to "Arrêter l'impersonation", admin_impersonate_path, method: :delete, data: { turbo: false }, id: 'stop_impersonate', class: 'fr-btn fr-btn--secondary fr-btn--sm' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
     <main>
       <% if content_for?(:body) %>
         <%= yield(:body) %>

@@ -55,3 +55,6 @@ fr:
       create:
         title: *whitelisted_verified_emails_form_title
         success: L'email %{verified_email_email} a été ajouté avec succès
+    impersonate:
+      new:
+        title: "Impersonner un utilisateur"
