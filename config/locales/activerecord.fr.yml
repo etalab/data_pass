@@ -13,9 +13,6 @@ fr:
               different_user: "doit être différent du demandeur actuel"
               different_organization: "n'appartient pas à la même organisation que le demandeur actuel."
   activerecord:
-    errors:
-      messages:
-        cannot_be_same_as_admin: "ne peut pas être identique à l'administrateur"
     attributes:
       user:
         job_title: Poste occupé
