@@ -90,6 +90,18 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
     dsfr_check_box(name, opts)
   end
 
+  def display_accepted_cgu_checkboxes
+    accepted_checkboxes = []
+    accepted_checkboxes << cgu_check_box if @object.terms_of_service_accepted?
+    accepted_checkboxes << data_protection_officer_informed_check_box if @object.data_protection_officer_informed?
+
+    extra_checkboxes.each do |extra_checkbox_name|
+      accepted_checkboxes << term_checkbox(extra_checkbox_name) if @object.public_send(extra_checkbox_name)
+    end
+
+    @template.safe_join(accepted_checkboxes)
+  end
+
   def dsfr_scope(scope, opts = {})
     disabled = determine_scope_disabled_state(scope, opts.delete(:disabled))
 
