@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_11_121335) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_11_121249) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_catalog.plpgsql"
@@ -273,9 +273,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_11_121335) do
 
   create_table "impersonation_actions", force: :cascade do |t|
     t.bigint "impersonation_id", null: false
-    t.string "action"
-    t.string "model_type"
-    t.integer "model_id"
+    t.string "action", null: false
+    t.string "model_type", null: false
+    t.integer "model_id", null: false
+    t.string "controller", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["impersonation_id"], name: "index_impersonation_actions_on_impersonation_id"
@@ -284,7 +285,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_11_121335) do
   create_table "impersonations", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "admin_id", null: false
-    t.text "reason"
+    t.text "reason", null: false
+    t.datetime "finished_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["admin_id"], name: "index_impersonations_on_admin_id"

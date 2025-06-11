@@ -12,10 +12,6 @@ fr:
             to:
               different_user: "doit être différent du demandeur actuel"
               different_organization: "n'appartient pas à la même organisation que le demandeur actuel."
-        impersonation:
-          attributes:
-            user:
-              cannot_be_same_as_admin: "ne peut pas être identique à l'administrateur"
   activerecord:
     errors:
       messages:
@@ -152,6 +148,12 @@ fr:
               at_least_one_revenue_year_has_been_selected: 'sont invalides : Vous devez cocher au moins une année de revenus souhaitée avant de continuer'
         authorization_request/api_impot_particulier: *api_impot_particulier_errors
         authorization_request/api_sfip_sandbox: *api_impot_particulier_errors
+        impersonation:
+          attributes:
+            user:
+              cannot_be_same_as_admin: "ne peut pas être identique à l'administrateur"
+              cannot_be_admin: "ne peut pas être un administrateur"
+              must_be_admin: "doit être un administrateur"
 
   ransack:
     attributes:
