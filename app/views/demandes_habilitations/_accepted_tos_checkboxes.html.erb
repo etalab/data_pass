@@ -1,4 +1,4 @@
-<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { authorization_request:, title: t('authorization_request_forms.summary.accepted_tos_checkboxes.title'), block_id: :accepted_tos_checkboxes, f:, editable: false } do %>
+<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { authorization_request: authorization_request, title: t('authorization_request_forms.summary.accepted_tos_checkboxes.title'), block_id: :accepted_tos_checkboxes, f:, editable: false } do %>
   <ul class="fr-raw-list">
     <% authorization_request.terms_of_service_accepted %>
       <li class="fr-checkbox-group fr-mb-2w">
