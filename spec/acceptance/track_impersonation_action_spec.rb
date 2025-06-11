@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'Track impersonation actions', type: :acceptance do
   def all_subclasses(klass)
-    ObjectSpace.each_object(Class).select { |c| c < klass }
+    ObjectSpace.each_object(Class).select { |c| c < klass }.reject { |c| c.name.nil? }
   end
 
   before do
