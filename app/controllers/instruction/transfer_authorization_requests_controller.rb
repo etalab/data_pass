@@ -43,4 +43,8 @@ class Instruction::TransferAuthorizationRequestsController < Instruction::Abstra
       organization_siret: @authorization_request.organization.siret,
     )
   end
+
+  def model_to_track_for_impersonation
+    @authorization_request
+  end
 end
