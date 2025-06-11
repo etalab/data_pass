@@ -49,4 +49,8 @@ class MessagesController < AuthenticatedUserController
   def extract_authorization_request
     @authorization_request = AuthorizationRequest.find(params[:authorization_request_id])
   end
+
+  def model_to_track_for_impersonation
+    @organizer&.message || @message
+  end
 end

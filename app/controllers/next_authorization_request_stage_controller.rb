@@ -25,4 +25,8 @@ class NextAuthorizationRequestStageController < AuthenticatedUserController
   def extract_authorization_request_next_form
     @authorization_request_form = @authorization_request.definition.next_stage_form
   end
+
+  def model_to_track_for_impersonation
+    @authorization_request
+  end
 end
