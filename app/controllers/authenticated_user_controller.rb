@@ -1,6 +1,9 @@
 class AuthenticatedUserController < ApplicationController
   include Authentication
   include AccessAuthorization
+  include ImpersonationManagement
+
+  impersonates :user
 
   before_action :refresh_current_organization_insee_data
 

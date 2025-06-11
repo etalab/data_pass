@@ -43,6 +43,11 @@ fr:
       unknown: L'analyse antivirus a échoué
       absent: Aucune analyse antivirus n'a été réalisée
 
+  impersonation:
+    warning:
+      description: "Vous (%{admin_email}) êtes connecté en tant que %{user_email}"
+      stop_button: "Arrêter l'impersonation"
+
   authorization_request:
     badge: demande n°%{id}
     status:
