@@ -38,9 +38,9 @@
       <%= yield(:extra_modal) %>
     <% end %>
 
-    <%= render partial: 'layouts/header' %>
-
     <%= render partial: 'shared/impersonation_warning' %>
+
+    <%= render partial: 'layouts/header' %>
 
     <main>
       <% if content_for?(:body) %>
