@@ -186,3 +186,12 @@ fr-badge--grey {
   --steps: 9;
   --step-width: calc(100% / 9);
 }
+
+/* Disabled checkboxes with normal text color */
+.fr-checkbox-group--no-disabled-text .fr-label {
+  color: var(--text-title-grey) !important;
+}
+
+.fr-checkbox-group--no-disabled-text{
+  color: var(--text-title-grey) !important;
+}
