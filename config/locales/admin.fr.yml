@@ -61,6 +61,9 @@ fr:
       success:
         title: "Impersonation activée"
         description: "Vous êtes maintenant connecté en tant que %{email}"
+      stop:
+        title: "Impersonation terminée"
+        description: "Vous êtes de nouveau connecté en tant que %{email}"
       errors:
         title: "Erreur"
         user_not_found: "Aucun utilisateur trouvé avec cet identifiant"

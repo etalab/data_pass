@@ -1,6 +1,5 @@
 class Admin::CreateImpersonation < ApplicationInteractor
   def call
-    validate_admin_permissions
     validate_target_user
     create_impersonation_record
     start_impersonation_session
@@ -8,10 +7,6 @@ class Admin::CreateImpersonation < ApplicationInteractor
   end
 
   private
-
-  def validate_admin_permissions
-    context.fail!(error: :unauthorized) unless context.admin.admin?
-  end
 
   def validate_target_user
     context.fail!(error: :cannot_impersonate_self) if context.target_user == context.admin

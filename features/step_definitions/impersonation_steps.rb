@@ -10,7 +10,9 @@ Sachantque('j\'impersonne l\'utilisateur {string}') do |email|
 end
 
 Sachantqu('il existe une habilitation {string} en {string}') do |definition, target_api|
-  create(:authorization_definition, id: definition, name: definition, provider: definition, targets: [target_api])
+  # Authorization definitions are loaded from config files, no need to create them
+  definition_exists = AuthorizationDefinition.find(definition)
+  raise "Authorization definition '#{definition}' not found" unless definition_exists
 end
 
 Alors('je devrais être sur la page du tableau de bord') do

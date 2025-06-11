@@ -35,7 +35,10 @@ class Admin::ImpersonateController < AdminController
 
     stop_impersonating_user
 
-    success_message(title: 'Impersonation terminée', description: "Vous êtes de nouveau connecté en tant que #{current_user.email}")
+    success_message(
+      title: I18n.t('admin.impersonate.stop.title'),
+      description: I18n.t('admin.impersonate.stop.description', email: current_user.email)
+    )
     redirect_to admin_path
   end
 
