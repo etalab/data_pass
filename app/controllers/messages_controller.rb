@@ -50,7 +50,7 @@ class MessagesController < AuthenticatedUserController
     @authorization_request = AuthorizationRequest.find(params[:authorization_request_id])
   end
 
-  def model_to_track
+  def model_to_track_for_impersonation
     @organizer&.message || @message
   end
 end

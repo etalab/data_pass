@@ -53,7 +53,7 @@ class Admin::UsersWithRolesController < AdminController
     params.expect(user: %i[email roles])
   end
 
-  def model_to_track
+  def model_to_track_for_impersonation
     @user
   end
 end

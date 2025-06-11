@@ -317,7 +317,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     'authorization_request'
   end
 
-  def model_to_track
+  def model_to_track_for_impersonation
     @authorization_request
   end
 end
