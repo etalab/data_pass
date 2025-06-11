@@ -56,8 +56,9 @@ fr:
         title: *whitelisted_verified_emails_form_title
         success: L'email %{verified_email_email} a été ajouté avec succès
     impersonate:
-      new:
+      new: &admin_impersonate_new
         title: "Impersonner un utilisateur"
+      create: *admin_impersonate_new
       success:
         title: "Impersonation activée"
         description: "Vous êtes maintenant connecté en tant que %{email}"
@@ -66,8 +67,4 @@ fr:
         description: "Vous êtes de nouveau connecté en tant que %{email}"
       errors:
         title: "Erreur"
-        user_not_found: "Aucun utilisateur trouvé avec cet identifiant"
-        unauthorized: "Vous n'avez pas les permissions nécessaires"
-        cannot_impersonate_admin: "Vous ne pouvez pas impersonner un autre administrateur"
-        cannot_impersonate_self: "Vous ne pouvez pas vous impersonner vous-même"
-        session_expired: "Votre session d'impersonation a expiré"
+        user_not_found: "Aucun utilisateur trouvé avec cet email"

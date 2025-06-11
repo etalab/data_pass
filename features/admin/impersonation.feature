@@ -32,36 +32,30 @@ Fonctionnalité: Impersonation des utilisateurs
     Et la page ne contient pas "Vous êtes maintenant connecté en tant que"
 
   Scénario: Un administrateur ne peut pas impersonner un utilisateur inexistant
-    Quand je me connecte
-    Et que je vais sur l'espace administrateur
+    Quand je vais sur l'espace administrateur
     Et que je clique sur "Impersonner un utilisateur"
-
-    Quand je remplis "Email de l'utilisateur" avec "inexistant@example.com"
-    Et que je remplis "Raison de l'impersonation" avec "Test"
+    Et que je remplis "Email de l'utilisateur" avec "invalid@example.com"
+    Et que je remplis "Raison de l'impersonation" avec "Ticket de support #12345"
     Et que je clique sur "Commencer l'impersonation"
 
-    Alors je vois "Utilisateur introuvable"
-    Et je vois "Aucun utilisateur avec l'email inexistant@example.com"
+    Alors il y a un message d'erreur contenant "Aucun utilisateur trouvé avec cet email"
 
   Scénario: Un administrateur ne peut pas s'impersonner lui-même
-    Quand je me connecte
-    Et que je vais sur l'espace administrateur
+    Quand je vais sur l'espace administrateur
     Et que je clique sur "Impersonner un utilisateur"
-
-    Quand je remplis "Email de l'utilisateur" avec "admin@gouv.fr"
-    Et que je remplis "Raison de l'impersonation" avec "Test"
+    Et que je remplis "Email de l'utilisateur" avec "admin@gouv.fr"
+    Et que je remplis "Raison de l'impersonation" avec "Ticket de support #12345"
     Et que je clique sur "Commencer l'impersonation"
 
-    Alors je vois "Erreur"
-    Et je vois "Vous ne pouvez pas vous impersonner vous-même"
+    Alors il y a un message d'erreur contenant "Usager ne peut pas être identique à l'administrateur"
 
   Scénario: Les actions effectuées pendant l'impersonation sont enregistrées
-    Étant donné qu'il existe une habilitation "api_entreprise" en "bac à sable"
-    Et que j'impersonne l'utilisateur "user@example.com"
+    Quand j'impersonne l'utilisateur "user@example.com"
+    Et que je veux remplir une demande pour "API Entreprise" via le formulaire "Demande libre"
 
-    Quand je vais sur la page de demandes d'habilitation
-    Et que je remplis une demande pour "api_entreprise" en "bac à sable"
-    Et que je soumets la demande d'habilitation
+    Et que je clique sur "Débuter ma demande"
 
-    Alors la demande d'habilitation doit être créée au nom de "user@example.com"
-    Et une action d'impersonation de type "create" doit être enregistrée pour "AuthorizationRequest"
+    * je renseigne les infos de bases du projet
+    * je clique sur "Suivant"
+
+    Alors une action d'impersonation de type "create" doit être enregistrée pour "AuthorizationRequest::APIEntreprise"

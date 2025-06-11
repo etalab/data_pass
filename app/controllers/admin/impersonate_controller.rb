@@ -58,8 +58,10 @@ class Admin::ImpersonateController < AdminController
   end
 
   def handle_failed_impersonation(organizer)
+    @impersonation = organizer.impersonation || Impersonation.new
+
     description = if organizer.error == :model_error
-                    organizer.model.errors.full_messages.join(', ')
+                    organizer.impersonation.errors.full_messages.join(', ')
                   else
                     I18n.t("admin.impersonate.errors.#{organizer.error}")
                   end
@@ -69,6 +71,6 @@ class Admin::ImpersonateController < AdminController
       description:
     )
 
-    redirect_to new_admin_impersonate_path
+    render :new, status: :unprocessable_entity
   end
 end

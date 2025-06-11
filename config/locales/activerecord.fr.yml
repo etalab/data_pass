@@ -122,6 +122,10 @@ fr:
       authorization_request_transfer:
         to: Email du nouveau demandeur
 
+      impersonation:
+        admin: Administrateur
+        user: Usager
+
     values:
       authorization_request:
         france_connect_eidas:
