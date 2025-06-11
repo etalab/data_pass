@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   helper ActiveLinks
 
-  helper_method :namespace?, :displayed_on_a_public_page?
+  helper_method :namespace?, :displayed_on_a_public_page?, :impersonating?
 
   def current_namespace
     self.class.name.split('::').first
@@ -45,6 +45,10 @@ class ApplicationController < ActionController::Base
 
   def turbo_request?
     request.headers['HTTP_X_TURBO_REQUEST_ID'].present?
+  end
+
+  def impersonating?
+    false
   end
 
   private

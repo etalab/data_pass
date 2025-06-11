@@ -1,0 +1,29 @@
+<div class="fr-container fr-mt-5w">
+  <div class="fr-grid-row">
+    <div class="fr-col-md-8">
+      <div class="fr-alert fr-alert--warning fr-mb-3w">
+        <p class="fr-alert__title">Attention</p>
+        <p>L'impersonation doit être utilisée uniquement pour des besoins de support ou de débogage. Toutes les actions effectuées seront enregistrées.</p>
+      </div>
+
+      <%= form_with model: @impersonation, url: admin_impersonate_path, local: true do |form| %>
+        <div class="fr-input-group">
+          <%= form.label :email, 'Email de l\'utilisateur', class: 'fr-label' %>
+          <span class="fr-hint-text">Saisissez l'email de l'utilisateur à impersonner</span>
+          <%= form.email_field :email, class: 'fr-input', required: true %>
+        </div>
+
+        <div class="fr-input-group">
+          <%= form.label :reason, 'Raison de l\'impersonation', class: 'fr-label' %>
+          <span class="fr-hint-text">Décrivez pourquoi vous devez impersonner cet utilisateur (ex: ticket de support #12345)</span>
+          <%= form.text_area :reason, class: 'fr-input', rows: 4, required: true %>
+        </div>
+
+        <div class="fr-btns-group">
+          <%= form.submit 'Commencer l\'impersonation', class: 'fr-btn' %>
+          <%= link_to 'Annuler', admin_path, class: 'fr-btn fr-btn--secondary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

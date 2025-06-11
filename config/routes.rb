@@ -111,6 +111,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :whitelisted_verified_emails, only: %w[index new create], path: 'emails-verifies'
     resources :users_with_roles, only: %i[index new create edit update], path: 'utilisateurs-avec-roles'
+    resource :impersonate, only: %i[new create destroy], controller: 'impersonate'
   end
 
   use_doorkeeper scope: '/api/oauth' do

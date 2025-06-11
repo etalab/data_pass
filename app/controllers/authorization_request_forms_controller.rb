@@ -321,5 +321,9 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   def clean_wizard_step!
     cookies.delete(current_build_step_cache_key)
   end
+
+  def model_to_track_for_impersonation
+    @authorization_request
+  end
 end
 # rubocop:enable Metrics/ClassLength
