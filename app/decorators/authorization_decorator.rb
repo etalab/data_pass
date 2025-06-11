@@ -11,6 +11,14 @@ class AuthorizationDecorator < ApplicationDecorator
     I18n.t(state, scope: 'authorization.states', default: state)
   end
 
+  def state_badge_html_class
+    case state
+    when 'revoked' then 'fr-badge--error'
+    when 'active' then 'fr-badge--success'
+    else ''
+    end
+  end
+
   private
 
   def formatted_date

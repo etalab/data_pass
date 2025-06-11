@@ -22,6 +22,10 @@
                 <%= authorization_stage_badge(authorization) %>
               </li>
             <% end %>
+
+            <li>
+               <%= render partial: 'authorizations/state_badge', locals: { authorization: authorization.decorate } %> 
+            </li>
           </ul>
 
           <% if authorization.approving_instructor.present? %>
