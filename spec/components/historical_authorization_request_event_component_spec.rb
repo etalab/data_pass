@@ -23,15 +23,15 @@ RSpec.describe HistoricalAuthorizationRequestEventComponent, type: :component do
   end
 
   describe 'render' do
-    context 'when event_name is submit' do
+    context 'when event_name is create' do
       let(:authorization_request_event) { create(:authorization_request_event, :create) }
 
-      let(:expected_submit_text) { 'Dupont Jean a crée la demande.' }
+      let(:expected_create_text) { 'Dupont Jean a crée la demande.' }
 
       it 'renders component with message_summary only' do
         page = render_inline(subject)
 
-        expect(page).to have_text(expected_submit_text)
+        expect(page).to have_text(expected_create_text)
       end
     end
 
