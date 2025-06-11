@@ -17,9 +17,7 @@
           <div class="fr-badge fr-badge--sm fr-badge--blue-ecume">
             <%= t('components.authorization_header_component.authorization_badge', authorization_id: authorization.id) %>
           </div>
-          <div class="fr-badge fr-badge--sm <%= state_badge_html_class %>">
-            <%= translated_state %>
-          </div>
+          <%= render partial: 'authorizations/state_badge', locals: { authorization: authorization.decorate } %>
         </div>
       </div>
 
