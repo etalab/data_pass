@@ -1,36 +1,3 @@
 <%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { authorization_request: authorization_request, title: t('authorization_request_forms.summary.accepted_tos_checkboxes.title'), block_id: :accepted_tos_checkboxes, f:, editable: false } do %>
-  <ul class="fr-raw-list">
-    <% authorization_request.terms_of_service_accepted %>
-      <li class="fr-checkbox-group fr-mb-2w">
-        <div class="fr-checkbox">
-          <input type="checkbox" id="conditions générales d'utilisation acceptées" checked>
-          <label class="fr-label" for="conditions générales d'utilisation acceptées">
-            <%= I18n.t('authorization_request_forms.default.terms_of_service_accepted.label', link: authorization_request.definition.cgu_link).html_safe %>
-          </label>
-        </div>
-      </li>
-
-    <% authorization_request.data_protection_officer_informed %>
-      <li class="fr-checkbox-group fr-mb-2w">
-        <div class="fr-checkbox">
-          <input type="checkbox" id="délégué de la protection des données informé" checked>
-          <label class="fr-label" for="délégué de la protection des données informé">
-            <%= I18n.t('activerecord.attributes.authorization_request.data_protection_officer_informed') %>
-          </label>
-        </div>
-      </li>
-
-    <% authorization_request.extra_checkboxes.each_with_index do |extra_checkbox_name, index| %>
-      <% if authorization_request.public_send(extra_checkbox_name) %>
-        <li class="fr-checkbox-group fr-mb-2w">
-          <div class="fr-checkbox">
-            <input type="checkbox" id="extra_checkbox_<%= index %>" checked>
-            <label class="fr-label" for="extra_checkbox_<%= index %>">
-              <%= I18n.t("authorization_request_forms.default.#{extra_checkbox_name}.label") %>
-            </label>
-          </div>
-        </li>
-      <% end %>
-    <% end %>
-  </ul>
+  <%= f.display_accepted_cgu_checkboxes %>
 <% end %>
