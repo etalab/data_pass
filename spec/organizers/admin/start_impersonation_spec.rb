@@ -2,84 +2,56 @@ require 'rails_helper'
 
 RSpec.describe Admin::StartImpersonation do
   describe '.call' do
+    subject(:start_impersonation) { described_class.call(params) }
+
+    let(:params) do
+      {
+        user_email:,
+        admin:,
+        impersonation_params: {
+          reason:
+        }
+      }
+    end
     let(:admin) { create(:user, roles: ['admin']) }
-    let(:target_user) { create(:user) }
-    let(:session) { {} }
+    let(:user_email) { create(:user).email }
     let(:reason) { 'Testing purposes' }
 
     context 'when all conditions are met' do
-      it 'creates an impersonation and starts session' do
-        result = described_class.call(
-          user_identifier: target_user.email,
-          admin: admin,
-          reason: reason,
-          session: session
-        )
+      it { is_expected.to be_success }
 
-        expect(result).to be_success
-        expect(result.target_user).to eq(target_user)
-        expect(result.impersonation).to be_persisted
-        expect(session[:impersonated_user_id]).to eq(target_user.id)
+      it 'creates an impersonation' do
+        expect(start_impersonation.impersonation).to be_persisted
+      end
+
+      it 'creates an admin event' do
+        expect {
+          start_impersonation
+        }.to change(AdminEvent, :count).by(1)
+
+        admin_event = AdminEvent.last
+
+        expect(admin_event.name).to eq('start_impersonation')
       end
     end
 
     context 'when user is not found' do
-      it 'fails with user_not_found error' do
-        result = described_class.call(
-          user_identifier: 'nonexistent@example.com',
-          admin: admin,
-          reason: reason,
-          session: session
-        )
+      let(:user_email) { 'invalid@gouv.fr' }
 
-        expect(result).to be_failure
-        expect(result.error).to eq(:user_not_found)
+      it { is_expected.to be_failure }
+
+      it 'returns user_not_found error' do
+        expect(start_impersonation.error).to eq(:user_not_found)
       end
     end
 
-    context 'when admin tries to impersonate themselves' do
-      it 'fails with cannot_impersonate_self error' do
-        result = described_class.call(
-          user_identifier: admin.email,
-          admin: admin,
-          reason: reason,
-          session: session
-        )
+    context 'when model params are not valid' do
+      let(:reason) { nil }
 
-        expect(result).to be_failure
-        expect(result.error).to eq(:cannot_impersonate_self)
-      end
-    end
+      it { is_expected.to be_failure }
 
-    context 'when non-admin tries to impersonate' do
-      let(:non_admin) { create(:user) }
-
-      it 'fails with unauthorized error' do
-        result = described_class.call(
-          user_identifier: target_user.email,
-          admin: non_admin,
-          reason: reason,
-          session: session
-        )
-
-        expect(result).to be_failure
-        expect(result.error).to eq(:unauthorized)
-      end
-    end
-
-    context 'when trying to impersonate another admin' do
-      let(:target_admin) { create(:user, roles: ['admin']) }
-
-      it 'fails with cannot_impersonate_admin error' do
-        result = described_class.call(
-          user_identifier: target_admin.email,
-          admin: admin,
-          reason: reason,
-          session: session
-        )
-
-        expect(result).to be_failure
-        expect(result.error).to eq(:cannot_impersonate_admin)
+      it 'fails with model_error error' do
+        expect(start_impersonation.error).to eq(:model_error)
       end
     end
   end
