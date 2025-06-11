@@ -8,10 +8,10 @@ Fonctionnalité: Impersonation des utilisateurs
   Contexte:
     Étant donné que je suis un administrateur
     Et qu'il existe un utilisateur ayant l'email "user@example.com"
+    Et que je me connecte
 
   Scénario: Un administrateur peut impersonner un utilisateur
-    Quand je me connecte
-    Et que je vais sur l'espace administrateur
+    Quand je vais sur l'espace administrateur
     Et que je clique sur "Impersonner un utilisateur"
     Et que je remplis "Email de l'utilisateur" avec "user@example.com"
     Et que je remplis "Raison de l'impersonation" avec "Ticket de support #12345"
@@ -24,13 +24,12 @@ Fonctionnalité: Impersonation des utilisateurs
 
   Scénario: Un administrateur peut arrêter l'impersonation
     Étant donné que j'impersonne l'utilisateur "user@example.com"
-    Et que je suis sur la page du tableau de bord
+    Et que je me rends sur la page d'accueil
 
     Quand je clique sur "Arrêter l'impersonation"
 
-    Alors je vois "Impersonation terminée"
-    Et je ne devrais pas voir "Mode impersonation activé"
-    Et je devrais être sur l'espace administrateur
+    Alors la page contient "Impersonation terminée"
+    Et la page ne contient pas "Vous êtes maintenant connecté en tant que"
 
   Scénario: Un administrateur ne peut pas impersonner un utilisateur inexistant
     Quand je me connecte

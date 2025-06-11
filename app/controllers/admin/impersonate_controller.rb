@@ -26,6 +26,7 @@ class Admin::ImpersonateController < AdminController
       title: I18n.t('admin.impersonate.stop.title'),
       description: I18n.t('admin.impersonate.stop.description', email: true_user.email)
     )
+
     redirect_to admin_path
   end
 

@@ -7,6 +7,7 @@ module ImpersonationManagement
 
   def track_impersonation_action
     return unless %w[create update destroy].include?(action_name)
+    return if controller_name == 'impersonate'
 
     current_impersonation.actions.create!(
       action: action_name,
@@ -17,7 +18,7 @@ module ImpersonationManagement
   end
 
   def model_to_track
-    fail NotImplementedError
+    fail NotImplementedError, "Controller #{controller_name} must implement `model_to_track` method"
   end
 
   def impersonating?
@@ -25,6 +26,6 @@ module ImpersonationManagement
   end
 
   def current_impersonation
-    @current_impersonation ||= Impersonation.find_by(id: cookies[:impersonated_id])
+    @current_impersonation ||= Impersonation.find_by(id: cookies[:impersonation_id])
   end
 end
