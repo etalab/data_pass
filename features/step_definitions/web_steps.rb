@@ -197,8 +197,8 @@ Quand(/je vais sur la page (des |du |de la |de mon )?(.*)/) do |_, page_name|
   visit "/#{page_name.tr(' ', '-')}"
 end
 
-Quand('je me rends sur mon tableau de bord') do
-  visit dashboard_path
+Quand(/je me rends sur mon tableau de bord (demandes|habilitations)?/) do |tab|
+  visit dashboard_show_path(id: tab)
 end
 
 # rubocop:disable Lint/Debugger
