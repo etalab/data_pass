@@ -45,7 +45,6 @@ fr:
 
   impersonation:
     warning:
-      title: "Mode impersonation activé"
       description: "Vous (%{admin_email}) êtes connecté en tant que %{user_email}"
       stop_button: "Arrêter l'impersonation"
 

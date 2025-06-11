@@ -4,22 +4,23 @@ class Admin::ImpersonateController < AdminController
   end
 
   def create
-    result = start_impersonation
+    organizer = start_impersonation
 
-    if result.success?
-      handle_successful_impersonation(result)
+    if organizer.success?
+      handle_successful_impersonation(organizer)
     else
-      handle_failed_impersonation(result)
+      handle_failed_impersonation(organizer)
     end
   end
 
   def destroy
     Admin::StopImpersonation.call(
       admin: true_user,
-      current_user: current_user,
       impersonation: current_impersonation,
-      session: session
     )
+
+    stop_impersonating_user
+    cookies.delete(:impersonation_id)
 
     success_message(
       title: I18n.t('admin.impersonate.stop.title'),
@@ -36,26 +37,37 @@ class Admin::ImpersonateController < AdminController
 
   def start_impersonation
     Admin::StartImpersonation.call(
-      user_identifier: impersonation_params[:email],
+      user_email: impersonation_params[:email],
       admin: current_user,
-      reason: impersonation_params[:reason],
-      session: session
+      impersonation_params: impersonation_params.slice(:reason),
     )
   end
 
-  def handle_successful_impersonation(result)
+  def handle_successful_impersonation(organizer)
+    impersonate_user(organizer.target_user)
+
+    cookies[:impersonation_id] = { value: organizer.impersonation.id, expires: Impersonation::CREATED_AT_OFFSET.from_now }
+
     success_message(
       title: I18n.t('admin.impersonate.success.title'),
-      description: I18n.t('admin.impersonate.success.description', email: result.target_user.email)
+      description: I18n.t('admin.impersonate.success.description', email: organizer.target_user.email)
     )
+
     redirect_to dashboard_path
   end
 
-  def handle_failed_impersonation(result)
+  def handle_failed_impersonation(organizer)
+    description = if organizer.error == :model_error
+                    organizer.model.errors.full_messages.join(', ')
+                  else
+                    I18n.t("admin.impersonate.errors.#{organizer.error}")
+                  end
+
     error_message(
       title: I18n.t('admin.impersonate.errors.title'),
-      description: I18n.t("admin.impersonate.errors.#{result.error}")
+      description:
     )
+
     redirect_to new_admin_impersonate_path
   end
 end

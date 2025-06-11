@@ -1,6 +1,7 @@
 class AuthenticatedUserController < ApplicationController
   include Authentication
   include AccessAuthorization
+  include ImpersonationManagement
 
   impersonates :user
 
