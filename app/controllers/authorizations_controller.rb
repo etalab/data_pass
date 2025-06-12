@@ -6,14 +6,6 @@ class AuthorizationsController < AuthenticatedUserController
 
   def show
     authorize @authorization, :show?
-
-    # @authorization_request = @authorization.request_as_validated.decorate
-    @form_builder = AuthorizationRequestFormBuilder.new(
-      'authorization_request',
-      @authorization.request,
-      view_context,
-      {}
-    )
   end
 
   private
