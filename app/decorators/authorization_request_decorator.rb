@@ -129,6 +129,10 @@ class AuthorizationRequestDecorator < ApplicationDecorator
     object.errors.reject { |e| e.type == :all_terms_not_accepted }
   end
 
+  def france_connect_authorizations
+    organization.valid_authorizations_of(AuthorizationRequest::FranceConnect).map(&:decorate)
+  end
+
   private
 
   def lookup_i18n_key(subkey)

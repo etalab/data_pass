@@ -30,9 +30,7 @@
   </div>
 
   <div id="france-connect-container" class="fr-col-lg-9 fr-mt-5w <%= 'fr-hidden' unless @authorization_request.modalities.include?('france_connect') %>">
-    <% france_connect_authorizations = current_organization.valid_authorizations_of(AuthorizationRequest::FranceConnect).map(&:decorate) %>
-
-    <% if france_connect_authorizations.empty? %>
+    <% if @authorization_request.france_connect_authorizations.empty? %>
       <div class="fr-callout red-callout">
         <h3 class="fr-callout__title">
           <%= f.wording_for("modalities.callout.title") %>
@@ -43,8 +41,8 @@
         <%= link_to f.wording_for("modalities.callout.link"), new_authorization_request_path("france-connect"), class: "fr-link fr-btn--icon-right fr-icon-arrow-right-line" %>
       </div>
     <% else %>
-      <% options = france_connect_authorizations.map{ |authorization| [authorization.name_for_select, authorization.id] } %>
-      <% selected_option = @authorization_request.france_connect_authorization_id || france_connect_authorizations.first.id %>
+      <% options = @authorization_request.france_connect_authorizations.map{ |authorization| [authorization.name_for_select, authorization.id] } %>
+      <% selected_option = @authorization_request.france_connect_authorization_id || @authorization_request.france_connect_authorizations.first.id %>
 
       <%= f.dsfr_select :france_connect_authorization_id, options_for_select(options, selected_option), class: %w[fr-select], include_blank: "Sélectionner une option", required: true %>
     <% end %>
