@@ -74,7 +74,7 @@ api_impot_particulier:
     - name: Nombre de personnes à charge
       value: dgfip_pac_nbPac
       group: Situation du foyer fiscal
-    - name: Détail des personnes à charge et rattachées
+    - name: Détail des personnes à charge et rattachées (Détail à préciser dans l'expression de besoin spécifique)
       value: dgfip_pac
       group: Situation du foyer fiscal
     - name: Parent isolé (case T)
