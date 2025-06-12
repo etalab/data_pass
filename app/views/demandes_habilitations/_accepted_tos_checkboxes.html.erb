@@ -1,3 +1,8 @@
 <%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { authorization_request: authorization_request, title: t('authorization_request_forms.summary.accepted_tos_checkboxes.title'), block_id: :accepted_tos_checkboxes, f:, editable: false } do %>
-  <%= f.display_accepted_cgu_checkboxes %>
+  <%= f.cgu_check_box(disabled: true) %>
+  <%= f.data_protection_officer_informed_check_box(disabled: true) %>
+
+  <% f.extra_checkboxes.each do |extra_checkbox_name| %>
+    <%= f.term_checkbox(extra_checkbox_name, disabled: true) %>
+  <% end %>
 <% end %>
