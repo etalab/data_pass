@@ -3,7 +3,7 @@ api-rial-sandbox:
   introduction: |
     <strong>Mode de fonctionnement de l’API Rial</strong>
     </br>
-    L’API restitue toutes les données sans restrictions. Vous pouvez consulter notre documentation qui vous permettra de comprendre le fonctionnement de notre API ainsi que les données que nous proposons.
+    L’API restitue toutes les données sans restrictions : les données restituées par l’API sont décrites dans les CGU attachées à cette habilitation. Vous pouvez consulter notre documentation qui vous permettra de comprendre le fonctionnement de notre API ainsi que les données que nous proposons.
     </br>
     <a href="documentation_api_rial_v2024_11-1.pdf", target="_blank">Voir la documentation de l’API Rial</a>
     </br>
