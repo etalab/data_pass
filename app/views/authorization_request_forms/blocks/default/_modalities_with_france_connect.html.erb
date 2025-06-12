@@ -34,10 +34,7 @@
         <%= link_to f.wording_for("modalities.callout.link"), new_authorization_request_path("france-connect"), class: "fr-link fr-btn--icon-right fr-icon-arrow-right-line" %>
       </div>
     <% else %>
-      <% options = @authorization_request.france_connect_authorizations.map{ |authorization| [authorization.name_for_select, authorization.id] } %>
-      <% selected_option = @authorization_request.france_connect_authorization_id || @authorization_request.france_connect_authorizations.first.id %>
-
-      <%= f.dsfr_select :france_connect_authorization_id, options_for_select(options, selected_option), class: %w[fr-select], include_blank: "Sélectionner une option", required: true, input_options: { "data-choose-modalite-with-france-connect-target": "franceConnectSelector" } %>
+      <%= f.france_connect_authorization_select %>
     <% end %>
   </div>
 </div>

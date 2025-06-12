@@ -204,6 +204,12 @@ fr:
       dpd_homologation_checkbox:
         label: J’atteste que mon organisation devra déclarer à la DGFiP l’accomplissement des formalités en matière de protection des données à caractère personnel et qu’elle veillera à procéder à l’homologation de sécurité de son projet.
 
+      france_connect_authorization_id:
+        label: Sélectionnez une habilitation FranceConnect qui sera liée à cette demande
+        select_blank: Sélectionner une option
+
+    # End of default
+
     hubee_cert_dc:
       administrateur_metier: &hubee_administrateur_metier
         info: |
@@ -759,8 +765,6 @@ fr:
             Cette modalité d’accès est uniquement disponible via l’API Courtier fonctionnel SFiP.
             <br/>
             <a href="%{sfip_url}">Cliquez-ici pour faire une demande <span class="fr-icon-arrow-right-line" aria-hidden="true"></span></a>.
-      france_connect_authorization_id:
-        label: Sélectionnez une habilitation FranceConnect qui sera liée à cette demande
       scopes:
         info:
           title: Mode de fonctionnement de l’API Impôt particulier

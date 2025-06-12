@@ -1,5 +1,3 @@
 <%= f.info_for(:france_connect) %>
 
-<% options = @authorization_request.france_connect_authorizations.map{ |authorization| [authorization.name_for_select, authorization.id] } %>
-<% selected_option = @authorization_request.france_connect_authorization_id || @authorization_request.france_connect_authorizations.first.id %>
-<%= f.dsfr_select :france_connect_authorization_id, options_for_select(options, selected_option), class: %w[fr-select], include_blank: "Sélectionner une option", required: true %>
+<%= f.france_connect_authorization_select %>
