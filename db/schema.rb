@@ -90,6 +90,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_05_114241) do
     t.check_constraint "name::text = 'refuse'::text AND entity_type::text = 'DenialOfAuthorization'::text OR name::text = 'request_changes'::text AND entity_type::text = 'InstructorModificationRequest'::text OR name::text = 'approve'::text AND entity_type::text = 'Authorization'::text OR name::text = 'reopen'::text AND entity_type::text = 'Authorization'::text OR name::text = 'submit'::text AND entity_type::text = 'AuthorizationRequestChangelog'::text OR name::text = 'admin_update'::text AND entity_type::text = 'AuthorizationRequestChangelog'::text OR name::text = 'applicant_message'::text AND entity_type::text = 'Message'::text OR name::text = 'instructor_message'::text AND entity_type::text = 'Message'::text OR name::text = 'revoke'::text AND entity_type::text = 'RevocationOfAuthorization'::text OR name::text = 'transfer'::text AND entity_type::text = 'AuthorizationRequestTransfer'::text OR name::text = 'cancel_reopening'::text AND entity_type::text = 'AuthorizationRequestReopeningCancellation'::text OR name::text = 'bulk_update'::text AND entity_type::text = 'BulkAuthorizationRequestUpdate'::text OR entity_type::text = 'AuthorizationRequest'::text", name: "entity_type_validation"
   end
 
+  create_table "authorization_request_instructor_drafts", force: :cascade do |t|
+    t.string "authorization_request_class", null: false
+    t.hstore "data", null: false
+    t.uuid "public_id", default: -> { "gen_random_uuid()" }, null: false
+    t.integer "applicant_id"
+    t.integer "organization_id"
+    t.bigint "instructor_id", null: false
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["instructor_id"], name: "index_authorization_request_instructor_drafts_on_instructor_id"
+  end
+
   create_table "authorization_request_reopening_cancellations", force: :cascade do |t|
     t.text "reason"
     t.bigint "request_id", null: false
@@ -412,6 +425,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_05_114241) do
   add_foreign_key "authorization_documents", "authorizations"
   add_foreign_key "authorization_request_changelogs", "authorization_requests"
   add_foreign_key "authorization_request_events", "authorization_requests"
+  add_foreign_key "authorization_request_instructor_drafts", "organizations"
+  add_foreign_key "authorization_request_instructor_drafts", "users", column: "applicant_id"
+  add_foreign_key "authorization_request_instructor_drafts", "users", column: "instructor_id"
   add_foreign_key "authorization_request_reopening_cancellations", "authorization_requests", column: "request_id"
   add_foreign_key "authorization_request_reopening_cancellations", "users"
   add_foreign_key "authorization_request_transfers", "authorization_requests"
