@@ -42,3 +42,10 @@ Fonctionnalité: Consultation d'une habilitation
     Alors il y a un bouton "Contacter le support"
     Et il y a un formulaire en mode résumé non modifiable
 
+  Scénario: Je consulte une habilitation obsolète lié à une demande d'habilitation ayant une habilitation plus récente modifiée
+    Quand j'ai une habilitation "API Entreprise" liée à une demande d'habilitation ayant une habilitation obsolete ayant des données différentes
+    Et je visite la page de mon habilitation
+    Alors la page contient "old_scope"
+    Et la page ne contient pas "new_scope"
+
+

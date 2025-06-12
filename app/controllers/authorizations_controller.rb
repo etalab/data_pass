@@ -10,7 +10,7 @@ class AuthorizationsController < AuthenticatedUserController
     # @authorization_request = @authorization.request_as_validated.decorate
     @form_builder = AuthorizationRequestFormBuilder.new(
       'authorization_request',
-      @authorization.request,
+      @authorization.request_as_validated,
       view_context,
       {}
     )

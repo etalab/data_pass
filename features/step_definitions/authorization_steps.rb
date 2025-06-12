@@ -44,6 +44,35 @@ Et('je visite la page de mon habilitation') do
   visit authorization_path(@authorization)
 end
 
+Quand("j'ai une habilitation {string} liée à une demande d'habilitation ayant une habilitation obsolete ayant des données différentes") do |type|
+  attributes = { applicant: current_user }
+
+  @authorization_requests = create_authorization_requests_with_status(
+    type,
+    'validée',
+    1,
+    nil,
+    nil,
+    attributes
+  )
+
+  authorization_request = @authorization_requests.first
+  obsolete_authorization = authorization_request.authorizations.first
+
+  newest_authorization = obsolete_authorization.dup
+  newest_authorization.data['scopes'] = ['new_scope']
+  newest_authorization.save!
+
+  authorization_request.data['scopes'] = ['new_scope']
+  authorization_request.save!
+
+  obsolete_authorization.data['scopes'] = ['old_scope']
+  obsolete_authorization.state = 'obsolete'
+  obsolete_authorization.save!
+
+  @authorization = obsolete_authorization
+end
+
 Alors('il y a un formulaire en mode résumé non modifiable') do
   expect(page).to have_current_path(%r{/habilitations/#{@authorization.slug}})
 
