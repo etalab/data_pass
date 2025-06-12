@@ -236,9 +236,10 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
       [
         link_to_blob_file_within_files(file),
         @template.content_tag(:button,
-          'Supprimer',
+          I18n.t('authorization_request_forms.form.delete_file'),
           type: 'button',
           class: 'fr-icon-delete-line fr-btn fr-btn--sm fr-btn--tertiary-no-outline fr-ml-1w',
+          title: I18n.t('authorization_request_forms.form.delete_file'),
           data: {
             field_id: field_id,
             action: 'click->remove-attached-file#removeFile'
