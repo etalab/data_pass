@@ -218,12 +218,12 @@ fr:
             </p>
           message_details: |
             <p class="fr-mt-2w">
-              La liste des changements renseigné dans cet événement est listée ci-dessous. Certains changements peuvent ne pas être présents car provenant d'une ancienne version du logiciel
+              La liste des changements renseignés dans cet événement est listée ci-dessous. Certains changements peuvent ne pas être présents car provenant d'une ancienne version du logiciel
               %{message_details_text}
             </p>
         legacy_submit_without_changes:
           message_summary: |
-            <strong>%{user_full_name}</strong> a soumis la demande (certains changement ont pu être effectué, mais sont absent de cet événement car provenant d'une ancienne version du logiciel).
+            <strong>%{user_full_name}</strong> a soumis la demande (certains changements ont pu être effectués, mais sont absents de cet événement car provenant d'une ancienne version du logiciel).
         approve:
           message_summary: |
             <strong>%{user_full_name}</strong> a approuvé la demande.
