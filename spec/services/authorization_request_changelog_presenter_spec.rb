@@ -35,9 +35,17 @@ RSpec.describe AuthorizationRequestChangelogPresenter do
         changelog.update!(legacy: true)
       end
 
-      let(:diff) { { what: 'ever' } }
+      context 'when there is no diff' do
+        let(:diff) { {} }
 
-      it { is_expected.to eq('legacy_submit') }
+        it { is_expected.to eq('legacy_submit_without_changes') }
+      end
+
+      context 'when there is diff' do
+        let(:diff) { { what: 'ever' } }
+
+        it { is_expected.to eq('legacy_submit_with_changes') }
+      end
     end
 
     context 'when it is the first changelog' do
@@ -90,7 +98,7 @@ RSpec.describe AuthorizationRequestChangelogPresenter do
         let(:legacy) { true }
         let(:diff) { {} }
 
-        it { is_expected.to eq('legacy_submit') }
+        it { is_expected.to eq('legacy_submit_without_changes') }
       end
     end
   end

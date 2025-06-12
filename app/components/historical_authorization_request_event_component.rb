@@ -32,7 +32,7 @@ class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
                                 simple_format(entity.reason)
                               when 'applicant_message', 'instructor_message'
                                 simple_format(entity.body)
-                              when 'initial_submit_with_changes_on_prefilled_data', 'submit_with_changes'
+                              when 'initial_submit_with_changes_on_prefilled_data', 'submit_with_changes', 'legacy_submit_with_changes'
                                 humanized_changelog
                               when 'admin_update'
                                 humanized_changelog(from_admin: true)

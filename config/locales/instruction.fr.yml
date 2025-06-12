@@ -211,9 +211,19 @@ fr:
         submit_without_changes:
           message_summary: |
             <strong>%{user_full_name}</strong> a soumis la demande sans effectuer de changement :
-        legacy_submit:
+        legacy_submit_with_changes:
           message_summary: |
-            <strong>%{user_full_name}</strong> a soumis la demande (certains changement ont pu être effectué mais ne sont pas actuellement affichables).
+            <p class="fr-mb-2w">
+              <strong>%{user_full_name}</strong> a soumis la demande :
+            </p>
+          message_details: |
+            <p class="fr-mt-2w">
+              La liste des changements renseignés dans cet événement est listée ci-dessous. Certains changements peuvent ne pas être présents car provenant d'une ancienne version du logiciel
+              %{message_details_text}
+            </p>
+        legacy_submit_without_changes:
+          message_summary: |
+            <strong>%{user_full_name}</strong> a soumis la demande (certains changements ont pu être effectués, mais sont absents de cet événement car provenant d'une ancienne version du logiciel).
         approve:
           message_summary: |
             <strong>%{user_full_name}</strong> a approuvé la demande.

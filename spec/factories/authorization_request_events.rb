@@ -57,6 +57,7 @@ FactoryBot.define do
 
       after(:build) do |authorization_request_event, evaluator|
         next if evaluator.authorization_request.blank?
+        next if evaluator.authorization_request == authorization_request_event.entity.authorization_request
 
         authorization_request_event.entity = build(:authorization_request_changelog, authorization_request: evaluator.authorization_request)
       end

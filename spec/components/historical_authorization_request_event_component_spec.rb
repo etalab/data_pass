@@ -23,15 +23,46 @@ RSpec.describe HistoricalAuthorizationRequestEventComponent, type: :component do
   end
 
   describe 'render' do
-    context 'when event_name is submit' do
+    context 'when event_name is create' do
       let(:authorization_request_event) { create(:authorization_request_event, :create) }
 
-      let(:expected_submit_text) { 'Dupont Jean a crée la demande.' }
+      let(:expected_create_text) { 'Dupont Jean a crée la demande.' }
 
       it 'renders component with message_summary only' do
         page = render_inline(subject)
 
-        expect(page).to have_text(expected_submit_text)
+        expect(page).to have_text(expected_create_text)
+      end
+    end
+
+    context 'when original event name is submit' do
+      let(:authorization_request) { create(:authorization_request) }
+      let(:authorization_request_event) { create(:authorization_request_event, :submit, entity: changelog, authorization_request:) }
+
+      context 'when changelog has a diff' do
+        let(:changelog) { create(:authorization_request_changelog, authorization_request:, diff: { 'what' => ['ever', ' is love'] }, legacy:) }
+
+        context 'when changelog is not marked as legacy' do
+          let(:legacy) { false }
+
+          it 'renders component with diff content' do
+            page = render_inline(subject)
+
+            expect(page).to have_text('ever')
+            expect(page).to have_text('is love')
+          end
+        end
+
+        context 'when changelog is marked as legacy' do
+          let(:legacy) { true }
+
+          it 'renders component with diff content as well' do
+            page = render_inline(subject)
+
+            expect(page).to have_text('ever')
+            expect(page).to have_text('is love')
+          end
+        end
       end
     end
 
