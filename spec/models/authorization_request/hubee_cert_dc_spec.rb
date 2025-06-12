@@ -1,6 +1,6 @@
-RSpec.describe AuthorizationRequest::HubEEDila do
+RSpec.describe AuthorizationRequest::HubEECertDC do
   describe 'administrateur_metier_phone_number validation' do
-    subject { build(:authorization_request, :hubee_dila, :submitted, administrateur_metier_phone_number: phone_number) }
+    subject { build(:authorization_request, :hubee_cert_dc, :submitted, administrateur_metier_phone_number: phone_number) }
 
     context 'with valid French phone numbers' do
       context 'with French format 0X XX XX XX XX' do
@@ -66,7 +66,7 @@ RSpec.describe AuthorizationRequest::HubEEDila do
     end
 
     context 'when validation is not needed' do
-      subject { build(:authorization_request, :hubee_dila, state: 'draft', administrateur_metier_phone_number: phone_number) }
+      subject { build(:authorization_request, :hubee_cert_dc, state: 'draft', administrateur_metier_phone_number: phone_number) }
 
       let(:phone_number) { 'invalid phone' }
 
@@ -74,41 +74,35 @@ RSpec.describe AuthorizationRequest::HubEEDila do
     end
   end
 
-  describe 'scope unicity across authorization requests' do
-    subject { build(:authorization_request, :hubee_dila, scopes:, organization:) }
+  describe 'unicity validation' do
+    subject { build(:authorization_request, :hubee_cert_dc, organization:) }
 
     let(:organization) { create(:organization) }
-    let(:scopes) { %w[etat_civil depot_dossier_pacs recensement_citoyen] }
 
-    context 'when there is no other authorization request with same scopes' do
+    context 'when there is no other authorization request of this type' do
       it { is_expected.to be_valid }
     end
 
-    context 'when there is another authorization request with same scopes' do
-      context 'when it is not the same organization' do
-        let!(:other_authorization_request) { create(:authorization_request, :hubee_dila, scopes: scopes) }
+    context 'when there is another authorization request of this type' do
+      let!(:other_authorization_request) { create(:authorization_request, :hubee_cert_dc, organization:) }
+
+      it { is_expected.not_to be_valid }
+
+      it 'has unicity error' do
+        subject.valid?
+        expect(subject.errors[:base]).to be_present
+      end
+
+      context 'when the other authorization request is archived' do
+        let!(:other_authorization_request) { create(:authorization_request, :hubee_cert_dc, :archived, organization:) }
 
         it { is_expected.to be_valid }
       end
 
-      context 'when it is the same organization' do
-        context 'when there is scopes overlap' do
-          let!(:other_authorization_request) { create(:authorization_request, :hubee_dila, scopes: scopes.sample(1), organization: subject.organization) }
+      context 'when it is for a different organization' do
+        let!(:other_authorization_request) { create(:authorization_request, :hubee_cert_dc) }
 
-          it { is_expected.not_to be_valid }
-
-          context 'when authorization request is archived' do
-            let!(:other_authorization_request) { create(:authorization_request, :hubee_dila, :archived, scopes: scopes.sample(1), organization: subject.organization) }
-
-            it { is_expected.to be_valid }
-          end
-        end
-
-        context 'when there is no scopes overlap' do
-          let!(:other_authorization_request) { create(:authorization_request, :hubee_dila, scopes: %w[hebergement_tourisme], organization: subject.organization) }
-
-          it { is_expected.to be_valid }
-        end
+        it { is_expected.to be_valid }
       end
     end
   end
