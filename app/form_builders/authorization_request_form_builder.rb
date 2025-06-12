@@ -62,14 +62,18 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
     end
   end
 
-  def cgu_check_box(_opts = {})
-    term_checkbox(:terms_of_service_accepted) do |options|
-      options[:label] = cgu_check_box_label
+  def cgu_check_box(opts = {})
+    opts = { disabled: false }.merge(opts || {})
+
+    term_checkbox(:terms_of_service_accepted, opts) do |options|
+      options[:label] = cgu_check_box_label(opts)
     end
   end
 
-  def data_protection_officer_informed_check_box(_opts = {})
-    term_checkbox(:data_protection_officer_informed)
+  def data_protection_officer_informed_check_box(opts = {})
+    opts = { disabled: false }.merge(opts || {})
+
+    term_checkbox(:data_protection_officer_informed, opts)
   end
 
   def extra_checkboxes
@@ -79,9 +83,11 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
   end
 
   def term_checkbox(name, opts = {})
-    opts[:required] = true
+    opts ||= {}
+    opts[:required] = true unless opts[:disabled]
     opts[:class] ||= []
     opts[:class] << 'fr-input-group--error' if all_terms_not_accepted_error?(name)
+    opts[:class] << 'fr-checkbox-group--no-disabled-text' if opts[:disabled]
 
     yield(opts) if block_given?
 
@@ -90,11 +96,11 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
 
   def display_accepted_cgu_checkboxes
     accepted_checkboxes = []
-    accepted_checkboxes << cgu_check_box if @object.terms_of_service_accepted?
-    accepted_checkboxes << data_protection_officer_informed_check_box if @object.data_protection_officer_informed?
+    accepted_checkboxes << cgu_check_box(disabled: true)
+    accepted_checkboxes << data_protection_officer_informed_check_box(disabled: true)
 
     extra_checkboxes.each do |extra_checkbox_name|
-      accepted_checkboxes << term_checkbox(extra_checkbox_name) if @object.public_send(extra_checkbox_name)
+      accepted_checkboxes << term_checkbox(extra_checkbox_name, disabled: true) if @object.public_send(extra_checkbox_name)
     end
 
     @template.safe_join(accepted_checkboxes)
@@ -188,13 +194,17 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
 
   private
 
-  def cgu_check_box_label
+  def cgu_check_box_label(opts = {})
+    label_opts = {}
+    label_opts[:class] = opts[:class] if opts[:class].present?
+
     label(
       :terms_of_service_accepted,
       [
         wording_for('terms_of_service_accepted.label', link: object.definition.cgu_link).html_safe,
-        required_tag,
-      ].join(' ').html_safe
+        (required_tag unless opts[:disabled])
+      ].compact.join(' ').html_safe,
+      label_opts
     )
   end
 
