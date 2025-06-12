@@ -49,20 +49,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
     Alors la page contient "Une erreur est survenue lors de la sauvegarde de la demande d'habilitation"
     Et la page contient "Les données sont invalides : Des données incompatibles entre elles ont été cochées"
 
-  Scénario: Je soumets une demande d'habilitation avec l'indicateur d'éligibilité au LEP et un autre scope.
-    * je coche "Indicateur d’éligibilité au LEP"
-    * je coche "Dernière année de revenu (N-1)"
-    * je clique sur "Suivant"
-
-    Alors la page contient "Une erreur est survenue lors de la sauvegarde de la demande d'habilitation"
-    Et la page contient "Les données sont invalides : La donnée d’indicateur d’éligibilité au LEP ne peut être demandée que seule. Veuillez décocher cette case, ou décocher toutes les autres si vous souhaitez vérifier l’éligibilité au LEP."
-
-  Scénario: Je soumets une demande d'habilitation avec uniquement l'indicateur d'éligibilité au LEP.
-    * je coche "Indicateur d’éligibilité au LEP"
-    * je clique sur "Suivant"
-
-    Alors la page contient "Les personnes impliquées"
-
   @javascript
   Scénario: Je soumets une demande d'habilitation sans scopes mais je joins un fichier d'expression de besoin spécifique.
     * je coche "Oui, j’ai une expression de besoin spécifique"
