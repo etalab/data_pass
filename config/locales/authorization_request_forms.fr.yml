@@ -765,7 +765,7 @@ fr:
           content: |
             Afin de vous accompagner dans le choix de vos données, vous pouvez consulter notre documentation qui vous permettra de comprendre le fonctionnement de notre API ainsi que les données que nous proposons. Afin de respecter les principes de collecte, traitement et conservation données définit par l’article 4 de la loi informatique et libertés, vous devez devez sélectionner uniquement les données strictement nécessaires à votre téléservice.
             </br>
-            <a href="/cgus/dgfip/presentation_de_l_api_impot_particulier_v2.8.pdf", target="_blank">Voir la documentation de l’API Impôt particulier</a>
+            <a href="/cgus/dgfip/presentation_de_l_api_impot_particulier_v2.9.pdf", target="_blank">Voir la documentation de l’API Impôt particulier</a>
         groups:
           'Années sur lesquelles porte votre demande': |
             En cochant la case <strong>Avant-dernière année de revenu, si la dernière année de revenu est indisponible (N-1 ou N-2)</strong>,
