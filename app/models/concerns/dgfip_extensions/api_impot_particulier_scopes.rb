@@ -24,9 +24,12 @@ module DGFIPExtensions::APIImpotParticulierScopes
       text/csv
     ], size: { less_than: 10.megabytes }
 
-    validate :at_least_one_revenue_year_has_been_selected, if: :validate_scopes_without_lep?
-    validate :revenue_years_scopes_compatibility, if: :validate_scopes_without_lep?
-    validate :scopes_compatibility, if: :validate_scopes_without_lep?
+    with_options if: :validate_scopes_without_lep? do
+      validate :at_least_one_revenue_year_has_been_selected
+      validate :revenue_years_scopes_compatibility
+      validate :scopes_compatibility
+    end
+
     validate :lep_scope_exclusivity, if: :validate_scopes?
     validates :specific_requirements_document, presence: true, if: -> { specific_requirements? && need_complete_validation?(:scopes) }
   end
@@ -67,7 +70,7 @@ module DGFIPExtensions::APIImpotParticulierScopes
   end
 
   def validate_scopes_without_lep?
-    need_complete_validation?(:scopes) && !specific_requirements? && scopes.exclude?('dgfip_IndLep')
+    validate_scopes? && scopes.exclude?('dgfip_IndLep')
   end
 
   def validate_scopes?
