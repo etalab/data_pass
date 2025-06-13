@@ -10,6 +10,5 @@ def organization_name_to_siret(name)
 end
 
 def add_current_organization_to_user(user, organization)
-  user.current_organization = organization
-  user.organizations << organization unless user.organizations.include?(organization)
+  user.add_to_organization(organization, current: true)
 end

@@ -28,6 +28,7 @@
 
 - Use RSpec expectations syntax for tests
 - Test files should follow the same structure as the application
+- Do not test associations and validations directly, focus on behavior
 - Never use controller specs if you can use cucumber features, if controller
   specs are needed, check if you can create organizers or services to
   handle the logic
@@ -49,3 +50,7 @@
 - Be sure that rubocop passes before stopping your work.
 - Be sure that tests you introduce pass before stopping your work.
 - Authorization should be done in the controller, not in the model/services.
+
+## Git
+
+- When you move files, use `git mv` to keep history.

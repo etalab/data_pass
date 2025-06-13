@@ -47,8 +47,31 @@ setup_proc = lambda do |env|
   end
 end
 
+case Rails.env
+when 'development', 'test'
+  port = ENV['DOCKER'].present? ? 5000 : 3000
+
+  host = "http://localhost:#{port}"
+when 'sandbox', 'staging'
+  host = "https://#{Rails.env}.datapass.api.gouv.fr"
+when 'production'
+  host = 'https://datapass.api.gouv.fr'
+end
+
 Rails.application.config.middleware.use OmniAuth::Builder do
   provider :mon_compte_pro, setup: setup_proc
+
+  provider(
+    :proconnect,
+    {
+      client_id: Rails.application.credentials.proconnect_client_id,
+      client_secret: Rails.application.credentials.proconnect_client_secret,
+      proconnect_domain: Rails.application.credentials.proconnect_url,
+      redirect_uri: URI("#{host}/auth/proconnect/callback").to_s,
+      post_logout_redirect_uri: URI(host).to_s,
+      scope: 'openid given_name usual_name email uid idp_id siret organizational_unit phone',
+    }
+  )
 end
 
 OmniAuth.config.test_mode = Rails.env.test?
