@@ -1,0 +1,47 @@
+<% if @authorization_request.display_prefilled_banner_for_each_block? && @authorization_request.prefilled_data?(%i[modalities france_connect_authorization_id]) %>
+  <%= render partial: "authorization_request_forms/shared/prefilled_banner" %>
+<% end %>
+
+<%= f.info_for(:modalities) %>
+
+<div data-controller="show-and-hide" data-show-and-hide-targets-value="#france-connect-container">
+  <div class="fr-col-lg-9">
+    <% @authorization_request.available_modalities.each do |modality| %>
+      <% next if modality == 'formulaire_qf' %>
+
+      <div class="fr-input-group">
+        <div class="fr-checkbox-group">
+          <%=
+            f.checkbox :modalities,
+              {
+                multiple: true,
+                checked: @authorization_request.modalities.include?(modality),
+                class: 'fr-checkbox-group',
+                "data-action": modality == 'france_connect' ? "change->show-and-hide#trigger" : nil,
+                "data-show-and-hide-target-param": modality == 'france_connect' ? "#france-connect-container" : nil
+              },
+              modality,
+              nil
+          %>
+          <%= f.dsfr_radio_label(:modalities, modality) %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div id="france-connect-container" class="fr-col-lg-9 fr-mt-5w <%= 'fr-hidden' unless @authorization_request.modalities.include?('france_connect') %>">
+    <% if @authorization_request.france_connect_authorizations.empty? %>
+      <div class="fr-callout red-callout">
+        <h3 class="fr-callout__title">
+          <%= f.wording_for("modalities.callout.title") %>
+        </h3>
+        <p class="fr-callout__text fr-my-3w">
+          <%= f.wording_for("modalities.callout.content") %>
+        </p>
+        <%= link_to f.wording_for("modalities.callout.link"), new_authorization_request_path("france-connect"), class: "fr-link fr-btn--icon-right fr-icon-arrow-right-line" %>
+      </div>
+    <% else %>
+      <%= f.france_connect_authorization_select %>
+    <% end %>
+  </div>
+</div>

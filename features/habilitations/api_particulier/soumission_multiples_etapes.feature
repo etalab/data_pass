@@ -19,6 +19,8 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
     * je renseigne le cadre légal
     * je clique sur "Suivant"
 
+    * je clique sur "Suivant"
+
     * je coche "Quotient familial CAF & MSA"
     * je clique sur "Suivant"
 
