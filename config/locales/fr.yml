@@ -453,6 +453,7 @@ fr:
       back: Retour à la synthèse
       reopen: Mettre à jour
       archive: Supprimer
+      delete_file: Supprimer ce fichier
       transfer: Transférer
       contact_support: Contacter le support
       save_header: Enregistrer

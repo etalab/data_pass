@@ -162,7 +162,7 @@ RSpec.describe CreateAuthorizationRequest, type: :organizer do
 
       let(:authorization_request_params) do
         ActionController::Parameters.new(
-          maquette_projet: Rack::Test::UploadedFile.new('spec/fixtures/dummy.pdf', 'application/pdf'),
+          maquette_projet: [Rack::Test::UploadedFile.new('spec/fixtures/dummy.pdf', 'application/pdf')],
           cadre_juridique_document: [
             Rack::Test::UploadedFile.new('spec/fixtures/dummy.pdf', 'application/pdf'),
             Rack::Test::UploadedFile.new('spec/fixtures/dummy.pdf', 'application/pdf'),
@@ -172,12 +172,12 @@ RSpec.describe CreateAuthorizationRequest, type: :organizer do
 
       it { is_expected.to be_a_success }
 
-      it 'works for single and multirple documents' do
+      it 'works for single and multiple documents' do
         create_authorization_request
 
         last_authorization_request = AuthorizationRequest.last
 
-        expect(last_authorization_request.maquette_projet).to be_attached
+        expect(last_authorization_request.maquette_projet.blobs.count).to eq(1)
         expect(last_authorization_request.cadre_juridique_document.blobs.count).to eq(2)
       end
     end

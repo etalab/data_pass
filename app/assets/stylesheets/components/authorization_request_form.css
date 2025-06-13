@@ -32,3 +32,8 @@
   flex-wrap: wrap;
   gap: 10px;
 }
+
+.file-with-remove-button {
+  display: inline-flex;
+  align-items: center;
+}

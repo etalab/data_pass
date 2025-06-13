@@ -25,12 +25,19 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
     dsfr_input_field(attribute, :url_field, opts)
   end
 
+  # rubocop:disable Metrics/AbcSize
   def dsfr_file_field(attribute, opts = {})
     opts[:class] ||= 'fr-upload-group'
 
-    existing_file_link = link_to_files(attribute)
+    if opts[:multiple]
+      opts[:input_group_options] ||= {}
+      opts[:input_group_options][:data] ||= { controller: 'remove-attached-file' }
+      opts[:input_group_options][:data][:removeAttachedFileTarget] = 'file'
+      hidden_fields = hidden_fields_for_existing_attachments(attribute)
+      existing_file_link = link_to_files(attribute)
+    end
+
     required = opts[:required] && !existing_file_link
-    hidden_fields = hidden_fields_for_existing_attachments(attribute) if multiple_attachments?(attribute)
 
     dsfr_input_group(attribute, opts) do
       @template.safe_join(
@@ -44,6 +51,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
       )
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def dsfr_check_box(attribute, opts = {})
     dsfr_input_group(attribute, opts) do
@@ -59,7 +67,9 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def dsfr_input_group(attribute, opts, &block)
-    @template.content_tag(:div, class: input_group_classes(attribute, opts)) do
+    html_options = { class: input_group_classes(attribute, opts) }.merge(opts[:input_group_options] || {})
+
+    @template.content_tag(:div, html_options) do
       yield(block)
     end
   end
@@ -214,8 +224,27 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
       Array(files).filter_map { |file|
         next unless file.persisted?
 
-        link_to_blob_file_within_files(file)
+        link_to_blob_file_with_remove_button(attribute, file)
       }.join('<br>').html_safe
+    end
+  end
+
+  def link_to_blob_file_with_remove_button(attribute, file)
+    field_id = "#{@object_name}_#{attribute}_#{file.id}_signed_id"
+
+    @template.content_tag(:div, class: 'file-with-remove-button') do
+      [
+        link_to_blob_file_within_files(file),
+        @template.content_tag(:button,
+          I18n.t('authorization_request_forms.form.delete_file'),
+          type: 'button',
+          class: 'fr-icon-delete-line fr-btn fr-btn--sm fr-btn--tertiary-no-outline fr-ml-1w',
+          title: I18n.t('authorization_request_forms.form.delete_file'),
+          data: {
+            field_id: field_id,
+            action: 'click->remove-attached-file#removeFile'
+          })
+      ].join.html_safe
     end
   end
 
@@ -243,7 +272,7 @@ class DSFRFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def create_hidden_field_for_file(attribute, file)
-    field_name = multiple_attachments?(attribute) ? "#{@object_name}[#{attribute}][]" : "#{@object_name}[#{attribute}]"
+    field_name = "#{@object_name}[#{attribute}][]"
     field_id = "#{@object_name}_#{attribute}_#{file.id}_signed_id"
 
     @template.hidden_field_tag(field_name, file.signed_id, id: field_id)

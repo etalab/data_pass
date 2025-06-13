@@ -248,7 +248,7 @@ De manière plus bas niveau, une liste de méthode disponibles pour ajouter des 
 
 * `add_attribute :attribut1` pour ajouter un attribut ayant pour nom `attribut1`
     de type texte ;
-* `add_document :document1, validation_options` pour ajouter un document ayant
+* `add_documents :document1, validation_options` pour ajouter un document ayant
     pour nom `document1`
 * `contact :mon_contact` pour ajouter un nouveau contact. Cette méthode va créer
     les attributs `mon_contact_family_name`, `mon_contact_given_name`,
@@ -271,7 +271,7 @@ class AuthorizationRequest::MonAPI < AuthorizationRequest
 
   contact :responsable_technique
 
-  add_document :maquette_projet, content_type: ['application/pdf'], size: { less_than: 10.megabytes }
+  add_documents :maquette_projet, content_type: ['application/pdf'], size: { less_than: 10.megabytes }
 end
 ```
 
