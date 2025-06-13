@@ -15,17 +15,18 @@ class DashboardController < AuthenticatedUserController
 
     case params[:id]
     when 'demandes'
-      @items = policy_scope(base_relation).not_archived.order(created_at: :desc)
+      @items = policy_scope(base_relation).not_archived.order(created_at: :desc).or(authorization_request_mentions_query)
       @highlighted_categories = {
         changes_requested: @items.changes_requested,
       }
       @categories = {
         pending: @items.in_instructions,
         draft: @items.drafts,
-        validated_or_refused: @items.validated_or_refused,
+        refused: @items.refused,
       }
     when 'habilitations'
-      @items = current_user.authorizations_as_applicant.order(created_at: :desc)
+      @items = current_user.authorizations_as_applicant.order(created_at: :desc).or(authorization_mentions_query)
+
       @highlighted_categories = {}
       @categories = {
         active: @items.where(state: :active),
@@ -36,8 +37,19 @@ class DashboardController < AuthenticatedUserController
 
   private
 
-  class Tab < Data.define(:id, :path)
+  def authorization_request_mentions_query
+    AuthorizationRequestsMentionsQuery.new(current_user).perform(authorization_requests_relation)
   end
+
+  def authorization_mentions_query
+    Authorization.where("EXISTS (
+        select 1
+        from each(authorizations.data) as kv
+        where kv.key like '%_email' and kv.value = ?
+      )", current_user.email)
+  end
+
+  Tab = Data.define(:id, :path)
 
   def dashboard_v1
     case params[:id]

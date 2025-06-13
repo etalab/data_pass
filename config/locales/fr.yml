@@ -169,7 +169,7 @@ fr:
       <!--   organisation: Votre organization ne possède aucune habilitation ou demande en cours. -->
       <!--   mentions: Vous n'êtes mentionné dans aucune habilitation ou demande en cours. -->
       lists:
-        validated_or_refused_title: Mes habilitations
+        refused_title: Demandes refusées
         draft_title: Demandes en brouillon
         pending_title: Demandes en cours d'instruction
         changes_requested_title: Demandes à modifier

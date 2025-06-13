@@ -46,7 +46,7 @@ Fonctionnalité: Consultation d'une demande d'habilitation
 
   Scénario: Je consulte une demande d'habilitation simple en brouillon de l'organisation
     Quand mon organisation a 1 demande d'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
-    Et que je clique sur "Toutes celles de l'organisation"
+    Et que je me rends sur mon tableau de bord demandes
     Et que je clique sur "Consulter"
     Alors il y a un titre contenant "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
     Et il n'y a pas de bulle de messagerie
@@ -55,7 +55,7 @@ Fonctionnalité: Consultation d'une demande d'habilitation
 
   Scénario: Je consulte une demande d'habilitation en plusieurs étapes en brouillon de l'organisation
     Quand mon organisation a 1 demande d'habilitation "Démarches du bouquet de services (service-public.fr)"
-    Et que je clique sur "Toutes celles de l'organisation"
+    Et que je me rends sur mon tableau de bord demandes
     Et que je clique sur "Consulter"
     Alors il y a un titre contenant "Démarches du bouquet de services (service-public.fr)"
     Et il y a un formulaire en mode résumé
@@ -63,7 +63,7 @@ Fonctionnalité: Consultation d'une demande d'habilitation
 
   Scénario: Je consulte une demande d'habilitation en plusieurs étapes en brouillon de l'organisation
     Quand mon organisation a 1 demande d'habilitation "API Entreprise"
-    Et que je clique sur "Toutes celles de l'organisation"
+    Et que je me rends sur mon tableau de bord demandes
     Et que je clique sur "Consulter"
     Alors il y a un titre contenant "API Entreprise"
     Et il y a un formulaire en mode résumé
@@ -71,8 +71,7 @@ Fonctionnalité: Consultation d'une demande d'habilitation
 
   Scénario: Je consulte une demande d'habilitation simple où je suis mentionné
     Quand je suis mentionné dans 1 demande d'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)" en tant que "Administrateur métier"
-    Et que je vais sur la page du tableau de bord
-    Et que je clique sur "J'y suis mentionné en contact"
+    Et que je me rends sur mon tableau de bord demandes
     Et que je clique sur "Consulter"
     Alors il y a un titre contenant "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
     Et il n'y a pas de bulle de messagerie
@@ -82,8 +81,7 @@ Fonctionnalité: Consultation d'une demande d'habilitation
 
   Scénario: Je consulte une demande d'habilitation en plusieurs étapes où je suis mentionné
     Quand je suis mentionné dans 1 demande d'habilitation "Démarches du bouquet de services (service-public.fr)" en tant que "Administrateur métier"
-    Et que je vais sur la page du tableau de bord
-    Et que je clique sur "J'y suis mentionné en contact"
+    Et que je me rends sur mon tableau de bord demandes
     Et que je clique sur "Consulter"
     Alors il y a un titre contenant "Démarches du bouquet de services (service-public.fr)"
     Et il y a un formulaire en mode résumé
@@ -92,8 +90,7 @@ Fonctionnalité: Consultation d'une demande d'habilitation
 
   Scénario: Je consulte une demande d'habilitation en plusieurs étapes où je suis mentionné
     Quand je suis mentionné dans 1 demande d'habilitation "API Entreprise" en tant que "Contact technique"
-    Et que je vais sur la page du tableau de bord
-    Et que je clique sur "J'y suis mentionné en contact"
+    Et que je me rends sur mon tableau de bord demandes
     Et que je clique sur "Consulter"
     Alors il y a un titre contenant "API Entreprise"
     Et il y a un formulaire en mode résumé
@@ -103,8 +100,7 @@ Fonctionnalité: Consultation d'une demande d'habilitation
   Scénario: Je consulte une habilitation où je suis mentionnée
     Quand je suis mentionné dans 1 demande d'habilitation "API Entreprise" en tant que "Contact technique"
     Et que cette demande a été "validée"
-    Et que je vais sur la page du tableau de bord
-    Et que je clique sur "J'y suis mentionné en contact"
+    Et que je me rends sur mon tableau de bord habilitations
     Et que je clique sur "Consulter"
     Alors il y a un titre contenant "API Entreprise"
     Et il y a un formulaire en mode résumé

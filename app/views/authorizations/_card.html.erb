@@ -1,5 +1,5 @@
-<div class="paired-cards">
-  <div class="authorization-request-card authorization-request fr-background-alt--grey <%= "fr-background-action-high--blue-france" if authorization.active? %>" id="<%= dom_id(authorization) %>">
+<div class="paired-cards authorization">
+  <div class="authorization-request-card fr-background-alt--grey <%= "fr-background-action-high--blue-france" if authorization.active? %>" id="<%= dom_id(authorization) %>">
     <div class="card__wrapper fr-px-10v fr-py-8v">
 
       <div class="flex-space-between__content">
@@ -27,7 +27,7 @@
       </div>
     </div>
   </div>
-  <div class="authorization-request-card authorization-request">
+  <div class="authorization-request-card">
     <div class="card__wrapper fr-px-10v fr-py-8v">
 
       <div class="flex-space-between__content">
@@ -62,7 +62,7 @@
       </div>
     </div>
 
-    <%= render partial: 'dashboard/card/stage_footer', locals: { authorization_request: authorization.request } %>
+    <%= render partial: 'dashboard/card/stage_footer', locals: { authorization_request: authorization.request, authorization: } %>
   </div>
 </div>
 

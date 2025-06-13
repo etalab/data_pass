@@ -237,6 +237,10 @@ Alors('il y a un badge {string}') do |text|
   expect(page).to have_css('.fr-badge', text:)
 end
 
+Alors('il y a {int} badges {string}') do |int, text|
+  expect(page).to have_css('.fr-badge', text:, count: int)
+end
+
 Alors("il n'y a pas de badge {string}") do |text|
   expect(page).to have_no_css('.fr-badge', text:)
 end

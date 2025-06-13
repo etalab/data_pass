@@ -113,7 +113,7 @@ class AuthorizationRequestDecorator < ApplicationDecorator
   def applicant_details
     highlighted = object.applicant == h.current_user
 
-    h.content_tag(:p, class: ["fr-card__detail", "fr-icon-user-fill", "fr-text-title--blue-france": highlighted]) do
+    h.content_tag(:p, class: ['fr-card__detail', 'fr-icon-user-fill', { 'fr-text-title--blue-france': highlighted }]) do
       card_provider_applicant_details(h.current_user)
     end
   end

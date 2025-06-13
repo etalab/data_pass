@@ -34,6 +34,17 @@ class AuthorizationDecorator < ApplicationDecorator
       object.contact_types_for(user).present?
   end
 
+  def humanized_contact_types_for(user)
+    object.contact_types_for(user).map do |contact_type|
+      lookup_i18n_key("#{contact_type}.title").downcase
+    end
+  end
+
+  def lookup_i18n_key(subkey)
+    t("authorization_request_forms.#{object.model_name.element}.#{subkey}", default: nil) ||
+      t("authorization_request_forms.default.#{subkey}")
+  end
+
   def reopening_validated?
     object.request.authorizations.where(authorization_request_class: object.authorization_request_class).count > 1
   rescue NoMethodError

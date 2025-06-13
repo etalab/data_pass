@@ -83,7 +83,7 @@ class Authorization < ApplicationRecord
   def access_link
     return nil if definition.access_link.blank? || request.external_provider_id.blank?
 
-    format(definition.access_link, external_provider_id:)
+    format(definition.access_link, external_provider_id: request.external_provider_id)
   end
 
   # rubocop:disable Metrics/AbcSize
@@ -126,6 +126,16 @@ class Authorization < ApplicationRecord
 
   def reopenable_to_another_stage?
     authorization_request.latest_authorizations_of_each_stage.count > 1
+  end
+
+  def contact_types_for(user)
+    contact_type_key_values = data.select do |key, value|
+      key =~ /.*_email$/ && value == user.email
+    end
+
+    contact_type_key_values.keys.map do |key|
+      key.match(/^(.*)_email$/)[1]
+    end
   end
 
   private
