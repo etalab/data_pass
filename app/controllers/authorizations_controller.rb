@@ -6,6 +6,7 @@ class AuthorizationsController < AuthenticatedUserController
 
   def show
     authorize @authorization, :show?
+    @authorization_as_request_validated = @authorization.request_as_validated.decorate
   end
 
   private
