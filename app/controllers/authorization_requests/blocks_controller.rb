@@ -50,6 +50,10 @@ class AuthorizationRequests::BlocksController < AuthenticatedUserController
     raise ActiveRecord::RecordNotFound
   end
 
+  def model_to_track_for_impersonation
+    @authorization_request
+  end
+
   def layout_name
     'authorization_request'
   end
