@@ -26,7 +26,7 @@ class FindOrCreateUserThroughProConnect < ApplicationInteractor
       'phone_number' => raw_info_payload['phone_number'],
       'external_id' => raw_info_payload['sub'],
     }.merge(
-      context.user_attributes || {}
+      Hash(context.user_attributes)
     )
   end
 end

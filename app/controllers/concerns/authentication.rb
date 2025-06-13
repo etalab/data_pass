@@ -45,7 +45,7 @@ module Authentication
   end
 
   def current_identity_federator
-    user_id_session&.dig('identity_federator') || 'mon_compte_pro'
+    user_id_session&.fetch('identity_federator', 'mon_compte_pro')
   end
 
   def authenticate_user!

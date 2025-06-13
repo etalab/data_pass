@@ -198,12 +198,13 @@ class User < ApplicationRecord
   end
 
   def add_to_organization(organization, current: false, identity_provider_uid: nil, identity_federator: nil)
-    org_user = organizations_users.find_or_create_by(organization:)
-    updates = {}
-    updates[:identity_provider_uid] = identity_provider_uid if identity_provider_uid
-    updates[:identity_federator] = identity_federator if identity_federator
-    org_user.update!(updates) if updates.any?
-    org_user.set_as_current! if current
-    org_user
+    organizations_users.find_or_create_by(organization:).tap do |org_user|
+      updates = {
+        identity_provider_uid:,
+        identity_federator:,
+      }.compact
+      org_user.update!(updates) if updates.any?
+      org_user.set_as_current! if current
+    end
   end
 end
