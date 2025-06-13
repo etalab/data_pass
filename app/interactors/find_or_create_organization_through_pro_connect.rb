@@ -3,7 +3,7 @@ class FindOrCreateOrganizationThroughProConnect < ApplicationInteractor
 
   def call
     context.organization = find_or_initialize_organization
-    assign_attributes
+    context.organization.assign_attributes(organization_attributes)
     context.organization.save!
   end
 
@@ -16,14 +16,14 @@ class FindOrCreateOrganizationThroughProConnect < ApplicationInteractor
     ).first_or_initialize
   end
 
-  def assign_attributes
-    context.organization.assign_attributes(
-      proconnect_payload: organization_attributes,
+  def organization_attributes
+    {
+      proconnect_payload: proconnect_organization_attributes,
       last_proconnect_updated_at: DateTime.now,
-    )
+    }
   end
 
-  def organization_attributes
+  def proconnect_organization_attributes
     {
       'siret' => raw_info_payload['siret']
     }
