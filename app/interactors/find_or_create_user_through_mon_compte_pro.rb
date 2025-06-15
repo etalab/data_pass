@@ -1,9 +1,9 @@
-class FindOrCreateUser < ApplicationInteractor
+class FindOrCreateUserThroughMonComptePro < ApplicationInteractor
   include MonCompteProPayloads
 
   def call
     context.user = find_or_initialize_user
-    assign_attributes
+    context.user.assign_attributes(user_attributes)
     context.user.save
   end
 
@@ -13,10 +13,6 @@ class FindOrCreateUser < ApplicationInteractor
     User.where(
       email: info_payload['email'],
     ).first_or_initialize
-  end
-
-  def assign_attributes
-    context.user.assign_attributes(user_attributes)
   end
 
   def user_attributes

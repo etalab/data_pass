@@ -44,19 +44,19 @@ FactoryBot.define do
       if authorization_request.applicant.nil? && authorization_request.organization.nil?
         applicant = create(:user)
         organization = create(:organization)
-        applicant.organizations << organization
+        applicant.add_to_organization(organization, current: true)
 
         authorization_request.applicant = applicant
         authorization_request.organization = organization
       elsif authorization_request.applicant.nil?
-        applicant = create(:user, current_organization: authorization_request.organization)
-        authorization_request.organization.users << applicant
+        applicant = create(:user)
+        applicant.add_to_organization(authorization_request.organization, current: true)
 
         authorization_request.applicant = applicant
       elsif authorization_request.organization.nil?
         applicant = authorization_request.applicant
         organization = applicant.organizations.first || create(:organization)
-        organization.users << applicant if organization.users.exclude?(applicant)
+        applicant.add_to_organization(organization, current: true) if organization.users.exclude?(applicant)
 
         authorization_request.organization = organization
       end
