@@ -106,10 +106,12 @@ class MergeAuthorizationRequests
     copy_chain = build_copy_chain
 
     if copy_chain[0..-2].reject { |r| r.state == 'validated' }.any?
-      raise ArgumentError, "Cannot merge authorization requests if there is one within the copy chain that is not validated except the last one."
+      invalid_requests = copy_chain[0..-2].reject { |r| r.state == 'validated' }
+
+      raise ArgumentError, "Cannot merge authorization requests if there is one within the copy chain that is not validated except the last one: #{invalid_requests.map(&:id).join(', ')}"
     end
 
-    if %[draft changes_requested submitted].exclude?(copy_chain[-1].state)
+    if %[draft changes_requested submitted validated].exclude?(copy_chain[-1].state)
       raise ArgumentError, "Cannot merge authorization requests if the last one in the copy chain is not in a draft, changes_requested or submitted state. Last request state: #{copy_chain[-1].state}"
     end
   end
