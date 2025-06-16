@@ -6,6 +6,7 @@ class V1CopiedEnrollmentsExporter
 
   def perform
     copy_chains = build_copy_chains
+    copy_chains = clean_copy_chains_already_merged(copy_chains)
     generate_csv(copy_chains)
     generate_ids_file(copy_chains)
     Rails.logger.debug 'CSV exported to: sandbox/v1_copied_enrollments.csv'
@@ -47,6 +48,17 @@ class V1CopiedEnrollmentsExporter
     end
 
     chains
+  end
+
+  def clean_copy_chains_already_merged(copy_chains)
+    copy_chains.reject do |root_id, chain|
+      from_id, to_id = chain.first[:id], chain.second[:id]
+
+      from = AuthorizationRequest.find_by(id: from_id) || Authorization.find_by(id: from_id)&.request
+      to = AuthorizationRequest.find_by(id: to_id) || Authorization.find_by(id: to_id)&.request
+
+      from == to
+    end
   end
 
   def find_chain_root(enrollment)
