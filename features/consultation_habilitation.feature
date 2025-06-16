@@ -20,11 +20,23 @@ Fonctionnalité: Consultation d'une habilitation
     Et il y a un formulaire en mode résumé non modifiable
 
   Scénario: Je consulte un habilitation revoked m'appartenant
-    Quand j'ai 1 habilitation "API Entreprise" revoked
+    Quand j'ai 1 habilitation "API Entreprise" révoquée
     Et je visite la page de mon habilitation
     Alors il n'y a pas de bouton "Sauvegarder"
     Alors il y a un bouton "Contacter le support"
     Et il y a un formulaire en mode résumé non modifiable
+
+  Scénario: Je consulte une habilitation API Impôt Particulier bac à sable active m'appartenant
+    Quand j'ai 1 habilitation "API Impôt Particulier" active à l'étape "Bac à sable"
+    Et je visite la page de mon habilitation
+    Alors il y a un badge "Bac à sable"
+    Et il y a un badge "Active"
+
+  Scénario: Je consulte une habilitation API Impôt Particulier production obsolète m'appartenant
+    Quand j'ai 1 habilitation "API Impôt Particulier" obsolète à l'étape "Production"
+    Et je visite la page de mon habilitation
+    Alors il y a un badge "Production"
+    Et il y a un badge "Obsolète"
 
 #TODO: Faire le test pour une habilitation en multi stage
   @pending
