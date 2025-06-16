@@ -30,8 +30,10 @@ module DGFIPExtensions::APIImpotParticulierScopes
       validate :scopes_compatibility
     end
 
-    validate :lep_scope_exclusivity, if: :validate_scopes?
-    validates :specific_requirements_document, presence: true, if: -> { specific_requirements? && need_complete_validation?(:scopes) }
+    with_options if: -> { need_complete_validation?(:scopes) } do
+      validate :lep_scope_exclusivity, unless: :specific_requirements?
+      validates :specific_requirements_document, presence: true, if: :specific_requirements?
+    end
   end
 
   private
