@@ -7,6 +7,7 @@ fr:
             label: Rechercher dans toutes les habilitations
             placeholder: id, numéro de siret, intitulé...
           btn: Rechercher
+          results_count: "%{count} résultat(s)"
         table:
           caption: Liste des demandes en cours
           header:

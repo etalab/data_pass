@@ -13,6 +13,7 @@ Fonctionnalité: Instruction: liste des habilitations
     Et qu'il y a 1 demande d'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)" en attente
     Et que je vais sur la page instruction
     Alors je vois 2 demandes d'habilitation
+    Et la page contient "2 résultat(s)"
 
   Scénario: Je vois les badges des habilitations en réouvertures
     Sachant qu'il y a 1 demande d'habilitation "API Entreprise" réouverte
@@ -47,4 +48,10 @@ Fonctionnalité: Instruction: liste des habilitations
     Et que je vais sur la page instruction
     Et que je clique sur "Statut"
     Alors je vois 1 demande d'habilitation
+  
+  Scénario: La pagination limite le nombre de résultats mais compte bien le nombre total de résultats
+    Sachant qu'il y a 26 demandes d'habilitation "API Entreprise" en attente
+    Et que je vais sur la page instruction
+    Alors je vois 25 demandes d'habilitation
+    Et la page contient "26 résultat(s)"
 
