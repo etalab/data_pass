@@ -33,4 +33,8 @@ class Instruction::RequestChangesOnAuthorizationRequestsController < Instruction
   def authorize_authorization_request_changes_request
     authorize [:instruction, @authorization_request], :request_changes?
   end
+
+  def model_to_track_for_impersonation
+    @authorization_request
+  end
 end

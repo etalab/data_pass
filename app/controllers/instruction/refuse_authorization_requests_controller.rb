@@ -31,4 +31,8 @@ class Instruction::RefuseAuthorizationRequestsController < Instruction::Abstract
   def authorize_authorization_request_refusal
     authorize [:instruction, @authorization_request], :refuse?
   end
+
+  def model_to_track_for_impersonation
+    @authorization_request
+  end
 end
