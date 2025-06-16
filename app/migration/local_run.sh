@@ -5,7 +5,7 @@ bundle exec rails db:drop db:create || exit 1
 bundle exec rails db:environment:set RAILS_ENV=development
 pg_restore -h localhost -d development app/migration/dumps/datapass_production_v2.dump 2> /dev/null
 bundle exec rails db:migrate
-LOCAL=true bundle exec rails runner "u=User.find_or_initialize_by(email: 'user@yopmail.com');o = Organization.first;u.current_organization=o;u.organizations << o;u.save!;u.roles = AuthorizationDefinition.all.map { |a| [a.id,'instructor'].join(':') }; u.save!"
+LOCAL=true bundle exec rails runner "u=User.find_or_initialize_by(email: 'user@yopmail.com');u.save!;o = Organization.first;u.add_to_organization(o, current: true);u.roles = AuthorizationDefinition.all.map { |a| [a.id,'instructor'].join(':') }; u.save!"
 
 exit
 

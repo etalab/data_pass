@@ -18,8 +18,9 @@ class MergeAuthorizationRequests
       return unless answer.downcase == 'y' || answer.empty?
     end
 
-    mark_from_authorizations_as_obsolete!
     run_sql
+
+    mark_authorizations_as_obsolete!
 
     redis_backend_handled << from_id.to_s
 
@@ -185,9 +186,25 @@ class MergeAuthorizationRequests
     ActiveRecord::Base.connection.execute(sql)
   end
 
-  def mark_from_authorizations_as_obsolete!
-    Authorization.where(request_id: from_id).find_each do |authorization|
-      authorization.deprecate
+  def mark_authorizations_as_obsolete!
+    raise "Do not handle revoked for now" if @to_request.revoked?
+
+    authorizations = Authorization.where(request_id: to_id)
+
+    grouped = authorizations.group_by { |auth| auth.authorization_request_class }
+
+    latest_ids = []
+    grouped.each do |stage, auths|
+      latest = auths.max_by(&:created_at)
+      latest_ids << latest.id
+    end
+
+    authorizations.each do |authorization|
+      if latest_ids.include?(authorization.id)
+        authorization.update(state: 'active')
+      else
+        authorization.update(state: 'obsolete')
+      end
     end
   end
 end
