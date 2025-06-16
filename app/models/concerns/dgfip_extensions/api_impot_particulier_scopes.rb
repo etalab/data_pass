@@ -24,10 +24,16 @@ module DGFIPExtensions::APIImpotParticulierScopes
       text/csv
     ], size: { less_than: 10.megabytes }
 
-    validate :at_least_one_revenue_year_has_been_selected, if: -> { need_complete_validation?(:scopes) && !specific_requirements? }
-    validate :revenue_years_scopes_compatibility, if: -> { need_complete_validation?(:scopes) && !specific_requirements? }
-    validate :scopes_compatibility, if: -> { need_complete_validation?(:scopes) && !specific_requirements? }
-    validates :specific_requirements_document, presence: true, if: -> { specific_requirements? && need_complete_validation?(:scopes) }
+    with_options if: :validate_scopes_without_lep? do
+      validate :at_least_one_revenue_year_has_been_selected
+      validate :revenue_years_scopes_compatibility
+      validate :scopes_compatibility
+    end
+
+    with_options if: -> { need_complete_validation?(:scopes) } do
+      validate :lep_scope_exclusivity, unless: :specific_requirements?
+      validates :specific_requirements_document, presence: true, if: :specific_requirements?
+    end
   end
 
   private
@@ -57,5 +63,19 @@ module DGFIPExtensions::APIImpotParticulierScopes
 
   def specific_requirements?
     specific_requirements == '1'
+  end
+
+  def lep_scope_exclusivity
+    return unless scopes.include?('dgfip_IndLep') && scopes.size > 1
+
+    errors.add(:scopes, :lep_scope_exclusivity)
+  end
+
+  def validate_scopes_without_lep?
+    validate_scopes? && scopes.exclude?('dgfip_IndLep')
+  end
+
+  def validate_scopes?
+    need_complete_validation?(:scopes) && !specific_requirements?
   end
 end
