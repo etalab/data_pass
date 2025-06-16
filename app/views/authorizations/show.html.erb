@@ -11,6 +11,6 @@
     <!-- content -->
     <%= render partial: 'demandes_habilitations/organization_and_applicant', locals: { demande: @authorization_as_request_validated } %>
     <%= render partial: 'authorizations/blocks', locals: { authorization_request: @authorization_as_request_validated } %>
-    <%= render partial: 'demandes_habilitations/accepted_tos_checkboxes', locals: { authorization_request: @authorization_as_request_validated } %>
+    <%= render_accepted_tos_checkboxes(@authorization_as_request_validated) %>
   </div>
 </div>
