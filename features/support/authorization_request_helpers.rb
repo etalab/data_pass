@@ -58,6 +58,10 @@ def extract_state_from_french_status(status)
     'reopened_and_submitted'
   when 'révoquée', 'révoquées'
     'revoked'
+  when 'obsolète', 'obsolètes'
+    'obsolete'
+  when 'active', 'actives'
+    'active'
   else
     raise "Unknown status #{status}"
   end

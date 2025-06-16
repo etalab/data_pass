@@ -11,6 +11,8 @@ def create_or_find_authorization(request, current_user, state)
     authorization.update!(state: 'active', revoked: false)
   when 'revoked'
     authorization.update!(state: 'revoked', revoked: true)
+  when 'obsolete'
+    authorization.update!(state: 'obsolete', revoked: false)
   end
 
   authorization.slug = nil
@@ -19,12 +21,12 @@ def create_or_find_authorization(request, current_user, state)
   authorization
 end
 
-Quand(/j'ai (\d+) habilitation "([^"]+)" (.+?)(?: de l'étape "([^"]+)")?(?: via le formulaire "([^"]+)")?$/) do |count, type, state, stage, form|
+Quand(/j'ai (\d+) habilitation "([^"]+)" (.+?)(?: (?:de|à) l'étape "([^"]+)")?(?: via le formulaire "([^"]+)")?$/) do |count, type, state, stage, form|
   attributes = { applicant: current_user }
 
   @authorization_requests = create_authorization_requests_with_status(
     type,
-    state == 'active' ? 'validée' : 'révoquée',
+    state == 'révoquée' ? 'révoquée' : 'validée',
     count.to_i,
     stage,
     form,
@@ -34,7 +36,7 @@ Quand(/j'ai (\d+) habilitation "([^"]+)" (.+?)(?: de l'étape "([^"]+)")?(?: via
   @authorization_request = @authorization_requests.first
 
   @authorizations = @authorization_requests.map do |request|
-    create_or_find_authorization(request, current_user, state)
+    create_or_find_authorization(request, current_user, extract_state_from_french_status(state))
   end
 
   @authorization = @authorizations.first
