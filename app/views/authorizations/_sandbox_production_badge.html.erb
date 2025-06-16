@@ -1,6 +1,6 @@
-<% if authorization.request.class.name.include?('Sandbox') %>
+<% if authorization.definition.stage.type == 'sandbox' %>
   <span class="fr-badge fr-badge--sm fr-badge--no-icon fr-badge--brown-caramel">Bac à sable</span>
 <% end %>
-<% if authorization.request.class.name.include?('Production') %>
+<% if authorization.definition.stage.type == 'production' %>
   <span class="fr-badge fr-badge--sm fr-badge--no-icon fr-badge--orange-terre-battue">Production</span>
 <% end %>
