@@ -29,7 +29,11 @@
   </div>
 <% end %>
 
-<turbo-frame id="authorization_requests_table">
+<turbo-frame id="authorization_requests_table" class="search-results-container">
+  <div class="results-count">
+    <%= t('.search.results_count', count: @authorization_requests.total_count) %>
+  </div>
+
   <div class="fr-table fr-table--bordered">
     <table>
       <thead>
