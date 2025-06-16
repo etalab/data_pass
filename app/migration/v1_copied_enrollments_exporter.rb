@@ -207,19 +207,17 @@ class V1CopiedEnrollmentsExporter
   def generate_ids_file(copy_chains)
     ensure_sandbox_directory_exists
 
-    validated_copy_ids = {}
+    copy_ids = {}
 
     copy_chains.each do |root_id, chain|
-      if all_enrollments_validated?(chain)
-        copied_enrollment = chain.find { |enrollment| enrollment[:copied_from_enrollment_id] }
-        validated_copy_ids[root_id] = copied_enrollment[:id] if copied_enrollment
-      end
+      copied_enrollment = chain.find { |enrollment| enrollment[:copied_from_enrollment_id] }
+      copy_ids[root_id] = copied_enrollment[:id] if copied_enrollment
     end
 
     File.open('sandbox/validated_copy_ids.rb', 'w') do |file|
       file.puts 'def ids'
       file.puts '  {'
-      validated_copy_ids.each do |from_id, to_id|
+      copy_ids.each do |from_id, to_id|
         file.puts "    #{from_id} => #{to_id},"
       end
       file.puts '  }'
