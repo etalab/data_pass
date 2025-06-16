@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_05_114241) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_05_130931) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_catalog.plpgsql"
@@ -349,8 +349,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_05_114241) do
 
   create_table "organizations", force: :cascade do |t|
     t.string "siret"
-    t.jsonb "mon_compte_pro_payload", default: {}, null: false
-    t.datetime "last_mon_compte_pro_updated_at", null: false
+    t.jsonb "mon_compte_pro_payload", default: {}
+    t.datetime "last_mon_compte_pro_updated_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.jsonb "insee_payload"
@@ -358,6 +358,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_05_114241) do
     t.string "legal_entity_id", null: false
     t.string "legal_entity_registry", default: "insee_sirene", null: false
     t.jsonb "extra_legal_entity_infos"
+    t.jsonb "proconnect_payload", default: {}
+    t.datetime "last_proconnect_updated_at"
     t.index "((((insee_payload -> 'etablissement'::text) -> 'uniteLegale'::text) ->> 'denominationUniteLegale'::text))", name: "index_organizations_on_denomination_unite_legale"
     t.index ["legal_entity_id", "legal_entity_registry"], name: "idx_on_legal_entity_id_legal_entity_registry_7d149bf422", unique: true
   end
@@ -365,7 +367,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_05_114241) do
   create_table "organizations_users", id: false, force: :cascade do |t|
     t.bigint "organization_id"
     t.bigint "user_id"
+    t.string "identity_provider_uid", default: "71144ab3-ee1a-4401-b7b3-79b44f7daeeb", null: false
+    t.datetime "created_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.datetime "updated_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.boolean "current", default: false, null: false
+    t.string "identity_federator", default: "mon_compte_pro", null: false
+    t.index ["organization_id", "user_id"], name: "index_organizations_users_on_organization_id_and_user_id", unique: true
     t.index ["organization_id"], name: "index_organizations_users_on_organization_id"
+    t.index ["user_id", "current"], name: "index_organizations_users_on_user_id_and_current", where: "(current = true)"
     t.index ["user_id"], name: "index_organizations_users_on_user_id"
   end
 

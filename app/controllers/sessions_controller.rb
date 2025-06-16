@@ -4,7 +4,25 @@ class SessionsController < ApplicationController
   allow_unauthenticated_access only: [:create]
 
   def create
-    authenticate_user
+    if mon_compte_pro_connect?
+      create_from_mon_compte_pro
+    else
+      create_from_proconnect
+    end
+  end
+
+  def destroy
+    @current_identity_federator = current_identity_federator
+
+    sign_out
+
+    redirect_to signout_url(@current_identity_federator), allow_other_host: true
+  end
+
+  private
+
+  def create_from_mon_compte_pro
+    authenticate_user(identity_federator: 'mon_compte_pro')
 
     case request.env['omniauth.params']['prompt']
     when 'select_organization'
@@ -16,20 +34,33 @@ class SessionsController < ApplicationController
     end
   end
 
-  def destroy
-    sign_out
+  def create_from_proconnect
+    authenticate_user(identity_federator: 'proconnect')
 
-    redirect_to mon_compte_pro_signout_url, allow_other_host: true
+    post_sign_in
   end
 
-  private
+  def mon_compte_pro_connect?
+    params[:provider] == 'mon_compte_pro'
+  end
 
-  def authenticate_user
+  def authenticate_user(identity_federator: 'mon_compte_pro')
     sign_out if user_signed_in?
 
-    organizer = AuthenticateUser.call(mon_compte_pro_omniauth_payload: request.env['omniauth.auth'])
+    organizer = call_authenticator(identity_federator)
 
-    sign_in(organizer.user)
+    sign_in(organizer.user, identity_federator:)
+  end
+
+  def call_authenticator(identity_federator)
+    case identity_federator
+    when 'mon_compte_pro'
+      AuthenticateUserThroughMonComptePro.call(mon_compte_pro_omniauth_payload: request.env['omniauth.auth'])
+    when 'proconnect'
+      AuthenticateUserThroughProConnect.call(pro_connect_omniauth_payload: request.env['omniauth.auth'])
+    else
+      raise ArgumentError, "Unknown identity federator: #{identity_federator}"
+    end
   end
 
   def post_sign_in
@@ -39,7 +70,7 @@ class SessionsController < ApplicationController
   end
 
   def change_current_organization
-    ChangeCurrentOrganization.call(
+    ChangeCurrentOrganizationThroughMonComptePro.call(
       user: current_user,
       mon_compte_pro_omniauth_payload: request.env['omniauth.auth'],
     )
@@ -53,7 +84,7 @@ class SessionsController < ApplicationController
   end
 
   def update_user
-    FindOrCreateUser.call(
+    FindOrCreateUserThroughMonComptePro.call(
       mon_compte_pro_omniauth_payload: request.env['omniauth.auth'],
     )
 
@@ -70,6 +101,19 @@ class SessionsController < ApplicationController
 
   def after_logout_url
     root_url.sub(%r{/$}, '')
+  end
+
+  def signout_url(current_identity_federator)
+    case current_identity_federator
+    when 'mon_compte_pro'
+      mon_compte_pro_signout_url
+    else
+      proconnect_signout_url
+    end
+  end
+
+  def proconnect_signout_url
+    '/auth/proconnect/logout'
   end
 
   def mon_compte_pro_signout_url

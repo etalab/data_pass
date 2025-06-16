@@ -23,14 +23,14 @@ class Seeds
 
   # rubocop:disable Metrics/AbcSize
   def create_entities
-    clamart_organization.users << demandeur
-    clamart_organization.users << another_demandeur
+    demandeur.add_to_organization(clamart_organization, current: true)
+    another_demandeur.add_to_organization(clamart_organization, current: true)
 
-    dinum_organization.users << api_entreprise_instructor
-    dinum_organization.users << api_entreprise_reporter
-    dinum_organization.users << foreign_demandeur
-    dinum_organization.users << data_pass_admin
-    dinum_organization.users << dgfip_instructor_developer
+    api_entreprise_instructor.add_to_organization(dinum_organization, current: true)
+    api_entreprise_reporter.add_to_organization(dinum_organization, current: true)
+    foreign_demandeur.add_to_organization(dinum_organization, current: true)
+    data_pass_admin.add_to_organization(dinum_organization, current: true)
+    dgfip_instructor_developer.add_to_organization(dinum_organization, current: true)
   end
   # rubocop:enable Metrics/AbcSize
 
@@ -74,8 +74,7 @@ class Seeds
       email: 'user@yopmail.com',
       external_id: '1',
       job_title: 'Responsable des affaires générales',
-      phone_number: '0123456789',
-      current_organization: clamart_organization,
+      phone_number: '0123456789'
     )
   end
 
@@ -86,8 +85,7 @@ class Seeds
       email: 'user10@yopmail.com',
       external_id: '10',
       job_title: 'Responsable des affaires juridiques',
-      phone_number: '0823456789',
-      current_organization: clamart_organization,
+      phone_number: '0823456789'
     )
   end
 
@@ -98,8 +96,7 @@ class Seeds
       email: 'user11@yopmail.com',
       external_id: '11',
       job_title: 'Responsable des affaires étrangères',
-      phone_number: '0323456789',
-      current_organization: dinum_organization,
+      phone_number: '0323456789'
     )
   end
 
@@ -111,7 +108,6 @@ class Seeds
       external_id: '4',
       job_title: 'Responsable des instructions',
       phone_number: '0423456789',
-      current_organization: dinum_organization,
       roles: ['api_entreprise:instructor', 'api_entreprise:developer']
     )
   end
@@ -124,7 +120,6 @@ class Seeds
       external_id: '12',
       job_title: 'Responsable des reporteurs',
       phone_number: '0423456789',
-      current_organization: dinum_organization,
       roles: ['api_entreprise:reporter']
     )
   end
@@ -132,16 +127,14 @@ class Seeds
   def data_pass_admin
     @data_pass_admin ||= User.create!(
       email: 'datapass@yopmail.com',
-      roles: ['admin'] + all_authorization_definition_instructor_roles,
-      current_organization: dinum_organization,
+      roles: ['admin'] + all_authorization_definition_instructor_roles
     )
   end
 
   def dgfip_instructor_developer
     @dgfip_instructor_developer ||= User.create!(
       email: 'dgfip@yopmail.com',
-      roles: all_dgfip_instructor_roles + all_dgfip_developer_roles,
-      current_organization: dinum_organization,
+      roles: all_dgfip_instructor_roles + all_dgfip_developer_roles
     )
   end
 

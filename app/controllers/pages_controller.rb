@@ -7,6 +7,10 @@ class PagesController < ApplicationController
     redirect_to dashboard_path if user_signed_in?
   end
 
+  def proconnect_connexion
+    redirect_to dashboard_path if user_signed_in?
+  end
+
   def faq; end
 
   def cgu_api_impot_particulier_bas

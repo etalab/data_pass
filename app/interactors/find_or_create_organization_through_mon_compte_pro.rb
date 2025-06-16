@@ -1,9 +1,9 @@
-class FindOrCreateOrganization < ApplicationInteractor
+class FindOrCreateOrganizationThroughMonComptePro < ApplicationInteractor
   include MonCompteProPayloads
 
   def call
     context.organization = find_or_initialize_organization
-    assign_attributes
+    context.organization.assign_attributes(organization_attributes)
     context.organization.save!
   end
 
@@ -16,14 +16,14 @@ class FindOrCreateOrganization < ApplicationInteractor
     ).first_or_initialize
   end
 
-  def assign_attributes
-    context.organization.assign_attributes(
-      mon_compte_pro_payload: organization_attributes,
+  def organization_attributes
+    {
+      mon_compte_pro_payload: mon_compte_pro_organization_attributes,
       last_mon_compte_pro_updated_at: DateTime.now,
-    )
+    }
   end
 
-  def organization_attributes
+  def mon_compte_pro_organization_attributes
     info_payload.slice(
       'label',
       'is_collectivite_territoriale',
