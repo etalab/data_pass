@@ -716,11 +716,7 @@ fr:
     annuaire_des_entreprise:
       steps:
         <<: *authorization_request_forms_default_steps
-        basic_infos: Informations de base
         legal: Cadre juridique relatif à la demande
-      intitule:
-        label: Nom de votre équipe / département
-        hint: Cette information permettra de créer une équipe via la Régie et ainsi permettre à plusieurs personnes de votre équipe d'utiliser les fonctionnalités protégées de l'espace agent
 
     api_declaration_auto_entrepreneur:
       supporting_documents: &api_urssaf_supporting_documents

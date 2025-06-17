@@ -70,7 +70,6 @@ annuaire_des_entreprise:
   support_email: "support@annuaire-entreprises.data.gouv.fr"
   public: true
   blocks:
-    - name: "basic_infos"
     - name: "legal"
 
 

@@ -9,8 +9,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation Espace agent de l'Annua
     * je veux remplir une demande pour "Espace agent de l'Annuaire des Entreprises" via le formulaire "<Cas d'usage>"
     * je clique sur "Débuter ma demande"
 
-    * je remplis "Nom de votre équipe" avec "Avengers"
-
     * je clique sur "Enregistrer les modifications"
     * je clique sur "Continuer vers le résumé"
 
