@@ -25,7 +25,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Indemnités Journal
     * je renseigne le cadre légal
     * je clique sur "Suivant"
 
-    * je sélectionne la première option pour "L'habilitation FranceConnect"
+    * je sélectionne la première option pour "FranceConnect"
     * je clique sur "Suivant"
 
     * je renseigne les informations des contacts RGPD

@@ -64,7 +64,7 @@
     <% else %>
       <div class="fr-select-group">
         <label class="fr-h4 fr-label" for="france_connect_authorization_id">
-          <%= t("authorization_request_forms.api_impot_particulier_sandbox.france_connect_authorization_id.label") %>
+          <%= t("authorization_request_forms.default.france_connect_authorization_id.label") %>
         </label>
         <select class="fr-select" id="france_connect_authorization_id" name="france_connect_authorization_id" data-choose-modalite-with-france-connect-target="franceConnectSelector" data-action="click->choose-modalite-with-france-connect#trigger">
           <% options = france_connect_authorizations.map{ |authorization| [authorization.name_for_select, authorization.id] } %>
