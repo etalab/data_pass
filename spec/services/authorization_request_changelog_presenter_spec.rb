@@ -194,5 +194,23 @@ RSpec.describe AuthorizationRequestChangelogPresenter do
         expect(changelog_entries[0]).to match(/Attr1.*a changé.*1.*2/)
       end
     end
+
+    context 'when it is a legacy changelog' do
+      let(:changelog) { AuthorizationRequestChangelog.create!(diff:, authorization_request:, legacy: true) }
+
+      describe 'with scopes key within diff, first entry nil (non-regression test)' do
+        let(:diff) do
+          {
+            'scopes' => [nil, %w[scope2 scope3]],
+          }
+        end
+
+        it 'displays adds' do
+          expect(changelog_entries.count).to eq(2)
+          expect(changelog_entries[0]).to match(/Le périmètre de données.*scope2.*ajouté/)
+          expect(changelog_entries[1]).to match(/Le périmètre de données.*scope3.*ajouté/)
+        end
+      end
+    end
   end
 end
