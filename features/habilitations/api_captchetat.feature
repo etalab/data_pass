@@ -12,13 +12,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation API CaptchEtat
     * je remplis "Date de mise en production" avec "25/12/2042"
     * je clique sur "Suivant"
 
-    * je remplis "Précisez la nature et les références du texte vous autorisant à traiter les données" avec "Article 42"
-    * je remplis "URL du texte relatif au traitement" avec "https://legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000006430983&cidTexte=LEGITEXT000006070721"
-    * je clique sur "Suivant"
-
-    * je clique sur "Suivant"
-
-    * je renseigne les informations des contacts RGPD
     * je renseigne les informations du contact technique
     * je clique sur "Suivant"
 
