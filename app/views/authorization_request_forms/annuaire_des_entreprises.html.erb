@@ -1,10 +1,8 @@
 <%= authorization_request_form(@authorization_request) do |f| %>
   <div class="fr-mt-2w">
-    <fieldset class="fr-fieldset" aria-label="feedme" aria-describedby="name-1-fieldset-messages">
-      <div class="fr-fieldset__element">
-        <%= f.dsfr_text_field :intitule, required: true %>
-      </div>
-    </fieldset>
+    <%= render partial: "authorization_request_forms/shared/block_titles", locals: { f: f, block_name: :legal } %>
+
+    <%= render partial: 'authorization_request_forms/blocks/default/legal', locals: { f: f } %>
   </div>
 
   <%= render partial: 'authorization_request_forms/shared/submit_buttons', locals: { f: f } %>
