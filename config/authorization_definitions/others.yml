@@ -9,7 +9,6 @@ api_captchetat:
   provider: "aife"
   blocks:
     - name: "basic_infos"
-    - name: "legal"
     - name: "contacts"
 
 api_scolarite:
