@@ -7,7 +7,7 @@ class MergeAuthorizationRequests
     @auto = auto
   end
 
-  def perform(condition:)
+  def perform(condition: nil)
     return if redis_backend_handled.elements.include?(from_id.to_s)
 
     check_existence_of_requests!
