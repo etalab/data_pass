@@ -1,6 +1,5 @@
 class AuthorizationRequest::APICaptchEtat < AuthorizationRequest
   include AuthorizationExtensions::BasicInfos
-  include AuthorizationExtensions::GDPRContacts
 
   add_attribute :cadre_juridique_nature
   add_documents :cadre_juridique_document, content_type: ['application/pdf'], size: { less_than: 10.megabytes }
