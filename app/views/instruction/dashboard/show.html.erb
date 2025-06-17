@@ -1,0 +1,42 @@
+<div class="fr-grid-row fr-grid-row--gutters">
+  <p class="fr-h2 fr-mt-5w"><%= t('.title') %></p>
+
+  <div class="fr-tabs fr-pt-5w fr-mb-8w" data-controller="auto-height">
+    <ul class="fr-tabs__list" role="tablist" aria-label="Menu secondaire">
+      <% @tabs.each do |tab| %>
+        <li role="presentation">
+          <%=
+            link_to t(".tabs.#{tab.id}.title", count: tab.count),
+              tab.path,
+              class: [
+                'fr-tabs__tab',
+              ],
+              role: 'tab',
+              id: "tab-#{tab.id}",
+              tabindex: current_page?(tab.path) ? '0' : '-1',
+              data: {
+                turbo_frame: "tab-#{tab.id}-panel",
+              },
+              aria: {
+                selected: current_page?(tab.path),
+                controls: "tab-#{tab.id}-panel"
+              }
+          %>
+        </li>
+      <% end %>
+    </ul>
+    
+    <% @tabs.each do |tab| %>
+      <turbo-frame id="tab-<%= tab.id %>-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tab-<%= tab.id %>" tabindex="0" data-turbo-action="advance">
+        <% if current_page?(tab.path) %>
+          <div data-auto-height-target="source">
+            <%= render @partial, items: @items, search_engine: @search_engine %>
+          </div>
+        <% else %>
+          <div data-auto-height-target="destination">
+          </div>
+        <% end %>
+      </turbo-frame>
+    <% end %>
+  </div>
+</div>

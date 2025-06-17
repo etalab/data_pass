@@ -45,11 +45,11 @@ module ApplicationHelper
       %w[fr-badge--warning]
     when 'submitted'
       %w[fr-badge--info]
-    when 'validated'
+    when 'validated', 'active'
       %w[fr-badge--success]
     when 'refused', 'revoked'
       %w[fr-badge--error]
-    when 'archived'
+    when 'archived', 'obsolete'
       %w[fr-badge--secondary]
     end
   end
