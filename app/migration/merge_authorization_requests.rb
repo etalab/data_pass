@@ -7,11 +7,16 @@ class MergeAuthorizationRequests
     @auto = auto
   end
 
-  def perform
+  def perform(condition:)
     return if redis_backend_handled.elements.include?(from_id.to_s)
 
     check_existence_of_requests!
-    check_conditions!
+
+    if condition.present?
+      raise "Condition not met" unless condition.call(@from_request, @to_request)
+    else
+      check_conditions!
+    end
 
     unless @auto
       answer = display_infos
@@ -106,10 +111,12 @@ class MergeAuthorizationRequests
     copy_chain = build_copy_chain
 
     if copy_chain[0..-2].reject { |r| r.state == 'validated' }.any?
-      raise ArgumentError, "Cannot merge authorization requests if there is one within the copy chain that is not validated except the last one."
+      invalid_requests = copy_chain[0..-2].reject { |r| r.state == 'validated' }
+
+      raise ArgumentError, "Cannot merge authorization requests if there is one within the copy chain that is not validated except the last one: #{invalid_requests.map(&:id).join(', ')}"
     end
 
-    if %[draft changes_requested submitted].exclude?(copy_chain[-1].state)
+    if %[draft changes_requested submitted validated].exclude?(copy_chain[-1].state)
       raise ArgumentError, "Cannot merge authorization requests if the last one in the copy chain is not in a draft, changes_requested or submitted state. Last request state: #{copy_chain[-1].state}"
     end
   end
