@@ -160,7 +160,11 @@ fr:
 
   ransack:
     attributes:
-      authorization_request:
+      authorization:
         within_data: Les infos de l'habilitation
-        type: Type d'habilitation
+        authorization_request_class: Type d'habilitation
+        state: État
+      authorization_request:
+        within_data: Les infos de la demande
+        type: Type de demande
         state: État

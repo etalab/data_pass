@@ -1,0 +1,99 @@
+<%= search_form_for(search_engine, url: instruction_dashboard_show_path(id: "demandes"), html: { method: :get, data: { controller: 'auto-submit-form', 'auto-submit-form-debounce-interval-value' => 300, 'auto-submit-form-event-mode-value' => 'input', turbo_frame: 'authorization_requests_table' }, class: %w[search-box] }) do |f| %>
+    <div class="search-inputs">
+      <div class="fr-input-group main-input input">
+        <%= f.label :within_data_or_organization_name_or_organization_legal_entity_id_or_applicant_email_or_applicant_family_name_cont, t('.search.main_input.label'), class: %w[fr-label] %>
+        <%= f.search_field :within_data_or_organization_name_or_organization_legal_entity_id_or_applicant_email_or_applicant_family_name_cont, class: %[fr-input], placeholder: t('.search.main_input.placeholder'), id: 'instructor_search_input' %>
+      </div>
+
+      <% if current_user.authorization_definition_roles_as(:reporter).count > 1 %>
+        <div class="fr-select-group input type_habilitation">
+          <%= f.label :type_eq, class: %w[fr-label] %>
+          <% options = current_user.authorization_definition_roles_as(:reporter).map { |authorization_definition| [authorization_definition.name_with_stage, authorization_definition.authorization_request_class.to_s] }%>
+          <%= f.select :type_eq, options_for_select([['Toutes les données', '']].concat(options), selected: params[:search_query].try(:[], :type_eq)), {}, class: %w[fr-select] %>
+        </div>
+      <% end %>
+
+      <div class="fr-select-group input">
+        <%= f.label :state_eq, class: %w[fr-label] %>
+
+        <% options = AuthorizationRequest.state_machine.states.map { |s| s.name }.map { |e| [t("authorization_request.status.#{e}"), e] } %>
+        <% default_option = t('.all_status') %>
+        <%= f.select :state_eq, options_for_select([[default_option, '']].concat(options), selected: params[:search_query].try(:[], :state_eq) || default_option), {}, class: %w[fr-select] %>
+      </div>
+    </div>
+
+    <div class="actions">
+      <%= f.button t('.search.btn'), type: :submit, class: %w[fr-btn fr-btn--primary] %>
+    </div>
+  <% end %>
+
+  <turbo-frame id="authorization_requests_table">
+    <div class="fr-table fr-table--bordered">
+      <table>
+        <thead>
+          <tr>
+            <%
+              %w[
+                id
+                state
+                last_submitted_at
+                applicant_email
+                project_name
+                authorization_request_kind
+                actions
+              ].each do |attr|
+            %>
+              <th scope="col">
+                <% if %w[id state last_submitted_at].include?(attr) %>
+                  <%= sort_link(search_engine, attr) do %>
+                    <%= t(".table.header.#{attr}") %>
+                  <% end %>
+                <% else %>
+                  <%= t(".table.header.#{attr}") %>
+                <% end %>
+              </th>
+            <% end %>
+          </tr>
+        </thead>
+
+      <tbody data-controller="clickable-rows">
+        <% items.each do |authorization_request| %>
+          <tr id="<%= dom_id(authorization_request) %>" class="authorization-request clickable-row" data-action="click->clickable-rows#visit" data-href="<%= instruction_authorization_request_path(authorization_request) %>">
+            <td class="authorization-request-id">
+              <%= authorization_request.id %>
+            </td>
+            <td class="authorization-request-state">
+              <%= authorization_request_status_badge(authorization_request) %>
+
+              <% if authorization_request.reopening? %>
+                <%= authorization_request_reopening_badge(extra_css_class: "fr-mt-1w") %>
+              <% end %>
+
+              <% if authorization_request.definition.stage.exists? %>
+                <%= authorization_request_stage_badge(authorization_request, css_class: "fr-mr-1w") %>
+              <% end %>
+            </td>
+            <td class="authorization-request-last_submitted_at">
+              <%= authorization_request.last_submitted_at&.strftime("%d/%m/%y") || '-' %>
+            </td>
+            <td class="authorization-request-applicant-email">
+              <%= authorization_request.applicant.email %>
+              <br/>
+              <%= authorization_request.organization.name %>
+            </td>
+            <td class="authorization-request-project-name">
+              <%= authorization_request.name %>
+            </td>
+            <td class="authorization-request-definition-name">
+              <%= authorization_request.definition.name %>
+            </td>
+            <td class="authorization-request-actions"></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <%= paginate items %>
+</turbo-frame>
+

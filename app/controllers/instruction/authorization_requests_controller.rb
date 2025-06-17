@@ -4,6 +4,8 @@ class Instruction::AuthorizationRequestsController < Instruction::AbstractAuthor
 
   skip_before_action :extract_authorization_request, only: :index
 
+  Tab = Data.define(:id, :path, :count)
+
   # rubocop:disable Metrics/AbcSize
   def index
     base_relation = policy_scope([:instruction, AuthorizationRequest]).includes([:organization])
@@ -14,7 +16,12 @@ class Instruction::AuthorizationRequestsController < Instruction::AbstractAuthor
     @search_engine = base_relation.ransack(params[:search_query])
     @search_engine.sorts = 'last_submitted_at desc' if @search_engine.sorts.empty?
 
-    @authorization_requests = build_search_engine_results_with_order_which_puts_null_as_last.page(params[:page])
+    @authorization_requests = build_search_engine_results_with_order_which_puts_null_as_last
+    @tabs = [
+      Tab.new('demandes', instruction_authorization_requests_path(**request.query_parameters), @authorization_requests.count),
+      Tab.new('habilitations', instruction_dashboard_show_path(id: 'habilitations', **request.query_parameters), 0),
+    ]
+    @authorization_requests = @authorization_requests.page(params[:page])
   end
   # rubocop:enable Metrics/AbcSize
 

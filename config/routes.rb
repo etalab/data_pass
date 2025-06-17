@@ -89,6 +89,7 @@ Rails.application.routes.draw do
   get '/instruction', to: redirect('/instruction/demandes')
 
   namespace :instruction do
+    get '/tableau-de-bord/:id', to: 'dashboard#show', as: :dashboard_show
     resources :authorization_requests, only: %w[index show], path: 'demandes' do
       resources :approve_authorization_requests, only: %w[new create], path: 'approuver', as: :approval
       resources :archive_authorization_requests, only: %w[new create], path: 'archiver', as: :archive
