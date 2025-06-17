@@ -943,5 +943,11 @@ fr:
         label: Description du flux opérationnel
         hint: Texte à personnaliser pour aider l'utilisateur
 
+    api_captchetat:
+      contact_technique:
+        info: |
+          <p>
+            Le mail du contact technique sera utilisé pour accéder à PISTE et utiliser les API, pour assurer la continuité de votre service en cas de mobilité du responsable technique, veuillez indiquer un mail générique et éviter les emails personnels.
+          </p>
 
 
