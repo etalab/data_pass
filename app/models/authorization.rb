@@ -118,6 +118,27 @@ class Authorization < ApplicationRecord
   end
   # rubocop:enable Metrics/AbcSize
 
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[
+      id
+      authorization_request_class
+      within_data
+      state
+      created_at
+    ]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[
+      applicant
+      organization
+    ]
+  end
+
+  ransacker :within_data do |_parent|
+    Arel.sql('authorizations.data::text')
+  end
+
   def reopenable?
     latest?
   end
