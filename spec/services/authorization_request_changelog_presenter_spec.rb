@@ -182,6 +182,21 @@ RSpec.describe AuthorizationRequestChangelogPresenter do
       end
     end
 
+    describe 'with modalities key within diff' do
+      let(:authorization_request) { create(:authorization_request, :api_particulier) }
+      let(:diff) do
+        {
+          'modalities' => [%w[params], %w[formulaire_qf]],
+        }
+      end
+
+      it 'displays adds and removes' do
+        expect(changelog_entries.count).to eq(2)
+        expect(changelog_entries[0]).to match(/La modalité.*Formulaire QF.*ajouté/)
+        expect(changelog_entries[1]).to match(/La modalité.*Jeton.*retiré/)
+      end
+    end
+
     describe 'with an integer as a value' do
       let(:diff) do
         {

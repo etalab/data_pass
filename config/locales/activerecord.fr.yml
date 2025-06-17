@@ -125,6 +125,11 @@ fr:
         france_connect_eidas:
           eidas_1: 'FranceConnect : eIDAS 1'
           eidas_2: 'FranceConnect + : eIDAS 2'
+      authorization_request/api_particulier:
+        modalities:
+          params: "Jeton d'accès et paramètres d'appel"
+          formulaire_qf: "Formulaire QF"
+          france_connect: "FranceConnect"
 
     errors:
       messages: *active_record_messages_errors
