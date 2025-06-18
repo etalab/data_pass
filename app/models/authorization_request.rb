@@ -242,6 +242,10 @@ class AuthorizationRequest < ApplicationRecord
       )
     end
 
+    event :cancel_next_stage do
+      transition from: %i[draft changes_requested submitted], to: :validated, if: ->(authorization_request) { authorization_request.definition.previous_stages? }
+    end
+
     event :revoke do
       transition from: :validated, to: :revoked
     end
