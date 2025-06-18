@@ -119,4 +119,8 @@ class AuthorizationDefinition < StaticApplicationRecord
   def authorization_request_class
     @authorization_request_class ||= AuthorizationRequest.const_get(id.classify)
   end
+
+  def authorization_request_class_as_string
+    authorization_request_class.to_s
+  end
 end
