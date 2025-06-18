@@ -171,8 +171,13 @@ class AuthorizationRequest < ApplicationRecord
     validate :all_terms_accepted
   end
 
+  def validate_data_protection_officer_informed_check_box_checked?
+    true
+  end
+
   def all_terms_accepted
-    return if terms_of_service_accepted && data_protection_officer_informed && all_extra_checkboxes_checked?
+    data_protection_officer_check = validate_data_protection_officer_informed_check_box_checked? ? data_protection_officer_informed : true
+    return if terms_of_service_accepted && data_protection_officer_check && all_extra_checkboxes_checked?
 
     errors.add(:base, :all_terms_not_accepted)
   end
