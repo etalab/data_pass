@@ -69,6 +69,7 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
   end
 
   def data_protection_officer_informed_check_box(_opts = {})
+    return unless @object.validate_data_protection_officer_informed_check_box_checked?
     term_checkbox(:data_protection_officer_informed)
   end
 
