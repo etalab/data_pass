@@ -69,7 +69,7 @@ class AuthorizationRequestChangelogPresenter
     case attribute
     when 'scopes'
       values.map do |scopes|
-        sanitize_values('scope', scopes || [])
+        sanitize_values('scope', Array(scopes))
       end
     else
       values.map do |value|
