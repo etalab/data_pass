@@ -114,7 +114,7 @@ class AuthorizationDefinition < StaticApplicationRecord
     stage.exists?
   end
 
-  delegate :next_stage_form, :next_stage_definition, :next_stage?, to: :stage
+  delegate :next_stage_form, :next_stage_definition, :next_stage?, :previous_stage, :previous_stage?, to: :stage
 
   def authorization_request_class
     @authorization_request_class ||= AuthorizationRequest.const_get(id.classify)
