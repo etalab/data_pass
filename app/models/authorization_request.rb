@@ -107,7 +107,13 @@ class AuthorizationRequest < ApplicationRecord
   end
 
   def latest_authorization_of_stage(stage)
-    authorizations.where(authorization_request_class: stage).order(created_at: :desc).limit(1).first
+    valid_previous_stages = definition.stage.previous_stages.select do |previous_stage|
+      previous_stage[:definition].stage.type == stage.downcase.to_s
+    end
+
+    valid_previous_stages_definitions = valid_previous_stages.pluck(:definition)
+
+    authorizations.where(authorization_request_class: valid_previous_stages_definitions.pluck(:authorization_request_class_as_string)).order(created_at: :desc).limit(1).first
   end
 
   def latest_authorization_of_class(authorization_request_class)
