@@ -156,9 +156,9 @@ class User < ApplicationRecord
   end
 
   def authorization_definition_roles_as(kind)
-    public_send(:"#{kind}_roles").map do |role|
-      AuthorizationDefinition.find(role.split(':').first)
-    end
+    public_send(:"#{kind}_roles")
+      .map { |role| AuthorizationDefinition.find(role.split(':').first) }
+      .uniq(&:id)
   end
 
   def self.ransackable_attributes(_auth_object = nil)
