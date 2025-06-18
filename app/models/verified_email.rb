@@ -1,4 +1,6 @@
 class VerifiedEmail < ApplicationRecord
+  normalizes :email, with: ->(email) { email.downcase.strip }
+
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :status, presence: true, inclusion: { in: %w[unknown deliverable undeliverable risky whitelisted] }
 
