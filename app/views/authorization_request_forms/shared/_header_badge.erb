@@ -2,7 +2,7 @@
 
 <div class="authorization-request-form-header__badges">
   <ul class="fr-badge-group">
-    <%= authorization_request_reopening_badge(authorization_request) %>
+    <%= authorization_request.reopening_badge %>
 
     <% if @authorization.present? %>
       <li>

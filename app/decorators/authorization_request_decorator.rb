@@ -169,6 +169,16 @@ class AuthorizationRequestDecorator < ApplicationDecorator
     )
   end
 
+  def reopening_badge(extra_css_class: nil)
+    return unless reopening?
+
+    h.content_tag(
+      :span,
+      t('authorization_request.reopening'),
+      class: "fr-badge fr-badge--purple-glycine #{extra_css_class}",
+    )
+  end
+
   private
 
   def status_badge_class

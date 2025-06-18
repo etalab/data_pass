@@ -26,7 +26,7 @@
         </span>
 
         <div class="flex-wrap flew-grow flex-end__content fr-grid-row--top fr-col--xs">
-          <%= authorization_request_reopening_badge(authorization_request, extra_css_class: 'fr-mr-1w') %>
+          <%= authorization_request.reopening_badge(extra_css_class: 'fr-mr-1w') %>
           <%= authorization_request_stage_badge(authorization_request) %>
           <%= authorization_request.status_badge %>
         </div>
