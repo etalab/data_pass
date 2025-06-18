@@ -31,7 +31,7 @@
 
   <% if @authorization_request.respond_to?(:volumetrie_approximative) %>
     <div class="fr-fieldset__element">
-      <%= f.dsfr_text_field :volumetrie_approximative %>
+      <%= f.dsfr_text_field :volumetrie_approximative, required: @authorization_request.presence_validation_required?(:volumetrie_approximative) %>
     </div>
   <% end %>
 </fieldset>

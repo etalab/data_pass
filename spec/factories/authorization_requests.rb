@@ -207,8 +207,18 @@ FactoryBot.define do
     trait :with_basic_infos do
       after(:build) do |authorization_request, evaluator|
         if authorization_request.need_complete_validation? || evaluator.fill_all_attributes
-          authorization_request.intitule ||= 'Demande d\'accès à la plateforme fournisseur'
-          authorization_request.description ||= 'Description de la demande'
+          default_values = {
+            intitule: 'Demande d\'accès à la plateforme fournisseur',
+            description: 'Description de la demande',
+            volumetrie_approximative: '1000 appels par jour'
+          }
+
+          default_values.each do |field_name, default_value|
+            next unless authorization_request.respond_to?(field_name)
+            next unless authorization_request.class.validators_on(field_name).any?(ActiveModel::Validations::PresenceValidator)
+
+            authorization_request.send("#{field_name}=", default_value) if authorization_request.send(field_name).blank?
+          end
         end
       end
     end
