@@ -9,7 +9,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API CaptchEtat
     Quand je démarre une nouvelle demande d'habilitation "API CaptchEtat"
 
     * je renseigne les infos de bases du projet
-    * je remplis "Date de mise en production" avec "25/12/2042"
+    * je remplis "Volumétrie approximative" avec "1000 appels par jour"
     * je clique sur "Suivant"
 
     * je renseigne les informations du contact technique
