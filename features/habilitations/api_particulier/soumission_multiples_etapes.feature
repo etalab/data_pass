@@ -102,7 +102,8 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
 
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
-
+    
+    
 
   Scénario: Je soumets une demande d'habilitation pour le cas d'usage "Aides sociales des CCAS"
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "Aides sociales des CCAS"
@@ -455,3 +456,60 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
     Exemples:
       | Nom du formulaire   | Nom de l'éditeur          |
       | Memberz             | Dialog                    |
+
+
+Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le contact technique n'est pas renseigné et des scopes modifiables pour un cas d'usage lié à la tarification des transports
+    Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
+    Et que je clique sur "Débuter ma demande"
+
+    Et la page contient "Nous avons pré-rempli des informations pour vous aider"
+
+    * je clique sur "Suivant"
+
+    * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
+    * je clique sur "Suivant"
+
+    * je renseigne les infos concernant les données personnelles
+    * je clique sur "Suivant"
+
+    * je renseigne les informations du délégué à la protection des données
+    * je renseigne les informations du contact métier
+    * je renseigne les informations du contact technique
+
+    * je clique sur "Suivant"
+    Et j'adhère aux conditions générales
+    * je clique sur "Soumettre la demande d'habilitation"
+
+    Alors il y a un message de succès contenant "soumise avec succès"
+    Et je suis sur la page "Demandes et habilitations"
+
+    Exemples:
+      | Nom du formulaire   | Nom de l'éditeur          |
+      | Keolis              | Keolis                    |
+
+ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique déjà renseigné et des scopes modifiables pour un cas d'usage lié à la tarification des cantines dans les lycées. 
+    Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
+    Et que je clique sur "Débuter ma demande"
+
+    Et la page contient "Nous avons pré-rempli des informations pour vous aider"
+
+    * je clique sur "Suivant"
+
+    * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
+    * je clique sur "Suivant"
+
+    * je renseigne les infos concernant les données personnelles
+    * je clique sur "Suivant"
+
+    * je renseigne les informations du délégué à la protection des données
+    * je renseigne les informations du contact métier
+    * je clique sur "Suivant"
+
+    * j'adhère aux conditions générales
+    * je clique sur "Soumettre la demande d'habilitation"
+    Alors il y a un message de succès contenant "soumise avec succès"
+    Et je suis sur la page "Demandes et habilitations"
+
+        Exemples:
+      | Nom du formulaire           | Nom de l'éditeur|
+      | Aiden, Tarification cantine | Mgdis           |
