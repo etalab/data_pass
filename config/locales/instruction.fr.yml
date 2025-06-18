@@ -308,6 +308,9 @@ fr:
         start_next_stage:
           message_summary: Le demandeur <strong>%{user_full_name}</strong> a démarré la demande d'habilitation pour la production
 
+        cancel_next_stage:
+          message_summary: Le demandeur <strong>%{user_full_name}</strong> a annulé la demande d'habilitation pour la production
+
         system_reminder:
           message_summary: Une relance a été envoyé au demandeur
 
