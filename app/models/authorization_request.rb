@@ -111,7 +111,7 @@ class AuthorizationRequest < ApplicationRecord
   end
 
   def latest_authorization_of_class(authorization_request_class)
-    authorizations.where(authorization_request_class: authorization_request_class).order(created_at: :desc).limit(1).first
+    authorizations.where(authorization_request_class:).order(created_at: :desc).limit(1).first
   end
 
   def events
