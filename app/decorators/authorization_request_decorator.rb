@@ -7,6 +7,20 @@ class AuthorizationRequestDecorator < ApplicationDecorator
     'authorization_requests/card'
   end
 
+  def status_badge(no_icon: false, scope: nil)
+    content_tag(
+      :span,
+      t(status_badge_translation(scope)),
+      class: [
+        'fr-ml-1w',
+        'fr-badge',
+        no_icon ? 'fr-badge--no-icon' : nil,
+      ]
+        .concat(status_badge_class)
+        .compact,
+    )
+  end
+
   def date
     if reopening_validated?
       t('authorization_requests.card.created_and_udpated_at', created_date: l(created_at, format: '%d/%m/%Y'), updated_date: l(latest_authorization.created_at, format: '%d/%m/%Y'))
@@ -141,7 +155,47 @@ class AuthorizationRequestDecorator < ApplicationDecorator
     object.errors.reject { |e| e.type == :all_terms_not_accepted }
   end
 
+  def status_badge(no_icon: false, scope: nil)
+    h.content_tag(
+      :span,
+      t(status_badge_translation(scope)),
+      class: [
+        'fr-ml-1w',
+        'fr-badge',
+        no_icon ? 'fr-badge--no-icon' : nil,
+      ]
+        .concat(status_badge_class)
+        .compact,
+    )
+  end
+
   private
+
+  def status_badge_class
+    case state
+    when 'draft'
+      %w[fr-badge--grey fr-badge--no-icon]
+    when 'changes_requested'
+      %w[fr-badge--warning]
+    when 'submitted'
+      %w[fr-badge--info]
+    when 'validated'
+      %w[fr-badge--success]
+    when 'refused'
+      %w[fr-badge--error]
+    when 'archived'
+      %w[fr-badge--secondary]
+    end
+  end
+
+  def status_badge_translation(scope)
+    case scope
+    when :instruction, 'instruction'
+      "instruction.authorization_requests.index.status.#{state}"
+    else
+      "authorization_request.status.#{state}"
+    end
+  end
 
   def card_provider_applicant_details(user)
     if only_in_contacts?(user)

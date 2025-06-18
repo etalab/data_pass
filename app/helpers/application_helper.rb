@@ -23,37 +23,6 @@ module ApplicationHelper
     @authorization_definition.present? && @display_provider_logo_in_header # rubocop:disable Rails/HelperInstanceVariable
   end
 
-  def authorization_request_status_badge(authorization_request, no_icon: false, scope: nil)
-    content_tag(
-      :span,
-      t(authorization_request_status_badge_translation(authorization_request, scope)),
-      class: [
-        'fr-ml-1w',
-        'fr-badge',
-        no_icon ? 'fr-badge--no-icon' : nil,
-      ]
-        .concat(authorization_request_status_badge_class(authorization_request))
-        .compact,
-    )
-  end
-
-  def authorization_request_status_badge_class(authorization_request)
-    case authorization_request.state
-    when 'draft'
-      %w[fr-badge--grey fr-badge--no-icon]
-    when 'changes_requested'
-      %w[fr-badge--warning]
-    when 'submitted'
-      %w[fr-badge--info]
-    when 'validated', 'active'
-      %w[fr-badge--success]
-    when 'refused', 'revoked'
-      %w[fr-badge--error]
-    when 'archived', 'obsolete'
-      %w[fr-badge--secondary]
-    end
-  end
-
   def authorization_request_reopening_badge(authorization_request, extra_css_class: nil)
     return unless authorization_request.reopening?
 
@@ -88,15 +57,6 @@ module ApplicationHelper
       'fr-badge--brown-caramel'
     when 'production'
       'fr-badge--orange-terre-battue'
-    end
-  end
-
-  def authorization_request_status_badge_translation(authorization_request, scope)
-    case scope
-    when :instruction, 'instruction'
-      "instruction.authorization_requests.index.status.#{authorization_request.state}"
-    else
-      "authorization_request.status.#{authorization_request.state}"
     end
   end
 

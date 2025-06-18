@@ -79,15 +79,42 @@ class AuthorizationDecorator < ApplicationDecorator
     I18n.t(state, scope: 'authorization.states', default: state)
   end
 
-  def state_badge_html_class
+  def status_badge(no_icon: false, scope: nil)
+    h.content_tag(
+      :span,
+      t(status_badge_translation(scope)),
+      class: [
+        'fr-ml-1w',
+        'fr-badge',
+        no_icon ? 'fr-badge--no-icon' : nil,
+      ]
+        .concat(status_badge_class)
+        .compact,
+    )
+  end
+
+  def status_badge_class
     case state
-    when 'revoked' then 'fr-badge--error'
-    when 'active' then 'fr-badge--success'
-    else ''
+    when 'active'
+      %w[fr-badge--success]
+    when 'revoked'
+      %w[fr-badge--error]
+    when 'obsolete'
+      %w[fr-badge--secondary]
     end
   end
 
   private
+
+  def status_badge_translation(scope)
+    case scope
+    when :instruction, 'instruction'
+      "instruction.authorization_requests.index.status.#{state}"
+    else
+      "authorization_request.status.#{state}"
+    end
+  end
+
 
   # rubocop:disable Metrics/AbcSize
   def base_card_name
