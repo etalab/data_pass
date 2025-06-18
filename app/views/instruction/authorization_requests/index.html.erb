@@ -71,7 +71,7 @@
           </td>
           <td class="authorization-request-state">
             <%= authorization_request.status_badge(scope: :instruction) %>
-            <%= authorization_request_reopening_badge(authorization_request, extra_css_class: "fr-mt-1w") %>
+            <%= authorization_request.reopening_badge(extra_css_class: "fr-mt-1w") %>
             <%= authorization_request_stage_badge(authorization_request, css_class: "fr-mr-1w") %>
           </td>
           <td class="authorization-request-last_submitted_at">

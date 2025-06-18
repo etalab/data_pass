@@ -23,16 +23,6 @@ module ApplicationHelper
     @authorization_definition.present? && @display_provider_logo_in_header # rubocop:disable Rails/HelperInstanceVariable
   end
 
-  def authorization_request_reopening_badge(authorization_request, extra_css_class: nil)
-    return unless authorization_request.reopening?
-
-    content_tag(
-      :span,
-      t('authorization_request.reopening'),
-      class: "fr-badge fr-badge--purple-glycine #{extra_css_class}",
-    )
-  end
-
   def authorization_request_stage_badge(authorization_request, css_class: nil)
     return unless authorization_request.definition.stage.exists?
 
