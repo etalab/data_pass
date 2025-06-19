@@ -179,7 +179,26 @@ class AuthorizationRequestDecorator < ApplicationDecorator
     )
   end
 
+  def stage_badge(css_class: nil)
+    return unless definition.stage.exists?
+
+    h.content_tag(
+      :span,
+      t("authorization_request.stage.#{definition.stage.type}"),
+      class: ['fr-badge', 'fr-badge--no-icon', 'fr-mr-1w', stage_badge_class, css_class],
+    )
+  end
+
   private
+
+  def stage_badge_class
+    case definition.stage.type
+    when 'sandbox'
+      'fr-badge--brown-caramel'
+    when 'production'
+      'fr-badge--orange-terre-battue'
+    end
+  end
 
   def status_badge_class
     case state
@@ -191,7 +210,7 @@ class AuthorizationRequestDecorator < ApplicationDecorator
       %w[fr-badge--info]
     when 'validated'
       %w[fr-badge--success]
-    when 'refused'
+    when 'refused', 'revoked'
       %w[fr-badge--error]
     when 'archived'
       %w[fr-badge--secondary]

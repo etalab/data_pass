@@ -6,9 +6,9 @@
   <div class="flex-wrap flew-grow flex-end__content fr-grid-row--top fr-col--xs">
   <% if authorization_request.definition.stage.exists? %>
     <% if authorization_request.latest_authorization %>
-      <%= authorization_request_stage_badge(authorization_request.latest_authorization.request_as_validated) %>
+      <%= authorization.request_as_validated.stage_badge %>
     <% else %>
-      <%= authorization_request_stage_badge(authorization_request) %>
+      <%= authorization_request.stage_badge %>
     <% end %>
   <% end %>
 

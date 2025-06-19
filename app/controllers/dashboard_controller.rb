@@ -1,8 +1,6 @@
 class DashboardController < AuthenticatedUserController
   include SubdomainsHelper
 
-  decorates_assigned :authorization_requests
-
   def index
     redirect_to dashboard_show_path(id: 'demandes')
   end

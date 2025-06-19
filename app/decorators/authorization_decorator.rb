@@ -104,7 +104,26 @@ class AuthorizationDecorator < ApplicationDecorator
     end
   end
 
+  def stage_badge(css_class: nil)
+    return unless definition.stage.exists?
+
+    h.content_tag(
+      :span,
+      t("authorization_request.stage.#{definition.stage.type}"),
+      class: ['fr-badge', 'fr-badge--no-icon', 'fr-mr-1w', stage_badge_class, css_class],
+    )
+  end
+
   private
+
+  def stage_badge_class
+    case definition.stage.type
+    when 'sandbox'
+      'fr-badge--brown-caramel'
+    when 'production'
+      'fr-badge--orange-terre-battue'
+    end
+  end
 
   def status_badge_translation(scope)
     case scope
