@@ -120,5 +120,11 @@ module ApplicationHelper
   def france_connected_authorizations?(authorization_request)
     authorization_request.definition.id == 'france_connect' && authorization_request.france_connected_authorizations.exists?
   end
+
+  def skip_link(text, anchor)
+    content_tag(:li) do
+      link_to(text, "##{anchor}", class: 'fr-link')
+    end
+  end
 end
 # rubocop:enable Metrics/ModuleLength
