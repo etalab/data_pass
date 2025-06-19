@@ -129,10 +129,6 @@ class AuthorizationRequestDecorator < ApplicationDecorator
     object.errors.reject { |e| e.type == :all_terms_not_accepted }
   end
 
-  def presence_validation_required?(attribute)
-    object.class.validators_on(attribute).any?(ActiveModel::Validations::PresenceValidator)
-  end
-
   private
 
   def lookup_i18n_key(subkey)
