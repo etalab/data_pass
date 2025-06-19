@@ -179,6 +179,19 @@ RSpec.describe User do
 
       it { is_expected.to contain_exactly('api_entreprise', 'api_particulier') }
     end
+
+    context 'when the user is reporter and developer for the same authorization definition' do
+      let(:kind) { 'reporter' }
+
+      let(:user) { build(:user, :instructor, authorization_request_types: %w[api_entreprise]) }
+
+      before do
+        user.roles << 'api_entreprise:developer'
+        user.save
+      end
+
+      it { is_expected.to contain_exactly('api_entreprise') }
+    end
   end
 
   describe '#settings on instruction_submit_notifications' do
