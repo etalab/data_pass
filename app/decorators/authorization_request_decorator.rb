@@ -1,24 +1,10 @@
-class AuthorizationRequestDecorator < ApplicationDecorator
+class AuthorizationRequestDecorator < ApplicationDecorator # rubocop:disable Metrics/ClassLength
   delegate_all
 
   decorates_association :organization
 
   def to_partial_path
     'authorization_requests/card'
-  end
-
-  def status_badge(no_icon: false, scope: nil)
-    content_tag(
-      :span,
-      t(status_badge_translation(scope)),
-      class: [
-        'fr-ml-1w',
-        'fr-badge',
-        no_icon ? 'fr-badge--no-icon' : nil,
-      ]
-        .concat(status_badge_class)
-        .compact,
-    )
   end
 
   def date

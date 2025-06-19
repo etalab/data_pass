@@ -67,6 +67,6 @@ class DashboardController < AuthenticatedUserController
   end
 
   def base_authorization_relation
-    Authorization.joins(request: :organization).where(authorization_requests: { organization: current_user.organizations})
+    Authorization.joins(request: :organization).where(authorization_requests: { organization: current_user.organizations })
   end
 end

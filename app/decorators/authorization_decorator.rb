@@ -94,7 +94,7 @@ class AuthorizationDecorator < ApplicationDecorator
   end
 
   def status_badge_class
-    case state
+    case state # rubocop:disable Style/HashLikeCase
     when 'active'
       %w[fr-badge--success]
     when 'revoked'
@@ -133,7 +133,6 @@ class AuthorizationDecorator < ApplicationDecorator
       "authorization_request.status.#{state}"
     end
   end
-
 
   # rubocop:disable Metrics/AbcSize
   def base_card_name
