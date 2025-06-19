@@ -3,7 +3,7 @@ annuaire-des-entreprises-marches-publics:
   description: Cas d'usage liés aux traitement des marchés publics
   introduction: |
     Ce formulaire vous permet d'accéder aux fonctionnalités spécifiques au cas d'usage des marchés publics.
-  authorization_request: AnnuaireDesEntreprise
+  authorization_request: AnnuaireDesEntreprises
   single_page_view: annuaire_des_entreprises
   initialize_with:
     cadre_juridique_nature: |+
@@ -19,7 +19,7 @@ annuaire-des-entreprises-aides-publiques:
   description: Cas d'usage liés aux traitement des aides publiques
   introduction: |
     Ce formulaire vous permet d'accéder aux fonctionnalités spécifiques au cas d'usage des aides publiques
-  authorization_request: AnnuaireDesEntreprise
+  authorization_request: AnnuaireDesEntreprises
   single_page_view: annuaire_des_entreprises
   initialize_with:
     cadre_juridique_nature: |+
@@ -31,7 +31,7 @@ annuaire-des-entreprises-lutte-contre-la-fraude:
   description: Cas d'usage liés à la lutte contre la fraude
   introduction: |
     Ce formulaire vous permet d'accéder aux fonctionnalités spécifiques au cas d'usage de la lutte contre la fraude
-  authorization_request: AnnuaireDesEntreprise
+  authorization_request: AnnuaireDesEntreprises
   single_page_view: annuaire_des_entreprises
 
 annuaire-des-entreprises-subventions-associations:
@@ -39,7 +39,7 @@ annuaire-des-entreprises-subventions-associations:
   description: Cas d'usage liés aux subventions de fonctionnement des associations
   introduction: |
     Ce formulaire vous permet d'accéder aux fonctionnalités spécifiques au cas d'usage de subventions de fonctionnement des associations
-  authorization_request: AnnuaireDesEntreprise
+  authorization_request: AnnuaireDesEntreprises
   single_page_view: annuaire_des_entreprises
 
 
