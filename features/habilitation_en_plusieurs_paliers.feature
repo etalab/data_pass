@@ -22,6 +22,13 @@ Fonctionnalité: Interactions avec des habilitations en plusieurs paliers (bac �
     Et que je vais sur la page du tableau de bord
     Alors il n'y a pas de bouton "Démarrer ma demande d’habilitation en production"
 
+  Scénario: Il n'y a pas de message d'erreur contenant "Vous ne pouvez pas créer de nouvelle habilitation" (non-régression test)
+    Quand j'ai 1 demande d'habilitation "API Impôt Particulier" à l'étape "Bac à sable" validée
+    Et que j'ai 1 demande d'habilitation "API Impôt Particulier" à l'étape "Production" validée
+    Et que je vais sur la page du tableau de bord
+    Et que je clique sur "Démarrer ma demande d’habilitation en production"
+    Alors la page ne contient pas "Vous ne pouvez pas créer de nouvelle habilitation"
+
   Scénario: Je peux démarrer une habilitation de production depuis une habilitation bac à sable
     Quand j'ai 1 demande d'habilitation "API Impôt Particulier" à l'étape "Bac à sable" validée
     Et que je vais sur la page du tableau de bord

@@ -3,7 +3,7 @@
 </h2>
 
 <div class="fr-mb-4w">
-  <% if policy(@authorization_request_form).create? %>
+  <% if @start_next_stage || policy(@authorization_request_form).create? %>
     <div class="border-frame-text fr-my-6w">
       <% if @authorization_request_form.name.present? %>
         <%= simple_format t(".organization.start_text_with_form_name",

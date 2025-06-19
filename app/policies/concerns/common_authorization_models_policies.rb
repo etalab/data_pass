@@ -1,6 +1,6 @@
 module CommonAuthorizationModelsPolicies
   def new?
-    record.startable_by_applicant &&
+    startable_by_applicant &&
       active_organization?
   end
 
@@ -19,6 +19,12 @@ module CommonAuthorizationModelsPolicies
   end
 
   private
+
+  def startable_by_applicant
+    record.startable_by_applicant
+  rescue NoMethodError
+    true
+  end
 
   def active_organization?
     current_organization.blank? ||
