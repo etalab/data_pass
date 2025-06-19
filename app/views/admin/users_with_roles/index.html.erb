@@ -1,3 +1,7 @@
+<% content_for :content_skip_link_text do %>
+  Utilisateurs avec des rôles
+<% end %>
+
 <%= content_for(:header_action) do %>
   <%= link_to t('.add'), new_admin_users_with_role_path, class: %[fr-btn] %>
 <% end %>

@@ -30,6 +30,26 @@
   </head>
 
   <body>
+    <div class="fr-skiplinks">
+      <nav class="fr-container" role="navigation" aria-label="Accès rapide">
+        <ul class="fr-skiplinks__list">
+          <li>
+            <a class="fr-link" href="#content"><%= content_for?(:content_skip_link_text) ? yield(:content_skip_link_text) : "Contenu" %></a>
+          </li>
+          <% if content_for?(:skip_links) %>
+            <%= yield(:skip_links) %>
+          <% else %>
+            <li>
+              <a class="fr-link" href="#header">Menu</a>
+            </li>
+            <li>
+              <a class="fr-link" href="#footer">Pied de page</a>
+            </li>
+          <% end %>
+        </ul>
+      </nav>
+    </div>
+
     <%= render layout: 'shared/modal', locals: { id: 'main-modal' } do %>
       <%= render partial: 'shared/loader' %>
     <% end %>
@@ -40,7 +60,7 @@
 
     <%= render partial: 'layouts/header' %>
 
-    <main>
+    <main id="content">
       <% if content_for?(:body) %>
         <%= yield(:body) %>
       <% else %>
