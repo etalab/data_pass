@@ -31,7 +31,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API E-PRO
 
   Scénario: Je soumets une demande d'habilitation valide à l'étape Production
     Quand j'ai 1 demande d'habilitation "API E-PRO" à l'étape "Bac à sable" validée
-    Et que je me rends sur mon tableau de bord
+    Et que je me rends sur mon tableau de bord habilitations
     Et je clique sur "Démarrer ma demande d’habilitation en production"
     Et que je clique sur "Débuter ma demande"
 
