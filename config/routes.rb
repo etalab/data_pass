@@ -48,6 +48,9 @@ Rails.application.routes.draw do
     get '/demandes/:authorization_request_id/prochaine-etape', to: 'next_authorization_request_stage#new', as: :next_authorization_request_stage
     post '/demandes/:authorization_request_id/prochaine-etape', to: 'next_authorization_request_stage#create'
 
+    get '/demandes/:authorization_request_id/annuler-prochaine-etape', to: 'cancel_next_authorization_request_stage#new', as: :cancel_next_authorization_request_stage
+    post '/demandes/:authorization_request_id/annuler-prochaine-etape', to: 'cancel_next_authorization_request_stage#create'
+
     scope(path: 'formulaires/:form_uid') do
       resources :authorization_request_forms, only: %w[new create show update], path: 'demande' do
         collection do
