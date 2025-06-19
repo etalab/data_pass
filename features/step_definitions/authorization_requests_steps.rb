@@ -320,8 +320,14 @@ end
 Quand("j'adhère aux conditions générales") do
   steps %(
     Quand je coche "conditions générales d'utilisation"
-    Quand je coche "Je confirme que le délégué à la protection des données de mon organisation est informé de ma demande."
   )
+
+  authorization_request = @authorization_request || AuthorizationRequest.last
+  unless authorization_request.skip_data_protection_officer_informed_check_box?
+    steps %(
+      Quand je coche "Je confirme que le délégué à la protection des données de mon organisation est informé de ma demande."
+    )
+  end
 end
 
 Quand('je renseigne les infos de bases du projet') do

@@ -209,6 +209,7 @@ FactoryBot.define do
         if authorization_request.need_complete_validation? || evaluator.fill_all_attributes
           authorization_request.intitule ||= 'Demande d\'accès à la plateforme fournisseur'
           authorization_request.description ||= 'Description de la demande'
+          authorization_request.volumetrie_approximative ||= '1000 appels par jour' if authorization_request.respond_to?(:volumetrie_approximative)
         end
       end
     end
@@ -457,7 +458,6 @@ FactoryBot.define do
 
       form_uid { 'api-captchetat' }
       with_basic_infos
-      with_cadre_juridique
     end
 
     trait :api_impot_particulier_common do
