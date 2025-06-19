@@ -47,6 +47,8 @@ api-impot-particulier-production:
   name: Demande libre (Production)
   public: false
   startable_by_applicant: false
+  stage:
+    previous_form_uid: api-impot-particulier-sandbox
   introduction: &api_impot_particulier_production_form_introduction |
     Votre demande d’accès au bac à sable a été validée, vous pouvez à présent poursuivre votre demande en demandant les accès à la production.
 
@@ -124,6 +126,8 @@ api-impot-particulier-cantine-scolaire-production:
   name: Cantine scolaire
   public: false
   startable_by_applicant: false
+  stage:
+    previous_form_uid: api-impot-particulier-cantine-scolaire-sandbox
   introduction: *api_impot_particulier_production_form_introduction
   authorization_request: APIImpotParticulier
   static_blocks: *api_impot_particulier_sandbox_steps
@@ -172,6 +176,8 @@ api-impot-particulier-place-creche-production:
   name: Place en crèche
   public: false
   startable_by_applicant: false
+  stage:
+    previous_form_uid: api-impot-particulier-place-creche-sandbox
   use_case: place_creche
   introduction: *api_impot_particulier_production_form_introduction
   authorization_request: APIImpotParticulier
@@ -221,6 +227,8 @@ api-impot-particulier-activites-periscolaires-production:
   name: Activités périscolaires et assimilés
   public: false
   startable_by_applicant: false
+  stage:
+    previous_form_uid: api-impot-particulier-activites-periscolaires-sandbox
   use_case: activites_periscolaires
   introduction: *api_impot_particulier_production_form_introduction
   authorization_request: APIImpotParticulier
@@ -270,6 +278,8 @@ api-impot-particulier-stationnement-residentiel-production:
   name: Stationnement résidentiel
   public: false
   startable_by_applicant: false
+  stage:
+    previous_form_uid: api-impot-particulier-stationnement-residentiel-sandbox
   use_case: stationnement_residentiel
   introduction: *api_impot_particulier_production_form_introduction
   authorization_request: APIImpotParticulier
@@ -319,6 +329,8 @@ api-impot-particulier-aides-sociales-facultatives-production:
   name: Aides sociales facultatives
   public: false
   startable_by_applicant: false
+  stage:
+    previous_form_uid: api-impot-particulier-aides-sociales-facultatives-sandbox
   introduction: *api_impot_particulier_production_form_introduction
   authorization_request: APIImpotParticulier
   static_blocks: *api_impot_particulier_sandbox_steps
@@ -368,6 +380,8 @@ api-impot-particulier-carte-transport-production:
   name: Carte de transport
   public: false
   startable_by_applicant: false
+  stage:
+    previous_form_uid: api-impot-particulier-carte-transport-sandbox
   introduction: *api_impot_particulier_production_form_introduction
   authorization_request: APIImpotParticulier
   static_blocks: *api_impot_particulier_sandbox_steps
