@@ -737,7 +737,7 @@ FactoryBot.define do
       annuaire-des-entreprises-subventions-associations
     ].each do |form_uid|
       trait form_uid.tr('-', '_') do
-        type { 'AuthorizationRequest::AnnuaireDesEntreprise' }
+        type { 'AuthorizationRequest::AnnuaireDesEntreprises' }
 
         form_uid { form_uid }
 

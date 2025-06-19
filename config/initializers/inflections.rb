@@ -45,7 +45,9 @@ class String
       'api_e_contacts' => 'APIEContacts',
       'APIEContacts' => 'APIEContacts',
       'api_ensu_documents' => 'APIENSUDocuments',
-      'APIENSUDocuments' => 'APIENSUDocuments'
+      'APIENSUDocuments' => 'APIENSUDocuments',
+      'annuaire_des_entreprises' => 'AnnuaireDesEntreprises',
+      'AnnuaireDesEntreprises' => 'AnnuaireDesEntreprises',
     }
 
     return custom_classifications[self] if custom_classifications.key?(self)

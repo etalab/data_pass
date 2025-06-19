@@ -25,7 +25,7 @@ shared:
     title: "DataPass - Annuaire des Entreprises"
     tagline: "Habilitations juridiques pour l'espace Agent de l'Annuaire des Entreprises"
     authorization_definition_ids:
-      - "annuaire_des_entreprise"
+      - "annuaire_des_entreprises"
 test:
   api-entreprise:
     name: "API Entreprise"

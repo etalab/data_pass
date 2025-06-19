@@ -1,6 +1,6 @@
 # language: fr
 
-Fonctionnalité: Soumission d'une demande d'habilitation Espace agent de l'Annuaires des Entreprises
+Fonctionnalité: Soumission d'une demande d'habilitation Espace agent de l'Annuaire des Entreprises
   Contexte:
     Sachant que je suis un demandeur
     Et que je me connecte
