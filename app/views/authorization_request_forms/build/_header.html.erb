@@ -24,6 +24,10 @@
             <%= dsfr_main_modal_button t('authorization_request_forms.form.archive'), new_authorization_request_archive_path(@authorization_request), id: :archive_authorization_request, class: %w(fr-btn fr-btn--sm fr-btn--secondary fr-btn--icon-left fr-icon-delete-line) %>
           <% end %>
 
+          <% if policy(@authorization_request).cancel_next_stage? %>
+            <%= dsfr_main_modal_button t('authorization_request_forms.form.cancel_next_stage'), cancel_next_authorization_request_stage_path(authorization_request_id: @authorization_request.id), title: t('authorization_request_forms.form.cancel_next_stage_title'), class: "fr-btn fr-btn--sm fr-btn--secondary fr-icon-error-line fr-btn--icon-left" %>
+          <% end %>
+
           <% unless @summary_before_submit %>
             <% if policy(@authorization_request).update? %>
               <%= f.button t('authorization_request_forms.form.save_header'), name: :save, type: :submit, id: :save_authorization_request_from_header, class: %w(fr-btn fr-btn--sm fr-icon-save-line fr-btn--icon-left) %>

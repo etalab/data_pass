@@ -92,6 +92,14 @@ class AuthorizationRequestPolicy < ApplicationPolicy
       record.validated?
   end
 
+  def cancel_next_stage?
+    same_user_and_organization? &&
+      record.definition.previous_stage? &&
+      record.filling? &&
+      record.can_cancel_next_stage? &&
+      record.authorizations.any?
+  end
+
   def ongoing_request?
     same_user_and_organization? &&
       record.draft?
