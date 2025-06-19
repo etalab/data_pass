@@ -33,10 +33,6 @@ annuaire-des-entreprises-lutte-contre-la-fraude:
     Ce formulaire vous permet d'accéder aux fonctionnalités spécifiques au cas d'usage de la lutte contre la fraude
   authorization_request: AnnuaireDesEntreprise
   single_page_view: annuaire_des_entreprises
-  initialize_with:
-    cadre_juridique_nature: |+
-      FEEDME
-    cadre_juridique_url: 'https://www.legifrance.gouv.fr/jorf/id/FEEDME/'
 
 annuaire-des-entreprises-subventions-associations:
   name: Subventions de fonctionnement des associations
@@ -45,9 +41,5 @@ annuaire-des-entreprises-subventions-associations:
     Ce formulaire vous permet d'accéder aux fonctionnalités spécifiques au cas d'usage de subventions de fonctionnement des associations
   authorization_request: AnnuaireDesEntreprise
   single_page_view: annuaire_des_entreprises
-  initialize_with:
-    cadre_juridique_nature: |+
-      FEEDME
-    cadre_juridique_url: 'https://www.legifrance.gouv.fr/jorf/id/FEEDME/'
 
 
