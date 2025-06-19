@@ -1,8 +1,6 @@
 class DashboardController < AuthenticatedUserController
   include SubdomainsHelper
 
-  decorates_assigned :authorization_requests
-
   def index
     redirect_to dashboard_show_path(id: 'demandes')
   end
@@ -69,6 +67,6 @@ class DashboardController < AuthenticatedUserController
   end
 
   def base_authorization_relation
-    Authorization.joins(request: :organization).where(authorization_requests: { organization: current_user.organizations})
+    Authorization.joins(request: :organization).where(authorization_requests: { organization: current_user.organizations })
   end
 end

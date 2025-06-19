@@ -19,7 +19,7 @@
           </span>
 
           <div class="flex-wrap flew-grow flex-end__content fr-grid-row--top fr-col--xs">
-            <%= authorization_request_stage_badge(authorization.request_as_validated) %>
+            <%= authorization.request_as_validated.decorate.stage_badge %>
             <%= authorization.status_badge %>
           </div>
         </div>

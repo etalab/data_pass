@@ -24,7 +24,7 @@ Fonctionnalité: Interactions avec des habilitations en plusieurs paliers (bac �
   Scénario: Il n'y a pas de message d'erreur contenant "Vous ne pouvez pas créer de nouvelle habilitation" (non-régression test)
     Quand j'ai 1 demande d'habilitation "API Impôt Particulier" à l'étape "Bac à sable" validée
     Et que j'ai 1 demande d'habilitation "API Impôt Particulier" à l'étape "Production" validée
-    Et que je vais sur la page du tableau de bord
+    Et que je me rends sur mon tableau de bord habilitations
     Et que je clique sur "Démarrer ma demande d’habilitation en production"
     Alors la page ne contient pas "Vous ne pouvez pas créer de nouvelle habilitation"
 
@@ -38,7 +38,7 @@ Fonctionnalité: Interactions avec des habilitations en plusieurs paliers (bac �
 
   Scénario: Je peux annuler une demande d'habilitation de production si je ne l'ai pas encore soumise
     Quand j'ai 1 demande d'habilitation "API Impôt Particulier" à l'étape "Bac à sable" validée
-    Et que je vais sur la page du tableau de bord
+    Et que je me rends sur mon tableau de bord habilitations
     Et que je clique sur "Démarrer ma demande d’habilitation en production"
     Et que je clique sur "Débuter ma demande"
     Et que je clique sur "Annuler la demande de production"

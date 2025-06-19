@@ -210,7 +210,7 @@ fr:
   authorization_requests:
     card:
       created_at: Créée le %{created_date}
-      created_and_udpated_at: Créée le %{created_date} et mise à jour le %{updated_date}
+      created_and_updated_at: Créée le %{created_date} et mise à jour le %{updated_date}
       reopened_at: Réouverte le %{reopened_date}
       current_user_mentions: "vous avez été référencé comme %{contact_types}"
       current_user_is_applicant: "vous êtes le demandeur"

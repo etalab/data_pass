@@ -9,9 +9,9 @@
             <div class="authorization-request-form-header__badges">
               <div class="fr-badge-group">
                 <span class="fr-badge fr-badge--no-icon"><%= t("authorization_request.badge", id: @authorization_request.id) %></span>
-                <%= @authorization_request.reopening_badge %>
-                <%= authorization_request_stage_badge(@authorization_request) %>
-                <%= @authorization_request.status_badge %>
+                <%= authorization_request.reopening_badge %>
+                <%= authorization_request.stage_badge %>
+                <%= authorization_request.status_badge %>
               </div>
             </div>
           </div>

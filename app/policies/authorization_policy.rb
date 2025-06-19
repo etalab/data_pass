@@ -43,7 +43,7 @@ class AuthorizationPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      authorizations = scope.joins(request: :organization).where(authorization_requests: { organization: current_organization})
+      authorizations = scope.joins(request: :organization).where(authorization_requests: { organization: current_organization })
 
       if registered_subdomain?
         authorizations.where(authorization_request_class: registered_subdomain.authorization_request_types)

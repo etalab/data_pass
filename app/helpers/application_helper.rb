@@ -1,4 +1,3 @@
-# rubocop:disable Metrics/ModuleLength
 module ApplicationHelper
   include DSFR::Stepper
   include DSFR::Accordion
@@ -21,33 +20,6 @@ module ApplicationHelper
 
   def displays_provider_logo?
     @authorization_definition.present? && @display_provider_logo_in_header # rubocop:disable Rails/HelperInstanceVariable
-  end
-
-  def authorization_request_stage_badge(authorization_request, css_class: nil)
-    return unless authorization_request.definition.stage.exists?
-
-    stage_badge(authorization_request.definition.stage.type, css_class: css_class)
-  end
-
-  def authorization_stage_badge(authorization, css_class: nil)
-    stage_badge(authorization.definition.stage.type, css_class: css_class)
-  end
-
-  def stage_badge(stage_type, css_class: nil)
-    content_tag(
-      :span,
-      t("authorization_request.stage.#{stage_type}"),
-      class: ['fr-badge', 'fr-badge--no-icon', 'fr-mr-1w', stage_badge_class(stage_type), css_class],
-    )
-  end
-
-  def stage_badge_class(stage_type)
-    case stage_type
-    when 'sandbox'
-      'fr-badge--brown-caramel'
-    when 'production'
-      'fr-badge--orange-terre-battue'
-    end
   end
 
   def latest_authorization_path(authorization_request)
@@ -73,4 +45,3 @@ module ApplicationHelper
     authorization_request.definition.id == 'france_connect' && authorization_request.france_connected_authorizations.exists?
   end
 end
-# rubocop:enable Metrics/ModuleLength

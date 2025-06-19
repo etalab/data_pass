@@ -66,7 +66,7 @@ class AuthorizationDecorator < ApplicationDecorator
   end
 
   def reopening_validated?
-    object.request.authorizations.where(authorization_request_class: object.authorization_request_class).count > 1
+    object.request.authorizations.where(authorization_request_class: object.authorization_request_class).many?
   rescue NoMethodError
     false
   end
@@ -94,7 +94,7 @@ class AuthorizationDecorator < ApplicationDecorator
   end
 
   def status_badge_class
-    case state
+    case state # rubocop:disable Style/HashLikeCase
     when 'active'
       %w[fr-badge--success]
     when 'revoked'
@@ -104,7 +104,26 @@ class AuthorizationDecorator < ApplicationDecorator
     end
   end
 
+  def stage_badge(css_class: nil)
+    return unless definition.stage.exists?
+
+    h.content_tag(
+      :span,
+      t("authorization_request.stage.#{definition.stage.type}"),
+      class: ['fr-badge', 'fr-badge--no-icon', 'fr-mb-1w', stage_badge_class, css_class],
+    )
+  end
+
   private
+
+  def stage_badge_class
+    case definition.stage.type
+    when 'sandbox'
+      'fr-badge--brown-caramel'
+    when 'production'
+      'fr-badge--orange-terre-battue'
+    end
+  end
 
   def status_badge_translation(scope)
     case scope
@@ -114,7 +133,6 @@ class AuthorizationDecorator < ApplicationDecorator
       "authorization_request.status.#{state}"
     end
   end
-
 
   # rubocop:disable Metrics/AbcSize
   def base_card_name

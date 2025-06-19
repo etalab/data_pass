@@ -1,4 +1,4 @@
-class AuthorizationRequestDecorator < ApplicationDecorator
+class AuthorizationRequestDecorator < ApplicationDecorator # rubocop:disable Metrics/ClassLength
   delegate_all
 
   decorates_association :organization
@@ -7,23 +7,9 @@ class AuthorizationRequestDecorator < ApplicationDecorator
     'authorization_requests/card'
   end
 
-  def status_badge(no_icon: false, scope: nil)
-    content_tag(
-      :span,
-      t(status_badge_translation(scope)),
-      class: [
-        'fr-ml-1w',
-        'fr-badge',
-        no_icon ? 'fr-badge--no-icon' : nil,
-      ]
-        .concat(status_badge_class)
-        .compact,
-    )
-  end
-
   def date
     if reopening_validated?
-      t('authorization_requests.card.created_and_udpated_at', created_date: l(created_at, format: '%d/%m/%Y'), updated_date: l(latest_authorization.created_at, format: '%d/%m/%Y'))
+      t('authorization_requests.card.created_and_updated_at', created_date: l(created_at, format: '%d/%m/%Y'), updated_date: l(latest_authorization.created_at, format: '%d/%m/%Y'))
     elsif reopening?
       t('authorization_requests.card.reopened_at', reopened_date: l(reopened_at, format: '%d/%m/%Y'))
     else
@@ -179,7 +165,26 @@ class AuthorizationRequestDecorator < ApplicationDecorator
     )
   end
 
+  def stage_badge(css_class: nil)
+    return unless definition.stage.exists?
+
+    h.content_tag(
+      :span,
+      t("authorization_request.stage.#{definition.stage.type}"),
+      class: ['fr-badge', 'fr-badge--no-icon', 'fr-ml-1w', 'fr-mb-1w', stage_badge_class, css_class],
+    )
+  end
+
   private
+
+  def stage_badge_class
+    case definition.stage.type
+    when 'sandbox'
+      'fr-badge--brown-caramel'
+    when 'production'
+      'fr-badge--orange-terre-battue'
+    end
+  end
 
   def status_badge_class
     case state
@@ -191,7 +196,7 @@ class AuthorizationRequestDecorator < ApplicationDecorator
       %w[fr-badge--info]
     when 'validated'
       %w[fr-badge--success]
-    when 'refused'
+    when 'refused', 'revoked'
       %w[fr-badge--error]
     when 'archived'
       %w[fr-badge--secondary]
