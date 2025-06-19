@@ -1,3 +1,12 @@
+<% content_for :content_skip_link_text do %>
+  Bienvenue sur DataPass
+<% end %>
+
+<% content_for :skip_links do %>
+  <%= skip_link("Menu", "header") %>
+  <%= skip_link("Pied de page", "footer") %>
+<% end %>
+
 <div class="fr-container">
   <div class="fr-grid-row fr-grid-row--middle">
     <%= render partial: 'pages/shared/unauthenticated_pages/welcome_logo' %>
