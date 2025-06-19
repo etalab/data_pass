@@ -4,7 +4,7 @@
 
 <% content_for :skip_links do %>
   <%= skip_link("Filtres de recherche", "authorization_request_search") %>
-  <%= skip_link("Tableau des demandes", "requests-table") %>
+  <%= skip_link("Tableau des demandes", "authorization_request_table") %>
   <%= skip_link("Menu", "header") %>
   <%= skip_link("Pied de page", "footer") %>
 <% end %>
@@ -45,7 +45,7 @@
     <%= t('.search.results_count', count: @authorization_requests.total_count) %>
   </div>
 
-  <div class="fr-table fr-table--bordered" id="requests-table">
+  <div class="fr-table fr-table--bordered" id="authorization_request_table">
     <table>
       <thead>
         <tr>
