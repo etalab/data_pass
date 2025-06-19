@@ -3,6 +3,7 @@ class AuthorizationRequestForm < StaticApplicationRecord
     :service_provider,
     :default,
     :use_case,
+    :stage,
     :authorization_request_class,
     :single_page_view,
     :steps,
@@ -22,6 +23,7 @@ class AuthorizationRequestForm < StaticApplicationRecord
     end
   end
 
+  # rubocop:disable Metrics/AbcSize
   def self.build(uid, hash)
     new(
       hash.slice(
@@ -41,9 +43,12 @@ class AuthorizationRequestForm < StaticApplicationRecord
         authorization_request_class: AuthorizationRequest.const_get(hash[:authorization_request]),
         steps: hash[:steps] || [],
         static_blocks: hash[:static_blocks] || [],
+        stage: build_stage(hash[:stage] || {}, hash[:authorization_request]),
       )
     )
   end
+  # rubocop:enable Metrics/AbcSize
+
   delegate :provider, to: :authorization_definition
 
   def id
@@ -136,6 +141,18 @@ class AuthorizationRequestForm < StaticApplicationRecord
     rescue StandardError
       [key, value]
     end
+  end
+
+  def self.build_stage(stage_data, authorization_request_class)
+    definition = AuthorizationRequest.const_get(authorization_request_class).definition
+
+    return nil unless definition.stage.exists?
+
+    AuthorizationRequestForm::Stage.new(
+      stage_data.merge(
+        definition: AuthorizationRequest.const_get(authorization_request_class).definition
+      )
+    )
   end
 
   private
