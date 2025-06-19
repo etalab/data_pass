@@ -5,6 +5,8 @@ class NextAuthorizationRequestStageController < AuthenticatedUserController
   def new
     authorize @authorization_request, :start_next_stage?
 
+    @start_next_stage = true
+
     render 'authorization_request_forms/new', layout: 'form_introduction'
   end
 
