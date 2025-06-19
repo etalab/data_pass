@@ -9,8 +9,4 @@ class AuthorizationRequest::APICaptchEtat < AuthorizationRequest
   validates :volumetrie_approximative, presence: true, if: -> { need_complete_validation?(:basic_infos) }
 
   contact :contact_technique, validation_condition: ->(record) { record.need_complete_validation?(:contacts) }
-
-  def validate_data_protection_officer_informed_check_box_checked?
-    false
-  end
 end
