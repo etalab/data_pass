@@ -1483,33 +1483,33 @@ api-particulier-mgdis-tarification-cantines-lycees:
   description: Régions, calculez automatiquement le tarif de restauration scolaire des lycéens.
   authorization_request: APIParticulier
   use_case: cantines-colleges-lycees-tarification
-  service_provider_id: MGDIS
+  service_provider_id: mgdis
   steps: *api_particulier_editor_steps_with_editable_scopes
   static_blocks: *api_particulier_editor_static_blocks_with_editable_scopes
-scopes_config:
-  disabled:
-      - cnaf_quotient_familial
-  displayed:
-      - cnaf_quotient_familial
-      - cnaf_allocataires
-      - cnaf_enfants
-      - cnaf_adresse
-  introduction: |
-    En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier la <strong>"Tarification des cantines"</strong>. <a href="https://particulier.api.gouv.fr/cas_usages/tarification_municipale_enfance">En savoir plus sur ce cas d'usage</a>.
+  scopes_config:
+    disabled:
+        - cnaf_quotient_familial
+    displayed:
+        - cnaf_quotient_familial
+        - cnaf_allocataires
+        - cnaf_enfants
+        - cnaf_adresse
+    introduction: |
+      En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier la <strong>"Tarification des cantines"</strong>. <a href="https://particulier.api.gouv.fr/cas_usages/tarification_municipale_enfance">En savoir plus sur ce cas d'usage</a>.
 
-  initialize_with:
-    intitule: Tarification cantine
-    cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Cadre légal spécifique aux régions : L'article L216-6 du Code de l’éducation qui donne compétence aux lycées pour la gestion des cantines.\r\n- La délibération [À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]"
-    scopes :
-      - cnaf_quotient_familial
-    contact_technique_email: "<%= Rails.application.credentials.api_particulier_mgdis_contact_technique_email || 'tech-mgdis@yopmail.com' %>"
-    contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_mgdis_contact_technique_given_name || 'Jeanne' %>"
-    contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_mgdis_contact_technique_family_name || 'Martin' %>"
-    contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_mgdis_contact_technique_phone_number || '0836656565' %>"
-    contact_technique_job_title: Responsable produit
-    modalities:
-      - params
-    # - FranceConnect
+    initialize_with:
+      intitule: Tarification cantine
+      cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Cadre légal spécifique aux régions : L'article L216-6 du Code de l’éducation qui donne compétence aux lycées pour la gestion des cantines.\r\n- La délibération [À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]"
+      scopes :
+        - cnaf_quotient_familial
+      contact_technique_email: "<%= Rails.application.credentials.api_particulier_mgdis_contact_technique_email || 'tech-mgdis@yopmail.com' %>"
+      contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_mgdis_contact_technique_given_name || 'Jeanne' %>"
+      contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_mgdis_contact_technique_family_name || 'Martin' %>"
+      contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_mgdis_contact_technique_phone_number || '0836656565' %>"
+      contact_technique_job_title: Responsable produit
+      modalities:
+        - params
+      # - FranceConnect
 
 
 # ------------------------------- #

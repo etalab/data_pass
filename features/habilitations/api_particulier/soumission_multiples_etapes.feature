@@ -512,4 +512,4 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
 
         Exemples:
       | Nom du formulaire           | Nom de l'éditeur|
-      | Aiden, Tarification cantine | Mgdis           |
+      | Aiden, Tarification cantine | MGDIS           |
