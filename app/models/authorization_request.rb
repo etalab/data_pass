@@ -106,12 +106,14 @@ class AuthorizationRequest < ApplicationRecord
     end
   end
 
-  def latest_authorization_of_stage(stage)
-    authorizations.where(authorization_request_class: stage).order(created_at: :desc).limit(1).first
+  def latest_authorization_of_stage(stage_type)
+    return unless definition.multi_stage?
+
+    authorizations.where(authorization_request_class: extract_authorization_request_class_from_stage(stage_type)).order(created_at: :desc).limit(1).first
   end
 
   def latest_authorization_of_class(authorization_request_class)
-    authorizations.where(authorization_request_class: authorization_request_class).order(created_at: :desc).limit(1).first
+    authorizations.where(authorization_request_class:).order(created_at: :desc).limit(1).first
   end
 
   def events
@@ -240,6 +242,10 @@ class AuthorizationRequest < ApplicationRecord
         terms_of_service_accepted: false,
         data_protection_officer_informed: false,
       )
+    end
+
+    event :cancel_next_stage do
+      transition from: %i[draft changes_requested submitted], to: :validated, if: ->(authorization_request) { authorization_request.definition.previous_stage? }
     end
 
     event :revoke do
@@ -385,5 +391,15 @@ class AuthorizationRequest < ApplicationRecord
     return false unless definition.next_stage?
 
     latest_authorization_of_class(definition.next_stage_definition.authorization_request_class.to_s).present?
+  end
+
+  private
+
+  def extract_authorization_request_class_from_stage(stage_type)
+    if stage_type == definition.stage.type
+      definition.authorization_request_class_as_string
+    else
+      definition.stage.previous_stage[:definition].authorization_request_class_as_string
+    end
   end
 end

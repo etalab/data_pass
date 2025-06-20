@@ -30,6 +30,17 @@ Fonctionnalité: Interactions avec des habilitations en plusieurs paliers (bac �
     Et que je vais sur la page du tableau de bord
     Alors il n'y a pas de bouton "Démarrer ma demande d’habilitation en production"
 
+  Scénario: Je peux annuler une demande d'habilitation de production si je ne l'ai pas encore soumise
+    Quand j'ai 1 demande d'habilitation "API Impôt Particulier" à l'étape "Bac à sable" validée
+    Et que je vais sur la page du tableau de bord
+    Et que je clique sur "Démarrer ma demande d’habilitation en production"
+    Et que je clique sur "Débuter ma demande"
+    Et que je clique sur "Annuler la demande de production"
+    Et que je clique sur "Confirmer"
+    Alors il y a un message de succès contenant "Votre demande d'habilitation en production a été annulée"
+    Et il y a un bouton "Démarrer ma demande d’habilitation en production"
+    Et il y a un badge "Bac à sable"
+
   Scénario: Il y a un badge sandbox lors du démarrage d'une habilitation de bac à sable
     Quand je veux remplir une demande pour "API Impôt Particulier" via le formulaire "Demande libre (Bac à sable)" à l'étape "Bac à sable"
     Et que je clique sur "Débuter ma demande"

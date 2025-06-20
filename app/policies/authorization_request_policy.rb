@@ -92,6 +92,14 @@ class AuthorizationRequestPolicy < ApplicationPolicy
       record.validated?
   end
 
+  def cancel_next_stage?
+    same_user_and_organization? &&
+      record.definition.previous_stage? &&
+      record.filling? &&
+      record.can_cancel_next_stage? &&
+      record.authorizations.any?
+  end
+
   def ongoing_request?
     same_user_and_organization? &&
       record.draft?
@@ -120,7 +128,7 @@ class AuthorizationRequestPolicy < ApplicationPolicy
   private
 
   def changed_since_latest_approval?
-    previous_data = Hash(record.latest_authorization_of_stage(original_record.class_name)&.data)
+    previous_data = Hash(record.latest_authorization_of_class(original_record.class_name)&.data)
     current_data = Hash(record.data)
     previous_data != current_data.slice(*previous_data.keys)
   end

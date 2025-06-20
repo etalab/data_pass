@@ -192,7 +192,7 @@ FactoryBot.define do
           previous_authorization_created_at = authorization_request.created_at + date_offset
         end
 
-        previous_stage = authorization_request.definition.stage.previous_stages[0]
+        previous_stage = authorization_request.definition.stage.previous_stage
 
         authorization_request.authorizations << Authorization.create!(
           request: authorization_request,

@@ -12,9 +12,9 @@ api_impot_particulier:
     transfer: false
   stage:
     type: production
-    previouses:
-      - id: api_impot_particulier_sandbox
-        form_id: api-impot-particulier-sandbox
+    previous:
+      id: api_impot_particulier_sandbox
+      form_id: api-impot-particulier-sandbox
   blocks:
     - name: basic_infos
     - name: personal_data
@@ -201,9 +201,9 @@ api_sfip:
   features: *dgfip_features
   stage:
     type: production
-    previouses:
-      - id: api_sfip_sandbox
-        form_id: api-sfip-sandbox
+    previous:
+      id: api_sfip_sandbox
+      form_id: api-sfip-sandbox
   blocks:
     - name: basic_infos
     - name: personal_data
@@ -276,9 +276,9 @@ api_hermes:
   features: *dgfip_features
   stage:
     type: production
-    previouses:
-      - id: api_hermes_sandbox
-        form_id: api-hermes-sandbox
+    previous:
+      id: api_hermes_sandbox
+      form_id: api-hermes-sandbox
   blocks:
     - name: basic_infos
     - name: personal_data
@@ -325,9 +325,9 @@ api_e_contacts:
   features: *dgfip_features
   stage:
     type: production
-    previouses:
-      - id: api_e_contacts_sandbox
-        form_id: api-e-contacts-sandbox
+    previous:
+      id: api_e_contacts_sandbox
+      form_id: api-e-contacts-sandbox
   blocks:
     - name: basic_infos
     - name: personal_data
@@ -374,9 +374,9 @@ api_opale:
   features: *dgfip_features
   stage:
     type: production
-    previouses:
-      - id: api_opale_sandbox
-        form_id: api-opale-sandbox
+    previous:
+      id: api_opale_sandbox
+      form_id: api-opale-sandbox
   blocks:
     - name: basic_infos
     - name: personal_data
@@ -423,9 +423,9 @@ api_ocfi:
   features: *dgfip_features
   stage:
     type: production
-    previouses:
-      - id: api_ocfi_sandbox
-        form_id: api-ocfi-sandbox
+    previous:
+      id: api_ocfi_sandbox
+      form_id: api-ocfi-sandbox
   blocks:
     - name: basic_infos
     - name: personal_data
@@ -472,9 +472,9 @@ api_e_pro:
   features: *dgfip_features
   stage:
     type: production
-    previouses:
-      - id: api_e_pro_sandbox
-        form_id: api-e-pro-sandbox
+    previous:
+      id: api_e_pro_sandbox
+      form_id: api-e-pro-sandbox
   blocks:
     - name: basic_infos
     - name: personal_data
@@ -522,9 +522,9 @@ api_robf:
   features: *dgfip_features
   stage:
     type: production
-    previouses:
-      - id: api_robf_sandbox
-        form_id: api-robf-sandbox
+    previous:
+      id: api_robf_sandbox
+      form_id: api-robf-sandbox
   blocks:
     - name: basic_infos
     - name: personal_data
@@ -571,9 +571,9 @@ api_cpr_pro_adelie:
   features: *dgfip_features
   stage:
     type: production
-    previouses:
-      - id: api_cpr_pro_adelie_sandbox
-        form_id: api-cpr-pro-adelie-sandbox
+    previous:
+      id: api_cpr_pro_adelie_sandbox
+      form_id: api-cpr-pro-adelie-sandbox
   blocks:
     - name: basic_infos
     - name: personal_data
@@ -619,9 +619,9 @@ api_imprimfip:
   features: *dgfip_features
   stage:
     type: production
-    previouses:
-      - id: api_imprimfip_sandbox
-        form_id: api-imprimfip-sandbox
+    previous:
+      id: api_imprimfip_sandbox
+      form_id: api-imprimfip-sandbox
   blocks:
     - name: basic_infos
     - name: personal_data
@@ -668,9 +668,9 @@ api_satelit:
   features: *dgfip_features
   stage:
     type: production
-    previouses:
-      - id: api_satelit_sandbox
-        form_id: api-satelit-sandbox
+    previous:
+      id: api_satelit_sandbox
+      form_id: api-satelit-sandbox
   blocks:
     - name: basic_infos
     - name: personal_data
@@ -717,9 +717,9 @@ api_mire:
   features: *dgfip_features
   stage:
     type: production
-    previouses:
-      - id: api_mire_sandbox
-        form_id: api-mire-sandbox
+    previous:
+      id: api_mire_sandbox
+      form_id: api-mire-sandbox
   blocks:
     - name: basic_infos
     - name: personal_data
@@ -766,9 +766,9 @@ api_ensu_documents:
   features: *dgfip_features
   stage:
     type: production
-    previouses:
-      - id: api_ensu_documents_sandbox
-        form_id: api-ensu-documents-sandbox
+    previous:
+      id: api_ensu_documents_sandbox
+      form_id: api-ensu-documents-sandbox
   blocks:
     - name: basic_infos
     - name: personal_data
@@ -815,9 +815,9 @@ api_rial:
   features: *dgfip_features
   stage:
     type: production
-    previouses:
-      - id: api_rial_sandbox
-        form_id: api-rial-sandbox
+    previous:
+      id: api_rial_sandbox
+      form_id: api-rial-sandbox
   blocks:
     - name: basic_infos
     - name: personal_data
@@ -840,9 +840,9 @@ api_infinoe:
   features: *dgfip_features
   stage:
     type: production
-    previouses:
-      - id: api_infinoe_sandbox
-        form_id: api-infinoe-sandbox
+    previous:
+      id: api_infinoe_sandbox
+      form_id: api-infinoe-sandbox
   blocks:
     - name: basic_infos
     - name: personal_data
@@ -887,9 +887,9 @@ api_ficoba:
   features: *dgfip_features
   stage:
     type: production
-    previouses:
-      - id: api_ficoba_sandbox
-        form_id: api-ficoba-sandbox
+    previous:
+      id: api_ficoba_sandbox
+      form_id: api-ficoba-sandbox
   blocks:
     - name: basic_infos
     - name: personal_data
@@ -980,9 +980,9 @@ api_r2p:
   features: *dgfip_features
   stage:
     type: production
-    previouses:
-      - id: api_r2p_sandbox
-        form_id: api-r2p-sandbox
+    previous:
+      id: api_r2p_sandbox
+      form_id: api-r2p-sandbox
   blocks:
     - name: basic_infos
     - name: personal_data
