@@ -67,9 +67,12 @@ module AuthorizationCore::Attributes
         end
       end
 
-      def self.override_primitive_write(name)
+      def self.override_primitive_write(name, sanitize_options: { strip: true, downcase: false })
         define_method(:"#{name}=") do |value|
-          super(sanitize_html(value.try(:strip) || value))
+          value = value.try(:strip) || value if sanitize_options[:strip]
+          value = value.try(:downcase) || value if sanitize_options[:downcase]
+
+          super(sanitize_html(value))
         end
       end
 
