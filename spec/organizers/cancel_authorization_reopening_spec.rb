@@ -139,7 +139,7 @@ RSpec.describe CancelAuthorizationReopening, type: :organizer do
 
       before do
         latest_authorization = authorization_request.latest_authorization
-        latest_authorization.data['administrateur_metier_email'] = 'Non renseigné'
+        latest_authorization.data['administrateur_metier_email'] = 'non renseigné'
         latest_authorization.save!
 
         authorization_request.reload
@@ -150,7 +150,7 @@ RSpec.describe CancelAuthorizationReopening, type: :organizer do
       it 'restore the authorization request to the latest authorization: validation are bypassed' do
         expect { cancel_authorization_reopening }.to change { authorization_request.reload.state }.from('draft').to('validated')
 
-        expect(authorization_request.administrateur_metier_email).to eq('Non renseigné')
+        expect(authorization_request.administrateur_metier_email).to eq('non renseigné')
       end
     end
   end
