@@ -10,11 +10,8 @@ Fonctionnalité: Soumission d'une demande d'habilitation API CaptchEtat
 
     * je renseigne les infos de bases du projet
     * je remplis "Volumétrie approximative" avec "1000 appels par jour"
-    * je clique sur "Suivant"
-
     * je renseigne les informations du contact technique
-    * je clique sur "Suivant"
-
+    * je clique sur "Enregistrer et continuer"
     * j'adhère aux conditions générales
     * je clique sur "Soumettre la demande d'habilitation"
 

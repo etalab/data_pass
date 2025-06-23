@@ -33,9 +33,6 @@ hubee-dila:
 
 api-captchetat:
   authorization_request: "APICaptchEtat"
-  steps:
-    - name: "basic_infos"
-    - name: "contacts"
 
 api-pro-sante-connect:
   introduction: |
