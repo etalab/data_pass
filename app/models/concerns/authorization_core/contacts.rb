@@ -48,7 +48,7 @@ module AuthorizationCore::Contacts
       def self.define_common_contact_attributes(kind, validation_condition:)
         %w[email phone_number].each do |attr|
           store_accessor :data, "#{kind}_#{attr}"
-          override_primitive_write("#{kind}_#{attr}")
+          override_primitive_write("#{kind}_#{attr}", sanitize_options: { downcase: true, strip: true })
 
           validates "#{kind}_#{attr}", presence: true, if: validation_condition
         end
