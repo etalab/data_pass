@@ -117,7 +117,7 @@ class AuthorizationRequestDecorator < ApplicationDecorator
   end
 
   def reopening_validated?
-    object.authorizations.where(authorization_request_class: object.type).count > 1
+    object.authorizations.where(authorization_request_class: object.type).many?
   rescue NoMethodError
     false
   end
