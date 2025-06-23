@@ -119,7 +119,7 @@ class Authorization < ApplicationRecord
   end
 
   def reopenable_to_another_stage?
-    authorization_request.latest_authorizations_of_each_stage.count > 1
+    authorization_request.latest_authorizations_of_each_stage.many?
   end
 
   private
