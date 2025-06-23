@@ -1,5 +1,5 @@
 class RestoreAuthorizationRequestToAuthorization < ApplicationInteractor
-  delegate :authorization_request, to: :context, private: true
+  delegate :authorization_request, :authorization, to: :context, private: true
 
   def call
     return if authorization.nil?
@@ -7,12 +7,6 @@ class RestoreAuthorizationRequestToAuthorization < ApplicationInteractor
     fill_authorization_request_with_authorization_data!
 
     authorization_request.save(validate: false)
-  end
-
-  protected
-
-  def authorization
-    context.authorization
   end
 
   private
