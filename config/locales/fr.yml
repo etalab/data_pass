@@ -471,7 +471,7 @@ fr:
       start_next_stage: Démarrer ma demande d’habilitation en production
       ongoing_request: Reprendre ma demande d'habilitation en cours
       cancel_next_stage: Annuler la demande de production
-      cancel_next_stage_title: Annuler la demande de production
+      cancel_next_stage_title: Annuler cette demande de production
     shared:
       organization:
         you:
