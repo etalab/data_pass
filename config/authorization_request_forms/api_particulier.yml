@@ -1499,6 +1499,7 @@ api-particulier-mgdis-tarification-cantines-lycees:
 
   initialize_with:
     intitule: Tarification cantine
+    description: TODO
     cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Cadre légal spécifique aux régions : L'article L216-6 du Code de l’éducation qui donne compétence aux lycées pour la gestion des cantines.\r\n- La délibération [À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]"
     scopes :
       - cnaf_quotient_familial
