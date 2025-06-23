@@ -87,13 +87,13 @@ RSpec.describe AuthorizationRequest do
     end
   end
 
-  describe 'strip on attributes' do
-    subject(:authorization_request) { build(:authorization_request, :api_entreprise, intitule: "  #{valid_intitule} ", contact_technique_email: "  #{valid_contact_technique_email}") }
+  describe 'normalize on attributes' do
+    subject(:authorization_request) { build(:authorization_request, :api_entreprise, intitule: "  #{valid_intitule} ", contact_technique_email: "  #{valid_contact_technique_email.capitalize}") }
 
     let(:valid_intitule) { 'valid intitule' }
     let(:valid_contact_technique_email) { 'tech@gouv.fr' }
 
-    it 'strips attributes on save' do
+    it 'strips attributes on save, downcase email' do
       authorization_request.save!
 
       expect(authorization_request.intitule).to eq(valid_intitule)
