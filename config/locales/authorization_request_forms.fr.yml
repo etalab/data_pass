@@ -464,7 +464,7 @@ fr:
       <<: *api_particulier_editor_common_wordings
     api_particulier_keolis:
       <<: *api_particulier_editor_common_wordings
-    api_particulier_mgdis_aiden_tarification_cantines-lycees:
+    api_particulier_mgdis_tarification_cantines_lycees:
       <<: *api_particulier_editor_common_wordings
 
     api_particulier_tarification_municipale_enfance:
