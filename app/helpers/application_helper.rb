@@ -4,6 +4,7 @@ module ApplicationHelper
   include DSFR::Accordion
   include DSFR::Modal
   include DSFR::Pictogram
+  include SkipLinks
 
   def obfuscate(text)
     stars = '*' * (text.length - 5)
@@ -115,60 +116,7 @@ module ApplicationHelper
     tabs
   end
 
-  def skip_link(text, anchor)
-    content_tag(:li) do
-      link_to(text, "##{anchor}", class: 'fr-link')
-    end
-  end
-
-  def default_skip_links
-    [
-      skip_link('Menu', 'header'),
-      skip_link('Pied de page', 'footer')
-    ].join.html_safe
-  end
-
-  def skip_links_content
-    if content_for?(:skip_links)
-      content_for(:skip_links)
-    elsif Rails.env.test? && !whitelisted_for_default_skip_links?
-      raise 'No skip links defined for this page. Use content_for(:skip_links) to define skip links or define them in a view-specific helper.'
-    else
-      default_skip_links
-    end
-  end
-
-  def whitelisted_for_default_skip_links?
-    whitelist = %w[
-      authorizations#show
-      authorization_requests#index
-      authorization_requests#show
-      authorization_requests#new
-      authorization_requests#edit
-      authorization_request_forms#new
-      authorization_request_forms#start
-      # authorization_request_forms#create
-      authorization_request_forms#summary
-      # build#show
-      # build#update
-      authorization_definitions#index
-      instruction/authorization_requests#index
-      instruction/authorization_requests#show
-      instruction/authorizations#index
-      instruction/france_connected_authorizations#index
-      profile#edit
-    ]
-
-    whitelist.include?("#{controller_name}##{action_name}")
-  end
-
   private
-
-  def renders_html_view?
-    request.format.html? && !request.xhr? && response.content_type&.include?('text/html')
-  rescue StandardError
-    respond_to?(:content_for?) && respond_to?(:render)
-  end
 
   def france_connected_authorizations?(authorization_request)
     authorization_request.definition.id == 'france_connect' && authorization_request.france_connected_authorizations.exists?
