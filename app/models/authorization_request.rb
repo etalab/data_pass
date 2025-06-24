@@ -175,12 +175,8 @@ class AuthorizationRequest < ApplicationRecord
     self.class.contacts.none? { |c| c.type == :delegue_protection_donnees }
   end
 
-  def data_protection_officer_informed
-    skip_data_protection_officer_informed_check_box? || super
-  end
-
   def all_terms_accepted
-    return if terms_of_service_accepted && data_protection_officer_informed && all_extra_checkboxes_checked?
+    return if terms_of_service_accepted && (skip_data_protection_officer_informed_check_box? || data_protection_officer_informed) && all_extra_checkboxes_checked?
 
     errors.add(:base, :all_terms_not_accepted)
   end
