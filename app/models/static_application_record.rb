@@ -61,6 +61,14 @@ class StaticApplicationRecord
     fail NotImplementedError
   end
 
+  def [](attr)
+    public_send(attr)
+  end
+
+  def ==(other)
+    id == other.id
+  end
+
   private
 
   def value_or_default(value, default)

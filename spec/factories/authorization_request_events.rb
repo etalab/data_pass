@@ -214,6 +214,12 @@ FactoryBot.define do
       entity_is_authorization_request
     end
 
+    trait :cancel_next_stage do
+      name { 'cancel_next_stage' }
+
+      entity_is_authorization_request
+    end
+
     trait :system_reminder do
       name { 'system_reminder' }
 

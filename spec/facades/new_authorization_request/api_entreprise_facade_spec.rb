@@ -2,7 +2,7 @@ RSpec.describe NewAuthorizationRequest::APIEntrepriseFacade do
   subject(:facade) { described_class.new(authorization_definition:) }
 
   let(:authorization_definition) { instance_double(AuthorizationDefinition, editors: [editor], public_available_forms: AuthorizationRequestForm.all) }
-  let(:an_already_integrated_editor) { an_object_having_attributes(already_integrated: ['api_entreprise']) }
+  let(:an_already_integrated_editor) { ServiceProvider.editors.find { |editor| described_class::ALREADY_INTEGRATED_EDITORS.include?(editor.id) } }
   let(:editor) { ServiceProvider.editors.first }
 
   it_behaves_like 'new authorization request facade'

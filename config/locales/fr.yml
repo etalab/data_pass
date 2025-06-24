@@ -470,6 +470,8 @@ fr:
       start_first_stage: Démarrer ma demande d’habilitation en bac à sable
       start_next_stage: Démarrer ma demande d’habilitation en production
       ongoing_request: Reprendre ma demande d'habilitation en cours
+      cancel_next_stage: Annuler la demande de production
+      cancel_next_stage_title: Annuler cette demande de production
     shared:
       organization:
         you:
@@ -593,6 +595,18 @@ fr:
       success:
         title: La réouverture de l'habilitation %{name} a été annulée.
       error: Une erreur s'est produite, merci de contacter le support
+
+  cancel_next_authorization_request_stage:
+    new:
+      title: Annuler la demande de production
+      description: |
+        Vous êtes sur le point d'annuler cette demande de production, l'ensemble des changements depuis la dernière validation que vous avez pu effectuer seront perdus.
+        Votre habilitation de bac à sable quant à elle restera valide.
+      confirmation_question: Êtes-vous sûr de vouloir continuer ?
+      back: Annuler
+      confirm: Confirmer l'annulation
+    create:
+      success: Votre demande d'habilitation en production a été annulée
   stats:
     index:
       title: Statistiques d'utilisation

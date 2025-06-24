@@ -1,7 +1,7 @@
 class AuthorizationDefinition::Stage
   include ActiveModel::Model
 
-  attr_accessor :type, :next, :previouses
+  attr_accessor :type, :next, :previous
 
   class NotExists < StandardError; end
 
@@ -33,12 +33,16 @@ class AuthorizationDefinition::Stage
     @next.present?
   end
 
-  def previous_stages
-    (@previouses || []).map do |previous|
-      {
-        definition: AuthorizationDefinition.find(previous[:id]),
-        form: AuthorizationRequestForm.find(previous[:form_id]),
-      }
-    end
+  def previous_stage
+    return {} unless previous
+
+    {
+      definition: AuthorizationDefinition.find(previous[:id]),
+      form: AuthorizationRequestForm.find(previous[:form_id]),
+    }
+  end
+
+  def previous_stage?
+    @previous.present?
   end
 end
