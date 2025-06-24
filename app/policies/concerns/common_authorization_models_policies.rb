@@ -1,6 +1,6 @@
 module CommonAuthorizationModelsPolicies
   def new?
-    record.startable_by_applicant &&
+    startable_by_applicant &&
       active_organization?
   end
 
@@ -20,6 +20,12 @@ module CommonAuthorizationModelsPolicies
 
   private
 
+  def startable_by_applicant
+    record.startable_by_applicant
+  rescue NoMethodError
+    true
+  end
+
   def active_organization?
     current_organization.blank? ||
       !current_organization.closed?
@@ -32,6 +38,7 @@ module CommonAuthorizationModelsPolicies
   end
 
   def another_authorization_request_with_same_type_exists?
-    current_organization && current_organization.active_authorization_requests.where(type: authorization_request_class).any?
+    current_organization &&
+      current_organization.active_authorization_requests.where(type: authorization_request_class).any?
   end
 end
