@@ -64,21 +64,35 @@ module ApplicationHelper
 
   def whitelisted_for_default_skip_links?
     whitelist = %w[
+      authorizations#show
       authorization_requests#index
       authorization_requests#show
       authorization_requests#new
       authorization_requests#edit
+      authorization_request_forms#new
+      authorization_request_forms#start
+      # authorization_request_forms#create
+      authorization_request_forms#summary
+      # build#show
+      # build#update
       authorization_definitions#index
       instruction/authorization_requests#index
       instruction/authorization_requests#show
       instruction/authorizations#index
       instruction/france_connected_authorizations#index
+      profile#edit
     ]
 
     whitelist.include?("#{controller_name}##{action_name}")
   end
 
   private
+
+  def renders_html_view?
+    request.format.html? && !request.xhr? && response.content_type&.include?('text/html')
+  rescue StandardError
+    respond_to?(:content_for?) && respond_to?(:render)
+  end
 
   def france_connected_authorizations?(authorization_request)
     authorization_request.definition.id == 'france_connect' && authorization_request.france_connected_authorizations.exists?
