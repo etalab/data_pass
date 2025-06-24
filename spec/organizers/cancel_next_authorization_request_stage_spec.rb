@@ -14,7 +14,7 @@ RSpec.describe CancelNextAuthorizationRequestStage, type: :organizer do
 
     context 'when authorization request has a stage' do
       context 'when this stage is production' do
-        context 'when in valid state' do
+        context 'when in draft state' do
           let(:authorization_request) { create(:authorization_request, :api_impot_particulier_stationnement_residentiel_production, :draft, terms_of_service_accepted: false) }
 
           it { is_expected.to be_success }
