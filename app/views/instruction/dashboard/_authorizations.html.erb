@@ -1,4 +1,4 @@
-<%= search_form_for(search_engine, url: instruction_dashboard_show_path(id: "habilitations"), html: { method: :get, data: { controller: 'auto-submit-form', 'auto-submit-form-debounce-interval-value' => 300, 'auto-submit-form-event-mode-value' => 'input', turbo_frame: 'authorization_requests_table' }, class: %w[search-box] }) do |f| %>
+<%= search_form_for(search_engine, url: instruction_dashboard_show_path(id: "habilitations"), html: { method: :get, data: { controller: 'auto-submit-form', 'auto-submit-form-debounce-interval-value' => 300, 'auto-submit-form-event-mode-value' => 'input', turbo_frame: 'authorizations_table' }, class: %w[search-box] }) do |f| %>
     <div class="search-inputs">
       <div class="fr-input-group main-input input">
         <%= f.label :within_data_or_organization_name_or_organization_legal_entity_id_or_applicant_email_or_applicant_family_name_cont, t('.search.main_input.label'), class: %w[fr-label] %>
@@ -9,7 +9,7 @@
         <div class="fr-select-group input type_habilitation">
           <%= f.label :authorization_request_class_eq, class: %w[fr-label] %>
           <% options = current_user.authorization_definition_roles_as(:reporter).map { |authorization_definition| [authorization_definition.name_with_stage, authorization_definition.authorization_request_class.to_s] }%>
-          <%= f.select :authorization_request_class_eq, options_for_select([['Toutes les données', '']].concat(options), selected: params[:search_query].try(:[], :type_eq)), {}, class: %w[fr-select] %>
+          <%= f.select :authorization_request_class_eq, options_for_select([['Toutes les données', '']].concat(options), selected: params[:search_query].try(:[], :authorization_request_class_eq)), {}, class: %w[fr-select] %>
         </div>
       <% end %>
 
@@ -27,7 +27,7 @@
     </div>
   <% end %>
 
-  <turbo-frame id="authorization_requests_table">
+  <turbo-frame id="authorizations_table">
     <div class="fr-table fr-table--bordered">
       <table>
         <thead>
