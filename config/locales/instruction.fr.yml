@@ -18,7 +18,10 @@ fr:
             label: Rechercher dans toutes les demandes
             placeholder: id, numéro de siret, intitulé...
           btn: Rechercher
-          results_count: "%{count} résultat(s)"
+          results_count: 
+            zero: "0 résultats"
+            one: "%{count} résultat"
+            other: "%{count} résultats"
         table:
           caption: Liste des demandes
           header:
@@ -53,6 +56,10 @@ fr:
             label: Rechercher dans toutes les habilitations
             placeholder: id, numéro de siret, intitulé...
           btn: Rechercher
+          results_count: 
+            zero: "0 résultats"
+            one: "%{count} résultat"
+            other: "%{count} résultats"
       show:
         title: Liste des demandes et habilitations
         tabs:
