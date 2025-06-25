@@ -33,8 +33,4 @@ module ImpersonationManagement
   def impersonating?
     cookies[:impersonation_id].present?
   end
-
-  def current_impersonation
-    @current_impersonation ||= Impersonation.find_by(id: cookies[:impersonation_id])
-  end
 end
