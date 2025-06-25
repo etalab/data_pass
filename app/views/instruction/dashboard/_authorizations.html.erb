@@ -22,7 +22,7 @@
         <div class="fr-select-group input type_habilitation">
           <%= f.label :authorization_request_class_eq, class: %w[fr-label] %>
           <% options = current_user.authorization_definition_roles_as(:reporter).map { |authorization_definition| [authorization_definition.name_with_stage, authorization_definition.authorization_request_class.to_s] }%>
-          <%= f.select :authorization_request_class_eq, options_for_select([['Toutes les données', '']].concat(options), selected: params[:search_query].try(:[], :type_eq)), {}, class: %w[fr-select] %>
+          <%= f.select :authorization_request_class_eq, options_for_select([['Toutes les données', '']].concat(options), selected: params[:search_query].try(:[], :authorization_request_class_eq)), {}, class: %w[fr-select] %>
         </div>
       <% end %>
 
@@ -40,7 +40,7 @@
     </div>
   <% end %>
 
-  <turbo-frame id="authorization_requests_table">
+  <turbo-frame id="authorizations_table">
     <div class="fr-table fr-table--bordered">
       <table id="authorizations_table">
         <thead>

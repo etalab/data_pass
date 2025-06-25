@@ -1,8 +1,8 @@
 class Instruction::DashboardController < Instruction::AbstractAuthorizationRequestsController
-  before_action :redirect_to_searched_record, only: [:show]
-  # before_action :save_or_load_search_params, only: [:index]
+  before_action :redirect_to_searched_record
+  before_action :save_or_load_search_params
 
-  skip_before_action :extract_authorization_request, only: :show
+  skip_before_action :extract_authorization_request
 
   Tab = Data.define(:id, :path, :count)
 
@@ -47,22 +47,22 @@ class Instruction::DashboardController < Instruction::AbstractAuthorizationReque
   def redirect_to_searched_record
     return unless search_terms_is_a_possible_id?
 
-    potential_record = case params[:id]
-                       when 'demandes'
-                         AuthorizationRequest.find_by(id: params[:search_query][main_search_input_key])
-                       when 'habilitations'
-                         Authorization.find_by(id: params[:search_query][main_search_input_key])
-                       end
+    candidate = case params[:id]
+                when 'demandes'
+                  AuthorizationRequest.find_by(id: params[:search_query][main_search_input_key])
+                when 'habilitations'
+                  Authorization.find_by(id: params[:search_query][main_search_input_key])
+                end
 
-    return unless potential_record
+    return unless candidate
 
-    authorize [:instruction, potential_record], :show?
+    authorize [:instruction, candidate], :show?
 
     case params[:id]
     when 'demandes'
-      redirect_to [:instruction, potential_record]
+      redirect_to instruction_authorization_request_path(candidate)
     when 'habilitations'
-      redirect_to potential_record
+      redirect_to candidate
     end
   rescue Pundit::NotAuthorizedError
     nil
@@ -82,28 +82,24 @@ class Instruction::DashboardController < Instruction::AbstractAuthorizationReque
     @search_engine.result(distinct: true).except(:order).order("#{@search_engine.sorts.first.name} #{@search_engine.sorts.first.dir} NULLS LAST")
   end
 
-  # def extract_authorization_request
-  #   @authorization_request = AuthorizationRequest.find(params[:id]).decorate
-  # end
+  def save_or_load_search_params
+    save_search_params
+    load_search_params
+  end
 
-  # def save_or_load_search_params
-  #   save_search_params
-  #   load_search_params
-  # end
-  #
-  # def save_search_params
-  #   cookies[search_key] = { value: params[:search_query].to_json, expires: 1.month.from_now } if params[:search_query].present?
-  # end
-  #
-  # def load_search_params
-  #   params[:search_query] = JSON.parse(cookies[search_key] || '{}') if params[:search_query].blank?
-  # end
+  def save_search_params
+    cookies[search_key] = { value: params[:search_query].to_json, expires: 1.month.from_now } if params[:search_query].present?
+  end
+
+  def load_search_params
+    params[:search_query] = JSON.parse(cookies[search_key] || '{}') if params[:search_query].blank?
+  end
 
   def main_search_input_key
     'within_data_or_organization_name_or_organization_legal_entity_id_or_applicant_email_or_applicant_family_name_cont'
   end
 
-  # def search_key
-  #   :"#{controller_name}_#{action_name}_search"
-  # end
+  def search_key
+    :"#{controller_name}_#{action_name}_#{params[:id]}_search"
+  end
 end
