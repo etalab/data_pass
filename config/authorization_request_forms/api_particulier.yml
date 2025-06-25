@@ -939,6 +939,7 @@ api-particulier-airweb:
     delegue_protection_donnees_job_title: Chef de projet
     modalities:
       - params
+    # - FranceConnect
 
 api-particulier-bl-enfance-berger-levrault:
   name: BL Enfance
@@ -1429,6 +1430,87 @@ api-particulier-coexya:
     modalities:
       - params
 
+api-particulier-keolis:
+  name: Keolis
+  description: Tarification des transports
+  authorization_request: APIParticulier
+  use_case: tarification_transports
+  service_provider_id: keolis
+  public: true
+  introduction: *api_particulier_introduction_editor_with_editable_scopes
+  steps: *api_particulier_editor_steps_with_editable_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_editable_scopes
+  scopes_config:
+    displayed:
+      - cnaf_quotient_familial
+      - cnaf_adresse
+      - pole_emploi_identite
+      - mesri_identite
+      - mesri_admissions
+      - mesri_admission_inscrit
+      - mesri_admission_commune_etudes
+      - cnous_statut_boursier
+      - cnous_echelon_bourse
+      - revenu_solidarite_active
+      - complementaire_sante_solidaire
+      - men_statut_scolarite
+      - men_statut_etablissement
+      - allocation_adulte_handicape
+
+  initialize_with:
+    intitule: Tarification des transports
+    description: |
+      Nos clients sont les Autorités organisatrices de transport. Grâce aux e-boutiques, les utilisateurs peuvent acheter et stocker leurs titres de transport sur leur smartphone.
+    cadre_juridique_nature: l'Article L114-8 du Code des relations entre le public et l'administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usage. Articles L1231-1 et L1231-3 du Code des transports.
+    scopes: 
+      - cnaf_quotient_familial
+      - pole_emploi_identite
+      - mesri_identite
+      - mesri_admissions
+      - mesri_admission_inscrit
+      - mesri_admission_commune_etudes
+      - cnous_statut_boursier
+      - cnous_echelon_bourse
+      - revenu_solidarite_active
+      - complementaire_sante_solidaire
+      - allocation_adulte_handicape
+    modalities:
+      - params
+    # - FranceConnect
+
+api-particulier-mgdis-tarification-cantines-lycees:
+  name: Aiden, Tarification cantine
+  description: Régions, calculez automatiquement le tarif de restauration scolaire des lycéens.
+  authorization_request: APIParticulier
+  use_case: cantines-colleges-lycees-tarification
+  service_provider_id: mgdis
+  steps: *api_particulier_editor_steps_with_editable_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_editable_scopes
+  scopes_config:
+    disabled:
+        - cnaf_quotient_familial
+    displayed:
+        - cnaf_quotient_familial
+        - cnaf_allocataires
+        - cnaf_enfants
+        - cnaf_adresse
+  introduction: |
+    En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier la <strong>"Tarification des cantines"</strong>. <a href="https://particulier.api.gouv.fr/cas_usages/tarification_municipale_enfance">En savoir plus sur ce cas d'usage</a>.
+
+  initialize_with:
+    intitule: Tarification cantine
+    description: TODO
+    cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Cadre légal spécifique aux régions : L'article L216-6 du Code de l’éducation qui donne compétence aux lycées pour la gestion des cantines.\r\n- La délibération [À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]"
+    scopes :
+      - cnaf_quotient_familial
+    contact_technique_email: "<%= Rails.application.credentials.api_particulier_mgdis_contact_technique_email || 'tech-mgdis@yopmail.com' %>"
+    contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_mgdis_contact_technique_given_name || 'Jeanne' %>"
+    contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_mgdis_contact_technique_family_name || 'Martin' %>"
+    contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_mgdis_contact_technique_phone_number || '0836656565' %>"
+    contact_technique_job_title: Responsable produit
+    modalities:
+      - params
+    # - FranceConnect
 
 # ------------------------------- #
 # ------------------------------- #
@@ -1678,7 +1760,7 @@ api-particulier-sigec-maelis:
 
 api-particulier-tarification-municipale-enfance:
   name: Tarification sociale des services municipaux à l’enfance
-  description: Communes, calculez automatiquement le tarif de vos services municipaux à l'enfance - crèche, cantine, périscolaire, etc.
+  description: Communes, calculez automatiquement le tarif de vos services municipaux à l'enfance, cantine, périscolaire, etc.
   authorization_request: APIParticulier
   use_case: tarification_municipale_enfance
   introduction: |
