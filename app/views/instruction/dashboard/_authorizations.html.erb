@@ -70,34 +70,34 @@
         </thead>
 
       <tbody data-controller="clickable-rows">
-        <% items.each do |authorization_request| %>
-          <tr id="<%= dom_id(authorization_request) %>" class="authorization-request clickable-row" data-action="click->clickable-rows#visit" data-href="<%= authorization_path(authorization_request) %>">
+        <% items.each do |authorization| %>
+          <tr id="<%= dom_id(authorization) %>" class="authorization-request clickable-row" data-action="click->clickable-rows#visit" data-href="<%= authorization_path(authorization) %>">
             <td class="authorization-request-id">
-              <%= link_to authorization_request.id, authorization_request %>
+              <%= link_to authorization.id, authorization %>
             </td>
             <td class="authorization-request-state">
-              <%= authorization_request_status_badge(authorization_request) %>
+              <%= authorization_request_status_badge(authorization) %>
 
-              <% if authorization_request.definition.stage.exists? %>
-                <%= authorization_request_stage_badge(authorization_request, css_class: "fr-mr-1w") %>
+              <% if authorization.definition.stage.exists? %>
+                <%= authorization_request_stage_badge(authorization, css_class: "fr-mr-1w") %>
               <% end %>
             </td>
             <td class="authorization-request-last_submitted_at">
-              <%= authorization_request.created_at&.strftime("%d/%m/%y") || '-' %>
+              <%= authorization.created_at&.strftime("%d/%m/%y") || '-' %>
             </td>
             <td class="authorization-request-applicant-email">
-              <%= authorization_request.applicant.email %>
+              <%= authorization.applicant.email %>
               <br/>
-              <%= authorization_request.organization.name %>
+              <%= authorization.organization.name %>
             </td>
             <td class="authorization-request-project-name">
-              <%= authorization_request.name %>
+              <%= authorization.name %>
             </td>
             <td class="authorization-request-definition-name">
-              <%= authorization_request.definition.name %>
+              <%= authorization.definition.name %>
             </td>
             <td class="authorization-request-actions">
-              <%= link_to t('.table.actions.show'), authorization_path(authorization_request), class: %w[fr-btn fr-btn--secondary fr-btn--sm] %>
+              <%= link_to t('.table.actions.show'), authorization_path(authorization), class: %w[fr-btn fr-btn--secondary fr-btn--sm] %>
             </td>
           </tr>
         <% end %>

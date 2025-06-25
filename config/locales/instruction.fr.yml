@@ -33,20 +33,10 @@ fr:
           actions:
             show: Consulter
         all_status: Tous les status (sauf Supprimée)
-        status:
-          draft: Brouillon
-          changes_requested: A modifier
-          submitted: En cours
-          validated: Validée
-          refused: Refusée
-          archived: Supprimée
-          revoked: Révoquée
+ 
       authorizations:
         all_status: Tous les statuts
-        status:
-          active: Active
-          obsolete: Obsolète
-          revoked: Révoquée
+
         table:
           header:
             created_at: Date de création

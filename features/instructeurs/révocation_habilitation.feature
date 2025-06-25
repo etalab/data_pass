@@ -14,7 +14,7 @@ Fonctionnalité: Instruction: révocation d'habilitation
     Et je clique sur "Révoquer"
     Et que je remplis "Indiquez les motifs de révocation" avec "Une nouvelle demande a été validée"
     Et que je clique sur "Révoquer l'habilitation"
-    Alors je suis sur la page "Liste des demandes"
+    Alors je suis sur la page "Liste des demandes et habilitations"
     Et je vois 1 habilitation "API scolarité de l'élève" révoquée
     Et un email est envoyé contenant "Une nouvelle demande a été validée"
     Et il y a un message de succès contenant "a été révoquée"
