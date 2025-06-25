@@ -6,7 +6,7 @@ class Instruction::DashboardController < Instruction::AbstractAuthorizationReque
 
   Tab = Data.define(:id, :path, :count)
 
-  def show
+  def show # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
     case params[:id]
     when 'habilitations'
       base_relation = policy_scope([:instruction, Authorization]).includes([:organization])
@@ -44,42 +44,38 @@ class Instruction::DashboardController < Instruction::AbstractAuthorizationReque
 
   private
 
+  def build_search_engine_results_with_order_which_puts_null_as_last
+    @search_engine.result(distinct: true).except(:order).order("#{@search_engine.sorts.first.name} #{@search_engine.sorts.first.dir} NULLS LAST")
+  end
+
+  def find_searched_record
+    case params[:id]
+    when 'demandes'
+      AuthorizationRequest.find_by(id: params[:search_query][main_search_input_key])
+    when 'habilitations'
+      Authorization.find_by(id: params[:search_query][main_search_input_key])
+    end
+  end
+
+  def load_search_params
+    params[:search_query] = JSON.parse(cookies[search_key] || '{}') if params[:search_query].blank?
+  end
+
+  def main_search_input_key
+    'within_data_or_organization_name_or_organization_legal_entity_id_or_applicant_email_or_applicant_family_name_cont'
+  end
+
   def redirect_to_searched_record
     return unless search_terms_is_a_possible_id?
 
-    candidate = case params[:id]
-                when 'demandes'
-                  AuthorizationRequest.find_by(id: params[:search_query][main_search_input_key])
-                when 'habilitations'
-                  Authorization.find_by(id: params[:search_query][main_search_input_key])
-                end
-
+    candidate = find_searched_record
     return unless candidate
 
     authorize [:instruction, candidate], :show?
 
-    case params[:id]
-    when 'demandes'
-      redirect_to instruction_authorization_request_path(candidate)
-    when 'habilitations'
-      redirect_to candidate
-    end
+    redirect_to search_record_path(candidate)
   rescue Pundit::NotAuthorizedError
     nil
-  end
-
-  def search_terms_is_a_possible_id?
-    return false if params[:search_query].blank?
-
-    main_search_input = params[:search_query][main_search_input_key]
-
-    return false if main_search_input.blank?
-
-    /^\s*\d{1,10}\s*$/.match?(main_search_input)
-  end
-
-  def build_search_engine_results_with_order_which_puts_null_as_last
-    @search_engine.result(distinct: true).except(:order).order("#{@search_engine.sorts.first.name} #{@search_engine.sorts.first.dir} NULLS LAST")
   end
 
   def save_or_load_search_params
@@ -91,15 +87,26 @@ class Instruction::DashboardController < Instruction::AbstractAuthorizationReque
     cookies[search_key] = { value: params[:search_query].to_json, expires: 1.month.from_now } if params[:search_query].present?
   end
 
-  def load_search_params
-    params[:search_query] = JSON.parse(cookies[search_key] || '{}') if params[:search_query].blank?
-  end
-
-  def main_search_input_key
-    'within_data_or_organization_name_or_organization_legal_entity_id_or_applicant_email_or_applicant_family_name_cont'
-  end
-
   def search_key
     :"#{controller_name}_#{action_name}_#{params[:id]}_search"
+  end
+
+  def search_record_path(record)
+    case params[:id]
+    when 'demandes'
+      instruction_authorization_request_path(record)
+    when 'habilitations'
+      authorization_path(record)
+    end
+  end
+
+  def search_terms_is_a_possible_id?
+    return false if params[:search_query].blank?
+
+    main_search_input = params[:search_query][main_search_input_key]
+
+    return false if main_search_input.blank?
+
+    /^\s*\d{1,10}\s*$/.match?(main_search_input)
   end
 end
