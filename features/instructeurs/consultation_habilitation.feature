@@ -13,7 +13,7 @@ Fonctionnalité: Instruction: consultation d'une demande d'habilitation
     Alors la page contient "COMMUNE DE CLAMART"
     Et la page contient "1 PL MAURICE GUNSBOURG"
     Et la page contient "92140 CLAMART"
-    Et la page contient "Dupont Jean"
+    Et la page contient "DUPONT Jean"
     Et la page contient "Adjoint au Maire"
 
   Scénario: Je vois un bouton pour consulter l'habilitation validée d'une demande de réouverture

@@ -225,4 +225,31 @@ RSpec.describe User do
       it { is_expected.to be_truthy }
     end
   end
+
+  describe '#full_name' do
+    subject { user.full_name }
+
+    let(:user) { build(:user, given_name: given_name, family_name: family_name) }
+
+    context 'when given_name is not capitalized' do
+      let(:given_name) { 'john' }
+      let(:family_name) { 'doe' }
+
+      it { is_expected.to eq('DOE John') }
+    end
+
+    context 'when given_name has a dash' do
+      let(:given_name) { 'JEAN-MICHEL' }
+      let(:family_name) { 'Doe' }
+
+      it { is_expected.to eq('DOE Jean-Michel') }
+    end
+
+    context 'when given_name has a space' do
+      let(:given_name) { 'JEAN MICHEL' }
+      let(:family_name) { 'Doe' }
+
+      it { is_expected.to eq('DOE Jean Michel') }
+    end
+  end
 end

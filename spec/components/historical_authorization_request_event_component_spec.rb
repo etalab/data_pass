@@ -4,7 +4,7 @@ RSpec.describe HistoricalAuthorizationRequestEventComponent, type: :component do
   describe '#message_content' do
     let(:authorization_request_event) { create(:authorization_request_event, :request_changes) }
 
-    let(:message_summary_text) { '<strong>Dupont Jean</strong> a demandé des modifications sur la demande :' }
+    let(:message_summary_text) { '<strong>DUPONT Jean</strong> a demandé des modifications sur la demande :' }
     let(:message_details_text) { 'Un message personnalisé de modification' }
 
     it 'includes the expected message summary and message details text' do
@@ -26,7 +26,7 @@ RSpec.describe HistoricalAuthorizationRequestEventComponent, type: :component do
     context 'when event_name is create' do
       let(:authorization_request_event) { create(:authorization_request_event, :create) }
 
-      let(:expected_create_text) { 'Dupont Jean a crée la demande.' }
+      let(:expected_create_text) { 'DUPONT Jean a crée la demande.' }
 
       it 'renders component with message_summary only' do
         page = render_inline(subject)
@@ -68,7 +68,7 @@ RSpec.describe HistoricalAuthorizationRequestEventComponent, type: :component do
 
     context 'when event_name is revoke' do
       let(:authorization_request_event) { create(:authorization_request_event, :revoke) }
-      let(:message_summary_text) { 'Dupont Jean a révoqué la demande :' }
+      let(:message_summary_text) { 'DUPONT Jean a révoqué la demande :' }
       let(:revoked_reason) { 'Une nouvelle habilitation a été ouverte et remplace celle ci' }
 
       it 'renders component with message_content' do
@@ -148,7 +148,7 @@ RSpec.describe HistoricalAuthorizationRequestEventComponent, type: :component do
         authorization_request_event.entity.to = to_user
         render_inline(subject)
 
-        expect(subject.transfer_text).to eq('Richard Edmond (edmondrichart@example.com)')
+        expect(subject.transfer_text).to eq('RICHARD Edmond (edmondrichart@example.com)')
       end
     end
 
