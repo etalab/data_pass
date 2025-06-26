@@ -341,6 +341,7 @@ Quand('je renseigne les infos logiciel du projet') do
   steps %(
     * je remplis "Nom du logiciel" avec "Le logiciel qui conquiert le monde"
     * je remplis "Description du flux opérationnel" avec "Comment chaque matin"
+    * je remplis "Date de mise en production prévue" avec "25/06/2025"
   )
 end
 
