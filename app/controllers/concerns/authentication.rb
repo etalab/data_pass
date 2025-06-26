@@ -93,10 +93,12 @@ module Authentication
   def current_impersonation
     return unless impersonating?
 
-    @current_impersonation ||= Impersonation.where(
-      user: current_user,
-      admin: true_user
-    ).where('created_at > ?', 24.hours.ago).last
+    @current_impersonation ||= Impersonation
+      .active
+      .where(
+        user: current_user,
+        admin: true_user
+      ).last
   end
 
   def impersonating?

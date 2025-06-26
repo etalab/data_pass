@@ -15,7 +15,7 @@ class Impersonation < ApplicationRecord
   validate :user_is_not_admin
   validate :admin_is_an_admin
 
-  scope :active, -> { where(finished_at: nil, created_at: (..MAX_TIME_TO_LIVE)) }
+  scope :active, -> { where(finished_at: nil, created_at: (MAX_TIME_TO_LIVE.ago..)) }
 
   def active?
     finished_at.nil? &&
