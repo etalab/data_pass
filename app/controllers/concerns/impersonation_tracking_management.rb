@@ -7,7 +7,7 @@ module ImpersonationTrackingManagement
 
   def track_impersonation_action
     return unless %w[create update destroy].include?(action_name)
-    return if namespace?(:admin) || namespace?(:api)
+    return if namespace?(:admin)
     return if controller_name == 'sessions'
 
     current_impersonation.actions.create!(

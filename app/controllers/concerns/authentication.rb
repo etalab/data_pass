@@ -102,6 +102,8 @@ module Authentication
   end
 
   def impersonating?
+    return false unless defined?(cookies)
+
     impersonating = cookies[:impersonation_id].present?
 
     stop_impersonating_user unless impersonating
