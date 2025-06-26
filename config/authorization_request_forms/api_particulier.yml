@@ -889,8 +889,15 @@ api-particulier-airweb:
   service_provider_id: airweb
   public: true
   introduction: *api_particulier_introduction_editor_with_editable_scopes
-  steps: *api_particulier_editor_steps_with_editable_scopes
-  static_blocks: *api_particulier_editor_static_blocks_with_editable_scopes
+  steps:
+    - name: scopes
+    - name: legal
+    - name: modalities
+    - name: personal_data
+    - name: contacts
+  static_blocks:
+    - name: basic_infos
+
   scopes_config:
     displayed:
       - cnaf_quotient_familial
@@ -939,7 +946,7 @@ api-particulier-airweb:
     delegue_protection_donnees_job_title: Chef de projet
     modalities:
       - params
-    # - FranceConnect
+      - france_connect
 
 api-particulier-bl-enfance-berger-levrault:
   name: BL Enfance
@@ -1438,8 +1445,14 @@ api-particulier-keolis:
   service_provider_id: keolis
   public: true
   introduction: *api_particulier_introduction_editor_with_editable_scopes
-  steps: *api_particulier_editor_steps_with_editable_scopes
-  static_blocks: *api_particulier_editor_static_blocks_with_editable_scopes
+  steps:
+    - name: scopes
+    - name: legal
+    - name: modalities
+    - name: personal_data
+    - name: contacts
+  static_blocks:
+    - name: basic_infos
   scopes_config:
     displayed:
       - cnaf_quotient_familial
@@ -1462,7 +1475,7 @@ api-particulier-keolis:
     description: |
       Nos clients sont les Autorités organisatrices de transport. Grâce aux e-boutiques, les utilisateurs peuvent acheter et stocker leurs titres de transport sur leur smartphone.
     cadre_juridique_nature: l'Article L114-8 du Code des relations entre le public et l'administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usage. Articles L1231-1 et L1231-3 du Code des transports.
-    scopes: 
+    scopes:
       - cnaf_quotient_familial
       - pole_emploi_identite
       - mesri_identite
@@ -1476,7 +1489,7 @@ api-particulier-keolis:
       - allocation_adulte_handicape
     modalities:
       - params
-    # - FranceConnect
+      - france_connect
 
 api-particulier-mgdis-tarification-cantines-lycees:
   name: Aiden, Tarification cantine
@@ -1484,8 +1497,15 @@ api-particulier-mgdis-tarification-cantines-lycees:
   authorization_request: APIParticulier
   use_case: cantines-colleges-lycees-tarification
   service_provider_id: mgdis
-  steps: *api_particulier_editor_steps_with_editable_scopes
-  static_blocks: *api_particulier_editor_static_blocks_with_editable_scopes
+  steps:
+    - name: scopes
+    - name: legal
+    - name: modalities
+    - name: personal_data
+    - name: contacts
+  static_blocks:
+    - name: basic_infos
+
   scopes_config:
     disabled:
         - cnaf_quotient_familial
@@ -1510,7 +1530,7 @@ api-particulier-mgdis-tarification-cantines-lycees:
     contact_technique_job_title: Responsable produit
     modalities:
       - params
-    # - FranceConnect
+      - france_connect
 
 # ------------------------------- #
 # ------------------------------- #
