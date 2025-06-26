@@ -1,6 +1,17 @@
-<p class="fr-h2 fr-mt-5w"><%= t('.table.caption') %></p>
+<% content_for :content_skip_link_text do %>
+  <%= t('.table.caption') %>
+<% end %>
 
-<%= search_form_for(@search_engine, url: instruction_authorization_requests_path, html: { method: :get, data: { controller: 'auto-submit-form', 'auto-submit-form-debounce-interval-value' => 300, 'auto-submit-form-event-mode-value' => 'input', turbo_frame: 'authorization_requests_table' }, class: %w[search-box] }) do |f| %>
+<% content_for :skip_links do %>
+  <%= skip_link("Filtres de recherche", "authorization_request_search") %>
+  <%= skip_link("Tableau des demandes", "authorization_request_table") %>
+  <%= skip_link("Menu", "header") %>
+  <%= skip_link("Pied de page", "footer") %>
+<% end %>
+
+<p class="fr-h2 fr-mt-5w" id="authorization-requests-list"><%= t('.table.caption') %></p>
+
+<%= search_form_for(@search_engine, url: instruction_authorization_requests_path, html: { method: :get, data: { controller: 'auto-submit-form', 'auto-submit-form-debounce-interval-value' => 300, 'auto-submit-form-event-mode-value' => 'input', turbo_frame: 'authorization_requests_table' }, class: %w[search-box], id: 'authorization_request_search' }) do |f| %>
   <div class="search-inputs">
     <div class="fr-input-group main-input input">
       <%= f.label :within_data_or_organization_name_or_organization_legal_entity_id_or_applicant_email_or_applicant_family_name_cont, t('.search.main_input.label'), class: %w[fr-label] %>
@@ -34,7 +45,7 @@
     <%= t('.search.results_count', count: @authorization_requests.total_count) %>
   </div>
 
-  <div class="fr-table fr-table--bordered">
+  <div class="fr-table fr-table--bordered" id="authorization_request_table">
     <table>
       <thead>
         <tr>
