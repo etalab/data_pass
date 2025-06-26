@@ -65,7 +65,7 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
   def cgu_check_box(opts = {})
     checkbox_opts = opts.dup
     term_checkbox(:terms_of_service_accepted, checkbox_opts) do |options|
-      options[:label] = cgu_check_box_label(opts)
+      options[:label] = cgu_check_box_label(options)
     end
   end
 
