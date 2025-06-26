@@ -2,26 +2,54 @@ class DashboardController < AuthenticatedUserController
   include SubdomainsHelper
 
   def index
-    redirect_to dashboard_show_path(id: 'moi')
+    redirect_to dashboard_show_path(id: 'demandes')
   end
 
-  def show
-    case params[:id]
-    when 'moi'
-      @authorization_requests = policy_scope(base_relation).where(applicant: current_user)
-    when 'organisation'
-      @authorization_requests = policy_scope(base_relation)
-    when 'mentions'
-      @authorization_requests = AuthorizationRequestsMentionsQuery.new(current_user).perform(authorization_requests_relation)
-    else
-      redirect_to dashboard_show_path(id: 'moi')
-      return
-    end
+  Tab = Data.define(:id, :path)
 
-    @authorization_requests = @authorization_requests.not_archived.order(created_at: :desc)
+  def show # rubocop:disable Metrics/AbcSize
+    @tabs = [
+      Tab.new('demandes', dashboard_show_path(id: 'demandes', **request.query_parameters)),
+      Tab.new('habilitations', dashboard_show_path(id: 'habilitations', **request.query_parameters)),
+    ]
+
+    case params[:id]
+    when 'demandes'
+      items = policy_scope(base_relation).not_archived.order(created_at: :desc).or(authorization_request_mentions_query)
+      @highlighted_categories = {
+        changes_requested: items.changes_requested,
+      }
+      @categories = {
+        pending: items.in_instructions,
+        draft: items.drafts,
+        refused: items.refused,
+      }
+    when 'habilitations'
+      items = policy_scope(base_authorization_relation).order(created_at: :desc).or(authorization_mentions_query)
+
+      @highlighted_categories = {}
+      @categories = {
+        active: items.where(state: :active),
+        revoked: items.where(state: :revoked),
+      }
+    else
+      redirect_to(dashboard_show_path(id: 'demandes')) and return
+    end
   end
 
   private
+
+  def authorization_mentions_query
+    Authorization.where("EXISTS (
+        select 1
+        from each(authorizations.data) as kv
+        where kv.key like '%_email' and kv.value = ?
+      )", current_user.email)
+  end
+
+  def authorization_request_mentions_query
+    AuthorizationRequestsMentionsQuery.new(current_user).perform(authorization_requests_relation)
+  end
 
   def authorization_requests_relation
     if registered_subdomain?
@@ -38,7 +66,7 @@ class DashboardController < AuthenticatedUserController
       .group('authorization_requests.id')
   end
 
-  def layout_name
-    'dashboard'
+  def base_authorization_relation
+    Authorization.joins(request: :organization).where(authorization_requests: { organization: current_user.organizations })
   end
 end

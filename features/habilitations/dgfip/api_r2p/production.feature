@@ -5,7 +5,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôt Particulier 
     Sachant que je suis un demandeur
     Et que je me connecte
     Et que j'ai 1 demande d'habilitation "API R2P" via le formulaire "<Nom du formulaire>" à l'étape "Bac à sable" validée
-    Et que je me rends sur mon tableau de bord
+    Et que je me rends sur mon tableau de bord habilitations
 
   Plan du scénario: Je soumets une demande d'habilitation valide
     Quand je clique sur "Démarrer ma demande d’habilitation en production"

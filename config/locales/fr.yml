@@ -22,7 +22,7 @@ fr:
     france_connect: france-connect
 
   authorization:
-    id_badge: habilitation N°%{id}
+    badge: habilitation n°%{id}
     date_badge: du %{date}
     states:
       active: "Active"
@@ -46,13 +46,15 @@ fr:
   authorization_request:
     badge: demande n°%{id}
     status:
+      active: "Active"
+      revoked: "Révoquée"
+      obsolete: "Obsolète"
       draft: Brouillon
       changes_requested: A modifier
       submitted: En cours d'instruction
       validated: Validée
       refused: Refusée
       archived: Supprimée
-      revoked: Révoquée
     reopening: Mise à jour
     stage:
       sandbox: Bac à sable
@@ -96,16 +98,6 @@ fr:
         - service-public.fr
         - legifrance.gouv.fr
         - data.gouv.fr
-
-    dashboard:
-      title: Demandes et habilitations
-      tabs:
-        moi:
-          title: J'en suis le demandeur
-        organisation:
-          title: Toutes celles de l'organisation
-        mentions:
-          title: J'y suis mentionné en contact
 
     instruction:
       authorization_request:
@@ -159,27 +151,21 @@ fr:
 
   dashboard:
     show:
-      no_authorization_requests:
-        moi: Vous n'avez aucune habilitation ou demande en cours.
-        organisation: Votre organization ne possède aucune habilitation ou demande en cours.
-        mentions: Vous n'êtes mentionné dans aucune habilitation ou demande en cours.
-    authorization_requests:
-      validated_or_refused_title: Mes habilitations
-      draft_title: Demandes en brouillon
-      pending_title: Demandes en cours d'instruction
-      changes_requested_title: Demandes à modifier
+      title: Demandes et habilitations
+      tabs:
+        demandes:
+          title: Les demandes
+        habilitations:
+          title: Les habilitations
+      lists:
+        refused_title: Demandes refusées
+        draft_title: Demandes en brouillon
+        pending_title: Demandes en cours d'instruction
+        changes_requested_title: Demandes à modifier
+        active_title: Habilitations actives
+        revoked_title: Habilitations révoquées
 
     card:
-      authorization_request_card:
-        current_user_mentions: "%{definition_name} - Vous avez été référencé comme %{contact_types}"
-        current_user_is_applicant: "%{definition_name} - Vous êtes le demandeur"
-        applicant_request: "%{definition_name} - %{applicant_full_name} est le demandeur"
-        created_at: Créée le %{created_date}
-        created_and_udpated_at: Créée le %{created_date} et mise à jour le %{updated_date}
-        show_cta: Consulter
-        access_link_cta: Récupérer mon accès
-        reopen_cta: Mettre à jour
-
       card_reopening_footer:
         reopen_title: Demande de mise à jour
         reopen_date: Fait le
@@ -190,11 +176,6 @@ fr:
         next_stage_subtitle: Vous pouvez poursuivre votre demande afin d’accéder à la production.
         next_stage_reopening_subtitle: Vous pouvez poursuivre votre demande afin d’accéder à la production.
         start_next_stage_cta: Démarrer ma demande d’habilitation en production
-        next_stage_title_production: Votre demande d’accès à la production
-        next_stage_subtitle_production: Vous serez notifiés lorsque votre demande aura été instruite.
-        show_cta: Consulter
-      authorization_request_card_small:
-        show_cta: Consulter
 
   profile:
     edit:
@@ -214,7 +195,29 @@ fr:
       title: Demander une nouvelle habilitation
       cta: Remplir une demande
 
+  authorizations:
+    card:
+      validated_at: Validée le %{date}
+      current_user_mentions: "vous avez été référencé comme %{contact_types}"
+      current_user_is_applicant: "vous êtes le demandeur"
+      applicant_request: "%{applicant_full_name} est le demandeur"
+      show_cta: Consulter
+      access_link_cta: Récupérer mon accès
+      reopen_cta: Mettre à jour
+      title: Habilitation à %{definition_name}
+      description: Via le formulaire %{form_name}
+
   authorization_requests:
+    card:
+      created_at: Créée le %{created_date}
+      created_and_updated_at: Créée le %{created_date} et mise à jour le %{updated_date}
+      reopened_at: Réouverte le %{reopened_date}
+      current_user_mentions: "vous avez été référencé comme %{contact_types}"
+      current_user_is_applicant: "vous êtes le demandeur"
+      applicant_request: "%{applicant_full_name} est le demandeur"
+      show_cta: Consulter
+      access_link_cta: Récupérer mon accès
+      description: Demande d'habilitation à %{definition_name} via le formulaire %{form_name}
     unauthenticated_start:
       sub_title:
         service: |

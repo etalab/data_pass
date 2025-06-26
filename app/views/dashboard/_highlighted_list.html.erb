@@ -1,0 +1,17 @@
+<div class="fr-grid-row fr-grid-row--gutters fr-background-contrast--info fr-px-4v fr-mb-4w">
+  <div class="fr-col-12">
+    <h2 class="fr-h3 with-icon fr-mt-8w fr-mb-0 dashboard-title__panel fr-text-title--blue-france">
+      <%= t("dashboard.show.lists.#{kind}_title") %>
+    </h2>
+  </div>
+
+  <% items.each do |item| %>
+    <div class="fr-col-12">
+      <% if item.is_a?(AuthorizationRequest) %>
+        <%= render item, authorization_request: item %>
+      <% elsif item.is_a?(Authorization) %>
+        <%= render item, authorization: item %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

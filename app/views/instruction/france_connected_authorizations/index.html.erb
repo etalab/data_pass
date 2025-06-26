@@ -8,7 +8,7 @@
           <ul class="fr-badge-group">
             <li>
               <span class="fr-badge fr-badge--no-icon">
-                <%= t("authorization.id_badge", id: authorization.id) %>
+                <%= t("authorization.badge", id: authorization.id) %>
               </span>
             </li>
             <li>
@@ -19,7 +19,7 @@
 
             <% if authorization.definition.stage.exists? %>
               <li>
-                <%= authorization_stage_badge(authorization) %>
+                <%= authorization.stage_badge %>
               </li>
             <% end %>
 

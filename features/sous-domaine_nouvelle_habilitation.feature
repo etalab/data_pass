@@ -10,7 +10,7 @@ Fonctionnalité: Démarrage d'une habilitation en fonction du sous-domaine.
   Scénario: Je peux démarrer uniquement les demandes référencés dans la configuration de sous-domaine
     Sachant que je consulte le site ayant le sous-domaine "api-gouv"
     Et que je me connecte
-    Et que je clique sur "Nouvelle habilitation"
+    Et que je clique sur "Demander une nouvelle habilitation"
     Alors la page contient "Demander une nouvelle habilitation"
     Et la page contient "API Entreprise"
     Et la page contient "API Particulier"
@@ -19,6 +19,6 @@ Fonctionnalité: Démarrage d'une habilitation en fonction du sous-domaine.
   Scénario: Dans le cas où seul 1 demande est possible, je suis immédiatement redirigé sur la page de cette demande
     Sachant que je consulte le site ayant le sous-domaine "api-entreprise"
     Et que je me connecte
-    Et que je clique sur "Nouvelle habilitation"
+    Et que je clique sur "Demander une nouvelle habilitation"
     Alors la page contient "Demander une habilitation à : API Entreprise"
     Et la page ne contient pas "API Particulier"

@@ -38,7 +38,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API INFINOE
 
   Plan du scénario: Je soumets une demande d'habilitation de production valide
     Quand j'ai 1 demande d'habilitation "API INFINOE" via le formulaire "<Nom du formulaire> (Bac à sable)" à l'étape "Bac à sable" validée
-    Et que je me rends sur mon tableau de bord
+    Et que je me rends sur mon tableau de bord habilitations
     Et je clique sur "Démarrer ma demande d’habilitation en production"
     Et que je clique sur "Débuter ma demande"
 

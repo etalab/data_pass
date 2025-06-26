@@ -1,7 +1,21 @@
-class AuthorizationRequestDecorator < ApplicationDecorator
+class AuthorizationRequestDecorator < ApplicationDecorator # rubocop:disable Metrics/ClassLength
   delegate_all
 
   decorates_association :organization
+
+  def to_partial_path
+    'authorization_requests/card'
+  end
+
+  def date
+    if reopening_validated?
+      t('authorization_requests.card.created_and_updated_at', created_date: l(created_at, format: '%d/%m/%Y'), updated_date: l(latest_authorization.created_at, format: '%d/%m/%Y'))
+    elsif reopening?
+      t('authorization_requests.card.reopened_at', reopened_date: l(reopened_at, format: '%d/%m/%Y'))
+    else
+      t('authorization_requests.card.created_at', created_date: l(created_at, format: '%d/%m/%Y'))
+    end
+  end
 
   def only_in_contacts?(user)
     user != object.applicant &&
@@ -106,13 +120,11 @@ class AuthorizationRequestDecorator < ApplicationDecorator
     base_card_name.truncate(50)
   end
 
-  def card_provider_applicant_details(user)
-    if only_in_contacts?(user)
-      current_user_is_a_contact(user)
-    elsif object.applicant == user
-      current_user_is_applicant
-    else
-      default_applicant_full_name
+  def applicant_details
+    highlighted = object.applicant == h.current_user
+
+    h.content_tag(:p, class: ['fr-card__detail', 'fr-icon-user-fill', { 'fr-text-title--blue-france': highlighted }]) do
+      card_provider_applicant_details(h.current_user)
     end
   end
 
@@ -129,7 +141,86 @@ class AuthorizationRequestDecorator < ApplicationDecorator
     object.errors.reject { |e| e.type == :all_terms_not_accepted }
   end
 
+  def status_badge(no_icon: false, scope: nil)
+    h.content_tag(
+      :span,
+      t(status_badge_translation(scope)),
+      class: [
+        'fr-ml-1w',
+        'fr-badge',
+        no_icon ? 'fr-badge--no-icon' : nil,
+      ]
+        .concat(status_badge_class)
+        .compact,
+    )
+  end
+
+  def reopening_badge(extra_css_class: nil)
+    return unless reopening?
+
+    h.content_tag(
+      :span,
+      t('authorization_request.reopening'),
+      class: "fr-badge fr-badge--purple-glycine #{extra_css_class}",
+    )
+  end
+
+  def stage_badge(css_class: nil)
+    return unless definition.stage.exists?
+
+    h.content_tag(
+      :span,
+      t("authorization_request.stage.#{definition.stage.type}"),
+      class: ['fr-badge', 'fr-badge--no-icon', 'fr-ml-1w', 'fr-mb-1w', stage_badge_class, css_class],
+    )
+  end
+
   private
+
+  def stage_badge_class
+    case definition.stage.type
+    when 'sandbox'
+      'fr-badge--brown-caramel'
+    when 'production'
+      'fr-badge--orange-terre-battue'
+    end
+  end
+
+  def status_badge_class
+    case state
+    when 'draft'
+      %w[fr-badge--grey fr-badge--no-icon]
+    when 'changes_requested'
+      %w[fr-badge--warning]
+    when 'submitted'
+      %w[fr-badge--info]
+    when 'validated'
+      %w[fr-badge--success]
+    when 'refused', 'revoked'
+      %w[fr-badge--error]
+    when 'archived'
+      %w[fr-badge--secondary]
+    end
+  end
+
+  def status_badge_translation(scope)
+    case scope
+    when :instruction, 'instruction'
+      "instruction.authorization_requests.index.status.#{state}"
+    else
+      "authorization_request.status.#{state}"
+    end
+  end
+
+  def card_provider_applicant_details(user)
+    if only_in_contacts?(user)
+      current_user_is_a_contact(user)
+    elsif object.applicant == user
+      current_user_is_applicant
+    else
+      default_applicant_full_name
+    end
+  end
 
   def lookup_i18n_key(subkey)
     t("authorization_request_forms.#{object.model_name.element}.#{subkey}", default: nil) ||
@@ -137,15 +228,15 @@ class AuthorizationRequestDecorator < ApplicationDecorator
   end
 
   def current_user_is_a_contact(user)
-    t('dashboard.card.authorization_request_card.current_user_mentions', definition_name: object.definition.name, contact_types: humanized_contact_types_for(user).to_sentence)
+    t('authorization_requests.card.current_user_mentions', contact_types: humanized_contact_types_for(user).to_sentence)
   end
 
   def current_user_is_applicant
-    t('dashboard.card.authorization_request_card.current_user_is_applicant', definition_name: object.definition.name)
+    t('authorization_requests.card.current_user_is_applicant')
   end
 
   def default_applicant_full_name
-    t('dashboard.card.authorization_request_card.applicant_request', definition_name: object.definition.name, applicant_full_name: object.applicant.full_name)
+    t('authorization_requests.card.applicant_request', applicant_full_name: object.applicant.full_name)
   end
 
   def prefilled_scopes?(keys)
