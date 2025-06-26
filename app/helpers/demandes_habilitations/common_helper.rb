@@ -11,8 +11,6 @@ module DemandesHabilitations::CommonHelper
     locals[:f] ||= build_form_builder(authorization_request)
 
     render partial: 'demandes_habilitations/accepted_tos_checkboxes', locals: { authorization_request:, **locals }
-  rescue ActionView::MissingTemplate
-    render partial: "authorization_requests/blocks/default/#{block_id}", locals: { authorization_request:, **locals }
   end
 
   private
