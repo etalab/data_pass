@@ -133,6 +133,8 @@
 
     <% if @authorization_request.draft? && !displayed_on_a_public_page? %>
       <%= render partial: 'authorization_request_forms/shared/tos_checkboxes', locals: { f: f } %>
+    <% else %>
+      <%= render_accepted_tos_checkboxes(@authorization_request, f: f, editable: false) %>
     <% end %>
   </div>
 
