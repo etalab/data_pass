@@ -36,7 +36,46 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
 
-  Plan du scénario: Je soumets une demande d'habilitation pour un cas d'usage sans éditeur où je dois préciser le cadre légal et le lien vers la délibération
+  Plan du scénario: Je soumets une demande d'habilitation pour un cas d'usage sans éditeur où je dois préciser le cadre légal et le lien vers la délibération, avec le choix de la modalité
+    Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>"
+    Et que je clique sur "Débuter ma demande"
+
+    * je renseigne les infos de bases du projet
+    * je clique sur "Suivant"
+
+    * je renseigne les infos concernant les données personnelles
+    * je clique sur "Suivant"
+
+    * je remplis "Description du cadre juridique autorisant à traiter les données*" avec "Article 42"
+    * je remplis "Indiquez une URL vers la délibération" avec "https://legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000006430983&cidTexte=LEGITEXT000006070721"
+    * je clique sur "Suivant"
+
+    * je clique sur "Suivant"
+
+    * je coche "Quotient familial CAF & MSA"
+    * je clique sur "Suivant"
+
+    * je renseigne les informations du délégué à la protection des données
+    * je renseigne les informations du contact technique
+    * je renseigne les informations du contact métier
+
+    * je clique sur "Suivant"
+
+    * j'adhère aux conditions générales
+    * je clique sur "Soumettre la demande d'habilitation"
+
+    Alors il y a un message de succès contenant "soumise avec succès"
+    Et je suis sur la page "Demandes et habilitations"
+
+    Exemples:
+      | Nom du formulaire                                        |
+      | Aides facultatives régionales                            |
+      | Aides facultatives départementales                       |
+      | Tarification cantine collèges                            |
+      | Aides sociales des CCAS dont aides facultatives          |
+      | Tarification des transports                              |
+
+  Plan du scénario: Je soumets une demande d'habilitation pour un cas d'usage sans éditeur où je dois préciser le cadre légal et le lien vers la délibération, sans le choix de la modalité
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>"
     Et que je clique sur "Débuter ma demande"
 
@@ -68,11 +107,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
     Exemples:
       | Nom du formulaire                                        |
       | Tarification sociale des services municipaux à l’enfance |
-      | Aides facultatives régionales                            |
-      | Aides facultatives départementales                       |
-      | Tarification cantine collèges                            |
-      | Aides sociales des CCAS dont aides facultatives          |
-      | Tarification des transports                              |
 
   Scénario: Je soumets une demande d'habilitation pour le cas d'usage "Tarification cantine lycées"
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "Tarification cantine lycées"
@@ -86,6 +120,8 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
 
     * je remplis "Précisez la nature et les références du texte vous autorisant à traiter les données" avec "Article 42"
     * je remplis "URL du texte relatif au traitement" avec "https://legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000006430983&cidTexte=LEGITEXT000006070721"
+    * je clique sur "Suivant"
+
     * je clique sur "Suivant"
 
     * je coche "Quotient familial CAF & MSA"
@@ -102,8 +138,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
 
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
-    
-    
 
   Scénario: Je soumets une demande d'habilitation pour le cas d'usage "Aides sociales des CCAS"
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "Aides sociales des CCAS"
@@ -113,6 +147,8 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
     * je clique sur "Suivant"
 
     * je renseigne les infos concernant les données personnelles
+    * je clique sur "Suivant"
+
     * je clique sur "Suivant"
 
     * je coche "Quotient familial CAF & MSA"
@@ -142,6 +178,8 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
 
     * je remplis "Description du cadre juridique autorisant à traiter les données*" avec "Article 42"
     * je remplis "URL du texte relatif au traitement" avec "https://legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000006430983&cidTexte=LEGITEXT000006070721"
+    * je clique sur "Suivant"
+
     * je clique sur "Suivant"
 
     * "Identité de l'étudiant" est coché
@@ -427,8 +465,40 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
 
     Exemples:
       | Nom du formulaire   | Nom de l'éditeur          |
-      | Airweb              | Airweb                    |
       | ICAR                | Coexya                    |
+
+  Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique déjà renseigné et des scopes modifiables pour un cas d'usage lié à la tarification des transports, avec le choix de la modalité
+    Sachant que mon organisation a 1 demande d'habilitation "FranceConnect" validée
+    Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
+    Et que je clique sur "Débuter ma demande"
+
+    Et la page contient "Nous avons pré-rempli des informations pour vous aider"
+
+    * je clique sur "Suivant"
+
+    * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
+    * je clique sur "Suivant"
+
+    * je sélectionne la première option pour "FranceConnect"
+    * je clique sur "Suivant"
+
+    * je renseigne les infos concernant les données personnelles
+    * je clique sur "Suivant"
+
+    * je renseigne les informations du délégué à la protection des données
+    * je renseigne les informations du contact métier
+    * je renseigne les informations du contact technique
+
+    * je clique sur "Suivant"
+    Et j'adhère aux conditions générales
+    * je clique sur "Soumettre la demande d'habilitation"
+
+    Alors il y a un message de succès contenant "soumise avec succès"
+    Et je suis sur la page "Demandes et habilitations"
+
+    Exemples:
+      | Nom du formulaire   | Nom de l'éditeur          |
+      | Airweb              | Airweb                    |
 
   Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique déjà renseigné et des scopes modifiables pour un cas d'usage lié aux aides facultatives régionales ou aux aides facultatives départementales
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
@@ -459,6 +529,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
 
 
 Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le contact technique n'est pas renseigné et des scopes modifiables pour un cas d'usage lié à la tarification des transports
+    Sachant que mon organisation a 1 demande d'habilitation "FranceConnect" validée
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
@@ -467,6 +538,9 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
     * je clique sur "Suivant"
 
     * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
+    * je clique sur "Suivant"
+
+    * je sélectionne la première option pour "FranceConnect"
     * je clique sur "Suivant"
 
     * je renseigne les infos concernant les données personnelles
@@ -487,7 +561,8 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
       | Nom du formulaire   | Nom de l'éditeur          |
       | Keolis              | Keolis                    |
 
- Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique déjà renseigné et des scopes modifiables pour un cas d'usage lié à la tarification des cantines dans les lycées. 
+ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique déjà renseigné et des scopes modifiables pour un cas d'usage lié à la tarification des cantines dans les lycées, où le cadre juridique est déjà renseigné et avec le choix de la modalité
+    Sachant que mon organisation a 1 demande d'habilitation "FranceConnect" validée
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
@@ -496,6 +571,9 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
     * je clique sur "Suivant"
 
     * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
+    * je clique sur "Suivant"
+
+    * je sélectionne la première option pour "FranceConnect"
     * je clique sur "Suivant"
 
     * je renseigne les infos concernant les données personnelles
