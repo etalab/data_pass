@@ -10,10 +10,6 @@ class APIController < ActionController::API
     }
   end
 
-  def current_namespace
-    'api'
-  end
-
   private
 
   def current_user_authorization_request_types
