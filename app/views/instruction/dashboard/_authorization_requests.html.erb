@@ -74,21 +74,15 @@
         </thead>
 
       <tbody data-controller="clickable-rows">
-        <% items.each do |authorization_request| %>
+        <% items.decorate.each do |authorization_request| %>
           <tr id="<%= dom_id(authorization_request) %>" class="authorization-request clickable-row" data-action="click->clickable-rows#visit" data-href="<%= instruction_authorization_request_path(authorization_request) %>">
             <td class="authorization-request-id">
               <%= link_to authorization_request.id, instruction_authorization_request_path(authorization_request) %>
             </td>
             <td class="authorization-request-state">
-              <%= authorization_request_status_badge(authorization_request) %>
-
-              <% if authorization_request.reopening? %>
-                <%= authorization_request_reopening_badge(extra_css_class: "fr-mt-1w") %>
-              <% end %>
-
-              <% if authorization_request.definition.stage.exists? %>
-                <%= authorization_request_stage_badge(authorization_request, css_class: "fr-mr-1w") %>
-              <% end %>
+              <%= authorization_request.status_badge %>
+              <%= authorization_request.reopening_badge %>
+              <%= authorization_request.stage_badge(css_class: "fr-mr-1w") %>
             </td>
             <td class="authorization-request-last_submitted_at">
               <%= authorization_request.last_submitted_at&.strftime("%d/%m/%y") || '-' %>
