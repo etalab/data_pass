@@ -1778,6 +1778,7 @@ api-particulier-sigec-maelis:
     contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_sigec_contact_technique_phone_number || '0836656565' %>"
     contact_technique_job_title: Contact technique
 
+# Formulaires cas d'usage génériques
 api-particulier-tarification-municipale-enfance:
   name: Tarification sociale des services municipaux à l’enfance
   description: Communes, calculez automatiquement le tarif de vos services municipaux à l'enfance, cantine, périscolaire, etc.
@@ -1810,10 +1811,9 @@ api-particulier-aides-facultatives-regionales:
     - name: basic_infos
     - name: personal_data
     - name: legal
+    - name: modalities
     - name: scopes
     - name: contacts
-  static_blocks:
-    - name: modalities
   initialize_with:
     intitule: Aides facultatives régionales
     cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration qui fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Cadre légal spécifique : [À PRÉCISER SI NÉCESSAIRE].\r\n- Délibération [À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]."
@@ -1829,10 +1829,9 @@ api-particulier-aides-facultatives-departementales:
     - name: basic_infos
     - name: personal_data
     - name: legal
+    - name: modalities
     - name: scopes
     - name: contacts
-  static_blocks:
-    - name: modalities
   initialize_with:
     intitule: Aides facultatives départementales
     cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration qui fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Cadre légal spécifique : [À PRÉCISER SI NÉCESSAIRE].\r\n- Délibération [À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]."
@@ -1854,10 +1853,9 @@ api-particulier-tarification-cantines-lycees:
     - name: basic_infos
     - name: personal_data
     - name: legal
+    - name: modalities
     - name: scopes
     - name: contacts
-  static_blocks:
-    - name: modalities
   initialize_with:
     intitule: Tarification cantine lycées
     cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Cadre légal spécifique aux régions : L'article L216-6 du Code de l’éducation qui donne compétence aux lycées pour la gestion des cantines.\r\n- La délibération [À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]"
@@ -1877,12 +1875,11 @@ api-particulier-tarification-cantines-colleges:
       - men_statut_scolarite
       - men_statut_boursier
       - men_echelon_bourse
-  static_blocks:
-    - name: modalities
   steps:
     - name: basic_infos
     - name: personal_data
     - name: legal
+    - name: modalities
     - name: scopes
     - name: contacts
   initialize_with:
@@ -1904,10 +1901,10 @@ api-particulier-aides-sociales-ccas:
   steps:
     - name: basic_infos
     - name: personal_data
+    - name: modalities
     - name: scopes
     - name: contacts
   static_blocks:
-    - name: modalities
     - name: legal
   initialize_with:
     intitule: Aides sociales des CCAS
@@ -1930,10 +1927,9 @@ api-particulier-aides-sociales-ccas-dont-facultatives:
     - name: basic_infos
     - name: personal_data
     - name: legal
+    - name: modalities
     - name: scopes
     - name: contacts
-  static_blocks:
-    - name: modalities
   initialize_with:
     intitule: Aides sociales des CCAS dont aides facultatives
     cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Cadre légal spécifique aux CCAS : Les articles L.123-5 et R.123-2 du Code de l’Action Sociale et des familles qui confient aux CCAS la charge de mener une action générale de prévention et de développement social dans la commune par le biais de prestations en espèces, remboursables ou non et de prestations en nature.\r\n- Cadre légal spécifique pour les aides facultatives des CCAS : L'article R.123-21 du Code de l’Action Sociale et des familles donnant toute liberté au CCAS pour définir les conditions d’attribution des aides sociales facultatives.\r\n- La délibération du conseil d'administration précisant les données nécessaires à l’attribution des aides facultatives [À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]."
@@ -1954,10 +1950,9 @@ api-particulier-tarification-transports:
     - name: basic_infos
     - name: personal_data
     - name: legal
+    - name: modalities
     - name: scopes
     - name: contacts
-  static_blocks:
-    - name: modalities
   scopes_config:
     disabled:
       - allocation_soutien_familial
@@ -2007,10 +2002,9 @@ api-particulier-gestion-rh-secteur-public:
     - name: basic_infos
     - name: personal_data
     - name: legal
+    - name: modalities
     - name: scopes
     - name: contacts
-  static_blocks:
-    - name: modalities
   scopes_config:
     disabled:
       - cnaf_quotient_familial
