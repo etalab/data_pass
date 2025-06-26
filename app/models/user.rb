@@ -101,11 +101,10 @@ class User < ApplicationRecord
     dependent: :delete_all
 
   def full_name
-    if family_name.present? && given_name.present?
-      "#{family_name} #{given_name}"
-    else
-      email
-    end
+    return email unless family_name.present? && given_name.present?
+
+    formatted_given_name = given_name.gsub(/\b\w+/) { |word| word.downcase.capitalize }
+    "#{family_name.upcase} #{formatted_given_name}"
   end
 
   def instructor?(authorization_request_type = nil)

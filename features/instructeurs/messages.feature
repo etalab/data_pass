@@ -14,7 +14,7 @@ Fonctionnalité: Instruction: messagerie
     Et que cette habilitation a un message du demandeur avec comme corps "Je ne comprends pas"
     Et que je clique sur "Messagerie"
     Alors la page contient "Je ne comprends pas"
-    Et la page contient "Dupont Jean"
+    Et la page contient "DUPONT Jean"
 
   Scénario: Je vois une pastille lorsqu'un nouveau message est présent
     Quand je me rends sur une demande d'habilitation "API Entreprise" à modérer

@@ -23,7 +23,7 @@ Fonctionnalité: Démarrage d'habilitation par des internautes
     Quand je veux remplir une demande pour "API Entreprise" via le formulaire "Demande libre"
     Alors je clique sur "S’identifier avec ProConnect"
     Alors je suis sur la page "Demander une habilitation à : API Entreprise"
-    Et la page contient "Dupont Jean"
+    Et la page contient "DUPONT Jean"
 
   Scénario:  Un internaute veut accéder à son habilitation API scolarité de l'élève - formulaire "Demande libre"
     Sachant que je suis un demandeur
