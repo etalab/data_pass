@@ -1,5 +1,6 @@
 module Authentication
   extend ActiveSupport::Concern
+  include ImpersonationTrackingManagement
 
   included do
     before_action :authenticate_user!
@@ -99,6 +100,14 @@ module Authentication
   end
 
   def impersonating?
-    respond_to?(:true_user) && respond_to?(:current_user) && true_user && current_user && true_user != current_user
+    impersonating = cookies[:impersonation_id].present?
+
+    stop_impersonating_user unless impersonating
+
+    impersonating
+  end
+
+  def stop_impersonating_user
+    session.delete(:impersonated_user_id)
   end
 end

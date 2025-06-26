@@ -1,4 +1,4 @@
-module ImpersonationManagement
+module ImpersonationTrackingManagement
   extend ActiveSupport::Concern
 
   included do
@@ -28,9 +28,5 @@ module ImpersonationManagement
     else
       model_to_track_for_impersonation.class.name
     end
-  end
-
-  def impersonating?
-    cookies[:impersonation_id].present?
   end
 end
