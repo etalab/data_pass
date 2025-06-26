@@ -1,6 +1,6 @@
 RSpec.describe 'Instruction: habilitation search' do
   subject(:search) do
-    visit instruction_authorization_requests_path
+    visit instruction_dashboard_show_path(id: 'demandes')
 
     within('#authorization_request_search') do
       fill_in 'instructor_search_input', with: search_text if use_search_text
@@ -169,7 +169,7 @@ RSpec.describe 'Instruction: habilitation search' do
       it 'does not redirects to the authorization request, and renders nothing' do
         search
 
-        expect(page).to have_current_path(instruction_authorization_requests_path, ignore_query: true)
+        expect(page).to have_current_path(instruction_dashboard_show_path(id: 'demandes'), ignore_query: true)
         expect(page).to have_css('.authorization-request', count: 0)
       end
     end

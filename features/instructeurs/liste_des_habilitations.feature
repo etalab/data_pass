@@ -13,13 +13,14 @@ Fonctionnalité: Instruction: liste des habilitations
     Et qu'il y a 1 demande d'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)" en attente
     Et que je vais sur la page instruction
     Alors je vois 2 demandes d'habilitation
-    Et la page contient "2 résultat(s)"
+    Et la page contient "2 résultats"
 
   Scénario: Je vois les badges des habilitations en réouvertures
     Sachant qu'il y a 1 demande d'habilitation "API Entreprise" réouverte
     Et que je vais sur la page instruction
     Alors il y a un badge "Brouillon"
     Et il y a un badge "Mise à jour"
+    Et la page contient "1 résultat"
 
   Scénario: Je cherche une habilitation avec son status
     Sachant qu'il y a 1 demande d'habilitation "API Entreprise" en attente
@@ -53,5 +54,5 @@ Fonctionnalité: Instruction: liste des habilitations
     Sachant qu'il y a 26 demandes d'habilitation "API Entreprise" en attente
     Et que je vais sur la page instruction
     Alors je vois 25 demandes d'habilitation
-    Et la page contient "26 résultat(s)"
+    Et la page contient "26 résultats"
 

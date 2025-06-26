@@ -46,6 +46,8 @@ fr:
   authorization_request:
     badge: demande n°%{id}
     status:
+      active: "Active"
+      obsolete: "Obsolète"
       draft: Brouillon
       changes_requested: A modifier
       submitted: En cours d'instruction
