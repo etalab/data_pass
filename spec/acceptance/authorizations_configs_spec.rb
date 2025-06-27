@@ -38,14 +38,4 @@ RSpec.describe 'Authorizations config files' do
       end
     end
   end
-
-  describe 'API Particulier forms modalities blocks' do
-    subject(:forms) { AuthorizationDefinition.find('api_particulier').available_forms }
-
-    it 'is static for each form' do
-      forms.each do |form|
-        expect(form.static_blocks.pluck(:name) & ['modalities']).to be_present, "Form #{form.uid} has a static block named 'modalities'"
-      end
-    end
-  end
 end

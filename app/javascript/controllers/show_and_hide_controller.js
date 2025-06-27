@@ -32,7 +32,24 @@ export default class extends Controller {
 
   trigger (event) {
     const selector = event.params.target
+    const isCheckbox = event.currentTarget.type === 'checkbox'
 
+    if (isCheckbox) {
+      this._handleCheckbox(event.currentTarget, selector)
+    } else {
+      this._handleDefault(selector)
+    }
+  }
+
+  _handleCheckbox (checkbox, selector) {
+    if (checkbox.checked) {
+      this._elementsToDisplay(selector).forEach(target => target.classList.remove(this.displayClassValue))
+    } else {
+      this._elementsToDisplay(selector).forEach(target => target.classList.add(this.displayClassValue))
+    }
+  }
+
+  _handleDefault (selector) {
     this._elementsToHide(selector).forEach(target => target.classList.add(this.displayClassValue))
     this._elementsToDisplay(selector).forEach(target => target.classList.remove(this.displayClassValue))
   }

@@ -204,6 +204,12 @@ fr:
       dpd_homologation_checkbox:
         label: J’atteste que mon organisation devra déclarer à la DGFiP l’accomplissement des formalités en matière de protection des données à caractère personnel et qu’elle veillera à procéder à l’homologation de sécurité de son projet.
 
+      france_connect_authorization_id:
+        label: Sélectionnez une habilitation FranceConnect qui sera liée à cette demande
+        select_blank: Sélectionner une option
+
+    # End of default
+
     hubee_cert_dc:
       administrateur_metier: &hubee_administrateur_metier
         info: |
@@ -333,7 +339,13 @@ fr:
           params:
             label: Via un jeton d'accès, accompagné des paramètres usagers.
           formulaire_qf:
-            label: Via l'utilisation du formulaire national QF (Quotient Familial). Plus d'infos <a href="https://quotient-familial.numerique.gouv.fr/" target="_blank">ici</a>.
+            label: Via l'utilisation du formulaire national QF (Quotient Familial). Plus d'infos&nbsp;<a href="https://quotient-familial.numerique.gouv.fr/" target="_blank">ici</a>.
+          france_connect:
+            label: Via FranceConnect
+        callout:
+          title: Pour proposer FranceConnect à vos utilisateurs, il vous faudra au préalable demander une habilitation FranceConnect.
+          content: Vous pouvez demander cette habilitation en remplissant le formulaire ci-dessous. Une fois votre demande validée, vous pourrez sélectionner FranceConnect dans les modalités d'appel de l'API Particulier. Vous pouvez cependant dès à présent utiliser les autres modalités d'appel de l'API Particulier, et réouvrir la demande ultérieurement pour ajouter FranceConnect.
+          link: Demander une habilitation FranceConnect
 
       scopes:
         info:
@@ -449,6 +461,10 @@ fr:
     api_particulier_acheteza:
       <<: *api_particulier_editor_common_wordings
     api_particulier_dialog:
+      <<: *api_particulier_editor_common_wordings
+    api_particulier_keolis:
+      <<: *api_particulier_editor_common_wordings
+    api_particulier_mgdis_tarification_cantines_lycees:
       <<: *api_particulier_editor_common_wordings
 
     api_particulier_tarification_municipale_enfance:
@@ -753,8 +769,6 @@ fr:
             Cette modalité d’accès est uniquement disponible via l’API Courtier fonctionnel SFiP.
             <br/>
             <a href="%{sfip_url}">Cliquez-ici pour faire une demande <span class="fr-icon-arrow-right-line" aria-hidden="true"></span></a>.
-      france_connect_authorization_id:
-        label: Sélectionnez une habilitation FranceConnect qui sera liée à cette demande
       scopes:
         info:
           title: Mode de fonctionnement de l’API Impôt particulier
