@@ -1,0 +1,10 @@
+<% if impersonating? %>
+  <div id="impersonate_warning" class="fr-alert fr-alert--warning fr-mb-0" style="border-radius: 0;">
+    <div class="fr-container">
+      <div class="fr-alert__body">
+        <p><%= t('impersonation.warning.description', admin_email: true_user.email, user_email: current_user.email) %></p>
+        <%= button_to t('impersonation.warning.stop_button'), admin_impersonate_path, method: :delete, data: { turbo: false }, id: 'stop_impersonate', class: 'fr-btn fr-btn--secondary fr-btn--sm' %>
+      </div>
+    </div>
+  </div>
+<% end %>

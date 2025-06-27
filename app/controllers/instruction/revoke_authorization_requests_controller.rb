@@ -31,4 +31,8 @@ class Instruction::RevokeAuthorizationRequestsController < Instruction::Abstract
   def authorize_authorization_request_revocation
     authorize [:instruction, @authorization_request], :revoke?
   end
+
+  def model_to_track_for_impersonation
+    @authorization_request
+  end
 end

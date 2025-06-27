@@ -8,7 +8,7 @@ class AdminController < AuthenticatedUserController
   end
 
   def check_user_is_admin!
-    return if current_user.admin?
+    return if true_user.admin?
 
     flash[:error] = {
       title: t('application.user_not_authorized.title')

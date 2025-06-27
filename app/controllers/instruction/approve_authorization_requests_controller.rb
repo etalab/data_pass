@@ -21,4 +21,8 @@ class Instruction::ApproveAuthorizationRequestsController < Instruction::Abstrac
   def authorize_authorization_request_approval
     authorize [:instruction, @authorization_request], :approve?
   end
+
+  def model_to_track_for_impersonation
+    @authorization_request
+  end
 end

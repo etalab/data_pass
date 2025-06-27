@@ -1,5 +1,6 @@
 module Authentication
   extend ActiveSupport::Concern
+  include ImpersonationTrackingManagement
 
   included do
     before_action :authenticate_user!
@@ -87,5 +88,30 @@ module Authentication
     return unless user_signed_in?
 
     Sentry.set_user(id: current_user.id)
+  end
+
+  def current_impersonation
+    return unless impersonating?
+
+    @current_impersonation ||= Impersonation
+      .active
+      .where(
+        user: current_user,
+        admin: true_user
+      ).last
+  end
+
+  def impersonating?
+    return false unless defined?(cookies)
+
+    impersonating = cookies[:impersonation_id].present?
+
+    stop_impersonating_user unless impersonating
+
+    impersonating
+  end
+
+  def stop_impersonating_user
+    session.delete(:impersonated_user_id)
   end
 end
