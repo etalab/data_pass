@@ -71,6 +71,7 @@ Rails.application.routes.draw do
 
     get 'faq', to: 'pages#faq', as: :faq
     get 'accessibilite', to: 'pages#accessibilite', as: :accessibilite
+    get 'schema-pluriannuel-accessibilite', to: 'pages#schema_pluriannuel_accessibilite', as: :schema_pluriannuel_accessibilite
 
     get 'cgu_api_impot_particulier_bas', to: 'pages#cgu_api_impot_particulier_bas', as: :cgu_api_impot_particulier_bas
     get 'cgu_api_impot_particulier_prod', to: 'pages#cgu_api_impot_particulier_prod', as: :cgu_api_impot_particulier_prod

@@ -24,4 +24,8 @@ class PagesController < ApplicationController
   def accessibilite
     render 'static_pages/accessibilite'
   end
+
+  def schema_pluriannuel_accessibilite
+    render 'static_pages/schema_pluriannuel_accessibilite'
+  end
 end
