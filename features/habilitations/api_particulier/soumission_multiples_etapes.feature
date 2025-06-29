@@ -85,8 +85,8 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
     * je renseigne les infos concernant les données personnelles
     * je clique sur "Suivant"
 
-    * je remplis "Description du cadre juridique autorisant à traiter les données*" avec "Article 42"
-    * je remplis "Indiquez une URL vers la délibération" avec "https://legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000006430983&cidTexte=LEGITEXT000006070721"
+    * je remplis "données" avec "Article 42"
+    * je remplis "URL" avec "https://legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000006430983&cidTexte=LEGITEXT000006070721"
     * je clique sur "Suivant"
 
     * je coche "Quotient familial CAF & MSA"
@@ -350,7 +350,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
-    * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
+    * je remplis "URL" avec "https://mairie.fr/deliberation-tarifaire.pdf"
     * je clique sur "Suivant"
 
     * je renseigne les infos concernant les données personnelles
@@ -417,7 +417,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
 
     * je clique sur "Suivant"
 
-    * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
+    * je remplis "URL" avec "https://mairie.fr/deliberation-tarifaire.pdf"
     * je clique sur "Suivant"
 
     * je renseigne les infos concernant les données personnelles
