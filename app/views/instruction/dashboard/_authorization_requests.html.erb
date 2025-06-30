@@ -80,9 +80,11 @@
               <%= link_to authorization_request.id, instruction_authorization_request_path(authorization_request) %>
             </td>
             <td class="authorization-request-state">
-              <%= authorization_request.status_badge %>
-              <%= authorization_request.reopening_badge %>
-              <%= authorization_request.stage_badge(css_class: "fr-mr-1w") %>
+              <span class="fr-badge-group">
+                <%= authorization_request.status_badge %>
+                <%= authorization_request.reopening_badge %>
+                <%= authorization_request.stage_badge %>
+              </span>
             </td>
             <td class="authorization-request-last_submitted_at">
               <%= authorization_request.last_submitted_at&.strftime("%d/%m/%y") || '-' %>

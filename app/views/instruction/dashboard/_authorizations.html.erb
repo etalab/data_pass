@@ -80,8 +80,10 @@
               <%= link_to authorization.id, authorization %>
             </td>
             <td class="authorization-request-state">
-              <%= authorization.status_badge %>
-              <%= authorization.stage_badge(css_class: "fr-mr-1w") %>
+              <span class="fr-badge-group">
+                <%= authorization.status_badge %>
+                <%= authorization.stage_badge %>
+              </span>
             </td>
             <td class="authorization-request-last_submitted_at">
               <%= authorization.created_at&.strftime("%d/%m/%y") || '-' %>
