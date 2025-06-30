@@ -438,6 +438,8 @@ FactoryBot.define do
       api-particulier-e1os
       api-particulier-acheteza
       api-particulier-dialog
+      api-particulier-keolis
+      api-particulier-mgdis-tarification-cantines-lycees
       api-particulier-tarification-municipale-enfance
       api-particulier-aides-facultatives-regionales
       api-particulier-aides-facultatives-departementales

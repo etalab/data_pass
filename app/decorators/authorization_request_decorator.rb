@@ -175,6 +175,10 @@ class AuthorizationRequestDecorator < ApplicationDecorator # rubocop:disable Met
     )
   end
 
+  def france_connect_authorizations
+    organization.valid_authorizations_of(AuthorizationRequest::FranceConnect).map(&:decorate)
+  end
+
   private
 
   def stage_badge_class

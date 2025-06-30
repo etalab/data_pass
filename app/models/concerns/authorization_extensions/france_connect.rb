@@ -6,8 +6,11 @@ module AuthorizationExtensions::FranceConnect
 
     validates :france_connect_authorization_id,
       presence: true,
+      if: -> { requires_france_connect_authorization? }
+
+    validates :france_connect_authorization_id,
       inclusion: { in: ->(authorization_request) { authorization_request.organization.valid_authorizations_of(AuthorizationRequest::FranceConnect).pluck(:id).map(&:to_s) } },
-      if: -> { need_complete_validation?(:france_connect) }
+      if: -> { france_connect_authorization_id.present? }
   end
 
   def france_connect_authorization
@@ -18,5 +21,11 @@ module AuthorizationExtensions::FranceConnect
 
   def with_france_connect?
     true
+  end
+
+  private
+
+  def requires_france_connect_authorization?
+    need_complete_validation?(:france_connect)
   end
 end

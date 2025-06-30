@@ -154,6 +154,19 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
     end
   end
 
+  def france_connect_authorization_select
+    return unless @object.france_connect_authorizations.any?
+
+    dsfr_select(
+      :france_connect_authorization_id,
+      @template.options_for_select(*france_connect_options_for_select),
+      label: wording_for('france_connect_authorization_id.label'),
+      required: true,
+      include_blank: wording_for('france_connect_authorization_id.select_blank'),
+      class: 'fr-select',
+    )
+  end
+
   def scope_hidden_field(scope)
     hidden_field(:scopes, value: scope.value, name: "#{@object.model_name.param_key}[scopes][]")
   end
@@ -197,6 +210,15 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
     ].compact.join(' ').html_safe
 
     label(:terms_of_service_accepted, label_text, label_opts)
+  end
+
+  def france_connect_options_for_select
+    default_option = @object.france_connect_authorization_id || @object.france_connect_authorizations.first&.id
+
+    [
+      @object.france_connect_authorizations.map { |authorization| [authorization.name_for_select, authorization.id] },
+      default_option,
+    ]
   end
 
   def all_terms_not_accepted_error?(attribute)

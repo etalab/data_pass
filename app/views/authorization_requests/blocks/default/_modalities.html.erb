@@ -7,13 +7,13 @@
     <% Array(authorization_request.modalities).each do |modality| %>
       <li>
         <%= f.label_value("modalities.values.#{modality}").html_safe %>
+
+        <% if modality.match?('france_connect') %>
+          <% if authorization_request.try(:france_connect_authorization_id).present? && authorization_request.with_france_connect? %>
+            -> <%= link_to authorization_request.france_connect_authorization.decorate.name_for_select, authorization_path(authorization_request.france_connect_authorization), target: '_blank' %>
+          <% end %>
+        <% end %>
       </li>
     <% end %>
   </ul>
-
-  <% if authorization_request.try(:france_connect_authorization_id).present? && authorization_request.with_france_connect? %>
-    <p class="fr-pl-2w">
-      <%= authorization_request.france_connect_authorization.decorate.name_for_select %>
-    </p>
-  <% end %>
 <% end %>
