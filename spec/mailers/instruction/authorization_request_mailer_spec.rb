@@ -24,6 +24,22 @@ RSpec.describe Instruction::AuthorizationRequestMailer do
         expect(mail.body.encoded).to match('a soumis')
         expect(mail.body.encoded).to match(authorization_request.applicant.email)
       end
+
+      context 'when the authorization request has a modification request' do
+        before do
+          create(:instructor_modification_request, authorization_request: authorization_request)
+        end
+
+        it 'includes the changes_requested_submit message' do
+          expect(mail.body.encoded).to match('Cette demande fait suite à une demande de modification.')
+        end
+      end
+
+      context 'when the authorization request does not have a modification request' do
+        it 'does not include the changes_requested_submit message' do
+          expect(mail.body.encoded).not_to match('Cette demande fait suite à une demande de modification.')
+        end
+      end
     end
 
     context 'when there is no instructor nor reporter to notify' do
