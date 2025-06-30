@@ -271,6 +271,28 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_23_080456) do
     t.index ["scheduled_at"], name: "index_good_jobs_on_scheduled_at", where: "(finished_at IS NULL)"
   end
 
+  create_table "impersonation_actions", force: :cascade do |t|
+    t.bigint "impersonation_id", null: false
+    t.string "action", null: false
+    t.string "model_type", null: false
+    t.integer "model_id", null: false
+    t.string "controller", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["impersonation_id"], name: "index_impersonation_actions_on_impersonation_id"
+  end
+
+  create_table "impersonations", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "admin_id", null: false
+    t.text "reason", null: false
+    t.datetime "finished_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["admin_id"], name: "index_impersonations_on_admin_id"
+    t.index ["user_id"], name: "index_impersonations_on_user_id"
+  end
+
   create_table "instructor_modification_requests", force: :cascade do |t|
     t.string "reason", null: false
     t.bigint "authorization_request_id", null: false
@@ -431,6 +453,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_23_080456) do
   add_foreign_key "bulk_authorization_request_update_notification_reads", "bulk_authorization_request_updates"
   add_foreign_key "bulk_authorization_request_update_notification_reads", "users"
   add_foreign_key "denial_of_authorizations", "authorization_requests"
+  add_foreign_key "impersonation_actions", "impersonations"
+  add_foreign_key "impersonations", "users"
+  add_foreign_key "impersonations", "users", column: "admin_id"
   add_foreign_key "instructor_modification_requests", "authorization_requests"
   add_foreign_key "malware_scans", "active_storage_attachments", column: "attachment_id"
   add_foreign_key "messages", "authorization_requests"

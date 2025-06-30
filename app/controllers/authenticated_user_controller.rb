@@ -2,6 +2,8 @@ class AuthenticatedUserController < ApplicationController
   include Authentication
   include AccessAuthorization
 
+  impersonates :user
+
   before_action :refresh_current_organization_insee_data
 
   allow_unauthenticated_access only: :bypass_login

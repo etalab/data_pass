@@ -34,4 +34,8 @@ class ExternalReopenAuthorizationRequestsController < AuthenticatedUserControlle
   rescue Pundit::NotAuthorizedError, Pundit::NotDefinedError
     redirect_to summary_path
   end
+
+  def model_to_track_for_impersonation
+    @authorization_request
+  end
 end

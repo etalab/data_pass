@@ -55,3 +55,16 @@ fr:
       create:
         title: *whitelisted_verified_emails_form_title
         success: L'email %{verified_email_email} a été ajouté avec succès
+    impersonate:
+      new: &admin_impersonate_new
+        title: "Impersonner un utilisateur"
+      create: *admin_impersonate_new
+      success:
+        title: "Impersonation activée"
+        description: "Vous êtes maintenant connecté en tant que %{email}"
+      stop:
+        title: "Impersonation terminée"
+        description: "Vous êtes de nouveau connecté en tant que %{email}"
+      errors:
+        title: "Erreur"
+        user_not_found: "Aucun utilisateur trouvé avec cet email"
