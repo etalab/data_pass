@@ -82,13 +82,13 @@ group :test do
   gem 'capybara'
   gem 'cucumber'
   gem 'cucumber-rails', require: false
-  gem 'cuprite', '< 0.17'
+  gem 'cuprite', '< 0.18'
   gem 'database_cleaner-active_record'
   gem 'generator_spec'
   gem 'rack_session_access'
   gem 'rails-controller-testing'
   gem 'roo'
-  gem 'rspec-rails', '8.0.0'
+  gem 'rspec-rails', '8.0.1'
   gem 'state_machines-rspec'
   gem 'simplecov', require: false
   gem 'webmock'
