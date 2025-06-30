@@ -1,7 +1,11 @@
 module SkipLinks
   def skip_link(text, anchor)
     content_tag(:li) do
-      link_to(text, "##{anchor}", class: 'fr-link')
+      if anchor.start_with?('tab-')
+        link_to(text, "##{anchor}", class: 'fr-link', onclick: "document.getElementById('#{anchor}')?.click(); return false;")
+      else
+        link_to(text, "##{anchor}", class: 'fr-link')
+      end
     end
   end
 
