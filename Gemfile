@@ -88,7 +88,7 @@ group :test do
   gem 'rack_session_access'
   gem 'rails-controller-testing'
   gem 'roo'
-  gem 'rspec-rails', '8.0.0'
+  gem 'rspec-rails', '~> 8.0'
   gem 'state_machines-rspec'
   gem 'simplecov', require: false
   gem 'webmock'
