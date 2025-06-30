@@ -249,6 +249,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     @authorization_request = organizer.authorization_request
 
     if organizer.success?
+      clean_wizard_step!
       success_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.submit')
 
       redirect_to dashboard_path
@@ -315,6 +316,10 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
 
   def layout_name
     'authorization_request'
+  end
+
+  def clean_wizard_step!
+    cookies.delete(current_build_step_cache_key)
   end
 end
 # rubocop:enable Metrics/ClassLength
