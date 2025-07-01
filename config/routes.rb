@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root 'pages#home'
 
-  get 'proconnect-connexion', to: 'pages#proconnect_connexion' unless Rails.env.production?
+  get 'proconnect-connexion', to: 'pages#proconnect_connexion'
 
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')
