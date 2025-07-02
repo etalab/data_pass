@@ -19,7 +19,8 @@ Fonctionnalité: Instruction: modération
     Et je clique sur "Valider"
     Et je clique sur "Valider la demande d'habilitation"
     Alors je suis sur la page "Liste des demandes et habilitations"
-    Et je vois 1 demande d'habilitation "API scolarité de l'élève" validée
+    Et que je me rends sur mon tableau de bord instructeur habilitations
+    Et je vois 1 habilitation "API scolarité de l'élève" active
     Et un email est envoyé contenant "validé"
     Et un email est envoyé contenant "vous a désigné(e) comme Délégué à la protection des données"
     Et il y a un message de succès contenant "a été validé"
@@ -29,7 +30,8 @@ Fonctionnalité: Instruction: modération
     Et je clique sur "Valider"
     Et je clique sur "Valider la demande d'habilitation"
     Alors je suis sur la page "Liste des demandes et habilitations"
-    Et je vois 1 demande d'habilitation "API scolarité de l'élève" validée
+    Et que je me rends sur mon tableau de bord instructeur habilitations
+    Alors je vois 1 habilitation "API scolarité de l'élève" active
 
   @FlushJobQueue
   Scénario: Je valide une demande d'habilitation qui déclenche un webhook

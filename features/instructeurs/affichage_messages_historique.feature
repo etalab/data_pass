@@ -10,7 +10,7 @@ Fonctionnalité: Instruction: affichage des messages dans l'historique
     Et que je me connecte
     Et qu'il y a 1 demande d'habilitation "API Entreprise" en attente
     Et que cette demande a été "sujet à modification" avec le message "Merci de corriger les informations suivantes : la description du projet est trop vague."
-    Et que je me rends sur mon tableau de bord instruction
+    Et que je me rends sur mon tableau de bord instructeur
     Et que je clique sur "Consulter"
     Et que je clique sur "Historique"
 
