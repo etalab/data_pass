@@ -384,6 +384,10 @@ class AuthorizationRequest < ApplicationRecord
     false
   end
 
+  def with_formulaire_qf?
+    false
+  end
+
   def access_link
     return nil if definition.access_link.blank? || external_provider_id.blank?
 

@@ -37,6 +37,10 @@ class AuthorizationRequest::APIParticulier < AuthorizationRequest
       france_connect_authorization_id.present?
   end
 
+  def with_formulaire_qf?
+    modalities.include?('formulaire_qf')
+  end
+
   def mandatory_modalities?
     true
   end
