@@ -136,6 +136,7 @@ class AuthorizationRequest < ApplicationRecord
   scope :refused, -> { where(state: 'refused') }
   scope :validated_or_refused, -> { where('authorization_requests.state in (?) or last_validated_at is not null', %w[validated refused]) }
   scope :not_archived, -> { where.not(state: 'archived') }
+  scope :not_validated, -> { where.not(state: 'validated') }
   scope :without_reopening, -> { where(last_validated_at: nil) }
   scope :revoked, -> { where(state: 'revoked') }
 

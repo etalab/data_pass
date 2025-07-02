@@ -20,6 +20,6 @@ Fonctionnalité: Tableau de bord pour un sous-domaine spécifique
     Et que je me rends sur mon tableau de bord demandes
     Alors je vois 3 demandes d'habilitation
     Et la page contient "vous êtes le demandeur"
-    Et que je me rends sur mon tableau de bord habilitations
-    Alors je vois 1 habilitations
+    Et que je me rends sur mon tableau de bord demandeur habilitations
+    Alors je vois 1 habilitation
     Et la page contient "vous êtes le demandeur"
