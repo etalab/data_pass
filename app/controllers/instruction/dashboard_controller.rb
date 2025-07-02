@@ -24,6 +24,7 @@ class Instruction::DashboardController < Instruction::AbstractAuthorizationReque
       @items = @authorizations.page(params[:page])
     when 'demandes'
       base_relation = policy_scope([:instruction, AuthorizationRequest]).includes([:organization])
+      base_relation = base_relation.not_validated
       base_relation = base_relation.not_archived if params.dig('search_query', 'state_eq').blank?
       base_relation = base_relation.none if search_terms_is_a_possible_id?
 

@@ -113,7 +113,7 @@ Fonctionnalité: Consultation d'une demande d'habilitation
   Scénario: Je consulte une habilitation où je suis mentionnée
     Quand je suis mentionné dans 1 demande d'habilitation "API Entreprise" en tant que "Contact technique"
     Et que cette demande a été "validée"
-    Et que je me rends sur mon tableau de bord habilitations
+    Et que je me rends sur mon tableau de bord demandeur habilitations
     Quand je sélectionne le filtre "Je suis mentionné en contact" pour "Filtrer par demandeur"
     Et que je clique sur "Rechercher"
     Et que je clique sur "Consulter"
