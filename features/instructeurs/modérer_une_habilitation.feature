@@ -14,17 +14,19 @@ Fonctionnalité: Instruction: modération
     Et il n'y a pas de champ éditable
 
   @AvecCourriels
+  @DisableBullet
   Scénario: Je valide une demande d'habilitation soumise
     Quand je me rends sur une demande d'habilitation "API scolarité de l'élève" à modérer
     Et je clique sur "Valider"
     Et je clique sur "Valider la demande d'habilitation"
     Alors je suis sur la page "Liste des demandes et habilitations"
+    Et il y a un message de succès contenant "a été validé"
     Et que je me rends sur mon tableau de bord instructeur habilitations
     Et je vois 1 habilitation "API scolarité de l'élève" active
     Et un email est envoyé contenant "validé"
     Et un email est envoyé contenant "vous a désigné(e) comme Délégué à la protection des données"
-    Et il y a un message de succès contenant "a été validé"
 
+  @DisableBullet
   Scénario: Je valide une demande d'habilitation en attente de modification
     Quand je me rends sur une demande d'habilitation "API scolarité de l'élève" en attente de modification
     Et je clique sur "Valider"

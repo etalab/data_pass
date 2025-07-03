@@ -51,6 +51,7 @@ fr:
             actions: "-"
           actions:
             show: Consulter
+            show_request: Voir la demande
         search:
           main_input:
             label: Rechercher dans toutes les habilitations
