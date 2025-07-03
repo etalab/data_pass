@@ -7,11 +7,13 @@ Fonctionnalité: Instruction: historique habilitation
     Sachant que je suis un instructeur "API Entreprise"
     Et que je me connecte
 
+  @DisableBullet
   Scénario: Je vois les événements
     Quand je me rends sur une demande d'habilitation "API Entreprise" à modérer
     Et je clique sur "Valider"
     Et je clique sur "Valider la demande d'habilitation"
-    Et que je clique sur "Consulter"
+    Et que je me rends sur mon tableau de bord instructeur habilitations
+    Et que je clique sur "Voir la demande"
     Et que je clique sur "Historique"
     Alors la page contient "a approuvé la demande"
     Et la page contient "a soumis la demande"
@@ -97,6 +99,6 @@ Fonctionnalité: Instruction: historique habilitation
     Quand il y a 1 demande d'habilitation "Solution Portail des aides" soumise
     Et que cette demande a été "validée"
     Et que je me rends sur mon tableau de bord instructeur habilitations
-    Et que je clique sur "Consulter"
+    Et que je clique sur "Voir la demande"
     Et que je clique sur "Historique"
     Alors la page contient un lien vers "/habilitations/.+"
