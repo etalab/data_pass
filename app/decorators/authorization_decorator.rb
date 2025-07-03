@@ -66,9 +66,7 @@ class AuthorizationDecorator < ApplicationDecorator
   end
 
   def reopening_validated?
-    object.request.authorizations.where(authorization_request_class: object.authorization_request_class).many?
-  rescue NoMethodError
-    false
+    object.request.reopening_validated?
   end
 
   def name_for_select
