@@ -449,11 +449,11 @@ RSpec.describe AuthorizationRequest do
     subject { authorization_request.reopening? }
 
     context 'with single stage authorization definition' do
-      let(:authorization_request) { create(:authorization_request, :api_entreprise, state: state) }
+      let(:authorization_request) { create(:authorization_request, :api_entreprise, state: state, reopened_at: 1.hour.ago) }
 
-      context 'when there is already an authorization attached to this request' do
+      context 'when there is already been validated' do
         before do
-          create(:authorization, request: authorization_request, authorization_request_class: authorization_request.type)
+          authorization_request.update!(last_validated_at: 1.minute.ago)
         end
 
         context 'when state is validated' do
