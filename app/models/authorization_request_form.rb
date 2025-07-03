@@ -17,7 +17,7 @@ class AuthorizationRequestForm < StaticApplicationRecord
     :scopes_config,
     :public
 
-  def self.all
+  def self.backend
     AuthorizationRequestFormConfigurations.instance.all.map do |uid, hash|
       build(uid, hash.deep_symbolize_keys)
     end
@@ -100,7 +100,7 @@ class AuthorizationRequestForm < StaticApplicationRecord
   end
 
   def initialize_with
-    initialize_with = @initialize_with || {}
+    initialize_with = (@initialize_with || {}).dup
 
     if authorization_definition.scopes.any?
       included_scopes = authorization_definition.scopes.select(&:included?)
