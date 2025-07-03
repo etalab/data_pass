@@ -15,7 +15,7 @@ class DashboardController < AuthenticatedUserController
 
     case params[:id]
     when 'demandes'
-      items = policy_scope(base_relation).not_archived.order(created_at: :desc).or(authorization_request_mentions_query)
+      items = policy_scope(base_relation).includes(:applicant, :authorizations).not_archived.order(created_at: :desc).or(authorization_request_mentions_query)
       @highlighted_categories = {
         changes_requested: items.changes_requested,
       }
@@ -25,7 +25,7 @@ class DashboardController < AuthenticatedUserController
         refused: items.refused,
       }
     when 'habilitations'
-      items = policy_scope(base_authorization_relation).order(created_at: :desc).or(authorization_mentions_query)
+      items = policy_scope(base_authorization_relation).includes(:applicant, :request).order(created_at: :desc).or(authorization_mentions_query)
 
       @highlighted_categories = {}
       @categories = {
