@@ -62,16 +62,21 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
     end
   end
 
-  def cgu_check_box(_opts = {})
-    term_checkbox(:terms_of_service_accepted) do |options|
-      options[:label] = cgu_check_box_label
+  def cgu_check_box(opts = {}, label_opts = {})
+    checkbox_opts = opts.dup
+
+    label_opts = label_opts.merge(disabled: opts[:disabled])
+    label_opts[:class] = Array(label_opts[:class]) + ['fr-checkbox-group--no-disabled-text'] if opts[:disabled]
+
+    term_checkbox(:terms_of_service_accepted, checkbox_opts) do |options|
+      options[:label] = cgu_check_box_label(label_opts)
     end
   end
 
-  def data_protection_officer_informed_check_box(_opts = {})
+  def data_protection_officer_informed_check_box(opts = {})
     return if @object.skip_data_protection_officer_informed_check_box?
 
-    term_checkbox(:data_protection_officer_informed)
+    term_checkbox(:data_protection_officer_informed, opts)
   end
 
   def extra_checkboxes
@@ -81,9 +86,10 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
   end
 
   def term_checkbox(name, opts = {})
-    opts[:required] = true
+    opts[:required] = true unless opts[:disabled]
     opts[:class] ||= []
     opts[:class] << 'fr-input-group--error' if all_terms_not_accepted_error?(name)
+    opts[:class] << 'fr-checkbox-group--no-disabled-text' if opts[:disabled]
 
     yield(opts) if block_given?
 
@@ -197,6 +203,15 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
 
   private
 
+  def cgu_check_box_label(label_opts = {})
+    label_text = [
+      wording_for('terms_of_service_accepted.label', link: object.definition.cgu_link).html_safe,
+      (required_tag unless label_opts[:disabled])
+    ].compact.join(' ').html_safe
+
+    label(:terms_of_service_accepted, label_text, label_opts)
+  end
+
   def france_connect_options_for_select
     default_option = @object.france_connect_authorization_id || @object.france_connect_authorizations.first&.id
 
@@ -204,16 +219,6 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
       @object.france_connect_authorizations.map { |authorization| [authorization.name_for_select, authorization.id] },
       default_option,
     ]
-  end
-
-  def cgu_check_box_label
-    label(
-      :terms_of_service_accepted,
-      [
-        wording_for('terms_of_service_accepted.label', link: object.definition.cgu_link).html_safe,
-        required_tag,
-      ].join(' ').html_safe
-    )
   end
 
   def all_terms_not_accepted_error?(attribute)
