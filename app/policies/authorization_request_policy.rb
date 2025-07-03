@@ -148,7 +148,7 @@ class AuthorizationRequestPolicy < ApplicationPolicy
   end
 
   def same_user_and_organization?
-    record.applicant == user &&
+    record.applicant_id == user.id &&
       same_current_organization?
   end
 
