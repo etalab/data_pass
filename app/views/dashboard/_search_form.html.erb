@@ -1,0 +1,53 @@
+<%= search_form_for(@search_engine, url: dashboard_show_path(id: params[:id]), html: { method: :get, data: { controller: 'auto-submit-form', 'auto-submit-form-debounce-interval-value' => 300, 'auto-submit-form-event-mode-value' => 'input', turbo_frame: "tab-#{params[:id]}-panel" }, class: %w[search-box] }) do |f| %>
+  <div class="search-inputs">
+    <% if params[:id] == 'demandes' %>
+      <%# Champs de recherche pour les demandes %>
+      <div class="fr-input-group main-input input">
+        <%= f.label :within_data_cont, t('dashboard.show.search.main_input.label'), class: %w[fr-label] %>
+        <%= f.search_field :within_data_cont, class: %w[fr-input], placeholder: t('dashboard.show.search.main_input.placeholder') %>
+      </div>
+
+      <div class="fr-select-group input">
+        <%= f.label :state_eq, t('dashboard.show.search.status.label'), class: %w[fr-label] %>
+        <%= f.select :state_eq,
+                     options_for_select([
+                                          [t('dashboard.show.search.status.options.all'), ''],
+                                          [t('dashboard.show.search.status.options.draft'), 'draft'],
+                                          [t('dashboard.show.search.status.options.changes_requested'), 'changes_requested'],
+                                          [t('dashboard.show.search.status.options.pending'), 'submitted'],
+                                          [t('dashboard.show.search.status.options.refused'), 'refused']
+                                        ], selected: params[:search_query]&.dig(:state_eq)),
+                     {},
+                     class: %w[fr-select]
+        %>
+      </div>
+
+    <% else %>
+      <%# Champs de recherche pour les habilitations %>
+      <div class="fr-input-group main-input input">
+        <%= f.label :data_cont, t('dashboard.show.search.main_input.label'), class: %w[fr-label] %>
+        <%= f.search_field :data_cont, class: %w[fr-input], placeholder: t('dashboard.show.search.main_input.placeholder') %>
+      </div>
+
+      <div class="fr-select-group input">
+        <%= f.label :state_eq, t('dashboard.show.search.status.label'), class: %w[fr-label] %>
+        <%= f.select :state_eq,
+                     options_for_select([
+                                          [t('dashboard.show.search.status.options.all'), ''],
+                                          [t('dashboard.show.search.status.options.active'), 'active'],
+                                          [t('dashboard.show.search.status.options.revoked'), 'revoked'],
+                                          [t('dashboard.show.search.status.options.obsolete'), 'obsolete']
+                                        ], selected: params[:search_query]&.dig(:state_eq)),
+                     {},
+                     class: %w[fr-select]
+        %>
+      </div>
+    <% end %>
+  </div>
+
+
+  <div class="actions">
+    <%= f.button t('dashboard.show.search.btn'), type: :submit, class: %w[fr-btn fr-btn--primary] %>
+    <%= link_to t('dashboard.show.search.reset'), dashboard_show_path(id: params[:id]), class: %w[fr-btn fr-btn--secondary] %>
+  </div>
+<% end %>

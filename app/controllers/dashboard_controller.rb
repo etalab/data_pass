@@ -15,7 +15,18 @@ class DashboardController < AuthenticatedUserController
 
     case params[:id]
     when 'demandes'
-      items = policy_scope(base_relation).includes(:applicant, :authorizations).not_archived.order(created_at: :desc).or(authorization_request_mentions_query)
+      # Modification pour les demandes
+      base_items = policy_scope(base_relation)
+        .includes(:applicant, :authorizations)
+        .not_archived
+        .order(created_at: :desc)
+        .or(authorization_request_mentions_query)
+
+      @search_engine = base_items.ransack(params[:search_query])
+      @search_engine.sorts = 'created_at desc' if @search_engine.sorts.empty?
+
+      items = @search_engine.result
+
       @highlighted_categories = {
         changes_requested: items.changes_requested,
       }
@@ -25,7 +36,16 @@ class DashboardController < AuthenticatedUserController
         refused: items.refused,
       }
     when 'habilitations'
-      items = policy_scope(base_authorization_relation).includes(:applicant, :request).order(created_at: :desc).or(authorization_mentions_query)
+      # Modification pour les habilitations
+      base_items = policy_scope(base_authorization_relation)
+                     .includes(:request, :applicant)
+                     .order(created_at: :desc)
+                     .or(authorization_mentions_query)
+
+      @search_engine = base_items.ransack(params[:search_query])
+      @search_engine.sorts = 'created_at desc' if @search_engine.sorts.empty?
+
+      items = @search_engine.result
 
       @highlighted_categories = {}
       @categories = {

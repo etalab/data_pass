@@ -265,6 +265,8 @@ class AuthorizationRequest < ApplicationRecord
       within_data
       state
       last_submitted_at
+      type
+      user_id
     ]
   end
 
@@ -272,6 +274,7 @@ class AuthorizationRequest < ApplicationRecord
     %w[
       applicant
       organization
+      authorizations
     ]
   end
 
