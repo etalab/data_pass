@@ -19,7 +19,7 @@
           </span>
 
           <div class="flex-wrap flew-grow flex-end__content fr-grid-row--top fr-col--xs">
-            <%= authorization.request_as_validated.decorate.stage_badge %>
+            <%= authorization.request_as_validated(load_documents: false).decorate.stage_badge %>
             <%= authorization.status_badge %>
           </div>
         </div>
@@ -40,7 +40,7 @@
 
           <div class="fr-card__end">
             <%= authorization.applicant_details %>
- 
+
             <p class="fr-card__detail fr-icon-check-line">
               <%= t '.validated_at', date: l(authorization.created_at, format: '%d/%m/%Y') %>
             </p>
