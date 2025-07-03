@@ -129,7 +129,12 @@ class AuthorizationRequestDecorator < ApplicationDecorator # rubocop:disable Met
   end
 
   def reopening_validated?
-    object.authorizations.where(authorization_request_class: object.type).many?
+    if object.multi_stage?
+      object.authorizations.many? { |a| a.authorization_request_class == object.type }
+    else
+      object.reopened_at.present? &&
+        object.reopened_at < object.last_validated_at
+    end
   rescue NoMethodError
     false
   end
