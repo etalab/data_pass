@@ -1,0 +1,49 @@
+<%= search_form_for(@search_engine, url: dashboard_show_path(id: params[:id]), html: { method: :get, data: { controller: 'auto-submit-form', 'auto-submit-form-debounce-interval-value' => 300, 'auto-submit-form-event-mode-value' => 'input', turbo_frame: "tab-#{params[:id]}-panel" }, class: %w[search-box] }) do |f| %>
+  <div class="search-inputs">
+    <div class="fr-input-group main-input input">
+      <%= f.label :within_data_or_organization_name_or_organization_legal_entity_id_or_applicant_email_or_applicant_family_name_cont, t('dashboard.show.search.main_input.label'), class: %w[fr-label] %>
+      <%= f.search_field :within_data_or_organization_name_or_organization_legal_entity_id_or_applicant_email_or_applicant_family_name_cont, class: %[fr-input], placeholder: t('dashboard.show.search.main_input.placeholder'), id: 'dashboard_search_input' %>
+    </div>
+
+    <div class="fr-select-group input status-select">
+      <%= f.label :state_eq, t('dashboard.show.search.status.label'), class: %w[fr-label] %>
+      <%
+        options = case params[:id]
+        when 'demandes'
+          [
+            [t('dashboard.show.search.status.options.all'), ''],
+            [t('dashboard.show.search.status.options.changes_requested'), 'changes_requested'],
+            [t('dashboard.show.search.status.options.pending'), 'pending'],
+            [t('dashboard.show.search.status.options.draft'), 'draft'],
+            [t('dashboard.show.search.status.options.refused'), 'refused']
+          ]
+          else 'habilitations'
+          [
+            [t('dashboard.show.search.status.options.all'), ''],
+            [t('dashboard.show.search.status.options.active'), 'Active'],
+            [t('dashboard.show.search.status.options.obsolete'), 'Obsolete'],
+            [t('dashboard.show.search.status.options.revoked'), 'Revoked']
+          ]
+        end
+      %>
+      <%= f.select :state_eq, options_for_select(options, selected: params[:search_query].try(:[], :state_eq)), {}, class: %w[fr-select] %>
+    </div>
+
+    <div class="fr-select-group input">
+      <%= f.label :state_eq, t('dashboard.show.search.requester_filter.label'), class: %w[fr-label] %>
+      <% requester_options = [
+          [t('dashboard.show.search.requester_filter.options.me'), 'i_am_requester'],
+          [t('dashboard.show.search.requester_filter.options.contact'), 'i_am_contact'],
+          [t('dashboard.show.search.requester_filter.options.organization'), 'other_organization_requests'],
+        ]
+      %>
+      <%= f.select :state_eq, options_for_select(requester_options, selected: params[:requester_filter]), {}, class: %w[fr-select], onchange: 'this.form.submit()' %>
+      <%= f.hidden_field :search_query, value: params[:search_query].to_json if params[:search_query].present? %>
+    </div>
+
+    <div class="actions">
+      <%= f.button t('dashboard.show.search.btn'), type: :submit, class: %w[fr-btn fr-btn--primary] %>
+      <%= link_to t('dashboard.show.search.reset'), dashboard_show_path(id: params[:id]), class: %w[fr-btn fr-btn--secondary] %>
+    </div>
+  </div>
+<% end %>

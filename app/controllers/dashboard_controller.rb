@@ -8,6 +8,8 @@ class DashboardController < AuthenticatedUserController
   Tab = Data.define(:id, :path)
 
   def show # rubocop:disable Metrics/AbcSize
+    @search_engine = base_relation.ransack(params[:search_query])
+
     @tabs = [
       Tab.new('demandes', dashboard_show_path(id: 'demandes', **request.query_parameters)),
       Tab.new('habilitations', dashboard_show_path(id: 'habilitations', **request.query_parameters)),
