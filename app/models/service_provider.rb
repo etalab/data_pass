@@ -9,7 +9,7 @@ class ServiceProvider < StaticApplicationRecord
 
   TYPES = { saas: 'saas', editor: 'editor' }.freeze
 
-  def self.all
+  def self.backend
     Rails.application.config_for(:service_providers).map do |uid, hash|
       build(uid, hash)
     end

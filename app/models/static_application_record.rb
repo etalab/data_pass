@@ -15,6 +15,10 @@ class StaticApplicationRecord
 
   module ClassMethods
     def all
+      @all ||= backend
+    end
+
+    def backend
       fail NotImplementedError
     end
 
