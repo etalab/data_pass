@@ -70,7 +70,7 @@ Fonctionnalité: Consultation d'une demande d'habilitation
     Et il n'y a pas de bouton "Enregistrer"
 
   Scénario: Je consulte une demande d'habilitation simple où je suis mentionné
-    Quand je suis mentionné dans 1 demande d'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)" en tant que "Administrateur local"
+    Quand je suis mentionné dans 1 demande d'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)" en tant que "Administrateur métier"
     Et que je me rends sur mon tableau de bord demandes
     Et que je clique sur "Consulter"
     Alors il y a un titre contenant "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
@@ -80,7 +80,7 @@ Fonctionnalité: Consultation d'une demande d'habilitation
     Et il y a un message d'info contenant "Vous avez été référencé comme administrateur local"
 
   Scénario: Je consulte une demande d'habilitation en plusieurs étapes où je suis mentionné
-    Quand je suis mentionné dans 1 demande d'habilitation "Démarches du bouquet de services (service-public.fr)" en tant que "Administrateur local"
+    Quand je suis mentionné dans 1 demande d'habilitation "Démarches du bouquet de services (service-public.fr)" en tant que "Administrateur métier"
     Et que je me rends sur mon tableau de bord demandes
     Et que je clique sur "Consulter"
     Alors il y a un titre contenant "Démarches du bouquet de services (service-public.fr)"
