@@ -5,7 +5,7 @@ class Subdomain < StaticApplicationRecord
     :tagline,
     :authorization_definitions
 
-  def self.all
+  def self.backend
     Rails.application.config_for(:subdomains).map do |uid, hash|
       build(uid, hash)
     end

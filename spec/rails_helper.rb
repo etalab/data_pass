@@ -87,6 +87,12 @@ RSpec.configure do |config|
     ActiveJob::Base.queue_adapter = :test
   end
 
+  config.before do
+    StaticApplicationRecord.descendants.each do |model|
+      model.class.instance_variable_set(:@backend, nil)
+    end
+  end
+
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:

@@ -24,6 +24,8 @@ Rails.application.configure do
     AuthorizationRequestForm.all.map(&:authorization_request_class).each do |klass|
       Bullet.add_safelist type: :unused_eager_loading, class_name: klass.to_s, association: :authorizations
     end
+
+    Bullet.unused_eager_loading_enable = false
   end
 
   # Settings specified here will take precedence over those in config/application.rb.

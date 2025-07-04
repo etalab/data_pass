@@ -4,7 +4,7 @@ class DataProvider < StaticApplicationRecord
     :logo,
     :link
 
-  def self.all
+  def self.backend
     Rails.application.config_for(:data_providers).map do |uid, hash|
       new(id: uid.to_s, **hash.symbolize_keys)
     end
