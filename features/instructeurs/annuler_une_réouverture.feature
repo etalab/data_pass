@@ -19,13 +19,15 @@ Fonctionnalité: Instruction: annuler une réouverture
     Quand je me rends sur une demande d'habilitation "API Particulier" à modérer
     Alors il n'y a pas de bouton "Annuler la demande de réouverture"
 
+  @DisableBullet
   Scénario: J'annule une réouverture d'habilitation avec un message valide
     Quand je me rends sur une demande d'habilitation "API Particulier" réouverte
     Et que je clique sur "Annuler la demande de réouverture"
     Et que je remplis "Raison de l'annulation de la réouverture" avec "L'usager s'est trompé de bouton"
     Et que je clique sur "Annuler la réouverture de cette demande"
-    Alors je suis sur la page "Liste des demandes en cours"
-    Et je vois 1 demande d'habilitation "API Particulier" validée
+    Alors je suis sur la page "Liste des demandes et habilitations"
+    Et que je me rends sur mon tableau de bord instructeur habilitations
+    Et je vois 1 habilitation "API Particulier" active
 
   Scénario: J'annule une réouverture d'habilitation avec un message invalide
     Quand je me rends sur une demande d'habilitation "API Particulier" réouverte

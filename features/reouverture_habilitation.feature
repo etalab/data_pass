@@ -12,7 +12,7 @@ Fonctionnalité: Réouverture d'une habilitation validée
   @FlushJobQueue
   Scénario: Initialisation d'une réouverture d'une demande validée depuis le tableau de bord
     Quand j'ai 1 demande d'habilitation "API Entreprise" validée
-    Et que je me rends sur mon tableau de bord habilitations
+    Et que je me rends sur mon tableau de bord demandeur habilitations
     Et que je clique sur "Mettre à jour"
     Et que je clique sur "Mettre à jour l'habilitation"
     Alors je suis sur la page "API Entreprise"
@@ -26,7 +26,7 @@ Fonctionnalité: Réouverture d'une habilitation validée
 
   Scénario: Initialisation d'une réouverture d'une demande validée depuis la vue validée
     Quand j'ai 1 demande d'habilitation "API Entreprise" validée
-    Et que je me rends sur mon tableau de bord habilitations
+    Et que je me rends sur mon tableau de bord demandeur habilitations
     Et que je clique sur le premier "Consulter"
     Et que je clique sur "Mettre à jour"
     Et que je clique sur "Mettre à jour l'habilitation"
@@ -109,13 +109,13 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Et que cette demande a été "soumise"
     Et que cette demande a été "refusée"
     Alors il n'y a pas de bouton "Consulter"
-    Et que je me rends sur mon tableau de bord habilitations
+    Et que je me rends sur mon tableau de bord demandeur habilitations
     Et que je clique sur le dernier "Consulter"
     Alors il y a un badge "Active"
 
   Scénario: Initialisation d'une réouverture bac à sable d'une demande validée en production
     Quand j'ai 1 demande d'habilitation "API Impôt Particulier" validée
-    Et que je me rends sur mon tableau de bord habilitations
+    Et que je me rends sur mon tableau de bord demandeur habilitations
     Et que je clique sur le premier "Mettre à jour"
     Et que je clique sur "Mettre à jour l'habilitation bac à sable"
     Alors je suis sur la page "Demande libre (Bac à sable) - API Impôt Particulier"
@@ -132,13 +132,13 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Et il y a un badge "Bac à sable"
     Et il y a un badge "En cours"
     Et qu'un instructeur a validé la demande d'habilitation
-    Et que je me rends sur mon tableau de bord habilitations
+    Et que je me rends sur mon tableau de bord demandeur habilitations
     Alors la page contient "Votre demande de réouverture d’accès au bac à sable a été validée !"
 
 
   Scénario: Annulation d'une demande de réouverture multi stage
     Quand j'ai 1 demande d'habilitation "API Impôt Particulier" validée
-    Et que je me rends sur mon tableau de bord habilitations
+    Et que je me rends sur mon tableau de bord demandeur habilitations
     Et que je clique sur le premier "Mettre à jour"
     Et que je clique sur "Mettre à jour l'habilitation bac à sable"
     Alors je suis sur la page "Demande libre (Bac à sable) - API Impôt Particulier"
@@ -152,13 +152,13 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Alors il y a un titre contenant "Annulation de vos modifications"
     Alors il y a un bouton "Annuler ma demande de modification"
     Et que je clique sur "Annuler ma demande de modification"
-    Et que je me rends sur mon tableau de bord habilitations
+    Et que je me rends sur mon tableau de bord demandeur habilitations
     Alors il y a un badge "Production"
     Et il y a un badge "Active"
 
   Scénario: Initialisation d'une réouverture production d'une demande validée en production
     Quand j'ai 1 demande d'habilitation "API Impôt Particulier" validée
-    Et que je me rends sur mon tableau de bord habilitations
+    Et que je me rends sur mon tableau de bord demandeur habilitations
     Et que je clique sur le premier "Mettre à jour"
     Et que je clique sur "Mettre à jour l'habilitation de production"
     Alors je suis sur la page "Demande libre (Production) - API Impôt Particulier"
@@ -166,7 +166,7 @@ Fonctionnalité: Réouverture d'une habilitation validée
 
   Scénario: Je peux terminer un cycle de réouverture d'une demande avec plusieurs paliers
     Quand j'ai 1 demande d'habilitation "API Impôt Particulier" validée
-    Et que je me rends sur mon tableau de bord habilitations
+    Et que je me rends sur mon tableau de bord demandeur habilitations
     Et que je clique sur le premier "Mettre à jour"
     Et que je clique sur "Mettre à jour l'habilitation bac à sable"
     Alors je suis sur la page "Demande libre (Bac à sable) - API Impôt Particulier"
@@ -181,7 +181,7 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Et que je clique sur "Envoyer ma demande de modification"
     Alors il y a un message de succès contenant "soumise avec succès"
     Et qu'un instructeur a validé la demande d'habilitation
-    Et que je me rends sur mon tableau de bord habilitations
+    Et que je me rends sur mon tableau de bord demandeur habilitations
     Et il y a un badge "Bac à sable"
     Et il y a un badge "Active"
     Et la page ne contient pas "Demande de mise à jour"
@@ -193,14 +193,14 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Et il y a un badge "En cours"
     Et il y a un badge "Mise à jour"
     Alors un instructeur a validé la demande d'habilitation
-    Et que je me rends sur mon tableau de bord habilitations
+    Et que je me rends sur mon tableau de bord demandeur habilitations
     Et il y a un badge "Bac à sable"
     Et il y a un badge "Production"
     Et il y a 2 badges "Active"
 
   Scénario: Absence du bouton de réouverture sur la page de l'habilitation API Tierce Déclaration CESU après désactivation de l'option 'reopening'
     Quand j'ai 1 demande d'habilitation "API Tierce Déclaration CESU" validée
-    Et que je me rends sur mon tableau de bord habilitations
+    Et que je me rends sur mon tableau de bord demandeur habilitations
     Et que je clique sur le premier "Consulter"
     Alors je suis sur la page "API Tierce Déclaration CESU"
     Et il y a un badge "Active"
@@ -208,6 +208,6 @@ Fonctionnalité: Réouverture d'une habilitation validée
 
   Scénario: Absence du bouton "Mettre à jour" sur le tableau de bord pour l'habilitation API Tierce Déclaration CESU après désactivation de l'option 'reopening'
     Quand j'ai 1 demande d'habilitation "API Tierce Déclaration CESU" validée
-    Et que je me rends sur mon tableau de bord habilitations
+    Et que je me rends sur mon tableau de bord demandeur habilitations
     Et il y a un badge "Active"
     Et il n'y a pas de bouton "Mettre à jour"
