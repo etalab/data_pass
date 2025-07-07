@@ -33,4 +33,8 @@ class CancelAuthorizationReopeningsController < AuthenticatedUserController
   def extract_authorization_request
     @authorization_request = AuthorizationRequest.find(params[:authorization_request_id])
   end
+
+  def model_to_track_for_impersonation
+    @authorization_request
+  end
 end

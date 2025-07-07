@@ -27,4 +27,8 @@ class Instruction::ArchiveAuthorizationRequestsController < Instruction::Abstrac
   def authorize_authorization_request_archive
     authorize [:instruction, @authorization_request], :archive?
   end
+
+  def model_to_track_for_impersonation
+    @authorization_request
+  end
 end

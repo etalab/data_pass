@@ -16,4 +16,8 @@ class NotificationsSettingsController < AuthenticatedUserController
   def notifications_permitted_settings
     User.stored_attributes[:settings].select { |setting| setting.to_s.include?('_notifications_') }
   end
+
+  def model_to_track_for_impersonation
+    current_user
+  end
 end

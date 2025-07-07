@@ -38,6 +38,8 @@
       <%= yield(:extra_modal) %>
     <% end %>
 
+    <%= render partial: 'shared/impersonation_warning' %>
+
     <%= render partial: 'layouts/header' %>
 
     <main>

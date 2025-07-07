@@ -31,4 +31,8 @@ class Instruction::CancelAuthorizationReopeningsController < Instruction::Abstra
   def authorize_authorization_request_reopening_cancellation
     authorize [:instruction, @authorization_request], :cancel_reopening?
   end
+
+  def model_to_track_for_impersonation
+    @authorization_request
+  end
 end
