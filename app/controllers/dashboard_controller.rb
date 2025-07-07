@@ -8,8 +8,6 @@ class DashboardController < AuthenticatedUserController
   Tab = Data.define(:id, :path)
 
   def show # rubocop:disable Metrics/AbcSize
-    @search_engine = base_relation.ransack(params[:search_query])
-
     @tabs = [
       Tab.new('demandes', dashboard_show_path(id: 'demandes', **request.query_parameters)),
       Tab.new('habilitations', dashboard_show_path(id: 'habilitations', **request.query_parameters)),
@@ -17,7 +15,31 @@ class DashboardController < AuthenticatedUserController
 
     case params[:id]
     when 'demandes'
-      items = policy_scope(base_relation).includes(:applicant, :authorizations).not_archived.order(created_at: :desc).or(authorization_request_mentions_query)
+      # Modification pour les demandes
+      base_items = policy_scope(base_relation)
+        .includes(:applicant, :authorizations)
+        .not_archived
+        .order(created_at: :desc)
+        .or(authorization_request_mentions_query)
+
+      @search_engine = base_items.ransack(params[:search_query])
+      @search_engine.sorts = 'created_at desc' if @search_engine.sorts.empty?
+
+      items = @search_engine.result
+
+      if params.dig(:search_query, :state_eq).present?
+        case params[:search_query][:state_eq]
+        when 'draft'
+          items = items.drafts
+        when 'changes_requested'
+          items = items.changes_requested
+        when 'pending'
+          items = items.in_instructions
+        when 'refused'
+          items = items.refused
+        end
+      end
+
       @highlighted_categories = {
         changes_requested: items.changes_requested,
       }
@@ -27,7 +49,16 @@ class DashboardController < AuthenticatedUserController
         refused: items.refused,
       }
     when 'habilitations'
-      items = policy_scope(base_authorization_relation).includes(:applicant, :request).order(created_at: :desc).or(authorization_mentions_query)
+      # Modification pour les habilitations
+      base_items = policy_scope(base_authorization_relation)
+                     .includes(:request, :applicant)
+                     .order(created_at: :desc)
+                     .or(authorization_mentions_query)
+
+      @search_engine = base_items.ransack(params[:search_query])
+      @search_engine.sorts = 'created_at desc' if @search_engine.sorts.empty?
+
+      items = @search_engine.result
 
       @highlighted_categories = {}
       @categories = {

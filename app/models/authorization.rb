@@ -80,6 +80,29 @@ class Authorization < ApplicationRecord
     end
   end
 
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[
+      applicant_id
+      authorization_request_class
+      created_at
+      data
+      id
+      request_id
+      revoked
+      slug
+      state
+      updated_at
+    ]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[
+      request
+      applicant
+      organization
+    ]
+  end
+
   def access_link
     return nil if definition.access_link.blank? || request.external_provider_id.blank?
 
