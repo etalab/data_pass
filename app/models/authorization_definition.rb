@@ -17,7 +17,7 @@ class AuthorizationDefinition < StaticApplicationRecord
     :public,
     :unique
 
-  def self.all
+  def self.backend
     AuthorizationDefinitionConfigurations.instance.all.map do |uid, hash|
       build(uid, hash)
     end

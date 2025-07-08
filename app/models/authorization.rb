@@ -87,14 +87,14 @@ class Authorization < ApplicationRecord
   end
 
   # rubocop:disable Metrics/AbcSize
-  def request_as_validated
+  def request_as_validated(load_documents: true)
     request_as_validated = authorization_request_class.constantize.new(request.dup.attributes.except('type'))
 
     request_as_validated.id = request.id
     request_as_validated.data = data
     request_as_validated.state = revoked? ? 'revoked' : 'validated'
     request_as_validated.created_at = created_at
-    affect_snapshot_documents(request_as_validated)
+    affect_snapshot_documents(request_as_validated) if load_documents
 
     request_as_validated
   end

@@ -357,11 +357,15 @@ class AuthorizationRequest < ApplicationRecord
   end
 
   def reopening?
-    authorizations.where(authorization_request_class: type).any? &&
+    if multi_stage?
+      authorizations.any? { |a| a.authorization_request_class == type }
+    else
+      last_validated_at.present? && reopened_at.present?
+    end &&
       %w[validated revoked].exclude?(state)
   end
 
-  delegate :reopenable?, to: :definition
+  delegate :reopenable?, :multi_stage?, to: :definition
 
   def contact_types_for(user)
     contact_type_key_values = data.select do |key, value|
