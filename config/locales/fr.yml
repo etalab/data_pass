@@ -171,8 +171,9 @@ fr:
         revoked_title: Habilitations révoquées
       search:
         main_input:
-          label: Rechercher dans toutes les habilitations
-          placeholder: id, numéro de siret, intitulé...
+          label_demandes: Rechercher dans toutes les demandes
+          label_habilitations: Rechercher dans toutes les habilitations
+          placeholder: Rechercher par intitulé, API...
         status:
             label: Filtrer par statut
             options:
