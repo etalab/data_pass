@@ -14,6 +14,10 @@ Votre demande d’abonnement à la démarche CertDc pour <%= @authorization_requ
   Nous vous recommandons de vous assurer qu’il a bien reçu cet e-mail et qu’il procède rapidement à l’activation de l’abonnement.
 <% end %>
 
+<% if @authorization_request.reopening? %>
+  Attention, la modification des données de l'administrateur local sur le formulaire ne lui crée pas de compte sur le portail HubEE. Veuillez contacter le support HubEE pour finaliser la création du compte du nouvel administrateur local.
+<% end %>
+
 Pour information, votre demande d’abonnement reste accessible en cliquant sur le lien suivant : <%= authorization_request_url(@authorization_request) %>
 
 Bien cordialement,
