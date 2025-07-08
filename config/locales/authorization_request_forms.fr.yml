@@ -952,10 +952,10 @@ fr:
         subtitle: Afin de vous donner accès aux données, nous avons besoin d’en savoir plus sur la manière dont vous souhaitez les utiliser.
       intitule:
         label: Nom du logiciel
-        hint: Un texte à changer ici
+        hint: Nom commercial du logiciel
       description:
         label: Description du flux opérationnel
-        hint: Texte à personnaliser pour aider l'utilisateur
+        hint: Le flux opérationnel doit contenir les éléments réglementaires obligatoires.
 
     api_captchetat:
       contact_technique:
