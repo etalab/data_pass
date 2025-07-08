@@ -69,7 +69,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
       proconnect_domain: Rails.application.credentials.proconnect_url,
       redirect_uri: URI("#{host}/auth/proconnect/callback").to_s,
       post_logout_redirect_uri: URI(host).to_s,
-      scope: 'openid given_name usual_name email uid idp_id siret organizational_unit phone',
+      scope: 'openid given_name usual_name email uid idp_id siret phone',
     }
   )
 end
