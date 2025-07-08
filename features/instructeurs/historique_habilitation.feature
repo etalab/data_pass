@@ -7,11 +7,13 @@ Fonctionnalité: Instruction: historique habilitation
     Sachant que je suis un instructeur "API Entreprise"
     Et que je me connecte
 
+  @DisableBullet
   Scénario: Je vois les événements
     Quand je me rends sur une demande d'habilitation "API Entreprise" à modérer
     Et je clique sur "Valider"
     Et je clique sur "Valider la demande d'habilitation"
-    Et que je clique sur "Consulter"
+    Et que je me rends sur mon tableau de bord instructeur habilitations
+    Et que je clique sur "Voir la demande"
     Et que je clique sur "Historique"
     Alors la page contient "a approuvé la demande"
     Et la page contient "a soumis la demande"
@@ -19,7 +21,7 @@ Fonctionnalité: Instruction: historique habilitation
   @DisableBullet
   Scénario: Je vois un message simple indiquant la soumission d'une demande sans données pré-remplies
     Quand il y a 1 demande d'habilitation "API Entreprise" en attente
-    Et que je vais sur la page instruction
+    Et que je me rends sur mon tableau de bord instructeur
     Et que je clique sur "Consulter"
     Et que je clique sur "Historique"
     Alors la page contient "a soumis la demande"
@@ -33,7 +35,7 @@ Fonctionnalité: Instruction: historique habilitation
       | intitule    | Nouvelle valeur de titre       |
       | description | Nouvelle valeur de description |
     Et que cette demande a été "soumise"
-    Et que je vais sur la page instruction
+    Et que je me rends sur mon tableau de bord instructeur
     Et que je clique sur "Consulter"
     Et que je clique sur "Historique"
     Alors la page contient "Le champ Nom du projet a changé de \"Demande d'accès à la plateforme fournisseur\" en \"Nouvelle valeur de titre\""
@@ -44,7 +46,7 @@ Fonctionnalité: Instruction: historique habilitation
     Quand il y a 1 demande d'habilitation "API Entreprise" en attente
     Et que cette demande a été "sujet à modification"
     Et que cette demande a été "soumise"
-    Et que je vais sur la page instruction
+    Et que je me rends sur mon tableau de bord instructeur
     Et que je clique sur "Consulter"
     Et que je clique sur "Historique"
     Alors la page contient "a soumis la demande sans effectuer de changement"
@@ -65,7 +67,7 @@ Fonctionnalité: Instruction: historique habilitation
       | delegue_protection_donnees_job_title    | DPO                                 |
       | delegue_protection_donnees_phone_number | 0836656565                          |
     Et que cette demande a été "soumise"
-    Et que je vais sur la page instruction
+    Et que je me rends sur mon tableau de bord instructeur
     Et que je clique sur "Consulter"
     Et que je clique sur "Historique"
     Alors la page contient "a soumis la demande sans effectuer de changement sur les données pré-remplies"
@@ -87,7 +89,7 @@ Fonctionnalité: Instruction: historique habilitation
       | delegue_protection_donnees_job_title    | DPO                                 |
       | delegue_protection_donnees_phone_number | 0836656565                          |
     Et que cette demande a été "soumise"
-    Et que je vais sur la page instruction
+    Et que je me rends sur mon tableau de bord instructeur
     Et que je clique sur "Consulter"
     Et que je clique sur "Historique"
     Alors la page contient "Les données suivantes ont été modifiées par rapport aux informations pré-remplies du formulaire"
@@ -96,7 +98,7 @@ Fonctionnalité: Instruction: historique habilitation
   Scénario: Je vois un lien vers l'habilitation sur l'évènement de validation
     Quand il y a 1 demande d'habilitation "Solution Portail des aides" soumise
     Et que cette demande a été "validée"
-    Et que je vais sur la page instruction
-    Et que je clique sur "Consulter"
+    Et que je me rends sur mon tableau de bord instructeur habilitations
+    Et que je clique sur "Voir la demande"
     Et que je clique sur "Historique"
     Alors la page contient un lien vers "/habilitations/.+"

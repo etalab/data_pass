@@ -100,7 +100,7 @@ Fonctionnalité: Consultation d'une demande d'habilitation
   Scénario: Je consulte une habilitation où je suis mentionnée
     Quand je suis mentionné dans 1 demande d'habilitation "API Entreprise" en tant que "Contact technique"
     Et que cette demande a été "validée"
-    Et que je me rends sur mon tableau de bord habilitations
+    Et que je me rends sur mon tableau de bord demandeur habilitations
     Et que je clique sur "Consulter"
     Alors il y a un titre contenant "API Entreprise"
     Et il y a un formulaire en mode résumé

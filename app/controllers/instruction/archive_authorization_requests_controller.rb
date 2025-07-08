@@ -11,7 +11,7 @@ class Instruction::ArchiveAuthorizationRequestsController < Instruction::Abstrac
     if organizer.success?
       success_message(title: t('.success', name: @authorization_request.name))
 
-      redirect_to instruction_authorization_requests_path,
+      redirect_to instruction_dashboard_show_path(id: 'demandes'),
         status: :see_other
     else
       render 'new'

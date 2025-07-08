@@ -15,7 +15,7 @@
       <% end %>
       <% if current_user.reporter? %>
         <li>
-          <a class="fr-link fr-icon-draft-fill" href="<%= instruction_path %>">
+          <a class="fr-link fr-icon-draft-fill" href="<%= instruction_dashboard_show_path(id: "demandes") %>">
             <%= t('.links.instruction.title') %>
           </a>
         </li>
