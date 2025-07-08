@@ -10,8 +10,8 @@ class AuthorizationRequest::APIRial < AuthorizationRequest
 
   VOLUMETRIES = {
     '50 appels / minute': 50,
+    '100 appels / minute': 100,
     '200 appels / minute': 200,
-    '1000 appels / minute': 1000,
   }.freeze
 
   add_documents :maquette_projet, content_type: ['application/pdf'], size: { less_than: 10.megabytes }
