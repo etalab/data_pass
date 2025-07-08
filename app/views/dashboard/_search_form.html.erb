@@ -3,7 +3,7 @@
     <% if params[:id] == 'demandes' %>
       <%# Champs de recherche pour les demandes %>
       <div class="fr-input-group main-input input">
-        <%= f.label :within_data_cont, t('dashboard.show.search.main_input.label'), class: %w[fr-label] %>
+        <%= f.label :within_data_cont, t('dashboard.show.search.main_input.label_demandes'), class: %w[fr-label] %>
         <%= f.search_field :within_data_cont, class: %w[fr-input], placeholder: t('dashboard.show.search.main_input.placeholder') %>
       </div>
 
@@ -25,7 +25,7 @@
     <% else %>
       <%# Champs de recherche pour les habilitations %>
       <div class="fr-input-group main-input input">
-        <%= f.label :within_data_cont, t('dashboard.show.search.main_input.label'), class: %w[fr-label] %>
+        <%= f.label :within_data_cont, t('dashboard.show.search.main_input.label_habilitations'), class: %w[fr-label] %>
         <%= f.search_field :within_data_cont, class: %w[fr-input], placeholder: t('dashboard.show.search.main_input.placeholder') %>
       </div>
 
