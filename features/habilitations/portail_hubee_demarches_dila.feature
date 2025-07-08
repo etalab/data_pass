@@ -13,9 +13,9 @@ Fonctionnalité: Soumission d'une demande d'habilitation Démarches du bouquet d
     * je coche "DHTOUR - Déclaration d’hébergement touristique"
     * je coche "JCC - Déclaration de Changement de Coordonnées"
 
-    * je remplis les informations du contact "Administrateur métier" avec :
+    * je remplis les informations du contact "Administrateur local" avec :
       | Nom    | Prénom | Email               | Téléphone   | Fonction              |
-      | Dupont | Jean   | dupont.jean@gouv.fr | 0836656565  | Administrateur métier |
+      | Dupont | Jean   | dupont.jean@gouv.fr | 0836656565  | Administrateur local |
 
     * j'enregistre et continue vers le résumé
 
@@ -41,9 +41,9 @@ Fonctionnalité: Soumission d'une demande d'habilitation Démarches du bouquet d
     * je coche "DHTOUR - Déclaration d’hébergement touristique"
     * je coche "JCC - Déclaration de Changement de Coordonnées"
 
-    * je remplis les informations du contact "Administrateur métier" avec :
-      | Nom    | Prénom | Email               | Téléphone   | Fonction de l'administrateur métier |
-      | Dupont |        | dupont.jean@gouv.fr | 0836656565  | Administrateur métier |
+    * je remplis les informations du contact "Administrateur local" avec :
+      | Nom    | Prénom | Email               | Téléphone   | Fonction de l'administrateur local |
+      | Dupont |        | dupont.jean@gouv.fr | 0836656565  | Administrateur local |
 
     * j'enregistre et continue vers le résumé
 

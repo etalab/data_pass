@@ -195,7 +195,7 @@ fr:
       delegue_protection_donnees_phone_number: *contact_phone_number
 
       administrateur_metier:
-        title: Administrateur métier
+        title: Administrateur local
       administrateur_metier_family_name: *contact_family_name
       administrateur_metier_given_name: *contact_given_name
       administrateur_metier_email: *contact_email
