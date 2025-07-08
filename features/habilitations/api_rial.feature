@@ -6,7 +6,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Rial
     Et que je me connecte
 
   Scénario: Je soumets une demande d'habilitation valide à l'étape Bac à sable
-    * je démarre une nouvelle demande d'habilitation "API Rial (Répertoire Inter-Administratif des Locaux)" à l'étape "Bac à sable"
+    * je démarre une nouvelle demande d'habilitation "API RIAL (Répertoire Inter-Administratif des Locaux)" à l'étape "Bac à sable"
     * je renseigne les infos de bases du projet
     * je clique sur "Suivant"
 
@@ -30,7 +30,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Rial
     Et je suis sur la page "Demandes et habilitations"
 
   Scénario: Je soumets une demande d'habilitation valide à l'étape Production
-    Quand j'ai 1 demande d'habilitation "API Rial (Répertoire Inter-Administratif des Locaux)" à l'étape "Bac à sable" validée
+    Quand j'ai 1 demande d'habilitation "API RIAL (Répertoire Inter-Administratif des Locaux)" à l'étape "Bac à sable" validée
     Et que je me rends sur mon tableau de bord habilitations
     Et je clique sur "Démarrer ma demande d’habilitation en production"
     Et que je clique sur "Débuter ma demande"
