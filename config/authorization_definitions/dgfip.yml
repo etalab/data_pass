@@ -779,7 +779,7 @@ api_ensu_documents:
     - name: volumetrie
 
 api_rial_sandbox:
-  name: API Rial (Répertoire Inter-Administratif des Locaux)
+  name: API RIAL (Répertoire Inter-Administratif des Locaux)
   description: Raccordez-vous directement à la DGFiP pour récupérer les données des locaux connus par l’administration fiscale (caractéristiques, surface, adresse, identifiant cadastral, lots de copropriété).
   provider: "dgfip"
   kind: 'api'
@@ -802,7 +802,7 @@ api_rial_sandbox:
     - name: contacts
 
 api_rial:
-  name: API Rial
+  name: API RIAL (Répertoire Inter-Administratif des Locaux)
   description: Raccordez-vous directement à la DGFiP pour récupérer les données des locaux connus par l’administration fiscale (caractéristiques, surface, adresse, identifiant cadastral, lots de copropriété)
   provider: "dgfip"
   kind: 'api'
