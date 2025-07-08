@@ -82,10 +82,9 @@ class Authorization < ApplicationRecord
 
   def self.ransackable_attributes(_auth_object = nil)
     %w[
-      applicant_id
       authorization_request_class
       created_at
-      data
+      within_data
       id
       request_id
       revoked
@@ -101,6 +100,10 @@ class Authorization < ApplicationRecord
       applicant
       organization
     ]
+  end
+
+  ransacker :within_data do |_parent|
+    Arel.sql('authorization_requests.data::text')
   end
 
   def access_link
