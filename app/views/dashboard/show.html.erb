@@ -45,7 +45,7 @@
           <%= render 'search_form' %>
         </div>
 
-        <% if current_page?(tab.path) %>
+        <% if params[:id] == tab.id %>
           <div data-auto-height-target="source">
             <% @highlighted_categories.each do |category, items| %>
               <% next if items.empty? %>
