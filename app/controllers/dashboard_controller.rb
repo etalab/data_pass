@@ -27,19 +27,6 @@ class DashboardController < AuthenticatedUserController
 
       items = @search_engine.result
 
-      if params.dig(:search_query, :state_eq).present?
-        case params[:search_query][:state_eq]
-        when 'draft'
-          items = items.drafts
-        when 'changes_requested'
-          items = items.changes_requested
-        when 'pending'
-          items = items.in_instructions
-        when 'refused'
-          items = items.refused
-        end
-      end
-
       @highlighted_categories = {
         changes_requested: items.changes_requested,
       }
