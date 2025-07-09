@@ -1,4 +1,4 @@
-RSpec.describe 'Instruction: habilitation search' do
+RSpec.describe 'Instruction: demandes search' do
   subject(:search) do
     visit instruction_dashboard_show_path(id: 'demandes')
 
