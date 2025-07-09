@@ -268,6 +268,7 @@ class AuthorizationRequest < ApplicationRecord
       last_submitted_at
       type
       user_id
+      user_relationship
     ]
   end
 

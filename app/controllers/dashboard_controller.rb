@@ -32,6 +32,7 @@ class DashboardController < AuthenticatedUserController
       .order(created_at: :desc)
       .or(authorization_request_mentions_query)
 
+    base_items = apply_user_relationship_filter(base_items, :demandes)
     items = apply_search_and_build_engine(base_items)
 
     @highlighted_categories = {
@@ -50,6 +51,7 @@ class DashboardController < AuthenticatedUserController
       .order(created_at: :desc)
       .or(authorization_mentions_query)
 
+    base_items = apply_user_relationship_filter(base_items, :habilitations)
     items = apply_search_and_build_engine(base_items)
 
     @highlighted_categories = {}
@@ -59,16 +61,37 @@ class DashboardController < AuthenticatedUserController
     }
   end
 
+  def apply_user_relationship_filter(base_items, tab_type) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+    user_relationship = params[:search_query]&.dig(:user_relationship_eq)
+    return base_items if user_relationship.blank?
+
+    case user_relationship
+    when 'applicant'
+      base_items.where(applicant: current_user)
+    when 'contact'
+      if tab_type == :demandes
+        AuthorizationRequestsMentionsQuery.new(current_user).perform(base_items)
+          .where.not(applicant: current_user)
+      else
+        authorization_mentions_query
+          .where.not(applicant: current_user)
+      end
+    when 'organization'
+      base_items.where.not(applicant: current_user)
+    else
+      base_items
+    end
+  end
+
   def apply_search_and_build_engine(base_items) # rubocop:disable Metrics/AbcSize
+    excluded_params = %i[within_data_or_humanize_name_or_id_cont user_relationship_eq]
+
     if params[:search_query]&.dig(:within_data_or_humanize_name_or_id_cont).present?
       search_term = params[:search_query][:within_data_or_humanize_name_or_id_cont]
       base_items = base_items.search_by_query(search_term)
-
-      @search_engine = base_items.ransack(params[:search_query].except(:within_data_or_humanize_name_or_id_cont))
-    else
-      @search_engine = base_items.ransack(params[:search_query])
     end
 
+    @search_engine = base_items.ransack(params[:search_query]&.except(*excluded_params))
     @search_engine.sorts = 'created_at desc' if @search_engine.sorts.empty?
     @search_engine.result
   end
