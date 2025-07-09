@@ -292,10 +292,6 @@ class AuthorizationRequest < ApplicationRecord
     Arel.sql("(CASE #{definitions_sql} ELSE authorization_requests.type END)")
   end
 
-  ransacker :id do |_parent|
-    Arel.sql('authorization_requests.id::text')
-  end
-
   def self.search_by_query(query)
     return all if query.blank?
 

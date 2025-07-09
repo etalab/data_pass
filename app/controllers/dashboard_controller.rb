@@ -7,7 +7,7 @@ class DashboardController < AuthenticatedUserController
 
   Tab = Data.define(:id, :path)
 
-  def show # rubocop:disable Metrics/AbcSize
+  def show
     @tabs = [
       Tab.new('demandes', dashboard_show_path(id: 'demandes', **request.query_parameters)),
       Tab.new('habilitations', dashboard_show_path(id: 'habilitations', **request.query_parameters)),
@@ -15,65 +15,63 @@ class DashboardController < AuthenticatedUserController
 
     case params[:id]
     when 'demandes'
-      # Modification pour les demandes
-      base_items = policy_scope(base_relation)
-        .includes(:applicant, :authorizations)
-        .not_archived
-        .order(created_at: :desc)
-        .or(authorization_request_mentions_query)
-
-      if params[:search_query]&.dig(:within_data_or_humanize_name_or_id_cont).present?
-        search_term = params[:search_query][:within_data_or_humanize_name_or_id_cont]
-        base_items = base_items.search_by_query(search_term)
-
-        @search_engine = base_items.ransack(params[:search_query].except(:within_data_or_humanize_name_or_id_cont))
-      else
-        @search_engine = base_items.ransack(params[:search_query])
-      end
-
-      @search_engine.sorts = 'created_at desc' if @search_engine.sorts.empty?
-
-      items = @search_engine.result
-
-      @highlighted_categories = {
-        changes_requested: items.changes_requested,
-      }
-      @categories = {
-        pending: items.in_instructions,
-        draft: items.drafts,
-        refused: items.refused,
-      }
+      handle_demandes_tab
     when 'habilitations'
-      # Modification pour les habilitations
-      base_items = policy_scope(base_authorization_relation)
-        .includes(:request, :applicant)
-        .order(created_at: :desc)
-        .or(authorization_mentions_query)
-
-      if params[:search_query]&.dig(:within_data_or_humanize_name_or_id_cont).present?
-        search_term = params[:search_query][:within_data_or_humanize_name_or_id_cont]
-        base_items = base_items.search_by_query(search_term)
-
-        @search_engine = base_items.ransack(params[:search_query].except(:within_data_or_humanize_name_or_id_cont))
-      else
-        @search_engine = base_items.ransack(params[:search_query])
-      end
-
-      @search_engine.sorts = 'created_at desc' if @search_engine.sorts.empty?
-
-      items = @search_engine.result
-
-      @highlighted_categories = {}
-      @categories = {
-        active: items.where(state: :active),
-        revoked: items.where(state: :revoked),
-      }
+      handle_habilitations_tab
     else
       redirect_to(dashboard_show_path(id: 'demandes')) and return
     end
   end
 
   private
+
+  def handle_demandes_tab
+    base_items = policy_scope(base_relation)
+      .includes(:applicant, :authorizations)
+      .not_archived
+      .order(created_at: :desc)
+      .or(authorization_request_mentions_query)
+
+    items = apply_search_and_build_engine(base_items)
+
+    @highlighted_categories = {
+      changes_requested: items.changes_requested,
+    }
+    @categories = {
+      pending: items.in_instructions,
+      draft: items.drafts,
+      refused: items.refused,
+    }
+  end
+
+  def handle_habilitations_tab
+    base_items = policy_scope(base_authorization_relation)
+      .includes(:request, :applicant)
+      .order(created_at: :desc)
+      .or(authorization_mentions_query)
+
+    items = apply_search_and_build_engine(base_items)
+
+    @highlighted_categories = {}
+    @categories = {
+      active: items.where(state: :active),
+      revoked: items.where(state: :revoked),
+    }
+  end
+
+  def apply_search_and_build_engine(base_items) # rubocop:disable Metrics/AbcSize
+    if params[:search_query]&.dig(:within_data_or_humanize_name_or_id_cont).present?
+      search_term = params[:search_query][:within_data_or_humanize_name_or_id_cont]
+      base_items = base_items.search_by_query(search_term)
+
+      @search_engine = base_items.ransack(params[:search_query].except(:within_data_or_humanize_name_or_id_cont))
+    else
+      @search_engine = base_items.ransack(params[:search_query])
+    end
+
+    @search_engine.sorts = 'created_at desc' if @search_engine.sorts.empty?
+    @search_engine.result
+  end
 
   def authorization_mentions_query
     Authorization.where("EXISTS (
