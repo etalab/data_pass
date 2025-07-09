@@ -92,6 +92,7 @@ class Authorization < ApplicationRecord
       slug
       state
       updated_at
+      user_relationship_eq
     ]
   end
 

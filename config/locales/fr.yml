@@ -185,12 +185,13 @@ fr:
               active: Active
               obsolete: Obsolète
               revoked: Révoquée
-        requester_filter:
+        user_relationship:
           label: Filtrer par demandeur
           options:
-            me: Je suis le demandeur
+            all: Toutes les demandes / habilitations
+            applicant: Je suis le demandeur
             contact: Je suis mentionnée en contact
-            organization: Les autres demandes de mon organisation
+            organization: Les autres demandes de l'organisation
         btn: Rechercher
         reset: Réinitialiser les filtres
 #        results_count: "%{count} résultat(s)"
