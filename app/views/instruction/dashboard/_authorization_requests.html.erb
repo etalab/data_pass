@@ -29,7 +29,7 @@
       <div class="fr-select-group input">
         <%= f.label :state_eq, class: %w[fr-label] %>
 
-        <% options = AuthorizationRequest.state_machine.states.map { |s| s.name }.map { |e| [t("authorization_request.status.#{e}"), e] } %>
+        <% options = AuthorizationRequest.state_machine.states.filter { |s| s.name != :validated }.map { |s| s.name }.map { |e| [t("authorization_request.status.#{e}"), e] } %>
         <% default_option = t('.all_status') %>
         <%= f.select :state_eq, options_for_select([[default_option, '']].concat(options), selected: params[:search_query].try(:[], :state_eq) || default_option), {}, class: %w[fr-select] %>
       </div>
