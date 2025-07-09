@@ -22,7 +22,15 @@ class DashboardController < AuthenticatedUserController
         .order(created_at: :desc)
         .or(authorization_request_mentions_query)
 
-      @search_engine = base_items.ransack(params[:search_query])
+      if params[:search_query]&.dig(:within_data_or_humanize_name_or_id_cont).present?
+        search_term = params[:search_query][:within_data_or_humanize_name_or_id_cont]
+        base_items = base_items.search_by_query(search_term)
+
+        @search_engine = base_items.ransack(params[:search_query].except(:within_data_or_humanize_name_or_id_cont))
+      else
+        @search_engine = base_items.ransack(params[:search_query])
+      end
+
       @search_engine.sorts = 'created_at desc' if @search_engine.sorts.empty?
 
       items = @search_engine.result
@@ -38,11 +46,19 @@ class DashboardController < AuthenticatedUserController
     when 'habilitations'
       # Modification pour les habilitations
       base_items = policy_scope(base_authorization_relation)
-                     .includes(:request, :applicant)
-                     .order(created_at: :desc)
-                     .or(authorization_mentions_query)
+        .includes(:request, :applicant)
+        .order(created_at: :desc)
+        .or(authorization_mentions_query)
 
-      @search_engine = base_items.ransack(params[:search_query])
+      if params[:search_query]&.dig(:within_data_or_humanize_name_or_id_cont).present?
+        search_term = params[:search_query][:within_data_or_humanize_name_or_id_cont]
+        base_items = base_items.search_by_query(search_term)
+
+        @search_engine = base_items.ransack(params[:search_query].except(:within_data_or_humanize_name_or_id_cont))
+      else
+        @search_engine = base_items.ransack(params[:search_query])
+      end
+
       @search_engine.sorts = 'created_at desc' if @search_engine.sorts.empty?
 
       items = @search_engine.result
