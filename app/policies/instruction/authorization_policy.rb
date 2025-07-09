@@ -3,51 +3,10 @@ class Instruction::AuthorizationPolicy < ApplicationPolicy
     reporter_for_record?
   end
 
-  def refuse?
-    show? &&
-      instructor_for_record? &&
-      record.can_refuse?
-  end
-
   def revoke?
     show? &&
       instructor_for_record? &&
       record.can_revoke?
-  end
-
-  def request_changes?
-    show? &&
-      instructor_for_record? &&
-      record.can_request_changes?
-  end
-
-  def approve?
-    show? &&
-      instructor_for_record? &&
-      record.can_approve?
-  end
-
-  def archive?
-    show? &&
-      instructor_for_record? &&
-      record.can_archive?
-  end
-
-  def messages?
-    feature_enabled?(:messages) &&
-      show?
-  end
-
-  def send_message?
-    messages? &&
-      instructor_for_record?
-  end
-
-  def cancel_reopening?
-    feature_enabled?(:reopening) &&
-      show? &&
-      instructor_for_record? &&
-      record.can_cancel_reopening?
   end
 
   def transfer?
@@ -58,12 +17,7 @@ class Instruction::AuthorizationPolicy < ApplicationPolicy
   end
 
   def moderate?
-    archive? ||
-      approve? ||
-      refuse? ||
-      revoke? ||
-      request_changes? ||
-      cancel_reopening?
+    revoke?
   end
 
   private
@@ -78,10 +32,6 @@ class Instruction::AuthorizationPolicy < ApplicationPolicy
 
   def authorization_request_type
     record.authorization_request_class.underscore.split('/').last
-  end
-
-  def feature_enabled?(name)
-    record.definition.feature?(name)
   end
 
   class Scope < Scope
