@@ -263,6 +263,7 @@ class AuthorizationRequest < ApplicationRecord
       id
       type
       within_data
+      humanize_name
       state
       last_submitted_at
       type
@@ -280,6 +281,29 @@ class AuthorizationRequest < ApplicationRecord
 
   ransacker :within_data do |_parent|
     Arel.sql('authorization_requests.data::text')
+  end
+
+  ransacker :humanize_name do |_parent|
+    definitions_sql = AuthorizationDefinition.all.map { |definition|
+      escaped_name = definition.name.humanize.gsub("'", "''")
+      "WHEN authorization_requests.type = '#{definition.authorization_request_class}' THEN '#{escaped_name}'"
+    }.join(' ')
+
+    Arel.sql("(CASE #{definitions_sql} ELSE authorization_requests.type END)")
+  end
+
+  ransacker :id do |_parent|
+    Arel.sql('authorization_requests.id::text')
+  end
+
+  def self.search_by_query(query)
+    return all if query.blank?
+
+    if query.match?(/^\d+$/)
+      where(id: query.to_i)
+    else
+      ransack(within_data_or_humanize_name_cont: query).result
+    end
   end
 
   def self.policy_class
