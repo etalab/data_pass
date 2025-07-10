@@ -1,0 +1,10 @@
+<div class="fr-skiplinks">
+  <nav class="fr-container" role="navigation" aria-label="Accès rapide">
+    <ul class="fr-skiplinks__list">
+      <li>
+        <a class="fr-link" href="#content"><%= content_for?(:content_skip_link_text) ? yield(:content_skip_link_text) : 'Aller au contenu' %></a>
+      </li>
+      <%= skip_links_content %>
+    </ul>
+  </nav>
+</div>

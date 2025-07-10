@@ -9,7 +9,7 @@ fr:
           btn: Rechercher
           results_count: "%{count} résultat(s)"
         table:
-          caption: Liste des demandes en cours
+          caption: Liste des demandes
           header:
             id: N°
             state: Statut
