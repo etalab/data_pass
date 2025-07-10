@@ -263,7 +263,7 @@ class AuthorizationRequest < ApplicationRecord
       id
       type
       within_data
-      humanize_name
+      api_service_name
       state
       last_submitted_at
       type
@@ -284,13 +284,14 @@ class AuthorizationRequest < ApplicationRecord
     Arel.sql('authorization_requests.data::text')
   end
 
-  ransacker :humanize_name do |_parent|
-    definitions_sql = AuthorizationDefinition.all.map { |definition|
-      escaped_name = definition.name.humanize.gsub("'", "''")
-      "WHEN authorization_requests.type = '#{definition.authorization_request_class}' THEN '#{escaped_name}'"
-    }.join(' ')
+  ransacker :api_service_name do |_parent|
+    table = Authorization.arel_table
 
-    Arel.sql("(CASE #{definitions_sql} ELSE authorization_requests.type END)")
+    name = AuthorizationDefinition.all.reduce(table[:authorization_request_class]) do |case_expression, definition|
+      case_expression.when(definition.authorization_request_class_as_string).then(definition.name.humanize)
+    end
+
+    name
   end
 
   def self.search_by_query(query)
@@ -299,7 +300,7 @@ class AuthorizationRequest < ApplicationRecord
     if query.match?(/^\d+$/)
       where(id: query.to_i)
     else
-      ransack(within_data_or_humanize_name_cont: query).result
+      ransack(within_data_or_api_service_name_cont: query).result
     end
   end
 
