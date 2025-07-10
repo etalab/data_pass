@@ -48,14 +48,20 @@ class SearchEngineBuilder
   def apply_search_and_build_engine(base_items)
     excluded_params = %i[within_data_or_api_service_name_or_id_cont user_relationship_eq]
 
-    if params[:search_query]&.dig(:within_data_or_api_service_name_or_id_cont).present?
-      search_term = params[:search_query][:within_data_or_api_service_name_or_id_cont]
-      base_items = base_items.search_by_query(search_term)
-    end
+    base_items = apply_text_search_if_present(base_items)
 
     @search_engine = base_items.ransack(params[:search_query]&.except(*excluded_params))
     @search_engine.sorts = 'created_at desc' if @search_engine.sorts.empty?
     @search_engine.result
+  end
+
+  def apply_text_search_if_present(base_items)
+    if params[:search_query]&.dig(:within_data_or_api_service_name_or_id_cont).present?
+      search_term = params[:search_query][:within_data_or_api_service_name_or_id_cont]
+      base_items.search_by_query(search_term)
+    else
+      base_items
+    end
   end
 
   def authorization_mentions_query
