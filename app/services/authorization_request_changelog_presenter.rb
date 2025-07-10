@@ -55,9 +55,12 @@ class AuthorizationRequestChangelogPresenter
     diffs.map { |attribute, values|
       values = sanitize_values(attribute, values)
 
-      if attribute == 'scopes'
+      case attribute
+      when 'scopes'
         build_scopes_change(values)
-      elsif attribute == 'applicant_id'
+      when 'modalities'
+        build_modalities_change(values)
+      when 'applicant_id'
         build_applicant_change(attribute, values)
       else
         build_attribute_change(attribute, values)
@@ -67,7 +70,7 @@ class AuthorizationRequestChangelogPresenter
 
   def sanitize_values(attribute, values)
     case attribute
-    when 'scopes'
+    when 'scopes', 'modalities'
       values.map do |scopes|
         sanitize_values('scope', Array(scopes))
       end
@@ -91,18 +94,30 @@ class AuthorizationRequestChangelogPresenter
   end
 
   def build_scopes_change(values)
+    build_array_change('scope', values)
+  end
+
+  def build_modalities_change(values)
+    build_array_change('modality', values)
+  end
+
+  def build_array_change(kind, values)
     initial_values = values[0] || []
-    new_scopes = values[1] - initial_values
-    removed_scopes = initial_values - values[1]
+    new_values = values[1] - initial_values
+    removed_values = initial_values - values[1]
 
     [
-      new_scopes.map do |scope|
-        t('authorization_request_event.changelog_entry_new_scope', value: humanized_scope(scope)).html_safe
+      new_values.map do |value|
+        t("authorization_request_event.changelog_entry_new_#{kind}", value: humanized_attribute(kind, value)).html_safe
       end,
-      removed_scopes.map do |scope|
-        t('authorization_request_event.changelog_entry_removed_scope', value: humanized_scope(scope)).html_safe
+      removed_values.map do |value|
+        t("authorization_request_event.changelog_entry_removed_#{kind}", value: humanized_attribute(kind, value)).html_safe
       end
     ]
+  end
+
+  def humanized_attribute(attribute, value)
+    send("humanized_#{attribute}", value)
   end
 
   def humanized_scope(scope_value)
@@ -113,6 +128,13 @@ class AuthorizationRequestChangelogPresenter
     else
       scope_value
     end
+  end
+
+  def humanized_modality(modality_value)
+    I18n.t(
+      "activerecord.values.#{changelog.authorization_request.model_name.to_s.underscore}.modalities.#{modality_value}",
+      default: modality_value
+    )
   end
 
   def build_attribute_change(attribute, values)
