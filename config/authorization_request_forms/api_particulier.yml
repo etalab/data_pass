@@ -945,6 +945,7 @@ api-particulier-airweb:
     delegue_protection_donnees_phone_number: "<%= Rails.application.credentials.api_particulier_airweb_delegue_protection_donnees_phone_number || '0836656565' %>"
     delegue_protection_donnees_job_title: Chef de projet
     modalities:
+      # - franceconnect
       - params
       - france_connect
 
@@ -1331,6 +1332,7 @@ api-particulier-acheteza:
     scopes:
       - cnaf_quotient_familial
     modalities:
+      # - franceconnect
       - params
 
 api-particulier-dialog:
