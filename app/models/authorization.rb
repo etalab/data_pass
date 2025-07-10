@@ -124,7 +124,13 @@ class Authorization < ApplicationRecord
     if query.match?(/^\d+$/)
       where(id: query.to_i)
     else
-      ransack(within_data_or_api_service_name_cont: query).result
+      ransack(
+        within_data_or_api_service_name_cont: query,
+        m: 'or',
+        applicant_email_cont: query,
+        applicant_family_name_cont: query,
+        applicant_given_name_cont: query
+      ).result
     end
   end
 
