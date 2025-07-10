@@ -67,11 +67,9 @@ end
 
 Quand('je remplis {string} avec {string}') do |label, value|
   if javascript?
-    node = find_field(label)
+    fill_in label, with: "#{value} "
 
-    value.chars.each do |char|
-      node.send_keys(char)
-    end
+    find_field(label).send_keys(:backspace)
   else
     fill_in label, with: value
   end
