@@ -84,10 +84,10 @@ class DashboardController < AuthenticatedUserController
   end
 
   def apply_search_and_build_engine(base_items) # rubocop:disable Metrics/AbcSize
-    excluded_params = %i[within_data_or_humanize_name_or_id_cont user_relationship_eq]
+    excluded_params = %i[within_data_or_api_service_name_or_id_cont user_relationship_eq]
 
-    if params[:search_query]&.dig(:within_data_or_humanize_name_or_id_cont).present?
-      search_term = params[:search_query][:within_data_or_humanize_name_or_id_cont]
+    if params[:search_query]&.dig(:within_data_or_api_service_name_or_id_cont).present?
+      search_term = params[:search_query][:within_data_or_api_service_name_or_id_cont]
       base_items = base_items.search_by_query(search_term)
     end
 
