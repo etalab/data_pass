@@ -75,7 +75,7 @@
 
       <tbody data-controller="clickable-rows">
         <% items.decorate.each do |authorization| %>
-          <tr id="<%= dom_id(authorization) %>" class="authorization-request clickable-row" data-action="click->clickable-rows#visit" data-href="<%= authorization_path(authorization) %>">
+          <tr id="<%= dom_id(authorization) %>" class="authorization clickable-row" data-action="click->clickable-rows#visit" data-href="<%= authorization_path(authorization) %>">
             <td class="authorization-request-id">
               <%= link_to authorization.id, authorization %>
             </td>

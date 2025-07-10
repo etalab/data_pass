@@ -21,7 +21,7 @@ def create_or_find_authorization(request, current_user, state)
   authorization
 end
 
-Quand(/j'ai (\d+) habilitation "([^"]+)" (.+?)(?: (?:de|à) l'étape "([^"]+)")?(?: via le formulaire "([^"]+)")?$/) do |count, type, state, stage, form|
+Quand(/(il y a|j'ai) (\d+) habilitation.? "([^"]+)" (.+?)(?: (?:de|à) l'étape "([^"]+)")?(?: via le formulaire "([^"]+)")?$/) do |who, count, type, state, stage, form|
   attributes = { applicant: current_user }
 
   @authorization_requests = create_authorization_requests_with_status(
