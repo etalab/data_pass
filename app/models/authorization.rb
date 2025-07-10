@@ -1,5 +1,6 @@
 class Authorization < ApplicationRecord
   extend FriendlyId
+  include Searchable
 
   friendly_id :slug_candidates, use: :slugged
 
@@ -80,58 +81,21 @@ class Authorization < ApplicationRecord
     end
   end
 
-  def self.ransackable_attributes(_auth_object = nil)
+  def self.model_specific_ransackable_attributes
     %w[
       authorization_request_class
-      created_at
-      within_data
-      api_service_name
-      id
       request_id
       revoked
       slug
       state
-      updated_at
       user_relationship_eq
     ]
   end
 
   def self.ransackable_associations(_auth_object = nil)
-    %w[
+    super + %w[
       request
-      applicant
-      organization
     ]
-  end
-
-  ransacker :within_data do |_parent|
-    Arel.sql('authorizations.data::text')
-  end
-
-  ransacker :api_service_name do |_parent|
-    table = Authorization.arel_table
-
-    name = AuthorizationDefinition.all.reduce(table[:authorization_request_class]) do |case_expression, definition|
-      case_expression.when(definition.authorization_request_class_as_string).then(definition.name.humanize)
-    end
-
-    name
-  end
-
-  def self.search_by_query(query)
-    return all if query.blank?
-
-    if query.match?(/^\d+$/)
-      where(id: query.to_i)
-    else
-      ransack(
-        within_data_or_api_service_name_cont: query,
-        m: 'or',
-        applicant_email_cont: query,
-        applicant_family_name_cont: query,
-        applicant_given_name_cont: query
-      ).result
-    end
   end
 
   def access_link

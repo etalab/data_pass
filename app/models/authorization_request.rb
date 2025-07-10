@@ -6,6 +6,7 @@ class AuthorizationRequest < ApplicationRecord
   include AuthorizationCore::Contacts
   include AuthorizationCore::Scopes
   include AuthorizationCore::Checkboxes
+  include Searchable
 
   belongs_to :applicant,
     class_name: 'User',
@@ -258,56 +259,20 @@ class AuthorizationRequest < ApplicationRecord
   end
   # rubocop:enable Metrics/BlockLength
 
-  def self.ransackable_attributes(_auth_object = nil)
+  def self.model_specific_ransackable_attributes
     %w[
-      id
       type
-      within_data
-      api_service_name
       state
       last_submitted_at
-      type
       user_id
       user_relationship
     ]
   end
 
   def self.ransackable_associations(_auth_object = nil)
-    %w[
-      applicant
-      organization
+    super + %w[
       authorizations
     ]
-  end
-
-  ransacker :within_data do |_parent|
-    Arel.sql('authorization_requests.data::text')
-  end
-
-  ransacker :api_service_name do |_parent|
-    table = Authorization.arel_table
-
-    name = AuthorizationDefinition.all.reduce(table[:authorization_request_class]) do |case_expression, definition|
-      case_expression.when(definition.authorization_request_class_as_string).then(definition.name.humanize)
-    end
-
-    name
-  end
-
-  def self.search_by_query(query)
-    return all if query.blank?
-
-    if query.match?(/^\d+$/)
-      where(id: query.to_i)
-    else
-      ransack(
-        within_data_or_api_service_name_cont: query,
-        m: 'or',
-        applicant_email_cont: query,
-        applicant_family_name_cont: query,
-        applicant_given_name_cont: query
-      ).result
-    end
   end
 
   def self.policy_class

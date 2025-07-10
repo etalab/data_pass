@@ -1,7 +1,6 @@
 <%= search_form_for(@search_engine, url: dashboard_show_path(id: params[:id]), html: { method: :get, data: { controller: 'auto-submit-form', 'auto-submit-form-debounce-interval-value' => 500, 'auto-submit-form-event-mode-value' => 'input', turbo_frame: "tab-#{params[:id]}-panel" }, class: %w[search-box] }) do |f| %>
   <div class="search-inputs">
     <% if params[:id] == 'demandes' %>
-      <%# Champs de recherche pour les demandes %>
       <div class="fr-input-group main-input input">
         <%= f.label :within_data_or_api_service_name_or_id_cont, t('dashboard.show.search.main_input.label_demandes'), class: %w[fr-label] %>
         <%= f.search_field :within_data_or_api_service_name_or_id_cont, class: %w[fr-input], placeholder: t('dashboard.show.search.main_input.placeholder') %>
@@ -21,9 +20,7 @@
                      class: %w[fr-select]
         %>
       </div>
-
     <% else %>
-      <%# Champs de recherche pour les habilitations %>
       <div class="fr-input-group main-input input">
         <%= f.label :within_data_or_api_service_name_or_id_cont, t('dashboard.show.search.main_input.label_habilitations'), class: %w[fr-label] %>
         <%= f.search_field :within_data_or_api_service_name_or_id_cont, class: %w[fr-input], placeholder: t('dashboard.show.search.main_input.placeholder') %>
@@ -58,7 +55,6 @@
       %>
     </div>
   </div>
-
 
   <div class="actions">
     <%= f.button t('dashboard.show.search.btn'), type: :submit, class: %w[fr-btn fr-btn--primary] %>
