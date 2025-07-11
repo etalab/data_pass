@@ -13,7 +13,7 @@ module AuthorizationRequestsFlashes
     reopening_prefix = authorization_request.reopening? ? 'reopening_' : ''
 
     options = {
-      title: I18n.t!("#{key}.#{reopening_prefix}#{type}.title", name: authorization_request.name),
+      title: t("#{key}.#{reopening_prefix}#{type}.title", name: authorization_request.name, default: t("#{key}.#{type}.title", name: authorization_request.name)),
     }
 
     if type == :error && include_model_errors
