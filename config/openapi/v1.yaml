@@ -23,11 +23,11 @@ info:
   version: 0.1.0
 servers:
   - description: Production
-    url: https://v2.datapass.api.gouv.fr/api/v1
+    url: https://datapass.api.gouv.fr/api/v1
   - description: Staging
-    url: https://staging.v2.datapass.api.gouv.fr/api/v1
+    url: https://staging.datapass.api.gouv.fr/api/v1
   - description: Sandbox
-    url: https://sandbox.v2.datapass.api.gouv.fr/api/v1
+    url: https://sandbox.datapass.api.gouv.fr/api/v1
 
 tags:
   - name: Authentification
@@ -38,7 +38,7 @@ tags:
 
       A noter qu'un client OAuth2 est associé à un utilisateur, et que les types de demandes d'habilitations accessibles sont régies par les droits associés à cet utilisateur. Pour qu'un utilisateur puisse manipuler à travers l'API les demandes d'habilitations d'un certain type, il doit être référencé comme étant développeur pour ce type d'habilitation dans DataPass. Pour cela, il faut qu'un administrateur l'ajoute manuellement.
 
-      Vous pouvez consulter les droits de développeurs que vous avez ainsi que votre `client_id` et `client_secret` sur [votre profil](https://v2.datapass.api.gouv.fr/developpeurs/applications)
+      Vous pouvez consulter les droits de développeurs que vous avez ainsi que votre `client_id` et `client_secret` sur [votre profil](https://datapass.api.gouv.fr/developpeurs/applications)
   - name: Demandes d'habilitations
     description: Les demandes d'habilitations représentent les données soumises via un formulaire par un demandeur. Une demande est liée à une définition, un formulaire, une organisation et un utilisateur (le demandeur).
   - name: Habilitations
@@ -839,11 +839,11 @@ paths:
       summary: Liste des définitions d'habilitations
       description: |
         Récupère la liste des définitions d'habilitations auxquelles l'utilisateur a accès en tant que développeur.
-        
-        Les définitions d'habilitations décrivent les types d'habilitations disponibles, leurs caractéristiques, 
+
+        Les définitions d'habilitations décrivent les types d'habilitations disponibles, leurs caractéristiques,
         leurs étapes (sandbox/production) et les données auxquelles elles permettent d'accéder.
-        
-        L'accès aux définitions est filtré en fonction des droits développeur de l'utilisateur. 
+
+        L'accès aux définitions est filtré en fonction des droits développeur de l'utilisateur.
         Seules les définitions pour lesquelles l'utilisateur a un rôle développeur sont retournées.
       tags:
         - Définitions d'habilitations
@@ -867,7 +867,7 @@ paths:
                       name_with_stage: "API Entreprise"
                       multi_stage?: false
                       data: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
-                      scopes: 
+                      scopes:
                         - name: "Unités légales et établissements INSEE"
                           value: "unites_legales_etablissements_insee"
                           group: "Informations générales"
@@ -884,7 +884,7 @@ paths:
                       name_with_stage: "API Impôt Particulier (Bac à sable)"
                       multi_stage?: true
                       data: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
-                      scopes: 
+                      scopes:
                         - name: "Revenu fiscal de référence"
                           value: "dgfip_rfr"
                           group: "Données fiscales"
@@ -898,7 +898,7 @@ paths:
                       name_with_stage: "API Impôt Particulier (Production)"
                       multi_stage?: true
                       data: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
-                      scopes: 
+                      scopes:
                         - name: "Revenu fiscal de référence"
                           value: "dgfip_rfr"
                           group: "Données fiscales"
@@ -919,11 +919,11 @@ paths:
       summary: Récupérer une définition d'habilitation spécifique
       description: |
         Récupère les détails d'une définition d'habilitation spécifique par son identifiant.
-        
+
         L'utilisateur doit avoir un rôle développeur pour le type d'habilitation correspondant.
         Si l'utilisateur n'a pas accès à cette définition, une erreur 404 est retournée.
-        
-        Pour les définitions multi-étapes (comme API Impôt Particulier), chaque étape (sandbox/production) 
+
+        Pour les définitions multi-étapes (comme API Impôt Particulier), chaque étape (sandbox/production)
         a son propre identifiant et ses propres informations de stage.
       operationId: getAuthorizationDefinition
       security:
@@ -952,7 +952,7 @@ paths:
                     name_with_stage: API Entreprise
                     multi_stage?: false
                     data: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
-                    scopes: 
+                    scopes:
                       - name: "Unités légales et établissements INSEE"
                         value: "unites_legales_etablissements_insee"
                         group: "Informations générales"
@@ -969,7 +969,7 @@ paths:
                     name_with_stage: API Impôt Particulier (Bac à sable)
                     multi_stage?: true
                     data: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
-                    scopes: 
+                    scopes:
                       - name: "Revenu fiscal de référence"
                         value: "dgfip_rfr"
                         group: "Données fiscales"
@@ -986,7 +986,7 @@ paths:
                     name_with_stage: API Impôt Particulier (Production)
                     multi_stage?: true
                     data: ["intitule", "description", "destinataire_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel", "duree_conservation_donnees_caractere_personnel_justification", "cadre_juridique_url", "cadre_juridique_nature", "date_prevue_mise_en_production", "volumetrie_approximative", "scopes"]
-                    scopes: 
+                    scopes:
                       - name: "Revenu fiscal de référence"
                         value: "dgfip_rfr"
                         group: "Données fiscales"
@@ -1015,10 +1015,10 @@ paths:
       summary: Liste des formulaires disponibles pour une définition d'habilitation
       description: |
         Récupère la liste des formulaires disponibles pour une définition d'habilitation spécifique.
-        
+
         L'utilisateur doit avoir un rôle développeur pour le type d'habilitation correspondant.
         Si l'utilisateur n'a pas accès à cette définition, une erreur 404 est retournée.
-        
+
         Les formulaires permettent de créer des demandes d'habilitation avec différentes configurations, notamment pour préremplir des données afin de simplifier l'accès à différents cas d'usage bien identifiés.
       operationId: getAuthorizationDefinitionForms
       security:

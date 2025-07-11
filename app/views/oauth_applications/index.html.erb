@@ -38,7 +38,7 @@
                       <button class="fr-btn fr-btn--tertiary-no-outline fr-btn--sm" data-action="click->clipboard#copy">Copier</button>
                     </span>
                   </td>
-                  <td><%= app.scopes %></td>
+                  <td><%= (Doorkeeper.configuration.default_scopes + app.scopes).to_a.uniq.join(', ') %></td>
                 </tr>
               <% end %>
             </tbody>
