@@ -39,7 +39,7 @@ RSpec.describe 'Instruction: habilitations search' do
     it 'renders only one authorization' do
       search
 
-      expect(page).to have_css('.authorization-request', count: 1)
+      expect(page).to have_css('.authorization', count: 1)
       expect(page).to have_css(css_id(valid_searched_authorization))
     end
   end
@@ -62,7 +62,7 @@ RSpec.describe 'Instruction: habilitations search' do
     it 'renders 2 valid authorizations' do
       search
 
-      expect(page).to have_css('.authorization-request', count: 2)
+      expect(page).to have_css('.authorization', count: 2)
       expect(page).to have_css(css_id(valid_searched_authorization))
       expect(page).to have_css(css_id(invalid_type_authorization))
     end
@@ -86,7 +86,7 @@ RSpec.describe 'Instruction: habilitations search' do
     it 'renders 2 valid authorizations' do
       search
 
-      expect(page).to have_css('.authorization-request', count: 2)
+      expect(page).to have_css('.authorization', count: 2)
       expect(page).to have_css(css_id(valid_searched_authorization))
       expect(page).to have_css(css_id(invalid_state_authorization))
     end
@@ -110,7 +110,7 @@ RSpec.describe 'Instruction: habilitations search' do
     it 'renders 2 valid authorizations' do
       search
 
-      expect(page).to have_css('.authorization-request', count: 2)
+      expect(page).to have_css('.authorization', count: 2)
       expect(page).to have_css(css_id(valid_searched_authorization))
       expect(page).to have_css(css_id(invalid_intitule_authorization))
     end
@@ -129,7 +129,7 @@ RSpec.describe 'Instruction: habilitations search' do
     it 'renders authorization linked to this siret' do
       search
 
-      expect(page).to have_css('.authorization-request', count: 1)
+      expect(page).to have_css('.authorization', count: 1)
       expect(page).to have_css(css_id(valid_searched_authorization))
     end
   end
@@ -147,7 +147,7 @@ RSpec.describe 'Instruction: habilitations search' do
     it 'renders authorization linked to this raison sociale' do
       search
 
-      expect(page).to have_css('.authorization-request', count: 1)
+      expect(page).to have_css('.authorization', count: 1)
       expect(page).to have_css(css_id(valid_searched_authorization))
     end
   end
@@ -165,7 +165,7 @@ RSpec.describe 'Instruction: habilitations search' do
     it 'renders authorization linked to this applicant' do
       search
 
-      expect(page).to have_css('.authorization-request', count: 1)
+      expect(page).to have_css('.authorization', count: 1)
       expect(page).to have_css(css_id(valid_searched_authorization))
     end
   end
@@ -187,7 +187,7 @@ RSpec.describe 'Instruction: habilitations search' do
     it 'renders authorization linked to this applicant' do
       search
 
-      expect(page).to have_css('.authorization-request', count: 1)
+      expect(page).to have_css('.authorization', count: 1)
       expect(page).to have_css(css_id(valid_searched_authorization))
     end
   end
@@ -219,7 +219,7 @@ RSpec.describe 'Instruction: habilitations search' do
         search
 
         expect(page).to have_current_path(instruction_dashboard_show_path(id: 'habilitations'), ignore_query: true)
-        expect(page).to have_css('.authorization-request', count: 0)
+        expect(page).to have_css('.authorization', count: 0)
       end
     end
   end
