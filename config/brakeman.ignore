@@ -218,6 +218,40 @@
       "note": ""
     },
     {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "ce6dd6034640d3f6f09197075a7f5e9739e0b5280fea8f1e5398a850b8ae52f5",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/views/instruction/dashboard/show.html.erb",
+      "line": 34,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(action => (Instruction::DashboardHabilitationsFacade.new(:search_object => Instruction::Search::DashboardHabilitationsSearch.new(:params => (params), :scope => policy_scope([:instruction, Authorization]))) or Instruction::DashboardDemandesFacade.new(:search_object => Instruction::Search::DashboardDemandesSearch.new(:params => (params), :scope => policy_scope([:instruction, AuthorizationRequest])))).partial, { :items => (Instruction::DashboardHabilitationsFacade.new(:search_object => Instruction::Search::DashboardHabilitationsSearch.new(:params => (params), :scope => policy_scope([:instruction, Authorization]))) or Instruction::DashboardDemandesFacade.new(:search_object => Instruction::Search::DashboardDemandesSearch.new(:params => (params), :scope => policy_scope([:instruction, AuthorizationRequest])))).items, :search_engine => (Instruction::DashboardHabilitationsFacade.new(:search_object => Instruction::Search::DashboardHabilitationsSearch.new(:params => (params), :scope => policy_scope([:instruction, Authorization]))) or Instruction::DashboardDemandesFacade.new(:search_object => Instruction::Search::DashboardDemandesSearch.new(:params => (params), :scope => policy_scope([:instruction, AuthorizationRequest])))).search_engine })",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Instruction::DashboardController",
+          "method": "show",
+          "line": 11,
+          "file": "app/controllers/instruction/dashboard_controller.rb",
+          "rendered": {
+            "name": "instruction/dashboard/show",
+            "file": "app/views/instruction/dashboard/show.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "instruction/dashboard/show"
+      },
+      "user_input": "params",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": ""
+    },
+    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "f64a2910a7e91adc71503b7522bcaaccdaffa3eb2a37e7198c5a94cfad59560e",
