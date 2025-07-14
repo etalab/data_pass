@@ -51,7 +51,7 @@ GEM
       jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
     active_model_validates_intersection_of (3.0.1)
       activemodel (>= 5.0.0)
-    active_storage_validations (3.0.0)
+    active_storage_validations (3.0.1)
       activejob (>= 6.1.4)
       activemodel (>= 6.1.4)
       activestorage (>= 6.1.4)
@@ -349,7 +349,8 @@ GEM
       actionpack (>= 6.0.0)
       activesupport (>= 6.0.0)
       railties (>= 6.0.0)
-    interactor (3.1.2)
+    interactor (3.2.0)
+      ostruct
     io-console (0.8.0)
     irb (1.15.2)
       pp (>= 0.6.0)
