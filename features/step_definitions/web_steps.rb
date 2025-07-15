@@ -105,6 +105,26 @@ Quand('je sélectionne la première option pour {string}') do |name|
   end
 end
 
+Quand('je sélectionne le filtre {string} pour {string}') do |option, name|
+  select_box =
+    if name == 'Filtrer par statut'
+      if page.has_css?('#demandes_state_filter', visible: true)
+        'demandes_state_filter'
+      elsif page.has_css?('#habilitations_state_filter', visible: true)
+        'habilitations_state_filter'
+      end
+    else
+      name
+    end
+
+  if javascript?
+    select(option, from: select_box).trigger('click')
+  else
+    select option, from: select_box
+  end
+  click_button 'Rechercher'
+end
+
 Quand('je choisis {string}') do |option|
   if javascript?
     find('label', text: option, visible: :all).trigger('click')

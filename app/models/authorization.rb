@@ -93,7 +93,7 @@ class Authorization < ApplicationRecord
   end
 
   def self.ransackable_associations(_auth_object = nil)
-    super + %w[
+    authorizable_ransackable_associations + %w[
       request
     ]
   end

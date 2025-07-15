@@ -17,7 +17,8 @@
                                           [t('dashboard.show.search.status.options.refused'), 'refused']
                                         ], selected: params[:search_query]&.dig(:state_eq)),
                      {},
-                     class: %w[fr-select]
+                     class: %w[fr-select],
+                     id: 'demandes_state_filter'
         %>
       </div>
     <% else %>
@@ -36,7 +37,8 @@
                                           [t('dashboard.show.search.status.options.obsolete'), 'obsolete']
                                         ], selected: params[:search_query]&.dig(:state_eq)),
                      {},
-                     class: %w[fr-select]
+                     class: %w[fr-select],
+                     id: 'habilitations_state_filter'
         %>
       </div>
     <% end %>
