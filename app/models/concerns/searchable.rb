@@ -8,7 +8,6 @@ module Searchable
         created_at
         updated_at
         within_data
-        api_service_name
       ]
 
       base_attributes + model_specific_ransackable_attributes
@@ -26,16 +25,6 @@ module Searchable
       Arel.sql("#{connection.quote_table_name(table_name)}.data::text")
     end
 
-    ransacker :api_service_name do |_parent|
-      table = Authorization.arel_table
-
-      name = AuthorizationDefinition.all.reduce(table[:authorization_request_class]) do |case_expression, definition|
-        case_expression.when(definition.authorization_request_class_as_string).then(definition.name.humanize)
-      end
-
-      name
-    end
-
     def self.search_by_query(query)
       return all if query.blank?
 
@@ -43,7 +32,7 @@ module Searchable
         where(id: query.to_i)
       else
         ransack(
-          within_data_or_api_service_name_cont: query,
+          within_data_cont: query,
           m: 'or',
           applicant_email_cont: query,
           applicant_family_name_cont: query,

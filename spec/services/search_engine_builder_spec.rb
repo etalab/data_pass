@@ -71,7 +71,7 @@ RSpec.describe SearchEngineBuilder do
       let(:search_text) { current_user_demande.name }
       let(:params) do
         ActionController::Parameters.new(
-          search_query: { within_data_or_api_service_name_or_id_cont: search_text }
+          search_query: { within_data_or_id_cont: search_text }
         )
       end
 

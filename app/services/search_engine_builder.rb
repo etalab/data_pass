@@ -64,7 +64,7 @@ class SearchEngineBuilder
   end
 
   def apply_search_and_build_engine(base_items)
-    excluded_params = %i[within_data_or_api_service_name_or_id_cont user_relationship_eq]
+    excluded_params = %i[within_data_or_id_cont user_relationship_eq]
 
     base_items = apply_text_search_if_present(base_items)
 
@@ -74,8 +74,8 @@ class SearchEngineBuilder
   end
 
   def apply_text_search_if_present(base_items)
-    if params[:search_query]&.dig(:within_data_or_api_service_name_or_id_cont).present?
-      search_term = params[:search_query][:within_data_or_api_service_name_or_id_cont]
+    if params[:search_query]&.dig(:within_data_or_id_cont).present?
+      search_term = params[:search_query][:within_data_or_id_cont]
       base_items.search_by_query(search_term)
     else
       base_items

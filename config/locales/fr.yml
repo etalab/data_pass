@@ -173,7 +173,8 @@ fr:
         main_input:
           label_demandes: Rechercher dans toutes les demandes
           label_habilitations: Rechercher dans toutes les habilitations
-          placeholder: Rechercher par intitulé, API...
+          placeholder_demandes: Rechercher par intitulé, numéro de demandes...
+          placeholder_habilitations: Rechercher par intitulé, numéro d'habilitation...
         status:
             label: Filtrer par statut
             options:

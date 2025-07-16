@@ -2,8 +2,8 @@
   <div class="search-inputs">
     <% if params[:id] == 'demandes' %>
       <div class="fr-input-group main-input input">
-        <%= f.label :within_data_or_api_service_name_or_id_cont, t('dashboard.show.search.main_input.label_demandes'), class: %w[fr-label] %>
-        <%= f.search_field :within_data_or_api_service_name_or_id_cont, class: %w[fr-input], placeholder: t('dashboard.show.search.main_input.placeholder') %>
+        <%= f.label :within_data_or_id_cont, t('dashboard.show.search.main_input.label_demandes'), class: %w[fr-label] %>
+        <%= f.search_field :within_data_or_id_cont, class: %w[fr-input], placeholder: t('dashboard.show.search.main_input.placeholder_demandes') %>
       </div>
 
       <div class="fr-select-group input">
@@ -23,8 +23,8 @@
       </div>
     <% else %>
       <div class="fr-input-group main-input input">
-        <%= f.label :within_data_or_api_service_name_or_id_cont, t('dashboard.show.search.main_input.label_habilitations'), class: %w[fr-label] %>
-        <%= f.search_field :within_data_or_api_service_name_or_id_cont, class: %w[fr-input], placeholder: t('dashboard.show.search.main_input.placeholder') %>
+        <%= f.label :within_data_or_id_cont, t('dashboard.show.search.main_input.label_habilitations'), class: %w[fr-label] %>
+        <%= f.search_field :within_data_or_id_cont, class: %w[fr-input], placeholder: t('dashboard.show.search.main_input.placeholder_habilitations') %>
       </div>
 
       <div class="fr-select-group input">
