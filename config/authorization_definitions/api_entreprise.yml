@@ -55,7 +55,7 @@ api_entreprise:
       link: "https://entreprise.api.gouv.fr/catalogue/djepva/associations"
     - name: "Subventions des associations - Data.subvention | 🔐"
       group: "Informations financières"
-      value: "subventions_associations_datasubventions"
+      value: "data_subvention_subventions"
       link: "https://entreprise.api.gouv.fr/catalogue/data_subvention/subventions"
     - name: "Effectifs - GIP-MDS | 🔐"
       group: "Informations générales"
