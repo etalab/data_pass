@@ -1,8 +1,8 @@
 class DemandesHabilitationsSearchEngineBuilder
-  attr_reader :search_engine, :current_user, :params, :subdomain_types
+  attr_reader :search_engine, :user, :params, :subdomain_types
 
-  def initialize(current_user, params, subdomain_types: nil)
-    @current_user = current_user
+  def initialize(user, params, subdomain_types: nil)
+    @user = user
     @params = params
     @subdomain_types = subdomain_types
   end
@@ -39,11 +39,11 @@ class DemandesHabilitationsSearchEngineBuilder
 
     case user_relationship
     when 'applicant'
-      base_items.where(applicant: current_user)
+      base_items.where(applicant: user)
     when 'contact'
       filter_by_contact(base_items)
     when 'organization'
-      base_items.where.not(applicant: current_user)
+      base_items.where.not(applicant: user)
     else
       base_items
     end
@@ -52,10 +52,10 @@ class DemandesHabilitationsSearchEngineBuilder
   def filter_by_contact(base_items)
     if authorization_request_relation?(base_items)
       authorization_request_mentions_query(base_items)
-        .where.not(applicant: current_user)
+        .where.not(applicant: user)
     else
       authorization_mentions_query
-        .where.not(applicant: current_user)
+        .where.not(applicant: user)
     end
   end
 
@@ -87,11 +87,11 @@ class DemandesHabilitationsSearchEngineBuilder
         select 1
         from each(authorizations.data) as kv
         where kv.key like '%_email' and kv.value = ?
-      )", current_user.email)
+      )", user.email)
   end
 
   def authorization_request_mentions_query(base_items)
-    AuthorizationRequestsMentionsQuery.new(current_user).perform(base_items)
+    AuthorizationRequestsMentionsQuery.new(user).perform(base_items)
   end
 
   def authorization_requests_base_relation
@@ -108,6 +108,6 @@ class DemandesHabilitationsSearchEngineBuilder
   end
 
   def authorizations_base_relation
-    Authorization.joins(request: :organization).where(authorization_requests: { organization: current_user.organizations })
+    Authorization.joins(request: :organization).where(authorization_requests: { organization: user.organizations })
   end
 end
