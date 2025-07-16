@@ -7,9 +7,9 @@ class DashboardFacade
     @subdomain_types = subdomain_types
   end
 
-  def demandes_data(policy_scope_callback)
+  def demandes_data(policy_scope)
     search_builder = DemandesHabilitationsSearchEngineBuilder.new(current_user, params, subdomain_types: subdomain_types)
-    items = search_builder.build_authorization_requests_relation(policy_scope_callback)
+    items = search_builder.build_authorization_requests_relation(policy_scope)
 
     {
       highlighted_categories: {
@@ -24,9 +24,9 @@ class DashboardFacade
     }
   end
 
-  def habilitations_data(policy_scope_callback)
+  def habilitations_data(policy_scope)
     search_builder = DemandesHabilitationsSearchEngineBuilder.new(current_user, params, subdomain_types: subdomain_types)
-    items = search_builder.build_authorizations_relation(policy_scope_callback)
+    items = search_builder.build_authorizations_relation(policy_scope)
 
     {
       highlighted_categories: {},

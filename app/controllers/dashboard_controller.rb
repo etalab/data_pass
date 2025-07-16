@@ -24,14 +24,14 @@ class DashboardController < AuthenticatedUserController
   private
 
   def handle_demandes_tab
-    data = @facade.demandes_data(method(:policy_scope))
+    data = @facade.demandes_data(policy_scope(AuthorizationRequest))
     @highlighted_categories = data[:highlighted_categories]
     @categories = data[:categories]
     @search_engine = data[:search_engine]
   end
 
   def handle_habilitations_tab
-    data = @facade.habilitations_data(method(:policy_scope))
+    data = @facade.habilitations_data(policy_scope(Authorization))
     @highlighted_categories = data[:highlighted_categories]
     @categories = data[:categories]
     @search_engine = data[:search_engine]

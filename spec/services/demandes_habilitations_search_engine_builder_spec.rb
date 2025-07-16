@@ -1,13 +1,13 @@
 RSpec.describe DemandesHabilitationsSearchEngineBuilder do
   let(:service) { described_class.new(current_user, params, subdomain_types: subdomain_types) }
+  let(:subdomain_types) { nil }
   let(:current_user) { create(:user) }
   let(:organization) { create(:organization, users: [current_user]) }
   let(:other_user) { create(:user) }
-  
+
   before do
     organization.users << other_user
   end
-  let(:subdomain_types) { nil }
 
   describe '#build_search_engine' do
     let!(:current_user_demande) { create(:authorization_request, :api_entreprise, applicant: current_user, organization:) }
@@ -176,13 +176,13 @@ RSpec.describe DemandesHabilitationsSearchEngineBuilder do
   end
 
   describe '#build_authorization_requests_relation' do
-    let(:policy_scope_callback) { ->(items) { items } }
+    let(:policy_scope) { AuthorizationRequest.all }
     let(:params) { ActionController::Parameters.new({}) }
 
     it 'builds base authorization requests relation with proper includes and ordering' do
       expect(service).to receive(:build_search_engine).and_call_original
 
-      result = service.build_authorization_requests_relation(policy_scope_callback)
+      result = service.build_authorization_requests_relation(policy_scope)
 
       expect(result).to be_a(ActiveRecord::Relation)
       expect(service.search_engine).to be_present
@@ -192,7 +192,7 @@ RSpec.describe DemandesHabilitationsSearchEngineBuilder do
       let(:subdomain_types) { ['ApiEntrepriseRequest'] }
 
       it 'filters by subdomain types' do
-        result = service.build_authorization_requests_relation(policy_scope_callback)
+        result = service.build_authorization_requests_relation(policy_scope)
 
         expect(result).to be_a(ActiveRecord::Relation)
       end
@@ -200,13 +200,13 @@ RSpec.describe DemandesHabilitationsSearchEngineBuilder do
   end
 
   describe '#build_authorizations_relation' do
-    let(:policy_scope_callback) { ->(items) { items } }
+    let(:policy_scope) { Authorization.all }
     let(:params) { ActionController::Parameters.new({}) }
 
     it 'builds base authorizations relation with proper includes and ordering' do
       expect(service).to receive(:build_search_engine).and_call_original
 
-      result = service.build_authorizations_relation(policy_scope_callback)
+      result = service.build_authorizations_relation(policy_scope)
 
       expect(result).to be_a(ActiveRecord::Relation)
       expect(service.search_engine).to be_present

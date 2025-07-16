@@ -10,9 +10,9 @@ RSpec.describe DashboardFacade, type: :facade do
   end
 
   describe '#demandes_data' do
-    subject(:data) { facade.demandes_data(policy_scope_callback) }
+    subject(:data) { facade.demandes_data(policy_scope) }
 
-    let(:policy_scope_callback) { ->(relation) { relation.where(organization: organization) } }
+    let(:policy_scope) { AuthorizationRequest.where(organization: organization) }
 
     context 'when authorization_requests exist' do
       let!(:draft_request) { create(:authorization_request, :api_entreprise, organization:, state: :draft) }
@@ -51,9 +51,9 @@ RSpec.describe DashboardFacade, type: :facade do
   end
 
   describe '#habilitations_data' do
-    subject(:data) { facade.habilitations_data(policy_scope_callback) }
+    subject(:data) { facade.habilitations_data(policy_scope) }
 
-    let(:policy_scope_callback) { ->(relation) { relation.joins(:request).where(authorization_requests: { organization: organization }) } }
+    let(:policy_scope) { Authorization.joins(:request).where(authorization_requests: { organization: organization }) }
 
     context 'when authorizations exist' do
       let!(:authorization_request) { create(:authorization_request, organization: organization, state: :validated) }

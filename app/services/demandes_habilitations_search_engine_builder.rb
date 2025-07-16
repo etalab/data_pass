@@ -12,22 +12,22 @@ class DemandesHabilitationsSearchEngineBuilder
     apply_search_and_build_engine(filtered_items)
   end
 
-  def build_authorization_requests_relation(policy_scope_callback)
-    base_items = policy_scope_callback.call(authorization_requests_base_relation)
+  def build_authorization_requests_relation(policy_scope)
+    base_items = policy_scope
       .includes(:applicant, :authorizations)
       .not_archived
       .order(created_at: :desc)
-      .or(authorization_request_mentions_query(authorization_requests_base_relation))
 
+    base_items = base_items.or(authorization_request_mentions_query(AuthorizationRequest.all))
     build_search_engine(base_items)
   end
 
-  def build_authorizations_relation(policy_scope_callback)
-    base_items = policy_scope_callback.call(authorizations_base_relation)
+  def build_authorizations_relation(policy_scope)
+    base_items = policy_scope
       .includes(:request, :applicant)
       .order(created_at: :desc)
-      .or(authorization_mentions_query)
 
+    base_items = base_items.or(authorization_mentions_query)
     build_search_engine(base_items)
   end
 
@@ -35,7 +35,6 @@ class DemandesHabilitationsSearchEngineBuilder
 
   def apply_user_relationship_filter(base_items)
     user_relationship = params[:search_query]&.dig(:user_relationship_eq)
-    return base_items if user_relationship.blank?
 
     case user_relationship
     when 'applicant'
