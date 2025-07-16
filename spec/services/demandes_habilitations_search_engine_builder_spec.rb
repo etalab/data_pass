@@ -3,11 +3,15 @@ RSpec.describe DemandesHabilitationsSearchEngineBuilder do
   let(:current_user) { create(:user) }
   let(:organization) { create(:organization, users: [current_user]) }
   let(:other_user) { create(:user) }
+  
+  before do
+    organization.users << other_user
+  end
   let(:subdomain_types) { nil }
 
   describe '#build_search_engine' do
     let!(:current_user_demande) { create(:authorization_request, :api_entreprise, applicant: current_user, organization:) }
-    let!(:other_user_demande) { create(:authorization_request, :api_particulier, applicant: other_user) }
+    let!(:other_user_demande) { create(:authorization_request, :api_particulier, applicant: other_user, organization: organization) }
     let(:base_items) { AuthorizationRequest.all }
 
     context 'without search parameters' do
@@ -43,9 +47,10 @@ RSpec.describe DemandesHabilitationsSearchEngineBuilder do
           )
         end
 
-        it 'returns only demandes where current user is not applicant' do
+        it 'returns only demandes from current user organization' do
+          allow(current_user).to receive(:current_organization).and_return(organization)
           result = service.build_search_engine(base_items)
-          expect(result).to contain_exactly(other_user_demande)
+          expect(result).to contain_exactly(current_user_demande, other_user_demande)
         end
       end
 
@@ -134,6 +139,38 @@ RSpec.describe DemandesHabilitationsSearchEngineBuilder do
         result = service.build_search_engine(base_items)
         expect(result).to include(authorization_with_contact)
         expect(result).not_to include(authorization_without_contact)
+      end
+    end
+
+    context 'with organization filter in habilitations' do
+      let!(:authorization_request) { create(:authorization_request, :api_entreprise, applicant: other_user, organization: organization) }
+      let!(:authorization_from_organization) do
+        create(:authorization,
+          applicant: other_user,
+          request: authorization_request)
+      end
+
+      let!(:other_organization) { create(:organization, users: [other_user]) }
+      let!(:other_authorization_request) { create(:authorization_request, :api_particulier, applicant: other_user, organization: other_organization) }
+      let!(:authorization_from_other_organization) do
+        create(:authorization,
+          applicant: other_user,
+          request: other_authorization_request)
+      end
+
+      let(:base_items) { Authorization.all }
+      let(:params) do
+        ActionController::Parameters.new(
+          search_query: { user_relationship_eq: 'organization' }
+        )
+      end
+
+      it 'returns only habilitations from current user organization' do
+        allow(current_user).to receive_messages(current_organization: organization, organizations: [organization])
+
+        result = service.build_search_engine(base_items)
+        expect(result).to include(authorization_from_organization)
+        expect(result).not_to include(authorization_from_other_organization)
       end
     end
   end

@@ -43,7 +43,12 @@ class DemandesHabilitationsSearchEngineBuilder
     when 'contact'
       filter_by_contact(base_items)
     when 'organization'
-      base_items.where.not(applicant: user)
+      if authorization_request_relation?(base_items)
+        base_items.where(organization: user.current_organization)
+      else
+        # For authorizations, we need to use the base relation with proper joins
+        authorizations_base_relation.where(id: base_items.select(:id))
+      end
     else
       base_items
     end
