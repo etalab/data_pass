@@ -56,5 +56,16 @@ RSpec.describe Admin::StopImpersonation do
         }.to change(AdminEvent, :count).by(1)
       end
     end
+
+    context 'when impersonation is nil' do
+      let(:impersonation) { nil }
+      let(:other_unfinished_impersonation) { create(:impersonation, admin:) }
+
+      it 'marks the other impersonation as finished' do
+        expect {
+          stop_impersonation
+        }.to change { other_unfinished_impersonation.reload.finished_at }
+      end
+    end
   end
 end
