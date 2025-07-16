@@ -2,6 +2,7 @@ class API::V1Controller < APIController
   include APIPagination
 
   rescue_from Doorkeeper::Errors::TokenUnknown, with: :render_unauthorized_error
+  rescue_from Doorkeeper::Errors::TokenExpired, with: :render_expired_token_error
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_error
 
   before_action :doorkeeper_authorize!
@@ -14,6 +15,10 @@ class API::V1Controller < APIController
 
   def render_unauthorized_error
     render_error(401, title: 'Non autorisé', detail: "Un jeton d'accès est requis mais absent dans les en-têtes de la requête.", source: { pointer: 'headers/Authorization' })
+  end
+
+  def render_expired_token_error
+    render_error(401, title: 'Jeton expiré', detail: 'Le jeton d’accès a expiré. Veuillez en obtenir un nouveau.', source: { pointer: 'headers/Authorization' })
   end
 
   def render_error(http_code, title:, detail:, source: nil)
