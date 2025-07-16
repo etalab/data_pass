@@ -6,6 +6,10 @@
         <p>L'impersonation doit être utilisée uniquement pour des besoins de support ou de débogage. Toutes les actions effectuées seront enregistrées.</p>
       </div>
 
+      <p>
+        Vous trouverez la liste de toutes les impersonations effectuées sur <a href="https://metabase.entreprise.api.gouv.fr/dashboard/98" target="_blank">le tableau de suivi Metabase associé</a>.
+      </p>
+
       <%= form_with model: @impersonation, url: admin_impersonate_path, local: true do |form| %>
         <div class="fr-input-group">
           <%= form.label :email, 'Email de l\'utilisateur', class: 'fr-label' %>
