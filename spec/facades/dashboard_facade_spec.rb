@@ -2,8 +2,8 @@ RSpec.describe DashboardFacade, type: :facade do
   let(:current_user) { create(:user) }
   let(:organization) { create(:organization) }
   let(:params) { {} }
-  let(:request) { instance_double(ActionDispatch::Request, host: 'localhost', query_parameters: {}) }
-  let(:facade) { described_class.new(current_user, params, request) }
+  let(:subdomain_types) { nil }
+  let(:facade) { described_class.new(current_user, params, subdomain_types: subdomain_types) }
 
   before do
     current_user.organizations << organization
@@ -79,22 +79,6 @@ RSpec.describe DashboardFacade, type: :facade do
         expect(data[:categories][:active]).to be_empty
         expect(data[:categories][:revoked]).to be_empty
       end
-    end
-  end
-
-  describe '#tabs' do
-    subject(:tabs) { facade.tabs }
-
-    it 'returns correct tabs structure' do
-      expect(tabs).to contain_exactly(
-        have_attributes(id: 'demandes', path: include('demandes')),
-        have_attributes(id: 'habilitations', path: include('habilitations'))
-      )
-    end
-
-    it 'includes proper paths for tabs' do
-      expect(tabs.first.path).to include('demandes')
-      expect(tabs.second.path).to include('habilitations')
     end
   end
 end
