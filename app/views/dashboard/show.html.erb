@@ -45,9 +45,7 @@
           <div class="fr-mb-5w">
             <%= render 'search_form' %>
           </div>
-        <% end %>
 
-        <% if params[:id] == tab.id %>
           <div data-auto-height-target="source">
             <% @highlighted_categories.each do |category, items| %>
               <% next if items.empty? %>
