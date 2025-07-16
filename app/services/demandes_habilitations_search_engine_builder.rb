@@ -1,4 +1,4 @@
-class SearchEngineBuilder
+class DemandesHabilitationsSearchEngineBuilder
   attr_reader :search_engine, :current_user, :params, :subdomain_types
 
   def initialize(current_user, params, subdomain_types: nil)

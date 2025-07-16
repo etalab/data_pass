@@ -1,6 +1,6 @@
 class Authorization < ApplicationRecord
   extend FriendlyId
-  include Searchable
+  include DemandesHabilitationsSearchable
 
   friendly_id :slug_candidates, use: :slugged
 

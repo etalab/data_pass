@@ -1,4 +1,4 @@
-module Searchable
+module DemandesHabilitationsSearchable
   extend ActiveSupport::Concern
 
   included do

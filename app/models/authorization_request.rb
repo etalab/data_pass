@@ -6,7 +6,7 @@ class AuthorizationRequest < ApplicationRecord
   include AuthorizationCore::Contacts
   include AuthorizationCore::Scopes
   include AuthorizationCore::Checkboxes
-  include Searchable
+  include DemandesHabilitationsSearchable
 
   belongs_to :applicant,
     class_name: 'User',

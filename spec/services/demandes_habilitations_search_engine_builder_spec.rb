@@ -1,4 +1,4 @@
-RSpec.describe SearchEngineBuilder do
+RSpec.describe DemandesHabilitationsSearchEngineBuilder do
   let(:service) { described_class.new(current_user, params, subdomain_types: subdomain_types) }
   let(:current_user) { create(:user) }
   let(:organization) { create(:organization, users: [current_user]) }
