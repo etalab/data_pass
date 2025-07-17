@@ -1,14 +1,14 @@
 class DashboardFacade
-  attr_reader :current_user, :params, :subdomain_types
+  attr_reader :user, :params, :subdomain_types
 
-  def initialize(current_user, params, subdomain_types: nil)
-    @current_user = current_user
+  def initialize(user, params, subdomain_types: nil)
+    @user = user
     @params = params
     @subdomain_types = subdomain_types
   end
 
   def demandes_data(policy_scope)
-    search_builder = DemandesHabilitationsSearchEngineBuilder.new(current_user, params, subdomain_types: subdomain_types)
+    search_builder = DemandesHabilitationsSearchEngineBuilder.new(user, params, subdomain_types: subdomain_types)
     items = search_builder.build_authorization_requests_relation(policy_scope)
 
     {
@@ -25,7 +25,7 @@ class DashboardFacade
   end
 
   def habilitations_data(policy_scope)
-    search_builder = DemandesHabilitationsSearchEngineBuilder.new(current_user, params, subdomain_types: subdomain_types)
+    search_builder = DemandesHabilitationsSearchEngineBuilder.new(user, params, subdomain_types: subdomain_types)
     items = search_builder.build_authorizations_relation(policy_scope)
 
     {
