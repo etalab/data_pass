@@ -47,11 +47,10 @@
       <%= f.label :user_relationship_eq, t('dashboard.show.search.user_relationship.label'), class: %w[fr-label] %>
       <%= f.select :user_relationship_eq,
                    options_for_select([
-                                        [t('dashboard.show.search.user_relationship.options.all'), ''],
                                         [t('dashboard.show.search.user_relationship.options.applicant'), 'applicant'],
                                         [t('dashboard.show.search.user_relationship.options.contact'), 'contact'],
                                         [t('dashboard.show.search.user_relationship.options.organization'), 'organization']
-                                      ], selected: params[:search_query]&.dig(:user_relationship_eq)),
+                                      ], selected: params[:search_query]&.dig(:user_relationship_eq) || 'applicant'),
                    {},
                    class: %w[fr-select]
       %>

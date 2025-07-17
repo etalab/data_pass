@@ -189,13 +189,11 @@ fr:
         user_relationship:
           label: Filtrer par demandeur
           options:
-            all: Toutes les demandes / habilitations
             applicant: Je suis le demandeur
             contact: Je suis mentionnée en contact
             organization: Les autres demandes de l'organisation
         btn: Rechercher
         reset: Réinitialiser les filtres
-#        results_count: "%{count} résultat(s)"
 
     card:
       card_reopening_footer:

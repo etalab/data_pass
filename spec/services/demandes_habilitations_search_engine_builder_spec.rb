@@ -20,7 +20,7 @@ RSpec.describe DemandesHabilitationsSearchEngineBuilder do
       it 'returns all demandes with default sorting' do
         result = service.build_search_engine(base_items)
 
-        expect(result).to contain_exactly(current_user_demande, other_user_demande)
+        expect(result).to contain_exactly(current_user_demande)
         expect(service.search_engine.sorts.first.name).to eq('created_at')
         expect(service.search_engine.sorts.first.dir).to eq('desc')
       end

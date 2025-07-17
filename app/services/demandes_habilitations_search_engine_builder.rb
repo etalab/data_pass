@@ -37,7 +37,7 @@ class DemandesHabilitationsSearchEngineBuilder
     user_relationship = params[:search_query]&.dig(:user_relationship_eq)
 
     case user_relationship
-    when 'applicant'
+    when nil, '', 'applicant'
       base_items.where(applicant: user)
     when 'contact'
       filter_by_contact(base_items)
@@ -45,10 +45,9 @@ class DemandesHabilitationsSearchEngineBuilder
       if authorization_request_relation?(base_items)
         base_items.where(organization: user.current_organization)
       else
-        base_items.joins(request: :organization).where(authorization_requests: { organization: user.organizations })
+        base_items.joins(:request)
+          .where(authorization_requests: { organization: user.current_organization })
       end
-    else
-      base_items
     end
   end
 
@@ -109,5 +108,4 @@ class DemandesHabilitationsSearchEngineBuilder
       base_relation
     end
   end
-
 end
