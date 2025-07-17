@@ -45,8 +45,7 @@ class DemandesHabilitationsSearchEngineBuilder
       if authorization_request_relation?(base_items)
         base_items.where(organization: user.current_organization)
       else
-        # For authorizations, we need to use the base relation with proper joins
-        authorizations_base_relation.where(id: base_items.select(:id))
+        base_items.joins(request: :organization).where(authorization_requests: { organization: user.organizations })
       end
     else
       base_items
@@ -111,7 +110,4 @@ class DemandesHabilitationsSearchEngineBuilder
     end
   end
 
-  def authorizations_base_relation
-    Authorization.joins(request: :organization).where(authorization_requests: { organization: user.organizations })
-  end
 end
