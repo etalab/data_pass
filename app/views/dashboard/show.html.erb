@@ -40,7 +40,12 @@
 
     <% @tabs.each do |tab| %>
       <turbo-frame id="tab-<%= tab.id %>-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tab-<%= tab.id %>" tabindex="0" data-turbo-action="advance">
-        <% if current_page?(tab.path) %>
+
+        <% if params[:id] == tab.id %>
+          <div class="fr-mb-5w">
+            <%= render 'search_form' %>
+          </div>
+
           <div data-auto-height-target="source">
             <% @highlighted_categories.each do |category, items| %>
               <% next if items.empty? %>

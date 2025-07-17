@@ -169,6 +169,31 @@ fr:
         changes_requested_title: Demandes à modifier
         active_title: Habilitations actives
         revoked_title: Habilitations révoquées
+      search:
+        main_input:
+          label_demandes: Rechercher dans toutes les demandes
+          label_habilitations: Rechercher dans toutes les habilitations
+          placeholder_demandes: Rechercher par intitulé, numéro de demandes...
+          placeholder_habilitations: Rechercher par intitulé, numéro d'habilitation...
+        status:
+            label: Filtrer par statut
+            options:
+              all: Tous les statuts
+              changes_requested: Modifications demandées
+              pending: En attente
+              draft: Brouillon
+              refused: Refusée
+              active: Active
+              obsolete: Obsolète
+              revoked: Révoquée
+        user_relationship:
+          label: Filtrer par demandeur
+          options:
+            applicant: Je suis le demandeur
+            contact: Je suis mentionné en contact
+            organization: Les autres demandes de l'organisation
+        btn: Rechercher
+        reset: Réinitialiser les filtres
 
     card:
       card_reopening_footer:
