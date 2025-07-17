@@ -7,11 +7,12 @@ RSpec.describe DemandesHabilitationsSearchEngineBuilder do
 
   before do
     organization.users << other_user
+    current_user.add_to_organization(organization, current: true)
   end
 
   describe '#build_search_engine' do
-    let!(:current_user_demande) { create(:authorization_request, :api_entreprise, applicant: current_user, organization:) }
-    let!(:other_user_demande) { create(:authorization_request, :api_particulier, applicant: other_user, organization: organization) }
+    let!(:current_user_demande) { create(:authorization_request, :api_entreprise, applicant: current_user, organization:, state: 'submitted') }
+    let!(:other_user_demande) { create(:authorization_request, :api_particulier, applicant: other_user, organization: organization, state: 'submitted') }
     let(:base_items) { AuthorizationRequest.all }
 
     context 'without search parameters' do
@@ -26,7 +27,21 @@ RSpec.describe DemandesHabilitationsSearchEngineBuilder do
       end
     end
 
-    context 'with user_relationship_eq filter' do
+    context 'when filtering demandes by user_relationship_eq' do
+      let!(:current_user_request) { create(:authorization_request, :api_entreprise, applicant: current_user, organization: organization) }
+      let!(:other_user_request) { create(:authorization_request, :api_particulier, applicant: other_user, organization: organization) }
+      let!(:request_with_contact) do
+        create(:authorization_request, :api_entreprise,
+          applicant: other_user,
+          organization: organization,
+          data: { 'contact_metier_email' => current_user.email })
+      end
+
+      let!(:other_organization) { create(:organization, users: [other_user]) }
+      let!(:request_from_other_organization) { create(:authorization_request, :api_particulier, applicant: other_user, organization: other_organization) }
+
+      let(:base_items) { AuthorizationRequest.all }
+
       context 'when filtering by applicant' do
         let(:params) do
           ActionController::Parameters.new(
@@ -34,9 +49,12 @@ RSpec.describe DemandesHabilitationsSearchEngineBuilder do
           )
         end
 
-        it 'returns only demande where current user is applicant' do
+        it 'returns only demandes where current user is applicant' do
           result = service.build_search_engine(base_items)
-          expect(result).to contain_exactly(current_user_demande)
+          expect(result).to include(current_user_request)
+          expect(result).not_to include(other_user_request)
+          expect(result).not_to include(request_with_contact)
+          expect(result).not_to include(request_from_other_organization)
         end
       end
 
@@ -48,129 +66,354 @@ RSpec.describe DemandesHabilitationsSearchEngineBuilder do
         end
 
         it 'returns only demandes from current user organization' do
-          allow(current_user).to receive(:current_organization).and_return(organization)
           result = service.build_search_engine(base_items)
-          expect(result).to contain_exactly(current_user_demande, other_user_demande)
+          expect(result).to include(current_user_request)
+          expect(result).to include(other_user_request)
+          expect(result).to include(request_with_contact)
+          expect(result).not_to include(request_from_other_organization)
         end
       end
 
-      context 'when filtering by contact in demandes' do
+      context 'when filtering by contact' do
         let(:params) do
           ActionController::Parameters.new(
             search_query: { user_relationship_eq: 'contact' }
           )
         end
 
-        it 'returns demandes where current_user is contact' do
-          allow(AuthorizationAndRequestsMentionsQuery).to receive(:new)
-            .with(current_user)
-            .and_return(instance_double(AuthorizationAndRequestsMentionsQuery, perform: base_items.where.not(applicant: current_user)))
-
+        it 'returns demandes where current user is contact' do
           result = service.build_search_engine(base_items)
-          expect(result).to contain_exactly(other_user_demande)
+          expect(result).to include(request_with_contact)
+          expect(result).not_to include(current_user_request)
+          expect(result).not_to include(other_user_request)
+          expect(result).not_to include(request_from_other_organization)
         end
       end
     end
 
-    context 'with authorization request name as text search' do
-      let(:search_text) { current_user_demande.name }
-      let(:params) do
-        ActionController::Parameters.new(
-          search_query: { within_data_or_id_cont: search_text }
-        )
+    context 'when filtering demandes by text search' do
+      let!(:request_with_intitule_cantine) do
+        create(:authorization_request, :api_entreprise,
+          applicant: current_user,
+          organization: organization,
+          data: { intitule: 'cantine' })
       end
 
-      it 'applies authorization_request name as search filter' do
-        allow(base_items).to receive(:search_by_query).with(search_text)
-          .and_return(base_items.where(id: current_user_demande.id))
-
-        result = service.build_search_engine(base_items)
-        expect(result).to contain_exactly(current_user_demande)
-      end
-    end
-
-    context 'with ransack parameters' do
-      let(:params) do
-        ActionController::Parameters.new(
-          search_query: {
-            state_eq: 'draft',
-            user_relationship_eq: 'applicant'
-          }
-        )
+      let!(:request_with_intitule_transport) do
+        create(:authorization_request, :api_particulier,
+          applicant: current_user,
+          organization: organization,
+          data: { intitule: 'transport' })
       end
 
-      it 'filters with ransack, ignoring user_relationship_eq' do
-        expect(base_items).to receive(:ransack) { |args|
-          expect(args['state_eq']).to eq('draft')
-          expect(args).not_to have_key('user_relationship_eq')
-        }.and_return(instance_double(Ransack::Search,
-          sorts: [], 'sorts=': nil, result: base_items.none))
-        service.build_search_engine(base_items)
-      end
-    end
+      let(:base_items) { AuthorizationRequest.all }
 
-    context 'with contact filter in habilitations' do
-      let!(:authorization_request) { create(:authorization_request, :api_entreprise, applicant: other_user) }
-      let!(:authorization_with_contact) do
-        authorization = create(:authorization,
-          applicant: other_user,
-          request: authorization_request)
+      context 'when searching by authorization_request ID' do
+        let(:search_text) { request_with_intitule_cantine.id.to_s }
+        let(:params) do
+          ActionController::Parameters.new(
+            search_query: { within_data_or_id_cont: search_text }
+          )
+        end
 
-        authorization.update!(
-          data: authorization.data.merge('contact_metier_email' => current_user.email)
-        )
-        authorization
+        it 'returns demandes matching the ID' do
+          result = service.build_search_engine(base_items)
+          expect(result).to include(request_with_intitule_cantine)
+          expect(result).not_to include(request_with_intitule_transport)
+        end
       end
 
-      let!(:authorization_without_contact) do
-        create(:authorization,
-          applicant: other_user,
-          request: authorization_request)
+      context 'when searching by intitulé cantine' do
+        let(:search_text) { 'cantine' }
+        let(:params) do
+          ActionController::Parameters.new(
+            search_query: { within_data_or_id_cont: search_text }
+          )
+        end
+
+        it 'returns demandes matching the intitulé' do
+          result = service.build_search_engine(base_items)
+          expect(result).to include(request_with_intitule_cantine)
+          expect(result).not_to include(request_with_intitule_transport)
+        end
       end
 
-      let(:base_items) { Authorization.all }
-      let(:params) do
-        ActionController::Parameters.new(
-          search_query: { user_relationship_eq: 'contact' }
-        )
-      end
+      context 'when searching by partial intitulé can' do
+        let(:search_text) { 'can' }
+        let(:params) do
+          ActionController::Parameters.new(
+            search_query: { within_data_or_id_cont: search_text }
+          )
+        end
 
-      it 'returns only habilitation mentioning current user as contact' do
-        result = service.build_search_engine(base_items)
-        expect(result).to include(authorization_with_contact)
-        expect(result).not_to include(authorization_without_contact)
+        it 'returns demandes with partial intitulé match' do
+          result = service.build_search_engine(base_items)
+          expect(result).to include(request_with_intitule_cantine)
+          expect(result).not_to include(request_with_intitule_transport)
+        end
       end
     end
 
-    context 'with organization filter in habilitations' do
+    context 'when filtering demandes by state' do
+      let!(:draft_request) { create(:authorization_request, :api_entreprise, state: 'draft', applicant: current_user) }
+      let!(:submitted_request) { create(:authorization_request, :api_particulier, state: 'submitted', applicant: current_user) }
+      let!(:validated_request) { create(:authorization_request, :api_entreprise, state: 'validated', applicant: current_user) }
+      let!(:refused_request) { create(:authorization_request, :api_particulier, state: 'refused', applicant: current_user) }
+      let!(:archived_request) { create(:authorization_request, :api_entreprise, state: 'archived', applicant: current_user) }
+      let(:base_items) { AuthorizationRequest.all }
+
+      context 'when filtering by draft' do
+        let(:params) do
+          ActionController::Parameters.new(
+            search_query: { state_eq: 'draft' }
+          )
+        end
+
+        it 'returns only draft demandes' do
+          result = service.build_search_engine(base_items)
+          expect(result).to contain_exactly(draft_request)
+        end
+      end
+
+      context 'when filtering by submitted' do
+        let(:params) do
+          ActionController::Parameters.new(
+            search_query: { state_eq: 'submitted' }
+          )
+        end
+
+        it 'returns only submitted demandes' do
+          result = service.build_search_engine(base_items)
+          expect(result).to contain_exactly(submitted_request, current_user_demande)
+        end
+      end
+
+      context 'when filtering by validated' do
+        let(:params) do
+          ActionController::Parameters.new(
+            search_query: { state_eq: 'validated' }
+          )
+        end
+
+        it 'returns only validated demandes' do
+          result = service.build_search_engine(base_items)
+          expect(result).to contain_exactly(validated_request)
+        end
+      end
+
+      context 'when filtering by refused' do
+        let(:params) do
+          ActionController::Parameters.new(
+            search_query: { state_eq: 'refused' }
+          )
+        end
+
+        it 'returns only refused demandes' do
+          result = service.build_search_engine(base_items)
+          expect(result).to contain_exactly(refused_request)
+        end
+      end
+
+      context 'when filtering by archived state' do
+        let(:params) do
+          ActionController::Parameters.new(
+            search_query: { state_eq: 'archived' }
+          )
+        end
+
+        it 'returns only archived demandes' do
+          result = service.build_search_engine(base_items)
+          expect(result).to contain_exactly(archived_request)
+        end
+      end
+    end
+
+    context 'when filtering habilitations by user_relationship_eq' do
       let!(:authorization_request) { create(:authorization_request, :api_entreprise, applicant: other_user, organization: organization) }
+      let!(:other_authorization_request) { create(:authorization_request, :api_particulier, applicant: other_user, organization: organization, data: { 'contact_metier_email' => current_user.email }) }
       let!(:authorization_from_organization) do
         create(:authorization,
           applicant: other_user,
           request: authorization_request)
       end
 
-      let!(:other_organization) { create(:organization, users: [other_user]) }
-      let!(:other_authorization_request) { create(:authorization_request, :api_particulier, applicant: other_user, organization: other_organization) }
-      let!(:authorization_from_other_organization) do
+      let!(:authorization_with_contact) do
         create(:authorization,
           applicant: other_user,
           request: other_authorization_request)
       end
 
-      let(:base_items) { Authorization.all }
-      let(:params) do
-        ActionController::Parameters.new(
-          search_query: { user_relationship_eq: 'organization' }
-        )
+      let!(:other_organization) { create(:organization, users: [other_user]) }
+      let!(:other_organization_request) { create(:authorization_request, :api_particulier, applicant: other_user, organization: other_organization) }
+      let!(:authorization_from_other_organization) do
+        create(:authorization,
+          applicant: other_user,
+          request: other_organization_request)
       end
 
-      it 'returns only habilitations from current user organization' do
-        allow(current_user).to receive_messages(current_organization: organization, organizations: [organization])
+      let(:base_items) { Authorization.all }
 
-        result = service.build_search_engine(base_items)
-        expect(result).to include(authorization_from_organization)
-        expect(result).not_to include(authorization_from_other_organization)
+      context 'when filtering by applicant' do
+        let(:params) do
+          ActionController::Parameters.new(
+            search_query: { user_relationship_eq: 'applicant' }
+          )
+        end
+
+        it 'returns only habilitations where current user is applicant' do
+          current_user_authorization_request = create(:authorization_request, :api_entreprise, applicant: current_user, organization: organization)
+          current_user_authorization = create(:authorization, applicant: current_user, request: current_user_authorization_request)
+
+          result = service.build_search_engine(base_items)
+          expect(result).to include(current_user_authorization)
+          expect(result).not_to include(authorization_from_organization)
+          expect(result).not_to include(authorization_with_contact)
+          expect(result).not_to include(authorization_from_other_organization)
+        end
+      end
+
+      context 'when filtering by contact' do
+        let(:params) do
+          ActionController::Parameters.new(
+            search_query: { user_relationship_eq: 'contact' }
+          )
+        end
+
+        it 'returns only habilitations mentioning current user as contact' do
+          result = service.build_search_engine(base_items)
+          expect(result).to include(authorization_with_contact)
+          expect(result).not_to include(authorization_from_organization)
+          expect(result).not_to include(authorization_from_other_organization)
+        end
+      end
+
+      context 'when filtering by organization' do
+        let(:params) do
+          ActionController::Parameters.new(
+            search_query: { user_relationship_eq: 'organization' }
+          )
+        end
+
+        it 'returns only habilitations from current user organization' do
+          allow(current_user).to receive_messages(current_organization: organization, organizations: [organization])
+
+          result = service.build_search_engine(base_items)
+          expect(result).to include(authorization_from_organization)
+          expect(result).to include(authorization_with_contact)
+          expect(result).not_to include(authorization_from_other_organization)
+        end
+      end
+    end
+
+    context 'when filtering habilitations by text search' do
+      let!(:validated_request) { create(:authorization_request, :api_entreprise, state: 'validated', applicant: current_user, data: { intitule: 'cantine' }) }
+      let!(:other_validated_request) { create(:authorization_request, :api_particulier, state: 'validated', applicant: current_user, data: { intitule: 'transport' }) }
+
+      let!(:authorization_with_intitule) do
+        create(:authorization,
+          request: validated_request,
+          state: 'active')
+      end
+
+      let!(:authorization_with_different_intitule) do
+        create(:authorization,
+          request: other_validated_request,
+          state: 'active')
+      end
+
+      let(:base_items) { Authorization.all }
+
+      context 'when searching by authorization ID' do
+        let(:search_text) { authorization_with_intitule.id.to_s }
+        let(:params) do
+          ActionController::Parameters.new(
+            search_query: { within_data_or_id_cont: search_text }
+          )
+        end
+
+        it 'returns habilitations matching the ID' do
+          result = service.build_search_engine(base_items)
+          expect(result).to include(authorization_with_intitule)
+          expect(result).not_to include(authorization_with_different_intitule)
+        end
+      end
+
+      context 'when searching by intitulé' do
+        let(:search_text) { 'cantine' }
+        let(:params) do
+          ActionController::Parameters.new(
+            search_query: { within_data_or_id_cont: search_text }
+          )
+        end
+
+        it 'returns habilitations matching the intitulé' do
+          result = service.build_search_engine(base_items)
+          expect(result).to include(authorization_with_intitule)
+          expect(result).not_to include(authorization_with_different_intitule)
+        end
+      end
+
+      context 'when searching by partial intitulé' do
+        let(:search_text) { 'can' }
+        let(:params) do
+          ActionController::Parameters.new(
+            search_query: { within_data_or_id_cont: search_text }
+          )
+        end
+
+        it 'returns habilitations with partial intitulé match' do
+          result = service.build_search_engine(base_items)
+          expect(result).to include(authorization_with_intitule)
+          expect(result).not_to include(authorization_with_different_intitule)
+        end
+      end
+    end
+
+    context 'when filtering habilitations by state' do
+      let!(:validated_request) { create(:authorization_request, :api_entreprise, state: 'validated', applicant: current_user) }
+      let!(:other_validated_request) { create(:authorization_request, :api_particulier, state: 'validated', applicant: current_user) }
+      let!(:active_authorization) { create(:authorization, request: validated_request, state: 'active') }
+      let!(:revoked_authorization) { create(:authorization, request: other_validated_request, state: 'revoked') }
+      let!(:obsolete_authorization) { create(:authorization, request: validated_request, state: 'obsolete') }
+      let(:base_items) { Authorization.all }
+
+      context 'when filtering by active state' do
+        let(:params) do
+          ActionController::Parameters.new(
+            search_query: { state_eq: 'active' }
+          )
+        end
+
+        it 'returns only active habilitations' do
+          result = service.build_search_engine(base_items)
+          expect(result).to contain_exactly(active_authorization)
+        end
+      end
+
+      context 'when filtering by revoked state' do
+        let(:params) do
+          ActionController::Parameters.new(
+            search_query: { state_eq: 'revoked' }
+          )
+        end
+
+        it 'returns only revoked habilitations' do
+          result = service.build_search_engine(base_items)
+          expect(result).to contain_exactly(revoked_authorization)
+        end
+      end
+
+      context 'when filtering by obsolete state' do
+        let(:params) do
+          ActionController::Parameters.new(
+            search_query: { state_eq: 'obsolete' }
+          )
+        end
+
+        it 'returns only obsolete habilitations' do
+          result = service.build_search_engine(base_items)
+          expect(result).to contain_exactly(obsolete_authorization)
+        end
       end
     end
   end
