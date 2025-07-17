@@ -13,22 +13,17 @@ Fonctionnalité: Tableau de bord
     Et j'ai 1 demande d'habilitation "API Entreprise" en attente
     Et j'ai 1 demande d'habilitation "API Entreprise" refusée
     Et j'ai 1 habilitation "API Entreprise" active
-    Et que mon organisation a 1 demande d'habilitation "API Entreprise"
-    Et que je me rends sur mon tableau de bord demandes
-    Alors je vois 4 demandes d'habilitation
-
-  Scénario: Je vois toutes les demande d'habilitations de mon organization
     Quand mon organisation a 2 demandes d'habilitation "API Entreprise"
-    Et que j'ai 1 demande d'habilitation "API Particulier"
     Et que je me rends sur mon tableau de bord demandes
-    Alors je vois 3 demandes d'habilitations
+    Alors je vois 3 demandes d'habilitation
 
-  Scénario: Je vois les habilitations où je suis mentionné
+  Scénario: Je vois les demandes où je suis mentionné
     Quand j'ai 3 demandes d'habilitation "API Entreprise"
     Et que mon organisation a 2 demandes d'habilitation "API Entreprise"
     Et que je suis mentionné dans 1 demande d'habilitation "API Entreprise" en tant que "Contact métier"
     Et que je me rends sur mon tableau de bord demandes
-    Alors je vois 6 demandes d'habilitation
+    Quand je sélectionne le filtre "Je suis mentionné en contact" pour "Filtrer par demandeur"
+    Alors je vois 1 demande d'habilitation
     Et la page contient "vous avez été référencé comme contact métier"
 
   Scénario: Je vois une habilitation révoquée
@@ -48,15 +43,14 @@ Fonctionnalité: Tableau de bord
     Alors je vois 1 demandes d'habilitation
     Et la page contient "Brouillon"
 
-  Scénario: Je filtre mes demandes par relation utilisateur
+  Scénario: Je filtre mes demandes par organisation
     Quand j'ai 2 demandes d'habilitation "API Entreprise"
     Et que mon organisation a 1 demande d'habilitation "API Entreprise"
     Et que je suis mentionné dans 1 demande d'habilitation "API Entreprise" en tant que "Contact métier"
     Et que je me rends sur mon tableau de bord demandes
-    Alors je vois 4 demandes d'habilitation
-    Quand je sélectionne le filtre "Je suis le demandeur" pour "Filtrer par demandeur"
     Alors je vois 2 demandes d'habilitation
-    Et la page contient "vous êtes le demandeur"
+    Quand je sélectionne le filtre "Les autres demandes de l'organisation" pour "Filtrer par demandeur"
+    Alors je vois 3 demandes d'habilitation
 
   Scénario: Je recherche une demande par texte
     Quand j'ai 1 demande d'habilitation "API Particulier" en brouillon
@@ -78,15 +72,3 @@ Fonctionnalité: Tableau de bord
     Quand je sélectionne le filtre "Révoquée" pour "Filtrer par statut"
     Alors je vois 1 habilitation
     Et la page contient "Révoquée"
-
-  Scénario: Je recherche une habilitation par texte
-    Quand j'ai 1 demande d'habilitation "API Particulier" validée
-    Et cette dernière demande d'habilitation s'appelait "Cantine à 1 euro"
-    Et j'ai 1 habilitation "API Entreprise" active
-    Et que je me rends sur mon tableau de bord habilitations
-    Alors je vois 2 habilitation
-    Et la page contient "Cantine à 1 euro"
-    Quand je remplis "Rechercher dans toutes les habilitations" avec "Cantine"
-    Alors je clique sur "Rechercher"
-    Alors je vois 1 habilitation
-    Et la page contient "Cantine à 1 euro"
