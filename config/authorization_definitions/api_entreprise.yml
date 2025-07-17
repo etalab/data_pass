@@ -49,11 +49,14 @@ api_entreprise:
       value: "open_data_immatriculation_eori_douanes"
       link: "https://entreprise.api.gouv.fr/catalogue/douanes/immatriculation_eori"
       included: true
-
     - name: "Données associations - DJEPVA | 🔐"
       group: "Informations générales"
       value: "associations_djepva"
       link: "https://entreprise.api.gouv.fr/catalogue/djepva/associations"
+    - name: "Subventions des associations - Data.subvention | 🔐"
+      group: "Informations financières"
+      value: "data_subvention_subventions"
+      link: "https://entreprise.api.gouv.fr/catalogue/data_subvention/subventions"
     - name: "Effectifs - GIP-MDS | 🔐"
       group: "Informations générales"
       value: "effectifs_urssaf"
