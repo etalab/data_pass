@@ -62,9 +62,9 @@ RSpec.describe DemandesHabilitationsSearchEngineBuilder do
         end
 
         it 'returns demandes where current_user is contact' do
-          allow(AuthorizationRequestsMentionsQuery).to receive(:new)
+          allow(AuthorizationAndRequestsMentionsQuery).to receive(:new)
             .with(current_user)
-            .and_return(instance_double(AuthorizationRequestsMentionsQuery, perform: base_items.where.not(applicant: current_user)))
+            .and_return(instance_double(AuthorizationAndRequestsMentionsQuery, perform: base_items.where.not(applicant: current_user)))
 
           result = service.build_search_engine(base_items)
           expect(result).to contain_exactly(other_user_demande)

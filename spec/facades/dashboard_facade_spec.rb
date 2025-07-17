@@ -15,11 +15,11 @@ RSpec.describe DashboardFacade, type: :facade do
     let(:policy_scope) { AuthorizationRequest.where(organization: organization) }
 
     context 'when authorization_requests exist' do
-      let!(:draft_request) { create(:authorization_request, :api_entreprise, organization:, state: :draft) }
-      let!(:submitted_request) { create(:authorization_request, :api_entreprise, organization:, state: :submitted) }
-      let!(:changes_requested_request) { create(:authorization_request, :api_particulier, organization:, state: :changes_requested) }
-      let!(:refused_request) { create(:authorization_request, :api_particulier, organization:, state: :refused) }
-      let!(:archived_request) { create(:authorization_request, :api_particulier, organization:, state: :archived) }
+      let!(:draft_request) { create(:authorization_request, :api_entreprise, organization:, applicant: current_user, state: :draft) }
+      let!(:submitted_request) { create(:authorization_request, :api_entreprise, organization:, applicant: current_user, state: :submitted) }
+      let!(:changes_requested_request) { create(:authorization_request, :api_particulier, organization:, applicant: current_user, state: :changes_requested) }
+      let!(:refused_request) { create(:authorization_request, :api_particulier, organization:, applicant: current_user, state: :refused) }
+      let!(:archived_request) { create(:authorization_request, :api_particulier, organization:, applicant: current_user, state: :archived) }
 
       it 'returns authorization_requests in correct categories' do
         expect(data[:highlighted_categories][:changes_requested]).to include(changes_requested_request)
@@ -56,7 +56,7 @@ RSpec.describe DashboardFacade, type: :facade do
     let(:policy_scope) { Authorization.joins(:request).where(authorization_requests: { organization: organization }) }
 
     context 'when authorizations exist' do
-      let!(:authorization_request) { create(:authorization_request, organization: organization, state: :validated) }
+      let!(:authorization_request) { create(:authorization_request, organization: organization, applicant: current_user, state: :validated) }
       let!(:active_authorization) { create(:authorization, request: authorization_request, state: :active) }
       let!(:revoked_authorization) { create(:authorization, request: authorization_request, state: :revoked) }
 

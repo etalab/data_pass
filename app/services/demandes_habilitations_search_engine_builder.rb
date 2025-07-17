@@ -27,7 +27,7 @@ class DemandesHabilitationsSearchEngineBuilder
       .includes(:request, :applicant)
       .order(created_at: :desc)
 
-    base_items = base_items.or(authorization_mentions_query)
+    base_items = base_items.or(authorization_mentions_query(Authorization.all))
     build_search_engine(base_items)
   end
 
@@ -56,7 +56,7 @@ class DemandesHabilitationsSearchEngineBuilder
       authorization_request_mentions_query(base_items)
         .where.not(applicant: user)
     else
-      authorization_mentions_query
+      authorization_mentions_query(base_items)
         .where.not(applicant: user)
     end
   end
@@ -84,28 +84,11 @@ class DemandesHabilitationsSearchEngineBuilder
     end
   end
 
-  def authorization_mentions_query
-    Authorization.where("EXISTS (
-        select 1
-        from each(authorizations.data) as kv
-        where kv.key like '%_email' and kv.value = ?
-      )", user.email)
+  def authorization_mentions_query(base_items)
+    AuthorizationAndRequestsMentionsQuery.new(user).perform(base_items)
   end
 
   def authorization_request_mentions_query(base_items)
-    AuthorizationRequestsMentionsQuery.new(user).perform(base_items)
-  end
-
-  def authorization_requests_base_relation
-    base_relation = AuthorizationRequest
-      .joins('left join authorizations on authorizations.request_id = authorization_requests.id')
-      .select('authorization_requests.*, count(authorizations.id) as authorizations_count')
-      .group('authorization_requests.id')
-
-    if subdomain_types.present?
-      base_relation.where(type: subdomain_types)
-    else
-      base_relation
-    end
+    AuthorizationAndRequestsMentionsQuery.new(user).perform(base_items)
   end
 end
