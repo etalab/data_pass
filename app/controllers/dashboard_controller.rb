@@ -8,7 +8,7 @@ class DashboardController < AuthenticatedUserController
   end
 
   def show
-    @facade = DashboardFacade.new(current_user, params, subdomain_types: current_subdomain_types)
+    @facade = DashboardFacade.new(current_user, params[:search_query], subdomain_types: current_subdomain_types)
     @tabs = build_tabs
 
     case params[:id]

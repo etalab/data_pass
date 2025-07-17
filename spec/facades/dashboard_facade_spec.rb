@@ -1,9 +1,9 @@
 RSpec.describe DashboardFacade, type: :facade do
   let(:current_user) { create(:user) }
   let(:organization) { create(:organization) }
-  let(:params) { {} }
+  let(:search_query) { nil }
   let(:subdomain_types) { nil }
-  let(:facade) { described_class.new(current_user, params, subdomain_types: subdomain_types) }
+  let(:facade) { described_class.new(current_user, search_query, subdomain_types: subdomain_types) }
 
   before do
     current_user.organizations << organization
