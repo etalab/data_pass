@@ -83,7 +83,7 @@ group :test do
   gem 'capybara'
   gem 'cucumber'
   gem 'cucumber-rails', require: false
-  gem 'cuprite', '< 0.17'
+  gem 'cuprite', '< 0.18'
   gem 'database_cleaner-active_record'
   gem 'generator_spec'
   gem 'rack_session_access'
