@@ -22,7 +22,10 @@ class TransitionAuthorizationRequestToStageOfAuthorization < ApplicationInteract
 
   def find_previous_stage_form_for_request(authorization_request)
     previous_stage = authorization_request.definition.stage.previous_stage
-    previous_stage[:form] || raise(ActiveRecord::RecordNotFound, "Couldn't find form within previous stages with id '#{previous_stage[:form_id]}'")
+
+    raise(ActiveRecord::RecordNotFound, "No previous stage configured for #{authorization_request.type}") if previous_stage[:form].blank?
+
+    previous_stage[:form]
   end
 
   def authorization = context.authorization

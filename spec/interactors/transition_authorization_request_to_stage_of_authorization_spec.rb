@@ -40,7 +40,7 @@ RSpec.describe TransitionAuthorizationRequestToStageOfAuthorization, type: :inte
 
       it 'fails when trying to find a non-existent previous stage' do
         expect { interactor }.to raise_error(ActiveRecord::RecordNotFound,
-          "Couldn't find form within previous stages with id ''")
+          'No previous stage configured for AuthorizationRequest::APIEntreprise')
       end
     end
 
