@@ -1,0 +1,51 @@
+TAB_PREFIX = 'tab-'.freeze
+
+module SkipLinks
+  def skip_link(text, anchor)
+    anchor_str = anchor.to_s
+    content_tag(:li) do
+      if anchor_str.start_with?(TAB_PREFIX)
+        link_to(text, "##{anchor_str}", class: 'fr-link', data: { anchor: anchor_str })
+      else
+        link_to(text, "##{anchor_str}", class: 'fr-link')
+      end
+    end
+  end
+
+  def default_skip_links
+    [
+      skip_link(content_skip_link_text, 'content'),
+      skip_link('Menu', 'header'),
+      skip_link('Pied de page', 'footer')
+    ].join.html_safe
+  end
+
+  def skip_links_content
+    return content_for(:skip_links) if content_for?(:skip_links)
+
+    implemented_skip_links_in_test! if Rails.env.test? && renders_full_html_view?
+
+    default_skip_links
+  end
+
+  def renders_full_html_view?
+    request.format.html? && !request.xhr? && response.content_type&.include?('text/html')
+  rescue StandardError
+    respond_to?(:content_for?) && respond_to?(:render)
+  end
+
+  private
+
+  def content_skip_link_text
+    content_for?(:content_skip_link_text) ? content_for(:content_skip_link_text) : 'Aller au contenu'
+  end
+
+  def implemented_skip_links_in_test!
+    SkipLinksImplemented.new(
+      controller_name: controller_name,
+      action_name: action_name,
+      request_path: request.path,
+      has_skip_links: content_for?(:skip_links)
+    ).valid!
+  end
+end
