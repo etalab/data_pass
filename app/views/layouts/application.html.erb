@@ -30,6 +30,8 @@
   </head>
 
   <body>
+    <%= render partial: 'shared/skip_links' %>
+
     <%= render layout: 'shared/modal', locals: { id: 'main-modal' } do %>
       <%= render partial: 'shared/loader' %>
     <% end %>
@@ -42,7 +44,7 @@
 
     <%= render partial: 'layouts/header' %>
 
-    <main>
+    <main id="content">
       <% if content_for?(:body) %>
         <%= yield(:body) %>
       <% else %>
