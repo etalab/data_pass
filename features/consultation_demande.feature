@@ -47,6 +47,8 @@ Fonctionnalité: Consultation d'une demande d'habilitation
   Scénario: Je consulte une demande d'habilitation simple en brouillon de l'organisation
     Quand mon organisation a 1 demande d'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
     Et que je me rends sur mon tableau de bord demandes
+    Quand je sélectionne le filtre "Les autres demandes de l'organisation" pour "Filtrer par demandeur"
+    Et que je clique sur "Rechercher"
     Et que je clique sur "Consulter"
     Alors il y a un titre contenant "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
     Et il n'y a pas de bulle de messagerie
@@ -56,6 +58,8 @@ Fonctionnalité: Consultation d'une demande d'habilitation
   Scénario: Je consulte une demande d'habilitation en plusieurs étapes en brouillon de l'organisation
     Quand mon organisation a 1 demande d'habilitation "Démarches du bouquet de services (service-public.fr)"
     Et que je me rends sur mon tableau de bord demandes
+    Quand je sélectionne le filtre "Les autres demandes de l'organisation" pour "Filtrer par demandeur"
+    Et que je clique sur "Rechercher"
     Et que je clique sur "Consulter"
     Alors il y a un titre contenant "Démarches du bouquet de services (service-public.fr)"
     Et il y a un formulaire en mode résumé
@@ -64,6 +68,9 @@ Fonctionnalité: Consultation d'une demande d'habilitation
   Scénario: Je consulte une demande d'habilitation en plusieurs étapes en brouillon de l'organisation
     Quand mon organisation a 1 demande d'habilitation "API Entreprise"
     Et que je me rends sur mon tableau de bord demandes
+    Quand je sélectionne le filtre "Les autres demandes de l'organisation" pour "Filtrer par demandeur"
+    Et que je clique sur "Rechercher"
+    Alors je montre la page
     Et que je clique sur "Consulter"
     Alors il y a un titre contenant "API Entreprise"
     Et il y a un formulaire en mode résumé
@@ -72,6 +79,8 @@ Fonctionnalité: Consultation d'une demande d'habilitation
   Scénario: Je consulte une demande d'habilitation simple où je suis mentionné
     Quand je suis mentionné dans 1 demande d'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)" en tant que "Administrateur métier"
     Et que je me rends sur mon tableau de bord demandes
+    Quand je sélectionne le filtre "Je suis mentionné en contact" pour "Filtrer par demandeur"
+    Et que je clique sur "Rechercher"
     Et que je clique sur "Consulter"
     Alors il y a un titre contenant "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
     Et il n'y a pas de bulle de messagerie
@@ -82,6 +91,8 @@ Fonctionnalité: Consultation d'une demande d'habilitation
   Scénario: Je consulte une demande d'habilitation en plusieurs étapes où je suis mentionné
     Quand je suis mentionné dans 1 demande d'habilitation "Démarches du bouquet de services (service-public.fr)" en tant que "Administrateur métier"
     Et que je me rends sur mon tableau de bord demandes
+    Quand je sélectionne le filtre "Je suis mentionné en contact" pour "Filtrer par demandeur"
+    Et que je clique sur "Rechercher"
     Et que je clique sur "Consulter"
     Alors il y a un titre contenant "Démarches du bouquet de services (service-public.fr)"
     Et il y a un formulaire en mode résumé
@@ -91,6 +102,8 @@ Fonctionnalité: Consultation d'une demande d'habilitation
   Scénario: Je consulte une demande d'habilitation en plusieurs étapes où je suis mentionné
     Quand je suis mentionné dans 1 demande d'habilitation "API Entreprise" en tant que "Contact technique"
     Et que je me rends sur mon tableau de bord demandes
+    Quand je sélectionne le filtre "Je suis mentionné en contact" pour "Filtrer par demandeur"
+    Et que je clique sur "Rechercher"
     Et que je clique sur "Consulter"
     Alors il y a un titre contenant "API Entreprise"
     Et il y a un formulaire en mode résumé
@@ -101,6 +114,8 @@ Fonctionnalité: Consultation d'une demande d'habilitation
     Quand je suis mentionné dans 1 demande d'habilitation "API Entreprise" en tant que "Contact technique"
     Et que cette demande a été "validée"
     Et que je me rends sur mon tableau de bord habilitations
+    Quand je sélectionne le filtre "Je suis mentionné en contact" pour "Filtrer par demandeur"
+    Et que je clique sur "Rechercher"
     Et que je clique sur "Consulter"
     Alors il y a un titre contenant "API Entreprise"
     Et il y a un formulaire en mode résumé
@@ -120,5 +135,7 @@ Fonctionnalité: Consultation d'une demande d'habilitation
 
   Scénario: Je consulte une habilitation sandbox validée dont la demande a obtenu une habilitation production
     Quand j'ai 1 demande d'habilitation "API Impôt Particulier" validée
+    Et que je me rends sur mon tableau de bord habilitations
+    Alors je montre la page
     Et que je me rends sur la première habilitation validée
     Alors la page ne contient pas "Attention, vous consultez une version ancienne de cette habilitation"
