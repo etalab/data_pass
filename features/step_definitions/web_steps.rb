@@ -105,6 +105,14 @@ Quand('je sélectionne la première option pour {string}') do |name|
   end
 end
 
+Quand('je sélectionne le filtre {string} pour {string}') do |option, name|
+  if javascript?
+    select(option, from: name).trigger('click')
+  else
+    select option, from: name
+  end
+end
+
 Quand('je choisis {string}') do |option|
   if javascript?
     find('label', text: option, visible: :all).trigger('click')

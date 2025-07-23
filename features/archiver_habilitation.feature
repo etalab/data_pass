@@ -18,6 +18,8 @@ Fonctionnalité: Supprimer une habilitation
   Scénario: Le bouton "Supprimer" n'est pas présent sur une habilitation de mon organisation en brouillon
     Quand mon organisation a 1 demande d'habilitation "API Entreprise" en brouillon
     Et que je me rends sur mon tableau de bord demandes
+    Quand je sélectionne le filtre "Les autres demandes de l'organisation" pour "Filtrer par demandeur"
+    Et que je clique sur "Rechercher"
     Et que je clique sur "Consulter"
     Alors il n'y a pas de bouton "Supprimer"
 
