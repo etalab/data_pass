@@ -3,13 +3,11 @@
 <% end %>
 
 <% content_for :skip_links do %>
-  <%= skip_link("Filtres de recherche", "authorization_requests_search") %>
+  <%= skip_link("Filtres de recherche", "authorization_request_search") %>
   <%= skip_link("Tableau des demandes", "authorization_requests_table") %>
   <%= skip_link("Menu", "header") %>
   <%= skip_link("Pied de page", "footer") %>
 <% end %>
-
-<p class="fr-h2 fr-mt-5w" id="authorization-requests-list"><%= t('.table.caption') %></p>
 
 <%= search_form_for(search_engine, url: instruction_dashboard_show_path(id: "demandes"), html: { method: :get, data: { controller: 'auto-submit-form', 'auto-submit-form-debounce-interval-value' => 300, 'auto-submit-form-event-mode-value' => 'input', turbo_frame: 'authorization_requests_table' }, class: %w[search-box] }) do |f| %>
     <div class="search-inputs">
