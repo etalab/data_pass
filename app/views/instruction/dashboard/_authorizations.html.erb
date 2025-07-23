@@ -1,3 +1,16 @@
+<% content_for :content_skip_link_text do %>
+  <%= t('.table.caption') %>
+<% end %>
+
+<% content_for :skip_links do %>
+  <%= skip_link("Filtres de recherche", "authorizations_search") %>
+  <%= skip_link("Tableau des demandes", "authorizations_table") %>
+  <%= skip_link("Menu", "header") %>
+  <%= skip_link("Pied de page", "footer") %>
+<% end %>
+
+<p class="fr-h2 fr-mt-5w" id="authorization-list"><%= t('.table.caption') %></p>
+
 <%= search_form_for(search_engine, url: instruction_dashboard_show_path(id: "habilitations"), html: { method: :get, data: { controller: 'auto-submit-form', 'auto-submit-form-debounce-interval-value' => 300, 'auto-submit-form-event-mode-value' => 'input', turbo_frame: 'authorization_requests_table' }, class: %w[search-box] }) do |f| %>
     <div class="search-inputs">
       <div class="fr-input-group main-input input">
@@ -29,7 +42,7 @@
 
   <turbo-frame id="authorization_requests_table">
     <div class="fr-table fr-table--bordered">
-      <table>
+      <table id="authorizations_table">
         <thead>
           <tr>
             <%
@@ -60,7 +73,7 @@
         <% items.each do |authorization_request| %>
           <tr id="<%= dom_id(authorization_request) %>" class="authorization-request clickable-row" data-action="click->clickable-rows#visit" data-href="<%= authorization_path(authorization_request) %>">
             <td class="authorization-request-id">
-              <%= authorization_request.id %>
+              <%= link_to authorization_request.id, authorization_request %>
             </td>
             <td class="authorization-request-state">
               <%= authorization_request_status_badge(authorization_request) %>
@@ -83,7 +96,9 @@
             <td class="authorization-request-definition-name">
               <%= authorization_request.definition.name %>
             </td>
-            <td class="authorization-request-actions"></td>
+            <td class="authorization-request-actions">
+              <%= link_to t('.table.actions.show'), authorization_path(authorization_request), class: %w[fr-btn fr-btn--secondary fr-btn--sm] %>
+            </td>
           </tr>
         <% end %>
       </tbody>
