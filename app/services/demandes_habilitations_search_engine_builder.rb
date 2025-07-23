@@ -47,7 +47,15 @@ class DemandesHabilitationsSearchEngineBuilder
           .where(authorization_requests: { organization: user.current_organization })
       end
     else
-      base_items.where(applicant: user)
+      filter_by_applicant(base_items)
+    end
+  end
+
+  def filter_by_applicant(base_items)
+    if authorization_request_relation?(base_items)
+      base_items.where(applicant: user, organization: user.current_organization)
+    else
+      base_items.joins(:request).where(authorization_requests: { applicant: user, organization: user.current_organization })
     end
   end
 
