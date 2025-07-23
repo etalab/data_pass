@@ -221,6 +221,10 @@ Quand(/je me rends sur mon tableau de bord (demandes|habilitations)?/) do |tab|
   visit dashboard_show_path(id: tab)
 end
 
+Quand('je me rends sur mon tableau de bord instruction') do
+  visit instruction_dashboard_show_path(id: 'demandes')
+end
+
 # rubocop:disable Lint/Debugger
 Quand('je montre la page') do
   save_and_open_page
