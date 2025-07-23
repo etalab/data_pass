@@ -56,7 +56,7 @@ RSpec.describe SkipLinks do
             )
             allow(self).to receive(:request).and_return(instance_double(ActionDispatch::Request, path: '/test'))
             allow(self).to receive(:content_for?).with(:content_skip_link_text).and_return(false)
-            allow(self).to receive(:implemented_skip_links_in_test!).and_raise(
+            allow(self).to receive(:validate_skip_links_in_test!).and_raise(
               SkipLinksNotDefinedError, 'No skip links defined for this page (test_controller#test_action - /test). Use content_for(:skip_links) to define skip links or define them in a view-specific helper.'
             )
           end
@@ -73,7 +73,7 @@ RSpec.describe SkipLinks do
               action_name: 'show'
             )
             allow(self).to receive(:content_for?).with(:content_skip_link_text).and_return(false)
-            allow(self).to receive_messages(request: instance_double(ActionDispatch::Request, path: '/authorization_requests/1'), implemented_skip_links_in_test!: true)
+            allow(self).to receive_messages(request: instance_double(ActionDispatch::Request, path: '/authorization_requests/1'), validate_skip_links_in_test!: true)
           end
 
           it 'returns the default skip links' do
@@ -96,15 +96,15 @@ RSpec.describe SkipLinks do
     end
   end
 
-  describe '#implemented_skip_links_in_test!' do
+  describe '#validate_skip_links_in_test!' do
     it 'returns true for whitelisted pages' do
       allow(self).to receive_messages(controller_name: 'authorization_requests', action_name: 'show')
-      expect(implemented_skip_links_in_test!).to be true
+      expect(validate_skip_links_in_test!).to be true
     end
 
     it 'returns false for non-whitelisted pages' do
       allow(self).to receive_messages(controller_name: 'non_existent', action_name: 'show')
-      expect { implemented_skip_links_in_test! }.to raise_error(SkipLinksNotDefinedError)
+      expect { validate_skip_links_in_test! }.to raise_error(SkipLinksNotDefinedError)
     end
   end
 end

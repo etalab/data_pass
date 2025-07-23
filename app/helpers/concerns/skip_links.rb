@@ -23,7 +23,7 @@ module SkipLinks
   def skip_links_content
     return content_for(:skip_links) if content_for?(:skip_links)
 
-    implemented_skip_links_in_test! if Rails.env.test?
+    validate_skip_links_in_test! if Rails.env.test?
 
     default_skip_links
   end
@@ -34,7 +34,7 @@ module SkipLinks
     content_for?(:content_skip_link_text) ? content_for(:content_skip_link_text) : 'Aller au contenu'
   end
 
-  def implemented_skip_links_in_test!
+  def validate_skip_links_in_test!
     SkipLinksImplemented.new(
       controller_name: controller_name,
       action_name: action_name,
