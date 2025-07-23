@@ -29,14 +29,12 @@ RSpec.describe SkipLinksImplemented do
         validator = described_class.new(
           controller_name: 'test',
           action_name: 'show',
-          request_path: '/test/show',
           has_skip_links: false
         )
 
-        expect { validator.valid! }.to raise_error(
-          SkipLinksNotDefinedError,
-          %r{No skip links defined for this page \(test#show - /test/show\)}
-        )
+        expect {
+          validator.valid!
+        }.to raise_error(SkipLinksNotDefinedError, /No skip links defined for this page \(test#show\)/)
       end
     end
   end

@@ -54,10 +54,9 @@ RSpec.describe SkipLinks do
               controller_name: 'test_controller',
               action_name: 'test_action'
             )
-            allow(self).to receive(:request).and_return(instance_double(ActionDispatch::Request, path: '/test'))
             allow(self).to receive(:content_for?).with(:content_skip_link_text).and_return(false)
             allow(self).to receive(:validate_skip_links_in_test!).and_raise(
-              SkipLinksNotDefinedError, 'No skip links defined for this page (test_controller#test_action - /test). Use content_for(:skip_links) to define skip links or define them in a view-specific helper.'
+              SkipLinksNotDefinedError, 'No skip links defined for this page (test_controller#test_action). Use content_for(:skip_links) to define skip links or define them in a view-specific helper.'
             )
           end
 
@@ -73,7 +72,7 @@ RSpec.describe SkipLinks do
               action_name: 'show'
             )
             allow(self).to receive(:content_for?).with(:content_skip_link_text).and_return(false)
-            allow(self).to receive_messages(request: instance_double(ActionDispatch::Request, path: '/authorization_requests/1'), validate_skip_links_in_test!: true)
+            allow(self).to receive_messages(validate_skip_links_in_test!: true)
           end
 
           it 'returns the default skip links' do

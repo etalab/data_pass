@@ -38,7 +38,6 @@ module SkipLinks
     SkipLinksImplemented.new(
       controller_name: controller_name,
       action_name: action_name,
-      request_path: request.path,
       has_skip_links: content_for?(:skip_links)
     ).valid!
   end
