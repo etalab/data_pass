@@ -1,4 +1,4 @@
-class SkipLinksImplemented
+class SkipLinksImplementedChecker
   attr_reader :controller_name, :action_name, :request_path, :has_skip_links
 
   WHITELISTED_ROUTES = %w[
@@ -42,7 +42,7 @@ class SkipLinksImplemented
     @has_skip_links = has_skip_links
   end
 
-  def valid!
+  def perform!
     return true if has_skip_links
     return true if whitelisted?
 
@@ -55,6 +55,7 @@ class SkipLinksImplemented
   def whitelisted?
     WHITELISTED_ROUTES.include?("#{controller_name}##{action_name}")
   end
+
+  class SkipLinksNotDefinedError < StandardError; end
 end
 
-class SkipLinksNotDefinedError < StandardError; end

@@ -1,4 +1,4 @@
-require_relative '../../../app/services/skip_links_implemented'
+require_relative '../../../app/services/skip_links_implemented_checker'
 
 RSpec.describe SkipLinks do
   include described_class
@@ -56,12 +56,12 @@ RSpec.describe SkipLinks do
             )
             allow(self).to receive(:content_for?).with(:content_skip_link_text).and_return(false)
             allow(self).to receive(:validate_skip_links_in_test!).and_raise(
-              SkipLinksNotDefinedError, 'No skip links defined for this page (test_controller#test_action). Use content_for(:skip_links) to define skip links or define them in a view-specific helper.'
+              SkipLinksImplementedChecker::SkipLinksNotDefinedError, 'No skip links defined for this page (test_controller#test_action). Use content_for(:skip_links) to define skip links or define them in a view-specific helper.'
             )
           end
 
           it 'raises an error' do
-            expect { skip_links_content }.to raise_error(SkipLinksNotDefinedError, /No skip links defined for this page/)
+            expect { skip_links_content }.to raise_error(SkipLinksImplementedChecker::SkipLinksNotDefinedError, /No skip links defined for this page/)
           end
         end
 
@@ -103,7 +103,7 @@ RSpec.describe SkipLinks do
 
     it 'returns false for non-whitelisted pages' do
       allow(self).to receive_messages(controller_name: 'non_existent', action_name: 'show')
-      expect { validate_skip_links_in_test! }.to raise_error(SkipLinksNotDefinedError)
+      expect { validate_skip_links_in_test! }.to raise_error(SkipLinksImplementedChecker::SkipLinksNotDefinedError)
     end
   end
 end

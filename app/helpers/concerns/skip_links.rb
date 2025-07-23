@@ -35,10 +35,10 @@ module SkipLinks
   end
 
   def validate_skip_links_in_test!
-    SkipLinksImplemented.new(
+    SkipLinksImplementedChecker.new(
       controller_name: controller_name,
       action_name: action_name,
       has_skip_links: content_for?(:skip_links)
-    ).valid!
+    ).perform!
   end
 end
