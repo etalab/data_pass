@@ -1,3 +1,15 @@
+<% content_for :content_skip_link_text do %>
+  Votre compte
+<% end %>
+
+<% if current_user.reporter? %>
+  <% content_for :skip_links do %>
+    <%= skip_link("Notifications par emails", "notifications-section") %>
+    <%= skip_link("Menu", "header") %>
+    <%= skip_link("Pied de page", "footer") %>
+  <% end %>
+<% end %>
+
 <div class="sub-header">
   <h1 class="fr-m-0">
     <%= t('.title') %>
@@ -27,7 +39,7 @@
 <% end %>
 
 <% if current_user.reporter? %>
-  <h2 class="fr-mt-16v">
+  <h2 class="fr-mt-16v" id="notifications-section">
     <%= t('.notifications.title') %>
   </h2>
 
