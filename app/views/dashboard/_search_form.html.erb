@@ -1,0 +1,65 @@
+<%= search_form_for(@search_engine, url: dashboard_show_path(id: params[:id]), html: { method: :get, data: { controller: 'auto-submit-form', 'auto-submit-form-debounce-interval-value' => 500, 'auto-submit-form-event-mode-value' => 'input', turbo_frame: "tab-#{params[:id]}-panel" }, class: %w[search-box] }) do |f| %>
+  <div class="search-inputs">
+    <% if params[:id] == 'demandes' %>
+      <div class="fr-input-group main-input input">
+        <%= f.label :within_data_or_id_cont, t('dashboard.show.search.main_input.label_demandes'), class: %w[fr-label] %>
+        <%= f.search_field :within_data_or_id_cont, class: %w[fr-input], placeholder: t('dashboard.show.search.main_input.placeholder_demandes') %>
+      </div>
+
+      <div class="fr-select-group input">
+        <%= f.label :state_eq, t('dashboard.show.search.status.label'), class: %w[fr-label], for: 'demandes_state_filter' %>
+        <%= f.select :state_eq,
+                     options_for_select([
+                                          [t('dashboard.show.search.status.options.all'), ''],
+                                          [t('dashboard.show.search.status.options.draft'), 'draft'],
+                                          [t('dashboard.show.search.status.options.changes_requested'), 'changes_requested'],
+                                          [t('dashboard.show.search.status.options.pending'), 'submitted'],
+                                          [t('dashboard.show.search.status.options.refused'), 'refused']
+                                        ], selected: params[:search_query]&.dig(:state_eq)),
+                     {},
+                     class: %w[fr-select],
+                     id: 'demandes_state_filter'
+        %>
+      </div>
+    <% else %>
+      <div class="fr-input-group main-input input">
+        <%= f.label :within_data_or_id_cont, t('dashboard.show.search.main_input.label_habilitations'), class: %w[fr-label] %>
+        <%= f.search_field :within_data_or_id_cont, class: %w[fr-input], placeholder: t('dashboard.show.search.main_input.placeholder_habilitations') %>
+      </div>
+
+      <div class="fr-select-group input">
+        <%= f.label :state_eq, t('dashboard.show.search.status.label'), class: %w[fr-label], for: 'habilitations_state_filter' %>
+        <%= f.select :state_eq,
+                     options_for_select([
+                                          [t('dashboard.show.search.status.options.all'), ''],
+                                          [t('dashboard.show.search.status.options.active'), 'active'],
+                                          [t('dashboard.show.search.status.options.revoked'), 'revoked'],
+                                          [t('dashboard.show.search.status.options.obsolete'), 'obsolete']
+                                        ], selected: params[:search_query]&.dig(:state_eq)),
+                     {},
+                     class: %w[fr-select],
+                     id: 'habilitations_state_filter'
+        %>
+      </div>
+    <% end %>
+
+    <div class="fr-select-group input">
+      <%= f.label :user_relationship_eq, t('dashboard.show.search.user_relationship.label'), class: %w[fr-label], for: 'user_relationship_filter' %>
+      <%= f.select :user_relationship_eq,
+                   options_for_select([
+                                        [t('dashboard.show.search.user_relationship.options.applicant'), 'applicant'],
+                                        [t('dashboard.show.search.user_relationship.options.contact'), 'contact'],
+                                        [t('dashboard.show.search.user_relationship.options.organization'), 'organization']
+                                      ], selected: params[:search_query]&.dig(:user_relationship_eq) || 'applicant'),
+                   {},
+                   class: %w[fr-select],
+                   id: 'user_relationship_filter'
+      %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= f.button t('dashboard.show.search.btn'), type: :submit, class: %w[fr-btn fr-btn--primary] %>
+    <%= link_to t('dashboard.show.search.reset'), dashboard_show_path(id: params[:id]), class: %w[fr-btn fr-btn--secondary] %>
+  </div>
+<% end %>
