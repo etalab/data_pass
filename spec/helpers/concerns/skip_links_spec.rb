@@ -51,7 +51,6 @@ RSpec.describe SkipLinks do
         context 'with a non-whitelisted page' do
           before do
             allow(self).to receive_messages(
-              renders_full_html_view?: true,
               controller_name: 'test_controller',
               action_name: 'test_action'
             )
@@ -73,7 +72,6 @@ RSpec.describe SkipLinks do
               controller_name: 'authorization_requests',
               action_name: 'show'
             )
-            allow(self).to receive(:renders_full_html_view?).and_return(true)
             allow(self).to receive(:content_for?).with(:content_skip_link_text).and_return(false)
             allow(self).to receive_messages(request: instance_double(ActionDispatch::Request, path: '/authorization_requests/1'), implemented_skip_links_in_test!: true)
           end
@@ -107,50 +105,6 @@ RSpec.describe SkipLinks do
     it 'returns false for non-whitelisted pages' do
       allow(self).to receive_messages(controller_name: 'non_existent', action_name: 'show')
       expect { implemented_skip_links_in_test! }.to raise_error(SkipLinksNotDefinedError)
-    end
-  end
-
-  describe '#renders_full_html_view?' do
-    let(:request) { instance_double(ActionDispatch::Request) }
-    let(:response) { instance_double(ActionDispatch::Response) }
-
-    before do
-      allow(self).to receive_messages(request: request, response: response)
-    end
-
-    context 'when request is HTML and not XHR' do
-      before do
-        format_double = instance_double(Mime::Type, html?: true)
-        allow(request).to receive_messages(format: format_double, xhr?: false)
-        allow(response).to receive(:content_type).and_return('text/html; charset=utf-8')
-      end
-
-      it 'returns true' do
-        expect(renders_full_html_view?).to be true
-      end
-    end
-
-    context 'when request is XHR' do
-      before do
-        allow(request).to receive_messages(format: instance_double(Mime::Type, html?: true), xhr?: true)
-        allow(response).to receive(:content_type).and_return('text/html; charset=utf-8')
-      end
-
-      it 'returns false' do
-        expect(renders_full_html_view?).to be false
-      end
-    end
-
-    context 'when there is an error' do
-      before do
-        allow(request).to receive(:format).and_raise(StandardError)
-        allow(self).to receive(:respond_to?).with(:content_for?).and_return(true)
-        allow(self).to receive(:respond_to?).with(:render).and_return(true)
-      end
-
-      it 'returns true as fallback' do
-        expect(renders_full_html_view?).to be true
-      end
     end
   end
 end

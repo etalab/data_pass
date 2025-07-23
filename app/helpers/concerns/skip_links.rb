@@ -1,6 +1,6 @@
-TAB_PREFIX = 'tab-'.freeze
-
 module SkipLinks
+  TAB_PREFIX = 'tab-'.freeze
+
   def skip_link(text, anchor)
     anchor_str = anchor.to_s
     content_tag(:li) do
@@ -23,15 +23,9 @@ module SkipLinks
   def skip_links_content
     return content_for(:skip_links) if content_for?(:skip_links)
 
-    implemented_skip_links_in_test! if Rails.env.test? && renders_full_html_view?
+    implemented_skip_links_in_test! if Rails.env.test?
 
     default_skip_links
-  end
-
-  def renders_full_html_view?
-    request.format.html? && !request.xhr? && response.content_type&.include?('text/html')
-  rescue StandardError
-    respond_to?(:content_for?) && respond_to?(:render)
   end
 
   private
