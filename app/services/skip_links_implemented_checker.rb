@@ -1,8 +1,10 @@
 class SkipLinksImplementedChecker
-  attr_reader :controller_name, :action_name, :request_path, :has_skip_links
+  attr_reader :controller_name, :action_name, :has_skip_links
 
   WHITELISTED_ROUTES = %w[
+    archive_authorization_requests#new
     authorizations#show
+    authorizations#index
     authorization_requests#index
     authorization_requests#show
     authorization_requests#new
@@ -16,12 +18,21 @@ class SkipLinksImplementedChecker
     authorization_request_forms/build#show
     authorization_definitions#index
     approve_authorization_requests#new
+    blocks#index
+    blocks#edit
+    blocks#update
     build#show
     build#update
+    cancel_authorization_reopenings#new
+    cancel_authorization_reopenings#create
+    cancel_next_authorization_request_stage#new
     pages#home
     pages#accessibilite
+    messages#index
     stats#index
     pages#faq
+    impersonate#new
+    impersonate#create
     instruction/authorization_requests#index
     instruction/authorization_requests#show
     instruction/authorizations#index
@@ -32,8 +43,24 @@ class SkipLinksImplementedChecker
     admin/whitelisted_verified_emails#index
     open_api#show
     oauth_applications#index
+    pages#proconnect_connexion
     public/authorization_requests#show
+    manual_transfer_authorization_requests#new
+    next_authorization_request_stage#new
     request_changes_on_authorization_requests#new
+    request_changes_on_authorization_requests#create
+    reopen_authorizations#new
+    refuse_authorization_requests#new
+    transfer_authorization_requests#new
+    transfer_authorization_requests#create
+    refuse_authorization_requests#create
+    revoke_authorization_requests#new
+    users_with_roles#index
+    users_with_roles#edit
+    users_with_roles#new
+    users_with_roles#create
+    whitelisted_verified_emails#index
+    whitelisted_verified_emails#new
   ].freeze
 
   def initialize(controller_name:, action_name:, has_skip_links: false)
@@ -58,4 +85,3 @@ class SkipLinksImplementedChecker
 
   class SkipLinksNotDefinedError < StandardError; end
 end
-
