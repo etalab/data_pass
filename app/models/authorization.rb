@@ -1,5 +1,6 @@
 class Authorization < ApplicationRecord
   extend FriendlyId
+  include DemandesHabilitationsSearchable
 
   friendly_id :slug_candidates, use: :slugged
 
@@ -78,6 +79,23 @@ class Authorization < ApplicationRecord
     else
       self[:revoked]
     end
+  end
+
+  def self.model_specific_ransackable_attributes
+    %w[
+      authorization_request_class
+      request_id
+      revoked
+      slug
+      state
+      user_relationship_eq
+    ]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    authorizable_ransackable_associations + %w[
+      request
+    ]
   end
 
   def access_link
