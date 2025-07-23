@@ -41,6 +41,7 @@ fr:
         all_status: Tous les statuts
 
         table:
+          caption: Liste des habilitations
           header:
             created_at: Date de création
             id: N°
