@@ -139,9 +139,9 @@ RSpec.describe DemandesHabilitationsSearchEngineBuilder do
     end
 
     context 'when filtering demandes by state' do
-      let!(:draft_request) { create(:authorization_request, :api_entreprise, state: 'draft', applicant: current_user) }
-      let!(:submitted_request) { create(:authorization_request, :api_particulier, state: 'submitted', applicant: current_user) }
-      let!(:refused_request) { create(:authorization_request, :api_particulier, state: 'refused', applicant: current_user) }
+      let!(:draft_request) { create(:authorization_request, :api_entreprise, state: 'draft', applicant: current_user, organization:) }
+      let!(:submitted_request) { create(:authorization_request, :api_particulier, state: 'submitted', applicant: current_user, organization:) }
+      let!(:refused_request) { create(:authorization_request, :api_particulier, state: 'refused', applicant: current_user, organization:) }
 
       context 'when filtering by draft' do
         let(:params) do
@@ -247,8 +247,8 @@ RSpec.describe DemandesHabilitationsSearchEngineBuilder do
     end
 
     context 'when filtering habilitations by text search' do
-      let!(:validated_cantine_request) { create(:authorization_request, :api_entreprise, state: 'validated', applicant: current_user, data: { intitule: 'cantine' }) }
-      let!(:validated_transport_request) { create(:authorization_request, :api_particulier, state: 'validated', applicant: current_user, data: { intitule: 'transport' }) }
+      let!(:validated_cantine_request) { create(:authorization_request, :api_entreprise, state: 'validated', applicant: current_user, organization:, data: { intitule: 'cantine' }) }
+      let!(:validated_transport_request) { create(:authorization_request, :api_particulier, state: 'validated', applicant: current_user, organization:, data: { intitule: 'transport' }) }
 
       let!(:habilitation_with_intitule_cantine) do
         create(:authorization,
@@ -307,11 +307,11 @@ RSpec.describe DemandesHabilitationsSearchEngineBuilder do
     end
 
     context 'when filtering habilitations by state' do
-      let!(:validated_request) { create(:authorization_request, :api_entreprise, state: 'validated', applicant: current_user) }
-      let!(:other_validated_request) { create(:authorization_request, :api_particulier, state: 'validated', applicant: current_user) }
-      let!(:active_authorization) { create(:authorization, request: validated_request, state: 'active') }
-      let!(:revoked_authorization) { create(:authorization, request: other_validated_request, state: 'revoked') }
-      let!(:obsolete_authorization) { create(:authorization, request: validated_request, state: 'obsolete') }
+      let!(:validated_request) { create(:authorization_request, :api_entreprise, state: 'validated', applicant: current_user, organization:) }
+      let!(:other_validated_request) { create(:authorization_request, :api_particulier, state: 'validated', applicant: current_user, organization:) }
+      let!(:active_authorization) { create(:authorization, request: validated_request, state: 'active', organization:) }
+      let!(:revoked_authorization) { create(:authorization, request: other_validated_request, state: 'revoked', organization:) }
+      let!(:obsolete_authorization) { create(:authorization, request: validated_request, state: 'obsolete', organization:) }
       let(:base_items) { Authorization.all }
 
       context 'when filtering by active state' do

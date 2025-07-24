@@ -47,7 +47,7 @@ Fonctionnalité: Consultation d'une demande d'habilitation
   Scénario: Je consulte une demande d'habilitation simple en brouillon de l'organisation
     Quand mon organisation a 1 demande d'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
     Et que je me rends sur mon tableau de bord demandes
-    Quand je sélectionne le filtre "Les autres demandes de l'organisation" pour "Filtrer par demandeur"
+    Quand je sélectionne le filtre "Toutes les demandes de l'organisation" pour "Filtrer par demandeur"
     Et que je clique sur "Rechercher"
     Et que je clique sur "Consulter"
     Alors il y a un titre contenant "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
@@ -58,7 +58,7 @@ Fonctionnalité: Consultation d'une demande d'habilitation
   Scénario: Je consulte une demande d'habilitation en plusieurs étapes en brouillon de l'organisation
     Quand mon organisation a 1 demande d'habilitation "Démarches du bouquet de services (service-public.fr)"
     Et que je me rends sur mon tableau de bord demandes
-    Quand je sélectionne le filtre "Les autres demandes de l'organisation" pour "Filtrer par demandeur"
+    Quand je sélectionne le filtre "Toutes les demandes de l'organisation" pour "Filtrer par demandeur"
     Et que je clique sur "Rechercher"
     Et que je clique sur "Consulter"
     Alors il y a un titre contenant "Démarches du bouquet de services (service-public.fr)"
@@ -68,7 +68,7 @@ Fonctionnalité: Consultation d'une demande d'habilitation
   Scénario: Je consulte une demande d'habilitation en plusieurs étapes en brouillon de l'organisation
     Quand mon organisation a 1 demande d'habilitation "API Entreprise"
     Et que je me rends sur mon tableau de bord demandes
-    Quand je sélectionne le filtre "Les autres demandes de l'organisation" pour "Filtrer par demandeur"
+    Quand je sélectionne le filtre "Toutes les demandes de l'organisation" pour "Filtrer par demandeur"
     Et que je clique sur "Rechercher"
     Alors je montre la page
     Et que je clique sur "Consulter"

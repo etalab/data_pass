@@ -191,7 +191,7 @@ fr:
           options:
             applicant: Je suis le demandeur
             contact: Je suis mentionné en contact
-            organization: Les autres demandes de l'organisation
+            organization: Toutes les demandes de l'organisation
         btn: Rechercher
         reset: Réinitialiser les filtres
 
