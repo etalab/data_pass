@@ -27,29 +27,6 @@
           <div class="fr-radio-group fr-radio-rich">
             <input
               type="radio"
-              id="team-internal"
-              data-controller="scroll-to"
-              data-action="
-                click->choose-authorization-request-form#chooseTeam
-                click->scroll-to#go
-              "
-              data-scroll-to-target-value="forms"
-              value="internal"
-              name="team"
-            >
-            <label class="fr-label" for="team-internal">
-              <strong><%= t("authorization_requests.new.step1.internal") %></strong>
-              <span class="fr-hint-text"><%= t("authorization_requests.new.step1.internal_hint") %></span>
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <div class="fr-col-md-8 fr-col-12">
-        <div class="fr-fieldset__element fr-fieldset__element">
-          <div class="fr-radio-group fr-radio-rich">
-            <input
-              type="radio"
               id="team-editor"
               value="editor"
               data-controller="scroll-to"
@@ -63,6 +40,29 @@
             <label class="fr-label" for="team-editor">
               <strong><%= t("authorization_requests.new.step1.editor") %></strong>
               <span class="fr-hint-text"><%= t("authorization_requests.new.step1.editor_hint") %></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="fr-col-md-8 fr-col-12">
+        <div class="fr-fieldset__element fr-fieldset__element">
+          <div class="fr-radio-group fr-radio-rich">
+            <input
+              type="radio"
+              id="team-internal"
+              data-controller="scroll-to"
+              data-action="
+                click->choose-authorization-request-form#chooseTeam
+                click->scroll-to#go
+              "
+              data-scroll-to-target-value="forms"
+              value="internal"
+              name="team"
+            >
+            <label class="fr-label" for="team-internal">
+              <strong><%= t("authorization_requests.new.step1.internal") %></strong>
+              <span class="fr-hint-text"><%= t("authorization_requests.new.step1.internal_hint") %></span>
             </label>
           </div>
         </div>
