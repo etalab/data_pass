@@ -30,7 +30,7 @@ Fonctionnalité: Tableau de bord
   Scénario: Je vois une habilitation révoquée
     Quand j'ai 1 habilitation "API Entreprise" active
     Et que un instructeur a révoqué la demande d'habilitation
-    Et que je me rends sur mon tableau de bord habilitations
+    Et que je me rends sur mon tableau de bord demandeur habilitations
     Alors je vois 1 habilitation
     Et la page contient "Révoquée"
 

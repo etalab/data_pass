@@ -1,0 +1,112 @@
+<% content_for :content_skip_link_text do %>
+  <%= t('.table.caption') %>
+<% end %>
+
+<% content_for :skip_links do %>
+  <%= skip_link("Filtres de recherche", "authorization_search") %>
+  <%= skip_link("Tableau des demandes", "authorizations_table") %>
+  <%= skip_link("Menu", "header") %>
+  <%= skip_link("Pied de page", "footer") %>
+<% end %>
+
+<%= search_form_for(search_engine, url: instruction_dashboard_show_path(id: "habilitations"), html: { method: :get, data: { controller: 'auto-submit-form', 'auto-submit-form-debounce-interval-value' => 300, 'auto-submit-form-event-mode-value' => 'input', turbo_frame: 'authorization_requests_table' }, class: %w[search-box] }) do |f| %>
+    <div class="search-inputs">
+      <div class="fr-input-group main-input input">
+        <%= f.label :within_data_or_organization_name_or_organization_legal_entity_id_or_applicant_email_or_applicant_family_name_cont, t('.search.main_input.label'), class: %w[fr-label] %>
+        <%= f.search_field :within_data_or_organization_name_or_organization_legal_entity_id_or_applicant_email_or_applicant_family_name_cont, class: %[fr-input], placeholder: t('.search.main_input.placeholder'), id: 'instructor_search_input' %>
+      </div>
+
+      <% if current_user.authorization_definition_roles_as(:reporter).count > 1 %>
+        <div class="fr-select-group input type_habilitation">
+          <%= f.label :authorization_request_class_eq, class: %w[fr-label] %>
+          <% options = current_user.authorization_definition_roles_as(:reporter).map { |authorization_definition| [authorization_definition.name_with_stage, authorization_definition.authorization_request_class.to_s] }%>
+          <%= f.select :authorization_request_class_eq, options_for_select([['Toutes les données', '']].concat(options), selected: params[:search_query].try(:[], :authorization_request_class_eq)), {}, class: %w[fr-select] %>
+        </div>
+      <% end %>
+
+      <div class="fr-select-group input">
+        <%= f.label :state_eq, class: %w[fr-label] %>
+
+        <% options = Authorization.state_machine.states.map { |s| s.name }.map { |e| [t("authorization.states.#{e}"), e] } %>
+        <% default_option = t('.all_status') %>
+        <%= f.select :state_eq, options_for_select([[default_option, '']].concat(options), selected: params[:search_query].try(:[], :state_eq) || default_option), {}, class: %w[fr-select] %>
+      </div>
+    </div>
+
+    <div class="actions">
+      <%= f.button t('.search.btn'), type: :submit, class: %w[fr-btn fr-btn--primary] %>
+    </div>
+  <% end %>
+
+  <turbo-frame id="authorizations_table" class="search-results-container">
+    <div class="results-count">
+      <%= t('.search.results_count', count: items.total_count) %>
+    </div>
+
+    <div class="fr-table fr-table--bordered">
+      <table id="authorizations_table">
+        <thead>
+          <tr>
+            <%
+              %w[
+                id
+                state
+                created_at
+                applicant_email
+                project_name
+                authorization_request_class
+                actions
+              ].each do |attr|
+            %>
+              <th scope="col">
+                <% if %w[id state created_at].include?(attr) %>
+                  <%= sort_link(search_engine, attr) do %>
+                    <%= t(".table.header.#{attr}") %>
+                  <% end %>
+                <% else %>
+                  <%= t(".table.header.#{attr}") %>
+                <% end %>
+              </th>
+            <% end %>
+          </tr>
+        </thead>
+
+      <tbody data-controller="clickable-rows">
+        <% items.decorate.each do |authorization| %>
+          <tr id="<%= dom_id(authorization) %>" class="authorization clickable-row" data-action="click->clickable-rows#visit" data-href="<%= authorization_path(authorization) %>">
+            <td class="authorization-request-id">
+              <%= link_to authorization.id, authorization %>
+            </td>
+            <td class="authorization-request-state">
+              <span class="fr-badge-group">
+                <%= authorization.status_badge %>
+                <%= authorization.stage_badge %>
+              </span>
+            </td>
+            <td class="authorization-request-last_submitted_at">
+              <%= authorization.created_at&.strftime("%d/%m/%y") || '-' %>
+            </td>
+            <td class="authorization-request-applicant-email">
+              <%= authorization.applicant.email %>
+              <br/>
+              <%= authorization.organization.name %>
+            </td>
+            <td class="authorization-request-project-name">
+              <%= authorization.name %>
+            </td>
+            <td class="authorization-request-definition-name">
+              <%= authorization.definition.name %>
+            </td>
+            <td class="authorization-request-actions fr-btns-group fr-btns-group--sm">
+              <%= link_to t('.table.actions.show'), authorization_path(authorization), class: %w[fr-btn fr-btn--secondary] %>
+              <%= link_to t('.table.actions.show_request'), instruction_authorization_request_path(authorization.request), class: %w[fr-btn fr-btn--tertiary] %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <%= paginate items %>
+</turbo-frame>
+

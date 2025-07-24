@@ -21,6 +21,7 @@ Rails.application.configure do
     Bullet.add_safelist type: :unused_eager_loading, class_name: 'AuthorizationRequestEvent', association: :user
     Bullet.add_safelist type: :unused_eager_loading, class_name: 'AuthorizationRequest', association: :authorizations
     Bullet.add_safelist type: :unused_eager_loading, class_name: 'ActiveStorage::Attachment', association: :record
+    Bullet.add_safelist type: :unused_eager_loading, class_name: 'Authorization', association: :request
     AuthorizationRequestForm.all.map(&:authorization_request_class).each do |klass|
       Bullet.add_safelist type: :unused_eager_loading, class_name: klass.to_s, association: :authorizations
     end

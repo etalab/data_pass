@@ -44,6 +44,6 @@ Fonctionnalité: Accessibilité
     Et que je vais sur la page instruction
     Alors je dois voir des liens d'évitement
     Et le lien d'évitement "Filtres de recherche" doit mener à l'élément "#authorization_request_search"
-    Et le lien d'évitement "Tableau des demandes" doit mener à l'élément "#authorization_request_table"
+    Et le lien d'évitement "Tableau des demandes" doit mener à l'élément "#authorization_requests_table"
     Et le lien d'évitement "Menu" doit mener à l'élément "#header"
     Et le lien d'évitement "Pied de page" doit mener à l'élément "#footer"

@@ -13,7 +13,7 @@ class Instruction::CancelAuthorizationReopeningsController < Instruction::Abstra
     if organizer.success?
       success_message_for_authorization_request(@authorization_request, key: 'instruction.cancel_authorization_reopenings.create')
 
-      redirect_to instruction_authorization_requests_path,
+      redirect_to instruction_dashboard_show_path(id: 'demandes'),
         status: :see_other
     else
       render 'new'

@@ -86,10 +86,12 @@ Rails.application.routes.draw do
     end
   end
 
-  get '/instruction', to: redirect('/instruction/demandes')
+  get '/instruction', to: redirect('/instruction/tableau-de-bord/demandes')
+  get '/instruction/demandes', to: redirect('/instruction/tableau-de-bord/demandes')
 
   namespace :instruction do
-    resources :authorization_requests, only: %w[index show], path: 'demandes' do
+    get '/tableau-de-bord/:id', to: 'dashboard#show', as: :dashboard_show
+    resources :authorization_requests, only: %w[show], path: 'demandes' do
       resources :approve_authorization_requests, only: %w[new create], path: 'approuver', as: :approval
       resources :archive_authorization_requests, only: %w[new create], path: 'archiver', as: :archive
       resources :refuse_authorization_requests, only: %w[new create], path: 'refuser', as: :refusal

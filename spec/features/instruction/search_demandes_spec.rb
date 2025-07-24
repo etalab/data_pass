@@ -1,6 +1,6 @@
-RSpec.describe 'Instruction: habilitation search' do
+RSpec.describe 'Instruction: demandes search' do
   subject(:search) do
-    visit instruction_authorization_requests_path
+    visit instruction_dashboard_show_path(id: 'demandes')
 
     within('#authorization_request_search') do
       fill_in 'instructor_search_input', with: search_text if use_search_text
@@ -14,11 +14,11 @@ RSpec.describe 'Instruction: habilitation search' do
   let(:user) { create(:user, :instructor, authorization_request_types: %w[api_entreprise api_particulier]) }
   let(:organization) { create(:organization, siret: '13002526500013') }
 
-  let!(:valid_searched_authorization_request) { create(:authorization_request, :api_entreprise, state: :validated, intitule:, organization:) }
+  let!(:valid_searched_authorization_request) { create(:authorization_request, :api_entreprise, state: :submitted, intitule:, organization:) }
 
-  let!(:invalid_type_authorization_request) { create(:authorization_request, :api_particulier, state: :validated, intitule:) }
+  let!(:invalid_type_authorization_request) { create(:authorization_request, :api_particulier, state: :submitted, intitule:) }
   let!(:invalid_state_authorization_request) { create(:authorization_request, :api_entreprise, state: :draft, intitule:) }
-  let!(:invalid_intitule_authorization_request) { create(:authorization_request, :api_entreprise, state: :validated, intitule: 'not valid') }
+  let!(:invalid_intitule_authorization_request) { create(:authorization_request, :api_entreprise, state: :submitted, intitule: 'not valid') }
 
   let(:search_text) { 'My search text' }
   let(:intitule) { search_text }
@@ -29,7 +29,7 @@ RSpec.describe 'Instruction: habilitation search' do
 
   context 'when we search with text, state and type' do
     let(:use_search_text) { true }
-    let(:state) { 'Validée' }
+    let(:state) { "En cours d'instruction" }
     let(:type) { 'API Entreprise' }
 
     it 'renders only one authorization request' do
@@ -42,7 +42,7 @@ RSpec.describe 'Instruction: habilitation search' do
 
   context 'when we search with text and state' do
     let(:use_search_text) { true }
-    let(:state) { 'Validée' }
+    let(:state) { "En cours d'instruction" }
     let(:type) { nil }
 
     it 'renders 2 valids authorization requests' do
@@ -70,7 +70,7 @@ RSpec.describe 'Instruction: habilitation search' do
 
   context 'when we search with state and type' do
     let(:use_search_text) { false }
-    let(:state) { 'Validée' }
+    let(:state) { "En cours d'instruction" }
     let(:type) { 'API Entreprise' }
 
     it 'renders 2 valids authorization requests' do
@@ -169,7 +169,7 @@ RSpec.describe 'Instruction: habilitation search' do
       it 'does not redirects to the authorization request, and renders nothing' do
         search
 
-        expect(page).to have_current_path(instruction_authorization_requests_path, ignore_query: true)
+        expect(page).to have_current_path(instruction_dashboard_show_path(id: 'demandes'), ignore_query: true)
         expect(page).to have_css('.authorization-request', count: 0)
       end
     end

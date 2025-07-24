@@ -92,7 +92,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Courtier fonctionne
 
   Plan du scénario: Je soumets une demande d'habilitation de production valide
     Quand j'ai 1 demande d'habilitation "API Courtier fonctionnel SFiP" via le formulaire "<Nom du formulaire>" à l'étape "Bac à sable" validée
-    Et que je me rends sur mon tableau de bord habilitations
+    Et que je me rends sur mon tableau de bord demandeur habilitations
     Et que je clique sur "Démarrer ma demande d’habilitation en production"
     Et que je clique sur "Débuter ma demande"
 
