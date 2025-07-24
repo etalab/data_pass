@@ -51,7 +51,7 @@ Fonctionnalité: Tableau de bord
     Et que je suis mentionné dans 1 demande d'habilitation "API Entreprise" en tant que "Contact métier"
     Et que je me rends sur mon tableau de bord demandes
     Alors je vois 2 demandes d'habilitation
-    Quand je sélectionne le filtre "Les autres demandes de l'organisation" pour "Filtrer par demandeur"
+    Quand je sélectionne le filtre "Toutes les demandes de l'organisation" pour "Filtrer par demandeur"
     Et que je clique sur "Rechercher"
     Alors je vois 3 demandes d'habilitation
 
