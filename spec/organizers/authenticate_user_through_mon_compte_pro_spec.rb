@@ -39,5 +39,17 @@ RSpec.describe AuthenticateUserThroughMonComptePro do
         expect(user.current_organization).to eq(authenticate_user.organization)
       end
     end
+
+    context 'when user already exists with same external ID but another email' do
+      let!(:another_user) do
+        create(:user, external_id: mon_compte_pro_omniauth_payload['info']['sub'], email: generate(:email))
+      end
+
+      it 'does not create a new user and updated the existing one' do
+        expect { authenticate_user }.not_to change(User, :count)
+
+        expect(another_user.reload.email).to eq(mon_compte_pro_omniauth_payload['info']['email'])
+      end
+    end
   end
 end
