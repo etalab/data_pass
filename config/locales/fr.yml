@@ -159,9 +159,15 @@ fr:
       title: Demandes et habilitations
       tabs:
         demandes:
-          title: Les demandes
+          title:
+            zero: "Les demandes"
+            one: "Les demandes (1)"
+            other: "Les demandes (%{count})"
         habilitations:
-          title: Les habilitations
+          title:
+            zero: "Les habilitations"
+            one: "Les habilitations (1)"  
+            other: "Les habilitations (%{count})"
       lists:
         refused_title: Demandes refusées
         draft_title: Demandes en brouillon

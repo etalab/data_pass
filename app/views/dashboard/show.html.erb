@@ -25,7 +25,7 @@
       <% @facade.tabs.each do |tab| %>
         <li role="presentation">
           <%=
-            link_to t(".tabs.#{tab.id}.title"),
+            link_to t(".tabs.#{tab.id}.title", count: tab.count),
               tab.path,
               class: [
                 'fr-tabs__tab',
@@ -50,18 +50,7 @@
 
         <% if params[:id] == tab.id %>
           <div class="fr-mb-5w">
-            <%= render 'search_form' %>
-          </div>
-
-          <div data-auto-height-target="source">
-            <% @highlighted_categories.each do |category, items| %>
-              <% next if items.empty? %>
-              <%= render partial: 'highlighted_list', locals: { items: items.decorate, kind: category } %>
-            <% end %>
-            <% @categories.each do |category, items| %>
-              <% next if items.empty? %>
-              <%= render partial: 'list', locals: { items: items.decorate, kind: category } %>
-            <% end %>
+            <%= render @facade.partial, search_engine: @facade.search_engine %>
           </div>
         <% else %>
           <div data-auto-height-target="destination">

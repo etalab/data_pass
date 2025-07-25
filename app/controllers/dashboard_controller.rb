@@ -28,11 +28,6 @@ class DashboardController < AuthenticatedUserController
     else
       redirect_to(dashboard_show_path(id: 'demandes')) and return
     end
-    
-    # Maintain backward compatibility for templates
-    @categories = @facade.categories
-    @highlighted_categories = @facade.highlighted_categories
-    @search_engine = @facade.search_engine
   end
 
   private
