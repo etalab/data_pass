@@ -3,10 +3,6 @@ class User < ApplicationRecord
 
   include NotificationsSettings
 
-  IDENTITY_PROVIDERS = {
-    '71144ab3-ee1a-4401-b7b3-79b44f7daeeb' => 'mon_compte_pro',
-  }.freeze
-
   ROLES = %w[reporter instructor developer].freeze
 
   validates :email, presence: true, uniqueness: true
