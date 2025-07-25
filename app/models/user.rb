@@ -193,11 +193,12 @@ class User < ApplicationRecord
     organization_user.set_as_current! if organization_user.persisted?
   end
 
-  def add_to_organization(organization, current: false, identity_provider_uid: nil, identity_federator: nil)
+  def add_to_organization(organization, verified: false, identity_provider_uid: nil, identity_federator: nil, current: false)
     organizations_users.find_or_create_by(organization:).tap do |org_user|
       updates = {
         identity_provider_uid:,
         identity_federator:,
+        verified:,
       }.compact
       org_user.update!(updates) if updates.any?
       org_user.set_as_current! if current
