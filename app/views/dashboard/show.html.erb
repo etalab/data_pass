@@ -22,7 +22,7 @@
 
   <div class="fr-tabs fr-pt-5w fr-mb-8w" data-controller="auto-height">
     <ul class="fr-tabs__list" role="tablist" aria-label="Menu secondaire">
-      <% @tabs.each do |tab| %>
+      <% @facade.tabs.each do |tab| %>
         <li role="presentation">
           <%=
             link_to t(".tabs.#{tab.id}.title"),
@@ -45,7 +45,7 @@
       <% end %>
     </ul>
 
-    <% @tabs.each do |tab| %>
+    <% @facade.tabs.each do |tab| %>
       <turbo-frame id="tab-<%= tab.id %>-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tab-<%= tab.id %>" tabindex="0" data-turbo-action="advance">
 
         <% if params[:id] == tab.id %>

@@ -1,48 +1,41 @@
 class DashboardController < AuthenticatedUserController
   include SubdomainsHelper
 
-  Tab = Data.define(:id, :path)
+  Tab = Data.define(:id, :path, :count)
 
   def index
     redirect_to dashboard_show_path(id: 'demandes')
   end
 
   def show
-    @facade = DashboardFacade.new(current_user, params[:search_query], subdomain_types: current_subdomain_types)
-    @tabs = build_tabs
-
     case params[:id]
     when 'demandes'
-      handle_demandes_tab
+      search_object = Search::DashboardDemandesSearch.new(
+        user: current_user,
+        params: params,
+        subdomain_types: current_subdomain_types,
+        scope: policy_scope(AuthorizationRequest)
+      )
+      @facade = DashboardDemandesFacade.new(search_object: search_object)
     when 'habilitations'
-      handle_habilitations_tab
+      search_object = Search::DashboardHabilitationsSearch.new(
+        user: current_user,
+        params: params,
+        subdomain_types: current_subdomain_types,
+        scope: policy_scope(Authorization)
+      )
+      @facade = DashboardHabilitationsFacade.new(search_object: search_object)
     else
       redirect_to(dashboard_show_path(id: 'demandes')) and return
     end
+    
+    # Maintain backward compatibility for templates
+    @categories = @facade.categories
+    @highlighted_categories = @facade.highlighted_categories
+    @search_engine = @facade.search_engine
   end
 
   private
-
-  def handle_demandes_tab
-    data = @facade.demandes_data(policy_scope(AuthorizationRequest))
-    @highlighted_categories = data[:highlighted_categories]
-    @categories = data[:categories]
-    @search_engine = data[:search_engine]
-  end
-
-  def handle_habilitations_tab
-    data = @facade.habilitations_data(policy_scope(Authorization))
-    @highlighted_categories = data[:highlighted_categories]
-    @categories = data[:categories]
-    @search_engine = data[:search_engine]
-  end
-
-  def build_tabs
-    [
-      Tab.new('demandes', dashboard_show_path(id: 'demandes', **query_parameters)),
-      Tab.new('habilitations', dashboard_show_path(id: 'habilitations', **query_parameters)),
-    ]
-  end
 
   def query_parameters
     request.query_parameters
