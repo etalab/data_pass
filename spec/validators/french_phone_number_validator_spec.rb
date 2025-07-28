@@ -1,5 +1,6 @@
 class FrenchPhoneNumberValidatable
   include ActiveModel::Validations
+
   attr_accessor :phone_number
 
   validates :phone_number, french_phone_number: true
