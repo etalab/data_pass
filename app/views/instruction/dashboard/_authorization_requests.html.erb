@@ -9,7 +9,7 @@
   <%= skip_link("Pied de page", "footer") %>
 <% end %>
 
-<%= search_form_for(search_engine, url: instruction_dashboard_show_path(id: "demandes"), html: { method: :get, data: { controller: 'auto-submit-form', 'auto-submit-form-debounce-interval-value' => 300, 'auto-submit-form-event-mode-value' => 'input', turbo_frame: 'authorization_requests_table' }, class: %w[search-box] }) do |f| %>
+<%= search_form_for(search_engine, url: instruction_dashboard_show_path(id: "demandes"), html: { method: :get, data: { controller: 'auto-submit-form', 'auto-submit-form-debounce-interval-value' => 600, 'auto-submit-form-event-mode-value' => 'input', turbo_frame: 'authorization_requests_table' }, class: %w[search-box] }) do |f| %>
     <div class="search-inputs">
       <div class="fr-input-group main-input input">
         <%= f.label :within_data_or_organization_name_or_organization_legal_entity_id_or_applicant_email_or_applicant_family_name_cont, t('.search.main_input.label'), class: %w[fr-label] %>
