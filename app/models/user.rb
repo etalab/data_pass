@@ -25,6 +25,10 @@ class User < ApplicationRecord
     through: :current_organization_user,
     source: :organization
 
+  def current_organization_verified?
+    current_organization_user&.verified? || false
+  end
+
   has_many :authorization_requests_as_applicant,
     dependent: :restrict_with_exception,
     class_name: 'AuthorizationRequest',
