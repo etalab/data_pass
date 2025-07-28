@@ -54,14 +54,16 @@
           </div>
 
           <div data-auto-height-target="source">
-            <% @highlighted_categories.each do |category, items| %>
-              <% next if items.empty? %>
-              <%= render partial: 'highlighted_list', locals: { items: items.decorate, kind: category } %>
-            <% end %>
-            <% @categories.each do |category, items| %>
-              <% next if items.empty? %>
-              <%= render partial: 'list', locals: { items: items.decorate, kind: category } %>
-            <% end %>
+            <turbo-frame id="<%= "#{params[:id]}-table" %>" class="search-results-container">
+              <% @highlighted_categories.each do |category, items| %>
+                <% next if items.empty? %>
+                <%= render partial: 'highlighted_list', locals: { items: items.decorate, kind: category } %>
+              <% end %>
+              <% @categories.each do |category, items| %>
+                <% next if items.empty? %>
+                <%= render partial: 'list', locals: { items: items.decorate, kind: category } %>
+              <% end %>
+            </turbo-frame>
           </div>
         <% else %>
           <div data-auto-height-target="destination">
