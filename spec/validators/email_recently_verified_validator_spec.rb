@@ -1,5 +1,6 @@
 class EmailRecentlyVerifiedValidatable
   include ActiveModel::Validations
+
   attr_accessor :email
 
   def initialize(email:)

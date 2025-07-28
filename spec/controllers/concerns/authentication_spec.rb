@@ -5,6 +5,7 @@ require 'rails_helper'
 RSpec.describe Authentication do
   controller(ApplicationController) do
     include Authentication
+
     impersonates :user
 
     def show
