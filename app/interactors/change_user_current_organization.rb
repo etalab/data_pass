@@ -1,5 +1,5 @@
-class ChangeUserCurrentOrganization < ApplicationInteractor
-  def call
-    context.user.add_to_organization(context.organization, current: true)
+class ChangeUserCurrentOrganization < AddUserToOrganization
+  def current
+    true
   end
 end

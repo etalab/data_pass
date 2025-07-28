@@ -29,6 +29,12 @@ class User < ApplicationRecord
     current_organization_user&.verified? || false
   end
 
+  def current_identity_provider
+    return IdentityProvider.unknown if current_organization_user.blank?
+
+    current_organization_user.identity_provider
+  end
+
   has_many :authorization_requests_as_applicant,
     dependent: :restrict_with_exception,
     class_name: 'AuthorizationRequest',

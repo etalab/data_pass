@@ -17,4 +17,8 @@ class OrganizationsUser < ApplicationRecord
       update!(current: true) unless current?
     end
   end
+
+  def identity_provider
+    IdentityProvider.find(identity_provider_uid)
+  end
 end
