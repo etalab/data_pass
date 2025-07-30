@@ -29,6 +29,9 @@ class SkipLinksImplementedChecker
     pages#home
     pages#accessibilite
     messages#index
+    organizations#show
+    organizations#new
+    organizations#create
     stats#index
     pages#faq
     impersonate#new

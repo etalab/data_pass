@@ -154,6 +154,18 @@ fr:
       api_gouv_title: Pour découvrir les APIs du service public
       api_gouv: data.gouv.fr
 
+  user:
+    organizations:
+      create:
+        success: "L'organisation %{name} (siret: %{siret}) a bien été rattaché à votre compte"
+        error:
+          not_found: "L'organisation avec le numéro de siret %{siret} n'a pas été trouvée"
+  organizations:
+    create:
+      error:
+        insee_entity_not_found: "Le numéro de SIRET %{siret} n'existe pas dans le répertoire Sirene de l'INSEE"
+        invalid_organization_params: "Le numéro de SIRET n'est pas valide"
+
   dashboard:
     show:
       title: Demandes et habilitations

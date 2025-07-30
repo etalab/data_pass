@@ -25,11 +25,14 @@ Rails.application.routes.draw do
   scope(path_names: { new: 'nouveau', edit: 'modifier' }) do
 
     namespace :user, path: 'usager' do
-      resources :organizations, only: %i[index], path: 'organisations'
+      resources :organizations, only: %i[index create], path: 'organisations' do
+        member do
+          get 'courant', action: :set_as_current, as: :set_as_current
+        end
+      end
     end
 
-    resources :organizations, only: %i[new create], path: 'organisations', param: :siret
-    # resource :join_organization, only: :create, path: 'rejoindre-organisation'
+    resources :organizations, only: %i[new create show], path: 'organisations', param: :siret
 
     resources :authorization_requests, only: %w[show], path: 'demandes' do
       resources :messages, only: %w[index create], path: 'messages'

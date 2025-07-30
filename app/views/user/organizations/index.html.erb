@@ -4,7 +4,7 @@
 
 <% content_for :skip_links do %>
   <%= skip_link("Votre organisation de rattachment", "content") %>
-  <%= skip_link("Rejoindre une autre organisation", "new_organization") %>
+  <%= skip_link("Rejoindre une organisation", "new_organization") %>
   <%= skip_link("Menu", "header") %>
   <%= skip_link("Pied de page", "footer") %>
 <% end %>
@@ -18,23 +18,25 @@
         Votre organisation de rattachement
       </h1>
 
-      <div class="fr-alert fr-alert--info fr-mb-4w">
-        <p>
-          Votre fournisseur d'identité ne fournissant pas un numéro de siret fiable pour votre compte,
-          vous devez choisir manuellement votre organisation de rattachement.
+      <% unless current_user.current_identity_provider.linked_to_organizations_verified? %>
+        <div class="fr-alert fr-alert--info fr-mb-4w">
+          <p>
+            Votre fournisseur d'identité ne fournissant pas un numéro de siret fiable pour votre compte,
+            vous devez choisir manuellement votre organisation de rattachement.
 
-          <br />
-          <br />
+            <br />
+            <br />
 
-          Les organisations listées ci-dessous sont celles auxquelles vous êtes rattaché(e) dans notre système, celles dont le lien
-          est vérifié sont labellisées par un badge vert "Vérifié".
+            Les organisations listées ci-dessous sont celles auxquelles vous êtes rattaché(e) dans notre système, celles dont le lien
+            est vérifié sont labellisées par un badge vert "Vérifié".
 
-          <br />
-          <br />
+            <br />
+            <br />
 
-          Pour en savoir plus, consulter notre documentation sur <a href="#">la vérification des organisations</a>.
-        </p>
-      </div>
+            Pour en savoir plus, consulter notre documentation sur <a href="#">la vérification des organisations</a>.
+          </p>
+        </div>
+      <% end %>
 
       <% @organizations_users.each do |organizations_user| %>
         <% organization = organizations_user.organization.decorate %>
@@ -43,7 +45,7 @@
           <div class="fr-card__body">
             <div class="fr-card__content">
               <h3 class="fr-card__title">
-                <a href="#"><%= organization.name %></a>
+                <%= link_to organization.name, set_as_current_user_organization_path(id: organization.siret) %>
               </h3>
 
               <% if organizations_user.verified? || organizations_user.current? %>
@@ -74,9 +76,11 @@
         </div>
       <% end %>
 
-      <div class="fr-mt-4w">
-        <%= link_to 'Rejoindre une autre organisation', new_organization_path, class: 'fr-btn fr-btn--secondary', id: 'new_organization' %>
-      </div>
+      <% if policy(:organization).new? %>
+        <div class="fr-mt-4w">
+          <%= link_to 'Rejoindre une autre organisation', new_organization_path, class: 'fr-btn fr-btn--secondary', id: 'new_organization' %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

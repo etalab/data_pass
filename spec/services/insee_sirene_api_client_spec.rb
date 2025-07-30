@@ -26,10 +26,24 @@ RSpec.describe INSEESireneAPIClient do
       end
     end
 
-    context 'when API returns something else than 200' do
+    context 'when API returns a 404' do
       before do
         stub_request(:get, "https://api.insee.fr/api-sirene/prive/3.11/siret/#{siret}").to_return(
           status: 404,
+          headers: { 'Content-Type' => 'application/json' },
+          body: ''
+        )
+      end
+
+      it 'raises an EntityNotFoundError' do
+        expect { etablissement_payload }.to raise_error(INSEESireneAPIClient::EntityNotFoundError)
+      end
+    end
+
+    context 'when API returns something else than 200 and 404' do
+      before do
+        stub_request(:get, "https://api.insee.fr/api-sirene/prive/3.11/siret/#{siret}").to_return(
+          status: 405,
           headers: { 'Content-Type' => 'application/json' },
           body: ''
         )

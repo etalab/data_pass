@@ -12,32 +12,21 @@
       </h1>
 
       <p>
-        Afin de vous permettre de réaliser des demandes d'habilitation nous avons
-        besoin du numéro de SIRET de votre organisation.
-      </p>
-
-      <p>
-        Indiquez votre numéro de SIRET
+        Veuillez saisir le siret de l'organisation à laquelle vous souhaitez vous rattacher.
       </p>
 
       <%= form_with model: @organization, local: true do |form| %>
-        <div class="fr-input-group">
-          <%= form.text_field :siret, 
-                              class: 'fr-input', 
-                              placeholder: '94446785980049' %>
-        </div>
+        <%= form.dsfr_text_field :siret, placeholder: '94446785980049' %>
 
         <p class="fr-text--sm">
           <i class="fr-icon-information-line" aria-hidden="true"></i>
-          Vous pouvez rechercher votre SIRET via 
-          <%= link_to "l'annuaire des entreprises", "#", target: "_blank", rel: "noopener" %>
+          Vous pouvez rechercher votre SIRET via
+          <%= link_to "l'annuaire des entreprises", "https://annuaire-entreprises.data.gouv.fr/", target: "_blank", rel: "noopener" %>
         </p>
 
         <div class="fr-mt-4w">
-          <%= form.submit 'Enregistrer', 
-                          class: 'fr-btn fr-btn--primary fr-mr-2w',
-                          disabled: true %>
-          <%= link_to 'Annuler', organizations_path, class: 'fr-btn fr-btn--secondary' %>
+          <%= form.submit 'Rechercher', class: 'fr-btn fr-btn--primary fr-mr-2w' %>
+          <%= link_to 'Annuler', user_organizations_path, class: 'fr-btn fr-btn--secondary' %>
         </div>
       <% end %>
     </div>
