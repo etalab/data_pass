@@ -6,9 +6,10 @@ end
 def organization_name_to_siret(name)
   {
     'Ville de Clamart' => '21920023500014',
+    'DINUM' => '13002526500013',
   }[name] || (raise "Unknown organization name: #{name}")
 end
 
-def add_current_organization_to_user(user, organization)
-  user.add_to_organization(organization, current: true)
+def add_current_organization_to_user(user, organization, verified: true)
+  user.add_to_organization(organization, current: true, verified:)
 end

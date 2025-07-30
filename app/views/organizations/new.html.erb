@@ -1,0 +1,45 @@
+<% content_for :content_skip_link_text do %>
+  Votre organisation de rattachement
+<% end %>
+
+<div class="fr-container">
+  <div class="fr-grid-row fr-grid-row--middle">
+    <%= render partial: 'pages/shared/unauthenticated_pages/welcome_logo' %>
+
+    <div class="fr-col-sm-12 fr-col-md-7 fr-my-5w">
+      <h1>
+        Votre organisation de rattachement
+      </h1>
+
+      <p>
+        Afin de vous permettre de réaliser des demandes d'habilitation nous avons
+        besoin du numéro de SIRET de votre organisation.
+      </p>
+
+      <p>
+        Indiquez votre numéro de SIRET
+      </p>
+
+      <%= form_with model: @organization, local: true do |form| %>
+        <div class="fr-input-group">
+          <%= form.text_field :siret, 
+                              class: 'fr-input', 
+                              placeholder: '94446785980049' %>
+        </div>
+
+        <p class="fr-text--sm">
+          <i class="fr-icon-information-line" aria-hidden="true"></i>
+          Vous pouvez rechercher votre SIRET via 
+          <%= link_to "l'annuaire des entreprises", "#", target: "_blank", rel: "noopener" %>
+        </p>
+
+        <div class="fr-mt-4w">
+          <%= form.submit 'Enregistrer', 
+                          class: 'fr-btn fr-btn--primary fr-mr-2w',
+                          disabled: true %>
+          <%= link_to 'Annuler', organizations_path, class: 'fr-btn fr-btn--secondary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -16,11 +16,18 @@ def mock_mon_compte_pro(user)
   })
 end
 
-def mock_proconnect(user)
+def mock_proconnect(user, identity_provider_uid: '71144ab3-ee1a-4401-b7b3-79b44f7daeeb', siret: nil)
   proconnect_omniauth_payload = build(
     :proconnect_omniauth_payload,
+    data_identity_id: identity_provider_uid,
+    siret: siret || user.current_organization.siret,
     extra: {
-      'raw_info' => attributes_for(:proconnect_raw_info_payload, email: user.email, sub: user.external_id, siret: user.current_organization.siret)
+      'raw_info' => attributes_for(
+        :proconnect_raw_info_payload,
+        email: user.email,
+        sub: user.external_id,
+        idp_id: identity_provider_uid
+      )
     }
   )
 
@@ -144,6 +151,36 @@ Sachantque('je me connecte') do
 end
 
 Sachantque('je me connecte via ProConnect') do
+  steps %(
+    Quand je me rends sur le chemin "proconnect-connexion"
+    Et que je clique sur "S’identifier avec ProConnect"
+  )
+end
+
+Sachantque("je me connecte via ProConnect avec l'identité {string}") do |identity_provider_name|
+  @current_user_email = 'demandeur@gouv.fr'
+
+  user = User.find_by(email: @current_user_email) || FactoryBot.create(:user, email: @current_user_email)
+  identity_provider = IdentityProvider.where(name: identity_provider_name).first
+
+  mock_proconnect(user, identity_provider_uid: identity_provider.id)
+
+  steps %(
+    Quand je me rends sur le chemin "proconnect-connexion"
+    Et que je clique sur "S’identifier avec ProConnect"
+  )
+end
+
+Sachantque("je me connecte via ProConnect avec l'identité {string} qui renvoi l'organisation {string}") do |identity_provider_name, organization_name|
+  @current_user_email = 'demandeur@gouv.fr'
+
+  user = User.find_by(email: @current_user_email) || FactoryBot.create(:user, email: @current_user_email)
+  identity_provider = IdentityProvider.where(name: identity_provider_name).first
+
+  organization = find_or_create_organization_by_name(organization_name)
+
+  mock_proconnect(user, identity_provider_uid: identity_provider.id, siret: organization.siret)
+
   steps %(
     Quand je me rends sur le chemin "proconnect-connexion"
     Et que je clique sur "S’identifier avec ProConnect"
