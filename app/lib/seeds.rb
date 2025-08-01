@@ -23,12 +23,13 @@ class Seeds
 
   # rubocop:disable Metrics/AbcSize
   def create_entities
-    demandeur.add_to_organization(clamart_organization, current: true)
-    another_demandeur.add_to_organization(clamart_organization, current: true)
+    demandeur.add_to_organization(clamart_organization, current: true, verified: true)
+    another_demandeur.add_to_organization(clamart_organization, current: true, verified: true)
+    another_demandeur.add_to_organization(dinum_organization, current: true, verified: false)
 
-    api_entreprise_instructor.add_to_organization(dinum_organization, current: true)
-    api_entreprise_reporter.add_to_organization(dinum_organization, current: true)
-    foreign_demandeur.add_to_organization(dinum_organization, current: true)
+    api_entreprise_instructor.add_to_organization(dinum_organization, current: true, verified: true)
+    api_entreprise_reporter.add_to_organization(dinum_organization, current: true, verified: true)
+    foreign_demandeur.add_to_organization(dinum_organization, current: true, verified: false)
     data_pass_admin.add_to_organization(dinum_organization, current: true)
     dgfip_instructor_developer.add_to_organization(dinum_organization, current: true)
   end
@@ -82,7 +83,7 @@ class Seeds
     @another_demandeur ||= User.create!(
       given_name: 'Jacques',
       family_name: 'Dupont',
-      email: 'user10@yopmail.com',
+      email: 'whatever@fia1.fr',
       external_id: '10',
       job_title: 'Responsable des affaires juridiques',
       phone_number: '0823456789'
