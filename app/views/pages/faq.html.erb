@@ -50,6 +50,16 @@
       Non, DataPass ne permet de demander des habilitations juridiques que pour les organisations enregistrées auprès de l’INSEE.
     <% end %>
 
+    <%= dsfr_accordion "Que signifie que \" le lien entre mon compte et mon organisation n’est pas vérifié \" ?", id: 'lien-organisation-non-verifie' do %>
+      DataPass utilise ProConnect pour authentifier ses usagers et les organisations auquelles il est attaché. Ce service agrège un ensemble de fournisseur
+      d'identités pour effectuer son authentification, et se base sur le nom de domaine de l'email
+      afin de déterminer quel fournisseur d'identité utiliser. En fonction du fournisseur d'identité, le numéro de siret fourni est parfois
+      peu précis ou trop générique, ce qui a pour conséquence de rendre le lien entre le compte et l'organisation incertain.
+      <br />
+      Pour certains fournisseurs d'identités étatiques, nous proposons aux usagers de directement renseigner un numéro de siret pour se rattacher à une organisation et ainsi
+      pouvoir tout de même déposer des demandes au profit de cette organisation. Dans ce cas là, les instructeurs de demandes sont avertis que le lien n'est pas vérifié et qu'il faut être vigilant sur la légitimité du demandeur.
+    <% end %>
+
     <%= dsfr_accordion "Je ne trouve pas la réponse à ma question.", id: 'contact' do %>
       Vous pouvez
       <a href="mailto:<%= t("mailer.shared.support.email") %>?subject=Contact via la FAQ">nous poser votre question
