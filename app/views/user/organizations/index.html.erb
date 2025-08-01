@@ -18,7 +18,7 @@
         Votre organisation de rattachement
       </h1>
 
-      <% unless current_user.current_identity_provider.linked_to_organizations_verified? %>
+      <% unless current_user.current_identity_provider.mon_compte_pro_identity_provider? %>
         <div class="fr-alert fr-alert--info fr-mb-4w">
           <p>
             Votre fournisseur d'identité ne fournissant pas un numéro de siret fiable pour votre compte,
@@ -76,7 +76,13 @@
         </div>
       <% end %>
 
-      <% if policy(:organization).new? %>
+      <% if current_user.current_identity_provider.mon_compte_pro_identity_provider? %>
+        <p>
+          Pour rejoindre une autre organisation vous devez vous déconnecter et reconnecter via ProConnect.
+
+          <%= link_to 'Se déconnecter pour rejoindre une autre organisation', signout_path, class: 'fr-btn fr-btn--secondary' %>
+        </p>
+      <% elsif policy(:organization).new? %>
         <div class="fr-mt-4w">
           <%= link_to 'Rejoindre une autre organisation', new_organization_path, class: 'fr-btn fr-btn--secondary', id: 'new_organization' %>
         </div>

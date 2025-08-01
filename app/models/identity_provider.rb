@@ -23,6 +23,10 @@ class IdentityProvider < StaticApplicationRecord
     new(id: id.to_s, name: 'Unknown')
   end
 
+  def mon_compte_pro_identity_provider?
+    id == '71144ab3-ee1a-4401-b7b3-79b44f7daeeb'
+  end
+
   def choose_organization_on_sign_in?
     @choose_organization_on_sign_in.nil? || @choose_organization_on_sign_in
   end
