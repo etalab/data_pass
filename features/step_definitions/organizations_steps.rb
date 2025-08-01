@@ -23,3 +23,20 @@ Alors("l'organisation associée est marquée comme {string}") do |kind|
     raise "Unknown attribute kind to test: #{kind}"
   end
 end
+
+Quand("le lien entre le demandeur et l'organisation est marqué comme {string}") do |kind|
+  authorization_request = AuthorizationRequest.last
+  applicant = authorization_request.applicant
+  organization = authorization_request.organization
+
+  organization_user = applicant.organizations_users.where(organization:)
+
+  case kind
+  when 'vérifié'
+    organization_user.update!(verified: true)
+  when 'non vérifié'
+    organization_user.update!(verified: false)
+  else
+    raise "Unknown attribute kind to test: #{kind}"
+  end
+end
