@@ -53,8 +53,7 @@ class SessionsController < ApplicationController
     sign_out if user_signed_in?
 
     organizer = call_authenticator(identity_federator)
-
-    sign_in(organizer.user, identity_federator:)
+    sign_in(organizer.user, identity_federator:, identity_provider_uid: organizer.identity_provider_uid)
 
     organizer
   end

@@ -6,7 +6,7 @@ module Authentication
     before_action :authenticate_user!
     before_action :identify_user_on_error_tracking_system
 
-    helper_method :current_user, :current_organization, :user_signed_in? if respond_to?(:helper_method)
+    helper_method :current_user, :current_organization, :user_signed_in?, :latest_identity_provider if respond_to?(:helper_method)
   end
 
   class_methods do
@@ -30,11 +30,12 @@ module Authentication
     dashboard_path
   end
 
-  def sign_in(user, identity_federator:)
+  def sign_in(user, identity_federator:, identity_provider_uid:)
     session[:user_id] = {
       value: user.id,
       expires_at: 1.month.from_now,
       identity_federator:,
+      identity_provider_uid:,
     }
 
     @current_user = user
@@ -47,6 +48,10 @@ module Authentication
 
   def current_identity_federator
     user_id_session&.fetch('identity_federator', 'mon_compte_pro')
+  end
+
+  def latest_identity_provider
+    IdentityProvider.find(user_id_session&.fetch('identity_provider_uid', nil))
   end
 
   def authenticate_user!
