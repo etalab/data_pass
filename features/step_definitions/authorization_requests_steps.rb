@@ -465,6 +465,17 @@ Quand('je me rends sur la dernière demande à instruire') do
   visit instruction_authorization_request_path(AuthorizationRequest.last)
 end
 
+Quand('je me rends sur la dernière demande') do
+  visit authorization_request_path(AuthorizationRequest.last)
+end
+
+Quand('je me rends sur la dernière demande {string}') do |kind|
+  authorization_definition = find_authorization_definition_from_name(kind)
+  authorization_request = AuthorizationRequest.where(type: authorization_definition.authorization_request_class.to_s).last
+
+  visit authorization_request_path(authorization_request)
+end
+
 # https://rubular.com/r/dRUFmK5dzDpjJv
 Alors(/je vois (\d+) habilitation(?: "([^"]+)")?(?:(?: en)? (.+))?/) do |count, type, status|
   if type.present?

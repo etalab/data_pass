@@ -10,7 +10,7 @@ class AuthorizationPolicy < ApplicationPolicy
   end
 
   def show?
-    same_current_organization? ||
+    same_current_verified_organization? ||
       record.request.contact_types_for(user).any? ||
       user.reporter?(record.kind)
   end
@@ -36,14 +36,19 @@ class AuthorizationPolicy < ApplicationPolicy
     @authorization_request_policy ||= AuthorizationRequestPolicy.new(user_context, record.authorization_request)
   end
 
-  def same_current_organization?
+  def same_current_verified_organization?
     current_organization.present? &&
+      user.current_organization_verified? &&
       record.organization == current_organization
   end
 
   class Scope < Scope
     def resolve
-      authorizations = scope.joins(request: :organization).where(authorization_requests: { organization: current_organization })
+      authorizations = if user.current_organization_verified?
+                         scope.joins(request: :organization).where(authorization_requests: { organization: current_organization })
+                       else
+                         scope.joins(request: :organization).where(authorization_requests: { applicant: user })
+                       end
 
       if registered_subdomain?
         authorizations.where(authorization_request_class: registered_subdomain.authorization_request_types)
