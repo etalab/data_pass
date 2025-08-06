@@ -18,6 +18,7 @@ Fonctionnalité: Consultation de demandes et habilitations avec une organisation
     Et je sélectionne le filtre "Toutes les demandes de l'organisation" pour "Filtrer par demandeur"
     Et que je clique sur "Rechercher"
     Alors la page ne contient pas "API Entreprise"
+    Et il y a un message d'attention contenant "consulter les autres demandes ou habilitations de cette organisation"
 
   Scénario: Je ne peux pas consulter une demande de mon organisation
     Quand je me rends sur la dernière demande "API Entreprise"
@@ -29,6 +30,7 @@ Fonctionnalité: Consultation de demandes et habilitations avec une organisation
     Et je sélectionne le filtre "Toutes les demandes de l'organisation" pour "Filtrer par demandeur"
     Et que je clique sur "Rechercher"
     Alors la page ne contient pas "API CaptchEtat"
+    Et il y a un message d'attention contenant "consulter les autres demandes ou habilitations de cette organisation"
 
   Scénario: Je ne peux pas consulter une habilitation de mon organisation
     Quand je me rends sur la dernière demande "API CaptchEtat"
