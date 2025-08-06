@@ -150,13 +150,6 @@ Sachantque('je me connecte') do
   )
 end
 
-Sachantque('je me connecte via ProConnect') do
-  steps %(
-    Quand je me rends sur le chemin "proconnect-connexion"
-    Et que je clique sur "S’identifier avec ProConnect"
-  )
-end
-
 Sachantque("je me connecte via ProConnect avec l'identité {string}") do |identity_provider_name|
   @current_user_email = 'demandeur@gouv.fr'
 
@@ -166,7 +159,7 @@ Sachantque("je me connecte via ProConnect avec l'identité {string}") do |identi
   mock_proconnect(user, identity_provider_uid: identity_provider.id)
 
   steps %(
-    Quand je me rends sur le chemin "proconnect-connexion"
+    Quand je me rends sur la page d'accueil
     Et que je clique sur "S’identifier avec ProConnect"
   )
 end
@@ -182,7 +175,7 @@ Sachantque("je me connecte via ProConnect avec l'identité {string} qui renvoi l
   mock_proconnect(user, identity_provider_uid: identity_provider.id, siret: organization.siret)
 
   steps %(
-    Quand je me rends sur le chemin "proconnect-connexion"
+    Quand je me rends sur la page d'accueil
     Et que je clique sur "S’identifier avec ProConnect"
   )
 end
