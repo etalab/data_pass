@@ -7,11 +7,7 @@
 
   <% items.each do |item| %>
     <div class="fr-col-12">
-      <% if item.is_a?(AuthorizationRequest) %>
-        <%= render item, authorization_request: item %>
-      <% elsif item.is_a?(Authorization) %>
-        <%= render item, authorization: item %>
-      <% end %>
+      <%= render item, item.class.table_name.singularize.to_sym => item %>
     </div>
   <% end %>
 </div>
