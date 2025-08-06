@@ -29,3 +29,7 @@ test: &test
     can_link_to_organizations: false
 development: &development
   <<: *test
+sandbox:
+  <<: *test
+staging:
+  <<: *test
