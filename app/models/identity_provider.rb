@@ -1,4 +1,6 @@
 class IdentityProvider < StaticApplicationRecord
+  PRO_CONNECT_IDENTITY_PROVIDER_UID = '71144ab3-ee1a-4401-b7b3-79b44f7daeeb'.freeze
+
   attr_accessor :id,
     :name
 
@@ -24,7 +26,7 @@ class IdentityProvider < StaticApplicationRecord
   end
 
   def mon_compte_pro_identity_provider?
-    id == '71144ab3-ee1a-4401-b7b3-79b44f7daeeb'
+    id == PRO_CONNECT_IDENTITY_PROVIDER_UID
   end
 
   def choose_organization_on_sign_in?
