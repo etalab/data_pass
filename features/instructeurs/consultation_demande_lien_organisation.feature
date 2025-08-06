@@ -1,6 +1,6 @@
 # language: fr
 
-Fonctionnalité: Instruction: consultation d'une demande d'habilitation et affichage de l'alerte sur le lien demandeur <-> organisayion
+Fonctionnalité: Instruction: consultation d'une demande d'habilitation et affichage de l'alerte sur le lien demandeur <-> organisation
 
   Un instructeur peut consulter une demande d'habilitation et y voir des informations relatives
   au lien entre le demandeur et organisation lorsque celui-ci n'est pas vérifié
