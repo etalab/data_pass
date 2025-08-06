@@ -70,7 +70,6 @@ Fonctionnalité: Consultation d'une demande d'habilitation
     Et que je me rends sur mon tableau de bord demandes
     Quand je sélectionne le filtre "Toutes les demandes de l'organisation" pour "Filtrer par demandeur"
     Et que je clique sur "Rechercher"
-    Alors je montre la page
     Et que je clique sur "Consulter"
     Alors il y a un titre contenant "API Entreprise"
     Et il y a un formulaire en mode résumé
@@ -136,6 +135,5 @@ Fonctionnalité: Consultation d'une demande d'habilitation
   Scénario: Je consulte une habilitation sandbox validée dont la demande a obtenu une habilitation production
     Quand j'ai 1 demande d'habilitation "API Impôt Particulier" validée
     Et que je me rends sur mon tableau de bord habilitations
-    Alors je montre la page
     Et que je me rends sur la première habilitation validée
     Alors la page ne contient pas "Attention, vous consultez une version ancienne de cette habilitation"

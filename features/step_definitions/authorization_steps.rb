@@ -83,3 +83,10 @@ Alors('il y a un formulaire en mode résumé non modifiable') do
   expect(page).to have_css('select[disabled]') if page.has_css?('select')
   expect(page).to have_css('textarea[disabled]') if page.has_css?('textarea')
 end
+
+Quand('je me rends sur la première habilitation validée') do
+  authorization_request = AuthorizationRequest.last
+  first_authorization = authorization_request.authorizations.first
+
+  visit authorization_path(first_authorization)
+end
