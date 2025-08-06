@@ -221,7 +221,7 @@ api_sfip_sandbox:
   provider: "dgfip"
   kind: 'api'
   link: "https://api-sfip.gouv.fr/feedme-with-valid-url"
-  cgu_link: "cgus/dgfip/cgu_api_impot_particulier_bac_a_sable_connexion_hors_fc_septembre2020_v2.6.pdf"
+  cgu_link: "https://datapass.api.gouv.fr/cgus/dgfip/cgu_api_impot_particulier_bac_a_sable_connexion_hors_fc_septembre2020_v2.6.pdf"
   access_link: "https://api-sfip.gouv.fr/tokens/%<external_provider_id>"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
