@@ -9,14 +9,12 @@
   <%= skip_link("Pied de page", "footer") %>
 <% end %>
 
-<div class="fr-container">
+<div class="bg-blue main-container-full-width-offset-footer">
   <div class="fr-grid-row fr-grid-row--middle">
-    <%= render partial: 'pages/shared/unauthenticated_pages/welcome_logo' %>
-
-    <div class="fr-col-sm-12 fr-col-md-7 fr-my-5w">
-      <h1>
+    <div class="bg-white fr-col-sm-12 fr-col-md-7 fr-py-5w fr-px-12w">
+      <h2>
         Votre organisation de rattachement
-      </h1>
+      </h2>
 
       <% unless latest_identity_provider.mon_compte_pro_identity_provider? %>
         <div class="fr-alert fr-alert--info fr-mb-4w">
@@ -87,6 +85,10 @@
           <%= link_to 'Rejoindre une autre organisation', new_organization_path, class: 'fr-btn fr-btn--secondary', id: 'new_organization' %>
         </div>
       <% end %>
+    </div>
+
+    <div class="fr-col-sm-12 fr-col-md-5 fr-p-12w">
+      <%= image_tag "organization-selection.svg", alt: "Sélection de l'organisation", class: %w(fr-responsive-img), style: 'max-height: 250px;' %>
     </div>
   </div>
 </div>

@@ -1,4 +1,6 @@
 class User::OrganizationsController < AuthenticatedUserController
+  layout 'application'
+
   def index
     @organizations_users = current_user.organizations_users.includes(:organization).order(current: :desc, verified: :desc)
   end

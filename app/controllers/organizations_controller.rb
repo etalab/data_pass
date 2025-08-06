@@ -1,4 +1,6 @@
 class OrganizationsController < AuthenticatedUserController
+  layout 'application'
+
   def new
     @organization = Organization.new
 

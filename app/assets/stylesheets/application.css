@@ -80,6 +80,10 @@ h3.with-icon img {
   background-color: var(--background-default-grey);
 }
 
+.bg-blue {
+  background-color: var(--light-decisions-background-background-alt-blue-france, #F5F5FE);
+}
+
 .height-100 {
   height: 100%
 }
@@ -97,4 +101,8 @@ h3.with-icon img {
 }
 .paired-cards .authorization-request-card:last-child {
   border-top: 0;
+}
+
+.main-container-full-width-offset-footer {
+  margin-bottom: -4rem;
 }
