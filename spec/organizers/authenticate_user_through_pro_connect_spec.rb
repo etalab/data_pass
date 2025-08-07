@@ -69,7 +69,7 @@ RSpec.describe AuthenticateUserThroughProConnect do
           create(:organizations_user, user:, organization:, verified: true)
         end
 
-        it 'sets verified_organization to false' do
+        it 'does not change verified_organization boolean' do
           expect {
             authenticate_user
           }.not_to change { verified_organization_user.reload.verified }
