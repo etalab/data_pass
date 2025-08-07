@@ -121,7 +121,9 @@ Rails.application.routes.draw do
       resources :messages, only: %w[index create], path: 'messages'
     end
 
-    resources :authorization_request_instructor_drafts, path: 'instructeurs-demandes'
+    resources :authorization_request_instructor_drafts, path: 'instructeurs-demandes' do
+      resources :invite_applicant_to_claim_authorization_request_instructor_draft, only: [:new, :create]
+    end
   end
 
   get '/admin', to: 'admin#index', as: :admin
