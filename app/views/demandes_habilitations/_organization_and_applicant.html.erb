@@ -1,6 +1,6 @@
-<% unverified_organization_link_for_instruction = namespace?(:instruction) && demande.unverified_organization_link? && !demande.finished? %>
+<% unverified_organization_affiliation_for_instruction = namespace?(:instruction) && demande.unverified_organization_affiliation? && !demande.finished? %>
 
-<% if unverified_organization_link_for_instruction %>
+<% if unverified_organization_affiliation_for_instruction %>
   <% extra_summary_block_css_classes = 'summary-block--warning' %>
 <% else %>
   <% extra_summary_block_css_classes = '' %>
@@ -8,7 +8,7 @@
 
 <%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { authorization_request: demande, title: "L'organisation", block_id: :organization, editable: false, extra_summary_block_css_classes: } do %>
   <div class="fr-container-fluid organization-and-applicant">
-    <% if unverified_organization_link_for_instruction %>
+    <% if unverified_organization_affiliation_for_instruction %>
       <div class="fr-alert fr-alert--warning fr-mb-2v">
         <div class="fr-alert__body">
           <p>

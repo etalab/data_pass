@@ -46,7 +46,7 @@ class AuthorizationRequestDecorator < ApplicationDecorator # rubocop:disable Met
     blocks - editable_blocks
   end
 
-  def unverified_organization_link?
+  def unverified_organization_affiliation?
     applicant.organizations_users.where(organization:, verified: false).any?
   end
 
