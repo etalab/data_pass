@@ -20,6 +20,8 @@ Rails.application.routes.draw do
 
   get '/public/demandes/:id', to: 'public/authorization_requests#show', as: :public_authorization_request
 
+  get '/demandes-instructeurs/:id/revendiquer', to: 'authorization_request_instructor_drafts#claim', as: :claim_authorization_request_instructor_draft
+
   get '/stats', to: 'stats#index'
 
   scope(path_names: { new: 'nouveau', edit: 'modifier' }) do
