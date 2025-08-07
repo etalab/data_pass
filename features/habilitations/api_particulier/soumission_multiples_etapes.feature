@@ -241,6 +241,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
 
     * je renseigne les infos concernant les données personnelles
     * je clique sur "Suivant"
+    * je clique sur "Suivant"
 
     * je renseigne les informations du délégué à la protection des données
     * je renseigne les informations du contact technique
