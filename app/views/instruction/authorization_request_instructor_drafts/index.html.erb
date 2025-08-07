@@ -50,7 +50,7 @@
 
             <td class="authorization-request-instructor-draft--organization">
               <% if authorization_request_instructor_draft.organization %>
-                <%= authorization_request_instructor_draft.organization.denomination %>
+                <%= link_to authorization_request_instructor_draft.organization.denomination, "https://annuaire-entreprises.data.gouv.fr/etablissement/#{authorization_request_instructor_draft.organization.siret}", target: '_blank' %>
               <% end %>
             </td>
 
@@ -59,6 +59,12 @@
             </td>
 
             <td class="authorization-request-instructor-draft--actions">
+              <% if policy([:instruction, authorization_request_instructor_draft]).invite? %>
+                <%= dsfr_main_modal_button(t('.table.actions.invite'), new_instruction_authorization_request_instructor_draft_invite_applicant_to_claim_authorization_request_instructor_draft_path(authorization_request_instructor_draft), class: 'fr-btn fr-btn--secondary fr-btn--sm', aria: { controls: 'main-modal' }, data: { turbo_frame: 'main-modal-content' }) %>
+              <% else %>
+                <%= link_to t('.table.actions.invite_link'), claim_authorization_request_instructor_draft_path(authorization_request_instructor_draft.public_id) %>
+              <% end %>
+
               <%= link_to t('.table.actions.edit'), edit_instruction_authorization_request_instructor_draft_path(authorization_request_instructor_draft), class: 'fr-btn fr-btn--secondary fr-btn--sm' %>
               <%= button_to t('.table.actions.delete'), instruction_authorization_request_instructor_draft_path(authorization_request_instructor_draft), method: :delete, data: { turbo_confirm: t('.table.actions.confirm_delete') }, class: 'fr-btn fr-btn--secondary fr-btn--sm' %>
             </td>

@@ -45,3 +45,7 @@ Quand("ce brouillon de demande d'habilitation a déjà été revendiquée") do
   authorization_request_draft = AuthorizationRequestInstructorDraft.last
   authorization_request_draft.update!(claimed: true)
 end
+
+Quand("je me rends sur la page de gestion des demandes d'habilitation d'instructeur") do
+  visit instruction_authorization_request_instructor_drafts_path
+end
