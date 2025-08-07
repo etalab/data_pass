@@ -1,0 +1,8 @@
+<%= render partial: 'mailer/shared/applicant/header', locals: { entity_name: @authorization_request_instructor_draft.applicant.full_name } %>
+
+Vous êtes invité(e) à remplir une demande d'habilitation préparée pour vous concernant le projet "<%= @authorization_request_instructor_draft.project_name %>" pour le compte de l'organisation "<%= @authorization_request_instructor_draft.organization.name %>" (numéro de SIRET: <%= @authorization_request_instructor_draft.organization.siret %>).
+
+Pour revendiquer cette demande, veuillez cliquer sur le lien suivant :
+<%= claim_authorization_request_instructor_draft_url(id: @authorization_request_instructor_draft.public_id) %>
+
+<%= render partial: 'mailer/shared/applicant/footer', locals: { authorization_definition_name: @authorization_request_instructor_draft.definition.name } %>
