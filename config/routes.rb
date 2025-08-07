@@ -20,7 +20,8 @@ Rails.application.routes.draw do
 
   get '/public/demandes/:id', to: 'public/authorization_requests#show', as: :public_authorization_request
 
-  get '/demandes-instructeurs/:id/revendiquer', to: 'authorization_request_instructor_drafts#claim', as: :claim_authorization_request_instructor_draft
+  get '/demandes-instructeurs/:id/revendiquer', to: 'claim_authorization_request_instructor_drafts#show', as: :claim_authorization_request_instructor_draft
+  post '/demandes-instructeurs/:id/revendiquer', to: 'claim_authorization_request_instructor_drafts#create'
 
   get '/stats', to: 'stats#index'
 
