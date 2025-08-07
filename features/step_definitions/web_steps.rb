@@ -283,6 +283,10 @@ Alors('un champ contient {string}') do |text|
   expect(all('input').any? { |input| input.value == text }).to be_truthy, "Expected to find a field with value '#{text}'"
 end
 
+Alors('le champ {string} contient {string}') do |label, text|
+  expect(page).to have_field(label, with: text)
+end
+
 Alors('le champ {string} est rempli') do |label|
   expect(page).to have_field(label, with: /.+/)
 end
