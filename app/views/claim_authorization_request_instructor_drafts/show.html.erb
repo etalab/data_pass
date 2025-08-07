@@ -1,0 +1,7 @@
+<p>
+  Pour revendiquer cette demande d'habilitation et la compléter, cliquez sur le bouton ci-dessous.
+</p>
+
+<%= form_with(model: @authorization_request_instructor_draft, method: :post, url: claim_authorization_request_instructor_draft_path(id: @authorization_request_instructor_draft.public_id)) do |f| %>
+  <%= f.button "Revendiquer cette demande", class: "fr-btn fr-btn--primary" %>
+<% end %>
