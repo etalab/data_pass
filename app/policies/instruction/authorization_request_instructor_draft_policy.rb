@@ -24,6 +24,11 @@ class Instruction::AuthorizationRequestInstructorDraftPolicy < ApplicationPolicy
     show?
   end
 
+  def invite?
+    show? &&
+      record.applicant.blank?
+  end
+
   private
 
   def current_user_instructor_types
