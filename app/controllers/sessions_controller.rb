@@ -35,9 +35,14 @@ class SessionsController < ApplicationController
   end
 
   def create_from_proconnect
-    authenticate_user(identity_federator: 'proconnect')
+    organizer = authenticate_user(identity_federator: 'proconnect')
+    user = organizer.user
 
-    post_sign_in
+    if user.current_identity_provider.choose_organization_on_sign_in?
+      redirect_to user_organizations_path
+    else
+      post_sign_in
+    end
   end
 
   def mon_compte_pro_connect?
@@ -48,8 +53,9 @@ class SessionsController < ApplicationController
     sign_out if user_signed_in?
 
     organizer = call_authenticator(identity_federator)
+    sign_in(organizer.user, identity_federator:, identity_provider_uid: organizer.identity_provider_uid)
 
-    sign_in(organizer.user, identity_federator:)
+    organizer
   end
 
   def call_authenticator(identity_federator)

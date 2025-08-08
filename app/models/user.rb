@@ -3,10 +3,6 @@ class User < ApplicationRecord
 
   include NotificationsSettings
 
-  IDENTITY_PROVIDERS = {
-    '71144ab3-ee1a-4401-b7b3-79b44f7daeeb' => 'mon_compte_pro',
-  }.freeze
-
   ROLES = %w[reporter instructor developer].freeze
 
   validates :email, presence: true, uniqueness: true
@@ -28,6 +24,16 @@ class User < ApplicationRecord
   has_one :current_organization,
     through: :current_organization_user,
     source: :organization
+
+  def current_organization_verified?
+    current_organization_user&.verified? || false
+  end
+
+  def current_identity_provider
+    return IdentityProvider.unknown if current_organization_user.blank?
+
+    current_organization_user.identity_provider
+  end
 
   has_many :authorization_requests_as_applicant,
     dependent: :restrict_with_exception,
@@ -197,11 +203,12 @@ class User < ApplicationRecord
     organization_user.set_as_current! if organization_user.persisted?
   end
 
-  def add_to_organization(organization, current: false, identity_provider_uid: nil, identity_federator: nil)
+  def add_to_organization(organization, verified: false, identity_provider_uid: nil, identity_federator: nil, current: false)
     organizations_users.find_or_create_by(organization:).tap do |org_user|
       updates = {
         identity_provider_uid:,
         identity_federator:,
+        verified:,
       }.compact
       org_user.update!(updates) if updates.any?
       org_user.set_as_current! if current

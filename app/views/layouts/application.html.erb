@@ -53,5 +53,14 @@
     </main>
 
     <%= render partial: 'layouts/footer' %>
+
+    <% unless Rails.env.production? %>
+      <!--
+        User session data:
+        <% (session[:user_id] || {}).each do |key, value| %>
+          <%= "#{key}: #{value}" %>
+        <% end %>
+      -->
+    <% end %>
   </body>
 </html>

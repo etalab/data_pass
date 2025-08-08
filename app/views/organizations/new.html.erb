@@ -1,0 +1,38 @@
+<% content_for :content_skip_link_text do %>
+  Votre organisation de rattachement
+<% end %>
+
+<div class="bg-blue main-container-full-width-offset-footer">
+  <div class="fr-grid-row fr-grid-row--middle">
+    <div class="bg-white fr-col-sm-12 fr-col-md-7 fr-py-16w fr-px-12w">
+      <h2>
+        Votre organisation de rattachement
+      </h2>
+
+      <p>
+        Veuillez saisir le siret de l'organisation à laquelle vous souhaitez vous rattacher.
+      </p>
+
+      <%= render partial: 'shared/alerts' %>
+
+      <%= form_with model: @organization, local: true do |form| %>
+        <%= form.dsfr_text_field :siret, placeholder: '13002526500013' %>
+
+        <p class="fr-text--sm">
+          <i class="fr-icon-information-line" aria-hidden="true"></i>
+          Vous pouvez rechercher votre SIRET via
+          <%= link_to "l'annuaire des entreprises", "https://annuaire-entreprises.data.gouv.fr/", target: "_blank", rel: "noopener" %>
+        </p>
+
+        <div class="fr-mt-4w">
+          <%= form.submit 'Rechercher', class: 'fr-btn fr-btn--primary fr-mr-2w' %>
+          <%= link_to 'Annuler', user_organizations_path, class: 'fr-btn fr-btn--secondary' %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="fr-col-sm-12 fr-col-md-5 fr-p-12w">
+      <%= image_tag "organization-selection.svg", alt: "Sélection de l'organisation", class: %w(fr-responsive-img), style: 'max-height: 250px;' %>
+    </div>
+  </div>
+</div>

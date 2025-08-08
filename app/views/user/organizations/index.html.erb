@@ -1,0 +1,94 @@
+<% content_for :content_skip_link_text do %>
+  Votre organisation de rattachement
+<% end %>
+
+<% content_for :skip_links do %>
+  <%= skip_link("Votre organisation de rattachement", "content") %>
+  <%= skip_link("Rejoindre une organisation", "new_organization") %>
+  <%= skip_link("Menu", "header") %>
+  <%= skip_link("Pied de page", "footer") %>
+<% end %>
+
+<div class="bg-blue main-container-full-width-offset-footer">
+  <div class="fr-grid-row fr-grid-row--middle">
+    <div class="bg-white fr-col-sm-12 fr-col-md-7 fr-py-5w fr-px-12w">
+      <h2>
+        Votre organisation de rattachement
+      </h2>
+
+      <% unless latest_identity_provider.mon_compte_pro_identity_provider? %>
+        <div class="fr-alert fr-alert--info fr-mb-4w">
+          <p>
+            Votre fournisseur d'identité ne fournissant pas un numéro de siret fiable pour votre compte,
+            vous devez choisir manuellement votre organisation de rattachement.
+
+            <br />
+            <br />
+
+            Les organisations listées ci-dessous sont celles auxquelles vous êtes rattaché(e) dans notre système, celles dont le lien
+            est vérifié sont labellisées par un badge vert "Vérifié".
+
+            <br />
+            <br />
+
+            Pour en savoir plus, consulter notre documentation sur <a href="<%= faq_path(anchor: 'lien-organisation-non-verifie') %>">la vérification des organisations</a>.
+          </p>
+        </div>
+      <% end %>
+
+      <% @organizations_users.each do |organizations_user| %>
+        <% organization = organizations_user.organization.decorate %>
+
+        <div class="fr-card fr-enlarge-link fr-mb-2w">
+          <div class="fr-card__body">
+            <div class="fr-card__content">
+              <h3 class="fr-card__title">
+                <%= link_to organization.name, set_as_current_user_organization_path(id: organization.siret) %>
+              </h3>
+
+              <% if organizations_user.verified? || organizations_user.current? %>
+                <div class="fr-card__start">
+                  <ul class="fr-tags-group">
+                    <% if organizations_user.current? %>
+                      <li class="fr-mr-1w">
+                        <p class="fr-badge fr-badge--info">Actuel</p>
+                      </li>
+                    <% end %>
+
+                    <% if organizations_user.verified? %>
+                      <li>
+                        <p class="fr-badge fr-badge--success">Vérifié</p>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
+
+              <p class="fr-card__desc">
+                <%= organization.address %>
+                <br />
+                Siret: <%= organization.siret %>
+              </p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <% if latest_identity_provider.mon_compte_pro_identity_provider? %>
+        <p>
+          Pour rejoindre une autre organisation vous devez vous déconnecter et reconnecter via ProConnect.
+
+          <%= link_to 'Se déconnecter pour rejoindre une autre organisation', signout_path, class: 'fr-btn fr-btn--secondary' %>
+        </p>
+      <% elsif policy(:organization).new? %>
+        <div class="fr-mt-4w">
+          <%= link_to 'Rejoindre une autre organisation', new_organization_path, class: 'fr-btn fr-btn--secondary', id: 'new_organization' %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="fr-col-sm-12 fr-col-md-5 fr-p-12w">
+      <%= image_tag "organization-selection.svg", alt: "Sélection de l'organisation", class: %w(fr-responsive-img), style: 'max-height: 250px;' %>
+    </div>
+  </div>
+</div>

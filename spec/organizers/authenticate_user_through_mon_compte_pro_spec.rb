@@ -18,16 +18,17 @@ RSpec.describe AuthenticateUserThroughMonComptePro do
       expect { subject }.to have_enqueued_job(UpdateOrganizationINSEEPayloadJob)
     end
 
-    it 'associates the user to organization' do
+    it 'associates the user to organization, and marks it as verified' do
       authenticate_user
 
-      expect(authenticate_user.user.organizations).to include(authenticate_user.organization)
+      expect(authenticate_user.user.reload.organizations).to include(authenticate_user.organization)
+      expect(authenticate_user.user.organizations_users.first.verified).to be_truthy
     end
 
     context 'when user already exists and have another current organization' do
       let!(:user) do
         create(:user, email: mon_compte_pro_omniauth_payload['info']['email'], skip_organization_creation: true).tap do |u|
-          u.add_to_organization(create(:organization), current: true)
+          u.add_to_organization(create(:organization), current: true, verified: true)
         end
       end
 

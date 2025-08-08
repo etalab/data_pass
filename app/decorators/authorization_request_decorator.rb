@@ -46,6 +46,10 @@ class AuthorizationRequestDecorator < ApplicationDecorator # rubocop:disable Met
     blocks - editable_blocks
   end
 
+  def unverified_organization_affiliation?
+    applicant.organizations_users.where(organization:, verified: false).any?
+  end
+
   def contact_full_name(contact_type)
     [
       object.data["#{contact_type}_given_name"],

@@ -1,0 +1,35 @@
+---
+shared:
+  '71144ab3-ee1a-4401-b7b3-79b44f7daeeb':
+    name: MonComptePro
+    choose_organization_on_sign_in: false
+    siret_verified: true
+    linked_to_organizations_verified: true
+  'e2f397e0-f2a5-4cbb-b19f-8b3b54410c26':
+    name: Agents de l'Administration Centrale des ministères économiques et financiers (Réseau Interministériel de l'État)
+test: &test
+  '71144ab3-ee1a-4401-b7b3-79b44f7daeeb':
+    name: MonComptePro
+    choose_organization_on_sign_in: false
+    siret_verified: true
+    linked_to_organizations_verified: true
+  # whatever@fia1.fr
+  'fia1v2':
+    name: DGFIP
+    choose_organization_on_sign_in: true
+    siret_verified: false
+    linked_to_organizations_verified: false
+    can_link_to_organizations: true
+  # whatever@fia2.fr
+  'fia2v2':
+    name: Renater
+    choose_organization_on_sign_in: true
+    siret_verified: true
+    linked_to_organizations_verified: false
+    can_link_to_organizations: false
+development: &development
+  <<: *test
+sandbox:
+  <<: *test
+staging:
+  <<: *test

@@ -11,12 +11,28 @@ Version en ligne:
 Les comptes disponibles en simili-production (couple email/password sur
 ProConnect) :
 
+Via le fournisseur d'identité ProConnect (le choix de l'organisation s'effectue
+en dehors de DataPass) :
+
 - `user@yopmail.com` / `user@yopmail.com`: simple demandeur qui possède
   plusieurs habilitations sur
   la première organisation de liste (Commune de Clamart)
 - `api-entreprise@yopmail.com` / `api-entreprise@yopmail.com`: instructeur pour
   API Entreprise, sans habilitation
 - `datapass@yopmail.com` pour un compte admin / toute instruction
+
+Via un fournisseur d'identité fictif, qui est configuré pour sélectionner /
+ajouter des organisations :
+
+- `whatever@fia1.fr` (pas de mot de passe) : simple demandeur qui possède 2
+    demandes sur la DINUM (lien avec l'organisation non vérifiée). Cet usager
+    est rattaché à la commune de Clamart et le lien avec l'organisation est
+    vérifié. Cet usager peut se rattacher à une organisation.
+- `whatever@fia2.fr` (pas de mot de passe) : simple demandeur sans demande.
+  Cet usager ne peut pas se rattacher à une nouvelle organisation via DataPass.
+
+La conséquence pour le compte ci-dessus est que l'usager ne peut pas consulter
+les autres demandes de la DINUM.
 
 Le lien pour l'instruction: [https://sandbox.v2.datapass.api.gouv.fr/instruction](https://sandbox.v2.datapass.api.gouv.fr/instruction)
 

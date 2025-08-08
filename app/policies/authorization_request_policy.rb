@@ -10,7 +10,7 @@ class AuthorizationRequestPolicy < ApplicationPolicy
     if same_user_and_organization?
       !record.draft? ||
         review_authorization_request.success?
-    elsif same_current_organization?
+    elsif same_current_organization? && user.current_organization_verified?
       true
     else
       record.contact_types_for(user).any?
@@ -158,7 +158,13 @@ class AuthorizationRequestPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      authorization_requests = scope.where(organization: current_organization)
+      authorization_requests = scope
+
+      authorization_requests = if user.current_organization_verified?
+                                 authorization_requests.where(organization: user.current_organization)
+                               else
+                                 authorization_requests.where(applicant: user)
+                               end
 
       if registered_subdomain?
         authorization_requests.where(type: registered_subdomain.authorization_request_types)

@@ -1,4 +1,4 @@
-<div class="summary-block <%= !editable ? 'summary-block--fixed' : '' %> fr-mb-6w" id="<%= dom_id(authorization_request, block_id) %>">
+<div class="summary-block <%= !editable ? 'summary-block--fixed' : '' %> fr-mb-6w <%= local_assigns[:extra_summary_block_css_classes] %>" id="<%= dom_id(authorization_request, block_id) %>">
   <div class="summary-block__header">
     <h2 class="summary-block__title fr-h4 fr-pb-1-5v">
       <%= title %>

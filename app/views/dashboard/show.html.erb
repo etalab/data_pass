@@ -13,9 +13,7 @@
           <%= t('.title') %>
         </h1>
 
-        <%= form_with(url: "/auth/mon_compte_pro?prompt=select_organization", method: :post, data: { turbo: false }, class: 'fr-pt-1w') do |f| %>
-          <%= f.button current_organization.name, class: %w(fr-btn fr-btn--tertiary fr-btn--sm fr-btn--icon-left fr-icon-hotel-line) %>
-        <% end %>
+        <%= current_organization.name %> <%= link_to "Changer d'organisation", user_organizations_path, class: %w[fr-btn fr-btn--tertiary fr-btn--sm fr-btn--icon-left fr-icon-hotel-line] %>
       </div>
     </div>
   </div>
@@ -52,6 +50,12 @@
           <div class="fr-mb-5w">
             <%= render 'search_form' %>
           </div>
+
+          <% if params[:search_query] && params[:search_query][:user_relationship_eq] == 'organization' && !current_user.current_organization_verified? %>
+            <div class="fr-alert fr-alert--warning fr-mb-6w">
+              Votre lien avec l'organisation <strong><%= current_organization.name %></strong> (SIRET: <%= current_organization.siret %>) n'est pas vérifié, vous ne pouvez accéder ou consulter les autres demandes ou habilitations de cette organisation.
+            </div>
+          <% end %>
 
           <div data-auto-height-target="source">
             <turbo-frame id="<%= "#{params[:id]}-table" %>" class="search-results-container">

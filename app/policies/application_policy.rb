@@ -7,6 +7,7 @@ class ApplicationPolicy
   end
 
   delegate :user, to: :user_context
+  delegate :authentication_session, to: :user_context
 
   def index?
     false

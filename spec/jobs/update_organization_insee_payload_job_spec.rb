@@ -62,5 +62,17 @@ RSpec.describe UpdateOrganizationINSEEPayloadJob do
         expect(organization.reload.last_insee_payload_updated_at).to be_within(1.second).of(Time.current)
       end
     end
+
+    context 'when API returns a not found error' do
+      let(:organization) { create(:organization, last_insee_payload_updated_at: 42.days.ago) }
+
+      before do
+        allow(insee_sirene_api_client).to receive(:etablissement).and_raise(INSEESireneAPIClient::EntityNotFoundError)
+      end
+
+      it 're raise this error' do
+        expect { update_organization_insee_payload_job }.to raise_error(INSEESireneAPIClient::EntityNotFoundError)
+      end
+    end
   end
 end

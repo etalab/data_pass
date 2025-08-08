@@ -25,12 +25,6 @@
             <% end %>
           </ul>
         </div>
-
-        <% if @authorization_request.blank? %>
-          <%= form_with(url: "/auth/mon_compte_pro?prompt=update_userinfo", method: :post, data: { turbo: false }) do |f| %>
-            <%= f.button t('.you.update'), id: 'update_infos', class: %w(fr-btn fr-mt-2w) %>
-          <% end %>
-        <% end %>
       </div>
     </div>
 
@@ -58,9 +52,7 @@
         </div>
 
         <% if @authorization_request.blank? %>
-          <%= form_with(url: "/auth/mon_compte_pro?prompt=select_organization", method: :post, data: { turbo: false }) do |f| %>
-            <%= f.button t('.your_organization.update'), id: 'change_current_organization', class: %w(fr-btn fr-mt-2w) %>
-          <% end %>
+          <%= link_to "Changer d'organisation", user_organizations_path, class: %w[fr-btn fr-mt-2w] %>
         <% end %>
       </div>
     </div>
