@@ -44,16 +44,14 @@ class AuthorizationPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      authorizations = if user.current_organization_verified?
-                         scope.joins(request: :organization).where(authorization_requests: { organization: current_organization })
-                       else
-                         scope.joins(request: :organization).where(authorization_requests: { applicant: user })
-                       end
+      authorizations = scope.joins(request: :organization)
 
-      if registered_subdomain?
-        authorizations.where(authorization_request_class: registered_subdomain.authorization_request_types)
+      authorizations = authorizations.where(authorization_request_class: registered_subdomain.authorization_request_types) if registered_subdomain?
+
+      if user.current_organization_verified?
+        authorizations.where(authorization_requests: { organization: current_organization })
       else
-        authorizations
+        authorizations.where(authorization_requests: { applicant: user })
       end
     end
   end
