@@ -19,7 +19,7 @@ class FindOrCreateOrganizationModel < ApplicationInteractor
   end
 
   def find_organization
-    context.organization = Organization.where(context.organization_params).first
+    context.organization = Organization.find_by(context.organization_params)
   end
 
   def create_organization
