@@ -2,8 +2,6 @@ DOCKER-COMPOSE = docker compose
 DOCKER-RUN = $(DOCKER-COMPOSE) run --rm --entrypoint=""
 BUNDLE-EXEC = bundle exec
 
-STOP-SERVICES = which systemctl > /dev/null && sudo systemctl stop postgresql redis || true
-
 build:
 	$(DOCKER-COMPOSE) build
 	$(DOCKER-RUN) web bundle exec rails db:create RAILS_ENV=test
@@ -42,17 +40,20 @@ fix-yaml-lint:
 security:
 	$(DOCKER-RUN) web $(BUNDLE-EXEC) ./bin/brakeman
 
+# You can run this before running tests, to avoid conflicts with the local
+# redis and postgres services you might have running
+stop-services:
+	which systemctl > /dev/null && sudo systemctl stop postgresql redis || true
+
 guard:
 	$(DOCKER-COMPOSE) up -d chrome
 	$(DOCKER-RUN) web $(BUNDLE-EXEC) guard
 
 tests:
-	$(STOP-SERVICES)
 	$(DOCKER-COMPOSE) up -d chrome
 	$(DOCKER-RUN) web $(BUNDLE-EXEC) rspec $(filter-out $@,$(MAKECMDGOALS))
 
 e2e:
-	$(STOP-SERVICES)
 	$(DOCKER-COMPOSE) up -d chrome
 	$(DOCKER-RUN) web $(BUNDLE-EXEC) cucumber $(filter-out $@,$(MAKECMDGOALS))
 
