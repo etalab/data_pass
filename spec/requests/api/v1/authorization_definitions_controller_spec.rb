@@ -82,7 +82,7 @@ RSpec.describe 'API: Authorization definitions' do
       scopes = definition['scopes']
       expect(scopes).to be_a(Array)
 
-      scope_values = scopes.map { |scope| scope['value'] }
+      scope_values = scopes.pluck('value')
       expected_definition[:expected_scope_values].each do |expected_scope|
         expect(scope_values).to include(expected_scope)
       end
@@ -96,7 +96,7 @@ RSpec.describe 'API: Authorization definitions' do
       expect(response).to have_http_status(:ok)
       expect(response.parsed_body.count).to eq(2)
 
-      definition_ids = response.parsed_body.map { |d| d['id'] }
+      definition_ids = response.parsed_body.pluck('id')
       expect(definition_ids).to contain_exactly(sandbox_def[:id], production_def[:id])
     end
 
@@ -151,8 +151,8 @@ RSpec.describe 'API: Authorization definitions' do
       sandbox_def_response = definitions.find { |d| d['id'] == sandbox_def[:id] }
       production_def_response = definitions.find { |d| d['id'] == production_def[:id] }
 
-      sandbox_scope_values = sandbox_def_response['scopes'].map { |scope| scope['value'] }
-      production_scope_values = production_def_response['scopes'].map { |scope| scope['value'] }
+      sandbox_scope_values = sandbox_def_response['scopes'].pluck('value')
+      production_scope_values = production_def_response['scopes'].pluck('value')
 
       sandbox_def[:expected_scope_values].each do |expected_scope|
         expect(sandbox_scope_values).to include(expected_scope)
@@ -270,7 +270,7 @@ RSpec.describe 'API: Authorization definitions' do
         expect(response).to have_http_status(:ok)
         expect(response.parsed_body.count).to eq(2)
 
-        definition_ids = response.parsed_body.map { |d| d['id'] }
+        definition_ids = response.parsed_body.pluck('id')
         expect(definition_ids).to contain_exactly('api_entreprise', 'api_particulier')
       end
 

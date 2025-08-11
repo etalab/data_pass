@@ -82,7 +82,7 @@ RSpec.describe 'API: Authorization request forms' do
           get_index
 
           forms = response.parsed_body
-          uids = forms.map { |form| form['uid'] }
+          uids = forms.pluck('uid')
           expect(uids).to eq(uids.uniq)
         end
       end
@@ -139,8 +139,8 @@ RSpec.describe 'API: Authorization request forms' do
         api_entreprise_forms = response.parsed_body
 
         # Forms should be different
-        api_particulier_uids = api_particulier_forms.map { |f| f['uid'] }.sort
-        api_entreprise_uids = api_entreprise_forms.map { |f| f['uid'] }.sort
+        api_particulier_uids = api_particulier_forms.pluck('uid').sort
+        api_entreprise_uids = api_entreprise_forms.pluck('uid').sort
 
         expect(api_particulier_uids).not_to eq(api_entreprise_uids)
       end

@@ -82,7 +82,11 @@ module Authentication
   end
 
   def current_user
-    @current_user ||= User.find_by(id: user_id_session.try(:[], 'value'))
+    if instance_variable_defined?(:@current_user)
+      @current_user
+    else
+      @current_user = User.find_by(id: user_id_session.try(:[], 'value'))
+    end
   end
 
   def current_organization
