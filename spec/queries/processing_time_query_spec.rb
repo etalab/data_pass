@@ -3,7 +3,7 @@ RSpec.describe ProcessingTimeQuery, type: :query do
     subject(:average_days) { described_class.new(authorization_request_class).perform }
 
     let(:authorization_request_class) { nil }
-    let(:initial_datetime) { DateTime.new(2025, 3, 1) }
+    let(:initial_datetime) { DateTime.current }
 
     before do
       api_entreprise_request = create(:authorization_request, :api_entreprise)
