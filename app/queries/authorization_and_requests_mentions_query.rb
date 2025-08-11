@@ -10,7 +10,7 @@ class AuthorizationAndRequestsMentionsQuery
     relation.where("EXISTS (
       select 1
       from each(#{table_name}.data) as kv
-      where kv.key like '%_email' and kv.value = ?
+      where kv.key like '%_email' and lower(kv.value) = ?
     )", user.email)
   end
 end
