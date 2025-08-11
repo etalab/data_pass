@@ -6,17 +6,23 @@ RSpec.describe AuthorizationAndRequestsMentionsQuery, type: :aquery do
 
     let!(:valid_authorization_request) { create(:authorization_request, :api_entreprise, contact_metier_email: user.email) }
     let!(:another_valid_authorization_request) { create(:authorization_request, :api_entreprise, responsable_traitement_email: user.email) }
+    let!(:another_valid_authorization_request_with_uppercase_email) { create(:authorization_request, :api_entreprise) }
     let!(:invalid_authorization_request) { create(:authorization_request, :api_entreprise) }
 
     context 'with Authorization Requests' do
       let(:relation) { AuthorizationRequest.all }
+
+      before do
+        another_valid_authorization_request_with_uppercase_email.data['contact_metier_email'] = user.email.upcase
+        another_valid_authorization_request_with_uppercase_email.save!
+      end
 
       it 'returns an active record relation' do
         expect(results).to be_a(ActiveRecord::Relation)
       end
 
       it 'returns the authorization requests where the user is mentioned' do
-        expect(results).to contain_exactly(valid_authorization_request, another_valid_authorization_request)
+        expect(results).to contain_exactly(valid_authorization_request, another_valid_authorization_request, another_valid_authorization_request_with_uppercase_email)
       end
     end
 
