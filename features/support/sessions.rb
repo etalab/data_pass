@@ -1,7 +1,11 @@
 OmniAuth.config.test_mode = true
 
 def current_user
-  @current_user ||= User.find_by(email: @current_user_email)
+  if instance_variable_defined?(:@current_user)
+    @current_user
+  else
+    @current_user = User.find_by(email: @current_user_email)
+  end
 end
 
 def create_admin
