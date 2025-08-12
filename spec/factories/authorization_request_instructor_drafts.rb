@@ -15,6 +15,8 @@ FactoryBot.define do
 
     trait :with_data do
       after(:build) do |authorization_request_instructor_draft|
+        next if authorization_request_instructor_draft.data.present?
+
         authorization_request_trait = authorization_request_instructor_draft.authorization_request_class.demodulize.underscore
 
         authorization_request_instructor_draft.data = build(:authorization_request, authorization_request_trait).data
@@ -33,11 +35,21 @@ FactoryBot.define do
       after(:create) do |authorization_request_instructor_draft|
         document = create(:authorization_request_instructor_draft_document, authorization_request_instructor_draft:)
         document.files.attach(
-          io: File.open(Rails.root.join('spec', 'fixtures', 'dummy.pdf')),
+          io: Rails.root.join('spec/fixtures/dummy.pdf').open,
           filename: 'dummy.pdf',
           content_type: 'application/pdf'
         )
       end
+    end
+
+    trait :complete do
+      with_data
+      with_applicant
+    end
+
+    trait :claimed do
+      complete
+      claimed { true }
     end
   end
 end
