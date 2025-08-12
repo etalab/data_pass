@@ -4,4 +4,3 @@ FactoryBot.define do
     authorization_request_instructor_draft
   end
 end
-
