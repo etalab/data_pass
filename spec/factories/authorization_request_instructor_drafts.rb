@@ -33,11 +33,21 @@ FactoryBot.define do
       after(:create) do |authorization_request_instructor_draft|
         document = create(:authorization_request_instructor_draft_document, authorization_request_instructor_draft:)
         document.files.attach(
-          io: File.open(Rails.root.join('spec', 'fixtures', 'dummy.pdf')),
+          io: Rails.root.join('spec/fixtures/dummy.pdf').open,
           filename: 'dummy.pdf',
           content_type: 'application/pdf'
         )
       end
+    end
+
+    trait :complete do
+      with_data
+      with_applicant
+    end
+
+    trait :claimed do
+      complete
+      claimed { true }
     end
   end
 end
