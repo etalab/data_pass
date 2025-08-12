@@ -18,6 +18,7 @@ RSpec.describe AuthenticateUserThroughProConnect do
       org_user = authenticate_user.user.organizations_users.first
       expected_idp_id = pro_connect_omniauth_payload.dig('extra', 'raw_info', 'idp_id')
       expect(org_user.identity_provider_uid).to eq(expected_idp_id)
+      expect(org_user.identity_federator).to eq('pro_connect')
     end
 
     it 'creates a current organization relationship' do
