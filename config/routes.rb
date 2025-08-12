@@ -127,8 +127,10 @@ Rails.application.routes.draw do
     resource :impersonate, only: %i[new create destroy], controller: 'impersonate'
   end
 
-  use_doorkeeper scope: '/api/oauth' do
-    skip_controllers :applications, :authorized_applications
+  %w[/api/oauth /api/v1/oauth].each do |path|
+    use_doorkeeper scope: path do
+      skip_controllers :applications, :authorized_applications
+    end
   end
 
   get '/api-docs/v1.yaml', to: ->(_env) { [200, { 'Content-Type' => 'application/yaml', 'Content-Disposition' => 'inline;filename="datapass-v1.yaml"' }, [File.read(Rails.root.join('config/openapi/v1.yaml'))]] }, as: :open_api_v1
