@@ -5,6 +5,8 @@ RSpec.configure do |config|
 
   config.add_setting :committee_options
   config.committee_options = {
-    schema_path: Rails.root.join('config/openapi/v1.yaml').to_s
+    schema_path: Rails.root.join('config/openapi/v1.yaml').to_s,
+    strict_reference_validation: true,
+    prefix: '/api/v1'
   }
 end

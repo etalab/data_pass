@@ -23,7 +23,7 @@ RSpec.describe 'API: Authorization requests' do
         expect(response).to have_http_status(:ok)
         expect(response.parsed_body).to be_empty
         assert_request_schema_confirm
-        assert_schema_conform
+        assert_schema_conform(200)
       end
     end
 
@@ -39,7 +39,7 @@ RSpec.describe 'API: Authorization requests' do
         expect(response.parsed_body.count).to eq(2)
         expect(response.parsed_body[0]['id']).to eq(valid_draft_authorization_request.id)
         assert_request_schema_confirm
-        assert_schema_conform
+        assert_schema_conform(200)
       end
 
       it 'returns only requests with the given state' do
@@ -49,7 +49,7 @@ RSpec.describe 'API: Authorization requests' do
         expect(response.parsed_body.count).to eq(1)
         expect(response.parsed_body[0]['id']).to eq(valid_revoked_authorization_request.id)
         assert_request_schema_confirm
-        assert_schema_conform
+        assert_schema_conform(200)
       end
 
       context 'when authorization request has authorizations' do
@@ -62,7 +62,7 @@ RSpec.describe 'API: Authorization requests' do
           expect(response.parsed_body[0]['habilitations']).to be_present
           expect(response.parsed_body[0]['habilitations'].first['id']).to eq(authorization.id)
           assert_request_schema_confirm
-          assert_schema_conform
+          assert_schema_conform(200)
         end
 
         it 'includes correct habilitation attributes' do
@@ -126,7 +126,7 @@ RSpec.describe 'API: Authorization requests' do
         expect(response).to have_http_status(:ok)
         expect(response.parsed_body['id']).to eq(authorization_request.id)
         assert_request_schema_confirm
-        assert_schema_conform
+        assert_schema_conform(200)
       end
 
       context 'when authorization request has authorizations' do
@@ -140,7 +140,7 @@ RSpec.describe 'API: Authorization requests' do
           expect(response.parsed_body['habilitations'].first['id']).to eq(authorization.id)
           expect(response.parsed_body['habilitations'].first['authorization_request_class']).to eq(authorization.authorization_request_class)
           assert_request_schema_confirm
-          assert_schema_conform
+          assert_schema_conform(200)
         end
       end
 
@@ -188,7 +188,7 @@ RSpec.describe 'API: Authorization requests' do
 
         expect(response).to have_http_status(:not_found)
         assert_request_schema_confirm
-        assert_schema_conform
+        assert_schema_conform(404)
       end
     end
   end

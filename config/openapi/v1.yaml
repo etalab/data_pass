@@ -384,7 +384,7 @@ components:
           description: Détermine si la donnée est dépréciée. Cela permet d'afficher les données dépréciées des demandes et habilitations passées.
         deprecated_date:
           type: string
-          format: date-time
+          format: date
           description: Date de dépréciation de la donnée. Présent si `deprecated` est `true`.
           nullable: true
           example: "2025-05-20"
@@ -510,6 +510,7 @@ components:
           description: Description du formulaire
         use_case:
           type: string
+          nullable: true
           example: null
           description: Cas d'utilisation du formulaire
         authorization_request_class:
@@ -661,13 +662,16 @@ paths:
             minimum: 0
         - name: state
           in: query
-          description: "Filtrer les demandes par statut (ex: draft, submitted, validated, refused, archived, revoked). Peut être un tableau (ex: state[]=draft&state[]=submitted)"
+          description: "Filtrer les demandes par statut (ex: draft, submitted, validated, refused, archived, revoked). Peut être un tableau (ex: state[]=draft&state[]=submitted) ou une valeur unique"
           required: false
           schema:
-            type: array
-            items:
-              type: string
-              enum: [draft, submitted, changes_requested, validated, refused, archived, revoked]
+            oneOf:
+              - type: string
+                enum: [draft, submitted, changes_requested, validated, refused, archived, revoked]
+              - type: array
+                items:
+                  type: string
+                  enum: [draft, submitted, changes_requested, validated, refused, archived, revoked]
       responses:
         200:
           description: Liste des demandes récupérée avec succès
@@ -765,13 +769,16 @@ paths:
             minimum: 0
         - name: state
           in: query
-          description: "Filtrer les habilitations par statut (ex: active, obsolete, revoked). Peut être un tableau (ex: state[]=active&state[]=obsolete)"
+          description: "Filtrer les habilitations par statut (ex: active, obsolete, revoked). Peut être un tableau (ex: state[]=active&state[]=obsolete) ou une valeur unique"
           required: false
           schema:
-            type: array
-            items:
-              type: string
-              enum: [active, obsolete, revoked]
+            oneOf:
+              - type: string
+                enum: [active, obsolete, revoked]
+              - type: array
+                items:
+                  type: string
+                  enum: [active, obsolete, revoked]
       responses:
         200:
           description: Liste des habilitations récupérée avec succès

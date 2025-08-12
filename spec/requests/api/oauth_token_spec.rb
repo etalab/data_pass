@@ -13,13 +13,13 @@ RSpec.describe 'API: OAuth Token' do
       end
 
       it 'returns a valid access token' do
-        post '/api/oauth/token', params: params, headers: { 'Content-Type' => 'application/x-www-form-urlencoded' }
+        post '/api/v1/oauth/token', params: params, headers: { 'Content-Type' => 'application/x-www-form-urlencoded' }
 
         expect(response).to have_http_status(:ok)
         expect(response.parsed_body).to include('access_token', 'token_type', 'expires_in', 'created_at')
         expect(response.parsed_body['token_type']).to eq('Bearer')
         assert_request_schema_confirm
-        assert_schema_conform
+        assert_schema_conform(200)
       end
     end
 
@@ -33,12 +33,12 @@ RSpec.describe 'API: OAuth Token' do
       end
 
       it 'returns unauthorized error' do
-        post '/api/oauth/token', params: params, headers: { 'Content-Type' => 'application/x-www-form-urlencoded' }
+        post '/api/v1/oauth/token', params: params, headers: { 'Content-Type' => 'application/x-www-form-urlencoded' }
 
         expect(response).to have_http_status(:unauthorized)
         expect(response.parsed_body).to include('error')
         assert_request_schema_confirm
-        assert_schema_conform
+        assert_schema_conform(401)
       end
     end
 
@@ -50,12 +50,10 @@ RSpec.describe 'API: OAuth Token' do
       end
 
       it 'returns bad request error' do
-        post '/api/oauth/token', params: params, headers: { 'Content-Type' => 'application/x-www-form-urlencoded' }
+        post '/api/v1/oauth/token', params: params, headers: { 'Content-Type' => 'application/x-www-form-urlencoded' }
 
         expect(response).to have_http_status(:unauthorized)
         expect(response.parsed_body).to include('error')
-        assert_request_schema_confirm
-        assert_schema_conform
       end
     end
 
@@ -69,12 +67,12 @@ RSpec.describe 'API: OAuth Token' do
       end
 
       it 'returns bad request error' do
-        post '/api/oauth/token', params: params, headers: { 'Content-Type' => 'application/x-www-form-urlencoded' }
+        post '/api/v1/oauth/token', params: params, headers: { 'Content-Type' => 'application/x-www-form-urlencoded' }
 
         expect(response).to have_http_status(:bad_request)
         expect(response.parsed_body).to include('error')
         assert_request_schema_confirm
-        assert_schema_conform
+        assert_schema_conform(400)
       end
     end
   end

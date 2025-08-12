@@ -17,7 +17,7 @@ RSpec.describe 'API: Authorization Request Events' do
 
         expect(response).to have_http_status(:not_found)
         assert_request_schema_confirm
-        assert_schema_conform
+        assert_schema_conform(404)
       end
     end
 
@@ -32,7 +32,7 @@ RSpec.describe 'API: Authorization Request Events' do
           expect(response.parsed_body.count).to eq(1)
           expect(response.parsed_body[0]['id']).to eq(event.id)
           assert_request_schema_confirm
-          assert_schema_conform
+          assert_schema_conform(200)
         end
       end
 
@@ -43,7 +43,7 @@ RSpec.describe 'API: Authorization Request Events' do
           expect(response).to have_http_status(:ok)
           expect(response.parsed_body).to be_empty
           assert_request_schema_confirm
-          assert_schema_conform
+          assert_schema_conform(200)
         end
       end
     end
