@@ -23,11 +23,11 @@ info:
   version: 0.1.0
 servers:
   - description: Production
-    url: https://datapass.api.gouv.fr/api/v1
+    url: https://datapass.api.gouv.fr
   - description: Staging
-    url: https://staging.datapass.api.gouv.fr/api/v1
+    url: https://staging.datapass.api.gouv.fr
   - description: Sandbox
-    url: https://sandbox.datapass.api.gouv.fr/api/v1
+    url: https://sandbox.datapass.api.gouv.fr
 
 tags:
   - name: Authentification
@@ -563,7 +563,7 @@ components:
             $ref: "#/components/schemas/ErrorResponse"
 
 paths:
-  /oauth/token:
+  /api/oauth/token:
     post:
       summary: Obtenir un jeton OAuth2
       description: |
@@ -634,7 +634,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
 
-  /demandes:
+  /api/v1/demandes:
     get:
       summary: Liste des demandes d'habilitations
       description: Récupère la liste des demandes d'habilitations associées aux droits développeur de l'utilisateur. La réponse inclut les habilitations, l'organisation et les événements associés à chaque demande.
@@ -683,7 +683,7 @@ paths:
           $ref: "#/components/responses/ForbiddenError"
         404:
           $ref: "#/components/responses/NotFoundError"
-  /demandes/{id}:
+  /api/v1/demandes/{id}:
     get:
       summary: Récupérer une demande d'habilitation
       description: Récupère les détails d'une demande d'habilitation spécifique. La réponse inclut les habilitations, l'organisation et les événements associés à la demande.
@@ -708,7 +708,7 @@ paths:
         404:
           $ref: "#/components/responses/NotFoundError"
 
-  /demandes/{id}/events:
+  /api/v1/demandes/{id}/events:
     get:
       summary: Récupérer les événements associés à une demande d'habilitation
       description: Récupère la liste des événements associés à une demande d'habilitation spécifique.
@@ -738,7 +738,7 @@ paths:
         404:
           $ref: '#/components/responses/NotFoundError'
 
-  /habilitations:
+  /api/v1/habilitations:
     get:
       summary: Liste des habilitations
       description: Récupère la liste des habilitations auxquelles l'utilisateur a accès.
@@ -787,7 +787,7 @@ paths:
         403:
           $ref: "#/components/responses/ForbiddenError"
 
-  /habilitations/{id}:
+  /api/v1/habilitations/{id}:
     get:
       summary: Récupérer une habilitation
       description: Récupère les détails d'une habilitation spécifique.
@@ -816,7 +816,7 @@ paths:
         404:
           $ref: "#/components/responses/NotFoundError"
 
-  /me:
+  /api/v1/me:
     get:
       summary: Récupérer les informations de l'utilisateur courant
       description: Récupère les informations de l'utilisateur associé au token d'authentification.
@@ -834,7 +834,7 @@ paths:
         401:
           $ref: "#/components/responses/UnauthorizedError"
 
-  /definitions:
+  /api/v1/definitions:
     get:
       summary: Liste des définitions d'habilitations
       description: |
@@ -912,7 +912,7 @@ paths:
         403:
           $ref: "#/components/responses/ForbiddenError"
 
-  /definitions/{id}:
+  /api/v1/definitions/{id}:
     get:
       tags:
         - Définitions d'habilitations
@@ -1008,7 +1008,7 @@ paths:
                     type: string
                     example: "Not Found"
 
-  /definitions/{id}/formulaires:
+  /api/v1/definitions/{id}/formulaires:
     get:
       tags:
         - Définitions d'habilitations
