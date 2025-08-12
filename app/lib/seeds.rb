@@ -23,15 +23,21 @@ class Seeds
 
   # rubocop:disable Metrics/AbcSize
   def create_entities
-    demandeur.add_to_organization(clamart_organization, current: true, verified: true)
-    another_demandeur.add_to_organization(clamart_organization, current: true, verified: true)
+    verified_params = {
+      verified: true,
+      identity_federator: 'pro_connect',
+      identity_provider_uid: IdentityProvider::PRO_CONNECT_IDENTITY_PROVIDER_UID,
+    }
+
+    demandeur.add_to_organization(clamart_organization, current: true, **verified_params)
+    another_demandeur.add_to_organization(clamart_organization, current: true, **verified_params)
     another_demandeur.add_to_organization(dinum_organization, current: true, verified: false)
 
-    api_entreprise_instructor.add_to_organization(dinum_organization, current: true, verified: true)
-    api_entreprise_reporter.add_to_organization(dinum_organization, current: true, verified: true)
+    api_entreprise_instructor.add_to_organization(dinum_organization, current: true, **verified_params)
+    api_entreprise_reporter.add_to_organization(dinum_organization, current: true, **verified_params)
     foreign_demandeur.add_to_organization(dinum_organization, current: true, verified: false)
-    data_pass_admin.add_to_organization(dinum_organization, current: true)
-    dgfip_instructor_developer.add_to_organization(dinum_organization, current: true)
+    data_pass_admin.add_to_organization(dinum_organization, current: true, **verified_params)
+    dgfip_instructor_developer.add_to_organization(dinum_organization, current: true, **verified_params)
   end
   # rubocop:enable Metrics/AbcSize
 
