@@ -19,6 +19,8 @@ class AuthorizationRequestInstructorDraft < ApplicationRecord
 
   validate :instructor_for_authorization_request
 
+  scope :claimed, -> { where(claimed: true) }
+
   def project_name
     data['intitule'] || "Projet ##{id}"
   end
