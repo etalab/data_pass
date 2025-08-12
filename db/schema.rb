@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_30_172514) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_12_154952) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_catalog.plpgsql"
@@ -389,7 +389,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_30_172514) do
   create_table "organizations_users", id: false, force: :cascade do |t|
     t.bigint "organization_id"
     t.bigint "user_id"
-    t.string "identity_provider_uid", default: "71144ab3-ee1a-4401-b7b3-79b44f7daeeb", null: false
+    t.string "identity_provider_uid", default: "71144ab3-ee1a-4401-b7b3-79b44f7daeeb"
     t.datetime "created_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
     t.datetime "updated_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
     t.boolean "current", default: false, null: false
@@ -401,6 +401,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_30_172514) do
     t.index ["organization_id"], name: "index_organizations_users_on_organization_id"
     t.index ["user_id", "current"], name: "index_organizations_users_on_user_id_and_current", where: "(current = true)"
     t.index ["user_id"], name: "index_organizations_users_on_user_id"
+    t.check_constraint "identity_federator::text = 'unknown'::text AND identity_provider_uid IS NULL OR identity_federator::text <> 'unknown'::text AND identity_provider_uid IS NOT NULL", name: "organizations_users_identity_provider_uid_null"
   end
 
   create_table "revocation_of_authorizations", force: :cascade do |t|
