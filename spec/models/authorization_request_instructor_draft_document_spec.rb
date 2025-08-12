@@ -5,4 +5,3 @@ RSpec.describe AuthorizationRequestInstructorDraftDocument do
     expect(build(:authorization_request_instructor_draft_document)).to be_valid
   end
 end
-

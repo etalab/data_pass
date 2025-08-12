@@ -49,6 +49,32 @@ RSpec.describe CreateAuthorizationRequestInstructorDraft, type: :organizer do
     end
   end
 
+  context 'with params including files' do
+    let(:authorization_request_params) do
+      ActionController::Parameters.new(
+        intitule: 'My draft',
+        maquette_projet: [
+          fixture_file_upload('spec/fixtures/dummy.pdf', 'application/pdf'),
+        ]
+      )
+    end
+
+    it { is_expected.to be_success }
+
+    it 'creates an authorization request instructor draft with files' do
+      expect {
+        organizer
+      }.to change(AuthorizationRequestInstructorDraft, :count).by(1)
+
+      authorization_request_instructor_draft = organizer.authorization_request_instructor_draft
+
+      document = authorization_request_instructor_draft.documents.first
+
+      expect(document.files.count).to eq(1)
+      expect(document.files.first.filename.to_s).to eq('dummy.pdf')
+    end
+  end
+
   context 'with no authorization request param' do
     let(:authorization_request_params) do
       ActionController::Parameters.new
