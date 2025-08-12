@@ -9,6 +9,8 @@ RSpec.describe 'API: Credentials' do
           status: '401'
         )
       )
+      assert_request_schema_confirm
+      assert_schema_conform
     end
   end
 
@@ -22,6 +24,8 @@ RSpec.describe 'API: Credentials' do
 
       expect(response).to have_http_status(:ok)
       expect(response.parsed_body).to eq(user.attributes.slice('id', 'email', 'family_name', 'given_name', 'job_title'))
+      assert_request_schema_confirm
+      assert_schema_conform
     end
   end
 end

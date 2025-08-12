@@ -20,6 +20,8 @@ RSpec.describe 'API: Authorization definitions' do
         'authorization_request_class',
         'scopes'
       )
+      assert_request_schema_confirm
+      assert_schema_conform
     end
 
     it 'returns correct authorization_request_class' do
@@ -174,6 +176,8 @@ RSpec.describe 'API: Authorization definitions' do
         get '/api/v1/definitions'
 
         expect(response).to have_http_status(:unauthorized)
+        assert_request_schema_confirm
+        assert_schema_conform
       end
     end
 
@@ -185,6 +189,8 @@ RSpec.describe 'API: Authorization definitions' do
 
         expect(response).to have_http_status(:ok)
         expect(response.parsed_body).to be_empty
+        assert_request_schema_confirm
+        assert_schema_conform
       end
     end
 
@@ -198,6 +204,8 @@ RSpec.describe 'API: Authorization definitions' do
         expect(response.parsed_body.count).to eq(1)
         expect(response.parsed_body[0]['id']).to eq('api_entreprise')
         expect(response.parsed_body[0]['name']).to eq('API Entreprise')
+        assert_request_schema_confirm
+        assert_schema_conform
       end
 
       it_behaves_like 'validates definition attributes', {
@@ -322,6 +330,8 @@ RSpec.describe 'API: Authorization definitions' do
         get "/api/v1/definitions/#{definition_id}"
 
         expect(response).to have_http_status(:unauthorized)
+        assert_request_schema_confirm
+        assert_schema_conform
       end
     end
 
@@ -332,6 +342,8 @@ RSpec.describe 'API: Authorization definitions' do
         get_show
 
         expect(response).to have_http_status(:not_found)
+        assert_request_schema_confirm
+        assert_schema_conform
       end
     end
 
@@ -347,6 +359,8 @@ RSpec.describe 'API: Authorization definitions' do
           expect(response).to have_http_status(:ok)
           expect(response.parsed_body['id']).to eq('api_entreprise')
           expect(response.parsed_body['name']).to eq('API Entreprise')
+          assert_request_schema_confirm
+          assert_schema_conform
         end
 
         it_behaves_like 'validates definition attributes', {

@@ -21,6 +21,8 @@ RSpec.describe 'API: Authorizations' do
         expect(response.parsed_body['request_id']).to eq(authorization.request_id)
         expect(response.parsed_body['organisation']).to be_present
         expect(response.parsed_body['organisation']['siret']).to eq(authorization.organization.siret)
+        assert_request_schema_confirm
+        assert_schema_conform
       end
     end
 
@@ -33,6 +35,8 @@ RSpec.describe 'API: Authorizations' do
         get_show
 
         expect(response).to have_http_status(:not_found)
+        assert_request_schema_confirm
+        assert_schema_conform
       end
     end
   end
@@ -54,6 +58,8 @@ RSpec.describe 'API: Authorizations' do
         expect(response.parsed_body.first['request_id']).to be_present
         expect(response.parsed_body.first['organisation']).to be_present
         expect(response.parsed_body.first['organisation']['siret']).to be_present
+        assert_request_schema_confirm
+        assert_schema_conform
       end
     end
 
@@ -65,6 +71,8 @@ RSpec.describe 'API: Authorizations' do
 
         expect(response).to have_http_status(:ok)
         expect(response.parsed_body.count).to eq(3)
+        assert_request_schema_confirm
+        assert_schema_conform
       end
 
       it 'respects the offset parameter' do
@@ -72,6 +80,8 @@ RSpec.describe 'API: Authorizations' do
 
         expect(response).to have_http_status(:ok)
         expect(response.parsed_body.count).to eq(4) # 5 total - 1 offset = 4 remaining
+        assert_request_schema_confirm
+        assert_schema_conform
       end
     end
 
@@ -85,6 +95,8 @@ RSpec.describe 'API: Authorizations' do
         expect(response).to have_http_status(:ok)
         expect(response.parsed_body.count).to eq(2)
         expect(response.parsed_body.pluck('state')).to all(eq('active'))
+        assert_request_schema_confirm
+        assert_schema_conform
       end
 
       it 'filters by multiple states' do
@@ -93,6 +105,8 @@ RSpec.describe 'API: Authorizations' do
         expect(response).to have_http_status(:ok)
         expect(response.parsed_body.count).to eq(5)
         expect(response.parsed_body.pluck('state')).to match_array(%w[active active revoked revoked revoked])
+        assert_request_schema_confirm
+        assert_schema_conform
       end
     end
 
@@ -104,6 +118,8 @@ RSpec.describe 'API: Authorizations' do
 
         expect(response).to have_http_status(:ok)
         expect(response.parsed_body).to be_empty
+        assert_request_schema_confirm
+        assert_schema_conform
       end
     end
   end
