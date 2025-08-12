@@ -28,5 +28,16 @@ FactoryBot.define do
         authorization_request_instructor_draft.organization ||= authorization_request_instructor_draft.applicant.current_organization
       end
     end
+
+    trait :with_documents do
+      after(:create) do |authorization_request_instructor_draft|
+        document = create(:authorization_request_instructor_draft_document, authorization_request_instructor_draft:)
+        document.files.attach(
+          io: File.open(Rails.root.join('spec', 'fixtures', 'dummy.pdf')),
+          filename: 'dummy.pdf',
+          content_type: 'application/pdf'
+        )
+      end
+    end
   end
 end

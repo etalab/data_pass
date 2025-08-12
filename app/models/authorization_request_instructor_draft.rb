@@ -9,6 +9,11 @@ class AuthorizationRequestInstructorDraft < ApplicationRecord
   belongs_to :organization,
     optional: true
 
+  has_many :documents,
+    class_name: 'AuthorizationRequestInstructorDraftDocument',
+    inverse_of: :authorization_request_instructor_draft,
+    dependent: :destroy
+
   validates :data,
     presence: true
 
