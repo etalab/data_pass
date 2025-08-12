@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_12_154952) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_12_162113) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_catalog.plpgsql"
@@ -108,6 +108,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_12_154952) do
     t.text "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "claimed", default: false, null: false
     t.index ["instructor_id"], name: "index_authorization_request_instructor_drafts_on_instructor_id"
   end
 
