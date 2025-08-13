@@ -12,14 +12,14 @@ class API::V1::AuthorizationRequestsController < API::V1Controller
 
     render json: authorization_requests,
       each_serializer: API::V1::AuthorizationRequestSerializer,
-      include: %w[habilitations organisation events],
+      include: %w[habilitations organisation applicant events],
       status: :ok
   end
 
   def show
     render json: @authorization_request,
       serializer: API::V1::AuthorizationRequestSerializer,
-      include: %w[habilitations organisation events],
+      include: %w[habilitations organisation applicant events],
       status: :ok
   end
 
