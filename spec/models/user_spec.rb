@@ -290,7 +290,7 @@ RSpec.describe User do
         expect(result.identity_provider_uid).to be_nil
         expect(result.identity_federator).to eq('unknown')
         expect(result.verified).to be false
-        expect(result.identity_provider).to be_nil
+        expect(result.identity_provider).to be_unknown
       end
     end
   end
