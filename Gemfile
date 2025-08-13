@@ -81,12 +81,12 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'committee-rails'
   gem 'cucumber'
   gem 'cucumber-rails', require: false
   gem 'cuprite', '< 0.17'
   gem 'database_cleaner-active_record'
   gem 'generator_spec'
+  gem 'openapi_first'
   gem 'rack_session_access'
   gem 'rails-controller-testing'
   gem 'roo'

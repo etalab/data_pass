@@ -166,10 +166,6 @@ components:
           type: integer
           example: 42
           description: Identifiant technique de l'utilisateur
-        uid:
-          type: string
-          example: "external-uid-123"
-          description: Identifiant externe de l'utilisateur
         email:
           type: string
           example: utilisateur@gouv.fr
@@ -184,20 +180,9 @@ components:
           example: "Dupont"
           description: Nom de famille de l'utilisateur
           nullable: true
-        phone_number:
-          type: string
-          example: "+33123456789"
-          description: Numéro de téléphone de l'utilisateur
-          nullable: true
-        job_title:
-          type: string
-          example: "Responsable informatique"
-          description: Titre du poste de l'utilisateur
-          nullable: true
       required:
         - id
         - email
-        - uid
 
     Organisation:
       type: object

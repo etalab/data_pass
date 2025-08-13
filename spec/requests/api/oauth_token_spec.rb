@@ -18,8 +18,8 @@ RSpec.describe 'API: OAuth Token' do
         expect(response).to have_http_status(:ok)
         expect(response.parsed_body).to include('access_token', 'token_type', 'expires_in', 'created_at')
         expect(response.parsed_body['token_type']).to eq('Bearer')
-        assert_request_schema_confirm
-        assert_schema_conform(200)
+
+        validate_request_and_response!
       end
     end
 
@@ -37,8 +37,8 @@ RSpec.describe 'API: OAuth Token' do
 
         expect(response).to have_http_status(:unauthorized)
         expect(response.parsed_body).to include('error')
-        assert_request_schema_confirm
-        assert_schema_conform(401)
+
+        validate_request_and_response!
       end
     end
 
@@ -71,8 +71,8 @@ RSpec.describe 'API: OAuth Token' do
 
         expect(response).to have_http_status(:bad_request)
         expect(response.parsed_body).to include('error')
-        assert_request_schema_confirm
-        assert_schema_conform(400)
+
+        validate_request_and_response!
       end
     end
   end

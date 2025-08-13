@@ -4,25 +4,13 @@ RSpec.describe 'API: Authorization definitions' do
   let(:access_token) { create(:access_token, application:) }
 
   shared_examples 'validates definition attributes' do |expected_definition|
+    # rubocop:disable RSpec/NoExpectationExample
     it 'includes all expected attributes in the response' do
       subject
 
-      definition = if response.parsed_body.is_a?(Array)
-                     response.parsed_body.find { |d| d['id'] == expected_definition[:id] }
-                   else
-                     response.parsed_body
-                   end
-
-      expect(definition).to include(
-        'id',
-        'name',
-        'multi_stage?',
-        'authorization_request_class',
-        'scopes'
-      )
-      assert_request_schema_confirm
-      assert_schema_conform(200)
+      validate_request_and_response!
     end
+    # rubocop:enable RSpec/NoExpectationExample
 
     it 'returns correct authorization_request_class' do
       subject
@@ -179,8 +167,8 @@ RSpec.describe 'API: Authorization definitions' do
 
         expect(response).to have_http_status(:ok)
         expect(response.parsed_body).to be_empty
-        assert_request_schema_confirm
-        assert_schema_conform(200)
+
+        validate_request_and_response!
       end
     end
 
@@ -194,8 +182,8 @@ RSpec.describe 'API: Authorization definitions' do
         expect(response.parsed_body.count).to eq(1)
         expect(response.parsed_body[0]['id']).to eq('api_entreprise')
         expect(response.parsed_body[0]['name']).to eq('API Entreprise')
-        assert_request_schema_confirm
-        assert_schema_conform(200)
+
+        validate_request_and_response!
       end
 
       it_behaves_like 'validates definition attributes', {
@@ -292,6 +280,8 @@ RSpec.describe 'API: Authorization definitions' do
 
         expect(response).to have_http_status(:ok)
         expect(response.parsed_body).to be_empty
+
+        validate_request_and_response!
       end
     end
 
@@ -304,6 +294,8 @@ RSpec.describe 'API: Authorization definitions' do
         expect(response).to have_http_status(:ok)
         expect(response.parsed_body.count).to eq(1)
         expect(response.parsed_body[0]['id']).to eq('api_entreprise')
+
+        validate_request_and_response!
       end
     end
   end
@@ -320,8 +312,8 @@ RSpec.describe 'API: Authorization definitions' do
         get "/api/v1/definitions/#{definition_id}"
 
         expect(response).to have_http_status(:unauthorized)
-        assert_request_schema_confirm
-        assert_schema_conform(401)
+
+        validate_request_and_response!
       end
     end
 
@@ -332,8 +324,8 @@ RSpec.describe 'API: Authorization definitions' do
         get_show
 
         expect(response).to have_http_status(:not_found)
-        assert_request_schema_confirm
-        assert_schema_conform(404)
+
+        validate_request_and_response!
       end
     end
 
@@ -349,8 +341,8 @@ RSpec.describe 'API: Authorization definitions' do
           expect(response).to have_http_status(:ok)
           expect(response.parsed_body['id']).to eq('api_entreprise')
           expect(response.parsed_body['name']).to eq('API Entreprise')
-          assert_request_schema_confirm
-          assert_schema_conform(200)
+
+          validate_request_and_response!
         end
 
         it_behaves_like 'validates definition attributes', {

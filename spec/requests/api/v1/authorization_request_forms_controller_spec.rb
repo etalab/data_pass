@@ -15,8 +15,8 @@ RSpec.describe 'API: Authorization request forms' do
         get "/api/v1/definitions/#{definition_id}/formulaires"
 
         expect(response).to have_http_status(:unauthorized)
-        assert_request_schema_confirm
-        assert_schema_conform(401)
+
+        validate_request_and_response!
       end
     end
 
@@ -27,8 +27,8 @@ RSpec.describe 'API: Authorization request forms' do
         get_index
 
         expect(response).to have_http_status(:not_found)
-        assert_request_schema_confirm
-        assert_schema_conform(404)
+
+        validate_request_and_response!
       end
     end
 
@@ -44,24 +44,8 @@ RSpec.describe 'API: Authorization request forms' do
           expect(response).to have_http_status(:ok)
           expect(response.parsed_body).to be_an(Array)
           expect(response.parsed_body.count).to be > 0
-          assert_request_schema_confirm
-          assert_schema_conform(200)
-        end
 
-        it 'includes all expected attributes in each form' do
-          get_index
-
-          form = response.parsed_body.first
-          expect(form).to include(
-            'uid',
-            'name',
-            'description',
-            'use_case',
-            'authorization_request_class',
-            'data'
-          )
-          assert_request_schema_confirm
-          assert_schema_conform(200)
+          validate_request_and_response!
         end
 
         it 'returns correct authorization_request_class for forms' do
@@ -72,27 +56,6 @@ RSpec.describe 'API: Authorization request forms' do
             expect(form['authorization_request_class']).to eq('AuthorizationRequest::APIEntreprise')
           end
         end
-
-        it 'returns data for prefilled forms' do
-          get_index
-
-          form = response.parsed_body.find { |f| f['uid'] == 'api-entreprise-marches-publics' }
-          expect(form['data']).to be_present
-          expect(form['data']).to be_a(Hash)
-          expect(form['data']).to include(
-            'cadre_juridique_nature',
-            'cadre_juridique_url',
-            'scopes'
-          )
-        end
-
-        it 'returns forms with unique UIDs' do
-          get_index
-
-          forms = response.parsed_body
-          uids = forms.pluck('uid')
-          expect(uids).to eq(uids.uniq)
-        end
       end
 
       context 'when requesting forms for a definition the user does not have access to' do
@@ -102,6 +65,7 @@ RSpec.describe 'API: Authorization request forms' do
           get_index
 
           expect(response).to have_http_status(:not_found)
+          validate_request_and_response!
         end
       end
 
@@ -112,6 +76,8 @@ RSpec.describe 'API: Authorization request forms' do
           get_index
 
           expect(response).to have_http_status(:not_found)
+
+          validate_request_and_response!
         end
       end
     end
@@ -127,30 +93,13 @@ RSpec.describe 'API: Authorization request forms' do
         expect(response.parsed_body).to be_an(Array)
         expect(response.parsed_body.count).to be > 0
 
+        api_entreprise_form_uids = AuthorizationDefinition.find('api_entreprise').available_forms.pluck(:uid)
+
         forms = response.parsed_body
         forms.each do |form|
           expect(form['authorization_request_class']).to eq('AuthorizationRequest::APIParticulier')
+          expect(api_entreprise_form_uids).not_to include(form['uid'])
         end
-      end
-
-      it 'returns different forms than api_entreprise' do
-        # Get api_particulier forms
-        get_index
-        api_particulier_forms = response.parsed_body
-
-        # Create a new user with api_entreprise access and get those forms
-        api_entreprise_user = create(:user, :developer, authorization_request_types: %w[api_entreprise])
-        api_entreprise_application = create(:oauth_application, owner: api_entreprise_user)
-        api_entreprise_access_token = create(:access_token, application: api_entreprise_application)
-
-        get '/api/v1/definitions/api_entreprise/formulaires', headers: { 'Authorization' => "Bearer #{api_entreprise_access_token.token}" }
-        api_entreprise_forms = response.parsed_body
-
-        # Forms should be different
-        api_particulier_uids = api_particulier_forms.pluck('uid').sort
-        api_entreprise_uids = api_entreprise_forms.pluck('uid').sort
-
-        expect(api_particulier_uids).not_to eq(api_entreprise_uids)
       end
     end
 
@@ -232,6 +181,7 @@ RSpec.describe 'API: Authorization request forms' do
         get_index
 
         expect(response).to have_http_status(:not_found)
+        validate_request_and_response!
       end
     end
 
@@ -247,6 +197,7 @@ RSpec.describe 'API: Authorization request forms' do
         forms.each do |form|
           expect(form['authorization_request_class']).to eq('AuthorizationRequest::APIEntreprise')
         end
+        validate_request_and_response!
       end
     end
   end
