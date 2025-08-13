@@ -15,6 +15,8 @@ RSpec.describe 'API: Authorization request forms' do
         get "/api/v1/definitions/#{definition_id}/formulaires"
 
         expect(response).to have_http_status(:unauthorized)
+        assert_request_schema_confirm
+        assert_schema_conform(401)
       end
     end
 
@@ -25,6 +27,8 @@ RSpec.describe 'API: Authorization request forms' do
         get_index
 
         expect(response).to have_http_status(:not_found)
+        assert_request_schema_confirm
+        assert_schema_conform(404)
       end
     end
 
@@ -40,6 +44,8 @@ RSpec.describe 'API: Authorization request forms' do
           expect(response).to have_http_status(:ok)
           expect(response.parsed_body).to be_an(Array)
           expect(response.parsed_body.count).to be > 0
+          assert_request_schema_confirm
+          assert_schema_conform(200)
         end
 
         it 'includes all expected attributes in each form' do
@@ -54,6 +60,8 @@ RSpec.describe 'API: Authorization request forms' do
             'authorization_request_class',
             'data'
           )
+          assert_request_schema_confirm
+          assert_schema_conform(200)
         end
 
         it 'returns correct authorization_request_class for forms' do

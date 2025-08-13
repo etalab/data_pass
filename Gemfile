@@ -81,6 +81,7 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'committee-rails'
   gem 'cucumber'
   gem 'cucumber-rails', require: false
   gem 'cuprite', '< 0.17'
