@@ -2,7 +2,8 @@ class IdentityProvider < StaticApplicationRecord
   PRO_CONNECT_IDENTITY_PROVIDER_UID = '71144ab3-ee1a-4401-b7b3-79b44f7daeeb'.freeze
 
   attr_accessor :id,
-    :name
+    :name,
+    :unknown
 
   attr_writer :choose_organization_on_sign_in,
     :siret_verified,
@@ -21,8 +22,8 @@ class IdentityProvider < StaticApplicationRecord
     unknown(id)
   end
 
-  def self.unknown(id)
-    new(id: id.to_s, name: 'Unknown')
+  def self.unknown(id = nil)
+    new(id: id&.to_s, name: 'Unknown', unknown: true)
   end
 
   def mon_compte_pro_identity_provider?
@@ -43,5 +44,9 @@ class IdentityProvider < StaticApplicationRecord
 
   def linked_to_organizations_verified?
     @linked_to_organizations_verified.nil? ? false : @linked_to_organizations_verified
+  end
+
+  def unknown?
+    @unknown.nil? ? false : @unknown
   end
 end
