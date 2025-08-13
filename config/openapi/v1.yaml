@@ -156,6 +156,7 @@ components:
         - data
         - created_at
         - organisation
+        - applicant
 
     Utilisateur:
       type: object

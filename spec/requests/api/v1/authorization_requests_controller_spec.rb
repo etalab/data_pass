@@ -125,6 +125,9 @@ RSpec.describe 'API: Authorization requests' do
 
         expect(response).to have_http_status(:ok)
         expect(response.parsed_body['id']).to eq(authorization_request.id)
+        expect(response.parsed_body['applicant']).to be_present
+        expect(response.parsed_body['applicant']['email']).to eq(authorization_request.applicant.email)
+
         assert_request_schema_confirm
         assert_schema_conform(200)
       end

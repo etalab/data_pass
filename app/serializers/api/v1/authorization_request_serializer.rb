@@ -14,6 +14,7 @@ class API::V1::AuthorizationRequestSerializer < ActiveModel::Serializer
 
   has_many :authorizations, serializer: API::V1::AuthorizationSerializer, key: :habilitations
   has_one :organization, serializer: API::V1::OrganizationSerializer, key: :organisation
+  has_one :applicant, serializer: API::V1::UserSerializer, key: :applicant
   has_many :events_without_bulk_update, serializer: API::V1::AuthorizationRequestEventSerializer, key: :events
 
   def reopening
