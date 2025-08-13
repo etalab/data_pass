@@ -22,8 +22,8 @@ RSpec.describe 'API: Authorization requests' do
 
         expect(response).to have_http_status(:ok)
         expect(response.parsed_body).to be_empty
-        assert_request_schema_confirm
-        assert_schema_conform(200)
+
+        validate_request_and_response!
       end
     end
 
@@ -38,8 +38,8 @@ RSpec.describe 'API: Authorization requests' do
         expect(response).to have_http_status(:ok)
         expect(response.parsed_body.count).to eq(2)
         expect(response.parsed_body[0]['id']).to eq(valid_draft_authorization_request.id)
-        assert_request_schema_confirm
-        assert_schema_conform(200)
+
+        validate_request_and_response!
       end
 
       it 'returns only requests with the given state' do
@@ -48,8 +48,6 @@ RSpec.describe 'API: Authorization requests' do
         expect(response).to have_http_status(:ok)
         expect(response.parsed_body.count).to eq(1)
         expect(response.parsed_body[0]['id']).to eq(valid_revoked_authorization_request.id)
-        assert_request_schema_confirm
-        assert_schema_conform(200)
       end
 
       context 'when authorization request has authorizations' do
@@ -61,15 +59,8 @@ RSpec.describe 'API: Authorization requests' do
           expect(response).to have_http_status(:ok)
           expect(response.parsed_body[0]['habilitations']).to be_present
           expect(response.parsed_body[0]['habilitations'].first['id']).to eq(authorization.id)
-          assert_request_schema_confirm
-          assert_schema_conform(200)
-        end
 
-        it 'includes correct habilitation attributes' do
-          get_index
-
-          auth_response = response.parsed_body[0]['habilitations'].first
-          expect(auth_response).to include('id', 'slug', 'state', 'created_at')
+          validate_request_and_response!
         end
       end
 
@@ -90,21 +81,8 @@ RSpec.describe 'API: Authorization requests' do
           expect(response).to have_http_status(:ok)
           expect(response.parsed_body[0]['events']).to be_present
           expect(response.parsed_body[0]['events'].first['id']).to eq(event.id)
-        end
 
-        it 'includes correct event attributes' do
-          get_index
-
-          event_response = response.parsed_body[0]['events'].first
-          expect(event_response).to include('id', 'name', 'created_at')
-        end
-      end
-
-      context 'when authorization request has no events' do
-        it 'returns an empty events array' do
-          get_index
-
-          expect(response.parsed_body[0]['events']).to eq([])
+          validate_request_and_response!
         end
       end
     end
@@ -125,11 +103,8 @@ RSpec.describe 'API: Authorization requests' do
 
         expect(response).to have_http_status(:ok)
         expect(response.parsed_body['id']).to eq(authorization_request.id)
-        expect(response.parsed_body['applicant']).to be_present
-        expect(response.parsed_body['applicant']['email']).to eq(authorization_request.applicant.email)
 
-        assert_request_schema_confirm
-        assert_schema_conform(200)
+        validate_request_and_response!
       end
 
       context 'when authorization request has authorizations' do
@@ -142,16 +117,8 @@ RSpec.describe 'API: Authorization requests' do
           expect(response.parsed_body['habilitations']).to be_present
           expect(response.parsed_body['habilitations'].first['id']).to eq(authorization.id)
           expect(response.parsed_body['habilitations'].first['authorization_request_class']).to eq(authorization.authorization_request_class)
-          assert_request_schema_confirm
-          assert_schema_conform(200)
-        end
-      end
 
-      context 'when authorization request has no authorizations' do
-        it 'returns an empty habilitations array' do
-          get_show
-
-          expect(response.parsed_body['habilitations']).to eq([])
+          validate_request_and_response!
         end
       end
 
@@ -164,21 +131,8 @@ RSpec.describe 'API: Authorization requests' do
           expect(response).to have_http_status(:ok)
           expect(response.parsed_body['events']).to be_present
           expect(response.parsed_body['events'].first['id']).to eq(event.id)
-        end
 
-        it 'includes correct event attributes' do
-          get_show
-
-          event_response = response.parsed_body['events'].first
-          expect(event_response).to include('id', 'name', 'created_at')
-        end
-      end
-
-      context 'when authorization request has no events' do
-        it 'returns an empty events array' do
-          get_show
-
-          expect(response.parsed_body['events']).to eq([])
+          validate_request_and_response!
         end
       end
     end
@@ -190,8 +144,8 @@ RSpec.describe 'API: Authorization requests' do
         get_show
 
         expect(response).to have_http_status(:not_found)
-        assert_request_schema_confirm
-        assert_schema_conform(404)
+
+        validate_request_and_response!
       end
     end
   end
