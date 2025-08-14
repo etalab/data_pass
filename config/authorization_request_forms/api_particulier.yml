@@ -375,6 +375,14 @@ api-particulier-civil-enfance-ciril-group:
     - name: scopes
   use_case: tarification_municipale_enfance
   service_provider_id: ciril_group
+  scopes_config:
+    disabled:
+      - cnaf_quotient_familial
+    displayed:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_enfants
+      - cnaf_adresse
   initialize_with:
     intitule:
       Déclaration et calcul du quotient familial pour la facturation des activités
@@ -690,9 +698,9 @@ api-particulier-jcdeveloppement-familyclic:
 
 api-particulier-aiga:
   name: iNoé
-  description: Tarification cantine
+  description: Tarification municipale enfance
   authorization_request: APIParticulier
-  use_case: cantines-colleges-lycees-tarification
+  use_case: tarification_municipale_enfance
   service_provider_id: aiga
   introduction: *api_particulier_introduction_editor_with_fixed_scopes
   steps: *api_particulier_editor_steps_with_fixed_scopes
@@ -704,9 +712,9 @@ api-particulier-aiga:
       - cnaf_quotient_familial
 
   initialize_with:
-    intitule: Tarification sur Quotient Familial des cantines
+    intitule: Tarification sur Quotient Familial des services municipaux liés à l'enfance 
     description: |
-      Gestion de la tarification de la cantine en backoffice par des agents habilités
+      Gestion de la tarification des services scolaires et péri scolaires en backoffice par des agents habilités
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_municipale_enfance
     scopes:
       - cnaf_quotient_familial
@@ -1473,6 +1481,7 @@ api-particulier-keolis:
       - men_statut_scolarite
       - men_statut_etablissement
       - allocation_adulte_handicape
+      - pole_emploi_paiements
 
   initialize_with:
     intitule: Tarification des transports
@@ -1491,6 +1500,7 @@ api-particulier-keolis:
       - revenu_solidarite_active
       - complementaire_sante_solidaire
       - allocation_adulte_handicape
+      - pole_emploi_paiements
     modalities:
       - params
 
