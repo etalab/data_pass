@@ -714,7 +714,7 @@ api-particulier-aiga:
   initialize_with:
     intitule: Tarification sur Quotient Familial des services municipaux liés à l'enfance 
     description: |
-      Gestion de la tarification des services scolaires et pré scolaires en backoffice par des agents habilités
+      Gestion de la tarification des services scolaires et péri scolaires en backoffice par des agents habilités
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_municipale_enfance
     scopes:
       - cnaf_quotient_familial
