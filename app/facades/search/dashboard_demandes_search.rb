@@ -16,7 +16,7 @@ class Search::DashboardDemandesSearch < Search::DashboardSearch
   end
 
   def filter_by_contact
-    authorization_request_mentions_query(base_rel).where.not(applicant: user)
+    authorization_request_mentions_query(base_relation).where.not(applicant: user)
   end
 
   def filter_by_organization

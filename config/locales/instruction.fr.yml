@@ -397,4 +397,18 @@ fr:
           invalid_new_applicant: |
             L'utilisateur doit appartenir à la même organisation (numéro de siret: %{organization_siret}).
 
+  shared:
+    dashboard_tabs:
+      tabs:
+        demandes:
+          title:
+            zero: "Les demandes"
+            one: "Les demandes (1)"
+            other: "Les demandes (%{count})"
+        habilitations:
+          title:
+            zero: "Les habilitations"
+            one: "Les habilitations (1)"  
+            other: "Les habilitations (%{count})"
+
 

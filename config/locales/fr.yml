@@ -677,3 +677,17 @@ fr:
       contact_support: "Contacter le support à l'adresse suivante:"
       email_subject: "Transfert demande n°%{authorization_request_id}"
       close: "Fermer"
+
+  shared:
+    dashboard_tabs:
+      tabs:
+        demandes:
+          title:
+            zero: "Les demandes"
+            one: "Les demandes (1)"
+            other: "Les demandes (%{count})"
+        habilitations:
+          title:
+            zero: "Les habilitations"
+            one: "Les habilitations (1)"  
+            other: "Les habilitations (%{count})"
