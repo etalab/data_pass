@@ -16,38 +16,6 @@ class DashboardFacade
     end
   end
 
-  # Legacy methods for backward compatibility - these will be replaced by categories/highlighted_categories
-  def demandes_data(policy_scope)
-    search_builder = DemandesHabilitationsSearchEngineBuilder.new(user, { search_query: search_query }, subdomain_types: subdomain_types)
-    demandes = search_builder.build_authorization_requests_relation(policy_scope)
-
-    {
-      highlighted_categories: {
-        changes_requested: demandes.changes_requested,
-      },
-      categories: {
-        pending: demandes.in_instructions,
-        draft: demandes.drafts,
-        refused: demandes.refused,
-      },
-      search_engine: search_builder.search_engine
-    }
-  end
-
-  def habilitations_data(policy_scope)
-    search_builder = DemandesHabilitationsSearchEngineBuilder.new(user, { search_query: search_query }, subdomain_types: subdomain_types)
-    habilitations = search_builder.build_authorizations_relation(policy_scope)
-
-    {
-      highlighted_categories: {},
-      categories: {
-        active: habilitations.where(state: :active),
-        revoked: habilitations.where(state: :revoked),
-      },
-      search_engine: search_builder.search_engine
-    }
-  end
-
   # New unified interface methods
   def categories
     return nil unless @search_object
@@ -96,18 +64,5 @@ class DashboardFacade
 
   def dashboard_show_path(id:)
     Rails.application.routes.url_helpers.dashboard_show_path(id: id)
-  end
-
-  # Legacy getters for backward compatibility
-  def user
-    @user
-  end
-
-  def search_query
-    @search_query
-  end
-
-  def subdomain_types
-    @subdomain_types
   end
 end
