@@ -76,4 +76,47 @@ RSpec.describe AuthorizationRequestForm do
       end
     end
   end
+
+  describe '#active_authorization_requests_for' do
+    subject(:active_requests) { form.active_authorization_requests_for(organization) }
+
+    let(:form) { described_class.find('hubee-cert-dc') }
+    let(:organization) { create(:organization) }
+
+    context 'when organization has no authorization requests' do
+      it { is_expected.to be_empty }
+    end
+
+    context 'when organization has authorization requests in different states' do
+      let!(:draft_request) { create(:authorization_request, :hubee_cert_dc, :draft, organization:) }
+      let!(:submitted_request) { create(:authorization_request, :hubee_cert_dc, :submitted, organization:) }
+      let!(:validated_request) { create(:authorization_request, :hubee_cert_dc, :validated, organization:) }
+      let!(:refused_request) { create(:authorization_request, :hubee_cert_dc, :refused, organization:) }
+      let!(:archived_request) { create(:authorization_request, :hubee_cert_dc, :archived, organization:) }
+
+      it 'includes active requests but excludes archived and refused requests' do
+        expect(active_requests).to include(draft_request, submitted_request, validated_request)
+        expect(active_requests).not_to include(archived_request, refused_request)
+      end
+    end
+
+    context 'when organization has validated request with revoked authorization' do
+      let!(:validated_request) { create(:authorization_request, :hubee_cert_dc, :validated, organization:) }
+      let!(:revoked_authorization) { create(:authorization, request: validated_request, state: 'revoked', organization:) }
+
+      it 'excludes requests that have only revoked authorizations' do
+        expect(active_requests).not_to include(validated_request)
+      end
+    end
+
+    context 'when organization has validated request with both active and revoked authorizations' do
+      let!(:validated_request) { create(:authorization_request, :hubee_cert_dc, :validated, organization:) }
+      let!(:active_authorization) { create(:authorization, request: validated_request, state: 'active', organization:) }
+      let!(:revoked_authorization) { create(:authorization, request: validated_request, state: 'revoked', organization:) }
+
+      it 'includes requests that have at least one non-revoked authorization' do
+        expect(active_requests).to include(validated_request)
+      end
+    end
+  end
 end

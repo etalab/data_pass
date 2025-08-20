@@ -550,3 +550,28 @@ Quand("une mise à jour globale a été effectuée sur les demandes d'habilitati
     application_date: 1.day.ago,
   )
 end
+
+Quand("j'ai déjà une demande d'habilitation {string} refusée") do |string|
+  FactoryBot.create(
+    :authorization_request,
+    find_factory_trait_from_name(string),
+    :refused,
+    applicant: current_user,
+  )
+end
+
+Quand("j'ai déjà une demande d'habilitation {string} validée avec une habilitation révoquée") do |string|
+  authorization_request = FactoryBot.create(
+    :authorization_request,
+    find_factory_trait_from_name(string),
+    :validated,
+    applicant: current_user,
+  )
+  
+  FactoryBot.create(
+    :authorization,
+    request: authorization_request,
+    state: 'revoked',
+    organization: authorization_request.organization,
+  )
+end

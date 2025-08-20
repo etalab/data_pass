@@ -129,9 +129,16 @@ class AuthorizationRequestForm < StaticApplicationRecord
   end
 
   def active_authorization_requests_for(organization)
-    organization
+    requests = organization
       .active_authorization_requests
       .where(type: authorization_request_class.to_s)
+      .where.not(state: 'refused')
+
+    requests.select do |request|
+      next true unless request.validated?
+
+      request.authorizations.where.not(state: 'revoked').exists?
+    end
   end
 
   def self.clean_data(initialize_with)

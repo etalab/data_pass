@@ -72,3 +72,17 @@ Fonctionnalité: Soumission d'une demande d'habilitation Démarche Certificats d
     Alors il y a un titre contenant "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
     Alors la page contient "Il s'agit d'une mise à jour d'une habilitation validée"
     Et la page ne contient aucun lien vers "portail.hubee.numerique.gouv.fr"
+
+  Scénario: Je peux démarrer une nouvelle demande d'habilitation alors que j'ai une demande refusée
+    Quand j'ai déjà une demande d'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)" refusée
+    Et que je vais sur la page des demandes
+    Et que je clique sur "Remplir une demande" pour l'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
+    Alors la page ne contient pas "Vous ne pouvez pas créer de nouvelle habilitation"
+    Et je peux voir le bouton "Débuter ma demande" activé
+
+  Scénario: Je peux démarrer une nouvelle demande d'habilitation alors que j'ai une habilitation révoquée
+    Quand j'ai déjà une demande d'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)" validée avec une habilitation révoquée
+    Et que je vais sur la page des demandes
+    Et que je clique sur "Remplir une demande" pour l'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
+    Alors la page ne contient pas "Vous ne pouvez pas créer de nouvelle habilitation"
+    Et je peux voir le bouton "Débuter ma demande" activé
