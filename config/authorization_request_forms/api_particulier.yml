@@ -1469,7 +1469,10 @@ api-particulier-keolis:
     displayed:
       - cnaf_quotient_familial
       - cnaf_adresse
+      - cnaf_allocataires
+      - cnaf_enfants
       - pole_emploi_identite
+      - pole_emploi_adresse
       - mesri_identite
       - mesri_admissions
       - mesri_admission_inscrit
