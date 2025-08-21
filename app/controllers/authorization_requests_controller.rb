@@ -45,6 +45,8 @@ class AuthorizationRequestsController < AuthenticatedUserController
 
   def find_authorization_definition
     @authorization_definition = AuthorizationDefinition.find(id_sanitized)
+  rescue StaticApplicationRecord::EntryNotFound
+    raise ActiveRecord::RecordNotFound, "AuthorizationDefinition with id '#{id_sanitized}' not found"
   end
 
   def set_facade
