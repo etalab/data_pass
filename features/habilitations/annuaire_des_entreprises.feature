@@ -9,8 +9,14 @@ Fonctionnalité: Soumission d'une demande d'habilitation Espace agent de l'Annua
     * je veux remplir une demande pour "Espace agent de l'Annuaire des Entreprises" via le formulaire "<Cas d'usage>"
     * je clique sur "Débuter ma demande"
 
-    * je clique sur "Enregistrer les modifications"
-    * je clique sur "Continuer vers le résumé"
+    * je renseigne les infos de bases du projet
+    * je clique sur "Suivant"
+
+    * je renseigne le cadre légal
+    * je clique sur "Suivant"
+
+    * je coche "Effectifs annuels"
+    * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
 
@@ -20,7 +26,9 @@ Fonctionnalité: Soumission d'une demande d'habilitation Espace agent de l'Annua
     Et je suis sur la page "Demandes et habilitations"
 
     Exemples:
-      | Cas d'usage     |
-      | Marchés publics |
-      | Aides publiques |
-
+      | Cas d'usage                                     |
+      | Marchés publics                                 |
+      | Aides publiques                                 |
+      | Subventions de fonctionnement des associations  |
+      | Lutte contre la fraude                          |
+      | Demande libre                                   |

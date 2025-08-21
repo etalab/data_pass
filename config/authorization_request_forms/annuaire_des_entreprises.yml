@@ -4,15 +4,26 @@ annuaire-des-entreprises-marches-publics:
   introduction: |
     Ce formulaire vous permet d'accéder aux fonctionnalités spécifiques au cas d'usage des marchés publics.
   authorization_request: AnnuaireDesEntreprises
-  single_page_view: annuaire_des_entreprises
+  steps: &ade_steps
+    - name: "basic_infos"
+    - name: "legal"
+    - name: "scopes"
   initialize_with:
     cadre_juridique_nature: |+
-      Service numérique de conformité pour les administrations publiques dans le cadre du décret N°2011-1601 et de l’article D8222 du code du travail, offre de services d’intermédiation aux organismes publics, tel que défini par l’article 17, alinéa IV, du décret du 24 septembre 2014 et le décret lié à la commande publique n° 2016-360.
+      Service numérique de conformité pour les administrations publiques dans le cadre du décret N°2011-1601 et de l'article D8222 du code du travail, offre de services d'intermédiation aux organismes publics, tel que défini par l'article 17, alinéa IV, du décret du 24 septembre 2014 et le décret lié à la commande publique n° 2016-360.
       https://www.legifrance.gouv.fr/codes/id/LEGIARTI000018520702/2011-12-31/
 
-      Article R2143-13 du code de la commande publique. Concernant l’accès des acheteurs aux documents justificatifs et moyens de preuve.
+      Article R2143-13 du code de la commande publique. Concernant l'accès des acheteurs aux documents justificatifs et moyens de preuve.
       https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037730589
     cadre_juridique_url: 'https://www.legifrance.gouv.fr/codes/id/LEGIARTI000018520702/2011-12-31/'
+    scopes:
+      - effectifs_annuels
+      - liens_capitalistiques
+      - conformite
+      - travaux_publics
+      - chiffre_affaires
+      - liasses_fiscales
+      - bilans_bdf
 
 annuaire-des-entreprises-aides-publiques:
   name: Aides publiques
@@ -21,10 +32,17 @@ annuaire-des-entreprises-aides-publiques:
     Ce formulaire vous permet d'accéder aux fonctionnalités spécifiques au cas d'usage des aides publiques
   authorization_request: AnnuaireDesEntreprises
   single_page_view: annuaire_des_entreprises
+  steps: *ade_steps
   initialize_with:
     cadre_juridique_nature: |+
-      Décret n° 2019-31 du 18 janvier 2019 relatif aux échanges d’informations et de données entre administrations dans le cadre des démarches administratives et à l’expérimentation prévue par l’article 40 de la loi n° 2018-727 du 10 août 2018 pour un Etat au service d’une société de confiance
+      Décret n° 2019-31 du 18 janvier 2019 relatif aux échanges d'informations et de données entre administrations dans le cadre des démarches administratives et à l'expérimentation prévue par l'article 40 de la loi n° 2018-727 du 10 août 2018 pour un Etat au service d'une société de confiance
     cadre_juridique_url: 'https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000038029589/'
+    scopes:
+      - effectifs_annuels
+      - liens_capitalistiques
+      - conformite
+      - travaux_publics
+      - chiffre_affaires
 
 annuaire-des-entreprises-lutte-contre-la-fraude:
   name: Lutte contre la fraude
@@ -32,7 +50,15 @@ annuaire-des-entreprises-lutte-contre-la-fraude:
   introduction: |
     Ce formulaire vous permet d'accéder aux fonctionnalités spécifiques au cas d'usage de la lutte contre la fraude
   authorization_request: AnnuaireDesEntreprises
-  single_page_view: annuaire_des_entreprises
+  steps: *ade_steps
+  initialize_with:
+    scopes:
+      - effectifs_annuels
+      - liens_capitalistiques
+      - conformite
+      - travaux_publics
+      - chiffre_affaires
+      - beneficiaires
 
 annuaire-des-entreprises-subventions-associations:
   name: Subventions de fonctionnement des associations
@@ -40,6 +66,16 @@ annuaire-des-entreprises-subventions-associations:
   introduction: |
     Ce formulaire vous permet d'accéder aux fonctionnalités spécifiques au cas d'usage de subventions de fonctionnement des associations
   authorization_request: AnnuaireDesEntreprises
-  single_page_view: annuaire_des_entreprises
+  steps: *ade_steps
+  initialize_with:
+    scopes:
+      - effectifs_annuels
 
-
+annuaire-des-entreprises:
+  name: Demande libre
+  default: true
+  description: Votre mission ne rentre dans aucun des cas d’usages précédents
+  introduction: |
+    Ce formulaire vous permet d'effectuer une demande libre
+  authorization_request: AnnuaireDesEntreprises
+  steps: *ade_steps

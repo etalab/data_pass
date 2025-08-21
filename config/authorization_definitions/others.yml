@@ -62,13 +62,36 @@ annuaire_des_entreprises:
   provider: "dinum"
   kind: 'service'
   link: "https://annuaire-entreprises.data.gouv.fr/"
-  # FEEDME
   cgu_link: "https://annuaire-entreprises.data.gouv.fr/cgu"
-  # FEEDME
   access_link: "https://annuaire-entreprises.data.gouv.fr/compte"
   support_email: "support@annuaire-entreprises.data.gouv.fr"
   public: true
   blocks:
+    - name: "basic_infos"
     - name: "legal"
-
-
+    - name: "scopes"
+  scopes:
+    - name: "Effectifs annuels"
+      group: "Données générales"
+      value: "effectifs_annuels"
+    - name: "Chiffre d'affaires"
+      group: "Données financières"
+      value: "chiffre_affaires"
+    - name: "Bilans Banque de France"
+      group: "Données financières"
+      value: "bilans_bdf"
+    - name: "Liasses fiscales"
+      group: "Données financières"
+      value: "liasses_fiscales"
+    - name: "Attestations de conformité fiscale et sociale"
+      group: "Données financières"
+      value: "conformite"
+    - name: "Certifications travaux publics"
+      group: "Données travaux publics"
+      value: "travaux_publics"
+    - name: "Liens capitalistiques"
+      group: "Données sur les bénéficiaires effectifs et le capital"
+      value: "liens_capitalistiques"
+    - name: "Bénéficiaires effectifs"
+      group: "Données sur les bénéficiaires effectifs et le capital"
+      value: "beneficiaires"

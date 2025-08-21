@@ -734,6 +734,7 @@ FactoryBot.define do
     end
 
     %w[
+      annuaire-des-entreprises
       annuaire-des-entreprises-marches-publics
       annuaire-des-entreprises-aides-publiques
       annuaire-des-entreprises-lutte-contre-la-fraude
@@ -746,6 +747,7 @@ FactoryBot.define do
 
         with_basic_infos
         with_cadre_juridique
+        with_scopes
       end
     end
 

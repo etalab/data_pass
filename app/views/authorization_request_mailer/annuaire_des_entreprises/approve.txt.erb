@@ -1,0 +1,8 @@
+<%= render partial: 'mailer/shared/applicant/header', locals: { entity_name: @authorization_request.applicant.full_name } %>
+
+Votre habilitation à l'espace agent de l'annuaire des entreprises a été validée.
+
+Nous vous invitons à vous authentifier sur votre compte agent pour finaliser la création de votre groupe via le lien
+suivant : https://annuaire-entreprises.data.gouv.fr/compte/habilitation/<%= @authorization_request.id %>
+
+<%= render partial: 'mailer/shared/applicant/footer', locals: { authorization_definition_name: @authorization_request.definition.name } %>
