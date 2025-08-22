@@ -733,6 +733,22 @@ fr:
       steps:
         <<: *authorization_request_forms_default_steps
         legal: Cadre juridique relatif à la demande
+        scopes: Les données d'entreprise
+      scopes:
+        info:
+          title: À propos des données d'entreprise
+          content: |
+            L'Annuaire des Entreprises donne accès à différents types de données selon vos besoins administratifs.
+            Les données de base sont accessibles à tous les agents publics, les données restreintes et sensibles nécessitent un cadre juridique spécifique.
+        groups:
+          'Données générales': |
+            Informations générales sur une entreprise.
+          'Données financières': |
+            Les principaux sources de données financières sur une entreprise.
+          'Données travaux publics': |
+            Certificats de cotisation aux congés payés, chômage et intempéries dans le bâtiment (CIBTP, CNETP), carte professionnelle de travaux publics (FNTP) et cotisation retraite dans le bâtiment (ProBTP).
+          'Données sur les bénéficiaires effectifs et le capital': |
+            Qui détient le capital d’une entreprise.
 
     api_declaration_auto_entrepreneur:
       supporting_documents: &api_urssaf_supporting_documents
