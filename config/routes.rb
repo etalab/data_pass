@@ -20,6 +20,9 @@ Rails.application.routes.draw do
 
   get '/public/demandes/:id', to: 'public/authorization_requests#show', as: :public_authorization_request
 
+  get '/demandes-instructeurs/:id/revendiquer', to: 'claim_authorization_request_instructor_drafts#show', as: :claim_authorization_request_instructor_draft
+  post '/demandes-instructeurs/:id/revendiquer', to: 'claim_authorization_request_instructor_drafts#create'
+
   get '/stats', to: 'stats#index'
 
   scope(path_names: { new: 'nouveau', edit: 'modifier' }) do
@@ -116,6 +119,10 @@ Rails.application.routes.draw do
       resources :france_connected_authorizations, only: :index, path: 'habilitations-france-connectees'
 
       resources :messages, only: %w[index create], path: 'messages'
+    end
+
+    resources :authorization_request_instructor_drafts, path: 'instructeurs-demandes' do
+      resources :invite_applicant_to_claim_authorization_request_instructor_draft, only: [:new, :create]
     end
   end
 
