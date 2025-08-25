@@ -13,5 +13,13 @@ RSpec.describe FranceConnectMailer do
     it 'renders the body' do
       expect(mail.body.encoded).to match('FranceConnect associée')
     end
+
+    context 'when the request has a stage' do
+      let(:authorization_request) { create(:authorization_request, :api_impot_particulier_sandbox, :with_france_connect, :validated, modalities: %w[with_france_connect]) }
+
+      it 'includes the stage in the body' do
+        expect(mail.body.encoded).to match('Bac à sable')
+      end
+    end
   end
 end
