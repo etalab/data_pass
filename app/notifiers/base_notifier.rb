@@ -31,10 +31,12 @@ class BaseNotifier < ApplicationNotifier
     end
   end
 
-  def submit(_params)
+  def submit(params)
+    mail_to_send = params[:within_reopening] ? 'reopening_submit' : 'submit'
+
     Instruction::AuthorizationRequestMailer.with(
       authorization_request:
-    ).submit.deliver_later
+    ).public_send(mail_to_send).deliver_later
   end
 
   def revoke(params) = email_notification('revoke', params)
