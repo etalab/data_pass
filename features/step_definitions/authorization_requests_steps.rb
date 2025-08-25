@@ -34,6 +34,16 @@ Quand("j'ai déjà une demande d'habilitation {string} en réouverture avec toke
   )
 end
 
+Quand("j'ai déjà une demande d'habilitation {string} refusée") do |string|
+  FactoryBot.create(
+    :authorization_request,
+    find_factory_trait_from_name(string),
+    :refused,
+    applicant: current_user,
+    external_provider_id: 'some_token'
+  )
+end
+
 Quand('je veux remplir une demande pour {string} via le formulaire {string}') do |authorization_request_name, authorization_request_form_name|
   authorization_request_forms = AuthorizationRequestForm.where(
     name: authorization_request_form_name,
