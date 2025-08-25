@@ -40,6 +40,18 @@ RSpec.describe AuthorizationRequestPolicy do
 
         it { is_expected.to be_falsey }
       end
+
+      context 'when there already is another authorization_request refused' do
+        before { create(:authorization_request, :hubee_cert_dc, :refused, applicant: user) }
+
+        it { is_expected.to be_truthy }
+      end
+
+      context 'when there already is another authorization_request revoked' do
+        before { create(:authorization_request, :hubee_cert_dc, :revoked, applicant: user) }
+
+        it { is_expected.to be_truthy }
+      end
     end
 
     describe 'HubEE DILA' do
