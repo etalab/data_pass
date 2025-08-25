@@ -41,7 +41,7 @@ class HubEEBaseBridge < ApplicationBridge
       firstName: authorization_request.administrateur_metier_given_name,
       lastName: authorization_request.administrateur_metier_family_name,
       function: authorization_request.administrateur_metier_job_title,
-      phoneNumber: authorization_request.administrateur_metier_phone_number.gsub(/[\s\.\-]/, ''),
+      phoneNumber: authorization_request.administrateur_metier_phone_number.gsub(/[\s.-]/, ''),
     }
   end
 

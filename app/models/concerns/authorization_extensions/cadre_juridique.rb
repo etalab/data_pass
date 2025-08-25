@@ -10,7 +10,7 @@ module AuthorizationExtensions::CadreJuridique
     add_attribute :cadre_juridique_nature
 
     validates :cadre_juridique_nature, presence: true, if: -> { need_complete_validation?(:legal) }
-    validates :cadre_juridique_url, format: { with: %r{\A((http|https)://)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(/[\w\-._~:\/?#\[\]@!$&'()*+,;%=]*)?\z}, message: I18n.t('activemodel.errors.messages.url_format') }, allow_blank: true, if: -> { need_complete_validation?(:legal) }
+    validates :cadre_juridique_url, format: { with: %r{\A((http|https)://)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(/[\w\-._~:/?#\[\]@!$&'()*+,;%=]*)?\z}, message: I18n.t('activemodel.errors.messages.url_format') }, allow_blank: true, if: -> { need_complete_validation?(:legal) }
   end
 
   def cadre_juridique_document_or_cadre_juridique_url_present
