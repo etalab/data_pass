@@ -60,6 +60,7 @@
 
             <td class="authorization-request-instructor-draft--actions">
               <%= link_to t('.table.actions.edit'), edit_instruction_authorization_request_instructor_draft_path(authorization_request_instructor_draft), class: 'fr-btn fr-btn--secondary fr-btn--sm' %>
+              <%= dsfr_main_modal_button(t('.table.actions.transfer'), new_instruction_authorization_request_instructor_draft_invite_applicant_to_claim_authorization_request_instructor_draft_path(authorization_request_instructor_draft), class: 'fr-btn fr-btn--secondary fr-btn--sm fr-icon-arrow-up-down-line', aria: { controls: 'main-modal' }, data: { turbo_frame: 'main-modal-content' }) %>
               <%= button_to t('.table.actions.delete'), instruction_authorization_request_instructor_draft_path(authorization_request_instructor_draft), method: :delete, data: { turbo_confirm: t('.table.actions.confirm_delete') }, class: 'fr-btn fr-btn--secondary fr-btn--sm' %>
             </td>
           </tr>
