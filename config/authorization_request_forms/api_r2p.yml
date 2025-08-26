@@ -148,6 +148,14 @@ api-r2p-ordonnateur-production-editeur:
   introduction: Pour les utilisateurs travaillant avec un éditeur et cherchant à fiabiliser des bases tiers des collectivités.
   authorization_request: APIR2P
   steps: *api_r2p_editor_steps
+  initialize_with:
+    intitule: Ordonnateur (fiabilisation des bases tiers des collectivités)
+    cadre_juridique_nature: Décret n° 2022-814 du 16 mai 2022 relatif aux conditions dans lesquelles les collectivités territoriales, les établissements publics qui leur sont rattachés et les établissements publics sociaux et médico-sociaux peuvent obtenir communication des éléments d’identification de leurs débiteurs en application de l’article L. 135 ZN du livre des procédures fiscales.
+    cadre_juridique_url: https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000045802934
+    modalities:
+      - with_acces_etat_civil
+      - with_acces_spi
+      - with_acces_etat_civil_et_adresse
 
 api-r2p-appel-spi-production-editeur:
   name: Restitution du numéro fiscal (SPI) pour appel de l’API Impôt particulier avec éditeur
@@ -157,3 +165,7 @@ api-r2p-appel-spi-production-editeur:
   introduction: Pour les utilisateurs travaillant avec un éditeur et souhaitant restituer le SPI pour appel de l'API Impôt Particulier.
   authorization_request: APIR2P
   steps: *api_r2p_editor_steps
+  initialize_with:
+    intitule: Restitution du numéro fiscal (SPI) pour appel de l’API Impôt particulier
+    modalities:
+      - with_acces_etat_civil_restitution_spi
