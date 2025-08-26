@@ -103,9 +103,9 @@ fr:
         changes_requested_submit: |
           Cette demande fait suite à une demande de modification.
       reopening_submit:
-        subject: Nouvelle demande de réouverture d'habilitation sur DataPass
+        subject: Demande de réouverture d'habilitation sur DataPass
         description: |
-          %{applicant_full_name} (%{applicant_email}) a soumis une nouvelle demande de réouverture d'habilitation sur DataPass pour le compte de l'organisation %{organization_name}
+          %{applicant_full_name} (%{applicant_email}) a soumis une demande de réouverture d'habilitation sur DataPass pour le compte de l'organisation %{organization_name}
 
           Vous pouvez modérer cette demande de réouverture d'habilitation en suivant le lien suivant: %{authorization_request_instruction_url}
 
