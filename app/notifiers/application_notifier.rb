@@ -29,6 +29,16 @@ class ApplicationNotifier
     ).public_send(event_name).deliver_later
   end
 
+  def email_notification_with_reopening(base_event, params, mailer: AuthorizationRequestMailer)
+    event = params[:within_reopening] ? "reopening_#{base_event}" : base_event
+
+    mailer.with(
+      params.merge(
+        authorization_request:,
+      ),
+    ).public_send(event).deliver_later
+  end
+
   def webhook_notification(event_name)
     DeliverAuthorizationRequestWebhookJob.new(
       authorization_request.kind,
