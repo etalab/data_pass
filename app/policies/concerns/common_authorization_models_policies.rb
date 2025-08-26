@@ -42,8 +42,6 @@ module CommonAuthorizationModelsPolicies
 
     current_organization
       .active_authorization_requests
-      .where(type: authorization_request_class.to_s)
-      .where.not(state: %w[refused revoked])
-      .exists?
+      .exists?(type: authorization_request_class.to_s)
   end
 end

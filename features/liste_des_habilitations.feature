@@ -31,7 +31,7 @@ Fonctionnalité: Liste des habilitations
     Et il y a un bouton "Suivant"
     
   Scénario: Je démarre une nouvelle demande d'habilitation dont j'ai déjà un exemplaire refusé
-    Quand j'ai déjà une demande d'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)" refusée
+    Quand j'ai 1 demande d'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)" refusée
     Quand je vais sur la page des demandes
     Et que je clique sur "Remplir une demande" pour l'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
     Et que je clique sur "Débuter"

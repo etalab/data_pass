@@ -139,6 +139,8 @@ class AuthorizationRequest < ApplicationRecord
   scope :not_validated, -> { where.not(state: 'validated') }
   scope :without_reopening, -> { where(last_validated_at: nil) }
   scope :revoked, -> { where(state: 'revoked') }
+  scope :not_revoked, -> { where.not(state: 'revoked') }
+  scope :not_refused, -> { where.not(state: 'refused') }
 
   validates :form_uid, presence: true
   validate :applicant_belongs_to_organization
