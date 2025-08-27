@@ -23,19 +23,28 @@ remote_chrome =
     false
   end
 
-remote_options = remote_chrome ? { url: REMOTE_CHROME_URL } : {}
+remote_options = remote_chrome ? { ws_url: REMOTE_CHROME_URL } : {}
 
 inspector = ENV['INSPECTOR'] == 'true'
 
 Capybara.default_driver = :rack_test
 Capybara.javascript_driver = :cuprite
 Capybara.register_driver(:cuprite) do |app|
+  browser_options = {
+    'disable-gpu' => nil,
+    'disable-dev-shm-usage' => nil,
+    'disable-setuid-sandbox' => nil,
+  }.tap do |opts|
+    opts['no-sandbox'] = nil if remote_chrome
+  end
+
   Capybara::Cuprite::Driver.new(
     app,
-    window_size: [1200, 800],
-    browser_options: remote_chrome ? { 'no-sandbox' => nil } : {},
+    browser_options:,
     inspector:,
     flatten: false,
+    process_timeout: 5,
+    timeout: 2,
     headless: !inspector && ENV['HEADLESS'] != 'false', **remote_options
   )
 end
@@ -43,4 +52,4 @@ Capybara.server = :puma, { Silent: true }
 Capybara.server_host = '0.0.0.0'
 Capybara.always_include_port = true
 Capybara.app_host = "http://#{ENV.fetch('APP_HOST', `hostname`.strip&.downcase || '0.0.0.0')}" if remote_chrome
-Capybara.default_max_wait_time = 5
+Capybara.default_max_wait_time = 2
