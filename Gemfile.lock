@@ -750,7 +750,7 @@ DEPENDENCIES
   csv
   cucumber
   cucumber-rails
-  cuprite (< 0.18)
+  cuprite
   database_cleaner-active_record
   debug
   doorkeeper
