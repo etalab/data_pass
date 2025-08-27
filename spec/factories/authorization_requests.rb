@@ -155,6 +155,7 @@ FactoryBot.define do
       state { 'validated' }
       fill_all_attributes { true }
       last_validated_at { Time.zone.now }
+      external_provider_id { 'some_token' }
 
       after(:create) do |authorization_request|
         CreateAuthorization.call(authorization_request:)

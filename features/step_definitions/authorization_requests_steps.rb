@@ -135,8 +135,8 @@ Quand(/je me rends via l'espace usager sur une demande d'habilitation "([^"]+)"/
   visit authorization_request_path(authorization_request)
 end
 
-# https://rubular.com/r/mcjLgjBxddyW2C
-Quand(/(j'ai|il y a|mon organisation a) (\d+) demandes? d'habilitation "([^"]+)"( avec token)? ?(?:via le formulaire "([^"]+)")? ?(?:à l'étape "([^"]+)")? ?(?:en )?(.+)?/) do |who, count, type, with_token, form, stage, status| # rubocop:disable Metrics/ParameterLists
+# https://rubular.com/r/UD2mV5frl1q1oX
+Quand(/(j'ai|il y a|mon organisation a) (\d+) demandes? d'habilitation "([^"]+)" ?(?:via le formulaire "([^"]+)")? ?(?:à l'étape "([^"]+)")? ?(?:en )?(.+)?/) do |who, count, type, form, stage, status| # rubocop:disable Metrics/ParameterLists
   applicant = case who
               when 'j\'ai'
                 current_user
@@ -146,9 +146,7 @@ Quand(/(j'ai|il y a|mon organisation a) (\d+) demandes? d'habilitation "([^"]+)"
                 user
               end
 
-  external_provider_id = 'some_token' if with_token.present?
-
-  create_authorization_requests_with_status(type, status, count, stage, form, applicant:, external_provider_id:)
+  create_authorization_requests_with_status(type, status, count, stage, form, applicant:)
 end
 
 Quand("cette dernière demande d'habilitation s'appelait {string}") do |intitule|
