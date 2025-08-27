@@ -5,7 +5,11 @@ class User < ApplicationRecord
 
   ROLES = %w[reporter instructor developer].freeze
 
-  validates :email, presence: true, uniqueness: true
+  validates :email,
+    presence: true,
+    uniqueness: true,
+    format: { with: URI::MailTo::EMAIL_REGEXP }
+
   before_save { email.downcase! }
 
   validates :external_id, uniqueness: true, allow_nil: true
