@@ -32,7 +32,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation Démarche Certificats d
     Et je suis sur la page "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
 
   Scénario: Je veux démarrer une demande d'habilitation alors que j'ai déjà une habilitation validée avec token
-    Quand j'ai déjà une demande d'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)" validée avec token
+    Quand j'ai 1 demande d'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)" avec token validée
     Et que je vais sur la page des demandes
     Et que je clique sur "Remplir une demande" pour l'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
     Alors la page contient "Vous ne pouvez pas créer de nouvelle habilitation"
@@ -42,7 +42,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation Démarche Certificats d
     Alors la page contient "Validée"
 
   Scénario: Je veux démarrer une demande d'habilitation alors que j'ai déjà une demande en cours
-    Quand j'ai déjà une demande d'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)" en cours
+    Quand j'ai 1 demande d'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
     Et que je vais sur la page des demandes
     Et que je clique sur "Remplir une demande" pour l'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
     Alors la page contient "Vous ne pouvez pas créer de nouvelle habilitation"
@@ -52,21 +52,21 @@ Fonctionnalité: Soumission d'une demande d'habilitation Démarche Certificats d
     Alors la page contient "Brouillon"
 
   Scénario: Je vois un lien vers le portail HubEE quand je consulte une habilitation validée avec token
-    Quand j'ai déjà une demande d'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)" validée avec token
+    Quand j'ai 1 demande d'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)" avec token validée
     Et que je me rends sur mon tableau de bord demandeur habilitations
     Et que je clique sur "Consulter"
     Alors il y a un titre contenant "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
     Et la page contient un lien vers "portail.hubee.numerique.gouv.fr"
 
   Scénario: Je ne vois aucun lien vers le portail HubEE quand je consulte une habilitation qui n'a jamais été validée
-    Quand j'ai déjà une demande d'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)" en cours
+    Quand j'ai 1 demande d'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
     Et que je vais sur la page du tableau de bord
     Et que je clique sur "Consulter"
     Alors il y a un titre contenant "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
     Et la page ne contient aucun lien vers "portail.hubee.numerique.gouv.fr"
 
   Scénario: Je ne vois aucun lien vers le portail HubEE quand je consulte une habilitation en réouverture avec token
-    Quand j'ai déjà une demande d'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)" en réouverture avec token
+    Quand j'ai 1 demande d'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)" avec token réouverte
     Et que je vais sur la page du tableau de bord
     Et que je clique sur le dernier "Consulter"
     Alors il y a un titre contenant "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"

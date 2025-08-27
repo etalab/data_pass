@@ -6,34 +6,6 @@ Quand("il existe une demande d'habilitation {string} intitulée {string}") do |a
   )
 end
 
-Quand("j'ai déjà une demande d'habilitation {string} en cours") do |string|
-  FactoryBot.create(
-    :authorization_request,
-    find_factory_trait_from_name(string),
-    applicant: current_user,
-  )
-end
-
-Quand("j'ai déjà une demande d'habilitation {string} validée avec token") do |string|
-  FactoryBot.create(
-    :authorization_request,
-    find_factory_trait_from_name(string),
-    :validated,
-    applicant: current_user,
-    external_provider_id: 'some_token'
-  )
-end
-
-Quand("j'ai déjà une demande d'habilitation {string} en réouverture avec token") do |string|
-  FactoryBot.create(
-    :authorization_request,
-    find_factory_trait_from_name(string),
-    :reopened,
-    applicant: current_user,
-    external_provider_id: 'some_token'
-  )
-end
-
 Quand('je veux remplir une demande pour {string} via le formulaire {string}') do |authorization_request_name, authorization_request_form_name|
   authorization_request_forms = AuthorizationRequestForm.where(
     name: authorization_request_form_name,
@@ -163,8 +135,8 @@ Quand(/je me rends via l'espace usager sur une demande d'habilitation "([^"]+)"/
   visit authorization_request_path(authorization_request)
 end
 
-# https://rubular.com/r/UD2mV5frl1q1oX
-Quand(/(j'ai|il y a|mon organisation a) (\d+) demandes? d'habilitation "([^"]+)" ?(?:via le formulaire "([^"]+)")? ?(?:à l'étape "([^"]+)")? ?(?:en )?(.+)?/) do |who, count, type, form, stage, status| # rubocop:disable Metrics/ParameterLists
+# https://rubular.com/r/mcjLgjBxddyW2C
+Quand(/(j'ai|il y a|mon organisation a) (\d+) demandes? d'habilitation "([^"]+)"( avec token)? ?(?:via le formulaire "([^"]+)")? ?(?:à l'étape "([^"]+)")? ?(?:en )?(.+)?/) do |who, count, type, with_token, form, stage, status| # rubocop:disable Metrics/ParameterLists
   applicant = case who
               when 'j\'ai'
                 current_user
@@ -174,7 +146,9 @@ Quand(/(j'ai|il y a|mon organisation a) (\d+) demandes? d'habilitation "([^"]+)"
                 user
               end
 
-  create_authorization_requests_with_status(type, status, count, stage, form, applicant:)
+  external_provider_id = 'some_token' if with_token.present?
+
+  create_authorization_requests_with_status(type, status, count, stage, form, applicant:, external_provider_id:)
 end
 
 Quand("cette dernière demande d'habilitation s'appelait {string}") do |intitule|
