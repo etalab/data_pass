@@ -15,7 +15,7 @@ class Organization < ApplicationRecord
     through: :authorization_requests
 
   has_many :active_authorization_requests,
-    -> { not_archived.not_refused.not_revoked },
+    -> { active },
     dependent: :restrict_with_exception,
     class_name: 'AuthorizationRequest',
     inverse_of: :organization
