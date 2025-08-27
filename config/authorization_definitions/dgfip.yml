@@ -170,7 +170,7 @@ api_impot_particulier_sandbox:
   kind: 'api'
   link: "https://api.gouv.fr/les-api/impot-particulier"
   cgu_link: "/cgu_api_impot_particulier_bas"
-  access_link: "https://api-impot-particulier-sandbox.gouv.fr/tokens/%<external_provider_id>s"
+  access_link: "https://api-impot-particulier-sandbox.gouv.fr/tokens/%{external_provider_id}s"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
   features: *dgfip_features
@@ -195,7 +195,7 @@ api_sfip:
   kind: 'api'
   link: "https://api-sfip.gouv.fr/feedme-with-valid-url"
   cgu_link: "/cgus/dgfip/cgu_api_impot_particulier_production_hors_connexion_fc_decembre2022_v4.0.pdf"
-  access_link: "https://api-sfip.gouv.fr/tokens/%<external_provider_id>"
+  access_link: "https://api-sfip.gouv.fr/tokens/%{external_provider_id}"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: true
   features: *dgfip_features
@@ -222,7 +222,7 @@ api_sfip_sandbox:
   kind: 'api'
   link: "https://api-sfip.gouv.fr/feedme-with-valid-url"
   cgu_link: "/cgus/dgfip/cgu_api_impot_particulier_bac_a_sable_connexion_hors_fc_septembre2020_v2.6.pdf"
-  access_link: "https://api-sfip.gouv.fr/tokens/%<external_provider_id>"
+  access_link: "https://api-sfip.gouv.fr/tokens/%{external_provider_id}"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
   features: *dgfip_features
@@ -247,7 +247,7 @@ api_hermes_sandbox:
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/cgu_bas_hermes_v.2023_11.pdf"
   # FEEDME
-  access_link: "https://api-hermes.gouv.fr/tokens/%<external_provider_id>"
+  access_link: "https://api-hermes.gouv.fr/tokens/%{external_provider_id}"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
   features: *dgfip_features
@@ -270,7 +270,7 @@ api_hermes:
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/cgu_prod_hermes_v.2023_11.pdf"
   # FEEDME
-  access_link: "https://api-hermes.gouv.fr/tokens/%<external_provider_id>"
+  access_link: "https://api-hermes.gouv.fr/tokens/%{external_provider_id}"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
   features: *dgfip_features
@@ -296,7 +296,7 @@ api_e_contacts_sandbox:
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/pcr_v1/cgu_bas_e_contacts_v.2023_11.pdf"
   # FEEDME
-  access_link: "https://api-e-contacts.gouv.fr/tokens/%<external_provider_id>"
+  access_link: "https://api-e-contacts.gouv.fr/tokens/%{external_provider_id}"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
   features: *dgfip_features
@@ -319,7 +319,7 @@ api_e_contacts:
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/pcr_v1/cgu_prod_e_contacts_v.2023_11.pdf"
   # FEEDME
-  access_link: "https://api-e-contacts.gouv.fr/tokens/%<external_provider_id>"
+  access_link: "https://api-e-contacts.gouv.fr/tokens/%{external_provider_id}"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
   features: *dgfip_features
@@ -345,7 +345,7 @@ api_opale_sandbox:
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/pcr_v1/cgu_bas_opale_v.2023_11.pdf"
   # FEED ME
-  access_link: "https://api-opale.gouv.fr/tokens/%<external_provider_id>"
+  access_link: "https://api-opale.gouv.fr/tokens/%{external_provider_id}"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
   features: *dgfip_features
@@ -368,7 +368,7 @@ api_opale:
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/pcr_v1/cgu_prod_opale_v.2023_11.pdf"
   # FEEDME
-  access_link: "https://api-opale.gouv.fr/tokens/%<external_provider_id>"
+  access_link: "https://api-opale.gouv.fr/tokens/%{external_provider_id}"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
   features: *dgfip_features
@@ -394,7 +394,7 @@ api_ocfi_sandbox:
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/pcr_v1/cgu_bas_ocfi_v.2023_11.pdf"
   # FEEDME
-  access_link: "https://api-ocfi.gouv.fr/tokens/%<external_provider_id>"
+  access_link: "https://api-ocfi.gouv.fr/tokens/%{external_provider_id}"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
   features: *dgfip_features
@@ -417,7 +417,7 @@ api_ocfi:
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/pcr_v1/cgu_prod_ocfi_v.2023_11.pdf"
   # FEEDME
-  access_link: "https://api-ocfi.gouv.fr/tokens/%<external_provider_id>"
+  access_link: "https://api-ocfi.gouv.fr/tokens/%{external_provider_id}"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
   features: *dgfip_features
@@ -443,7 +443,7 @@ api_e_pro_sandbox:
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/pcr_v1/cgu_bas_e_pro_v.2023_11.pdf"
   # FEEDME
-  access_link: "https://api-e-pro.gouv.fr/tokens/%<external_provider_id>"
+  access_link: "https://api-e-pro.gouv.fr/tokens/%{external_provider_id}"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
   features: *dgfip_features
@@ -466,7 +466,7 @@ api_e_pro:
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/pcr_v1/cgu_prod_e_pro_v.2023_11.pdf"
   # FEEDME
-  access_link: "https://api-e-pro.gouv.fr/tokens/%<external_provider_id>"
+  access_link: "https://api-e-pro.gouv.fr/tokens/%{external_provider_id}"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
   features: *dgfip_features
@@ -492,7 +492,7 @@ api_robf_sandbox:
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/pcr_v1/cgu_bas_robf_v.2023_11.pdf"
   # FEEDME
-  access_link: "https://api-robf.gouv.fr/tokens/%<external_provider_id>"
+  access_link: "https://api-robf.gouv.fr/tokens/%{external_provider_id}"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
   features: *dgfip_features
@@ -516,7 +516,7 @@ api_robf:
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/pcr_v1/cgu_prod_robf_v.2023_11.pdf"
   # FEEDME
-  access_link: "https://api-robf.gouv.fr/tokens/%<external_provider_id>"
+  access_link: "https://api-robf.gouv.fr/tokens/%{external_provider_id}"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
   features: *dgfip_features
@@ -542,7 +542,7 @@ api_cpr_pro_adelie_sandbox:
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/pcr_v1/cgu_bas_cpr_pro_v.2023_11.pdf"
   # FEEDME
-  access_link: "https://api-pro-adelie.gouv.fr/tokens/%<external_provider_id>"
+  access_link: "https://api-pro-adelie.gouv.fr/tokens/%{external_provider_id}"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
   features: *dgfip_features
@@ -565,7 +565,7 @@ api_cpr_pro_adelie:
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/pcr_v1/cgu_prod_cpr_pro_v.2023_11.pdf"
   # FEEDME
-  access_link: "https://api-pro-adelie.gouv.fr/tokens/%<external_provider_id>"
+  access_link: "https://api-pro-adelie.gouv.fr/tokens/%{external_provider_id}"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
   features: *dgfip_features
@@ -591,7 +591,7 @@ api_imprimfip_sandbox:
   link: "https://www.data.gouv.fr/fr/dataservices/api-imprimfip/"
   cgu_link: "/cgus/dgfip/cgu_bas_imprimfip_v.2023_09.pdf"
   # FEEDME
-  access_link: "https://api-imprimfip.gouv.fr/tokens/%<external_provider_id>"
+  access_link: "https://api-imprimfip.gouv.fr/tokens/%{external_provider_id}"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: true
   features: *dgfip_features
@@ -613,7 +613,7 @@ api_imprimfip:
   kind: 'api'
   link: "https://www.data.gouv.fr/fr/dataservices/api-imprimfip/"
   cgu_link: "/cgus/dgfip/cgu_prod_imprimfip_v.2023_09.pdf"
-  access_link: "https://api-imprimfip.gouv.fr/tokens/%<external_provider_id>"
+  access_link: "https://api-imprimfip.gouv.fr/tokens/%{external_provider_id}"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
   features: *dgfip_features
@@ -639,7 +639,7 @@ api_satelit_sandbox:
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/pcr_v1/cgu_bas_satelit_v.2022_v1.pdf"
   # FEEDME
-  access_link: "https://api-satelit.gouv.fr/tokens/%<external_provider_id>"
+  access_link: "https://api-satelit.gouv.fr/tokens/%{external_provider_id}"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
   features: *dgfip_features
@@ -662,7 +662,7 @@ api_satelit:
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/pcr_v1/cgu_prod_satelit_v.2022_v1.pdf"
   # FEEDME
-  access_link: "https://api-satelit.gouv.fr/tokens/%<external_provider_id>"
+  access_link: "https://api-satelit.gouv.fr/tokens/%{external_provider_id}"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
   features: *dgfip_features
@@ -688,7 +688,7 @@ api_mire_sandbox:
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/pcr_v1/cgu_bas_mire_v.2023_11.pdf"
   # FEEDME
-  access_link: "https://api-mire.gouv.fr/tokens/%<external_provider_id>"
+  access_link: "https://api-mire.gouv.fr/tokens/%{external_provider_id}"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
   features: *dgfip_features
@@ -711,7 +711,7 @@ api_mire:
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/pcr_v1/cgu_prod_mire_v.2023_11.pdf"
   # FEEDME
-  access_link: "https://api-mire.gouv.fr/tokens/%<external_provider_id>"
+  access_link: "https://api-mire.gouv.fr/tokens/%{external_provider_id}"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
   features: *dgfip_features
@@ -737,7 +737,7 @@ api_ensu_documents_sandbox:
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/pcr_v1/cgu_bas_ensu_doc_v.2023_11.pdf"
   # FEEDME
-  access_link: "https://api-ensu-documents.gouv.fr/tokens/%<external_provider_id>"
+  access_link: "https://api-ensu-documents.gouv.fr/tokens/%{external_provider_id}"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
   features: *dgfip_features
@@ -760,7 +760,7 @@ api_ensu_documents:
   link: "https://api.gouv.fr/producteurs/dgfip"
   cgu_link: "/cgus/dgfip/pcr_v1/cgu_prod_ensu_doc_v.2023_11.pdf"
   # FEEDME
-  access_link: "https://api-ensu-documents.gouv.fr/tokens/%<external_provider_id>"
+  access_link: "https://api-ensu-documents.gouv.fr/tokens/%{external_provider_id}"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
   features: *dgfip_features
@@ -786,7 +786,7 @@ api_rial_sandbox:
   link: "https://api.gouv.fr/les-api/api_rial"
   cgu_link: "/cgus/dgfip/cgu_bas_api_rial_v2024-11.pdf"
   # FEEDME
-  access_link: "https://api-rial.gouv.fr/tokens/%<external_provider_id>"
+  access_link: "https://api-rial.gouv.fr/tokens/%{external_provider_id}"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: true
   features: *dgfip_features
@@ -809,7 +809,7 @@ api_rial:
   link: "https://api.gouv.fr/les-api/api_rial"
   cgu_link: "/cgus/dgfip/cgu_prod_api_rial_v2024-11.pdf"
   # FEEDME
-  access_link: "https://api-rial.gouv.fr/tokens/%<external_provider_id>"
+  access_link: "https://api-rial.gouv.fr/tokens/%{external_provider_id}"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
   features: *dgfip_features
@@ -834,7 +834,7 @@ api_infinoe:
   kind: 'api'
   link: "https://www.data.gouv.fr/fr/organizations/ministere-de-leconomie-des-finances-et-de-lindustrie/"
   cgu_link: "/cgus/dgfip/cgu_infinoe_production_v_2023_10.pdf"
-  access_link: "https://api-infinoe.gouv.fr/tokens/%<external_provider_id>"
+  access_link: "https://api-infinoe.gouv.fr/tokens/%{external_provider_id}"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
   features: *dgfip_features
@@ -858,7 +858,7 @@ api_infinoe_sandbox:
   kind: 'api'
   link: "https://www.data.gouv.fr/fr/organizations/ministere-de-leconomie-des-finances-et-de-lindustrie/"
   cgu_link: "/cgus/dgfip/cgu_infinoe_bac_a_sable_v_2023_10.pdf"
-  access_link: "https://api-infinoe.gouv.fr/tokens/%<external_provider_id>"
+  access_link: "https://api-infinoe.gouv.fr/tokens/%{external_provider_id}"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
   features: *dgfip_features
@@ -881,7 +881,7 @@ api_ficoba:
   link: "https://www.data.gouv.fr/fr/dataservices/api-fichier-des-comptes-bancaires-et-assimiles-ficoba/"
   cgu_link: "/cgus/dgfip/cgu_api_ficoba_production.pdf"
   # FEEDME
-  access_link: "https://api-ficoba.gouv.fr/tokens/%<external_provider_id>"
+  access_link: "https://api-ficoba.gouv.fr/tokens/%{external_provider_id}"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
   features: *dgfip_features
@@ -926,7 +926,7 @@ api_ficoba_sandbox:
   link: "https://www.data.gouv.fr/fr/dataservices/api-fichier-des-comptes-bancaires-et-assimiles-ficoba/"
   cgu_link: "/cgus/dgfip/cgu_api_ficoba_bac_a_sable_decembre2020_v1.1.pdf"
   # FEEDME
-  access_link: "https://api-ficoba.gouv.fr/tokens/%<external_provider_id>"
+  access_link: "https://api-ficoba.gouv.fr/tokens/%{external_provider_id}"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: true
   features: *dgfip_features
@@ -951,7 +951,7 @@ api_r2p_sandbox:
   kind: 'api'
   link: "https://www.data.gouv.fr/fr/dataservices/api-recherche-des-personnes-physiques-r2p/"
   cgu_link: "/cgus/dgfip/cgu_api_r2p_bac_a_sable_septembre2020_v2.6.pdf"
-  access_link: "https://api-r2p.gouv.fr/tokens/%<external_provider_id>" # TODO
+  access_link: "https://api-r2p.gouv.fr/tokens/%{external_provider_id}" # TODO
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
   features: *dgfip_features
@@ -974,7 +974,7 @@ api_r2p:
   kind: 'api'
   link: "https://www.data.gouv.fr/fr/dataservices/api-recherche-des-personnes-physiques-r2p/"
   cgu_link: "/cgus/dgfip/cgu_api_r2p_production_septembre2020_v2.5.pdf"
-  access_link: "https://api-r2p.gouv.fr/tokens/%<external_provider_id>" # TODO
+  access_link: "https://api-r2p.gouv.fr/tokens/%{external_provider_id}" # TODO
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: true
   features: *dgfip_features
