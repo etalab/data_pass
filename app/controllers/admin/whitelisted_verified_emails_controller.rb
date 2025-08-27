@@ -8,7 +8,8 @@ class Admin::WhitelistedVerifiedEmailsController < AdminController
   end
 
   def create
-    @verified_email = VerifiedEmail.new(verified_email_params)
+    @verified_email = VerifiedEmail.find_or_initialize_by(verified_email_params)
+    @verified_email.status = 'whitelisted'
 
     if @verified_email.save
       success_message(title: t('.success', verified_email_email: @verified_email.email))
@@ -22,6 +23,6 @@ class Admin::WhitelistedVerifiedEmailsController < AdminController
   private
 
   def verified_email_params
-    params.expect(verified_email: [:email]).merge(status: 'whitelisted')
+    params.expect(verified_email: [:email])
   end
 end

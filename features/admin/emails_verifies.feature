@@ -23,3 +23,12 @@ Fonctionnalité: Espace admin: emails en liste blanche
     Alors la page contient "nouveau@gouv.fr"
     Et il y a un message de succès contenant "a été ajouté"
 
+
+  Scénario: Je peux modifier un email non délivrable en liste blanche pour le rendre délivrable
+    Quand il y a l'email "whatever@gouv.fr" marqué en tant que "non délivrable"
+    Et que je me rends sur le module "Emails vérifiés" de l'espace administrateur
+    Et que je clique sur "Ajouter un email"
+    Et que je remplis "Email" avec "whatever@gouv.fr"
+    Et que je clique sur "Valider"
+    Alors la page contient "whatever@gouv.fr"
+    Et il y a un message de succès contenant "a été ajouté"

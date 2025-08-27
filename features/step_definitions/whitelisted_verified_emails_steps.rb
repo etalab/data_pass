@@ -4,6 +4,8 @@ Quand("il y a l'email {string} marqué en tant que {string}") do |email, kind|
     status = 'deliverable'
   when 'liste blanche'
     status = 'whitelisted'
+  when 'non délivrable'
+    status = 'undeliverable'
   end
 
   create(:verified_email, email:, status:)
