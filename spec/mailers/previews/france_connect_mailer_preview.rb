@@ -6,6 +6,6 @@ class FranceConnectMailerPreview < ActionMailer::Preview
   private
 
   def authorization_request
-    AuthorizationRequest::APIDroitsCNAM.where(state: 'validated').first
+    AuthorizationRequest::APIImpotParticulierSandbox.where(state: :validated).last
   end
 end

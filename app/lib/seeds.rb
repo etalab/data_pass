@@ -58,6 +58,9 @@ class Seeds
 
     create_validated_authorization_request(:api_impot_particulier_sandbox, attributes: { intitule: 'Demande de retraite progressive en ligne', applicant: demandeur })
 
+    france_connect_authorization_request_for_dgfip = create_validated_authorization_request(:france_connect, attributes: { intitule: 'Connexion FranceConnect ImpotPart', applicant: demandeur })
+    create_validated_authorization_request(:api_impot_particulier_sandbox, attributes: { modalities: ['with_france_connect'], france_connect_authorization_id: france_connect_authorization_request_for_dgfip.latest_authorization.id, intitule: 'Demande de retraite progressive en ligne', applicant: demandeur })
+
     create_fully_approved_api_impot_particulier_authorization_request
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
