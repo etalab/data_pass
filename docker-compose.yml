@@ -38,7 +38,7 @@ services:
       - redis
 
   chrome:
-    image: ghcr.io/browserless/chrome
+    image: ghcr.io/browserless/chromium
     ports:
       - "3333:3333"
     environment:
