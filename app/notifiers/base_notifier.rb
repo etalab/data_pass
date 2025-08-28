@@ -11,11 +11,7 @@ class BaseNotifier < ApplicationNotifier
     refuse
   ].each do |event|
     define_method(event) do |params|
-      if params[:within_reopening]
-        email_notification("reopening_#{event}", params)
-      else
-        email_notification(event, params)
-      end
+      email_notification_with_reopening(event, params)
     end
   end
 
@@ -24,17 +20,11 @@ class BaseNotifier < ApplicationNotifier
 
     notify_france_connect if authorization_request.with_france_connect?
 
-    if params[:within_reopening]
-      email_notification('reopening_approve', params)
-    else
-      email_notification('approve', params)
-    end
+    email_notification_with_reopening('approve', params)
   end
 
-  def submit(_params)
-    Instruction::AuthorizationRequestMailer.with(
-      authorization_request:
-    ).submit.deliver_later
+  def submit(params)
+    email_notification_with_reopening('submit', params, mailer: Instruction::AuthorizationRequestMailer)
   end
 
   def revoke(params) = email_notification('revoke', params)

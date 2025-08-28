@@ -12,13 +12,9 @@ class APIEntreculierNotifier < BaseNotifier
     RegisterOrganizationWithContactsOnCRMJob.perform_later(authorization_request.id)
   end
 
-  def submit(_params)
+  def submit(params)
     webhook_notification('submit')
 
-    mail_to_send = authorization_request.reopening? ? 'reopening_submit' : 'submit'
-
-    Instruction::AuthorizationRequestMailer.with(
-      authorization_request:
-    ).public_send(mail_to_send).deliver_later
+    super
   end
 end
