@@ -11,4 +11,8 @@ class AuthorizationRequest::APIIndemnitesJournalieresCNAM < AuthorizationRequest
     :volumetrie_approximative
 
   contact :contact_technique, validation_condition: ->(record) { record.need_complete_validation?(:contacts) }
+
+  def scopes
+    ['cnam_paiements_ij']
+  end
 end

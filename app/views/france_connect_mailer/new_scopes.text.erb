@@ -2,12 +2,10 @@ Bonjour,
 
 Une <%= @authorization_request.reopening? ? 'mise à jour' : 'habilitation' %> <%= @authorization_request.definition.name %><%= " (#{t("authorization_request.stage.#{@authorization_request.definition.stage.type}")})" if @authorization_request.definition.stage.type %> pour le FS <%= @authorization_request.organization.name %> (identifiant DataPass de <%= @authorization_request.reopening? ? 'la mise à jour' : "l'habilitation" %> FranceConnect associée : <%= @france_connect_authorization_request.id %>) vient d’être validée.
 
-<% if @authorization_request.respond_to?(:scopes) %>
 En conséquence, merci d’autoriser les scopes suivant pour le sus-mentionné FS :
 
 <% @authorization_request.scopes.each do |scope| %>
 - <%= scope %>
-<% end %>
 <% end %>
 
 Pour consulter cette <%= @authorization_request.reopening? ? 'mise à jour' : 'habilitation' %>, veuillez cliquer sur le lien suivant <%= authorization_request_url(@authorization_request) %> .
