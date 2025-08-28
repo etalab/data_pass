@@ -66,15 +66,7 @@ Alors('le titre de la page contient {string}') do |text|
 end
 
 Quand('je remplis {string} avec {string}') do |label, value|
-  if javascript?
-    node = find_field(label)
-
-    value.chars.each do |char|
-      node.send_keys(char)
-    end
-  else
-    fill_in label, with: value
-  end
+  fill_in label, with: value, wait: true
 end
 
 Quand('je remplis {string} avec le fichier {string}') do |label, path|
