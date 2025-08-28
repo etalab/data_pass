@@ -5,7 +5,7 @@
   kind: 'api'
   link: "https://<%= name.underscore.dasherize %>.gouv.fr/feedme-with-valid-url"
   cgu_link: "https://<%= name.underscore.dasherize %>.gouv.fr/cgu"
-  access_link: "https://<%= name.underscore.dasherize %>.gouv.fr/tokens/%<external_provider_id>"
+  access_link: "https://<%= name.underscore.dasherize %>.gouv.fr/tokens/%{external_provider_id}"
   public: true
   support_email: "support@<%= name.underscore.dasherize %>.gouv.fr"
   stage:
@@ -35,7 +35,7 @@
   kind: 'api'
   link: "https://<%= name.underscore.dasherize %>.gouv.fr/feedme-with-valid-url"
   cgu_link: "https://<%= name.underscore.dasherize %>.gouv.fr/cgu"
-  access_link: "https://<%= name.underscore.dasherize %>.gouv.fr/tokens/%<external_provider_id>"
+  access_link: "https://<%= name.underscore.dasherize %>.gouv.fr/tokens/%{external_provider_id}"
   public: true
   stage:
     type: production

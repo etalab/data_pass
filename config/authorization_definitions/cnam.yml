@@ -5,7 +5,7 @@ api_droits_cnam:
   kind: 'api'
   link: "https://api.gouv.fr/les-api/api_ameli_droits_cnam"
   cgu_link: "/cgus/API_Droits_CNAM_CGU_20181210.pdf"
-  access_link: "https://api-droits-cnam.gouv.fr/tokens/%<external_provider_id>"
+  access_link: "https://api-droits-cnam.gouv.fr/tokens/%{external_provider_id}"
   public: true
   support_email: "partenaires-api-ameli.cnam@assurance-maladie.fr"
   blocks: &api_cnam_blocks
@@ -22,7 +22,7 @@ api_indemnites_journalieres_cnam:
   kind: 'api'
   link: "https://api.gouv.fr/les-api/api-indemnites-journalieres-cnam"
   cgu_link: "/cgus/API_Droits_CNAM_CGU_20181210.pdf"
-  access_link: "https://api-indemnites-journalieres-cnam.gouv.fr/tokens/%<external_provider_id>"
+  access_link: "https://api-indemnites-journalieres-cnam.gouv.fr/tokens/%{external_provider_id}"
   support_email: "partenaires-api-ameli.cnam@assurance-maladie.fr"
   public: true
   blocks: *api_cnam_blocks

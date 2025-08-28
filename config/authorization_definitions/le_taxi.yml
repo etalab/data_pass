@@ -5,7 +5,7 @@ le_taxi:
   kind: 'api'
   link: "https://api.gouv.fr/les-api/le-taxi"
   cgu_link: "https://le.taxi/assets/documents/CGU.pdf"
-  access_link: "https://le-taxi.gouv.fr/tokens/%<external_provider_id>"
+  access_link: "https://le-taxi.gouv.fr/tokens/%{external_provider_id}"
   support_email: "equipe@le.taxi"
   public: true
   blocks:

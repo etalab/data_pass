@@ -144,8 +144,8 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Entreprise
       | Portail GRU - Pré-remplissage & instruction des démarches | Entr'ouvert       |
 
 
-  Scénario: Je vois un lien vers API entreprise quand je consulte une habilitation validée avec token
-    Quand j'ai 1 demande d'habilitation "API Entreprise" avec token validée
+  Scénario: Je vois un lien vers API entreprise quand je consulte une habilitation validée
+    Quand j'ai 1 demande d'habilitation "API Entreprise" validée
     Et que je me rends sur mon tableau de bord demandeur habilitations
     Et que je clique sur "Consulter"
     Alors il y a un titre contenant "API Entreprise"

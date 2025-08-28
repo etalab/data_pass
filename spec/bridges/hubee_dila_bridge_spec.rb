@@ -2,7 +2,7 @@ RSpec.describe HubEEDilaBridge do
   describe '#perform on approve' do
     subject(:hubee_dila_bridge) { described_class.new.perform(authorization_request, 'approve') }
 
-    let(:authorization_request) { create(:authorization_request, :hubee_dila, :validated, organization:, scopes: %w[etat_civil depot_dossier_pacs]) }
+    let(:authorization_request) { create(:authorization_request, :hubee_dila, :validated, organization:, external_provider_id: nil, scopes: %w[etat_civil depot_dossier_pacs]) }
     let(:organization) { create(:organization, siret: '21920023500014') }
 
     let(:organization_payload) { build(:hubee_organization_payload, organization:, authorization_request:) }

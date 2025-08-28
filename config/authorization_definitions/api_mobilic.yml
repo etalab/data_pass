@@ -5,7 +5,7 @@ api_mobilic:
   kind: 'api'
   link: "https://www.data.gouv.fr/fr/dataservices/api-mobilic/l"
   cgu_link: "https://cgu-api.mobilic.beta.gouv.fr/"
-  access_link: "https://api-mobilic.gouv.fr/tokens/%<external_provider_id>"
+  access_link: "https://api-mobilic.gouv.fr/tokens/%{external_provider_id}"
   public: true
   support_email: contact@mobilic.beta.gouv.fr
   blocks:

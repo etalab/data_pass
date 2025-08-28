@@ -5,7 +5,7 @@ api_declaration_auto_entrepreneur:
   kind: 'api'
   link: "https://api.gouv.fr/les-api/api-declaration-auto-entrepreneur"
   cgu_link: "https://portailapi.urssaf.fr/images/Documentation/CGU_TDAE_V1.pdf"
-  access_link: "https://api-declaration-auto-entrepreneur.gouv.fr/tokens/%<external_provider_id>"
+  access_link: "https://api-declaration-auto-entrepreneur.gouv.fr/tokens/%{external_provider_id}"
   support_email: "contact.tiercedeclaration@urssaf.fr"
   public: true
   blocks:
@@ -51,7 +51,7 @@ api_declaration_cesu:
   kind: 'api'
   link: "https://api.gouv.fr/les-api/api-declaration-cesu"
   cgu_link: "/cgus/cgu_api_declaration_cesu_v1.pdf"
-  access_link: "https://api-declaration-cesu.gouv.fr/tokens/%<external_provider_id>"
+  access_link: "https://api-declaration-cesu.gouv.fr/tokens/%{external_provider_id}"
   support_email: "habilitation-api@urssaf.fr"
   public: true
   features:
