@@ -24,7 +24,7 @@ class AuthorizationRequests::BlocksController < AuthenticatedUserController
     else
       error_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.update')
 
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 

@@ -24,7 +24,7 @@ class TransferAuthorizationRequestsController < AuthenticatedUserController
 
       affect_local_error(organizer)
 
-      render "new_#{to_new_applicant}", status: :unprocessable_entity
+      render "new_#{to_new_applicant}", status: :unprocessable_content
     end
   end
 

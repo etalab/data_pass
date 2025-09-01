@@ -111,7 +111,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
       error_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.build.update')
 
       render view_path(@authorization_request.form.steps.first[:name]),
-        status: :unprocessable_entity
+        status: :unprocessable_content
     end
   end
   # rubocop:enable Metrics/AbcSize
@@ -162,7 +162,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     else
       error_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.create_for_single_page_form')
 
-      render view_path, status: :unprocessable_entity
+      render view_path, status: :unprocessable_content
     end
   end
 
@@ -176,7 +176,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     else
       error_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.create_for_single_page_form')
 
-      render view_path, status: :unprocessable_entity
+      render view_path, status: :unprocessable_content
     end
   end
 
@@ -208,7 +208,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     else
       error_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.update')
 
-      render view_path, status: :unprocessable_entity
+      render view_path, status: :unprocessable_content
     end
   end
 
@@ -233,7 +233,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     else
       error_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.update')
 
-      render view_path, status: :unprocessable_entity
+      render view_path, status: :unprocessable_content
     end
   end
 
@@ -256,7 +256,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     else
       error_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.submit', include_model_errors: true)
 
-      render 'summary', status: :unprocessable_entity
+      render 'summary', status: :unprocessable_content
     end
   end
 
