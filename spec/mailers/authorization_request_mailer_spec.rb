@@ -42,6 +42,14 @@ RSpec.describe AuthorizationRequestMailer do
           expect(mail.body.encoded).to match('DGFiP')
         end
       end
+
+      describe 'annuaire des entreprises' do
+        let(:authorization_request) { create(:authorization_request, :annuaire_des_entreprises, :validated) }
+
+        it 'renders valid custom template' do
+          expect(mail.body.encoded).to match('espace agent')
+        end
+      end
     end
   end
 
