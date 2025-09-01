@@ -18,7 +18,7 @@ class Instruction::TransferAuthorizationRequestsController < Instruction::Abstra
 
       affect_local_error(organizer)
 
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 

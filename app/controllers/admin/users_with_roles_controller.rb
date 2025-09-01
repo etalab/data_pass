@@ -22,7 +22,7 @@ class Admin::UsersWithRolesController < AdminController
     if @user.new_record?
       error_message(title: t('.not_found', user_email: user_params[:email]))
 
-      render 'new', status: :unprocessable_entity
+      render 'new', status: :unprocessable_content
     else
       update
     end

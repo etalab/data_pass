@@ -23,7 +23,7 @@ class OrganizationsController < AuthenticatedUserController
     else
       error_message(title: t(".error.#{organizer.error}", siret: organization_params[:siret]))
 
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 

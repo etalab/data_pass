@@ -12,7 +12,7 @@ class Instruction::ApproveAuthorizationRequestsController < Instruction::Abstrac
       redirect_to instruction_dashboard_show_path(id: 'demandes'),
         status: :see_other
     else
-      render 'new', status: :unprocessable_entity
+      render 'new', status: :unprocessable_content
     end
   end
 

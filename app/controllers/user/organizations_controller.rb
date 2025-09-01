@@ -19,7 +19,7 @@ class User::OrganizationsController < AuthenticatedUserController
       error_message(title: t('.error.not_found', siret: organization_params[:siret]))
 
       redirect_to new_organization_path,
-        status: :unprocessable_entity
+        status: :unprocessable_content
     end
   end
 

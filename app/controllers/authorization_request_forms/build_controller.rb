@@ -29,7 +29,7 @@ class AuthorizationRequestForms::BuildController < AuthorizationRequestFormsCont
       else
         error_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.build.update')
 
-        render_wizard(@authorization_request, status: :unprocessable_entity)
+        render_wizard(@authorization_request, status: :unprocessable_content)
       end
     end
   end

@@ -16,7 +16,7 @@ class Admin::WhitelistedVerifiedEmailsController < AdminController
 
       redirect_to admin_whitelisted_verified_emails_path
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
