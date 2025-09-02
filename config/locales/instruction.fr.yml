@@ -444,7 +444,6 @@ fr:
       create:
         success: L'invitation a été envoyée avec succès au demandeur
         error:
-          title: Erreur lors de l'envoi de l'invitation
           message:
             invalid_organization_params: |
               Le numéro de SIRET est invalide.

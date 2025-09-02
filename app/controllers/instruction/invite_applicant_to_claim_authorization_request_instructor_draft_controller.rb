@@ -23,7 +23,7 @@ class Instruction::InviteApplicantToClaimAuthorizationRequestInstructorDraftCont
   private
 
   def handle_create_success
-    success_message(title: t('.success'))
+    success_message(title: t('instruction.invite_applicant_to_claim_authorization_request_instructor_draft.create.success'))
 
     respond_to do |format|
       format.turbo_stream do
