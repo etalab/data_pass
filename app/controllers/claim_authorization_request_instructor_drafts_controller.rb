@@ -24,9 +24,15 @@ class ClaimAuthorizationRequestInstructorDraftsController < AuthenticatedUserCon
     if organizer.success?
       change_current_organization(organizer.organization) if organizer.organization != current_organization
 
+      success_message(
+        title: t('authorization_request_instructor_drafts.claim.success.title'),
+      )
+
       redirect_to authorization_request_path(organizer.authorization_request)
     else
-      error_message(title: t('authorization_request_instructor_drafts.claim.errors.generic.title'))
+      error_message(
+        title: t('authorization_request_instructor_drafts.claim.errors.generic.title'),
+      )
       render 'show', status: :unprocessable_entity
     end
   end
