@@ -8,14 +8,17 @@ RSpec.describe AuthorizationRequestInstructorDraftMailer do
       ).invite_applicant
     end
 
-    let(:instructor) { create(:user, :instructor) }
+    let!(:instructor) { create(:user, :instructor, authorization_request_types: %w[api_entreprise]) }
+    let!(:reporter) { create(:user, :reporter, authorization_request_types: %w[api_entreprise]) }
+    let!(:foreign_reporter) { create(:user, :reporter, authorization_request_types: %w[api_particulier]) }
+
     let(:authorization_request_instructor_draft) do
       create(:authorization_request_instructor_draft, :with_applicant, instructor:)
     end
 
-    it 'sends the email to the applicant and cc instructor' do
+    it 'sends the email to the applicant and bcc instructors and reporters related to this authorization definition' do
       expect(mail.to).to eq([authorization_request_instructor_draft.applicant.email])
-      expect(mail.cc).to eq([instructor.email])
+      expect(mail.bcc).to eq([instructor.email, reporter.email])
     end
 
     it 'includes the project name in the subject' do
