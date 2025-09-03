@@ -51,7 +51,7 @@ RSpec.describe SkipLinks do
         context 'with a non-whitelisted page' do
           before do
             allow(self).to receive_messages(
-              controller_name: 'test_controller',
+              controller_path: 'test_controller',
               action_name: 'test_action'
             )
             allow(self).to receive(:content_for?).with(:content_skip_link_text).and_return(false)
@@ -68,7 +68,7 @@ RSpec.describe SkipLinks do
         context 'with a whitelisted page' do
           before do
             allow(self).to receive_messages(
-              controller_name: 'authorization_requests',
+              controller_path: 'authorization_requests',
               action_name: 'show'
             )
             allow(self).to receive(:content_for?).with(:content_skip_link_text).and_return(false)
@@ -97,12 +97,12 @@ RSpec.describe SkipLinks do
 
   describe '#validate_skip_links_in_test!' do
     it 'returns true for whitelisted pages' do
-      allow(self).to receive_messages(controller_name: 'authorization_requests', action_name: 'show')
+      allow(self).to receive_messages(controller_path: 'authorization_requests', action_name: 'show')
       expect(validate_skip_links_in_test!).to be true
     end
 
     it 'returns false for non-whitelisted pages' do
-      allow(self).to receive_messages(controller_name: 'non_existent', action_name: 'show')
+      allow(self).to receive_messages(controller_path: 'non_existent', action_name: 'show')
       expect { validate_skip_links_in_test! }.to raise_error(SkipLinksImplementedChecker::SkipLinksNotDefinedError)
     end
   end
