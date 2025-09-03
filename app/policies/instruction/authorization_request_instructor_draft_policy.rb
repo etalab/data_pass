@@ -9,7 +9,8 @@ class Instruction::AuthorizationRequestInstructorDraftPolicy < ApplicationPolicy
   end
 
   def show?
-    record.authorization_request_class.in?(current_user_instructor_types)
+    record.authorization_request_class.in?(current_user_instructor_types) &&
+      record.persisted?
   end
 
   def edit?
@@ -17,16 +18,25 @@ class Instruction::AuthorizationRequestInstructorDraftPolicy < ApplicationPolicy
   end
 
   def update?
-    show?
+    show? &&
+      record.persisted?
   end
 
   def destroy?
-    show?
+    show? &&
+      record.persisted?
   end
 
   def invite?
     show? &&
+      record.persisted? &&
       record.applicant.blank?
+  end
+
+  def invite_link?
+    show? &&
+      record.persisted? &&
+      record.public_id.present?
   end
 
   private

@@ -11,12 +11,14 @@
           <div class="authorization-request-form-header__actions">
             <% if policy([:instruction, @authorization_request_instructor_draft]).invite? %>
               <%= dsfr_main_modal_button(t('instruction.authorization_request_instructor_drafts.index.table.actions.invite'), new_instruction_authorization_request_instructor_draft_invite_applicant_to_claim_authorization_request_instructor_draft_path(@authorization_request_instructor_draft), class: 'fr-btn', aria: { controls: 'main-modal' }, data: { turbo_frame: 'main-modal-content' }) %>
-            <% else %>
+            <% elsif policy([:instruction, @authorization_request_instructor_draft]).invite_link? %>
               <%= link_to t('instruction.authorization_request_instructor_drafts.index.table.actions.invite_link'), claim_authorization_request_instructor_draft_path(@authorization_request_instructor_draft.public_id), target: '_blank' %>
 
             <% end %>
 
-            <%= button_to t('instruction.authorization_request_instructor_drafts.index.table.actions.delete'), instruction_authorization_request_instructor_draft_path(@authorization_request_instructor_draft), method: :delete, data: { turbo_confirm: t('instruction.authorization_request_instructor_drafts.index.table.actions.confirm_delete') }, class: 'fr-btn fr-btn--secondary fr-btn--sm' %>
+            <% if policy([:instruction, @authorization_request_instructor_draft]).destroy? %>
+              <%= button_to t('instruction.authorization_request_instructor_drafts.index.table.actions.delete'), instruction_authorization_request_instructor_draft_path(@authorization_request_instructor_draft), method: :delete, data: { turbo_confirm: t('instruction.authorization_request_instructor_drafts.index.table.actions.confirm_delete') }, class: 'fr-btn fr-btn--secondary fr-btn--sm' %>
+            <% end %>
           </div>
         </div>
       </div>
