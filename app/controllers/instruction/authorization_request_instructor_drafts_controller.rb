@@ -12,11 +12,22 @@ class Instruction::AuthorizationRequestInstructorDraftsController < InstructionC
   end
 
   def new
-    @authorization_request_instructor_draft = AuthorizationRequestInstructorDraft.new(authorization_request_class: 'AuthorizationRequest::APIEntreprise')
+    authorization_definition = extract_authorization_definition_from_context
 
-    prepare_request
+    if authorization_definition.nil?
+      @definitions = current_user.instructor_roles.map do |scope|
+        authorization_definition_id = scope.split(':').first
+        AuthorizationDefinition.find(authorization_definition_id)
+      end
 
-    render 'edit'
+      render 'select_definition', layout: 'container'
+    else
+      @authorization_request_instructor_draft = AuthorizationRequestInstructorDraft.new(authorization_request_class: authorization_definition.authorization_request_class.to_s)
+
+      prepare_request
+
+      render 'edit'
+    end
   end
 
   def create
@@ -95,6 +106,17 @@ class Instruction::AuthorizationRequestInstructorDraftsController < InstructionC
   end
 
   private
+
+  def extract_authorization_definition_from_context
+    if params[:authorization_definition_id].present?
+      AuthorizationDefinition.find(params[:authorization_definition_id])
+    elsif current_user.instructor_roles.one?
+      scope = current_user.instructor_roles.first
+      authorization_definition_id = scope.split(':').first
+
+      AuthorizationDefinition.find(authorization_definition_id)
+    end
+  end
 
   def authorization_request_params
     params.require(authorization_request_class.model_name.singular)

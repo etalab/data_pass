@@ -32,6 +32,15 @@ Fonctionnalité: Instruction: gestion des demandes d'habilitations d'instructeur
     Et le champ "Nom du projet" contient "Conquérir le monde"
     Et le champ "Description du projet" contient "Comment chaque soir"
 
+  Scénario: Si je suis instructeur de plusieurs type de demande, je peux choisir le type de demande que je veux
+    Sachant que je suis un instructeur "API Particulier"
+    Quand je clique sur "Liste des demandes initiés pour le compte d'une organisation"
+    Et que je clique sur "Initier une nouvelle demande d'habilitation"
+    Alors la page contient "API Entreprise"
+    Et la page contient "API Particulier"
+    Quand je clique sur "API Particulier"
+    Alors la page contient "Quotient familial"
+
   Scénario: Je peux mettre à jour une demande d'habilitation d'instructeur
     Quand j'ai une demande d'habilitation à partager pour "API Entreprise" intitulée "Super secret"
     Et que je clique sur "Liste des demandes initiés pour le compte d'une organisation"

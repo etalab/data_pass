@@ -23,6 +23,10 @@
     <% end %>
   </div>
 
+  <% if @authorization_request_instructor_draft.new_record? %>
+    <%= f.hidden_field :type %>
+  <% end %>
+
   <div class="fr-my-5w fr-py-2w sticky-bar" data-controller="sticky-bar">
     <div class="fr-container-fluid">
       <div class="fr-container">
