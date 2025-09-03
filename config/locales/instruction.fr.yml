@@ -62,7 +62,6 @@ fr:
             other: "%{count} résultats"
       show:
         title: Liste des demandes et habilitations
-        authorization_request_instructor_drafts_link: Liste des demandes initiés pour le compte d'une organisation
         tabs:
           demandes:
             title:
@@ -416,11 +415,10 @@ fr:
             invite_link: Lien d'invitation
             delete: Supprimer
             confirm_delete: Confirmer la suppression ? Cela supprimera ce brouillon et l'invitation associée.
+      select_definition:
+        title: Choix du type d'habilitation
       edit:
-        new_title: Création d'une nouvelle demande " %{definition_name} " pour le compte d'une organisation
-        edit_title: Modification de la demande " %{definition_name} " pour le compte d'une organisation
         save: Sauvegarder
-        cancel: Annuler
       create:
         success: Le brouillon de la demande d'habilitation a bien été sauvegardé
         error: Veuillez renseigner à minima un champ
