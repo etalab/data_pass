@@ -1,0 +1,11 @@
+<h2 class="fr-h2 fr-mt-5w">
+  <%= t('.title') %>
+</h2>
+
+<ul>
+  <% @definitions.each do |definition| %>
+    <li>
+      <%= link_to definition.name_with_stage, new_instruction_authorization_request_instructor_draft_path(authorization_definition_id: definition.id) %>
+    </li>
+  <% end %>
+</ul>
