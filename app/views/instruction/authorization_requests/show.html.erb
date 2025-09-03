@@ -1,7 +1,7 @@
-<%= authorization_request_form_tag(authorization_request) do |f| %>
-  <%= render partial: "authorization_requests/shared/reopening_callout", locals: { type: :instructor } if authorization_request.reopening? %>
+<%= authorization_request_form_tag(@authorization_request) do |f| %>
+  <%= render partial: "authorization_requests/shared/reopening_callout", locals: { type: :instructor } if @authorization_request.reopening? %>
 
-  <%= render partial: 'demandes_habilitations/organization_and_applicant', locals: { demande: authorization_request } %>
+  <%= render partial: 'demandes_habilitations/organization_and_applicant', locals: { demande: @authorization_request } %>
 
   <div class="info-block">
     <h3>
@@ -13,11 +13,11 @@
   </div>
 
 
-  <% authorization_request.editable_blocks.each do |block| %>
-    <%= render_custom_block_or_default(authorization_request, block[:name], f:, editable: true) %>
+  <% @authorization_request.editable_blocks.each do |block| %>
+    <%= render_custom_block_or_default(@authorization_request, block[:name], f:, editable: true) %>
   <% end %>
 
-  <% if authorization_request.static_blocks.any? %>
+  <% if @authorization_request.static_blocks.any? %>
     <div class="info-block">
       <h3>
         Les informations pré-remplies
@@ -27,8 +27,8 @@
       </p>
     </div>
 
-    <% authorization_request.static_blocks.each do |block| %>
-      <%= render_custom_block_or_default(authorization_request, block[:name], f:, editable: false) %>
+    <% @authorization_request.static_blocks.each do |block| %>
+      <%= render_custom_block_or_default(@authorization_request, block[:name], f:, editable: false) %>
     <% end %>
   <% end %>
 <% end %>
