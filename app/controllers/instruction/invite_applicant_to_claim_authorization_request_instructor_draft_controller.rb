@@ -46,7 +46,7 @@ class Instruction::InviteApplicantToClaimAuthorizationRequestInstructorDraftCont
   end
 
   def authorize_instructor_draft
-    authorize [:instruction, @authorization_request_instructor_draft]
+    authorize [:instruction, @authorization_request_instructor_draft], :invite?
   end
 
   def model_to_track_for_impersonation
