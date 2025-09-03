@@ -1,6 +1,7 @@
 class API::V1Controller < APIController
   include APIPagination
 
+  rescue_from Doorkeeper::Errors::BaseResponseError, with: :render_generic_error
   rescue_from Doorkeeper::Errors::TokenUnknown, with: :render_unauthorized_error
   rescue_from Doorkeeper::Errors::TokenExpired, with: :render_expired_token_error
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_error
@@ -19,6 +20,10 @@ class API::V1Controller < APIController
 
   def render_expired_token_error
     render_error(401, title: 'Jeton expiré', detail: 'Le jeton d’accès a expiré. Veuillez en obtenir un nouveau.', source: { pointer: 'headers/Authorization' })
+  end
+
+  def render_generic_error
+    render_error(422, title: 'Entité non traitable', detail: 'Un problème est survenu lors du traitement de la requête.')
   end
 
   def render_error(http_code, title:, detail:, source: nil)
