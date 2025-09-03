@@ -685,3 +685,18 @@ fr:
       contact_support: "Contacter le support à l'adresse suivante:"
       email_subject: "Transfert demande n°%{authorization_request_id}"
       close: "Fermer"
+
+  authorization_request_instructor_drafts:
+    claim:
+      success:
+        title: La demande d'habilitation %{project_name} a bien été revendiquée pour votre organisation.
+
+      errors:
+        generic:
+          title: Une erreur est survenue lors de la revendication de la demande d'habilitation
+        not_same_user:
+          title: Vous ne pouvez pas revendiquer cette demande d'habilitation
+          description: Cette demande d'habilitation a été créée pour un autre usager dont l'email correspond à %{obfuscated_email}.
+        already_claimed:
+          title: Vous ne pouvez pas revendiquer cette demande d'habilitation
+          description: Cette demande d'habilitation a déjà été revendiquée par un autre usager.

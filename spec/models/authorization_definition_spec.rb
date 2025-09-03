@@ -152,4 +152,24 @@ RSpec.describe AuthorizationDefinition do
       it { expect(next_stage_definition.id).to eq('api_impot_particulier') }
     end
   end
+
+  describe '#default_form' do
+    subject { definition.default_form }
+
+    let(:definition) { described_class.find(definition_id) }
+
+    context 'when definition has a default form' do
+      let(:definition_id) { 'annuaire_des_entreprises' }
+
+      it { is_expected.to eq(AuthorizationRequestForm.find('annuaire-des-entreprises')) }
+    end
+
+    context 'when definition has no default form' do
+      let(:definition_id) { 'api_sfip_sandbox' }
+
+      it 'takes the first one' do
+        expect(subject).to eq(AuthorizationRequestForm.find('api-sfip-sandbox'))
+      end
+    end
+  end
 end
