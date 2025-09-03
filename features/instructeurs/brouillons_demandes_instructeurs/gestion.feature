@@ -16,12 +16,12 @@ Fonctionnalité: Instruction: gestion des demandes d'habilitations d'instructeur
 
   Scénario: Je peux voir les demande d'habilitations d'instructeur depuis la page d'instruction
     Quand j'ai une demande d'habilitation à partager pour "API Entreprise" intitulée "Super secret"
-    Et que je clique sur "Liste des demandes initiés pour le compte d'une organisation"
+    Et que je clique sur "Brouillons d'instructeurs"
     Alors la page contient "Super secret"
     Et la page contient "API Entreprise"
 
   Scénario: Je peux créer une demande d'habilitation d'instructeur
-    Quand je clique sur "Liste des demandes initiés pour le compte d'une organisation"
+    Quand je clique sur "Brouillons d'instructeurs"
     Et que je clique sur "Initier une nouvelle demande d'habilitation"
 
     Et que je remplis "Nom du projet" avec "Conquérir le monde"
@@ -34,7 +34,7 @@ Fonctionnalité: Instruction: gestion des demandes d'habilitations d'instructeur
 
   Scénario: Si je suis instructeur de plusieurs type de demande, je peux choisir le type de demande que je veux
     Sachant que je suis un instructeur "API Particulier"
-    Quand je clique sur "Liste des demandes initiés pour le compte d'une organisation"
+    Quand je clique sur "Brouillons d'instructeurs"
     Et que je clique sur "Initier une nouvelle demande d'habilitation"
     Alors la page contient "API Entreprise"
     Et la page contient "API Particulier"
@@ -43,7 +43,7 @@ Fonctionnalité: Instruction: gestion des demandes d'habilitations d'instructeur
 
   Scénario: Je peux mettre à jour une demande d'habilitation d'instructeur
     Quand j'ai une demande d'habilitation à partager pour "API Entreprise" intitulée "Super secret"
-    Et que je clique sur "Liste des demandes initiés pour le compte d'une organisation"
+    Et que je clique sur "Brouillons d'instructeurs"
     Et que je clique sur "Modifier"
     Et que je remplis "Nom du projet" avec "Conquérir le monde"
     Et que je clique sur "Sauvegarder"
@@ -52,7 +52,7 @@ Fonctionnalité: Instruction: gestion des demandes d'habilitations d'instructeur
 
   Scénario: Je peux supprimer une demande d'habilitation d'instructeur
     Quand j'ai une demande d'habilitation à partager pour "API Entreprise" intitulée "Super secret"
-    Et que je clique sur "Liste des demandes initiés pour le compte d'une organisation"
+    Et que je clique sur "Brouillons d'instructeurs"
     Et que je clique sur "Supprimer"
     Alors il y a un message de succès contenant "Le brouillon de la demande d'habilitation a bien été supprimé"
     Et la page ne contient pas "Super secret"
