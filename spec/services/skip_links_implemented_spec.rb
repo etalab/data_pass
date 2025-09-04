@@ -24,7 +24,7 @@ RSpec.describe SkipLinksImplementedChecker do
       end
     end
 
-    context 'when route is not whitelisted and no skip links' do
+    context 'when route is not whitelisted and no skip links are present' do
       it 'raises SkipLinksNotDefinedError' do
         skip_links_checker = described_class.new(
           controller_name: 'test',
@@ -34,7 +34,8 @@ RSpec.describe SkipLinksImplementedChecker do
 
         expect {
           skip_links_checker.perform!
-        }.to raise_error(SkipLinksImplementedChecker::SkipLinksNotDefinedError, /No skip links defined for this page \(test#show\)/)
+        }.to raise_error(SkipLinksImplementedChecker::SkipLinksNotDefinedError,
+          /Accessibility Error: No skip links have been defined for the current page \(test#show\)\. To ensure proper navigation for keyboard and screen reader users, add skip links by using `content_for\(:skip_links\)` in your view or defining them through a dedicated helper method\./)
       end
     end
   end
