@@ -10,8 +10,8 @@ RSpec.describe WebhookMailer do
     end
 
     let(:authorization_request_kind) { 'api_entreprise' }
-    let!(:api_entreprise_instructor) { create(:user, roles: ['api_entreprise:instructor']) }
-    let!(:foreign_instructor) { create(:user, roles: ['api_particulier:instructor']) }
+    let!(:api_entreprise_developer) { create(:user, roles: ['api_entreprise:developer']) }
+    let!(:foreign_developer) { create(:user, roles: ['api_particulier:developer']) }
     let(:payload) { { lol: 'oki' } }
     let(:webhook_response_body) { 'PANIK' }
     let(:webhook_response_status) { 500 }
@@ -26,9 +26,9 @@ RSpec.describe WebhookMailer do
       Rails.application.credentials.webhooks.api_entreprise.url = nil
     end
 
-    it 'sends email to target api instructors, from datapass@api.gouv.fr with equipe-datapass@api.gouv.fr in cc' do
-      expect(mail.to).to include(api_entreprise_instructor.email)
-      expect(mail.to).not_to include(foreign_instructor.email)
+    it 'sends email to definition developers, from datapass@api.gouv.fr with equipe-datapass@api.gouv.fr in cc' do
+      expect(mail.to).to include(api_entreprise_developer.email)
+      expect(mail.to).not_to include(foreign_developer.email)
 
       expect(mail.from).to eq(['datapass@api.gouv.fr'])
     end
