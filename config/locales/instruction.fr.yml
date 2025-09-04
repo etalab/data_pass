@@ -18,12 +18,11 @@ fr:
             label: Rechercher dans toutes les demandes
             placeholder: id, numéro de siret, intitulé...
           btn: Rechercher
-          results_count: 
+          results_count:
             zero: "0 résultats"
             one: "%{count} résultat"
             other: "%{count} résultats"
         table:
-          caption: Liste des demandes
           header:
             id: N°
             state: Statut
@@ -36,12 +35,11 @@ fr:
           actions:
             show: Consulter
         all_status: Tous les status (sauf Supprimée)
- 
+
       authorizations:
         all_status: Tous les statuts
 
         table:
-          caption: Liste des habilitations
           header:
             created_at: Date de création
             id: N°
@@ -58,7 +56,7 @@ fr:
             label: Rechercher dans toutes les habilitations
             placeholder: id, numéro de siret, intitulé...
           btn: Rechercher
-          results_count: 
+          results_count:
             zero: "0 résultats"
             one: "%{count} résultat"
             other: "%{count} résultats"

@@ -1,3 +1,5 @@
+<%= render 'shared/dashboard_skip_links' %>
+
 <div class="fr-grid-row fr-grid-row--gutters">
   <p class="fr-h2 fr-mt-5w"><%= t('.title') %></p>
 
@@ -26,7 +28,7 @@
           </li>
         <% end %>
       </ul>
-      
+
       <% @facade.tabs.each do |tab| %>
         <turbo-frame id="tab-<%= tab.id %>-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tab-<%= tab.id %>" tabindex="0" data-turbo-action="advance">
           <% if current_page?(tab.path) %>

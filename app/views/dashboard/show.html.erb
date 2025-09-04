@@ -1,9 +1,4 @@
-<% content_for :skip_links do %>
-  <%= skip_link('Aller aux demandes', 'tab-demandes') %>
-  <%= skip_link('Aller aux habilitations', 'tab-habilitations') %>
-  <%= skip_link("Menu", "header") %>
-  <%= skip_link("Pied de page", "footer") %>
-<% end %>
+<%= render 'shared/dashboard_skip_links' %>
 
 <div class="fr-container">
   <div class="dashboard-sub-header">
