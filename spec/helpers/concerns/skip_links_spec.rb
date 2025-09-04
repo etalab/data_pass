@@ -21,13 +21,13 @@ RSpec.describe SkipLinks do
   end
 
   describe '#default_skip_links' do
-    it 'returns the default skip links' do
+    it 'returns the default skip links (e.g., header, footer, content)' do
       expect(default_skip_links).to include('Menu', 'Pied de page')
     end
   end
 
   describe '#skip_links_content' do
-    context 'when skip_links content is defined' do
+    context 'when skip_links content is explicitly defined' do
       before do
         allow(self).to receive(:content_for?).with(:skip_links).and_return(true)
         allow(self).to receive(:content_for).with(:skip_links).and_return('<li><a href="#custom">Custom Link</a></li>')
@@ -38,7 +38,7 @@ RSpec.describe SkipLinks do
       end
     end
 
-    context 'when skip_links content is not defined' do
+    context 'when skip_links content is not explicitly defined' do
       before do
         allow(self).to receive(:content_for?).with(:skip_links).and_return(false)
       end
@@ -48,7 +48,7 @@ RSpec.describe SkipLinks do
           allow(Rails.env).to receive(:test?).and_return(true)
         end
 
-        context 'with a non-whitelisted page' do
+        context 'when the page is not listed as whitelisted' do
           before do
             allow(self).to receive_messages(
               controller_path: 'test_controller',
@@ -56,16 +56,20 @@ RSpec.describe SkipLinks do
             )
             allow(self).to receive(:content_for?).with(:content_skip_link_text).and_return(false)
             allow(self).to receive(:validate_skip_links_in_test!).and_raise(
-              SkipLinksImplementedChecker::SkipLinksNotDefinedError, 'No skip links defined for this page (test_controller#test_action). Use content_for(:skip_links) to define skip links or define them in a view-specific helper.'
+              SkipLinksImplementedChecker::SkipLinksNotDefinedError,
+              'Accessibility Error: No skip links have been defined for the current page (test_controller#test_action). To ensure proper navigation for keyboard and screen reader users, add skip links by using `content_for(:skip_links)` in your view or defining them through a dedicated helper method.'
             )
           end
 
-          it 'raises an error' do
-            expect { skip_links_content }.to raise_error(SkipLinksImplementedChecker::SkipLinksNotDefinedError, /No skip links defined for this page/)
+          it 'raises SkipLinksNotDefinedError with the appropriate error message' do
+            expect { skip_links_content }.to raise_error(
+              SkipLinksImplementedChecker::SkipLinksNotDefinedError,
+              /Accessibility Error: No skip links have been defined for the current page \(test_controller#test_action\)\. To ensure proper navigation for keyboard and screen reader users, add skip links by using `content_for\(:skip_links\)` in your view or defining them through a dedicated helper method\./
+            )
           end
         end
 
-        context 'with a whitelisted page' do
+        context 'when the page is listed as whitelisted' do
           before do
             allow(self).to receive_messages(
               controller_path: 'authorization_requests',
@@ -75,20 +79,20 @@ RSpec.describe SkipLinks do
             allow(self).to receive_messages(validate_skip_links_in_test!: true)
           end
 
-          it 'returns the default skip links' do
+          it 'returns the default skip links (e.g., header, footer, content)' do
             expect(skip_links_content).to include('Menu', 'Pied de page', 'Aller au contenu')
           end
         end
       end
 
-      context 'when not in test environment' do
+      context 'when in a non-test environment' do
         before do
           allow(Rails.env).to receive(:test?).and_return(false)
           allow(self).to receive(:content_for?).with(:skip_links).and_return(false)
           allow(self).to receive(:content_for?).with(:content_skip_link_text).and_return(false)
         end
 
-        it 'returns the default skip links' do
+        it 'returns the default skip links (e.g., header, footer, content)' do
           expect(skip_links_content).to include('Menu', 'Pied de page', 'Aller au contenu')
         end
       end
@@ -96,14 +100,27 @@ RSpec.describe SkipLinks do
   end
 
   describe '#validate_skip_links_in_test!' do
-    it 'returns true for whitelisted pages' do
-      allow(self).to receive_messages(controller_path: 'authorization_requests', action_name: 'show')
-      expect(validate_skip_links_in_test!).to be true
+    context 'when the current page is whitelisted' do
+      before do
+        allow(self).to receive_messages(controller_path: 'authorization_requests', action_name: 'show')
+      end
+
+      it 'does not raise an error and returns true' do
+        expect(validate_skip_links_in_test!).to be true
+      end
     end
 
-    it 'returns false for non-whitelisted pages' do
-      allow(self).to receive_messages(controller_path: 'non_existent', action_name: 'show')
-      expect { validate_skip_links_in_test! }.to raise_error(SkipLinksImplementedChecker::SkipLinksNotDefinedError)
+    context 'when the current page is not whitelisted' do
+      before do
+        allow(self).to receive_messages(controller_path: 'non_existent', action_name: 'show')
+      end
+
+      it 'raises SkipLinksNotDefinedError to highlight missing skip links' do
+        expect { validate_skip_links_in_test! }.to raise_error(
+          SkipLinksImplementedChecker::SkipLinksNotDefinedError,
+          /Accessibility Error: No skip links have been defined for the current page \(non_existent#show\)\. To ensure proper navigation for keyboard and screen reader users, add skip links by using `content_for\(:skip_links\)` in your view or defining them through a dedicated helper method\./
+        )
+      end
     end
   end
 end

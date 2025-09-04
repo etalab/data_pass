@@ -90,7 +90,7 @@ class SkipLinksImplementedChecker
     return true if whitelisted?
 
     current_route = "#{controller_name}##{action_name}"
-    raise SkipLinksNotDefinedError, "No skip links defined for this page (#{current_route}). Use content_for(:skip_links) to define skip links or define them in a view-specific helper."
+    raise SkipLinksNotDefinedError, "Accessibility Error: No skip links have been defined for the current page (#{current_route}). To ensure proper navigation for keyboard and screen reader users, add skip links by using `content_for(:skip_links)` in your view or defining them through a dedicated helper method."
   end
 
   private
