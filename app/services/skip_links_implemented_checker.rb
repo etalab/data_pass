@@ -2,68 +2,81 @@ class SkipLinksImplementedChecker
   attr_reader :controller_name, :action_name, :has_skip_links
 
   WHITELISTED_ROUTES = %w[
+    archive_authorization_requests#new
+    authorizations#show
+    authorizations#index
+    authorization_definitions#index
+    authorization_requests#index
+    authorization_requests#show
+    authorization_requests#new
+    authorization_request_forms#new
+    authorization_request_forms#show
+    authorization_request_forms#create
+    authorization_request_forms#update
+    authorization_request_forms#start
+    authorization_request_forms#summary
+    authorization_request_forms/build#show
+    authorization_request_forms/build#update
+    authorization_requests/blocks#edit
+    authorization_requests/blocks#update
+    cancel_authorization_reopenings#new
+    cancel_next_authorization_request_stage#new
+
+    messages#index
+    profile#edit
+
+    organizations#show
+    organizations#new
+    organizations#create
+
+    stats#index
+    pages#home
+    pages#accessibilite
+    pages#faq
+
+    instruction/authorization_requests#index
+    instruction/authorization_requests#show
+    instruction/approve_authorization_requests#new
+    instruction/approve_authorization_requests#create
+    instruction/refuse_authorization_requests#new
+    instruction/refuse_authorization_requests#create
+    instruction/archive_authorization_requests#new
+    instruction/archive_authorization_requests#create
+    instruction/request_changes_on_authorization_requests#new
+    instruction/request_changes_on_authorization_requests#create
+    instruction/authorization_request_events#index
+    instruction/authorizations#index
+    instruction/france_connected_authorizations#index
+    instruction/transfer_authorization_requests#new
+    instruction/transfer_authorization_requests#create
+    instruction/messages#index
+    instruction/cancel_authorization_reopenings#new
+    instruction/cancel_authorization_reopenings#create
+    instruction/revoke_authorization_requests#new
+    instruction/revoke_authorization_requests#create
+
     admin#index
     admin/users_with_roles#index
     admin/whitelisted_verified_emails#index
-    approve_authorization_requests#new
-    archive_authorization_requests#new
-    authorization_definitions#index
-    authorization_request_events#index
-    authorization_request_forms#create
-    authorization_request_forms#new
-    authorization_request_forms#show
-    authorization_request_forms#start
-    authorization_request_forms#summary
-    authorization_request_forms#update
-    authorization_request_forms/build#show
-    authorization_requests#index
-    authorization_requests#new
-    authorization_requests#show
-    authorizations#index
-    authorizations#show
-    blocks#edit
-    blocks#index
-    blocks#update
-    build#show
-    build#update
-    cancel_authorization_reopenings#create
-    cancel_authorization_reopenings#new
-    cancel_next_authorization_request_stage#new
-    impersonate#create
-    impersonate#new
-    instruction/authorization_requests#index
-    instruction/authorization_requests#show
-    instruction/authorizations#index
-    instruction/france_connected_authorizations#index
-    manual_transfer_authorization_requests#new
-    messages#index
-    next_authorization_request_stage#new
-    oauth_applications#index
+    admin/impersonate#new
+    admin/impersonate#create
+    admin/users_with_roles#index
+    admin/users_with_roles#edit
+    admin/users_with_roles#new
+    admin/users_with_roles#create
+    admin/whitelisted_verified_emails#index
+    admin/whitelisted_verified_emails#new
+
     open_api#show
-    organizations#create
-    organizations#new
-    organizations#show
-    pages#accessibilite
-    pages#faq
-    pages#home
+    oauth_applications#index
     pages#proconnect_connexion
-    profile#edit
     public/authorization_requests#show
-    refuse_authorization_requests#create
-    refuse_authorization_requests#new
+
+    manual_transfer_authorization_requests#new
+    next_authorization_request_stage#new
     reopen_authorizations#new
-    request_changes_on_authorization_requests#create
-    request_changes_on_authorization_requests#new
-    revoke_authorization_requests#new
-    stats#index
-    transfer_authorization_requests#create
     transfer_authorization_requests#new
-    users_with_roles#create
-    users_with_roles#edit
-    users_with_roles#index
-    users_with_roles#new
-    whitelisted_verified_emails#index
-    whitelisted_verified_emails#new
+    transfer_authorization_requests#create
   ].freeze
 
   def initialize(controller_name:, action_name:, has_skip_links: false)
