@@ -17,6 +17,19 @@ RSpec.describe User do
     it { is_expected.to contain_exactly(valid_instructor, valid_instructor_with_multiple_authorization_type) }
   end
 
+  describe '.developer_for' do
+    subject { described_class.developer_for(authorization_request_type) }
+
+    let(:authorization_request_type) { 'api_entreprise' }
+
+    let!(:valid_developer) { create(:user, :developer, authorization_request_types: %i[api_entreprise]) }
+    let!(:valid_developer_with_multiple_authorization_type) { create(:user, :developer, authorization_request_types: %i[api_entreprise api_particulier]) }
+    let!(:invalid_developer) { create(:user, :developer, authorization_request_types: %i[api_particulier]) }
+    let!(:valid_reporter) { create(:user, :reporter, authorization_request_types: %i[api_entreprise]) }
+
+    it { is_expected.to contain_exactly(valid_developer, valid_developer_with_multiple_authorization_type) }
+  end
+
   describe '.reporter_for' do
     subject { described_class.reporter_for(authorization_request_type) }
 

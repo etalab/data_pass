@@ -5,7 +5,7 @@ class WebhookMailer < ApplicationMailer
     mail(
       subject: t('.subject', authorization_definition_name: @authorization_definition_name),
       from: t('mailer.shared.support.email'),
-      to: instructor_emails
+      to: developer_emails
     )
   end
 
@@ -19,8 +19,8 @@ class WebhookMailer < ApplicationMailer
     @authorization_definition_name = authorization_definition_name
   end
 
-  def instructor_emails
-    User.instructor_for(params[:authorization_request_kind]).pluck(:email)
+  def developer_emails
+    User.developer_for(params[:authorization_request_kind]).pluck(:email)
   end
 
   def authorization_definition_name

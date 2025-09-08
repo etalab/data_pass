@@ -61,6 +61,16 @@ class User < ApplicationRecord
     ", "#{authorization_request_type.underscore}:instructor")
   }
 
+  scope :developer_for, lambda { |authorization_request_type|
+    where("
+      EXISTS (
+        SELECT 1
+        FROM unnest(roles) AS role
+        WHERE role = ?
+      )
+    ", "#{authorization_request_type.underscore}:developer")
+  }
+
   scope :reporter_for, lambda { |authorization_request_type|
     where(
       "EXISTS (
