@@ -142,6 +142,22 @@ api_particulier:
       value: "dsnj_statut_service_national"
       group: "API Service National"
 
+    - name: "Statut Sportif de Haut Niveau - Identité"
+      value: "sdh_statut_sportif_identite"
+      group: "API Statut Sportif de Haut Niveau"
+    - name: "Statut Sportif de Haut Niveau - Statut"
+      value: "sdh_statut_sportif_est_sportif_de_haut_niveau"
+      group: "API Statut Sportif de Haut Niveau"
+    - name: "Statut Sportif de Haut Niveau - Statut précédent"
+      value: "sdh_statut_sportif_a_ete_sportif_de_haut_niveau"
+      group: "API Statut Sportif de Haut Niveau"
+    - name: "Statut Sportif de Haut Niveau - Informations statut"
+      value: "sdh_statut_sportif_informations_statut"
+      group: "API Statut Sportif de Haut Niveau"
+    - name: "Statut Sportif de Haut Niveau - Informations statuts précédents"
+      value: "sdh_statut_sportif_informations_statuts_precedents"
+      group: "API Statut Sportif de Haut Niveau"
+
 formulaire_qf:
   name: Formulaire d'accès au Quotient Familial
   description: "Accéder au quotient familial CAF & MSA pour simplifier la tarification sociale municipale à l'enfance par le biais du \"formulaire de collecte du quotient familial\" et du portail agent HubEE."
