@@ -1,14 +1,3 @@
-<% content_for :content_skip_link_text do %>
-  <%= t('.table.caption') %>
-<% end %>
-
-<% content_for :skip_links do %>
-  <%= skip_link("Filtres de recherche", "authorization_search") %>
-  <%= skip_link("Tableau des demandes", "authorizations_table") %>
-  <%= skip_link("Menu", "header") %>
-  <%= skip_link("Pied de page", "footer") %>
-<% end %>
-
 <%= search_form_for(search_engine, url: instruction_dashboard_show_path(id: "habilitations"), html: { method: :get, data: { controller: 'auto-submit-form', 'auto-submit-form-debounce-interval-value' => 600, 'auto-submit-form-event-mode-value' => 'input', turbo_frame: 'authorizations_table' }, class: %w[search-box] }) do |f| %>
     <div class="search-inputs">
       <div class="fr-input-group main-input input">
