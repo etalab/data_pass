@@ -10,6 +10,8 @@
 # Ignore RubyMine config
 /.idea
 /.junie*
+.claude/
+vendor/bundle/
 
 # Ignore all environment files (except templates).
 /.env*
