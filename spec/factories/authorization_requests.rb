@@ -441,6 +441,7 @@ FactoryBot.define do
       api-particulier-dialog
       api-particulier-keolis
       api-particulier-mgdis-tarification-cantines-lycees
+      api-particulier-arche-mc2-solis
       api-particulier-tarification-municipale-enfance
       api-particulier-aides-facultatives-regionales
       api-particulier-aides-facultatives-departementales

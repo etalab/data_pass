@@ -592,3 +592,30 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
         Exemples:
       | Nom du formulaire           | Nom de l'éditeur|
       | Aiden, Tarification cantine | MGDIS           |
+
+  Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique déjà renseigné et des scopes non modifiables pour un cas d'usage lié aux aides facultatives régionales ou aux aides facultatives départementales
+    Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
+    Et que je clique sur "Débuter ma demande"
+
+    Et la page contient "Nous avons pré-rempli des informations pour vous aider"
+
+    * je clique sur "Suivant"
+
+    * je remplis "URL de la délibération tarifaire" avec "https://region.fr/deliberation-tarifaire.pdf"
+    * je clique sur "Suivant"
+
+    * je renseigne les infos concernant les données personnelles
+    * je clique sur "Suivant"
+
+    * je renseigne les informations du délégué à la protection des données
+    * je renseigne les informations du contact métier
+    * je clique sur "Suivant"
+
+    * j'adhère aux conditions générales
+    * je clique sur "Soumettre la demande d'habilitation"
+    Alors il y a un message de succès contenant "soumise avec succès"
+    Et je suis sur la page "Demandes et habilitations"
+
+    Exemples:
+      | Nom du formulaire   | Nom de l'éditeur          |
+      | Solis               | arche_mc2                 |
