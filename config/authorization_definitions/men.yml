@@ -1,0 +1,22 @@
+api_scolarite:
+  name: "API scolarité de l'élève"
+  description: "Statut scolarisé et statut boursier d'un élève du primaire, collège ou lycée."
+  provider: "menj"
+  kind: 'api'
+  link: "https://api.gouv.fr/les-api/api-scolarite-ministere-education-nationale"
+  cgu_link: "/cgus/cgu_api_scolarite.pdf"
+  support_email: "api-sco-eleve_contacts@education.gouv.fr"
+  public: true
+  blocks:
+    - name: "basic_infos"
+    - name: "personal_data"
+    - name: "legal"
+    - name: "scopes"
+    - name: "contacts"
+  scopes:
+    - name: 'Statut scolarité'
+      value: 'men_statut_scolarite'
+    - name: 'Statut boursier'
+      value: 'men_statut_boursier'
+    - name: 'Échelon de la bourse'
+      value: 'men_echelon_bourse'
