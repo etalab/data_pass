@@ -418,7 +418,7 @@ GEM
     mime-types (3.7.0)
       logger
       mime-types-data (~> 3.2025, >= 3.2025.0507)
-    mime-types-data (3.2025.0812)
+    mime-types-data (3.2025.0909)
     mini_mime (1.1.5)
     minitest (5.25.5)
     msgpack (1.8.0)
@@ -428,7 +428,7 @@ GEM
     nenv (0.3.0)
     net-http (0.6.0)
       uri
-    net-imap (0.5.9)
+    net-imap (0.5.10)
       date
       net-protocol
     net-pop (0.1.2)
@@ -686,7 +686,7 @@ GEM
     terminal-table (4.0.0)
       unicode-display_width (>= 1.1.1, < 4)
     thor (1.4.0)
-    tidewave (0.2.0)
+    tidewave (0.3.0)
       fast-mcp (~> 1.5.0)
       rack (>= 2.0)
       rails (>= 7.1.0)
