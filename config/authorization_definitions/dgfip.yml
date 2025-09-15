@@ -999,7 +999,7 @@ api_sfip_r2p_sandbox:
   provider: "dgfip"
   kind: 'api'
   link: "https://www.data.gouv.fr/fr/dataservices/api-recherche-des-personnes-physiques-r2p/" #TODO
-  cgu_link: "/cgus/dgfip/cgu_api_r2p_bac_a_sable_septembre2020_v2.6.pdf" #TODO
+  cgu_link: "/cgus/dgfip/cgu_api_sfip_r2p_bac_a_sable_2025_v3.0.pdf"
   access_link: "https://api-r2p.gouv.fr/tokens/%{external_provider_id}" # TODO
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: false
@@ -1022,7 +1022,7 @@ api_sfip_r2p:
   provider: "dgfip"
   kind: 'api'
   link: "https://www.data.gouv.fr/fr/dataservices/api-recherche-des-personnes-physiques-r2p/" #TODO
-  cgu_link: "/cgus/dgfip/cgu_api_r2p_production_septembre2020_v2.5.pdf" #TODO
+  cgu_link: "/cgus/dgfip/cgu_api_sfip_r2p_production_2025_V4.0.pdf"
   access_link: "https://api-r2p.gouv.fr/tokens/%{external_provider_id}" # TODO
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
   public: true
