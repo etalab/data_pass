@@ -7,4 +7,54 @@
   </h1>
 </div>
 
-  <%= render partial: "authorization_requests/new/shared/with_or_without_editor_options_use_case", locals: { use_case_type: "authorization_requests.new.step3.use_case_intro_html", form_name: @facade.authorization_definition.id, base_url: "https://www.data.gouv.fr/fr/dataservices/api-service-finances-publiques-sfip/", use_cases_url: "https://www.data.gouv.fr/fr/dataservices/api-service-finances-publiques-sfip/" } %>
+<div data-controller="show-and-hide" data-show-and-hide-targets-value="[data-selector='sfip'],[data-selector='r2p']">
+  <h2 class="fr-h4"><%= t("authorization_requests.new.api_sfip.data_choice.title") %></h2>
+
+  <fieldset class="fr-fieldset">
+    <div class="fr-fieldset__element">
+      <div class="fr-radio-group fr-radio-rich">
+        <input value="sfip" type="radio" id="option_sfip" name="dataset_kind"
+               data-action="show-and-hide#trigger" data-show-and-hide-target-param="[data-selector='sfip']">
+        <label class="fr-label" for="option_sfip">
+          <%= t("authorization_requests.new.api_sfip.data_choice.options.sfip") %>
+        </label>
+      </div>
+    </div>
+
+    <div class="fr-fieldset__element">
+      <div class="fr-radio-group fr-radio-rich">
+        <input value="r2p" type="radio" id="option_r2p" name="dataset_kind"
+               data-action="show-and-hide#trigger" data-show-and-hide-target-param="[data-selector='r2p']">
+        <label class="fr-label" for="option_r2p">
+          <%= t("authorization_requests.new.api_sfip.data_choice.options.r2p") %>
+        </label>
+      </div>
+    </div>
+  </fieldset>
+
+  <div data-selector="sfip" class="fr-hidden">
+    <%= render partial: "authorization_requests/new/shared/with_or_without_editor_options_use_case",
+               locals: {
+                 facade: @facade,
+                 form_name: @facade.authorization_definition.id,
+                 use_case_type: "authorization_requests.new.step3.use_case_intro_html",
+                 base_url: "https://www.data.gouv.fr/fr/dataservices/api-service-finances-publiques-sfip/",
+                 use_cases_url: "https://www.data.gouv.fr/fr/dataservices/api-service-finances-publiques-sfip/"
+               } %>
+  </div>
+
+  <div data-selector="r2p" class="fr-hidden">
+    <% r2p_definition = AuthorizationDefinition.find('api_sfip_r2p') %>
+    <% r2p_facade_class = NewAuthorizationRequest.facade(definition_id: 'api_sfip_r2p') %>
+    <% r2p_facade = r2p_facade_class.new(authorization_definition: r2p_definition) %>
+
+    <%= render partial: "authorization_requests/new/shared/with_or_without_editor_options_use_case",
+               locals: {
+                 facade: r2p_facade,
+                 form_name: 'api_sfip_r2p',
+                 use_case_type: "authorization_requests.new.step3.use_case_intro_html",
+                 base_url: "https://www.data.gouv.fr/fr/dataservices/api-recherche-de-personnes-physiques-r2p/",
+                 use_cases_url: "https://www.data.gouv.fr/fr/dataservices/api-recherche-de-personnes-physiques-r2p/"
+               } %>
+  </div>
+</div>
