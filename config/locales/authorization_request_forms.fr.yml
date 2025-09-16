@@ -932,6 +932,14 @@ fr:
     api_r2p_ordonnateur_production_editeur: *api_r2p_sandbox
     api_r2p_appel_spi_production_editeur: *api_r2p_sandbox
 
+    api_sfip_r2p_sandbox: *api_r2p_sandbox
+    api_sfip_r2p_production: *api_r2p_sandbox
+    api_sfip_r2p_ordonnateur_sandbox: *api_r2p_sandbox
+    api_sfip_r2p_appel_spi_sandbox: *api_r2p_sandbox
+    api_sfip_r2p_production_editeur: *api_r2p_sandbox
+    api_sfip_r2p_ordonnateur_production_editeur: *api_r2p_sandbox
+    api_sfip_r2p_appel_spi_production_editeur: *api_r2p_sandbox
+
     pro_connect_service_provider:
       modalities: &pro_connect_modalities
         title: La plateforme sera accessible depuis
