@@ -1,0 +1,31 @@
+<%# Shared wrapper for a show-and-hide radio set.
+    Locals:
+    - title: String (required) — section title displayed above radios
+    - options: Array of hashes [{ id:, label:, selector: }] (required)
+    - radio_name: String (optional, default: "choice")
+    - input_id_prefix: String (optional, default: "option")
+    - content_html: String (optional) — pre-rendered HTML to display below the radios (use `capture` in the caller)
+%>
+<% radio_name = local_assigns.fetch(:radio_name, 'choice') %>
+<% input_id_prefix = local_assigns.fetch(:input_id_prefix, 'option') %>
+<% targets_value = options.map { |o| o[:selector] }.join(',') %>
+
+<div data-controller="show-and-hide" data-show-and-hide-targets-value="<%= targets_value %>">
+  <h2 class="fr-h4"><%= title %></h2>
+
+  <fieldset class="fr-fieldset">
+    <% options.each do |opt| %>
+      <div class="fr-fieldset__element">
+        <div class="fr-radio-group fr-radio-rich">
+          <input value="<%= opt[:id] %>" type="radio" id="<%= "#{input_id_prefix}_#{opt[:id]}" %>" name="<%= radio_name %>"
+                 data-action="show-and-hide#trigger" data-show-and-hide-target-param="<%= opt[:selector] %>">
+          <label class="fr-label" for="<%= "#{input_id_prefix}_#{opt[:id]}" %>">
+            <%= opt[:label] %>
+          </label>
+        </div>
+      </div>
+    <% end %>
+  </fieldset>
+
+  <%= content_html if local_assigns[:content_html].present? %>
+</div>
