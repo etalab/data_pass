@@ -10,7 +10,7 @@ class AuthorizationDefinition::Scope
     @link = properties.fetch(:link, nil)
     @included = properties.fetch(:included, false)
     @disabled = properties.fetch(:disabled, false)
-    @deprecated_since = properties.fetch(:deprecated_since, nil)
+    @deprecated = properties.fetch(:deprecated, {})
   end
 
   def included?
@@ -22,7 +22,9 @@ class AuthorizationDefinition::Scope
   end
 
   def deprecated_date
-    Date.parse(@deprecated_since)
+    return unless @deprecated&.dig(:since)
+
+    Date.parse(@deprecated[:since])
   rescue TypeError, Date::Error
     nil
   end
