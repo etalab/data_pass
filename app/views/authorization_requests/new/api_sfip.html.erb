@@ -20,14 +20,10 @@
   </div>
 
   <div data-selector="r2p" class="fr-hidden">
-    <% r2p_definition = AuthorizationDefinition.find('api_sfip_r2p') %>
-    <% r2p_facade_class = NewAuthorizationRequest.facade(definition_id: 'api_sfip_r2p') %>
-    <% r2p_facade = r2p_facade_class.new(authorization_definition: r2p_definition) %>
-
     <%= render partial: "authorization_requests/new/shared/with_or_without_editor_options_use_case",
                locals: {
-                 facade: r2p_facade,
-                 form_name: 'api_sfip_r2p',
+                 facade: @r2p_facade,
+                 form_name: @r2p_facade.authorization_definition.id,
                  use_case_type: "authorization_requests.new.step3.use_case_intro_html",
                  base_url: "https://www.data.gouv.fr/fr/dataservices/api-recherche-de-personnes-physiques-r2p/",
                  use_cases_url: "https://www.data.gouv.fr/fr/dataservices/api-recherche-de-personnes-physiques-r2p/"
