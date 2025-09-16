@@ -52,21 +52,6 @@ class AuthorizationRequestsController < AuthenticatedUserController
   def set_facade
     klass = NewAuthorizationRequest.facade(definition_id: id_sanitized)
     @facade = klass.new(authorization_definition: @authorization_definition)
-
-    additional_facades = {
-      'api_sfip' => 'r2p'
-    }
-
-    suffix = additional_facades[id_sanitized]
-    return unless suffix
-
-    related_id = "#{id_sanitized}_#{suffix}"
-    return unless AuthorizationDefinition.exists?(id: related_id)
-
-    related_definition = AuthorizationDefinition.find(related_id)
-    related_facade_class = NewAuthorizationRequest.facade(definition_id: related_id)
-    related_facade = related_facade_class.new(authorization_definition: related_definition)
-    instance_variable_set("@#{suffix}_facade", related_facade)
   end
 
   def show_as_authenticated_user
