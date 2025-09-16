@@ -1,4 +1,4 @@
-api-r2p-sandbox:
+api-r2p-sandbox: &api-r2p-sandbox
   name: Demande libre (Bac à sable)
   public: true
   description: Pour les utilisateurs ayant besoin de réaliser une recette fonctionnelle en environnement de bac à sable.
@@ -38,7 +38,7 @@ api-r2p-sandbox:
     - name: modalities
     - name: contacts
 
-api-r2p-production:
+api-r2p-production: &api-r2p-production
   name: Demande libre (Production)
   public: false
   startable_by_applicant: false
@@ -78,7 +78,7 @@ api-r2p-production:
     - name: safety_certification
     - name: volumetrie
 
-api-r2p-ordonnateur-sandbox:
+api-r2p-ordonnateur-sandbox: &api-r2p-ordonnateur-sandbox
   name: Demande Ordonnateur (Bac à sable)
   public: true
   use_case: ordonnateur
@@ -94,7 +94,7 @@ api-r2p-ordonnateur-sandbox:
       - with_acces_spi
       - with_acces_etat_civil_et_adresse
 
-api-r2p-ordonnateur-production:
+api-r2p-ordonnateur-production: &api-r2p-ordonnateur-production
   name: Demande Ordonnateur
   public: false
   startable_by_applicant: false
@@ -103,7 +103,7 @@ api-r2p-ordonnateur-production:
   authorization_request: APIR2P
   steps: *api_r2p_steps
 
-api-r2p-appel-spi-sandbox:
+api-r2p-appel-spi-sandbox: &api-r2p-appel-spi-sandbox
   name: Restitution du numéro fiscal (SPI) pour appel de l’API Impôt particulier (Bac à sable)
   public: true
   use_case: appel_api_impot_particulier
@@ -115,7 +115,7 @@ api-r2p-appel-spi-sandbox:
     modalities:
       - with_acces_etat_civil_restitution_spi
 
-api-r2p-appel-spi-production:
+api-r2p-appel-spi-production: &api-r2p-appel-spi-production
   name: Restitution du numéro fiscal (SPI) pour appel de l’API Impôt particulier
   public: false
   startable_by_applicant: false
@@ -124,7 +124,7 @@ api-r2p-appel-spi-production:
   authorization_request: APIR2P
   steps: *api_r2p_steps
 
-api-r2p-production-editeur:
+api-r2p-production-editeur: &api-r2p-production-editeur
   name: Demande libre avec éditeur
   public: true
   description: Pour les utilisateurs travaillant avec un éditeur ayant déjà effectué une recette fonctionnelle.
@@ -140,7 +140,7 @@ api-r2p-production-editeur:
     - name: safety_certification
     - name: volumetrie
 
-api-r2p-ordonnateur-production-editeur:
+api-r2p-ordonnateur-production-editeur: &api-r2p-ordonnateur-production-editeur
   name: Ordonnateur avec éditeur
   public: true
   use_case: ordonnateur
@@ -157,7 +157,7 @@ api-r2p-ordonnateur-production-editeur:
       - with_acces_spi
       - with_acces_etat_civil_et_adresse
 
-api-r2p-appel-spi-production-editeur:
+api-r2p-appel-spi-production-editeur: &api-r2p-appel-spi-production-editeur
   name: Restitution du numéro fiscal (SPI) pour appel de l’API Impôt particulier avec éditeur
   public: true
   use_case: appel_api_impot_particulier
@@ -169,3 +169,40 @@ api-r2p-appel-spi-production-editeur:
     intitule: Restitution du numéro fiscal (SPI) pour appel de l’API Impôt particulier
     modalities:
       - with_acces_etat_civil_restitution_spi
+
+# Config pour SFiP R2P
+api-sfip-r2p-sandbox:
+  <<: *api-r2p-sandbox
+  authorization_request: APISFiPR2PSandbox
+
+api-sfip-r2p-production:
+  <<: *api-r2p-production
+  authorization_request: APISFiPR2P
+
+api-sfip-r2p-ordonnateur-sandbox:
+  <<: *api-r2p-ordonnateur-sandbox
+  authorization_request: APISFiPR2PSandbox
+
+api-sfip-r2p-ordonnateur-production:
+  <<: *api-r2p-ordonnateur-production
+  authorization_request: APISFiPR2P
+
+api-sfip-r2p-appel-spi-sandbox:
+  <<: *api-r2p-appel-spi-sandbox
+  authorization_request: APISFiPR2PSandbox
+
+api-sfip-r2p-appel-spi-production:
+  <<: *api-r2p-appel-spi-production
+  authorization_request: APISFiPR2P
+
+api-sfip-r2p-production-editeur:
+  <<: *api-r2p-production-editeur
+  authorization_request: APISFiPR2P
+
+api-sfip-r2p-ordonnateur-production-editeur:
+  <<: *api-r2p-ordonnateur-production-editeur
+  authorization_request: APISFiPR2P
+
+api-sfip-r2p-appel-spi-production-editeur:
+  <<: *api-r2p-appel-spi-production-editeur
+  authorization_request: APISFiPR2P

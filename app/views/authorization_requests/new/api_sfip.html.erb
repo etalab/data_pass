@@ -7,4 +7,37 @@
   </h1>
 </div>
 
-  <%= render partial: "authorization_requests/new/shared/with_or_without_editor_options_use_case", locals: { use_case_type: "authorization_requests.new.step3.use_case_intro_html", form_name: @facade.authorization_definition.id, base_url: "https://www.data.gouv.fr/fr/dataservices/api-service-finances-publiques-sfip/", use_cases_url: "https://www.data.gouv.fr/fr/dataservices/api-service-finances-publiques-sfip/" } %>
+<% content_html = capture do %>
+  <div data-selector="sfip" class="fr-hidden">
+    <%= render partial: "authorization_requests/new/shared/with_or_without_editor_options_use_case",
+               locals: {
+                 facade: @facade,
+                 form_name: @facade.authorization_definition.id,
+                 use_case_type: "authorization_requests.new.step3.use_case_intro_html",
+                 base_url: "https://www.data.gouv.fr/fr/dataservices/api-service-finances-publiques-sfip/",
+                 use_cases_url: "https://www.data.gouv.fr/fr/dataservices/api-service-finances-publiques-sfip/"
+               } %>
+  </div>
+
+  <div data-selector="r2p" class="fr-hidden">
+    <%= render partial: "authorization_requests/new/shared/with_or_without_editor_options_use_case",
+               locals: {
+                 facade: @facade.r2p_facade,
+                 form_name: @facade.r2p_facade.authorization_definition.id,
+                 use_case_type: "authorization_requests.new.step3.use_case_intro_html",
+                 base_url: "https://www.data.gouv.fr/fr/dataservices/api-recherche-de-personnes-physiques-r2p/",
+                 use_cases_url: "https://www.data.gouv.fr/fr/dataservices/api-recherche-de-personnes-physiques-r2p/"
+               } %>
+  </div>
+<% end %>
+
+<%= render partial: "authorization_requests/new/shared/show_and_hide_radios_for_use_case",
+           locals: {
+             title: t("authorization_requests.new.api_sfip.data_choice.title"),
+             radio_name: "dataset_kind",
+             options: [
+               { id: "sfip", label: t("authorization_requests.new.api_sfip.data_choice.options.sfip"), selector: "[data-selector='sfip']" },
+               { id: "r2p",  label: t("authorization_requests.new.api_sfip.data_choice.options.r2p"),  selector: "[data-selector='r2p']" }
+             ],
+             content_html: content_html
+           } %>

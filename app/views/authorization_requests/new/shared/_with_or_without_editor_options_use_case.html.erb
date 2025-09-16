@@ -1,26 +1,29 @@
 <div data-controller="choose-authorization-request-form-with-or-without-editors"
      data-choose-authorization-request-form-with-or-without-editors-hidden-class="fr-hidden">
-  <h2 class="fr-h4"><%= t("authorization_requests.new.#{form_name}.with_or_without_editor.title") %></h2>
+  <% facade = local_assigns.fetch(:facade, @facade) %>
+  <% form_name_local = local_assigns.fetch(:form_name, facade.authorization_definition.id) %>
+
+  <h2 class="fr-h4"><%= t("authorization_requests.new.#{form_name_local}.with_or_without_editor.title") %></h2>
 
   <div class="fr-col-lg-9">
-  <p><%= t("authorization_requests.new.#{form_name}.with_or_without_editor.subtitle").html_safe %></p>
+  <p><%= t("authorization_requests.new.#{form_name_local}.with_or_without_editor.subtitle").html_safe %></p>
   <fieldset class="fr-fieldset" aria-labelledby="radio-rich-legend radio-rich-messages">
-    <% t("authorization_requests.new.#{form_name}.with_or_without_editor.options").each do |option| %>
+    <% t("authorization_requests.new.#{form_name_local}.with_or_without_editor.options").each do |option| %>
       <div class="fr-fieldset__element">
         <div class="fr-radio-group fr-radio-rich">
           <input
             value="<%= option[:value] %>"
             type="radio"
-            id="editor_<%= option[:value] %>"
-            name="editor"
+            id="editor_<%= form_name_local %>_<%= option[:value] %>"
+            name="editor_<%= form_name_local %>"
             data-controller="scroll-to"
             data-action="
               click->choose-authorization-request-form-with-or-without-editors#toggleEditor
               click->scroll-to#go
             "
-            data-scroll-to-target-value=<%= "form_section_#{option[:value] ? 'withEditorsSection' : 'withoutEditorsSection'}" %>
+            data-scroll-to-target-value=<%= "form_section_#{form_name_local}_#{option[:value] ? 'withEditorsSection' : 'withoutEditorsSection'}" %>
           >
-          <label class="fr-label" for="editor_<%= option[:value] %>">
+          <label class="fr-label" for="editor_<%= form_name_local %>_<%= option[:value] %>">
             <%= option[:label] %>
           </label>
         </div>
@@ -29,24 +32,24 @@
   </fieldset>
 </div>
 
-<% [[:withEditorsSection, @facade.public_available_editor_forms], [:withoutEditorsSection, @facade.public_available_without_editor_forms]].each do |section, forms| %>
+<% [[:withEditorsSection, facade.public_available_editor_forms], [:withoutEditorsSection, facade.public_available_without_editor_forms]].each do |section, forms| %>
   <div
     class="fr-hidden"
-    id="form_section_<%= section %>"
+    id="form_section_<%= form_name_local %>_<%= section %>"
     data-choose-authorization-request-form-with-or-without-editors-target="<%= section %>"
     data-choose-authorization-request-form-with-or-without-editors-hidden-class="fr-hidden"
-    data-scroll-to-target-value="form_section_<%= section %>"
+    data-scroll-to-target-value="form_section_<%= form_name_local %>_<%= section %>"
   >
-    <h2 class="fr-h4"><%= t("authorization_requests.new.#{form_name}.choose_form_title", form_name:) %></h2>
+    <h2 class="fr-h4"><%= t("authorization_requests.new.#{form_name_local}.choose_form_title", form_name:) %></h2>
     <div class="fr-background-alt--blue-france fr-py-4w">
       <div class="fr-grid-row">
         <div class="fr-col-md-10 fr-col-offset-1">
           <p class="center fr-px-5w fr-py-1w">
             <%=
               t(use_case_type,
-                **{ name: @facade.authorization_definition_name,
+                **{ name: facade.authorization_definition_name,
                     base_url: local_assigns.fetch(:base_url, nil),
-                    use_cases_url: local_assigns.fetch(:base_url, nil),
+                    use_cases_url: local_assigns.fetch(:use_cases_url, nil),
                   }.compact)
             %>
           </p>
