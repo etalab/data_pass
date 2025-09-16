@@ -123,6 +123,9 @@ Pour la configuration de la [définition (1.)](../config/authorization_definitio
           # Date de début de la dépréciation, obligatoire si l'option
           # est définie
           since: 2024-12-31
+          # Optionnel. Détermine si la donnée est modifiable ou non. Par défaut
+          # à false
+          writable: false
 
     # Liste des blocs à afficher dans le résumé
     # Ces blocs peuvent correspondre aux 'steps' des formulaires définis

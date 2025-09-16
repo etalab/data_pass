@@ -17,8 +17,14 @@ class AuthorizationDefinition::Scope
     @included
   end
 
+  def writable?
+    return true unless @deprecated.is_a?(Hash)
+
+    @deprecated.fetch(:writable, true)
+  end
+
   def disabled?
-    @disabled || deprecated?
+    @disabled || (deprecated? && !writable?)
   end
 
   def deprecated_date

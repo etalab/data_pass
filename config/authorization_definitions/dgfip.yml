@@ -104,6 +104,7 @@ api_impot_particulier:
       group: Revenus catégoriels - revenus déclarés (avant application des abattements, etc...)
       deprecated: &deprecated_category
         since: "2025-05-20"
+        writable: true
     - name: Catégorie 1 - Rentes viagères à titre onéreux
       value: dgfip_RevDecl_Cat1_RentOn
       group: Revenus catégoriels - revenus déclarés (avant application des abattements, etc...)

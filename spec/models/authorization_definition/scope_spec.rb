@@ -338,4 +338,77 @@ RSpec.describe AuthorizationDefinition::Scope do
       end
     end
   end
+
+  describe '#disabled?' do
+    it 'returns true when disabled attribute is true' do
+      scope = described_class.new(
+        name: 'Test Scope',
+        value: 'test_scope',
+        disabled: true
+      )
+
+      expect(scope).to be_disabled
+    end
+
+    it 'returns false when disabled attribute is false and not deprecated' do
+      scope = described_class.new(
+        name: 'Test Scope',
+        value: 'test_scope',
+        disabled: false
+      )
+
+      expect(scope).not_to be_disabled
+    end
+
+    it 'returns true when deprecated and not writable (writable: false)' do
+      scope = described_class.new(
+        name: 'Test Scope',
+        value: 'test_scope',
+        deprecated: { since: Date.yesterday.to_s, writable: false }
+      )
+
+      expect(scope).to be_disabled
+    end
+
+    it 'returns false when deprecated but writable (writable: true)' do
+      scope = described_class.new(
+        name: 'Test Scope',
+        value: 'test_scope',
+        deprecated: { since: Date.yesterday.to_s, writable: true }
+      )
+
+      expect(scope).not_to be_disabled
+    end
+
+    it 'returns false when deprecated in the future' do
+      scope = described_class.new(
+        name: 'Test Scope',
+        value: 'test_scope',
+        deprecated: { since: Date.tomorrow.to_s, writable: false }
+      )
+
+      expect(scope).not_to be_disabled
+    end
+
+    it 'returns true when both disabled and deprecated' do
+      scope = described_class.new(
+        name: 'Test Scope',
+        value: 'test_scope',
+        disabled: true,
+        deprecated: { since: Date.yesterday.to_s, writable: true }
+      )
+
+      expect(scope).to be_disabled
+    end
+
+    it 'returns false when deprecated but writable by default (writable not specified)' do
+      scope = described_class.new(
+        name: 'Test Scope',
+        value: 'test_scope',
+        deprecated: { since: Date.yesterday.to_s }
+      )
+
+      expect(scope).not_to be_disabled
+    end
+  end
 end
