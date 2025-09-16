@@ -158,6 +158,22 @@ api_particulier:
       value: "sdh_statut_sportif_informations_statuts_precedents"
       group: "API Statut Sportif de Haut Niveau"
 
+    - name: "Extrait d'immatriculation de véhicule - Identité du particulier"
+      value: "ants_extrait_immatriculation_vehicule_identite_particulier"
+      group: "API Extrait d'immatriculation de véhicule"
+    - name: "Extrait d'immatriculation de véhicule - Adresse du particulier"
+      value: "ants_extrait_immatriculation_vehicule_adresse_particulier"
+      group: "API Extrait d'immatriculation de véhicule"
+    - name: "Extrait d'immatriculation de véhicule - Statut de rattachement"
+      value: "ants_extrait_immatriculation_vehicule_statut_rattachement"
+      group: "API Extrait d'immatriculation de véhicule"
+    - name: "Extrait d'immatriculation de véhicule - Données d'immatriculation du véhicule"
+      value: "ants_extrait_immatriculation_vehicule_donnees_immatriculation_vehicule"
+      group: "API Extrait d'immatriculation de véhicule"
+    - name: "Extrait d'immatriculation de véhicule - Caractéristiques techniques du véhicule"
+      value: "ants_extrait_immatriculation_vehicule_caracteristiques_techniques_vehicule"
+      group: "API Extrait d'immatriculation de véhicule"
+
 formulaire_qf:
   name: Formulaire d'accès au Quotient Familial
   description: "Accéder au quotient familial CAF & MSA pour simplifier la tarification sociale municipale à l'enfance par le biais du \"formulaire de collecte du quotient familial\" et du portail agent HubEE."
