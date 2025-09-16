@@ -118,6 +118,11 @@ Pour la configuration de la [définition (1.)](../config/authorization_definitio
         # Par défaut à false. Il n'est donc pas nécessaire de spécifier le scope dans
         # l'option `scopes_config→disabled` du formulaire.
         disabled: true
+        # Optionnel. Permet de préciser les options de dépréciation de la donnée.
+        deprecated:
+          # Date de début de la dépréciation, obligatoire si l'option
+          # est définie
+          since: 2024-12-31
 
     # Liste des blocs à afficher dans le résumé
     # Ces blocs peuvent correspondre aux 'steps' des formulaires définis

@@ -102,63 +102,64 @@ api_impot_particulier:
     - name: Catégorie 1 - Salaires, pensions, rentes
       value: dgfip_RevDecl_Cat1_Tspr
       group: Revenus catégoriels - revenus déclarés (avant application des abattements, etc...)
-      deprecated_since: &deprecation_date_category "2025-05-20"
+      deprecated: &deprecated_category
+        since: "2025-05-20"
     - name: Catégorie 1 - Rentes viagères à titre onéreux
       value: dgfip_RevDecl_Cat1_RentOn
       group: Revenus catégoriels - revenus déclarés (avant application des abattements, etc...)
-      deprecated_since: *deprecation_date_category
+      deprecated: *deprecated_category
     - name: Catégorie 2 - Revenus de capitaux mobiliers
       value: dgfip_RevDecl_Cat2_Rcm
       group: Revenus catégoriels - revenus déclarés (avant application des abattements, etc...)
-      deprecated_since: *deprecation_date_category
+      deprecated: *deprecated_category
     - name: Catégorie 3 - Plus ou moins values
       value: dgfip_RevDecl_Cat3_PMV
       group: Revenus catégoriels - revenus déclarés (avant application des abattements, etc...)
-      deprecated_since: *deprecation_date_category
+      deprecated: *deprecated_category
     - name: Catégorie 4 - Revenus fonciers
       value: dgfip_RevDecl_Cat4_Ref
       group: Revenus catégoriels - revenus déclarés (avant application des abattements, etc...)
-      deprecated_since: *deprecation_date_category
+      deprecated: *deprecated_category
     - name: Catégorie 5 - Revenus des professions non salariées
       value: dgfip_RevDecl_Cat5_NonSal
       group: Revenus catégoriels - revenus déclarés (avant application des abattements, etc...)
-      deprecated_since: *deprecation_date_category
+      deprecated: *deprecated_category
     - name: Catégorie 1 - Salaires, pensions, rentes
       value: dgfip_RevNets_Cat1_Tspr
       group: Revenus catégoriels - revenus nets (après application des abattements, etc...)
-      deprecated_since: *deprecation_date_category
+      deprecated: *deprecated_category
     - name: Catégorie 1 - Rentes viagères à titre onéreux
       value: dgfip_RevNets_Cat1_RentOn
       group: Revenus catégoriels - revenus nets (après application des abattements, etc...)
-      deprecated_since: *deprecation_date_category
+      deprecated: *deprecated_category
     - name: Catégorie 2 - Revenus de capitaux mobiliers
       value: dgfip_RevNets_Cat2_Rcm
       group: Revenus catégoriels - revenus nets (après application des abattements, etc...)
-      deprecated_since: *deprecation_date_category
+      deprecated: *deprecated_category
     - name: Catégorie 3 - Plus ou moins values
       value: dgfip_RevNets_Cat3_PMV
       group: Revenus catégoriels - revenus nets (après application des abattements, etc...)
-      deprecated_since: *deprecation_date_category
+      deprecated: *deprecated_category
     - name: Catégorie 4 - Revenus fonciers
       value: dgfip_RevNets_Cat4_Ref
       group: Revenus catégoriels - revenus nets (après application des abattements, etc...)
-      deprecated_since: *deprecation_date_category
+      deprecated: *deprecated_category
     - name: Catégorie 5 - Revenus des professions non salariées
       value: dgfip_RevNets_Cat5_NonSal
       group: Revenus catégoriels - revenus nets (après application des abattements, etc...)
-      deprecated_since: *deprecation_date_category
+      deprecated: *deprecated_category
     - name: Pensions alimentaires déductibles - Pension alimentaire versées à enfant majeur
       value: dgfip_PaDeduc_EnfMaj
       group: Charges déductibles
-      deprecated_since: *deprecation_date_category
+      deprecated: *deprecated_category
     - name: Pensions alimentaires déductibles - Autres pensions alimentaires versées (enfants mineurs, ascendants, ...)
       value: dgfip_PaDeduc_Autres
       group: Charges déductibles
-      deprecated_since: *deprecation_date_category
+      deprecated: *deprecated_category
     - name: Versement épargne retraite
       value: dgfip_EpargRetrDeduc
       group: Charges déductibles
-      deprecated_since: *deprecation_date_category
+      deprecated: *deprecated_category
     - name: Indicateur d’éligibilité au LEP
       value: dgfip_IndLep
       group: Éligibilité Livret d’Épargne Populaire - établissements bancaires uniquement
