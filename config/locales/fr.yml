@@ -340,17 +340,20 @@ fr:
       api_sfip:
         with_or_without_editor: *with_or_without_editor_block
         choose_form_title: "Choisissez le formulaire d’accès correspondant le mieux à votre cas d’usage :"
+        data_choice:
+          title: "Quels sont les données dont vous avez besoin ?"
+          options:
+            sfip: "Les données fiscales (API SFIP)"
+            r2p: "Les données relatives à la recherche de personnes physiques (API SFiP R2P)"
+      api_sfip_r2p:
+        with_or_without_editor: *with_or_without_editor_block
+        choose_form_title: "Choisissez le formulaire d’accès correspondant le mieux à votre cas d’usage :"
       api_infinoe:
         with_or_without_editor: *with_or_without_editor_block
         choose_form_title: "Choisissez le formulaire d’accès correspondant le mieux à votre cas d’usage :"
       api_ficoba:
         with_or_without_editor: *with_or_without_editor_block
         choose_form_title: "Choisissez le formulaire d’accès correspondant le mieux à votre cas d’usage :"
-      api_r2p:
-        editor_choice: Travaillez-vous avec un éditeur qui a finalisé et validé ses développements en environnement de bac à sable de cette API ?
-        use_case:
-          with_editor: Oui, j'ai un éditeur qui a déjà finalisé et validé ses développements bac à sable
-          without_editor: Non, nous n’avons pas d’éditeur qui a finalisé et validé ses développements en bac à sable
 
     closed_organization:
       title: Désolé, vous ne pouvez pas faire de nouvelle demande
