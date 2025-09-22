@@ -7,7 +7,7 @@ class OrganizationDecorator < ApplicationDecorator
 
       [
         code_naf,
-        CodeNAF.find(code_naf).libelle,
+        code_naf_libelle,
       ].join(' - ')
     end
   end
@@ -24,6 +24,12 @@ class OrganizationDecorator < ApplicationDecorator
   end
 
   private
+
+  def code_naf_libelle
+    CodeNAF.find(code_naf).libelle
+  rescue StaticApplicationRecord::EntryNotFound
+    'Activité inconnue'
+  end
 
   def address_first_line
     return unless insee_payload?
