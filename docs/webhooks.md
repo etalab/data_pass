@@ -1,11 +1,26 @@
 ## Implémentation d'un webhook
 
+### Avant-propos
+
+Il y 2 types d'entités liés aux habilitations dans DataPass: les demandes
+d'habilitations et les habilitations. Les demandes d'habilitations sont des
+entités qui sont créées par les demandeurs et qui peuvent être
+modifiées/soumises/refusées/validées. Une fois qu'une demande d'habilitation est
+validée, une habilitation est créée.
+
+Pour faire le parallèle avec un contrat numérique, la demande d'habilitation est
+un fichier au format docx, l'habilitation est le fichier sous format PDF, signé.
+
+Les webhooks sont liés aux demandes d'habilitations.
+
+---
+
 DataPass possède un système de webhooks permettant de souscrire aux différents
-événements liés à une habilitation. Par défaut ce système est désactivé (en faveur
+événements liés à une demande d'habilitation. Par défaut ce système est désactivé (en faveur
 d'emails de notifications et d'un appel via un bridge (code spécifique au
 fournisseur de service) lors d'une validation d'une habilitation).
 
-Si vous voulez avoir un contrôle plus fin du cycle de vie des habilitations, vous
+Si vous voulez avoir un contrôle plus fin du cycle de vie des demandes d'habilitations, vous
 pouvez utiliser ce système (par exemple pour gérer un CRM, mettre en place des
 statistiques..).
 
@@ -48,7 +63,7 @@ Ce nouveau notifier doit hériter soit de:
 * [`BaseNotifier`](../app/notifiers/base_notifier.rb) si vous voulez garder
     certains comportements de base des notifications
 
-Chacune des méthodes correspond à un événement associé à l’habilitation,
+Chacune des méthodes correspond à un événement associé à la demande d’habilitation,
 défini dans le modèle `AuthorizationRequest` (la description de chacun de ces événements
 se trouve plus bas dans ce document)
 
@@ -75,7 +90,8 @@ un json qui est sous le format ci-dessous :
 Avec:
 
 - `event`, `string`: l'événement associé au changement d'état de l’habilitation.
-  Les valeurs possibles sont:
+  Les valeurs possibles sont (liste non-exhaustive, celle-ci peut être consulter
+  dans la machine à état du modèle `AuthorizationRequest`):
   - `create`: la demande d’habilitation vient d'être créée ;
   - `update`: la demande d’habilitation a été mise à jour par le demandeur ;
   - `submit`: la demande d’habilitation a été envoyée par le demandeur ;
@@ -101,7 +117,7 @@ Un exemple de payload pour `model_data`:
 
 ```json
 {
-  // ID technique de la demande’habilitation
+  // ID technique de la demande d’habilitation
   "id": 9001,
   // ID Public de la demande
   "public_id": "a90939e8-f906-4343-8996-5955257f161d",
@@ -109,13 +125,12 @@ Un exemple de payload pour `model_data`:
   // * draft : en attente d'envoi
   // * submitted : demande d’habilitation envoyée
   // * changes_requested : la demande d’habilitation a été revue par un instructeur et demande des modifications
-  // * validated : habilitation validée
-  // * refused : habilitation refusée
-  // * revoked : habilitation révoquée
-  // * archived : habilitation archivée
-  // * deleted : habilitation suprimée
+  // * validated : demande d'habilitation validée
+  // * refused : demande d'habilitation refusée
+  // * revoked : demande d'habilitation révoquée
+  // * archived : demande d'habilitation archivée
 
-  "state": "approve"
+  "state": "validated"
   // ID du formulaire associé à la demande. Cette liste se trouve dans config/authorization_request_forms/
   "form_uid": "api-entreprise-demande-libre",
   // Payload de l'organisation
@@ -192,7 +207,7 @@ tentatives. Ci-dessous un tableau avec des valeurs plausibles:
 </details>
 
 Si au bout de 5 essais le serveur distant n'a toujours pas répondu positivement,
-un email d'erreur est envoyé aux instructeurs du type d'habilitation avec
+un email d'erreur est envoyé aux développeurs du type d'habilitation avec
 l'erreur exacte du serveur distant.
 
 #### Sécurité
@@ -229,7 +244,7 @@ Rack::Utils.secure_compare(hub_signature, compute_hub_signature)
 
 #### Sauvegarde d'un id associé à la demande sur DataPass
 
-Lors de l'événement `validate`, si votre système répond avec un ID de jeton
+Lors de l'événement `approve`, si votre système répond avec un ID de jeton
 celui-ci sera affecté à l’habilitation.
 
 Le format attendu est au format json:
