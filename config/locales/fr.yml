@@ -354,6 +354,11 @@ fr:
       api_ficoba:
         with_or_without_editor: *with_or_without_editor_block
         choose_form_title: "Choisissez le formulaire d’accès correspondant le mieux à votre cas d’usage :"
+      api_r2p:
+        callout_title: Ce formulaire n'est plus disponible
+        callout_content: |
+          Les demandes d'accès à l'API R2P sont désormais traitées via le courtier fonctionnel SFiP, qui vous permet de choisir entre les données de l'API Impôt Particulier ou R2P selon vos besoins.
+        cta: Accéder au nouveau formulaire
 
     closed_organization:
       title: Désolé, vous ne pouvez pas faire de nouvelle demande

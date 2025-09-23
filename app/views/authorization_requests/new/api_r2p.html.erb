@@ -8,7 +8,7 @@
 </div>
 
 <div class="fr-callout">
-  <h3 class="fr-callout__title">Ce formulaire n'est plus disponible</h3>
-  <p class="fr-callout__text">Les demandes d'accès à l'API R2P sont désormais traitées via le nouveau formulaire unifié SFIP/R2P. Ce nouveau formulaire vous permet de choisir entre l'accès aux données SFIP ou R2P selon vos besoins.</p>
-  <%= link_to "Accéder au nouveau formulaire", new_authorization_request_path(definition_id: 'api_sfip'), class: "fr-btn" %>
+  <h3 class="fr-callout__title"><%= t("authorization_requests.new.api_r2p.callout_title") %></h3>
+  <p class="fr-callout__text"><%= t("authorization_requests.new.api_r2p.callout_content") %></p>
+  <%= link_to t("authorization_requests.new.api_r2p.cta"), new_authorization_request_path(definition_id: 'api_sfip'), class: "fr-btn" %>
 </div>
