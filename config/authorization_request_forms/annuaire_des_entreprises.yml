@@ -71,6 +71,54 @@ annuaire-des-entreprises-subventions-associations:
     scopes:
       - effectifs_annuels
 
+annuaire-des-entreprises-traitement-aides-financieres:
+  name: Traitement des aides financières collectives allouées aux partenaires CAF
+  description: Cas d'usage liés au traitement des aides financières collectives allouées par la CAF
+    Ce formulaire vous permet d'accéder aux fonctionnalités spécifiques au cas d'usage de subventions de traitement des aides financières collectives allouées aux partenaires CAF.
+  authorization_request: AnnuaireDesEntreprises
+  steps: *ade_steps
+  initialize_with:
+    intitule: Traitement aides financières collectives - Ajouter numéro CAF
+    description: |
+      Les aides allouées par les CAF sont attribuées selon des critères précis pour garantir leur utilité sociale et leur équité territoriale. Ainsi pour bénéficier d’une aide, les partenaires et leurs projets doivent respecter plusieurs critères : être accessibles à tous, respecter les obligations légales etc. Ces critères sont répartis et étudiés à plusieurs étapes par les CAF : 
+
+      - Lors de la phase de conception et d’analyse des projets (= opportunité de financement) ;
+      - Lors de la phase de conventionnement (= engagements réciproques) ; 
+      - Lors de la phase d’étude et de versement des financements (= versement) ;
+      - Lors des phases de sécurisation des financements (= contrôle).
+
+      Trois utilisations des justificatifs et des données issus de l’annuaire des entreprises sont donc identifiées :
+
+      - Sécuriser le conventionnement des subventions en permettant la vérification des données (conventionnement avec les bonnes personnes physiques et morales, vérification des SIREN/SIRET, de l'IDCC, des actes constitutifs et statuts etc.) ;
+      - Obtenir les documents nécessaires dans le cadre de l'instruction et du paiement des subventions annuelles (par exemple : attestation de vigilance URSSAF) ;
+      - Appuyer les opérations de contrôle sur pièce et sur place que les CAF réalisent auprès des partenaires financés (dépôt des comptes, consultation des liasses fiscales). 
+
+      À ce jour, les partenaires transmettent directement à la CAF les documents nécessaires. Dans certaines situations (délai important de transmission par les partenaires, besoin de sécurisation accrue sur certaines pièces etc.), il est souhaitable que les CAF aient la possibilité de récupérer directement certaines informations en ayant recours à des sources externes et totalement fiables. 
+
+      Les aides sont les suivantes : 
+
+      - Accueil de loisirs sans hébergement
+      - Aide à domicile
+      - Centres sociaux 
+      - Contrat local d’accompagnement à la scolarité 
+      - Espace de rencontre
+      - Etablissement d’accueil du jeune enfant 
+      - Foyer jeunes travailleurs 
+      - Lieux d’accueil enfants parents 
+      - Médiation familiale 
+      - Structure jeunesse 
+      - Relais petite enfance 
+      - Point accueil écoute jeunes 
+      - Convention territoriale globale chargé de coopération 
+    destinataire_donnees_caractere_personnel: Gestionnaires et contrôleurs
+    duree_conservation_donnees_caractere_personnel: 24
+    cadre_juridique_nature: |+
+      Article L263-1 du code de la sécurité sociale qui dispose "Les caisses d'allocations familiales exercent une action sanitaire et sociale en faveur de leurs ressortissants et des familles de ceux-ci dans le cadre du programme mentionné au 2° de l'article L. 223-1."
+      Arrêté programme du 3 octobre 2001 relatif à l'action sociale des Caisses d'allocations familiales
+    cadre_juridique_url: 'https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000048599900'
+    scopes:
+      - conformite
+
 annuaire-des-entreprises:
   name: Demande libre
   default: true
