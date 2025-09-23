@@ -944,7 +944,7 @@ api_ficoba_sandbox:
     - name: contacts
   scopes: *api_ficoba_scopes
 
-api_r2p_sandbox:
+api_r2p_sandbox: &api_r2p_sandbox
   name: API R2P
   description: Récupérez les données connues par l’administration fiscale (DGFIP) sur une personne physique (état civil, adresse, identifiant fiscal)
   provider: "dgfip"
@@ -953,6 +953,7 @@ api_r2p_sandbox:
   cgu_link: "/cgus/dgfip/cgu_api_r2p_bac_a_sable_septembre2020_v2.6.pdf"
   access_link: "https://api-r2p.gouv.fr/tokens/%{external_provider_id}" # TODO
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
+  startable_by_applicant: false
   public: false
   features: *dgfip_features
   stage:
@@ -967,7 +968,7 @@ api_r2p_sandbox:
     - name: modalities
     - name: contacts
 
-api_r2p:
+api_r2p: &api_r2p
   name: API R2P
   description: Récupérez les données connues par l’administration fiscale (DGFIP) sur une personne physique (état civil, adresse, identifiant fiscal)
   provider: "dgfip"
@@ -976,7 +977,8 @@ api_r2p:
   cgu_link: "/cgus/dgfip/cgu_api_r2p_production_septembre2020_v2.5.pdf"
   access_link: "https://api-r2p.gouv.fr/tokens/%{external_provider_id}" # TODO
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
-  public: true
+  startable_by_applicant: false
+  public: false
   features: *dgfip_features
   stage:
     type: production
@@ -993,3 +995,29 @@ api_r2p:
     - name: safety_certification
     - name: volumetrie
 
+api_sfip_r2p_sandbox:
+  <<: *api_r2p_sandbox
+  name: API Courtier fonctionnel SFiP R2P
+  description: *api_sfip_description
+  cgu_link: "/cgus/dgfip/cgu_api_sfip_r2p_bac_a_sable_2025_v3.0.pdf"
+  startable_by_applicant: true
+  public: false
+  stage:
+    type: sandbox
+    next:
+      id: api_sfip_r2p
+      form_id: api-sfip-r2p-production
+
+api_sfip_r2p:
+  <<: *api_r2p
+  name: API Courtier fonctionnel SFiP R2P
+  description: *api_sfip_description
+  cgu_link: "/cgus/dgfip/cgu_api_sfip_r2p_production_2025_V4.0.pdf"
+  access_link: "https://api-r2p.gouv.fr/tokens/%{external_provider_id}" # TODO
+  startable_by_applicant: true
+  public: false
+  stage:
+    type: production
+    previous:
+      id: api_sfip_r2p_sandbox
+      form_id: api-sfip-r2p-sandbox
