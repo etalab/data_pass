@@ -8,8 +8,8 @@ class NewAuthorizationRequest
       AuthorizationRequestFormDecorator.decorate_collection(authorization_definition.public_available_forms.select { |form| form.uid.ends_with?('editeur') })
     end
 
-    def r2p_facade
-      @r2p_facade ||= begin
+    def r2p_through_sfip_facade
+      @r2p_through_sfip_facade ||= begin
         r2p_definition = AuthorizationDefinition.find('api_sfip_r2p')
         APISFiPR2PFacade.new(authorization_definition: r2p_definition)
       end

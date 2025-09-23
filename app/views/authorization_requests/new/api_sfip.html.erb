@@ -22,8 +22,8 @@
   <div data-selector="r2p" class="fr-hidden">
     <%= render partial: "authorization_requests/new/shared/with_or_without_editor_options_use_case",
                locals: {
-                 facade: @facade.r2p_facade,
-                 form_name: @facade.r2p_facade.authorization_definition.id,
+                 facade: @facade.r2p_through_sfip_facade,
+                 form_name: @facade.r2p_through_sfip_facade.authorization_definition.id,
                  use_case_type: "authorization_requests.new.step3.use_case_intro_html",
                  base_url: "https://www.data.gouv.fr/fr/dataservices/api-recherche-de-personnes-physiques-r2p/",
                  use_cases_url: "https://www.data.gouv.fr/fr/dataservices/api-recherche-de-personnes-physiques-r2p/"
