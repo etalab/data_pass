@@ -740,6 +740,7 @@ FactoryBot.define do
       annuaire-des-entreprises-aides-publiques
       annuaire-des-entreprises-lutte-contre-la-fraude
       annuaire-des-entreprises-subventions-associations
+      annuaire-des-entreprises-traitement-aides-financieres
     ].each do |form_uid|
       trait form_uid.tr('-', '_') do
         type { 'AuthorizationRequest::AnnuaireDesEntreprises' }

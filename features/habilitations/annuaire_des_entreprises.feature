@@ -26,9 +26,10 @@ Fonctionnalité: Soumission d'une demande d'habilitation Espace agent de l'Annua
     Et je suis sur la page "Demandes et habilitations"
 
     Exemples:
-      | Cas d'usage                                     |
-      | Marchés publics                                 |
-      | Aides publiques                                 |
-      | Subventions de fonctionnement des associations  |
-      | Lutte contre la fraude                          |
-      | Demande libre                                   |
+      | Cas d'usage                                                                |
+      | Marchés publics                                                            |
+      | Aides publiques                                                            |
+      | Subventions de fonctionnement des associations                             |
+      | Lutte contre la fraude                                                     |
+      | Traitement des aides financières collectives allouées aux partenaires CAF  |
+      | Demande libre                                                              |
