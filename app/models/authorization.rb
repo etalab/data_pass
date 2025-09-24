@@ -102,9 +102,16 @@ class Authorization < ApplicationRecord
   # rubocop:enable Metrics/AbcSize
 
   def reopenable?
-    latest? &&
-      active? &&
-      !request.dirty_from_v1?
+    base_reopenable = latest? &&
+                      active? &&
+                      !request.dirty_from_v1?
+
+    if multi_stage? && stage.type == 'production'
+      base_reopenable &&
+        request.latest_authorization.stage.type != 'sandbox'
+    else
+      base_reopenable
+    end
   end
 
   def latest?
@@ -130,7 +137,10 @@ class Authorization < ApplicationRecord
   delegate :multi_stage?, to: :definition
 
   def reopenable_to_another_stage?
-    authorization_request.latest_authorizations_of_each_stage.many?
+    latest_authorizations_of_each_stage = authorization_request.latest_authorizations_of_each_stage
+
+    latest_authorizations_of_each_stage.many? &&
+      latest_authorizations_of_each_stage.all?(&:reopenable?)
   end
 
   def stage
