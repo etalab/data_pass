@@ -30,7 +30,7 @@
 
 <%= form_with(
   model: @authorization_request,
-  url: @authorization_request_instructor_draft.new_record? ? instruction_authorization_request_instructor_drafts_path : instruction_authorization_request_instructor_draft_path(@authorization_request_instructor_draft),
+  url: @authorization_request_instructor_draft.new_record? ? instruction_authorization_request_instructor_drafts_path(authorization_definition_id: params[:authorization_definition_id]) : instruction_authorization_request_instructor_draft_path(@authorization_request_instructor_draft),
   method: @authorization_request_instructor_draft.new_record? ? :post : :patch,
   builder: AuthorizationRequestFormFromInstructorBuilder
 ) do |f| %>
@@ -39,10 +39,6 @@
       <%= render_custom_editable_block_or_default(@authorization_request, block[:name], { f: }) %>
     <% end %>
   </div>
-
-  <% if @authorization_request_instructor_draft.new_record? %>
-    <%= f.hidden_field :type %>
-  <% end %>
 
   <div class="fr-my-5w fr-py-2w sticky-bar" data-controller="sticky-bar">
     <div class="fr-container-fluid">
