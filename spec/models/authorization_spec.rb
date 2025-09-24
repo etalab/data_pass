@@ -206,4 +206,21 @@ RSpec.describe Authorization do
       it { is_expected.to eq(events.first.user) }
     end
   end
+
+  describe 'stage' do
+    subject { authorization.stage }
+
+    context 'when there is stages defined' do
+      let!(:authorization) { create(:authorization, authorization_request_trait: :api_impot_particulier_production) }
+
+      it { is_expected.to be_a(AuthorizationDefinition::Stage) }
+      it { expect(subject.type).to eq('production') }
+    end
+
+    context 'when there is no stage defined' do
+      let!(:authorization) { create(:authorization, authorization_request_trait: :api_entreprise) }
+
+      it { is_expected.to be_nil }
+    end
+  end
 end

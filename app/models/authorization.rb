@@ -142,8 +142,16 @@ class Authorization < ApplicationRecord
     authorization_request_class.constantize.definition
   end
 
+  delegate :multi_stage?, to: :definition
+
   def reopenable_to_another_stage?
     authorization_request.latest_authorizations_of_each_stage.many?
+  end
+
+  def stage
+    return unless multi_stage?
+
+    authorization_request_class.constantize.definition.stage
   end
 
   def contact_types_for(user)
