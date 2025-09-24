@@ -62,23 +62,6 @@ class Authorization < ApplicationRecord
       transition from: :revoked, to: :active
       transition from: :obsolete, to: :obsolete
     end
-
-    after_transition on: :revoke do |authorization, _transition|
-      authorization.update(revoked: true)
-    end
-
-    after_transition on: :rollback_revoke do |authorization, _transition|
-      authorization.update(revoked: false)
-    end
-  end
-
-  # TODO : remove when the state machine is fully functional
-  def revoked?
-    if ENV.fetch('FEATURE_USE_AUTH_STATES', 'false') == 'true'
-      self[:state] == 'revoked'
-    else
-      self[:revoked]
-    end
   end
 
   def self.model_specific_ransackable_attributes
