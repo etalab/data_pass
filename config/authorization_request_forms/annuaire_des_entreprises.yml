@@ -100,8 +100,6 @@ annuaire-des-entreprises-traitement-aides-financieres:
       - Relais petite enfance 
       - Point accueil écoute jeunes 
       - Convention territoriale globale chargé de coopération 
-    destinataire_donnees_caractere_personnel: Gestionnaires et contrôleurs
-    duree_conservation_donnees_caractere_personnel: 24
     cadre_juridique_nature: |+
       Article L263-1 du code de la sécurité sociale qui dispose "Les caisses d'allocations familiales exercent une action sanitaire et sociale en faveur de leurs ressortissants et des familles de ceux-ci dans le cadre du programme mentionné au 2° de l'article L. 223-1."
       Arrêté programme du 3 octobre 2001 relatif à l'action sociale des Caisses d'allocations familiales
