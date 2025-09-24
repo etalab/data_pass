@@ -198,5 +198,12 @@ RSpec.describe Authorization do
 
       it { is_expected.to be false }
     end
+
+    context 'when it is a multi-stage authorization, latest production is the current one (latest? is true) and latest is sandbox' do
+      let(:authorization_request) { create(:authorization_request, :api_impot_particulier_production, :validated) }
+      let!(:latest_sandbox_authorization) { create(:authorization, request: authorization_request, authorization_request_class: 'AuthorizationRequest::APIImpotParticulierSandbox', created_at: Date.tomorrow) }
+
+      it { is_expected.to be false }
+    end
   end
 end
