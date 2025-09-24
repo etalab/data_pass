@@ -102,7 +102,9 @@ class Authorization < ApplicationRecord
   # rubocop:enable Metrics/AbcSize
 
   def reopenable?
-    latest?
+    latest? &&
+      active? &&
+      !request.dirty_from_v1?
   end
 
   def latest?

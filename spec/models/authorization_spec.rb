@@ -156,4 +156,47 @@ RSpec.describe Authorization do
       it { is_expected.to be_nil }
     end
   end
+
+  describe '#reopenable?' do
+    subject { authorization.reopenable? }
+
+    let!(:authorization_request) { create(:authorization_request, :validated) }
+    let!(:authorization) { authorization_request.latest_authorization }
+
+    context 'when all conditions are met' do
+      it { is_expected.to be true }
+    end
+
+    context 'when authorization is not latest' do
+      before do
+        create(:authorization, request: authorization_request)
+      end
+
+      it { is_expected.to be false }
+    end
+
+    context 'when authorization is not active' do
+      before do
+        authorization.revoke!
+      end
+
+      it { is_expected.to be false }
+    end
+
+    context 'when authorization is obsolete' do
+      before do
+        authorization.deprecate!
+      end
+
+      it { is_expected.to be false }
+    end
+
+    context 'when request is dirty from v1' do
+      before do
+        authorization_request.update!(dirty_from_v1: true)
+      end
+
+      it { is_expected.to be false }
+    end
+  end
 end

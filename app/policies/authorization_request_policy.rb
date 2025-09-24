@@ -40,11 +40,9 @@ class AuthorizationRequestPolicy < ApplicationPolicy
   end
 
   def reopen?
-    feature_enabled?(:reopening) &&
-      !record.dirty_from_v1? &&
-      record.persisted? &&
-      same_user_and_organization? &&
-      record.can_reopen?
+    record.authorizations.any? do |authorization|
+      AuthorizationPolicy.new(user_context, authorization).reopen?
+    end
   end
 
   def cancel_reopening?
@@ -135,21 +133,11 @@ class AuthorizationRequestPolicy < ApplicationPolicy
     record
   end
 
-  def same_current_organization?
-    current_organization.present? &&
-      record.organization_id == current_organization.id
-  end
-
   def review_authorization_request
     ReviewAuthorizationRequest.call(
       authorization_request: record,
       user:,
     )
-  end
-
-  def same_user_and_organization?
-    record.applicant_id == user.id &&
-      same_current_organization?
   end
 
   def current_user_is_contact?
