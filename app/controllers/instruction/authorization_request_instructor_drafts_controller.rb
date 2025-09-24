@@ -34,7 +34,7 @@ class Instruction::AuthorizationRequestInstructorDraftsController < InstructionC
     organizer = CreateAuthorizationRequestInstructorDraft.call(
       authorization_request_params:,
       authorization_request_instructor_draft_params: {
-        authorization_request_class: 'AuthorizationRequest::APIEntreprise',
+        authorization_request_class: authorization_request_class.to_s,
       },
       instructor: current_user,
     )
@@ -129,7 +129,8 @@ class Instruction::AuthorizationRequestInstructorDraftsController < InstructionC
   end
 
   def authorization_request_class
-    AuthorizationRequest::APIEntreprise
+    authorization_definition = extract_authorization_definition_from_context
+    authorization_definition.authorization_request_class
   end
 
   def model_to_track_for_impersonation
