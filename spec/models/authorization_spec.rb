@@ -17,73 +17,6 @@ RSpec.describe Authorization do
       it { is_expected.to transition_from :obsolete, to_state: :obsolete, on_event: :revoke }
       it { is_expected.to transition_from :revoked, to_state: :active, on_event: :rollback_revoke }
       it { is_expected.to transition_from :obsolete, to_state: :obsolete, on_event: :rollback_revoke }
-
-      describe 'after_transitions' do
-        describe 'revoke' do
-          subject(:revoke) { authorization.revoke }
-
-          it 'marks the authorization as revoked' do
-            expect { revoke }.to change(authorization, :revoked).from(false).to(true)
-          end
-        end
-
-        describe 'rollback_revoke' do
-          subject(:rollback_revoke) { authorization.rollback_revoke }
-
-          before do
-            authorization.revoke!
-          end
-
-          it 'marks the authorization as not revoked' do
-            expect { rollback_revoke }.to change(authorization, :revoked).from(true).to(false)
-          end
-        end
-      end
-    end
-
-    # TODO : remove when the state machine is fully functional
-    describe '#revoked?' do
-      subject(:revoked) { authorization.revoked? }
-
-      let(:authorization) { build(:authorization, revoked: revoked_attribute, state: state_attribute) }
-      let(:revoked_attribute) { true }
-      let(:state_attribute) { :revoked }
-
-      context 'when not using the feature flag' do
-        context 'when the revoked attribute is true' do
-          let(:state_attribute) { :active }
-
-          it { is_expected.to be true }
-        end
-
-        context 'when the revoked attribute is false' do
-          let(:revoked_attribute) { false }
-
-          it { is_expected.to be false }
-        end
-      end
-
-      context 'when using the feature flag' do
-        before do
-          ENV['FEATURE_USE_AUTH_STATES'] = 'true'
-        end
-
-        after do
-          ENV.delete('FEATURE_USE_AUTH_STATES')
-        end
-
-        context 'when the state is revoked' do
-          let(:revoked_attribute) { false }
-
-          it { is_expected.to be true }
-        end
-
-        context 'when the state is not revoked' do
-          let(:state_attribute) { :active }
-
-          it { is_expected.to be false }
-        end
-      end
     end
   end
 
@@ -106,9 +39,9 @@ RSpec.describe Authorization do
       it { expect(request_as_validated).to be_a(AuthorizationRequest::APIImpotParticulierSandbox) }
     end
 
-    context 'when revoked is true' do
+    context 'when authorization is revoked' do
       before do
-        authorization.update!(revoked: true)
+        authorization.update!(state: 'revoked')
       end
 
       it 'has a revoked state' do
