@@ -363,7 +363,11 @@ class AuthorizationRequest < ApplicationRecord
       %w[validated revoked].exclude?(state)
   end
 
-  delegate :reopenable?, :multi_stage?, to: :definition
+  def reopenable?
+    authorizations.any?(&:reopenable?)
+  end
+
+  delegate :multi_stage?, to: :definition
 
   def contact_types_for(user)
     contact_type_key_values = data.select do |key, value|
