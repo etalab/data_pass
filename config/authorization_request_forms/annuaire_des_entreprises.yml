@@ -80,21 +80,11 @@ annuaire-des-entreprises-traitement-aides-financieres:
   initialize_with:
     intitule: Traitement aides financières collectives - Ajouter numéro CAF
     description: |
-      Les aides allouées par les CAF sont attribuées selon des critères précis pour garantir leur utilité sociale et leur équité territoriale. Ainsi pour bénéficier d’une aide, les partenaires et leurs projets doivent respecter plusieurs critères : être accessibles à tous, respecter les obligations légales etc. Ces critères sont répartis et étudiés à plusieurs étapes par les CAF : 
-
-      - Lors de la phase de conception et d’analyse des projets (= opportunité de financement) ;
-      - Lors de la phase de conventionnement (= engagements réciproques) ; 
-      - Lors de la phase d’étude et de versement des financements (= versement) ;
-      - Lors des phases de sécurisation des financements (= contrôle).
-
-      Trois utilisations des justificatifs et des données issus de l’annuaire des entreprises sont donc identifiées :
-
-      - Sécuriser le conventionnement des subventions en permettant la vérification des données (conventionnement avec les bonnes personnes physiques et morales, vérification des SIREN/SIRET, de l'IDCC, des actes constitutifs et statuts etc.) ;
-      - Obtenir les documents nécessaires dans le cadre de l'instruction et du paiement des subventions annuelles (par exemple : attestation de vigilance URSSAF) ;
-      - Appuyer les opérations de contrôle sur pièce et sur place que les CAF réalisent auprès des partenaires financés (dépôt des comptes, consultation des liasses fiscales). 
-
-      À ce jour, les partenaires transmettent directement à la CAF les documents nécessaires. Dans certaines situations (délai important de transmission par les partenaires, besoin de sécurisation accrue sur certaines pièces etc.), il est souhaitable que les CAF aient la possibilité de récupérer directement certaines informations en ayant recours à des sources externes et totalement fiables. 
-
+     Les aides des CAF sont attribuées selon des critères garantissant l’équité et l’utilité sociale des projets.
+     Ces critères sont examinés à différentes étapes : conception, conventionnement, versement et contrôle.
+     Les justificatifs et données d’entreprises servent à sécuriser les subventions, instruire et payer les financements, puis appuyer les contrôles.
+     Actuellement, les partenaires transmettent directement les documents requis aux CAF.
+     Cependant, pour gagner en fiabilité et en rapidité, il est souhaitable que les CAF puissent accéder directement à certaines informations via des sources externes fiables.
       Les aides sont les suivantes : 
 
       - Accueil de loisirs sans hébergement
