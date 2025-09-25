@@ -254,3 +254,8 @@ Le format attendu est au format json:
   "token_id": "1234567890asdfghjkl"
 }
 ```
+
+#### Données supplémentaires disponibles dans les headers
+
+* `X-App-Environment`: environnement de DataPass. Les valeurs possibles sont
+  `sandbox`, `staging` et `production` (liste non-exhaustive)

@@ -22,12 +22,13 @@ RSpec.describe DeliverAuthorizationRequestWebhookJob do
       body: payload.to_json,
       headers: {
         'Content-Type' => 'application/json',
-        'X-Hub-Signature-256' => "sha256=#{hub_signature}"
+        'X-Hub-Signature-256' => "sha256=#{hub_signature}",
+        'X-App-Environment' => 'test'
       }
     ).to_return(status:)
   end
   let(:status) { [200, 201, 204].sample }
-  let(:webhook_url) { 'https://service.gouv.fr/path/to/webhook' }
+  let(:webhook_url) { 'https://service.gouv.fr/path/to/webhook?hello=world' }
   let(:verify_token) { 'verify_token' }
   let(:hub_signature) do
     OpenSSL::HMAC.hexdigest(

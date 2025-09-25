@@ -28,6 +28,7 @@ class DeliverAuthorizationRequestWebhookJob < ApplicationJob
     Faraday.new(webhook_uri(authorization_request_kind).to_s).post(webhook_uri(authorization_request_kind).path) do |req|
       req.headers['Content-Type'] = 'application/json'
       req.headers['X-Hub-Signature-256'] = "sha256=#{generate_hub_signature(authorization_request_kind, payload)}"
+      req.headers['X-App-Environment'] = Rails.env
       req.body = payload.to_json
     end
   end
