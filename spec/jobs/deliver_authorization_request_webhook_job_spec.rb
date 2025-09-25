@@ -28,7 +28,7 @@ RSpec.describe DeliverAuthorizationRequestWebhookJob do
     ).to_return(status:)
   end
   let(:status) { [200, 201, 204].sample }
-  let(:webhook_url) { 'https://service.gouv.fr/path/to/webhook' }
+  let(:webhook_url) { 'https://service.gouv.fr/path/to/webhook?hello=world' }
   let(:verify_token) { 'verify_token' }
   let(:hub_signature) do
     OpenSSL::HMAC.hexdigest(
