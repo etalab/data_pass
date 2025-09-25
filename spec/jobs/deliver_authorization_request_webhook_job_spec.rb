@@ -22,7 +22,8 @@ RSpec.describe DeliverAuthorizationRequestWebhookJob do
       body: payload.to_json,
       headers: {
         'Content-Type' => 'application/json',
-        'X-Hub-Signature-256' => "sha256=#{hub_signature}"
+        'X-Hub-Signature-256' => "sha256=#{hub_signature}",
+        'X-App-Environment' => 'test'
       }
     ).to_return(status:)
   end
