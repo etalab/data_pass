@@ -106,7 +106,13 @@ class AuthorizationRequestPolicy < ApplicationPolicy
   def common_transfer?
     record.persisted? &&
       same_current_organization? &&
-      (record.reopening? || record.state != 'draft')
+      (record.reopening? || record.state != 'draft' || production_draft?)
+  end
+
+  def production_draft?
+    record.multi_stage? &&
+      record.definition.stage.type == 'production' &&
+      record.draft?
   end
 
   def authorization_request_class
