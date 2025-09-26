@@ -214,7 +214,7 @@ api-sfip-activites-periscolaires-sandbox:
       - Délibération de la collectivité (ou autre fondement juridique)
 
 api-sfip-activites-periscolaires-production:
-  name: Activités périscolaires
+  name: Activités périscolaires et assimilés
   public: false
   startable_by_applicant: false
   use_case: activites_periscolaires
@@ -224,7 +224,7 @@ api-sfip-activites-periscolaires-production:
   steps: *api_sfip_production_steps
 
 api-sfip-activites-periscolaires-editeur:
-  name: Activités périscolaires (avec Éditeur)
+  name: Activités périscolaires et assimilés (avec Éditeur)
   public: true
   use_case: activites_periscolaires
   description: Dites-le nous une fois - Activités périscolaires (avec Éditeur)
