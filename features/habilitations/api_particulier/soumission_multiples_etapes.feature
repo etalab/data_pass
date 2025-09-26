@@ -601,7 +601,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
 
     * je clique sur "Suivant"
 
-    * je remplis "URL de la délibération tarifaire" avec "https://region.fr/deliberation-tarifaire.pdf"
+    * je remplis "URL du texte relatif au traitement" avec "https://region.fr/deliberation.pdf"
     * je clique sur "Suivant"
 
     * je renseigne les infos concernant les données personnelles
@@ -618,4 +618,4 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
 
     Exemples:
       | Nom du formulaire   | Nom de l'éditeur          |
-      | Solis               | arche_mc2                 |
+      | Solis               | Arche MC2                 |
