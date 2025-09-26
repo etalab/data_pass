@@ -96,50 +96,49 @@ api-sfip-editeur:
     - name: safety_certification
     - name: volumetrie
 
-# Stationnement résidentiel
-api-sfip-stationnement-residentiel-sandbox:
-  name: Stationnement résidentiel (Bac à sable)
+# Cantine scolaire
+api-sfip-cantine-scolaire-sandbox:
+  name: Cantine scolaire (Bac à sable)
   public: true
-  use_case: stationnement_residentiel
-  description: Dites-le nous une fois - Stationnement Résidentiel (Bac à sable)
+  use_case: cantine_scolaire
+  description: Dites-le nous une fois - Cantine scolaire (Bac à sable)
   introduction: *api_sfip_sandbox_form_introduction
   authorization_request: APISFiPSandbox
   steps: *api_sfip_sandbox_steps
   initialize_with:
-    intitule: Dites-le nous une fois - Stationnement Résidentiel
+    intitule: Dites-le-nous une fois – Cantine scolaire
     description: |
-      Simplification des demandes de carte de stationnement résidentiel pour les usagers par l’utilisation des données fiscales fournies par la DGFiP.
+      Simplification de la souscription à la cantine scolaire pour les usagers par l’utilisation des données fiscales fournies par la DGFiP afin de déterminer les tarifs applicables.
       (A compléter par le demandeur)
-    destinataire_donnees_caractere_personnel: Agents instructeurs des demandes de carte de stationnement résidentiel
+    destinataire_donnees_caractere_personnel: Agents instructeurs des demandes de souscription à la cantine scolaire
     cadre_juridique_nature: |
       - Règlement (UE) 2016/679 du Parlement européen et du Conseil du 27 avril 2016, relatif à la protection des personnes physiques à l’égard du traitement des données à caractère personnel et à la libre circulation de ces données (RGPD)
       - Les articles L. 114-8 et suivants du code des relations entre le public et l’administration (CRPA)
       - Délibération de la collectivité (ou autre fondement juridique)
 
-api-sfip-stationnement-residentiel-production:
-  name: Stationnement résidentiel
+api-sfip-cantine-scolaire-production:
+  name: Cantine scolaire
   public: false
   startable_by_applicant: false
-  use_case: stationnement_residentiel
   introduction: *api_sfip_production_form_introduction
   authorization_request: APISFiP
   static_blocks: *api_sfip_sandbox_steps
   steps: *api_sfip_production_steps
 
-api-sfip-stationnement-residentiel-editeur:
-  name: Stationnement résidentiel (avec Éditeur)
+api-sfip-cantine-scolaire-editeur:
+  name: Cantine scolaire (avec Éditeur)
   public: true
-  use_case: stationnement_residentiel
-  description: Dites-le nous une fois - Stationnement Résidentiel (avec Éditeur)
-  authorization_request: APISFiP
+  use_case: cantine_scolaire
+  description: Dites-le nous une fois - Cantine scolaire (avec Éditeur)
   introduction: *api_sfip_editor_form_introduction
+  authorization_request: APISFiP
   steps: *api_sfip_editor_steps
   initialize_with:
-    intitule: Dites-le nous une fois - Stationnement Résidentiel
+    intitule: Dites-le-nous une fois – Cantine scolaire
     description: |
-      Simplification des demandes de carte de stationnement résidentiel pour les usagers par l’utilisation des données fiscales fournies par la DGFiP.
+      Simplification de la souscription à la cantine scolaire pour les usagers par l’utilisation des données fiscales fournies par la DGFiP afin de déterminer les tarifs applicables.
       (A compléter par le demandeur)
-    destinataire_donnees_caractere_personnel: Agents instructeurs des demandes de carte de stationnement résidentiel
+    destinataire_donnees_caractere_personnel: Agents instructeurs des demandes de souscription à la cantine scolaire
     cadre_juridique_nature: |
       - Règlement (UE) 2016/679 du Parlement européen et du Conseil du 27 avril 2016, relatif à la protection des personnes physiques à l’égard du traitement des données à caractère personnel et à la libre circulation de ces données (RGPD)
       - Les articles L. 114-8 et suivants du code des relations entre le public et l’administration (CRPA)
@@ -194,12 +193,12 @@ api-sfip-place-creche-editeur:
       - Les articles L. 114-8 et suivants du code des relations entre le public et l’administration (CRPA)
       - Délibération de la collectivité (ou autre fondement juridique)
 
-# Activités périscolaires
+# Activités périscolaires et assimilés
 api-sfip-activites-periscolaires-sandbox:
-  name: Activités périscolaires (Bac à sable)
+  name: Activités périscolaires et assimilés (Bac à sable)
   public: true
   use_case: activites_periscolaires
-  description: Dites-le nous une fois - Activités périscolaires (Bac à sable)
+  description: Dites-le nous une fois - Activités périscolaires et assimilés (Bac à sable)
   introduction: *api_sfip_sandbox_form_introduction
   authorization_request: APISFiPSandbox
   steps: *api_sfip_sandbox_steps
@@ -243,49 +242,50 @@ api-sfip-activites-periscolaires-editeur:
       - Les articles L. 114-8 et suivants du code des relations entre le public et l’administration (CRPA)
       - Délibération de la collectivité (ou autre fondement juridique)
 
-# Cantine scolaire
-api-sfip-cantine-scolaire-sandbox:
-  name: Cantine scolaire (Bac à sable)
+# Stationnement résidentiel
+api-sfip-stationnement-residentiel-sandbox:
+  name: Stationnement résidentiel (Bac à sable)
   public: true
-  use_case: cantine_scolaire
-  description: Dites-le nous une fois - Cantine scolaire (Bac à sable)
+  use_case: stationnement_residentiel
+  description: Dites-le nous une fois - Stationnement Résidentiel (Bac à sable)
   introduction: *api_sfip_sandbox_form_introduction
   authorization_request: APISFiPSandbox
   steps: *api_sfip_sandbox_steps
   initialize_with:
-    intitule: Dites-le-nous une fois – Cantine scolaire
+    intitule: Dites-le nous une fois - Stationnement Résidentiel
     description: |
-      Simplification de la souscription à la cantine scolaire pour les usagers par l’utilisation des données fiscales fournies par la DGFiP afin de déterminer les tarifs applicables.
+      Simplification des demandes de carte de stationnement résidentiel pour les usagers par l’utilisation des données fiscales fournies par la DGFiP.
       (A compléter par le demandeur)
-    destinataire_donnees_caractere_personnel: Agents instructeurs des demandes de souscription à la cantine scolaire
+    destinataire_donnees_caractere_personnel: Agents instructeurs des demandes de carte de stationnement résidentiel
     cadre_juridique_nature: |
       - Règlement (UE) 2016/679 du Parlement européen et du Conseil du 27 avril 2016, relatif à la protection des personnes physiques à l’égard du traitement des données à caractère personnel et à la libre circulation de ces données (RGPD)
       - Les articles L. 114-8 et suivants du code des relations entre le public et l’administration (CRPA)
       - Délibération de la collectivité (ou autre fondement juridique)
 
-api-sfip-cantine-scolaire-production:
-  name: Cantine scolaire
+api-sfip-stationnement-residentiel-production:
+  name: Stationnement résidentiel
   public: false
   startable_by_applicant: false
+  use_case: stationnement_residentiel
   introduction: *api_sfip_production_form_introduction
   authorization_request: APISFiP
   static_blocks: *api_sfip_sandbox_steps
   steps: *api_sfip_production_steps
 
-api-sfip-cantine-scolaire-editeur:
-  name: Cantine scolaire (avec Éditeur)
+api-sfip-stationnement-residentiel-editeur:
+  name: Stationnement résidentiel (avec Éditeur)
   public: true
-  use_case: cantine_scolaire
-  description: Dites-le nous une fois - Cantine scolaire (avec Éditeur)
-  introduction: *api_sfip_editor_form_introduction
+  use_case: stationnement_residentiel
+  description: Dites-le nous une fois - Stationnement Résidentiel (avec Éditeur)
   authorization_request: APISFiP
+  introduction: *api_sfip_editor_form_introduction
   steps: *api_sfip_editor_steps
   initialize_with:
-    intitule: Dites-le-nous une fois – Cantine scolaire
+    intitule: Dites-le nous une fois - Stationnement Résidentiel
     description: |
-      Simplification de la souscription à la cantine scolaire pour les usagers par l’utilisation des données fiscales fournies par la DGFiP afin de déterminer les tarifs applicables.
+      Simplification des demandes de carte de stationnement résidentiel pour les usagers par l’utilisation des données fiscales fournies par la DGFiP.
       (A compléter par le demandeur)
-    destinataire_donnees_caractere_personnel: Agents instructeurs des demandes de souscription à la cantine scolaire
+    destinataire_donnees_caractere_personnel: Agents instructeurs des demandes de carte de stationnement résidentiel
     cadre_juridique_nature: |
       - Règlement (UE) 2016/679 du Parlement européen et du Conseil du 27 avril 2016, relatif à la protection des personnes physiques à l’égard du traitement des données à caractère personnel et à la libre circulation de ces données (RGPD)
       - Les articles L. 114-8 et suivants du code des relations entre le public et l’administration (CRPA)

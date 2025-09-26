@@ -341,9 +341,9 @@ fr:
         with_or_without_editor: *with_or_without_editor_block
         choose_form_title: "Choisissez le formulaire d’accès correspondant le mieux à votre cas d’usage :"
         data_choice:
-          title: "Quels sont les données dont vous avez besoin ?"
+          title: "Quelles sont les données dont vous avez besoin ?"
           options:
-            sfip: "Les données fiscales (API SFIP)"
+            sfip: "Les données fiscales (API Impôt Particulier)"
             r2p: "Les données relatives à la recherche de personnes physiques (API SFiP R2P)"
       api_sfip_r2p:
         with_or_without_editor: *with_or_without_editor_block
