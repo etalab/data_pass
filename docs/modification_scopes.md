@@ -15,10 +15,10 @@ scopes:
     value: bilans_des_entreprises
 ```
 
-#### Scopes dépréciés avec l'option d'affichage `deprecated_since`
+#### Scopes dépréciés avec l'option `deprecated`
 
 Le système de gestion des scopes permet d'identifier et de gérer des scopes qui sont dépréciés mais encore
-fonctionnels pour une période donnée. Cette fonctionnalité utilise l'attribut `deprecated_since` dans le fichier de
+fonctionnels pour une période donnée. Cette fonctionnalité utilise l'objet `deprecated` dans le fichier de
 configuration YAML.
 
 #### Configuration
@@ -32,9 +32,22 @@ scopes:
   - name: Bilans des entreprises
     # Valeur technique, doit être unique
     value: bilans_des_entreprises
-    # Date de dépréciation au format ISO 8601
-    deprecated_since: 2023-10-01
+    # Configuration de dépréciation
+    deprecated:
+      # Date de début de la dépréciation au format ISO 8601 (obligatoire)
+      since: 2023-10-01
+      # Indique si le scope reste modifiable dans les demandes existantes (optionnel, défaut: true)
+      writable: false
 ```
+
+#### Options de l'objet `deprecated`
+
+L'objet `deprecated` accepte deux propriétés :
+
+- **`since`** (obligatoire) : Date de début de la dépréciation au format ISO 8601 (YYYY-MM-DD)
+- **`writable`** (optionnel, défaut : `true`) : Booléen indiquant si le scope peut encore être coché/décoché dans les demandes d'habilitation existantes :
+  - `true` : Le scope déprécié reste modifiable par les utilisateurs
+  - `false` : Le scope déprécié devient en lecture seule (désactivé)
 
 #### Comportement
 

@@ -1,16 +1,16 @@
 RSpec.describe AuthorizationDefinition::Scope do
   describe '#deprecated?' do
-    it 'returns true when deprecated_since is present and in the past' do
+    it 'returns true when deprecated.since is present and in the past' do
       scope = described_class.new(
         name: 'Test Scope',
         value: 'test_scope',
-        deprecated_since: Date.yesterday.to_s
+        deprecated: { since: Date.yesterday.to_s }
       )
 
       expect(scope).to be_deprecated
     end
 
-    it 'returns false when deprecated_since is not present' do
+    it 'returns false when deprecated.since is not present' do
       scope = described_class.new(
         name: 'Test Scope',
         value: 'test_scope'
@@ -19,11 +19,11 @@ RSpec.describe AuthorizationDefinition::Scope do
       expect(scope).not_to be_deprecated
     end
 
-    it 'returns false when deprecated_since is in the future' do
+    it 'returns false when deprecated.since is in the future' do
       scope = described_class.new(
         name: 'Test Scope',
         value: 'test_scope',
-        deprecated_since: Date.tomorrow.to_s
+        deprecated: { since: Date.tomorrow.to_s }
       )
 
       expect(scope).not_to be_deprecated
@@ -38,13 +38,13 @@ RSpec.describe AuthorizationDefinition::Scope do
     let(:authorization_request) { instance_double(AuthorizationRequest, created_at: created_at) }
     let(:created_at) { Time.zone.now }
 
-    context 'when scope has deprecated_since date' do
+    context 'when scope has deprecated.since date' do
       let(:deprecated_date) { '2025-04-17' }
       let(:scope) do
         described_class.new(
           name: 'Test Scope',
           value: 'test_scope',
-          deprecated_since: deprecated_date
+          deprecated: { since: deprecated_date }
         )
       end
 
@@ -94,12 +94,12 @@ RSpec.describe AuthorizationDefinition::Scope do
       it { is_expected.to be(false) }
     end
 
-    context 'when deprecated_since is an invalid date string' do
+    context 'when deprecated.since is an invalid date string' do
       let(:scope) do
         described_class.new(
           name: 'Test Scope',
           value: 'test_scope',
-          deprecated_since: 'not-a-date'
+          deprecated: { since: 'not-a-date' }
         )
       end
 
@@ -160,7 +160,7 @@ RSpec.describe AuthorizationDefinition::Scope do
         described_class.new(
           name: 'Test Scope',
           value: 'test_scope',
-          deprecated_since: deprecated_date
+          deprecated: { since: deprecated_date }
         )
       end
 
@@ -250,7 +250,7 @@ RSpec.describe AuthorizationDefinition::Scope do
             described_class.new(
               name: 'Test Scope',
               value: 'test_scope',
-              deprecated_since: deprecated_date
+              deprecated: { since: deprecated_date }
             )
           end
 
@@ -336,6 +336,79 @@ RSpec.describe AuthorizationDefinition::Scope do
 
         it { is_expected.to be true }
       end
+    end
+  end
+
+  describe '#disabled?' do
+    it 'returns true when disabled attribute is true' do
+      scope = described_class.new(
+        name: 'Test Scope',
+        value: 'test_scope',
+        disabled: true
+      )
+
+      expect(scope).to be_disabled
+    end
+
+    it 'returns false when disabled attribute is false and not deprecated' do
+      scope = described_class.new(
+        name: 'Test Scope',
+        value: 'test_scope',
+        disabled: false
+      )
+
+      expect(scope).not_to be_disabled
+    end
+
+    it 'returns true when deprecated and not writable (writable: false)' do
+      scope = described_class.new(
+        name: 'Test Scope',
+        value: 'test_scope',
+        deprecated: { since: Date.yesterday.to_s, writable: false }
+      )
+
+      expect(scope).to be_disabled
+    end
+
+    it 'returns false when deprecated but writable (writable: true)' do
+      scope = described_class.new(
+        name: 'Test Scope',
+        value: 'test_scope',
+        deprecated: { since: Date.yesterday.to_s, writable: true }
+      )
+
+      expect(scope).not_to be_disabled
+    end
+
+    it 'returns false when deprecated in the future' do
+      scope = described_class.new(
+        name: 'Test Scope',
+        value: 'test_scope',
+        deprecated: { since: Date.tomorrow.to_s, writable: false }
+      )
+
+      expect(scope).not_to be_disabled
+    end
+
+    it 'returns true when both disabled and deprecated' do
+      scope = described_class.new(
+        name: 'Test Scope',
+        value: 'test_scope',
+        disabled: true,
+        deprecated: { since: Date.yesterday.to_s, writable: true }
+      )
+
+      expect(scope).to be_disabled
+    end
+
+    it 'returns false when deprecated but writable by default (writable not specified)' do
+      scope = described_class.new(
+        name: 'Test Scope',
+        value: 'test_scope',
+        deprecated: { since: Date.yesterday.to_s }
+      )
+
+      expect(scope).not_to be_disabled
     end
   end
 end

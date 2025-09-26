@@ -120,9 +120,9 @@ class AuthorizationRequestFormBuilder < DSFRFormBuilder
   end
 
   def determine_scope_disabled_state(scope, disabled_option)
-    return true if disabled_option || scope.deprecated?
+    return true if disabled_option || scope.disabled?
 
-    @object.disabled_scopes.include?(scope) if disabled_option.blank?
+    @object.disabled_scopes.include?(scope)
   end
 
   def include_scope_hidden_field?(scope, disabled)
