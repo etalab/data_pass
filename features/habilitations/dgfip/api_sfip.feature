@@ -40,12 +40,12 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Courtier fonctionne
     Et je suis sur la page "Demandes et habilitations"
 
     Exemples:
-      | Nom du formulaire                                        |
+      | Nom du formulaire                                         |
 
-      | Demande libre avec éditeur                               |
+      | Demande libre avec éditeur                                |
       | Stationnement résidentiel (avec Éditeur)                  |
       | Place en crèche (avec Éditeur)                            |
-      | Activités périscolaires (avec Éditeur)                    |
+      | Activités périscolaires et assimilés (avec Éditeur)       |
       | Cantine scolaire (avec Éditeur)                           |
       | Aides sociales facultatives (avec Éditeur)                |
       | Carte de transport (avec Éditeur)                         |
@@ -85,7 +85,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Courtier fonctionne
       | Demande libre (Bac à sable)                              |
       | Stationnement résidentiel (Bac à sable)                  |
       | Place en crèche (Bac à sable)                            |
-      | Activités périscolaires (Bac à sable)                    |
+      | Activités périscolaires et assimilés (Bac à sable)       |
       | Cantine scolaire (Bac à sable)                           |
       | Aides sociales facultatives (Bac à sable)                |
       | Carte de transport (Bac à sable)                         |
@@ -117,7 +117,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Courtier fonctionne
       | Demande libre (Bac à sable)                              |
       | Stationnement résidentiel (Bac à sable)                  |
       | Place en crèche (Bac à sable)                            |
-      | Activités périscolaires (Bac à sable)                    |
+      | Activités périscolaires et assimilés (Bac à sable)       |
       | Cantine scolaire (Bac à sable)                           |
       | Aides sociales facultatives (Bac à sable)                |
       | Carte de transport (Bac à sable)                         |
