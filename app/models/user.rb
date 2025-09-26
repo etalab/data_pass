@@ -5,7 +5,11 @@ class User < ApplicationRecord
 
   ROLES = %w[reporter instructor developer].freeze
 
-  validates :email, presence: true, uniqueness: true
+  validates :email,
+    presence: true,
+    uniqueness: true,
+    format: { with: URI::MailTo::EMAIL_REGEXP }
+
   before_save { email.downcase! }
 
   validates :external_id, uniqueness: true, allow_nil: true
@@ -213,13 +217,13 @@ class User < ApplicationRecord
     organization_user.set_as_current! if organization_user.persisted?
   end
 
-  def add_to_organization(organization, verified: false, identity_provider_uid: nil, identity_federator: nil, current: false)
+  def add_to_organization(organization, verified: false, identity_provider_uid: nil, identity_federator: 'unknown', current: false)
     organizations_users.find_or_create_by(organization:).tap do |org_user|
       updates = {
-        identity_provider_uid:,
         identity_federator:,
         verified:,
       }.compact
+      updates[:identity_provider_uid] = identity_provider_uid
       org_user.update!(updates) if updates.any?
       org_user.set_as_current! if current
     end
