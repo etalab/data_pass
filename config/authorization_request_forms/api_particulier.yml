@@ -2123,4 +2123,4 @@ api-particulier-stationnement-residentiel:
       - mesri_admission_inscrit
   initialize_with:
     intitule: Gestion du stationnement résidentiel
-    cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager."
+    cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager. Article L2333-87 du Code général des collectivités territoriales. ], Article L2333-87-3 du Code général des collectivités territoriales "
