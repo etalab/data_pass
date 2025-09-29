@@ -911,7 +911,7 @@ fr:
     api_r2p_sandbox: &api_r2p_sandbox
       modalities:
         subtitle: "" # TODO
-        values:
+        values: &api_r2p_modalities_values
           with_acces_etat_civil:
             label: Recherche par état civil complet - Restitution de l’état civil complet, de l’adresse et de l’identifiant fiscal (SPI)
           with_acces_spi:
@@ -932,13 +932,23 @@ fr:
     api_r2p_ordonnateur_production_editeur: *api_r2p_sandbox
     api_r2p_appel_spi_production_editeur: *api_r2p_sandbox
 
-    api_sfip_r2p_sandbox: *api_r2p_sandbox
-    api_sfip_r2p_production: *api_r2p_sandbox
-    api_sfip_r2p_ordonnateur_sandbox: *api_r2p_sandbox
-    api_sfip_r2p_appel_spi_sandbox: *api_r2p_sandbox
-    api_sfip_r2p_production_editeur: *api_r2p_sandbox
-    api_sfip_r2p_ordonnateur_production_editeur: *api_r2p_sandbox
-    api_sfip_r2p_appel_spi_production_editeur: *api_r2p_sandbox
+    api_sfip_r2p_sandbox: &api_sfip_r2p_sandbox
+      <<: *api_r2p_sandbox
+      modalities:
+        subtitle: "" # TODO
+        values:
+          <<: *api_r2p_modalities_values
+          with_acces_etat_civil_complet_restitution_complet_adresse_cp_coordonnées:
+            label: Recherche par état civil complet - Restitution de l’état civil complet, de l’adresse, du code postal et des coordonnées
+          with_acces_etat_civil_degrade_adresse_restitution_complet_adresse_cp_coordonnées:
+            label: Recherche par état civil dégradé et éléments d’adresse - Restitution de l’état civil complet, de l’adresse, code postal et des coordonnées
+
+    api_sfip_r2p_production: *api_sfip_r2p_sandbox
+    api_sfip_r2p_ordonnateur_sandbox: *api_sfip_r2p_sandbox
+    api_sfip_r2p_appel_spi_sandbox: *api_sfip_r2p_sandbox
+    api_sfip_r2p_production_editeur: *api_sfip_r2p_sandbox
+    api_sfip_r2p_ordonnateur_production_editeur: *api_sfip_r2p_sandbox
+    api_sfip_r2p_appel_spi_production_editeur: *api_sfip_r2p_sandbox
 
     pro_connect_service_provider:
       modalities: &pro_connect_modalities
