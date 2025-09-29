@@ -9,7 +9,7 @@ module DSFR::Pictogram
 
   def dsfr_custom_pictogram(image_name)
     content_tag(:div, class: 'fr-custom-artwork') do
-      image_tag(image_name)
+      image_tag(image_name, alt: '', aria: { hidden: true })
     end
   end
 end
