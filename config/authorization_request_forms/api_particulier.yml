@@ -2493,7 +2493,7 @@ api-particulier-stationnement-residentiel:
   authorization_request: APIParticulier
   use_case: stationnement_residentiel
   introduction: |
-    En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier la <strong>"l'abonnement et le droit au stationnement résidentiel"</strong>. <a href="https://particulier.api.gouv.fr/cas_usages/stationnement-residentiel">En savoir plus sur ce cas d'usage</a>.
+    En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier <strong>"l'abonnement et le droit au stationnement résidentiel"</strong>. <a href="https://particulier.api.gouv.fr/cas_usages/stationnement-residentiel">En savoir plus sur ce cas d'usage</a>.
   steps:
     - name: basic_infos
     - name: legal
