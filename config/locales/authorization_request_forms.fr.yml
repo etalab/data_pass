@@ -717,6 +717,24 @@ fr:
             Conformément aux modalités d’utilisation, nous nous réservons le droit de réduire ou couper les appels autorisés au fournisseur de service.
             </p>
 
+    api_particulier_stationnement_residentiel:
+      description:
+        hint: |
+          Décrivez-nous précisémment votre projet :
+          <ul>
+            <li>Quels sont les critères d'attribution et de tarification du stationnement résidentiel justifiant de demander des données API Particulier ?
+            </li>
+            <li>Où apparaitront les données ? Qui pourra les voir ? S'agit-il d'un service en ligne pour les usagers et/ou d'un espace en ligne pour les agents municipaux ?
+            </li>
+          </ul>
+      destinataire_donnees_caractere_personnel: *api_particulier_use_cases_forms_destinataire_donnees_caractere_personnel
+      duree_conservation_donnees_caractere_personnel: *api_particulier_use_cases_forms_duree_conservation_donnees_caractere_personnel
+      cadre_juridique_nature: *api_particulier_use_cases_forms_cadre_juridique_nature
+      legal: *api_particulier_use_cases_forms_legal_tarification
+      cadre_juridique_document: *api_particulier_use_cases_forms_cadre_juridique_document
+      cadre_juridique_url: *api_particulier_use_cases_forms_cadre_juridique_url
+     
+
     api_infinoe_production_editeur: *api_infinoe_production
 
     api_infinoe_envoi_automatise_ecritures_sandbox: *api_infinoe_sandbox
