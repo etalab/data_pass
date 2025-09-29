@@ -76,7 +76,9 @@ annuaire-des-entreprises-traitement-aides-financieres:
   description: Cas d'usage liés au traitement des aides financières collectives allouées par la CAF
     Ce formulaire vous permet d'accéder aux fonctionnalités spécifiques au cas d'usage de subventions de traitement des aides financières collectives allouées aux partenaires CAF.
   authorization_request: AnnuaireDesEntreprises
-  steps: *ade_steps
+  steps:
+    - name: "basic_infos"
+    - name: "legal"
   initialize_with:
     intitule: Traitement aides financières collectives - Ajouter numéro CAF
     description: |
