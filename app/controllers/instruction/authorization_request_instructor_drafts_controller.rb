@@ -15,12 +15,7 @@ class Instruction::AuthorizationRequestInstructorDraftsController < InstructionC
     authorization_definition = extract_authorization_definition_from_context
 
     if authorization_definition.nil?
-      @definitions = current_user.instructor_roles.map do |scope|
-        authorization_definition_id = scope.split(':').first
-        AuthorizationDefinition.find(authorization_definition_id)
-      end
-
-      render 'select_definition', layout: 'container'
+      definition_selection
     else
       @authorization_request_instructor_draft = AuthorizationRequestInstructorDraft.new(authorization_request_class: authorization_definition.authorization_request_class.to_s)
 
@@ -107,15 +102,30 @@ class Instruction::AuthorizationRequestInstructorDraftsController < InstructionC
 
   private
 
-  def extract_authorization_definition_from_context
-    if params[:authorization_definition_id].present?
-      AuthorizationDefinition.find(params[:authorization_definition_id])
-    elsif current_user.instructor_roles.one?
-      scope = current_user.instructor_roles.first
+  def definition_selection
+    @definitions = current_user.instructor_roles.map do |scope|
       authorization_definition_id = scope.split(':').first
-
       AuthorizationDefinition.find(authorization_definition_id)
     end
+
+    render 'select_definition', layout: 'container'
+  end
+
+  def extract_authorization_definition_from_context
+    if @authorization_request_instructor_draft.present?
+      @authorization_request_instructor_draft.definition
+    elsif params[:authorization_definition_id].present?
+      AuthorizationDefinition.find(params[:authorization_definition_id])
+    elsif current_user.instructor_roles.one?
+      extract_uniq_definition_from_context
+    end
+  end
+
+  def extract_uniq_definition_from_context
+    scope = current_user.instructor_roles.first
+    authorization_definition_id = scope.split(':').first
+
+    AuthorizationDefinition.find(authorization_definition_id)
   end
 
   def authorization_request_params
