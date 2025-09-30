@@ -22,11 +22,11 @@
               </div>
             <% end %>
 
-            <%= f.dsfr_email_field :applicant_email, placeholder: 'usager@gouv.fr', value: params[:applicant_email], required: true %>
+            <%= f.dsfr_email_field :applicant_email, placeholder: t('.applicant_email.placeholder'), value: params[:applicant_email], required: true %>
 
-            <%= f.dsfr_text_field :organization_siret, placeholder: '13002526500013', value: params[:organization_siret], required: true %>
+            <%= f.dsfr_text_field :organization_siret, placeholder: t('.organization_siret.placeholder'), value: params[:organization_siret], required: true %>
 
-            <%= f.dsfr_text_area :comment, placeholder: 'Merci de finaliser votre demande', value: params[:comment], required: true %>
+            <%= f.dsfr_text_area :comment, placeholder: t('.comment.placeholder'), value: params[:comment], required: true %>
           </div>
 
           <div class="fr-modal__footer">

@@ -435,6 +435,12 @@ fr:
           Vous allez inviter un usager à revendiquer cette demande d'habilitation en renseignant son adresse email et le numéro SIRET de son organisation.
         invite: Envoyer l'invitation
         cancel: Annuler
+        applicant_email:
+          placeholder: usager@gouv.fr
+        organization_siret:
+          placeholder: '13002526500013'
+        comment:
+          placeholder: Merci de finaliser votre demande
         error:
           title: Erreur lors de l'envoi de l'invitation
       create:
