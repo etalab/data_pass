@@ -4,7 +4,7 @@ class ClaimAuthorizationRequestInstructorDraft < ApplicationOrganizer
     context.user = context.authorization_request_instructor_draft&.applicant
   end
 
-  organize CheckInstructorDraftNotClaimed,
+  organize EnsureInstructorDraftNotClaimed,
     EnsureUserIsOrganizationMember,
     CreateAuthorizationRequestFromInstructorDraft,
     CopyDocumentsFromInstructorDraft,

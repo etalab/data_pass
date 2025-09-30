@@ -1,4 +1,4 @@
-class CheckInstructorDraftNotClaimed < ApplicationInteractor
+class EnsureInstructorDraftNotClaimed < ApplicationInteractor
   def call
     instructor_draft = context.authorization_request_instructor_draft
 
