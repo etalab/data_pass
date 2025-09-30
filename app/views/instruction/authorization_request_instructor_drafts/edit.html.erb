@@ -26,8 +26,6 @@
   </div>
 </div>
 
-<%= render 'shared/alerts' %>
-
 <%= form_with(
   model: @authorization_request,
   url: @authorization_request_instructor_draft.new_record? ? instruction_authorization_request_instructor_drafts_path(authorization_definition_id: params[:authorization_definition_id]) : instruction_authorization_request_instructor_draft_path(@authorization_request_instructor_draft),
@@ -35,6 +33,8 @@
   builder: AuthorizationRequestFormFromInstructorBuilder
 ) do |f| %>
   <div class="fr-container">
+    <%= render 'shared/alerts' %>
+
     <% @authorization_request.definition.blocks.each do |block| %>
       <%= render_custom_editable_block_or_default(@authorization_request, block[:name], { f: }) %>
     <% end %>
