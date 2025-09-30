@@ -30,14 +30,26 @@ class ClaimAuthorizationRequestInstructorDraftsController < AuthenticatedUserCon
 
       redirect_to authorization_request_path(organizer.authorization_request)
     else
-      error_message(
-        title: t('authorization_request_instructor_drafts.claim.errors.generic.title'),
-      )
+      build_error_message(organizer)
+
       render 'show', status: :unprocessable_entity
     end
   end
 
   private
+
+  def build_error_message(organizer)
+    if I18n.exists?("authorization_request_instructor_drafts.claim.errors.#{organizer.error}.title")
+      error_message(
+        title: t('authorization_request_instructor_drafts.claim.errors.generic.title'),
+      )
+    else
+      error_message(
+        title: t("authorization_request_instructor_drafts.claim.errors.#{organizer.error}.title"),
+        description: t("authorization_request_instructor_drafts.claim.errors.#{organizer.error}.description")
+      )
+    end
+  end
 
   def show_for_signed_in_user
     if @authorization_request_instructor_draft.applicant == current_user

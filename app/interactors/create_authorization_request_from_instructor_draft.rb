@@ -10,7 +10,7 @@ class CreateAuthorizationRequestFromInstructorDraft < ApplicationInteractor
     if authorization_request.save
       context.authorization_request = authorization_request
     else
-      context.fail!(message: "Failed to create authorization request: #{authorization_request.errors.full_messages.join(', ')}")
+      context.fail!(:invalid_authorization_request)
     end
   end
 

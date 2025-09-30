@@ -6,6 +6,6 @@ class MarkInstructorDraftAsClaimed < ApplicationInteractor
 
     return if instructor_draft.update(claimed: true)
 
-    context.fail!(message: "Failed to mark draft as claimed: #{instructor_draft.errors.full_messages.join(', ')}")
+    context.fail!(error: :could_not_mark_draft_as_claimed)
   end
 end

@@ -708,3 +708,9 @@ fr:
         already_claimed:
           title: Vous ne pouvez pas revendiquer cette demande d'habilitation
           description: Cette demande d'habilitation a déjà été revendiquée par un autre usager.
+        invalid_authorization_request:
+          title: Vous ne pouvez pas revendiquer cette demande d'habilitation
+          description: Cette demande d'habilitation n'est pas dans un état permettant la revendication. Veuillez contacter le support pour plus d'informations.
+        could_not_mark_draft_as_claimed:
+          title: Vous ne pouvez pas revendiquer cette demande d'habilitation
+          description: Une erreur est survenue lors de la revendication de cette demande d'habilitation. Veuillez contacter le support pour plus d'informations.
