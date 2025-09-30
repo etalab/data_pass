@@ -4,7 +4,7 @@ class ClaimAuthorizationRequestInstructorDraftsController < AuthenticatedUserCon
   layout 'claim_authorization_request_instructor_draft'
 
   before_action :extract_authorization_request_instructor_draft
-  before_action :check_authorization_request_instructor_draft_not_claimed
+  before_action :ensure_draft_not_claimed!
 
   helper_method :obfuscated_applicant_email
 
@@ -57,7 +57,7 @@ class ClaimAuthorizationRequestInstructorDraftsController < AuthenticatedUserCon
     render 'unauthenticated_show'
   end
 
-  def check_authorization_request_instructor_draft_not_claimed
+  def ensure_draft_not_claimed!
     return unless @authorization_request_instructor_draft.claimed?
 
     error_message(
