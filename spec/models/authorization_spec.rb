@@ -205,5 +205,11 @@ RSpec.describe Authorization do
 
       it { is_expected.to be false }
     end
+
+    context 'when authorization request is already reopened' do
+      let(:authorization_request) { create(:authorization_request, :reopened) }
+
+      it { is_expected.to be false }
+    end
   end
 end

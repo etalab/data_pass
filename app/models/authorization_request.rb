@@ -367,6 +367,12 @@ class AuthorizationRequest < ApplicationRecord
     authorizations.any?(&:reopenable?)
   end
 
+  def currently_reopen?
+    last_validated_at.present? &&
+      reopened_at.present? &&
+      %w[validated refused revoked].exclude?(state)
+  end
+
   delegate :multi_stage?, to: :definition
 
   def contact_types_for(user)
