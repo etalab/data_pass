@@ -1,15 +1,12 @@
 class Instruction::AuthorizationRequestInstructorDraftPolicy < ApplicationPolicy
   def enable?
-    %w[
-      api_entreprise
-      api_particulier
-    ].any? do |authorization_definition_id|
-      user.instructor?(authorization_definition_id)
+    authorization_definitions_with_instructor_draft_feature.any? do |definition|
+      user.instructor?(definition.authorization_request_type)
     end
   end
 
   def show?
-    record.authorization_request_class.in?(current_user_instructor_types) &&
+    user.instructor?(record.definition.authorization_request_type) &&
       record.persisted?
   end
 
@@ -41,14 +38,10 @@ class Instruction::AuthorizationRequestInstructorDraftPolicy < ApplicationPolicy
 
   private
 
-  def current_user_instructor_types
-    current_user_instructor_roles.map do |scope|
-      "AuthorizationRequest::#{scope.split(':').first.classify}"
+  def authorization_definitions_with_instructor_draft_feature
+    AuthorizationDefinition.all.select do |definition|
+      definition.feature?('instructor_drafts', default: false)
     end
-  end
-
-  def current_user_instructor_roles
-    user.instructor_roles
   end
 
   class Scope < Scope
