@@ -108,6 +108,8 @@ class Instruction::AuthorizationRequestInstructorDraftsController < InstructionC
       AuthorizationDefinition.find(authorization_definition_id)
     end
 
+    @definitions.select! { |definition| definition.feature?('instructor_drafts', default: false) }
+
     render 'select_definition', layout: 'container'
   end
 

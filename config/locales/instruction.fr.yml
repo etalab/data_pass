@@ -417,6 +417,9 @@ fr:
             confirm_delete: Confirmer la suppression ? Cela supprimera ce brouillon et l'invitation associée.
       select_definition:
         title: Choix du type d'habilitation
+        description: |
+          Vous allez initier une nouvelle demande d'habilitation pour le compte d'une organisation.
+          Veuillez choisir le type d'habilitation que vous souhaitez initier.
       edit:
         save: Sauvegarder
       create:
