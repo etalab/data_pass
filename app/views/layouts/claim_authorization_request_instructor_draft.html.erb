@@ -3,11 +3,11 @@
     Brouillon de demande d'habilitation
   </h2>
 
-  <div class="fr-mb-4w">
+  <p class="fr-mb-4w">
     Vous êtes invité à compléter une demande d'habilitation pour <%= @authorization_request_instructor_draft.definition.name %> intitulé <strong><%= @authorization_request_instructor_draft.project_name %></strong> pour le compte de <strong><%= @authorization_request_instructor_draft.organization.name %> (<%= @authorization_request_instructor_draft.organization.legal_entity_id %>)</strong>.
 
     Cette invitation vous a été envoyée par l'instructeur <%= @authorization_request_instructor_draft.instructor.email %>
-  </div>
+  </p>
 
   <% if @authorization_request_instructor_draft.comment %>
     <div class="fr-callout">
