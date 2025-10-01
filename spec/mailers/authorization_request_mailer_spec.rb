@@ -1,6 +1,23 @@
 require 'rails_helper'
 
 RSpec.describe AuthorizationRequestMailer do
+  describe 'html rendering' do
+    subject(:mail) do
+      described_class.with(
+        authorization_request:
+      ).approve
+    end
+
+    context 'when there is a custom HTML template for the authorization request kind' do
+      let(:authorization_request) { create(:authorization_request, :annuaire_des_entreprises, :validated) }
+
+      it 'renders the custom template which is html' do
+        expect(mail.body.encoded).to match('href')
+        expect(mail.body.encoded).to match('espace agent')
+      end
+    end
+  end
+
   describe '#approve' do
     subject(:mail) do
       described_class.with(
