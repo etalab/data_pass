@@ -13,6 +13,9 @@ RUN npm install standard prettier --global
 COPY Gemfile Gemfile.lock ./
 RUN bundle install
 
+COPY package.json ./
+RUN npm install --global
+
 COPY . .
 
 ENTRYPOINT ["/app/bin/docker-entrypoint"]

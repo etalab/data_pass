@@ -10,7 +10,8 @@
       </h2>
 
       <p>
-        Veuillez saisir le siret de l'organisation à laquelle vous souhaitez vous rattacher.
+        Veuillez saisir le siret de l'organisation à laquelle vous souhaitez
+        vous rattacher.
       </p>
 
       <%= render partial: 'shared/alerts' %>
@@ -19,6 +20,7 @@
         <%= form.dsfr_text_field :siret, placeholder: '13002526500013' %>
 
         <p class="fr-text--sm">
+          <i class="fr-icon-information-line" aria-hidden="true"></i>
           <i class="fr-icon-information-line" aria-hidden="true"></i>
           Vous pouvez rechercher votre SIRET via
           <%= link_to "l'annuaire des entreprises", "https://annuaire-entreprises.data.gouv.fr/", target: "_blank", rel: "noopener" %>

@@ -1,4 +1,3 @@
 <% if @authorization_request.prefilled_data?(@authorization_request.data.keys) && !within_edit? && !within_summary? %>
   <%= render partial: "authorization_request_forms/shared/prefilled_banner" %>
 <% end %>
-

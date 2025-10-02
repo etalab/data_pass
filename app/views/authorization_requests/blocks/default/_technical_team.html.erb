@@ -1,15 +1,11 @@
 <%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { authorization_request:, title: f.wording_for('steps.technical_team'), block_id: :technical_team, f:, editable: } do %>
-  <strong>
-    <%= f.label_value(:technical_team_type) %>
-  </strong>
+  <strong><%= f.label_value(:technical_team_type) %></strong>
 
   <%= f.label_value("technical_team.values.#{authorization_request.technical_team_type}") %>
 
   <% if authorization_request.technical_team_value.present? %>
     <p>
-      <strong>
-        <%= f.label_value(:technical_team_value) %>
-      </strong>
+      <strong><%= f.label_value(:technical_team_value) %></strong>
 
       <%= authorization_request.technical_team_value %>
     </p>
