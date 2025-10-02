@@ -156,6 +156,7 @@ fr:
               lep_scope_exclusivity: "sont invalides : La donnée d’indicateur d’éligibilité au LEP ne peut être demandée que seule. Veuillez décocher cette case, ou décocher toutes les autres si vous souhaitez vérifier l’éligibilité au LEP."
         authorization_request/api_impot_particulier: *api_impot_particulier_errors
         authorization_request/api_sfip_sandbox: *api_impot_particulier_errors
+        authorization_request/api_sfip: *api_impot_particulier_errors
         impersonation:
           attributes:
             user:
