@@ -7,6 +7,8 @@ fr:
         url_format: "n'est pas un lien valide"
         already_exists: "Une autre demande d'habilitation est déjà en cours ou validée pour cette organisation, il ne peut en avoir qu'une seule de ce type."
         invalid_french_phone_format: "doit être un numéro de téléphone français (commençant par 0, +33, +59 ou +687)"
+        invalid_french_phone_mobile_format: "doit être un numéro de téléphone mobile français (commençant par 0, +33, +59 ou +687)"
+        france_connect_mobile_phone_message: "Afin de recevoir le SMS qui lui sera envoyé, le numéro du responsable technique doit être un numéro de portable."
       models:
         authorization_request_transfer:
           attributes:

@@ -18,6 +18,10 @@ class AuthorizationRequest::FranceConnect < AuthorizationRequest
 
   contact :contact_technique, validation_condition: ->(record) { record.need_complete_validation?(:contacts) }
 
+  validates :contact_technique_phone_number,
+    french_phone_number: { france_connect_mobile: true },
+    if: ->(record) { record.need_complete_validation?(:contacts) }
+
   def france_connected_authorizations(ids = authorization_ids)
     Authorization.where(
       "data -> 'france_connect_authorization_id' in (?)",
