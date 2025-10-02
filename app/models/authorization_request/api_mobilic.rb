@@ -1,11 +1,15 @@
 class AuthorizationRequest::APIMobilic < AuthorizationRequest
-  include AuthorizationExtensions::BasicInfos
   include AuthorizationExtensions::PersonalData
   include AuthorizationExtensions::GDPRContacts
 
-  add_attributes :date_prevue_mise_en_production
+  add_attributes :intitule,
+    :date_prevue_mise_en_production,
+    :volumetrie_approximative
 
-  validates :date_prevue_mise_en_production, presence: true, if: -> { need_complete_validation?(:basic_infos) }
+  validates :intitule,
+    :date_prevue_mise_en_production,
+    :volumetrie_approximative,
+    presence: true, if: -> { need_complete_validation?(:basic_infos) }
 
   add_scopes(validation: {
     presence: true, if: -> { need_complete_validation?(:scopes) }
