@@ -14,10 +14,23 @@ class AuthorizationRequestMailer < ApplicationMailer
           )
         ) do |format|
           format.text { render "authorization_request_mailer/#{@authorization_request.kind}/#{mth}" }
+          format.html { render "authorization_request_mailer/#{@authorization_request.kind}/#{mth}" } if html_template_exists?(@authorization_request.kind, mth)
         rescue ActionView::MissingTemplate
           format.text
         end
       end
     end
+  end
+
+  private
+
+  def html_template_exists?(kind, action)
+    lookup_context.exists?(
+      "#{kind}/#{action}",
+      ['authorization_request_mailer'],
+      false,
+      [],
+      formats: [:html],
+    )
   end
 end
