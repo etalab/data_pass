@@ -291,7 +291,10 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   end
 
   def extract_authorization_request
-    @authorization_request = authorization_request_class.find(params[:id]).decorate
+    @authorization_request = authorization_request_class
+      .includes(:organization, authorizations: %i[organization])
+      .find(params[:id])
+      .decorate
   end
 
   def authorization_request_class

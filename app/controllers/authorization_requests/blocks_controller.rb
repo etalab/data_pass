@@ -35,7 +35,10 @@ class AuthorizationRequests::BlocksController < AuthenticatedUserController
   end
 
   def extract_authorization_request
-    @authorization_request = AuthorizationRequest.find(params[:authorization_request_id]).decorate
+    @authorization_request = AuthorizationRequest
+      .includes(:organization, authorizations: %i[organization])
+      .find(params[:authorization_request_id])
+      .decorate
 
     authorize @authorization_request, :update?
   end
