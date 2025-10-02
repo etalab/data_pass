@@ -1,0 +1,22 @@
+<%= content_for(:within_page) do %>
+  <h2 class="fr-mt-16v">
+    Brouillon de demande d'habilitation
+  </h2>
+
+  <p class="fr-mb-4w">
+    Vous êtes invité à compléter une demande d'habilitation pour <%= @authorization_request_instructor_draft.definition.name %> intitulé <strong><%= @authorization_request_instructor_draft.project_name %></strong> pour le compte de <strong><%= @authorization_request_instructor_draft.organization.name %> (<%= @authorization_request_instructor_draft.organization.legal_entity_id %>)</strong>.
+
+    Cette invitation vous a été envoyée par l'instructeur <%= @authorization_request_instructor_draft.instructor.email %>
+  </p>
+
+  <% if @authorization_request_instructor_draft.comment %>
+    <div class="fr-callout">
+      <h3 class="fr-callout__title">Le mot de votre instructeur</strong>
+      <p class="fr-callout__text"><%= @authorization_request_instructor_draft.comment %></p>
+    </div>
+  <% end %>
+
+  <%= yield %>
+<% end %>
+
+<%= render template: 'layouts/form_introduction' %>
