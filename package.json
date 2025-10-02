@@ -1,0 +1,12 @@
+{
+  "name": "data_pass",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "herb:format": "herb-format app/views/",
+    "herb:format:check": "herb-format --check app/views/"
+  },
+  "devDependencies": {
+    "@herb-tools/formatter": "^0.8.4"
+  }
+}
