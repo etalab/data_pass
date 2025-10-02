@@ -1,9 +1,9 @@
 api_mobilic:
   name: API Mobilic
-  description: "FEEDME"
+  description: "Mobilic est la plateforme gouvernementale qui permet de simplifier le suivi du temps de travail dans le transport routier léger et le déménagement afin de lutter contre le travail illégal."
   provider: "mtes"
   kind: 'api'
-  link: "https://www.data.gouv.fr/fr/dataservices/api-mobilic/l"
+  link: "https://www.data.gouv.fr/fr/dataservices/api-mobilic/"
   cgu_link: "https://cgu-api.mobilic.beta.gouv.fr/"
   access_link: "https://api-mobilic.gouv.fr/tokens/%{external_provider_id}"
   public: true
