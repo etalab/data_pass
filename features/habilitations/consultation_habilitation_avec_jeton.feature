@@ -1,6 +1,6 @@
 # language: fr
 
-Fonctionnalité: Consultation d'une habilitation soumise
+Fonctionnalité: Consultation d'une habilitation validée avec jeton d'accès référencé
   Contexte:
     Sachant que je suis un demandeur
     Et que je me connecte
