@@ -209,9 +209,9 @@ FactoryBot.define do
       after(:build) do |authorization_request, evaluator|
         if authorization_request.need_complete_validation? || evaluator.fill_all_attributes
           authorization_request.intitule ||= 'Demande d\'accès à la plateforme fournisseur'
-          authorization_request.description ||= 'Description de la demande'
+          authorization_request.description ||= 'Description de la demande' if authorization_request.respond_to?(:description)
           authorization_request.date_prevue_mise_en_production ||= '25-06-2025' if authorization_request.respond_to?(:date_prevue_mise_en_production)
-          authorization_request.volumetrie_approximative ||= '1000 appels par jour' if authorization_request.respond_to?(:volumetrie_approximative)
+          authorization_request.volumetrie_approximative ||= 1000 if authorization_request.respond_to?(:volumetrie_approximative)
         end
       end
     end
