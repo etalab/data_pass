@@ -6,4 +6,5 @@ api-mobilic:
   steps:
     - name: basic_infos
     - name: personal_data
+    - name: scopes
     - name: contacts

@@ -7,6 +7,10 @@ class AuthorizationRequest::APIMobilic < AuthorizationRequest
 
   validates :date_prevue_mise_en_production, presence: true, if: -> { need_complete_validation?(:basic_infos) }
 
+  add_scopes(validation: {
+    presence: true, if: -> { need_complete_validation?(:scopes) }
+  })
+
   contact :contact_technique, validation_condition: ->(record) { record.need_complete_validation?(:contacts) }
 
   %i[

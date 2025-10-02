@@ -1437,5 +1437,6 @@ FactoryBot.define do
 
     with_basic_infos
     with_personal_data
+    with_scopes
   end
 end
