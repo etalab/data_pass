@@ -1,8 +1,9 @@
-<div class="summary-block <%= !editable ? 'summary-block--fixed' : '' %> fr-mb-6w <%= local_assigns[:extra_summary_block_css_classes] %>" id="<%= dom_id(authorization_request, block_id) %>">
+<div
+  class="summary-block <%= !editable ? 'summary-block--fixed' : '' %> fr-mb-6w <%= local_assigns[:extra_summary_block_css_classes] %>"
+  id="<%= dom_id(authorization_request, block_id) %>"
+>
   <div class="summary-block__header">
-    <h2 class="summary-block__title fr-h4 fr-pb-1-5v">
-      <%= title %>
-    </h2>
+    <h2 class="summary-block__title fr-h4 fr-pb-1-5v"><%= title %></h2>
 
     <div class="summary-block__info fr-text--sm font-weight-700">
       <% if policy(authorization_request).update? && !editable %>

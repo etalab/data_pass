@@ -6,8 +6,7 @@
 
 <div data-controller="choose-modalite-with-france-connect">
   <div class="fr-col-lg-9">
-    <%=
-      f.dsfr_radio_buttons :modalities,
+    <%= f.dsfr_radio_buttons :modalities,
         @authorization_request.available_modalities,
         required: true,
         multiple: true,
@@ -18,19 +17,23 @@
         input_options: {
           "data-action": "click->choose-modalite-with-france-connect#trigger",
           "data-choose-modalite-with-france-connect-target": "modality"
-        }
-    %>
+        } %>
   </div>
 
-  <div class="fr-col-lg-9 fr-mb-5w <%= 'fr-hidden' unless @authorization_request.with_france_connect? %>" data-choose-modalite-with-france-connect-target="franceConnectContainer">
+  <div
+    class="fr-col-lg-9 fr-mb-5w <%= 'fr-hidden' unless @authorization_request.with_france_connect? %>"
+    data-choose-modalite-with-france-connect-target="franceConnectContainer"
+  >
     <% if @authorization_request.france_connect_authorizations.empty? %>
       <div class="fr-callout red-callout">
         <h3 class="fr-callout__title">
           <%= f.wording_for("modalities.callout.title") %>
         </h3>
+
         <p class="fr-callout__text fr-my-3w">
           <%= f.wording_for("modalities.callout.content") %>
         </p>
+
         <%= link_to f.wording_for("modalities.callout.link"), new_authorization_request_path("france-connect"), class: "fr-link fr-btn--icon-right fr-icon-arrow-right-line" %>
       </div>
     <% else %>

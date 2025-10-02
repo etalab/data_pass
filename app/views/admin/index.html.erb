@@ -2,9 +2,7 @@
   <div class="dashboard-sub-header">
     <div class="sub-header">
       <div>
-        <h1 class="fr-m-0">
-          <%= t('.title') %>
-        </h1>
+        <h1 class="fr-m-0"><%= t('.title') %></h1>
       </div>
     </div>
   </div>
@@ -12,8 +10,14 @@
   <%= render partial: 'shared/alerts' %>
 
   <ul>
-    <li><%= link_to 'Emails en liste blanche', admin_whitelisted_verified_emails_path %></li>
-    <li><%= link_to 'Utilisateurs avec des rôles', admin_users_with_roles_path %></li>
-    <li><%= link_to 'Impersonner un utilisateur', new_admin_impersonate_path %></li>
+    <li>
+      <%= link_to 'Emails en liste blanche', admin_whitelisted_verified_emails_path %>
+    </li>
+    <li>
+      <%= link_to 'Utilisateurs avec des rôles', admin_users_with_roles_path %>
+    </li>
+    <li>
+      <%= link_to 'Impersonner un utilisateur', new_admin_impersonate_path %>
+    </li>
   </ul>
 </div>

@@ -1,12 +1,18 @@
 <div class="footer fr-p-3w fr-background-alt--grey">
   <div class="footer__content flex-space-between__content fr-mb-3v">
     <div>
-      <p class="footer__title fr-text-title--blue-france fr-text--md font-weight-700 fr-m-0">
+      <p
+        class="
+          footer__title fr-text-title--blue-france fr-text--md
+          font-weight-700 fr-m-0
+        "
+      >
         <%= t('.reopen_title') %>
       </p>
 
       <p class="fr-text--sm fr-mb-0">
-        <%= t('.reopen_date') %> <%= l authorization_request.reopened_at, format: '%d/%m/%Y' %>
+        <%= t('.reopen_date') %>
+        <%= l authorization_request.reopened_at, format: '%d/%m/%Y' %>
       </p>
     </div>
 
