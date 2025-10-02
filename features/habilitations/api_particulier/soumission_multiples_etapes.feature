@@ -74,6 +74,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
       | Tarification cantine collèges                            |
       | Aides sociales des CCAS dont aides facultatives          |
       | Tarification des transports                              |
+      | Gestion du stationnement résidentiel                     |
 
   Plan du scénario: Je soumets une demande d'habilitation pour un cas d'usage sans éditeur où je dois préciser le cadre légal et le lien vers la délibération, sans le choix de la modalité
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>"
