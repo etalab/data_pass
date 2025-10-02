@@ -6,5 +6,6 @@ if [ -f /app/tmp/pids/server.pid ]; then
 fi
 
 bin/rails db:prepare
+npm install
 
 exec "$@"
