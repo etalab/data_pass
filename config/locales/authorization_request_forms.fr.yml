@@ -981,15 +981,19 @@ fr:
       steps:
         <<: *authorization_request_forms_default_steps
         basic_infos: "Ma demande d'interfaçage"
+        scopes: "Validation du flux opérationnel"
       basic_infos:
         title: Décrivez nous votre logiciel
         subtitle: Afin de vous donner accès aux données, nous avons besoin d’en savoir plus sur la manière dont vous souhaitez les utiliser.
       intitule:
         label: Nom du logiciel
         hint: Nom commercial du logiciel
-      description:
-        label: Description du flux opérationnel
-        hint: Le flux opérationnel doit contenir les éléments réglementaires obligatoires.
+      volumetrie_approximative:
+        label: Nombre de clients utilisateurs estimés
+        hint: "Nombre d'utilisateurs par mois"
+      scopes:
+        title: Validation du flux opérationnel
+        subtitle: Le flux opérationnel doit contenir les éléments réglementaires obligatoires dans le cas de l’envoi de données à Mobilic.
 
     api_captchetat:
       contact_technique:
