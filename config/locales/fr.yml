@@ -269,7 +269,7 @@ fr:
           <br/>
           Votre demande d’habilitation va se dérouler en 4 étapes
         api: |
-          Vous souhaitez accédez à l’<strong>%{authorization_definition_name}</strong>
+          Vous souhaitez accéder à l’<strong>%{authorization_definition_name}</strong>
           <br/>
           Votre demande d’habilitation va se dérouler en 4 étapes
       timeline_steps:
