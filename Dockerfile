@@ -14,7 +14,7 @@ COPY Gemfile Gemfile.lock ./
 RUN bundle install
 
 COPY package.json ./
-RUN npm install --global
+RUN npm install
 
 COPY . .
 
