@@ -5,7 +5,12 @@ class FrenchPhoneNumberValidator < ActiveModel::EachValidator
     /\A\+590[\s.-]*[1-9]([\s.-]*\d{2}){4}\z/, # +590 (Guadeloupe, Saint-Martin, Saint-Barthélemy)
     /\A\+594[\s.-]*[1-9]([\s.-]*\d{2}){4}\z/, # +594 (French Guiana)
     /\A\+596[\s.-]*[1-9]([\s.-]*\d{2}){4}\z/, # +596 (Martinique)
-    /\A\+687[\s.-]*\d{2}([\s.-]*\d{2}){2}\z/ # +687 (New Caledonia - 6 digits format)
+    /\A\+262[\s.-]*\d{2}([\s.-]*\d{2}){3}\z/, # +262 (Réunion, Mayotte - 8 digits format)
+    /\A\+508[\s.-]*\d{2}([\s.-]*\d{2}){2}\z/, # +508 (Saint-Pierre-et-Miquelon - 6 digits format)
+    /\A\+681[\s.-]*\d{2}([\s.-]*\d{2}){2}\z/, # +681 (Wallis-et-Futuna - 6 digits format)
+    /\A\+687[\s.-]*\d{2}([\s.-]*\d{2}){2}\z/, # +687 (New Caledonia - 6 digits format)
+    /\A\+689[\s.-]*4[0-9]([\s.-]*\d{2}){2}\z/, # +689 (French Polynesia landlines - 4[0-9] XX XX)
+    /\A\+689[\s.-]*8[79]([\s.-]*\d{2}){2}\z/, # +689 (French Polynesia mobiles - 87/89 XX XX)
   ].freeze
 
   MOBIL_PHONE_FORMATS = [
@@ -17,8 +22,11 @@ class FrenchPhoneNumberValidator < ActiveModel::EachValidator
     /\A\+590[\s.-]*[67]([\s.-]*\d{2}){4}\z/, # Guadeloupe, Saint-Martin, Saint-Barthélemy
     /\A\+594[\s.-]*[67]([\s.-]*\d{2}){4}\z/, # Guyane française
     /\A\+596[\s.-]*[67]([\s.-]*\d{2}){4}\z/, # Martinique
+    /\A\+262[\s.-]*[67]([\s.-]*\d{2}){3}\z/, # Réunion, Mayotte (8 digits)
+    /\A\+508[\s.-]*7\d([\s.-]*\d{2}){2}\z/, # Saint-Pierre-et-Miquelon mobile (7X XX XX)
+    /\A\+681[\s.-]*\d{2}([\s.-]*\d{2}){2}\z/, # Wallis-et-Futuna
     /\A\+687[\s.-]*\d{2}([\s.-]*\d{2}){2}\z/, # Nouvelle-Calédonie (format 6 chiffres)
-    /\A\+689[\s.-]*\d{2}([\s.-]*\d{2}){2}\z/  # Polynésie française (format 6 chiffres)
+    /\A\+689[\s.-]*8[79]([\s.-]*\d{2}){2}\z/  # Polynésie française (format 6 chiffres)
   ].freeze
 
   def validate_each(record, attribute, value)

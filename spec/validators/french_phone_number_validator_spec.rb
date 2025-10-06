@@ -6,6 +6,14 @@ class FrenchPhoneNumberValidatable
   validates :phone_number, french_phone_number: true
 end
 
+class FrenchMobilePhoneValidatable
+  include ActiveModel::Validations
+
+  attr_accessor :phone_number
+
+  validates :phone_number, french_phone_number: { mobile: true }
+end
+
 RSpec.describe FrenchPhoneNumberValidator do
   subject { FrenchPhoneNumberValidatable.new }
 
@@ -119,6 +127,62 @@ RSpec.describe FrenchPhoneNumberValidator do
         end
       end
 
+      it 'accepts French Polynesia landline numbers (+689 4[0-9])' do
+        valid_numbers = [
+          '+689 40 12 34',
+          '+689401234',
+          '+689-41-23-45',
+          '+689.49.56.78'
+        ]
+
+        valid_numbers.each do |number|
+          subject.phone_number = number
+          expect(subject).to be_valid, "Expected '#{number}' to be valid"
+        end
+      end
+
+      it 'accepts Réunion and Mayotte numbers (+262)' do
+        valid_numbers = [
+          '+262 26 12 34 56',
+          '+26226123456',
+          '+262-69-12-34-56',
+          '+262.26.11.22.33'
+        ]
+
+        valid_numbers.each do |number|
+          subject.phone_number = number
+          expect(subject).to be_valid, "Expected '#{number}' to be valid"
+        end
+      end
+
+      it 'accepts Saint-Pierre-et-Miquelon numbers (+508)' do
+        valid_numbers = [
+          '+508 41 23 45',
+          '+508412345',
+          '+508-55-12-34',
+          '+508.41.12.34'
+        ]
+
+        valid_numbers.each do |number|
+          subject.phone_number = number
+          expect(subject).to be_valid, "Expected '#{number}' to be valid"
+        end
+      end
+
+      it 'accepts Wallis-et-Futuna numbers (+681)' do
+        valid_numbers = [
+          '+681 12 34 56',
+          '+681123456',
+          '+681-12-34-56',
+          '+681.12.34.56'
+        ]
+
+        valid_numbers.each do |number|
+          subject.phone_number = number
+          expect(subject).to be_valid, "Expected '#{number}' to be valid"
+        end
+      end
+
       it 'rejects overseas territory numbers with wrong format' do
         invalid_numbers = [
           '+590 0 12 34 56 78',  # 0 is not valid after +590
@@ -177,6 +241,104 @@ RSpec.describe FrenchPhoneNumberValidator do
           expect(subject).to be_valid, "Expected '#{number}' to be valid"
         end
       end
+    end
+  end
+
+  describe 'mobile phone formats (France Connect mobile)' do
+    let(:mobile_subject) { FrenchMobilePhoneValidatable.new }
+
+    it 'accepts mainland France mobile numbers (06/07 and +33 6/7)' do
+      [
+        '06 12 34 56 78',
+        '07-98-76-54-32',
+        '06.66.77.88.99',
+        '+33 6 12 34 56 78',
+        '+33-7-98-76-54-32',
+        '+33.7.11.22.33.44'
+      ].each do |number|
+        mobile_subject.phone_number = number
+        expect(mobile_subject).to be_valid, "Expected '#{number}' to be valid as a mobile number"
+      end
+    end
+
+    it 'accepts overseas mobile numbers for DOM (590/594/596)' do
+      [
+        '+590 6 12 34 56 78',
+        '+594-7-12-34-56-78',
+        '+596.6.11.22.33.44'
+      ].each do |number|
+        mobile_subject.phone_number = number
+        expect(mobile_subject).to be_valid, "Expected '#{number}' to be valid as a mobile number"
+      end
+    end
+
+    it 'accepts Réunion and Mayotte mobile numbers (+262)' do
+      [
+        '+262 6 12 34 56',
+        '+262-7-12-34-56',
+        '+262.6.11.22.33'
+      ].each do |number|
+        mobile_subject.phone_number = number
+        expect(mobile_subject).to be_valid, "Expected '#{number}' to be valid as a mobile number"
+      end
+    end
+
+    it 'accepts Saint-Pierre-et-Miquelon mobile numbers (+508)' do
+      [
+        '+508 71 23 45',
+        '+508-72-12-34',
+        '+508.75.11.22'
+      ].each do |number|
+        mobile_subject.phone_number = number
+        expect(mobile_subject).to be_valid, "Expected '#{number}' to be valid as a mobile number"
+      end
+    end
+
+    it 'accepts Wallis-et-Futuna mobile numbers (+681)' do
+      [
+        '+681 12 34 56',
+        '+681-98-76-54',
+        '+681.11.22.33'
+      ].each do |number|
+        mobile_subject.phone_number = number
+        expect(mobile_subject).to be_valid, "Expected '#{number}' to be valid as a mobile number"
+      end
+    end
+
+    it 'accepts New Caledonia mobile numbers (+687)' do
+      [
+        '+687 12 34 56',
+        '+687-98-76-54',
+        '+687.11.22.33'
+      ].each do |number|
+        mobile_subject.phone_number = number
+        expect(mobile_subject).to be_valid, "Expected '#{number}' to be valid as a mobile number"
+      end
+    end
+
+    it 'accepts French Polynesia mobile numbers (+689 87/89)' do
+      [
+        '+689 87 12 34',
+        '+689-89-98-76',
+        '+689.87.65.43'
+      ].each do |number|
+        mobile_subject.phone_number = number
+        expect(mobile_subject).to be_valid, "Expected '#{number}' to be valid as a mobile number"
+      end
+    end
+
+    it 'rejects landlines when mobile format is required' do
+      [
+        '01 23 45 67 89',
+        '+33 1 23 45 67 89',
+        '+689 4 12 34'
+      ].each do |number|
+        mobile_subject.phone_number = number
+        expect(mobile_subject).not_to be_valid, "Expected '#{number}' to be invalid as a mobile number"
+      end
+
+      mobile_subject.phone_number = '01 23 45 67 89'
+      expect(mobile_subject).not_to be_valid
     end
   end
 
