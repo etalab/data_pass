@@ -9,8 +9,7 @@ class FrenchPhoneNumberValidator < ActiveModel::EachValidator
     /\A\+508[\s.-]*\d{2}([\s.-]*\d{2}){2}\z/, # +508 (Saint-Pierre-et-Miquelon - 6 digits format)
     /\A\+681[\s.-]*\d{2}([\s.-]*\d{2}){2}\z/, # +681 (Wallis-et-Futuna - 6 digits format)
     /\A\+687[\s.-]*\d{2}([\s.-]*\d{2}){2}\z/, # +687 (New Caledonia - 6 digits format)
-    /\A\+689[\s.-]*4[0-9]([\s.-]*\d{2}){2}\z/, # +689 (French Polynesia landlines - 4[0-9] XX XX)
-    /\A\+689[\s.-]*8[79]([\s.-]*\d{2}){2}\z/, # +689 (French Polynesia mobiles - 87/89 XX XX)
+    /\A\+689[\s.-]*4[0-9]([\s.-]*\d{2}){2}\z/, # +689 (French Polynesia - 4[0-9] XX XX)
   ].freeze
 
   MOBIL_PHONE_FORMATS = [
@@ -26,28 +25,41 @@ class FrenchPhoneNumberValidator < ActiveModel::EachValidator
     /\A\+508[\s.-]*7\d([\s.-]*\d{2}){2}\z/, # Saint-Pierre-et-Miquelon mobile (7X XX XX)
     /\A\+681[\s.-]*\d{2}([\s.-]*\d{2}){2}\z/, # Wallis-et-Futuna
     /\A\+687[\s.-]*\d{2}([\s.-]*\d{2}){2}\z/, # Nouvelle-Calédonie (format 6 chiffres)
-    /\A\+689[\s.-]*8[79]([\s.-]*\d{2}){2}\z/  # Polynésie française (format 6 chiffres)
+    /\A\+689[\s.-]*8[79]([\s.-]*\d{2}){2}\z/  # (French Polynesia mobiles - 87/89 XX XX)
   ].freeze
 
   def validate_each(record, attribute, value)
     return if value.blank?
 
-    valid = if options[:france_connect_mobile]
-              valid_mobile_phone_number?(value)
-            else
-              valid_french_phone_number?(value)
-            end
+    return if valid_phone_number?(value)
 
-    return if valid
+    add_error_message(record, attribute)
+  end
 
+  private
+
+  def valid_phone_number?(phone_number)
+    if mobile_validation_required?
+      valid_mobile_phone_number?(phone_number)
+    else
+      valid_french_phone_number?(phone_number)
+    end
+  end
+
+  def mobile_validation_required?
+    options[:mobile] || options[:france_connect_mobile]
+  end
+
+  def add_error_message(record, attribute)
     if options[:france_connect_mobile]
-      record.errors.add(attribute, :france_connect_mobile_phone_message)
+      options[:message].presence || :invalid_french_phone_mobile_format
+      record.errors.add(attribute, options[:message].presence || :france_connect_mobile_required)
+    elsif options[:mobile]
+      record.errors.add(attribute, :invalid_french_phone_mobile_format)
     else
       record.errors.add(attribute, :invalid_french_phone_format)
     end
   end
-
-  private
 
   def valid_french_phone_number?(phone_number)
     FRENCH_PHONE_FORMATS.any? { |format| format.match?(phone_number) }

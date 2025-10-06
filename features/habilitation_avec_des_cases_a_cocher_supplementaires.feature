@@ -27,7 +27,7 @@ Fonctionnalité: Habilitation avec des cases à cocher supplémentaires
     * je clique sur "Suivant"
 
     * je renseigne les informations des contacts RGPD
-    * je renseigne les informations du contact technique
+    * je renseigne les informations du contact technique avec un numéro de mobile
     * je clique sur "Suivant"
 
 

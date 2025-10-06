@@ -14,6 +14,18 @@ class FrenchMobilePhoneValidatable
   validates :phone_number, french_phone_number: { mobile: true }
 end
 
+class FranceConnectMobilePhoneValidatable
+  include ActiveModel::Validations
+
+  attr_accessor :phone_number
+
+  validates :phone_number,
+    french_phone_number: {
+      france_connect_mobile: true,
+      message: :france_connect_mobile_required
+    }
+end
+
 RSpec.describe FrenchPhoneNumberValidator do
   subject { FrenchPhoneNumberValidatable.new }
 
@@ -426,6 +438,52 @@ RSpec.describe FrenchPhoneNumberValidator do
     it 'rejects phone numbers with extreme spacing' do
       subject.phone_number = '0 6 1 2 3 4 5 6 7 8'
       expect(subject).not_to be_valid
+    end
+  end
+
+  describe 'France Connect mobile phone validation' do
+    let(:france_connect_subject) { FranceConnectMobilePhoneValidatable.new }
+
+    context 'with valid mobile numbers' do
+      it 'accepts mobile numbers for France Connect' do
+        valid_mobile_numbers = [
+          '06 12 34 56 78',
+          '+33 7 98 76 54 32',
+          '+590 6 12 34 56 78',
+          '+689 87 12 34'
+        ]
+
+        valid_mobile_numbers.each do |number|
+          france_connect_subject.phone_number = number
+          expect(france_connect_subject).to be_valid, "Expected '#{number}' to be valid for France Connect"
+        end
+      end
+    end
+
+    context 'with invalid landline numbers' do
+      it 'rejects landline numbers for France Connect' do
+        france_connect_subject.phone_number = '01 23 45 67 89'
+        expect(france_connect_subject).not_to be_valid
+        expect(france_connect_subject.errors[:phone_number]).to include(I18n.t('activemodel.errors.messages.france_connect_mobile_required'))
+      end
+
+      it 'rejects French Polynesia landlines for France Connect' do
+        france_connect_subject.phone_number = '+689 40 12 34'
+        expect(france_connect_subject).not_to be_valid
+        expect(france_connect_subject.errors[:phone_number]).to include(I18n.t('activemodel.errors.messages.france_connect_mobile_required'))
+      end
+    end
+  end
+
+  describe 'mobile-only phone validation' do
+    let(:mobile_only_subject) { FrenchMobilePhoneValidatable.new }
+
+    context 'with invalid landline numbers' do
+      it 'rejects landline numbers with mobile-specific error message' do
+        mobile_only_subject.phone_number = '01 23 45 67 89'
+        expect(mobile_only_subject).not_to be_valid
+        expect(mobile_only_subject.errors[:phone_number]).to include(I18n.t('activemodel.errors.messages.invalid_french_phone_mobile_format'))
+      end
     end
   end
 end
