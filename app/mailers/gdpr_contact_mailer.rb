@@ -9,7 +9,7 @@ class GDPRContactMailer < ApplicationMailer
           '.subject',
           authorization_request_contact_kind:
             t("authorization_request.contacts.#{contact}"),
-          authorization_request_name: @authorization_request.name
+          authorization_request_name: @authorization_request.name,
         )
       )
     end
