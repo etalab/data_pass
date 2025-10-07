@@ -85,9 +85,9 @@ fr:
 
         Vous n'avez rien de plus à faire!
 
-        Vous n'êtes pas %{authorization_request_contact_kind} pour cette démarche ? Signalez-nous une erreur à cette adresse email:
+        Vous n'êtes pas %{authorization_request_contact_kind} pour cette démarche ? Veuillez contacter le demandeur pour signaler une erreur afin que celui-ci effectue les modifications sur son habilitation : %{applicant_email}
 
-        %{data_pass_support_email}
+        En cas de question, vous pouvez nous contacter à l'adresse suivante : %{support_email}.
 
         Cordialement,
     delegue_protection_donnees: *shared_gdpr
