@@ -12,7 +12,6 @@
     </p>
   </div>
 
-
   <% authorization_request.editable_blocks.each do |block| %>
     <%= render_custom_block_or_default(authorization_request, block[:name], f:, editable: true) %>
   <% end %>
@@ -23,10 +22,10 @@
         Les informations pré-remplies
       </h3>
       <p>
-        Ces informations suivantes ont été pré-remplies et ne sont pas modifiables.
+        Ces informations suivantes ont été pré-remplies et ne sont pas
+        modifiables.
       </p>
     </div>
-
     <% authorization_request.static_blocks.each do |block| %>
       <%= render_custom_block_or_default(authorization_request, block[:name], f:, editable: false) %>
     <% end %>

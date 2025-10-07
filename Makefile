@@ -21,9 +21,11 @@ sh:
 
 lint:
 	$(DOCKER-RUN) web $(BUNDLE-EXEC) rubocop
+	$(DOCKER-RUN) web npm run herb:format:check
 
 fix-lint:
 	$(DOCKER-RUN) web $(BUNDLE-EXEC) rubocop -A
+	$(DOCKER-RUN) web npm run herb:format
 
 js-lint:
 	$(DOCKER-RUN) web standard app/javascript

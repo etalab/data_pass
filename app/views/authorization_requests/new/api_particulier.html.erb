@@ -92,7 +92,9 @@
       </div>
     </div>
   </fieldset>
+
   <div id="step2"></div>
+
   <div
     data-choose-authorization-request-form-target="editors"
     id="editors-list"
@@ -155,32 +157,39 @@
   >
     <div class="fr-grid-row">
       <div class="fr-col-md-10 fr-col-offset-1">
-
         <div class="center fr-px-5w fr-py-1w">
           <p>
             Vous êtes éligible mais n'avez pas les
             <a
               href="https://particulier.api.gouv.fr/developpeurs#prerequis-techniques"
               target="_blank"
-            >prérequis techniques</a>
+            >
+              prérequis techniques
+            </a>
             pour utiliser l’API Particulier.
-            <br/>
+            <br />
             🔎 L’API Particulier s’utilise au travers d’un logiciel métier,
             comme par exemple un profil acheteur pour les marchés publics. Si
             vous collectez et traitez les données à la main, vous n’avez
             probablement pas un logiciel dédié aux démarches.
-            <br/>
+            <br />
             De nombreux éditeurs de logiciel, ont déjà intégré l'API
             Particulier, nous vous recommandons d'en
             <a
               href="https://particulier.api.gouv.fr/faq#je-recherche-un-editeur-proposant-l-api-particulier"
               target="_blank"
-            >consulter la liste</a>.
-            <br/>
-            <br/>
+            >
+              consulter la liste
+            </a>
+            .
+            <br />
+            <br />
             <strong>
-              💡 Si votre cas d'usage est d'accéder au quotient familial CAF et MSA pour simplifier la tarification sociale municipale, vous pouvez demander un accès au
-              <%= link_to 'formulaire de collecte du quotient familial', new_authorization_request_path(definition_id: 'formulaire_qf') %>.
+              💡 Si votre cas d'usage est d'accéder au quotient familial CAF et
+              MSA pour simplifier la tarification sociale municipale, vous
+              pouvez demander un accès au
+              <%= link_to 'formulaire de collecte du quotient familial', new_authorization_request_path(definition_id: 'formulaire_qf') %>
+              .
             </strong>
           </p>
         </div>
@@ -196,9 +205,8 @@
     <div class="fr-grid-row">
       <div class="fr-col-md-10 fr-col-offset-1">
         <p class="center fr-px-5w fr-py-1w">
-          Vous êtes éligible mais votre éditeur ne semble pas utiliser l'API
-          Particulier.
-          <br/>
+          Vous êtes éligible mais votre éditeur ne semble pas utiliser l'API Particulier.
+          <br />
           Nous vous invitons à nous contacter à l'adresse suivante :
           <a href="mailto:support@particulier.api.gouv.fr">support@particulier.api.gouv.fr</a>
           afin que l'on puisse vous accompagner au mieux

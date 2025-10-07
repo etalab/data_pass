@@ -28,17 +28,13 @@
         <table>
           <thead>
             <tr>
-              <%
-                %w[
+              <% %w[
                   email
                   organizations
                   roles
                   actions
-                ].each do |attr|
-              %>
-                <th scope="col">
-                  <%= t(".table.header.#{attr}") %>
-                </th>
+                ].each do |attr| %>
+                <th scope="col"><%= t(".table.header.#{attr}") %></th>
               <% end %>
             </tr>
           </thead>
@@ -46,14 +42,15 @@
           <tbody>
             <% @users.each do |user| %>
               <tr id="<%= dom_id(user) %>" class="user">
-                <td class="user-email">
-                  <%= user.email %>
-                </td>
+                <td class="user-email"><%= user.email %></td>
                 <td class="user-organizations fr-cell--multiline">
                   <ul>
                     <% user.organizations.each do |organization| %>
                       <li>
-                        <%= organization.name %> (<%= link_to organization.siret, "https://annuaire-entreprises.data.gouv.fr/etablissement/#{organization.siret}", target: '_blank' %>)
+                        <%= organization.name %>
+                        (
+                        <%= link_to organization.siret, "https://annuaire-entreprises.data.gouv.fr/etablissement/#{organization.siret}", target: '_blank' %>
+                        )
                       </li>
                     <% end %>
                   </ul>
@@ -61,9 +58,7 @@
                 <td class="user-roles">
                   <ul>
                     <% user.roles.each do |role| %>
-                      <li>
-                        <%= role %>
-                      </li>
+                      <li><%= role %></li>
                     <% end %>
                   </ul>
                 </td>

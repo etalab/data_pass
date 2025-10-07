@@ -10,7 +10,8 @@
 
         <% if modality.match?('france_connect') %>
           <% if authorization_request.try(:france_connect_authorization_id).present? && authorization_request.with_france_connect? %>
-            -> <%= link_to authorization_request.france_connect_authorization.decorate.name_for_select, authorization_path(authorization_request.france_connect_authorization), target: '_blank' %>
+            ->
+            <%= link_to authorization_request.france_connect_authorization.decorate.name_for_select, authorization_path(authorization_request.france_connect_authorization), target: '_blank' %>
           <% end %>
         <% end %>
       </li>
