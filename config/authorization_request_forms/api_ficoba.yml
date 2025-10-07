@@ -95,3 +95,21 @@ api-ficoba-production-editeur:
     - name: contacts
     - name: safety_certification
     - name: volumetrie
+
+#Recouvrement forcé
+api-ficoba-recouvrement-sandbox:
+  name: Recouvrement forcé (Bac à sable)
+  public: true
+  use_case: recouvrement
+  description: Recouvrement forcé
+  authorization_request: APIFicobaSandbox
+  steps: *api_ficoba_sandbox_steps
+  initialize_with:
+    intitule: Recouvrement forcé
+    description: FICOBA permet de restituer la liste des comptes bancaires ouverts (sans date de clôture) dont le titulaire (personne physique ou personne morale) n’est pas à jour dans le paiement de ses impôts, taxes, amendes, cotisations… A partir des données restituées, le service peut enclencher une procédure de saisie administrative à tiers détenteur (SATD).
+    cadre_juridique_nature: Décret n° 2022-814 du 16 mai 2022 relatif aux conditions dans lesquelles les collectivités territoriales, les établissements publics qui leur sont rattachés et les établissements publics sociaux et médico-sociaux peuvent obtenir communication des éléments d’identification de leurs débiteurs en application de l’article L. 135 ZN du livre des procédures fiscales.
+    cadre_juridique_url: https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000045802934
+    modalities:
+      - with_acces_etat_civil
+      - with_acces_spi
+      - with_acces_etat_civil_et_adresse
