@@ -20,8 +20,7 @@ class AuthorizationRequest::FranceConnect < AuthorizationRequest
 
   validates :contact_technique_phone_number,
     french_phone_number: {
-      france_connect_mobile: true,
-      message: :france_connect_mobile_required
+      mobile: true
     },
     if: ->(record) { record.need_complete_validation?(:contacts) }
 

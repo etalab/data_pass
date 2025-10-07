@@ -47,14 +47,11 @@ class FrenchPhoneNumberValidator < ActiveModel::EachValidator
   end
 
   def mobile_validation_required?
-    options[:mobile] || options[:france_connect_mobile]
+    options[:mobile]
   end
 
   def add_error_message(record, attribute)
-    if options[:france_connect_mobile]
-      options[:message].presence || :invalid_french_phone_mobile_format
-      record.errors.add(attribute, options[:message].presence || :france_connect_mobile_required)
-    elsif options[:mobile]
+    if options[:mobile]
       record.errors.add(attribute, :invalid_french_phone_mobile_format)
     else
       record.errors.add(attribute, :invalid_french_phone_format)
