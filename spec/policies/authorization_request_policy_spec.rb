@@ -98,4 +98,15 @@ RSpec.describe AuthorizationRequestPolicy do
       end
     end
   end
+
+  describe '#manual_transfer?' do
+    subject { instance.manual_transfer_from_instructor? }
+
+    context 'with a DGFIP draft production (non-regression test)' do
+      let(:authorization_request) { create(:authorization_request, :api_impot_particulier_production, :draft, applicant: user) }
+      let(:authorization_request_class) { authorization_request }
+
+      it { is_expected.to be true }
+    end
+  end
 end
