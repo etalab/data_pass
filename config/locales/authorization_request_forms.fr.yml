@@ -859,9 +859,15 @@ fr:
           with_ficoba_siren:
             label: Via SIREN/SIRET
           with_ficoba_personne_physique:
-            label: Via personne physique
+            label: Via l'état civil - personne physique
           with_ficoba_personne_morale:
-            label: Via personne morale
+            label: Via la raison sociale - personne morale
+          with_ficoba_iban_siren:
+            label: Via IBAN+SIREN/SIRET
+          with_ficoba_iban_personne_physique:
+            label: Via IBAN + état civil - personne physique
+          with_ficoba_iban_personne_morale:
+            label: Via IBAN + raison sociale - personne morale
       scopes:
         info:
           title: Comment choisir les données ?
@@ -910,6 +916,21 @@ fr:
     api_ficoba_production: &api_ficoba_production
       <<: *api_ficoba_sandbox
 
+    api_ficoba_recouvrement_sandbox: *api_ficoba_sandbox
+    api_ficoba_verification_iban_sandbox: *api_ficoba_sandbox
+    api_ficoba_verification_existence_sandbox: *api_ficoba_sandbox
+    api_ficoba_fraude_sandbox: *api_ficoba_sandbox
+    api_ficoba_multi_detention_sandbox: *api_ficoba_sandbox
+    api_ficoba_recouvrement_production: *api_ficoba_production
+    api_ficoba_recouvrement_editeur: *api_ficoba_production
+    api_ficoba_verification_iban_production: *api_ficoba_production
+    api_ficoba_verification_iban_editeur: *api_ficoba_production
+    api_ficoba_verification_existence_production: *api_ficoba_production
+    api_ficoba_verification_existence_editeur: *api_ficoba_production
+    api_ficoba_fraude_production: *api_ficoba_production
+    api_ficoba_fraude_editeur: *api_ficoba_production
+    api_ficoba_multi_detention_production: *api_ficoba_production
+    api_ficoba_multi_detention_editeur: *api_ficoba_production
     api_ficoba_production_editeur: *api_ficoba_production
 
     api_r2p_sandbox: &api_r2p_sandbox

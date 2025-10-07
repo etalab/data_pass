@@ -44,7 +44,7 @@ api-ficoba-production:
   public: false
   startable_by_applicant: false
   description: Pour les utilisateurs ayant déjà réalisé une recette fonctionnelle en bac à sable et souhaitant obtenir des accès en production.
-  introduction: |
+  introduction: &api_ficoba_production_form_introduction |
     Votre demande d'accès au bac à sable a été validée, vous pouvez à présent poursuivre votre demande en demandant les accès à la production.
 
     <div class="intro-stepper">
@@ -74,7 +74,7 @@ api-ficoba-production:
     </div>
   authorization_request: APIFicoba
   static_blocks: *api_ficoba_sandbox_steps
-  steps:
+  steps: &api_ficoba_production_steps
     - name: operational_acceptance
     - name: safety_certification
     - name: volumetrie
@@ -83,10 +83,10 @@ api-ficoba-production-editeur:
   name: Demande libre avec éditeur
   public: true
   description: Pour les utilisateurs travaillant avec un éditeur ayant déjà effectué une recette fonctionnelle.
-  introduction: |
+  introduction: &api_ficoba_editor_form_introduction |
     Votre éditeur a déjà obtenu l'accès à la sandbox, vous n'avez plus qu'à obtenir l'accès en production via ce formulaire.
   authorization_request: APIFicoba
-  steps:
+  steps: &api_ficoba_editor_steps
     - name: basic_infos
     - name: personal_data
     - name: legal
@@ -95,3 +95,267 @@ api-ficoba-production-editeur:
     - name: contacts
     - name: safety_certification
     - name: volumetrie
+
+#Recouvrement forcé
+api-ficoba-recouvrement-sandbox:
+  name: Recouvrement forcé (Bac à sable)
+  public: true
+  use_case: recouvrement
+  description: Recouvrement forcé
+  authorization_request: APIFicobaSandbox
+  steps: *api_ficoba_sandbox_steps
+  initialize_with:
+    intitule: Recouvrement forcé
+    description: FICOBA permet de restituer la liste des comptes bancaires ouverts (sans date de clôture) dont le titulaire (personne physique ou personne morale) n’est pas à jour dans le paiement de ses impôts, taxes, amendes, cotisations… A partir des données restituées, le service peut enclencher une procédure de saisie administrative à tiers détenteur (SATD).
+    scopes:
+      - dgfip_ficoba_etat_civil_denomination
+      - dgfip_ficoba_adresse
+      - dgfip_ficoba_compte
+      - dgfip_ficoba_etablissement_bancaire
+      - dgfip_ficoba_date
+    modalities:
+      - with_ficoba_iban
+      - with_ficoba_siren
+      - with_ficoba_personne_morale
+      - with_ficoba_personne_physique
+
+api-ficoba-recouvrement-production:
+  name: Recouvrement forcé
+  public: false
+  startable_by_applicant: false
+  stage:
+    previous_form_uid: api-ficoba-recouvrement-sandbox
+  use_case: recouvrement
+  introduction: *api_ficoba_production_form_introduction
+  authorization_request: APIFicoba
+  static_blocks: *api_ficoba_sandbox_steps
+  steps: *api_ficoba_production_steps
+
+api-ficoba-recouvrement-editeur:
+  name: Recouvrement forcé (avec Éditeur)
+  public: true
+  use_case: recouvrement
+  description: Recouvrement forcé (avec Éditeur)
+  introduction: *api_ficoba_editor_form_introduction
+  authorization_request: APIFicoba
+  steps: *api_ficoba_editor_steps
+  initialize_with:
+    intitule: Recouvrement forcé
+    description: FICOBA permet de restituer la liste des comptes bancaires ouverts (sans date de clôture) dont le titulaire (personne physique ou personne morale) n’est pas à jour dans le paiement de ses impôts, taxes, amendes, cotisations… A partir des données restituées, le service peut enclencher une procédure de saisie administrative à tiers détenteur (SATD).
+    scopes:
+      - dgfip_ficoba_etat_civil_denomination
+      - dgfip_ficoba_adresse
+      - dgfip_ficoba_compte
+      - dgfip_ficoba_etablissement_bancaire
+      - dgfip_ficoba_date
+    modalities:
+      - with_ficoba_iban
+      - with_ficoba_siren
+      - with_ficoba_personne_morale
+      - with_ficoba_personne_physique
+
+#Vérification des IBAN par rapport au titulaire du compte
+api-ficoba-verification-iban-sandbox:
+  name: Vérification des IBAN (Bac à sable)
+  public: true
+  use_case: verification_iban
+  description: Vérification des IBAN par rapport au titulaire du compte
+  authorization_request: APIFicobaSandbox
+  steps: *api_ficoba_sandbox_steps
+  initialize_with:
+    intitule: Vérification des IBAN avec titulaire
+    description: FICOBA permet de vérifier la concordance entre le compte bancaire fourni par l’usager (qui demande de bénéficier d’une prestation/aide) et son identité réelle et de confirmer si le compte fourni par le titulaire est bien présent en base pour cette même personne (lutte contre l’usurpation d’identité, de faux IBAN...).
+    scopes:
+      - dgfip_ficoba_restitution_verification
+    modalities:
+      - with_ficoba_iban_siren
+      - with_ficoba_iban_personne_morale
+      - with_ficoba_iban_personne_physique
+
+api-ficoba-verification-iban-production:
+  name: Vérification des IBAN
+  public: false
+  startable_by_applicant: false
+  stage:
+    previous_form_uid: api-ficoba-verification-iban-sandbox
+  use_case: verification_iban
+  introduction: *api_ficoba_production_form_introduction
+  authorization_request: APIFicoba
+  static_blocks: *api_ficoba_sandbox_steps
+  steps: *api_ficoba_production_steps
+
+api-ficoba-verification-iban-editeur:
+  name: Vérification des IBAN (avec Éditeur)
+  public: true
+  use_case: verification_iban
+  description: Vérification des IBAN par rapport au titulaire du compte (avec Éditeur)
+  introduction: *api_ficoba_editor_form_introduction
+  authorization_request: APIFicoba
+  steps: *api_ficoba_editor_steps
+  initialize_with:
+    intitule: Vérification des IBAN avec titulaire
+    description: FICOBA permet de vérifier la concordance entre le compte bancaire fourni par l’usager (qui demande de bénéficier d’une prestation/aide) et son identité réelle et de confirmer si le compte fourni par le titulaire est bien présent en base pour cette même personne (lutte contre l’usurpation d’identité, de faux IBAN...).
+    scopes:
+      - dgfip_ficoba_restitution_verification
+    modalities:
+      - with_ficoba_iban_siren
+      - with_ficoba_iban_personne_morale
+      - with_ficoba_iban_personne_physique
+
+#Vérification de l’existence de l’IBAN
+api-ficoba-verification-existence-sandbox:
+  name: Vérification de l’existence de l’IBAN (Bac à sable)
+  public: true
+  use_case: verification_existence
+  description: Vérification de l’existence de l’IBAN
+  authorization_request: APIFicobaSandbox
+  steps: *api_ficoba_sandbox_steps
+  initialize_with:
+    intitule: Vérification de l’existence de l’IBAN
+    description: FICOBA permet de s’assurer que l’IBAN fourni existe bien dans FICOBA, ou s’il est toujours ouvert.
+    scopes:
+      - dgfip_ficoba_restitution_verification
+    modalities:
+      - with_ficoba_iban
+
+api-ficoba-verification-existence-production:
+  name: Vérification de l’existence de l’IBAN
+  public: false
+  startable_by_applicant: false
+  stage:
+    previous_form_uid: api-ficoba-verification-existence-sandbox
+  use_case: verification_existence
+  introduction: *api_ficoba_production_form_introduction
+  authorization_request: APIFicoba
+  static_blocks: *api_ficoba_sandbox_steps
+  steps: *api_ficoba_production_steps
+
+api-ficoba-verification-existence-editeur:
+  name: Vérification de l’existence de l’IBAN (avec Éditeur)
+  public: true
+  use_case: verification_existence
+  description: Vérification de l’existence de l’IBAN (avec Éditeur)
+  introduction: *api_ficoba_editor_form_introduction
+  authorization_request: APIFicoba
+  steps: *api_ficoba_editor_steps
+  initialize_with:
+    intitule: Vérification de l’existence de l’IBAN
+    description: FICOBA permet de s’assurer que l’IBAN fourni existe bien dans FICOBA, ou s’il est toujours ouvert.
+    scopes:
+      - dgfip_ficoba_restitution_verification
+    modalities:
+      - with_ficoba_iban
+
+#Lutte contre la fraude
+api-ficoba-fraude-sandbox:
+  name: Lutte contre la fraude (Bac à sable)
+  public: true
+  use_case: fraude
+  description: Lutte contre la fraude
+  authorization_request: APIFicobaSandbox
+  steps: *api_ficoba_sandbox_steps
+  initialize_with:
+    intitule: Lutte contre la fraude
+    description: FICOBA permet d’accéder à la liste des comptes détenus par un titulaire dans le cadre d’une enquête menée par une autorité compétente afin d’appréhender un fraudeur potentiel et de constituer des éléments permettant de prouver la fraude.
+    scopes:
+      - dgfip_ficoba_etat_civil_denomination
+      - dgfip_ficoba_adresse
+      - dgfip_ficoba_compte
+      - dgfip_ficoba_etablissement_bancaire
+      - dgfip_ficoba_date
+    modalities:
+      - with_ficoba_iban
+      - with_ficoba_siren
+      - with_ficoba_personne_morale
+      - with_ficoba_personne_physique
+
+api-ficoba-fraude-production:
+  name: Lutte contre la fraude
+  public: false
+  startable_by_applicant: false
+  stage:
+    previous_form_uid: api-ficoba-fraude-sandbox
+  use_case: fraude
+  introduction: *api_ficoba_production_form_introduction
+  authorization_request: APIFicoba
+  static_blocks: *api_ficoba_sandbox_steps
+  steps: *api_ficoba_production_steps
+
+api-ficoba-fraude-editeur:
+  name: Lutte contre la fraude (avec Éditeur)
+  public: true
+  use_case: fraude
+  description: Lutte contre la fraude (avec Éditeur)
+  introduction: *api_ficoba_editor_form_introduction
+  authorization_request: APIFicoba
+  steps: *api_ficoba_editor_steps
+  initialize_with:
+    intitule: Lutte contre la fraude
+    description: FICOBA permet d’accéder à la liste des comptes détenus par un titulaire dans le cadre d’une enquête menée par une autorité compétente afin d’appréhender un fraudeur potentiel et de constituer des éléments permettant de prouver la fraude.
+    scopes:
+      - dgfip_ficoba_etat_civil_denomination
+      - dgfip_ficoba_adresse
+      - dgfip_ficoba_compte
+      - dgfip_ficoba_etablissement_bancaire
+      - dgfip_ficoba_date
+    modalities:
+      - with_ficoba_iban
+      - with_ficoba_siren
+      - with_ficoba_personne_morale
+      - with_ficoba_personne_physique
+
+#Contrôle multi-détention PER
+api-ficoba-multi-detention-sandbox:
+  name: Contrôle multi-détention produit d’épargne réglementé (Bac à sable)
+  public: true
+  use_case: multi_detention
+  description: Contrôle multi-détention produit d’épargne réglementé
+  authorization_request: APIFicobaSandbox
+  steps: *api_ficoba_sandbox_steps
+  initialize_with:
+    intitule: Contrôle multi-détention produit d’épargne réglementé
+    description: FICOBA permet aux établissements bancaires qui commercialisent des produits d’épargne réglementé (PER) de respecter leur obligation légale de vérifier qu'un épargnant qui demande l'ouverture d'un produit d'épargne réglementé n'en détient pas un autre similaire dans un autre établissement.
+    scopes:
+      - dgfip_ficoba_etablissement_bancaire
+      - dgfip_ficoba_nombre_comptes
+      - dgfip_ficoba_iban
+      - gfip_ficoba_date_ouverture
+      - dgfip_ficoba_motif_ouverture
+    modalities:
+      - with_ficoba_siren
+      - with_ficoba_personne_morale
+      - with_ficoba_personne_physique
+
+api-ficoba-multi-detention-production:
+  name: Contrôle multi-détention produit d’épargne réglementé
+  public: false
+  startable_by_applicant: false
+  stage:
+    previous_form_uid: api-ficoba-multi-detention-sandbox
+  use_case: multi_detention
+  introduction: *api_ficoba_production_form_introduction
+  authorization_request: APIFicoba
+  static_blocks: *api_ficoba_sandbox_steps
+  steps: *api_ficoba_production_steps
+
+api-ficoba-multi-detention-editeur:
+  name: Contrôle multi-détention produit d’épargne réglementé (avec Éditeur)
+  public: true
+  use_case: multi_detention
+  description: Contrôle multi-détention produit d’épargne réglementé (avec Éditeur)
+  introduction: *api_ficoba_editor_form_introduction
+  authorization_request: APIFicoba
+  steps: *api_ficoba_editor_steps
+  initialize_with:
+    intitule: Contrôle multi-détention produit d’épargne réglementé
+    description: FICOBA permet aux établissements bancaires qui commercialisent des produits d’épargne réglementé (PER) de respecter leur obligation légale de vérifier qu'un épargnant qui demande l'ouverture d'un produit d'épargne réglementé n'en détient pas un autre similaire dans un autre établissement.
+    scopes:
+      - dgfip_ficoba_etablissement_bancaire
+      - dgfip_ficoba_nombre_comptes
+      - dgfip_ficoba_iban
+      - gfip_ficoba_date_ouverture
+      - dgfip_ficoba_motif_ouverture
+    modalities:
+      - with_ficoba_siren
+      - with_ficoba_personne_morale
+      - with_ficoba_personne_physique
