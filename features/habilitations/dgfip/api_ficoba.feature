@@ -21,7 +21,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API FICOBA
     * je coche "Via le Numéro fiscal (SPI)"
     * je clique sur "Suivant"
 
-    * je coche "État civil ou dénomination"
+    * je coche "État civil/Raison sociale du titulaire du compte"
     * je clique sur "Suivant"
 
     * je renseigne les informations des contacts RGPD
@@ -75,7 +75,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API FICOBA
     * je coche "Via le Numéro fiscal (SPI)"
     * je clique sur "Suivant"
 
-    * je coche "État civil ou dénomination"
+    * je coche "État civil/Raison sociale du titulaire du compte"
     * je clique sur "Suivant"
 
     * je renseigne les informations des contacts RGPD

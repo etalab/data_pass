@@ -862,7 +862,7 @@ fr:
             label: Via IBAN+SIREN/SIRET
           with_ficoba_iban_personne_physique:
             label: Via IBAN + état civil - personne physique
-          with_ficoba_personne_morale:
+          with_ficoba_iban_personne_morale:
             label: Via IBAN + raison sociale - personne morale
       scopes:
         info:
