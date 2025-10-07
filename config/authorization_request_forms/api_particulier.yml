@@ -2116,7 +2116,7 @@ api-particulier-stationnement-residentiel:
       - ants_extrait_immatriculation_vehicule_adresse_particulier
       - ants_extrait_immatriculation_vehicule_statut_rattachement
       - ants_extrait_immatriculation_vehicule_donnees_immatriculation_vehicule
-      - API Extrait d'immatriculation de véhicule
+      - ants_extrait_immatriculation_vehicule_caracteristiques_techniques_vehicule
     displayed:
       - cnaf_quotient_familial
       - mesri_identite
