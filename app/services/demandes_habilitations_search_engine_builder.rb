@@ -12,29 +12,23 @@ class DemandesHabilitationsSearchEngineBuilder
     apply_search_and_build_engine(filtered_items)
   end
 
-  def base_authorization_requests(policy_scope)
+  def build_authorization_requests_relation(policy_scope)
     base_items = policy_scope
       .includes(:applicant, :organization, authorizations: %i[organization])
       .not_archived
       .order(created_at: :desc)
 
-    base_items.or(authorization_request_mentions_query(AuthorizationRequest.all))
+    base_items = base_items.or(authorization_request_mentions_query(AuthorizationRequest.all))
+    build_search_engine(base_items)
   end
 
-  def base_authorizations(policy_scope)
+  def build_authorizations_relation(policy_scope)
     base_items = policy_scope
       .includes(:request, :applicant, :organization, request: %i[organization])
       .order(created_at: :desc)
 
-    base_items.or(authorization_mentions_query(Authorization.all))
-  end
-
-  def build_authorization_requests_relation(policy_scope)
-    build_search_engine(base_authorization_requests(policy_scope))
-  end
-
-  def build_authorizations_relation(policy_scope)
-    build_search_engine(base_authorizations(policy_scope))
+    base_items = base_items.or(authorization_mentions_query(Authorization.all))
+    build_search_engine(base_items)
   end
 
   private

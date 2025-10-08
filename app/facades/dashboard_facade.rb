@@ -49,7 +49,7 @@ class DashboardFacade
   private
 
   def count_all_demandes(policy_scope)
-    items = unfiltered_builder.base_authorization_requests(policy_scope)
+    items = all_accessible_authorization_requests(policy_scope)
     [
       items.changes_requested,
       items.in_instructions,
@@ -59,18 +59,35 @@ class DashboardFacade
   end
 
   def count_all_habilitations(policy_scope)
-    items = unfiltered_builder.base_authorizations(policy_scope)
+    items = all_accessible_authorizations(policy_scope)
     [
       items.where(state: :active),
       items.where(state: :revoked)
     ].sum(&:count)
   end
 
-  def search_builder(params)
-    DemandesHabilitationsSearchEngineBuilder.new(user, params, subdomain_types: subdomain_types)
+  def all_accessible_authorization_requests(policy_scope)
+    org_items = policy_scope
+      .includes(:applicant, :authorizations)
+      .not_archived
+      .order(created_at: :desc)
+
+    mentions_items = AuthorizationAndRequestsMentionsQuery.new(user).perform(AuthorizationRequest.all)
+
+    org_items.or(mentions_items)
   end
 
-  def unfiltered_builder
-    search_builder(nil)
+  def all_accessible_authorizations(policy_scope)
+    org_items = policy_scope
+      .includes(:request, :applicant)
+      .order(created_at: :desc)
+
+    mentions_items = AuthorizationAndRequestsMentionsQuery.new(user).perform(Authorization.all)
+
+    org_items.or(mentions_items)
+  end
+
+  def search_builder(params)
+    DemandesHabilitationsSearchEngineBuilder.new(user, params, subdomain_types: subdomain_types)
   end
 end
