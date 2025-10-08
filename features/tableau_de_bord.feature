@@ -15,7 +15,7 @@ Fonctionnalité: Tableau de bord
     Et j'ai 1 habilitation "API Entreprise" active
     Quand mon organisation a 2 demandes d'habilitation "API Entreprise"
     Et que je me rends sur mon tableau de bord demandes
-    Alors je vois 3 demandes d'habilitation
+    Alors je vois 5 demandes d'habilitation
 
   Scénario: Je vois les demandes où je suis mentionné
     Quand j'ai 10 demandes d'habilitation "API Entreprise"
@@ -50,7 +50,7 @@ Fonctionnalité: Tableau de bord
     Et que mon organisation a 3 demandes d'habilitation "API Entreprise"
     Et que je suis mentionné dans 1 demande d'habilitation "API Entreprise" en tant que "Contact métier"
     Et que je me rends sur mon tableau de bord demandes
-    Alors je vois 8 demandes d'habilitation
+    Alors je vois 12 demandes d'habilitation
     Quand je sélectionne le filtre "Toutes les demandes de l'organisation" pour "Filtrer par demandeur"
     Et que je clique sur "Rechercher"
     Alors je vois 11 demandes d'habilitation
