@@ -46,6 +46,13 @@ class DashboardFacade
     count_all_habilitations(policy_scope) > 9
   end
 
+  def show_organization_verification_warning?
+    return false if @user.current_organization_verified?
+
+    user_relationship = @search_query&.dig(:user_relationship_eq)
+    user_relationship.blank? || user_relationship == 'organization'
+  end
+
   private
 
   def count_all_demandes(policy_scope)
