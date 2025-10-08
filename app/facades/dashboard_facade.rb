@@ -8,8 +8,8 @@ class DashboardFacade
   end
 
   def demandes_data(policy_scope)
-    search_builder = DemandesHabilitationsSearchEngineBuilder.new(user, { search_query: search_query }, subdomain_types: subdomain_types)
-    demandes = search_builder.build_authorization_requests_relation(policy_scope)
+    builder = search_builder({ search_query: search_query })
+    demandes = builder.build_authorization_requests_relation(policy_scope)
 
     {
       highlighted_categories: {
@@ -20,13 +20,13 @@ class DashboardFacade
         draft: demandes.drafts,
         refused: demandes.refused,
       },
-      search_engine: search_builder.search_engine
+      search_engine: builder.search_engine
     }
   end
 
   def habilitations_data(policy_scope)
-    search_builder = DemandesHabilitationsSearchEngineBuilder.new(user, { search_query: search_query }, subdomain_types: subdomain_types)
-    habilitations = search_builder.build_authorizations_relation(policy_scope)
+    builder = search_builder({ search_query: search_query })
+    habilitations = builder.build_authorizations_relation(policy_scope)
 
     {
       highlighted_categories: {},
@@ -34,7 +34,43 @@ class DashboardFacade
         active: habilitations.where(state: :active),
         revoked: habilitations.where(state: :revoked),
       },
-      search_engine: search_builder.search_engine
+      search_engine: builder.search_engine
     }
+  end
+
+  def show_demandes_filters?(policy_scope)
+    count_all_demandes(policy_scope) > 9
+  end
+
+  def show_habilitations_filters?(policy_scope)
+    count_all_habilitations(policy_scope) > 9
+  end
+
+  private
+
+  def count_all_demandes(policy_scope)
+    items = unfiltered_builder.base_authorization_requests(policy_scope)
+    [
+      items.changes_requested,
+      items.in_instructions,
+      items.drafts,
+      items.refused
+    ].sum(&:count)
+  end
+
+  def count_all_habilitations(policy_scope)
+    items = unfiltered_builder.base_authorizations(policy_scope)
+    [
+      items.where(state: :active),
+      items.where(state: :revoked)
+    ].sum(&:count)
+  end
+
+  def search_builder(params)
+    DemandesHabilitationsSearchEngineBuilder.new(user, params, subdomain_types: subdomain_types)
+  end
+
+  def unfiltered_builder
+    search_builder(nil)
   end
 end
