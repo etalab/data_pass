@@ -40,14 +40,11 @@ class DemandesHabilitationsSearchEngineBuilder
     when 'contact'
       filter_by_contact(base_items)
     when 'organization'
-      if authorization_request_relation?(base_items)
-        base_items.where(organization: user.current_organization)
-      else
-        base_items.joins(:request)
-          .where(authorization_requests: { organization: user.current_organization })
-      end
-    else
+      filter_by_organization(base_items)
+    when 'applicant'
       filter_by_applicant(base_items)
+    else
+      base_items
     end
   end
 
@@ -66,6 +63,15 @@ class DemandesHabilitationsSearchEngineBuilder
     else
       authorization_mentions_query(base_items)
         .where.not(applicant: user)
+    end
+  end
+
+  def filter_by_organization(base_items)
+    if authorization_request_relation?(base_items)
+      base_items.where(organization: user.current_organization)
+    else
+      base_items.joins(:request)
+        .where(authorization_requests: { organization: user.current_organization })
     end
   end
 
