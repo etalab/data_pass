@@ -17,73 +17,6 @@ RSpec.describe Authorization do
       it { is_expected.to transition_from :obsolete, to_state: :obsolete, on_event: :revoke }
       it { is_expected.to transition_from :revoked, to_state: :active, on_event: :rollback_revoke }
       it { is_expected.to transition_from :obsolete, to_state: :obsolete, on_event: :rollback_revoke }
-
-      describe 'after_transitions' do
-        describe 'revoke' do
-          subject(:revoke) { authorization.revoke }
-
-          it 'marks the authorization as revoked' do
-            expect { revoke }.to change(authorization, :revoked).from(false).to(true)
-          end
-        end
-
-        describe 'rollback_revoke' do
-          subject(:rollback_revoke) { authorization.rollback_revoke }
-
-          before do
-            authorization.revoke!
-          end
-
-          it 'marks the authorization as not revoked' do
-            expect { rollback_revoke }.to change(authorization, :revoked).from(true).to(false)
-          end
-        end
-      end
-    end
-
-    # TODO : remove when the state machine is fully functional
-    describe '#revoked?' do
-      subject(:revoked) { authorization.revoked? }
-
-      let(:authorization) { build(:authorization, revoked: revoked_attribute, state: state_attribute) }
-      let(:revoked_attribute) { true }
-      let(:state_attribute) { :revoked }
-
-      context 'when not using the feature flag' do
-        context 'when the revoked attribute is true' do
-          let(:state_attribute) { :active }
-
-          it { is_expected.to be true }
-        end
-
-        context 'when the revoked attribute is false' do
-          let(:revoked_attribute) { false }
-
-          it { is_expected.to be false }
-        end
-      end
-
-      context 'when using the feature flag' do
-        before do
-          ENV['FEATURE_USE_AUTH_STATES'] = 'true'
-        end
-
-        after do
-          ENV.delete('FEATURE_USE_AUTH_STATES')
-        end
-
-        context 'when the state is revoked' do
-          let(:revoked_attribute) { false }
-
-          it { is_expected.to be true }
-        end
-
-        context 'when the state is not revoked' do
-          let(:state_attribute) { :active }
-
-          it { is_expected.to be false }
-        end
-      end
     end
   end
 
@@ -106,9 +39,9 @@ RSpec.describe Authorization do
       it { expect(request_as_validated).to be_a(AuthorizationRequest::APIImpotParticulierSandbox) }
     end
 
-    context 'when revoked is true' do
+    context 'when authorization is revoked' do
       before do
-        authorization.update!(revoked: true)
+        authorization.update!(state: 'revoked')
       end
 
       it 'has a revoked state' do
@@ -204,6 +137,79 @@ RSpec.describe Authorization do
       end
 
       it { is_expected.to eq(events.first.user) }
+    end
+  end
+
+  describe 'stage' do
+    subject { authorization.stage }
+
+    context 'when there is stages defined' do
+      let!(:authorization) { create(:authorization, authorization_request_trait: :api_impot_particulier_production) }
+
+      it { is_expected.to be_a(AuthorizationDefinition::Stage) }
+      it { expect(subject.type).to eq('production') }
+    end
+
+    context 'when there is no stage defined' do
+      let!(:authorization) { create(:authorization, authorization_request_trait: :api_entreprise) }
+
+      it { is_expected.to be_nil }
+    end
+  end
+
+  describe '#reopenable?' do
+    subject { authorization.reopenable? }
+
+    let!(:authorization_request) { create(:authorization_request, :validated) }
+    let!(:authorization) { authorization_request.latest_authorization }
+
+    context 'when all conditions are met' do
+      it { is_expected.to be true }
+    end
+
+    context 'when authorization is not latest' do
+      before do
+        create(:authorization, request: authorization_request)
+      end
+
+      it { is_expected.to be false }
+    end
+
+    context 'when authorization is not active' do
+      before do
+        authorization.revoke!
+      end
+
+      it { is_expected.to be false }
+    end
+
+    context 'when authorization is obsolete' do
+      before do
+        authorization.deprecate!
+      end
+
+      it { is_expected.to be false }
+    end
+
+    context 'when request is dirty from v1' do
+      before do
+        authorization_request.update!(dirty_from_v1: true)
+      end
+
+      it { is_expected.to be false }
+    end
+
+    context 'when it is a multi-stage authorization, latest production is the current one (latest? is true) and latest is sandbox' do
+      let(:authorization_request) { create(:authorization_request, :api_impot_particulier_production, :validated) }
+      let!(:latest_sandbox_authorization) { create(:authorization, request: authorization_request, authorization_request_class: 'AuthorizationRequest::APIImpotParticulierSandbox', created_at: Date.tomorrow) }
+
+      it { is_expected.to be false }
+    end
+
+    context 'when authorization request is already reopened' do
+      let(:authorization_request) { create(:authorization_request, :reopened) }
+
+      it { is_expected.to be false }
     end
   end
 end
