@@ -28,6 +28,7 @@ class DashboardController < AuthenticatedUserController
     @highlighted_categories = data[:highlighted_categories]
     @categories = data[:categories]
     @search_engine = data[:search_engine]
+    @items_count = total_demandes_count
   end
 
   def handle_habilitations_tab
@@ -35,6 +36,21 @@ class DashboardController < AuthenticatedUserController
     @highlighted_categories = data[:highlighted_categories]
     @categories = data[:categories]
     @search_engine = data[:search_engine]
+    @items_count = total_habilitations_count
+  end
+
+  def total_demandes_count
+    total_items_count(:demandes_data, AuthorizationRequest)
+  end
+
+  def total_habilitations_count
+    total_items_count(:habilitations_data, Authorization)
+  end
+
+  def total_items_count(data_accessor, scope_class)
+    facade = DashboardFacade.new(current_user, nil, subdomain_types: current_subdomain_types)
+    data = facade.send(data_accessor, policy_scope(scope_class))
+    (data[:highlighted_categories].values + data[:categories].values).sum(&:count)
   end
 
   def build_tabs

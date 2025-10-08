@@ -76,3 +76,31 @@ Fonctionnalité: Tableau de bord
     Et que je clique sur "Rechercher"
     Alors je vois 1 habilitation
     Et la page contient "Révoquée"
+
+  Scénario: Le filtre n'est pas affiché avec 9 demandes ou moins
+    Quand j'ai 9 demandes d'habilitation "API Entreprise"
+    Et que je me rends sur mon tableau de bord demandes
+    Alors la page ne contient pas "Rechercher dans toutes les demandes"
+
+  Scénario: Le filtre est affiché avec plus de 9 demandes
+    Quand j'ai 10 demandes d'habilitation "API Entreprise"
+    Et que je me rends sur mon tableau de bord demandes
+    Alors la page contient "Rechercher dans toutes les demandes"
+
+  Scénario: Le filtre n'est pas affiché avec 9 habilitations ou moins
+    Quand j'ai 9 habilitations "API Entreprise" active
+    Et que je me rends sur mon tableau de bord habilitations
+    Alors la page ne contient pas "Rechercher dans toutes les habilitations"
+
+  Scénario: Le filtre est affiché avec plus de 9 habilitations
+    Quand j'ai 10 habilitations "API Entreprise" active
+    Et que je me rends sur mon tableau de bord habilitations
+    Alors la page contient "Rechercher dans toutes les habilitations"
+
+  Scénario: Le filtre est spécifique à chaque onglet
+    Quand j'ai 10 demandes d'habilitation "API Entreprise"
+    Et j'ai 5 habilitations "API Particulier" active
+    Et que je me rends sur mon tableau de bord demandes
+    Alors la page contient "Rechercher dans toutes les demandes"
+    Quand je me rends sur mon tableau de bord habilitations
+    Alors la page ne contient pas "Rechercher dans toutes les habilitations"
