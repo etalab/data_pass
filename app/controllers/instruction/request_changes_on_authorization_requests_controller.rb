@@ -5,6 +5,8 @@ class Instruction::RequestChangesOnAuthorizationRequestsController < Instruction
     @instructor_modification_request = @authorization_request.modification_requests.build
 
     AffectDefaultReasonToInstructionModificationRequest.call(instructor_modification_request: @instructor_modification_request)
+
+    @message_templates = message_templates_enabled? ? load_message_templates : []
   end
 
   def create
@@ -36,5 +38,17 @@ class Instruction::RequestChangesOnAuthorizationRequestsController < Instruction
 
   def model_to_track_for_impersonation
     @authorization_request
+  end
+
+  def message_templates_enabled?
+    @authorization_request.definition.feature?(:message_templates)
+  end
+
+  def load_message_templates
+    authorization_definition_uid = @authorization_request.class.name.demodulize.underscore
+    @message_templates = MessageTemplate
+      .for_authorization_definition(authorization_definition_uid)
+      .for_type(:modification_request)
+      .order(:title)
   end
 end

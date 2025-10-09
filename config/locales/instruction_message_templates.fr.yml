@@ -1,0 +1,43 @@
+fr:
+  instruction:
+    message_templates:
+      index:
+        skip_links:
+          create_template: "Créer un modèle"
+          menu: "Menu"
+          footer: "Pied de page"
+        title: "Modèles de messages"
+        description: "Les modèles de messages permettent de pré-remplir le contenu des messages envoyés aux demandeurs lors de l'instruction des demandes d'habilitation. Chaque modèle est associé à une habilitation et à un type de message (refus ou demande de modifications)."
+        create_button: "Créer un modèle"
+        empty_state: "Aucun modèle disponible."
+        table:
+          authorization: "Habilitation"
+          title: "Titre"
+          type: "Type"
+          content: "Contenu"
+          actions: "Actions"
+        actions:
+          preview: "Prévisualiser"
+          edit: "Modifier"
+          delete: "Supprimer"
+          delete_confirm: "Êtes-vous sûr ?"
+      new:
+        title: "Nouveau modèle de message"
+      edit:
+        title: "Éditer le modèle de message"
+      preview:
+        title: "Prévisualisation du modèle"
+        description: "Vous pouvez voir ci-dessous un aperçu du modèle de message avec des valeurs d'exemple insérées."
+        footer_note: "L'entête et le pied de page sont présent dans cette prévisualisation."
+      form:
+        errors_title: "Erreurs de validation"
+        authorization_definition_uid_blank: "Choisir un type d'habilitation"
+        template_type_blank: "Choisir un type"
+        submit: "Enregistrer"
+        cancel: "Annuler"
+      create:
+        success: "Modèle créé avec succès"
+      update:
+        success: "Modèle mis à jour avec succès"
+      destroy:
+        success: "Modèle supprimé avec succès"
