@@ -20,7 +20,7 @@ services:
       POSTGRES_PASSWORD: 'dummy'
       PGPORT: 5433
     volumes:
-      - "./tmp/db:/var/lib/postgresql/data"
+      - postgres_data:/var/lib/postgresql/data
     ports:
       - "5433:5433"
   redis:
@@ -46,3 +46,6 @@ services:
     environment:
       PORT: 3333
       CONNECTION_TIMEOUT: 600000
+
+volumes:
+  postgres_data:
