@@ -787,6 +787,12 @@ fr:
       legal: *api_particulier_use_cases_forms_legal_tarification
       cadre_juridique_document: *api_particulier_use_cases_forms_cadre_juridique_document
       cadre_juridique_url: *api_particulier_use_cases_forms_cadre_juridique_url
+      modalities:
+        subtitle: |
+          Ce cas d'usage est uniquement utilisable via FranceConnect, il vous faut donc impérativement une habilitation FranceConnect pour ce cas d'usage.
+        callout:
+          title: Il semblerait que vous n'ayez pas d'habilitation FranceConnect
+          content: Pour proposer FranceConnect à vos utilisateurs, il vous faudra au préalable demander une habilitation FranceConnect.
 
 
     api_infinoe_production_editeur: *api_infinoe_production

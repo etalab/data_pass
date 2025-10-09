@@ -2493,12 +2493,13 @@ api-particulier-stationnement-residentiel:
   authorization_request: APIParticulier
   use_case: stationnement_residentiel
   introduction: |
-    En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier <strong>"l'abonnement et le droit au stationnement résidentiel"</strong>. <a href="https://particulier.api.gouv.fr/cas_usages/stationnement-residentiel">En savoir plus sur ce cas d'usage</a>. 
-    **Vous devez faire une demande de raccordement à FranceConnect préalablement à cette demande d'accès** car l'[API "Extrait d'immatriculation véhicule"](https://particulier.api.gouv.fr/catalogue/ants/extrait_immatriculation_vehicule) n'est accessible qu'avec FranceConnect.
+    En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier <strong>"l'abonnement et le droit au stationnement résidentiel"</strong>. <a href="https://particulier.api.gouv.fr/cas_usages/stationnement-residentiel">En savoir plus sur ce cas d'usage</a>.
+    <br />
+    <strong>Vous devez faire une demande de raccordement à FranceConnect préalablement à cette demande d'accès</strong> car l'<a href="https://particulier.api.gouv.fr/catalogue/ants/extrait_immatriculation_vehicule">API "Extrait d'immatriculation véhicule"</a> n'est accessible qu'avec FranceConnect.
   steps:
+    - name: modalities
     - name: basic_infos
     - name: legal
-    - name: modalities
     - name: scopes
     - name: personal_data
     - name: contacts
@@ -2527,6 +2528,9 @@ api-particulier-stationnement-residentiel:
       - ants_extrait_immatriculation_vehicule_statut_rattachement
       - ants_extrait_immatriculation_vehicule_donnees_immatriculation_vehicule
       - ants_extrait_immatriculation_vehicule_caracteristiques_techniques_vehicule
+    modalities:
+      - france_connect
+      - params
 
 api-particulier-tarification-eaje:
   name: Tarification sociale des services municipaux à la petite enfance
