@@ -66,6 +66,20 @@ FactoryBot.define do
       end
     end
 
+    trait :manager do
+      transient do
+        authorization_request_types do
+          %w[hubee_cert_dc api_entreprise]
+        end
+      end
+
+      after(:build) do |user, evaluator|
+        evaluator.authorization_request_types.each do |authorization_request_type|
+          user.roles << "#{authorization_request_type}:manager"
+        end
+      end
+    end
+
     trait :admin do
       after(:build) do |user|
         user.roles << 'admin'
