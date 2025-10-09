@@ -54,6 +54,12 @@ class SkipLinksImplementedChecker
     instruction/cancel_authorization_reopenings#create
     instruction/revoke_authorization_requests#new
     instruction/revoke_authorization_requests#create
+    instruction/message_templates#new
+    instruction/message_templates#create
+    instruction/message_templates#edit
+    instruction/message_templates#update
+    instruction/message_templates#destroy
+    instruction/message_templates#preview
 
     admin#index
     admin/users_with_roles#index
