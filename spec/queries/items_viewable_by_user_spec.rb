@@ -3,13 +3,13 @@ RSpec.describe ItemsViewableByUser do
   let(:user) { create(:user, current_organization: organization) }
 
   describe '#count with Authorization model' do
+    subject(:count) { described_class.new(user, scoped_relation, Authorization).count }
+
     let(:scoped_relation) do
       Authorization
         .joins(:request)
         .where(authorization_requests: { organization: organization })
     end
-
-    subject(:count) { described_class.new(user, scoped_relation, Authorization).count }
 
     context 'when there are no authorizations' do
       it 'returns 0' do
@@ -51,9 +51,9 @@ RSpec.describe ItemsViewableByUser do
   end
 
   describe '#count with AuthorizationRequest model' do
-    let(:scoped_relation) { AuthorizationRequest.where(organization: organization) }
-
     subject(:count) { described_class.new(user, scoped_relation, AuthorizationRequest).count }
+
+    let(:scoped_relation) { AuthorizationRequest.where(organization: organization) }
 
     context 'when there are no authorization requests' do
       it 'returns 0' do
