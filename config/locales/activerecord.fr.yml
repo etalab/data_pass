@@ -121,6 +121,9 @@ fr:
       authorization_request_transfer:
         to: Email du nouveau demandeur
 
+      message_template:
+        content: Contenu du template
+
       impersonation:
         admin: Administrateur
         user: Usager
@@ -162,6 +165,11 @@ fr:
         authorization_request/api_impot_particulier: *api_impot_particulier_errors
         authorization_request/api_sfip_sandbox: *api_impot_particulier_errors
         authorization_request/api_sfip: *api_impot_particulier_errors
+        message_template:
+          max_templates_reached: "Vous ne pouvez pas créer plus de %{count} templates."
+          attributes:
+            content:
+              invalid_variables: "contient des variables invalides"
         impersonation:
           attributes:
             user:

@@ -287,6 +287,11 @@ Alors('le champ {string} est rempli') do |label|
   expect(page).to have_field(label, with: /.+/)
 end
 
+Alors('le champ {string} contient {string}') do |field_name, expected_text|
+  field = find_field(field_name)
+  expect(field.value).to include(expected_text)
+end
+
 Et('je peux voir le bouton {string} grisé et désactivé') do |string|
   expect(page).to have_css('button[disabled]', text: string)
 end

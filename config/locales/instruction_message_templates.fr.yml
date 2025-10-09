@@ -1,0 +1,9 @@
+fr:
+  instruction:
+    message_templates:
+      create:
+        success: "Template créé avec succès"
+      update:
+        success: "Template mis à jour avec succès"
+      destroy:
+        success: "Template supprimé avec succès"

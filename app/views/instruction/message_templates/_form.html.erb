@@ -1,0 +1,60 @@
+<%= form_with(model: message_template, url: url, method: method, class: 'fr-form') do |f| %>
+  <% if message_template.errors.any? %>
+    <div class="fr-alert fr-alert--error">
+      <h3 class="fr-alert__title">Erreurs de validation</h3>
+      <ul>
+        <% message_template.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if @managed_authorization_definitions.one? %>
+    <%= f.hidden_field :authorization_definition_uid, value: @managed_authorization_definitions.first.id %>
+  <% else %>
+    <div class="fr-select-group">
+        <%= f.label :authorization_definition_uid, 'Type d\'habilitation *', class: 'fr-label' %>
+        <%= f.select :authorization_definition_uid,
+                     options_for_select(
+                       @managed_authorization_definitions.map { |ad| [ad.name, ad.id] },
+                       message_template.authorization_definition_uid
+                     ),
+                     { include_blank: 'Choisir un type d\'habilitation' },
+                     required: true,
+                     class: 'fr-select' %>
+    </div>
+  <% end %>
+
+  <div class="fr-input-group">
+    <%= f.label :title, 'Titre (max 50 caractères) *', class: 'fr-label' %>
+    <%= f.text_field :title, class: 'fr-input', maxlength: 50, required: true %>
+  </div>
+
+  <div class="fr-select-group">
+    <%= f.label :template_type, 'Type de template *', class: 'fr-label' %>
+    <%= f.select :template_type,
+                 options_for_select([
+                   ['Refus', 'refusal'],
+                   ['Demande de modifications', 'modification_request']
+                 ], message_template.template_type),
+                 { include_blank: 'Choisir un type' },
+                 required: true,
+                 class: 'fr-select' %>
+  </div>
+
+  <div class="fr-input-group">
+    <%= f.label :content, 'Contenu *', class: 'fr-label' %>
+    <%= f.text_area :content, rows: 10, class: 'fr-input', required: true %>
+    <p class="fr-hint-text">
+      Variables disponibles : %{demande_url}, %{demande_intitule}, %{demande_id}
+    </p>
+  </div>
+
+  <div class="fr-btns-group">
+    <%= f.submit 'Enregistrer', class: 'fr-btn' %>
+    <%= link_to 'Annuler',
+                instruction_message_templates_path,
+                class: 'fr-btn fr-btn--secondary' %>
+  </div>
+<% end %>

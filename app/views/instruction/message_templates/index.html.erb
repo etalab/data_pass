@@ -1,0 +1,71 @@
+<div class="fr-container fr-my-5w">
+  <%= render 'shared/alerts' %>
+
+  <h1 class="fr-h2">Templates de messages</h1>
+
+  <p>
+    Les templates de messages permettent de pré-remplir le contenu des messages envoyés aux demandeurs lors de l'instruction des demandes d'habilitation. Chaque template est associé à une habilitation et à un type de message (refus ou demande de modifications).
+  </p>
+
+  <% if current_user.manager? %>
+    <%= link_to 'Créer un template',
+                new_instruction_message_template_path,
+                class: 'fr-btn fr-btn--sm fr-mb-3w' %>
+  <% end %>
+
+  <% if @message_templates.empty? %>
+    <p class="fr-text--sm">Aucun template disponible.</p>
+  <% else %>
+    <div class="fr-table">
+      <table>
+        <thead>
+          <tr>
+            <% unless @managed_authorization_definitions.one? %>
+              <th>Habilitation</th>
+            <% end %>
+            <th>Titre</th>
+            <th>Type</th>
+            <th>Contenu</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @message_templates.each do |template| %>
+            <tr>
+              <% unless @managed_authorization_definitions.one? %>
+                <td><%= template.authorization_definition.name %></td>
+              <% end %>
+              <td><%= template.title %></td>
+              <td>
+                <%= template.refusal? ? 'Refus' : 'Demande de modifications' %>
+              </td>
+              <td>
+                <%= truncate(template.content, length: 100) %>
+              </td>
+              <td>
+                <%=
+                  dsfr_main_modal_button(
+                    'Prévisualiser',
+                    preview_instruction_message_template_path(template),
+                    class: 'fr-btn fr-btn--sm fr-btn--secondary'
+                  )
+                %>
+                <% if current_user.manager?(template.authorization_definition_uid) %>
+                  <%= link_to 'Modifier',
+                              edit_instruction_message_template_path(template),
+                              class: 'fr-btn fr-btn--sm fr-btn--secondary' %>
+
+                  <%= button_to 'Supprimer',
+                                instruction_message_template_path(template),
+                                method: :delete,
+                                class: 'fr-btn fr-btn--sm fr-btn--secondary',
+                                data: { turbo_confirm: 'Êtes-vous sûr ?' } %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+</div>
