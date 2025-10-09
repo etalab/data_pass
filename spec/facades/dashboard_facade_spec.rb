@@ -81,4 +81,50 @@ RSpec.describe DashboardFacade, type: :facade do
       end
     end
   end
+
+  describe '#show_demandes_filters?' do
+    subject(:show_filters) { facade.show_demandes_filters?(policy_scope) }
+
+    let(:policy_scope) { AuthorizationRequest.where(organization: organization) }
+
+    context 'when there are 9 or fewer demandes' do
+      it 'returns false' do
+        create_list(:authorization_request, 9, :api_entreprise, organization:, applicant: current_user, state: :draft)
+
+        expect(show_filters).to be false
+      end
+    end
+
+    context 'when there are more than 9 demandes' do
+      it 'returns true' do
+        create_list(:authorization_request, 10, :api_entreprise, organization:, applicant: current_user, state: :draft)
+
+        expect(show_filters).to be true
+      end
+    end
+  end
+
+  describe '#show_habilitations_filters?' do
+    subject(:show_filters) { facade.show_habilitations_filters?(policy_scope) }
+
+    let(:policy_scope) { Authorization.joins(:request).where(authorization_requests: { organization: organization }) }
+
+    context 'when there are 9 or fewer habilitations' do
+      it 'returns false' do
+        authorization_request = create(:authorization_request, organization: organization, applicant: current_user, state: :validated)
+        create_list(:authorization, 9, request: authorization_request, state: :active)
+
+        expect(show_filters).to be false
+      end
+    end
+
+    context 'when there are more than 9 habilitations' do
+      it 'returns true' do
+        authorization_request = create(:authorization_request, organization: organization, applicant: current_user, state: :validated)
+        create_list(:authorization, 10, request: authorization_request, state: :active)
+
+        expect(show_filters).to be true
+      end
+    end
+  end
 end
