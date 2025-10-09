@@ -1,0 +1,8 @@
+<div class="fr-container fr-my-5w">
+  <h1 class="fr-h2"><%= t('.title') %></h1>
+
+  <%= render 'form',
+             message_template: @message_template,
+             url: instruction_message_templates_path,
+             method: :post %>
+</div>

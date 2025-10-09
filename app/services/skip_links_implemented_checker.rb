@@ -63,6 +63,12 @@ class SkipLinksImplementedChecker
     instruction/instructor_draft_requests#start
     instruction/instructor_draft_requests#edit
     instruction/instructor_draft_requests#update
+    instruction/message_templates#new
+    instruction/message_templates#create
+    instruction/message_templates#edit
+    instruction/message_templates#update
+    instruction/message_templates#destroy
+    instruction/message_templates#preview
 
     admin#index
     admin/users_with_roles#index

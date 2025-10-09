@@ -162,7 +162,7 @@ class Seeds
   def data_pass_admin
     @data_pass_admin ||= User.create!(
       email: 'datapass@yopmail.com',
-      roles: ['admin'] + all_authorization_definition_instructor_roles
+      roles: ['admin'] + all_authorization_definition_manager_roles
     )
   end
 
@@ -173,8 +173,8 @@ class Seeds
     )
   end
 
-  def all_authorization_definition_instructor_roles
-    AuthorizationDefinition.all.map { |definition| "#{definition.id}:instructor" }
+  def all_authorization_definition_manager_roles
+    AuthorizationDefinition.all.map { |definition| "#{definition.id}:manager" }
   end
 
   def all_dgfip_authorizations_definitions
