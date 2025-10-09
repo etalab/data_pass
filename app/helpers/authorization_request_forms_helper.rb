@@ -4,8 +4,12 @@ module AuthorizationRequestFormsHelper
   end
 
   def render_custom_form_or_default(authorization_request, block, locals = {})
-    render partial: "authorization_request_forms/blocks/#{authorization_request.definition.id}/#{block}", locals:
+    render partial: "authorization_request_forms/blocks/#{authorization_request.form.uid.tr('-', '_')}/#{block}", locals:
   rescue ActionView::MissingTemplate
-    render partial: "authorization_request_forms/blocks/default/#{block}", locals:
+    begin
+      render partial: "authorization_request_forms/blocks/#{authorization_request.definition.id}/#{block}", locals:
+    rescue ActionView::MissingTemplate
+      render partial: "authorization_request_forms/blocks/default/#{block}", locals:
+    end
   end
 end
