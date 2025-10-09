@@ -5,7 +5,8 @@ class OrganizationsUser < ApplicationRecord
   belongs_to :user
 
   validates :organization_id, uniqueness: { scope: :user_id }
-  validates :identity_federator, inclusion: { in: %w[mon_compte_pro pro_connect] }
+  validates :identity_federator, inclusion: { in: %w[mon_compte_pro pro_connect unknown] }
+  validates :identity_provider_uid, presence: true, unless: -> { identity_federator == 'unknown' }
 
   scope :current, -> { where(current: true) }
 
@@ -20,5 +21,7 @@ class OrganizationsUser < ApplicationRecord
 
   def identity_provider
     IdentityProvider.find(identity_provider_uid)
+  rescue EntryNotFound
+    IdentityProvider.unknown
   end
 end

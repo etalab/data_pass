@@ -7,6 +7,8 @@ class Seeds
     create_authorization_requests_for_clamart
     create_authorization_requests_for_dinum
     create_validated_authorization_request(:portail_hubee_demarche_certdc, attributes: { description: nil })
+
+    create_instructor_draft_request(applicant: demandeur)
   end
 
   def flushdb
@@ -23,15 +25,21 @@ class Seeds
 
   # rubocop:disable Metrics/AbcSize
   def create_entities
-    demandeur.add_to_organization(clamart_organization, current: true, verified: true)
-    another_demandeur.add_to_organization(clamart_organization, current: true, verified: true)
+    verified_params = {
+      verified: true,
+      identity_federator: 'pro_connect',
+      identity_provider_uid: IdentityProvider::PRO_CONNECT_IDENTITY_PROVIDER_UID,
+    }
+
+    demandeur.add_to_organization(clamart_organization, current: true, **verified_params)
+    another_demandeur.add_to_organization(clamart_organization, current: true, **verified_params)
     another_demandeur.add_to_organization(dinum_organization, current: true, verified: false)
 
-    api_entreprise_instructor.add_to_organization(dinum_organization, current: true, verified: true)
-    api_entreprise_reporter.add_to_organization(dinum_organization, current: true, verified: true)
+    api_entreprise_instructor.add_to_organization(dinum_organization, current: true, **verified_params)
+    api_entreprise_reporter.add_to_organization(dinum_organization, current: true, **verified_params)
     foreign_demandeur.add_to_organization(dinum_organization, current: true, verified: false)
-    data_pass_admin.add_to_organization(dinum_organization, current: true)
-    dgfip_instructor_developer.add_to_organization(dinum_organization, current: true)
+    data_pass_admin.add_to_organization(dinum_organization, current: true, **verified_params)
+    dgfip_instructor_developer.add_to_organization(dinum_organization, current: true, **verified_params)
   end
   # rubocop:enable Metrics/AbcSize
 
@@ -264,6 +272,19 @@ class Seeds
         applicant:,
         organization: applicant.current_organization,
       }.merge(attributes.except(:applicant))
+    )
+  end
+
+  def create_instructor_draft_request(applicant:)
+    FactoryBot.create(
+      :instructor_draft_request,
+      :with_applicant,
+      :with_data,
+      applicant:,
+      instructor: api_entreprise_instructor,
+      comment: "Comme discuté au téléphone, je vous envoie cette ébauche de demande d'habilitation.",
+      public_id: '00000000-0000-0000-0000-000000000000',
+      data: FactoryBot.build(:authorization_request, :api_entreprise, fill_all_attributes: true).data.merge('intitule' => 'Portail des aides publiques')
     )
   end
 

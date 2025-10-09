@@ -1,0 +1,37 @@
+<div data-controller="form-selector">
+  <div class="fr-select-group">
+    <label class="fr-label" for="form-select-<%= definition.id %>">
+      <%= t('.form_label') %>
+    </label>
+    <select
+      class="fr-select"
+      id="form-select-<%= definition.id %>"
+      data-form-selector-target="select"
+      data-action="change->form-selector#updateForm">
+      <% forms.each do |form| %>
+        <option
+          value="<%= form.id %>"
+          data-description="<%= form.description %>"
+          data-introduction="<%= form.introduction %>"
+          <%= 'selected' if form.default %>>
+          <%= form.name_with_service_provider %>
+        </option>
+      <% end %>
+    </select>
+  </div>
+
+  <% default_form = forms.find(&:default) %>
+
+  <div class="fr-mt-3w">
+    <strong><%= t('.form_description_label') %></strong>
+
+    <div data-form-selector-target="description">
+      <%= simple_format(default_form.description) %>
+    </div>
+  </div>
+
+  <%= link_to t('.start_draft'),
+              start_instruction_instructor_draft_requests_path(form_uid: default_form.uid),
+              class: 'fr-btn fr-mt-3w',
+              data: { form_selector_target: 'link' } %>
+</div>
