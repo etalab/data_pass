@@ -118,6 +118,21 @@ Sachantque('je suis un rapporteur {string}') do |kind|
   end
 end
 
+Sachantque('je suis un manager {string}') do |kind|
+  user = create_manager(kind)
+
+  if @current_user_email.blank?
+    @current_user_email = user.email
+    mock_identity_federators(user)
+  end
+
+  if @current_user_email != user.email
+    current_user.roles << "#{find_factory_trait_from_name(kind)}:manager"
+    current_user.roles.uniq!
+    current_user.save!
+  end
+end
+
 Sachantque('je suis un développeur {string}') do |kind|
   user = create_reporter(kind)
 
