@@ -6,7 +6,8 @@ FROM ruby:$RUBY_VERSION-slim AS base
 WORKDIR /app
 
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libpq-dev libvips pkg-config npm
+    apt-get install --no-install-recommends -y build-essential git libpq-dev libvips pkg-config npm && \
+    rm -rf /var/lib/apt/lists/*
 
 RUN npm install standard prettier --global
 
