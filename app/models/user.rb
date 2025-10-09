@@ -3,7 +3,7 @@ class User < ApplicationRecord
 
   include NotificationsSettings
 
-  ROLES = %w[reporter instructor developer].freeze
+  ROLES = %w[reporter instructor manager developer].freeze
 
   validates :email,
     presence: true,
@@ -75,6 +75,16 @@ class User < ApplicationRecord
     ", "#{authorization_request_type.underscore}:developer")
   }
 
+  scope :manager_for, lambda { |authorization_request_type|
+    where("
+      EXISTS (
+        SELECT 1
+        FROM unnest(roles) AS role
+        WHERE role = ?
+      )
+    ", "#{authorization_request_type.underscore}:manager")
+  }
+
   scope :reporter_for, lambda { |authorization_request_type|
     where(
       "EXISTS (
@@ -84,6 +94,7 @@ class User < ApplicationRecord
       )",
       [
         "#{authorization_request_type.underscore}:instructor",
+        "#{authorization_request_type.underscore}:manager",
         "#{authorization_request_type.underscore}:developer",
         "#{authorization_request_type.underscore}:reporter",
       ]
@@ -128,6 +139,8 @@ class User < ApplicationRecord
   end
 
   def instructor?(authorization_request_type = nil)
+    return true if manager?(authorization_request_type)
+
     if authorization_request_type
       roles.include?("#{authorization_request_type}:instructor")
     else
@@ -135,14 +148,28 @@ class User < ApplicationRecord
     end
   end
 
+  def manager?(authorization_request_type = nil)
+    if authorization_request_type
+      roles.include?("#{authorization_request_type}:manager")
+    else
+      roles.any? { |role| role.end_with?(':manager') }
+    end
+  end
+
   def reporter_roles
     (roles.select { |role|
       role.end_with?(':reporter')
-    } + instructor_roles + developer_roles).uniq
+    } + instructor_roles + manager_roles + developer_roles).uniq
   end
 
   def instructor_roles
-    roles.select { |role| role.end_with?(':instructor') }
+    (roles.select { |role|
+      role.end_with?(':instructor')
+    } + manager_roles).uniq
+  end
+
+  def manager_roles
+    roles.select { |role| role.end_with?(':manager') }
   end
 
   def developer_roles
