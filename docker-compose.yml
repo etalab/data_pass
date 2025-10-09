@@ -49,7 +49,6 @@ services:
 
   worker:
     image: data_pass
-    build: .
     command: 'bundle exec good_job start'
     volumes:
       - "./:/app"
