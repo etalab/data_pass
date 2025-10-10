@@ -912,6 +912,21 @@ fr:
     api_ficoba_production: &api_ficoba_production
       <<: *api_ficoba_sandbox
 
+    api_ficoba_recouvrement_sandbox: *api_ficoba_sandbox
+    api_ficoba_verification_iban_sandbox: *api_ficoba_sandbox
+    api_ficoba_verification_existence_sandbox: *api_ficoba_sandbox
+    api_ficoba_fraude_sandbox: *api_ficoba_sandbox
+    api_ficoba_multi_detention_sandbox: *api_ficoba_sandbox
+    api_ficoba_recouvrement_production: *api_ficoba_production
+    api_ficoba_recouvrement_editeur: *api_ficoba_production
+    api_ficoba_verification_iban_production: *api_ficoba_production
+    api_ficoba_verification_iban_editeur: *api_ficoba_production
+    api_ficoba_verification_existence_production: *api_ficoba_production
+    api_ficoba_verification_existence_editeur: *api_ficoba_production
+    api_ficoba_fraude_production: *api_ficoba_production
+    api_ficoba_fraude_editeur: *api_ficoba_production
+    api_ficoba_multi_detention_production: *api_ficoba_production
+    api_ficoba_multi_detention_editeur: *api_ficoba_production
     api_ficoba_production_editeur: *api_ficoba_production
 
     api_r2p_sandbox: &api_r2p_sandbox

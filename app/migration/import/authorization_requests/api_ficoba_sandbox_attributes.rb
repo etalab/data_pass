@@ -18,8 +18,8 @@ class Import::AuthorizationRequests::APIFicobaSandboxAttributes < Import::Author
       'acces_ficoba_personne_morale' => 'with_ficoba_personne_morale',
       'acces_ficoba_personne_physique' => 'with_ficoba_personne_physique',
       'acces_ficoba_iban_siren' => 'with_ficoba_iban_siren',
-      'acces_ficoba_iban_personne_morale' => 'with_ficoba_personne_morale',
-      'acces_ficoba_iban_personne_physique' => 'with_ficoba_personne_physique',
+      'acces_ficoba_iban_personne_morale' => 'with_ficoba_iban_personne_morale',
+      'acces_ficoba_iban_personne_physique' => 'with_ficoba_iban_personne_physique',
     }.each do |from, to|
       next unless additional_content[from]
 
