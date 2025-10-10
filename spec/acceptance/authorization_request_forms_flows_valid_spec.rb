@@ -61,6 +61,40 @@ RSpec.describe 'Authorization requests forms validations', type: :acceptance do
       authorization_request.modalities = full_request.modalities if authorization_request.respond_to?(:modalities)
     when 'france_connect'
       authorization_request.france_connect_authorization_id = full_request.france_connect_authorization_id if authorization_request.respond_to?(:france_connect_authorization_id)
+    when 'scopes'
+      handle_scopes_step(authorization_request, full_request)
+    end
+  end
+
+  def handle_scopes_step(authorization_request, full_request)
+    return unless authorization_request.class.scopes_enabled?
+
+    any_scopes_displayed?(authorization_request)
+    scopes_included_are_displayed?(authorization_request)
+    scopes_form_initialize_with_are_displayed?(authorization_request)
+
+    authorization_request.scopes = full_request.scopes
+  end
+
+  def any_scopes_displayed?(authorization_request)
+    return true if authorization_request.available_scopes.any?
+
+    fail "No scopes are displayed for this request form #{authorization_request.form.uid}, at least one should be"
+  end
+
+  def scopes_included_are_displayed?(authorization_request)
+    initially_affected_scopes = authorization_request.included_scopes
+
+    initially_affected_scopes.each do |scope|
+      fail "The scope '#{scope.name}' is initially affected but not displayed for this request form #{authorization_request.form.uid}" unless authorization_request.available_scopes.include?(scope)
+    end
+  end
+
+  def scopes_form_initialize_with_are_displayed?(authorization_request)
+    initially_affected_scopes_from_form = authorization_request.form.initialize_with[:scopes] || []
+
+    initially_affected_scopes_from_form.each do |scope_value|
+      fail "The scope '#{scope_value}' is initially affected in the form but not displayed for this request form #{authorization_request.form.uid}" unless authorization_request.available_scopes.map(&:value).include?(scope_value)
     end
   end
 
@@ -86,7 +120,6 @@ RSpec.describe 'Authorization requests forms validations', type: :acceptance do
         cadre_juridique_url
         cadre_juridique_nature
       ],
-      'scopes' => %w[scopes],
       'france_connect_eidas' => %w[france_connect_eidas],
       'technical_team' => %w[
         technical_team_type
