@@ -51,6 +51,9 @@
 - Be sure that tests you introduce pass before stopping your work.
 - Authorization should be done in the controller, not in the model/services.
 - Check docs/ for technical documentation if needed.
+- For building forms use DSFRFormBuilder
+- Components are documented here
+    https://www.systeme-de-design.gouv.fr/version-courante/fr/composants
 
 ## Git
 
