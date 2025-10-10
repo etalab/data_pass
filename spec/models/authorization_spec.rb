@@ -49,6 +49,19 @@ RSpec.describe Authorization do
       end
     end
 
+    context 'when applicant has changed on request' do
+      let(:new_applicant) { create(:user, current_organization: authorization_request.organization) }
+      let!(:old_applicant) { authorization_request.applicant }
+
+      before do
+        authorization_request.update!(applicant: new_applicant)
+      end
+
+      it 'keeps the original applicant' do
+        expect(request_as_validated.applicant).to eq(old_applicant)
+      end
+    end
+
     context 'when request has been reopened, with some data changed and a document updated' do
       before do
         organizer = ReopenAuthorization.call(authorization:, user: authorization.applicant)
