@@ -139,6 +139,18 @@ RSpec.describe AuthorizationRequestPolicy do
         it { is_expected.to be false }
       end
 
+      context 'when user is the request applicant, from the same organization but not authorization applicant' do
+        let(:another_user) { create(:user) }
+        let(:user_context) { UserContext.new(another_user) }
+
+        before do
+          another_user.add_to_organization(authorization_request.organization, verified: true, current: true)
+          authorization_request.update!(applicant: another_user)
+        end
+
+        it { is_expected.to be true }
+      end
+
       context 'when authorization is not reopenable' do
         context 'when authorization is not active' do
           before do

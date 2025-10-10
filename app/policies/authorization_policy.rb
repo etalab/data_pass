@@ -8,7 +8,7 @@ class AuthorizationPolicy < ApplicationPolicy
 
   def reopen?
     feature_enabled?(:reopening) &&
-      same_user_and_organization? &&
+      same_request_user_and_organization? &&
       record.reopenable?
   end
 
@@ -46,6 +46,11 @@ class AuthorizationPolicy < ApplicationPolicy
   def same_current_verified_organization?
     same_current_organization? &&
       user.current_organization_verified?
+  end
+
+  def same_request_user_and_organization?
+    record.request.applicant_id == user.id &&
+      same_current_organization?
   end
 
   class Scope < Scope
