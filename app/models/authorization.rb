@@ -93,6 +93,7 @@ class Authorization < ApplicationRecord
 
     request_as_validated.id = request.id
     request_as_validated.data = data
+    request_as_validated.applicant_id = applicant_id
     request_as_validated.state = revoked? ? 'revoked' : 'validated'
     request_as_validated.created_at = created_at
     affect_snapshot_documents(request_as_validated) if load_documents
