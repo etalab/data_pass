@@ -1234,6 +1234,96 @@ FactoryBot.define do
       with_volumetrie
     end
 
+    trait :api_ficoba_recouvrement_sandbox do
+      api_ficoba_sandbox
+
+      form_uid { 'api-ficoba-recouvrement-sandbox' }
+    end
+
+    trait :api_ficoba_recouvrement_production do
+      api_ficoba_production
+
+      form_uid { 'api-ficoba-recouvrement-production' }
+    end
+
+    trait :api_ficoba_verification_iban_sandbox do
+      api_ficoba_sandbox
+
+      form_uid { 'api-ficoba-verification-iban-sandbox' }
+    end
+
+    trait :api_ficoba_verification_iban_production do
+      api_ficoba_production
+
+      form_uid { 'api-ficoba-verification-iban-production' }
+    end
+
+    trait :api_ficoba_verification_existence_sandbox do
+      api_ficoba_sandbox
+
+      form_uid { 'api-ficoba-verification-existence-sandbox' }
+    end
+
+    trait :api_ficoba_verification_existence_production do
+      api_ficoba_production
+
+      form_uid { 'api-ficoba-verification-existence-production' }
+    end
+
+    trait :api_ficoba_fraude_sandbox do
+      api_ficoba_sandbox
+
+      form_uid { 'api-ficoba-fraude-sandbox' }
+    end
+
+    trait :api_ficoba_fraude_production do
+      api_ficoba_production
+
+      form_uid { 'api-ficoba-fraude-production' }
+    end
+
+    trait :api_ficoba_multi_detention_sandbox do
+      api_ficoba_sandbox
+
+      form_uid { 'api-ficoba-multi-detention-sandbox' }
+    end
+
+    trait :api_ficoba_multi_detention_production do
+      api_ficoba_production
+
+      form_uid { 'api-ficoba-multi-detention-production' }
+    end
+
+    trait :api_ficoba_recouvrement_editeur do
+      api_ficoba_production
+
+      form_uid { 'api-ficoba-recouvrement-editeur' }
+    end
+
+    trait :api_ficoba_verification_iban_editeur do
+      api_ficoba_production
+
+      form_uid { 'api-ficoba-verification-iban-editeur' }
+    end
+
+    trait :api_ficoba_verification_existence_editeur do
+      api_ficoba_production
+
+      form_uid { 'api-ficoba-verification-existence-editeur' }
+    end
+
+    trait :api_ficoba_fraude_editeur do
+      api_ficoba_production
+
+      form_uid { 'api-ficoba-fraude-editeur' }
+    end
+
+    trait :api_ficoba_multi_detention_editeur do
+      api_ficoba_production
+
+      form_uid { 'api-ficoba-multi-detention-editeur' }
+    end
+
     trait :api_ficoba_production_editeur do
       api_ficoba_production
 

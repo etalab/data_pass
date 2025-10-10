@@ -6,7 +6,7 @@ class AuthorizationRequest::APIFicobaSandbox < AuthorizationRequest
   include AuthorizationExtensions::Modalities
   include DGFIPExtensions::ExtraContactsInfos
 
-  MODALITIES = %w[with_ficoba_iban with_ficoba_spi with_ficoba_siren with_ficoba_personne_physique with_ficoba_personne_morale].freeze
+  MODALITIES = %w[with_ficoba_iban with_ficoba_spi with_ficoba_siren with_ficoba_personne_physique with_ficoba_personne_morale with_ficoba_iban_siren with_ficoba_iban_personne_physique with_ficoba_iban_personne_morale].freeze
 
   add_documents :maquette_projet, content_type: ['application/pdf'], size: { less_than: 10.megabytes }
 

@@ -903,22 +903,36 @@ api_ficoba:
     - name: safety_certification
     - name: volumetrie
   scopes: &api_ficoba_scopes
-    - name: État civil ou dénomination
+    - name: État civil/Raison sociale du titulaire du compte
       value: dgfip_ficoba_etat_civil_denomination
-      group: Information du compte
+      group: Informations du compte
     - name: Adresse
       value: dgfip_ficoba_adresse
-      group: Information du compte
-    - name: Désignation du compte
+      group: Informations du compte
+    - name: Numéro de compte ouvert et caractéristiques
       value: dgfip_ficoba_compte
-      included: true
-      group: Information du compte
-    - name: Établissement bancaire
+      group: Informations du compte
+    - name: Établissement/Guichet bancaire/Adresse
       value: dgfip_ficoba_etablissement_bancaire
-      group: Information du compte
-    - name: Date
+      group: Informations du compte
+    - name: Droit sur le compte et date effective
       value: dgfip_ficoba_date
-      group: Information du compte
+      group: Informations du compte
+    - name: Restitution vérification (O/N) et date de clôture le cas échéant
+      value: dgfip_ficoba_restitution_verification
+      group: Informations du compte
+    - name: Nombre de comptes trouvés
+      value: dgfip_ficoba_nombre_comptes
+      group: Contrôle multi-détention PER
+    - name: IBAN (si accord client)
+      value: dgfip_ficoba_iban
+      group: Contrôle multi-détention PER
+    - name: Date d’ouverture (si accord client)
+      value: dgfip_ficoba_date_ouverture
+      group: Contrôle multi-détention PER
+    - name: Motif d’ouverture (si accord client)
+      value: dgfip_ficoba_motif_ouverture
+      group: Contrôle multi-détention PER
 
 api_ficoba_sandbox:
   name: API Fichier des Comptes Bancaires et Assimilés (FICOBA)
