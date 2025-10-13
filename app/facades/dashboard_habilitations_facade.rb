@@ -16,4 +16,8 @@ class DashboardHabilitationsFacade < AbstractDashboardFacade
   def model_class
     Authorization
   end
+
+  def displayed_states
+    %w[active revoked]
+  end
 end

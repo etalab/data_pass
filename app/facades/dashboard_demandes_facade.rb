@@ -19,4 +19,8 @@ class DashboardDemandesFacade < AbstractDashboardFacade
   def model_class
     AuthorizationRequest
   end
+
+  def displayed_states
+    %w[draft submitted refused changes_requested]
+  end
 end

@@ -11,7 +11,8 @@ class AbstractDashboardFacade
   end
 
   def show_filters?
-    DemandesHabilitationsViewableByUser.new(user, scoped_relation, model_class).count > FILTER_THRESHOLD_COUNT
+    viewable_by_user = DemandesHabilitationsViewableByUser.new(user, scoped_relation, model_class)
+    viewable_by_user.count_by_states(displayed_states) > FILTER_THRESHOLD_COUNT
   end
 
   def show_organization_verification_warning?
@@ -27,6 +28,10 @@ class AbstractDashboardFacade
 
   def model_class
     raise NotImplementedError, 'Subclasses must implement #model_class'
+  end
+
+  def displayed_states
+    raise NotImplementedError, 'Subclasses must implement #displayed_states'
   end
 
   protected

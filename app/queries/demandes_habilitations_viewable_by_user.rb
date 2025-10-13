@@ -9,6 +9,10 @@ class DemandesHabilitationsViewableByUser
 
   delegate :count, to: :relation
 
+  def count_by_states(states)
+    relation.where(state: states).count
+  end
+
   private
 
   def relation

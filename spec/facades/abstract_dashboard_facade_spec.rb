@@ -26,6 +26,10 @@ RSpec.describe AbstractDashboardFacade, type: :facade do
       def model_class
         Authorization
       end
+
+      def displayed_states
+        %i[active revoked]
+      end
     end
   end
 
