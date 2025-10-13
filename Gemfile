@@ -50,7 +50,7 @@ gem 'state_machines-activerecord'
 gem 'stimulus-rails'
 gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[ windows jruby ]
-gem 'uri', '1.0.3'
+gem 'uri', '1.0.4'
 gem "view_component"
 gem 'wicked'
 
