@@ -48,7 +48,7 @@
             </div>
           <% end %>
 
-          <% if params[:search_query] && params[:search_query][:user_relationship_eq] == 'organization' && !current_user.current_organization_verified? %>
+          <% if @facade.show_organization_verification_warning? %>
             <div class="fr-alert fr-alert--warning fr-mb-6w">
               Votre lien avec l'organisation <strong><%= current_organization.name %></strong> (SIRET: <%= current_organization.siret %>) n'est pas vérifié, vous ne pouvez accéder ou consulter les autres demandes ou habilitations de cette organisation.
             </div>
