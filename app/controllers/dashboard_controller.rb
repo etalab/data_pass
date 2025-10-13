@@ -8,33 +8,39 @@ class DashboardController < AuthenticatedUserController
   end
 
   def show
-    @facade = DashboardFacade.new(current_user, params[:search_query], subdomain_types: current_subdomain_types)
     @tabs = build_tabs
-
-    case params[:id]
-    when 'demandes'
-      handle_demandes_tab
-    when 'habilitations'
-      handle_habilitations_tab
-    else
-      redirect_to(dashboard_show_path(id: 'demandes')) and return
-    end
+    @facade = build_facade
   end
 
   private
 
-  def handle_demandes_tab
-    data = @facade.demandes_data(policy_scope(AuthorizationRequest))
-    @highlighted_categories = data[:highlighted_categories]
-    @categories = data[:categories]
-    @search_engine = data[:search_engine]
+  def build_facade
+    case params[:id]
+    when 'demandes'
+      build_demande_facade
+    when 'habilitations'
+      build_habilitation_facade
+    else
+      redirect_to(dashboard_show_path(id: 'demandes'))
+    end
   end
 
-  def handle_habilitations_tab
-    data = @facade.habilitations_data(policy_scope(Authorization))
-    @highlighted_categories = data[:highlighted_categories]
-    @categories = data[:categories]
-    @search_engine = data[:search_engine]
+  def build_demande_facade
+    DashboardDemandesFacade.new(
+      user: current_user,
+      search_query: params[:search_query],
+      subdomain_types: current_subdomain_types,
+      scoped_relation: policy_scope(AuthorizationRequest)
+    )
+  end
+
+  def build_habilitation_facade
+    DashboardHabilitationsFacade.new(
+      user: current_user,
+      search_query: params[:search_query],
+      subdomain_types: current_subdomain_types,
+      scoped_relation: policy_scope(Authorization)
+    )
   end
 
   def build_tabs
