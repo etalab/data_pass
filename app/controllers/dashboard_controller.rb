@@ -17,29 +17,20 @@ class DashboardController < AuthenticatedUserController
   def build_facade
     case params[:id]
     when 'demandes'
-      build_demande_facade
+      build_facade_for(DashboardDemandesFacade, AuthorizationRequest)
     when 'habilitations'
-      build_habilitation_facade
+      build_facade_for(DashboardHabilitationsFacade, Authorization)
     else
       redirect_to(dashboard_show_path(id: 'demandes'))
     end
   end
 
-  def build_demande_facade
-    DashboardDemandesFacade.new(
+  def build_facade_for(facade_class, scoped_model)
+    facade_class.new(
       user: current_user,
       search_query: params[:search_query],
       subdomain_types: current_subdomain_types,
-      scoped_relation: policy_scope(AuthorizationRequest)
-    )
-  end
-
-  def build_habilitation_facade
-    DashboardHabilitationsFacade.new(
-      user: current_user,
-      search_query: params[:search_query],
-      subdomain_types: current_subdomain_types,
-      scoped_relation: policy_scope(Authorization)
+      scoped_relation: policy_scope(scoped_model)
     )
   end
 
