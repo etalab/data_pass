@@ -89,16 +89,11 @@ api-entreprise-subventions-associations:
     - name: "contacts"
   scopes_config:
     hide:
-      - open_data_extrait_rcs_infogreffe
       - beneficiaires_effectifs_inpi
-      - open_data_actes_bilans_inpi
       - mandataires_sociaux_infogreffe
-      - open_data_numero_tva_commission_europeenne
-      - open_data_immatriculation_eori_douanes
       - chiffre_affaires_dgfip
       - cotisations_msa
       - cotisations_probtp
-      - open_data_carte_pro_travaux_publics_fntp
       - attestation_cotisations_conges_payes_chomage_intemperies_cibtp_cnetp
   initialize_with:
     scopes:
