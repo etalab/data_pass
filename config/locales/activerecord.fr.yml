@@ -109,6 +109,9 @@ fr:
       authorization_request/pro_connect_identity_provider:
         authorize_service_providers_to_connect: J’autorise tous les fournisseurs de services de la fonction publique à utiliser les données transmises par ProConnect pour procéder à l’authentification de leurs utilisateurs.
 
+    hints:
+      france_connect:
+        contact_technique_phone_number: Le numéro de téléphone doit être un numéro de portable
 
       denial_of_authorization:
         reason: Raison du refus
