@@ -1,0 +1,29 @@
+<%= content_for(:within_page) do %>
+  <h2 class="fr-mt-16v">
+    <%= t('.title', project_name: @instructor_draft_request.project_name) %>
+  </h2>
+
+  <p class="fr-mb-4w">
+    <%=
+      t(
+        '.description',
+        definition_name: @instructor_draft_request.definition.name,
+        project_name: @instructor_draft_request.project_name,
+        organization_name: @instructor_draft_request.organization.name,
+        organization_legal_entity_id: @instructor_draft_request.organization.legal_entity_id,
+        instructor_email: @instructor_draft_request.instructor.email
+      ).html_safe
+    %>
+  </p>
+
+  <% if @instructor_draft_request.comment %>
+    <div class="fr-callout">
+      <h3 class="fr-callout__title"><%= t('.instructor_comment' ) %></strong>
+      <p class="fr-callout__text"><%= @instructor_draft_request.comment %></p>
+    </div>
+  <% end %>
+
+  <%= yield %>
+<% end %>
+
+<%= render template: 'layouts/form_introduction' %>

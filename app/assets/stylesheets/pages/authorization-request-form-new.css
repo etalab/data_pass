@@ -12,3 +12,7 @@
 .authorization-request-form-new .text-wrapper {
   background-color: var(--background-default-grey);
 }
+
+.hide-prefilled-banner .prefilled-banner {
+  display: none;
+}

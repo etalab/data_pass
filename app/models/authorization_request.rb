@@ -8,6 +8,10 @@ class AuthorizationRequest < ApplicationRecord
   include AuthorizationCore::Checkboxes
   include DemandesHabilitationsSearchable
 
+  after_initialize do
+    self[:data] ||= {}
+  end
+
   belongs_to :applicant,
     class_name: 'User',
     inverse_of: :authorization_requests_as_applicant

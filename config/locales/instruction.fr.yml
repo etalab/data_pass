@@ -87,6 +87,7 @@ fr:
       index:
         title: Habilitations FranceConnectées associées
         show_cta: Consulter
+
     approve_authorization_requests:
       new:
         initial:
@@ -299,6 +300,10 @@ fr:
           message_summary: |
             <strong>%{user_full_name}</strong> a copié %{copied_from_authorization_request_id}.
 
+        claim:
+          message_summary: |
+            <strong>%{user_full_name}</strong> a démarré cette demande via une ébauche d'instructeur.
+
         reopen:
           message_summary: |
             <strong>%{user_full_name}</strong> a réouvert l'habilitation.
@@ -394,5 +399,67 @@ fr:
             Aucun utilisateur n'a été trouvé avec l'email fourni. L'utilisateur doit créer un compte pour que le transfert soit possible.
           invalid_new_applicant: |
             L'utilisateur doit appartenir à la même organisation (numéro de siret: %{organization_siret}).
+
+    instructor_draft_requests:
+      index:
+        title: Demandes initiés par des instructeurs
+        new: Initier une nouvelle demande d'habilitation
+        table:
+          header:
+            id: N°
+            project_name: Projet
+            authorization_definition_name: Nom du fournisseur
+            applicant_email: Email du demandeur
+            organization: Organisation associée
+            instructor_email: Email de l'instructeur
+            actions: Actions
+          actions:
+            edit: Modifier
+            invite: Inviter
+            invite_link: Lien d'invitation
+            delete: Supprimer
+            confirm_delete: Confirmer la suppression ? Cela supprimera cette demande et l'invitation associée.
+      new:
+        title: Choix du type d'habilitation
+        description: |
+          Vous allez initier une nouvelle demande d'habilitation.
+          Veuillez choisir le type d'habilitation et son formulaire que vous souhaitez initier.
+      form_selector:
+        form_label: Sélectionner un formulaire
+        form_description_label: Description du formulaire
+        start_draft: Démarrer le brouillon
+      edit:
+        save: Sauvegarder
+      create:
+        success: La demande d'habilitation a bien été sauvegardé
+        error: Veuillez renseigner à minima un champ
+      update:
+        success: La demande d'habilitation a bien été mis à jour
+        error: Veuillez renseigner à minima un champ
+      destroy:
+        success: La demande d'habilitation a bien été supprimé
+      invite:
+        new:
+          title: Inviter un usager à finaliser la demande
+          description: |
+            Vous allez inviter un usager à finaliser cette demande d'habilitation en renseignant son adresse email et le numéro SIRET de son organisation.
+          invite: Envoyer l'invitation
+          cancel: Annuler
+          applicant_email:
+            placeholder: usager@gouv.fr
+          organization_siret:
+            placeholder: '13002526500013'
+          comment:
+            placeholder: Merci de finaliser votre demande
+          error:
+            title: Erreur lors de l'envoi de l'invitation
+        create:
+          success: L'invitation a été envoyée avec succès au demandeur
+          error:
+            message:
+              invalid_organization_params: |
+                Le numéro de SIRET est invalide.
+              user_invalid: |
+                L'adresse email est invalide.
 
 

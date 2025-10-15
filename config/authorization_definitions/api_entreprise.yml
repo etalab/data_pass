@@ -8,6 +8,8 @@ api_entreprise:
   cgu_link: "https://entreprise.api.gouv.fr/cgu"
   access_link: https://entreprise.api.gouv.fr/compte/jetons/%{external_provider_id}
   public: true
+  features:
+    instructor_drafts: true
   blocks:
     - name: "basic_infos"
     - name: "personal_data"
