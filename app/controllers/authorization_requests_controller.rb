@@ -30,6 +30,10 @@ class AuthorizationRequestsController < AuthenticatedUserController
   def show
     @authorization_request = AuthorizationRequest.find(params[:id])
 
+    if @authorization_request.validated?
+      redirect_to authorization_path(@authorization_request.latest_authorization) and return
+    end
+
     if user_signed_in?
       show_as_authenticated_user
     else
