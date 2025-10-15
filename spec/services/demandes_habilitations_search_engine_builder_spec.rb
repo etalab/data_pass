@@ -19,8 +19,8 @@ RSpec.describe DemandesHabilitationsSearchEngineBuilder do
     context 'without search parameters' do
       let(:params) { ActionController::Parameters.new({}) }
 
-      it 'returns all demandes with default sorting' do
-        expect(result).to contain_exactly(current_user_demande)
+      it "returns all demandes with default sorting as user, mentions and organization's demandes" do
+        expect(result).to contain_exactly(current_user_demande, other_user_demande)
         expect(service.search_engine.sorts.first.name).to eq('created_at')
         expect(service.search_engine.sorts.first.dir).to eq('desc')
       end
@@ -163,7 +163,7 @@ RSpec.describe DemandesHabilitationsSearchEngineBuilder do
         end
 
         it 'returns only submitted demandes' do
-          expect(result).to contain_exactly(submitted_request, current_user_demande)
+          expect(result).to contain_exactly(submitted_request, current_user_demande, other_user_demande)
         end
       end
 

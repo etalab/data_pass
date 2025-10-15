@@ -8,15 +8,13 @@ Fonctionnalité: Consultation de demandes et habilitations avec une organisation
     Sachant que je suis un demandeur
     Et que je me connecte via ProConnect avec l'identité "DGFIP" qui renvoi l'organisation "Ville de Clamart"
     Et que je clique sur "CLAMART"
-    Et que j'ai 1 demande d'habilitation "API Particulier" en brouillon
-    Et que j'ai 1 demande d'habilitation "FranceConnect" validée
+    Et que j'ai 9 demandes d'habilitation "API Particulier" en brouillon
+    Et que j'ai 9 demandes d'habilitation "FranceConnect" validée
     Et que mon organisation a 1 demande d'habilitation "API Entreprise" en brouillon
     Et que mon organisation a 1 demande d'habilitation "API CaptchEtat" validée
 
   Scénario: Je ne peux pas voir les demandes de mon organisation sur mon tableau de bord
     Quand je me rends sur mon tableau de bord demandes
-    Et je sélectionne le filtre "Toutes les demandes de l'organisation" pour "Filtrer par demandeur"
-    Et que je clique sur "Rechercher"
     Alors la page ne contient pas "API Entreprise"
     Et il y a un message d'attention contenant "consulter les autres demandes ou habilitations de cette organisation"
 
@@ -27,8 +25,6 @@ Fonctionnalité: Consultation de demandes et habilitations avec une organisation
 
   Scénario: Je ne peux pas voir les habilitations de mon organisation sur mon tableau de bord
     Quand je me rends sur mon tableau de bord habilitations
-    Et je sélectionne le filtre "Toutes les demandes de l'organisation" pour "Filtrer par demandeur"
-    Et que je clique sur "Rechercher"
     Alors la page ne contient pas "API CaptchEtat"
     Et il y a un message d'attention contenant "consulter les autres demandes ou habilitations de cette organisation"
 
