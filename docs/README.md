@@ -10,3 +10,5 @@
 * [Guide sur les scopes](./modification_scopes.md)
 * [Configuration des scopes de formulaire (scopes_config)](./scopes_config.md)
 * [Utiliser notre API](./api.md)
+* [Templates de messages pour l'instruction](./templates_messages.md)
+* [Brouillons de demandes initiés par les instructeurs](./brouillons_instructeurs.md)

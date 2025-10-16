@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_30_172514) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_09_082820) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_catalog.plpgsql"
@@ -310,6 +310,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_30_172514) do
     t.string "sha256"
     t.index ["attachment_id"], name: "index_malware_scans_on_attachment_id"
     t.index ["sha256"], name: "index_malware_scans_on_sha256"
+  end
+
+  create_table "message_templates", force: :cascade do |t|
+    t.string "authorization_definition_uid", null: false
+    t.integer "template_type", null: false
+    t.string "title", limit: 50, null: false
+    t.text "content", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["authorization_definition_uid", "template_type"], name: "idx_on_authorization_definition_uid_template_type_7b33b333b3"
   end
 
   create_table "messages", force: :cascade do |t|
