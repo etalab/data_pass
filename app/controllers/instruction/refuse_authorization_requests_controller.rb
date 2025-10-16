@@ -1,10 +1,10 @@
 class Instruction::RefuseAuthorizationRequestsController < Instruction::AbstractAuthorizationRequestsController
+  include Instruction::MessageTemplatesLoader
+
   before_action :authorize_authorization_request_refusal
 
   def new
     @denial_of_authorization = @authorization_request.denials.build
-
-    @message_templates = message_templates_enabled? ? load_message_templates : []
   end
 
   def create
@@ -38,15 +38,7 @@ class Instruction::RefuseAuthorizationRequestsController < Instruction::Abstract
     @authorization_request
   end
 
-  def message_templates_enabled?
-    @authorization_request.definition.feature?(:message_templates)
-  end
-
-  def load_message_templates
-    authorization_definition_uid = @authorization_request.class.name.demodulize.underscore
-    @message_templates = MessageTemplate
-      .for_authorization_definition(authorization_definition_uid)
-      .for_type(:refusal)
-      .order(:title)
+  def message_template_type
+    :refusal
   end
 end

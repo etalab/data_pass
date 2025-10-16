@@ -1,6 +1,6 @@
 class Instruction::MessageTemplatesController < InstructionController
-  before_action :set_message_template, only: %i[edit update destroy preview]
-  before_action :extract_managed_authorization_definition_uids, only: %i[index new create edit update]
+  before_action :set_message_template, only: %i[edit update destroy]
+  before_action :extract_managed_authorization_definitions, only: %i[index new create edit update]
 
   def index
     authorize [:instruction, MessageTemplate]
@@ -50,24 +50,14 @@ class Instruction::MessageTemplatesController < InstructionController
     redirect_to instruction_message_templates_path
   end
 
-  def preview
-    authorize [:instruction, @message_template]
-
-    @authorization_request = @message_template.authorization_definition.authorization_request_class.new(id: -1)
-    interpolator = MessageTemplateInterpolator.new(@message_template.content)
-    @preview_content = interpolator.interpolate(@authorization_request)
-
-    render :preview
-  end
-
   private
 
   def set_message_template
     @message_template = MessageTemplate.find(params[:id])
   end
 
-  def extract_managed_authorization_definition_uids
-    @managed_authorization_definition_uids = managed_authorization_definition_uids
+  def extract_managed_authorization_definitions
+    @managed_authorization_definitions = managed_authorization_definitions
   end
 
   def managed_authorization_definition_uids
@@ -89,5 +79,9 @@ class Instruction::MessageTemplatesController < InstructionController
         content
       ]
     )
+  end
+
+  def model_to_track_for_impersonation
+    @message_template
   end
 end

@@ -8,8 +8,8 @@ class MessageTemplateInterpolator
 
   def interpolate(object)
     format(content, build_variables(object))
-  rescue KeyError
-    raise ArgumentError, 'Missing variable in template'
+  rescue KeyError => e
+    raise ArgumentError, "Missing variable in template interpolation: #{e.key}"
   end
 
   def valid?(object)

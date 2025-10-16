@@ -104,11 +104,7 @@ Rails.application.routes.draw do
   namespace :instruction do
     get '/tableau-de-bord/:id', to: 'dashboard#show', as: :dashboard_show
 
-    resources :message_templates, only: %i[index new create edit update destroy], path: 'modeles-messages' do
-      member do
-        get :preview
-      end
-    end
+    resources :message_templates, only: %i[index new create edit update destroy], path: 'modeles-messages'
 
     resources :authorization_requests, only: %w[show], path: 'demandes' do
       resources :approve_authorization_requests, only: %w[new create], path: 'approuver', as: :approval

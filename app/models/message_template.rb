@@ -19,7 +19,7 @@ class MessageTemplate < ApplicationRecord
   end
 
   def authorization_definition
-    AuthorizationDefinition.find(authorization_definition_uid)
+    @authorization_definition ||= AuthorizationDefinition.find(authorization_definition_uid)
   end
 
   def variables_are_valid

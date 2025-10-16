@@ -7,7 +7,7 @@ Sachantque('il existe un template de message {string} pour {string}') do |title,
   FactoryBot.create(:message_template,
     title:,
     authorization_definition_uid: authorization_definition.id,
-    template_type: :refusal,
+    template_type: :modification_request,
     content: 'Contenu du template')
 end
 
@@ -26,7 +26,7 @@ Sachantque('il existe un template de message avec le contenu {string} pour {stri
   FactoryBot.create(:message_template,
     title: 'Template de test',
     authorization_definition_uid: authorization_definition.id,
-    template_type: :refusal,
+    template_type: :modification_request,
     content:)
 end
 
@@ -40,12 +40,6 @@ Sachantque('il existe {int} templates de type {string} pour {string}') do |count
       authorization_definition_uid: authorization_definition.id,
       template_type:,
       content: "Contenu du template #{i + 1}")
-  end
-end
-
-Quand('je clique sur {string} pour le template {string}') do |action, template_title|
-  within('tr', text: template_title) do
-    click_on action
   end
 end
 

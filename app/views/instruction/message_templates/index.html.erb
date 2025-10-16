@@ -1,82 +1,49 @@
 <% content_for :skip_links do %>
-  <%= skip_link(t('.skip_links.create_template'), 'create-message-template-button') %>
   <%= skip_link(t('.skip_links.menu'), "header") %>
   <%= skip_link(t('.skip_links.footer'), "footer") %>
 <% end %>
 
 <div class="fr-container fr-my-5w">
-  <%= render 'shared/alerts' %>
+  <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle fr-mb-2w">
+    <div class="fr-col">
+      <h1 class="fr-mb-0"><%= t('.title') %></h1>
+    </div>
+    <% if current_user.manager? %>
+      <div class="fr-col-auto">
+        <%= link_to t('.create_button'),
+                    new_instruction_message_template_path,
+                    id: 'create-message-template-button',
+                    class: 'fr-btn fr-btn--icon-left fr-icon-add-line' %>
+      </div>
+    <% end %>
+  </div>
 
-  <h1 class="fr-h2"><%= t('.title') %></h1>
-
-  <p>
-    <%= t('.description') %>
-  </p>
-
-  <% if current_user.manager? %>
-    <%= link_to t('.create_button'),
-                new_instruction_message_template_path,
-                id: 'create-message-template-button',
-                class: 'fr-btn fr-btn--sm fr-mb-3w' %>
-  <% end %>
+  <p><%= t('.description').html_safe %></p>
 
   <% if @message_templates.empty? %>
-    <p class="fr-text--sm"><%= t('.empty_state') %></p>
+    <p class="fr-text--sm fr-mt-3w"><%= t('.empty_state') %></p>
   <% else %>
-    <div class="fr-table fr-table--bordered">
-      <div class="fr-table__container">
-        <div class="fr-table__content">
-          <table>
-            <thead>
-              <tr>
-                <% unless @managed_authorization_definitions.one? %>
-                  <th scope="col"><%= t('.table.authorization') %></th>
-                <% end %>
-                <th scope="col"><%= t('.table.title') %></th>
-                <th scope="col"><%= t('.table.type') %></th>
-                <th scope="col"><%= t('.table.content') %></th>
-                <th scope="col"><%= t('.table.actions') %></th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @message_templates.each do |template| %>
-                <tr>
-                  <% unless @managed_authorization_definitions.one? %>
-                    <td><%= template.authorization_definition.name %></td>
-                  <% end %>
-                  <td><%= template.title %></td>
-                  <td>
-                    <%= t("activerecord.values.message_template.template_type.#{template.template_type}") %>
-                  </td>
-                  <td>
-                    <%= truncate(template.content, length: 100) %>
-                  </td>
-                  <td>
-                    <%=
-                      dsfr_main_modal_button(
-                        t('.actions.preview'),
-                        preview_instruction_message_template_path(template),
-                        class: 'fr-btn fr-btn--sm fr-btn--secondary'
-                      )
-                    %>
-                    <% if current_user.manager?(template.authorization_definition_uid) %>
-                      <%= link_to t('.actions.edit'),
-                                  edit_instruction_message_template_path(template),
-                                  class: 'fr-btn fr-btn--sm fr-btn--secondary' %>
 
-                      <%= button_to t('.actions.delete'),
-                                    instruction_message_template_path(template),
-                                    method: :delete,
-                                    class: 'fr-btn fr-btn--sm fr-btn--secondary',
-                                    data: { turbo_confirm: t('.actions.delete_confirm') } %>
-                    <% end %>
-                  </td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+    <%= dsfr_accordion_group do %>
+      <% @message_templates.each do |template| %>
+        <%= dsfr_accordion "#{template.authorization_definition.name} - #{t("activerecord.values.message_template.template_type.#{template.template_type}")} - #{template.title}", id: "template-#{template.id}" do %>
+          <div class="fr-p-3w" style="background-color: var(--background-contrast-grey);">
+            <%= template.decorate.preview_with_header_footer(entity_name: current_user.full_name) %>
+          </div>
+          <div class="fr-btns-group fr-btns-group--right fr-btns-group--inline-md fr-mt-3w">
+            <% if current_user.manager?(template.authorization_definition_uid) %>
+              <%= button_to t('.actions.delete'),
+                            instruction_message_template_path(template),
+                            method: :delete,
+                            class: 'fr-btn fr-btn--sm fr-btn--secondary',
+                            data: { turbo_confirm: t('.actions.delete_confirm') } %>
+              <%= link_to t('.actions.edit'),
+                          edit_instruction_message_template_path(template),
+                          class: 'fr-btn fr-btn--sm' %>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
   <% end %>
 </div>
