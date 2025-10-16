@@ -7,8 +7,8 @@ class Seeds
     create_authorization_requests_for_clamart
     create_authorization_requests_for_dinum
     create_validated_authorization_request(:portail_hubee_demarche_certdc, attributes: { description: nil })
-
     create_instructor_draft_request(applicant: demandeur)
+    create_message_templates
   end
 
   def flushdb
@@ -401,5 +401,9 @@ class Seeds
 
   def production?
     Rails.env.production? && ENV['CAN_FLUSH_DB'].blank?
+  end
+
+  def create_message_templates
+    Seeds::MessageTemplates.create
   end
 end

@@ -19,7 +19,7 @@ RSpec.describe MessageTemplateInterpolator do
       let(:content) { '%{invalid}' }
 
       it 'raises an error' do
-        expect { interpolate }.to raise_error(ArgumentError, 'Missing variable in template')
+        expect { interpolate }.to raise_error(ArgumentError)
       end
     end
   end

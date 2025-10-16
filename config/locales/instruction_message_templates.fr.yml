@@ -3,41 +3,29 @@ fr:
     message_templates:
       index:
         skip_links:
-          create_template: "Créer un modèle"
           menu: "Menu"
           footer: "Pied de page"
-        title: "Modèles de messages"
-        description: "Les modèles de messages permettent de pré-remplir le contenu des messages envoyés aux demandeurs lors de l'instruction des demandes d'habilitation. Chaque modèle est associé à une habilitation et à un type de message (refus ou demande de modifications)."
-        create_button: "Créer un modèle"
-        empty_state: "Aucun modèle disponible."
-        table:
-          authorization: "Habilitation"
-          title: "Titre"
-          type: "Type"
-          content: "Contenu"
-          actions: "Actions"
+        title: "Modèles de message"
+        description: "Les modèles de message permettent de préremplir le contenu envoyé aux demandeurs lors de l'instruction de leurs demandes d'habilitation. Chaque modèle est lié à une habilitation et à un type de message (refus ou demande de modifications).<br />Vous ne pouvez créer que 3 modèles par type de messages."
+        create_button: "Nouveau modèle"
+        empty_state: "Aucun modèle pour le moment."
         actions:
-          preview: "Prévisualiser"
           edit: "Modifier"
           delete: "Supprimer"
-          delete_confirm: "Êtes-vous sûr ?"
+          delete_confirm: "Cette action est irréversible. Voulez-vous continuer ?"
       new:
         title: "Nouveau modèle de message"
       edit:
         title: "Éditer le modèle de message"
-      preview:
-        title: "Prévisualisation du modèle"
-        description: "Vous pouvez voir ci-dessous un aperçu du modèle de message avec des valeurs d'exemple insérées."
-        footer_note: "L'entête et le pied de page sont présent dans cette prévisualisation."
       form:
-        errors_title: "Erreurs de validation"
-        authorization_definition_uid_blank: "Choisir un type d'habilitation"
-        template_type_blank: "Choisir un type"
+        errors_title: "Le modèle de message n'a pas pu être enregistré."
+        authorization_definition_uid_blank: "Sélectionnez un type d’habilitation"
+        template_type_blank: "Sélectionnez un type de message"
         submit: "Enregistrer"
         cancel: "Annuler"
       create:
-        success: "Modèle créé avec succès"
+        success: "Le modèle a été créé avec succès."
       update:
-        success: "Modèle mis à jour avec succès"
+        success: "Le modèle a été mis à jour avec succès."
       destroy:
-        success: "Modèle supprimé avec succès"
+        success: "Le modèle a été supprimé avec succès."

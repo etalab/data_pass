@@ -1,12 +1,10 @@
 <%= form_with(model: message_template, url: url, method: method, class: 'fr-form') do |f| %>
   <% if message_template.errors.any? %>
-    <div class="fr-alert fr-alert--error">
+    <div class="fr-alert fr-alert--error fr-mb-5v">
       <h3 class="fr-alert__title"><%= t('.errors_title') %></h3>
-      <ul>
-        <% message_template.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+      <% message_template.errors.full_messages_for(:base).each do |error| %>
+        <p><%= error %></p>
+      <% end %>
     </div>
   <% end %>
 
