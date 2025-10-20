@@ -31,6 +31,8 @@ services:
     image: data_pass
     build: .
     command: 'bundle exec good_job start'
+    volumes:
+      - "./:/app"
     env_file:
       - '.env.docker'
     depends_on:
