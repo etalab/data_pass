@@ -45,7 +45,7 @@ jobs:
             ./.github/workflows/test.env
           key: v1-${{ hashFiles('Gemfile.lock') }}-${{ hashFiles('Dockerfile') }}
       - run: docker load --input /tmp/data_pass.tar
-      - run: docker run --rm --entrypoint="" data_pass:latest bundle exec brakeman
+      - run: docker run --rm --entrypoint="" -v ${{ github.workspace }}:/app data_pass:latest bundle exec brakeman
 
   rb-lint:
     name: "Linting: Rubocop"
@@ -61,7 +61,7 @@ jobs:
             ./.github/workflows/test.env
           key: v1-${{ hashFiles('Gemfile.lock') }}-${{ hashFiles('Dockerfile') }}
       - run: docker load --input /tmp/data_pass.tar
-      - run: docker run --rm --entrypoint="" data_pass:latest bundle exec rubocop
+      - run: docker run --rm --entrypoint="" -v ${{ github.workspace }}:/app data_pass:latest bundle exec rubocop
 
   js-lint:
     name: "Linting: Standardjs"
@@ -77,7 +77,7 @@ jobs:
             ./.github/workflows/test.env
           key: v1-${{ hashFiles('Gemfile.lock') }}-${{ hashFiles('Dockerfile') }}
       - run: docker load --input /tmp/data_pass.tar
-      - run: docker run --rm --entrypoint="" data_pass:latest standard app/javascript
+      - run: docker run --rm --entrypoint="" -v ${{ github.workspace }}:/app data_pass:latest standard app/javascript
 
   yaml-lint:
     name: "Linting: YAML through prettier"
@@ -93,7 +93,7 @@ jobs:
             ./.github/workflows/test.env
           key: v1-${{ hashFiles('Gemfile.lock') }}-${{ hashFiles('Dockerfile') }}
       - run: docker load --input /tmp/data_pass.tar
-      - run: docker run --rm --entrypoint="" data_pass:latest ./bin/lint-yaml
+      - run: docker run --rm --entrypoint="" -v ${{ github.workspace }}:/app data_pass:latest ./bin/lint-yaml
 
   unit-tests:
     name: "Unit tests: RSpec"
@@ -135,6 +135,7 @@ jobs:
           docker run \
             --network="host" \
             --env-file ./.github/workflows/test.env \
+            -v ${{ github.workspace }}:/app \
             --rm data_pass bundle exec rspec
 
   integration-tests:

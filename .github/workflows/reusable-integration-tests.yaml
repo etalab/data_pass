@@ -47,4 +47,5 @@ jobs:
           docker run \
             --network="host" \
             --env-file ./.github/workflows/test.env \
+            -v ${{ github.workspace }}:/app \
             --rm data_pass bundle exec cucumber --format progress ${{ inputs.cucumber_options }}
