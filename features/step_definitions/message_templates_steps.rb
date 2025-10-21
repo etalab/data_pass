@@ -13,7 +13,7 @@ end
 
 Sachantque('il existe un template de message {string} avec le contenu {string} pour {string}') do |title, content, authorization_definition_name|
   authorization_definition = find_authorization_definition_from_name(authorization_definition_name)
-  template_type = title.include?('Organisation non éligible') ? :refusal : :modification_request
+  template_type = title.include?('Organisation non éligible') || title.include?('refus') ? :refusal : :modification_request
   FactoryBot.create(:message_template,
     title:,
     authorization_definition_uid: authorization_definition.id,
