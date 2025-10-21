@@ -211,3 +211,16 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Et que je me rends sur mon tableau de bord demandeur habilitations
     Et il y a un badge "Active"
     Et il n'y a pas de bouton "Mettre à jour"
+
+  Scénario: Réouverture d'une demande qui n'est plus valide avec le spécifications actuelles
+    Quand j'ai 1 demande d'habilitation "API Entreprise" validée
+    Et que cette demande possède les informations potentiellement non intègres suivantes :
+      | champ               | nouvelle valeur   |
+      | cadre_juridique_url | Invalid           |
+    Et que je me rends sur mon tableau de bord demandeur habilitations
+    Et que je clique sur le premier "Mettre à jour"
+    Et que je clique sur "Mettre à jour"
+    Et que je clique sur "Envoyer ma demande"
+    Alors il y a un message d'erreur contenant "n'est pas un lien valide"
+
+
