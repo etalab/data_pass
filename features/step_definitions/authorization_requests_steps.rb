@@ -93,6 +93,18 @@ Quand('cette demande a été modifiée avec les informations suivantes :') do |t
   authorization_request.update!(params)
 end
 
+Quand('cette demande possède les informations potentiellement non intègres suivantes :') do |table|
+  authorization_request = AuthorizationRequest.last
+
+  data = authorization_request.data || {}
+
+  table.hashes.each do |datum_config|
+    data[datum_config['champ']] = datum_config['nouvelle valeur']
+  end
+
+  authorization_request.update_column(:data, data) # rubocop:disable Rails/SkipsModelValidations
+end
+
 Quand("je clique sur {string} pour l'habilitation {string}") do |cta_name, habilitation_name|
   click_link cta_name, href: new_authorization_request_path(definition_id: find_authorization_definition_from_name(habilitation_name).id.dasherize)
 end
