@@ -518,6 +518,7 @@ fr:
       start: Démarrer
       submit: Soumettre la demande d'habilitation
       submit_reopening: Envoyer ma demande de modification
+      submit_reopening_disabled_tooltip: Vous devez effectuer à minima un changement si vous voulez soumettre cette demande
       cancel_reopening: Annuler ma demande de modification
       review: Continuer vers le résumé
       save_and_review: Enregistrer et continuer vers le résumé
