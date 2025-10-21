@@ -117,3 +117,22 @@ Fonctionnalité: Instruction: templates de messages
     Et que je remplis "Contenu" avec "Bonjour %{variable_invalide}"
     Et que je clique sur "Enregistrer"
     Alors la page contient "contient des variables invalides"
+
+  @javascript
+  Scénario: Un manager peut filtrer les templates par type
+    Sachant que je suis un manager "API Entreprise"
+    Et que je me connecte
+    Sachant qu'il existe un template de message "Template refus" avec le contenu "Refus" pour "API Entreprise"
+    Sachant qu'il existe un template de message "Template modification" pour "API Entreprise"
+    Quand je me rends sur la page des templates de messages pour "API Entreprise"
+    Alors la page contient "Template refus"
+    Et la page contient "Template modification"
+    Quand je clique sur "Refus"
+    Alors la page contient "Template refus"
+    Et la page ne contient pas "Template modification"
+    Quand je clique sur "Demande de modifications"
+    Alors la page ne contient pas "Template refus"
+    Et la page contient "Template modification"
+    Quand je clique sur "Voir tout"
+    Alors la page contient "Template refus"
+    Et la page contient "Template modification"

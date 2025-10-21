@@ -9,6 +9,9 @@ fr:
         description: "Les modèles de message permettent de préremplir le contenu envoyé aux demandeurs lors de l'instruction de leurs demandes d'habilitation. Chaque modèle est lié à une habilitation et à un type de message (refus ou demande de modifications).<br />Vous ne pouvez créer que 3 modèles par type de messages."
         create_button: "Nouveau modèle"
         empty_state: "Aucun modèle pour le moment."
+        no_templates_for_filter: "Aucun modèle."
+        filters:
+          all: "Voir tout"
         actions:
           edit: "Modifier"
           delete: "Supprimer"
