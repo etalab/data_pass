@@ -11,3 +11,4 @@
 * [Guide sur les scopes](./modification_scopes.md)
 * [Configuration des scopes de formulaire (scopes_config)](./scopes_config.md)
 * [Utiliser notre API](./api.md)
+* [Modal dynamique (technique)](./technique/modal.md)
