@@ -42,11 +42,13 @@
       <turbo-frame id="tab-<%= tab.id %>-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tab-<%= tab.id %>" tabindex="0" data-turbo-action="advance">
 
         <% if params[:id] == tab.id %>
-          <div class="fr-mb-5w">
-            <%= render 'search_form' %>
-          </div>
+          <% if @facade.show_filters? %>
+            <div class="fr-mb-5w">
+              <%= render 'search_form' %>
+            </div>
+          <% end %>
 
-          <% if params[:search_query] && params[:search_query][:user_relationship_eq] == 'organization' && !current_user.current_organization_verified? %>
+          <% if @facade.show_organization_verification_warning? %>
             <div class="fr-alert fr-alert--warning fr-mb-6w">
               Votre lien avec l'organisation <strong><%= current_organization.name %></strong> (SIRET: <%= current_organization.siret %>) n'est pas vérifié, vous ne pouvez accéder ou consulter les autres demandes ou habilitations de cette organisation.
             </div>
@@ -54,11 +56,11 @@
 
           <div data-auto-height-target="source">
             <turbo-frame id="<%= "#{params[:id]}-table" %>" class="search-results-container">
-              <% @highlighted_categories.each do |category, items| %>
+              <% @facade.highlighted_categories.each do |category, items| %>
                 <% next if items.empty? %>
                 <%= render partial: 'highlighted_list', locals: { items: items.decorate, kind: category } %>
               <% end %>
-              <% @categories.each do |category, items| %>
+              <% @facade.categories.each do |category, items| %>
                 <% next if items.empty? %>
                 <%= render partial: 'list', locals: { items: items.decorate, kind: category } %>
               <% end %>

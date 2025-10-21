@@ -1,4 +1,4 @@
-<%= search_form_for(@search_engine, url: dashboard_show_path(id: params[:id]), html: { method: :get, data: { controller: 'auto-submit-form', 'auto-submit-form-debounce-interval-value' => 600, 'auto-submit-form-event-mode-value' => 'input', turbo_frame: "#{params[:id]}-table" }, class: %w[search-box] }) do |f| %>
+<%= search_form_for(@facade.search_engine, url: dashboard_show_path(id: params[:id]), html: { method: :get, data: { controller: 'auto-submit-form', 'auto-submit-form-debounce-interval-value' => 600, 'auto-submit-form-event-mode-value' => 'input', turbo_frame: "#{params[:id]}-table" }, class: %w[search-box] }) do |f| %>
   <div class="search-inputs">
     <% if params[:id] == 'demandes' %>
       <div class="fr-input-group main-input input">
@@ -50,7 +50,7 @@
                                         [t('dashboard.show.search.user_relationship.options.applicant'), 'applicant'],
                                         [t('dashboard.show.search.user_relationship.options.contact'), 'contact'],
                                         [t('dashboard.show.search.user_relationship.options.organization'), 'organization']
-                                      ], selected: params[:search_query]&.dig(:user_relationship_eq) || 'applicant'),
+                                      ], selected: params[:search_query]&.dig(:user_relationship_eq)),
                    {},
                    class: %w[fr-select],
                    id: 'user_relationship_filter'
