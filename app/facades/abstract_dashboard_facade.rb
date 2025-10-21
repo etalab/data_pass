@@ -23,7 +23,19 @@ class AbstractDashboardFacade
   end
 
   def data
-    raise NotImplementedError, 'Subclasses must implement #data'
+    @data ||= { highlighted_categories: {}, categories: {}, search_engine: nil }
+  end
+
+  def highlighted_categories
+    data[:highlighted_categories]
+  end
+
+  def categories
+    data[:categories]
+  end
+
+  def search_engine
+    data[:search_engine]
   end
 
   def model_class

@@ -1,4 +1,4 @@
-<%= search_form_for(@facade.data[:search_engine], url: dashboard_show_path(id: params[:id]), html: { method: :get, data: { controller: 'auto-submit-form', 'auto-submit-form-debounce-interval-value' => 600, 'auto-submit-form-event-mode-value' => 'input', turbo_frame: "#{params[:id]}-table" }, class: %w[search-box] }) do |f| %>
+<%= search_form_for(@facade.search_engine, url: dashboard_show_path(id: params[:id]), html: { method: :get, data: { controller: 'auto-submit-form', 'auto-submit-form-debounce-interval-value' => 600, 'auto-submit-form-event-mode-value' => 'input', turbo_frame: "#{params[:id]}-table" }, class: %w[search-box] }) do |f| %>
   <div class="search-inputs">
     <% if params[:id] == 'demandes' %>
       <div class="fr-input-group main-input input">

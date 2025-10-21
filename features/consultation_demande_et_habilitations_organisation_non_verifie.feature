@@ -8,8 +8,8 @@ Fonctionnalité: Consultation de demandes et habilitations avec une organisation
     Sachant que je suis un demandeur
     Et que je me connecte via ProConnect avec l'identité "DGFIP" qui renvoi l'organisation "Ville de Clamart"
     Et que je clique sur "CLAMART"
-    Et que j'ai 9 demandes d'habilitation "API Particulier" en brouillon
-    Et que j'ai 9 demandes d'habilitation "FranceConnect" validée
+    Et que j'ai 1 demande d'habilitation "API Particulier" en brouillon
+    Et que j'ai 1 demande d'habilitation "FranceConnect" validée
     Et que mon organisation a 1 demande d'habilitation "API Entreprise" en brouillon
     Et que mon organisation a 1 demande d'habilitation "API CaptchEtat" validée
 
