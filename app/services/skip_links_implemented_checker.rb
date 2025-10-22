@@ -66,6 +66,8 @@ class SkipLinksImplementedChecker
     admin/users_with_roles#create
     admin/whitelisted_verified_emails#index
     admin/whitelisted_verified_emails#new
+    admin/transfer_authorization_requests#new
+    admin/transfer_authorization_requests#create
 
     open_api#show
     oauth_applications#index

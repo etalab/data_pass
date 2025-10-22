@@ -125,6 +125,7 @@ Rails.application.routes.draw do
     resources :whitelisted_verified_emails, only: %w[index new create], path: 'emails-verifies'
     resources :users_with_roles, only: %i[index new create edit update], path: 'utilisateurs-avec-roles'
     resource :impersonate, only: %i[new create destroy], controller: 'impersonate'
+    resource :transfer_authorization_request, only: %i[new create], path: 'transferer-demande'
   end
 
   %w[/api/oauth /api/v1/oauth].each do |path|

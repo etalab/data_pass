@@ -21,3 +21,7 @@ Quand("je clique sur {string} pour l'utilisateur {string}") do |link, email|
     click_link_or_button link
   end
 end
+
+Quand("je remplis {string} avec l'ID de la demande") do |label|
+  fill_in label, with: AuthorizationRequest.last.id
+end
