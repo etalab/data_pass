@@ -147,7 +147,12 @@
               <%= dsfr_main_modal_button(t('authorization_request_forms.form.cancel_reopening'), new_authorization_request_cancel_reopening_path(@authorization_request), class: %w(fr-btn fr-btn--secondary fr-icon-arrow-left-s-line-double fr-btn--icon-left fr-mb-0)) %>
             </li>
             <li class="fr-ml-auto">
-              <%= f.button t('authorization_request_forms.form.submit_reopening'), disabled: !policy(@authorization_request).submit_reopening?, type: :submit, name: :submit, id: :submit_authorization_request, class: %w(fr-btn fr-icon-checkbox-line fr-btn--icon-left fr-mb-0) %>
+              <%= f.button t('authorization_request_forms.form.submit_reopening'), disabled: !policy(@authorization_request).submit_reopening?, type: :submit, name: :submit, id: :submit_authorization_request, class: %w(fr-btn fr-icon-checkbox-line fr-btn--icon-left fr-mb-0), aria: { describedby: policy(@authorization_request).submit_reopening? ? nil : 'submit-reopening-tooltip' } %>
+              <% unless policy(@authorization_request).submit_reopening? %>
+                <span class="fr-tooltip fr-placement" id="submit-reopening-tooltip" role="tooltip">
+                  <%= t('authorization_request_forms.form.submit_reopening_disabled_tooltip') %>
+                </span>
+              <% end %>
             </li>
           </ul>
         </div>
