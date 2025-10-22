@@ -67,3 +67,6 @@ app/migration/.hubee_config.yml
 lib/suivi_dtnum/sources/*
 lib/suivi_dtnum/__pycache__
 venv/
+
+# Ignore local scripts
+scripts/*
