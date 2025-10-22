@@ -8,6 +8,21 @@ class RestoreAuthorizationRequestToLatestAuthorization < RestoreAuthorizationReq
   end
 
   def authorization_request_params
-    ActionController::Parameters.new(latest_authorization.data)
+    data = latest_authorization.data.deep_dup
+    data['scopes'] = normalize_scopes(data['scopes'])
+    ActionController::Parameters.new(data)
+  end
+
+  def normalize_scopes(scopes)
+    case scopes
+    when String
+      JSON.parse(scopes)
+    when Array
+      scopes
+    else
+      []
+    end
+  rescue JSON::ParserError
+    []
   end
 end
