@@ -42,18 +42,18 @@ class INSEEAPIAuthentication < AbstractINSEEAPIClient
   private
 
   def client_id
-    Rails.application.credentials.insee_client_id
+    ENV.fetch('INSEE_CLIENT_ID', Rails.application.credentials.insee_client_id)
   end
 
   def client_secret
-    Rails.application.credentials.insee_client_secret
+    ENV.fetch('INSEE_CLIENT_SECRET', Rails.application.credentials.insee_client_secret)
   end
 
   def username
-    Rails.application.credentials.insee_username
+    ENV.fetch('INSEE_USERNAME', Rails.application.credentials.insee_username)
   end
 
   def password
-    Rails.application.credentials.insee_password
+    ENV.fetch('INSEE_PASSWORD', Rails.application.credentials.insee_password)
   end
 end

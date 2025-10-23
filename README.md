@@ -50,6 +50,11 @@ les seeds disponible [ici](app/lib/seeds.rb)
 Ask for the sandbox/staging/production master key to a colleague
 (`config/credentials/*.key`)
 
+You also need to setup environment variables, you can copy from
+`config/env.example` within `.env.local` file and change them as needed.
+There are not mandatory to run most of the features, only for INSEE fetching
+for instructor drafts.
+
 With docker:
 
 ```sh
