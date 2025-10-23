@@ -1,4 +1,6 @@
 class Instruction::RequestChangesOnAuthorizationRequestsController < Instruction::AbstractAuthorizationRequestsController
+  include Instruction::MessageTemplatesLoader
+
   before_action :authorize_authorization_request_changes_request
 
   def new
@@ -36,5 +38,9 @@ class Instruction::RequestChangesOnAuthorizationRequestsController < Instruction
 
   def model_to_track_for_impersonation
     @authorization_request
+  end
+
+  def message_template_type
+    :modification_request
   end
 end

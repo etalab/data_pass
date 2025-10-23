@@ -1,0 +1,41 @@
+<%= form_with(model: message_template, url: url, method: method, class: 'fr-form') do |f| %>
+  <% if message_template.errors.any? %>
+    <div class="fr-alert fr-alert--error fr-mb-5v">
+      <h3 class="fr-alert__title"><%= t('.errors_title') %></h3>
+      <% message_template.errors.full_messages_for(:base).each do |error| %>
+        <p><%= error %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if @managed_authorization_definitions.one? %>
+    <%= f.hidden_field :authorization_definition_uid, value: @managed_authorization_definitions.first.id %>
+  <% else %>
+    <%= f.dsfr_select :authorization_definition_uid,
+                      options_for_select(
+                        @managed_authorization_definitions.map { |ad| [ad.name, ad.id] },
+                        message_template.authorization_definition_uid
+                      ),
+                      include_blank: t('.authorization_definition_uid_blank'),
+                      required: true %>
+  <% end %>
+
+  <%= f.dsfr_text_field :title, maxlength: 50, required: true %>
+
+  <%= f.dsfr_select :template_type,
+                    options_for_select(
+                      MessageTemplate.template_types.keys.map { |type| [t("activerecord.values.message_template.template_type.#{type}"), type] },
+                      message_template.template_type
+                    ),
+                    include_blank: t('.template_type_blank'),
+                    required: true %>
+
+  <%= f.dsfr_text_area :content, rows: 10, required: true %>
+
+  <div class="fr-btns-group">
+    <%= f.submit t('.submit'), class: 'fr-btn' %>
+    <%= link_to t('.cancel'),
+                instruction_message_templates_path,
+                class: 'fr-btn fr-btn--secondary' %>
+  </div>
+<% end %>
