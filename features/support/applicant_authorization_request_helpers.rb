@@ -5,7 +5,7 @@ def user_session(user)
   user_sessions[user.email] = Capybara::Session.new(Capybara.default_driver, Rails.application)
 
   Capybara.using_session(user_sessions[user.email]) do
-    mock_mon_compte_pro(user)
+    mock_proconnect(user)
     step 'je me connecte'
   end
 
