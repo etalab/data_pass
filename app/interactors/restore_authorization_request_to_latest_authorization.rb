@@ -8,6 +8,14 @@ class RestoreAuthorizationRequestToLatestAuthorization < RestoreAuthorizationReq
   end
 
   def authorization_request_params
-    ActionController::Parameters.new(latest_authorization.data)
+    ActionController::Parameters.new(latest_authorization_attributes)
+  end
+
+  def latest_authorization_attributes
+    latest_authorization.data.each_with_object({}) do |(key, _), acc|
+      next unless latest_authorization.request_as_validated.respond_to?(key)
+
+      acc[key] = latest_authorization.request_as_validated.public_send(key)
+    end
   end
 end
