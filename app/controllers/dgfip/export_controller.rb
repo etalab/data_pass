@@ -35,7 +35,7 @@ class DGFIP::ExportController < AuthenticatedUserController
   end
 
   def data_provider
-    @data_provider ||= DataProvider.find('dgfip')
+    @data_provider ||= DataProvider.friendly.find('dgfip')
   end
 
   def abort_if_not_admin_nor_dgfip_reporter
