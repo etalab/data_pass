@@ -1,35 +1,27 @@
 import { Controller } from '@hotwired/stimulus'
 
-/* global MutationObserver */
-
 export default class extends Controller {
   static targets = ['container', 'content']
   static values = {
     defaultClasses: { type: String, default: 'fr-col-12 fr-col-md-8 fr-col-lg-6' }
   }
 
+  static COLUMN_CLASS_PREFIX = 'fr-col'
+  static SIZE_MAP = {
+    small: 'fr-col-12 fr-col-md-6 fr-col-lg-4',
+    medium: 'fr-col-12 fr-col-md-8 fr-col-lg-6',
+    large: 'fr-col-12 fr-col-md-10 fr-col-lg-8',
+    full: 'fr-col-12'
+  }
+
   connect () {
     this.boundApplySizeClasses = this.applySizeClasses.bind(this)
-
     this.contentTarget.addEventListener('turbo:frame-load', this.boundApplySizeClasses)
-
-    this.observer = new MutationObserver(() => {
-      this.applySizeClasses()
-    })
-
-    this.observer.observe(this.contentTarget, {
-      childList: true,
-      subtree: true
-    })
-
     this.applySizeClasses()
   }
 
   disconnect () {
     this.contentTarget.removeEventListener('turbo:frame-load', this.boundApplySizeClasses)
-    if (this.observer) {
-      this.observer.disconnect()
-    }
   }
 
   applySizeClasses () {
@@ -44,43 +36,35 @@ export default class extends Controller {
       return this.defaultClassesValue
     }
 
-    const customClasses = firstChild.dataset.modalSizeClasses
-    if (customClasses) {
-      return customClasses
+    return this.extractSizeClasses(firstChild.dataset) ||
+           this.extractSizeClasses(this.contentTarget.dataset) ||
+           this.defaultClassesValue
+  }
+
+  extractSizeClasses (dataset) {
+    if (dataset.modalSizeClasses) {
+      return dataset.modalSizeClasses
     }
 
-    const modalSize = firstChild.dataset.modalSize
-    if (modalSize) {
-      return this.getPredefinedSizeClasses(modalSize)
+    if (dataset.modalSize) {
+      return this.getPredefinedSizeClasses(dataset.modalSize)
     }
 
-    const turboFrameCustomClasses = this.contentTarget.dataset.modalSizeClasses
-    if (turboFrameCustomClasses) {
-      return turboFrameCustomClasses
-    }
-
-    const turboFrameModalSize = this.contentTarget.dataset.modalSize
-    if (turboFrameModalSize) {
-      return this.getPredefinedSizeClasses(turboFrameModalSize)
-    }
-
-    return this.defaultClassesValue
+    return null
   }
 
   getPredefinedSizeClasses (size) {
-    const sizeMap = {
-      small: 'fr-col-12 fr-col-md-6 fr-col-lg-4',
-      medium: 'fr-col-12 fr-col-md-8 fr-col-lg-6',
-      large: 'fr-col-12 fr-col-md-10 fr-col-lg-8',
-      full: 'fr-col-12'
-    }
-
-    return sizeMap[size] || this.defaultClassesValue
+    return this.constructor.SIZE_MAP[size] || this.defaultClassesValue
   }
 
   updateContainerClasses (newClasses) {
-    const currentClasses = this.containerTarget.className.split(' ').filter(cls => !cls.startsWith('fr-col'))
-    const updatedClasses = [...currentClasses, ...newClasses.split(' ')]
+    const currentClasses = this.containerTarget.className
+      .split(' ')
+      .filter(cls => cls && !cls.startsWith(this.constructor.COLUMN_CLASS_PREFIX))
+
+    const newClassesArray = newClasses.split(' ').filter(cls => cls)
+    const updatedClasses = [...currentClasses, ...newClassesArray]
+
     this.containerTarget.className = updatedClasses.join(' ')
   }
 }
