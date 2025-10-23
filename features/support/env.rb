@@ -57,7 +57,10 @@ Cucumber::Rails::Database.javascript_strategy = :truncation
 World(FactoryBot::Syntax::Methods)
 
 Seeds.new.flushdb
-Kredis.redis.flushdb
+
+Before do
+  Kredis.redis.flushdb
+end
 
 ActiveJob::Base.queue_adapter = :test
 
