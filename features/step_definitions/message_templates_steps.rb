@@ -1,19 +1,31 @@
+def map_template_type(type_french)
+  case type_french.downcase
+  when 'refus'
+    :refusal
+  when 'modifications'
+    :modification_request
+  else
+    raise "Type de template inconnu: #{type_french}"
+  end
+end
+
 Quand('je me rends sur la page des templates de messages pour {string}') do |_authorization_definition_name|
   visit instruction_message_templates_path
 end
 
-Sachantque('il existe un template de message {string} pour {string}') do |title, authorization_definition_name|
+Sachantque('il existe un template de message de {word} {string} pour {string}') do |template_type_french, title, authorization_definition_name|
   authorization_definition = find_authorization_definition_from_name(authorization_definition_name)
+  template_type = map_template_type(template_type_french)
   FactoryBot.create(:message_template,
     title:,
     authorization_definition_uid: authorization_definition.id,
-    template_type: :modification_request,
+    template_type:,
     content: 'Contenu du template')
 end
 
-Sachantque('il existe un template de message {string} avec le contenu {string} pour {string}') do |title, content, authorization_definition_name|
+Sachantque('il existe un template de message de {word} {string} avec le contenu {string} pour {string}') do |template_type_french, title, content, authorization_definition_name|
   authorization_definition = find_authorization_definition_from_name(authorization_definition_name)
-  template_type = title.include?('Organisation non éligible') || title.include?('refus') ? :refusal : :modification_request
+  template_type = map_template_type(template_type_french)
   FactoryBot.create(:message_template,
     title:,
     authorization_definition_uid: authorization_definition.id,
@@ -21,18 +33,9 @@ Sachantque('il existe un template de message {string} avec le contenu {string} p
     content:)
 end
 
-Sachantque('il existe un template de message avec le contenu {string} pour {string}') do |content, authorization_definition_name|
+Sachantque('il existe {int} templates de type {word} pour {string}') do |count, template_type_french, authorization_definition_name|
   authorization_definition = find_authorization_definition_from_name(authorization_definition_name)
-  FactoryBot.create(:message_template,
-    title: 'Template de test',
-    authorization_definition_uid: authorization_definition.id,
-    template_type: :modification_request,
-    content:)
-end
-
-Sachantque('il existe {int} templates de type {string} pour {string}') do |count, template_type_french, authorization_definition_name|
-  authorization_definition = find_authorization_definition_from_name(authorization_definition_name)
-  template_type = template_type_french == 'Refus' ? :refusal : :modification_request
+  template_type = map_template_type(template_type_french)
 
   count.times do |i|
     FactoryBot.create(:message_template,
