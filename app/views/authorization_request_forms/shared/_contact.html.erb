@@ -2,38 +2,60 @@
   <% contact_definition = @authorization_request.contact_definitions.find { |contact_definition| contact_definition.type == contact_type } %>
 <% end %>
 
+<% legend_id = dom_id(@authorization_request, "#{contact_definition.type}_legend") %>
+<% info_id = dom_id(@authorization_request, "#{contact_definition.type}_info") if @authorization_request.contact_info(contact_definition.type).present? %>
+
 <div class="fr-col-12 fr-col-lg-6">
-  <div id="<%= dom_id(@authorization_request, contact_definition.type) %>" data-controller="fill-contact-data-with-applicant-data" class="fr-basic-card contact-form-card" data-fill-contact-data-with-applicant-data-applicant-data-value="<%= current_user.attributes.slice('family_name', 'given_name', 'email', 'phone_number', 'job_title').to_json %>">
+  <div id="<%= dom_id(@authorization_request, contact_definition.type) %>" data-controller="fill-contact-data-with-applicant-data" class="fr-basic-card contact-form-card" role="region" aria-labelledby="<%= legend_id %>" data-fill-contact-data-with-applicant-data-applicant-data-value="<%= current_user.attributes.slice('family_name', 'given_name', 'email', 'phone_number', 'job_title').to_json %>">
 
-    <div class="fr-grid-row fr-grid-row--top">
-      <h6 class="contact-form-card__title fr-col fr-mr-2w">
-        <%= t("authorization_request_forms.default.#{contact_definition.type}.title") %>
-      </h6>
+    <fieldset class="fr-fieldset" <%= "aria-describedby=\"#{info_id}\"" if info_id %>>
+      <legend class="fr-fieldset__legend" id="<%= legend_id %>">
+        <div class="fr-grid-row fr-grid-row--top">
+          <span class="contact-form-card__title fr-col fr-mr-2w">
+            <%= t("authorization_request_forms.default.#{contact_definition.type}.title") %>
+          </span>
 
-      <% if contact_definition.fill_data_with_applicant_data? %>
-        <button type="button" class="fr-btn fr-btn--secondary fr-btn--sm" data-action="fill-contact-data-with-applicant-data#perform">
-          <%= t('.its_me') %>
-        </button>
-      <% end %>
-    </div>
+          <% if contact_definition.fill_data_with_applicant_data? %>
+            <button type="button" class="fr-btn fr-btn--secondary fr-btn--sm" data-action="fill-contact-data-with-applicant-data#perform" aria-label="<%= t('.fill_with_my_information') %>">
+              <%= t('.its_me') %>
+            </button>
+          <% end %>
+        </div>
 
-    <% if @authorization_request.contact_info(contact_definition.type).present? %>
-      <p class="contact-form-card__info">
-        <%= @authorization_request.contact_info(contact_definition.type).html_safe %>
-      </p>
-    <% end %>
+        <% if @authorization_request.contact_info(contact_definition.type).present? %>
+          <p class="contact-form-card__info" id="<%= info_id %>">
+            <%= @authorization_request.contact_info(contact_definition.type).html_safe %>
+          </p>
+        <% end %>
+      </legend>
 
-    <fieldset class="fr-fieldset" aria-label="feedme" aria-describedby="name-1-fieldset-messages">
+      <div class="fr-fieldset__element">
+        <p class="fr-text--xs fr-mb-2w">
+          Les champs marqués d’un astérisque (<abbr title="obligatoire" aria-label="obligatoire">*</abbr>) sont obligatoires.
+        </p>
+      </div>
+
       <% @authorization_request.class.contact_attributes.each do |contact_attribute| %>
         <% next if @authorization_request.skip_contact_attribute?(contact_definition.type, contact_attribute) %>
 
         <div class="fr-fieldset__element">
-          <% if contact_attribute == 'email' %>
-            <% html_options = contact_definition.required_personal_email? ? { data: { controller: 'individual-email-checker' } } : {} %>
+          <%
+            data_attributes = { 'fill-contact-data-with-applicant-data-target': 'formField' }
+            data_attributes[:controller] = 'individual-email-checker' if contact_attribute == 'email' && contact_definition.required_personal_email?
 
-            <%= f.dsfr_email_field("#{contact_definition.type}_#{contact_attribute}", html_options.merge(required: true)) %>
+            field_options = {
+              required: true,
+              'aria-required': 'true',
+              data: data_attributes
+            }
+
+            field_name = "#{contact_definition.type}_#{contact_attribute}"
+          %>
+
+          <% if contact_attribute == 'email' %>
+            <%= f.dsfr_email_field(field_name, field_options) %>
           <% else %>
-            <%= f.dsfr_text_field("#{contact_definition.type}_#{contact_attribute}", required: true) %>
+            <%= f.dsfr_text_field(field_name, field_options) %>
           <% end %>
         </div>
       <% end %>

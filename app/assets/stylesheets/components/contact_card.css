@@ -28,9 +28,14 @@
 
 .contact-form-card__title {
   color: var(--text-active-blue-france);
-  margin-bottom: 20px;
+  line-height: 1.5rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: var(--title-spacing);
 }
+
 .contact-form-card__info {
   margin-top: 0px;
-  font-size: 14px;
+  font-size: 0.875rem;
+  font-weight: 400;
 }
