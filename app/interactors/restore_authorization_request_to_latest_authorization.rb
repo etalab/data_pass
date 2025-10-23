@@ -8,21 +8,14 @@ class RestoreAuthorizationRequestToLatestAuthorization < RestoreAuthorizationReq
   end
 
   def authorization_request_params
-    data = latest_authorization.data.deep_dup
-    data['scopes'] = normalize_scopes(data['scopes'])
-    ActionController::Parameters.new(data)
+    ActionController::Parameters.new(latest_authorization_attributes)
   end
 
-  def normalize_scopes(scopes)
-    case scopes
-    when String
-      JSON.parse(scopes)
-    when Array
-      scopes
-    else
-      []
+  def latest_authorization_attributes
+    latest_authorization.data.each_with_object({}) do |(key, _), acc|
+      next unless latest_authorization.request_as_validated.respond_to?(key)
+
+      acc[key] = latest_authorization.request_as_validated.public_send(key)
     end
-  rescue JSON::ParserError
-    []
   end
 end
