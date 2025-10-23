@@ -79,7 +79,7 @@ class AuthorizationRequestsController < AuthenticatedUserController
     save_redirect_path
     @display_provider_logo_in_header = true
 
-    if @eligibility_rule.present? && params[:eligibility_confirmed].blank?
+    if @eligibility_rule && params[:eligibility_confirmed] != 'true'
       render 'authorization_requests/eligibility_check'
     else
       render 'authorization_requests/unauthenticated_start'
