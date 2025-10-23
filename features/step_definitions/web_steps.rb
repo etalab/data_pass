@@ -38,7 +38,7 @@ Quand(/je clique sur (le (?:dernier|premier) )?"([^"]+)"\s*$/) do |position, lab
 end
 
 Alors('la page contient {string}') do |content|
-  expect(page).to have_content(content)
+  expect(page).to have_content(content, normalize_ws: true)
 end
 
 Alors('la page contient un lien vers {string}') do |domain|
