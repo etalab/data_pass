@@ -7,20 +7,21 @@ Fonctionnalité: Vérification de l'éligibilité avant l'habilitation
 
   Scénario: Un utilisateur non connecté voit l'arbre de décision d'éligibilité
     Quand je me rends sur la page de démarrage d'une demande "API Particulier"
-    Alors la page contient "Qui êtes-vous ?"
-    Et la page contient "Particulier"
-    Et la page contient "Collectivité ou administration"
-    Et la page contient "Entreprise ou association"
+    Alors la page contient "Bienvenue sur DataPass !"
+    Et la page contient "Etes-vous :"
+    Et la page contient "Un particulier"
+    Et la page contient "Une collectivité ou une administration"
+    Et la page contient "Une entreprise ou une association"
 
   Scénario: Un particulier voit qu'il n'est pas éligible
     Quand je me rends sur la page de démarrage d'une demande "API Particulier"
-    Et je sélectionne "Particulier"
+    Et je sélectionne "Un particulier"
     Alors la page contient "Vous n’êtes pas autorisé"
     Et la page ne contient pas "Demander l'accès aux données"
 
   Scénario: Une collectivité voit qu'elle est éligible et peut continuer
     Quand je me rends sur la page de démarrage d'une demande "API Particulier"
-    Et je sélectionne "Collectivité ou administration"
+    Et je sélectionne "Une collectivité ou une administration"
     Alors la page contient "vous êtes éligible"
     Et je vois un lien "Demander l'accès aux données"
     Quand je clique sur "Demander l'accès aux données"
@@ -30,9 +31,9 @@ Fonctionnalité: Vérification de l'éligibilité avant l'habilitation
     Sachant que je suis un demandeur
     Et que je me connecte
     Quand je me rends sur la page de démarrage d'une demande "API Particulier"
-    Alors la page ne contient pas "Qui êtes-vous ?"
+    Alors la page ne contient pas "Etes-vous :"
 
   Scénario: Un utilisateur pour une API sans règles d'éligibilité voit directement ProConnect
     Quand je me rends sur la page de démarrage d'une demande "API Mobilic"
-    Alors la page ne contient pas "Qui êtes-vous ?"
+    Alors la page ne contient pas "Etes-vous :"
     Et la page contient "S’identifier avec ProConnect"

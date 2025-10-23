@@ -1,11 +1,9 @@
 <div class="fr-my-5w">
-  <h2>Qui êtes-vous ?</h2>
-
   <div data-controller="show-and-hide" data-show-and-hide-targets-value=".outcome, #particulier-outcome, #collectivite-outcome, #entreprise-outcome">
     <div class="fr-form-group">
       <fieldset class="fr-fieldset">
-        <legend class="fr-fieldset__legend">
-          Sélectionnez votre profil
+        <legend class="fr-fieldset__legend fr-text--lg fr-text--bold">
+          <%= t('eligibility.question') %>
         </legend>
 
         <% @eligibility_rule.options.each do |option| %>
