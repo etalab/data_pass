@@ -1,18 +1,20 @@
-class DataProvider < StaticApplicationRecord
-  attr_accessor :id,
-    :name,
-    :logo,
-    :link
+class DataProvider < ApplicationRecord
+  extend FriendlyId
 
-  def self.backend
-    Rails.application.config_for(:data_providers).map do |uid, hash|
-      new(id: uid.to_s, **hash.symbolize_keys)
-    end
-  end
+  URL_REGEX = %r{\A((http|https)://)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(/[\w\-._~:/?#\[\]@!$&'()*+,;%=]*)?\z}
+
+  friendly_id :slug, use: :slugged
+
+  has_one_attached :logo
+
+  validates :slug, presence: true, uniqueness: true
+  validates :name, presence: true
+  validates :link, presence: true, format: { with: URL_REGEX, message: I18n.t('activemodel.errors.messages.url_format') }
+  validates :logo, attached: true, content_type: ['image/png', 'image/jpeg']
 
   def authorization_definitions
     @authorization_definitions ||= AuthorizationDefinition.all.select do |authorization_definition|
-      authorization_definition.provider.id == id
+      authorization_definition.provider&.slug == slug
     end
   end
 
