@@ -8,6 +8,8 @@ api_particulier:
   kind: 'api'
   public: true
   support_email: "support@particulier.api.gouv.fr"
+  features:
+    instructor_drafts: true
   blocks:
     - name: "basic_infos"
     - name: "modalities"

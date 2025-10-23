@@ -24,13 +24,47 @@
       "note": ""
     },
     {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "329812c90640cfdf81c57455692dba02b14050db2493b17b2532101455515ed8",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/instruction/transfer_authorization_requests/new.html.erb",
+      "line": 27,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "t(\".email_disclaimer\", :organization_name => AuthorizationRequest.find(params[:authorization_request_id]).decorate.organization.name, :organization_siret => AuthorizationRequest.find(params[:authorization_request_id]).decorate.organization.siret)",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Instruction::TransferAuthorizationRequestsController",
+          "method": "new",
+          "line": 6,
+          "file": "app/controllers/instruction/transfer_authorization_requests_controller.rb",
+          "rendered": {
+            "name": "instruction/transfer_authorization_requests/new",
+            "file": "app/views/instruction/transfer_authorization_requests/new.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "instruction/transfer_authorization_requests/new"
+      },
+      "user_input": "AuthorizationRequest.find(params[:authorization_request_id]).decorate",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
+    },
+    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "356e6d0847ba9e4d4d88c2b5a9016a2b71f1cdd821248af8384b997249c4eec0",
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/lib/seeds.rb",
-      "line": 18,
+      "line": 20,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "ActiveRecord::Base.connection.execute(\"TRUNCATE TABLE #{table} CASCADE;\")",
       "render_path": null,
@@ -43,6 +77,74 @@
       "confidence": "Medium",
       "cwe_id": [
         89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "424755e6046fe8b54f5ce1c9c28354c9ceb037aed641f9d30d703ed385d80237",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/instruction/instructor_draft_requests/invite/new.html.erb",
+      "line": 21,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "t(\".error.message.#{InviteApplicantToClaimInstructorDraftRequest.call(instructor_draft_request_params.merge(:instructor_draft_request => InstructorDraftRequest.find(params[:instructor_draft_request_id]))).error}\")",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Instruction::InstructorDraftRequests::InviteController",
+          "method": "create",
+          "line": 19,
+          "file": "app/controllers/instruction/instructor_draft_requests/invite_controller.rb",
+          "rendered": {
+            "name": "instruction/instructor_draft_requests/invite/new",
+            "file": "app/views/instruction/instructor_draft_requests/invite/new.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "instruction/instructor_draft_requests/invite/new"
+      },
+      "user_input": "InstructorDraftRequest.find(params[:instructor_draft_request_id])",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "43e26c8de6c71caaf57e8200034bf70ee5254f6c275349f0e4771c069687ad8d",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/layouts/claim_instructor_draft_request.html.erb",
+      "line": 10,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "t(\".description\", :definition_name => InstructorDraftRequest.find_by!(:public_id => params[:id]).decorate.definition.name, :project_name => InstructorDraftRequest.find_by!(:public_id => params[:id]).decorate.project_name, :organization_name => InstructorDraftRequest.find_by!(:public_id => params[:id]).decorate.organization.name, :organization_legal_entity_id => InstructorDraftRequest.find_by!(:public_id => params[:id]).decorate.organization.legal_entity_id, :instructor_email => InstructorDraftRequest.find_by!(:public_id => params[:id]).decorate.instructor.email)",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "ClaimInstructorDraftRequestsController",
+          "method": "show",
+          "line": 11,
+          "file": "app/controllers/claim_instructor_draft_requests_controller.rb",
+          "rendered": {
+            "name": "layouts/claim_instructor_draft_request",
+            "file": "app/views/layouts/claim_instructor_draft_request.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "layouts/claim_instructor_draft_request"
+      },
+      "user_input": "InstructorDraftRequest.find_by!(:public_id => params[:id]).decorate",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
       ],
       "note": ""
     },
@@ -161,40 +263,6 @@
       "note": ""
     },
     {
-      "warning_type": "Cross-Site Scripting",
-      "warning_code": 2,
-      "fingerprint": "8dba018bf19f02c4fb98214cb26b879f0c0f6f0206d921cd3d7a86d3db5f3e10",
-      "check_name": "CrossSiteScripting",
-      "message": "Unescaped model attribute",
-      "file": "app/views/instruction/transfer_authorization_requests/new.html.erb",
-      "line": 27,
-      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "t(\".email_disclaimer\", :organization_name => AuthorizationRequest.find(params[:authorization_request_id]).organization.name, :organization_siret => AuthorizationRequest.find(params[:authorization_request_id]).organization.siret)",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "Instruction::TransferAuthorizationRequestsController",
-          "method": "new",
-          "line": 6,
-          "file": "app/controllers/instruction/transfer_authorization_requests_controller.rb",
-          "rendered": {
-            "name": "instruction/transfer_authorization_requests/new",
-            "file": "app/views/instruction/transfer_authorization_requests/new.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "instruction/transfer_authorization_requests/new"
-      },
-      "user_input": "AuthorizationRequest.find(params[:authorization_request_id]).organization",
-      "confidence": "Weak",
-      "cwe_id": [
-        79
-      ],
-      "note": ""
-    },
-    {
       "warning_type": "Dangerous Send",
       "warning_code": 23,
       "fingerprint": "cd5690fd7ab199e5fa1e8ec5bebf78691dbc407680a2f4638f195c0c4396601b",
@@ -224,7 +292,7 @@
       "check_name": "Render",
       "message": "Render path contains parameter value",
       "file": "app/views/instruction/dashboard/show.html.erb",
-      "line": 34,
+      "line": 36,
       "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
       "code": "render(action => (Instruction::DashboardHabilitationsFacade.new(:search_object => Instruction::Search::DashboardHabilitationsSearch.new(:params => (params), :scope => policy_scope([:instruction, Authorization]))) or Instruction::DashboardDemandesFacade.new(:search_object => Instruction::Search::DashboardDemandesSearch.new(:params => (params), :scope => policy_scope([:instruction, AuthorizationRequest])))).partial, { :items => (Instruction::DashboardHabilitationsFacade.new(:search_object => Instruction::Search::DashboardHabilitationsSearch.new(:params => (params), :scope => policy_scope([:instruction, Authorization]))) or Instruction::DashboardDemandesFacade.new(:search_object => Instruction::Search::DashboardDemandesSearch.new(:params => (params), :scope => policy_scope([:instruction, AuthorizationRequest])))).items, :search_engine => (Instruction::DashboardHabilitationsFacade.new(:search_object => Instruction::Search::DashboardHabilitationsSearch.new(:params => (params), :scope => policy_scope([:instruction, Authorization]))) or Instruction::DashboardDemandesFacade.new(:search_object => Instruction::Search::DashboardDemandesSearch.new(:params => (params), :scope => policy_scope([:instruction, AuthorizationRequest])))).search_engine })",
       "render_path": [
@@ -298,5 +366,5 @@
       "note": ""
     }
   ],
-  "brakeman_version": "7.0.2"
+  "brakeman_version": "7.1.0"
 }

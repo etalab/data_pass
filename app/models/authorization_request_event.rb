@@ -11,6 +11,7 @@ class AuthorizationRequestEvent < ApplicationRecord
     transfer
 
     copy
+    claim
 
     reopen
     cancel_reopening
@@ -54,6 +55,7 @@ class AuthorizationRequestEvent < ApplicationRecord
     return if %w[applicant_message instructor_message].include?(name) && entity_type == 'Message'
     return if %w[approve refuse request_changes revoke].exclude?(name) && entity_type == 'AuthorizationRequest'
     return if %w[bulk_update].include?(name) && entity_type == 'BulkAuthorizationRequestUpdate'
+    return if name == 'claim' && entity_type == 'InstructorDraftRequest'
 
     errors.add(:entity_type, :invalid)
   end

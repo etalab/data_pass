@@ -1,0 +1,31 @@
+<h2 class="fr-h2 fr-mt-5w">
+  <%= t('.title') %>
+</h2>
+
+<p>
+  <%= t('.description') %>
+</p>
+
+<% if @definitions.one? %>
+  <% definition = @definitions.first %>
+
+  <div class="fr-mb-5w">
+    <h3 class="fr-h3"><%= definition.name_with_stage %></h3>
+    <%= render 'form_selector', definition: definition, forms: definition.available_forms %>
+  </div>
+<% else %>
+  <div class="fr-accordions-group">
+    <% @definitions.each do |definition| %>
+      <section class="fr-accordion">
+        <h3 class="fr-accordion__title">
+          <button class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-<%= definition.id %>">
+            <%= definition.name_with_stage %>
+          </button>
+        </h3>
+        <div class="fr-collapse" id="accordion-<%= definition.id %>">
+          <%= render 'form_selector', definition: definition, forms: definition.available_forms %>
+        </div>
+      </section>
+    <% end %>
+  </div>
+<% end %>

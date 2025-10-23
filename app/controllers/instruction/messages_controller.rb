@@ -2,8 +2,6 @@ class Instruction::MessagesController < InstructionController
   before_action :extract_authorization_request
   before_action :mark_messages_as_read!, only: [:index]
 
-  decorates_assigned :authorization_request
-
   def index
     authorize [:instruction, @authorization_request], :messages?
 
@@ -46,7 +44,7 @@ class Instruction::MessagesController < InstructionController
   end
 
   def extract_authorization_request
-    @authorization_request = AuthorizationRequest.find(params[:authorization_request_id])
+    @authorization_request = AuthorizationRequest.find(params[:authorization_request_id]).decorate
   end
 
   def mark_messages_as_read!

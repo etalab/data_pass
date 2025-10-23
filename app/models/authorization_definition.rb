@@ -61,8 +61,8 @@ class AuthorizationDefinition < StaticApplicationRecord
     end
   end
 
-  def feature?(name)
-    features.fetch(name.to_sym, true)
+  def feature?(name, default: true)
+    features.fetch(name.to_sym, default)
   end
 
   def need_homologation?
@@ -86,6 +86,11 @@ class AuthorizationDefinition < StaticApplicationRecord
       form.public &&
         form.startable_by_applicant
     end
+  end
+
+  def default_form
+    available_forms.find(&:default) ||
+      available_forms.first
   end
 
   def available_forms
@@ -114,6 +119,10 @@ class AuthorizationDefinition < StaticApplicationRecord
 
   def authorization_request_class
     @authorization_request_class ||= AuthorizationRequest.const_get(id.classify)
+  end
+
+  def authorization_request_type
+    authorization_request_class_as_string.underscore.split('/').last
   end
 
   def authorization_request_class_as_string

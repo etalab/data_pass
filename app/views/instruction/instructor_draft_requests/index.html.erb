@@ -1,0 +1,77 @@
+<h2 class="fr-h2 fr-mt-5w">
+  <%= t('.title') %>
+</h2>
+
+<%= link_to t('.new'), new_instruction_instructor_draft_request_path %>
+
+<turbo-frame id="instructor_draft_requests_table">
+  <div class="fr-table fr-table--bordered">
+    <table>
+      <thead>
+        <tr>
+          <%
+            %w[
+              id
+              project_name
+              authorization_definition_name
+              applicant_email
+              organization
+              instructor_email
+              actions
+            ].each do |attr|
+          %>
+            <th scope="col">
+              <%= t(".table.header.#{attr}") %>
+            </th>
+          <% end %>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @instructor_draft_requests.each do |instructor_draft_request| %>
+          <tr id="<%= dom_id(instructor_draft_request) %>" class="instructor-draft-request">
+            <td class="instructor-draft-request--id">
+              <%= instructor_draft_request.id %>
+            </td>
+
+            <td class="instructor-draft-request--project_name">
+              <%= instructor_draft_request.project_name %>
+            </td>
+
+            <td class="instructor-draft-request--authorization_definition_name">
+              <%= instructor_draft_request.definition.name %>
+            </td>
+
+            <td class="instructor-draft-request--applicant_email">
+              <% if instructor_draft_request.applicant %>
+                <%= instructor_draft_request.applicant.email %>
+              <% end %>
+            </td>
+
+            <td class="instructor-draft-request--organization">
+              <% if instructor_draft_request.organization %>
+                <%= link_to instructor_draft_request.organization.denomination, "https://annuaire-entreprises.data.gouv.fr/etablissement/#{instructor_draft_request.organization.siret}", target: '_blank' %>
+              <% end %>
+            </td>
+
+            <td class="instructor-draft-request--instructor_email">
+              <%= instructor_draft_request.instructor.email %>
+            </td>
+
+            <td class="instructor-draft-request--actions">
+              <% if policy([:instruction, instructor_draft_request]).invite? %>
+                <%= dsfr_main_modal_button(t('.table.actions.invite'), new_instruction_instructor_draft_request_invite_path(instructor_draft_request), class: 'fr-btn fr-btn--secondary fr-btn--sm', aria: { controls: 'main-modal' }, data: { turbo_frame: 'main-modal-content' }) %>
+              <% else %>
+                <%= link_to t('.table.actions.invite_link'), claim_instructor_draft_request_path(instructor_draft_request.public_id) %>
+              <% end %>
+
+              <%= link_to t('.table.actions.edit'), edit_instruction_instructor_draft_request_path(instructor_draft_request), class: 'fr-btn fr-btn--secondary fr-btn--sm' %>
+              <%= button_to t('.table.actions.delete'), instruction_instructor_draft_request_path(instructor_draft_request), method: :delete, data: { turbo_confirm: t('.table.actions.confirm_delete') }, class: 'fr-btn fr-btn--secondary fr-btn--sm' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</turbo-frame>
+

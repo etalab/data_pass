@@ -13,6 +13,8 @@ class ApplicationMailer < ActionMailer::Base
       build_host_from_authorization_request(params[:message].authorization_request)
     elsif params[:authorization_request_transfer].present?
       build_host_from_authorization_request(params[:authorization_request_transfer].authorization_request)
+    elsif params[:instructor_draft_request].present?
+      build_host_from_authorization_request(params[:instructor_draft_request].request)
     end
   end
   # rubocop:enable Metrics/AbcSize
