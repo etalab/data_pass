@@ -22,8 +22,6 @@ class Seeds
     end
   end
 
-  private
-
   def create_data_providers
     seeds_for(:data_providers).each do |slug, attributes|
       provider = DataProvider.find_or_initialize_by(
@@ -45,6 +43,8 @@ class Seeds
       provider.save!
     end
   end
+
+  private
 
   # rubocop:disable Metrics/AbcSize
   def create_entities
