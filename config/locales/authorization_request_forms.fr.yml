@@ -990,7 +990,7 @@ fr:
         label: Nom du logiciel
         hint: Nom commercial du logiciel
       volumetrie_approximative:
-        label: Nombre de clients utilisateurs estimés
+        label: Nombre de clients utilisateurs estimé
         hint: "Nombre d'utilisateurs par mois"
       scopes:
         title: Validation du flux opérationnel
