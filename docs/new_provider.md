@@ -221,20 +221,24 @@ Pour la configuration d'un [formulaire (2.)](../config/authorization_request_for
       intitule: "Mon intitulé"
 ```
 
-### 1.1 Ajout d'un nouveau fournisseur
+### 1.1 Ajout d'un nouveau fournisseur (Data Provider)
 
-S'il s'agit d'un nouveau fournisseur, il faut l'ajouter dans
-[`config/data_providers.yml`](../config/data_providers.yml)
+**⚠️ Important** : Depuis la migration (PR #1175), les Data Providers sont stockés en base de données et non plus dans un fichier YAML.
 
-Le format :
+Pour ajouter un nouveau fournisseur de données, vous avez deux options :
+- **En console Rails** : Création manuelle directe (dev/test)
+- **Via migration** : Création via fichier de migration (production, recommandé)
 
-```yaml
-  # Identifiant unique du fournisseur, utilisé dans le form au-dessus
-  mon-fournisseur:
-    name: Mon Fournisseur
-    logo: mon-fournisseur.png
-    link: https://mon-fournisseur.gouv.fr
-```
+**📖 Consulter la documentation complète** : [Ajout d'un nouveau Data Provider](./ajout_nouveau_provider.md)
+
+Cette documentation couvre :
+- Conventions de nommage du slug
+- Création en console et via migration
+- Ajout au fichier seeds et à la factory
+- Gestion des logos
+- Validations et troubleshooting
+
+**Note** : Le `slug` du provider doit correspondre à la valeur du champ `provider:` dans la configuration `AuthorizationDefinition` ci-dessus.
 
 ## 2. Ajouter et configurer le modèle de données
 
