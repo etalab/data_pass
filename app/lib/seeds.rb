@@ -1,5 +1,6 @@
 class Seeds
   def perform
+    create_data_providers
     create_entities
     create_oauth_app
     create_all_verified_emails
@@ -18,6 +19,28 @@ class Seeds
       next if %w[schema_migrations ar_internal_metadata].include?(table)
 
       ActiveRecord::Base.connection.execute("TRUNCATE TABLE #{table} CASCADE;")
+    end
+  end
+
+  def create_data_providers
+    seeds_for(:data_providers).each do |slug, attributes|
+      provider = DataProvider.find_or_initialize_by(
+        slug: slug.to_s,
+      )
+
+      provider.assign_attributes(
+        name: attributes[:name],
+        link: attributes[:link]
+      )
+
+      provider.save!(validate: false)
+
+      provider.logo.attach(
+        io: Rails.root.join('app', 'assets', 'images', 'data_providers', attributes[:logo]).open,
+        filename: attributes[:logo],
+      )
+
+      provider.save!
     end
   end
 
@@ -157,7 +180,7 @@ class Seeds
   def all_dgfip_authorizations_definitions
     AuthorizationDefinition
       .all
-      .select { |definition| definition.provider.id == 'dgfip' }
+      .select { |definition| definition.provider&.id == 'dgfip' }
   end
 
   def all_dgfip_developer_roles
@@ -397,6 +420,10 @@ class Seeds
 
   def load_all_models!
     Rails.root.glob('app/models/**/*.rb').each { |f| require f }
+  end
+
+  def seeds_for(name)
+    YAML.load(Rails.root.join('db', 'seeds', "#{name}.yml").read, aliases: true).deep_symbolize_keys[:shared]
   end
 
   def production?

@@ -1,7 +1,6 @@
 class AuthorizationDefinition < StaticApplicationRecord
   attr_accessor :id,
     :name,
-    :provider,
     :description,
     :link,
     :access_link,
@@ -15,6 +14,7 @@ class AuthorizationDefinition < StaticApplicationRecord
 
   attr_writer :startable_by_applicant,
     :public,
+    :provider_slug,
     :unique
 
   def self.backend
@@ -44,7 +44,7 @@ class AuthorizationDefinition < StaticApplicationRecord
         :unique,
       ).merge(
         id: uid.to_s,
-        provider: DataProvider.find(hash[:provider]),
+        provider_slug: hash[:provider],
         stage: Stage.new(hash[:stage]),
         scopes: (hash[:scopes] || []).map { |scope_data| AuthorizationDefinition::Scope.new(scope_data) },
         blocks: hash[:blocks] || [],
@@ -127,5 +127,11 @@ class AuthorizationDefinition < StaticApplicationRecord
 
   def authorization_request_class_as_string
     authorization_request_class.to_s
+  end
+
+  def provider
+    DataProvider.friendly.find(@provider_slug)
+  rescue ActiveRecord::RecordNotFound
+    nil
   end
 end

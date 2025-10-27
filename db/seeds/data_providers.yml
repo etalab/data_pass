@@ -1,4 +1,15 @@
 ---
+# NOTE: This file is kept for reference purposes only.
+# Data providers are now stored in the database (data_providers table).
+# To add new providers, use the Rails console:
+#   provider = DataProvider.create!(
+#     name: 'Provider Name',
+#     link: 'https://provider.gouv.fr'
+#   )
+#   provider.logo.attach(io: File.open('path/to/logo.png'), filename: 'logo.png', content_type: 'image/png')
+#
+# This file was used for the initial data migration.
+# Migration date: 2025-10-23
 shared:
   dgs:
     name: Organisation de la direction générale de la santé (DGS)

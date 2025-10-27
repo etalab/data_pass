@@ -25,6 +25,7 @@ Fonctionnalité: Démarrage d'habilitation par des internautes
     Alors je suis sur la page "Demander une habilitation à : API Entreprise"
     Et la page contient "DUPONT Jean"
 
+  @CreateDataProviders
   Scénario:  Un internaute veut accéder à son habilitation API scolarité de l'élève - formulaire "Demande libre"
     Sachant que je suis un demandeur
     Quand je me rends sur une demande d'habilitation "API scolarité de l'élève" validée
@@ -33,6 +34,7 @@ Fonctionnalité: Démarrage d'habilitation par des internautes
     Alors je clique sur "S’identifier avec ProConnect"
     Alors il y a un formulaire en mode résumé
 
+  @CreateDataProviders
   Scénario: Un internaute veut démarrer une demande d'habilitation API Entreprise
     Sachant que je suis un demandeur
     Quand je veux remplir une demande pour "API Entreprise"

@@ -175,6 +175,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_24_141046) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "data_providers", force: :cascade do |t|
+    t.string "slug", null: false
+    t.string "name", null: false
+    t.string "link", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_data_providers_on_slug", unique: true
+  end
+
   create_table "denial_of_authorizations", force: :cascade do |t|
     t.string "reason", null: false
     t.bigint "authorization_request_id", null: false
@@ -311,8 +320,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_24_141046) do
     t.text "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "form_uid", null: false
     t.boolean "claimed", default: false, null: false
+    t.string "form_uid", null: false
     t.index ["instructor_id"], name: "index_instructor_draft_requests_on_instructor_id"
   end
 
