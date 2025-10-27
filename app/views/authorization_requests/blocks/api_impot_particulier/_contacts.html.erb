@@ -2,9 +2,16 @@
   <div class="fr-container-fluid">
     <div class="fr-grid-row fr-grid-row--gutters">
       <% authorization_request.contact_types.each do |contact_type| %>
+        <% contact_label_id = dom_id(authorization_request, "#{contact_type}_label") %>
+
         <div class="fr-col-12 fr-col-lg-6">
-          <div id="<%= dom_id(authorization_request, contact_type) %>" class="fr-basic-card contact-card">
-            <div class="contact-card__kind">
+          <div
+            id="<%= dom_id(authorization_request, contact_type) %>"
+            class="fr-basic-card contact-card"
+            role="region"
+            aria-labelledby="<%= contact_label_id %>"
+          >
+            <div class="contact-card__kind" id="<%= contact_label_id %>">
               <%= t("authorization_request_forms.default.#{contact_type}.title") %>
             </div>
 
@@ -53,9 +60,15 @@
         </div>
       <% end %>
 
+      <% extra_contact_label_id = dom_id(authorization_request, 'extra_organization_contact_label') %>
+
       <div class="fr-col-12 fr-col-lg-6">
-        <div class="fr-basic-card contact-card">
-          <div class="contact-card__kind">
+        <div
+          class="fr-basic-card contact-card"
+          role="region"
+          aria-labelledby="<%= extra_contact_label_id %>"
+        >
+          <div class="contact-card__kind" id="<%= extra_contact_label_id %>">
             <%= f.wording_for('contact_organization.extra.title') %>
           </div>
 
