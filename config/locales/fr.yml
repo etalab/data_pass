@@ -692,21 +692,6 @@ fr:
   stats:
     index:
       title: Statistiques d'utilisation
-  oauth_applications:
-    index:
-      title: Mes clefs d'accès API
-      documentation_url: Voir la documentation API
-      description_html: Liste de vos applications OAuth et de leurs credentials API
-      list_of_habilitations_description: "Vos clefs d'accès API vous permettent d'accéder aux demandes et habilitations suivantes"
-      no_developer_roles: Vous n'avez pas de clefs d'accès API, contactez un administrateur pour en obtenir.
-      table:
-        headers:
-          name: Nom de l'application
-          credentials: Identifiants
-          scopes: Scopes
-        row:
-          client_id: Id
-          client_secret: Secret
   manual_transfer_authorization_requests:
     new:
       title: "Transfert manuel requis"
