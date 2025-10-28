@@ -1,0 +1,14 @@
+fr:
+  developers:
+    developers:
+      index:
+        title: Espace développeur
+        documentation: Documentation API
+        applications: Applications OAuth
+        webhooks: Gestion des webhooks
+    oauth_applications:
+      index:
+        title: Mes applications OAuth
+    open_api:
+      show:
+        title: Documentation API
