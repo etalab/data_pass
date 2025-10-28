@@ -78,20 +78,4 @@ RSpec.describe IdentityProvider do
       it { is_expected.to be(true) }
     end
   end
-
-  describe '#linked_to_organizations_verified?' do
-    subject { identity_provider.linked_to_organizations_verified? }
-
-    describe 'DGFIP provider' do
-      let(:identity_provider) { dgfip_identity_provider }
-
-      it { is_expected.to be(false) }
-    end
-
-    describe 'ProConnect identity provider' do
-      let(:identity_provider) { proconnect_identity_provider }
-
-      it { is_expected.to be(true) }
-    end
-  end
 end
