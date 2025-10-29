@@ -72,6 +72,17 @@ Sachantque("je suis un demandeur pour l'organisation {string}") do |organization
   mock_identity_federators(user)
 end
 
+Sachantque('je suis aussi dans l\'organisation {string}') do |organization_name|
+  organization = find_or_create_organization_by_name(organization_name)
+  current_user.add_to_organization(organization, verified: true, current: false)
+end
+
+Sachantque('mon organisation n\'est pas vérifiée') do
+  current_user.organizations_users.each do |org_user|
+    org_user.update!(verified: false)
+  end
+end
+
 Sachantque('je consulte le site ayant le sous-domaine {string}') do |subdomain|
   $previous_app_host = Capybara.app_host.dup
   Capybara.app_host = "http://#{subdomain}.localtest.me"
