@@ -6,50 +6,42 @@
 <% info_id = dom_id(@authorization_request, "#{contact_definition.type}_info") if @authorization_request.contact_info(contact_definition.type).present? %>
 
 <div class="fr-col-12 fr-col-lg-6">
-  <div id="<%= dom_id(@authorization_request, contact_definition.type) %>" data-controller="fill-contact-data-with-applicant-data" class="fr-basic-card contact-form-card" role="region" aria-labelledby="<%= legend_id %>" data-fill-contact-data-with-applicant-data-applicant-data-value="<%= current_user.attributes.slice('family_name', 'given_name', 'email', 'phone_number', 'job_title').to_json %>">
+  <div id="<%= dom_id(@authorization_request, contact_definition.type) %>" data-controller="fill-contact-data-with-applicant-data" class="fr-basic-card contact-form-card" data-fill-contact-data-with-applicant-data-applicant-data-value="<%= current_user.attributes.slice('family_name', 'given_name', 'email', 'phone_number', 'job_title').to_json %>" style="position: relative;">
 
     <fieldset class="fr-fieldset" <%= "aria-describedby=\"#{info_id}\"" if info_id %>>
-      <legend class="fr-fieldset__legend" id="<%= legend_id %>">
-        <div class="fr-grid-row fr-grid-row--top">
-          <span class="contact-form-card__title fr-col fr-mr-2w">
-            <%= t("authorization_request_forms.default.#{contact_definition.type}.title") %>
-          </span>
-
-          <% if contact_definition.fill_data_with_applicant_data? %>
-            <button type="button" class="fr-btn fr-btn--secondary fr-btn--sm" data-action="fill-contact-data-with-applicant-data#perform" aria-label="<%= t('.fill_with_my_information') %>">
-              <%= t('.its_me') %>
-            </button>
-          <% end %>
-        </div>
-
-        <% if @authorization_request.contact_info(contact_definition.type).present? %>
-          <p class="contact-form-card__info" id="<%= info_id %>">
-            <%= @authorization_request.contact_info(contact_definition.type).html_safe %>
-          </p>
-        <% end %>
+      <legend class="fr-fieldset__legend contact-form-card__title" id="<%= legend_id %>">
+        <%= t("authorization_request_forms.default.#{contact_definition.type}.title") %>
       </legend>
 
-      <div class="fr-fieldset__element">
-        <p class="fr-text--xs fr-mb-2w">
-          Les champs marqués d’un astérisque (<abbr title="obligatoire" aria-label="obligatoire">*</abbr>) sont obligatoires.
+      <% if @authorization_request.contact_info(contact_definition.type).present? %>
+        <p class="contact-form-card__info" id="<%= info_id %>">
+          <%= @authorization_request.contact_info(contact_definition.type).html_safe %>
         </p>
-      </div>
+      <% end %>
+
+      <p class="fr-text--xs fr-mb-2w">
+        Les champs marqués d’un astérisque <span aria-hidden="true">*</span> sont obligatoires.
+      </p>
+
+      <% if contact_definition.fill_data_with_applicant_data? %>
+        <button type="button" class="fr-btn fr-btn--secondary fr-btn--sm contact-form-card__fill-button" data-action="fill-contact-data-with-applicant-data#perform" aria-label="<%= t('.fill_with_my_information') %>">
+          <%= t('.its_me') %>
+        </button>
+      <% end %>
+
+      <div data-fill-contact-data-with-applicant-data-target="notification" data-message="<%= t('.fields_filled_successfully') %>" role="status" aria-live="polite" aria-atomic="true" tabindex="-1"></div>
 
       <% @authorization_request.class.contact_attributes.each do |contact_attribute| %>
         <% next if @authorization_request.skip_contact_attribute?(contact_definition.type, contact_attribute) %>
 
         <div class="fr-fieldset__element">
           <%
-            data_attributes = { 'fill-contact-data-with-applicant-data-target': 'formField' }
-            data_attributes[:controller] = 'individual-email-checker' if contact_attribute == 'email' && contact_definition.required_personal_email?
-
-            field_options = {
-              required: true,
-              'aria-required': 'true',
-              data: data_attributes
-            }
-
             field_name = "#{contact_definition.type}_#{contact_attribute}"
+            field_options = { required: true }
+
+            if contact_attribute == 'email' && contact_definition.required_personal_email?
+              field_options[:data] = { controller: 'individual-email-checker' }
+            end
           %>
 
           <% if contact_attribute == 'email' %>

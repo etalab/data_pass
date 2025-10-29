@@ -39,3 +39,10 @@
   font-size: 0.875rem;
   font-weight: 400;
 }
+
+.contact-form-card__fill-button {
+  position: absolute;
+  top: -4.25rem;
+  right: 1.25rem;
+  z-index: 10;
+}
