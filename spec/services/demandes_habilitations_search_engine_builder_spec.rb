@@ -6,7 +6,7 @@ RSpec.describe DemandesHabilitationsSearchEngineBuilder do
   let(:other_user) { create(:user) }
 
   before do
-    current_user.add_to_organization(organization, current: true)
+    current_user.add_to_organization(organization, verified: true, current: true)
   end
 
   describe '#build_search_engine' do
