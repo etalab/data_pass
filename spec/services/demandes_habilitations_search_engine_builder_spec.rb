@@ -389,4 +389,87 @@ RSpec.describe DemandesHabilitationsSearchEngineBuilder do
       expect(service.search_engine).to be_present
     end
   end
+
+  describe '#build_authorization_requests_relation with multiple organizations' do
+    subject(:result) { service.build_authorization_requests_relation(policy_scope) }
+
+    let(:current_organization) { create(:organization) }
+    let(:request_in_current_org) do
+      create(:authorization_request, :api_entreprise, applicant: current_user, organization: current_organization)
+    end
+    let(:request_in_other_org_as_applicant) do
+      create(:authorization_request, :api_particulier,
+        applicant: current_user,
+        organization: other_organization,
+        data: { 'responsable_traitement_email' => current_user.email })
+    end
+    let(:request_in_other_org_as_contact) do
+      create(:authorization_request, :api_entreprise,
+        applicant: other_user,
+        organization: other_organization,
+        data: { 'contact_metier_email' => current_user.email })
+    end
+    let(:other_organization) { create(:organization) }
+    let(:params) { ActionController::Parameters.new({}) }
+
+    before do
+      current_user.add_to_organization(current_organization, verified: true, current: true)
+      current_user.add_to_organization(other_organization, verified: true, current: false)
+      other_user.add_to_organization(other_organization, verified: true, current: true)
+    end
+
+    context 'when user has verified organization' do
+      let(:policy_scope) { AuthorizationRequest.where(organization: current_organization) }
+
+      it 'shows requests from current organization' do
+        expect(result).to include(request_in_current_org)
+      end
+
+      it 'does not show requests from other organization where user is applicant' do
+        expect(result).not_to include(request_in_other_org_as_applicant)
+      end
+
+      it 'shows requests from other organization where user is mentioned as contact' do
+        expect(result).to include(request_in_other_org_as_contact)
+      end
+    end
+
+    context 'when user has non-verified organization' do
+      let(:policy_scope) { AuthorizationRequest.where(applicant: current_user, organization: current_organization) }
+
+      before do
+        allow(current_user).to receive_messages(current_organization_verified?: false, current_organization: current_organization)
+      end
+
+      it 'shows requests where user is applicant in current organization' do
+        expect(result).to include(request_in_current_org)
+      end
+
+      it 'does not show requests from other organization where user is applicant' do
+        expect(result).not_to include(request_in_other_org_as_applicant)
+      end
+
+      it 'shows requests from other organization where user is mentioned as contact' do
+        expect(result).to include(request_in_other_org_as_contact)
+      end
+    end
+
+    context 'when non-verified user tries to use organization filter' do
+      let(:params) do
+        ActionController::Parameters.new(
+          search_query: { user_relationship_eq: 'organization' }
+        )
+      end
+
+      let(:policy_scope) { AuthorizationRequest.where(applicant: current_user, organization: current_organization) }
+
+      before do
+        allow(current_user).to receive_messages(current_organization_verified?: false, current_organization: current_organization)
+      end
+
+      it 'returns empty relation' do
+        expect(result).to be_empty
+      end
+    end
+  end
 end
