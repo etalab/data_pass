@@ -3,6 +3,8 @@ class AbstractDashboardFacade
 
   attr_reader :user, :search_query, :subdomain_types, :scoped_relation
 
+  delegate :current_organization_verified?, to: :user
+
   def initialize(user:, search_query:, subdomain_types:, scoped_relation:)
     @user = user
     @search_query = search_query

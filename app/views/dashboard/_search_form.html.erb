@@ -45,12 +45,15 @@
 
     <div class="fr-select-group input">
       <%= f.label :user_relationship_eq, t('dashboard.show.search.user_relationship.label'), class: %w[fr-label], for: 'user_relationship_filter' %>
+      <% user_relationship_options = [
+        [t('dashboard.show.search.user_relationship.options.applicant'), 'applicant'],
+        [t('dashboard.show.search.user_relationship.options.contact'), 'contact']
+      ] %>
+      <% if @facade.current_organization_verified? %>
+        <% user_relationship_options << [t('dashboard.show.search.user_relationship.options.organization'), 'organization'] %>
+      <% end %>
       <%= f.select :user_relationship_eq,
-                   options_for_select([
-                                        [t('dashboard.show.search.user_relationship.options.applicant'), 'applicant'],
-                                        [t('dashboard.show.search.user_relationship.options.contact'), 'contact'],
-                                        [t('dashboard.show.search.user_relationship.options.organization'), 'organization']
-                                      ], selected: params[:search_query]&.dig(:user_relationship_eq)),
+                   options_for_select(user_relationship_options, selected: params[:search_query]&.dig(:user_relationship_eq)),
                    {},
                    class: %w[fr-select],
                    id: 'user_relationship_filter'
