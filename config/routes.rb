@@ -153,10 +153,31 @@ Rails.application.routes.draw do
   namespace :developers, path: 'developpeurs' do
     resources :oauth_applications, only: :index, path: 'applications'
     get 'documentation', to: 'open_api#show'
+
+    resources :webhooks, path: 'webhooks' do
+      member do
+        post :enable, path: 'activer'
+        post :disable, path: 'desactiver'
+      end
+
+      resources :webhook_calls, only: %i[index show], path: 'appels' do
+        member do
+          post :replay, path: 'rejouer'
+        end
+      end
+    end
   end
 
   namespace :api do
     resources :frontal, only: :index
+
+    namespace :developers do
+      resources :webhook_calls, only: [] do
+        member do
+          post :replay
+        end
+      end
+    end
 
     namespace :v1 do
       get '/me', to: 'credentials#me'

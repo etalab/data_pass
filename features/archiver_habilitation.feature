@@ -23,6 +23,7 @@ Fonctionnalité: Supprimer une habilitation
 
   @FlushJobQueue
   Scénario: Je supprime une de mes habilitations en brouillon
+    Sachant qu'il existe un webhook activé pour "API Entreprise" avec l'URL "https://webhook.site/test"
     Quand je me rends sur une demande d'habilitation "API Entreprise" en brouillon
     Et que je clique sur "Supprimer"
     Et que je clique sur "Supprimer la demande"
