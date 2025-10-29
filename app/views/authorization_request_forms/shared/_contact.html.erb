@@ -29,7 +29,7 @@
         </button>
       <% end %>
 
-      <div data-fill-contact-data-with-applicant-data-target="notification" data-message="<%= t('.fields_filled_successfully') %>" role="status" aria-live="polite" aria-atomic="true" tabindex="-1"></div>
+      <div data-fill-contact-data-with-applicant-data-target="notification" data-message="<%= t('.fields_filled_successfully') %>" role="alert" aria-atomic="true" aria-live="assertive" tabindex="-1"></div>
 
       <% @authorization_request.class.contact_attributes.each do |contact_attribute| %>
         <% next if @authorization_request.skip_contact_attribute?(contact_definition.type, contact_attribute) %>

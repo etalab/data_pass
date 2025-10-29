@@ -8,43 +8,53 @@ export default class extends Controller {
   static targets = ['notification']
 
   perform (event) {
-    ['family_name', 'given_name', 'email', 'phone_number', 'job_title'].forEach((field) => {
+    let firstElement = null
+
+    ;['family_name', 'given_name', 'email', 'phone_number', 'job_title'].forEach((field) => {
       const element = this.element.querySelectorAll('[id$="_' + field + '"]')[0]
 
       if (element) {
+        if (!firstElement) {
+          firstElement = element
+        }
         element.value = this.applicantDataValue[field]
         element.dispatchEvent(new Event('input', { bubbles: true }))
       }
     })
 
-    this.showNotification()
+    this.showNotification(firstElement)
 
-    event.srcElement.classList.add('fr-hidden')
+    event.target.classList.add('fr-hidden')
   }
 
-  showNotification () {
+  showNotification (firstElement) {
     if (this.hasNotificationTarget) {
       const message = this.notificationTarget.getAttribute('data-message') || 'Vos informations ont été remplies automatiquement'
 
-      this.notificationTarget.innerHTML = `
-        <div class="fr-alert fr-alert--success fr-my-2w">
-          <p class="fr-alert__title">${message}</p>
-        </div>
-      `
-
       setTimeout(() => {
+        this.notificationTarget.innerHTML = `
+          <div class="fr-alert fr-alert--success fr-alert--sm fr-my-2w">
+            <p class="fr-alert__title">${message}</p>
+          </div>
+        `
         this.notificationTarget.focus()
-      }, 100)
 
-      setTimeout(() => {
-        this.hideNotification()
-      }, 5000)
+        if (firstElement) {
+          setTimeout(() => {
+            firstElement.focus()
+          }, 5000)
+        }
+
+        setTimeout(() => {
+          this.hideNotification()
+        }, 5000)
+      }, 100)
     }
   }
 
   hideNotification () {
     if (this.hasNotificationTarget) {
-      this.notificationTarget.innerHTML = ''
+      this.notificationTarget.textContent = ''
     }
   }
 }
