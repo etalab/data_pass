@@ -14,12 +14,20 @@ end
 shared_examples 'delivers a webhook' do |options|
   context 'when authorization request has webhooks activated for all events' do
     let(:authorization_request_kind) { :api_entreprise }
+    let!(:webhook) do
+      create(:webhook,
+        authorization_definition_id: authorization_request.definition.id,
+        events: [options[:event_name]],
+        validated: true,
+        enabled: true)
+    end
 
     it 'delivers a webhook for this event' do
       expect { subject }.to have_enqueued_job(DeliverAuthorizationRequestWebhookJob).with(
-        authorization_request.definition.id,
-        a_string_matching("\"event\":\"#{options[:event_name]}\""),
+        webhook.id,
         authorization_request.id,
+        options[:event_name].to_s,
+        a_hash_including('event' => options[:event_name].to_s)
       ), "Expected to have enqueued a webhook delivery job with the event name #{options[:event_name]}"
     end
   end
