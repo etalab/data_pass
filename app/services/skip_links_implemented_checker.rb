@@ -86,8 +86,8 @@ class SkipLinksImplementedChecker
     admin/transfer_authorization_requests#new
     admin/transfer_authorization_requests#create
 
-    open_api#show
-    oauth_applications#index
+    developers/open_api#show
+    developers/oauth_applications#index
     pages#proconnect_connexion
     public/authorization_requests#show
 

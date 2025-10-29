@@ -725,6 +725,12 @@ fr:
     show:
       description: Pour finaliser cette demande d'habilitation, cliquez sur le bouton ci-dessous
       cta: Finaliser cette demande
+
+  errors:
+    messages:
+      form_errors:
+        one: "Le formulaire contient une erreur"
+        other: "Le formulaire contient %{count} erreurs"
   eligibility:
     title: "Bienvenue sur DataPass !"
     subtitle: "Les données auxquelles vous souhaitez avoir accès ne sont accessibles que sur habilitation, vérifions si vous êtes éligibles :"

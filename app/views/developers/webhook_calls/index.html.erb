@@ -1,0 +1,79 @@
+<% content_for :content_skip_link_text do %>
+  Historique des appels
+<% end %>
+
+<% content_for :skip_links do %>
+  <%= skip_link("Contenu principal", "calls-table") %>
+  <%= skip_link("Menu", "header") %>
+  <%= skip_link("Pied de page", "footer") %>
+<% end %>
+
+<div class="sub-header">
+  <h1 class="fr-m-0">
+    <%= t('.title') %>
+  </h1>
+</div>
+
+<div class="fr-mt-4w">
+  <%= link_to t('.back'), developers_webhooks_path, class: %w[fr-link fr-icon-arrow-left-line fr-link--icon-left] %>
+</div>
+
+<% if @webhook_calls.empty? %>
+  <div class="fr-callout fr-mt-4w" id="calls-table">
+    <p class="fr-callout__text">
+      <%= t('.no_calls') %>
+    </p>
+  </div>
+<% else %>
+  <div class="fr-table fr-mt-4w" id="calls-table">
+    <div class="fr-table__wrapper">
+      <div class="fr-table__container">
+        <div class="fr-table__content">
+          <table>
+            <caption><%= t('.table_caption') %></caption>
+            <thead>
+              <tr>
+                <th scope="col"><%= t('.event') %></th>
+                <th scope="col"><%= t('.status') %></th>
+                <th scope="col"><%= t('.date') %></th>
+                <th scope="col"><%= t('.result') %></th>
+                <th scope="col"><%= t('.actions') %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @webhook_calls.each do |webhook_call| %>
+                <tr>
+                  <td><%= webhook_call.event_name %></td>
+                  <td>
+                    <% if webhook_call.status_code %>
+                      <span class="fr-badge <%= webhook_call.success? ? 'fr-badge--success' : 'fr-badge--error' %> fr-badge--sm">
+                        <%= webhook_call.status_code %>
+                      </span>
+                    <% else %>
+                      <span class="fr-badge fr-badge--error fr-badge--sm"><%= t('.no_response') %></span>
+                    <% end %>
+                  </td>
+                  <td><%= l(webhook_call.created_at, format: :long) %></td>
+                  <td>
+                    <% if webhook_call.success? %>
+                      <span class="fr-badge fr-badge--success fr-badge--sm"><%= t('.success') %></span>
+                    <% else %>
+                      <span class="fr-badge fr-badge--error fr-badge--sm"><%= t('.failure') %></span>
+                    <% end %>
+                  </td>
+                  <td>
+                    <%= link_to t('.view_details'), developers_webhook_webhook_call_path(@webhook, webhook_call), class: %w[fr-btn fr-btn--sm fr-btn--secondary] %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fr-mt-4w">
+    <%= paginate @webhook_calls if @webhook_calls.respond_to?(:current_page) %>
+  </div>
+<% end %>

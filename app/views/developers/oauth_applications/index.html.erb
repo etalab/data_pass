@@ -1,10 +1,19 @@
+<% content_for :content_skip_link_text do %>
+  Mes applications OAuth
+<% end %>
+
+<% content_for :skip_links do %>
+  <%= skip_link("Menu", "header") %>
+  <%= skip_link("Pied de page", "footer") %>
+<% end %>
+
 <div class="sub-header">
   <h1 class="fr-m-0">
     <%= t('.title') %>
   </h1>
 </div>
 
-<%= link_to t('.documentation_url'), developpeurs_documentation_url, class: 'fr-btn fr-btn--secondary' %>
+<%= link_to t('.documentation_url'), developers_documentation_path, class: 'fr-btn fr-btn--secondary' %>
 
 <% if @applications.any? %>
   <div class="fr-mt-2w">

@@ -1,14 +1,120 @@
 fr:
+  webhooks:
+    events:
+      create: Création
+      update: Mise à jour
+      transfer: Transfert
+      submit: Soumission
+      approve: Approbation
+      refuse: Refus
+      request_changes: Demande de modifications
+      revoke: Révocation
+      archive: Archivage
+      reopen: Réouverture
+      cancel_reopening: Annulation de la réouverture
   developers:
-    developers:
+    index:
+      title: Espace développeur
+      documentation: Documentation API
+      documentation_desc: Accédez à la documentation complète de l'API DataPass pour intégrer nos services dans vos applications. Découvrez les endpoints disponibles, les formats de données et les exemples d'utilisation.
+      applications: Applications OAuth
+      applications_desc: Créez et gérez vos applications OAuth pour accéder à l'API DataPass de manière sécurisée. Générez vos identifiants client et configurez vos URLs de redirection.
+      webhooks: Webhooks
+      webhooks_desc: Configurez des webhooks pour recevoir des notifications en temps réel lors des changements de statut de vos demandes d'autorisation. Suivez l'historique des appels et rejouez les webhooks en cas d'échec.
+    webhooks:
       index:
-        title: Espace développeur
-        documentation: Documentation API
-        applications: Applications OAuth
-        webhooks: Gestion des webhooks
+        title: Mes webhooks
+        new_webhook: Nouveau webhook
+        no_webhooks: Vous n'avez pas encore de webhooks configurés
+        active: Actif
+        inactive: Inactif
+        not_validated: Non validé
+        edit: Modifier
+        view_calls: Voir les appels
+        enable: Activer
+        disable: Désactiver
+        disable_confirm: Êtes-vous sûr de vouloir désactiver ce webhook ?
+        delete: Supprimer
+        delete_confirm: Êtes-vous sûr de vouloir supprimer ce webhook ?
+        table:
+          id: ID
+          authorization_definition: Service
+          url: URL
+          calls_count: Nombre d'appels
+          events: Événements
+          status: Statut
+          actions: Actions
+      new:
+        title: Nouveau webhook
+      create:
+        success: Webhook créé avec succès
+        error: Impossible de créer le webhook
+      edit:
+        title: Modifier le webhook
+      update:
+        success: Webhook mis à jour avec succès
+        error: Impossible de mettre à jour le webhook
+      destroy:
+        success: Webhook supprimé avec succès
+      enable:
+        success: Webhook activé avec succès
+        error: Impossible d'activer le webhook
+      disable:
+        success: Webhook désactivé avec succès
+      form:
+        events_label: Événements
+        events_hint: Sélectionnez les événements qui déclencheront ce webhook
+        cancel: Annuler
+        submit:
+          create: Créer le webhook
+          update: Mettre à jour le webhook
+        help_title: Aide
+        help_text_html: |
+          <p>Les webhooks vous permettent de recevoir des notifications en temps réel lorsque des événements se produisent sur vos demandes d'autorisation.</p>
+          <p>Pour tester votre webhook, vous pouvez utiliser <a href="https://webhook.site" target="_blank" rel="noopener noreferrer" class="fr-link">webhook.site</a>.</p>
+    webhook_calls:
+      index:
+        title: Historique des appels
+        back: Retour aux webhooks
+        no_calls: Aucun appel enregistré pour ce webhook
+        table_caption: Liste des appels de webhooks
+        event: Événement
+        status: Statut
+        date: Date
+        result: Résultat
+        actions: Actions
+        success: ✓ Succès
+        failure: ✗ Échec
+        view_details: Voir détails
+        no_response: Pas de réponse
+      show:
+        title: Détails de l'appel
+        back: Retour à l'historique
+        replay: Rejouer cet appel
+        status: Statut
+        event: Événement
+        date: Date
+        result: Résultat
+        success: Succès
+        failure: Échec
+        no_response: Pas de réponse
+        payload: Payload envoyé
+        response: Réponse reçue
+      replay:
+        success: Appel rejoué avec succès
+        error: Erreur lors du rejeu de l'appel
     oauth_applications:
       index:
-        title: Mes applications OAuth
-    open_api:
-      show:
-        title: Documentation API
+        title: Mes clefs d'accès API
+        documentation_url: Voir la documentation API
+        description_html: Liste de vos applications OAuth et de leurs credentials API
+        list_of_habilitations_description: Vos clefs d'accès API vous permettent d'accéder aux demandes et habilitations suivantes
+        no_developer_roles: Vous n'avez pas de clefs d'accès API, contactez un administrateur pour en obtenir.
+        table:
+          headers:
+            name: Nom de l'application
+            credentials: Identifiants
+            scopes: Scopes
+          row:
+            client_id: Id
+            client_secret: Secret
