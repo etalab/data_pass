@@ -1,9 +1,8 @@
 <% heading_id = dom_id(authorization_request, "#{block_id}_heading") %>
 
-<div
+<section
   class="summary-block <%= !editable ? 'summary-block--fixed' : '' %> fr-mb-6w <%= local_assigns[:extra_summary_block_css_classes] %>"
   id="<%= dom_id(authorization_request, block_id) %>"
-  role="region"
   aria-labelledby="<%= heading_id %>"
 >
   <div class="summary-block__header">
@@ -33,4 +32,4 @@
       <%= yield %>
     <% end %>
   </div>
-</div>
+</section>

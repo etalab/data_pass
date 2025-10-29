@@ -8,8 +8,6 @@
           <div
             id="<%= dom_id(authorization_request, contact_type) %>"
             class="fr-basic-card contact-card"
-            role="region"
-            aria-labelledby="<%= contact_label_id %>"
           >
             <div class="contact-card__kind" id="<%= contact_label_id %>">
               <%= t("authorization_request_forms.default.#{contact_type}.title") %>
@@ -65,8 +63,6 @@
       <div class="fr-col-12 fr-col-lg-6">
         <div
           class="fr-basic-card contact-card"
-          role="region"
-          aria-labelledby="<%= extra_contact_label_id %>"
         >
           <div class="contact-card__kind" id="<%= extra_contact_label_id %>">
             <%= f.wording_for('contact_organization.extra.title') %>
