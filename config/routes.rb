@@ -175,5 +175,10 @@ Rails.application.routes.draw do
 
   get '/dgfip/export', to: 'dgfip/export#show', as: :dgfip_export
 
+  if Rails.env.local?
+    post '/dummy/valid/webhooks', to: ->(_env) { [200, { 'Content-Type' => 'application/json' }, [{token_id: SecureRandom.hex(16)}.to_json]] }
+    post '/dummy/invalid/webhooks', to: ->(_env) { [422, { 'Content-Type' => 'application/json' }, [{hello: 'world'}.to_json]] }
+  end
+
   mount GoodJob::Engine => '/workers'
 end
