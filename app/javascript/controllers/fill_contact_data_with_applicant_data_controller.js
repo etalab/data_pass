@@ -22,33 +22,22 @@ export default class extends Controller {
       }
     })
 
-    this.showNotification(firstElement)
-
-    event.target.classList.add('fr-hidden')
+    this.showNotification(firstElement, event.target)
   }
 
-  showNotification (firstElement) {
+  showNotification (firstElement, button) {
     if (this.hasNotificationTarget) {
       const message = this.notificationTarget.getAttribute('data-message') || 'Vos informations ont été remplies automatiquement'
 
-      setTimeout(() => {
-        this.notificationTarget.innerHTML = `
-          <div class="fr-alert fr-alert--success fr-alert--sm fr-my-2w">
-            <p class="fr-alert__title">${message}</p>
-          </div>
-        `
-        this.notificationTarget.focus()
+      this.notificationTarget.innerHTML = `<p>${message}</p>`
 
-        if (firstElement) {
-          setTimeout(() => {
-            firstElement.focus()
-          }, 5000)
-        }
-
+      if (firstElement) {
         setTimeout(() => {
+          firstElement.focus()
+          button.classList.add('fr-hidden')
           this.hideNotification()
-        }, 5000)
-      }, 100)
+        }, 3500)
+      }
     }
   }
 
