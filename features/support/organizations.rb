@@ -6,6 +6,7 @@ end
 def organization_name_to_siret(name)
   {
     'Ville de Clamart' => '21920023500014',
+    'Ville de Lyon' => '21690123100011',
     'DINUM' => '13002526500013',
   }[name] || (raise "Unknown organization name: #{name}")
 end
