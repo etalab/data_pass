@@ -103,4 +103,65 @@ RSpec.describe AbstractDashboardFacade, type: :facade do
       end
     end
   end
+
+  describe '#user_relationship_options' do
+    subject(:options) { facade.user_relationship_options }
+
+    context 'when user organization is verified' do
+      it 'includes all three options' do
+        expect(options.size).to eq(3)
+        expect(options.map(&:last)).to contain_exactly('applicant', 'contact', 'organization')
+      end
+
+      it 'includes organization option' do
+        organization_option = options.find { |opt| opt.last == 'organization' }
+        expect(organization_option).to be_present
+      end
+    end
+
+    context 'when user organization is not verified' do
+      let(:current_user) do
+        user = create(:user)
+        user.add_to_organization(organization, verified: false, current: true)
+        user
+      end
+
+      it 'includes only two options' do
+        expect(options.size).to eq(2)
+        expect(options.map(&:last)).to contain_exactly('applicant', 'contact')
+      end
+
+      it 'does not include organization option' do
+        organization_option = options.find { |opt| opt.last == 'organization' }
+        expect(organization_option).to be_nil
+      end
+    end
+  end
+
+  describe '#search_builder' do
+    it 'returns AuthorizationsSearchEngineBuilder for Authorization model' do
+      builder = facade.send(:search_builder)
+      expect(builder).to be_a(AuthorizationsSearchEngineBuilder)
+    end
+
+    context 'with AuthorizationRequest model' do
+      let(:scoped_relation) { AuthorizationRequest.where(organization: organization) }
+      let(:concrete_facade) do
+        Class.new(AbstractDashboardFacade) do
+          def model_class
+            AuthorizationRequest
+          end
+
+          def displayed_states
+            %w[draft submitted]
+          end
+        end
+      end
+
+      it 'returns AuthorizationRequestsSearchEngineBuilder' do
+        builder = facade.send(:search_builder)
+        expect(builder).to be_a(AuthorizationRequestsSearchEngineBuilder)
+      end
+    end
+  end
 end

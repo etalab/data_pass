@@ -51,4 +51,16 @@ RSpec.describe DashboardHabilitationsFacade, type: :facade do
       end
     end
   end
+
+  describe 'service integration' do
+    it 'uses AuthorizationsSearchEngineBuilder' do
+      builder = facade.send(:search_builder)
+      expect(builder).to be_a(AuthorizationsSearchEngineBuilder)
+    end
+
+    it 'does not pass subdomain_types to the builder' do
+      builder = facade.send(:search_builder)
+      expect(builder).not_to respond_to(:subdomain_types)
+    end
+  end
 end

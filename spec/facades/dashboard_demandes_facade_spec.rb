@@ -56,4 +56,23 @@ RSpec.describe DashboardDemandesFacade, type: :facade do
       end
     end
   end
+
+  describe 'service integration' do
+    it 'uses AuthorizationRequestsSearchEngineBuilder' do
+      builder = facade.send(:search_builder)
+      expect(builder).to be_a(AuthorizationRequestsSearchEngineBuilder)
+    end
+
+    it 'passes subdomain_types to the builder' do
+      facade_with_subdomain = described_class.new(
+        user: current_user,
+        search_query: search_query,
+        subdomain_types: ['ApiEntrepriseRequest'],
+        scoped_relation: scoped_relation
+      )
+
+      builder = facade_with_subdomain.send(:search_builder)
+      expect(builder.subdomain_types).to eq(['ApiEntrepriseRequest'])
+    end
+  end
 end
