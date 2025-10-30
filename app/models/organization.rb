@@ -42,6 +42,12 @@ class Organization < ApplicationRecord
     self[:insee_payload] || {}
   end
 
+  def last_insee_update_within_24h?
+    return false if last_insee_payload_updated_at.blank?
+
+    last_insee_payload_updated_at > 24.hours.ago
+  end
+
   def foreign?
     legal_entity_registry != 'insee_sirene'
   end
