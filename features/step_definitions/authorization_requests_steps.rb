@@ -167,9 +167,9 @@ Quand("cette dernière demande d'habilitation s'appelait {string}") do |intitule
   last_authorization_request.save
 end
 
-Quand('je change d\'organisation courante pour mon organisation par défaut') do
-  default_organization = current_user.organizations_users.order(created_at: :asc).first.organization
-  current_user.organizations_users.find_by(organization: default_organization).set_as_current!
+Quand('je change d\'organisation courante pour mon organisation initiale') do
+  initial_organization = current_user.organizations_users.order(created_at: :asc).first.organization
+  current_user.organizations_users.find_by(organization: initial_organization).set_as_current!
   current_user.reload
 end
 

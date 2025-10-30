@@ -112,7 +112,7 @@ Fonctionnalité: Tableau de bord
     Et que j'ai 5 demandes d'habilitation "API Entreprise" en attente
     Quand je me rends sur mon tableau de bord demandes
     Alors je vois 5 demandes d'habilitation
-    Quand je change d'organisation courante pour mon organisation par défaut
+    Quand je change d'organisation courante pour mon organisation initiale
     Et que je me rends sur mon tableau de bord demandes
     Alors je vois 3 demandes d'habilitation
 
