@@ -6,7 +6,7 @@ RSpec.describe DemandesHabilitationsSearchEngineBuilder do
   let(:other_user) { create(:user) }
 
   before do
-    current_user.add_to_organization(organization, current: true)
+    current_user.add_to_organization(organization, verified: true, current: true)
   end
 
   describe '#build_search_engine' do
@@ -387,6 +387,86 @@ RSpec.describe DemandesHabilitationsSearchEngineBuilder do
 
       expect(result).to be_a(ActiveRecord::Relation)
       expect(service.search_engine).to be_present
+    end
+  end
+
+  describe '#build_authorization_requests_relation with multiple organizations' do
+    subject(:result) { service.build_authorization_requests_relation(policy_scope) }
+
+    let(:user) { current_user }
+    let(:user_organization) { create(:organization) }
+    let(:other_organization) { create(:organization) }
+    let(:another_user) { create(:user) }
+    let(:params) { ActionController::Parameters.new({}) }
+
+    let(:request_in_user_org) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: user_organization)
+    end
+    let(:request_in_other_org_as_applicant) do
+      create(:authorization_request, :api_particulier,
+        applicant: user,
+        organization: other_organization,
+        data: { 'responsable_traitement_email' => user.email })
+    end
+    let(:request_in_other_org_as_contact) do
+      create(:authorization_request, :api_entreprise,
+        applicant: another_user,
+        organization: other_organization,
+        data: { 'contact_metier_email' => user.email })
+    end
+
+    before do
+      user.add_to_organization(user_organization, verified: true, current: true)
+      user.add_to_organization(other_organization, verified: true, current: false)
+      another_user.add_to_organization(other_organization, verified: true, current: true)
+    end
+
+    context 'with a verified link between user and organization' do
+      let(:policy_scope) { AuthorizationRequest.where(organization: user_organization) }
+
+      it 'includes requests from user organization' do
+        expect(result).to include(request_in_user_org)
+      end
+
+      it 'excludes requests from other organizations where user is applicant' do
+        expect(result).not_to include(request_in_other_org_as_applicant)
+      end
+
+      it 'includes requests from other organizations where user is mentioned as contact' do
+        expect(result).to include(request_in_other_org_as_contact)
+      end
+    end
+
+    context 'with a unverified link between user and organization' do
+      let(:policy_scope) { AuthorizationRequest.where(applicant: user, organization: user_organization) }
+
+      before do
+        allow(user).to receive_messages(current_organization_verified?: false, current_organization: user_organization)
+      end
+
+      it 'includes requests where user is applicant in their organization' do
+        expect(result).to include(request_in_user_org)
+      end
+
+      it 'excludes requests from other organizations where user is applicant' do
+        expect(result).not_to include(request_in_other_org_as_applicant)
+      end
+
+      it 'includes requests from other organizations where user is mentioned as contact' do
+        expect(result).to include(request_in_other_org_as_contact)
+      end
+
+      context 'when filtering by organization' do
+        let(:params) do
+          ActionController::Parameters.new(
+            search_query: { user_relationship_eq: 'organization' }
+          )
+        end
+
+        it 'returns empty relation' do
+          expect(result).to be_empty
+        end
+      end
     end
   end
 end

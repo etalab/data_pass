@@ -18,7 +18,11 @@ class DemandesHabilitationsSearchEngineBuilder
       .not_archived
       .order(created_at: :desc)
 
-    base_items = base_items.or(authorization_request_mentions_query(AuthorizationRequest.all))
+    mentions_items = AuthorizationAndRequestsMentionsQuery
+      .new(user)
+      .perform(AuthorizationRequest.all)
+
+    base_items = base_items.or(mentions_items)
     build_search_engine(base_items)
   end
 
@@ -27,7 +31,11 @@ class DemandesHabilitationsSearchEngineBuilder
       .includes(:request, :applicant, :organization, request: %i[organization])
       .order(created_at: :desc)
 
-    base_items = base_items.or(authorization_mentions_query(Authorization.all))
+    mentions_items = AuthorizationAndRequestsMentionsQuery
+      .new(user)
+      .perform(Authorization.all)
+
+    base_items = base_items.or(mentions_items)
     build_search_engine(base_items)
   end
 
@@ -40,6 +48,8 @@ class DemandesHabilitationsSearchEngineBuilder
     when 'contact'
       filter_by_contact(base_items)
     when 'organization'
+      return base_items.none unless user.current_organization_verified?
+
       filter_by_organization(base_items)
     when 'applicant'
       filter_by_applicant(base_items)
@@ -67,6 +77,8 @@ class DemandesHabilitationsSearchEngineBuilder
   end
 
   def filter_by_organization(base_items)
+    return base_items.none unless user.current_organization_verified?
+
     if authorization_request_relation?(base_items)
       base_items.where(organization: user.current_organization)
     else

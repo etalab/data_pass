@@ -104,3 +104,21 @@ Fonctionnalité: Tableau de bord
     Alors la page contient "Rechercher dans toutes les demandes"
     Quand je me rends sur mon tableau de bord habilitations
     Alors la page ne contient pas "Rechercher dans toutes les habilitations"
+
+  Scénario: Je ne vois pas mes demandes d'une autre organisation
+    Sachant que j'ai 3 demandes d'habilitation "API Entreprise" en brouillon
+    Et que je suis aussi dans l'organisation "Ville de Lyon"
+    Et que je change d'organisation courante pour "Ville de Lyon"
+    Et que j'ai 5 demandes d'habilitation "API Entreprise" en attente
+    Quand je me rends sur mon tableau de bord demandes
+    Alors je vois 5 demandes d'habilitation
+    Quand je change d'organisation courante pour mon organisation par défaut
+    Et que je me rends sur mon tableau de bord demandes
+    Alors je vois 3 demandes d'habilitation
+
+  Scénario: Le filtre organisation n'est pas visible pour un utilisateur non vérifié
+    Sachant que mon organisation n'est pas vérifiée
+    Quand j'ai 10 demandes d'habilitation "API Entreprise"
+    Et que je me rends sur mon tableau de bord demandes
+    Alors la page contient "Rechercher dans toutes les demandes"
+    Et la page ne contient pas "Toutes les demandes de l'organisation"

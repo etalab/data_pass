@@ -3,6 +3,8 @@ class AbstractDashboardFacade
 
   attr_reader :user, :search_query, :subdomain_types, :scoped_relation
 
+  delegate :current_organization_verified?, to: :user
+
   def initialize(user:, search_query:, subdomain_types:, scoped_relation:)
     @user = user
     @search_query = search_query
@@ -20,6 +22,15 @@ class AbstractDashboardFacade
 
     user_relationship = search_query&.dig(:user_relationship_eq)
     user_relationship.blank? || user_relationship == 'organization'
+  end
+
+  def user_relationship_options
+    options = [
+      [I18n.t('dashboard.show.search.user_relationship.options.applicant'), 'applicant'],
+      [I18n.t('dashboard.show.search.user_relationship.options.contact'), 'contact'],
+    ]
+    options << [I18n.t('dashboard.show.search.user_relationship.options.organization'), 'organization'] if current_organization_verified?
+    options
   end
 
   def data

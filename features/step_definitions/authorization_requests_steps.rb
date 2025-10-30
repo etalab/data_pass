@@ -167,6 +167,18 @@ Quand("cette dernière demande d'habilitation s'appelait {string}") do |intitule
   last_authorization_request.save
 end
 
+Quand('je change d\'organisation courante pour mon organisation par défaut') do
+  default_organization = current_user.organizations_users.order(created_at: :asc).first.organization
+  current_user.organizations_users.find_by(organization: default_organization).set_as_current!
+  current_user.reload
+end
+
+Quand('je change d\'organisation courante pour {string}') do |organization_name|
+  organization = find_or_create_organization_by_name(organization_name)
+  current_user.organizations_users.find_by(organization: organization).set_as_current!
+  current_user.reload
+end
+
 Quand(/je suis mentionné dans (\d+) demandes? d'habilitation "([^"]+)" en tant que "([^"]+)"/) do |count, type, role_humanized|
   role = role_humanized.parameterize.underscore
   foreign_user = create(:user)

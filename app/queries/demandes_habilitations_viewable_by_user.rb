@@ -16,15 +16,14 @@ class DemandesHabilitationsViewableByUser
   private
 
   def relation
-    scoped_items = scoped_relation.includes(includes_for_model)
-
+    scoped_items = scoped_relation
     scoped_items = scoped_items.not_archived if model_class.name == 'AuthorizationRequest'
 
     mentions_items = AuthorizationAndRequestsMentionsQuery
       .new(user)
       .perform(model_class.all)
 
-    scoped_items.or(mentions_items)
+    scoped_items.or(mentions_items).includes(includes_for_model)
   end
 
   def includes_for_model
