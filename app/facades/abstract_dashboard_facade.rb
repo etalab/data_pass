@@ -24,6 +24,15 @@ class AbstractDashboardFacade
     user_relationship.blank? || user_relationship == 'organization'
   end
 
+  def user_relationship_options
+    options = [
+      [I18n.t('dashboard.show.search.user_relationship.options.applicant'), 'applicant'],
+      [I18n.t('dashboard.show.search.user_relationship.options.contact'), 'contact'],
+    ]
+    options << [I18n.t('dashboard.show.search.user_relationship.options.organization'), 'organization'] if current_organization_verified?
+    options
+  end
+
   def data
     @data ||= { highlighted_categories: {}, categories: {}, search_engine: nil }
   end
