@@ -1,31 +1,260 @@
 ---
 shared:
-  '71144ab3-ee1a-4401-b7b3-79b44f7daeeb':
+  e2f397e0-f2a5-4cbb-b19f-8b3b54410c26:
+    name: Agents de l'Administration Centrale des ministères économiques et financiers
+      (Réseau Interministériel de l'État)
+    choose_organization_on_sign_in: true
+    siret_verified: false
+    can_link_to_organizations: true
+  ee89db94-64de-4e14-b31a-e93ed3ab1168:
+    name: Calypsso (Police Nationale)
+    choose_organization_on_sign_in: true
+    siret_verified: false
+    can_link_to_organizations: true
+  d8cddcd6-4104-4d41-b3a9-705e7d01ccad:
+    name: Cerbère
+    choose_organization_on_sign_in: true
+    siret_verified: false
+    can_link_to_organizations: true
+  e7782e47-8e0f-4b94-8e21-1197cb6e7143:
+    name: Curasso (Gendarmerie Nationale)
+    choose_organization_on_sign_in: true
+    siret_verified: false
+    can_link_to_organizations: true
+  ee56b416-7caa-446d-bfa7-d06af7ba00bd:
+    name: DGCCRF (Réseau Interministériel de l'État)
+    choose_organization_on_sign_in: true
+    siret_verified: false
+    can_link_to_organizations: true
+  431bb83a-db72-4a1a-9ef0-136412b7b133:
+    name: Fournisseur d'identités pour les agents de l'Insee
+    choose_organization_on_sign_in: false
+    siret_verified: true
+    can_link_to_organizations: false
+  4dbd03fa-b7a1-426f-b18a-cae70dd26d56:
+    name: Agents de la DGFiP (Réseau Interministériel de l'État)
+    choose_organization_on_sign_in: true
+    siret_verified: false
+    can_link_to_organizations: true
+  7e327dfa-d462-4460-9691-2701700072bf:
+    name: Fournisseur d'identités AROBAS pour les agents du MAE
+    choose_organization_on_sign_in: true
+    siret_verified: false
+    can_link_to_organizations: true
+  200e2f86-fc01-49cf-958f-eb03977f116f:
+    name: INRAE - Institut national de recherche pour l'agriculture, l'alimentation
+      et l'environnement
+    choose_organization_on_sign_in: false
+    siret_verified: true
+    can_link_to_organizations: false
+  03f917ba-75e3-4df0-b9f8-7b9b944d8d8d:
+    name: INRIA
+    choose_organization_on_sign_in: true
+    siret_verified: false
+    can_link_to_organizations: true
+  4cb81d41-16a4-46d8-a861-06f8d16ab9b9:
+    name: INSERM
+    choose_organization_on_sign_in: false
+    siret_verified: true
+    can_link_to_organizations: false
+  bcb4b83a-5ee6-4f67-a721-52521b81d910:
+    name: SSO Ministère de la Culture
+    choose_organization_on_sign_in: true
+    siret_verified: false
+    can_link_to_organizations: true
+  71144ab3-ee1a-4401-b7b3-79b44f7daeeb:
     name: MonComptePro
     choose_organization_on_sign_in: false
     siret_verified: true
-  'e2f397e0-f2a5-4cbb-b19f-8b3b54410c26':
-    name: Agents de l'Administration Centrale des ministères économiques et financiers (Réseau Interministériel de l'État)
-test: &test
-  '71144ab3-ee1a-4401-b7b3-79b44f7daeeb':
-    name: MonComptePro
+    can_link_to_organizations: false
+  3f3b319e-3be5-4031-90f7-e79d1b3ecdf2:
+    name: Authentification Orion du CEREMA
     choose_organization_on_sign_in: false
     siret_verified: true
-  # whatever@fia1.fr
-  'fia1v2':
+    can_link_to_organizations: false
+  3c69d88b-bf93-4bcd-9f58-714ddff9c343:
+    name: Passage2 (Réseau Interministériel de l'État)
+    choose_organization_on_sign_in: true
+    siret_verified: false
+    can_link_to_organizations: true
+  9c895aa2-132e-4592-a713-1fa2fe42c39c:
+    name: Passerelle Fédération Éducation Recherche
+    choose_organization_on_sign_in: true
+    siret_verified: false
+    can_link_to_organizations: true
+  5b9d24d9-e1af-4bf7-9586-b2adcb45ef79:
+    name: RÉSEAU CANOPÉ
+    choose_organization_on_sign_in: true
+    siret_verified: false
+    can_link_to_organizations: true
+  3a259af6-8cb5-41ef-9d57-4e489590186a:
+    name: SSO DOUANE / DGDDI (Réseau Interministériel de l'État)
+    choose_organization_on_sign_in: true
+    siret_verified: false
+    can_link_to_organizations: true
+  90a0db90-db8a-4fe7-a17e-e97afd3e4a24:
+    name: Sénat
+    choose_organization_on_sign_in: false
+    siret_verified: true
+    can_link_to_organizations: false
+  4d6fb724-20c8-467d-8d06-6de127624fc0:
+    name: Territoire Numérique Ouvert
+    choose_organization_on_sign_in: true
+    siret_verified: false
+    can_link_to_organizations: true
+  311d582f-0be6-47fb-b9ec-e54a874b8fee:
+    name: CEA - Commissariat à l'énergie atomique et aux énergies Alternatives
+    choose_organization_on_sign_in: false
+    siret_verified: true
+    can_link_to_organizations: false
+  fb401517-ee06-4b78-b86c-b6988f5a71f4:
+    name: Open Desk
+    choose_organization_on_sign_in: true
+    siret_verified: false
+    can_link_to_organizations: true
+  bb784654-d8e8-482c-862b-dc8ee08bf575:
+    name: ADEME
+    choose_organization_on_sign_in: true
+    siret_verified: false
+    can_link_to_organizations: true
+  bfa0e843-811f-4465-8119-abc659602568:
+    name: Eure Normandie Numérique
+    choose_organization_on_sign_in: true
+    siret_verified: false
+    can_link_to_organizations: true
+  8c39cf91-3f15-43fd-b05b-b9de90d9e9d8:
+    name: Applications de l'Éducation Nationale
+    choose_organization_on_sign_in: true
+    siret_verified: false
+    can_link_to_organizations: true
+  ee501034-69e8-48a2-b307-4ce20d75570e:
+    name: e-Collectivités
+    choose_organization_on_sign_in: true
+    siret_verified: false
+    can_link_to_organizations: true
+  9e139e69-de07-4cbe-987f-d12cb38c0368:
+    name: Ministère de la Justice
+    choose_organization_on_sign_in: true
+    siret_verified: false
+    can_link_to_organizations: true
+  fe5573f8-df86-4c92-b792-f36161bf677e:
+    name: PEAMA (France Travail)
+    choose_organization_on_sign_in: true
+    siret_verified: false
+    can_link_to_organizations: true
+  c018aec3-718e-459a-ae83-43f7a2173b25:
+    name: Ministère Chargé des Affaires Sociales
+    choose_organization_on_sign_in: true
+    siret_verified: false
+    can_link_to_organizations: true
+  52fcebf9-be27-40c7-ba1a-af955f59abd0:
+    name: Gironde Numérique
+    choose_organization_on_sign_in: true
+    siret_verified: false
+    can_link_to_organizations: true
+  8da7b85b-e1f3-4269-b3bf-2d051b86e95f:
+    name: MASA
+    choose_organization_on_sign_in: true
+    siret_verified: false
+    can_link_to_organizations: true
+  fc2dd106-78a9-4663-915d-834bf67e4c25:
+    name: I-MILO
+    choose_organization_on_sign_in: true
+    siret_verified: false
+    can_link_to_organizations: true
+  217a6877-7ae5-49d3-9d7b-129b48ff57e8:
+    name: Meteo-France
+    choose_organization_on_sign_in: true
+    siret_verified: false
+    can_link_to_organizations: true
+  7d76b30a-5972-4a8e-93d2-4109c1b8f015:
+    name: Adico
+    choose_organization_on_sign_in: true
+    siret_verified: false
+    can_link_to_organizations: true
+  b549c763-a35e-49bd-b569-9b58239155ef:
+    name: Vendée
+    choose_organization_on_sign_in: false
+    siret_verified: true
+    can_link_to_organizations: false
+  b4ed3557-6371-46f8-ade4-12a30b4fa205:
+    name: Les Crous et Cnous
+    choose_organization_on_sign_in: true
+    siret_verified: false
+    can_link_to_organizations: true
+  741ddc48-d15d-4bc5-b6f8-a01e4e474437:
+    name: Département de l'Aveyron
+    choose_organization_on_sign_in: false
+    siret_verified: true
+    can_link_to_organizations: false
+  0ff77adb-e2cf-47ef-bb40-881fa9ef01f4:
+    name: Services du Premier Ministre (Réseau Interministériel de l'État)
+    choose_organization_on_sign_in: true
+    siret_verified: false
+    can_link_to_organizations: true
+  82263f77-fe04-41ca-840d-5c63fe157247:
+    name: GIP RECIA
+    choose_organization_on_sign_in: true
+    siret_verified: false
+    can_link_to_organizations: true
+  c268fac9-3750-47a9-89d8-fb07a5c69078:
+    name: RGD Savoie Mont Blanc
+    choose_organization_on_sign_in: true
+    siret_verified: false
+    can_link_to_organizations: true
+  875ff631-06a8-4452-81bf-fd0ccfd0e097:
+    name: CDG47
+    choose_organization_on_sign_in: true
+    siret_verified: false
+    can_link_to_organizations: true
+  ea0e1dfe-f45e-4075-a5d4-e3a349b0a125:
+    name: Ministère du Travail, de la Santé, des Solidarités et des Familles (MTSSF)
+      - Internet
+    choose_organization_on_sign_in: true
+    siret_verified: false
+    can_link_to_organizations: true
+  f5154035-c3d6-47ad-8583-197d508269d0:
+    name: La Suite Territoriale
+    choose_organization_on_sign_in: true
+    siret_verified: false
+    can_link_to_organizations: true
+  de1cf2ee-f826-41b8-9c17-f05e1833ab68:
+    name: FI-INT-DILA
+    choose_organization_on_sign_in: true
+    siret_verified: false
+    can_link_to_organizations: true
+  f4f4f2d6-3b7a-4e65-9bd7-828f156851d6:
+    name: Citadelle (Département de la Gironde)
+    choose_organization_on_sign_in: false
+    siret_verified: true
+    can_link_to_organizations: false
+  e0cd5da1-f15f-4075-9ba0-924f0dc10224:
+    name: CDC Connect
+    choose_organization_on_sign_in: false
+    siret_verified: true
+    can_link_to_organizations: false
+  25d378d8-a2a7-42e5-b1ab-044d086efd10:
+    name: Conseil d'Etat
+    choose_organization_on_sign_in: true
+    siret_verified: false
+    can_link_to_organizations: true
+test:
+  fia1v2: &1
     name: DGFIP
     choose_organization_on_sign_in: true
     siret_verified: false
     can_link_to_organizations: true
-  # whatever@fia2.fr
-  'fia2v2':
+  fia2v2: &2
     name: Renater
     choose_organization_on_sign_in: true
     siret_verified: true
     can_link_to_organizations: false
-development: &development
-  <<: *test
+development:
+  fia1v2: *1
+  fia2v2: *2
 sandbox:
-  <<: *test
+  fia1v2: *1
+  fia2v2: *2
 staging:
-  <<: *test
+  fia1v2: *1
+  fia2v2: *2
