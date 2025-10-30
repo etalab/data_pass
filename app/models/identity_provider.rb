@@ -34,7 +34,7 @@ class IdentityProvider < StaticApplicationRecord
   end
 
   def can_link_to_organizations?
-    @can_link_to_organizations.nil? ? false : @can_link_to_organizations
+    @can_link_to_organizations.nil? || @can_link_to_organizations
   end
 
   def siret_verified?

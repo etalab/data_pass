@@ -25,6 +25,28 @@ RSpec.describe IdentityProvider do
     end
   end
 
+  describe 'unknown' do
+    let(:identity_provider) { described_class.unknown('some-uid') }
+
+    describe 'choose_organization_on_sign_in?' do
+      subject { identity_provider.choose_organization_on_sign_in? }
+
+      it { is_expected.to be(true) }
+    end
+
+    describe 'siret_verified?' do
+      subject { identity_provider.siret_verified? }
+
+      it { is_expected.to be(false) }
+    end
+
+    describe 'can_link_to_organizations?' do
+      subject { identity_provider.can_link_to_organizations? }
+
+      it { is_expected.to be(true) }
+    end
+  end
+
   describe '#choose_organization_on_sign_in?' do
     subject { identity_provider.choose_organization_on_sign_in? }
 
