@@ -60,10 +60,20 @@ class AbstractDashboardFacade
   protected
 
   def search_builder
-    @search_builder ||= DemandesHabilitationsSearchEngineBuilder.new(
-      user,
-      { search_query: search_query },
-      subdomain_types: subdomain_types
-    )
+    @search_builder ||= case model_class.name
+                        when 'AuthorizationRequest'
+                          AuthorizationRequestsSearchEngineBuilder.new(
+                            user,
+                            { search_query: search_query },
+                            subdomain_types: subdomain_types
+                          )
+                        when 'Authorization'
+                          AuthorizationsSearchEngineBuilder.new(
+                            user,
+                            { search_query: search_query }
+                          )
+                        else
+                          raise ArgumentError, "Unknown model class: #{model_class.name}"
+                        end
   end
 end

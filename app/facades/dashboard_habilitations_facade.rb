@@ -1,7 +1,7 @@
 class DashboardHabilitationsFacade < AbstractDashboardFacade
   def data
     builder = search_builder
-    habilitations = builder.build_authorizations_relation(scoped_relation)
+    habilitations = builder.build_relation(scoped_relation)
 
     {
       highlighted_categories: {},
