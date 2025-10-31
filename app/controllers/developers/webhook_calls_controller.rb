@@ -24,7 +24,7 @@ class Developers::WebhookCallsController < DevelopersController
       success_message(title: t('.success'))
       redirect_to developers_webhook_webhook_call_path(@webhook, result.webhook_call)
     else
-      error_message(title: t('.error'), description: result.message)
+      error_message(title: t('.error'), description: result.message, now: false)
       redirect_to developers_webhook_webhook_call_path(@webhook, @webhook_call)
     end
   end

@@ -1,4 +1,9 @@
 fr:
+  helpers:
+    submit:
+      webhook:
+        create: Créer le webhook
+        update: Mettre à jour le webhook
   webhooks:
     events:
       create: Création

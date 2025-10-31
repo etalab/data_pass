@@ -23,8 +23,8 @@ class ApplicationController < ActionController::Base
     flash_message(:error, title:, description: object.errors.full_messages, id:, activemodel: true)
   end
 
-  def error_message(title:, description: nil, id: nil, activemodel: false)
-    flash_message(:error, title:, description:, id:, activemodel:)
+  def error_message(title:, description: nil, id: nil, activemodel: false, now: true)
+    flash_message(:error, title:, description:, id:, activemodel:, now:)
   end
 
   def success_message(title:, description: nil, id: nil)
@@ -53,8 +53,8 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def flash_message(kind, title:, description:, id:, activemodel: false)
-    flash_object = kind == :error ? flash.now : flash
+  def flash_message(kind, title:, description:, id:, activemodel: false, now: false)
+    flash_object = now ? flash.now : flash
 
     flash_object[kind] ||= {}
     flash_object[kind]['title'] = title

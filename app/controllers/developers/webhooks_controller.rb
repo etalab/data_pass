@@ -61,7 +61,7 @@ class Developers::WebhooksController < DevelopersController
       success_message(title: t('.success'))
     else
       error_description = build_webhook_error_description(result.webhook_test)
-      error_message(title: t('.error'), description: error_description)
+      error_message(title: t('.error'), description: error_description, now: false)
     end
 
     redirect_to developers_webhooks_path
