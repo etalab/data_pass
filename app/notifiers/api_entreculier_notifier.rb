@@ -11,7 +11,7 @@ class APIEntreculierNotifier < BaseNotifier
     RegisterOrganizationWithContactsOnCRMJob.perform_later(authorization_request.id)
   end
 
-  def submit(_params)
-    # Empty implementation, no email notifications for Entreculier
+  def submit(params)
+    email_notification_with_reopening('submit', params, mailer: Instruction::AuthorizationRequestMailer)
   end
 end

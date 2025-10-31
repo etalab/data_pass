@@ -94,4 +94,8 @@ class Developers::WebhooksController < DevelopersController
       response_body
     end
   end
+
+  def model_to_track_for_impersonation
+    @webhook
+  end
 end

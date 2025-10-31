@@ -27,7 +27,7 @@ shared_examples 'delivers a webhook' do |options|
         webhook.id,
         authorization_request.id,
         options[:event_name].to_s,
-        a_hash_including('event' => options[:event_name].to_s)
+        a_string_including("\"event\":\"#{options[:event_name]}\"")
       ), "Expected to have enqueued a webhook delivery job with the event name #{options[:event_name]}"
     end
   end

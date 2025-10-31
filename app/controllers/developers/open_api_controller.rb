@@ -1,4 +1,4 @@
-class Developers::OpenApiController < DevelopersController
+class Developers::OpenAPIController < DevelopersController
   allow_unauthenticated_access
 
   layout 'application'
