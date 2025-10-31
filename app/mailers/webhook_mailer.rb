@@ -12,18 +12,17 @@ class WebhookMailer < ApplicationMailer
   private
 
   def instanciate_fail_view_variables
-    @webhook_url = Rails.application.credentials.webhooks.public_send(params[:authorization_request_kind]).url
-    @payload = JSON.pretty_generate(params[:payload])
-    @webhook_response_body = params[:webhook_response_body]
-    @webhook_response_status = params[:webhook_response_status]
+    @webhook = params[:webhook]
+    @webhook_url = @webhook.url
+    @webhook_calls_url = developers_webhook_webhook_calls_url(@webhook)
     @authorization_definition_name = authorization_definition_name
   end
 
   def developer_emails
-    User.developer_for(params[:authorization_request_kind]).pluck(:email)
+    User.developer_for(@webhook.authorization_definition_id).pluck(:email)
   end
 
   def authorization_definition_name
-    AuthorizationDefinition.find(params[:authorization_request_kind]).name
+    AuthorizationDefinition.find(@webhook.authorization_definition_id).name
   end
 end
