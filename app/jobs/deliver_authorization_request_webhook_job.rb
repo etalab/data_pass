@@ -70,7 +70,11 @@ class DeliverAuthorizationRequestWebhookJob < ApplicationJob
     Sentry.capture_message("Fail to call target's api webhook endpoint")
   end
 
+<<<<<<< HEAD
   def notify_webhook_fail(webhook)
+=======
+  def notify_webhook_fail(webhook, _payload, _result)
+>>>>>>> 45c71c96 (Move webhooks calls from Notifier to DeliverAuthorizationRequestNotification)
     WebhookMailer.with(
       webhook: webhook
     ).fail.deliver_later

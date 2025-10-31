@@ -1,20 +1,17 @@
 class APIEntreculierNotifier < BaseNotifier
   notifier_event_names.each do |event_name|
     define_method(event_name) do |_params|
-      webhook_notification(event_name)
+      # Empty implementation, no email notifications for Entreculier
     end
   end
 
   def approve(_params)
-    webhook_notification('approve')
     deliver_gdpr_emails
 
     RegisterOrganizationWithContactsOnCRMJob.perform_later(authorization_request.id)
   end
 
-  def submit(params)
-    webhook_notification('submit')
-
-    super
+  def submit(_params)
+    # Empty implementation, no email notifications for Entreculier
   end
 end
