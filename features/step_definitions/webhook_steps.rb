@@ -14,8 +14,7 @@ Sachantque('il existe un webhook activé pour {string} avec l\'URL {string}') do
     :webhook,
     :active,
     authorization_definition_id: authorization_definition_id.parameterize.underscore,
-    url: url,
-    events: %w[approve submit]
+    url: url
   )
 end
 
