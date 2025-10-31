@@ -24,9 +24,9 @@ class Subdomain < StaticApplicationRecord
     )
   end
 
-  def self.find_for_authorization_request(authorization_request)
+  def self.find_for_authorization_definition(authorization_definition)
     all.find do |subdomain|
-      subdomain.authorization_definitions.map(&:id).include?(authorization_request.definition.id)
+      subdomain.authorization_definitions.map(&:id).include?(authorization_definition.id)
     end
   end
 

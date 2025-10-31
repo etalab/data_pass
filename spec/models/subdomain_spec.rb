@@ -6,11 +6,11 @@ RSpec.describe Subdomain do
     end
   end
 
-  describe '.find_for_authorization_request' do
-    subject(:subdomain) { described_class.find_for_authorization_request(authorization_request) }
+  describe '.find_for_authorization_definition' do
+    subject(:subdomain) { described_class.find_for_authorization_definition(authorization_definition) }
 
-    context 'when authorization request is linked to a subdomain' do
-      let(:authorization_request) { create(:authorization_request, :api_entreprise) }
+    context 'when authorization definition is linked to a subdomain' do
+      let(:authorization_definition) { AuthorizationDefinition.find('api_entreprise') }
 
       it 'returns the subdomain linked to the authorization request' do
         expect(subdomain.id).to eq(described_class.find('api-entreprise').id)
@@ -18,7 +18,7 @@ RSpec.describe Subdomain do
     end
 
     context 'when authorization request is not linked to a subdomain' do
-      let(:authorization_request) { create(:authorization_request, :api_scolarite) }
+      let(:authorization_definition) { AuthorizationDefinition.find('api_scolarite') }
 
       it 'returns nil' do
         expect(subdomain).to be_nil
