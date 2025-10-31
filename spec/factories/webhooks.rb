@@ -21,6 +21,7 @@ FactoryBot.define do
       validated { true }
       enabled { true }
       activated_at { Time.current }
+      events { Webhook::VALID_EVENTS }
     end
 
     trait :with_all_events do
