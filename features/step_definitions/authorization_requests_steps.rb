@@ -421,8 +421,6 @@ Quand('il existe un instructeur pour cette demande d\'habilitation') do
 end
 
 Alors('un webhook avec l\'évènement {string} est envoyé') do |event_name|
-  authorization_request = AuthorizationRequest.first
-
   webhook_job = ActiveJob::Base.queue_adapter.enqueued_jobs.find do |job|
     next unless job['job_class'] == 'DeliverAuthorizationRequestWebhookJob'
 

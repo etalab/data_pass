@@ -53,7 +53,7 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def flash_message(kind, title:, description:, id:, activemodel: false, now: false)
+  def flash_message(kind, title:, description:, id:, activemodel: false, now: false) # rubocop:disable Metrics/ParameterLists
     flash_object = now ? flash.now : flash
 
     flash_object[kind] ||= {}
