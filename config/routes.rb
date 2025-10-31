@@ -171,14 +171,6 @@ Rails.application.routes.draw do
   namespace :api do
     resources :frontal, only: :index
 
-    namespace :developers do
-      resources :webhook_calls, only: [] do
-        member do
-          post :replay
-        end
-      end
-    end
-
     namespace :v1 do
       get '/me', to: 'credentials#me'
 
@@ -191,6 +183,10 @@ Rails.application.routes.draw do
       resources :authorization_definitions, path: 'definitions', only: %i[index show]
 
       resources :authorization_request_forms, path: 'definitions/:id/formulaires', only: %i[index]
+
+      resources :webhooks, only: [] do
+        resources :webhook_calls, only: [:index], path: 'calls', as: :calls
+      end
     end
   end
 
