@@ -26,8 +26,6 @@ fr:
         title: Mes webhooks
         new_webhook: Nouveau webhook
         no_webhooks: Vous n'avez pas encore de webhooks configurés
-        events_label: Événements
-        status_label: Statut
         active: Actif
         inactive: Inactif
         not_validated: Non validé
@@ -48,13 +46,11 @@ fr:
           actions: Actions
       new:
         title: Nouveau webhook
-        create: Créer le webhook
       create:
         success: Webhook créé avec succès
         error: Impossible de créer le webhook
       edit:
         title: Modifier le webhook
-        update: Mettre à jour
       update:
         success: Webhook mis à jour avec succès
         error: Impossible de mettre à jour le webhook
@@ -65,15 +61,9 @@ fr:
         error: Impossible d'activer le webhook
       disable:
         success: Webhook désactivé avec succès
-      show:
-        title: Détails du webhook
       form:
-        authorization_definition_id: Service
-        url: URL de destination
-        events: Événements à écouter
         events_label: Événements
         events_hint: Sélectionnez les événements qui déclencheront ce webhook
-        select_events: Sélectionnez au moins un événement
         cancel: Annuler
         help_title: Aide
         help_text_html: |
@@ -112,7 +102,16 @@ fr:
         error: Erreur lors du rejeu de l'appel
     oauth_applications:
       index:
-        title: Mes applications OAuth
-    open_api:
-      show:
-        title: Documentation API
+        title: Mes clefs d'accès API
+        documentation_url: Voir la documentation API
+        description_html: Liste de vos applications OAuth et de leurs credentials API
+        list_of_habilitations_description: Vos clefs d'accès API vous permettent d'accéder aux demandes et habilitations suivantes
+        no_developer_roles: Vous n'avez pas de clefs d'accès API, contactez un administrateur pour en obtenir.
+        table:
+          headers:
+            name: Nom de l'application
+            credentials: Identifiants
+            scopes: Scopes
+          row:
+            client_id: Id
+            client_secret: Secret

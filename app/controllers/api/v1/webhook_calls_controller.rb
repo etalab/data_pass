@@ -1,4 +1,5 @@
 class API::V1::WebhookCallsController < API::V1Controller
+  skip_before_action :doorkeeper_authorize!
   before_action :set_webhook
   before_action -> { doorkeeper_authorize! :read_webhooks }, only: :index
 
