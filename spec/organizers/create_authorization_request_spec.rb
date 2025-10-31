@@ -37,12 +37,20 @@ RSpec.describe CreateAuthorizationRequest, type: :organizer do
 
       context 'when authorization request has webhooks activated for all events' do
         let(:authorization_request_kind) { :api_entreprise }
+        let!(:webhook) do
+          create(:webhook,
+            authorization_definition_id: 'api_entreprise',
+            events: ['create'],
+            validated: true,
+            enabled: true)
+        end
 
         it 'delivers a webhook for this event' do
           expect { subject }.to have_enqueued_job(DeliverAuthorizationRequestWebhookJob).with(
-            'api_entreprise',
-            a_string_matching('"event":"create"'),
+            webhook.id,
             instance_of(Integer),
+            'create',
+            a_string_including('"event":"create"')
           ), 'Expected to have enqueued a webhook delivery job with the event name create'
         end
       end

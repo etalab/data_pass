@@ -38,21 +38,4 @@ class ApplicationNotifier
       ),
     ).public_send(event).deliver_later
   end
-
-  def webhook_notification(event_name)
-    DeliverAuthorizationRequestWebhookJob.new(
-      authorization_request.kind,
-      webhook_payload(event_name),
-      authorization_request.id,
-    ).enqueue
-  end
-
-  private
-
-  def webhook_payload(event_name)
-    WebhookSerializer.new(
-      authorization_request,
-      event_name
-    ).to_json
-  end
 end
