@@ -219,6 +219,42 @@ RSpec.describe Authorization do
       it { is_expected.to be false }
     end
 
+    context 'when it is a validated sandbox authorization and production stage is submitted' do
+      let(:authorization_request) { create(:authorization_request, :api_impot_particulier_sandbox, :validated) }
+      let(:authorization) { authorization_request.latest_authorization }
+
+      before do
+        authorization_request.start_next_stage!
+        authorization_request.submit!
+      end
+
+      it { is_expected.to be false }
+    end
+
+    context 'when it is a validated sandbox authorization and production stage is draft' do
+      let(:authorization_request) { create(:authorization_request, :api_impot_particulier_sandbox, :validated) }
+      let(:authorization) { authorization_request.latest_authorization }
+
+      before do
+        authorization_request.start_next_stage!
+      end
+
+      it { is_expected.to be false }
+    end
+
+    context 'when it is a validated sandbox authorization and production stage is changes_requested' do
+      let(:authorization_request) { create(:authorization_request, :api_impot_particulier_sandbox, :validated) }
+      let(:authorization) { authorization_request.latest_authorization }
+
+      before do
+        authorization_request.start_next_stage!
+        authorization_request.submit!
+        authorization_request.request_changes!
+      end
+
+      it { is_expected.to be false }
+    end
+
     context 'when authorization request is already reopened' do
       let(:authorization_request) { create(:authorization_request, :reopened) }
 

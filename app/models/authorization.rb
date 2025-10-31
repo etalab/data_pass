@@ -104,11 +104,22 @@ class Authorization < ApplicationRecord
 
   def reopenable?
     if multi_stage? && stage.type == 'production'
-      common_reopenable? &&
-        request.latest_authorization.stage.type != 'sandbox'
+      production_stage_reopenable?
+    elsif multi_stage? && stage.type == 'sandbox'
+      sandbox_stage_reopenable?
     else
       common_reopenable?
     end
+  end
+
+  def production_stage_reopenable?
+    common_reopenable? &&
+      request.latest_authorization.stage.type != 'sandbox'
+  end
+
+  def sandbox_stage_reopenable?
+    common_reopenable? &&
+      request.state == 'validated'
   end
 
   def common_reopenable?
