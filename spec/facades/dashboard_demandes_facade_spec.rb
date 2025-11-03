@@ -75,4 +75,50 @@ RSpec.describe DashboardDemandesFacade, type: :facade do
       expect(builder.subdomain_types).to eq(['ApiEntrepriseRequest'])
     end
   end
+
+  describe '#show_filters?' do
+    subject(:show_filters) { facade.show_filters? }
+
+    context 'when there are 9 or fewer authorization requests' do
+      it 'returns false' do
+        9.times { create(:authorization_request, :api_entreprise, organization: organization, applicant: current_user, state: :draft) }
+
+        expect(show_filters).to be false
+      end
+    end
+
+    context 'when there are more than 9 authorization requests' do
+      it 'returns true' do
+        10.times { create(:authorization_request, :api_entreprise, organization: organization, applicant: current_user, state: :draft) }
+
+        expect(show_filters).to be true
+      end
+    end
+
+    context 'when counting includes mentions from other organizations' do
+      let(:other_organization) { create(:organization) }
+      let(:other_user) { create(:user) }
+
+      before do
+        other_user.add_to_organization(other_organization, verified: true, current: true)
+      end
+
+      it 'includes mentions in the count' do
+        8.times { create(:authorization_request, :api_entreprise, organization: organization, applicant: current_user, state: :draft) }
+        2.times { create(:authorization_request, :api_entreprise, organization: other_organization, applicant: other_user, state: :draft, contact_metier_email: current_user.email) }
+
+        expect(show_filters).to be true
+      end
+    end
+
+    context 'when filtering by displayed states' do
+      it 'only counts requests in displayed states' do
+        5.times { create(:authorization_request, :api_entreprise, organization: organization, applicant: current_user, state: :draft) }
+        5.times { create(:authorization_request, :api_entreprise, organization: organization, applicant: current_user, state: :submitted) }
+        5.times { create(:authorization_request, :api_entreprise, organization: organization, applicant: current_user, state: :validated) }
+
+        expect(show_filters).to be true
+      end
+    end
+  end
 end

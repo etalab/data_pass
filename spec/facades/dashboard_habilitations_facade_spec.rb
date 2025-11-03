@@ -70,4 +70,54 @@ RSpec.describe DashboardHabilitationsFacade, type: :facade do
       expect(builder.subdomain_types).to eq(['AuthorizationRequest::ApiEntreprise'])
     end
   end
+
+  describe '#show_filters?' do
+    subject(:show_filters) { facade.show_filters? }
+
+    context 'when there are 9 or fewer authorizations' do
+      it 'returns false' do
+        authorization_request = create(:authorization_request, organization: organization, applicant: current_user, state: :validated)
+        create_list(:authorization, 9, request: authorization_request, state: :active)
+
+        expect(show_filters).to be false
+      end
+    end
+
+    context 'when there are more than 9 authorizations' do
+      it 'returns true' do
+        authorization_request = create(:authorization_request, organization: organization, applicant: current_user, state: :validated)
+        create_list(:authorization, 10, request: authorization_request, state: :active)
+
+        expect(show_filters).to be true
+      end
+    end
+
+    context 'when counting includes mentions from other organizations' do
+      let(:other_organization) { create(:organization) }
+      let(:other_user) { create(:user) }
+
+      before do
+        other_user.add_to_organization(other_organization, verified: true, current: true)
+      end
+
+      it 'includes mentions in the count' do
+        authorization_request = create(:authorization_request, organization: organization, applicant: current_user, state: :validated)
+        create_list(:authorization, 8, request: authorization_request, state: :active)
+
+        mentioned_request = create(:authorization_request, :api_entreprise, organization: other_organization, applicant: other_user, state: :validated, contact_metier_email: current_user.email)
+        create_list(:authorization, 2, request: mentioned_request, state: :active)
+
+        expect(show_filters).to be true
+      end
+    end
+
+    context 'when filtering by displayed states' do
+      it 'only counts authorizations in displayed states' do
+        authorization_request = create(:authorization_request, organization: organization, applicant: current_user, state: :validated)
+        create_list(:authorization, 10, request: authorization_request, state: :active)
+
+        expect(show_filters).to be true
+      end
+    end
+  end
 end
