@@ -12,13 +12,13 @@ class AuthorizationRequestsSearchEngineBuilder < AbstractSearchEngineBuilder
       .not_archived
       .order(created_at: :desc)
 
-    base_items = base_items.where(type: subdomain_types) if subdomain_types.present?
-
-    mentions_items = AuthorizationAndRequestsMentionsQuery
+    mentions_items = AuthorizationRequestsMentionsQuery
       .new(user)
       .perform(AuthorizationRequest.all)
 
     base_items = base_items.or(mentions_items)
+    base_items = base_items.where(type: subdomain_types) if subdomain_types.present?
+
     build_search_engine(base_items)
   end
 
@@ -29,7 +29,7 @@ class AuthorizationRequestsSearchEngineBuilder < AbstractSearchEngineBuilder
   end
 
   def filter_by_contact(base_items)
-    AuthorizationAndRequestsMentionsQuery
+    AuthorizationRequestsMentionsQuery
       .new(user)
       .perform(base_items)
   end

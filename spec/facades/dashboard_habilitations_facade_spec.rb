@@ -58,9 +58,16 @@ RSpec.describe DashboardHabilitationsFacade, type: :facade do
       expect(builder).to be_a(AuthorizationsSearchEngineBuilder)
     end
 
-    it 'does not pass subdomain_types to the builder' do
-      builder = facade.send(:search_builder)
-      expect(builder).not_to respond_to(:subdomain_types)
+    it 'passes subdomain_types to the builder' do
+      facade_with_subdomain = described_class.new(
+        user: current_user,
+        search_query: search_query,
+        subdomain_types: ['AuthorizationRequest::ApiEntreprise'],
+        scoped_relation: scoped_relation
+      )
+
+      builder = facade_with_subdomain.send(:search_builder)
+      expect(builder.subdomain_types).to eq(['AuthorizationRequest::ApiEntreprise'])
     end
   end
 end
