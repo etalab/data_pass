@@ -1218,6 +1218,7 @@ api-particulier-jvs-mairistem:
     contact_technique_job_title: Contact technique
     modalities:
       - params
+      - formulaire_qf
 
 api-particulier-ccas-paxtel:
   name: Paxtel
