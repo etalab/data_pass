@@ -1,4 +1,6 @@
 class Instruction::RefuseAuthorizationRequestsController < Instruction::AbstractAuthorizationRequestsController
+  include Instruction::MessageTemplatesLoader
+
   before_action :authorize_authorization_request_refusal
 
   def new
@@ -34,5 +36,9 @@ class Instruction::RefuseAuthorizationRequestsController < Instruction::Abstract
 
   def model_to_track_for_impersonation
     @authorization_request
+  end
+
+  def message_template_type
+    :refusal
   end
 end

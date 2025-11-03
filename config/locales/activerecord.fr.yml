@@ -120,6 +120,12 @@ fr:
       authorization_request_transfer:
         to: Email du nouveau demandeur
 
+      message_template:
+        authorization_definition_uid: Type d'habilitation
+        title: Titre
+        template_type: Type de modèle
+        content: Contenu
+
       impersonation:
         admin: Administrateur
         user: Usager
@@ -132,8 +138,15 @@ fr:
     hints:
       france_connect:
         contact_technique_phone_number: Le numéro de téléphone doit être un numéro de portable
+      message_template:
+        title: "Privilégiez un titre court et explicite"
+        content: "Variables disponibles : %{demande_url}, %{demande_intitule}, %{demande_id}"
 
     values:
+      message_template:
+        template_type:
+          refusal: Refus
+          modification_request: Demande de modifications
       authorization_request:
         france_connect_eidas:
           eidas_1: 'FranceConnect : eIDAS 1'
@@ -170,6 +183,11 @@ fr:
         authorization_request/api_impot_particulier: *api_impot_particulier_errors
         authorization_request/api_sfip_sandbox: *api_impot_particulier_errors
         authorization_request/api_sfip: *api_impot_particulier_errors
+        message_template:
+          max_templates_reached: "Vous ne pouvez pas créer plus de %{count} modèles."
+          attributes:
+            content:
+              invalid_variables: "contient des variables invalides"
         impersonation:
           attributes:
             user:

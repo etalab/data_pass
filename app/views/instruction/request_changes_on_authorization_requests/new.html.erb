@@ -26,7 +26,29 @@
                 <%= t(".#{namespace}.description.disclaimer").html_safe %>
               </p>
 
-              <%= f.dsfr_text_area :reason, required: true, rows: 6 %>
+              <div data-controller="message-template-selector"
+                   data-message-template-selector-templates-value="<%= @message_templates.map { |t| { id: t.id, content: t.content } }.to_json %>"
+                   data-message-template-selector-authorization-request-data-value="<%= { demande_url: authorization_request_url(@authorization_request), demande_intitule: @authorization_request.intitule, demande_id: @authorization_request.id }.to_json %>">
+                <% if @message_templates.any? %>
+                  <div class="fr-mb-2w">
+                    <ul class="fr-tabs__list messages-templates-selector" role="tablist">
+                      <% @message_templates.each do |template| %>
+                        <li role="presentation">
+                          <button class="fr-tabs__tab"
+                                  type="button"
+                                  role="tab"
+                                  data-template-id="<%= template.id %>"
+                                  data-action="click->message-template-selector#applyTemplate">
+                            <%= template.title %>
+                          </button>
+                        </li>
+                      <% end %>
+                    </ul>
+                  </div>
+                <% end %>
+
+                <%= f.dsfr_text_area :reason, required: true, rows: 6, data: { message_template_selector_target: 'textarea' } %>
+              </div>
             </div>
 
             <div class="fr-modal__footer">

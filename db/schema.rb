@@ -344,6 +344,16 @@ ActiveRecord::Schema[8.1].define(version: 2025_10_24_141046) do
     t.index ["sha256"], name: "index_malware_scans_on_sha256"
   end
 
+  create_table "message_templates", force: :cascade do |t|
+    t.string "authorization_definition_uid", null: false
+    t.integer "template_type", null: false
+    t.string "title", limit: 50, null: false
+    t.text "content", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["authorization_definition_uid", "template_type"], name: "idx_on_authorization_definition_uid_template_type_7b33b333b3"
+  end
+
   create_table "messages", force: :cascade do |t|
     t.bigint "authorization_request_id", null: false
     t.text "body", null: false

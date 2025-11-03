@@ -8,8 +8,8 @@ class Seeds
     create_authorization_requests_for_clamart
     create_authorization_requests_for_dinum
     create_validated_authorization_request(:portail_hubee_demarche_certdc, attributes: { description: nil })
-
     create_instructor_draft_request(applicant: demandeur)
+    create_message_templates
   end
 
   def flushdb
@@ -162,7 +162,7 @@ class Seeds
   def data_pass_admin
     @data_pass_admin ||= User.create!(
       email: 'datapass@yopmail.com',
-      roles: ['admin'] + all_authorization_definition_instructor_roles
+      roles: ['admin'] + all_authorization_definition_manager_roles
     )
   end
 
@@ -173,8 +173,8 @@ class Seeds
     )
   end
 
-  def all_authorization_definition_instructor_roles
-    AuthorizationDefinition.all.map { |definition| "#{definition.id}:instructor" }
+  def all_authorization_definition_manager_roles
+    AuthorizationDefinition.all.map { |definition| "#{definition.id}:manager" }
   end
 
   def all_dgfip_authorizations_definitions
@@ -428,5 +428,9 @@ class Seeds
 
   def production?
     Rails.env.production? && ENV['CAN_FLUSH_DB'].blank?
+  end
+
+  def create_message_templates
+    Seeds::MessageTemplates.create
   end
 end

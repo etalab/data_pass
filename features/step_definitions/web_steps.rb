@@ -302,3 +302,7 @@ end
 Alors('le lien de téléchargement de pièce jointe est désactivé') do
   expect(page).to have_css('a[aria-disabled="true"]', text: 'dummy.pdf')
 end
+
+Quand("j'ouvre l'accordéon {string}") do |accordion_title|
+  find('.fr-accordion__btn', text: accordion_title).click
+end
