@@ -1904,7 +1904,7 @@ api-particulier-aides-facultatives:
     - name: contacts
   initialize_with:
     intitule: Aides facultatives régionales et départementales
-    cadre_juridique_nature: "En vertu de l'article L114-8 du Code des relations entre le public et l'administration, les régions et les départements sont dans l'obligation de récupérer les données administratives directement auprès de l'administration, si cela est possible."
+    cadre_juridique_nature: "En vertu de l'article L114-8 du Code des relations entre le public et l'administration, les régions et les départements sont dans l'obligation de récupérer les données administratives directement auprès de l'administration."
 
 api-particulier-tarification-cantines-lycees:
   name: Tarification cantine lycées
@@ -1955,6 +1955,32 @@ api-particulier-tarification-cantines-colleges:
   initialize_with:
     intitule: Tarification cantine collèges
     cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Cadre légal spécifique aux départements : L'article R531-52 du Code de l’éducation qui donne compétence aux collectivités pour fixer les tarifs des cantines.\r\n- La délibération [À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]"
+    scopes:
+      - cnaf_quotient_familial
+
+api-particulier-tarification-cantines:
+  name: Tarification cantine des collèges et lycées
+  description: Départements et régions, calculez automatiquement le tarif de restauration scolaire des collégiens et lycéens.
+  authorization_request: APIParticulier
+  use_case: cantines-colleges-lycees-tarification
+  introduction: |
+    En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier la <strong>"Tarification cantine des collèges et lycées"</strong>. <a href="https://particulier.api.gouv.fr/cas_usages/cantines-colleges-lycees-tarification">En savoir plus sur ce cas d'usage</a>.
+  scopes_config:
+    displayed:
+      - cnaf_quotient_familial
+      - men_statut_scolarite
+      - men_statut_boursier
+      - men_echelon_bourse
+  steps:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: modalities
+    - name: scopes
+    - name: contacts
+  initialize_with:
+    intitule: Tarification cantine collèges et lycées
+    cadre_juridique_nature: "\n- En vertu de l'article L114-8 du Code des relations entre le public et l'administration, les régions et les départements sont dans l'obligation de récupérer les données administratives directement auprès de l'administration.\r\n- Cadre légal spécifique aux départements : L'article R531-52 du Code de l’éducation qui donne compétence aux collectivités pour fixer les tarifs des cantines.\r\n- Cadre légal pour les régions : L'article L216-6 du Code de l’éducation qui donne compétence aux lycées pour la gestion des cantines.\r\n- La délibération [À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]"
     scopes:
       - cnaf_quotient_familial
 
