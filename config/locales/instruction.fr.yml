@@ -62,6 +62,7 @@ fr:
             other: "%{count} résultats"
       show:
         title: Liste des demandes et habilitations
+        page_title: Tableau de bord instructeur
         tabs:
           demandes:
             title:

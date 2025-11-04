@@ -196,6 +196,7 @@ fr:
   dashboard:
     show:
       title: Demandes et habilitations
+      page_title: Tableau de bord
       tabs:
         demandes:
           title: Les demandes
