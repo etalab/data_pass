@@ -6,8 +6,6 @@ class API::V1Controller < APIController
   rescue_from Doorkeeper::Errors::TokenExpired, with: :render_expired_token_error
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_error
 
-  before_action :doorkeeper_authorize!
-
   protected
 
   def render_not_found_error
