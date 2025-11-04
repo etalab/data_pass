@@ -1,3 +1,5 @@
+<% provide_title t("admin.#{controller_name}.#{action_name}.page_title", default: t("admin.#{controller_name}.#{action_name}.title")) %>
+
 <%= content_for(:body) do %>
   <div class="fr-container">
     <div class="dashboard-sub-header">
