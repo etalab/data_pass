@@ -270,6 +270,8 @@ fr:
       cta: Remplir une demande
 
   authorizations:
+    show:
+      page_title: "Habilitation %{definition_name} - %{authorization_name}"
     card:
       validated_at: Validée le %{date}
       current_user_mentions: "vous avez été référencé comme %{contact_types}"
@@ -518,6 +520,7 @@ fr:
 
     summary:
       title: Récapitulatif de votre demande
+      page_title: "Récapitulatif de votre demande %{definition_name} - %{authorization_request_name}"
       description: |
         Vous avez complété toutes les étapes de votre demande !
         <br />

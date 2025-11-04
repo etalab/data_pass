@@ -1,3 +1,5 @@
+<% provide_title t('.page_title', definition_name: @authorization_request.definition.name, authorization_request_name: @authorization_request.name) %>
+
 <%= authorization_request_form(@authorization_request) do |f| %>
   <%= render partial: 'demandes_habilitations/current_user_mentions_alert', locals: { demande: @authorization_request } %>
 
