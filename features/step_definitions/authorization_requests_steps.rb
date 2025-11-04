@@ -73,8 +73,8 @@ Quand("je démarre une nouvelle demande d'habilitation {string} avec le paramèt
 end
 
 Quand('je remplis les informations du contact {string} avec :') do |string, table|
-  contact_title_node = find('h6', text: string)
-  contact_node = contact_title_node.find(:xpath, '../..')
+  contact_title_node = find('.contact-form-card__title', text: string)
+  contact_node = contact_title_node.find(:xpath, '../../..')
 
   within(contact_node) do
     table.hashes[0].each do |field, value|

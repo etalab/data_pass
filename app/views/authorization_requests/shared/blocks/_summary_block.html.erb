@@ -1,6 +1,12 @@
-<div class="summary-block <%= !editable ? 'summary-block--fixed' : '' %> fr-mb-6w <%= local_assigns[:extra_summary_block_css_classes] %>" id="<%= dom_id(authorization_request, block_id) %>">
+<% heading_id = dom_id(authorization_request, "#{block_id}_heading") %>
+
+<section
+  class="summary-block <%= !editable ? 'summary-block--fixed' : '' %> fr-mb-6w <%= local_assigns[:extra_summary_block_css_classes] %>"
+  id="<%= dom_id(authorization_request, block_id) %>"
+  aria-labelledby="<%= heading_id %>"
+>
   <div class="summary-block__header">
-    <h2 class="summary-block__title fr-h4 fr-pb-1-5v">
+    <h2 class="summary-block__title fr-h4 fr-pb-1-5v" id="<%= heading_id %>">
       <%= title %>
     </h2>
 
@@ -26,4 +32,4 @@
       <%= yield %>
     <% end %>
   </div>
-</div>
+</section>
