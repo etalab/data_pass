@@ -459,9 +459,25 @@ fr:
 
   authorization_request_forms:
     form_not_found: Le formulaire demandé n'existe pas
+    default:
+      steps:
+        basic_infos: Informations de base
+        technical_team: Équipe technique
+        personal_data: Traitement des données personnelles
+        legal: Cadre juridique
+        modalities: Modalités d'appel
+        scopes: Données
+        contacts: Contacts
+        safety_certification: Homologation de sécurité
+        operational_acceptance: Recette fonctionnelle
+        volumetrie: Volumétrie
+        france_connect_eidas: Niveau eIDAS
+        supporting_documents: Pièces justificatives
+        france_connect: FranceConnect
     new:
       back_to_dashboard: Retour à l’accueil
       title: *start_new_habilitation_title
+      page_title: "Nouvelle demande %{authorization_name}"
       organization:
         start_text: Vous êtes sur le point de démarrer une nouvelle demande d’habilitation pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_name}</a>.
         start_text_with_form_name: Vous êtes sur le point de démarrer une nouvelle demande d’habilitation pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_name}</a> via le formulaire <strong>%{authorization_request_form_name}</strong>.
@@ -563,6 +579,8 @@ fr:
       ongoing_request: Reprendre ma demande d'habilitation en cours
       cancel_next_stage: Annuler la demande de production
       cancel_next_stage_title: Annuler cette demande de production
+      wizard_page_title: "%{step_name} - %{definition_name} - %{authorization_request_name}"
+      single_page_title: "%{definition_name}"
     shared:
       organization:
         you:
