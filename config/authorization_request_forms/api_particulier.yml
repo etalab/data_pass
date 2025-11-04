@@ -1888,6 +1888,24 @@ api-particulier-aides-facultatives-departementales:
     intitule: Aides facultatives départementales
     cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration qui fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Cadre légal spécifique : [À PRÉCISER SI NÉCESSAIRE].\r\n- Délibération [À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]."
 
+api-particulier-aides-facultatives:
+  name: Aides facultatives régionales et départementales
+  description: Départements et régions, simplifiez l'attribution de vos aides facultatives.
+  authorization_request: APIParticulier
+  use_case: aides_facultatives
+  introduction: |
+    En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier l'attribution des <strong>"Aides facultatives régionales et départementales"</strong>. <a href="https://particulier.api.gouv.fr/cas_usages/aides_facultatives">En savoir plus sur ce cas d'usage</a>.
+  steps:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: modalities
+    - name: scopes
+    - name: contacts
+  initialize_with:
+    intitule: Aides facultatives régionales et départementales
+    cadre_juridique_nature: "En vertu de l'article L114-8 du Code des relations entre le public et l'administration, les régions et les départements sont dans l'obligation de récupérer les données administratives directement auprès de l'administration, si cela est possible."
+
 api-particulier-tarification-cantines-lycees:
   name: Tarification cantine lycées
   description: Régions, calculez automatiquement le tarif de restauration scolaire des lycéens.
