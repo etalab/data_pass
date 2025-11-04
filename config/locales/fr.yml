@@ -122,6 +122,7 @@ fr:
 
     instruction:
       authorization_request:
+        page_title: "Instruction %{definition_name} - %{authorization_request_name}"
         view_authorization: Consulter l'habilitation
         tabs:
           authorization_request:
