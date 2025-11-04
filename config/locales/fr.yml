@@ -160,6 +160,7 @@ fr:
   pages:
     home:
       title: Bienvenue sur DataPass !
+      page_title: Accueil
       sub_title:
         DataPass, c’est le service qui vous permet de profiter facilement d’habilitations conformes entre
         administrations et d’accéder à des données et services en accès restreint.
@@ -169,6 +170,16 @@ fr:
       pro_connect_subtitle: Qu’est-ce que ProConnect ?
       api_gouv_title: Pour découvrir les APIs du service public
       api_gouv: data.gouv.fr
+    faq:
+      page_title: Foire aux questions
+
+  static_pages:
+    accessibilite:
+      page_title: Déclaration d’accessibilité
+    cgu_api_impot_particulier_bas:
+      page_title: CGU API Impôt Particulier - Bac à sable
+    cgu_api_impot_particulier_prod:
+      page_title: CGU API Impôt Particulier - Production
 
   user:
     organizations:
@@ -251,6 +262,7 @@ fr:
   authorization_definitions:
     index:
       title: Demander une nouvelle habilitation
+      page_title: Demander une habilitation
       cta: Remplir une demande
 
   authorizations:
@@ -684,6 +696,7 @@ fr:
   stats:
     index:
       title: Statistiques d'utilisation
+      page_title: Statistiques
   oauth_applications:
     index:
       title: Mes clefs d'accès API
