@@ -1958,7 +1958,7 @@ api-particulier-tarification-cantines-colleges:
     scopes:
       - cnaf_quotient_familial
 
-api-particulier-tarification-cantines:
+api-particulier-tarification-cantines-colleges-lycees:
   name: Tarification cantine des collèges et lycées
   description: Départements et régions, calculez automatiquement le tarif de restauration scolaire des collégiens et lycéens.
   authorization_request: APIParticulier
