@@ -183,6 +183,8 @@ fr:
 
   user:
     organizations:
+      index:
+        page_title: Choix de votre organisation
       create:
         success: "L'organisation %{name} (siret: %{siret}) a bien été rattaché à votre compte"
         error:
@@ -250,6 +252,7 @@ fr:
   profile:
     edit:
       title: Votre compte
+      page_title: Votre compte utilisateur
       notifications:
         title: Notifications par emails
       developer:
