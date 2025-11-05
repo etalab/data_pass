@@ -383,7 +383,6 @@ fr:
             sfip: "Les données fiscales (API Impôt Particulier)"
             r2p: "Les données relatives à la recherche de personnes physiques (API SFiP R2P)"
       api_sfip_r2p:
-        page_title: "Choix du cas d'usage - %{authorization_name}"
         with_or_without_editor: *with_or_without_editor_block
         choose_form_title: "Choisissez le formulaire d’accès correspondant le mieux à votre cas d'usage :"
       api_infinoe:
@@ -395,7 +394,7 @@ fr:
         with_or_without_editor: *with_or_without_editor_block
         choose_form_title: "Choisissez le formulaire d’accès correspondant le mieux à votre cas d'usage :"
       api_droits_cnam:
-        page_title: "Choix du cas d'usage - %{authorization_name}"
+        page_title: "Habilitation France Connect manquante - %{authorization_name}"
       api_r2p:
         page_title: "Information - %{authorization_name}"
         callout_title: Ce formulaire n'est plus disponible

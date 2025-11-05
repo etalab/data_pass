@@ -5,34 +5,34 @@ Fonctionnalité: Titres de page des pages publiques
   Je veux voir des titres de page pertinents dans mon navigateur
   Afin de pouvoir identifier facilement les pages dans l'historique et les onglets
 
-  Scénario: Le titre de la page d'accueil est correct
+  Scénario: Le titre de la page d'accueil est Accueil - DataPass
     Quand je me rends sur le chemin "/"
     Alors le titre de la page contient "Accueil - DataPass"
 
-  Scénario: Le titre de la page de demande d'habilitation est correct
+  Scénario: Le titre de la page de demande d'habilitation est Demander une habilitation - DataPass
     Sachant que je suis un demandeur
     Et que je me connecte
     Quand je me rends sur le chemin "/demandes"
     Alors le titre de la page contient "Demander une habilitation - DataPass"
 
-  Scénario: Le titre de la page des statistiques est correct
+  Scénario: Le titre de la page des statistiques est statistiques
     Sachant que je suis un demandeur
     Et que je me connecte
     Quand je me rends sur le chemin "/stats"
     Alors le titre de la page contient "Statistiques - DataPass"
 
-  Scénario: Le titre de la page FAQ est correct
+  Scénario: Le titre de la page FAQ est Foire aux questions
     Quand je me rends sur le chemin "/faq"
     Alors le titre de la page contient "Foire aux questions - DataPass"
 
-  Scénario: Le titre de la page d'accessibilité est correct
+  Scénario: Le titre de la page d'accessibilité est Déclaration d’accessibilité
     Quand je me rends sur le chemin "/accessibilite"
     Alors le titre de la page contient "Déclaration d’accessibilité - DataPass"
 
-  Scénario: Le titre de la page CGU API Impôt Particulier (bac à sable) est correct
+  Scénario: Le titre de la page CGU API Impôt Particulier (bac à sable) est CGU API Impôt Particulier - Bac à sable - DataPass
     Quand je me rends sur le chemin "/cgu_api_impot_particulier_bas"
     Alors le titre de la page contient "CGU API Impôt Particulier - Bac à sable - DataPass"
 
-  Scénario: Le titre de la page CGU API Impôt Particulier (production) est correct
+  Scénario: Le titre de la page CGU API Impôt Particulier (production) est CGU API Impôt Particulier - Production - DataPass
     Quand je me rends sur le chemin "/cgu_api_impot_particulier_prod"
     Alors le titre de la page contient "CGU API Impôt Particulier - Production - DataPass"
