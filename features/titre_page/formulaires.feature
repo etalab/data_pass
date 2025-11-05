@@ -16,7 +16,7 @@ Fonctionnalité: Titres de page des formulaires
   Scénario: Le titre de la page d'une étape est correcte
     Quand j'ai 1 demande d'habilitation "API Entreprise" en brouillon
     Et je me rends sur cette demande d'habilitation
-    Alors le titre de la page contient "Informations de base - API Entreprise - Demande libre - DataPass"
+    Alors le titre de la page contient "Mon projet - API Entreprise - Demande libre - DataPass"
 
   Scénario: Le titre de la page d'un formulaire single-page est le nom de l'API - DataPass
     Quand je démarre une nouvelle demande d'habilitation "API CaptchEtat"

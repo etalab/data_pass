@@ -469,21 +469,6 @@ fr:
 
   authorization_request_forms:
     form_not_found: Le formulaire demandé n'existe pas
-    default:
-      steps:
-        basic_infos: Informations de base
-        technical_team: Équipe technique
-        personal_data: Traitement des données personnelles
-        legal: Cadre juridique
-        modalities: Modalités d'appel
-        scopes: Données
-        contacts: Contacts
-        safety_certification: Homologation de sécurité
-        operational_acceptance: Recette fonctionnelle
-        volumetrie: Volumétrie
-        france_connect_eidas: Niveau eIDAS
-        supporting_documents: Pièces justificatives
-        france_connect: FranceConnect
     new:
       back_to_dashboard: Retour à l’accueil
       title: *start_new_habilitation_title
