@@ -21,7 +21,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Entreprise
     * je renseigne le cadre légal
     * je clique sur "Suivant"
 
-    * je coche "Données unités légales et établissements du répertoire Sirene - Insee (diffusibles et non-diffusibles)"
+    * je coche "Données unités légales et établissements du répertoire Sirene"
     * je clique sur "Suivant"
 
     * je renseigne les informations des contacts RGPD
