@@ -404,6 +404,7 @@ fr:
     instructor_draft_requests:
       index:
         title: Demandes initiés par des instructeurs
+        page_title: Demandes initiées par les instructeurs
         new: Initier une nouvelle demande d'habilitation
         table:
           header:
@@ -422,6 +423,7 @@ fr:
             confirm_delete: Confirmer la suppression ? Cela supprimera cette demande et l'invitation associée.
       new:
         title: Choix du type d'habilitation
+        page_title: Nouvelle demande instructeur
         description: |
           Vous allez initier une nouvelle demande d'habilitation.
           Veuillez choisir le type d'habilitation et son formulaire que vous souhaitez initier.
@@ -430,6 +432,7 @@ fr:
         form_description_label: Description du formulaire
         start_draft: Démarrer le brouillon
       edit:
+        page_title: "%{definition_name} - %{project_name}"
         save: Sauvegarder
       create:
         success: La demande d'habilitation a bien été sauvegardé
