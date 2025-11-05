@@ -17,7 +17,7 @@ api_entreprise:
     - name: "scopes"
     - name: "contacts"
   scopes:
-    - name: "Données unités légales et établissements du répertoire Sirene - Insee (diffusibles et non-diffusibles) | 🔐"
+    - name: "Données unités légales et établissements du répertoire Sirene - Insee et extrait RNE - INPI (diffusibles et non-diffusibles) | 🔐"
       group: "Informations générales"
       value: "unites_legales_etablissements_insee"
       link: "https://entreprise.api.gouv.fr/catalogue?APIEntreprise_Endpoint%5Bquery%5D=insee"
