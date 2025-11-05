@@ -61,10 +61,6 @@ class AuthorizationDefinition < StaticApplicationRecord
     end
   end
 
-  def reopenable?
-    true
-  end
-
   def feature?(name)
     features.fetch(name.to_sym, true)
   end

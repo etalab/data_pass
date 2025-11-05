@@ -50,6 +50,7 @@
 - Be sure that rubocop passes before stopping your work.
 - Be sure that tests you introduce pass before stopping your work.
 - Authorization should be done in the controller, not in the model/services.
+- Check docs/ for technical documentation if needed.
 
 ## Git
 

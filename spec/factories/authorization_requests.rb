@@ -828,6 +828,10 @@ FactoryBot.define do
       with_cadre_juridique
       with_france_connect_eidas
       with_scopes
+
+      after(:build) do |authorization_request, evaluator|
+        authorization_request.contact_technique_phone_number = '0612345678' if (authorization_request.need_complete_validation? || evaluator.fill_all_attributes) && authorization_request.contact_technique_phone_number.present?
+      end
     end
 
     trait :france_connect_collectivite_administration do

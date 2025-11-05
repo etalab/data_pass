@@ -3,5 +3,6 @@ class StartNextAuthorizationRequestStage < ApplicationOrganizer
     context.state_machine_event = :start_next_stage
   end
 
-  organize ExecuteAuthorizationRequestTransitionWithCallbacks
+  organize ExecuteAuthorizationRequestTransitionWithCallbacks,
+    AssignLatestProductionDataInAuthorizationRequest
 end

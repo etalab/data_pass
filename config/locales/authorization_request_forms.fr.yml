@@ -99,7 +99,7 @@ fr:
       volumetrie_appels_par_minute:
         label: Quelle limitation de débit souhaitez-vous pour votre téléservice ?
       volumetrie_justification:
-        label: Pour quels motifs souhaitez-vous un débit plus grand que le minimum ? <span class="fr-ml-1w fr-text-error">*</span>
+        label: Pour quels motifs souhaitez-vous un débit plus grand que le minimum ? (volumétrie par mois et par jour, pics d'activité, période de disponibilité du téléservice...)
       volumetrie_approximative:
         hint: Nombre de démarches ou dossiers traités dans l'année
 
@@ -729,6 +729,10 @@ fr:
         subtitle: Les niveaux de garantie eIDAS permettent d'apporter une garantie sur l'identité qui est fournie au fournisseur de service.
       alternative_connexion:
         label: J’atteste que mon service propose une alternative à la connexion avec FranceConnect, et que cette alternative permet l’accès, dans des conditions analogues, à la même prestation de service public.
+      contact_technique:
+        info: |
+          Cette personne sera contactée en cas de problème technique sur votre service, veuillez renseigner un numéro de mobile (06/07, ou format international mobile) afin de recevoir les SMS de FranceConnect.
+          Le responsable technique peut être le contact technique de votre prestataire.
     annuaire_des_entreprises:
       steps:
         <<: *authorization_request_forms_default_steps

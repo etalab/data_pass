@@ -59,6 +59,7 @@ group :development, :test do
   gem 'bullet'
   gem 'byebug'
   gem 'debug', platforms: %i[ mri windows ]
+  gem 'dotenv-rails'
   gem 'foreman'
   gem 'guard'
   gem 'guard-cucumber'

@@ -62,23 +62,6 @@ class Authorization < ApplicationRecord
       transition from: :revoked, to: :active
       transition from: :obsolete, to: :obsolete
     end
-
-    after_transition on: :revoke do |authorization, _transition|
-      authorization.update(revoked: true)
-    end
-
-    after_transition on: :rollback_revoke do |authorization, _transition|
-      authorization.update(revoked: false)
-    end
-  end
-
-  # TODO : remove when the state machine is fully functional
-  def revoked?
-    if ENV.fetch('FEATURE_USE_AUTH_STATES', 'false') == 'true'
-      self[:state] == 'revoked'
-    else
-      self[:revoked]
-    end
   end
 
   def self.model_specific_ransackable_attributes
@@ -119,7 +102,19 @@ class Authorization < ApplicationRecord
   # rubocop:enable Metrics/AbcSize
 
   def reopenable?
-    latest?
+    if multi_stage? && stage.type == 'production'
+      common_reopenable? &&
+        request.latest_authorization.stage.type != 'sandbox'
+    else
+      common_reopenable?
+    end
+  end
+
+  def common_reopenable?
+    latest? &&
+      !request.currently_reopen? &&
+      active? &&
+      !request.dirty_from_v1?
   end
 
   def latest?
@@ -142,8 +137,19 @@ class Authorization < ApplicationRecord
     authorization_request_class.constantize.definition
   end
 
+  delegate :multi_stage?, to: :definition
+
   def reopenable_to_another_stage?
-    authorization_request.latest_authorizations_of_each_stage.many?
+    latest_authorizations_of_each_stage = authorization_request.latest_authorizations_of_each_stage
+
+    latest_authorizations_of_each_stage.many? &&
+      latest_authorizations_of_each_stage.all?(&:reopenable?)
+  end
+
+  def stage
+    return unless multi_stage?
+
+    authorization_request_class.constantize.definition.stage
   end
 
   def contact_types_for(user)

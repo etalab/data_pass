@@ -29,8 +29,8 @@ RSpec.describe RevokeAuthorizationRequest, type: :organizer do
           expect { revoke_authorization_request }.to change { authorization_request.reload.state }.from('validated').to('revoked')
         end
 
-        it 'changes all linked authorization revoked boolean to true' do
-          expect { revoke_authorization_request }.to change { authorization_request.latest_authorization.revoked }.to(true)
+        it 'changes all linked authorization state to revoked' do
+          expect { revoke_authorization_request }.to change { authorization_request.latest_authorization.state }.to('revoked')
         end
 
         it 'delivers an email' do

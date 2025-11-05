@@ -11,6 +11,7 @@
 /.idea
 /.junie*
 .claude/
+/.aiassistant/*
 vendor/bundle/
 
 # Ignore all environment files (except templates).

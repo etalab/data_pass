@@ -9,11 +9,15 @@ When('il y a une demande d\'habilitation "FranceConnect" validée avec une habil
   )
   france_connect_authorization = france_connect_authorization_request.authorizations.first
 
-  create(
+  france_connected_request = create(
     :authorization_request,
-    :api_droits_cnam,
+    :api_impot_particulier_sandbox,
     :validated,
-    france_connect_authorization:,
     organization:,
   )
+  france_connected_authorization = france_connected_request.authorizations.first
+
+  france_connected_authorization.data['france_connect_authorization_id'] = france_connect_authorization.id
+  france_connected_authorization.data['modalities'] = %w[]
+  france_connected_authorization.save!
 end

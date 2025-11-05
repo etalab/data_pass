@@ -35,8 +35,37 @@ RSpec.describe StartNextAuthorizationRequestStage, type: :organizer do
             expect { start_next_stage }.to change { AuthorizationRequest.find(authorization_request.id).state }.from('validated').to('draft')
           end
 
-          it 'copy keeps the same data' do
-            expect { start_next_stage }.not_to change { AuthorizationRequest.find(authorization_request.id).data }
+          context 'when there is an existing production authorization' do
+            let!(:existing_production_authorization) do
+              create(:authorization, request: authorization_request, authorization_request_class: 'AuthorizationRequest::APIImpotParticulier')
+            end
+            let(:sandbox_key) { 'volumetrie_approximative' }
+            let(:production_key) { 'volumetrie_appels_par_minute' }
+
+            before do
+              authorization_request.data[sandbox_key] = '9001'
+              authorization_request.data[production_key] = '10'
+              authorization_request.save!
+
+              existing_production_authorization.data[sandbox_key] = '9002'
+              existing_production_authorization.data[production_key] = '50'
+              existing_production_authorization.save!
+            end
+
+            it 'copies the existing production authorization data, in order to keep production data up to date, but keep sandbox data' do
+              start_next_stage
+
+              authorization_request_after = AuthorizationRequest.find(authorization_request.id).data
+
+              expect(authorization_request_after[sandbox_key]).not_to eq(existing_production_authorization.data[sandbox_key])
+              expect(authorization_request_after[production_key]).to eq(existing_production_authorization.data[production_key])
+            end
+          end
+
+          context 'when there is no existing production authorization' do
+            it 'the same data' do
+              expect { start_next_stage }.not_to change { AuthorizationRequest.find(authorization_request.id).data }
+            end
           end
 
           it 'changes form id' do

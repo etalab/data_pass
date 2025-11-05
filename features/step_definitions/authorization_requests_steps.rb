@@ -363,6 +363,14 @@ Quand('je renseigne les informations du contact technique') do
   )
 end
 
+Quand('je renseigne les informations du contact technique avec un numéro de mobile') do
+  steps %(
+    * je remplis les informations du contact "Contact technique" avec :
+      | Nom    | Prénom  | Email               | Téléphone  | Fonction    |
+      | Dupont | Marc    | dupont.marc@gouv.fr | 0612345678 | Technique   |
+  )
+end
+
 Quand('je renseigne les informations du contact métier') do
   steps %(
     * je remplis les informations du contact "Contact métier" avec :

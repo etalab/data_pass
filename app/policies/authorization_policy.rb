@@ -1,12 +1,15 @@
 class AuthorizationPolicy < ApplicationPolicy
+  include CommonAuthorizationModelsPolicies
+
   def contact_support?
     record.revoked? &&
       record.applicant == user
   end
 
   def reopen?
-    record.active? &&
-      authorization_request_policy.reopen?
+    feature_enabled?(:reopening) &&
+      same_user_and_organization? &&
+      record.reopenable?
   end
 
   def show?
@@ -32,14 +35,17 @@ class AuthorizationPolicy < ApplicationPolicy
 
   private
 
+  def authorization_definition
+    record.definition
+  end
+
   def authorization_request_policy
     @authorization_request_policy ||= AuthorizationRequestPolicy.new(user_context, record.authorization_request)
   end
 
   def same_current_verified_organization?
-    current_organization.present? &&
-      user.current_organization_verified? &&
-      record.organization == current_organization
+    same_current_organization? &&
+      user.current_organization_verified?
   end
 
   class Scope < Scope

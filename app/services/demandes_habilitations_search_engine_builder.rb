@@ -14,7 +14,7 @@ class DemandesHabilitationsSearchEngineBuilder
 
   def build_authorization_requests_relation(policy_scope)
     base_items = policy_scope
-      .includes(:applicant, :authorizations)
+      .includes(:applicant, :organization, authorizations: %i[organization])
       .not_archived
       .order(created_at: :desc)
 
@@ -24,7 +24,7 @@ class DemandesHabilitationsSearchEngineBuilder
 
   def build_authorizations_relation(policy_scope)
     base_items = policy_scope
-      .includes(:request, :applicant)
+      .includes(:request, :applicant, :organization, request: %i[organization])
       .order(created_at: :desc)
 
     base_items = base_items.or(authorization_mentions_query(Authorization.all))
