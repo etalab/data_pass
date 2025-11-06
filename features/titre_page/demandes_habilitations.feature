@@ -10,13 +10,11 @@ Fonctionnalité: Titres de page des demandes et habilitations
     Et que je me connecte
 
   Scénario: Le titre de la page de récapitulatif d'une demande validée contient le nom de l'API et le nom de la demande
-    Quand je me rends sur une demande d'habilitation "API Particulier" validée
-    Alors le titre de la page contient "Récapitulatif de votre demande API Particulier"
-    Et le titre de la page contient "DataPass"
+    Quand je me rends sur une demande d'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)" validée
+    Alors le titre de la page est "Récapitulatif de votre demande"
 
   Scénario: Le titre de la page d'une habilitation active contient le nom de l'API et le nom de la demande
     Quand j'ai 1 habilitation "API Particulier" active
     Et je visite la page de mon habilitation
-    Alors le titre de la page contient "Habilitation API Particulier"
-    Et le titre de la page contient "DataPass"
+    Alors le titre de la page est "Habilitation API Particulier - Demande d'accès à la plateforme fournisseur - DataPass"
 

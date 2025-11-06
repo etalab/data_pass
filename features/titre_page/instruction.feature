@@ -10,4 +10,4 @@ Fonctionnalité: Titres de page de l'espace instruction
     Et que je me connecte
     Et il y a 1 demande d'habilitation "API Entreprise" soumise
     Quand je me rends sur cette demande d'habilitation
-    Alors le titre de la page contient "Instruction API Entreprise - Demande d'accès à la plateforme fournisseur - DataPass"
+    Alors le titre de la page est "Instruction API Entreprise - Demande d'accès à la plateforme fournisseur - DataPass"
