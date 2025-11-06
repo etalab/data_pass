@@ -1,11 +1,13 @@
-<% if within_wizard? %>
-  <% provide_title t('.wizard_page_title',
+<% unless content_for?(:page_title) %>
+  <% if within_wizard? || within_edit? %>
+    <% provide_title t('.wizard_page_title',
       step_name: authorization_request_step_name(@authorization_request, english_step_name(params[:id])),
       definition_name: @authorization_request.definition.name,
       authorization_request_name: @authorization_request.name) %>
-<% elsif @authorization_request.present? %>
-  <% provide_title t('.single_page_title',
+  <% else %>
+    <% provide_title t('.single_page_title',
       definition_name: @authorization_request.definition.name) %>
+  <% end %>
 <% end %>
 
 <%= render partial: 'authorization_request_forms/build/header', locals: { f: } %>

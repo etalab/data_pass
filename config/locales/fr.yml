@@ -531,7 +531,7 @@ fr:
 
     summary:
       title: Récapitulatif de votre demande
-      page_title: "Récapitulatif de votre demande %{definition_name} - %{authorization_request_name}"
+      page_title: "Récapitulatif de votre demande - %{definition_name}"
       description: |
         Vous avez complété toutes les étapes de votre demande !
         <br />

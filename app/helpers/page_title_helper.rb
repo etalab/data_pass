@@ -6,7 +6,7 @@ module PageTitleHelper
   end
 
   def provide_title(title)
-    content_for(:page_title, title)
+    content_for(:page_title, title, flush: true)
   end
 
   def display_page_title
