@@ -3,6 +3,10 @@ class AuthorizationRequestDecorator < ApplicationDecorator # rubocop:disable Met
 
   decorates_association :organization
 
+  def intitule
+    object.data['intitule']
+  end
+
   def to_partial_path
     'authorization_requests/card'
   end
