@@ -74,7 +74,7 @@ api-ficoba-production:
     </div>
   authorization_request: APIFicoba
   static_blocks: *api_ficoba_sandbox_steps
-  steps:
+  steps: &api_ficoba_production_steps
     - name: operational_acceptance
     - name: safety_certification
     - name: volumetrie
