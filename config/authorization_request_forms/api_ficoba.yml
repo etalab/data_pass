@@ -83,7 +83,7 @@ api-ficoba-production-editeur:
   name: Demande libre avec éditeur
   public: true
   description: Pour les utilisateurs travaillant avec un éditeur ayant déjà effectué une recette fonctionnelle.
-  introduction: |
+  introduction: &api_ficoba_editor_form_introduction |
     Votre éditeur a déjà obtenu l'accès à la sandbox, vous n'avez plus qu'à obtenir l'accès en production via ce formulaire.
   authorization_request: APIFicoba
   steps:
