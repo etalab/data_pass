@@ -881,7 +881,7 @@ api_ficoba:
   provider: "dgfip"
   kind: 'api'
   link: "https://www.data.gouv.fr/fr/dataservices/api-fichier-des-comptes-bancaires-et-assimiles-ficoba/"
-  cgu_link: "/cgus/dgfip/cgu_api_ficoba_production.pdf"
+  cgu_link: "/cgus/dgfip/cgu_api_ficoba_prod_2025.pdf"
   # FEEDME
   access_link: "https://api-ficoba.gouv.fr/tokens/%{external_provider_id}"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"
@@ -940,7 +940,7 @@ api_ficoba_sandbox:
   provider: "dgfip"
   kind: 'api'
   link: "https://www.data.gouv.fr/fr/dataservices/api-fichier-des-comptes-bancaires-et-assimiles-ficoba/"
-  cgu_link: "/cgus/dgfip/cgu_api_ficoba_bac_a_sable_decembre2020_v1.1.pdf"
+  cgu_link: "/cgus/dgfip/cgu_api_ficoba_bas_2025.pdf"
   # FEEDME
   access_link: "https://api-ficoba.gouv.fr/tokens/%{external_provider_id}"
   support_email: "dtnum.donnees.demande-acces@dgfip.finances.gouv.fr"

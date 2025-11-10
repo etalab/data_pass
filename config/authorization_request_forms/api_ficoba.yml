@@ -106,7 +106,9 @@ api-ficoba-recouvrement-sandbox:
   steps: *api_ficoba_sandbox_steps
   initialize_with:
     intitule: Recouvrement forcé
-    description: FICOBA permet de restituer la liste des comptes bancaires ouverts (sans date de clôture) dont le titulaire (personne physique ou personne morale) n’est pas à jour dans le paiement de ses impôts, taxes, amendes, cotisations… A partir des données restituées, le service peut enclencher une procédure de saisie administrative à tiers détenteur (SATD).
+    description: |
+      FICOBA permet de restituer la liste des comptes bancaires ouverts (sans date de clôture) dont le titulaire (personne physique ou personne morale) n’est pas à jour dans le paiement de ses impôts, taxes, amendes, cotisations… A partir des données restituées, le service peut enclencher une procédure de saisie administrative à tiers détenteur (SATD).
+      (A compléter par le demandeur)
     scopes:
       - dgfip_ficoba_etat_civil_denomination
       - dgfip_ficoba_adresse
@@ -141,7 +143,9 @@ api-ficoba-recouvrement-editeur:
   steps: *api_ficoba_editor_steps
   initialize_with:
     intitule: Recouvrement forcé
-    description: FICOBA permet de restituer la liste des comptes bancaires ouverts (sans date de clôture) dont le titulaire (personne physique ou personne morale) n’est pas à jour dans le paiement de ses impôts, taxes, amendes, cotisations… A partir des données restituées, le service peut enclencher une procédure de saisie administrative à tiers détenteur (SATD).
+    description: |
+      FICOBA permet de restituer la liste des comptes bancaires ouverts (sans date de clôture) dont le titulaire (personne physique ou personne morale) n’est pas à jour dans le paiement de ses impôts, taxes, amendes, cotisations… A partir des données restituées, le service peut enclencher une procédure de saisie administrative à tiers détenteur (SATD).
+      (A compléter par le demandeur)
     scopes:
       - dgfip_ficoba_etat_civil_denomination
       - dgfip_ficoba_adresse
@@ -164,7 +168,9 @@ api-ficoba-verification-iban-sandbox:
   steps: *api_ficoba_sandbox_steps
   initialize_with:
     intitule: Vérification des IBAN avec titulaire
-    description: FICOBA permet de vérifier la concordance entre le compte bancaire fourni par l’usager (qui demande de bénéficier d’une prestation/aide) et son identité réelle et de confirmer si le compte fourni par le titulaire est bien présent en base pour cette même personne (lutte contre l’usurpation d’identité, de faux IBAN...).
+    description: |
+      FICOBA permet de vérifier la concordance entre le compte bancaire fourni par l’usager (qui demande de bénéficier d’une prestation/aide) et son identité réelle et de confirmer si le compte fourni par le titulaire est bien présent en base pour cette même personne (lutte contre l’usurpation d’identité, de faux IBAN...).
+      (A compléter par le demandeur)
     scopes:
       - dgfip_ficoba_restitution_verification
     modalities:
@@ -194,7 +200,9 @@ api-ficoba-verification-iban-editeur:
   steps: *api_ficoba_editor_steps
   initialize_with:
     intitule: Vérification des IBAN avec titulaire
-    description: FICOBA permet de vérifier la concordance entre le compte bancaire fourni par l’usager (qui demande de bénéficier d’une prestation/aide) et son identité réelle et de confirmer si le compte fourni par le titulaire est bien présent en base pour cette même personne (lutte contre l’usurpation d’identité, de faux IBAN...).
+    description: |
+      FICOBA permet de vérifier la concordance entre le compte bancaire fourni par l’usager (qui demande de bénéficier d’une prestation/aide) et son identité réelle et de confirmer si le compte fourni par le titulaire est bien présent en base pour cette même personne (lutte contre l’usurpation d’identité, de faux IBAN...).
+      (A compléter par le demandeur)
     scopes:
       - dgfip_ficoba_restitution_verification
     modalities:
@@ -212,7 +220,9 @@ api-ficoba-verification-existence-sandbox:
   steps: *api_ficoba_sandbox_steps
   initialize_with:
     intitule: Vérification de l’existence de l’IBAN
-    description: FICOBA permet de s’assurer que l’IBAN fourni existe bien dans FICOBA, ou s’il est toujours ouvert.
+    description: |
+      FICOBA permet de s’assurer que l’IBAN fourni existe bien dans FICOBA, ou s’il est toujours ouvert.
+      (A compléter par le demandeur)
     scopes:
       - dgfip_ficoba_restitution_verification
     modalities:
@@ -240,7 +250,9 @@ api-ficoba-verification-existence-editeur:
   steps: *api_ficoba_editor_steps
   initialize_with:
     intitule: Vérification de l’existence de l’IBAN
-    description: FICOBA permet de s’assurer que l’IBAN fourni existe bien dans FICOBA, ou s’il est toujours ouvert.
+    description: |
+      FICOBA permet de s’assurer que l’IBAN fourni existe bien dans FICOBA, ou s’il est toujours ouvert.
+      (A compléter par le demandeur)
     scopes:
       - dgfip_ficoba_restitution_verification
     modalities:
@@ -256,7 +268,9 @@ api-ficoba-fraude-sandbox:
   steps: *api_ficoba_sandbox_steps
   initialize_with:
     intitule: Lutte contre la fraude
-    description: FICOBA permet d’accéder à la liste des comptes détenus par un titulaire dans le cadre d’une enquête menée par une autorité compétente afin d’appréhender un fraudeur potentiel et de constituer des éléments permettant de prouver la fraude.
+    description: |
+      FICOBA permet d’accéder à la liste des comptes détenus par un titulaire dans le cadre d’une enquête menée par une autorité compétente afin d’appréhender un fraudeur potentiel et de constituer des éléments permettant de prouver la fraude.
+      (A compléter par le demandeur)
     scopes:
       - dgfip_ficoba_etat_civil_denomination
       - dgfip_ficoba_adresse
@@ -291,7 +305,9 @@ api-ficoba-fraude-editeur:
   steps: *api_ficoba_editor_steps
   initialize_with:
     intitule: Lutte contre la fraude
-    description: FICOBA permet d’accéder à la liste des comptes détenus par un titulaire dans le cadre d’une enquête menée par une autorité compétente afin d’appréhender un fraudeur potentiel et de constituer des éléments permettant de prouver la fraude.
+    description: |
+      FICOBA permet d’accéder à la liste des comptes détenus par un titulaire dans le cadre d’une enquête menée par une autorité compétente afin d’appréhender un fraudeur potentiel et de constituer des éléments permettant de prouver la fraude.
+      (A compléter par le demandeur)
     scopes:
       - dgfip_ficoba_etat_civil_denomination
       - dgfip_ficoba_adresse
@@ -306,28 +322,32 @@ api-ficoba-fraude-editeur:
 
 #Contrôle multi-détention PER
 api-ficoba-multi-detention-sandbox:
-  name: Contrôle multi-détention produit d’épargne réglementé (Bac à sable)
+  name: Contrôle multi-détention PER - établissements bancaires uniquement (Bac à sable)
   public: true
   use_case: multi_detention
-  description: Contrôle multi-détention produit d’épargne réglementé
+  description: Contrôle multi-détention PER - établissements bancaires uniquement
   authorization_request: APIFicobaSandbox
   steps: *api_ficoba_sandbox_steps
   initialize_with:
     intitule: Contrôle multi-détention produit d’épargne réglementé
-    description: FICOBA permet aux établissements bancaires qui commercialisent des produits d’épargne réglementé (PER) de respecter leur obligation légale de vérifier qu'un épargnant qui demande l'ouverture d'un produit d'épargne réglementé n'en détient pas un autre similaire dans un autre établissement.
+    description: |
+      FICOBA permet aux établissements bancaires qui commercialisent des produits d’épargne réglementé (PER) de respecter leur obligation légale de vérifier qu'un épargnant qui demande l'ouverture d'un produit d'épargne réglementé n'en détient pas un autre similaire dans un autre établissement.
+      (A compléter par le demandeur)
     scopes:
       - dgfip_ficoba_etablissement_bancaire
       - dgfip_ficoba_nombre_comptes
       - dgfip_ficoba_iban
-      - gfip_ficoba_date_ouverture
+      - dgfip_ficoba_date_ouverture
       - dgfip_ficoba_motif_ouverture
     modalities:
       - with_ficoba_siren
       - with_ficoba_personne_morale
       - with_ficoba_personne_physique
+    cadre_juridique_nature: Article R. 221-122 du code monétaire et financier (version au 01/01/2026)
+    cadre_juridique_url: https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000026462277/
 
 api-ficoba-multi-detention-production:
-  name: Contrôle multi-détention produit d’épargne réglementé
+  name: Contrôle multi-détention PER - établissements bancaires uniquement
   public: false
   startable_by_applicant: false
   stage:
@@ -339,16 +359,18 @@ api-ficoba-multi-detention-production:
   steps: *api_ficoba_production_steps
 
 api-ficoba-multi-detention-editeur:
-  name: Contrôle multi-détention produit d’épargne réglementé (avec Éditeur)
+  name: Contrôle multi-détention PER - établissements bancaires uniquement (avec Éditeur)
   public: true
   use_case: multi_detention
-  description: Contrôle multi-détention produit d’épargne réglementé (avec Éditeur)
+  description: Contrôle multi-détention PER - établissements bancaires uniquement (avec Éditeur)
   introduction: *api_ficoba_editor_form_introduction
   authorization_request: APIFicoba
   steps: *api_ficoba_editor_steps
   initialize_with:
     intitule: Contrôle multi-détention produit d’épargne réglementé
-    description: FICOBA permet aux établissements bancaires qui commercialisent des produits d’épargne réglementé (PER) de respecter leur obligation légale de vérifier qu'un épargnant qui demande l'ouverture d'un produit d'épargne réglementé n'en détient pas un autre similaire dans un autre établissement.
+    description: |
+      FICOBA permet aux établissements bancaires qui commercialisent des produits d’épargne réglementé (PER) de respecter leur obligation légale de vérifier qu'un épargnant qui demande l'ouverture d'un produit d'épargne réglementé n'en détient pas un autre similaire dans un autre établissement.
+      (A compléter par le demandeur)
     scopes:
       - dgfip_ficoba_etablissement_bancaire
       - dgfip_ficoba_nombre_comptes
@@ -359,3 +381,5 @@ api-ficoba-multi-detention-editeur:
       - with_ficoba_siren
       - with_ficoba_personne_morale
       - with_ficoba_personne_physique
+    cadre_juridique_nature: Article R. 221-122 du code monétaire et financier (version au 01/01/2026)
+    cadre_juridique_url: https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000026462277/
