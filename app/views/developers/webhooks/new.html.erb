@@ -1,0 +1,17 @@
+<% content_for :content_skip_link_text do %>
+  Nouveau webhook
+<% end %>
+
+<% content_for :skip_links do %>
+  <%= skip_link("Formulaire", "webhook-form") %>
+  <%= skip_link("Menu", "header") %>
+  <%= skip_link("Pied de page", "footer") %>
+<% end %>
+
+<div class="sub-header">
+  <h1 class="fr-m-0">
+    <%= t('.title') %>
+  </h1>
+</div>
+
+<%= render 'form' %>
