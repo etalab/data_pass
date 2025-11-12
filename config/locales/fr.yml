@@ -182,6 +182,10 @@ fr:
     cgu_api_impot_particulier_prod:
       page_title: CGU API Impôt Particulier - Production
 
+  open_api:
+    show:
+      page_title: Documentation API
+
   user:
     organizations:
       index:
