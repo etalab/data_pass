@@ -8,6 +8,8 @@ class AuthorizationRequestsController < AuthenticatedUserController
   before_action :set_facade, only: %i[new]
   before_action :find_eligibility_rule, only: %i[new]
 
+  decorates_assigned :eligibility_rule
+
   def new
     if user_signed_in?
       authorize :authorization_request, :new?
