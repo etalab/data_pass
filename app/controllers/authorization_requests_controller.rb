@@ -6,6 +6,7 @@ class AuthorizationRequestsController < AuthenticatedUserController
 
   before_action :find_authorization_definition, only: %i[new]
   before_action :set_facade, only: %i[new]
+  before_action :find_eligibility_rule, only: %i[new]
 
   def new
     if user_signed_in?
@@ -78,10 +79,18 @@ class AuthorizationRequestsController < AuthenticatedUserController
     save_redirect_path
     @display_provider_logo_in_header = true
 
-    render 'authorization_requests/unauthenticated_start'
+    if @eligibility_rule && params[:eligibility_confirmed] != 'true'
+      render 'authorization_requests/eligibility_check'
+    else
+      render 'authorization_requests/unauthenticated_start'
+    end
   end
 
   def id_sanitized
     params[:definition_id].underscore
+  end
+
+  def find_eligibility_rule
+    @eligibility_rule = EligibilityRule.find_by(definition_id: id_sanitized)
   end
 end

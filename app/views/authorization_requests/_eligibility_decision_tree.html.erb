@@ -1,0 +1,60 @@
+<div class="fr-my-5w">
+  <div data-controller="show-and-hide" data-show-and-hide-targets-value=".outcome">
+    <div class="fr-form-group">
+      <fieldset class="fr-fieldset">
+        <legend class="fr-fieldset__legend fr-text--lg fr-text--bold">
+          <%= t('eligibility.question') %>
+        </legend>
+
+        <% @eligibility_rule.options.each do |option| %>
+          <% option_id = "#{option['type']}-option" %>
+          <% outcome_id = "#{option['type']}-outcome" %>
+
+          <div class="fr-fieldset__element">
+            <div class="fr-radio-group">
+              <input type="radio"
+                     id="<%= option_id %>"
+                     name="user-type"
+                     data-action="change->show-and-hide#trigger"
+                     data-show-and-hide-target-param="#<%= outcome_id %>">
+              <label class="fr-label" for="<%= option_id %>">
+                <%= t("eligibility.user_types.#{option['type']}") %>
+              </label>
+            </div>
+          </div>
+        <% end %>
+      </fieldset>
+    </div>
+
+    <% @eligibility_rule.options.each do |option| %>
+      <% outcome_id = "#{option['type']}-outcome" %>
+      <% alert_class = case option['eligible']
+                       when 'yes' then 'fr-callout--green-emeraude'
+                       when 'no' then 'fr-callout--pink-macaron'
+                       when 'maybe' then 'fr-callout--yellow-tournesol'
+                       end %>
+
+      <div id="<%= outcome_id %>" class="fr-hidden fr-my-3w outcome">
+        <div class="fr-callout <%= alert_class %>">
+          <div class="fr-alert__body">
+            <%= sanitize(option['body'], tags: %w[b i strong em p a], attributes: %w[href])
+   %>
+          </div>
+        </div>
+        <% if %w[yes maybe].include? option['eligible'] %>
+          <div class="fr-mt-3w">
+            <%= link_to t('eligibility.cta.request_access'),
+              new_authorization_request_path(definition_id: @authorization_definition.id, eligibility_confirmed: true),
+              class: 'fr-btn' %>
+          </div>
+        <% elsif option['cta'].present? %>
+          <div class="fr-mt-3w">
+            <%= link_to option['cta']['content'],
+              option['cta']['url'],
+              class: 'fr-btn fr-btn--secondary' %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
