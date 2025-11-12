@@ -17,6 +17,7 @@ RSpec.describe 'Page titles coverage' do
       title.gsub(/\s+/, ' ').strip
     end
 
+    # rubocop:disable RSpec/NoExpectationExample
     it 'checks that all public GET routes have a specific page title' do
       routes = Rails.application.routes.routes
         .select { |r| r.verb.include?('GET') }
@@ -61,6 +62,7 @@ RSpec.describe 'Page titles coverage' do
         fail error_message
       end
     end
+    # rubocop:enable RSpec/NoExpectationExample
   end
 
   describe 'authenticated routes' do
