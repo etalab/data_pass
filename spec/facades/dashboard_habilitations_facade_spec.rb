@@ -7,11 +7,7 @@ RSpec.describe DashboardHabilitationsFacade, type: :facade do
   end
   let(:search_query) { nil }
   let(:subdomain_types) { nil }
-  let(:scoped_relation) do
-    Authorization
-      .joins(:request)
-      .where(authorization_requests: { organization: organization })
-  end
+  let(:scoped_relation) { Authorization.all }
 
   let(:facade) do
     described_class.new(
