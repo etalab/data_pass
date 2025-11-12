@@ -45,7 +45,7 @@ Quand('je veux remplir une demande pour {string} via le formulaire {string} de l
 end
 
 Quand('je veux remplir une demande pour {string}') do |authorization_request_name|
-  visit new_authorization_request_path(definition_id: find_authorization_definition_from_name(authorization_request_name).id)
+  visit new_authorization_request_path(definition_id: find_authorization_definition_from_name(authorization_request_name).id, eligibility_confirmed: 'true')
 end
 
 Quand("je démarre une nouvelle demande d'habilitation {string} à l'étape {string}") do |name, stage|
