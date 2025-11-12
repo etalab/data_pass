@@ -17,7 +17,7 @@ class AuthorizationsSearchEngineBuilder < AbstractSearchEngineBuilder
   private
 
   def filter_by_applicant(base_items)
-    base_items.where(applicant: user, organization: user.current_organization)
+    base_items.joins(:request).where(authorization_requests: { applicant: user, organization: user.current_organization })
   end
 
   def filter_by_contact(base_items)
@@ -30,6 +30,7 @@ class AuthorizationsSearchEngineBuilder < AbstractSearchEngineBuilder
   def filter_by_organization(base_items)
     return base_items.none unless user.current_organization_verified?
 
-    base_items.where(organization: user.current_organization)
+    base_items.joins(:request)
+      .where(authorization_requests: { organization: user.current_organization })
   end
 end
