@@ -63,21 +63,21 @@ RSpec.describe AbstractDashboardFacade, type: :facade do
       end
     end
 
-    context 'when counting includes mentions from other organizations' do
+    context 'when there are mentions from other verified organizations' do
       let(:other_organization) { create(:organization) }
       let(:other_user) { create(:user) }
 
       before do
         other_user.add_to_organization(other_organization, verified: true, current: true)
-      end
 
-      it 'includes mentions in the count' do
         authorization_request = create(:authorization_request, organization: organization, applicant: current_user, state: :validated)
         create_list(:authorization, 8, request: authorization_request, state: :active)
 
         mentioned_request = create(:authorization_request, :api_entreprise, organization: other_organization, applicant: other_user, state: :validated, contact_metier_email: current_user.email)
         create_list(:authorization, 2, request: mentioned_request, state: :active)
+      end
 
+      it 'displays the filters' do
         expect(show_filters).to be true
       end
     end

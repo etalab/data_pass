@@ -60,13 +60,16 @@ class AbstractDashboardFacade
   protected
 
   def search_builder
-    @search_builder ||= begin
-      builder_class = "#{model_class.name}sSearchEngineBuilder".constantize
-      builder_class.new(
-        user,
-        { search_query: search_query },
+    @search_builder ||= search_builder_class.new(
+      user,
+      {
+        search_query: search_query,
         subdomain_types: subdomain_types
-      )
-    end
+      }
+    )
+  end
+
+  def search_builder_class
+    "#{model_class}sSearchEngineBuilder".constantize
   end
 end

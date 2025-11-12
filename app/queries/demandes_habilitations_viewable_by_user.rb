@@ -19,12 +19,15 @@ class DemandesHabilitationsViewableByUser
     scoped_items = scoped_relation
     scoped_items = scoped_items.not_archived if model_class.name == 'AuthorizationRequest'
 
-    mentions_query_class = "#{model_class.name}sMentionsQuery".constantize
     mentions_items = mentions_query_class
       .new(user)
       .perform(model_class.all)
 
     scoped_items.or(mentions_items).includes(includes_for_model)
+  end
+
+  def mentions_query_class
+    "#{model_class.name}sMentionsQuery".constantize
   end
 
   def includes_for_model

@@ -1,9 +1,15 @@
 class AbstractSearchEngineBuilder
+  EXCLUDED_SEARCH_PARAMS = %i[within_data_or_id_cont user_relationship_eq subdomain_types].freeze
+
   attr_reader :search_engine, :user, :params
 
   def initialize(user, params)
     @user = user
     @params = params
+  end
+
+  def subdomain_types
+    params[:subdomain_types]
   end
 
   def build_search_engine(base_items)
@@ -13,8 +19,12 @@ class AbstractSearchEngineBuilder
 
   private
 
+  def search_query_params
+    params[:search_query] || {}
+  end
+
   def apply_user_relationship_filter(base_items)
-    user_relationship = params[:search_query]&.dig(:user_relationship_eq)
+    user_relationship = search_query_params[:user_relationship_eq]
 
     case user_relationship
     when 'contact'
@@ -31,18 +41,16 @@ class AbstractSearchEngineBuilder
   end
 
   def apply_search_and_build_engine(base_items)
-    excluded_params = %i[within_data_or_id_cont user_relationship_eq]
-
     base_items = apply_text_search_if_present(base_items)
 
-    @search_engine = base_items.ransack(params[:search_query]&.except(*excluded_params))
+    @search_engine = base_items.ransack(search_query_params.except(*EXCLUDED_SEARCH_PARAMS))
     @search_engine.sorts = 'created_at desc' if @search_engine.sorts.empty?
     @search_engine.result
   end
 
   def apply_text_search_if_present(base_items)
-    if params[:search_query]&.dig(:within_data_or_id_cont).present?
-      search_term = params[:search_query][:within_data_or_id_cont]
+    if search_query_params[:within_data_or_id_cont].present?
+      search_term = search_query_params[:within_data_or_id_cont]
       base_items.search_by_query(search_term)
     else
       base_items

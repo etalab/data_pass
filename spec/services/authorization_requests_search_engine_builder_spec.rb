@@ -1,5 +1,5 @@
 RSpec.describe AuthorizationRequestsSearchEngineBuilder do
-  let(:service) { described_class.new(current_user, params, subdomain_types: subdomain_types) }
+  let(:service) { described_class.new(current_user, params.merge(subdomain_types: subdomain_types)) }
   let(:subdomain_types) { nil }
   let(:current_user) { create(:user) }
   let(:organization) { create(:organization, users: [current_user, other_user]) }

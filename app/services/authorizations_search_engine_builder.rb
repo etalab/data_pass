@@ -1,11 +1,4 @@
 class AuthorizationsSearchEngineBuilder < AbstractSearchEngineBuilder
-  attr_reader :subdomain_types
-
-  def initialize(user, params, subdomain_types: nil)
-    super(user, params)
-    @subdomain_types = subdomain_types
-  end
-
   def build_relation(policy_scope)
     base_items = policy_scope
       .includes(:request, :applicant, :organization, request: %i[organization])
