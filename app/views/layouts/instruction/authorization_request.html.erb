@@ -1,4 +1,4 @@
-<% provide_title t('.page_title', definition_name: @authorization_request.definition.name, authorization_request_name: @authorization_request.name) %>
+<% provide_title t('page_titles.instruction_show', definition_name: @authorization_request.definition.name, authorization_request_name: @authorization_request.name) %>
 
 <%= content_for(:body) do %>
   <div class="fr-bg-grey" data-controller="scroll-to-top">
