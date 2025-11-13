@@ -1,7 +1,18 @@
 produits-dinum:
   name:
-  description: 
-  introduction:
+  description:
+  introduction: |
+    Ce formulaire est destiné aux administrations qui souhaitent accéder aux produits du catalogue DINUM.
+    <br />
+    Ils vous permet de choisir les produits auxquels vous souhaitez accéder parmis les suivants :
+    <ul>
+      <li>La suite numérique</li>
+      <li>Annuaire des entreprises</li>
+      <li>Démarches Simplifiées</li>
+      <li>RDV Service Public</li>
+      <li>Albert API</li>
+    </ul>
+  
   authorization_request: ProduitsDinum
   steps:
     - name: scopes
