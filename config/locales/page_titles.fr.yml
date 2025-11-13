@@ -17,6 +17,7 @@ fr:
     authorization_show: "Habilitation %{definition_name} - %{authorization_name}"
 
     authorization_request_new: "Nouvelle demande %{authorization_name}"
+    authorization_request_new_default: "Demander une habilitation à : %{authorization_name}"
     authorization_request_summary: "Récapitulatif de votre demande - %{definition_name}"
 
     authorization_request_form_wizard: "%{step_name} - %{definition_name} - %{authorization_request_name}"
@@ -29,5 +30,5 @@ fr:
     instruction_dashboard: Tableau de bord instructeur
     instruction_show: "Instruction %{definition_name} - %{authorization_request_name}"
     instruction_initiated_requests: Demandes initiées par les instructeurs
-    instruction_new_request: Nouvelle demande instructeur
-    instruction_edit_request: "%{definition_name} - %{project_name}"
+    instruction_draft_requests_new: Choix du type d’habilitation
+    instruction_edit_request: "Nouvelle demande instructeur %{definition_name} - %{project_name}"

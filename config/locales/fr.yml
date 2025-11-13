@@ -122,7 +122,6 @@ fr:
 
     instruction:
       authorization_request:
-        page_title: "Instruction %{definition_name} - %{authorization_request_name}"
         view_authorization: Consulter l'habilitation
         tabs:
           authorization_request:
@@ -161,7 +160,6 @@ fr:
   pages:
     home:
       title: Bienvenue sur DataPass !
-      page_title: Accueil
       sub_title:
         DataPass, c’est le service qui vous permet de profiter facilement d’habilitations conformes entre
         administrations et d’accéder à des données et services en accès restreint.
@@ -171,25 +169,9 @@ fr:
       pro_connect_subtitle: Qu’est-ce que ProConnect ?
       api_gouv_title: Pour découvrir les APIs du service public
       api_gouv: data.gouv.fr
-    faq:
-      page_title: Foire aux questions
-
-  static_pages:
-    accessibilite:
-      page_title: Déclaration d’accessibilité
-    cgu_api_impot_particulier_bas:
-      page_title: CGU API Impôt Particulier - Bac à sable
-    cgu_api_impot_particulier_prod:
-      page_title: CGU API Impôt Particulier - Production
-
-  open_api:
-    show:
-      page_title: Documentation API
 
   user:
     organizations:
-      index:
-        page_title: Choix de votre organisation
       create:
         success: "L'organisation %{name} (siret: %{siret}) a bien été rattaché à votre compte"
         error:
@@ -203,7 +185,6 @@ fr:
   dashboard:
     show:
       title: Demandes et habilitations
-      page_title: Tableau de bord
       tabs:
         demandes:
           title: Les demandes
@@ -257,7 +238,6 @@ fr:
   profile:
     edit:
       title: Votre compte
-      page_title: Votre compte utilisateur
       notifications:
         title: Notifications par emails
       developer:
@@ -271,12 +251,9 @@ fr:
   authorization_definitions:
     index:
       title: Demander une nouvelle habilitation
-      page_title: Demander une habilitation
       cta: Remplir une demande
 
   authorizations:
-    show:
-      page_title: "Habilitation %{definition_name} - %{authorization_name}"
     card:
       validated_at: Validée le %{date}
       current_user_mentions: "vous avez été référencé comme %{contact_types}"
@@ -321,7 +298,6 @@ fr:
     new:
       default:
         title: &start_new_habilitation_title "Demander une habilitation à : %{authorization_name}"
-        page_title: "Nouvelle demande %{authorization_name}"
         multiple_forms:
           description: "Il existe plusieurs formulaires pour obtenir une habilitation à %{authorization_name}, sélectionnez celui qui correspond le mieux à votre cas d'usage :"
         use_case:
@@ -476,7 +452,6 @@ fr:
     new:
       back_to_dashboard: Retour à l’accueil
       title: *start_new_habilitation_title
-      page_title: "Nouvelle demande %{authorization_name}"
       organization:
         start_text: Vous êtes sur le point de démarrer une nouvelle demande d’habilitation pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_name}</a>.
         start_text_with_form_name: Vous êtes sur le point de démarrer une nouvelle demande d’habilitation pour le compte de <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/%{organization_siret}" target="_blank">%{organization_name}</a> via le formulaire <strong>%{authorization_request_form_name}</strong>.
@@ -535,7 +510,6 @@ fr:
 
     summary:
       title: Récapitulatif de votre demande
-      page_title: "Récapitulatif de votre demande - %{definition_name}"
       description: |
         Vous avez complété toutes les étapes de votre demande !
         <br />
@@ -578,8 +552,6 @@ fr:
       ongoing_request: Reprendre ma demande d'habilitation en cours
       cancel_next_stage: Annuler la demande de production
       cancel_next_stage_title: Annuler cette demande de production
-      wizard_page_title: "%{step_name} - %{definition_name} - %{authorization_request_name}"
-      single_page_title: "%{definition_name}"
     shared:
       organization:
         you:
@@ -720,7 +692,6 @@ fr:
   stats:
     index:
       title: Statistiques d'utilisation
-      page_title: Statistiques
   oauth_applications:
     index:
       title: Mes clefs d'accès API

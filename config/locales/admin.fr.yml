@@ -2,11 +2,9 @@ fr:
   admin:
     index:
       title: Espace administrateur
-      page_title: Espace administrateur
     users_with_roles:
       index:
         title: Utilisateurs avec rôles
-        page_title: Utilisateurs avec rôles
         add: Ajouter des rôles à un utilisateur sans rôle
         search:
           main_input:
@@ -45,7 +43,6 @@ fr:
     whitelisted_verified_emails:
       index:
         title: Emails en liste blanche
-        page_title: Emails en liste blanche
         table:
           header:
             email: Email
