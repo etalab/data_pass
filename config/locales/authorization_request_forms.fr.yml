@@ -201,6 +201,14 @@ fr:
       administrateur_metier_email: *contact_email
       administrateur_metier_phone_number: *contact_phone_number
 
+      responsable_administration:
+        title: Responsable de l'administration
+        info: Il décide si l'administration peut accéder aux produits, et sera prévenu par email lors de la validation de la demande.
+      responsable_administration_family_name: *contact_family_name
+      responsable_administration_given_name: *contact_given_name
+      responsable_administration_email: *contact_email
+      responsable_administration_phone_number: *contact_phone_number
+
       dpd_homologation_checkbox:
         label: J’atteste que mon organisation devra déclarer à la DGFiP l’accomplissement des formalités en matière de protection des données à caractère personnel et qu’elle veillera à procéder à l’homologation de sécurité de son projet.
 

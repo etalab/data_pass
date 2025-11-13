@@ -98,6 +98,12 @@ fr:
         delegue_protection_donnees_phone_number: Téléphone du délégué à la protection des données
         delegue_protection_donnees_job_title: Fonction du délégué à la protection des données
 
+        responsable_administration_family_name: Nom de famille du responsable de l'administration
+        responsable_administration_given_name: Prénom du responsable de l'administration
+        responsable_administration_email: Email du responsable de l'administration
+        responsable_administration_phone_number: Téléphone du responsable de l'administration
+        responsable_administration_job_title: Fonction du responsable de l'administration
+
         extra_organization_contact_name: Nom du contact supplémentaire
         extra_organization_contact_email: Email du contact supplémentaire
 
