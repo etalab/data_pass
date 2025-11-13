@@ -1,0 +1,9 @@
+produits-dinum:
+  name:
+  description: 
+  introduction:
+  authorization_request: ProduitsDinum
+  steps:
+    - name: scopes
+    - name: legal
+    - name: contacts

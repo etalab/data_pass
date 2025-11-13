@@ -1,0 +1,31 @@
+produits_dinum:
+  name: Produits DINUM
+  description: "Habilitation aux différents produits du catalogue DINUM"
+  provider: "dinum"
+  kind: 'service'
+  link:
+  cgu_link:
+  access_link:
+  public: true
+  support_email: "support@produits-dinum.gouv.fr"
+  blocks:
+    - name: "scopes"
+    - name: "legal"
+    - name: "contacts"
+  scopes:
+    - name: "La suite numérique"
+      value: "la_suite_numerique"
+      group:
+    - name: "Annuaire des entreprises"
+      value: "annuaire_des_entreprises"
+      group:
+    - name: "Démarches Simplifiées"
+      value: "demarches_simplifiees"
+      group:
+    - name: "RDV Service Public"
+      value: "rdv_service_public"
+      group:
+    - name: "Albert API"
+      value: "albert_api"
+      group:
+  
