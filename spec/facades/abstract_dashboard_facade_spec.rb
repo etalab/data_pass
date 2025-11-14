@@ -62,6 +62,25 @@ RSpec.describe AbstractDashboardFacade, type: :facade do
         expect(show_filters).to be true
       end
     end
+
+    context 'when there are mentions from other verified organizations' do
+      let(:other_organization) { create(:organization) }
+      let(:other_user) { create(:user) }
+
+      before do
+        other_user.add_to_organization(other_organization, verified: true, current: true)
+
+        authorization_request = create(:authorization_request, organization: organization, applicant: current_user, state: :validated)
+        create_list(:authorization, 8, request: authorization_request, state: :active)
+
+        mentioned_request = create(:authorization_request, :api_entreprise, organization: other_organization, applicant: other_user, state: :validated, contact_metier_email: current_user.email)
+        create_list(:authorization, 2, request: mentioned_request, state: :active)
+      end
+
+      it 'displays the filters' do
+        expect(show_filters).to be true
+      end
+    end
   end
 
   describe '#show_organization_verification_warning?' do
@@ -100,6 +119,67 @@ RSpec.describe AbstractDashboardFacade, type: :facade do
         it 'returns false' do
           expect(show_warning).to be false
         end
+      end
+    end
+  end
+
+  describe '#user_relationship_options' do
+    subject(:options) { facade.user_relationship_options }
+
+    context 'when user organization is verified' do
+      it 'includes all three options' do
+        expect(options.size).to eq(3)
+        expect(options.map(&:last)).to contain_exactly('applicant', 'contact', 'organization')
+      end
+
+      it 'includes organization option' do
+        organization_option = options.find { |opt| opt.last == 'organization' }
+        expect(organization_option).to be_present
+      end
+    end
+
+    context 'when user organization is not verified' do
+      let(:current_user) do
+        user = create(:user)
+        user.add_to_organization(organization, verified: false, current: true)
+        user
+      end
+
+      it 'includes only two options' do
+        expect(options.size).to eq(2)
+        expect(options.map(&:last)).to contain_exactly('applicant', 'contact')
+      end
+
+      it 'does not include organization option' do
+        organization_option = options.find { |opt| opt.last == 'organization' }
+        expect(organization_option).to be_nil
+      end
+    end
+  end
+
+  describe '#search_builder' do
+    it 'returns AuthorizationsSearchEngineBuilder for Authorization model' do
+      builder = facade.send(:search_builder)
+      expect(builder).to be_a(AuthorizationsSearchEngineBuilder)
+    end
+
+    context 'with AuthorizationRequest model' do
+      let(:scoped_relation) { AuthorizationRequest.where(organization: organization) }
+      let(:concrete_facade) do
+        Class.new(AbstractDashboardFacade) do
+          def model_class
+            AuthorizationRequest
+          end
+
+          def displayed_states
+            %w[draft submitted]
+          end
+        end
+      end
+
+      it 'returns AuthorizationRequestsSearchEngineBuilder' do
+        builder = facade.send(:search_builder)
+        expect(builder).to be_a(AuthorizationRequestsSearchEngineBuilder)
       end
     end
   end
