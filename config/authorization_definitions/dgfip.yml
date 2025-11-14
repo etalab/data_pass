@@ -911,7 +911,6 @@ api_ficoba:
       group: Information du compte
     - name: Désignation du compte
       value: dgfip_ficoba_compte
-      included: true
       group: Information du compte
     - name: Établissement bancaire
       value: dgfip_ficoba_etablissement_bancaire
