@@ -1,6 +1,4 @@
-class OpenAPIController < ApplicationController
-  include Authentication
-
+class Developers::OpenAPIController < DevelopersController
   allow_unauthenticated_access
 
   layout 'application'
