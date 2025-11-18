@@ -117,7 +117,10 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   # rubocop:enable Metrics/AbcSize
 
   def next_step_localized
-    t("wicked.#{next_submit? ? authorization_request_steps_names[1] : authorization_request_steps_names[0]}")
+    step_index = next_submit? ? 1 : 0
+    step_name = authorization_request_steps_names.fetch(step_index, authorization_request_steps_names.first)
+
+    t("wicked.#{step_name}")
   end
 
   def authorization_request_steps_names
