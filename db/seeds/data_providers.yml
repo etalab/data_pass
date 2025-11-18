@@ -61,3 +61,8 @@ shared:
     name: Ministère de la Transition écologique
     logo: mtes.jpg
     link: https://www.ecologie.gouv.fr/
+
+  dge:
+    name: Direction Générale des Entreprises
+    logo: dge.png
+    link: https://www.entreprises.gouv.fr/
