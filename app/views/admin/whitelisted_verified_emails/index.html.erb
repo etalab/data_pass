@@ -1,4 +1,4 @@
-<% provide_title t('page_titles.admin_whitelisted_emails') %>
+<% set_title! t('page_titles.admin_whitelisted_emails') %>
 
 <%= content_for(:header_action) do %>
   <%= link_to t('.add'), new_admin_whitelisted_verified_email_path, class: %[fr-btn] %>

@@ -1,4 +1,4 @@
-<% provide_title t('page_titles.authorization_show', definition_name: authorization.definition.name, authorization_name: authorization.name) %>
+<% set_title! t('page_titles.authorization_show', definition_name: authorization.definition.name, authorization_name: authorization.name) %>
 
 <div class="authorization-header fr-background-action-high--blue-france">
   <%= render AuthorizationHeaderComponent.new(authorization: authorization, current_user: current_user) %>

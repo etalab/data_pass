@@ -1,11 +1,11 @@
 <% unless content_for?(:page_title) %>
   <% if within_wizard? || within_edit? %>
-    <% provide_title t('page_titles.authorization_request_form_wizard',
+    <% set_title! t('page_titles.authorization_request_form_wizard',
       step_name: authorization_request_step_name(@authorization_request, english_step_name(params[:id])),
       definition_name: @authorization_request.definition.name,
       authorization_request_name: @authorization_request.name) %>
   <% else %>
-    <% provide_title t('page_titles.authorization_request_form_single',
+    <% set_title! t('page_titles.authorization_request_form_single',
       definition_name: @authorization_request.definition.name) %>
   <% end %>
 <% end %>

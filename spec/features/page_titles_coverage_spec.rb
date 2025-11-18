@@ -55,7 +55,7 @@ RSpec.describe 'Page titles coverage' do
           All pages must have a title ending with ' - DataPass' and not just 'DataPass'.
 
           To fix this, add a page title using:
-          1. In the view: <% provide_title t('.page_title') %>
+          1. In the view: <% set_title! t('.page_title') %>
           2. In the locale: Add the translation to config/locales/page_titles.fr.yml
         ERROR
 

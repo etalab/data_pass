@@ -1,15 +1,16 @@
 module PageTitleHelper
-  def page_title(title = nil, separator: ' - ', site_name: 'DataPass')
-    return site_name if title.blank?
+  SITE_NAME = 'DataPass'.freeze
 
-    safe_join([title, site_name], separator)
+  def set_title!(title = nil, separator: ' - ', site_name: SITE_NAME)
+    full_title = format_title(title, separator: separator, site_name: site_name)
+    content_for(:page_title, full_title, flush: true)
   end
 
-  def provide_title(title)
-    content_for(:page_title, title, flush: true)
+  def format_title(title = nil, separator: ' - ', site_name: SITE_NAME)
+    safe_join([title, site_name].compact_blank, separator)
   end
 
-  def display_page_title
-    page_title(content_for(:page_title))
+  def page_title
+    content_for(:page_title) || format_title
   end
 end

@@ -1,4 +1,4 @@
-<% provide_title t('page_titles.admin_users_with_roles') %>
+<% set_title! t('page_titles.admin_users_with_roles') %>
 
 <%= content_for(:header_action) do %>
   <%= link_to t('.add'), new_admin_users_with_role_path, class: %[fr-btn] %>

@@ -310,7 +310,7 @@ fr:
 
       step1:
         title: Qui se charge techniquement de l'intégration de l'API ?
-        page_title: "Choix du cas d'usage - %{authorization_name}"
+        page_title: "Choix du cas d’usage - %{authorization_name}"
         internal: Vos développeurs (internes ou externes)
         internal_hint: Ils conçoivent une solution logicielle sur-mesure pour votre organisation
         editor: Votre éditeur
@@ -341,7 +341,7 @@ fr:
           <br/>
           En cas de doute, nous vous invitons à consulter le site d'<a href="%{base_url}" target="_blank">%{name}</a>.
       api_impot_particulier:
-        page_title: "Choix de la modalité d'accès - %{authorization_name}"
+        page_title: "Choix de la modalité d’accès - %{authorization_name}"
         editor_with_sandbox: &with_or_without_editor_block
           title: Travaillez-vous avec un éditeur qui a finalisé et validé ses développements en environnement de bac à sable de cette API ?
           subtitle: Si vous travaillez avec un éditeur et que cet éditeur a déjà finalisé et validé ses développements en bac à sable, vous serez redirigé directement vers une demande d'accès à l'environnement de production.
@@ -366,11 +366,11 @@ fr:
         with_or_without_editor: *with_or_without_editor_block
         choose_form_title: "Choisissez le formulaire d’accès correspondant le mieux à votre cas d'usage :"
       api_infinoe:
-        page_title: "Choix du cas d'usage - %{authorization_name}"
+        page_title: "Choix du cas d’usage - %{authorization_name}"
         with_or_without_editor: *with_or_without_editor_block
         choose_form_title: "Choisissez le formulaire d’accès correspondant le mieux à votre cas d'usage :"
       api_ficoba:
-        page_title: "Choix du cas d'usage - %{authorization_name}"
+        page_title: "Choix du cas d’usage - %{authorization_name}"
         with_or_without_editor: *with_or_without_editor_block
         choose_form_title: "Choisissez le formulaire d’accès correspondant le mieux à votre cas d'usage :"
       api_droits_cnam:
