@@ -12,6 +12,8 @@
               <input type='radio'
                      id='<%= option.id %>'
                      name='user-type'
+                     value='<%= option.id %>'
+                     aria-controls='<%= option.outcome_id %>'
                      data-action='change->show-and-hide#trigger'
                      data-show-and-hide-target-param='#<%= option.outcome_id %>'>
               <label class='fr-label' for='<%= option.id %>'>

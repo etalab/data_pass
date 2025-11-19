@@ -106,3 +106,48 @@ h3.with-icon img {
 .main-container-full-width-offset-footer {
   margin-bottom: -4rem;
 }
+
+.eligibility-illustration-container {
+  position: relative;
+  width: 282px;
+  height: 319px;
+  margin: 0 auto;
+}
+
+.eligibility-illustration-layer {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.eligibility-illustration-trame {
+  position: absolute;
+  bottom: 0;
+  left: 12.06%;
+  right: 0.35%;
+  top: 0;
+}
+
+.eligibility-illustration-blob {
+  position: absolute;
+  bottom: 17.24%;
+  left: 0;
+  right: 0;
+  top: 16.3%;
+}
+
+.eligibility-illustration-forme {
+  position: absolute;
+  top: 16.46%;
+  bottom: 19.28%;
+  left: 0.18%;
+  right: 0.18%;
+}
+
+.eligibility-illustration-document {
+  position: absolute;
+  top: 27.12%;
+  bottom: 28.37%;
+  left: 24.82%;
+  right: 24.82%;
+}
