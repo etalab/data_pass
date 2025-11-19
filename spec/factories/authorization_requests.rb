@@ -1443,4 +1443,10 @@ FactoryBot.define do
     with_personal_data
     with_scopes
   end
+
+  trait :aides_etat do
+    type { 'AuthorizationRequest::AidesEtat' }
+
+    form_uid { 'aides-etat' }
+  end
 end

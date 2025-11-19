@@ -1,0 +1,12 @@
+aides_etat:
+  name: Plateforme Aides Etat (aides_etat)
+  description: "Aides d’État collecte et partage de manière sécurisée les données sur les aides d'État et les aides de minimis octroyées aux entreprises. Que vous soyez un service de l'État, un établissement public gérant des fonds d'aides publiques, ou une collectivité territoriale, vous avez vocation à verser vos données dans la plateforme. Vous pourrez ainsi consulter l’ensemble des aides déjà perçues par toute entreprise, grâce à un module de recherche par SIREN, SIRET ou raison sociale."
+  provider: "dge"
+  kind: 'service'
+  link: "https://aides-etat.gouv.fr/feedme-with-valid-url"
+  cgu_link: "https://aides-etat.gouv.fr/cgu"
+  access_link: "https://aides-etat.gouv.fr/tokens/%{external_provider_id}"
+  public: true
+  support_email: "holy.rasandy@finances.gouv.fr"
+  blocks:
+    - name: "contacts"
