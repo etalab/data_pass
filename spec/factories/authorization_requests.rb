@@ -1442,11 +1442,11 @@ FactoryBot.define do
     with_basic_infos
     with_personal_data
     with_scopes
+  end
 
-    trait :aides_etat do
-      type { 'AuthorizationRequest::AidesEtat' }
+  trait :aides_etat do
+    type { 'AuthorizationRequest::AidesEtat' }
 
-      form_uid { 'aides-etat' }
-    end
+    form_uid { 'aides-etat' }
   end
 end
