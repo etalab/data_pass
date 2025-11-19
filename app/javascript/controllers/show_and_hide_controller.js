@@ -50,7 +50,7 @@ export default class extends Controller {
         target.setAttribute('aria-hidden', 'false')
       })
     } else {
-      this._elementsToDisplay(selector).forEach(target => { 
+      this._elementsToDisplay(selector).forEach(target => {
         target.classList.add(this.displayClassValue)
         target.setAttribute('aria-hidden', 'true')
       })
