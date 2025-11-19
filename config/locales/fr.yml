@@ -310,6 +310,7 @@ fr:
 
       step1:
         title: Qui se charge techniquement de l'intégration de l'API ?
+        page_title: "Choix du cas d’usage - %{authorization_name}"
         internal: Vos développeurs (internes ou externes)
         internal_hint: Ils conçoivent une solution logicielle sur-mesure pour votre organisation
         editor: Votre éditeur
@@ -340,6 +341,7 @@ fr:
           <br/>
           En cas de doute, nous vous invitons à consulter le site d'<a href="%{base_url}" target="_blank">%{name}</a>.
       api_impot_particulier:
+        page_title: "Choix de la modalité d’accès - %{authorization_name}"
         editor_with_sandbox: &with_or_without_editor_block
           title: Travaillez-vous avec un éditeur qui a finalisé et validé ses développements en environnement de bac à sable de cette API ?
           subtitle: Si vous travaillez avec un éditeur et que cet éditeur a déjà finalisé et validé ses développements en bac à sable, vous serez redirigé directement vers une demande d'accès à l'environnement de production.
@@ -352,8 +354,9 @@ fr:
           sandbox: "Choisissez le formulaire d’accès en bac à sable qui correspond le mieux à votre cas d’usage :"
           editor: "Choisissez le formulaire d’accès en production qui correspond le mieux à votre cas d’usage :"
       api_sfip:
+        page_title: "Choix du type de données - %{authorization_name}"
         with_or_without_editor: *with_or_without_editor_block
-        choose_form_title: "Choisissez le formulaire d’accès correspondant le mieux à votre cas d’usage :"
+        choose_form_title: "Choisissez le formulaire d’accès correspondant le mieux à votre cas d'usage :"
         data_choice:
           title: "Quelles sont les données dont vous avez besoin ?"
           options:
@@ -361,14 +364,19 @@ fr:
             r2p: "Les données relatives à la recherche de personnes physiques (API SFiP R2P)"
       api_sfip_r2p:
         with_or_without_editor: *with_or_without_editor_block
-        choose_form_title: "Choisissez le formulaire d’accès correspondant le mieux à votre cas d’usage :"
+        choose_form_title: "Choisissez le formulaire d’accès correspondant le mieux à votre cas d'usage :"
       api_infinoe:
+        page_title: "Choix du cas d’usage - %{authorization_name}"
         with_or_without_editor: *with_or_without_editor_block
-        choose_form_title: "Choisissez le formulaire d’accès correspondant le mieux à votre cas d’usage :"
+        choose_form_title: "Choisissez le formulaire d’accès correspondant le mieux à votre cas d'usage :"
       api_ficoba:
+        page_title: "Choix du cas d’usage - %{authorization_name}"
         with_or_without_editor: *with_or_without_editor_block
-        choose_form_title: "Choisissez le formulaire d’accès correspondant le mieux à votre cas d’usage :"
+        choose_form_title: "Choisissez le formulaire d’accès correspondant le mieux à votre cas d'usage :"
+      api_droits_cnam:
+        page_title: "Habilitation France Connect manquante - %{authorization_name}"
       api_r2p:
+        page_title: "Information - %{authorization_name}"
         callout_title: Ce formulaire n'est plus disponible
         callout_content: |
           Les demandes d'accès à l'API R2P sont désormais traitées via le courtier fonctionnel SFiP, qui vous permet de choisir entre les données de l'API Impôt Particulier ou R2P selon vos besoins.

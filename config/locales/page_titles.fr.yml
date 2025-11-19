@@ -1,0 +1,34 @@
+fr:
+  page_titles:
+    home: Accueil
+    faq: Foire aux questions
+    stats: Statistiques
+    accessibility: Déclaration d’accessibilité
+    cgu_api_impot_particulier_sandbox: CGU API Impôt Particulier - Bac à sable
+    cgu_api_impot_particulier_production: CGU API Impôt Particulier - Production
+    api_documentation: Documentation API
+
+    dashboard: Tableau de bord
+    profile: Votre compte utilisateur
+    user_organizations: Choix de votre organisation
+
+    authorization_definitions_index: Demander une habilitation
+
+    authorization_show: "Habilitation %{definition_name} - %{authorization_name}"
+
+    authorization_request_new: "Nouvelle demande %{authorization_name}"
+    authorization_request_new_default: "Demander une habilitation à : %{authorization_name}"
+    authorization_request_summary: "Récapitulatif de votre demande - %{definition_name}"
+
+    authorization_request_form_wizard: "%{step_name} - %{definition_name} - %{authorization_request_name}"
+    authorization_request_form_single: "%{definition_name}"
+
+    admin_home: Espace administrateur
+    admin_users_with_roles: Utilisateurs avec rôles
+    admin_whitelisted_emails: Emails en liste blanche
+
+    instruction_dashboard: Tableau de bord instructeur
+    instruction_show: "Instruction %{definition_name} - %{authorization_request_name}"
+    instruction_initiated_requests: Demandes initiées par les instructeurs
+    instruction_draft_requests_new: Choix du type d’habilitation
+    instruction_edit_request: "Nouvelle demande instructeur %{definition_name} - %{project_name}"
