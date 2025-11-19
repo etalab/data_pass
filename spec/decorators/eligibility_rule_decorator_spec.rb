@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe EligibilityRuleDecorator, type: :decorator do
   let(:eligibility_rule) do
     EligibilityRule.find_by(definition_id: 'api_particulier')

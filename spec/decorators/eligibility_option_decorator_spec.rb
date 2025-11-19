@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe EligibilityOptionDecorator, type: :decorator do
   let(:option_attributes) do
     {

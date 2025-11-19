@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe EligibilityRule do
   describe '#options' do
     it 'returns an array of EligibilityOption objects' do

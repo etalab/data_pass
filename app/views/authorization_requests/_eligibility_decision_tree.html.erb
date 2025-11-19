@@ -23,27 +23,29 @@
       </fieldset>
     </div>
 
-    <% eligibility_rule.options.each do |option| %>
-      <div id='<%= option.outcome_id %>' class='fr-hidden fr-my-3w outcome'>
-        <div class='fr-callout <%= option.alert_class %>'>
-          <div class='fr-alert__body'>
-            <%= option.sanitized_body %>
+    <div aria-live='polite' aria-atomic='true'>
+      <% eligibility_rule.options.each do |option| %>
+        <div id='<%= option.outcome_id %>' class='fr-hidden fr-my-3w outcome' aria-hidden='true'>
+          <div class='fr-callout <%= option.alert_class %>'>
+            <div class='fr-alert__body'>
+              <%= option.sanitized_body %>
+            </div>
           </div>
+          <% if option.shows_request_access_button? %>
+            <div class='fr-mt-3w'>
+              <%= link_to t('eligibility.cta.request_access'),
+                eligibility_rule.request_access_path,
+                class: 'fr-btn' %>
+            </div>
+          <% elsif option.shows_custom_cta? %>
+            <div class='fr-mt-3w'>
+              <%= link_to option.cta_content,
+                option.cta_url,
+                class: 'fr-btn fr-btn--secondary' %>
+            </div>
+          <% end %>
         </div>
-        <% if option.shows_request_access_button? %>
-          <div class='fr-mt-3w'>
-            <%= link_to t('eligibility.cta.request_access'),
-              eligibility_rule.request_access_path,
-              class: 'fr-btn' %>
-          </div>
-        <% elsif option.shows_custom_cta? %>
-          <div class='fr-mt-3w'>
-            <%= link_to option.cta_content,
-              option.cta_url,
-              class: 'fr-btn fr-btn--secondary' %>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
 </div>
