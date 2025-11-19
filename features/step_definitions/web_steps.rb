@@ -70,10 +70,6 @@ Alors('le titre de la page est {string}') do |expected_title|
   expect(actual_title).to eq(expected_title)
 end
 
-Alors('le titre de la page est exactement {string}') do |expected_title|
-  expect(page).to have_title(expected_title, exact: true)
-end
-
 Quand('je remplis {string} avec {string}') do |label, value|
   fill_in label, with: value, wait: true
 end
