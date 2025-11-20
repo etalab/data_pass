@@ -451,6 +451,7 @@ FactoryBot.define do
       api-particulier-aides-sociales-ccas-dont-facultatives
       api-particulier-tarification-transports
       api-particulier-gestion-rh-secteur-public
+      api-particulier-stationnement-residentiel
     ].each do |form_uid|
       trait form_uid.tr('-', '_') do
         api_particulier
