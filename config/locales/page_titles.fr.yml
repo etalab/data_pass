@@ -16,6 +16,7 @@ fr:
 
     authorization_show: "Habilitation %{definition_name} - %{authorization_name}"
 
+    authorization_request_eligibility: "Éligibilité aux données"
     authorization_request_new: "Nouvelle demande %{authorization_name}"
     authorization_request_new_default: "Demander une habilitation à : %{authorization_name}"
     authorization_request_summary: "Récapitulatif de votre demande - %{definition_name}"
