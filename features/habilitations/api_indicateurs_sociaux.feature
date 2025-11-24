@@ -16,7 +16,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Indicateurs Sociaux
     * je renseigne le cadre légal
     * je clique sur "Suivant"
 
-    * je coche "Pyramide des âges"
+    * je coche "Stock Turnover Rémunération"
     * je clique sur "Suivant"
 
     * je renseigne les informations des contacts RGPD
