@@ -1448,6 +1448,17 @@ FactoryBot.define do
     type { 'AuthorizationRequest::AidesEtat' }
 
     form_uid { 'aides-etat' }
+
+    trait :services_cisirh do
+      type { 'AuthorizationRequest::services_cisirh' }
+
+      form_uid { 'services-cisirh' }
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+      with_scopes
+    end
   end
 
   trait :api_indicateurs_sociaux do
