@@ -188,7 +188,7 @@ bin/stream-remote-logs
 Check [this link](./docs/README.md)
 
 - [Conception technique/métier](./docs/conception.md)
-- [Ajout d'un nouveau fournisseur](./docs/new_provider.md)
+- [Ajout d'un nouveau fournisseur](./docs/nouveau_type_d_habilitation.md)
 - [Design System](./docs/design.md)
 - [Migration de l'ancienne stack](./app/migration/)
 
