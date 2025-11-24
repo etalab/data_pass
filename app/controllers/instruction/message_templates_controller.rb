@@ -22,7 +22,7 @@ class Instruction::MessageTemplatesController < InstructionController
 
       redirect_to instruction_message_templates_path
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -38,7 +38,7 @@ class Instruction::MessageTemplatesController < InstructionController
 
       redirect_to instruction_message_templates_path
     else
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 

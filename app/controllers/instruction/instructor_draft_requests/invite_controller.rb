@@ -16,7 +16,7 @@ class Instruction::InstructorDraftRequests::InviteController < InstructionContro
     else
       @error = t(".error.message.#{organizer.error}")
 
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
