@@ -19,6 +19,6 @@ module AuthorizationExtensions::PersonalData
   end
 
   def duree_conservation_donnees_caractere_personnel
-    super.present? ? super.to_i : nil
+    super.presence&.to_i
   end
 end

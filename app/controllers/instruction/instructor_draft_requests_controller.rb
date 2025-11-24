@@ -49,7 +49,7 @@ class Instruction::InstructorDraftRequestsController < InstructionController
       prepare_request
       error_message(title: t('.error'))
 
-      render 'edit', status: :unprocessable_entity
+      render 'edit', status: :unprocessable_content
     end
   end
 
@@ -79,7 +79,7 @@ class Instruction::InstructorDraftRequestsController < InstructionController
     else
       error_message(title: t('.error'))
 
-      render 'edit', status: :unprocessable_entity
+      render 'edit', status: :unprocessable_content
     end
   end
 
