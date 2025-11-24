@@ -1449,4 +1449,15 @@ FactoryBot.define do
 
     form_uid { 'aides-etat' }
   end
+
+  trait :api_indicateurs_sociaux do
+    type { 'AuthorizationRequest::APIIndicateursSociaux' }
+
+    form_uid { 'api-indicateurs-sociaux' }
+
+    with_basic_infos
+    with_personal_data
+    with_cadre_juridique
+    with_scopes
+  end
 end

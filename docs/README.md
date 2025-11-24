@@ -2,7 +2,7 @@
 
 * [Conception technique/métier](./conception.md)
 * [Ajout d'un nouveau Data Provider (fournisseur de données)](./ajout_nouveau_provider.md)
-* [Ajout d'une nouvelle habilitation complète (technique)](./new_provider.md)
+* [Ajout d'une nouvelle habilitation complète (technique)](./nouveau_type_d_habilitation.md)
 * [Design System (installation, explication techniauqes)](./design.md)
 * [Migration de l'ancienne stack (v1 -> v2)](./../app/migration/)
 * [Ajout d'un nouveau formulaire (métier)](./ajout_nouveau_form_non_tech.md)

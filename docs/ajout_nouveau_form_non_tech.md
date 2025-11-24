@@ -14,7 +14,7 @@ configuration](../config/authorization_request_forms/) la configuration du
 nouveau formulaire (pour API Entreprise le bon fichier est
 [celui-ci](../config/authorization_request_forms/api_entreprise.yml))
 
-La spécification détaillée de toutes les clés est situé [ici](./new_provider.md#configuration-du-authorizationrequestform).
+La spécification détaillée de toutes les clés est situé [ici](./nouveau_type_d_habilitation.md#configuration-du-authorizationrequestform).
 
 * Si votre formulaire est lié à un cas d'usage, il faut ajouter la clé
   correspondante ;
@@ -38,7 +38,7 @@ Pour le cas 1., il y a plusieurs cas de figure :
 1. Si vous voulez copier un formulaire existant, il vous suffit de remplir le `single_page_view`
    avec la valeur du formulaire que vous voulez copier ;
 2. Si vous voulez faire un nouveau formulaire, suivez la documentation
-   [ici](./new_provider.md##42-cas-du-formulaire-sur-une-page) (peut nécessiter
+   [ici](./nouveau_type_d_habilitation.md##42-cas-du-formulaire-sur-une-page) (peut nécessiter
    un développeur)
 
 ## 3. Personnalisation des textes
@@ -48,7 +48,7 @@ pour l'ensemble des habilitations, et peuvent être aussi personnaliser pour le
 type d'habilitation (ex: pour API Entreprise, l'attribute volumétrie possède un
 `hint` personnalisé dont la valeur est `Nombre de démarches ou dossiers traités dans l'année`)
 
-Se référer à [la documentation](./new_provider.md#3-configurer-les-formulations-via-li18n)
+Se référer à [la documentation](./nouveau_type_d_habilitation.md#3-configurer-les-formulations-via-li18n)
 
 ## 4. Ajout des factories
 
@@ -60,4 +60,4 @@ Il faut se rendre dans le fichier
 Le test permet de s'assurer programmatiquement que le formulaire est
 fonctionnel.
 
-Se référer à [la documentation](./new_provider.md#5-ajout-du-test-dint%C3%A9gration-cucumber)
+Se référer à [la documentation](./nouveau_type_d_habilitation.md#5-ajout-du-test-dint%C3%A9gration-cucumber)

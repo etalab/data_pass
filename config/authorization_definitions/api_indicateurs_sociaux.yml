@@ -1,0 +1,29 @@
+api_indicateurs_sociaux:
+  name: API Indicateurs Sociaux Entreprises
+  description: "FEEDME"
+  provider: "dinum"
+  kind: 'api'
+  link: "https://api-indicateurs-sociaux.gouv.fr/feedme-with-valid-url"
+  cgu_link: "https://api-indicateurs-sociaux.gouv.fr/cgu"
+  access_link: "https://api-indicateurs-sociaux.gouv.fr/tokens/%{external_provider_id}"
+  public: true
+  support_email: "support@api-indicateurs-sociaux.gouv.fr"
+  blocks:
+    - name: "basic_infos"
+    - name: "personal_data"
+    - name: "legal"
+    - name: "scopes"
+    - name: "contacts"
+  scopes:
+    - name: "Pyramide des âges"
+      value: "pyramide_ages"
+    - name: "Flux Pyramide des âges"
+      value: "flux_pyramide_ages"
+    - name: "Stock Turnover Rémunération"
+      value: "stock_turnover_remuneration"
+    - name: "Flux Rémunération"
+      value: "flux_remuneration"
+    - name: "Stock Répartition contrats"
+      value: "stock_repartition_contrats"
+    - name: "Taux de sortie"
+      value: "taux_sortie"

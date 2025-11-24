@@ -6,7 +6,7 @@ Ce qui n'est pas actuellement implémenté est signifié avec l'accronyme `NYI`
 ## I. Couche modèle
 
 L'ajout d'une nouvelle habilitation (partie 1., 2. et 3.) est documenté de
-manière explicite dans le document [Ajout d'un nouveau fournisseur](./new_provider.md)
+manière explicite dans le document [Ajout d'un nouveau fournisseur](./nouveau_type_d_habilitation.md)
 
 ### 1. Définition d'habilitation
 
