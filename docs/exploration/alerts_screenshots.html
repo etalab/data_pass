@@ -86,7 +86,7 @@
 <body>
     <div class="fr-container">
         <h1 class="fr-h1">Inventaire des Alertes - DataPass</h1>
-        <p class="fr-text--lg">Cette page affiche tous les types d'alertes possibles dans les vues demande, habilitation et résumé.</p>
+        <p class="fr-text--lg">Cette page affiche tous les types d'alertes possibles dans les vues demande et habilitation.</p>
         
         <div class="fr-alert fr-alert--info fr-my-4w">
             <h3 class="fr-alert__title">Correspondance avec ALERTS_INVENTORY.md</h3>
@@ -94,12 +94,15 @@
                 Chaque alerte ci-dessous est documentée avec :
             </p>
             <ul>
-                <li><strong>Pages:</strong> Les vues où l'alerte peut apparaître (Demande, Habilitation, Résumé avant soumission)</li>
+                <li><strong>Pages:</strong> Les vues où l'alerte peut apparaître (Demande/Résumé avant soumission, Habilitation)</li>
                 <li><strong>Fichier:</strong> Le fichier source de la vue/partial</li>
                 <li><strong>Condition:</strong> Les conditions Ruby qui déclenchent l'affichage de l'alerte</li>
                 <li><strong>Clé i18n:</strong> La clé de traduction utilisée</li>
                 <li><strong>Note:</strong> Informations complémentaires si nécessaire</li>
             </ul>
+            <p>
+                <strong>Note:</strong> La vue "Résumé de la demande avant soumission" utilise le même fichier que "Demande" (<code>authorization_request_forms/summary.html.erb</code>) avec <code>@summary_before_submit = true</code>. Elle partage toutes les alertes des sections A-J et ajoute la section K.
+            </p>
             <p>
                 Cette documentation correspond exactement à la structure détaillée dans <code>ALERTS_INVENTORY.md</code>.
             </p>
@@ -109,6 +112,7 @@
         <div class="alert-section">
             <h2>1. DEMANDE (Authorization Request) View - Section A: Messages Flash</h2>
             <p><strong>Fichier:</strong> <code>app/views/authorization_request_forms/summary.html.erb</code></p>
+            <p><strong>Note:</strong> Cette vue est également utilisée pour le résumé avant soumission. Les sections A-J apparaissent dans les deux contextes. La section K apparaît uniquement dans le résumé avant soumission.</p>
             <p>Ces messages sont affichés via <code>render partial: 'shared/alerts'</code> dans le layout du formulaire.</p>
             
             <div class="alert-example">
@@ -513,6 +517,31 @@
             </div>
         </div>
 
+        <!-- SUMMARY TITLE AND DESCRIPTION -->
+        <div class="alert-section">
+            <h2>1. DEMANDE (Authorization Request) View - Section K: Titre et Description du Résumé (Résumé avant soumission uniquement)</h2>
+            <p><strong>Fichier:</strong> <code>app/views/authorization_request_forms/summary.html.erb</code></p>
+            <p><strong>Note:</strong> Cette section est uniquement affichée lors de la visualisation du résumé avant soumission (<code>@summary_before_submit = true</code> quand <code>@authorization_request.filling?</code>)</p>
+
+            <div class="alert-example">
+                <div class="alert-label">Titre et Description - Récapitulatif de votre demande</div>
+                <div class="alert-info">
+                    <strong>Pages:</strong> Résumé avant soumission<br>
+                    <strong>Fichier:</strong> <code>app/views/authorization_request_forms/summary.html.erb</code><br>
+                    <strong>Condition:</strong> <code>@authorization_request.draft? && !displayed_on_a_public_page? && !@authorization_request.reopening?</code><br>
+                    <strong>Clé i18n:</strong> <code>authorization_request_forms.summary.title</code> et <code>authorization_request_forms.summary.description</code><br>
+                    <strong>Note:</strong> Ce n'est pas une alerte DSFR mais un titre et une description affichés avant le contenu du résumé
+                </div>
+                <div style="background: white; padding: 1.5rem; border: 1px solid #ddd; border-radius: 4px;">
+                    <h2 class="fr-h3" style="margin-bottom: 1rem;">Récapitulatif de votre demande</h2>
+                    <p>
+                        Vous avez complété toutes les étapes de votre demande !<br>
+                        Vous pouvez à présent la soumettre à l'équipe d'instruction après avoir lu nos conditions générales d'utilisation.
+                    </p>
+                </div>
+            </div>
+        </div>
+
         <!-- HABILITATION VIEW SPECIFIC ALERTS -->
         <div class="alert-section">
             <h2>2. HABILITATION (Authorization) View</h2>
@@ -597,32 +626,6 @@
             </div>
         </div>
 
-        <!-- SUMMARY BEFORE SUBMISSION UNIQUE ALERTS -->
-        <div class="alert-section">
-            <h2>3. RÉSUMÉ DE LA DEMANDE AVANT SOUMISSION (Summary before submission)</h2>
-            <p><strong>Fichier:</strong> <code>app/views/authorization_request_forms/summary.html.erb</code></p>
-            <p><strong>Condition:</strong> <code>@summary_before_submit = true</code> (quand <code>@authorization_request.filling?</code>)</p>
-            <p>Cette vue partage la plupart des alertes avec la vue Demande (sections A à J). Section unique ci-dessous :</p>
-
-            <h3>Section K: Titre et Description du Résumé (État Brouillon)</h3>
-            <div class="alert-example">
-                <div class="alert-label">Titre et Description - Récapitulatif de votre demande</div>
-                <div class="alert-info">
-                    <strong>Pages:</strong> Résumé avant soumission<br>
-                    <strong>Fichier:</strong> <code>app/views/authorization_request_forms/summary.html.erb</code><br>
-                    <strong>Condition:</strong> <code>@authorization_request.draft? && !displayed_on_a_public_page? && !@authorization_request.reopening?</code><br>
-                    <strong>Clé i18n:</strong> <code>authorization_request_forms.summary.title</code> et <code>authorization_request_forms.summary.description</code><br>
-                    <strong>Note:</strong> Ce n'est pas une alerte DSFR mais un titre et une description affichés avant le contenu du résumé
-                </div>
-                <div style="background: white; padding: 1.5rem; border: 1px solid #ddd; border-radius: 4px;">
-                    <h2 class="fr-h3" style="margin-bottom: 1rem;">Récapitulatif de votre demande</h2>
-                    <p>
-                        Vous avez complété toutes les étapes de votre demande !<br>
-                        Vous pouvez à présent la soumettre à l'équipe d'instruction après avoir lu nos conditions générales d'utilisation.
-                    </p>
-                </div>
-            </div>
-        </div>
 
     </div>
 </body>

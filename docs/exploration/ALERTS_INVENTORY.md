@@ -1,14 +1,17 @@
 # Inventory of Alerts in Authorization Views
 
-This document lists all possible alerts that can be displayed in the three main views:
+This document lists all possible alerts that can be displayed in the two main views:
 1. **Demande (Authorization Request)** - `authorization_request_forms/summary.html.erb`
 2. **Habilitation (Authorization)** - `authorizations/show.html.erb`
-3. **Résumé de la demande avant soumission (Summary before submission)** - `authorization_request_forms/summary.html.erb` (when draft)
+
+**Note:** The "Résumé de la demande avant soumission" (Summary before submission) uses the same view file as "Demande" (`authorization_request_forms/summary.html.erb`) but with `@summary_before_submit = true` (when `@authorization_request.filling?`). It shares all alerts from sections A-J and adds section K.
 
 ---
 
 ## 1. DEMANDE (Authorization Request) View
 **File:** `app/views/authorization_request_forms/summary.html.erb`
+
+**Note:** This view file is also used for the "Résumé de la demande avant soumission" (Summary before submission). Sections A-J appear in both contexts. Section K appears only in the summary before submission view (when `@summary_before_submit = true`, i.e., when `@authorization_request.filling?`).
 
 ### A. Flash Messages (via `shared/_alerts.html.erb`)
 These are displayed at the top via `render partial: 'shared/alerts'` in the form layout.
@@ -124,6 +127,12 @@ These are displayed at the top via `render partial: 'shared/alerts'` in the form
 - **Title:** "Une mise à jour a été effectuée sur votre demande d'habilitation"
 - **Description:** "Une mise à jour globale a été effectuée sur les habilitations %{authorization_definition_name} par l'équipe en charge de l'instruction de ces demandes. Le détail de cette mise à jour est expliquée ci-dessous :"
 
+### K. Summary Title and Description (Résumé avant soumission uniquement)
+**Condition:** `@authorization_request.draft? && !displayed_on_a_public_page? && !@authorization_request.reopening?`
+**Note:** This section is only displayed when viewing the summary before submission (`@summary_before_submit = true` when `@authorization_request.filling?`)
+- **Title:** "Récapitulatif de votre demande"
+- **Description:** "Vous avez complété toutes les étapes de votre demande ! Vous pouvez à présent la soumettre à l'équipe d'instruction après avoir lu nos conditions générales d'utilisation."
+
 ---
 
 ## 2. HABILITATION (Authorization) View
@@ -163,49 +172,6 @@ These are displayed at the top via `render partial: 'shared/alerts'` in the form
 **Type:** `fr-alert fr-alert--warning`
 **Condition:** `namespace?(:instruction) && demande.unverified_organization_affiliation? && !demande.finished?`
 - **Message:** "Nous n'avons pas pu vérifier le lien entre le demandeur et le numéro de SIRET, assurez-vous que le demandeur est bien légitime pour faire cette demande. Plus d'informations sur la [vérification du lien entre le demandeur et l'organisation](link)"
-
----
-
-## 3. RÉSUMÉ DE LA DEMANDE AVANT SOUMISSION (Summary before submission)
-**File:** `app/views/authorization_request_forms/summary.html.erb`
-**Condition:** `@summary_before_submit = true` (when `@authorization_request.filling?`)
-
-This view shares most alerts with the Demande view, but with some differences:
-
-### A. Flash Messages
-Same as Demande view (see section 1.A)
-
-### B. Current User Mentions Alert
-Same as Demande view (see section 1.B)
-
-### C. Changes Requested Alert
-Same as Demande view (see section 1.C)
-
-### D. Refused Alert
-Same as Demande view (see section 1.D)
-
-### E. Dirty from V1 Alert
-Same as Demande view (see section 1.E)
-
-### F. Reopening Alerts
-Same as Demande view (see section 1.F)
-
-### G. Access Callout
-Same as Demande view (see section 1.G)
-
-### H. Reopening Callout
-Same as Demande view (see section 1.H)
-
-### I. Unverified Organization Affiliation Alert
-Same as Demande view (see section 1.I)
-
-### J. Bulk Update Modal
-Same as Demande view (see section 1.J)
-
-### K. Summary Title and Description (Draft State)
-**Condition:** `@authorization_request.draft? && !displayed_on_a_public_page? && !@authorization_request.reopening?`
-- **Title:** "Récapitulatif de votre demande"
-- **Description:** "Vous avez complété toutes les étapes de votre demande ! Vous pouvez à présent la soumettre à l'équipe d'instruction après avoir lu nos conditions générales d'utilisation."
 
 ---
 
