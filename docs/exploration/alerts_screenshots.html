@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventaire des Alertes - DataPass</title>
+    <!-- DSFR CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.11.1/dist/dsfr.min.css">
+    <style>
+        body {
+            font-family: 'Marianne', sans-serif;
+            padding: 2rem;
+            background-color: #f5f5fe;
+        }
+        .alert-section {
+            margin-bottom: 4rem;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .alert-section h2 {
+            color: #1e1e1e;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #000091;
+        }
+        .alert-section h3 {
+            color: #666;
+            font-size: 1rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: normal;
+        }
+        .alert-example {
+            margin-bottom: 2rem;
+        }
+        .alert-label {
+            font-size: 0.875rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        .alert-info {
+            font-size: 0.75rem;
+            color: #999;
+            margin-bottom: 0.75rem;
+            padding: 0.5rem;
+            background: #f5f5fe;
+            border-left: 3px solid #000091;
+            font-family: monospace;
+        }
+        .alert-info strong {
+            color: #000091;
+        }
+        /* Reset margins for alert titles to match DSFR exactly */
+        .fr-alert__title {
+            margin: 0 0 0.25rem 0 !important;
+            font-weight: 700;
+            font-size: 1.125rem;
+            line-height: 1.5rem;
+        }
+        .fr-alert p {
+            margin: 0 0 0.25rem 0 !important;
+        }
+        .fr-alert__body p {
+            margin: 0 !important;
+        }
+        .fr-alert blockquote {
+            margin: 0.5rem 0 0 0 !important;
+            padding-left: 1rem;
+            border-left: 2px solid currentColor;
+        }
+        .fr-alert ul {
+            margin: 0.5rem 0 0 0 !important;
+        }
+        /* Ensure alert content doesn't have extra spacing */
+        .fr-alert > *:first-child:not(.fr-alert__title):not(.fr-btn--close) {
+            margin-top: 0;
+        }
+        .fr-alert > *:last-child:not(.fr-btn--close) {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="fr-container">
+        <h1 class="fr-h1">Inventaire des Alertes - DataPass</h1>
+        <p class="fr-text--lg">Cette page affiche tous les types d'alertes possibles dans les vues demande, habilitation et résumé.</p>
+        
+        <div class="fr-alert fr-alert--info fr-my-4w">
+            <h3 class="fr-alert__title">Correspondance avec ALERTS_INVENTORY.md</h3>
+            <p>
+                Chaque alerte ci-dessous est documentée avec :
+            </p>
+            <ul>
+                <li><strong>Pages:</strong> Les vues où l'alerte peut apparaître (Demande, Habilitation, Résumé avant soumission)</li>
+                <li><strong>Fichier:</strong> Le fichier source de la vue/partial</li>
+                <li><strong>Condition:</strong> Les conditions Ruby qui déclenchent l'affichage de l'alerte</li>
+                <li><strong>Clé i18n:</strong> La clé de traduction utilisée</li>
+                <li><strong>Note:</strong> Informations complémentaires si nécessaire</li>
+            </ul>
+            <p>
+                Cette documentation correspond exactement à la structure détaillée dans <code>ALERTS_INVENTORY.md</code>.
+            </p>
+        </div>
+
+        <!-- FLASH MESSAGES -->
+        <div class="alert-section">
+            <h2>1. DEMANDE (Authorization Request) View - Section A: Messages Flash</h2>
+            <p><strong>Fichier:</strong> <code>app/views/authorization_request_forms/summary.html.erb</code></p>
+            <p>Ces messages sont affichés via <code>render partial: 'shared/alerts'</code> dans le layout du formulaire.</p>
+            
+            <div class="alert-example">
+                <div class="alert-label">Success - Création/Mise à jour</div>
+                <div class="alert-info">
+                    <strong>Pages:</strong> Demande, Résumé avant soumission<br>
+                    <strong>Fichier:</strong> <code>app/views/shared/_alerts.html.erb</code><br>
+                    <strong>Condition:</strong> Après création ou mise à jour réussie d'une demande<br>
+                    <strong>Clé i18n:</strong> <code>authorization_request_forms.create.success</code> ou <code>update.success</code>
+                </div>
+                <div class="fr-alert fr-alert--success fr-my-8v">
+                    <h3 class="fr-alert__title">La demande d'habilitation Domino web 2.0 - API Particulier a été sauvegardée avec succès</h3>
+                    <button class="fr-btn--close fr-btn" title="Masquer le message" onclick="this.parentNode.style.display='none'">
+                        Masquer le message
+                    </button>
+                </div>
+            </div>
+
+            <div class="alert-example">
+                <div class="alert-label">Success - Création/Mise à jour (Reopening)</div>
+                <div class="alert-info">
+                    <strong>Pages:</strong> Demande, Résumé avant soumission<br>
+                    <strong>Fichier:</strong> <code>app/views/shared/_alerts.html.erb</code><br>
+                    <strong>Condition:</strong> Après création ou mise à jour réussie d'une demande de réouverture<br>
+                    <strong>Clé i18n:</strong> <code>authorization_request_forms.update.reopening_success</code>
+                </div>
+                <div class="fr-alert fr-alert--success fr-my-8v">
+                    <h3 class="fr-alert__title">La demande de mise à jour de l'habilitation Domino web 2.0 - API Particulier a été sauvegardée avec succès</h3>
+                    <button class="fr-btn--close fr-btn" title="Masquer le message" onclick="this.parentNode.style.display='none'">
+                        Masquer le message
+                    </button>
+                </div>
+            </div>
+
+            <div class="alert-example">
+                <div class="alert-label">Success - Soumission</div>
+                <div class="alert-info">
+                    <strong>Pages:</strong> Demande, Résumé avant soumission<br>
+                    <strong>Fichier:</strong> <code>app/views/shared/_alerts.html.erb</code><br>
+                    <strong>Condition:</strong> Après soumission réussie d'une demande<br>
+                    <strong>Clé i18n:</strong> <code>authorization_request_forms.submit.success</code>
+                </div>
+                <div class="fr-alert fr-alert--success fr-my-8v">
+                    <h3 class="fr-alert__title">La demande d'habilitation Domino web 2.0 - API Particulier a été soumise avec succès</h3>
+                    <button class="fr-btn--close fr-btn" title="Masquer le message" onclick="this.parentNode.style.display='none'">
+                        Masquer le message
+                    </button>
+                </div>
+            </div>
+
+            <div class="alert-example">
+                <div class="alert-label">Error - Erreur de sauvegarde</div>
+                <div class="alert-info">
+                    <strong>Pages:</strong> Demande, Résumé avant soumission<br>
+                    <strong>Fichier:</strong> <code>app/views/shared/_alerts.html.erb</code><br>
+                    <strong>Condition:</strong> Erreur de validation lors de la sauvegarde<br>
+                    <strong>Clé i18n:</strong> <code>authorization_request_forms.create.error</code> ou <code>update.error</code><br>
+                    <strong>Note:</strong> Peut inclure une liste d'erreurs ActiveModel
+                </div>
+                <div class="fr-alert fr-alert--error fr-my-8v">
+                    <h3 class="fr-alert__title">Une erreur est survenue lors de la sauvegarde de la demande d'habilitation</h3>
+                    <p>Certains champs ci-dessous ne sont pas valides, merci d'effectuer les corrections nécessaires</p>
+                    <ul>
+                        <li>Le nom de la demande d'habilitation est obligatoire</li>
+                        <li>L'adresse email du contact technique n'est pas valide</li>
+                        <li>Le numéro SIRET doit contenir exactement 14 chiffres</li>
+                        <li>Au moins un scope doit être sélectionné</li>
+                    </ul>
+                    <button class="fr-btn--close fr-btn" title="Masquer le message" onclick="this.parentNode.style.display='none'">
+                        Masquer le message
+                    </button>
+                </div>
+            </div>
+
+            <div class="alert-example">
+                <div class="alert-label">Error - Erreur de soumission</div>
+                <div class="alert-info">
+                    <strong>Pages:</strong> Demande, Résumé avant soumission<br>
+                    <strong>Fichier:</strong> <code>app/views/shared/_alerts.html.erb</code><br>
+                    <strong>Condition:</strong> Erreur de validation lors de la soumission<br>
+                    <strong>Clé i18n:</strong> <code>authorization_request_forms.submit.error</code><br>
+                    <strong>Note:</strong> Peut inclure une liste d'erreurs ActiveModel
+                </div>
+                <div class="fr-alert fr-alert--error fr-my-8v">
+                    <h3 class="fr-alert__title">Une erreur est survenue lors de la soumission de la demande d'habilitation</h3>
+                    <p>Certains champs ci-dessous ne sont pas valides, merci d'effectuer les corrections nécessaires</p>
+                    <ul>
+                        <li>Vous devez accepter les conditions générales d'utilisation</li>
+                        <li>Le cas d'usage doit être renseigné et contenir au moins 50 caractères</li>
+                    </ul>
+                    <button class="fr-btn--close fr-btn" title="Masquer le message" onclick="this.parentNode.style.display='none'">
+                        Masquer le message
+                    </button>
+                </div>
+            </div>
+
+            <div class="alert-example">
+                <div class="alert-label">Error - Erreur de sauvegarde (Reopening)</div>
+                <div class="alert-info">
+                    <strong>Pages:</strong> Demande, Résumé avant soumission<br>
+                    <strong>Fichier:</strong> <code>app/views/shared/_alerts.html.erb</code><br>
+                    <strong>Condition:</strong> Erreur de validation lors de la sauvegarde d'une réouverture<br>
+                    <strong>Clé i18n:</strong> <code>authorization_request_forms.update.reopening_error</code>
+                </div>
+                <div class="fr-alert fr-alert--error fr-my-8v">
+                    <h3 class="fr-alert__title">Une erreur est survenue lors de la sauvegarde de la mise à jour de la demande d'habilitation</h3>
+                    <p>Certains champs ci-dessous ne sont pas valides, merci d'effectuer les corrections nécessaires</p>
+                    <button class="fr-btn--close fr-btn" title="Masquer le message" onclick="this.parentNode.style.display='none'">
+                        Masquer le message
+                    </button>
+                </div>
+            </div>
+
+            <div class="alert-example">
+                <div class="alert-label">Success - Soumission (Reopening)</div>
+                <div class="alert-info">
+                    <strong>Pages:</strong> Demande, Résumé avant soumission<br>
+                    <strong>Fichier:</strong> <code>app/views/shared/_alerts.html.erb</code><br>
+                    <strong>Condition:</strong> Après soumission réussie d'une demande de réouverture<br>
+                    <strong>Clé i18n:</strong> <code>authorization_request_forms.submit.reopening_success</code>
+                </div>
+                <div class="fr-alert fr-alert--success fr-my-8v">
+                    <h3 class="fr-alert__title">La demande de mise à jour de l'habilitation Domino web 2.0 - API Particulier a été soumise avec succès</h3>
+                    <button class="fr-btn--close fr-btn" title="Masquer le message" onclick="this.parentNode.style.display='none'">
+                        Masquer le message
+                    </button>
+                </div>
+            </div>
+
+            <div class="alert-example">
+                <div class="alert-label">Error - Erreur de soumission (Reopening)</div>
+                <div class="alert-info">
+                    <strong>Pages:</strong> Demande, Résumé avant soumission<br>
+                    <strong>Fichier:</strong> <code>app/views/shared/_alerts.html.erb</code><br>
+                    <strong>Condition:</strong> Erreur de validation lors de la soumission d'une réouverture<br>
+                    <strong>Clé i18n:</strong> <code>authorization_request_forms.submit.reopening_error</code>
+                </div>
+                <div class="fr-alert fr-alert--error fr-my-8v">
+                    <h3 class="fr-alert__title">Une erreur est survenue lors de la soumission de la demande de mise à jour de l'habilitation</h3>
+                    <p>Certains champs ci-dessous ne sont pas valides, merci d'effectuer les corrections nécessaires</p>
+                    <button class="fr-btn--close fr-btn" title="Masquer le message" onclick="this.parentNode.style.display='none'">
+                        Masquer le message
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- CURRENT USER MENTIONS ALERT -->
+        <div class="alert-section">
+            <h2>1. DEMANDE (Authorization Request) View - Section B: Alerte Mentions Utilisateur</h2>
+            <p><strong>Fichier:</strong> <code>app/views/authorization_request_forms/summary.html.erb</code></p>
+            <div class="alert-example">
+                <div class="alert-label">Info - Vous avez été référencé</div>
+                <div class="alert-info">
+                    <strong>Pages:</strong> Demande, Habilitation, Résumé avant soumission<br>
+                    <strong>Fichier:</strong> <code>app/views/demandes_habilitations/_current_user_mentions_alert.html.erb</code><br>
+                    <strong>Condition:</strong> <code>demande.only_in_contacts?(current_user)</code><br>
+                    <strong>Clé i18n:</strong> <code>demandes_habilitations.current_user_mentions_alert.text</code>
+                </div>
+                <div class="fr-alert fr-alert--info fr-my-3w">
+                    Vous avez été référencé comme délégué à la protection des données dans cette habilitation.
+                </div>
+            </div>
+        </div>
+
+        <!-- CHANGES REQUESTED ALERTS -->
+        <div class="alert-section">
+            <h2>1. DEMANDE (Authorization Request) View - Section C: Alertes Modifications Demandées</h2>
+            <p><strong>Fichier:</strong> <code>app/views/authorization_request_forms/summary.html.erb</code></p>
+            
+            <div class="alert-example">
+                <div class="alert-label">Warning - Modifications demandées (Demande normale)</div>
+                <div class="alert-info">
+                    <strong>Pages:</strong> Demande, Résumé avant soumission<br>
+                    <strong>Fichier:</strong> <code>app/views/authorization_request_forms/summary.html.erb</code><br>
+                    <strong>Condition:</strong> <code>@authorization_request.changes_requested? && !displayed_on_a_public_page?</code><br>
+                    <strong>Clé i18n:</strong> <code>authorization_requests.show.changes_requested.title</code><br>
+                    <strong>Note:</strong> Affiche la raison dans un blockquote via <code>@authorization_request.modification_request.reason</code>
+                </div>
+                <div class="fr-alert fr-alert--warning fr-my-3w">
+                    <h3 class="fr-alert__title">Votre demande d'habilitation nécessite des modifications avant d'être validée</h3>
+                    <p>La raison évoquée par l'équipe d'instruction est la suivante :</p>
+                    <blockquote>
+                        Veuillez compléter les informations manquantes dans la section "Données personnelles". Le champ "Adresse" est obligatoire et doit être renseigné.
+                    </blockquote>
+                </div>
+            </div>
+
+            <div class="alert-example">
+                <div class="alert-label">Warning - Modifications demandées (Reopening)</div>
+                <div class="alert-info">
+                    <strong>Pages:</strong> Demande, Résumé avant soumission<br>
+                    <strong>Fichier:</strong> <code>app/views/authorization_request_forms/summary.html.erb</code><br>
+                    <strong>Condition:</strong> <code>@authorization_request.changes_requested? && @authorization_request.reopening? && !displayed_on_a_public_page?</code><br>
+                    <strong>Clé i18n:</strong> <code>authorization_requests.show.reopening_changes_requested.title</code>
+                </div>
+                <div class="fr-alert fr-alert--warning fr-my-3w">
+                    <h3 class="fr-alert__title">Votre demande de mise à jour nécessite des modifications avant d'être validée</h3>
+                    <p>La raison évoquée par l'équipe d'instruction est la suivante :</p>
+                    <blockquote>
+                        Les scopes demandés ne correspondent pas à votre cas d'usage. Veuillez revoir votre sélection et justifier chaque scope demandé dans la section dédiée.
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+
+        <!-- REFUSED ALERTS -->
+        <div class="alert-section">
+            <h2>1. DEMANDE (Authorization Request) View - Section D: Alertes Refus</h2>
+            <p><strong>Fichier:</strong> <code>app/views/authorization_request_forms/summary.html.erb</code></p>
+            
+            <div class="alert-example">
+                <div class="alert-label">Error - Demande refusée (Demande normale)</div>
+                <div class="alert-info">
+                    <strong>Pages:</strong> Demande, Résumé avant soumission<br>
+                    <strong>Fichier:</strong> <code>app/views/authorization_request_forms/summary.html.erb</code><br>
+                    <strong>Condition:</strong> <code>@authorization_request.refused? && !displayed_on_a_public_page?</code><br>
+                    <strong>Clé i18n:</strong> <code>authorization_requests.show.refused.title</code><br>
+                    <strong>Note:</strong> Affiche la raison dans un blockquote via <code>@authorization_request.denial.reason</code>
+                </div>
+                <div class="fr-alert fr-alert--error fr-mb-2v">
+                    <h3 class="fr-alert__title">Votre demande d'habilitation a été refusée</h3>
+                    <p>La raison évoquée par l'équipe d'instruction est la suivante :</p>
+                    <blockquote>
+                        Votre organisation ne remplit pas les critères d'éligibilité pour cette habilitation. Le cas d'usage décrit ne correspond pas aux conditions d'accès à l'API Particulier. Pour plus d'informations, vous pouvez consulter la documentation officielle ou contacter le support.
+                    </blockquote>
+                </div>
+            </div>
+
+            <div class="alert-example">
+                <div class="alert-label">Error - Demande refusée (Reopening)</div>
+                <div class="alert-info">
+                    <strong>Pages:</strong> Demande, Résumé avant soumission<br>
+                    <strong>Fichier:</strong> <code>app/views/authorization_request_forms/summary.html.erb</code><br>
+                    <strong>Condition:</strong> <code>@authorization_request.refused? && @authorization_request.reopening? && !displayed_on_a_public_page?</code><br>
+                    <strong>Clé i18n:</strong> <code>authorization_requests.show.reopening_refused.title</code>
+                </div>
+                <div class="fr-alert fr-alert--error fr-mb-2v">
+                    <h3 class="fr-alert__title">Votre demande de mise à jour a été refusée</h3>
+                    <p>La raison évoquée par l'équipe d'instruction est la suivante :</p>
+                    <blockquote>
+                        Les modifications proposées concernant les scopes demandés ne sont pas justifiées par votre cas d'usage. L'ajout de nouveaux scopes nécessite une démonstration claire de leur nécessité dans le cadre de votre service.
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+
+        <!-- DIRTY FROM V1 ALERT -->
+        <div class="alert-section">
+            <h2>1. DEMANDE (Authorization Request) View - Section E: Alerte Import V1</h2>
+            <p><strong>Fichier:</strong> <code>app/views/authorization_request_forms/summary.html.erb</code></p>
+            <div class="alert-example">
+                <div class="alert-label">Warning - Données importées de la v1</div>
+                <div class="alert-info">
+                    <strong>Pages:</strong> Demande, Résumé avant soumission<br>
+                    <strong>Fichier:</strong> <code>app/views/authorization_request_forms/summary.html.erb</code><br>
+                    <strong>Condition:</strong> <code>@authorization_request.dirty_from_v1? && !displayed_on_a_public_page?</code><br>
+                    <strong>Clé i18n:</strong> <code>authorization_requests.show.dirty_from_v1.title</code><br>
+                    <strong>Note:</strong> Affiche une liste d'erreurs si <code>@authorization_request.dirty_related_errors.any?</code>
+                </div>
+                <div class="fr-alert fr-alert--warning fr-mb-2v">
+                    <h3 class="fr-alert__title">Cette demande d'habilitation ou habilitation est importée de la v1 de DataPass</h3>
+                    <p>Celle-ci présente des données incomplètes, manquantes ou corrompues. Par conséquent, certaines actions ne sont pas disponibles, telles que la réouverture ou le transfert. Si vous voulez effectuer des actions sur cette demande ou habilitation, merci de contacter le support à l'adresse datapass@api.gouv.fr</p>
+                    <p class="fr-mt-2w">
+                        <strong>Les erreurs suivantes ont été rencontrées :</strong>
+                    </p>
+                    <ul>
+                        <li>Le numéro SIRET de l'organisation n'a pas pu être récupéré lors de l'import</li>
+                        <li>La date de création de la demande est au format invalide</li>
+                        <li>Certains contacts techniques n'ont pas pu être importés</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- REOPENING ALERTS -->
+        <div class="alert-section">
+            <h2>1. DEMANDE (Authorization Request) View - Section F: Alertes Réouverture</h2>
+            <p><strong>Fichier:</strong> <code>app/views/authorization_request_forms/summary.html.erb</code> ou <code>app/views/authorizations/_alerts.html.erb</code></p>
+            <p><strong>Condition:</strong> <code>@authorization.present?</code></p>
+            
+            <div class="alert-example">
+                <div class="alert-label">Info - Mise à jour en cours</div>
+                <div class="alert-info">
+                    <strong>Pages:</strong> Demande, Habilitation, Résumé avant soumission<br>
+                    <strong>Fichier:</strong> <code>app/views/authorizations/_alerts.html.erb</code> ou <code>app/views/authorization_request_forms/summary.html.erb</code><br>
+                    <strong>Condition:</strong> <code>@authorization.present? && @authorization.latest? && @authorization.request.reopening?</code><br>
+                    <strong>Clé i18n:</strong> <code>authorization_request_forms.summary.reopening_alerts.update_in_progress</code>
+                </div>
+                <div class="fr-alert fr-alert--info fr-mb-4v">
+                    <h2 class="fr-alert__title fr-h3">Une mise à jour de cette habilitation est en cours.</h2>
+                    <p>Vous avez initié une mise à jour de cette habilitation. Vous pouvez y accéder en cliquant ici : <a href="#">Demande de mise à jour n°720</a></p>
+                </div>
+            </div>
+
+            <div class="alert-example">
+                <div class="alert-label">Warning - Version ancienne</div>
+                <div class="alert-info">
+                    <strong>Pages:</strong> Demande, Habilitation, Résumé avant soumission<br>
+                    <strong>Fichier:</strong> <code>app/views/authorizations/_alerts.html.erb</code> ou <code>app/views/authorization_request_forms/summary.html.erb</code><br>
+                    <strong>Condition:</strong> <code>@authorization.present? && !@authorization.latest?</code><br>
+                    <strong>Clé i18n:</strong> <code>authorization_request_forms.summary.reopening_alerts.old_version</code>
+                </div>
+                <div class="fr-alert fr-alert--warning fr-mb-4v">
+                    <h3 class="fr-alert__title">Attention, vous consultez une version ancienne de cette habilitation</h3>
+                    <p>Il existe une version plus récente de cette habilitation que vous pouvez consulter en cliquant ici: <a href="#">Habilitation n°441</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ACCESS CALLOUT -->
+        <div class="alert-section">
+            <h2>1. DEMANDE (Authorization Request) View - Section G: Callout Accès Disponible</h2>
+            <p><strong>Fichier:</strong> <code>app/views/authorization_request_forms/summary.html.erb</code> ou <code>app/views/authorizations/_access_callout.html.erb</code></p>
+            <div class="alert-example">
+                <div class="alert-label">Callout - Votre accès est disponible</div>
+                <div class="alert-info">
+                    <strong>Pages:</strong> Demande, Habilitation, Résumé avant soumission<br>
+                    <strong>Fichier:</strong> <code>app/views/authorizations/_access_callout.html.erb</code> ou <code>app/views/authorization_request_forms/summary.html.erb</code><br>
+                    <strong>Condition:</strong> <code>!displayed_on_a_public_page? && authorization_request.access_link && authorization_request.validated?</code><br>
+                    <strong>Clé i18n:</strong> <code>authorization_requests.show.access_callout</code>
+                </div>
+                <div class="fr-callout fr-my-16v">
+                    <h2 class="fr-callout__title fr-h3">Votre accès est disponible</h2>
+                    <p class="fr-callout__text">Votre accès <strong>Domino web 2.0 | Gestion des structures de petites enfances, enfance et jeunesse</strong> a été créé, vous pouvez l'utiliser sur le lien ci-dessous.</p>
+                    <a href="#" class="fr-btn fr-btn--icon-right fr-icon-external-link-line" target="_blank">Utiliser mon accès</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- REOPENING CALLOUT -->
+        <div class="alert-section">
+            <h2>1. DEMANDE (Authorization Request) View - Section H: Callout Réouverture</h2>
+            <p><strong>Fichier:</strong> <code>app/views/authorization_request_forms/summary.html.erb</code></p>
+            <div class="alert-example">
+                <div class="alert-label">Callout - Mise à jour de l'habilitation</div>
+                <div class="alert-info">
+                    <strong>Pages:</strong> Demande, Résumé avant soumission<br>
+                    <strong>Fichier:</strong> <code>app/views/authorization_requests/shared/_reopening_callout.html.erb</code><br>
+                    <strong>Condition:</strong> <code>@authorization_request.draft? && @authorization_request.reopening? && @authorization_request.applicant == current_user</code><br>
+                    <strong>Clé i18n:</strong> <code>authorization_requests.shared.reopening_callout.text.applicant</code>
+                </div>
+                <div class="fr-callout fr-icon-information-line fr-mb-6w">
+                    <h3 class="fr-callout__title">Mise à jour de l'habilitation</h3>
+                    <p class="fr-callout__text">
+                        Il s'agit d'une mise à jour d'une habilitation validée. Si celle-ci est rejetée, votre habilitation initiale sera toujours valide et les informations restaurées à la version initiale.
+                        <br><br>
+                        Vous pouvez consulter à tout moment la dernière habilitation validée :
+                    </p>
+                    <a href="#" class="fr-btn">Consulter l'habilitation validée du 2025-11-26</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- UNVERIFIED ORGANIZATION ALERT -->
+        <div class="alert-section">
+            <h2>1. DEMANDE (Authorization Request) View - Section I: Alerte Affiliation Organisation Non Vérifiée</h2>
+            <p><strong>Fichier:</strong> <code>app/views/demandes_habilitations/_organization_and_applicant.html.erb</code></p>
+            <p><strong>Note:</strong> Visible uniquement pour les instructeurs (namespace instruction)</p>
+            <div class="alert-example">
+                <div class="alert-label">Warning - Lien organisation non vérifié</div>
+                <div class="alert-info">
+                    <strong>Pages:</strong> Demande, Habilitation, Résumé avant soumission<br>
+                    <strong>Fichier:</strong> <code>app/views/demandes_habilitations/_organization_and_applicant.html.erb</code><br>
+                    <strong>Condition:</strong> <code>namespace?(:instruction) && demande.unverified_organization_affiliation? && !demande.finished?</code><br>
+                    <strong>Note:</strong> Visible uniquement pour les instructeurs
+                </div>
+                <div class="fr-alert fr-alert--warning fr-mb-2v">
+                    <div class="fr-alert__body">
+                        <p>
+                            Nous n'avons pas pu vérifier le lien entre le demandeur et le numéro de SIRET, assurez-vous que le demandeur est bien légitime pour faire cette demande. Plus d'informations sur la <a href="#" target="_blank">vérification du lien entre le demandeur et l'organisation</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BULK UPDATE MODAL -->
+        <div class="alert-section">
+            <h2>1. DEMANDE (Authorization Request) View - Section J: Modal Mise à Jour Globale</h2>
+            <p><strong>Fichier:</strong> <code>app/views/authorization_request_forms/summary.html.erb</code></p>
+            <p><strong>Note:</strong> Modal qui s'affiche automatiquement quand présente</p>
+            
+            <div class="alert-section" style="margin-top: 2rem;">
+                <h3>2. HABILITATION (Authorization) View</h3>
+                <p><strong>Fichier:</strong> <code>app/views/authorizations/show.html.erb</code></p>
+                <p>Les alertes suivantes apparaissent également dans la vue Habilitation :</p>
+                <ul>
+                    <li>Section B: Alerte Mentions Utilisateur</li>
+                    <li>Section F: Alertes Réouverture (via <code>app/views/authorizations/_alerts.html.erb</code>)</li>
+                    <li>Section G: Callout Accès Disponible (via <code>app/views/authorizations/_access_callout.html.erb</code>)</li>
+                    <li>Section I: Alerte Affiliation Organisation Non Vérifiée</li>
+                </ul>
+            </div>
+            
+            <div class="alert-section" style="margin-top: 2rem;">
+                <h3>3. RÉSUMÉ DE LA DEMANDE AVANT SOUMISSION</h3>
+                <p><strong>Fichier:</strong> <code>app/views/authorization_request_forms/summary.html.erb</code></p>
+                <p><strong>Condition:</strong> <code>@summary_before_submit = true</code> (quand <code>@authorization_request.filling?</code>)</p>
+                <p>Cette vue partage la plupart des alertes avec la vue Demande, avec en plus :</p>
+                <ul>
+                    <li>Section K: Titre et description du résumé (quand <code>@authorization_request.draft? && !displayed_on_a_public_page? && !@authorization_request.reopening?</code>)</li>
+                </ul>
+            </div>
+            <div class="alert-example">
+                <div class="alert-label">Modal - Mise à jour globale effectuée</div>
+                <div class="alert-info">
+                    <strong>Pages:</strong> Demande, Résumé avant soumission<br>
+                    <strong>Fichier:</strong> <code>app/views/authorization_requests/_bulk_update_modal.html.erb</code><br>
+                    <strong>Condition:</strong> <code>@bulk_update.present?</code><br>
+                    <strong>Clé i18n:</strong> <code>authorization_requests.bulk_update_modal</code><br>
+                    <strong>Note:</strong> Modal qui s'affiche automatiquement
+                </div>
+                <div style="border: 2px dashed #ccc; padding: 2rem; background: #f9f9f9;">
+                    <p><em>Note: Ceci est une modal qui s'affiche automatiquement. Le contenu suivant représente ce qui serait affiché dans la modal.</em></p>
+                    <div class="fr-modal__content" style="background: white; padding: 2rem; border-radius: 4px;">
+                        <h1 class="fr-modal__title">Une mise à jour a été effectuée sur votre demande d'habilitation</h1>
+                        <p>Une mise à jour globale a été effectuée sur les habilitations API Particulier par l'équipe en charge de l'instruction de ces demandes. Le détail de cette mise à jour est expliquée ci-dessous :</p>
+                        <div class="fr-mt-2v fr-blockquote-info" style="background: #f5f5fe; padding: 1rem; border-left: 4px solid #000091; margin-top: 1rem;">
+                            <p>De nouveaux scopes sont désormais disponibles pour l'API Particulier. Les scopes "Adresse" et "Identité" ont été ajoutés à la liste des données accessibles. Veuillez vérifier votre demande et mettre à jour les scopes si nécessaire.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
+
