@@ -491,28 +491,6 @@
             <h2>1. DEMANDE (Authorization Request) View - Section J: Modal Mise à Jour Globale</h2>
             <p><strong>Fichier:</strong> <code>app/views/authorization_request_forms/summary.html.erb</code></p>
             <p><strong>Note:</strong> Modal qui s'affiche automatiquement quand présente</p>
-            
-            <div class="alert-section" style="margin-top: 2rem;">
-                <h3>2. HABILITATION (Authorization) View</h3>
-                <p><strong>Fichier:</strong> <code>app/views/authorizations/show.html.erb</code></p>
-                <p>Les alertes suivantes apparaissent également dans la vue Habilitation :</p>
-                <ul>
-                    <li>Section B: Alerte Mentions Utilisateur</li>
-                    <li>Section F: Alertes Réouverture (via <code>app/views/authorizations/_alerts.html.erb</code>)</li>
-                    <li>Section G: Callout Accès Disponible (via <code>app/views/authorizations/_access_callout.html.erb</code>)</li>
-                    <li>Section I: Alerte Affiliation Organisation Non Vérifiée</li>
-                </ul>
-            </div>
-            
-            <div class="alert-section" style="margin-top: 2rem;">
-                <h3>3. RÉSUMÉ DE LA DEMANDE AVANT SOUMISSION</h3>
-                <p><strong>Fichier:</strong> <code>app/views/authorization_request_forms/summary.html.erb</code></p>
-                <p><strong>Condition:</strong> <code>@summary_before_submit = true</code> (quand <code>@authorization_request.filling?</code>)</p>
-                <p>Cette vue partage la plupart des alertes avec la vue Demande, avec en plus :</p>
-                <ul>
-                    <li>Section K: Titre et description du résumé (quand <code>@authorization_request.draft? && !displayed_on_a_public_page? && !@authorization_request.reopening?</code>)</li>
-                </ul>
-            </div>
             <div class="alert-example">
                 <div class="alert-label">Modal - Mise à jour globale effectuée</div>
                 <div class="alert-info">
@@ -531,6 +509,117 @@
                             <p>De nouveaux scopes sont désormais disponibles pour l'API Particulier. Les scopes "Adresse" et "Identité" ont été ajoutés à la liste des données accessibles. Veuillez vérifier votre demande et mettre à jour les scopes si nécessaire.</p>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- HABILITATION VIEW SPECIFIC ALERTS -->
+        <div class="alert-section">
+            <h2>2. HABILITATION (Authorization) View</h2>
+            <p><strong>Fichier:</strong> <code>app/views/authorizations/show.html.erb</code></p>
+            <p>Cette vue affiche les alertes suivantes spécifiquement dans le contexte d'une habilitation validée.</p>
+
+            <h3>Section A: Alerte Mentions Utilisateur</h3>
+            <div class="alert-example">
+                <div class="alert-label">Info - Vous avez été référencé (Vue Habilitation)</div>
+                <div class="alert-info">
+                    <strong>Pages:</strong> Habilitation<br>
+                    <strong>Fichier:</strong> <code>app/views/authorizations/show.html.erb</code> → <code>app/views/demandes_habilitations/_current_user_mentions_alert.html.erb</code><br>
+                    <strong>Condition:</strong> <code>demande.only_in_contacts?(current_user)</code> où <code>demande = @authorization_as_request_validated</code><br>
+                    <strong>Clé i18n:</strong> <code>demandes_habilitations.current_user_mentions_alert.text</code>
+                </div>
+                <div class="fr-alert fr-alert--info fr-my-3w">
+                    Vous avez été référencé comme délégué à la protection des données dans cette habilitation.
+                </div>
+            </div>
+
+            <h3>Section B: Alertes Autorisation</h3>
+            <div class="alert-example">
+                <div class="alert-label">Info - Mise à jour en cours (Vue Habilitation)</div>
+                <div class="alert-info">
+                    <strong>Pages:</strong> Habilitation<br>
+                    <strong>Fichier:</strong> <code>app/views/authorizations/show.html.erb</code> → <code>app/views/authorizations/_alerts.html.erb</code><br>
+                    <strong>Condition:</strong> <code>authorization.latest? && authorization.request.reopening?</code><br>
+                    <strong>Clé i18n:</strong> <code>authorization_request_forms.summary.reopening_alerts.update_in_progress</code>
+                </div>
+                <div class="fr-alert fr-alert--info fr-mb-4v">
+                    <h2 class="fr-alert__title fr-h3">Une mise à jour de cette habilitation est en cours.</h2>
+                    <p>Vous avez initié une mise à jour de cette habilitation. Vous pouvez y accéder en cliquant ici : <a href="#">Demande de mise à jour n°720</a></p>
+                </div>
+            </div>
+
+            <div class="alert-example">
+                <div class="alert-label">Warning - Version ancienne (Vue Habilitation)</div>
+                <div class="alert-info">
+                    <strong>Pages:</strong> Habilitation<br>
+                    <strong>Fichier:</strong> <code>app/views/authorizations/show.html.erb</code> → <code>app/views/authorizations/_alerts.html.erb</code><br>
+                    <strong>Condition:</strong> <code>!authorization.latest?</code><br>
+                    <strong>Clé i18n:</strong> <code>authorization_request_forms.summary.reopening_alerts.old_version</code>
+                </div>
+                <div class="fr-alert fr-alert--warning fr-mb-4v">
+                    <h3 class="fr-alert__title">Attention, vous consultez une version ancienne de cette habilitation</h3>
+                    <p>Il existe une version plus récente de cette habilitation que vous pouvez consulter en cliquant ici: <a href="#">Habilitation n°441</a></p>
+                </div>
+            </div>
+
+            <h3>Section C: Callout Accès Disponible</h3>
+            <div class="alert-example">
+                <div class="alert-label">Callout - Votre accès est disponible (Vue Habilitation)</div>
+                <div class="alert-info">
+                    <strong>Pages:</strong> Habilitation<br>
+                    <strong>Fichier:</strong> <code>app/views/authorizations/show.html.erb</code> → <code>app/views/authorizations/_access_callout.html.erb</code><br>
+                    <strong>Condition:</strong> <code>!displayed_on_a_public_page? && authorization.request.access_link && authorization.request.validated?</code><br>
+                    <strong>Clé i18n:</strong> <code>authorization_requests.show.access_callout</code>
+                </div>
+                <div class="fr-callout fr-my-16v">
+                    <h2 class="fr-callout__title fr-h3">Votre accès est disponible</h2>
+                    <p class="fr-callout__text">Votre accès <strong>Domino web 2.0 | Gestion des structures de petites enfances, enfance et jeunesse</strong> a été créé, vous pouvez l'utiliser sur le lien ci-dessous.</p>
+                    <a href="#" class="fr-btn fr-btn--icon-right fr-icon-external-link-line" target="_blank">Utiliser mon accès</a>
+                </div>
+            </div>
+
+            <h3>Section D: Alerte Affiliation Organisation Non Vérifiée</h3>
+            <div class="alert-example">
+                <div class="alert-label">Warning - Lien organisation non vérifié (Vue Habilitation)</div>
+                <div class="alert-info">
+                    <strong>Pages:</strong> Habilitation<br>
+                    <strong>Fichier:</strong> <code>app/views/authorizations/show.html.erb</code> → <code>app/views/demandes_habilitations/_organization_and_applicant.html.erb</code><br>
+                    <strong>Condition:</strong> <code>namespace?(:instruction) && demande.unverified_organization_affiliation? && !demande.finished?</code><br>
+                    <strong>Note:</strong> Visible uniquement pour les instructeurs
+                </div>
+                <div class="fr-alert fr-alert--warning fr-mb-2v">
+                    <div class="fr-alert__body">
+                        <p>
+                            Nous n'avons pas pu vérifier le lien entre le demandeur et le numéro de SIRET, assurez-vous que le demandeur est bien légitime pour faire cette demande. Plus d'informations sur la <a href="#" target="_blank">vérification du lien entre le demandeur et l'organisation</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SUMMARY BEFORE SUBMISSION UNIQUE ALERTS -->
+        <div class="alert-section">
+            <h2>3. RÉSUMÉ DE LA DEMANDE AVANT SOUMISSION (Summary before submission)</h2>
+            <p><strong>Fichier:</strong> <code>app/views/authorization_request_forms/summary.html.erb</code></p>
+            <p><strong>Condition:</strong> <code>@summary_before_submit = true</code> (quand <code>@authorization_request.filling?</code>)</p>
+            <p>Cette vue partage la plupart des alertes avec la vue Demande (sections A à J). Section unique ci-dessous :</p>
+
+            <h3>Section K: Titre et Description du Résumé (État Brouillon)</h3>
+            <div class="alert-example">
+                <div class="alert-label">Titre et Description - Récapitulatif de votre demande</div>
+                <div class="alert-info">
+                    <strong>Pages:</strong> Résumé avant soumission<br>
+                    <strong>Fichier:</strong> <code>app/views/authorization_request_forms/summary.html.erb</code><br>
+                    <strong>Condition:</strong> <code>@authorization_request.draft? && !displayed_on_a_public_page? && !@authorization_request.reopening?</code><br>
+                    <strong>Clé i18n:</strong> <code>authorization_request_forms.summary.title</code> et <code>authorization_request_forms.summary.description</code><br>
+                    <strong>Note:</strong> Ce n'est pas une alerte DSFR mais un titre et une description affichés avant le contenu du résumé
+                </div>
+                <div style="background: white; padding: 1.5rem; border: 1px solid #ddd; border-radius: 4px;">
+                    <h2 class="fr-h3" style="margin-bottom: 1rem;">Récapitulatif de votre demande</h2>
+                    <p>
+                        Vous avez complété toutes les étapes de votre demande !<br>
+                        Vous pouvez à présent la soumettre à l'équipe d'instruction après avoir lu nos conditions générales d'utilisation.
+                    </p>
                 </div>
             </div>
         </div>
