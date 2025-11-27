@@ -101,7 +101,7 @@
                 <li><strong>Note:</strong> Informations complémentaires si nécessaire</li>
             </ul>
             <p>
-                <strong>Note:</strong> La vue "Résumé de la demande avant soumission" utilise le même fichier que "Demande" (<code>authorization_request_forms/summary.html.erb</code>) avec <code>@summary_before_submit = true</code>. Elle partage toutes les alertes des sections A-J et ajoute la section K.
+                <strong>Note:</strong> La vue "Résumé de la demande avant soumission" utilise le même fichier que "Demande" (<code>authorization_request_forms/summary.html.erb</code>) avec <code>@summary_before_submit = true</code> (quand <code>@authorization_request.filling?</code>, qui retourne true pour les états <code>draft</code> et <code>changes_requested</code>). Elle partage toutes les alertes des sections A-J et ajoute la section K.
             </p>
             <p>
                 Cette documentation correspond exactement à la structure détaillée dans <code>ALERTS_INVENTORY.md</code>.
@@ -112,7 +112,7 @@
         <div class="alert-section">
             <h2>1. DEMANDE (Authorization Request) View - Section A: Messages Flash</h2>
             <p><strong>Fichier:</strong> <code>app/views/authorization_request_forms/summary.html.erb</code></p>
-            <p><strong>Note:</strong> Cette vue est également utilisée pour le résumé avant soumission. Les sections A-J apparaissent dans les deux contextes. La section K apparaît uniquement dans le résumé avant soumission.</p>
+            <p><strong>Note:</strong> Cette vue est également utilisée pour le résumé avant soumission (quand <code>@authorization_request.filling?</code> - états <code>draft</code> ou <code>changes_requested</code>). Les sections A-J apparaissent dans les deux contextes. La section K apparaît uniquement dans le résumé avant soumission pour l'état <code>draft</code> (pas de réouverture).</p>
             <p>Ces messages sont affichés via <code>render partial: 'shared/alerts'</code> dans le layout du formulaire.</p>
             
             <div class="alert-example">
@@ -521,7 +521,7 @@
         <div class="alert-section">
             <h2>1. DEMANDE (Authorization Request) View - Section K: Titre et Description du Résumé (Résumé avant soumission uniquement)</h2>
             <p><strong>Fichier:</strong> <code>app/views/authorization_request_forms/summary.html.erb</code></p>
-            <p><strong>Note:</strong> Cette section est uniquement affichée lors de la visualisation du résumé avant soumission (<code>@summary_before_submit = true</code> quand <code>@authorization_request.filling?</code>)</p>
+            <p><strong>Note:</strong> Cette section est uniquement affichée lors de la visualisation du résumé avant soumission. Bien que <code>@summary_before_submit = true</code> quand <code>@authorization_request.filling?</code> (qui inclut les états <code>draft</code> et <code>changes_requested</code>), cette section spécifique ne s'affiche que pour l'état <code>draft</code> (pas <code>changes_requested</code>), et uniquement quand ce n'est pas une réouverture.</p>
 
             <div class="alert-example">
                 <div class="alert-label">Titre et Description - Récapitulatif de votre demande</div>
@@ -530,7 +530,7 @@
                     <strong>Fichier:</strong> <code>app/views/authorization_request_forms/summary.html.erb</code><br>
                     <strong>Condition:</strong> <code>@authorization_request.draft? && !displayed_on_a_public_page? && !@authorization_request.reopening?</code><br>
                     <strong>Clé i18n:</strong> <code>authorization_request_forms.summary.title</code> et <code>authorization_request_forms.summary.description</code><br>
-                    <strong>Note:</strong> Ce n'est pas une alerte DSFR mais un titre et une description affichés avant le contenu du résumé
+                    <strong>Note:</strong> Ce n'est pas une alerte DSFR mais un titre et une description affichés avant le contenu du résumé. N'apparaît que pour l'état <code>draft</code> (pas <code>changes_requested</code>) et uniquement quand ce n'est pas une réouverture.
                 </div>
                 <div style="background: white; padding: 1.5rem; border: 1px solid #ddd; border-radius: 4px;">
                     <h2 class="fr-h3" style="margin-bottom: 1rem;">Récapitulatif de votre demande</h2>

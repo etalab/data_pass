@@ -4,14 +4,14 @@ This document lists all possible alerts that can be displayed in the two main vi
 1. **Demande (Authorization Request)** - `authorization_request_forms/summary.html.erb`
 2. **Habilitation (Authorization)** - `authorizations/show.html.erb`
 
-**Note:** The "Résumé de la demande avant soumission" (Summary before submission) uses the same view file as "Demande" (`authorization_request_forms/summary.html.erb`) but with `@summary_before_submit = true` (when `@authorization_request.filling?`). It shares all alerts from sections A-J and adds section K.
+**Note:** The "Résumé de la demande avant soumission" (Summary before submission) uses the same view file as "Demande" (`authorization_request_forms/summary.html.erb`) but with `@summary_before_submit = true` (when `@authorization_request.filling?`, which returns true for both `draft` and `changes_requested` states). It shares all alerts from sections A-J and adds section K.
 
 ---
 
 ## 1. DEMANDE (Authorization Request) View
 **File:** `app/views/authorization_request_forms/summary.html.erb`
 
-**Note:** This view file is also used for the "Résumé de la demande avant soumission" (Summary before submission). Sections A-J appear in both contexts. Section K appears only in the summary before submission view (when `@summary_before_submit = true`, i.e., when `@authorization_request.filling?`).
+**Note:** This view file is also used for the "Résumé de la demande avant soumission" (Summary before submission). Sections A-J appear in both contexts. Section K appears only in the summary before submission view (when `@summary_before_submit = true`, i.e., when `@authorization_request.filling?` - which returns true for both `draft` and `changes_requested` states, though Section K only displays for `draft` state specifically).
 
 ### A. Flash Messages (via `shared/_alerts.html.erb`)
 These are displayed at the top via `render partial: 'shared/alerts'` in the form layout.
@@ -129,7 +129,7 @@ These are displayed at the top via `render partial: 'shared/alerts'` in the form
 
 ### K. Summary Title and Description (Résumé avant soumission uniquement)
 **Condition:** `@authorization_request.draft? && !displayed_on_a_public_page? && !@authorization_request.reopening?`
-**Note:** This section is only displayed when viewing the summary before submission (`@summary_before_submit = true` when `@authorization_request.filling?`)
+**Note:** This section is only displayed when viewing the summary before submission. While `@summary_before_submit = true` when `@authorization_request.filling?` (which includes both `draft` and `changes_requested` states), this specific section only displays for `draft` state (not `changes_requested`), and only when it's not a reopening.
 - **Title:** "Récapitulatif de votre demande"
 - **Description:** "Vous avez complété toutes les étapes de votre demande ! Vous pouvez à présent la soumettre à l'équipe d'instruction après avoir lu nos conditions générales d'utilisation."
 
