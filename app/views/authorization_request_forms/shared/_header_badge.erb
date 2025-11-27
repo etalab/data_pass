@@ -13,7 +13,7 @@
       </li>
     <% elsif @authorization_request.persisted? %>
       <li>
-        <span class="fr-badge fr-badge--no-icon"><%= t("authorization_request.badge", id: @authorization_request.id) %></span>
+        <span class="fr-badge fr-badge--no-icon authorization-request-id-badge"><%= t("authorization_request.badge", id: @authorization_request.id) %></span>
       </li>
     <% end %>
 
