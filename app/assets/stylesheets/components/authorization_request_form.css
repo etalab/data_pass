@@ -24,6 +24,11 @@
   margin-bottom: 0;
 }
 
+.authorization-request-id-badge {
+  background-color: white;
+  color: var(--text-default-grey);
+}
+
 .authorization-request-form-header__actions {
   display: flex;
   height: 100%;
