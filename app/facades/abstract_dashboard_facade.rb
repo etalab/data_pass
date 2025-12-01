@@ -7,9 +7,9 @@ class AbstractDashboardFacade
 
   def initialize(user:, search_query:, subdomain_types:, scoped_relation:)
     @user = user
-    @search_query = search_query
     @subdomain_types = subdomain_types
     @scoped_relation = scoped_relation
+    @search_query = apply_default_filter(search_query)
   end
 
   def show_filters?
@@ -71,5 +71,12 @@ class AbstractDashboardFacade
 
   def search_builder_class
     "#{model_class}sSearchEngineBuilder".constantize
+  end
+
+  def apply_default_filter(search_query)
+    return search_query if search_query&.dig(:user_relationship_eq).present?
+    return search_query unless show_filters?
+
+    (search_query || {}).merge(user_relationship_eq: 'applicant')
   end
 end
