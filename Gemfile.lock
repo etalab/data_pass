@@ -151,7 +151,7 @@ GEM
     commonmarker (2.0.4-arm64-darwin)
     commonmarker (2.0.4-x86_64-linux)
     concurrent-ruby (1.3.5)
-    connection_pool (2.5.4)
+    connection_pool (2.5.5)
     crack (1.0.1)
       bigdecimal
       rexml
@@ -416,7 +416,7 @@ GEM
       net-imap
       net-pop
       net-smtp
-    mailjet (1.8.2)
+    mailjet (1.8.3)
       activesupport (>= 5.0.0)
       faraday (~> 2.1)
       rack (>= 1.4.0)
@@ -436,8 +436,8 @@ GEM
     multi_xml (0.6.0)
     multipart-post (2.4.1)
     nenv (0.3.0)
-    net-http (0.7.0)
-      uri
+    net-http (0.8.0)
+      uri (>= 0.11.1)
     net-imap (0.5.12)
       date
       net-protocol
@@ -663,10 +663,10 @@ GEM
     ruby2_keywords (0.0.5)
     rubyzip (3.1.1)
     securerandom (0.4.1)
-    sentry-rails (6.1.1)
+    sentry-rails (6.2.0)
       railties (>= 5.2.0)
-      sentry-ruby (~> 6.1.1)
-    sentry-ruby (6.1.1)
+      sentry-ruby (~> 6.2.0)
+    sentry-ruby (6.2.0)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
     shellany (0.0.1)
@@ -680,9 +680,9 @@ GEM
     snaky_hash (2.0.1)
       hashie
       version_gem (~> 1.1, >= 1.1.1)
-    sqlite3 (2.8.0-aarch64-linux-gnu)
-    sqlite3 (2.8.0-arm64-darwin)
-    sqlite3 (2.8.0-x86_64-linux-gnu)
+    sqlite3 (2.8.1-aarch64-linux-gnu)
+    sqlite3 (2.8.1-arm64-darwin)
+    sqlite3 (2.8.1-x86_64-linux-gnu)
     state_machines (0.100.1)
     state_machines-activemodel (0.100.0)
       activemodel (>= 7.2)
