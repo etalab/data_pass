@@ -625,8 +625,6 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le c
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
-    * je clique sur "Suivant"
-
     * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
     * je clique sur "Suivant"
 
@@ -647,8 +645,8 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le c
 
     Exemples:
       | Nom du formulaire         | Nom de l'éditeur  |
-      | Concerto Petite enfance   | arpege            |
-      | Axel petite enfance       | teamnet           |
+      | Concerto Petite enfance   | Arpège            |
+      | Axel petite enfance       | Teamnet           |
 
 Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique déjà renseigné et des scopes non modifiables pour un cas d'usage lié à la tarification dans les établissements d'accueil du jeune enfant
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>",
@@ -677,4 +675,4 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le c
 
         Exemples:
       | Nom du formulaire           | Nom de l'éditeur|
-      | iNoé Pette enfance          | aiga            |
+      | iNoé Pette enfance          | Aiga            |

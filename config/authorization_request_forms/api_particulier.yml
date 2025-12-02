@@ -1851,7 +1851,6 @@ api-particulier-arpege-concerto-petite-enfance:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
-      
   initialize_with:
     intitule: Tarification sur Quotient Familial des services municipaux liés à la petite enfance
     description: |
@@ -1885,7 +1884,6 @@ api-particulier-aiga-petite-enfance:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
-    
   initialize_with:
     intitule: Tarification sur Quotient Familial des services municipaux liés à la petite enfance
     description: |
@@ -1901,7 +1899,6 @@ api-particulier-aiga-petite-enfance:
     contact_technique_phone_number: "0472532200"
     modalities:
       - params
-
 
 api-particulier-teamnet-axel-petite-enfance:
   name: Axel petite enfance
@@ -1923,7 +1920,6 @@ api-particulier-teamnet-axel-petite-enfance:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
-    
   initialize_with:
     intitule: Tarification sur Quotient Familial des services municipaux liés à la petite enfance
     description: |
@@ -1936,7 +1932,6 @@ api-particulier-teamnet-axel-petite-enfance:
       - cnav_participation_familiale_eaje_parametres_calcul
     modalities:
       - params
-
 
 # Formulaires cas d'usage génériques
 api-particulier-tarification-municipale-enfance:
