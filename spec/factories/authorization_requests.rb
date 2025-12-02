@@ -440,6 +440,9 @@ FactoryBot.define do
       api-particulier-acheteza
       api-particulier-dialog
       api-particulier-keolis
+      api-particulier-aiga-petite-enfance
+      api-particulier-teamnet-axel-petite-enfance
+      api-particulier-arpege-concerto-petite-enfance
       api-particulier-mgdis-tarification-cantines-lycees
       api-particulier-arche-mc2-solis
       api-particulier-tarification-municipale-enfance
@@ -452,6 +455,7 @@ FactoryBot.define do
       api-particulier-tarification-transports
       api-particulier-gestion-rh-secteur-public
       api-particulier-stationnement-residentiel
+      api-particulier-tarification-eaje
     ].each do |form_uid|
       trait form_uid.tr('-', '_') do
         api_particulier
