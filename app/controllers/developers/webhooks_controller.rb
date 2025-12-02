@@ -23,7 +23,7 @@ class Developers::WebhooksController < DevelopersController
       @webhook = result.webhook
       @authorization_definitions = current_user.authorization_definition_roles_as(:developer)
       error_message(title: t('.error'))
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -42,7 +42,7 @@ class Developers::WebhooksController < DevelopersController
     else
       @authorization_definitions = current_user.authorization_definition_roles_as(:developer)
       error_message(title: t('.error'))
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 
@@ -67,7 +67,7 @@ class Developers::WebhooksController < DevelopersController
 
       index
 
-      render :index, status: :unprocessable_entity
+      render :index, status: :unprocessable_content
     end
   end
 
@@ -87,7 +87,7 @@ class Developers::WebhooksController < DevelopersController
       redirect_to show_secret_developers_webhook_path(@webhook)
     else
       error_message(title: t('.error'))
-      redirect_to developers_webhooks_path, status: :unprocessable_entity
+      redirect_to developers_webhooks_path, status: :unprocessable_content
     end
   end
 
