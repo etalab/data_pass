@@ -3,7 +3,7 @@ class Developers::WebhooksController < DevelopersController
 
   def index
     authorize %i[developer webhook], :index?
-    @webhooks = policy_scope([:developer, Webhook]).includes(:calls).order(created_at: :desc)
+    @webhooks = policy_scope([:developer, Webhook]).includes(:attempts).order(created_at: :desc)
   end
 
   def new

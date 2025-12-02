@@ -1,4 +1,4 @@
-class API::V1::WebhookCallSerializer < ActiveModel::Serializer
+class API::V1::WebhookAttemptSerializer < ActiveModel::Serializer
   attributes :id,
     :event,
     :status_code,

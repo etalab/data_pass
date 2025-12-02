@@ -72,7 +72,7 @@ fr:
         help_text_html: |
           <p>Les webhooks vous permettent de recevoir des notifications en temps réel lorsque des événements se produisent sur vos demandes d'autorisation.</p>
           <p>Pour tester votre webhook, vous pouvez utiliser <a href="https://webhook.site" target="_blank" rel="noopener noreferrer" class="fr-link">webhook.site</a>.</p>
-    webhook_calls:
+    webhook_attempts:
       index:
         title: Historique des appels
         back: Retour aux webhooks

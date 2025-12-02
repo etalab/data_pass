@@ -166,7 +166,7 @@ L'API utilise OAuth 2.0 pour l'authentification. Vous devez :
 2. Obtenir un access token avec le scope `read_webhooks`
 3. Utiliser ce token dans le header `Authorization: Bearer {token}`
 
-### Endpoint : GET /api/v1/webhooks/:webhook_id/calls
+### Endpoint : GET /api/v1/webhooks/:webhook_id/attempts
 
 Récupère l'historique des appels d'un webhook spécifique.
 
@@ -180,7 +180,7 @@ Récupère l'historique des appels d'un webhook spécifique.
 #### Exemple de requête
 
 ```bash
-curl -X GET "https://datapass.api.gouv.fr/api/v1/webhooks/123/calls?start_time=2024-01-01T00:00:00Z&end_time=2024-01-31T23:59:59Z&limit=50" \
+curl -X GET "https://datapass.api.gouv.fr/api/v1/webhooks/123/attempts?start_time=2024-01-01T00:00:00Z&end_time=2024-01-31T23:59:59Z&limit=50" \
   -H "Authorization: Bearer YOUR_OAUTH_TOKEN"
 ```
 
@@ -235,7 +235,7 @@ curl -X GET "https://datapass.api.gouv.fr/api/v1/webhooks/123/calls?start_time=2
 | `created_at`                | datetime | Date de création                                               |
 | `updated_at`                | datetime | Date de dernière modification                                  |
 
-#### Table `webhook_calls`
+#### Table `webhook_attempts`
 
 | Champ                     | Type     | Description                                                |
 |---------------------------|----------|------------------------------------------------------------|
@@ -263,7 +263,7 @@ Pour chaque webhook :
     ↓
     WebhookHttpService (calcul HMAC + appel HTTP)
       ↓
-      SaveWebhookCall (enregistrement de l'appel)
+      SaveWebhookAttempt (enregistrement de l'appel)
         ↓
         Si échec ET 5ème tentative :
           → Désactivation du webhook
@@ -273,11 +273,11 @@ Pour chaque webhook :
 ### Services et interactors
 
 - **WebhookHttpService** : Service partagé pour calculer le HMAC-SHA256 et effectuer l'appel HTTP
-- **Developer::SaveWebhookCall** : Enregistre chaque appel dans la base de données
+- **Developer::SaveWebhookAttempt** : Enregistre chaque appel dans la base de données
 - **Developer::CreateWebhook** : Crée et teste un nouveau webhook
 - **Developer::UpdateWebhook** : Met à jour et re-teste si nécessaire
 - **Developer::EnableWebhook** : Active un webhook (uniquement si valide)
-- **Developer::ReplayWebhookCall** : Rejoue un appel échoué
+- **Developer::ReplayWebhookAttempt** : Rejoue un appel échoué
 - **DeliverAuthorizationRequestWebhookJob** : Job Sidekiq pour l'envoi asynchrone
 
 ---

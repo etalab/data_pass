@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Developer::SaveWebhookCall, type: :interactor do
+RSpec.describe Developer::SaveWebhookAttempt, type: :interactor do
   describe '.call' do
     subject(:result) do
       described_class.call(
@@ -22,32 +22,32 @@ RSpec.describe Developer::SaveWebhookCall, type: :interactor do
 
     it { is_expected.to be_success }
 
-    it 'creates a webhook call' do
-      expect { result }.to change(WebhookCall, :count).by(1)
+    it 'creates a webhook attempt' do
+      expect { result }.to change(WebhookAttempt, :count).by(1)
     end
 
     it 'sets the correct attributes' do
-      webhook_call = result.webhook_call
+      webhook_attempt = result.webhook_attempt
 
-      expect(webhook_call.webhook).to eq(webhook)
-      expect(webhook_call.authorization_request).to eq(authorization_request)
-      expect(webhook_call.event_name).to eq(event_name)
-      expect(webhook_call.status_code).to eq(status_code)
-      expect(webhook_call.response_body).to eq(response_body)
-      expect(webhook_call.payload).to eq(payload.deep_stringify_keys)
+      expect(webhook_attempt.webhook).to eq(webhook)
+      expect(webhook_attempt.authorization_request).to eq(authorization_request)
+      expect(webhook_attempt.event_name).to eq(event_name)
+      expect(webhook_attempt.status_code).to eq(status_code)
+      expect(webhook_attempt.response_body).to eq(response_body)
+      expect(webhook_attempt.payload).to eq(payload.deep_stringify_keys)
     end
 
-    context 'when webhook call is invalid' do
+    context 'when webhook attempt is invalid' do
       let(:webhook) { nil }
 
       it { is_expected.to be_failure }
 
       it 'fails with error' do
-        expect(result.error).to eq(:invalid_webhook_call_model)
+        expect(result.error).to eq(:invalid_webhook_attempt_model)
       end
 
-      it 'does not create a webhook call' do
-        expect { result }.not_to change(WebhookCall, :count)
+      it 'does not create a webhook attempt' do
+        expect { result }.not_to change(WebhookAttempt, :count)
       end
     end
   end

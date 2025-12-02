@@ -160,7 +160,7 @@ Rails.application.routes.draw do
         post :disable, path: 'desactiver'
       end
 
-      resources :webhook_calls, only: %i[index show], path: 'appels' do
+      resources :webhook_attempts, only: %i[index show], path: 'tentatives' do
         member do
           post :replay, path: 'rejouer'
         end
@@ -185,7 +185,7 @@ Rails.application.routes.draw do
       resources :authorization_request_forms, path: 'definitions/:id/formulaires', only: %i[index]
 
       resources :webhooks, only: [] do
-        resources :webhook_calls, only: [:index], path: 'calls', as: :calls
+        resources :webhook_attempts, only: [:index], path: 'attempts', as: :attempts
       end
     end
   end

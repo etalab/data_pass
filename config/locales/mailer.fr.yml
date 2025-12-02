@@ -164,7 +164,7 @@ fr:
 
         Vous pouvez consulter l'historique complet des appels webhook et les détails des erreurs à l'adresse suivante :
 
-        %{webhook_calls_url}
+        %{webhook_attempts_url}
 
         Merci de transmettre ce message à votre équipe technique pour correction. Nous sommes disponibles pour vos questions techniques à l'adresse mail suivante : equipe-datapass@api.gouv.fr.
 

@@ -42,14 +42,14 @@ RSpec.describe DeliverAuthorizationRequestWebhookJob do
   end
 
   it 'creates a webhook call record' do
-    expect { deliver_authorization_request_webhook }.to change(WebhookCall, :count).by(1)
+    expect { deliver_authorization_request_webhook }.to change(WebhookAttempt, :count).by(1)
 
-    webhook_call = WebhookCall.last
-    expect(webhook_call.webhook).to eq(webhook)
-    expect(webhook_call.authorization_request).to eq(authorization_request)
-    expect(webhook_call.event_name).to eq(event_name)
-    expect(webhook_call.status_code).to eq(status)
-    expect(webhook_call.payload).to eq(payload)
+    webhook_attempt = WebhookAttempt.last
+    expect(webhook_attempt.webhook).to eq(webhook)
+    expect(webhook_attempt.authorization_request).to eq(authorization_request)
+    expect(webhook_attempt.event_name).to eq(event_name)
+    expect(webhook_attempt.status_code).to eq(status)
+    expect(webhook_attempt.payload).to eq(payload)
   end
 
   context 'when endpoint respond with an error (400 to 599 status)' do

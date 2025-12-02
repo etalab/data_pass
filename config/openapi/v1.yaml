@@ -522,7 +522,7 @@ components:
               - "etablissements"
           nullable: true
 
-    WebhookCall:
+    WebhookAttempt:
       type: object
       description: Appel webhook effectué suite à un événement sur une demande d'habilitation
       properties:
@@ -1127,7 +1127,7 @@ paths:
                     type: string
                     example: "Not Found"
 
-  /webhooks/{webhook_id}/calls:
+  /webhooks/{webhook_id}/attempts:
     get:
       tags:
         - Webhooks
@@ -1139,7 +1139,7 @@ paths:
         Si l'utilisateur n'a pas accès à ce webhook, une erreur 404 est retournée.
 
         Les résultats sont triés par date de création décroissante (du plus récent au plus ancien).
-      operationId: getWebhookCalls
+      operationId: getWebhookAttempts
       security:
         - BearerAuth: [read_webhooks]
       parameters:
@@ -1183,9 +1183,9 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/WebhookCall'
+                  $ref: '#/components/schemas/WebhookAttempt'
               examples:
-                webhook_calls:
+                webhook_attempts:
                   summary: Exemple d'appels webhook
                   value:
                     - id: 123

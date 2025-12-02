@@ -1,8 +1,8 @@
-class WebhookCall < ApplicationRecord
+class WebhookAttempt < ApplicationRecord
   SUCCESS_STATUS_CODES = [200, 201, 204].freeze
 
   belongs_to :webhook,
-    inverse_of: :calls
+    inverse_of: :attempts
 
   belongs_to :authorization_request
 

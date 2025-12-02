@@ -18,7 +18,7 @@
   <%= link_to t('.back'), developers_webhooks_path, class: %w[fr-link fr-icon-arrow-left-line fr-link--icon-left] %>
 </div>
 
-<% if @webhook_calls.empty? %>
+<% if @webhook_attempts.empty? %>
   <div class="fr-callout fr-mt-4w" id="calls-table">
     <p class="fr-callout__text">
       <%= t('.no_calls') %>
@@ -41,28 +41,28 @@
               </tr>
             </thead>
             <tbody>
-              <% @webhook_calls.each do |webhook_call| %>
+              <% @webhook_attempts.each do |webhook_attempt| %>
                 <tr>
-                  <td><%= webhook_call.event_name %></td>
+                  <td><%= webhook_attempt.event_name %></td>
                   <td>
-                    <% if webhook_call.status_code %>
-                      <span class="fr-badge <%= webhook_call.success? ? 'fr-badge--success' : 'fr-badge--error' %> fr-badge--sm">
-                        <%= webhook_call.status_code %>
+                    <% if webhook_attempt.status_code %>
+                      <span class="fr-badge <%= webhook_attempt.success? ? 'fr-badge--success' : 'fr-badge--error' %> fr-badge--sm">
+                        <%= webhook_attempt.status_code %>
                       </span>
                     <% else %>
                       <span class="fr-badge fr-badge--error fr-badge--sm"><%= t('.no_response') %></span>
                     <% end %>
                   </td>
-                  <td><%= l(webhook_call.created_at, format: :long) %></td>
+                  <td><%= l(webhook_attempt.created_at, format: :long) %></td>
                   <td>
-                    <% if webhook_call.success? %>
+                    <% if webhook_attempt.success? %>
                       <span class="fr-badge fr-badge--success fr-badge--sm"><%= t('.success') %></span>
                     <% else %>
                       <span class="fr-badge fr-badge--error fr-badge--sm"><%= t('.failure') %></span>
                     <% end %>
                   </td>
                   <td>
-                    <%= link_to t('.view_details'), developers_webhook_webhook_call_path(@webhook, webhook_call), class: %w[fr-btn fr-btn--sm fr-btn--secondary] %>
+                    <%= link_to t('.view_details'), developers_webhook_webhook_attempt_path(@webhook, webhook_attempt), class: %w[fr-btn fr-btn--sm fr-btn--secondary] %>
                   </td>
                 </tr>
               <% end %>
@@ -74,6 +74,6 @@
   </div>
 
   <div class="fr-mt-4w">
-    <%= paginate @webhook_calls if @webhook_calls.respond_to?(:current_page) %>
+    <%= paginate @webhook_attempts if @webhook_attempts.respond_to?(:current_page) %>
   </div>
 <% end %>

@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :webhook_call do
+  factory :webhook_attempt do
     webhook
     authorization_request { association :authorization_request, :api_entreprise }
     event_name { 'approve' }

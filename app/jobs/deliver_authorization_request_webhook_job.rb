@@ -14,7 +14,7 @@ class DeliverAuthorizationRequestWebhookJob < ApplicationJob
     http_service = WebhookHttpService.new(webhook.url, webhook.secret)
     result = http_service.call(payload)
 
-    Developer::SaveWebhookCall.call!(
+    Developer::SaveWebhookAttempt.call!(
       webhook: webhook,
       authorization_request: authorization_request,
       event_name: event_name,
@@ -77,6 +77,6 @@ class DeliverAuthorizationRequestWebhookJob < ApplicationJob
   end
 
   def success_http_codes
-    WebhookCall::SUCCESS_STATUS_CODES
+    WebhookAttempt::SUCCESS_STATUS_CODES
   end
 end

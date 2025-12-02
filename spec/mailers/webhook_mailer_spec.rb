@@ -21,7 +21,7 @@ RSpec.describe WebhookMailer do
     it 'renders relevant information in body and subject' do
       expect(mail.subject).to include('API Entreprise')
       expect(mail.body.encoded).to include(webhook_url)
-      expect(mail.body.encoded).to include("/developpeurs/webhooks/#{webhook.id}/appels")
+      expect(mail.body.encoded).to include("/developpeurs/webhooks/#{webhook.id}/tentatives")
     end
   end
 end

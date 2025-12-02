@@ -1,5 +1,5 @@
 module Developer
-  class WebhookCallPolicy < ApplicationPolicy
+  class WebhookAttemptPolicy < ApplicationPolicy
     include DeveloperScoping
 
     def index?

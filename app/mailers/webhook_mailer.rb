@@ -14,7 +14,7 @@ class WebhookMailer < ApplicationMailer
   def instanciate_fail_view_variables
     @webhook = params[:webhook]
     @webhook_url = @webhook.url
-    @webhook_calls_url = developers_webhook_webhook_calls_url(@webhook)
+    @webhook_attempts_url = developers_webhook_webhook_attempts_url(@webhook)
     @authorization_definition_name = authorization_definition_name
   end
 

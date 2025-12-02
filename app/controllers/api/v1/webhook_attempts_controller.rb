@@ -1,16 +1,16 @@
-class API::V1::WebhookCallsController < API::V1Controller
+class API::V1::WebhookAttemptsController < API::V1Controller
   before_action -> { doorkeeper_authorize! :read_webhooks }, only: :index
   before_action :set_webhook, only: :index
 
   def index
-    webhook_calls = @webhook.calls
+    webhook_attempts = @webhook.attempts
       .includes(:authorization_request)
-      .then { |calls| filter_by_date_range(calls) }
+      .then { |attempts| filter_by_date_range(attempts) }
       .order(created_at: :desc)
       .limit(maxed_limit(params[:limit], 100))
 
-    render json: webhook_calls,
-      each_serializer: API::V1::WebhookCallSerializer,
+    render json: webhook_attempts,
+      each_serializer: API::V1::WebhookAttemptSerializer,
       status: :ok
   end
 
@@ -23,10 +23,10 @@ class API::V1::WebhookCallsController < API::V1Controller
       .find(params[:webhook_id] || params[:id])
   end
 
-  def filter_by_date_range(calls)
-    return calls if start_time_param.blank? && end_time_param.blank?
+  def filter_by_date_range(attempts)
+    return attempts if start_time_param.blank? && end_time_param.blank?
 
-    calls.between_dates(start_time, end_time)
+    attempts.between_dates(start_time, end_time)
   end
 
   def start_time

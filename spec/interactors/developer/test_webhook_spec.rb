@@ -20,7 +20,7 @@ RSpec.describe Developer::TestWebhook, type: :interactor do
     end
 
     it 'does not create a webhook call' do
-      expect { result }.not_to change(WebhookCall, :count)
+      expect { result }.not_to change(WebhookAttempt, :count)
     end
 
     it 'returns success status in webhook_test hash' do

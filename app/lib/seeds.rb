@@ -450,21 +450,21 @@ class Seeds
       enabled: false
     )
 
-    create_webhook_calls_for_api_entreprise(webhook_valid, webhook_invalid)
+    create_webhook_attempts_for_api_entreprise(webhook_valid, webhook_invalid)
   end
 
-  def create_webhook_calls_for_api_entreprise(webhook_valid, webhook_invalid)
+  def create_webhook_attempts_for_api_entreprise(webhook_valid, webhook_invalid)
     authorization_requests = AuthorizationRequest.where(form_uid: 'api-entreprise').limit(5)
 
     authorization_requests.each_with_index do |authorization_request, index|
-      create_successful_webhook_calls(webhook_valid, webhook_invalid, authorization_request, index)
+      create_successful_webhook_attempts(webhook_valid, webhook_invalid, authorization_request, index)
     end
 
-    create_failed_webhook_calls(webhook_valid, authorization_requests.first)
+    create_failed_webhook_attempts(webhook_valid, authorization_requests.first)
   end
 
-  def create_successful_webhook_calls(webhook_valid, webhook_invalid, authorization_request, index)
-    WebhookCall.create!(
+  def create_successful_webhook_attempts(webhook_valid, webhook_invalid, authorization_request, index)
+    WebhookAttempt.create!(
       webhook: webhook_valid,
       authorization_request: authorization_request,
       event_name: 'submit',
@@ -474,7 +474,7 @@ class Seeds
       created_at: index.days.ago
     )
 
-    WebhookCall.create!(
+    WebhookAttempt.create!(
       webhook: webhook_invalid,
       authorization_request: authorization_request,
       event_name: 'approve',
@@ -485,10 +485,10 @@ class Seeds
     )
   end
 
-  def create_failed_webhook_calls(webhook, authorization_request)
+  def create_failed_webhook_attempts(webhook, authorization_request)
     return unless authorization_request
 
-    WebhookCall.create!(
+    WebhookAttempt.create!(
       webhook: webhook,
       authorization_request: authorization_request,
       event_name: 'update',
@@ -498,7 +498,7 @@ class Seeds
       created_at: 1.hour.ago
     )
 
-    WebhookCall.create!(
+    WebhookAttempt.create!(
       webhook: webhook,
       authorization_request: authorization_request,
       event_name: 'update',

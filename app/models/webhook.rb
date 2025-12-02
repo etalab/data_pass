@@ -13,7 +13,7 @@ class Webhook < ApplicationRecord
     cancel_reopening
   ].freeze
 
-  has_many :calls, class_name: 'WebhookCall', dependent: :destroy
+  has_many :attempts, class_name: 'WebhookAttempt', dependent: :destroy
 
   encrypts :secret, deterministic: false
 

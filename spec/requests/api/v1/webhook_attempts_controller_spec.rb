@@ -1,4 +1,4 @@
-RSpec.describe 'API: Webhook Calls' do
+RSpec.describe 'API: Webhook Attempts' do
   let(:user) { create(:user, :developer, authorization_request_types: %w[api_entreprise]) }
   let(:application) { create(:oauth_application, owner: user) }
   let(:access_token) { create(:access_token, application:, scopes: 'read_webhooks') }
@@ -6,7 +6,7 @@ RSpec.describe 'API: Webhook Calls' do
 
   describe 'index' do
     subject(:get_index) do
-      get "/api/v1/webhooks/#{webhook.id}/calls", headers: { 'Authorization' => "Bearer #{access_token.token}" }, params:
+      get "/api/v1/webhooks/#{webhook.id}/attempts", headers: { 'Authorization' => "Bearer #{access_token.token}" }, params:
     end
 
     let(:params) { {} }
@@ -22,21 +22,21 @@ RSpec.describe 'API: Webhook Calls' do
     end
 
     context 'when the user is a developer for the webhook' do
-      context 'when there are webhook calls' do
-        let!(:webhook_call) { create(:webhook_call, webhook:) }
+      context 'when there are webhook attempts' do
+        let!(:webhook_attempt) { create(:webhook_attempt, webhook:) }
 
         it 'responds OK with data' do
           get_index
 
           expect(response).to have_http_status(:ok)
           expect(response.parsed_body.count).to eq(1)
-          expect(response.parsed_body[0]['id']).to eq(webhook_call.id)
+          expect(response.parsed_body[0]['id']).to eq(webhook_attempt.id)
 
           validate_request_and_response!
         end
       end
 
-      context 'when there are no webhook calls' do
+      context 'when there are no webhook attempts' do
         it 'responds OK with empty data' do
           get_index
 
@@ -46,22 +46,22 @@ RSpec.describe 'API: Webhook Calls' do
       end
 
       context 'when filtering by start_time and end_time' do
-        let!(:old_webhook_call) { create(:webhook_call, webhook:, created_at: 3.days.ago) }
-        let!(:recent_webhook_call) { create(:webhook_call, webhook:, created_at: 1.day.ago) }
+        let!(:old_webhook_attempt) { create(:webhook_attempt, webhook:, created_at: 3.days.ago) }
+        let!(:recent_webhook_attempt) { create(:webhook_attempt, webhook:, created_at: 1.day.ago) }
         let(:params) { { start_time: 2.days.ago.iso8601, end_time: Time.zone.now.iso8601 } }
 
-        it 'returns only webhook calls within the time range' do
+        it 'returns only webhook attempts within the time range' do
           get_index
 
           expect(response).to have_http_status(:ok)
           expect(response.parsed_body.count).to eq(1)
-          expect(response.parsed_body[0]['id']).to eq(recent_webhook_call.id)
+          expect(response.parsed_body[0]['id']).to eq(recent_webhook_attempt.id)
         end
       end
 
       context 'when setting limit parameter' do
         before do
-          create_list(:webhook_call, 5, webhook:)
+          create_list(:webhook_attempt, 5, webhook:)
         end
 
         let(:params) { { limit: 2 } }

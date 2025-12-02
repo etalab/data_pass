@@ -48,9 +48,9 @@
                 <td><%= webhook.id %></td>
                 <td><%= webhook.definition.name %></td>
                 <td class="fr-cell--multiline">
-                  <%= link_to webhook.url, developers_webhook_webhook_calls_path(webhook), class: %w[fr-link] %>
+                  <%= link_to webhook.url, developers_webhook_webhook_attempts_path(webhook), class: %w[fr-link] %>
                 </td>
-                <td><%= webhook.calls.size %></td>
+                <td><%= webhook.attempts.size %></td>
                 <td class="fr-cell--multiline">
                   <%= webhook.events.map { |e| t("webhooks.events.#{e}", default: e) }.join(', ') %>
                 </td>
@@ -59,8 +59,8 @@
                 </td>
                 <td>
                   <div class="fr-btns-group fr-btns-group--inline fr-btns-group--sm">
-                    <% if webhook.calls.any? %>
-                      <%= link_to t('.view_calls'), developers_webhook_webhook_calls_path(webhook), class: %w[fr-btn fr-btn--sm] %>
+                    <% if webhook.attempts.any? %>
+                      <%= link_to t('.view_calls'), developers_webhook_webhook_attempts_path(webhook), class: %w[fr-btn fr-btn--sm] %>
                     <% end %>
                     <% if policy([:developer, webhook]).update? %>
                       <%= link_to t('.edit'), edit_developers_webhook_path(webhook), class: %w[fr-btn fr-btn--sm fr-btn--secondary] %>
