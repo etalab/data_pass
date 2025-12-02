@@ -18,7 +18,7 @@ RSpec.describe Developer::CreateWebhookModel, type: :interactor do
 
     it { is_expected.to be_success }
 
-    it 'creates a webhook with correctb attributes' do
+    it 'creates a webhook with correct attributes' do
       expect { result }.to change(Webhook, :count).by(1)
 
       webhook = result.webhook
@@ -31,6 +31,13 @@ RSpec.describe Developer::CreateWebhookModel, type: :interactor do
       expect(webhook.enabled).to be(false)
       expect(webhook.secret).to be_a(String)
       expect(webhook.secret.length).to eq(64)
+    end
+
+    it 'exposes the generated secret in the context' do
+      expect(result.secret).to be_present
+      expect(result.secret).to be_a(String)
+      expect(result.secret.length).to eq(64)
+      expect(result.secret).to eq(result.webhook.secret)
     end
 
     context 'when webhook params are invalid' do

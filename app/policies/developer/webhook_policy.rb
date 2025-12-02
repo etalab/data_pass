@@ -30,6 +30,14 @@ module Developer
       user_is_developer_for_definition?(record.authorization_definition_id) && record.enabled?
     end
 
+    def regenerate_secret?
+      user_is_developer_for_definition?(record.authorization_definition_id)
+    end
+
+    def show_secret?
+      user_is_developer_for_definition?(record.authorization_definition_id)
+    end
+
     class Scope < ApplicationPolicy::Scope
       include DeveloperScoping
 

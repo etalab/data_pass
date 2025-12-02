@@ -71,6 +71,9 @@
                     <% if policy([:developer, webhook]).disable? %>
                       <%= button_to t('.disable'), disable_developers_webhook_path(webhook), data: { turbo_confirm: t('.disable_confirm') }, class: %w[fr-btn fr-btn--sm fr-btn--tertiary-no-outline] %>
                     <% end %>
+                    <% if policy([:developer, webhook]).update? %>
+                      <%= button_to t('.regenerate_secret'), regenerate_secret_developers_webhook_path(webhook), data: { turbo_confirm: t('.regenerate_secret_confirm') }, class: %w[fr-btn fr-btn--sm fr-btn--tertiary-no-outline] %>
+                    <% end %>
                     <% if policy([:developer, webhook]).destroy? %>
                       <%= button_to t('.delete'), developers_webhook_path(webhook), method: :delete, data: { turbo_confirm: t('.delete_confirm') }, class: %w[fr-btn fr-btn--sm fr-btn--tertiary-no-outline] %>
                     <% end %>

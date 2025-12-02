@@ -1,6 +1,8 @@
 class Developer::CreateWebhookModel < ApplicationInteractor
   def call
-    context.webhook = Webhook.new(webhook_params)
+    secret = generate_secret
+    context.secret = secret
+    context.webhook = Webhook.new(webhook_params(secret))
 
     return if context.webhook.save
 
@@ -9,9 +11,9 @@ class Developer::CreateWebhookModel < ApplicationInteractor
 
   private
 
-  def webhook_params
+  def webhook_params(secret)
     context.webhook_params.merge(
-      secret: generate_secret,
+      secret: secret,
       validated: false,
       enabled: false
     )

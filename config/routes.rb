@@ -158,6 +158,8 @@ Rails.application.routes.draw do
       member do
         post :enable, path: 'activer'
         post :disable, path: 'desactiver'
+        post :regenerate_secret, path: 'regenerer-secret'
+        get :show_secret, path: 'secret'
       end
 
       resources :webhook_attempts, only: %i[index show], path: 'tentatives' do

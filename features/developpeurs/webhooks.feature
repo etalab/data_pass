@@ -17,8 +17,21 @@ Fonctionnalité: Développeurs: gestion des webhooks
     Et que je coche "Approbation"
     Et que je coche "Soumission"
     Et que je clique sur "Créer le webhook"
-    Alors la page contient "Webhook créé avec succès"
-    Et la page contient "https://webhook.site/test"
+    Alors la page contient "Secret du webhook"
+    Et la page contient "Attention - Sauvegardez ce secret maintenant"
+    Et je vois un secret de 64 caractères
+
+  Scénario: Le secret est affiché une seule fois après la création
+    Quand je me rends sur le chemin "/developpeurs/webhooks"
+    Et que je clique sur "Nouveau webhook"
+    Et que je sélectionne "API Entreprise" pour "Service"
+    Et que je remplis "URL de destination" avec "https://webhook.site/test"
+    Et que je coche "Approbation"
+    Et que je clique sur "Créer le webhook"
+    Alors je vois un secret de 64 caractères
+    Quand je clique sur "Retour aux webhooks"
+    Alors la page contient "https://webhook.site/test"
+    Et la page ne contient pas le secret affiché précédemment
 
   Scénario: Je peux voir la liste de mes webhooks
     Sachant qu'il existe un webhook pour "API Entreprise" avec l'URL "https://webhook.site/test1"
@@ -91,3 +104,11 @@ Fonctionnalité: Développeurs: gestion des webhooks
     Et que je clique sur "Voir détails" pour le premier appel
     Et que je clique sur "Rejouer cet appel"
     Alors la page contient "Appel rejoué avec succès"
+
+  Scénario: Je peux régénérer le secret d'un webhook
+    Sachant qu'il existe un webhook pour "API Entreprise" avec l'URL "https://webhook.site/test"
+    Quand je me rends sur le chemin "/developpeurs/webhooks"
+    Et que je clique sur "Régénérer le secret"
+    Alors la page contient "Secret du webhook"
+    Et la page contient "Attention - Sauvegardez ce secret maintenant"
+    Et je vois un secret de 64 caractères

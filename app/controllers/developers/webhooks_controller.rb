@@ -1,5 +1,5 @@
 class Developers::WebhooksController < DevelopersController
-  before_action :set_webhook, only: %i[edit update destroy enable disable]
+  before_action :set_webhook, only: %i[edit update destroy enable disable regenerate_secret show_secret]
 
   def index
     authorize %i[developer webhook], :index?
@@ -17,8 +17,8 @@ class Developers::WebhooksController < DevelopersController
     result = Developer::CreateWebhook.call(webhook_params: webhook_params)
 
     if result.success?
-      success_message(title: t('.success'))
-      redirect_to developers_webhooks_path
+      flash[:webhook_secret] = result.secret
+      redirect_to show_secret_developers_webhook_path(result.webhook)
     else
       @webhook = result.webhook
       @authorization_definitions = current_user.authorization_definition_roles_as(:developer)
@@ -76,6 +76,26 @@ class Developers::WebhooksController < DevelopersController
     @webhook.deactivate!
     success_message(title: t('.success'))
     redirect_to developers_webhooks_path
+  end
+
+  def regenerate_secret
+    authorize [:developer, @webhook]
+    result = Developer::RegenerateWebhookSecret.call(webhook: @webhook)
+
+    if result.success?
+      flash[:webhook_secret] = result.secret
+      redirect_to show_secret_developers_webhook_path(@webhook)
+    else
+      error_message(title: t('.error'))
+      redirect_to developers_webhooks_path, status: :unprocessable_entity
+    end
+  end
+
+  def show_secret
+    authorize [:developer, @webhook]
+    @secret = flash[:webhook_secret]
+
+    redirect_to developers_webhooks_path if @secret.blank?
   end
 
   private
