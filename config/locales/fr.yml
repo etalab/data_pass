@@ -242,7 +242,7 @@ fr:
         title: Notifications par emails
       developer:
         title: Vous avez un accès développeur
-        applications_link: Voir mes credentials API
+        index_link: Accéder à l'espace développeur
         documentation_link: Voir la documentation API
     authorization_notifications:
       instruction_submit_notifications: Notifications pour les dépôts de demandes d'habilitations

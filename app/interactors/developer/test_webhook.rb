@@ -24,7 +24,7 @@ class Developer::TestWebhook < ApplicationInteractor
 
   def assign_success_result(result)
     context.webhook_test = {
-      success: result[:status_code].in?([200, 201, 204]),
+      success: result[:status_code].in?(WebhookAttempt::SUCCESS_STATUS_CODES),
       status_code: result[:status_code],
       response_body: result[:response_body]
     }
