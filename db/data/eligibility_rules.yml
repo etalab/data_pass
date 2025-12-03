@@ -169,10 +169,10 @@
     eligible: 'yes'
     body: |-
       <p>En tant qu'administration ou collectivité, vous êtes éligibles à cette API.</p>
-
-      <p>Si vous avez besoin d'autres données concernant les particuliers, vous pouvez demander un accès au bouquet <a href="https://api.gouv.fr/les-api/api-particulier">API Particulier</a> opérée par la DINUM. Cette API délivre d'autres données telles que le quotient familial CAF/MSA, le statut étudiant, boursier, bénéficiaire du RSA, prime d'activité, etc.</p>
-
-      <p>Si vous avez seulement besoin du statut scolarisé de l'élève, faîtes directement votre demande d'habilitation ici auprès du ministère de l'éducation nationale:</p>
+      <br />
+      <p>🤔 Si vous avez aussi besoin <strong>d'autres données concernant les particuliers</strong>, vous pouvez demander un accès au bouquet <a href="https://api.gouv.fr/les-api/api-particulier">API Particulier</a> opérée par la DINUM. Cette API délivre d'autres données telles que le quotient familial CAF/MSA, le statut étudiant, boursier, bénéficiaire du RSA, prime d'activité, etc.</p>
+      <br />
+      <p>✅ Si vous avez <strong>seulement besoin du statut scolarisé de l'élève</strong>, faîtes directement votre demande d'habilitation ici auprès du ministère de l'éducation nationale:</p>
 - id: 9
   definition_id: api_indemnites_journalieres_cnam
   options:
