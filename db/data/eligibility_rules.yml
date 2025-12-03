@@ -11,7 +11,7 @@
       de service public »</i>, etc."
   - type: collectivite_ou_administration
     eligible: 'yes'
-    body: |2-
+    body: |-
             <p>Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique <i>« chargé d'une mission ou délégataire de service public »</i>, vous êtes éligible à l'utilisation de l'API Particulier.</p>
 
             <p><b>Si votre cadre légal le justifie</b>, l’API Particulier vous permet d’accéder directement aux données administratives des particuliers pour faciliter leurs démarches.</p>
@@ -38,23 +38,26 @@
       les collectivités, leurs opérateurs, les acteurs de santé, etc.'
   - type: collectivite_ou_administration
     eligible: 'yes'
-    body: |2-
-            <p>Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique <i>« chargé d'une mission ou délégataire de service public »</i>, vous êtes éligible à l'utilisation de l'API Entreprise.</p>
-
-            <p><b>Si votre cadre légal le justifie</b>, l’API Entreprise vous permet d’accéder directement aux données administratives des entreprises et des associations pour faciliter leurs démarches.</p>
-            <p>- Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <a href="https://entreprise.api.gouv.fr/cas_usages">cas d'usages</a> (marchés publics, aides et subventions, portail GRU...)</p>
-            <p>- Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <a href="https://entreprise.api.gouv.fr/catalogue">catalogue des API</a>.</p>
+    body: |-
+      <p>Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique <i>« chargé d'une mission ou délégataire de service public »</i>, vous êtes éligible à l'utilisation de l'API Entreprise.</p>
+      <br />
+      <p><b>Si votre cadre légal le justifie</b>, l’API Entreprise vous permet d’accéder directement aux données administratives des entreprises et des associations pour faciliter leurs démarches.</p>
+      <ul>
+        <li>Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <a href="https://entreprise.api.gouv.fr/cas_usages">cas d'usages</a> (marchés publics, aides et subventions, portail GRU...)</li>
+        <li>Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <a href="https://entreprise.api.gouv.fr/catalogue">catalogue des API</a>.</li>
+      </ul>
   - type: entreprise_ou_association
     eligible: 'no'
     body: |-
       <p>Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.</p>
-
+      <br />
       <p><b>Si vous êtes éditeur de logiciel pour des acteurs publics pour simplifier les démarches des entreprises/associations</b>, alors vous êtes éligible à intégrer l'API Entreprise pour la mettre à disposition de vos client publics <b>uniquement</b>. </p>
-
-            <p>- Pour vérifier que votre logiciel correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <a href="https://entreprise.api.gouv.fr/cas_usages">cas d'usages</a> (marchés publics, aides et subventions, portail GRU...) ;</p>
-            <p>- Pour vous assurer que les API répondent aux besoins de vos clients publics, consultez le <a href="https://entreprise.api.gouv.fr/catalogue">catalogue des API</a> ;</p>
-
-            <p>⚠️ <b>En tant que prestataire technique d’une entité administrative, si votre demande d'habilitation aboutit, vous ne serez pas habilité à recevoir les données issues de l'API Entreprise</b>, mais uniquement habilité à intégrer et gérer techniquement l'API pour votre client public. </p>
+      <ul>
+        <li>Pour vérifier que votre logiciel correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <a href="https://entreprise.api.gouv.fr/cas_usages">cas d'usages</a> (marchés publics, aides et subventions, portail GRU...) ;</li>
+        <li>Pour vous assurer que les API répondent aux besoins de vos clients publics, consultez le <a href="https://entreprise.api.gouv.fr/catalogue">catalogue des API</a> ;</li>
+      </ul>
+      <br />
+      <p>⚠️ <b>En tant que prestataire technique d’une entité administrative, si votre demande d'habilitation aboutit, vous ne serez pas habilité à recevoir les données issues de l'API Entreprise</b>, mais uniquement habilité à intégrer et gérer techniquement l'API pour votre client public. </p>
     cta:
       content: Déposer une demande Editeur
       url: https://datapass.api.gouv.fr/api-entreprise?demarche=editeur
