@@ -140,6 +140,10 @@ api_particulier:
       value: "allocation_adulte_handicape"
       group: "API Allocation Adulte Handicapé"
 
+    - name: "Statut AEEH"
+      value: "cnav_allocation_enfant_handicape"
+      group: "API Allocation d'Éducation de l'Enfant Handicapé"
+
     - name: "Statut Service National"
       value: "dsnj_statut_service_national"
       group: "API Service National"
