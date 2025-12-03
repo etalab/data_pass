@@ -1,5 +1,6 @@
 class AbstractDashboardFacade
   FILTER_THRESHOLD_COUNT = 9
+  DEFAULT_FILTER = { user_relationship_eq: 'applicant' }.freeze
 
   attr_reader :user, :search_query, :subdomain_types, :scoped_relation
 
@@ -77,6 +78,6 @@ class AbstractDashboardFacade
     return search_query if search_query&.dig(:user_relationship_eq).present?
     return search_query unless show_filters?
 
-    (search_query || {}).merge(user_relationship_eq: 'applicant')
+    Hash(search_query).merge(DEFAULT_FILTER)
   end
 end
