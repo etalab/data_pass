@@ -466,6 +466,12 @@ fr:
       <<: *api_particulier_editor_common_wordings
     api_particulier_mgdis_tarification_cantines_lycees:
       <<: *api_particulier_editor_common_wordings
+    api_particulier_arpege_concerto_petite_enfance:
+      <<: *api_particulier_editor_common_wordings
+    api_particulier_teamnet_axel_petite_enfance:
+      <<: *api_particulier_editor_common_wordings
+    api_particulier_aiga_petite_enfance:
+      <<: *api_particulier_editor_common_wordings
 
     api_particulier_tarification_municipale_enfance:
       description:

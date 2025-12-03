@@ -649,7 +649,6 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le c
       | Axel petite enfance       | Teamnet           |
 
 Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique déjà renseigné et des scopes non modifiables pour un cas d'usage lié à la tarification dans les établissements d'accueil du jeune enfant
-    Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>",
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
@@ -659,7 +658,6 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le c
 
     * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
     * je clique sur "Suivant"
-
 
     * je renseigne les infos concernant les données personnelles
     * je clique sur "Suivant"
@@ -673,6 +671,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le c
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
 
-        Exemples:
-      | Nom du formulaire           | Nom de l'éditeur|
-      | iNoé Pette enfance          | Aiga            |
+    Exemples:
+      | Nom du formulaire        | Nom de l'éditeur  |
+      | iNoé Pette enfance       | Aiga              |
+
