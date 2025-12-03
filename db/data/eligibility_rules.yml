@@ -334,9 +334,11 @@
   - type: entreprise_ou_association
     eligible: maybe
     body: |-
-      ✅ Si vous êtes éditeur application mobile/éditeur de service web et agissez ou comptez agir pour le compte de vos clients en qualité de tiers déclarant, vous pouvez remplir une demande d’habilitation à l’API vous-même pour l'entité que vous représentez, au sens des articles L.133-11, <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037877089">R133-43 et R133-44</a> du Code de Sécurité sociale.
+      <p>✅ Si vous êtes éditeur application mobile/éditeur de service web et agissez ou comptez agir pour le compte de vos clients en qualité de tiers déclarant, vous pouvez remplir une demande d’habilitation à l’API vous-même pour l'entité que vous représentez, au sens des articles L.133-11, <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037877089">R133-43 et R133-44</a> du Code de Sécurité sociale.</p>
 
-      ❌ Les éditeurs de logiciel de paie ne sont pas autorisés à accéder à ces données
+      <br />
+
+      <p>❌ Les éditeurs de logiciel de paie ne sont pas autorisés à accéder à ces données</p>
 - id: 18
   definition_id: api_declaration_auto_entrepreneur
   options:
