@@ -349,10 +349,34 @@
   - type: entreprise_ou_association
     eligible: maybe
     body: |-
-      ✅ Si vous êtes éditeur application mobile/éditeur de service web et agissez ou comptez agir pour le compte de vos clients en qualité de tiers déclarant, vous pouvez remplir une demande d’habilitation à l’API vous-même pour l'entité que vous représentez, au sens des articles L.133-11, <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037877089">R133-43 et R133-44</a> du Code de Sécurité sociale.
+      <p>✅ Si vous êtes éditeur application mobile/éditeur de service web et agissez ou comptez agir pour le compte de vos clients en qualité de tiers déclarant, vous pouvez remplir une demande d’habilitation à l’API vous-même pour l'entité que vous représentez, au sens des articles L.133-11, <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037877089">R133-43 et R133-44</a> du Code de Sécurité sociale.</p>
 
-      ✅ Si vous êtes tiers déclarant, vous êtes éligible. Pour remplir votre demande, vous aurez besoin de votre attestation fiscale et de votre attestation sociale.
+      <br />
 
-      ❌ Les éditeurs de logiciel de paie ne sont pas autorisés à accéder à ces données.
+      <p>✅ Si vous êtes tiers déclarant, vous êtes éligible. Pour remplir votre demande, vous aurez besoin de votre attestation fiscale et de votre attestation sociale.</p>
+      <br />
 
-      ❌ Les auto-entrepreneurs ne sont pas autorisés à accéder à ces données. Même si l'API Tierce Déclaration concerne les auto-entrepreneurs, elle ne vous est pas directement destinée. Peut-être cherchez vous à accéder à l'API Tiers de Prestation, pour que vos clients bénéficient de l'avance immédiate de crédit d'impôt ?
+      <p>❌ Les éditeurs de logiciel de paie ne sont pas autorisés à accéder à ces données.</p>
+      <br />
+
+      <p>❌ Les auto-entrepreneurs ne sont pas autorisés à accéder à ces données. Même si l'API Tierce Déclaration concerne les auto-entrepreneurs, elle ne vous est pas directement destinée. Peut-être cherchez vous à accéder à l'API Tiers de Prestation, pour que vos clients bénéficient de l'avance immédiate de crédit d'impôt ?</p>
+- id: 19
+  definition_id: api_rial_sandbox
+  options:
+  - type: particulier
+    eligible: 'no'
+    body: Vous n’êtes pas autorisé à accéder aux données de cette API.
+  - type: collectivite_ou_administration
+    eligible: 'yes'
+    body: |-
+      <p>Conformément aux dispositions de <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000036588629" target="_blank" rel="noreferrer noopener" class="jsx-282507ba3fcd1c80">l'article L107&nbsp;</a> et <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000025176297" target="_blank" rel="noreferrer noopener" class="jsx-282507ba3fcd1c80">R* 107 A-7&nbsp;</a> du <em>livre des procédures fiscales</em>, ainsi que de <a href="https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000020883923/2021-07-02" target="_blank" rel="noreferrer noopener" class="jsx-282507ba3fcd1c80">l'article 4&nbsp;</a> de l'arrêté du 16 août 1984 (arrêté CNIL relatif à l'application Majic3), seules les administrations sont habilitées à échanger entre elles des informations ou données strictement nécessaires pour traiter une démarche.</p>
+      <br />
+
+      <p>Pour obtenir l’accès à l’API, vous devez notamment <strong>justifier d'une simplification pour les citoyens</strong> et vous engager à n'accéder qu’aux données strictement nécessaires à la démarche conformément au principe de proportionnalité.</p>
+  - type: entreprise_ou_association
+    eligible: maybe
+    body: |-
+      <p>Conformément aux dispositions de <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000036588629" target="_blank" rel="noreferrer noopener" class="jsx-282507ba3fcd1c80">l'article L107&nbsp;</a> et <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000025176297" target="_blank" rel="noreferrer noopener" class="jsx-282507ba3fcd1c80">R* 107 A-7&nbsp;</a> du <em>livre des procédures fiscales</em>, ainsi que de <a href="https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000020883923/2021-07-02" target="_blank" rel="noreferrer noopener" class="jsx-282507ba3fcd1c80">l'article 4&nbsp;</a> de l'arrêté du 16 août 1984 (arrêté CNIL relatif à l'application Majic3), vous pouvez obtenir une habilitation aux données exposées par l'API RIAL sous conditions.</p>
+      <br />
+
+      <p> Pour obtenir un agrément, vous devez <strong>justifier du cadre juridique</strong> dans lequel s’inscrit votre demande.</p>
