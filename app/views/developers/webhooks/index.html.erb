@@ -62,11 +62,11 @@
                     <% if webhook.attempts.any? %>
                       <%= link_to t('.view_calls'), developers_webhook_webhook_attempts_path(webhook), class: %w[fr-btn fr-btn--sm] %>
                     <% end %>
-                    <% if policy([:developer, webhook]).update? %>
-                      <%= link_to t('.edit'), edit_developers_webhook_path(webhook), class: %w[fr-btn fr-btn--sm fr-btn--secondary] %>
-                    <% end %>
                     <% if policy([:developer, webhook]).enable? %>
                       <%= button_to t('.enable'), enable_developers_webhook_path(webhook), class: %w[fr-btn fr-btn--sm fr-btn--success] %>
+                    <% end %>
+                    <% if policy([:developer, webhook]).update? %>
+                      <%= link_to t('.edit'), edit_developers_webhook_path(webhook), class: %w[fr-btn fr-btn--sm fr-btn--secondary] %>
                     <% end %>
                     <% if policy([:developer, webhook]).disable? %>
                       <%= button_to t('.disable'), disable_developers_webhook_path(webhook), data: { turbo_confirm: t('.disable_confirm') }, class: %w[fr-btn fr-btn--sm fr-btn--tertiary-no-outline] %>
