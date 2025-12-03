@@ -290,34 +290,43 @@
   - type: entreprise_ou_association
     eligible: maybe
     body: |-
-      Cette API est actuellement réservée aux établissements de soins pour leur démarche de pré admission et aux organismes complémentaires en santé pour faciliter leur démarche d’adhésion.
+      <p>Cette API est actuellement réservée aux <strong>établissements de soins</strong> pour leur démarche de pré admission et aux <strong>organismes complémentaires en santé</strong> pour faciliter leur démarche d’adhésion.</p>
+      <br />
 
-      Cette API fonctionne uniquement avec FranceConnect; vous devez remplir les critères d'eligbilité de FranceConnect.
+      <p>Cette API fonctionne uniquement avec <strong>FranceConnect</strong>; vous devez remplir les critères d'eligibilité de FranceConnect.</p>
+      <br />
 
-      L’utilisation de l’API est soumise à une convention d’usage avec la Caisse Nationale d’Assurance Maladie. Les données accessibles dépendent également du cas d’usage.
+      <p>L’utilisation de l’API est soumise à une convention d’usage avec la Caisse Nationale d’Assurance Maladie. Les données accessibles dépendent également du cas d’usage.</p>
+      <br />
 
-      La Caisse Nationale se réserve le droit d’évaluer l’éligibilité des candidats au regard des cas d’usage indiqués.
+      <p>La Caisse Nationale se réserve le droit d’évaluer l’éligibilité des candidats au regard des cas d’usage indiqués.</p>
   - type: collectivite_ou_administration
     eligible: maybe
     body: |-
-      Cette API est actuellement réservée aux établissements de soins pour leur démarche de pré admission et aux organismes complémentaires en santé pour faciliter leur démarche d’adhésion.
+      <p>Cette API est actuellement réservée aux <strong>établissements de soins</strong> pour leur démarche de pré admission et aux <strong>organismes complémentaires en santé</strong> pour faciliter leur démarche d’adhésion.</p>
+      <br />
 
-      Cette API fonctionne uniquement avec FranceConnect; vous devez remplir les critères d'eligbilité de FranceConnect.
+      <p>Cette API fonctionne uniquement avec <strong>FranceConnect</strong>; vous devez remplir les critères d'eligibilité de FranceConnect.</p>
+      <br />
 
-      L’utilisation de l’API est soumise à une convention d’usage avec la Caisse Nationale d’Assurance Maladie. Les données accessibles dépendent également du cas d’usage.
+      <p>L’utilisation de l’API est soumise à une convention d’usage avec la Caisse Nationale d’Assurance Maladie. Les données accessibles dépendent également du cas d’usage.</p>
+      <br />
 
-      La Caisse Nationale se réserve le droit d’évaluer l’éligibilité des candidats au regard des cas d’usage indiqués.
+      <p>La Caisse Nationale se réserve le droit d’évaluer l’éligibilité des candidats au regard des cas d’usage indiqués.</p>
 - id: 16
   definition_id: api_pro_sante_connect
   options:
   - type: particulier
     eligible: 'no'
     body: |-
-      Vous n’êtes pas autorisé à accéder aux données de cette API. Les particuliers ne sont pas éligibles a cette API.
-      Seules les administrations et les éditeurs de logiciels sont habilitées à utiliser l'API Pro Santé Connect ou intégrer le bouton Pro Santé Connect.
+      <p>Vous n’êtes pas autorisé à accéder aux données de cette API. Les particuliers ne sont pas éligibles a cette API.</p>
+
+      <br />
+
+      <p>Seules les administrations et les éditeurs de logiciels sont habilitées à utiliser l'API Pro Santé Connect ou intégrer le bouton Pro Santé Connect.</p>
   - type: collectivite_ou_administration
     eligible: 'yes'
-    body: ''
+    body: Vous pouvez réaliser une demande d'habilitation à l'API.
   - type: entreprise_ou_association
     eligible: maybe
     body: Seuls les éditeurs de logiciels français proposant une solution web adressée
