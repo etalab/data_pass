@@ -109,16 +109,16 @@
   - type: entreprise_ou_association
     eligible: maybe
     body: |-
-      <p><b>❌ Si vous êtes une entreprise ou une association, vous n'êtes pas éligible.</b></p>
-
       <p><b>✅ Si vous êtes un établissement bancaire, vous êtes peut-être éligible.</b> Dans le cadre de la vérification de l'éligibilité au LEP, et conformément aux dispositions de <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000042627574/2022-06-15">l'article L166 AA du Livre de Procédures Fiscales</a>, l'administration fiscale indique aux établissements bancaires, à leur demande, si les personnes demandant l'ouverture d'un compte remplissent les conditions d'ouverture et de détention. Le décret N° 2021-277 du 12 mars 2021 précise les modalités d'application de ce dispositif légal.</p>
-
-      <p>Si vous êtes éditeur de logiciels et agissez pour le compte d'une administration ou d'une collectivité, vous pouvez remplir une demande d’habilitation à l’API particulier vous-même pour l'entité que vous représentez, dans le cadre de <a href="https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000031366350&idArticle=LEGIARTI000031367412&dateTexte=&categorieLien=cid">l'article L114-8 du code des relations entre le public et l'administration</a>.</p>
+      <br />
+      <p>✅ <b>Si vous êtes éditeur de logiciels et agissez pour le compte d'une administration ou d'une collectivité</b>, vous pouvez remplir une demande d’habilitation à l’API particulier vous-même pour l'entité que vous représentez, dans le cadre de <a href="https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000031366350&idArticle=LEGIARTI000031367412&dateTexte=&categorieLien=cid">l'article L114-8 du code des relations entre le public et l'administration</a>.</p>
+      <br />
+      <p><b>❌ Si vous êtes une autre entreprise ou association</b>, vous n'êtes pas éligible.</p>
   - type: collectivite_ou_administration
     eligible: maybe
     body: |-
       <p>Conformément aux dispositions de <a href="https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000031366350&idArticle=LEGIARTI000031367412&dateTexte=&categorieLien=cid">l'article L114-8  du code des relations entre le public et l'administration</a>, seules les administrations sont habilitées à échanger entre elles des informations ou données strictement nécessaires pour traiter une démarche.</p>
-
+      <br />
       <p>Pour obtenir l’accès à l’API, vous devez notamment justifier d'une simplification pour les citoyens et vous engager à n'accéder qu’aux données strictement nécessaires à la démarche conformément au principe de proportionnalité.</p>
 - id: 6
   definition_id: pro_connect_service_provider
