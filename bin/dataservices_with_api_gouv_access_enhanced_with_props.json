@@ -1,0 +1,968 @@
+[
+  {
+    "id": "672cf99d5e8f9949017928ae",
+    "title": "API CaptchEtat",
+    "slug": "api-captchetat",
+    "access_url": "https://api.gouv.fr/les-api/api-captchetat/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/api-captchetat/",
+    "new_access_url": "https://datapass.api.gouv.fr/demandes/api-captchetat/nouveau"
+  },
+  {
+    "id": "672cf6605e554cca4a916025",
+    "title": "API de droits à l'Assurance Maladie",
+    "slug": "api-de-droits-a-lassurance-maladie",
+    "access_url": "https://api.gouv.fr/les-api/api_ameli_droits_cnam/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/api-de-droits-a-lassurance-maladie/",
+    "new_access_url": "https://datapass.api.gouv.fr/demandes/api-droits-cnam/nouveau"
+  },
+  {
+    "id": "672cf6a36d09c75cace6a627",
+    "title": "API Entreprise",
+    "slug": "api-entreprise",
+    "access_url": "https://api.gouv.fr/les-api/api-entreprise/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/api-entreprise/",
+    "new_access_url": "https://datapass.api.gouv.fr/demandes/api-entreprise/nouveau"
+  },
+  {
+    "id": "672dcfd4fb13e93799d97e68",
+    "title": "API Fichier des Comptes Bancaires et Assimilés (FICOBA)",
+    "slug": "api-fichier-des-comptes-bancaires-et-assimiles-ficoba",
+    "access_url": "https://api.gouv.fr/les-api/api_comptes_bancaires_ficoba/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/api-fichier-des-comptes-bancaires-et-assimiles-ficoba/",
+    "new_access_url": "https://datapass.api.gouv.fr/demandes/api-ficoba/nouveau"
+  },
+  {
+    "id": "672cf984cbc098058850c092",
+    "title": "API Impôt particulier",
+    "slug": "api-impot-particulier",
+    "access_url": "https://api.gouv.fr/les-api/impot-particulier/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/api-impot-particulier/",
+    "new_access_url": "https://datapass.api.gouv.fr/demandes/api-impot-particulier/nouveau"
+  },
+  {
+    "id": "672dcf037d26da92ddef47f7",
+    "title": "API IMPRIM'FIP",
+    "slug": "api-imprimfip",
+    "access_url": "https://api.gouv.fr/les-api/api-imprimfip/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/api-imprimfip/",
+    "new_access_url": "https://datapass.api.gouv.fr/demandes/api-imprimfip-sandbox/nouveau"
+  },
+  {
+    "id": "672cf6776d09c75cace6a624",
+    "title": "API Indemnités Journalières de la CNAM",
+    "slug": "api-indemnites-journalieres-de-la-cnam",
+    "access_url": "https://api.gouv.fr/les-api/api-indemnites-journalieres-cnam/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/api-indemnites-journalieres-de-la-cnam/",
+    "new_access_url": "https://datapass.api.gouv.fr/demandes/api-indemnites-journalieres-cnam/nouveau"
+  },
+  {
+    "id": "672cf650ab1def0132e0fc7c",
+    "title": "API Mobilic",
+    "slug": "api-mobilic",
+    "access_url": "https://api.gouv.fr/les-api/api-mobilic/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/api-mobilic/",
+    "new_access_url": "https://datapass.api.gouv.fr/demandes/api-mobilic/nouveau"
+  },
+  {
+    "id": "672cf66c6d09c75cace6a623",
+    "title": "API Pro Santé Connect",
+    "slug": "api-pro-sante-connect",
+    "access_url": "https://api.gouv.fr/les-api/api-pro-sante-connect/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/api-pro-sante-connect/",
+    "new_access_url": "https://datapass.api.gouv.fr/demandes/api-pro-sante-connect/nouveau"
+  },
+  {
+    "id": "6792183de0b7b74fe06e55dc",
+    "title": "API scolarité de l'élève",
+    "slug": "api-scolarite-de-leleve-1",
+    "access_url": "https://api.gouv.fr/les-api/api-scolarite-ministere-education-nationale/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/api-scolarite-de-leleve-1/",
+    "new_access_url": "https://datapass.api.gouv.fr/demandes/api-scolarite/nouveau"
+  },
+  {
+    "id": "672cf67aa37a79f6ff3e324e",
+    "title": "API Recherche des personnes physiques (R2P)",
+    "slug": "api-recherche-des-personnes-physiques-r2p",
+    "access_url": "https://api.gouv.fr/les-api/api-sfip/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/api-recherche-des-personnes-physiques-r2p/",
+    "new_access_url": "https://datapass.api.gouv.fr/demandes/api-sfip/nouveau"
+  },
+  {
+    "id": "672cf6944a683b4496789e92",
+    "title": "API FranceConnect",
+    "slug": "api-franceconnect",
+    "access_url": "https://api.gouv.fr/les-api/franceconnect/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/api-franceconnect/",
+    "new_access_url": "https://datapass.api.gouv.fr/demandes/france-connect/nouveau"
+  },
+  {
+    "id": "672cf69b65f131fae343442b",
+    "title": "le.taxi",
+    "slug": "le-taxi",
+    "access_url": "https://api.gouv.fr/les-api/le-taxi/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/le-taxi/",
+    "new_access_url": "https://datapass.api.gouv.fr/demandes/le-taxi/nouveau"
+  },
+  {
+    "id": "672cf644f8b5d52b76263392",
+    "title": "API SI Amiante",
+    "slug": "api-si-amiante",
+    "access_url": "https://api.gouv.fr/les-api/api-si-amiante/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/api-si-amiante/",
+    "new_access_url": null,
+    "access_props": {
+      "title": "API SI Amiante",
+      "slug": "api-si-amiante",
+      "accessConditionOptions": [
+        {
+          "label": "Un particulier",
+          "value": "Un particulier",
+          "description": "Seules les administrations et certains éditeurs de logiciels peuvent utiliser cette API.\n\n<Button href=\"/rechercher-api\">Rechercher une autre API</Button>\n",
+          "is_eligible": -1
+        },
+        {
+          "label": "Une collectivité ou une administration",
+          "value": "Une collectivité ou une administration",
+          "description": "Si vous êtes une préfecture ou une administration, vous pouvez utiliser cette API pour récupérer les rapports d'actvités et rapports d'alerte émis par les diagnostiqueurs et les laboratoires accrédités.\n\n<Button href=\"mailto:si-amiante@sante.gouv.fr\">Demander un accès</Button>\n",
+          "is_eligible": 1
+        },
+        {
+          "label": "Une entreprise",
+          "value": "Une entreprise",
+          "description": "Seuls les éditeurs de logiciels destinés aux diagnostiqueurs d'amiante et laboratoire accrédités peuvent utiliser l'API SI-Amiante.\n\n<Button href=\"mailto:si-amiante@sante.gouv.fr\">Demander un accès</Button>\n",
+          "is_eligible": 0
+        },
+        {
+          "label": "Un éditeur de logiciel",
+          "value": "Un éditeur de logiciel",
+          "description": "Les éditeurs de logiciels qui s'adressent aux diagnostiqueurs amiante et aux laboratoires certifiés peuvent utiliser l'API SI-Amiante.\n\n<Button href=\"mailto:si-amiante@sante.gouv.fr\">Demander un accès</Button>\n",
+          "is_eligible": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "672cf646403bf419125795dc",
+    "title": "API Ma Sécurité",
+    "slug": "api-ma-securite",
+    "access_url": "https://api.gouv.fr/les-api/api-ma-securite/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/api-ma-securite/",
+    "new_access_url": null,
+    "access_props": {
+      "title": "API Ma Sécurité",
+      "slug": "api-ma-securite",
+      "accessConditionOptions": [
+        {
+          "label": "Un particulier",
+          "value": "Un particulier",
+          "description": "Vous ne pouvez pas accéder à ces informations.\n\n<Button href=\"/rechercher-api\">Rechercher une autre API</Button>\n",
+          "is_eligible": -1
+        },
+        {
+          "label": "Une entreprise",
+          "value": "Une entreprise",
+          "description": "Vous ne pouvez pas accéder à ces informations.\n\n<Button href=\"/rechercher-api\">Rechercher une autre API</Button>\n",
+          "is_eligible": -1
+        },
+        {
+          "label": "Une administration",
+          "value": "Une administration",
+          "description": "L’API est accessible gratuitement en accès restreint. Une signature de convention avec la gendarmerie nationale constitue un préalable à la génération de la clé d’API. L’intention est de permettre aux partenaires de la gendarmerie nationale de diffuser facilement les informations susceptibles d’intéresser leur client.\n\n\n<Button href=\"mailto:masecuritelappli@gendarmerie.interieur.gouv.fr\">Demander un accès à l'API</Button>\n",
+          "is_eligible": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "672cf647fcc8065be6e66f51",
+    "title": "API Liste des paiements",
+    "slug": "api-liste-des-paiements",
+    "access_url": "https://api.gouv.fr/les-api/api-indemnisation-pole-emploi/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/api-liste-des-paiements/",
+    "new_access_url": null,
+    "access_props": {
+      "title": "API Indemnisation France Travail",
+      "slug": "api-indemnisation-pole-emploi",
+      "accessConditionOptions": [
+        {
+          "label": "Un particulier",
+          "value": "Un particulier",
+          "description": "L’usage de cette API est **uniquement reservé aux acteurs publics**. En tant que particulier, vous ne pouvez pas y accéder.\n\n<Button href=\"/rechercher-api\">Rechercher une autre API</Button>\n",
+          "is_eligible": -1
+        },
+        {
+          "label": "Un demandeur d'emploi",
+          "value": "Un demandeur d'emploi",
+          "description": "L’usage de cette API est **uniquement reservé aux acteurs publics**. En tant que particulier, vous ne pouvez pas y accéder.\n\n<Button href=\"/rechercher-api\">Rechercher une autre API</Button>\n",
+          "is_eligible": -1
+        },
+        {
+          "label": "Une administration",
+          "value": "Une administration",
+          "description": "\n<NextSteps />\n<QuestionTree tree='is_bouquet_api_parteprise' question='indemnisationPe' />\n",
+          "is_eligible": 1
+        },
+        {
+          "label": "Une entreprise ou une association",
+          "value": "Une entreprise ou une association",
+          "description": "Vous pouvez accéder à l’API uniquement si vous êtes [partenaire de France Connect](https://franceconnect.gouv.fr/partenaires), et pour un cas d’usage autorisé par la loi. Vous devrez fournir le cadre juridique qui vous autorise à utiliser ces données.\n\n<NextSteps />\n<Button href=\"https://datapass.api.gouv.fr/api-indemnisation-pole-emploi\">Remplir une demande</Button>\n",
+          "is_eligible": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "672cf655a474f2d73502b5ce",
+    "title": "API données foncières",
+    "slug": "api-donnees-foncieres",
+    "access_url": "https://api.gouv.fr/les-api/api-donnees-foncieres/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/api-donnees-foncieres/",
+    "new_access_url": null,
+    "access_props": {
+      "title": "API données foncières",
+      "slug": "api-donnees-foncieres",
+      "accessConditionOptions": [
+        {
+          "label": "Un particulier",
+          "value": "Un particulier",
+          "description": "Vous ne pouvez pas accéder aux données restreintes (sur les propriétaires et les locaux).\n\nEn revanche vous pouvez utiliser :\n\n- ✅ L’[API en accès libre](/documentation/api-donnees-foncieres)\n- ✅ Les [cartographies du CEREMA](https://dataviz.cerema.fr/dynmark/)\n\n<Button href=\"https://dataviz.cerema.fr/dynmark/\">Accéder aux cartographies</Button>\n",
+          "is_eligible": -1
+        },
+        {
+          "label": "Une entreprise",
+          "value": "Une entreprise",
+          "description": "**...si votre structure est :**\n\n- Un service de l’État,\n- Un établissement public de l’État,\n- Une collectivité territoriale,\n- Une agence d’urbanisme,\n- Un EPF, SAFER, ADIL, OLAP, SCoT,\n- Un organisme de recherche,\n- Une infrastructure de données géographiques,\n- Une autre structure déjà bénéficiaire des données MAJIC.\n\n<Button href=\"https://consultdf.cerema.fr/consultdf/\">Faire une demande</Button>\n",
+          "is_eligible": 0
+        },
+        {
+          "label": "Une administration",
+          "value": "Une administration",
+          "description": "**...si votre structure est :**\n\n- Un service de l’État,\n- Un établissement public de l’État,\n- Une collectivité territoriale,\n- Une agence d’urbanisme,\n- Un EPF, SAFER, ADIL, OLAP, SCoT,\n- Un organisme de recherche,\n- Une infrastructure de données géographiques,\n- Une autre structure déjà bénéficiaire des données MAJIC.\n\n<Button href=\"https://consultdf.cerema.fr/consultdf/\">Faire une demande</Button>\n",
+          "is_eligible": 0
+        },
+        {
+          "label": "Une structure bénéficiaire des données foncières",
+          "value": "Une structure bénéficiaire des données foncières",
+          "description": "<Button href=\"https://consultdf.cerema.fr/consultdf/\">Faire une demande</Button>\n",
+          "is_eligible": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "672cf657f8b5d52b76263395",
+    "title": "API Engagement",
+    "slug": "api-engagement",
+    "access_url": "https://api.gouv.fr/les-api/api-engagement/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/api-engagement/",
+    "new_access_url": null,
+    "access_props": {
+      "title": "API Engagement",
+      "slug": "api-engagement",
+      "accessConditionOptions": [
+        {
+          "label": "Un particulier",
+          "value": "Un particulier",
+          "description": "Seules les administrations et certaines sociétés sont habilitées à publier leurs annonces sur l'API Engagement.\nEn revanche, il vous est possible de consulter les annonces sur [JeVeuxAider.gouv.fr](https://www.jeveuxaider.gouv.fr/) ou [le portail Service Civique](https://www.service-civique.gouv.fr/jeunes-volontaires/?gclsrc=aw.ds)\n\n<Button href=\"/rechercher-api\">Rechercher une autre API</Button>\n",
+          "is_eligible": -1
+        },
+        {
+          "label": "Une collectivité ou une administration",
+          "value": "Une collectivité ou une administration",
+          "description": "Si vous êtes une collectivité ou une administration, vous pouvez remplir une demande d’habilitation à l’API Engagement vous-même pour l'entité que vous représentez.\n\nC'est cette demande d'habilitation qui vous permet à la fois de poster des annonces, ou de diffuser un flux d'annonces.\n\n<NextSteps />\n<Button href=\"https://doc.api-engagement.beta.gouv.fr/getting-started/create-your-account\">Demander un accès</Button>\n",
+          "is_eligible": 1
+        },
+        {
+          "label": "Une entreprise",
+          "value": "Une entreprise",
+          "description": "Les entreprises peuvent publier des annonces et les diffuser via l'API Engagement.\n\n<NextSteps />\n<Button href=\"https://doc.api-engagement.beta.gouv.fr/getting-started/create-your-account\">Demander un accès</Button>\n",
+          "is_eligible": 1
+        },
+        {
+          "label": "Un éditeur de logiciel",
+          "value": "Un éditeur de logiciel",
+          "description": "Les éditeurs de logiciels peuvent publier des annonces et les diffuser via l'API Engagement.\n\n<NextSteps is_editeur />\n<Button href=\"https://doc.api-engagement.beta.gouv.fr/getting-started/create-your-account\">Demander un accès</Button>\n",
+          "is_eligible": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "672cf65fc3488a0c533f7090",
+    "title": "API Statut Etudiant - écriture",
+    "slug": "api-statut-etudiant-ecriture",
+    "access_url": "https://api.gouv.fr/les-api/api-statut-etudiant-ecriture/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/api-statut-etudiant-ecriture/",
+    "new_access_url": null,
+    "access_props": {
+      "title": "API Statut Etudiant - écriture",
+      "slug": "api-statut-etudiant-ecriture",
+      "accessConditionOptions": [
+        {
+          "label": "Un particulier",
+          "value": "Un particulier",
+          "description": "Vous ne pouvez pas accéder a ces informations.\n\n<Button href=\"/rechercher-api\">Rechercher une autre API</Button>\n",
+          "is_eligible": -1
+        },
+        {
+          "label": "Une entreprise",
+          "value": "Une entreprise",
+          "description": "Vous ne pouvez pas accéder a ces informations.\n\n<Button href=\"/rechercher-api\">Rechercher une autre API</Button>\n",
+          "is_eligible": -1
+        },
+        {
+          "label": "Une administration qui souhaite simplifier une démarche pour les étudiants",
+          "value": "Une administration qui souhaite simplifier une démarche pour les étudiants",
+          "description": "⚠️ Cette API est réservée aux établissements de l'enseignement supérieur. \n\n👉 **L'API dont vous avez besoin pour simplifier les démarches des étudiants est [l'API Statut Etudiant](https://api.gouv.fr/les-api/api-statut-etudiant).**\n\n<QuestionTree tree='france-connected-api' question='statutEtudiant' />\n",
+          "is_eligible": -1
+        },
+        {
+          "label": "Un établissement de l'enseignement supérieur",
+          "value": "Un établissement de l'enseignement supérieur",
+          "description": "\n<Button href=\"https://statutetudiant.esr.gouv.fr/pages/etablissement\">Remplir une demande</Button>\n",
+          "is_eligible": 1
+        },
+        {
+          "label": "Un lycée",
+          "value": "Un lycée",
+          "description": "\n<Button href=\"https://statutetudiant.esr.gouv.fr/pages/etablissement\">Remplir une demande</Button>\n",
+          "is_eligible": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "672cf66df89f31dae828f6d8",
+    "title": "API Data.Subvention",
+    "slug": "api-data-subvention",
+    "access_url": "https://api.gouv.fr/les-api/api-data-subvention/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/api-data-subvention/",
+    "new_access_url": null,
+    "access_props": {
+      "title": "API Data.Subvention",
+      "slug": "api-data-subvention",
+      "accessConditionOptions": [
+        {
+          "label": "Un particulier",
+          "value": "Un particulier",
+          "description": "Vous n'êtes pas éligible pour utiliser cette API. Pour accéder aux données publiques sur les subventions, vous pouvez effectuer [une recherche sur data.gouv.fr](https://www.data.gouv.fr/fr/datasets/?q=subventions)\n",
+          "is_eligible": -1
+        },
+        {
+          "label": "Une association",
+          "value": "Une association",
+          "description": "Vous n'êtes pas éligible pour utiliser cette API. Pour accéder aux données publiques sur les subventions, vous pouvez effectuer [une recherche sur data.gouv.fr](https://www.data.gouv.fr/fr/datasets/?q=subventions)\n",
+          "is_eligible": -1
+        },
+        {
+          "label": "Une entreprise",
+          "value": "Une entreprise",
+          "description": "Vous n'êtes pas éligible pour utiliser cette API. Pour accéder aux données publiques sur les subventions, vous pouvez effectuer [une recherche sur data.gouv.fr](https://www.data.gouv.fr/fr/datasets/?q=subventions)\n",
+          "is_eligible": -1
+        },
+        {
+          "label": "Une administration",
+          "value": "Une administration",
+          "description": "Pour accéder à l'API, vous devez faire une demande à l'équipe de l'API Data.Subvention.\n <Button href=\"mailto:contact@datasubvention.beta.gouv.fr?subject=Demande d'accès à l'API Data Subventions&body=Bonjour, je souhaite accéder à l'API Data.Subvention.\">Envoyer une demande</Button>\n",
+          "is_eligible": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "672cf66ef8b5d52b76263398",
+    "title": "API Service Finances Publiques (SFiP)",
+    "slug": "api-service-finances-publiques-sfip",
+    "access_url": "https://api.gouv.fr/les-api/api-sfip/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/api-service-finances-publiques-sfip/",
+    "new_access_url": null,
+    "access_props": {
+      "title": "API Service Finances Publiques (SFiP)",
+      "slug": "api-sfip",
+      "accessConditionOptions": [
+        {
+          "label": "Un particulier",
+          "value": "Un particulier",
+          "description": "Vous n’êtes pas autorisé à accèder aux données du courtier fonctionnel SFiP.\n\n<Button href=\"/rechercher-api\">Retourner à la page de recherche</Button>\n",
+          "is_eligible": -1
+        },
+        {
+          "label": "Une entreprise",
+          "value": "Une entreprise",
+          "description": "Vous n’êtes pas autorisé à accèder aux données du courtier fonctionnel SFiP.\n\n<Button href=\"/rechercher-api\">Retourner à la page de recherche</Button>\n",
+          "is_eligible": -1
+        },
+        {
+          "label": "Une entité administrative",
+          "value": "Une entité administrative",
+          "description": "Conformément aux dispositions de <External href=\"https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000031366350&idArticle=LEGIARTI000031367412&dateTexte=&categorieLien=cid\">l’article L114-8</External> du *code des relations entre le public et l’administration*, seules les administrations sont habilitées à échanger entre elles des informations ou données strictement nécessaires pour traiter une démarche.\n\nPour obtenir l’accès à l’API, vous devez notamment **justifier d’une simplification pour les citoyens** et vous engager à n’accéder qu’aux données strictement nécessaires à la démarche conformément au principe de proportionnalité.\n\n<NextSteps />\n<QuestionTree tree='formulaire-unique' question='sfip' />\n",
+          "is_eligible": 1
+        },
+        {
+          "label": "Un éditeur de logiciel",
+          "value": "Un éditeur de logiciel",
+          "description": "Si vous êtes **éditeur de logiciels** et agissez pour le compte d’une administration ou d’une collectivité, vous pouvez remplir une demande d’habilitation au courtier fonctionnel SFiP vous-même pour l’entité que vous représentez, dans le cadre de [l’article L114-8](https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000031366350&idArticle=LEGIARTI000031367412&dateTexte=&categorieLien=cid) du *code des relations entre le public et l’administration*.\n\nLors de votre demande vous devrez **justifier** dans quelle mesure l’entité pour laquelle vous opérez rentre dans ce cadre juridique.\n\n<NextSteps is_editeur/>\n<Button href=\"https://datapass.api.gouv.fr/api-sfip-sandbox\">Remplir une demande</Button>\n",
+          "is_eligible": 0
+        },
+        {
+          "label": "Un établissement bancaire",
+          "value": "Un établissement bancaire",
+          "description": "Dans le cadre de la vérification de l’éligibilité au LEP, et conformément aux dispositions de l’article [L 166 AA du Livre de Procédures Fiscales](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000042627574/2022-06-15), l’administration fiscale indique aux établissements bancaires, à leur demande, si les personnes demandant l’ouverture d’un compte remplissent les conditions d’ouverture et de détention. Le [décret N° 2021-277 du 12 mars 2021](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000043246555) précise les modalités d’application de ce dispositif légal.\n\nSi vous entrez dans ce cadre, vous pouvez effectuer une demande d’habilitation à l’API Service Finances Publiques (SFiP).\n\n<NextSteps />\n<Button href=\"https://datapass.api.gouv.fr/api-sfip-sandbox?demarche=eligibilite_lep\">Remplir une demande</Button>\n",
+          "is_eligible": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "672cf671a47b8d4c15d13d5c",
+    "title": "API Déclaration préalable à l'embauche",
+    "slug": "api-declaration-prealable-a-lembauche",
+    "access_url": "https://api.gouv.fr/les-api/api-declaration-embauche/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/api-declaration-prealable-a-lembauche/",
+    "new_access_url": null,
+    "access_props": {
+      "title": "API Déclaration préalable à l'embauche",
+      "slug": "api-declaration-embauche",
+      "accessConditionOptions": [
+        {
+          "label": "Déclarant direct",
+          "value": "Déclarant direct",
+          "description": "Il ne vous est pas nécessaire de souscrire : vous avez déjà accès à l’API en utilisant vos identifiants Urssaf il vous suffit ainsi de [consulter la documentation pour utiliser l’API](https://www.dpae-edi.urssaf.fr/5492-API-DPAE-Guide-Implementation.pdf)\n",
+          "is_eligible": -1
+        },
+        {
+          "label": "Concentrateur",
+          "value": "Concentrateur",
+          "description": "Pour remplir votre demande, vous aurez uniquement besoin de créer un compte api.gouv.\n <Button href=\"mailto:api-dpae@acoss.fr?subject=Demande d'accès à l'API DPAE&body=Indiquez ici votre nom, prénom et le nom de votre organisation.\">Remplir une demande</Button>\n",
+          "is_eligible": 0
+        },
+        {
+          "label": "Un particulier",
+          "value": "Un particulier",
+          "description": "Vous n'êtes pas autorisé à accéder à ces données.\n\n<Button href=\"/rechercher-api\">Revenir à la recherche</Button>\n",
+          "is_eligible": -1
+        },
+        {
+          "label": "Autres activités",
+          "value": "Autres activités",
+          "description": "Vous n'êtes pas autorisé à accéder à ces données.\n\n<Button href=\"/rechercher-api\">Revenir à la recherche</Button>\n",
+          "is_eligible": -1
+        }
+      ]
+    }
+  },
+  {
+    "id": "672cf6740666cac46925be2f",
+    "title": "API Base nationale des défibrillateurs",
+    "slug": "api-base-nationale-des-defibrillateurs",
+    "access_url": "https://api.gouv.fr/les-api/api-defibrillateurs/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/api-base-nationale-des-defibrillateurs/",
+    "new_access_url": null,
+    "access_props": {
+      "title": "API Base nationale des défibrillateurs",
+      "slug": "api-defibrillateurs",
+      "accessConditionOptions": [
+        {
+          "label": "Un particulier",
+          "value": "Un particulier",
+          "description": "Vous pouvez accéder à la liste des défibrillateurs directement sur data.gouv.fr\n\nSi vous souhaitez accéder à l'API, vous devez faire une [demande d'accès](mailto:contact@geodae.sante.gouv.fr)\n\n<Button href=\"https://www.data.gouv.fr/fr/datasets/geodae-base-nationale-des-defibrillateurs/\">Accéder aux données</Button>\n",
+          "is_eligible": 1
+        },
+        {
+          "label": "Une entreprise",
+          "value": "Une entreprise",
+          "description": "Cette API permet d'interroger et d'alimenter la base nationale des défibrillateurs.\n\nUne demande d'accès est nécessaire.\n\n<Button href=\"mailto:contact@geodae.sante.gouv.fr?subject=Demande d'accès à l'API Défibrillateurs\">Envoyer une demande</Button>\n",
+          "is_eligible": 1
+        },
+        {
+          "label": "Une administration",
+          "value": "Une administration",
+          "description": "Cette API permet d'interroger et d'alimenter la base nationale des défibrillateurs.\n\nUne demande d'accès est nécessaire.\n\n<Button href=\"mailto:contact@geodae.sante.gouv.fr?subject=Demande d'accès à l'API Défibrillateurs\">Envoyer une demande</Button>\n",
+          "is_eligible": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "672cf680a47b8d4c15d13d5e",
+    "title": "API Sesali",
+    "slug": "api-sesali",
+    "access_url": "https://api.gouv.fr/les-api/api-sesali/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/api-sesali/",
+    "new_access_url": null,
+    "access_props": {
+      "title": "API Sesali",
+      "slug": "api-sesali",
+      "accessConditionOptions": [
+        {
+          "label": "Un particulier",
+          "value": "Un particulier",
+          "description": "Seuls les les éditeurs de logiciels raccordés à Pro Santé Connect sont habilitées à utiliser l'API Sesali.\n\n<Button href=\"/rechercher-api\">Ou vous pouvez rechercher une autre API</Button>\n",
+          "is_eligible": -1
+        },
+        {
+          "label": "Une administration",
+          "value": "Une administration",
+          "description": "Seuls les les éditeurs de logiciels raccordés à Pro Santé Connect sont habilitées à utiliser l'API Sesali.\n\n<Button href=\"/rechercher-api\">Ou vous pouvez rechercher une autre API</Button>\n",
+          "is_eligible": -1
+        },
+        {
+          "label": "Une entreprise",
+          "value": "Une entreprise",
+          "description": "Seuls les les éditeurs de logiciels raccordés à Pro Santé Connect sont habilitées à utiliser l'API Sesali.\n\n<Button href=\"mailto:ans-europe@esante.gouv.fr\">Demander un accès</Button>\n",
+          "is_eligible": 0
+        },
+        {
+          "label": "Un éditeur de logiciels",
+          "value": "Un éditeur de logiciels",
+          "description": "Seuls les les éditeurs de logiciels raccordés à Pro Santé Connect sont habilitées à utiliser l'API Sesali.\n\n<Button href=\"mailto:ans-europe@esante.gouv.fr\">Demander un accès</Button>\n",
+          "is_eligible": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "672cf695a316ad54c9a7f199",
+    "title": "API Chorus Pro",
+    "slug": "api-chorus-pro",
+    "access_url": "https://api.gouv.fr/les-api/chorus-pro/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/api-chorus-pro/",
+    "new_access_url": null,
+    "access_props": {
+      "title": "API Chorus Pro",
+      "slug": "chorus-pro",
+      "accessConditionOptions": [
+        {
+          "label": "Un éditeur",
+          "value": "Un éditeur",
+          "description": "La plateforme s’adresse à l’ensemble des fournisseurs de l'Etat, tant privés que publics, afin de leur permettre de transmettre de façon efficace et automatique leurs factures à destination de la sphère publique.\n\n<Button href=\"https://piste.gouv.fr/en/api-catalog-sandbox\">Faire une demande d'habilitation</Button>\n",
+          "is_eligible": 0
+        },
+        {
+          "label": "Une entreprise",
+          "value": "Une entreprise",
+          "description": "La plateforme s’adresse à l’ensemble des fournisseurs de l'Etat, tant privés que publics, afin de leur permettre de transmettre de façon efficace et automatique leurs factures à destination de la sphère publique.\n\n<Button href=\"https://piste.gouv.fr/en/api-catalog-sandbox\">Faire une demande d'habilitation</Button>\n",
+          "is_eligible": 0
+        },
+        {
+          "label": "Une collectivité",
+          "value": "Une collectivité",
+          "description": "La plateforme s’adresse aux entités du **secteur public** : l’Etat, les établissements publics nationaux (EPN), les collectivités territoriales et les établissements publics locaux (EPL).\n\nElle permet de traiter l’ensemble des factures de manière optimisée en réduisant les délais de validation et d’enregistrement.\n\n<Button href=\"https://piste.gouv.fr/en/api-catalog-sandbox\">Faire une demande d'habilitation</Button>\n",
+          "is_eligible": 1
+        },
+        {
+          "label": "Un établissement public",
+          "value": "Un établissement public",
+          "description": "La plateforme s’adresse aux entités du **secteur public** : l’Etat, les établissements publics nationaux (EPN), les collectivités territoriales et les établissements publics locaux (EPL).\n\nElle permet de traiter l’ensemble des factures de manière optimisée en réduisant les délais de validation et d’enregistrement.\n\n<Button href=\"https://piste.gouv.fr/en/api-catalog-sandbox\">Faire une demande d'habilitation</Button>\n",
+          "is_eligible": 1
+        },
+        {
+          "label": "Un Ministère",
+          "value": "Un Ministère",
+          "description": "La plateforme s’adresse aux entités du **secteur public** : l’Etat, les établissements publics nationaux (EPN), les collectivités territoriales et les établissements publics locaux (EPL).\n\nElle permet de traiter l’ensemble des factures de manière optimisée en réduisant les délais de validation et d’enregistrement.\n\n<Button href=\"https://piste.gouv.fr/en/api-catalog-sandbox\">Faire une demande d'habilitation</Button>\n",
+          "is_eligible": 1
+        },
+        {
+          "label": "Un particulier",
+          "value": "Un particulier",
+          "description": "Chorus Pro s’adresse aux des acteurs de la commande publique : émetteurs et récepteurs de facture.\n\n<Button href=\"/rechercher-api\">Rechercher une autre API</Button>\n",
+          "is_eligible": -1
+        }
+      ]
+    }
+  },
+  {
+    "id": "672cf699c3488a0c533f7097",
+    "title": "API QuiForme",
+    "slug": "api-quiforme",
+    "access_url": "https://api.gouv.fr/les-api/api_quiforme/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/api-quiforme/",
+    "new_access_url": null,
+    "access_props": {
+      "title": "API QuiForme",
+      "slug": "api_quiforme",
+      "accessConditionOptions": [
+        {
+          "label": "Un particulier",
+          "value": "Un particulier",
+          "description": "Vous ne pouvez pas accèder à ces informations qui sont des données protégées.\n\n<Button href=\"/rechercher-api\">Rechercher une autre API</Button>\n",
+          "is_eligible": -1
+        },
+        {
+          "label": "Une entreprise",
+          "value": "Une entreprise",
+          "description": "Vous ne pouvez pas accèder à ces informations qui sont des données protégées.\n\n<Button href=\"/rechercher-api\">Rechercher une autre API</Button>\n",
+          "is_eligible": -1
+        },
+        {
+          "label": "Un éditeur de logiciel",
+          "value": "Un éditeur de logiciel",
+          "description": "En tant qu'éditeur de logiciel, vous êtes éligible à intégrer cette API si vous le faîtes pour le compte d'une entité publique (administrations, collectivités, etc.) dont vous êtes le prestataire.\nVous pouvez demander l'accès à l'API en écrivant à cette adresse : quiforme@intercariforef.org\n",
+          "is_eligible": 0
+        },
+        {
+          "label": "Une administration",
+          "value": "Une administration",
+          "description": "En tant que collectivité territoriale ou administration, vous êtes éligible à utiliser cette API selon votre cadre juridique. Vous pouvez demander l'accès à l'API en écrivant à cette adresse : quiforme@intercariforef.org\n",
+          "is_eligible": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "672cf6a36d09c75cace6a628",
+    "title": "API Tracabilité des déchets dangereux - Trackdéchets",
+    "slug": "api-tracabilite-des-dechets-dangereux-trackdechets",
+    "access_url": "https://api.gouv.fr/les-api/api-trackdechets/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/api-tracabilite-des-dechets-dangereux-trackdechets/",
+    "new_access_url": null,
+    "access_props": {
+      "title": "API Tracabilité des déchets dangereux - Trackdéchets",
+      "slug": "api-trackdechets",
+      "accessConditionOptions": [
+        {
+          "label": "Un particulier",
+          "value": "Un particulier",
+          "description": "L'API s'adresse aux opérateurs du traitement des déchets.\n\n<Button href=\"/rechercher-api\">Rechercher une autre API</Button>\n",
+          "is_eligible": -1
+        },
+        {
+          "label": "Une collectivité ou une administration",
+          "value": "Une collectivité ou une administration",
+          "description": "L'API est accessible aux administrations dans le cadre de leur mission de gestion des déchets. Vous devez créer un compte sur le site Trackdéchets pour y accéder.\n\n<Button href=\"https://app.trackdechets.beta.gouv.fr/signup\">Demander un accès</Button>\n",
+          "is_eligible": 1
+        },
+        {
+          "label": "Une entreprise",
+          "value": "Une entreprise",
+          "description": "Certaines entreprises peuvent utiliser l'API :\n\n- les producteur de déchets,\n- les professionnel de la gestion de déchets (collecteurs, installations de tri-transit-regroupement, installation de traitement)\n- les transporteurs de déchets.\n- les éco-organismes\n- les courtiers et négociants\n\n<Button href=\"https://app.trackdechets.beta.gouv.fr/signup\">Demander un accès</Button>\n",
+          "is_eligible": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "672cf6a86d09c75cace6a629",
+    "title": "API INES",
+    "slug": "api-ines",
+    "access_url": "https://api.gouv.fr/les-api/api-ines/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/api-ines/",
+    "new_access_url": null,
+    "access_props": {
+      "title": "API INES",
+      "slug": "api-ines",
+      "accessConditionOptions": [
+        {
+          "label": "Un particulier",
+          "value": "Un particulier",
+          "description": "L’API s’adresse à tous les établissements proposant une formation dans l’enseignement supérieur et aux systèmes d’information dans l'enseignement supérieur, comme les plateformes de candidature aux établissements d’enseignement supérieur ou le CNOUS.\n<Button href=\"/rechercher-api\">Rechercher une autre API</Button>\n",
+          "is_eligible": -1
+        },
+        {
+          "label": "Une entreprise",
+          "value": "Une entreprise",
+          "description": "Si vous êtes une entreprise dans l'enseignement supérieur, vous êtes alors peut-être éligible.\nContactez le projet INES à l'adresse : projet.ines@enseignementsup.gouv.fr\n\n<Button href=\"/rechercher-api\">Rechercher une autre API</Button>\n",
+          "is_eligible": 0
+        },
+        {
+          "label": "Etablissement ou système d'information dans l'enseignement supérieur",
+          "value": "Etablissement ou système d'information dans l'enseignement supérieur",
+          "description": "Une authentification (identifiants d’accès directement fourni par le MESR aux établissements) est nécessaire.\nContactez le projet INES à cette adresse si besoin : projet.ines@enseignementsup.gouv.fr\n<Button href=\"https://ines.enseignementsup-recherche.gouv.fr\">Se connecter</Button>\n",
+          "is_eligible": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "672cf6a8b93233d94703aadb",
+    "title": "API Ma Cantine",
+    "slug": "api-ma-cantine",
+    "access_url": "https://api.gouv.fr/les-api/api-ma-cantine/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/api-ma-cantine/",
+    "new_access_url": null,
+    "access_props": {
+      "title": "API Ma Cantine",
+      "slug": "api-ma-cantine",
+      "accessConditionOptions": [
+        {
+          "label": "Un gestionnaire de cantine",
+          "value": "Un gestionnaire de cantine",
+          "description": "Vous pouvez vous connecter sur la plateforme ma-cantine ou vous créer un compte. Pour voir les informations relatives à l'API, cochez l'option \"développeur\".\n<Button href='https://ma-cantine.agriculture.gouv.fr/developpement-et-apis/' >Ma cantine </Button>\n<Button href='https://ma-cantine-demo.cleverapps.io/developpement-et-apis/' >Plateforme de démo pour les tests </Button>\n",
+          "is_eligible": 1
+        },
+        {
+          "label": "Un éditeur d'un logiciel de gestion de cantine",
+          "value": "Un éditeur d'un logiciel de gestion de cantine",
+          "description": "Vous pouvez utiliser cette API pour interfacer votre logiciel avec la plateforme ma-cantine. Pour voir les informations relatives à l'API, cochez l'option \"développeur\".\n<Button href='https://ma-cantine.agriculture.gouv.fr/developpement-et-apis/' >Ma cantine </Button>\n<Button href='https://ma-cantine-demo.cleverapps.io/developpement-et-apis/' >Plateforme de démo pour les tests </Button>\n",
+          "is_eligible": 1
+        },
+        {
+          "label": "Autre",
+          "value": "Autre",
+          "description": "L’usage de l’API ma-cantine est reservé aux **gestionnaires de cantines** pour qu'il puissent gérer leurs établissements et effectuer les démarches de suivi d'achats alimentaires.\n<Button href='https://www.data.gouv.fr/fr/datasets/6482def590d4cf8cea3aa33e/#/resources' >Consulter les données ouvertes</Button>\n",
+          "is_eligible": -1
+        }
+      ]
+    }
+  },
+  {
+    "id": "672cf71ed2525afd25d1e4a3",
+    "title": "API Transparence-Santé (Déclarations Entreprises)",
+    "slug": "api-transparence-sante-declarations-entreprises",
+    "access_url": "https://api.gouv.fr/les-api/api-transparence-sante/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/api-transparence-sante-declarations-entreprises/",
+    "new_access_url": null,
+    "access_props": {
+      "title": "API Transparence-Santé (Déclarations Entreprises)",
+      "slug": "api-transparence-sante",
+      "accessConditionOptions": [
+        {
+          "label": "Un particulier",
+          "value": "Un particulier",
+          "description": "L'API est réservée aux entreprises.\n\n<Button href=\"/rechercher-api\">Rechercher une autre API</Button>\n",
+          "is_eligible": -1
+        },
+        {
+          "label": "Un professionnel de santé",
+          "value": "Un professionnel de santé",
+          "description": "L'API est réservée aux entreprises.\n\n<Button href=\"/rechercher-api\">Rechercher une autre API</Button>\n",
+          "is_eligible": -1
+        },
+        {
+          "label": "Une entreprise",
+          "value": "Une entreprise",
+          "description": "\n<Button href=\"mailto:transparence-sante-support@sante.gouv.fr\">Demander un accès à l'API</Button>\n",
+          "is_eligible": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "672cf985506e25cb5c5086cc",
+    "title": "API Service National",
+    "slug": "api-service-national",
+    "access_url": "https://api.gouv.fr/les-api/api-particulier/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/api-service-national/",
+    "new_access_url": null,
+    "access_props": {
+      "title": "API Particulier",
+      "slug": "api-particulier",
+      "accessConditionOptions": [
+        {
+          "label": "Un particulier",
+          "value": "Un particulier",
+          "description": "Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Particulier est **uniquement reservé aux acteurs publics** : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, les organismes ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, etc.\n\n<Button href=\"/rechercher-api\" alt>Rechercher une autre API</Button>\n",
+          "is_eligible": -1
+        },
+        {
+          "label": "Une collectivité ou une administration",
+          "value": "Une collectivité ou une administration",
+          "description": "Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, vous êtes éligible à l'utilisation de l'API Particulier.  \n\n**Si votre cadre légal le justifie**, l’API Particulier vous permet d’accéder directement aux données administratives des particuliers pour faciliter leurs démarches.\n- Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Particulier, consultez nos différents <External href=\"https://particulier.api.gouv.fr/cas_usages\">cas d'usages</External> (Tarification cantine et transport, aides facultatives départementales et régionales, aides sociales des CCAS, gestion RH du secteur public ...)\n- Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <External href=\"https://particulier.api.gouv.fr/catalogue\">catalogue des API</External>.\n\n<Button href='https://datapass.api.gouv.fr/api-particulier'>Demander une habilitation API Particulier</Button>\n",
+          "is_eligible": 1
+        },
+        {
+          "label": "Une entreprise ou une association",
+          "value": "Une entreprise ou une association",
+          "description": "Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Particulier est **uniquement reservé aux acteurs publics** : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, les organismes ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, etc.\n\n<Button href=\"/rechercher-api\" alt>Rechercher une autre API</Button>\n",
+          "is_eligible": -1
+        },
+        {
+          "label": "Un éditeur de logiciel",
+          "value": "Un éditeur de logiciel",
+          "description": "Si vous êtes **éditeur de logiciels pour des acteurs publics, c'est à vos utilisateurs collectivité ou administration de faire une demande d'habilitation.**\n\nEn revanche, vous pouvez nous demander de vous référencer sur un cas d'usage afin de proposer des formulaires pré-remplis et ainsi simplifier l'expérience de vos clients publics :\n\n<Button href=\"https://form.typeform.com/to/OJ4rkf5Z\">Demander à être référencé</Button>\n\nPour toute autre demande, consultez notre page <External href=\"https://particulier.api.gouv.fr/faq\">FAQ & contact</External>.\n",
+          "is_eligible": -1
+        }
+      ]
+    }
+  },
+  {
+    "id": "672cfc44fa6cdbd0efe62e62",
+    "title": "API Document unique de marché européen (Dume)",
+    "slug": "api-document-unique-de-marche-europeen-dume",
+    "access_url": "https://api.gouv.fr/les-api/api-dume/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/api-document-unique-de-marche-europeen-dume/",
+    "new_access_url": null,
+    "access_props": {
+      "title": "API Document unique de marché européen (Dume)",
+      "slug": "api-dume",
+      "accessConditionOptions": [
+        {
+          "label": "Un éditeur",
+          "value": "Un éditeur",
+          "description": "L'API s’adresse à l’ensemble des fournisseurs de l'Etat, tant privés que publics, afin de leur permettre de transmettre de façon efficace et automatique leurs factures à destination de la sphère publique.\n\n<Button href=\"https://developer.aife.economie.gouv.fr/\">Faire une demande d'habilitation</Button>\n",
+          "is_eligible": 0
+        },
+        {
+          "label": "Une entreprise",
+          "value": "Une entreprise",
+          "description": "L'API s’adresse à l’ensemble des fournisseurs de l'Etat, tant privés que publics, afin de leur permettre de transmettre de façon efficace et automatique leurs factures à destination de la sphère publique.\n\n<Button href=\"https://developer.aife.economie.gouv.fr/\">Faire une demande d'habilitation</Button>\n",
+          "is_eligible": 0
+        },
+        {
+          "label": "Une collectivité",
+          "value": "Une collectivité",
+          "description": "L'API s’adresse aux entités du **secteur public** : l’Etat, les établissements publics nationaux (EPN), les collectivités territoriales et les établissements publics locaux (EPL).\n<Button href=\"https://developer.aife.economie.gouv.fr/\">Faire une demande d'habilitation</Button>\n",
+          "is_eligible": 1
+        },
+        {
+          "label": "Un établissement public",
+          "value": "Un établissement public",
+          "description": "L'API s’adresse aux entités du **secteur public** : l’Etat, les établissements publics nationaux (EPN), les collectivités territoriales et les établissements publics locaux (EPL).\n<Button href=\"https://developer.aife.economie.gouv.fr/\">Faire une demande d'habilitation</Button>\n",
+          "is_eligible": 1
+        },
+        {
+          "label": "Un Ministère",
+          "value": "Un Ministère",
+          "description": "L'API s’adresse aux entités du **secteur public** : l’Etat, les établissements publics nationaux (EPN), les collectivités territoriales et les établissements publics locaux (EPL).\n<Button href=\"https://developer.aife.economie.gouv.fr/\">Faire une demande d'habilitation</Button>\n",
+          "is_eligible": 1
+        },
+        {
+          "label": "Un particulier",
+          "value": "Un particulier",
+          "description": "Chorus Pro s’adresse aux des acteurs de la commande publique : émetteurs et récepteurs de facture.\n\n<Button href=\"/rechercher-api\">Rechercher une autre API</Button>\n",
+          "is_eligible": -1
+        }
+      ]
+    }
+  },
+  {
+    "id": "672cfc48f92a8fae20ccf3eb",
+    "title": "API Statut demandeur d'emploi",
+    "slug": "api-statut-demandeur-demploi",
+    "access_url": "https://api.gouv.fr/les-api/api-particulier/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/api-statut-demandeur-demploi/",
+    "new_access_url": null,
+    "access_props": {
+      "title": "API Particulier",
+      "slug": "api-particulier",
+      "accessConditionOptions": [
+        {
+          "label": "Un particulier",
+          "value": "Un particulier",
+          "description": "Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Particulier est **uniquement reservé aux acteurs publics** : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, les organismes ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, etc.\n\n<Button href=\"/rechercher-api\" alt>Rechercher une autre API</Button>\n",
+          "is_eligible": -1
+        },
+        {
+          "label": "Une collectivité ou une administration",
+          "value": "Une collectivité ou une administration",
+          "description": "Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, vous êtes éligible à l'utilisation de l'API Particulier.  \n\n**Si votre cadre légal le justifie**, l’API Particulier vous permet d’accéder directement aux données administratives des particuliers pour faciliter leurs démarches.\n- Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Particulier, consultez nos différents <External href=\"https://particulier.api.gouv.fr/cas_usages\">cas d'usages</External> (Tarification cantine et transport, aides facultatives départementales et régionales, aides sociales des CCAS, gestion RH du secteur public ...)\n- Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <External href=\"https://particulier.api.gouv.fr/catalogue\">catalogue des API</External>.\n\n<Button href='https://datapass.api.gouv.fr/api-particulier'>Demander une habilitation API Particulier</Button>\n",
+          "is_eligible": 1
+        },
+        {
+          "label": "Une entreprise ou une association",
+          "value": "Une entreprise ou une association",
+          "description": "Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Particulier est **uniquement reservé aux acteurs publics** : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, les organismes ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, etc.\n\n<Button href=\"/rechercher-api\" alt>Rechercher une autre API</Button>\n",
+          "is_eligible": -1
+        },
+        {
+          "label": "Un éditeur de logiciel",
+          "value": "Un éditeur de logiciel",
+          "description": "Si vous êtes **éditeur de logiciels pour des acteurs publics, c'est à vos utilisateurs collectivité ou administration de faire une demande d'habilitation.**\n\nEn revanche, vous pouvez nous demander de vous référencer sur un cas d'usage afin de proposer des formulaires pré-remplis et ainsi simplifier l'expérience de vos clients publics :\n\n<Button href=\"https://form.typeform.com/to/OJ4rkf5Z\">Demander à être référencé</Button>\n\nPour toute autre demande, consultez notre page <External href=\"https://particulier.api.gouv.fr/faq\">FAQ & contact</External>.\n",
+          "is_eligible": -1
+        }
+      ]
+    }
+  },
+  {
+    "id": "672cfc5bc21305d715be7f34",
+    "title": "API Registre des Bénéficiaires Effectifs (RBE)",
+    "slug": "api-registre-des-beneficiaires-effectifs-rbe",
+    "access_url": "https://api.gouv.fr/les-api/api-rbe/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/api-registre-des-beneficiaires-effectifs-rbe/",
+    "new_access_url": null,
+    "access_props": {
+      "title": "API Registre des Bénéficiaires Effectifs (RBE)",
+      "slug": "api-rbe",
+      "accessConditionOptions": [
+        {
+          "label": "Un particulier",
+          "value": "Un particulier",
+          "description": "Les particuliers ne sont pas éligibles a cette API.\n\nLes personnes éligibles au services sont définies dans les <External href=\"https://www.legifrance.gouv.fr/codes/id/LEGIARTI000041577735/2020-02-14/\">articles L561-2 à L561-4</External> du *Code monétaire et financier* concernant les personnes assujetties aux obligations de lutte contre le blanchiment des capitaux et le financement du terrorisme.\n\n<Button href=\"/rechercher-api\">Rechercher une autre API</Button>\n",
+          "is_eligible": -1
+        },
+        {
+          "label": "Une entreprise",
+          "value": "Une entreprise",
+          "description": "Les personnes éligibles au services sont définies dans les <External href=\"https://www.legifrance.gouv.fr/codes/id/LEGIARTI000041577735/2020-02-14/\">articles L561-2 à L561-4</External> du *Code monétaire et financier* concernant les personnes assujetties aux obligations de lutte contre le blanchiment des capitaux et le financement du terrorisme.\n\nSi vous faites parties des personnes éligible, vous pouvez remplir une demande en téléchargeant et complétant <External href='/resources/formulaire_rbe.pdf'>le formulaire de demande d'habilitation</External>.\nUne fois le formulaire complété, soumettez votre demande d'habilitation à l'API :\n\n<Button href=\"mailto:rbe@inpi.fr\">Soumettre ma demande</Button>\n",
+          "is_eligible": 0
+        },
+        {
+          "label": "Une administration",
+          "value": "Une administration",
+          "description": "Les personnes éligibles au services sont définies dans les <External href=\"https://www.legifrance.gouv.fr/codes/id/LEGIARTI000041577735/2020-02-14/\">articles L561-2 à L561-4</External> du *Code monétaire et financier* concernant les personnes assujetties aux obligations de lutte contre le blanchiment des capitaux et le financement du terrorisme.\n\n**Si vous faites parties des administrations éligibles, deux API, distribuant les mêmes données, sont à votre disposition :** \n- **L'API RBE opérée par l'Inpi**. Pour y accéder, vous pouvez devez d'abord remplir une demande en téléchargeant et en complétant <External href='/resources/formulaire_rbe.pdf'>le formulaire suivant</External>.\nUne fois le formulaire complété, soumettez votre demande d'habilitation à l'API à <a href=\"mailto:rbe@inpi.fr\">rbe@inpi.fr</a>\n- **L'<a href=\"https://entreprise.api.gouv.fr/catalogue/inpi/rne/beneficiaires_effectifs\">API RBE opérée par API Entreprise</a>**. Le bouquet API Entreprise permet aux administrations d'accéder à de nombreuses données entreprises et associations, dont les bénéficiaires effectifs. _La demande d'accès se fait directement en ligne avec <a href=\"https://datapass.api.gouv.fr/api-entreprise\">Datapass</a>_. \n",
+          "is_eligible": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "672cfc5cc1fa613534d1d73a",
+    "title": "API GRDF ADICT",
+    "slug": "api-grdf-adict",
+    "access_url": "https://api.gouv.fr/les-api/api-grdf-adict/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/api-grdf-adict/",
+    "new_access_url": null,
+    "access_props": {
+      "title": "API GRDF ADICT",
+      "slug": "api-grdf-adict",
+      "accessConditionOptions": [
+        {
+          "label": "Un particulier",
+          "value": "Un particulier",
+          "description": "L'API s'adresse aux entreprises spécialisées et administrations ayant obtenu le consentement du titulaire.\n\n<Button href=\"/rechercher-api\">Rechercher une autre API</Button>\n",
+          "is_eligible": -1
+        },
+        {
+          "label": "Une entreprise dédiée à la maitrise d'énergie",
+          "value": "Une entreprise dédiée à la maitrise d'énergie",
+          "description": "L'API est accessible aux entreprises et aux collectivités, vous devrez créer un compte pour accéder à l'API.\nL'accès au flux est conditionné par la signature d’un consentement du titulaire.\n\n<Button href=\"https://sites.grdf.fr/web/portail-api-grdf-adict/je-souhaite-souscrire-aux-services-grdf-adict\">Demander un accès</Button>\n",
+          "is_eligible": 0
+        },
+        {
+          "label": "Un bureau d'étude",
+          "value": "Un bureau d'étude",
+          "description": "L'API est accessible aux entreprises et aux collectivités, vous devrez créer un compte pour accéder à l'API.\nL'accès au flux est conditionné par la signature d’un consentement du titulaire.\n\n<Button href=\"https://sites.grdf.fr/web/portail-api-grdf-adict/je-souhaite-souscrire-aux-services-grdf-adict\">Demander un accès</Button>\n",
+          "is_eligible": 0
+        },
+        {
+          "label": "Une administration",
+          "value": "Une administration",
+          "description": "L'API est accessible aux entreprises et aux collectivités, vous devrez créer un compte pour accéder à l'API.\nL'accès au flux est conditionné par la signature d’un consentement du titulaire.\n\n<Button href=\"https://sites.grdf.fr/web/portail-api-grdf-adict/je-souhaite-souscrire-aux-services-grdf-adict\">Demander un accès</Button>\n",
+          "is_eligible": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "67acdc5b2442665160389f62",
+    "title": "RIAL (Répertoire Inter-Administratif des Locaux)",
+    "slug": "rial-repertoire-inter-administratif-des-locaux",
+    "access_url": "https://api.gouv.fr/les-api/api_rial/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/rial-repertoire-inter-administratif-des-locaux/",
+    "new_access_url": null,
+    "access_props": {
+      "title": "API RIAL (Répertoire Inter-Administratif des Locaux)",
+      "slug": "api_rial",
+      "accessConditionOptions": [
+        {
+          "label": "Un particulier",
+          "value": "Un particulier",
+          "description": "Vous n’êtes pas autorisé à accéder aux données de l’API RIAL (Répertoire Inter-Administratif des Locaux).\n\n<Button href=\"/rechercher-api\">Retourner à la page de recherche</Button>\n",
+          "is_eligible": -1
+        },
+        {
+          "label": "Une entité administrative",
+          "value": "Une entité administrative",
+          "description": "Conformément aux dispositions de <External href=\"https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000036588629\">l'article L107</External> et <External href=\"https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000025176297\">R* 107 A-7</External> du *livre des procédures fiscales*, ainsi que de <External href=\"https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000020883923/2021-07-02\">l'article 4</External> de l'arrêté du 16 août 1984 (arrêté CNIL relatif à l'application Majic3), seules les administrations sont habilitées à échanger entre elles des informations ou données strictement nécessaires pour traiter une démarche.\n\nPour obtenir l’accès à l’API, vous devez notamment **justifier d'une simplification pour les citoyens** et vous engager à n'accéder qu’aux données strictement nécessaires à la démarche conformément au principe de proportionnalité.\n\n<Button href=\"https://datapass.api.gouv.fr/api-rial-sandbox\">Remplir une demande</Button>\n",
+          "is_eligible": 1
+        },
+        {
+          "label": "Une entreprise",
+          "value": "Une entreprise",
+          "description": "Conformément aux dispositions de <External href=\"https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000036588629\">l'article L107</External> et <External href=\"https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000025176297\">R* 107 A-7</External> du *livre des procédures fiscales*, ainsi que de <External href=\"https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000020883923/2021-07-02\">l'article 4</External> de l'arrêté du 16 août 1984 (arrêté CNIL relatif à l'application Majic3), vous pouvez obtenir une habilitation aux données exposées par l'API RIAL sous conditions.\n\n Pour obtenir un agrément, vous devez **justifier du cadre juridique** dans lequel s’inscrit votre demande.\n\n <Button href=\"https://datapass.api.gouv.fr/api-rial-sandbox\">Remplir une demande</Button>\n",
+          "is_eligible": 0
+        }
+      ]
+    }
+  }
+]
