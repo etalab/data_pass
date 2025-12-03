@@ -4,27 +4,30 @@
   options:
   - type: particulier
     eligible: 'no'
-    body: "      Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage
-      de l’API Particulier est <b>uniquement reservé aux acteurs publics</b> : les
+    body: |-
+      <p>Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage
+      de l’API Particulier est <strong>uniquement reservé aux acteurs publics</strong> : les
       administrations, les collectivités, leurs opérateurs, les acteurs de santé,
       les organismes ayant le statut spécifique <i>« chargé d'une mission ou délégataire
-      de service public »</i>, etc."
+      de service public »</i>, etc.</p>
   - type: collectivite_ou_administration
     eligible: 'yes'
     body: |-
-            <p>Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique <i>« chargé d'une mission ou délégataire de service public »</i>, vous êtes éligible à l'utilisation de l'API Particulier.</p>
-
-            <p><b>Si votre cadre légal le justifie</b>, l’API Particulier vous permet d’accéder directement aux données administratives des particuliers pour faciliter leurs démarches.</p>
-            <p>- Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Particulier, consultez nos différents <a href="https://particulier.api.gouv.fr/cas_usages">cas d'usages</a> (Tarification cantine et transport, aides facultatives départementales et régionales, aides sociales des CCAS, gestion RH du secteur public ...)</p>
-            <p>- Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <a href="https://particulier.api.gouv.fr/catalogue">catalogue des API</a>.</p>
+      <p>Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique <i>« chargé d'une mission ou délégataire de service public »</i>, vous êtes éligible à l'utilisation de l'API Particulier.</p>
+      <br />
+      <p><b>Si votre cadre légal le justifie</b>, l’API Particulier vous permet d’accéder directement aux données administratives des particuliers pour faciliter leurs démarches.</p>
+      <ul>
+        <li>Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Particulier, consultez nos différents <a href="https://particulier.api.gouv.fr/cas_usages">cas d'usages</a> (Tarification cantine et transport, aides facultatives départementales et régionales, aides sociales des CCAS, gestion RH du secteur public ...)</li>
+        <li>Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <a href="https://particulier.api.gouv.fr/catalogue">catalogue des API</a>.</li>
+      </ul>
   - type: entreprise_ou_association
     eligible: 'no'
-    body: |2-
-            <p>Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Particulier est <b>uniquement reservé aux acteurs publics</b> : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, les organismes ayant le statut spécifique <i>« chargé d'une mission ou délégataire de service public »</i>, etc.</p>
-
-            <p>Si vous êtes <b>éditeur de logiciels pour des acteurs publics, c'est à vos utilisateurs collectivité ou administration de faire une demande d'habilitation.</b></p>
-
-            <p>En revanche, vous pouvez nous demander de vous référencer sur un cas d'usage afin de proposer des formulaires pré-remplis et ainsi simplifier l'expérience de vos clients publics :</p>
+    body: |-
+      <p>Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Particulier est <b>uniquement reservé aux acteurs publics</b> : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, les organismes ayant le statut spécifique <i>« chargé d'une mission ou délégataire de service public »</i>, etc.</p>
+      <br />
+      <p>Si vous êtes <b>éditeur de logiciels pour des acteurs publics, c'est à vos utilisateurs collectivité ou administration de faire une demande d'habilitation.</b></p>
+      <br />
+      <p>En revanche, vous pouvez nous demander de vous référencer sur un cas d'usage afin de proposer des formulaires pré-remplis et ainsi simplifier l'expérience de vos clients publics :</p>
     cta:
       content: Demander à être référencé
       url: https://form.typeform.com/to/OJ4rkf5Z
