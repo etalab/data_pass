@@ -142,7 +142,16 @@ data = [
     "url": "https://www.data.gouv.fr/dataservices/le-taxi/",
     "new_datapass_access_url": "https://datapass.api.gouv.fr/demandes/le-taxi/nouveau",
     "organization_name": "Direction interministérielle du numérique"
-  }
+  },
+  {
+    "id": "672cf66ef8b5d52b76263398",
+    "title": "API Service Finances Publiques (SFiP)",
+    "slug": "api-service-finances-publiques-sfip",
+    "access_url": "https://api.gouv.fr/les-api/api-sfip/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/api-service-finances-publiques-sfip/",
+    "new_datapass_access_url": "https://datapass.api.gouv.fr/demandes/api_sfip/nouveau",
+    "organization_name": "Ministère de l'Économie, des Finances et de l'Industrie"
+  },
 ]
 
 # Loop over the content and print titles
