@@ -218,11 +218,13 @@
   - type: entreprise_ou_association
     eligible: maybe
     body: |-
-      Certaines entreprises peuvent utiliser l'API :
-      - les éditeurs de solutions du secteur des transports
-      - les entreprises de livraison et de transports routiers
+      <p>Certaines entreprises peuvent utiliser l'API :</p>
+      <ul>
+        <li>les éditeurs de solutions du secteur des transports</li>
+        <li>les entreprises de livraison et de transports routiers</li>
+      </ul>
 
-      Si vous êtes dans ce cas, vous devrez créer un compte pour accéder à l'API.
+      <p>Si vous êtes dans ce cas, vous devrez créer un compte pour accéder à l'API.</p>
   - type: collectivite_ou_administration
     eligible: 'no'
     body: L'API s'adresse aux opérateurs des transports uniquement.
