@@ -237,7 +237,7 @@
     body: Vous n’êtes pas autorisé à accéder à cette API. L'API est réservée aux administrations.
   - type: collectivite_ou_administration
     eligible: 'yes'
-    body: ''
+    body: Vous pouvez réaliser une demande d'habilitation à l'API.
 - id: 13
   definition_id: le_taxi
   options:
