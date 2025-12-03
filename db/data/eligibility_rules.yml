@@ -88,17 +88,16 @@
     eligible: maybe
     body: |-
       <p>❌ Si vous êtes une entreprise ou une association, vous n'êtes pas éligible.</b></p>
-
+      <br />
       <p><b>✅ Si vous êtes un établissement bancaire, vous êtes peut-être éligible.</b> Dans le cadre de la vérification de l’éligibilité au <a href="https://www.service-public.fr/particuliers/vosdroits/F2367">LEP</a> et autres produits d'épargne réglementés, les banques peuvent être considérées comme une administration au sens de <a href="https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000031366350&idArticle=LEGIARTI000031367308&dateTexte=&categorieLien=cid">l'article L100-3 du code des relations entre le public et l'administration</a>.</p>
-
       <p>Si vous entrez dans ce cadre, vous pouvez effectuer une demande d'habilitation à l’API FICOBA.</p>
   - type: collectivite_ou_administration
     eligible: maybe
     body: |-
       <p>L'API FICOBA restituant des éléments sensibles (comptes bancaires du titulaire et/ou du co-titulaire, état civil et adresse) est couvert par la règle du secret professionnel prévue par les dispositions de <a href="https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000031366350&idArticle=LEGIARTI000031367308&dateTexte=&categorieLien=cid">l'article L100-3 du Livre des Procédures Fiscales</a>, car ceux-ci constituent des données nominatives et personnelles. Il ne peut être dérogé au secret professionnel que par une disposition législative spécifique.</p>
-
+      <br />
       <p>En conséquence, les informations restituées par l'API FICOBA ne peuvent être communiquées qu’aux personnes, organismes ou autorités bénéficiant d’une telle mesure et dans la limite fixée par la loi.</p>
-
+      <br />
       <p>Pour obtenir un agrément, vous devez justifier du cadre juridique dans lequel s’inscrit votre demande.</p>
 - id: 5
   definition_id: api_impot_particulier
