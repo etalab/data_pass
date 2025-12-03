@@ -206,7 +206,7 @@
     eligible: maybe
     body: |-
       <p>Le CISIRH met à disposition cette API exploitable et accessible uniquement via le Réseau Interministériel de l'Etat (RIE).</p>
-
+      <br />
       <p>Son utilisation par une application tierce ne saurait engager la responsabilité du CISIRH, par exemple, en termes de disponibilité.</p>
 - id: 11
   definition_id: api_mobilic
