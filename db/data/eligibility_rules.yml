@@ -178,15 +178,13 @@
   options:
   - type: particulier
     eligible: 'no'
-    body: Vous n’êtes pas autorisé à accéder aux données de cette API. Seules les
-      assurances et complémentaires santé qui sont partenaires de France Connect sont
-      éligibles.Cela étant dit, si vous avez un projet précis, <a href="mailto:partenaires-api-ameli.cnam@assurance-maladie.fr">contactez-nous</a>
-      pour exposer votre projet.
+    body: |-
+      <p>Vous n’êtes pas autorisé à accéder aux données de cette API. Seules les assurances et complémentaires santé qui sont partenaires de France Connect sont éligibles. Cela étant dit, si vous avez un projet précis, <a href="mailto:partenaires-api-ameli.cnam@assurance-maladie.fr">contactez-nous</a> pour exposer votre projet.
   - type: entreprise_ou_association
     eligible: maybe
     body: |-
       <p><b>❌ Si vous êtes une entreprise ou une association, vous n'êtes pas éligible.</b> Cette API est accessible uniquement aux complémentaires santé et assurances partenaires de France Connect.</p>
-
+      <br />
       <p><b>✅ Si vous êtes une assurance ou un organisme de prévoyance</b>, vous êtes éligible si vous êtes partenaires de FranceConnect.</p>
   - type: collectivite_ou_administration
     eligible: maybe
