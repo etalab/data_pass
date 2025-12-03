@@ -1,0 +1,1058 @@
+Nom API,ID Datapass,ID API,Public Cible,Eligible,phrase,CTA,Texte du CTA,Notes
+API Découpage Administratif - (API Geo),,259154845821938152215389721015928030330,,Pas d'arbre de décision,,,,
+API Particulier,api-particulier,107959582842083703515711757520394806672,particulier,Non,"      Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Particulier est <b>uniquement reservé aux acteurs publics</b> : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, les organismes ayant le statut spécifique <i>« chargé d'une mission ou délégataire de service public »</i>, etc.",,,
+API Particulier,api-particulier,107959582842083703515711757520394806672,collectivité ou administration,Oui,"      <p>Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique <i>« chargé d'une mission ou délégataire de service public »</i>, vous êtes éligible à l'utilisation de l'API Particulier.</p>
+
+      <p><b>Si votre cadre légal le justifie</b>, l’API Particulier vous permet d’accéder directement aux données administratives des particuliers pour faciliter leurs démarches.</p>
+      <p>- Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Particulier, consultez nos différents <a href=""https://particulier.api.gouv.fr/cas_usages"">cas d'usages</a> (Tarification cantine et transport, aides facultatives départementales et régionales, aides sociales des CCAS, gestion RH du secteur public ...)</p>
+      <p>- Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <a href=""https://particulier.api.gouv.fr/catalogue"">catalogue des API</a>.</p>",,,
+API Particulier,api-particulier,107959582842083703515711757520394806672,entreprise ou association,Non,"      <p>Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Particulier est <b>uniquement reservé aux acteurs publics</b> : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, les organismes ayant le statut spécifique <i>« chargé d'une mission ou délégataire de service public »</i>, etc.</p>
+
+      <p>Si vous êtes <b>éditeur de logiciels pour des acteurs publics, c'est à vos utilisateurs collectivité ou administration de faire une demande d'habilitation.</b></p>
+
+      <p>En revanche, vous pouvez nous demander de vous référencer sur un cas d'usage afin de proposer des formulaires pré-remplis et ainsi simplifier l'expérience de vos clients publics :</p>",https://form.typeform.com/to/OJ4rkf5Z,Demander à être référencé,
+API Entreprise,api-entreprise,227114281190751739760356458553733252313,particulier,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.",,,
+API Entreprise,api-entreprise,227114281190751739760356458553733252313,collectivité ou administration,Oui,"      <p>Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique <i>« chargé d'une mission ou délégataire de service public »</i>, vous êtes éligible à l'utilisation de l'API Entreprise.</p>
+
+      <p><b>Si votre cadre légal le justifie</b>, l’API Entreprise vous permet d’accéder directement aux données administratives des entreprises et des associations pour faciliter leurs démarches.</p>
+      <p>- Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <a href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</a> (marchés publics, aides et subventions, portail GRU...)</p>
+      <p>- Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <a href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</a>.</p>",,,
+API Entreprise,api-entreprise,227114281190751739760356458553733252313,entreprise ou association,Non,"<p>Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.</p>
+
+<p><b>Si vous êtes éditeur de logiciel pour des acteurs publics pour simplifier les démarches des entreprises/associations</b>, alors vous êtes éligible à intégrer l'API Entreprise pour la mettre à disposition de vos client publics <b>uniquement</b>. </p>
+
+      <p>- Pour vérifier que votre logiciel correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <a href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</a> (marchés publics, aides et subventions, portail GRU...) ;</p>
+      <p>- Pour vous assurer que les API répondent aux besoins de vos clients publics, consultez le <a href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</a> ;</p>
+
+      <p>⚠️ <b>En tant que prestataire technique d’une entité administrative, si votre demande d'habilitation aboutit, vous ne serez pas habilité à recevoir les données issues de l'API Entreprise</b>, mais uniquement habilité à intégrer et gérer techniquement l'API pour votre client public. </p>",https://datapass.api.gouv.fr/api-entreprise?demarche=editeur,Déposer une demande Editeur,
+API Adresse (Base Adresse Nationale - BAN),,305556977706724045175886535341157131465,,Pas d'arbre de décision,,,,
+API Recherche des personnes physiques (R2P),api-sfip,157099898268225165331342193076025631109,particulier,Non,Vous n’êtes pas autorisé à accéder aux données de cette API.,,,
+API Recherche des personnes physiques (R2P),api-sfip,157099898268225165331342193076025631109,entreprise ou association,Peut-être,"<p><b>❌ Si vous êtes une entreprise ou une association, vous n'êtes pas éligible.</b> </p>
+
+<p><b>✅ Si vous êtes un établissement bancaire, vous êtes peut-être éligible.</b>  Dans le cadre de la vérification de l’éligibilité au <a href=""https://www.service-public.fr/particuliers/vosdroits/F2367"">LEP</a> les banques peuvent être considérées comme une administration au sens de <a href=""https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000031366350&idArticle=LEGIARTI000031367308&dateTexte=&categorieLien=cid"">l'article L100-3 du code des relations entre le public et l'administration</a>.</p>
+
+<p>Si vous entrez dans ce cadre, vous pouvez effectuer une demande d'habilitation à l’API R2P via le Courtier Fonctionnel SFiP.</p>",,,
+API Recherche des personnes physiques (R2P),api-sfip,157099898268225165331342193076025631109,collectivité ou administration,Peut-être,"<p>L'API R2P restituant des éléments sensibles (état civil, adresse, identifiant fiscal), elle est couverte par la règle du secret professionnel prévue par les dispositions de <a href=""https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000031366350&idArticle=LEGIARTI000031367308&dateTexte=&categorieLien=cid"">l'article L100-3 du Livre des Procédures Fiscales</a>, car ceux-ci constituent des données nominatives et personnelles.</p>
+
+<p>Il ne peut être dérogé au secret professionnel que par une disposition législative spécifique. En conséquence, les informations restituées par l'API R2P ne peuvent être communiquées qu’aux personnes, organismes ou autorités bénéficiant d’une telle mesure et dans la limite fixée par la loi.</p>",,,
+API Fichier des Comptes Bancaires et Assimilés (FICOBA),api-ficoba,23475902596992418526896588480801932670,particulier,Non,Vous n’êtes pas autorisé à accéder aux données de cette API.,,,
+API Fichier des Comptes Bancaires et Assimilés (FICOBA),api-ficoba,23475902596992418526896588480801932670,entreprise ou association,Peut-être,"<p>❌ Si vous êtes une entreprise ou une association, vous n'êtes pas éligible.</b></p>
+
+<p><b>✅ Si vous êtes un établissement bancaire, vous êtes peut-être éligible.</b> Dans le cadre de la vérification de l’éligibilité au <a href=""https://www.service-public.fr/particuliers/vosdroits/F2367"">LEP</a> et autres produits d'épargne réglementés, les banques peuvent être considérées comme une administration au sens de <a href=""https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000031366350&idArticle=LEGIARTI000031367308&dateTexte=&categorieLien=cid"">l'article L100-3 du code des relations entre le public et l'administration</a>.</p>
+
+<p>Si vous entrez dans ce cadre, vous pouvez effectuer une demande d'habilitation à l’API FICOBA.</p>",,,
+API Fichier des Comptes Bancaires et Assimilés (FICOBA),api-ficoba,23475902596992418526896588480801932670,collectivité ou administration,Peut-être,"<p>L'API FICOBA restituant des éléments sensibles (comptes bancaires du titulaire et/ou du co-titulaire, état civil et adresse) est couvert par la règle du secret professionnel prévue par les dispositions de <a href=""https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000031366350&idArticle=LEGIARTI000031367308&dateTexte=&categorieLien=cid"">l'article L100-3 du Livre des Procédures Fiscales</a>, car ceux-ci constituent des données nominatives et personnelles. Il ne peut être dérogé au secret professionnel que par une disposition législative spécifique.</p>
+
+<p>En conséquence, les informations restituées par l'API FICOBA ne peuvent être communiquées qu’aux personnes, organismes ou autorités bénéficiant d’une telle mesure et dans la limite fixée par la loi.</p>
+
+<p>Pour obtenir un agrément, vous devez justifier du cadre juridique dans lequel s’inscrit votre demande.</p>",,,
+Annuaire de l’Education Nationale,,85416670935644108559803709858062546248,,Pas d'arbre de décision,,,,
+API Recherche d’entreprises,,36195292833804750995985213668801313595,,Pas d'arbre de décision,,,,
+API Impôt particulier,api-impot-particulier,170656124754822172053045158860748706755,particulier,Non,Vous n’êtes pas autorisé à accèder aux données de l’API Impôt particulier.,,,
+API Impôt particulier,api-impot-particulier,170656124754822172053045158860748706755,entreprise ou association,Peut-être,"<p><b>❌ Si vous êtes une entreprise ou une association, vous n'êtes pas éligible.</b></p>
+
+<p><b>✅ Si vous êtes un établissement bancaire, vous êtes peut-être éligible.</b> Dans le cadre de la vérification de l'éligibilité au LEP, et conformément aux dispositions de <a href=""https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000042627574/2022-06-15"">l'article L166 AA du Livre de Procédures Fiscales</a>, l'administration fiscale indique aux établissements bancaires, à leur demande, si les personnes demandant l'ouverture d'un compte remplissent les conditions d'ouverture et de détention. Le décret N° 2021-277 du 12 mars 2021 précise les modalités d'application de ce dispositif légal.</p>
+
+<p>Si vous êtes éditeur de logiciels et agissez pour le compte d'une administration ou d'une collectivité, vous pouvez remplir une demande d’habilitation à l’API particulier vous-même pour l'entité que vous représentez, dans le cadre de <a href=""https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000031366350&idArticle=LEGIARTI000031367412&dateTexte=&categorieLien=cid"">l'article L114-8 du code des relations entre le public et l'administration</a>.</p>",,,
+API Impôt particulier,api-impot-particulier,170656124754822172053045158860748706755,collectivité ou administration,Peut-être,"<p>Conformément aux dispositions de <a href=""https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000031366350&idArticle=LEGIARTI000031367412&dateTexte=&categorieLien=cid"">l'article L114-8  du code des relations entre le public et l'administration</a>, seules les administrations sont habilitées à échanger entre elles des informations ou données strictement nécessaires pour traiter une démarche.</p>
+
+<p>Pour obtenir l’accès à l’API, vous devez notamment justifier d'une simplification pour les citoyens et vous engager à n'accéder qu’aux données strictement nécessaires à la démarche conformément au principe de proportionnalité.</p>",,,
+MonComptePro,pro-connect-service-provider,235014028999065690502698591088913195763,particulier,Non,Seules les administrations et les entreprises sont habilitées à utiliser ProConnect.,,,
+MonComptePro,pro-connect-service-provider,235014028999065690502698591088913195763,entreprise ou association,Peut-être,"Les organisations privées peuvent intégrer le bouton ProConnect, à condition de l’utiliser exclusivement pour l’authentification de professionnels de la fonction publique. ProConnect restreindra l’accès à ces seuls utilisateurs : les professionnels du secteur privé ne pourront donc pas se connecter à une application privée via ProConnect.",,,
+MonComptePro,pro-connect-service-provider,235014028999065690502698591088913195763,collectivité ou administration,Oui,"Toute administration peut intégrer le bouton ProConnect afin de permettre aux professionnels, qu’ils soient du secteur public ou privé, de s’identifier sur ses services en ligne.",,,
+API FranceConnect,france-connect,106797906089843765897520349250930248334,particulier,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. Seules les administrations et les entreprises sont habilitées à utiliser l'API FranceConnect ou intégrer le bouton FranceConnect.
+
+",,,
+API FranceConnect,france-connect,106797906089843765897520349250930248334,entreprise ou association,Peut-être,"Si vous avez vérifié <a href=""https://franceconnect.gouv.fr/partenaires"">votre éligibilité</a>, vous pouvez demander à intégrer le bouton FranceConnect.",,,
+API FranceConnect,france-connect,106797906089843765897520349250930248334,collectivité ou administration,Oui,Vous pouvez demander à intégrer le bouton FranceConnect.,,,
+API Statut Etudiant - écriture,,305267304147013948035645424959720305843,particulier,Non,Vous n’êtes pas autorisé à accéder aux données de cette API.,,,
+API Statut Etudiant - écriture,,305267304147013948035645424959720305843,entreprise ou association,Non,Vous n’êtes pas autorisé à accéder à cette API.,,,
+API Statut Etudiant - écriture,,305267304147013948035645424959720305843,collectivité ou administration,Peut-être,"<p>**Si vous êtes une collectivité ou une administration, vous n'êtes pas éligible**. Vous n’êtes pas autorisé à accéder à cette API en écriture. ⚠️ Cette API est réservée aux établissements de l'enseignement supérieur. L'API pour simplifier les démarches des étudiants est [l'API Statut Etudiant](https://api.gouv.fr/les-api/api-statut-etudiant).</p>
+
+<p>**Si vous êtes un établissement d'enseignement supérieur ou un lycée vous êtes éligible**.</p>",,,
+API statut demandeur d'emploi,,22047716363505174327422024774209367255,particulier,Non,"En tant que particulier ou demandeur d'emploi, vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de cette API est uniquement réservé aux acteurs publics. ",,,
+API statut demandeur d'emploi,,22047716363505174327422024774209367255,collectivité ou administration,Oui,"<p>En tant qu'administration ou collectivité, vous êtes éligibles à cette API.</p>
+
+<p>Si vous avez besoin d'autres données concernant les particuliers, vous pouvez demander un accès au bouquet [API Particulier](https://api.gouv.fr/les-api/api-particulier) opérée par la DINUM. Cette API délivre d'autres données telles que le quotient familial CAF/MSA, le statut scolarisé, étudiant, boursier, bénéficiaire du RSA, prime d'activité, etc.</p>
+
+<p>Si vous avez seulement besoin du statut demandeur d'emploi, faîtes directement votre demande d'habilitation ici auprès de FranceTravail :</p>",,,
+API statut demandeur d'emploi,,22047716363505174327422024774209367255,entreprise ou association,Peut-être,"Vous pouvez accéder à l’API uniquement si vous êtes [partenaire de France Connect](https://franceconnect.gouv.fr/partenaires), et pour un cas d’usage autorisé par la loi. Vous devrez fournir le cadre juridique qui vous autorise à utiliser ces données.",,,
+API Service National,,117894659967146920543671876039627314650,particulier,Non,Vous n’êtes pas autorisé à accéder aux données de cette API.,,,
+API Service National,,117894659967146920543671876039627314650,entreprise ou association,Non,Vous n’êtes pas autorisé à accéder aux données de cette API.,,,
+API Service National,,117894659967146920543671876039627314650,collectivité ou administration,Peut-être,"<p>Conformément aux dispositions de l’[article L114-6  du code du service national](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000021960309/), les personnes de moins de 25 ans assujetties à l'obligation de participer à la journée défense et citoyenneté doivent être en règle pour être autorisées à s'inscrire aux examens et concours soumis au contrôle de l'autorité publique.</p>
+
+<p>Par conséquent, dans le cadre de cette vérification, vous pouvez faire une demande d'habilitation Datapass si vous êtes : </p>
+<p>- un service chargé de l'inscription à un examen ou un concours soumis au contrôle de l'autorité publique ;</p>
+<p>- un service de ressources humaines ou de recrutement chargé, en application de dispositions statutaires, de vérifier la situation des personnes de moins de 25 ans au regard des obligations de service national.</p>",,,
+API scolarité de l'élève,api-scolarite,72502282513630502988362202519763445190,particulier,Non,Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de cette API est uniquement reservé aux acteurs publics.,,,
+API scolarité de l'élève,api-scolarite,72502282513630502988362202519763445190,entreprise ou association,Non,Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de cette API est uniquement reservé aux acteurs publics.,,,
+API scolarité de l'élève,api-scolarite,72502282513630502988362202519763445190,collectivité ou administration,Oui,"<p>En tant qu'administration ou collectivité, vous êtes éligibles à cette API.</p>
+
+<p>Si vous avez besoin d'autres données concernant les particuliers, vous pouvez demander un accès au bouquet <a href=""https://api.gouv.fr/les-api/api-particulier"">API Particulier</a> opérée par la DINUM. Cette API délivre d'autres données telles que le quotient familial CAF/MSA, le statut étudiant, boursier, bénéficiaire du RSA, prime d'activité, etc.</p>
+
+<p>Si vous avez seulement besoin du statut scolarisé de l'élève, faîtes directement votre demande d'habilitation ici auprès du ministère de l'éducation nationale:</p>",,,
+API Indemnisation France Travail,,285348187247858384253205706510275964109,particulier,Non,"En tant que particulier ou demandeur d'emploi, vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de cette API est uniquement réservé aux acteurs publics. ",,,
+API Indemnisation France Travail,,285348187247858384253205706510275964109,entreprise ou association,Peut-être,"Vous pouvez accéder à l’API uniquement si vous êtes [partenaire de France Connect](https://franceconnect.gouv.fr/partenaires), et pour un cas d’usage autorisé par la loi. Vous devrez fournir le cadre juridique qui vous autorise à utiliser ces données.",,,
+API Indemnisation France Travail,,285348187247858384253205706510275964109,collectivité ou administration,Oui,"<p>En tant qu'administration ou collectivité, vous êtes éligibles à cette API.</p>
+
+<p>Si vous avez besoin d'autres données concernant les particuliers, vous pouvez demander un accès au bouquet [API Particulier](https://api.gouv.fr/les-api/api-particulier) opérée par la DINUM. Cette API délivre d'autres données telles que le quotient familial CAF/MSA, le statut demandeur d'emploi, élève scolarisé, étudiant, boursier, bénéficiaire du RSA, prime d'activité, etc.</p>
+
+<p>Si vous avez seulement besoin de la liste des paiements FranceTravail, faîtes directement votre demande d'habilitation ici auprès de FranceTravail :</p>",,,
+AgentConnect,,236789167194051095121847342313092996607,particulier,Non,Vous n’êtes pas autorisé à accéder aux données de cette API. Seules les administrations centrales et les opérateurs de l'État sont habilités à utiliser l'API AgentConnect ou intégrer le bouton AgentConnect.,,,
+AgentConnect,,236789167194051095121847342313092996607,entreprise ou association,Non,Vous n’êtes pas autorisé à accéder aux données de cette API. Seules les administrations centrales et les opérateurs de l'État sont habilités à utiliser l'API AgentConnect ou intégrer le bouton AgentConnect.,,,
+AgentConnect,,236789167194051095121847342313092996607,collectivité ou administration,Peut-être,"<p>**❌ Si vous êtes une collectivité territoriale, vous n’êtes pas autorisé à accéder aux données de cette API**. Seules les administrations centrales et les opérateurs de l'État sont habilités à utiliser l'API AgentConnect ou intégrer le bouton AgentConnect.</p>
+
+<p>**✅ Si vous êtes une administration centrale, un service déconcentré ou un opérateur de l'État, vous êtes éligibles.**</p>",,,
+API Sirene,,185164507617294308231299577986753363512,,Pas d'arbre de décision,,,,
+API Métadonnées,,129823273813551412334849460150023691628,,Pas d'arbre de décision,,,,
+API calendrier scolaire,,323223124683034560078040339715835760475,,Pas d'arbre de décision,,,,
+API Chorus Pro,,9538178963365973433498407620632074788,particulier,Non,Vous n’êtes pas autorisé à accéder aux données de cette API. Chorus Pro s’adresse aux des acteurs de la commande publique : émetteurs et récepteurs de facture.,,,
+API Chorus Pro,,9538178963365973433498407620632074788,entreprise ou association,Peut-être,"La plateforme s’adresse à l’ensemble des fournisseurs de l'Etat, tant privés que publics, afin de leur permettre de transmettre de façon efficace et automatique leurs factures à destination de la sphère publique.",,,
+API Chorus Pro,,9538178963365973433498407620632074788,collectivité ou administration,Oui,"<p>La plateforme s’adresse aux entités du secteur public : l’Etat, les établissements publics nationaux (EPN), les collectivités territoriales et les établissements publics locaux (EPL).</p>
+
+<p>Elle permet de traiter l’ensemble des factures de manière optimisée en réduisant les délais de validation et d’enregistrement.</p>",,,
+API RappelConso,,205113903884586235586203742738438785647,,Pas d'arbre de décision,,,,
+API Prix des contrôles techniques,,185038989231627872515459619655161582446,,Pas d'arbre de décision,,,,
+API Indemnités Journalières de la CNAM,api-indemnites-journalieres-cnam,188648496020380233182193920665332532493,particulier,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. Seules les assurances et complémentaires santé qui sont partenaires de France Connect sont éligibles.Cela étant dit, si vous avez un projet précis, <a href=""mailto:partenaires-api-ameli.cnam@assurance-maladie.fr"">contactez-nous</a> pour exposer votre projet.",,,
+API Indemnités Journalières de la CNAM,api-indemnites-journalieres-cnam,188648496020380233182193920665332532493,entreprise ou association,Peut-être,"<p><b>❌ Si vous êtes une entreprise ou une association, vous n'êtes pas éligible.</b> Cette API est accessible uniquement aux complémentaires santé et assurances partenaires de France Connect.</p>
+
+<p><b>✅ Si vous êtes une assurance ou un organisme de prévoyance</b>, vous êtes éligible si vous êtes partenaires de FranceConnect.</p>",,,
+API Indemnités Journalières de la CNAM,api-indemnites-journalieres-cnam,188648496020380233182193920665332532493,collectivité ou administration,Peut-être,Seules les administrations partenaires de FranceConnect sont éligibles.,,,
+API Géorisques,,139224595004086956892684654830656985003,,Pas d'arbre de décision,,,,
+API données foncières,,39479868076919890327920933424410415721,particulier,Non,Vous n’êtes pas autorisé à accéder aux données de cette API. Vous ne pouvez pas accéder aux données restreintes (sur les propriétaires et les locaux).,,,
+API données foncières,,39479868076919890327920933424410415721,entreprise ou association,Peut-être,"Si votre structure est agence d’urbanisme, EPF, uSAFER, ADIL, OLAP, SCoT, organisme de recherche, infrastructure de données géographiques, ou autre structure déjà bénéficiaire des données MAJIC, vous êtes probablement éligible.
+
+Pour demander un accès, déposez votre demande : ",,,
+API données foncières,,39479868076919890327920933424410415721,collectivité ou administration,Oui,"En tant qu'administration ou, vous êtes peut-être éligible si vous êtes une collectivité territoriale, un service de l’État, un établissement public de l’État, une agence d’urbanisme, un EPF, SAFER, ADIL, OLAP, SCoT, un organisme de recherche, une infrastructure de données géographiques, une autre structure déjà bénéficiaire des données MAJIC.",,,
+API contrôle CVEC (contribution de vie étudiante),,232097108677981557129952404279202294906,,Pas d'arbre de décision,,,,
+API Ingres - Nomenclatures,api-ingres,234239155537221281398071191768055308377,particulier,Non,Vous n’êtes pas autorisé à accéder aux données de cette API. L'API est réservée aux administrations.,,,
+API Ingres - Nomenclatures,api-ingres,234239155537221281398071191768055308377,entreprise ou association,Non,Vous n’êtes pas autorisé à accéder aux données de cette API. L'API est réservée aux administrations.,,,
+API Ingres - Nomenclatures,api-ingres,234239155537221281398071191768055308377,collectivité ou administration,Peut-être,"<p>Le CISIRH met à disposition cette API exploitable et accessible uniquement via le Réseau Interministériel de l'Etat (RIE).</p>
+
+<p>Son utilisation par une application tierce ne saurait engager la responsabilité du CISIRH, par exemple, en termes de disponibilité.</p>",,,
+Hub'Eau - Température des cours d'eau,,272239185692345116214502896627907822091,,Pas d'arbre de décision,,,,
+API Carto - module RPG,,285249858695339439511889069869731461401,,Pas d'arbre de décision,,,,
+API Carto - module Géoportail de l'Urbanisme (GPU),,164480264927210822043096532331502719594,,Pas d'arbre de décision,,,,
+API Carto - module AOC,,127377370346639759297634420334729785199,,Pas d'arbre de décision,,,,
+API Carto - module Cadastre,,243150653721180909070493552130358800301,,Pas d'arbre de décision,,,,
+API Carto - module Codes Postaux,,277806464599684091137028269348568958014,,Pas d'arbre de décision,,,,
+API Carto - module Nature,,60788204177123688781930500489665801875,,Pas d'arbre de décision,,,,
+API Carto - module WFS Géoportail,,237883086604491484581494628217937051110,,Pas d'arbre de décision,,,,
+API Tracabilité des déchets dangereux - Trackdéchets,,75339961731867541157564979640335128672,particulier,Non,Vous n’êtes pas autorisé à accéder aux données de cette API. L'API s'adresse aux opérateurs du traitement des déchets.,,,
+API Tracabilité des déchets dangereux - Trackdéchets,,75339961731867541157564979640335128672,entreprise ou association,Peut-être,"**❌ En tant qu'entreprise ou association, vous n'êtes par éligible à utiliser l'API.**
+
+**✅ Sauf pour les organisations suivantes** : 
+- les producteur de déchets,
+- les professionnel de la gestion de déchets (collecteurs, installations de tri-transit-regroupement, installation de traitement)
+- les transporteurs de déchets.
+- les éco-organismes
+- les courtiers et négociants
+
+Pour demander un accès, vous devez créer un compte sur le site Trackdéchets :",,,
+API Tracabilité des déchets dangereux - Trackdéchets,,75339961731867541157564979640335128672,collectivité ou administration,Oui,L'API est accessible aux administrations dans le cadre de leur mission de gestion des déchets. Vous devez créer un compte sur le site Trackdéchets pour y accéder.,,,
+API Radio France,,69691135057809165657310552715408742893,,Pas d'arbre de décision,,,,
+API Mobilic,api-mobilic,117059278279219353505518591298105557257,particulier,Non,Vous n’êtes pas autorisé à accéder aux données de cette API. L'API s'adresse aux opérateurs des transports.,,,
+API Mobilic,api-mobilic,117059278279219353505518591298105557257,entreprise ou association,Peut-être,"Certaines entreprises peuvent utiliser l'API :
+- les éditeurs de solutions du secteur des transports
+- les entreprises de livraison et de transports routiers
+
+Si vous êtes dans ce cas, vous devrez créer un compte pour accéder à l'API.",,,
+API Mobilic,api-mobilic,117059278279219353505518591298105557257,collectivité ou administration,Non,L'API s'adresse aux opérateurs des transports uniquement.,,,
+API GRDF ADICT,,26423210775062258320525472722996786371,particulier,Non,Vous n’êtes pas autorisé à accéder aux données de cette API. L'API s'adresse aux entreprises spécialisées et administrations ayant obtenu le consentement du titulaire.,,,
+API GRDF ADICT,,26423210775062258320525472722996786371,entreprise ou association,Peut-être,"Si vous êtes une entreprise dédiée à la maitrise de l'énergie ou un bureau d""étude, vous êtes peut-être éligible. Vous devrez alors créer un compte pour accéder à l'API. L'accès au flux est conditionné par la signature d’un consentement du titulaire.",,,
+API GRDF ADICT,,26423210775062258320525472722996786371,collectivité ou administration,Peut-être,"L'API est accessible aux collectivités, vous devrez créer un compte pour accéder à l'API. L'accès au flux est conditionné par la signature d’un consentement du titulaire.",,,
+API Data.Subvention,,207128933077358822480313468160437442324,particulier,Non,Vous n’êtes pas autorisé à accéder aux données de cette API.,,,
+API Data.Subvention,,207128933077358822480313468160437442324,entreprise ou association,Non,Vous n’êtes pas autorisé à accéder aux données de cette API.,,,
+API Data.Subvention,,207128933077358822480313468160437442324,collectivité ou administration,Oui,Vous devez faire une demande par mail à l'équipe Data Subventions,,,
+API La Bonne Boite,,286323874566696946588230365301802897969,,Pas d'arbre de décision,,,,
+,,,,Pas d'arbre de décision,,,,
+API Résultats aux examens,,153451227117255055635527977777851089855,,Pas d'arbre de décision,,,,
+API SI Amiante,,19055894564126652764674018098455013582,particulier,Non,Vous n’êtes pas autorisé à accéder aux données de cette API. Seules les administrations et certains éditeurs de logiciels peuvent utiliser cette API.,,,
+API SI Amiante,,19055894564126652764674018098455013582,collectivité ou administration,Peut-être,"Si vous êtes une préfecture ou une administration, vous pouvez utiliser cette API pour récupérer les rapports d'actvités et rapports d'alerte émis par les diagnostiqueurs et les laboratoires accrédités.",,,
+API SI Amiante,,19055894564126652764674018098455013582,entreprise ou association,Peut-être,Seuls les éditeurs de logiciels destinés aux diagnostiqueurs d'amiante et laboratoire accrédités peuvent utiliser l'API SI-Amiante.,,,
+API Pseudonymisation de documents (démo),,199353080125513823469786962383638997281,,Pas d'arbre de décision,,,,
+API Maladies Rares (ORPHAcode),,339884209153535840842121640619735187270,,Pas d'arbre de décision,,,,
+API Engagement,,255207777779808786977381600121258318572,particulier,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. Seules les administrations et certaines sociétés sont habilitées à publier leurs annonces sur l'API Engagement. En revanche, il vous est possible de consulter les annonces sur [JeVeuxAider.gouv.fr](https://www.jeveuxaider.gouv.fr/) ou le [portail Service Civique](https://www.service-civique.gouv.fr/jeunes-volontaires/?gclsrc=aw.ds)",,,
+API Engagement,,255207777779808786977381600121258318572,entreprise ou association,Oui,Les entreprises peuvent publier des annonces et les diffuser via l'API Engagement.,,,
+API Engagement,,255207777779808786977381600121258318572,collectivité ou administration,Oui,"Si vous êtes une collectivité ou une administration, vous pouvez remplir une demande d’habilitation à l’API Engagement vous-même pour l'entité que vous représentez.
+
+C'est cette demande d'habilitation qui vous permet à la fois de poster des annonces, ou de diffuser un flux d'annonces.",,,
+API Document unique de marché européen (Dume),,208075400418232347612858710204551065953,particulier,Non,"**En tant que particulier, vous n'êtes pas éligible**. L'API s’adresse à l’ensemble des fournisseurs de l'État, tant privés que publics, afin de leur permettre de transmettre de façon efficace et automatique leurs factures à destination de la sphère publique.",,,
+API Document unique de marché européen (Dume),,208075400418232347612858710204551065953,entreprise ou association,Oui,"L'API s’adresse à l’ensemble des fournisseurs de l'Etat, tant privés que publics, afin de leur permettre de transmettre de façon efficace et automatique leurs factures à destination de la sphère publique.",,,
+API Document unique de marché européen (Dume),,208075400418232347612858710204551065953,collectivité ou administration,Oui,"L'API s’adresse à l’ensemble des fournisseurs de l'Etat, tant privés que publics, afin de leur permettre de transmettre de façon efficace et automatique leurs factures à destination de la sphère publique.",,,
+API Accès libre,,79532929577800844321300761335415606309,,Pas d'arbre de décision,,,,
+API Transparence-Santé (Déclarations Entreprises),,106190048962820938736984480930225626708,particulier,Non,Vous n’êtes pas autorisé à accéder à cette API. L'API est réservée aux entreprises.,,,
+API Transparence-Santé (Déclarations Entreprises),,106190048962820938736984480930225626708,entreprise ou association,Peut-être,"**❌ Si vous êtes un professionnel de santé, vous n'êtes pas éligible.**
+
+**✅ Si vous êtes une entreprise, vous êtes éligible.**",,,
+API Transparence-Santé (Déclarations Entreprises),,106190048962820938736984480930225626708,collectivité ou administration,Non,"En tant qu'administration ou collectivité territoriale, vous n'êtes pas éligible. L'API est réservée aux entreprises.",,,
+API Smart Verify,,113627769708139787913251526853307366634,particulier,Non,Vous n’êtes pas autorisé à accéder à cette API.,,,
+API Smart Verify,,113627769708139787913251526853307366634,entreprise ou association,Oui,L’API est accessible gratuitement en accès restreint.,,,
+API Smart Verify,,113627769708139787913251526853307366634,collectivité ou administration,Oui,L’API est accessible gratuitement en accès restreint.,,,
+API Marché du travail,,249900176916182167208769632010465480078,,Pas d'arbre de décision,,,,
+API Informations sur l'emploi dans un territoire,,51079163781402370615831402349982666960,,Pas d'arbre de décision,,,,
+API Sortants de formation et accès à l'emploi,,147500406526130716873583604353287453344,,Pas d'arbre de décision,,,,
+API Base nationale des défibrillateurs,,187154495419132797723225364528708455583,particulier,Oui,"Vous pouvez accéder à la liste des défibrillateurs directement sur data.gouv.fr. Si vous souhaitez accéder à l'API, vous devez faire une",,,
+API Base nationale des défibrillateurs,,187154495419132797723225364528708455583,entreprise ou association,Oui,Cette API permet d'interroger et d'alimenter la base nationale des défibrillateurs.,,,
+API Base nationale des défibrillateurs,,187154495419132797723225364528708455583,collectivité ou administration,Oui,Cette API permet d'interroger et d'alimenter la base nationale des défibrillateurs.,,,
+API CaptchEtat,api-captchetat,38584335088390227153318963344779636828,particulier,Non,Vous n’êtes pas autorisé à accéder à cette API. L'API est réservée aux administrations.,,,
+API CaptchEtat,api-captchetat,38584335088390227153318963344779636828,entreprise ou association,Non,Vous n’êtes pas autorisé à accéder à cette API. L'API est réservée aux administrations.,,,
+API CaptchEtat,api-captchetat,38584335088390227153318963344779636828,collectivité ou administration,Oui,,,,
+API Accès à l'emploi,,161454008677510463971197956648995081010,,Pas d'arbre de décision,,,,
+le.taxi,le-taxi,213536914625656058268275180933234907255,particulier,Non,❌ Vous n’êtes pas autorisé à accéder à cette API. Seuls les opérateurs de taxi ou éditeurs d’application peuvent demander un accès à l’API.,,,
+le.taxi,le-taxi,213536914625656058268275180933234907255,entreprise ou association,Peut-être,"❌ <b>Si vous êtes un artisan taxi</b>, vous n'êtes pas éligible car vous devez utiliser un applicatif chauffeur ou un logiciel connecté.
+
+✅ <b>Si vous êtes un groupement de taxi, une application de mobilité, un acteur de mobilité publique, vous êtes éligible !</b>
+
+Vous pouvez remplir une demande d’habilitation à l’API le.taxi dans le cadre des articles <a href =""https://www.legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000029528684&cidTexte=LEGITEXT000023086525"">L. 3121-11-1</a> et <a href=""https://www.legifrance.gouv.fr/affichCode.do?idSectionTA=LEGISCTA000032278146&cidTexte=LEGITEXT000023086525"">R3121-24 à R3121-33</a> du Code des transports.
+
+<b>Si vous êtes éditeur de logiciel pour les flottes de taxe, prenez contact avec nous directement</b>. Les éditeurs logiciels qui équipent les flottes de taxis ont un statut spécifique sur notre API (manager de flotte).
+
+Écrivez-nous à equipe@le.taxi en nous présentant votre structure et nous reviendrons très rapidement vers vous. ",,,
+le.taxi,le-taxi,213536914625656058268275180933234907255,collectivité ou administration,Non,❌ Vous n’êtes pas autorisé à accéder à cette API. Seuls les opérateurs de taxi ou éditeurs d’application peuvent demander un accès à l’API.,,,
+API Bulletin officiel des annonces des marchés publics (BOAMP),,127360128830380707604044265513446695435,,Pas d'arbre de décision,,,,
+API Look4 Géoportail,,106431679498596450066429576467258631173,,Pas d'arbre de décision,,,,
+Offres d'emploi,,327916456901529968201418271130634422761,,Pas d'arbre de décision,,,,
+API Bulletin des Annonces Légales Obligatoires (BALO),,330847407903069082934791906169297121894,,Pas d'arbre de décision,,,,
+API Bulletin officiel des annonces civiles et commerciales (BODACC),,234578266116127563189479517920178363376,,Pas d'arbre de décision,,,,
+API Annuaire de l’administration et des services publics,,225520477917896328793904998977729235174,,Pas d'arbre de décision,,,,
+API Annonces officielles et comptes annuels des associations,,38626773611867938582110392739514510742,,Pas d'arbre de décision,,,,
+API Sudocuh - Résultats des enquêtes d'urbanisme,,101761905730026283816146664003654008396,,Pas d'arbre de décision,,,,
+API Répertoire opérationnel des métiers et des emplois (ROME 4.0),,297850505189916321318009606161044674113,,Pas d'arbre de décision,,,,
+API Mir@bel (revues),,126130684170405505926157474774807419041,,Pas d'arbre de décision,,,,
+API Mes Aides Reno,,246051464131670615833297218806559664811,,Pas d'arbre de décision,,,,
+API Ma Sécurité,,164899084280016916872856129317041420226,particulier,Non,Vous n’êtes pas autorisé à accéder à cette API.,,,
+API Ma Sécurité,,164899084280016916872856129317041420226,entreprise ou association,Non,Vous n’êtes pas autorisé à accéder à cette API.,,,
+API Ma Sécurité,,164899084280016916872856129317041420226,collectivité ou administration,Oui,L’API est accessible gratuitement en accès restreint. Une signature de convention avec la gendarmerie nationale constitue un préalable à la génération de la clé d’API. L’intention est de permettre aux partenaires de la gendarmerie nationale de diffuser facilement les informations susceptibles d’intéresser leur client.,,,
+,,,particulier,Non,Vous n’êtes pas autorisé à accéder à cette API. L’usage de l’API ma-cantine est réservée aux gestionnaires de cantines pour qu'il puissent gérer leurs établissements et effectuer les démarches de suivi d'achats alimentaires. ,,,
+,,,entreprise ou association,Peut-être,"Si vous êtes un gestionnaire de cantine, vous pouvez utiliser cette API pour interfacer votre logiciel avec la plateforme ma-cantine. 
+
+Plus d'information sur l'API avec notre plateforme de démo pour les tests :  https://ma-cantine-demo.cleverapps.io/developpement-et-apis/",,,
+,,,collectivité ou administration,Peut-être,"Si vous êtes un gestionnaire de cantine, vous pouvez utiliser cette API pour interfacer votre logiciel avec la plateforme ma-cantine. 
+
+Plus d'information sur l'API avec notre plateforme de démo pour les tests :  https://ma-cantine-demo.cleverapps.io/developpement-et-apis/",,,
+API Interroger les Données de theses.fr,,87258741558809575008498945681541700025,,Pas d'arbre de décision,,,,
+API IMPRIM'FIP,api-imprimfip-sandbox,43944763502142237671053083684561151963,particulier,Non,Vous n’êtes pas autorisé à accéder à cette API.,,,
+API IMPRIM'FIP,api-imprimfip-sandbox,43944763502142237671053083684561151963,entreprise ou association,Non,Vous n’êtes pas autorisé à accéder à cette API.,,,
+API IMPRIM'FIP,api-imprimfip-sandbox,43944763502142237671053083684561151963,collectivité ou administration,Peut-être,"L'API IMPRIM’FIP permet le dépôt de fichiers (mono documents ou multi plis avec ou sans annexes) et le suivi de leur traitement. L'utilisation de l'API IMPRIM’FIP nécessite la réalisation de tests éditiques préalables avec l'équipe dédiée au sein de la DGFiP afin de vérifier l'éligibilité des courriers à la solution. Dans le cadre de votre demande d'habilitation, vous serez recontacté à cet effet.",,,
+API Gels des avoirs,,154771893354764708353362141874152828357,,Pas d'arbre de décision,,,,
+API Fonds Vert,,194390685873859790645710420364896487350,,Pas d'arbre de décision,,,,
+API Export des Données de theses.fr,,61146150213419202504652007193775508725,,Pas d'arbre de décision,,,,
+API Evénements France Travail,,16289508300205393375058627612333990393,,Pas d'arbre de décision,,,,
+API Données ouvertes d'Enedis,,98600862494563182956071438970867823635,,Pas d'arbre de décision,,,,
+API Données locales de consommation d'énergie,,314884023606738237922667159542677833039,,Pas d'arbre de décision,,,,
+API Diffusion des Fichiers de Thèses sur theses.fr,,95303253530109995673834998434535261839,,Pas d'arbre de décision,,,,
+API Data ES,,188383173732179980164774700184564242132,,Pas d'arbre de décision,,,,
+Hub'Eau - Hydrométrie,,152529271807194548122640707936583859339,,Pas d'arbre de décision,,,,
+API de droits à l'Assurance Maladie,api-droits-cnam,55768708073125474035269741221935553168,particulier,Non,Vous n’êtes pas autorisé à accéder à cette API. Seuls les établissements de soins et les organismes complémentaires en santé peuvent accéder à cette API.,,,
+API de droits à l'Assurance Maladie,api-droits-cnam,55768708073125474035269741221935553168,entreprise ou association,Peut-être,"Cette API est actuellement réservée aux établissements de soins pour leur démarche de pré admission et aux organismes complémentaires en santé pour faciliter leur démarche d’adhésion.
+
+Cette API fonctionne uniquement avec FranceConnect; vous devez remplir les critères d'eligbilité de FranceConnect.
+
+L’utilisation de l’API est soumise à une convention d’usage avec la Caisse Nationale d’Assurance Maladie. Les données accessibles dépendent également du cas d’usage.
+
+La Caisse Nationale se réserve le droit d’évaluer l’éligibilité des candidats au regard des cas d’usage indiqués.",,,
+API de droits à l'Assurance Maladie,api-droits-cnam,55768708073125474035269741221935553168,collectivité ou administration,Peut-être,"Cette API est actuellement réservée aux établissements de soins pour leur démarche de pré admission et aux organismes complémentaires en santé pour faciliter leur démarche d’adhésion.
+
+Cette API fonctionne uniquement avec FranceConnect; vous devez remplir les critères d'eligbilité de FranceConnect.
+
+L’utilisation de l’API est soumise à une convention d’usage avec la Caisse Nationale d’Assurance Maladie. Les données accessibles dépendent également du cas d’usage.
+
+La Caisse Nationale se réserve le droit d’évaluer l’éligibilité des candidats au regard des cas d’usage indiqués.",,,
+Hub'Eau - Etat piscicole des rivières,,76255764032467999061580381704625573159,,Pas d'arbre de décision,,,,
+Hub'Eau - Qualité des cours d'eau,,265110377259042436824653967056756666538,,Pas d'arbre de décision,,,,
+API Système Universitaire de Documentation (Sudoc),,26759058280180054882438789469241531685,,Pas d'arbre de décision,,,,
+API Identifiants et Référentiels pour l'enseignement supérieur et la recherche (IdRef),,236883205165865080665890104555966747142,,Pas d'arbre de décision,,,,
+API Démarches du Ministère de la culture,,13853302860310915204788078939417976011,,Pas d'arbre de décision,,,,
+API Anotéa,,113533561912845088487195641356880336311,,Pas d'arbre de décision,,,,
+API Référentiel des agences France Travail,,21629255374187740405653125264905269519,,Pas d'arbre de décision,,,,
+Hub'Eau - Indicateurs Eau potable et Assainissement,,221104576233246166314329394800540390560,,Pas d'arbre de décision,,,,
+Hub'Eau - Qualité des nappes d'eau souterraine,,154606021684711638023382495403446968880,,Pas d'arbre de décision,,,,
+Hub'Eau - Piézométrie,,126433868501024819249887176217762823687,,Pas d'arbre de décision,,,,
+API Indicateur de Fréquences de Traitements phytopharmaceutiques,,46400548007826947508549212675764536384,,Pas d'arbre de décision,,,,
+API travaux Rennes Métropole,,7728380968596636189439772250975593527,,Pas d'arbre de décision,,,,
+API RVA Rennes Métropole,,207549068691785732301327006638784631694,,Pas d'arbre de décision,,,,
+API Référentiel SANDRE Version 1,,269808704130540668888876268164591600555,,Pas d'arbre de décision,,,,
+Hub'Eau - Prélèvements en eau,,155739706309284286331679152611791367190,,Pas d'arbre de décision,,,,
+API Camino,,198327853377894289547276315415820586546,,Pas d'arbre de décision,,,,
+API données ouvertes de l’Éducation Nationale,,107482228283864505269323114372132089423,,Pas d'arbre de décision,,,,
+Webstat,,141954576104715397142619328183449164606,,Pas d'arbre de décision,,,,
+"scanR, moteur de la recherche et de l'innovation",,327380685785190910692213055617179278570,,Pas d'arbre de décision,,,,
+OpenFisca,,162041463959197376808832897554156523991,,Pas d'arbre de décision,,,,
+Jours fériés,,33313039057115421314728504447637128202,,Pas d'arbre de décision,,,,
+API Répertoire National des Métiers,,101169759320684447635876283153012236327,,Pas d'arbre de décision,,,,
+API Quotient familial MSA & CAF | Bouquet API Particulier,,119219003377833747759842812850417740675,particulier,Non,"      Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Particulier est **uniquement reservé aux acteurs publics** : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, les organismes ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, etc.",,,
+API Quotient familial MSA & CAF | Bouquet API Particulier,,119219003377833747759842812850417740675,collectivité ou administration,Oui,"      Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, vous êtes éligible à l'utilisation de l'API Particulier.  
+
+      **Si votre cadre légal le justifie**, l’API Particulier vous permet d’accéder directement aux données administratives des particuliers, dont leur quotient familial CAF ou MSA, pour faciliter leurs démarches.
+      - Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Particulier, consultez nos différents <External href=""https://particulier.api.gouv.fr/cas_usages"">cas d'usages</External> (Tarification cantine et transport, aides facultatives départementales et régionales, aides sociales des CCAS, gestion RH du secteur public ...)
+      - Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <External href=""https://particulier.api.gouv.fr/catalogue"">catalogue des API</External>.
+",,,
+API Quotient familial MSA & CAF | Bouquet API Particulier,,119219003377833747759842812850417740675,entreprise ou association,Non,"      Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Particulier est **uniquement reservé aux acteurs publics** : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, les organismes ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, etc.
+
+      <Button href=""/rechercher-api"" alt>Rechercher une autre API</Button>
+
+      Si vous êtes **éditeur de logiciels pour des acteurs publics, c'est à vos utilisateurs collectivité ou administration de faire une demande d'habilitation.**
+
+      En revanche, vous pouvez nous demander de vous référencer sur un cas d'usage afin de proposer des formulaires pré-remplis et ainsi simplifier l'expérience de vos clients publics :
+
+      <Button href=""https://form.typeform.com/to/OJ4rkf5Z"">Demander à être référencé</Button>",,,
+API QuiForme,,22448549870160779810152556443088351213,particulier,Non,Vous n’êtes pas autorisé à accéder aux données de cette API.,,,
+API QuiForme,,22448549870160779810152556443088351213,collectivité ou administration,Oui,"En tant qu'administration ou collectivité, vous êtes éligibles à cette API selon votre cadre juridique
+
+Si vous avez besoin d'autres données concernant les entreprises et les associations, vous pouvez demander un accès au bouquet [API Entreprise](https://api.gouv.fr/les-api/api-entreprise) opérée par la DINUM. Cette API délivre d'autres données sur les entreprises et les associations
+
+Si vous avez seulement besoin des données de l'API Quiforme, faîtes directement votre demande d'habilitation ici auprès de Carif-Oref :",,,
+API QuiForme,,22448549870160779810152556443088351213,entreprise ou association,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API.
+
+Si vous êtes éditeur de logiciel, vous êtes éligible à intégrer cette API si vous le faîtes pour le compte d'une entité publique (administrations, collectivités, etc.) dont vous êtes le prestataire.",,,
+API Professionnels RGE,,58651953459713582696931808564078502739,,Pas d'arbre de décision,,,,
+Hub'Eau - Surveillance du littoral,,202608540509421730300622371234418330552,,Pas d'arbre de décision,,,,
+Hub'Eau - Ecoulement des cours d'eau,,11326635725655934737054200292315825361,,Pas d'arbre de décision,,,,
+Hub'Eau - Hydrobiologie,,158641285217172548509723813716859147726,,Pas d'arbre de décision,,,,
+Hub'Eau - Qualité de l'eau potable,,294961732852796185089472196016486828512,,Pas d'arbre de décision,,,,
+API Gallica Recherche,,5212042956053498724739723754515196205,,Pas d'arbre de décision,,,,
+API Gallica Document,,105519820618147527139875893206793244693,,Pas d'arbre de décision,,,,
+API Gallica IIIF,,27156467447634705587814687921069567446,,Pas d'arbre de décision,,,,
+API DPE logements,,111483984121135045011381183528312223585,,Pas d'arbre de décision,,,,
+API DPE bâtiments tertiaires,,121618006560829145386629021277088578813,,Pas d'arbre de décision,,,,
+API Diffusion Données Locales,,90382184358307513041132302746587685209,,Pas d'arbre de décision,,,,
+API catalogue des données ouvertes - data.gouv.fr,,301587056195886603715688349482507142150,,Pas d'arbre de décision,,,,
+API Complémentaire santé solidaire | Bouquet API Particulier,,151603327786532306321441843338793683587,particulier,Non,"      Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Particulier est **uniquement reservé aux acteurs publics** : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, les organismes ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, etc.
+
+      <Button href=""/rechercher-api"" alt>Rechercher une autre API</Button>",,,
+API Complémentaire santé solidaire | Bouquet API Particulier,,151603327786532306321441843338793683587,collectivité ou administration,Oui,"      Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, vous êtes éligible à l'utilisation de l'API Particulier.  
+
+      **Si votre cadre légal le justifie**, l’API Particulier vous permet d’accéder directement aux données administratives des particuliers, dont leur statut bénéficiaire de la complémentaire santé solidaire, pour faciliter leurs démarches.
+      - Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Particulier, consultez nos différents <External href=""https://particulier.api.gouv.fr/cas_usages"">cas d'usages</External> (Tarification cantine et transport, aides facultatives départementales et régionales, aides sociales des CCAS, gestion RH du secteur public ...)
+      - Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <External href=""https://particulier.api.gouv.fr/catalogue"">catalogue des API</External>.
+
+      <Button href='https://datapass.api.gouv.fr/api-particulier'>Demander une habilitation API Particulier</Button>",,,
+API Complémentaire santé solidaire | Bouquet API Particulier,,151603327786532306321441843338793683587,entreprise ou association,Non,"      Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Particulier est **uniquement reservé aux acteurs publics** : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, les organismes ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, etc.
+
+      <Button href=""/rechercher-api"" alt>Rechercher une autre API</Button>
+
+      Si vous êtes **éditeur de logiciels pour des acteurs publics, c'est à vos utilisateurs collectivité ou administration de faire une demande d'habilitation.**
+
+      En revanche, vous pouvez nous demander de vous référencer sur un cas d'usage afin de proposer des formulaires pré-remplis et ainsi simplifier l'expérience de vos clients publics :
+
+      <Button href=""https://form.typeform.com/to/OJ4rkf5Z"">Demander à être référencé</Button>",,,
+Le Point d’Accès National aux données de transport,,206822535899830719976737462237251055100,,Pas d'arbre de décision,,,,
+API BDM,,191401212796293420735928332426431262757,,Pas d'arbre de décision,,,,
+API Base Carbone,,110488821621900562554516190731544649574,,Pas d'arbre de décision,,,,
+API Associations (RNA),,337985637111761929317383554794044102879,,Pas d'arbre de décision,,,,
+API Aides financières à la rénovation énergetique (Simul’Aid€s),,286081436070344994173183241593020510186,,Pas d'arbre de décision,,,,
+API Aides financieres de l’ADEME,,301186547224943510690387210433290008486,,Pas d'arbre de décision,,,,
+API Impacts environnementaux - AGRIBALYSE®,,110990672395543791662405268155160808371,,Pas d'arbre de décision,,,,
+API VigiEau,,109999183836518135293949937069910514794,,Pas d'arbre de décision,,,,
+API Tiers de prestation,,251705109416485457521542082775527993286,particulier,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. Pour accéder à l’API Tiers de prestation, vous devez être un organisme de service à la personne au sens de l’article de l'article L. 7232-6 du code du travail.",,,
+API Tiers de prestation,,251705109416485457521542082775527993286,collectivité ou administration,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. Pour accéder à l’API Tiers de prestation, vous devez être un organisme de service à la personne au sens de l’article de l'article L. 7232-6 du code du travail.",,,
+API Tiers de prestation,,251705109416485457521542082775527993286,entreprise ou association,Peut-être,"Pour accéder à l’API Tiers de prestation, vous devez être un organisme de service à la personne au sens de l’article de l'article L. 7232-6 du code du travail.
+
+Si vous êtes prestataire de services à la personne, vous pouvez remplir une demande d’habilitation à l’API.
+
+Si vous êtes mandataire de services à la personne en tant que mandataire complet, vous pouvez remplir une demande d’habilitation à l’API.
+Le mode mandataire complet implique que le particulier vous confie, contre rémunération, un certain nombre de tâches par contrat de mandat : recherche de candidatures, recrutement et embauche, calcul et établissement des bulletins de paie etc. et l’émission de votre part d’une facture à régler par le particulier.
+Le particulier est alors l’employeur de l’intervenant qui intervient à son domicile et vous procédez pour le compte du particulier au versement des cotisations et contributions sociales dues au titre de l'emploi du salarié concerné auprès de la branche recouvrement.",,,
+API Terminologies de Santé (SMT),,25540986599693587840164551393952167633,,Pas d'arbre de décision,,,,
+API Statut étudiant | Bouquet API Particulier,,72300251457462512933339454898517499633,particulier,Non,"      Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Particulier est **uniquement reservé aux acteurs publics** : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, les organismes ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, etc.
+
+      <Button href=""/rechercher-api"" alt>Rechercher une autre API</Button>",,,
+API Statut étudiant | Bouquet API Particulier,,72300251457462512933339454898517499633,collectivité ou administration,Oui,"      Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, vous êtes éligible à l'utilisation de l'API Particulier.  
+
+      **Si votre cadre légal le justifie**, l’API Particulier vous permet d’accéder directement aux données administratives des particuliers, dont leur statut étudiant, pour faciliter leurs démarches.
+      - Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Particulier, consultez nos différents <External href=""https://particulier.api.gouv.fr/cas_usages"">cas d'usages</External> (Tarification cantine et transport, aides facultatives départementales et régionales, aides sociales des CCAS, gestion RH du secteur public ...)
+      - Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <External href=""https://particulier.api.gouv.fr/catalogue"">catalogue des API</External>.
+
+      <Button href='https://datapass.api.gouv.fr/api-particulier'>Demander une habilitation API Particulier</Button>",,,
+API Statut étudiant | Bouquet API Particulier,,72300251457462512933339454898517499633,entreprise ou association,Non,"      Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Particulier est **uniquement reservé aux acteurs publics** : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, les organismes ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, etc.
+
+      <Button href=""/rechercher-api"" alt>Rechercher une autre API</Button>
+
+      Si vous êtes **éditeur de logiciels pour des acteurs publics, c'est à vos utilisateurs collectivité ou administration de faire une demande d'habilitation.**
+
+      En revanche, vous pouvez nous demander de vous référencer sur un cas d'usage afin de proposer des formulaires pré-remplis et ainsi simplifier l'expérience de vos clients publics :
+
+      <Button href=""https://form.typeform.com/to/OJ4rkf5Z"">Demander à être référencé</Button>",,,
+API Statut étudiant boursier | Bouquet API Particulier,,82537611158777941523307318977283363308,particulier,Non,"      Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Particulier est **uniquement reservé aux acteurs publics** : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, les organismes ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, etc.
+
+      <Button href=""/rechercher-api"" alt>Rechercher une autre API</Button>",,,
+API Statut étudiant boursier | Bouquet API Particulier,,82537611158777941523307318977283363308,collectivité ou administration,Oui,"      Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, vous êtes éligible à l'utilisation de l'API Particulier.  
+
+      **Si votre cadre légal le justifie**, l’API Particulier vous permet d’accéder directement aux données administratives des particuliers, dont leur statut étudiant boursier, pour faciliter leurs démarches.
+      - Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Particulier, consultez nos différents <External href=""https://particulier.api.gouv.fr/cas_usages"">cas d'usages</External> (Tarification cantine et transport, aides facultatives départementales et régionales, aides sociales des CCAS, gestion RH du secteur public ...)
+      - Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <External href=""https://particulier.api.gouv.fr/catalogue"">catalogue des API</External>.
+
+      <Button href='https://datapass.api.gouv.fr/api-particulier'>Demander une habilitation API Particulier</Button>",,,
+API Statut étudiant boursier | Bouquet API Particulier,,82537611158777941523307318977283363308,entreprise ou association,Non,"      Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Particulier est **uniquement reservé aux acteurs publics** : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, les organismes ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, etc.
+
+      <Button href=""/rechercher-api"" alt>Rechercher une autre API</Button>
+
+      Si vous êtes **éditeur de logiciels pour des acteurs publics, c'est à vos utilisateurs collectivité ou administration de faire une demande d'habilitation.**
+
+      En revanche, vous pouvez nous demander de vous référencer sur un cas d'usage afin de proposer des formulaires pré-remplis et ainsi simplifier l'expérience de vos clients publics :
+
+      <Button href=""https://form.typeform.com/to/OJ4rkf5Z"">Demander à être référencé</Button>",,,
+API Sesali,,192539970846303963985946039453430517257,particulier,Non,Vous n’êtes pas autorisé à accéder aux données de cette API. Seuls les les éditeurs de logiciels raccordés à Pro Santé Connect sont habilitées à utiliser l'API Sesali.,,,
+API Sesali,,192539970846303963985946039453430517257,collectivité ou administration,Non,Vous n’êtes pas autorisé à accéder aux données de cette API. Seuls les les éditeurs de logiciels raccordés à Pro Santé Connect sont habilitées à utiliser l'API Sesali.,,,
+API Sesali,,192539970846303963985946039453430517257,entreprise ou association,Peut-être,Seuls les les éditeurs de logiciels raccordés à Pro Santé Connect sont habilitées à utiliser l'API Sesali.,,,
+API Services Publics Plus - Structures,,180270916952243615256948747030825561355,,Pas d'arbre de décision,,,,
+API Resultats de qualité des services publics,,328437262261070233932240404588951956207,,Pas d'arbre de décision,,,,
+API Services Publics Plus - Expériences,,80662891490730337171114899707375100777,,Pas d'arbre de décision,,,,
+API Registre des Bénéficiaires Effectifs (RBE),,259674753163560715494673979212422074939,particulier,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. Les particuliers ne sont pas éligibles a cette API.
+
+Les personnes éligibles au services sont définies dans les articles L561-2 à L561-4  du Code monétaire et financier concernant les personnes assujetties aux obligations de lutte contre le blanchiment des capitaux et le financement du terrorisme.",,,
+API Registre des Bénéficiaires Effectifs (RBE),,259674753163560715494673979212422074939,collectivité ou administration,Peut-être,"Les personnes éligibles au services sont définies dans les articles L561-2 à L561-4  du Code monétaire et financier concernant les personnes assujetties aux obligations de lutte contre le blanchiment des capitaux et le financement du terrorisme.
+
+Si vous faites parties des personnes éligibles, vous pouvez remplir une demande en téléchargeant et complétant le [formulaire de demande d'habilitation](https://api.gouv.fr/resources/formulaire_rbe.pdf) . Une fois le formulaire complété, soumettez votre demande d'habilitation à l'API",,,Attention c'est une adresse mail
+API Registre des Bénéficiaires Effectifs (RBE),,259674753163560715494673979212422074939,entreprise ou association,Peut-être,"Les personnes éligibles au services sont définies dans les <External href=""https://www.legifrance.gouv.fr/codes/id/LEGIARTI000041577735/2020-02-14/"">articles L561-2 à L561-4</External> du *Code monétaire et financier* concernant les personnes assujetties aux obligations de lutte contre le blanchiment des capitaux et le financement du terrorisme.
+
+      **Si vous faites parties des administrations éligibles, deux API, distribuant les mêmes données, sont à votre disposition :** 
+      - **L'API RBE opérée par l'Inpi**. Pour y accéder, vous pouvez devez d'abord remplir une demande en téléchargeant et en complétant <External href='/resources/formulaire_rbe.pdf'>le formulaire suivant</External>.
+      Une fois le formulaire complété, soumettez votre demande d'habilitation à l'API à <a href=""mailto:rbe@inpi.fr"">rbe@inpi.fr</a>
+      - **L'<a href=""https://entreprise.api.gouv.fr/catalogue/inpi/rne/beneficiaires_effectifs"">API RBE opérée par API Entreprise</a>**. Le bouquet API Entreprise permet aux administrations d'accéder à de nombreuses données entreprises et associations, dont les bénéficiaires effectifs. _La demande d'accès se fait directement en ligne avec <a href=""https://datapass.api.gouv.fr/api-entreprise"">Datapass</a>_. ",,,
+API Professionnels BIO,,320125529545557048162969210045503867759,,Pas d'arbre de décision,,,,
+API Pro Santé Connect,api-pro-sante-connect,29131682705900922526092350587154543845,particulier,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. Les particuliers ne sont pas éligibles a cette API.
+Seules les administrations et les éditeurs de logiciels sont habilitées à utiliser l'API Pro Santé Connect ou intégrer le bouton Pro Santé Connect.",,,
+API Pro Santé Connect,api-pro-sante-connect,29131682705900922526092350587154543845,collectivité ou administration,Oui,,,,
+API Pro Santé Connect,api-pro-sante-connect,29131682705900922526092350587154543845,entreprise ou association,Peut-être,Seuls les éditeurs de logiciels français proposant une solution web adressée aux professionnels de santé peuvent demander à se raccorder à Pro Santé Connect.,,,
+API données ouvertes de l’Urssaf,,252195082857323556978763095101129236483,,Pas d'arbre de décision,,,,
+API données ouvertes de l'ONISEP,,123246505443552681072664520081504116397,,Pas d'arbre de décision,,,,
+API Mon entreprise,,29974271862273873072966845572201762381,,Pas d'arbre de décision,,,,
+API Marché de l'inclusion,,23673438300196919861893092334310996701,,Pas d'arbre de décision,,,,
+API données ouvertes de Loire-Atlantique,,53167779126670939704989905808043460704,,Pas d'arbre de décision,,,,
+API Alternance,,223958726998563275632289574060661537759,,Pas d'arbre de décision,,,,
+API Judilibre,,44463413058191736031924434353519340123,,Pas d'arbre de décision,,,,
+API info-financière,,191317550132851670047370464581713638500,,Pas d'arbre de décision,,,,
+,,,particulier,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’API s’adresse à tous les établissements proposant une formation dans l’enseignement supérieur et aux systèmes d’information dans l'enseignement supérieur, comme les plateformes de candidature aux établissements d’enseignement supérieur ou le CNOUS.",,,
+,,,collectivité ou administration,Peut-être,"**❌Si vous êtes une administration ou une collectivité, vous n'êtes pas éligible.**
+
+**✅ Sauf si vous êtes un établissement ou système d'information dans l'enseignement supérieur, vous êtes éligible**. Une authentification (identifiants d’accès directement fourni par le MESR aux établissements) est nécessaire. Contactez le projet INES à cette adresse si besoin : [projet.ines@enseignementsup.gouv.fr](projet.ines@enseignementsup.gouv.fr)",,,
+,,,entreprise ou association,Peut-être,"**❌Si vous êtes une entreprise ou une association, vous n'êtes pas éligible.**
+
+**✅ Sauf si vous êtes une entreprise dans l'enseignement supérieur, vous êtes alors peut-être éligible**. Contactez le projet INES à l'adresse : [projet.ines@enseignementsup.gouv.fr](projet.ines@enseignementsup.gouv.fr)",,,
+,,,,Pas d'arbre de décision,,,,
+API Immersion Facilitée,,138472304326259422620652820233087654865,,Pas d'arbre de décision,,,,
+API France Chaleur Urbaine,,317202645894070782424637265750835082656,,Pas d'arbre de décision,,,,
+API FANTOIR,,321062189486010243548961888979628489621,,Pas d'arbre de décision,,,,
+API Les emplois de l'inclusion,,183791913247115684765426944598893190282,,Pas d'arbre de décision,,,,
+API Ecobalyse - impacts environnementaux des produits textiles,,3344556505404896708688637429781424405,,Pas d'arbre de décision,,,,
+API ECLAIRE,,22470322685169633951409898899075643175,,Pas d'arbre de décision,,,,
+API Tierce Déclaration Pajemploi,,332630686013886630759567780587213182864,particulier,Non,Vous n’êtes pas autorisé à accéder aux données de cette API.,,,
+API Tierce Déclaration Pajemploi,,332630686013886630759567780587213182864,collectivité ou administration,Non,Vous n’êtes pas autorisé à accéder aux données de cette API.,,,
+API Tierce Déclaration Pajemploi,,332630686013886630759567780587213182864,entreprise ou association,Peut-être,"✅ Si vous êtes éditeur application mobile/éditeur de service web et agissez ou comptez agir pour le compte de vos clients en qualité de tiers déclarant, vous pouvez remplir une demande d’habilitation à l’API vous-même pour l'entité que vous représentez, au sens des articles L.133-11, [R133-43 et R133-44](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037877089) du Code de Sécurité sociale.
+
+❌ Les éditeurs de logiciel de paie ne sont pas autorisés à accéder à ces données",,,
+API Déclaration préalable à l'embauche,,265168586794199604740572618530877355016,particulier,Non,Vous n’êtes pas autorisé à accéder aux données de cette API.,,,
+API Déclaration préalable à l'embauche,,265168586794199604740572618530877355016,entreprise ou association,Non,"Si vous êtes déclarant direct, il ne vous est pas nécessaire de souscrire : vous avez déjà accès à l’API en utilisant vos identifiants Urssaf il vous suffit ainsi de [consulter la documentation pour utiliser l’API](https://www.dpae-edi.urssaf.fr/5492-API-DPAE-Guide-Implementation.pdf)
+
+Si vous êtes concentrateur, vous pouvez peut-être accéder aux données de cette API, et pouvez remplir une demande d'habilitation.
+
+Pour tout autre cas de figure, vous n'êtes pas autorisé à accéder aux données de cette API.",,,
+API Tierce Déclaration Cesu,api-declaration-cesu,261382762515929760966579111238675388780,particulier,Non,Vous n’êtes pas autorisé à accéder aux données de cette API.,,,
+API Tierce Déclaration Cesu,api-declaration-cesu,261382762515929760966579111238675388780,collectivité ou administration,Non,Vous n’êtes pas autorisé à accéder aux données de cette API.,,,
+API Tierce Déclaration Cesu,api-declaration-cesu,261382762515929760966579111238675388780,entreprise ou association,Peut-être,"✅ Si vous êtes éditeur application mobile/éditeur de service web et agissez ou comptez agir pour le compte de vos clients en qualité de tiers déclarant, vous pouvez remplir une demande d’habilitation à l’API vous-même pour l'entité que vous représentez, au sens des articles L.133-11, <a href=""https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037877089"">R133-43 et R133-44</a> du Code de Sécurité sociale.
+
+❌ Les éditeurs de logiciel de paie ne sont pas autorisés à accéder à ces données",,,
+API Tierce Déclaration auto-entrepreneur,api-declaration-auto-entrepreneur,25718593007806961005514219651263908011,particulier,Non,Vous n’êtes pas autorisé à accéder aux données de cette API.,,,
+API Tierce Déclaration auto-entrepreneur,api-declaration-auto-entrepreneur,25718593007806961005514219651263908011,collectivité ou administration,Non,Vous n’êtes pas autorisé à accéder aux données de cette API.,,,
+API Tierce Déclaration auto-entrepreneur,api-declaration-auto-entrepreneur,25718593007806961005514219651263908011,entreprise ou association,Peut-être,"✅ Si vous êtes éditeur application mobile/éditeur de service web et agissez ou comptez agir pour le compte de vos clients en qualité de tiers déclarant, vous pouvez remplir une demande d’habilitation à l’API vous-même pour l'entité que vous représentez, au sens des articles L.133-11, <a href=""https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037877089"">R133-43 et R133-44</a> du Code de Sécurité sociale.
+
+✅ Si vous êtes tiers déclarant, vous êtes éligible. Pour remplir votre demande, vous aurez besoin de votre attestation fiscale et de votre attestation sociale.
+
+❌ Les éditeurs de logiciel de paie ne sont pas autorisés à accéder à ces données.
+
+❌ Les auto-entrepreneurs ne sont pas autorisés à accéder à ces données. Même si l'API Tierce Déclaration concerne les auto-entrepreneurs, elle ne vous est pas directement destinée. Peut-être cherchez vous à accéder à l'API Tiers de Prestation, pour que vos clients bénéficient de l'avance immédiate de crédit d'impôt ?",,,
+API data·inclusion,,175524875227165184946648136624929424808,,Pas d'arbre de décision,,,,
+API portail des données de la BnF - data.bnf.fr,,85480627075266898911764963884802144957,,Pas d'arbre de décision,,,,
+API Conventions collectives,,102130290698948334045671272348377318960,,Pas d'arbre de décision,,,,
+API Aides Territoires,,220356734828038986739316984130191025001,,Pas d'arbre de décision,,,,
+Légifrance,,161903082753500821351252556718543088634,,Pas d'arbre de décision,,,,
+API Ingres Noyau,,261944863768343572936651690385362853016,particulier,Non,Vous n’êtes pas autorisé à accéder aux données de cette API. Le CISIRH met à disposition cette API exploitable accessible uniquement par les ministères ou institutions ayant accès au Réseau Interministériel de l'Etat (RIE).,,,
+API Ingres Noyau,,261944863768343572936651690385362853016,entreprise ou association,Non,Vous n’êtes pas autorisé à accéder aux données de cette API. Le CISIRH met à disposition cette API exploitable accessible uniquement par les ministères ou institutions ayant accès au Réseau Interministériel de l'Etat (RIE).,,,
+API Ingres Noyau,,261944863768343572936651690385362853016,collectivité ou administration,Peut-être,"Le CISIRH met à disposition cette API exploitable et accessible uniquement via le Réseau Interministériel de l'Etat (RIE).
+
+Son utilisation par une application tierce ne saurait engager la responsabilité du CISIRH, par exemple, en termes de disponibilité.",,,
+API Statut élève scolarisé et boursier | Bouquet API Particulier,,4b34fb0d-8bba-4dc3-9eec-c03a3ec2addf,particulier,Non,"      Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Particulier est **uniquement reservé aux acteurs publics** : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, les organismes ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, etc.
+
+      <Button href=""/rechercher-api"" alt>Rechercher une autre API</Button>",,,
+API Statut élève scolarisé et boursier | Bouquet API Particulier,,4b34fb0d-8bba-4dc3-9eec-c03a3ec2addf,collectivité ou administration,Oui,"      Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, vous êtes éligible à l'utilisation de l'API Particulier.  
+
+      **Si votre cadre légal le justifie**, l’API Particulier vous permet d’accéder directement aux données administratives des particuliers, dont leur statut bénéficiaire de la complémentaire santé solidaire, pour faciliter leurs démarches.
+      - Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Particulier, consultez nos différents <External href=""https://particulier.api.gouv.fr/cas_usages"">cas d'usages</External> (Tarification cantine et transport, aides facultatives départementales et régionales, aides sociales des CCAS, gestion RH du secteur public ...)
+      - Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <External href=""https://particulier.api.gouv.fr/catalogue"">catalogue des API</External>.
+
+      <Button href='https://datapass.api.gouv.fr/api-particulier'>Demander une habilitation API Particulier</Button>",,,
+API Statut élève scolarisé et boursier | Bouquet API Particulier,,4b34fb0d-8bba-4dc3-9eec-c03a3ec2addf,entreprise ou association,Non,"      Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Particulier est **uniquement reservé aux acteurs publics** : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, les organismes ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, etc.
+
+      <Button href=""/rechercher-api"" alt>Rechercher une autre API</Button>
+
+      Si vous êtes **éditeur de logiciels pour des acteurs publics, c'est à vos utilisateurs collectivité ou administration de faire une demande d'habilitation.**
+
+      En revanche, vous pouvez nous demander de vous référencer sur un cas d'usage afin de proposer des formulaires pré-remplis et ainsi simplifier l'expérience de vos clients publics :
+
+      <Button href=""https://form.typeform.com/to/OJ4rkf5Z"">Demander à être référencé</Button>",,,
+API Statut demandeur d'emploi | Bouquet API Particulier,,9818d301-1e6e-407a-81b8-4e4653047951,particulier,Non,"      Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Particulier est **uniquement reservé aux acteurs publics** : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, les organismes ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, etc.
+
+      <Button href=""/rechercher-api"" alt>Rechercher une autre API</Button>",,,
+API Statut demandeur d'emploi | Bouquet API Particulier,,9818d301-1e6e-407a-81b8-4e4653047951,collectivité ou administration,Oui,"      Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, vous êtes éligible à l'utilisation de l'API Particulier.  
+
+      **Si votre cadre légal le justifie**, l’API Particulier vous permet d’accéder directement aux données administratives des particuliers, dont leur statut bénéficiaire de la complémentaire santé solidaire, pour faciliter leurs démarches.
+      - Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Particulier, consultez nos différents <External href=""https://particulier.api.gouv.fr/cas_usages"">cas d'usages</External> (Tarification cantine et transport, aides facultatives départementales et régionales, aides sociales des CCAS, gestion RH du secteur public ...)
+      - Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <External href=""https://particulier.api.gouv.fr/catalogue"">catalogue des API</External>.
+
+      <Button href='https://datapass.api.gouv.fr/api-particulier'>Demander une habilitation API Particulier</Button>",,,
+API Statut demandeur d'emploi | Bouquet API Particulier,,9818d301-1e6e-407a-81b8-4e4653047951,entreprise ou association,Non,"      Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Particulier est **uniquement reservé aux acteurs publics** : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, les organismes ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, etc.
+
+      <Button href=""/rechercher-api"" alt>Rechercher une autre API</Button>
+
+      Si vous êtes **éditeur de logiciels pour des acteurs publics, c'est à vos utilisateurs collectivité ou administration de faire une demande d'habilitation.**
+
+      En revanche, vous pouvez nous demander de vous référencer sur un cas d'usage afin de proposer des formulaires pré-remplis et ainsi simplifier l'expérience de vos clients publics :
+
+      <Button href=""https://form.typeform.com/to/OJ4rkf5Z"">Demander à être référencé</Button>",,,
+API Paiements versés par FranceTravail | Bouquet API Particulier,,6e91fdec-799d-478c-b265-1ccb8a0a7689,particulier,Non,"      Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Particulier est **uniquement reservé aux acteurs publics** : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, les organismes ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, etc.
+
+      <Button href=""/rechercher-api"" alt>Rechercher une autre API</Button>",,,
+API Paiements versés par FranceTravail | Bouquet API Particulier,,6e91fdec-799d-478c-b265-1ccb8a0a7689,collectivité ou administration,Oui,"      Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, vous êtes éligible à l'utilisation de l'API Particulier.  
+
+      **Si votre cadre légal le justifie**, l’API Particulier vous permet d’accéder directement aux données administratives des particuliers, dont leur statut bénéficiaire de la complémentaire santé solidaire, pour faciliter leurs démarches.
+      - Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Particulier, consultez nos différents <External href=""https://particulier.api.gouv.fr/cas_usages"">cas d'usages</External> (Tarification cantine et transport, aides facultatives départementales et régionales, aides sociales des CCAS, gestion RH du secteur public ...)
+      - Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <External href=""https://particulier.api.gouv.fr/catalogue"">catalogue des API</External>.
+
+      <Button href='https://datapass.api.gouv.fr/api-particulier'>Demander une habilitation API Particulier</Button>",,,
+API Paiements versés par FranceTravail | Bouquet API Particulier,,6e91fdec-799d-478c-b265-1ccb8a0a7689,entreprise ou association,Non,"      Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Particulier est **uniquement reservé aux acteurs publics** : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, les organismes ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, etc.
+
+      <Button href=""/rechercher-api"" alt>Rechercher une autre API</Button>
+
+      Si vous êtes **éditeur de logiciels pour des acteurs publics, c'est à vos utilisateurs collectivité ou administration de faire une demande d'habilitation.**
+
+      En revanche, vous pouvez nous demander de vous référencer sur un cas d'usage afin de proposer des formulaires pré-remplis et ainsi simplifier l'expérience de vos clients publics :
+
+      <Button href=""https://form.typeform.com/to/OJ4rkf5Z"">Demander à être référencé</Button>",,,
+API Statut revenu de solidarité active (RSA) | Bouquet API Particulier,,6914197f-b553-405c-b971-df12a2cc55c2,particulier,Non,"      Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Particulier est **uniquement reservé aux acteurs publics** : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, les organismes ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, etc.
+
+      <Button href=""/rechercher-api"" alt>Rechercher une autre API</Button>",,,
+API Statut revenu de solidarité active (RSA) | Bouquet API Particulier,,6914197f-b553-405c-b971-df12a2cc55c2,collectivité ou administration,Oui,"      Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, vous êtes éligible à l'utilisation de l'API Particulier.  
+
+      **Si votre cadre légal le justifie**, l’API Particulier vous permet d’accéder directement aux données administratives des particuliers, dont leur statut bénéficiaire de la complémentaire santé solidaire, pour faciliter leurs démarches.
+      - Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Particulier, consultez nos différents <External href=""https://particulier.api.gouv.fr/cas_usages"">cas d'usages</External> (Tarification cantine et transport, aides facultatives départementales et régionales, aides sociales des CCAS, gestion RH du secteur public ...)
+      - Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <External href=""https://particulier.api.gouv.fr/catalogue"">catalogue des API</External>.
+
+      <Button href='https://datapass.api.gouv.fr/api-particulier'>Demander une habilitation API Particulier</Button>",,,
+API Statut revenu de solidarité active (RSA) | Bouquet API Particulier,,6914197f-b553-405c-b971-df12a2cc55c2,entreprise ou association,Non,"      Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Particulier est **uniquement reservé aux acteurs publics** : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, les organismes ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, etc.
+
+      <Button href=""/rechercher-api"" alt>Rechercher une autre API</Button>
+
+      Si vous êtes **éditeur de logiciels pour des acteurs publics, c'est à vos utilisateurs collectivité ou administration de faire une demande d'habilitation.**
+
+      En revanche, vous pouvez nous demander de vous référencer sur un cas d'usage afin de proposer des formulaires pré-remplis et ainsi simplifier l'expérience de vos clients publics :
+
+      <Button href=""https://form.typeform.com/to/OJ4rkf5Z"">Demander à être référencé</Button>",,,
+API Statut prime d'activité | Bouquet API Particulier,,80367aa7-96ec-4bbb-a3c0-ef69640a6223,particulier,Non,"      Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Particulier est **uniquement reservé aux acteurs publics** : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, les organismes ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, etc.
+
+      <Button href=""/rechercher-api"" alt>Rechercher une autre API</Button>",,,
+API Statut prime d'activité | Bouquet API Particulier,,80367aa7-96ec-4bbb-a3c0-ef69640a6223,collectivité ou administration,Oui,"      Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, vous êtes éligible à l'utilisation de l'API Particulier.  
+
+      **Si votre cadre légal le justifie**, l’API Particulier vous permet d’accéder directement aux données administratives des particuliers, dont leur statut bénéficiaire de la complémentaire santé solidaire, pour faciliter leurs démarches.
+      - Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Particulier, consultez nos différents <External href=""https://particulier.api.gouv.fr/cas_usages"">cas d'usages</External> (Tarification cantine et transport, aides facultatives départementales et régionales, aides sociales des CCAS, gestion RH du secteur public ...)
+      - Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <External href=""https://particulier.api.gouv.fr/catalogue"">catalogue des API</External>.
+
+      <Button href='https://datapass.api.gouv.fr/api-particulier'>Demander une habilitation API Particulier</Button>",,,
+API Statut prime d'activité | Bouquet API Particulier,,80367aa7-96ec-4bbb-a3c0-ef69640a6223,entreprise ou association,Non,"      Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Particulier est **uniquement reservé aux acteurs publics** : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, les organismes ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, etc.
+
+      <Button href=""/rechercher-api"" alt>Rechercher une autre API</Button>
+
+      Si vous êtes **éditeur de logiciels pour des acteurs publics, c'est à vos utilisateurs collectivité ou administration de faire une demande d'habilitation.**
+
+      En revanche, vous pouvez nous demander de vous référencer sur un cas d'usage afin de proposer des formulaires pré-remplis et ainsi simplifier l'expérience de vos clients publics :
+
+      <Button href=""https://form.typeform.com/to/OJ4rkf5Z"">Demander à être référencé</Button>",,,
+API Statut allocation de soutien familial (ASF) | Bouquet API Particulier,,f12430c5-c3e4-41eb-8783-ca2bc1aaef56,particulier,Non,"      Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Particulier est **uniquement reservé aux acteurs publics** : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, les organismes ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, etc.
+
+      <Button href=""/rechercher-api"" alt>Rechercher une autre API</Button>",,,
+API Statut allocation de soutien familial (ASF) | Bouquet API Particulier,,f12430c5-c3e4-41eb-8783-ca2bc1aaef56,collectivité ou administration,Oui,"      Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, vous êtes éligible à l'utilisation de l'API Particulier.  
+
+      **Si votre cadre légal le justifie**, l’API Particulier vous permet d’accéder directement aux données administratives des particuliers, dont leur statut bénéficiaire de la complémentaire santé solidaire, pour faciliter leurs démarches.
+      - Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Particulier, consultez nos différents <External href=""https://particulier.api.gouv.fr/cas_usages"">cas d'usages</External> (Tarification cantine et transport, aides facultatives départementales et régionales, aides sociales des CCAS, gestion RH du secteur public ...)
+      - Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <External href=""https://particulier.api.gouv.fr/catalogue"">catalogue des API</External>.
+
+      <Button href='https://datapass.api.gouv.fr/api-particulier'>Demander une habilitation API Particulier</Button>",,,
+API Statut allocation de soutien familial (ASF) | Bouquet API Particulier,,f12430c5-c3e4-41eb-8783-ca2bc1aaef56,entreprise ou association,Non,"      Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Particulier est **uniquement reservé aux acteurs publics** : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, les organismes ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, etc.
+
+      <Button href=""/rechercher-api"" alt>Rechercher une autre API</Button>
+
+      Si vous êtes **éditeur de logiciels pour des acteurs publics, c'est à vos utilisateurs collectivité ou administration de faire une demande d'habilitation.**
+
+      En revanche, vous pouvez nous demander de vous référencer sur un cas d'usage afin de proposer des formulaires pré-remplis et ainsi simplifier l'expérience de vos clients publics :
+
+      <Button href=""https://form.typeform.com/to/OJ4rkf5Z"">Demander à être référencé</Button>",,,
+API Statut allocation adulte handicapé (AAH) | Bouquet API Particulier,,f3788991-59bf-4189-abc2-288be373d9ea,particulier,Non,"      Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Particulier est **uniquement reservé aux acteurs publics** : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, les organismes ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, etc.
+
+      <Button href=""/rechercher-api"" alt>Rechercher une autre API</Button>",,,
+API Statut allocation adulte handicapé (AAH) | Bouquet API Particulier,,f3788991-59bf-4189-abc2-288be373d9ea,collectivité ou administration,Oui,"      Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, vous êtes éligible à l'utilisation de l'API Particulier.  
+
+      **Si votre cadre légal le justifie**, l’API Particulier vous permet d’accéder directement aux données administratives des particuliers, dont leur statut bénéficiaire de la complémentaire santé solidaire, pour faciliter leurs démarches.
+      - Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Particulier, consultez nos différents <External href=""https://particulier.api.gouv.fr/cas_usages"">cas d'usages</External> (Tarification cantine et transport, aides facultatives départementales et régionales, aides sociales des CCAS, gestion RH du secteur public ...)
+      - Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <External href=""https://particulier.api.gouv.fr/catalogue"">catalogue des API</External>.
+
+      <Button href='https://datapass.api.gouv.fr/api-particulier'>Demander une habilitation API Particulier</Button>",,,
+API Statut allocation adulte handicapé (AAH) | Bouquet API Particulier,,f3788991-59bf-4189-abc2-288be373d9ea,entreprise ou association,Non,"      Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Particulier est **uniquement reservé aux acteurs publics** : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, les organismes ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, etc.
+
+      <Button href=""/rechercher-api"" alt>Rechercher une autre API</Button>
+
+      Si vous êtes **éditeur de logiciels pour des acteurs publics, c'est à vos utilisateurs collectivité ou administration de faire une demande d'habilitation.**
+
+      En revanche, vous pouvez nous demander de vous référencer sur un cas d'usage afin de proposer des formulaires pré-remplis et ainsi simplifier l'expérience de vos clients publics :
+
+      <Button href=""https://form.typeform.com/to/OJ4rkf5Z"">Demander à être référencé</Button>",,,
+API Qualiopi & habilitations France compétences - Carif-Oref | Bouquet API Entreprise,,71dd111f-294b-4150-aca3-93f3b5d19ae1,particulier,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.",,,
+API Qualiopi & habilitations France compétences - Carif-Oref | Bouquet API Entreprise,,71dd111f-294b-4150-aca3-93f3b5d19ae1,collectivité ou administration,Oui,"      Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, vous êtes éligible à l'utilisation de l'API Entreprise.  
+
+      **Si votre cadre légal le justifie**, l’API Entreprise vous permet d’accéder directement aux données administratives des entreprises et des associations pour faciliter leurs démarches.
+      - Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...)
+      - Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External>.
+
+      <Button href='https://datapass.api.gouv.fr/api-entreprise'>Demander une habilitation API Entreprise</Button>",,,
+API Qualiopi & habilitations France compétences - Carif-Oref | Bouquet API Entreprise,,71dd111f-294b-4150-aca3-93f3b5d19ae1,entreprise ou association,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.
+
+**Si vous êtes éditeur de logiciel pour des acteurs publics pour simplifier les démarches des entreprises/associations**, alors vous êtes éligible à intégrer l'API Entreprise pour la mettre à disposition de vos client publics **uniquement**. 
+
+      - Pour vérifier que votre logiciel correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...) ;
+      - Pour vous assurer que les API répondent aux besoins de vos clients publics, consultez le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External> ;
+
+      ⚠️ **En tant que prestataire technique d’une entité administrative, si votre demande d'habilitation aboutit, vous ne serez pas habilité à recevoir les données issues de l'API Entreprise**, mais uniquement habilité à intégrer et gérer techniquement l'API pour votre client public. 
+
+**Veuillez déposer votre demande ""Spécifique éditeur"" en suivant ce lien : https://datapass.api.gouv.fr/api-entreprise?demarche=editeur**",,,
+API Données du répertoire Sirene - Insee | Bouquet API Entreprise,,5335dbcc-c1aa-4069-a093-07a71bc3b593,particulier,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.",,,
+API Données du répertoire Sirene - Insee | Bouquet API Entreprise,,5335dbcc-c1aa-4069-a093-07a71bc3b593,collectivité ou administration,Oui,"      Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, vous êtes éligible à l'utilisation de l'API Entreprise.  
+
+      **Si votre cadre légal le justifie**, l’API Entreprise vous permet d’accéder directement aux données administratives des entreprises et des associations pour faciliter leurs démarches.
+      - Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...)
+      - Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External>.
+
+      <Button href='https://datapass.api.gouv.fr/api-entreprise'>Demander une habilitation API Entreprise</Button>",,,
+API Données du répertoire Sirene - Insee | Bouquet API Entreprise,,5335dbcc-c1aa-4069-a093-07a71bc3b593,entreprise ou association,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.
+
+**Si vous êtes éditeur de logiciel pour des acteurs publics pour simplifier les démarches des entreprises/associations**, alors vous êtes éligible à intégrer l'API Entreprise pour la mettre à disposition de vos client publics **uniquement**. 
+
+      - Pour vérifier que votre logiciel correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...) ;
+      - Pour vous assurer que les API répondent aux besoins de vos clients publics, consultez le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External> ;
+
+      ⚠️ **En tant que prestataire technique d’une entité administrative, si votre demande d'habilitation aboutit, vous ne serez pas habilité à recevoir les données issues de l'API Entreprise**, mais uniquement habilité à intégrer et gérer techniquement l'API pour votre client public. 
+
+**Veuillez déposer votre demande ""Spécifique éditeur"" en suivant ce lien : https://datapass.api.gouv.fr/api-entreprise?demarche=editeur**",,,
+API Mandataires sociaux - Infogreffe | Bouquet API Entreprise,,22d98a12-917a-4a66-9e41-0fb0614a4337,particulier,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.",,,
+API Mandataires sociaux - Infogreffe | Bouquet API Entreprise,,22d98a12-917a-4a66-9e41-0fb0614a4337,collectivité ou administration,Oui,"      Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, vous êtes éligible à l'utilisation de l'API Entreprise.  
+
+      **Si votre cadre légal le justifie**, l’API Entreprise vous permet d’accéder directement aux données administratives des entreprises et des associations pour faciliter leurs démarches.
+      - Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...)
+      - Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External>.
+
+      <Button href='https://datapass.api.gouv.fr/api-entreprise'>Demander une habilitation API Entreprise</Button>",,,
+API Mandataires sociaux - Infogreffe | Bouquet API Entreprise,,22d98a12-917a-4a66-9e41-0fb0614a4337,entreprise ou association,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.
+
+**Si vous êtes éditeur de logiciel pour des acteurs publics pour simplifier les démarches des entreprises/associations**, alors vous êtes éligible à intégrer l'API Entreprise pour la mettre à disposition de vos client publics **uniquement**. 
+
+      - Pour vérifier que votre logiciel correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...) ;
+      - Pour vous assurer que les API répondent aux besoins de vos clients publics, consultez le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External> ;
+
+      ⚠️ **En tant que prestataire technique d’une entité administrative, si votre demande d'habilitation aboutit, vous ne serez pas habilité à recevoir les données issues de l'API Entreprise**, mais uniquement habilité à intégrer et gérer techniquement l'API pour votre client public. 
+
+**Veuillez déposer votre demande ""Spécifique éditeur"" en suivant ce lien : https://datapass.api.gouv.fr/api-entreprise?demarche=editeur**",,,
+API Données associations - DJEPVA | Bouquet API Entreprise,,e0311793-23e0-484a-bb64-b7dd5f2fef49,particulier,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.",,,
+API Données associations - DJEPVA | Bouquet API Entreprise,,e0311793-23e0-484a-bb64-b7dd5f2fef49,collectivité ou administration,Oui,"      Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, vous êtes éligible à l'utilisation de l'API Entreprise.  
+
+      **Si votre cadre légal le justifie**, l’API Entreprise vous permet d’accéder directement aux données administratives des entreprises et des associations pour faciliter leurs démarches.
+      - Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...)
+      - Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External>.
+
+      <Button href='https://datapass.api.gouv.fr/api-entreprise'>Demander une habilitation API Entreprise</Button>",,,
+API Données associations - DJEPVA | Bouquet API Entreprise,,e0311793-23e0-484a-bb64-b7dd5f2fef49,entreprise ou association,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.
+
+**Si vous êtes éditeur de logiciel pour des acteurs publics pour simplifier les démarches des entreprises/associations**, alors vous êtes éligible à intégrer l'API Entreprise pour la mettre à disposition de vos client publics **uniquement**. 
+
+      - Pour vérifier que votre logiciel correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...) ;
+      - Pour vous assurer que les API répondent aux besoins de vos clients publics, consultez le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External> ;
+
+      ⚠️ **En tant que prestataire technique d’une entité administrative, si votre demande d'habilitation aboutit, vous ne serez pas habilité à recevoir les données issues de l'API Entreprise**, mais uniquement habilité à intégrer et gérer techniquement l'API pour votre client public. 
+
+**Veuillez déposer votre demande ""Spécifique éditeur"" en suivant ce lien : https://datapass.api.gouv.fr/api-entreprise?demarche=editeur**",,,
+API Effectifs annuels d'une unité légale - GIP MDS | Bouquet API Entreprise,,00e6777e-bf11-4428-bd50-4e29e235b059,particulier,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.",,,
+API Effectifs annuels d'une unité légale - GIP MDS | Bouquet API Entreprise,,00e6777e-bf11-4428-bd50-4e29e235b059,collectivité ou administration,Oui,"      Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, vous êtes éligible à l'utilisation de l'API Entreprise.  
+
+      **Si votre cadre légal le justifie**, l’API Entreprise vous permet d’accéder directement aux données administratives des entreprises et des associations pour faciliter leurs démarches.
+      - Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...)
+      - Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External>.
+
+      <Button href='https://datapass.api.gouv.fr/api-entreprise'>Demander une habilitation API Entreprise</Button>",,,
+API Effectifs annuels d'une unité légale - GIP MDS | Bouquet API Entreprise,,00e6777e-bf11-4428-bd50-4e29e235b059,entreprise ou association,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.
+
+**Si vous êtes éditeur de logiciel pour des acteurs publics pour simplifier les démarches des entreprises/associations**, alors vous êtes éligible à intégrer l'API Entreprise pour la mettre à disposition de vos client publics **uniquement**. 
+
+      - Pour vérifier que votre logiciel correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...) ;
+      - Pour vous assurer que les API répondent aux besoins de vos clients publics, consultez le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External> ;
+
+      ⚠️ **En tant que prestataire technique d’une entité administrative, si votre demande d'habilitation aboutit, vous ne serez pas habilité à recevoir les données issues de l'API Entreprise**, mais uniquement habilité à intégrer et gérer techniquement l'API pour votre client public. 
+
+**Veuillez déposer votre demande ""Spécifique éditeur"" en suivant ce lien : https://datapass.api.gouv.fr/api-entreprise?demarche=editeur**",,,
+API Effectifs mensuels d'un établissement - GIP MDS | Bouquet API Entreprise,,cf50cd5b-5e0d-48de-bdef-a0485bfad253,particulier,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.",,,
+API Effectifs mensuels d'un établissement - GIP MDS | Bouquet API Entreprise,,cf50cd5b-5e0d-48de-bdef-a0485bfad253,collectivité ou administration,Oui,"      Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, vous êtes éligible à l'utilisation de l'API Entreprise.  
+
+      **Si votre cadre légal le justifie**, l’API Entreprise vous permet d’accéder directement aux données administratives des entreprises et des associations pour faciliter leurs démarches.
+      - Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...)
+      - Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External>.
+
+      <Button href='https://datapass.api.gouv.fr/api-entreprise'>Demander une habilitation API Entreprise</Button>",,,
+API Effectifs mensuels d'un établissement - GIP MDS | Bouquet API Entreprise,,cf50cd5b-5e0d-48de-bdef-a0485bfad253,entreprise ou association,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.
+
+**Si vous êtes éditeur de logiciel pour des acteurs publics pour simplifier les démarches des entreprises/associations**, alors vous êtes éligible à intégrer l'API Entreprise pour la mettre à disposition de vos client publics **uniquement**. 
+
+      - Pour vérifier que votre logiciel correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...) ;
+      - Pour vous assurer que les API répondent aux besoins de vos clients publics, consultez le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External> ;
+
+      ⚠️ **En tant que prestataire technique d’une entité administrative, si votre demande d'habilitation aboutit, vous ne serez pas habilité à recevoir les données issues de l'API Entreprise**, mais uniquement habilité à intégrer et gérer techniquement l'API pour votre client public. 
+
+**Veuillez déposer votre demande ""Spécifique éditeur"" en suivant ce lien : https://datapass.api.gouv.fr/api-entreprise?demarche=editeur**",,,
+API Chiffre d'affaires - DGFIP | Bouquet API Entreprise,,4ea8757b-62fb-49ab-ba08-bca2a8afc918,particulier,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.",,,
+API Chiffre d'affaires - DGFIP | Bouquet API Entreprise,,4ea8757b-62fb-49ab-ba08-bca2a8afc918,collectivité ou administration,Oui,"      Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, vous êtes éligible à l'utilisation de l'API Entreprise.  
+
+      **Si votre cadre légal le justifie**, l’API Entreprise vous permet d’accéder directement aux données administratives des entreprises et des associations pour faciliter leurs démarches.
+      - Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...)
+      - Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External>.
+
+      <Button href='https://datapass.api.gouv.fr/api-entreprise'>Demander une habilitation API Entreprise</Button>",,,
+API Chiffre d'affaires - DGFIP | Bouquet API Entreprise,,4ea8757b-62fb-49ab-ba08-bca2a8afc918,entreprise ou association,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.
+
+**Si vous êtes éditeur de logiciel pour des acteurs publics pour simplifier les démarches des entreprises/associations**, alors vous êtes éligible à intégrer l'API Entreprise pour la mettre à disposition de vos client publics **uniquement**. 
+
+      - Pour vérifier que votre logiciel correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...) ;
+      - Pour vous assurer que les API répondent aux besoins de vos clients publics, consultez le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External> ;
+
+      ⚠️ **En tant que prestataire technique d’une entité administrative, si votre demande d'habilitation aboutit, vous ne serez pas habilité à recevoir les données issues de l'API Entreprise**, mais uniquement habilité à intégrer et gérer techniquement l'API pour votre client public. 
+
+**Veuillez déposer votre demande ""Spécifique éditeur"" en suivant ce lien : https://datapass.api.gouv.fr/api-entreprise?demarche=editeur**",,,
+API 3 derniers bilans annuels - Banque de France | Bouquet API Entreprise,,a6cf077f-113c-4e13-b1fc-c819f979fcbc,particulier,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.",,,
+API 3 derniers bilans annuels - Banque de France | Bouquet API Entreprise,,a6cf077f-113c-4e13-b1fc-c819f979fcbc,collectivité ou administration,Oui,"      Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, vous êtes éligible à l'utilisation de l'API Entreprise.  
+
+      **Si votre cadre légal le justifie**, l’API Entreprise vous permet d’accéder directement aux données administratives des entreprises et des associations pour faciliter leurs démarches.
+      - Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...)
+      - Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External>.
+
+      <Button href='https://datapass.api.gouv.fr/api-entreprise'>Demander une habilitation API Entreprise</Button>",,,
+API 3 derniers bilans annuels - Banque de France | Bouquet API Entreprise,,a6cf077f-113c-4e13-b1fc-c819f979fcbc,entreprise ou association,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.
+
+**Si vous êtes éditeur de logiciel pour des acteurs publics pour simplifier les démarches des entreprises/associations**, alors vous êtes éligible à intégrer l'API Entreprise pour la mettre à disposition de vos client publics **uniquement**. 
+
+      - Pour vérifier que votre logiciel correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...) ;
+      - Pour vous assurer que les API répondent aux besoins de vos clients publics, consultez le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External> ;
+
+      ⚠️ **En tant que prestataire technique d’une entité administrative, si votre demande d'habilitation aboutit, vous ne serez pas habilité à recevoir les données issues de l'API Entreprise**, mais uniquement habilité à intégrer et gérer techniquement l'API pour votre client public. 
+
+**Veuillez déposer votre demande ""Spécifique éditeur"" en suivant ce lien : https://datapass.api.gouv.fr/api-entreprise?demarche=editeur**",,,
+API Liasses fiscales - DGFIP | Bouquet API Entreprise,,cff306c7-9b64-4107-bcd7-cf098cc1c98c,particulier,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.",,,
+API Liasses fiscales - DGFIP | Bouquet API Entreprise,,cff306c7-9b64-4107-bcd7-cf098cc1c98c,collectivité ou administration,Oui,"      Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, vous êtes éligible à l'utilisation de l'API Entreprise.  
+
+      **Si votre cadre légal le justifie**, l’API Entreprise vous permet d’accéder directement aux données administratives des entreprises et des associations pour faciliter leurs démarches.
+      - Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...)
+      - Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External>.
+
+      <Button href='https://datapass.api.gouv.fr/api-entreprise'>Demander une habilitation API Entreprise</Button>",,,
+API Liasses fiscales - DGFIP | Bouquet API Entreprise,,cff306c7-9b64-4107-bcd7-cf098cc1c98c,entreprise ou association,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.
+
+**Si vous êtes éditeur de logiciel pour des acteurs publics pour simplifier les démarches des entreprises/associations**, alors vous êtes éligible à intégrer l'API Entreprise pour la mettre à disposition de vos client publics **uniquement**. 
+
+      - Pour vérifier que votre logiciel correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...) ;
+      - Pour vous assurer que les API répondent aux besoins de vos clients publics, consultez le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External> ;
+
+      ⚠️ **En tant que prestataire technique d’une entité administrative, si votre demande d'habilitation aboutit, vous ne serez pas habilité à recevoir les données issues de l'API Entreprise**, mais uniquement habilité à intégrer et gérer techniquement l'API pour votre client public. 
+
+**Veuillez déposer votre demande ""Spécifique éditeur"" en suivant ce lien : https://datapass.api.gouv.fr/api-entreprise?demarche=editeur**",,,
+API Attestation fiscale - DGFIP | Bouquet API Entreprise,,8d1f77fe-de61-4568-8773-7180f01021a5,particulier,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.",,,
+API Attestation fiscale - DGFIP | Bouquet API Entreprise,,8d1f77fe-de61-4568-8773-7180f01021a5,collectivité ou administration,Oui,"      Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, vous êtes éligible à l'utilisation de l'API Entreprise.  
+
+      **Si votre cadre légal le justifie**, l’API Entreprise vous permet d’accéder directement aux données administratives des entreprises et des associations pour faciliter leurs démarches.
+      - Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...)
+      - Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External>.
+
+      <Button href='https://datapass.api.gouv.fr/api-entreprise'>Demander une habilitation API Entreprise</Button>",,,
+API Attestation fiscale - DGFIP | Bouquet API Entreprise,,8d1f77fe-de61-4568-8773-7180f01021a5,entreprise ou association,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.
+
+**Si vous êtes éditeur de logiciel pour des acteurs publics pour simplifier les démarches des entreprises/associations**, alors vous êtes éligible à intégrer l'API Entreprise pour la mettre à disposition de vos client publics **uniquement**. 
+
+      - Pour vérifier que votre logiciel correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...) ;
+      - Pour vous assurer que les API répondent aux besoins de vos clients publics, consultez le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External> ;
+
+      ⚠️ **En tant que prestataire technique d’une entité administrative, si votre demande d'habilitation aboutit, vous ne serez pas habilité à recevoir les données issues de l'API Entreprise**, mais uniquement habilité à intégrer et gérer techniquement l'API pour votre client public. 
+
+**Veuillez déposer votre demande ""Spécifique éditeur"" en suivant ce lien : https://datapass.api.gouv.fr/api-entreprise?demarche=editeur**",,,
+API Attestation de vigilance - Urssaf | Bouquet API Entreprise,,357b3be5-6d02-4267-96ca-3ec006257316,particulier,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.",,,
+,,,collectivité ou administration,Oui,"      Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, vous êtes éligible à l'utilisation de l'API Entreprise.  
+
+      **Si votre cadre légal le justifie**, l’API Entreprise vous permet d’accéder directement aux données administratives des entreprises et des associations pour faciliter leurs démarches.
+      - Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...)
+      - Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External>.
+
+      <Button href='https://datapass.api.gouv.fr/api-entreprise'>Demander une habilitation API Entreprise</Button>",,,
+API Attestation de vigilance - Urssaf | Bouquet API Entreprise,,357b3be5-6d02-4267-96ca-3ec006257316,entreprise ou association,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.
+
+**Si vous êtes éditeur de logiciel pour des acteurs publics pour simplifier les démarches des entreprises/associations**, alors vous êtes éligible à intégrer l'API Entreprise pour la mettre à disposition de vos client publics **uniquement**. 
+
+      - Pour vérifier que votre logiciel correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...) ;
+      - Pour vous assurer que les API répondent aux besoins de vos clients publics, consultez le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External> ;
+
+      ⚠️ **En tant que prestataire technique d’une entité administrative, si votre demande d'habilitation aboutit, vous ne serez pas habilité à recevoir les données issues de l'API Entreprise**, mais uniquement habilité à intégrer et gérer techniquement l'API pour votre client public. 
+
+**Veuillez déposer votre demande ""Spécifique éditeur"" en suivant ce lien : https://datapass.api.gouv.fr/api-entreprise?demarche=editeur**",,,
+API Conformité cotisations de sécurité sociale agricole - MSA | Bouquet API Entreprise,,ad47394c-0104-4f6c-9e5e-988e2dd1c25a,particulier,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.",,,
+API Conformité cotisations de sécurité sociale agricole - MSA | Bouquet API Entreprise,,ad47394c-0104-4f6c-9e5e-988e2dd1c25a,collectivité ou administration,Oui,"      Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, vous êtes éligible à l'utilisation de l'API Entreprise.  
+
+      **Si votre cadre légal le justifie**, l’API Entreprise vous permet d’accéder directement aux données administratives des entreprises et des associations pour faciliter leurs démarches.
+      - Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...)
+      - Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External>.
+
+      <Button href='https://datapass.api.gouv.fr/api-entreprise'>Demander une habilitation API Entreprise</Button>",,,
+API Conformité cotisations de sécurité sociale agricole - MSA | Bouquet API Entreprise,,ad47394c-0104-4f6c-9e5e-988e2dd1c25a,entreprise ou association,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.
+
+**Si vous êtes éditeur de logiciel pour des acteurs publics pour simplifier les démarches des entreprises/associations**, alors vous êtes éligible à intégrer l'API Entreprise pour la mettre à disposition de vos client publics **uniquement**. 
+
+      - Pour vérifier que votre logiciel correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...) ;
+      - Pour vous assurer que les API répondent aux besoins de vos clients publics, consultez le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External> ;
+
+      ⚠️ **En tant que prestataire technique d’une entité administrative, si votre demande d'habilitation aboutit, vous ne serez pas habilité à recevoir les données issues de l'API Entreprise**, mais uniquement habilité à intégrer et gérer techniquement l'API pour votre client public. 
+
+**Veuillez déposer votre demande ""Spécifique éditeur"" en suivant ce lien : https://datapass.api.gouv.fr/api-entreprise?demarche=editeur**",,,
+API Conformité cotisations retraite complémentaire - ProBTP | Bouquet API Entreprise,,9ff3d93b-7a15-4618-a864-0aa266c3aaca,particulier,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.",,,
+API Conformité cotisations retraite complémentaire - ProBTP | Bouquet API Entreprise,,9ff3d93b-7a15-4618-a864-0aa266c3aaca,collectivité ou administration,Oui,"      Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, vous êtes éligible à l'utilisation de l'API Entreprise.  
+
+      **Si votre cadre légal le justifie**, l’API Entreprise vous permet d’accéder directement aux données administratives des entreprises et des associations pour faciliter leurs démarches.
+      - Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...)
+      - Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External>.
+
+      <Button href='https://datapass.api.gouv.fr/api-entreprise'>Demander une habilitation API Entreprise</Button>",,,
+API Conformité cotisations retraite complémentaire - ProBTP | Bouquet API Entreprise,,9ff3d93b-7a15-4618-a864-0aa266c3aaca,entreprise ou association,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.
+
+**Si vous êtes éditeur de logiciel pour des acteurs publics pour simplifier les démarches des entreprises/associations**, alors vous êtes éligible à intégrer l'API Entreprise pour la mettre à disposition de vos client publics **uniquement**. 
+
+      - Pour vérifier que votre logiciel correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...) ;
+      - Pour vous assurer que les API répondent aux besoins de vos clients publics, consultez le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External> ;
+
+      ⚠️ **En tant que prestataire technique d’une entité administrative, si votre demande d'habilitation aboutit, vous ne serez pas habilité à recevoir les données issues de l'API Entreprise**, mais uniquement habilité à intégrer et gérer techniquement l'API pour votre client public. 
+
+**Veuillez déposer votre demande ""Spécifique éditeur"" en suivant ce lien : https://datapass.api.gouv.fr/api-entreprise?demarche=editeur**",,,
+API Certificat cotisations congés pays et chômage intempéries - CIBTP | Bouquet API Entreprise,,486e7ce1-407e-403f-98f0-4285d37f699c,particulier,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.",,,
+API Certificat cotisations congés pays et chômage intempéries - CIBTP | Bouquet API Entreprise,,486e7ce1-407e-403f-98f0-4285d37f699c,collectivité ou administration,Oui,"      Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, vous êtes éligible à l'utilisation de l'API Entreprise.  
+
+      **Si votre cadre légal le justifie**, l’API Entreprise vous permet d’accéder directement aux données administratives des entreprises et des associations pour faciliter leurs démarches.
+      - Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...)
+      - Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External>.
+
+      <Button href='https://datapass.api.gouv.fr/api-entreprise'>Demander une habilitation API Entreprise</Button>",,,
+API Certificat cotisations congés pays et chômage intempéries - CIBTP | Bouquet API Entreprise,,486e7ce1-407e-403f-98f0-4285d37f699c,entreprise ou association,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.
+
+**Si vous êtes éditeur de logiciel pour des acteurs publics pour simplifier les démarches des entreprises/associations**, alors vous êtes éligible à intégrer l'API Entreprise pour la mettre à disposition de vos client publics **uniquement**. 
+
+      - Pour vérifier que votre logiciel correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...) ;
+      - Pour vous assurer que les API répondent aux besoins de vos clients publics, consultez le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External> ;
+
+      ⚠️ **En tant que prestataire technique d’une entité administrative, si votre demande d'habilitation aboutit, vous ne serez pas habilité à recevoir les données issues de l'API Entreprise**, mais uniquement habilité à intégrer et gérer techniquement l'API pour votre client public. 
+
+**Veuillez déposer votre demande ""Spécifique éditeur"" en suivant ce lien : https://datapass.api.gouv.fr/api-entreprise?demarche=editeur**",,,
+API Certificat cotisations congés pays et chômage intempéries - CNETP | Bouquet API Entreprise,,ea8e89de-5507-4c9e-a104-e687c654b5de,particulier,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.",,,
+,,,collectivité ou administration,Oui,"      Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, vous êtes éligible à l'utilisation de l'API Entreprise.  
+
+      **Si votre cadre légal le justifie**, l’API Entreprise vous permet d’accéder directement aux données administratives des entreprises et des associations pour faciliter leurs démarches.
+      - Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...)
+      - Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External>.
+
+      <Button href='https://datapass.api.gouv.fr/api-entreprise'>Demander une habilitation API Entreprise</Button>",,,
+API Certificat cotisations congés pays et chômage intempéries - CNETP | Bouquet API Entreprise,,ea8e89de-5507-4c9e-a104-e687c654b5de,entreprise ou association,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.
+
+**Si vous êtes éditeur de logiciel pour des acteurs publics pour simplifier les démarches des entreprises/associations**, alors vous êtes éligible à intégrer l'API Entreprise pour la mettre à disposition de vos client publics **uniquement**. 
+
+      - Pour vérifier que votre logiciel correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...) ;
+      - Pour vous assurer que les API répondent aux besoins de vos clients publics, consultez le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External> ;
+
+      ⚠️ **En tant que prestataire technique d’une entité administrative, si votre demande d'habilitation aboutit, vous ne serez pas habilité à recevoir les données issues de l'API Entreprise**, mais uniquement habilité à intégrer et gérer techniquement l'API pour votre client public. 
+
+**Veuillez déposer votre demande ""Spécifique éditeur"" en suivant ce lien : https://datapass.api.gouv.fr/api-entreprise?demarche=editeur**",,,
+API Certification Qualibat | Bouquet API Entreprise,,8b2a569b-22b2-4377-a425-5fab4fb01317,particulier,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.",,,
+API Certification Qualibat | Bouquet API Entreprise,,8b2a569b-22b2-4377-a425-5fab4fb01317,collectivité ou administration,Oui,"      Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, vous êtes éligible à l'utilisation de l'API Entreprise.  
+
+      **Si votre cadre légal le justifie**, l’API Entreprise vous permet d’accéder directement aux données administratives des entreprises et des associations pour faciliter leurs démarches.
+      - Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...)
+      - Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External>.
+
+      <Button href='https://datapass.api.gouv.fr/api-entreprise'>Demander une habilitation API Entreprise</Button>",,,
+API Certification Qualibat | Bouquet API Entreprise,,8b2a569b-22b2-4377-a425-5fab4fb01317,entreprise ou association,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.
+
+**Si vous êtes éditeur de logiciel pour des acteurs publics pour simplifier les démarches des entreprises/associations**, alors vous êtes éligible à intégrer l'API Entreprise pour la mettre à disposition de vos client publics **uniquement**. 
+
+      - Pour vérifier que votre logiciel correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...) ;
+      - Pour vous assurer que les API répondent aux besoins de vos clients publics, consultez le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External> ;
+
+      ⚠️ **En tant que prestataire technique d’une entité administrative, si votre demande d'habilitation aboutit, vous ne serez pas habilité à recevoir les données issues de l'API Entreprise**, mais uniquement habilité à intégrer et gérer techniquement l'API pour votre client public. 
+
+**Veuillez déposer votre demande ""Spécifique éditeur"" en suivant ce lien : https://datapass.api.gouv.fr/api-entreprise?demarche=editeur**",,,
+API Extrait RCS - Infogreffe | Bouquet API Entreprise,,835f8e96-59a9-4d70-a2c0-02deac451ca5,particulier,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.",,,
+API Extrait RCS - Infogreffe | Bouquet API Entreprise,,835f8e96-59a9-4d70-a2c0-02deac451ca5,collectivité ou administration,Oui,"      Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, vous êtes éligible à l'utilisation de l'API Entreprise.  
+
+      **Si votre cadre légal le justifie**, l’API Entreprise vous permet d’accéder directement aux données administratives des entreprises et des associations pour faciliter leurs démarches.
+      - Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...)
+      - Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External>.
+
+      <Button href='https://datapass.api.gouv.fr/api-entreprise'>Demander une habilitation API Entreprise</Button>",,,
+API Extrait RCS - Infogreffe | Bouquet API Entreprise,,835f8e96-59a9-4d70-a2c0-02deac451ca5,entreprise ou association,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.
+
+**Si vous êtes éditeur de logiciel pour des acteurs publics pour simplifier les démarches des entreprises/associations**, alors vous êtes éligible à intégrer l'API Entreprise pour la mettre à disposition de vos client publics **uniquement**. 
+
+      - Pour vérifier que votre logiciel correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...) ;
+      - Pour vous assurer que les API répondent aux besoins de vos clients publics, consultez le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External> ;
+
+      ⚠️ **En tant que prestataire technique d’une entité administrative, si votre demande d'habilitation aboutit, vous ne serez pas habilité à recevoir les données issues de l'API Entreprise**, mais uniquement habilité à intégrer et gérer techniquement l'API pour votre client public. 
+
+**Veuillez déposer votre demande ""Spécifique éditeur"" en suivant ce lien : https://datapass.api.gouv.fr/api-entreprise?demarche=editeur**",,,
+API N°TVA intracommunautaire français - Commission européenne | Bouquet API Entreprise,,10386bd5-b8ee-443d-9d06-eb0459325915,particulier,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.",,,
+API N°TVA intracommunautaire français - Commission européenne | Bouquet API Entreprise,,10386bd5-b8ee-443d-9d06-eb0459325915,collectivité ou administration,Oui,"      Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, vous êtes éligible à l'utilisation de l'API Entreprise.  
+
+      **Si votre cadre légal le justifie**, l’API Entreprise vous permet d’accéder directement aux données administratives des entreprises et des associations pour faciliter leurs démarches.
+      - Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...)
+      - Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External>.
+
+      <Button href='https://datapass.api.gouv.fr/api-entreprise'>Demander une habilitation API Entreprise</Button>",,,
+API N°TVA intracommunautaire français - Commission européenne | Bouquet API Entreprise,,10386bd5-b8ee-443d-9d06-eb0459325915,entreprise ou association,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.
+
+**Si vous êtes éditeur de logiciel pour des acteurs publics pour simplifier les démarches des entreprises/associations**, alors vous êtes éligible à intégrer l'API Entreprise pour la mettre à disposition de vos client publics **uniquement**. 
+
+      - Pour vérifier que votre logiciel correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...) ;
+      - Pour vous assurer que les API répondent aux besoins de vos clients publics, consultez le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External> ;
+
+      ⚠️ **En tant que prestataire technique d’une entité administrative, si votre demande d'habilitation aboutit, vous ne serez pas habilité à recevoir les données issues de l'API Entreprise**, mais uniquement habilité à intégrer et gérer techniquement l'API pour votre client public. 
+
+**Veuillez déposer votre demande ""Spécifique éditeur"" en suivant ce lien : https://datapass.api.gouv.fr/api-entreprise?demarche=editeur**",,,
+API Conventions collectives - Fabnum | Bouquet API Entreprise,,03db98ce-f13c-4fdd-9d41-2acbe0a08b42,particulier,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.",,,
+API Conventions collectives - Fabnum | Bouquet API Entreprise,,03db98ce-f13c-4fdd-9d41-2acbe0a08b42,collectivité ou administration,Oui,"      Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, vous êtes éligible à l'utilisation de l'API Entreprise.  
+
+      **Si votre cadre légal le justifie**, l’API Entreprise vous permet d’accéder directement aux données administratives des entreprises et des associations pour faciliter leurs démarches.
+      - Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...)
+      - Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External>.
+
+      <Button href='https://datapass.api.gouv.fr/api-entreprise'>Demander une habilitation API Entreprise</Button>",,,
+API Conventions collectives - Fabnum | Bouquet API Entreprise,,03db98ce-f13c-4fdd-9d41-2acbe0a08b42,entreprise ou association,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.
+
+**Si vous êtes éditeur de logiciel pour des acteurs publics pour simplifier les démarches des entreprises/associations**, alors vous êtes éligible à intégrer l'API Entreprise pour la mettre à disposition de vos client publics **uniquement**. 
+
+      - Pour vérifier que votre logiciel correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...) ;
+      - Pour vous assurer que les API répondent aux besoins de vos clients publics, consultez le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External> ;
+
+      ⚠️ **En tant que prestataire technique d’une entité administrative, si votre demande d'habilitation aboutit, vous ne serez pas habilité à recevoir les données issues de l'API Entreprise**, mais uniquement habilité à intégrer et gérer techniquement l'API pour votre client public. 
+
+**Veuillez déposer votre demande ""Spécifique éditeur"" en suivant ce lien : https://datapass.api.gouv.fr/api-entreprise?demarche=editeur**",,,
+API Immatriculation EORI - Douanes | Bouquet API Entreprise,,80675ec3-fc4d-4df2-9322-d23475ee039c,particulier,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.",,,
+API Immatriculation EORI - Douanes | Bouquet API Entreprise,,80675ec3-fc4d-4df2-9322-d23475ee039c,collectivité ou administration,Oui,"      Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, vous êtes éligible à l'utilisation de l'API Entreprise.  
+
+      **Si votre cadre légal le justifie**, l’API Entreprise vous permet d’accéder directement aux données administratives des entreprises et des associations pour faciliter leurs démarches.
+      - Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...)
+      - Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External>.
+
+      <Button href='https://datapass.api.gouv.fr/api-entreprise'>Demander une habilitation API Entreprise</Button>",,,
+API Immatriculation EORI - Douanes | Bouquet API Entreprise,,80675ec3-fc4d-4df2-9322-d23475ee039c,entreprise ou association,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.
+
+**Si vous êtes éditeur de logiciel pour des acteurs publics pour simplifier les démarches des entreprises/associations**, alors vous êtes éligible à intégrer l'API Entreprise pour la mettre à disposition de vos client publics **uniquement**. 
+
+      - Pour vérifier que votre logiciel correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...) ;
+      - Pour vous assurer que les API répondent aux besoins de vos clients publics, consultez le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External> ;
+
+      ⚠️ **En tant que prestataire technique d’une entité administrative, si votre demande d'habilitation aboutit, vous ne serez pas habilité à recevoir les données issues de l'API Entreprise**, mais uniquement habilité à intégrer et gérer techniquement l'API pour votre client public. 
+
+**Veuillez déposer votre demande ""Spécifique éditeur"" en suivant ce lien : https://datapass.api.gouv.fr/api-entreprise?demarche=editeur**",,,
+API Carte professionnelle travaux publics - Fntp | Bouquet API Entreprise,,16c7e575-c902-45fd-aa56-69f15c0ddb26,particulier,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.",,,
+API Carte professionnelle travaux publics - Fntp | Bouquet API Entreprise,,16c7e575-c902-45fd-aa56-69f15c0ddb26,collectivité ou administration,Oui,"      Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, vous êtes éligible à l'utilisation de l'API Entreprise.  
+
+      **Si votre cadre légal le justifie**, l’API Entreprise vous permet d’accéder directement aux données administratives des entreprises et des associations pour faciliter leurs démarches.
+      - Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...)
+      - Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External>.
+
+      <Button href='https://datapass.api.gouv.fr/api-entreprise'>Demander une habilitation API Entreprise</Button>",,,
+API Carte professionnelle travaux publics - Fntp | Bouquet API Entreprise,,16c7e575-c902-45fd-aa56-69f15c0ddb26,entreprise ou association,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.
+
+**Si vous êtes éditeur de logiciel pour des acteurs publics pour simplifier les démarches des entreprises/associations**, alors vous êtes éligible à intégrer l'API Entreprise pour la mettre à disposition de vos client publics **uniquement**. 
+
+      - Pour vérifier que votre logiciel correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...) ;
+      - Pour vous assurer que les API répondent aux besoins de vos clients publics, consultez le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External> ;
+
+      ⚠️ **En tant que prestataire technique d’une entité administrative, si votre demande d'habilitation aboutit, vous ne serez pas habilité à recevoir les données issues de l'API Entreprise**, mais uniquement habilité à intégrer et gérer techniquement l'API pour votre client public. 
+
+**Veuillez déposer votre demande ""Spécifique éditeur"" en suivant ce lien : https://datapass.api.gouv.fr/api-entreprise?demarche=editeur**",,,
+API Certification RGE - Ademe | Bouquet API Entreprise,,2e5b0222-5f5a-430f-ac22-a92e385d1da9,particulier,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.",,,
+API Certification RGE - Ademe | Bouquet API Entreprise,,2e5b0222-5f5a-430f-ac22-a92e385d1da9,collectivité ou administration,Oui,"      Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, vous êtes éligible à l'utilisation de l'API Entreprise.  
+
+      **Si votre cadre légal le justifie**, l’API Entreprise vous permet d’accéder directement aux données administratives des entreprises et des associations pour faciliter leurs démarches.
+      - Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...)
+      - Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External>.
+
+      <Button href='https://datapass.api.gouv.fr/api-entreprise'>Demander une habilitation API Entreprise</Button>",,,
+API Certification RGE - Ademe | Bouquet API Entreprise,,2e5b0222-5f5a-430f-ac22-a92e385d1da9,entreprise ou association,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.
+
+**Si vous êtes éditeur de logiciel pour des acteurs publics pour simplifier les démarches des entreprises/associations**, alors vous êtes éligible à intégrer l'API Entreprise pour la mettre à disposition de vos client publics **uniquement**. 
+
+      - Pour vérifier que votre logiciel correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...) ;
+      - Pour vous assurer que les API répondent aux besoins de vos clients publics, consultez le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External> ;
+
+      ⚠️ **En tant que prestataire technique d’une entité administrative, si votre demande d'habilitation aboutit, vous ne serez pas habilité à recevoir les données issues de l'API Entreprise**, mais uniquement habilité à intégrer et gérer techniquement l'API pour votre client public. 
+
+**Veuillez déposer votre demande ""Spécifique éditeur"" en suivant ce lien : https://datapass.api.gouv.fr/api-entreprise?demarche=editeur**",,,
+API Certification d'ingénierie - OPQIBI | Bouquet API Entreprise,,4e6fd288-81ef-4fab-9e69-8e1163cd87a0,particulier,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.",,,
+API Certification d'ingénierie - OPQIBI | Bouquet API Entreprise,,4e6fd288-81ef-4fab-9e69-8e1163cd87a0,collectivité ou administration,Oui,"      Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, vous êtes éligible à l'utilisation de l'API Entreprise.  
+
+      **Si votre cadre légal le justifie**, l’API Entreprise vous permet d’accéder directement aux données administratives des entreprises et des associations pour faciliter leurs démarches.
+      - Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...)
+      - Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External>.
+
+      <Button href='https://datapass.api.gouv.fr/api-entreprise'>Demander une habilitation API Entreprise</Button>",,,
+API Certification d'ingénierie - OPQIBI | Bouquet API Entreprise,,4e6fd288-81ef-4fab-9e69-8e1163cd87a0,entreprise ou association,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.
+
+**Si vous êtes éditeur de logiciel pour des acteurs publics pour simplifier les démarches des entreprises/associations**, alors vous êtes éligible à intégrer l'API Entreprise pour la mettre à disposition de vos client publics **uniquement**. 
+
+      - Pour vérifier que votre logiciel correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...) ;
+      - Pour vous assurer que les API répondent aux besoins de vos clients publics, consultez le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External> ;
+
+      ⚠️ **En tant que prestataire technique d’une entité administrative, si votre demande d'habilitation aboutit, vous ne serez pas habilité à recevoir les données issues de l'API Entreprise**, mais uniquement habilité à intégrer et gérer techniquement l'API pour votre client public. 
+
+**Veuillez déposer votre demande ""Spécifique éditeur"" en suivant ce lien : https://datapass.api.gouv.fr/api-entreprise?demarche=editeur**",,,
+API Certification Qualifelec | Bouquet API Entreprise,,895c46fb-de76-4fe3-9a66-28de820b2757,particulier,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.",,,
+API Certification Qualifelec | Bouquet API Entreprise,,895c46fb-de76-4fe3-9a66-28de820b2757,collectivité ou administration,Oui,"      Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, vous êtes éligible à l'utilisation de l'API Entreprise.  
+
+      **Si votre cadre légal le justifie**, l’API Entreprise vous permet d’accéder directement aux données administratives des entreprises et des associations pour faciliter leurs démarches.
+      - Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...)
+      - Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External>.
+
+      <Button href='https://datapass.api.gouv.fr/api-entreprise'>Demander une habilitation API Entreprise</Button>",,,
+API Certification Qualifelec | Bouquet API Entreprise,,895c46fb-de76-4fe3-9a66-28de820b2757,entreprise ou association,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.
+
+**Si vous êtes éditeur de logiciel pour des acteurs publics pour simplifier les démarches des entreprises/associations**, alors vous êtes éligible à intégrer l'API Entreprise pour la mettre à disposition de vos client publics **uniquement**. 
+
+      - Pour vérifier que votre logiciel correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...) ;
+      - Pour vous assurer que les API répondent aux besoins de vos clients publics, consultez le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External> ;
+
+      ⚠️ **En tant que prestataire technique d’une entité administrative, si votre demande d'habilitation aboutit, vous ne serez pas habilité à recevoir les données issues de l'API Entreprise**, mais uniquement habilité à intégrer et gérer techniquement l'API pour votre client public. 
+
+**Veuillez déposer votre demande ""Spécifique éditeur"" en suivant ce lien : https://datapass.api.gouv.fr/api-entreprise?demarche=editeur**",,,
+"API Brevets, marques et modèles déposés - Inpi | Bouquet API Entreprise",,d595a97b-8520-486b-ba71-26b9953377a3,particulier,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.",,,
+"API Brevets, marques et modèles déposés - Inpi | Bouquet API Entreprise",,d595a97b-8520-486b-ba71-26b9953377a3,collectivité ou administration,Oui,"      Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique _« chargé d'une mission ou délégataire de service public »_, vous êtes éligible à l'utilisation de l'API Entreprise.  
+
+      **Si votre cadre légal le justifie**, l’API Entreprise vous permet d’accéder directement aux données administratives des entreprises et des associations pour faciliter leurs démarches.
+      - Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...)
+      - Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External>.
+
+      <Button href='https://datapass.api.gouv.fr/api-entreprise'>Demander une habilitation API Entreprise</Button>",,,
+"API Brevets, marques et modèles déposés - Inpi | Bouquet API Entreprise",,d595a97b-8520-486b-ba71-26b9953377a3,entreprise ou association,Non,"Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.
+
+**Si vous êtes éditeur de logiciel pour des acteurs publics pour simplifier les démarches des entreprises/associations**, alors vous êtes éligible à intégrer l'API Entreprise pour la mettre à disposition de vos client publics **uniquement**. 
+
+      - Pour vérifier que votre logiciel correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <External href=""https://entreprise.api.gouv.fr/cas_usages"">cas d'usages</External> (marchés publics, aides et subventions, portail GRU...) ;
+      - Pour vous assurer que les API répondent aux besoins de vos clients publics, consultez le <External href=""https://entreprise.api.gouv.fr/catalogue"">catalogue des API</External> ;
+
+      ⚠️ **En tant que prestataire technique d’une entité administrative, si votre demande d'habilitation aboutit, vous ne serez pas habilité à recevoir les données issues de l'API Entreprise**, mais uniquement habilité à intégrer et gérer techniquement l'API pour votre client public. 
+
+**Veuillez déposer votre demande ""Spécifique éditeur"" en suivant ce lien : https://datapass.api.gouv.fr/api-entreprise?demarche=editeur**",,,
