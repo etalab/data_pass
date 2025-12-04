@@ -433,19 +433,14 @@ Quand('il existe un instructeur pour cette demande d\'habilitation') do
 end
 
 Alors('un webhook avec l\'évènement {string} est envoyé') do |event_name|
-  authorization_request = AuthorizationRequest.first
-
   webhook_job = ActiveJob::Base.queue_adapter.enqueued_jobs.find do |job|
     next unless job['job_class'] == 'DeliverAuthorizationRequestWebhookJob'
 
-    JSON.parse(job['arguments'][1])['event'] == event_name
+    payload = JSON.parse(job['arguments'][3])
+    payload['event'] == event_name
   end
 
-  webhook_job_arg = [authorization_request.definition.id, an_instance_of(String), authorization_request.id]
-
   expect(webhook_job).not_to be_nil
-
-  expect(webhook_job['arguments']).to match(webhook_job_arg)
 end
 
 # https://rubular.com/r/eAlfvtPiXB46Ec

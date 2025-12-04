@@ -1,5 +1,15 @@
 <% set_title! t('page_titles.api_documentation') %>
 
+<% content_for :content_skip_link_text do %>
+  Documentation API
+<% end %>
+
+<% content_for :skip_links do %>
+  <%= skip_link("Documentation", "redoc_container") %>
+  <%= skip_link("Menu", "header") %>
+  <%= skip_link("Pied de page", "footer") %>
+<% end %>
+
 <div id="redoc_container">
 </div>
 

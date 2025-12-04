@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_10_24_141046) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_28_171225) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_catalog.plpgsql"
@@ -346,10 +346,10 @@ ActiveRecord::Schema[8.1].define(version: 2025_10_24_141046) do
 
   create_table "message_templates", force: :cascade do |t|
     t.string "authorization_definition_uid", null: false
-    t.integer "template_type", null: false
-    t.string "title", limit: 50, null: false
     t.text "content", null: false
     t.datetime "created_at", null: false
+    t.integer "template_type", null: false
+    t.string "title", limit: 50, null: false
     t.datetime "updated_at", null: false
     t.index ["authorization_definition_uid", "template_type"], name: "idx_on_authorization_definition_uid_template_type_7b33b333b3"
   end
@@ -483,6 +483,36 @@ ActiveRecord::Schema[8.1].define(version: 2025_10_24_141046) do
     t.index ["email"], name: "index_verified_emails_on_email", unique: true
   end
 
+  create_table "webhook_attempts", force: :cascade do |t|
+    t.bigint "authorization_request_id", null: false
+    t.datetime "created_at", null: false
+    t.string "event_name", null: false
+    t.jsonb "payload", default: {}, null: false
+    t.text "response_body"
+    t.integer "status_code"
+    t.datetime "updated_at", null: false
+    t.bigint "webhook_id", null: false
+    t.index ["authorization_request_id"], name: "index_webhook_attempts_on_authorization_request_id"
+    t.index ["created_at"], name: "index_webhook_attempts_on_created_at"
+    t.index ["event_name"], name: "index_webhook_attempts_on_event_name"
+    t.index ["webhook_id", "created_at"], name: "index_webhook_attempts_on_webhook_id_and_created_at", order: { created_at: :desc }
+    t.index ["webhook_id"], name: "index_webhook_attempts_on_webhook_id"
+  end
+
+  create_table "webhooks", force: :cascade do |t|
+    t.datetime "activated_at"
+    t.string "authorization_definition_id", null: false
+    t.datetime "created_at", null: false
+    t.boolean "enabled", default: false, null: false
+    t.jsonb "events", default: [], null: false
+    t.text "secret", null: false
+    t.datetime "updated_at", null: false
+    t.string "url", null: false
+    t.boolean "validated", default: false, null: false
+    t.index ["authorization_definition_id", "enabled", "validated"], name: "index_webhooks_on_definition_enabled_validated"
+    t.index ["authorization_definition_id"], name: "index_webhooks_on_authorization_definition_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "admin_events", "users", column: "admin_id"
@@ -514,4 +544,6 @@ ActiveRecord::Schema[8.1].define(version: 2025_10_24_141046) do
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_tokens", "users", column: "resource_owner_id"
   add_foreign_key "revocation_of_authorizations", "authorization_requests"
+  add_foreign_key "webhook_attempts", "authorization_requests"
+  add_foreign_key "webhook_attempts", "webhooks"
 end

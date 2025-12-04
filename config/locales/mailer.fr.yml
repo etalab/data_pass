@@ -152,7 +152,7 @@ fr:
     fail:
       subject: "[ DataPass ] Erreur de communication avec votre %{authorization_definition_name}"
       description: |
-        DataPass cherche à notifier votre %{authorization_definition_name} depuis 10 minutes mais n’y parvient plus. Une habilitation DataPass n’a donc pas été transmise automatiquement à vos services.
+        DataPass cherche à notifier votre %{authorization_definition_name} depuis 10 minutes mais n'y parvient plus. Une habilitation DataPass n'a donc pas été transmise automatiquement à vos services.
 
         Les informations techniques sont les suivantes:
 
@@ -160,22 +160,12 @@ fr:
 
         %{webhook_url}
 
-        **Payload**
+        **Historique des appels**
 
-        La payload envoyée:
+        Vous pouvez consulter l'historique complet des appels webhook et les détails des erreurs à l'adresse suivante :
 
-        ```
-        %{payload}
-        ```
+        %{webhook_attempts_url}
 
-        **Status**
-
-        %{webhook_response_status}
-
-        **Body**
-
-        %{webhook_response_body}
-
-        Merci de transmettre ce message à votre équipe technique pour correction. Nous sommes disponibles pour vos questions techniques à l’adresse mail suivante : equipe-datapass@api.gouv.fr.
+        Merci de transmettre ce message à votre équipe technique pour correction. Nous sommes disponibles pour vos questions techniques à l'adresse mail suivante : equipe-datapass@api.gouv.fr.
 
         Cordialement,

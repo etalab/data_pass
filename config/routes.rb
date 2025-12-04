@@ -147,9 +147,28 @@ Rails.application.routes.draw do
   end
 
   get '/api-docs/v1.yaml', to: ->(_env) { [200, { 'Content-Type' => 'application/yaml', 'Content-Disposition' => 'inline;filename="datapass-v1.yaml"' }, [File.read(Rails.root.join('config/openapi/v1.yaml'))]] }, as: :open_api_v1
-  get '/developpeurs', to: redirect('/developpeurs/documentation')
-  get '/developpeurs/applications', to: 'oauth_applications#index', as: :oauth_applications
-  get '/developpeurs/documentation', to: 'open_api#show'
+
+  get '/developpeurs', to: 'developers#index', as: :developers_root
+
+  namespace :developers, path: 'developpeurs' do
+    resources :oauth_applications, only: :index, path: 'applications'
+    get 'documentation', to: 'open_api#show'
+
+    resources :webhooks, path: 'webhooks' do
+      member do
+        post :enable, path: 'activer'
+        post :disable, path: 'desactiver'
+        post :regenerate_secret, path: 'regenerer-secret'
+        get :show_secret, path: 'secret'
+      end
+
+      resources :webhook_attempts, only: %i[index show], path: 'tentatives' do
+        member do
+          post :replay, path: 'rejouer'
+        end
+      end
+    end
+  end
 
   namespace :api do
     resources :frontal, only: :index
@@ -166,10 +185,19 @@ Rails.application.routes.draw do
       resources :authorization_definitions, path: 'definitions', only: %i[index show]
 
       resources :authorization_request_forms, path: 'definitions/:id/formulaires', only: %i[index]
+
+      resources :webhooks, only: [] do
+        resources :webhook_attempts, only: [:index], path: 'attempts', as: :attempts
+      end
     end
   end
 
   get '/dgfip/export', to: 'dgfip/export#show', as: :dgfip_export
+
+  if Rails.env.local?
+    post '/dummy/valid/webhooks', to: ->(_env) { [200, { 'Content-Type' => 'application/json' }, [{token_id: SecureRandom.hex(16)}.to_json]] }
+    post '/dummy/invalid/webhooks', to: ->(_env) { [422, { 'Content-Type' => 'application/json' }, [{hello: 'world'}.to_json]] }
+  end
 
   mount GoodJob::Engine => '/workers'
 end

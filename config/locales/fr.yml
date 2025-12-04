@@ -242,7 +242,7 @@ fr:
         title: Notifications par emails
       developer:
         title: Vous avez un accès développeur
-        applications_link: Voir mes credentials API
+        index_link: Accéder à l'espace développeur
         documentation_link: Voir la documentation API
     authorization_notifications:
       instruction_submit_notifications: Notifications pour les dépôts de demandes d'habilitations
@@ -692,21 +692,6 @@ fr:
   stats:
     index:
       title: Statistiques d'utilisation
-  oauth_applications:
-    index:
-      title: Mes clefs d'accès API
-      documentation_url: Voir la documentation API
-      description_html: Liste de vos applications OAuth et de leurs credentials API
-      list_of_habilitations_description: "Vos clefs d'accès API vous permettent d'accéder aux demandes et habilitations suivantes"
-      no_developer_roles: Vous n'avez pas de clefs d'accès API, contactez un administrateur pour en obtenir.
-      table:
-        headers:
-          name: Nom de l'application
-          credentials: Identifiants
-          scopes: Scopes
-        row:
-          client_id: Id
-          client_secret: Secret
   manual_transfer_authorization_requests:
     new:
       title: "Transfert manuel requis"
@@ -740,6 +725,12 @@ fr:
     show:
       description: Pour finaliser cette demande d'habilitation, cliquez sur le bouton ci-dessous
       cta: Finaliser cette demande
+
+  errors:
+    messages:
+      form_errors:
+        one: "Le formulaire contient une erreur"
+        other: "Le formulaire contient %{count} erreurs"
   eligibility:
     title: "Bienvenue sur DataPass !"
     subtitle: "Les données auxquelles vous souhaitez avoir accès ne sont accessibles que sur habilitation, vérifions si vous êtes éligibles :"

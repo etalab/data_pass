@@ -8,13 +8,15 @@ class ApplicationMailer < ActionMailer::Base
   # rubocop:disable Metrics/AbcSize
   def extract_host
     if params[:authorization_request].present?
-      build_host_from_authorization_request(params[:authorization_request])
+      build_host_from_authorization_definition(params[:authorization_request].definition)
     elsif params[:message].present?
-      build_host_from_authorization_request(params[:message].authorization_request)
+      build_host_from_authorization_definition(params[:message].authorization_request.definition)
     elsif params[:authorization_request_transfer].present?
-      build_host_from_authorization_request(params[:authorization_request_transfer].authorization_request)
+      build_host_from_authorization_definition(params[:authorization_request_transfer].authorization_request.definition)
     elsif params[:instructor_draft_request].present?
-      build_host_from_authorization_request(params[:instructor_draft_request].request)
+      build_host_from_authorization_definition(params[:instructor_draft_request].request.definition)
+    elsif params[:webhook].present?
+      build_host_from_authorization_definition(params[:webhook].definition)
     end
   end
   # rubocop:enable Metrics/AbcSize
@@ -25,8 +27,8 @@ class ApplicationMailer < ActionMailer::Base
     }
   end
 
-  def build_host_from_authorization_request(authorization_request)
-    subdomain = Subdomain.find_for_authorization_request(authorization_request)
+  def build_host_from_authorization_definition(definition)
+    subdomain = Subdomain.find_for_authorization_definition(definition)
 
     @host = if subdomain
               build_host_from_env_and_subdomain(subdomain)
@@ -50,6 +52,8 @@ class ApplicationMailer < ActionMailer::Base
     case Rails.env
     when 'production'
       'https://v2.datapass.api.gouv.fr'
+    when 'test', 'development'
+      'http://localhost:3000'
     else
       "https://#{Rails.env}.v2.datapass.api.gouv.fr"
     end

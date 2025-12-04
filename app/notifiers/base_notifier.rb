@@ -1,9 +1,8 @@
 class BaseNotifier < ApplicationNotifier
   notifier_event_names.each do |event_name|
-    # rubocop:disable Lint/EmptyBlock
     define_method(event_name) do |_params|
+      # Empty implementation, events are handled by default
     end
-    # rubocop:enable Lint/EmptyBlock
   end
 
   %w[
@@ -27,7 +26,9 @@ class BaseNotifier < ApplicationNotifier
     email_notification_with_reopening('submit', params, mailer: Instruction::AuthorizationRequestMailer)
   end
 
-  def revoke(params) = email_notification('revoke', params)
+  def revoke(params)
+    email_notification('revoke', params)
+  end
 
   private
 

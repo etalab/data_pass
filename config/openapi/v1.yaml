@@ -48,6 +48,8 @@ tags:
   - name: Événements
     description: Les événements représentent toutes les actions effectuées sur les demandes d'habilitations.
   - name: Utilisateurs
+  - name: Webhooks
+    description: Les webhooks permettent de recevoir des notifications sur les événements liés aux demandes d'habilitations.
 
 components:
   securitySchemes:
@@ -519,6 +521,54 @@ components:
               - "entreprises"
               - "etablissements"
           nullable: true
+
+    WebhookAttempt:
+      type: object
+      description: Appel webhook effectué suite à un événement sur une demande d'habilitation
+      properties:
+        id:
+          type: integer
+          example: 123
+          description: Identifiant unique de l'appel webhook
+        event:
+          type: string
+          example: "approve"
+          description: Type d'événement ayant déclenché l'appel webhook
+          enum:
+            - create
+            - update
+            - transfer
+            - submit
+            - approve
+            - refuse
+            - request_changes
+            - revoke
+            - archive
+            - reopen
+            - cancel_reopening
+        status_code:
+          type: integer
+          example: 200
+          description: Code HTTP de la réponse du webhook
+          nullable: true
+        response_body:
+          type: string
+          example: '{"success": true}'
+          description: Corps de la réponse du webhook
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          description: Date et heure de l'appel webhook
+        authorization_request_id:
+          type: integer
+          example: 456
+          description: Identifiant de la demande d'habilitation concernée par l'appel webhook
+      required:
+        - id
+        - event
+        - created_at
+        - authorization_request_id
 
   responses:
     NotFoundError:
@@ -1076,3 +1126,87 @@ paths:
                   error:
                     type: string
                     example: "Not Found"
+
+  /webhooks/{webhook_id}/attempts:
+    get:
+      tags:
+        - Webhooks
+      summary: Récupérer l'historique des appels d'un webhook
+      description: |
+        Récupère la liste des appels effectués pour un webhook spécifique.
+
+        L'utilisateur doit avoir un rôle développeur pour la définition d'habilitation associée au webhook.
+        Si l'utilisateur n'a pas accès à ce webhook, une erreur 404 est retournée.
+
+        Les résultats sont triés par date de création décroissante (du plus récent au plus ancien).
+      operationId: getWebhookAttempts
+      security:
+        - BearerAuth: [read_webhooks]
+      parameters:
+        - name: webhook_id
+          in: path
+          required: true
+          description: Identifiant unique du webhook
+          schema:
+            type: integer
+            example: 1
+        - name: start_time
+          in: query
+          required: false
+          description: Date de début pour filtrer les appels webhook (format ISO 8601)
+          schema:
+            type: string
+            format: date-time
+            example: "2024-01-01T00:00:00Z"
+        - name: end_time
+          in: query
+          required: false
+          description: Date de fin pour filtrer les appels webhook (format ISO 8601)
+          schema:
+            type: string
+            format: date-time
+            example: "2024-12-31T23:59:59Z"
+        - name: limit
+          in: query
+          required: false
+          description: Nombre maximum d'appels à récupérer (par défaut 100, maximum 100)
+          schema:
+            type: integer
+            default: 100
+            minimum: 1
+            maximum: 100
+      responses:
+        '200':
+          description: Liste des appels webhook récupérée avec succès
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WebhookAttempt'
+              examples:
+                webhook_attempts:
+                  summary: Exemple d'appels webhook
+                  value:
+                    - id: 123
+                      event: "approve"
+                      status_code: 200
+                      response_body: '{"success": true}'
+                      created_at: "2024-01-15T10:30:00Z"
+                      authorization_request_id: 456
+                    - id: 124
+                      event: "submit"
+                      status_code: 500
+                      response_body: '{"error": "Internal Server Error"}'
+                      created_at: "2024-01-15T11:00:00Z"
+                      authorization_request_id: 457
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          description: Webhook non trouvé ou accès non autorisé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'

@@ -7,38 +7,36 @@ class DeliverAuthorizationRequestWebhookJob < ApplicationJob
 
   retry_on(WebhookDeliveryFailedError, wait: :polynomially_longer, attempts: :unlimited)
 
-  def perform(authorization_request_kind, json, authorization_request_id)
-    return if webhook_url(authorization_request_kind).blank?
-    return if verify_token(authorization_request_kind).blank?
+  def perform(webhook_id, authorization_request_id, event_name, payload)
+    webhook = Webhook.find(webhook_id)
+    authorization_request = AuthorizationRequest.find(authorization_request_id)
 
-    payload = JSON.parse(json)
+    http_service = WebhookHttpService.new(webhook.url, webhook.secret)
+    result = http_service.call(payload)
 
-    response = request(authorization_request_kind, payload)
+    Developer::SaveWebhookAttempt.call!(
+      webhook: webhook,
+      authorization_request: authorization_request,
+      event_name: event_name,
+      status_code: result[:status_code],
+      response_body: result[:response_body],
+      payload: payload
+    )
 
-    if success_http_codes.include?(response.status)
-      handle_success(response.body, authorization_request_id)
+    if success_http_codes.include?(result[:status_code])
+      handle_success(result[:response_body], authorization_request)
     else
-      handle_error(response, authorization_request_kind, payload, authorization_request_id)
+      handle_error(result, webhook, payload, authorization_request)
     end
   end
 
   private
 
-  def request(authorization_request_kind, payload)
-    Faraday.new(webhook_uri(authorization_request_kind).to_s).post(webhook_uri(authorization_request_kind).path) do |req|
-      req.headers['Content-Type'] = 'application/json'
-      req.headers['X-Hub-Signature-256'] = "sha256=#{generate_hub_signature(authorization_request_kind, payload)}"
-      req.headers['X-App-Environment'] = Rails.env
-      req.body = payload.to_json
-    end
-  end
-
-  def handle_success(payload, authorization_request_id)
-    json = JSON.parse(payload)
+  def handle_success(response_body, authorization_request)
+    json = JSON.parse(response_body)
 
     return unless json && json['token_id'].present?
 
-    authorization_request = AuthorizationRequest.find(authorization_request_id)
     authorization_request.update(
       external_provider_id: json['token_id']
     )
@@ -46,9 +44,9 @@ class DeliverAuthorizationRequestWebhookJob < ApplicationJob
     nil
   end
 
-  def handle_error(response, authorization_request_kind, payload, _authorization_request_id)
-    track_error(response, authorization_request_kind, payload)
-    notify_webhook_fail(authorization_request_kind, payload, response) if attempts == THRESHOLD_TO_NOTIFY_DATA_PROVIDER
+  def handle_error(result, webhook, payload, authorization_request)
+    track_error(result, webhook, payload, authorization_request)
+    notify_webhook_fail(webhook, payload, result) if attempts == THRESHOLD_TO_NOTIFY_DATA_PROVIDER
     webhook_fail!
   end
 
@@ -56,54 +54,29 @@ class DeliverAuthorizationRequestWebhookJob < ApplicationJob
     raise WebhookDeliveryFailedError
   end
 
-  def track_error(response, authorization_request_kind, payload)
+  def track_error(result, webhook, payload, authorization_request)
     Sentry.set_extras(
       {
-        authorization_request_kind:,
-        payload:,
+        webhook_id: webhook.id,
+        authorization_definition_id: webhook.authorization_definition_id,
+        authorization_request_id: authorization_request.id,
+        payload: payload,
         tries_count: attempts,
-        webhook_response_status: response.status,
-        webhook_response_body: response.body
+        webhook_response_status: result[:status_code],
+        webhook_response_body: result[:response_body]
       }
     )
 
     Sentry.capture_message("Fail to call target's api webhook endpoint")
   end
 
-  def notify_webhook_fail(authorization_request_kind, payload, response)
+  def notify_webhook_fail(webhook, _payload, _result)
     WebhookMailer.with(
-      authorization_request_kind:,
-      payload:,
-      webhook_response_status: response.status.to_i,
-      webhook_response_body: response.body.to_s
+      webhook: webhook
     ).fail.deliver_later
   end
 
-  def generate_hub_signature(authorization_request_kind, payload)
-    OpenSSL::HMAC.hexdigest(
-      OpenSSL::Digest.new('sha256'),
-      verify_token(authorization_request_kind),
-      payload.to_json
-    )
-  end
-
-  def webhook_uri(authorization_request_kind)
-    URI(webhook_url(authorization_request_kind))
-  end
-
-  def webhook_url(authorization_request_kind)
-    Rails.application.credentials.webhooks.public_send(authorization_request_kind)&.url
-  end
-
-  def verify_token(authorization_request_kind)
-    Rails.application.credentials.webhooks.public_send(authorization_request_kind)&.token
-  end
-
   def success_http_codes
-    [
-      200,
-      201,
-      204
-    ]
+    WebhookAttempt::SUCCESS_STATUS_CODES
   end
 end
