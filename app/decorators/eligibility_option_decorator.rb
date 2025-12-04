@@ -20,7 +20,7 @@ class EligibilityOptionDecorator < ApplicationDecorator
   end
 
   def sanitized_body
-    h.sanitize(body, tags: %w[b i strong em p a], attributes: %w[href])
+    h.sanitize(body, tags: %w[b i strong em p a br], attributes: %w[href target rel])
   end
 
   def label

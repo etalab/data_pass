@@ -4,27 +4,30 @@
   options:
   - type: particulier
     eligible: 'no'
-    body: "      Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage
-      de l’API Particulier est <b>uniquement reservé aux acteurs publics</b> : les
+    body: |-
+      <p>Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage
+      de l’API Particulier est <strong>uniquement reservé aux acteurs publics</strong> : les
       administrations, les collectivités, leurs opérateurs, les acteurs de santé,
       les organismes ayant le statut spécifique <i>« chargé d'une mission ou délégataire
-      de service public »</i>, etc."
+      de service public »</i>, etc.</p>
   - type: collectivite_ou_administration
     eligible: 'yes'
-    body: |2-
-            <p>Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique <i>« chargé d'une mission ou délégataire de service public »</i>, vous êtes éligible à l'utilisation de l'API Particulier.</p>
-
-            <p><b>Si votre cadre légal le justifie</b>, l’API Particulier vous permet d’accéder directement aux données administratives des particuliers pour faciliter leurs démarches.</p>
-            <p>- Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Particulier, consultez nos différents <a href="https://particulier.api.gouv.fr/cas_usages">cas d'usages</a> (Tarification cantine et transport, aides facultatives départementales et régionales, aides sociales des CCAS, gestion RH du secteur public ...)</p>
-            <p>- Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <a href="https://particulier.api.gouv.fr/catalogue">catalogue des API</a>.</p>
+    body: |-
+      <p>Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique <i>« chargé d'une mission ou délégataire de service public »</i>, vous êtes éligible à l'utilisation de l'API Particulier.</p>
+      <br />
+      <p><b>Si votre cadre légal le justifie</b>, l’API Particulier vous permet d’accéder directement aux données administratives des particuliers pour faciliter leurs démarches.</p>
+      <ul>
+        <li>Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Particulier, consultez nos différents <a href="https://particulier.api.gouv.fr/cas_usages">cas d'usages</a> (Tarification cantine et transport, aides facultatives départementales et régionales, aides sociales des CCAS, gestion RH du secteur public ...)</li>
+        <li>Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <a href="https://particulier.api.gouv.fr/catalogue">catalogue des API</a>.</li>
+      </ul>
   - type: entreprise_ou_association
     eligible: 'no'
-    body: |2-
-            <p>Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Particulier est <b>uniquement reservé aux acteurs publics</b> : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, les organismes ayant le statut spécifique <i>« chargé d'une mission ou délégataire de service public »</i>, etc.</p>
-
-            <p>Si vous êtes <b>éditeur de logiciels pour des acteurs publics, c'est à vos utilisateurs collectivité ou administration de faire une demande d'habilitation.</b></p>
-
-            <p>En revanche, vous pouvez nous demander de vous référencer sur un cas d'usage afin de proposer des formulaires pré-remplis et ainsi simplifier l'expérience de vos clients publics :</p>
+    body: |-
+      <p>Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Particulier est <b>uniquement reservé aux acteurs publics</b> : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, les organismes ayant le statut spécifique <i>« chargé d'une mission ou délégataire de service public »</i>, etc.</p>
+      <br />
+      <p>Si vous êtes <b>éditeur de logiciels pour des acteurs publics, c'est à vos utilisateurs collectivité ou administration de faire une demande d'habilitation.</b></p>
+      <br />
+      <p>En revanche, vous pouvez nous demander de vous référencer sur un cas d'usage afin de proposer des formulaires pré-remplis et ainsi simplifier l'expérience de vos clients publics :</p>
     cta:
       content: Demander à être référencé
       url: https://form.typeform.com/to/OJ4rkf5Z
@@ -38,23 +41,26 @@
       les collectivités, leurs opérateurs, les acteurs de santé, etc.'
   - type: collectivite_ou_administration
     eligible: 'yes'
-    body: |2-
-            <p>Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique <i>« chargé d'une mission ou délégataire de service public »</i>, vous êtes éligible à l'utilisation de l'API Entreprise.</p>
-
-            <p><b>Si votre cadre légal le justifie</b>, l’API Entreprise vous permet d’accéder directement aux données administratives des entreprises et des associations pour faciliter leurs démarches.</p>
-            <p>- Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <a href="https://entreprise.api.gouv.fr/cas_usages">cas d'usages</a> (marchés publics, aides et subventions, portail GRU...)</p>
-            <p>- Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <a href="https://entreprise.api.gouv.fr/catalogue">catalogue des API</a>.</p>
+    body: |-
+      <p>Que vous soyez une collectivité, une administration centrale, un organisme ayant le statut spécifique <i>« chargé d'une mission ou délégataire de service public »</i>, vous êtes éligible à l'utilisation de l'API Entreprise.</p>
+      <br />
+      <p><b>Si votre cadre légal le justifie</b>, l’API Entreprise vous permet d’accéder directement aux données administratives des entreprises et des associations pour faciliter leurs démarches.</p>
+      <ul>
+        <li>Pour vérifier que votre besoin correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <a href="https://entreprise.api.gouv.fr/cas_usages">cas d'usages</a> (marchés publics, aides et subventions, portail GRU...)</li>
+        <li>Pour vérifier si nous distribuons les données dont vos démarches ont besoin, veuillez consulter le <a href="https://entreprise.api.gouv.fr/catalogue">catalogue des API</a>.</li>
+      </ul>
   - type: entreprise_ou_association
     eligible: 'no'
     body: |-
       <p>Vous n’êtes pas autorisé à accéder aux données de cette API. L’usage de l’API Entreprise est uniquement reservé aux acteurs publics : les administrations, les collectivités, leurs opérateurs, les acteurs de santé, etc.</p>
-
+      <br />
       <p><b>Si vous êtes éditeur de logiciel pour des acteurs publics pour simplifier les démarches des entreprises/associations</b>, alors vous êtes éligible à intégrer l'API Entreprise pour la mettre à disposition de vos client publics <b>uniquement</b>. </p>
-
-            <p>- Pour vérifier que votre logiciel correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <a href="https://entreprise.api.gouv.fr/cas_usages">cas d'usages</a> (marchés publics, aides et subventions, portail GRU...) ;</p>
-            <p>- Pour vous assurer que les API répondent aux besoins de vos clients publics, consultez le <a href="https://entreprise.api.gouv.fr/catalogue">catalogue des API</a> ;</p>
-
-            <p>⚠️ <b>En tant que prestataire technique d’une entité administrative, si votre demande d'habilitation aboutit, vous ne serez pas habilité à recevoir les données issues de l'API Entreprise</b>, mais uniquement habilité à intégrer et gérer techniquement l'API pour votre client public. </p>
+      <ul>
+        <li>Pour vérifier que votre logiciel correspond aux utilisations justifiant l'API Entreprise, consultez nos différents <a href="https://entreprise.api.gouv.fr/cas_usages">cas d'usages</a> (marchés publics, aides et subventions, portail GRU...) ;</li>
+        <li>Pour vous assurer que les API répondent aux besoins de vos clients publics, consultez le <a href="https://entreprise.api.gouv.fr/catalogue">catalogue des API</a> ;</li>
+      </ul>
+      <br />
+      <p><span aria-label="Attention" role="img">⚠️</span> <b>En tant que prestataire technique d’une entité administrative, si votre demande d'habilitation aboutit, vous ne serez pas habilité à recevoir les données issues de l'API Entreprise</b>, mais uniquement habilité à intégrer et gérer techniquement l'API pour votre client public. </p>
     cta:
       content: Déposer une demande Editeur
       url: https://datapass.api.gouv.fr/api-entreprise?demarche=editeur
@@ -67,16 +73,16 @@
   - type: entreprise_ou_association
     eligible: maybe
     body: |-
-      <p><b>❌ Si vous êtes une entreprise ou une association, vous n'êtes pas éligible.</b> </p>
-
-      <p><b>✅ Si vous êtes un établissement bancaire, vous êtes peut-être éligible.</b>  Dans le cadre de la vérification de l’éligibilité au <a href="https://www.service-public.fr/particuliers/vosdroits/F2367">LEP</a> les banques peuvent être considérées comme une administration au sens de <a href="https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000031366350&idArticle=LEGIARTI000031367308&dateTexte=&categorieLien=cid">l'article L100-3 du code des relations entre le public et l'administration</a>.</p>
+      <p><b><span aria-label="Non" role="img">❌</span> Si vous êtes une entreprise ou une association, vous n'êtes pas éligible.</b> </p>
+      <br />
+      <p><b><span aria-label="Oui" role="img">✅</span> Si vous êtes un établissement bancaire, vous êtes peut-être éligible.</b>  Dans le cadre de la vérification de l’éligibilité au <a href="https://www.service-public.fr/particuliers/vosdroits/F2367">LEP</a> les banques peuvent être considérées comme une administration au sens de <a href="https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000031366350&idArticle=LEGIARTI000031367308&dateTexte=&categorieLien=cid">l'article L100-3 du code des relations entre le public et l'administration</a>.</p>
 
       <p>Si vous entrez dans ce cadre, vous pouvez effectuer une demande d'habilitation à l’API R2P via le Courtier Fonctionnel SFiP.</p>
   - type: collectivite_ou_administration
     eligible: maybe
     body: |-
       <p>L'API R2P restituant des éléments sensibles (état civil, adresse, identifiant fiscal), elle est couverte par la règle du secret professionnel prévue par les dispositions de <a href="https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000031366350&idArticle=LEGIARTI000031367308&dateTexte=&categorieLien=cid">l'article L100-3 du Livre des Procédures Fiscales</a>, car ceux-ci constituent des données nominatives et personnelles.</p>
-
+      <br />
       <p>Il ne peut être dérogé au secret professionnel que par une disposition législative spécifique. En conséquence, les informations restituées par l'API R2P ne peuvent être communiquées qu’aux personnes, organismes ou autorités bénéficiant d’une telle mesure et dans la limite fixée par la loi.</p>
 - id: 4
   definition_id: api_ficoba
@@ -87,18 +93,17 @@
   - type: entreprise_ou_association
     eligible: maybe
     body: |-
-      <p>❌ Si vous êtes une entreprise ou une association, vous n'êtes pas éligible.</b></p>
-
-      <p><b>✅ Si vous êtes un établissement bancaire, vous êtes peut-être éligible.</b> Dans le cadre de la vérification de l’éligibilité au <a href="https://www.service-public.fr/particuliers/vosdroits/F2367">LEP</a> et autres produits d'épargne réglementés, les banques peuvent être considérées comme une administration au sens de <a href="https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000031366350&idArticle=LEGIARTI000031367308&dateTexte=&categorieLien=cid">l'article L100-3 du code des relations entre le public et l'administration</a>.</p>
-
+      <p><span aria-label="Non" role="img">❌</span> Si vous êtes une entreprise ou une association, vous n'êtes pas éligible.</b></p>
+      <br />
+      <p><b><span aria-label="Oui" role="img">✅</span> Si vous êtes un établissement bancaire, vous êtes peut-être éligible.</b> Dans le cadre de la vérification de l’éligibilité au <a href="https://www.service-public.fr/particuliers/vosdroits/F2367">LEP</a> et autres produits d'épargne réglementés, les banques peuvent être considérées comme une administration au sens de <a href="https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000031366350&idArticle=LEGIARTI000031367308&dateTexte=&categorieLien=cid">l'article L100-3 du code des relations entre le public et l'administration</a>.</p>
       <p>Si vous entrez dans ce cadre, vous pouvez effectuer une demande d'habilitation à l’API FICOBA.</p>
   - type: collectivite_ou_administration
     eligible: maybe
     body: |-
       <p>L'API FICOBA restituant des éléments sensibles (comptes bancaires du titulaire et/ou du co-titulaire, état civil et adresse) est couvert par la règle du secret professionnel prévue par les dispositions de <a href="https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000031366350&idArticle=LEGIARTI000031367308&dateTexte=&categorieLien=cid">l'article L100-3 du Livre des Procédures Fiscales</a>, car ceux-ci constituent des données nominatives et personnelles. Il ne peut être dérogé au secret professionnel que par une disposition législative spécifique.</p>
-
+      <br />
       <p>En conséquence, les informations restituées par l'API FICOBA ne peuvent être communiquées qu’aux personnes, organismes ou autorités bénéficiant d’une telle mesure et dans la limite fixée par la loi.</p>
-
+      <br />
       <p>Pour obtenir un agrément, vous devez justifier du cadre juridique dans lequel s’inscrit votre demande.</p>
 - id: 5
   definition_id: api_impot_particulier
@@ -109,16 +114,16 @@
   - type: entreprise_ou_association
     eligible: maybe
     body: |-
-      <p><b>❌ Si vous êtes une entreprise ou une association, vous n'êtes pas éligible.</b></p>
-
-      <p><b>✅ Si vous êtes un établissement bancaire, vous êtes peut-être éligible.</b> Dans le cadre de la vérification de l'éligibilité au LEP, et conformément aux dispositions de <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000042627574/2022-06-15">l'article L166 AA du Livre de Procédures Fiscales</a>, l'administration fiscale indique aux établissements bancaires, à leur demande, si les personnes demandant l'ouverture d'un compte remplissent les conditions d'ouverture et de détention. Le décret N° 2021-277 du 12 mars 2021 précise les modalités d'application de ce dispositif légal.</p>
-
-      <p>Si vous êtes éditeur de logiciels et agissez pour le compte d'une administration ou d'une collectivité, vous pouvez remplir une demande d’habilitation à l’API particulier vous-même pour l'entité que vous représentez, dans le cadre de <a href="https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000031366350&idArticle=LEGIARTI000031367412&dateTexte=&categorieLien=cid">l'article L114-8 du code des relations entre le public et l'administration</a>.</p>
+      <p><b><span aria-label="Oui" role="img">✅</span> Si vous êtes un établissement bancaire, vous êtes peut-être éligible.</b> Dans le cadre de la vérification de l'éligibilité au LEP, et conformément aux dispositions de <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000042627574/2022-06-15">l'article L166 AA du Livre de Procédures Fiscales</a>, l'administration fiscale indique aux établissements bancaires, à leur demande, si les personnes demandant l'ouverture d'un compte remplissent les conditions d'ouverture et de détention. Le décret N° 2021-277 du 12 mars 2021 précise les modalités d'application de ce dispositif légal.</p>
+      <br />
+      <p><span aria-label="Oui" role="img">✅</span> <b>Si vous êtes éditeur de logiciels et agissez pour le compte d'une administration ou d'une collectivité</b>, vous pouvez remplir une demande d’habilitation à l’API particulier vous-même pour l'entité que vous représentez, dans le cadre de <a href="https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000031366350&idArticle=LEGIARTI000031367412&dateTexte=&categorieLien=cid">l'article L114-8 du code des relations entre le public et l'administration</a>.</p>
+      <br />
+      <p><b><span aria-label="Non" role="img">❌</span> Si vous êtes une autre entreprise ou association</b>, vous n'êtes pas éligible.</p>
   - type: collectivite_ou_administration
     eligible: maybe
     body: |-
       <p>Conformément aux dispositions de <a href="https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000031366350&idArticle=LEGIARTI000031367412&dateTexte=&categorieLien=cid">l'article L114-8  du code des relations entre le public et l'administration</a>, seules les administrations sont habilitées à échanger entre elles des informations ou données strictement nécessaires pour traiter une démarche.</p>
-
+      <br />
       <p>Pour obtenir l’accès à l’API, vous devez notamment justifier d'une simplification pour les citoyens et vous engager à n'accéder qu’aux données strictement nécessaires à la démarche conformément au principe de proportionnalité.</p>
 - id: 6
   definition_id: pro_connect_service_provider
@@ -169,25 +174,23 @@
     eligible: 'yes'
     body: |-
       <p>En tant qu'administration ou collectivité, vous êtes éligibles à cette API.</p>
-
-      <p>Si vous avez besoin d'autres données concernant les particuliers, vous pouvez demander un accès au bouquet <a href="https://api.gouv.fr/les-api/api-particulier">API Particulier</a> opérée par la DINUM. Cette API délivre d'autres données telles que le quotient familial CAF/MSA, le statut étudiant, boursier, bénéficiaire du RSA, prime d'activité, etc.</p>
-
-      <p>Si vous avez seulement besoin du statut scolarisé de l'élève, faîtes directement votre demande d'habilitation ici auprès du ministère de l'éducation nationale:</p>
+      <br />
+      <p><span aria-label="Peut-être" role="img">🤔</span> Si vous avez aussi besoin <strong>d'autres données concernant les particuliers</strong>, vous pouvez demander un accès au bouquet <a href="https://api.gouv.fr/les-api/api-particulier">API Particulier</a> opérée par la DINUM. Cette API délivre d'autres données telles que le quotient familial CAF/MSA, le statut étudiant, boursier, bénéficiaire du RSA, prime d'activité, etc.</p>
+      <br />
+      <p><span aria-label="Oui" role="img">✅</span> Si vous avez <strong>seulement besoin du statut scolarisé de l'élève</strong>, faîtes directement votre demande d'habilitation ici auprès du ministère de l'éducation nationale:</p>
 - id: 9
   definition_id: api_indemnites_journalieres_cnam
   options:
   - type: particulier
     eligible: 'no'
-    body: Vous n’êtes pas autorisé à accéder aux données de cette API. Seules les
-      assurances et complémentaires santé qui sont partenaires de France Connect sont
-      éligibles.Cela étant dit, si vous avez un projet précis, <a href="mailto:partenaires-api-ameli.cnam@assurance-maladie.fr">contactez-nous</a>
-      pour exposer votre projet.
+    body: |-
+      <p>Vous n’êtes pas autorisé à accéder aux données de cette API. Seules les assurances et complémentaires santé qui sont partenaires de France Connect sont éligibles. Cela étant dit, si vous avez un projet précis, <a href="mailto:partenaires-api-ameli.cnam@assurance-maladie.fr">contactez-nous</a> pour exposer votre projet.
   - type: entreprise_ou_association
     eligible: maybe
     body: |-
-      <p><b>❌ Si vous êtes une entreprise ou une association, vous n'êtes pas éligible.</b> Cette API est accessible uniquement aux complémentaires santé et assurances partenaires de France Connect.</p>
-
-      <p><b>✅ Si vous êtes une assurance ou un organisme de prévoyance</b>, vous êtes éligible si vous êtes partenaires de FranceConnect.</p>
+      <p><b><span aria-label="Non" role="img">❌</span> Si vous êtes une entreprise ou une association, vous n'êtes pas éligible.</b> Cette API est accessible uniquement aux complémentaires santé et assurances partenaires de France Connect.</p>
+      <br />
+      <p><b><span aria-label="Oui" role="img">✅</span> Si vous êtes une assurance ou un organisme de prévoyance</b>, vous êtes éligible si vous êtes partenaires de FranceConnect.</p>
   - type: collectivite_ou_administration
     eligible: maybe
     body: Seules les administrations partenaires de FranceConnect sont éligibles.
@@ -206,7 +209,7 @@
     eligible: maybe
     body: |-
       <p>Le CISIRH met à disposition cette API exploitable et accessible uniquement via le Réseau Interministériel de l'Etat (RIE).</p>
-
+      <br />
       <p>Son utilisation par une application tierce ne saurait engager la responsabilité du CISIRH, par exemple, en termes de disponibilité.</p>
 - id: 11
   definition_id: api_mobilic
@@ -218,11 +221,13 @@
   - type: entreprise_ou_association
     eligible: maybe
     body: |-
-      Certaines entreprises peuvent utiliser l'API :
-      - les éditeurs de solutions du secteur des transports
-      - les entreprises de livraison et de transports routiers
+      <p>Certaines entreprises peuvent utiliser l'API :</p>
+      <ul>
+        <li>les éditeurs de solutions du secteur des transports</li>
+        <li>les entreprises de livraison et de transports routiers</li>
+      </ul>
 
-      Si vous êtes dans ce cas, vous devrez créer un compte pour accéder à l'API.
+      <p>Si vous êtes dans ce cas, vous devrez créer un compte pour accéder à l'API.</p>
   - type: collectivite_ou_administration
     eligible: 'no'
     body: L'API s'adresse aux opérateurs des transports uniquement.
@@ -237,31 +242,28 @@
     body: Vous n’êtes pas autorisé à accéder à cette API. L'API est réservée aux administrations.
   - type: collectivite_ou_administration
     eligible: 'yes'
-    body: ''
+    body: Vous pouvez réaliser une demande d'habilitation à l'API.
 - id: 13
   definition_id: le_taxi
   options:
   - type: particulier
     eligible: 'no'
-    body: "❌ Vous n’êtes pas autorisé à accéder à cette API. Seuls les opérateurs
-      de taxi ou éditeurs d’application peuvent demander un accès à l’API."
+    body: |-
+      <span aria-label="Non" role="img">❌</span> Vous n'êtes pas autorisé à accéder à cette API. Seuls les opérateurs de taxi ou éditeurs d'application peuvent demander un accès à l'API.
   - type: entreprise_ou_association
     eligible: maybe
-    body: "❌ <b>Si vous êtes un artisan taxi</b>, vous n'êtes pas éligible car vous
-      devez utiliser un applicatif chauffeur ou un logiciel connecté.\n\n✅ <b>Si vous
-      êtes un groupement de taxi, une application de mobilité, un acteur de mobilité
-      publique, vous êtes éligible !</b>\n\nVous pouvez remplir une demande d’habilitation
-      à l’API le.taxi dans le cadre des articles <a href =\"https://www.legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000029528684&cidTexte=LEGITEXT000023086525\">L.
-      3121-11-1</a> et <a href=\"https://www.legifrance.gouv.fr/affichCode.do?idSectionTA=LEGISCTA000032278146&cidTexte=LEGITEXT000023086525\">R3121-24
-      à R3121-33</a> du Code des transports.\n\n<b>Si vous êtes éditeur de logiciel
-      pour les flottes de taxe, prenez contact avec nous directement</b>. Les éditeurs
-      logiciels qui équipent les flottes de taxis ont un statut spécifique sur notre
-      API (manager de flotte).\n\nÉcrivez-nous à equipe@le.taxi en nous présentant
-      votre structure et nous reviendrons très rapidement vers vous. "
+    body: |-
+      <p><span aria-label="Non" role="img">❌</span> <b>Si vous êtes un artisan taxi</b>, vous n'êtes pas éligible car vous devez utiliser un applicatif chauffeur ou un logiciel connecté.</p>
+      <br />
+      
+      <p><span aria-label="Oui" role="img">✅</span> <b>Si vous êtes un groupement de taxi, une application de mobilité, un acteur de mobilité publique, vous êtes éligible !</b><br />Vous pouvez remplir une demande d’habilitation à l’API le.taxi dans le cadre des articles <a href =\"https://www.legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000029528684&cidTexte=LEGITEXT000023086525\">L. 3121-11-1</a> et <a href=\"https://www.legifrance.gouv.fr/affichCode.do?idSectionTA=LEGISCTA000032278146&cidTexte=LEGITEXT000023086525\">R3121-24 à R3121-33</a> du Code des transports.</p>
+      <br />
+      
+      <p><span aria-label="Peut-être" role="img">🤔</span> <b>Si vous êtes éditeur de logiciel pour les flottes de taxe, prenez contact avec nous directement</b>. Les éditeurs logiciels qui équipent les flottes de taxis ont un statut spécifique sur notre API (manager de flotte).<br />Écrivez-nous à <a href='mailto:equipe@le.taxi'>equipe@le.taxi</a> en nous présentant votre structure et nous reviendrons très rapidement vers vous. </p>
   - type: collectivite_ou_administration
     eligible: 'no'
-    body: "❌ Vous n’êtes pas autorisé à accéder à cette API. Seuls les opérateurs
-      de taxi ou éditeurs d’application peuvent demander un accès à l’API."
+    body: |-
+      <span aria-label="Non" role="img">❌</span> Vous n'êtes pas autorisé à accéder à cette API. Seuls les opérateurs de taxi ou éditeurs d'application peuvent demander un accès à l'API.
 - id: 14
   definition_id: api_imprimfip_sandbox
   options:
@@ -290,34 +292,43 @@
   - type: entreprise_ou_association
     eligible: maybe
     body: |-
-      Cette API est actuellement réservée aux établissements de soins pour leur démarche de pré admission et aux organismes complémentaires en santé pour faciliter leur démarche d’adhésion.
+      <p>Cette API est actuellement réservée aux <strong>établissements de soins</strong> pour leur démarche de pré admission et aux <strong>organismes complémentaires en santé</strong> pour faciliter leur démarche d’adhésion.</p>
+      <br />
 
-      Cette API fonctionne uniquement avec FranceConnect; vous devez remplir les critères d'eligbilité de FranceConnect.
+      <p>Cette API fonctionne uniquement avec <strong>FranceConnect</strong>; vous devez remplir les critères d'eligibilité de FranceConnect.</p>
+      <br />
 
-      L’utilisation de l’API est soumise à une convention d’usage avec la Caisse Nationale d’Assurance Maladie. Les données accessibles dépendent également du cas d’usage.
+      <p>L’utilisation de l’API est soumise à une convention d’usage avec la Caisse Nationale d’Assurance Maladie. Les données accessibles dépendent également du cas d’usage.</p>
+      <br />
 
-      La Caisse Nationale se réserve le droit d’évaluer l’éligibilité des candidats au regard des cas d’usage indiqués.
+      <p>La Caisse Nationale se réserve le droit d’évaluer l’éligibilité des candidats au regard des cas d’usage indiqués.</p>
   - type: collectivite_ou_administration
     eligible: maybe
     body: |-
-      Cette API est actuellement réservée aux établissements de soins pour leur démarche de pré admission et aux organismes complémentaires en santé pour faciliter leur démarche d’adhésion.
+      <p>Cette API est actuellement réservée aux <strong>établissements de soins</strong> pour leur démarche de pré admission et aux <strong>organismes complémentaires en santé</strong> pour faciliter leur démarche d’adhésion.</p>
+      <br />
 
-      Cette API fonctionne uniquement avec FranceConnect; vous devez remplir les critères d'eligbilité de FranceConnect.
+      <p>Cette API fonctionne uniquement avec <strong>FranceConnect</strong>; vous devez remplir les critères d'eligibilité de FranceConnect.</p>
+      <br />
 
-      L’utilisation de l’API est soumise à une convention d’usage avec la Caisse Nationale d’Assurance Maladie. Les données accessibles dépendent également du cas d’usage.
+      <p>L’utilisation de l’API est soumise à une convention d’usage avec la Caisse Nationale d’Assurance Maladie. Les données accessibles dépendent également du cas d’usage.</p>
+      <br />
 
-      La Caisse Nationale se réserve le droit d’évaluer l’éligibilité des candidats au regard des cas d’usage indiqués.
+      <p>La Caisse Nationale se réserve le droit d’évaluer l’éligibilité des candidats au regard des cas d’usage indiqués.</p>
 - id: 16
   definition_id: api_pro_sante_connect
   options:
   - type: particulier
     eligible: 'no'
     body: |-
-      Vous n’êtes pas autorisé à accéder aux données de cette API. Les particuliers ne sont pas éligibles a cette API.
-      Seules les administrations et les éditeurs de logiciels sont habilitées à utiliser l'API Pro Santé Connect ou intégrer le bouton Pro Santé Connect.
+      <p>Vous n’êtes pas autorisé à accéder aux données de cette API. Les particuliers ne sont pas éligibles a cette API.</p>
+
+      <br />
+
+      <p>Seules les administrations et les éditeurs de logiciels sont habilitées à utiliser l'API Pro Santé Connect ou intégrer le bouton Pro Santé Connect.</p>
   - type: collectivite_ou_administration
     eligible: 'yes'
-    body: ''
+    body: Vous pouvez réaliser une demande d'habilitation à l'API.
   - type: entreprise_ou_association
     eligible: maybe
     body: Seuls les éditeurs de logiciels français proposant une solution web adressée
@@ -334,9 +345,11 @@
   - type: entreprise_ou_association
     eligible: maybe
     body: |-
-      ✅ Si vous êtes éditeur application mobile/éditeur de service web et agissez ou comptez agir pour le compte de vos clients en qualité de tiers déclarant, vous pouvez remplir une demande d’habilitation à l’API vous-même pour l'entité que vous représentez, au sens des articles L.133-11, <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037877089">R133-43 et R133-44</a> du Code de Sécurité sociale.
+      <p><span aria-label="Oui" role="img">✅</span> Si vous êtes éditeur application mobile/éditeur de service web et agissez ou comptez agir pour le compte de vos clients en qualité de tiers déclarant, vous pouvez remplir une demande d’habilitation à l’API vous-même pour l'entité que vous représentez, au sens des articles L.133-11, <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037877089">R133-43 et R133-44</a> du Code de Sécurité sociale.</p>
 
-      ❌ Les éditeurs de logiciel de paie ne sont pas autorisés à accéder à ces données
+      <br />
+
+      <p><span aria-label="Non" role="img">❌</span> Les éditeurs de logiciel de paie ne sont pas autorisés à accéder à ces données</p>
 - id: 18
   definition_id: api_declaration_auto_entrepreneur
   options:
@@ -349,10 +362,34 @@
   - type: entreprise_ou_association
     eligible: maybe
     body: |-
-      ✅ Si vous êtes éditeur application mobile/éditeur de service web et agissez ou comptez agir pour le compte de vos clients en qualité de tiers déclarant, vous pouvez remplir une demande d’habilitation à l’API vous-même pour l'entité que vous représentez, au sens des articles L.133-11, <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037877089">R133-43 et R133-44</a> du Code de Sécurité sociale.
+      <p><span aria-label="Oui" role="img">✅</span> Si vous êtes éditeur application mobile/éditeur de service web et agissez ou comptez agir pour le compte de vos clients en qualité de tiers déclarant, vous pouvez remplir une demande d’habilitation à l’API vous-même pour l'entité que vous représentez, au sens des articles L.133-11, <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037877089">R133-43 et R133-44</a> du Code de Sécurité sociale.</p>
 
-      ✅ Si vous êtes tiers déclarant, vous êtes éligible. Pour remplir votre demande, vous aurez besoin de votre attestation fiscale et de votre attestation sociale.
+      <br />
 
-      ❌ Les éditeurs de logiciel de paie ne sont pas autorisés à accéder à ces données.
+      <p><span aria-label="Oui" role="img">✅</span> Si vous êtes tiers déclarant, vous êtes éligible. Pour remplir votre demande, vous aurez besoin de votre attestation fiscale et de votre attestation sociale.</p>
+      <br />
 
-      ❌ Les auto-entrepreneurs ne sont pas autorisés à accéder à ces données. Même si l'API Tierce Déclaration concerne les auto-entrepreneurs, elle ne vous est pas directement destinée. Peut-être cherchez vous à accéder à l'API Tiers de Prestation, pour que vos clients bénéficient de l'avance immédiate de crédit d'impôt ?
+      <p><span aria-label="Non" role="img">❌</span> Les éditeurs de logiciel de paie ne sont pas autorisés à accéder à ces données.</p>
+      <br />
+
+      <p><span aria-label="Non" role="img">❌</span> Les auto-entrepreneurs ne sont pas autorisés à accéder à ces données. Même si l'API Tierce Déclaration concerne les auto-entrepreneurs, elle ne vous est pas directement destinée. Peut-être cherchez vous à accéder à l'API Tiers de Prestation, pour que vos clients bénéficient de l'avance immédiate de crédit d'impôt ?</p>
+- id: 19
+  definition_id: api_rial_sandbox
+  options:
+  - type: particulier
+    eligible: 'no'
+    body: Vous n’êtes pas autorisé à accéder aux données de cette API.
+  - type: collectivite_ou_administration
+    eligible: 'yes'
+    body: |-
+      <p>Conformément aux dispositions de <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000036588629" target="_blank" rel="noreferrer noopener" class="jsx-282507ba3fcd1c80">l'article L107&nbsp;</a> et <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000025176297" target="_blank" rel="noreferrer noopener" class="jsx-282507ba3fcd1c80">R* 107 A-7&nbsp;</a> du <em>livre des procédures fiscales</em>, ainsi que de <a href="https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000020883923/2021-07-02" target="_blank" rel="noreferrer noopener" class="jsx-282507ba3fcd1c80">l'article 4&nbsp;</a> de l'arrêté du 16 août 1984 (arrêté CNIL relatif à l'application Majic3), seules les administrations sont habilitées à échanger entre elles des informations ou données strictement nécessaires pour traiter une démarche.</p>
+      <br />
+
+      <p>Pour obtenir l’accès à l’API, vous devez notamment <strong>justifier d'une simplification pour les citoyens</strong> et vous engager à n'accéder qu’aux données strictement nécessaires à la démarche conformément au principe de proportionnalité.</p>
+  - type: entreprise_ou_association
+    eligible: maybe
+    body: |-
+      <p>Conformément aux dispositions de <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000036588629" target="_blank" rel="noreferrer noopener" class="jsx-282507ba3fcd1c80">l'article L107&nbsp;</a> et <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000025176297" target="_blank" rel="noreferrer noopener" class="jsx-282507ba3fcd1c80">R* 107 A-7&nbsp;</a> du <em>livre des procédures fiscales</em>, ainsi que de <a href="https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000020883923/2021-07-02" target="_blank" rel="noreferrer noopener" class="jsx-282507ba3fcd1c80">l'article 4&nbsp;</a> de l'arrêté du 16 août 1984 (arrêté CNIL relatif à l'application Majic3), vous pouvez obtenir une habilitation aux données exposées par l'API RIAL sous conditions.</p>
+      <br />
+
+      <p> Pour obtenir un agrément, vous devez <strong>justifier du cadre juridique</strong> dans lequel s’inscrit votre demande.</p>
