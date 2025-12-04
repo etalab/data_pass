@@ -126,6 +126,15 @@
     "organization_name": "Ministère de l'Économie, des Finances et de l'Industrie"
   },
   {
+    "id": "672cf66ef8b5d52b76263398",
+    "title": "RIAL (Répertoire Inter-Administratif des Locaux)",
+    "slug": "rial-repertoire-inter-administratif-des-locaux",
+    "access_url": "https://api.gouv.fr/les-api/api_rial/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/rial-repertoire-inter-administratif-des-locaux/",
+    "new_datapass_access_url": "https://datapass.api.gouv.fr/demandes/api_rial_sandbox/nouveau",
+    "organization_name": "Ministère de l'Économie, des Finances et de l'Industrie"
+  },
+  {
     "id": "672cf644f8b5d52b76263392",
     "title": "API SI Amiante",
     "slug": "api-si-amiante",
@@ -931,38 +940,5 @@
       ]
     },
     "organization_name": "GRDF"
-  },
-  {
-    "id": "67acdc5b2442665160389f62",
-    "title": "RIAL (Répertoire Inter-Administratif des Locaux)",
-    "slug": "rial-repertoire-inter-administratif-des-locaux",
-    "access_url": "https://api.gouv.fr/les-api/api_rial/demande-acces",
-    "url": "https://www.data.gouv.fr/dataservices/rial-repertoire-inter-administratif-des-locaux/",
-    "new_datapass_access_url": null,
-    "access_data_from_apigouv": {
-      "title": "API RIAL (Répertoire Inter-Administratif des Locaux)",
-      "slug": "api_rial",
-      "accessConditionOptions": [
-        {
-          "label": "Un particulier",
-          "value": "Un particulier",
-          "description": "Vous n’êtes pas autorisé à accéder aux données de l’API RIAL (Répertoire Inter-Administratif des Locaux).\n\n<Button href=\"/rechercher-api\">Retourner à la page de recherche</Button>\n",
-          "is_eligible": -1
-        },
-        {
-          "label": "Une entité administrative",
-          "value": "Une entité administrative",
-          "description": "Conformément aux dispositions de <External href=\"https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000036588629\">l'article L107</External> et <External href=\"https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000025176297\">R* 107 A-7</External> du *livre des procédures fiscales*, ainsi que de <External href=\"https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000020883923/2021-07-02\">l'article 4</External> de l'arrêté du 16 août 1984 (arrêté CNIL relatif à l'application Majic3), seules les administrations sont habilitées à échanger entre elles des informations ou données strictement nécessaires pour traiter une démarche.\n\nPour obtenir l’accès à l’API, vous devez notamment **justifier d'une simplification pour les citoyens** et vous engager à n'accéder qu’aux données strictement nécessaires à la démarche conformément au principe de proportionnalité.\n\n<Button href=\"https://datapass.api.gouv.fr/api-rial-sandbox\">Remplir une demande</Button>\n",
-          "is_eligible": 1
-        },
-        {
-          "label": "Une entreprise",
-          "value": "Une entreprise",
-          "description": "Conformément aux dispositions de <External href=\"https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000036588629\">l'article L107</External> et <External href=\"https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000025176297\">R* 107 A-7</External> du *livre des procédures fiscales*, ainsi que de <External href=\"https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000020883923/2021-07-02\">l'article 4</External> de l'arrêté du 16 août 1984 (arrêté CNIL relatif à l'application Majic3), vous pouvez obtenir une habilitation aux données exposées par l'API RIAL sous conditions.\n\n Pour obtenir un agrément, vous devez **justifier du cadre juridique** dans lequel s’inscrit votre demande.\n\n <Button href=\"https://datapass.api.gouv.fr/api-rial-sandbox\">Remplir une demande</Button>\n",
-          "is_eligible": 0
-        }
-      ]
-    },
-    "organization_name": "Ministère de l'Économie, des Finances et de l'Industrie"
   }
 ]

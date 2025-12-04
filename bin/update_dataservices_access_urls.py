@@ -152,6 +152,15 @@ data = [
     "new_datapass_access_url": "https://datapass.api.gouv.fr/demandes/api_sfip/nouveau",
     "organization_name": "Ministère de l'Économie, des Finances et de l'Industrie"
   },
+  {
+    "id": "672cf66ef8b5d52b76263398",
+    "title": "RIAL (Répertoire Inter-Administratif des Locaux)",
+    "slug": "rial-repertoire-inter-administratif-des-locaux",
+    "access_url": "https://api.gouv.fr/les-api/api_rial/demande-acces",
+    "url": "https://www.data.gouv.fr/dataservices/rial-repertoire-inter-administratif-des-locaux/",
+    "new_datapass_access_url": "https://datapass.api.gouv.fr/demandes/api_rial_sandbox/nouveau",
+    "organization_name": "Ministère de l'Économie, des Finances et de l'Industrie"
+  },
 ]
 
 # Loop over the content and print titles
