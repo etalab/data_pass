@@ -1,4 +1,4 @@
-module DSFR::Modal
+module Dsfr::Modal
   def dsfr_main_modal_button(title, url, opts = {})
     opts[:turbo_frame] = 'main-modal-content'
     opts[:url] = url

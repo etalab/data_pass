@@ -1,4 +1,4 @@
-module DSFR::Accordion
+module Dsfr::Accordion
   def dsfr_accordion_group(options = {}, &)
     options[:class] ||= []
     options[:class] << 'fr-accordions-group'
