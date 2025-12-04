@@ -3,9 +3,9 @@ import requests
 # Need an admin API key here
 API_KEY = "fill me"
 
-def update_dataservice(dataservice_slug: str, new_url: str):
-    print('\nUpdating', dataservice_slug)
-    url = f"https://www.data.gouv.fr/api/1/dataservices/{dataservice_slug}/"
+def update_dataservice(dataservice_id: str, dataservice_slug: str, new_url: str):
+    print('\nUpdating', dataservice_id, dataservice_slug)
+    url = f"https://www.data.gouv.fr/api/1/dataservices/{dataservice_id}/"
     headers = {
       'Content-Type': 'application/json',
       'X-API-KEY': API_KEY
@@ -18,9 +18,9 @@ def update_dataservice(dataservice_slug: str, new_url: str):
     response = requests.patch(url, json=body, headers=headers)
 
     if response.status_code == 200:
-        print('updated', dataservice_slug)
+        print('updated', dataservice_id, dataservice_slug)
     else:
-        print('error updating', dataservice_slug)
+        print('error updating', dataservice_id, dataservice_slug)
         print(response.status_code, response.text)
 
     return response
@@ -165,6 +165,6 @@ data = [
 
 # Loop over the content and print titles
 for item in data:
-    update_dataservice(item['slug'], item['new_datapass_access_url'])
+    update_dataservice(item['id'], item['slug'], item['new_datapass_access_url'])
 
 print('\nAll done.\n')
