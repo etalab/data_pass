@@ -3,8 +3,7 @@ name: CI
 on:
   push:
     branches:
-      - '**'
-      - '!main'
+      - "**"
 
 jobs:
   build:
@@ -21,8 +20,7 @@ jobs:
           cache-to: type=gha,mode=max
           provenance: false
           sbom: false
-      -
-        name: Cache image and ENV file
+      - name: Cache image and ENV file
         id: data_pass-docker
         uses: actions/cache@v4
         with:
@@ -176,7 +174,7 @@ jobs:
             git fetch && \
             [[ ! -s \"$(git rev-parse --git-dir)/shallow\" ]] || git fetch --unshallow
           exit 0
-  continuous-deployment:
+  continuous-deployment-staging:
     name: "Continuous deployment on staging"
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/develop'
@@ -196,6 +194,33 @@ jobs:
       DEPLOY_HOST: host_${{ matrix.host }}
       DEPLOY_APP: datapass_reborn_staging
       DEPLOY_BRANCH: ${{ github.ref_name }}
+    steps:
+      - name: Download and run deploy script
+        shell: bash
+        run: |
+          git clone https://github.com/etalab/api-entreprise-integration
+          cd api-entreprise-integration
+          ./deploy-parteprise.sh
+
+  continuous-deployment-production:
+    name: "Continuous deployment on production"
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    needs:
+      - merge-with-main
+    timeout-minutes: 20
+    strategy:
+      matrix:
+        host: [watchdoge3, watchdoge4]
+      fail-fast: false
+    environment: production
+    env:
+      DEPLOY_HTTPS_LOGIN: ${{ secrets.DEPLOY_HTTPS_LOGIN }}
+      DEPLOY_HTTPS_PASSWORD: ${{ secrets.DEPLOY_HTTPS_PASSWORD }}
+      DEPLOY_HTTPS_REQUEST_URL: ${{ vars.DEPLOY_HTTPS_REQUEST_URL }}
+      DEPLOY_HTTPS_RESPONSE_URL: ${{ vars.DEPLOY_HTTPS_RESPONSE_URL }}
+      DEPLOY_HOST: host_${{ matrix.host }}
+      DEPLOY_APP: datapass_reborn_production
     steps:
       - name: Download and run deploy script
         shell: bash
