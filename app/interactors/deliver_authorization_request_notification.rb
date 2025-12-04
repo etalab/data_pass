@@ -22,4 +22,48 @@ class DeliverAuthorizationRequestNotification < ApplicationInteractor
   rescue NameError
     BaseNotifier
   end
+<<<<<<< Updated upstream
+||||||| Stash base
+
+  def deliver_webhooks
+    webhooks = Webhook.active_for_event(event_name, context.authorization_request.definition.id)
+
+    webhooks.each do |webhook|
+      DeliverAuthorizationRequestWebhookJob.perform_later(
+        webhook.id,
+        context.authorization_request.id,
+        event_name.to_s,
+        webhook_payload
+      )
+    end
+  end
+
+  def webhook_payload
+    WebhookSerializer.new(
+      context.authorization_request,
+      event_name
+    ).to_json
+  end
+=======
+
+  def deliver_webhooks
+    webhooks = Webhook.active_for_event(event_name, context.authorization_request.definition.id)
+
+    webhooks.each do |webhook|
+      DeliverAuthorizationRequestWebhookJob.perform_later(
+        webhook.id,
+        context.authorization_request.id,
+        event_name.to_s,
+        webhook_payload
+      )
+    end
+  end
+
+  def webhook_payload
+    WebhookSerializer.new(
+      context.authorization_request,
+      event_name
+    ).serializable_hash
+  end
+>>>>>>> Stashed changes
 end
