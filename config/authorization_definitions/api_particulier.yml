@@ -176,18 +176,18 @@ api_particulier:
       value: "ants_extrait_immatriculation_vehicule_caracteristiques_techniques_vehicule"
       group: "API Extrait d'immatriculation de véhicule"
 
-    - name: "CNAV Participation familiale Eaje - Identités allocataires"
+    - name: "Identités allocataire et conjoint"
       value: "cnav_participation_familiale_eaje_allocataires"
-      group: "API CNAV"
-    - name: "CNAV Participation familiale Eaje - Identités enfants"
+      group: "API Participation familiale EAJE "
+    - name: "Identités enfants"
       value: "cnav_participation_familiale_eaje_enfants"
-      group: "API CNAV"
-    - name: "CNAV Participation familiale Eaje - Adresse du foyer"
+      group: "API Participation familiale EAJE "
+    - name: "Adresse du foyer"
       value: "cnav_participation_familiale_eaje_adresse"
-      group: "API CNAV"
-    - name: "CNAV Participation familiale Eaje - Paramètres de calcul"
+      group: "API Participation familiale EAJE "
+    - name: "Paramètres pris en compte pour le calcul du tarif"
       value: "cnav_participation_familiale_eaje_parametres_calcul"
-      group: "API CNAV"
+      group: "API Participation familiale EAJE "
 
 formulaire_qf:
   name: Formulaire d'accès au Quotient Familial
