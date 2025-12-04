@@ -121,4 +121,69 @@ RSpec.describe DashboardDemandesFacade, type: :facade do
       end
     end
   end
+
+  describe 'default filter behavior' do
+    let(:other_user) do
+      user = create(:user)
+      user.add_to_organization(organization, verified: true)
+      user
+    end
+
+    context 'when user has 10+ requests' do
+      before do
+        8.times { create(:authorization_request, :api_entreprise, organization: organization, applicant: current_user, state: :draft) }
+        3.times { create(:authorization_request, :api_entreprise, organization: organization, applicant: other_user, state: :draft) }
+      end
+
+      it 'applies applicant filter by default' do
+        expect(facade.search_query).to eq({ user_relationship_eq: 'applicant' })
+      end
+
+      it 'only shows current user requests' do
+        data = facade.data
+        all_requests = data[:categories][:draft]
+
+        expect(all_requests.count).to eq(8)
+        expect(all_requests.map(&:applicant)).to all(eq(current_user))
+      end
+    end
+
+    context 'when user has 9 or fewer requests' do
+      before do
+        5.times { create(:authorization_request, :api_entreprise, organization: organization, applicant: current_user, state: :draft) }
+        3.times { create(:authorization_request, :api_entreprise, organization: organization, applicant: other_user, state: :draft) }
+      end
+
+      it 'does not apply default filter' do
+        expect(facade.search_query).to be_nil
+      end
+
+      it 'shows all organization requests' do
+        data = facade.data
+        all_requests = data[:categories][:draft]
+
+        expect(all_requests.count).to eq(8)
+      end
+    end
+
+    context 'when explicit filter is provided' do
+      let(:search_query) { { user_relationship_eq: 'organization' } }
+
+      before do
+        8.times { create(:authorization_request, :api_entreprise, organization: organization, applicant: current_user, state: :draft) }
+        3.times { create(:authorization_request, :api_entreprise, organization: organization, applicant: other_user, state: :draft) }
+      end
+
+      it 'respects the explicit filter' do
+        expect(facade.search_query).to eq({ user_relationship_eq: 'organization' })
+      end
+
+      it 'shows all organization requests' do
+        data = facade.data
+        all_requests = data[:categories][:draft]
+
+        expect(all_requests.count).to eq(11)
+      end
+    end
+  end
 end
