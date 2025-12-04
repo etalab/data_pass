@@ -50,7 +50,7 @@ RSpec.describe CreateAuthorizationRequest, type: :organizer do
             webhook.id,
             instance_of(Integer),
             'create',
-            a_string_including('"event":"create"')
+            a_hash_including(event: 'create')
           ), 'Expected to have enqueued a webhook delivery job with the event name create'
         end
       end

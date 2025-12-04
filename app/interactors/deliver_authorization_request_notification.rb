@@ -42,6 +42,6 @@ class DeliverAuthorizationRequestNotification < ApplicationInteractor
     WebhookSerializer.new(
       context.authorization_request,
       event_name
-    ).to_json
+    ).serializable_hash
   end
 end

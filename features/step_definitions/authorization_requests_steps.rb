@@ -436,7 +436,7 @@ Alors('un webhook avec l\'évènement {string} est envoyé') do |event_name|
   webhook_job = ActiveJob::Base.queue_adapter.enqueued_jobs.find do |job|
     next unless job['job_class'] == 'DeliverAuthorizationRequestWebhookJob'
 
-    payload = JSON.parse(job['arguments'][3])
+    payload = job['arguments'][3]
     payload['event'] == event_name
   end
 
