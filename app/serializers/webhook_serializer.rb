@@ -10,7 +10,7 @@ class WebhookSerializer
 
   def serializable_hash
     {
-      event:,
+      event: event.to_s,
       fired_at: now.to_i,
       model_type: authorization_request.type.underscore,
       model_id: authorization_request.id,
