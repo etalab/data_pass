@@ -7,11 +7,14 @@ class DeliverAuthorizationRequestWebhookJob < ApplicationJob
 
   retry_on(WebhookDeliveryFailedError, wait: :polynomially_longer, attempts: :unlimited)
 
-  def perform(webhook_id, authorization_request_id, event_name, payload)
+  def perform(webhook_id, authorization_request_id, event_name, payload) # rubocop:disable Metrics/AbcSize
     webhook = Webhook.find(webhook_id)
     authorization_request = AuthorizationRequest.find(authorization_request_id)
 
     http_service = WebhookHttpService.new(webhook.url, webhook.secret)
+
+    payload = JSON.parse(payload) if payload.is_a?(String)
+
     result = http_service.call(payload)
 
     Developer::SaveWebhookAttempt.call!(
