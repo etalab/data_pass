@@ -1,7 +1,7 @@
 <div class="fr-container">
   <div class="fr-grid-row">
     <div class="fr-col-12 fr-col-md-8" id="webhook-form">
-      <%= form_with(model: @webhook, url: @webhook.persisted? ? developers_webhook_path(@webhook) : developers_webhooks_path, builder: DSFRFormBuilder) do |f| %>
+      <%= form_with(model: @webhook, url: @webhook.persisted? ? developers_webhook_path(@webhook) : developers_webhooks_path, builder: DsfrFormBuilder) do |f| %>
         <% if @webhook.errors.any? %>
           <div class="fr-alert fr-alert--error fr-mb-4w">
             <h3 class="fr-alert__title"><%= t('errors.messages.form_errors', count: @webhook.errors.count) %></h3>
