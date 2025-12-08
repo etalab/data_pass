@@ -2,18 +2,32 @@
 
 <%= render 'shared/dashboard_skip_links' %>
 
-<div class="fr-container">
-  <div class="dashboard-sub-header">
-    <div class="sub-header">
+<div class="dashboard-sub-header">
+  <div class="sub-header">
+    <div class="sub-header-content">
       <div>
         <h1 class="fr-m-0">
           <%= t('.title') %>
         </h1>
 
-        <%= current_organization.name %> <%= link_to "Changer d'organisation", user_organizations_path, class: %w[fr-btn fr-btn--tertiary fr-btn--sm fr-btn--icon-left fr-icon-hotel-line] %>
+        <div class="sub-header-content__description">
+          <p class="fr-mr-1w">
+            <%= current_organization.name %>
+          </p>
+          <%= link_to "Changer d'organisation", user_organizations_path, class: %w[fr-btn fr-btn--tertiary fr-btn--sm fr-btn--icon-left fr-icon-hotel-line], title: "Changer d'organisation - Ouvrir dans une nouvelle fenêtre" %>
+        </div>
       </div>
+      <div>
+        <%= link_to t('dashboard.show.empty_states.common.cta_text'),
+          t('dashboard.show.empty_states.common.dataservices_url'),
+          title: "#{t('dashboard.show.empty_states.common.cta_text')} - Ouvrir dans une nouvelle fenêtre",
+          class: 'fr-link fr-link--action-high-blue-france',
+          target: '_blank',
+          rel: 'noopener noreferrer'
+        %>
     </div>
   </div>
+</div>
 
   <div class="fr-tabs fr-pt-5w fr-mb-8w" data-controller="auto-height">
     <ul class="fr-tabs__list" role="tablist" aria-label="Menu secondaire">

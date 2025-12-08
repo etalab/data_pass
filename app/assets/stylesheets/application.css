@@ -29,11 +29,16 @@ turbo-frame {
   margin-top: 1rem!important;
 }
 
-.sub-header {
+.sub-header-content {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
   margin: 4rem 0 2rem 0;
+}
+
+.sub-header-content__description {
+  display: flex;
+  align-items: baseline;
 }
 
 h3.with-icon img {
