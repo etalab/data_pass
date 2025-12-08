@@ -50,6 +50,20 @@ class AbstractDashboardFacade
     data[:search_engine]
   end
 
+  def empty?
+    highlighted_categories.values.all?(&:empty?) &&
+      categories.values.all?(&:empty?)
+  end
+
+  def total_count
+    highlighted_categories.values.sum(&:count) +
+      categories.values.sum(&:count)
+  end
+
+  def no_results_after_filter?
+    empty? && search_query.present?
+  end
+
   def model_class
     raise NotImplementedError, 'Subclasses must implement #model_class'
   end
