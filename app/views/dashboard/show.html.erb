@@ -54,8 +54,8 @@
       <% end %>
     </ul>
 
-    <% @tabs.each do |tab| %>
-      <turbo-frame id="tab-<%= tab.id %>-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tab-<%= tab.id %>" tabindex="0" data-turbo-action="advance">
+  <% @tabs.each do |tab| %>
+    <turbo-frame id="tab-<%= tab.id %>-panel" class="fr-tabs__panel <%= 'fr-tabs__panel--selected' if params[:id] == tab.id %>" role="tabpanel" aria-labelledby="tab-<%= tab.id %>" tabindex="0" data-turbo-action="advance" aria-hidden="<%= params[:id] != tab.id %>">
 
         <% if params[:id] == tab.id %>
 
