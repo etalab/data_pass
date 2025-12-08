@@ -220,7 +220,11 @@ Quand(/je me rends sur mon tableau de bord instructeur.?(demandes|habilitations)
 end
 
 Quand(/je me rends sur mon tableau de bord(?: demandeur)?.?(demandes|habilitations)?$/) do |tab|
-  visit dashboard_show_path(id: tab)
+  if tab
+    visit dashboard_show_path(id: tab)
+  else
+    visit dashboard_path
+  end
 end
 
 # rubocop:disable Lint/Debugger
