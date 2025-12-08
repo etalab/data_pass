@@ -191,6 +191,17 @@ fr:
           title: Les demandes en cours
         habilitations:
           title: Les habilitations délivrées
+      empty_states:
+        demandes:
+          message: "Vous n’avez pas encore de demandes en cours"
+        habilitations:
+          message: "Vous n’avez pas encore d’habilitations"
+        common:
+          cta_text: "Demander un accès à des données"
+          dataservices_url: "https://www.data.gouv.fr/fr/dataservices"
+      no_results:
+        message: "Aucun résultat pour ce filtre"
+        suggestion: "Essayez de modifier vos critères de recherche"
       lists:
         refused_title: Demandes refusées
         draft_title: Demandes en brouillon
