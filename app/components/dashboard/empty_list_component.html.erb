@@ -1,0 +1,18 @@
+<div class="fr-py-12w">
+  <div class="fr-grid-row fr-grid-row--center">
+    <div class="fr-col-12 fr-col-md-8 fr-col-lg-6 center">
+      <%= image_tag pictogram_path, alt: '', class: 'fr-responsive-img fr-artwork--large' %>
+
+      <p class="fr-text--lg">
+        <%= message %>
+      </p>
+
+      <%= link_to cta_text,
+        dataservices_url,
+        title: "#{cta_text} - Ouvrir dans une nouvelle fenêtre",
+        class: 'fr-link fr-link--action-high-blue-france',
+        target: '_blank',
+        rel: 'noopener noreferrer' %>
+    </div>
+  </div>
+</div>
