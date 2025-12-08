@@ -1,9 +1,9 @@
-RSpec.describe Dashboard::NoResultsComponent, type: :component do
+RSpec.describe Dashboard::NoFilterResultsComponent, type: :component do
   before do
     I18n.backend.store_translations(:fr, {
       dashboard: {
         show: {
-          no_results: {
+          no_filter_results: {
             demandes: {
               message: "Nous n'avons pas trouvé de demande avec les filtres que vous avez sélectionné"
             },
@@ -17,24 +17,24 @@ RSpec.describe Dashboard::NoResultsComponent, type: :component do
   end
 
   describe 'rendering for demandes tab' do
+    it 'displays the pictogram' do
+      component = render_inline(described_class.new(tab_type: 'demandes'))
+
+      expect(component).to have_css('img[alt=""]')
+      expect(component.css('img').first['src']).to include('information')
+    end
+
     it 'displays the no results message for demandes' do
       component = render_inline(described_class.new(tab_type: 'demandes'))
 
       expect(component).to have_text("Nous n'avons pas trouvé de demande avec les filtres que vous avez sélectionné")
     end
 
-    it 'uses DSFR callout styling' do
-      component = render_inline(described_class.new(tab_type: 'demandes'))
-
-      expect(component).to have_css('div.fr-callout')
-      expect(component).to have_css('p.fr-callout__text')
-    end
-
     it 'displays a reset filters button' do
       component = render_inline(described_class.new(tab_type: 'demandes'))
 
-      expect(component).to have_link('Réinitialiser les filtres', href: '/tableau-de-bord/demandes')
-      expect(component).to have_css('a.fr-btn.fr-btn--secondary')
+      expect(component).to have_button('Réinitialiser les filtres')
+      expect(component).to have_css('button.fr-btn.fr-btn--secondary')
     end
   end
 
