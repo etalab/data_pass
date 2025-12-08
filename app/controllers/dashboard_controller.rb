@@ -4,7 +4,7 @@ class DashboardController < AuthenticatedUserController
   Tab = Data.define(:id, :path)
 
   def index
-    redirect_to dashboard_show_path(id: 'demandes')
+    redirect_to dashboard_show_path(id: default_tab)
   end
 
   def show
@@ -49,5 +49,24 @@ class DashboardController < AuthenticatedUserController
     return unless registered_subdomain?
 
     registered_subdomain.authorization_request_types
+  end
+
+  def default_tab
+    demandes_facade = build_unfiltered_facade(DashboardDemandesFacade, AuthorizationRequest)
+    return 'demandes' unless demandes_facade.empty?
+
+    habilitations_facade = build_unfiltered_facade(DashboardHabilitationsFacade, Authorization)
+    return 'habilitations' unless habilitations_facade.empty?
+
+    'demandes'
+  end
+
+  def build_unfiltered_facade(facade_class, scoped_model)
+    facade_class.new(
+      user: current_user,
+      search_query: nil,
+      subdomain_types: current_subdomain_types,
+      scoped_relation: policy_scope(scoped_model)
+    )
   end
 end
