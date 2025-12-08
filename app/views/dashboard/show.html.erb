@@ -61,7 +61,7 @@
 
           <% if @facade.empty? %>
             <% if @facade.no_results_after_filter? %>
-              <%= render Dashboard::NoResultsComponent.new %>
+              <%= render Dashboard::NoResultsComponent.new(tab_type: params[:id]) %>
             <% else %>
               <%= render Dashboard::EmptyListComponent.new(tab_type: params[:id]) %>
             <% end %>
