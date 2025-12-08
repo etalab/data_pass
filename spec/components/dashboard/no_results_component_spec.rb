@@ -4,32 +4,45 @@ RSpec.describe Dashboard::NoResultsComponent, type: :component do
       dashboard: {
         show: {
           no_results: {
-            message: 'Aucun résultat pour ce filtre',
-            suggestion: 'Essayez de modifier vos critères de recherche'
+            demandes: {
+              message: "Nous n'avons pas trouvé de demande avec les filtres que vous avez sélectionné"
+            },
+            habilitations: {
+              message: "Nous n'avons pas trouvé d'habilitation avec les filtres que vous avez sélectionné"
+            }
           }
         }
       }
     })
   end
 
-  describe 'rendering' do
-    it 'displays the no results message' do
-      component = render_inline(described_class.new)
+  describe 'rendering for demandes tab' do
+    it 'displays the no results message for demandes' do
+      component = render_inline(described_class.new(tab_type: 'demandes'))
 
-      expect(component).to have_text('Aucun résultat pour ce filtre')
-    end
-
-    it 'displays the suggestion' do
-      component = render_inline(described_class.new)
-
-      expect(component).to have_text('Essayez de modifier vos critères de recherche')
+      expect(component).to have_text("Nous n'avons pas trouvé de demande avec les filtres que vous avez sélectionné")
     end
 
     it 'uses DSFR callout styling' do
-      component = render_inline(described_class.new)
+      component = render_inline(described_class.new(tab_type: 'demandes'))
 
       expect(component).to have_css('div.fr-callout')
       expect(component).to have_css('p.fr-callout__text')
+    end
+
+    it 'displays a reset filters button' do
+      component = render_inline(described_class.new(tab_type: 'demandes'))
+
+      expect(component).to have_link('Réinitialiser les filtres', href: '/tableau-de-bord/demandes')
+      expect(component).to have_css('a.fr-btn.fr-btn--secondary')
+    end
+  end
+
+  describe 'rendering for habilitations tab' do
+    it 'displays the no results message for habilitations' do
+      component = render_inline(described_class.new(tab_type: 'habilitations'))
+
+      expect(component).to have_text("Nous n'avons pas trouvé d'habilitation avec les filtres que vous avez sélectionné")
     end
   end
 end
