@@ -77,9 +77,9 @@
 
       <% if latest_identity_provider.mon_compte_pro_identity_provider? %>
         <p>
-          Pour rejoindre une autre organisation vous devez vous déconnecter et reconnecter via ProConnect.
-
-          <%= link_to 'Se déconnecter pour rejoindre une autre organisation', signout_path, class: 'fr-btn fr-btn--secondary' %>
+          <%= form_with(url: "/auth/mon_compte_pro?prompt=select_organization", method: :post, data: { turbo: false }) do |f| %>
+            <%= f.button 'Rejoindre une autre organisation', id: 'change_current_organization', class: %w(fr-btn fr-mt-2w) %>
+          <% end %>
         </p>
       <% elsif policy(:organization).new? %>
         <div class="fr-mt-4w">
