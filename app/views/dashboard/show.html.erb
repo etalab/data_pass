@@ -61,7 +61,11 @@
 
           <% if @facade.empty? %>
             <% if @facade.no_results_after_filter? %>
-              <%= render Dashboard::NoFilterResultsComponent.new(tab_type: params[:id]) %>
+              <div data-auto-height-target="source">
+                <turbo-frame id="<%= "#{params[:id]}-table" %>" class="search-results-container">
+                  <%= render Dashboard::NoFilterResultsComponent.new(tab_type: params[:id]) %>
+                </turbo-frame>
+              </div>
             <% else %>
               <%= render Dashboard::EmptyListComponent.new(tab_type: params[:id]) %>
             <% end %>
