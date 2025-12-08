@@ -33,8 +33,8 @@ RSpec.describe Dashboard::NoFilterResultsComponent, type: :component do
     it 'displays a reset filters button' do
       component = render_inline(described_class.new(tab_type: 'demandes'))
 
-      expect(component).to have_button('Réinitialiser les filtres')
-      expect(component).to have_css('button.fr-btn.fr-btn--secondary')
+      expect(component).to have_link('Réinitialiser les filtres', href: '/tableau-de-bord/demandes')
+      expect(component).to have_css('a.fr-btn.fr-btn--secondary')
     end
   end
 
