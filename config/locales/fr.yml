@@ -197,7 +197,7 @@ fr:
         habilitations:
           message: "Vous n’avez pas encore d’habilitations"
         common:
-          cta_text: "Demander un accès à des données"
+          request_data_access: "Demander un accès à des données"
           dataservices_url: "https://www.data.gouv.fr/fr/dataservices"
       no_filter_results:
         demandes:

@@ -10,8 +10,8 @@ class Dashboard::EmptyListComponent < ApplicationComponent
     I18n.t("dashboard.show.empty_states.#{tab_type}.message")
   end
 
-  def cta_text
-    I18n.t('dashboard.show.empty_states.common.cta_text')
+  def request_data_access
+    I18n.t('dashboard.show.empty_states.common.request_data_access')
   end
 
   def dataservices_url
