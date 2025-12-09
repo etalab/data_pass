@@ -1,18 +1,20 @@
 <%= render partial: 'mailer/shared/applicant/header', locals: { entity_name: @authorization_request.applicant.full_name } %>
 
-Votre demande d’abonnement à la démarche CertDc pour <%= @authorization_request.organization.name %> a été validée.
+Votre demande d’abonnement aux démarches service-public.fr pour <%= @authorization_request.organization.name %> a été validée.
 
 <% if @authorization_request.applicant.email == @authorization_request.administrateur_metier_email %>
 Un compte de type administrateur a été créé pour vous sur le Portail HubEE afin de finaliser la procédure d’abonnement.
 Voici les étapes à suivre :
 
 1. Créez votre mot de passe de connexion, en utilisant l’e-mail d’initialisation de mot de passe que vous avez reçu de HubEE. Si vous ne l’avez pas reçu, pensez à vérifier vos courriers indésirables.
-2. Activez et paramétrez votre abonnement à la démarche CertDc en suivant les instructions du Guide d’activation des abonnements : https://hubee.numerique.gouv.fr/docs/Etape%202_HubEE_Guide_Activation_Abonnements_Communes_v1.1.0.pdf
+2. Activez et paramétrez vos abonnements aux démarches en suivant les instructions du Guide d’activation des abonnements : https://hubee.numerique.gouv.fr/docs/Etape%202_HubEE_Guide_Activation_Abonnements_Communes_v1.1.0.pdf
 <% else %>
-Lors de cette demande, vous avez désigné <%= [@authorization_request.administrateur_metier_family_name, @authorization_request.administrateur_metier_given_name].join(' ') %> en tant qu’administrateur local HubEE. Son rôle consiste à finaliser la procédure en paramétrant et activant l’abonnement à la démarche sur le Portail HubEE.
+Lors de cette demande, vous avez désigné <%= [@authorization_request.administrateur_metier_family_name, @authorization_request.administrateur_metier_given_name].join(' ') %> en tant qu’administrateur local HubEE. Son rôle consiste à finaliser la procédure en paramétrant et activant les abonnements aux démarcches sur le Portail HubEE.
 Un e-mail lui a été envoyé avec les instructions détaillées pour réaliser ces actions.
 Nous vous recommandons de vous assurer qu’il a bien reçu cet e-mail et qu’il procède rapidement à l’activation de l’abonnement.
 <% end %>
+
+Attention, la modification des données de l’administrateur local sur le formulaire ne lui crée pas de compte sur le portail HubEE. Veuillez contacter le support HubEE pour finaliser la création du compte du nouvel administrateur local.
 
 Pour information, votre demande d’abonnement reste accessible en cliquant sur le lien suivant : <%= authorization_request_url(@authorization_request) %>
 

@@ -25,6 +25,7 @@
     `spec/components/previews`
 - DO NOT use comments, use meaningful variables and methods names
 - All files should end with a newline
+- Use apostrophe (’) instead of single quote (') within text content
 
 ## Testing Guidelines
 

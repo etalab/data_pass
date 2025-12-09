@@ -1,0 +1,14 @@
+<%= render partial: 'mailer/shared/applicant/header', locals: { entity_name: @authorization_request.applicant.full_name } %>
+
+La mise à jour de votre habilitation a été validée.
+Si vous avez modifié les données (scopes) auxquelles vous souhaitez avoir accès et que votre fournisseur de service est en production (et uniquement dans ce cas), nous vous invitons à demander la modification de votre fournisseur de service via le lien suivant :
+https://www.demarches-simplifiees.fr/commencer/demande-modification-fs-fc
+
+Vous trouverez toutes les informations sur les données des usagers sur la documentation :
+https://docs.partenaires.franceconnect.gouv.fr/fs/fs-pilotage/fs-projet-donnees-identites/
+
+Pour consulter cette habilitation, veuillez cliquer sur le lien suivant <%= authorization_request_url(@authorization_request) %>.
+
+Bien cordialement,
+
+<%= render partial: 'mailer/shared/applicant/footer', locals: { authorization_definition_name: @authorization_request.definition.name } %>

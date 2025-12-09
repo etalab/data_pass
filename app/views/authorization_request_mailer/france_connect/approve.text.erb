@@ -1,20 +1,10 @@
 <%= render partial: 'mailer/shared/applicant/header', locals: { entity_name: @authorization_request.applicant.full_name } %>
 
-<% if @authorization_request.reopening? %>
-  La mise à jour de votre habilitation a été validée.
-  Si vous avez modifié les données (scopes) auxquelles vous souhaitez avoir accès et que votre fournisseur de service est en production (et uniquement dans ce cas), nous vous invitons à demander la modification de votre fournisseur de service via le lien suivant :
-  https://www.demarches-simplifiees.fr/commencer/demande-modification-fs-fc
+Votre habilitation a été validée. Nous vous invitons à demander la création de votre fournisseur de service via le lien suivant :
+https://espace.partenaires.franceconnect.gouv.fr/login
 
-  Vous trouverez toutes les informations sur les données des usagers sur la documentation :
-  https://docs.partenaires.franceconnect.gouv.fr/fs/fs-pilotage/fs-projet-donnees-identites/
-
-<% else %>
-  Votre habilitation a été validée. Nous vous invitons à demander la création de votre fournisseur de service via le lien suivant :
-  https://espace.partenaires.franceconnect.gouv.fr/login
-
-  Vous trouverez toutes les informations sur les prochaines étapes pour devenir fournisseur de service sur la documentation :
-  https://docs.partenaires.franceconnect.gouv.fr/fs/devenir-fs/pilotage-etapes/
-<% end %>
+Vous trouverez toutes les informations sur les prochaines étapes pour devenir fournisseur de service sur la documentation :
+https://docs.partenaires.franceconnect.gouv.fr/fs/devenir-fs/pilotage-etapes/
 
 Pour consulter cette habilitation, veuillez cliquer sur le lien suivant <%= authorization_request_url(@authorization_request) %>.
 
