@@ -45,8 +45,6 @@ Fonctionnalité: Choix de la modalité d'appel et du stage du formulaire API Imp
     * je clique sur "Débuter ma demande"
     * je renseigne les infos de bases du projet
     * je clique sur "Suivant"
-    * je renseigne les infos concernant les données personnelles
-    * je clique sur "Suivant"
     * je renseigne le cadre légal
     * je clique sur "Suivant"
     Alors "Via le numéro fiscal (SPI)" est coché
@@ -59,8 +57,6 @@ Fonctionnalité: Choix de la modalité d'appel et du stage du formulaire API Imp
     * je clique sur "Demande libre"
     * je clique sur "Débuter ma demande"
     * je renseigne les infos de bases du projet
-    * je clique sur "Suivant"
-    * je renseigne les infos concernant les données personnelles
     * je clique sur "Suivant"
     * je renseigne le cadre légal
     * je clique sur "Suivant"

@@ -37,10 +37,10 @@ api-impot-particulier-sandbox:
   authorization_request: APIImpotParticulierSandbox
   steps: &api_impot_particulier_sandbox_steps
     - name: basic_infos
-    - name: personal_data
     - name: legal
     - name: modalities
     - name: scopes
+    - name: personal_data
     - name: contacts
 
 api-impot-particulier-production:
@@ -94,10 +94,10 @@ api-impot-particulier-production-editeur:
   authorization_request: APIImpotParticulier
   steps: &api_impot_particulier_editor_steps
     - name: basic_infos
-    - name: personal_data
     - name: legal
     - name: modalities
     - name: scopes
+    - name: personal_data
     - name: contacts
     - name: safety_certification
     - name: volumetrie

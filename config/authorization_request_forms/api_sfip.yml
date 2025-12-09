@@ -35,9 +35,9 @@ api-sfip-sandbox:
   authorization_request: APISFiPSandbox
   steps: &api_sfip_sandbox_steps
     - name: basic_infos
-    - name: personal_data
     - name: legal
     - name: scopes
+    - name: personal_data
     - name: contacts
 
 api-sfip-production:
@@ -89,9 +89,9 @@ api-sfip-editeur:
   authorization_request: APISFiP
   steps: &api_sfip_editor_steps
     - name: basic_infos
-    - name: personal_data
     - name: legal
     - name: scopes
+    - name: personal_data
     - name: contacts
     - name: safety_certification
     - name: volumetrie

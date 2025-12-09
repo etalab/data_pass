@@ -6,13 +6,10 @@ Fonctionnalité: Soumission d'une demande d'habilitation FranceConnect
     Et que je me connecte
 
   Scénario: Je soumets une demande d'habilitation valide
-    Quand je veux remplir une demande pour "FranceConnect" via le formulaire "Demande libre
+    Quand je veux remplir une demande pour "FranceConnect" via le formulaire "Demande libre"
     Et que je clique sur "Débuter ma demande"
 
     * je renseigne les infos de bases du projet
-    * je clique sur "Suivant"
-
-    * je renseigne les infos concernant les données personnelles
     * je clique sur "Suivant"
 
     * je renseigne le cadre légal
@@ -24,6 +21,9 @@ Fonctionnalité: Soumission d'une demande d'habilitation FranceConnect
     * je coche "Nom de naissance"
     * je clique sur "Suivant"
 
+
+    * je renseigne les infos concernant les données personnelles
+    * je clique sur "Suivant"
     * je renseigne les informations des contacts RGPD
     * je renseigne les informations du contact technique avec un numéro de mobile
     * je clique sur "Suivant"

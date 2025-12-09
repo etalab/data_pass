@@ -6,7 +6,7 @@ api-indicateurs-sociaux:
   authorization_request: APIIndicateursSociaux
   steps:
     - name: basic_infos
-    - name: personal_data
     - name: legal
     - name: scopes
+    - name: personal_data
     - name: contacts

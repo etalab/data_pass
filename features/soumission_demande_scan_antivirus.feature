@@ -15,15 +15,15 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Entreprise
     * Je joins une maquette au projet "API Entreprise"
     * je clique sur "Suivant"
 
-    * je renseigne les infos concernant les données personnelles
-    * je clique sur "Suivant"
-
     * je renseigne le cadre légal
     * je clique sur "Suivant"
 
     * je coche "Données unités légales et établissements du répertoire Sirene"
     * je clique sur "Suivant"
 
+
+    * je renseigne les infos concernant les données personnelles
+    * je clique sur "Suivant"
     * je renseigne les informations des contacts RGPD
     * je renseigne les informations du contact métier
     * je renseigne les informations du contact technique

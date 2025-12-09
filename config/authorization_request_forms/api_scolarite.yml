@@ -2,7 +2,7 @@ api-scolarite:
   authorization_request: APIScolarite
   steps:
     - name: basic_infos
-    - name: personal_data
     - name: legal
     - name: scopes
+    - name: personal_data
     - name: contacts

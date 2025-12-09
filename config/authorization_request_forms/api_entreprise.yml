@@ -9,9 +9,9 @@ api-entreprise:
   authorization_request: "APIEntreprise"
   steps:
     - name: "basic_infos"
-    - name: "personal_data"
     - name: "legal"
     - name: "scopes"
+    - name: "personal_data"
     - name: "contacts"
 
 api-entreprise-marches-publics:
@@ -25,9 +25,9 @@ api-entreprise-marches-publics:
   authorization_request: "APIEntreprise"
   steps:
     - name: "basic_infos"
-    - name: "personal_data"
     - name: "legal"
     - name: "scopes"
+    - name: "personal_data"
     - name: "contacts"
   scopes_config:
     disabled:
@@ -54,9 +54,9 @@ api-entreprise-aides-publiques:
   authorization_request: "APIEntreprise"
   steps:
     - name: "basic_infos"
-    - name: "personal_data"
     - name: "legal"
     - name: "scopes"
+    - name: "personal_data"
     - name: "contacts"
   scopes_config:
     disabled:
@@ -83,9 +83,9 @@ api-entreprise-subventions-associations:
   authorization_request: "APIEntreprise"
   steps:
     - name: "basic_infos"
-    - name: "personal_data"
     - name: "legal"
     - name: "scopes"
+    - name: "personal_data"
     - name: "contacts"
   scopes_config:
     hide:
@@ -143,9 +143,9 @@ api-entreprise-portail-gru-instruction:
   authorization_request: "APIEntreprise"
   steps:
     - name: "basic_infos"
-    - name: "personal_data"
     - name: "legal"
     - name: "scopes"
+    - name: "personal_data"
     - name: "contacts"
   scopes_config:
     disabled:
@@ -171,9 +171,9 @@ api-entreprise-detection-fraude:
   authorization_request: "APIEntreprise"
   steps:
     - name: "basic_infos"
-    - name: "personal_data"
     - name: "legal"
     - name: "scopes"
+    - name: "personal_data"
     - name: "contacts"
   initialize_with:
     scopes:
@@ -202,9 +202,9 @@ api-entreprise-editeur:
   use_case: "specific_editeurs"
   steps:
     - name: "basic_infos"
-    - name: "personal_data"
     - name: "legal"
     - name: "scopes"
+    - name: "personal_data"
     - name: "contacts"
   initialize_with:
     intitule: "Merci de préciser le nom de votre solution logicielle"
