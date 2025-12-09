@@ -1,0 +1,10 @@
+<%= render Dashboard::EmptyStateComponent.new(pictogram_path: pictogram_path, message: message) do |component| %>
+  <% component.with_action do %>
+    <%= link_to request_data_access,
+      dataservices_url,
+      title: "#{request_data_access} - Ouvrir dans une nouvelle fenêtre",
+      class: 'fr-link fr-link--action-high-blue-france',
+      target: '_blank',
+      rel: 'noopener noreferrer' %>
+  <% end %>
+<% end %>

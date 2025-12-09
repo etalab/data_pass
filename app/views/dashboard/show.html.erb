@@ -67,7 +67,7 @@
                 </turbo-frame>
               </div>
             <% else %>
-              <%= render Dashboard::EmptyListComponent.new(tab_type: params[:id]) %>
+              <%= render Dashboard::EmptyTabComponent.new(tab_type: params[:id]) %>
             <% end %>
           <% else %>
             <div data-auto-height-target="source">

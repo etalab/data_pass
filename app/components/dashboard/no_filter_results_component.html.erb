@@ -1,13 +1,5 @@
-<div class="fr-py-12w">
-  <div class="fr-grid-row fr-grid-row--center">
-    <div class="fr-col-12 fr-col-md-8 fr-col-lg-6 center">
-      <%= image_tag pictogram_path, alt: '', class: 'fr-responsive-img fr-artwork--large' %>
-
-      <p class="fr-text--lg">
-        <%= message %>
-      </p>
-
-      <%= link_to reset_button_text, reset_path, class: 'fr-btn fr-btn--secondary' %>
-    </div>
-  </div>
-</div>
+<%= render Dashboard::EmptyStateComponent.new(pictogram_path: pictogram_path, message: message) do |component| %>
+  <% component.with_action do %>
+    <%= link_to reset_button_text, reset_path, class: 'fr-btn fr-btn--secondary' %>
+  <% end %>
+<% end %>

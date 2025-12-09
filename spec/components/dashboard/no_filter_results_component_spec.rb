@@ -1,4 +1,4 @@
-RSpec.describe Dashboard::NoFilterResultsComponent, type: :component do
+gstRSpec.describe Dashboard::NoFilterResultsComponent, type: :component do
   describe 'rendering for demandes tab' do
     it 'displays the pictogram' do
       component = render_inline(described_class.new(tab_type: 'demandes'))
@@ -25,7 +25,7 @@ RSpec.describe Dashboard::NoFilterResultsComponent, type: :component do
     it 'displays the no results message for habilitations' do
       component = render_inline(described_class.new(tab_type: 'habilitations'))
 
-      expect(component).to have_text("Nous n’avons pas trouvé d’habilitation avec les filtres que vous avez sélectionné", normalize_ws: true)
+      expect(component).to have_text('Nous n’avons pas trouvé d’habilitation avec les filtres que vous avez sélectionné', normalize_ws: true)
     end
   end
 end

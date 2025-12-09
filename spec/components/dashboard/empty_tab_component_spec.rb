@@ -1,4 +1,4 @@
-RSpec.describe Dashboard::EmptyListComponent, type: :component do
+RSpec.describe Dashboard::EmptyTabComponent, type: :component do
   describe 'rendering for demandes tab' do
     it 'displays the pictogram' do
       component = render_inline(described_class.new(tab_type: 'demandes'))
@@ -32,7 +32,7 @@ RSpec.describe Dashboard::EmptyListComponent, type: :component do
     it 'displays the correct message for habilitations' do
       component = render_inline(described_class.new(tab_type: 'habilitations'))
 
-      expect(component).to have_text("Vous n’avez pas encore d’habilitations")
+      expect(component).to have_text('Vous n’avez pas encore d’habilitations')
     end
   end
 end
