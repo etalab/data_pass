@@ -16,7 +16,7 @@ Fonctionnalité: Consultation de demandes et habilitations avec une organisation
   Scénario: Je ne peux pas voir les demandes de mon organisation sur mon tableau de bord
     Quand je me rends sur mon tableau de bord demandes
     Alors la page ne contient pas "API Entreprise"
-    Et il y a un message d'attention contenant "consulter les autres demandes ou habilitations de cette organisation"
+    Et il y a un message d'info contenant "pourrez pas consulter l’ensemble des demandes et habilitations de l’organisation"
 
   Scénario: Je ne peux pas consulter une demande de mon organisation
     Quand je me rends sur la dernière demande "API Entreprise"
@@ -26,7 +26,7 @@ Fonctionnalité: Consultation de demandes et habilitations avec une organisation
   Scénario: Je ne peux pas voir les habilitations de mon organisation sur mon tableau de bord
     Quand je me rends sur mon tableau de bord habilitations
     Alors la page ne contient pas "API CaptchEtat"
-    Et il y a un message d'attention contenant "consulter les autres demandes ou habilitations de cette organisation"
+    Et il y a un message d'info contenant "pourrez pas consulter l’ensemble des demandes et habilitations de l’organisation"
 
   Scénario: Je ne peux pas consulter une habilitation de mon organisation
     Quand je me rends sur la dernière demande "API CaptchEtat"

@@ -51,8 +51,10 @@
           <% end %>
 
           <% if @facade.show_organization_verification_warning? %>
-            <div class="fr-alert fr-alert--warning fr-mb-6w">
-              Votre lien avec l'organisation <strong><%= current_organization.name %></strong> (SIRET: <%= current_organization.siret %>) n'est pas vérifié, vous ne pouvez accéder ou consulter les autres demandes ou habilitations de cette organisation.
+            <div class="fr-alert fr-alert--info fr-mb-6w">
+              <p>
+                Nous n’avons pas pu vérifier votre lien avec l’organisation que vous avez sélectionné, vous ne pourrez pas consulter l’ensemble des demandes et habilitations de l’organisation.
+              </p>
             </div>
           <% end %>
 
