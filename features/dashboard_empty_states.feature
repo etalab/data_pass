@@ -14,3 +14,8 @@ Fonctionnalité: États vides du dashboard demandeur
     Quand je me rends sur mon tableau de bord habilitations
     Alors la page contient "Vous n’avez pas encore d’habilitations"
     Et la page contient un lien vers "data.gouv.fr/fr/dataservices"
+
+  Scénario: Redirection vers l'onglet d'habilitation si aucune demande n'existe et que l'utilisateur a une habilitation validée
+    Sachant que j'ai 1 habilitation "API Particulier" active
+    Quand je me rends sur mon tableau de bord
+    Alors la page contient "Les habilitations"
