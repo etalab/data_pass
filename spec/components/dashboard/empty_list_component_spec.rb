@@ -1,25 +1,4 @@
 RSpec.describe Dashboard::EmptyListComponent, type: :component do
-  before do
-    I18n.backend.store_translations(:fr, {
-      dashboard: {
-        show: {
-          empty_states: {
-            demandes: {
-              message: "Vous n'avez pas encore de demandes en cours"
-            },
-            habilitations: {
-              message: "Vous n'avez pas encore d'habilitations"
-            },
-            common: {
-              cta_text: 'Demander un accès à des données',
-              dataservices_url: 'https://www.data.gouv.fr/fr/dataservices'
-            }
-          }
-        }
-      }
-    })
-  end
-
   describe 'rendering for demandes tab' do
     it 'displays the pictogram' do
       component = render_inline(described_class.new(tab_type: 'demandes'))
@@ -31,7 +10,7 @@ RSpec.describe Dashboard::EmptyListComponent, type: :component do
     it 'displays the correct message' do
       component = render_inline(described_class.new(tab_type: 'demandes'))
 
-      expect(component).to have_text("Vous n'avez pas encore de demandes en cours")
+      expect(component).to have_text('Vous n’avez pas encore de demandes en cours', normalize_ws: true)
     end
 
     it 'displays the CTA link with correct attributes' do
@@ -53,7 +32,7 @@ RSpec.describe Dashboard::EmptyListComponent, type: :component do
     it 'displays the correct message for habilitations' do
       component = render_inline(described_class.new(tab_type: 'habilitations'))
 
-      expect(component).to have_text("Vous n'avez pas encore d'habilitations")
+      expect(component).to have_text("Vous n’avez pas encore d’habilitations")
     end
   end
 end
