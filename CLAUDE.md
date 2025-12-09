@@ -21,6 +21,8 @@
 - Naming: snake_case for methods/variables, CamelCase for classes
 - Controllers should be RESTful when possible
 - JavaScript follows StandardJS conventions
+- When creating components, always create a preview within
+    `spec/components/previews`
 - DO NOT use comments, use meaningful variables and methods names
 - All files should end with a newline
 

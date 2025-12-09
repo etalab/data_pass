@@ -199,5 +199,9 @@ Rails.application.routes.draw do
     post '/dummy/invalid/webhooks', to: ->(_env) { [422, { 'Content-Type' => 'application/json' }, [{hello: 'world'}.to_json]] }
   end
 
+  if Rails.env.development?
+    mount Lookbook::Engine, at: '/lookbook'
+  end
+
   mount GoodJob::Engine => '/workers'
 end

@@ -4,6 +4,9 @@ Rails.application.configure do
   config.hosts << 'localtest.me'
   config.hosts << /.*\.localtest\.me/
 
+  config.lookbook.preview_layout = 'component_preview'
+  config.lookbook.preview_paths = ['spec/components/previews']
+
   # Configure 'rails notes' to inspect Cucumber files
   config.annotations.register_directories('features')
   config.annotations.register_extensions('feature') { |tag| /#\s*(#{tag}):?\s*(.*)$/ }
