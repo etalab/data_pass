@@ -69,6 +69,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'lookbook'
   gem 'hotwire-spark'
   gem 'rubocop', require: false
   gem 'rubocop-capybara', require: false
