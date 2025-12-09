@@ -1,4 +1,4 @@
-class Dashboard::EmptyListComponent < ApplicationComponent
+class Dashboard::EmptyTabComponent < ApplicationComponent
   attr_reader :tab_type, :pictogram_path
 
   def initialize(tab_type:)
