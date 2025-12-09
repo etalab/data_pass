@@ -1,10 +1,14 @@
 <% %i[error info success warning].each do |kind| %>
   <% if flash[kind].present? %>
-    <%= render AlertComponent.new(
-      type: kind,
-      title: flash[kind]['title'],
-      messages: flash[kind]['description'],
-      close_button: local_assigns.fetch(:close_button, true)
-    ) %>
+    <% if flash[kind]['tiny'] %>
+      <%= render TinyAlertComponent.new(type: kind, message: flash[kind]['title']) %>
+    <% else %>
+      <%= render AlertComponent.new(
+        type: kind,
+        title: flash[kind]['title'],
+        messages: flash[kind]['description'],
+        close_button: local_assigns.fetch(:close_button, true)
+      ) %>
+    <% end %>
   <% end %>
 <% end %>

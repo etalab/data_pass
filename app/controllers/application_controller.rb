@@ -20,23 +20,23 @@ class ApplicationController < ActionController::Base
   end
 
   def error_message_for(object, title:, id: nil)
-    flash_message(:error, title:, description: object.errors.full_messages, id:, activemodel: true)
+    flash_message(:error, title:, description: object.errors.full_messages, id:)
   end
 
-  def error_message(title:, description: nil, id: nil, activemodel: false)
-    flash_message(:error, title:, description:, id:, activemodel:)
+  def error_message(title:, description: nil, id: nil, tiny: false)
+    flash_message(:error, title:, description:, id:, tiny:)
   end
 
-  def success_message(title:, description: nil, id: nil)
-    flash_message(:success, title:, description:, id:)
+  def success_message(title:, description: nil, id: nil, tiny: false)
+    flash_message(:success, title:, description:, id:, tiny:)
   end
 
-  def info_message(title:, description: nil, id: nil)
-    flash_message(:info, title:, description:, id:)
+  def info_message(title:, description: nil, id: nil, tiny: false)
+    flash_message(:info, title:, description:, id:, tiny:)
   end
 
-  def warning_message(title:, description: nil, id: nil)
-    flash_message(:warning, title:, description:, id:)
+  def warning_message(title:, description: nil, id: nil, tiny: false)
+    flash_message(:warning, title:, description:, id:, tiny:)
   end
 
   def layout_name
@@ -53,14 +53,13 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def flash_message(kind, title:, description:, id:, activemodel: false)
-    flash_object = kind == :error ? flash.now : flash
+  def flash_message(kind, title:, description:, id:, tiny: false)
+    flash_object = flash_object_for(kind)
+    flash_object[kind] = { 'title' => title, 'description' => description, 'id' => id, 'tiny' => tiny }
+  end
 
-    flash_object[kind] ||= {}
-    flash_object[kind]['title'] = title
-    flash_object[kind]['description'] = description
-    flash_object[kind]['id'] = id
-    flash_object[kind]['activemodel'] = activemodel
+  def flash_object_for(kind)
+    kind == :error ? flash.now : flash
   end
 
   def custom_layout
