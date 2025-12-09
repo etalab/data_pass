@@ -17,7 +17,6 @@ module AuthorizationRequestsFlashes
     }
 
     if type == :error && include_model_errors
-      options[:activemodel] = include_model_errors
       options[:description] = authorization_request.errors.full_messages
     end
 
