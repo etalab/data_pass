@@ -1,0 +1,33 @@
+<% if show_contact_mention_alert? %>
+  <div class="fr-alert fr-alert--info fr-my-3w">
+    <%= contact_mention_text %>
+  </div>
+<% end %>
+
+<% if show_update_in_progress_alert? %>
+  <div class="fr-alert fr-alert--info fr-mb-4v">
+    <h2 class="fr-alert__title">
+      <%= update_in_progress_title %>
+    </h2>
+    <%= update_in_progress_message %>
+  </div>
+<% end %>
+
+<% if show_old_version_alert? %>
+  <div class="fr-alert fr-alert--warning fr-mb-4v">
+    <h2 class="fr-alert__title">
+      <%= old_version_title %>
+    </h2>
+    <%= old_version_message %>
+  </div>
+<% end %>
+
+<% if show_access_callout? %>
+  <div class="fr-callout fr-my-16v">
+    <h2 class="fr-callout__title fr-h3">
+      <%= access_callout_title %>
+    </h2>
+    <%= simple_format access_callout_content, { class: 'fr-callout__text' }, wrapper_tag: 'p' %>
+    <%= link_to access_callout_button_text, access_callout_link, class: 'fr-btn fr-btn--icon-right fr-icon-external-link-line', target: '_blank' %>
+  </div>
+<% end %>
