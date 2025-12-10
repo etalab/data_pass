@@ -1,0 +1,15 @@
+<%= render Dashboard::BlankStateComponent.new(pictogram_path: pictogram_path, message: message) do |component| %>
+  <% component.with_action do %>
+    <% case reason %>
+    <% when :empty %>
+      <%= link_to action_text,
+        action_path,
+        title: "#{action_text} - Ouvrir dans une nouvelle fenêtre",
+        class: 'fr-link fr-link--action-high-blue-france',
+        target: '_blank',
+        rel: 'noopener noreferrer' %>
+    <% when :no_results %>
+      <%= link_to action_text, action_path, class: 'fr-btn fr-btn--secondary' %>
+    <% end %>
+  <% end %>
+<% end %>

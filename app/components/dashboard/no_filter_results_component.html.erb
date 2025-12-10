@@ -1,5 +1,0 @@
-<%= render Dashboard::EmptyStateComponent.new(pictogram_path: pictogram_path, message: message) do |component| %>
-  <% component.with_action do %>
-    <%= link_to reset_button_text, reset_path, class: 'fr-btn fr-btn--secondary' %>
-  <% end %>
-<% end %>
