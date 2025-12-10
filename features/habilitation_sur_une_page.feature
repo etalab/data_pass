@@ -12,7 +12,7 @@ Fonctionnalité: Interactions sur une demande d'habilitation simple (sur une seu
     Quand je démarre une nouvelle demande d'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
     Et que je clique sur "Enregistrer les modifications"
     Alors je suis sur la page "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
-    Et il y a un message de succès contenant "a été sauvegardé"
+    Et il y a un message de succès contenant "sauvegardée"
     Et il y a un bouton "Continuer vers le résumé"
     Et il y a un bouton "Enregistrer les modifications"
 
