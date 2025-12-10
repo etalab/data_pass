@@ -70,6 +70,8 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   end
 
   def summary
+    redirect_to @authorization_request.latest_authorization and return if @authorization_request.validated?
+
     authorize @authorization_request
 
     flash.keep if turbo_request?
