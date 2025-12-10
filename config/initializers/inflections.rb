@@ -37,6 +37,7 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.acronym 'CNAM'
 
   inflect.acronym 'PISTE'
+  inflect.acronym 'APIM'
 end
 
 class String
