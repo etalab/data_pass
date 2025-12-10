@@ -187,9 +187,9 @@ fr:
       title: Demandes et habilitations
       tabs:
         demandes:
-          title: Les demandes
+          title: Les demandes en cours
         habilitations:
-          title: Les habilitations
+          title: Les habilitations délivrées
       lists:
         refused_title: Demandes refusées
         draft_title: Demandes en brouillon
