@@ -22,7 +22,7 @@ class MessageTemplateDecorator < ApplicationDecorator
       authorization_request_id: 9001,
       authorization_request_name: 'Exemple de demande',
       authorization_request_url: h.authorization_request_url(id: 9001),
-      reason_var_key => preview_content,
+      reason: preview_content,
     )
   end
 
@@ -34,17 +34,6 @@ class MessageTemplateDecorator < ApplicationDecorator
       'refuse'
     when :modification_request
       'request_changes'
-    else
-      raise "Unknown message template type: #{object.message_template_type}"
-    end
-  end
-
-  def reason_var_key
-    case object.template_type.to_sym
-    when :refusal
-      :authorization_request_denial_reason
-    when :modification_request
-      :authorization_request_modification_request_reason
     else
       raise "Unknown message template type: #{object.message_template_type}"
     end
