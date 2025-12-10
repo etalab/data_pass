@@ -28,7 +28,7 @@ Fonctionnalité: Interactions sur une demande d'habilitation en plusieurs étape
     Et que je remplis "Nom du projet" avec "Je suis un projet"
     Et que je remplis "Description du projet" avec "Je suis une description"
     Et que je clique sur "Enregistrer"
-    Alors il y a un message de succès contenant "été sauvegardé"
+    Alors il y a un message de succès contenant "Demande sauvegardée"
     Et la page contient "Nom du projet"
     Et la page contient "Prochaine étape : Le cadre juridique"
 
