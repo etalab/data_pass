@@ -20,7 +20,7 @@ RSpec.describe Instruction::AuthorizationRequestMailer do
       end
 
       it 'renders valid template' do
-        expect(mail.body.encoded).to match("demande d'habilitation")
+        expect(mail.body.encoded).to match('demande d’habilitation')
         expect(mail.body.encoded).to match('a soumis')
         expect(mail.body.encoded).to match(authorization_request.applicant.email)
       end

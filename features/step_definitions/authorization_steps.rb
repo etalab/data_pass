@@ -21,7 +21,7 @@ def create_or_find_authorization(request, current_user, state)
   authorization
 end
 
-Quand(/(?:il y a|j'ai) (\d+) habilitation.? "([^"]+)" (.+?)(?: (?:de|à) l'étape "([^"]+)")?(?: via le formulaire "([^"]+)")?$/) do |count, type, state, stage, form|
+Quand(/(?:il y a|j’ai) (\d+) habilitation.? "([^"]+)" (.+?)(?: (?:de|à) l'étape "([^"]+)")?(?: via le formulaire "([^"]+)")?$/) do |count, type, state, stage, form|
   attributes = { applicant: current_user }
 
   @authorization_requests = create_authorization_requests_with_status(
@@ -46,7 +46,7 @@ Et('je visite la page de mon habilitation') do
   visit authorization_path(@authorization)
 end
 
-Quand("j'ai une habilitation {string} liée à une demande d'habilitation ayant une habilitation obsolete ayant des données différentes") do |type|
+Quand('j’ai une habilitation {string} liée à une demande d’habilitation ayant une habilitation obsolete ayant des données différentes') do |type|
   attributes = { applicant: current_user }
 
   @authorization_requests = create_authorization_requests_with_status(

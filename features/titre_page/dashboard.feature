@@ -3,7 +3,7 @@
 Fonctionnalité: Titre de page du tableau de bord
   En tant qu'utilisateur connecté
   Je veux voir un titre de page pertinent pour le tableau de bord
-  Afin de pouvoir identifier facilement la page dans l'historique et les onglets
+  Afin de pouvoir identifier facilement la page dans l’historique et les onglets
 
   Scénario: Le titre de la page du tableau de bord utilisateur est Tableau de bord
     Sachant que je suis un demandeur

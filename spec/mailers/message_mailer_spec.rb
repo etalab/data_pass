@@ -9,7 +9,7 @@ RSpec.describe MessageMailer do
 
     it 'renders valid template' do
       expect(mail.body.encoded).to match('un nouveau message')
-      expect(mail.body.encoded).to match('demande d\'habilitation')
+      expect(mail.body.encoded).to match('demande d’habilitation')
     end
   end
 
@@ -23,7 +23,7 @@ RSpec.describe MessageMailer do
 
     it 'renders valid template' do
       expect(mail.body.encoded).to match('un nouveau message')
-      expect(mail.body.encoded).to match('demande de réouverture de l\'habilitation')
+      expect(mail.body.encoded).to match('demande de réouverture de l’habilitation')
     end
   end
 
@@ -42,7 +42,7 @@ RSpec.describe MessageMailer do
 
     it 'renders valid template' do
       expect(mail.body.encoded).to match('un nouveau message')
-      expect(mail.body.encoded).to match('demande d\'habilitation')
+      expect(mail.body.encoded).to match('demande d’habilitation')
     end
   end
 
@@ -59,7 +59,7 @@ RSpec.describe MessageMailer do
 
     it 'renders valid template' do
       expect(mail.body.encoded).to match('un nouveau message')
-      expect(mail.body.encoded).to match('demande de réouverture de l\'habilitation')
+      expect(mail.body.encoded).to match('demande de réouverture de l’habilitation')
     end
   end
 end

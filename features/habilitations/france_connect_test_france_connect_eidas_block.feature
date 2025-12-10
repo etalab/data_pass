@@ -1,11 +1,11 @@
 # language: fr
 
-Fonctionnalité: Soumission d'une demande d'habilitation FranceConnect
+Fonctionnalité: Soumission d’une demande d’habilitation FranceConnect
   Contexte:
     Sachant que je suis un demandeur
     Et que je me connecte
 
-  Scénario: Je soumets une demande d'habilitation valide
+  Scénario: Je soumets une demande d’habilitation valide
     Quand je veux remplir une demande pour "FranceConnect" via le formulaire "Demande libre"
     Et que je clique sur "Débuter ma demande"
 
@@ -30,7 +30,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation FranceConnect
 
     * j'adhère aux conditions générales
     * je coche "J’atteste que mon service propose une alternative à la connexion avec FranceConnect, et que cette alternative permet l’accès, dans des conditions analogues, à la même prestation de service public."
-    * je clique sur "Soumettre la demande d'habilitation"
+    * je clique sur "Soumettre la demande d’habilitation"
 
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"

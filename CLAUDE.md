@@ -25,8 +25,21 @@
     `spec/components/previews`
 - DO NOT use comments, use meaningful variables and methods names
 - All files should end with a newline
-- Use apostrophe (’) instead of single quote (') within text content
-- Use french quotes (« ») instead of double quotes (") within text content
+
+## French Typography Rules (YAML files)
+
+**For YAML locale files, apply these rules using Python scripts (Write tool doesn't preserve Unicode):**
+
+1. **Apostrophes in French text**: Replace `'` (U+0027) with `'` (U+2019)
+   - Only in French words: `L'`, `l'`, `D'`, `d'`, `N'`, `n'`, `S'`, `s'`, `J'`, `j'`, `C'`, `c'`, `qu'`
+   - ✅ `L'utilisateur`, `d'habilitation`
+   - ❌ `L'utilisateur`, `d'habilitation`
+
+2. **Quotes in French text**: Replace `"text"` inside the string value with `« text »`
+   - ⚠️ Do NOT replace YAML string delimiters (the outer quotes)
+   - ✅ `title: « Mon titre »` (no YAML delimiters needed)
+   - ✅ `hint: "Cliquez sur « Valider »"` (YAML delimiters preserved, inner quotes replaced)
+   - ❌ `title: « Mon titre »` where `«` breaks YAML syntax
 
 ## Testing Guidelines
 

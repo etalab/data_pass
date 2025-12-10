@@ -1,13 +1,13 @@
 # language: fr
 
-Fonctionnalité: Soumission d'une demande d'habilitation API Entreprise
+Fonctionnalité: Soumission d’une demande d’habilitation API Entreprise
   Contexte:
     Sachant que je suis un demandeur
     Et que je me connecte
-    Et je démarre une nouvelle demande d'habilitation "API Entreprise"
+    Et je démarre une nouvelle demande d’habilitation "API Entreprise"
 
   @FlushJobQueue
-  Scénario: Je soumets une demande d'habilitation libre valide
+  Scénario: Je soumets une demande d’habilitation libre valide
     Quand je veux remplir une demande pour "API Entreprise" via le formulaire "Demande libre"
     Et que je clique sur "Débuter ma demande"
 
@@ -30,7 +30,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Entreprise
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
-    * je clique sur "Soumettre la demande d'habilitation"
+    * je clique sur "Soumettre la demande d’habilitation"
 
     Alors un scan antivirus est lancé
     Et il y a un message de succès contenant "soumise avec succès"

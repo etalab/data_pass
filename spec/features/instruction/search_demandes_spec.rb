@@ -29,7 +29,7 @@ RSpec.describe 'Instruction: demandes search' do
 
   context 'when we search with text, state and type' do
     let(:use_search_text) { true }
-    let(:state) { "En cours d'instruction" }
+    let(:state) { 'En cours d’instruction' }
     let(:type) { 'API Entreprise' }
 
     it 'renders only one authorization request' do
@@ -42,7 +42,7 @@ RSpec.describe 'Instruction: demandes search' do
 
   context 'when we search with text and state' do
     let(:use_search_text) { true }
-    let(:state) { "En cours d'instruction" }
+    let(:state) { 'En cours d’instruction' }
     let(:type) { nil }
 
     it 'renders 2 valids authorization requests' do
@@ -70,7 +70,7 @@ RSpec.describe 'Instruction: demandes search' do
 
   context 'when we search with state and type' do
     let(:use_search_text) { false }
-    let(:state) { "En cours d'instruction" }
+    let(:state) { 'En cours d’instruction' }
     let(:type) { 'API Entreprise' }
 
     it 'renders 2 valids authorization requests' do

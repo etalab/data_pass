@@ -60,7 +60,7 @@ Sachantque('je suis un demandeur d\'une organisation fermée') do
   mock_identity_federators(user)
 end
 
-Sachantque("je suis un demandeur pour l'organisation {string}") do |organization_name|
+Sachantque('je suis un demandeur pour l’organisation {string}') do |organization_name|
   @current_user_email = 'demandeur@gouv.fr'
   organization = find_or_create_organization_by_name(organization_name)
   user = User.find_by(email: @current_user_email) || FactoryBot.create(:user, email: @current_user_email, current_organization: organization)
@@ -190,7 +190,7 @@ Sachantque("je me connecte via ProConnect avec l'identité {string}") do |identi
   )
 end
 
-Sachantque("je me connecte via ProConnect avec l'identité {string} qui renvoi l'organisation {string}") do |identity_provider_name, organization_name|
+Sachantque("je me connecte via ProConnect avec l'identité {string} qui renvoi l’organisation {string}") do |identity_provider_name, organization_name|
   @current_user_email = 'demandeur@gouv.fr'
 
   user = User.find_by(email: @current_user_email) || FactoryBot.create(:user, email: @current_user_email)

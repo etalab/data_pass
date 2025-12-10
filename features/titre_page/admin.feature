@@ -3,7 +3,7 @@
 Fonctionnalité: Titres de page de l'espace admin
   En tant qu'administrateur
   Je veux voir des titres de page pertinents pour les pages d'administration
-  Afin de pouvoir identifier facilement ces pages dans l'historique et les onglets
+  Afin de pouvoir identifier facilement ces pages dans l’historique et les onglets
 
   Scénario: Le titre de la page d'accueil admin est Espace administrateur
     Sachant que je suis un administrateur

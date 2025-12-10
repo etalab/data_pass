@@ -29,7 +29,7 @@ fr:
             last_submitted_at: Dernière date de soumission
             organization: Organisation
             project_name: Nom du projet
-            authorization_request_kind: Type d'habilitation
+            authorization_request_kind: Type d’habilitation
             applicant_email: Email du demandeur
             actions: "-"
           actions:
@@ -46,7 +46,7 @@ fr:
             state: Statut
             applicant_email: Demandeur
             project_name: Nom du projet
-            authorization_request_class: Type d'habilitation
+            authorization_request_class: Type d’habilitation
             actions: "-"
           actions:
             show: Consulter
@@ -91,91 +91,91 @@ fr:
     approve_authorization_requests:
       new:
         initial:
-          title: Validation de la demande d'habilitation
+          title: Validation de la demande d’habilitation
           description:
             organization: |
-              Vous êtes sur le point de valider la demande d'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_name}' (numéro de siret: %{organization_siret}).
+              Vous êtes sur le point de valider la demande d’habilitation '%{authorization_request_name}' au profit de l’organisation '%{organization_name}' (numéro de siret: %{organization_siret}).
             disclaimer: |
-              <strong>Cette action est irréversible</strong>. Veuillez vérifier que la demande d'habilitation est bien conforme aux règles de gestion.
+              <strong>Cette action est irréversible</strong>. Veuillez vérifier que la demande d’habilitation est bien conforme aux règles de gestion.
           cancel: Annuler
-          approve: Valider la demande d'habilitation
+          approve: Valider la demande d’habilitation
         reopening:
-          title: Validation de la demande de mise à jour de l'habilitation.
+          title: Validation de la demande de mise à jour de l’habilitation.
           description:
             organization: |
-              Vous êtes sur le point de valider la demande de mise à jour de l'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_name}' (numéro de siret: %{organization_siret}).
+              Vous êtes sur le point de valider la demande de mise à jour de l’habilitation '%{authorization_request_name}' au profit de l’organisation '%{organization_name}' (numéro de siret: %{organization_siret}).
             disclaimer: |
-              <strong>Cette action est irréversible</strong>. Veuillez vérifier que la demande de mise à jour de l'habilitation est bien conforme aux règles de gestion.
+              <strong>Cette action est irréversible</strong>. Veuillez vérifier que la demande de mise à jour de l’habilitation est bien conforme aux règles de gestion.
           cancel: Annuler
           approve: Valider la demande de mise à jour
       create:
         success:
-          title: La demande d'habilitation %{name} a été validé
+          title: La demande d’habilitation %{name} a été validé
         reopening_success:
-          title: La demande de mise à jour de l'habilitation %{name} a été validé
+          title: La demande de mise à jour de l’habilitation %{name} a été validé
 
     refuse_authorization_requests:
       new:
         initial:
-          title: Refus de la demande d'habilitation
+          title: Refus de la demande d’habilitation
           description:
             organization: |
-              Vous êtes sur le point de refuser la demande d'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_name}' (numéro de siret: %{organization_siret}).
+              Vous êtes sur le point de refuser la demande d’habilitation '%{authorization_request_name}' au profit de l’organisation '%{organization_name}' (numéro de siret: %{organization_siret}).
             disclaimer: |
               <strong>Cette action est irréversible</strong>.
               Merci de renseigner une raison ci-dessous qui sera communiquée au demandeur.
           cancel: Annuler
-          refuse: Refuser la demande d'habilitation
+          refuse: Refuser la demande d’habilitation
         reopening:
-          title: Refus de la demande de mise à jour de l'habilitation
+          title: Refus de la demande de mise à jour de l’habilitation
           description:
             organization: |
-              Vous êtes sur le point de refuser la demande de mise à jour de l'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_name}' (numéro de siret: %{organization_siret}).
+              Vous êtes sur le point de refuser la demande de mise à jour de l’habilitation '%{authorization_request_name}' au profit de l’organisation '%{organization_name}' (numéro de siret: %{organization_siret}).
             disclaimer: |
-              Merci de renseigner une raison ci-dessous qui sera communiquée au demandeur. A noter que lors du refus, les modifications apportées par le demandeur depuis le début de la réouverture seront annulées. L'habilitation sera toujours valide.
+              Merci de renseigner une raison ci-dessous qui sera communiquée au demandeur. A noter que lors du refus, les modifications apportées par le demandeur depuis le début de la réouverture seront annulées. L’habilitation sera toujours valide.
           cancel: Annuler
           refuse: Refuser la demande de mise à jour
       create:
         success:
-          title: La demande d'habilitation %{name} a été refusée
+          title: La demande d’habilitation %{name} a été refusée
         reopening_success:
-          title: La demande de mise à jour de l'habilitation %{name} a été refusée
+          title: La demande de mise à jour de l’habilitation %{name} a été refusée
 
     revoke_authorization_requests:
       new:
         initial:
-          title: Révocation de l'habilitation
+          title: Révocation de l’habilitation
           description:
             organization: |
-              Vous êtes sur le point de révoquer cette habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_name}' (numéro de siret: %{organization_siret}).
+              Vous êtes sur le point de révoquer cette habilitation '%{authorization_request_name}' au profit de l’organisation '%{organization_name}' (numéro de siret: %{organization_siret}).
             disclaimer: |
               <strong>Cette action est irréversible</strong>.
               Merci de renseigner les motifs qui seront communiqués au demandeur.
           cancel: Annuler
-          revoke: Révoquer l'habilitation
+          revoke: Révoquer l’habilitation
 
       create:
         success:
-          title: L'habilitation %{name} a été révoquée
+          title: L’habilitation %{name} a été révoquée
 
     cancel_authorization_reopenings:
       new:
         initial:
-          title: Annulation de la réouverture de l'habilitation
+          title: Annulation de la réouverture de l’habilitation
           description:
             organization: |
-              Vous êtes sur le point d'annuler la réouverture de l'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_name}' (numéro de siret: %{organization_siret}).
+              Vous êtes sur le point d’annuler la réouverture de l’habilitation '%{authorization_request_name}' au profit de l’organisation '%{organization_name}' (numéro de siret: %{organization_siret}).
             disclaimer: |
               <strong>Cette action est irréversible</strong>.
-              Merci de renseigner les motifs de cette annulation, ceci à des fins d'historisation.
+              Merci de renseigner les motifs de cette annulation, ceci à des fins d’historisation.
           cancel: Annuler
           cancel_reopening: Annuler la réouverture de cette demande
 
       create:
         reopening_success:
-          title: La réouverture de l'habilitation %{name} a été annulée.
+          title: La réouverture de l’habilitation %{name} a été annulée.
         success:
-          title: La réouverture de l'habilitation %{name} a été annulée.
+          title: La réouverture de l’habilitation %{name} a été annulée.
 
     request_changes_on_authorization_requests:
       new:
@@ -183,7 +183,7 @@ fr:
           title: Demande de modifications
           description:
             organization: |
-              Vous êtes sur le point de demander des modifications sur la demande d'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_name}' (numéro de siret: %{organization_siret}).
+              Vous êtes sur le point de demander des modifications sur la demande d’habilitation '%{authorization_request_name}' au profit de l’organisation '%{organization_name}' (numéro de siret: %{organization_siret}).
             disclaimer: |
               Merci de renseigner les raisons ci-dessous qui sera communiquée au demandeur.
           cancel: Annuler
@@ -192,20 +192,20 @@ fr:
           title: Demande de modifications
           description:
             organization: |
-              Vous êtes sur le point de demander des modifications sur la mise à jour de l'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_name}' (numéro de siret: %{organization_siret}).
+              Vous êtes sur le point de demander des modifications sur la mise à jour de l’habilitation '%{authorization_request_name}' au profit de l’organisation '%{organization_name}' (numéro de siret: %{organization_siret}).
             disclaimer: |
               Merci de renseigner les raisons ci-dessous qui sera communiquée au demandeur.
           cancel: Annuler
           request_changes: Envoyer la demande de modification
       create:
         success:
-          title: La demande de modifications de d'habilitation %{name} a bien été envoyée au demandeur
+          title: La demande de modifications de d’habilitation %{name} a bien été envoyée au demandeur
 
         reopening_success:
-          title: La demande de modifications de la mise à jour de l'habilitation %{name} a bien été envoyée au demandeur
+          title: La demande de modifications de la mise à jour de l’habilitation %{name} a bien été envoyée au demandeur
     archive_authorization_requests:
       create:
-        success: La demande d'habilitation %{name} a été supprimée avec succèss
+        success: La demande d’habilitation %{name} a été supprimée avec succèss
     messages:
       index:
         form:
@@ -264,16 +264,16 @@ fr:
             </p>
           message_details: |
             <p class="fr-mt-2w">
-              La liste des changements renseignés dans cet événement est listée ci-dessous. Certains changements peuvent ne pas être présents car provenant d'une ancienne version du logiciel
+              La liste des changements renseignés dans cet événement est listée ci-dessous. Certains changements peuvent ne pas être présents car provenant d’une ancienne version du logiciel
               %{message_details_text}
             </p>
         legacy_submit_without_changes:
           message_summary: |
-            <strong>%{user_full_name}</strong> a soumis la demande (certains changements ont pu être effectués, mais sont absents de cet événement car provenant d'une ancienne version du logiciel).
+            <strong>%{user_full_name}</strong> a soumis la demande (certains changements ont pu être effectués, mais sont absents de cet événement car provenant d’une ancienne version du logiciel).
         approve:
           message_summary: |
             <strong>%{user_full_name}</strong> a approuvé la demande.
-          view_authorization: Consulter l'habilitation N°<strong>%{authorization}</strong>.
+          view_authorization: Consulter l’habilitation N°<strong>%{authorization}</strong>.
         request_changes:
           message_summary: |
             <strong>%{user_full_name}</strong> a demandé des modifications sur la demande :
@@ -302,19 +302,19 @@ fr:
 
         claim:
           message_summary: |
-            <strong>%{user_full_name}</strong> a démarré cette demande via une ébauche d'instructeur.
+            <strong>%{user_full_name}</strong> a démarré cette demande via une ébauche d’instructeur.
 
         reopen:
           message_summary: |
-            <strong>%{user_full_name}</strong> a réouvert l'habilitation.
+            <strong>%{user_full_name}</strong> a réouvert l’habilitation.
 
         cancel_reopening_from_applicant:
           message_summary: |
-            <strong>%{user_full_name}</strong> a annulé la réouverture de l'habilitation.
+            <strong>%{user_full_name}</strong> a annulé la réouverture de l’habilitation.
 
         cancel_reopening_from_instructor:
           message_summary: |
-            L'instructeur <strong>%{user_full_name}</strong> a annulé la réouverture de l'habilitation pour la raison suivante :
+            L’instructeur <strong>%{user_full_name}</strong> a annulé la réouverture de l’habilitation pour la raison suivante :
           message_details: |
             <blockquote>
               %{message_details_text}
@@ -330,7 +330,7 @@ fr:
 
         instructor_message:
           message_summary: |
-            L'instructeur <strong>%{user_full_name}</strong> a envoyé un message :
+            L’instructeur <strong>%{user_full_name}</strong> a envoyé un message :
           message_details: |
             <blockquote>
               %{message_details_text}
@@ -338,7 +338,7 @@ fr:
 
         admin_update:
           message_summary: |
-            L'administrateur <strong>%{user_full_name}</strong> a mis à jour la demande :
+            L’administrateur <strong>%{user_full_name}</strong> a mis à jour la demande :
 
           message_details: |
             <p class="fr-mt-2w">
@@ -348,35 +348,35 @@ fr:
 
         bulk_update:
           message_summary: |
-            Une mise à jour globale sur ce type d'habilitation a été effectuée :
+            Une mise à jour globale sur ce type d’habilitation a été effectuée :
           message_details: |
             <blockquote>
               %{message_details_text}
             </blockquote>
 
         start_next_stage:
-          message_summary: Le demandeur <strong>%{user_full_name}</strong> a démarré la demande d'habilitation pour la production
+          message_summary: Le demandeur <strong>%{user_full_name}</strong> a démarré la demande d’habilitation pour la production
 
         cancel_next_stage:
-          message_summary: Le demandeur <strong>%{user_full_name}</strong> a annulé la demande d'habilitation pour la production
+          message_summary: Le demandeur <strong>%{user_full_name}</strong> a annulé la demande d’habilitation pour la production
 
         system_reminder:
           message_summary: Une relance a été envoyé au demandeur
 
         system_archive:
-          message_summary: La demande d'habilitation a été archivée par le système
+          message_summary: La demande d’habilitation a été archivée par le système
 
         system_import:
-          message_summary: La demande d'habilitation a été importé depuis une autre source
+          message_summary: La demande d’habilitation a été importé depuis une autre source
     authorizations:
       index:
         title: Historique des habilitations liées à cette demande
-        show_cta: Consulter l'habilitation
+        show_cta: Consulter l’habilitation
     transfer_authorization_requests:
       new:
-        title: Transférer la demande d'habilitation
+        title: Transférer la demande d’habilitation
         disclaimer: |
-          Vous êtes sur le point de transférer la demande d'habilitation n°%{authorization_request_id} vers le compte d'un autre usager.
+          Vous êtes sur le point de transférer la demande d’habilitation n°%{authorization_request_id} vers le compte d’un autre usager.
           <br />
           Une fois la demande transférée, elle sera associée au compte du destinataire.
         cancel: Annuler
@@ -384,26 +384,26 @@ fr:
         email_disclaimer: |
           Pour que le transfert soit autorisé, il faut :
           <ul>
-            <li>L'email doit correspondre à un compte existant</li>
+            <li>L’email doit correspondre à un compte existant</li>
             <li>Le compte doit appartenir à la même organisation « %{organization_name} » (siret: %{organization_siret})</li>
           </ul>
         error:
           title: Une erreur est survenue
           email_not_found: |
-            Aucun utilisateur n'a été trouvé avec l'email fourni. L'utilisateur doit créer un compte pour que le transfert soit possible.
+            Aucun utilisateur n’a été trouvé avec l’email fourni. L’utilisateur doit créer un compte pour que le transfert soit possible.
       create:
         success:
-          title: La demande d'habilitation '%{name}' a été transférée avec succès.
+          title: La demande d’habilitation '%{name}' a été transférée avec succès.
         error:
           email_not_found: |
-            Aucun utilisateur n'a été trouvé avec l'email fourni. L'utilisateur doit créer un compte pour que le transfert soit possible.
+            Aucun utilisateur n’a été trouvé avec l’email fourni. L’utilisateur doit créer un compte pour que le transfert soit possible.
           invalid_new_applicant: |
-            L'utilisateur doit appartenir à la même organisation (numéro de siret: %{organization_siret}).
+            L’utilisateur doit appartenir à la même organisation (numéro de siret: %{organization_siret}).
 
     instructor_draft_requests:
       index:
         title: Demandes initiés par des instructeurs
-        new: Initier une nouvelle demande d'habilitation
+        new: Initier une nouvelle demande d’habilitation
         table:
           header:
             id: N°
@@ -411,19 +411,19 @@ fr:
             authorization_definition_name: Nom du fournisseur
             applicant_email: Email du demandeur
             organization: Organisation associée
-            instructor_email: Email de l'instructeur
+            instructor_email: Email de l’instructeur
             actions: Actions
           actions:
             edit: Modifier
             invite: Inviter
-            invite_link: Lien d'invitation
+            invite_link: Lien d’invitation
             delete: Supprimer
-            confirm_delete: Confirmer la suppression ? Cela supprimera cette demande et l'invitation associée.
+            confirm_delete: Confirmer la suppression ? Cela supprimera cette demande et l’invitation associée.
       new:
-        title: Choix du type d'habilitation
+        title: Choix du type d’habilitation
         description: |
-          Vous allez initier une nouvelle demande d'habilitation.
-          Veuillez choisir le type d'habilitation et son formulaire que vous souhaitez initier.
+          Vous allez initier une nouvelle demande d’habilitation.
+          Veuillez choisir le type d’habilitation et son formulaire que vous souhaitez initier.
       form_selector:
         form_label: Sélectionner un formulaire
         form_description_label: Description du formulaire
@@ -431,19 +431,19 @@ fr:
       edit:
         save: Sauvegarder
       create:
-        success: La demande d'habilitation a bien été sauvegardé
+        success: La demande d’habilitation a bien été sauvegardé
         error: Veuillez renseigner à minima un champ
       update:
-        success: La demande d'habilitation a bien été mis à jour
+        success: La demande d’habilitation a bien été mis à jour
         error: Veuillez renseigner à minima un champ
       destroy:
-        success: La demande d'habilitation a bien été supprimé
+        success: La demande d’habilitation a bien été supprimé
       invite:
         new:
           title: Inviter un usager à finaliser la demande
           description: |
-            Vous allez inviter un usager à finaliser cette demande d'habilitation en renseignant son adresse email et le numéro SIRET de son organisation.
-          invite: Envoyer l'invitation
+            Vous allez inviter un usager à finaliser cette demande d’habilitation en renseignant son adresse email et le numéro SIRET de son organisation.
+          invite: Envoyer l’invitation
           cancel: Annuler
           applicant_email:
             placeholder: usager@gouv.fr
@@ -452,14 +452,14 @@ fr:
           comment:
             placeholder: Merci de finaliser votre demande
           error:
-            title: Erreur lors de l'envoi de l'invitation
+            title: Erreur lors de l’envoi de l’invitation
         create:
-          success: L'invitation a été envoyée avec succès au demandeur
+          success: L’invitation a été envoyée avec succès au demandeur
           error:
             message:
               invalid_organization_params: |
                 Le numéro de SIRET est invalide.
               user_invalid: |
-                L'adresse email est invalide.
+                L’adresse email est invalide.
 
 

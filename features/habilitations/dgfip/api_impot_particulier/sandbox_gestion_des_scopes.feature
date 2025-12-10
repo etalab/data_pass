@@ -1,6 +1,6 @@
 # language: fr
 
-Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particuliers bac à sable et verification de la compatibilité des règles de scopes
+Fonctionnalité: Soumission d’une demande d’habilitation API Impôts Particuliers bac à sable et verification de la compatibilité des règles de scopes
   Contexte:
     Sachant que je suis un demandeur
     Et que je me connecte
@@ -18,7 +18,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
     * je clique sur "Suivant"
 
   @javascript
-  Scénario: Je soumets une demande d'habilitation sans scopes mais je joins un fichier d'expression de besoin spécifique.
+  Scénario: Je soumets une demande d’habilitation sans scopes mais je joins un fichier d'expression de besoin spécifique.
     * je coche "Oui, j’ai une expression de besoin spécifique"
     * je remplis "Ajoutez le fichier d’expression de vos besoins" avec le fichier "spec/fixtures/dummy.xlsx"
     * je clique sur "Suivant"

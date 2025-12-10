@@ -1,7 +1,7 @@
 fr:
   instructor_draft_request_mailer:
     invite_applicant:
-      subject: Invitation à revendiquer une demande d'habilitation pour « %{project_name} »
+      subject: Invitation à revendiquer une demande d’habilitation pour « %{project_name} »
 
   mailer:
     shared:
@@ -13,25 +13,25 @@ fr:
         header:
           text: "Bonjour"
         footer:
-          text: L'équipe %{authorization_definition_name}
+          text: L’équipe %{authorization_definition_name}
       instruction:
         footer:
-          text: L'équipe DataPass
+          text: L’équipe DataPass
 
   authorization_request_mailer:
     approve:
-      subject: Votre habilitation numéro %{authorization_request_id} vient d'être validée
+      subject: Votre habilitation numéro %{authorization_request_id} vient d’être validée
       description: |
         Votre habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}) a été validée par nos équipes.
 
         Vous pouvez consulter votre habilitation en suivant le lien suivant: %{authorization_request_url}
 
       need_homologation: |
-        L'utilisation de %{authorization_definition_name} nécessite d’homologuer* l’application destinatrice des données et que votre registre de traitement mentionne les données d’appel collectées et les données reçues.
+        L’utilisation de %{authorization_definition_name} nécessite d’homologuer* l’application destinatrice des données et que votre registre de traitement mentionne les données d’appel collectées et les données reçues.
 
         *L’ANSSI vous accompagne dans la sécurisation de vos applications : https://www.monservicesecurise.cyber.gouv.fr
     refuse:
-      subject: Votre demande d'habilitation numéro %{authorization_request_id} a été refusée
+      subject: Votre demande d’habilitation numéro %{authorization_request_id} a été refusée
       description: |
         Votre habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}) a été refusée par nos équipes pour la raison suivante:
 
@@ -39,7 +39,7 @@ fr:
 
         Vous pouvez consulter votre habilitation en suivant le lien suivant: %{authorization_request_url}
     revoke:
-      subject: Votre demande d'habilitation numéro %{authorization_request_id} a été révoquée.
+      subject: Votre demande d’habilitation numéro %{authorization_request_id} a été révoquée.
       description: |
         Votre habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}) a été révoquée par nos équipes pour la raison suivante:
 
@@ -47,7 +47,7 @@ fr:
 
         Vous pouvez consulter votre habilitation en suivant le lien suivant: %{authorization_request_url}
     request_changes:
-      subject: Votre demande d'habilitation numéro %{authorization_request_id} requiert des modification
+      subject: Votre demande d’habilitation numéro %{authorization_request_id} requiert des modification
       description: |
         Votre habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}) requiert des modifications avant de pouvoir être validée.
 
@@ -57,13 +57,13 @@ fr:
 
         Vous pouvez consulter votre habilitation en suivant le lien suivant: %{authorization_request_url}
     reopening_approve:
-      subject: Votre réouverture d'habilitation numéro %{authorization_request_id} vient d'être validée
+      subject: Votre réouverture d’habilitation numéro %{authorization_request_id} vient d’être validée
       description: |
-        Votre réouverture d'habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}) a été validée par nos équipes.
+        Votre réouverture d’habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}) a été validée par nos équipes.
 
         Vous pouvez consulter votre habilitation mise à jour en suivant le lien suivant: %{authorization_request_url}
     reopening_refuse:
-      subject: Votre réouverture d'habilitation numéro %{authorization_request_id} a été refusée
+      subject: Votre réouverture d’habilitation numéro %{authorization_request_id} a été refusée
       description: |
         Votre réouverture habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}) a été refusée par nos équipes pour la raison suivante:
 
@@ -72,9 +72,9 @@ fr:
         Les modifications apportées ont donc été annulées. Votre ancienne habilitation est toujours valide, vous pouvez la consulter en suivant le lien suivant: %{authorization_request_url}
 
     reopening_request_changes:
-      subject: Votre réouverture d'habilitation numéro %{authorization_request_id} requiert des modification
+      subject: Votre réouverture d’habilitation numéro %{authorization_request_id} requiert des modification
       description: |
-        Votre réouverture d'habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}) requiert des modifications avant de pouvoir être validée.
+        Votre réouverture d’habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}) requiert des modifications avant de pouvoir être validée.
 
         Les modifications attendues sont les suivantes:
 
@@ -85,13 +85,13 @@ fr:
     responsable_traitement: &shared_gdpr
       subject: &gdpr_subject Vous avez été désigné %{authorization_request_contact_kind} pour la démarche « %{authorization_request_name} ».
       description: &gdpr_description |
-        Nous vous informons que %{authorization_request_applicant_email}, de l'organisation %{authorization_request_organization}, vous a désigné(e) comme %{authorization_request_contact_kind} pour accéder aux resources de %{authorization_request_definition_name} dans le cadre de la démarche « %{authorization_request_name} ». Les détails de cette habilitation sont disponibles via le lien suivant: %{authorization_request_url}.
+        Nous vous informons que %{authorization_request_applicant_email}, de l’organisation %{authorization_request_organization}, vous a désigné(e) comme %{authorization_request_contact_kind} pour accéder aux resources de %{authorization_request_definition_name} dans le cadre de la démarche « %{authorization_request_name} ». Les détails de cette habilitation sont disponibles via le lien suivant: %{authorization_request_url}.
 
-        Vous n'avez rien de plus à faire!
+        Vous n’avez rien de plus à faire!
 
-        Vous n'êtes pas %{authorization_request_contact_kind} pour cette démarche ? Veuillez contacter le demandeur pour signaler une erreur afin que celui-ci effectue les modifications sur son habilitation : %{applicant_email}
+        Vous n’êtes pas %{authorization_request_contact_kind} pour cette démarche ? Veuillez contacter le demandeur pour signaler une erreur afin que celui-ci effectue les modifications sur son habilitation : %{applicant_email}
 
-        En cas de question, vous pouvez nous contacter à l'adresse suivante : %{support_email}.
+        En cas de question, vous pouvez nous contacter à l’adresse suivante : %{support_email}.
 
         Cordialement,
     delegue_protection_donnees: *shared_gdpr
@@ -99,60 +99,60 @@ fr:
   instruction:
     authorization_request_mailer:
       submit:
-        subject: Nouvelle demande d'habilitation sur DataPass
+        subject: Nouvelle demande d’habilitation sur DataPass
         description: |
-          %{applicant_full_name} (%{applicant_email}) a soumis une nouvelle demande d'habilitation pour l'API %{api_name} sur DataPass pour le compte de l'organisation %{organization_name}
+          %{applicant_full_name} (%{applicant_email}) a soumis une nouvelle demande d’habilitation pour l’API %{api_name} sur DataPass pour le compte de l’organisation %{organization_name}
 
-          Vous pouvez modérer cette demande d'habilitation en suivant le lien suivant: %{authorization_request_instruction_url}
+          Vous pouvez modérer cette demande d’habilitation en suivant le lien suivant: %{authorization_request_instruction_url}
         changes_requested_submit: |
           Cette demande fait suite à une demande de modification.
       reopening_submit:
-        subject: Demande de réouverture d'habilitation sur DataPass
+        subject: Demande de réouverture d’habilitation sur DataPass
         description: |
-          %{applicant_full_name} (%{applicant_email}) a soumis une demande de réouverture d'habilitation sur DataPass pour le compte de l'organisation %{organization_name}
+          %{applicant_full_name} (%{applicant_email}) a soumis une demande de réouverture d’habilitation sur DataPass pour le compte de l’organisation %{organization_name}
 
-          Vous pouvez modérer cette demande de réouverture d'habilitation en suivant le lien suivant: %{authorization_request_instruction_url}
+          Vous pouvez modérer cette demande de réouverture d’habilitation en suivant le lien suivant: %{authorization_request_instruction_url}
 
   message_mailer:
     to_applicant:
-      subject: Vous avez reçu un nouveau message concernant votre demande d'habilitation %{authorization_request_name}
+      subject: Vous avez reçu un nouveau message concernant votre demande d’habilitation %{authorization_request_name}
       description: |
-        Vous avez reçu un nouveau message concernant votre demande d'habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}).
+        Vous avez reçu un nouveau message concernant votre demande d’habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}).
 
         Vous pouvez consulter ce message en suivant le lien suivant: %{authorization_request_url}
 
     reopening_to_applicant:
-      subject: Vous avez reçu un nouveau message concernant votre demande de réouverture de l'habilitation %{authorization_request_name}
+      subject: Vous avez reçu un nouveau message concernant votre demande de réouverture de l’habilitation %{authorization_request_name}
       description: |
-        Vous avez reçu un nouveau message concernant votre demande de réouverture de l'habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}).
+        Vous avez reçu un nouveau message concernant votre demande de réouverture de l’habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}).
 
         Vous pouvez consulter ce message en suivant le lien suivant: %{authorization_request_url}
 
     to_instructors:
-      subject: Nouveau message concernant la demande d'habilitation %{authorization_request_name}
+      subject: Nouveau message concernant la demande d’habilitation %{authorization_request_name}
       description: |
-        %{applicant_full_name} (%{applicant_email}) vient d'envoyer un nouveau message concernant la demande d'habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}).
+        %{applicant_full_name} (%{applicant_email}) vient d’envoyer un nouveau message concernant la demande d’habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}).
 
         Vous pouvez consulter ce message en suivant le lien suivant: %{authorization_request_instruction_url}
 
     reopening_to_instructors:
-      subject: Nouveau message concernant la demande de réouverture de l'habilitation %{authorization_request_name}
+      subject: Nouveau message concernant la demande de réouverture de l’habilitation %{authorization_request_name}
       description: |
-        %{applicant_full_name} (%{applicant_email}) vient d'envoyer un nouveau message concernant la demande de réouverture de l'habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}).
+        %{applicant_full_name} (%{applicant_email}) vient d’envoyer un nouveau message concernant la demande de réouverture de l’habilitation « %{authorization_request_name} » (numéro %{authorization_request_id}).
 
         Vous pouvez consulter ce message en suivant le lien suivant: %{authorization_request_instruction_url}
   authorization_request_transfer_mailer:
     success:
-      subject: Transfert de la demande d'habilitation n°%{authorization_request_id} réussie
+      subject: Transfert de la demande d’habilitation n°%{authorization_request_id} réussie
       description: |
-        La demande d'habilitation n°%{authorization_request_id} « %{authorization_request_name} », appartenant initialement à %{old_applicant_email}, a été transférée avec succès à %{new_applicant_email}.
+        La demande d’habilitation n°%{authorization_request_id} « %{authorization_request_name} », appartenant initialement à %{old_applicant_email}, a été transférée avec succès à %{new_applicant_email}.
 
         Vous pouvez consulter la demande en suivant le lien suivant: %{authorization_request_url}
   webhook_mailer:
     fail:
       subject: "[ DataPass ] Erreur de communication avec votre %{authorization_definition_name}"
       description: |
-        DataPass cherche à notifier votre %{authorization_definition_name} depuis 10 minutes mais n'y parvient plus. Une habilitation DataPass n'a donc pas été transmise automatiquement à vos services.
+        DataPass cherche à notifier votre %{authorization_definition_name} depuis 10 minutes mais n’y parvient plus. Une habilitation DataPass n’a donc pas été transmise automatiquement à vos services.
 
         Les informations techniques sont les suivantes:
 
@@ -162,10 +162,10 @@ fr:
 
         **Historique des appels**
 
-        Vous pouvez consulter l'historique complet des appels webhook et les détails des erreurs à l'adresse suivante :
+        Vous pouvez consulter l’historique complet des appels webhook et les détails des erreurs à l’adresse suivante :
 
         %{webhook_attempts_url}
 
-        Merci de transmettre ce message à votre équipe technique pour correction. Nous sommes disponibles pour vos questions techniques à l'adresse mail suivante : equipe-datapass@api.gouv.fr.
+        Merci de transmettre ce message à votre équipe technique pour correction. Nous sommes disponibles pour vos questions techniques à l’adresse mail suivante : equipe-datapass@api.gouv.fr.
 
         Cordialement,

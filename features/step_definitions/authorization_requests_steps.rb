@@ -1,4 +1,4 @@
-Quand("il existe une demande d'habilitation {string} intitulée {string}") do |authorization_request_kind, authorization_request_name|
+Quand('il existe une demande d’habilitation {string} intitulée {string}') do |authorization_request_kind, authorization_request_name|
   FactoryBot.create(
     :authorization_request,
     find_factory_trait_from_name(authorization_request_kind),
@@ -48,7 +48,7 @@ Quand('je veux remplir une demande pour {string}') do |authorization_request_nam
   visit new_authorization_request_path(definition_id: find_authorization_definition_from_name(authorization_request_name).id, eligibility_confirmed: 'true')
 end
 
-Quand("je démarre une nouvelle demande d'habilitation {string} à l'étape {string}") do |name, stage|
+Quand("je démarre une nouvelle demande d’habilitation {string} à l'étape {string}") do |name, stage|
   authorization_definition = find_authorization_definition_from_name(name, extract_stage_type(stage))
 
   if authorization_definition.available_forms.one?
@@ -58,7 +58,7 @@ Quand("je démarre une nouvelle demande d'habilitation {string} à l'étape {str
   end
 end
 
-Quand("je démarre une nouvelle demande d'habilitation {string}") do |name|
+Quand('je démarre une nouvelle demande d’habilitation {string}') do |name|
   authorization_definition = find_authorization_definition_from_name(name, nil)
 
   if authorization_definition.available_forms.one?
@@ -68,7 +68,7 @@ Quand("je démarre une nouvelle demande d'habilitation {string}") do |name|
   end
 end
 
-Quand("je démarre une nouvelle demande d'habilitation {string} avec le paramètre {string} égal à {string}") do |string, key, value|
+Quand('je démarre une nouvelle demande d’habilitation {string} avec le paramètre {string} égal à {string}') do |string, key, value|
   visit new_authorization_request_path(definition_id: find_authorization_definition_from_name(string).id, key => value)
 end
 
@@ -105,11 +105,11 @@ Quand('cette demande possède les informations potentiellement non intègres sui
   authorization_request.update_column(:data, data) # rubocop:disable Rails/SkipsModelValidations
 end
 
-Quand("je clique sur {string} pour l'habilitation {string}") do |cta_name, habilitation_name|
+Quand('je clique sur {string} pour l’habilitation {string}') do |cta_name, habilitation_name|
   click_link cta_name, href: new_authorization_request_path(definition_id: find_authorization_definition_from_name(habilitation_name).id.dasherize)
 end
 
-Alors("il n'y a pas le bouton {string} pour l'habilitation {string}") do |text, habilitation_name|
+Alors("il n'y a pas le bouton {string} pour l’habilitation {string}") do |text, habilitation_name|
   within(css_id(find_authorization_definition_from_name(habilitation_name))) do
     expect(page).to have_no_content(text)
   end
@@ -141,14 +141,14 @@ Quand('je me rends sur cette demande d\'habilitation') do
   end
 end
 
-Quand(/je me rends via l'espace usager sur une demande d'habilitation "([^"]+)"/) do |type|
+Quand(/je me rends via l'espace usager sur une demande d’habilitation "([^"]+)"/) do |type|
   authorization_request = create_authorization_requests_with_status(type).first
 
   visit authorization_request_path(authorization_request)
 end
 
 # https://rubular.com/r/UD2mV5frl1q1oX
-Quand(/(j'ai|il y a|mon organisation a) (\d+) demandes? d'habilitation "([^"]+)" ?(?:via le formulaire "([^"]+)")? ?(?:à l'étape "([^"]+)")? ?(?:en )?(.+)?/) do |who, count, type, form, stage, status| # rubocop:disable Metrics/ParameterLists
+Quand(/(j’ai|il y a|mon organisation a) (\d+) demandes? d’habilitation "([^"]+)" ?(?:via le formulaire "([^"]+)")? ?(?:à l'étape "([^"]+)")? ?(?:en )?(.+)?/) do |who, count, type, form, stage, status| # rubocop:disable Metrics/ParameterLists
   applicant = case who
               when 'j\'ai'
                 current_user
@@ -161,7 +161,7 @@ Quand(/(j'ai|il y a|mon organisation a) (\d+) demandes? d'habilitation "([^"]+)"
   create_authorization_requests_with_status(type, status, count, stage, form, applicant:)
 end
 
-Quand("cette dernière demande d'habilitation s'appelait {string}") do |intitule|
+Quand("cette dernière demande d’habilitation s'appelait {string}") do |intitule|
   last_authorization_request = AuthorizationRequest.last
   last_authorization_request.intitule = intitule
   last_authorization_request.save
@@ -179,7 +179,7 @@ Quand('je change d\'organisation courante pour {string}') do |organization_name|
   current_user.reload
 end
 
-Quand(/je suis mentionné dans (\d+) demandes? d'habilitation "([^"]+)" en tant que "([^"]+)"/) do |count, type, role_humanized|
+Quand(/je suis mentionné dans (\d+) demandes? d’habilitation "([^"]+)" en tant que "([^"]+)"/) do |count, type, role_humanized|
   role = role_humanized.parameterize.underscore
   foreign_user = create(:user)
   options = {
@@ -192,7 +192,7 @@ Quand(/je suis mentionné dans (\d+) demandes? d'habilitation "([^"]+)" en tant 
 end
 
 # https://rubular.com/r/dRUFmK5dzDpjJv
-Alors(/je vois (\d+) demandes? d'habilitation(?: "([^"]+)")?(?:(?: en)? (.+))?/) do |count, definition_name, status|
+Alors(/je vois (\d+) demandes? d’habilitation(?: "([^"]+)")?(?:(?: en)? (.+))?/) do |count, definition_name, status|
   if definition_name.present?
     expect(page).to have_css('.authorization-request-definition-name', text: definition_name, count:)
   else
@@ -206,7 +206,7 @@ Alors(/je vois (\d+) demandes? d'habilitation(?: "([^"]+)")?(?:(?: en)? (.+))?/)
   end
 end
 
-Alors("l'utilisateur {string} possède une demande d'habilitation {string}") do |email, definition_name|
+Alors('l’utilisateur {string} possède une demande d’habilitation {string}') do |email, definition_name|
   user = User.find_by(email:)
 
   user_session(user) do
@@ -215,7 +215,7 @@ Alors("l'utilisateur {string} possède une demande d'habilitation {string}") do 
   end
 end
 
-Quand("un instructeur a révoqué la demande d'habilitation") do
+Quand('un instructeur a révoqué la demande d’habilitation') do
   authorization_request = AuthorizationRequest.last
   instructor = create_instructor(authorization_request.definition.name)
 
@@ -230,7 +230,7 @@ Quand("un instructeur a révoqué la demande d'habilitation") do
   end
 end
 
-Quand("un instructeur a validé la demande d'habilitation") do
+Quand('un instructeur a validé la demande d’habilitation') do
   authorization_request = AuthorizationRequest.last
   instructor = create_instructor(authorization_request.definition.id)
   instructor.update!(roles: AuthorizationDefinition.all.map { |definition| "#{definition.id}:instructor" })
@@ -444,7 +444,7 @@ Alors('un webhook avec l\'évènement {string} est envoyé') do |event_name|
 end
 
 # https://rubular.com/r/eAlfvtPiXB46Ec
-Quand(/je me rends sur une demande d'habilitation "([^"]+)"(?: de l'organisation "([^"]+)")?(?: (?:en|à))? ?(.+)?/) do |type, organization_name, status|
+Quand(/je me rends sur une demande d’habilitation "([^"]+)"(?: de l’organisation "([^"]+)")?(?: (?:en|à))? ?(.+)?/) do |type, organization_name, status|
   attributes = {}
   attributes[:organization] = find_or_create_organization_by_name(organization_name) if organization_name.present?
 
@@ -524,7 +524,7 @@ Quand(%r{cette demande a déjà été validée le (\d{1,2}/\d{2}/\d{4})}) do |da
   )
 end
 
-Quand(%r{je me rends sur l'habilitation validée(?: du (\d{1,2}/\d{2}/\d{4}))?}) do |date_string|
+Quand(%r{je me rends sur l’habilitation validée(?: du (\d{1,2}/\d{2}/\d{4}))?}) do |date_string|
   authorization_request = AuthorizationRequest.last
 
   if date_string.present?
@@ -538,7 +538,7 @@ Quand(%r{je me rends sur l'habilitation validée(?: du (\d{1,2}/\d{2}/\d{4}))?})
   visit authorization_path(authorization)
 end
 
-Quand("une mise à jour globale a été effectuée sur les demandes d'habilitations {string}") do |authorization_definition_name|
+Quand('une mise à jour globale a été effectuée sur les demandes d’habilitations {string}') do |authorization_definition_name|
   definition = find_authorization_definition_from_name(authorization_definition_name)
 
   AuthorizationRequest.last.update!(created_at: 2.days.ago)

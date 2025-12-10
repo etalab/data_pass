@@ -1,11 +1,11 @@
 # language: fr
 
-Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plusiuers étapes)
+Fonctionnalité: Soumission d’une demande d’habilitation API Particulier (en plusiuers étapes)
   Contexte:
     Sachant que je suis un demandeur
     Et que je me connecte
 
-  Scénario: Je soumets une demande d'habilitation libre valide
+  Scénario: Je soumets une demande d’habilitation libre valide
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "Demande libre"
     Et que je clique sur "Débuter ma demande"
     Et la page ne contient pas "Nous avons pré-rempli des informations pour vous aider"
@@ -31,12 +31,12 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
-    * je clique sur "Soumettre la demande d'habilitation"
+    * je clique sur "Soumettre la demande d’habilitation"
 
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
 
-  Plan du scénario: Je soumets une demande d'habilitation pour un cas d'usage sans éditeur où je dois préciser le cadre légal et le lien vers la délibération, avec le choix de la modalité
+  Plan du scénario: Je soumets une demande d’habilitation pour un cas d'usage sans éditeur où je dois préciser le cadre légal et le lien vers la délibération, avec le choix de la modalité
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>"
     Et que je clique sur "Débuter ma demande"
 
@@ -62,7 +62,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
-    * je clique sur "Soumettre la demande d'habilitation"
+    * je clique sur "Soumettre la demande d’habilitation"
 
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
@@ -76,7 +76,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
       | Tarification des transports                              |
       | Gestion du stationnement résidentiel                     |
 
-  Plan du scénario: Je soumets une demande d'habilitation pour un cas d'usage sans éditeur où je dois préciser le cadre légal et le lien vers la délibération, sans le choix de la modalité
+  Plan du scénario: Je soumets une demande d’habilitation pour un cas d'usage sans éditeur où je dois préciser le cadre légal et le lien vers la délibération, sans le choix de la modalité
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>"
     Et que je clique sur "Débuter ma demande"
 
@@ -100,7 +100,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
-    * je clique sur "Soumettre la demande d'habilitation"
+    * je clique sur "Soumettre la demande d’habilitation"
 
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
@@ -109,7 +109,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
       | Nom du formulaire                                        |
       | Tarification sociale des services municipaux à l’enfance |
 
-  Scénario: Je soumets une demande d'habilitation pour le cas d'usage "Tarification cantine lycées"
+  Scénario: Je soumets une demande d’habilitation pour le cas d'usage "Tarification cantine lycées"
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "Tarification cantine lycées"
     Et que je clique sur "Débuter ma demande"
 
@@ -135,12 +135,12 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
-    * je clique sur "Soumettre la demande d'habilitation"
+    * je clique sur "Soumettre la demande d’habilitation"
 
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
 
-  Scénario: Je soumets une demande d'habilitation pour le cas d'usage "Aides sociales des CCAS"
+  Scénario: Je soumets une demande d’habilitation pour le cas d'usage "Aides sociales des CCAS"
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "Aides sociales des CCAS"
     Et que je clique sur "Débuter ma demande"
 
@@ -162,12 +162,12 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
-    * je clique sur "Soumettre la demande d'habilitation"
+    * je clique sur "Soumettre la demande d’habilitation"
 
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
 
-  Scénario: Je soumets une demande d'habilitation pour le cas d'usage "Gestion RH du secteur public"
+  Scénario: Je soumets une demande d’habilitation pour le cas d'usage "Gestion RH du secteur public"
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "Gestion RH du secteur public"
     Et que je clique sur "Débuter ma demande"
 
@@ -193,12 +193,12 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
-    * je clique sur "Soumettre la demande d'habilitation"
+    * je clique sur "Soumettre la demande d’habilitation"
 
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
 
-  Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique déjà renseigné et des scopes modifiables pour un cas d'usage lié au portail famille ou à la tarification QF
+  Plan du scénario: Je soumets une demande d’habilitation d’un éditeur avec le contact technique déjà renseigné et des scopes modifiables pour un cas d'usage lié au portail famille ou à la tarification QF
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
@@ -217,7 +217,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
-    * je clique sur "Soumettre la demande d'habilitation"
+    * je clique sur "Soumettre la demande d’habilitation"
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
 
@@ -231,7 +231,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
       | Carte Plus          | Carte Plus                |
       | YGRC                | Ypok                      |
 
-   Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique non renseigné et des scopes non modifiables pour un cas d'usage lié au portail famille ou à la tarification QF
+   Plan du scénario: Je soumets une demande d’habilitation d’un éditeur avec le contact technique non renseigné et des scopes non modifiables pour un cas d'usage lié au portail famille ou à la tarification QF
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
@@ -251,7 +251,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
-    * je clique sur "Soumettre la demande d'habilitation"
+    * je clique sur "Soumettre la demande d’habilitation"
 
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
@@ -265,7 +265,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
       | Kosmos Education          | Kosmos            |
       | AchetezA                  | AchetezA           |
 
-   Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique non renseigné et des scopes modifiables pour un cas d'usage lié au portail famille ou à la tarification QF
+   Plan du scénario: Je soumets une demande d’habilitation d’un éditeur avec le contact technique non renseigné et des scopes modifiables pour un cas d'usage lié au portail famille ou à la tarification QF
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
@@ -284,7 +284,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
-    * je clique sur "Soumettre la demande d'habilitation"
+    * je clique sur "Soumettre la demande d’habilitation"
 
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
@@ -294,7 +294,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
       | Noethys                   | Noethys           |
       | Res'Agenda                | Res'Agenda        |
 
-  Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique non renseigné et des scopes non modifiables pour un cas d'usage lié au CCAS, où le cadre juridique est déjà renseigné
+  Plan du scénario: Je soumets une demande d’habilitation d’un éditeur avec le contact technique non renseigné et des scopes non modifiables pour un cas d'usage lié au CCAS, où le cadre juridique est déjà renseigné
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
@@ -312,7 +312,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
-    * je clique sur "Soumettre la demande d'habilitation"
+    * je clique sur "Soumettre la demande d’habilitation"
 
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
@@ -322,7 +322,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
       | Sonate                    | Arpège            |
       | Millésime Action Sociale  | Arche MC2         |
 
-  Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique renseigné et des scopes non modifiables pour un cas d'usage lié au CCAS, où le cadre juridique est déjà renseigné
+  Plan du scénario: Je soumets une demande d’habilitation d’un éditeur avec le contact technique renseigné et des scopes non modifiables pour un cas d'usage lié au CCAS, où le cadre juridique est déjà renseigné
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
@@ -339,7 +339,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
-    * je clique sur "Soumettre la demande d'habilitation"
+    * je clique sur "Soumettre la demande d’habilitation"
 
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
@@ -348,7 +348,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
       | Nom du formulaire         | Nom de l'éditeur  |
       | Paxtel                    | Paxtel            |
 
-  Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique renseigné et des scopes non modifiables pour un cas d'usage lié au portail famille ou à la tarification QF
+  Plan du scénario: Je soumets une demande d’habilitation d’un éditeur avec le contact technique renseigné et des scopes non modifiables pour un cas d'usage lié au portail famille ou à la tarification QF
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
@@ -363,7 +363,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
-    * je clique sur "Soumettre la demande d'habilitation"
+    * je clique sur "Soumettre la demande d’habilitation"
 
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
@@ -383,7 +383,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
       | Mairistem             | JVS-Mairistem             |
       | Epéris                | E1OS                      |
 
- Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique déjà renseigné, sans cas d'usage
+ Plan du scénario: Je soumets une demande d’habilitation d’un éditeur avec le contact technique déjà renseigné, sans cas d'usage
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
@@ -400,7 +400,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
-    * je clique sur "Soumettre la demande d'habilitation"
+    * je clique sur "Soumettre la demande d’habilitation"
 
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
@@ -411,7 +411,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
       | DuoNET                | Ars Data                  |
 
 
-Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le contact technique n'est pas renseigné et des scopes non modifiables pour un cas d'usage lié à la tarification des transports
+Plan du scénario: Je soumets une demande d’habilitation d’un éditeur dont le contact technique n’est pas renseigné et des scopes non modifiables pour un cas d'usage lié à la tarification des transports
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
@@ -431,7 +431,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
 
     * je clique sur "Suivant"
     Et j'adhère aux conditions générales
-    * je clique sur "Soumettre la demande d'habilitation"
+    * je clique sur "Soumettre la demande d’habilitation"
 
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
@@ -440,7 +440,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
       | Nom du formulaire   | Nom de l'éditeur          |
       | MaaSify             | Monkey Factory            |
 
-  Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique déjà renseigné et des scopes modifiables pour un cas d'usage lié à la tarification des transports
+  Plan du scénario: Je soumets une demande d’habilitation d’un éditeur avec le contact technique déjà renseigné et des scopes modifiables pour un cas d'usage lié à la tarification des transports
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
@@ -460,7 +460,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
 
     * je clique sur "Suivant"
     Et j'adhère aux conditions générales
-    * je clique sur "Soumettre la demande d'habilitation"
+    * je clique sur "Soumettre la demande d’habilitation"
 
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
@@ -469,8 +469,8 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
       | Nom du formulaire   | Nom de l'éditeur          |
       | ICAR                | Coexya                    |
 
-  Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique déjà renseigné et des scopes modifiables pour un cas d'usage lié à la tarification des transports, avec le choix de la modalité
-    Sachant que mon organisation a 1 demande d'habilitation "FranceConnect" validée
+  Plan du scénario: Je soumets une demande d’habilitation d’un éditeur avec le contact technique déjà renseigné et des scopes modifiables pour un cas d'usage lié à la tarification des transports, avec le choix de la modalité
+    Sachant que mon organisation a 1 demande d’habilitation "FranceConnect" validée
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
@@ -493,7 +493,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
 
     * je clique sur "Suivant"
     Et j'adhère aux conditions générales
-    * je clique sur "Soumettre la demande d'habilitation"
+    * je clique sur "Soumettre la demande d’habilitation"
 
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
@@ -502,7 +502,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
       | Nom du formulaire   | Nom de l'éditeur          |
       | Airweb              | Airweb                    |
 
-  Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique déjà renseigné et des scopes modifiables pour un cas d'usage lié aux aides facultatives régionales ou aux aides facultatives départementales
+  Plan du scénario: Je soumets une demande d’habilitation d’un éditeur avec le contact technique déjà renseigné et des scopes modifiables pour un cas d'usage lié aux aides facultatives régionales ou aux aides facultatives départementales
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
@@ -521,7 +521,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
-    * je clique sur "Soumettre la demande d'habilitation"
+    * je clique sur "Soumettre la demande d’habilitation"
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
 
@@ -530,8 +530,8 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
       | Memberz             | Dialog                    |
 
 
-Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le contact technique n'est pas renseigné et des scopes modifiables pour un cas d'usage lié à la tarification des transports
-    Sachant que mon organisation a 1 demande d'habilitation "FranceConnect" validée
+Plan du scénario: Je soumets une demande d’habilitation d’un éditeur dont le contact technique n’est pas renseigné et des scopes modifiables pour un cas d'usage lié à la tarification des transports
+    Sachant que mon organisation a 1 demande d’habilitation "FranceConnect" validée
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
@@ -554,7 +554,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
 
     * je clique sur "Suivant"
     Et j'adhère aux conditions générales
-    * je clique sur "Soumettre la demande d'habilitation"
+    * je clique sur "Soumettre la demande d’habilitation"
 
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
@@ -563,8 +563,8 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
       | Nom du formulaire   | Nom de l'éditeur          |
       | Keolis              | Keolis                    |
 
- Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique déjà renseigné et des scopes modifiables pour un cas d'usage lié à la tarification des cantines dans les lycées, où le cadre juridique est déjà renseigné et avec le choix de la modalité
-    Sachant que mon organisation a 1 demande d'habilitation "FranceConnect" validée
+ Plan du scénario: Je soumets une demande d’habilitation d’un éditeur avec le contact technique déjà renseigné et des scopes modifiables pour un cas d'usage lié à la tarification des cantines dans les lycées, où le cadre juridique est déjà renseigné et avec le choix de la modalité
+    Sachant que mon organisation a 1 demande d’habilitation "FranceConnect" validée
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
@@ -586,7 +586,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
-    * je clique sur "Soumettre la demande d'habilitation"
+    * je clique sur "Soumettre la demande d’habilitation"
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
 
@@ -594,7 +594,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
       | Nom du formulaire           | Nom de l'éditeur|
       | Aiden, Tarification cantine | MGDIS           |
 
-  Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique déjà renseigné et des scopes non modifiables pour un cas d'usage lié aux aides facultatives régionales ou aux aides facultatives départementales
+  Plan du scénario: Je soumets une demande d’habilitation d’un éditeur avec le contact technique déjà renseigné et des scopes non modifiables pour un cas d'usage lié aux aides facultatives régionales ou aux aides facultatives départementales
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
@@ -613,7 +613,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
-    * je clique sur "Soumettre la demande d'habilitation"
+    * je clique sur "Soumettre la demande d’habilitation"
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
 
@@ -621,7 +621,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
       | Nom du formulaire   | Nom de l'éditeur          |
       | Solis               | Arche MC2                 |
 
-Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique non renseigné et des scopes non modifiables pour un cas d'usage lié à la tarification dans les établissements d'accueil du jeune enfant
+Plan du scénario: Je soumets une demande d’habilitation d’un éditeur avec le contact technique non renseigné et des scopes non modifiables pour un cas d'usage lié à la tarification dans les établissements d'accueil du jeune enfant
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
@@ -638,7 +638,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le c
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
-    * je clique sur "Soumettre la demande d'habilitation"
+    * je clique sur "Soumettre la demande d’habilitation"
 
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
@@ -648,7 +648,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le c
       | Concerto Petite enfance   | Arpège            |
       | Axel petite enfance       | Teamnet           |
 
-Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique déjà renseigné et des scopes non modifiables pour un cas d'usage lié à la tarification dans les établissements d'accueil du jeune enfant
+Plan du scénario: Je soumets une demande d’habilitation d’un éditeur avec le contact technique déjà renseigné et des scopes non modifiables pour un cas d'usage lié à la tarification dans les établissements d'accueil du jeune enfant
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
@@ -667,7 +667,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le c
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
-    * je clique sur "Soumettre la demande d'habilitation"
+    * je clique sur "Soumettre la demande d’habilitation"
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
 

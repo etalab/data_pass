@@ -1,8 +1,8 @@
 # language: fr
 
-Fonctionnalité: Démarrage d'habilitation par des internautes
+Fonctionnalité: Démarrage d’habilitation par des internautes
 
-  Scénario:  Un internaute veut remplir une demande d'habilitation API Entreprise via le formulaire "Demande Libre"
+  Scénario:  Un internaute veut remplir une demande d’habilitation API Entreprise via le formulaire "Demande Libre"
     Sachant que je suis un demandeur
     Quand je veux remplir une demande pour "API Entreprise" via le formulaire "Demande libre"
     Alors il y a un titre contenant "Bienvenue sur DataPass !"
@@ -10,7 +10,7 @@ Fonctionnalité: Démarrage d'habilitation par des internautes
     Et la page contient "Votre demande d’habilitation va se dérouler en 4 étapes"
     Et la page contient "S’identifier avec ProConnect"
 
-  Scénario:  Un internaute veut remplir une demande d'habilitation API Entreprise via le formulaire "Marchés publics"
+  Scénario:  Un internaute veut remplir une demande d’habilitation API Entreprise via le formulaire "Marchés publics"
     Sachant que je suis un demandeur
     Quand je veux remplir une demande pour "API Entreprise" via le formulaire "Marchés publics"
     Alors il y a un titre contenant "Bienvenue sur DataPass !"
@@ -18,7 +18,7 @@ Fonctionnalité: Démarrage d'habilitation par des internautes
     Et la page contient "Votre demande d’habilitation va se dérouler en 4 étapes"
     Et la page contient "S’identifier avec ProConnect"
 
-  Scénario:  Un internaute veut démarrer une demande d'habilitation API Entreprise via le formulaire "Demande Libre"
+  Scénario:  Un internaute veut démarrer une demande d’habilitation API Entreprise via le formulaire "Demande Libre"
     Sachant que je suis un demandeur
     Quand je veux remplir une demande pour "API Entreprise" via le formulaire "Demande libre"
     Alors je clique sur "S’identifier avec ProConnect"
@@ -28,14 +28,14 @@ Fonctionnalité: Démarrage d'habilitation par des internautes
   @CreateDataProviders
   Scénario:  Un internaute veut accéder à son habilitation API scolarité de l'élève - formulaire "Demande libre"
     Sachant que je suis un demandeur
-    Quand je me rends sur une demande d'habilitation "API scolarité de l'élève" validée
+    Quand je me rends sur une demande d’habilitation "API scolarité de l'élève" validée
     Alors il y a un titre contenant "Bienvenue sur DataPass !"
     Alors la page contient le logo du fournisseur de données "API scolarité de l'élève"
     Alors je clique sur "S’identifier avec ProConnect"
     Alors il y a un formulaire en mode résumé
 
   @CreateDataProviders
-  Scénario: Un internaute veut démarrer une demande d'habilitation API Entreprise
+  Scénario: Un internaute veut démarrer une demande d’habilitation API Entreprise
     Sachant que je suis un demandeur
     Quand je veux remplir une demande pour "API Entreprise"
     Alors il y a un titre contenant "Bienvenue sur DataPass !"

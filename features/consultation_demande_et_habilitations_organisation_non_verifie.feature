@@ -1,17 +1,17 @@
 # language: fr
 
-Fonctionnalité: Consultation de demandes et habilitations avec une organisation dont le lien n'est pas vérifié
-  En tant qu'usager lié à une organisation dont le lien n'est pas vérifié, je ne peux pas consulter
-  les autres demandes de l'organisation
+Fonctionnalité: Consultation de demandes et habilitations avec une organisation dont le lien n’est pas vérifié
+  En tant qu'usager lié à une organisation dont le lien n’est pas vérifié, je ne peux pas consulter
+  les autres demandes de l’organisation
 
   Contexte:
     Sachant que je suis un demandeur
-    Et que je me connecte via ProConnect avec l'identité "DGFIP" qui renvoi l'organisation "Ville de Clamart"
+    Et que je me connecte via ProConnect avec l'identité "DGFIP" qui renvoi l’organisation "Ville de Clamart"
     Et que je clique sur "CLAMART"
-    Et que j'ai 1 demande d'habilitation "API Particulier" en brouillon
-    Et que j'ai 1 demande d'habilitation "FranceConnect" validée
-    Et que mon organisation a 1 demande d'habilitation "API Entreprise" en brouillon
-    Et que mon organisation a 1 demande d'habilitation "API CaptchEtat" validée
+    Et que j’ai 1 demande d’habilitation "API Particulier" en brouillon
+    Et que j’ai 1 demande d’habilitation "FranceConnect" validée
+    Et que mon organisation a 1 demande d’habilitation "API Entreprise" en brouillon
+    Et que mon organisation a 1 demande d’habilitation "API CaptchEtat" validée
 
   Scénario: Je ne peux pas voir les demandes de mon organisation sur mon tableau de bord
     Quand je me rends sur mon tableau de bord demandes

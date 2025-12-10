@@ -1,6 +1,6 @@
 # language: fr
 
-Fonctionnalité: Persistance des documents dans la demande d'habilitation
+Fonctionnalité: Persistance des documents dans la demande d’habilitation
   Les documents ajoutés peuvent être remplacés ou supprimés.
   Les documents ajoutés dans la ou les sections doivent persister
   lorsqu'on navigue entre les étapes du formulaire.
@@ -8,7 +8,7 @@ Fonctionnalité: Persistance des documents dans la demande d'habilitation
   Contexte:
     Sachant que je suis un demandeur
     Et que je me connecte
-    * je démarre une nouvelle demande d'habilitation "API Ingres"
+    * je démarre une nouvelle demande d’habilitation "API Ingres"
     * je renseigne les infos de bases du projet
     * je clique sur "Suivant"
     * je renseigne les infos concernant les données personnelles
@@ -24,7 +24,7 @@ Fonctionnalité: Persistance des documents dans la demande d'habilitation
     Et la page contient "another_dummy.pdf"
 
   @javascript @pending
-  Scénario: Suppression d'un ou plusieurs documents PDF dans le cadre juridique
+  Scénario: Suppression d’un ou plusieurs documents PDF dans le cadre juridique
     Quand je joins 2 documents au cadre juridique du projet "API Ingres"
     * je clique sur "Suivant"
     Et la page contient 'Quelles sont les personnes impliquées ?'
@@ -37,7 +37,7 @@ Fonctionnalité: Persistance des documents dans la demande d'habilitation
     Et la page contient "dummy.pdf"
 
   Scénario: Remplacer un document existant du projet "API Satelit Sandbox"
-    * je démarre une nouvelle demande d'habilitation "API Satelit"
+    * je démarre une nouvelle demande d’habilitation "API Satelit"
     * je renseigne les infos de bases du projet
     * je remplis "Maquette du projet" avec le fichier "spec/fixtures/dummy.pdf"
     * je clique sur "Suivant"

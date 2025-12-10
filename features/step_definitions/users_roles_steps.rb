@@ -1,4 +1,4 @@
-Quand("il y a l'utilisateur {string} avec le rôle {string} pour {string}") do |email, humanized_role, authorization_definition_name|
+Quand('il y a l’utilisateur {string} avec le rôle {string} pour {string}') do |email, humanized_role, authorization_definition_name|
   user = User.find_by(email:) || FactoryBot.create(:user, email: email)
 
   case humanized_role.downcase
@@ -19,7 +19,7 @@ Quand("il y a l'utilisateur {string} avec le rôle {string} pour {string}") do |
   user.save!
 end
 
-Quand("il y a l'utilisateur {string} avec le rôle d'administrateur") do |email|
+Quand("il y a l’utilisateur {string} avec le rôle d'administrateur") do |email|
   user = User.find_by(email:) || FactoryBot.create(:user, email: email)
 
   user.roles << 'admin'
@@ -27,7 +27,7 @@ Quand("il y a l'utilisateur {string} avec le rôle d'administrateur") do |email|
   user.save!
 end
 
-Quand("il y a l'utilisateur {string} sans rôle") do |email|
+Quand('il y a l’utilisateur {string} sans rôle') do |email|
   user = User.find_by(email:) || FactoryBot.create(:user, email: email)
 
   user.roles = []

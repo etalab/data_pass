@@ -161,7 +161,7 @@ RSpec.describe HistoricalAuthorizationRequestEventComponent, type: :component do
 
         render_inline(subject)
 
-        expect(subject.transfer_text).to eq("l'organisation DIRECTION INTERMINISTERIELLE DU NUMERIQUE (numéro SIRET : 13002526500013)")
+        expect(subject.transfer_text).to eq('l’organisation DIRECTION INTERMINISTERIELLE DU NUMERIQUE (numéro SIRET : 13002526500013)')
       end
     end
 

@@ -8,7 +8,7 @@ Fonctionnalité: Choix de la modalité d'appel et du stage du formulaire API Imp
     Et que je me connecte
     Quand je veux remplir une demande pour "API Impôt Particulier"
 
-  Scénario: Je veux accèder à l'API via l'état civil
+  Scénario: Je veux accèder à l’API via l'état civil
     Alors la page contient "Cliquez-ici pour faire une demande"
 
   Scénario: J’ai déjà un éditeur qui a accès au bac à sable
@@ -23,14 +23,14 @@ Fonctionnalité: Choix de la modalité d'appel et du stage du formulaire API Imp
     Et que je clique sur "Demande libre (Bac à sable)"
     Alors la page contient "Le bac à sable"
 
-  Scénario: Je veux accéder à l’API via FranceConnect alors que je n’ai pas d'habilitation FranceConnect
+  Scénario: Je veux accéder à l’API via FranceConnect alors que je n’ai pas d’habilitation FranceConnect
     Et que je choisis "Avec FranceConnect"
     Alors la page contient "il vous faudra au préalable demander une habilitation FranceConnect"
     Et la page ne contient pas "Sélectionnez une habilitation FranceConnect"
     Et la page ne contient pas "Demande libre"
 
   Scénario: Je veux accéder à l’API via FranceConnect et j’ai déjà une habilitation FranceConnect
-    Sachant que mon organisation a 1 demande d'habilitation "FranceConnect" validée
+    Sachant que mon organisation a 1 demande d’habilitation "FranceConnect" validée
     Et que je rafraîchis la page
     Et que je choisis "Avec FranceConnect"
     Alors le champ "Sélectionnez une habilitation FranceConnect qui sera liée à cette demande" est rempli
@@ -50,7 +50,7 @@ Fonctionnalité: Choix de la modalité d'appel et du stage du formulaire API Imp
     Alors "Via le numéro fiscal (SPI)" est coché
 
   Scénario: Je veux accéder à l’API via FranceConnect, et mon choix est retenu une fois arrivé au bloc de modalités d’accès
-    Sachant que mon organisation a 1 demande d'habilitation "FranceConnect" validée
+    Sachant que mon organisation a 1 demande d’habilitation "FranceConnect" validée
     * je rafraîchis la page
     * je choisis "Avec FranceConnect"
     * je choisis "Oui, j’ai un éditeur qui a finalisé et validé ses développements en bac à sable"

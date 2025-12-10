@@ -1,6 +1,6 @@
 # language: fr
 
-Fonctionnalité: Soumission d'une demande d'habilitation API Impôt Particulier avec éditeur
+Fonctionnalité: Soumission d’une demande d’habilitation API Impôt Particulier avec éditeur
   Contexte:
     Sachant que je suis un demandeur
     Et que je me connecte
@@ -27,7 +27,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôt Particulier 
     * je renseigne les informations du contact technique
     * je clique sur "Suivant"
 
-  Scénario: Je soumets une demande d'habilitation valide
+  Scénario: Je soumets une demande d’habilitation valide
     * je renseigne l'homologation de sécurité
     * je clique sur "Suivant"
 
@@ -36,12 +36,12 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôt Particulier 
 
     * j'adhère aux conditions générales
     * je coche "J’atteste que mon organisation devra déclarer à la DGFiP l’accomplissement des formalités en matière de protection des données à caractère personnel et qu’elle veillera à procéder à l’homologation de sécurité de son projet."
-    * je clique sur "Soumettre la demande d'habilitation"
+    * je clique sur "Soumettre la demande d’habilitation"
 
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
 
-  Scénario: Je soumets une demande d'habilitation dont la date de fin d'homologation est inférieure à la date de début
+  Scénario: Je soumets une demande d’habilitation dont la date de fin d'homologation est inférieure à la date de début
     * je remplis "Nom de l’autorité d’homologation ou du signataire du questionnaire de sécurité" avec "Article 42"
     * je remplis "Fonction de l’autorité d’homologation ou du signataire du questionnaire de sécurité" avec "Représentant de l'autorité d'homologation des joints d'étanchéité de conduits d'évacuation de climatiseurs de morgue"
     * je remplis "La décision d’homologation ou le questionnaire de sécurité" avec le fichier "spec/fixtures/dummy.pdf"
@@ -49,20 +49,20 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôt Particulier 
     * je remplis "Date de fin d’homologation" avec "2024-01-01"
     * je clique sur "Suivant"
 
-    Alors la page contient "Une erreur est survenue lors de la sauvegarde de la demande d'habilitation"
+    Alors la page contient "Une erreur est survenue lors de la sauvegarde de la demande d’habilitation"
     Et la page contient "Date de fin d’homologation doit être supérieure à la date de début"
 
-  Scénario: Je soumets une demande d'habilitation avec une haute volumétrie et aucune justification
+  Scénario: Je soumets une demande d’habilitation avec une haute volumétrie et aucune justification
     * je renseigne l'homologation de sécurité
     * je clique sur "Suivant"
 
     * je sélectionne "200 appels / minute" pour "Quelle limitation de débit souhaitez-vous pour votre téléservice ?"
     * je clique sur "Suivant"
 
-    Alors la page contient "Une erreur est survenue lors de la sauvegarde de la demande d'habilitation"
+    Alors la page contient "Une erreur est survenue lors de la sauvegarde de la demande d’habilitation"
     Et la page contient "La justification de la limitation de débit doit être rempli(e)"
 
-  Scénario: Je soumets une demande d'habilitation avec une haute volumétrie et une justification
+  Scénario: Je soumets une demande d’habilitation avec une haute volumétrie et une justification
     * je renseigne l'homologation de sécurité
     * je clique sur "Suivant"
 
@@ -72,7 +72,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôt Particulier 
 
     * j'adhère aux conditions générales
     * je coche "J’atteste que mon organisation devra déclarer à la DGFiP l’accomplissement des formalités en matière de protection des données à caractère personnel et qu’elle veillera à procéder à l’homologation de sécurité de son projet."
-    * je clique sur "Soumettre la demande d'habilitation"
+    * je clique sur "Soumettre la demande d’habilitation"
 
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"

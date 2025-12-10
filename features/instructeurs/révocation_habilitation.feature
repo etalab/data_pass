@@ -1,6 +1,6 @@
 # language: fr
 
-Fonctionnalité: Instruction: révocation d'habilitation
+Fonctionnalité: Instruction: révocation d’habilitation
   Un instructeur peut révoquer une habilitation.
 
   Contexte:
@@ -10,10 +10,10 @@ Fonctionnalité: Instruction: révocation d'habilitation
   @AvecCourriels
   @DisableBullet
   Scénario: Je révoque une habilitation avec un message valide
-    Quand je me rends sur une demande d'habilitation "API scolarité de l'élève" validée
+    Quand je me rends sur une demande d’habilitation "API scolarité de l'élève" validée
     Et je clique sur "Révoquer"
     Et que je remplis "Indiquez les motifs de révocation" avec "Une nouvelle demande a été validée"
-    Et que je clique sur "Révoquer l'habilitation"
+    Et que je clique sur "Révoquer l’habilitation"
     Alors je suis sur la page "Liste des demandes et habilitations"
     Et je vois 1 habilitation "API scolarité de l'élève" révoquée
     Et un email est envoyé contenant "Une nouvelle demande a été validée"

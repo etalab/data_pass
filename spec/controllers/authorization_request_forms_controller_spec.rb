@@ -9,7 +9,7 @@ RSpec.describe AuthorizationRequestFormsController do
         new_authorization_request_form
 
         expect(response).to redirect_to(root_path)
-        expect(flash[:alert]).to eq("Le formulaire demandé n'existe pas")
+        expect(flash[:alert]).to eq('Le formulaire demandé n’existe pas')
       end
     end
   end

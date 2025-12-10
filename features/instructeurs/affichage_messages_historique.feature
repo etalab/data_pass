@@ -1,14 +1,14 @@
 # language: fr
 
 @javascript @DisableBullet
-Fonctionnalité: Instruction: affichage des messages dans l'historique
+Fonctionnalité: Instruction: affichage des messages dans l’historique
   En tant qu'instructeur
-  Je veux pouvoir voir et masquer les messages détaillés dans l'historique des habilitations
+  Je veux pouvoir voir et masquer les messages détaillés dans l’historique des habilitations
 
   Contexte:
     Sachant que je suis un instructeur "API Entreprise"
     Et que je me connecte
-    Et qu'il y a 1 demande d'habilitation "API Entreprise" en attente
+    Et qu’il y a 1 demande d’habilitation "API Entreprise" en attente
     Et que cette demande a été "sujet à modification" avec le message "Merci de corriger les informations suivantes : la description du projet est trop vague."
     Et que je me rends sur mon tableau de bord instructeur
     Et que je clique sur "Consulter"

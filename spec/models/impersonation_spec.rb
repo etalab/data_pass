@@ -10,7 +10,7 @@ RSpec.describe Impersonation do
       user = create(:user)
       impersonation = build(:impersonation, user: user, admin: user)
       expect(impersonation).not_to be_valid
-      expect(impersonation.errors[:user]).to include('ne peut pas être identique à l\'administrateur')
+      expect(impersonation.errors[:user]).to include('ne peut pas être identique à l’administrateur')
     end
 
     it 'validates user that is not an admin' do

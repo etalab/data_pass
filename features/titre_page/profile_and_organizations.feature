@@ -3,7 +3,7 @@
 Fonctionnalité: Titres de page du profil et des organisations
   En tant qu'utilisateur connecté
   Je veux voir des titres de page pertinents pour mon profil et mes organisations
-  Afin de pouvoir identifier facilement ces pages dans l'historique et les onglets
+  Afin de pouvoir identifier facilement ces pages dans l’historique et les onglets
 
   Contexte:
     Sachant que je suis un demandeur

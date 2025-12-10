@@ -1,6 +1,6 @@
 # language: fr
 
-Fonctionnalité: Soumission d'une demande d'habilitation API Particulier avec les modalités
+Fonctionnalité: Soumission d’une demande d’habilitation API Particulier avec les modalités
   Contexte:
     Sachant que je suis un demandeur
     Et que je me connecte
@@ -14,15 +14,15 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier avec le
     * je renseigne le cadre légal
     * je clique sur "Suivant"
 
-  Scénario: Je choisis la modalité FranceConnect alors que je n'ai pas d'habilitation FranceConnect
+  Scénario: Je choisis la modalité FranceConnect alors que je n’ai pas d’habilitation FranceConnect
     Quand je coche "Via FranceConnect"
     Alors la page contient "il vous faudra au préalable demander une habilitation FranceConnect"
     Et la page ne contient pas "Sélectionnez une habilitation FranceConnect"
     Quand je clique sur "Suivant"
-    Alors il y a un message d'erreur contenant "L'habilitation FranceConnect doit être rempli(e)"
+    Alors il y a un message d'erreur contenant "L’habilitation FranceConnect doit être rempli(e)"
 
-  Scénario: Je choisis la modalité FranceConnect alors que j'ai une habilitation FranceConnect
-    Sachant que mon organisation a 1 demande d'habilitation "FranceConnect" validée
+  Scénario: Je choisis la modalité FranceConnect alors que j’ai une habilitation FranceConnect
+    Sachant que mon organisation a 1 demande d’habilitation "FranceConnect" validée
     Quand je rafraîchis la page
     Et que je coche "Via FranceConnect"
     Et que je clique sur "Suivant"

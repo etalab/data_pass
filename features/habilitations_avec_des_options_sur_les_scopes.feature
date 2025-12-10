@@ -1,8 +1,8 @@
 # language: fr
 
-Fonctionnalité: Demandes d'habilitation ayant des configurations sur les scopes
+Fonctionnalité: Demandes d’habilitation ayant des configurations sur les scopes
   Ces scénarios traduisent les diverses propriétés existantes sur les scopes des demandes
-  d'habilitation, tel que le caractère désactivé des cases à cochées, ou encore de l'affichage
+  d’habilitation, tel que le caractère désactivé des cases à cochées, ou encore de l'affichage
   de ces scopes. Le tout est déterminé au niveau du formulaire (ou du contexte de la demande)
   et non au niveau de la définition.
 
@@ -10,7 +10,7 @@ Fonctionnalité: Demandes d'habilitation ayant des configurations sur les scopes
     Sachant que je suis un demandeur
     Et que je me connecte
 
-  Scénario: Je consulte la page des scopes d'une demande d'habilitation où il n'y a pas d'options sur les scopes, où tous les scopes sont affichés
+  Scénario: Je consulte la page des scopes d’une demande d’habilitation où il n'y a pas d'options sur les scopes, où tous les scopes sont affichés
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "Demande libre"
     Et que je clique sur "Débuter ma demande"
 
@@ -29,7 +29,7 @@ Fonctionnalité: Demandes d'habilitation ayant des configurations sur les scopes
     Et la page contient "API Statut étudiant boursier"
     Et la page contient "API Prime d'Activité"
 
-  Scénario: Je consulte la page des scopes d'une demande d'habilitation où il y a des options de désactivation et d'affichage
+  Scénario: Je consulte la page des scopes d’une demande d’habilitation où il y a des options de désactivation et d'affichage
 
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "Domino web 2.0" de l'éditeur "Abelium Collectivités"
     Et que je clique sur "Débuter ma demande"

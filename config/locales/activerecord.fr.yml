@@ -2,10 +2,10 @@ fr:
   activemodel:
     errors:
       messages: &active_record_messages_errors
-        email_unreachable: "n'est pas une adresse email joignable : celle-ci n'existe probablement pas. Veuillez soit mettre à jour cette adresse email. Si vous êtes sûr que cette adresse email est valide, contactez le support à l'adresse datapass@api.gouv.fr en précisant votre numéro d'habilitation pour que l'on valide manuellement cette adresse."
-        email_deliverability_unknown: "n'a pas pu être vérifiée : merci de vérifier que cette adresse email est bien valide. Si tel est le cas, contactez le support à l'adresse datapass@api.gouv.fr en précisant votre numéro d'habilitation ainsi que l'email pour que celle-ci soit validée manuellement."
-        url_format: "n'est pas un lien valide"
-        already_exists: "Une autre demande d'habilitation est déjà en cours ou validée pour cette organisation, il ne peut en avoir qu'une seule de ce type."
+        email_unreachable: "n’est pas une adresse email joignable : celle-ci n’existe probablement pas. Veuillez soit mettre à jour cette adresse email. Si vous êtes sûr que cette adresse email est valide, contactez le support à l’adresse datapass@api.gouv.fr en précisant votre numéro d’habilitation pour que l’on valide manuellement cette adresse."
+        email_deliverability_unknown: "n’a pas pu être vérifiée : merci de vérifier que cette adresse email est bien valide. Si tel est le cas, contactez le support à l’adresse datapass@api.gouv.fr en précisant votre numéro d’habilitation ainsi que l’email pour que celle-ci soit validée manuellement."
+        url_format: "n’est pas un lien valide"
+        already_exists: "Une autre demande d’habilitation est déjà en cours ou validée pour cette organisation, il ne peut en avoir qu’une seule de ce type."
         invalid_french_phone_format: "doit être un numéro de téléphone français."
         invalid_french_phone_mobile_format: "doit être un numéro de téléphone mobile français."
       models:
@@ -13,7 +13,7 @@ fr:
           attributes:
             to:
               different_user: "doit être différent du demandeur actuel"
-              different_organization: "n'appartient pas à la même organisation que le demandeur actuel."
+              different_organization: "n’appartient pas à la même organisation que le demandeur actuel."
   activerecord:
     attributes:
       user:
@@ -40,8 +40,8 @@ fr:
         date_prevue_mise_en_production: Date de mise en production prévue
         volumetrie_approximative: Volumétrie approximative
 
-        technical_team_type: La typologie de l'équipe technique
-        technical_team_value: L'intitulé de l'équipe technique
+        technical_team_type: La typologie de l’équipe technique
+        technical_team_value: L’intitulé de l’équipe technique
 
         destinataire_donnees_caractere_personnel: Destinataire des données
         duree_conservation_donnees_caractere_personnel: Durée de conservation des données en mois
@@ -62,20 +62,20 @@ fr:
         volumetrie_appels_par_minute: La limitation de débit
         volumetrie_justification: La justification de la limitation de débit
 
-        modalities: La modalité d'accès aux données
-        france_connect_authorization_id: L'habilitation FranceConnect
+        modalities: La modalité d’accès aux données
+        france_connect_authorization_id: L’habilitation FranceConnect
 
 
         scopes: Les données
         specific_requirements: Expression de besoin spécifique
-        specific_requirements_document: Document de l'expression de besoin spécifique
+        specific_requirements_document: Document de l’expression de besoin spécifique
 
 
-        administrateur_metier_family_name: Nom de famille de l'administrateur local
-        administrateur_metier_given_name: Prénom de l'administrateur local
-        administrateur_metier_email: Email de l'administrateur local
-        administrateur_metier_phone_number: Téléphone de l'administrateur local
-        administrateur_metier_job_title: Fonction de l'administrateur local
+        administrateur_metier_family_name: Nom de famille de l’administrateur local
+        administrateur_metier_given_name: Prénom de l’administrateur local
+        administrateur_metier_email: Email de l’administrateur local
+        administrateur_metier_phone_number: Téléphone de l’administrateur local
+        administrateur_metier_job_title: Fonction de l’administrateur local
 
         contact_technique_family_name: Nom de famille du contact technique
         contact_technique_given_name: Prénom du contact technique
@@ -105,7 +105,7 @@ fr:
         extra_organization_contact_name: Nom du contact supplémentaire
         extra_organization_contact_email: Email du contact supplémentaire
 
-        dpd_homologation_checkbox: Attestation de déclaration d'un dpd et d'accomplissement de formalité d'homologation.
+        dpd_homologation_checkbox: Attestation de déclaration d’un dpd et d’accomplissement de formalité d’homologation.
 
         france_connect:
           alternative_connexion: Attestation de connexion alternative à FranceConnect
@@ -120,12 +120,12 @@ fr:
       instructor_modification_request:
         reason: Raison de la demande de modification
       authorization_request_reopening_cancellation:
-        reason: Raison de l'annulation de la réouverture
+        reason: Raison de l’annulation de la réouverture
       authorization_request_transfer:
         to: Email du nouveau demandeur
 
       message_template:
-        authorization_definition_uid: Type d'habilitation
+        authorization_definition_uid: Type d’habilitation
         title: Titre
         template_type: Type de modèle
         content: Contenu
@@ -136,8 +136,8 @@ fr:
 
       instructor_draft_request:
         applicant_email: Adresse email du demandeur
-        organization_siret: Numéro de SIRET de l'organisation
-        comment: Note associée à l'invitation
+        organization_siret: Numéro de SIRET de l’organisation
+        comment: Note associée à l’invitation
 
     hints:
       france_connect:
@@ -157,7 +157,7 @@ fr:
           eidas_2: 'FranceConnect + : eIDAS 2'
       authorization_request/api_particulier:
         modalities:
-          params: "Jeton d'accès et paramètres d'appel"
+          params: "Jeton d’accès et paramètres d’appel"
           formulaire_qf: "Formulaire QF"
           france_connect: "FranceConnect"
 
@@ -168,20 +168,20 @@ fr:
           all_terms_not_accepted: Vous devez acceptez les conditions générales avant de continuer
           attributes:
             scopes:
-              blank: "ne sont pas cochées : il faut au moins qu'une des données soit sélectionnée."
+              blank: "ne sont pas cochées : il faut au moins qu’une des données soit sélectionnée."
             safety_certification_begin_date:
               comparison: doit être supérieure à la date de début
             france_connect_authorization_id:
-              inclusion: n'est pas incluse dans la liste des habilitations validées de votre organization
+              inclusion: n’est pas incluse dans la liste des habilitations validées de votre organization
         authorization_request/france_connect:
           attributes:
             contact_technique_phone_number:
-              invalid_french_phone_mobile_format: "n'est pas un numéro de téléphone valide : afin de recevoir le SMS qui lui sera envoyé, le numéro du responsable technique doit être un numéro de portable."
+              invalid_french_phone_mobile_format: "n’est pas un numéro de téléphone valide : afin de recevoir le SMS qui lui sera envoyé, le numéro du responsable technique doit être un numéro de portable."
         authorization_request/api_impot_particulier_sandbox: &api_impot_particulier_errors
           attributes:
             scopes:
               scopes_compatibility: "sont invalides : Des données incompatibles entre elles ont été cochées. Pour connaître les modalités d’appel et de réponse de l’API Impôt particulier ainsi que les données proposées, vous pouvez consulter la documentation dans la rubrique « mode de fonctionnement de l’API Impôt Particulier »"
-              revenue_years_scopes_compatibility: "sont invalides : Vous ne pouvez pas sélectionner la donnée 'Avant-dernière année de revenu, si la dernière année de revenu est indisponible' avec d'autres années de revenus"
+              revenue_years_scopes_compatibility: "sont invalides : Vous ne pouvez pas sélectionner la donnée 'Avant-dernière année de revenu, si la dernière année de revenu est indisponible' avec d’autres années de revenus"
               at_least_one_revenue_year_has_been_selected: 'sont invalides : Vous devez cocher au moins une année de revenus souhaitée avant de continuer'
               lep_scope_exclusivity: "sont invalides : La donnée d’indicateur d’éligibilité au LEP ne peut être demandée que seule. Veuillez décocher cette case, ou décocher toutes les autres si vous souhaitez vérifier l’éligibilité au LEP."
         authorization_request/api_impot_particulier: *api_impot_particulier_errors
@@ -195,15 +195,15 @@ fr:
         impersonation:
           attributes:
             user:
-              cannot_be_same_as_admin: "ne peut pas être identique à l'administrateur"
+              cannot_be_same_as_admin: "ne peut pas être identique à l’administrateur"
               cannot_be_admin: "ne peut pas être un administrateur"
               must_be_admin: "doit être un administrateur"
 
   ransack:
     attributes:
       authorization:
-        within_data: Les infos de l'habilitation
-        authorization_request_class: Type d'habilitation
+        within_data: Les infos de l’habilitation
+        authorization_request_class: Type d’habilitation
         state: État
       authorization_request:
         within_data: Les infos de la demande

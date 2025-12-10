@@ -3,13 +3,13 @@
 Fonctionnalité: Titres de page des pages publiques
   En tant qu'utilisateur
   Je veux voir des titres de page pertinents dans mon navigateur
-  Afin de pouvoir identifier facilement les pages dans l'historique et les onglets
+  Afin de pouvoir identifier facilement les pages dans l’historique et les onglets
 
   Scénario: Le titre de la page d'accueil est Accueil - DataPass
     Quand je me rends sur le chemin "/"
     Alors le titre de la page est "Accueil - DataPass"
 
-  Scénario: Le titre de la page de demande d'habilitation est Demander une habilitation - DataPass
+  Scénario: Le titre de la page de demande d’habilitation est Demander une habilitation - DataPass
     Sachant que je suis un demandeur
     Et que je me connecte
     Quand je me rends sur le chemin "/demandes"

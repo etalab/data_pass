@@ -1,4 +1,4 @@
-Sachantque("je suis rattaché à l'organisation {string}") do |organization_name|
+Sachantque('je suis rattaché à l’organisation {string}') do |organization_name|
   @current_user_email = 'demandeur@gouv.fr'
 
   user = User.find_by(email: @current_user_email) || FactoryBot.create(:user, email: @current_user_email)
@@ -7,7 +7,7 @@ Sachantque("je suis rattaché à l'organisation {string}") do |organization_name
   user.add_to_organization(organization, verified: true)
 end
 
-Alors("l'organisation associée est marquée comme {string}") do |kind|
+Alors('l’organisation associée est marquée comme {string}') do |kind|
   user = User.find_by(email: @current_user_email)
 
   case kind
@@ -24,7 +24,7 @@ Alors("l'organisation associée est marquée comme {string}") do |kind|
   end
 end
 
-Quand("le lien entre le demandeur et l'organisation est marqué comme {string}") do |kind|
+Quand('le lien entre le demandeur et l’organisation est marqué comme {string}') do |kind|
   authorization_request = AuthorizationRequest.last
   applicant = authorization_request.applicant
   organization = authorization_request.organization

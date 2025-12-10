@@ -15,10 +15,10 @@ Fonctionnalité: Accessibilité
   @demandeur
   Scénario: Les liens d'évitement fonctionnent correctement sur la page tableau de bord
     Sachant que je suis un demandeur
-    Et que j'ai 1 demande d'habilitation "API Entreprise" sujet à modification
-    Et que j'ai 1 demande d'habilitation "API Entreprise" en attente
-    Et que j'ai 1 demande d'habilitation "API Entreprise" en brouillon
-    Et que j'ai 1 demande d'habilitation "API Entreprise" validée
+    Et que j’ai 1 demande d’habilitation "API Entreprise" sujet à modification
+    Et que j’ai 1 demande d’habilitation "API Entreprise" en attente
+    Et que j’ai 1 demande d’habilitation "API Entreprise" en brouillon
+    Et que j’ai 1 demande d’habilitation "API Entreprise" validée
     Et que je me connecte
     Et que je vais sur la page tableau de bord
     Alors je dois voir des liens d'évitement
@@ -28,17 +28,17 @@ Fonctionnalité: Accessibilité
     Et le lien d'évitement "Pied de page" doit mener à l'élément "#footer"
 
   @demandeur
-  Scénario: Les liens d'évitement fonctionnent correctement sur la page de nouvelle demande d'habilitation
+  Scénario: Les liens d'évitement fonctionnent correctement sur la page de nouvelle demande d’habilitation
     Sachant que je suis un demandeur
     Et que je me connecte
-    Et que je démarre une nouvelle demande d'habilitation "API Entreprise"
+    Et que je démarre une nouvelle demande d’habilitation "API Entreprise"
     Alors je dois voir des liens d'évitement
     Et le lien d'évitement "Aller au contenu" doit mener à l'élément "#content"
     Et le lien d'évitement "Menu" doit mener à l'élément "#header"
     Et le lien d'évitement "Pied de page" doit mener à l'élément "#footer"
 
   @instructeur
-  Scénario: Les liens d'évitement fonctionnent correctement sur la page d'instruction
+  Scénario: Les liens d'évitement fonctionnent correctement sur la page d’instruction
     Sachant que je suis un instructeur "API Entreprise"
     Et que je me connecte
     Et que je vais sur la page instruction

@@ -16,16 +16,16 @@ fr:
     index:
       title: Espace développeur
       documentation: Documentation API
-      documentation_desc: Accédez à la documentation complète de l'API DataPass pour intégrer nos services dans vos applications. Découvrez les endpoints disponibles, les formats de données et les exemples d'utilisation.
+      documentation_desc: Accédez à la documentation complète de l’API DataPass pour intégrer nos services dans vos applications. Découvrez les endpoints disponibles, les formats de données et les exemples d’utilisation.
       applications: Applications OAuth
-      applications_desc: Créez et gérez vos applications OAuth pour accéder à l'API DataPass de manière sécurisée. Générez vos identifiants client et configurez vos URLs de redirection.
+      applications_desc: Créez et gérez vos applications OAuth pour accéder à l’API DataPass de manière sécurisée. Générez vos identifiants client et configurez vos URLs de redirection.
       webhooks: Webhooks
-      webhooks_desc: Configurez des webhooks pour recevoir des notifications en temps réel lors des changements de statut de vos demandes d'autorisation. Suivez l'historique des appels et rejouez les webhooks en cas d'échec.
+      webhooks_desc: Configurez des webhooks pour recevoir des notifications en temps réel lors des changements de statut de vos demandes d’autorisation. Suivez l’historique des appels et rejouez les webhooks en cas d’échec.
     webhooks:
       index:
         title: Mes webhooks
         new_webhook: Nouveau webhook
-        no_webhooks: Vous n'avez pas encore de webhooks configurés
+        no_webhooks: Vous n’avez pas encore de webhooks configurés
         active: Actif
         inactive: Inactif
         not_validated: Non validé
@@ -35,14 +35,14 @@ fr:
         disable: Désactiver
         disable_confirm: Êtes-vous sûr de vouloir désactiver ce webhook ?
         regenerate_secret: Régénérer le secret
-        regenerate_secret_confirm: Êtes-vous sûr de vouloir régénérer le secret ? L'ancien secret ne fonctionnera plus.
+        regenerate_secret_confirm: Êtes-vous sûr de vouloir régénérer le secret ? L’ancien secret ne fonctionnera plus.
         delete: Supprimer
         delete_confirm: Êtes-vous sûr de vouloir supprimer ce webhook ?
         table:
           id: ID
           authorization_definition: Service
           url: URL
-          calls_count: Nombre d'appels
+          calls_count: Nombre d’appels
           events: Événements
           status: Statut
           actions: Actions
@@ -59,7 +59,7 @@ fr:
         success: Webhook supprimé avec succès
       enable:
         success: Webhook activé avec succès
-        error: Impossible d'activer le webhook
+        error: Impossible d’activer le webhook
       disable:
         success: Webhook désactivé avec succès
       regenerate_secret:
@@ -67,14 +67,14 @@ fr:
       show_secret:
         title: Secret du webhook
         warning_title: Attention - Sauvegardez ce secret maintenant
-        warning_message: Ce secret ne sera affiché qu'une seule fois. Assurez-vous de le sauvegarder dans un endroit sûr avant de quitter cette page.
+        warning_message: Ce secret ne sera affiché qu’une seule fois. Assurez-vous de le sauvegarder dans un endroit sûr avant de quitter cette page.
         secret_label: Votre secret de signature
         copy_button: Copier le secret
         copied: Copié !
         best_practices_title: Bonnes pratiques de sécurité
-        best_practice_1: Stockez ce secret dans vos variables d'environnement
+        best_practice_1: Stockez ce secret dans vos variables d’environnement
         best_practice_2: Ne commitez jamais ce secret dans votre système de contrôle de version
-        best_practice_3: Utilisez ce secret pour vérifier l'authenticité des webhooks reçus
+        best_practice_3: Utilisez ce secret pour vérifier l’authenticité des webhooks reçus
         back_to_webhooks: Retour aux webhooks
       form:
         events_label: Événements
@@ -85,7 +85,7 @@ fr:
           update: Mettre à jour le webhook
         help_title: Aide
         help_text_html: |
-          <p>Les webhooks vous permettent de recevoir des notifications en temps réel lorsque des événements se produisent sur vos demandes d'autorisation.</p>
+          <p>Les webhooks vous permettent de recevoir des notifications en temps réel lorsque des événements se produisent sur vos demandes d’autorisation.</p>
           <p>Pour tester votre webhook, vous pouvez utiliser <a href="https://webhook.site" target="_blank" rel="noopener noreferrer" class="fr-link">webhook.site</a>.</p>
     webhook_attempts:
       index:
@@ -103,8 +103,8 @@ fr:
         view_details: Voir détails
         no_response: Pas de réponse
       show:
-        title: Détails de l'appel
-        back: Retour à l'historique
+        title: Détails de l’appel
+        back: Retour à l’historique
         replay: Rejouer cet appel
         status: Statut
         event: Événement
@@ -117,17 +117,17 @@ fr:
         response: Réponse reçue
       replay:
         success: Appel rejoué avec succès
-        error: Erreur lors du rejeu de l'appel
+        error: Erreur lors du rejeu de l’appel
     oauth_applications:
       index:
-        title: Mes clefs d'accès API
+        title: Mes clefs d’accès API
         documentation_url: Voir la documentation API
         description_html: Liste de vos applications OAuth et de leurs credentials API
-        list_of_habilitations_description: Vos clefs d'accès API vous permettent d'accéder aux demandes et habilitations suivantes
-        no_developer_roles: Vous n'avez pas de clefs d'accès API, contactez un administrateur pour en obtenir.
+        list_of_habilitations_description: Vos clefs d’accès API vous permettent d’accéder aux demandes et habilitations suivantes
+        no_developer_roles: Vous n’avez pas de clefs d’accès API, contactez un administrateur pour en obtenir.
         table:
           headers:
-            name: Nom de l'application
+            name: Nom de l’application
             credentials: Identifiants
             scopes: Scopes
           row:

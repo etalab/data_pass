@@ -1,6 +1,6 @@
 # language: fr
 
-Fonctionnalité: Soumission d'une demande d'habilitation API Impôt Particulier avec éditeur
+Fonctionnalité: Soumission d’une demande d’habilitation API Impôt Particulier avec éditeur
   Contexte:
     Sachant que je suis un demandeur
     Et que je me connecte
@@ -16,30 +16,30 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôt Particulier 
 
   Scénario: Je ne choisis aucune modalité d'appel
     Quand je clique sur "Suivant"
-    Alors il y a un message d'erreur contenant "La modalité d'accès aux données doit être rempli(e)"
+    Alors il y a un message d'erreur contenant "La modalité d’accès aux données doit être rempli(e)"
 
   Scénario: Je choisis la modalité via le numéro fiscal
     Quand je choisis "Via le numéro fiscal (SPI)"
     Et que je clique sur "Suivant"
     Alors la page contient "Quelles sont les données dont vous avez besoin ?"
   
-  Scénario: Je choisis la modalité FranceConnect alors que je n'ai pas d'habilitation FranceConnect
+  Scénario: Je choisis la modalité FranceConnect alors que je n’ai pas d’habilitation FranceConnect
     Quand je choisis "Avec FranceConnect"
     Alors la page contient "il vous faudra au préalable demander une habilitation FranceConnect"
     Et la page ne contient pas "Sélectionnez une habilitation FranceConnect"
     Quand je clique sur "Suivant"
-    Alors il y a un message d'erreur contenant "L'habilitation FranceConnect doit être rempli(e)"
+    Alors il y a un message d'erreur contenant "L’habilitation FranceConnect doit être rempli(e)"
    
-  Scénario: Je choisis la modalité FranceConnect alors que j'ai une habilitation FranceConnect
-    Sachant que mon organisation a 1 demande d'habilitation "FranceConnect" validée
+  Scénario: Je choisis la modalité FranceConnect alors que j’ai une habilitation FranceConnect
+    Sachant que mon organisation a 1 demande d’habilitation "FranceConnect" validée
     Quand je rafraîchis la page
     Et que je choisis "Avec FranceConnect"
     Et que je clique sur "Suivant"
     Alors la page contient "Quelles sont les données dont vous avez besoin ?"
 
   Scénario: Je choisis la modalité FranceConnect et je vais jusqu'au résumé final
-    Sachant que mon organisation a 1 demande d'habilitation "FranceConnect" validée
-    Et que cette dernière demande d'habilitation s'appelait "Demande d'accès à franceconnect pour mon appli"
+    Sachant que mon organisation a 1 demande d’habilitation "FranceConnect" validée
+    Et que cette dernière demande d’habilitation s'appelait "Demande d’accès à franceconnect pour mon appli"
     Quand je rafraîchis la page
 
     Et que je choisis "Avec FranceConnect"
@@ -62,4 +62,4 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôt Particulier 
     * je clique sur "Suivant"
 
     Alors la page contient "Avec FranceConnect"
-    Et la page contient "Demande d'accès à franceconnect pour mon appli"
+    Et la page contient "Demande d’accès à franceconnect pour mon appli"

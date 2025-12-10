@@ -1,6 +1,6 @@
 # language: fr
 
-Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particuliers avec éditeur et contact supplémentaire
+Fonctionnalité: Soumission d’une demande d’habilitation API Impôts Particuliers avec éditeur et contact supplémentaire
   Contexte:
     Sachant que je suis un demandeur
     Et que je me connecte
@@ -24,7 +24,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
     * je renseigne les informations des contacts RGPD
     * je renseigne les informations du contact technique
 
-  Scénario: Je soumets une demande d'habilitation avec contact supplémentaire valide
+  Scénario: Je soumets une demande d’habilitation avec contact supplémentaire valide
     * je remplis "Adresse email générique du contact technique" avec "generic@tech.com"
     * je remplis "Nom du contact supplémentaire" avec "Jean ExtraDupont"
     * je remplis "Email du contact supplémentaire" avec "hello@orga.com"
@@ -33,7 +33,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
     * j'adhère aux conditions générales
     * je coche "J’atteste que mon organisation devra déclarer à la DGFiP l’accomplissement des formalités en matière de protection des données à caractère personnel et qu’elle veillera à procéder à l’homologation de sécurité de son projet."
 
-    * je clique sur "Soumettre la demande d'habilitation"
+    * je clique sur "Soumettre la demande d’habilitation"
 
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"

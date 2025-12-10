@@ -1,6 +1,6 @@
 # language: fr
 
-Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particuliers avec éditeur et verification de la compatibilité des règles de scopes
+Fonctionnalité: Soumission d’une demande d’habilitation API Impôts Particuliers avec éditeur et verification de la compatibilité des règles de scopes
 
   Contexte:
     Sachant que je suis un demandeur
@@ -19,46 +19,46 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
     * je choisis "Via le numéro fiscal (SPI)"
     * je clique sur "Suivant"
 
-  Scénario: J'ouvre la documentation d'un groupe de scope
+  Scénario: J'ouvre la documentation d’un groupe de scope
     Et la page contient "documentation"
     Et la page contient "En cochant la case Avant-dernière année de revenu, si la dernière année de revenu est indisponible"
 
-  Scénario: Je soumets une demande d'habilitation sans scopes d'années de revenue cochés.
+  Scénario: Je soumets une demande d’habilitation sans scopes d'années de revenue cochés.
     * je coche "Situation de famille (marié, pacsé, célibataire, veuf divorcé)"
     * je clique sur "Suivant"
 
-    Alors la page contient "Une erreur est survenue lors de la sauvegarde de la demande d'habilitation"
+    Alors la page contient "Une erreur est survenue lors de la sauvegarde de la demande d’habilitation"
     Et la page contient "Les données sont invalides : Vous devez cocher au moins une année de revenus souhaitée avant de continuer"
 
-  Scénario: Je soumets une demande d'habilitation avec 2 scopes d'annéees de revenue cochés incompatible.
+  Scénario: Je soumets une demande d’habilitation avec 2 scopes d'annéees de revenue cochés incompatible.
     * je coche "Dernière année de revenu (N-1)"
     * je coche "Avant-dernière année de revenu, si la dernière année de revenu est indisponible (N-1 ou N-2)"
     * je clique sur "Suivant"
 
-    Alors la page contient "Une erreur est survenue lors de la sauvegarde de la demande d'habilitation"
-    Et la page contient "Les données sont invalides : Vous ne pouvez pas sélectionner la donnée 'Avant-dernière année de revenu, si la dernière année de revenu est indisponible' avec d'autres années de revenus"
+    Alors la page contient "Une erreur est survenue lors de la sauvegarde de la demande d’habilitation"
+    Et la page contient "Les données sont invalides : Vous ne pouvez pas sélectionner la donnée 'Avant-dernière année de revenu, si la dernière année de revenu est indisponible' avec d’autres années de revenus"
 
-  Scénario: Je soumets une demande d'habilitation avec 2 scopes incompatibles.
+  Scénario: Je soumets une demande d’habilitation avec 2 scopes incompatibles.
     * je coche "Dernière année de revenu (N-1)"
-    * je coche "Données fiscales au 31/12 en cas de décès d'un contribuable marié ou pacsé"
+    * je coche "Données fiscales au 31/12 en cas de décès d’un contribuable marié ou pacsé"
     * je coche "Indicateur ISF/IFI"
     * je clique sur "Suivant"
 
-    Alors la page contient "Une erreur est survenue lors de la sauvegarde de la demande d'habilitation"
+    Alors la page contient "Une erreur est survenue lors de la sauvegarde de la demande d’habilitation"
     Et la page contient "Les données sont invalides : Des données incompatibles entre elles ont été cochées"
 
   @javascript
-  Scénario: Je soumets une demande d'habilitation sans scopes mais je joins un fichier d'expression de besoin spécifique.
+  Scénario: Je soumets une demande d’habilitation sans scopes mais je joins un fichier d'expression de besoin spécifique.
     * je coche "Oui, j’ai une expression de besoin spécifique"
     * je remplis "Ajoutez le fichier d’expression de vos besoins" avec le fichier "spec/fixtures/dummy.xlsx"
     * je clique sur "Suivant"
 
     Alors la page contient "Le traitement des données personnelles"
 
-  Scénario: Je soumets une demande d'habilitation avec un scope en cochant le fichier de besoins spécifiques mais en oubliant de joindre le fichier.
+  Scénario: Je soumets une demande d’habilitation avec un scope en cochant le fichier de besoins spécifiques mais en oubliant de joindre le fichier.
     * je coche "Dernière année de revenu (N-1)"
     * je coche "Oui, j’ai une expression de besoin spécifique"
     * je clique sur "Suivant"
 
-    Alors la page contient "Une erreur est survenue lors de la sauvegarde de la demande d'habilitation"
+    Alors la page contient "Une erreur est survenue lors de la sauvegarde de la demande d’habilitation"
     Et la page contient "Document de l'expression de besoin spécifique doit être rempli(e)"

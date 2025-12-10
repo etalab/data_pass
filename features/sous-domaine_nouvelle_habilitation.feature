@@ -1,6 +1,6 @@
 # language: fr
 
-Fonctionnalité: Démarrage d'une habilitation en fonction du sous-domaine.
+Fonctionnalité: Démarrage d’une habilitation en fonction du sous-domaine.
   Il est possible de démarrer une habilitation depuis le tableau de bord via le bouton "Nouvelle habilitation",
   son comportement peut changer en fonction du sous-domaine utilisé.
 

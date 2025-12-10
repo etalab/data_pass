@@ -1,4 +1,4 @@
-Quand("il y a l'email {string} marqué en tant que {string}") do |email, kind|
+Quand('il y a l’email {string} marqué en tant que {string}') do |email, kind|
   case kind
   when 'délivrable'
     status = 'deliverable'

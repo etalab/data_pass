@@ -30,14 +30,14 @@ fr:
             placeholder: "api_entreprise:instructor\napi_particulier:reporter"
         cta: Mettre à jour les rôles
       update: &admin_user_with_roles_create
-        success: L'utilisateur %{user_email} a été mis à jour avec succès
+        success: L’utilisateur %{user_email} a été mis à jour avec succès
         error: Une erreur est survenue
       create:
         <<: *admin_user_with_roles_create
         title: Ajouter un rôle à un utilisateur
-        not_found: L'utilisateur avec l'email %{user_email} n'existe pas
+        not_found: L’utilisateur avec l’email %{user_email} n’existe pas
       edit:
-        title: Éditer les rôles de l'utilisateur
+        title: Éditer les rôles de l’utilisateur
         form: *admin_users_with_roles_new_form
 
     whitelisted_verified_emails:
@@ -54,7 +54,7 @@ fr:
         cta: Valider
       create:
         title: *whitelisted_verified_emails_form_title
-        success: L'email %{verified_email_email} a été ajouté avec succès
+        success: L’email %{verified_email_email} a été ajouté avec succès
     impersonate:
       new: &admin_impersonate_new
         title: "Impersonner un utilisateur"
@@ -74,31 +74,31 @@ fr:
         title: "Transférer une demande à une nouvelle organisation"
         info:
           title: "Informations importantes"
-          user_must_exist: "L'utilisateur doit exister dans la base de données"
-          organization_must_exist: "L'organisation doit exister dans la base de données"
-          user_must_belong_to_organization: "L'utilisateur doit appartenir à l'organisation"
+          user_must_exist: "L’utilisateur doit exister dans la base de données"
+          organization_must_exist: "L’organisation doit exister dans la base de données"
+          user_must_belong_to_organization: "L’utilisateur doit appartenir à l’organisation"
         metabase_link_html: "Vous pouvez vérifier ces informations via %{link}."
         metabase_link_text: "le tableau Metabase"
         form:
           authorization_request_id:
-            label: "ID de la demande d'habilitation"
+            label: "ID de la demande d’habilitation"
           new_organization_siret:
             label: "SIRET de la nouvelle organisation"
             hint: "Le SIRET doit correspondre à une organisation existante (14 chiffres)"
           new_applicant_email:
             label: "Email du nouveau demandeur"
-            hint: "L'utilisateur peut être le même que le demandeur actuel."
+            hint: "L’utilisateur peut être le même que le demandeur actuel."
           submit: "Transférer la demande"
           cancel: "Annuler"
       create:
-        title: "Transférer une demande d'habilitation"
+        title: "Transférer une demande d’habilitation"
         success:
           title: "Transfert réussi"
-          description: "La demande #%{authorization_request_id} a été transférée avec succès vers l'organisation %{siret}"
+          description: "La demande #%{authorization_request_id} a été transférée avec succès vers l’organisation %{siret}"
       errors:
         title: "Erreur lors du transfert"
-        authorization_request_not_found: "Aucune demande d'habilitation trouvée avec l'ID %{authorization_request_id}"
+        authorization_request_not_found: "Aucune demande d’habilitation trouvée avec l’ID %{authorization_request_id}"
         new_organization_not_found: "Aucune organisation trouvée avec le SIRET %{siret}"
-        new_applicant_not_found: "Aucun utilisateur trouvé avec l'email %{email}"
-        applicant_not_in_organization: "L'utilisateur %{email} n'appartient pas à l'organisation %{siret}"
+        new_applicant_not_found: "Aucun utilisateur trouvé avec l’email %{email}"
+        applicant_not_in_organization: "L’utilisateur %{email} n’appartient pas à l’organisation %{siret}"
         invalid_new_organization: "Erreur de validation lors du transfert"
