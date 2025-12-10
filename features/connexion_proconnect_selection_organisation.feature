@@ -37,3 +37,11 @@ Fonctionnalité: Connexion ProConnect
     Alors je suis sur la page "Demandes et habilitations"
     Et il y a un message d'erreur contenant "pas le droit d'accéder"
 
+  Scénario: Après avoir choisi mon organisation, je suis redirigé vers ma destination initiale
+    Sachant que je suis un demandeur
+    Et que je veux remplir une demande pour "API Entreprise" via le formulaire "Demande libre"
+    Et que je me connecte via ProConnect avec l'identité "Renater" qui renvoi l'organisation "DINUM"
+    Alors je suis sur la page "Votre organisation de rattachement"
+    Et que je clique sur "DIRECTION INTERMINISTERIELLE DU NUMERIQUE"
+    Alors je suis sur la page "Demander une habilitation à : API Entreprise"
+
