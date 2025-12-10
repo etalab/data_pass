@@ -18,6 +18,7 @@ class BaseNotifier < ApplicationNotifier
     deliver_gdpr_emails
 
     notify_france_connect if authorization_request.with_france_connect?
+    notify_dgfip_apim(params) if dgfip_provider?
 
     email_notification_with_reopening('approve', params)
   end
@@ -34,5 +35,16 @@ class BaseNotifier < ApplicationNotifier
 
   def notify_france_connect
     FranceConnectMailer.with(authorization_request:).new_scopes.deliver_later
+  end
+
+  def notify_dgfip_apim(params)
+    DGFIP::APIMMailer.with(
+      authorization: authorization_request.latest_authorization,
+      reopening: params[:within_reopening]
+    ).approve.deliver_later
+  end
+
+  def dgfip_provider?
+    authorization_request.definition.instance_variable_get(:@provider_slug) == 'dgfip'
   end
 end
