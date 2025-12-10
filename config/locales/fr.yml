@@ -75,10 +75,10 @@ fr:
           Si vous êtes un acteur de sécurité privé, une facturation pourra être appliquée par certains fournisseurs d'identité.
 
   authorization_request_event:
-    changelog_entry: 'Le champ <u>%{attribute}</u> a changé de "%{old_value}" en "%{new_value}"'
+    changelog_entry: 'Le champ <u>%{attribute}</u> a changé de « %{old_value} » en « %{new_value} »'
     changelog_entry_new_scope: "Le périmètre de données <u>%{value}</u> a été ajouté."
     changelog_entry_removed_scope: "Le périmètre de données <u>%{value}</u> a été retiré."
-    changelog_entry_with_null_old_value: 'Le champ <u>%{attribute}</u> a été initialisé à "%{new_value}"'
+    changelog_entry_with_null_old_value: 'Le champ <u>%{attribute}</u> a été initialisé à « %{new_value} »'
     changelog_entry_applicant: "Le <u>demandeur</u> a été modifié de %{old_value} à %{new_value}."
     changelog_entry_applicant_with_missing_data: "Le <u>demandeur</u> a été modifié."
     changelog_entry_new_modality: "La modalité d'accès <u>%{value}</u> a été ajoutée."
@@ -110,7 +110,7 @@ fr:
         - legifrance.gouv.fr
         - data.gouv.fr
     claim_instructor_draft_request:
-      title: Finaliser votre demande " %{project_name} "
+      title: Finaliser votre demande « %{project_name} »
       description: |
         Vous êtes invité à compléter une demande d'habilitation pour %{definition_name} intitulé <strong>%{project_name}</strong> pour le compte de <strong>%{organization_name} (%{organization_legal_entity_id})</strong>.
 
@@ -305,7 +305,7 @@ fr:
           description: Nous vous proposons un ou des modèles(s) correspondant à un cas d'usage similaire au votre, en choisissant un modèle, certaines parties du formulaire peuvent être pré-remplies.
         no_france_connect_callout:
           title: Vous ne possédez pas d'habilitation à FranceConnect
-          content: Pour pouvoir soumettre une demande " %{definition_name} " vous devez posséder une habilitation à FranceConnect validée. Vous pouvez en demander une en cliquant sur le lien ci-dessous
+          content: Pour pouvoir soumettre une demande « %{definition_name} » vous devez posséder une habilitation à FranceConnect validée. Vous pouvez en demander une en cliquant sur le lien ci-dessous
           link: Demander une habilitation FranceConnect
 
       step1:
@@ -628,7 +628,7 @@ fr:
       email_disclaimer: |
         Pour que le transfert soit autorisé, il faut :
         <p class="fr-info-text fr-mt-1w">Que l'utilisateur possède un compte sur DataPass</p>
-        <p class="fr-info-text">Que l'utilisateur appartiennent à la même organisation que la demande (" %{organization_name} ", numéro de siret : %{organization_siret})</p>
+        <p class="fr-info-text">Que l'utilisateur appartiennent à la même organisation que la demande (« %{organization_name} », numéro de siret : %{organization_siret})</p>
       error:
         title: Transfert de la demande impossible
     create:
@@ -638,13 +638,13 @@ fr:
         success: Votre demande d’habilitation %{name} a bien été transférée à l'utilisateur %{new_applicant_email}.
         error:
           email_not_found: |
-            Le destinataire ne possède pas de compte sur DataPass, il doit d’abord se connecter sur DataPass et sélectionner la même organisation " %{organization_name} " (numero de siret %{organization_siret}) que celle rattachée à cette demande.
+            Le destinataire ne possède pas de compte sur DataPass, il doit d'abord se connecter sur DataPass et sélectionner la même organisation « %{organization_name} » (numero de siret %{organization_siret}) que celle rattachée à cette demande.
             <br />
             Une fois son compte créé, vous pourrez alors réaliser le transfert de votre habilitation.
           different_user: |
             Vous ne pouvez pas transférer cette demande à la même personne
           invalid_new_applicant: |
-            Le destinataire n'appartient pas à la même organisation " %{organization_name} " (numero de siret %{organization_siret}) que la demande d'habilitation. Celui-ci doit d'abord se connecter via ProConnect avec cette organisation.
+            Le destinataire n'appartient pas à la même organisation « %{organization_name} » (numero de siret %{organization_siret}) que la demande d'habilitation. Celui-ci doit d'abord se connecter via ProConnect avec cette organisation.
 
     new_to_me:
       title: Transfert d’une demande d’habilitation
@@ -695,7 +695,7 @@ fr:
   manual_transfer_authorization_requests:
     new:
       title: "Transfert manuel requis"
-      feature_unavailable: "La fonctionnalité de transfert automatique n'est pas disponible pour \"%{definition_name}\"."
+      feature_unavailable: "La fonctionnalité de transfert automatique n'est pas disponible pour « %{definition_name} »."
       transfer_instructions: "Pour transférer la demande d'habilitation n°%{authorization_request_id}, contactez le fournisseur de données en précisant l'email de la nouvelle personne en charge."
       important_notice:
         title: "Important :"
