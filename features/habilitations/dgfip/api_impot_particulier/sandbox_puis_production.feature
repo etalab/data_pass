@@ -12,9 +12,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôt Particulier 
     * je renseigne les infos de bases du projet
     * je clique sur "Suivant"
 
-    * je renseigne les infos concernant les données personnelles
-    * je clique sur "Suivant"
-
     * je renseigne le cadre légal
     * je clique sur "Suivant"
 
@@ -22,6 +19,9 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôt Particulier 
     * je clique sur "Suivant"
 
     * je coche "Dernière année de revenu (N-1)"
+    * je clique sur "Suivant"
+
+    * je renseigne les infos concernant les données personnelles
     * je clique sur "Suivant"
 
     * je renseigne les informations des contacts RGPD

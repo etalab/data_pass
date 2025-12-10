@@ -33,10 +33,10 @@ api-ficoba-sandbox:
   authorization_request: APIFicobaSandbox
   steps: &api_ficoba_sandbox_steps
     - name: basic_infos
-    - name: personal_data
     - name: legal
     - name: modalities
     - name: scopes
+    - name: personal_data
     - name: contacts
 
 api-ficoba-production:
@@ -88,10 +88,10 @@ api-ficoba-production-editeur:
   authorization_request: APIFicoba
   steps:
     - name: basic_infos
-    - name: personal_data
     - name: legal
     - name: modalities
     - name: scopes
+    - name: personal_data
     - name: contacts
     - name: safety_certification
     - name: volumetrie

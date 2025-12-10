@@ -48,7 +48,7 @@ RSpec.describe 'Authorization request with scopes' do
           submitting_without_scope
         }.to change { authorization_request.reload.scopes }.to(['cnaf_quotient_familial'])
 
-        expect(page).to have_no_css('.fr-alert')
+        expect(page).to have_no_css('.fr-alert--error')
         expect(page).to have_no_current_path(authorization_request_form_build_path(form_uid: authorization_request_form.uid, authorization_request_id: authorization_request.id, id: scope_step_name))
       end
     end

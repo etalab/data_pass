@@ -6,10 +6,10 @@ france-connect:
   authorization_request: FranceConnect
   steps:
     - name: basic_infos
-    - name: personal_data
     - name: legal
     - name: france_connect_eidas
     - name: scopes
+    - name: personal_data
     - name: contacts
 
 france-connect-collectivite-administration:
@@ -20,10 +20,10 @@ france-connect-collectivite-administration:
   authorization_request: FranceConnect
   steps:
     - name: basic_infos
-    - name: personal_data
     - name: legal
     - name: france_connect_eidas
     - name: scopes
+    - name: personal_data
     - name: contacts
   initialize_with:
     cadre_juridique_nature: 'Arrêté du 8 novembre 2018'
@@ -38,10 +38,10 @@ france-connect-collectivite-epermis:
   authorization_request: FranceConnect
   steps:
     - name: basic_infos
-    - name: personal_data
     - name: legal
     - name: france_connect_eidas
     - name: scopes
+    - name: personal_data
     - name: contacts
   initialize_with:
     cadre_juridique_nature: 'Arrêté du 8 novembre 2018'
@@ -64,10 +64,10 @@ france-connect-sante:
   authorization_request: FranceConnect
   steps:
     - name: basic_infos
-    - name: personal_data
     - name: legal
     - name: france_connect_eidas
     - name: scopes
+    - name: personal_data
     - name: contacts
   initialize_with:
     cadre_juridique_nature: 'Arrêté du 28 mars 2022'

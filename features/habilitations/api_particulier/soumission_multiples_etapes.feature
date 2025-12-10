@@ -13,15 +13,15 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
     * je renseigne les infos de bases du projet
     * je clique sur "Suivant"
 
-    * je renseigne les infos concernant les données personnelles
-    * je clique sur "Suivant"
-
     * je renseigne le cadre légal
     * je clique sur "Suivant"
 
     * je clique sur "Suivant"
 
     * je coche "Quotient familial CAF & MSA"
+    * je clique sur "Suivant"
+
+    * je renseigne les infos concernant les données personnelles
     * je clique sur "Suivant"
 
     * je renseigne les informations du délégué à la protection des données
@@ -43,9 +43,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
     * je renseigne les infos de bases du projet
     * je clique sur "Suivant"
 
-    * je renseigne les infos concernant les données personnelles
-    * je clique sur "Suivant"
-
     * je remplis "Description du cadre juridique autorisant à traiter les données*" avec "Article 42"
     * je remplis "Indiquez une URL vers la délibération" avec "https://legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000006430983&cidTexte=LEGITEXT000006070721"
     * je clique sur "Suivant"
@@ -53,6 +50,9 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
     * je clique sur "Suivant"
 
     * je coche "Quotient familial CAF & MSA"
+    * je clique sur "Suivant"
+
+    * je renseigne les infos concernant les données personnelles
     * je clique sur "Suivant"
 
     * je renseigne les informations du délégué à la protection des données
@@ -83,14 +83,14 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
     * je renseigne les infos de bases du projet
     * je clique sur "Suivant"
 
-    * je renseigne les infos concernant les données personnelles
-    * je clique sur "Suivant"
-
     * je remplis "Description du cadre juridique autorisant à traiter les données*" avec "Article 42"
     * je remplis "Indiquez une URL vers la délibération" avec "https://legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000006430983&cidTexte=LEGITEXT000006070721"
     * je clique sur "Suivant"
 
     * je coche "Quotient familial CAF & MSA"
+    * je clique sur "Suivant"
+
+    * je renseigne les infos concernant les données personnelles
     * je clique sur "Suivant"
 
     * je renseigne les informations du délégué à la protection des données
@@ -116,9 +116,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
     * je renseigne les infos de bases du projet
     * je clique sur "Suivant"
 
-    * je renseigne les infos concernant les données personnelles
-    * je clique sur "Suivant"
-
     * je remplis "Précisez la nature et les références du texte vous autorisant à traiter les données" avec "Article 42"
     * je remplis "URL du texte relatif au traitement" avec "https://legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000006430983&cidTexte=LEGITEXT000006070721"
     * je clique sur "Suivant"
@@ -126,6 +123,9 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
     * je clique sur "Suivant"
 
     * je coche "Quotient familial CAF & MSA"
+    * je clique sur "Suivant"
+
+    * je renseigne les infos concernant les données personnelles
     * je clique sur "Suivant"
 
     * je renseigne les informations du délégué à la protection des données
@@ -147,12 +147,12 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
     * je renseigne les infos de bases du projet
     * je clique sur "Suivant"
 
-    * je renseigne les infos concernant les données personnelles
-    * je clique sur "Suivant"
-
     * je clique sur "Suivant"
 
     * je coche "Quotient familial CAF & MSA"
+    * je clique sur "Suivant"
+
+    * je renseigne les infos concernant les données personnelles
     * je clique sur "Suivant"
 
     * je renseigne les informations du délégué à la protection des données
@@ -174,9 +174,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
     * je renseigne les infos de bases du projet
     * je clique sur "Suivant"
 
-    * je renseigne les infos concernant les données personnelles
-    * je clique sur "Suivant"
-
     * je remplis "Description du cadre juridique autorisant à traiter les données*" avec "Article 42"
     * je remplis "URL du texte relatif au traitement" avec "https://legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000006430983&cidTexte=LEGITEXT000006070721"
     * je clique sur "Suivant"
@@ -186,6 +183,9 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
     * "Identité de l'étudiant" est coché
     * je clique sur "Suivant"
 
+
+    * je renseigne les infos concernant les données personnelles
+    * je clique sur "Suivant"
     * je renseigne les informations du délégué à la protection des données
     * je renseigne les informations du contact technique
     * je renseigne les informations du contact métier
