@@ -148,6 +148,10 @@ fr:
         La demande d'habilitation n°%{authorization_request_id} « %{authorization_request_name} », appartenant initialement à %{old_applicant_email}, a été transférée avec succès à %{new_applicant_email}.
 
         Vous pouvez consulter la demande en suivant le lien suivant: %{authorization_request_url}
+  dgfip_apim_mailer:
+    approve:
+      subject: "Nouvelle habilitation %{authorization_request_id} validée"
+      reopening_subject: "Mise à jour de l'habilitation %{authorization_request_id} validée"
   webhook_mailer:
     fail:
       subject: "[ DataPass ] Erreur de communication avec votre %{authorization_definition_name}"
