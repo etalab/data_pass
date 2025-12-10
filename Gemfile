@@ -68,8 +68,11 @@ group :development, :test do
   gem 'i18n-tasks'
 end
 
-group :development do
+group :development, :sandbox do
   gem 'lookbook'
+end
+
+group :development do
   gem 'hotwire-spark'
   gem 'rubocop', require: false
   gem 'rubocop-capybara', require: false
