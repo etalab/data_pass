@@ -302,8 +302,8 @@ RSpec.describe AbstractDashboardFacade, type: :facade do
     end
   end
 
-  describe '#no_results_after_filter?' do
-    subject(:no_results_after_filter) { facade.no_results_after_filter? }
+  describe '#empty_with_filter?' do
+    subject(:no_results_after_filter) { facade.empty_with_filter? }
 
     let(:concrete_facade) do
       Class.new(AbstractDashboardFacade) do
