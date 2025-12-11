@@ -1865,7 +1865,7 @@ api-particulier-arpege-concerto-petite-enfance:
       - params
 
 api-particulier-aiga-petite-enfance:
-  name: iNoé Pette enfance
+  name: iNoé | Malice Petite enfance
   description: Tarification PSU dans les établissements d'acceuil du jeune enfant
   authorization_request: APIParticulier
   use_case: tarification_eaje
@@ -1885,7 +1885,7 @@ api-particulier-aiga-petite-enfance:
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
   initialize_with:
-    intitule: Tarification sur Quotient Familial des services municipaux liés à la petite enfance
+    intitule: Tarification des services municipaux liés à la petite enfance
     description: |
       Gestion de la tarification des établissement d'acceuil du jeune enfant en backoffice par des agents habilités
     cadre_juridique_nature: Cadre légal général L'article L114-8 du Code des relations entre le public et l’administration qui fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Délibération.[À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]"_eaje
