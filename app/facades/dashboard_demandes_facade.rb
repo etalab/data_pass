@@ -23,4 +23,8 @@ class DashboardDemandesFacade < AbstractDashboardFacade
   def displayed_states
     %w[draft submitted refused changes_requested]
   end
+
+  def tab_type
+    'demandes'
+  end
 end
