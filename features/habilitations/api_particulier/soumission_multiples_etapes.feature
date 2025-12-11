@@ -672,6 +672,6 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le c
     Et je suis sur la page "Demandes et habilitations"
 
     Exemples:
-      | Nom du formulaire        | Nom de l'éditeur  |
-      | iNoé Pette enfance       | Aiga              |
+      | Nom du formulaire               | Nom de l'éditeur  |
+      | iNoé \| Malice Petite enfance   | Aiga              |
 
