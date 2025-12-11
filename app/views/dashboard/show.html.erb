@@ -63,23 +63,11 @@
             <% if @facade.empty_with_filter? %>
               <div data-auto-height-target="source">
                 <turbo-frame id="<%= "#{params[:id]}-table" %>" class="search-results-container">
-                  <%= render @facade.no_results_component do |component| %>
-                    <% component.with_action do %>
-                      <%= link_to @facade.no_results_action[:text],
-                                  @facade.no_results_action[:href],
-                                  **@facade.no_results_action.except(:text, :href) %>
-                    <% end %>
-                  <% end %>
+                  <%= render 'blank_state', component: @facade.no_results_component, action: @facade.no_results_action %>
                 </turbo-frame>
               </div>
             <% else %>
-              <%= render @facade.empty_state_component do |component| %>
-                <% component.with_action do %>
-                  <%= link_to @facade.empty_state_action[:text],
-                              @facade.empty_state_action[:href],
-                              **@facade.empty_state_action.except(:text, :href) %>
-                <% end %>
-              <% end %>
+              <%= render 'blank_state', component: @facade.empty_state_component, action: @facade.empty_state_action %>
             <% end %>
           <% else %>
             <div data-auto-height-target="source">
