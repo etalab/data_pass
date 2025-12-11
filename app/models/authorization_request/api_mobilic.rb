@@ -4,11 +4,13 @@ class AuthorizationRequest::APIMobilic < AuthorizationRequest
 
   add_attributes :intitule,
     :date_prevue_mise_en_production,
-    :volumetrie_approximative
+    :volumetrie_approximative,
+    :nombre_utilisateurs_finaux_approximatif
 
   validates :intitule,
     :date_prevue_mise_en_production,
     :volumetrie_approximative,
+    :nombre_utilisateurs_finaux_approximatif,
     presence: true, if: -> { need_complete_validation?(:basic_infos) }
 
   add_scopes(validation: {
