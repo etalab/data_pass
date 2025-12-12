@@ -1449,6 +1449,8 @@ FactoryBot.define do
 
     form_uid { 'api-mobilic' }
 
+    nombre_utilisateurs_finaux_approximatif { 1 }
+
     with_basic_infos
     with_personal_data
     with_scopes
