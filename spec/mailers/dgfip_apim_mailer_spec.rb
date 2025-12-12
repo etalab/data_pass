@@ -58,5 +58,20 @@ RSpec.describe DGFIP::APIMMailer do
         expect(mail.body.encoded).to include('mise à jour')
       end
     end
+
+    context 'when it is a production request' do
+      let(:authorization_request) { create(:authorization_request, :api_impot_particulier_production, :validated) }
+
+      let(:mail) do
+        described_class.with(
+          authorization:,
+          reopening: false
+        ).approve
+      end
+
+      it 'includes PROD for production stage' do
+        expect(mail.body.encoded).to include('PROD')
+      end
+    end
   end
 end
