@@ -20,4 +20,8 @@ class DashboardHabilitationsFacade < AbstractDashboardFacade
   def displayed_states
     %w[active revoked]
   end
+
+  def tab_type
+    'habilitations'
+  end
 end

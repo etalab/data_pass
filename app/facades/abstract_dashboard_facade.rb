@@ -1,4 +1,6 @@
 class AbstractDashboardFacade
+  include Rails.application.routes.url_helpers
+
   FILTER_THRESHOLD_COUNT = 9
   DEFAULT_FILTER = { user_relationship_eq: 'applicant' }.freeze
 
@@ -50,12 +52,71 @@ class AbstractDashboardFacade
     data[:search_engine]
   end
 
+  def empty?
+    highlighted_categories.values.all?(&:empty?) &&
+      categories.values.all?(&:empty?)
+  end
+
+  def total_count
+    highlighted_categories.values.sum(&:count) +
+      categories.values.sum(&:count)
+  end
+
+  def empty_with_filter?
+    empty? && search_query.present?
+  end
+
+  def empty_state_component
+    return nil unless empty? && !empty_with_filter?
+
+    Dashboard::BlankStateComponent.new(
+      pictogram_path: 'artwork/pictograms/document/document-add.svg',
+      message: I18n.t("dashboard.show.empty_states.#{tab_type}.message")
+    )
+  end
+
+  def empty_state_action
+    return nil unless empty? && !empty_with_filter?
+
+    {
+      text: I18n.t('dashboard.show.empty_states.common.request_data_access'),
+      href: I18n.t('dashboard.show.empty_states.common.dataservices_url'),
+      title: "#{I18n.t('dashboard.show.empty_states.common.request_data_access')} - Ouvrir dans une nouvelle fenêtre",
+      class: 'fr-link fr-link--action-high-blue-france',
+      target: '_blank',
+      rel: 'noopener noreferrer'
+    }
+  end
+
+  def no_results_component
+    return nil unless empty_with_filter?
+
+    Dashboard::BlankStateComponent.new(
+      pictogram_path: 'artwork/pictograms/digital/information.svg',
+      message: I18n.t("dashboard.show.no_filter_results.#{tab_type}.message")
+    )
+  end
+
+  def no_results_action
+    return nil unless empty_with_filter?
+
+    {
+      text: I18n.t('dashboard.show.search.reset'),
+      href: dashboard_show_path(id: tab_type),
+      class: 'fr-btn fr-btn--secondary'
+    }
+  end
+
   def model_class
     raise NotImplementedError, 'Subclasses must implement #model_class'
   end
 
   def displayed_states
     raise NotImplementedError, 'Subclasses must implement #displayed_states'
+  end
+
+  def tab_type
+    raise NotImplementedError, 'Subclasses must implement #tab_type'
   end
 
   protected

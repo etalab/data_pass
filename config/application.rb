@@ -1,10 +1,12 @@
-require_relative "boot"
+require_relative 'boot'
 
-require "rails/all"
+require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
+
+require 'dsfr/components'
 
 module DataPass
   class Application < Rails::Application
@@ -20,7 +22,7 @@ module DataPass
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.
-    config.autoload_lib(ignore: %w(assets tasks generators))
+    config.autoload_lib(ignore: %w[assets tasks generators])
 
     config.generators do |g|
       g.test_framework :rspec
