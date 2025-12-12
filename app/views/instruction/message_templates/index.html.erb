@@ -61,7 +61,7 @@
         <div data-filter-target="item" data-template-type="<%= template.template_type %>">
           <%= dsfr_accordion "#{template.authorization_definition.name} - #{t("activerecord.values.message_template.template_type.#{template.template_type}")} - #{template.title}", id: "template-#{template.id}" do %>
             <div class="fr-p-3w" style="background-color: var(--background-contrast-grey);">
-              <%= template.decorate.preview_with_header_footer(entity_name: current_user.full_name) %>
+              <%= template.decorate.preview_mail(entity_name: current_user.full_name) %>
             </div>
             <div class="fr-btns-group fr-btns-group--right fr-btns-group--inline-md fr-mt-3w">
               <% if current_user.manager?(template.authorization_definition_uid) %>

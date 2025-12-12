@@ -9,10 +9,33 @@ class MessageTemplateDecorator < ApplicationDecorator
     object.content
   end
 
-  def preview_with_header_footer(entity_name:)
+  def preview_mail(entity_name:)
     header = h.render(partial: 'mailer/shared/applicant/header', locals: { entity_name: })
     footer = h.render(partial: 'mailer/shared/applicant/footer', locals: { authorization_definition_name: object.authorization_definition.name })
 
-    h.simple_format("#{header}\n\n#{preview_content}\n\n#{footer}")
+    h.simple_format("#{header}\n\n#{mailer_description}\n\n#{footer}")
+  end
+
+  def mailer_description
+    t(
+      "authorization_request_mailer.#{template_type_key}.description",
+      authorization_request_id: 9001,
+      authorization_request_name: 'Exemple de demande',
+      authorization_request_url: h.authorization_request_url(id: 9001),
+      reason: preview_content,
+    )
+  end
+
+  private
+
+  def template_type_key
+    case object.template_type.to_sym
+    when :refusal
+      'refuse'
+    when :modification_request
+      'request_changes'
+    else
+      raise "Unknown message template type: #{object.message_template_type}"
+    end
   end
 end
