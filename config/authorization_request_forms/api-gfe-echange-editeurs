@@ -1,0 +1,7 @@
+api-gfe-echange-editeurs:
+ authorization_request: APIGFEEchangeEditeurs
+ steps:
+ - name: basic_infos
+ - name: personal_data
+ - name: legal
+ - name: contacts
