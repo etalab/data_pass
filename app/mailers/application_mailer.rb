@@ -9,6 +9,8 @@ class ApplicationMailer < ActionMailer::Base
   def extract_host
     if params[:authorization_request].present?
       build_host_from_authorization_definition(params[:authorization_request].definition)
+    elsif params[:authorization].present?
+      build_host_from_authorization_definition(params[:authorization].request.definition)
     elsif params[:message].present?
       build_host_from_authorization_definition(params[:message].authorization_request.definition)
     elsif params[:authorization_request_transfer].present?
