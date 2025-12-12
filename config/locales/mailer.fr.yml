@@ -151,7 +151,7 @@ fr:
   dgfip_apim_mailer:
     approve:
       subject: "Nouvelle habilitation %{authorization_request_id} validée"
-      reopening_subject: "Mise à jour de l'habilitation %{authorization_request_id} validée"
+      reopening_subject: "Mise à jour de l’habilitation %{authorization_request_id} validée"
   webhook_mailer:
     fail:
       subject: "[ DataPass ] Erreur de communication avec votre %{authorization_definition_name}"

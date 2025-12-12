@@ -1,11 +1,11 @@
 Bonjour,
 
 <% if @reopening -%>
-Nous vous informons que la demande de mise à jour <%= @authorization_request.id %> d'accès <%= @stage_label %> a été validée, elle a donné lieu à l'habilitation <%= @authorization.slug %>. Les détails de cette habilitation sont disponibles via le lien suivant : <%= instruction_authorization_request_url(@authorization_request) %>
+Nous vous informons que la demande de mise à jour <%= @authorization_request.id %> d’accès <%= @stage_label %> a été validée, elle a donné lieu à l’habilitation <%= @authorization.slug %>. Les détails de cette habilitation sont disponibles via le lien suivant : <%= instruction_authorization_request_url(@authorization_request) %>
 <% else -%>
-Nous vous informons que la demande <%= @authorization_request.id %> d'accès <%= @stage_label %> a été validée, elle a donné lieu à l'habilitation <%= @authorization.slug %>. Les détails de cette habilitation sont disponibles via le lien suivant : <%= instruction_authorization_request_url(@authorization_request) %>
+Nous vous informons que la demande <%= @authorization_request.id %> d’accès <%= @stage_label %> a été validée, elle a donné lieu à l’habilitation <%= @authorization.slug %>. Les détails de cette habilitation sont disponibles via le lien suivant : <%= instruction_authorization_request_url(@authorization_request) %>
 <% end -%>
 
 Cordialement,
 
-L'équipe <%= @authorization_request.definition.name %>
+L’équipe <%= @authorization_request.definition.name %>
