@@ -36,8 +36,8 @@ class DashboardController < AuthenticatedUserController
 
   def build_tabs
     [
-      Tab.new('demandes', dashboard_show_path(id: 'demandes', **query_parameters)),
-      Tab.new('habilitations', dashboard_show_path(id: 'habilitations', **query_parameters)),
+      Tab.new('demandes', dashboard_show_path(id: 'demandes')),
+      Tab.new('habilitations', dashboard_show_path(id: 'habilitations')),
     ]
   end
 

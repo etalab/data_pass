@@ -183,4 +183,184 @@ RSpec.describe AbstractDashboardFacade, type: :facade do
       end
     end
   end
+
+  describe '#empty?' do
+    subject(:empty) { facade.empty? }
+
+    let(:concrete_facade) do
+      Class.new(AbstractDashboardFacade) do
+        attr_accessor :highlighted_categories, :categories
+
+        def initialize(user:, search_query:, subdomain_types:, scoped_relation:)
+          super
+          @highlighted_categories = {}
+          @categories = {}
+        end
+
+        def data
+          { highlighted_categories: @highlighted_categories, categories: @categories, search_engine: nil }
+        end
+
+        def model_class
+          Authorization
+        end
+
+        def displayed_states
+          %i[active revoked]
+        end
+      end
+    end
+
+    context 'when all categories are empty' do
+      it 'returns true' do
+        facade.highlighted_categories = { changes_requested: [] }
+        facade.categories = { active: [], revoked: [] }
+
+        expect(empty).to be true
+      end
+    end
+
+    context 'when highlighted_categories has items' do
+      it 'returns false' do
+        authorization_request = create(:authorization_request, organization: organization)
+        facade.highlighted_categories = { changes_requested: [authorization_request] }
+        facade.categories = { active: [], revoked: [] }
+
+        expect(empty).to be false
+      end
+    end
+
+    context 'when categories has items' do
+      it 'returns false' do
+        authorization_request = create(:authorization_request, organization: organization)
+        facade.highlighted_categories = { changes_requested: [] }
+        facade.categories = { active: [authorization_request] }
+
+        expect(empty).to be false
+      end
+    end
+  end
+
+  describe '#total_count' do
+    subject(:total_count) { facade.total_count }
+
+    let(:concrete_facade) do
+      Class.new(AbstractDashboardFacade) do
+        attr_accessor :highlighted_categories, :categories
+
+        def initialize(user:, search_query:, subdomain_types:, scoped_relation:)
+          super
+          @highlighted_categories = {}
+          @categories = {}
+        end
+
+        def data
+          { highlighted_categories: @highlighted_categories, categories: @categories, search_engine: nil }
+        end
+
+        def model_class
+          Authorization
+        end
+
+        def displayed_states
+          %i[active revoked]
+        end
+      end
+    end
+
+    it 'returns 0 when all categories are empty' do
+      facade.highlighted_categories = { changes_requested: [] }
+      facade.categories = { active: [], revoked: [] }
+
+      expect(total_count).to eq(0)
+    end
+
+    it 'counts items in highlighted_categories' do
+      authorization_requests = create_list(:authorization_request, 3, :api_entreprise, organization: organization)
+      facade.highlighted_categories = { changes_requested: authorization_requests }
+      facade.categories = { active: [] }
+
+      expect(total_count).to eq(3)
+    end
+
+    it 'counts items in categories' do
+      authorization_requests = create_list(:authorization_request, 5, :api_entreprise, organization: organization)
+      facade.highlighted_categories = {}
+      facade.categories = { active: authorization_requests }
+
+      expect(total_count).to eq(5)
+    end
+
+    it 'counts items in both highlighted_categories and categories' do
+      highlighted_items = create_list(:authorization_request, 2, :api_entreprise, organization: organization)
+      category_items = create_list(:authorization_request, 3, :api_entreprise, organization: organization)
+
+      facade.highlighted_categories = { changes_requested: highlighted_items }
+      facade.categories = { active: category_items }
+
+      expect(total_count).to eq(5)
+    end
+  end
+
+  describe '#empty_with_filter?' do
+    subject(:no_results_after_filter) { facade.empty_with_filter? }
+
+    let(:concrete_facade) do
+      Class.new(AbstractDashboardFacade) do
+        attr_accessor :highlighted_categories, :categories
+
+        def initialize(user:, search_query:, subdomain_types:, scoped_relation:)
+          super
+          @highlighted_categories = {}
+          @categories = {}
+        end
+
+        def data
+          { highlighted_categories: @highlighted_categories, categories: @categories, search_engine: nil }
+        end
+
+        def model_class
+          Authorization
+        end
+
+        def displayed_states
+          %i[active revoked]
+        end
+      end
+    end
+
+    context 'when empty and search_query is present' do
+      let(:search_query) { { q: 'test' } }
+
+      it 'returns true' do
+        facade.highlighted_categories = {}
+        facade.categories = {}
+
+        expect(no_results_after_filter).to be true
+      end
+    end
+
+    context 'when empty but search_query is nil' do
+      let(:search_query) { nil }
+
+      it 'returns false' do
+        facade.highlighted_categories = {}
+        facade.categories = {}
+
+        expect(no_results_after_filter).to be false
+      end
+    end
+
+    context 'when not empty and search_query is present' do
+      let(:search_query) { { q: 'test' } }
+
+      it 'returns false' do
+        authorization_request = create(:authorization_request, organization: organization)
+        facade.highlighted_categories = {}
+        facade.categories = { active: [authorization_request] }
+
+        expect(no_results_after_filter).to be false
+      end
+    end
+  end
 end

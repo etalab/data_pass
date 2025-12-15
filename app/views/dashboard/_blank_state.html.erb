@@ -1,0 +1,5 @@
+<%= render component do |c| %>
+  <% c.with_action do %>
+    <%= link_to action[:text], action[:href], **action.except(:text, :href) %>
+  <% end %>
+<% end %>
