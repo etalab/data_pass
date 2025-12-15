@@ -12,9 +12,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation API FICOBA
     * je renseigne les infos de bases du projet
     * je clique sur "Suivant"
 
-    * je renseigne les infos concernant les données personnelles
-    * je clique sur "Suivant"
-
     * je renseigne le cadre légal
     * je clique sur "Suivant"
 
@@ -22,6 +19,9 @@ Fonctionnalité: Soumission d'une demande d'habilitation API FICOBA
     * je clique sur "Suivant"
 
     * je coche "État civil/Raison sociale du titulaire du compte"
+    * je clique sur "Suivant"
+
+    * je renseigne les infos concernant les données personnelles
     * je clique sur "Suivant"
 
     * je renseigne les informations des contacts RGPD
@@ -66,9 +66,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation API FICOBA
     * je renseigne les infos de bases du projet
     * je clique sur "Suivant"
 
-    * je renseigne les infos concernant les données personnelles
-    * je clique sur "Suivant"
-
     * je renseigne le cadre légal
     * je clique sur "Suivant"
 
@@ -76,6 +73,9 @@ Fonctionnalité: Soumission d'une demande d'habilitation API FICOBA
     * je clique sur "Suivant"
 
     * je coche "État civil/Raison sociale du titulaire du compte"
+    * je clique sur "Suivant"
+
+    * je renseigne les infos concernant les données personnelles
     * je clique sur "Suivant"
 
     * je renseigne les informations des contacts RGPD
