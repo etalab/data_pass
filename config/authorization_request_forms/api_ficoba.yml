@@ -375,7 +375,7 @@ api-ficoba-multi-detention-editeur:
       - dgfip_ficoba_etablissement_bancaire
       - dgfip_ficoba_nombre_comptes
       - dgfip_ficoba_iban
-      - gfip_ficoba_date_ouverture
+      - dgfip_ficoba_date_ouverture
       - dgfip_ficoba_motif_ouverture
     modalities:
       - with_ficoba_siren
