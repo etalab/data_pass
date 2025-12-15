@@ -10,13 +10,17 @@
 
             <div class="authorization-request-form-header__badges">
               <div class="fr-badge-group">
-                <span class="fr-badge fr-badge--no-icon authorization-request-id-badge"><%= t("authorization_request.badge", id: @authorization_request.id) %></span>
+                <span class="fr-badge fr-badge--no-icon authorization-request-id-badge">
+                  <%= t("authorization_request.badge", id: @authorization_request.id) %>
+                </span>
+
                 <%= @authorization_request.reopening_badge %>
                 <%= @authorization_request.stage_badge %>
                 <%= @authorization_request.status_badge %>
               </div>
             </div>
           </div>
+
           <div class="fr-col-12 fr-col-md-4">
             <div class="authorization-request-form-header__actions">
               <% if @authorization_request.reopening? && policy(@authorization_request.latest_authorization).show? %>
@@ -33,11 +37,14 @@
     </div>
 
     <div class="fr-tabs" data-controller="auto-height">
-      <ul class="fr-tabs__list fr-container" role="tablist" aria-label="Menu secondaire">
+      <ul
+        class="fr-tabs__list fr-container"
+        role="tablist"
+        aria-label="Menu secondaire"
+      >
         <% instruction_tabs_for(@authorization_request).each do |id, path| %>
           <li role="presentation">
-            <%=
-              link_to(
+            <%= link_to(
                 path,
                 class: [
                   'fr-tabs__tab',
@@ -53,9 +60,9 @@
                 aria: {
                   selected: current_page?(path),
                   controls: "tab-#{id}-panel"
-                }) do
-              %>
+                }) do %>
               <%= t(".tabs.#{id}.title") %>
+
               <% if id == :messages && @authorization_request.unread_messages_from_instructors_count > 0 %>
                 <span class="unread-message-dot fr-ml-2v">
                   <%= @authorization_request.unread_messages_from_instructors_count %>
@@ -67,17 +74,21 @@
       </ul>
 
       <% instruction_tabs_for(@authorization_request).each do |id, path| %>
-        <turbo-frame id="tab-<%= id %>-panel" class="fr-tabs__panel fr-tabs__panel--selected fr-bg-white" role="tabpanel" aria-labelledby="tab-<%= id %>" tabindex="0" data-turbo-action="advance">
+        <turbo-frame
+          id="tab-<%= id %>-panel"
+          class="fr-tabs__panel fr-tabs__panel--selected fr-bg-white"
+          role="tabpanel"
+          aria-labelledby="tab-<%= id %>"
+          tabindex="0"
+          data-turbo-action="advance"
+        >
           <div class="fr-container">
             <%= render partial: 'shared/alerts' %>
 
             <% if current_page?(path) %>
-              <div data-auto-height-target="source">
-                <%= yield %>
-              </div>
+              <div data-auto-height-target="source"><%= yield %></div>
             <% else %>
-              <div data-auto-height-target="destination">
-              </div>
+              <div data-auto-height-target="destination"></div>
             <% end %>
           </div>
         </turbo-frame>

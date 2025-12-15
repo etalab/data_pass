@@ -6,9 +6,10 @@
       <div class="fr-grid-row">
         <div class="fr-col-12 fr-col-md-8">
           <h1 class="authorization-request-form-header__name">
-            <%= @authorization_request.form.name_with_definition  %>
+            <%= @authorization_request.form.name_with_definition %>
           </h1>
         </div>
+
         <div class="fr-col-12 fr-col-md-4">
           <div class="authorization-request-form-header__actions">
             <% if @instructor_draft_request.persisted? %>
@@ -16,9 +17,7 @@
                 <%= dsfr_main_modal_button(t('instruction.instructor_draft_requests.index.table.actions.invite'), new_instruction_instructor_draft_request_invite_path(@instructor_draft_request), class: 'fr-btn', aria: { controls: 'main-modal' }, data: { turbo_frame: 'main-modal-content' }) %>
               <% elsif policy([:instruction, @instructor_draft_request]).invite_link? %>
                 <%= link_to t('instruction.instructor_draft_requests.index.table.actions.invite_link'), claim_instructor_draft_request_path(@instructor_draft_request.public_id), target: '_blank' %>
-
               <% end %>
-
               <% if policy([:instruction, @instructor_draft_request]).destroy? %>
                 <%= button_to t('instruction.instructor_draft_requests.index.table.actions.delete'), instruction_instructor_draft_request_path(@instructor_draft_request), method: :delete, data: { turbo_confirm: t('instruction.instructor_draft_requests.index.table.actions.confirm_delete') }, class: 'fr-btn fr-btn--secondary fr-btn--sm' %>
               <% end %>
@@ -50,7 +49,12 @@
   <div class="fr-my-5w fr-py-2w sticky-bar" data-controller="sticky-bar">
     <div class="fr-container-fluid">
       <div class="fr-container">
-        <div class="fr-btns-group fr-btns-group--inline fr-btns-group--icon-left fr-btns-group--right">
+        <div
+          class="
+            fr-btns-group fr-btns-group--inline fr-btns-group--icon-left
+            fr-btns-group--right
+          "
+        >
           <%= f.button t('.save'), name: :save, type: :submit, id: :save_authorization_request, class: %w(fr-btn fr-btn--secondary fr-icon-save-line fr-btn--icon-left fr-mb-0) %>
         </div>
       </div>

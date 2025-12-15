@@ -12,6 +12,7 @@
   <div>
     <h1 class="fr-m-0"><%= t('.title') %></h1>
   </div>
+
   <div>
     <%= button_to t('.replay'), replay_developers_webhook_webhook_attempt_path(@webhook, @webhook_attempt), method: :post, class: %w[fr-btn] %>
   </div>
@@ -27,6 +28,7 @@
       <div class="fr-card__body">
         <div class="fr-card__content">
           <p class="fr-card__title"><%= t('.event') %></p>
+
           <p class="fr-card__desc">
             <span class="fr-badge fr-badge--sm">
               <%= t("webhooks.events.#{@webhook_attempt.event_name}", default: @webhook_attempt.event_name) %>
@@ -42,7 +44,10 @@
       <div class="fr-card__body">
         <div class="fr-card__content">
           <p class="fr-card__title"><%= t('.date') %></p>
-          <p class="fr-card__desc"><%= l(@webhook_attempt.created_at, format: :long) %></p>
+
+          <p class="fr-card__desc">
+            <%= l(@webhook_attempt.created_at, format: :long) %>
+          </p>
         </div>
       </div>
     </div>
@@ -53,13 +58,16 @@
       <div class="fr-card__body">
         <div class="fr-card__content">
           <p class="fr-card__title"><%= t('.status') %></p>
+
           <p class="fr-card__desc">
             <% if @webhook_attempt.status_code %>
               <span class="fr-badge <%= @webhook_attempt.success? ? 'fr-badge--success' : 'fr-badge--error' %>">
                 <%= @webhook_attempt.status_code %>
               </span>
             <% else %>
-              <span class="fr-badge fr-badge--error"><%= t('.no_response') %></span>
+              <span class="fr-badge fr-badge--error">
+                <%= t('.no_response') %>
+              </span>
             <% end %>
           </p>
         </div>
@@ -72,9 +80,12 @@
       <div class="fr-card__body">
         <div class="fr-card__content">
           <p class="fr-card__title"><%= t('.result') %></p>
+
           <p class="fr-card__desc">
             <% if @webhook_attempt.success? %>
-              <span class="fr-badge fr-badge--success"><%= t('.success') %></span>
+              <span class="fr-badge fr-badge--success">
+                <%= t('.success') %>
+              </span>
             <% else %>
               <span class="fr-badge fr-badge--error"><%= t('.failure') %></span>
             <% end %>
@@ -87,6 +98,7 @@
 
 <div class="fr-mt-6w">
   <h2 class="fr-h3"><%= t('.payload') %></h2>
+
   <div class="fr-highlight">
     <pre><code><%= JSON.pretty_generate(@webhook_attempt.payload) %></code></pre>
   </div>
@@ -94,6 +106,7 @@
 
 <div class="fr-mt-6w">
   <h2 class="fr-h3"><%= t('.response') %></h2>
+
   <div class="fr-highlight">
     <pre><code><%= @webhook_attempt.response_body %></code></pre>
   </div>

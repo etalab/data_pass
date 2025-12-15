@@ -16,12 +16,10 @@
   <%= render partial: 'shared/alerts' %>
 
   <% if within_wizard? %>
-    <%=
-      dsfr_stepper(
+    <%= dsfr_stepper(
         current_step: authorization_request_step_name(@authorization_request, english_step_name(params[:id])),
         steps: @authorization_request.form.steps.map { |step| authorization_request_step_name(@authorization_request, step[:name]) }
-      )
-    %>
+      ) %>
   <% end %>
 
   <% if within_wizard? || within_edit? %>
@@ -35,8 +33,6 @@
 
 <% if content_for? :sticky_bar %>
   <div class="fr-my-5w fr-py-2w sticky-bar" data-controller="sticky-bar">
-    <div class="fr-container-fluid">
-      <%= yield :sticky_bar %>
-    </div>
+    <div class="fr-container-fluid"><%= yield :sticky_bar %></div>
   </div>
 <% end %>

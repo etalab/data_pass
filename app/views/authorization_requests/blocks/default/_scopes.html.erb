@@ -1,9 +1,7 @@
 <%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { authorization_request:, title: f.wording_for('steps.scopes'), block_id: :scopes, f:, editable: } do %>
   <% authorization_request.available_scopes.group_by(&:group).each do |group_name, scopes| %>
     <div class="fr-form-group scopes-group">
-      <h3 class="scopes-group__title fr-h5">
-        <%= group_name %>
-      </h3>
+      <h3 class="scopes-group__title fr-h5"><%= group_name %></h3>
 
       <div class="scopes-group__grid">
         <% scopes.each do |scope| %>
@@ -15,7 +13,6 @@
 
   <% if authorization_request.legacy_scope_values.any? %>
     <p><%= t('authorization_requests.shared.blocks.scopes.legacy_scopes') %></p>
-
     <ul>
       <% authorization_request.legacy_scope_values.each do |legacy_scope_value| %>
         <li><%= legacy_scope_value %></li>
@@ -26,5 +23,4 @@
   <% if authorization_request.respond_to?(:specific_requirements) %>
     <%= render partial: 'authorization_requests/shared/blocks/specific_requirements', locals: { authorization_request:, f: } %>
   <% end %>
-
 <% end %>

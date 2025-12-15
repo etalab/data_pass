@@ -9,16 +9,15 @@
     <% @authorization_request.available_modalities.each do |modality| %>
       <div class="fr-input-group">
         <div class="fr-checkbox-group">
-          <%=
-            f.checkbox :modalities,
+          <%= f.checkbox :modalities,
               {
                 multiple: true,
                 checked: @authorization_request.modalities.include?(modality),
                 class: 'fr-checkbox-group'
               },
               modality,
-              nil
-          %>
+              nil %>
+
           <%= f.dsfr_radio_label(:modalities, modality) %>
         </div>
       </div>

@@ -11,16 +11,12 @@
         <table>
           <thead>
             <tr>
-              <%
-                %w[
+              <% %w[
                   email
                   created_at
                   actions
-                ].each do |attr|
-              %>
-                <th scope="col">
-                  <%= t(".table.header.#{attr}") %>
-                </th>
+                ].each do |attr| %>
+                <th scope="col"><%= t(".table.header.#{attr}") %></th>
               <% end %>
             </tr>
           </thead>
@@ -31,9 +27,11 @@
                 <td class="verified-email-email">
                   <%= verified_email.email %>
                 </td>
+
                 <td class="verified-email-created_at">
                   <%= verified_email.created_at.to_date %>
                 </td>
+
                 <td class="verified-email-actions">
                   Supprimer
                 </td>

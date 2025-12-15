@@ -4,7 +4,10 @@
       <%= form_with(model: @webhook, url: @webhook.persisted? ? developers_webhook_path(@webhook) : developers_webhooks_path, builder: DsfrFormBuilder) do |f| %>
         <% if @webhook.errors.any? %>
           <div class="fr-alert fr-alert--error fr-mb-4w">
-            <h3 class="fr-alert__title"><%= t('errors.messages.form_errors', count: @webhook.errors.count) %></h3>
+            <h3 class="fr-alert__title">
+              <%= t('errors.messages.form_errors', count: @webhook.errors.count) %>
+            </h3>
+
             <ul>
               <% @webhook.errors.full_messages.each do |message| %>
                 <li><%= message %></li>
@@ -45,9 +48,7 @@
     <div class="fr-col-12 fr-col-md-4 fr-pl-4w">
       <div class="fr-callout">
         <h3 class="fr-callout__title"><%= t('.help_title') %></h3>
-        <p class="fr-callout__text">
-          <%= t('.help_text_html') %>
-        </p>
+        <p class="fr-callout__text"><%= t('.help_text_html') %></p>
       </div>
     </div>
   </div>

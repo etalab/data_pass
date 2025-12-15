@@ -30,7 +30,6 @@
           </blockquote>
         </div>
       <% end %>
-
       <% if @authorization_request.refused? %>
         <div class="fr-alert fr-alert--error fr-mb-2v">
           <h3 class="fr-alert__title">
@@ -52,7 +51,6 @@
           </blockquote>
         </div>
       <% end %>
-
       <% if @authorization_request.dirty_from_v1? %>
         <div class="fr-alert fr-alert--warning fr-mb-2v">
           <h3 class="fr-alert__title">
@@ -67,12 +65,9 @@
             <p class="fr-mt-2w">
               <%= t('authorization_requests.show.dirty_from_v1.errors_title') %>
             </p>
-
             <ul>
               <% @authorization_request.dirty_related_errors.each do |error| %>
-                <li>
-                  <%= error.full_message %>
-                </li>
+                <li><%= error.full_message %></li>
               <% end %>
             </ul>
           <% end %>
@@ -86,6 +81,7 @@
           <h3 class="fr-alert__title">
             <%= t('authorization_request_forms.summary.reopening_alerts.update_in_progress.title') %>
           </h3>
+
           <%= t('authorization_request_forms.summary.reopening_alerts.update_in_progress.message', link: link_to("Demande de mise à jour n°#{@authorization.request.id}", authorization_request_path(@authorization.request))).html_safe %>
         </div>
       <% elsif !@authorization.latest? %>
@@ -93,6 +89,7 @@
           <h3 class="fr-alert__title">
             <%= t('authorization_request_forms.summary.reopening_alerts.old_version.title') %>
           </h3>
+
           <%= t('authorization_request_forms.summary.reopening_alerts.old_version.message', link: link_to("Habilitation n°#{@authorization_request.latest_authorization.id}", authorization_path(@authorization_request.latest_authorization))).html_safe %>
         </div>
       <% end %>
@@ -110,7 +107,6 @@
       </div>
     <% end %>
 
-
     <% if @authorization_request.draft? %>
       <% if @authorization_request.reopening? && @authorization_request.applicant == current_user %>
         <%= render partial: 'authorization_requests/shared/reopening_callout', locals: { klass: 'fr-mt-6w' } %>
@@ -118,7 +114,6 @@
         <h2 class="fr-h3">
           <%= t('authorization_request_forms.summary.title') %>
         </h2>
-
         <p>
           <%= t('authorization_request_forms.summary.description').html_safe %>
         </p>
@@ -144,14 +139,25 @@
     <% content_for :sticky_bar do %>
       <div class="fr-container fr-grid-row">
         <div class="fr-col-12">
-          <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--icon-left fr-btns-group--between">
+          <ul
+            class="
+              fr-btns-group fr-btns-group--inline fr-btns-group--icon-left
+              fr-btns-group--between
+            "
+          >
             <li>
               <%= dsfr_main_modal_button(t('authorization_request_forms.form.cancel_reopening'), new_authorization_request_cancel_reopening_path(@authorization_request), class: %w(fr-btn fr-btn--secondary fr-icon-arrow-left-s-line-double fr-btn--icon-left fr-mb-0)) %>
             </li>
+
             <li class="fr-ml-auto">
               <%= f.button t('authorization_request_forms.form.submit_reopening'), disabled: !policy(@authorization_request).submit_reopening?, type: :submit, name: :submit, id: :submit_authorization_request, class: %w(fr-btn fr-icon-checkbox-line fr-btn--icon-left fr-mb-0), aria: { describedby: policy(@authorization_request).submit_reopening? ? nil : 'submit-reopening-tooltip' } %>
+
               <% unless policy(@authorization_request).submit_reopening? %>
-                <span class="fr-tooltip fr-placement" id="submit-reopening-tooltip" role="tooltip">
+                <span
+                  class="fr-tooltip fr-placement"
+                  id="submit-reopening-tooltip"
+                  role="tooltip"
+                >
                   <%= t('authorization_request_forms.form.submit_reopening_disabled_tooltip') %>
                 </span>
               <% end %>
@@ -164,7 +170,12 @@
     <% content_for :sticky_bar do %>
       <div class="fr-container fr-grid-row">
         <div class="fr-col-12">
-          <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--icon-left fr-btns-group--between">
+          <ul
+            class="
+              fr-btns-group fr-btns-group--inline fr-btns-group--icon-left
+              fr-btns-group--between
+            "
+          >
             <li class="fr-ml-auto">
               <%= f.button t('authorization_request_forms.form.submit'), type: :submit, name: :submit, id: :submit_authorization_request, class: %w(fr-btn fr-icon-checkbox-line fr-btn--icon-left fr-mb-0) %>
             </li>
@@ -176,7 +187,12 @@
     <% content_for :sticky_bar do %>
       <div class="fr-container fr-grid-row">
         <div class="fr-col-12">
-          <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--icon-left fr-btns-group--between">
+          <ul
+            class="
+              fr-btns-group fr-btns-group--inline fr-btns-group--icon-left
+              fr-btns-group--between
+            "
+          >
             <li class="fr-ml-auto">
               <%= link_to t('authorization_request_forms.form.start_next_stage'), next_authorization_request_stage_path(@authorization_request), class: %w(fr-btn fr-mb-0) %>
             </li>
@@ -188,7 +204,12 @@
     <% content_for :sticky_bar do %>
       <div class="fr-container fr-grid-row">
         <div class="fr-col-12">
-          <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--icon-left fr-btns-group--between">
+          <ul
+            class="
+              fr-btns-group fr-btns-group--inline fr-btns-group--icon-left
+              fr-btns-group--between
+            "
+          >
             <li class="fr-ml-auto">
               <%= link_to t('authorization_request_forms.form.ongoing_request'), authorization_request_path(@authorization_request), class: %w(fr-btn fr-mb-0) %>
             </li>
@@ -197,5 +218,4 @@
       </div>
     <% end %>
   <% end %>
-
 <% end %>

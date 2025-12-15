@@ -19,19 +19,18 @@
               </div>
             <% end %>
 
-            <%
-              %w[
+            <% %w[
                 job_title
                 email
                 phone_number
-              ].each do |contact_attribute|
-            %>
+              ].each do |contact_attribute| %>
               <% next if authorization_request.public_send("#{contact_type}_type") == 'organization' && %w[job_title].include?(contact_attribute) %>
 
               <div class="contact-card__attribute">
                 <div class="contact-card__attribute-label">
                   <%= f.label_value("#{contact_type}_#{contact_attribute}") %>
                 </div>
+
                 <div class="contact-card__attribute-value">
                   <%= authorization_request.public_send("#{contact_type}_#{contact_attribute}") %>
                 </div>
