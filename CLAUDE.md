@@ -6,8 +6,8 @@
 - Run all tests: `bundle exec rspec` or `make tests`
 - Run specific test: `bundle exec rspec spec/path/to/file_spec.rb:LINE_NUMBER`
 - Run specific E2E test: `bundle exec cucumber features/path/to/file.feature:LINE_NUMBER`
-- Run linter: `bundle exec rubocop` or `make lint`
-- Fix linting issues: `bundle exec rubocop -A` or `make fix-lint`
+- Run linter: `bundle exec rubocop` or `make lint` (includes Ruby and ERB formatting)
+- Fix linting issues: `bundle exec rubocop -A` or `make fix-lint` (includes Ruby and ERB formatting)
 - JS linting: `standard app/javascript` or `make js-lint`
 
 ## Code Style Guidelines
@@ -21,8 +21,7 @@
 - Naming: snake_case for methods/variables, CamelCase for classes
 - Controllers should be RESTful when possible
 - JavaScript follows StandardJS conventions
-- When creating components, always create a preview within
-    `spec/components/previews`
+- ERB templates are formatted using Herb formatter
 - DO NOT use comments, use meaningful variables and methods names
 - All files should end with a newline
 - Use apostrophe (’) instead of single quote (') within text content

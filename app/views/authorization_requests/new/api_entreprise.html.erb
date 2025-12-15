@@ -39,9 +39,15 @@
               data-scroll-to-target-value="step2"
               name="team"
             >
+
             <label class="fr-label" for="team-editor">
-              <strong><%= t("authorization_requests.new.step1.editor") %></strong>
-              <span class="fr-hint-text"><%= t("authorization_requests.new.step1.editor_hint") %></span>
+              <strong>
+                <%= t("authorization_requests.new.step1.editor") %>
+              </strong>
+
+              <span class="fr-hint-text">
+                <%= t("authorization_requests.new.step1.editor_hint") %>
+              </span>
             </label>
           </div>
         </div>
@@ -62,9 +68,15 @@
               value="internal"
               name="team"
             >
+
             <label class="fr-label" for="team-internal">
-              <strong><%= t("authorization_requests.new.step1.internal") %></strong>
-              <span class="fr-hint-text"><%= t("authorization_requests.new.step1.internal_hint") %></span>
+              <strong>
+                <%= t("authorization_requests.new.step1.internal") %>
+              </strong>
+
+              <span class="fr-hint-text">
+                <%= t("authorization_requests.new.step1.internal_hint") %>
+              </span>
             </label>
           </div>
         </div>
@@ -85,9 +97,13 @@
               data-scroll-to-target-value="no-team-disclaimer"
               name="team"
             >
+
             <label class="fr-label" for="team-none">
               <strong><%= t("authorization_requests.new.step1.none") %></strong>
-              <span class="fr-hint-text"><%= t("authorization_requests.new.step1.none_hint") %></span>
+
+              <span class="fr-hint-text">
+                <%= t("authorization_requests.new.step1.none_hint") %>
+              </span>
             </label>
           </div>
         </div>
@@ -96,6 +112,7 @@
   </fieldset>
 
   <div id="step2"></div>
+
   <div
     data-choose-authorization-request-form-target="editors"
     id="editors-list"
@@ -146,13 +163,24 @@
               } %>
             </div>
           <% end %>
+
           <div class="fr-col-md-12 fr-col-xl-12 fr-col-12 fr-p-2w">
             <div class="fr-callout fr-icon-information-line">
-              <h3 class="fr-callout__title">Vous ne trouvez pas votre cas d'usage ?</h3>
+              <h3 class="fr-callout__title">
+                Vous ne trouvez pas votre cas d'usage ?
+              </h3>
+
               <p class="fr-callout__text">
-                Votre cas nécessite certainement d'être approfondi avec l'équipe, merci de remplir le questionnaire en cliquant sur le lien ci-dessous.
+                Votre cas nécessite certainement d'être approfondi avec
+                l'équipe, merci de remplir le questionnaire en cliquant sur le
+                lien ci-dessous.
               </p>
-              <a href="https://www.demarches-simplifiees.fr/commencer/contact-api-entreprise-datapass-sans-cas-usage" alt="Lien vers le questionnaire" class="fr-btn">
+
+              <a
+                href="https://www.demarches-simplifiees.fr/commencer/contact-api-entreprise-datapass-sans-cas-usage"
+                alt="Lien vers le questionnaire"
+                class="fr-btn"
+              >
                 Remplir le questionnaire
               </a>
             </div>
@@ -169,20 +197,21 @@
   >
     <div class="fr-grid-row">
       <div class="fr-col-md-10 fr-col-offset-1">
-
         <div class="center fr-px-5w fr-py-1w">
           Vous êtes éligible mais n'avez pas les
           <a
             href="https://entreprise.api.gouv.fr/developpeurs#prerequis-techniques"
             target="_blank"
-          >prérequis techniques</a>
+          >
+            prérequis techniques
+          </a>
           pour utiliser l’API Entreprise
-          <br/>
+          <br />
           🔎 L’API Entreprise s’utilise au travers d’un logiciel métier, comme
           par exemple un profil acheteur pour les marchés publics. Si vous
           collectez et traitez les données à la main, vous n’avez probablement
           pas un logiciel dédié aux démarches.
-          <br/>
+          <br />
 
           <div class="fr-alert fr-alert--info fr-mt-4v">
             <h3 class="fr-alert__title fr-h6">
@@ -192,24 +221,30 @@
             Vous devez vérifier les informations financières, fiscales et
             sociales des entreprises-associations ? Votre cadre juridique le
             permet ?
-            <br/>
+            <br />
             ➡️ C'est possible en 1 clic en remplissant
-            <a href="https://form.typeform.com/to/ol1jlpdf" target="_blank">ce questionnaire</a>
+            <a href="https://form.typeform.com/to/ol1jlpdf" target="_blank">
+              ce questionnaire
+            </a>
           </div>
 
-          <br/>
+          <br />
           Autrement, vous pouvez contacter des éditeurs de logiciel ayant déjà
           intégré l’API Entreprise :
           <a
             class="btn btn--lg btn--secondary"
             href="https://entreprise.api.gouv.fr/cas_usages/aides_publiques/#parfois-au-travers-dun-%C3%A9diteur-de-logiciel-"
             target="_blank"
-          >Liste des éditeurs Aides Publiques</a>
+          >
+            Liste des éditeurs Aides Publiques
+          </a>
           <a
             class="btn btn--lg btn--secondary"
             href="https://entreprise.api.gouv.fr/cas_usages/marches_publics#parfois-au-travers-dun-éditeur-de-logiciel-"
             target="_blank"
-          >Liste des éditeurs Marchés Publics</a>
+          >
+            Liste des éditeurs Marchés Publics
+          </a>
         </div>
       </div>
     </div>
@@ -226,8 +261,8 @@
           Vous êtes éligible mais votre éditeur ne semble pas utiliser l'API
           Entreprise, ou son intégration ne nécessite aucune action de votre
           part.
-          <br/>
-          Nous vous invitons à nous contacter à l'adresse suivante :
+          <br />
+          Nous vous invitons à nous contacter à l'adresse suivante:
           <a href="mailto:support@entreprise.api.gouv.fr">support@entreprise.api.gouv.fr</a>
           afin que l'on puisse vous accompagner au mieux
         </p>
@@ -243,10 +278,9 @@
     <div class="fr-grid-row">
       <div class="fr-col-md-10 fr-col-offset-1">
         <p class="center fr-px-5w fr-py-1w">
-          <strong>Bonne nouvelle ! Vous êtes éligible et votre éditeur/profil
-            acheteur a déjà intégré l’API Entreprise. 👍</strong>
-
-          <br/>
+          <strong>Bonne nouvelle ! Vous êtes éligible et votre éditeur/profil acheteur a déjà intégré l’API Entreprise. 👍</strong>
+          
+          <br />
           Vous n’avez plus qu’à vous adresser directement à votre éditeur.
         </p>
       </div>

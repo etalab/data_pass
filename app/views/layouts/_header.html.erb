@@ -6,12 +6,21 @@
           <div class="fr-header__brand-top">
             <div class="fr-header__logo">
               <p class="fr-logo">
-              République
-              <br>Française
+                République
+                <br>
+                Française
               </p>
             </div>
+
             <div class="fr-header__navbar">
-              <button class="fr-btn--menu fr-btn" data-fr-opened="false" aria-controls="modal-header-menu" aria-haspopup="menu" title="Menu" id="fr-btn-menu-mobile-1">
+              <button
+                class="fr-btn--menu fr-btn"
+                data-fr-opened="false"
+                aria-controls="modal-header-menu"
+                aria-haspopup="menu"
+                title="Menu"
+                id="fr-btn-menu-mobile-1"
+              >
                 Menu
               </button>
             </div>
@@ -37,16 +46,12 @@
             <% end %>
 
             <a href="/" title="Accueil - <%= title %>">
-              <p class="fr-header__service-title">
-                <%= title %>
-              </p>
-              <p class="fr-header__service-tagline">
-                <%= tagline %>
-              </p>
+              <p class="fr-header__service-title"><%= title %></p>
+              <p class="fr-header__service-tagline"><%= tagline %></p>
             </a>
           </div>
-
         </div>
+
         <div class="fr-header__tools">
           <%= render partial: 'layouts/header/tools' %>
         </div>

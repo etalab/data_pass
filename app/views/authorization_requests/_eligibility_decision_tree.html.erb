@@ -1,22 +1,28 @@
-<div class='fr-my-5w'>
-  <div data-controller='show-and-hide' data-show-and-hide-targets-value='.outcome'>
-    <div class='fr-form-group'>
-      <fieldset class='fr-fieldset'>
-        <legend class='fr-fieldset__legend fr-text--lg fr-text--bold'>
+<div class="fr-my-5w">
+  <div
+    data-controller="show-and-hide"
+    data-show-and-hide-targets-value=".outcome"
+  >
+    <div class="fr-form-group">
+      <fieldset class="fr-fieldset">
+        <legend class="fr-fieldset__legend fr-text--lg fr-text--bold">
           <%= t('eligibility.question') %>
         </legend>
 
         <% eligibility_rule.options.each do |option| %>
-          <div class='fr-fieldset__element'>
-            <div class='fr-radio-group'>
-              <input type='radio'
-                     id='<%= option.id %>'
-                     name='user-type'
-                     value='<%= option.id %>'
-                     aria-controls='<%= option.outcome_id %>'
-                     data-action='change->show-and-hide#trigger'
-                     data-show-and-hide-target-param='#<%= option.outcome_id %>'>
-              <label class='fr-label' for='<%= option.id %>'>
+          <div class="fr-fieldset__element">
+            <div class="fr-radio-group">
+              <input
+                type="radio"
+                id="<%= option.id %>"
+                name="user-type"
+                value="<%= option.id %>"
+                aria-controls="<%= option.outcome_id %>"
+                data-action="change->show-and-hide#trigger"
+                data-show-and-hide-target-param="#<%= option.outcome_id %>"
+              >
+
+              <label class="fr-label" for="<%= option.id %>">
                 <%= option.label %>
               </label>
             </div>
@@ -25,22 +31,25 @@
       </fieldset>
     </div>
 
-    <div aria-live='polite' aria-atomic='true'>
+    <div aria-live="polite" aria-atomic="true">
       <% eligibility_rule.options.each do |option| %>
-        <div id='<%= option.outcome_id %>' class='fr-hidden fr-my-3w outcome' aria-hidden='true'>
-          <div class='fr-callout <%= option.alert_class %>'>
-            <div class='fr-alert__body'>
-              <%= option.sanitized_body %>
-            </div>
+        <div
+          id="<%= option.outcome_id %>"
+          class="fr-hidden fr-my-3w outcome"
+          aria-hidden="true"
+        >
+          <div class="fr-callout <%= option.alert_class %>">
+            <div class="fr-alert__body"><%= option.sanitized_body %></div>
           </div>
+
           <% if option.shows_request_access_button? %>
-            <div class='fr-mt-3w'>
+            <div class="fr-mt-3w">
               <%= link_to t('eligibility.cta.request_access'),
                 eligibility_rule.request_access_path,
                 class: 'fr-btn' %>
             </div>
           <% elsif option.shows_custom_cta? %>
-            <div class='fr-mt-3w'>
+            <div class="fr-mt-3w">
               <%= link_to option.cta_content,
                 option.cta_url,
                 class: 'fr-btn fr-btn--secondary' %>

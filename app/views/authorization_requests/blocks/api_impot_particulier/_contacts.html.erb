@@ -19,19 +19,18 @@
               </div>
             <% end %>
 
-            <%
-              %w[
+            <% %w[
                 job_title
                 email
                 phone_number
-              ].each do |contact_attribute|
-            %>
+              ].each do |contact_attribute| %>
               <% next if authorization_request.public_send("#{contact_type}_type") == 'organization' && %w[job_title].include?(contact_attribute) %>
 
               <div class="contact-card__attribute">
                 <div class="contact-card__attribute-label">
                   <%= f.label_value("#{contact_type}_#{contact_attribute}") %>
                 </div>
+
                 <div class="contact-card__attribute-value">
                   <%= authorization_request.public_send("#{contact_type}_#{contact_attribute}") %>
                 </div>
@@ -41,13 +40,16 @@
             <% if contact_type == :contact_technique %>
               <div>
                 <hr class="fr-mt-3w">
+
                 <span class="fr-text--lg legal-text__bold">
                   <%= f.wording_for('contact_technique.extra.title') %>
                 </span>
+
                 <div class="contact-card__attribute">
                   <div class="contact-card__attribute-label">
                     <%= f.label_value('contact_technique_extra_email') %>
                   </div>
+
                   <div class="contact-card__attribute-value">
                     <%= authorization_request.contact_technique_extra_email %>
                   </div>
@@ -61,9 +63,7 @@
       <% extra_contact_label_id = dom_id(authorization_request, 'extra_organization_contact_label') %>
 
       <div class="fr-col-12 fr-col-lg-6">
-        <div
-          class="fr-basic-card contact-card"
-        >
+        <div class="fr-basic-card contact-card">
           <div class="contact-card__kind" id="<%= extra_contact_label_id %>">
             <%= f.wording_for('contact_organization.extra.title') %>
           </div>
@@ -72,6 +72,7 @@
             <div class="contact-card__attribute-label">
               <%= f.label_value("extra_organization_contact_name") %>
             </div>
+
             <div class="contact-card__attribute-value">
               <%= authorization_request.extra_organization_contact_name %>
             </div>
@@ -81,14 +82,13 @@
             <div class="contact-card__attribute-label">
               <%= f.label_value('extra_organization_contact_email') %>
             </div>
+
             <div class="contact-card__attribute-value">
               <%= authorization_request.extra_organization_contact_email %>
             </div>
           </div>
-
         </div>
       </div>
-
     </div>
   </div>
 <% end %>

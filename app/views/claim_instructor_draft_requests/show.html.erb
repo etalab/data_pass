@@ -1,6 +1,4 @@
-<p>
-  <%= t('.description') %>
-</p>
+<p><%= t('.description') %></p>
 
 <%= form_with(model: @instructor_draft_request, method: :post, url: claim_instructor_draft_request_path(id: @instructor_draft_request.public_id)) do |f| %>
   <%= f.button t('.cta'), class: "fr-btn fr-btn--primary" %>

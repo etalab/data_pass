@@ -2,9 +2,7 @@
   <div class="dashboard-sub-header">
     <div class="sub-header">
       <div>
-        <h1 class="fr-m-0">
-          <%= t('.title') %>
-        </h1>
+        <h1 class="fr-m-0"><%= t('.title') %></h1>
       </div>
     </div>
   </div>
@@ -19,6 +17,7 @@
             <h3 class="fr-card__title">
               <%= link_to t('.documentation'), developers_documentation_path %>
             </h3>
+
             <p class="fr-card__desc"><%= t('.documentation_desc') %></p>
           </div>
         </div>
@@ -32,6 +31,7 @@
             <h3 class="fr-card__title">
               <%= link_to t('.applications'), developers_oauth_applications_path %>
             </h3>
+
             <p class="fr-card__desc"><%= t('.applications_desc') %></p>
           </div>
         </div>
@@ -46,6 +46,7 @@
               <h3 class="fr-card__title">
                 <%= link_to t('.webhooks'), developers_webhooks_path %>
               </h3>
+
               <p class="fr-card__desc"><%= t('.webhooks_desc') %></p>
             </div>
           </div>

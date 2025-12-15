@@ -19,12 +19,10 @@
   <div class="fr-grid-row fr-grid-row--center">
     <% @authorization_definition.public_available_forms.each do |authorization_request_form| %>
       <div class="fr-col-md-4 fr-col-xl-4 fr-col-12 fr-p-2w">
-        <%=
-          render partial: "authorization_request_forms/authorization_request_form_card",
+        <%= render partial: "authorization_request_forms/authorization_request_form_card",
             locals: {
               authorization_request_form:,
-            }
-        %>
+            } %>
       </div>
     <% end %>
   </div>

@@ -3,9 +3,7 @@
     <%= render partial: 'pages/shared/unauthenticated_pages/welcome_logo' %>
 
     <div class="fr-col-sm-12 fr-col-md-7 fr-my-5w">
-      <h1>
-        <%= t('pages.home.title') %>
-      </h1>
+      <h1><%= t('pages.home.title') %></h1>
 
       <p>
         <%= t(".sub_title.#{@authorization_definition.kind}",
@@ -14,7 +12,7 @@
 
       <div class="fr-connect-group">
         <%= render partial: 'authorization_requests/shared/unauthenticated_pages/timeline_steps' %>
-        <hr/>
+        <hr />
         <%= render partial: 'pages/shared/unauthenticated_pages/pro_connect' %>
       </div>
     </div>

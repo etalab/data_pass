@@ -1,13 +1,15 @@
 <div class="paired-cards">
-  <div class="authorization-request-card authorization <%= authorization.background_color_class %>" id="<%= dom_id(authorization) %>">
+  <div
+    class="authorization-request-card authorization <%= authorization.background_color_class %>"
+    id="<%= dom_id(authorization) %>"
+  >
     <div class="card__wrapper fr-px-10v fr-py-8v">
-
       <div class="flex-space-between__content">
-
         <div class="card__content">
           <div class="card__title <%= authorization.color_class %> fr-h4 fr-m-0 fr-icon-award-fill">
             <%= authorization.title %>
           </div>
+
           <div class="<%= authorization.color_class %> fr-text--lg fr-m-0 fr-ml-4w">
             <%= authorization.name %>
           </div>
@@ -18,18 +20,22 @@
             <%= t("authorization.badge", id: authorization.id) %>
           </span>
 
-          <div class="flex-wrap flew-grow flex-end__content fr-grid-row--top fr-col--xs">
+          <div
+            class="
+              flex-wrap flew-grow flex-end__content fr-grid-row--top
+              fr-col--xs
+            "
+          >
             <%= authorization.request_as_validated(load_documents: false).decorate.stage_badge %>
             <%= authorization.status_badge %>
           </div>
         </div>
-
       </div>
     </div>
   </div>
+
   <div class="authorization-request-card">
     <div class="card__wrapper fr-px-10v fr-py-8v">
-
       <div class="flex-space-between__content">
         <div class="card__content">
           <div class="fr-card__desc fr-mt-0">
@@ -54,6 +60,7 @@
             <%= link_to t('.access_link_cta'), authorization.access_link, class: 'fr-link fr-icon-links-line fr-link--icon-left', target: :blank %>
           <% end %>
         </div>
+
         <div class="card__actions_btn">
           <% if policy(authorization).reopen? %>
             <%= dsfr_main_modal_button t('.reopen_cta'), url_for(controller: 'reopen_authorizations', action: 'new', authorization_request_id: authorization.request.id, authorization_id: authorization.id), class: %w(fr-btn fr-btn--secondary fr-btn--sm) %>
@@ -67,4 +74,3 @@
     <%= render partial: 'dashboard/card/stage_footer', locals: { authorization_request: authorization.request, authorization: } %>
   </div>
 </div>
-

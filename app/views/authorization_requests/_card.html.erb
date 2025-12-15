@@ -1,9 +1,19 @@
-<div class="authorization-request-card authorization-request fr-background-default--grey " id="<%= dom_id(authorization_request) %>">
+<div
+  class="
+    authorization-request-card authorization-request
+    fr-background-default--grey
+  "
+  id="<%= dom_id(authorization_request) %>"
+>
   <div class="card__wrapper fr-p-10v">
-
     <div class="flex-space-between__content">
       <div class="card__content">
-        <div class="card__title fr-text-title--blue-france fr-h4 fr-m-0 fr-icon-draft-fill">
+        <div
+          class="
+            card__title fr-text-title--blue-france fr-h4 fr-m-0
+            fr-icon-draft-fill
+          "
+        >
           <%= authorization_request.card_name %>
         </div>
 
@@ -13,10 +23,10 @@
 
         <div class="fr-card__end">
           <%= authorization_request.applicant_details %>
- 
+
           <p class="fr-card__detail fr-icon-calendar-2-fill">
             <%= authorization_request.date %>
-           </p>
+          </p>
         </div>
       </div>
 
@@ -52,4 +62,3 @@
     </div>
   <% end %>
 </div>
-

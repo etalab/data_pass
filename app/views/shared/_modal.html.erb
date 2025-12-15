@@ -1,18 +1,35 @@
 <% id = local_assigns[:id] || "modal-#{SecureRandom.hex(5)}" %>
 <% default_col_sizes = local_assigns[:col_sizes] || 'fr-col-12 fr-col-md-8 fr-col-lg-6' %>
 
-<dialog aria-labelledby="fr-modal-title-<%= id %>" id="<%= id %>" class="fr-modal" role="dialog" data-controller="dynamic-modal" data-dynamic-modal-default-classes-value="<%= default_col_sizes %>">
+<dialog
+  aria-labelledby="fr-modal-title-<%= id %>"
+  id="<%= id %>"
+  class="fr-modal"
+  role="dialog"
+  data-controller="dynamic-modal"
+  data-dynamic-modal-default-classes-value="<%= default_col_sizes %>"
+>
   <div class="fr-container fr-container--fluid fr-container-md">
     <div class="fr-grid-row fr-grid-row--center">
-      <div class="<%= default_col_sizes %>" data-dynamic-modal-target="container">
+      <div
+        class="<%= default_col_sizes %>"
+        data-dynamic-modal-target="container"
+      >
         <div class="fr-modal__body">
           <div class="fr-modal__header">
-            <button class="fr-btn--close fr-btn" title="Fermer la fenêtre modale" aria-controls="<%= id %>">
+            <button
+              class="fr-btn--close fr-btn"
+              title="Fermer la fenêtre modale"
+              aria-controls="<%= id %>"
+            >
               Fermer
             </button>
           </div>
 
-          <turbo-frame id="<%= id %>-content" data-dynamic-modal-target="content">
+          <turbo-frame
+            id="<%= id %>-content"
+            data-dynamic-modal-target="content"
+          >
             <%= yield %>
           </turbo-frame>
         </div>
@@ -25,7 +42,6 @@
   <button data-fr-opened="false" aria-controls="<%= id %>" class="fr-hidden">
     .
   </button>
-
   <script>
     window.addEventListener('turbo:load', function() {
       setTimeout(function() {

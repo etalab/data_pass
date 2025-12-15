@@ -9,25 +9,33 @@
   </h1>
 </div>
 
-
-<h2 class="fr-h4"><%= t("authorization_request_forms.api_impot_particulier_sandbox.modalities.title") %></h2>
+<h2 class="fr-h4">
+  <%= t("authorization_request_forms.api_impot_particulier_sandbox.modalities.title") %>
+</h2>
 
 <div data-controller="choose-modalite-with-france-connect">
   <div class="fr-col-lg-9 fr-mb-5w">
     <%= t("authorization_request_forms.api_impot_particulier_sandbox.modalities.subtitle_html") %>
 
-    <fieldset class="fr-fieldset" id="radio-rich" aria-labelledby="radio-rich-legend radio-rich-messages">
+    <fieldset
+      class="fr-fieldset"
+      id="radio-rich"
+      aria-labelledby="radio-rich-legend radio-rich-messages"
+    >
       <% t("authorization_request_forms.api_impot_particulier_sandbox.modalities.values").each do |value, options| %>
         <% next if value == :with_etat_civil %>
+
         <div class="fr-fieldset__element small">
           <div class="fr-radio-group fr-radio-rich">
-            <input  value="<%= value %>"
-                    type="radio"
-                    id="modalite_<%= value %>"
-                    name="modalite"
-                    data-action="click->choose-modalite-with-france-connect#trigger"
-                    data-choose-modalite-with-france-connect-target="modality"
+            <input
+              value="<%= value %>"
+              type="radio"
+              id="modalite_<%= value %>"
+              name="modalite"
+              data-action="click->choose-modalite-with-france-connect#trigger"
+              data-choose-modalite-with-france-connect-target="modality"
             >
+
             <label class="fr-label" for="modalite_<%= value %>">
               <%= options[:label] %>
             </label>
@@ -35,21 +43,28 @@
         </div>
       <% end %>
 
-      <div class="fr-messages-group" id="radio-rich-messages" aria-live="polite">
-      </div>
+      <div
+        class="fr-messages-group"
+        id="radio-rich-messages"
+        aria-live="polite"
+      ></div>
     </fieldset>
 
     <div class="fr-alert fr-alert--info">
       <h3 class="fr-alert__title">
         <%= t("authorization_request_forms.api_impot_particulier_sandbox.modalities.alert.title") %>
       </h3>
+
       <p>
         <%= t("authorization_request_forms.api_impot_particulier_sandbox.modalities.alert.content", sfip_url: new_authorization_request_path(definition_id: :api_sfip)).html_safe %>
       </p>
     </div>
   </div>
 
-  <div class="fr-col-lg-9 fr-mb-5w fr-hidden" data-choose-modalite-with-france-connect-target="franceConnectContainer">
+  <div
+    class="fr-col-lg-9 fr-mb-5w fr-hidden"
+    data-choose-modalite-with-france-connect-target="franceConnectContainer"
+  >
     <% france_connect_authorizations = current_organization.valid_authorizations_of(AuthorizationRequest::FranceConnect).map(&:decorate) %>
 
     <% if france_connect_authorizations.empty? %>
@@ -57,18 +72,26 @@
         <h3 class="fr-callout__title">
           <%= t("authorization_request_forms.api_impot_particulier_sandbox.modalities.callout.title") %>
         </h3>
+
         <p class="fr-callout__text fr-my-3w">
           <%= t("authorization_request_forms.api_impot_particulier_sandbox.modalities.callout.content") %>
         </p>
+
         <%= link_to  t("authorization_request_forms.api_impot_particulier_sandbox.modalities.callout.link"), new_authorization_request_form_path("france-connect"), class: "fr-link fr-btn--icon-right fr-icon-arrow-right-line" %>
       </div>
-
     <% else %>
       <div class="fr-select-group">
         <label class="fr-h4 fr-label" for="france_connect_authorization_id">
           <%= t("authorization_request_forms.default.france_connect_authorization_id.label") %>
         </label>
-        <select class="fr-select" id="france_connect_authorization_id" name="france_connect_authorization_id" data-choose-modalite-with-france-connect-target="franceConnectSelector" data-action="click->choose-modalite-with-france-connect#trigger">
+
+        <select
+          class="fr-select"
+          id="france_connect_authorization_id"
+          name="france_connect_authorization_id"
+          data-choose-modalite-with-france-connect-target="franceConnectSelector"
+          data-action="click->choose-modalite-with-france-connect#trigger"
+        >
           <% options = france_connect_authorizations.map{ |authorization| [authorization.name_for_select, authorization.id] } %>
           <%= options_for_select options, selected: options.first[1] %>
         </select>
@@ -76,31 +99,51 @@
     <% end %>
   </div>
 
-  <div data-controller="choose-stage" data-choose-modalite-with-france-connect-target="nextStage" class="fr-hidden">
-    <h2 class="fr-h4"><%= t("authorization_requests.new.api_impot_particulier.editor_with_sandbox.title") %></h2>
+  <div
+    data-controller="choose-stage"
+    data-choose-modalite-with-france-connect-target="nextStage"
+    class="fr-hidden"
+  >
+    <h2 class="fr-h4">
+      <%= t("authorization_requests.new.api_impot_particulier.editor_with_sandbox.title") %>
+    </h2>
 
     <div class="fr-col-lg-9">
-      <p class=""><%= t("authorization_requests.new.api_impot_particulier.editor_with_sandbox.subtitle").html_safe %></p>
+      <p class="">
+        <%= t("authorization_requests.new.api_impot_particulier.editor_with_sandbox.subtitle").html_safe %>
+      </p>
 
-      <fieldset class="fr-fieldset" id="radio-rich" aria-labelledby="radio-rich-legend radio-rich-messages">
+      <fieldset
+        class="fr-fieldset"
+        id="radio-rich"
+        aria-labelledby="radio-rich-legend radio-rich-messages"
+      >
         <% t("authorization_requests.new.api_impot_particulier.editor_with_sandbox.options").each do |option| %>
           <div class="fr-fieldset__element">
             <div class="fr-radio-group fr-radio-rich">
-              <input  value="<%= option[:value] %>"
-                      type="radio"
-                      id="editor_with_sandbox_<%=option[:value]%>"
-                      name="editor_with_sandbox"
-                      data-action="click->choose-stage#chooseEditorWithSandbox"
+              <input
+                value="<%= option[:value] %>"
+                type="radio"
+                id="editor_with_sandbox_<%= option[:value] %>"
+                name="editor_with_sandbox"
+                data-action="click->choose-stage#chooseEditorWithSandbox"
               >
-              <label class="fr-label" for="editor_with_sandbox_<%=option[:value]%>">
+
+              <label
+                class="fr-label"
+                for="editor_with_sandbox_<%= option[:value] %>"
+              >
                 <%= option[:label] %>
               </label>
             </div>
           </div>
         <% end %>
 
-        <div class="fr-messages-group" id="radio-rich-messages" aria-live="polite">
-        </div>
+        <div
+          class="fr-messages-group"
+          id="radio-rich-messages"
+          aria-live="polite"
+        ></div>
       </fieldset>
     </div>
 
@@ -110,7 +153,10 @@
       id="forms"
       class="fr-hidden"
     >
-    <h2 class="fr-h4"><%= t("authorization_requests.new.api_impot_particulier.choose_form_title.sandbox") %></h2>
+      <h2 class="fr-h4">
+        <%= t("authorization_requests.new.api_impot_particulier.choose_form_title.sandbox") %>
+      </h2>
+
       <div class="fr-background-alt--blue-france fr-py-4w">
         <div class="fr-grid-row">
           <div class="fr-col-md-10 fr-col-offset-1">
@@ -142,13 +188,17 @@
         </div>
       </div>
     </div>
+
     <div
       data-choose-authorization-request-form-target="forms"
       data-choose-stage-target="editorResult"
       id="forms"
       class="fr-hidden"
     >
-      <h2 class="fr-h4"><%= t("authorization_requests.new.api_impot_particulier.choose_form_title.editor") %></h2>
+      <h2 class="fr-h4">
+        <%= t("authorization_requests.new.api_impot_particulier.choose_form_title.editor") %>
+      </h2>
+
       <div class="fr-background-alt--blue-france fr-py-4w">
         <div class="fr-grid-row">
           <div class="fr-col-md-10 fr-col-offset-1">
@@ -160,6 +210,7 @@
                 use_cases_url: "https://api.gouv.fr/les-api/impot-particulier"
               ) %>
             </p>
+
             <div class="fr-grid-row fr-grid-row--center">
               <% @facade.public_available_forms.each do |authorization_request_form| %>
                 <div

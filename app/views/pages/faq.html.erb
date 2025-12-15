@@ -13,22 +13,26 @@
             <div class="fr-table__content">
               <table>
                 <thead>
-                <tr>
-                  <th>Nature de l’habilitation</th>
-                  <th>Contact</th>
-                </tr>
-                </thead>
-                <tbody>
-                <% AuthorizationDefinition.all.each do |authorization_definition| %>
                   <tr>
-                    <td><%= authorization_definition.name_with_stage %></td>
-                    <td>
-                      <a href="mailto:<%= authorization_definition.support_email %>?subject=Contact via la FAQ">
-                        Écrire à l’équipe
-                      </a>
-                    </td>
+                    <th>Nature de l’habilitation</th>
+                    <th>Contact</th>
                   </tr>
-                <% end %>
+                </thead>
+
+                <tbody>
+                  <% AuthorizationDefinition.all.each do |authorization_definition| %>
+                    <tr>
+                      <td><%= authorization_definition.name_with_stage %></td>
+
+                      <td>
+                        <a
+                          href="mailto:<%= authorization_definition.support_email %>?subject=Contact via la FAQ"
+                        >
+                          Écrire à l’équipe
+                        </a>
+                      </td>
+                    </tr>
+                  <% end %>
                 </tbody>
               </table>
             </div>
@@ -38,10 +42,14 @@
     <% end %>
 
     <%= dsfr_accordion "Comment puis-je modifier les coordonnées de mon compte ?", id: 'changement-contact' do %>
-      Si vous souhaitez modifier les coordonnées de votre compte (par exemple si cela vous a été demandé dans le cadre d’une demande d’habilitation), <%= link_to " rendez‑vous ici", profile_path %>.
+      Si vous souhaitez modifier les coordonnées de votre compte (par exemple
+      si cela vous a été demandé dans le cadre d’une demande d’habilitation),
+      <%= link_to " rendez‑vous ici", profile_path %>.
       <br>
       <br>
-      A Noter : Vous ne pouvez pas modifier l’adresse mail associé au compte. Si vous souhaitez utiliser une autre adresse mail, merci de <%= link_to "créer un nouveau compte", root_path %>.
+      A Noter: Vous ne pouvez pas modifier l’adresse mail associé au compte. Si
+      vous souhaitez utiliser une autre adresse mail, merci de
+      <%= link_to "créer un nouveau compte", root_path %>.
     <% end %>
 
     <%= dsfr_accordion "Puis-je rejoindre une autre organisation ?", id: 'ajout-siret' do %>
@@ -49,23 +57,34 @@
     <% end %>
 
     <%= dsfr_accordion "Puis-je demander une habilitation pour une organisation étrangère ?", id: 'organisation-etrangere' do %>
-      Non, DataPass ne permet de demander des habilitations juridiques que pour les organisations enregistrées auprès de l’INSEE.
+      Non, DataPass ne permet de demander des habilitations juridiques que pour
+      les organisations enregistrées auprès de l’INSEE.
     <% end %>
 
     <%= dsfr_accordion "Que signifie que \" le lien entre mon compte et mon organisation n’est pas vérifié \" ?", id: 'lien-organisation-non-verifie' do %>
-      DataPass utilise ProConnect pour authentifier ses usagers et les organisations auxquelles il est attaché. Ce service agrège un ensemble de fournisseurs d'identité pour effectuer son authentification, et se base sur le nom de domaine de l'email afin de déterminer quel fournisseur d'identité utiliser.
+      DataPass utilise ProConnect pour authentifier ses usagers et les
+      organisations auxquelles il est attaché. Ce service agrège un ensemble de
+      fournisseurs d'identité pour effectuer son authentification, et se base
+      sur le nom de domaine de l'email afin de déterminer quel fournisseur
+      d'identité utiliser.
       <br />
       <br />
-      En fonction du fournisseur d'identité, le numéro de SIRET fourni est parfois peu précis ou trop générique, ce qui a pour conséquence de rendre le lien entre le compte et l'organisation incertain.
+      En fonction du fournisseur d'identité, le numéro de SIRET fourni est
+      parfois peu précis ou trop générique, ce qui a pour conséquence de rendre
+      le lien entre le compte et l'organisation incertain.
       <br />
       <br />
-      Pour certains fournisseurs d'identités étatiques, nous proposons aux usagers de directement renseigner un numéro de SIRET pour se rattacher à une organisation et ainsi pouvoir tout de même déposer des demandes au profit de cette organisation. Dans ce cas, les instructeurs de demandes sont avertis que le lien n'est pas vérifié et qu'il faut être vigilant sur la légitimité du demandeur.
+      Pour certains fournisseurs d'identités étatiques, nous proposons aux
+      usagers de directement renseigner un numéro de SIRET pour se rattacher à
+      une organisation et ainsi pouvoir tout de même déposer des demandes au
+      profit de cette organisation. Dans ce cas, les instructeurs de demandes
+      sont avertis que le lien n'est pas vérifié et qu'il faut être vigilant
+      sur la légitimité du demandeur.
     <% end %>
 
     <%= dsfr_accordion "Je ne trouve pas la réponse à ma question.", id: 'contact' do %>
       Vous pouvez
-      <a href="mailto:<%= t("mailer.shared.support.email") %>?subject=Contact via la FAQ">nous poser votre question
-        directement</a>.
+      <a href="mailto:<%= t("mailer.shared.support.email") %>?subject=Contact via la FAQ">nous poser votre question directement</a>.
     <% end %>
   <% end %>
 </div>
