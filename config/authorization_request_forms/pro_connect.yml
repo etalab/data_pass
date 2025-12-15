@@ -2,10 +2,10 @@ pro-connect-fs: &pro_connect_common
   authorization_request: ProConnectServiceProvider
   steps:
     - name: basic_infos
-    - name: personal_data
     - name: legal
     - name: scopes
     - name: modalities
+    - name: personal_data
     - name: contacts
   initialize_with:
     cadre_juridique_nature: "La décision n°DINUM-202106-01 du 1er juin 2021"

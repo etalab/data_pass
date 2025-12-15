@@ -1,0 +1,57 @@
+<div class="fr-container fr-mt-5w">
+  <div class="fr-grid-row">
+    <div class="fr-col-md-8">
+      <div class="fr-alert fr-alert--info fr-mb-3w">
+        <p class="fr-alert__title"><%= t('.info.title') %></p>
+        <ul>
+          <li><%= t('.info.user_must_exist') %></li>
+          <li><%= t('.info.organization_must_exist') %></li>
+          <li><%= t('.info.user_must_belong_to_organization') %></li>
+        </ul>
+      </div>
+
+      <p>
+        <%= t('.metabase_link_html', link: link_to(
+          t('.metabase_link_text'),
+          "https://metabase.entreprise.api.gouv.fr/question/620?email=#{true_user.email}",
+          target: '_blank',
+          rel: 'noopener'
+        )) %>
+      </p>
+
+      <%= form_with url: admin_transfer_authorization_request_path, method: :post, local: true do |form| %>
+        <div class="fr-input-group">
+          <%= form.label :authorization_request_id, t('.form.authorization_request_id.label'), class: 'fr-label' %>
+          <%= form.text_field :authorization_request_id,
+                              value: params[:authorization_request_id],
+                              class: 'fr-input',
+                              required: true %>
+        </div>
+
+        <div class="fr-input-group">
+          <%= form.label :new_organization_siret, t('.form.new_organization_siret.label'), class: 'fr-label' %>
+          <span class="fr-hint-text"><%= t('.form.new_organization_siret.hint') %></span>
+          <%= form.text_field :new_organization_siret,
+                              value: params[:new_organization_siret],
+                              class: 'fr-input',
+                              required: true,
+                              maxlength: 14 %>
+        </div>
+
+        <div class="fr-input-group">
+          <%= form.label :new_applicant_email, t('.form.new_applicant_email.label'), class: 'fr-label' %>
+          <span class="fr-hint-text"><%= t('.form.new_applicant_email.hint') %></span>
+          <%= form.email_field :new_applicant_email,
+                               value: params[:new_applicant_email],
+                               class: 'fr-input',
+                               required: true %>
+        </div>
+
+        <div class="fr-btns-group">
+          <%= form.submit t('.form.submit'), class: 'fr-btn' %>
+          <%= link_to t('.form.cancel'), admin_path, class: 'fr-btn fr-btn--secondary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,40 +1,64 @@
-<%= namespace = @authorization_request.reopening? ? 'reopening' : 'initial' %>
+<% namespace = @authorization_request.reopening? ? 'reopening' : 'initial' %>
 
 <div class="simple-page-action-wrapper fr-pt-5w">
   <div class="fr-grid-row fr-grid-row--center">
     <div class="fr-col-md-offset-1 fr-col-md-10">
       <turbo-frame id="main-modal-content">
-        <%= form_with(model: @denial_of_authorization, url: instruction_authorization_request_refusal_index_path(@authorization_request), data: { turbo_frame: 'main-modal-content' }) do |f| %>
-          <div class="fr-modal__content">
-            <h1 class="fr-modal__title">
-              <%= t(".#{namespace}.title", authorization_request_name: @authorization_request.name) %>
-            </h1>
+        <div data-modal-size="large">
+          <%= form_with(model: @denial_of_authorization, url: instruction_authorization_request_refusal_index_path(@authorization_request), data: { turbo_frame: 'main-modal-content' }) do |f| %>
+            <div class="fr-modal__content">
+              <h1 class="fr-modal__title">
+                <%= t(".#{namespace}.title", authorization_request_name: @authorization_request.name) %>
+              </h1>
 
-            <p>
-              <%=
-                t(
-                  ".#{namespace}.description.organization",
-                  authorization_request_name: sanitize(@authorization_request.name),
-                  organization_name: @authorization_request.organization.name,
-                  organization_siret: @authorization_request.organization.siret,
-                )
-              %>
-            </p>
+              <p>
+                <%=
+                  t(
+                    ".#{namespace}.description.organization",
+                    authorization_request_name: sanitize(@authorization_request.name),
+                    organization_name: @authorization_request.organization.name,
+                    organization_siret: @authorization_request.organization.siret,
+                  )
+                %>
+              </p>
 
-            <p>
-              <%= t(".#{namespace}.description.disclaimer").html_safe %>
-            </p>
+              <p>
+                <%= t(".#{namespace}.description.disclaimer").html_safe %>
+              </p>
 
-            <%= f.dsfr_text_area :reason %>
-          </div>
+              <div data-controller="message-template-selector"
+                   data-message-template-selector-templates-value="<%= @message_templates.map { |t| { id: t.id, content: t.content } }.to_json %>"
+                   data-message-template-selector-authorization-request-data-value="<%= { demande_url: authorization_request_url(@authorization_request), demande_intitule: @authorization_request.intitule, demande_id: @authorization_request.id }.to_json %>">
+                <% if @message_templates.any? %>
+                  <div class="fr-mb-2w">
+                    <ul class="fr-tabs__list messages-templates-selector" role="tablist">
+                      <% @message_templates.each do |template| %>
+                        <li role="presentation">
+                          <button class="fr-tabs__tab"
+                                  type="button"
+                                  role="tab"
+                                  data-template-id="<%= template.id %>"
+                                  data-action="click->message-template-selector#applyTemplate">
+                            <%= template.title %>
+                          </button>
+                        </li>
+                      <% end %>
+                    </ul>
+                  </div>
+                <% end %>
 
-          <div class="fr-modal__footer">
-            <div class="fr-btns-group fr-btns-group--right fr-btns-group--inline-reverse fr-btns-group--inline-lg fr-btns-group--icon-left">
-              <%= link_to t(".#{namespace}.cancel"), '#', class: %w(fr-btn fr-btn--secondary), aria: { controls: 'main-modal' } %>
-              <%= f.button t(".#{namespace}.refuse"), type: :submit, class: %w(fr-btn fr-btn--primary fr-icon-error-line fr-btn--icon-left) %>
+                <%= f.dsfr_text_area :reason, required: true, rows: 6, data: { message_template_selector_target: 'textarea' } %>
+              </div>
             </div>
-          </div>
-        <% end %>
+
+            <div class="fr-modal__footer">
+              <div class="fr-btns-group fr-btns-group--right fr-btns-group--inline-reverse fr-btns-group--inline-lg fr-btns-group--icon-left">
+                <%= link_to t(".#{namespace}.cancel"), '#', class: %w(fr-btn fr-btn--secondary), aria: { controls: 'main-modal' } %>
+                <%= f.button t(".#{namespace}.refuse"), type: :submit, class: %w(fr-btn fr-btn--primary fr-icon-error-line fr-btn--icon-left) %>
+              </div>
+            </div>
+          <% end %>
+        </div>
       </turbo-frame>
     </div>
   </div>

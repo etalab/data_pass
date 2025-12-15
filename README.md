@@ -41,7 +41,7 @@ les seeds disponible [ici](app/lib/seeds.rb)
 
 # Requirements
 
-- ruby 3.4.1
+- ruby 3.4.7
 - postgresql >= 13
 - (optional) npm (for [standardjs](https://standardjs.com/) and [prettier](https://prettier.io/))
 
@@ -49,6 +49,11 @@ les seeds disponible [ici](app/lib/seeds.rb)
 
 Ask for the sandbox/staging/production master key to a colleague
 (`config/credentials/*.key`)
+
+You also need to setup environment variables, you can copy from
+`config/env.example` within `.env.local` file and change them as needed.
+There are not mandatory to run most of the features, only for INSEE fetching
+for instructor drafts.
 
 With docker:
 
@@ -183,7 +188,7 @@ bin/stream-remote-logs
 Check [this link](./docs/README.md)
 
 - [Conception technique/métier](./docs/conception.md)
-- [Ajout d'un nouveau fournisseur](./docs/new_provider.md)
+- [Ajout d'un nouveau fournisseur](./docs/nouveau_type_d_habilitation.md)
 - [Design System](./docs/design.md)
 - [Migration de l'ancienne stack](./app/migration/)
 

@@ -3,6 +3,10 @@ class AuthorizationRequestDecorator < ApplicationDecorator # rubocop:disable Met
 
   decorates_association :organization
 
+  def intitule
+    object.data['intitule']
+  end
+
   def to_partial_path
     'authorization_requests/card'
   end
@@ -11,7 +15,13 @@ class AuthorizationRequestDecorator < ApplicationDecorator # rubocop:disable Met
     if reopening_validated?
       t('authorization_requests.card.created_and_updated_at', created_date: l(created_at, format: '%d/%m/%Y'), updated_date: l(latest_authorization.created_at, format: '%d/%m/%Y'))
     elsif reopening?
-      t('authorization_requests.card.reopened_at', reopened_date: l(reopened_at, format: '%d/%m/%Y'))
+      # FRIDAY'S SHAMELESS BUGFIX
+      reopened_date = if reopened_at
+                        l(reopened_at, format: '%d/%m/%Y')
+                      else
+                        '-'
+                      end
+      t('authorization_requests.card.reopened_at', reopened_date:)
     else
       t('authorization_requests.card.created_at', created_date: l(created_at, format: '%d/%m/%Y'))
     end
@@ -185,6 +195,8 @@ class AuthorizationRequestDecorator < ApplicationDecorator # rubocop:disable Met
   end
 
   def france_connect_authorizations
+    return [] if organization.blank?
+
     organization.valid_authorizations_of(AuthorizationRequest::FranceConnect).map(&:decorate)
   end
 

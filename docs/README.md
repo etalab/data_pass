@@ -1,12 +1,17 @@
 # Documentations
 
 * [Conception technique/métier](./conception.md)
-* [Ajout d'un nouveau fournisseur (technique)](./new_provider.md)
+* [Ajout d'un nouveau Data Provider (fournisseur de données)](./ajout_nouveau_provider.md)
+* [Ajout d'une nouvelle habilitation complète (technique)](./nouveau_type_d_habilitation.md)
 * [Design System (installation, explication techniauqes)](./design.md)
 * [Migration de l'ancienne stack (v1 -> v2)](./../app/migration/)
 * [Ajout d'un nouveau formulaire (métier)](./ajout_nouveau_form_non_tech.md)
 * [Ajout d'un nouvel événement (technique)](./ajout_evenement.md)
+* [Brouillons de demandes initiés par les instructeurs](./brouillons_instructeurs.md)
 * [Webhooks](./webhooks.md)
 * [Guide sur les scopes](./modification_scopes.md)
 * [Configuration des scopes de formulaire (scopes_config)](./scopes_config.md)
 * [Utiliser notre API](./api.md)
+* [Modal dynamique (technique)](./technique/modal.md)
+* [Templates de messages pour l'instruction](./templates_messages.md)
+* [Brouillons de demandes initiés par les instructeurs](./brouillons_instructeurs.md)

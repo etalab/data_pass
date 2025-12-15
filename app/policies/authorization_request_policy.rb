@@ -9,6 +9,7 @@ class AuthorizationRequestPolicy < ApplicationPolicy
   def summary?
     if same_user_and_organization?
       !record.draft? ||
+        record.reopening? ||
         review_authorization_request.success?
     elsif same_current_organization? && user.current_organization_verified?
       true

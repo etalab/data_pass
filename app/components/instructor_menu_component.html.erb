@@ -1,0 +1,21 @@
+<li class="fr-nav__item">
+  <a class="fr-nav__link center" href="<%= instruction_demandes_path %>" target="_self">
+    <%= t('layouts.header.menu.instruction.authorizations_and_requests') %>
+  </a>
+</li>
+
+<% if show_drafts %>
+  <li class="fr-nav__item">
+    <a class="fr-nav__link center" href="<%= instruction_instructor_draft_requests_path %>" target="_self">
+      <%= t('layouts.header.menu.instruction.instructor_authorization_requests') %>
+    </a>
+  </li>
+<% end %>
+
+<% if show_templates %>
+  <li class="fr-nav__item">
+    <a class="fr-nav__link center" href="<%= instruction_message_templates_path %>" target="_self">
+      <%= t('layouts.header.menu.instruction.message_templates') %>
+    </a>
+  </li>
+<% end %>

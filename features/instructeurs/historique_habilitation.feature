@@ -38,8 +38,8 @@ Fonctionnalité: Instruction: historique habilitation
     Et que je me rends sur mon tableau de bord instructeur
     Et que je clique sur "Consulter"
     Et que je clique sur "Historique"
-    Alors la page contient "Le champ Nom du projet a changé de \"Demande d'accès à la plateforme fournisseur\" en \"Nouvelle valeur de titre\""
-    Et la page contient "Le champ Description du projet a changé de \"Description de la demande\" en \"Nouvelle valeur de description\""
+    Alors la page contient "Le champ Nom du projet a changé de « Demande d'accès à la plateforme fournisseur » en « Nouvelle valeur de titre »"
+    Et la page contient "Le champ Description du projet a changé de « Description de la demande » en « Nouvelle valeur de description »"
 
   @DisableBullet
   Scénario: Je vois un message simple indiquant la soumission d'une demande après une instruction, sans modification du demandeur

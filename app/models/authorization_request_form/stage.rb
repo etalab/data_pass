@@ -8,18 +8,13 @@ class AuthorizationRequestForm::Stage
     return nil unless definition.previous_stage?
 
     @previous_form_uid ||
-      previous_default_form&.uid ||
-      previous_first_available_form.uid
+      previous_default_form.uid
   end
 
   private
 
   def previous_default_form
-    previous_stage_definition.available_forms.find(&:default)
-  end
-
-  def previous_first_available_form
-    previous_stage_definition.available_forms.first
+    previous_stage_definition.default_form
   end
 
   def previous_stage_definition

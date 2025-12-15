@@ -1,0 +1,26 @@
+#!/bin/bash
+
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 <feature-name>"
+    exit 1
+fi
+
+feature=$1
+folder=../data_pass_$feature
+db_suffix=`echo $feature | tr '/-' '_'`
+
+echo "Prepare worktree for $feature within $folder"
+
+git worktree add $folder -b feature/$feature
+cp -r .claude $folder/.claude
+cp .env.local $folder/.env.local
+cd $folder
+
+touch .env.local
+echo "DATABASE_DEVELOPMENT_NAME=data_pass_development_$1" >> .env.local
+echo "DATABASE_TEST_NAME=data_pass_test_$1" >> .env.local
+rails db:create
+rails db:schema:load
+rails db:seed:replant
+
+echo "Ready ✅"

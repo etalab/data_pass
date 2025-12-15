@@ -38,6 +38,7 @@ Fonctionnalité: Instruction: modération
   @FlushJobQueue
   Scénario: Je valide une demande d'habilitation qui déclenche un webhook
     Sachant que je suis un instructeur "API Entreprise"
+    Et qu'il existe un webhook activé pour "API Entreprise" avec l'URL "https://webhook.site/test"
     Quand je me rends sur une demande d'habilitation "API Entreprise" à modérer
     Et je clique sur "Valider"
     Et je clique sur "Valider la demande d'habilitation"
@@ -57,6 +58,7 @@ Fonctionnalité: Instruction: modération
   @FlushJobQueue
   Scénario: Je refuse une demande d'habilitation qui déclenche un webhook
     Sachant que je suis un instructeur "API Entreprise"
+    Et qu'il existe un webhook activé pour "API Entreprise" avec l'URL "https://webhook.site/test"
     Quand je me rends sur une demande d'habilitation "API Entreprise" à modérer
     Et je clique sur "Refuser"
     Et que je remplis "Raison du refus" avec "Vous êtes une entreprise privée"
@@ -83,6 +85,7 @@ Fonctionnalité: Instruction: modération
   @FlushJobQueue
   Scénario: Je demande des modifications sur une demande d'habilitation qui déclenche un webhook
     Sachant que je suis un instructeur "API Entreprise"
+    Et qu'il existe un webhook activé pour "API Entreprise" avec l'URL "https://webhook.site/test"
     Quand je me rends sur une demande d'habilitation "API Entreprise" à modérer
     Et je clique sur "Demander des modifications"
     Et que je remplis "Raison de la demande de modification" avec "Précisez votre cas d'usage"
@@ -105,6 +108,7 @@ Fonctionnalité: Instruction: modération
   @FlushJobQueue
   Scénario: Je supprime une demande d'habilitation qui déclenche un webhook
     Sachant que je suis un instructeur "API Entreprise"
+    Et qu'il existe un webhook activé pour "API Entreprise" avec l'URL "https://webhook.site/test"
     Quand je me rends sur une demande d'habilitation "API Entreprise" en brouillon
     Et je clique sur "Supprimer"
     Et je clique sur "Supprimer la demande"

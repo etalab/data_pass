@@ -10,8 +10,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
     * je renseigne les infos de bases du projet
     * je clique sur "Suivant"
 
-    * je renseigne les infos concernant les données personnelles
-    * je clique sur "Suivant"
 
     * je renseigne le cadre légal
     * je clique sur "Suivant"
@@ -25,6 +23,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
     * je remplis "Ajoutez le fichier d’expression de vos besoins" avec le fichier "spec/fixtures/dummy.xlsx"
     * je clique sur "Suivant"
 
-    Alors la page contient "Les personnes impliquées"
+    Alors la page contient "Le traitement des données personnelles"
 
 

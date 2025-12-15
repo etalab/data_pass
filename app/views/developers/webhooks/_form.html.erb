@@ -1,0 +1,54 @@
+<div class="fr-container">
+  <div class="fr-grid-row">
+    <div class="fr-col-12 fr-col-md-8" id="webhook-form">
+      <%= form_with(model: @webhook, url: @webhook.persisted? ? developers_webhook_path(@webhook) : developers_webhooks_path, builder: DSFRFormBuilder) do |f| %>
+        <% if @webhook.errors.any? %>
+          <div class="fr-alert fr-alert--error fr-mb-4w">
+            <h3 class="fr-alert__title"><%= t('errors.messages.form_errors', count: @webhook.errors.count) %></h3>
+            <ul>
+              <% @webhook.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <%= f.dsfr_select :authorization_definition_id,
+          @authorization_definitions.map { |d| [d.name, d.id] },
+          { required: true, input_options: { disabled: @webhook.persisted? } } %>
+
+        <%= f.dsfr_url_field :url, required: true, placeholder: 'https://example.com/webhook' %>
+
+        <fieldset class="fr-fieldset">
+          <legend class="fr-fieldset__legend fr-fieldset__legend--regular">
+            <%= t('.events_label') %>
+            <span class="fr-hint-text"><%= t('.events_hint') %></span>
+          </legend>
+
+          <div class="fr-fieldset__content">
+            <% Webhook::VALID_EVENTS.each do |event| %>
+              <div class="fr-checkbox-group">
+                <%= check_box_tag "webhook[events][]", event, @webhook.events&.include?(event), id: "webhook_events_#{event}", class: 'fr-checkbox' %>
+                <%= label_tag "webhook_events_#{event}", t("webhooks.events.#{event}", default: event), class: 'fr-label' %>
+              </div>
+            <% end %>
+          </div>
+        </fieldset>
+
+        <div class="fr-mt-4w">
+          <%= f.submit @webhook.persisted? ? t('.submit.update') : t('.submit.create'), class: %w[fr-btn] %>
+          <%= link_to t('.cancel'), developers_webhooks_path, class: %w[fr-btn fr-btn--secondary] %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="fr-col-12 fr-col-md-4 fr-pl-4w">
+      <div class="fr-callout">
+        <h3 class="fr-callout__title"><%= t('.help_title') %></h3>
+        <p class="fr-callout__text">
+          <%= t('.help_text_html') %>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

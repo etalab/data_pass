@@ -38,7 +38,7 @@ Quand(/je clique sur (le (?:dernier|premier) )?"([^"]+)"\s*$/) do |position, lab
 end
 
 Alors('la page contient {string}') do |content|
-  expect(page).to have_content(content)
+  expect(page).to have_content(content, normalize_ws: true)
 end
 
 Alors('la page contient un lien vers {string}') do |domain|
@@ -63,6 +63,11 @@ end
 
 Alors('le titre de la page contient {string}') do |text|
   expect(page.title.gsub('  ', ' ')).to include text
+end
+
+Alors('le titre de la page est {string}') do |expected_title|
+  actual_title = page.title.gsub(/\s+/, ' ').strip
+  expect(actual_title).to eq(expected_title)
 end
 
 Quand('je remplis {string} avec {string}') do |label, value|
@@ -283,6 +288,10 @@ Alors('un champ contient {string}') do |text|
   expect(all('input').any? { |input| input.value == text }).to be_truthy, "Expected to find a field with value '#{text}'"
 end
 
+Alors('le champ {string} contient {string}') do |label, text|
+  expect(page).to have_field(label, with: text)
+end
+
 Alors('le champ {string} est rempli') do |label|
   expect(page).to have_field(label, with: /.+/)
 end
@@ -297,4 +306,8 @@ end
 
 Alors('le lien de téléchargement de pièce jointe est désactivé') do
   expect(page).to have_css('a[aria-disabled="true"]', text: 'dummy.pdf')
+end
+
+Quand("j'ouvre l'accordéon {string}") do |accordion_title|
+  find('.fr-accordion__btn', text: accordion_title).click
 end

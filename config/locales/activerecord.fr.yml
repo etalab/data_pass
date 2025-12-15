@@ -26,6 +26,10 @@ fr:
         code_naf_with_libelle: Code NAF
       message:
         body: Corps du message
+      webhook:
+        url: URL de destination
+        authorization_definition_id: Service
+        events: Événements à écouter
       authorization_request:
         terms_of_service_accepted: J’ai pris connaissance des conditions générales d’utilisation et je les valide.
         data_protection_officer_informed: Je confirme que le délégué à la protection des données de mon organisation est informé de ma demande.
@@ -109,7 +113,6 @@ fr:
       authorization_request/pro_connect_identity_provider:
         authorize_service_providers_to_connect: J’autorise tous les fournisseurs de services de la fonction publique à utiliser les données transmises par ProConnect pour procéder à l’authentification de leurs utilisateurs.
 
-
       denial_of_authorization:
         reason: Raison du refus
       revocation_of_authorization:
@@ -121,11 +124,33 @@ fr:
       authorization_request_transfer:
         to: Email du nouveau demandeur
 
+      message_template:
+        authorization_definition_uid: Type d'habilitation
+        title: Titre
+        template_type: Type de modèle
+        content: Contenu
+
       impersonation:
         admin: Administrateur
         user: Usager
 
+      instructor_draft_request:
+        applicant_email: Adresse email du demandeur
+        organization_siret: Numéro de SIRET de l'organisation
+        comment: Note associée à l'invitation
+
+    hints:
+      france_connect:
+        contact_technique_phone_number: Le numéro de téléphone doit être un numéro de portable
+      message_template:
+        title: "Privilégiez un titre court et explicite"
+        content: "Variables disponibles : %{demande_url}, %{demande_intitule}, %{demande_id}"
+
     values:
+      message_template:
+        template_type:
+          refusal: Refus
+          modification_request: Demande de modifications
       authorization_request:
         france_connect_eidas:
           eidas_1: 'FranceConnect : eIDAS 1'
@@ -155,13 +180,18 @@ fr:
         authorization_request/api_impot_particulier_sandbox: &api_impot_particulier_errors
           attributes:
             scopes:
-              scopes_compatibility: 'sont invalides : Des données incompatibles entre elles ont été cochées. Pour connaître les modalités d’appel et de réponse de l’API Impôt particulier ainsi que les données proposées, vous pouvez consulter la documentation dans la rubrique "mode de fonctionnement de l’API Impôt Particulier"'
+              scopes_compatibility: "sont invalides : Des données incompatibles entre elles ont été cochées. Pour connaître les modalités d’appel et de réponse de l’API Impôt particulier ainsi que les données proposées, vous pouvez consulter la documentation dans la rubrique « mode de fonctionnement de l’API Impôt Particulier »"
               revenue_years_scopes_compatibility: "sont invalides : Vous ne pouvez pas sélectionner la donnée 'Avant-dernière année de revenu, si la dernière année de revenu est indisponible' avec d'autres années de revenus"
               at_least_one_revenue_year_has_been_selected: 'sont invalides : Vous devez cocher au moins une année de revenus souhaitée avant de continuer'
               lep_scope_exclusivity: "sont invalides : La donnée d’indicateur d’éligibilité au LEP ne peut être demandée que seule. Veuillez décocher cette case, ou décocher toutes les autres si vous souhaitez vérifier l’éligibilité au LEP."
         authorization_request/api_impot_particulier: *api_impot_particulier_errors
         authorization_request/api_sfip_sandbox: *api_impot_particulier_errors
         authorization_request/api_sfip: *api_impot_particulier_errors
+        message_template:
+          max_templates_reached: "Vous ne pouvez pas créer plus de %{count} modèles."
+          attributes:
+            content:
+              invalid_variables: "contient des variables invalides"
         impersonation:
           attributes:
             user:

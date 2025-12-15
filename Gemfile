@@ -1,9 +1,10 @@
 source 'https://rubygems.org'
 
-ruby '3.4.1'
+ruby '3.4.7'
 
+gem 'active_hash'
 gem 'active_model_validates_intersection_of'
-gem 'active_model_serializers', '~> 0.10.15'
+gem 'active_model_serializers', '~> 0.10.16'
 gem 'active_storage_validations'
 gem 'caxlsx'
 gem 'aws-sdk-s3', require: false
@@ -23,7 +24,7 @@ gem 'faraday-multipart'
 gem 'faraday-net_http'
 gem 'faraday-retry'
 gem 'faraday-gzip'
-gem 'friendly_id', '~> 5.5.0'
+gem 'friendly_id', '~> 5.6.0'
 gem 'gaffe'
 gem 'good_job', '~> 3.99'
 gem 'hubspot-api-client'
@@ -40,7 +41,7 @@ gem 'propshaft'
 gem 'puma', '>= 5.0'
 gem 'pundit'
 gem 'ransack'
-gem 'rails', '~> 8.0'
+gem 'rails', '~> 8.1'
 gem 'rails-i18n'
 gem 'redis', '>= 4.0.1'
 gem 'sentry-ruby'
@@ -50,7 +51,7 @@ gem 'state_machines-activerecord'
 gem 'stimulus-rails'
 gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[ windows jruby ]
-gem 'uri', '1.0.3'
+gem 'uri', '1.1.1'
 gem "view_component"
 gem 'wicked'
 
@@ -65,6 +66,10 @@ group :development, :test do
   gem 'guard-cucumber'
   gem 'guard-rspec'
   gem 'i18n-tasks'
+end
+
+group :development, :sandbox do
+  gem 'lookbook'
 end
 
 group :development do

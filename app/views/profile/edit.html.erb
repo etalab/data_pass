@@ -1,3 +1,5 @@
+<% set_title! t('page_titles.profile') %>
+
 <% content_for :content_skip_link_text do %>
   Votre compte
 <% end %>
@@ -27,10 +29,10 @@
         </h2>
         <div class="fr-grid-row fr-grid-row--gutters">
           <div class="fr-col">
-            <%= link_to t('.developer.applications_link'), oauth_applications_path, class: 'fr-btn fr-mr-2w' %>
+            <%= link_to t('.developer.index_link'), developers_root_path, class: 'fr-btn fr-mr-2w' %>
           </div>
           <div class="fr-col">
-            <%= link_to t('.developer.documentation_link'), developpeurs_documentation_path, class: 'fr-btn fr-btn--secondary' %>
+            <%= link_to t('.developer.documentation_link'), developers_documentation_path, class: 'fr-btn fr-btn--secondary' %>
           </div>
         </div>
       </div>

@@ -9,10 +9,10 @@ api-particulier:
   authorization_request: APIParticulier
   steps:
     - name: basic_infos
-    - name: personal_data
     - name: legal
     - name: modalities
     - name: scopes
+    - name: personal_data
     - name: contacts
 
 # Editeur (cas 2)
@@ -1218,6 +1218,7 @@ api-particulier-jvs-mairistem:
     contact_technique_job_title: Contact technique
     modalities:
       - params
+      - formulaire_qf
 
 api-particulier-ccas-paxtel:
   name: Paxtel
@@ -1830,6 +1831,108 @@ api-particulier-sigec-maelis:
     contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_sigec_contact_technique_phone_number || '0836656565' %>"
     contact_technique_job_title: Contact technique
 
+api-particulier-arpege-concerto-petite-enfance:
+  name: Concerto Petite enfance
+  description: Tarification PSU dans les établissements d'acceuil du jeune enfant
+  authorization_request: APIParticulier
+  use_case: tarification_eaje
+  service_provider_id: arpege
+  introduction: *api_particulier_introduction_editor_with_fixed_scopes
+  steps: *api_particulier_editor_steps_with_fixed_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
+  scopes_config:
+    disabled:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+    displayed:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+  initialize_with:
+    intitule: Tarification des services municipaux liés à la petite enfance
+    description: |
+      Gestion de la tarification des établissement d'acceuil du jeune enfant en backoffice par des agents habilités
+    cadre_juridique_nature: "\n- Cadre légal général  L'article L114-8 du Code des relations entre le public et l’administration qui fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Délibération.[À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]"
+    scopes:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+    modalities:
+      - params
+
+api-particulier-aiga-petite-enfance:
+  name: iNoé | Malice Petite enfance
+  description: Tarification PSU dans les établissements d'acceuil du jeune enfant
+  authorization_request: APIParticulier
+  use_case: tarification_eaje
+  service_provider_id: aiga
+  introduction: *api_particulier_introduction_editor_with_fixed_scopes
+  steps: *api_particulier_editor_steps_with_fixed_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
+  scopes_config:
+    disabled:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+    displayed:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+  initialize_with:
+    intitule: Tarification des services municipaux liés à la petite enfance
+    description: |
+      Gestion de la tarification des établissement d'acceuil du jeune enfant en backoffice par des agents habilités
+    cadre_juridique_nature: Cadre légal général L'article L114-8 du Code des relations entre le public et l’administration qui fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Délibération.[À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]"_eaje
+    scopes:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+    contact_technique_type: "organization"
+    contact_technique_email: "api-particulier@aiga.fr"
+    contact_technique_phone_number: "0472532200"
+    modalities:
+      - params
+
+api-particulier-teamnet-axel-petite-enfance:
+  name: Axel petite enfance
+  description: Tarification PSU dans les établissements d'acceuil du jeune enfant
+  authorization_request: APIParticulier
+  use_case: tarification_eaje
+  service_provider_id: teamnet
+  introduction: *api_particulier_introduction_editor_with_fixed_scopes
+  steps: *api_particulier_editor_steps_with_fixed_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
+  scopes_config:
+    disabled:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+    displayed:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+  initialize_with:
+    intitule: Tarification des services municipaux liés à la petite enfance
+    description: |
+      Gestion de la tarification des établissement d'acceuil du jeune enfant en backoffice par des agents habilités
+    cadre_juridique_nature: Cadre légal général L'article L114-8 du Code des relations entre le public et l’administration qui fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Délibération.[À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]"_eaje
+    scopes:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+    modalities:
+      - params
+
 # Formulaires cas d'usage génériques
 api-particulier-tarification-municipale-enfance:
   name: Tarification sociale des services municipaux à l’enfance
@@ -1842,9 +1945,9 @@ api-particulier-tarification-municipale-enfance:
     - name: modalities
   steps:
     - name: basic_infos
-    - name: personal_data
     - name: legal
     - name: scopes
+    - name: personal_data
     - name: contacts
   initialize_with:
     intitule: Tarification sociale des services municipaux à l’enfance
@@ -1861,10 +1964,10 @@ api-particulier-aides-facultatives-regionales:
     En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier l'attribution des <strong>"Aides facultatives régionales"</strong>. <a href="https://particulier.api.gouv.fr/cas_usages/aides_facultatives">En savoir plus sur ce cas d'usage</a>.
   steps:
     - name: basic_infos
-    - name: personal_data
     - name: legal
     - name: modalities
     - name: scopes
+    - name: personal_data
     - name: contacts
   initialize_with:
     intitule: Aides facultatives régionales
@@ -1879,10 +1982,10 @@ api-particulier-aides-facultatives-departementales:
     En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier l'attribution des <strong>"Aides facultatives départementales"</strong>. <a href="https://particulier.api.gouv.fr/cas_usages/aides_facultatives">En savoir plus sur ce cas d'usage</a>.
   steps:
     - name: basic_infos
-    - name: personal_data
     - name: legal
     - name: modalities
     - name: scopes
+    - name: personal_data
     - name: contacts
   initialize_with:
     intitule: Aides facultatives départementales
@@ -1903,10 +2006,10 @@ api-particulier-tarification-cantines-lycees:
       - men_echelon_bourse
   steps:
     - name: basic_infos
-    - name: personal_data
     - name: legal
     - name: modalities
     - name: scopes
+    - name: personal_data
     - name: contacts
   initialize_with:
     intitule: Tarification cantine lycées
@@ -1929,10 +2032,10 @@ api-particulier-tarification-cantines-colleges:
       - men_echelon_bourse
   steps:
     - name: basic_infos
-    - name: personal_data
     - name: legal
     - name: modalities
     - name: scopes
+    - name: personal_data
     - name: contacts
   initialize_with:
     intitule: Tarification cantine collèges
@@ -1952,9 +2055,9 @@ api-particulier-aides-sociales-ccas:
     ⚠️ Ce cas d'usage s'adresse uniquement Centres communaux d’action sociale (CCAS).
   steps:
     - name: basic_infos
-    - name: personal_data
     - name: modalities
     - name: scopes
+    - name: personal_data
     - name: contacts
   static_blocks:
     - name: legal
@@ -1977,10 +2080,10 @@ api-particulier-aides-sociales-ccas-dont-facultatives:
     <strong>⚠️ Ce cas d'usage s'adresse uniquement Centres communaux d’action sociale (CCAS).</strong>
   steps:
     - name: basic_infos
-    - name: personal_data
     - name: legal
     - name: modalities
     - name: scopes
+    - name: personal_data
     - name: contacts
   initialize_with:
     intitule: Aides sociales des CCAS dont aides facultatives
@@ -2000,10 +2103,10 @@ api-particulier-tarification-transports:
     <strong>⚠️ Ce cas d'usage s'adresse uniquement aux autorités organisatrices de la mobilité (AOM).</strong>
   steps:
     - name: basic_infos
-    - name: personal_data
     - name: legal
     - name: modalities
     - name: scopes
+    - name: personal_data
     - name: contacts
   scopes_config:
     disabled:
@@ -2052,10 +2155,10 @@ api-particulier-gestion-rh-secteur-public:
     En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier la <strong>"Gestion RH du secteur public"</strong>. <a href="https://particulier.api.gouv.fr/cas_usages/tarification_transports">En savoir plus sur ce cas d'usage</a>.
   steps:
     - name: basic_infos
-    - name: personal_data
     - name: legal
     - name: modalities
     - name: scopes
+    - name: personal_data
     - name: contacts
   scopes_config:
     disabled:
@@ -2095,3 +2198,221 @@ api-particulier-gestion-rh-secteur-public:
       - mesri_admission_regime_formation
       - mesri_admission_commune_etudes
       - mesri_admission_etablissement_etudes
+
+api-particulier-stationnement-residentiel:
+  name: Gestion du stationnement résidentiel
+  description: Collectivités, simplifiez les démarches des résidents en calculant la tarification pour l’abonnement et le droit au stationnement résidentiel à un tarif préférentiel
+  authorization_request: APIParticulier
+  use_case: stationnement_residentiel
+  introduction: |
+    En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier la <strong>"l'abonnement et le droit au stationnement résidentiel"</strong>. <a href="https://particulier.api.gouv.fr/cas_usages/stationnement-residentiel">En savoir plus sur ce cas d'usage</a>.
+  steps:
+    - name: basic_infos
+    - name: legal
+    - name: modalities
+    - name: scopes
+    - name: personal_data
+    - name: contacts
+  scopes_config:
+    disabled:
+      - ants_extrait_immatriculation_vehicule_identite_particulier
+      - ants_extrait_immatriculation_vehicule_adresse_particulier
+      - ants_extrait_immatriculation_vehicule_statut_rattachement
+      - ants_extrait_immatriculation_vehicule_donnees_immatriculation_vehicule
+      - API Extrait d'immatriculation de véhicule
+    displayed:
+      - cnaf_quotient_familial
+      - mesri_identite
+      - mesri_admission_inscrit
+  initialize_with:
+    intitule: Gestion du stationnement résidentiel
+    cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager."
+
+api-particulier-tarification-eaje:
+  name: Tarification sociale des services municipaux à la petite enfance
+  description: Communes et établissements d'accueil du jeune enfant, calculez automatiquement la participation familiale dans les établissement d'accueil du jeune enfant (eaje) basée sur la prestation de service unique (PSU)
+  authorization_request: APIParticulier
+  use_case: tarification_eaje
+  introduction: |
+    En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier la <strong>"Tarification sociale dans les établissements d'accueil du jeune enfant"</strong>.
+  static_blocks:
+    - name: modalities
+  steps:
+    - name: basic_infos
+    - name: legal
+    - name: scopes
+    - name: personal_data
+    - name: contacts
+  initialize_with:
+    intitule: Tarification sociale des établissements d'accueil du jeune enfant
+    cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l'administration qui fixe le cadre général qui oblige l'administration à échanger des données lors d'une démarche d'un usager.\r\n- Délibération.[À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]"
+    scopes:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+
+api-particulier-technocarte-babicarte:
+  name: Babicarte Petite enfance
+  description: Tarification PSU dans les établissements d'acceuil du jeune enfant
+  authorization_request: APIParticulier
+  use_case: tarification_eaje
+  service_provider_id: technocarte
+  introduction: *api_particulier_introduction_editor_with_fixed_scopes
+  steps: *api_particulier_editor_steps_with_fixed_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
+  scopes_config:
+    disabled:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+    displayed:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+  initialize_with:
+    intitule: Tarification des services municipaux liés à la petite enfance
+    description: |
+      Gestion de la tarification des établissement d'acceuil du jeune enfant par des agents habilités
+    cadre_juridique_nature: "\n- Cadre légal général  L'article L114-8 du Code des relations entre le public et l'administration qui fixe le cadre général qui oblige l'administration à échanger des données lors d'une démarche d'un usager.\r\n- Délibération.[À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]"
+    scopes:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+    modalities:
+      - params
+
+api-particulier-sigec-maelis-petite-enfance:
+  name: Maelis Petite enfance
+  description: Tarification PSU dans les établissements d'acceuil du jeune enfant
+  authorization_request: APIParticulier
+  use_case: tarification_eaje
+  service_provider_id: sigec
+  introduction: *api_particulier_introduction_editor_with_fixed_scopes
+  steps: *api_particulier_editor_steps_with_fixed_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
+  scopes_config:
+    disabled:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+    displayed:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+  initialize_with:
+    intitule: Tarification des services municipaux liés à la petite enfance
+    description: |
+      Gestion de la tarification des établissement d'acceuil du jeune enfant par des agents habilités
+    cadre_juridique_nature: "\n- Cadre légal général  L'article L114-8 du Code des relations entre le public et l'administration qui fixe le cadre général qui oblige l'administration à échanger des données lors d'une démarche d'un usager.\r\n- Délibération.[À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]"
+    scopes:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+    modalities:
+      - params
+
+api-particulier-city-family-mushroom-software-petite-enfance:
+  name: City Family Petite enfance
+  description: Tarification PSU dans les établissements d'acceuil du jeune enfant
+  authorization_request: APIParticulier
+  use_case: tarification_eaje
+  service_provider_id: mushroom_software
+  introduction: *api_particulier_introduction_editor_with_fixed_scopes
+  steps: *api_particulier_editor_steps_with_fixed_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
+  scopes_config:
+    disabled:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+    displayed:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+  initialize_with:
+    intitule: Tarification des services municipaux liés à la petite enfance
+    description: |
+      Gestion de la tarification des établissement d'acceuil du jeune enfant par des agents habilités
+    cadre_juridique_nature: "\n- Cadre légal général  L'article L114-8 du Code des relations entre le public et l'administration qui fixe le cadre général qui oblige l'administration à échanger des données lors d'une démarche d'un usager.\r\n- Délibération.[À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]"
+    scopes:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+    modalities:
+      - params
+
+api-particulier-carte-plus-petite-enfance:
+  name: Carte+ Petite enfance
+  description: Tarification PSU dans les établissements d'acceuil du jeune enfant
+  authorization_request: APIParticulier
+  use_case: tarification_eaje
+  service_provider_id: carte_plus
+  introduction: *api_particulier_introduction_editor_with_fixed_scopes
+  steps: *api_particulier_editor_steps_with_fixed_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
+  scopes_config:
+    disabled:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+    displayed:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+  initialize_with:
+    intitule: Tarification des services municipaux liés à la petite enfance
+    description: |
+      Gestion de la tarification des établissement d'acceuil du jeune enfant par des agents habilités
+    cadre_juridique_nature: "\n- Cadre légal général  L'article L114-8 du Code des relations entre le public et l'administration qui fixe le cadre général qui oblige l'administration à échanger des données lors d'une démarche d'un usager.\r\n- Délibération.[À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]"
+    scopes:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+    modalities:
+      - params
+
+api-particulier-abelium-petite-enfance:
+  name: Domino Web 2.0 Petite enfance
+  description: Tarification PSU dans les établissements d'acceuil du jeune enfant
+  authorization_request: APIParticulier
+  use_case: tarification_eaje
+  service_provider_id: abelium
+  introduction: *api_particulier_introduction_editor_with_fixed_scopes
+  steps: *api_particulier_editor_steps_with_fixed_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
+  scopes_config:
+    disabled:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+    displayed:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+  initialize_with:
+    intitule: Tarification des services municipaux liés à la petite enfance
+    description: |
+      Gestion de la tarification des établissement d'acceuil du jeune enfant par des agents habilités
+    cadre_juridique_nature: "\n- Cadre légal général  L'article L114-8 du Code des relations entre le public et l'administration qui fixe le cadre général qui oblige l'administration à échanger des données lors d'une démarche d'un usager.\r\n- Délibération.[À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]"
+    scopes:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+    modalities:
+      - params

@@ -440,6 +440,9 @@ FactoryBot.define do
       api-particulier-acheteza
       api-particulier-dialog
       api-particulier-keolis
+      api-particulier-aiga-petite-enfance
+      api-particulier-teamnet-axel-petite-enfance
+      api-particulier-arpege-concerto-petite-enfance
       api-particulier-mgdis-tarification-cantines-lycees
       api-particulier-arche-mc2-solis
       api-particulier-tarification-municipale-enfance
@@ -451,6 +454,13 @@ FactoryBot.define do
       api-particulier-aides-sociales-ccas-dont-facultatives
       api-particulier-tarification-transports
       api-particulier-gestion-rh-secteur-public
+      api-particulier-stationnement-residentiel
+      api-particulier-tarification-eaje
+      api-particulier-technocarte-babicarte
+      api-particulier-sigec-maelis-petite-enfance
+      api-particulier-city-family-mushroom-software-petite-enfance
+      api-particulier-carte-plus-petite-enfance
+      api-particulier-abelium-petite-enfance
     ].each do |form_uid|
       trait form_uid.tr('-', '_') do
         api_particulier
@@ -1531,6 +1541,34 @@ FactoryBot.define do
 
     with_basic_infos
     with_personal_data
+    with_scopes
+  end
+
+  trait :aides_etat do
+    type { 'AuthorizationRequest::AidesEtat' }
+
+    form_uid { 'aides-etat' }
+  end
+
+  trait :services_cisirh do
+    type { 'AuthorizationRequest::ServicesCisirh' }
+
+    form_uid { 'services-cisirh' }
+
+    with_basic_infos
+    with_personal_data
+    with_cadre_juridique
+    with_scopes
+  end
+
+  trait :api_indicateurs_sociaux do
+    type { 'AuthorizationRequest::APIIndicateursSociaux' }
+
+    form_uid { 'api-indicateurs-sociaux' }
+
+    with_basic_infos
+    with_personal_data
+    with_cadre_juridique
     with_scopes
   end
 end

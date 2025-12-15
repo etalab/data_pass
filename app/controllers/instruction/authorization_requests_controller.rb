@@ -1,6 +1,4 @@
 class Instruction::AuthorizationRequestsController < Instruction::AbstractAuthorizationRequestsController
-  decorates_assigned :authorization_request
-
   def show
     authorize [:instruction, @authorization_request]
 
@@ -10,6 +8,6 @@ class Instruction::AuthorizationRequestsController < Instruction::AbstractAuthor
   private
 
   def extract_authorization_request
-    @authorization_request = AuthorizationRequest.find(params[:id])
+    @authorization_request = AuthorizationRequest.find(params[:id]).decorate
   end
 end

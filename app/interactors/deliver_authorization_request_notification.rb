@@ -4,6 +4,8 @@ class DeliverAuthorizationRequestNotification < ApplicationInteractor
       event_name,
       params,
     )
+
+    deliver_webhooks
   end
 
   private
@@ -21,5 +23,25 @@ class DeliverAuthorizationRequestNotification < ApplicationInteractor
     "#{context.authorization_request.class_name.demodulize}Notifier".constantize
   rescue NameError
     BaseNotifier
+  end
+
+  def deliver_webhooks
+    webhooks = Webhook.active_for_event(event_name, context.authorization_request.definition.id)
+
+    webhooks.each do |webhook|
+      DeliverAuthorizationRequestWebhookJob.perform_later(
+        webhook.id,
+        context.authorization_request.id,
+        event_name.to_s,
+        webhook_payload
+      )
+    end
+  end
+
+  def webhook_payload
+    WebhookSerializer.new(
+      context.authorization_request,
+      event_name
+    ).serializable_hash
   end
 end

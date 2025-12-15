@@ -8,6 +8,9 @@ annuaire-des-entreprises-marches-publics:
     - name: "basic_infos"
     - name: "legal"
     - name: "scopes"
+  scopes_config:
+    disabled:
+      - beneficiaires
   initialize_with:
     cadre_juridique_nature: |+
       Service numérique de conformité pour les administrations publiques dans le cadre du décret N°2011-1601 et de l'article D8222 du code du travail, offre de services d'intermédiation aux organismes publics, tel que défini par l'article 17, alinéa IV, du décret du 24 septembre 2014 et le décret lié à la commande publique n° 2016-360.
@@ -33,6 +36,11 @@ annuaire-des-entreprises-aides-publiques:
   authorization_request: AnnuaireDesEntreprises
   single_page_view: annuaire_des_entreprises
   steps: *ade_steps
+  scopes_config:
+    disabled:
+      - bilans_bdf
+      - liasses_fiscales
+      - beneficiaires
   initialize_with:
     cadre_juridique_nature: |+
       Décret n° 2019-31 du 18 janvier 2019 relatif aux échanges d'informations et de données entre administrations dans le cadre des démarches administratives et à l'expérimentation prévue par l'article 40 de la loi n° 2018-727 du 10 août 2018 pour un Etat au service d'une société de confiance
@@ -51,6 +59,11 @@ annuaire-des-entreprises-lutte-contre-la-fraude:
     Ce formulaire vous permet d'accéder aux fonctionnalités spécifiques au cas d'usage de la lutte contre la fraude
   authorization_request: AnnuaireDesEntreprises
   steps: *ade_steps
+  scopes_config:
+    disabled:
+      - bilans_bdf
+      - liasses_fiscales
+      - beneficiaires
   initialize_with:
     scopes:
       - effectifs_annuels
@@ -58,7 +71,6 @@ annuaire-des-entreprises-lutte-contre-la-fraude:
       - conformite
       - travaux_publics
       - chiffre_affaires
-      - beneficiaires
 
 annuaire-des-entreprises-subventions-associations:
   name: Subventions de fonctionnement des associations
@@ -67,6 +79,15 @@ annuaire-des-entreprises-subventions-associations:
     Ce formulaire vous permet d'accéder aux fonctionnalités spécifiques au cas d'usage de subventions de fonctionnement des associations
   authorization_request: AnnuaireDesEntreprises
   steps: *ade_steps
+  scopes_config:
+    disabled:
+      - chiffre_affaires
+      - bilans_bdf
+      - liasses_fiscales
+      - conformite
+      - travaux_publics
+      - liens_capitalistiques
+      - beneficiaires
   initialize_with:
     scopes:
       - effectifs_annuels
@@ -79,6 +100,15 @@ annuaire-des-entreprises-traitement-aides-financieres:
   steps:
     - name: "basic_infos"
     - name: "legal"
+  scopes_config:
+    disabled:
+      - effectifs_annuels
+      - chiffre_affaires
+      - bilans_bdf
+      - liasses_fiscales
+      - travaux_publics
+      - liens_capitalistiques
+      - beneficiaires
   initialize_with:
     intitule: Traitement aides financières collectives - Ajouter numéro CAF
     description: |

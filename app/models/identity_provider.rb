@@ -2,12 +2,12 @@ class IdentityProvider < StaticApplicationRecord
   PRO_CONNECT_IDENTITY_PROVIDER_UID = '71144ab3-ee1a-4401-b7b3-79b44f7daeeb'.freeze
 
   attr_accessor :id,
-    :name
+    :name,
+    :unknown
 
   attr_writer :choose_organization_on_sign_in,
     :siret_verified,
-    :can_link_to_organizations,
-    :linked_to_organizations_verified
+    :can_link_to_organizations
 
   def self.backend
     Rails.application.config_for(:identity_providers).map do |uid, hash|
@@ -21,8 +21,8 @@ class IdentityProvider < StaticApplicationRecord
     unknown(id)
   end
 
-  def self.unknown(id)
-    new(id: id.to_s, name: 'Unknown')
+  def self.unknown(id = nil)
+    new(id: id&.to_s, name: 'Unknown', unknown: true)
   end
 
   def mon_compte_pro_identity_provider?
@@ -34,14 +34,14 @@ class IdentityProvider < StaticApplicationRecord
   end
 
   def can_link_to_organizations?
-    @can_link_to_organizations.nil? ? false : @can_link_to_organizations
+    @can_link_to_organizations.nil? || @can_link_to_organizations
   end
 
   def siret_verified?
     @siret_verified.nil? ? false : @siret_verified
   end
 
-  def linked_to_organizations_verified?
-    @linked_to_organizations_verified.nil? ? false : @linked_to_organizations_verified
+  def unknown?
+    @unknown.nil? ? false : @unknown
   end
 end

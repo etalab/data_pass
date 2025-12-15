@@ -23,6 +23,8 @@ RSpec.describe AuthenticateUserThroughMonComptePro do
 
       expect(authenticate_user.user.reload.organizations).to include(authenticate_user.organization)
       expect(authenticate_user.user.organizations_users.first.verified).to be_truthy
+      expect(authenticate_user.user.organizations_users.first.identity_federator).to eq('mon_compte_pro')
+      expect(authenticate_user.user.organizations_users.first.identity_provider_uid).to eq(IdentityProvider::PRO_CONNECT_IDENTITY_PROVIDER_UID)
     end
 
     context 'when user already exists and have another current organization' do

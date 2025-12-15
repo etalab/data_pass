@@ -72,6 +72,17 @@ Sachantque("je suis un demandeur pour l'organisation {string}") do |organization
   mock_identity_federators(user)
 end
 
+Sachantque('je suis aussi dans l\'organisation {string}') do |organization_name|
+  organization = find_or_create_organization_by_name(organization_name)
+  current_user.add_to_organization(organization, verified: true, current: false)
+end
+
+Sachantque('mon organisation n\'est pas vérifiée') do
+  current_user.organizations_users.each do |org_user|
+    org_user.update!(verified: false)
+  end
+end
+
 Sachantque('je consulte le site ayant le sous-domaine {string}') do |subdomain|
   $previous_app_host = Capybara.app_host.dup
   Capybara.app_host = "http://#{subdomain}.localtest.me"
@@ -102,6 +113,21 @@ Sachantque('je suis un rapporteur {string}') do |kind|
 
   if @current_user_email != user.email
     current_user.roles << "#{find_factory_trait_from_name(kind)}:reporter"
+    current_user.roles.uniq!
+    current_user.save!
+  end
+end
+
+Sachantque('je suis un manager {string}') do |kind|
+  user = create_manager(kind)
+
+  if @current_user_email.blank?
+    @current_user_email = user.email
+    mock_identity_federators(user)
+  end
+
+  if @current_user_email != user.email
+    current_user.roles << "#{find_factory_trait_from_name(kind)}:manager"
     current_user.roles.uniq!
     current_user.save!
   end
@@ -150,13 +176,6 @@ Sachantque('je me connecte') do
   )
 end
 
-Sachantque('je me connecte via ProConnect') do
-  steps %(
-    Quand je me rends sur le chemin "proconnect-connexion"
-    Et que je clique sur "S’identifier avec ProConnect"
-  )
-end
-
 Sachantque("je me connecte via ProConnect avec l'identité {string}") do |identity_provider_name|
   @current_user_email = 'demandeur@gouv.fr'
 
@@ -166,7 +185,7 @@ Sachantque("je me connecte via ProConnect avec l'identité {string}") do |identi
   mock_proconnect(user, identity_provider_uid: identity_provider.id)
 
   steps %(
-    Quand je me rends sur le chemin "proconnect-connexion"
+    Quand je me rends sur la page d'accueil
     Et que je clique sur "S’identifier avec ProConnect"
   )
 end
@@ -182,7 +201,7 @@ Sachantque("je me connecte via ProConnect avec l'identité {string} qui renvoi l
   mock_proconnect(user, identity_provider_uid: identity_provider.id, siret: organization.siret)
 
   steps %(
-    Quand je me rends sur le chemin "proconnect-connexion"
+    Quand je me rends sur la page d'accueil
     Et que je clique sur "S’identifier avec ProConnect"
   )
 end

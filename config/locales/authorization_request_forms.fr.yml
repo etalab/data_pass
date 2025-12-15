@@ -466,6 +466,12 @@ fr:
       <<: *api_particulier_editor_common_wordings
     api_particulier_mgdis_tarification_cantines_lycees:
       <<: *api_particulier_editor_common_wordings
+    api_particulier_arpege_concerto_petite_enfance:
+      <<: *api_particulier_editor_common_wordings
+    api_particulier_teamnet_axel_petite_enfance:
+      <<: *api_particulier_editor_common_wordings
+    api_particulier_aiga_petite_enfance:
+      <<: *api_particulier_editor_common_wordings
 
     api_particulier_tarification_municipale_enfance:
       description:
@@ -717,6 +723,24 @@ fr:
             Conformément aux modalités d’utilisation, nous nous réservons le droit de réduire ou couper les appels autorisés au fournisseur de service.
             </p>
 
+    api_particulier_stationnement_residentiel:
+      description:
+        hint: |
+          Décrivez-nous précisémment votre projet :
+          <ul>
+            <li>Quels sont les critères d'attribution et de tarification du stationnement résidentiel justifiant de demander des données API Particulier ?
+            </li>
+            <li>Où apparaitront les données ? Qui pourra les voir ? S'agit-il d'un service en ligne pour les usagers et/ou d'un espace en ligne pour les agents municipaux ?
+            </li>
+          </ul>
+      destinataire_donnees_caractere_personnel: *api_particulier_use_cases_forms_destinataire_donnees_caractere_personnel
+      duree_conservation_donnees_caractere_personnel: *api_particulier_use_cases_forms_duree_conservation_donnees_caractere_personnel
+      cadre_juridique_nature: *api_particulier_use_cases_forms_cadre_juridique_nature
+      legal: *api_particulier_use_cases_forms_legal_tarification
+      cadre_juridique_document: *api_particulier_use_cases_forms_cadre_juridique_document
+      cadre_juridique_url: *api_particulier_use_cases_forms_cadre_juridique_url
+     
+
     api_infinoe_production_editeur: *api_infinoe_production
 
     api_infinoe_envoi_automatise_ecritures_sandbox: *api_infinoe_sandbox
@@ -729,10 +753,7 @@ fr:
         subtitle: Les niveaux de garantie eIDAS permettent d'apporter une garantie sur l'identité qui est fournie au fournisseur de service.
       alternative_connexion:
         label: J’atteste que mon service propose une alternative à la connexion avec FranceConnect, et que cette alternative permet l’accès, dans des conditions analogues, à la même prestation de service public.
-      contact_technique:
-        info: |
-          Cette personne sera contactée en cas de problème technique sur votre service, veuillez renseigner un numéro de mobile (06/07, ou format international mobile) afin de recevoir les SMS de FranceConnect.
-          Le responsable technique peut être le contact technique de votre prestataire.
+
     annuaire_des_entreprises:
       steps:
         <<: *authorization_request_forms_default_steps
@@ -1021,7 +1042,7 @@ fr:
         label: Nom du logiciel
         hint: Nom commercial du logiciel
       volumetrie_approximative:
-        label: Nombre de clients utilisateurs estimés
+        label: Nombre de clients utilisateurs estimé
         hint: "Nombre d'utilisateurs par mois"
       scopes:
         title: Validation du flux opérationnel
