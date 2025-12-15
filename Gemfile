@@ -4,7 +4,7 @@ ruby '3.4.7'
 
 gem 'active_hash'
 gem 'active_model_validates_intersection_of'
-gem 'active_model_serializers', '~> 0.10.15'
+gem 'active_model_serializers', '~> 0.10.16'
 gem 'active_storage_validations'
 gem 'caxlsx'
 gem 'aws-sdk-s3', require: false
