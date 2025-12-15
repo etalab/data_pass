@@ -57,6 +57,10 @@ class AbstractDashboardFacade
       categories.values.all?(&:empty?)
   end
 
+  def any?
+    scoped_relation.exists?(state: displayed_states)
+  end
+
   def total_count
     highlighted_categories.values.sum(&:count) +
       categories.values.sum(&:count)

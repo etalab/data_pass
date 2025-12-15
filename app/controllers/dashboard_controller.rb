@@ -53,10 +53,10 @@ class DashboardController < AuthenticatedUserController
 
   def default_tab
     demandes_facade = build_unfiltered_facade(DashboardDemandesFacade, AuthorizationRequest)
-    return 'demandes' unless demandes_facade.empty?
+    return 'demandes' if demandes_facade.any?
 
     habilitations_facade = build_unfiltered_facade(DashboardHabilitationsFacade, Authorization)
-    return 'habilitations' unless habilitations_facade.empty?
+    return 'habilitations' if habilitations_facade.any?
 
     'demandes'
   end
