@@ -4,7 +4,7 @@ RSpec.describe InstructorMenuComponent, type: :component do
       it 'does not render' do
         render_inline(described_class.new(show_drafts: false, show_templates: false))
 
-        expect(page).to have_no_css('.fr-header__menu')
+        expect(page).to have_no_css('.fr-nav__item')
       end
     end
 
@@ -12,7 +12,7 @@ RSpec.describe InstructorMenuComponent, type: :component do
       it 'renders the menu' do
         render_inline(described_class.new(show_drafts: true, show_templates: false))
 
-        expect(page).to have_css('.fr-header__menu')
+        expect(page).to have_css('.fr-nav__item')
       end
     end
 
@@ -20,7 +20,7 @@ RSpec.describe InstructorMenuComponent, type: :component do
       it 'renders the menu' do
         render_inline(described_class.new(show_drafts: false, show_templates: true))
 
-        expect(page).to have_css('.fr-header__menu')
+        expect(page).to have_css('.fr-nav__item')
       end
     end
   end
