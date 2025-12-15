@@ -45,6 +45,7 @@ class BaseNotifier < ApplicationNotifier
   end
 
   def dgfip_provider?
-    authorization_request.definition.instance_variable_get(:@provider_slug) == 'dgfip'
+    authorization_request.definition.provider.present? &&
+      authorization_request.definition.provider.slug == 'dgfip'
   end
 end

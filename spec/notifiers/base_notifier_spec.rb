@@ -38,6 +38,7 @@ RSpec.describe BaseNotifier, type: :notifier do
   describe '#approve with DGFiP provider' do
     let(:authorization_request) { create(:authorization_request, :api_impot_particulier_sandbox) }
     let(:authorization) { create(:authorization, request: authorization_request, data: authorization_request.data) }
+    let!(:data_provider) { create(:data_provider, :dgfip) }
 
     it 'enqueues the DGFiP APIM email' do
       expect {
