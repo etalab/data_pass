@@ -12,15 +12,17 @@ import { Controller } from '@hotwired/stimulus'
 //   <a data-action="click->show-and-hide#trigger" data-show-and-hide-target-param="#option1">Option 1</a>
 //   <a data-action="click->show-and-hide#trigger" data-show-and-hide-target-param="#option2">Option 2</a>
 //
-//   <div id="option1" class="fr-hidden">Option 1 content</div>
-//   <div id="option2" class="fr-hidden" data-controller="show-and-hide" data-show-and-hide-targets-value="#sub_option1, #sub_option2">
-//     Option 2 content
+//   <div aria-live='polite' aria-atomic='true'>
+//     <div id="option1" class="fr-hidden" aria-hidden="true">Option 1 content</div>
+//     <div id="option2" class="fr-hidden" aria-hidden="true" data-controller="show-and-hide" data-show-and-hide-targets-value="#sub_option1, #sub_option2">
+//       Option 2 content
 //
-//     <a data-action="click->show-and-hide#trigger" data-show-and-hide-target-param="#sub_option1">Option 1</a>
-//     <a data-action="click->show-and-hide#trigger" data-show-and-hide-target-param="#sub_option2">Option 2</a>
+//       <a data-action="click->show-and-hide#trigger" data-show-and-hide-target-param="#sub_option1">Option 1</a>
+//       <a data-action="click->show-and-hide#trigger" data-show-and-hide-target-param="#sub_option2">Option 2</a>
 //
-//     <div id="sub_option1" class="fr-hidden">SUB Option 1 content</div>
-//     <div id="sub_option2" class="fr-hidden">SUB Option 2 content</div>
+//       <div id="sub_option1" class="fr-hidden" aria-hidden="true">SUB Option 1 content</div>
+//       <div id="sub_option2" class="fr-hidden" aria-hidden="true">SUB Option 2 content</div>
+//     </div>
 //   </div>
 // </div>
 
@@ -43,15 +45,27 @@ export default class extends Controller {
 
   _handleCheckbox (checkbox, selector) {
     if (checkbox.checked) {
-      this._elementsToDisplay(selector).forEach(target => target.classList.remove(this.displayClassValue))
+      this._elementsToDisplay(selector).forEach(target => {
+        target.classList.remove(this.displayClassValue)
+        target.setAttribute('aria-hidden', 'false')
+      })
     } else {
-      this._elementsToDisplay(selector).forEach(target => target.classList.add(this.displayClassValue))
+      this._elementsToDisplay(selector).forEach(target => {
+        target.classList.add(this.displayClassValue)
+        target.setAttribute('aria-hidden', 'true')
+      })
     }
   }
 
   _handleDefault (selector) {
-    this._elementsToHide(selector).forEach(target => target.classList.add(this.displayClassValue))
-    this._elementsToDisplay(selector).forEach(target => target.classList.remove(this.displayClassValue))
+    this._elementsToHide(selector).forEach(target => {
+      target.classList.add(this.displayClassValue)
+      target.setAttribute('aria-hidden', 'true')
+    })
+    this._elementsToDisplay(selector).forEach(target => {
+      target.classList.remove(this.displayClassValue)
+      target.setAttribute('aria-hidden', 'false')
+    })
   }
 
   _elementsToDisplay (selector) {

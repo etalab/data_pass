@@ -11,6 +11,7 @@
 .contact-card__full_name {
   font-size: 1.4rem;
   font-weight: 900;
+  line-height: 1.8rem;
 }
 
 .contact-card__attribute {
@@ -28,9 +29,21 @@
 
 .contact-form-card__title {
   color: var(--text-active-blue-france);
-  margin-bottom: 20px;
+  line-height: 1.5rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: var(--title-spacing);
 }
+
 .contact-form-card__info {
   margin-top: 0px;
-  font-size: 14px;
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.contact-form-card__fill-button {
+  position: absolute;
+  top: -4.25rem;
+  right: 1.25rem;
+  z-index: 10;
 }

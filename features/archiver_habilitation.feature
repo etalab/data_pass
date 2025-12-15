@@ -18,13 +18,12 @@ Fonctionnalité: Supprimer une habilitation
   Scénario: Le bouton "Supprimer" n'est pas présent sur une habilitation de mon organisation en brouillon
     Quand mon organisation a 1 demande d'habilitation "API Entreprise" en brouillon
     Et que je me rends sur mon tableau de bord demandes
-    Quand je sélectionne le filtre "Toutes les demandes de l'organisation" pour "Filtrer par demandeur"
-    Et que je clique sur "Rechercher"
     Et que je clique sur "Consulter"
     Alors il n'y a pas de bouton "Supprimer"
 
   @FlushJobQueue
   Scénario: Je supprime une de mes habilitations en brouillon
+    Sachant qu'il existe un webhook activé pour "API Entreprise" avec l'URL "https://webhook.site/test"
     Quand je me rends sur une demande d'habilitation "API Entreprise" en brouillon
     Et que je clique sur "Supprimer"
     Et que je clique sur "Supprimer la demande"

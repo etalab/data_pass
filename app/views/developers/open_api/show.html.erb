@@ -1,0 +1,47 @@
+<% set_title! t('page_titles.api_documentation') %>
+
+<% content_for :content_skip_link_text do %>
+  Documentation API
+<% end %>
+
+<% content_for :skip_links do %>
+  <%= skip_link("Documentation", "redoc_container") %>
+  <%= skip_link("Menu", "header") %>
+  <%= skip_link("Pied de page", "footer") %>
+<% end %>
+
+<div id="redoc_container">
+</div>
+
+<style>
+#redoc_container h2 a {
+  background-image: none;
+}
+</style>
+
+<script>
+  function initRedoc() {
+    var uri = '<%= open_api_v1_path %>';
+
+    Redoc.init(
+      uri,
+      {
+        jsonSampleExpandLevel: 'all',
+        expandResponses: '200',
+        expandSingleSchemaField: true,
+        schemaExpansionLevel: 'all'
+      },
+      document.getElementById('redoc_container')
+    )
+  }
+
+  var redocScript = document.createElement("script");
+
+  redocScript.src = "https://cdn.jsdelivr.net/npm/redoc@latest/bundles/redoc.standalone.js";
+
+  redocScript.onload = function () {
+    initRedoc();
+  };
+
+  document.documentElement.firstChild.appendChild(redocScript);
+</script>

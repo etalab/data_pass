@@ -57,7 +57,7 @@ Lorsqu'un scope est marqué comme déprécié :
    comme déprécié
 2. Il sera progressivement retiré des interfaces utilisateur
 
-Le détail de l'ensemble des clés possibles se trouve [ici](new_provider.md#configuration-du-authorizationdefinition)
+Le détail de l'ensemble des clés possibles se trouve [ici](nouveau_type_d_habilitation.md#configuration-du-authorizationdefinition)
 
 ## Formulaires
 
@@ -74,7 +74,7 @@ data:
 ```
 
 Il est aussi possible d'afficher/masquer des scopes sur les formulaires, tous
-les détails sont [ici](https://github.com/etalab/data_pass/blob/develop/docs/new_provider.md#configuration-du-authorizationrequestform)
+les détails sont [ici](https://github.com/etalab/data_pass/blob/develop/docs/nouveau_type_d_habilitation.md#configuration-du-authorizationrequestform)
 
 A noter que l'ajout ou le retrait d'un scope dans un formulaire ne changera pas
 les demandes d'habilitations existantes, et qu'il faut pour cela effectuer des

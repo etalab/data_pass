@@ -20,6 +20,10 @@ class Organization < ApplicationRecord
     class_name: 'AuthorizationRequest',
     inverse_of: :organization
 
+  has_many :instructor_draft_requests,
+    dependent: :destroy,
+    inverse_of: :organization
+
   def siret
     return if foreign?
 
@@ -36,6 +40,12 @@ class Organization < ApplicationRecord
 
   def insee_payload
     self[:insee_payload] || {}
+  end
+
+  def last_insee_update_within_24h?
+    return false if last_insee_payload_updated_at.blank?
+
+    last_insee_payload_updated_at > 24.hours.ago
   end
 
   def foreign?

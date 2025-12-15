@@ -2,6 +2,8 @@ RSpec.describe DGFIP::ExportController do
   describe '#show' do
     subject(:get_spreadsheet) { get :show }
 
+    let!(:dgfip_provider) { create(:data_provider, :dgfip) }
+
     before do
       sign_in(user)
     end

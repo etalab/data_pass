@@ -49,6 +49,19 @@ RSpec.describe Authorization do
       end
     end
 
+    context 'when applicant has changed on request' do
+      let(:new_applicant) { create(:user, current_organization: authorization_request.organization) }
+      let!(:old_applicant) { authorization_request.applicant }
+
+      before do
+        authorization_request.update!(applicant: new_applicant)
+      end
+
+      it 'keeps the original applicant' do
+        expect(request_as_validated.applicant).to eq(old_applicant)
+      end
+    end
+
     context 'when request has been reopened, with some data changed and a document updated' do
       before do
         organizer = ReopenAuthorization.call(authorization:, user: authorization.applicant)
@@ -202,6 +215,42 @@ RSpec.describe Authorization do
     context 'when it is a multi-stage authorization, latest production is the current one (latest? is true) and latest is sandbox' do
       let(:authorization_request) { create(:authorization_request, :api_impot_particulier_production, :validated) }
       let!(:latest_sandbox_authorization) { create(:authorization, request: authorization_request, authorization_request_class: 'AuthorizationRequest::APIImpotParticulierSandbox', created_at: Date.tomorrow) }
+
+      it { is_expected.to be false }
+    end
+
+    context 'when it is a validated sandbox authorization and production stage is submitted' do
+      let(:authorization_request) { create(:authorization_request, :api_impot_particulier_sandbox, :validated) }
+      let(:authorization) { authorization_request.latest_authorization }
+
+      before do
+        authorization_request.start_next_stage!
+        authorization_request.submit!
+      end
+
+      it { is_expected.to be false }
+    end
+
+    context 'when it is a validated sandbox authorization and production stage is draft' do
+      let(:authorization_request) { create(:authorization_request, :api_impot_particulier_sandbox, :validated) }
+      let(:authorization) { authorization_request.latest_authorization }
+
+      before do
+        authorization_request.start_next_stage!
+      end
+
+      it { is_expected.to be false }
+    end
+
+    context 'when it is a validated sandbox authorization and production stage is changes_requested' do
+      let(:authorization_request) { create(:authorization_request, :api_impot_particulier_sandbox, :validated) }
+      let(:authorization) { authorization_request.latest_authorization }
+
+      before do
+        authorization_request.start_next_stage!
+        authorization_request.submit!
+        authorization_request.request_changes!
+      end
 
       it { is_expected.to be false }
     end

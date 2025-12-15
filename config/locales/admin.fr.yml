@@ -68,3 +68,37 @@ fr:
       errors:
         title: "Erreur"
         user_not_found: "Aucun utilisateur trouvé avec cet email"
+
+    transfer_authorization_requests:
+      new:
+        title: "Transférer une demande à une nouvelle organisation"
+        info:
+          title: "Informations importantes"
+          user_must_exist: "L'utilisateur doit exister dans la base de données"
+          organization_must_exist: "L'organisation doit exister dans la base de données"
+          user_must_belong_to_organization: "L'utilisateur doit appartenir à l'organisation"
+        metabase_link_html: "Vous pouvez vérifier ces informations via %{link}."
+        metabase_link_text: "le tableau Metabase"
+        form:
+          authorization_request_id:
+            label: "ID de la demande d'habilitation"
+          new_organization_siret:
+            label: "SIRET de la nouvelle organisation"
+            hint: "Le SIRET doit correspondre à une organisation existante (14 chiffres)"
+          new_applicant_email:
+            label: "Email du nouveau demandeur"
+            hint: "L'utilisateur peut être le même que le demandeur actuel."
+          submit: "Transférer la demande"
+          cancel: "Annuler"
+      create:
+        title: "Transférer une demande d'habilitation"
+        success:
+          title: "Transfert réussi"
+          description: "La demande #%{authorization_request_id} a été transférée avec succès vers l'organisation %{siret}"
+      errors:
+        title: "Erreur lors du transfert"
+        authorization_request_not_found: "Aucune demande d'habilitation trouvée avec l'ID %{authorization_request_id}"
+        new_organization_not_found: "Aucune organisation trouvée avec le SIRET %{siret}"
+        new_applicant_not_found: "Aucun utilisateur trouvé avec l'email %{email}"
+        applicant_not_in_organization: "L'utilisateur %{email} n'appartient pas à l'organisation %{siret}"
+        invalid_new_organization: "Erreur de validation lors du transfert"

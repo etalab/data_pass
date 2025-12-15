@@ -21,8 +21,12 @@
 - Naming: snake_case for methods/variables, CamelCase for classes
 - Controllers should be RESTful when possible
 - JavaScript follows StandardJS conventions
+- When creating components, always create a preview within
+    `spec/components/previews`
 - DO NOT use comments, use meaningful variables and methods names
 - All files should end with a newline
+- Use apostrophe (’) instead of single quote (') within text content
+- Use french quotes (« ») instead of double quotes (") within text content
 
 ## Testing Guidelines
 
@@ -51,6 +55,9 @@
 - Be sure that tests you introduce pass before stopping your work.
 - Authorization should be done in the controller, not in the model/services.
 - Check docs/ for technical documentation if needed.
+- For building forms use DSFRFormBuilder
+- Components are documented here
+    https://www.systeme-de-design.gouv.fr/version-courante/fr/composants
 
 ## Git
 

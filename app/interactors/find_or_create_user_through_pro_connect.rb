@@ -11,7 +11,7 @@ class FindOrCreateUserThroughProConnect < ApplicationInteractor
 
   def find_or_initialize_user
     User.where(
-      email: raw_info_payload['email'],
+      email: raw_info_payload['email'].downcase,
     ).first_or_initialize
   end
 

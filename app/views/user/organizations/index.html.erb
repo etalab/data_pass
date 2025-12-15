@@ -1,3 +1,5 @@
+<% set_title! t('page_titles.user_organizations') %>
+
 <% content_for :content_skip_link_text do %>
   Votre organisation de rattachement
 <% end %>
@@ -25,12 +27,12 @@
             <br />
 
             Les organisations listées ci-dessous sont celles auxquelles vous êtes rattaché(e) dans notre système, celles dont le lien
-            est vérifié sont labellisées par un badge vert "Vérifié".
+            est vérifié sont labellisées par un badge vert « Vérifié ».
 
             <br />
             <br />
 
-            Pour en savoir plus, consulter notre documentation sur <a href="<%= faq_path(anchor: 'lien-organisation-non-verifie') %>">la vérification des organisations</a>.
+            Pour en savoir plus, consulter notre documentation sur <a href="<%= faq_path(anchor: 'lien-organisation-non-verifie') %>" target="_blank">la vérification des organisations</a>.
           </p>
         </div>
       <% end %>
@@ -75,9 +77,9 @@
 
       <% if latest_identity_provider.mon_compte_pro_identity_provider? %>
         <p>
-          Pour rejoindre une autre organisation vous devez vous déconnecter et reconnecter via ProConnect.
-
-          <%= link_to 'Se déconnecter pour rejoindre une autre organisation', signout_path, class: 'fr-btn fr-btn--secondary' %>
+          <%= form_with(url: "/auth/mon_compte_pro?prompt=select_organization", method: :post, data: { turbo: false }) do |f| %>
+            <%= f.button 'Rejoindre une autre organisation', id: 'change_current_organization', class: %w(fr-btn fr-mt-2w) %>
+          <% end %>
         </p>
       <% elsif policy(:organization).new? %>
         <div class="fr-mt-4w">

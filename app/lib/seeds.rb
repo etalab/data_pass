@@ -1,5 +1,6 @@
 class Seeds
   def perform
+    create_data_providers
     create_entities
     create_oauth_app
     create_all_verified_emails
@@ -7,6 +8,9 @@ class Seeds
     create_authorization_requests_for_clamart
     create_authorization_requests_for_dinum
     create_validated_authorization_request(:portail_hubee_demarche_certdc, attributes: { description: nil })
+    create_instructor_draft_request(applicant: demandeur)
+    create_message_templates
+    create_webhooks
   end
 
   def flushdb
@@ -19,19 +23,47 @@ class Seeds
     end
   end
 
+  def create_data_providers
+    seeds_for(:data_providers).each do |slug, attributes|
+      provider = DataProvider.find_or_initialize_by(
+        slug: slug.to_s,
+      )
+
+      provider.assign_attributes(
+        name: attributes[:name],
+        link: attributes[:link]
+      )
+
+      provider.save!(validate: false)
+
+      provider.logo.attach(
+        io: Rails.root.join('app', 'assets', 'images', 'data_providers', attributes[:logo]).open,
+        filename: attributes[:logo],
+      )
+
+      provider.save!
+    end
+  end
+
   private
 
   # rubocop:disable Metrics/AbcSize
   def create_entities
-    demandeur.add_to_organization(clamart_organization, current: true, verified: true)
-    another_demandeur.add_to_organization(clamart_organization, current: true, verified: true)
+    verified_params = {
+      verified: true,
+      identity_federator: 'pro_connect',
+      identity_provider_uid: IdentityProvider::PRO_CONNECT_IDENTITY_PROVIDER_UID,
+    }
+
+    demandeur.add_to_organization(clamart_organization, current: true, **verified_params)
+    another_demandeur.add_to_organization(clamart_organization, current: true, **verified_params)
     another_demandeur.add_to_organization(dinum_organization, current: true, verified: false)
 
-    api_entreprise_instructor.add_to_organization(dinum_organization, current: true, verified: true)
-    api_entreprise_reporter.add_to_organization(dinum_organization, current: true, verified: true)
+    api_entreprise_instructor.add_to_organization(dinum_organization, current: true, **verified_params)
+    api_entreprise_reporter.add_to_organization(dinum_organization, current: true, **verified_params)
     foreign_demandeur.add_to_organization(dinum_organization, current: true, verified: false)
-    data_pass_admin.add_to_organization(dinum_organization, current: true)
-    dgfip_instructor_developer.add_to_organization(dinum_organization, current: true)
+    data_pass_admin.add_to_organization(dinum_organization, current: true, **verified_params)
+    dgfip_instructor_developer.add_to_organization(dinum_organization, current: true, **verified_params)
   end
   # rubocop:enable Metrics/AbcSize
 
@@ -131,7 +163,7 @@ class Seeds
   def data_pass_admin
     @data_pass_admin ||= User.create!(
       email: 'datapass@yopmail.com',
-      roles: ['admin'] + all_authorization_definition_instructor_roles
+      roles: ['admin'] + all_authorization_definition_manager_roles + ['api_entreprise:developer', 'api_particulier:developer'],
     )
   end
 
@@ -142,14 +174,14 @@ class Seeds
     )
   end
 
-  def all_authorization_definition_instructor_roles
-    AuthorizationDefinition.all.map { |definition| "#{definition.id}:instructor" }
+  def all_authorization_definition_manager_roles
+    AuthorizationDefinition.all.map { |definition| "#{definition.id}:manager" }
   end
 
   def all_dgfip_authorizations_definitions
     AuthorizationDefinition
       .all
-      .select { |definition| definition.provider.id == 'dgfip' }
+      .select { |definition| definition.provider&.id == 'dgfip' }
   end
 
   def all_dgfip_developer_roles
@@ -267,6 +299,19 @@ class Seeds
     )
   end
 
+  def create_instructor_draft_request(applicant:)
+    FactoryBot.create(
+      :instructor_draft_request,
+      :with_applicant,
+      :with_data,
+      applicant:,
+      instructor: api_entreprise_instructor,
+      comment: "Comme discuté au téléphone, je vous envoie cette ébauche de demande d'habilitation.",
+      public_id: '00000000-0000-0000-0000-000000000000',
+      data: FactoryBot.build(:authorization_request, :api_entreprise, fill_all_attributes: true).data.merge('intitule' => 'Portail des aides publiques')
+    )
+  end
+
   # rubocop:disable Metrics/AbcSize
   def create_fully_approved_api_impot_particulier_authorization_request
     authorization_request = create_validated_authorization_request(:api_impot_particulier_sandbox, attributes: { intitule: 'PASS FAMILLE', applicant: demandeur, created_at: 3.days.ago })
@@ -378,7 +423,97 @@ class Seeds
     Rails.root.glob('app/models/**/*.rb').each { |f| require f }
   end
 
+  def seeds_for(name)
+    YAML.load(Rails.root.join('db', 'seeds', "#{name}.yml").read, aliases: true).deep_symbolize_keys[:shared]
+  end
+
+  def create_webhooks
+    create_api_entreprise_webhooks
+  end
+
+  def create_api_entreprise_webhooks
+    webhook_valid = Webhook.create!(
+      authorization_definition_id: 'api_entreprise',
+      url: 'http://localhost:3000/dummy/valid/webhooks',
+      secret: SecureRandom.hex(32),
+      events: %w[create update submit approve refuse revoke],
+      validated: true,
+      enabled: true
+    )
+
+    webhook_invalid = Webhook.create!(
+      authorization_definition_id: 'api_entreprise',
+      url: 'http://localhost:3000/dummy/invalid/webhooks',
+      secret: SecureRandom.hex(32),
+      events: %w[submit approve refuse],
+      validated: false,
+      enabled: false
+    )
+
+    create_webhook_attempts_for_api_entreprise(webhook_valid, webhook_invalid)
+  end
+
+  def create_webhook_attempts_for_api_entreprise(webhook_valid, webhook_invalid)
+    authorization_requests = AuthorizationRequest.where(form_uid: 'api-entreprise').limit(5)
+
+    authorization_requests.each_with_index do |authorization_request, index|
+      create_successful_webhook_attempts(webhook_valid, webhook_invalid, authorization_request, index)
+    end
+
+    create_failed_webhook_attempts(webhook_valid, authorization_requests.first)
+  end
+
+  def create_successful_webhook_attempts(webhook_valid, webhook_invalid, authorization_request, index)
+    WebhookAttempt.create!(
+      webhook: webhook_valid,
+      authorization_request: authorization_request,
+      event_name: 'submit',
+      status_code: 200,
+      response_body: '{"token_id":"abc123"}',
+      payload: { event: 'submit', id: authorization_request.id },
+      created_at: index.days.ago
+    )
+
+    WebhookAttempt.create!(
+      webhook: webhook_invalid,
+      authorization_request: authorization_request,
+      event_name: 'approve',
+      status_code: 422,
+      response_body: '{"hello":"world"}',
+      payload: { event: 'approve', id: authorization_request.id },
+      created_at: index.days.ago
+    )
+  end
+
+  def create_failed_webhook_attempts(webhook, authorization_request)
+    return unless authorization_request
+
+    WebhookAttempt.create!(
+      webhook: webhook,
+      authorization_request: authorization_request,
+      event_name: 'update',
+      status_code: 500,
+      response_body: '{"error":"Internal server error"}',
+      payload: { event: 'update', id: authorization_request.id },
+      created_at: 1.hour.ago
+    )
+
+    WebhookAttempt.create!(
+      webhook: webhook,
+      authorization_request: authorization_request,
+      event_name: 'update',
+      status_code: 404,
+      response_body: '{"error":"Not found"}',
+      payload: { event: 'update', id: authorization_request.id },
+      created_at: 30.minutes.ago
+    )
+  end
+
   def production?
     Rails.env.production? && ENV['CAN_FLUSH_DB'].blank?
+  end
+
+  def create_message_templates
+    Seeds::MessageTemplates.create
   end
 end

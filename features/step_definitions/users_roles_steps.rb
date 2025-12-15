@@ -6,6 +6,8 @@ Quand("il y a l'utilisateur {string} avec le rôle {string} pour {string}") do |
     role = 'instructor'
   when 'rapporteur'
     role = 'reporter'
+  when 'manager'
+    role = 'manager'
   when 'développeur'
     role = 'developer'
   else

@@ -8,6 +8,8 @@ api_particulier:
   kind: 'api'
   public: true
   support_email: "support@particulier.api.gouv.fr"
+  features:
+    instructor_drafts: true
   blocks:
     - name: "basic_infos"
     - name: "modalities"
@@ -55,11 +57,11 @@ api_particulier:
     - name: "Statut élève scolarisé"
       value: "men_statut_scolarite"
       group: "API Statut élève scolarisé et boursier"
-    - name: "Statut boursier (disponible en 2025)"
+    - name: "Statut boursier (disponible en 2026)"
       value: "men_statut_boursier"
       group: "API Statut élève scolarisé et boursier"
       disabled: true
-    - name: "Échelon de la bourse (disponible en 2025)"
+    - name: "Échelon de la bourse (disponible en 2026)"
       value: "men_echelon_bourse"
       group: "API Statut élève scolarisé et boursier"
       disabled: true
@@ -173,6 +175,19 @@ api_particulier:
     - name: "Extrait d'immatriculation de véhicule - Caractéristiques techniques du véhicule"
       value: "ants_extrait_immatriculation_vehicule_caracteristiques_techniques_vehicule"
       group: "API Extrait d'immatriculation de véhicule"
+
+    - name: "Identités allocataire et conjoint"
+      value: "cnav_participation_familiale_eaje_allocataires"
+      group: "API Participation familiale EAJE "
+    - name: "Identités enfants"
+      value: "cnav_participation_familiale_eaje_enfants"
+      group: "API Participation familiale EAJE "
+    - name: "Adresse du foyer"
+      value: "cnav_participation_familiale_eaje_adresse"
+      group: "API Participation familiale EAJE "
+    - name: "Paramètres pris en compte pour le calcul du tarif"
+      value: "cnav_participation_familiale_eaje_parametres_calcul"
+      group: "API Participation familiale EAJE "
 
 formulaire_qf:
   name: Formulaire d'accès au Quotient Familial

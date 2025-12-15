@@ -12,7 +12,7 @@ Fonctionnalité: Développeurs: consultation de ses applications
   Scénario: Je peux voir que je suis developpeur dans mon profil
     Quand je me rends sur le chemin "/compte"
     Alors la page contient "Vous avez un accès développeur"
-    Et il y a un lien vers "/developpeurs/applications"
+    Et il y a un lien vers "/developpeurs"
     Et il y a un lien vers "/developpeurs/documentation"
 
   Scénario: Je peux voir mon application

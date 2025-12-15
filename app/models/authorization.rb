@@ -93,6 +93,7 @@ class Authorization < ApplicationRecord
 
     request_as_validated.id = request.id
     request_as_validated.data = data
+    request_as_validated.applicant_id = applicant_id
     request_as_validated.state = revoked? ? 'revoked' : 'validated'
     request_as_validated.created_at = created_at
     affect_snapshot_documents(request_as_validated) if load_documents
@@ -103,11 +104,22 @@ class Authorization < ApplicationRecord
 
   def reopenable?
     if multi_stage? && stage.type == 'production'
-      common_reopenable? &&
-        request.latest_authorization.stage.type != 'sandbox'
+      production_stage_reopenable?
+    elsif multi_stage? && stage.type == 'sandbox'
+      sandbox_stage_reopenable?
     else
       common_reopenable?
     end
+  end
+
+  def production_stage_reopenable?
+    common_reopenable? &&
+      request.latest_authorization.stage.type != 'sandbox'
+  end
+
+  def sandbox_stage_reopenable?
+    common_reopenable? &&
+      request.state == 'validated'
   end
 
   def common_reopenable?

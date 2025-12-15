@@ -47,7 +47,7 @@ Fonctionnalité: Impersonation des utilisateurs
     Et que je remplis "Raison de l'impersonation" avec "Ticket de support #12345"
     Et que je clique sur "Commencer l'impersonation"
 
-    Alors il y a un message d'erreur contenant "Usager ne peut pas être identique à l'administrateur"
+    Alors il y a un message d'erreur contenant "ne peut pas être identique à l'administrateur"
 
   Scénario: Les actions effectuées pendant l'impersonation sont enregistrées
     Quand j'impersonne l'utilisateur "user@example.com"

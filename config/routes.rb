@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
   root 'pages#home'
 
-  get 'proconnect-connexion', to: 'pages#proconnect_connexion'
-
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')
 
@@ -19,6 +17,9 @@ Rails.application.routes.draw do
   patch '/settings/notifications', to: 'notifications_settings#update', as: :notifications_settings
 
   get '/public/demandes/:id', to: 'public/authorization_requests#show', as: :public_authorization_request
+
+  get '/demandes-instructeurs/:id/finaliser', to: 'claim_instructor_draft_requests#show', as: :claim_instructor_draft_request
+  post '/demandes-instructeurs/:id/finaliser', to: 'claim_instructor_draft_requests#create'
 
   get '/stats', to: 'stats#index'
 
@@ -102,6 +103,9 @@ Rails.application.routes.draw do
 
   namespace :instruction do
     get '/tableau-de-bord/:id', to: 'dashboard#show', as: :dashboard_show
+
+    resources :message_templates, only: %i[index new create edit update destroy], path: 'modeles-messages'
+
     resources :authorization_requests, only: %w[show], path: 'demandes' do
       resources :approve_authorization_requests, only: %w[new create], path: 'approuver', as: :approval
       resources :archive_authorization_requests, only: %w[new create], path: 'archiver', as: :archive
@@ -117,6 +121,14 @@ Rails.application.routes.draw do
 
       resources :messages, only: %w[index create], path: 'messages'
     end
+
+    resources :instructor_draft_requests, path: 'instructeurs-demandes', except: :show do
+      collection do
+        get :start, path: 'commencer'
+      end
+
+      resources :invite, only: [:new, :create], controller: 'instructor_draft_requests/invite'
+    end
   end
 
   get '/admin', to: 'admin#index', as: :admin
@@ -125,6 +137,7 @@ Rails.application.routes.draw do
     resources :whitelisted_verified_emails, only: %w[index new create], path: 'emails-verifies'
     resources :users_with_roles, only: %i[index new create edit update], path: 'utilisateurs-avec-roles'
     resource :impersonate, only: %i[new create destroy], controller: 'impersonate'
+    resource :transfer_authorization_request, only: %i[new create], path: 'transferer-demande'
   end
 
   %w[/api/oauth /api/v1/oauth].each do |path|
@@ -134,9 +147,28 @@ Rails.application.routes.draw do
   end
 
   get '/api-docs/v1.yaml', to: ->(_env) { [200, { 'Content-Type' => 'application/yaml', 'Content-Disposition' => 'inline;filename="datapass-v1.yaml"' }, [File.read(Rails.root.join('config/openapi/v1.yaml'))]] }, as: :open_api_v1
-  get '/developpeurs', to: redirect('/developpeurs/documentation')
-  get '/developpeurs/applications', to: 'oauth_applications#index', as: :oauth_applications
-  get '/developpeurs/documentation', to: 'open_api#show'
+
+  get '/developpeurs', to: 'developers#index', as: :developers_root
+
+  namespace :developers, path: 'developpeurs' do
+    resources :oauth_applications, only: :index, path: 'applications'
+    get 'documentation', to: 'open_api#show'
+
+    resources :webhooks, path: 'webhooks' do
+      member do
+        post :enable, path: 'activer'
+        post :disable, path: 'desactiver'
+        post :regenerate_secret, path: 'regenerer-secret'
+        get :show_secret, path: 'secret'
+      end
+
+      resources :webhook_attempts, only: %i[index show], path: 'tentatives' do
+        member do
+          post :replay, path: 'rejouer'
+        end
+      end
+    end
+  end
 
   namespace :api do
     resources :frontal, only: :index
@@ -153,10 +185,23 @@ Rails.application.routes.draw do
       resources :authorization_definitions, path: 'definitions', only: %i[index show]
 
       resources :authorization_request_forms, path: 'definitions/:id/formulaires', only: %i[index]
+
+      resources :webhooks, only: [] do
+        resources :webhook_attempts, only: [:index], path: 'attempts', as: :attempts
+      end
     end
   end
 
   get '/dgfip/export', to: 'dgfip/export#show', as: :dgfip_export
+
+  if Rails.env.local?
+    post '/dummy/valid/webhooks', to: ->(_env) { [200, { 'Content-Type' => 'application/json' }, [{token_id: SecureRandom.hex(16)}.to_json]] }
+    post '/dummy/invalid/webhooks', to: ->(_env) { [422, { 'Content-Type' => 'application/json' }, [{hello: 'world'}.to_json]] }
+  end
+
+  if Rails.env.development? || Rails.env.sandbox?
+    mount Lookbook::Engine, at: '/lookbook'
+  end
 
   mount GoodJob::Engine => '/workers'
 end

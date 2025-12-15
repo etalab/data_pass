@@ -34,16 +34,18 @@ jobs:
         ports:
           - "6379:6379"
     steps:
+      - uses: actions/checkout@v6
       - uses: docker/setup-buildx-action@v3
-      - uses: actions/cache@v4
+      - uses: actions/cache@v5
         with:
           path: |
             /tmp/data_pass.tar
             ./.github/workflows/test.env
-          key: ${{ github.sha }}-data_pass
+          key: v1-${{ hashFiles('Gemfile.lock') }}-${{ hashFiles('Dockerfile') }}
       - run: docker load --input /tmp/data_pass.tar
       - run: |
           docker run \
             --network="host" \
             --env-file ./.github/workflows/test.env \
+            -v ${{ github.workspace }}:/app \
             --rm data_pass bundle exec cucumber --format progress ${{ inputs.cucumber_options }}

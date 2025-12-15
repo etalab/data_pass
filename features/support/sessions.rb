@@ -27,6 +27,10 @@ def create_reporter(kind)
   create_user_with_role(:reporter, kind)
 end
 
+def create_manager(kind)
+  create_user_with_role(:manager, kind)
+end
+
 def create_user_with_role(role, kind)
   email ||= "#{kind.parameterize}@gouv.fr"
 

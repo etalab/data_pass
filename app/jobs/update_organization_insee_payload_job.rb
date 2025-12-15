@@ -20,8 +20,7 @@ class UpdateOrganizationINSEEPayloadJob < ApplicationJob
   private
 
   def last_update_within_24h?
-    organization.last_insee_payload_updated_at.present? &&
-      organization.last_insee_payload_updated_at > 24.hours.ago
+    organization.last_insee_update_within_24h?
   end
 
   def update_organization_insee_payload

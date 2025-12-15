@@ -67,6 +67,16 @@ RSpec.describe AuthorizationRequestMailer do
           expect(mail.body.encoded).to match('espace agent')
         end
       end
+
+      describe 'FranceConnect' do
+        let(:authorization_request) { create(:authorization_request, :france_connect, :validated) }
+
+        it 'renders valid custom template for new habilitation' do
+          expect(mail.body.encoded).to match('Votre habilitation a été validée')
+          expect(mail.body.encoded).to match('demander la création de votre fournisseur de service')
+          expect(mail.body.encoded).to match('espace.partenaires.franceconnect.gouv.fr')
+        end
+      end
     end
   end
 
@@ -142,6 +152,16 @@ RSpec.describe AuthorizationRequestMailer do
     it 'renders valid template' do
       expect(mail.body.encoded).to match('a été validée')
       expect(mail.body.encoded).to match('réouverture')
+    end
+
+    describe 'FranceConnect' do
+      let(:authorization_request) { create(:authorization_request, :france_connect, :validated) }
+
+      it 'renders valid custom template for reopening' do
+        expect(mail.body.encoded).to match('La mise à jour de votre habilitation a été validée')
+        expect(mail.body.encoded).to match('demande-modification-fs-fc')
+        expect(mail.body.encoded).to match('demarches-simplifiees.fr')
+      end
     end
   end
 

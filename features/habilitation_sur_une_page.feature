@@ -60,6 +60,7 @@ Fonctionnalité: Interactions sur une demande d'habilitation simple (sur une seu
 
   @FlushJobQueue
   Scénario: Je soumets une demande d'habilitation valide émettant des webhooks
+    Sachant qu'il existe un webhook activé pour "API Entreprise" avec l'URL "https://webhook.site/test"
     Quand je me rends sur une demande d'habilitation "Solution ASTRE GF" en brouillon et rempli
     Et que je clique sur "Continuer vers le résumé"
     Et que j'adhère aux conditions générales

@@ -29,10 +29,14 @@ class User::OrganizationsController < AuthenticatedUserController
 
     user_organization.set_as_current!
 
-    redirect_to dashboard_path
+    redirect_to redirect_to_after_sign_in
   end
 
   private
+
+  def redirect_to_after_sign_in
+    session.delete(:return_to_after_sign_in) || dashboard_path
+  end
 
   def extract_organization(siret: organization_params[:siret])
     Organization.find_by!(

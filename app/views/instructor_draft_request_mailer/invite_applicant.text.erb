@@ -1,0 +1,13 @@
+<%= render partial: 'mailer/shared/applicant/header', locals: { entity_name: @instructor_draft_request.applicant.full_name } %>
+
+Vous êtes invité(e) à finaliser une demande d'habilitation préparée pour vous concernant le projet "<%= @instructor_draft_request.project_name %>" pour le compte de l'organisation "<%= @instructor_draft_request.organization.name %>" (numéro de SIRET: <%= @instructor_draft_request.organization.siret %>).
+
+<% if @instructor_draft_request.comment.present? %>
+L'instructeur de cette demande a ajouté le commentaire suivant :
+<%= @instructor_draft_request.comment %>
+<% end %>
+
+Pour finaliser cette demande, veuillez cliquer sur le lien suivant :
+<%= claim_instructor_draft_request_url(id: @instructor_draft_request.public_id) %>
+
+<%= render partial: 'mailer/shared/applicant/footer', locals: { authorization_definition_name: @instructor_draft_request.definition.name } %>

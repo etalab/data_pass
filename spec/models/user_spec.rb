@@ -44,6 +44,19 @@ RSpec.describe User do
     it { is_expected.to contain_exactly(valid_reporter, valid_developer, valid_instructor, valid_instructor_with_multiple_authorization_type) }
   end
 
+  describe '.manager_for' do
+    subject { described_class.manager_for(authorization_request_type) }
+
+    let(:authorization_request_type) { 'api_entreprise' }
+
+    let!(:valid_manager) { create(:user, :manager, authorization_request_types: %i[api_entreprise]) }
+    let!(:valid_manager_with_multiple_authorization_type) { create(:user, :manager, authorization_request_types: %i[api_entreprise api_particulier]) }
+    let!(:invalid_manager) { create(:user, :manager, authorization_request_types: %i[api_particulier]) }
+    let!(:valid_instructor) { create(:user, :instructor, authorization_request_types: %i[api_entreprise]) }
+
+    it { is_expected.to contain_exactly(valid_manager, valid_manager_with_multiple_authorization_type) }
+  end
+
   describe '#reporter?' do
     subject { user.reporter?(authorization_request_type) }
 
@@ -126,6 +139,30 @@ RSpec.describe User do
         end
       end
     end
+
+    context 'when user is a manager' do
+      let(:user) { build(:user, :manager, authorization_request_types: %w[api_entreprise]) }
+
+      context 'without authorization_request_type' do
+        let(:authorization_request_type) { nil }
+
+        it { is_expected.to be_truthy }
+      end
+
+      context 'with authorization_request_type' do
+        context 'when authorization_request_type matches' do
+          let(:authorization_request_type) { 'api_entreprise' }
+
+          it { is_expected.to be_truthy }
+        end
+
+        context 'when authorization_request_type does not matche' do
+          let(:authorization_request_type) { 'api_particulier' }
+
+          it { is_expected.to be_falsey }
+        end
+      end
+    end
   end
 
   describe '#instructor?' do
@@ -149,6 +186,74 @@ RSpec.describe User do
 
     context 'when user is an instructor' do
       let(:user) { build(:user, :instructor, authorization_request_types: %w[api_entreprise]) }
+
+      context 'without authorization_request_type' do
+        let(:authorization_request_type) { nil }
+
+        it { is_expected.to be_truthy }
+      end
+
+      context 'with authorization_request_type' do
+        context 'when authorization_request_type matches' do
+          let(:authorization_request_type) { 'api_entreprise' }
+
+          it { is_expected.to be_truthy }
+        end
+
+        context 'when authorization_request_type does not matche' do
+          let(:authorization_request_type) { 'api_particulier' }
+
+          it { is_expected.to be_falsey }
+        end
+      end
+    end
+
+    context 'when user is a manager' do
+      let(:user) { build(:user, :manager, authorization_request_types: %w[api_entreprise]) }
+
+      context 'without authorization_request_type' do
+        let(:authorization_request_type) { nil }
+
+        it { is_expected.to be_truthy }
+      end
+
+      context 'with authorization_request_type' do
+        context 'when authorization_request_type matches' do
+          let(:authorization_request_type) { 'api_entreprise' }
+
+          it { is_expected.to be_truthy }
+        end
+
+        context 'when authorization_request_type does not matche' do
+          let(:authorization_request_type) { 'api_particulier' }
+
+          it { is_expected.to be_falsey }
+        end
+      end
+    end
+  end
+
+  describe '#manager?' do
+    subject { user.manager?(authorization_request_type) }
+
+    context 'when user is not a manager' do
+      let(:user) { build(:user) }
+
+      context 'without authorization_request_type' do
+        let(:authorization_request_type) { nil }
+
+        it { is_expected.to be_falsey }
+      end
+
+      context 'with authorization_request_type' do
+        let(:authorization_request_type) { 'api_entreprise' }
+
+        it { is_expected.to be_falsey }
+      end
+    end
+
+    context 'when user is a manager' do
+      let(:user) { build(:user, :manager, authorization_request_types: %w[api_entreprise]) }
 
       context 'without authorization_request_type' do
         let(:authorization_request_type) { nil }
@@ -263,6 +368,48 @@ RSpec.describe User do
       let(:family_name) { 'Doe' }
 
       it { is_expected.to eq('DOE Jean Michel') }
+    end
+  end
+
+  describe '#add_to_organization' do
+    let(:user) { create(:user) }
+    let(:organization) { create(:organization) }
+
+    context 'with valid identity federator' do
+      let(:identity_provider_uid) { '71144ab3-ee1a-4401-b7b3-79b44f7daeeb' }
+      let(:identity_federator) { 'pro_connect' }
+
+      it 'creates organization user with identity provider uid' do
+        result = user.add_to_organization(
+          organization,
+          verified: true,
+          identity_provider_uid: identity_provider_uid,
+          identity_federator: identity_federator
+        )
+
+        expect(result).to be_persisted
+        expect(result.identity_provider_uid).to eq(identity_provider_uid)
+        expect(result.identity_federator).to eq(identity_federator)
+        expect(result.verified).to be true
+        expect(result.identity_provider).not_to be_nil
+      end
+    end
+
+    context 'with unknown identity federator' do
+      it 'creates organization user without identity provider uid' do
+        result = user.add_to_organization(
+          organization,
+          verified: false,
+          identity_provider_uid: nil,
+          identity_federator: 'unknown'
+        )
+
+        expect(result).to be_persisted
+        expect(result.identity_provider_uid).to be_nil
+        expect(result.identity_federator).to eq('unknown')
+        expect(result.verified).to be false
+        expect(result.identity_provider).to be_unknown
+      end
     end
   end
 end

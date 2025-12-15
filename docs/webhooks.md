@@ -1,253 +1,522 @@
-## Implémentation d'un webhook
+# Documentation des Webhooks DataPass
 
-### Avant-propos
+## Table des matières
 
-Il y 2 types d'entités liés aux habilitations dans DataPass: les demandes
-d'habilitations et les habilitations. Les demandes d'habilitations sont des
-entités qui sont créées par les demandeurs et qui peuvent être
-modifiées/soumises/refusées/validées. Une fois qu'une demande d'habilitation est
-validée, une habilitation est créée.
-
-Pour faire le parallèle avec un contrat numérique, la demande d'habilitation est
-un fichier au format docx, l'habilitation est le fichier sous format PDF, signé.
-
-Les webhooks sont liés aux demandes d'habilitations.
+1. [Introduction](#introduction)
+2. [Prérequis : Rôle développeur](#prérequis--rôle-développeur)
+3. [Gestion des webhooks via l'interface](#gestion-des-webhooks-via-linterface)
+4. [API REST pour interroger l'historique](#api-rest-pour-interroger-lhistorique)
+5. [Architecture technique](#architecture-technique)
+6. [Implémentation côté récepteur](#implémentation-côté-récepteur)
+7. [Format des événements et du payload](#format-des-événements-et-du-payload)
+8. [Sécurité et authentification](#sécurité-et-authentification)
+9. [Gestion des échecs et retry](#gestion-des-échecs-et-retry)
+10. [Migration depuis l'ancien système](#migration-depuis-lancien-système)
 
 ---
 
-DataPass possède un système de webhooks permettant de souscrire aux différents
-événements liés à une demande d'habilitation. Par défaut ce système est désactivé (en faveur
-d'emails de notifications et d'un appel via un bridge (code spécifique au
-fournisseur de service) lors d'une validation d'une habilitation).
+## Introduction
 
-Si vous voulez avoir un contrôle plus fin du cycle de vie des demandes d'habilitations, vous
-pouvez utiliser ce système (par exemple pour gérer un CRM, mettre en place des
-statistiques..).
+DataPass propose un système de webhooks permettant de recevoir des notifications en temps réel sur les événements liés aux demandes d'habilitation. Ce système remplace l'ancien mécanisme basé sur des variables d'environnement et offre une gestion complète via une interface web et une API REST.
 
-Le système de webhooks utilise l'approche du token de vérification et du header
-`X-Hub-Signature-256` permettant d'authentifier les appels depuis le endpoint cible.
+### Fonctionnalités principales
 
-L'implémentation des webhooks s'effectue en 2 étapes: une partie sur DataPass et
-une partie sur votre système.
+- **Gestion autonome** : Créez et gérez vos webhooks via l'interface développeur
+- **Webhooks multiples** : Possibilité de créer plusieurs webhooks par type d'habilitation, sans limitation
+- **Souscription aux événements** : Choisissez précisément les événements à écouter (create, submit, approve, etc.)
+- **Historique complet** : Consultez tous les appels effectués avec leurs statuts, codes HTTP et réponses
+- **Rejeu manuel** : Rejouez un appel qui a échoué directement depuis l'interface
+- **Test automatique** : Les webhooks sont automatiquement testés lors de leur création
+- **Désactivation automatique** : Les webhooks défaillants sont automatiquement désactivés après 5 échecs consécutifs
+- **API de polling** : Interrogez l'historique des appels via l'API REST avec filtres temporels
 
-### Partie 1: DataPass
+---
 
-Afin de pouvoir activer les webhooks sur DataPass, il faut définir 2 variables
-d'environnement:
+## Prérequis : Rôle développeur
 
-1. Une jeton de vérification qui permettra de signer les appels ;
-2. L'URL de l'endpoint qui acceptera les appels webhooks.
+**Important** : La gestion des webhooks nécessite d'avoir le rôle **développeur** pour un ou plusieurs types d'habilitation.
 
-Avec le service identifié dans DataPass comme `super_service`, les variables
-seront:
+### Comment obtenir le rôle développeur ?
 
-1. `SUPER_SERVICE_VERIFY_TOKEN`
-1. `SUPER_SERVICE_WEBHOOK_URL`
+Le rôle développeur doit être attribué manuellement par un administrateur DataPass. Ce rôle vous donne accès à :
 
-Par exemple pour API Entreprise, identifié comme `api_entreprise`, les variables
-sont:
+- L'espace développeur : `/developpeurs`
+- La gestion des webhooks : `/developpeurs/webhooks`
+- L'API REST pour interroger l'historique des appels
+- Les applications OAuth pour l'authentification API
 
-1. `API_ENTREPRISE_VERIFY_TOKEN`
-1. `API_ENTREPRISE_WEBHOOK_URL`
+### Vérifier vos droits
 
-Dès que ces 2 variables sont définies, l'activation du système de webhook
-s'effectue en créant un notifier spécifique au système portant le nom de
-`SuperServiceNotifier`. Les notifiers permettent de notifier des entités
-tierces, telles que les demandeurs, contacts RGPD etc etc.. et propose des
-méthodes outils pour manipuler des emails et des webhooks.
+Vous pouvez vérifier vos rôles développeur en vous connectant à DataPass et en accédant à votre profil. Les types d'habilitation pour lesquels vous avez le rôle développeur y sont listés.
 
-Ce nouveau notifier doit hériter soit de:
+---
 
-* [`ApplicationNotifier`](../app/notifiers/application_notifier.rb) si vous
-    voulez controller l'ensemble des messages envoyés ;
-* [`BaseNotifier`](../app/notifiers/base_notifier.rb) si vous voulez garder
-    certains comportements de base des notifications
+## Gestion des webhooks via l'interface
 
-Chacune des méthodes correspond à un événement associé à la demande d’habilitation,
-défini dans le modèle `AuthorizationRequest` (la description de chacun de ces événements
-se trouve plus bas dans ce document)
+### Accéder à l'espace développeur
 
-Il est possible de mixer, en fonction de l'événement, l'envoi d'email ou de
-webhooks. Un exemple d'implémentation qui utilise des webhooks et des emails
-est disponible ici:
-[`APIEntreculierNotifier`](../app/notifiers/api_entreculier_notifier.rb) (qui
-s'occupe d'API Entreprise et API Particulier)
+1. Connectez-vous à DataPass
+2. Accédez à `/developpeurs`
+3. Cliquez sur "Gérer les webhooks"
 
-### Partie 2: Système recevant les webhooks
+### Créer un nouveau webhook
 
-Le système de webhook effectue des requêtes HTTP de type POST, avec comme `body`
-un json qui est sous le format ci-dessous :
+1. Depuis `/developpeurs/webhooks`, cliquez sur "Nouveau webhook"
+2. Renseignez les informations suivantes :
+   - **Type d'habilitation** : Sélectionnez le type pour lequel vous souhaitez créer un webhook (uniquement les types pour lesquels vous avez le rôle développeur)
+   - **URL** : L'URL de votre endpoint qui recevra les notifications (doit être accessible publiquement)
+   - **Secret** : Un token de sécurité que vous générez (utilisé pour signer les requêtes avec HMAC-SHA256)
+   - **Événements** : Cochez au moins un événement à écouter (obligatoire)
 
-```json
-{
-  "event": "refuse",
-  "fired_at": 1628253953,
-  "model_type": "authorization_request/api_entreprise",
-  "data": model_data
-}
+3. **Test automatique** : Le système teste automatiquement votre webhook en envoyant un payload de test
+   - Si le test réussit (code HTTP 200), le webhook est créé et marqué comme valide
+   - Si le test échoue, le webhook est créé mais reste invalide et désactivé
+
+4. **Activation** : Une fois le webhook valide, vous pouvez l'activer via le bouton "Activer"
+
+### Les événements disponibles
+
+Vous pouvez souscrire aux événements suivants (sélection multiple possible) :
+
+- `create` : Une nouvelle demande d'habilitation a été créée
+- `update` : Une demande d'habilitation a été mise à jour par le demandeur
+- `submit` : Une demande d'habilitation a été soumise pour instruction
+- `approve` : Une demande d'habilitation a été validée par un instructeur
+- `refuse` : Une demande d'habilitation a été refusée
+- `revoke` : Une habilitation a été révoquée
+- `request_changes` : Un instructeur demande des modifications au demandeur
+- `archive` : Une demande d'habilitation a été archivée
+- `reopen` : Une habilitation a été réouverte par le demandeur
+- `cancel_reopening` : Une demande de réouverture a été annulée
+- `transfer` : Une demande d'habilitation a été transférée à une autre organisation
+
+**Note** : Les événements `start_next_stage` et `cancel_next_stage` (liés aux habilitations multi-étapes) ne déclenchent pas de webhooks.
+
+### Modifier un webhook
+
+1. Depuis la liste des webhooks, cliquez sur "Modifier"
+2. Modifiez les champs souhaités
+3. **Si vous modifiez l'URL ou le secret** :
+   - Le webhook est automatiquement désactivé
+   - Un nouveau test est effectué
+   - Si le test réussit, le webhook redevient valide (mais reste désactivé, vous devez le réactiver manuellement)
+   - Si le test échoue, le webhook reste invalide et désactivé
+
+4. **Si vous modifiez uniquement les événements** :
+   - Le webhook est automatiquement désactivé
+   - Vous devez le réactiver manuellement
+
+### Activer / Désactiver un webhook
+
+- **Activer** : Le webhook doit être marqué comme valide (test réussi). Cliquez sur "Activer" depuis la liste ou la page de détails.
+- **Désactiver** : Cliquez sur "Désactiver" depuis la liste ou la page de détails. Le webhook ne recevra plus d'notifications.
+
+### Tester manuellement un webhook
+
+Vous pouvez tester manuellement un webhook à tout moment :
+
+1. Depuis la page de détails du webhook, cliquez sur "Tester"
+2. Un payload de test est envoyé à votre endpoint
+3. Le résultat du test (code HTTP et extrait de la réponse) est affiché
+4. Si le test réussit, le webhook est marqué comme valide
+
+### Consulter l'historique des appels
+
+1. Depuis la liste des webhooks, cliquez sur "Voir les appels"
+2. L'historique affiche tous les appels effectués avec :
+   - Date et heure
+   - Événement déclenché
+   - Code de statut HTTP
+   - Indicateur de succès/échec
+   - Lien vers la demande d'habilitation concernée
+
+3. Cliquez sur un appel pour voir les détails complets :
+   - Payload envoyé (JSON complet)
+   - Code de statut HTTP
+   - Réponse du serveur (limitée à 10 000 caractères)
+   - Possibilité de rejouer l'appel
+
+### Rejouer un appel échoué
+
+Si un appel webhook a échoué, vous pouvez le rejouer :
+
+1. Depuis les détails d'un appel, cliquez sur "Rejouer"
+2. Un nouvel appel est effectué avec le même payload
+3. Le nouvel appel apparaît dans l'historique
+
+**Note** : Vous ne pouvez rejouer un appel que si le webhook est actif.
+
+### Créer plusieurs webhooks
+
+Vous pouvez créer **plusieurs webhooks pour un même type d'habilitation**, sans limitation de nombre. Cela permet par exemple de :
+
+- Notifier plusieurs systèmes différents
+- Séparer les notifications par environnement (dev, staging, production)
+- Tester un nouveau webhook sans désactiver l'ancien
+
+---
+
+## API REST pour interroger l'historique
+
+### Authentification
+
+L'API utilise OAuth 2.0 pour l'authentification. Vous devez :
+
+1. Créer une application OAuth depuis `/developpeurs/applications`
+2. Obtenir un access token avec le scope `read_webhooks`
+3. Utiliser ce token dans le header `Authorization: Bearer {token}`
+
+### Endpoint : GET /api/v1/webhooks/:webhook_id/attempts
+
+Récupère l'historique des appels d'un webhook spécifique.
+
+#### Paramètres
+
+- `webhook_id` (path, requis) : ID du webhook
+- `start_time` (query, optionnel) : Date de début au format ISO 8601 (ex: `2024-01-01T00:00:00Z`)
+- `end_time` (query, optionnel) : Date de fin au format ISO 8601
+- `limit` (query, optionnel) : Nombre d'appels à retourner (par défaut 100, maximum 100)
+
+#### Exemple de requête
+
+```bash
+curl -X GET "https://datapass.api.gouv.fr/api/v1/webhooks/123/attempts?start_time=2024-01-01T00:00:00Z&end_time=2024-01-31T23:59:59Z&limit=50" \
+  -H "Authorization: Bearer YOUR_OAUTH_TOKEN"
 ```
 
-Avec:
+#### Format de réponse
 
-- `event`, `string`: l'événement associé au changement d'état de l’habilitation.
-  Les valeurs possibles sont (liste non-exhaustive, celle-ci peut être consulter
-  dans la machine à état du modèle `AuthorizationRequest`):
-  - `create`: la demande d’habilitation vient d'être créée ;
-  - `update`: la demande d’habilitation a été mise à jour par le demandeur ;
-  - `submit`: la demande d’habilitation a été envoyée par le demandeur ;
-  - `refuse`: la demande d’habilitation a été refusée par un instructeur ;
-  - `revoke`: l’habilitation a été révoquée par un instructeur ;
-  - `request_changes`: la demande d’habilitation a été instruite par un instructeur et
-    demande des modifications de la part du demandeur ;
-  - `archive`: la demande d’habilitation a été archivé par un instructeur ;
-  - `approve`: la demande d’habilitation a été validée par un instructeur ;
-  - `reopen`: l'habilitation a été réouverte par le demandeur ;
-  - `cancel_reopening`: la demande de réouverture a été annulée par un demandeur
-      ou un instructeur ;
-  - `transfer`: la demande d'habilitation a été transférée à un nouveau
-      demandeur ou nouvelle organisation
-- `fired_at`, `timestamp`: timestamp correspondant au moment où le webhook a été
-  déclenché ;
-- `model_type`, `string`: correspond au modèle de donnée. Il s'agit de la nom de
-    du model sous format " underscore ". Par exemple pour
-    `AuthorizationRequest::APIParticulier` il s'agit de `authorization_request/api_particulier`
-- `data`, `json`: données de la demande d’habilitation. Le serializaer utilisé est [`WebhookAuthorizationRequestSerializer`](../app/serializers/webhook_authorization_request_serializer.rb)
+```json
+[
+  {
+    "id": 456,
+    "event": "approve",
+    "status_code": 200,
+    "response_body": "{\"success\": true}",
+    "created_at": "2024-01-15T10:30:00Z",
+    "authorization_request_id": 789
+  },
+  {
+    "id": 457,
+    "event": "submit",
+    "status_code": 500,
+    "response_body": "{\"error\": \"Internal Server Error\"}",
+    "created_at": "2024-01-15T11:00:00Z",
+    "authorization_request_id": 790
+  }
+]
+```
 
-Un exemple de payload pour `model_data`:
+#### Codes de réponse
+
+- `200 OK` : Liste des appels retournée avec succès
+- `401 Unauthorized` : Token OAuth invalide ou manquant
+- `403 Forbidden` : Le scope `read_webhooks` est manquant
+- `404 Not Found` : Webhook introuvable ou vous n'avez pas accès à ce webhook
+
+---
+
+## Architecture technique
+
+### Modèle de données
+
+#### Table `webhooks`
+
+| Champ                       | Type     | Description                                                    |
+|-----------------------------|----------|----------------------------------------------------------------|
+| `id`                        | integer  | Identifiant unique                                             |
+| `authorization_definition_id` | string   | Type d'habilitation (ex: `api_entreprise`, `api_particulier`) |
+| `url`                       | string   | URL de destination                                             |
+| `events`                    | jsonb    | Liste des événements souscrits (array JSON)                    |
+| `secret`                    | text     | Token de sécurité (chiffré avec Rails encrypted attributes)    |
+| `enabled`                   | boolean  | Webhook actif (par défaut: `false`)                            |
+| `validated`                 | boolean  | Webhook validé par un test réussi (par défaut: `false`)        |
+| `activated_at`              | datetime | Date de première validation réussie                            |
+| `created_at`                | datetime | Date de création                                               |
+| `updated_at`                | datetime | Date de dernière modification                                  |
+
+#### Table `webhook_attempts`
+
+| Champ                     | Type     | Description                                                |
+|---------------------------|----------|------------------------------------------------------------|
+| `id`                      | integer  | Identifiant unique                                         |
+| `webhook_id`              | integer  | Référence au webhook                                       |
+| `authorization_request_id` | integer  | Référence à la demande d'habilitation                      |
+| `event_name`              | string   | Nom de l'événement déclenché                               |
+| `status_code`             | integer  | Code HTTP de la réponse (nullable si timeout/erreur)       |
+| `response_body`           | text     | Corps de la réponse (limité à 10 000 caractères)          |
+| `payload`                 | jsonb    | Payload envoyé (JSON complet)                              |
+| `created_at`              | datetime | Date et heure de l'appel                                   |
+
+### Flux de déclenchement
+
+```
+Événement sur AuthorizationRequest
+  ↓
+DeliverAuthorizationRequestNotification (Interactor)
+  ↓
+Récupère tous les webhooks actifs pour cet événement
+  ↓
+Pour chaque webhook :
+  ↓
+  DeliverAuthorizationRequestWebhookJob (Sidekiq Job)
+    ↓
+    WebhookHttpService (calcul HMAC + appel HTTP)
+      ↓
+      SaveWebhookAttempt (enregistrement de l'appel)
+        ↓
+        Si échec ET 5ème tentative :
+          → Désactivation du webhook
+          → Envoi email aux développeurs
+```
+
+### Services et interactors
+
+- **WebhookHttpService** : Service partagé pour calculer le HMAC-SHA256 et effectuer l'appel HTTP
+- **Developer::SaveWebhookAttempt** : Enregistre chaque appel dans la base de données
+- **Developer::CreateWebhook** : Crée et teste un nouveau webhook
+- **Developer::UpdateWebhook** : Met à jour et re-teste si nécessaire
+- **Developer::EnableWebhook** : Active un webhook (uniquement si valide)
+- **Developer::ReplayWebhookAttempt** : Rejoue un appel échoué
+- **DeliverAuthorizationRequestWebhookJob** : Job Sidekiq pour l'envoi asynchrone
+
+---
+
+## Implémentation côté récepteur
+
+### Prérequis
+
+Votre endpoint webhook doit :
+
+1. **Être accessible publiquement** via HTTPS
+2. **Répondre rapidement** (timeout de 10 secondes)
+3. **Retourner un code HTTP de succès** : `200`, `201` ou `204`
+4. **Vérifier la signature HMAC** (obligatoire pour la sécurité)
+
+### Format de la requête
+
+DataPass effectue une requête HTTP POST vers votre URL avec :
+
+**Headers** :
+- `Content-Type: application/json`
+- `X-Hub-Signature-256: sha256=<signature_hmac>`
+- `X-App-Environment: <environment>` (valeurs possibles : `sandbox`, `staging`, `production`)
+
+**Body** : JSON contenant l'événement et les données de la demande d'habilitation
+
+### Exemple de payload
 
 ```json
 {
-  // ID technique de la demande d’habilitation
-  "id": 9001,
-  // ID Public de la demande
-  "public_id": "a90939e8-f906-4343-8996-5955257f161d",
-  // Status de la demande d’habilitation. Les valeurs peuvent être:
-  // * draft : en attente d'envoi
-  // * submitted : demande d’habilitation envoyée
-  // * changes_requested : la demande d’habilitation a été revue par un instructeur et demande des modifications
-  // * validated : demande d'habilitation validée
-  // * refused : demande d'habilitation refusée
-  // * revoked : demande d'habilitation révoquée
-  // * archived : demande d'habilitation archivée
-
-  "state": "validated"
-  // ID du formulaire associé à la demande. Cette liste se trouve dans config/authorization_request_forms/
-  "form_uid": "api-entreprise-demande-libre",
-  // Payload de l'organisation
-  "organization": {
-    "id": 9002,
-    "name": "UMAD CORP",
-    "siret": "98043033400022"
-  },
-  // Payload du demandeur
-  "applicant": {
-    "id": 9003,
-    "email": "jean.dupont@beta.gouv.fr",
-    "given_name": "Jean",
-    "family_name": "Dupont",
-    "phone_number": "0836656565",
-    "job_title": "Rockstar"
-  },
-  // Les données associée au type de l'habilitation. En fonction du type les clés varient. Un exemple est donnée ci-dessous avec des clés possibles
+  "event": "approve",
+  "fired_at": 1628253953,
+  "model_type": "authorization_request/api_entreprise",
   "data": {
-    "intitule": "Ma demande",
-    "scopes": [
-      "cnaf_identite",
-      "cnaf_enfants"
-    ]
-    "contact_technique_given_name": "Tech",
-    "contact_technique_family_name": "Os",
-    "contact_technique_phone_number": "08366666666",
-    "contact_technique_job_title": "DSI",
-    "contact_technique_email": "tech@beta.gouv.fr"
+    "id": 9001,
+    "public_id": "a90939e8-f906-4343-8996-5955257f161d",
+    "state": "validated",
+    "form_uid": "api-entreprise-demande-libre",
+    "organization": {
+      "id": 9002,
+      "name": "UMAD CORP",
+      "siret": "98043033400022"
+    },
+    "applicant": {
+      "id": 9003,
+      "email": "jean.dupont@beta.gouv.fr",
+      "given_name": "Jean",
+      "family_name": "Dupont",
+      "phone_number": "0836656565",
+      "job_title": "Rockstar"
+    },
+    "data": {
+      "intitule": "Ma demande",
+      "scopes": ["cnaf_identite", "cnaf_enfants"],
+      "contact_technique_given_name": "Tech",
+      "contact_technique_family_name": "Os",
+      "contact_technique_phone_number": "08366666666",
+      "contact_technique_job_title": "DSI",
+      "contact_technique_email": "tech@beta.gouv.fr"
+    }
   }
 }
 ```
 
-La requête HTTP possède comme `Application-Type` la valeur
-`application/json`
+### Description des champs
 
-Votre serveur doit obligatoirement répondre avec un status de succès. Les codes
-HTTP considérés comme étant un succès sont `200`, `201` et `204`. Le cas
-contraire, DataPass continuera d'essayer d'envoyer le webhook jusqu'à obtenir
-un code de succes. Les temps d'attentes sont exponentiels entre chaque
-tentatives. Ci-dessous un tableau avec des valeurs plausibles:
+- **`event`** (string) : Nom de l'événement (`create`, `update`, `submit`, `approve`, etc.)
+- **`fired_at`** (timestamp) : Horodatage Unix du moment où le webhook a été déclenché
+- **`model_type`** (string) : Type de la demande (format snake_case, ex: `authorization_request/api_particulier`)
+- **`data`** (object) : Données complètes de la demande d'habilitation (voir le serializer `WebhookAuthorizationRequestSerializer`)
 
-<details>
-<summary>Tableau des essais (cliquez pour ouvrir).</summary>
-<pre>
- # | Prochain essai     | Temps d'attente total
- -------------------------------------------
- 1 |       0d 0h 0m 20s |       0d 0h 0m 20s
- 2 |       0d 0h 0m 26s |       0d 0h 0m 46s
- 3 |       0d 0h 0m 46s |       0d 0h 1m 32s
- 4 |       0d 0h 1m 56s |       0d 0h 3m 28s
- 5 |       0d 0h 4m 56s |       0d 0h 8m 24s
- 6 |      0d 0h 11m 10s |      0d 0h 19m 34s
- 7 |      0d 0h 22m 26s |       0d 0h 42m 0s
- 8 |      0d 0h 40m 56s |      0d 1h 22m 56s
- 9 |       0d 1h 9m 16s |      0d 2h 32m 12s
-10 |      0d 1h 50m 26s |      0d 4h 22m 38s
-11 |      0d 2h 47m 50s |      0d 7h 10m 28s
-12 |       0d 4h 5m 16s |     0d 11h 15m 44s
-13 |      0d 5h 46m 56s |      0d 17h 2m 40s
-14 |      0d 7h 57m 26s |        1d 1h 0m 6s
-15 |     0d 10h 41m 46s |     1d 11h 41m 52s
-16 |      0d 14h 5m 20s |      2d 1h 47m 12s
-17 |     0d 18h 13m 56s |       2d 20h 1m 8s
-18 |     0d 23h 13m 46s |     3d 19h 14m 54s
-19 |      1d 5h 11m 26s |      5d 0h 26m 20s
-20 |     1d 12h 13m 56s |     6d 12h 40m 16s
-21 |     1d 20h 28m 40s |       8d 9h 8m 56s
-22 |       2d 6h 3m 26s |    10d 15h 12m 22s
-23 |      2d 17h 6m 26s |     13d 8h 18m 48s
-24 |      3d 5h 46m 16s |      16d 14h 5m 4s
-25 |     3d 20h 11m 56s |     20d 10h 17m 0s
-</pre>
-</details>
+---
 
-Si au bout de 5 essais le serveur distant n'a toujours pas répondu positivement,
-un email d'erreur est envoyé aux développeurs du type d'habilitation avec
-l'erreur exacte du serveur distant.
+## Sécurité et authentification
 
-#### Sécurité
+### Vérification de la signature HMAC
 
-Afin de garantir que la payload envoyée est bien émise par
-DataPass, 1 headers est ajouté à la requête :
+**⚠️ IMPORTANT** : Vous **devez** vérifier la signature HMAC pour garantir que la requête provient bien de DataPass. Ne pas le faire expose votre système à des attaques.
 
-- `X-Hub-Signature-256`, `string` : [HMAC en SHA256 ( Hash-based Message Authentication Code
-  )](https://fr.wikipedia.org/wiki/HMAC) ayant pour clé la valeur de jeton de
-  vérification et comme données le contenu du body de la requête.
+### Comment vérifier la signature
 
-Ce header permet d'authentifier chaque payload reçu par votre
-système : en effet, vu que le token de vérification est seulement connu de
-DataPass et de votre système, il est impossible pour un attaquant de forger une
-requête et de taper sur votre système sans connaître la valeur du token de
-vérification.
+1. Récupérez le header `X-Hub-Signature-256`
+2. Récupérez le corps brut de la requête (sans parsing)
+3. Calculez le HMAC-SHA256 avec votre secret
+4. Comparez les deux valeurs de manière sécurisée
 
-⚠️ Il est **impératif de vérifier la valeur `X-Hub-Signature-256` dans votre système**, le cas contraire n'importe
-quel personne connaissant l'url de votre service pourra exploiter cette faille
-et donc générer des accès à vos données.
-
-Ci dessous un exemple (en ruby/rails) qui vérifie la valeur du `X-Hub-Signature-256`:
+### Exemple d'implémentation (Ruby/Rails)
 
 ```ruby
-hub_signature = request.headers['X-Hub-Signature-256']
-payload_body = request.body
-verify_token = ENV['DATAPASS_WEBHOOK_VERIFY_TOKEN']
+def verify_webhook_signature
+  hub_signature = request.headers['X-Hub-Signature-256']
+  payload_body = request.raw_post
+  verify_token = ENV['DATAPASS_WEBHOOK_SECRET']
 
-compute_hub_signature = 'sha256=' + OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha256'), verify_token, payload_body)
+  computed_signature = 'sha256=' + OpenSSL::HMAC.hexdigest(
+    OpenSSL::Digest.new('sha256'),
+    verify_token,
+    payload_body
+  )
 
-# La valeur ci-dessous est true si la signature est valide
-Rack::Utils.secure_compare(hub_signature, compute_hub_signature)
+  unless Rack::Utils.secure_compare(hub_signature, computed_signature)
+    head :unauthorized
+    return
+  end
+
+  # Signature valide, traiter la requête
+end
 ```
 
-#### Sauvegarde d'un id associé à la demande sur DataPass
+### Exemple d'implémentation (Node.js/Express)
 
-Lors de l'événement `approve`, si votre système répond avec un ID de jeton
-celui-ci sera affecté à l’habilitation.
+```javascript
+const crypto = require('crypto');
 
-Le format attendu est au format json:
+function verifyWebhookSignature(req, res, next) {
+  const hubSignature = req.headers['x-hub-signature-256'];
+  const secret = process.env.DATAPASS_WEBHOOK_SECRET;
+
+  const computedSignature = 'sha256=' + crypto
+    .createHmac('sha256', secret)
+    .update(req.rawBody) // Assurez-vous d'avoir accès au body brut
+    .digest('hex');
+
+  if (!crypto.timingSafeEqual(
+    Buffer.from(hubSignature),
+    Buffer.from(computedSignature)
+  )) {
+    return res.status(401).send('Invalid signature');
+  }
+
+  next();
+}
+```
+
+### Exemple d'implémentation (Python/Flask)
+
+```python
+import hmac
+import hashlib
+from flask import request
+
+def verify_webhook_signature():
+    hub_signature = request.headers.get('X-Hub-Signature-256')
+    secret = os.environ['DATAPASS_WEBHOOK_SECRET'].encode()
+    payload_body = request.get_data()
+
+    computed_signature = 'sha256=' + hmac.new(
+        secret,
+        payload_body,
+        hashlib.sha256
+    ).hexdigest()
+
+    if not hmac.compare_digest(hub_signature, computed_signature):
+        return False, 401
+
+    return True, 200
+```
+
+### Tester votre webhook avec webhook.site
+
+Pour tester rapidement votre implémentation sans développer un endpoint complet :
+
+1. Allez sur [https://webhook.site](https://webhook.site)
+2. Copiez l'URL unique générée
+3. Créez un webhook dans DataPass avec cette URL
+4. Déclenchez un événement dans DataPass
+5. Consultez la requête reçue sur webhook.site (payload, headers, signature)
+
+**Note** : webhook.site ne vérifie pas la signature HMAC. Utilisez-le uniquement pour les tests de développement.
+
+---
+
+## Gestion des échecs et retry
+
+### Codes HTTP de succès
+
+DataPass considère les codes HTTP suivants comme des succès :
+- `200 OK`
+- `201 Created`
+- `204 No Content`
+
+Tout autre code (4xx, 5xx) ou timeout est considéré comme un échec.
+
+### Stratégie de retry
+
+En cas d'échec, DataPass utilise un **backoff polynomial** pour réessayer l'envoi :
+
+| Tentative | Délai avant prochain essai | Temps cumulé     |
+|-----------|----------------------------|------------------|
+| 1         | 20 secondes                | 20s              |
+| 2         | 26 secondes                | 46s              |
+| 3         | 46 secondes                | 1m 32s           |
+| 4         | 1m 56s                     | 3m 28s           |
+| 5         | 4m 56s                     | 8m 24s           |
+| ...       | ...                        | ...              |
+
+*(voir la table complète dans la documentation technique)*
+
+### Désactivation automatique après 5 échecs
+
+Après **5 tentatives échouées consécutives**, le webhook est automatiquement :
+
+1. **Désactivé** : Il ne recevra plus de notifications
+2. **Email de notification** : Tous les développeurs du type d'habilitation reçoivent un email contenant :
+   - Le type d'habilitation concerné
+   - L'URL du webhook
+   - Le dernier code d'erreur HTTP
+   - Un lien direct vers la gestion du webhook
+
+### Réactivation après désactivation
+
+Pour réactiver un webhook désactivé automatiquement :
+
+1. Vérifiez et corrigez le problème sur votre endpoint
+2. Testez le webhook manuellement depuis l'interface
+3. Si le test réussit, activez le webhook
+4. Les nouvelles notifications seront à nouveau envoyées
+
+---
+
+## Format des événements et du payload
+
+### États possibles d'une demande d'habilitation
+
+Une demande d'habilitation peut avoir les états suivants (champ `state`) :
+
+- `draft` : Brouillon, en cours de rédaction par le demandeur
+- `submitted` : Soumise pour instruction
+- `changes_requested` : Modifications demandées par un instructeur
+- `validated` : Validée par un instructeur (habilitation créée)
+- `refused` : Refusée
+- `revoked` : Révoquée
+- `archived` : Archivée
+
+### Événement spécial : `approve` avec token_id
+
+Lors de l'événement `approve` (validation d'une habilitation), votre système peut répondre avec un identifiant de jeton qui sera enregistré dans DataPass.
+
+**Format de réponse attendu** :
 
 ```json
 {
@@ -255,7 +524,61 @@ Le format attendu est au format json:
 }
 ```
 
-#### Données supplémentaires disponibles dans les headers
+Ce `token_id` sera stocké dans le champ `external_provider_id` de l'habilitation et peut servir de référence entre DataPass et votre système.
 
-* `X-App-Environment`: environnement de DataPass. Les valeurs possibles sont
-  `sandbox`, `staging` et `production` (liste non-exhaustive)
+### Serializer utilisé
+
+Le payload complet est généré par le serializer `WebhookSerializer` qui utilise `WebhookAuthorizationRequestSerializer`. Vous pouvez consulter ces fichiers dans le code source pour voir tous les champs disponibles.
+
+---
+
+## Migration depuis l'ancien système
+
+### Ancien système (variables d'environnement)
+
+Avant 2025, les webhooks étaient configurés via des variables d'environnement :
+
+```
+API_ENTREPRISE_WEBHOOK_URL=https://...
+API_ENTREPRISE_VERIFY_TOKEN=secret_token
+```
+
+Et gérés directement dans des notifiers spécifiques.
+
+### Nouveau système (base de données)
+
+Depuis 2025, les webhooks sont :
+
+- Stockés en base de données
+- Gérables via l'interface développeur
+- Associés à un utilisateur avec le rôle développeur
+- Consultables et rejouables depuis l'historique
+
+### Migration automatique
+
+Les webhooks configurés via variables d'environnement ont été migrés automatiquement lors du déploiement. Les anciennes variables ne sont plus utilisées mais sont conservées dans les credentials pour référence.
+
+**Webhooks migrés** :
+
+- `api_entreprise` : Tous les événements (sauf start_next_stage, cancel_next_stage)
+- `api_particulier` : Tous les événements (sauf start_next_stage, cancel_next_stage)
+- `formulaire_qf` : Tous les événements (sauf start_next_stage, cancel_next_stage)
+- `annuaire_des_entreprises` : Événement `approve` uniquement
+
+Ces webhooks ont été créés avec le statut `enabled: true` et `validated: true`.
+
+### Nettoyage du code
+
+Les appels directs à `webhook_notification` dans les notifiers spécifiques ont été supprimés. La logique webhook est maintenant centralisée dans `DeliverAuthorizationRequestNotification` qui boucle sur tous les webhooks actifs pour un événement donné.
+
+---
+
+## Support et contact
+
+Pour toute question sur l'utilisation des webhooks :
+
+- Documentation API : `/developpeurs/documentation`
+- Issues GitHub : [github.com/betagouv/datapass](https://github.com/betagouv/datapass)
+- Contact : datapass@api.gouv.fr
+
+Pour obtenir le rôle développeur, contactez un administrateur DataPass.

@@ -49,9 +49,7 @@ end
 
 case Rails.env
 when 'development', 'test'
-  port = ENV['DOCKER'].present? ? 5000 : 3000
-
-  host = "http://localhost:#{port}"
+  host = "http://localhost:3000"
 when 'sandbox', 'staging'
   host = "https://#{Rails.env}.datapass.api.gouv.fr"
 when 'production'

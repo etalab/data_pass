@@ -14,9 +14,6 @@ Fonctionnalité: Habilitation avec des cases à cocher supplémentaires
     * je renseigne les infos de bases du projet
     * je clique sur "Suivant"
 
-    * je renseigne les infos concernant les données personnelles
-    * je clique sur "Suivant"
-
     * je renseigne le cadre légal
     * je clique sur "Suivant"
 
@@ -26,6 +23,9 @@ Fonctionnalité: Habilitation avec des cases à cocher supplémentaires
     * je coche "Nom de naissance"
     * je clique sur "Suivant"
 
+
+    * je renseigne les infos concernant les données personnelles
+    * je clique sur "Suivant"
     * je renseigne les informations des contacts RGPD
     * je renseigne les informations du contact technique avec un numéro de mobile
     * je clique sur "Suivant"

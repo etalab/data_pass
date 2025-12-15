@@ -1,0 +1,8 @@
+aides-etat:
+  description: |
+    La Plateforme Aides d’État collecte et partage de manière sécurisée les données sur les aides d'État et les aides de minimis octroyées aux entreprises. Que vous soyez un service de l'État, un établissement public gérant des fonds d'aides publiques, ou une collectivité territoriale, vous avez vocation à verser vos données dans la plateforme. Vous pourrez ainsi consulter l’ensemble des aides déjà perçues par toute entreprise, grâce à un module de recherche par SIREN, SIRET ou raison sociale.
+  introduction: |
+    Ceci est une introduction à remplir
+  authorization_request: AidesEtat
+  steps:
+    - name: contacts

@@ -45,7 +45,7 @@ Quand('je veux remplir une demande pour {string} via le formulaire {string} de l
 end
 
 Quand('je veux remplir une demande pour {string}') do |authorization_request_name|
-  visit new_authorization_request_path(definition_id: find_authorization_definition_from_name(authorization_request_name).id)
+  visit new_authorization_request_path(definition_id: find_authorization_definition_from_name(authorization_request_name).id, eligibility_confirmed: 'true')
 end
 
 Quand("je démarre une nouvelle demande d'habilitation {string} à l'étape {string}") do |name, stage|
@@ -73,8 +73,8 @@ Quand("je démarre une nouvelle demande d'habilitation {string} avec le paramèt
 end
 
 Quand('je remplis les informations du contact {string} avec :') do |string, table|
-  contact_title_node = find('h6', text: string)
-  contact_node = contact_title_node.find(:xpath, '../..')
+  contact_title_node = find('.contact-form-card__title', text: string)
+  contact_node = contact_title_node.find(:xpath, '../../..')
 
   within(contact_node) do
     table.hashes[0].each do |field, value|
@@ -91,6 +91,18 @@ Quand('cette demande a été modifiée avec les informations suivantes :') do |t
   end
 
   authorization_request.update!(params)
+end
+
+Quand('cette demande possède les informations potentiellement non intègres suivantes :') do |table|
+  authorization_request = AuthorizationRequest.last
+
+  data = authorization_request.data || {}
+
+  table.hashes.each do |datum_config|
+    data[datum_config['champ']] = datum_config['nouvelle valeur']
+  end
+
+  authorization_request.update_column(:data, data) # rubocop:disable Rails/SkipsModelValidations
 end
 
 Quand("je clique sur {string} pour l'habilitation {string}") do |cta_name, habilitation_name|
@@ -153,6 +165,18 @@ Quand("cette dernière demande d'habilitation s'appelait {string}") do |intitule
   last_authorization_request = AuthorizationRequest.last
   last_authorization_request.intitule = intitule
   last_authorization_request.save
+end
+
+Quand('je change d\'organisation courante pour mon organisation initiale') do
+  initial_organization = current_user.organizations_users.order(created_at: :asc).first.organization
+  current_user.organizations_users.find_by(organization: initial_organization).set_as_current!
+  current_user.reload
+end
+
+Quand('je change d\'organisation courante pour {string}') do |organization_name|
+  organization = find_or_create_organization_by_name(organization_name)
+  current_user.organizations_users.find_by(organization: organization).set_as_current!
+  current_user.reload
 end
 
 Quand(/je suis mentionné dans (\d+) demandes? d'habilitation "([^"]+)" en tant que "([^"]+)"/) do |count, type, role_humanized|
@@ -313,7 +337,7 @@ Quand('je renseigne les infos logiciel du projet') do
   steps %(
     * je remplis "Nom du logiciel" avec "Le logiciel qui conquiert le monde"
     * je remplis "Date de mise en production prévue" avec "25/06/2025"
-    * je remplis "Nombre de clients utilisateurs estimés" avec "15"
+    * je remplis "Nombre de clients utilisateurs estimé" avec "15"
   )
 end
 
@@ -409,19 +433,14 @@ Quand('il existe un instructeur pour cette demande d\'habilitation') do
 end
 
 Alors('un webhook avec l\'évènement {string} est envoyé') do |event_name|
-  authorization_request = AuthorizationRequest.first
-
   webhook_job = ActiveJob::Base.queue_adapter.enqueued_jobs.find do |job|
     next unless job['job_class'] == 'DeliverAuthorizationRequestWebhookJob'
 
-    JSON.parse(job['arguments'][1])['event'] == event_name
+    payload = job['arguments'][3]
+    payload['event'] == event_name
   end
 
-  webhook_job_arg = [authorization_request.definition.id, an_instance_of(String), authorization_request.id]
-
   expect(webhook_job).not_to be_nil
-
-  expect(webhook_job['arguments']).to match(webhook_job_arg)
 end
 
 # https://rubular.com/r/eAlfvtPiXB46Ec

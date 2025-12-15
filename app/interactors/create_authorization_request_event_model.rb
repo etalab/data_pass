@@ -17,7 +17,7 @@ class CreateAuthorizationRequestEventModel < ApplicationInteractor
   def authorization_request
     entity.authorization_request
   rescue StandardError
-    entity
+    context.authorization_request || entity
   end
 
   def event_name

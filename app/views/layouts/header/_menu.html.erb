@@ -7,6 +7,12 @@
     <div class="fr-header__menu-links"></div>
     <nav class="fr-nav" id="navigation-header-menu" aria-label="Menu principal">
       <ul class="fr-nav__list">
+        <% if namespace?(:instruction) %>
+          <%= render InstructorMenuComponent.new(
+            show_drafts: policy([:instruction, :instructor_draft_request]).enabled?,
+            show_templates: policy([:instruction, :message_template]).index?
+          ) %>
+        <% end %>
       </ul>
     </nav>
   </div>

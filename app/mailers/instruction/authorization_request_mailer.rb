@@ -1,4 +1,4 @@
-class Instruction::AuthorizationRequestMailer < ApplicationMailer
+class Instruction::AuthorizationRequestMailer < AbstractInstructionMailer
   attr_reader :authorization_request
 
   def submit
@@ -25,18 +25,5 @@ class Instruction::AuthorizationRequestMailer < ApplicationMailer
         '.subject',
       )
     )
-  end
-
-  private
-
-  def instructors_or_reporters_to_notify
-    @instructors_or_reporters_to_notify ||= instructors_or_reporters.reject do |user|
-      !user.public_send(:"instruction_submit_notifications_for_#{authorization_request.definition.id.underscore}") &&
-        user != authorization_request.applicant
-    end
-  end
-
-  def instructors_or_reporters
-    authorization_request.definition.instructors_or_reporters
   end
 end

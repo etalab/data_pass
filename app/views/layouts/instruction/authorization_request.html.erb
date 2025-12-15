@@ -1,5 +1,7 @@
+<% set_title! t('page_titles.instruction_show', definition_name: @authorization_request.definition.name, authorization_request_name: @authorization_request.name) %>
+
 <%= content_for(:body) do %>
-  <div class="fr-bg-grey" data-controller="scroll-to-top">
+  <div class="fr-background-alt--blue-france" data-controller="scroll-to-top">
     <div class="authorization-request-form-header">
       <div class="fr-container">
         <div class="fr-grid-row">
@@ -8,10 +10,10 @@
 
             <div class="authorization-request-form-header__badges">
               <div class="fr-badge-group">
-                <span class="fr-badge fr-badge--no-icon"><%= t("authorization_request.badge", id: @authorization_request.id) %></span>
-                <%= authorization_request.reopening_badge %>
-                <%= authorization_request.stage_badge %>
-                <%= authorization_request.status_badge %>
+                <span class="fr-badge fr-badge--no-icon authorization-request-id-badge"><%= t("authorization_request.badge", id: @authorization_request.id) %></span>
+                <%= @authorization_request.reopening_badge %>
+                <%= @authorization_request.stage_badge %>
+                <%= @authorization_request.status_badge %>
               </div>
             </div>
           </div>
