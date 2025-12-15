@@ -1,4 +1,5 @@
-<%# Link to the "Next" page
+<%#
+  Link to the "Next" page
   - available local variables
     url:           url to the next page
     current_page:  a page object for the currently displayed page
@@ -6,6 +7,7 @@
     per_page:      number of items to fetch per page
     remote:        data-remote
 -%>
+
 <li>
   <% if current_page.last? %>
     <%= content_tag('a',  class: %w(fr-pagination__link fr-pagination__link--next), 'aria-disabled': true, role: 'link') do %>

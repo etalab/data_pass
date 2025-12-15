@@ -3,17 +3,20 @@
     <label class="fr-label" for="form-select-<%= definition.id %>">
       <%= t('.form_label') %>
     </label>
+
     <select
       class="fr-select"
       id="form-select-<%= definition.id %>"
       data-form-selector-target="select"
-      data-action="change->form-selector#updateForm">
+      data-action="change->form-selector#updateForm"
+    >
       <% forms.each do |form| %>
         <option
           value="<%= form.id %>"
           data-description="<%= form.description %>"
           data-introduction="<%= form.introduction %>"
-          <%= 'selected' if form.default %>>
+          <%= 'selected' if form.default %>
+        >
           <%= form.name_with_service_provider %>
         </option>
       <% end %>

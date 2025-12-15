@@ -1,10 +1,9 @@
 <% type ||= :applicant %>
 <% klass ||= "" %>
 
-<div class="fr-callout fr-icon-information-line fr-mb-6w <%=klass%>">
+<div class="fr-callout fr-icon-information-line fr-mb-6w <%= klass %>">
   <h3 class="fr-callout__title">Mise à jour de l'habilitation</h3>
-  <p class="fr-callout__text">
-    <%= t(".text.#{type}") %>
-  </p>
+
+  <p class="fr-callout__text"><%= t(".text.#{type}") %></p>
   <%= link_to t('.link.text', authorization_created_at: @authorization_request.latest_authorization.created_at.to_date), latest_authorization_path(@authorization_request), class:"fr-btn" %>
 </div>

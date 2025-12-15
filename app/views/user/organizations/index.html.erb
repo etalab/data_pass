@@ -20,19 +20,18 @@
       <% unless latest_identity_provider.mon_compte_pro_identity_provider? %>
         <div class="fr-alert fr-alert--info fr-mb-4w">
           <p>
-            Votre fournisseur d'identité ne fournissant pas un numéro de siret fiable pour votre compte,
-            vous devez choisir manuellement votre organisation de rattachement.
-
+            Votre fournisseur d'identité ne fournissant pas un numéro de siret
+            fiable pour votre compte, vous devez choisir manuellement votre
+            organisation de rattachement.
             <br />
             <br />
-
-            Les organisations listées ci-dessous sont celles auxquelles vous êtes rattaché(e) dans notre système, celles dont le lien
-            est vérifié sont labellisées par un badge vert « Vérifié ».
-
+            Les organisations listées ci-dessous sont celles auxquelles vous
+            êtes rattaché(e) dans notre système, celles dont le lien est
+            vérifié sont labellisées par un badge vert « Vérifié ».
             <br />
             <br />
-
-            Pour en savoir plus, consulter notre documentation sur <a href="<%= faq_path(anchor: 'lien-organisation-non-verifie') %>" target="_blank">la vérification des organisations</a>.
+            Pour en savoir plus, consulter notre documentation sur
+            <a href="<%= faq_path(anchor: 'lien-organisation-non-verifie') %>" target="_blank">la vérification des organisations</a>.
           </p>
         </div>
       <% end %>

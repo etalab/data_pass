@@ -4,20 +4,20 @@
   </span>
 
   <div class="flex-wrap flew-grow flex-end__content fr-grid-row--top fr-col--xs">
-  <% if authorization_request.definition.stage.exists? %>
-    <% if authorization_request.latest_authorization %>
-      <%= authorization.request_as_validated.stage_badge %>
-    <% else %>
-      <%= authorization_request.stage_badge %>
+    <% if authorization_request.definition.stage.exists? %>
+      <% if authorization_request.latest_authorization %>
+        <%= authorization.request_as_validated.stage_badge %>
+      <% else %>
+        <%= authorization_request.stage_badge %>
+      <% end %>
     <% end %>
-  <% end %>
 
-  <% if authorization_request.already_been_validated? && !authorization_request.revoked? %>
-    <span class="fr-badge fr-badge--success fr-ml-2v">
-      <%= t("authorization_request.status.validated") %>
-    </span>
-  <% else %>
-    <%= authorization_request.status_badge %>
-  <% end %>
+    <% if authorization_request.already_been_validated? && !authorization_request.revoked? %>
+      <span class="fr-badge fr-badge--success fr-ml-2v">
+        <%= t("authorization_request.status.validated") %>
+      </span>
+    <% else %>
+      <%= authorization_request.status_badge %>
+    <% end %>
   </div>
 </div>

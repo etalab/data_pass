@@ -6,9 +6,7 @@
 
 <fieldset class="fr-fieldset">
   <% if @authorization_request.respond_to?(:intitule) %>
-    <div class="fr-fieldset__element">
-      <%= f.dsfr_text_field :intitule %>
-    </div>
+    <div class="fr-fieldset__element"><%= f.dsfr_text_field :intitule %></div>
   <% end %>
 
   <% if @authorization_request.respond_to?(:description) %>
@@ -37,7 +35,7 @@
 
   <% if @authorization_request.respond_to?(:nombre_utilisateurs_finaux_approximatif) %>
     <div class="fr-fieldset__element">
-      <%= f.dsfr_text_field :nombre_utilisateurs_finaux_approximatif%>
+      <%= f.dsfr_text_field :nombre_utilisateurs_finaux_approximatif %>
     </div>
   <% end %>
 </fieldset>

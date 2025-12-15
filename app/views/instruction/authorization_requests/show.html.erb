@@ -7,11 +7,11 @@
     <h3>
       Les informations renseignées par le demandeur
     </h3>
+
     <p>
       Ces informations ont été complétées manuellement par le demandeur.
     </p>
   </div>
-
 
   <% @authorization_request.editable_blocks.each do |block| %>
     <%= render_custom_block_or_default(@authorization_request, block[:name], f:, editable: true) %>
@@ -22,11 +22,12 @@
       <h3>
         Les informations pré-remplies
       </h3>
+
       <p>
-        Ces informations suivantes ont été pré-remplies et ne sont pas modifiables.
+        Ces informations suivantes ont été pré-remplies et ne sont pas
+        modifiables.
       </p>
     </div>
-
     <% @authorization_request.static_blocks.each do |block| %>
       <%= render_custom_block_or_default(@authorization_request, block[:name], f:, editable: false) %>
     <% end %>

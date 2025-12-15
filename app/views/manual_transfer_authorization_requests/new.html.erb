@@ -3,9 +3,7 @@
     <div class="fr-col-md-offset-1 fr-col-md-10">
       <turbo-frame id="main-modal-content">
         <div class="fr-modal__content">
-          <h1 class="fr-modal__title">
-            <%= t('.title') %>
-          </h1>
+          <h1 class="fr-modal__title"><%= t('.title') %></h1>
 
           <p class="fr-text--lg">
             <%= t('.feature_unavailable', definition_name: @authorization_request.definition.name_with_stage) %>
@@ -17,17 +15,19 @@
 
           <div class="fr-callout fr-callout--brown-caramel">
             <p class="fr-callout__text">
-              <strong><%= t('.important_notice.title') %></strong> <%= t('.important_notice.content', organization_name: @authorization_request.organization.name, siret: @authorization_request.organization.legal_entity_id) %>
+              <strong><%= t('.important_notice.title') %></strong>
+              <%= t('.important_notice.content', organization_name: @authorization_request.organization.name, siret: @authorization_request.organization.legal_entity_id) %>
             </p>
           </div>
 
-            <p>
+          <p>
             <%= t('.contact_support') %>
-              <%= mail_to @authorization_request.definition.support_email,
+
+            <%= mail_to @authorization_request.definition.support_email,
                           @authorization_request.definition.support_email,
                           subject: t('.email_subject', authorization_request_id: @authorization_request.id),
                           class: "fr-link fr-link--icon-right fr-icon-mail-line" %>
-            </p>
+          </p>
         </div>
 
         <div class="fr-modal__footer">

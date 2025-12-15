@@ -3,23 +3,38 @@
     <div class="fr-col-md-8">
       <div class="fr-alert fr-alert--warning fr-mb-3w">
         <p class="fr-alert__title">Attention</p>
-        <p>L'impersonation doit être utilisée uniquement pour des besoins de support ou de débogage. Toutes les actions effectuées seront enregistrées.</p>
+
+        <p>
+          L'impersonation doit être utilisée uniquement pour des besoins de
+          support ou de débogage. Toutes les actions effectuées seront
+          enregistrées.
+        </p>
       </div>
 
       <p>
-        Vous trouverez la liste de toutes les impersonations effectuées sur <a href="https://metabase.entreprise.api.gouv.fr/dashboard/98" target="_blank">le tableau de suivi Metabase associé</a>.
+        Vous trouverez la liste de toutes les impersonations effectuées sur
+        <a href="https://metabase.entreprise.api.gouv.fr/dashboard/98" target="_blank">le tableau de suivi Metabase associé</a>.
       </p>
 
       <%= form_with model: @impersonation, url: admin_impersonate_path, local: true do |form| %>
         <div class="fr-input-group">
           <%= form.label :email, 'Email de l\'utilisateur', class: 'fr-label' %>
-          <span class="fr-hint-text">Saisissez l'email de l'utilisateur à impersonner</span>
+
+          <span class="fr-hint-text">
+            Saisissez l'email de l'utilisateur à impersonner
+          </span>
+
           <%= form.email_field :email, class: 'fr-input', required: true %>
         </div>
 
         <div class="fr-input-group">
           <%= form.label :reason, 'Raison de l\'impersonation', class: 'fr-label' %>
-          <span class="fr-hint-text">Décrivez pourquoi vous devez impersonner cet utilisateur (ex: ticket de support #12345)</span>
+
+          <span class="fr-hint-text">
+            Décrivez pourquoi vous devez impersonner cet utilisateur (ex: ticket
+            de support #12345)
+          </span>
+
           <%= form.text_area :reason, class: 'fr-input', rows: 4, required: true %>
         </div>
 

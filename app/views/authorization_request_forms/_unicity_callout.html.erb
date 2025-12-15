@@ -2,10 +2,12 @@
 
 <div class="fr-callout red-callout">
   <h3 class="fr-callout__title">
-    <span class="fr-icon-information-fill fr-mr-1w"> </span>
-    <%= t('.title')%>
+    <span class="fr-icon-information-fill fr-mr-1w">
+    </span>
+
+    <%= t('.title') %>
   </h3>
-        
+
   <%= simple_format t(".#{callout_key}.content", organization_name: current_organization.name), { class: 'fr-callout__text fr-my-3w' }, wrapper_tag: 'p' %>
   <%= link_to t(".#{callout_key}.cta", organization_name: current_organization.name), authorization_request_path(authorization_request), class: 'fr-link fr-btn--icon-right fr-icon-arrow-right-line' %>
 </div>

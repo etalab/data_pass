@@ -24,7 +24,8 @@
     <div
       id="editors-tab-<%= index %>-panel"
       class="
-        fr-tabs__panel fr-tabs__panel--no-transform fr-pb-8w fr-pl-2w fr-pr-2w
+        fr-tabs__panel fr-tabs__panel--no-transform fr-pb-8w fr-pl-2w
+        fr-pr-2w
       "
       role="tabpanel"
       aria-labelledby="editors-tab-<%= index %>"
@@ -44,6 +45,7 @@
               value="<%= editor.id %>"
               name="editor"
             >
+
             <label class="fr-label" for="<%= dom_id(editor) %>">
               <%= editor.name %>
             </label>
@@ -53,6 +55,7 @@
     </div>
   <% end %>
 </div>
+
 <div class="fr-mt-1w fr-mb-4w">
   <button
     class="fr-btn fr-btn--sm fr-btn--tertiary"

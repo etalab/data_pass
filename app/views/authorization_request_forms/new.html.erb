@@ -27,18 +27,14 @@
 
   <% if @authorization_request_form.introduction.present? %>
     <div class="fr-my-16v">
-      <h5>
-        <%= t(".intro.title") %>
-      </h5>
+      <h5><%= t(".intro.title") %></h5>
       <%= @authorization_request_form.introduction.html_safe %>
     </div>
   <% end %>
 
   <% if @authorization_request_form.multiple_steps? %>
     <% if @authorization_request.present? || policy(@authorization_request_form).new? %>
-      <h5>
-        <%= t('.multiple_steps.title') %>
-      </h5>
+      <h5><%= t('.multiple_steps.title') %></h5>
       <p>
         <%= t('.multiple_steps.description') %>
 
@@ -73,13 +69,9 @@
     <% end %>
   <% else %>
     <div class="fr-my-16v">
-      <h5>
-        <%= t(".single_form.title") %>
-      </h5>
+      <h5><%= t(".single_form.title") %></h5>
 
-      <p>
-        <%= simple_format t(".single_form.description") %>
-      </p>
+      <p><%= simple_format t(".single_form.description") %></p>
     </div>
     <div class="fr-grid-row fr-my-16v">
       <div class="fr-col">
