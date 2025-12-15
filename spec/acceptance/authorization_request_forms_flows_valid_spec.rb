@@ -158,6 +158,9 @@ RSpec.describe 'Authorization requests forms validations', type: :acceptance do
       },
       'api_declaration_auto_entrepreneur' => {
         'supporting_documents' => 'attestation_fiscale',
+      },
+      'api_mobilic' => {
+        'basic_infos' => 'nombre_utilisateurs_finaux_approximatif'
       }
     }
 

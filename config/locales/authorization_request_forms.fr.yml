@@ -739,7 +739,7 @@ fr:
       legal: *api_particulier_use_cases_forms_legal_tarification
       cadre_juridique_document: *api_particulier_use_cases_forms_cadre_juridique_document
       cadre_juridique_url: *api_particulier_use_cases_forms_cadre_juridique_url
-     
+
 
     api_infinoe_production_editeur: *api_infinoe_production
 
@@ -1014,8 +1014,11 @@ fr:
         label: Nom du logiciel
         hint: Nom commercial du logiciel
       volumetrie_approximative:
-        label: Nombre de clients utilisateurs estimé
-        hint: "Nombre d'utilisateurs par mois"
+        label: Nombre de vos entreprises clientes qui utiliseront l’interfacage avec Mobilic
+        hint: "Veuillez saisir un nombre: Exemple: 10"
+      nombre_utilisateurs_finaux_approximatif:
+        label: Estimation du nombre d’utilisateurs finaux
+        hint: "Veuillez saisir un nombre: Exemple: 1000"
       scopes:
         title: Validation du flux opérationnel
         subtitle: Le flux opérationnel doit contenir les éléments réglementaires obligatoires dans le cas de l’envoi de données à Mobilic.
