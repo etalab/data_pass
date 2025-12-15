@@ -923,16 +923,16 @@ api_ficoba:
       group: Informations du compte
     - name: Nombre de comptes trouvés
       value: dgfip_ficoba_nombre_comptes
-      group: Contrôle multi-détention PER
+      group: Contrôle multi-détention PER - établissements bancaires uniquement
     - name: IBAN (si accord client)
       value: dgfip_ficoba_iban
-      group: Contrôle multi-détention PER
+      group: Contrôle multi-détention PER - établissements bancaires uniquement
     - name: Date d’ouverture (si accord client)
       value: dgfip_ficoba_date_ouverture
-      group: Contrôle multi-détention PER
+      group: Contrôle multi-détention PER - établissements bancaires uniquement
     - name: Motif d’ouverture (si accord client)
       value: dgfip_ficoba_motif_ouverture
-      group: Contrôle multi-détention PER
+      group: Contrôle multi-détention PER - établissements bancaires uniquement
 
 api_ficoba_sandbox:
   name: API Fichier des Comptes Bancaires et Assimilés (FICOBA)

@@ -329,7 +329,7 @@ api-ficoba-multi-detention-sandbox:
   authorization_request: APIFicobaSandbox
   steps: *api_ficoba_sandbox_steps
   initialize_with:
-    intitule: Contrôle multi-détention produit d’épargne réglementé
+    intitule: Contrôle multi-détention produit d’épargne réglementé - établissements bancaires uniquement
     description: |
       FICOBA permet aux établissements bancaires qui commercialisent des produits d’épargne réglementé (PER) de respecter leur obligation légale de vérifier qu'un épargnant qui demande l'ouverture d'un produit d'épargne réglementé n'en détient pas un autre similaire dans un autre établissement.
       (A compléter par le demandeur)

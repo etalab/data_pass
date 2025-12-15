@@ -915,6 +915,10 @@ fr:
             Afin de vous accompagner dans le choix de vos données, vous pouvez consulter notre documentation qui vous permettra de comprendre le fonctionnement de notre API ainsi que les données que nous proposons.
             </br>
             <a href="/doc/ProtocoleTechniqueFicoba3_v11.pdf", target="_blank">Voir la documentation de l’API FICOBA</a>
+        groups:
+          'Contrôle multi-détention PER - établissements bancaires uniquement': |
+            <strong>Accord client</strong> :
+            L'établissement bancaire doit s'assurer lorsqu'un client ouvre un PER qu'il autorise l'administration fiscale à communiquer à l'établissement de crédit saisi d'une demande d'ouverture d'un PER les informations relatives au compte présent en base FICOBA en multi-détention. Si le client n'a pas donné son accord, l'API restitue un booléen : oui/non (en multi-détention).
 
     api_ficoba_production: &api_ficoba_production
       <<: *api_ficoba_sandbox
