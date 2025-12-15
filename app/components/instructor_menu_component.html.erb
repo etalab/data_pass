@@ -1,34 +1,21 @@
-<div class="fr-header__menu fr-modal" id="modal-header-menu" aria-labelledby="fr-btn-menu-mobile-1">
-  <div class="fr-container">
-    <button class="fr-link--close fr-link" aria-controls="modal-header-menu" aria-label="Fermer le menu">
-      Fermer
-    </button>
+<li class="fr-nav__item">
+  <a class="fr-nav__link center" href="<%= instruction_demandes_path %>" target="_self">
+    <%= t('layouts.header.menu.instruction.authorizations_and_requests') %>
+  </a>
+</li>
 
-    <div class="fr-header__menu-links"></div>
-    <nav class="fr-nav" id="navigation-header-menu" aria-label="Menu principal">
-      <ul class="fr-nav__list">
-        <li class="fr-nav__item">
-          <a class="fr-nav__link center" href="<%= instruction_demandes_path %>" target="_self">
-            <%= t('layouts.header.menu.instruction.authorizations_and_requests') %>
-          </a>
-        </li>
+<% if show_drafts %>
+  <li class="fr-nav__item">
+    <a class="fr-nav__link center" href="<%= instruction_instructor_draft_requests_path %>" target="_self">
+      <%= t('layouts.header.menu.instruction.instructor_authorization_requests') %>
+    </a>
+  </li>
+<% end %>
 
-        <% if show_drafts %>
-          <li class="fr-nav__item">
-            <a class="fr-nav__link center" href="<%= instruction_instructor_draft_requests_path %>" target="_self">
-              <%= t('layouts.header.menu.instruction.instructor_authorization_requests') %>
-            </a>
-          </li>
-        <% end %>
-
-        <% if show_templates %>
-          <li class="fr-nav__item">
-            <a class="fr-nav__link center" href="<%= instruction_message_templates_path %>" target="_self">
-              <%= t('layouts.header.menu.instruction.message_templates') %>
-            </a>
-          </li>
-        <% end %>
-      </ul>
-    </nav>
-  </div>
-</div>
+<% if show_templates %>
+  <li class="fr-nav__item">
+    <a class="fr-nav__link center" href="<%= instruction_message_templates_path %>" target="_self">
+      <%= t('layouts.header.menu.instruction.message_templates') %>
+    </a>
+  </li>
+<% end %>
