@@ -29,7 +29,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation Démarches du bouquet d
     Quand je démarre une nouvelle demande d'habilitation "Démarches du bouquet de services (service-public.fr)"
     Et que j'enregistre et continue vers le résumé
 
-    Alors il y a un message d'erreur contenant "Une erreur est survenue lors de la sauvegarde de la demande d'habilitation"
+    Alors il y a un message d'erreur contenant "Nous n’avons pas pu sauvegarder votre demande"
     Et il y a un message d'erreur contenant "Les données ne sont pas cochées"
     Et je suis sur la page "Démarches du bouquet de services (service-public.fr)"
 
@@ -47,6 +47,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation Démarches du bouquet d
 
     * j'enregistre et continue vers le résumé
 
-    Alors il y a un message d'erreur contenant "Une erreur est survenue lors de la sauvegarde de la demande d'habilitation"
+    Alors il y a un message d'erreur contenant "Nous n’avons pas pu sauvegarder votre demande"
     Et il y a au moins une erreur sur un champ
     Et je suis sur la page "Démarches du bouquet de services (service-public.fr)"
