@@ -1,7 +1,5 @@
 class AuthorizationRequest::ServicesCisirh < AuthorizationRequest
   include AuthorizationExtensions::BasicInfos
-  include AuthorizationExtensions::PersonalData
-  include AuthorizationExtensions::CadreJuridique
   include AuthorizationExtensions::GDPRContacts
 
   add_documents :maquette_projet, content_type: ['application/pdf'], size: { less_than: 10.megabytes }
