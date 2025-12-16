@@ -28,9 +28,9 @@ Fonctionnalité: Démarrage d'habilitation par des internautes
   @CreateDataProviders
   Scénario:  Un internaute veut accéder à son habilitation API scolarité de l'élève - formulaire "Demande libre"
     Sachant que je suis un demandeur
-    Quand je me rends sur une demande d'habilitation "API scolarité de l'élève" validée
+    Quand je me rends sur une demande d'habilitation "API scolarité de l’élève" validée
     Alors il y a un titre contenant "Bienvenue sur DataPass !"
-    Alors la page contient le logo du fournisseur de données "API scolarité de l'élève"
+    Alors la page contient le logo du fournisseur de données "API scolarité de l’élève"
     Alors je clique sur "S’identifier avec ProConnect"
     Alors il y a un formulaire en mode résumé
 

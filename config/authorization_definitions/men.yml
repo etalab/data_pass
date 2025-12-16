@@ -1,6 +1,6 @@
 api_scolarite:
-  name: "API scolarité de l'élève"
-  description: "Statut scolarisé et statut boursier d'un élève du primaire, collège ou lycée."
+  name: "API scolarité de l’élève"
+  description: "Statut scolarisé et statut boursier d’un élève du primaire, collège ou lycée."
   provider: "menj"
   kind: 'api'
   link: "https://api.gouv.fr/les-api/api-scolarite-ministere-education-nationale"

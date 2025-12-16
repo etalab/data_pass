@@ -16,7 +16,7 @@ shared:
     logo: ministere_sante.jpg
     link: https://www.sante.gouv.fr/
   dila:
-    name: Direction de l'information légale et administrative (DILA)
+    name: Direction de l’information légale et administrative (DILA)
     logo: dila_premier_ministre.jpg
     link: https://www.dila.premier-ministre.gouv.fr/
   dinum:
@@ -32,7 +32,7 @@ shared:
     logo: minarm.jpg
     link: https://api.gouv.fr/les-api/api-service-national
   aife:
-    name: Agence pour l'Information Financière de l'État
+    name: Agence pour l’Information Financière de l’État
     logo: aife.jpeg
     link: https://aife.economie.gouv.fr/
   ans:
@@ -44,7 +44,7 @@ shared:
     logo: urssaf.jpg
     link: https://www.urssaf.fr/
   menj:
-    name: Ministère de l'Éducation Nationale et de la Jeunesse
+    name: Ministère de l’Éducation Nationale et de la Jeunesse
     logo: menj.png
     link: https://www.education.gouv.fr/
   cnam:
@@ -53,7 +53,7 @@ shared:
     link: https://www.assurance-maladie.ameli.fr/
 
   cisirh:
-    name: Centre Interministériel des Systèmes d'Information relatifs aux Ressources Humaines
+    name: Centre Interministériel des Systèmes d’Information relatifs aux Ressources Humaines
     logo: cisirh.png
     link: https://www.economie.gouv.fr/cisirh
 
