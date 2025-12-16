@@ -480,10 +480,10 @@ fr:
 
     create_for_single_page_form:
       error:
-        title: Une erreur est survenue lors de la sauvegarde de la demande d'habilitation
-        description: &common_authorization_requests_error_description Certains champs ci-dessous ne sont pas valides, merci d'effectuer les corrections nécessaires
+        title: Nous n’avons pas pu sauvegarder votre demande
+        description: &common_authorization_requests_error_description "Certains champs de votre demande ne sont pas valides, merci de les corriger :"
       reopening_error:
-        title: Une erreur est survenue lors de la sauvegarde de la demande de mise à jour de l'habilitation
+        title: Nous n’avons pas pu sauvegarder votre demande de mise à jour
         description: *common_authorization_requests_error_description
 
     create:
@@ -492,12 +492,12 @@ fr:
     update:
       success: *authorization_request_forms_create_success
       error: &authorization_requests_update_error
-        title: Une erreur est survenue lors de la sauvegarde de la demande d'habilitation
+        title: Nous n’avons pas pu sauvegarder votre demande
         description: *common_authorization_requests_error_description
       reopening_success:
         title: Demande sauvegardée
       reopening_error: &authorization_requests_update_reopening_error
-        title: Une erreur est survenue lors de la sauvegarde de la mise à jour de la demande d'habilitation
+        title: Nous n’avons pas pu sauvegarder votre demande de mise à jour
         description: *common_authorization_requests_error_description
 
     submit:

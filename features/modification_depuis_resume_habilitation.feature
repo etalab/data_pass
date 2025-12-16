@@ -40,7 +40,7 @@ Fonctionnalité: Modifications d'un formulaire depuis sa page de résumé
       | Nom     | Prénom | Email                 | Téléphone  | Fonction                  |
       |         | Louis  | nouveau.louis@gouv.fr | 0836656560 | Directeur d'exploitation  |
     Et que je clique sur "Enregistrer les modifications"
-    Alors il y a un message d'erreur contenant "lors de la sauvegarde"
+    Alors il y a un message d'erreur contenant "Nous n’avons pas pu sauvegarder votre demande"
 
   @javascript
   Scénario: Tentative de sauvegarde sans modification
