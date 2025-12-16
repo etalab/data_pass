@@ -85,9 +85,10 @@ RSpec.describe Applicant::DemandeAlertsComponent, type: :component do
 
       before { render_inline(component) }
 
-      it 'renders the summary before submit section' do
-        expect(page).to have_css('h2.fr-h3', text: I18n.t('authorization_request_forms.summary.title'))
-        expect(page).to have_content(ActionController::Base.helpers.strip_tags(I18n.t('authorization_request_forms.summary.description')))
+      it 'renders the summary before submit notice' do
+        expect(page).to have_css('.fr-notice.fr-notice--warning')
+        expect(page).to have_css('.fr-notice__title', text: I18n.t('authorization_request_forms.summary.title'))
+        expect(page).to have_css('.fr-notice__desc')
       end
     end
 

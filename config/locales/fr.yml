@@ -513,11 +513,8 @@ fr:
         description: *common_authorization_requests_error_description
 
     summary:
-      title: Récapitulatif de votre demande
-      description: |
-        Vous avez complété toutes les étapes de votre demande !
-        <br />
-        Vous pouvez à présent la soumettre à l'équipe d’instruction après avoir lu nos conditions générales d’utilisation.
+      title: Vérifiez le récapitulatif de votre demande avant de la soumettre
+      description: Après avoir vérifié les informations que vous avez modifiées, vous pourrez la soumettre à l'équipe d'instruction.
 
       reopening_alerts:
         update_in_progress:
