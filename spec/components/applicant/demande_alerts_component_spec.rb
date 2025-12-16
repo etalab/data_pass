@@ -80,6 +80,17 @@ RSpec.describe Applicant::DemandeAlertsComponent, type: :component do
       end
     end
 
+    context 'when draft and not reopening' do
+      let(:authorization_request) { create(:authorization_request, :api_entreprise, :draft) }
+
+      before { render_inline(component) }
+
+      it 'renders the summary before submit section' do
+        expect(page).to have_css('h2.fr-h3', text: I18n.t('authorization_request_forms.summary.title'))
+        expect(page).to have_content(ActionController::Base.helpers.strip_tags(I18n.t('authorization_request_forms.summary.description')))
+      end
+    end
+
     context 'when no alert conditions are met' do
       let(:state) { :submitted }
 

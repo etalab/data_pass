@@ -13,7 +13,8 @@ class Applicant::DemandeAlertsComponent < ApplicationComponent
       show_instructor_banner? ||
       show_dirty_from_v1_alert? ||
       show_update_in_progress_alert? ||
-      show_old_version_alert?
+      show_old_version_alert? ||
+      show_summary_before_submit?
   end
 
   def show_contact_mention_alert?
@@ -81,6 +82,10 @@ class Applicant::DemandeAlertsComponent < ApplicationComponent
         helpers.authorization_path(authorization_request.latest_authorization)
       )
     ).html_safe
+  end
+
+  def show_summary_before_submit?
+    authorization_request.draft? && !authorization_request.reopening?
   end
 
   def update_in_progress_title

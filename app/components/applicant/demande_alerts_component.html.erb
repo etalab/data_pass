@@ -1,3 +1,13 @@
+<% if show_summary_before_submit? %>
+  <h2 class="fr-h3">
+    <%= t('authorization_request_forms.summary.title') %>
+  </h2>
+
+  <p>
+    <%= t('authorization_request_forms.summary.description').html_safe %>
+  </p>
+<% end %>
+
 <% if show_contact_mention_alert? %>
   <div class="fr-alert fr-alert--info fr-my-3w">
     <%= contact_mention_text %>
