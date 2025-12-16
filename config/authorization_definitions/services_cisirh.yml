@@ -10,8 +10,6 @@ services_cisirh:
   support_email: "api.cisirh@finances.gouv.fr"
   blocks:
     - name: "basic_infos"
-    - name: "personal_data"
-    - name: "legal"
     - name: "scopes"
     - name: "contacts"
   scopes:
