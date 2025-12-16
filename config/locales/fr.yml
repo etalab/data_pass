@@ -201,9 +201,9 @@ fr:
           dataservices_url: "https://www.data.gouv.fr/fr/dataservices"
       no_filter_results:
         demandes:
-          message: "Nous n’avons pas trouvé de demande avec les filtres que vous avez sélectionné"
+          message: "Nous n’avons pas trouvé de demande avec les filtres que vous avez sélectionnés"
         habilitations:
-          message: "Nous n’avons pas trouvé d’habilitation avec les filtres que vous avez sélectionné"
+          message: "Nous n’avons pas trouvé d’habilitation avec les filtres que vous avez sélectionnés"
       lists:
         refused_title: Demandes refusées
         draft_title: Demandes en brouillon

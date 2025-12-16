@@ -18,7 +18,7 @@ class Dashboard::BlankStateComponentPreview < ApplicationPreview
   def with_button_action
     render Dashboard::BlankStateComponent.new(
       pictogram_path: 'artwork/pictograms/digital/information.svg',
-      message: 'Nous n’avons pas trouvé de demande avec les filtres que vous avez sélectionné'
+      message: 'Nous n’avons pas trouvé de demande avec les filtres que vous avez sélectionnés'
     ) do |component|
       component.with_action do
         link_to 'Réinitialiser les filtres', '#', class: 'fr-btn fr-btn--secondary'
