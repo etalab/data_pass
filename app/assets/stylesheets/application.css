@@ -21,10 +21,6 @@ turbo-frame {
   text-align: center;
 }
 
-.dashboard-sub-header {
-  padding-left: 0.75rem;
-}
-
 .dashboard-title__panel:first-child {
   margin-top: 1rem!important;
 }
