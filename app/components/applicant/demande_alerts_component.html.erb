@@ -1,0 +1,66 @@
+<% if show_contact_mention_alert? %>
+  <div class="fr-alert fr-alert--info fr-my-3w">
+    <%= contact_mention_text %>
+  </div>
+<% end %>
+
+<% if show_instructor_banner? %>
+  <div class="fr-notice fr-notice--multi-lines fr-notice--<%= instructor_banner_type %> fr-notice--full-width fr-mb-4w">
+    <div class="fr-container">
+      <div class="fr-notice__body">
+        <span class="fr-notice__title"><%= instructor_banner_title %></span>
+        <span class="fr-notice__desc">
+          <%= instructor_banner_description %>
+
+          <% if instructor_banner_reason.present? %>
+            <%= simple_format(instructor_banner_reason) %>
+          <% end %>
+        </span>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<% if show_dirty_from_v1_alert? %>
+  <div class="fr-alert fr-alert--warning fr-mb-2v">
+    <h3 class="fr-alert__title">
+      <%= t('authorization_requests.show.dirty_from_v1.title') %>
+    </h3>
+
+    <p>
+      <%= t('authorization_requests.show.dirty_from_v1.description') %>
+    </p>
+
+    <% if dirty_from_v1_errors.any? %>
+      <p class="fr-mt-2w">
+        <%= t('authorization_requests.show.dirty_from_v1.errors_title') %>
+      </p>
+
+      <ul>
+        <% dirty_from_v1_errors.each do |error| %>
+          <li>
+            <%= error.full_message %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+<% end %>
+
+<% if show_update_in_progress_alert? %>
+  <div class="fr-alert fr-alert--info fr-mb-4v">
+    <h3 class="fr-alert__title">
+      <%= update_in_progress_title %>
+    </h3>
+    <%= update_in_progress_message %>
+  </div>
+<% end %>
+
+<% if show_old_version_alert? %>
+  <div class="fr-alert fr-alert--warning fr-mb-4v">
+    <h3 class="fr-alert__title">
+      <%= old_version_title %>
+    </h3>
+    <%= old_version_message %>
+  </div>
+<% end %>
