@@ -611,8 +611,6 @@ fr:
         sandbox: Mettre à jour l'habilitation bac à sable
         production: Mettre à jour l'habilitation de production
     create:
-      success:
-        title: L'habilitation %{name} a bien été réouverte
       error:
         title: Une erreur est survenue lors de la réouverture de l'habilitation %{name}
 

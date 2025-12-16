@@ -6,8 +6,6 @@ class ReopenAuthorizationsController < AuthenticatedUserController
 
   def create
     if reopen_authorization.success?
-      success_message(title: t('.success.title', name: @authorization.authorization_request.name))
-
       redirect_to summary_path
     else
       error_message(title: t('.error.title'))
