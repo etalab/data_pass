@@ -33,28 +33,13 @@
 <% end %>
 
 <% if show_dirty_from_v1_alert? %>
-  <div class="fr-alert fr-alert--warning fr-mb-2v">
+  <div class="fr-alert fr-alert--warning fr-mb-4w">
     <h3 class="fr-alert__title">
       <%= t('authorization_requests.show.dirty_from_v1.title') %>
     </h3>
-
     <p>
       <%= t('authorization_requests.show.dirty_from_v1.description') %>
     </p>
-
-    <% if dirty_from_v1_errors.any? %>
-      <p class="fr-mt-2w">
-        <%= t('authorization_requests.show.dirty_from_v1.errors_title') %>
-      </p>
-
-      <ul>
-        <% dirty_from_v1_errors.each do |error| %>
-          <li>
-            <%= error.full_message %>
-          </li>
-        <% end %>
-      </ul>
-    <% end %>
   </div>
 <% end %>
 

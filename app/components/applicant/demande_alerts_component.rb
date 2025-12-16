@@ -58,10 +58,6 @@ class Applicant::DemandeAlertsComponent < ApplicationComponent
     authorization_request.dirty_from_v1?
   end
 
-  def dirty_from_v1_errors
-    decorated_authorization_request.dirty_related_errors
-  end
-
   def show_update_in_progress_alert?
     @authorization.present? && @authorization.latest? && @authorization.request.reopening?
   end
