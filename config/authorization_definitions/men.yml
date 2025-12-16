@@ -20,3 +20,33 @@ api_scolarite:
       value: 'men_statut_boursier'
     - name: 'Échelon de la bourse'
       value: 'men_echelon_bourse'
+
+api_gfe_echange_collectivites:
+  name: "GFE Échanges Collectivités"
+  description: "Permet aux collectivités d’échanger des flux XML avec GFE"
+  provider: "menj"
+  kind: 'api'
+  link: "https://api.education.gouv.fr"
+  cgu_link: "https://api.education.gouv.fr/api-gfe-echanges-collectivites"
+  support_email: "api-sco-eleve_contacts@education.gouv.fr"
+  public: true
+  blocks:
+    - name: "basic_infos"
+    - name: "personal_data"
+    - name: "legal"
+    - name: "contacts"
+
+api_gfe_echange_editeurs_restauration:
+  name: "GFE Échanges Éditeurs Restauration"
+  description: "Permet aux éditeurs de transmettre leur flux XML quotidien contenant les repas consommés ou réservés des élèves"
+  provider: "menj"
+  kind: 'api'
+  link: "https://api.education.gouv.fr"
+  cgu_link: "https://api.education.gouv.fr/api-gfe-echanges-editeurs-restauration"
+  support_email: "api-sco-eleve_contacts@education.gouv.fr"
+  public: true
+  blocks:
+    - name: "basic_infos"
+    - name: "personal_data"
+    - name: "legal"
+    - name: "contacts"
