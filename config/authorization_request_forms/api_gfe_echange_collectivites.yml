@@ -1,5 +1,4 @@
 api-gfe-echange-collectivites:
-  name: Si vous avez plusieurs formulaires, mettez un nom, sinon supprimer le nom
   description: TODO
   introduction: |
     Ceci est une introduction à remplir
