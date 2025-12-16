@@ -12,7 +12,8 @@ class Applicant::DemandeAlertsComponent < ApplicationComponent
     show_contact_mention_alert? ||
       show_instructor_banner? ||
       show_dirty_from_v1_alert? ||
-      show_update_in_progress_alert?
+      show_update_in_progress_alert? ||
+      show_summary_before_submit?
   end
 
   def show_contact_mention_alert?
@@ -62,6 +63,10 @@ class Applicant::DemandeAlertsComponent < ApplicationComponent
 
   def show_update_in_progress_alert?
     @authorization.present? && @authorization.latest? && @authorization.request.reopening?
+  end
+
+  def show_summary_before_submit?
+    authorization_request.draft? && !authorization_request.reopening?
   end
 
   def update_in_progress_title

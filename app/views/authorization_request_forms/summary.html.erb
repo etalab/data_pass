@@ -14,16 +14,6 @@
       ) %>
     <% end %>
 
-    <% if @authorization_request.draft? && !@authorization_request.reopening? && !displayed_on_a_public_page? %>
-      <h2 class="fr-h3">
-        <%= t('authorization_request_forms.summary.title') %>
-      </h2>
-
-      <p>
-        <%= t('authorization_request_forms.summary.description').html_safe %>
-      </p>
-    <% end %>
-
     <%= render partial: 'demandes_habilitations/organization_and_applicant', locals: { demande: @authorization_request } %>
 
     <% @authorization_request.blocks.each do |block| %>
