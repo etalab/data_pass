@@ -1,11 +1,9 @@
 services-cisirh:
   description: TODO
   introduction: |
-    Ceci est une introduction à remplir
+    Le présent formulaire a pour objectif de recueillir les différents éléments tant organisationnels que techniques pour le cadrage de la relation entre le CSIRH et ses partenaires.
   authorization_request: ServicesCisirh
   steps:
     - name: basic_infos
-    - name: legal
     - name: scopes
-    - name: personal_data
     - name: contacts
