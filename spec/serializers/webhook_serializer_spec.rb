@@ -24,11 +24,23 @@ RSpec.describe WebhookSerializer, type: :serializer do
           data: hash_including(
             intitule: authorization_request.intitule,
             scopes: authorization_request.scopes,
-          )
+          ),
+          authorizations: be_an(Array)
         )
       )
 
       expect(serializable_hash[:data][:service_provider][:siret]).to eq(authorization_request.service_provider.siret)
+
+      if authorization_request.authorizations.any?
+        authorization = authorization_request.authorizations.first
+        authorization_hash = serializable_hash[:data][:authorizations].find { |a| a[:id] == authorization.id }
+        expect(authorization_hash).to include(
+          id: authorization.id,
+          slug: authorization.slug,
+          revoked: authorization.revoked,
+          state: authorization.state,
+        )
+      end
     end
   end
 end

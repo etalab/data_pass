@@ -329,6 +329,26 @@ DataPass effectue une requête HTTP POST vers votre URL avec :
       "phone_number": "0836656565",
       "job_title": "Rockstar"
     },
+    "service_provider": {
+      "id": 9004,
+      "name": "API Entreprise",
+      "siret": "13002526500013"
+    },
+    "authorizations": [
+      {
+        "id": 9005,
+        "slug": "api-entreprise-abc123",
+        "revoked": false,
+        "state": "active",
+        "created_at": "2024-01-15T10:30:00Z",
+        "data": {
+          "intitule": "Ma demande",
+          "scopes": ["cnaf_identite", "cnaf_enfants"]
+        },
+        "authorization_request_class": "AuthorizationRequest::APIEntreprise",
+        "definition_id": "api_entreprise"
+      }
+    ],
     "data": {
       "intitule": "Ma demande",
       "scopes": ["cnaf_identite", "cnaf_enfants"],
@@ -348,6 +368,15 @@ DataPass effectue une requête HTTP POST vers votre URL avec :
 - **`fired_at`** (timestamp) : Horodatage Unix du moment où le webhook a été déclenché
 - **`model_type`** (string) : Type de la demande (format snake_case, ex: `authorization_request/api_particulier`)
 - **`data`** (object) : Données complètes de la demande d'habilitation (voir le serializer `WebhookAuthorizationRequestSerializer`)
+  - **`authorizations`** (array) : Liste des habilitations associées à la demande. Chaque habilitation contient :
+    - `id` : Identifiant unique de l'habilitation
+    - `slug` : Identifiant public de l'habilitation
+    - `revoked` : Indique si l'habilitation a été révoquée
+    - `state` : État de l'habilitation (`active`, `obsolete`, `revoked`)
+    - `created_at` : Date de création de l'habilitation
+    - `data` : Données de l'habilitation au moment de sa création
+    - `authorization_request_class` : Type de demande d'habilitation associée
+    - `definition_id` : Identifiant de la définition d'habilitation
 
 ---
 
