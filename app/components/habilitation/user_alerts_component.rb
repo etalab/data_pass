@@ -10,7 +10,6 @@ class Habilitation::UserAlertsComponent < ApplicationComponent
   def render?
     show_contact_mention_alert? ||
       show_update_in_progress_alert? ||
-      show_old_version_alert? ||
       show_access_callout?
   end
 
@@ -21,10 +20,6 @@ class Habilitation::UserAlertsComponent < ApplicationComponent
   def show_update_in_progress_alert?
     authorization.latest? &&
       authorization.request.reopening?
-  end
-
-  def show_old_version_alert?
-    !authorization.latest?
   end
 
   def show_access_callout?
@@ -50,20 +45,6 @@ class Habilitation::UserAlertsComponent < ApplicationComponent
       link: helpers.link_to(
         "Consulter la demande de mise à jour n°#{authorization.request.id}",
         helpers.authorization_request_path(authorization.request)
-      )
-    ).html_safe
-  end
-
-  def old_version_title
-    I18n.t('authorization_request_forms.summary.reopening_alerts.old_version.title')
-  end
-
-  def old_version_message
-    I18n.t(
-      'authorization_request_forms.summary.reopening_alerts.old_version.message',
-      link: helpers.link_to(
-        "Habilitation n°#{authorization.request.latest_authorization.id}",
-        helpers.authorization_path(authorization.request.latest_authorization)
       )
     ).html_safe
   end
