@@ -4,29 +4,6 @@ RSpec.describe Habilitation::UserAlertsComponent, type: :component do
   let(:component) { described_class.new(authorization:, current_user:) }
 
   describe 'rendering' do
-    context 'when user is only in contacts' do
-      let(:current_user) { create(:user) }
-      let(:authorization_request) do
-        create(:authorization_request, :api_entreprise, :draft_and_filled, contact_technique_email: current_user.email)
-      end
-      let(:authorization) do
-        authorization_request.update!(state: 'submitted')
-        create(:authorization, request: authorization_request, applicant: authorization_request.applicant, data: authorization_request.data)
-      end
-
-      before { render_inline(component) }
-
-      it 'renders the contact mention alert' do
-        expect(page).to have_css('.fr-alert.fr-alert--info')
-        expect(page).to have_content(I18n.t('demandes_habilitations.current_user_mentions_alert.text', contact_types: 'contact technique'))
-      end
-
-      it 'does not render other alerts' do
-        expect(page).to have_css('.fr-alert', count: 1)
-        expect(page).to have_no_css('.fr-callout')
-      end
-    end
-
     context 'when update is in progress' do
       let(:authorization_request) { create(:authorization_request, :api_entreprise, :reopened) }
       let(:authorization) { authorization_request.latest_authorization }

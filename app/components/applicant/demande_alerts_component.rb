@@ -9,23 +9,11 @@ class Applicant::DemandeAlertsComponent < ApplicationComponent
   end
 
   def render?
-    show_contact_mention_alert? ||
-      show_instructor_banner? ||
+    show_instructor_banner? ||
       show_dirty_from_v1_alert? ||
       show_update_in_progress_alert? ||
       show_old_version_alert? ||
       show_summary_before_submit?
-  end
-
-  def show_contact_mention_alert?
-    decorated_authorization_request.only_in_contacts?(current_user)
-  end
-
-  def contact_mention_text
-    I18n.t(
-      'demandes_habilitations.current_user_mentions_alert.text',
-      contact_types: decorated_authorization_request.humanized_contact_types_for(current_user).to_sentence
-    )
   end
 
   def show_instructor_banner?
@@ -81,7 +69,11 @@ class Applicant::DemandeAlertsComponent < ApplicationComponent
   end
 
   def show_summary_before_submit?
-    authorization_request.draft? && !authorization_request.reopening?
+    authorization_request.draft? && !authorization_request.reopening? && current_user_is_applicant?
+  end
+
+  def current_user_is_applicant?
+    authorization_request.applicant == current_user
   end
 
   def update_in_progress_title

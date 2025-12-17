@@ -6,21 +6,6 @@ RSpec.describe Applicant::DemandeAlertsComponent, type: :component do
   let(:component) { described_class.new(authorization_request:, current_user:, authorization:) }
 
   describe 'rendering' do
-    context 'when user is only in contacts' do
-      let(:authorization_request) { create(:authorization_request, :api_entreprise, :draft) }
-      let(:current_user) { create(:user) }
-
-      before do
-        authorization_request.update!(contact_technique_email: current_user.email)
-        render_inline(component)
-      end
-
-      it 'renders the contact mention alert' do
-        expect(page).to have_css('.fr-alert.fr-alert--info')
-        expect(page).to have_content(I18n.t('demandes_habilitations.current_user_mentions_alert.text', contact_types: 'contact technique'))
-      end
-    end
-
     context 'when authorization request is changes_requested' do
       let(:state) { :changes_requested }
 
