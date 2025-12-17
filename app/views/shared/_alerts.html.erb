@@ -6,7 +6,8 @@
       <%= render AlertComponent.new(
         type: kind,
         title: flash[kind]['title'],
-        messages: flash[kind]['description'],
+        description: flash[kind]['description'],
+        messages: flash[kind]['errors'],
         close_button: local_assigns.fetch(:close_button, true)
       ) %>
     <% end %>

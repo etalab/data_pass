@@ -1,9 +1,10 @@
 RSpec.describe AlertComponent, type: :component do
   let(:type) { :error }
   let(:title) { 'Une erreur est survenue' }
-  let(:messages) { 'Certains champs ne sont pas valides' }
+  let(:description) { 'Certains champs ne sont pas valides' }
+  let(:messages) { [] }
   let(:close_button) { true }
-  let(:component) { described_class.new(type:, title:, messages:, close_button:) }
+  let(:component) { described_class.new(type:, title:, description:, messages:, close_button:) }
 
   describe 'rendering' do
     before { render_inline(component) }
@@ -12,8 +13,8 @@ RSpec.describe AlertComponent, type: :component do
       expect(page).to have_css('.fr-alert__title', text: title)
     end
 
-    it 'renders the message with simple_format' do
-      expect(page).to have_css('p', text: messages)
+    it 'renders the description as paragraph' do
+      expect(page).to have_css('p', text: description)
     end
 
     it 'renders the alert with correct type class' do
@@ -71,12 +72,23 @@ RSpec.describe AlertComponent, type: :component do
       end
     end
 
-    context 'with single message as array' do
+    context 'with description and messages' do
+      let(:description) { 'Une erreur est survenue' }
+      let(:messages) { ['Erreur spécifique'] }
+
+      it 'renders description as paragraph and messages as list' do
+        expect(page).to have_css('p', text: description)
+        expect(page).to have_css('ul li', text: 'Erreur spécifique')
+      end
+    end
+
+    context 'without description' do
+      let(:description) { nil }
       let(:messages) { ['Seule erreur'] }
 
-      it 'renders with simple_format not list' do
-        expect(page).to have_no_css('ul')
-        expect(page).to have_css('p', text: 'Seule erreur')
+      it 'renders only the list' do
+        expect(page).to have_no_css('p')
+        expect(page).to have_css('ul li', text: 'Seule erreur')
       end
     end
   end

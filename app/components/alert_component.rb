@@ -1,10 +1,11 @@
 class AlertComponent < ApplicationComponent
   VALID_TYPES = %i[success info warning error].freeze
 
-  def initialize(type:, title:, messages:, close_button: true)
+  def initialize(type:, title:, description: nil, messages: [], close_button: true)
     @type = type.to_sym
     @title = title
-    @messages = Array(messages)
+    @description = description
+    @messages = Array(messages).compact
     @close_button = close_button
     super()
   end
@@ -17,13 +18,9 @@ class AlertComponent < ApplicationComponent
     "fr-alert fr-alert--#{@type} fr-my-8v"
   end
 
-  attr_reader :title, :messages
+  attr_reader :title, :description, :messages
 
   def close_button?
     @close_button
-  end
-
-  def single_message?
-    messages.size == 1
   end
 end

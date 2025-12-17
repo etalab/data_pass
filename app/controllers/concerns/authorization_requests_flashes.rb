@@ -20,7 +20,10 @@ module AuthorizationRequestsFlashes
       title: t("#{key}.#{reopening_prefix}#{type}.title", name: authorization_request.name, default: t("#{key}.#{type}.title", name: authorization_request.name)),
     }
 
-    options[:description] = authorization_request.errors.full_messages if type == :error && include_model_errors
+    if type == :error
+      options[:description] = t("#{key}.#{reopening_prefix}#{type}.description", name: authorization_request.name, default: t("#{key}.#{type}.description", name: authorization_request.name, default: nil))
+      options[:errors] = authorization_request.errors.full_messages if include_model_errors
+    end
 
     options[:tiny] = true if tiny
 
