@@ -12,11 +12,16 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    @current_identity_federator = current_identity_federator
-
+    identity_federator = current_identity_federator
+    
+    # Build the logout URL before clearing session data
+    logout_url = signout_url(identity_federator)
+    
+    # Clear local session
     sign_out
 
-    redirect_to signout_url(@current_identity_federator), allow_other_host: true
+    # Redirect to identity provider logout
+    redirect_to logout_url, allow_other_host: true
   end
 
   def logout_callback
@@ -57,6 +62,7 @@ class SessionsController < ApplicationController
   end
 
   def create_from_proconnect
+    # Note: we pass 'proconnect' but the organizer will set it to 'pro_connect'
     organizer = authenticate_user(identity_federator: 'proconnect')
     user = organizer.user
 
@@ -77,11 +83,12 @@ class SessionsController < ApplicationController
     organizer = call_authenticator(identity_federator)
     
     # Extract id_token from ProConnect credentials for logout
-    id_token = if identity_federator == 'proconnect'
+    # Note: The organizer sets identity_federator to 'pro_connect' (with underscore)
+    id_token = if organizer.identity_federator == 'pro_connect'
       request.env['omniauth.auth']&.dig('credentials', 'id_token')
     end
     
-    sign_in(organizer.user, identity_federator:, identity_provider_uid: organizer.identity_provider_uid, id_token: id_token)
+    sign_in(organizer.user, identity_federator: organizer.identity_federator, identity_provider_uid: organizer.identity_provider_uid, id_token: id_token)
 
     organizer
   end
@@ -141,7 +148,10 @@ class SessionsController < ApplicationController
     case current_identity_federator
     when 'mon_compte_pro'
       mon_compte_pro_signout_url
+    when 'pro_connect'
+      proconnect_signout_url
     else
+      # Fallback to ProConnect for unknown federators
       proconnect_signout_url
     end
   end
@@ -164,7 +174,9 @@ class SessionsController < ApplicationController
   end
 
   def mon_compte_pro_signout_url
-    "#{Rails.application.credentials.mon_compte_pro_url}/oauth/logout?post_logout_redirect_uri=#{after_logout_url}&client_id=#{mon_compte_pro_api_gouv_client_id}"
+    after_logout = ERB::Util.url_encode(after_logout_url)
+    client_id = mon_compte_pro_api_gouv_client_id
+    "#{Rails.application.credentials.mon_compte_pro_url}/oauth/logout?post_logout_redirect_uri=#{after_logout}&client_id=#{client_id}"
   end
 
   def mon_compte_pro_api_gouv_client_id
