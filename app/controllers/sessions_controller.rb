@@ -109,14 +109,11 @@ class SessionsController < ApplicationController
     request.env['omniauth.origin'] || root_path
   end
 
-  def signout_url(current_identity_federator)
-    case current_identity_federator
-    when 'mon_compte_pro'
-      mon_compte_pro_signout_url
-    else
-      # ProConnect logout is handled by the omniauth-proconnect gem
-      '/auth/proconnect/logout'
-    end
+  def signout_url(identity_federator)
+    return mon_compte_pro_signout_url if identity_federator == 'mon_compte_pro'
+
+    # ProConnect logout is handled by the omniauth-proconnect gem
+    '/auth/proconnect/logout'
   end
 
   def mon_compte_pro_signout_url
