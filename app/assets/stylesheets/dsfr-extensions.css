@@ -199,3 +199,9 @@ fr-badge--grey {
 .fr-container {
   position: relative;
 }
+
+/* Notice multi lines */
+.fr-notice--multi-lines .fr-notice__desc{
+  display: block;
+  margin-left: 2rem;
+}
