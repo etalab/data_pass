@@ -145,7 +145,38 @@ The implementation can be tested by:
    - Redirect back to the callback URL
    - Final redirect to home page with success message
 
-## Key Discovery
+## Key Discoveries
 
+### 1. ID Token Storage
 The `omniauth-proconnect` gem (v0.5) stores the `id_token` in the session at `session["omniauth.pc.id_token"]`, not in the standard OmniAuth credentials hash. This is why we extract it from the session during authentication rather than from the OAuth callback payload.
+
+### 2. Post-Logout Redirect URI Registration
+
+**IMPORTANT**: The `post_logout_redirect_uri` must be **exactly registered** in the ProConnect configuration panel.
+
+Currently configured in `config/initializers/omniauth.rb`:
+```ruby
+post_logout_redirect_uri: URI(host).to_s,  # e.g., "http://localhost:3000" or "https://datapass.api.gouv.fr"
+```
+
+This URL must be registered in the ProConnect partner portal:
+1. Go to https://partenaires.proconnect.gouv.fr/
+2. Select your application
+3. Add the post-logout redirect URI (e.g., `http://localhost:3000` for development, `https://datapass.api.gouv.fr` for production)
+
+**Error if not registered**: 
+```
+code erreur: oidc-provider-rendered-error:invalid_request
+message erreur: "post_logout_redirect_uri not registered"
+```
+
+**Note**: We use the root URL as the post-logout redirect instead of a dedicated callback route because:
+- It simplifies the configuration (only one URL to register per environment)
+- ProConnect returns the user to the home page after logout, which is the expected UX
+- The state verification happens before the redirect to ProConnect, not after
+
+If you need a dedicated callback route:
+1. Update `config/initializers/omniauth.rb` to use `logout_callback_url`
+2. Register `https://your-domain/compte/deconnexion/callback` in ProConnect
+3. Update `after_logout_url` method to return `logout_callback_url`
 

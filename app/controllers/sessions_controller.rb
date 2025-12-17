@@ -132,7 +132,9 @@ class SessionsController < ApplicationController
   end
 
   def after_logout_url
-    logout_callback_url
+    # Must match the post_logout_redirect_uri registered in ProConnect configuration
+    # Currently configured in config/initializers/omniauth.rb as root URL
+    root_url.chomp('/')
   end
 
   def signout_url(current_identity_federator)
