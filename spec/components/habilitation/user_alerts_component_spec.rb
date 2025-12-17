@@ -41,34 +41,6 @@ RSpec.describe Habilitation::UserAlertsComponent, type: :component do
       it 'renders the link to the authorization request' do
         expect(page).to have_link("Consulter la demande de mise à jour n°#{authorization_request.id}", href: "/demandes/#{authorization_request.id}")
       end
-
-      it 'does not render old version alert' do
-        expect(page).to have_no_content(I18n.t('authorization_request_forms.summary.reopening_alerts.old_version.title'))
-      end
-    end
-
-    context 'when viewing old version' do
-      let(:authorization_request) { create(:authorization_request, :api_entreprise, :reopened) }
-      let(:old_authorization) do
-        create(:authorization, request: authorization_request, applicant: authorization_request.applicant, created_at: 2.days.ago)
-      end
-      let(:authorization) { old_authorization }
-
-      before { render_inline(component) }
-
-      it 'renders the old version alert with warning style' do
-        expect(page).to have_css('.fr-alert.fr-alert--warning')
-        expect(page).to have_content(I18n.t('authorization_request_forms.summary.reopening_alerts.old_version.title'))
-      end
-
-      it 'renders link to latest authorization' do
-        latest = authorization_request.latest_authorization
-        expect(page).to have_link("Habilitation n°#{latest.id}")
-      end
-
-      it 'does not render update in progress alert' do
-        expect(page).to have_no_content(I18n.t('authorization_request_forms.summary.reopening_alerts.update_in_progress.title'))
-      end
     end
 
     context 'when access callout should be displayed' do

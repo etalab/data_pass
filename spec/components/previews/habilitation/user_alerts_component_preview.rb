@@ -23,20 +23,7 @@ class Habilitation::UserAlertsComponentPreview < ApplicationPreview
     render Habilitation::UserAlertsComponent.new(authorization:, current_user: authorization_request.applicant)
   end
 
-  # @label 3. Ancienne version de l'habilitation
-  def old_version
-    authorization_request = AuthorizationRequest.joins(:authorizations)
-      .where(type: 'AuthorizationRequest::APIEntreprise')
-      .group('authorization_requests.id')
-      .having('COUNT(authorizations.id) >= 2')
-      .first!
-
-    old_authorization = authorization_request.authorizations.reject(&:latest?).first
-
-    render Habilitation::UserAlertsComponent.new(authorization: old_authorization, current_user: authorization_request.applicant)
-  end
-
-  # @label 4. Bandeau accès disponible
+  # @label 3. Bandeau accès disponible
   def access_callout
     authorization_request = AuthorizationRequest
       .where(type: 'AuthorizationRequest::APIEntreprise')

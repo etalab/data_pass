@@ -12,6 +12,9 @@
           <%= render partial: 'authorizations/sandbox_production_badge', locals: { authorization: authorization } %>
         </p>
         </div>
+        <% if show_old_version_alert? %>
+          <p class="<%= header_text_class %>"><%= old_version_message %></p>
+        <% end %>
 
         <div class="fr-mb-10v fr-badges-group">
           <div class="fr-badge fr-badge--sm fr-badge--blue-ecume">
