@@ -70,13 +70,13 @@ RSpec.describe Applicant::DemandeAlertsComponent, type: :component do
 
       before { render_inline(component) }
 
-      it 'renders the update in progress alert' do
-        expect(page).to have_css('.fr-alert.fr-alert--info')
+      it 'renders the update in progress notice' do
+        expect(page).to have_css('.fr-notice.fr-notice--info.fr-notice--full-width')
         expect(page).to have_content(I18n.t('authorization_request_forms.summary.reopening_alerts.update_in_progress.title'))
       end
 
       it 'renders the link to the authorization request' do
-        expect(page).to have_link("Demande de mise à jour n°#{authorization_request.id}")
+        expect(page).to have_link("Consulter la demande de mise à jour n°#{authorization_request.id}")
       end
     end
 

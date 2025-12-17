@@ -33,13 +33,13 @@ RSpec.describe Habilitation::UserAlertsComponent, type: :component do
 
       before { render_inline(component) }
 
-      it 'renders the update in progress alert with title' do
-        expect(page).to have_css('.fr-alert.fr-alert--info')
+      it 'renders the update in progress notice with title' do
+        expect(page).to have_css('.fr-notice.fr-notice--info.fr-notice--full-width')
         expect(page).to have_content(I18n.t('authorization_request_forms.summary.reopening_alerts.update_in_progress.title'))
       end
 
       it 'renders the link to the authorization request' do
-        expect(page).to have_link("Demande de mise à jour n°#{authorization_request.id}", href: "/demandes/#{authorization_request.id}")
+        expect(page).to have_link("Consulter la demande de mise à jour n°#{authorization_request.id}", href: "/demandes/#{authorization_request.id}")
       end
 
       it 'does not render old version alert' do
@@ -125,7 +125,7 @@ RSpec.describe Habilitation::UserAlertsComponent, type: :component do
 
       it 'renders nothing' do
         render_inline(component)
-        expect(page).to have_no_css('.fr-alert')
+        expect(page).to have_no_css('.fr-notice')
         expect(page).to have_no_css('.fr-callout')
       end
 

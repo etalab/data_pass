@@ -44,11 +44,13 @@
 <% end %>
 
 <% if show_update_in_progress_alert? %>
-  <div class="fr-alert fr-alert--info fr-mb-4v">
-    <h3 class="fr-alert__title">
-      <%= update_in_progress_title %>
-    </h3>
-    <%= update_in_progress_message %>
+  <div class="fr-notice fr-notice--info fr-notice--full-width fr-mb-4w">
+    <div class="fr-container">
+      <div class="fr-notice__body">
+        <p class="fr-notice__title"><%= update_in_progress_title %></p>
+        <p class="fr-notice__desc"><%= update_in_progress_message %></p>
+      </div>
+    </div>
   </div>
 <% end %>
 

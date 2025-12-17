@@ -48,7 +48,7 @@ class Habilitation::UserAlertsComponent < ApplicationComponent
     I18n.t(
       'authorization_request_forms.summary.reopening_alerts.update_in_progress.message',
       link: helpers.link_to(
-        "Demande de mise à jour n°#{authorization.request.id}",
+        "Consulter la demande de mise à jour n°#{authorization.request.id}",
         helpers.authorization_request_path(authorization.request)
       )
     ).html_safe
