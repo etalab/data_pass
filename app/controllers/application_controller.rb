@@ -20,11 +20,11 @@ class ApplicationController < ActionController::Base
   end
 
   def error_message_for(object, title:, id: nil)
-    flash_message(:error, title:, description: object.errors.full_messages, id:)
+    flash_message(:error, title:, errors: object.errors.full_messages, id:)
   end
 
-  def error_message(title:, description: nil, id: nil, tiny: false)
-    flash_message(:error, title:, description:, id:, tiny:)
+  def error_message(title:, description: nil, errors: nil, id: nil, tiny: false)
+    flash_message(:error, title:, description:, errors:, id:, tiny:)
   end
 
   def success_message(title:, description: nil, id: nil, tiny: false)
@@ -53,9 +53,9 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def flash_message(kind, title:, description:, id:, tiny: false)
+  def flash_message(kind, **options)
     flash_object = flash_object_for(kind)
-    flash_object[kind] = { 'title' => title, 'description' => description, 'id' => id, 'tiny' => tiny }
+    flash_object[kind] = options.transform_keys(&:to_s)
   end
 
   def flash_object_for(kind)
