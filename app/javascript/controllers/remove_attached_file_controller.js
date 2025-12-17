@@ -7,11 +7,21 @@ export default class extends Controller {
     const hiddenField = document.getElementById(fieldId)
 
     if (hiddenField) {
-      hiddenField.remove()
+      hiddenField.value = ''
+      hiddenField.dispatchEvent(new Event('input', { bubbles: true }))
 
       const fileDisplay = button.closest('.file-with-remove-button')
       if (fileDisplay) {
         fileDisplay.remove()
+      }
+
+      const form = button.closest('form[data-controller*="modified-form"]')
+      if (form) {
+        const fileDeletedEvent = new CustomEvent('file-deleted', {
+          bubbles: true,
+          detail: { fieldId }
+        })
+        form.dispatchEvent(fileDeletedEvent)
       }
     }
   }
