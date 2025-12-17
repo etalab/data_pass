@@ -34,6 +34,17 @@ class AuthorizationHeaderComponent < ApplicationComponent
     !authorization.latest?
   end
 
+  def show_contact_mention?
+    decorated_authorization.only_in_contacts?(current_user)
+  end
+
+  def contact_mention_text
+    I18n.t(
+      'demandes_habilitations.current_user_mentions_alert.text',
+      contact_types: decorated_authorization.humanized_contact_types_for(current_user).to_sentence
+    )
+  end
+
   def old_version_message
     latest = authorization.request.latest_authorization
     I18n.t(

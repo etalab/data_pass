@@ -7,28 +7,14 @@ class Applicant::DemandeAlertsComponentPreview < ApplicationPreview
     render Applicant::DemandeAlertsComponent.new(authorization_request:, current_user: authorization_request.applicant)
   end
 
-  # @label 2. Mention en tant que contact
-  def contact_mention
-    contact_user = User.find_by!(email: 'user@yopmail.com')
-    authorization_request = AuthorizationRequest
-      .where(state: 'validated')
-      .where("EXISTS (
-        SELECT 1 FROM each(authorization_requests.data) AS kv
-        WHERE kv.key LIKE '%_email' AND LOWER(kv.value) = ?
-      )", contact_user.email)
-      .first!
-
-    render Applicant::DemandeAlertsComponent.new(authorization_request:, current_user: contact_user)
-  end
-
-  # @label 3a. Demande de modifications
+  # @label 2. Demande de modifications
   def changes_requested
     authorization_request = AuthorizationRequest.where(state: 'changes_requested').first!
 
     render Applicant::DemandeAlertsComponent.new(authorization_request:, current_user: authorization_request.applicant)
   end
 
-  # @label 3b. Demande refusée
+  # @label 3. Demande refusée
   def refused
     authorization_request = AuthorizationRequest.where(state: 'refused').first!
 

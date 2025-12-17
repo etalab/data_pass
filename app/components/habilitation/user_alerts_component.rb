@@ -8,13 +8,8 @@ class Habilitation::UserAlertsComponent < ApplicationComponent
   end
 
   def render?
-    show_contact_mention_alert? ||
-      show_update_in_progress_alert? ||
+    show_update_in_progress_alert? ||
       show_access_callout?
-  end
-
-  def show_contact_mention_alert?
-    decorated_authorization.only_in_contacts?(current_user)
   end
 
   def show_update_in_progress_alert?
@@ -26,13 +21,6 @@ class Habilitation::UserAlertsComponent < ApplicationComponent
     authorization.request.access_link.present? &&
       authorization.request.validated? &&
       current_user == authorization.request.applicant
-  end
-
-  def contact_mention_text
-    I18n.t(
-      'demandes_habilitations.current_user_mentions_alert.text',
-      contact_types: decorated_authorization.humanized_contact_types_for(current_user).to_sentence
-    )
   end
 
   def update_in_progress_title
@@ -68,8 +56,4 @@ class Habilitation::UserAlertsComponent < ApplicationComponent
   private
 
   attr_reader :authorization, :current_user
-
-  def decorated_authorization
-    @decorated_authorization ||= authorization.decorate
-  end
 end
