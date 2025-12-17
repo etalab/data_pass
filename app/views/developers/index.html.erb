@@ -1,56 +1,53 @@
-<div class="fr-container">
-  <div class="dashboard-sub-header">
-    <div class="sub-header">
-      <div>
-        <h1 class="fr-m-0">
-          <%= t('.title') %>
-        </h1>
+
+<div class="fr-mt-4w fr-mb-2w">
+  <div class="sub-header">
+    <h1>
+      <%= t('.title') %>
+    </h1>
+  </div>
+</div>
+
+<%= render partial: 'shared/alerts' %>
+
+<div class="fr-grid-row fr-grid-row--gutters fr-mt-4w">
+  <div class="fr-col-12 fr-col-md-4">
+    <div class="fr-card fr-enlarge-link">
+      <div class="fr-card__body">
+        <div class="fr-card__content">
+          <h3 class="fr-card__title">
+            <%= link_to t('.documentation'), developers_documentation_path %>
+          </h3>
+          <p class="fr-card__desc"><%= t('.documentation_desc') %></p>
+        </div>
       </div>
     </div>
   </div>
 
-  <%= render partial: 'shared/alerts' %>
+  <div class="fr-col-12 fr-col-md-4">
+    <div class="fr-card fr-enlarge-link">
+      <div class="fr-card__body">
+        <div class="fr-card__content">
+          <h3 class="fr-card__title">
+            <%= link_to t('.applications'), developers_oauth_applications_path %>
+          </h3>
+          <p class="fr-card__desc"><%= t('.applications_desc') %></p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <div class="fr-grid-row fr-grid-row--gutters fr-mt-4w">
+  <% if policy([:developer, Webhook]).index? %>
     <div class="fr-col-12 fr-col-md-4">
       <div class="fr-card fr-enlarge-link">
         <div class="fr-card__body">
           <div class="fr-card__content">
             <h3 class="fr-card__title">
-              <%= link_to t('.documentation'), developers_documentation_path %>
+              <%= link_to t('.webhooks'), developers_webhooks_path %>
             </h3>
-            <p class="fr-card__desc"><%= t('.documentation_desc') %></p>
+            <p class="fr-card__desc"><%= t('.webhooks_desc') %></p>
           </div>
         </div>
       </div>
     </div>
-
-    <div class="fr-col-12 fr-col-md-4">
-      <div class="fr-card fr-enlarge-link">
-        <div class="fr-card__body">
-          <div class="fr-card__content">
-            <h3 class="fr-card__title">
-              <%= link_to t('.applications'), developers_oauth_applications_path %>
-            </h3>
-            <p class="fr-card__desc"><%= t('.applications_desc') %></p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <% if policy([:developer, Webhook]).index? %>
-      <div class="fr-col-12 fr-col-md-4">
-        <div class="fr-card fr-enlarge-link">
-          <div class="fr-card__body">
-            <div class="fr-card__content">
-              <h3 class="fr-card__title">
-                <%= link_to t('.webhooks'), developers_webhooks_path %>
-              </h3>
-              <p class="fr-card__desc"><%= t('.webhooks_desc') %></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% end %>
-  </div>
+  <% end %>
 </div>
