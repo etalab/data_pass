@@ -1,5 +1,5 @@
 api_droits_cnam:
-  name: "API de droits à l'Assurance Maladie"
+  name: "API de droits à l’Assurance Maladie"
   description: "Accédez aux droits d’un individu ou d’une famille (enfants rattachés), gérés par le régime général de l’Assurance Maladie"
   provider: "cnam"
   kind: 'api'

@@ -35,7 +35,7 @@ Fonctionnalité: Titres de page des pages de sélection de formulaire
 
   Scénario: Le titre de la page de sélection API Droits CNAM est correct
     Quand je me rends sur le chemin "/demandes/api-droits-cnam/nouveau"
-    Alors le titre de la page est "Habilitation France Connect manquante - API de droits à l'Assurance Maladie - DataPass"
+    Alors le titre de la page est "Habilitation France Connect manquante - API de droits à l’Assurance Maladie - DataPass"
 
   Scénario: Le titre de la page de sélection API R2P est Information - nom de l'API - DataPass
     Quand je me rends sur le chemin "/demandes/api-r2p/nouveau"
