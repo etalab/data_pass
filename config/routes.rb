@@ -7,7 +7,6 @@ Rails.application.routes.draw do
   get 'local-sign-in', to: 'authenticated_user#bypass_login' if Rails.env.development?
 
   get 'compte/deconnexion', to: 'sessions#destroy', as: :signout
-  get 'compte/deconnexion/callback', to: 'sessions#logout_callback', as: :logout_callback
 
   get '/tableau-de-bord', to: 'dashboard#index', as: :dashboard
   get '/tableau-de-bord/:id', to: 'dashboard#show', as: :dashboard_show

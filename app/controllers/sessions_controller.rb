@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
   include Authentication
 
-  allow_unauthenticated_access only: %i[create logout_callback]
+  allow_unauthenticated_access only: [:create]
 
   def create
     if mon_compte_pro_connect?
@@ -14,25 +14,12 @@ class SessionsController < ApplicationController
   def destroy
     identity_federator = current_identity_federator
 
-    # Build the logout URL before clearing session data
-    logout_url = signout_url(identity_federator)
-
     # Clear local session
     sign_out
 
     # Redirect to identity provider logout
-    redirect_to logout_url, allow_other_host: true
-  end
-
-  def logout_callback
-    # Verify state parameter for CSRF protection
-    return redirect_to root_path, alert: t('sessions.logout.invalid_state') if invalid_logout_state?
-
-    # Clear logout session data
-    session.delete(:logout_state)
-    session.delete(:id_token)
-
-    redirect_to root_path, notice: t('sessions.logout.success')
+    # For ProConnect, the omniauth-proconnect gem handles the logout flow automatically
+    redirect_to signout_url(identity_federator), allow_other_host: true
   end
 
   private
@@ -70,11 +57,7 @@ class SessionsController < ApplicationController
 
     organizer = call_authenticator(identity_federator)
 
-    # Extract id_token from ProConnect for logout
-    # The omniauth-proconnect gem stores id_token in session at 'omniauth.pc.id_token'
-    id_token = session['omniauth.pc.id_token'] if organizer.identity_federator == 'pro_connect'
-
-    sign_in(organizer.user, identity_federator: organizer.identity_federator, identity_provider_uid: organizer.identity_provider_uid, id_token: id_token)
+    sign_in(organizer.user, identity_federator: organizer.identity_federator, identity_provider_uid: organizer.identity_provider_uid)
 
     organizer
   end
@@ -126,37 +109,18 @@ class SessionsController < ApplicationController
     request.env['omniauth.origin'] || root_path
   end
 
-  def after_logout_url
-    # Must match the post_logout_redirect_uri registered in ProConnect configuration
-    # Currently configured in config/initializers/omniauth.rb as root URL
-    root_url.chomp('/')
-  end
-
   def signout_url(current_identity_federator)
-    return mon_compte_pro_signout_url if current_identity_federator == 'mon_compte_pro'
-
-    # Default to ProConnect for 'pro_connect' and unknown federators
-    proconnect_signout_url
-  end
-
-  def proconnect_signout_url
-    # Generate state parameter for CSRF protection
-    logout_state = SecureRandom.hex(32)
-    session[:logout_state] = logout_state
-
-    # Build logout URL according to ProConnect OIDC specification
-    proconnect_domain = Rails.application.credentials.proconnect_url
-    params = {
-      id_token_hint: session[:id_token],
-      state: logout_state,
-      post_logout_redirect_uri: after_logout_url
-    }
-
-    "#{proconnect_domain}/session/end?#{params.to_query}"
+    case current_identity_federator
+    when 'mon_compte_pro'
+      mon_compte_pro_signout_url
+    else
+      # ProConnect logout is handled by the omniauth-proconnect gem
+      '/auth/proconnect/logout'
+    end
   end
 
   def mon_compte_pro_signout_url
-    after_logout = ERB::Util.url_encode(after_logout_url)
+    after_logout = ERB::Util.url_encode(root_url.chomp('/'))
     client_id = mon_compte_pro_api_gouv_client_id
     "#{Rails.application.credentials.mon_compte_pro_url}/oauth/logout?post_logout_redirect_uri=#{after_logout}&client_id=#{client_id}"
   end
@@ -167,9 +131,5 @@ class SessionsController < ApplicationController
 
   def redirect_to_after_sign_in
     session.delete(:return_to_after_sign_in) || after_sign_in_path
-  end
-
-  def invalid_logout_state?
-    params[:state].present? && params[:state] != session[:logout_state]
   end
 end

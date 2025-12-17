@@ -2,103 +2,59 @@
 
 ## Summary
 
-This document describes the implementation of proper ProConnect logout functionality according to the official ProConnect OIDC specification.
+This document describes the implementation of ProConnect logout functionality using the built-in capabilities of the `omniauth-proconnect` gem (v0.5).
 
 ## Implementation Details
 
-### 1. Session Management (`app/controllers/concerns/authentication.rb`)
+### 1. Logout Flow (`app/controllers/sessions_controller.rb`)
 
-The `sign_in` method now accepts an optional `id_token` parameter that is stored in the session:
+The logout implementation is simple - we redirect to `/auth/proconnect/logout` and let the gem handle everything:
 
 ```ruby
-def sign_in(user, identity_federator:, identity_provider_uid:, id_token: nil)
-  session[:user_id] = {
-    value: user.id,
-    expires_at: 1.month.from_now,
-    identity_federator:,
-    identity_provider_uid:,
-  }
+def destroy
+  identity_federator = current_identity_federator
 
-  # Store id_token for ProConnect logout
-  session[:id_token] = id_token if id_token.present?
+  # Clear local session
+  sign_out
 
-  @current_user = user
+  # Redirect to identity provider logout
+  # For ProConnect, the omniauth-proconnect gem handles the logout flow automatically
+  redirect_to signout_url(identity_federator), allow_other_host: true
 end
-```
 
-### 2. Login Flow (`app/controllers/sessions_controller.rb`)
-
-During ProConnect authentication, we extract the `id_token` from the session where the `omniauth-proconnect` gem stores it:
-
-```ruby
-def authenticate_user(identity_federator: 'mon_compte_pro')
-  organizer = call_authenticator(identity_federator)
-  
-  # Extract id_token from ProConnect for logout
-  # The omniauth-proconnect gem stores id_token in session at "omniauth.pc.id_token"
-  id_token = if organizer.identity_federator == 'pro_connect'
-    session["omniauth.pc.id_token"]
+def signout_url(current_identity_federator)
+  case current_identity_federator
+  when 'mon_compte_pro'
+    mon_compte_pro_signout_url
+  else
+    # ProConnect logout is handled by the omniauth-proconnect gem
+    '/auth/proconnect/logout'
   end
-  
-  sign_in(organizer.user, identity_federator: organizer.identity_federator, 
-          identity_provider_uid: organizer.identity_provider_uid, id_token: id_token)
 end
 ```
 
-### 3. Logout Flow
+### 2. How the omniauth-proconnect Gem Handles Logout
 
-#### 3.1 Building the Logout URL
+The gem automatically:
+1. Detects requests to `/auth/proconnect/logout`
+2. Retrieves the `id_token` from `session['omniauth.pc.id_token']` (stored during login)
+3. Retrieves the `state` from `session['omniauth.state']`
+4. Builds the ProConnect `end_session_endpoint` URL with proper parameters:
+   - `id_token_hint`
+   - `state`
+   - `post_logout_redirect_uri` (from the OmniAuth configuration)
+5. Redirects to ProConnect's logout endpoint
+6. ProConnect terminates all sessions and redirects back to `post_logout_redirect_uri`
 
-The `proconnect_signout_url` method constructs the proper OIDC end_session endpoint URL:
+### 3. Routes (`config/routes.rb`)
 
-```ruby
-def proconnect_signout_url
-  # Generate state parameter for CSRF protection
-  logout_state = SecureRandom.hex(32)
-  session[:logout_state] = logout_state
-  
-  # Build logout URL according to ProConnect OIDC specification
-  proconnect_domain = Rails.application.credentials.proconnect_url
-  params = {
-    id_token_hint: session[:id_token],
-    state: logout_state,
-    post_logout_redirect_uri: after_logout_url
-  }
-  
-  "#{proconnect_domain}/session/end?#{params.to_query}"
-end
-```
-
-#### 3.2 Logout Callback
-
-After ProConnect terminates the session, it redirects back to the `logout_callback` action:
-
-```ruby
-def logout_callback
-  # Verify state parameter for CSRF protection
-  if params[:state].present? && params[:state] != session[:logout_state]
-    redirect_to root_path, alert: t('sessions.logout.invalid_state')
-    return
-  end
-  
-  # Clear logout session data
-  session.delete(:logout_state)
-  session.delete(:id_token)
-  
-  redirect_to root_path, notice: t('sessions.logout.success')
-end
-```
-
-### 4. Routes (`config/routes.rb`)
-
-Added a new route for the post-logout callback:
+Only one route is needed:
 
 ```ruby
 get 'compte/deconnexion', to: 'sessions#destroy', as: :signout
-get 'compte/deconnexion/callback', to: 'sessions#logout_callback', as: :logout_callback
 ```
 
-### 5. View Updates (`app/views/layouts/header/_tools.html.erb`)
+### 4. View Updates (`app/views/layouts/header/_tools.html.erb`)
 
 Disabled Turbo on the logout link to ensure proper redirect handling:
 
@@ -109,46 +65,41 @@ Disabled Turbo on the logout link to ensure proper redirect handling:
 </a>
 ```
 
-### 6. Translations (`config/locales/fr.yml`)
-
-Added French translations for logout messages:
-
-```yaml
-sessions:
-  logout:
-    success: Vous avez été déconnecté avec succès
-    invalid_state: "Erreur lors de la déconnexion : état invalide"
-```
-
 ## Compliance with ProConnect Specification
 
-This implementation follows the ProConnect OIDC specification:
+The `omniauth-proconnect` gem handles all OIDC compliance requirements:
 
-1. ✅ **Stores `id_token`** during authentication
+1. ✅ **Stores `id_token`** during authentication in `session['omniauth.pc.id_token']`
 2. ✅ **Uses proper end_session endpoint**: `/api/v2/session/end`
 3. ✅ **Includes required parameters**:
-   - `id_token_hint`: The stored ID token
+   - `id_token_hint`: Retrieved from session
    - `state`: CSRF protection token
-   - `post_logout_redirect_uri`: Callback URL after logout
+   - `post_logout_redirect_uri`: From OmniAuth configuration
 4. ✅ **Redirects in browser**: Ensures ProConnect and Identity Provider sessions are terminated
-5. ✅ **Verifies state on callback**: CSRF protection
-6. ✅ **Cleans up session data**: Removes all authentication-related session data
+5. ✅ **Verifies state**: Handled by the gem
+6. ✅ **Cleans up session data**: Gem manages session cleanup
 
 ## Testing
 
 The implementation can be tested by:
 
-1. Logging in with ProConnect
-2. Clicking "Se déconnecter"
-3. Verifying in browser network tab:
-   - Request to ProConnect's `/api/v2/session/end` endpoint
-   - Redirect back to the callback URL
-   - Final redirect to home page with success message
+1. Login with ProConnect
+2. Click "Se déconnecter"
+3. Verify in browser network tab:
+   - Request to `/auth/proconnect/logout`
+   - Redirect to ProConnect's `/api/v2/session/end` endpoint
+   - Redirect back to `post_logout_redirect_uri` (configured root URL)
 
 ## Key Discoveries
 
-### 1. ID Token Storage
-The `omniauth-proconnect` gem (v0.5) stores the `id_token` in the session at `session["omniauth.pc.id_token"]`, not in the standard OmniAuth credentials hash. This is why we extract it from the session during authentication rather than from the OAuth callback payload.
+### 1. Built-in Logout Support
+The `omniauth-proconnect` gem (v0.5) has built-in logout functionality. When a request is made to `/auth/proconnect/logout`, the gem:
+- Automatically retrieves the `id_token` from `session['omniauth.pc.id_token']`
+- Builds the proper ProConnect `end_session_endpoint` URL
+- Handles all OIDC logout parameters
+- Redirects to ProConnect
+
+**No custom implementation needed** - just redirect to `/auth/proconnect/logout` and the gem does the rest!
 
 ### 2. Post-Logout Redirect URI Registration
 
@@ -170,13 +121,8 @@ code erreur: oidc-provider-rendered-error:invalid_request
 message erreur: "post_logout_redirect_uri not registered"
 ```
 
-**Note**: We use the root URL as the post-logout redirect instead of a dedicated callback route because:
+**Note**: The gem uses the `post_logout_redirect_uri` configured in `config/initializers/omniauth.rb`. We use the root URL because:
 - It simplifies the configuration (only one URL to register per environment)
 - ProConnect returns the user to the home page after logout, which is the expected UX
-- The state verification happens before the redirect to ProConnect, not after
-
-If you need a dedicated callback route:
-1. Update `config/initializers/omniauth.rb` to use `logout_callback_url`
-2. Register `https://your-domain/compte/deconnexion/callback` in ProConnect
-3. Update `after_logout_url` method to return `logout_callback_url`
+- The gem handles all state verification automatically
 
