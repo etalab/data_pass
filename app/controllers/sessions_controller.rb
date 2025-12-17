@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
   include Authentication
 
-  allow_unauthenticated_access only: [:create]
+  allow_unauthenticated_access only: [:create, :logout_callback]
 
   def create
     if mon_compte_pro_connect?
@@ -17,6 +17,28 @@ class SessionsController < ApplicationController
     sign_out
 
     redirect_to signout_url(@current_identity_federator), allow_other_host: true
+  end
+
+  def logout_callback
+    # Verify state parameter for CSRF protection (ProConnect only)
+    # MonComptePro doesn't return a state parameter, so we allow both cases
+    if params[:state].present?
+      if params[:state] == session[:logout_state]
+        # Clear session data
+        session.delete(:logout_state)
+        session.delete(:id_token)
+        
+        redirect_to root_path, notice: t('sessions.logout.success')
+      else
+        redirect_to root_path, alert: t('sessions.logout.invalid_state')
+      end
+    else
+      # MonComptePro or direct access - just redirect to home
+      session.delete(:logout_state)
+      session.delete(:id_token)
+      
+      redirect_to root_path
+    end
   end
 
   private
@@ -53,7 +75,13 @@ class SessionsController < ApplicationController
     sign_out if user_signed_in?
 
     organizer = call_authenticator(identity_federator)
-    sign_in(organizer.user, identity_federator:, identity_provider_uid: organizer.identity_provider_uid)
+    
+    # Extract id_token from ProConnect credentials for logout
+    id_token = if identity_federator == 'proconnect'
+      request.env['omniauth.auth']&.dig('credentials', 'id_token')
+    end
+    
+    sign_in(organizer.user, identity_federator:, identity_provider_uid: organizer.identity_provider_uid, id_token: id_token)
 
     organizer
   end
@@ -106,7 +134,7 @@ class SessionsController < ApplicationController
   end
 
   def after_logout_url
-    root_url.sub(%r{/$}, '')
+    logout_callback_url
   end
 
   def signout_url(current_identity_federator)
@@ -119,7 +147,20 @@ class SessionsController < ApplicationController
   end
 
   def proconnect_signout_url
-    '/auth/proconnect/logout'
+    proconnect_domain = Rails.application.credentials.proconnect_url
+    
+    # Generate a state parameter for CSRF protection
+    logout_state = SecureRandom.hex(32)
+    session[:logout_state] = logout_state
+    
+    # Build logout URL according to ProConnect documentation
+    params = {
+      id_token_hint: session[:id_token],
+      state: logout_state,
+      post_logout_redirect_uri: after_logout_url
+    }
+    
+    "#{proconnect_domain}/api/v2/session/end?#{params.to_query}"
   end
 
   def mon_compte_pro_signout_url

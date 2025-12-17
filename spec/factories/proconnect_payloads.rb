@@ -9,7 +9,7 @@ FactoryBot.define do
 
     provider { 'proconnect' }
     info { build(:proconnect_info_payload) }
-    credentials { {} }
+    credentials { { 'id_token' => SecureRandom.hex(64) } }
     extra { { 'raw_info' => build(:proconnect_raw_info_payload) } }
 
     after(:build) do |payload, evaluator|

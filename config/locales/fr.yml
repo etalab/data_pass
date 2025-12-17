@@ -157,6 +157,9 @@ fr:
     update_user:
       success:
         title: Vos informations ont bien été mises à jour
+    logout:
+      success: Vous avez été déconnecté avec succès
+      invalid_state: "Erreur lors de la déconnexion : état invalide"
 
   pages:
     home:

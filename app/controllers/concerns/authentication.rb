@@ -30,13 +30,16 @@ module Authentication
     dashboard_path
   end
 
-  def sign_in(user, identity_federator:, identity_provider_uid:)
+  def sign_in(user, identity_federator:, identity_provider_uid:, id_token: nil)
     session[:user_id] = {
       value: user.id,
       expires_at: 1.month.from_now,
       identity_federator:,
       identity_provider_uid:,
     }
+
+    # Store id_token for ProConnect logout
+    session[:id_token] = id_token if id_token.present?
 
     @current_user = user
   end
