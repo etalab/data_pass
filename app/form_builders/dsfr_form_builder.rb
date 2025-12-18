@@ -26,19 +26,16 @@ class DsfrFormBuilder < ActionView::Helpers::FormBuilder
     dsfr_input_field(attribute, :url_field, opts)
   end
 
-  # rubocop:disable Metrics/AbcSize
   def dsfr_file_field(attribute, opts = {})
     opts[:class] ||= 'fr-upload-group'
 
-    if opts[:multiple]
-      opts[:input_group_options] ||= {}
-      opts[:input_group_options][:data] ||= { controller: 'remove-attached-file' }
-      opts[:input_group_options][:data][:removeAttachedFileTarget] = 'file'
-      hidden_fields = hidden_fields_for_existing_attachments(attribute)
+    if multiple_attachment_field?(attribute, opts)
+      configure_multiple_attachment_controller!(opts)
+      hidden_fields = attachment_hidden_fields(attribute, opts)
       existing_file_link = link_to_files(attribute)
     end
 
-    required = required?(attribute, opts) && !existing_file_link
+    required = file_field_required?(attribute, opts, existing_file_link)
 
     dsfr_input_group(attribute, opts) do
       @template.safe_join(
@@ -52,7 +49,6 @@ class DsfrFormBuilder < ActionView::Helpers::FormBuilder
       )
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   def dsfr_check_box(attribute, opts = {})
     dsfr_input_group(attribute, opts) do
@@ -264,24 +260,32 @@ class DsfrFormBuilder < ActionView::Helpers::FormBuilder
     )
   end
 
-  def hidden_fields_for_existing_attachments(attribute)
-    files = @object.send(attribute)
-    return unless files.attached?
-
-    @template.safe_join(
-      Array(files).filter_map do |file|
-        next unless file.persisted?
-
-        create_hidden_field_for_file(attribute, file)
-      end
-    )
-  end
-
   def create_hidden_field_for_file(attribute, file)
     field_name = "#{@object_name}[#{attribute}][]"
     field_id = "#{@object_name}_#{attribute}_#{file.id}_signed_id"
 
     @template.hidden_field_tag(field_name, file.signed_id, id: field_id)
+  end
+
+  def sentinel_field_for_attachments(attribute)
+    field_name = "#{@object_name}[#{attribute}][]"
+    @template.hidden_field_tag(field_name, '', id: "#{@object_name}_#{attribute}_sentinel")
+  end
+
+  def hidden_fields_for_existing_attachments(attribute)
+    files = @object.send(attribute)
+
+    hidden_fields = Array(files).filter_map do |file|
+      next unless file.persisted?
+
+      create_hidden_field_for_file(attribute, file)
+    end
+
+    return if hidden_fields.empty?
+
+    hidden_fields.unshift(sentinel_field_for_attachments(attribute))
+
+    @template.safe_join(hidden_fields)
   end
 
   def input_width_class(opts)
@@ -328,6 +332,26 @@ class DsfrFormBuilder < ActionView::Helpers::FormBuilder
 
   def multiple_attachments?(attribute)
     @object.class.attachment_reflections[attribute.to_s]&.macro == :has_many_attached
+  end
+
+  def multiple_attachment_field?(attribute, opts)
+    opts[:multiple] || multiple_attachments?(attribute)
+  end
+
+  def configure_multiple_attachment_controller!(opts)
+    opts[:input_group_options] ||= {}
+    opts[:input_group_options][:data] ||= { controller: 'remove-attached-file' }
+    opts[:input_group_options][:data][:removeAttachedFileTarget] = 'file'
+  end
+
+  def attachment_hidden_fields(attribute, opts)
+    return if opts[:skip_hidden_fields]
+
+    hidden_fields_for_existing_attachments(attribute)
+  end
+
+  def file_field_required?(attribute, opts, existing_file_link)
+    required?(attribute, opts) && !existing_file_link
   end
 end
 # rubocop:enable Metrics/ClassLength
