@@ -174,19 +174,19 @@ Alors('il y a un message de succès contenant {string}') do |text|
 end
 
 Alors("il y a un message d'erreur contenant {string}") do |text|
-  expect(page).to have_css('.fr-alert.fr-alert--error, .tiny-alert.tiny-alert--error', text:)
+  expect(page).to have_css('.fr-alert.fr-alert--error, .tiny-alert.tiny-alert--error, .fr-notice.fr-notice--alert', text:)
 end
 
 Alors("il y a un message d'attention contenant {string}") do |text|
-  expect(page).to have_css('.fr-alert.fr-alert--warning, .tiny-alert.tiny-alert--warning', text:)
+  expect(page).to have_css('.fr-alert.fr-alert--warning, .tiny-alert.tiny-alert--warning, .fr-notice.fr-notice--warning', text:)
 end
 
 Alors("il y a un message d'info contenant {string}") do |text|
-  expect(page).to have_css('.fr-alert.fr-alert--info, .tiny-alert.tiny-alert--info', text:)
+  expect(page).to have_css('.fr-alert.fr-alert--info, .tiny-alert.tiny-alert--info, .fr-notice.fr-notice--info', text:)
 end
 
 Alors("il n'y a pas de message d'alerte contenant {string}") do |text|
-  expect(page).to have_no_css('.fr-alert, .tiny-alert', text:)
+  expect(page).to have_no_css('.fr-alert, .tiny-alert, .fr-notice', text:)
 end
 
 Alors('il y a une mise en avant contenant {string}') do |text|
