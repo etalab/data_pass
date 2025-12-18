@@ -23,7 +23,7 @@ Fonctionnalité: Persistance des documents dans la demande d'habilitation
     Alors la page contient "dummy.pdf"
     Et la page contient "another_dummy.pdf"
 
-  @javascript @pending
+  @javascript
   Scénario: Suppression d'un ou plusieurs documents PDF dans le cadre juridique
     Quand je joins 2 documents au cadre juridique du projet "API Ingres"
     * je clique sur "Suivant"
@@ -48,3 +48,19 @@ Fonctionnalité: Persistance des documents dans la demande d'habilitation
     * je clique sur "Suivant"
     * je clique sur "Précédent"
     Alors la page contient "another_dummy.pdf"
+
+  @javascript
+  Scénario: Soumission d'une habilitation réouverte avec suppression de document uniquement
+    Quand j'ai 1 demande d'habilitation "API Impôt Particulier" validée
+    Et que cette demande possède une maquette du projet "dummy.pdf"
+    Et que je me rends sur mon tableau de bord demandeur habilitations
+    Et que je clique sur le premier "Consulter"
+    Et que je clique sur "Mettre à jour"
+    Et que je clique sur "Mettre à jour l’habilitation bac à sable"
+    Et il n'y a pas de bouton "Envoyer ma demande de modification"
+    Quand je clique sur "Modifier" dans le bloc de résumé "Mon projet"
+    Alors la page contient "dummy.pdf"
+    Quand je supprime le document "dummy.pdf"
+    Et que je clique sur "Enregistrer les modifications"
+    Alors la page ne contient pas "dummy.pdf"
+    Alors il y a un bouton "Envoyer ma demande de modification"
