@@ -35,6 +35,35 @@ RSpec.describe BaseNotifier, type: :notifier do
     end
   end
 
+  describe '#approve with DGFiP provider' do
+    let(:authorization_request) { create(:authorization_request, :api_impot_particulier_sandbox) }
+    let(:authorization) { create(:authorization, request: authorization_request, data: authorization_request.data) }
+    let!(:data_provider) { create(:data_provider, :dgfip) }
+
+    it 'enqueues the DGFiP APIM email' do
+      expect {
+        notifier.approve({ within_reopening: false, authorization: })
+      }.to have_enqueued_mail(DGFIP::APIMMailer, :approve)
+    end
+
+    it 'enqueues the applicant email' do
+      expect {
+        notifier.approve({ within_reopening: false, authorization: })
+      }.to have_enqueued_mail(AuthorizationRequestMailer, :approve)
+    end
+  end
+
+  describe '#approve with non-DGFiP provider' do
+    let(:authorization_request) { create(:authorization_request, :api_entreprise) }
+    let(:authorization) { create(:authorization, request: authorization_request, data: authorization_request.data) }
+
+    it 'does not enqueue the DGFiP APIM email' do
+      expect {
+        notifier.approve({ within_reopening: false, authorization: })
+      }.not_to have_enqueued_mail(DGFIP::APIMMailer, :approve)
+    end
+  end
+
   describe '#submit to Instruction::AuthorizationRequestMailer' do
     it 'enqueues the submit email to instruction mailer without reopening' do
       expect {
