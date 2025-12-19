@@ -23,8 +23,7 @@ class Applicant::DemandeAlertsComponentPreview < ApplicationPreview
 
   # @label 4. Import V1 invalide
   def dirty_from_v1
-    authorization_request = AuthorizationRequest.first!
-    authorization_request.dirty_from_v1 = true
+    authorization_request = AuthorizationRequest.where(dirty_from_v1: true).first!
 
     render Applicant::DemandeAlertsComponent.new(authorization_request:, current_user: authorization_request.applicant)
   end
