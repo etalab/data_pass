@@ -101,6 +101,28 @@ class Seeds
     create_validated_authorization_request(:api_entreprise, attributes: { intitule: 'Démarches simplifiées', applicant: foreign_demandeur, contact_metier_email: demandeur.email })
 
     create_validated_authorization_request(:api_particulier, attributes: { intitule: 'Cantine à 1€', applicant: demandeur, scopes: AuthorizationDefinition.find('api_particulier').scopes.map(&:value).sample(3) + ['dgfip_annee_impot'] })
+
+    create_dirty_from_v1_authorization_request
+    create_authorization_request_with_contact_mention
+    create_authorization_request_with_old_authorization
+  end
+
+  def create_dirty_from_v1_authorization_request
+    authorization_request = create_reopened_authorization_request(:api_entreprise, attributes: { intitule: 'MPS 2014 - Migration v1', applicant: demandeur })
+    authorization_request.update!(dirty_from_v1: true)
+    authorization_request
+  end
+
+  def create_authorization_request_with_contact_mention
+    create_draft_authorization_request(:api_entreprise, attributes: { intitule: 'Demande avec contact métier externe', applicant: another_demandeur, contact_metier_email: demandeur.email })
+    create_validated_authorization_request(:api_entreprise, attributes: { intitule: 'Habilitation avec contact métier externe', applicant: another_demandeur, contact_metier_email: demandeur.email })
+  end
+
+  def create_authorization_request_with_old_authorization
+    authorization_request = create_reopened_authorization_request(:api_entreprise, attributes: { intitule: 'Habilitation mise à jour', applicant: demandeur })
+    SubmitAuthorizationRequest.call(authorization_request: authorization_request.reload, user: demandeur)
+    ApproveAuthorizationRequest.call(authorization_request: authorization_request.reload, user: api_entreprise_instructor)
+    authorization_request
   end
 
   def demandeur
