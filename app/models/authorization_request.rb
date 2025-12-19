@@ -158,6 +158,10 @@ class AuthorizationRequest < ApplicationRecord
 
   delegate :name, to: :class, prefix: true
 
+  def formatted_id
+    "D-#{id}"
+  end
+
   def kind
     type.underscore.split('/').last
   end

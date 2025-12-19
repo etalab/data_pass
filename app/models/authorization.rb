@@ -40,6 +40,10 @@ class Authorization < ApplicationRecord
 
   delegate :name, :kind, to: :request
 
+  def formatted_id
+    "H-#{id}"
+  end
+
   before_create do
     self[:authorization_request_class] ||= request.type
   end

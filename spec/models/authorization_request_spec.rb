@@ -1,4 +1,12 @@
 RSpec.describe AuthorizationRequest do
+  describe '#formatted_id' do
+    subject { authorization_request.formatted_id }
+
+    let(:authorization_request) { create(:authorization_request, :api_entreprise) }
+
+    it { is_expected.to eq("D-#{authorization_request.id}") }
+  end
+
   describe 'factories' do
     it 'saves the authorization request with state submitted and then changes it to draft' do
       authorization_request = build(:authorization_request, :api_entreprise, state: 'submitted')

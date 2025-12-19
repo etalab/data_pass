@@ -70,7 +70,7 @@ class AuthorizationDecorator < ApplicationDecorator
   end
 
   def name_for_select
-    "Habilitation n°#{id} du #{formatted_date} : #{name}"
+    "Habilitation #{formatted_id} du #{formatted_date} : #{name}"
   end
 
   def translated_state

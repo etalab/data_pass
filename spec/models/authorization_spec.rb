@@ -3,6 +3,14 @@ RSpec.describe Authorization do
     expect(build(:authorization)).to be_valid
   end
 
+  describe '#formatted_id' do
+    subject { authorization.formatted_id }
+
+    let(:authorization) { create(:authorization) }
+
+    it { is_expected.to eq("H-#{authorization.id}") }
+  end
+
   describe 'state machine' do
     it { is_expected.to have_states :active, :obsolete, :revoked }
     it { is_expected.to handle_events :deprecate, :revoke, when: :active }
