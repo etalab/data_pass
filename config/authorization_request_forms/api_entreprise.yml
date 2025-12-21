@@ -122,7 +122,27 @@ api-entreprise-identification-entreprise-open-data:
     - name: "basic_infos"
     - name: "personal_data"
     - name: "legal"
+    - name: "scopes"
     - name: "contacts"
+  scopes_config:
+    disabled:
+      - unites_legales_etablissements_insee
+      - associations_djepva
+    hide:
+      - data_subvention_subventions
+      - effectifs_urssaf
+      - mandataires_sociaux_infogreffe
+      - beneficiaires_effectifs_inpi
+      - liens_capitalistiques_dgfip
+      - chiffre_affaires_dgfip
+      - bilans_bdf
+      - liasses_fiscales_dgfip
+      - attestation_fiscale_dgfip
+      - attestation_sociale_urssaf
+      - cotisations_msa
+      - cotisations_probtp
+      - attestation_cotisations_conges_payes_chomage_intemperies_cibtp_cnetp
+      - certifications_qualiopi_france_competences
   static_blocks:
     - name: "scopes"
   initialize_with:
