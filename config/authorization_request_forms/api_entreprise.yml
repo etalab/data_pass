@@ -160,9 +160,6 @@ api-entreprise-identification-entreprise:
     scopes:
       - unites_legales_etablissements_insee
       - associations_djepva
-      - attestation_fiscale_dgfip
-      - attestation_sociale_urssaf
-      - cotisations_msa
 
 api-entreprise-portail-gru-preremplissage:
   name: "Portail GRU - Préremplissage uniquement"
