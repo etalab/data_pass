@@ -152,6 +152,16 @@ api-entreprise-identification-entreprise:
   scopes_config:
     disabled:
       - beneficiaires_effectifs_inpi
+      - certifications_qualiopi_france_competences
+      - attestation_fiscale_dgfip
+      - attestation_sociale_urssaf
+      - cotisations_msa
+      - cotisations_probtp
+      - attestation_cotisations_conges_payes_chomage_intemperies_cibtp_cnetp
+      - liasses_fiscales_dgfip
+      - data_subvention_subventions
+      - bilans_bdf
+      - liens_capitalistiques_dgfip
   initialize_with:
     intitule: "Démarches liées au portail de gestion relation usagers"
     description: "Accès aux données ouvertes permettant aux usagers de pré-remplir les informations liées à leurs entreprises, ainsi qu'aux données protégées permettant l'instruction de demandes par des agents habilités"
