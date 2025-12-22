@@ -8,23 +8,33 @@ class Habilitation::UserAlertsComponent < ApplicationComponent
   end
 
   def render?
-    show_update_in_progress_alert? ||
-      show_access_callout?
+    show_update_in_progress_alert? || show_access_callout?
+  end
+
+  def call
+    safe_join([
+      update_in_progress_notice,
+      access_callout
+    ].compact)
+  end
+
+  private
+
+  attr_reader :authorization, :current_user
+
+  def update_in_progress_notice
+    return unless show_update_in_progress_alert?
+
+    render DsfrComponent::NoticeComponent.new(
+      title: I18n.t('authorization_request_forms.summary.reopening_alerts.update_in_progress.title'),
+      description: update_in_progress_message,
+      type: 'info',
+      html_attributes: { class: 'fr-notice--full-width fr-mb-4w' }
+    )
   end
 
   def show_update_in_progress_alert?
-    authorization.latest? &&
-      authorization.request.reopening?
-  end
-
-  def show_access_callout?
-    authorization.request.access_link.present? &&
-      authorization.request.validated? &&
-      current_user == authorization.request.applicant
-  end
-
-  def update_in_progress_title
-    I18n.t('authorization_request_forms.summary.reopening_alerts.update_in_progress.title')
+    authorization.latest? && authorization.request.reopening?
   end
 
   def update_in_progress_message
@@ -37,23 +47,29 @@ class Habilitation::UserAlertsComponent < ApplicationComponent
     ).html_safe
   end
 
-  def access_callout_title
-    I18n.t('authorization_requests.show.access_callout.title')
+  def access_callout
+    return unless show_access_callout?
+
+    helpers.dsfr_callout(
+      title: I18n.t('authorization_requests.show.access_callout.title'),
+      html_attributes: { class: 'fr-my-16v' }
+    ) do |callout|
+      callout.with_action_zone do
+        helpers.link_to(
+          I18n.t('authorization_requests.show.access_callout.button'),
+          authorization.request.access_link,
+          class: 'fr-btn fr-btn--icon-right fr-icon-external-link-line',
+          target: '_blank',
+          rel: 'noopener'
+        )
+      end
+      I18n.t('authorization_requests.show.access_callout.content', access_name: authorization.request.name)
+    end
   end
 
-  def access_callout_content
-    I18n.t('authorization_requests.show.access_callout.content', access_name: authorization.request.name)
+  def show_access_callout?
+    authorization.request.access_link.present? &&
+      authorization.request.validated? &&
+      current_user == authorization.request.applicant
   end
-
-  def access_callout_button_text
-    I18n.t('authorization_requests.show.access_callout.button')
-  end
-
-  def access_callout_link
-    authorization.request.access_link
-  end
-
-  private
-
-  attr_reader :authorization, :current_user
 end
