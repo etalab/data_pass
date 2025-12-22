@@ -196,7 +196,7 @@ fr-badge--grey {
   color: var(--text-title-grey) !important;
 }
 
-.fr-container {
+.fr-container--with-tiny-alert {
   position: relative;
 }
 
