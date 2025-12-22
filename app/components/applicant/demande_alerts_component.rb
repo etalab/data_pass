@@ -56,7 +56,7 @@ class Applicant::DemandeAlertsComponent < ApplicationComponent
       title: instructor_banner_title,
       description: instructor_banner_full_description,
       type: instructor_banner_type.to_s,
-      html_attributes: { class: 'fr-notice--full-width fr-mb-4w' }
+      html_attributes: { class: 'fr-notice--full-width fr-notice--multi-lines fr-mb-4w' }
     )
   end
 
@@ -90,7 +90,11 @@ class Applicant::DemandeAlertsComponent < ApplicationComponent
     description = instructor_banner_description
     return description if instructor_banner_reason.blank?
 
-    helpers.safe_join([description, helpers.simple_format(instructor_banner_reason)])
+    helpers.safe_join([
+      description,
+      '<br />'.html_safe,
+      instructor_banner_reason.gsub("\n", '<br />').html_safe
+    ])
   end
 
   def instructor_banner_i18n_key
@@ -125,7 +129,7 @@ class Applicant::DemandeAlertsComponent < ApplicationComponent
       title: I18n.t('authorization_request_forms.summary.reopening_alerts.update_in_progress.title'),
       description: update_in_progress_message,
       type: 'info',
-      html_attributes: { class: 'fr-notice--full-width fr-mb-4w' }
+      html_attributes: { class: 'fr-notice--full-width fr-notice--multi-lines fr-mb-4w' }
     )
   end
 
