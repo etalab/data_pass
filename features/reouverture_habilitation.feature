@@ -110,7 +110,7 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Quand j'ai 1 demande d'habilitation "API Impôt Particulier" validée
     Et que je me rends sur mon tableau de bord demandeur habilitations
     Et que je clique sur le premier "Mettre à jour"
-    Et que je clique sur "Mettre à jour l'habilitation bac à sable"
+    Et que je clique sur "Mettre à jour l’habilitation bac à sable"
     Alors je suis sur la page "Demande libre (Bac à sable) - API Impôt Particulier"
     Quand je clique sur "Modifier" dans le bloc de résumé "Les personnes impliquées"
     Et que je remplis les informations du contact "Responsable de traitement" avec :
@@ -132,7 +132,7 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Quand j'ai 1 demande d'habilitation "API Impôt Particulier" validée
     Et que je me rends sur mon tableau de bord demandeur habilitations
     Et que je clique sur le premier "Mettre à jour"
-    Et que je clique sur "Mettre à jour l'habilitation bac à sable"
+    Et que je clique sur "Mettre à jour l’habilitation bac à sable"
     Alors je suis sur la page "Demande libre (Bac à sable) - API Impôt Particulier"
     Quand que je vais sur la page tableau de bord
     Alors il y a un badge "Bac à sable"
@@ -151,14 +151,14 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Quand j'ai 1 demande d'habilitation "API Impôt Particulier" validée
     Et que je me rends sur mon tableau de bord demandeur habilitations
     Et que je clique sur le premier "Mettre à jour"
-    Et que je clique sur "Mettre à jour l'habilitation de production"
-    Alors je suis sur la page "Demande libre (Production) - API Impôt Particulier"
+    Et que je clique sur "Mettre à jour l’habilitation bac à sable"
+    Alors je suis sur la page "Demande libre (Bac à sable) - API Impôt Particulier"
 
   Scénario: Je peux terminer un cycle de réouverture d'une demande avec plusieurs paliers
     Quand j'ai 1 demande d'habilitation "API Impôt Particulier" validée
     Et que je me rends sur mon tableau de bord demandeur habilitations
     Et que je clique sur le premier "Mettre à jour"
-    Et que je clique sur "Mettre à jour l'habilitation bac à sable"
+    Et que je clique sur "Mettre à jour l’habilitation bac à sable"
     Alors je suis sur la page "Demande libre (Bac à sable) - API Impôt Particulier"
     Quand je clique sur "Modifier" dans le bloc de résumé "Les personnes impliquées"
     Et que je remplis les informations du contact "Responsable de traitement" avec :
