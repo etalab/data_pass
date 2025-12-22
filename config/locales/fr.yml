@@ -425,7 +425,7 @@ fr:
         button: Utiliser mon accès
       dirty_from_v1:
         title: Cette demande ou cette habilitation comporte des erreurs
-        description: Cette demande d’habilitation a été importée d’une ancienne version de Datapass, celle-ci présente des données incomplètes ou manquantes.Par conséquent, certaines actions (transfert, mise à jour) ne sont pas disponibles, si vous voulez effectuer des actions sur cette demande, merci de contacter le support à l’adresse datapass@api.gouv.fr.
+        description: Cette demande d’habilitation a été importée d’une ancienne version de Datapass, celle-ci présente des données incomplètes ou manquantes. Par conséquent, certaines actions (transfert, mise à jour) ne sont pas disponibles, si vous voulez effectuer des actions sur cette demande, merci de contacter le support à l’adresse datapass@api.gouv.fr.
     shared:
       title:
         update: Demande de mise à jour des informations
@@ -513,7 +513,7 @@ fr:
 
     summary:
       title: Vérifiez le récapitulatif de votre demande avant de la soumettre
-      description: Après avoir vérifié les informations que vous avez modifiées, vous pourrez la soumettre à l'équipe d'instruction.
+      description: Après avoir vérifié les informations que vous avez modifiées, vous pourrez la soumettre à l’équipe d’instruction.
 
       reopening_alerts:
         update_in_progress:
@@ -608,11 +608,11 @@ fr:
       cancel: Annuler
       reopen: Mettre à jour l'habilitation
       reopen_to_stage:
-        sandbox: Mettre à jour l'habilitation bac à sable
-        production: Mettre à jour l'habilitation de production
+        sandbox: Mettre à jour l’habilitation bac à sable
+        production: Mettre à jour l’habilitation de production
     create:
       error:
-        title: Une erreur est survenue lors de la réouverture de l'habilitation %{name}
+        title: Une erreur est survenue lors de la réouverture de l’habilitation %{name}
 
   transfer_authorization_requests:
     new_to_another:
