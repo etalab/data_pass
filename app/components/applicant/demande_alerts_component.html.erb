@@ -1,51 +1,38 @@
 <% if show_summary_before_submit? %>
-  <div class="fr-notice fr-notice--multi-lines fr-notice--warning fr-mb-4w fr-px-4v">
-    <div class="fr-container--fluid">
-      <div class="fr-notice__body">
-        <span class="fr-notice__title"><%= t('authorization_request_forms.summary.title') %></span>
-        <p class="fr-notice__desc"><%= t('authorization_request_forms.summary.description') %></p>
-      </div>
-    </div>
-  </div>
+  <%= dsfr_notice(
+    title: t('authorization_request_forms.summary.title'),
+    description: t('authorization_request_forms.summary.description'),
+    type: 'warning',
+    html_attributes: { class: 'fr-mb-4w fr-px-4v' }
+  ) %>
 <% end %>
 
 <% if show_instructor_banner? %>
-  <div class="fr-notice fr-notice--multi-lines fr-notice--<%= instructor_banner_type %> fr-notice--full-width fr-mb-4w">
-    <div class="fr-container">
-      <div class="fr-notice__body">
-        <span class="fr-notice__title"><%= instructor_banner_title %></span>
-        <span class="fr-notice__desc">
-          <%= instructor_banner_description %>
-
-          <% if instructor_banner_reason.present? %>
-            <%= simple_format(instructor_banner_reason) %>
-          <% end %>
-        </span>
-      </div>
-    </div>
-  </div>
+  <%= dsfr_notice(
+    title: instructor_banner_title,
+    description: instructor_banner_full_description,
+    type: instructor_banner_type.to_s,
+    html_attributes: { class: 'fr-notice--full-width fr-mb-4w' }
+  ) %>
 <% end %>
 
 <% if show_dirty_from_v1_alert? %>
-  <div class="fr-alert fr-alert--warning fr-mb-4w">
-    <h3 class="fr-alert__title">
-      <%= t('authorization_requests.show.dirty_from_v1.title') %>
-    </h3>
-    <p>
-      <%= t('authorization_requests.show.dirty_from_v1.description') %>
-    </p>
-  </div>
+  <%= dsfr_alert(
+    type: :warning,
+    title: t('authorization_requests.show.dirty_from_v1.title'),
+    html_attributes: { class: 'fr-mb-4w' }
+  ) do %>
+    <%= t('authorization_requests.show.dirty_from_v1.description') %>
+  <% end %>
 <% end %>
 
 <% if show_update_in_progress_alert? %>
-  <div class="fr-notice fr-notice--info fr-notice--full-width fr-mb-4w">
-    <div class="fr-container">
-      <div class="fr-notice__body">
-        <p class="fr-notice__title"><%= update_in_progress_title %></p>
-        <p class="fr-notice__desc"><%= update_in_progress_message %></p>
-      </div>
-    </div>
-  </div>
+  <%= dsfr_notice(
+    title: update_in_progress_title,
+    description: update_in_progress_message,
+    type: 'info',
+    html_attributes: { class: 'fr-notice--full-width fr-mb-4w' }
+  ) %>
 <% end %>
 
 <% if show_old_version_alert? %>

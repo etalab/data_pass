@@ -42,6 +42,13 @@ class Applicant::DemandeAlertsComponent < ApplicationComponent
     nil
   end
 
+  def instructor_banner_full_description
+    description = instructor_banner_description
+    return description if instructor_banner_reason.blank?
+
+    helpers.safe_join([description, helpers.simple_format(instructor_banner_reason)])
+  end
+
   def show_dirty_from_v1_alert?
     authorization_request.dirty_from_v1?
   end

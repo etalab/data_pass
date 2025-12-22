@@ -1,20 +1,17 @@
 <% if show_update_in_progress_alert? %>
-  <div class="fr-notice fr-notice--info fr-notice--full-width fr-mb-4w">
-    <div class="fr-container">
-      <div class="fr-notice__body">
-        <p class="fr-notice__title"><%= update_in_progress_title %></p>
-        <p class="fr-notice__desc"><%= update_in_progress_message %></p>
-      </div>
-    </div>
-  </div>
+  <%= dsfr_notice(
+    title: update_in_progress_title,
+    description: update_in_progress_message,
+    type: 'info',
+    html_attributes: { class: 'fr-notice--full-width fr-mb-4w' }
+  ) %>
 <% end %>
 
 <% if show_access_callout? %>
-  <div class="fr-callout fr-my-16v">
-    <h2 class="fr-callout__title fr-h3">
-      <%= access_callout_title %>
-    </h2>
-    <%= simple_format access_callout_content, { class: 'fr-callout__text' }, wrapper_tag: 'p' %>
-    <%= link_to access_callout_button_text, access_callout_link, class: 'fr-btn fr-btn--icon-right fr-icon-external-link-line', target: '_blank' %>
-  </div>
+  <%= dsfr_callout(title: access_callout_title, html_attributes: { class: 'fr-my-16v' }) do |callout| %>
+    <% callout.with_action_zone do %>
+      <%= link_to access_callout_button_text, access_callout_link, class: 'fr-btn fr-btn--icon-right fr-icon-external-link-line', target: '_blank' %>
+    <% end %>
+    <%= access_callout_content %>
+  <% end %>
 <% end %>
