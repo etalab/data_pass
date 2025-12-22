@@ -9,12 +9,12 @@ class AuthorizationRequest::APIFicoba < AuthorizationRequest
   include AuthorizationExtensions::Modalities
   include DGFIPExtensions::ExtraContactsInfos
 
-  MODALITIES = %w[with_ficoba_iban with_ficoba_spi with_ficoba_siren with_ficoba_personne_physique with_ficoba_personne_morale].freeze
+  MODALITIES = %w[with_ficoba_iban with_ficoba_spi with_ficoba_siren with_ficoba_personne_physique with_ficoba_personne_morale with_ficoba_iban_siren with_ficoba_iban_personne_physique with_ficoba_iban_personne_morale].freeze
 
   VOLUMETRIES = {
-    '50 appels / minute': 50,
     '200 appels / minute': 200,
-    '1000 appels / minute': 1000,
+    '500 appels / minute': 500,
+    '700 appels / minute': 700,
   }.freeze
 
   add_documents :maquette_projet, content_type: ['application/pdf'], size: { less_than: 10.megabytes }
