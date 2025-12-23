@@ -72,6 +72,9 @@
                 data-action="input->dsfr-multi-select#handleSearch">
             </div>
           <% end %>
+
+          <%# Screen reader announcement for search results %>
+          <div role="status" aria-live="polite" class="fr-sr-only" data-dsfr-multi-select-target="srAnnouncement"></div>
         </div>
       <% end %>
 
@@ -83,32 +86,26 @@
         id="<%= listbox_id %>"
         tabindex="-1"
         data-dsfr-multi-select-target="listbox">
-        <% options.each_with_index do |option, index| %>
-          <li
-            role="option"
-            class="dsfrx-multiselect__item <%= 'selected' if option_selected?(option) %>"
-            id="<%= component_id %>-option-<%= index %>"
-            tabindex="-1"
-            aria-checked="<%= option_selected?(option) %>"
-            <% if option[:disabled] %>aria-disabled="true"<% end %>
-            data-value="<%= option[:value] %>"
-            data-label="<%= option[:label] %>"
-            data-index="<%= index %>"
-            data-disabled="<%= option[:disabled] %>"
-            data-action="click->dsfr-multi-select#selectOption keydown->dsfr-multi-select#handleOptionKeydown">
-            <span class="fr-checkbox-group fr-checkbox-group--sm">
-              <input
-                type="checkbox"
-                id="<%= component_id %>-checkbox-<%= index %>"
-                tabindex="-1"
-                <%= 'checked' if option_selected?(option) %>
-                <%= 'disabled' if option[:disabled] %>
-                data-dsfr-multi-select-target="checkbox">
-              <label class="fr-label <%= 'fr-label--disabled' if option[:disabled] %>" for="<%= component_id %>-checkbox-<%= index %>">
-                <span class="text-node"><%= option[:label] %></span>
-              </label>
-            </span>
-          </li>
+        <% option_index = 0 %>
+        <% normalized_options.each_with_index do |item, group_index| %>
+          <% if item[:group] %>
+            <%# Option Group %>
+            <li role="group" aria-labelledby="<%= component_id %>-group-<%= group_index %>" class="dsfrx-multiselect__group">
+              <span id="<%= component_id %>-group-<%= group_index %>" role="presentation" class="dsfrx-multiselect__group-label">
+                <%= item[:label] %>
+              </span>
+              <ul role="none" class="dsfrx-multiselect__group-options">
+                <% item[:options].each do |option| %>
+                  <%= render_option(option, option_index) %>
+                  <% option_index += 1 %>
+                <% end %>
+              </ul>
+            </li>
+          <% else %>
+            <%# Regular Option %>
+            <%= render_option(item, option_index) %>
+            <% option_index += 1 %>
+          <% end %>
         <% end %>
       </ul>
 

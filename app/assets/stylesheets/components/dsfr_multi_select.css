@@ -198,3 +198,25 @@
   background-image: url("data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' viewBox='0 0 24 24' ><path fill='%23fff' d='M12,10.9l5,4.9l1.4-1.4L12,8.1L5.6,14.5l1.4,1.4L12,10.9z'/></svg>");
 }
 
+/* Option Groups */
+.dsfrx-multiselect__group {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dsfrx-multiselect__group-label {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  font-weight: 700;
+  color: var(--text-title-grey);
+  background-color: var(--background-contrast-grey);
+  font-size: 0.875rem;
+}
+
+.dsfrx-multiselect__group-options {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+

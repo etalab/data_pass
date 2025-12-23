@@ -13,7 +13,8 @@ export default class extends Controller {
     'searchInput',
     'hiddenInputs',
     'emptyState',
-    'checkbox'
+    'checkbox',
+    'srAnnouncement'
   ]
 
   static values = {
@@ -255,8 +256,10 @@ export default class extends Controller {
   handleSearch () {
     const searchText = this.hasSearchInputTarget ? this.searchInputTarget.value.toLowerCase() : ''
     const options = this.listboxTarget.querySelectorAll('li[role="option"]')
+    const groups = this.listboxTarget.querySelectorAll('li[role="group"]')
     let visibleCount = 0
 
+    // Filter options
     options.forEach(li => {
       const label = li.dataset.label.toLowerCase()
       const matches = label.includes(searchText)
@@ -264,10 +267,37 @@ export default class extends Controller {
       if (matches) visibleCount++
     })
 
+    // Show/hide groups based on whether they have visible options
+    groups.forEach(group => {
+      const groupOptions = group.querySelectorAll('li[role="option"]:not(.fr-hidden)')
+      group.classList.toggle('fr-hidden', groupOptions.length === 0)
+    })
+
     // Show/hide empty state
     if (this.hasEmptyStateTarget) {
       this.emptyStateTarget.classList.toggle('fr-hidden', visibleCount > 0)
     }
+
+    // Announce results to screen readers
+    this._announceResults(visibleCount)
+  }
+
+  _announceResults (count) {
+    if (!this.hasSrAnnouncementTarget) return
+
+    // Clear previous announcement
+    this.srAnnouncementTarget.textContent = ''
+
+    // Small delay to ensure screen readers pick up the change
+    setTimeout(() => {
+      if (count === 0) {
+        this.srAnnouncementTarget.textContent = 'Aucun résultat disponible'
+      } else if (count === 1) {
+        this.srAnnouncementTarget.textContent = '1 résultat disponible'
+      } else {
+        this.srAnnouncementTarget.textContent = `${count} résultats disponibles`
+      }
+    }, 100)
   }
 
   _open () {

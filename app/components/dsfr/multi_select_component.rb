@@ -24,7 +24,7 @@ module Dsfr
       **html_options
     )
       @name = name
-      @options = normalize_options(options)
+      @options = options
       @selected = Array(selected).compact.map(&:to_s)
       @label = label
       @hint = hint
@@ -77,7 +77,7 @@ module Dsfr
       return placeholder if selected.empty?
 
       if selected.size == 1
-        option = options.find { |opt| opt[:value].to_s == selected.first }
+        option = flat_options.find { |opt| opt[:value].to_s == selected.first }
         option ? option[:label] : placeholder
       else
         "#{selected.size} sélectionnés"
@@ -91,7 +91,7 @@ module Dsfr
     def all_selected?
       return true if selected.empty?
 
-      enabled_options = options.reject { |opt| opt[:disabled] }
+      enabled_options = flat_options.reject { |opt| opt[:disabled] }
       enabled_options.all? { |opt| selected.include?(opt[:value].to_s) }
     end
 
@@ -99,17 +99,127 @@ module Dsfr
       selected.empty?
     end
 
+    # Returns normalized options structure that supports groups
+    # Groups have: { group: true, label: "Group Name", options: [...] }
+    # Options have: { label: "Label", value: "value", disabled: false }
+    def normalized_options
+      @normalized_options ||= options.map { |opt| normalize_item(opt) }
+    end
+
+    # Flat list of all selectable options (excludes group headers)
+    def flat_options
+      @flat_options ||= normalized_options.flat_map do |item|
+        item[:group] ? item[:options] : [item]
+      end
+    end
+
+    # Render a single option item
+    def render_option(option, index)
+      render(OptionComponent.new(
+        option:,
+        index:,
+        component_id:,
+        selected: option_selected?(option)
+      ))
+    end
+
     private
 
-    def normalize_options(opts)
-      opts.map do |opt|
-        case opt
-        when Array
-          { label: opt[0], value: opt[1], disabled: opt[2] || false }
-        when Hash
-          { label: opt[:label], value: opt[:value], disabled: opt[:disabled] || false }
-        else
-          { label: opt.to_s, value: opt.to_s, disabled: false }
+    def normalize_item(opt)
+      case opt
+      when Array then normalize_array_item(opt)
+      when Hash then normalize_hash_item(opt)
+      else { label: opt.to_s, value: opt.to_s, disabled: false }
+      end
+    end
+
+    def normalize_array_item(opt)
+      if opt[1].is_a?(Array)
+        { group: true, label: opt[0], options: opt[1].map { |o| normalize_single_option(o) } }
+      else
+        normalize_single_option(opt)
+      end
+    end
+
+    def normalize_hash_item(opt)
+      if opt[:options]
+        { group: true, label: opt[:label], options: opt[:options].map { |o| normalize_single_option(o) } }
+      else
+        normalize_single_option(opt)
+      end
+    end
+
+    def normalize_single_option(opt)
+      case opt
+      when Array
+        { label: opt[0], value: opt[1], disabled: opt[2] || false }
+      when Hash
+        { label: opt[:label], value: opt[:value], disabled: opt[:disabled] || false }
+      else
+        { label: opt.to_s, value: opt.to_s, disabled: false }
+      end
+    end
+
+    # Inner component for rendering individual options
+    class OptionComponent < ApplicationComponent
+      attr_reader :option, :index, :component_id, :selected
+
+      def initialize(option:, index:, component_id:, selected:)
+        @option = option
+        @index = index
+        @component_id = component_id
+        @selected = selected
+      end
+
+      def call
+        content_tag(:li, option_attributes) do
+          content_tag(:span, class: 'fr-checkbox-group fr-checkbox-group--sm') do
+            checkbox_input + checkbox_label
+          end
+        end
+      end
+
+      private
+
+      def option_attributes
+        {
+          role: 'option',
+          class: option_classes,
+          id: "#{component_id}-option-#{index}",
+          tabindex: -1,
+          'aria-checked': selected,
+          'aria-disabled': option[:disabled] || nil,
+          'data-value': option[:value],
+          'data-label': option[:label],
+          'data-index': index,
+          'data-disabled': option[:disabled],
+          'data-action': 'click->dsfr-multi-select#selectOption keydown->dsfr-multi-select#handleOptionKeydown'
+        }
+      end
+
+      def option_classes
+        classes = ['dsfrx-multiselect__item']
+        classes << 'selected' if selected
+        classes.join(' ')
+      end
+
+      def checkbox_input
+        tag.input(
+          type: 'checkbox',
+          id: "#{component_id}-checkbox-#{index}",
+          tabindex: -1,
+          checked: selected || nil,
+          disabled: option[:disabled] || nil,
+          'data-dsfr-multi-select-target': 'checkbox'
+        )
+      end
+
+      def checkbox_label
+        label_classes = ['fr-label']
+        label_classes << 'fr-label--disabled' if option[:disabled]
+
+        content_tag(:label, class: label_classes.join(' '), for: "#{component_id}-checkbox-#{index}") do
+          content_tag(:span, option[:label], class: 'text-node')
         end
       end
     end
