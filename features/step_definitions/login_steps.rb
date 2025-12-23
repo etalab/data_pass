@@ -103,6 +103,20 @@ Sachantque('je suis un instructeur {string}') do |kind|
   end
 end
 
+Sachantque('je suis un instructeur avec plusieurs types d\'autorisation') do
+  user = create_instructor('API Entreprise')
+  user.roles << 'api_particulier:instructor'
+  user.roles << 'api_entreprise:reporter'
+  user.roles << 'api_particulier:reporter'
+  user.roles.uniq!
+  user.save!
+
+  if @current_user_email.blank?
+    @current_user_email = user.email
+    mock_identity_federators(user)
+  end
+end
+
 Sachantque('je suis un rapporteur {string}') do |kind|
   user = create_reporter(kind)
 

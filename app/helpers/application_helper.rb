@@ -3,6 +3,7 @@ module ApplicationHelper
   include Dsfr::Accordion
   include Dsfr::Modal
   include Dsfr::Pictogram
+  include Dsfr::MultiSelect
   include SkipLinks
 
   def obfuscate(text)
