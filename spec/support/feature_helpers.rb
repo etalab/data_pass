@@ -10,18 +10,24 @@ module FeaturesHelpers
   end
 
   # Select an option from a multi-select component by label text
+  # Works with JavaScript-disabled tests by directly adding hidden form inputs
   # @param label [String] The visible text of the option to select
   # @param from [String] CSS selector or name of the multi-select container
   def select_multi_select_option(label, from:)
-    # Find the multi-select container
     container = find(from)
+    option = container.find('.multi-select__option', text: label, visible: :all)
+    option_value = option['data-multi-select-value-param']
+    field_name = container['data-multi-select-name-value']
 
-    # Click the trigger button to open the dropdown
-    container.find('.multi-select__trigger').click
+    # Find or create the hidden inputs container and add the input
+    hidden_div = page.driver.browser.dom.at_css("##{container['id']} .multi-select__hidden-inputs")
+    return unless hidden_div
 
-    # Wait for the dropdown to be visible and click the option
-    within(container) do
-      find('.multi-select__option', text: label).click
+    hidden_div.css("input[name='#{field_name}']").each(&:remove)
+    hidden_div << Nokogiri::XML::Node.new('input', page.driver.browser.dom).tap do |input|
+      input['type'] = 'hidden'
+      input['name'] = field_name
+      input['value'] = option_value
     end
   end
 end
