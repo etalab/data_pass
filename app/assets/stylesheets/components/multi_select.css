@@ -114,12 +114,12 @@
 }
 
 .multi-select__option.selected {
-  background-color: var(--background-alt-blue-france);
+  background-color: var(--background-contrast-blue-france);
 }
 
 .multi-select__option.selected:hover,
 .multi-select__option.selected:focus {
-  background-color: var(--background-contrast-blue-france);
+  background-color: #cacafb;
 }
 
 .multi-select__option-text {
@@ -154,7 +154,7 @@
   background-color: var(--background-default-grey);
 }
 
-.multi-select__clear:hover {
+.multi-select .multi-select__clear:hover {
   background-color: var(--background-contrast-grey-hover);
 }
 
@@ -167,7 +167,7 @@
 }
 
 .multi-select__clear.active {
-  background-color: var(--background-alt-blue-france);
+  background-color: var(--background-contrast-blue-france);
 }
 
 .multi-select__clear.active::before {
@@ -179,9 +179,9 @@
   background-position: center;
 }
 
-.multi-select__clear.active:hover,
+.multi-select .multi-select__clear.active:hover,
 .multi-select__clear.active:focus-visible {
-  background-color: var(--background-contrast-blue-france);
+  background-color: #cacafb;
 }
 
 .multi-select__hidden-inputs {
