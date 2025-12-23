@@ -7,6 +7,22 @@ RSpec.describe AuthorizationRequest do
     it { is_expected.to eq("D#{authorization_request.id}") }
   end
 
+  describe '.find' do
+    let!(:authorization_request) { create(:authorization_request, :api_entreprise) }
+
+    it 'finds by numeric ID' do
+      expect(described_class.find(authorization_request.id)).to eq(authorization_request)
+    end
+
+    it 'finds by prefixed ID (D123)' do
+      expect(described_class.find("D#{authorization_request.id}")).to eq(authorization_request)
+    end
+
+    it 'finds by lowercase prefixed ID (d123)' do
+      expect(described_class.find("d#{authorization_request.id}")).to eq(authorization_request)
+    end
+  end
+
   describe '.search_by_query' do
     subject { described_class.search_by_query(query) }
 

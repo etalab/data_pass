@@ -79,6 +79,10 @@ class Authorization < ApplicationRecord
     ]
   end
 
+  def self.find(id)
+    super(id.to_s.sub(/\AH/i, ''))
+  end
+
   def self.ransackable_associations(_auth_object = nil)
     authorizable_ransackable_associations + %w[
       request
