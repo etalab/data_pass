@@ -20,10 +20,11 @@ Fonctionnalité: Instruction: liste des habilitations en tant que rapporteur
     Alors il y a un badge "Brouillon"
     Et il y a un badge "Mise à jour"
 
+  @javascript
   Scénario: Je cherche une habilitation avec son status
     Sachant qu'il y a 1 demande d'habilitation "API Entreprise" en attente
     Et qu'il y a 1 demande d'habilitation "API Entreprise" validée
     Et que je me rends sur mon tableau de bord instructeur
-    Et que je sélectionne "En cours d'instruction" pour "État égal à"
+    Et que je sélectionne "En cours d'instruction" dans le multi-select "Statut"
     Et que je clique sur "Rechercher"
     Alors je vois 1 demande d'habilitation

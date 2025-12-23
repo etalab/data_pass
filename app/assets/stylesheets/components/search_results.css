@@ -1,5 +1,10 @@
 .search-results-container {
   position: relative;
+  min-height: 300px;
+}
+
+.search-results-container > table thead{
+  min-width: 100%;
 }
 
 .search-results-container .results-count {

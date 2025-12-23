@@ -20,9 +20,32 @@ Fonctionnalité: Instruction: liste des habilitations
     Et qu'il y a 1 habilitation "API Entreprise" révoquée
     Et que je vais sur la page instruction
     Et que je me rends sur mon tableau de bord instructeur habilitations
-    Et que je sélectionne "Révoquée" pour "État égal à"
+    Et que je sélectionne "Révoquée" dans le multi-select "Statut"
     Et que je clique sur "Rechercher"
     Alors je vois 1 habilitation
+
+  Scénario: Je peux filtrer par plusieurs statuts
+    Sachant qu'il y a 2 habilitations "API Entreprise" actives
+    Et qu'il y a 1 habilitation "API Entreprise" révoquée
+    Et qu'il y a 1 habilitation "API Entreprise" obsolète
+    Et que je me rends sur mon tableau de bord instructeur habilitations
+    Et que je sélectionne "Active" dans le multi-select "Statut"
+    Et que je sélectionne "Révoquée" dans le multi-select "Statut"
+    Et que je clique sur "Rechercher"
+    Alors je vois 3 habilitations
+
+  # Removed: redundant test with demandes - the reset functionality is tested there
+
+  Scénario: Je peux combiner les filtres de type et de statut
+    Sachant que je suis un instructeur avec plusieurs types d'autorisation
+    Et qu'il y a 2 habilitations "API Entreprise" actives
+    Et qu'il y a 1 habilitation "API Particulier" active
+    Et qu'il y a 1 habilitation "API Entreprise" révoquée
+    Et que je me rends sur mon tableau de bord instructeur habilitations
+    Et que je sélectionne "API Entreprise" dans le multi-select "Type d'habilitation"
+    Et que je sélectionne "Active" dans le multi-select "Statut"
+    Et que je clique sur "Rechercher"
+    Alors je vois 2 habilitations
 
   Scénario: Trier par date de création fonctionne
     Sachant qu'il y a 1 habilitation "API Entreprise" active
