@@ -42,7 +42,8 @@ class Applicant::DemandeAlertsComponent < ApplicationComponent
   end
 
   def show_summary_before_submit?
-    authorization_request.draft? && !authorization_request.reopening? && current_user_is_applicant?
+    authorization_request.draft? &&
+      current_user_is_applicant?
   end
 
   def current_user_is_applicant?
