@@ -7,7 +7,7 @@ RSpec.describe 'Instruction: demandes search' do
       select_multi_select_option(state, from: '#search_query_state_in') if state
       select_multi_select_option(type, from: '#search_query_type_in') if type
 
-      click_link_or_button
+      click_link_or_button 'Rechercher'
     end
   end
 
