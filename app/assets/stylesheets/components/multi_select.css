@@ -129,30 +129,58 @@
 .multi-select__clear {
   display: flex;
   align-items: center;
-  justify-content: center;
+  text-align: left;
   width: 100%;
   padding: 0.75rem 1rem;
+  padding-left: 2.5rem;
   border: none;
   border-bottom: 1px solid var(--border-default-grey);
   background-color: var(--background-default-grey);
   color: var(--text-label-grey);
   cursor: pointer;
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-weight: 500;
+  position: relative;
 }
 
-.multi-select__clear:hover,
-.multi-select__clear:focus {
+.multi-select__clear::before {
+  content: '';
+  position: absolute;
+  left: 0.75rem;
+  width: 1rem;
+  height: 1rem;
+  border: 1px solid var(--border-action-high-grey);
+  border-radius: 0.125rem;
+  background-color: var(--background-default-grey);
+}
+
+.multi-select__clear:hover {
   background-color: var(--background-contrast-grey-hover);
+}
+
+.multi-select__clear:focus {
   outline: none;
+}
+
+.multi-select__clear:focus-visible {
+  background-color: var(--background-contrast-grey-hover);
 }
 
 .multi-select__clear.active {
   background-color: var(--background-alt-blue-france);
 }
 
+.multi-select__clear.active::before {
+  background-color: var(--background-action-high-blue-france);
+  border-color: var(--background-action-high-blue-france);
+  background-image: url("data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='white' d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z'/></svg>");
+  background-size: 0.75rem 0.75rem;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 .multi-select__clear.active:hover,
-.multi-select__clear.active:focus {
+.multi-select__clear.active:focus-visible {
   background-color: var(--background-contrast-blue-france);
 }
 
