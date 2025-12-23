@@ -4,7 +4,7 @@ RSpec.describe AuthorizationRequest do
 
     let(:authorization_request) { create(:authorization_request, :api_entreprise) }
 
-    it { is_expected.to eq("D-#{authorization_request.id}") }
+    it { is_expected.to eq("D#{authorization_request.id}") }
   end
 
   describe 'factories' do

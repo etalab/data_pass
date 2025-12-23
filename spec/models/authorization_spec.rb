@@ -8,7 +8,7 @@ RSpec.describe Authorization do
 
     let(:authorization) { create(:authorization) }
 
-    it { is_expected.to eq("H-#{authorization.id}") }
+    it { is_expected.to eq("H#{authorization.id}") }
   end
 
   describe 'state machine' do

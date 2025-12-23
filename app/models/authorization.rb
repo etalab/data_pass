@@ -41,7 +41,7 @@ class Authorization < ApplicationRecord
   delegate :name, :kind, to: :request
 
   def formatted_id
-    "H-#{id}"
+    "H#{id}"
   end
 
   before_create do
