@@ -1,6 +1,7 @@
 module Dsfr::MultiSelect
   def dsfr_multi_select(name, options, selected: [], all_label: 'Tous', html_options: {})
     id = html_options[:id] || "multi_select_#{SecureRandom.hex(4)}"
+    dropdown_id = "#{id}_dropdown"
     selected = Array(selected).compact.reject(&:blank?)
 
     template.content_tag(:div,
@@ -12,8 +13,8 @@ module Dsfr::MultiSelect
       },
       id: id) do
       [
-        multi_select_trigger(selected, options, all_label),
-        multi_select_dropdown(options, selected, all_label),
+        multi_select_trigger(selected, options, all_label, dropdown_id),
+        multi_select_dropdown(options, selected, all_label, dropdown_id),
         multi_select_hidden_inputs(name, selected)
       ].join.html_safe
     end
@@ -21,7 +22,7 @@ module Dsfr::MultiSelect
 
   private
 
-  def multi_select_trigger(selected, options, all_label)
+  def multi_select_trigger(selected, options, all_label, dropdown_id)
     label_text = multi_select_label_text(selected, options, all_label)
 
     template.button_tag(
@@ -29,10 +30,11 @@ module Dsfr::MultiSelect
       class: 'multi-select__trigger',
       data: {
         'multi-select-target': 'trigger',
-        action: 'click->multi-select#toggle'
+        action: 'click->multi-select#toggle keydown->multi-select#handleTriggerKeydown'
       },
       'aria-expanded': 'false',
-      'aria-haspopup': 'listbox'
+      'aria-haspopup': 'listbox',
+      'aria-controls': dropdown_id
     ) do
       template.content_tag(:span, label_text,
         class: ['multi-select__label', selected.any? ? 'has-selection' : nil].compact,
@@ -40,10 +42,11 @@ module Dsfr::MultiSelect
     end
   end
 
-  def multi_select_dropdown(options, selected, all_label)
+  def multi_select_dropdown(options, selected, all_label, dropdown_id)
     template.content_tag(:div,
       class: ['multi-select__dropdown', 'fr-hidden'],
       data: { 'multi-select-target': 'dropdown' },
+      id: dropdown_id,
       'aria-hidden': 'true',
       role: 'listbox',
       'aria-multiselectable': 'true') do
@@ -69,12 +72,13 @@ module Dsfr::MultiSelect
     template.content_tag(:li,
       class: ['multi-select__option', is_selected ? 'selected' : nil].compact,
       data: {
-        action: 'click->multi-select#selectOption',
+        action: 'click->multi-select#selectOption keydown->multi-select#handleOptionKeydown',
         'multi-select-value-param': value,
         'multi-select-label-param': label,
         preselected: is_selected ? 'true' : nil
       }.compact,
       role: 'option',
+      tabindex: '-1',
       'aria-selected': is_selected.to_s) do
       template.content_tag(:span, label, class: 'multi-select__option-text')
     end
@@ -85,7 +89,11 @@ module Dsfr::MultiSelect
       "#{all_label}",
       type: 'button',
       class: 'multi-select__clear',
-      data: { action: 'click->multi-select#clearAll' }
+      tabindex: '-1',
+      data: {
+        action: 'click->multi-select#clearAll keydown->multi-select#handleClearKeydown',
+        'multi-select-target': 'clearButton'
+      }
     )
   end
 

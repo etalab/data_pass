@@ -31,9 +31,10 @@
   background-color: var(--background-contrast-grey-hover);
 }
 
-.multi-select__trigger:focus {
-  outline: 2px solid var(--outline-focus-blue-france);
+.multi-select__trigger:focus-visible {
   outline-offset: 2px;
+  outline-width: 2px;
+  outline-style: solid;
 }
 
 .multi-select__trigger[aria-expanded="true"] {
@@ -92,8 +93,15 @@
   background-color: var(--background-default-grey);
 }
 
-.multi-select__option:hover {
+.multi-select__option:hover,
+.multi-select__option:focus {
   background-color: var(--background-contrast-grey-hover);
+  outline: none;
+}
+
+.multi-select__option:focus-visible {
+  outline: 2px solid var(--outline-focus-blue-france);
+  outline-offset: -2px;
 }
 
 .multi-select__option.selected::before {
@@ -109,6 +117,11 @@
   background-color: var(--background-alt-blue-france);
 }
 
+.multi-select__option.selected:hover,
+.multi-select__option.selected:focus {
+  background-color: var(--background-contrast-blue-france);
+}
+
 .multi-select__option-text {
   flex: 1;
 }
@@ -122,14 +135,25 @@
   border: none;
   border-bottom: 1px solid var(--border-default-grey);
   background-color: var(--background-default-grey);
-  color: var(--text-action-high-blue-france);
+  color: var(--text-label-grey);
   cursor: pointer;
   font-size: 0.875rem;
   font-weight: 500;
 }
 
-.multi-select__clear:hover {
+.multi-select__clear:hover,
+.multi-select__clear:focus {
   background-color: var(--background-contrast-grey-hover);
+  outline: none;
+}
+
+.multi-select__clear.active {
+  background-color: var(--background-alt-blue-france);
+}
+
+.multi-select__clear.active:hover,
+.multi-select__clear.active:focus {
+  background-color: var(--background-contrast-blue-france);
 }
 
 .multi-select__hidden-inputs {
