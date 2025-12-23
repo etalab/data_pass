@@ -255,8 +255,7 @@ RSpec.describe 'Instruction: habilitations search' do
       expect(page).to have_css(css_id(obsolete_authorization))
 
       # Verify the filtered out authorization is not present
-      expect(page).not_to have_css(css_id(revoked_authorization))
+      expect(page).to have_no_css(css_id(revoked_authorization))
     end
   end
-
 end

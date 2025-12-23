@@ -14,6 +14,7 @@ module FeaturesHelpers
   # Supports multiple selections - call multiple times to select multiple options
   # @param label [String] The visible text of the option to select
   # @param from [String] CSS selector or name of the multi-select container
+  # rubocop:disable Metrics/AbcSize
   def select_multi_select_option(label, from:)
     container = find(from)
     option = container.find('.multi-select__option', text: label, visible: :all)
@@ -34,4 +35,5 @@ module FeaturesHelpers
       input['value'] = option_value
     end
   end
+  # rubocop:enable Metrics/AbcSize
 end

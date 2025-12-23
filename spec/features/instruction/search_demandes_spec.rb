@@ -200,9 +200,9 @@ RSpec.describe 'Instruction: demandes search' do
       # Verify the two matching requests are present
       expect(page).to have_css(css_id(submitted_request))
       expect(page).to have_css(css_id(draft_request))
-      
+
       # Verify the filtered out request is not present
-      expect(page).not_to have_css(css_id(refused_request))
+      expect(page).to have_no_css(css_id(refused_request))
     end
   end
 end
