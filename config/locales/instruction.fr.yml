@@ -34,10 +34,16 @@ fr:
             actions: "-"
           actions:
             show: Consulter
-        all_status: Tous les status (sauf Supprimée)
+        all_status: Tous les statuts (sauf Supprimée)
+        all_types: Toutes les données
+        type_filter_label: Type de demande
+        state_filter_label: État
 
       authorizations:
         all_status: Tous les statuts
+        all_types: Toutes les données
+        type_filter_label: Type d'habilitation
+        state_filter_label: État
 
         table:
           header:

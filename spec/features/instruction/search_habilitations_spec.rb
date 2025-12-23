@@ -4,8 +4,8 @@ RSpec.describe 'Instruction: habilitations search' do
 
     within('#authorization_search') do
       fill_in 'instructor_search_input', with: search_text if use_search_text
-      select state, from: 'search_query_state_eq' if state
-      select type, from: 'search_query_authorization_request_class_eq' if type
+      select_multi_select_option(state, from: '#search_query_state_in') if state
+      select_multi_select_option(type, from: '#search_query_authorization_request_class_in') if type
 
       click_link_or_button
     end
