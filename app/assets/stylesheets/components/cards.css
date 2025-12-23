@@ -12,6 +12,11 @@
   gap: 1rem;
 }
 
+.authorization-request-card .card__other_badges {
+  margin-right: -0.5rem;
+  justify-content: flex-end;
+}
+
 .authorization-request-card .card__actions {
   align-items: flex-end;
   gap: 1rem;

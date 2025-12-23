@@ -25,8 +25,8 @@
           <%= t("authorization_request.badge", id: authorization_request.id) %>
         </span>
 
-        <div class="flex-wrap flew-grow flex-end__content fr-grid-row--top fr-col--xs">
-          <%= authorization_request.reopening_badge(extra_css_class: 'fr-mb-1w') %>
+        <div class="fr-badge-group card__other_badges">
+          <%= authorization_request.reopening_badge %>
           <%= authorization_request.stage_badge %>
           <%= authorization_request.status_badge %>
         </div>
