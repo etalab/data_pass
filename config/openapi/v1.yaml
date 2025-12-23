@@ -14,6 +14,10 @@ info:
     - `Définition d'habilitation` : Les demandes et les habilitations sont liées à une définition d'habilitation, qui définit les attributs de la demande.
     - `Formulaire` : Un formulaire définit l'interface de saisie des données d'une demande d'habilitation, avec ses éventuels champs pré-remplis en fonction des cas d'usage.
 
+    # Identifiants
+
+    L'interface affiche les identifiants avec un préfixe : `D` pour les demandes et `H` pour les habilitations (ex: `D123`, `H456`). L'API accepte les deux formats : avec ou sans préfixe (`123` ou `D123`).
+
     # Cycle de vie d'une demande
 
     Consultez [la documentation sur le cycle de vie d'une demande](https://github.com/etalab/data_pass/blob/main/docs/lifecycle_documentation.md) pour comprendre comment les différents états d'une demande et de ses habilitations sont gérés.
