@@ -110,6 +110,13 @@ Quand('je sélectionne le filtre {string} pour {string}') do |option, name|
   end
 end
 
+Quand('je sélectionne {string} dans le multi-select {string}') do |option, label|
+  label_element = find('label', text: label)
+  container = label_element.find(:xpath, '..').find('.multi-select')
+  container.find('.multi-select__trigger').click
+  container.find('.multi-select__option', text: option).click
+end
+
 Quand('je choisis {string}') do |option|
   if javascript?
     find('label', text: option, visible: :visible).trigger('click')

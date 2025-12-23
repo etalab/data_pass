@@ -15,12 +15,13 @@ Fonctionnalité: Instruction: liste des habilitations
     Alors je vois 2 habilitations
     Et la page contient "2 résultats"
 
+  @javascript
   Scénario: Je cherche une habilitation avec son status
     Sachant qu'il y a 1 habilitation "API Entreprise" active
     Et qu'il y a 1 habilitation "API Entreprise" révoquée
     Et que je vais sur la page instruction
     Et que je me rends sur mon tableau de bord instructeur habilitations
-    Et que je sélectionne "Révoquée" pour "État égal à"
+    Et que je sélectionne "Révoquée" dans le multi-select "Statut"
     Et que je clique sur "Rechercher"
     Alors je vois 1 habilitation
 
