@@ -21,8 +21,12 @@
 - Naming: snake_case for methods/variables, CamelCase for classes
 - Controllers should be RESTful when possible
 - JavaScript follows StandardJS conventions
+- Always use inline modules for namespacing : `class A::B::C` instead of `module
+    A; module B; class C`
 - When creating components, always create a preview within
     `spec/components/previews`
+- Do not use FactoryBot within components previews, use real objects, you can
+    find actual objects within seeds.
 - DO NOT use comments, use meaningful variables and methods names
 - All files should end with a newline
 - Use apostrophe (’) instead of single quote (') within text content

@@ -11,6 +11,10 @@
 
   <%= javascript_include_tag "application", "data-turbo-track": "reload" %>
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+
+  <%  Dir[Rails.root.join("app/assets/stylesheets/components/*.css")].each do |path| %>
+    <%= stylesheet_link_tag "components/#{File.basename(path)}", "data-turbo-track": "reload" %>
+  <% end %>
 </head>
 <body style="padding: <%= params.dig(:lookbook, :display, :padding) || "20px" %>;">
   <div style="

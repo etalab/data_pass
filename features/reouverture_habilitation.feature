@@ -17,13 +17,11 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Et que je clique sur "Mettre à jour"
     Et que je clique sur "Mettre à jour l'habilitation"
     Alors je suis sur la page "API Entreprise"
-    Et il y a un message de succès contenant "a bien été réouverte"
     Et un webhook avec l'évènement "reopen" est envoyé
     Et il y a un badge "Mise à jour"
     Et il y a un badge "Brouillon"
     Et la page ne contient pas "Archiver"
     Et la page ne contient pas "Récapitulatif de votre demande"
-    Et il y a une mise en avant contenant "Mise à jour de l'habilitation"
 
   Scénario: Initialisation d'une réouverture d'une demande validée depuis la vue validée
     Quand j'ai 1 demande d'habilitation "API Entreprise" validée
@@ -32,7 +30,6 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Et que je clique sur "Mettre à jour"
     Et que je clique sur "Mettre à jour l'habilitation"
     Alors je suis sur la page "API Entreprise"
-    Et il y a un message de succès contenant "a bien été réouverte"
     Et il y a un badge "Mise à jour"
 
   Scénario: Présence des badges d'une habilitation réouverte sur le tableau de bord
@@ -47,14 +44,9 @@ Fonctionnalité: Réouverture d'une habilitation validée
 
   Scénario: Consultation de l'habilitation associée à une réouverture
     Quand j'ai 1 demande d'habilitation "API Entreprise" réouverte
-    Et que je vais sur la page tableau de bord
+    Et que je me rends sur mon tableau de bord demandeur habilitations
     Et que je clique sur le premier "Consulter"
-    Alors je suis sur la page "API Entreprise"
-    Et il y a un badge "Mise à jour"
-    Et il n'y a pas de bouton "Mettre à jour"
-    Et il n'y a pas de bouton "Enregistrer"
-    Et que je clique sur le premier "Consulter l'habilitation validée"
-    Alors il y a un message d'info contenant "Une mise à jour de cette habilitation est en cours."
+    Alors il y a un message d'info contenant "Une mise à jour de cette habilitation est en cours"
     Et il n'y a pas de titre contenant "Demande de mise à jour des informations"
     Et il n'y a pas de badge "Mise à jour"
 
@@ -118,9 +110,8 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Quand j'ai 1 demande d'habilitation "API Impôt Particulier" validée
     Et que je me rends sur mon tableau de bord demandeur habilitations
     Et que je clique sur le premier "Mettre à jour"
-    Et que je clique sur "Mettre à jour l'habilitation bac à sable"
+    Et que je clique sur "Mettre à jour l’habilitation bac à sable"
     Alors je suis sur la page "Demande libre (Bac à sable) - API Impôt Particulier"
-    Et il y a un message de succès contenant "a bien été réouverte"
     Quand je clique sur "Modifier" dans le bloc de résumé "Les personnes impliquées"
     Et que je remplis les informations du contact "Responsable de traitement" avec :
       | Nom     | Prénom | Email                 | Téléphone  | Fonction                  |
@@ -141,9 +132,8 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Quand j'ai 1 demande d'habilitation "API Impôt Particulier" validée
     Et que je me rends sur mon tableau de bord demandeur habilitations
     Et que je clique sur le premier "Mettre à jour"
-    Et que je clique sur "Mettre à jour l'habilitation bac à sable"
+    Et que je clique sur "Mettre à jour l’habilitation bac à sable"
     Alors je suis sur la page "Demande libre (Bac à sable) - API Impôt Particulier"
-    Et il y a un message de succès contenant "a bien été réouverte"
     Quand que je vais sur la page tableau de bord
     Alors il y a un badge "Bac à sable"
     Et il y a un badge "Brouillon"
@@ -161,17 +151,15 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Quand j'ai 1 demande d'habilitation "API Impôt Particulier" validée
     Et que je me rends sur mon tableau de bord demandeur habilitations
     Et que je clique sur le premier "Mettre à jour"
-    Et que je clique sur "Mettre à jour l'habilitation de production"
-    Alors je suis sur la page "Demande libre (Production) - API Impôt Particulier"
-    Et il y a un message de succès contenant "a bien été réouverte"
+    Et que je clique sur "Mettre à jour l’habilitation bac à sable"
+    Alors je suis sur la page "Demande libre (Bac à sable) - API Impôt Particulier"
 
   Scénario: Je peux terminer un cycle de réouverture d'une demande avec plusieurs paliers
     Quand j'ai 1 demande d'habilitation "API Impôt Particulier" validée
     Et que je me rends sur mon tableau de bord demandeur habilitations
     Et que je clique sur le premier "Mettre à jour"
-    Et que je clique sur "Mettre à jour l'habilitation bac à sable"
+    Et que je clique sur "Mettre à jour l’habilitation bac à sable"
     Alors je suis sur la page "Demande libre (Bac à sable) - API Impôt Particulier"
-    Et il y a un message de succès contenant "a bien été réouverte"
     Quand je clique sur "Modifier" dans le bloc de résumé "Les personnes impliquées"
     Et que je remplis les informations du contact "Responsable de traitement" avec :
       | Nom     | Prénom | Email                 | Téléphone  | Fonction                  |

@@ -195,3 +195,13 @@ fr-badge--grey {
 .fr-checkbox-group--no-disabled-text{
   color: var(--text-title-grey) !important;
 }
+
+.fr-container--with-tiny-alert {
+  position: relative;
+}
+
+/* Notice multi lines */
+.fr-notice--multi-lines .fr-notice__desc{
+  display: block;
+  margin-left: 2rem;
+}

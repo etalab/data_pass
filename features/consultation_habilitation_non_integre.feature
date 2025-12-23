@@ -13,7 +13,7 @@ Fonctionnalité: Consultation d'une demande d'habilitation ou d'une habilitation
 
   Scénario: Il y a une bannière d'information concernant le caractère non-intègre issue de la v1 d'une habilitation
     Alors il y a un formulaire en une seule page
-    Et il y a un message d'attention contenant "corrompues"
+    Et il y a un message d'attention contenant "ancienne version"
 
   Scénario: Je ne peux pas transférer une demande d'habilitation validée non-intègre issue de la v1 m'appartenant
     Alors il y a un formulaire en une seule page

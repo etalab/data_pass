@@ -148,4 +148,45 @@ RSpec.describe AuthorizationHeaderComponent, type: :component do
       end
     end
   end
+
+  describe 'old version alert' do
+    context 'when viewing old version' do
+      let(:authorization_request) { create(:authorization_request, :api_entreprise, :reopened) }
+      let(:old_authorization) do
+        create(:authorization, request: authorization_request, applicant: authorization_request.applicant, created_at: 2.days.ago)
+      end
+      let(:authorization) { old_authorization }
+      let(:component) { described_class.new(authorization:, current_user: authorization.applicant) }
+
+      before do
+        allow(component).to receive(:policy) do |record|
+          if Array(record).first == :instruction
+            instruction_policy
+          else
+            auth_policy
+          end
+        end
+      end
+
+      it 'shows old version alert' do
+        expect(component.show_old_version_alert?).to be true
+      end
+
+      it 'renders the old version message' do
+        rendered = render_inline(component)
+        latest = authorization_request.latest_authorization
+        expect(rendered).to have_content('Cette habilitation est obsolète')
+        expect(rendered).to have_link("l'habilitation N°#{latest.id}")
+      end
+    end
+
+    context 'when viewing latest version' do
+      let(:authorization) { create(:authorization) }
+      let(:component) { described_class.new(authorization:, current_user: authorization.applicant) }
+
+      it 'does not show old version alert' do
+        expect(component.show_old_version_alert?).to be false
+      end
+    end
+  end
 end

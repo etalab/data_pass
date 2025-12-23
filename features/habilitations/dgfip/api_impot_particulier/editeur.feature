@@ -49,7 +49,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôt Particulier 
     * je remplis "Date de fin d’homologation" avec "2024-01-01"
     * je clique sur "Suivant"
 
-    Alors la page contient "Une erreur est survenue lors de la sauvegarde de la demande d'habilitation"
+    Alors la page contient "Nous n’avons pas pu sauvegarder votre demande"
     Et la page contient "Date de fin d’homologation doit être supérieure à la date de début"
 
   Scénario: Je soumets une demande d'habilitation avec une haute volumétrie et aucune justification
@@ -59,7 +59,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôt Particulier 
     * je sélectionne "200 appels / minute" pour "Quelle limitation de débit souhaitez-vous pour votre téléservice ?"
     * je clique sur "Suivant"
 
-    Alors la page contient "Une erreur est survenue lors de la sauvegarde de la demande d'habilitation"
+    Alors la page contient "Nous n’avons pas pu sauvegarder votre demande"
     Et la page contient "La justification de la limitation de débit doit être rempli(e)"
 
   Scénario: Je soumets une demande d'habilitation avec une haute volumétrie et une justification

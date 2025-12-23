@@ -12,14 +12,14 @@ Fonctionnalité: Interactions sur une demande d'habilitation simple (sur une seu
     Quand je démarre une nouvelle demande d'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
     Et que je clique sur "Enregistrer les modifications"
     Alors je suis sur la page "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
-    Et il y a un message de succès contenant "a été sauvegardé"
+    Et il y a un message de succès contenant "sauvegardée"
     Et il y a un bouton "Continuer vers le résumé"
     Et il y a un bouton "Enregistrer les modifications"
 
   Scénario: Je veux me rendre au résumé d'une demande d'habilitation invalide
     Quand je démarre une nouvelle demande d'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
     Et que j'enregistre et continue vers le résumé
-    Alors il y a un message d'erreur contenant "Une erreur est survenue lors de la sauvegarde"
+    Alors il y a un message d'erreur contenant "Nous n’avons pas pu sauvegarder votre demande"
     Et il y a au moins une erreur sur un champ
     Et je suis sur la page "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
     Et il n'y a pas de formulaire en mode résumé
@@ -42,7 +42,7 @@ Fonctionnalité: Interactions sur une demande d'habilitation simple (sur une seu
       | Dupont | Jean   | dupont.jean@gouv.fr | 0836656565  | Administrateur local                |
     Et que j'enregistre et continue vers le résumé
     Et que je clique sur "Soumettre la demande"
-    Alors il y a un message d'erreur contenant "Une erreur est survenue lors de la soumission de la demande d'habilitation"
+    Alors il y a un message d'erreur contenant "Nous n’avons pas pu transmettre votre demande"
     Et je suis sur la page "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
     Et il y a un formulaire en mode résumé
     Et il y a un lien vers "/cgus/20210212_dinum_hubee_cgu_v2_1_0_version_site.pdf"

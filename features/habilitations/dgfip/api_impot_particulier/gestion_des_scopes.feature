@@ -27,7 +27,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
     * je coche "Situation de famille (marié, pacsé, célibataire, veuf divorcé)"
     * je clique sur "Suivant"
 
-    Alors la page contient "Une erreur est survenue lors de la sauvegarde de la demande d'habilitation"
+    Alors la page contient "Nous n’avons pas pu sauvegarder votre demande"
     Et la page contient "Les données sont invalides : Vous devez cocher au moins une année de revenus souhaitée avant de continuer"
 
   Scénario: Je soumets une demande d'habilitation avec 2 scopes d'annéees de revenue cochés incompatible.
@@ -35,7 +35,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
     * je coche "Avant-dernière année de revenu, si la dernière année de revenu est indisponible (N-1 ou N-2)"
     * je clique sur "Suivant"
 
-    Alors la page contient "Une erreur est survenue lors de la sauvegarde de la demande d'habilitation"
+    Alors la page contient "Nous n’avons pas pu sauvegarder votre demande"
     Et la page contient "Les données sont invalides : Vous ne pouvez pas sélectionner la donnée 'Avant-dernière année de revenu, si la dernière année de revenu est indisponible' avec d'autres années de revenus"
 
   Scénario: Je soumets une demande d'habilitation avec 2 scopes incompatibles.
@@ -44,7 +44,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
     * je coche "Indicateur ISF/IFI"
     * je clique sur "Suivant"
 
-    Alors la page contient "Une erreur est survenue lors de la sauvegarde de la demande d'habilitation"
+    Alors la page contient "Nous n’avons pas pu sauvegarder votre demande"
     Et la page contient "Les données sont invalides : Des données incompatibles entre elles ont été cochées"
 
   @javascript
@@ -60,5 +60,5 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Impôts Particulier
     * je coche "Oui, j’ai une expression de besoin spécifique"
     * je clique sur "Suivant"
 
-    Alors la page contient "Une erreur est survenue lors de la sauvegarde de la demande d'habilitation"
+    Alors la page contient "Nous n’avons pas pu sauvegarder votre demande"
     Et la page contient "Document de l'expression de besoin spécifique doit être rempli(e)"
