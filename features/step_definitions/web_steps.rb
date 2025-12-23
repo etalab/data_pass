@@ -113,7 +113,8 @@ end
 Quand('je sélectionne {string} dans le multi-select {string}') do |option, label|
   label_element = find('label', text: label)
   container = label_element.find(:xpath, '..').find('.multi-select')
-  container.find('.multi-select__trigger').click
+  dropdown = container.find('.multi-select__dropdown', visible: :all)
+  container.find('.multi-select__trigger').click if dropdown[:class].include?('fr-hidden')
   container.find('.multi-select__option', text: option).click
 end
 

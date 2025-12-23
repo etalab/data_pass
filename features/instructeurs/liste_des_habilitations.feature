@@ -25,6 +25,17 @@ Fonctionnalité: Instruction: liste des habilitations
     Et que je clique sur "Rechercher"
     Alors je vois 1 habilitation
 
+  @javascript
+  Scénario: Je peux filtrer par plusieurs statuts
+    Sachant qu'il y a 2 habilitations "API Entreprise" actives
+    Et qu'il y a 1 habilitation "API Entreprise" révoquée
+    Et qu'il y a 1 habilitation "API Entreprise" obsolète
+    Et que je me rends sur mon tableau de bord instructeur habilitations
+    Et que je sélectionne "Active" dans le multi-select "Statut"
+    Et que je sélectionne "Révoquée" dans le multi-select "Statut"
+    Et que je clique sur "Rechercher"
+    Alors je vois 3 habilitations
+
   Scénario: Trier par date de création fonctionne
     Sachant qu'il y a 1 habilitation "API Entreprise" active
     Et que je me rends sur mon tableau de bord instructeur habilitations
