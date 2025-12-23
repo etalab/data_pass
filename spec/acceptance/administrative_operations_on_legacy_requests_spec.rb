@@ -1,4 +1,4 @@
-RSpec.describe 'Admin operations on legacy requests', type: :acceptance do
+RSpec.describe 'Administrative operations on legacy requests', type: :acceptance do
   describe 'transfer on validated request with legacy invalid data' do
     let(:organization) { create(:organization) }
     let(:applicant) { create(:user, current_organization: organization) }

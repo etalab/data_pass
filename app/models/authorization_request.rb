@@ -287,7 +287,7 @@ class AuthorizationRequest < ApplicationRecord
 
   def need_complete_validation?(step = nil)
     return true if %i[submit review].include?(validation_context)
-    return false if in_terminal_validated_state?
+    return false if already_been_refused_or_approved?
     return false if archived?
     return false if static_data_already_filled?(step)
 
@@ -359,7 +359,7 @@ class AuthorizationRequest < ApplicationRecord
     last_validated_at.present?
   end
 
-  def in_terminal_validated_state?
+  def already_been_refused_or_approved?
     %w[validated refused revoked].include?(state) || already_been_validated?
   end
 
