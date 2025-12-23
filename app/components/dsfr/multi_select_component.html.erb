@@ -1,0 +1,139 @@
+<div
+  class="<%= select_group_classes %>"
+  data-controller="dsfr-multi-select"
+  data-dsfr-multi-select-name-value="<%= name %>"
+  data-dsfr-multi-select-placeholder-value="<%= placeholder %>"
+  data-dsfr-multi-select-all-label-value="<%= all_label %>"
+  id="<%= component_id %>">
+
+  <%# Label %>
+  <% if label %>
+    <label class="fr-label" id="<%= label_id %>">
+      <%= label %>
+      <% if hint %>
+        <span class="fr-hint-text"><%= hint %></span>
+      <% end %>
+    </label>
+  <% end %>
+
+  <div class="dsfrx-multiselect" data-dsfr-multi-select-target="container">
+    <%# Control input (combobox trigger) %>
+    <div
+      class="<%= control_classes %>"
+      role="combobox"
+      tabindex="<%= disabled ? -1 : 0 %>"
+      aria-haspopup="listbox"
+      aria-expanded="false"
+      aria-controls="<%= listbox_id %>"
+      aria-labelledby="<%= label_id if label %>"
+      aria-describedby="<%= messages_id if message %>"
+      <% if disabled %>aria-disabled="true"<% end %>
+      data-dsfr-multi-select-target="trigger"
+      data-action="click->dsfr-multi-select#toggle keydown->dsfr-multi-select#handleTriggerKeydown">
+      <span class="dsfrx-multiselect__label <%= 'dsfrx-multiselect--placeholder' if none_selected? %>" data-dsfr-multi-select-target="label">
+        <%= display_label %>
+      </span>
+    </div>
+
+    <%# Dropdown %>
+    <div
+      class="dsfrx-dropdown dsfrx-multiselect__wrapper fr-hidden"
+      data-dsfr-multi-select-target="dropdown"
+      aria-hidden="true">
+
+      <%# Toolbar (Select All + Search) %>
+      <% if show_select_all || show_search %>
+        <div class="dsfrx-multiselect__toolbar" data-dsfr-multi-select-target="toolbar">
+          <% if show_select_all %>
+            <button
+              type="button"
+              class="fr-btn fr-btn--sm fr-btn--tertiary fr-btn--select-all"
+              data-dsfr-multi-select-target="selectAllButton"
+              data-action="click->dsfr-multi-select#toggleSelectAll keydown->dsfr-multi-select#handleToolbarKeydown">
+              <span data-dsfr-multi-select-target="selectAllLabel">
+                <%= none_selected? ? 'Tout sélectionner' : 'Tout désélectionner' %>
+              </span>
+            </button>
+          <% end %>
+
+          <% if show_search %>
+            <label for="<%= searchbox_id %>" class="fr-sr-only">Rechercher dans la liste</label>
+            <div class="fr-input-wrap fr-icon-search-line">
+              <input
+                type="search"
+                class="fr-input"
+                id="<%= searchbox_id %>"
+                placeholder="<%= search_placeholder %>"
+                autocomplete="off"
+                data-dsfr-multi-select-target="searchInput"
+                data-action="input->dsfr-multi-select#handleSearch keydown->dsfr-multi-select#handleToolbarKeydown">
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+
+      <%# Options list %>
+      <ul
+        class="dsfrx-multiselect__list"
+        role="listbox"
+        aria-multiselectable="true"
+        id="<%= listbox_id %>"
+        tabindex="-1"
+        data-dsfr-multi-select-target="listbox">
+        <% options.each_with_index do |option, index| %>
+          <li
+            role="option"
+            class="dsfrx-multiselect__item <%= 'selected' if option_selected?(option) %>"
+            id="<%= component_id %>-option-<%= index %>"
+            tabindex="-1"
+            aria-selected="<%= option_selected?(option) %>"
+            <% if option[:disabled] %>aria-disabled="true"<% end %>
+            data-value="<%= option[:value] %>"
+            data-label="<%= option[:label] %>"
+            data-index="<%= index %>"
+            data-disabled="<%= option[:disabled] %>"
+            data-action="click->dsfr-multi-select#selectOption keydown->dsfr-multi-select#handleOptionKeydown">
+            <span class="fr-checkbox-group fr-checkbox-group--sm">
+              <input
+                type="checkbox"
+                id="<%= component_id %>-checkbox-<%= index %>"
+                tabindex="-1"
+                <%= 'checked' if option_selected?(option) %>
+                <%= 'disabled' if option[:disabled] %>
+                data-dsfr-multi-select-target="checkbox">
+              <label class="fr-label <%= 'fr-label--disabled' if option[:disabled] %>" for="<%= component_id %>-checkbox-<%= index %>">
+                <span class="text-node"><%= option[:label] %></span>
+              </label>
+            </span>
+          </li>
+        <% end %>
+      </ul>
+
+      <%# Empty state %>
+      <div
+        class="dsfrx-multiselect__list dsfrx-multiselect__list--empty fr-hidden"
+        role="status"
+        aria-live="polite"
+        data-dsfr-multi-select-target="emptyState">
+        <p>Aucun résultat</p>
+      </div>
+    </div>
+
+    <%# Hidden inputs %>
+    <div class="dsfrx-multiselect__hidden-inputs" data-dsfr-multi-select-target="hiddenInputs">
+      <% selected.each do |value| %>
+        <input type="hidden" name="<%= name %>" value="<%= value %>">
+      <% end %>
+    </div>
+  </div>
+
+  <%# Messages %>
+  <% if message %>
+    <div id="<%= messages_id %>" class="fr-messages-group" aria-live="polite">
+      <p class="fr-message fr-message--<%= message_severity %>">
+        <%= message %>
+      </p>
+    </div>
+  <% end %>
+</div>
+

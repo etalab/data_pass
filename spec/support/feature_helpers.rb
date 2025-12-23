@@ -17,12 +17,16 @@ module FeaturesHelpers
   # rubocop:disable Metrics/AbcSize
   def select_multi_select_option(label, from:)
     container = find(from)
-    option = container.find('.multi-select__option', text: label, visible: :all)
-    option_value = option['data-multi-select-value-param']
-    field_name = container['data-multi-select-name-value']
 
-    # Find the hidden inputs container and add the input (don't remove existing ones for multi-select)
-    hidden_div = page.driver.browser.dom.at_css("##{container['id']} .multi-select__hidden-inputs")
+    # Support both old (.multi-select__option) and new (.dsfrx-multiselect__item) component structures
+    option = container.first('.dsfrx-multiselect__item, .multi-select__option', text: label, visible: :all)
+    option_value = option['data-value'] || option['data-multi-select-value-param']
+    field_name = container['data-dsfr-multi-select-name-value'] || container['data-multi-select-name-value']
+
+    # Find the hidden inputs container (support both old and new structures)
+    hidden_div = page.driver.browser.dom.at_css(
+      "##{container['id']} .dsfrx-multiselect__hidden-inputs, ##{container['id']} .multi-select__hidden-inputs"
+    )
     return unless hidden_div
 
     # Only add if this value doesn't already exist

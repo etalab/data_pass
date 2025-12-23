@@ -6,30 +6,32 @@
       </div>
 
       <% if current_user.authorization_definition_roles_as(:reporter).count > 1 %>
-        <div class="fr-select-group input type_habilitation">
-          <%= f.label :type_in, t('.type_filter_label'), class: %w[fr-label] %>
+        <div class="input type_habilitation">
           <% type_options = current_user.authorization_definition_roles_as(:reporter).map { |authorization_definition| [authorization_definition.name_with_stage, authorization_definition.authorization_request_class.to_s] }%>
           <% selected_types = Array(params.dig(:search_query, :type_in)).compact.reject(&:blank?) %>
-          <%= dsfr_multi_select(
-            "search_query[type_in][]",
-            type_options,
+          <%= render Dsfr::MultiSelectComponent.new(
+            name: "search_query[type_in][]",
+            options: type_options,
             selected: selected_types,
-            all_label: t('.all_types'),
-            html_options: { id: 'search_query_type_in' }
+            label: t('.type_filter_label'),
+            placeholder: t('.all_types'),
+            show_select_all: true,
+            id: 'search_query_type_in'
           ) %>
         </div>
       <% end %>
 
-      <div class="fr-select-group input">
-        <%= f.label :state_in, t('.state_filter_label'), class: %w[fr-label] %>
+      <div class="input">
         <% state_options = AuthorizationRequest.state_machine.states.filter { |s| s.name != :validated }.map { |s| s.name }.map { |e| [t("authorization_request.status.#{e}"), e.to_s] } %>
         <% selected_states = Array(params.dig(:search_query, :state_in)).compact.reject(&:blank?) %>
-        <%= dsfr_multi_select(
-          "search_query[state_in][]",
-          state_options,
+        <%= render Dsfr::MultiSelectComponent.new(
+          name: "search_query[state_in][]",
+          options: state_options,
           selected: selected_states,
-          all_label: t('.all_status'),
-          html_options: { id: 'search_query_state_in' }
+          label: t('.state_filter_label'),
+          placeholder: t('.all_status'),
+          show_select_all: true,
+          id: 'search_query_state_in'
         ) %>
       </div>
     </div>
