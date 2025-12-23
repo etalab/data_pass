@@ -85,7 +85,6 @@
   display: block;
   margin: 0;
   min-width: 100%;
-  margin-bottom: 0.75rem;
 }
 
 @container (min-width: 500px) {
@@ -100,7 +99,6 @@
     margin: 0;
     min-width: 10rem;
     margin-bottom: 0;
-    margin-right: 1rem;
   }
 }
 
