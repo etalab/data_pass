@@ -1,8 +1,9 @@
+# rubocop:disable Metrics/ModuleLength
 module Dsfr::MultiSelect
   def dsfr_multi_select(name, options, selected: [], all_label: 'Tous', html_options: {})
     id = html_options[:id] || "multi_select_#{SecureRandom.hex(4)}"
     dropdown_id = "#{id}_dropdown"
-    selected = Array(selected).compact.reject(&:blank?)
+    selected = Array(selected).compact.compact_blank
 
     template.content_tag(:div,
       class: ['multi-select', html_options[:class]].compact.flatten,
@@ -44,7 +45,7 @@ module Dsfr::MultiSelect
 
   def multi_select_dropdown(options, selected, all_label, dropdown_id)
     template.content_tag(:div,
-      class: ['multi-select__dropdown', 'fr-hidden'],
+      class: %w[multi-select__dropdown fr-hidden],
       data: { 'multi-select-target': 'dropdown' },
       id: dropdown_id,
       'aria-hidden': 'true',
@@ -61,10 +62,10 @@ module Dsfr::MultiSelect
     template.content_tag(:ul,
       class: 'multi-select__options',
       data: { 'multi-select-target': 'optionsList' }) do
-      options.map do |label, value|
+      options.map { |label, value|
         is_selected = selected.include?(value.to_s)
         multi_select_option(label, value, is_selected)
-      end.join.html_safe
+      }.join.html_safe
     end
   end
 
@@ -86,7 +87,7 @@ module Dsfr::MultiSelect
 
   def multi_select_clear_button(all_label)
     template.button_tag(
-      "#{all_label}",
+      all_label.to_s,
       type: 'button',
       class: 'multi-select__clear',
       tabindex: '-1',
@@ -101,9 +102,9 @@ module Dsfr::MultiSelect
     template.content_tag(:div,
       class: 'multi-select__hidden-inputs',
       data: { 'multi-select-target': 'hiddenInputs' }) do
-      selected.map do |value|
+      selected.map { |value|
         template.hidden_field_tag(name, value)
-      end.join.html_safe
+      }.join.html_safe
     end
   end
 
@@ -124,4 +125,4 @@ module Dsfr::MultiSelect
   end
   # rubocop:enable Rails/HelperInstanceVariable
 end
-
+# rubocop:enable Metrics/ModuleLength

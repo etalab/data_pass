@@ -229,4 +229,3 @@ export default class extends Controller {
     this.clearButtonTarget.focus()
   }
 }
-

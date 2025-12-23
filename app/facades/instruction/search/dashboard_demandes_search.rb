@@ -17,6 +17,6 @@ class Instruction::Search::DashboardDemandesSearch < Instruction::Search::Dashbo
     state_eq = params.dig('search_query', 'state_eq')
     state_in = params.dig('search_query', 'state_in')
 
-    state_eq.blank? && (state_in.blank? || state_in.reject(&:blank?).empty?)
+    state_eq.blank? && (state_in.blank? || state_in.compact_blank.empty?)
   end
 end
