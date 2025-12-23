@@ -14,7 +14,8 @@ export default class extends Controller {
     'hiddenInputs',
     'emptyState',
     'checkbox',
-    'srAnnouncement'
+    'srAnnouncement',
+    'nativeSelect'
   ]
 
   static values = {
@@ -30,6 +31,22 @@ export default class extends Controller {
     this._updateDisplay()
     this._handleClickOutside = this._handleClickOutside.bind(this)
     document.addEventListener('click', this._handleClickOutside, true)
+
+    // Progressive enhancement: hide native select, show JS-powered component
+    this._activateEnhancedMode()
+  }
+
+  _activateEnhancedMode () {
+    // Hide and disable native select (disabled prevents form submission)
+    if (this.hasNativeSelectTarget) {
+      this.nativeSelectTarget.classList.add('fr-hidden')
+      this.nativeSelectTarget.disabled = true
+    }
+
+    // Show the enhanced JS-powered component
+    if (this.hasContainerTarget) {
+      this.containerTarget.classList.remove('dsfrx-multiselect--js-only')
+    }
   }
 
   disconnect () {

@@ -56,6 +56,10 @@ module Dsfr
       "#{component_id}-searchbox"
     end
 
+    def native_select_id
+      "#{component_id}-native"
+    end
+
     def messages_id
       "#{component_id}-messages"
     end

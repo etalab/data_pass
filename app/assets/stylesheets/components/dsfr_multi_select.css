@@ -180,6 +180,17 @@
   display: none;
 }
 
+/* Native select fallback (visible when JS is disabled) */
+.dsfrx-multiselect__native {
+  width: 100%;
+  min-height: 6rem;
+}
+
+/* Hide JS-powered component until JS activates */
+.dsfrx-multiselect--js-only {
+  display: none;
+}
+
 /* Disabled select group */
 .dsfrx-select.fr-select-group--disabled {
   cursor: not-allowed;

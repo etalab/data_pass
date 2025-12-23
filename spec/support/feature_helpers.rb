@@ -10,27 +10,13 @@ module FeaturesHelpers
   end
 
   # Select an option from a multi-select component by label text
-  # Works with JavaScript-disabled tests by directly adding hidden form inputs
+  # Uses the native <select multiple> fallback that works without JavaScript
   # Supports multiple selections - call multiple times to select multiple options
   # @param label [String] The visible text of the option to select
-  # @param from [String] CSS selector or name of the multi-select container
+  # @param from [String] CSS selector of the multi-select container
   def select_multi_select_option(label, from:)
     container = find(from)
-    option = container.first('.dsfrx-multiselect__item', text: label, visible: :all)
-    option_value = option['data-value']
-    field_name = container['data-dsfr-multi-select-name-value']
-
-    hidden_div = page.driver.browser.dom.at_css("##{container['id']} .dsfrx-multiselect__hidden-inputs")
-    return unless hidden_div
-
-    # Only add if this value doesn't already exist
-    existing = hidden_div.css("input[name='#{field_name}'][value='#{option_value}']")
-    return if existing.any?
-
-    hidden_div << Nokogiri::XML::Node.new('input', page.driver.browser.dom).tap do |input|
-      input['type'] = 'hidden'
-      input['name'] = field_name
-      input['value'] = option_value
-    end
+    native_select = container.find('.dsfrx-multiselect__native', visible: :all)
+    native_select.select(label)
   end
 end

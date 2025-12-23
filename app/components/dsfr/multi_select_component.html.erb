@@ -8,7 +8,7 @@
 
   <%# Label %>
   <% if label %>
-    <label class="fr-label" id="<%= label_id %>">
+    <label class="fr-label" id="<%= label_id %>" for="<%= native_select_id %>">
       <%= label %>
       <% if hint %>
         <span class="fr-hint-text"><%= hint %></span>
@@ -16,7 +16,40 @@
     </label>
   <% end %>
 
-  <div class="dsfrx-multiselect" data-dsfr-multi-select-target="container">
+  <%# Native select fallback (shown when JS is disabled) %>
+  <select
+    multiple
+    class="fr-select dsfrx-multiselect__native"
+    id="<%= native_select_id %>"
+    name="<%= name %>"
+    <% if disabled %>disabled<% end %>
+    aria-describedby="<%= messages_id if message %>"
+    data-dsfr-multi-select-target="nativeSelect">
+    <% normalized_options.each do |item| %>
+      <% if item[:group] %>
+        <optgroup label="<%= item[:label] %>">
+          <% item[:options].each do |option| %>
+            <option
+              value="<%= option[:value] %>"
+              <%= 'selected' if option_selected?(option) %>
+              <%= 'disabled' if option[:disabled] %>>
+              <%= option[:label] %>
+            </option>
+          <% end %>
+        </optgroup>
+      <% else %>
+        <option
+          value="<%= item[:value] %>"
+          <%= 'selected' if option_selected?(item) %>
+          <%= 'disabled' if item[:disabled] %>>
+          <%= item[:label] %>
+        </option>
+      <% end %>
+    <% end %>
+  </select>
+
+  <%# Enhanced JS-powered multi-select (hidden until JS activates) %>
+  <div class="dsfrx-multiselect dsfrx-multiselect--js-only" data-dsfr-multi-select-target="container">
     <%# Control input (combobox trigger) %>
     <div
       class="<%= control_classes %>"
