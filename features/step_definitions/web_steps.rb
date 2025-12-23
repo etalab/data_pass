@@ -112,18 +112,18 @@ end
 
 Quand('je sélectionne {string} dans le multi-select {string}') do |option, label|
   label_element = find('label', text: label)
-  container = label_element.find(:xpath, '..').find('.multi-select')
-  dropdown = container.find('.multi-select__dropdown', visible: :all)
-  container.find('.multi-select__trigger').click if dropdown[:class].include?('fr-hidden')
-  container.find('.multi-select__option', text: option).click
+  container = label_element.find(:xpath, '..').find('.dsfrx-multiselect')
+  dropdown = container.find('.dsfrx-multiselect__wrapper', visible: :all)
+  container.find('.fr-select[role="combobox"]').click if dropdown[:class].include?('fr-hidden')
+  container.find('.dsfrx-multiselect__item', text: option).click
 end
 
 Quand('je réinitialise le multi-select {string}') do |label|
   label_element = find('label', text: label)
-  container = label_element.find(:xpath, '..').find('.multi-select')
-  dropdown = container.find('.multi-select__dropdown', visible: :all)
-  container.find('.multi-select__trigger').click if dropdown[:class].include?('fr-hidden')
-  container.find('.multi-select__clear').click
+  container = label_element.find(:xpath, '..').find('.dsfrx-multiselect')
+  dropdown = container.find('.dsfrx-multiselect__wrapper', visible: :all)
+  container.find('.fr-select[role="combobox"]').click if dropdown[:class].include?('fr-hidden')
+  container.find('.fr-btn--select-all').click
 end
 
 Quand('je choisis {string}') do |option|
