@@ -14,11 +14,11 @@ export default class extends Controller {
     this._initializeFromParams()
     this._updateDisplay()
     this._handleClickOutside = this._handleClickOutside.bind(this)
-    document.addEventListener('click', this._handleClickOutside)
+    document.addEventListener('click', this._handleClickOutside, true)
   }
 
   disconnect () {
-    document.removeEventListener('click', this._handleClickOutside)
+    document.removeEventListener('click', this._handleClickOutside, true)
   }
 
   toggle (event) {
