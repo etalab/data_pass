@@ -46,70 +46,72 @@
       <%= t('.search.results_count', count: items.total_count) %>
     </div>
 
-    <div class="fr-table fr-table--bordered">
-      <table id="authorization_requests_table">
-        <thead>
-          <tr>
-            <%
-              %w[
-                id
-                state
-                last_submitted_at
-                applicant_email
-                project_name
-                authorization_request_kind
-                actions
-              ].each do |attr|
-            %>
-              <th scope="col">
-                <% if %w[id state last_submitted_at].include?(attr) %>
-                  <%= sort_link(search_engine, attr) do %>
+    <% unless items.empty? %>
+      <div class="fr-table fr-table--bordered">
+        <table id="authorization_requests_table">
+          <thead>
+            <tr>
+              <%
+                %w[
+                  id
+                  state
+                  last_submitted_at
+                  applicant_email
+                  project_name
+                  authorization_request_kind
+                  actions
+                ].each do |attr|
+              %>
+                <th scope="col">
+                  <% if %w[id state last_submitted_at].include?(attr) %>
+                    <%= sort_link(search_engine, attr) do %>
+                      <%= t(".table.header.#{attr}") %>
+                    <% end %>
+                  <% else %>
                     <%= t(".table.header.#{attr}") %>
                   <% end %>
-                <% else %>
-                  <%= t(".table.header.#{attr}") %>
-                <% end %>
-              </th>
-            <% end %>
-          </tr>
-        </thead>
+                </th>
+              <% end %>
+            </tr>
+          </thead>
 
-      <tbody data-controller="clickable-rows">
-        <% items.decorate.each do |authorization_request| %>
-          <tr id="<%= dom_id(authorization_request) %>" class="authorization-request clickable-row" data-action="click->clickable-rows#visit" data-href="<%= instruction_authorization_request_path(authorization_request) %>">
-            <td class="authorization-request-id">
-              <%= link_to authorization_request.id, instruction_authorization_request_path(authorization_request) %>
-            </td>
-            <td class="authorization-request-state">
-              <span class="fr-badge-group">
-                <%= authorization_request.status_badge %>
-                <%= authorization_request.reopening_badge %>
-                <%= authorization_request.stage_badge %>
-              </span>
-            </td>
-            <td class="authorization-request-last_submitted_at">
-              <%= authorization_request.last_submitted_at&.strftime("%d/%m/%y") || '-' %>
-            </td>
-            <td class="authorization-request-applicant-email">
-              <%= authorization_request.applicant.email %>
-              <br/>
-              <%= authorization_request.organization.name %>
-            </td>
-            <td class="authorization-request-project-name">
-              <%= authorization_request.name %>
-            </td>
-            <td class="authorization-request-definition-name">
-              <%= authorization_request.definition.name %>
-            </td>
-            <td class="authorization-request-actions">
-              <%= link_to t('.table.actions.show'), instruction_authorization_request_path(authorization_request), class: %w[fr-btn fr-btn--secondary fr-btn--sm] %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+        <tbody data-controller="clickable-rows">
+          <% items.decorate.each do |authorization_request| %>
+            <tr id="<%= dom_id(authorization_request) %>" class="authorization-request clickable-row" data-action="click->clickable-rows#visit" data-href="<%= instruction_authorization_request_path(authorization_request) %>">
+              <td class="authorization-request-id">
+                <%= link_to authorization_request.id, instruction_authorization_request_path(authorization_request) %>
+              </td>
+              <td class="authorization-request-state">
+                <span class="fr-badge-group">
+                  <%= authorization_request.status_badge %>
+                  <%= authorization_request.reopening_badge %>
+                  <%= authorization_request.stage_badge %>
+                </span>
+              </td>
+              <td class="authorization-request-last_submitted_at">
+                <%= authorization_request.last_submitted_at&.strftime("%d/%m/%y") || '-' %>
+              </td>
+              <td class="authorization-request-applicant-email">
+                <%= authorization_request.applicant.email %>
+                <br/>
+                <%= authorization_request.organization.name %>
+              </td>
+              <td class="authorization-request-project-name">
+                <%= authorization_request.name %>
+              </td>
+              <td class="authorization-request-definition-name">
+                <%= authorization_request.definition.name %>
+              </td>
+              <td class="authorization-request-actions">
+                <%= link_to t('.table.actions.show'), instruction_authorization_request_path(authorization_request), class: %w[fr-btn fr-btn--secondary fr-btn--sm] %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
 
-  <%= paginate items %>
+    <%= paginate items %>
+  <% end %>
 </turbo-frame>
 
