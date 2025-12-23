@@ -82,7 +82,6 @@ class AuthorizationDecorator < ApplicationDecorator
       :span,
       t(status_badge_translation(scope)),
       class: [
-        'fr-ml-1w',
         'fr-badge',
         no_icon ? 'fr-badge--no-icon' : nil,
       ]
@@ -108,7 +107,7 @@ class AuthorizationDecorator < ApplicationDecorator
     h.content_tag(
       :span,
       t("authorization_request.stage.#{definition.stage.type}"),
-      class: ['fr-badge', 'fr-badge--no-icon', 'fr-mb-1w', stage_badge_class, css_class],
+      class: ['fr-badge', 'fr-badge--no-icon', stage_badge_class, css_class],
     )
   end
 

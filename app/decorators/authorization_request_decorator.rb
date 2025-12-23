@@ -165,7 +165,6 @@ class AuthorizationRequestDecorator < ApplicationDecorator # rubocop:disable Met
       :span,
       t(status_badge_translation(scope)),
       class: [
-        'fr-ml-1w',
         'fr-badge',
         no_icon ? 'fr-badge--no-icon' : nil,
       ]
@@ -190,7 +189,7 @@ class AuthorizationRequestDecorator < ApplicationDecorator # rubocop:disable Met
     h.content_tag(
       :span,
       t("authorization_request.stage.#{definition.stage.type}"),
-      class: ['fr-badge', 'fr-badge--no-icon', 'fr-ml-1w', 'fr-mb-1w', stage_badge_class, css_class],
+      class: ['fr-badge', 'fr-badge--no-icon', stage_badge_class, css_class],
     )
   end
 
