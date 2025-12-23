@@ -26,6 +26,21 @@ RSpec.describe Instruction::Search::DashboardSearch do
         params = { search_query: { described_class.key => '  456  ' } }
         expect(described_class.search_terms_is_a_possible_id?(params)).to be true
       end
+
+      it 'returns true for D-prefixed IDs' do
+        params = { search_query: { described_class.key => 'D123' } }
+        expect(described_class.search_terms_is_a_possible_id?(params)).to be true
+      end
+
+      it 'returns true for H-prefixed IDs' do
+        params = { search_query: { described_class.key => 'H456' } }
+        expect(described_class.search_terms_is_a_possible_id?(params)).to be true
+      end
+
+      it 'returns true for lowercase prefixed IDs' do
+        params = { search_query: { described_class.key => 'd789' } }
+        expect(described_class.search_terms_is_a_possible_id?(params)).to be true
+      end
     end
 
     context 'when main search input is not a valid ID' do

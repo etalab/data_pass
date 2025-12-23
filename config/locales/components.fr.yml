@@ -7,9 +7,9 @@ fr:
       hide_changelog: "masquer les modifications"
     authorization_header_component:
       title: "Habilitation à %{definition_name}"
-      authorization_badge: "Habilitation n°%{authorization_id}"
+      authorization_badge: "Habilitation %{formatted_id}"
       reopen_modal_title: "Mettez à jour votre habilitation"
       transfer_modal_title: "Transférer l'habilitation à un autre utilisateur de votre organisation"
       start_next_stage_title: "Démarrer une nouvelle demande d'habilitation pour l'environnement de production"
-      contact_support_subject: "Habilitation %{authorization_id} révoquée"
+      contact_support_subject: "Habilitation %{formatted_id} révoquée"
 

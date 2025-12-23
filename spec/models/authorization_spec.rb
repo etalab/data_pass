@@ -3,6 +3,30 @@ RSpec.describe Authorization do
     expect(build(:authorization)).to be_valid
   end
 
+  describe '#formatted_id' do
+    subject { authorization.formatted_id }
+
+    let(:authorization) { create(:authorization) }
+
+    it { is_expected.to eq("H#{authorization.id}") }
+  end
+
+  describe '.find' do
+    let!(:authorization) { create(:authorization) }
+
+    it 'finds by numeric ID' do
+      expect(described_class.find(authorization.id)).to eq(authorization)
+    end
+
+    it 'finds by prefixed ID (H123)' do
+      expect(described_class.find("H#{authorization.id}")).to eq(authorization)
+    end
+
+    it 'finds by lowercase prefixed ID (h123)' do
+      expect(described_class.find("h#{authorization.id}")).to eq(authorization)
+    end
+  end
+
   describe 'state machine' do
     it { is_expected.to have_states :active, :obsolete, :revoked }
     it { is_expected.to handle_events :deprecate, :revoke, when: :active }

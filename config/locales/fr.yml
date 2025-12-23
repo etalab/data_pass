@@ -22,7 +22,7 @@ fr:
     france_connect: france-connect
 
   authorization:
-    badge: habilitation n°%{id}
+    badge: habilitation %{formatted_id}
     date_badge: du %{date}
     states:
       active: "Active"
@@ -49,7 +49,7 @@ fr:
       stop_button: "Arrêter l'impersonation"
 
   authorization_request:
-    badge: demande n°%{id}
+    badge: demande %{formatted_id}
     status:
       active: "Active"
       revoked: "Révoquée"

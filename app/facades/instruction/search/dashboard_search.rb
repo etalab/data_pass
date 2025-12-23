@@ -21,7 +21,7 @@ class Instruction::Search::DashboardSearch
 
     return false if main_search_input.blank?
 
-    /^\s*\d{1,10}\s*$/.match?(main_search_input)
+    /^\s*[DH]?\d{1,10}\s*$/i.match?(main_search_input)
   end
 
   def self.key

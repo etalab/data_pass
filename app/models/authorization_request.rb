@@ -154,9 +154,17 @@ class AuthorizationRequest < ApplicationRecord
     def definition
       @definition ||= AuthorizationDefinition.find(to_s.demodulize.underscore)
     end
+
+    def find(id)
+      super(id.to_s.sub(/\AD/i, ''))
+    end
   end
 
   delegate :name, to: :class, prefix: true
+
+  def formatted_id
+    "D#{id}"
+  end
 
   def kind
     type.underscore.split('/').last

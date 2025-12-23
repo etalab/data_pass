@@ -15,7 +15,7 @@
 
         <div class="fr-mb-10v fr-badges-group">
           <div class="fr-badge fr-badge--sm fr-badge--blue-ecume">
-            <%= t('components.authorization_header_component.authorization_badge', authorization_id: authorization.id) %>
+            <%= t('components.authorization_header_component.authorization_badge', formatted_id: authorization.formatted_id) %>
           </div>
           <%= render partial: 'authorizations/state_badge', locals: { authorization: decorated_authorization } %>
         </div>
@@ -60,7 +60,7 @@
           <% if policy(authorization).contact_support? %>
             <%= dsfr_main_modal_button t('authorization_request_forms.form.contact_support'),
                                                "mailto:datapass@api.gouv.fr",
-                                               subject: t('components.authorization_header_component.contact_support_subject', authorization_id: authorization.id),
+                                               subject: t('components.authorization_header_component.contact_support_subject', formatted_id: authorization.formatted_id),
                                                class: "fr-btn fr-btn--sm fr-btn--icon-left fr-icon-mail-line",
                                                aria_hidden: "true" %>
           <% end %>
