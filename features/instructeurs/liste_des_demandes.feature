@@ -51,6 +51,30 @@ Fonctionnalité: Instruction: liste des demandes
     Et que je clique sur "Rechercher"
     Alors je vois 3 demandes d'habilitation
 
+  @javascript
+  Scénario: Je peux réinitialiser les filtres de statut
+    Sachant qu'il y a 2 demandes d'habilitation "API Entreprise" en attente
+    Et qu'il y a 1 demande d'habilitation "API Entreprise" en brouillon
+    Et que je vais sur la page instruction
+    Et que je sélectionne "En cours d'instruction" dans le multi-select "Statut"
+    Et que je clique sur "Rechercher"
+    Alors je vois 2 demandes d'habilitation
+    Et que je réinitialise le multi-select "Statut"
+    Et que je clique sur "Rechercher"
+    Alors je vois 3 demandes d'habilitation
+
+  @javascript
+  Scénario: Je peux combiner les filtres de type et de statut
+    Sachant que je suis un instructeur avec plusieurs types d'autorisation
+    Et qu'il y a 2 demandes d'habilitation "API Entreprise" en attente
+    Et qu'il y a 1 demande d'habilitation "API Particulier" en attente
+    Et qu'il y a 1 demande d'habilitation "API Entreprise" en brouillon
+    Et que je vais sur la page instruction
+    Et que je sélectionne "API Entreprise" dans le multi-select "Type de demande"
+    Et que je sélectionne "En cours d'instruction" dans le multi-select "Statut"
+    Et que je clique sur "Rechercher"
+    Alors je vois 2 demandes d'habilitation
+
   Scénario: Trier par date de soumission fonctionne
     Sachant qu'il y a 1 demande d'habilitation "API Entreprise" en attente
     Et que je vais sur la page instruction

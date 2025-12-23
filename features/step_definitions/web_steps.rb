@@ -118,6 +118,14 @@ Quand('je sélectionne {string} dans le multi-select {string}') do |option, labe
   container.find('.multi-select__option', text: option).click
 end
 
+Quand('je réinitialise le multi-select {string}') do |label|
+  label_element = find('label', text: label)
+  container = label_element.find(:xpath, '..').find('.multi-select')
+  dropdown = container.find('.multi-select__dropdown', visible: :all)
+  container.find('.multi-select__trigger').click if dropdown[:class].include?('fr-hidden')
+  container.find('.multi-select__clear').click
+end
+
 Quand('je choisis {string}') do |option|
   if javascript?
     find('label', text: option, visible: :visible).trigger('click')
