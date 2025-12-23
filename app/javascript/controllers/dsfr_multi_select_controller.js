@@ -220,9 +220,9 @@ export default class extends Controller {
     event.stopPropagation()
 
     const enabledOptions = this._getEnabledOptions()
-    const allSelected = this._areAllSelected()
+    const hasAnySelected = this._hasAnySelected()
 
-    if (allSelected) {
+    if (hasAnySelected) {
       // Deselect all
       enabledOptions.forEach(li => {
         const value = li.dataset.value
@@ -397,6 +397,10 @@ export default class extends Controller {
     return enabledOptions.every(li => this.selectedValues.has(li.dataset.value))
   }
 
+  _hasAnySelected () {
+    return this.selectedValues.size > 0
+  }
+
   _updateDisplay () {
     if (this.selectedValues.size === 0) {
       this.labelTarget.textContent = this.placeholderValue
@@ -426,8 +430,8 @@ export default class extends Controller {
   _updateSelectAllButton () {
     if (!this.hasSelectAllLabelTarget) return
 
-    const allSelected = this._areAllSelected()
-    this.selectAllLabelTarget.textContent = allSelected ? 'Tout désélectionner' : 'Tout sélectionner'
+    const hasAnySelected = this._hasAnySelected()
+    this.selectAllLabelTarget.textContent = hasAnySelected ? 'Tout désélectionner' : 'Tout sélectionner'
   }
 
   _initializeFromDOM () {
