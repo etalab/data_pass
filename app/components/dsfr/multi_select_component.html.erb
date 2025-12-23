@@ -43,13 +43,16 @@
 
       <%# Toolbar (Select All + Search) %>
       <% if show_select_all || show_search %>
-        <div class="dsfrx-multiselect__toolbar" data-dsfr-multi-select-target="toolbar">
+        <div
+          class="dsfrx-multiselect__toolbar"
+          data-dsfr-multi-select-target="toolbar"
+          data-action="keydown->dsfr-multi-select#handleToolbarKeydown">
           <% if show_select_all %>
             <button
               type="button"
               class="fr-btn fr-btn--sm fr-btn--tertiary fr-btn--select-all"
               data-dsfr-multi-select-target="selectAllButton"
-              data-action="click->dsfr-multi-select#toggleSelectAll keydown->dsfr-multi-select#handleToolbarKeydown">
+              data-action="click->dsfr-multi-select#toggleSelectAll">
               <span data-dsfr-multi-select-target="selectAllLabel">
                 <%= none_selected? ? 'Tout sélectionner' : 'Tout désélectionner' %>
               </span>
@@ -66,7 +69,7 @@
                 placeholder="<%= search_placeholder %>"
                 autocomplete="off"
                 data-dsfr-multi-select-target="searchInput"
-                data-action="input->dsfr-multi-select#handleSearch keydown->dsfr-multi-select#handleToolbarKeydown">
+                data-action="input->dsfr-multi-select#handleSearch">
             </div>
           <% end %>
         </div>
@@ -86,7 +89,7 @@
             class="dsfrx-multiselect__item <%= 'selected' if option_selected?(option) %>"
             id="<%= component_id %>-option-<%= index %>"
             tabindex="-1"
-            aria-selected="<%= option_selected?(option) %>"
+            aria-checked="<%= option_selected?(option) %>"
             <% if option[:disabled] %>aria-disabled="true"<% end %>
             data-value="<%= option[:value] %>"
             data-label="<%= option[:label] %>"

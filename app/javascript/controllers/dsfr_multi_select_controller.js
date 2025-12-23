@@ -43,38 +43,42 @@ export default class extends Controller {
       this._close()
     } else {
       this._open()
-      this._focusFirstFocusable()
+      this._focusOnOpen()
     }
   }
 
   handleTriggerKeydown (event) {
     switch (event.key) {
       case 'ArrowDown':
-      case 'ArrowUp':
       case 'Enter':
       case ' ':
         event.preventDefault()
         if (!this._isOpen()) {
           this._open()
-          this._focusFirstFocusable()
+          this._focusOnOpen()
+        }
+        break
+      case 'ArrowUp':
+        event.preventDefault()
+        if (!this._isOpen()) {
+          this._open()
+          this._focusOnOpen()
         }
         break
       case 'Escape':
         event.preventDefault()
-        this._close()
+        if (this._isOpen()) {
+          this._close()
+        }
         break
     }
   }
 
   handleToolbarKeydown (event) {
-    const options = this._getVisibleOptions()
-
     switch (event.key) {
       case 'ArrowDown':
         event.preventDefault()
-        if (options.length > 0) {
-          options[0].focus()
-        }
+        this._focusFirstOption()
         break
       case 'Escape':
         event.preventDefault()
@@ -82,14 +86,36 @@ export default class extends Controller {
         this.triggerTarget.focus()
         break
       case 'Tab':
-        if (!event.shiftKey && options.length > 0) {
-          event.preventDefault()
-          options[0].focus()
-        } else if (event.shiftKey) {
+        if (event.shiftKey && this._isFirstToolbarElement(event.target)) {
+          // Shift+Tab on first element: close and go back to trigger
+          this._close()
+        } else if (!event.shiftKey && this._isLastToolbarElement(event.target)) {
+          // Tab on last element: close dropdown
           this._close()
         }
+        // Otherwise let natural Tab navigation happen within toolbar
         break
     }
+  }
+
+  _isFirstToolbarElement (element) {
+    if (this.hasSelectAllButtonTarget && element === this.selectAllButtonTarget) {
+      return true
+    }
+    if (!this.hasSelectAllButtonTarget && this.hasSearchInputTarget && element === this.searchInputTarget) {
+      return true
+    }
+    return false
+  }
+
+  _isLastToolbarElement (element) {
+    if (this.hasSearchInputTarget && element === this.searchInputTarget) {
+      return true
+    }
+    if (!this.hasSearchInputTarget && this.hasSelectAllButtonTarget && element === this.selectAllButtonTarget) {
+      return true
+    }
+    return false
   }
 
   handleOptionKeydown (event) {
@@ -100,30 +126,41 @@ export default class extends Controller {
       case 'ArrowDown':
         event.preventDefault()
         if (currentIndex < options.length - 1) {
-          options[currentIndex + 1].focus()
+          this._setFocusOnOption(options[currentIndex + 1])
+        } else {
+          // Loop to first option
+          this._setFocusOnOption(options[0])
         }
         break
       case 'ArrowUp':
         event.preventDefault()
         if (currentIndex > 0) {
-          options[currentIndex - 1].focus()
+          this._setFocusOnOption(options[currentIndex - 1])
         } else {
-          this._focusToolbar()
+          // Go back to toolbar if exists, otherwise loop to last option
+          if (this._hasToolbar()) {
+            this._focusToolbar()
+          } else {
+            this._setFocusOnOption(options[options.length - 1])
+          }
         }
         break
       case 'Home':
         event.preventDefault()
         if (options.length > 0) {
-          options[0].focus()
+          this._setFocusOnOption(options[0])
         }
         break
       case 'End':
         event.preventDefault()
         if (options.length > 0) {
-          options[options.length - 1].focus()
+          this._setFocusOnOption(options[options.length - 1])
         }
         break
       case 'Enter':
+        event.preventDefault()
+        this.selectOption(event)
+        break
       case ' ':
         event.preventDefault()
         this.selectOption(event)
@@ -134,7 +171,14 @@ export default class extends Controller {
         this.triggerTarget.focus()
         break
       case 'Tab':
-        this._close()
+        if (event.shiftKey && this._hasToolbar()) {
+          // Shift+Tab: go back to toolbar
+          event.preventDefault()
+          this._focusToolbar()
+        } else {
+          // Tab: close dropdown
+          this._close()
+        }
         break
     }
   }
@@ -154,13 +198,13 @@ export default class extends Controller {
       this.selectedValues.delete(value)
       this.selectedLabels.delete(value)
       li.classList.remove('selected')
-      li.setAttribute('aria-selected', 'false')
+      li.setAttribute('aria-checked', 'false')
       if (checkbox) checkbox.checked = false
     } else {
       this.selectedValues.add(value)
       this.selectedLabels.set(value, label)
       li.classList.add('selected')
-      li.setAttribute('aria-selected', 'true')
+      li.setAttribute('aria-checked', 'true')
       if (checkbox) checkbox.checked = true
     }
 
@@ -184,7 +228,7 @@ export default class extends Controller {
         this.selectedValues.delete(value)
         this.selectedLabels.delete(value)
         li.classList.remove('selected')
-        li.setAttribute('aria-selected', 'false')
+        li.setAttribute('aria-checked', 'false')
         const checkbox = li.querySelector('input[type="checkbox"]')
         if (checkbox) checkbox.checked = false
       })
@@ -196,7 +240,7 @@ export default class extends Controller {
         this.selectedValues.add(value)
         this.selectedLabels.set(value, label)
         li.classList.add('selected')
-        li.setAttribute('aria-selected', 'true')
+        li.setAttribute('aria-checked', 'true')
         const checkbox = li.querySelector('input[type="checkbox"]')
         if (checkbox) checkbox.checked = true
       })
@@ -242,6 +286,8 @@ export default class extends Controller {
     this.dropdownTarget.classList.add('fr-hidden')
     this.dropdownTarget.setAttribute('aria-hidden', 'true')
     this.triggerTarget.setAttribute('aria-expanded', 'false')
+    // Clear aria-activedescendant
+    this.listboxTarget.removeAttribute('aria-activedescendant')
   }
 
   _isOpen () {
@@ -254,25 +300,57 @@ export default class extends Controller {
     }
   }
 
-  _focusFirstFocusable () {
-    // Focus search input if present, otherwise select all button, otherwise first option
-    if (this.hasSearchInputTarget) {
-      this.searchInputTarget.focus()
-    } else if (this.hasSelectAllButtonTarget) {
-      this.selectAllButtonTarget.focus()
+  _hasToolbar () {
+    return this.hasSelectAllButtonTarget || this.hasSearchInputTarget
+  }
+
+  _focusOnOpen () {
+    // If toolbar exists, focus on first toolbar element
+    if (this._hasToolbar()) {
+      this._focusToolbar()
     } else {
-      const options = this._getVisibleOptions()
-      if (options.length > 0) {
-        options[0].focus()
-      }
+      // Focus on first selected option, or first option if none selected
+      this._focusFirstSelectedOrFirstOption()
     }
   }
 
   _focusToolbar () {
-    if (this.hasSearchInputTarget) {
-      this.searchInputTarget.focus()
-    } else if (this.hasSelectAllButtonTarget) {
+    if (this.hasSelectAllButtonTarget) {
       this.selectAllButtonTarget.focus()
+    } else if (this.hasSearchInputTarget) {
+      this.searchInputTarget.focus()
+    }
+  }
+
+  _focusFirstOption () {
+    const options = this._getVisibleOptions()
+    if (options.length > 0) {
+      this._setFocusOnOption(options[0])
+    }
+  }
+
+  _focusFirstSelectedOrFirstOption () {
+    const options = this._getVisibleOptions()
+    if (options.length === 0) return
+
+    // Find first selected option
+    const firstSelected = options.find(opt => opt.classList.contains('selected'))
+    if (firstSelected) {
+      this._setFocusOnOption(firstSelected)
+    } else {
+      this._setFocusOnOption(options[0])
+    }
+  }
+
+  _setFocusOnOption (optionElement) {
+    if (!optionElement) return
+
+    optionElement.focus()
+
+    // Set aria-activedescendant on listbox
+    const optionId = optionElement.getAttribute('id')
+    if (optionId) {
+      this.listboxTarget.setAttribute('aria-activedescendant', optionId)
     }
   }
 

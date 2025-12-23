@@ -133,13 +133,19 @@
   background: var(--background-alt-blue-france-hover);
 }
 
-.dsfrx-multiselect__item:focus {
+.dsfrx-multiselect__item:focus-visible {
+  background: var(--background-alt-blue-france-hover);
   outline: 2px solid var(--outline-focus-blue-france);
   outline-offset: -2px;
 }
 
 .dsfrx-multiselect__item.selected {
   background: var(--background-alt-blue-france-active);
+}
+
+.dsfrx-multiselect__item.selected:hover,
+.dsfrx-multiselect__item.selected:focus-visible {
+  background: var(--background-alt-blue-france-hover);
 }
 
 .dsfrx-multiselect__item[aria-disabled="true"] {
