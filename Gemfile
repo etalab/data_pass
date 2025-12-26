@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '3.4.7'
+ruby '4.0.0'
 
 gem 'active_hash'
 gem 'active_model_validates_intersection_of'
