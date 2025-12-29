@@ -45,10 +45,6 @@ annuaire-des-entreprises-lutte-contre-la-fraude:
     Ce formulaire vous permet d'accéder aux fonctionnalités spécifiques au cas d'usage de la lutte contre la fraude
   authorization_request: AnnuaireDesEntreprises
   steps: *ade_steps
-  scopes_config:
-    disabled:
-      - bilans_bdf
-      - liasses_fiscales
 
 annuaire-des-entreprises-subventions-associations:
   name: Subventions de fonctionnement des associations
