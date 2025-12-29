@@ -111,6 +111,8 @@ annuaire-des-entreprises-traitement-aides-financieres:
       Article L263-1 du code de la sécurité sociale qui dispose "Les caisses d'allocations familiales exercent une action sanitaire et sociale en faveur de leurs ressortissants et des familles de ceux-ci dans le cadre du programme mentionné au 2° de l'article L. 223-1."
       Arrêté programme du 3 octobre 2001 relatif à l'action sociale des Caisses d'allocations familiales
     cadre_juridique_url: 'https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000048599900'
+    scopes:
+      - conformite
 
 annuaire-des-entreprises:
   name: Demande libre
