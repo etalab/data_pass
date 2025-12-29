@@ -63,7 +63,6 @@ annuaire-des-entreprises-lutte-contre-la-fraude:
     disabled:
       - bilans_bdf
       - liasses_fiscales
-      - beneficiaires
   initialize_with:
     scopes:
       - effectifs_annuels
