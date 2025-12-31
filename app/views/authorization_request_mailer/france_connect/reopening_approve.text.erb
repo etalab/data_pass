@@ -7,6 +7,11 @@ https://www.demarches-simplifiees.fr/commencer/demande-modification-fs-fc
 Vous trouverez toutes les informations sur les données des usagers sur la documentation :
 https://docs.partenaires.franceconnect.gouv.fr/fs/fs-pilotage/fs-projet-donnees-identites/
 
+<% if @authorization_request.latest_authorization&.message.present? %>
+Message associée à la validation de votre habilitation :
+<%= @authorization_request.latest_authorization.message %>
+<% end %>
+
 Pour consulter cette habilitation, veuillez cliquer sur le lien suivant <%= authorization_request_url(@authorization_request) %>.
 
 Bien cordialement,
