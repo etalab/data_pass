@@ -2,8 +2,8 @@
 
 Fonctionnalité: Instruction: templates de messages
   Un manager peut créer et gérer des templates de messages pour faciliter
-  les demandes de modifications et les refus d'habilitations. Les instructeurs
-  et reporters peuvent consulter ces templates.
+  les validations, les demandes de modifications et les refus d'habilitations.
+  Les instructeurs et reporters peuvent consulter ces templates.
 
   Scénario: Un manager peut accéder à la liste des templates
     Sachant que je suis un manager "API Entreprise"
@@ -34,6 +34,18 @@ Fonctionnalité: Instruction: templates de messages
     Et que je clique sur "Enregistrer"
     Alors il y a un message de succès contenant "Le modèle a été créé avec succès"
     Et la page contient "Organisation non éligible"
+
+  Scénario: Un manager peut créer un template d'approbation
+    Sachant que je suis un manager "FranceConnect"
+    Et que je me connecte
+    Quand je me rends sur la page des templates de messages pour "FranceConnect"
+    Et que je clique sur le premier "Nouveau modèle"
+    Et que je sélectionne "Validation" pour "Type de modèle"
+    Et que je remplis "Titre" avec "eIDAS 2"
+    Et que je remplis "Contenu" avec "Le niveau eIDAS 2 nécessite que vous soyez enregistré auprès de l'ANSSI."
+    Et que je clique sur "Enregistrer"
+    Alors il y a un message de succès contenant "Le modèle a été créé avec succès"
+    Et la page contient "eIDAS 2"
 
   Scénario: Un manager peut éditer un template
     Sachant que je suis un manager "API Entreprise"
@@ -94,6 +106,17 @@ Fonctionnalité: Instruction: templates de messages
     Et que je clique sur "Refuser"
     Et que je sélectionne "Organisation non éligible" dans le sélecteur de templates
     Alors le champ "Raison" contient "Vous n'êtes pas éligible"
+
+  @javascript
+  Scénario: Un instructeur peut utiliser un template lors d'une approbation
+    Sachant que je suis un instructeur "FranceConnect"
+    Et que je me connecte
+    Sachant qu'il existe un template de message de approbation "eIDAS 2" avec le contenu "Le niveau eIDAS 2 nécessite que vous soyez enregistré auprès de l'ANSSI." pour "FranceConnect"
+    Quand je me rends sur une demande d'habilitation "FranceConnect" à modérer
+    Et que je clique sur "Instruire la demande"
+    Et que je clique sur "Valider"
+    Et que je sélectionne "eIDAS 2" dans le sélecteur de templates
+    Alors le champ "Message complémentaire (optionnel)" contient "Le niveau eIDAS 2 nécessite que vous soyez enregistré auprès de l'ANSSI."
 
   Scénario: On ne peut pas créer plus de 3 templates du même type
     Sachant que je suis un manager "API Entreprise"

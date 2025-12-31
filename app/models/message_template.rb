@@ -1,5 +1,5 @@
 class MessageTemplate < ApplicationRecord
-  enum :template_type, { refusal: 0, modification_request: 1 }
+  enum :template_type, { refusal: 0, modification_request: 1, approval: 2 }
 
   validates :authorization_definition_uid, presence: true
   validates :title, presence: true, length: { maximum: 50 }
