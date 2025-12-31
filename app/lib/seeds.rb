@@ -70,7 +70,11 @@ class Seeds
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def create_authorization_requests_for_clamart
     create_validated_authorization_request(:api_entreprise, attributes: { intitule: "Portail des appels d'offres", applicant: demandeur })
-    france_connect_authorization_request = create_validated_authorization_request(:france_connect, attributes: { intitule: 'Connexion FranceConnect', applicant: demandeur })
+    france_connect_authorization_request = create_validated_authorization_request(
+      :france_connect,
+      attributes: { intitule: 'Connexion FranceConnect', applicant: demandeur },
+      authorization_message: "Vous pouvez maintenant procéder à l'intégration technique."
+    )
     create_validated_authorization_request(:api_droits_cnam, attributes: { france_connect_authorization_id: france_connect_authorization_request.latest_authorization.id, applicant: demandeur })
 
     authorization_request = create_request_changes_authorization_request(:api_entreprise, attributes: { intitule: 'Portail des aides publiques', applicant: another_demandeur })
@@ -255,10 +259,14 @@ class Seeds
     authorization_request
   end
 
-  def create_validated_authorization_request(kind, attributes: {})
+  def create_validated_authorization_request(kind, attributes: {}, authorization_message: nil)
     authorization_request = create_submitted_authorization_request(kind, attributes:)
 
-    organizer = ApproveAuthorizationRequest.call(authorization_request:, user: api_entreprise_instructor)
+    organizer = ApproveAuthorizationRequest.call(
+      authorization_request:,
+      user: api_entreprise_instructor,
+      authorization_message:
+    )
 
     raise "Fail to approve authorization request #{organizer}" unless organizer.success?
 

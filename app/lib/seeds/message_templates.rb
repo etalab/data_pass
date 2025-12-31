@@ -5,6 +5,7 @@ class Seeds
       create_api_entreprise_modification_request_templates
       create_api_entreprise_refusal_templates
       create_api_particulier_refusal_templates
+      create_france_connect_approval_templates
     end
 
     def self.create_api_entreprise_modification_request_templates
@@ -38,6 +39,15 @@ class Seeds
         authorization_definition_uid: 'api_particulier',
         template_type: :refusal,
         content: "Après vérification, votre organisation n'est pas habilitée à accéder à API Particulier. L'accès à cette API est réservé aux administrations et organismes chargés d'une mission de service public.\n\nLes entreprises privées, même si elles opèrent pour le compte d'une administration, ne peuvent obtenir directement un accès. C'est l'administration elle-même qui doit faire la demande.\n\nConsultez votre demande ici : %{demande_url}"
+      )
+    end
+
+    def self.create_france_connect_approval_templates
+      MessageTemplate.create!(
+        title: 'eIDAS 2',
+        authorization_definition_uid: 'france_connect',
+        template_type: :approval,
+        content: "Le niveau eIDAS 2 nécessite que vous soyez enregistré auprès de l'ANSSI."
       )
     end
   end

@@ -52,6 +52,24 @@ RSpec.describe MessageTemplate do
       expect(template).to be_valid
     end
 
+    it 'allows approval template type' do
+      template = build(:message_template,
+        authorization_definition_uid: 'api_entreprise',
+        template_type: :approval)
+      expect(template).to be_valid
+    end
+
+    it 'allows 3 approval templates independently from other types' do
+      create_list(:message_template, 3,
+        authorization_definition_uid: 'api_entreprise',
+        template_type: :refusal)
+
+      template = build(:message_template,
+        authorization_definition_uid: 'api_entreprise',
+        template_type: :approval)
+      expect(template).to be_valid
+    end
+
     it 'allows updating an existing template without counting it' do
       template = create(:message_template,
         authorization_definition_uid: 'api_entreprise',

@@ -28,6 +28,7 @@ class CreateAuthorization < ApplicationInteractor
     {
       data: authorization_request.data,
       applicant: authorization_request.applicant,
+      message: context.authorization_message
     }
   end
 end
