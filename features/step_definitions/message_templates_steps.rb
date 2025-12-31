@@ -4,6 +4,8 @@ def map_template_type(type_french)
     :refusal
   when 'modifications'
     :modification_request
+  when 'approbation'
+    :approval
   else
     raise "Type de template inconnu: #{type_french}"
   end
