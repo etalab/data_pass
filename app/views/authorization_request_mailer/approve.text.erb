@@ -9,6 +9,10 @@
   )
 %>
 
+<% if @authorization_request.latest_authorization&.message.present? %>
+<%= t('.additional_message', message: @authorization_request.latest_authorization.message) %>
+<% end %>
+
 <% if @authorization_request.definition.need_homologation? %>
   <%=
     t(
