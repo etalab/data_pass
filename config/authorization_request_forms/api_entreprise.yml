@@ -120,7 +120,6 @@ api-entreprise-identification-entreprise-open-data:
   authorization_request: "APIEntreprise"
   steps:
     - name: "basic_infos"
-    - name: "legal"
     - name: "scopes"
     - name: "contacts"
   scopes_config:
