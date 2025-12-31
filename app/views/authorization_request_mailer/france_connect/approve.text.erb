@@ -6,6 +6,11 @@ https://espace.partenaires.franceconnect.gouv.fr/login
 Vous trouverez toutes les informations sur les prochaines étapes pour devenir fournisseur de service sur la documentation :
 https://docs.partenaires.franceconnect.gouv.fr/fs/devenir-fs/pilotage-etapes/
 
+<% if @authorization_request.latest_authorization&.message.present? %>
+Message associée à la validation de votre habilitation :
+<%= @authorization_request.latest_authorization.message %>
+<% end %>
+
 Pour consulter cette habilitation, veuillez cliquer sur le lien suivant <%= authorization_request_url(@authorization_request) %>.
 
 Bien cordialement,
