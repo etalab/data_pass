@@ -47,6 +47,14 @@
             <%= t('activerecord.values.message_template.template_type.refusal') %>
           </button>
         </li>
+        <li>
+          <button class="fr-tag" aria-pressed="false"
+                  data-filter-target="button"
+                  data-filter-value-param="approval"
+                  data-action="click->filter#filter">
+            <%= t('activerecord.values.message_template.template_type.approval') %>
+          </button>
+        </li>
       </ul>
     </div>
   <% end %>
