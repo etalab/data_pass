@@ -34,8 +34,10 @@ class MessageTemplateDecorator < ApplicationDecorator
       'refuse'
     when :modification_request
       'request_changes'
+    when :approval
+      'approve'
     else
-      raise "Unknown message template type: #{object.message_template_type}"
+      raise "Unknown message template type: #{object.template_type}"
     end
   end
 end

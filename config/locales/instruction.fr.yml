@@ -279,6 +279,10 @@ fr:
         approve:
           message_summary: |
             <strong>%{user_full_name}</strong> a approuvé la demande.
+          message_details: |
+            <blockquote>
+              %{message_details_text}
+            </blockquote>
           view_authorization: Consulter l'habilitation <strong>%{formatted_id}</strong>.
         request_changes:
           message_summary: |
