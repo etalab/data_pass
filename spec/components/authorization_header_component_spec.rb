@@ -151,14 +151,18 @@ RSpec.describe AuthorizationHeaderComponent, type: :component do
 
   describe 'old version alert' do
     context 'when viewing old version' do
-      let(:authorization_request) { create(:authorization_request, :api_entreprise, :reopened) }
-      let(:old_authorization) do
-        create(:authorization, request: authorization_request, applicant: authorization_request.applicant, created_at: 2.days.ago)
+      let(:authorization_request) { create(:authorization_request, :api_entreprise, :validated) }
+      let(:old_authorization) { authorization_request.latest_authorization }
+      let(:new_authorization) do
+        create(:authorization, request: authorization_request, applicant: authorization_request.applicant).tap do
+          old_authorization.deprecate!
+        end
       end
       let(:authorization) { old_authorization }
       let(:component) { described_class.new(authorization:, current_user: authorization.applicant) }
 
       before do
+        new_authorization
         allow(component).to receive(:policy) do |record|
           if Array(record).first == :instruction
             instruction_policy
@@ -174,9 +178,8 @@ RSpec.describe AuthorizationHeaderComponent, type: :component do
 
       it 'renders the old version message' do
         rendered = render_inline(component)
-        latest = authorization_request.latest_authorization
         expect(rendered).to have_content('Cette habilitation est obsolète')
-        expect(rendered).to have_link("l'habilitation N°#{latest.id}")
+        expect(rendered).to have_css('a', text: /habilitation N°#{new_authorization.id}/)
       end
     end
 
