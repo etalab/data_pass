@@ -519,6 +519,7 @@ fr:
         update_in_progress:
           title: Une mise à jour de cette habilitation est en cours
           message: "%{link}"
+          link_text: "Consulter la demande de mise à jour n°%{id}"
         old_version:
           title: Attention, vous consultez une version ancienne de cette habilitation
           message: "Il existe une version plus récente de cette habilitation que vous pouvez consulter en cliquant ici: %{link}"
