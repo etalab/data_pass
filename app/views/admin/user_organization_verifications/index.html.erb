@@ -1,0 +1,80 @@
+<% set_title! t('page_titles.admin_user_organization_verifications') %>
+
+<div class="fr-container fr-mt-5w">
+  <%= form_with(url: admin_user_organization_verifications_path, method: :get, class: 'search-box') do |f| %>
+    <div class="search-inputs">
+      <div class="fr-input-group main-input input">
+        <%= f.label :email, t('.search.label'), class: %w[fr-label] %>
+        <%= f.email_field :email, value: @email, class: %w[fr-input], placeholder: t('.search.placeholder') %>
+      </div>
+    </div>
+
+    <div class="actions">
+      <%= f.button t('.search.btn'), type: :submit, class: %w[fr-btn fr-btn--primary] %>
+    </div>
+  <% end %>
+
+  <% if @email.present? %>
+    <% if @user.nil? %>
+      <div class="fr-alert fr-alert--warning fr-mt-3w">
+        <p><%= t('.user_not_found', email: @email) %></p>
+      </div>
+    <% elsif @organizations_users.empty? %>
+      <div class="fr-alert fr-alert--info fr-mt-3w">
+        <p><%= t('.no_organizations', email: @email) %></p>
+      </div>
+    <% else %>
+      <h2 class="fr-mt-3w"><%= t('.results_title', email: @user.email) %></h2>
+
+      <div class="fr-table fr-table--bordered fr-mt-2w">
+        <div class="fr-table__container">
+          <div class="fr-table__content">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col"><%= t('.table.organization') %></th>
+                  <th scope="col"><%= t('.table.siret') %></th>
+                  <th scope="col"><%= t('.table.verified') %></th>
+                  <th scope="col"><%= t('.table.reason') %></th>
+                  <th scope="col"><%= t('.table.actions') %></th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% @organizations_users.each do |organizations_user| %>
+                  <tr>
+                    <td><%= organizations_user.organization.name %></td>
+                    <td>
+                      <%= link_to organizations_user.organization.siret,
+                                  "https://annuaire-entreprises.data.gouv.fr/etablissement/#{organizations_user.organization.siret}",
+                                  target: '_blank',
+                                  rel: 'noopener' %>
+                    </td>
+                    <td>
+                      <% if organizations_user.verified? %>
+                        <span class="fr-badge fr-badge--success fr-badge--sm"><%= t('.verified_yes') %></span>
+                      <% else %>
+                        <span class="fr-badge fr-badge--error fr-badge--sm"><%= t('.verified_no') %></span>
+                      <% end %>
+                    </td>
+                    <td><%= organizations_user.verified_reason %></td>
+                    <td>
+                      <% unless organizations_user.verified? %>
+                        <%= dsfr_main_modal_button t('.mark_as_verified'),
+                                    new_admin_mark_user_organization_as_verified_path(
+                                      user_id: @user.id,
+                                      organization_id: organizations_user.organization_id
+                                    ),
+                                    class: %w[fr-btn fr-btn--sm] %>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
