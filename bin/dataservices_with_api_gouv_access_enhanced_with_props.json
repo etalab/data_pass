@@ -140,7 +140,7 @@
     "slug": "api-si-amiante",
     "access_url": "https://api.gouv.fr/les-api/api-si-amiante/demande-acces",
     "url": "https://www.data.gouv.fr/dataservices/api-si-amiante/",
-    "new_datapass_access_url": null,
+    "new_datapass_access_url": "mailto:si-amiante@sante.gouv.fr",
     "access_data_from_apigouv": {
       "title": "API SI Amiante",
       "slug": "api-si-amiante",
@@ -179,7 +179,7 @@
     "slug": "api-ma-securite",
     "access_url": "https://api.gouv.fr/les-api/api-ma-securite/demande-acces",
     "url": "https://www.data.gouv.fr/dataservices/api-ma-securite/",
-    "new_datapass_access_url": null,
+    "new_datapass_access_url": "mailto:masecuritelappli@gendarmerie.interieur.gouv.fr",
     "access_data_from_apigouv": {
       "title": "API Ma Sécurité",
       "slug": "api-ma-securite",
@@ -212,7 +212,7 @@
     "slug": "api-liste-des-paiements",
     "access_url": "https://api.gouv.fr/les-api/api-indemnisation-pole-emploi/demande-acces",
     "url": "https://www.data.gouv.fr/dataservices/api-liste-des-paiements/",
-    "new_datapass_access_url": null,
+    "new_datapass_access_url": "https://datapass.api.gouv.fr/api-indemnisation-pole-emploi",
     "access_data_from_apigouv": {
       "title": "API Indemnisation France Travail",
       "slug": "api-indemnisation-pole-emploi",
@@ -251,7 +251,7 @@
     "slug": "api-donnees-foncieres",
     "access_url": "https://api.gouv.fr/les-api/api-donnees-foncieres/demande-acces",
     "url": "https://www.data.gouv.fr/dataservices/api-donnees-foncieres/",
-    "new_datapass_access_url": null,
+    "new_datapass_access_url": "https://consultdf.cerema.fr/consultdf/",
     "access_data_from_apigouv": {
       "title": "API données foncières",
       "slug": "api-donnees-foncieres",
@@ -290,7 +290,7 @@
     "slug": "api-engagement",
     "access_url": "https://api.gouv.fr/les-api/api-engagement/demande-acces",
     "url": "https://www.data.gouv.fr/dataservices/api-engagement/",
-    "new_datapass_access_url": null,
+    "new_datapass_access_url": "https://doc.api-engagement.beta.gouv.fr/getting-started/create-your-account",
     "access_data_from_apigouv": {
       "title": "API Engagement",
       "slug": "api-engagement",
@@ -329,7 +329,7 @@
     "slug": "api-statut-etudiant-ecriture",
     "access_url": "https://api.gouv.fr/les-api/api-statut-etudiant-ecriture/demande-acces",
     "url": "https://www.data.gouv.fr/dataservices/api-statut-etudiant-ecriture/",
-    "new_datapass_access_url": null,
+    "new_datapass_access_url": "https://statutetudiant.esr.gouv.fr/pages/etablissement",
     "access_data_from_apigouv": {
       "title": "API Statut Etudiant - écriture",
       "slug": "api-statut-etudiant-ecriture",
@@ -374,7 +374,7 @@
     "slug": "api-data-subvention",
     "access_url": "https://api.gouv.fr/les-api/api-data-subvention/demande-acces",
     "url": "https://www.data.gouv.fr/dataservices/api-data-subvention/",
-    "new_datapass_access_url": null,
+    "new_datapass_access_url": "mailto:contact@datasubvention.beta.gouv.fr",
     "access_data_from_apigouv": {
       "title": "API Data.Subvention",
       "slug": "api-data-subvention",
@@ -413,7 +413,7 @@
     "slug": "api-declaration-prealable-a-lembauche",
     "access_url": "https://api.gouv.fr/les-api/api-declaration-embauche/demande-acces",
     "url": "https://www.data.gouv.fr/dataservices/api-declaration-prealable-a-lembauche/",
-    "new_datapass_access_url": null,
+    "new_datapass_access_url": "mailto:api-dpae@acoss.fr",
     "access_data_from_apigouv": {
       "title": "API Déclaration préalable à l'embauche",
       "slug": "api-declaration-embauche",
@@ -452,7 +452,7 @@
     "slug": "api-base-nationale-des-defibrillateurs",
     "access_url": "https://api.gouv.fr/les-api/api-defibrillateurs/demande-acces",
     "url": "https://www.data.gouv.fr/dataservices/api-base-nationale-des-defibrillateurs/",
-    "new_datapass_access_url": null,
+    "new_datapass_access_url": "mailto:contact@geodae.sante.gouv.fr",
     "access_data_from_apigouv": {
       "title": "API Base nationale des défibrillateurs",
       "slug": "api-defibrillateurs",
@@ -485,7 +485,7 @@
     "slug": "api-sesali",
     "access_url": "https://api.gouv.fr/les-api/api-sesali/demande-acces",
     "url": "https://www.data.gouv.fr/dataservices/api-sesali/",
-    "new_datapass_access_url": null,
+    "new_datapass_access_url": "mailto:ans-europe@esante.gouv.fr",
     "access_data_from_apigouv": {
       "title": "API Sesali",
       "slug": "api-sesali",
@@ -524,7 +524,7 @@
     "slug": "api-chorus-pro",
     "access_url": "https://api.gouv.fr/les-api/chorus-pro/demande-acces",
     "url": "https://www.data.gouv.fr/dataservices/api-chorus-pro/",
-    "new_datapass_access_url": null,
+    "new_datapass_access_url": "https://piste.gouv.fr/en/api-catalog-sandbox",
     "access_data_from_apigouv": {
       "title": "API Chorus Pro",
       "slug": "chorus-pro",
@@ -575,7 +575,7 @@
     "slug": "api-quiforme",
     "access_url": "https://api.gouv.fr/les-api/api_quiforme/demande-acces",
     "url": "https://www.data.gouv.fr/dataservices/api-quiforme/",
-    "new_datapass_access_url": null,
+    "new_datapass_access_url": "mailto:quiforme@intercariforef.org",
     "access_data_from_apigouv": {
       "title": "API QuiForme",
       "slug": "api_quiforme",
@@ -614,7 +614,7 @@
     "slug": "api-tracabilite-des-dechets-dangereux-trackdechets",
     "access_url": "https://api.gouv.fr/les-api/api-trackdechets/demande-acces",
     "url": "https://www.data.gouv.fr/dataservices/api-tracabilite-des-dechets-dangereux-trackdechets/",
-    "new_datapass_access_url": null,
+    "new_datapass_access_url": "https://app.trackdechets.beta.gouv.fr/signup",
     "access_data_from_apigouv": {
       "title": "API Tracabilité des déchets dangereux - Trackdéchets",
       "slug": "api-trackdechets",
@@ -647,7 +647,7 @@
     "slug": "api-ines",
     "access_url": "https://api.gouv.fr/les-api/api-ines/demande-acces",
     "url": "https://www.data.gouv.fr/dataservices/api-ines/",
-    "new_datapass_access_url": null,
+    "new_datapass_access_url": "mailto:projet.ines@enseignementsup.gouv.fr",
     "access_data_from_apigouv": {
       "title": "API INES",
       "slug": "api-ines",
@@ -680,7 +680,7 @@
     "slug": "api-ma-cantine",
     "access_url": "https://api.gouv.fr/les-api/api-ma-cantine/demande-acces",
     "url": "https://www.data.gouv.fr/dataservices/api-ma-cantine/",
-    "new_datapass_access_url": null,
+    "new_datapass_access_url": "https://ma-cantine-demo.cleverapps.io/developpement-et-apis/",
     "access_data_from_apigouv": {
       "title": "API Ma Cantine",
       "slug": "api-ma-cantine",
@@ -713,7 +713,7 @@
     "slug": "api-transparence-sante-declarations-entreprises",
     "access_url": "https://api.gouv.fr/les-api/api-transparence-sante/demande-acces",
     "url": "https://www.data.gouv.fr/dataservices/api-transparence-sante-declarations-entreprises/",
-    "new_datapass_access_url": null,
+    "new_datapass_access_url": "mailto:transparence-sante-support@sante.gouv.fr",
     "access_data_from_apigouv": {
       "title": "API Transparence-Santé (Déclarations Entreprises)",
       "slug": "api-transparence-sante",
@@ -746,7 +746,7 @@
     "slug": "api-service-national",
     "access_url": "https://api.gouv.fr/les-api/api-particulier/demande-acces",
     "url": "https://www.data.gouv.fr/dataservices/api-service-national/",
-    "new_datapass_access_url": null,
+    "new_datapass_access_url": "https://datapass.api.gouv.fr/api-particulier",
     "access_data_from_apigouv": {
       "title": "API Particulier",
       "slug": "api-particulier",
@@ -785,7 +785,7 @@
     "slug": "api-document-unique-de-marche-europeen-dume",
     "access_url": "https://api.gouv.fr/les-api/api-dume/demande-acces",
     "url": "https://www.data.gouv.fr/dataservices/api-document-unique-de-marche-europeen-dume/",
-    "new_datapass_access_url": null,
+    "new_datapass_access_url": "https://developer.aife.economie.gouv.fr/",
     "access_data_from_apigouv": {
       "title": "API Document unique de marché européen (Dume)",
       "slug": "api-dume",
@@ -836,7 +836,7 @@
     "slug": "api-statut-demandeur-demploi",
     "access_url": "https://api.gouv.fr/les-api/api-particulier/demande-acces",
     "url": "https://www.data.gouv.fr/dataservices/api-statut-demandeur-demploi/",
-    "new_datapass_access_url": null,
+    "new_datapass_access_url": "https://datapass.api.gouv.fr/api-particulier",
     "access_data_from_apigouv": {
       "title": "API Particulier",
       "slug": "api-particulier",
@@ -875,7 +875,7 @@
     "slug": "api-registre-des-beneficiaires-effectifs-rbe",
     "access_url": "https://api.gouv.fr/les-api/api-rbe/demande-acces",
     "url": "https://www.data.gouv.fr/dataservices/api-registre-des-beneficiaires-effectifs-rbe/",
-    "new_datapass_access_url": null,
+    "new_datapass_access_url": "mailto:rbe@inpi.fr",
     "access_data_from_apigouv": {
       "title": "API Registre des Bénéficiaires Effectifs (RBE)",
       "slug": "api-rbe",
@@ -908,7 +908,7 @@
     "slug": "api-grdf-adict",
     "access_url": "https://api.gouv.fr/les-api/api-grdf-adict/demande-acces",
     "url": "https://www.data.gouv.fr/dataservices/api-grdf-adict/",
-    "new_datapass_access_url": null,
+    "new_datapass_access_url": "https://sites.grdf.fr/web/portail-api-grdf-adict/je-souhaite-souscrire-aux-services-grdf-adict",
     "access_data_from_apigouv": {
       "title": "API GRDF ADICT",
       "slug": "api-grdf-adict",
