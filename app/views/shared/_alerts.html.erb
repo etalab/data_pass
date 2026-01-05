@@ -1,22 +1,9 @@
 <% %i[error info success warning].each do |kind| %>
   <% if flash[kind].present? %>
-    <% if flash[kind]['tiny'] %>
-      <%= dsfr_alert(type: kind, size: :sm, close_button: true, html_attributes: { class: 'fr-alert--tiny' }) do %>
-        <%= flash[kind]['title'] %>
-      <% end %>
-    <% else %>
-      <%= dsfr_alert(type: kind, title: flash[kind]['title'], close_button: local_assigns.fetch(:close_button, true), html_attributes: { class: 'fr-my-8v' }) do %>
-        <% if flash[kind]['description'].present? %>
-          <%= flash[kind]['description'] %>
-        <% end %>
-        <% if flash[kind]['errors'].present? %>
-          <ul>
-            <% flash[kind]['errors'].each do |error| %>
-              <li><%= error %></li>
-            <% end %>
-          </ul>
-        <% end %>
-      <% end %>
-    <% end %>
+    <%= render FlashAlertComponent.new(
+      type: kind,
+      data: flash[kind],
+      close_button: local_assigns.fetch(:close_button, true)
+    ) %>
   <% end %>
 <% end %>
