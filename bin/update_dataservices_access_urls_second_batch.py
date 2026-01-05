@@ -32,7 +32,7 @@ data = [
     "slug": "api-si-amiante",
     "access_url": "https://api.gouv.fr/les-api/api-si-amiante/demande-acces",
     "url": "https://www.data.gouv.fr/dataservices/api-si-amiante/",
-    "new_datapass_access_url": "mailto:si-amiante@sante.gouv.fr",
+    "new_datapass_access_url": None,
     "organization_name": "Ministère des Solidarités et de la Santé"
   },
   {
@@ -41,7 +41,7 @@ data = [
     "slug": "api-ma-securite",
     "access_url": "https://api.gouv.fr/les-api/api-ma-securite/demande-acces",
     "url": "https://www.data.gouv.fr/dataservices/api-ma-securite/",
-    "new_datapass_access_url": "mailto:masecuritelappli@gendarmerie.interieur.gouv.fr",
+    "new_datapass_access_url": None,
     "organization_name": "Ministère de l'intérieur"
   },
   {
@@ -86,7 +86,7 @@ data = [
     "slug": "api-data-subvention",
     "access_url": "https://api.gouv.fr/les-api/api-data-subvention/demande-acces",
     "url": "https://www.data.gouv.fr/dataservices/api-data-subvention/",
-    "new_datapass_access_url": "mailto:contact@datasubvention.beta.gouv.fr",
+    "new_datapass_access_url": None,
     "organization_name": "Direction interministérielle du numérique"
   },
   {
@@ -95,7 +95,7 @@ data = [
     "slug": "api-declaration-prealable-a-lembauche",
     "access_url": "https://api.gouv.fr/les-api/api-declaration-embauche/demande-acces",
     "url": "https://www.data.gouv.fr/dataservices/api-declaration-prealable-a-lembauche/",
-    "new_datapass_access_url": "mailto:api-dpae@acoss.fr",
+    "new_datapass_access_url": None,
     "organization_name": "Unions de Recouvrement des cotisations de Sécurité Sociale et d'Allocations Familiales"
   },
   {
@@ -104,7 +104,7 @@ data = [
     "slug": "api-base-nationale-des-defibrillateurs",
     "access_url": "https://api.gouv.fr/les-api/api-defibrillateurs/demande-acces",
     "url": "https://www.data.gouv.fr/dataservices/api-base-nationale-des-defibrillateurs/",
-    "new_datapass_access_url": "mailto:contact@geodae.sante.gouv.fr",
+    "new_datapass_access_url": None,
     "organization_name": "Ministère des Solidarités et de la Santé"
   },
   {
@@ -113,7 +113,7 @@ data = [
     "slug": "api-sesali",
     "access_url": "https://api.gouv.fr/les-api/api-sesali/demande-acces",
     "url": "https://www.data.gouv.fr/dataservices/api-sesali/",
-    "new_datapass_access_url": "mailto:ans-europe@esante.gouv.fr",
+    "new_datapass_access_url": None,
     "organization_name": "Agence du Numérique en Santé"
   },
   {
@@ -131,7 +131,7 @@ data = [
     "slug": "api-quiforme",
     "access_url": "https://api.gouv.fr/les-api/api_quiforme/demande-acces",
     "url": "https://www.data.gouv.fr/dataservices/api-quiforme/",
-    "new_datapass_access_url": "mailto:quiforme@intercariforef.org",
+    "new_datapass_access_url": None,
     "organization_name": "Réseau des Carif-Oref"
   },
   {
@@ -149,7 +149,7 @@ data = [
     "slug": "api-ines",
     "access_url": "https://api.gouv.fr/les-api/api-ines/demande-acces",
     "url": "https://www.data.gouv.fr/dataservices/api-ines/",
-    "new_datapass_access_url": "mailto:projet.ines@enseignementsup.gouv.fr",
+    "new_datapass_access_url": None,
     "organization_name": "Ministère de l'Enseignement supérieur, de la Recherche et de l'Espace"
   },
   {
@@ -167,7 +167,7 @@ data = [
     "slug": "api-transparence-sante-declarations-entreprises",
     "access_url": "https://api.gouv.fr/les-api/api-transparence-sante/demande-acces",
     "url": "https://www.data.gouv.fr/dataservices/api-transparence-sante-declarations-entreprises/",
-    "new_datapass_access_url": "mailto:transparence-sante-support@sante.gouv.fr",
+    "new_datapass_access_url": None,
     "organization_name": "Ministère des Solidarités et de la Santé"
   },
   {
