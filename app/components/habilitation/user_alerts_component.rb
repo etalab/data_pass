@@ -1,7 +1,6 @@
 class Habilitation::UserAlertsComponent < ApplicationComponent
   include Rails.application.routes.url_helpers
 
-  NOTICE_FULL_WIDTH_CLASSES = 'fr-notice--full-width fr-mb-4w'.freeze
   CALLOUT_CLASSES = 'fr-my-16v'.freeze
 
   delegate :request, to: :authorization
@@ -28,36 +27,11 @@ class Habilitation::UserAlertsComponent < ApplicationComponent
   attr_reader :authorization, :current_user
 
   def update_in_progress_notice
-    return unless show_update_in_progress_alert?
-
-    render DsfrComponent::NoticeComponent.new(
-      title: update_in_progress_title,
-      description: update_in_progress_description,
-      type: 'info',
-      html_attributes: { class: NOTICE_FULL_WIDTH_CLASSES }
-    )
+    render Molecules::UpdateInProgressNoticeComponent.new(authorization:)
   end
 
   def show_update_in_progress_alert?
     authorization.latest? && request.reopening?
-  end
-
-  def update_in_progress_title
-    I18n.t('authorization_request_forms.summary.reopening_alerts.update_in_progress.title')
-  end
-
-  def update_in_progress_description
-    I18n.t(
-      'authorization_request_forms.summary.reopening_alerts.update_in_progress.message',
-      link: update_request_link
-    ).html_safe
-  end
-
-  def update_request_link
-    link_to(
-      I18n.t('authorization_request_forms.summary.reopening_alerts.update_in_progress.link_text', id: request.id),
-      authorization_request_path(request)
-    )
   end
 
   def access_callout
