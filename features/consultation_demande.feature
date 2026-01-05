@@ -77,7 +77,7 @@ Fonctionnalité: Consultation d'une demande d'habilitation
     Et il n'y a pas de bulle de messagerie
     Et il y a un formulaire en mode résumé
     Et il n'y a pas de bouton "Enregistrer"
-    Et la page contient "vous avez été référencé comme administrateur local."
+    Et la page contient "Vous avez été référencé comme administrateur local."
 
   Scénario: Je consulte une demande d'habilitation en plusieurs étapes où je suis mentionné
     Quand je suis mentionné dans 1 demande d'habilitation "Démarches du bouquet de services (service-public.fr)" en tant que "Administrateur métier"
@@ -86,7 +86,7 @@ Fonctionnalité: Consultation d'une demande d'habilitation
     Alors il y a un titre contenant "Démarches du bouquet de services (service-public.fr)"
     Et il y a un formulaire en mode résumé
     Et il n'y a pas de bouton "Enregistrer"
-    Et la page contient "vous avez été référencé comme administrateur local."
+    Et la page contient "Vous avez été référencé comme administrateur local."
 
   Scénario: Je consulte une demande d'habilitation en plusieurs étapes où je suis mentionné
     Quand je suis mentionné dans 1 demande d'habilitation "API Entreprise" en tant que "Contact technique"
@@ -95,7 +95,7 @@ Fonctionnalité: Consultation d'une demande d'habilitation
     Alors il y a un titre contenant "API Entreprise"
     Et il y a un formulaire en mode résumé
     Et il n'y a pas de bouton "Enregistrer"
-    Et la page contient "vous avez été référencé comme contact technique."
+    Et la page contient "Vous avez été référencé comme contact technique."
 
   Scénario: Je consulte une habilitation où je suis mentionnée
     Quand je suis mentionné dans 1 demande d'habilitation "API Entreprise" en tant que "Contact technique"
@@ -104,7 +104,7 @@ Fonctionnalité: Consultation d'une demande d'habilitation
     Et que je clique sur "Consulter"
     Alors il y a un titre contenant "API Entreprise"
     Et il y a un formulaire en mode résumé
-    Et la page contient "vous avez été référencé comme contact technique."
+    Et la page contient "Vous avez été référencé comme contact technique."
 
   Scénario: Je consulte la dernière habilitation validée dont la demande a été réouverte
     Quand j'ai 1 demande d'habilitation "API Entreprise" réouverte

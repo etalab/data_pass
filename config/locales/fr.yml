@@ -448,7 +448,7 @@ fr:
 
   demandes_habilitations:
     current_user_mentions_alert:
-      text: vous avez été référencé comme %{contact_types}.
+      text: Vous avez été référencé comme %{contact_types}.
 
   authorization_request_forms:
     form_not_found: Le formulaire demandé n'existe pas
