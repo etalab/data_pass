@@ -1,10 +1,6 @@
 module AuthorizationRequestsFlashes
-  def success_message_for_authorization_request(authorization_request, key:)
-    message_for_authorization_request(authorization_request, key:, type: :success)
-  end
-
-  def success_message_for_building_authorization_request(authorization_request, key:)
-    message_for_authorization_request(authorization_request, key:, type: :success, tiny: true)
+  def success_message_for_authorization_request(authorization_request, key:, tiny: false)
+    message_for_authorization_request(authorization_request, key:, type: :success, tiny:)
   end
 
   def error_message_for_authorization_request(authorization_request, key:, include_model_errors: true)

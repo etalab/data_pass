@@ -100,7 +100,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     @authorization_request = organizer.authorization_request.decorate
 
     if organizer.success?
-      success_message_for_building_authorization_request(@authorization_request, key: 'authorization_request_forms.create') unless next_submit?
+      success_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.create', tiny: true) unless next_submit?
 
       redirect_to authorization_request_form_build_path(
         form_uid: @authorization_request.form_uid,
@@ -159,7 +159,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     @authorization_request = organizer.authorization_request.decorate
 
     if organizer.success?
-      success_message_for_building_authorization_request(@authorization_request, key: 'authorization_request_forms.create')
+      success_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.create', tiny: true)
 
       redirect_to authorization_request_form_path(form_uid: @authorization_request.form_uid, id: @authorization_request.id)
     else
@@ -205,7 +205,7 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
     @authorization_request = organizer.authorization_request
 
     if organizer.success?
-      success_message_for_building_authorization_request(@authorization_request, key: 'authorization_request_forms.update')
+      success_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.update', tiny: true)
 
       redirect_to authorization_request_form_path(form_uid: @authorization_request.form_uid, id: @authorization_request.id)
     else
