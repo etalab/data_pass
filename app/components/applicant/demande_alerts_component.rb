@@ -1,6 +1,11 @@
 class Applicant::DemandeAlertsComponent < ApplicationComponent
   include Rails.application.routes.url_helpers
 
+  NOTICE_FULL_WIDTH_CLASSES = 'fr-notice--full-width fr-notice--multi-lines fr-mb-4w'.freeze
+  NOTICE_FULL_WIDTH_SINGLE_LINE_CLASSES = 'fr-notice--full-width fr-mb-4w'.freeze
+  NOTICE_STANDARD_CLASSES = 'fr-mb-4w fr-px-4v'.freeze
+  ALERT_CLASSES = 'fr-mb-4w'.freeze
+
   def initialize(authorization_request:, current_user:, authorization: nil)
     @authorization_request = authorization_request
     @current_user = current_user
@@ -37,7 +42,7 @@ class Applicant::DemandeAlertsComponent < ApplicationComponent
       title: I18n.t('authorization_request_forms.summary.title'),
       description: I18n.t('authorization_request_forms.summary.description'),
       type: 'warning',
-      html_attributes: { class: 'fr-mb-4w fr-px-4v' }
+      html_attributes: { class: NOTICE_STANDARD_CLASSES }
     )
   end
 
@@ -57,7 +62,7 @@ class Applicant::DemandeAlertsComponent < ApplicationComponent
       title: instructor_banner_title,
       description: instructor_banner_full_description,
       type: instructor_banner_type.to_s,
-      html_attributes: { class: 'fr-notice--full-width fr-notice--multi-lines fr-mb-4w' }
+      html_attributes: { class: NOTICE_FULL_WIDTH_CLASSES }
     )
   end
 
@@ -91,10 +96,10 @@ class Applicant::DemandeAlertsComponent < ApplicationComponent
     description = instructor_banner_description
     return description if instructor_banner_reason.blank?
 
-    helpers.safe_join([
+    safe_join([
       description,
-      '<br />'.html_safe,
-      instructor_banner_reason.gsub("\n", '<br />').html_safe
+      tag.br,
+      helpers.simple_format(instructor_banner_reason, {}, wrapper_tag: 'span')
     ])
   end
 
@@ -115,7 +120,7 @@ class Applicant::DemandeAlertsComponent < ApplicationComponent
     helpers.dsfr_alert(
       type: :warning,
       title: I18n.t('authorization_requests.show.dirty_from_v1.title'),
-      html_attributes: { class: 'fr-mb-4w' }
+      html_attributes: { class: ALERT_CLASSES }
     ) { I18n.t('authorization_requests.show.dirty_from_v1.description') }
   end
 
@@ -130,7 +135,7 @@ class Applicant::DemandeAlertsComponent < ApplicationComponent
       title: I18n.t('authorization_request_forms.summary.reopening_alerts.update_in_progress.title'),
       description: update_in_progress_message,
       type: 'info',
-      html_attributes: { class: 'fr-notice--full-width fr-notice--multi-lines fr-mb-4w' }
+      html_attributes: { class: NOTICE_FULL_WIDTH_CLASSES }
     )
   end
 
@@ -149,7 +154,7 @@ class Applicant::DemandeAlertsComponent < ApplicationComponent
       title: I18n.t('authorization_request_forms.summary.reopening_alerts.old_version.title'),
       description: old_version_message,
       type: 'warning',
-      html_attributes: { class: 'fr-notice--full-width fr-mb-4w' }
+      html_attributes: { class: NOTICE_FULL_WIDTH_SINGLE_LINE_CLASSES }
     )
   end
 
