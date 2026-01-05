@@ -203,7 +203,7 @@ data = [
     "slug": "api-registre-des-beneficiaires-effectifs-rbe",
     "access_url": "https://api.gouv.fr/les-api/api-rbe/demande-acces",
     "url": "https://www.data.gouv.fr/dataservices/api-registre-des-beneficiaires-effectifs-rbe/",
-    "new_datapass_access_url": "mailto:rbe@inpi.fr",
+    "new_datapass_access_url": "https://api.gouv.fr/resources/formulaire_rbe.pdf",
     "organization_name": "Institut national de la propriété industrielle (INPI)"
   },
   {
