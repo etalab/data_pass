@@ -146,7 +146,7 @@ api-entreprise-identification-entreprise-open-data:
   initialize_with:
     intitule: "Données accessibles sans cas d'usage spécifique"
     description: "Données des répertoires Sirene, RNE, y compris celles des unités en diffusion partielle, données associations du RNA, y compris les DAC ; actes et bilans de l'Inpi, certifications RGE, Qualifelec, Qualibat et carte FNTP."
-    cadre_juridique_nature: "Cette habilitation ne donne accès qu'à des données publiques. Il n'y a pas de cadre juridique spécifique."
+    cadre_juridique_nature: "Cette habilitation **donne accès aux données publiques de l'API Entreprise, ainsi qu'à des données protégées accessibles à toute administration** ou assimilé. L'accès à l'API Entreprise est encadré par l'article L114-8 du Code des relations entre le public et l’administration. L'usage des données issues de l'API Entreprise doit respecter leur condition d'ouverture. Notamment, toutes les données protégées ne peuvent être utilisées que par un agent habilité ou après authentification de l'usager. ⚠️ Elles ne doivent en aucun cas être publiées."
     cadre_juridique_url: "Non concerné"
 
 api-entreprise-identification-entreprise:
