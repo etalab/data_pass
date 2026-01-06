@@ -116,7 +116,6 @@ api-entreprise-donnees-sans-cas-usage-specifique:
     <br />
     Les données accessibles via ce formulaire sont en open data, elles n'incluent pas les données des organisations en diffusion partielle du répertoire Sirene. Étant publiques, ces données peuvent être utilisées pour une démarche en libre accès, sans authentification de l'usager.
     <br />
-    Si vous souhaitez obtenir un accès aux données des organisations en diffusion partielle, veuillez choisir le formulaire "Identification d'une entreprise/association, y compris en diffusion partielle". Les données obtenues ne peuvent être utilisées sans authentification de l'usager.
   authorization_request: "APIEntreprise"
   steps:
     - name: "basic_infos"
