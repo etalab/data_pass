@@ -14,7 +14,7 @@ api_mobilic:
     - name: "scopes"
     - name: "contacts"
   scopes:
-    - name: "J’envoie les données d’enregistrement d’une mission"
+    - name: "J’envoie les données d’enregistrement d’une mission - workflow disponible ici :"
       value: "donnees_enregistrement_mission"
       group: "J'envoie des données à Mobilic"
       link: "https://developers.mobilic.beta.gouv.fr/workflow-a-respecter"
