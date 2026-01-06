@@ -107,7 +107,7 @@ api-entreprise-subventions-associations:
       - liens_capitalistiques_dgfip
 
 api-entreprise-donnees-sans-cas-usage-specifique:
-  name: "Identification d'une entreprise/association - Données en open data"
+  name: "Données accessibles sans cas d'usage spécifique"
   description: "Récupérer les données publiques d'immatriculation des entreprises et des associations pour vous assurer de leur existence légale et simplifier leurs démarches"
   use_case: "identification_entreprise"
   introduction: |
