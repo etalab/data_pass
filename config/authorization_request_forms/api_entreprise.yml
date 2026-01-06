@@ -152,8 +152,7 @@ api-entreprise-donnees-sans-cas-usage-specifique:
       - Données associations du RNA, y compris les données protégées des documents administratifs complémentaires (DAC) ;
       - Données publiques : actes et bilans de l'Inpi, certifications RGE, Qualifelec, Qualibat et carte professionnelle de travaux public de la FNTP.
       <br />
-      L'usage des données issues de l'API Entreprise doit respecter leur condition d'ouverture :
-      ⚠️ **Notamment, les données protégées ne peuvent être utilisées que par un agent habilité ou après authentification de l'usager. Elles ne doivent en aucun cas être publiées**.
+      ⚠️ L'usage des données issues de l'API Entreprise doit respecter leur condition d'ouverture. Notamment, les données protégées ne peuvent être utilisées que par un agent habilité ou après authentification de l'usager. Elles ne doivent en aucun cas être publiées.
     cadre_juridique_nature: "Cette habilitation **donne accès aux données publiques de l'API Entreprise, ainsi qu'à des données protégées accessibles à toute administration** ou assimilé. L'accès à l'API Entreprise est encadré par l'article L114-8 du Code des relations entre le public et l’administration."
     cadre_juridique_url: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000045213315"
     scopes:
