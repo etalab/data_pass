@@ -125,7 +125,7 @@ api-entreprise-donnees-sans-cas-usage-specifique:
     disabled:
       - unites_legales_etablissements_insee
       - associations_djepva
-    hide:
+    disabled:
       - data_subvention_subventions
       - effectifs_urssaf
       - mandataires_sociaux_infogreffe
