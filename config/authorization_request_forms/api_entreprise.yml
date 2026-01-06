@@ -115,7 +115,6 @@ api-entreprise-donnees-sans-cas-usage-specifique:
     <br />
     <br />
     Les données accessibles via ce formulaire sont partiellement publiques et partiellement protégées car elles incluent les données des organisations en diffusion partielle du répertoire Sirene et RNE ainsi que les documents administratifs complémentaires des associations. ⚠️ Les données protégées récupérées via l'API Entreprise ne doivent être utilisées que par un agent habilité ou après authentification de l'usager.
-    <br />
   authorization_request: "APIEntreprise"
   steps:
     - name: "basic_infos"
