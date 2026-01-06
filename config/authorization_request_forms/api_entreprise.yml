@@ -144,7 +144,7 @@ api-entreprise-identification-entreprise-open-data:
   static_blocks:
     - name: "scopes"
   initialize_with:
-    intitule: "Identification d'une entreprise/association - Open data"
+    intitule: "Données accessibles sans cas d'usage spécifique"
     description: "Accès aux données ouvertes d'immatriculation d'une entreprise ou d'une association pour vérifier son existence ou pré-remplir ses démarches."
     cadre_juridique_nature: "Cette habilitation ne donne accès qu'à des données publiques. Il n'y a pas de cadre juridique spécifique."
     cadre_juridique_url: "Non concerné"
