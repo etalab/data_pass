@@ -111,7 +111,7 @@ api-entreprise-donnees-sans-cas-usage-specifique:
   description: "Accéder aux données accessibles à toute administration ou assimilé : Données des répertoires Sirene, RNE, y compris celles des unités en diffusion partielle, des associations issues du RNA, y compris les DAC ; actes et bilans de l'Inpi, certifications RGE, Qualifelec, Qualibat et carte FNTP."
   use_case: "identification_entreprise"
   introduction: |
-    Ce formulaire permet aux acteurs publics de récupérer les données publiques d'identification d'une entreprise ou association pour vérifier son existence ou pour pré-remplir sa démarche.
+    Ce formulaire permet d'accéder aux API de l'API Entreprise distribuant des données publiques ou des données protégées accessibles à tout acteur public ou assimilé. Il s'agit notamment des données des répertoires Sirene et RNE, y compris celles des unités en diffusion partielle, ainsi que celles des associations issues du RNA ou des documents administratifs complémentaires (DAC).
     <br />
     <br />
     Les données accessibles via ce formulaire sont en open data, elles n'incluent pas les données des organisations en diffusion partielle du répertoire Sirene. Étant publiques, ces données peuvent être utilisées pour une démarche en libre accès, sans authentification de l'usager.
