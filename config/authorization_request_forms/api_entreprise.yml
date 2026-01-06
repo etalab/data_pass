@@ -114,7 +114,7 @@ api-entreprise-donnees-sans-cas-usage-specifique:
     Ce formulaire permet d'accéder aux API de l'API Entreprise distribuant des données publiques ou des données protégées accessibles à tout acteur public ou assimilé. Il s'agit notamment des données des répertoires Sirene et RNE, y compris celles des unités en diffusion partielle, ainsi que celles des associations issues du RNA ou des documents administratifs complémentaires (DAC).
     <br />
     <br />
-    Les données accessibles via ce formulaire sont partiellement publiques et partiellement protégées car elles incluent les données des organisations en diffusion partielle du répertoire Sirene et RNE ainsi que les documents administratifs complémentaires des associations. ⚠️ Les données protégées récupérées via l'API Entreprise ne doivent être utilisées que par un agent habilité ou après authentification de l'usager.
+    Les données accessibles via ce formulaire sont partiellement publiques et partiellement protégées. ⚠️ Les données protégées récupérées via l'API Entreprise ne doivent être utilisées que par un agent habilité ou après authentification de l'usager. Elles ne doivent pas être diffusées.
   authorization_request: "APIEntreprise"
   steps:
     - name: "basic_infos"
