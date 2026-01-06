@@ -1260,225 +1260,245 @@ FactoryBot.define do
       with_cadre_juridique
       with_scopes
     end
-  end
 
-  trait :api_r2p_sandbox do
-    type { 'AuthorizationRequest::APIR2PSandbox' }
+    trait :api_r2p_sandbox do
+      type { 'AuthorizationRequest::APIR2PSandbox' }
 
-    form_uid { 'api-r2p-sandbox' }
+      form_uid { 'api-r2p-sandbox' }
 
-    with_basic_infos
-    with_personal_data
-    with_cadre_juridique
-    with_modalities
-  end
-
-  trait :api_r2p_production do
-    type { 'AuthorizationRequest::APIR2P' }
-
-    form_uid { 'api-r2p-production' }
-
-    has_previous_authorization_validated
-
-    with_basic_infos
-    with_personal_data
-    with_cadre_juridique
-    with_modalities
-    with_safety_certification
-    with_operational_acceptance
-    with_volumetrie
-  end
-
-  trait :api_r2p_ordonnateur_sandbox do
-    api_r2p_sandbox
-    form_uid { 'api-r2p-ordonnateur-sandbox' }
-  end
-
-  trait :api_r2p_ordonnateur_production do
-    api_r2p_production
-    form_uid { 'api-r2p-ordonnateur-production' }
-  end
-
-  trait :api_r2p_appel_spi_sandbox do
-    api_r2p_sandbox
-    form_uid { 'api-r2p-appel-spi-sandbox' }
-  end
-
-  trait :api_r2p_appel_spi_production do
-    api_r2p_production
-    form_uid { 'api-r2p-appel-spi-production' }
-  end
-
-  trait :api_r2p_ordonnateur_production_editeur do
-    api_r2p_production
-    form_uid { 'api-r2p-ordonnateur-production-editeur' }
-  end
-
-  trait :api_r2p_appel_spi_production_editeur do
-    api_r2p_production
-    form_uid { 'api-r2p-appel-spi-production-editeur' }
-  end
-
-  trait :api_r2p_production_editeur do
-    api_r2p_production
-    form_uid { 'api-r2p-production-editeur' }
-  end
-
-  trait :api_sfip_r2p_sandbox do
-    type { 'AuthorizationRequest::APISFiPR2PSandbox' }
-
-    form_uid { 'api-sfip-r2p-sandbox' }
-
-    with_basic_infos
-    with_personal_data
-    with_cadre_juridique
-    with_modalities
-  end
-
-  trait :api_sfip_r2p_production do
-    type { 'AuthorizationRequest::APISFiPR2P' }
-
-    form_uid { 'api-sfip-r2p-production' }
-
-    has_previous_authorization_validated
-
-    with_basic_infos
-    with_personal_data
-    with_cadre_juridique
-    with_modalities
-    with_safety_certification
-    with_operational_acceptance
-    with_volumetrie
-  end
-
-  trait :api_sfip_r2p_ordonnateur_sandbox do
-    api_sfip_r2p_sandbox
-    form_uid { 'api-sfip-r2p-ordonnateur-sandbox' }
-  end
-
-  trait :api_sfip_r2p_ordonnateur_production do
-    api_sfip_r2p_production
-    form_uid { 'api-sfip-r2p-ordonnateur-production' }
-  end
-
-  trait :api_sfip_r2p_appel_spi_sandbox do
-    api_sfip_r2p_sandbox
-    form_uid { 'api-sfip-r2p-appel-spi-sandbox' }
-  end
-
-  trait :api_sfip_r2p_appel_spi_production do
-    api_sfip_r2p_production
-    form_uid { 'api-sfip-r2p-appel-spi-production' }
-  end
-
-  trait :api_sfip_r2p_ordonnateur_production_editeur do
-    api_sfip_r2p_production
-    form_uid { 'api-sfip-r2p-ordonnateur-production-editeur' }
-  end
-
-  trait :api_sfip_r2p_appel_spi_production_editeur do
-    api_sfip_r2p_production
-    form_uid { 'api-sfip-r2p-appel-spi-production-editeur' }
-  end
-
-  trait :api_sfip_r2p_production_editeur do
-    api_sfip_r2p_production
-    form_uid { 'api-sfip-r2p-production-editeur' }
-  end
-
-  trait :pro_connect_service_provider do
-    type { 'AuthorizationRequest::ProConnectServiceProvider' }
-
-    form_uid { 'pro-connect-fs' }
-
-    with_basic_infos
-    with_personal_data
-    with_cadre_juridique
-    with_modalities
-    with_scopes
-  end
-
-  trait :pro_connect_fs do
-    pro_connect_service_provider
-  end
-
-  trait :pro_connect_identity_provider do
-    pro_connect_service_provider
-
-    type { 'AuthorizationRequest::ProConnectIdentityProvider' }
-    form_uid { 'pro-connect-fi' }
-  end
-
-  trait :pro_connect_fi do
-    pro_connect_identity_provider
-  end
-
-  trait :api_ingres do
-    type { 'AuthorizationRequest::APIIngres' }
-
-    form_uid { 'api-ingres' }
-
-    with_basic_infos
-    with_personal_data
-    with_cadre_juridique
-  end
-
-  trait :le_taxi do
-    type { 'AuthorizationRequest::LeTaxi' }
-
-    form_uid { 'le-taxi' }
-
-    with_basic_infos
-    with_technical_team
-    with_personal_data
-  end
-
-  %w[
-    le-taxi-chauffeur
-    le-taxi-client
-    le-taxi-client-chauffeur
-  ].each do |form_uid|
-    trait form_uid.tr('-', '_') do
-      le_taxi
-      form_uid { form_uid }
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+      with_modalities
     end
-  end
 
-  trait :api_mobilic do
-    type { 'AuthorizationRequest::APIMobilic' }
+    trait :api_r2p_production do
+      type { 'AuthorizationRequest::APIR2P' }
 
-    form_uid { 'api-mobilic' }
+      form_uid { 'api-r2p-production' }
 
-    nombre_utilisateurs_finaux_approximatif { 1 }
+      has_previous_authorization_validated
 
-    with_basic_infos
-    with_personal_data
-    with_scopes
-  end
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+      with_modalities
+      with_safety_certification
+      with_operational_acceptance
+      with_volumetrie
+    end
 
-  trait :aides_etat do
-    type { 'AuthorizationRequest::AidesEtat' }
+    trait :api_r2p_ordonnateur_sandbox do
+      api_r2p_sandbox
+      form_uid { 'api-r2p-ordonnateur-sandbox' }
+    end
 
-    form_uid { 'aides-etat' }
-  end
+    trait :api_r2p_ordonnateur_production do
+      api_r2p_production
+      form_uid { 'api-r2p-ordonnateur-production' }
+    end
 
-  trait :services_cisirh do
-    type { 'AuthorizationRequest::ServicesCisirh' }
+    trait :api_r2p_appel_spi_sandbox do
+      api_r2p_sandbox
+      form_uid { 'api-r2p-appel-spi-sandbox' }
+    end
 
-    form_uid { 'services-cisirh' }
+    trait :api_r2p_appel_spi_production do
+      api_r2p_production
+      form_uid { 'api-r2p-appel-spi-production' }
+    end
 
-    with_basic_infos
-    with_scopes
-  end
+    trait :api_r2p_ordonnateur_production_editeur do
+      api_r2p_production
+      form_uid { 'api-r2p-ordonnateur-production-editeur' }
+    end
 
-  trait :api_indicateurs_sociaux do
-    type { 'AuthorizationRequest::APIIndicateursSociaux' }
+    trait :api_r2p_appel_spi_production_editeur do
+      api_r2p_production
+      form_uid { 'api-r2p-appel-spi-production-editeur' }
+    end
 
-    form_uid { 'api-indicateurs-sociaux' }
+    trait :api_r2p_production_editeur do
+      api_r2p_production
+      form_uid { 'api-r2p-production-editeur' }
+    end
 
-    with_basic_infos
-    with_personal_data
-    with_cadre_juridique
-    with_scopes
+    trait :api_sfip_r2p_sandbox do
+      type { 'AuthorizationRequest::APISFiPR2PSandbox' }
+
+      form_uid { 'api-sfip-r2p-sandbox' }
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+      with_modalities
+    end
+
+    trait :api_sfip_r2p_production do
+      type { 'AuthorizationRequest::APISFiPR2P' }
+
+      form_uid { 'api-sfip-r2p-production' }
+
+      has_previous_authorization_validated
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+      with_modalities
+      with_safety_certification
+      with_operational_acceptance
+      with_volumetrie
+    end
+
+    trait :api_sfip_r2p_ordonnateur_sandbox do
+      api_sfip_r2p_sandbox
+      form_uid { 'api-sfip-r2p-ordonnateur-sandbox' }
+    end
+
+    trait :api_sfip_r2p_ordonnateur_production do
+      api_sfip_r2p_production
+      form_uid { 'api-sfip-r2p-ordonnateur-production' }
+    end
+
+    trait :api_sfip_r2p_appel_spi_sandbox do
+      api_sfip_r2p_sandbox
+      form_uid { 'api-sfip-r2p-appel-spi-sandbox' }
+    end
+
+    trait :api_sfip_r2p_appel_spi_production do
+      api_sfip_r2p_production
+      form_uid { 'api-sfip-r2p-appel-spi-production' }
+    end
+
+    trait :api_sfip_r2p_ordonnateur_production_editeur do
+      api_sfip_r2p_production
+      form_uid { 'api-sfip-r2p-ordonnateur-production-editeur' }
+    end
+
+    trait :api_sfip_r2p_appel_spi_production_editeur do
+      api_sfip_r2p_production
+      form_uid { 'api-sfip-r2p-appel-spi-production-editeur' }
+    end
+
+    trait :api_sfip_r2p_production_editeur do
+      api_sfip_r2p_production
+      form_uid { 'api-sfip-r2p-production-editeur' }
+    end
+
+    trait :pro_connect_service_provider do
+      type { 'AuthorizationRequest::ProConnectServiceProvider' }
+
+      form_uid { 'pro-connect-fs' }
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+      with_modalities
+      with_scopes
+    end
+
+    trait :pro_connect_fs do
+      pro_connect_service_provider
+    end
+
+    trait :pro_connect_identity_provider do
+      pro_connect_service_provider
+
+      type { 'AuthorizationRequest::ProConnectIdentityProvider' }
+      form_uid { 'pro-connect-fi' }
+    end
+
+    trait :pro_connect_fi do
+      pro_connect_identity_provider
+    end
+
+    trait :api_ingres do
+      type { 'AuthorizationRequest::APIIngres' }
+
+      form_uid { 'api-ingres' }
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+    end
+
+    trait :le_taxi do
+      type { 'AuthorizationRequest::LeTaxi' }
+
+      form_uid { 'le-taxi' }
+
+      with_basic_infos
+      with_technical_team
+      with_personal_data
+    end
+
+    %w[
+      le-taxi-chauffeur
+      le-taxi-client
+      le-taxi-client-chauffeur
+    ].each do |form_uid|
+      trait form_uid.tr('-', '_') do
+        le_taxi
+        form_uid { form_uid }
+      end
+    end
+
+    trait :api_mobilic do
+      type { 'AuthorizationRequest::APIMobilic' }
+
+      form_uid { 'api-mobilic' }
+
+      nombre_utilisateurs_finaux_approximatif { 1 }
+
+      with_basic_infos
+      with_personal_data
+      with_scopes
+    end
+
+    trait :aides_etat do
+      type { 'AuthorizationRequest::AidesEtat' }
+
+      form_uid { 'aides-etat' }
+    end
+
+    trait :services_cisirh do
+      type { 'AuthorizationRequest::ServicesCisirh' }
+
+      form_uid { 'services-cisirh' }
+
+      with_basic_infos
+      with_scopes
+    end
+
+    trait :api_indicateurs_sociaux do
+      type { 'AuthorizationRequest::APIIndicateursSociaux' }
+
+      form_uid { 'api-indicateurs-sociaux' }
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+      with_scopes
+    end
+
+    trait :api_gfe_echange_collectivites do
+      type { 'AuthorizationRequest::APIGFEEchangeCollectivites' }
+
+      form_uid { 'api-gfe-echange-collectivites' }
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+    end
+
+    trait :api_gfe_echange_editeurs_restauration do
+      type { 'AuthorizationRequest::APIGFEEchangeEditeursRestauration' }
+
+      form_uid { 'api-gfe-echange-editeurs-restauration' }
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+    end
   end
 end

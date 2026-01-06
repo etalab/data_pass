@@ -64,7 +64,7 @@
         <% items.decorate.each do |authorization_request| %>
           <tr id="<%= dom_id(authorization_request) %>" class="authorization-request clickable-row" data-action="click->clickable-rows#visit" data-href="<%= instruction_authorization_request_path(authorization_request) %>">
             <td class="authorization-request-id">
-              <%= link_to authorization_request.id, instruction_authorization_request_path(authorization_request) %>
+              <%= link_to authorization_request.formatted_id, instruction_authorization_request_path(authorization_request) %>
             </td>
             <td class="authorization-request-state">
               <span class="fr-badge-group">

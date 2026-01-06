@@ -12,7 +12,7 @@
           </p>
 
           <p>
-            <%= t('.transfer_instructions', authorization_request_id: content_tag(:strong, @authorization_request.id)).html_safe %>
+            <%= t('.transfer_instructions', authorization_request_id: content_tag(:strong, @authorization_request.formatted_id)).html_safe %>
           </p>
 
           <div class="fr-callout fr-callout--brown-caramel">
@@ -25,7 +25,7 @@
             <%= t('.contact_support') %>
               <%= mail_to @authorization_request.definition.support_email,
                           @authorization_request.definition.support_email,
-                          subject: t('.email_subject', authorization_request_id: @authorization_request.id),
+                          subject: t('.email_subject', authorization_request_id: @authorization_request.formatted_id),
                           class: "fr-link fr-link--icon-right fr-icon-mail-line" %>
             </p>
         </div>

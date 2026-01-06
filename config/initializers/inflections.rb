@@ -36,6 +36,8 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.acronym 'CNAM'
 
   inflect.acronym 'PISTE'
+  inflect.acronym 'GFE'
+  inflect.acronym 'APIM'
 end
 
 class String
@@ -47,6 +49,10 @@ class String
       'APIENSUDocuments' => 'APIENSUDocuments',
       'annuaire_des_entreprises' => 'AnnuaireDesEntreprises',
       'AnnuaireDesEntreprises' => 'AnnuaireDesEntreprises',
+      'api_gfe_echange_collectivites' => 'APIGFEEchangeCollectivites',
+      'APIGFEEchangeCollectivites' => 'APIGFEEchangeCollectivites',
+      'api_gfe_echange_editeurs_restauration' => 'APIGFEEchangeEditeursRestauration',
+      'APIGFEEchangeEditeursRestauration' => 'APIGFEEchangeEditeursRestauration'
     }
 
     return custom_classifications[self] if custom_classifications.key?(self)

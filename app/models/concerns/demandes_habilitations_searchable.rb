@@ -28,8 +28,9 @@ module DemandesHabilitationsSearchable
     def self.search_by_query(query)
       return all if query.blank?
 
-      if query.match?(/^\d+$/)
-        where(id: query.to_i)
+      extracted_id = extract_id_from_query(query)
+      if extracted_id
+        where(id: extracted_id)
       else
         ransack(
           within_data_cont: query,
@@ -39,6 +40,13 @@ module DemandesHabilitationsSearchable
           applicant_given_name_cont: query
         ).result
       end
+    end
+
+    def self.extract_id_from_query(query)
+      return query.to_i if query.match?(/^\d+$/)
+
+      match = query.match(/^[DH](\d+)$/i)
+      match[1].to_i if match
     end
   end
 

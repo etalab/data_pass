@@ -15,10 +15,10 @@
 
         <div class="card__badge">
           <span class="fr-badge">
-            <%= t("authorization.badge", id: authorization.id) %>
+            <%= t("authorization.badge", formatted_id: authorization.formatted_id) %>
           </span>
 
-          <div class="flex-wrap flew-grow flex-end__content fr-grid-row--top fr-col--xs">
+          <div class="fr-badge-group card__other_badges">
             <%= authorization.request_as_validated(load_documents: false).decorate.stage_badge %>
             <%= authorization.status_badge %>
           </div>

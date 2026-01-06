@@ -40,6 +40,10 @@ class Authorization < ApplicationRecord
 
   delegate :name, :kind, to: :request
 
+  def formatted_id
+    "H#{id}"
+  end
+
   before_create do
     self[:authorization_request_class] ||= request.type
   end
@@ -73,6 +77,10 @@ class Authorization < ApplicationRecord
       state
       user_relationship_eq
     ]
+  end
+
+  def self.find(id)
+    super(id.to_s.sub(/\AH/i, ''))
   end
 
   def self.ransackable_associations(_auth_object = nil)

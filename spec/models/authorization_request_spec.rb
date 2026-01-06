@@ -1,4 +1,52 @@
 RSpec.describe AuthorizationRequest do
+  describe '#formatted_id' do
+    subject { authorization_request.formatted_id }
+
+    let(:authorization_request) { create(:authorization_request, :api_entreprise) }
+
+    it { is_expected.to eq("D#{authorization_request.id}") }
+  end
+
+  describe '.find' do
+    let!(:authorization_request) { create(:authorization_request, :api_entreprise) }
+
+    it 'finds by numeric ID' do
+      expect(described_class.find(authorization_request.id)).to eq(authorization_request)
+    end
+
+    it 'finds by prefixed ID (D123)' do
+      expect(described_class.find("D#{authorization_request.id}")).to eq(authorization_request)
+    end
+
+    it 'finds by lowercase prefixed ID (d123)' do
+      expect(described_class.find("d#{authorization_request.id}")).to eq(authorization_request)
+    end
+  end
+
+  describe '.search_by_query' do
+    subject { described_class.search_by_query(query) }
+
+    let!(:authorization_request) { create(:authorization_request, :api_entreprise) }
+
+    context 'with a numeric ID' do
+      let(:query) { authorization_request.id.to_s }
+
+      it { is_expected.to include(authorization_request) }
+    end
+
+    context 'with a prefixed ID (D123)' do
+      let(:query) { "D#{authorization_request.id}" }
+
+      it { is_expected.to include(authorization_request) }
+    end
+
+    context 'with a lowercase prefixed ID (d123)' do
+      let(:query) { "d#{authorization_request.id}" }
+
+      it { is_expected.to include(authorization_request) }
+    end
+  end
+
   describe 'factories' do
     it 'saves the authorization request with state submitted and then changes it to draft' do
       authorization_request = build(:authorization_request, :api_entreprise, state: 'submitted')

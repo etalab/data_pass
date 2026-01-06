@@ -28,7 +28,7 @@
 
               <div data-controller="message-template-selector"
                    data-message-template-selector-templates-value="<%= @message_templates.map { |t| { id: t.id, content: t.content } }.to_json %>"
-                   data-message-template-selector-authorization-request-data-value="<%= { demande_url: authorization_request_url(@authorization_request), demande_intitule: @authorization_request.intitule, demande_id: @authorization_request.id }.to_json %>">
+                   data-message-template-selector-authorization-request-data-value="<%= { demande_url: authorization_request_url(@authorization_request), demande_intitule: @authorization_request.intitule, demande_id: @authorization_request.formatted_id }.to_json %>">
                 <% if @message_templates.any? %>
                   <div class="fr-mb-2w">
                     <ul class="fr-tabs__list messages-templates-selector" role="tablist">

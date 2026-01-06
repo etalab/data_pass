@@ -12,6 +12,7 @@ class WebhookAuthorizationRequestSerializer < ApplicationSerializer
   has_one :organization, serializer: WebhookOrganizationSerializer
   has_one :applicant, serializer: WebhookUserSerializer
   has_one :service_provider, serializer: WebhookServiceProviderSerializer
+  has_many :authorizations, serializer: WebhookAuthorizationSerializer
 
   def data
     object.data.keys.index_with { |key|

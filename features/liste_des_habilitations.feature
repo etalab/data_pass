@@ -14,7 +14,7 @@ Fonctionnalité: Liste des habilitations
     Et la page contient "API Entreprise"
     Et la page contient "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
     Et la page contient "Démarches du bouquet de services (service-public.fr)"
-    Et la page contient "API scolarité de l'élève"
+    Et la page contient "API scolarité de l’élève"
 
   Scénario: Je démarre une nouvelle demande d'habilitation
     Quand je vais sur la page des demandes
@@ -25,11 +25,11 @@ Fonctionnalité: Liste des habilitations
 
   Scénario: Je démarre une nouvelle demande d'habilitation
     Quand je vais sur la page des demandes
-    Et que je clique sur "Remplir une demande" pour l'habilitation "API scolarité de l'élève"
+    Et que je clique sur "Remplir une demande" pour l'habilitation "API scolarité de l’élève"
     Et que je clique sur "Débuter ma demande"
-    Alors il y a un titre contenant "API scolarité de l'élève"
+    Alors il y a un titre contenant "API scolarité de l’élève"
     Et il y a un bouton "Suivant"
-    
+
   Scénario: Je démarre une nouvelle demande d'habilitation dont j'ai déjà un exemplaire refusé
     Quand j'ai 1 demande d'habilitation "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)" refusée
     Quand je vais sur la page des demandes

@@ -1,0 +1,10 @@
+api-gfe-echange-editeurs-restauration:
+  description: TODO
+  introduction: |
+    Ceci est une introduction à remplir
+  authorization_request: APIGFEEchangeEditeursRestauration
+  steps:
+    - name: basic_infos
+    - name: personal_data
+    - name: legal
+    - name: contacts
