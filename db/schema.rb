@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_05_121107) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_06_171655) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_catalog.plpgsql"
@@ -438,7 +438,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_05_121107) do
     t.datetime "updated_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
     t.bigint "user_id"
     t.boolean "verified", default: true, null: false
-    t.string "verified_reason", default: "from ProConnect identity", null: false
+    t.string "verified_reason"
     t.index ["organization_id", "user_id"], name: "index_organizations_users_on_organization_id_and_user_id", unique: true
     t.index ["organization_id"], name: "index_organizations_users_on_organization_id"
     t.index ["user_id", "current"], name: "index_organizations_users_on_user_id_and_current", where: "(current = true)"
