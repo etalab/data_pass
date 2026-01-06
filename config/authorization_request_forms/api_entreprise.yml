@@ -145,7 +145,7 @@ api-entreprise-identification-entreprise-open-data:
     - name: "scopes"
   initialize_with:
     intitule: "Données accessibles sans cas d'usage spécifique"
-    description: "Accès aux données ouvertes d'immatriculation d'une entreprise ou d'une association pour vérifier son existence ou pré-remplir ses démarches."
+    description: "Données des répertoires Sirene, RNE, y compris celles des unités en diffusion partielle, données associations du RNA, y compris les DAC ; actes et bilans de l'Inpi, certifications RGE, Qualifelec, Qualibat et carte FNTP."
     cadre_juridique_nature: "Cette habilitation ne donne accès qu'à des données publiques. Il n'y a pas de cadre juridique spécifique."
     cadre_juridique_url: "Non concerné"
 
