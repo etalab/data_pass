@@ -122,7 +122,6 @@ api-entreprise-donnees-sans-cas-usage-specifique:
     - name: "scopes"
     - name: "contacts"
   scopes_config:
-      - associations_djepva
     disabled:
       - data_subvention_subventions
       - effectifs_urssaf
