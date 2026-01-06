@@ -1,12 +1,14 @@
 <% set_title! t('authorization_requests.new.api_infinoe.page_title', authorization_name: @facade.authorization_definition_name) %>
 
 <div class="sub-header">
-  <h1>
-    <%= t(
-          "authorization_requests.new.default.title",
-          authorization_name: @facade.authorization_definition_name,
-        ) %>
-  </h1>
+  <div class="sub-header-content">
+    <h1>
+      <%= t(
+            "authorization_requests.new.default.title",
+            authorization_name: @facade.authorization_definition_name,
+          ) %>
+    </h1>
+  </div>
 </div>
 
 <%= render partial: "authorization_requests/new/shared/with_or_without_editor_options_use_case", locals: { use_case_type: "authorization_requests.new.step3.use_case_intro_without_use_case_url_html", form_name: @facade.authorization_definition.id, base_url: "https://www.data.gouv.fr/fr/dataservices/" } %>
