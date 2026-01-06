@@ -1,12 +1,14 @@
 <% set_title! t('authorization_requests.new.api_droits_cnam.page_title', authorization_name: @facade.authorization_definition_name) %>
 
 <div class="sub-header">
-  <h1>
-    <%= t(
-      "authorization_requests.new.default.title",
-      authorization_name: @facade.authorization_definition_name,
-    ) %>
-  </h1>
+  <div class="sub-header-content">
+    <h1>
+      <%= t(
+        "authorization_requests.new.default.title",
+        authorization_name: @facade.authorization_definition_name,
+      ) %>
+    </h1>
+  </div>
 </div>
 
 <% france_connect_authorizations = current_organization.valid_authorizations_of(AuthorizationRequest::FranceConnect).map(&:decorate) %>

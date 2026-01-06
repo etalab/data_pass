@@ -1,12 +1,14 @@
 <% set_title! t('authorization_requests.new.step1.page_title', authorization_name: @facade.authorization_definition_name) %>
 
 <div class="sub-header">
-  <h1>
-    <%= t(
-      "authorization_requests.new.default.title",
-      authorization_name: @facade.authorization_definition_name
-    ) %>
-  </h1>
+  <div class="sub-header-content">
+    <h1>
+      <%= t(
+        "authorization_requests.new.default.title",
+        authorization_name: @facade.authorization_definition_name
+      ) %>
+    </h1>
+  </div>
 </div>
 
 <h2 class="fr-h4"><%= t("authorization_requests.new.step1.title") %></h2>
