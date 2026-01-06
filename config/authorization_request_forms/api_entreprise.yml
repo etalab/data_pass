@@ -108,7 +108,7 @@ api-entreprise-subventions-associations:
 
 api-entreprise-donnees-sans-cas-usage-specifique:
   name: "Données accessibles sans cas d'usage spécifique"
-  description: "Récupérer les données publiques d'immatriculation des entreprises et des associations pour vous assurer de leur existence légale et simplifier leurs démarches"
+  description: "Accéder aux données accessibles à toute administration ou assimilé : Données des répertoires Sirene, RNE, y compris celles des unités en diffusion partielle, des associations issues du RNA, y compris les DAC ; actes et bilans de l'Inpi, certifications RGE, Qualifelec, Qualibat et carte FNTP."
   use_case: "identification_entreprise"
   introduction: |
     Ce formulaire permet aux acteurs publics de récupérer les données publiques d'identification d'une entreprise ou association pour vérifier son existence ou pour pré-remplir sa démarche.
