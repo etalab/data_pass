@@ -1598,7 +1598,6 @@ api-particulier-docaposte-fast:
   single_page_view: "api_particulier_through_editor_without_contact_technique"
   service_provider_id: docaposte
   static_blocks: &api_particulier_through_editor_static_blocks
-    - name: basic_infos
     - name: modalities
   initialize_with:
     intitule:
