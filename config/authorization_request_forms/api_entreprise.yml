@@ -160,6 +160,7 @@ api-entreprise-donnees-sans-cas-usage-specifique:
 
 api-entreprise-portail-gru-preremplissage:
   name: "Portail GRU - Préremplissage uniquement"
+  startable_by_applicant: false
   description: "Préremplir automatiquement les données opendata des entreprises & associations dans le front-office de votre portail GRU"
   use_case: "portail_gru_preremplissage"
   introduction: |
@@ -187,6 +188,7 @@ api-entreprise-portail-gru-preremplissage:
 
 api-entreprise-portail-gru-instruction:
   name: "Portail GRU - Pré-remplissage & instruction des démarches"
+  startable_by_applicant: false
   description: "Pré-remplir les informations opendata des entreprises & association et faciliter l'instruction des démarches sur les portails GRU"
   use_case: "portail_gru_instruction"
   introduction: |
