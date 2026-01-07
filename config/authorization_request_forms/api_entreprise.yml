@@ -121,8 +121,8 @@ api-entreprise-socle-de-base:
   description: | 
     Accéder aux données de base, utilisables par toute administration ou assimilé, pour mettre en oeuvre le principe du « Dites-le nous une fois ».
     <br/>
-    <i>Socle de base : Données des répertoires Sirene, RNA et RNE, actes et bilans de l'Inpi, numéros TVA et EORI ; certifications Bio, RGE, OPQIBI, Qualifelec, Qualibat et carte FNTP ; DAC et subventions des associations</i>"
-  use_case: "socle-de-base"
+    <i>Socle de base : Données des répertoires Sirene, RNA et RNE, actes et bilans de l'Inpi, numéros TVA et EORI ; certifications Bio, RGE, OPQIBI, Qualifelec, Qualibat et carte FNTP ; DAC et subventions des associations.</i>
+  use_case: "socle_de_base"
   introduction: |
     Ce formulaire permet d'accéder aux API de l'API Entreprise distribuant les <strong>données de base accessibles à tout acteur public ou assimilé pour satisfaire le principe du « Dites-le nous une fois »</strong> consacré par l'article L114-8 du Code des relations entre le public et l'administration.
     Les données accessibles via ce formulaire : 
