@@ -205,6 +205,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
     Et la page contient "Nous avons pré-rempli des informations pour vous aider"
 
     * je clique sur "Suivant"
+    * je clique sur "Suivant"
 
     * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
     * je clique sur "Suivant"
@@ -269,6 +270,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
+    * je clique sur "Suivant"
     * je clique sur "Suivant"
 
     * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
@@ -352,6 +354,8 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
+    * je clique sur "Suivant"
+
     * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
     * je clique sur "Suivant"
 
@@ -386,6 +390,8 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
  Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique déjà renseigné, sans cas d'usage
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
+
+    * je clique sur "Suivant"
 
     * je remplis "Précisez la nature et les références du texte vous autorisant à traiter les données" avec "Article 42"
     * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
@@ -447,6 +453,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
     Et la page contient "Nous avons pré-rempli des informations pour vous aider"
 
     * je clique sur "Suivant"
+    * je clique sur "Suivant"
 
     * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
     * je clique sur "Suivant"
@@ -476,6 +483,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
 
     Et la page contient "Nous avons pré-rempli des informations pour vous aider"
 
+    * je clique sur "Suivant"
     * je clique sur "Suivant"
 
     * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
@@ -509,6 +517,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
     Et la page contient "Nous avons pré-rempli des informations pour vous aider"
 
     * je clique sur "Suivant"
+    * je clique sur "Suivant"
 
     * je remplis "URL de la délibération tarifaire" avec "https://region.fr/deliberation-tarifaire.pdf"
     * je clique sur "Suivant"
@@ -537,6 +546,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
 
     Et la page contient "Nous avons pré-rempli des informations pour vous aider"
 
+    * je clique sur "Suivant"
     * je clique sur "Suivant"
 
     * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
@@ -570,6 +580,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
 
     Et la page contient "Nous avons pré-rempli des informations pour vous aider"
 
+    * je clique sur "Suivant"
     * je clique sur "Suivant"
 
     * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
@@ -624,6 +635,8 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
 Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique non renseigné et des scopes non modifiables pour un cas d'usage lié à la tarification dans les établissements d'accueil du jeune enfant
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
+
+    * je clique sur "Suivant"
 
     * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
     * je clique sur "Suivant"
