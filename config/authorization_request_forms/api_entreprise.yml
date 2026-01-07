@@ -108,15 +108,16 @@ api-entreprise-subventions-associations:
 
 api-entreprise-donnees-sans-cas-usage-specifique:
   name: "Données accessibles sans cas d'usage spécifique"
-  description: "Accéder aux données utilisables par toute administration ou assimilé : Données publiques des répertoires Sirene, RNA et RNE, actes et bilans de l'Inpi, certifications RGE, Qualifelec, Qualibat et carte FNTP. Données protégées des unités en diffusion partielle (Sirene et RNE) et subventions des associations."
+  description: "Accéder aux données utilisables par toute administration ou assimilé, pour satisfaire le principe du « Dites-le nous une fois », sans cas d'usage spécifique : Données des répertoires Sirene, RNA et RNE, actes et bilans de l'Inpi, certifications RGE, Qualifelec, Qualibat et carte FNTP ; subventions des associations."
   use_case: "identification_entreprise"
   introduction: |
-    Ce formulaire permet d'accéder aux API de l'API Entreprise distribuant des données publiques ou des données protégées accessibles à tout acteur public ou assimilé : 
+    Ce formulaire permet d'accéder à certaines API de l'API Entreprise distribuant des données accessibles à tout acteur public ou assimilé, sans cas d'usage spécifique, pour satisfaire le principe du « Dites-le nous une fois » consacré par l'article L114-8 du Code des relations entre le public et l'administration.
+    Ces données sont de natures différentes : 
     <br />
     - Données publiques : données des répertoires Sirene, RNE et RNA ; actes et bilans de l'Inpi ; certifications RGE, Qualifelec, Qualibat et carte professionnelle de travaux public de la FNTP. 
     - Données protégées : données des unités en diffusion partielle des répertoire RNE et RNA ; montant des subventions des associations.
     <br />
-    Les données accessibles via ce formulaire sont à la fois publiques et protégées. ⚠️ Les données protégées ne doivent être utilisées que par un agent habilité ou après authentification de l'usager. Elles ne doivent pas être diffusées.
+    ⚠️ Les données protégées doivent uniquement être utilisées par un agent habilité ou après authentification de l'usager. Elles ne doivent pas être diffusées en ligne ou à des tiers non-autorisés.
   authorization_request: "APIEntreprise"
   steps:
     - name: "scopes"
@@ -146,13 +147,14 @@ api-entreprise-donnees-sans-cas-usage-specifique:
   initialize_with:
     intitule: "Données accessibles sans cas d'usage spécifique"
     description: |
-      Accès aux API délivrant des données utilisables par toute administration ou assimilé : 
+      Accès à certaines API de l'API Entreprise distribuant des données accessibles à tout acteur public ou assimilé, sans cas d'usage spécifique, pour satisfaire le principe du « Dites-le nous une fois » consacré par l'article L114-8 du Code des relations entre le public et l'administration.
+      Ces données sont de natures différentes : 
       <br />
       - Données publiques : données des répertoires Sirene, RNE et RNA ; actes et bilans de l'Inpi ; certifications RGE, Qualifelec, Qualibat et carte professionnelle de travaux public de la FNTP. 
-      - Données protégées : données Sirene et RNE des unités en diffusion partielle ; montant des subventions des associations.
+      - Données protégées : données des unités en diffusion partielle des répertoire RNE et RNA ; montant des subventions des associations.
       <br />
-      ⚠️ L'usage des données issues de l'API Entreprise doit respecter leur condition d'ouverture. Notamment, les données protégées ne peuvent être utilisées que par un agent habilité ou après authentification de l'usager. Elles ne doivent en aucun cas être publiées.
-    cadre_juridique_nature: "Cette habilitation **donne accès aux données publiques de l'API Entreprise, ainsi qu'à des données protégées accessibles à toute administration** ou assimilé. L'accès à l'API Entreprise est encadré par l'article L114-8 du Code des relations entre le public et l’administration."
+      ⚠️ Les données protégées doivent uniquement être utilisées par un agent habilité ou après authentification de l'usager. Elles ne doivent pas être diffusées en ligne ou à des tiers non-autorisés.
+    cadre_juridique_nature: "Cette habilitation donne accès aux données publiques de l'API Entreprise, ainsi qu'à des données protégées accessibles à toute administration ou assimilé. L'accès à l'API Entreprise est encadré par les articles L113-12 et L114-8 du Code des relations entre le public et l’administration."
     cadre_juridique_url: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000045213315"
     scopes:
       - unites_legales_etablissements_insee
