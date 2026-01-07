@@ -8,6 +8,12 @@
   </p>
 
   <div class="fr-mt-2w">
+    <%= render partial: "authorization_request_forms/shared/block_titles", locals: { f: f, block_name: :basic_infos } %>
+
+    <%= render partial: 'authorization_request_forms/blocks/default/basic_infos', locals: { f: f } %>
+  </div>
+
+  <div class="fr-mt-2w">
     <%= render partial: "authorization_request_forms/shared/block_titles", locals: { f: f, block_name: :legal } %>
 
     <%= render partial: 'authorization_request_forms/blocks/default/legal', locals: { f: f } %>

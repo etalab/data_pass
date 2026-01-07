@@ -38,13 +38,13 @@ api-particulier-abelium:
     <br />
     Votre éditeur %{service_provider_name} propose au sein de son logiciel de traiter des données supplémentaires sur les allocataires. Vous pourrez cocher ces données dans les étapes suivantes. Avant de les sélectionner assurez-vous que votre délibération mentionne bien ces données.
   steps: &api_particulier_editor_steps_with_editable_scopes
+    - name: basic_infos
     - name: scopes
     - name: legal
     - name: personal_data
     - name: contacts
 
   static_blocks: &api_particulier_editor_static_blocks_with_editable_scopes
-    - name: basic_infos
     - name: modalities
 
   scopes_config:
@@ -95,11 +95,11 @@ api-particulier-arpege-concerto:
     <br />
     Assurez-vous d'être en possession de la délibération tarifaire justifiant l'usage de l'API, celle-ci vous sera demandé dans la prochaine étape.
   steps: &api_particulier_editor_steps_with_fixed_scopes
+    - name: basic_infos
     - name: legal
     - name: personal_data
     - name: contacts
   static_blocks: &api_particulier_editor_static_blocks_with_fixed_scopes
-    - name: basic_infos
     - name: modalities
     - name: scopes
   scopes_config:
@@ -366,12 +366,12 @@ api-particulier-civil-enfance-ciril-group:
   authorization_request: APIParticulier
   introduction: *api_particulier_introduction_editor_with_fixed_scopes
   steps:
+    - name: basic_infos
     - name: legal
     - name: personal_data
     - name: modalities
     - name: contacts
   static_blocks:
-    - name: basic_infos
     - name: scopes
   use_case: tarification_municipale_enfance
   service_provider_id: ciril_group
@@ -940,13 +940,12 @@ api-particulier-airweb:
   public: true
   introduction: *api_particulier_introduction_editor_with_editable_scopes
   steps:
+    - name: basic_infos
     - name: scopes
     - name: legal
     - name: modalities
     - name: personal_data
     - name: contacts
-  static_blocks:
-    - name: basic_infos
 
   scopes_config:
     displayed:
@@ -1496,13 +1495,12 @@ api-particulier-keolis:
   public: true
   introduction: *api_particulier_introduction_editor_with_editable_scopes
   steps:
+    - name: basic_infos
     - name: scopes
     - name: legal
     - name: modalities
     - name: personal_data
     - name: contacts
-  static_blocks:
-    - name: basic_infos
   scopes_config:
     displayed:
       - cnaf_quotient_familial
@@ -1552,13 +1550,12 @@ api-particulier-mgdis-tarification-cantines-lycees:
   use_case: cantines-colleges-lycees-tarification
   service_provider_id: mgdis
   steps:
+    - name: basic_infos
     - name: scopes
     - name: legal
     - name: modalities
     - name: personal_data
     - name: contacts
-  static_blocks:
-    - name: basic_infos
 
   scopes_config:
     disabled:
@@ -1601,7 +1598,6 @@ api-particulier-docaposte-fast:
   single_page_view: "api_particulier_through_editor_without_contact_technique"
   service_provider_id: docaposte
   static_blocks: &api_particulier_through_editor_static_blocks
-    - name: basic_infos
     - name: modalities
   initialize_with:
     intitule:

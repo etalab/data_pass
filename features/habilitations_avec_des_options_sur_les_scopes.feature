@@ -33,6 +33,7 @@ Fonctionnalité: Demandes d'habilitation ayant des configurations sur les scopes
 
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "Domino web 2.0" de l'éditeur "Abelium Collectivités"
     Et que je clique sur "Débuter ma demande"
+    Et que je clique sur "Suivant"
 
     Alors la page contient "Les données"
     Et la page contient "API Quotient familial"
