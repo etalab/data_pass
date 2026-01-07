@@ -156,7 +156,7 @@ api-entreprise-donnees-sans-cas-usage-specifique:
     cadre_juridique_url: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000045213315"
     scopes:
       - unites_legales_etablissements_insee
-      - associations_djepva
+      - data_subvention_subventions
 
 api-entreprise-portail-gru-preremplissage:
   name: "Portail GRU - Préremplissage uniquement"
