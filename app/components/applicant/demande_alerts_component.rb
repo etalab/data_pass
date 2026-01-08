@@ -2,7 +2,7 @@ class Applicant::DemandeAlertsComponent < ApplicationComponent
   include Rails.application.routes.url_helpers
 
   NOTICE_FULL_WIDTH_SINGLE_LINE_CLASSES = 'fr-notice--full-width fr-mb-4w'.freeze
-  NOTICE_STANDARD_CLASSES = 'fr-mb-4w fr-px-4v'.freeze
+  NOTICE_STANDARD_CLASSES = 'fr-notice--multi-lines fr-mb-4w fr-px-4v'.freeze
   ALERT_CLASSES = 'fr-mb-4w'.freeze
 
   def initialize(authorization_request:, current_user:, authorization: nil)
