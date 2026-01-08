@@ -1,4 +1,6 @@
 class AuthorizationHeaderComponent < ApplicationComponent
+  include Rails.application.routes.url_helpers
+
   attr_reader :authorization, :current_user
 
   delegate :translated_state, to: :decorated_authorization
@@ -26,5 +28,31 @@ class AuthorizationHeaderComponent < ApplicationComponent
     else
       'fr-text-inverted--blue-france'
     end
+  end
+
+  def show_old_version_alert?
+    !authorization.latest?
+  end
+
+  def show_contact_mention?
+    decorated_authorization.only_in_contacts?(current_user)
+  end
+
+  def contact_mention_text
+    I18n.t(
+      'demandes_habilitations.current_user_mentions_alert.text',
+      contact_types: decorated_authorization.humanized_contact_types_for(current_user).to_sentence
+    )
+  end
+
+  def old_version_message
+    latest = authorization.request.latest_authorization
+    I18n.t(
+      'components.authorization_header_component.old_version',
+      link: helpers.link_to(
+        I18n.t('components.authorization_header_component.old_version_link', id: latest.id),
+        helpers.authorization_path(latest)
+      )
+    ).html_safe
   end
 end

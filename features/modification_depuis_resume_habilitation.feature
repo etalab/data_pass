@@ -31,8 +31,7 @@ Fonctionnalité: Modifications d'un formulaire depuis sa page de résumé
       | Nom     | Prénom | Email                 | Téléphone  | Fonction                  |
       | Nouveau | Louis  | nouveau.louis@gouv.fr | 0836656560 | Directeur d'exploitation  |
     Et que je clique sur "Enregistrer les modifications"
-    Alors il y a un message de succès contenant "été sauvegardé"
-    Et la page contient "Récapitulatif de votre demande"
+    Alors la page contient "Vérifiez le récapitulatif de votre demande"
 
   Scénario: Modification avec des données invalides
     Quand je clique sur "Modifier" dans le bloc de résumé "Les personnes impliquées"
@@ -40,7 +39,7 @@ Fonctionnalité: Modifications d'un formulaire depuis sa page de résumé
       | Nom     | Prénom | Email                 | Téléphone  | Fonction                  |
       |         | Louis  | nouveau.louis@gouv.fr | 0836656560 | Directeur d'exploitation  |
     Et que je clique sur "Enregistrer les modifications"
-    Alors il y a un message d'erreur contenant "lors de la sauvegarde"
+    Alors il y a un message d'erreur contenant "Nous n’avons pas pu sauvegarder votre demande"
 
   @javascript
   Scénario: Tentative de sauvegarde sans modification
@@ -48,5 +47,4 @@ Fonctionnalité: Modifications d'un formulaire depuis sa page de résumé
     Alors je peux voir le bouton "Enregistrer les modifications" grisé et désactivé
     Et que je remplis "Fonction du responsable de traitement" avec "Directeur d'exploitation"
     Et que je clique sur "Enregistrer les modifications"
-    Alors il y a un message de succès contenant "été sauvegardé"
-    Et la page contient "Récapitulatif de votre demande"
+    Alors la page contient "Vérifiez le récapitulatif de votre demande"

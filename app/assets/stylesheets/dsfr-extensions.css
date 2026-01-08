@@ -195,3 +195,32 @@ fr-badge--grey {
 .fr-checkbox-group--no-disabled-text{
   color: var(--text-title-grey) !important;
 }
+
+.fr-container--with-tiny-alert {
+  position: relative;
+}
+
+/* Notice multi lines */
+.fr-notice--multi-lines .fr-notice__desc{
+  display: block;
+  margin-left: 2rem;
+}
+
+/* Notice full width */
+.fr-notice--full-width {
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  padding-left: calc(50vw - 50%);
+  padding-right: calc(50vw - 50%);
+}
+
+.fr-notice--full-width .fr-notice__body::before {
+  display: none;
+}
+
+/* Tiny alerts */
+.fr-alert.fr-alert--tiny {
+  position: absolute;
+  right: 1.5rem;
+  top: 1rem;
+}

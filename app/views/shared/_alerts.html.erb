@@ -1,25 +1,9 @@
 <% %i[error info success warning].each do |kind| %>
   <% if flash[kind].present? %>
-    <div class="fr-alert fr-alert--<%= kind %> fr-my-8v" id="<%= flash[kind]['id'] %>">
-      <h3 class="fr-alert__title">
-        <%= flash[kind]['title'] %>
-      </h3>
-
-      <% if flash[kind]['activemodel'] %>
-        <ul>
-          <% flash[kind]['description'].each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      <% elsif flash[kind]['description'] %>
-        <%= simple_format(flash[kind]['description']) %>
-      <% end %>
-
-      <% if local_assigns.fetch(:close_button, true) %>
-        <button class="fr-btn--close fr-btn" title="Masquer le message" onclick="const alert = this.parentNode; alert.parentNode.removeChild(alert)">
-          Masquer le message
-        </button>
-      <% end %>
-    </div>
+    <%= render FlashAlertComponent.new(
+      type: kind,
+      data: flash[kind],
+      close_button: local_assigns.fetch(:close_button, true)
+    ) %>
   <% end %>
 <% end %>

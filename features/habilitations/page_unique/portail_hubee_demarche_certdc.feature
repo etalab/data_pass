@@ -27,7 +27,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation Démarche Certificats d
 
     Et que j'enregistre et continue vers le résumé
 
-    Alors il y a un message d'erreur contenant "Une erreur est survenue lors de la sauvegarde"
+    Alors il y a un message d'erreur contenant "Nous n’avons pas pu sauvegarder votre demande"
     Et il y a au moins une erreur sur un champ
     Et je suis sur la page "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
 
@@ -70,5 +70,4 @@ Fonctionnalité: Soumission d'une demande d'habilitation Démarche Certificats d
     Et que je vais sur la page du tableau de bord
     Et que je clique sur le dernier "Consulter"
     Alors il y a un titre contenant "Démarche Certificats de Décès Électroniques Dématérialisés (CertDc)"
-    Alors la page contient "Il s'agit d'une mise à jour d'une habilitation validée"
     Et la page ne contient aucun lien vers "portail.hubee.numerique.gouv.fr"

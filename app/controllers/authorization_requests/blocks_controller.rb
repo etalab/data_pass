@@ -18,8 +18,6 @@ class AuthorizationRequests::BlocksController < AuthenticatedUserController
     )
 
     if organizer.success?
-      success_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.update')
-
       redirect_to summary_authorization_request_form_path(form_uid: @authorization_request.form.uid, id: @authorization_request.id)
     else
       error_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.update')

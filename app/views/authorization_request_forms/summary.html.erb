@@ -1,128 +1,17 @@
 <% set_title! t('page_titles.authorization_request_summary', definition_name: @authorization_request.definition.name) %>
 
 <%= authorization_request_form(@authorization_request) do |f| %>
-  <%= render partial: 'demandes_habilitations/current_user_mentions_alert', locals: { demande: @authorization_request } %>
-
   <div id="<%= dom_id(@authorization_request, :summary) %>" class="fr-mt-4w">
     <% if @bulk_update.present? %>
       <%= render partial: 'authorization_requests/bulk_update_modal' %>
     <% end %>
 
     <% if !displayed_on_a_public_page? %>
-      <% if @authorization_request.changes_requested? %>
-        <div class="fr-alert fr-alert--warning fr-my-3w">
-          <h3 class="fr-alert__title">
-            <% if @authorization_request.reopening? %>
-              <%= t("authorization_requests.show.reopening_changes_requested.title") %>
-            <% else %>
-              <%= t("authorization_requests.show.changes_requested.title") %>
-            <% end %>
-          </h3>
-
-          <% if @authorization_request.reopening? %>
-            <%= t('authorization_requests.show.reopening_changes_requested.description') %>
-          <% else %>
-            <%= t("authorization_requests.show.changes_requested.description") %>
-          <% end %>
-
-          <blockquote>
-            <%= simple_format_without_html_tags(@authorization_request.modification_request.reason) %>
-          </blockquote>
-        </div>
-      <% end %>
-
-      <% if @authorization_request.refused? %>
-        <div class="fr-alert fr-alert--error fr-mb-2v">
-          <h3 class="fr-alert__title">
-            <% if @authorization_request.reopening? %>
-              <%= t("authorization_requests.show.reopening_refused.title") %>
-            <% else %>
-              <%= t("authorization_requests.show.refused.title") %>
-            <% end %>
-          </h3>
-
-          <% if @authorization_request.reopening? %>
-            <%= t('authorization_requests.show.reopening_refused.description') %>
-          <% else %>
-            <%= t("authorization_requests.show.refused.description") %>
-          <% end %>
-
-          <blockquote>
-            <%= simple_format_without_html_tags(@authorization_request.denial.reason) %>
-          </blockquote>
-        </div>
-      <% end %>
-
-      <% if @authorization_request.dirty_from_v1? %>
-        <div class="fr-alert fr-alert--warning fr-mb-2v">
-          <h3 class="fr-alert__title">
-            <%= t('authorization_requests.show.dirty_from_v1.title') %>
-          </h3>
-
-          <p>
-            <%= t('authorization_requests.show.dirty_from_v1.description') %>
-          </p>
-
-          <% if @authorization_request.dirty_related_errors.any? %>
-            <p class="fr-mt-2w">
-              <%= t('authorization_requests.show.dirty_from_v1.errors_title') %>
-            </p>
-
-            <ul>
-              <% @authorization_request.dirty_related_errors.each do |error| %>
-                <li>
-                  <%= error.full_message %>
-                </li>
-              <% end %>
-            </ul>
-          <% end %>
-        </div>
-      <% end %>
-    <% end %>
-
-    <% if @authorization %>
-      <% if @authorization.latest? && @authorization.request.reopening? %>
-        <div class="fr-alert fr-alert--info fr-mb-4v">
-          <h3 class="fr-alert__title">
-            <%= t('authorization_request_forms.summary.reopening_alerts.update_in_progress.title') %>
-          </h3>
-          <%= t('authorization_request_forms.summary.reopening_alerts.update_in_progress.message', link: link_to("Demande de mise à jour #{@authorization.request.formatted_id}", authorization_request_path(@authorization.request))).html_safe %>
-        </div>
-      <% elsif !@authorization.latest? %>
-        <div class="fr-alert fr-alert--warning fr-mb-4v">
-          <h3 class="fr-alert__title">
-            <%= t('authorization_request_forms.summary.reopening_alerts.old_version.title') %>
-          </h3>
-          <%= t('authorization_request_forms.summary.reopening_alerts.old_version.message', link: link_to("Habilitation #{@authorization_request.latest_authorization.formatted_id}", authorization_path(@authorization_request.latest_authorization))).html_safe %>
-        </div>
-      <% end %>
-    <% end %>
-
-    <% if !displayed_on_a_public_page? && @authorization_request.access_link && @authorization_request.validated? %>
-      <div class="fr-callout fr-my-16v">
-        <h3 class="fr-callout__title">
-          <%= t('authorization_requests.show.access_callout.title') %>
-        </h3>
-
-        <%= simple_format t('authorization_requests.show.access_callout.content', access_name: @authorization_request.name), { class: 'fr-callout__text' }, wrapper_tag: 'p' %>
-
-        <%= link_to t('authorization_requests.show.access_callout.button'), @authorization_request.access_link, class: 'fr-btn fr-btn--icon-right fr-icon-external-link-line', target: :blank %>
-      </div>
-    <% end %>
-
-
-    <% if @authorization_request.draft? %>
-      <% if @authorization_request.reopening? && @authorization_request.applicant == current_user %>
-        <%= render partial: 'authorization_requests/shared/reopening_callout', locals: { klass: 'fr-mt-6w' } %>
-      <% elsif !displayed_on_a_public_page? %>
-        <h2 class="fr-h3">
-          <%= t('authorization_request_forms.summary.title') %>
-        </h2>
-
-        <p>
-          <%= t('authorization_request_forms.summary.description').html_safe %>
-        </p>
-      <% end %>
+      <%= render Applicant::DemandeAlertsComponent.new(
+        authorization_request: @authorization_request,
+        current_user: current_user,
+        authorization: @authorization
+      ) %>
     <% end %>
 
     <%= render partial: 'demandes_habilitations/organization_and_applicant', locals: { demande: @authorization_request } %>

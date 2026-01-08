@@ -1,7 +1,7 @@
 <div class="authorization-header <%= header_background_class %>">
   <div class="fr-container">
     <div class="fr-grid-row">
-      <div class="fr-col-12 fr-col-md-8">
+      <div class="fr-col-12 fr-col-md-7">
         <h1 class="fr-h3 fr-mt-15v fr-mb-1-5v <%= header_text_class %>">
           <span class="fr-icon-award-fill" aria-hidden="true"></span>
           <%= t('components.authorization_header_component.title', definition_name: authorization.definition.name) %>
@@ -12,6 +12,9 @@
           <%= render partial: 'authorizations/sandbox_production_badge', locals: { authorization: authorization } %>
         </p>
         </div>
+        <% if show_old_version_alert? %>
+          <p class="<%= header_text_class %>"><%= old_version_message %></p>
+        <% end %>
 
         <div class="fr-mb-10v fr-badges-group">
           <div class="fr-badge fr-badge--sm fr-badge--blue-ecume">
@@ -21,8 +24,15 @@
         </div>
       </div>
 
-      <div class="fr-col-12 fr-col-md-4">
+      <div class="fr-col-12 fr-col-md-5">
         <div class="authorization-header__actions">
+          <% if show_contact_mention? %>
+            <p class="<%= header_text_class %>">
+              <span class="fr-icon-info-fill fr-mr-1w" aria-hidden="true"></span>
+              <%= contact_mention_text %>
+            </p>
+          <% end %>
+
           <% if policy(authorization).reopen? %>
             <%= dsfr_main_modal_button t('authorization_request_forms.form.reopen'),
                                                url_for(controller: 'reopen_authorizations',

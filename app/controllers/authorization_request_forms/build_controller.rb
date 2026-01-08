@@ -37,7 +37,7 @@ class AuthorizationRequestForms::BuildController < AuthorizationRequestFormsCont
   private
 
   def save_only
-    success_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.update')
+    success_message_for_authorization_request(@authorization_request, key: 'authorization_request_forms.update', tiny: true)
 
     redirect_to wizard_path
   end

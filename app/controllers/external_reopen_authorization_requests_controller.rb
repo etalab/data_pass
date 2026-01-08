@@ -3,7 +3,7 @@ class ExternalReopenAuthorizationRequestsController < AuthenticatedUserControlle
   before_action :authorize_authorization_reopening
 
   def create
-    success_message(title: t('reopen_authorizations.create.success.title', name: @authorization.authorization_request.name)) if reopen_authorization.success?
+    reopen_authorization
 
     redirect_to summary_path
   end
