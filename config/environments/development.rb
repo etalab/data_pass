@@ -7,6 +7,8 @@ Rails.application.configure do
   config.lookbook.preview_layout = 'component_preview'
   config.lookbook.preview_paths = ['spec/components/previews']
 
+  config.hotwire.spark.enabled = ENV['DISABLE_HOTWIRE_SPARK'].nil?
+
   # Configure 'rails notes' to inspect Cucumber files
   config.annotations.register_directories('features')
   config.annotations.register_extensions('feature') { |tag| /#\s*(#{tag}):?\s*(.*)$/ }
