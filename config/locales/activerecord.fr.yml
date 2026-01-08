@@ -20,6 +20,8 @@ fr:
         job_title: Poste occupé
         email: Email
         phone_number: Numéro de téléphone
+      organizations_user:
+        verified_reason: Justification
       organization:
         siret: Numéro de SIRET
         address: Adresse

@@ -244,15 +244,15 @@ class User < ApplicationRecord
     organization_user.set_as_current! if organization_user.persisted?
   end
 
-  def add_to_organization(organization, verified: false, identity_provider_uid: nil, identity_federator: 'unknown', current: false)
+  def add_to_organization(organization, **options)
+    defaults = { verified: false, identity_federator: 'unknown', current: false }
+    opts = defaults.merge(options)
+
     organizations_users.find_or_create_by(organization:).tap do |org_user|
-      updates = {
-        identity_federator:,
-        verified:,
-      }.compact
-      updates[:identity_provider_uid] = identity_provider_uid
+      updates = opts.slice(:identity_federator, :verified, :verified_reason).compact
+      updates[:identity_provider_uid] = opts[:identity_provider_uid]
       org_user.update!(updates) if updates.any?
-      org_user.set_as_current! if current
+      org_user.set_as_current! if opts[:current]
     end
   end
 end

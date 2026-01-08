@@ -379,10 +379,11 @@ RSpec.describe User do
       let(:identity_provider_uid) { '71144ab3-ee1a-4401-b7b3-79b44f7daeeb' }
       let(:identity_federator) { 'pro_connect' }
 
-      it 'creates organization user with identity provider uid' do
+      it 'creates organization user with identity provider uid and verified reason' do
         result = user.add_to_organization(
           organization,
           verified: true,
+          verified_reason: 'from ProConnect identity',
           identity_provider_uid: identity_provider_uid,
           identity_federator: identity_federator
         )
@@ -391,12 +392,13 @@ RSpec.describe User do
         expect(result.identity_provider_uid).to eq(identity_provider_uid)
         expect(result.identity_federator).to eq(identity_federator)
         expect(result.verified).to be true
+        expect(result.verified_reason).to eq('from ProConnect identity')
         expect(result.identity_provider).not_to be_nil
       end
     end
 
     context 'with unknown identity federator' do
-      it 'creates organization user without identity provider uid' do
+      it 'creates organization user without identity provider uid and no verified reason' do
         result = user.add_to_organization(
           organization,
           verified: false,
@@ -408,6 +410,7 @@ RSpec.describe User do
         expect(result.identity_provider_uid).to be_nil
         expect(result.identity_federator).to eq('unknown')
         expect(result.verified).to be false
+        expect(result.verified_reason).to be_nil
         expect(result.identity_provider).to be_unknown
       end
     end

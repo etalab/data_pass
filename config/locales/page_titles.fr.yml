@@ -26,6 +26,7 @@ fr:
     admin_home: Espace administrateur
     admin_users_with_roles: Utilisateurs avec rôles
     admin_whitelisted_emails: Emails en liste blanche
+    admin_user_organization_verifications: Vérification lien utilisateur / organisation
 
     instruction_dashboard: Tableau de bord instructeur
     instruction_show: "Instruction %{definition_name} - %{authorization_request_name}"

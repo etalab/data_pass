@@ -5,6 +5,7 @@ class AddUserToOrganization < ApplicationInteractor
       identity_provider_uid: context.identity_provider_uid,
       identity_federator: context.identity_federator,
       verified: organization_link_verified,
+      verified_reason: context.organization_link_verified_reason,
       current:,
     )
   end

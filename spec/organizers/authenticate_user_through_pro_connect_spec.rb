@@ -38,12 +38,13 @@ RSpec.describe AuthenticateUserThroughProConnect do
         )
       end
 
-      it 'creates verified organization user relationship' do
+      it 'creates verified organization user relationship with reason' do
         authenticate_user
 
         org_user = authenticate_user.user.reload.organizations_users.first
 
         expect(org_user.verified).to be true
+        expect(org_user.verified_reason).to eq('from ProConnect identity')
       end
     end
 
@@ -55,11 +56,12 @@ RSpec.describe AuthenticateUserThroughProConnect do
       end
 
       context 'when there is no verified existing link' do
-        it 'sets verified_organization to false' do
+        it 'sets verified to false without reason' do
           authenticate_user
           org_user = authenticate_user.user.reload.organizations_users.first
 
           expect(org_user.verified).to be false
+          expect(org_user.verified_reason).to be_nil
         end
       end
 

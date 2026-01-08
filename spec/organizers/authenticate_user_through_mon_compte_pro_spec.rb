@@ -18,13 +18,16 @@ RSpec.describe AuthenticateUserThroughMonComptePro do
       expect { subject }.to have_enqueued_job(UpdateOrganizationINSEEPayloadJob)
     end
 
-    it 'associates the user to organization, and marks it as verified' do
+    it 'associates the user to organization, and marks it as verified with reason' do
       authenticate_user
 
-      expect(authenticate_user.user.reload.organizations).to include(authenticate_user.organization)
-      expect(authenticate_user.user.organizations_users.first.verified).to be_truthy
-      expect(authenticate_user.user.organizations_users.first.identity_federator).to eq('mon_compte_pro')
-      expect(authenticate_user.user.organizations_users.first.identity_provider_uid).to eq(IdentityProvider::PRO_CONNECT_IDENTITY_PROVIDER_UID)
+      org_user = authenticate_user.user.reload.organizations_users.first
+
+      expect(authenticate_user.user.organizations).to include(authenticate_user.organization)
+      expect(org_user.verified).to be true
+      expect(org_user.verified_reason).to eq('from MonComptePro identity')
+      expect(org_user.identity_federator).to eq('mon_compte_pro')
+      expect(org_user.identity_provider_uid).to eq(IdentityProvider::PRO_CONNECT_IDENTITY_PROVIDER_UID)
     end
 
     context 'when user already exists and have another current organization' do

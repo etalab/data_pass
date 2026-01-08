@@ -25,3 +25,19 @@ end
 Quand("je remplis {string} avec l'ID de la demande") do |label|
   fill_in label, with: AuthorizationRequest.last.id
 end
+
+Soit("l'utilisateur {string}") do |email|
+  @target_user = FactoryBot.create(:user, email:)
+end
+
+Soit("cet utilisateur appartient à l'organisation {string} avec le SIRET {string}") do |name, siret|
+  organization = Organization.find_by(siret:) || FactoryBot.create(:organization, siret:, name:)
+  @target_user.add_to_organization(organization, current: true)
+end
+
+Soit("cet utilisateur appartient à l'organisation {string} avec le SIRET {string} de manière non vérifiée") do |name, siret|
+  organization = Organization.find_by(siret:) || FactoryBot.create(:organization, siret:, name:)
+  @target_user.add_to_organization(organization, current: true, verified: false)
+  organizations_user = @target_user.organizations_users.find_by(organization:)
+  organizations_user.update!(verified_reason: 'manual')
+end
