@@ -182,4 +182,68 @@ RSpec.describe AuthorizationRequestPolicy do
       end
     end
   end
+
+  describe '#events?' do
+    subject { instance.events? }
+
+    let(:authorization_request_class) { authorization_request }
+
+    context 'when user has summary access' do
+      let(:authorization_request) { create(:authorization_request, :api_entreprise, :submitted, applicant: user) }
+
+      it { is_expected.to be true }
+    end
+
+    context 'when user does not have summary access' do
+      let(:authorization_request) { create(:authorization_request, :api_entreprise, :draft, applicant: user) }
+      let(:another_user) { create(:user) }
+      let(:user_context) { UserContext.new(another_user) }
+
+      it { is_expected.to be false }
+    end
+  end
+
+  describe '#france_connected_authorizations?' do
+    subject { instance.france_connected_authorizations? }
+
+    let(:authorization_request_class) { authorization_request }
+
+    context 'when not a france_connect request' do
+      let(:authorization_request) { create(:authorization_request, :api_entreprise, :submitted, applicant: user) }
+
+      it { is_expected.to be false }
+    end
+
+    context 'when france_connect request without linked authorizations' do
+      let(:authorization_request) { create(:authorization_request, :france_connect, :submitted, applicant: user) }
+
+      it { is_expected.to be false }
+    end
+
+    context 'when france_connect request with linked authorizations' do
+      let(:authorization_request) { create(:authorization_request, :france_connect, :validated, applicant: user) }
+
+      before do
+        linked_auth = create(:authorization)
+        linked_auth.data['france_connect_authorization_id'] = authorization_request.latest_authorization.id
+        linked_auth.save!
+      end
+
+      it { is_expected.to be true }
+    end
+
+    context 'when user does not have summary access' do
+      let(:authorization_request) { create(:authorization_request, :france_connect, :validated, applicant: user) }
+      let(:another_user) { create(:user) }
+      let(:user_context) { UserContext.new(another_user) }
+
+      before do
+        linked_auth = create(:authorization)
+        linked_auth.data['france_connect_authorization_id'] = authorization_request.latest_authorization.id
+        linked_auth.save!
+      end
+
+      it { is_expected.to be false }
+    end
+  end
 end

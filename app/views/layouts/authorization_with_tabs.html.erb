@@ -1,0 +1,61 @@
+<% set_title! t('page_titles.authorization_show', definition_name: authorization.definition.name, authorization_name: authorization.name) %>
+
+<%= content_for(:body) do %>
+  <div class="fr-background-alt--blue-france" data-controller="scroll-to-top">
+    <%= render AuthorizationHeaderComponent.new(authorization: authorization, current_user: current_user) %>
+
+    <div class="fr-tabs fr-background-action-high--blue-france" data-controller="auto-height">
+      <ul class="fr-tabs__list fr-container" role="tablist" aria-label="Menu secondaire">
+          <% authorization_tabs_for(authorization).each do |id, path| %>
+            <li role="presentation">
+              <%=
+                link_to(
+                  path,
+                  class: [
+                    'fr-tabs__tab',
+                    "fr-icon-#{t(".tabs.#{id}.icon")}",
+                    'fr-tabs__tab--icon-left'
+                  ],
+                  role: 'tab',
+                  id: "tab-#{id}",
+                  tabindex: current_page?(path) ? '0' : '-1',
+                  data: {
+                    turbo_frame: "tab-#{id}-panel",
+                  },
+                  aria: {
+                    selected: current_page?(path),
+                    controls: "tab-#{id}-panel"
+                  }) do
+              %>
+                <%= t(".tabs.#{id}.title") %>
+                <% if id == :messages && authorization.request.unread_messages_from_instructors_count > 0 %>
+                  <span class="unread-message-dot fr-ml-2v">
+                    <%= authorization.request.unread_messages_from_instructors_count %>
+                  </span>
+                <% end %>
+              <% end %>
+            </li>
+          <% end %>
+      </ul>
+
+      <% authorization_tabs_for(authorization).each do |id, path| %>
+        <turbo-frame id="tab-<%= id %>-panel" class="fr-tabs__panel fr-tabs__panel--selected fr-bg-white" role="tabpanel" aria-labelledby="tab-<%= id %>" tabindex="0" data-turbo-action="advance">
+          <div class="fr-container">
+            <%= render partial: 'shared/alerts' %>
+
+            <% if current_page?(path) %>
+              <div data-auto-height-target="source">
+                <%= yield %>
+              </div>
+            <% else %>
+              <div data-auto-height-target="destination">
+              </div>
+            <% end %>
+          </div>
+        </turbo-frame>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<%= render template: 'layouts/application' %>
