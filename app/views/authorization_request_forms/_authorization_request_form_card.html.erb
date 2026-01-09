@@ -6,8 +6,8 @@
       <h3 class="fr-h6 fr-tile__title fr-text-title--blue-france">
         <%= link_to authorization_request_form.name, new_authorization_request_form_path(form_uid: authorization_request_form.id), **(local_assigns.fetch(:additional_link_attributes, {})) %>
       </h3>
-      <p class="fr-tile__detail fr-mt-0 fr-pb-7w">
-        <%= authorization_request_form.description %>
+      <p class="fr-tile__desc fr-mt-0">
+        <%= sanitize(authorization_request_form.description, tags: %w[strong em b i u br]) %>
       </p>
       <% if authorization_request_form.service_provider %>
         <div class="fr-tile__start">
