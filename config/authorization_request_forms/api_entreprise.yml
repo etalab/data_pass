@@ -41,6 +41,7 @@ api-entreprise-marches-publics:
     scopes:
       - unites_legales_etablissements_insee
       - associations_djepva
+      - data_subvention_subventions
       - chiffre_affaires_dgfip
       - attestation_fiscale_dgfip
       - attestation_sociale_urssaf
@@ -71,6 +72,7 @@ api-entreprise-aides-publiques:
     scopes:
       - unites_legales_etablissements_insee
       - associations_djepva
+      - data_subvention_subventions
       - mandataires_sociaux_infogreffe
       - chiffre_affaires_dgfip
       - liasses_fiscales_dgfip
