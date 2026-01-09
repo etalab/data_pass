@@ -18,6 +18,8 @@ Fonctionnalité: Consultation d'une habilitation
     Alors il y a un bouton "Mettre à jour"
     Alors il y a un bouton "Transférer"
     Et il y a un formulaire en mode résumé non modifiable
+    Et je vois l'onglet "Habilitation"
+    Et je vois l'onglet "Historique"
 
   Scénario: Je consulte un habilitation revoked m'appartenant
     Quand j'ai 1 habilitation "API Entreprise" révoquée

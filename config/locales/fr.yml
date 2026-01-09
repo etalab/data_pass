@@ -141,6 +141,38 @@ fr:
             title: Messagerie
             icon: question-answer-line
 
+    authorization_request_with_tabs:
+      tabs:
+        authorization_request:
+          title: Demande
+          icon: article-line
+        authorization_request_events:
+          title: Historique
+          icon: time-line
+        messages:
+          title: Messagerie
+          icon: question-answer-line
+        authorizations:
+          title: Habilitations
+          icon: archive-line
+        france_connected_authorizations:
+          title: Habilitations FranceConnectées
+          icon: lock-line
+
+    authorization_with_tabs:
+      tabs:
+        authorization:
+          title: Habilitation
+          icon: award-line
+        authorization_request_events:
+          title: Historique
+          icon: time-line
+        messages:
+          title: Messagerie
+          icon: question-answer-line
+        france_connected_authorizations:
+          title: Habilitations FranceConnectées
+          icon: lock-line
 
   application:
     user_not_authorized:
@@ -267,7 +299,20 @@ fr:
       title: Demander une nouvelle habilitation
       cta: Remplir une demande
 
+  authorization_request_events:
+    index:
+      title: Historique de la demande
+
+  france_connected_authorizations:
+    index:
+      title: Habilitations FranceConnectées associées
+      show_cta: Consulter
+
   authorizations:
+    index:
+      title: Historique des habilitations
+      show_cta: Consulter
+      validated_by: Validée par <strong>%{email}</strong>
     card:
       validated_at: Validée le %{date}
       current_user_mentions: "vous avez été référencé comme %{contact_types}"

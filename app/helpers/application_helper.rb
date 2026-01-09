@@ -45,6 +45,6 @@ module ApplicationHelper
   private
 
   def france_connected_authorizations?(authorization_request)
-    authorization_request.definition.id == 'france_connect' && authorization_request.france_connected_authorizations.exists?
+    authorization_request.definition.france_connect? && authorization_request.france_connected_authorizations.exists?
   end
 end
