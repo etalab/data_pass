@@ -1,18 +1,6 @@
-api-entreprise:
-  name: "Demande libre"
-  default: true
-  description: "Pour les administrations et collectivités dont le cas d'usage n'a pas de formulaire pré-congfiguré et qui connaissent précisément l'usage des données et les aspects techniques des APIs"
-  introduction: |
-    Ce formulaire est destiné aux administrations et collectivités qui connaissent précisément l'usage des données et les aspects techniques des APIs.
-    <br />
-    Il permet de formuler une demande libre en précisant les données souhaitées. Le temps de traitement d'une demande libre par le service juridique peut être supérieur.
-  authorization_request: "APIEntreprise"
-  steps:
-    - name: "basic_infos"
-    - name: "legal"
-    - name: "scopes"
-    - name: "personal_data"
-    - name: "contacts"
+# ==========================================================================================
+# 1. Formulaires visibles pour les FS avec équipe technique
+# ==========================================================================================
 
 api-entreprise-marches-publics:
   name: "Marchés publics"
@@ -41,6 +29,7 @@ api-entreprise-marches-publics:
     scopes:
       - unites_legales_etablissements_insee
       - associations_djepva
+      - data_subvention_subventions
       - chiffre_affaires_dgfip
       - attestation_fiscale_dgfip
       - attestation_sociale_urssaf
@@ -71,6 +60,7 @@ api-entreprise-aides-publiques:
     scopes:
       - unites_legales_etablissements_insee
       - associations_djepva
+      - data_subvention_subventions
       - mandataires_sociaux_infogreffe
       - chiffre_affaires_dgfip
       - liasses_fiscales_dgfip
@@ -114,6 +104,40 @@ api-entreprise-subventions-associations:
       - attestation_sociale_urssaf
       - bilans_bdf
       - liasses_fiscales_dgfip
+      - liens_capitalistiques_dgfip
+
+api-entreprise-detection-fraude:
+  name: "Détection de la fraude"
+  description: |
+    <strong>- EXCLUSIVEMENT réservé aux administrations compétentes -</strong> Faciliter et accélérer le traitement des dossiers d’enquête pour fraude.
+    <br/>
+    <i>Socle de base + Données autorisées pour ce cas d'usage.</i>
+  introduction: |
+    Ce formulaire est destiné exclusivement aux administrations dont la détection de la fraude est la mission et qui souhaitent faciliter les procédures de détection des fraudes avec les données de l'API Entreprise. Si votre adminitration n'a pas pour mission la détection des fraudes, veuillez choisir un autre formulaire.
+  use_case: "detection_fraude"
+  authorization_request: "APIEntreprise"
+  steps:
+    - name: "basic_infos"
+    - name: "legal"
+    - name: "scopes"
+    - name: "personal_data"
+    - name: "contacts"
+  initialize_with:
+    scopes:
+      - unites_legales_etablissements_insee
+      - associations_djepva
+      - data_subvention_subventions
+      - effectifs_urssaf
+      - mandataires_sociaux_infogreffe
+      - chiffre_affaires_dgfip
+      - bilans_bdf
+      - liasses_fiscales_dgfip
+      - attestation_fiscale_dgfip
+      - attestation_sociale_urssaf
+      - cotisations_msa
+      - cotisations_probtp
+      - attestation_cotisations_conges_payes_chomage_intemperies_cibtp_cnetp
+      - certifications_qualiopi_france_competences
       - liens_capitalistiques_dgfip
 
 api-entreprise-socle-de-base:
@@ -174,6 +198,61 @@ api-entreprise-socle-de-base:
       - data_subvention_subventions
       - associations_djepva
 
+api-entreprise-editeur:
+  name: "Formulaire spécifique aux éditeurs de logiciels"
+  description: |
+    <strong>- EXCLUSIVEMENT réservé aux éditeurs de logiciels -</strong> souhaitant intégrer API Entreprise.
+  introduction: |
+    Ce formulaire est exclusivement destiné aux éditeurs de logiciels souhaitant intégrer API Entreprise pour leurs clients publics et ne vaut pas habilitation à être destinataire des données de l'API Entreprise.
+  authorization_request: "APIEntreprise"
+  use_case: "specific_editeurs"
+  steps:
+    - name: "basic_infos"
+    - name: "legal"
+    - name: "scopes"
+    - name: "personal_data"
+    - name: "contacts"
+  initialize_with:
+    intitule: "Merci de préciser le nom de votre solution logicielle"
+    description: |+
+      Attention, cette demande concerne exclusivement les prestataires éditeurs de logiciels à destination d’acteurs publics.
+
+      Éditeurs de logiciels, merci de répondre à toutes les questions suivantes :
+
+      1- Quelles sont les différentes activités de votre organisation(description et site internet) ?
+
+      2- Qui sont vos différents clients (privés et/ou publics)?
+
+      3- Qui seront les clients publics qui bénéficieront des données obtenues par l’API Entreprise?
+
+      4- À quoi sert le logiciel qui utilisera API Entreprise? Décrivez-nous le produit et son rôle auprès de vos clients du secteur public.
+
+      5- Quels sont les cas d’usage de vos clients publics? Exemples: Marchés publics, Aides et subventions publiques, Portail de gestion relation usager, Fiabilisation de base de tiers, Autres?
+
+# ==========================================================================================
+# 2. Formulaires accessibles via un lien direct mais non présentés aux FS
+# ==========================================================================================
+
+api-entreprise:
+  name: "Demande libre"
+  default: true
+  description: "Pour les administrations et collectivités dont le cas d'usage n'a pas de formulaire pré-congfiguré et qui connaissent précisément l'usage des données et les aspects techniques des APIs"
+  introduction: |
+    Ce formulaire est destiné aux administrations et collectivités qui connaissent précisément l'usage des données et les aspects techniques des APIs.
+    <br />
+    Il permet de formuler une demande libre en précisant les données souhaitées. Le temps de traitement d'une demande libre par le service juridique peut être supérieur.
+  authorization_request: "APIEntreprise"
+  steps:
+    - name: "basic_infos"
+    - name: "legal"
+    - name: "scopes"
+    - name: "personal_data"
+    - name: "contacts"
+
+# ==========================================================================================
+# Anciens formulaires toujours actifs pour les demandes validées mais non présentés aux FS
+# ==========================================================================================
+
 api-entreprise-portail-gru-preremplissage:
   name: "Portail GRU - Préremplissage uniquement"
   startable_by_applicant: false
@@ -232,71 +311,9 @@ api-entreprise-portail-gru-instruction:
       - attestation_sociale_urssaf
       - cotisations_msa
 
-api-entreprise-detection-fraude:
-  name: "Détection de la fraude"
-  description: |
-    <strong>- EXCLUSIVEMENT réservé aux administrations compétentes -</strong> Faciliter et accélérer le traitement des dossiers d’enquête pour fraude.
-    <br/>
-    <i>Socle de base + Données autorisées pour ce cas d'usage.</i>
-  introduction: |
-    Ce formulaire est destiné exclusivement aux administrations dont la détection de la fraude est la mission et qui souhaitent faciliter les procédures de détection des fraudes avec les données de l'API Entreprise. Si votre adminitration n'a pas pour mission la détection des fraudes, veuillez choisir un autre formulaire.
-  use_case: "detection_fraude"
-  authorization_request: "APIEntreprise"
-  steps:
-    - name: "basic_infos"
-    - name: "legal"
-    - name: "scopes"
-    - name: "personal_data"
-    - name: "contacts"
-  initialize_with:
-    scopes:
-      - unites_legales_etablissements_insee
-      - associations_djepva
-      - data_subvention_subventions
-      - effectifs_urssaf
-      - mandataires_sociaux_infogreffe
-      - chiffre_affaires_dgfip
-      - bilans_bdf
-      - liasses_fiscales_dgfip
-      - attestation_fiscale_dgfip
-      - attestation_sociale_urssaf
-      - cotisations_msa
-      - cotisations_probtp
-      - attestation_cotisations_conges_payes_chomage_intemperies_cibtp_cnetp
-      - certifications_qualiopi_france_competences
-      - liens_capitalistiques_dgfip
-
-api-entreprise-editeur:
-  name: "Formulaire spécifique aux éditeurs de logiciels"
-  description: |
-    <strong>- EXCLUSIVEMENT réservé aux éditeurs de logiciels -</strong> souhaitant intégrer API Entreprise.
-  introduction: |
-    Ce formulaire est exclusivement destiné aux éditeurs de logiciels souhaitant intégrer API Entreprise pour leurs clients publics et ne vaut pas habilitation à être destinataire des données de l'API Entreprise.
-  authorization_request: "APIEntreprise"
-  use_case: "specific_editeurs"
-  steps:
-    - name: "basic_infos"
-    - name: "legal"
-    - name: "scopes"
-    - name: "personal_data"
-    - name: "contacts"
-  initialize_with:
-    intitule: "Merci de préciser le nom de votre solution logicielle"
-    description: |+
-      Attention, cette demande concerne exclusivement les prestataires éditeurs de logiciels à destination d’acteurs publics.
-
-      Éditeurs de logiciels, merci de répondre à toutes les questions suivantes :
-
-      1- Quelles sont les différentes activités de votre organisation(description et site internet) ?
-
-      2- Qui sont vos différents clients (privés et/ou publics)?
-
-      3- Qui seront les clients publics qui bénéficieront des données obtenues par l’API Entreprise?
-
-      4- À quoi sert le logiciel qui utilisera API Entreprise? Décrivez-nous le produit et son rôle auprès de vos clients du secteur public.
-
-      5- Quels sont les cas d’usage de vos clients publics? Exemples: Marchés publics, Aides et subventions publiques, Portail de gestion relation usager, Fiabilisation de base de tiers, Autres?
-
+# ==========================================================================================
+# Formulaires pré-remplis éditeurs
+# ==========================================================================================
 
 api-entreprise-e-attestations:
   name: "Conformité titulaires de marchés"
