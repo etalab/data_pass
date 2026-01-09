@@ -31,6 +31,13 @@
 
           <div class="fr-col-12 fr-col-md-4">
             <div class="authorization-request-form-header__actions">
+              <% if authorization_request.decorate.only_in_contacts?(current_user) %>
+                <p class="fr-text--sm fr-mb-0">
+                  <span class="fr-icon-info-fill fr-mr-1w" aria-hidden="true"></span>
+                  <%= t('demandes_habilitations.current_user_mentions_alert.text', contact_types: authorization_request.decorate.humanized_contact_types_for(current_user).to_sentence) %>
+                </p>
+              <% end %>
+
               <% if policy(authorization_request).transfer? %>
                 <%= dsfr_main_modal_button t('authorization_request_forms.form.transfer'), new_authorization_request_transfer_path(authorization_request), id: :transfer_authorization_request, class: %w(fr-btn fr-btn--sm fr-btn--secondary fr-btn--icon-left fr-icon-refresh-fill) %>
               <% elsif policy(authorization_request).manual_transfer_from_instructor? %>
