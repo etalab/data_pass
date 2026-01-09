@@ -12,7 +12,7 @@ class AuthenticatedUserController < ApplicationController
     return unless Rails.env.development?
 
     user = User.find_by(email: params[:email])
-    sign_in(user, identity_federator: :bypass_login)
+    sign_in(user, identity_federator: :bypass_login, identity_provider_uid: 'bypass')
 
     redirect_to dashboard_path
   end

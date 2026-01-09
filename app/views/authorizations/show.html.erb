@@ -1,8 +1,10 @@
 <% set_title! t('page_titles.authorization_show', definition_name: authorization.definition.name, authorization_name: authorization.name) %>
 
-<div class="authorization-header fr-background-action-high--blue-france">
-  <%= render AuthorizationHeaderComponent.new(authorization: authorization, current_user: current_user) %>
-</div>
+<% unless show_tabs_for_authorization?(authorization) %>
+  <div class="authorization-header fr-background-action-high--blue-france">
+    <%= render AuthorizationHeaderComponent.new(authorization: authorization, current_user: current_user) %>
+  </div>
+<% end %>
 
 <div class="fr-container">
   <div id="<%= dom_id(authorization, :summary) %>" class="fr-mt-4w">
