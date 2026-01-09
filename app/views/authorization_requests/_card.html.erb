@@ -46,9 +46,9 @@
     </div>
   </div>
 
-  <% if policy(authorization_request).messages? && authorization_request.unread_messages_from_applicant_count > 0 %>
+  <% if policy(authorization_request).messages? && authorization_request.unread_messages_from_instructors_count > 0 %>
     <div class="unread-message-dot">
-      <%= authorization_request.unread_messages_from_applicant_count %>
+      <%= authorization_request.unread_messages_from_instructors_count %>
     </div>
   <% end %>
 </div>
