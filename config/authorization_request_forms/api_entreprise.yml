@@ -1,18 +1,6 @@
-api-entreprise:
-  name: "Demande libre"
-  default: true
-  description: "Pour les administrations et collectivités dont le cas d'usage n'a pas de formulaire pré-congfiguré et qui connaissent précisément l'usage des données et les aspects techniques des APIs"
-  introduction: |
-    Ce formulaire est destiné aux administrations et collectivités qui connaissent précisément l'usage des données et les aspects techniques des APIs.
-    <br />
-    Il permet de formuler une demande libre en précisant les données souhaitées. Le temps de traitement d'une demande libre par le service juridique peut être supérieur.
-  authorization_request: "APIEntreprise"
-  steps:
-    - name: "basic_infos"
-    - name: "legal"
-    - name: "scopes"
-    - name: "personal_data"
-    - name: "contacts"
+# ==========================================================================================
+# 1. Formulaires visibles pour les FS avec équipe technique
+# ==========================================================================================
 
 api-entreprise-marches-publics:
   name: "Marchés publics"
@@ -117,64 +105,6 @@ api-entreprise-subventions-associations:
       - bilans_bdf
       - liasses_fiscales_dgfip
       - liens_capitalistiques_dgfip
-
-api-entreprise-portail-gru-preremplissage:
-  name: "Portail GRU - Préremplissage uniquement"
-  startable_by_applicant: false
-  description: "Préremplir automatiquement les données opendata des entreprises & associations dans le front-office de votre portail GRU"
-  use_case: "portail_gru_preremplissage"
-  introduction: |
-    Ce formulaire est destiné aux administrations et collectivités souhaitant pré-remplir automatiquement les démarches des entreprises & associations avec leurs données en open data, sur le front-office de leur portail GRU.
-    <br />
-    <br />
-    Par exemple : pré-remplir les données générales et d'identité de l'entreprise ou de l'association lors de la création de son compte sur le portail.
-    <br />
-    L'ensemble des données disponibles via ce cas d'usage sont des données en "open data", vous ne pourrez pas demander de données supplémentaires.
-    <br />
-    Si vous souhaitez obtenir un accès à des données protégées, veuillez choisir le formulaire "Portail GRU - Pré-remplissage & instruction des démarches".
-  authorization_request: "APIEntreprise"
-  steps:
-    - name: "basic_infos"
-    - name: "personal_data"
-    - name: "legal"
-    - name: "contacts"
-  static_blocks:
-    - name: "scopes"
-  initialize_with:
-    intitule: "Démarches liées au portail de gestion relation usagers"
-    description: "Accès aux données ouvertes permettant aux usagers de pré-remplir les informations liées à leurs entreprises."
-    cadre_juridique_nature: "Article Premier de la LOI n° 2016-1321 du 7 octobre 2016 pour une République numérique"
-    cadre_juridique_url: "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000033202746/"
-
-api-entreprise-portail-gru-instruction:
-  name: "Portail GRU - Pré-remplissage & instruction des démarches"
-  startable_by_applicant: false
-  description: "Pré-remplir les informations opendata des entreprises & association et faciliter l'instruction des démarches sur les portails GRU"
-  use_case: "portail_gru_instruction"
-  introduction: |
-    Ce formulaire est destiné aux administrations et collectivités souhaitant, non seulement pré-remplir automatiquement les démarches des entreprises & associations
-    avec leurs données en open data, en front-office et back-office, mais aussi faciliter l'instruction des démarches par les agents publics, en back-office, grâce à l'accès à des données protégées.
-  authorization_request: "APIEntreprise"
-  steps:
-    - name: "basic_infos"
-    - name: "legal"
-    - name: "scopes"
-    - name: "personal_data"
-    - name: "contacts"
-  scopes_config:
-    disabled:
-      - beneficiaires_effectifs_inpi
-  initialize_with:
-    intitule: "Démarches liées au portail de gestion relation usagers"
-    description: "Accès aux données ouvertes permettant aux usagers de pré-remplir les informations liées à leurs entreprises, ainsi qu'aux données protégées permettant l'instruction de demandes par des agents habilités"
-    cadre_juridique_nature: "Article Premier de la LOI n° 2016-1321 du 7 octobre 2016 pour une République numérique"
-    cadre_juridique_url: "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000033202746/"
-    scopes:
-      - unites_legales_etablissements_insee
-      - associations_djepva
-      - attestation_fiscale_dgfip
-      - attestation_sociale_urssaf
-      - cotisations_msa
 
 api-entreprise-detection-fraude:
   name: "Détection de la fraude"
@@ -299,6 +229,91 @@ api-entreprise-editeur:
 
       5- Quels sont les cas d’usage de vos clients publics? Exemples: Marchés publics, Aides et subventions publiques, Portail de gestion relation usager, Fiabilisation de base de tiers, Autres?
 
+# ==========================================================================================
+# 2. Formulaires accessibles via un lien direct mais non présentés aux FS
+# ==========================================================================================
+
+api-entreprise:
+  name: "Demande libre"
+  default: true
+  description: "Pour les administrations et collectivités dont le cas d'usage n'a pas de formulaire pré-congfiguré et qui connaissent précisément l'usage des données et les aspects techniques des APIs"
+  introduction: |
+    Ce formulaire est destiné aux administrations et collectivités qui connaissent précisément l'usage des données et les aspects techniques des APIs.
+    <br />
+    Il permet de formuler une demande libre en précisant les données souhaitées. Le temps de traitement d'une demande libre par le service juridique peut être supérieur.
+  authorization_request: "APIEntreprise"
+  steps:
+    - name: "basic_infos"
+    - name: "legal"
+    - name: "scopes"
+    - name: "personal_data"
+    - name: "contacts"
+
+# ==========================================================================================
+# Anciens formulaires toujours actifs pour les demandes validées mais non présentés aux FS
+# ==========================================================================================
+
+api-entreprise-portail-gru-preremplissage:
+  name: "Portail GRU - Préremplissage uniquement"
+  startable_by_applicant: false
+  description: "Préremplir automatiquement les données opendata des entreprises & associations dans le front-office de votre portail GRU"
+  use_case: "portail_gru_preremplissage"
+  introduction: |
+    Ce formulaire est destiné aux administrations et collectivités souhaitant pré-remplir automatiquement les démarches des entreprises & associations avec leurs données en open data, sur le front-office de leur portail GRU.
+    <br />
+    <br />
+    Par exemple : pré-remplir les données générales et d'identité de l'entreprise ou de l'association lors de la création de son compte sur le portail.
+    <br />
+    L'ensemble des données disponibles via ce cas d'usage sont des données en "open data", vous ne pourrez pas demander de données supplémentaires.
+    <br />
+    Si vous souhaitez obtenir un accès à des données protégées, veuillez choisir le formulaire "Portail GRU - Pré-remplissage & instruction des démarches".
+  authorization_request: "APIEntreprise"
+  steps:
+    - name: "basic_infos"
+    - name: "personal_data"
+    - name: "legal"
+    - name: "contacts"
+  static_blocks:
+    - name: "scopes"
+  initialize_with:
+    intitule: "Démarches liées au portail de gestion relation usagers"
+    description: "Accès aux données ouvertes permettant aux usagers de pré-remplir les informations liées à leurs entreprises."
+    cadre_juridique_nature: "Article Premier de la LOI n° 2016-1321 du 7 octobre 2016 pour une République numérique"
+    cadre_juridique_url: "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000033202746/"
+
+api-entreprise-portail-gru-instruction:
+  name: "Portail GRU - Pré-remplissage & instruction des démarches"
+  startable_by_applicant: false
+  description: "Pré-remplir les informations opendata des entreprises & association et faciliter l'instruction des démarches sur les portails GRU"
+  use_case: "portail_gru_instruction"
+  introduction: |
+    Ce formulaire est destiné aux administrations et collectivités souhaitant, non seulement pré-remplir automatiquement les démarches des entreprises & associations
+    avec leurs données en open data, en front-office et back-office, mais aussi faciliter l'instruction des démarches par les agents publics, en back-office, grâce à l'accès à des données protégées.
+  authorization_request: "APIEntreprise"
+  steps:
+    - name: "basic_infos"
+    - name: "legal"
+    - name: "scopes"
+    - name: "personal_data"
+    - name: "contacts"
+  scopes_config:
+    disabled:
+      - beneficiaires_effectifs_inpi
+  initialize_with:
+    intitule: "Démarches liées au portail de gestion relation usagers"
+    description: "Accès aux données ouvertes permettant aux usagers de pré-remplir les informations liées à leurs entreprises, ainsi qu'aux données protégées permettant l'instruction de demandes par des agents habilités"
+    cadre_juridique_nature: "Article Premier de la LOI n° 2016-1321 du 7 octobre 2016 pour une République numérique"
+    cadre_juridique_url: "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000033202746/"
+    scopes:
+      - unites_legales_etablissements_insee
+      - associations_djepva
+      - attestation_fiscale_dgfip
+      - attestation_sociale_urssaf
+      - cotisations_msa
+
+# ==========================================================================================
+# Formulaires pré-remplis éditeurs
+# ==========================================================================================
 
 api-entreprise-e-attestations:
   name: "Conformité titulaires de marchés"
