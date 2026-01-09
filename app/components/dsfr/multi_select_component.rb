@@ -91,7 +91,6 @@ module Dsfr
       end
     end
 
-    # Render a single option item
     def render_option(option, index)
       render(OptionComponent.new(
         option:,
@@ -106,7 +105,6 @@ module Dsfr
     def extract_selected_values(explicit_selected)
       return Array(explicit_selected).compact.map(&:to_s) if explicit_selected
 
-      # Extract from params based on name attribute
       param_path = parse_name_to_param_path(name)
       return [] unless param_path
 
@@ -115,10 +113,8 @@ module Dsfr
     end
 
     def parse_name_to_param_path(name_string)
-      # Parse "search_query[type_in][]" -> [:search_query, :type_in]
       return nil if name_string.blank?
 
-      # Remove trailing [] and split by [ and ]
       cleaned = name_string.to_s.gsub(/\[\]$/, '')
       parts = cleaned.split(/[\[\]]/).compact_blank
       parts.map(&:to_sym)
@@ -159,7 +155,6 @@ module Dsfr
       end
     end
 
-    # Inner component for rendering individual options
     class OptionComponent < ApplicationComponent
       attr_reader :option, :index, :component_id, :selected
 

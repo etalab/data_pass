@@ -5,14 +5,12 @@
   data-dsfr-multi-select-placeholder-value="<%= placeholder %>"
   id="<%= component_id %>">
 
-  <%# Label %>
   <% if label %>
     <label class="fr-label" id="<%= label_id %>" for="<%= native_select_id %>">
       <%= label %>
     </label>
   <% end %>
 
-  <%# Native select fallback (shown when JS is disabled) %>
   <select
     multiple
     class="fr-select dsfrx-multiselect__native"
@@ -42,9 +40,7 @@
     <% end %>
   </select>
 
-  <%# Enhanced JS-powered multi-select (hidden until JS activates) %>
   <div class="dsfrx-multiselect dsfrx-multiselect--js-only" data-dsfr-multi-select-target="container">
-    <%# Control input (combobox trigger) %>
     <div
       class="<%= control_classes %>"
       role="combobox"
@@ -60,13 +56,11 @@
       </span>
     </div>
 
-    <%# Dropdown %>
     <div
       class="dsfrx-dropdown dsfrx-multiselect__wrapper fr-hidden"
       data-dsfr-multi-select-target="dropdown"
       aria-hidden="true">
 
-      <%# Toolbar (Select All) %>
       <div
         class="dsfrx-multiselect__toolbar"
         data-dsfr-multi-select-target="toolbar"
@@ -82,7 +76,6 @@
         </button>
       </div>
 
-      <%# Options list %>
       <ul
         class="dsfrx-multiselect__list"
         role="listbox"
@@ -93,7 +86,6 @@
         <% option_index = 0 %>
         <% normalized_options.each_with_index do |item, group_index| %>
           <% if item[:group] %>
-            <%# Option Group %>
             <li role="group" aria-labelledby="<%= component_id %>-group-<%= group_index %>" class="dsfrx-multiselect__group">
               <span id="<%= component_id %>-group-<%= group_index %>" role="presentation" class="dsfrx-multiselect__group-label">
                 <%= item[:label] %>
@@ -106,14 +98,12 @@
               </ul>
             </li>
           <% else %>
-            <%# Regular Option %>
             <%= render_option(item, option_index) %>
             <% option_index += 1 %>
           <% end %>
         <% end %>
       </ul>
 
-      <%# Empty state %>
       <div
         class="dsfrx-multiselect__list dsfrx-multiselect__list--empty fr-hidden"
         role="status"
@@ -123,7 +113,6 @@
       </div>
     </div>
 
-    <%# Hidden inputs %>
     <div class="dsfrx-multiselect__hidden-inputs" data-dsfr-multi-select-target="hiddenInputs">
       <% selected.each do |value| %>
         <input type="hidden" name="<%= name %>" value="<%= value %>">

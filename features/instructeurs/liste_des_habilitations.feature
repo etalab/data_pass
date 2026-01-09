@@ -34,8 +34,6 @@ Fonctionnalité: Instruction: liste des habilitations
     Et que je clique sur "Rechercher"
     Alors je vois 3 habilitations
 
-  # Removed: redundant test with demandes - the reset functionality is tested there
-
   Scénario: Je peux combiner les filtres de type et de statut
     Sachant que je suis un instructeur avec plusieurs types d'autorisation
     Et qu'il y a 2 habilitations "API Entreprise" actives

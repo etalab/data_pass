@@ -1,5 +1,3 @@
-/* DSFR Multi Select Component Styles */
-
 .dsfrx-select > .fr-label {
   margin-bottom: 0.5rem;
 }
@@ -10,7 +8,6 @@
   width: 300px;
 }
 
-/* Control Input (Combobox Trigger) */
 .dsfrx-multiselect .fr-select {
   min-height: 2.5rem;
   text-align: left;
@@ -52,7 +49,6 @@
   color: var(--text-default-grey);
 }
 
-/* Dropdown Container */
 .dsfrx-dropdown {
   position: absolute;
   z-index: 1000;
@@ -65,7 +61,6 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Toolbar (Select All + Search) */
 .dsfrx-multiselect__toolbar {
   display: block;
   padding: 0.5rem 0.75rem;
@@ -102,7 +97,6 @@
   }
 }
 
-/* Options List */
 .dsfrx-multiselect__list {
   overflow: auto;
   list-style: none;
@@ -121,7 +115,6 @@
   margin: 0;
 }
 
-/* Option Item */
 .dsfrx-multiselect__item {
   line-height: 1.5rem;
   padding: 0.25rem 0.5rem;
@@ -153,7 +146,6 @@
   cursor: not-allowed;
 }
 
-/* Checkbox styling within options */
 .dsfrx-multiselect__item .fr-checkbox-group {
   margin: 0;
 }
@@ -175,23 +167,19 @@
   left: 0;
 }
 
-/* Hidden inputs container */
 .dsfrx-multiselect__hidden-inputs {
   display: none;
 }
 
-/* Native select fallback (visible when JS is disabled) */
 .dsfrx-multiselect__native {
   width: 100%;
   min-height: 6rem;
 }
 
-/* Hide JS-powered component until JS activates */
 .dsfrx-multiselect--js-only {
   display: none;
 }
 
-/* Disabled select group */
 .dsfrx-select.fr-select-group--disabled {
   cursor: not-allowed;
 }
@@ -200,7 +188,6 @@
   color: var(--text-disabled-grey);
 }
 
-/* Dark theme support */
 :root[data-fr-theme="dark"] .dsfrx-multiselect .fr-select {
   background-image: url("data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' viewBox='0 0 24 24' ><path fill='%23fff' d='M12,13.1l5-4.9l1.4,1.4L12,15.9L5.6,9.5l1.4-1.4L12,13.1z'/></svg>");
 }
@@ -209,7 +196,6 @@
   background-image: url("data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' viewBox='0 0 24 24' ><path fill='%23fff' d='M12,10.9l5,4.9l1.4-1.4L12,8.1L5.6,14.5l1.4,1.4L12,10.9z'/></svg>");
 }
 
-/* Option Groups */
 .dsfrx-multiselect__group {
   list-style: none;
   padding: 0;

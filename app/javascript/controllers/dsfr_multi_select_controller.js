@@ -36,13 +36,11 @@ export default class extends Controller {
   }
 
   _activateEnhancedMode () {
-    // Hide and disable native select (disabled prevents form submission)
     if (this.hasNativeSelectTarget) {
       this.nativeSelectTarget.classList.add('fr-hidden')
       this.nativeSelectTarget.disabled = true
     }
 
-    // Show the enhanced JS-powered component
     if (this.hasContainerTarget) {
       this.containerTarget.classList.remove('dsfrx-multiselect--js-only')
     }
@@ -104,13 +102,10 @@ export default class extends Controller {
         break
       case 'Tab':
         if (event.shiftKey && this._isFirstToolbarElement(event.target)) {
-          // Shift+Tab on first element: close and go back to trigger
           this._close()
         } else if (!event.shiftKey && this._isLastToolbarElement(event.target)) {
-          // Tab on last element: close dropdown
           this._close()
         }
-        // Otherwise let natural Tab navigation happen within toolbar
         break
     }
   }
@@ -145,7 +140,6 @@ export default class extends Controller {
         if (currentIndex < options.length - 1) {
           this._setFocusOnOption(options[currentIndex + 1])
         } else {
-          // Loop to first option
           this._setFocusOnOption(options[0])
         }
         break
@@ -189,11 +183,9 @@ export default class extends Controller {
         break
       case 'Tab':
         if (event.shiftKey && this._hasToolbar()) {
-          // Shift+Tab: go back to toolbar
           event.preventDefault()
           this._focusToolbar()
         } else {
-          // Tab: close dropdown
           this._close()
         }
         break
@@ -239,7 +231,6 @@ export default class extends Controller {
     const hasAnySelected = this._hasAnySelected()
 
     if (hasAnySelected) {
-      // Deselect all
       enabledOptions.forEach(li => {
         const value = li.dataset.value
         this.selectedValues.delete(value)
@@ -250,7 +241,6 @@ export default class extends Controller {
         if (checkbox) checkbox.checked = false
       })
     } else {
-      // Select all
       enabledOptions.forEach(li => {
         const value = li.dataset.value
         const label = li.dataset.label
@@ -275,7 +265,6 @@ export default class extends Controller {
     const groups = this.listboxTarget.querySelectorAll('li[role="group"]')
     let visibleCount = 0
 
-    // Filter options
     options.forEach(li => {
       const label = li.dataset.label.toLowerCase()
       const matches = label.includes(searchText)
@@ -283,28 +272,23 @@ export default class extends Controller {
       if (matches) visibleCount++
     })
 
-    // Show/hide groups based on whether they have visible options
     groups.forEach(group => {
       const groupOptions = group.querySelectorAll('li[role="option"]:not(.fr-hidden)')
       group.classList.toggle('fr-hidden', groupOptions.length === 0)
     })
 
-    // Show/hide empty state
     if (this.hasEmptyStateTarget) {
       this.emptyStateTarget.classList.toggle('fr-hidden', visibleCount > 0)
     }
 
-    // Announce results to screen readers
     this._announceResults(visibleCount)
   }
 
   _announceResults (count) {
     if (!this.hasSrAnnouncementTarget) return
 
-    // Clear previous announcement
     this.srAnnouncementTarget.textContent = ''
 
-    // Small delay to ensure screen readers pick up the change
     setTimeout(() => {
       if (count === 0) {
         this.srAnnouncementTarget.textContent = 'Aucun résultat disponible'
@@ -321,7 +305,6 @@ export default class extends Controller {
     this.dropdownTarget.setAttribute('aria-hidden', 'false')
     this.triggerTarget.setAttribute('aria-expanded', 'true')
 
-    // Reset search if present
     if (this.hasSearchInputTarget) {
       this.searchInputTarget.value = ''
       this.handleSearch()
@@ -332,7 +315,6 @@ export default class extends Controller {
     this.dropdownTarget.classList.add('fr-hidden')
     this.dropdownTarget.setAttribute('aria-hidden', 'true')
     this.triggerTarget.setAttribute('aria-expanded', 'false')
-    // Clear aria-activedescendant
     this.listboxTarget.removeAttribute('aria-activedescendant')
   }
 
@@ -351,11 +333,9 @@ export default class extends Controller {
   }
 
   _focusOnOpen () {
-    // If toolbar exists, focus on first toolbar element
     if (this._hasToolbar()) {
       this._focusToolbar()
     } else {
-      // Focus on first selected option, or first option if none selected
       this._focusFirstSelectedOrFirstOption()
     }
   }
@@ -379,7 +359,6 @@ export default class extends Controller {
     const options = this._getVisibleOptions()
     if (options.length === 0) return
 
-    // Find first selected option
     const firstSelected = options.find(opt => opt.classList.contains('selected'))
     if (firstSelected) {
       this._setFocusOnOption(firstSelected)
@@ -393,7 +372,6 @@ export default class extends Controller {
 
     optionElement.focus()
 
-    // Set aria-activedescendant on listbox
     const optionId = optionElement.getAttribute('id')
     if (optionId) {
       this.listboxTarget.setAttribute('aria-activedescendant', optionId)
