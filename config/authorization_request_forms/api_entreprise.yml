@@ -118,64 +118,6 @@ api-entreprise-subventions-associations:
       - liasses_fiscales_dgfip
       - liens_capitalistiques_dgfip
 
-api-entreprise-socle-de-base:
-  name: "Socle de base DLNUF"
-  description: | 
-    Accéder aux données de base, utilisables par toute administration ou assimilé, pour mettre en oeuvre le principe du « Dites-le nous une fois ».
-    <br/>
-    <i>Socle de base : Données des répertoires Sirene, RNA et RNE, actes et bilans de l'Inpi, numéros TVA et EORI ; certifications Bio, RGE, OPQIBI, Qualifelec, Qualibat et carte FNTP ; DAC et subventions des associations.</i>
-  use_case: "socle_de_base"
-  introduction: |
-    Ce formulaire permet d'accéder aux API de l'API Entreprise distribuant les <strong>données de base accessibles à tout acteur public ou assimilé pour satisfaire le principe du « Dites-le nous une fois »</strong> consacré par l'article L114-8 du Code des relations entre le public et l'administration.
-    Les données accessibles via ce formulaire : 
-    - Données publiques : données des répertoires Sirene, RNE et RNA ; actes et bilans de l'Inpi ; numéros TVA et EORI ; certifications Bio, RGE, OPQIBI, Qualifelec, Qualibat et carte professionnelle de travaux public de la FNTP. 
-    - Données protégées : données des unités en diffusion partielle des répertoire RNE et RNA ; montant des subventions et documents administratifs complémentaires (DAC) des associations.
-    <br />
-    <i>💡 Votre cas d'usage concerne les marchés publics ? la délivrance d'aides ou de subventions ?</i>
-    Utilisez plutôt les <a href="https://datapass.api.gouv.fr/demandes/api-entreprise/nouveau">formulaires dédiés à ces cas d'usages</a> permettant d'accéder au socle de données de base ainsi qu'à d'autres données protégées.
-  authorization_request: "APIEntreprise"
-  steps:
-    - name: "basic_infos"
-    - name: "scopes"
-    - name: "personal_data"
-    - name: "contacts"
-  scopes_config:
-    disabled: 
-      - unites_legales_etablissements_insee
-      - data_subvention_subventions
-      - associations_djepva
-    hide:
-      - effectifs_urssaf
-      - beneficiaires_effectifs_inpi
-      - mandataires_sociaux_infogreffe
-      - liens_capitalistiques_dgfip
-      - chiffre_affaires_dgfip
-      - bilans_bdf
-      - liasses_fiscales_dgfip
-      - attestation_fiscale_dgfip
-      - attestation_sociale_urssaf
-      - cotisations_msa
-      - cotisations_probtp
-      - attestation_cotisations_conges_payes_chomage_intemperies_cibtp_cnetp
-      - certifications_qualiopi_france_competences
-  static_blocks:
-    - name: "scopes"
-  initialize_with:
-    intitule: "Socle de base - Mise en oeuvre du Dites-le nous une fois"
-    cadre_juridique_nature: |
-      Accès aux données de base des entreprises et associations, utilisables par toute administration ou assimilé, pour satisfaire le principe du « Dites-le nous une fois » consacré par l'article L114-8 du Code des relations entre le public et l'administration.
-      Ces données ont des conditions d'utilisation différentes : 
-      <br />
-      - Données publiques : données des répertoires Sirene, RNE et RNA ; actes et bilans de l'Inpi ; numéros TVA et EORI ; certifications Bio, RGE, OPQIBI, Qualifelec, Qualibat et carte professionnelle de travaux public de la FNTP. 
-      - Données protégées : données des unités en diffusion partielle des répertoire RNE et RNA ; montant des subventions et documents administratifs complémentaires (DAC) des associations.
-      <br />
-      ⚠️ Les données protégées doivent uniquement être utilisées par un agent habilité ou après authentification de l'usager. Elles ne doivent pas être diffusées en ligne ou à des tiers non-autorisés.
-    cadre_juridique_url: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000045213315"
-    scopes:
-      - unites_legales_etablissements_insee
-      - data_subvention_subventions
-      - associations_djepva
-
 api-entreprise-portail-gru-preremplissage:
   name: "Portail GRU - Préremplissage uniquement"
   startable_by_applicant: false
@@ -267,6 +209,64 @@ api-entreprise-detection-fraude:
       - attestation_cotisations_conges_payes_chomage_intemperies_cibtp_cnetp
       - certifications_qualiopi_france_competences
       - liens_capitalistiques_dgfip
+
+api-entreprise-socle-de-base:
+  name: "Socle de base DLNUF"
+  description: | 
+    Accéder aux données de base, utilisables par toute administration ou assimilé, pour mettre en oeuvre le principe du « Dites-le nous une fois ».
+    <br/>
+    <i>Socle de base : Données des répertoires Sirene, RNA et RNE, actes et bilans de l'Inpi, numéros TVA et EORI ; certifications Bio, RGE, OPQIBI, Qualifelec, Qualibat et carte FNTP ; DAC et subventions des associations.</i>
+  use_case: "socle_de_base"
+  introduction: |
+    Ce formulaire permet d'accéder aux API de l'API Entreprise distribuant les <strong>données de base accessibles à tout acteur public ou assimilé pour satisfaire le principe du « Dites-le nous une fois »</strong> consacré par l'article L114-8 du Code des relations entre le public et l'administration.
+    Les données accessibles via ce formulaire : 
+    - Données publiques : données des répertoires Sirene, RNE et RNA ; actes et bilans de l'Inpi ; numéros TVA et EORI ; certifications Bio, RGE, OPQIBI, Qualifelec, Qualibat et carte professionnelle de travaux public de la FNTP. 
+    - Données protégées : données des unités en diffusion partielle des répertoire RNE et RNA ; montant des subventions et documents administratifs complémentaires (DAC) des associations.
+    <br />
+    <i>💡 Votre cas d'usage concerne les marchés publics ? la délivrance d'aides ou de subventions ?</i>
+    Utilisez plutôt les <a href="https://datapass.api.gouv.fr/demandes/api-entreprise/nouveau">formulaires dédiés à ces cas d'usages</a> permettant d'accéder au socle de données de base ainsi qu'à d'autres données protégées.
+  authorization_request: "APIEntreprise"
+  steps:
+    - name: "basic_infos"
+    - name: "scopes"
+    - name: "personal_data"
+    - name: "contacts"
+  scopes_config:
+    disabled: 
+      - unites_legales_etablissements_insee
+      - data_subvention_subventions
+      - associations_djepva
+    hide:
+      - effectifs_urssaf
+      - beneficiaires_effectifs_inpi
+      - mandataires_sociaux_infogreffe
+      - liens_capitalistiques_dgfip
+      - chiffre_affaires_dgfip
+      - bilans_bdf
+      - liasses_fiscales_dgfip
+      - attestation_fiscale_dgfip
+      - attestation_sociale_urssaf
+      - cotisations_msa
+      - cotisations_probtp
+      - attestation_cotisations_conges_payes_chomage_intemperies_cibtp_cnetp
+      - certifications_qualiopi_france_competences
+  static_blocks:
+    - name: "scopes"
+  initialize_with:
+    intitule: "Socle de base - Mise en oeuvre du Dites-le nous une fois"
+    cadre_juridique_nature: |
+      Accès aux données de base des entreprises et associations, utilisables par toute administration ou assimilé, pour satisfaire le principe du « Dites-le nous une fois » consacré par l'article L114-8 du Code des relations entre le public et l'administration.
+      Ces données ont des conditions d'utilisation différentes : 
+      <br />
+      - Données publiques : données des répertoires Sirene, RNE et RNA ; actes et bilans de l'Inpi ; numéros TVA et EORI ; certifications Bio, RGE, OPQIBI, Qualifelec, Qualibat et carte professionnelle de travaux public de la FNTP. 
+      - Données protégées : données des unités en diffusion partielle des répertoire RNE et RNA ; montant des subventions et documents administratifs complémentaires (DAC) des associations.
+      <br />
+      ⚠️ Les données protégées doivent uniquement être utilisées par un agent habilité ou après authentification de l'usager. Elles ne doivent pas être diffusées en ligne ou à des tiers non-autorisés.
+    cadre_juridique_url: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000045213315"
+    scopes:
+      - unites_legales_etablissements_insee
+      - data_subvention_subventions
+      - associations_djepva
 
 api-entreprise-editeur:
   name: "Formulaire spécifique aux éditeurs de logiciels"
