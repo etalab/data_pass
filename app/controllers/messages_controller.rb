@@ -1,9 +1,7 @@
 class MessagesController < AuthenticatedUserController
-  helper DemandesHabilitations::CommonHelper
+  include AuthorizationOrRequestContext
 
-  before_action :extract_authorization_or_request
   before_action :mark_messages_as_read!, only: [:index]
-  decorates_assigned :authorization_request, :authorization
 
   def index
     authorize @authorization_request, :messages?
@@ -49,23 +47,8 @@ class MessagesController < AuthenticatedUserController
     )
   end
 
-  def extract_authorization_or_request
-    if params[:authorization_id].present?
-      @authorization = Authorization.friendly.find(params[:authorization_id])
-      @authorization_request = @authorization.request
-    else
-      @authorization_request = AuthorizationRequest.find(params[:authorization_request_id])
-    end
-  end
-
   def model_to_track_for_impersonation
     @organizer&.message || @message
-  end
-
-  def layout_name
-    return 'authorization_with_tabs' if @authorization.present?
-
-    'authorization_request_with_tabs'
   end
 
   def messages_index_path
