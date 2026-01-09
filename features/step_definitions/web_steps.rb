@@ -110,6 +110,42 @@ Quand('je sélectionne le filtre {string} pour {string}') do |option, name|
   end
 end
 
+Quand('je sélectionne {string} dans le multi-select {string}') do |option, label|
+  label_element = find('label', text: label)
+  container = label_element.find(:xpath, '..')
+
+  if javascript?
+    # With JavaScript: interact with the enhanced component
+    multiselect = container.find('.dsfrx-multiselect')
+    dropdown = multiselect.find('.dsfrx-multiselect__wrapper', visible: :all)
+    multiselect.find('.fr-select[role="combobox"]').click if dropdown[:class].include?('fr-hidden')
+    multiselect.find('.dsfrx-multiselect__item', text: option).click
+  else
+    # Without JavaScript: use the native <select multiple> element
+    native_select = container.find('.dsfrx-multiselect__native', visible: :all)
+    native_select.select(option)
+  end
+end
+
+Quand('je réinitialise le multi-select {string}') do |label|
+  label_element = find('label', text: label)
+  container = label_element.find(:xpath, '..')
+
+  if javascript?
+    # With JavaScript: use the "Tout désélectionner" button
+    multiselect = container.find('.dsfrx-multiselect')
+    dropdown = multiselect.find('.dsfrx-multiselect__wrapper', visible: :all)
+    multiselect.find('.fr-select[role="combobox"]').click if dropdown[:class].include?('fr-hidden')
+    multiselect.find('.fr-btn--select-all').click
+  else
+    # Without JavaScript: unselect all options from native select
+    native_select = container.find('.dsfrx-multiselect__native', visible: :all)
+    native_select.all('option:checked', visible: :all).each do |option|
+      native_select.unselect(option.text)
+    end
+  end
+end
+
 Quand('je choisis {string}') do |option|
   if javascript?
     find('label', text: option, visible: :visible).trigger('click')

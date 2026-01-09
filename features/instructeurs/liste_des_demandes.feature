@@ -26,7 +26,7 @@ Fonctionnalité: Instruction: liste des demandes
     Sachant qu'il y a 1 demande d'habilitation "API Entreprise" en attente
     Et qu'il y a 1 demande d'habilitation "API Entreprise" validée
     Et que je vais sur la page instruction
-    Et que je sélectionne "En cours d'instruction" pour "État égal à"
+    Et que je sélectionne "En cours d'instruction" dans le multi-select "Statut"
     Et que je clique sur "Rechercher"
     Alors je vois 1 demande d'habilitation
 
@@ -34,9 +34,43 @@ Fonctionnalité: Instruction: liste des demandes
     Sachant qu'il y a 1 demande d'habilitation "API Entreprise" en attente
     Et qu'il y a 1 demande d'habilitation "API Entreprise" archivée
     Et que je vais sur la page instruction
-    Et que je sélectionne "Supprimée" pour "État égal à"
+    Et que je sélectionne "Supprimée" dans le multi-select "Statut"
     Et que je clique sur "Rechercher"
     Alors je vois 1 demande d'habilitation
+
+  Scénario: Je peux filtrer par plusieurs statuts
+    Sachant qu'il y a 2 demandes d'habilitation "API Entreprise" en attente
+    Et qu'il y a 1 demande d'habilitation "API Entreprise" en brouillon
+    Et qu'il y a 1 demande d'habilitation "API Entreprise" refusée
+    Et que je vais sur la page instruction
+    Et que je sélectionne "En cours d'instruction" dans le multi-select "Statut"
+    Et que je sélectionne "Brouillon" dans le multi-select "Statut"
+    Et que je clique sur "Rechercher"
+    Alors je vois 3 demandes d'habilitation
+
+  # Keep one @javascript test to ensure the component works with JavaScript enabled
+  @javascript
+  Scénario: Je peux réinitialiser les filtres de statut
+    Sachant qu'il y a 2 demandes d'habilitation "API Entreprise" en attente
+    Et qu'il y a 1 demande d'habilitation "API Entreprise" en brouillon
+    Et que je vais sur la page instruction
+    Et que je sélectionne "En cours d'instruction" dans le multi-select "Statut"
+    Et que je clique sur "Rechercher"
+    Alors je vois 2 demandes d'habilitation
+    Et que je réinitialise le multi-select "Statut"
+    Et que je clique sur "Rechercher"
+    Alors je vois 3 demandes d'habilitation
+
+  Scénario: Je peux combiner les filtres de type et de statut
+    Sachant que je suis un instructeur avec plusieurs types d'autorisation
+    Et qu'il y a 2 demandes d'habilitation "API Entreprise" en attente
+    Et qu'il y a 1 demande d'habilitation "API Particulier" en attente
+    Et qu'il y a 1 demande d'habilitation "API Entreprise" en brouillon
+    Et que je vais sur la page instruction
+    Et que je sélectionne "API Entreprise" dans le multi-select "Type de demande"
+    Et que je sélectionne "En cours d'instruction" dans le multi-select "Statut"
+    Et que je clique sur "Rechercher"
+    Alors je vois 2 demandes d'habilitation
 
   Scénario: Trier par date de soumission fonctionne
     Sachant qu'il y a 1 demande d'habilitation "API Entreprise" en attente

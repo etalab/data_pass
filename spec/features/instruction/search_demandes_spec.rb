@@ -4,10 +4,10 @@ RSpec.describe 'Instruction: demandes search' do
 
     within('#authorization_request_search') do
       fill_in 'instructor_search_input', with: search_text if use_search_text
-      select state, from: 'search_query_state_eq' if state
-      select type, from: 'search_query_type_eq' if type
+      select_multi_select_option(state, from: '#search_query_state_in') if state
+      select_multi_select_option(type, from: '#search_query_type_in') if type
 
-      click_link_or_button
+      click_link_or_button 'Rechercher'
     end
   end
 
@@ -172,6 +172,36 @@ RSpec.describe 'Instruction: demandes search' do
         expect(page).to have_current_path(instruction_dashboard_show_path(id: 'demandes'), ignore_query: true)
         expect(page).to have_css('.authorization-request', count: 0)
       end
+    end
+  end
+
+  context 'when we search with multiple states' do
+    let(:use_search_text) { true }
+    let(:search_text) { 'Multiple states test unique' }
+    let(:state) { nil }
+    let(:type) { nil }
+
+    # Using a unique search_text value for these test cases to isolate them from other tests
+    # This ensures we only match the requests created in this context
+    let!(:submitted_request) { create(:authorization_request, :api_entreprise, state: :submitted, intitule: search_text, organization: organization) }
+    let!(:draft_request) { create(:authorization_request, :api_particulier, state: :draft, intitule: search_text) }
+    let!(:refused_request) { create(:authorization_request, :api_entreprise, state: :refused, intitule: search_text) }
+
+    it 'renders requests with both selected states and filters out the other state' do
+      visit instruction_dashboard_show_path(id: 'demandes')
+
+      within('#authorization_request_search') do
+        fill_in 'instructor_search_input', with: search_text
+        select_multi_select_option("En cours d'instruction", from: '#search_query_state_in')
+        select_multi_select_option('Brouillon', from: '#search_query_state_in')
+
+        click_link_or_button 'Rechercher'
+      end
+
+      expect(page).to have_css(css_id(submitted_request))
+      expect(page).to have_css(css_id(draft_request))
+
+      expect(page).to have_no_css(css_id(refused_request))
     end
   end
 end
