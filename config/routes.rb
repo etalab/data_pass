@@ -139,7 +139,8 @@ Rails.application.routes.draw do
     resource :impersonate, only: %i[new create destroy], controller: 'impersonate'
     resource :transfer_authorization_request, only: %i[new create], path: 'transferer-demande'
     resources :user_organization_verifications, only: %i[index], path: 'verifications-organisations'
-    resources :mark_user_organization_as_verified, only: %i[new create], path: 'marquer-verifie'
+    resources :mark_user_organization_as_verified, only: %i[new create edit update], path: 'marquer-verifie'
+    resources :unmark_user_organization_as_verified, only: %i[destroy], path: 'retirer-verification'
   end
 
   %w[/api/oauth /api/v1/oauth].each do |path|

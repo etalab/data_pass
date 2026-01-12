@@ -122,6 +122,9 @@ fr:
         verified_yes: "Vérifié"
         verified_no: "Non vérifié"
         mark_as_verified: "Marquer comme vérifié"
+        edit_reason: "Modifier"
+        unmark_as_verified: "Marquer comme non-vérifié"
+        unmark_confirm: "Êtes-vous sûr de vouloir marquer ce lien comme non-vérifié ?"
 
     mark_user_organization_as_verified:
       new:
@@ -131,4 +134,17 @@ fr:
         submit: "Confirmer"
       create:
         success: "Le lien a été marqué comme vérifié"
+        error: "Une erreur est survenue"
+      edit:
+        title: "Modifier la justification"
+        description: "Modifier la justification du lien entre l'utilisateur « %{user_email} » et l'organisation « %{organization_name} »."
+        cancel: "Annuler"
+        submit: "Enregistrer"
+      update:
+        success: "La justification a été modifiée"
+        error: "Une erreur est survenue"
+
+    unmark_user_organization_as_verified:
+      destroy:
+        success: "La vérification a été retirée"
         error: "Une erreur est survenue"

@@ -59,7 +59,20 @@
                     </td>
                     <td><%= organizations_user.verified_reason %></td>
                     <td>
-                      <% unless organizations_user.verified? %>
+                      <% if organizations_user.verified? %>
+                        <%= dsfr_main_modal_button t('.edit_reason'),
+                                    edit_admin_mark_user_organization_as_verified_path(
+                                      "#{@user.id}-#{organizations_user.organization_id}"
+                                    ),
+                                    class: %w[fr-btn fr-btn--sm fr-btn--secondary] %>
+                        <%= button_to t('.unmark_as_verified'),
+                                    admin_unmark_user_organization_as_verified_path(
+                                      "#{@user.id}-#{organizations_user.organization_id}"
+                                    ),
+                                    method: :delete,
+                                    class: %w[fr-btn fr-btn--sm fr-btn--tertiary-no-outline],
+                                    data: { turbo_confirm: t('.unmark_confirm') } %>
+                      <% else %>
                         <%= dsfr_main_modal_button t('.mark_as_verified'),
                                     new_admin_mark_user_organization_as_verified_path(
                                       user_id: @user.id,
