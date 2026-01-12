@@ -1,0 +1,123 @@
+<div
+  class="<%= select_group_classes %>"
+  data-controller="dsfr-multi-select"
+  data-dsfr-multi-select-name-value="<%= name %>"
+  data-dsfr-multi-select-placeholder-value="<%= placeholder %>"
+  id="<%= component_id %>">
+
+  <% if label %>
+    <label class="fr-label" id="<%= label_id %>" for="<%= native_select_id %>">
+      <%= label %>
+    </label>
+  <% end %>
+
+  <select
+    multiple
+    class="fr-select dsfrx-multiselect__native"
+    id="<%= native_select_id %>"
+    name="<%= name %>"
+    data-dsfr-multi-select-target="nativeSelect">
+    <% normalized_options.each do |item| %>
+      <% if item[:group] %>
+        <optgroup label="<%= item[:label] %>">
+          <% item[:options].each do |option| %>
+            <option
+              value="<%= option[:value] %>"
+              <%= 'selected' if option_selected?(option) %>
+              <%= 'disabled' if option[:disabled] %>>
+              <%= option[:label] %>
+            </option>
+          <% end %>
+        </optgroup>
+      <% else %>
+        <option
+          value="<%= item[:value] %>"
+          <%= 'selected' if option_selected?(item) %>
+          <%= 'disabled' if item[:disabled] %>>
+          <%= item[:label] %>
+        </option>
+      <% end %>
+    <% end %>
+  </select>
+
+  <div class="dsfrx-multiselect dsfrx-multiselect--js-only" data-dsfr-multi-select-target="container">
+    <div
+      class="<%= control_classes %>"
+      role="combobox"
+      tabindex="0"
+      aria-haspopup="listbox"
+      aria-expanded="false"
+      aria-controls="<%= listbox_id %>"
+      aria-labelledby="<%= label_id if label %>"
+      data-dsfr-multi-select-target="trigger"
+      data-action="click->dsfr-multi-select#toggle keydown->dsfr-multi-select#handleTriggerKeydown">
+      <span class="dsfrx-multiselect__label <%= 'dsfrx-multiselect--placeholder' if none_selected? %>" data-dsfr-multi-select-target="label">
+        <%= display_label %>
+      </span>
+    </div>
+
+    <div
+      class="dsfrx-dropdown dsfrx-multiselect__wrapper fr-hidden"
+      data-dsfr-multi-select-target="dropdown"
+      aria-hidden="true">
+
+      <div
+        class="dsfrx-multiselect__toolbar"
+        data-dsfr-multi-select-target="toolbar"
+        data-action="keydown->dsfr-multi-select#handleToolbarKeydown">
+        <button
+          type="button"
+          class="fr-btn fr-btn--sm fr-btn--tertiary fr-btn--select-all"
+          data-dsfr-multi-select-target="selectAllButton"
+          data-action="click->dsfr-multi-select#toggleSelectAll">
+          <span data-dsfr-multi-select-target="selectAllLabel">
+            <%= none_selected? ? 'Tout sélectionner' : 'Tout désélectionner' %>
+          </span>
+        </button>
+      </div>
+
+      <ul
+        class="dsfrx-multiselect__list"
+        role="listbox"
+        aria-multiselectable="true"
+        id="<%= listbox_id %>"
+        tabindex="-1"
+        data-dsfr-multi-select-target="listbox">
+        <% option_index = 0 %>
+        <% normalized_options.each_with_index do |item, group_index| %>
+          <% if item[:group] %>
+            <li role="group" aria-labelledby="<%= component_id %>-group-<%= group_index %>" class="dsfrx-multiselect__group">
+              <span id="<%= component_id %>-group-<%= group_index %>" role="presentation" class="dsfrx-multiselect__group-label">
+                <%= item[:label] %>
+              </span>
+              <ul role="none" class="dsfrx-multiselect__group-options">
+                <% item[:options].each do |option| %>
+                  <%= render_option(option, option_index) %>
+                  <% option_index += 1 %>
+                <% end %>
+              </ul>
+            </li>
+          <% else %>
+            <%= render_option(item, option_index) %>
+            <% option_index += 1 %>
+          <% end %>
+        <% end %>
+      </ul>
+
+      <div
+        class="dsfrx-multiselect__list dsfrx-multiselect__list--empty fr-hidden"
+        role="status"
+        aria-live="polite"
+        data-dsfr-multi-select-target="emptyState">
+        <p>Aucun résultat</p>
+      </div>
+    </div>
+
+    <div class="dsfrx-multiselect__hidden-inputs" data-dsfr-multi-select-target="hiddenInputs">
+      <% selected.each do |value| %>
+        <input type="hidden" name="<%= name %>" value="<%= value %>">
+      <% end %>
+    </div>
+  </div>
+</div>
+
