@@ -29,29 +29,17 @@
               <div data-controller="message-template-selector"
                    data-message-template-selector-templates-value="<%= @message_templates.map { |t| { id: t.id, content: t.content } }.to_json %>"
                    data-message-template-selector-authorization-request-data-value="<%= { demande_url: authorization_request_url(@authorization_request), demande_intitule: @authorization_request.intitule, demande_id: @authorization_request.id }.to_json %>">
-                <% if @message_templates.any? %>
-                  <div class="fr-mb-2w">
-                    <ul class="fr-tabs__list messages-templates-selector" role="tablist">
-                      <% @message_templates.each do |template| %>
-                        <li role="presentation">
-                          <button class="fr-tabs__tab"
-                                  type="button"
-                                  role="tab"
-                                  data-template-id="<%= template.id %>"
-                                  data-action="click->message-template-selector#applyTemplate">
-                            <%= template.title %>
-                          </button>
-                        </li>
-                      <% end %>
-                    </ul>
-                  </div>
-                <% end %>
+                <%= render 'instruction/shared/message_templates_section',
+                           message_templates: @message_templates,
+                           authorization_request: @authorization_request %>
 
                 <%= f.dsfr_text_area :message, required: false, rows: 6, data: { message_template_selector_target: 'textarea' } %>
+
+                <%= render 'instruction/shared/email_preview_accordion', email_preview: @email_preview %>
               </div>
             </div>
 
-            <div class="fr-modal__footer">
+            <div class="fr-modal__footer fr-modal__footer--above-accordion">
               <div class="fr-btns-group fr-btns-group--right fr-btns-group--inline-reverse fr-btns-group--inline-lg fr-btns-group--icon-left">
                 <%= link_to t(".#{namespace}.cancel"), '#', class: %w(fr-btn fr-btn--secondary), aria: { controls: 'main-modal' } %>
                 <%= f.button t(".#{namespace}.approve"), type: :submit, class: %w(fr-btn fr-btn--primary fr-icon-success-line fr-btn--icon-left) %>
