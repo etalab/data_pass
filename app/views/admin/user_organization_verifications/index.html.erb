@@ -1,16 +1,11 @@
 <% set_title! t('page_titles.admin_user_organization_verifications') %>
 
 <div class="fr-container fr-mt-5w">
-  <%= form_with(url: admin_user_organization_verifications_path, method: :get, class: 'search-box') do |f| %>
-    <div class="search-inputs">
-      <div class="fr-input-group main-input input">
-        <%= f.label :email, t('.search.label'), class: %w[fr-label] %>
-        <%= f.email_field :email, value: @email, class: %w[fr-input], placeholder: t('.search.placeholder') %>
-      </div>
-    </div>
-
-    <div class="actions">
-      <%= f.button t('.search.btn'), type: :submit, class: %w[fr-btn fr-btn--primary] %>
+  <%= form_with(url: admin_user_organization_verifications_path, method: :get) do |f| %>
+    <div class="fr-search-bar" role="search">
+      <%= f.label :email, t('.search.label'), class: %w[fr-label] %>
+      <%= f.email_field :email, value: @email, class: %w[fr-input], placeholder: t('.search.placeholder') %>
+      <%= f.button t('.search.btn'), type: :submit, class: %w[fr-btn], title: t('.search.btn') %>
     </div>
   <% end %>
 
@@ -76,7 +71,7 @@
                                       "#{@user.id}-#{organizations_user.organization_id}"
                                     ),
                                     method: :delete,
-                                    class: %w[fr-btn fr-btn--sm fr-btn--tertiary-no-outline],
+                                    class: %w[fr-btn fr-btn--sm fr-btn--secondary],
                                     data: { turbo_confirm: t('.unmark_confirm') } %>
                       <% else %>
                         <%= dsfr_main_modal_button t('.mark_as_verified'),
