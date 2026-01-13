@@ -1,0 +1,16 @@
+<% preview_with_marker = email_preview.gsub(
+  EmailPreviewRenderer::PLACEHOLDER_MESSAGE,
+  '<span data-message-template-selector-target="previewMessage">&lt;MESSAGE PERSONNALISÉ&gt;</span>'
+) %>
+<section class="fr-accordion fr-mt-3w">
+  <h3 class="fr-accordion__title">
+    <button type="button" class="fr-accordion__btn" aria-expanded="false" aria-controls="email-preview-accordion">
+      <%= t('instruction.shared.email_preview_accordion.title') %>
+    </button>
+  </h3>
+  <div class="fr-collapse" id="email-preview-accordion">
+    <div class="fr-p-3w" style="background-color: var(--background-contrast-grey);">
+      <%= simple_format(preview_with_marker, {}, sanitize: false) %>
+    </div>
+  </div>
+</section>

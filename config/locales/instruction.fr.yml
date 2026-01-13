@@ -1,5 +1,11 @@
 fr:
   instruction:
+    shared:
+      message_templates_section:
+        choose_template: Vous pouvez choisir un modèle ci-dessous.
+        edit_templates_link: cliquez ici pour modifier ces modèles
+      email_preview_accordion:
+        title: Voir un aperçu de l'email
     dashboard:
       authorization_requests:
         tabs:
