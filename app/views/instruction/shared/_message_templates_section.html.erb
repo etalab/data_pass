@@ -1,0 +1,23 @@
+<% if message_templates.any? %>
+  <p class="fr-text--sm fr-mb-2w">
+    <%= t('instruction.shared.message_templates_section.choose_template') %>
+    <% if current_user.manager?(authorization_request.definition.id) %>
+      (<%= link_to t('instruction.shared.message_templates_section.edit_templates_link'), instruction_message_templates_path, target: '_blank' %>)
+    <% end %>
+  </p>
+  <div class="fr-mb-2w">
+    <ul class="fr-tabs__list messages-templates-selector" role="tablist">
+      <% message_templates.each do |template| %>
+        <li role="presentation">
+          <button class="fr-tabs__tab"
+                  type="button"
+                  role="tab"
+                  data-template-id="<%= template.id %>"
+                  data-action="click->message-template-selector#applyTemplate">
+            <%= template.title %>
+          </button>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
