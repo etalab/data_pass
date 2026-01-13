@@ -102,3 +102,49 @@ fr:
         new_applicant_not_found: "Aucun utilisateur trouvé avec l'email %{email}"
         applicant_not_in_organization: "L'utilisateur %{email} n'appartient pas à l'organisation %{siret}"
         invalid_new_organization: "Erreur de validation lors du transfert"
+
+    user_organization_verifications:
+      index:
+        title: "Vérification lien utilisateur / organisation"
+        search:
+          label: "Email de l’utilisateur"
+          placeholder: "user@example.com"
+          btn: "Rechercher"
+        user_not_found: "Aucun utilisateur trouvé avec l’email « %{email} »"
+        no_organizations: "L’utilisateur « %{email} » n’a aucune organisation associée"
+        results_title: "Organisations de %{email}"
+        table:
+          organization: "Organisation"
+          siret: "SIRET"
+          verified: "Vérifié"
+          reason: "Justification"
+          actions: "Actions"
+        verified_yes: "Vérifié"
+        verified_no: "Non vérifié"
+        mark_as_verified: "Marquer comme vérifié"
+        edit_reason: "Modifier"
+        unmark_as_verified: "Marquer comme non-vérifié"
+        unmark_confirm: "Êtes-vous sûr de vouloir marquer ce lien comme non-vérifié ?"
+
+    mark_user_organization_as_verified:
+      new:
+        title: "Marquer le lien comme vérifié"
+        description: "Vous allez marquer le lien entre l’utilisateur « %{user_email} » et l’organisation « %{organization_name} » comme vérifié."
+        cancel: "Annuler"
+        submit: "Confirmer"
+      create:
+        success: "Le lien a été marqué comme vérifié"
+        error: "Une erreur est survenue"
+      edit:
+        title: "Modifier la justification"
+        description: "Modifier la justification du lien entre l'utilisateur « %{user_email} » et l'organisation « %{organization_name} »."
+        cancel: "Annuler"
+        submit: "Enregistrer"
+      update:
+        success: "La justification a été modifiée"
+        error: "Une erreur est survenue"
+
+    unmark_user_organization_as_verified:
+      destroy:
+        success: "La vérification a été retirée"
+        error: "Une erreur est survenue"

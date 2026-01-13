@@ -85,6 +85,12 @@ class SkipLinksImplementedChecker
     admin/whitelisted_verified_emails#new
     admin/transfer_authorization_requests#new
     admin/transfer_authorization_requests#create
+    admin/user_organization_verifications#index
+    admin/mark_user_organization_as_verified#new
+    admin/mark_user_organization_as_verified#create
+    admin/mark_user_organization_as_verified#edit
+    admin/mark_user_organization_as_verified#update
+    admin/unmark_user_organization_as_verified#destroy
 
     developers/open_api#show
     developers/oauth_applications#index
