@@ -57,14 +57,20 @@
                         <span class="fr-badge fr-badge--error fr-badge--sm"><%= t('.verified_no') %></span>
                       <% end %>
                     </td>
-                    <td><%= organizations_user.verified_reason %></td>
+                    <td>
+                      <%= organizations_user.verified_reason %>
+                      <% if organizations_user.verified? %>
+                        <div class="fr-mt-1w">
+                          <%= dsfr_main_modal_button t('.edit_reason'),
+                                      edit_admin_mark_user_organization_as_verified_path(
+                                        "#{@user.id}-#{organizations_user.organization_id}"
+                                      ),
+                                      class: %w[fr-btn fr-btn--sm fr-btn--secondary] %>
+                        </div>
+                      <% end %>
+                    </td>
                     <td>
                       <% if organizations_user.verified? %>
-                        <%= dsfr_main_modal_button t('.edit_reason'),
-                                    edit_admin_mark_user_organization_as_verified_path(
-                                      "#{@user.id}-#{organizations_user.organization_id}"
-                                    ),
-                                    class: %w[fr-btn fr-btn--sm fr-btn--secondary] %>
                         <%= button_to t('.unmark_as_verified'),
                                     admin_unmark_user_organization_as_verified_path(
                                       "#{@user.id}-#{organizations_user.organization_id}"
