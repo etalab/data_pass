@@ -28,7 +28,7 @@ api_gfe_echange_collectivites:
   kind: 'api'
   link: "https://api.education.gouv.fr"
   cgu_link: "https://api.education.gouv.fr/api-gfe-echanges-collectivites"
-  support_email: "api-sco-eleve_contacts@education.gouv.fr"
+  support_email: "dsi.diffusion-gfe@ac-clermont.fr"
   public: true
   blocks:
     - name: "basic_infos"
@@ -43,7 +43,7 @@ api_gfe_echange_editeurs_restauration:
   kind: 'api'
   link: "https://api.education.gouv.fr"
   cgu_link: "https://api.education.gouv.fr/api-gfe-echanges-editeurs-restauration"
-  support_email: "api-sco-eleve_contacts@education.gouv.fr"
+  support_email: "dsi.diffusion-gfe@ac-clermont.fr"
   public: true
   blocks:
     - name: "basic_infos"
