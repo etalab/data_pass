@@ -101,6 +101,67 @@ module Stats
         .sort_by { |item| -item[:count] }
     end
 
+    def volume_by_type_with_states
+      # Get counts for validated and refused states only
+      validated_refused = @authorization_requests
+        .where(state: ['validated', 'refused'])
+        .group(:type, :state)
+        .count
+      
+      # Organize by type
+      by_type = Hash.new { |h, k| h[k] = { validated: 0, refused: 0 } }
+      
+      validated_refused.each do |(type, state), count|
+        by_type[type][state.to_sym] = count
+      end
+      
+      # Convert to array and calculate totals
+      by_type.map do |type, states|
+        {
+          type: type,
+          validated: states[:validated],
+          refused: states[:refused],
+          total: states[:validated] + states[:refused]
+        }
+      end.sort_by { |item| -item[:total] }
+    end
+
+    def volume_by_provider_with_states
+      # Get counts for validated and refused states only
+      validated_refused = @authorization_requests
+        .where(state: ['validated', 'refused'])
+        .group(:type, :state)
+        .count
+      
+      # Group by provider
+      by_provider = Hash.new { |h, k| h[k] = { validated: 0, refused: 0 } }
+      
+      validated_refused.each do |(type, state), count|
+        # Get the definition for this type
+        definition = AuthorizationDefinition.all.find do |def_item|
+          def_item.authorization_request_class_as_string == type
+        end
+        
+        provider_name = if definition && definition.provider
+          definition.provider.name
+        else
+          type
+        end
+        
+        by_provider[provider_name][state.to_sym] += count
+      end
+      
+      # Convert to array and calculate totals
+      by_provider.map do |provider, states|
+        {
+          provider: provider,
+          validated: states[:validated],
+          refused: states[:refused],
+          total: states[:validated] + states[:refused]
+        }
+      end.sort_by { |item| -item[:total] }
+    end
+
     def time_to_submit_by_type
       results = authorizations_with_first_create_and_submit_events
         .group("authorization_requests.type")

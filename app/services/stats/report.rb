@@ -129,6 +129,50 @@ module Stats
       puts format_volume_bar_chart(buckets)
     end
 
+    def print_volume_by_type_with_states
+      data = @create_aggregator.volume_by_type_with_states
+      
+      if data.empty?
+        puts "\nNo data available for volume by type with states."
+        return
+      end
+
+      puts "\n# Volume of authorization requests by type (validated vs refused) for #{human_readable_date_range}#{type_filter_label}:\n\n"
+      
+      # Format data for split bar chart
+      items = data.map do |item|
+        {
+          label: format_type_name(item[:type].split('::').last),
+          validated: item[:validated],
+          refused: item[:refused],
+          total: item[:total]
+        }
+      end
+      puts format_split_bar_chart(items)
+    end
+
+    def print_volume_by_provider_with_states
+      data = @create_aggregator.volume_by_provider_with_states
+      
+      if data.empty?
+        puts "\nNo data available for volume by provider with states."
+        return
+      end
+
+      puts "\n# Volume of authorization requests by provider (validated vs refused) for #{human_readable_date_range}#{type_filter_label}:\n\n"
+      
+      # Format data for split bar chart
+      items = data.map do |item|
+        {
+          label: item[:provider],
+          validated: item[:validated],
+          refused: item[:refused],
+          total: item[:total]
+        }
+      end
+      puts format_split_bar_chart(items)
+    end
+
     private
 
     def authorization_requests_with_first_create_in_range
@@ -311,6 +355,44 @@ module Stats
       
       lines.join("\n")
     end
+
+    def format_split_bar_chart(items)
+      max_total = items.map { |i| i[:total] }.max
+      return "No data" if max_total == 0
+      
+      # Calculate bar scale - aim for max bar length of 50 characters
+      max_bar_length = 50
+      scale = max_total > max_bar_length ? (max_bar_length.to_f / max_total) : 1.0
+      
+      lines = []
+      
+      # Find the maximum width needed for labels and counts
+      max_label_width = items.map { |i| i[:label].to_s.length }.max
+      max_count_width = items.map { |i| [i[:validated], i[:refused], i[:total]].map(&:to_s).map(&:length).max }.max
+      
+      # Build bars with counts on the left
+      items.each do |item|
+        validated_length = (item[:validated] * scale).round
+        refused_length = (item[:refused] * scale).round
+        
+        validated_bar = "█" * validated_length
+        refused_bar = "▓" * refused_length
+        
+        label = item[:label].to_s.ljust(max_label_width)
+        validated_count = item[:validated].to_s.rjust(max_count_width)
+        refused_count = item[:refused].to_s.rjust(max_count_width)
+        total_count = item[:total].to_s.rjust(max_count_width)
+        
+        lines << "#{label} (V:#{validated_count} R:#{refused_count} T:#{total_count}) │ #{validated_bar}#{refused_bar}"
+      end
+      
+      lines << ""
+      lines << "Legend: █ = Validated, ▓ = Refused"
+      lines << "Total: #{items.sum { |i| i[:validated] }} validated, #{items.sum { |i| i[:refused] }} refused (#{items.sum { |i| i[:total] }} total)"
+      lines << "Scale: each character represents #{(1.0 / scale).round(1)} request(s)" if scale < 1.0
+      
+      lines.join("\n")
+    end
   end
 end
 
@@ -331,3 +413,7 @@ end
 # Stats::Report.new(date_input: 2025).print_volume_by_type; puts 'ok'
 # Stats::Report.new(date_input: 2025).print_volume_by_provider; puts 'ok'
 # Stats::Report.new(date_input: 2025, provider: 'dinum').print_volume_by_type; puts 'ok'
+
+# Stats::Report.new(date_input: 2025).print_volume_by_type_with_states; puts 'ok'
+# Stats::Report.new(date_input: 2025).print_volume_by_provider_with_states; puts 'ok'
+# Stats::Report.new(date_input: 2025, provider: 'dinum').print_volume_by_type_with_states; puts 'ok'

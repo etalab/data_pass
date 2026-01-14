@@ -966,4 +966,143 @@ RSpec.describe Stats::Aggregator, type: :service do
       expect(counts).to eq(counts.sort.reverse)
     end
   end
+
+  describe '#volume_by_type_with_states' do
+    let(:base_time) { Time.zone.parse('2025-03-15 10:00:00') }
+    let!(:user) { create(:user) }
+    let!(:organization) { create(:organization) }
+    
+    before do
+      user.add_to_organization(organization, current: true)
+    end
+
+    let!(:ar_validated_1) do
+      create(:authorization_request, :api_entreprise, :validated, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+      end
+    end
+
+    let!(:ar_validated_2) do
+      create(:authorization_request, :api_entreprise, :validated, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+      end
+    end
+
+    let!(:ar_refused) do
+      create(:authorization_request, :api_entreprise, :refused, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+      end
+    end
+
+    let!(:ar_draft) do
+      create(:authorization_request, :api_particulier, :draft, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+      end
+    end
+
+    let!(:ar_validated_particulier) do
+      create(:authorization_request, :api_particulier, :validated, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+      end
+    end
+
+    let(:authorization_requests) { AuthorizationRequest.where(id: [ar_validated_1.id, ar_validated_2.id, ar_refused.id, ar_draft.id, ar_validated_particulier.id]) }
+    subject { described_class.new(authorization_requests) }
+
+    it 'returns volume split by validated and refused states' do
+      result = subject.volume_by_type_with_states
+      
+      expect(result).to be_an(Array)
+      
+      # Find the types
+      api_entreprise = result.find { |r| r[:type].include?('APIEntreprise') }
+      api_particulier = result.find { |r| r[:type].include?('APIParticulier') }
+      
+      expect(api_entreprise[:validated]).to eq(2)
+      expect(api_entreprise[:refused]).to eq(1)
+      expect(api_entreprise[:total]).to eq(3)
+      
+      expect(api_particulier[:validated]).to eq(1)
+      expect(api_particulier[:refused]).to eq(0)
+      expect(api_particulier[:total]).to eq(1)
+    end
+
+    it 'excludes other states like draft' do
+      result = subject.volume_by_type_with_states
+      
+      # Draft request should be excluded from the count
+      total_count = result.sum { |r| r[:total] }
+      expect(total_count).to eq(4) # Not 5 (excluding the draft)
+    end
+
+    it 'sorts results by total count descending' do
+      result = subject.volume_by_type_with_states
+      
+      totals = result.map { |r| r[:total] }
+      expect(totals).to eq(totals.sort.reverse)
+    end
+  end
+
+  describe '#volume_by_provider_with_states' do
+    let(:base_time) { Time.zone.parse('2025-03-15 10:00:00') }
+    let!(:user) { create(:user) }
+    let!(:organization) { create(:organization) }
+    
+    before do
+      user.add_to_organization(organization, current: true)
+    end
+
+    let!(:ar_validated_entreprise) do
+      create(:authorization_request, :api_entreprise, :validated, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+      end
+    end
+
+    let!(:ar_refused_entreprise) do
+      create(:authorization_request, :api_entreprise, :refused, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+      end
+    end
+
+    let!(:ar_validated_particulier) do
+      create(:authorization_request, :api_particulier, :validated, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+      end
+    end
+
+    let!(:ar_submitted) do
+      create(:authorization_request, :api_particulier, :submitted, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+      end
+    end
+
+    let(:authorization_requests) { AuthorizationRequest.where(id: [ar_validated_entreprise.id, ar_refused_entreprise.id, ar_validated_particulier.id, ar_submitted.id]) }
+    subject { described_class.new(authorization_requests) }
+
+    it 'returns volume grouped by provider with state split' do
+      result = subject.volume_by_provider_with_states
+      
+      expect(result).to be_an(Array)
+      expect(result.length).to be >= 1
+      
+      # Check that each item has the required keys
+      result.each do |item|
+        expect(item).to have_key(:provider)
+        expect(item).to have_key(:validated)
+        expect(item).to have_key(:refused)
+        expect(item).to have_key(:total)
+      end
+      
+      # Total validated and refused should equal our test data (excluding submitted)
+      total_count = result.sum { |r| r[:total] }
+      expect(total_count).to eq(3) # Not 4 (excluding submitted)
+    end
+
+    it 'sorts results by total count descending' do
+      result = subject.volume_by_provider_with_states
+      
+      totals = result.map { |r| r[:total] }
+      expect(totals).to eq(totals.sort.reverse)
+    end
+  end
 end

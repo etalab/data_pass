@@ -1051,6 +1051,83 @@ RSpec.describe Stats::Report, type: :service do
     end
   end
 
+  describe '#print_volume_by_type_with_states' do
+    let(:base_time) { Time.zone.parse('2025-03-15 10:00:00') }
+    let!(:user) { create(:user) }
+    let!(:organization) { create(:organization) }
+    
+    before do
+      user.add_to_organization(organization, current: true)
+    end
+
+    let!(:ar_validated_1) do
+      create(:authorization_request, :api_entreprise, :validated, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+      end
+    end
+
+    let!(:ar_validated_2) do
+      create(:authorization_request, :api_entreprise, :validated, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+      end
+    end
+
+    let!(:ar_refused) do
+      create(:authorization_request, :api_entreprise, :refused, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+      end
+    end
+
+    let!(:ar_draft) do
+      create(:authorization_request, :api_particulier, :draft, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+      end
+    end
+
+    subject { described_class.new(date_input: 2025) }
+
+    it 'prints split bar chart by type with states' do
+      output = capture_stdout { subject.print_volume_by_type_with_states }
+      
+      expect(output).to include('Volume of authorization requests by type (validated vs refused)')
+      expect(output).to include('│')
+      expect(output).to include('Legend: █ = Validated, X = Refused')
+      expect(output).to include('APIEntreprise')
+    end
+  end
+
+  describe '#print_volume_by_provider_with_states' do
+    let(:base_time) { Time.zone.parse('2025-03-15 10:00:00') }
+    let!(:user) { create(:user) }
+    let!(:organization) { create(:organization) }
+    
+    before do
+      user.add_to_organization(organization, current: true)
+    end
+
+    let!(:ar_validated) do
+      create(:authorization_request, :api_entreprise, :validated, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+      end
+    end
+
+    let!(:ar_refused) do
+      create(:authorization_request, :api_particulier, :refused, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+      end
+    end
+
+    subject { described_class.new(date_input: 2025) }
+
+    it 'prints split bar chart by provider with states' do
+      output = capture_stdout { subject.print_volume_by_provider_with_states }
+      
+      expect(output).to include('Volume of authorization requests by provider (validated vs refused)')
+      expect(output).to include('│')
+      expect(output).to include('Legend: █ = Validated, X = Refused')
+    end
+  end
+
   # Helper method to capture stdout
   def capture_stdout
     original_stdout = $stdout
