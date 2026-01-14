@@ -9,11 +9,11 @@ module Stats
     end
 
     def print_report
-      puts "# Report of #{human_readable_date_range}:\n\n#{time_to_submit}\n#{min_time_to_submit}\n#{max_time_to_submit}"
+      puts "# Report of #{human_readable_date_range}:\n\n#{average_time_to_submit}\n#{min_time_to_submit}\n#{max_time_to_submit}"
     end
 
-    def time_to_submit
-      "Average time to submit: #{format_duration(@aggregator.time_to_submit)}"
+    def average_time_to_submit
+      "Average time to submit: #{format_duration(@aggregator.average_time_to_submit)}"
     end
 
     def min_time_to_submit

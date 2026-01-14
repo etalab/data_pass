@@ -4,7 +4,7 @@ module Stats
       @authorization_requests = authorization_requests || AuthorizationRequest.all
     end
 
-    def time_to_submit
+    def average_time_to_submit
       authorizations_with_first_create_and_submit_events.average("EXTRACT(EPOCH FROM (first_submit_events.event_time - first_create_events.event_time))")
     end
 
