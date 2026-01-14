@@ -10,7 +10,15 @@ module Stats
     end
 
     def print_report
-      puts "# Report of #{human_readable_date_range}:\n\n#{min_time_to_submit}\n#{average_time_to_submit}\n#{max_time_to_submit}"
+      result =  " \n# Report of #{human_readable_date_range}:\n\n"
+      result += "#{number_of_authorization_requests_created}\n"
+      result += "\n"
+      result += "#{min_time_to_submit}\n#{average_time_to_submit}\n#{max_time_to_submit}\n"
+      puts result
+    end
+
+    def number_of_authorization_requests_created
+      "#{@authorization_requests_created_in_range.count} authorization requests created"
     end
 
     def average_time_to_submit

@@ -1,7 +1,7 @@
 RSpec.describe Stats::Report, type: :service do
   describe '#initialize' do
-    context 'with a year as date_range' do
-      subject { described_class.new(date_range: 2025) }
+    context 'with a year as date_input' do
+      subject { described_class.new(date_input: 2025) }
 
       it 'initializes with a full year range' do
         expect(subject.instance_variable_get(:@date_range)).to eq(Date.new(2025).all_year)
@@ -12,16 +12,16 @@ RSpec.describe Stats::Report, type: :service do
       let(:start_date) { Date.new(2025, 1, 1) }
       let(:end_date) { Date.new(2025, 3, 31) }
 
-      subject { described_class.new(date_range: start_date..end_date) }
+      subject { described_class.new(date_input: start_date..end_date) }
 
       it 'initializes with the provided range' do
         expect(subject.instance_variable_get(:@date_range)).to eq(start_date..end_date)
       end
     end
 
-    context 'with invalid date_range' do
+    context 'with invalid date_input' do
       it 'raises an error' do
-        expect { described_class.new(date_range: 'invalid') }.to raise_error('Invalid date range: invalid')
+        expect { described_class.new(date_input: 'invalid') }.to raise_error('Invalid date range: invalid')
       end
     end
   end
@@ -50,10 +50,11 @@ RSpec.describe Stats::Report, type: :service do
       end
     end
 
-    subject { described_class.new(date_range: 2025) }
+    subject { described_class.new(date_input: 2025) }
 
     it 'prints the report without error' do
       expect { subject.print_report }.to output(/# Report of/).to_stdout
+      expect { subject.print_report }.to output(/authorization requests created/).to_stdout
       expect { subject.print_report }.to output(/Average time to submit/).to_stdout
       expect { subject.print_report }.to output(/Min time to submit/).to_stdout
       expect { subject.print_report }.to output(/Max time to submit/).to_stdout
@@ -61,7 +62,7 @@ RSpec.describe Stats::Report, type: :service do
   end
 
   describe '#average_time_to_submit' do
-    subject { described_class.new(date_range: 2025).average_time_to_submit }
+    subject { described_class.new(date_input: 2025).average_time_to_submit }
 
     let(:base_time) { Time.zone.parse('2025-06-01 10:00:00') }
     
@@ -204,14 +205,14 @@ RSpec.describe Stats::Report, type: :service do
 
     it 'only includes authorization requests created in 2025' do
       # Should include 15 requests (ar1-ar15), exclude ar_2024 and ar_2026
-      report = described_class.new(date_range: 2025)
+      report = described_class.new(date_input: 2025)
       count = report.instance_variable_get(:@authorization_requests_created_in_range).count
       expect(count).to eq(15)
     end
   end
 
   describe '#min_time_to_submit' do
-    subject { described_class.new(date_range: 2025).min_time_to_submit }
+    subject { described_class.new(date_input: 2025).min_time_to_submit }
 
     let(:base_time) { Time.zone.parse('2025-08-01 12:00:00') }
     let!(:user) { create(:user) }
@@ -249,7 +250,7 @@ RSpec.describe Stats::Report, type: :service do
   end
 
   describe '#max_time_to_submit' do
-    subject { described_class.new(date_range: 2025).max_time_to_submit }
+    subject { described_class.new(date_input: 2025).max_time_to_submit }
 
     let(:base_time) { Time.zone.parse('2025-09-01 14:00:00') }
     let!(:user) { create(:user) }
@@ -291,7 +292,7 @@ RSpec.describe Stats::Report, type: :service do
     let(:end_date) { Date.new(2025, 6, 30) }
     let(:base_time_q2) { Time.zone.parse('2025-05-15 10:00:00') }
     
-    subject { described_class.new(date_range: start_date..end_date) }
+    subject { described_class.new(date_input: start_date..end_date) }
 
     let!(:user) { create(:user) }
     let!(:organization) { create(:organization) }
@@ -335,7 +336,7 @@ RSpec.describe Stats::Report, type: :service do
   end
 
   describe '#format_duration' do
-    subject { described_class.new(date_range: 2025) }
+    subject { described_class.new(date_input: 2025) }
 
     it 'formats nil as N/A' do
       expect(subject.send(:format_duration, nil)).to eq('N/A')
@@ -362,7 +363,7 @@ RSpec.describe Stats::Report, type: :service do
 
   describe 'edge cases' do
     context 'when no authorization requests exist in date range' do
-      subject { described_class.new(date_range: 2020) }
+      subject { described_class.new(date_input: 2020) }
 
       it 'returns N/A for all metrics' do
         expect(subject.average_time_to_submit).to include('N/A')
@@ -386,7 +387,7 @@ RSpec.describe Stats::Report, type: :service do
         end
       end
 
-      subject { described_class.new(date_range: 2025) }
+      subject { described_class.new(date_input: 2025) }
 
       it 'returns N/A for all metrics' do
         expect(subject.average_time_to_submit).to include('N/A')
@@ -412,7 +413,7 @@ RSpec.describe Stats::Report, type: :service do
       end
     end
 
-    subject { described_class.new(date_range: 2025) }
+    subject { described_class.new(date_input: 2025) }
 
     it 'outputs a properly formatted report' do
       output = capture_stdout { subject.print_report }
@@ -454,7 +455,7 @@ RSpec.describe Stats::Report, type: :service do
       end
     end
 
-    subject { described_class.new(date_range: 2025) }
+    subject { described_class.new(date_input: 2025) }
 
     it 'returns a formatted table' do
       table = subject.time_to_submit_by_type_table
@@ -506,7 +507,7 @@ RSpec.describe Stats::Report, type: :service do
       end
     end
 
-    subject { described_class.new(date_range: 2025) }
+    subject { described_class.new(date_input: 2025) }
 
     it 'prints the table to stdout' do
       expect { subject.print_time_to_submit_by_type_table }.to output(/Time to submit by Authorization Request Type/).to_stdout
@@ -515,11 +516,52 @@ RSpec.describe Stats::Report, type: :service do
     end
 
     context 'with no data' do
-      subject { described_class.new(date_range: 2020) }
+      subject { described_class.new(date_input: 2020) }
 
       it 'prints a message when no data is available' do
         expect { subject.print_time_to_submit_by_type_table }.to output(/No data available/).to_stdout
       end
+    end
+  end
+
+  describe '#number_of_authorization_requests_created' do
+    let(:base_time) { Time.zone.parse('2025-12-25 10:00:00') }
+    let!(:user) { create(:user) }
+    let!(:organization) { create(:organization) }
+    
+    before do
+      user.add_to_organization(organization, current: true)
+    end
+
+    let!(:ar1) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 1.hour)
+      end
+    end
+
+    let!(:ar2) do
+      create(:authorization_request, :api_particulier, applicant: user, organization: organization, created_at: base_time + 1.day).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time + 1.day)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 1.day + 2.hours)
+      end
+    end
+
+    let!(:ar3) do
+      create(:authorization_request, :france_connect, applicant: user, organization: organization, created_at: base_time + 2.days).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time + 2.days)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 2.days + 30.minutes)
+      end
+    end
+
+    subject { described_class.new(date_input: 2025) }
+
+    it 'returns the count of authorization requests created in the date range' do
+      expect(subject.number_of_authorization_requests_created).to eq('3 authorization requests created')
+    end
+
+    it 'includes the count in the report output' do
+      expect { subject.print_report }.to output(/3 authorization requests created/).to_stdout
     end
   end
 
@@ -539,7 +581,7 @@ RSpec.describe Stats::Report, type: :service do
       end
     end
 
-    subject { described_class.new(date_range: 2025) }
+    subject { described_class.new(date_input: 2025) }
 
     it 'formats table header correctly' do
       header = subject.send(:format_table_header)
