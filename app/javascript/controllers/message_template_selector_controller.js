@@ -10,6 +10,7 @@ export default class extends Controller {
   connect () {
     this.boundUpdatePreview = this.updatePreview.bind(this)
     this.textareaTarget.addEventListener('input', this.boundUpdatePreview)
+    this.updatePreview()
   }
 
   disconnect () {
@@ -20,7 +21,11 @@ export default class extends Controller {
     if (!this.hasPreviewMessageTarget) return
 
     const message = this.textareaTarget.value.trim()
-    this.previewMessageTarget.textContent = message || '<MESSAGE PERSONNALISÉ>'
+    const instructorMessage = document.getElementById('instructor-message').parentElement
+    instructorMessage.style.display = message ? 'block' : 'none'
+
+    this.previewMessageTarget.textContent = message || ''
+    this.previewMessageTarget.parentElement.style.display = message ? 'block' : 'none'
   }
 
   applyTemplate (event) {

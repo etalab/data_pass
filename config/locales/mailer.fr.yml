@@ -27,9 +27,10 @@ fr:
         Vous pouvez consulter votre habilitation en suivant le lien suivant: %{authorization_request_url}
 
       additional_message: |
-        L'instructeur a ajouté le message suivant :
+        <span id="instructor-message">L'instructeur a ajouté le message suivant :
 
-        %{message}
+          %{message}
+        </span>
 
       need_homologation: |
         L'utilisation de %{authorization_definition_name} nécessite d’homologuer* l’application destinatrice des données et que votre registre de traitement mentionne les données d’appel collectées et les données reçues.
