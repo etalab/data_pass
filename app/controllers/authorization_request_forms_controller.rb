@@ -324,12 +324,13 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   end
 
   def layout_name
-    return 'authorization_request_with_tabs' if action_name == 'summary' && show_tabs_for_summary?
+    return 'authorization_request_with_tabs' if show_tabs?
 
     'authorization_request'
   end
 
-  def show_tabs_for_summary?
+  def show_tabs?
+    return false unless action_name == 'summary'
     return false if @authorization_request.nil?
     return false if @authorization_request.new_record?
 
