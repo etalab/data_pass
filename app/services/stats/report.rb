@@ -21,6 +21,8 @@ module Stats
       result += "#{number_of_reopen_events}\n"
       result += "\n"
       result += "#{min_time_to_submit}\n#{average_time_to_submit}\n#{max_time_to_submit}\n"
+      result += "\n"
+      result += "#{average_time_to_first_instruction}\n#{stddev_time_to_first_instruction}\n"
       puts result
     end
 
@@ -42,6 +44,14 @@ module Stats
 
     def max_time_to_submit
       "Max time to submit: #{format_duration(@create_aggregator.max_time_to_submit)}"
+    end
+
+    def average_time_to_first_instruction
+      "Average time to first instruction: #{format_duration(@create_aggregator.average_time_to_first_instruction)}"
+    end
+
+    def stddev_time_to_first_instruction
+      "Standard deviation time to first instruction: #{format_duration(@create_aggregator.stddev_time_to_first_instruction)}"
     end
 
     def print_time_to_submit_by_type_table

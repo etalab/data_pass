@@ -16,6 +16,18 @@ module Stats
       authorizations_with_first_create_and_submit_events.maximum("EXTRACT(EPOCH FROM (first_submit_events.event_time - first_create_events.event_time))")
     end
 
+    def average_time_to_first_instruction
+      authorizations_with_submit_and_first_instruction_events.average("EXTRACT(EPOCH FROM (first_instruction_events.event_time - submit_events.event_time))")
+    end
+
+    def stddev_time_to_first_instruction
+      result = authorizations_with_submit_and_first_instruction_events
+        .pluck(Arel.sql("STDDEV_POP(EXTRACT(EPOCH FROM (first_instruction_events.event_time - submit_events.event_time)))"))
+        .first
+      
+      result&.to_f
+    end
+
     def first_create_events_subquery
       first_event_subquery('create')
     end
@@ -136,6 +148,36 @@ module Stats
         .joins("INNER JOIN (#{first_create_events_subquery.to_sql}) first_create_events ON first_create_events.authorization_request_id = authorization_requests.id")
         .joins("INNER JOIN (#{first_submit_events_subquery.to_sql}) first_submit_events ON first_submit_events.authorization_request_id = authorization_requests.id")
         .where("first_submit_events.event_time >= first_create_events.event_time") # we have one case where the submit event is before the create event, so we need to filter it out
+    end
+
+    def authorizations_with_submit_and_first_instruction_events
+      @authorization_requests
+        .joins("INNER JOIN (#{submit_events_subquery.to_sql}) submit_events ON submit_events.authorization_request_id = authorization_requests.id")
+        .joins("INNER JOIN (#{first_instruction_events_subquery.to_sql}) first_instruction_events ON first_instruction_events.authorization_request_id = authorization_requests.id AND first_instruction_events.submit_event_id = submit_events.event_id")
+        .where("first_instruction_events.event_time > submit_events.event_time")
+    end
+
+    def submit_events_subquery
+      AuthorizationRequestEvent
+        .where(name: 'submit')
+        .where.not(authorization_request_id: nil)
+        .select("authorization_request_events.id as event_id, authorization_request_events.authorization_request_id, authorization_request_events.created_at as event_time")
+    end
+
+    def first_instruction_events_subquery
+      # For each submit event, find the first instruction event (approve, refuse, or request_changes) that follows it
+      AuthorizationRequestEvent
+        .from("authorization_request_events AS instruction_events")
+        .joins("INNER JOIN authorization_request_events AS submit_events ON instruction_events.authorization_request_id = submit_events.authorization_request_id")
+        .where("submit_events.name = 'submit'")
+        .where("instruction_events.name IN ('approve', 'refuse', 'request_changes')")
+        .where("instruction_events.created_at > submit_events.created_at")
+        .group("instruction_events.authorization_request_id, submit_events.id")
+        .select(
+          "instruction_events.authorization_request_id",
+          "submit_events.id as submit_event_id",
+          "MIN(instruction_events.created_at) as event_time"
+        )
     end
   end
 end

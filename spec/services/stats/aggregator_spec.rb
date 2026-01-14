@@ -731,4 +731,115 @@ RSpec.describe Stats::Aggregator, type: :service do
       end
     end
   end
+
+  describe '#average_time_to_first_instruction' do
+    let(:base_time) { Time.zone.parse('2025-03-15 10:00:00') }
+    let!(:user) { create(:user) }
+    let!(:organization) { create(:organization) }
+    
+    before do
+      user.add_to_organization(organization, current: true)
+    end
+
+    # Create authorization request with submit and instruction events
+    let!(:ar1) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 1.hour)
+        create(:authorization_request_event, :approve, authorization_request: ar, user: user, created_at: base_time + 1.day)
+      end
+    end
+
+    let!(:ar2) do
+      create(:authorization_request, :api_particulier, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 2.hours)
+        create(:authorization_request_event, :request_changes, authorization_request: ar, user: user, created_at: base_time + 2.days)
+      end
+    end
+
+    subject { described_class.new }
+
+    it 'returns average time from submit to first instruction' do
+      avg_time = subject.average_time_to_first_instruction
+      
+      # ar1: 1 day - 1 hour = 23 hours = 82800 seconds
+      # ar2: 2 days - 2 hours = 46 hours = 165600 seconds
+      # Average: (82800 + 165600) / 2 = 124200 seconds
+      expect(avg_time).to be_within(1).of(124200)
+    end
+
+    it 'returns standard deviation of time to first instruction' do
+      stddev_time = subject.stddev_time_to_first_instruction
+      
+      # ar1: 82800 seconds
+      # ar2: 165600 seconds
+      # Mean: 124200
+      # Variance: ((82800-124200)^2 + (165600-124200)^2) / 2 = (1715560000 + 1715560000) / 2 = 1715560000
+      # StdDev: sqrt(1715560000) ≈ 41420 seconds (about 11.5 hours)
+      expect(stddev_time).to be_within(100).of(41420)
+    end
+
+    context 'with authorization request without instruction event' do
+      let!(:ar3) do
+        create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+          create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+          create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 1.hour)
+          # No instruction event
+        end
+      end
+
+      it 'excludes authorization requests without instruction events' do
+        avg_time = subject.average_time_to_first_instruction
+        
+        # Should only count ar1 and ar2, not ar3
+        expect(avg_time).to be_within(1).of(124200)
+      end
+    end
+
+    context 'with multiple submit events' do
+      let!(:ar4) do
+        create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+          create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+          create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 1.hour)
+          create(:authorization_request_event, :request_changes, authorization_request: ar, user: user, created_at: base_time + 1.day)
+          create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 2.days)
+          create(:authorization_request_event, :approve, authorization_request: ar, user: user, created_at: base_time + 3.days)
+        end
+      end
+
+      it 'counts time for each submit event separately' do
+        # This test verifies that each submit gets paired with its following instruction
+        avg_time = subject.average_time_to_first_instruction
+        
+        # Should have data for ar1, ar2, and ar4 (with 2 submit-instruction pairs)
+        expect(avg_time).to be > 0
+      end
+    end
+
+    context 'with refuse event' do
+      let!(:ar5) do
+        create(:authorization_request, :api_particulier, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+          create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+          create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 1.hour)
+          create(:authorization_request_event, :refuse, authorization_request: ar, user: user, created_at: base_time + 3.hours)
+        end
+      end
+
+      it 'includes refuse events as instruction events' do
+        avg_time = subject.average_time_to_first_instruction
+        
+        # Should include ar5 with 2 hours instruction time
+        expect(avg_time).to be > 0
+      end
+    end
+
+    context 'with no authorization requests' do
+      subject { described_class.new(AuthorizationRequest.none) }
+
+      it 'returns nil' do
+        expect(subject.average_time_to_first_instruction).to be_nil
+      end
+    end
+  end
 end

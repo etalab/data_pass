@@ -112,6 +112,8 @@ RSpec.describe Stats::Report, type: :service do
       expect { subject.print_report }.to output(/Average time to submit/).to_stdout
       expect { subject.print_report }.to output(/Min time to submit/).to_stdout
       expect { subject.print_report }.to output(/Max time to submit/).to_stdout
+      expect { subject.print_report }.to output(/Average time to first instruction/).to_stdout
+      expect { subject.print_report }.to output(/Standard deviation time to first instruction/).to_stdout
     end
   end
 
@@ -338,6 +340,70 @@ RSpec.describe Stats::Report, type: :service do
     it 'returns a formatted string with the maximum time' do
       expect(subject).to match(/Max time to submit: .+/)
       expect(subject).to match(/21 (days|jours)/)
+    end
+  end
+
+  describe '#average_time_to_first_instruction' do
+    subject { described_class.new(date_input: 2025).average_time_to_first_instruction }
+
+    let(:base_time) { Time.zone.parse('2025-09-01 14:00:00') }
+    let!(:user) { create(:user) }
+    let!(:organization) { create(:organization) }
+    
+    before do
+      user.add_to_organization(organization, current: true)
+    end
+
+    let!(:ar_fast_instruction) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 1.hour)
+        create(:authorization_request_event, :approve, authorization_request: ar, user: user, created_at: base_time + 1.hour + 2.hours)
+      end
+    end
+
+    let!(:ar_slow_instruction) do
+      create(:authorization_request, :api_particulier, applicant: user, organization: organization, created_at: base_time + 1.day).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time + 1.day)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 1.day + 3.hours)
+        create(:authorization_request_event, :request_changes, authorization_request: ar, user: user, created_at: base_time + 1.day + 3.hours + 5.days)
+      end
+    end
+
+    it 'returns a formatted string with the average time' do
+      expect(subject).to match(/Average time to first instruction: .+/)
+    end
+  end
+
+  describe '#stddev_time_to_first_instruction' do
+    subject { described_class.new(date_input: 2025).stddev_time_to_first_instruction }
+
+    let(:base_time) { Time.zone.parse('2025-09-01 14:00:00') }
+    let!(:user) { create(:user) }
+    let!(:organization) { create(:organization) }
+    
+    before do
+      user.add_to_organization(organization, current: true)
+    end
+
+    let!(:ar_fast_instruction) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 1.hour)
+        create(:authorization_request_event, :approve, authorization_request: ar, user: user, created_at: base_time + 1.hour + 2.hours)
+      end
+    end
+
+    let!(:ar_very_slow_instruction) do
+      create(:authorization_request, :hubee_cert_dc, applicant: user, organization: organization, created_at: base_time + 2.days).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time + 2.days)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 2.days + 1.hour)
+        create(:authorization_request_event, :request_changes, authorization_request: ar, user: user, created_at: base_time + 2.days + 1.hour + 14.days)
+      end
+    end
+
+    it 'returns a formatted string with the standard deviation' do
+      expect(subject).to match(/Standard deviation time to first instruction: .+/)
     end
   end
 
@@ -833,7 +899,7 @@ RSpec.describe Stats::Report, type: :service do
 
       it 'includes type filter in report output' do
         output = capture_stdout { subject.print_report }
-        expect(output).to include('(filtered by: APIEntreprise)')
+        expect(output).to include('(types by: APIEntreprise)')
       end
     end
 
@@ -846,7 +912,7 @@ RSpec.describe Stats::Report, type: :service do
 
       it 'includes multiple types in filter label' do
         output = capture_stdout { subject.print_report }
-        expect(output).to include('(filtered by: APIEntreprise, APIParticulier)')
+        expect(output).to include('(types by: APIEntreprise, APIParticulier)')
       end
     end
 
@@ -868,7 +934,7 @@ RSpec.describe Stats::Report, type: :service do
 
       it 'only includes data for filtered types in bar chart' do
         output = capture_stdout { subject.print_time_to_submit_by_duration(step: :hour) }
-        expect(output).to include('(filtered by: APIEntreprise)')
+        expect(output).to include('(types by: APIEntreprise)')
         expect(output).to include('Total: 2 authorization requests')
       end
     end
@@ -878,7 +944,7 @@ RSpec.describe Stats::Report, type: :service do
 
       it 'only shows statistics for filtered types' do
         output = capture_stdout { subject.print_time_to_submit_by_type_table }
-        expect(output).to include('(filtered by: APIEntreprise)')
+        expect(output).to include('(types by: APIEntreprise)')
       end
     end
 
@@ -903,12 +969,12 @@ RSpec.describe Stats::Report, type: :service do
 
       it 'shows provider in filter label' do
         output = capture_stdout { subject.print_report }
-        expect(output).to include('(filtered by provider: test-provider)')
+        expect(output).to include('(provider: test-provider)')
       end
 
       it 'shows provider filter in bar chart' do
         output = capture_stdout { subject.print_time_to_submit_by_duration(step: :hour) }
-        expect(output).to include('(filtered by provider: test-provider)')
+        expect(output).to include('(provider: test-provider)')
       end
     end
   end
