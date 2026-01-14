@@ -99,6 +99,36 @@ module Stats
       puts format_bar_chart(buckets, step)
     end
 
+    def print_volume_by_type
+      data = @create_aggregator.volume_by_type
+      
+      if data.empty?
+        puts "\nNo data available for volume by type."
+        return
+      end
+
+      puts "\n# Volume of authorization requests by type for #{human_readable_date_range}#{type_filter_label}:\n\n"
+      
+      # Format data for bar chart
+      buckets = data.map { |item| { bucket: format_type_name(item[:type].split('::').last), count: item[:count] } }
+      puts format_volume_bar_chart(buckets)
+    end
+
+    def print_volume_by_provider
+      data = @create_aggregator.volume_by_provider
+      
+      if data.empty?
+        puts "\nNo data available for volume by provider."
+        return
+      end
+
+      puts "\n# Volume of authorization requests by provider for #{human_readable_date_range}#{type_filter_label}:\n\n"
+      
+      # Format data for bar chart
+      buckets = data.map { |item| { bucket: item[:provider], count: item[:count] } }
+      puts format_volume_bar_chart(buckets)
+    end
+
     private
 
     def authorization_requests_with_first_create_in_range
@@ -251,6 +281,36 @@ module Stats
       
       lines.join("\n")
     end
+
+    def format_volume_bar_chart(buckets)
+      max_count = buckets.map { |b| b[:count] }.max
+      return "No data" if max_count == 0
+      
+      # Calculate bar scale - aim for max bar length of 50 characters
+      max_bar_length = 50
+      scale = max_count > max_bar_length ? (max_bar_length.to_f / max_count) : 1.0
+      
+      lines = []
+      
+      # Find the maximum width needed for labels and counts
+      max_label_width = buckets.map { |b| b[:bucket].to_s.length }.max
+      max_count_width = buckets.map { |b| b[:count].to_s.length }.max
+      
+      # Build bars with counts on the left
+      buckets.each do |bucket|
+        bar_length = (bucket[:count] * scale).round
+        bar = "█" * bar_length
+        label = bucket[:bucket].to_s.ljust(max_label_width)
+        count = bucket[:count].to_s.rjust(max_count_width)
+        lines << "#{label} (#{count}) │ #{bar}"
+      end
+      
+      lines << ""
+      lines << "Total: #{buckets.sum { |b| b[:count] }} authorization requests"
+      lines << "Scale: each █ represents #{(1.0 / scale).round(1)} request(s)" if scale < 1.0
+      
+      lines.join("\n")
+    end
   end
 end
 
@@ -267,3 +327,7 @@ end
 
 # Stats::Report.new(date_input: 2025, provider: 'dinum').print_report; puts 'ok'
 # Stats::Report.new(date_input: 2025, provider: 'dgfip').print_time_to_submit_by_duration(step: :day); puts 'ok'
+
+# Stats::Report.new(date_input: 2025).print_volume_by_type; puts 'ok'
+# Stats::Report.new(date_input: 2025).print_volume_by_provider; puts 'ok'
+# Stats::Report.new(date_input: 2025, provider: 'dinum').print_volume_by_type; puts 'ok'

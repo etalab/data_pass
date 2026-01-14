@@ -67,6 +67,40 @@ module Stats
       end.count
     end
 
+    def volume_by_type
+      @authorization_requests
+        .group(:type)
+        .count
+        .map { |type, count| { type: type, count: count } }
+        .sort_by { |item| -item[:count] }
+    end
+
+    def volume_by_provider
+      # Get all authorization requests with their types
+      type_counts = @authorization_requests.group(:type).count
+      
+      # Group by provider
+      provider_counts = Hash.new(0)
+      
+      type_counts.each do |type, count|
+        # Get the definition for this type
+        definition = AuthorizationDefinition.all.find do |def_item|
+          def_item.authorization_request_class_as_string == type
+        end
+        
+        if definition && definition.provider
+          provider_name = definition.provider.name
+          provider_counts[provider_name] += count
+        else
+          # If no provider found, use the type name as fallback
+          provider_counts[type] += count
+        end
+      end
+      
+      provider_counts.map { |provider, count| { provider: provider, count: count } }
+        .sort_by { |item| -item[:count] }
+    end
+
     def time_to_submit_by_type
       results = authorizations_with_first_create_and_submit_events
         .group("authorization_requests.type")

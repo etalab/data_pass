@@ -864,4 +864,106 @@ RSpec.describe Stats::Aggregator, type: :service do
       end
     end
   end
+
+  describe '#volume_by_type' do
+    let(:base_time) { Time.zone.parse('2025-03-15 10:00:00') }
+    let!(:user) { create(:user) }
+    let!(:organization) { create(:organization) }
+    
+    before do
+      user.add_to_organization(organization, current: true)
+    end
+
+    let!(:ar1) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+      end
+    end
+
+    let!(:ar2) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+      end
+    end
+
+    let!(:ar3) do
+      create(:authorization_request, :api_particulier, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+      end
+    end
+
+    let(:authorization_requests) { AuthorizationRequest.where(id: [ar1.id, ar2.id, ar3.id]) }
+    subject { described_class.new(authorization_requests) }
+
+    it 'returns volume grouped by type' do
+      result = subject.volume_by_type
+      
+      expect(result).to be_an(Array)
+      expect(result.length).to eq(2)
+      
+      # Find the types
+      api_entreprise = result.find { |r| r[:type].include?('APIEntreprise') }
+      api_particulier = result.find { |r| r[:type].include?('APIParticulier') }
+      
+      expect(api_entreprise[:count]).to eq(2)
+      expect(api_particulier[:count]).to eq(1)
+    end
+
+    it 'sorts results by count descending' do
+      result = subject.volume_by_type
+      
+      counts = result.map { |r| r[:count] }
+      expect(counts).to eq(counts.sort.reverse)
+    end
+  end
+
+  describe '#volume_by_provider' do
+    let(:base_time) { Time.zone.parse('2025-03-15 10:00:00') }
+    let!(:user) { create(:user) }
+    let!(:organization) { create(:organization) }
+    
+    before do
+      user.add_to_organization(organization, current: true)
+    end
+
+    let!(:ar1) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+      end
+    end
+
+    let!(:ar2) do
+      create(:authorization_request, :api_particulier, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+      end
+    end
+
+    let(:authorization_requests) { AuthorizationRequest.where(id: [ar1.id, ar2.id]) }
+    subject { described_class.new(authorization_requests) }
+
+    it 'returns volume grouped by provider' do
+      result = subject.volume_by_provider
+      
+      expect(result).to be_an(Array)
+      expect(result.length).to be >= 1
+      
+      # Check that each item has provider and count
+      result.each do |item|
+        expect(item).to have_key(:provider)
+        expect(item).to have_key(:count)
+        expect(item[:count]).to be > 0
+      end
+      
+      # Total should equal our test data
+      total_count = result.sum { |r| r[:count] }
+      expect(total_count).to eq(2)
+    end
+
+    it 'sorts results by count descending' do
+      result = subject.volume_by_provider
+      
+      counts = result.map { |r| r[:count] }
+      expect(counts).to eq(counts.sort.reverse)
+    end
+  end
 end

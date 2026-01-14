@@ -979,6 +979,78 @@ RSpec.describe Stats::Report, type: :service do
     end
   end
 
+  describe '#print_volume_by_type' do
+    let(:base_time) { Time.zone.parse('2025-03-15 10:00:00') }
+    let!(:user) { create(:user) }
+    let!(:organization) { create(:organization) }
+    
+    before do
+      user.add_to_organization(organization, current: true)
+    end
+
+    let!(:ar1) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+      end
+    end
+
+    let!(:ar2) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+      end
+    end
+
+    let!(:ar3) do
+      create(:authorization_request, :api_particulier, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+      end
+    end
+
+    subject { described_class.new(date_input: 2025) }
+
+    it 'prints volume bar chart by type' do
+      output = capture_stdout { subject.print_volume_by_type }
+      
+      expect(output).to include('Volume of authorization requests by type')
+      expect(output).to include('│')
+      expect(output).to include('Total:')
+      expect(output).to include('APIEntreprise')
+      expect(output).to include('APIParticulier')
+    end
+  end
+
+  describe '#print_volume_by_provider' do
+    let(:base_time) { Time.zone.parse('2025-03-15 10:00:00') }
+    let!(:user) { create(:user) }
+    let!(:organization) { create(:organization) }
+    
+    before do
+      user.add_to_organization(organization, current: true)
+    end
+
+    let!(:ar1) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+      end
+    end
+
+    let!(:ar2) do
+      create(:authorization_request, :api_particulier, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+      end
+    end
+
+    subject { described_class.new(date_input: 2025) }
+
+    it 'prints volume bar chart by provider' do
+      output = capture_stdout { subject.print_volume_by_provider }
+      
+      expect(output).to include('Volume of authorization requests by provider')
+      expect(output).to include('│')
+      expect(output).to include('Total:')
+    end
+  end
+
   # Helper method to capture stdout
   def capture_stdout
     original_stdout = $stdout
