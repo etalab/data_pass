@@ -396,4 +396,131 @@ RSpec.describe Stats::Aggregator, type: :service do
       expect(subject.average_time_to_submit).to be_within(1000).of(5400)
     end
   end
+
+  describe '#time_to_submit_by_type' do
+    subject { described_class.new }
+
+    let(:base_time) { Time.zone.parse('2025-03-01 10:00:00') }
+    let!(:user) { create(:user) }
+    let!(:organization) { create(:organization) }
+    
+    before do
+      user.add_to_organization(organization, current: true)
+    end
+
+    # Create different types of authorization requests with different submission times
+    let!(:api_entreprise_1) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 1.hour)
+      end
+    end
+
+    let!(:api_entreprise_2) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time + 1.day)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 1.day + 3.hours)
+      end
+    end
+
+    let!(:api_entreprise_3) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time + 2.days)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 2.days + 2.hours)
+      end
+    end
+
+    let!(:api_particulier_1) do
+      create(:authorization_request, :api_particulier, applicant: user, organization: organization).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 4.hours)
+      end
+    end
+
+    let!(:api_particulier_2) do
+      create(:authorization_request, :api_particulier, applicant: user, organization: organization).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time + 1.day)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 1.day + 6.hours)
+      end
+    end
+
+    let!(:france_connect_1) do
+      create(:authorization_request, :france_connect, applicant: user, organization: organization).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 30.minutes)
+      end
+    end
+
+    let!(:france_connect_2) do
+      create(:authorization_request, :france_connect, applicant: user, organization: organization).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time + 1.day)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 1.day + 1.hour)
+      end
+    end
+
+    it 'returns statistics grouped by authorization request type' do
+      stats = subject.time_to_submit_by_type
+      
+      expect(stats).to be_an(Array)
+      expect(stats.length).to eq(3) # API Entreprise, API Particulier, France Connect
+    end
+
+    it 'includes all required fields for each type' do
+      stats = subject.time_to_submit_by_type
+      
+      stats.each do |stat|
+        expect(stat).to have_key(:type)
+        expect(stat).to have_key(:min_time)
+        expect(stat).to have_key(:avg_time)
+        expect(stat).to have_key(:max_time)
+        expect(stat).to have_key(:count)
+      end
+    end
+
+    it 'calculates correct statistics for API Entreprise' do
+      stats = subject.time_to_submit_by_type
+      api_entreprise_stats = stats.find { |s| s[:type] == 'AuthorizationRequest::APIEntreprise' }
+      
+      expect(api_entreprise_stats).to be_present
+      expect(api_entreprise_stats[:count]).to eq(3)
+      expect(api_entreprise_stats[:min_time]).to be_within(100).of(3600) # 1 hour
+      expect(api_entreprise_stats[:max_time]).to be_within(100).of(10800) # 3 hours
+      expect(api_entreprise_stats[:avg_time]).to be_within(200).of(7200) # 2 hours average
+    end
+
+    it 'calculates correct statistics for API Particulier' do
+      stats = subject.time_to_submit_by_type
+      api_particulier_stats = stats.find { |s| s[:type] == 'AuthorizationRequest::APIParticulier' }
+      
+      expect(api_particulier_stats).to be_present
+      expect(api_particulier_stats[:count]).to eq(2)
+      expect(api_particulier_stats[:min_time]).to be_within(100).of(14400) # 4 hours
+      expect(api_particulier_stats[:max_time]).to be_within(100).of(21600) # 6 hours
+    end
+
+    it 'calculates correct statistics for France Connect' do
+      stats = subject.time_to_submit_by_type
+      france_connect_stats = stats.find { |s| s[:type] == 'AuthorizationRequest::FranceConnect' }
+      
+      expect(france_connect_stats).to be_present
+      expect(france_connect_stats[:count]).to eq(2)
+      expect(france_connect_stats[:min_time]).to be_within(100).of(1800) # 30 minutes
+      expect(france_connect_stats[:max_time]).to be_within(100).of(3600) # 1 hour
+    end
+
+    it 'returns results sorted by average time' do
+      stats = subject.time_to_submit_by_type
+      avg_times = stats.map { |s| s[:avg_time] }
+      
+      expect(avg_times).to eq(avg_times.sort)
+    end
+
+    context 'with no authorization requests' do
+      let(:empty_aggregator) { described_class.new(AuthorizationRequest.none) }
+
+      it 'returns an empty array' do
+        expect(empty_aggregator.time_to_submit_by_type).to eq([])
+      end
+    end
+  end
 end

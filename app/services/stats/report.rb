@@ -24,6 +24,34 @@ module Stats
       "Max time to submit: #{format_duration(@aggregator.max_time_to_submit)}"
     end
 
+    def print_time_to_submit_by_type_table
+      stats = @aggregator.time_to_submit_by_type
+      
+      if stats.empty?
+        puts "\nNo data available for statistics by type."
+        return
+      end
+
+      puts "\n# Time to submit by Authorization Request Type of #{human_readable_date_range}:\n\n"
+      puts format_table_header
+      puts format_table_separator(stats)
+      
+      stats.each do |stat|
+        puts format_table_row(stat)
+      end
+    end
+
+    def time_to_submit_by_type_table
+      stats = @aggregator.time_to_submit_by_type
+      return "No data available" if stats.empty?
+
+      lines = []
+      lines << format_table_header
+      lines << format_table_separator(stats)
+      stats.each { |stat| lines << format_table_row(stat) }
+      lines.join("\n")
+    end
+
     private
 
     def authorization_requests_with_first_create_in_range
@@ -62,7 +90,33 @@ module Stats
       seconds = seconds.to_f
       distance_of_time_in_words(Time.now, Time.now + seconds.seconds)
     end
+
+    def format_table_header
+      format("%-50s | %5s | %20s | %20s | %20s", "Type", "Count", "Min", "Avg", "Max")
+    end
+
+    def format_table_separator(stats)
+      return "-" * 120 if stats.any?
+      "-" * 120
+    end
+
+    def format_table_row(stat)
+      # Extract the class name without namespace and format it
+      type_name = stat[:type].split('::').last
+      # Add space before capitals but preserve consecutive capitals (acronyms)
+      type_name = type_name.gsub(/([a-z])([A-Z])/, '\1 \2')
+      
+      format(
+        "%-50s | %5d | %20s | %20s | %20s",
+        type_name,
+        stat[:count],
+        format_duration(stat[:min_time]),
+        format_duration(stat[:avg_time]),
+        format_duration(stat[:max_time])
+      )
+    end
   end
 end
 
-# Stats::Report.new(date_range: 2025).print_report
+# Stats::Report.new(date_range: 2025).print_report; puts 'ok'
+# Stats::Report.new(date_range: 2025).print_time_to_submit_by_type_table; puts 'ok'

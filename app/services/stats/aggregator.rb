@@ -20,6 +20,29 @@ module Stats
       first_event_subquery('create')
     end
 
+    def time_to_submit_by_type
+      results = authorizations_with_first_create_and_submit_events
+        .group("authorization_requests.type")
+        .order(Arel.sql("AVG(EXTRACT(EPOCH FROM (first_submit_events.event_time - first_create_events.event_time)))"))
+        .pluck(
+          Arel.sql("authorization_requests.type"),
+          Arel.sql("MIN(EXTRACT(EPOCH FROM (first_submit_events.event_time - first_create_events.event_time)))"),
+          Arel.sql("AVG(EXTRACT(EPOCH FROM (first_submit_events.event_time - first_create_events.event_time)))"),
+          Arel.sql("MAX(EXTRACT(EPOCH FROM (first_submit_events.event_time - first_create_events.event_time)))"),
+          Arel.sql("COUNT(*)")
+        )
+      
+      results.map do |type, min_time, avg_time, max_time, count|
+        {
+          type: type,
+          min_time: min_time&.to_f,
+          avg_time: avg_time&.to_f,
+          max_time: max_time&.to_f,
+          count: count
+        }
+      end
+    end
+
     private
 
     def first_submit_events_subquery

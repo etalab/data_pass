@@ -424,6 +424,161 @@ RSpec.describe Stats::Report, type: :service do
     end
   end
 
+  describe '#time_to_submit_by_type_table' do
+    let(:base_time) { Time.zone.parse('2025-12-01 10:00:00') }
+    let!(:user) { create(:user) }
+    let!(:organization) { create(:organization) }
+    
+    before do
+      user.add_to_organization(organization, current: true)
+    end
+
+    let!(:api_entreprise_1) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 1.hour)
+      end
+    end
+
+    let!(:api_entreprise_2) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: base_time + 1.day).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time + 1.day)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 1.day + 2.hours)
+      end
+    end
+
+    let!(:api_particulier_1) do
+      create(:authorization_request, :api_particulier, applicant: user, organization: organization, created_at: base_time + 2.days).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time + 2.days)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 2.days + 3.hours)
+      end
+    end
+
+    subject { described_class.new(date_range: 2025) }
+
+    it 'returns a formatted table' do
+      table = subject.time_to_submit_by_type_table
+      
+      expect(table).to include('Type')
+      expect(table).to include('Count')
+      expect(table).to include('Min')
+      expect(table).to include('Avg')
+      expect(table).to include('Max')
+    end
+
+    it 'includes authorization request type names' do
+      table = subject.time_to_submit_by_type_table
+      
+      expect(table).to match(/API\s*Entreprise/i)
+      expect(table).to match(/API\s*Particulier/i)
+    end
+
+    it 'includes count information' do
+      table = subject.time_to_submit_by_type_table
+      
+      # API Entreprise should have 2 requests
+      lines = table.split("\n")
+      api_entreprise_line = lines.find { |line| line.include?('Entreprise') }
+      expect(api_entreprise_line).to match(/\|\s*2\s*\|/)
+    end
+
+    it 'formats durations as human readable' do
+      table = subject.time_to_submit_by_type_table
+      
+      # Should include time-related words (in French or English)
+      expect(table).to match(/hour|heure|minute/i)
+    end
+  end
+
+  describe '#print_time_to_submit_by_type_table' do
+    let(:base_time) { Time.zone.parse('2025-12-15 10:00:00') }
+    let!(:user) { create(:user) }
+    let!(:organization) { create(:organization) }
+    
+    before do
+      user.add_to_organization(organization, current: true)
+    end
+
+    let!(:france_connect_1) do
+      create(:authorization_request, :france_connect, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 45.minutes)
+      end
+    end
+
+    subject { described_class.new(date_range: 2025) }
+
+    it 'prints the table to stdout' do
+      expect { subject.print_time_to_submit_by_type_table }.to output(/Statistics by Authorization Request Type/).to_stdout
+      expect { subject.print_time_to_submit_by_type_table }.to output(/Type/).to_stdout
+      expect { subject.print_time_to_submit_by_type_table }.to output(/Count/).to_stdout
+    end
+
+    context 'with no data' do
+      subject { described_class.new(date_range: 2020) }
+
+      it 'prints a message when no data is available' do
+        expect { subject.print_time_to_submit_by_type_table }.to output(/No data available/).to_stdout
+      end
+    end
+  end
+
+  describe 'table formatting methods' do
+    let(:base_time) { Time.zone.parse('2025-12-20 10:00:00') }
+    let!(:user) { create(:user) }
+    let!(:organization) { create(:organization) }
+    
+    before do
+      user.add_to_organization(organization, current: true)
+    end
+
+    let!(:api_captchetat_1) do
+      create(:authorization_request, :api_captchetat, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 1.hour)
+      end
+    end
+
+    subject { described_class.new(date_range: 2025) }
+
+    it 'formats table header correctly' do
+      header = subject.send(:format_table_header)
+      expect(header).to include('Type')
+      expect(header).to include('Count')
+      expect(header).to include('Min')
+      expect(header).to include('Avg')
+      expect(header).to include('Max')
+    end
+
+    it 'formats table row correctly' do
+      stat = {
+        type: 'AuthorizationRequest::APIEntreprise',
+        count: 5,
+        min_time: 3600.0,
+        avg_time: 7200.0,
+        max_time: 10800.0
+      }
+      
+      row = subject.send(:format_table_row, stat)
+      expect(row).to include('API')
+      expect(row).to include('Entreprise')
+      expect(row).to include('5')
+    end
+
+    it 'formats type name without namespace' do
+      stat = {
+        type: 'AuthorizationRequest::APIEntreprise',
+        count: 1,
+        min_time: 3600.0,
+        avg_time: 3600.0,
+        max_time: 3600.0
+      }
+      
+      row = subject.send(:format_table_row, stat)
+      expect(row).not_to include('AuthorizationRequest::')
+    end
+  end
+
   # Helper method to capture stdout
   def capture_stdout
     original_stdout = $stdout
