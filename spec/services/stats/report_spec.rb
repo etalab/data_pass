@@ -55,6 +55,7 @@ RSpec.describe Stats::Report, type: :service do
     it 'prints the report without error' do
       expect { subject.print_report }.to output(/# Report of/).to_stdout
       expect { subject.print_report }.to output(/authorization requests created/).to_stdout
+      expect { subject.print_report }.to output(/reopen events/).to_stdout
       expect { subject.print_report }.to output(/Average time to submit/).to_stdout
       expect { subject.print_report }.to output(/Min time to submit/).to_stdout
       expect { subject.print_report }.to output(/Max time to submit/).to_stdout
@@ -562,6 +563,48 @@ RSpec.describe Stats::Report, type: :service do
 
     it 'includes the count in the report output' do
       expect { subject.print_report }.to output(/3 authorization requests created/).to_stdout
+    end
+  end
+
+  describe '#number_of_reopen_events' do
+    let(:base_time) { Time.zone.parse('2025-05-15 10:00:00') }
+    let!(:user) { create(:user) }
+    let!(:organization1) { create(:organization) }
+    let!(:organization2) { create(:organization) }
+    
+    before do
+      user.add_to_organization(organization1, current: true)
+      user.add_to_organization(organization2)
+    end
+
+    let!(:ar1) do
+      create(:authorization_request, :validated, applicant: user, organization: organization1, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 1.hour)
+        create(:authorization_request_event, :reopen, authorization_request: ar, user: user, created_at: base_time + 1.day)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 2.days)
+        create(:authorization_request_event, :reopen, authorization_request: ar, user: user, created_at: base_time + 10.days)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 11.days)
+      end
+    end
+
+    let!(:ar2) do
+      create(:authorization_request, :validated, applicant: user, organization: organization2, created_at: base_time + 5.days).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time + 5.days)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 5.days + 1.hour)
+        create(:authorization_request_event, :reopen, authorization_request: ar, user: user, created_at: base_time + 7.days)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 8.days)
+      end
+    end
+
+    subject { described_class.new(date_input: 2025) }
+
+    it 'returns the count of reopen events' do
+      expect(subject.number_of_reopen_events).to eq('3 reopen events')
+    end
+
+    it 'includes the count in the report output' do
+      expect { subject.print_report }.to output(/3 reopen events/).to_stdout
     end
   end
 

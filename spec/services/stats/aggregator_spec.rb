@@ -523,4 +523,97 @@ RSpec.describe Stats::Aggregator, type: :service do
       end
     end
   end
+
+  describe '#reopen_events_count' do
+    let(:base_time) { Time.zone.parse('2025-04-01 10:00:00') }
+    let!(:user) { create(:user) }
+    let!(:organization1) { create(:organization) }
+    let!(:organization2) { create(:organization) }
+    let!(:organization3) { create(:organization) }
+    let!(:organization4) { create(:organization) }
+    
+    before do
+      user.add_to_organization(organization1, current: true)
+      user.add_to_organization(organization2)
+      user.add_to_organization(organization3)
+      user.add_to_organization(organization4)
+    end
+
+    let!(:ar1) do
+      create(:authorization_request, :validated, applicant: user, organization: organization1, created_at: base_time).tap do |ar|
+        # First reopen followed by submit
+        create(:authorization_request_event, :reopen, authorization_request: ar, user: user, created_at: base_time + 1.day)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 2.days)
+        # Second reopen followed by submit (same request reopened again)
+        create(:authorization_request_event, :reopen, authorization_request: ar, user: user, created_at: base_time + 5.days)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 6.days)
+      end
+    end
+
+    let!(:ar2) do
+      create(:authorization_request, :validated, applicant: user, organization: organization2, created_at: base_time).tap do |ar|
+        # One reopen followed by submit
+        create(:authorization_request_event, :reopen, authorization_request: ar, user: user, created_at: base_time + 3.days)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 4.days)
+      end
+    end
+
+    let!(:ar3) do
+      create(:authorization_request, :validated, applicant: user, organization: organization3, created_at: base_time - 120.days).tap do |ar|
+        create(:authorization_request_event, :reopen, authorization_request: ar, user: user, created_at: base_time - 100.days)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time - 99.days)
+      end
+    end
+
+    # Reopen event without subsequent submit (should not be counted)
+    let!(:ar4) do
+      create(:authorization_request, applicant: user, organization: organization4, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :reopen, authorization_request: ar, user: user, created_at: base_time + 10.days)
+        # No submit event after this reopen
+      end
+    end
+
+    context 'when filtering by specific authorization requests' do
+      subject { described_class.new(AuthorizationRequest.where(id: [ar1.id, ar2.id])) }
+
+      it 'counts only reopen events followed by submit for the given authorization requests' do
+        # Should count 3 reopen events (2 from ar1, 1 from ar2)
+        # ar3 is not included in the filter
+        # ar4 has a reopen but no submit after it, so it would not be counted anyway
+        expect(subject.reopen_events_count).to eq(3)
+      end
+
+      it 'counts multiple reopens from the same authorization request' do
+        # ar1 has 2 reopen events, both followed by submit, both should be counted
+        expect(subject.reopen_events_count).to eq(3)
+      end
+    end
+
+    context 'when using all authorization requests' do
+      subject { described_class.new }
+
+      it 'counts all reopen events followed by submit' do
+        # Should count 4 reopen events (2 from ar1, 1 from ar2, 1 from ar3)
+        # ar4 has a reopen but no submit after it, so it should not be counted
+        expect(subject.reopen_events_count).to eq(4)
+      end
+    end
+
+    context 'when authorization request has reopen without submit' do
+      subject { described_class.new(AuthorizationRequest.where(id: ar4.id)) }
+
+      it 'does not count reopen events without subsequent submit' do
+        # ar4 has a reopen but no submit after it
+        expect(subject.reopen_events_count).to eq(0)
+      end
+    end
+
+    context 'when filtering by authorization request with only one reopen' do
+      subject { described_class.new(AuthorizationRequest.where(id: ar3.id)) }
+
+      it 'counts the single reopen followed by submit' do
+        expect(subject.reopen_events_count).to eq(1)
+      end
+    end
+  end
 end

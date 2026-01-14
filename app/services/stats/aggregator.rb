@@ -20,6 +20,25 @@ module Stats
       first_event_subquery('create')
     end
 
+    def reopen_events_count
+      # Find reopen events for the authorization requests
+      authorization_request_ids = @authorization_requests.pluck(:id)
+      
+      reopen_events = AuthorizationRequestEvent
+        .where(name: 'reopen')
+        .where(authorization_request_id: authorization_request_ids)
+        .select(:id, :authorization_request_id, :created_at)
+
+      # Count only those reopens that have a subsequent submit event
+      reopen_events.select do |reopen_event|
+        AuthorizationRequestEvent
+          .where(name: 'submit')
+          .where(authorization_request_id: reopen_event.authorization_request_id)
+          .where('created_at > ?', reopen_event.created_at)
+          .exists?
+      end.count
+    end
+
     def time_to_submit_by_type
       results = authorizations_with_first_create_and_submit_events
         .group("authorization_requests.type")

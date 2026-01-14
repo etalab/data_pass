@@ -5,13 +5,18 @@ module Stats
     def initialize(date_input: 2025)
       @date_input = date_input
       @date_range = extract_date_range(date_input)
+      
       @authorization_requests_created_in_range = authorization_requests_with_first_create_in_range
-      @aggregator = Stats::Aggregator.new(@authorization_requests_created_in_range)
+      @create_aggregator = Stats::Aggregator.new(@authorization_requests_created_in_range)
+
+      @authorization_requests_with_reopen_in_range = authorization_requests_with_reopen_events_in_range
+      @reopen_aggregator = Stats::Aggregator.new(@authorization_requests_with_reopen_in_range)
     end
 
     def print_report
       result =  " \n# Report of #{human_readable_date_range}:\n\n"
       result += "#{number_of_authorization_requests_created}\n"
+      result += "#{number_of_reopen_events}\n"
       result += "\n"
       result += "#{min_time_to_submit}\n#{average_time_to_submit}\n#{max_time_to_submit}\n"
       puts result
@@ -21,20 +26,24 @@ module Stats
       "#{@authorization_requests_created_in_range.count} authorization requests created"
     end
 
+    def number_of_reopen_events
+      "#{@reopen_aggregator.reopen_events_count} reopen events"
+    end
+
     def average_time_to_submit
-      "Average time to submit: #{format_duration(@aggregator.average_time_to_submit)}"
+      "Average time to submit: #{format_duration(@create_aggregator.average_time_to_submit)}"
     end
 
     def min_time_to_submit
-      "Min time to submit: #{format_duration(@aggregator.min_time_to_submit)}"
+      "Min time to submit: #{format_duration(@create_aggregator.min_time_to_submit)}"
     end
 
     def max_time_to_submit
-      "Max time to submit: #{format_duration(@aggregator.max_time_to_submit)}"
+      "Max time to submit: #{format_duration(@create_aggregator.max_time_to_submit)}"
     end
 
     def print_time_to_submit_by_type_table
-      stats = @aggregator.time_to_submit_by_type
+      stats = @create_aggregator.time_to_submit_by_type
       
       if stats.empty?
         puts "\nNo data available for statistics by type."
@@ -51,7 +60,7 @@ module Stats
     end
 
     def time_to_submit_by_type_table
-      stats = @aggregator.time_to_submit_by_type
+      stats = @create_aggregator.time_to_submit_by_type
       return "No data available" if stats.empty?
 
       lines = []
@@ -68,7 +77,17 @@ module Stats
 
       AuthorizationRequest
         .joins("INNER JOIN (#{first_create_events_subquery.to_sql}) first_create_events ON first_create_events.authorization_request_id = authorization_requests.id")
-        .where("first_create_events.event_time >= ? AND first_create_events.event_time <= ?", @date_range.first.beginning_of_day, @date_range.last.end_of_day)
+        .where(first_create_events: { event_time: @date_range })
+    end
+
+    def authorization_requests_with_reopen_events_in_range
+      reopen_events_subquery = AuthorizationRequestEvent
+        .where(name: 'reopen')
+        .where(created_at: @date_range)
+        .select('DISTINCT authorization_request_id')
+
+      AuthorizationRequest
+        .where(id: reopen_events_subquery)
     end
 
     def human_readable_date_range
