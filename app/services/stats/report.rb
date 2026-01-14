@@ -65,4 +65,4 @@ module Stats
   end
 end
 
-Stats::Report.new(date_range: 2025).print_report
+# Stats::Report.new(date_range: 2025).print_report
