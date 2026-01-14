@@ -24,6 +24,22 @@ RSpec.describe Stats::Report, type: :service do
         expect { described_class.new(date_input: 'invalid') }.to raise_error('Invalid date range: invalid')
       end
     end
+
+    context 'with authorization_types filter' do
+      subject { described_class.new(date_input: 2025, authorization_types: ['AuthorizationRequest::APIEntreprise']) }
+
+      it 'stores the authorization types' do
+        expect(subject.instance_variable_get(:@authorization_types)).to eq(['AuthorizationRequest::APIEntreprise'])
+      end
+    end
+
+    context 'without authorization_types filter' do
+      subject { described_class.new(date_input: 2025) }
+
+      it 'authorization_types is nil' do
+        expect(subject.instance_variable_get(:@authorization_types)).to be_nil
+      end
+    end
   end
 
   describe '#print_report' do
@@ -736,6 +752,96 @@ RSpec.describe Stats::Report, type: :service do
       it 'outputs no data message' do
         output = capture_stdout { subject.print_time_to_submit_by_duration(step: :day) }
         expect(output).to include('No data available')
+      end
+    end
+  end
+
+  describe 'filtering by authorization_types' do
+    let(:base_time) { Time.zone.parse('2025-03-15 10:00:00') }
+    let!(:user) { create(:user) }
+    let!(:organization) { create(:organization) }
+    
+    before do
+      user.add_to_organization(organization, current: true)
+    end
+
+    # Create authorization requests of different types
+    let!(:api_entreprise_1) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 1.hour)
+      end
+    end
+
+    let!(:api_entreprise_2) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 2.hours)
+      end
+    end
+
+    let!(:api_particulier_1) do
+      create(:authorization_request, :api_particulier, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 3.hours)
+      end
+    end
+
+    context 'when filtering by a single type' do
+      subject { described_class.new(date_input: 2025, authorization_types: ['AuthorizationRequest::APIEntreprise']) }
+
+      it 'only counts authorization requests of that type' do
+        expect(subject.number_of_authorization_requests_created).to eq('2 authorization requests created')
+      end
+
+      it 'includes type filter in report output' do
+        output = capture_stdout { subject.print_report }
+        expect(output).to include('(filtered by: APIEntreprise)')
+      end
+    end
+
+    context 'when filtering by multiple types' do
+      subject { described_class.new(date_input: 2025, authorization_types: ['AuthorizationRequest::APIEntreprise', 'AuthorizationRequest::APIParticulier']) }
+
+      it 'counts authorization requests of all specified types' do
+        expect(subject.number_of_authorization_requests_created).to eq('3 authorization requests created')
+      end
+
+      it 'includes multiple types in filter label' do
+        output = capture_stdout { subject.print_report }
+        expect(output).to include('(filtered by: APIEntreprise, APIParticulier)')
+      end
+    end
+
+    context 'when not filtering by type' do
+      subject { described_class.new(date_input: 2025) }
+
+      it 'counts all authorization requests' do
+        expect(subject.number_of_authorization_requests_created).to eq('3 authorization requests created')
+      end
+
+      it 'does not include type filter in output' do
+        output = capture_stdout { subject.print_report }
+        expect(output).not_to include('filtered by')
+      end
+    end
+
+    context 'with time_to_submit_by_duration filtered by type' do
+      subject { described_class.new(date_input: 2025, authorization_types: ['AuthorizationRequest::APIEntreprise']) }
+
+      it 'only includes data for filtered types in bar chart' do
+        output = capture_stdout { subject.print_time_to_submit_by_duration(step: :hour) }
+        expect(output).to include('(filtered by: APIEntreprise)')
+        expect(output).to include('Total: 2 authorization requests')
+      end
+    end
+
+    context 'with time_to_submit_by_type_table filtered by type' do
+      subject { described_class.new(date_input: 2025, authorization_types: ['AuthorizationRequest::APIEntreprise']) }
+
+      it 'only shows statistics for filtered types' do
+        output = capture_stdout { subject.print_time_to_submit_by_type_table }
+        expect(output).to include('(filtered by: APIEntreprise)')
       end
     end
   end

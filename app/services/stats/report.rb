@@ -2,9 +2,10 @@ module Stats
   class Report
     include ActionView::Helpers::DateHelper
 
-    def initialize(date_input: 2025)
+    def initialize(date_input: 2025, authorization_types: nil)
       @date_input = date_input
       @date_range = extract_date_range(date_input)
+      @authorization_types = authorization_types
       
       @authorization_requests_created_in_range = authorization_requests_with_first_create_in_range
       @create_aggregator = Stats::Aggregator.new(@authorization_requests_created_in_range)
@@ -14,7 +15,7 @@ module Stats
     end
 
     def print_report
-      result =  " \n# Report of #{human_readable_date_range}:\n\n"
+      result =  " \n# Report of #{human_readable_date_range}#{type_filter_label}:\n\n"
       result += "#{number_of_authorization_requests_created}\n"
       result += "#{number_of_reopen_events}\n"
       result += "\n"
@@ -50,7 +51,7 @@ module Stats
         return
       end
 
-      puts "\n# Time to submit by Authorization Request Type of #{human_readable_date_range}:\n\n"
+      puts "\n# Time to submit by Authorization Request Type of #{human_readable_date_range}#{type_filter_label}:\n\n"
       puts format_table_header
       puts format_table_separator(stats)
       
@@ -79,7 +80,7 @@ module Stats
       end
 
       step_label = step_label_text(step)
-      puts "\n# Time to submit by #{step_label} of #{human_readable_date_range}:\n\n"
+      puts "\n# Time to submit by #{step_label} of #{human_readable_date_range}#{type_filter_label}:\n\n"
       puts format_bar_chart(buckets, step)
     end
 
@@ -88,7 +89,7 @@ module Stats
     def authorization_requests_with_first_create_in_range
       first_create_events_subquery = Stats::Aggregator.new.first_create_events_subquery
 
-      AuthorizationRequest
+      authorization_requests_with_type
         .joins("INNER JOIN (#{first_create_events_subquery.to_sql}) first_create_events ON first_create_events.authorization_request_id = authorization_requests.id")
         .where(first_create_events: { event_time: @date_range })
     end
@@ -99,8 +100,16 @@ module Stats
         .where(created_at: @date_range)
         .select('DISTINCT authorization_request_id')
 
-      AuthorizationRequest
+      authorization_requests_with_type
         .where(id: reopen_events_subquery)
+    end
+
+    def authorization_requests_with_type
+      if @authorization_types.present?
+        AuthorizationRequest.where(type: @authorization_types)
+      else
+        AuthorizationRequest.all
+      end
     end
 
     def human_readable_date_range
@@ -109,6 +118,21 @@ module Stats
       else
         "#{@date_input.first.strftime('%d/%m/%Y')} - #{@date_input.last.strftime('%d/%m/%Y')}"
       end
+    end
+
+    def type_filter_label
+      return "" unless @authorization_types.present?
+      
+      type_names = @authorization_types.map do |type|
+        format_type_name(type.split('::').last)
+      end
+      
+      " (filtered by: #{type_names.join(', ')})"
+    end
+
+    def format_type_name(type_name)
+      # Add space before capitals but preserve consecutive capitals (acronyms)
+      type_name.gsub(/([a-z])([A-Z])/, '\1 \2')
     end
 
     def date_range_is_a_year(date_range)
@@ -207,3 +231,5 @@ end
 # Stats::Report.new(date_input: 2025).print_time_to_submit_by_duration(step: :day); puts 'ok'
 # Stats::Report.new(date_input: 2025).print_time_to_submit_by_duration(step: :hour); puts 'ok'
 # Stats::Report.new(date_input: 2025).print_time_to_submit_by_duration(step: :minute); puts 'ok'
+# Stats::Report.new(date_input: 2025, authorization_types: ['AuthorizationRequest::APIEntreprise', 'AuthorizationRequest::APIParticulier']).print_report; puts 'ok'
+# Stats::Report.new(date_input: 2025, authorization_types: ['AuthorizationRequest::APIEntreprise']).print_time_to_submit_by_duration(step: :day); puts 'ok'
