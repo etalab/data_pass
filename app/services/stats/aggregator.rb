@@ -8,16 +8,32 @@ module Stats
       authorizations_with_first_create_and_submit_events.average("EXTRACT(EPOCH FROM (first_submit_events.event_time - first_create_events.event_time))")
     end
 
-    def min_time_to_submit
-      authorizations_with_first_create_and_submit_events.minimum("EXTRACT(EPOCH FROM (first_submit_events.event_time - first_create_events.event_time))")
+    def median_time_to_submit
+      result = authorizations_with_first_create_and_submit_events
+        .pluck(Arel.sql("PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY EXTRACT(EPOCH FROM (first_submit_events.event_time - first_create_events.event_time)))"))
+        .first
+      
+      result&.to_f
     end
 
-    def max_time_to_submit
-      authorizations_with_first_create_and_submit_events.maximum("EXTRACT(EPOCH FROM (first_submit_events.event_time - first_create_events.event_time))")
+    def stddev_time_to_submit
+      result = authorizations_with_first_create_and_submit_events
+        .pluck(Arel.sql("STDDEV_POP(EXTRACT(EPOCH FROM (first_submit_events.event_time - first_create_events.event_time)))"))
+        .first
+      
+      result&.to_f
     end
 
     def average_time_to_first_instruction
       authorizations_with_submit_and_first_instruction_events.average("EXTRACT(EPOCH FROM (first_instruction_events.event_time - submit_events.event_time))")
+    end
+
+    def median_time_to_first_instruction
+      result = authorizations_with_submit_and_first_instruction_events
+        .pluck(Arel.sql("PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY EXTRACT(EPOCH FROM (first_instruction_events.event_time - submit_events.event_time)))"))
+        .first
+      
+      result&.to_f
     end
 
     def stddev_time_to_first_instruction

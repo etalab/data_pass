@@ -110,9 +110,10 @@ RSpec.describe Stats::Report, type: :service do
       expect { subject.print_report }.to output(/authorization requests created/).to_stdout
       expect { subject.print_report }.to output(/reopen events/).to_stdout
       expect { subject.print_report }.to output(/Average time to submit/).to_stdout
-      expect { subject.print_report }.to output(/Min time to submit/).to_stdout
-      expect { subject.print_report }.to output(/Max time to submit/).to_stdout
+      expect { subject.print_report }.to output(/Median time to submit/).to_stdout
+      expect { subject.print_report }.to output(/Standard deviation time to submit/).to_stdout
       expect { subject.print_report }.to output(/Average time to first instruction/).to_stdout
+      expect { subject.print_report }.to output(/Median time to first instruction/).to_stdout
       expect { subject.print_report }.to output(/Standard deviation time to first instruction/).to_stdout
     end
   end
@@ -267,8 +268,8 @@ RSpec.describe Stats::Report, type: :service do
     end
   end
 
-  describe '#min_time_to_submit' do
-    subject { described_class.new(date_input: 2025).min_time_to_submit }
+  describe '#median_time_to_submit' do
+    subject { described_class.new(date_input: 2025).median_time_to_submit }
 
     let(:base_time) { Time.zone.parse('2025-08-01 12:00:00') }
     let!(:user) { create(:user) }
@@ -299,14 +300,14 @@ RSpec.describe Stats::Report, type: :service do
       end
     end
 
-    it 'returns a formatted string with the minimum time' do
-      expect(subject).to match(/Min time to submit: .+/)
-      expect(subject).to match(/5 minutes|5 minute/)
+    it 'returns a formatted string with the median time' do
+      expect(subject).to match(/Median time to submit: .+/)
+      expect(subject).to match(/3 (hours|heures)/)
     end
   end
 
-  describe '#max_time_to_submit' do
-    subject { described_class.new(date_input: 2025).max_time_to_submit }
+  describe '#stddev_time_to_submit' do
+    subject { described_class.new(date_input: 2025).stddev_time_to_submit }
 
     let(:base_time) { Time.zone.parse('2025-09-01 14:00:00') }
     let!(:user) { create(:user) }
@@ -337,9 +338,8 @@ RSpec.describe Stats::Report, type: :service do
       end
     end
 
-    it 'returns a formatted string with the maximum time' do
-      expect(subject).to match(/Max time to submit: .+/)
-      expect(subject).to match(/21 (days|jours)/)
+    it 'returns a formatted string with the standard deviation' do
+      expect(subject).to match(/Standard deviation time to submit: .+/)
     end
   end
 
@@ -487,8 +487,8 @@ RSpec.describe Stats::Report, type: :service do
 
       it 'returns N/A for all metrics' do
         expect(subject.average_time_to_submit).to include('N/A')
-        expect(subject.min_time_to_submit).to include('N/A')
-        expect(subject.max_time_to_submit).to include('N/A')
+        expect(subject.median_time_to_submit).to include('N/A')
+        expect(subject.stddev_time_to_submit).to include('N/A')
       end
     end
 
@@ -511,8 +511,8 @@ RSpec.describe Stats::Report, type: :service do
 
       it 'returns N/A for all metrics' do
         expect(subject.average_time_to_submit).to include('N/A')
-        expect(subject.min_time_to_submit).to include('N/A')
-        expect(subject.max_time_to_submit).to include('N/A')
+        expect(subject.median_time_to_submit).to include('N/A')
+        expect(subject.stddev_time_to_submit).to include('N/A')
       end
     end
   end
@@ -540,8 +540,8 @@ RSpec.describe Stats::Report, type: :service do
       
       expect(output).to match(/# Report of/)
       expect(output).to match(/Average time to submit: .+/)
-      expect(output).to match(/Min time to submit: .+/)
-      expect(output).to match(/Max time to submit: .+/)
+      expect(output).to match(/Median time to submit: .+/)
+      expect(output).to match(/Standard deviation time to submit: .+/)
     end
   end
 

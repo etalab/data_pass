@@ -191,47 +191,8 @@ RSpec.describe Stats::Aggregator, type: :service do
     end
   end
 
-  describe '#min_time_to_submit' do
-    subject { described_class.new(authorization_requests).min_time_to_submit }
-
-    let(:base_time) { Time.zone.parse('2025-01-15 14:00:00') }
-    let!(:user) { create(:user) }
-    let!(:organization) { create(:organization) }
-    
-    before do
-      user.add_to_organization(organization, current: true)
-    end
-
-    let!(:ar_fast) do
-      create(:authorization_request, :api_entreprise, applicant: user, organization: organization).tap do |ar|
-        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
-        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 1.minute)
-      end
-    end
-
-    let!(:ar_slow) do
-      create(:authorization_request, :api_particulier, applicant: user, organization: organization).tap do |ar|
-        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
-        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 10.days)
-      end
-    end
-
-    let!(:ar_medium) do
-      create(:authorization_request, :api_captchetat, applicant: user, organization: organization).tap do |ar|
-        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
-        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 5.hours)
-      end
-    end
-
-    let(:authorization_requests) { AuthorizationRequest.where(id: [ar_fast.id, ar_slow.id, ar_medium.id]) }
-
-    it 'returns the minimum time to submit' do
-      expect(subject).to be_within(1).of(60) # 1 minute
-    end
-  end
-
-  describe '#max_time_to_submit' do
-    subject { described_class.new(authorization_requests).max_time_to_submit }
+  describe '#median_time_to_submit' do
+    subject { described_class.new(authorization_requests).median_time_to_submit }
 
     let(:base_time) { Time.zone.parse('2025-01-15 14:00:00') }
     let!(:user) { create(:user) }
@@ -264,8 +225,53 @@ RSpec.describe Stats::Aggregator, type: :service do
 
     let(:authorization_requests) { AuthorizationRequest.where(id: [ar_fast.id, ar_slow.id, ar_medium.id]) }
 
-    it 'returns the maximum time to submit' do
-      expect(subject).to be_within(1).of(14.days.to_f) # 14 days
+    it 'returns the median time to submit' do
+      # Values: 60 seconds (1 min), 18000 seconds (5 hours), 1209600 seconds (14 days)
+      # Median: middle value = 18000 seconds (5 hours)
+      expect(subject).to be_within(1).of(5.hours.to_f)
+    end
+  end
+
+  describe '#stddev_time_to_submit' do
+    subject { described_class.new(authorization_requests).stddev_time_to_submit }
+
+    let(:base_time) { Time.zone.parse('2025-01-15 14:00:00') }
+    let!(:user) { create(:user) }
+    let!(:organization) { create(:organization) }
+    
+    before do
+      user.add_to_organization(organization, current: true)
+    end
+
+    let!(:ar_fast) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 1.minute)
+      end
+    end
+
+    let!(:ar_slow) do
+      create(:authorization_request, :api_particulier, applicant: user, organization: organization).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 14.days)
+      end
+    end
+
+    let!(:ar_medium) do
+      create(:authorization_request, :api_captchetat, applicant: user, organization: organization).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 5.hours)
+      end
+    end
+
+    let(:authorization_requests) { AuthorizationRequest.where(id: [ar_fast.id, ar_slow.id, ar_medium.id]) }
+
+    it 'returns the standard deviation of time to submit' do
+      # Values: 60, 18000, 1209600
+      # Mean: (60 + 18000 + 1209600) / 3 ≈ 409220
+      # Stddev should be calculated by PostgreSQL
+      expect(subject).to be > 0
+      expect(subject).to be_a(Float)
     end
   end
 
@@ -354,8 +360,9 @@ RSpec.describe Stats::Aggregator, type: :service do
     it 'calculates statistics across all authorization request types' do
       # Average: (2h + 3h + 1h + 4h) / 4 = 2.5h = 9000 seconds
       expect(subject.average_time_to_submit).to be_within(1).of(9000)
-      expect(subject.min_time_to_submit).to be_within(1).of(3600) # 1 hour
-      expect(subject.max_time_to_submit).to be_within(1).of(14400) # 4 hours
+      # Median of [3600, 7200, 10800, 14400] = (7200 + 10800) / 2 = 9000 seconds
+      expect(subject.median_time_to_submit).to be_within(1).of(9000)
+      expect(subject.stddev_time_to_submit).to be > 0
     end
   end
 
@@ -732,7 +739,7 @@ RSpec.describe Stats::Aggregator, type: :service do
     end
   end
 
-  describe '#average_time_to_first_instruction' do
+  describe 'time to first instruction metrics' do
     let(:base_time) { Time.zone.parse('2025-03-15 10:00:00') }
     let!(:user) { create(:user) }
     let!(:organization) { create(:organization) }
@@ -760,24 +767,39 @@ RSpec.describe Stats::Aggregator, type: :service do
 
     subject { described_class.new }
 
-    it 'returns average time from submit to first instruction' do
-      avg_time = subject.average_time_to_first_instruction
-      
-      # ar1: 1 day - 1 hour = 23 hours = 82800 seconds
-      # ar2: 2 days - 2 hours = 46 hours = 165600 seconds
-      # Average: (82800 + 165600) / 2 = 124200 seconds
-      expect(avg_time).to be_within(1).of(124200)
+    describe '#average_time_to_first_instruction' do
+      it 'returns average time from submit to first instruction' do
+        avg_time = subject.average_time_to_first_instruction
+        
+        # ar1: 1 day - 1 hour = 23 hours = 82800 seconds
+        # ar2: 2 days - 2 hours = 46 hours = 165600 seconds
+        # Average: (82800 + 165600) / 2 = 124200 seconds
+        expect(avg_time).to be_within(1).of(124200)
+      end
     end
 
-    it 'returns standard deviation of time to first instruction' do
-      stddev_time = subject.stddev_time_to_first_instruction
-      
-      # ar1: 82800 seconds
-      # ar2: 165600 seconds
-      # Mean: 124200
-      # Variance: ((82800-124200)^2 + (165600-124200)^2) / 2 = (1715560000 + 1715560000) / 2 = 1715560000
-      # StdDev: sqrt(1715560000) ≈ 41420 seconds (about 11.5 hours)
-      expect(stddev_time).to be_within(100).of(41420)
+    describe '#median_time_to_first_instruction' do
+      it 'returns median time from submit to first instruction' do
+        median_time = subject.median_time_to_first_instruction
+        
+        # ar1: 82800 seconds
+        # ar2: 165600 seconds
+        # Median of 2 values: (82800 + 165600) / 2 = 124200 seconds
+        expect(median_time).to be_within(1).of(124200)
+      end
+    end
+
+    describe '#stddev_time_to_first_instruction' do
+      it 'returns standard deviation of time to first instruction' do
+        stddev_time = subject.stddev_time_to_first_instruction
+        
+        # ar1: 82800 seconds
+        # ar2: 165600 seconds
+        # Mean: 124200
+        # Variance: ((82800-124200)^2 + (165600-124200)^2) / 2 = (1715560000 + 1715560000) / 2 = 1715560000
+        # StdDev: sqrt(1715560000) ≈ 41420 seconds (about 11.5 hours)
+        expect(stddev_time).to be_within(100).of(41420)
+      end
     end
 
     context 'with authorization request without instruction event' do
