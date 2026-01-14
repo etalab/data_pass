@@ -3,7 +3,7 @@ fr:
     shared:
       message_templates_section:
         choose_template: Vous pouvez choisir un modèle ci-dessous.
-        edit_templates_link: cliquez ici pour modifier ces modèles
+        edit_templates_link: modifier les modèles
       email_preview_accordion:
         title: Voir un aperçu de l'email
     dashboard:
