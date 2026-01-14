@@ -664,6 +664,82 @@ RSpec.describe Stats::Report, type: :service do
     end
   end
 
+  describe '#print_time_to_submit_by_duration' do
+    let(:base_time) { Time.zone.parse('2025-03-15 10:00:00') }
+    let!(:user) { create(:user) }
+    let!(:organization) { create(:organization) }
+    
+    before do
+      user.add_to_organization(organization, current: true)
+    end
+
+    # Create authorization requests with different time to submit
+    let!(:ar_quick) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 30.minutes)
+      end
+    end
+
+    let!(:ar_medium) do
+      create(:authorization_request, :api_particulier, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 2.hours)
+      end
+    end
+
+    let!(:ar_slow) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 5.days)
+      end
+    end
+
+    subject { described_class.new(date_input: 2025) }
+
+    context 'with step: :minute' do
+      it 'outputs bar chart with minute buckets' do
+        output = capture_stdout { subject.print_time_to_submit_by_duration(step: :minute) }
+        expect(output).to include('Time to submit by minute')
+        expect(output).to include('<1')
+        expect(output).to include('> 60')
+        expect(output).to include('│')
+        expect(output).to include('Total:')
+      end
+    end
+
+    context 'with step: :hour' do
+      it 'outputs bar chart with hour buckets' do
+        output = capture_stdout { subject.print_time_to_submit_by_duration(step: :hour) }
+        expect(output).to include('Time to submit by hour')
+        expect(output).to include('<1')
+        expect(output).to include('> 24')
+        expect(output).to include('│')
+        expect(output).to include('Total:')
+      end
+    end
+
+    context 'with step: :day' do
+      it 'outputs bar chart with day buckets' do
+        output = capture_stdout { subject.print_time_to_submit_by_duration(step: :day) }
+        expect(output).to include('Time to submit by day')
+        expect(output).to include('<1')
+        expect(output).to include('> 30')
+        expect(output).to include('│')
+        expect(output).to include('Total:')
+      end
+    end
+
+    context 'with no data' do
+      subject { described_class.new(date_input: 2020) }
+
+      it 'outputs no data message' do
+        output = capture_stdout { subject.print_time_to_submit_by_duration(step: :day) }
+        expect(output).to include('No data available')
+      end
+    end
+  end
+
   # Helper method to capture stdout
   def capture_stdout
     original_stdout = $stdout

@@ -616,4 +616,119 @@ RSpec.describe Stats::Aggregator, type: :service do
       end
     end
   end
+
+  describe '#time_to_submit_by_duration_buckets' do
+    let(:base_time) { Time.zone.parse('2025-03-15 10:00:00') }
+    let!(:user) { create(:user) }
+    let!(:organization) { create(:organization) }
+    
+    before do
+      user.add_to_organization(organization, current: true)
+    end
+
+    # Create authorization requests with different time to submit durations
+    let!(:ar_30_seconds) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 30.seconds)
+      end
+    end
+
+    let!(:ar_90_seconds) do
+      create(:authorization_request, :api_particulier, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 90.seconds)
+      end
+    end
+
+    let!(:ar_2_hours) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 2.hours)
+      end
+    end
+
+    let!(:ar_5_days) do
+      create(:authorization_request, :api_particulier, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 5.days)
+      end
+    end
+
+    subject { described_class.new }
+
+    context 'with step: :minute' do
+      it 'returns buckets grouped by minutes' do
+        buckets = subject.time_to_submit_by_duration_buckets(step: :minute)
+        
+        expect(buckets).to be_an(Array)
+        expect(buckets.first[:bucket]).to eq('<1')
+        expect(buckets.last[:bucket]).to eq('> 60')
+        
+        # Check structure
+        expect(buckets.all? { |b| b.key?(:bucket) && b.key?(:count) }).to be true
+        
+        # Should have 62 buckets: <1, 1-60, > 60
+        expect(buckets.size).to eq(62)
+      end
+
+      it 'distributes values correctly' do
+        buckets = subject.time_to_submit_by_duration_buckets(step: :minute)
+        
+        # ar_30_seconds should be in <1 bucket
+        # ar_90_seconds should be in bucket 2 (90/60 = 1.5, ceil = 2)
+        # ar_2_hours and ar_5_days should be in > 60
+        
+        less_than_1 = buckets.find { |b| b[:bucket] == '<1' }[:count]
+        more_than_60 = buckets.find { |b| b[:bucket] == '> 60' }[:count]
+        
+        expect(less_than_1).to be >= 0
+        expect(more_than_60).to be >= 0
+        
+        total = buckets.sum { |b| b[:count] }
+        expect(total).to be > 0
+      end
+    end
+
+    context 'with step: :hour' do
+      it 'returns buckets grouped by hours' do
+        buckets = subject.time_to_submit_by_duration_buckets(step: :hour)
+        
+        expect(buckets).to be_an(Array)
+        expect(buckets.first[:bucket]).to eq('<1')
+        expect(buckets.last[:bucket]).to eq('> 24')
+        
+        # Should have 26 buckets: <1, 1-24, > 24
+        expect(buckets.size).to eq(26)
+      end
+    end
+
+    context 'with step: :day' do
+      it 'returns buckets grouped by days' do
+        buckets = subject.time_to_submit_by_duration_buckets(step: :day)
+        
+        expect(buckets).to be_an(Array)
+        expect(buckets.first[:bucket]).to eq('<1')
+        expect(buckets.last[:bucket]).to eq('> 30')
+        
+        # Should have 32 buckets: <1, 1-30, > 30
+        expect(buckets.size).to eq(32)
+      end
+    end
+
+    context 'with invalid step' do
+      it 'raises an error' do
+        expect { subject.time_to_submit_by_duration_buckets(step: :invalid) }.to raise_error(ArgumentError)
+      end
+    end
+
+    context 'with no authorization requests' do
+      subject { described_class.new(AuthorizationRequest.none) }
+
+      it 'returns empty array' do
+        buckets = subject.time_to_submit_by_duration_buckets(step: :day)
+        expect(buckets).to eq([])
+      end
+    end
+  end
 end

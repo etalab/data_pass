@@ -70,6 +70,19 @@ module Stats
       lines.join("\n")
     end
 
+    def print_time_to_submit_by_duration(step: :day)
+      buckets = @create_aggregator.time_to_submit_by_duration_buckets(step: step)
+      
+      if buckets.empty? || buckets.sum { |b| b[:count] } == 0
+        puts "\nNo data available for time to submit by duration."
+        return
+      end
+
+      step_label = step_label_text(step)
+      puts "\n# Time to submit by #{step_label} of #{human_readable_date_range}:\n\n"
+      puts format_bar_chart(buckets, step)
+    end
+
     private
 
     def authorization_requests_with_first_create_in_range
@@ -143,8 +156,54 @@ module Stats
         format_duration(stat[:max_time])
       )
     end
+
+    def step_label_text(step)
+      case step
+      when :minute
+        "minute"
+      when :hour
+        "hour"
+      when :day
+        "day"
+      else
+        step.to_s
+      end
+    end
+
+    def format_bar_chart(buckets, step)
+      max_count = buckets.map { |b| b[:count] }.max
+      return "No data" if max_count == 0
+      
+      # Calculate bar scale - aim for max bar length of 50 characters
+      max_bar_length = 50
+      scale = max_count > max_bar_length ? (max_bar_length.to_f / max_count) : 1.0
+      
+      lines = []
+      
+      # Find the maximum width needed for bucket labels and counts
+      max_label_width = buckets.map { |b| b[:bucket].to_s.length }.max
+      max_count_width = buckets.map { |b| b[:count].to_s.length }.max
+      
+      # Build bars with counts on the left
+      buckets.each do |bucket|
+        bar_length = (bucket[:count] * scale).round
+        bar = "█" * bar_length
+        label = bucket[:bucket].to_s.rjust(max_label_width)
+        count = bucket[:count].to_s.rjust(max_count_width)
+        lines << "#{label} (#{count}) │ #{bar}"
+      end
+      
+      lines << ""
+      lines << "Total: #{buckets.sum { |b| b[:count] }} authorization requests"
+      lines << "Scale: each █ represents #{(1.0 / scale).round(1)} request(s)" if scale < 1.0
+      
+      lines.join("\n")
+    end
   end
 end
 
 # [2025, 2024, 2023].each{ |year| Stats::Report.new(date_input: year).print_report }; puts 'ok'
 # Stats::Report.new(date_input: 2025).print_time_to_submit_by_type_table; puts 'ok'
+# Stats::Report.new(date_input: 2025).print_time_to_submit_by_duration(step: :day); puts 'ok'
+# Stats::Report.new(date_input: 2025).print_time_to_submit_by_duration(step: :hour); puts 'ok'
+# Stats::Report.new(date_input: 2025).print_time_to_submit_by_duration(step: :minute); puts 'ok'
