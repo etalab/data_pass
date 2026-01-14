@@ -16,14 +16,14 @@ module Stats
       authorizations_with_first_create_and_submit_events.maximum("EXTRACT(EPOCH FROM (first_submit_events.event_time - first_create_events.event_time))")
     end
 
+    def first_create_events_subquery
+      first_event_subquery('create')
+    end
+
     private
 
     def first_submit_events_subquery
       first_event_subquery('submit')
-    end
-
-    def first_create_events_subquery
-      first_event_subquery('create')
     end
 
     def first_event_subquery(event_name)

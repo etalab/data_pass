@@ -4,7 +4,7 @@ module Stats
 
     def initialize(date_range: 2025)
       @date_range = extract_date_range(date_range)
-      @authorization_requests_created_in_range = AuthorizationRequest.where(created_at: @date_range)
+      @authorization_requests_created_in_range = authorization_requests_with_first_create_in_range
       @aggregator = Stats::Aggregator.new(@authorization_requests_created_in_range)
     end
 
@@ -25,6 +25,14 @@ module Stats
     end
 
     private
+
+    def authorization_requests_with_first_create_in_range
+      first_create_events_subquery = Stats::Aggregator.new.first_create_events_subquery
+
+      AuthorizationRequest
+        .joins("INNER JOIN (#{first_create_events_subquery.to_sql}) first_create_events ON first_create_events.authorization_request_id = authorization_requests.id")
+        .where("first_create_events.event_time >= ? AND first_create_events.event_time <= ?", @date_range.first.beginning_of_day, @date_range.last.end_of_day)
+    end
 
     def human_readable_date_range
       if date_range_is_a_year(@date_range)
