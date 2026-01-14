@@ -509,7 +509,7 @@ RSpec.describe Stats::Report, type: :service do
     subject { described_class.new(date_range: 2025) }
 
     it 'prints the table to stdout' do
-      expect { subject.print_time_to_submit_by_type_table }.to output(/Statistics by Authorization Request Type/).to_stdout
+      expect { subject.print_time_to_submit_by_type_table }.to output(/Time to submit by Authorization Request Type/).to_stdout
       expect { subject.print_time_to_submit_by_type_table }.to output(/Type/).to_stdout
       expect { subject.print_time_to_submit_by_type_table }.to output(/Count/).to_stdout
     end

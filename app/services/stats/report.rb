@@ -2,14 +2,15 @@ module Stats
   class Report
     include ActionView::Helpers::DateHelper
 
-    def initialize(date_range: 2025)
-      @date_range = extract_date_range(date_range)
+    def initialize(date_input: 2025)
+      @date_input = date_input
+      @date_range = extract_date_range(date_input)
       @authorization_requests_created_in_range = authorization_requests_with_first_create_in_range
       @aggregator = Stats::Aggregator.new(@authorization_requests_created_in_range)
     end
 
     def print_report
-      puts "# Report of #{human_readable_date_range}:\n\n#{average_time_to_submit}\n#{min_time_to_submit}\n#{max_time_to_submit}"
+      puts "# Report of #{human_readable_date_range}:\n\n#{min_time_to_submit}\n#{average_time_to_submit}\n#{max_time_to_submit}"
     end
 
     def average_time_to_submit
@@ -63,15 +64,15 @@ module Stats
     end
 
     def human_readable_date_range
-      if date_range_is_a_year(@date_range)
-        @date_range
+      if date_range_is_a_year(@date_input)
+        @date_input
       else
-        "#{@date_range.first.strftime('%d/%m/%Y')} - #{@date_range.last.strftime('%d/%m/%Y')}"
+        "#{@date_input.first.strftime('%d/%m/%Y')} - #{@date_input.last.strftime('%d/%m/%Y')}"
       end
     end
 
     def date_range_is_a_year(date_range)
-      date_range.is_a?(Integer) and date_range > 2000
+      date_range.is_a?(Integer) && date_range > 2000
     end
 
     def extract_date_range(date_range)
@@ -118,5 +119,5 @@ module Stats
   end
 end
 
-# Stats::Report.new(date_range: 2025).print_report; puts 'ok'
-# Stats::Report.new(date_range: 2025).print_time_to_submit_by_type_table; puts 'ok'
+# [2025, 2024, 2023].each{ |year| Stats::Report.new(date_input: year).print_report }; puts 'ok'
+# Stats::Report.new(date_input: 2025).print_time_to_submit_by_type_table; puts 'ok'
