@@ -14,7 +14,7 @@ shared:
     siret: "70200590100104"
   e_attestations:
     type: editor
-    name: e-Attestations
+    name: Approval
     siret: "50382936800045"
   provigis:
     type: editor
