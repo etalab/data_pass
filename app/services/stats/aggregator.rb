@@ -5,27 +5,40 @@ module Stats
     end
 
     def time_to_submit
-      @authorization_requests
-        .joins(:events_without_bulk_update)
-        .where(events_without_bulk_update: { name: 'submit' })
-        .where("events_without_bulk_update.created_at >= authorization_requests.created_at")
-        .average("EXTRACT(EPOCH FROM (events_without_bulk_update.created_at - authorization_requests.created_at))")
+      authorizations_with_first_create_and_submit_events.average("EXTRACT(EPOCH FROM (first_submit_events.event_time - first_create_events.event_time))")
     end
 
     def min_time_to_submit
-      @authorization_requests
-        .joins(:events_without_bulk_update)
-        .where(events_without_bulk_update: { name: 'submit' })
-        .where("events_without_bulk_update.created_at >= authorization_requests.created_at")
-        .minimum("EXTRACT(EPOCH FROM (events_without_bulk_update.created_at - authorization_requests.created_at))")
+      authorizations_with_first_create_and_submit_events.minimum("EXTRACT(EPOCH FROM (first_submit_events.event_time - first_create_events.event_time))")
     end
 
     def max_time_to_submit
+      authorizations_with_first_create_and_submit_events.maximum("EXTRACT(EPOCH FROM (first_submit_events.event_time - first_create_events.event_time))")
+    end
+
+    private
+
+    def first_submit_events_subquery
+      first_event_subquery('submit')
+    end
+
+    def first_create_events_subquery
+      first_event_subquery('create')
+    end
+
+    def first_event_subquery(event_name)
+      AuthorizationRequestEvent
+        .where(name: event_name)
+        .where.not(authorization_request_id: nil)
+        .group(:authorization_request_id)
+        .select("authorization_request_id, MIN(created_at) as event_time")
+    end
+
+    def authorizations_with_first_create_and_submit_events
       @authorization_requests
-        .joins(:events_without_bulk_update)
-        .where(events_without_bulk_update: { name: 'submit' })
-        .where("events_without_bulk_update.created_at >= authorization_requests.created_at")
-        .maximum("EXTRACT(EPOCH FROM (events_without_bulk_update.created_at - authorization_requests.created_at))")
+        .joins("INNER JOIN (#{first_create_events_subquery.to_sql}) first_create_events ON first_create_events.authorization_request_id = authorization_requests.id")
+        .joins("INNER JOIN (#{first_submit_events_subquery.to_sql}) first_submit_events ON first_submit_events.authorization_request_id = authorization_requests.id")
+        .where("first_submit_events.event_time >= first_create_events.event_time") # we have one case where the submit event is before the create event, so we need to filter it out
     end
   end
 end
