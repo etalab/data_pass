@@ -40,6 +40,43 @@ RSpec.describe Stats::Report, type: :service do
         expect(subject.instance_variable_get(:@authorization_types)).to be_nil
       end
     end
+
+    context 'with provider filter' do
+      let!(:data_provider) { create(:data_provider, slug: 'test-provider', name: 'Test Provider') }
+      
+      before do
+        allow(DataProvider).to receive(:friendly).and_return(DataProvider)
+        allow(DataProvider).to receive(:find).with('test-provider').and_return(data_provider)
+        
+        # Mock authorization definitions for the provider
+        api_entreprise_def = instance_double(AuthorizationDefinition, authorization_request_class_as_string: 'AuthorizationRequest::APIEntreprise')
+        api_particulier_def = instance_double(AuthorizationDefinition, authorization_request_class_as_string: 'AuthorizationRequest::APIParticulier')
+        
+        allow(data_provider).to receive(:authorization_definitions).and_return([api_entreprise_def, api_particulier_def])
+      end
+
+      subject { described_class.new(date_input: 2025, provider: 'test-provider') }
+
+      it 'automatically sets authorization_types from provider' do
+        types = subject.instance_variable_get(:@authorization_types)
+        expect(types).to include('AuthorizationRequest::APIEntreprise', 'AuthorizationRequest::APIParticulier')
+      end
+
+      it 'stores the provider slug' do
+        expect(subject.instance_variable_get(:@provider)).to eq('test-provider')
+      end
+    end
+
+    context 'with invalid provider' do
+      before do
+        allow(DataProvider).to receive(:friendly).and_return(DataProvider)
+        allow(DataProvider).to receive(:find).with('invalid-provider').and_raise(ActiveRecord::RecordNotFound)
+      end
+
+      it 'raises an error' do
+        expect { described_class.new(date_input: 2025, provider: 'invalid-provider') }.to raise_error('Provider not found: invalid-provider')
+      end
+    end
   end
 
   describe '#print_report' do
@@ -842,6 +879,36 @@ RSpec.describe Stats::Report, type: :service do
       it 'only shows statistics for filtered types' do
         output = capture_stdout { subject.print_time_to_submit_by_type_table }
         expect(output).to include('(filtered by: APIEntreprise)')
+      end
+    end
+
+    context 'when filtering by provider' do
+      let!(:data_provider) { create(:data_provider, slug: 'test-provider', name: 'Test Provider') }
+      
+      before do
+        allow(DataProvider).to receive(:friendly).and_return(DataProvider)
+        allow(DataProvider).to receive(:find).with('test-provider').and_return(data_provider)
+        
+        # Mock authorization definitions for the provider
+        api_entreprise_def = instance_double(AuthorizationDefinition, authorization_request_class_as_string: 'AuthorizationRequest::APIEntreprise')
+        
+        allow(data_provider).to receive(:authorization_definitions).and_return([api_entreprise_def])
+      end
+
+      subject { described_class.new(date_input: 2025, provider: 'test-provider') }
+
+      it 'filters by all types belonging to the provider' do
+        expect(subject.number_of_authorization_requests_created).to eq('2 authorization requests created')
+      end
+
+      it 'shows provider in filter label' do
+        output = capture_stdout { subject.print_report }
+        expect(output).to include('(filtered by provider: test-provider)')
+      end
+
+      it 'shows provider filter in bar chart' do
+        output = capture_stdout { subject.print_time_to_submit_by_duration(step: :hour) }
+        expect(output).to include('(filtered by provider: test-provider)')
       end
     end
   end

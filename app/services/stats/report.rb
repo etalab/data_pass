@@ -2,10 +2,11 @@ module Stats
   class Report
     include ActionView::Helpers::DateHelper
 
-    def initialize(date_input: 2025, authorization_types: nil)
+    def initialize(date_input: 2025, authorization_types: nil, provider: nil)
       @date_input = date_input
       @date_range = extract_date_range(date_input)
-      @authorization_types = authorization_types
+      @provider = provider
+      @authorization_types = authorization_types || authorization_types_from_provider
       
       @authorization_requests_created_in_range = authorization_requests_with_first_create_in_range
       @create_aggregator = Stats::Aggregator.new(@authorization_requests_created_in_range)
@@ -112,6 +113,15 @@ module Stats
       end
     end
 
+    def authorization_types_from_provider
+      return nil unless @provider.present?
+      
+      data_provider = DataProvider.friendly.find(@provider)
+      data_provider.authorization_definitions.map(&:authorization_request_class_as_string)
+    rescue ActiveRecord::RecordNotFound
+      raise "Provider not found: #{@provider}"
+    end
+
     def human_readable_date_range
       if date_range_is_a_year(@date_input)
         @date_input
@@ -123,11 +133,15 @@ module Stats
     def type_filter_label
       return "" unless @authorization_types.present?
       
-      type_names = @authorization_types.map do |type|
-        format_type_name(type.split('::').last)
+      if @provider.present?
+        " (provider: #{@provider})"
+      else
+        type_names = @authorization_types.map do |type|
+          format_type_name(type.split('::').last)
+        end
+        
+        " (types by: #{type_names.join(', ')})"
       end
-      
-      " (filtered by: #{type_names.join(', ')})"
     end
 
     def format_type_name(type_name)
@@ -228,8 +242,14 @@ end
 
 # [2025, 2024, 2023].each{ |year| Stats::Report.new(date_input: year).print_report }; puts 'ok'
 # Stats::Report.new(date_input: 2025).print_time_to_submit_by_type_table; puts 'ok'
+
 # Stats::Report.new(date_input: 2025).print_time_to_submit_by_duration(step: :day); puts 'ok'
 # Stats::Report.new(date_input: 2025).print_time_to_submit_by_duration(step: :hour); puts 'ok'
 # Stats::Report.new(date_input: 2025).print_time_to_submit_by_duration(step: :minute); puts 'ok'
+
 # Stats::Report.new(date_input: 2025, authorization_types: ['AuthorizationRequest::APIEntreprise', 'AuthorizationRequest::APIParticulier']).print_report; puts 'ok'
 # Stats::Report.new(date_input: 2025, authorization_types: ['AuthorizationRequest::APIEntreprise']).print_time_to_submit_by_duration(step: :day); puts 'ok'
+# Stats::Report.new(date_input: 2025, authorization_types: ['AuthorizationRequest::APIEntreprise', 'AuthorizationRequest::APIParticulier']).print_time_to_submit_by_duration(step: :minute); puts 'ok'
+
+# Stats::Report.new(date_input: 2025, provider: 'dinum').print_report; puts 'ok'
+# Stats::Report.new(date_input: 2025, provider: 'dgfip').print_time_to_submit_by_duration(step: :day); puts 'ok'
