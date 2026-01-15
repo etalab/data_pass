@@ -896,12 +896,13 @@ RSpec.describe Stats::Aggregator, type: :service do
       let(:mode_authorization_requests) { AuthorizationRequest.where(id: [ar_mode_1.id, ar_mode_2.id, ar_mode_3.id]) }
       subject { described_class.new(mode_authorization_requests) }
 
-      it 'returns the most frequent time to first instruction (rounded to nearest minute)' do
+      it 'returns the most frequent time to first instruction (rounded up to nearest day)' do
         mode_time = subject.mode_time_to_first_instruction
         
-        # ar_mode_1 and ar_mode_2 both have ~2 hours instruction time, which should be the mode
-        # ar_mode_3 has 5 hours
-        expect(mode_time).to be_within(120).of(2.hours.to_f)
+        # ar_mode_1 and ar_mode_2 both have ~2 hours instruction time, which ceils to 1 day
+        # ar_mode_3 has 5 hours, which also ceils to 1 day
+        # All three ceil to 1 day (86400 seconds)
+        expect(mode_time).to eq(86400.0)
       end
     end
 

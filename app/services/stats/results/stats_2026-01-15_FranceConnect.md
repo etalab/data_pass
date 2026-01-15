@@ -18,7 +18,7 @@
 ## Time to first instruction
 - Average time to first instruction: 5 jours
 - Median time to first instruction: 1 jour
-- Mode time to first instruction: environ une heure
+- Mode time to first instruction: 1 jour
 - Standard deviation time to first instruction: 8 jours
 
 
@@ -187,7 +187,7 @@ Scale: each █ represents 9.3 request(s)
 ## Time to first instruction
 - Average time to first instruction: 7 jours
 - Median time to first instruction: 4 jours
-- Mode time to first instruction: 16 minutes
+- Mode time to first instruction: 1 jour
 - Standard deviation time to first instruction: 11 jours
 
 
@@ -357,7 +357,7 @@ Scale: each █ represents 5.7 request(s)
 ## Time to first instruction
 - Average time to first instruction: 8 jours
 - Median time to first instruction: 2 jours
-- Mode time to first instruction: 7 minutes
+- Mode time to first instruction: 1 jour
 - Standard deviation time to first instruction: 15 jours
 
 

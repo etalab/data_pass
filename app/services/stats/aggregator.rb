@@ -17,7 +17,7 @@ module Stats
     end
 
     def mode_time_to_submit
-      calculate_mode(authorizations_with_first_create_and_submit_events, time_difference_sql('first_submit_events', 'first_create_events'))
+      calculate_mode(authorizations_with_first_create_and_submit_events, time_difference_sql('first_submit_events', 'first_create_events'), 60)
     end
 
     def average_time_to_first_instruction
@@ -33,7 +33,7 @@ module Stats
     end
 
     def mode_time_to_first_instruction
-      calculate_mode(authorizations_with_submit_and_first_instruction_events, time_difference_sql('first_instruction_events', 'submit_events'))
+      calculate_mode(authorizations_with_submit_and_first_instruction_events, time_difference_sql('first_instruction_events', 'submit_events'), 86400)
     end
 
     def first_create_events_subquery
@@ -232,9 +232,9 @@ module Stats
       result&.to_f
     end
 
-    def calculate_mode(scope, time_expression)
+    def calculate_mode(scope, time_expression, rounding_unit)
       time_values = scope
-        .pluck(Arel.sql("ROUND(#{time_expression} / 60) * 60"))
+        .pluck(Arel.sql("CEIL(#{time_expression} / #{rounding_unit}) * #{rounding_unit}"))
         .map(&:to_f)
       
       return nil if time_values.empty?

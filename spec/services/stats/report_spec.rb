@@ -485,8 +485,8 @@ RSpec.describe Stats::Report, type: :service do
 
     it 'returns a formatted string with the mode time' do
       expect(subject).to match(/Mode time to first instruction: .+/)
-      # Should be around 2 hours (the most frequent)
-      expect(subject).to match(/2 (hours?|heures?)/i)
+      # Test data has ~2 hours instruction time, which ceils to 1 day
+      expect(subject).to match(/1 (day|jour)/i)
     end
   end
 

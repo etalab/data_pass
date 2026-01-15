@@ -13,12 +13,12 @@
 ## Time to submit
 - Average time to submit: environ un mois
 - Median time to submit: 27 minutes
-- Mode time to submit: 5 minutes
+- Mode time to submit: 8 minutes
 - Standard deviation time to submit: 2 mois
 ## Time to first instruction
 - Average time to first instruction: 10 jours
 - Median time to first instruction: 2 jours
-- Mode time to first instruction: environ une heure
+- Mode time to first instruction: 1 jour
 - Standard deviation time to first instruction: environ un mois
 
 
@@ -245,7 +245,7 @@ Scale: each █ represents 4.4 request(s)
 ## Time to first instruction
 - Average time to first instruction: 21 jours
 - Median time to first instruction: environ 3 heures
-- Mode time to first instruction: 7 minutes
+- Mode time to first instruction: 1 jour
 - Standard deviation time to first instruction: 3 mois
 
 
@@ -454,7 +454,7 @@ Scale: each █ represents 26.1 request(s)
 ## Time to first instruction
 - Average time to first instruction: 24 jours
 - Median time to first instruction: 5 jours
-- Mode time to first instruction: 1 minute
+- Mode time to first instruction: 1 jour
 - Standard deviation time to first instruction: 3 mois
 
 
