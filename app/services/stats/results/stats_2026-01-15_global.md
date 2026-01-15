@@ -103,45 +103,51 @@ Scale: each character represents 14.0 request(s)
 ```
 
 
-# Median time to submit by type for 2025:
+# Median time to submit by type (under 1 hour) for 2025:
 
 ```
-HubEEDila                      (     0.3 minutes, n=459) │ 
-HubEECertDC                    (     0.3 minutes, n=801) │ 
-APICaptchEtat                  (     0.8 minutes, n= 33) │ 
-AnnuaireDesEntreprises         (     2.3 minutes, n= 68) │ 
-FormulaireQF                   (     3.6 minutes, n= 77) │ 
-APIRialSandbox                 (     4.9 minutes, n=  1) │ 
-APIDroitsCNAM                  (     6.2 minutes, n=  1) │ 
-APIProSanteConnect             (     7.1 minutes, n=232) │ 
-APIIndemnitesJournalieresCNAM  (     7.9 minutes, n=  2) │ 
-APIINFINOE                     (     8.4 minutes, n= 14) │ 
-APIParticulier                 (     9.0 minutes, n=573) │ 
-APIImpotParticulierSandbox     (    10.4 minutes, n= 10) │ 
-APIMobilic                     (    10.8 minutes, n=  4) │ 
-APIFicobaSandbox               (    10.9 minutes, n= 28) │ 
-APISFiPR2PSandbox              (    11.5 minutes, n= 11) │ 
-APIINFINOESandbox              (    11.7 minutes, n= 19) │ 
-APIDeclarationCESU             (    11.8 minutes, n= 45) │ 
-APIR2PSandbox                  (    12.1 minutes, n= 20) │ 
-APIEntreprise                  (    13.6 minutes, n=232) │ 
-APIIngres                      (    14.3 minutes, n=  4) │ 
-LeTaxi                         (    14.9 minutes, n=  7) │ 
-FranceConnect                  (    15.3 minutes, n=503) │ 
-ProConnectIdentityProvider     (    15.4 minutes, n= 14) │ 
-APISFiPR2P                     (    25.6 minutes, n= 11) │ 
-ProConnectServiceProvider      (    39.4 minutes, n= 81) │ 
-APIDeclarationAutoEntrepreneur (   231.9 minutes, n= 23) │ 
-APIFicoba                      (  1549.8 minutes, n=  1) │ 
-APIScolarite                   (  3977.9 minutes, n=  1) │ █
-APIImpotParticulier            (  9371.2 minutes, n= 28) │ ███
-APIR2P                         ( 28059.1 minutes, n= 20) │ ████████
-APISFiPSandbox                 ( 40860.0 minutes, n=  6) │ ████████████
-APIRial                        ( 60603.2 minutes, n=  2) │ █████████████████
-APISFiP                        (173763.4 minutes, n= 16) │ ██████████████████████████████████████████████████
+HubEEDila                     ( 0.3 minutes, n=459) │ 
+HubEECertDC                   ( 0.3 minutes, n=801) │ 
+APICaptchEtat                 ( 0.8 minutes, n= 33) │ █
+AnnuaireDesEntreprises        ( 2.3 minutes, n= 68) │ ██
+FormulaireQF                  ( 3.6 minutes, n= 77) │ ████
+APIRialSandbox                ( 4.9 minutes, n=  1) │ █████
+APIDroitsCNAM                 ( 6.2 minutes, n=  1) │ ██████
+APIProSanteConnect            ( 7.1 minutes, n=232) │ ███████
+APIIndemnitesJournalieresCNAM ( 7.9 minutes, n=  2) │ ████████
+APIINFINOE                    ( 8.4 minutes, n= 14) │ ████████
+APIParticulier                ( 9.0 minutes, n=573) │ █████████
+APIImpotParticulierSandbox    (10.4 minutes, n= 10) │ ██████████
+APIMobilic                    (10.8 minutes, n=  4) │ ███████████
+APIFicobaSandbox              (10.9 minutes, n= 28) │ ███████████
+APISFiPR2PSandbox             (11.5 minutes, n= 11) │ ████████████
+APIINFINOESandbox             (11.7 minutes, n= 19) │ ████████████
+APIDeclarationCESU            (11.8 minutes, n= 45) │ ████████████
+APIR2PSandbox                 (12.1 minutes, n= 20) │ ████████████
+APIEntreprise                 (13.6 minutes, n=232) │ ██████████████
+APIIngres                     (14.3 minutes, n=  4) │ ██████████████
+LeTaxi                        (14.9 minutes, n=  7) │ ███████████████
+FranceConnect                 (15.3 minutes, n=503) │ ███████████████
+ProConnectIdentityProvider    (15.4 minutes, n= 14) │ ███████████████
+APISFiPR2P                    (25.6 minutes, n= 11) │ ██████████████████████████
+ProConnectServiceProvider     (39.4 minutes, n= 81) │ ███████████████████████████████████████
 
-Total: 3347 authorization requests
-Scale: each █ represents 3475.3 minutes
+Total: 3250 authorization requests
+```
+
+# Median time to submit by type (1 hour or more) for 2025:
+
+```
+APIDeclarationAutoEntrepreneur ( 3.9 hours, n=23) │ 
+APIFicoba                      (  1.1 days, n= 1) │ 
+APIScolarite                   (  2.8 days, n= 1) │ █
+APIImpotParticulier            (  6.5 days, n=28) │ ███
+APIR2P                         ( 19.5 days, n=20) │ ████████
+APISFiPSandbox                 ( 28.4 days, n= 6) │ ████████████
+APIRial                        ( 42.1 days, n= 2) │ █████████████████
+APISFiP                        (120.7 days, n=16) │ ██████████████████████████████████████████████████
+
+Total: 97 authorization requests
 ```
 
 
@@ -387,30 +393,36 @@ Scale: each character represents 19.8 request(s)
 ```
 
 
-# Median time to submit by type for 2024:
+# Median time to submit by type (under 1 hour) for 2024:
 
 ```
-HubEECertDC                    (  0.0 days, n=996) │ 
-HubEEDila                      (  0.0 days, n=384) │ 
-FormulaireQF                   (  0.0 days, n=  3) │ 
-APIParticulier                 (  0.0 days, n=428) │ 
-APIEntreprise                  (  0.0 days, n=177) │ 
-APIDeclarationAutoEntrepreneur (163.3 days, n=  1) │ ██████████████
-ProConnectServiceProvider      (292.2 days, n=  1) │ ████████████████████████
-APIImpotParticulierSandbox     (333.2 days, n=  1) │ ████████████████████████████
-APIR2P                         (336.4 days, n=  8) │ ████████████████████████████
-FranceConnect                  (372.8 days, n= 71) │ ███████████████████████████████
-APIFicoba                      (394.1 days, n=  1) │ █████████████████████████████████
-APIImpotParticulier            (407.2 days, n=  5) │ ██████████████████████████████████
-APIProSanteConnect             (462.2 days, n=  3) │ ███████████████████████████████████████
-APIINFINOESandbox              (512.3 days, n=  8) │ ███████████████████████████████████████████
-APIINFINOE                     (541.7 days, n= 20) │ █████████████████████████████████████████████
-APICaptchEtat                  (550.6 days, n=  2) │ ██████████████████████████████████████████████
-APIR2PSandbox                  (580.9 days, n=  1) │ █████████████████████████████████████████████████
-APIFicobaSandbox               (598.7 days, n=  3) │ ██████████████████████████████████████████████████
+HubEECertDC    ( 0.1 minutes, n=996) │ 
+HubEEDila      ( 0.1 minutes, n=384) │ 
+FormulaireQF   ( 2.4 minutes, n=  3) │ ██
+APIParticulier ( 7.3 minutes, n=428) │ ███████
+APIEntreprise  (13.0 minutes, n=177) │ █████████████
 
-Total: 2113 authorization requests
-Scale: each █ represents 12.0 days
+Total: 1988 authorization requests
+```
+
+# Median time to submit by type (1 hour or more) for 2024:
+
+```
+APIDeclarationAutoEntrepreneur (163.3 days, n= 1) │ ██████████████
+ProConnectServiceProvider      (292.2 days, n= 1) │ ████████████████████████
+APIImpotParticulierSandbox     (333.2 days, n= 1) │ ████████████████████████████
+APIR2P                         (336.4 days, n= 8) │ ████████████████████████████
+FranceConnect                  (372.8 days, n=71) │ ███████████████████████████████
+APIFicoba                      (394.1 days, n= 1) │ █████████████████████████████████
+APIImpotParticulier            (407.2 days, n= 5) │ ██████████████████████████████████
+APIProSanteConnect             (462.2 days, n= 3) │ ███████████████████████████████████████
+APIINFINOESandbox              (512.3 days, n= 8) │ ███████████████████████████████████████████
+APIINFINOE                     (541.7 days, n=20) │ █████████████████████████████████████████████
+APICaptchEtat                  (550.6 days, n= 2) │ ██████████████████████████████████████████████
+APIR2PSandbox                  (580.9 days, n= 1) │ █████████████████████████████████████████████████
+APIFicobaSandbox               (598.7 days, n= 3) │ ██████████████████████████████████████████████████
+
+Total: 125 authorization requests
 ```
 
 
@@ -646,27 +658,33 @@ Scale: each character represents 22.5 request(s)
 ```
 
 
-# Median time to submit by type for 2023:
+# Median time to submit by type (under 1 hour) for 2023:
 
 ```
-HubEEDila                  (  0.0 days, n=1055) │ 
-HubEECertDC                (  0.0 days, n= 408) │ 
-APIParticulier             (  0.0 days, n= 373) │ 
-APIEntreprise              (  0.0 days, n= 184) │ 
-APISFiP                    (634.1 days, n=   3) │ █████████████████████████████████████
-APIImpotParticulier        (745.2 days, n=   8) │ ███████████████████████████████████████████
-APIINFINOESandbox          (748.9 days, n=   4) │ ███████████████████████████████████████████
-APIR2P                     (761.2 days, n=   6) │ ████████████████████████████████████████████
-APIFicobaSandbox           (765.7 days, n=   1) │ ████████████████████████████████████████████
-APIINFINOE                 (766.1 days, n=   8) │ ████████████████████████████████████████████
-APIFicoba                  (800.4 days, n=   2) │ ██████████████████████████████████████████████
-FranceConnect              (819.1 days, n=  34) │ ███████████████████████████████████████████████
-APIProSanteConnect         (831.9 days, n=   3) │ ████████████████████████████████████████████████
-ProConnectIdentityProvider (848.3 days, n=   1) │ █████████████████████████████████████████████████
-APIImpotParticulierSandbox (868.5 days, n=   8) │ ██████████████████████████████████████████████████
+HubEEDila      (0.0 minutes, n=1055) │ 
+HubEECertDC    (0.0 minutes, n= 408) │ 
+APIParticulier (2.9 minutes, n= 373) │ ███
+APIEntreprise  (2.9 minutes, n= 184) │ ███
 
-Total: 2098 authorization requests
-Scale: each █ represents 17.4 days
+Total: 2020 authorization requests
+```
+
+# Median time to submit by type (1 hour or more) for 2023:
+
+```
+APISFiP                    (634.1 days, n= 3) │ █████████████████████████████████████
+APIImpotParticulier        (745.2 days, n= 8) │ ███████████████████████████████████████████
+APIINFINOESandbox          (748.9 days, n= 4) │ ███████████████████████████████████████████
+APIR2P                     (761.2 days, n= 6) │ ████████████████████████████████████████████
+APIFicobaSandbox           (765.7 days, n= 1) │ ████████████████████████████████████████████
+APIINFINOE                 (766.1 days, n= 8) │ ████████████████████████████████████████████
+APIFicoba                  (800.4 days, n= 2) │ ██████████████████████████████████████████████
+FranceConnect              (819.1 days, n=34) │ ███████████████████████████████████████████████
+APIProSanteConnect         (831.9 days, n= 3) │ ████████████████████████████████████████████████
+ProConnectIdentityProvider (848.3 days, n= 1) │ █████████████████████████████████████████████████
+APIImpotParticulierSandbox (868.5 days, n= 8) │ ██████████████████████████████████████████████████
+
+Total: 78 authorization requests
 ```
 
 

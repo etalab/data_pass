@@ -42,7 +42,7 @@ Scale: each character represents 13.1 request(s)
 ```
 
 
-# Median time to submit by type for 2025 (types by: FranceConnect):
+# Median time to submit by type (under 1 hour) for 2025 (types by: FranceConnect):
 
 ```
 FranceConnect (15.3 minutes, n=503) │ ███████████████
@@ -209,13 +209,12 @@ Scale: each character represents 10.2 request(s)
 ```
 
 
-# Median time to submit by type for 2024 (types by: FranceConnect):
+# Median time to submit by type (1 hour or more) for 2024 (types by: FranceConnect):
 
 ```
 FranceConnect (372.8 days, n=71) │ ██████████████████████████████████████████████████
 
 Total: 71 authorization requests
-Scale: each █ represents 7.5 days
 ```
 
 
@@ -377,13 +376,12 @@ Scale: each character represents 9.1 request(s)
 ```
 
 
-# Median time to submit by type for 2023 (types by: FranceConnect):
+# Median time to submit by type (1 hour or more) for 2023 (types by: FranceConnect):
 
 ```
 FranceConnect (819.1 days, n=34) │ ██████████████████████████████████████████████████
 
 Total: 34 authorization requests
-Scale: each █ represents 16.4 days
 ```
 
 
