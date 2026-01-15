@@ -22,7 +22,7 @@
 - Standard deviation time to first instruction: 3 jours
 
 
-# Volume of authorization requests by type for 2025 (types by: HubEECertDC, HubEEDila):
+## Volume of authorization requests by type for 2025 (types by: HubEECertDC, HubEEDila):
 
 ```
 HubEECertDC (864) │ ██████████████████████████████████████████████████
@@ -33,7 +33,7 @@ Scale: each █ represents 17.3 request(s)
 ```
 
 
-# Volume of authorization requests by type (validated vs refused) for 2025 (types by: HubEECertDC, HubEEDila):
+## Volume of authorization requests by type (validated vs refused) for 2025 (types by: HubEECertDC, HubEEDila):
 
 ```
 HubEECertDC (701:  98.4%V   1.6%R) │ █████████████████████████████████████████████████▓
@@ -45,7 +45,7 @@ Scale: each character represents 14.0 request(s)
 ```
 
 
-# Median time to submit by type (under 1 hour) for 2025 (types by: HubEECertDC, HubEEDila):
+## Median time to submit by type (under 1 hour) for 2025 (types by: HubEECertDC, HubEEDila):
 
 ```
 HubEEDila   (0.3 minutes, n=459) │ 
@@ -55,7 +55,7 @@ Total: 1260 authorization requests
 ```
 
 
-# Time to submit by minute of 2025 (types by: HubEECertDC, HubEEDila):
+## Time to submit by minute of 2025 (types by: HubEECertDC, HubEEDila):
 
 ```
   <1 (   0) │ 
@@ -126,7 +126,7 @@ Scale: each █ represents 20.2 request(s)
 ```
 
 
-# Median time to first instruction by type for 2025 (types by: HubEECertDC, HubEEDila):
+## Median time to first instruction by type for 2025 (types by: HubEECertDC, HubEEDila):
 
 ```
 HubEECertDC (0.0 days, n=971) │ 
@@ -136,7 +136,7 @@ Total: 1737 authorization requests
 ```
 
 
-# Time to first instruction by day of 2025 (types by: HubEECertDC, HubEEDila):
+## Time to first instruction by day of 2025 (types by: HubEECertDC, HubEEDila):
 
 ```
   <1 (   0) │ 
@@ -194,7 +194,7 @@ Scale: each █ represents 22.3 request(s)
 - Standard deviation time to first instruction: 6 jours
 
 
-# Volume of authorization requests by type for 2024 (types by: HubEECertDC, HubEEDila):
+## Volume of authorization requests by type for 2024 (types by: HubEECertDC, HubEEDila):
 
 ```
 HubEECertDC (1145) │ ██████████████████████████████████████████████████
@@ -205,7 +205,7 @@ Scale: each █ represents 22.9 request(s)
 ```
 
 
-# Volume of authorization requests by type (validated vs refused) for 2024 (types by: HubEECertDC, HubEEDila):
+## Volume of authorization requests by type (validated vs refused) for 2024 (types by: HubEECertDC, HubEEDila):
 
 ```
 HubEECertDC (989:  97.0%V   3.0%R) │ ████████████████████████████████████████████████▓▓
@@ -217,7 +217,7 @@ Scale: each character represents 19.8 request(s)
 ```
 
 
-# Median time to submit by type (under 1 hour) for 2024 (types by: HubEECertDC, HubEEDila):
+## Median time to submit by type (under 1 hour) for 2024 (types by: HubEECertDC, HubEEDila):
 
 ```
 HubEECertDC (0.1 minutes, n=996) │ 
@@ -227,7 +227,7 @@ Total: 1380 authorization requests
 ```
 
 
-# Time to submit by minute of 2024 (types by: HubEECertDC, HubEEDila):
+## Time to submit by minute of 2024 (types by: HubEECertDC, HubEEDila):
 
 ```
   <1 (   0) │ 
@@ -298,7 +298,7 @@ Scale: each █ represents 23.3 request(s)
 ```
 
 
-# Median time to first instruction by type for 2024 (types by: HubEECertDC, HubEEDila):
+## Median time to first instruction by type for 2024 (types by: HubEECertDC, HubEEDila):
 
 ```
 HubEECertDC (0.2 days, n=1345) │ 
@@ -308,7 +308,7 @@ Total: 2250 authorization requests
 ```
 
 
-# Time to first instruction by day of 2024 (types by: HubEECertDC, HubEEDila):
+## Time to first instruction by day of 2024 (types by: HubEECertDC, HubEEDila):
 
 ```
   <1 (   0) │ 
@@ -366,7 +366,7 @@ Scale: each █ represents 25.6 request(s)
 - Standard deviation time to first instruction: 17 jours
 
 
-# Volume of authorization requests by type for 2023 (types by: HubEECertDC, HubEEDila):
+## Volume of authorization requests by type for 2023 (types by: HubEECertDC, HubEEDila):
 
 ```
 HubEEDila   (1176) │ ██████████████████████████████████████████████████
@@ -377,7 +377,7 @@ Scale: each █ represents 23.5 request(s)
 ```
 
 
-# Volume of authorization requests by type (validated vs refused) for 2023 (types by: HubEECertDC, HubEEDila):
+## Volume of authorization requests by type (validated vs refused) for 2023 (types by: HubEECertDC, HubEEDila):
 
 ```
 HubEEDila   (1126:  98.5%V   1.5%R) │ █████████████████████████████████████████████████▓
@@ -389,14 +389,14 @@ Scale: each character represents 22.5 request(s)
 ```
 
 
-# Median time to submit by type (under 1 hour) for 2023 (types by: HubEECertDC, HubEEDila):
+## Median time to submit by type (under 1 hour) for 2023 (types by: HubEECertDC, HubEEDila):
 
 ```
 No data
 ```
 
 
-# Time to submit by minute of 2023 (types by: HubEECertDC, HubEEDila):
+## Time to submit by minute of 2023 (types by: HubEECertDC, HubEEDila):
 
 ```
   <1 (   0) │ 
@@ -467,7 +467,7 @@ Scale: each █ represents 25.9 request(s)
 ```
 
 
-# Median time to first instruction by type for 2023 (types by: HubEECertDC, HubEEDila):
+## Median time to first instruction by type for 2023 (types by: HubEECertDC, HubEEDila):
 
 ```
 HubEECertDC (0.7 days, n=1551) │ █
@@ -477,7 +477,7 @@ Total: 2891 authorization requests
 ```
 
 
-# Time to first instruction by day of 2023 (types by: HubEECertDC, HubEEDila):
+## Time to first instruction by day of 2023 (types by: HubEECertDC, HubEEDila):
 
 ```
   <1 (   0) │ 

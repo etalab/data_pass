@@ -22,7 +22,7 @@
 - Standard deviation time to first instruction: 18 jours
 
 
-# Volume of authorization requests by type for 2025:
+## Volume of authorization requests by type for 2025:
 
 ```
 FranceConnect                  (983) │ ██████████████████████████████████████████████████
@@ -65,7 +65,7 @@ Scale: each █ represents 19.7 request(s)
 ```
 
 
-# Volume of authorization requests by type (validated vs refused) for 2025:
+## Volume of authorization requests by type (validated vs refused) for 2025:
 
 ```
 HubEECertDC                    (701:  98.4%V   1.6%R) │ █████████████████████████████████████████████████▓
@@ -104,7 +104,7 @@ Scale: each character represents 14.0 request(s)
 ```
 
 
-# Median time to submit by type (under 1 hour) for 2025:
+## Median time to submit by type (under 1 hour) for 2025:
 
 ```
 HubEEDila                     ( 0.3 minutes, n=459) │ 
@@ -136,7 +136,7 @@ ProConnectServiceProvider     (39.4 minutes, n= 81) │ ████████
 Total: 3250 authorization requests
 ```
 
-# Median time to submit by type (1 hour or more) for 2025:
+## Median time to submit by type (1 hour or more) for 2025:
 
 ```
 APIDeclarationAutoEntrepreneur ( 3.9 hours, n=23) │ 
@@ -152,7 +152,7 @@ Total: 97 authorization requests
 ```
 
 
-# Time to submit by minute of 2025:
+## Time to submit by minute of 2025:
 
 ```
   <1 (   0) │ 
@@ -223,7 +223,7 @@ Scale: each █ represents 21.4 request(s)
 ```
 
 
-# Median time to first instruction by type for 2025:
+## Median time to first instruction by type for 2025:
 
 ```
 HubEECertDC                    ( 0.0 days, n= 971) │ 
@@ -263,7 +263,7 @@ Scale: each █ represents 1.4 days
 ```
 
 
-# Time to first instruction by day of 2025:
+## Time to first instruction by day of 2025:
 
 ```
   <1 (   0) │ 
@@ -321,7 +321,7 @@ Scale: each █ represents 47.3 request(s)
 - Standard deviation time to first instruction: environ 2 mois
 
 
-# Volume of authorization requests by type for 2024:
+## Volume of authorization requests by type for 2024:
 
 ```
 HubEECertDC                    (1145) │ ██████████████████████████████████████████████████
@@ -359,7 +359,7 @@ Scale: each █ represents 22.9 request(s)
 ```
 
 
-# Volume of authorization requests by type (validated vs refused) for 2024:
+## Volume of authorization requests by type (validated vs refused) for 2024:
 
 ```
 HubEECertDC                    (989:  97.0%V   3.0%R) │ ████████████████████████████████████████████████▓▓
@@ -395,7 +395,7 @@ Scale: each character represents 19.8 request(s)
 ```
 
 
-# Median time to submit by type (under 1 hour) for 2024:
+## Median time to submit by type (under 1 hour) for 2024:
 
 ```
 HubEECertDC    ( 0.1 minutes, n=996) │ 
@@ -407,7 +407,7 @@ APIEntreprise  (13.0 minutes, n=177) │ █████████████
 Total: 1988 authorization requests
 ```
 
-# Median time to submit by type (1 hour or more) for 2024:
+## Median time to submit by type (1 hour or more) for 2024:
 
 ```
 APIDeclarationAutoEntrepreneur (163.3 days, n= 1) │ ██████████████
@@ -428,7 +428,7 @@ Total: 125 authorization requests
 ```
 
 
-# Time to submit by minute of 2024:
+## Time to submit by minute of 2024:
 
 ```
   <1 (   0) │ 
@@ -499,7 +499,7 @@ Scale: each █ represents 25.7 request(s)
 ```
 
 
-# Median time to first instruction by type for 2024:
+## Median time to first instruction by type for 2024:
 
 ```
 APIINFINOESandbox              (  0.0 days, n=1022) │ 
@@ -534,7 +534,7 @@ Scale: each █ represents 2.2 days
 ```
 
 
-# Time to first instruction by day of 2024:
+## Time to first instruction by day of 2024:
 
 ```
   <1 (   0) │ 
@@ -592,7 +592,7 @@ Scale: each █ represents 71.4 request(s)
 - Standard deviation time to first instruction: environ 2 mois
 
 
-# Volume of authorization requests by type for 2023:
+## Volume of authorization requests by type for 2023:
 
 ```
 HubEEDila                      (1176) │ ██████████████████████████████████████████████████
@@ -628,7 +628,7 @@ Scale: each █ represents 23.5 request(s)
 ```
 
 
-# Volume of authorization requests by type (validated vs refused) for 2023:
+## Volume of authorization requests by type (validated vs refused) for 2023:
 
 ```
 HubEEDila                      (1126:  98.5%V   1.5%R) │ █████████████████████████████████████████████████▓
@@ -661,7 +661,7 @@ Scale: each character represents 22.5 request(s)
 ```
 
 
-# Median time to submit by type (under 1 hour) for 2023:
+## Median time to submit by type (under 1 hour) for 2023:
 
 ```
 HubEEDila      (0.0 minutes, n=1055) │ 
@@ -672,7 +672,7 @@ APIEntreprise  (2.9 minutes, n= 184) │ ███
 Total: 2020 authorization requests
 ```
 
-# Median time to submit by type (1 hour or more) for 2023:
+## Median time to submit by type (1 hour or more) for 2023:
 
 ```
 APISFiP                    (634.1 days, n= 3) │ █████████████████████████████████████
@@ -691,7 +691,7 @@ Total: 78 authorization requests
 ```
 
 
-# Time to submit by minute of 2023:
+## Time to submit by minute of 2023:
 
 ```
   <1 (   0) │ 
@@ -762,7 +762,7 @@ Scale: each █ represents 30.1 request(s)
 ```
 
 
-# Median time to first instruction by type for 2023:
+## Median time to first instruction by type for 2023:
 
 ```
 APIIngres                      (  0.2 days, n=  13) │ 
@@ -797,7 +797,7 @@ Scale: each █ represents 7.1 days
 ```
 
 
-# Time to first instruction by day of 2023:
+## Time to first instruction by day of 2023:
 
 ```
   <1 (   0) │ 

@@ -75,7 +75,7 @@ module Stats
         return
       end
 
-      puts "\n# Time to submit by Authorization Request Type of #{human_readable_date_range}#{type_filter_label}:\n\n"
+      puts "\n## Time to submit by Authorization Request Type of #{human_readable_date_range}#{type_filter_label}:\n\n"
       puts format_table_header
       puts format_table_separator(stats)
       
@@ -104,7 +104,7 @@ module Stats
       end
 
       step_label = step_label_text(step)
-      puts "\n# Time to submit by #{step_label} of #{human_readable_date_range}#{type_filter_label}:\n\n"
+      puts "\n## Time to submit by #{step_label} of #{human_readable_date_range}#{type_filter_label}:\n\n"
       puts "```"
       puts format_bar_chart(buckets, step)
       puts "```"
@@ -119,7 +119,7 @@ module Stats
       end
 
       step_label = step_label_text(step)
-      puts "\n# Time to first instruction by #{step_label} of #{human_readable_date_range}#{type_filter_label}:\n\n"
+      puts "\n## Time to first instruction by #{step_label} of #{human_readable_date_range}#{type_filter_label}:\n\n"
       puts "```"
       puts format_bar_chart(buckets, step)
       puts "```"
@@ -133,7 +133,7 @@ module Stats
         return
       end
 
-      puts "\n# Volume of authorization requests by type for #{human_readable_date_range}#{type_filter_label}:\n\n"
+      puts "\n## Volume of authorization requests by type for #{human_readable_date_range}#{type_filter_label}:\n\n"
       
       # Format data for bar chart
       buckets = data.map { |item| { bucket: format_type_name(item[:type].split('::').last), count: item[:count] } }
@@ -150,7 +150,7 @@ module Stats
         return
       end
 
-      puts "\n# Volume of authorization requests by provider for #{human_readable_date_range}#{type_filter_label}:\n\n"
+      puts "\n## Volume of authorization requests by provider for #{human_readable_date_range}#{type_filter_label}:\n\n"
       
       # Format data for bar chart
       buckets = data.map { |item| { bucket: item[:provider], count: item[:count] } }
@@ -167,7 +167,7 @@ module Stats
         return
       end
 
-      puts "\n# Volume of authorization requests by type (validated vs refused) for #{human_readable_date_range}#{type_filter_label}:\n\n"
+      puts "\n## Volume of authorization requests by type (validated vs refused) for #{human_readable_date_range}#{type_filter_label}:\n\n"
       
       # Format data for split bar chart
       items = data.map do |item|
@@ -191,7 +191,7 @@ module Stats
         return
       end
 
-      puts "\n# Volume of authorization requests by provider (validated vs refused) for #{human_readable_date_range}#{type_filter_label}:\n\n"
+      puts "\n## Volume of authorization requests by provider (validated vs refused) for #{human_readable_date_range}#{type_filter_label}:\n\n"
       
       # Format data for split bar chart
       items = data.map do |item|
@@ -222,7 +222,7 @@ module Stats
       
       # Print under 1 hour graph (in minutes)
       if under_one_hour.any?
-        puts "\n# Median time to submit by type (under 1 hour) for #{human_readable_date_range}#{type_filter_label}:\n\n"
+        puts "\n## Median time to submit by type (under 1 hour) for #{human_readable_date_range}#{type_filter_label}:\n\n"
         
         buckets = under_one_hour.map do |item|
           time_seconds = item[:median_time]
@@ -241,7 +241,7 @@ module Stats
       
       # Print 1 hour or more graph (in appropriate units)
       if one_hour_or_more.any?
-        puts "\n# Median time to submit by type (1 hour or more) for #{human_readable_date_range}#{type_filter_label}:\n\n"
+        puts "\n## Median time to submit by type (1 hour or more) for #{human_readable_date_range}#{type_filter_label}:\n\n"
         
         buckets = one_hour_or_more.map do |item|
           time_seconds = item[:median_time]
@@ -268,7 +268,7 @@ module Stats
         return
       end
 
-      puts "\n# Median time to first instruction by type for #{human_readable_date_range}#{type_filter_label}:\n\n"
+      puts "\n## Median time to first instruction by type for #{human_readable_date_range}#{type_filter_label}:\n\n"
       
       # Format data for bar chart - convert seconds to days
       # Time to first instruction is typically in days range

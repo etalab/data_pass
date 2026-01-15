@@ -22,7 +22,7 @@
 - Standard deviation time to first instruction: 8 jours
 
 
-# Volume of authorization requests by type for 2025 (types by: FranceConnect):
+## Volume of authorization requests by type for 2025 (types by: FranceConnect):
 
 ```
 FranceConnect (983) │ ██████████████████████████████████████████████████
@@ -32,7 +32,7 @@ Scale: each █ represents 19.7 request(s)
 ```
 
 
-# Volume of authorization requests by type (validated vs refused) for 2025 (types by: FranceConnect):
+## Volume of authorization requests by type (validated vs refused) for 2025 (types by: FranceConnect):
 
 ```
 FranceConnect (654:  72.9%V  27.1%R) │ ████████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓
@@ -43,7 +43,7 @@ Scale: each character represents 13.1 request(s)
 ```
 
 
-# Median time to submit by type (under 1 hour) for 2025 (types by: FranceConnect):
+## Median time to submit by type (under 1 hour) for 2025 (types by: FranceConnect):
 
 ```
 FranceConnect (15.3 minutes, n=503) │ ███████████████
@@ -52,7 +52,7 @@ Total: 503 authorization requests
 ```
 
 
-# Time to submit by minute of 2025 (types by: FranceConnect):
+## Time to submit by minute of 2025 (types by: FranceConnect):
 
 ```
   <1 (  0) │ 
@@ -123,7 +123,7 @@ Scale: each █ represents 2.8 request(s)
 ```
 
 
-# Median time to first instruction by type for 2025 (types by: FranceConnect):
+## Median time to first instruction by type for 2025 (types by: FranceConnect):
 
 ```
 FranceConnect (1.7 days, n=1138) │ ██
@@ -132,7 +132,7 @@ Total: 1138 authorization requests
 ```
 
 
-# Time to first instruction by day of 2025 (types by: FranceConnect):
+## Time to first instruction by day of 2025 (types by: FranceConnect):
 
 ```
   <1 (  0) │ 
@@ -190,7 +190,7 @@ Scale: each █ represents 9.3 request(s)
 - Standard deviation time to first instruction: 11 jours
 
 
-# Volume of authorization requests by type for 2024 (types by: FranceConnect):
+## Volume of authorization requests by type for 2024 (types by: FranceConnect):
 
 ```
 FranceConnect (796) │ ██████████████████████████████████████████████████
@@ -200,7 +200,7 @@ Scale: each █ represents 15.9 request(s)
 ```
 
 
-# Volume of authorization requests by type (validated vs refused) for 2024 (types by: FranceConnect):
+## Volume of authorization requests by type (validated vs refused) for 2024 (types by: FranceConnect):
 
 ```
 FranceConnect (509:  68.2%V  31.8%R) │ ██████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
@@ -211,7 +211,7 @@ Scale: each character represents 10.2 request(s)
 ```
 
 
-# Median time to submit by type (1 hour or more) for 2024 (types by: FranceConnect):
+## Median time to submit by type (1 hour or more) for 2024 (types by: FranceConnect):
 
 ```
 FranceConnect (372.8 days, n=71) │ ██████████████████████████████████████████████████
@@ -220,7 +220,7 @@ Total: 71 authorization requests
 ```
 
 
-# Time to submit by minute of 2024 (types by: FranceConnect):
+## Time to submit by minute of 2024 (types by: FranceConnect):
 
 ```
   <1 ( 0) │ 
@@ -291,7 +291,7 @@ Scale: each █ represents 1.4 request(s)
 ```
 
 
-# Median time to first instruction by type for 2024 (types by: FranceConnect):
+## Median time to first instruction by type for 2024 (types by: FranceConnect):
 
 ```
 FranceConnect (3.6 days, n=950) │ ████
@@ -300,7 +300,7 @@ Total: 950 authorization requests
 ```
 
 
-# Time to first instruction by day of 2024 (types by: FranceConnect):
+## Time to first instruction by day of 2024 (types by: FranceConnect):
 
 ```
   <1 (  0) │ 
@@ -358,7 +358,7 @@ Scale: each █ represents 5.7 request(s)
 - Standard deviation time to first instruction: 15 jours
 
 
-# Volume of authorization requests by type for 2023 (types by: FranceConnect):
+## Volume of authorization requests by type for 2023 (types by: FranceConnect):
 
 ```
 FranceConnect (720) │ ██████████████████████████████████████████████████
@@ -368,7 +368,7 @@ Scale: each █ represents 14.4 request(s)
 ```
 
 
-# Volume of authorization requests by type (validated vs refused) for 2023 (types by: FranceConnect):
+## Volume of authorization requests by type (validated vs refused) for 2023 (types by: FranceConnect):
 
 ```
 FranceConnect (456:  72.1%V  27.9%R) │ ████████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓
@@ -379,7 +379,7 @@ Scale: each character represents 9.1 request(s)
 ```
 
 
-# Median time to submit by type (1 hour or more) for 2023 (types by: FranceConnect):
+## Median time to submit by type (1 hour or more) for 2023 (types by: FranceConnect):
 
 ```
 FranceConnect (819.1 days, n=34) │ ██████████████████████████████████████████████████
@@ -388,7 +388,7 @@ Total: 34 authorization requests
 ```
 
 
-# Time to submit by minute of 2023 (types by: FranceConnect):
+## Time to submit by minute of 2023 (types by: FranceConnect):
 
 ```
   <1 ( 0) │ 
@@ -458,7 +458,7 @@ Total: 34 authorization requests
 ```
 
 
-# Median time to first instruction by type for 2023 (types by: FranceConnect):
+## Median time to first instruction by type for 2023 (types by: FranceConnect):
 
 ```
 FranceConnect (2.1 days, n=907) │ ██
@@ -467,7 +467,7 @@ Total: 907 authorization requests
 ```
 
 
-# Time to first instruction by day of 2023 (types by: FranceConnect):
+## Time to first instruction by day of 2023 (types by: FranceConnect):
 
 ```
   <1 (  0) │ 

@@ -22,7 +22,7 @@
 - Standard deviation time to first instruction: environ un mois
 
 
-# Volume of authorization requests by type for 2025 (provider: dgfip):
+## Volume of authorization requests by type for 2025 (provider: dgfip):
 
 ```
 APIR2P                     (85) │ ██████████████████████████████████████████████████
@@ -46,7 +46,7 @@ Scale: each █ represents 1.7 request(s)
 ```
 
 
-# Volume of authorization requests by type (validated vs refused) for 2025 (provider: dgfip):
+## Volume of authorization requests by type (validated vs refused) for 2025 (provider: dgfip):
 
 ```
 APIINFINOESandbox          (55:  65.5%V  34.5%R) │ █████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
@@ -68,7 +68,7 @@ Scale: each character represents 1.1 request(s)
 ```
 
 
-# Median time to submit by type (under 1 hour) for 2025 (provider: dgfip):
+## Median time to submit by type (under 1 hour) for 2025 (provider: dgfip):
 
 ```
 APIRialSandbox             ( 4.9 minutes, n= 1) │ █████
@@ -83,7 +83,7 @@ APISFiPR2P                 (25.6 minutes, n=11) │ █████████�
 Total: 114 authorization requests
 ```
 
-# Median time to submit by type (1 hour or more) for 2025 (provider: dgfip):
+## Median time to submit by type (1 hour or more) for 2025 (provider: dgfip):
 
 ```
 APIFicoba           (  1.1 days, n= 1) │ 
@@ -97,7 +97,7 @@ Total: 73 authorization requests
 ```
 
 
-# Time to submit by minute of 2025 (provider: dgfip):
+## Time to submit by minute of 2025 (provider: dgfip):
 
 ```
   <1 ( 0) │ 
@@ -168,7 +168,7 @@ Scale: each █ represents 1.6 request(s)
 ```
 
 
-# Median time to first instruction by type for 2025 (provider: dgfip):
+## Median time to first instruction by type for 2025 (provider: dgfip):
 
 ```
 APIFicoba                  (0.1 days, n= 4) │ 
@@ -190,7 +190,7 @@ Total: 513 authorization requests
 ```
 
 
-# Time to first instruction by day of 2025 (provider: dgfip):
+## Time to first instruction by day of 2025 (provider: dgfip):
 
 ```
   <1 (  0) │ 
@@ -248,7 +248,7 @@ Scale: each █ represents 4.4 request(s)
 - Standard deviation time to first instruction: 3 mois
 
 
-# Volume of authorization requests by type for 2024 (provider: dgfip):
+## Volume of authorization requests by type for 2024 (provider: dgfip):
 
 ```
 APIINFINOESandbox          (664) │ ██████████████████████████████████████████████████
@@ -270,7 +270,7 @@ Scale: each █ represents 13.3 request(s)
 ```
 
 
-# Volume of authorization requests by type (validated vs refused) for 2024 (provider: dgfip):
+## Volume of authorization requests by type (validated vs refused) for 2024 (provider: dgfip):
 
 ```
 APIINFINOESandbox          (612:  76.6%V  23.4%R) │ ██████████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓
@@ -291,7 +291,7 @@ Scale: each character represents 12.2 request(s)
 ```
 
 
-# Median time to submit by type (1 hour or more) for 2024 (provider: dgfip):
+## Median time to submit by type (1 hour or more) for 2024 (provider: dgfip):
 
 ```
 APIImpotParticulierSandbox (333.2 days, n= 1) │ ████████████████████████████
@@ -307,7 +307,7 @@ Total: 47 authorization requests
 ```
 
 
-# Time to submit by minute of 2024 (provider: dgfip):
+## Time to submit by minute of 2024 (provider: dgfip):
 
 ```
   <1 ( 0) │ 
@@ -377,7 +377,7 @@ Total: 47 authorization requests
 ```
 
 
-# Median time to first instruction by type for 2024 (provider: dgfip):
+## Median time to first instruction by type for 2024 (provider: dgfip):
 
 ```
 APIINFINOESandbox          (  0.0 days, n=1022) │ 
@@ -397,7 +397,7 @@ Scale: each █ represents 2.2 days
 ```
 
 
-# Time to first instruction by day of 2024 (provider: dgfip):
+## Time to first instruction by day of 2024 (provider: dgfip):
 
 ```
   <1 (   0) │ 
@@ -455,7 +455,7 @@ Scale: each █ represents 26.1 request(s)
 - Standard deviation time to first instruction: 3 mois
 
 
-# Volume of authorization requests by type for 2023 (provider: dgfip):
+## Volume of authorization requests by type for 2023 (provider: dgfip):
 
 ```
 APIINFINOESandbox          (202) │ ██████████████████████████████████████████████████
@@ -476,7 +476,7 @@ Scale: each █ represents 4.0 request(s)
 ```
 
 
-# Volume of authorization requests by type (validated vs refused) for 2023 (provider: dgfip):
+## Volume of authorization requests by type (validated vs refused) for 2023 (provider: dgfip):
 
 ```
 APIINFINOESandbox          (172:  69.2%V  30.8%R) │ ███████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
@@ -496,7 +496,7 @@ Scale: each character represents 3.4 request(s)
 ```
 
 
-# Median time to submit by type (1 hour or more) for 2023 (provider: dgfip):
+## Median time to submit by type (1 hour or more) for 2023 (provider: dgfip):
 
 ```
 APISFiP                    (634.1 days, n=3) │ █████████████████████████████████████
@@ -512,7 +512,7 @@ Total: 40 authorization requests
 ```
 
 
-# Time to submit by minute of 2023 (provider: dgfip):
+## Time to submit by minute of 2023 (provider: dgfip):
 
 ```
   <1 ( 0) │ 
@@ -582,7 +582,7 @@ Total: 40 authorization requests
 ```
 
 
-# Median time to first instruction by type for 2023 (provider: dgfip):
+## Median time to first instruction by type for 2023 (provider: dgfip):
 
 ```
 APIINFINOESandbox          ( 1.5 days, n=301) │ ██
@@ -602,7 +602,7 @@ Total: 1584 authorization requests
 ```
 
 
-# Time to first instruction by day of 2023 (provider: dgfip):
+## Time to first instruction by day of 2023 (provider: dgfip):
 
 ```
   <1 (  0) │ 

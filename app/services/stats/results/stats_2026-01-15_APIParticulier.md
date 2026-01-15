@@ -22,7 +22,7 @@
 - Standard deviation time to first instruction: 6 jours
 
 
-# Volume of authorization requests by type for 2025 (types by: APIParticulier):
+## Volume of authorization requests by type for 2025 (types by: APIParticulier):
 
 ```
 APIParticulier (873) │ ██████████████████████████████████████████████████
@@ -32,7 +32,7 @@ Scale: each █ represents 17.5 request(s)
 ```
 
 
-# Volume of authorization requests by type (validated vs refused) for 2025 (types by: APIParticulier):
+## Volume of authorization requests by type (validated vs refused) for 2025 (types by: APIParticulier):
 
 ```
 APIParticulier (502:  95.6%V   4.4%R) │ ████████████████████████████████████████████████▓▓
@@ -43,7 +43,7 @@ Scale: each character represents 10.0 request(s)
 ```
 
 
-# Median time to submit by type (under 1 hour) for 2025 (types by: APIParticulier):
+## Median time to submit by type (under 1 hour) for 2025 (types by: APIParticulier):
 
 ```
 APIParticulier (9.0 minutes, n=573) │ █████████
@@ -52,7 +52,7 @@ Total: 573 authorization requests
 ```
 
 
-# Time to submit by minute of 2025 (types by: APIParticulier):
+## Time to submit by minute of 2025 (types by: APIParticulier):
 
 ```
   <1 (  0) │ 
@@ -123,7 +123,7 @@ Scale: each █ represents 2.2 request(s)
 ```
 
 
-# Median time to first instruction by type for 2025 (types by: APIParticulier):
+## Median time to first instruction by type for 2025 (types by: APIParticulier):
 
 ```
 APIParticulier (6.2 days, n=799) │ ██████
@@ -132,7 +132,7 @@ Total: 799 authorization requests
 ```
 
 
-# Time to first instruction by day of 2025 (types by: APIParticulier):
+## Time to first instruction by day of 2025 (types by: APIParticulier):
 
 ```
   <1 (  0) │ 
@@ -190,7 +190,7 @@ Scale: each █ represents 2.4 request(s)
 - Standard deviation time to first instruction: 5 jours
 
 
-# Volume of authorization requests by type for 2024 (types by: APIParticulier):
+## Volume of authorization requests by type for 2024 (types by: APIParticulier):
 
 ```
 APIParticulier (845) │ ██████████████████████████████████████████████████
@@ -200,7 +200,7 @@ Scale: each █ represents 16.9 request(s)
 ```
 
 
-# Volume of authorization requests by type (validated vs refused) for 2024 (types by: APIParticulier):
+## Volume of authorization requests by type (validated vs refused) for 2024 (types by: APIParticulier):
 
 ```
 APIParticulier (497:  90.3%V   9.7%R) │ █████████████████████████████████████████████▓▓▓▓▓
@@ -211,7 +211,7 @@ Scale: each character represents 9.9 request(s)
 ```
 
 
-# Median time to submit by type (under 1 hour) for 2024 (types by: APIParticulier):
+## Median time to submit by type (under 1 hour) for 2024 (types by: APIParticulier):
 
 ```
 APIParticulier (7.3 minutes, n=428) │ ███████
@@ -220,7 +220,7 @@ Total: 428 authorization requests
 ```
 
 
-# Time to submit by minute of 2024 (types by: APIParticulier):
+## Time to submit by minute of 2024 (types by: APIParticulier):
 
 ```
   <1 (  0) │ 
@@ -291,7 +291,7 @@ Scale: each █ represents 2.3 request(s)
 ```
 
 
-# Median time to first instruction by type for 2024 (types by: APIParticulier):
+## Median time to first instruction by type for 2024 (types by: APIParticulier):
 
 ```
 APIParticulier (2.9 days, n=1193) │ ███
@@ -300,7 +300,7 @@ Total: 1193 authorization requests
 ```
 
 
-# Time to first instruction by day of 2024 (types by: APIParticulier):
+## Time to first instruction by day of 2024 (types by: APIParticulier):
 
 ```
   <1 (  0) │ 
@@ -358,7 +358,7 @@ Scale: each █ represents 5.9 request(s)
 - Standard deviation time to first instruction: 8 jours
 
 
-# Volume of authorization requests by type for 2023 (types by: APIParticulier):
+## Volume of authorization requests by type for 2023 (types by: APIParticulier):
 
 ```
 APIParticulier (638) │ ██████████████████████████████████████████████████
@@ -368,7 +368,7 @@ Scale: each █ represents 12.8 request(s)
 ```
 
 
-# Volume of authorization requests by type (validated vs refused) for 2023 (types by: APIParticulier):
+## Volume of authorization requests by type (validated vs refused) for 2023 (types by: APIParticulier):
 
 ```
 APIParticulier (421:  94.8%V   5.2%R) │ ███████████████████████████████████████████████▓▓▓
@@ -379,7 +379,7 @@ Scale: each character represents 8.4 request(s)
 ```
 
 
-# Median time to submit by type (under 1 hour) for 2023 (types by: APIParticulier):
+## Median time to submit by type (under 1 hour) for 2023 (types by: APIParticulier):
 
 ```
 APIParticulier (2.9 minutes, n=373) │ ███
@@ -388,7 +388,7 @@ Total: 373 authorization requests
 ```
 
 
-# Time to submit by minute of 2023 (types by: APIParticulier):
+## Time to submit by minute of 2023 (types by: APIParticulier):
 
 ```
   <1 (  0) │ 
@@ -459,7 +459,7 @@ Scale: each █ represents 3.0 request(s)
 ```
 
 
-# Median time to first instruction by type for 2023 (types by: APIParticulier):
+## Median time to first instruction by type for 2023 (types by: APIParticulier):
 
 ```
 APIParticulier (2.6 days, n=952) │ ███
@@ -468,7 +468,7 @@ Total: 952 authorization requests
 ```
 
 
-# Time to first instruction by day of 2023 (types by: APIParticulier):
+## Time to first instruction by day of 2023 (types by: APIParticulier):
 
 ```
   <1 (  0) │ 

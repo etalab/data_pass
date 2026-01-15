@@ -22,7 +22,7 @@
 - Standard deviation time to first instruction: 10 jours
 
 
-# Volume of authorization requests by type for 2025 (provider: dinum):
+## Volume of authorization requests by type for 2025 (provider: dinum):
 
 ```
 FranceConnect              (983) │ ██████████████████████████████████████████████████
@@ -39,7 +39,7 @@ Scale: each █ represents 19.7 request(s)
 ```
 
 
-# Volume of authorization requests by type (validated vs refused) for 2025 (provider: dinum):
+## Volume of authorization requests by type (validated vs refused) for 2025 (provider: dinum):
 
 ```
 FranceConnect              (654:  72.9%V  27.1%R) │ ████████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓
@@ -57,7 +57,7 @@ Scale: each character represents 13.1 request(s)
 ```
 
 
-# Median time to submit by type (under 1 hour) for 2025 (provider: dinum):
+## Median time to submit by type (under 1 hour) for 2025 (provider: dinum):
 
 ```
 AnnuaireDesEntreprises     ( 2.3 minutes, n= 68) │ ██
@@ -73,7 +73,7 @@ Total: 1555 authorization requests
 ```
 
 
-# Time to submit by minute of 2025 (provider: dinum):
+## Time to submit by minute of 2025 (provider: dinum):
 
 ```
   <1 (  0) │ 
@@ -144,7 +144,7 @@ Scale: each █ represents 7.1 request(s)
 ```
 
 
-# Median time to first instruction by type for 2025 (provider: dinum):
+## Median time to first instruction by type for 2025 (provider: dinum):
 
 ```
 LeTaxi                     (0.6 days, n=   2) │ █
@@ -160,7 +160,7 @@ Total: 2546 authorization requests
 ```
 
 
-# Time to first instruction by day of 2025 (provider: dinum):
+## Time to first instruction by day of 2025 (provider: dinum):
 
 ```
   <1 (  0) │ 
@@ -218,7 +218,7 @@ Scale: each █ represents 15.2 request(s)
 - Standard deviation time to first instruction: 13 jours
 
 
-# Volume of authorization requests by type for 2024 (provider: dinum):
+## Volume of authorization requests by type for 2024 (provider: dinum):
 
 ```
 APIParticulier             (845) │ ██████████████████████████████████████████████████
@@ -234,7 +234,7 @@ Scale: each █ represents 16.9 request(s)
 ```
 
 
-# Volume of authorization requests by type (validated vs refused) for 2024 (provider: dinum):
+## Volume of authorization requests by type (validated vs refused) for 2024 (provider: dinum):
 
 ```
 FranceConnect              (509:  68.2%V  31.8%R) │ ██████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
@@ -251,7 +251,7 @@ Scale: each character represents 10.2 request(s)
 ```
 
 
-# Median time to submit by type (under 1 hour) for 2024 (provider: dinum):
+## Median time to submit by type (under 1 hour) for 2024 (provider: dinum):
 
 ```
 FormulaireQF   ( 2.4 minutes, n=  3) │ ██
@@ -261,7 +261,7 @@ APIEntreprise  (13.0 minutes, n=177) │ █████████████
 Total: 608 authorization requests
 ```
 
-# Median time to submit by type (1 hour or more) for 2024 (provider: dinum):
+## Median time to submit by type (1 hour or more) for 2024 (provider: dinum):
 
 ```
 ProConnectServiceProvider (292.2 days, n= 1) │ ███████████████████████████████████████
@@ -271,7 +271,7 @@ Total: 72 authorization requests
 ```
 
 
-# Time to submit by minute of 2024 (provider: dinum):
+## Time to submit by minute of 2024 (provider: dinum):
 
 ```
   <1 (  0) │ 
@@ -342,7 +342,7 @@ Scale: each █ represents 4.7 request(s)
 ```
 
 
-# Median time to first instruction by type for 2024 (provider: dinum):
+## Median time to first instruction by type for 2024 (provider: dinum):
 
 ```
 ProConnectServiceProvider  ( 0.3 days, n=  70) │ 
@@ -357,7 +357,7 @@ Total: 2580 authorization requests
 ```
 
 
-# Time to first instruction by day of 2024 (provider: dinum):
+## Time to first instruction by day of 2024 (provider: dinum):
 
 ```
   <1 (  0) │ 
@@ -415,7 +415,7 @@ Scale: each █ represents 14.8 request(s)
 - Standard deviation time to first instruction: 18 jours
 
 
-# Volume of authorization requests by type for 2023 (provider: dinum):
+## Volume of authorization requests by type for 2023 (provider: dinum):
 
 ```
 FranceConnect              (720) │ ██████████████████████████████████████████████████
@@ -430,7 +430,7 @@ Scale: each █ represents 14.4 request(s)
 ```
 
 
-# Volume of authorization requests by type (validated vs refused) for 2023 (provider: dinum):
+## Volume of authorization requests by type (validated vs refused) for 2023 (provider: dinum):
 
 ```
 FranceConnect              (456:  72.1%V  27.9%R) │ ████████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓
@@ -446,7 +446,7 @@ Scale: each character represents 9.1 request(s)
 ```
 
 
-# Median time to submit by type (under 1 hour) for 2023 (provider: dinum):
+## Median time to submit by type (under 1 hour) for 2023 (provider: dinum):
 
 ```
 APIParticulier (2.9 minutes, n=373) │ ███
@@ -455,7 +455,7 @@ APIEntreprise  (2.9 minutes, n=184) │ ███
 Total: 557 authorization requests
 ```
 
-# Median time to submit by type (1 hour or more) for 2023 (provider: dinum):
+## Median time to submit by type (1 hour or more) for 2023 (provider: dinum):
 
 ```
 FranceConnect              (819.1 days, n=34) │ ████████████████████████████████████████████████
@@ -465,7 +465,7 @@ Total: 35 authorization requests
 ```
 
 
-# Time to submit by minute of 2023 (provider: dinum):
+## Time to submit by minute of 2023 (provider: dinum):
 
 ```
   <1 (  0) │ 
@@ -536,7 +536,7 @@ Scale: each █ represents 4.2 request(s)
 ```
 
 
-# Median time to first instruction by type for 2023 (provider: dinum):
+## Median time to first instruction by type for 2023 (provider: dinum):
 
 ```
 ProConnectIdentityProvider (2.0 days, n= 16) │ ██
@@ -550,7 +550,7 @@ Total: 2360 authorization requests
 ```
 
 
-# Time to first instruction by day of 2023 (provider: dinum):
+## Time to first instruction by day of 2023 (provider: dinum):
 
 ```
   <1 (  0) │ 
