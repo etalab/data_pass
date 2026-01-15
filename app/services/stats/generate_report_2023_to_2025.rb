@@ -1,9 +1,12 @@
 module Stats
+  MIGRATION_DATE = Date.new(2025, 6, 18)
+
   class GenerateReport2023To2025
-    def initialize(provider: nil, authorization_types: nil)
+    def initialize(provider: nil, authorization_types: nil, post_migration_only: false)
       @provider = provider
       @authorization_types = authorization_types
-      @years = [2025, 2024, 2023]
+      @post_migration_only = post_migration_only
+      @years = post_migration_only ? [2025] : [2025, 2024]
     end
 
     def call
@@ -39,9 +42,14 @@ module Stats
     end
 
     def write_warning(f)
-      f.puts "> **⚠️  Data Quality Warning**"
-      f.puts "> "
-      f.puts "> 2023-2024 data was migrated from DataPass v1 in early 2025. Event timestamps for these years were reconstructed and may not accurately reflect actual user behavior (especially time-to-submit metrics)."
+      if @post_migration_only
+        f.puts "> **⚠️ Données uniquement à partir du #{MIGRATION_DATE.strftime('%d/%m/%Y')}, date de la migration vers DataPass v2 **"
+      else
+        f.puts "> **⚠️ Attention à la qualité des données**"
+        f.puts "> "
+        f.puts "> Les données de 2023-2024 ont été migrées depuis DataPass v1 en début 2025. Certains évènements de ces années ont été reconstitués et peuvent ne pas refléter exactement le comportement des utilisateurs - en particulier les métriques de durée desoumission."
+      end
+
       f.puts ""
       f.puts "---"
       f.puts ""
@@ -76,7 +84,13 @@ module Stats
     end
 
     def report_params(year)
-      params = { date_input: year }
+      date_input = if @post_migration_only && year == 2025
+        MIGRATION_DATE..Date.today
+      else
+        year
+      end
+      
+      params = { date_input: date_input }
       params[:provider] = @provider if @provider
       params[:authorization_types] = @authorization_types if @authorization_types
       params
