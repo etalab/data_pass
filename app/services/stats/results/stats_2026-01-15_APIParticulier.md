@@ -1,0 +1,348 @@
+> **⚠️ Attention à la qualité des données**
+> 
+> Les données de 2023-2024 ont été migrées depuis DataPass v1 en début 2025. Certains évènements de ces années ont été reconstitués et peuvent ne pas refléter exactement le comportement des utilisateurs - en particulier les métriques de durée desoumission.
+
+---
+
+ 
+# 📊 Rapport de 2025 (types par : APIParticulier):
+
+## Volume
+- 873 demandes créées
+- 274 réouvertures
+## Durée d'une soumission
+(Entre la création d'une demande et sa première soumission)
+- Durée moyenne d'une soumission: 3 jours
+- Durée médiane d'une soumission: 9 minutes
+- Durée de soumission la plus fréquente: 5 minutes
+- Écart-type des durées de soumission: 16 jours
+## Durée d'instruction
+(Entre une soumission et la première instruction qui suit)
+- Durée moyenne d'une instruction: 7 jours
+- Durée médiane d'une instruction: 6 jours
+- Durée d'instruction la plus fréquente: 1 jour
+- Écart-type des durées d'instruction: 6 jours
+
+
+## Volume de demandes par type pour 2025 (types par : APIParticulier):
+
+```
+APIParticulier (873) │ ██████████████████████████████████████████████████
+
+Total : 873 demandes
+Échelle : chaque █ représente 17.5 demande(s)
+```
+
+
+## Volume de demandes par type (validées vs refusées) pour 2025 (types par : APIParticulier):
+
+```
+APIParticulier (502:  95.6%V   4.4%R) │ ████████████████████████████████████████████████▓▓
+
+Légende : █ = Validées, ▓ = Refusées
+Total : 480 validées, 22 refusées (502 total)
+Échelle : chaque caractère représente 10.0 demande(s)
+```
+
+
+## Durée médiane de soumission par type pour 2025 (types par : APIParticulier):
+
+### Moins d'1 heure:
+```
+APIParticulier (9.0 minutes, n=573) │ █████████
+
+Total : 573 demandes
+```
+
+
+## Durée de soumission par minute de 2025 (types par : APIParticulier):
+
+```
+  <1 (  0) │ 
+   1 (  9) │ ████
+   2 ( 14) │ ██████
+   3 ( 43) │ ████████████████████
+   4 ( 53) │ █████████████████████████
+   5 ( 56) │ ██████████████████████████
+   6 ( 27) │ █████████████
+   7 ( 34) │ ████████████████
+   8 ( 28) │ █████████████
+   9 ( 22) │ ██████████
+  10 ( 20) │ █████████
+  11 ( 18) │ ████████
+  12 ( 18) │ ████████
+  13 ( 15) │ ███████
+  14 ( 11) │ █████
+  15 ( 11) │ █████
+  16 (  5) │ ██
+  17 (  9) │ ████
+  18 (  4) │ ██
+  19 (  7) │ ███
+  20 (  3) │ █
+  21 (  5) │ ██
+  22 (  5) │ ██
+  23 (  1) │ 
+  24 (  2) │ █
+  25 (  3) │ █
+  26 (  4) │ ██
+  27 (  4) │ ██
+  28 (  1) │ 
+  29 (  1) │ 
+  30 (  4) │ ██
+  31 (  2) │ █
+  32 (  0) │ 
+  33 (  1) │ 
+  34 (  2) │ █
+  35 (  3) │ █
+  36 (  1) │ 
+  37 (  3) │ █
+  38 (  2) │ █
+  39 (  0) │ 
+  40 (  0) │ 
+  41 (  1) │ 
+  42 (  0) │ 
+  43 (  2) │ █
+  44 (  0) │ 
+  45 (  0) │ 
+  46 (  0) │ 
+  47 (  3) │ █
+  48 (  1) │ 
+  49 (  0) │ 
+  50 (  1) │ 
+  51 (  0) │ 
+  52 (  0) │ 
+  53 (  0) │ 
+  54 (  0) │ 
+  55 (  1) │ 
+  56 (  1) │ 
+  57 (  1) │ 
+  58 (  1) │ 
+  59 (  2) │ █
+  60 (  0) │ 
+> 60 (108) │ ██████████████████████████████████████████████████
+
+Total : 573 demandes
+Échelle : chaque █ représente 2.2 demande(s)
+```
+
+
+## Durée médiane d'instruction par type pour 2025 (types par : APIParticulier):
+
+```
+APIParticulier (6.2 jours, n=799) │ ██████
+
+Total : 799 demandes
+```
+
+
+## Durée d'instruction par jour de 2025 (types par : APIParticulier):
+
+```
+  <1 (  0) │ 
+   1 (122) │ ██████████████████████████████████████████████████
+   2 ( 78) │ ████████████████████████████████
+   3 ( 49) │ ████████████████████
+   4 ( 55) │ ███████████████████████
+   5 ( 47) │ ███████████████████
+   6 ( 33) │ ██████████████
+   7 ( 57) │ ███████████████████████
+   8 ( 51) │ █████████████████████
+   9 ( 35) │ ██████████████
+  10 ( 26) │ ███████████
+  11 ( 27) │ ███████████
+  12 ( 37) │ ███████████████
+  13 ( 40) │ ████████████████
+  14 ( 27) │ ███████████
+  15 ( 28) │ ███████████
+  16 ( 21) │ █████████
+  17 ( 10) │ ████
+  18 (  5) │ ██
+  19 ( 12) │ █████
+  20 ( 19) │ ████████
+  21 (  2) │ █
+  22 ( 10) │ ████
+  23 (  1) │ 
+  24 (  0) │ 
+  25 (  1) │ 
+  26 (  2) │ █
+  27 (  0) │ 
+  28 (  1) │ 
+  29 (  0) │ 
+  30 (  0) │ 
+> 30 (  3) │ █
+
+Total : 799 demandes
+Échelle : chaque █ représente 2.4 demande(s)
+```
+
+ 
+# 📊 Rapport de 2024 (types par : APIParticulier):
+
+## Volume
+- 845 demandes créées
+- 225 réouvertures
+## Durée d'une soumission
+(Entre la création d'une demande et sa première soumission)
+- Durée moyenne d'une soumission: environ un mois
+- Durée médiane d'une soumission: 7 minutes
+- Durée de soumission la plus fréquente: 1 minute
+- Écart-type des durées de soumission: 4 mois
+## Durée d'instruction
+(Entre une soumission et la première instruction qui suit)
+- Durée moyenne d'une instruction: 4 jours
+- Durée médiane d'une instruction: 3 jours
+- Durée d'instruction la plus fréquente: 1 jour
+- Écart-type des durées d'instruction: 5 jours
+
+
+## Volume de demandes par type pour 2024 (types par : APIParticulier):
+
+```
+APIParticulier (845) │ ██████████████████████████████████████████████████
+
+Total : 845 demandes
+Échelle : chaque █ représente 16.9 demande(s)
+```
+
+
+## Volume de demandes par type (validées vs refusées) pour 2024 (types par : APIParticulier):
+
+```
+APIParticulier (497:  90.3%V   9.7%R) │ █████████████████████████████████████████████▓▓▓▓▓
+
+Légende : █ = Validées, ▓ = Refusées
+Total : 449 validées, 48 refusées (497 total)
+Échelle : chaque caractère représente 9.9 demande(s)
+```
+
+
+## Durée médiane de soumission par type pour 2024 (types par : APIParticulier):
+
+### Moins d'1 heure:
+```
+APIParticulier (7.3 minutes, n=428) │ ███████
+
+Total : 428 demandes
+```
+
+
+## Durée de soumission par minute de 2024 (types par : APIParticulier):
+
+```
+  <1 (  0) │ 
+   1 ( 99) │ ███████████████████████████████████████████
+   2 ( 25) │ ███████████
+   3 ( 19) │ ████████
+   4 ( 20) │ █████████
+   5 ( 18) │ ████████
+   6 (  9) │ ████
+   7 ( 21) │ █████████
+   8 ( 11) │ █████
+   9 ( 12) │ █████
+  10 (  4) │ ██
+  11 ( 12) │ █████
+  12 (  8) │ ████
+  13 (  8) │ ████
+  14 (  6) │ ███
+  15 (  3) │ █
+  16 (  1) │ 
+  17 (  3) │ █
+  18 (  4) │ ██
+  19 (  1) │ 
+  20 (  2) │ █
+  21 (  3) │ █
+  22 (  1) │ 
+  23 (  1) │ 
+  24 (  1) │ 
+  25 (  2) │ █
+  26 (  1) │ 
+  27 (  3) │ █
+  28 (  2) │ █
+  29 (  0) │ 
+  30 (  0) │ 
+  31 (  2) │ █
+  32 (  1) │ 
+  33 (  1) │ 
+  34 (  1) │ 
+  35 (  0) │ 
+  36 (  1) │ 
+  37 (  0) │ 
+  38 (  0) │ 
+  39 (  1) │ 
+  40 (  1) │ 
+  41 (  2) │ █
+  42 (  0) │ 
+  43 (  0) │ 
+  44 (  1) │ 
+  45 (  0) │ 
+  46 (  0) │ 
+  47 (  0) │ 
+  48 (  0) │ 
+  49 (  0) │ 
+  50 (  0) │ 
+  51 (  0) │ 
+  52 (  1) │ 
+  53 (  0) │ 
+  54 (  0) │ 
+  55 (  0) │ 
+  56 (  1) │ 
+  57 (  0) │ 
+  58 (  0) │ 
+  59 (  0) │ 
+  60 (  1) │ 
+> 60 (114) │ ██████████████████████████████████████████████████
+
+Total : 428 demandes
+Échelle : chaque █ représente 2.3 demande(s)
+```
+
+
+## Durée médiane d'instruction par type pour 2024 (types par : APIParticulier):
+
+```
+APIParticulier (2.9 jours, n=1193) │ ███
+
+Total : 1193 demandes
+```
+
+
+## Durée d'instruction par jour de 2024 (types par : APIParticulier):
+
+```
+  <1 (  0) │ 
+   1 (297) │ ██████████████████████████████████████████████████
+   2 (171) │ █████████████████████████████
+   3 (148) │ █████████████████████████
+   4 (146) │ █████████████████████████
+   5 (128) │ ██████████████████████
+   6 ( 75) │ █████████████
+   7 ( 68) │ ███████████
+   8 ( 32) │ █████
+   9 ( 10) │ ██
+  10 ( 13) │ ██
+  11 ( 19) │ ███
+  12 ( 14) │ ██
+  13 (  6) │ █
+  14 (  6) │ █
+  15 (  9) │ ██
+  16 (  8) │ █
+  17 ( 12) │ ██
+  18 (  7) │ █
+  19 (  6) │ █
+  20 (  1) │ 
+  21 (  1) │ 
+  22 (  3) │ █
+  23 (  1) │ 
+  24 (  1) │ 
+  25 (  0) │ 
+  26 (  0) │ 
+  27 (  2) │ 
+  28 (  2) │ 
+  29 (  0) │ 
+  30 (  0) │ 
+> 30 (  7) │ █
+
+Total : 1193 demandes
+Échelle : chaque █ représente 5.9 demande(s)
+```
+
