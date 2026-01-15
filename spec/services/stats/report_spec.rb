@@ -111,9 +111,11 @@ RSpec.describe Stats::Report, type: :service do
       expect { subject.print_report }.to output(/reopen events/).to_stdout
       expect { subject.print_report }.to output(/Average time to submit/).to_stdout
       expect { subject.print_report }.to output(/Median time to submit/).to_stdout
+      expect { subject.print_report }.to output(/Mode time to submit/).to_stdout
       expect { subject.print_report }.to output(/Standard deviation time to submit/).to_stdout
       expect { subject.print_report }.to output(/Average time to first instruction/).to_stdout
       expect { subject.print_report }.to output(/Median time to first instruction/).to_stdout
+      expect { subject.print_report }.to output(/Mode time to first instruction/).to_stdout
       expect { subject.print_report }.to output(/Standard deviation time to first instruction/).to_stdout
     end
   end
@@ -343,6 +345,45 @@ RSpec.describe Stats::Report, type: :service do
     end
   end
 
+  describe '#mode_time_to_submit' do
+    subject { described_class.new(date_input: 2025).mode_time_to_submit }
+
+    let(:base_time) { Time.zone.parse('2025-09-01 14:00:00') }
+    let!(:user) { create(:user) }
+    let!(:organization) { create(:organization) }
+    
+    before do
+      user.add_to_organization(organization, current: true)
+    end
+
+    let!(:ar_mode_1) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 5.minutes)
+      end
+    end
+
+    let!(:ar_mode_2) do
+      create(:authorization_request, :api_particulier, applicant: user, organization: organization, created_at: base_time + 1.day).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time + 1.day)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 1.day + 5.minutes + 30.seconds)
+      end
+    end
+
+    let!(:ar_different) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: base_time + 2.days).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time + 2.days)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 2.days + 10.minutes)
+      end
+    end
+
+    it 'returns a formatted string with the mode time' do
+      expect(subject).to match(/Mode time to submit: .+/)
+      # Should be around 5 minutes (the most frequent)
+      expect(subject).to match(/5 (minutes?|min)/i)
+    end
+  end
+
   describe '#average_time_to_first_instruction' do
     subject { described_class.new(date_input: 2025).average_time_to_first_instruction }
 
@@ -404,6 +445,48 @@ RSpec.describe Stats::Report, type: :service do
 
     it 'returns a formatted string with the standard deviation' do
       expect(subject).to match(/Standard deviation time to first instruction: .+/)
+    end
+  end
+
+  describe '#mode_time_to_first_instruction' do
+    subject { described_class.new(date_input: 2025).mode_time_to_first_instruction }
+
+    let(:base_time) { Time.zone.parse('2025-09-01 14:00:00') }
+    let!(:user) { create(:user) }
+    let!(:organization) { create(:organization) }
+    
+    before do
+      user.add_to_organization(organization, current: true)
+    end
+
+    let!(:ar_mode_1) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 1.hour)
+        create(:authorization_request_event, :approve, authorization_request: ar, user: user, created_at: base_time + 1.hour + 2.hours)
+      end
+    end
+
+    let!(:ar_mode_2) do
+      create(:authorization_request, :api_particulier, applicant: user, organization: organization, created_at: base_time + 1.day).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time + 1.day)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 1.day + 1.hour)
+        create(:authorization_request_event, :request_changes, authorization_request: ar, user: user, created_at: base_time + 1.day + 1.hour + 2.hours + 30.seconds)
+      end
+    end
+
+    let!(:ar_different) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: base_time + 2.days).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time + 2.days)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 2.days + 1.hour)
+        create(:authorization_request_event, :approve, authorization_request: ar, user: user, created_at: base_time + 2.days + 1.hour + 5.hours)
+      end
+    end
+
+    it 'returns a formatted string with the mode time' do
+      expect(subject).to match(/Mode time to first instruction: .+/)
+      # Should be around 2 hours (the most frequent)
+      expect(subject).to match(/2 (hours?|heures?)/i)
     end
   end
 
@@ -859,6 +942,85 @@ RSpec.describe Stats::Report, type: :service do
     end
   end
 
+  describe '#print_time_to_first_instruction_by_duration' do
+    let(:base_time) { Time.zone.parse('2025-03-15 10:00:00') }
+    let!(:user) { create(:user) }
+    let!(:organization) { create(:organization) }
+    
+    before do
+      user.add_to_organization(organization, current: true)
+    end
+
+    # Create authorization requests with different time to first instruction
+    let!(:ar_quick) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 1.hour)
+        create(:authorization_request_event, :approve, authorization_request: ar, user: user, created_at: base_time + 1.hour + 30.minutes)
+      end
+    end
+
+    let!(:ar_medium) do
+      create(:authorization_request, :api_particulier, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 1.hour)
+        create(:authorization_request_event, :request_changes, authorization_request: ar, user: user, created_at: base_time + 1.hour + 2.hours)
+      end
+    end
+
+    let!(:ar_slow) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 1.hour)
+        create(:authorization_request_event, :refuse, authorization_request: ar, user: user, created_at: base_time + 1.hour + 5.days)
+      end
+    end
+
+    subject { described_class.new(date_input: 2025) }
+
+    context 'with step: :minute' do
+      it 'outputs bar chart with minute buckets' do
+        output = capture_stdout { subject.print_time_to_first_instruction_by_duration(step: :minute) }
+        expect(output).to include('Time to first instruction by minute')
+        expect(output).to include('<1')
+        expect(output).to include('> 60')
+        expect(output).to include('│')
+        expect(output).to include('Total:')
+      end
+    end
+
+    context 'with step: :hour' do
+      it 'outputs bar chart with hour buckets' do
+        output = capture_stdout { subject.print_time_to_first_instruction_by_duration(step: :hour) }
+        expect(output).to include('Time to first instruction by hour')
+        expect(output).to include('<1')
+        expect(output).to include('> 24')
+        expect(output).to include('│')
+        expect(output).to include('Total:')
+      end
+    end
+
+    context 'with step: :day' do
+      it 'outputs bar chart with day buckets' do
+        output = capture_stdout { subject.print_time_to_first_instruction_by_duration(step: :day) }
+        expect(output).to include('Time to first instruction by day')
+        expect(output).to include('<1')
+        expect(output).to include('> 30')
+        expect(output).to include('│')
+        expect(output).to include('Total:')
+      end
+    end
+
+    context 'with no data' do
+      subject { described_class.new(date_input: 2020) }
+
+      it 'outputs no data message' do
+        output = capture_stdout { subject.print_time_to_first_instruction_by_duration(step: :day) }
+        expect(output).to include('No data available')
+      end
+    end
+  end
+
   describe 'filtering by authorization_types' do
     let(:base_time) { Time.zone.parse('2025-03-15 10:00:00') }
     let!(:user) { create(:user) }
@@ -1091,7 +1253,7 @@ RSpec.describe Stats::Report, type: :service do
       
       expect(output).to include('Volume of authorization requests by type (validated vs refused)')
       expect(output).to include('│')
-      expect(output).to include('Legend: █ = Validated, X = Refused')
+      expect(output).to include('Legend: █ = Validated, ▓ = Refused')
       expect(output).to include('APIEntreprise')
     end
   end
@@ -1124,7 +1286,7 @@ RSpec.describe Stats::Report, type: :service do
       
       expect(output).to include('Volume of authorization requests by provider (validated vs refused)')
       expect(output).to include('│')
-      expect(output).to include('Legend: █ = Validated, X = Refused')
+      expect(output).to include('Legend: █ = Validated, ▓ = Refused')
     end
   end
 

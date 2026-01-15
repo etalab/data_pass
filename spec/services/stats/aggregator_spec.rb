@@ -275,6 +275,64 @@ RSpec.describe Stats::Aggregator, type: :service do
     end
   end
 
+  describe '#mode_time_to_submit' do
+    subject { described_class.new(authorization_requests).mode_time_to_submit }
+
+    let(:base_time) { Time.zone.parse('2025-01-15 14:00:00') }
+    let!(:user) { create(:user) }
+    let!(:organization) { create(:organization) }
+    
+    before do
+      user.add_to_organization(organization, current: true)
+    end
+
+    # Create multiple requests with same submit time (rounded to minute)
+    let!(:ar1) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 5.minutes)
+      end
+    end
+
+    let!(:ar2) do
+      create(:authorization_request, :api_particulier, applicant: user, organization: organization).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 5.minutes + 20.seconds)
+      end
+    end
+
+    let!(:ar3) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 5.minutes + 40.seconds)
+      end
+    end
+
+    let!(:ar4) do
+      create(:authorization_request, :api_particulier, applicant: user, organization: organization).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 10.minutes)
+      end
+    end
+
+    let(:authorization_requests) { AuthorizationRequest.where(id: [ar1.id, ar2.id, ar3.id, ar4.id]) }
+
+    it 'returns the most frequent time to submit (rounded to nearest minute)' do
+      # ar1, ar2, ar3 all round to 5 minutes (most frequent)
+      # ar4 rounds to 10 minutes
+      # Mode should be 300 seconds (5 minutes)
+      expect(subject).to be_within(60).of(5.minutes.to_f)
+    end
+
+    context 'with no authorization requests' do
+      let(:authorization_requests) { AuthorizationRequest.none }
+
+      it 'returns nil' do
+        expect(subject).to be_nil
+      end
+    end
+  end
+
   describe '#first_create_events_subquery' do
     subject { described_class.new.first_create_events_subquery }
 
@@ -802,6 +860,51 @@ RSpec.describe Stats::Aggregator, type: :service do
       end
     end
 
+    describe '#mode_time_to_first_instruction' do
+      let(:base_time_mode) { Time.zone.parse('2025-06-15 10:00:00') }
+      let!(:user_mode) { create(:user) }
+      let!(:organization_mode) { create(:organization) }
+      
+      before do
+        user_mode.add_to_organization(organization_mode, current: true)
+      end
+
+      let!(:ar_mode_1) do
+        create(:authorization_request, :api_entreprise, applicant: user_mode, organization: organization_mode, created_at: base_time_mode).tap do |ar|
+          create(:authorization_request_event, :create, authorization_request: ar, user: user_mode, created_at: base_time_mode)
+          create(:authorization_request_event, :submit, authorization_request: ar, user: user_mode, created_at: base_time_mode + 1.hour)
+          create(:authorization_request_event, :approve, authorization_request: ar, user: user_mode, created_at: base_time_mode + 1.hour + 2.hours + 10.seconds)
+        end
+      end
+
+      let!(:ar_mode_2) do
+        create(:authorization_request, :api_particulier, applicant: user_mode, organization: organization_mode, created_at: base_time_mode).tap do |ar|
+          create(:authorization_request_event, :create, authorization_request: ar, user: user_mode, created_at: base_time_mode)
+          create(:authorization_request_event, :submit, authorization_request: ar, user: user_mode, created_at: base_time_mode + 1.hour)
+          create(:authorization_request_event, :approve, authorization_request: ar, user: user_mode, created_at: base_time_mode + 1.hour + 2.hours + 30.seconds)
+        end
+      end
+
+      let!(:ar_mode_3) do
+        create(:authorization_request, :api_entreprise, applicant: user_mode, organization: organization_mode, created_at: base_time_mode).tap do |ar|
+          create(:authorization_request_event, :create, authorization_request: ar, user: user_mode, created_at: base_time_mode)
+          create(:authorization_request_event, :submit, authorization_request: ar, user: user_mode, created_at: base_time_mode + 1.hour)
+          create(:authorization_request_event, :request_changes, authorization_request: ar, user: user_mode, created_at: base_time_mode + 1.hour + 5.hours)
+        end
+      end
+
+      let(:mode_authorization_requests) { AuthorizationRequest.where(id: [ar_mode_1.id, ar_mode_2.id, ar_mode_3.id]) }
+      subject { described_class.new(mode_authorization_requests) }
+
+      it 'returns the most frequent time to first instruction (rounded to nearest minute)' do
+        mode_time = subject.mode_time_to_first_instruction
+        
+        # ar_mode_1 and ar_mode_2 both have ~2 hours instruction time, which should be the mode
+        # ar_mode_3 has 5 hours
+        expect(mode_time).to be_within(120).of(2.hours.to_f)
+      end
+    end
+
     context 'with authorization request without instruction event' do
       let!(:ar3) do
         create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: base_time).tap do |ar|
@@ -1103,6 +1206,115 @@ RSpec.describe Stats::Aggregator, type: :service do
       
       totals = result.map { |r| r[:total] }
       expect(totals).to eq(totals.sort.reverse)
+    end
+  end
+
+  describe '#time_to_first_instruction_by_duration_buckets' do
+    let(:base_time) { Time.zone.parse('2025-03-15 10:00:00') }
+    let!(:user) { create(:user) }
+    let!(:organization) { create(:organization) }
+    
+    before do
+      user.add_to_organization(organization, current: true)
+    end
+
+    # Create authorization requests with different time to first instruction durations
+    let!(:ar_30_seconds) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 1.hour)
+        create(:authorization_request_event, :approve, authorization_request: ar, user: user, created_at: base_time + 1.hour + 30.seconds)
+      end
+    end
+
+    let!(:ar_90_seconds) do
+      create(:authorization_request, :api_particulier, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 1.hour)
+        create(:authorization_request_event, :request_changes, authorization_request: ar, user: user, created_at: base_time + 1.hour + 90.seconds)
+      end
+    end
+
+    let!(:ar_2_hours) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 1.hour)
+        create(:authorization_request_event, :approve, authorization_request: ar, user: user, created_at: base_time + 1.hour + 2.hours)
+      end
+    end
+
+    let!(:ar_5_days) do
+      create(:authorization_request, :api_particulier, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 1.hour)
+        create(:authorization_request_event, :refuse, authorization_request: ar, user: user, created_at: base_time + 1.hour + 5.days)
+      end
+    end
+
+    subject { described_class.new }
+
+    context 'with step: :minute' do
+      it 'returns buckets grouped by minutes' do
+        buckets = subject.time_to_first_instruction_by_duration_buckets(step: :minute)
+        
+        expect(buckets).to be_an(Array)
+        expect(buckets.first[:bucket]).to eq('<1')
+        expect(buckets.last[:bucket]).to eq('> 60')
+        
+        # Check structure
+        expect(buckets.all? { |b| b.key?(:bucket) && b.key?(:count) }).to be true
+        
+        # Should have 62 buckets: <1, 1-60, > 60
+        expect(buckets.size).to eq(62)
+      end
+
+      it 'distributes values correctly' do
+        buckets = subject.time_to_first_instruction_by_duration_buckets(step: :minute)
+        
+        total = buckets.sum { |b| b[:count] }
+        expect(total).to be > 0
+      end
+    end
+
+    context 'with step: :hour' do
+      it 'returns buckets grouped by hours' do
+        buckets = subject.time_to_first_instruction_by_duration_buckets(step: :hour)
+        
+        expect(buckets).to be_an(Array)
+        expect(buckets.first[:bucket]).to eq('<1')
+        expect(buckets.last[:bucket]).to eq('> 24')
+        
+        # Should have 26 buckets: <1, 1-24, > 24
+        expect(buckets.size).to eq(26)
+      end
+    end
+
+    context 'with step: :day' do
+      it 'returns buckets grouped by days' do
+        buckets = subject.time_to_first_instruction_by_duration_buckets(step: :day)
+        
+        expect(buckets).to be_an(Array)
+        expect(buckets.first[:bucket]).to eq('<1')
+        expect(buckets.last[:bucket]).to eq('> 30')
+        
+        # Should have 32 buckets: <1, 1-30, > 30
+        expect(buckets.size).to eq(32)
+      end
+    end
+
+    context 'with invalid step' do
+      it 'raises an error' do
+        expect { subject.time_to_first_instruction_by_duration_buckets(step: :invalid) }.to raise_error(ArgumentError)
+      end
+    end
+
+    context 'with no authorization requests with instruction events' do
+      subject { described_class.new(AuthorizationRequest.none) }
+
+      it 'returns empty array' do
+        buckets = subject.time_to_first_instruction_by_duration_buckets(step: :day)
+        expect(buckets).to eq([])
+      end
     end
   end
 end
