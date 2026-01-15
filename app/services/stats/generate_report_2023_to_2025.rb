@@ -39,13 +39,11 @@ module Stats
     end
 
     def write_warning(f)
-      f.puts "# ⚠️  Data Quality Warning"
+      f.puts "> **⚠️  Data Quality Warning**"
+      f.puts "> "
+      f.puts "> 2023-2024 data was migrated from DataPass v1 in early 2025. Event timestamps for these years were reconstructed and may not accurately reflect actual user behavior (especially time-to-submit metrics)."
       f.puts ""
-      f.puts "2023-2024 data was migrated from DataPass v1 in early 2025."
-      f.puts "Event timestamps for these years were reconstructed and may not accurately"
-      f.puts "reflect actual user behavior (especially time-to-submit metrics)."
-      f.puts ""
-      f.puts "=" * 80
+      f.puts "---"
       f.puts ""
     end
 

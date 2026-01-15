@@ -1,10 +1,8 @@
-# ⚠️  Data Quality Warning
+> **⚠️  Data Quality Warning**
+> 
+> 2023-2024 data was migrated from DataPass v1 in early 2025. Event timestamps for these years were reconstructed and may not accurately reflect actual user behavior (especially time-to-submit metrics).
 
-2023-2024 data was migrated from DataPass v1 in early 2025.
-Event timestamps for these years were reconstructed and may not accurately
-reflect actual user behavior (especially time-to-submit metrics).
-
-================================================================================
+---
 
  
 # Report of 2025:
