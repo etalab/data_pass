@@ -7,7 +7,7 @@ reflect actual user behavior (especially time-to-submit metrics).
 ================================================================================
 
  
-# Report of 2025 (types by: Hub EECert DC, Hub EEDila):
+# Report of 2025 (types by: HubEECertDC, HubEEDila):
 
 1352 authorization requests created
 340 reopen events
@@ -23,22 +23,22 @@ Mode time to first instruction: 1 minute
 Standard deviation time to first instruction: 3 jours
 
 
-# Volume of authorization requests by type for 2025 (types by: Hub EECert DC, Hub EEDila):
+# Volume of authorization requests by type for 2025 (types by: HubEECertDC, HubEEDila):
 
 ```
-Hub EECert DC (864) │ ██████████████████████████████████████████████████
-Hub EEDila    (488) │ ████████████████████████████
+HubEECertDC (864) │ ██████████████████████████████████████████████████
+HubEEDila   (488) │ ████████████████████████████
 
 Total: 1352 authorization requests
 Scale: each █ represents 17.3 request(s)
 ```
 
 
-# Volume of authorization requests by type (validated vs refused) for 2025 (types by: Hub EECert DC, Hub EEDila):
+# Volume of authorization requests by type (validated vs refused) for 2025 (types by: HubEECertDC, HubEEDila):
 
 ```
-Hub EECert DC (V:690 R: 11 T:701) │ █████████████████████████████████████████████████▓
-Hub EEDila    (V:312 R:  6 T:318) │ ██████████████████████
+HubEECertDC (V:690 R: 11 T:701) │ █████████████████████████████████████████████████▓
+HubEEDila   (V:312 R:  6 T:318) │ ██████████████████████
 
 Legend: █ = Validated, ▓ = Refused
 Total: 1002 validated, 17 refused (1019 total)
@@ -46,7 +46,7 @@ Scale: each character represents 14.0 request(s)
 ```
 
 
-# Time to submit by minute of 2025 (types by: Hub EECert DC, Hub EEDila):
+# Time to submit by minute of 2025 (types by: HubEECertDC, HubEEDila):
 
 ```
   <1 (   0) │ 
@@ -117,7 +117,7 @@ Scale: each █ represents 20.2 request(s)
 ```
 
 
-# Time to first instruction by day of 2025 (types by: Hub EECert DC, Hub EEDila):
+# Time to first instruction by day of 2025 (types by: HubEECertDC, HubEEDila):
 
 ```
   <1 (   0) │ 
@@ -158,7 +158,7 @@ Scale: each █ represents 22.3 request(s)
 ```
 
  
-# Report of 2024 (types by: Hub EECert DC, Hub EEDila):
+# Report of 2024 (types by: HubEECertDC, HubEEDila):
 
 1684 authorization requests created
 183 reopen events
@@ -174,22 +174,22 @@ Mode time to first instruction: 1 minute
 Standard deviation time to first instruction: 6 jours
 
 
-# Volume of authorization requests by type for 2024 (types by: Hub EECert DC, Hub EEDila):
+# Volume of authorization requests by type for 2024 (types by: HubEECertDC, HubEEDila):
 
 ```
-Hub EECert DC (1145) │ ██████████████████████████████████████████████████
-Hub EEDila    ( 539) │ ████████████████████████
+HubEECertDC (1145) │ ██████████████████████████████████████████████████
+HubEEDila   ( 539) │ ████████████████████████
 
 Total: 1684 authorization requests
 Scale: each █ represents 22.9 request(s)
 ```
 
 
-# Volume of authorization requests by type (validated vs refused) for 2024 (types by: Hub EECert DC, Hub EEDila):
+# Volume of authorization requests by type (validated vs refused) for 2024 (types by: HubEECertDC, HubEEDila):
 
 ```
-Hub EECert DC (V:959 R: 30 T:989) │ ████████████████████████████████████████████████▓▓
-Hub EEDila    (V:349 R: 18 T:367) │ ██████████████████▓
+HubEECertDC (V:959 R: 30 T:989) │ ████████████████████████████████████████████████▓▓
+HubEEDila   (V:349 R: 18 T:367) │ ██████████████████▓
 
 Legend: █ = Validated, ▓ = Refused
 Total: 1308 validated, 48 refused (1356 total)
@@ -197,7 +197,7 @@ Scale: each character represents 19.8 request(s)
 ```
 
 
-# Time to submit by minute of 2024 (types by: Hub EECert DC, Hub EEDila):
+# Time to submit by minute of 2024 (types by: HubEECertDC, HubEEDila):
 
 ```
   <1 (   0) │ 
@@ -268,7 +268,7 @@ Scale: each █ represents 23.3 request(s)
 ```
 
 
-# Time to first instruction by day of 2024 (types by: Hub EECert DC, Hub EEDila):
+# Time to first instruction by day of 2024 (types by: HubEECertDC, HubEEDila):
 
 ```
   <1 (   0) │ 
@@ -309,7 +309,7 @@ Scale: each █ represents 25.6 request(s)
 ```
 
  
-# Report of 2023 (types by: Hub EECert DC, Hub EEDila):
+# Report of 2023 (types by: HubEECertDC, HubEEDila):
 
 2054 authorization requests created
 0 reopen events
@@ -325,22 +325,22 @@ Mode time to first instruction: 8 minutes
 Standard deviation time to first instruction: 17 jours
 
 
-# Volume of authorization requests by type for 2023 (types by: Hub EECert DC, Hub EEDila):
+# Volume of authorization requests by type for 2023 (types by: HubEECertDC, HubEEDila):
 
 ```
-Hub EEDila    (1176) │ ██████████████████████████████████████████████████
-Hub EECert DC ( 878) │ █████████████████████████████████████
+HubEEDila   (1176) │ ██████████████████████████████████████████████████
+HubEECertDC ( 878) │ █████████████████████████████████████
 
 Total: 2054 authorization requests
 Scale: each █ represents 23.5 request(s)
 ```
 
 
-# Volume of authorization requests by type (validated vs refused) for 2023 (types by: Hub EECert DC, Hub EEDila):
+# Volume of authorization requests by type (validated vs refused) for 2023 (types by: HubEECertDC, HubEEDila):
 
 ```
-Hub EEDila    (V:1109 R:  17 T:1126) │ █████████████████████████████████████████████████▓
-Hub EECert DC (V: 776 R:  64 T: 840) │ ██████████████████████████████████▓▓▓
+HubEEDila   (V:1109 R:  17 T:1126) │ █████████████████████████████████████████████████▓
+HubEECertDC (V: 776 R:  64 T: 840) │ ██████████████████████████████████▓▓▓
 
 Legend: █ = Validated, ▓ = Refused
 Total: 1885 validated, 81 refused (1966 total)
@@ -348,7 +348,7 @@ Scale: each character represents 22.5 request(s)
 ```
 
 
-# Time to submit by minute of 2023 (types by: Hub EECert DC, Hub EEDila):
+# Time to submit by minute of 2023 (types by: HubEECertDC, HubEEDila):
 
 ```
   <1 (   0) │ 
@@ -419,7 +419,7 @@ Scale: each █ represents 25.9 request(s)
 ```
 
 
-# Time to first instruction by day of 2023 (types by: Hub EECert DC, Hub EEDila):
+# Time to first instruction by day of 2023 (types by: HubEECertDC, HubEEDila):
 
 ```
   <1 (   0) │ 

@@ -26,21 +26,21 @@ Standard deviation time to first instruction: environ un mois
 # Volume of authorization requests by type for 2025 (provider: dgfip):
 
 ```
-APIR2P                       (85) │ ██████████████████████████████████████████████████
-APIImpot Particulier         (71) │ ██████████████████████████████████████████
-APIFicoba Sandbox            (68) │ ████████████████████████████████████████
-APIINFINOESandbox            (63) │ █████████████████████████████████████
-APIR2PSandbox                (59) │ ███████████████████████████████████
-APIImpot Particulier Sandbox (51) │ ██████████████████████████████
-APISFi P                     (32) │ ███████████████████
-APISFi PSandbox              (31) │ ██████████████████
-APISFi PR2P                  (29) │ █████████████████
-APISFi PR2PSandbox           (23) │ ██████████████
-APIINFINOE                   (21) │ ████████████
-APIRial Sandbox              (13) │ ████████
-APIFicoba                    ( 7) │ ████
-APIRial                      ( 3) │ ██
-APIImprimfip Sandbox         ( 2) │ █
+APIR2P                     (85) │ ██████████████████████████████████████████████████
+APIImpotParticulier        (71) │ ██████████████████████████████████████████
+APIFicobaSandbox           (68) │ ████████████████████████████████████████
+APIINFINOESandbox          (63) │ █████████████████████████████████████
+APIR2PSandbox              (59) │ ███████████████████████████████████
+APIImpotParticulierSandbox (51) │ ██████████████████████████████
+APISFiP                    (32) │ ███████████████████
+APISFiPSandbox             (31) │ ██████████████████
+APISFiPR2P                 (29) │ █████████████████
+APISFiPR2PSandbox          (23) │ ██████████████
+APIINFINOE                 (21) │ ████████████
+APIRialSandbox             (13) │ ████████
+APIFicoba                  ( 7) │ ████
+APIRial                    ( 3) │ ██
+APIImprimfipSandbox        ( 2) │ █
 
 Total: 558 authorization requests
 Scale: each █ represents 1.7 request(s)
@@ -50,18 +50,18 @@ Scale: each █ represents 1.7 request(s)
 # Volume of authorization requests by type (validated vs refused) for 2025 (provider: dgfip):
 
 ```
-APIINFINOESandbox            (V:36 R:19 T:55) │ █████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-APIFicoba Sandbox            (V: 1 R:36 T:37) │ █▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-APIR2PSandbox                (V:13 R:21 T:34) │ ████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-APIImpot Particulier Sandbox (V:10 R:15 T:25) │ █████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-APIImpot Particulier         (V:11 R: 6 T:17) │ ██████████▓▓▓▓▓
-APIR2P                       (V:12 R: 2 T:14) │ ███████████▓▓
-APISFi PSandbox              (V: 9 R: 3 T:12) │ ████████▓▓▓
-APIINFINOE                   (V: 0 R: 9 T: 9) │ ▓▓▓▓▓▓▓▓
-APIRial Sandbox              (V: 6 R: 1 T: 7) │ █████▓
-APISFi P                     (V: 5 R: 2 T: 7) │ █████▓▓
-APISFi PR2PSandbox           (V: 4 R: 2 T: 6) │ ████▓▓
-APISFi PR2P                  (V: 1 R: 3 T: 4) │ █▓▓▓
+APIINFINOESandbox          (V:36 R:19 T:55) │ █████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+APIFicobaSandbox           (V: 1 R:36 T:37) │ █▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+APIR2PSandbox              (V:13 R:21 T:34) │ ████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+APIImpotParticulierSandbox (V:10 R:15 T:25) │ █████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+APIImpotParticulier        (V:11 R: 6 T:17) │ ██████████▓▓▓▓▓
+APIR2P                     (V:12 R: 2 T:14) │ ███████████▓▓
+APISFiPSandbox             (V: 9 R: 3 T:12) │ ████████▓▓▓
+APIINFINOE                 (V: 0 R: 9 T: 9) │ ▓▓▓▓▓▓▓▓
+APIRialSandbox             (V: 6 R: 1 T: 7) │ █████▓
+APISFiP                    (V: 5 R: 2 T: 7) │ █████▓▓
+APISFiPR2PSandbox          (V: 4 R: 2 T: 6) │ ████▓▓
+APISFiPR2P                 (V: 1 R: 3 T: 4) │ █▓▓▓
 
 Legend: █ = Validated, ▓ = Refused
 Total: 108 validated, 119 refused (227 total)
@@ -200,19 +200,19 @@ Standard deviation time to first instruction: 3 mois
 # Volume of authorization requests by type for 2024 (provider: dgfip):
 
 ```
-APIINFINOESandbox            (664) │ ██████████████████████████████████████████████████
-APIINFINOE                   (102) │ ████████
-APIImpot Particulier Sandbox ( 85) │ ██████
-APIR2PSandbox                ( 62) │ █████
-APIFicoba Sandbox            ( 29) │ ██
-APIImpot Particulier         ( 24) │ ██
-APIR2P                       ( 22) │ ██
-APISFi PSandbox              ( 21) │ ██
-APIFicoba                    (  6) │ 
-APISFi P                     (  3) │ 
-APIImprimfip Sandbox         (  2) │ 
-APICpr Pro Adelie Sandbox    (  1) │ 
-APIRial Sandbox              (  1) │ 
+APIINFINOESandbox          (664) │ ██████████████████████████████████████████████████
+APIINFINOE                 (102) │ ████████
+APIImpotParticulierSandbox ( 85) │ ██████
+APIR2PSandbox              ( 62) │ █████
+APIFicobaSandbox           ( 29) │ ██
+APIImpotParticulier        ( 24) │ ██
+APIR2P                     ( 22) │ ██
+APISFiPSandbox             ( 21) │ ██
+APIFicoba                  (  6) │ 
+APISFiP                    (  3) │ 
+APIImprimfipSandbox        (  2) │ 
+APICprProAdelieSandbox     (  1) │ 
+APIRialSandbox             (  1) │ 
 
 Total: 1022 authorization requests
 Scale: each █ represents 13.3 request(s)
@@ -222,17 +222,17 @@ Scale: each █ represents 13.3 request(s)
 # Volume of authorization requests by type (validated vs refused) for 2024 (provider: dgfip):
 
 ```
-APIINFINOESandbox            (V:469 R:143 T:612) │ ██████████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓
-APIImpot Particulier Sandbox (V: 23 R: 28 T: 51) │ ██▓▓
-APIR2PSandbox                (V: 21 R: 22 T: 43) │ ██▓▓
-APIImpot Particulier         (V: 17 R:  2 T: 19) │ █
-APIFicoba Sandbox            (V:  7 R:  8 T: 15) │ █▓
-APISFi PSandbox              (V:  8 R:  6 T: 14) │ █
-APIR2P                       (V: 11 R:  2 T: 13) │ █
-APIINFINOE                   (V:  1 R:  4 T:  5) │ 
-APIFicoba                    (V:  2 R:  0 T:  2) │ 
-APICpr Pro Adelie Sandbox    (V:  0 R:  1 T:  1) │ 
-APISFi P                     (V:  1 R:  0 T:  1) │ 
+APIINFINOESandbox          (V:469 R:143 T:612) │ ██████████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓
+APIImpotParticulierSandbox (V: 23 R: 28 T: 51) │ ██▓▓
+APIR2PSandbox              (V: 21 R: 22 T: 43) │ ██▓▓
+APIImpotParticulier        (V: 17 R:  2 T: 19) │ █
+APIFicobaSandbox           (V:  7 R:  8 T: 15) │ █▓
+APISFiPSandbox             (V:  8 R:  6 T: 14) │ █
+APIR2P                     (V: 11 R:  2 T: 13) │ █
+APIINFINOE                 (V:  1 R:  4 T:  5) │ 
+APIFicoba                  (V:  2 R:  0 T:  2) │ 
+APICprProAdelieSandbox     (V:  0 R:  1 T:  1) │ 
+APISFiP                    (V:  1 R:  0 T:  1) │ 
 
 Legend: █ = Validated, ▓ = Refused
 Total: 560 validated, 216 refused (776 total)
@@ -370,18 +370,18 @@ Standard deviation time to first instruction: 3 mois
 # Volume of authorization requests by type for 2023 (provider: dgfip):
 
 ```
-APIINFINOESandbox            (202) │ ██████████████████████████████████████████████████
-APIImpot Particulier Sandbox (172) │ ███████████████████████████████████████████
-APIR2PSandbox                (106) │ ██████████████████████████
-APIINFINOE                   ( 90) │ ██████████████████████
-APIFicoba Sandbox            ( 65) │ ████████████████
-APIImpot Particulier         ( 56) │ ██████████████
-APIR2P                       ( 18) │ ████
-APISFi PSandbox              ( 11) │ ███
-APISFi P                     (  9) │ ██
-APIFicoba                    (  7) │ ██
-APIOpale Sandbox             (  2) │ 
-APIRobf Sandbox              (  1) │ 
+APIINFINOESandbox          (202) │ ██████████████████████████████████████████████████
+APIImpotParticulierSandbox (172) │ ███████████████████████████████████████████
+APIR2PSandbox              (106) │ ██████████████████████████
+APIINFINOE                 ( 90) │ ██████████████████████
+APIFicobaSandbox           ( 65) │ ████████████████
+APIImpotParticulier        ( 56) │ ██████████████
+APIR2P                     ( 18) │ ████
+APISFiPSandbox             ( 11) │ ███
+APISFiP                    (  9) │ ██
+APIFicoba                  (  7) │ ██
+APIOpaleSandbox            (  2) │ 
+APIRobfSandbox             (  1) │ 
 
 Total: 739 authorization requests
 Scale: each █ represents 4.0 request(s)
@@ -391,16 +391,16 @@ Scale: each █ represents 4.0 request(s)
 # Volume of authorization requests by type (validated vs refused) for 2023 (provider: dgfip):
 
 ```
-APIINFINOESandbox            (V:119 R: 53 T:172) │ ███████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-APIImpot Particulier Sandbox (V: 47 R: 60 T:107) │ ██████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-APIR2PSandbox                (V: 28 R: 47 T: 75) │ ████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-APIFicoba Sandbox            (V: 11 R: 31 T: 42) │ ███▓▓▓▓▓▓▓▓▓
-APIINFINOE                   (V: 41 R:  0 T: 41) │ ████████████
-APIImpot Particulier         (V: 37 R:  2 T: 39) │ ███████████▓
-APIR2P                       (V: 10 R:  1 T: 11) │ ███
-APISFi P                     (V:  8 R:  0 T:  8) │ ██
-APISFi PSandbox              (V:  2 R:  4 T:  6) │ █▓
-APIFicoba                    (V:  3 R:  2 T:  5) │ █▓
+APIINFINOESandbox          (V:119 R: 53 T:172) │ ███████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+APIImpotParticulierSandbox (V: 47 R: 60 T:107) │ ██████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+APIR2PSandbox              (V: 28 R: 47 T: 75) │ ████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+APIFicobaSandbox           (V: 11 R: 31 T: 42) │ ███▓▓▓▓▓▓▓▓▓
+APIINFINOE                 (V: 41 R:  0 T: 41) │ ████████████
+APIImpotParticulier        (V: 37 R:  2 T: 39) │ ███████████▓
+APIR2P                     (V: 10 R:  1 T: 11) │ ███
+APISFiP                    (V:  8 R:  0 T:  8) │ ██
+APISFiPSandbox             (V:  2 R:  4 T:  6) │ █▓
+APIFicoba                  (V:  3 R:  2 T:  5) │ █▓
 
 Legend: █ = Validated, ▓ = Refused
 Total: 306 validated, 200 refused (506 total)

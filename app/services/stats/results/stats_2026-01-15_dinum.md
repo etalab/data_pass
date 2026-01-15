@@ -26,14 +26,14 @@ Standard deviation time to first instruction: 10 jours
 # Volume of authorization requests by type for 2025 (provider: dinum):
 
 ```
-France Connect                (983) │ ██████████████████████████████████████████████████
-APIParticulier                (873) │ ████████████████████████████████████████████
-APIEntreprise                 (433) │ ██████████████████████
-Pro Connect Service Provider  (180) │ █████████
-Formulaire QF                 ( 99) │ █████
-Annuaire Des Entreprises      ( 95) │ █████
-Pro Connect Identity Provider ( 25) │ █
-Le Taxi                       ( 15) │ █
+FranceConnect              (983) │ ██████████████████████████████████████████████████
+APIParticulier             (873) │ ████████████████████████████████████████████
+APIEntreprise              (433) │ ██████████████████████
+ProConnectServiceProvider  (180) │ █████████
+FormulaireQF               ( 99) │ █████
+AnnuaireDesEntreprises     ( 95) │ █████
+ProConnectIdentityProvider ( 25) │ █
+LeTaxi                     ( 15) │ █
 
 Total: 2703 authorization requests
 Scale: each █ represents 19.7 request(s)
@@ -43,14 +43,14 @@ Scale: each █ represents 19.7 request(s)
 # Volume of authorization requests by type (validated vs refused) for 2025 (provider: dinum):
 
 ```
-France Connect                (V:477 R:177 T:654) │ ████████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-APIParticulier                (V:480 R: 22 T:502) │ █████████████████████████████████████▓▓
-APIEntreprise                 (V:109 R: 64 T:173) │ ████████▓▓▓▓▓
-Pro Connect Service Provider  (V: 96 R: 10 T:106) │ ███████▓
-Formulaire QF                 (V: 59 R:  2 T: 61) │ █████
-Annuaire Des Entreprises      (V: 47 R:  8 T: 55) │ ████▓
-Pro Connect Identity Provider (V: 17 R:  0 T: 17) │ █
-Le Taxi                       (V:  1 R:  0 T:  1) │ 
+FranceConnect              (V:477 R:177 T:654) │ ████████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+APIParticulier             (V:480 R: 22 T:502) │ █████████████████████████████████████▓▓
+APIEntreprise              (V:109 R: 64 T:173) │ ████████▓▓▓▓▓
+ProConnectServiceProvider  (V: 96 R: 10 T:106) │ ███████▓
+FormulaireQF               (V: 59 R:  2 T: 61) │ █████
+AnnuaireDesEntreprises     (V: 47 R:  8 T: 55) │ ████▓
+ProConnectIdentityProvider (V: 17 R:  0 T: 17) │ █
+LeTaxi                     (V:  1 R:  0 T:  1) │ 
 
 Legend: █ = Validated, ▓ = Refused
 Total: 1286 validated, 283 refused (1569 total)
@@ -189,13 +189,13 @@ Standard deviation time to first instruction: 13 jours
 # Volume of authorization requests by type for 2024 (provider: dinum):
 
 ```
-APIParticulier                (845) │ ██████████████████████████████████████████████████
-France Connect                (796) │ ███████████████████████████████████████████████
-APIEntreprise                 (425) │ █████████████████████████
-Pro Connect Service Provider  ( 98) │ ██████
-Pro Connect Identity Provider ( 26) │ ██
-Le Taxi                       ( 23) │ █
-Formulaire QF                 (  5) │ 
+APIParticulier             (845) │ ██████████████████████████████████████████████████
+FranceConnect              (796) │ ███████████████████████████████████████████████
+APIEntreprise              (425) │ █████████████████████████
+ProConnectServiceProvider  ( 98) │ ██████
+ProConnectIdentityProvider ( 26) │ ██
+LeTaxi                     ( 23) │ █
+FormulaireQF               (  5) │ 
 
 Total: 2218 authorization requests
 Scale: each █ represents 16.9 request(s)
@@ -205,13 +205,13 @@ Scale: each █ represents 16.9 request(s)
 # Volume of authorization requests by type (validated vs refused) for 2024 (provider: dinum):
 
 ```
-France Connect                (V:347 R:162 T:509) │ ██████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-APIParticulier                (V:449 R: 48 T:497) │ ████████████████████████████████████████████▓▓▓▓▓
-APIEntreprise                 (V:116 R: 49 T:165) │ ███████████▓▓▓▓▓
-Pro Connect Service Provider  (V: 49 R:  2 T: 51) │ █████
-Pro Connect Identity Provider (V: 15 R:  1 T: 16) │ █
-Le Taxi                       (V: 12 R:  0 T: 12) │ █
-Formulaire QF                 (V:  2 R:  0 T:  2) │ 
+FranceConnect              (V:347 R:162 T:509) │ ██████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+APIParticulier             (V:449 R: 48 T:497) │ ████████████████████████████████████████████▓▓▓▓▓
+APIEntreprise              (V:116 R: 49 T:165) │ ███████████▓▓▓▓▓
+ProConnectServiceProvider  (V: 49 R:  2 T: 51) │ █████
+ProConnectIdentityProvider (V: 15 R:  1 T: 16) │ █
+LeTaxi                     (V: 12 R:  0 T: 12) │ █
+FormulaireQF               (V:  2 R:  0 T:  2) │ 
 
 Legend: █ = Validated, ▓ = Refused
 Total: 990 validated, 262 refused (1252 total)
@@ -350,12 +350,12 @@ Standard deviation time to first instruction: 18 jours
 # Volume of authorization requests by type for 2023 (provider: dinum):
 
 ```
-France Connect                (720) │ ██████████████████████████████████████████████████
-APIParticulier                (638) │ ████████████████████████████████████████████
-APIEntreprise                 (312) │ ██████████████████████
-Le Taxi                       ( 45) │ ███
-Pro Connect Service Provider  ( 42) │ ███
-Pro Connect Identity Provider ( 17) │ █
+FranceConnect              (720) │ ██████████████████████████████████████████████████
+APIParticulier             (638) │ ████████████████████████████████████████████
+APIEntreprise              (312) │ ██████████████████████
+LeTaxi                     ( 45) │ ███
+ProConnectServiceProvider  ( 42) │ ███
+ProConnectIdentityProvider ( 17) │ █
 
 Total: 1774 authorization requests
 Scale: each █ represents 14.4 request(s)
@@ -365,12 +365,12 @@ Scale: each █ represents 14.4 request(s)
 # Volume of authorization requests by type (validated vs refused) for 2023 (provider: dinum):
 
 ```
-France Connect                (V:329 R:127 T:456) │ ████████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-APIParticulier                (V:399 R: 22 T:421) │ ████████████████████████████████████████████▓▓
-APIEntreprise                 (V:164 R: 52 T:216) │ ██████████████████▓▓▓▓▓▓
-Pro Connect Service Provider  (V: 21 R: 10 T: 31) │ ██▓
-Le Taxi                       (V: 19 R:  0 T: 19) │ ██
-Pro Connect Identity Provider (V: 14 R:  0 T: 14) │ ██
+FranceConnect              (V:329 R:127 T:456) │ ████████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+APIParticulier             (V:399 R: 22 T:421) │ ████████████████████████████████████████████▓▓
+APIEntreprise              (V:164 R: 52 T:216) │ ██████████████████▓▓▓▓▓▓
+ProConnectServiceProvider  (V: 21 R: 10 T: 31) │ ██▓
+LeTaxi                     (V: 19 R:  0 T: 19) │ ██
+ProConnectIdentityProvider (V: 14 R:  0 T: 14) │ ██
 
 Legend: █ = Validated, ▓ = Refused
 Total: 946 validated, 211 refused (1157 total)

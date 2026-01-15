@@ -269,8 +269,8 @@ module Stats
     end
 
     def format_type_name(type_name)
-      # Add space before capitals but preserve consecutive capitals (acronyms)
-      type_name.gsub(/([a-z])([A-Z])/, '\1 \2')
+      # Return type name as-is without adding spaces
+      type_name
     end
 
     def date_range_is_a_year(date_range)
