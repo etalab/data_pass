@@ -402,11 +402,11 @@ module Stats
       
       lines = []
       
-      # Find the maximum width needed for labels and counts
+      # Find the maximum width needed for labels
       max_label_width = items.map { |i| i[:label].to_s.length }.max
-      max_count_width = items.map { |i| [i[:validated], i[:refused], i[:total]].map(&:to_s).map(&:length).max }.max
+      max_total_width = items.map { |i| i[:total].to_s.length }.max
       
-      # Build bars with counts on the left
+      # Build bars with total count and percentages
       items.each do |item|
         validated_length = (item[:validated] * scale).round
         refused_length = (item[:refused] * scale).round
@@ -414,12 +414,15 @@ module Stats
         validated_bar = "█" * validated_length
         refused_bar = "▓" * refused_length
         
-        label = item[:label].to_s.ljust(max_label_width)
-        validated_count = item[:validated].to_s.rjust(max_count_width)
-        refused_count = item[:refused].to_s.rjust(max_count_width)
-        total_count = item[:total].to_s.rjust(max_count_width)
+        # Calculate percentages
+        total = item[:total]
+        validated_pct = total > 0 ? (item[:validated].to_f / total * 100).round(1) : 0
+        refused_pct = total > 0 ? (item[:refused].to_f / total * 100).round(1) : 0
         
-        lines << "#{label} (V:#{validated_count} R:#{refused_count} T:#{total_count}) │ #{validated_bar}#{refused_bar}"
+        label = item[:label].to_s.ljust(max_label_width)
+        total_str = total.to_s.rjust(max_total_width)
+        
+        lines << "#{label} (#{total_str}: #{validated_pct.to_s.rjust(5)}%V #{refused_pct.to_s.rjust(5)}%R) │ #{validated_bar}#{refused_bar}"
       end
       
       lines << ""

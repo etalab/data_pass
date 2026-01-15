@@ -50,18 +50,18 @@ Scale: each █ represents 1.7 request(s)
 # Volume of authorization requests by type (validated vs refused) for 2025 (provider: dgfip):
 
 ```
-APIINFINOESandbox          (V:36 R:19 T:55) │ █████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-APIFicobaSandbox           (V: 1 R:36 T:37) │ █▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-APIR2PSandbox              (V:13 R:21 T:34) │ ████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-APIImpotParticulierSandbox (V:10 R:15 T:25) │ █████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-APIImpotParticulier        (V:11 R: 6 T:17) │ ██████████▓▓▓▓▓
-APIR2P                     (V:12 R: 2 T:14) │ ███████████▓▓
-APISFiPSandbox             (V: 9 R: 3 T:12) │ ████████▓▓▓
-APIINFINOE                 (V: 0 R: 9 T: 9) │ ▓▓▓▓▓▓▓▓
-APIRialSandbox             (V: 6 R: 1 T: 7) │ █████▓
-APISFiP                    (V: 5 R: 2 T: 7) │ █████▓▓
-APISFiPR2PSandbox          (V: 4 R: 2 T: 6) │ ████▓▓
-APISFiPR2P                 (V: 1 R: 3 T: 4) │ █▓▓▓
+APIINFINOESandbox          (55:  65.5%V  34.5%R) │ █████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+APIFicobaSandbox           (37:   2.7%V  97.3%R) │ █▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+APIR2PSandbox              (34:  38.2%V  61.8%R) │ ████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+APIImpotParticulierSandbox (25:  40.0%V  60.0%R) │ █████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+APIImpotParticulier        (17:  64.7%V  35.3%R) │ ██████████▓▓▓▓▓
+APIR2P                     (14:  85.7%V  14.3%R) │ ███████████▓▓
+APISFiPSandbox             (12:  75.0%V  25.0%R) │ ████████▓▓▓
+APIINFINOE                 ( 9:   0.0%V 100.0%R) │ ▓▓▓▓▓▓▓▓
+APIRialSandbox             ( 7:  85.7%V  14.3%R) │ █████▓
+APISFiP                    ( 7:  71.4%V  28.6%R) │ █████▓▓
+APISFiPR2PSandbox          ( 6:  66.7%V  33.3%R) │ ████▓▓
+APISFiPR2P                 ( 4:  25.0%V  75.0%R) │ █▓▓▓
 
 Legend: █ = Validated, ▓ = Refused
 Total: 108 validated, 119 refused (227 total)
@@ -222,17 +222,17 @@ Scale: each █ represents 13.3 request(s)
 # Volume of authorization requests by type (validated vs refused) for 2024 (provider: dgfip):
 
 ```
-APIINFINOESandbox          (V:469 R:143 T:612) │ ██████████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓
-APIImpotParticulierSandbox (V: 23 R: 28 T: 51) │ ██▓▓
-APIR2PSandbox              (V: 21 R: 22 T: 43) │ ██▓▓
-APIImpotParticulier        (V: 17 R:  2 T: 19) │ █
-APIFicobaSandbox           (V:  7 R:  8 T: 15) │ █▓
-APISFiPSandbox             (V:  8 R:  6 T: 14) │ █
-APIR2P                     (V: 11 R:  2 T: 13) │ █
-APIINFINOE                 (V:  1 R:  4 T:  5) │ 
-APIFicoba                  (V:  2 R:  0 T:  2) │ 
-APICprProAdelieSandbox     (V:  0 R:  1 T:  1) │ 
-APISFiP                    (V:  1 R:  0 T:  1) │ 
+APIINFINOESandbox          (612:  76.6%V  23.4%R) │ ██████████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓
+APIImpotParticulierSandbox ( 51:  45.1%V  54.9%R) │ ██▓▓
+APIR2PSandbox              ( 43:  48.8%V  51.2%R) │ ██▓▓
+APIImpotParticulier        ( 19:  89.5%V  10.5%R) │ █
+APIFicobaSandbox           ( 15:  46.7%V  53.3%R) │ █▓
+APISFiPSandbox             ( 14:  57.1%V  42.9%R) │ █
+APIR2P                     ( 13:  84.6%V  15.4%R) │ █
+APIINFINOE                 (  5:  20.0%V  80.0%R) │ 
+APIFicoba                  (  2: 100.0%V   0.0%R) │ 
+APICprProAdelieSandbox     (  1:   0.0%V 100.0%R) │ 
+APISFiP                    (  1: 100.0%V   0.0%R) │ 
 
 Legend: █ = Validated, ▓ = Refused
 Total: 560 validated, 216 refused (776 total)
@@ -391,16 +391,16 @@ Scale: each █ represents 4.0 request(s)
 # Volume of authorization requests by type (validated vs refused) for 2023 (provider: dgfip):
 
 ```
-APIINFINOESandbox          (V:119 R: 53 T:172) │ ███████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-APIImpotParticulierSandbox (V: 47 R: 60 T:107) │ ██████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-APIR2PSandbox              (V: 28 R: 47 T: 75) │ ████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-APIFicobaSandbox           (V: 11 R: 31 T: 42) │ ███▓▓▓▓▓▓▓▓▓
-APIINFINOE                 (V: 41 R:  0 T: 41) │ ████████████
-APIImpotParticulier        (V: 37 R:  2 T: 39) │ ███████████▓
-APIR2P                     (V: 10 R:  1 T: 11) │ ███
-APISFiP                    (V:  8 R:  0 T:  8) │ ██
-APISFiPSandbox             (V:  2 R:  4 T:  6) │ █▓
-APIFicoba                  (V:  3 R:  2 T:  5) │ █▓
+APIINFINOESandbox          (172:  69.2%V  30.8%R) │ ███████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+APIImpotParticulierSandbox (107:  43.9%V  56.1%R) │ ██████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+APIR2PSandbox              ( 75:  37.3%V  62.7%R) │ ████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+APIFicobaSandbox           ( 42:  26.2%V  73.8%R) │ ███▓▓▓▓▓▓▓▓▓
+APIINFINOE                 ( 41: 100.0%V   0.0%R) │ ████████████
+APIImpotParticulier        ( 39:  94.9%V   5.1%R) │ ███████████▓
+APIR2P                     ( 11:  90.9%V   9.1%R) │ ███
+APISFiP                    (  8: 100.0%V   0.0%R) │ ██
+APISFiPSandbox             (  6:  33.3%V  66.7%R) │ █▓
+APIFicoba                  (  5:  60.0%V  40.0%R) │ █▓
 
 Legend: █ = Validated, ▓ = Refused
 Total: 306 validated, 200 refused (506 total)

@@ -37,8 +37,8 @@ Scale: each █ represents 17.3 request(s)
 # Volume of authorization requests by type (validated vs refused) for 2025 (types by: HubEECertDC, HubEEDila):
 
 ```
-HubEECertDC (V:690 R: 11 T:701) │ █████████████████████████████████████████████████▓
-HubEEDila   (V:312 R:  6 T:318) │ ██████████████████████
+HubEECertDC (701:  98.4%V   1.6%R) │ █████████████████████████████████████████████████▓
+HubEEDila   (318:  98.1%V   1.9%R) │ ██████████████████████
 
 Legend: █ = Validated, ▓ = Refused
 Total: 1002 validated, 17 refused (1019 total)
@@ -188,8 +188,8 @@ Scale: each █ represents 22.9 request(s)
 # Volume of authorization requests by type (validated vs refused) for 2024 (types by: HubEECertDC, HubEEDila):
 
 ```
-HubEECertDC (V:959 R: 30 T:989) │ ████████████████████████████████████████████████▓▓
-HubEEDila   (V:349 R: 18 T:367) │ ██████████████████▓
+HubEECertDC (989:  97.0%V   3.0%R) │ ████████████████████████████████████████████████▓▓
+HubEEDila   (367:  95.1%V   4.9%R) │ ██████████████████▓
 
 Legend: █ = Validated, ▓ = Refused
 Total: 1308 validated, 48 refused (1356 total)
@@ -339,8 +339,8 @@ Scale: each █ represents 23.5 request(s)
 # Volume of authorization requests by type (validated vs refused) for 2023 (types by: HubEECertDC, HubEEDila):
 
 ```
-HubEEDila   (V:1109 R:  17 T:1126) │ █████████████████████████████████████████████████▓
-HubEECertDC (V: 776 R:  64 T: 840) │ ██████████████████████████████████▓▓▓
+HubEEDila   (1126:  98.5%V   1.5%R) │ █████████████████████████████████████████████████▓
+HubEECertDC ( 840:  92.4%V   7.6%R) │ ██████████████████████████████████▓▓▓
 
 Legend: █ = Validated, ▓ = Refused
 Total: 1885 validated, 81 refused (1966 total)

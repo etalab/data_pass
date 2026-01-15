@@ -69,35 +69,35 @@ Scale: each █ represents 19.7 request(s)
 # Volume of authorization requests by type (validated vs refused) for 2025:
 
 ```
-HubEECertDC                    (V:690 R: 11 T:701) │ █████████████████████████████████████████████████▓
-FranceConnect                  (V:477 R:177 T:654) │ ██████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓
-APIParticulier                 (V:480 R: 22 T:502) │ ██████████████████████████████████▓▓
-HubEEDila                      (V:312 R:  6 T:318) │ ██████████████████████
-APIProSanteConnect             (V:279 R: 11 T:290) │ ████████████████████▓
-APIEntreprise                  (V:109 R: 64 T:173) │ ████████▓▓▓▓▓
-ProConnectServiceProvider      (V: 96 R: 10 T:106) │ ███████▓
-FormulaireQF                   (V: 59 R:  2 T: 61) │ ████
-APIINFINOESandbox              (V: 36 R: 19 T: 55) │ ███▓
-AnnuaireDesEntreprises         (V: 47 R:  8 T: 55) │ ███▓
-APIDeclarationCESU             (V:  9 R: 46 T: 55) │ █▓▓▓
-APICaptchEtat                  (V: 48 R:  2 T: 50) │ ███
-APIFicobaSandbox               (V:  1 R: 36 T: 37) │ ▓▓▓
-APIR2PSandbox                  (V: 13 R: 21 T: 34) │ █▓
-APIDeclarationAutoEntrepreneur (V:  8 R: 23 T: 31) │ █▓▓
-APIImpotParticulierSandbox     (V: 10 R: 15 T: 25) │ █▓
-ProConnectIdentityProvider     (V: 17 R:  0 T: 17) │ █
-APIImpotParticulier            (V: 11 R:  6 T: 17) │ █
-APIR2P                         (V: 12 R:  2 T: 14) │ █
-APISFiPSandbox                 (V:  9 R:  3 T: 12) │ █
-APIINFINOE                     (V:  0 R:  9 T:  9) │ ▓
-APISFiP                        (V:  5 R:  2 T:  7) │ 
-APIRialSandbox                 (V:  6 R:  1 T:  7) │ 
-APISFiPR2PSandbox              (V:  4 R:  2 T:  6) │ 
-APIIngres                      (V:  6 R:  0 T:  6) │ 
-APISFiPR2P                     (V:  1 R:  3 T:  4) │ 
-APIScolarite                   (V:  3 R:  0 T:  3) │ 
-APIMobilic                     (V:  3 R:  0 T:  3) │ 
-LeTaxi                         (V:  1 R:  0 T:  1) │ 
+HubEECertDC                    (701:  98.4%V   1.6%R) │ █████████████████████████████████████████████████▓
+FranceConnect                  (654:  72.9%V  27.1%R) │ ██████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓
+APIParticulier                 (502:  95.6%V   4.4%R) │ ██████████████████████████████████▓▓
+HubEEDila                      (318:  98.1%V   1.9%R) │ ██████████████████████
+APIProSanteConnect             (290:  96.2%V   3.8%R) │ ████████████████████▓
+APIEntreprise                  (173:  63.0%V  37.0%R) │ ████████▓▓▓▓▓
+ProConnectServiceProvider      (106:  90.6%V   9.4%R) │ ███████▓
+FormulaireQF                   ( 61:  96.7%V   3.3%R) │ ████
+APIINFINOESandbox              ( 55:  65.5%V  34.5%R) │ ███▓
+AnnuaireDesEntreprises         ( 55:  85.5%V  14.5%R) │ ███▓
+APIDeclarationCESU             ( 55:  16.4%V  83.6%R) │ █▓▓▓
+APICaptchEtat                  ( 50:  96.0%V   4.0%R) │ ███
+APIFicobaSandbox               ( 37:   2.7%V  97.3%R) │ ▓▓▓
+APIR2PSandbox                  ( 34:  38.2%V  61.8%R) │ █▓
+APIDeclarationAutoEntrepreneur ( 31:  25.8%V  74.2%R) │ █▓▓
+APIImpotParticulierSandbox     ( 25:  40.0%V  60.0%R) │ █▓
+ProConnectIdentityProvider     ( 17: 100.0%V   0.0%R) │ █
+APIImpotParticulier            ( 17:  64.7%V  35.3%R) │ █
+APIR2P                         ( 14:  85.7%V  14.3%R) │ █
+APISFiPSandbox                 ( 12:  75.0%V  25.0%R) │ █
+APIINFINOE                     (  9:   0.0%V 100.0%R) │ ▓
+APISFiP                        (  7:  71.4%V  28.6%R) │ 
+APIRialSandbox                 (  7:  85.7%V  14.3%R) │ 
+APISFiPR2PSandbox              (  6:  66.7%V  33.3%R) │ 
+APIIngres                      (  6: 100.0%V   0.0%R) │ 
+APISFiPR2P                     (  4:  25.0%V  75.0%R) │ 
+APIScolarite                   (  3: 100.0%V   0.0%R) │ 
+APIMobilic                     (  3: 100.0%V   0.0%R) │ 
+LeTaxi                         (  1: 100.0%V   0.0%R) │ 
 
 Legend: █ = Validated, ▓ = Refused
 Total: 2752 validated, 501 refused (3253 total)
@@ -274,32 +274,32 @@ Scale: each █ represents 22.9 request(s)
 # Volume of authorization requests by type (validated vs refused) for 2024:
 
 ```
-HubEECertDC                    (V:959 R: 30 T:989) │ ████████████████████████████████████████████████▓▓
-APIINFINOESandbox              (V:469 R:143 T:612) │ ████████████████████████▓▓▓▓▓▓▓
-FranceConnect                  (V:347 R:162 T:509) │ ██████████████████▓▓▓▓▓▓▓▓
-APIParticulier                 (V:449 R: 48 T:497) │ ███████████████████████▓▓
-HubEEDila                      (V:349 R: 18 T:367) │ ██████████████████▓
-APIProSanteConnect             (V:243 R: 75 T:318) │ ████████████▓▓▓▓
-APIEntreprise                  (V:116 R: 49 T:165) │ ██████▓▓
-APIDeclarationCESU             (V: 14 R: 79 T: 93) │ █▓▓▓▓
-APICaptchEtat                  (V: 78 R:  0 T: 78) │ ████
-ProConnectServiceProvider      (V: 49 R:  2 T: 51) │ ██
-APIImpotParticulierSandbox     (V: 23 R: 28 T: 51) │ █▓
-APIDeclarationAutoEntrepreneur (V:  5 R: 41 T: 46) │ ▓▓
-APIR2PSandbox                  (V: 21 R: 22 T: 43) │ █▓
-APIImpotParticulier            (V: 17 R:  2 T: 19) │ █
-ProConnectIdentityProvider     (V: 15 R:  1 T: 16) │ █
-APIFicobaSandbox               (V:  7 R:  8 T: 15) │ 
-APISFiPSandbox                 (V:  8 R:  6 T: 14) │ 
-APIR2P                         (V: 11 R:  2 T: 13) │ █
-LeTaxi                         (V: 12 R:  0 T: 12) │ █
-APIIngres                      (V:  2 R:  3 T:  5) │ 
-APIScolarite                   (V:  5 R:  0 T:  5) │ 
-APIINFINOE                     (V:  1 R:  4 T:  5) │ 
-APIFicoba                      (V:  2 R:  0 T:  2) │ 
-FormulaireQF                   (V:  2 R:  0 T:  2) │ 
-APISFiP                        (V:  1 R:  0 T:  1) │ 
-APICprProAdelieSandbox         (V:  0 R:  1 T:  1) │ 
+HubEECertDC                    (989:  97.0%V   3.0%R) │ ████████████████████████████████████████████████▓▓
+APIINFINOESandbox              (612:  76.6%V  23.4%R) │ ████████████████████████▓▓▓▓▓▓▓
+FranceConnect                  (509:  68.2%V  31.8%R) │ ██████████████████▓▓▓▓▓▓▓▓
+APIParticulier                 (497:  90.3%V   9.7%R) │ ███████████████████████▓▓
+HubEEDila                      (367:  95.1%V   4.9%R) │ ██████████████████▓
+APIProSanteConnect             (318:  76.4%V  23.6%R) │ ████████████▓▓▓▓
+APIEntreprise                  (165:  70.3%V  29.7%R) │ ██████▓▓
+APIDeclarationCESU             ( 93:  15.1%V  84.9%R) │ █▓▓▓▓
+APICaptchEtat                  ( 78: 100.0%V   0.0%R) │ ████
+ProConnectServiceProvider      ( 51:  96.1%V   3.9%R) │ ██
+APIImpotParticulierSandbox     ( 51:  45.1%V  54.9%R) │ █▓
+APIDeclarationAutoEntrepreneur ( 46:  10.9%V  89.1%R) │ ▓▓
+APIR2PSandbox                  ( 43:  48.8%V  51.2%R) │ █▓
+APIImpotParticulier            ( 19:  89.5%V  10.5%R) │ █
+ProConnectIdentityProvider     ( 16:  93.8%V   6.3%R) │ █
+APIFicobaSandbox               ( 15:  46.7%V  53.3%R) │ 
+APISFiPSandbox                 ( 14:  57.1%V  42.9%R) │ 
+APIR2P                         ( 13:  84.6%V  15.4%R) │ █
+LeTaxi                         ( 12: 100.0%V   0.0%R) │ █
+APIIngres                      (  5:  40.0%V  60.0%R) │ 
+APIScolarite                   (  5: 100.0%V   0.0%R) │ 
+APIINFINOE                     (  5:  20.0%V  80.0%R) │ 
+APIFicoba                      (  2: 100.0%V   0.0%R) │ 
+FormulaireQF                   (  2: 100.0%V   0.0%R) │ 
+APISFiP                        (  1: 100.0%V   0.0%R) │ 
+APICprProAdelieSandbox         (  1:   0.0%V 100.0%R) │ 
 
 Legend: █ = Validated, ▓ = Refused
 Total: 3205 validated, 724 refused (3929 total)
@@ -474,29 +474,29 @@ Scale: each █ represents 23.5 request(s)
 # Volume of authorization requests by type (validated vs refused) for 2023:
 
 ```
-HubEEDila                      (V:1109 R:  17 T:1126) │ █████████████████████████████████████████████████▓
-HubEECertDC                    (V: 776 R:  64 T: 840) │ ██████████████████████████████████▓▓▓
-FranceConnect                  (V: 329 R: 127 T: 456) │ ███████████████▓▓▓▓▓▓
-APIParticulier                 (V: 399 R:  22 T: 421) │ ██████████████████▓
-APIProSanteConnect             (V: 255 R:  26 T: 281) │ ███████████▓
-APIEntreprise                  (V: 164 R:  52 T: 216) │ ███████▓▓
-APIINFINOESandbox              (V: 119 R:  53 T: 172) │ █████▓▓
-APIDeclarationCESU             (V:   7 R: 102 T: 109) │ ▓▓▓▓▓
-APIImpotParticulierSandbox     (V:  47 R:  60 T: 107) │ ██▓▓▓
-APICaptchEtat                  (V:  83 R:   0 T:  83) │ ████
-APIR2PSandbox                  (V:  28 R:  47 T:  75) │ █▓▓
-APIFicobaSandbox               (V:  11 R:  31 T:  42) │ ▓
-APIINFINOE                     (V:  41 R:   0 T:  41) │ ██
-APIImpotParticulier            (V:  37 R:   2 T:  39) │ ██
-ProConnectServiceProvider      (V:  21 R:  10 T:  31) │ █
-APIDeclarationAutoEntrepreneur (V:   9 R:  17 T:  26) │ ▓
-LeTaxi                         (V:  19 R:   0 T:  19) │ █
-ProConnectIdentityProvider     (V:  14 R:   0 T:  14) │ █
-APIIngres                      (V:   6 R:   6 T:  12) │ 
-APIR2P                         (V:  10 R:   1 T:  11) │ 
-APISFiP                        (V:   8 R:   0 T:   8) │ 
-APISFiPSandbox                 (V:   2 R:   4 T:   6) │ 
-APIFicoba                      (V:   3 R:   2 T:   5) │ 
+HubEEDila                      (1126:  98.5%V   1.5%R) │ █████████████████████████████████████████████████▓
+HubEECertDC                    ( 840:  92.4%V   7.6%R) │ ██████████████████████████████████▓▓▓
+FranceConnect                  ( 456:  72.1%V  27.9%R) │ ███████████████▓▓▓▓▓▓
+APIParticulier                 ( 421:  94.8%V   5.2%R) │ ██████████████████▓
+APIProSanteConnect             ( 281:  90.7%V   9.3%R) │ ███████████▓
+APIEntreprise                  ( 216:  75.9%V  24.1%R) │ ███████▓▓
+APIINFINOESandbox              ( 172:  69.2%V  30.8%R) │ █████▓▓
+APIDeclarationCESU             ( 109:   6.4%V  93.6%R) │ ▓▓▓▓▓
+APIImpotParticulierSandbox     ( 107:  43.9%V  56.1%R) │ ██▓▓▓
+APICaptchEtat                  (  83: 100.0%V   0.0%R) │ ████
+APIR2PSandbox                  (  75:  37.3%V  62.7%R) │ █▓▓
+APIFicobaSandbox               (  42:  26.2%V  73.8%R) │ ▓
+APIINFINOE                     (  41: 100.0%V   0.0%R) │ ██
+APIImpotParticulier            (  39:  94.9%V   5.1%R) │ ██
+ProConnectServiceProvider      (  31:  67.7%V  32.3%R) │ █
+APIDeclarationAutoEntrepreneur (  26:  34.6%V  65.4%R) │ ▓
+LeTaxi                         (  19: 100.0%V   0.0%R) │ █
+ProConnectIdentityProvider     (  14: 100.0%V   0.0%R) │ █
+APIIngres                      (  12:  50.0%V  50.0%R) │ 
+APIR2P                         (  11:  90.9%V   9.1%R) │ 
+APISFiP                        (   8: 100.0%V   0.0%R) │ 
+APISFiPSandbox                 (   6:  33.3%V  66.7%R) │ 
+APIFicoba                      (   5:  60.0%V  40.0%R) │ 
 
 Legend: █ = Validated, ▓ = Refused
 Total: 3497 validated, 643 refused (4140 total)

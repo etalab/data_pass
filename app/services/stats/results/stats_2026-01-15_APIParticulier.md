@@ -36,7 +36,7 @@ Scale: each █ represents 17.5 request(s)
 # Volume of authorization requests by type (validated vs refused) for 2025 (types by: APIParticulier):
 
 ```
-APIParticulier (V:480 R: 22 T:502) │ ████████████████████████████████████████████████▓▓
+APIParticulier (502:  95.6%V   4.4%R) │ ████████████████████████████████████████████████▓▓
 
 Legend: █ = Validated, ▓ = Refused
 Total: 480 validated, 22 refused (502 total)
@@ -185,7 +185,7 @@ Scale: each █ represents 16.9 request(s)
 # Volume of authorization requests by type (validated vs refused) for 2024 (types by: APIParticulier):
 
 ```
-APIParticulier (V:449 R: 48 T:497) │ █████████████████████████████████████████████▓▓▓▓▓
+APIParticulier (497:  90.3%V   9.7%R) │ █████████████████████████████████████████████▓▓▓▓▓
 
 Legend: █ = Validated, ▓ = Refused
 Total: 449 validated, 48 refused (497 total)
@@ -334,7 +334,7 @@ Scale: each █ represents 12.8 request(s)
 # Volume of authorization requests by type (validated vs refused) for 2023 (types by: APIParticulier):
 
 ```
-APIParticulier (V:399 R: 22 T:421) │ ███████████████████████████████████████████████▓▓▓
+APIParticulier (421:  94.8%V   5.2%R) │ ███████████████████████████████████████████████▓▓▓
 
 Legend: █ = Validated, ▓ = Refused
 Total: 399 validated, 22 refused (421 total)
