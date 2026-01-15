@@ -252,18 +252,10 @@ module Stats
 
       puts "\n# Median time to first instruction by type for #{human_readable_date_range}#{type_filter_label}:\n\n"
       
-      # Format data for bar chart - convert seconds to human readable
-      max_time = data.map { |item| item[:median_time] }.max
-      median_time = data.map { |item| item[:median_time] }.sort[data.length / 2]
-      
-      # Find appropriate unit based on median rather than max to avoid outlier bias
-      unit, divisor = if median_time > 2 * 86400
-        ["days", 86400.0]
-      elsif median_time > 90 * 60
-        ["hours", 3600.0]
-      else
-        ["minutes", 60.0]
-      end
+      # Format data for bar chart - convert seconds to days
+      # Time to first instruction is typically in days range
+      unit = "days"
+      divisor = 86400.0
       
       buckets = data.map do |item|
         {

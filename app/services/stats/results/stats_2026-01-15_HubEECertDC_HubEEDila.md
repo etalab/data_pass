@@ -128,8 +128,8 @@ Scale: each █ represents 20.2 request(s)
 # Median time to first instruction by type for 2025 (types by: HubEECertDC, HubEEDila):
 
 ```
-HubEECertDC ( 1.1 hours, n=971) │ █
-HubEEDila   (28.7 hours, n=766) │ █████████████████████████████
+HubEECertDC (0.0 days, n=971) │ 
+HubEEDila   (1.2 days, n=766) │ █
 
 Total: 1737 authorization requests
 ```
@@ -299,8 +299,8 @@ Scale: each █ represents 23.3 request(s)
 # Median time to first instruction by type for 2024 (types by: HubEECertDC, HubEEDila):
 
 ```
-HubEECertDC ( 3.7 hours, n=1345) │ ████
-HubEEDila   (41.8 hours, n= 905) │ ██████████████████████████████████████████
+HubEECertDC (0.2 days, n=1345) │ 
+HubEEDila   (1.7 days, n= 905) │ ██
 
 Total: 2250 authorization requests
 ```
@@ -467,8 +467,8 @@ Scale: each █ represents 25.9 request(s)
 # Median time to first instruction by type for 2023 (types by: HubEECertDC, HubEEDila):
 
 ```
-HubEECertDC (17.2 hours, n=1551) │ █████████████████
-HubEEDila   (24.2 hours, n=1340) │ ████████████████████████
+HubEECertDC (0.7 days, n=1551) │ █
+HubEEDila   (1.0 days, n=1340) │ █
 
 Total: 2891 authorization requests
 ```
