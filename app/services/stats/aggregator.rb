@@ -9,32 +9,15 @@ module Stats
     end
 
     def median_time_to_submit
-      result = authorizations_with_first_create_and_submit_events
-        .pluck(Arel.sql("PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY EXTRACT(EPOCH FROM (first_submit_events.event_time - first_create_events.event_time)))"))
-        .first
-      
-      result&.to_f
+      calculate_percentile(authorizations_with_first_create_and_submit_events, time_difference_sql('first_submit_events', 'first_create_events'))
     end
 
     def stddev_time_to_submit
-      result = authorizations_with_first_create_and_submit_events
-        .pluck(Arel.sql("STDDEV_POP(EXTRACT(EPOCH FROM (first_submit_events.event_time - first_create_events.event_time)))"))
-        .first
-      
-      result&.to_f
+      calculate_stddev(authorizations_with_first_create_and_submit_events, time_difference_sql('first_submit_events', 'first_create_events'))
     end
 
     def mode_time_to_submit
-      # Get all time to submit values in seconds, rounded to nearest minute
-      time_values = authorizations_with_first_create_and_submit_events
-        .pluck(Arel.sql("ROUND(EXTRACT(EPOCH FROM (first_submit_events.event_time - first_create_events.event_time)) / 60) * 60"))
-        .map(&:to_f)
-      
-      return nil if time_values.empty?
-      
-      # Find the most frequent value
-      frequency = time_values.group_by(&:itself).transform_values(&:count)
-      frequency.max_by { |_, count| count }&.first
+      calculate_mode(authorizations_with_first_create_and_submit_events, time_difference_sql('first_submit_events', 'first_create_events'))
     end
 
     def average_time_to_first_instruction
@@ -42,32 +25,15 @@ module Stats
     end
 
     def median_time_to_first_instruction
-      result = authorizations_with_submit_and_first_instruction_events
-        .pluck(Arel.sql("PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY EXTRACT(EPOCH FROM (first_instruction_events.event_time - submit_events.event_time)))"))
-        .first
-      
-      result&.to_f
+      calculate_percentile(authorizations_with_submit_and_first_instruction_events, time_difference_sql('first_instruction_events', 'submit_events'))
     end
 
     def stddev_time_to_first_instruction
-      result = authorizations_with_submit_and_first_instruction_events
-        .pluck(Arel.sql("STDDEV_POP(EXTRACT(EPOCH FROM (first_instruction_events.event_time - submit_events.event_time)))"))
-        .first
-      
-      result&.to_f
+      calculate_stddev(authorizations_with_submit_and_first_instruction_events, time_difference_sql('first_instruction_events', 'submit_events'))
     end
 
     def mode_time_to_first_instruction
-      # Get all time to first instruction values in seconds, rounded to nearest minute
-      time_values = authorizations_with_submit_and_first_instruction_events
-        .pluck(Arel.sql("ROUND(EXTRACT(EPOCH FROM (first_instruction_events.event_time - submit_events.event_time)) / 60) * 60"))
-        .map(&:to_f)
-      
-      return nil if time_values.empty?
-      
-      # Find the most frequent value
-      frequency = time_values.group_by(&:itself).transform_values(&:count)
-      frequency.max_by { |_, count| count }&.first
+      calculate_mode(authorizations_with_submit_and_first_instruction_events, time_difference_sql('first_instruction_events', 'submit_events'))
     end
 
     def first_create_events_subquery
@@ -215,63 +181,88 @@ module Stats
     end
 
     def time_to_submit_by_duration_buckets(step: :day)
-      step_config = step_configuration(step)
-      step_seconds = step_config[:seconds]
-      max_steps = step_config[:max_steps]
-      
-      # Get all time to submit values in seconds
       time_values = authorizations_with_first_create_and_submit_events
         .pluck(Arel.sql("EXTRACT(EPOCH FROM (first_submit_events.event_time - first_create_events.event_time))"))
         .map(&:to_f)
       
-      return [] if time_values.empty?
-      
-      # Initialize buckets
-      buckets = {}
-      buckets["<1"] = 0
-      (1..max_steps).each { |i| buckets[i.to_s] = 0 }
-      buckets["> #{max_steps}"] = 0
-      
-      # Distribute values into buckets
-      time_values.each do |seconds|
-        bucket_index = (seconds / step_seconds).ceil
-        
-        if bucket_index < 1
-          buckets["<1"] += 1
-        elsif bucket_index > max_steps
-          buckets["> #{max_steps}"] += 1
-        else
-          buckets[bucket_index.to_s] += 1
-        end
-      end
-      
-      # Return as array of hashes in order
-      result = [{ bucket: "<1", count: buckets["<1"] }]
-      (1..max_steps).each { |i| result << { bucket: i.to_s, count: buckets[i.to_s] } }
-      result << { bucket: "> #{max_steps}", count: buckets["> #{max_steps}"] }
-      
-      result
+      create_duration_buckets(time_values, step)
     end
 
     def time_to_first_instruction_by_duration_buckets(step: :day)
-      step_config = step_configuration(step)
-      step_seconds = step_config[:seconds]
-      max_steps = step_config[:max_steps]
-      
-      # Get all time to first instruction values in seconds
       time_values = authorizations_with_submit_and_first_instruction_events
         .pluck(Arel.sql("EXTRACT(EPOCH FROM (first_instruction_events.event_time - submit_events.event_time))"))
         .map(&:to_f)
       
+      create_duration_buckets(time_values, step)
+    end
+
+    def median_time_to_submit_by_type
+      calculate_median_by_type(
+        authorizations_with_first_create_and_submit_events,
+        time_difference_sql('first_submit_events', 'first_create_events')
+      )
+    end
+
+    def median_time_to_first_instruction_by_type
+      calculate_median_by_type(
+        authorizations_with_submit_and_first_instruction_events,
+        time_difference_sql('first_instruction_events', 'submit_events')
+      )
+    end
+
+    private
+
+    def time_difference_sql(later_event, earlier_event)
+      "EXTRACT(EPOCH FROM (#{later_event}.event_time - #{earlier_event}.event_time))"
+    end
+
+    def calculate_percentile(scope, time_expression)
+      result = scope
+        .pluck(Arel.sql("PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY #{time_expression})"))
+        .first
+      
+      result&.to_f
+    end
+
+    def calculate_stddev(scope, time_expression)
+      result = scope
+        .pluck(Arel.sql("STDDEV_POP(#{time_expression})"))
+        .first
+      
+      result&.to_f
+    end
+
+    def calculate_mode(scope, time_expression)
+      time_values = scope
+        .pluck(Arel.sql("ROUND(#{time_expression} / 60) * 60"))
+        .map(&:to_f)
+      
+      return nil if time_values.empty?
+      
+      frequency = time_values.group_by(&:itself).transform_values(&:count)
+      frequency.max_by { |_, count| count }&.first
+    end
+
+    def create_duration_buckets(time_values, step)
       return [] if time_values.empty?
       
-      # Initialize buckets
-      buckets = {}
-      buckets["<1"] = 0
+      step_config = step_configuration(step)
+      step_seconds = step_config[:seconds]
+      max_steps = step_config[:max_steps]
+      
+      buckets = initialize_buckets(max_steps)
+      distribute_values_into_buckets(buckets, time_values, step_seconds, max_steps)
+      format_buckets_as_array(buckets, max_steps)
+    end
+
+    def initialize_buckets(max_steps)
+      buckets = { "<1" => 0 }
       (1..max_steps).each { |i| buckets[i.to_s] = 0 }
       buckets["> #{max_steps}"] = 0
-      
-      # Distribute values into buckets
+      buckets
+    end
+
+    def distribute_values_into_buckets(buckets, time_values, step_seconds, max_steps)
       time_values.each do |seconds|
         bucket_index = (seconds / step_seconds).ceil
         
@@ -283,76 +274,41 @@ module Stats
           buckets[bucket_index.to_s] += 1
         end
       end
-      
-      # Return as array of hashes in order
+    end
+
+    def format_buckets_as_array(buckets, max_steps)
       result = [{ bucket: "<1", count: buckets["<1"] }]
       (1..max_steps).each { |i| result << { bucket: i.to_s, count: buckets[i.to_s] } }
       result << { bucket: "> #{max_steps}", count: buckets["> #{max_steps}"] }
-      
       result
     end
 
-    def median_time_to_submit_by_type
-      # Get all time values grouped by type
-      results = authorizations_with_first_create_and_submit_events
-        .pluck(
-          Arel.sql("authorization_requests.type"),
-          Arel.sql("EXTRACT(EPOCH FROM (first_submit_events.event_time - first_create_events.event_time))")
-        )
+    def calculate_median_by_type(scope, time_expression)
+      results = scope.pluck(
+        Arel.sql("authorization_requests.type"),
+        Arel.sql(time_expression)
+      )
       
-      # Group by type and calculate median
       by_type = Hash.new { |h, k| h[k] = [] }
-      results.each do |type, time|
-        by_type[type] << time.to_f
-      end
+      results.each { |type, time| by_type[type] << time.to_f }
       
       by_type.map do |type, times|
-        sorted = times.sort
-        median = if sorted.length.odd?
-          sorted[sorted.length / 2]
-        else
-          (sorted[sorted.length / 2 - 1] + sorted[sorted.length / 2]) / 2.0
-        end
-        
         {
           type: type,
-          median_time: median,
+          median_time: calculate_array_median(times),
           count: times.length
         }
       end.sort_by { |item| item[:median_time] }
     end
 
-    def median_time_to_first_instruction_by_type
-      # Get all time values grouped by type
-      results = authorizations_with_submit_and_first_instruction_events
-        .pluck(
-          Arel.sql("authorization_requests.type"),
-          Arel.sql("EXTRACT(EPOCH FROM (first_instruction_events.event_time - submit_events.event_time))")
-        )
-      
-      # Group by type and calculate median
-      by_type = Hash.new { |h, k| h[k] = [] }
-      results.each do |type, time|
-        by_type[type] << time.to_f
+    def calculate_array_median(sorted_values)
+      sorted = sorted_values.sort
+      if sorted.length.odd?
+        sorted[sorted.length / 2]
+      else
+        (sorted[sorted.length / 2 - 1] + sorted[sorted.length / 2]) / 2.0
       end
-      
-      by_type.map do |type, times|
-        sorted = times.sort
-        median = if sorted.length.odd?
-          sorted[sorted.length / 2]
-        else
-          (sorted[sorted.length / 2 - 1] + sorted[sorted.length / 2]) / 2.0
-        end
-        
-        {
-          type: type,
-          median_time: median,
-          count: times.length
-        }
-      end.sort_by { |item| item[:median_time] }
     end
-
-    private
 
     def step_configuration(step)
       case step

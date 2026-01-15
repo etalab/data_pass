@@ -36,35 +36,35 @@ module Stats
     end
 
     def average_time_to_submit
-      "Average time to submit: #{format_duration(@create_aggregator.average_time_to_submit)}"
+      format_metric('Average time to submit', @create_aggregator.average_time_to_submit)
     end
 
     def median_time_to_submit
-      "Median time to submit: #{format_duration(@create_aggregator.median_time_to_submit)}"
+      format_metric('Median time to submit', @create_aggregator.median_time_to_submit)
     end
 
     def stddev_time_to_submit
-      "Standard deviation time to submit: #{format_duration(@create_aggregator.stddev_time_to_submit)}"
+      format_metric('Standard deviation time to submit', @create_aggregator.stddev_time_to_submit)
     end
 
     def mode_time_to_submit
-      "Mode time to submit: #{format_duration(@create_aggregator.mode_time_to_submit)}"
+      format_metric('Mode time to submit', @create_aggregator.mode_time_to_submit)
     end
 
     def average_time_to_first_instruction
-      "Average time to first instruction: #{format_duration(@create_aggregator.average_time_to_first_instruction)}"
+      format_metric('Average time to first instruction', @create_aggregator.average_time_to_first_instruction)
     end
 
     def median_time_to_first_instruction
-      "Median time to first instruction: #{format_duration(@create_aggregator.median_time_to_first_instruction)}"
+      format_metric('Median time to first instruction', @create_aggregator.median_time_to_first_instruction)
     end
 
     def stddev_time_to_first_instruction
-      "Standard deviation time to first instruction: #{format_duration(@create_aggregator.stddev_time_to_first_instruction)}"
+      format_metric('Standard deviation time to first instruction', @create_aggregator.stddev_time_to_first_instruction)
     end
 
     def mode_time_to_first_instruction
-      "Mode time to first instruction: #{format_duration(@create_aggregator.mode_time_to_first_instruction)}"
+      format_metric('Mode time to first instruction', @create_aggregator.mode_time_to_first_instruction)
     end
 
     def print_time_to_submit_by_type_table
@@ -97,200 +97,192 @@ module Stats
 
     def print_time_to_submit_by_duration(step: :day)
       buckets = @create_aggregator.time_to_submit_by_duration_buckets(step: step)
-      
-      if buckets.empty? || buckets.sum { |b| b[:count] } == 0
-        puts "\nNo data available for time to submit by duration."
-        return
-      end
-
-      step_label = step_label_text(step)
-      puts "\n## Time to submit by #{step_label} of #{human_readable_date_range}#{type_filter_label}:\n\n"
-      puts "```"
-      puts format_bar_chart(buckets, step)
-      puts "```"
+      print_chart_with_title(buckets, "Time to submit by #{step_label_text(step)}", preposition: 'of')
     end
 
     def print_time_to_first_instruction_by_duration(step: :day)
       buckets = @create_aggregator.time_to_first_instruction_by_duration_buckets(step: step)
-      
-      if buckets.empty? || buckets.sum { |b| b[:count] } == 0
-        puts "\nNo data available for time to first instruction by duration."
-        return
-      end
-
-      step_label = step_label_text(step)
-      puts "\n## Time to first instruction by #{step_label} of #{human_readable_date_range}#{type_filter_label}:\n\n"
-      puts "```"
-      puts format_bar_chart(buckets, step)
-      puts "```"
+      print_chart_with_title(buckets, "Time to first instruction by #{step_label_text(step)}", preposition: 'of')
     end
 
     def print_volume_by_type
       data = @create_aggregator.volume_by_type
-      
-      if data.empty?
-        puts "\nNo data available for volume by type."
-        return
-      end
-
-      puts "\n## Volume of authorization requests by type for #{human_readable_date_range}#{type_filter_label}:\n\n"
-      
-      # Format data for bar chart
-      buckets = data.map { |item| { bucket: format_type_name(item[:type].split('::').last), count: item[:count] } }
-      puts "```"
-      puts format_volume_bar_chart(buckets)
-      puts "```"
+      buckets = data.map { |item| { bucket: extract_type_name(item[:type]), count: item[:count] } }
+      print_chart_with_title(buckets, "Volume of authorization requests by type", method: :format_volume_bar_chart)
     end
 
     def print_volume_by_provider
       data = @create_aggregator.volume_by_provider
-      
-      if data.empty?
-        puts "\nNo data available for volume by provider."
-        return
-      end
-
-      puts "\n## Volume of authorization requests by provider for #{human_readable_date_range}#{type_filter_label}:\n\n"
-      
-      # Format data for bar chart
       buckets = data.map { |item| { bucket: item[:provider], count: item[:count] } }
-      puts "```"
-      puts format_volume_bar_chart(buckets)
-      puts "```"
+      print_chart_with_title(buckets, "Volume of authorization requests by provider", method: :format_volume_bar_chart)
     end
 
     def print_volume_by_type_with_states
       data = @create_aggregator.volume_by_type_with_states
-      
-      if data.empty?
-        puts "\nNo data available for volume by type with states."
-        return
-      end
-
-      puts "\n## Volume of authorization requests by type (validated vs refused) for #{human_readable_date_range}#{type_filter_label}:\n\n"
-      
-      # Format data for split bar chart
-      items = data.map do |item|
-        {
-          label: format_type_name(item[:type].split('::').last),
-          validated: item[:validated],
-          refused: item[:refused],
-          total: item[:total]
-        }
-      end
-      puts "```"
-      puts format_split_bar_chart(items)
-      puts "```"
+      items = data.map { |item| transform_state_data(item, extract_type_name(item[:type])) }
+      print_chart_with_title(items, "Volume of authorization requests by type (validated vs refused)", method: :format_split_bar_chart)
     end
 
     def print_volume_by_provider_with_states
       data = @create_aggregator.volume_by_provider_with_states
-      
-      if data.empty?
-        puts "\nNo data available for volume by provider with states."
-        return
-      end
-
-      puts "\n## Volume of authorization requests by provider (validated vs refused) for #{human_readable_date_range}#{type_filter_label}:\n\n"
-      
-      # Format data for split bar chart
-      items = data.map do |item|
-        {
-          label: item[:provider],
-          validated: item[:validated],
-          refused: item[:refused],
-          total: item[:total]
-        }
-      end
-      puts "```"
-      puts format_split_bar_chart(items)
-      puts "```"
+      items = data.map { |item| transform_state_data(item, item[:provider]) }
+      print_chart_with_title(items, "Volume of authorization requests by provider (validated vs refused)", method: :format_split_bar_chart)
     end
 
     def print_median_time_to_submit_by_type
       data = @create_aggregator.median_time_to_submit_by_type
-      
-      if data.empty?
-        puts "\nNo data available for median time to submit by type."
-        return
-      end
+      return puts "\nNo data available for median time to submit by type." if data.empty?
 
       puts "\n## Median time to submit by type for #{human_readable_date_range}#{type_filter_label}:\n"
 
-      # Split data into two groups: under 1 hour and 1 hour or more
       one_hour = 3600.0
       under_one_hour = data.select { |item| item[:median_time] < one_hour }
       one_hour_or_more = data.select { |item| item[:median_time] >= one_hour }
       
-      # Print under 1 hour graph (in minutes)
-      if under_one_hour.any?
-        puts "\n### Under 1 hour:\n"
-        
-        buckets = under_one_hour.map do |item|
-          time_seconds = item[:median_time]
-          {
-            bucket: format_type_name(item[:type].split('::').last),
-            value: (time_seconds / 60.0).round(1),
-            display_value: format_time_with_unit(time_seconds),
-            count: item[:count]
-          }
-        end
-        
-        puts "```"
-        puts format_time_bar_chart_with_labels(buckets)
-        puts "```"
-      end
-      
-      # Print 1 hour or more graph (in appropriate units)
-      if one_hour_or_more.any?
-        puts "\n### 1 hour or more:\n"
-        
-        buckets = one_hour_or_more.map do |item|
-          time_seconds = item[:median_time]
-          # Determine base unit for bar length (use hours for consistency)
-          {
-            bucket: format_type_name(item[:type].split('::').last),
-            value: (time_seconds / 3600.0).round(1),
-            display_value: format_time_with_unit(time_seconds),
-            count: item[:count]
-          }
-        end
-        
-        puts "```"
-        puts format_time_bar_chart_with_labels(buckets)
-        puts "```"
-      end
+      print_time_buckets('Under 1 hour', under_one_hour, 60.0) if under_one_hour.any?
+      print_time_buckets('1 hour or more', one_hour_or_more, 3600.0) if one_hour_or_more.any?
     end
 
     def print_median_time_to_first_instruction_by_type
       data = @create_aggregator.median_time_to_first_instruction_by_type
-      
-      if data.empty?
-        puts "\nNo data available for median time to first instruction by type."
-        return
-      end
+      return puts "\nNo data available for median time to first instruction by type." if data.empty?
 
       puts "\n## Median time to first instruction by type for #{human_readable_date_range}#{type_filter_label}:\n\n"
       
-      # Format data for bar chart - convert seconds to days
-      # Time to first instruction is typically in days range
-      unit = "days"
-      divisor = 86400.0
+      buckets = data.map { |item| transform_time_bucket(item, 86400.0) }
+      
+      puts "```"
+      puts format_time_bar_chart(buckets, 'days')
+      puts "```"
+    end
+
+    private
+
+    def format_metric(label, value)
+      "#{label}: #{format_duration(value)}"
+    end
+
+    def extract_type_name(type)
+      format_type_name(type.split('::').last)
+    end
+
+    def transform_state_data(item, label)
+      {
+        label: label,
+        validated: item[:validated],
+        refused: item[:refused],
+        total: item[:total]
+      }
+    end
+
+    def transform_time_bucket(item, divisor)
+      {
+        bucket: extract_type_name(item[:type]),
+        value: (item[:median_time] / divisor).round(1),
+        count: item[:count]
+      }
+    end
+
+    def print_chart_with_title(data, title, method: :format_bar_chart, unit: nil, preposition: 'for')
+      return puts "\nNo data available for #{title.downcase}." if data.empty?
+
+      puts "\n## #{title} #{preposition} #{human_readable_date_range}#{type_filter_label}:\n\n"
+      puts "```"
+      puts unit ? send(method, data, unit) : send(method, data)
+      puts "```"
+    end
+
+    def print_time_buckets(title, data, divisor)
+      puts "\n### #{title}:\n"
       
       buckets = data.map do |item|
+        time_seconds = item[:median_time]
         {
-          bucket: format_type_name(item[:type].split('::').last),
-          value: (item[:median_time] / divisor).round(1),
+          bucket: extract_type_name(item[:type]),
+          value: (time_seconds / divisor).round(1),
+          display_value: format_time_with_unit(time_seconds),
           count: item[:count]
         }
       end
       
       puts "```"
-      puts format_time_bar_chart(buckets, unit)
+      puts format_time_bar_chart_with_labels(buckets)
       puts "```"
     end
 
-    private
+    def build_bar_chart(items, value_key:, label_align:, unit: nil, show_count: false, display_value_key: nil)
+      max_value = items.map { |item| item[value_key] }.max
+      return "No data" if max_value.nil? || max_value == 0
+
+      max_bar_length = 50
+      scale = max_value > max_bar_length ? (max_bar_length.to_f / max_value) : 1.0
+
+      lines = build_chart_lines(items, value_key, label_align, scale, unit, show_count, display_value_key)
+      lines += build_chart_footer(items, scale, unit, value_key)
+
+      lines.join("\n")
+    end
+
+    def build_chart_lines(items, value_key, label_align, scale, unit, show_count, display_value_key)
+      max_label_width = items.map { |item| item[:bucket]&.to_s&.length || item[:label]&.to_s&.length }.compact.max || 0
+      max_value_width = items.map { |item| item[value_key].to_s.length }.max || 0
+      max_display_width = display_value_key ? items.map { |item| item[display_value_key].to_s.length }.max : 0
+      max_count_width = items.map { |item| (item[:count] || item[:total]).to_s.length }.max || 0
+
+      items.map do |item|
+        build_chart_line(item, value_key, label_align, scale, max_label_width, max_value_width, max_count_width, unit, show_count, display_value_key, max_display_width)
+      end
+    end
+
+    def build_chart_line(item, value_key, label_align, scale, max_label_width, max_value_width, max_count_width, unit, show_count, display_value_key, max_display_width = 0)
+      bar = "█" * (item[value_key] * scale).round
+      label = (item[:bucket] || item[:label]).to_s.send(label_align, max_label_width)
+      
+      if item[:validated]
+        build_split_bar_line(item, label, scale, max_label_width, max_count_width)
+      elsif display_value_key
+        display_value = item[display_value_key].to_s.rjust(max_display_width)
+        count = item[:count].to_s.rjust(max_count_width)
+        "#{label} (#{display_value}, n=#{count}) │ #{bar}"
+      elsif show_count && unit
+        value = item[value_key].to_s.rjust(max_value_width)
+        count = item[:count].to_s.rjust(max_count_width)
+        "#{label} (#{value} #{unit}, n=#{count}) │ #{bar}"
+      else
+        count = item[:count].to_s.rjust(max_count_width)
+        "#{label} (#{count}) │ #{bar}"
+      end
+    end
+
+    def build_split_bar_line(item, label, scale, max_label_width, max_count_width)
+      validated_bar = "█" * (item[:validated] * scale).round
+      refused_bar = "▓" * (item[:refused] * scale).round
+      
+      total = item[:total]
+      validated_pct = total > 0 ? (item[:validated].to_f / total * 100).round(1) : 0
+      refused_pct = total > 0 ? (item[:refused].to_f / total * 100).round(1) : 0
+      
+      total_str = total.to_s.rjust(max_count_width)
+      "#{label} (#{total_str}: #{validated_pct.to_s.rjust(5)}%V #{refused_pct.to_s.rjust(5)}%R) │ #{validated_bar}#{refused_bar}"
+    end
+
+    def build_chart_footer(items, scale, unit, value_key)
+      lines = [""]
+      
+      if items.first&.key?(:validated)
+        lines << "Legend: █ = Validated, ▓ = Refused"
+        lines << "Total: #{items.sum { |i| i[:validated] }} validated, #{items.sum { |i| i[:refused] }} refused (#{items.sum { |i| i[:total] }} total)"
+      else
+        lines << "Total: #{items.sum { |i| i[:count] }} authorization requests"
+      end
+      
+      if scale < 1.0
+        scale_label = unit ? "#{unit}" : "request(s)"
+        lines << "Scale: each █ represents #{(1.0 / scale).round(1)} #{scale_label}"
+      end
+      
+      lines
+    end
 
     def authorization_requests_with_first_create_in_range
       first_create_events_subquery = Stats::Aggregator.new.first_create_events_subquery
@@ -416,64 +408,12 @@ module Stats
       end
     end
 
-    def format_bar_chart(buckets, step)
-      max_count = buckets.map { |b| b[:count] }.max
-      return "No data" if max_count == 0
-      
-      # Calculate bar scale - aim for max bar length of 50 characters
-      max_bar_length = 50
-      scale = max_count > max_bar_length ? (max_bar_length.to_f / max_count) : 1.0
-      
-      lines = []
-      
-      # Find the maximum width needed for bucket labels and counts
-      max_label_width = buckets.map { |b| b[:bucket].to_s.length }.max
-      max_count_width = buckets.map { |b| b[:count].to_s.length }.max
-      
-      # Build bars with counts on the left
-      buckets.each do |bucket|
-        bar_length = (bucket[:count] * scale).round
-        bar = "█" * bar_length
-        label = bucket[:bucket].to_s.rjust(max_label_width)
-        count = bucket[:count].to_s.rjust(max_count_width)
-        lines << "#{label} (#{count}) │ #{bar}"
-      end
-      
-      lines << ""
-      lines << "Total: #{buckets.sum { |b| b[:count] }} authorization requests"
-      lines << "Scale: each █ represents #{(1.0 / scale).round(1)} request(s)" if scale < 1.0
-      
-      lines.join("\n")
+    def format_bar_chart(buckets, step = nil)
+      build_bar_chart(buckets, value_key: :count, label_align: :rjust)
     end
 
     def format_volume_bar_chart(buckets)
-      max_count = buckets.map { |b| b[:count] }.max
-      return "No data" if max_count == 0
-      
-      # Calculate bar scale - aim for max bar length of 50 characters
-      max_bar_length = 50
-      scale = max_count > max_bar_length ? (max_bar_length.to_f / max_count) : 1.0
-      
-      lines = []
-      
-      # Find the maximum width needed for labels and counts
-      max_label_width = buckets.map { |b| b[:bucket].to_s.length }.max
-      max_count_width = buckets.map { |b| b[:count].to_s.length }.max
-      
-      # Build bars with counts on the left
-      buckets.each do |bucket|
-        bar_length = (bucket[:count] * scale).round
-        bar = "█" * bar_length
-        label = bucket[:bucket].to_s.ljust(max_label_width)
-        count = bucket[:count].to_s.rjust(max_count_width)
-        lines << "#{label} (#{count}) │ #{bar}"
-      end
-      
-      lines << ""
-      lines << "Total: #{buckets.sum { |b| b[:count] }} authorization requests"
-      lines << "Scale: each █ represents #{(1.0 / scale).round(1)} request(s)" if scale < 1.0
-      
-      lines.join("\n")
+      build_bar_chart(buckets, value_key: :count, label_align: :ljust)
     end
 
     def format_split_bar_chart(items)
@@ -518,79 +458,24 @@ module Stats
     end
 
     def format_time_bar_chart(buckets, unit)
-      max_value = buckets.map { |b| b[:value] }.max
-      return "No data" if max_value == 0
-      
-      # Calculate bar scale - aim for max bar length of 50 characters
-      max_bar_length = 50
-      scale = max_value > max_bar_length ? (max_bar_length.to_f / max_value) : 1.0
-      
-      lines = []
-      
-      # Find the maximum width needed for labels and values
-      max_label_width = buckets.map { |b| b[:bucket].to_s.length }.max
-      max_value_width = buckets.map { |b| b[:value].to_s.length }.max
-      max_count_width = buckets.map { |b| b[:count].to_s.length }.max
-      
-      # Build bars with values on the left
-      buckets.each do |bucket|
-        bar_length = (bucket[:value] * scale).round
-        bar = "█" * bar_length
-        label = bucket[:bucket].to_s.ljust(max_label_width)
-        value = bucket[:value].to_s.rjust(max_value_width)
-        count = bucket[:count].to_s.rjust(max_count_width)
-        lines << "#{label} (#{value} #{unit}, n=#{count}) │ #{bar}"
-      end
-      
-      lines << ""
-      lines << "Total: #{buckets.sum { |b| b[:count] }} authorization requests"
-      lines << "Scale: each █ represents #{(1.0 / scale).round(1)} #{unit}" if scale < 1.0
-      
-      lines.join("\n")
+      build_bar_chart(buckets, value_key: :value, label_align: :ljust, unit: unit, show_count: true)
     end
 
     def format_time_with_unit(seconds)
-      if seconds < 3600 # Less than 1 hour
+      if seconds < 3600
         minutes = (seconds / 60.0).round(1)
         "#{minutes} #{"minute".pluralize(minutes)}"
-      elsif seconds < 86400 # Less than 1 day
+      elsif seconds < 86400
         hours = (seconds / 3600.0).round(1)
         "#{hours} #{"hour".pluralize(hours)}"
-      else # Days
+      else
         days = (seconds / 86400.0).round(1)
         "#{days} #{"day".pluralize(days)}"
       end
     end
 
     def format_time_bar_chart_with_labels(buckets)
-      max_value = buckets.map { |b| b[:value] }.max
-      return "No data" if max_value == 0
-      
-      # Calculate bar scale - aim for max bar length of 50 characters
-      max_bar_length = 50
-      scale = max_value > max_bar_length ? (max_bar_length.to_f / max_value) : 1.0
-      
-      lines = []
-      
-      # Find the maximum width needed for labels and values
-      max_label_width = buckets.map { |b| b[:bucket].to_s.length }.max
-      max_display_width = buckets.map { |b| b[:display_value].to_s.length }.max
-      max_count_width = buckets.map { |b| b[:count].to_s.length }.max
-      
-      # Build bars with values on the left
-      buckets.each do |bucket|
-        bar_length = (bucket[:value] * scale).round
-        bar = "█" * bar_length
-        label = bucket[:bucket].to_s.ljust(max_label_width)
-        display_value = bucket[:display_value].to_s.rjust(max_display_width)
-        count = bucket[:count].to_s.rjust(max_count_width)
-        lines << "#{label} (#{display_value}, n=#{count}) │ #{bar}"
-      end
-      
-      lines << ""
-      lines << "Total: #{buckets.sum { |b| b[:count] }} authorization requests"
-      
-      lines.join("\n")
+      build_bar_chart(buckets, value_key: :value, label_align: :ljust, display_value_key: :display_value, show_count: true)
     end
   end
 end

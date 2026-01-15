@@ -219,6 +219,7 @@ Scale: each character represents 10.2 request(s)
 FranceConnect (372.8 days, n=71) │ ██████████████████████████████████████████████████
 
 Total: 71 authorization requests
+Scale: each █ represents 179.0 request(s)
 ```
 
 
@@ -388,6 +389,7 @@ Scale: each character represents 9.1 request(s)
 FranceConnect (819.1 days, n=34) │ ██████████████████████████████████████████████████
 
 Total: 34 authorization requests
+Scale: each █ represents 393.2 request(s)
 ```
 
 

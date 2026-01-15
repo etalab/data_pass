@@ -223,6 +223,7 @@ Scale: each character represents 1.0 request(s)
 ProConnectServiceProvider (292.2 days, n=1) │ ██████████████████████████████████████████████████
 
 Total: 1 authorization requests
+Scale: each █ represents 140.3 request(s)
 ```
 
 
@@ -392,6 +393,7 @@ Total: 35 validated, 10 refused (45 total)
 ProConnectIdentityProvider (848.3 days, n=1) │ ██████████████████████████████████████████████████
 
 Total: 1 authorization requests
+Scale: each █ represents 407.2 request(s)
 ```
 
 
