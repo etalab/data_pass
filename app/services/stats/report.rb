@@ -193,13 +193,16 @@ module Stats
         .where(id: reopen_events_subquery)
     end
 
-    def authorization_requests_with_type
-      if @authorization_types.present?
-        AuthorizationRequest.where(type: @authorization_types)
-      else
-        AuthorizationRequest.all
-      end
+  def authorization_requests_with_type
+    base_scope = if @authorization_types.present?
+      AuthorizationRequest.where(type: @authorization_types)
+    else
+      AuthorizationRequest.all
     end
+    
+    # Exclude dirty_from_v1 authorization requests as they have inconsistent event data from migration
+    base_scope.where(dirty_from_v1: false)
+  end
 
     def authorization_types_from_provider
       return nil unless @provider.present?

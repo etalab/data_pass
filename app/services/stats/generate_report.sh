@@ -55,7 +55,7 @@ EOF
 # Extract only the content between markers (excluding the markers themselves)
 # We need to skip the echoed code and find the actual execution output
 # Look for the pattern after "RUBY_CODE" line
-sed -n '/^RUBY_CODE$/,/===END_OF_REPORT===/p' "$TEMP_OUTPUT" | sed -n '/===BEGIN_OF_REPORT===/,/===END_OF_REPORT===/p' | sed '1d;$d' | tail -n +2 > "$OUTPUT_FILE"
+sed -n '/^RUBY_CODE$/,/===END_OF_REPORT===/p' "$TEMP_OUTPUT" | sed -n '/===BEGIN_OF_REPORT===/,/===END_OF_REPORT===/p' | sed '1d;$d' > "$OUTPUT_FILE"
 
 # Clean up
 rm -f "$TEMP_OUTPUT"
