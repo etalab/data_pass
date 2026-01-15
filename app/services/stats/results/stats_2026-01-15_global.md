@@ -104,8 +104,9 @@ Scale: each character represents 14.0 request(s)
 ```
 
 
-## Median time to submit by type (under 1 hour) for 2025:
+## Median time to submit by type for 2025:
 
+### Under 1 hour:
 ```
 HubEEDila                     ( 0.3 minutes, n=459) │ 
 HubEECertDC                   ( 0.3 minutes, n=801) │ 
@@ -136,8 +137,7 @@ ProConnectServiceProvider     (39.4 minutes, n= 81) │ ████████
 Total: 3250 authorization requests
 ```
 
-## Median time to submit by type (1 hour or more) for 2025:
-
+### 1 hour or more:
 ```
 APIDeclarationAutoEntrepreneur ( 3.9 hours, n=23) │ 
 APIFicoba                      (  1.1 days, n= 1) │ 
@@ -395,8 +395,9 @@ Scale: each character represents 19.8 request(s)
 ```
 
 
-## Median time to submit by type (under 1 hour) for 2024:
+## Median time to submit by type for 2024:
 
+### Under 1 hour:
 ```
 HubEECertDC    ( 0.1 minutes, n=996) │ 
 HubEEDila      ( 0.1 minutes, n=384) │ 
@@ -407,8 +408,7 @@ APIEntreprise  (13.0 minutes, n=177) │ █████████████
 Total: 1988 authorization requests
 ```
 
-## Median time to submit by type (1 hour or more) for 2024:
-
+### 1 hour or more:
 ```
 APIDeclarationAutoEntrepreneur (163.3 days, n= 1) │ ██████████████
 ProConnectServiceProvider      (292.2 days, n= 1) │ ████████████████████████
@@ -661,8 +661,9 @@ Scale: each character represents 22.5 request(s)
 ```
 
 
-## Median time to submit by type (under 1 hour) for 2023:
+## Median time to submit by type for 2023:
 
+### Under 1 hour:
 ```
 HubEEDila      (0.0 minutes, n=1055) │ 
 HubEECertDC    (0.0 minutes, n= 408) │ 
@@ -672,8 +673,7 @@ APIEntreprise  (2.9 minutes, n= 184) │ ███
 Total: 2020 authorization requests
 ```
 
-## Median time to submit by type (1 hour or more) for 2023:
-
+### 1 hour or more:
 ```
 APISFiP                    (634.1 days, n= 3) │ █████████████████████████████████████
 APIImpotParticulier        (745.2 days, n= 8) │ ███████████████████████████████████████████

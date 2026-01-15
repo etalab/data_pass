@@ -43,8 +43,9 @@ Scale: each character represents 3.5 request(s)
 ```
 
 
-## Median time to submit by type (under 1 hour) for 2025 (types by: APIEntreprise):
+## Median time to submit by type for 2025 (types by: APIEntreprise):
 
+### Under 1 hour:
 ```
 APIEntreprise (13.6 minutes, n=232) │ ██████████████
 
@@ -211,8 +212,9 @@ Scale: each character represents 3.3 request(s)
 ```
 
 
-## Median time to submit by type (under 1 hour) for 2024 (types by: APIEntreprise):
+## Median time to submit by type for 2024 (types by: APIEntreprise):
 
+### Under 1 hour:
 ```
 APIEntreprise (13.0 minutes, n=177) │ █████████████
 
@@ -378,8 +380,9 @@ Scale: each character represents 4.3 request(s)
 ```
 
 
-## Median time to submit by type (under 1 hour) for 2023 (types by: APIEntreprise):
+## Median time to submit by type for 2023 (types by: APIEntreprise):
 
+### Under 1 hour:
 ```
 APIEntreprise (2.9 minutes, n=184) │ ███
 

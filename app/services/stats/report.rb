@@ -215,6 +215,8 @@ module Stats
         return
       end
 
+      puts "\n## Median time to submit by type for #{human_readable_date_range}#{type_filter_label}:\n"
+
       # Split data into two groups: under 1 hour and 1 hour or more
       one_hour = 3600.0
       under_one_hour = data.select { |item| item[:median_time] < one_hour }
@@ -222,7 +224,7 @@ module Stats
       
       # Print under 1 hour graph (in minutes)
       if under_one_hour.any?
-        puts "\n## Median time to submit by type (under 1 hour) for #{human_readable_date_range}#{type_filter_label}:\n\n"
+        puts "\n### Under 1 hour:\n"
         
         buckets = under_one_hour.map do |item|
           time_seconds = item[:median_time]
@@ -241,7 +243,7 @@ module Stats
       
       # Print 1 hour or more graph (in appropriate units)
       if one_hour_or_more.any?
-        puts "\n## Median time to submit by type (1 hour or more) for #{human_readable_date_range}#{type_filter_label}:\n\n"
+        puts "\n### 1 hour or more:\n"
         
         buckets = one_hour_or_more.map do |item|
           time_seconds = item[:median_time]

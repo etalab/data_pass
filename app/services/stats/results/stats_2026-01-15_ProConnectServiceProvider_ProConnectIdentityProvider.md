@@ -45,8 +45,9 @@ Scale: each character represents 2.1 request(s)
 ```
 
 
-## Median time to submit by type (under 1 hour) for 2025 (types by: ProConnectServiceProvider, ProConnectIdentityProvider):
+## Median time to submit by type for 2025 (types by: ProConnectServiceProvider, ProConnectIdentityProvider):
 
+### Under 1 hour:
 ```
 ProConnectIdentityProvider (15.4 minutes, n=14) │ ███████████████
 ProConnectServiceProvider  (39.4 minutes, n=81) │ ███████████████████████████████████████
@@ -215,8 +216,9 @@ Scale: each character represents 1.0 request(s)
 ```
 
 
-## Median time to submit by type (1 hour or more) for 2024 (types by: ProConnectServiceProvider, ProConnectIdentityProvider):
+## Median time to submit by type for 2024 (types by: ProConnectServiceProvider, ProConnectIdentityProvider):
 
+### 1 hour or more:
 ```
 ProConnectServiceProvider (292.2 days, n=1) │ ██████████████████████████████████████████████████
 
@@ -383,8 +385,9 @@ Total: 35 validated, 10 refused (45 total)
 ```
 
 
-## Median time to submit by type (1 hour or more) for 2023 (types by: ProConnectServiceProvider, ProConnectIdentityProvider):
+## Median time to submit by type for 2023 (types by: ProConnectServiceProvider, ProConnectIdentityProvider):
 
+### 1 hour or more:
 ```
 ProConnectIdentityProvider (848.3 days, n=1) │ ██████████████████████████████████████████████████
 

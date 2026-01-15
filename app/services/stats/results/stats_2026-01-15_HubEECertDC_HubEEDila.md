@@ -45,8 +45,9 @@ Scale: each character represents 14.0 request(s)
 ```
 
 
-## Median time to submit by type (under 1 hour) for 2025 (types by: HubEECertDC, HubEEDila):
+## Median time to submit by type for 2025 (types by: HubEECertDC, HubEEDila):
 
+### Under 1 hour:
 ```
 HubEEDila   (0.3 minutes, n=459) │ 
 HubEECertDC (0.3 minutes, n=801) │ 
@@ -217,8 +218,9 @@ Scale: each character represents 19.8 request(s)
 ```
 
 
-## Median time to submit by type (under 1 hour) for 2024 (types by: HubEECertDC, HubEEDila):
+## Median time to submit by type for 2024 (types by: HubEECertDC, HubEEDila):
 
+### Under 1 hour:
 ```
 HubEECertDC (0.1 minutes, n=996) │ 
 HubEEDila   (0.1 minutes, n=384) │ 
@@ -389,8 +391,9 @@ Scale: each character represents 22.5 request(s)
 ```
 
 
-## Median time to submit by type (under 1 hour) for 2023 (types by: HubEECertDC, HubEEDila):
+## Median time to submit by type for 2023 (types by: HubEECertDC, HubEEDila):
 
+### Under 1 hour:
 ```
 No data
 ```

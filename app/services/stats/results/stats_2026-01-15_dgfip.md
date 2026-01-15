@@ -68,8 +68,9 @@ Scale: each character represents 1.1 request(s)
 ```
 
 
-## Median time to submit by type (under 1 hour) for 2025 (provider: dgfip):
+## Median time to submit by type for 2025 (provider: dgfip):
 
+### Under 1 hour:
 ```
 APIRialSandbox             ( 4.9 minutes, n= 1) │ █████
 APIINFINOE                 ( 8.4 minutes, n=14) │ ████████
@@ -83,8 +84,7 @@ APISFiPR2P                 (25.6 minutes, n=11) │ █████████�
 Total: 114 authorization requests
 ```
 
-## Median time to submit by type (1 hour or more) for 2025 (provider: dgfip):
-
+### 1 hour or more:
 ```
 APIFicoba           (  1.1 days, n= 1) │ 
 APIImpotParticulier (  6.5 days, n=28) │ ███
@@ -291,8 +291,9 @@ Scale: each character represents 12.2 request(s)
 ```
 
 
-## Median time to submit by type (1 hour or more) for 2024 (provider: dgfip):
+## Median time to submit by type for 2024 (provider: dgfip):
 
+### 1 hour or more:
 ```
 APIImpotParticulierSandbox (333.2 days, n= 1) │ ████████████████████████████
 APIR2P                     (336.4 days, n= 8) │ ████████████████████████████
@@ -496,8 +497,9 @@ Scale: each character represents 3.4 request(s)
 ```
 
 
-## Median time to submit by type (1 hour or more) for 2023 (provider: dgfip):
+## Median time to submit by type for 2023 (provider: dgfip):
 
+### 1 hour or more:
 ```
 APISFiP                    (634.1 days, n=3) │ █████████████████████████████████████
 APIImpotParticulier        (745.2 days, n=8) │ ███████████████████████████████████████████
