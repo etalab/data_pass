@@ -1,0 +1,22 @@
+<ul class="fr-badge-group">
+  <li>
+    <span class="fr-badge fr-badge--no-icon">
+      <%= t('authorization.badge', formatted_id: authorization.formatted_id) %>
+    </span>
+  </li>
+  <li>
+    <span class="fr-badge fr-badge--no-icon">
+      <%= t('authorization.date_badge', date: authorization.created_at.strftime('%d/%m/%Y')) %>
+    </span>
+  </li>
+
+  <% if authorization.definition.stage.exists? %>
+    <li>
+      <%= authorization.stage_badge %>
+    </li>
+  <% end %>
+
+  <li>
+    <%= render partial: 'authorizations/state_badge', locals: { authorization: authorization.decorate } %>
+  </li>
+</ul>
