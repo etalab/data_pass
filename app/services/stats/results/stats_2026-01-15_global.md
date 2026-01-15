@@ -1,0 +1,380 @@
+# ⚠️  Data Quality Warning
+
+2023-2024 data was migrated from DataPass v1 in early 2025.
+Event timestamps for these years were reconstructed and may not accurately
+reflect actual user behavior (especially time-to-submit metrics).
+
+================================================================================
+
+ 
+# Report of 2025:
+
+5324 authorization requests created
+2020 reopen events
+
+Average time to submit: 5 jours
+Median time to submit: 5 minutes
+Mode time to submit: moins d'une minute
+Standard deviation time to submit: 27 jours
+
+Average time to first instruction: 7 jours
+Median time to first instruction: 1 jour
+Mode time to first instruction: 1 minute
+Standard deviation time to first instruction: 18 jours
+
+
+# Time to submit by minute of 2025:
+
+  <1 (   0) │ 
+   1 (1070) │ ██████████████████████████████████████████████████
+   2 ( 168) │ ████████
+   3 ( 172) │ ████████
+   4 ( 138) │ ██████
+   5 ( 156) │ ███████
+   6 (  92) │ ████
+   7 ( 122) │ ██████
+   8 (  89) │ ████
+   9 (  86) │ ████
+  10 (  63) │ ███
+  11 (  63) │ ███
+  12 (  58) │ ███
+  13 (  47) │ ██
+  14 (  38) │ ██
+  15 (  40) │ ██
+  16 (  28) │ █
+  17 (  29) │ █
+  18 (  16) │ █
+  19 (  24) │ █
+  20 (  15) │ █
+  21 (  23) │ █
+  22 (  17) │ █
+  23 (   7) │ 
+  24 (  13) │ █
+  25 (  14) │ █
+  26 (  13) │ █
+  27 (  15) │ █
+  28 (   4) │ 
+  29 (   8) │ 
+  30 (  11) │ █
+  31 (   7) │ 
+  32 (   7) │ 
+  33 (   3) │ 
+  34 (  11) │ █
+  35 (  10) │ 
+  36 (   6) │ 
+  37 (   4) │ 
+  38 (   4) │ 
+  39 (   6) │ 
+  40 (   4) │ 
+  41 (   2) │ 
+  42 (   6) │ 
+  43 (   4) │ 
+  44 (   5) │ 
+  45 (   1) │ 
+  46 (   0) │ 
+  47 (   4) │ 
+  48 (   5) │ 
+  49 (   1) │ 
+  50 (   6) │ 
+  51 (   1) │ 
+  52 (   1) │ 
+  53 (   0) │ 
+  54 (   1) │ 
+  55 (   5) │ 
+  56 (   6) │ 
+  57 (   3) │ 
+  58 (   5) │ 
+  59 (   4) │ 
+  60 (   6) │ 
+> 60 ( 580) │ ███████████████████████████
+
+Total: 3347 authorization requests
+Scale: each █ represents 21.4 request(s)
+
+
+# Time to first instruction by day of 2025:
+
+  <1 (   0) │ 
+   1 (2363) │ ██████████████████████████████████████████████████
+   2 ( 602) │ █████████████
+   3 ( 325) │ ███████
+   4 ( 314) │ ███████
+   5 ( 262) │ ██████
+   6 ( 187) │ ████
+   7 ( 185) │ ████
+   8 ( 137) │ ███
+   9 ( 104) │ ██
+  10 (  62) │ █
+  11 (  64) │ █
+  12 (  78) │ ██
+  13 (  74) │ ██
+  14 (  58) │ █
+  15 (  66) │ █
+  16 (  39) │ █
+  17 (  28) │ █
+  18 (  25) │ █
+  19 (  32) │ █
+  20 (  34) │ █
+  21 (  27) │ █
+  22 (  33) │ █
+  23 (  12) │ 
+  24 (  19) │ 
+  25 (  10) │ 
+  26 (   8) │ 
+  27 (  16) │ 
+  28 (  11) │ 
+  29 (   6) │ 
+  30 (   6) │ 
+> 30 ( 225) │ █████
+
+Total: 5412 authorization requests
+Scale: each █ represents 47.3 request(s)
+
+ 
+# Report of 2024:
+
+5697 authorization requests created
+688 reopen events
+
+Average time to submit: environ un mois
+Median time to submit: moins d'une minute
+Mode time to submit: moins d'une minute
+Standard deviation time to submit: 4 mois
+
+Average time to first instruction: 12 jours
+Median time to first instruction: 1 jour
+Mode time to first instruction: 2 minutes
+Standard deviation time to first instruction: environ 2 mois
+
+
+# Time to submit by minute of 2024:
+
+  <1 (   0) │ 
+   1 (1286) │ ██████████████████████████████████████████████████
+   2 ( 118) │ █████
+   3 (  50) │ ██
+   4 (  39) │ ██
+   5 (  27) │ █
+   6 (  19) │ █
+   7 (  31) │ █
+   8 (  22) │ █
+   9 (  19) │ █
+  10 (   8) │ 
+  11 (  13) │ █
+  12 (  12) │ 
+  13 (  15) │ █
+  14 (  10) │ 
+  15 (   8) │ 
+  16 (   4) │ 
+  17 (   5) │ 
+  18 (  10) │ 
+  19 (   3) │ 
+  20 (   3) │ 
+  21 (   4) │ 
+  22 (   3) │ 
+  23 (   2) │ 
+  24 (   2) │ 
+  25 (   6) │ 
+  26 (   3) │ 
+  27 (   4) │ 
+  28 (   4) │ 
+  29 (   0) │ 
+  30 (   0) │ 
+  31 (   5) │ 
+  32 (   2) │ 
+  33 (   1) │ 
+  34 (   3) │ 
+  35 (   1) │ 
+  36 (   1) │ 
+  37 (   1) │ 
+  38 (   1) │ 
+  39 (   2) │ 
+  40 (   1) │ 
+  41 (   3) │ 
+  42 (   0) │ 
+  43 (   0) │ 
+  44 (   2) │ 
+  45 (   0) │ 
+  46 (   2) │ 
+  47 (   0) │ 
+  48 (   1) │ 
+  49 (   0) │ 
+  50 (   0) │ 
+  51 (   0) │ 
+  52 (   1) │ 
+  53 (   0) │ 
+  54 (   0) │ 
+  55 (   0) │ 
+  56 (   1) │ 
+  57 (   0) │ 
+  58 (   0) │ 
+  59 (   1) │ 
+  60 (   1) │ 
+> 60 ( 353) │ ██████████████
+
+Total: 2113 authorization requests
+Scale: each █ represents 25.7 request(s)
+
+
+# Time to first instruction by day of 2024:
+
+  <1 (   0) │ 
+   1 (3572) │ ██████████████████████████████████████████████████
+   2 ( 735) │ ██████████
+   3 ( 487) │ ███████
+   4 ( 442) │ ██████
+   5 ( 436) │ ██████
+   6 ( 242) │ ███
+   7 ( 227) │ ███
+   8 ( 156) │ ██
+   9 (  65) │ █
+  10 (  62) │ █
+  11 (  65) │ █
+  12 (  61) │ █
+  13 (  40) │ █
+  14 (  46) │ █
+  15 (  54) │ █
+  16 (  25) │ 
+  17 (  32) │ 
+  18 (  23) │ 
+  19 (  28) │ 
+  20 (  26) │ 
+  21 (  32) │ 
+  22 (  18) │ 
+  23 (  14) │ 
+  24 (  10) │ 
+  25 (   6) │ 
+  26 (   6) │ 
+  27 (   4) │ 
+  28 (   8) │ 
+  29 (  13) │ 
+  30 (   9) │ 
+> 30 ( 445) │ ██████
+
+Total: 7389 authorization requests
+Scale: each █ represents 71.4 request(s)
+
+ 
+# Report of 2023:
+
+5359 authorization requests created
+0 reopen events
+
+Average time to submit: environ 2 mois
+Median time to submit: moins d'une minute
+Mode time to submit: moins d'une minute
+Standard deviation time to submit: 6 mois
+
+Average time to first instruction: 15 jours
+Median time to first instruction: 2 jours
+Mode time to first instruction: 1 minute
+Standard deviation time to first instruction: environ 2 mois
+
+
+# Time to submit by minute of 2023:
+
+  <1 (   0) │ 
+   1 (1506) │ ██████████████████████████████████████████████████
+   2 ( 100) │ ███
+   3 (  46) │ ██
+   4 (  30) │ █
+   5 (  13) │ 
+   6 (   6) │ 
+   7 (  11) │ 
+   8 (   7) │ 
+   9 (  10) │ 
+  10 (   4) │ 
+  11 (   9) │ 
+  12 (   5) │ 
+  13 (   3) │ 
+  14 (   6) │ 
+  15 (   3) │ 
+  16 (   2) │ 
+  17 (   2) │ 
+  18 (   1) │ 
+  19 (   7) │ 
+  20 (   1) │ 
+  21 (   1) │ 
+  22 (   3) │ 
+  23 (   3) │ 
+  24 (   1) │ 
+  25 (   2) │ 
+  26 (   0) │ 
+  27 (   1) │ 
+  28 (   0) │ 
+  29 (   0) │ 
+  30 (   1) │ 
+  31 (   1) │ 
+  32 (   1) │ 
+  33 (   0) │ 
+  34 (   2) │ 
+  35 (   1) │ 
+  36 (   1) │ 
+  37 (   1) │ 
+  38 (   2) │ 
+  39 (   0) │ 
+  40 (   1) │ 
+  41 (   1) │ 
+  42 (   1) │ 
+  43 (   0) │ 
+  44 (   0) │ 
+  45 (   0) │ 
+  46 (   0) │ 
+  47 (   1) │ 
+  48 (   0) │ 
+  49 (   1) │ 
+  50 (   0) │ 
+  51 (   0) │ 
+  52 (   0) │ 
+  53 (   2) │ 
+  54 (   0) │ 
+  55 (   1) │ 
+  56 (   0) │ 
+  57 (   0) │ 
+  58 (   0) │ 
+  59 (   0) │ 
+  60 (   0) │ 
+> 60 ( 297) │ ██████████
+
+Total: 2098 authorization requests
+Scale: each █ represents 30.1 request(s)
+
+
+# Time to first instruction by day of 2023:
+
+  <1 (   0) │ 
+   1 (3154) │ ██████████████████████████████████████████████████
+   2 ( 735) │ ████████████
+   3 ( 466) │ ███████
+   4 ( 370) │ ██████
+   5 ( 345) │ █████
+   6 ( 294) │ █████
+   7 ( 280) │ ████
+   8 ( 243) │ ████
+   9 ( 124) │ ██
+  10 (  91) │ █
+  11 (  80) │ █
+  12 (  87) │ █
+  13 (  77) │ █
+  14 (  70) │ █
+  15 (  76) │ █
+  16 (  45) │ █
+  17 (  37) │ █
+  18 (  47) │ █
+  19 (  33) │ █
+  20 (  46) │ █
+  21 (  40) │ █
+  22 (  52) │ █
+  23 (  28) │ 
+  24 (  19) │ 
+  25 (  31) │ 
+  26 (  22) │ 
+  27 (  24) │ 
+  28 (  30) │ 
+  29 (  24) │ 
+  30 (  28) │ 
+> 30 ( 544) │ █████████
+
+Total: 7542 authorization requests
+Scale: each █ represents 63.1 request(s)
+
