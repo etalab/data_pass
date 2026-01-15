@@ -1,23 +1,37 @@
-puts "===BEGIN_OF_REPORT==="
-puts "# ⚠️  Data Quality Warning"
-puts ""
-puts "2023-2024 data was migrated from DataPass v1 in early 2025."
-puts "Event timestamps for these years were reconstructed and may not accurately"
-puts "reflect actual user behavior (especially time-to-submit metrics)."
-puts ""
-puts "=" * 80
-puts ""
+# Generate output filename with current date
+output_dir = Rails.root.join('app', 'services', 'stats', 'results')
+FileUtils.mkdir_p(output_dir)
+output_file = output_dir.join("stats_#{Date.today}.md")
 
-[2025, 2024, 2023].each do |year|
-  Stats::Report.new(date_input: year, provider: 'dinum').print_report
-  puts "\n"
-  Stats::Report.new(date_input: year, provider: 'dinum').print_time_to_submit_by_duration(step: :minute)
-  puts "\n"
-  Stats::Report.new(date_input: year, provider: 'dinum').print_time_to_first_instruction_by_duration(step: :day)
-  puts "\n"
+# Open file for writing
+File.open(output_file, 'w') do |f|
+  f.puts "# ⚠️  Data Quality Warning"
+  f.puts ""
+  f.puts "2023-2024 data was migrated from DataPass v1 in early 2025."
+  f.puts "Event timestamps for these years were reconstructed and may not accurately"
+  f.puts "reflect actual user behavior (especially time-to-submit metrics)."
+  f.puts ""
+  f.puts "=" * 80
+  f.puts ""
+
+  # Temporarily redirect stdout to the file
+  original_stdout = $stdout
+  $stdout = f
+
+  [2025, 2024, 2023].each do |year|
+    Stats::Report.new(date_input: year, provider: 'dinum').print_report
+    puts "\n"
+    Stats::Report.new(date_input: year, provider: 'dinum').print_time_to_submit_by_duration(step: :minute)
+    puts "\n"
+    Stats::Report.new(date_input: year, provider: 'dinum').print_time_to_first_instruction_by_duration(step: :day)
+    puts "\n"
+  end
+
+  # Restore stdout
+  $stdout = original_stdout
 end
 
-puts "===END_OF_REPORT==="
+puts "Report successfully generated: #{output_file}"
 
 # Stats::Report.new(date_input: 2025).print_time_to_submit_by_type_table
 

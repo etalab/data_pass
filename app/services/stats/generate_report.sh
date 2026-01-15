@@ -11,72 +11,9 @@ set -e  # Exit on error
 # Get the directory where this script is located
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "${SCRIPT_DIR}/../../.." && pwd)"
-AGGREGATOR_FILE="${SCRIPT_DIR}/aggregator.rb"
-REPORT_FILE="${SCRIPT_DIR}/report.rb"
-MAIN_FILE="${SCRIPT_DIR}/main.rb"
 
-# Generate output filename with current date
-OUTPUT_FILE="${SCRIPT_DIR}/results/stats_$(date +%Y-%m-%d).md"
-
-# Check if files exist
-if [ ! -f "$AGGREGATOR_FILE" ]; then
-  echo "Error: aggregator.rb not found at $AGGREGATOR_FILE"
-  exit 1
-fi
-
-if [ ! -f "$REPORT_FILE" ]; then
-  echo "Error: report.rb not found at $REPORT_FILE"
-  exit 1
-fi
-
-if [ ! -f "$MAIN_FILE" ]; then
-  echo "Error: main.rb not found at $MAIN_FILE"
-  exit 1
-fi
-
-# Ensure results directory exists
-mkdir -p "${SCRIPT_DIR}/results"
-
-echo "Executing stats in local Rails console..." >&2
+echo "Generating stats report..."
 echo "========================================" >&2
-echo "Loading aggregator.rb, report.rb, and executing main.rb..." >&2
-echo "" >&2
-
-# Execute the Ruby code in the local Rails console via Docker
-# Use a temporary file to capture the full output, then extract just the report
-TEMP_OUTPUT=$(mktemp)
 
 cd "$PROJECT_ROOT"
-docker compose run --rm --entrypoint="" web bin/rails runner - > "$TEMP_OUTPUT" 2>&1 << EOF
-$(cat "$AGGREGATOR_FILE")
-
-$(cat "$REPORT_FILE")
-
-$(cat "$MAIN_FILE")
-EOF
-
-# Check if the markers are present (indicating success)
-if grep -q "===BEGIN_OF_REPORT===" "$TEMP_OUTPUT" && grep -q "===END_OF_REPORT===" "$TEMP_OUTPUT"; then
-  # Extract only the content between markers (excluding the markers themselves)
-  sed -n '/===BEGIN_OF_REPORT===/,/===END_OF_REPORT===/p' "$TEMP_OUTPUT" | sed '1d;$d' > "$OUTPUT_FILE"
-  
-  echo "" >&2
-  echo "========================================" >&2
-  echo "Execution complete!" >&2
-  echo "Output saved to: $OUTPUT_FILE" >&2
-else
-  # Show the full output including errors
-  echo "" >&2
-  echo "========================================" >&2
-  echo "ERROR: Report generation failed!" >&2
-  echo "========================================" >&2
-  echo "" >&2
-  cat "$TEMP_OUTPUT" >&2
-  
-  # Clean up and exit with error
-  rm -f "$TEMP_OUTPUT"
-  exit 1
-fi
-
-# Clean up
-rm -f "$TEMP_OUTPUT"
+docker compose run --rm --entrypoint="" web bin/rails runner "app/services/stats/main.rb"
