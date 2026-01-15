@@ -23,8 +23,30 @@ Mode time to first instruction: moins d'une minute
 Standard deviation time to first instruction: 18 jours
 
 
+# Volume of authorization requests by type for 2025 (types by: APIEntreprise):
+
+```
+APIEntreprise (433) │ ██████████████████████████████████████████████████
+
+Total: 433 authorization requests
+Scale: each █ represents 8.7 request(s)
+```
+
+
+# Volume of authorization requests by type (validated vs refused) for 2025 (types by: APIEntreprise):
+
+```
+APIEntreprise (V:109 R: 64 T:173) │ ████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+
+Legend: █ = Validated, ▓ = Refused
+Total: 109 validated, 64 refused (173 total)
+Scale: each character represents 3.5 request(s)
+```
+
+
 # Time to submit by minute of 2025 (types by: APIEntreprise):
 
+```
   <1 ( 0) │ 
    1 (17) │ ██████████████
    2 ( 3) │ ███
@@ -90,10 +112,12 @@ Standard deviation time to first instruction: 18 jours
 
 Total: 232 authorization requests
 Scale: each █ represents 1.2 request(s)
+```
 
 
 # Time to first instruction by day of 2025 (types by: APIEntreprise):
 
+```
   <1 ( 0) │ 
    1 (63) │ ██████████████████████████████████████████████████
    2 (24) │ ███████████████████
@@ -129,6 +153,7 @@ Scale: each █ represents 1.2 request(s)
 
 Total: 277 authorization requests
 Scale: each █ represents 1.3 request(s)
+```
 
  
 # Report of 2024 (types by: APIEntreprise):
@@ -147,8 +172,30 @@ Mode time to first instruction: moins d'une minute
 Standard deviation time to first instruction: 29 jours
 
 
+# Volume of authorization requests by type for 2024 (types by: APIEntreprise):
+
+```
+APIEntreprise (425) │ ██████████████████████████████████████████████████
+
+Total: 425 authorization requests
+Scale: each █ represents 8.5 request(s)
+```
+
+
+# Volume of authorization requests by type (validated vs refused) for 2024 (types by: APIEntreprise):
+
+```
+APIEntreprise (V:116 R: 49 T:165) │ ███████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+
+Legend: █ = Validated, ▓ = Refused
+Total: 116 validated, 49 refused (165 total)
+Scale: each character represents 3.3 request(s)
+```
+
+
 # Time to submit by minute of 2024 (types by: APIEntreprise):
 
+```
   <1 ( 0) │ 
    1 (24) │ ████████████████████████
    2 (14) │ ██████████████
@@ -213,10 +260,12 @@ Standard deviation time to first instruction: 29 jours
 > 60 (50) │ ██████████████████████████████████████████████████
 
 Total: 177 authorization requests
+```
 
 
 # Time to first instruction by day of 2024 (types by: APIEntreprise):
 
+```
   <1 (  0) │ 
    1 (103) │ ██████████████████████████████████████████████████
    2 ( 23) │ ███████████
@@ -252,6 +301,7 @@ Total: 177 authorization requests
 
 Total: 325 authorization requests
 Scale: each █ represents 2.1 request(s)
+```
 
  
 # Report of 2023 (types by: APIEntreprise):
@@ -270,8 +320,30 @@ Mode time to first instruction: moins d'une minute
 Standard deviation time to first instruction: environ un mois
 
 
+# Volume of authorization requests by type for 2023 (types by: APIEntreprise):
+
+```
+APIEntreprise (312) │ ██████████████████████████████████████████████████
+
+Total: 312 authorization requests
+Scale: each █ represents 6.2 request(s)
+```
+
+
+# Volume of authorization requests by type (validated vs refused) for 2023 (types by: APIEntreprise):
+
+```
+APIEntreprise (V:164 R: 52 T:216) │ ██████████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓
+
+Legend: █ = Validated, ▓ = Refused
+Total: 164 validated, 52 refused (216 total)
+Scale: each character represents 4.3 request(s)
+```
+
+
 # Time to submit by minute of 2023 (types by: APIEntreprise):
 
+```
   <1 ( 0) │ 
    1 (62) │ ██████████████████████████████████████████████████
    2 (17) │ ██████████████
@@ -337,10 +409,12 @@ Standard deviation time to first instruction: environ un mois
 
 Total: 184 authorization requests
 Scale: each █ represents 1.2 request(s)
+```
 
 
 # Time to first instruction by day of 2023 (types by: APIEntreprise):
 
+```
   <1 (  0) │ 
    1 (105) │ ██████████████████████████████████████████████████
    2 ( 20) │ ██████████
@@ -376,4 +450,5 @@ Scale: each █ represents 1.2 request(s)
 
 Total: 418 authorization requests
 Scale: each █ represents 2.1 request(s)
+```
 

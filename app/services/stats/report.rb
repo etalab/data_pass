@@ -104,7 +104,9 @@ module Stats
 
       step_label = step_label_text(step)
       puts "\n# Time to submit by #{step_label} of #{human_readable_date_range}#{type_filter_label}:\n\n"
+      puts "```"
       puts format_bar_chart(buckets, step)
+      puts "```"
     end
 
     def print_time_to_first_instruction_by_duration(step: :day)
@@ -117,7 +119,9 @@ module Stats
 
       step_label = step_label_text(step)
       puts "\n# Time to first instruction by #{step_label} of #{human_readable_date_range}#{type_filter_label}:\n\n"
+      puts "```"
       puts format_bar_chart(buckets, step)
+      puts "```"
     end
 
     def print_volume_by_type
@@ -132,7 +136,9 @@ module Stats
       
       # Format data for bar chart
       buckets = data.map { |item| { bucket: format_type_name(item[:type].split('::').last), count: item[:count] } }
+      puts "```"
       puts format_volume_bar_chart(buckets)
+      puts "```"
     end
 
     def print_volume_by_provider
@@ -147,7 +153,9 @@ module Stats
       
       # Format data for bar chart
       buckets = data.map { |item| { bucket: item[:provider], count: item[:count] } }
+      puts "```"
       puts format_volume_bar_chart(buckets)
+      puts "```"
     end
 
     def print_volume_by_type_with_states
@@ -169,7 +177,9 @@ module Stats
           total: item[:total]
         }
       end
+      puts "```"
       puts format_split_bar_chart(items)
+      puts "```"
     end
 
     def print_volume_by_provider_with_states
@@ -191,7 +201,9 @@ module Stats
           total: item[:total]
         }
       end
+      puts "```"
       puts format_split_bar_chart(items)
+      puts "```"
     end
 
     private

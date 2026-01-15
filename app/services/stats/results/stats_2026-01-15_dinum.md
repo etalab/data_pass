@@ -23,8 +23,44 @@ Mode time to first instruction: 1 minute
 Standard deviation time to first instruction: 10 jours
 
 
+# Volume of authorization requests by type for 2025 (provider: dinum):
+
+```
+France Connect                (983) │ ██████████████████████████████████████████████████
+APIParticulier                (873) │ ████████████████████████████████████████████
+APIEntreprise                 (433) │ ██████████████████████
+Pro Connect Service Provider  (180) │ █████████
+Formulaire QF                 ( 99) │ █████
+Annuaire Des Entreprises      ( 95) │ █████
+Pro Connect Identity Provider ( 25) │ █
+Le Taxi                       ( 15) │ █
+
+Total: 2703 authorization requests
+Scale: each █ represents 19.7 request(s)
+```
+
+
+# Volume of authorization requests by type (validated vs refused) for 2025 (provider: dinum):
+
+```
+France Connect                (V:477 R:177 T:654) │ ████████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+APIParticulier                (V:480 R: 22 T:502) │ █████████████████████████████████████▓▓
+APIEntreprise                 (V:109 R: 64 T:173) │ ████████▓▓▓▓▓
+Pro Connect Service Provider  (V: 96 R: 10 T:106) │ ███████▓
+Formulaire QF                 (V: 59 R:  2 T: 61) │ █████
+Annuaire Des Entreprises      (V: 47 R:  8 T: 55) │ ████▓
+Pro Connect Identity Provider (V: 17 R:  0 T: 17) │ █
+Le Taxi                       (V:  1 R:  0 T:  1) │ 
+
+Legend: █ = Validated, ▓ = Refused
+Total: 1286 validated, 283 refused (1569 total)
+Scale: each character represents 13.1 request(s)
+```
+
+
 # Time to submit by minute of 2025 (provider: dinum):
 
+```
   <1 (  0) │ 
    1 ( 41) │ ██████
    2 ( 61) │ █████████
@@ -90,10 +126,12 @@ Standard deviation time to first instruction: 10 jours
 
 Total: 1555 authorization requests
 Scale: each █ represents 7.1 request(s)
+```
 
 
 # Time to first instruction by day of 2025 (provider: dinum):
 
+```
   <1 (  0) │ 
    1 (762) │ ██████████████████████████████████████████████████
    2 (270) │ ██████████████████
@@ -129,6 +167,7 @@ Scale: each █ represents 7.1 request(s)
 
 Total: 2546 authorization requests
 Scale: each █ represents 15.2 request(s)
+```
 
  
 # Report of 2024 (provider: dinum):
@@ -147,8 +186,42 @@ Mode time to first instruction: moins d'une minute
 Standard deviation time to first instruction: 13 jours
 
 
+# Volume of authorization requests by type for 2024 (provider: dinum):
+
+```
+APIParticulier                (845) │ ██████████████████████████████████████████████████
+France Connect                (796) │ ███████████████████████████████████████████████
+APIEntreprise                 (425) │ █████████████████████████
+Pro Connect Service Provider  ( 98) │ ██████
+Pro Connect Identity Provider ( 26) │ ██
+Le Taxi                       ( 23) │ █
+Formulaire QF                 (  5) │ 
+
+Total: 2218 authorization requests
+Scale: each █ represents 16.9 request(s)
+```
+
+
+# Volume of authorization requests by type (validated vs refused) for 2024 (provider: dinum):
+
+```
+France Connect                (V:347 R:162 T:509) │ ██████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+APIParticulier                (V:449 R: 48 T:497) │ ████████████████████████████████████████████▓▓▓▓▓
+APIEntreprise                 (V:116 R: 49 T:165) │ ███████████▓▓▓▓▓
+Pro Connect Service Provider  (V: 49 R:  2 T: 51) │ █████
+Pro Connect Identity Provider (V: 15 R:  1 T: 16) │ █
+Le Taxi                       (V: 12 R:  0 T: 12) │ █
+Formulaire QF                 (V:  2 R:  0 T:  2) │ 
+
+Legend: █ = Validated, ▓ = Refused
+Total: 990 validated, 262 refused (1252 total)
+Scale: each character represents 10.2 request(s)
+```
+
+
 # Time to submit by minute of 2024 (provider: dinum):
 
+```
   <1 (  0) │ 
    1 (123) │ ██████████████████████████
    2 ( 39) │ ████████
@@ -214,10 +287,12 @@ Standard deviation time to first instruction: 13 jours
 
 Total: 680 authorization requests
 Scale: each █ represents 4.7 request(s)
+```
 
 
 # Time to first instruction by day of 2024 (provider: dinum):
 
+```
   <1 (  0) │ 
    1 (742) │ ██████████████████████████████████████████████████
    2 (287) │ ███████████████████
@@ -253,6 +328,7 @@ Scale: each █ represents 4.7 request(s)
 
 Total: 2580 authorization requests
 Scale: each █ represents 14.8 request(s)
+```
 
  
 # Report of 2023 (provider: dinum):
@@ -271,8 +347,40 @@ Mode time to first instruction: moins d'une minute
 Standard deviation time to first instruction: 18 jours
 
 
+# Volume of authorization requests by type for 2023 (provider: dinum):
+
+```
+France Connect                (720) │ ██████████████████████████████████████████████████
+APIParticulier                (638) │ ████████████████████████████████████████████
+APIEntreprise                 (312) │ ██████████████████████
+Le Taxi                       ( 45) │ ███
+Pro Connect Service Provider  ( 42) │ ███
+Pro Connect Identity Provider ( 17) │ █
+
+Total: 1774 authorization requests
+Scale: each █ represents 14.4 request(s)
+```
+
+
+# Volume of authorization requests by type (validated vs refused) for 2023 (provider: dinum):
+
+```
+France Connect                (V:329 R:127 T:456) │ ████████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+APIParticulier                (V:399 R: 22 T:421) │ ████████████████████████████████████████████▓▓
+APIEntreprise                 (V:164 R: 52 T:216) │ ██████████████████▓▓▓▓▓▓
+Pro Connect Service Provider  (V: 21 R: 10 T: 31) │ ██▓
+Le Taxi                       (V: 19 R:  0 T: 19) │ ██
+Pro Connect Identity Provider (V: 14 R:  0 T: 14) │ ██
+
+Legend: █ = Validated, ▓ = Refused
+Total: 946 validated, 211 refused (1157 total)
+Scale: each character represents 9.1 request(s)
+```
+
+
 # Time to submit by minute of 2023 (provider: dinum):
 
+```
   <1 (  0) │ 
    1 (211) │ ██████████████████████████████████████████████████
    2 ( 40) │ █████████
@@ -338,10 +446,12 @@ Standard deviation time to first instruction: 18 jours
 
 Total: 592 authorization requests
 Scale: each █ represents 4.2 request(s)
+```
 
 
 # Time to first instruction by day of 2023 (provider: dinum):
 
+```
   <1 (  0) │ 
    1 (804) │ ██████████████████████████████████████████████████
    2 (233) │ ██████████████
@@ -377,4 +487,5 @@ Scale: each █ represents 4.2 request(s)
 
 Total: 2360 authorization requests
 Scale: each █ represents 16.1 request(s)
+```
 

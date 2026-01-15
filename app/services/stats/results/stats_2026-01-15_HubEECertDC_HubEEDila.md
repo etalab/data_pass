@@ -23,8 +23,32 @@ Mode time to first instruction: 1 minute
 Standard deviation time to first instruction: 3 jours
 
 
+# Volume of authorization requests by type for 2025 (types by: Hub EECert DC, Hub EEDila):
+
+```
+Hub EECert DC (864) │ ██████████████████████████████████████████████████
+Hub EEDila    (488) │ ████████████████████████████
+
+Total: 1352 authorization requests
+Scale: each █ represents 17.3 request(s)
+```
+
+
+# Volume of authorization requests by type (validated vs refused) for 2025 (types by: Hub EECert DC, Hub EEDila):
+
+```
+Hub EECert DC (V:690 R: 11 T:701) │ █████████████████████████████████████████████████▓
+Hub EEDila    (V:312 R:  6 T:318) │ ██████████████████████
+
+Legend: █ = Validated, ▓ = Refused
+Total: 1002 validated, 17 refused (1019 total)
+Scale: each character represents 14.0 request(s)
+```
+
+
 # Time to submit by minute of 2025 (types by: Hub EECert DC, Hub EEDila):
 
+```
   <1 (   0) │ 
    1 (1010) │ ██████████████████████████████████████████████████
    2 (  84) │ ████
@@ -90,10 +114,12 @@ Standard deviation time to first instruction: 3 jours
 
 Total: 1260 authorization requests
 Scale: each █ represents 20.2 request(s)
+```
 
 
 # Time to first instruction by day of 2025 (types by: Hub EECert DC, Hub EEDila):
 
+```
   <1 (   0) │ 
    1 (1114) │ ██████████████████████████████████████████████████
    2 ( 237) │ ███████████
@@ -129,6 +155,7 @@ Scale: each █ represents 20.2 request(s)
 
 Total: 1737 authorization requests
 Scale: each █ represents 22.3 request(s)
+```
 
  
 # Report of 2024 (types by: Hub EECert DC, Hub EEDila):
@@ -147,8 +174,32 @@ Mode time to first instruction: 1 minute
 Standard deviation time to first instruction: 6 jours
 
 
+# Volume of authorization requests by type for 2024 (types by: Hub EECert DC, Hub EEDila):
+
+```
+Hub EECert DC (1145) │ ██████████████████████████████████████████████████
+Hub EEDila    ( 539) │ ████████████████████████
+
+Total: 1684 authorization requests
+Scale: each █ represents 22.9 request(s)
+```
+
+
+# Volume of authorization requests by type (validated vs refused) for 2024 (types by: Hub EECert DC, Hub EEDila):
+
+```
+Hub EECert DC (V:959 R: 30 T:989) │ ████████████████████████████████████████████████▓▓
+Hub EEDila    (V:349 R: 18 T:367) │ ██████████████████▓
+
+Legend: █ = Validated, ▓ = Refused
+Total: 1308 validated, 48 refused (1356 total)
+Scale: each character represents 19.8 request(s)
+```
+
+
 # Time to submit by minute of 2024 (types by: Hub EECert DC, Hub EEDila):
 
+```
   <1 (   0) │ 
    1 (1163) │ ██████████████████████████████████████████████████
    2 (  79) │ ███
@@ -214,10 +265,12 @@ Standard deviation time to first instruction: 6 jours
 
 Total: 1380 authorization requests
 Scale: each █ represents 23.3 request(s)
+```
 
 
 # Time to first instruction by day of 2024 (types by: Hub EECert DC, Hub EEDila):
 
+```
   <1 (   0) │ 
    1 (1281) │ ██████████████████████████████████████████████████
    2 ( 305) │ ████████████
@@ -253,6 +306,7 @@ Scale: each █ represents 23.3 request(s)
 
 Total: 2250 authorization requests
 Scale: each █ represents 25.6 request(s)
+```
 
  
 # Report of 2023 (types by: Hub EECert DC, Hub EEDila):
@@ -271,8 +325,32 @@ Mode time to first instruction: 8 minutes
 Standard deviation time to first instruction: 17 jours
 
 
+# Volume of authorization requests by type for 2023 (types by: Hub EECert DC, Hub EEDila):
+
+```
+Hub EEDila    (1176) │ ██████████████████████████████████████████████████
+Hub EECert DC ( 878) │ █████████████████████████████████████
+
+Total: 2054 authorization requests
+Scale: each █ represents 23.5 request(s)
+```
+
+
+# Volume of authorization requests by type (validated vs refused) for 2023 (types by: Hub EECert DC, Hub EEDila):
+
+```
+Hub EEDila    (V:1109 R:  17 T:1126) │ █████████████████████████████████████████████████▓
+Hub EECert DC (V: 776 R:  64 T: 840) │ ██████████████████████████████████▓▓▓
+
+Legend: █ = Validated, ▓ = Refused
+Total: 1885 validated, 81 refused (1966 total)
+Scale: each character represents 22.5 request(s)
+```
+
+
 # Time to submit by minute of 2023 (types by: Hub EECert DC, Hub EEDila):
 
+```
   <1 (   0) │ 
    1 (1295) │ ██████████████████████████████████████████████████
    2 (  60) │ ██
@@ -338,10 +416,12 @@ Standard deviation time to first instruction: 17 jours
 
 Total: 1463 authorization requests
 Scale: each █ represents 25.9 request(s)
+```
 
 
 # Time to first instruction by day of 2023 (types by: Hub EECert DC, Hub EEDila):
 
+```
   <1 (   0) │ 
    1 (1617) │ ██████████████████████████████████████████████████
    2 ( 324) │ ██████████
@@ -377,4 +457,5 @@ Scale: each █ represents 25.9 request(s)
 
 Total: 2891 authorization requests
 Scale: each █ represents 32.3 request(s)
+```
 
