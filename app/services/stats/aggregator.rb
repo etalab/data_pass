@@ -253,6 +253,45 @@ module Stats
       result
     end
 
+    def time_to_first_instruction_by_duration_buckets(step: :day)
+      step_config = step_configuration(step)
+      step_seconds = step_config[:seconds]
+      max_steps = step_config[:max_steps]
+      
+      # Get all time to first instruction values in seconds
+      time_values = authorizations_with_submit_and_first_instruction_events
+        .pluck(Arel.sql("EXTRACT(EPOCH FROM (first_instruction_events.event_time - submit_events.event_time))"))
+        .map(&:to_f)
+      
+      return [] if time_values.empty?
+      
+      # Initialize buckets
+      buckets = {}
+      buckets["<1"] = 0
+      (1..max_steps).each { |i| buckets[i.to_s] = 0 }
+      buckets["> #{max_steps}"] = 0
+      
+      # Distribute values into buckets
+      time_values.each do |seconds|
+        bucket_index = (seconds / step_seconds).ceil
+        
+        if bucket_index < 1
+          buckets["<1"] += 1
+        elsif bucket_index > max_steps
+          buckets["> #{max_steps}"] += 1
+        else
+          buckets[bucket_index.to_s] += 1
+        end
+      end
+      
+      # Return as array of hashes in order
+      result = [{ bucket: "<1", count: buckets["<1"] }]
+      (1..max_steps).each { |i| result << { bucket: i.to_s, count: buckets[i.to_s] } }
+      result << { bucket: "> #{max_steps}", count: buckets["> #{max_steps}"] }
+      
+      result
+    end
+
     private
 
     def step_configuration(step)

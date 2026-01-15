@@ -9,13 +9,11 @@ puts "=" * 80
 puts ""
 
 [2025, 2024, 2023].each do |year|
-  Stats::Report.new(date_input: year).print_report
+  Stats::Report.new(date_input: year, provider: 'dinum').print_report
   puts "\n"
-  Stats::Report.new(date_input: year).print_time_to_submit_by_duration(step: :minute)
+  Stats::Report.new(date_input: year, provider: 'dinum').print_time_to_submit_by_duration(step: :minute)
   puts "\n"
-  Stats::Report.new(date_input: year).print_time_to_submit_by_duration(step: :hour)
-  puts "\n"
-  Stats::Report.new(date_input: year).print_time_to_submit_by_duration(step: :day)
+  Stats::Report.new(date_input: year, provider: 'dinum').print_time_to_first_instruction_by_duration(step: :day)
   puts "\n"
 end
 

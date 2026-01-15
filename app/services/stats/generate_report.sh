@@ -55,13 +55,28 @@ $(cat "$REPORT_FILE")
 $(cat "$MAIN_FILE")
 EOF
 
-# Extract only the content between markers (excluding the markers themselves)
-sed -n '/===BEGIN_OF_REPORT===/,/===END_OF_REPORT===/p' "$TEMP_OUTPUT" | sed '1d;$d' > "$OUTPUT_FILE"
+# Check if the markers are present (indicating success)
+if grep -q "===BEGIN_OF_REPORT===" "$TEMP_OUTPUT" && grep -q "===END_OF_REPORT===" "$TEMP_OUTPUT"; then
+  # Extract only the content between markers (excluding the markers themselves)
+  sed -n '/===BEGIN_OF_REPORT===/,/===END_OF_REPORT===/p' "$TEMP_OUTPUT" | sed '1d;$d' > "$OUTPUT_FILE"
+  
+  echo "" >&2
+  echo "========================================" >&2
+  echo "Execution complete!" >&2
+  echo "Output saved to: $OUTPUT_FILE" >&2
+else
+  # Show the full output including errors
+  echo "" >&2
+  echo "========================================" >&2
+  echo "ERROR: Report generation failed!" >&2
+  echo "========================================" >&2
+  echo "" >&2
+  cat "$TEMP_OUTPUT" >&2
+  
+  # Clean up and exit with error
+  rm -f "$TEMP_OUTPUT"
+  exit 1
+fi
 
 # Clean up
 rm -f "$TEMP_OUTPUT"
-
-echo "" >&2
-echo "========================================" >&2
-echo "Execution complete!" >&2
-echo "Output saved to: $OUTPUT_FILE" >&2

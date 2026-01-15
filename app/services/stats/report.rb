@@ -107,6 +107,19 @@ module Stats
       puts format_bar_chart(buckets, step)
     end
 
+    def print_time_to_first_instruction_by_duration(step: :day)
+      buckets = @create_aggregator.time_to_first_instruction_by_duration_buckets(step: step)
+      
+      if buckets.empty? || buckets.sum { |b| b[:count] } == 0
+        puts "\nNo data available for time to first instruction by duration."
+        return
+      end
+
+      step_label = step_label_text(step)
+      puts "\n# Time to first instruction by #{step_label} of #{human_readable_date_range}#{type_filter_label}:\n\n"
+      puts format_bar_chart(buckets, step)
+    end
+
     def print_volume_by_type
       data = @create_aggregator.volume_by_type
       
