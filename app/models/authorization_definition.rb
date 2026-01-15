@@ -69,6 +69,10 @@ class AuthorizationDefinition < StaticApplicationRecord
     %w[api_entreprise api_particulier].include?(id)
   end
 
+  def france_connect?
+    id == 'france_connect'
+  end
+
   def instructors
     User.instructor_for(id)
   end

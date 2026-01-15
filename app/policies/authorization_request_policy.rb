@@ -72,7 +72,7 @@ class AuthorizationRequestPolicy < ApplicationPolicy
 
   def france_connected_authorizations?
     summary? &&
-      record.definition.id == 'france_connect' &&
+      record.definition.france_connect? &&
       record.france_connected_authorizations.exists?
   end
 
