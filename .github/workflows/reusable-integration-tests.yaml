@@ -22,13 +22,6 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-      chrome:
-        image: browserless/chrome:latest
-        ports:
-          - "3333:3333"
-        env:
-          PORT: 3333
-          CONNECTION_TIMEOUT: 600000
       redis:
         image: redis
         ports:
@@ -43,9 +36,22 @@ jobs:
             ./.github/workflows/test.env
           key: v1-${{ hashFiles('Gemfile.lock') }}-${{ hashFiles('Dockerfile') }}
       - run: docker load --input /tmp/data_pass.tar
+      - name: Start Chrome with volume mount
+        run: |
+          docker run -d \
+            --name chrome \
+            --network="host" \
+            -v ${{ github.workspace }}:/app \
+            -e PORT=3333 \
+            -e CONNECTION_TIMEOUT=600000 \
+            ghcr.io/browserless/chromium
+          sleep 5
       - run: |
           docker run \
             --network="host" \
             --env-file ./.github/workflows/test.env \
             -v ${{ github.workspace }}:/app \
             --rm data_pass bundle exec cucumber --format progress ${{ inputs.cucumber_options }}
+      - name: Stop Chrome
+        if: always()
+        run: docker stop chrome || true

@@ -23,7 +23,7 @@ Fonctionnalité: Persistance des documents dans la demande d'habilitation
     Alors la page contient "dummy.pdf"
     Et la page contient "another_dummy.pdf"
 
-  @javascript @pending
+  @javascript
   Scénario: Suppression d'un ou plusieurs documents PDF dans le cadre juridique
     Quand je joins 2 documents au cadre juridique du projet "API Ingres"
     * je clique sur "Suivant"
