@@ -56,6 +56,22 @@ Scale: each character represents 13.1 request(s)
 ```
 
 
+# Median time to submit by type for 2025 (provider: dinum):
+
+```
+AnnuaireDesEntreprises     ( 2.3 minutes, n= 68) │ ██
+FormulaireQF               ( 3.6 minutes, n= 77) │ ████
+APIParticulier             ( 9.0 minutes, n=573) │ █████████
+APIEntreprise              (13.6 minutes, n=232) │ ██████████████
+LeTaxi                     (14.9 minutes, n=  7) │ ███████████████
+FranceConnect              (15.3 minutes, n=503) │ ███████████████
+ProConnectIdentityProvider (15.4 minutes, n= 14) │ ███████████████
+ProConnectServiceProvider  (39.4 minutes, n= 81) │ ███████████████████████████████████████
+
+Total: 1555 authorization requests
+```
+
+
 # Time to submit by minute of 2025 (provider: dinum):
 
 ```
@@ -124,6 +140,22 @@ Scale: each character represents 13.1 request(s)
 
 Total: 1555 authorization requests
 Scale: each █ represents 7.1 request(s)
+```
+
+
+# Median time to first instruction by type for 2025 (provider: dinum):
+
+```
+LeTaxi                     (0.6 days, n=   2) │ █
+ProConnectIdentityProvider (1.2 days, n=  19) │ █
+FranceConnect              (1.7 days, n=1138) │ ██
+AnnuaireDesEntreprises     (1.9 days, n=  83) │ ██
+ProConnectServiceProvider  (4.0 days, n= 122) │ ████
+APIParticulier             (6.2 days, n= 799) │ ██████
+APIEntreprise              (6.3 days, n= 277) │ ██████
+FormulaireQF               (6.6 days, n= 106) │ ███████
+
+Total: 2546 authorization requests
 ```
 
 
@@ -217,6 +249,20 @@ Scale: each character represents 10.2 request(s)
 ```
 
 
+# Median time to submit by type for 2024 (provider: dinum):
+
+```
+FormulaireQF              (     2.4 minutes, n=  3) │ 
+APIParticulier            (     7.3 minutes, n=428) │ 
+APIEntreprise             (    13.0 minutes, n=177) │ 
+ProConnectServiceProvider (420773.9 minutes, n=  1) │ ███████████████████████████████████████
+FranceConnect             (536865.3 minutes, n= 71) │ ██████████████████████████████████████████████████
+
+Total: 680 authorization requests
+Scale: each █ represents 10737.3 minutes
+```
+
+
 # Time to submit by minute of 2024 (provider: dinum):
 
 ```
@@ -285,6 +331,21 @@ Scale: each character represents 10.2 request(s)
 
 Total: 680 authorization requests
 Scale: each █ represents 4.7 request(s)
+```
+
+
+# Median time to first instruction by type for 2024 (provider: dinum):
+
+```
+ProConnectServiceProvider  ( 0.3 days, n=  70) │ 
+ProConnectIdentityProvider ( 0.9 days, n=  22) │ █
+APIParticulier             ( 2.9 days, n=1193) │ ███
+FranceConnect              ( 3.6 days, n= 950) │ ████
+APIEntreprise              ( 4.0 days, n= 325) │ ████
+FormulaireQF               ( 4.5 days, n=   4) │ █████
+LeTaxi                     (13.1 days, n=  16) │ █████████████
+
+Total: 2580 authorization requests
 ```
 
 
@@ -376,6 +437,19 @@ Scale: each character represents 9.1 request(s)
 ```
 
 
+# Median time to submit by type for 2023 (provider: dinum):
+
+```
+APIParticulier             (  0.0 days, n=373) │ 
+APIEntreprise              (  0.0 days, n=184) │ 
+FranceConnect              (819.1 days, n= 34) │ ████████████████████████████████████████████████
+ProConnectIdentityProvider (848.3 days, n=  1) │ ██████████████████████████████████████████████████
+
+Total: 592 authorization requests
+Scale: each █ represents 17.0 days
+```
+
+
 # Time to submit by minute of 2023 (provider: dinum):
 
 ```
@@ -444,6 +518,20 @@ Scale: each character represents 9.1 request(s)
 
 Total: 592 authorization requests
 Scale: each █ represents 4.2 request(s)
+```
+
+
+# Median time to first instruction by type for 2023 (provider: dinum):
+
+```
+ProConnectIdentityProvider (2.0 days, n= 16) │ ██
+FranceConnect              (2.1 days, n=907) │ ██
+APIParticulier             (2.6 days, n=952) │ ███
+ProConnectServiceProvider  (4.8 days, n= 41) │ █████
+APIEntreprise              (5.0 days, n=418) │ █████
+LeTaxi                     (8.6 days, n= 26) │ █████████
+
+Total: 2360 authorization requests
 ```
 
 

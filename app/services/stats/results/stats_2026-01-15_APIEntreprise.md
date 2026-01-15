@@ -42,6 +42,15 @@ Scale: each character represents 3.5 request(s)
 ```
 
 
+# Median time to submit by type for 2025 (types by: APIEntreprise):
+
+```
+APIEntreprise (13.6 minutes, n=232) │ ██████████████
+
+Total: 232 authorization requests
+```
+
+
 # Time to submit by minute of 2025 (types by: APIEntreprise):
 
 ```
@@ -110,6 +119,15 @@ Scale: each character represents 3.5 request(s)
 
 Total: 232 authorization requests
 Scale: each █ represents 1.2 request(s)
+```
+
+
+# Median time to first instruction by type for 2025 (types by: APIEntreprise):
+
+```
+APIEntreprise (6.3 days, n=277) │ ██████
+
+Total: 277 authorization requests
 ```
 
 
@@ -191,6 +209,15 @@ Scale: each character represents 3.3 request(s)
 ```
 
 
+# Median time to submit by type for 2024 (types by: APIEntreprise):
+
+```
+APIEntreprise (13.0 minutes, n=177) │ █████████████
+
+Total: 177 authorization requests
+```
+
+
 # Time to submit by minute of 2024 (types by: APIEntreprise):
 
 ```
@@ -258,6 +285,15 @@ Scale: each character represents 3.3 request(s)
 > 60 (50) │ ██████████████████████████████████████████████████
 
 Total: 177 authorization requests
+```
+
+
+# Median time to first instruction by type for 2024 (types by: APIEntreprise):
+
+```
+APIEntreprise (4.0 days, n=325) │ ████
+
+Total: 325 authorization requests
 ```
 
 
@@ -339,6 +375,15 @@ Scale: each character represents 4.3 request(s)
 ```
 
 
+# Median time to submit by type for 2023 (types by: APIEntreprise):
+
+```
+APIEntreprise (2.9 minutes, n=184) │ ███
+
+Total: 184 authorization requests
+```
+
+
 # Time to submit by minute of 2023 (types by: APIEntreprise):
 
 ```
@@ -407,6 +452,15 @@ Scale: each character represents 4.3 request(s)
 
 Total: 184 authorization requests
 Scale: each █ represents 1.2 request(s)
+```
+
+
+# Median time to first instruction by type for 2023 (types by: APIEntreprise):
+
+```
+APIEntreprise (5.0 days, n=418) │ █████
+
+Total: 418 authorization requests
 ```
 
 

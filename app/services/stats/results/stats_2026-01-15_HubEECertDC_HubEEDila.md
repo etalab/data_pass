@@ -44,6 +44,16 @@ Scale: each character represents 14.0 request(s)
 ```
 
 
+# Median time to submit by type for 2025 (types by: HubEECertDC, HubEEDila):
+
+```
+HubEEDila   (0.3 minutes, n=459) │ 
+HubEECertDC (0.3 minutes, n=801) │ 
+
+Total: 1260 authorization requests
+```
+
+
 # Time to submit by minute of 2025 (types by: HubEECertDC, HubEEDila):
 
 ```
@@ -112,6 +122,16 @@ Scale: each character represents 14.0 request(s)
 
 Total: 1260 authorization requests
 Scale: each █ represents 20.2 request(s)
+```
+
+
+# Median time to first instruction by type for 2025 (types by: HubEECertDC, HubEEDila):
+
+```
+HubEECertDC ( 1.1 hours, n=971) │ █
+HubEEDila   (28.7 hours, n=766) │ █████████████████████████████
+
+Total: 1737 authorization requests
 ```
 
 
@@ -195,6 +215,16 @@ Scale: each character represents 19.8 request(s)
 ```
 
 
+# Median time to submit by type for 2024 (types by: HubEECertDC, HubEEDila):
+
+```
+HubEECertDC (0.1 minutes, n=996) │ 
+HubEEDila   (0.1 minutes, n=384) │ 
+
+Total: 1380 authorization requests
+```
+
+
 # Time to submit by minute of 2024 (types by: HubEECertDC, HubEEDila):
 
 ```
@@ -263,6 +293,16 @@ Scale: each character represents 19.8 request(s)
 
 Total: 1380 authorization requests
 Scale: each █ represents 23.3 request(s)
+```
+
+
+# Median time to first instruction by type for 2024 (types by: HubEECertDC, HubEEDila):
+
+```
+HubEECertDC ( 3.7 hours, n=1345) │ ████
+HubEEDila   (41.8 hours, n= 905) │ ██████████████████████████████████████████
+
+Total: 2250 authorization requests
 ```
 
 
@@ -346,6 +386,13 @@ Scale: each character represents 22.5 request(s)
 ```
 
 
+# Median time to submit by type for 2023 (types by: HubEECertDC, HubEEDila):
+
+```
+No data
+```
+
+
 # Time to submit by minute of 2023 (types by: HubEECertDC, HubEEDila):
 
 ```
@@ -414,6 +461,16 @@ Scale: each character represents 22.5 request(s)
 
 Total: 1463 authorization requests
 Scale: each █ represents 25.9 request(s)
+```
+
+
+# Median time to first instruction by type for 2023 (types by: HubEECertDC, HubEEDila):
+
+```
+HubEECertDC (17.2 hours, n=1551) │ █████████████████
+HubEEDila   (24.2 hours, n=1340) │ ████████████████████████
+
+Total: 2891 authorization requests
 ```
 
 

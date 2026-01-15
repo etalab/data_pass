@@ -67,6 +67,29 @@ Scale: each character represents 1.1 request(s)
 ```
 
 
+# Median time to submit by type for 2025 (provider: dgfip):
+
+```
+APIRialSandbox             (     4.9 minutes, n= 1) │ 
+APIINFINOE                 (     8.4 minutes, n=14) │ 
+APIImpotParticulierSandbox (    10.4 minutes, n=10) │ 
+APIFicobaSandbox           (    10.9 minutes, n=28) │ 
+APISFiPR2PSandbox          (    11.5 minutes, n=11) │ 
+APIINFINOESandbox          (    11.7 minutes, n=19) │ 
+APIR2PSandbox              (    12.1 minutes, n=20) │ 
+APISFiPR2P                 (    25.6 minutes, n=11) │ 
+APIFicoba                  (  1549.8 minutes, n= 1) │ 
+APIImpotParticulier        (  9371.2 minutes, n=28) │ ███
+APIR2P                     ( 28059.1 minutes, n=20) │ ████████
+APISFiPSandbox             ( 40860.0 minutes, n= 6) │ ████████████
+APIRial                    ( 60603.2 minutes, n= 2) │ █████████████████
+APISFiP                    (173763.4 minutes, n=16) │ ██████████████████████████████████████████████████
+
+Total: 187 authorization requests
+Scale: each █ represents 3475.3 minutes
+```
+
+
 # Time to submit by minute of 2025 (provider: dgfip):
 
 ```
@@ -135,6 +158,29 @@ Scale: each character represents 1.1 request(s)
 
 Total: 187 authorization requests
 Scale: each █ represents 1.6 request(s)
+```
+
+
+# Median time to first instruction by type for 2025 (provider: dgfip):
+
+```
+APIFicoba                  (  2.1 hours, n= 4) │ █
+APIINFINOESandbox          ( 16.3 hours, n=75) │ █████
+APIR2PSandbox              ( 17.3 hours, n=54) │ █████
+APIINFINOE                 ( 19.3 hours, n=22) │ ██████
+APIImpotParticulier        ( 27.9 hours, n=64) │ █████████
+APISFiP                    ( 43.3 hours, n=47) │ █████████████
+APIR2P                     ( 43.4 hours, n=69) │ █████████████
+APIImpotParticulierSandbox ( 47.0 hours, n=49) │ ██████████████
+APISFiPR2P                 ( 52.3 hours, n=16) │ ████████████████
+APISFiPSandbox             ( 70.8 hours, n=38) │ ██████████████████████
+APIFicobaSandbox           ( 71.4 hours, n=41) │ ██████████████████████
+APISFiPR2PSandbox          ( 72.1 hours, n=14) │ ██████████████████████
+APIRial                    (156.9 hours, n= 8) │ ████████████████████████████████████████████████
+APIRialSandbox             (162.8 hours, n=12) │ ██████████████████████████████████████████████████
+
+Total: 513 authorization requests
+Scale: each █ represents 3.3 hours
 ```
 
 
@@ -238,6 +284,23 @@ Scale: each character represents 12.2 request(s)
 ```
 
 
+# Median time to submit by type for 2024 (provider: dgfip):
+
+```
+APIImpotParticulierSandbox (333.2 days, n= 1) │ ████████████████████████████
+APIR2P                     (336.4 days, n= 8) │ ████████████████████████████
+APIFicoba                  (394.1 days, n= 1) │ █████████████████████████████████
+APIImpotParticulier        (407.2 days, n= 5) │ ██████████████████████████████████
+APIINFINOESandbox          (512.3 days, n= 8) │ ███████████████████████████████████████████
+APIINFINOE                 (541.7 days, n=20) │ █████████████████████████████████████████████
+APIR2PSandbox              (580.9 days, n= 1) │ █████████████████████████████████████████████████
+APIFicobaSandbox           (598.7 days, n= 3) │ ██████████████████████████████████████████████████
+
+Total: 47 authorization requests
+Scale: each █ represents 12.0 days
+```
+
+
 # Time to submit by minute of 2024 (provider: dgfip):
 
 ```
@@ -305,6 +368,26 @@ Scale: each character represents 12.2 request(s)
 > 60 (47) │ ███████████████████████████████████████████████
 
 Total: 47 authorization requests
+```
+
+
+# Median time to first instruction by type for 2024 (provider: dgfip):
+
+```
+APIINFINOESandbox          (   1.0 hours, n=1022) │ 
+APIINFINOE                 (   4.0 hours, n= 272) │ 
+APIR2PSandbox              (  17.1 hours, n=  83) │ 
+APIImpotParticulierSandbox (  19.3 hours, n= 110) │ 
+APIR2P                     (  22.3 hours, n=  92) │ 
+APIImpotParticulier        (  23.5 hours, n= 116) │ 
+APISFiP                    (  32.2 hours, n=  14) │ █
+APIFicoba                  (  59.5 hours, n=  26) │ █
+APISFiPSandbox             (  90.7 hours, n=  46) │ ██
+APIFicobaSandbox           (  97.1 hours, n=  35) │ ██
+APICprProAdelieSandbox     (2616.4 hours, n=   1) │ ██████████████████████████████████████████████████
+
+Total: 1817 authorization requests
+Scale: each █ represents 52.3 hours
 ```
 
 
@@ -406,6 +489,23 @@ Scale: each character represents 3.4 request(s)
 ```
 
 
+# Median time to submit by type for 2023 (provider: dgfip):
+
+```
+APISFiP                    (634.1 days, n=3) │ █████████████████████████████████████
+APIImpotParticulier        (745.2 days, n=8) │ ███████████████████████████████████████████
+APIINFINOESandbox          (748.9 days, n=4) │ ███████████████████████████████████████████
+APIR2P                     (761.2 days, n=6) │ ████████████████████████████████████████████
+APIFicobaSandbox           (765.7 days, n=1) │ ████████████████████████████████████████████
+APIINFINOE                 (766.1 days, n=8) │ ████████████████████████████████████████████
+APIFicoba                  (800.4 days, n=2) │ ██████████████████████████████████████████████
+APIImpotParticulierSandbox (868.5 days, n=8) │ ██████████████████████████████████████████████████
+
+Total: 40 authorization requests
+Scale: each █ represents 17.4 days
+```
+
+
 # Time to submit by minute of 2023 (provider: dgfip):
 
 ```
@@ -473,6 +573,26 @@ Scale: each character represents 3.4 request(s)
 > 60 (40) │ ████████████████████████████████████████
 
 Total: 40 authorization requests
+```
+
+
+# Median time to first instruction by type for 2023 (provider: dgfip):
+
+```
+APIINFINOESandbox          ( 1.5 days, n=301) │ ██
+APIINFINOE                 ( 3.7 days, n=308) │ ████
+APIR2P                     ( 4.6 days, n= 76) │ █████
+APIImpotParticulier        ( 5.2 days, n=343) │ █████
+APIR2PSandbox              ( 6.0 days, n=133) │ ██████
+APIFicoba                  ( 7.2 days, n= 34) │ ███████
+APIImpotParticulierSandbox ( 7.2 days, n=276) │ ███████
+APISFiP                    ( 8.7 days, n= 33) │ █████████
+APIOpaleSandbox            (11.5 days, n=  4) │ ████████████
+APIRobfSandbox             (14.0 days, n=  1) │ ██████████████
+APIFicobaSandbox           (20.1 days, n= 66) │ ████████████████████
+APISFiPSandbox             (24.6 days, n=  9) │ █████████████████████████
+
+Total: 1584 authorization requests
 ```
 
 

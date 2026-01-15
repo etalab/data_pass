@@ -206,6 +206,78 @@ module Stats
       puts "```"
     end
 
+    def print_median_time_to_submit_by_type
+      data = @create_aggregator.median_time_to_submit_by_type
+      
+      if data.empty?
+        puts "\nNo data available for median time to submit by type."
+        return
+      end
+
+      puts "\n# Median time to submit by type for #{human_readable_date_range}#{type_filter_label}:\n\n"
+      
+      # Format data for bar chart - convert seconds to human readable
+      max_time = data.map { |item| item[:median_time] }.max
+      median_time = data.map { |item| item[:median_time] }.sort[data.length / 2]
+      
+      # Find appropriate unit based on median rather than max to avoid outlier bias
+      unit, divisor = if median_time > 2 * 86400
+        ["days", 86400.0]
+      elsif median_time > 90 * 60
+        ["hours", 3600.0]
+      else
+        ["minutes", 60.0]
+      end
+      
+      buckets = data.map do |item|
+        {
+          bucket: format_type_name(item[:type].split('::').last),
+          value: (item[:median_time] / divisor).round(1),
+          count: item[:count]
+        }
+      end
+      
+      puts "```"
+      puts format_time_bar_chart(buckets, unit)
+      puts "```"
+    end
+
+    def print_median_time_to_first_instruction_by_type
+      data = @create_aggregator.median_time_to_first_instruction_by_type
+      
+      if data.empty?
+        puts "\nNo data available for median time to first instruction by type."
+        return
+      end
+
+      puts "\n# Median time to first instruction by type for #{human_readable_date_range}#{type_filter_label}:\n\n"
+      
+      # Format data for bar chart - convert seconds to human readable
+      max_time = data.map { |item| item[:median_time] }.max
+      median_time = data.map { |item| item[:median_time] }.sort[data.length / 2]
+      
+      # Find appropriate unit based on median rather than max to avoid outlier bias
+      unit, divisor = if median_time > 2 * 86400
+        ["days", 86400.0]
+      elsif median_time > 90 * 60
+        ["hours", 3600.0]
+      else
+        ["minutes", 60.0]
+      end
+      
+      buckets = data.map do |item|
+        {
+          bucket: format_type_name(item[:type].split('::').last),
+          value: (item[:median_time] / divisor).round(1),
+          count: item[:count]
+        }
+      end
+      
+      puts "```"
+      puts format_time_bar_chart(buckets, unit)
+      puts "```"
+    end
+
     private
 
     def authorization_requests_with_first_create_in_range
@@ -429,6 +501,38 @@ module Stats
       lines << "Legend: █ = Validated, ▓ = Refused"
       lines << "Total: #{items.sum { |i| i[:validated] }} validated, #{items.sum { |i| i[:refused] }} refused (#{items.sum { |i| i[:total] }} total)"
       lines << "Scale: each character represents #{(1.0 / scale).round(1)} request(s)" if scale < 1.0
+      
+      lines.join("\n")
+    end
+
+    def format_time_bar_chart(buckets, unit)
+      max_value = buckets.map { |b| b[:value] }.max
+      return "No data" if max_value == 0
+      
+      # Calculate bar scale - aim for max bar length of 50 characters
+      max_bar_length = 50
+      scale = max_value > max_bar_length ? (max_bar_length.to_f / max_value) : 1.0
+      
+      lines = []
+      
+      # Find the maximum width needed for labels and values
+      max_label_width = buckets.map { |b| b[:bucket].to_s.length }.max
+      max_value_width = buckets.map { |b| b[:value].to_s.length }.max
+      max_count_width = buckets.map { |b| b[:count].to_s.length }.max
+      
+      # Build bars with values on the left
+      buckets.each do |bucket|
+        bar_length = (bucket[:value] * scale).round
+        bar = "█" * bar_length
+        label = bucket[:bucket].to_s.ljust(max_label_width)
+        value = bucket[:value].to_s.rjust(max_value_width)
+        count = bucket[:count].to_s.rjust(max_count_width)
+        lines << "#{label} (#{value} #{unit}, n=#{count}) │ #{bar}"
+      end
+      
+      lines << ""
+      lines << "Total: #{buckets.sum { |b| b[:count] }} authorization requests"
+      lines << "Scale: each █ represents #{(1.0 / scale).round(1)} #{unit}" if scale < 1.0
       
       lines.join("\n")
     end

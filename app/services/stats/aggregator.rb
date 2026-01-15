@@ -292,6 +292,66 @@ module Stats
       result
     end
 
+    def median_time_to_submit_by_type
+      # Get all time values grouped by type
+      results = authorizations_with_first_create_and_submit_events
+        .pluck(
+          Arel.sql("authorization_requests.type"),
+          Arel.sql("EXTRACT(EPOCH FROM (first_submit_events.event_time - first_create_events.event_time))")
+        )
+      
+      # Group by type and calculate median
+      by_type = Hash.new { |h, k| h[k] = [] }
+      results.each do |type, time|
+        by_type[type] << time.to_f
+      end
+      
+      by_type.map do |type, times|
+        sorted = times.sort
+        median = if sorted.length.odd?
+          sorted[sorted.length / 2]
+        else
+          (sorted[sorted.length / 2 - 1] + sorted[sorted.length / 2]) / 2.0
+        end
+        
+        {
+          type: type,
+          median_time: median,
+          count: times.length
+        }
+      end.sort_by { |item| item[:median_time] }
+    end
+
+    def median_time_to_first_instruction_by_type
+      # Get all time values grouped by type
+      results = authorizations_with_submit_and_first_instruction_events
+        .pluck(
+          Arel.sql("authorization_requests.type"),
+          Arel.sql("EXTRACT(EPOCH FROM (first_instruction_events.event_time - submit_events.event_time))")
+        )
+      
+      # Group by type and calculate median
+      by_type = Hash.new { |h, k| h[k] = [] }
+      results.each do |type, time|
+        by_type[type] << time.to_f
+      end
+      
+      by_type.map do |type, times|
+        sorted = times.sort
+        median = if sorted.length.odd?
+          sorted[sorted.length / 2]
+        else
+          (sorted[sorted.length / 2 - 1] + sorted[sorted.length / 2]) / 2.0
+        end
+        
+        {
+          type: type,
+          median_time: median,
+          count: times.length
+        }
+      end.sort_by { |item| item[:median_time] }
+    end
+
     private
 
     def step_configuration(step)

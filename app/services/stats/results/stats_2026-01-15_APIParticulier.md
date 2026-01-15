@@ -42,6 +42,15 @@ Scale: each character represents 10.0 request(s)
 ```
 
 
+# Median time to submit by type for 2025 (types by: APIParticulier):
+
+```
+APIParticulier (9.0 minutes, n=573) │ █████████
+
+Total: 573 authorization requests
+```
+
+
 # Time to submit by minute of 2025 (types by: APIParticulier):
 
 ```
@@ -110,6 +119,15 @@ Scale: each character represents 10.0 request(s)
 
 Total: 573 authorization requests
 Scale: each █ represents 2.2 request(s)
+```
+
+
+# Median time to first instruction by type for 2025 (types by: APIParticulier):
+
+```
+APIParticulier (6.2 days, n=799) │ ██████
+
+Total: 799 authorization requests
 ```
 
 
@@ -191,6 +209,15 @@ Scale: each character represents 9.9 request(s)
 ```
 
 
+# Median time to submit by type for 2024 (types by: APIParticulier):
+
+```
+APIParticulier (7.3 minutes, n=428) │ ███████
+
+Total: 428 authorization requests
+```
+
+
 # Time to submit by minute of 2024 (types by: APIParticulier):
 
 ```
@@ -259,6 +286,15 @@ Scale: each character represents 9.9 request(s)
 
 Total: 428 authorization requests
 Scale: each █ represents 2.3 request(s)
+```
+
+
+# Median time to first instruction by type for 2024 (types by: APIParticulier):
+
+```
+APIParticulier (2.9 days, n=1193) │ ███
+
+Total: 1193 authorization requests
 ```
 
 
@@ -340,6 +376,15 @@ Scale: each character represents 8.4 request(s)
 ```
 
 
+# Median time to submit by type for 2023 (types by: APIParticulier):
+
+```
+APIParticulier (2.9 minutes, n=373) │ ███
+
+Total: 373 authorization requests
+```
+
+
 # Time to submit by minute of 2023 (types by: APIParticulier):
 
 ```
@@ -408,6 +453,15 @@ Scale: each character represents 8.4 request(s)
 
 Total: 373 authorization requests
 Scale: each █ represents 3.0 request(s)
+```
+
+
+# Median time to first instruction by type for 2023 (types by: APIParticulier):
+
+```
+APIParticulier (2.6 days, n=952) │ ███
+
+Total: 952 authorization requests
 ```
 
 
