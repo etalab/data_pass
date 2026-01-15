@@ -5,58 +5,60 @@
 ---
 
  
-# 📊 Report of 2025 (types by: ProConnectServiceProvider, ProConnectIdentityProvider):
+# 📊 Rapport de 2025 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
 
 ## Volume
-- 205 authorization requests created
-- 11 reopen events
-## Time to submit
-- Average time to submit: 6 jours
-- Median time to submit: 31 minutes
-- Mode time to submit: 3 minutes
-- Standard deviation time to submit: 28 jours
-## Time to first instruction
-- Average time to first instruction: 7 jours
-- Median time to first instruction: 4 jours
-- Mode time to first instruction: 1 jour
-- Standard deviation time to first instruction: 10 jours
+- 205 demandes créées
+- 11 réouvertures
+## Durée d'une soumission
+(Entre la création d'une demande et sa première soumission)
+- Durée moyenne d'une soumission: 6 jours
+- Durée médiane d'une soumission: 31 minutes
+- Durée de soumission la plus fréquente: 3 minutes
+- Écart-type des durées de soumission: 28 jours
+## Durée d'instruction
+(Entre une soumission et la première instruction qui suit)
+- Durée moyenne d'une instruction: 7 jours
+- Durée médiane d'une instruction: 4 jours
+- Durée d'instruction la plus fréquente: 1 jour
+- Écart-type des durées d'instruction: 10 jours
 
 
-## Volume of authorization requests by type for 2025 (types by: ProConnectServiceProvider, ProConnectIdentityProvider):
+## Volume de demandes par type pour 2025 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
 
 ```
 ProConnectServiceProvider  (180) │ ██████████████████████████████████████████████████
 ProConnectIdentityProvider ( 25) │ ███████
 
-Total: 205 authorization requests
-Scale: each █ represents 3.6 request(s)
+Total : 205 demandes
+Échelle : chaque █ représente 3.6 demande(s)
 ```
 
 
-## Volume of authorization requests by type (validated vs refused) for 2025 (types by: ProConnectServiceProvider, ProConnectIdentityProvider):
+## Volume de demandes par type (validées vs refusées) pour 2025 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
 
 ```
 ProConnectServiceProvider  (106:  90.6%V   9.4%R) │ █████████████████████████████████████████████▓▓▓▓▓
 ProConnectIdentityProvider ( 17: 100.0%V   0.0%R) │ ████████
 
-Legend: █ = Validated, ▓ = Refused
-Total: 113 validated, 10 refused (123 total)
-Scale: each character represents 2.1 request(s)
+Légende : █ = Validées, ▓ = Refusées
+Total : 113 validées, 10 refusées (123 total)
+Échelle : chaque caractère représente 2.1 demande(s)
 ```
 
 
-## Median time to submit by type for 2025 (types by: ProConnectServiceProvider, ProConnectIdentityProvider):
+## Durée médiane de soumission par type pour 2025 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
 
-### Under 1 hour:
+### Moins d'1 heure:
 ```
 ProConnectIdentityProvider (15.4 minutes, n=14) │ ███████████████
 ProConnectServiceProvider  (39.4 minutes, n=81) │ ███████████████████████████████████████
 
-Total: 95 authorization requests
+Total : 95 demandes
 ```
 
 
-## Time to submit by minute of 2025 (types by: ProConnectServiceProvider, ProConnectIdentityProvider):
+## Durée de soumission par minute de 2025 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
 
 ```
   <1 ( 0) │ 
@@ -122,21 +124,21 @@ Total: 95 authorization requests
   60 ( 0) │ 
 > 60 (43) │ ███████████████████████████████████████████
 
-Total: 95 authorization requests
+Total : 95 demandes
 ```
 
 
-## Median time to first instruction by type for 2025 (types by: ProConnectServiceProvider, ProConnectIdentityProvider):
+## Durée médiane d'instruction par type pour 2025 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
 
 ```
-ProConnectIdentityProvider (1.2 days, n= 19) │ █
-ProConnectServiceProvider  (4.0 days, n=122) │ ████
+ProConnectIdentityProvider (1.2 jours, n= 19) │ █
+ProConnectServiceProvider  (4.0 jours, n=122) │ ████
 
-Total: 141 authorization requests
+Total : 141 demandes
 ```
 
 
-## Time to first instruction by day of 2025 (types by: ProConnectServiceProvider, ProConnectIdentityProvider):
+## Durée d'instruction par jour de 2025 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
 
 ```
   <1 ( 0) │ 
@@ -172,62 +174,64 @@ Total: 141 authorization requests
   30 ( 1) │ █
 > 30 ( 6) │ ██████
 
-Total: 141 authorization requests
+Total : 141 demandes
 ```
 
  
-# 📊 Report of 2024 (types by: ProConnectServiceProvider, ProConnectIdentityProvider):
+# 📊 Rapport de 2024 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
 
 ## Volume
-- 124 authorization requests created
-- 6 reopen events
-## Time to submit
-- Average time to submit: 10 mois
-- Median time to submit: 10 mois
-- Mode time to submit: 10 mois
-- Standard deviation time to submit: moins d'une minute
-## Time to first instruction
-- Average time to first instruction: 3 jours
-- Median time to first instruction: environ 18 heures
-- Mode time to first instruction: 1 jour
-- Standard deviation time to first instruction: 6 jours
+- 124 demandes créées
+- 6 réouvertures
+## Durée d'une soumission
+(Entre la création d'une demande et sa première soumission)
+- Durée moyenne d'une soumission: 10 mois
+- Durée médiane d'une soumission: 10 mois
+- Durée de soumission la plus fréquente: 10 mois
+- Écart-type des durées de soumission: moins d'une minute
+## Durée d'instruction
+(Entre une soumission et la première instruction qui suit)
+- Durée moyenne d'une instruction: 3 jours
+- Durée médiane d'une instruction: environ 18 heures
+- Durée d'instruction la plus fréquente: 1 jour
+- Écart-type des durées d'instruction: 6 jours
 
 
-## Volume of authorization requests by type for 2024 (types by: ProConnectServiceProvider, ProConnectIdentityProvider):
+## Volume de demandes par type pour 2024 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
 
 ```
 ProConnectServiceProvider  (98) │ ██████████████████████████████████████████████████
 ProConnectIdentityProvider (26) │ █████████████
 
-Total: 124 authorization requests
-Scale: each █ represents 2.0 request(s)
+Total : 124 demandes
+Échelle : chaque █ représente 2.0 demande(s)
 ```
 
 
-## Volume of authorization requests by type (validated vs refused) for 2024 (types by: ProConnectServiceProvider, ProConnectIdentityProvider):
+## Volume de demandes par type (validées vs refusées) pour 2024 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
 
 ```
 ProConnectServiceProvider  (51:  96.1%V   3.9%R) │ ████████████████████████████████████████████████▓▓
 ProConnectIdentityProvider (16:  93.8%V   6.3%R) │ ███████████████▓
 
-Legend: █ = Validated, ▓ = Refused
-Total: 64 validated, 3 refused (67 total)
-Scale: each character represents 1.0 request(s)
+Légende : █ = Validées, ▓ = Refusées
+Total : 64 validées, 3 refusées (67 total)
+Échelle : chaque caractère représente 1.0 demande(s)
 ```
 
 
-## Median time to submit by type for 2024 (types by: ProConnectServiceProvider, ProConnectIdentityProvider):
+## Durée médiane de soumission par type pour 2024 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
 
-### 1 hour or more:
+### 1 heure ou plus:
 ```
 ProConnectServiceProvider (292.2 days, n=1) │ ██████████████████████████████████████████████████
 
-Total: 1 authorization requests
-Scale: each █ represents 140.3 request(s)
+Total : 1 demandes
+Échelle : chaque █ représente 140.3 demande(s)
 ```
 
 
-## Time to submit by minute of 2024 (types by: ProConnectServiceProvider, ProConnectIdentityProvider):
+## Durée de soumission par minute de 2024 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
 
 ```
   <1 (0) │ 
@@ -293,21 +297,21 @@ Scale: each █ represents 140.3 request(s)
   60 (0) │ 
 > 60 (1) │ █
 
-Total: 1 authorization requests
+Total : 1 demandes
 ```
 
 
-## Median time to first instruction by type for 2024 (types by: ProConnectServiceProvider, ProConnectIdentityProvider):
+## Durée médiane d'instruction par type pour 2024 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
 
 ```
-ProConnectServiceProvider  (0.3 days, n=70) │ 
-ProConnectIdentityProvider (0.9 days, n=22) │ █
+ProConnectServiceProvider  (0.3 jours, n=70) │ 
+ProConnectIdentityProvider (0.9 jours, n=22) │ █
 
-Total: 92 authorization requests
+Total : 92 demandes
 ```
 
 
-## Time to first instruction by day of 2024 (types by: ProConnectServiceProvider, ProConnectIdentityProvider):
+## Durée d'instruction par jour de 2024 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
 
 ```
   <1 ( 0) │ 
@@ -343,61 +347,63 @@ Total: 92 authorization requests
   30 ( 0) │ 
 > 30 ( 2) │ ██
 
-Total: 92 authorization requests
-Scale: each █ represents 1.1 request(s)
+Total : 92 demandes
+Échelle : chaque █ représente 1.1 demande(s)
 ```
 
  
-# 📊 Report of 2023 (types by: ProConnectServiceProvider, ProConnectIdentityProvider):
+# 📊 Rapport de 2023 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
 
 ## Volume
-- 59 authorization requests created
-- 0 reopen events
-## Time to submit
-- Average time to submit: plus de 2 ans
-- Median time to submit: plus de 2 ans
-- Mode time to submit: plus de 2 ans
-- Standard deviation time to submit: moins d'une minute
-## Time to first instruction
-- Average time to first instruction: 8 jours
-- Median time to first instruction: 3 jours
-- Mode time to first instruction: 1 jour
-- Standard deviation time to first instruction: 13 jours
+- 59 demandes créées
+- 0 réouvertures
+## Durée d'une soumission
+(Entre la création d'une demande et sa première soumission)
+- Durée moyenne d'une soumission: plus de 2 ans
+- Durée médiane d'une soumission: plus de 2 ans
+- Durée de soumission la plus fréquente: plus de 2 ans
+- Écart-type des durées de soumission: moins d'une minute
+## Durée d'instruction
+(Entre une soumission et la première instruction qui suit)
+- Durée moyenne d'une instruction: 8 jours
+- Durée médiane d'une instruction: 3 jours
+- Durée d'instruction la plus fréquente: 1 jour
+- Écart-type des durées d'instruction: 13 jours
 
 
-## Volume of authorization requests by type for 2023 (types by: ProConnectServiceProvider, ProConnectIdentityProvider):
+## Volume de demandes par type pour 2023 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
 
 ```
 ProConnectServiceProvider  (42) │ ██████████████████████████████████████████
 ProConnectIdentityProvider (17) │ █████████████████
 
-Total: 59 authorization requests
+Total : 59 demandes
 ```
 
 
-## Volume of authorization requests by type (validated vs refused) for 2023 (types by: ProConnectServiceProvider, ProConnectIdentityProvider):
+## Volume de demandes par type (validées vs refusées) pour 2023 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
 
 ```
 ProConnectServiceProvider  (31:  67.7%V  32.3%R) │ █████████████████████▓▓▓▓▓▓▓▓▓▓
 ProConnectIdentityProvider (14: 100.0%V   0.0%R) │ ██████████████
 
-Legend: █ = Validated, ▓ = Refused
-Total: 35 validated, 10 refused (45 total)
+Légende : █ = Validées, ▓ = Refusées
+Total : 35 validées, 10 refusées (45 total)
 ```
 
 
-## Median time to submit by type for 2023 (types by: ProConnectServiceProvider, ProConnectIdentityProvider):
+## Durée médiane de soumission par type pour 2023 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
 
-### 1 hour or more:
+### 1 heure ou plus:
 ```
 ProConnectIdentityProvider (848.3 days, n=1) │ ██████████████████████████████████████████████████
 
-Total: 1 authorization requests
-Scale: each █ represents 407.2 request(s)
+Total : 1 demandes
+Échelle : chaque █ représente 407.2 demande(s)
 ```
 
 
-## Time to submit by minute of 2023 (types by: ProConnectServiceProvider, ProConnectIdentityProvider):
+## Durée de soumission par minute de 2023 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
 
 ```
   <1 (0) │ 
@@ -463,21 +469,21 @@ Scale: each █ represents 407.2 request(s)
   60 (0) │ 
 > 60 (1) │ █
 
-Total: 1 authorization requests
+Total : 1 demandes
 ```
 
 
-## Median time to first instruction by type for 2023 (types by: ProConnectServiceProvider, ProConnectIdentityProvider):
+## Durée médiane d'instruction par type pour 2023 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
 
 ```
-ProConnectIdentityProvider (2.0 days, n=16) │ ██
-ProConnectServiceProvider  (4.8 days, n=41) │ █████
+ProConnectIdentityProvider (2.0 jours, n=16) │ ██
+ProConnectServiceProvider  (4.8 jours, n=41) │ █████
 
-Total: 57 authorization requests
+Total : 57 demandes
 ```
 
 
-## Time to first instruction by day of 2023 (types by: ProConnectServiceProvider, ProConnectIdentityProvider):
+## Durée d'instruction par jour de 2023 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
 
 ```
   <1 ( 0) │ 
@@ -513,6 +519,6 @@ Total: 57 authorization requests
   30 ( 1) │ █
 > 30 ( 2) │ ██
 
-Total: 57 authorization requests
+Total : 57 demandes
 ```
 

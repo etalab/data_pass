@@ -5,24 +5,26 @@
 ---
 
  
-# 📊 Report of 2025:
+# 📊 Rapport de 2025:
 
 ## Volume
-- 5324 authorization requests created
-- 2020 reopen events
-## Time to submit
-- Average time to submit: 5 jours
-- Median time to submit: 5 minutes
-- Mode time to submit: 1 minute
-- Standard deviation time to submit: 27 jours
-## Time to first instruction
-- Average time to first instruction: 7 jours
-- Median time to first instruction: 1 jour
-- Mode time to first instruction: 1 jour
-- Standard deviation time to first instruction: 18 jours
+- 5324 demandes créées
+- 2020 réouvertures
+## Durée d'une soumission
+(Entre la création d'une demande et sa première soumission)
+- Durée moyenne d'une soumission: 5 jours
+- Durée médiane d'une soumission: 5 minutes
+- Durée de soumission la plus fréquente: 1 minute
+- Écart-type des durées de soumission: 27 jours
+## Durée d'instruction
+(Entre une soumission et la première instruction qui suit)
+- Durée moyenne d'une instruction: 7 jours
+- Durée médiane d'une instruction: 1 jour
+- Durée d'instruction la plus fréquente: 1 jour
+- Écart-type des durées d'instruction: 18 jours
 
 
-## Volume of authorization requests by type for 2025:
+## Volume de demandes par type pour 2025:
 
 ```
 FranceConnect                  (983) │ ██████████████████████████████████████████████████
@@ -60,12 +62,12 @@ APIRial                        (  3) │
 APIImprimfipSandbox            (  2) │ 
 APIDroitsCNAM                  (  1) │ 
 
-Total: 5324 authorization requests
-Scale: each █ represents 19.7 request(s)
+Total : 5324 demandes
+Échelle : chaque █ représente 19.7 demande(s)
 ```
 
 
-## Volume of authorization requests by type (validated vs refused) for 2025:
+## Volume de demandes par type (validées vs refusées) pour 2025:
 
 ```
 HubEECertDC                    (701:  98.4%V   1.6%R) │ █████████████████████████████████████████████████▓
@@ -98,15 +100,15 @@ APIScolarite                   (  3: 100.0%V   0.0%R) │
 APIMobilic                     (  3: 100.0%V   0.0%R) │ 
 LeTaxi                         (  1: 100.0%V   0.0%R) │ 
 
-Legend: █ = Validated, ▓ = Refused
-Total: 2752 validated, 501 refused (3253 total)
-Scale: each character represents 14.0 request(s)
+Légende : █ = Validées, ▓ = Refusées
+Total : 2752 validées, 501 refusées (3253 total)
+Échelle : chaque caractère représente 14.0 demande(s)
 ```
 
 
-## Median time to submit by type for 2025:
+## Durée médiane de soumission par type pour 2025:
 
-### Under 1 hour:
+### Moins d'1 heure:
 ```
 HubEEDila                     ( 0.3 minutes, n=459) │ 
 HubEECertDC                   ( 0.3 minutes, n=801) │ 
@@ -134,10 +136,10 @@ ProConnectIdentityProvider    (15.4 minutes, n= 14) │ ████████
 APISFiPR2P                    (25.6 minutes, n= 11) │ ██████████████████████████
 ProConnectServiceProvider     (39.4 minutes, n= 81) │ ███████████████████████████████████████
 
-Total: 3250 authorization requests
+Total : 3250 demandes
 ```
 
-### 1 hour or more:
+### 1 heure ou plus:
 ```
 APIDeclarationAutoEntrepreneur ( 3.9 hours, n=23) │ 
 APIFicoba                      (  1.1 days, n= 1) │ 
@@ -148,12 +150,12 @@ APISFiPSandbox                 ( 28.4 days, n= 6) │ ████████�
 APIRial                        ( 42.1 days, n= 2) │ █████████████████
 APISFiP                        (120.7 days, n=16) │ ██████████████████████████████████████████████████
 
-Total: 97 authorization requests
-Scale: each █ represents 57.9 request(s)
+Total : 97 demandes
+Échelle : chaque █ représente 57.9 demande(s)
 ```
 
 
-## Time to submit by minute of 2025:
+## Durée de soumission par minute de 2025:
 
 ```
   <1 (   0) │ 
@@ -219,52 +221,52 @@ Scale: each █ represents 57.9 request(s)
   60 (   6) │ 
 > 60 ( 580) │ ███████████████████████████
 
-Total: 3347 authorization requests
-Scale: each █ represents 21.4 request(s)
+Total : 3347 demandes
+Échelle : chaque █ représente 21.4 demande(s)
 ```
 
 
-## Median time to first instruction by type for 2025:
+## Durée médiane d'instruction par type pour 2025:
 
 ```
-HubEECertDC                    ( 0.0 days, n= 971) │ 
-APIFicoba                      ( 0.1 days, n=   4) │ 
-LeTaxi                         ( 0.6 days, n=   2) │ 
-APIINFINOESandbox              ( 0.7 days, n=  75) │ 
-APICaptchEtat                  ( 0.7 days, n= 113) │ 
-APIR2PSandbox                  ( 0.7 days, n=  54) │ 
-APIINFINOE                     ( 0.8 days, n=  22) │ █
-APIImpotParticulier            ( 1.2 days, n=  64) │ █
-ProConnectIdentityProvider     ( 1.2 days, n=  19) │ █
-HubEEDila                      ( 1.2 days, n= 766) │ █
-APIIngres                      ( 1.5 days, n=   6) │ █
-APIProSanteConnect             ( 1.7 days, n= 398) │ █
-FranceConnect                  ( 1.7 days, n=1138) │ █
-APISFiP                        ( 1.8 days, n=  47) │ █
-APIR2P                         ( 1.8 days, n=  69) │ █
-AnnuaireDesEntreprises         ( 1.9 days, n=  83) │ █
-APIImpotParticulierSandbox     ( 2.0 days, n=  49) │ █
-APISFiPR2P                     ( 2.2 days, n=  16) │ ██
-APISFiPSandbox                 ( 2.9 days, n=  38) │ ██
-APIFicobaSandbox               ( 3.0 days, n=  41) │ ██
-APISFiPR2PSandbox              ( 3.0 days, n=  14) │ ██
-APIMobilic                     ( 3.0 days, n=   4) │ ██
-ProConnectServiceProvider      ( 4.0 days, n= 122) │ ███
-APIParticulier                 ( 6.2 days, n= 799) │ ████
-APIEntreprise                  ( 6.3 days, n= 277) │ ████
-APIRial                        ( 6.5 days, n=   8) │ █████
-FormulaireQF                   ( 6.6 days, n= 106) │ █████
-APIRialSandbox                 ( 6.8 days, n=  12) │ █████
-APIDeclarationAutoEntrepreneur (23.8 days, n=  36) │ █████████████████
-APIScolarite                   (34.6 days, n=   4) │ █████████████████████████
-APIDeclarationCESU             (70.1 days, n=  55) │ ██████████████████████████████████████████████████
+HubEECertDC                    ( 0.0 jours, n= 971) │ 
+APIFicoba                      ( 0.1 jours, n=   4) │ 
+LeTaxi                         ( 0.6 jours, n=   2) │ 
+APIINFINOESandbox              ( 0.7 jours, n=  75) │ 
+APICaptchEtat                  ( 0.7 jours, n= 113) │ 
+APIR2PSandbox                  ( 0.7 jours, n=  54) │ 
+APIINFINOE                     ( 0.8 jours, n=  22) │ █
+APIImpotParticulier            ( 1.2 jours, n=  64) │ █
+ProConnectIdentityProvider     ( 1.2 jours, n=  19) │ █
+HubEEDila                      ( 1.2 jours, n= 766) │ █
+APIIngres                      ( 1.5 jours, n=   6) │ █
+APIProSanteConnect             ( 1.7 jours, n= 398) │ █
+FranceConnect                  ( 1.7 jours, n=1138) │ █
+APISFiP                        ( 1.8 jours, n=  47) │ █
+APIR2P                         ( 1.8 jours, n=  69) │ █
+AnnuaireDesEntreprises         ( 1.9 jours, n=  83) │ █
+APIImpotParticulierSandbox     ( 2.0 jours, n=  49) │ █
+APISFiPR2P                     ( 2.2 jours, n=  16) │ ██
+APISFiPSandbox                 ( 2.9 jours, n=  38) │ ██
+APIFicobaSandbox               ( 3.0 jours, n=  41) │ ██
+APISFiPR2PSandbox              ( 3.0 jours, n=  14) │ ██
+APIMobilic                     ( 3.0 jours, n=   4) │ ██
+ProConnectServiceProvider      ( 4.0 jours, n= 122) │ ███
+APIParticulier                 ( 6.2 jours, n= 799) │ ████
+APIEntreprise                  ( 6.3 jours, n= 277) │ ████
+APIRial                        ( 6.5 jours, n=   8) │ █████
+FormulaireQF                   ( 6.6 jours, n= 106) │ █████
+APIRialSandbox                 ( 6.8 jours, n=  12) │ █████
+APIDeclarationAutoEntrepreneur (23.8 jours, n=  36) │ █████████████████
+APIScolarite                   (34.6 jours, n=   4) │ █████████████████████████
+APIDeclarationCESU             (70.1 jours, n=  55) │ ██████████████████████████████████████████████████
 
-Total: 5412 authorization requests
-Scale: each █ represents 1.4 days
+Total : 5412 demandes
+Échelle : chaque █ représente 1.4 jours
 ```
 
 
-## Time to first instruction by day of 2025:
+## Durée d'instruction par jour de 2025:
 
 ```
   <1 (   0) │ 
@@ -300,29 +302,31 @@ Scale: each █ represents 1.4 days
   30 (   6) │ 
 > 30 ( 225) │ █████
 
-Total: 5412 authorization requests
-Scale: each █ represents 47.3 request(s)
+Total : 5412 demandes
+Échelle : chaque █ représente 47.3 demande(s)
 ```
 
  
-# 📊 Report of 2024:
+# 📊 Rapport de 2024:
 
 ## Volume
-- 5697 authorization requests created
-- 688 reopen events
-## Time to submit
-- Average time to submit: environ un mois
-- Median time to submit: moins d'une minute
-- Mode time to submit: 1 minute
-- Standard deviation time to submit: 4 mois
-## Time to first instruction
-- Average time to first instruction: 12 jours
-- Median time to first instruction: 1 jour
-- Mode time to first instruction: 1 jour
-- Standard deviation time to first instruction: environ 2 mois
+- 5697 demandes créées
+- 688 réouvertures
+## Durée d'une soumission
+(Entre la création d'une demande et sa première soumission)
+- Durée moyenne d'une soumission: environ un mois
+- Durée médiane d'une soumission: moins d'une minute
+- Durée de soumission la plus fréquente: 1 minute
+- Écart-type des durées de soumission: 4 mois
+## Durée d'instruction
+(Entre une soumission et la première instruction qui suit)
+- Durée moyenne d'une instruction: 12 jours
+- Durée médiane d'une instruction: 1 jour
+- Durée d'instruction la plus fréquente: 1 jour
+- Écart-type des durées d'instruction: environ 2 mois
 
 
-## Volume of authorization requests by type for 2024:
+## Volume de demandes par type pour 2024:
 
 ```
 HubEECertDC                    (1145) │ ██████████████████████████████████████████████████
@@ -355,12 +359,12 @@ APIImprimfipSandbox            (   2) │
 APIRialSandbox                 (   1) │ 
 APICprProAdelieSandbox         (   1) │ 
 
-Total: 5697 authorization requests
-Scale: each █ represents 22.9 request(s)
+Total : 5697 demandes
+Échelle : chaque █ représente 22.9 demande(s)
 ```
 
 
-## Volume of authorization requests by type (validated vs refused) for 2024:
+## Volume de demandes par type (validées vs refusées) pour 2024:
 
 ```
 HubEECertDC                    (989:  97.0%V   3.0%R) │ ████████████████████████████████████████████████▓▓
@@ -390,15 +394,15 @@ FormulaireQF                   (  2: 100.0%V   0.0%R) │
 APISFiP                        (  1: 100.0%V   0.0%R) │ 
 APICprProAdelieSandbox         (  1:   0.0%V 100.0%R) │ 
 
-Legend: █ = Validated, ▓ = Refused
-Total: 3205 validated, 724 refused (3929 total)
-Scale: each character represents 19.8 request(s)
+Légende : █ = Validées, ▓ = Refusées
+Total : 3205 validées, 724 refusées (3929 total)
+Échelle : chaque caractère représente 19.8 demande(s)
 ```
 
 
-## Median time to submit by type for 2024:
+## Durée médiane de soumission par type pour 2024:
 
-### Under 1 hour:
+### Moins d'1 heure:
 ```
 HubEECertDC    ( 0.1 minutes, n=996) │ 
 HubEEDila      ( 0.1 minutes, n=384) │ 
@@ -406,10 +410,10 @@ FormulaireQF   ( 2.4 minutes, n=  3) │ ██
 APIParticulier ( 7.3 minutes, n=428) │ ███████
 APIEntreprise  (13.0 minutes, n=177) │ █████████████
 
-Total: 1988 authorization requests
+Total : 1988 demandes
 ```
 
-### 1 hour or more:
+### 1 heure ou plus:
 ```
 APIDeclarationAutoEntrepreneur (163.3 days, n= 1) │ ██████████████
 ProConnectServiceProvider      (292.2 days, n= 1) │ ████████████████████████
@@ -425,12 +429,12 @@ APICaptchEtat                  (550.6 days, n= 2) │ ████████�
 APIR2PSandbox                  (580.9 days, n= 1) │ █████████████████████████████████████████████████
 APIFicobaSandbox               (598.7 days, n= 3) │ ██████████████████████████████████████████████████
 
-Total: 125 authorization requests
-Scale: each █ represents 287.4 request(s)
+Total : 125 demandes
+Échelle : chaque █ représente 287.4 demande(s)
 ```
 
 
-## Time to submit by minute of 2024:
+## Durée de soumission par minute de 2024:
 
 ```
   <1 (   0) │ 
@@ -496,47 +500,47 @@ Scale: each █ represents 287.4 request(s)
   60 (   1) │ 
 > 60 ( 353) │ ██████████████
 
-Total: 2113 authorization requests
-Scale: each █ represents 25.7 request(s)
+Total : 2113 demandes
+Échelle : chaque █ représente 25.7 demande(s)
 ```
 
 
-## Median time to first instruction by type for 2024:
+## Durée médiane d'instruction par type pour 2024:
 
 ```
-APIINFINOESandbox              (  0.0 days, n=1022) │ 
-HubEECertDC                    (  0.2 days, n=1345) │ 
-APIINFINOE                     (  0.2 days, n= 272) │ 
-ProConnectServiceProvider      (  0.3 days, n=  70) │ 
-APIR2PSandbox                  (  0.7 days, n=  83) │ 
-APIImpotParticulierSandbox     (  0.8 days, n= 110) │ 
-APIR2P                         (  0.9 days, n=  92) │ 
-ProConnectIdentityProvider     (  0.9 days, n=  22) │ 
-APIImpotParticulier            (  1.0 days, n= 116) │ 
-APICaptchEtat                  (  1.0 days, n= 139) │ 
-APISFiP                        (  1.3 days, n=  14) │ █
-HubEEDila                      (  1.7 days, n= 905) │ █
-APIFicoba                      (  2.5 days, n=  26) │ █
-APIParticulier                 (  2.9 days, n=1193) │ █
-FranceConnect                  (  3.6 days, n= 950) │ ██
-APISFiPSandbox                 (  3.8 days, n=  46) │ ██
-APIEntreprise                  (  4.0 days, n= 325) │ ██
-APIFicobaSandbox               (  4.0 days, n=  35) │ ██
-APIProSanteConnect             (  4.2 days, n= 444) │ ██
-FormulaireQF                   (  4.5 days, n=   4) │ ██
-APIIngres                      (  5.9 days, n=   5) │ ███
-LeTaxi                         ( 13.1 days, n=  16) │ ██████
-APIScolarite                   ( 21.1 days, n=   9) │ ██████████
-APIDeclarationAutoEntrepreneur ( 27.4 days, n=  50) │ █████████████
-APIDeclarationCESU             (101.0 days, n=  95) │ ██████████████████████████████████████████████
-APICprProAdelieSandbox         (109.0 days, n=   1) │ ██████████████████████████████████████████████████
+APIINFINOESandbox              (  0.0 jours, n=1022) │ 
+HubEECertDC                    (  0.2 jours, n=1345) │ 
+APIINFINOE                     (  0.2 jours, n= 272) │ 
+ProConnectServiceProvider      (  0.3 jours, n=  70) │ 
+APIR2PSandbox                  (  0.7 jours, n=  83) │ 
+APIImpotParticulierSandbox     (  0.8 jours, n= 110) │ 
+APIR2P                         (  0.9 jours, n=  92) │ 
+ProConnectIdentityProvider     (  0.9 jours, n=  22) │ 
+APIImpotParticulier            (  1.0 jours, n= 116) │ 
+APICaptchEtat                  (  1.0 jours, n= 139) │ 
+APISFiP                        (  1.3 jours, n=  14) │ █
+HubEEDila                      (  1.7 jours, n= 905) │ █
+APIFicoba                      (  2.5 jours, n=  26) │ █
+APIParticulier                 (  2.9 jours, n=1193) │ █
+FranceConnect                  (  3.6 jours, n= 950) │ ██
+APISFiPSandbox                 (  3.8 jours, n=  46) │ ██
+APIEntreprise                  (  4.0 jours, n= 325) │ ██
+APIFicobaSandbox               (  4.0 jours, n=  35) │ ██
+APIProSanteConnect             (  4.2 jours, n= 444) │ ██
+FormulaireQF                   (  4.5 jours, n=   4) │ ██
+APIIngres                      (  5.9 jours, n=   5) │ ███
+LeTaxi                         ( 13.1 jours, n=  16) │ ██████
+APIScolarite                   ( 21.1 jours, n=   9) │ ██████████
+APIDeclarationAutoEntrepreneur ( 27.4 jours, n=  50) │ █████████████
+APIDeclarationCESU             (101.0 jours, n=  95) │ ██████████████████████████████████████████████
+APICprProAdelieSandbox         (109.0 jours, n=   1) │ ██████████████████████████████████████████████████
 
-Total: 7389 authorization requests
-Scale: each █ represents 2.2 days
+Total : 7389 demandes
+Échelle : chaque █ représente 2.2 jours
 ```
 
 
-## Time to first instruction by day of 2024:
+## Durée d'instruction par jour de 2024:
 
 ```
   <1 (   0) │ 
@@ -572,29 +576,31 @@ Scale: each █ represents 2.2 days
   30 (   9) │ 
 > 30 ( 445) │ ██████
 
-Total: 7389 authorization requests
-Scale: each █ represents 71.4 request(s)
+Total : 7389 demandes
+Échelle : chaque █ représente 71.4 demande(s)
 ```
 
  
-# 📊 Report of 2023:
+# 📊 Rapport de 2023:
 
 ## Volume
-- 5359 authorization requests created
-- 0 reopen events
-## Time to submit
-- Average time to submit: environ 2 mois
-- Median time to submit: moins d'une minute
-- Mode time to submit: 1 minute
-- Standard deviation time to submit: 6 mois
-## Time to first instruction
-- Average time to first instruction: 15 jours
-- Median time to first instruction: 2 jours
-- Mode time to first instruction: 1 jour
-- Standard deviation time to first instruction: environ 2 mois
+- 5359 demandes créées
+- 0 réouvertures
+## Durée d'une soumission
+(Entre la création d'une demande et sa première soumission)
+- Durée moyenne d'une soumission: environ 2 mois
+- Durée médiane d'une soumission: moins d'une minute
+- Durée de soumission la plus fréquente: 1 minute
+- Écart-type des durées de soumission: 6 mois
+## Durée d'instruction
+(Entre une soumission et la première instruction qui suit)
+- Durée moyenne d'une instruction: 15 jours
+- Durée médiane d'une instruction: 2 jours
+- Durée d'instruction la plus fréquente: 1 jour
+- Écart-type des durées d'instruction: environ 2 mois
 
 
-## Volume of authorization requests by type for 2023:
+## Volume de demandes par type pour 2023:
 
 ```
 HubEEDila                      (1176) │ ██████████████████████████████████████████████████
@@ -625,12 +631,12 @@ APIOpaleSandbox                (   2) │
 APIIndemnitesJournalieresCNAM  (   2) │ 
 APIRobfSandbox                 (   1) │ 
 
-Total: 5359 authorization requests
-Scale: each █ represents 23.5 request(s)
+Total : 5359 demandes
+Échelle : chaque █ représente 23.5 demande(s)
 ```
 
 
-## Volume of authorization requests by type (validated vs refused) for 2023:
+## Volume de demandes par type (validées vs refusées) pour 2023:
 
 ```
 HubEEDila                      (1126:  98.5%V   1.5%R) │ █████████████████████████████████████████████████▓
@@ -657,25 +663,25 @@ APISFiP                        (   8: 100.0%V   0.0%R) │
 APISFiPSandbox                 (   6:  33.3%V  66.7%R) │ 
 APIFicoba                      (   5:  60.0%V  40.0%R) │ 
 
-Legend: █ = Validated, ▓ = Refused
-Total: 3497 validated, 643 refused (4140 total)
-Scale: each character represents 22.5 request(s)
+Légende : █ = Validées, ▓ = Refusées
+Total : 3497 validées, 643 refusées (4140 total)
+Échelle : chaque caractère représente 22.5 demande(s)
 ```
 
 
-## Median time to submit by type for 2023:
+## Durée médiane de soumission par type pour 2023:
 
-### Under 1 hour:
+### Moins d'1 heure:
 ```
 HubEEDila      (0.0 minutes, n=1055) │ 
 HubEECertDC    (0.0 minutes, n= 408) │ 
 APIParticulier (2.9 minutes, n= 373) │ ███
 APIEntreprise  (2.9 minutes, n= 184) │ ███
 
-Total: 2020 authorization requests
+Total : 2020 demandes
 ```
 
-### 1 hour or more:
+### 1 heure ou plus:
 ```
 APISFiP                    (634.1 days, n= 3) │ █████████████████████████████████████
 APIImpotParticulier        (745.2 days, n= 8) │ ███████████████████████████████████████████
@@ -689,12 +695,12 @@ APIProSanteConnect         (831.9 days, n= 3) │ ██████████
 ProConnectIdentityProvider (848.3 days, n= 1) │ █████████████████████████████████████████████████
 APIImpotParticulierSandbox (868.5 days, n= 8) │ ██████████████████████████████████████████████████
 
-Total: 78 authorization requests
-Scale: each █ represents 416.9 request(s)
+Total : 78 demandes
+Échelle : chaque █ représente 416.9 demande(s)
 ```
 
 
-## Time to submit by minute of 2023:
+## Durée de soumission par minute de 2023:
 
 ```
   <1 (   0) │ 
@@ -760,47 +766,47 @@ Scale: each █ represents 416.9 request(s)
   60 (   0) │ 
 > 60 ( 297) │ ██████████
 
-Total: 2098 authorization requests
-Scale: each █ represents 30.1 request(s)
+Total : 2098 demandes
+Échelle : chaque █ représente 30.1 demande(s)
 ```
 
 
-## Median time to first instruction by type for 2023:
+## Durée médiane d'instruction par type pour 2023:
 
 ```
-APIIngres                      (  0.2 days, n=  13) │ 
-APICaptchEtat                  (  0.7 days, n= 125) │ 
-HubEECertDC                    (  0.7 days, n=1551) │ 
-APIIndemnitesJournalieresCNAM  (  1.0 days, n=   1) │ 
-HubEEDila                      (  1.0 days, n=1340) │ 
-APIProSanteConnect             (  1.2 days, n= 343) │ 
-APIINFINOESandbox              (  1.5 days, n= 301) │ 
-ProConnectIdentityProvider     (  2.0 days, n=  16) │ 
-FranceConnect                  (  2.1 days, n= 907) │ 
-APIParticulier                 (  2.6 days, n= 952) │ 
-APIINFINOE                     (  3.7 days, n= 308) │ █
-APIR2P                         (  4.6 days, n=  76) │ █
-ProConnectServiceProvider      (  4.8 days, n=  41) │ █
-APIEntreprise                  (  5.0 days, n= 418) │ █
-APIImpotParticulier            (  5.2 days, n= 343) │ █
-APIR2PSandbox                  (  6.0 days, n= 133) │ █
-APIFicoba                      (  7.2 days, n=  34) │ █
-APIImpotParticulierSandbox     (  7.2 days, n= 276) │ █
-APIDeclarationAutoEntrepreneur (  7.7 days, n= 112) │ █
-LeTaxi                         (  8.6 days, n=  26) │ █
-APISFiP                        (  8.7 days, n=  33) │ █
-APIOpaleSandbox                ( 11.5 days, n=   4) │ ██
-APIRobfSandbox                 ( 14.0 days, n=   1) │ ██
-APIFicobaSandbox               ( 20.1 days, n=  66) │ ███
-APISFiPSandbox                 ( 24.6 days, n=   9) │ ███
-APIDeclarationCESU             (353.9 days, n= 113) │ ██████████████████████████████████████████████████
+APIIngres                      (  0.2 jours, n=  13) │ 
+APICaptchEtat                  (  0.7 jours, n= 125) │ 
+HubEECertDC                    (  0.7 jours, n=1551) │ 
+APIIndemnitesJournalieresCNAM  (  1.0 jours, n=   1) │ 
+HubEEDila                      (  1.0 jours, n=1340) │ 
+APIProSanteConnect             (  1.2 jours, n= 343) │ 
+APIINFINOESandbox              (  1.5 jours, n= 301) │ 
+ProConnectIdentityProvider     (  2.0 jours, n=  16) │ 
+FranceConnect                  (  2.1 jours, n= 907) │ 
+APIParticulier                 (  2.6 jours, n= 952) │ 
+APIINFINOE                     (  3.7 jours, n= 308) │ █
+APIR2P                         (  4.6 jours, n=  76) │ █
+ProConnectServiceProvider      (  4.8 jours, n=  41) │ █
+APIEntreprise                  (  5.0 jours, n= 418) │ █
+APIImpotParticulier            (  5.2 jours, n= 343) │ █
+APIR2PSandbox                  (  6.0 jours, n= 133) │ █
+APIFicoba                      (  7.2 jours, n=  34) │ █
+APIImpotParticulierSandbox     (  7.2 jours, n= 276) │ █
+APIDeclarationAutoEntrepreneur (  7.7 jours, n= 112) │ █
+LeTaxi                         (  8.6 jours, n=  26) │ █
+APISFiP                        (  8.7 jours, n=  33) │ █
+APIOpaleSandbox                ( 11.5 jours, n=   4) │ ██
+APIRobfSandbox                 ( 14.0 jours, n=   1) │ ██
+APIFicobaSandbox               ( 20.1 jours, n=  66) │ ███
+APISFiPSandbox                 ( 24.6 jours, n=   9) │ ███
+APIDeclarationCESU             (353.9 jours, n= 113) │ ██████████████████████████████████████████████████
 
-Total: 7542 authorization requests
-Scale: each █ represents 7.1 days
+Total : 7542 demandes
+Échelle : chaque █ représente 7.1 jours
 ```
 
 
-## Time to first instruction by day of 2023:
+## Durée d'instruction par jour de 2023:
 
 ```
   <1 (   0) │ 
@@ -836,7 +842,7 @@ Scale: each █ represents 7.1 days
   30 (  28) │ 
 > 30 ( 544) │ █████████
 
-Total: 7542 authorization requests
-Scale: each █ represents 63.1 request(s)
+Total : 7542 demandes
+Échelle : chaque █ représente 63.1 demande(s)
 ```
 

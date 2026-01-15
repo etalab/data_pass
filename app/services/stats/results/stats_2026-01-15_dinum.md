@@ -5,24 +5,26 @@
 ---
 
  
-# 📊 Report of 2025 (provider: dinum):
+# 📊 Rapport de 2025 (fournisseur : dinum):
 
 ## Volume
-- 2703 authorization requests created
-- 1515 reopen events
-## Time to submit
-- Average time to submit: 6 jours
-- Median time to submit: 11 minutes
-- Mode time to submit: 5 minutes
-- Standard deviation time to submit: 27 jours
-## Time to first instruction
-- Average time to first instruction: 7 jours
-- Median time to first instruction: 3 jours
-- Mode time to first instruction: 1 jour
-- Standard deviation time to first instruction: 10 jours
+- 2703 demandes créées
+- 1515 réouvertures
+## Durée d'une soumission
+(Entre la création d'une demande et sa première soumission)
+- Durée moyenne d'une soumission: 6 jours
+- Durée médiane d'une soumission: 11 minutes
+- Durée de soumission la plus fréquente: 5 minutes
+- Écart-type des durées de soumission: 27 jours
+## Durée d'instruction
+(Entre une soumission et la première instruction qui suit)
+- Durée moyenne d'une instruction: 7 jours
+- Durée médiane d'une instruction: 3 jours
+- Durée d'instruction la plus fréquente: 1 jour
+- Écart-type des durées d'instruction: 10 jours
 
 
-## Volume of authorization requests by type for 2025 (provider: dinum):
+## Volume de demandes par type pour 2025 (fournisseur : dinum):
 
 ```
 FranceConnect              (983) │ ██████████████████████████████████████████████████
@@ -34,12 +36,12 @@ AnnuaireDesEntreprises     ( 95) │ █████
 ProConnectIdentityProvider ( 25) │ █
 LeTaxi                     ( 15) │ █
 
-Total: 2703 authorization requests
-Scale: each █ represents 19.7 request(s)
+Total : 2703 demandes
+Échelle : chaque █ représente 19.7 demande(s)
 ```
 
 
-## Volume of authorization requests by type (validated vs refused) for 2025 (provider: dinum):
+## Volume de demandes par type (validées vs refusées) pour 2025 (fournisseur : dinum):
 
 ```
 FranceConnect              (654:  72.9%V  27.1%R) │ ████████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓
@@ -51,15 +53,15 @@ AnnuaireDesEntreprises     ( 55:  85.5%V  14.5%R) │ ████▓
 ProConnectIdentityProvider ( 17: 100.0%V   0.0%R) │ █
 LeTaxi                     (  1: 100.0%V   0.0%R) │ 
 
-Legend: █ = Validated, ▓ = Refused
-Total: 1286 validated, 283 refused (1569 total)
-Scale: each character represents 13.1 request(s)
+Légende : █ = Validées, ▓ = Refusées
+Total : 1286 validées, 283 refusées (1569 total)
+Échelle : chaque caractère représente 13.1 demande(s)
 ```
 
 
-## Median time to submit by type for 2025 (provider: dinum):
+## Durée médiane de soumission par type pour 2025 (fournisseur : dinum):
 
-### Under 1 hour:
+### Moins d'1 heure:
 ```
 AnnuaireDesEntreprises     ( 2.3 minutes, n= 68) │ ██
 FormulaireQF               ( 3.6 minutes, n= 77) │ ████
@@ -70,11 +72,11 @@ FranceConnect              (15.3 minutes, n=503) │ █████████
 ProConnectIdentityProvider (15.4 minutes, n= 14) │ ███████████████
 ProConnectServiceProvider  (39.4 minutes, n= 81) │ ███████████████████████████████████████
 
-Total: 1555 authorization requests
+Total : 1555 demandes
 ```
 
 
-## Time to submit by minute of 2025 (provider: dinum):
+## Durée de soumission par minute de 2025 (fournisseur : dinum):
 
 ```
   <1 (  0) │ 
@@ -140,28 +142,28 @@ Total: 1555 authorization requests
   60 (  4) │ █
 > 60 (356) │ ██████████████████████████████████████████████████
 
-Total: 1555 authorization requests
-Scale: each █ represents 7.1 request(s)
+Total : 1555 demandes
+Échelle : chaque █ représente 7.1 demande(s)
 ```
 
 
-## Median time to first instruction by type for 2025 (provider: dinum):
+## Durée médiane d'instruction par type pour 2025 (fournisseur : dinum):
 
 ```
-LeTaxi                     (0.6 days, n=   2) │ █
-ProConnectIdentityProvider (1.2 days, n=  19) │ █
-FranceConnect              (1.7 days, n=1138) │ ██
-AnnuaireDesEntreprises     (1.9 days, n=  83) │ ██
-ProConnectServiceProvider  (4.0 days, n= 122) │ ████
-APIParticulier             (6.2 days, n= 799) │ ██████
-APIEntreprise              (6.3 days, n= 277) │ ██████
-FormulaireQF               (6.6 days, n= 106) │ ███████
+LeTaxi                     (0.6 jours, n=   2) │ █
+ProConnectIdentityProvider (1.2 jours, n=  19) │ █
+FranceConnect              (1.7 jours, n=1138) │ ██
+AnnuaireDesEntreprises     (1.9 jours, n=  83) │ ██
+ProConnectServiceProvider  (4.0 jours, n= 122) │ ████
+APIParticulier             (6.2 jours, n= 799) │ ██████
+APIEntreprise              (6.3 jours, n= 277) │ ██████
+FormulaireQF               (6.6 jours, n= 106) │ ███████
 
-Total: 2546 authorization requests
+Total : 2546 demandes
 ```
 
 
-## Time to first instruction by day of 2025 (provider: dinum):
+## Durée d'instruction par jour de 2025 (fournisseur : dinum):
 
 ```
   <1 (  0) │ 
@@ -197,29 +199,31 @@ Total: 2546 authorization requests
   30 (  4) │ 
 > 30 ( 73) │ █████
 
-Total: 2546 authorization requests
-Scale: each █ represents 15.2 request(s)
+Total : 2546 demandes
+Échelle : chaque █ représente 15.2 demande(s)
 ```
 
  
-# 📊 Report of 2024 (provider: dinum):
+# 📊 Rapport de 2024 (fournisseur : dinum):
 
 ## Volume
-- 2218 authorization requests created
-- 456 reopen events
-## Time to submit
-- Average time to submit: 2 mois
-- Median time to submit: 11 minutes
-- Mode time to submit: 1 minute
-- Standard deviation time to submit: 5 mois
-## Time to first instruction
-- Average time to first instruction: 6 jours
-- Median time to first instruction: 3 jours
-- Mode time to first instruction: 1 jour
-- Standard deviation time to first instruction: 13 jours
+- 2218 demandes créées
+- 456 réouvertures
+## Durée d'une soumission
+(Entre la création d'une demande et sa première soumission)
+- Durée moyenne d'une soumission: 2 mois
+- Durée médiane d'une soumission: 11 minutes
+- Durée de soumission la plus fréquente: 1 minute
+- Écart-type des durées de soumission: 5 mois
+## Durée d'instruction
+(Entre une soumission et la première instruction qui suit)
+- Durée moyenne d'une instruction: 6 jours
+- Durée médiane d'une instruction: 3 jours
+- Durée d'instruction la plus fréquente: 1 jour
+- Écart-type des durées d'instruction: 13 jours
 
 
-## Volume of authorization requests by type for 2024 (provider: dinum):
+## Volume de demandes par type pour 2024 (fournisseur : dinum):
 
 ```
 APIParticulier             (845) │ ██████████████████████████████████████████████████
@@ -230,12 +234,12 @@ ProConnectIdentityProvider ( 26) │ ██
 LeTaxi                     ( 23) │ █
 FormulaireQF               (  5) │ 
 
-Total: 2218 authorization requests
-Scale: each █ represents 16.9 request(s)
+Total : 2218 demandes
+Échelle : chaque █ représente 16.9 demande(s)
 ```
 
 
-## Volume of authorization requests by type (validated vs refused) for 2024 (provider: dinum):
+## Volume de demandes par type (validées vs refusées) pour 2024 (fournisseur : dinum):
 
 ```
 FranceConnect              (509:  68.2%V  31.8%R) │ ██████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
@@ -246,34 +250,34 @@ ProConnectIdentityProvider ( 16:  93.8%V   6.3%R) │ █
 LeTaxi                     ( 12: 100.0%V   0.0%R) │ █
 FormulaireQF               (  2: 100.0%V   0.0%R) │ 
 
-Legend: █ = Validated, ▓ = Refused
-Total: 990 validated, 262 refused (1252 total)
-Scale: each character represents 10.2 request(s)
+Légende : █ = Validées, ▓ = Refusées
+Total : 990 validées, 262 refusées (1252 total)
+Échelle : chaque caractère représente 10.2 demande(s)
 ```
 
 
-## Median time to submit by type for 2024 (provider: dinum):
+## Durée médiane de soumission par type pour 2024 (fournisseur : dinum):
 
-### Under 1 hour:
+### Moins d'1 heure:
 ```
 FormulaireQF   ( 2.4 minutes, n=  3) │ ██
 APIParticulier ( 7.3 minutes, n=428) │ ███████
 APIEntreprise  (13.0 minutes, n=177) │ █████████████
 
-Total: 608 authorization requests
+Total : 608 demandes
 ```
 
-### 1 hour or more:
+### 1 heure ou plus:
 ```
 ProConnectServiceProvider (292.2 days, n= 1) │ ███████████████████████████████████████
 FranceConnect             (372.8 days, n=71) │ ██████████████████████████████████████████████████
 
-Total: 72 authorization requests
-Scale: each █ represents 179.0 request(s)
+Total : 72 demandes
+Échelle : chaque █ représente 179.0 demande(s)
 ```
 
 
-## Time to submit by minute of 2024 (provider: dinum):
+## Durée de soumission par minute de 2024 (fournisseur : dinum):
 
 ```
   <1 (  0) │ 
@@ -339,27 +343,27 @@ Scale: each █ represents 179.0 request(s)
   60 (  1) │ 
 > 60 (236) │ ██████████████████████████████████████████████████
 
-Total: 680 authorization requests
-Scale: each █ represents 4.7 request(s)
+Total : 680 demandes
+Échelle : chaque █ représente 4.7 demande(s)
 ```
 
 
-## Median time to first instruction by type for 2024 (provider: dinum):
+## Durée médiane d'instruction par type pour 2024 (fournisseur : dinum):
 
 ```
-ProConnectServiceProvider  ( 0.3 days, n=  70) │ 
-ProConnectIdentityProvider ( 0.9 days, n=  22) │ █
-APIParticulier             ( 2.9 days, n=1193) │ ███
-FranceConnect              ( 3.6 days, n= 950) │ ████
-APIEntreprise              ( 4.0 days, n= 325) │ ████
-FormulaireQF               ( 4.5 days, n=   4) │ █████
-LeTaxi                     (13.1 days, n=  16) │ █████████████
+ProConnectServiceProvider  ( 0.3 jours, n=  70) │ 
+ProConnectIdentityProvider ( 0.9 jours, n=  22) │ █
+APIParticulier             ( 2.9 jours, n=1193) │ ███
+FranceConnect              ( 3.6 jours, n= 950) │ ████
+APIEntreprise              ( 4.0 jours, n= 325) │ ████
+FormulaireQF               ( 4.5 jours, n=   4) │ █████
+LeTaxi                     (13.1 jours, n=  16) │ █████████████
 
-Total: 2580 authorization requests
+Total : 2580 demandes
 ```
 
 
-## Time to first instruction by day of 2024 (provider: dinum):
+## Durée d'instruction par jour de 2024 (fournisseur : dinum):
 
 ```
   <1 (  0) │ 
@@ -395,29 +399,31 @@ Total: 2580 authorization requests
   30 (  3) │ 
 > 30 (101) │ ███████
 
-Total: 2580 authorization requests
-Scale: each █ represents 14.8 request(s)
+Total : 2580 demandes
+Échelle : chaque █ représente 14.8 demande(s)
 ```
 
  
-# 📊 Report of 2023 (provider: dinum):
+# 📊 Rapport de 2023 (fournisseur : dinum):
 
 ## Volume
-- 1774 authorization requests created
-- 0 reopen events
-## Time to submit
-- Average time to submit: 4 mois
-- Median time to submit: 4 minutes
-- Mode time to submit: 1 minute
-- Standard deviation time to submit: 9 mois
-## Time to first instruction
-- Average time to first instruction: 8 jours
-- Median time to first instruction: 3 jours
-- Mode time to first instruction: 1 jour
-- Standard deviation time to first instruction: 18 jours
+- 1774 demandes créées
+- 0 réouvertures
+## Durée d'une soumission
+(Entre la création d'une demande et sa première soumission)
+- Durée moyenne d'une soumission: 4 mois
+- Durée médiane d'une soumission: 4 minutes
+- Durée de soumission la plus fréquente: 1 minute
+- Écart-type des durées de soumission: 9 mois
+## Durée d'instruction
+(Entre une soumission et la première instruction qui suit)
+- Durée moyenne d'une instruction: 8 jours
+- Durée médiane d'une instruction: 3 jours
+- Durée d'instruction la plus fréquente: 1 jour
+- Écart-type des durées d'instruction: 18 jours
 
 
-## Volume of authorization requests by type for 2023 (provider: dinum):
+## Volume de demandes par type pour 2023 (fournisseur : dinum):
 
 ```
 FranceConnect              (720) │ ██████████████████████████████████████████████████
@@ -427,12 +433,12 @@ LeTaxi                     ( 45) │ ███
 ProConnectServiceProvider  ( 42) │ ███
 ProConnectIdentityProvider ( 17) │ █
 
-Total: 1774 authorization requests
-Scale: each █ represents 14.4 request(s)
+Total : 1774 demandes
+Échelle : chaque █ représente 14.4 demande(s)
 ```
 
 
-## Volume of authorization requests by type (validated vs refused) for 2023 (provider: dinum):
+## Volume de demandes par type (validées vs refusées) pour 2023 (fournisseur : dinum):
 
 ```
 FranceConnect              (456:  72.1%V  27.9%R) │ ████████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓
@@ -442,33 +448,33 @@ ProConnectServiceProvider  ( 31:  67.7%V  32.3%R) │ ██▓
 LeTaxi                     ( 19: 100.0%V   0.0%R) │ ██
 ProConnectIdentityProvider ( 14: 100.0%V   0.0%R) │ ██
 
-Legend: █ = Validated, ▓ = Refused
-Total: 946 validated, 211 refused (1157 total)
-Scale: each character represents 9.1 request(s)
+Légende : █ = Validées, ▓ = Refusées
+Total : 946 validées, 211 refusées (1157 total)
+Échelle : chaque caractère représente 9.1 demande(s)
 ```
 
 
-## Median time to submit by type for 2023 (provider: dinum):
+## Durée médiane de soumission par type pour 2023 (fournisseur : dinum):
 
-### Under 1 hour:
+### Moins d'1 heure:
 ```
 APIParticulier (2.9 minutes, n=373) │ ███
 APIEntreprise  (2.9 minutes, n=184) │ ███
 
-Total: 557 authorization requests
+Total : 557 demandes
 ```
 
-### 1 hour or more:
+### 1 heure ou plus:
 ```
 FranceConnect              (819.1 days, n=34) │ ████████████████████████████████████████████████
 ProConnectIdentityProvider (848.3 days, n= 1) │ ██████████████████████████████████████████████████
 
-Total: 35 authorization requests
-Scale: each █ represents 407.2 request(s)
+Total : 35 demandes
+Échelle : chaque █ représente 407.2 demande(s)
 ```
 
 
-## Time to submit by minute of 2023 (provider: dinum):
+## Durée de soumission par minute de 2023 (fournisseur : dinum):
 
 ```
   <1 (  0) │ 
@@ -534,26 +540,26 @@ Scale: each █ represents 407.2 request(s)
   60 (  0) │ 
 > 60 (205) │ █████████████████████████████████████████████████
 
-Total: 592 authorization requests
-Scale: each █ represents 4.2 request(s)
+Total : 592 demandes
+Échelle : chaque █ représente 4.2 demande(s)
 ```
 
 
-## Median time to first instruction by type for 2023 (provider: dinum):
+## Durée médiane d'instruction par type pour 2023 (fournisseur : dinum):
 
 ```
-ProConnectIdentityProvider (2.0 days, n= 16) │ ██
-FranceConnect              (2.1 days, n=907) │ ██
-APIParticulier             (2.6 days, n=952) │ ███
-ProConnectServiceProvider  (4.8 days, n= 41) │ █████
-APIEntreprise              (5.0 days, n=418) │ █████
-LeTaxi                     (8.6 days, n= 26) │ █████████
+ProConnectIdentityProvider (2.0 jours, n= 16) │ ██
+FranceConnect              (2.1 jours, n=907) │ ██
+APIParticulier             (2.6 jours, n=952) │ ███
+ProConnectServiceProvider  (4.8 jours, n= 41) │ █████
+APIEntreprise              (5.0 jours, n=418) │ █████
+LeTaxi                     (8.6 jours, n= 26) │ █████████
 
-Total: 2360 authorization requests
+Total : 2360 demandes
 ```
 
 
-## Time to first instruction by day of 2023 (provider: dinum):
+## Durée d'instruction par jour de 2023 (fournisseur : dinum):
 
 ```
   <1 (  0) │ 
@@ -589,7 +595,7 @@ Total: 2360 authorization requests
   30 (  7) │ 
 > 30 (118) │ ███████
 
-Total: 2360 authorization requests
-Scale: each █ represents 16.1 request(s)
+Total : 2360 demandes
+Échelle : chaque █ représente 16.1 demande(s)
 ```
 

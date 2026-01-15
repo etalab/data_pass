@@ -106,17 +106,17 @@ RSpec.describe Stats::Report, type: :service do
     subject { described_class.new(date_input: 2025) }
 
     it 'prints the report without error' do
-      expect { subject.print_report }.to output(/# .*Report of/).to_stdout
-      expect { subject.print_report }.to output(/authorization requests created/).to_stdout
-      expect { subject.print_report }.to output(/reopen events/).to_stdout
-      expect { subject.print_report }.to output(/Average time to submit/).to_stdout
-      expect { subject.print_report }.to output(/Median time to submit/).to_stdout
-      expect { subject.print_report }.to output(/Mode time to submit/).to_stdout
-      expect { subject.print_report }.to output(/Standard deviation time to submit/).to_stdout
-      expect { subject.print_report }.to output(/Average time to first instruction/).to_stdout
-      expect { subject.print_report }.to output(/Median time to first instruction/).to_stdout
-      expect { subject.print_report }.to output(/Mode time to first instruction/).to_stdout
-      expect { subject.print_report }.to output(/Standard deviation time to first instruction/).to_stdout
+      expect { subject.print_report }.to output(/# .*Rapport de/).to_stdout
+      expect { subject.print_report }.to output(/demandes créées/).to_stdout
+      expect { subject.print_report }.to output(/réouvertures/).to_stdout
+      expect { subject.print_report }.to output(/Durée moyenne d'une soumission/).to_stdout
+      expect { subject.print_report }.to output(/Durée médiane d'une soumission/).to_stdout
+      expect { subject.print_report }.to output(/Durée de soumission la plus fréquente/).to_stdout
+      expect { subject.print_report }.to output(/Écart-type des durées de soumission/).to_stdout
+      expect { subject.print_report }.to output(/Durée moyenne d'une instruction/).to_stdout
+      expect { subject.print_report }.to output(/Durée médiane d'une instruction/).to_stdout
+      expect { subject.print_report }.to output(/Durée d'instruction la plus fréquente/).to_stdout
+      expect { subject.print_report }.to output(/Écart-type des durées d'instruction/).to_stdout
     end
   end
 
@@ -258,7 +258,7 @@ RSpec.describe Stats::Report, type: :service do
     end
 
     it 'returns a formatted string with the average time' do
-      expect(subject).to match(/Average time to submit: .+/)
+      expect(subject).to match(/Durée moyenne d'une soumission: .+/)
       expect(subject).not_to include('N/A')
     end
 
@@ -303,7 +303,7 @@ RSpec.describe Stats::Report, type: :service do
     end
 
     it 'returns a formatted string with the median time' do
-      expect(subject).to match(/Median time to submit: .+/)
+      expect(subject).to match(/Durée médiane d'une soumission: .+/)
       expect(subject).to match(/3 (hours|heures)/)
     end
   end
@@ -341,7 +341,7 @@ RSpec.describe Stats::Report, type: :service do
     end
 
     it 'returns a formatted string with the standard deviation' do
-      expect(subject).to match(/Standard deviation time to submit: .+/)
+      expect(subject).to match(/Écart-type des durées de soumission: .+/)
     end
   end
 
@@ -378,7 +378,7 @@ RSpec.describe Stats::Report, type: :service do
     end
 
     it 'returns a formatted string with the mode time' do
-      expect(subject).to match(/Mode time to submit: .+/)
+      expect(subject).to match(/Durée de soumission la plus fréquente: .+/)
       # Should be around 5 minutes (the most frequent)
       expect(subject).to match(/5 (minutes?|min)/i)
     end
@@ -412,7 +412,7 @@ RSpec.describe Stats::Report, type: :service do
     end
 
     it 'returns a formatted string with the average time' do
-      expect(subject).to match(/Average time to first instruction: .+/)
+      expect(subject).to match(/Durée moyenne d'une instruction: .+/)
     end
   end
 
@@ -444,7 +444,7 @@ RSpec.describe Stats::Report, type: :service do
     end
 
     it 'returns a formatted string with the standard deviation' do
-      expect(subject).to match(/Standard deviation time to first instruction: .+/)
+      expect(subject).to match(/Écart-type des durées d'instruction: .+/)
     end
   end
 
@@ -484,7 +484,7 @@ RSpec.describe Stats::Report, type: :service do
     end
 
     it 'returns a formatted string with the mode time' do
-      expect(subject).to match(/Mode time to first instruction: .+/)
+      expect(subject).to match(/Durée d'instruction la plus fréquente: .+/)
       # Test data has ~2 hours instruction time, which ceils to 1 day
       expect(subject).to match(/1 (day|jour)/i)
     end
@@ -621,10 +621,10 @@ RSpec.describe Stats::Report, type: :service do
     it 'outputs a properly formatted report' do
       output = capture_stdout { subject.print_report }
       
-      expect(output).to match(/# .*Report of/)
-      expect(output).to match(/Average time to submit: .+/)
-      expect(output).to match(/Median time to submit: .+/)
-      expect(output).to match(/Standard deviation time to submit: .+/)
+      expect(output).to match(/# .*Rapport de/)
+      expect(output).to match(/Durée moyenne d'une soumission: .+/)
+      expect(output).to match(/Durée médiane d'une soumission: .+/)
+      expect(output).to match(/Écart-type des durées de soumission: .+/)
     end
   end
 
@@ -664,9 +664,9 @@ RSpec.describe Stats::Report, type: :service do
       table = subject.time_to_submit_by_type_table
       
       expect(table).to include('Type')
-      expect(table).to include('Count')
+      expect(table).to include('Nombre')
       expect(table).to include('Min')
-      expect(table).to include('Avg')
+      expect(table).to include('Moy')
       expect(table).to include('Max')
     end
 
@@ -713,16 +713,16 @@ RSpec.describe Stats::Report, type: :service do
     subject { described_class.new(date_input: 2025) }
 
     it 'prints the table to stdout' do
-      expect { subject.print_time_to_submit_by_type_table }.to output(/Time to submit by Authorization Request Type/).to_stdout
+      expect { subject.print_time_to_submit_by_type_table }.to output(/Durée de soumission par type de demande/).to_stdout
       expect { subject.print_time_to_submit_by_type_table }.to output(/Type/).to_stdout
-      expect { subject.print_time_to_submit_by_type_table }.to output(/Count/).to_stdout
+      expect { subject.print_time_to_submit_by_type_table }.to output(/Nombre/).to_stdout
     end
 
     context 'with no data' do
       subject { described_class.new(date_input: 2020) }
 
       it 'prints a message when no data is available' do
-        expect { subject.print_time_to_submit_by_type_table }.to output(/No data available/).to_stdout
+        expect { subject.print_time_to_submit_by_type_table }.to output(/Aucune donnée disponible/).to_stdout
       end
     end
   end
@@ -760,11 +760,11 @@ RSpec.describe Stats::Report, type: :service do
     subject { described_class.new(date_input: 2025) }
 
     it 'returns the count of authorization requests created in the date range' do
-      expect(subject.number_of_authorization_requests_created).to eq('3 authorization requests created')
+      expect(subject.number_of_authorization_requests_created).to eq('3 demandes créées')
     end
 
     it 'includes the count in the report output' do
-      expect { subject.print_report }.to output(/3 authorization requests created/).to_stdout
+      expect { subject.print_report }.to output(/3 demandes créées/).to_stdout
     end
   end
 
@@ -802,11 +802,11 @@ RSpec.describe Stats::Report, type: :service do
     subject { described_class.new(date_input: 2025) }
 
     it 'returns the count of reopen events' do
-      expect(subject.number_of_reopen_events).to eq('3 reopen events')
+      expect(subject.number_of_reopen_events).to eq('3 réouvertures')
     end
 
     it 'includes the count in the report output' do
-      expect { subject.print_report }.to output(/3 reopen events/).to_stdout
+      expect { subject.print_report }.to output(/3 réouvertures/).to_stdout
     end
   end
 
@@ -831,9 +831,9 @@ RSpec.describe Stats::Report, type: :service do
     it 'formats table header correctly' do
       header = subject.send(:format_table_header)
       expect(header).to include('Type')
-      expect(header).to include('Count')
+      expect(header).to include('Nombre')
       expect(header).to include('Min')
-      expect(header).to include('Avg')
+      expect(header).to include('Moy')
       expect(header).to include('Max')
     end
 
@@ -902,33 +902,33 @@ RSpec.describe Stats::Report, type: :service do
     context 'with step: :minute' do
       it 'outputs bar chart with minute buckets' do
         output = capture_stdout { subject.print_time_to_submit_by_duration(step: :minute) }
-        expect(output).to include('Time to submit by minute')
+        expect(output).to include('Durée de soumission par minute')
         expect(output).to include('<1')
         expect(output).to include('> 60')
         expect(output).to include('│')
-        expect(output).to include('Total:')
+        expect(output).to include('Total')
       end
     end
 
     context 'with step: :hour' do
       it 'outputs bar chart with hour buckets' do
         output = capture_stdout { subject.print_time_to_submit_by_duration(step: :hour) }
-        expect(output).to include('Time to submit by hour')
+        expect(output).to include('Durée de soumission par heure')
         expect(output).to include('<1')
         expect(output).to include('> 24')
         expect(output).to include('│')
-        expect(output).to include('Total:')
+        expect(output).to include('Total')
       end
     end
 
     context 'with step: :day' do
       it 'outputs bar chart with day buckets' do
         output = capture_stdout { subject.print_time_to_submit_by_duration(step: :day) }
-        expect(output).to include('Time to submit by day')
+        expect(output).to include('Durée de soumission par jour')
         expect(output).to include('<1')
         expect(output).to include('> 30')
         expect(output).to include('│')
-        expect(output).to include('Total:')
+        expect(output).to include('Total')
       end
     end
 
@@ -937,7 +937,7 @@ RSpec.describe Stats::Report, type: :service do
 
       it 'outputs no data message' do
         output = capture_stdout { subject.print_time_to_submit_by_duration(step: :day) }
-        expect(output).to include('No data available')
+        expect(output).to include('Aucune donnée disponible')
       end
     end
   end
@@ -981,33 +981,33 @@ RSpec.describe Stats::Report, type: :service do
     context 'with step: :minute' do
       it 'outputs bar chart with minute buckets' do
         output = capture_stdout { subject.print_time_to_first_instruction_by_duration(step: :minute) }
-        expect(output).to include('Time to first instruction by minute')
+        expect(output).to include('Durée d\'instruction par minute')
         expect(output).to include('<1')
         expect(output).to include('> 60')
         expect(output).to include('│')
-        expect(output).to include('Total:')
+        expect(output).to include('Total')
       end
     end
 
     context 'with step: :hour' do
       it 'outputs bar chart with hour buckets' do
         output = capture_stdout { subject.print_time_to_first_instruction_by_duration(step: :hour) }
-        expect(output).to include('Time to first instruction by hour')
+        expect(output).to include('Durée d\'instruction par heure')
         expect(output).to include('<1')
         expect(output).to include('> 24')
         expect(output).to include('│')
-        expect(output).to include('Total:')
+        expect(output).to include('Total')
       end
     end
 
     context 'with step: :day' do
       it 'outputs bar chart with day buckets' do
         output = capture_stdout { subject.print_time_to_first_instruction_by_duration(step: :day) }
-        expect(output).to include('Time to first instruction by day')
+        expect(output).to include('Durée d\'instruction par jour')
         expect(output).to include('<1')
         expect(output).to include('> 30')
         expect(output).to include('│')
-        expect(output).to include('Total:')
+        expect(output).to include('Total')
       end
     end
 
@@ -1016,7 +1016,7 @@ RSpec.describe Stats::Report, type: :service do
 
       it 'outputs no data message' do
         output = capture_stdout { subject.print_time_to_first_instruction_by_duration(step: :day) }
-        expect(output).to include('No data available')
+        expect(output).to include('Aucune donnée disponible')
       end
     end
   end
@@ -1056,12 +1056,12 @@ RSpec.describe Stats::Report, type: :service do
       subject { described_class.new(date_input: 2025, authorization_types: ['AuthorizationRequest::APIEntreprise']) }
 
       it 'only counts authorization requests of that type' do
-        expect(subject.number_of_authorization_requests_created).to eq('2 authorization requests created')
+        expect(subject.number_of_authorization_requests_created).to eq('2 demandes créées')
       end
 
       it 'includes type filter in report output' do
         output = capture_stdout { subject.print_report }
-        expect(output).to include('(types by: APIEntreprise)')
+        expect(output).to include('(types par : APIEntreprise)')
       end
     end
 
@@ -1069,12 +1069,12 @@ RSpec.describe Stats::Report, type: :service do
       subject { described_class.new(date_input: 2025, authorization_types: ['AuthorizationRequest::APIEntreprise', 'AuthorizationRequest::APIParticulier']) }
 
       it 'counts authorization requests of all specified types' do
-        expect(subject.number_of_authorization_requests_created).to eq('3 authorization requests created')
+        expect(subject.number_of_authorization_requests_created).to eq('3 demandes créées')
       end
 
       it 'includes multiple types in filter label' do
         output = capture_stdout { subject.print_report }
-        expect(output).to include('(types by: APIEntreprise, APIParticulier)')
+        expect(output).to include('(types par : APIEntreprise, APIParticulier)')
       end
     end
 
@@ -1082,7 +1082,7 @@ RSpec.describe Stats::Report, type: :service do
       subject { described_class.new(date_input: 2025) }
 
       it 'counts all authorization requests' do
-        expect(subject.number_of_authorization_requests_created).to eq('3 authorization requests created')
+        expect(subject.number_of_authorization_requests_created).to eq('3 demandes créées')
       end
 
       it 'does not include type filter in output' do
@@ -1096,8 +1096,8 @@ RSpec.describe Stats::Report, type: :service do
 
       it 'only includes data for filtered types in bar chart' do
         output = capture_stdout { subject.print_time_to_submit_by_duration(step: :hour) }
-        expect(output).to include('(types by: APIEntreprise)')
-        expect(output).to include('Total: 2 authorization requests')
+        expect(output).to include('(types par : APIEntreprise)')
+        expect(output).to include('Total : 2 demandes')
       end
     end
 
@@ -1106,7 +1106,7 @@ RSpec.describe Stats::Report, type: :service do
 
       it 'only shows statistics for filtered types' do
         output = capture_stdout { subject.print_time_to_submit_by_type_table }
-        expect(output).to include('(types by: APIEntreprise)')
+        expect(output).to include('(types par : APIEntreprise)')
       end
     end
 
@@ -1126,17 +1126,17 @@ RSpec.describe Stats::Report, type: :service do
       subject { described_class.new(date_input: 2025, provider: 'test-provider') }
 
       it 'filters by all types belonging to the provider' do
-        expect(subject.number_of_authorization_requests_created).to eq('2 authorization requests created')
+        expect(subject.number_of_authorization_requests_created).to eq('2 demandes créées')
       end
 
       it 'shows provider in filter label' do
         output = capture_stdout { subject.print_report }
-        expect(output).to include('(provider: test-provider)')
+        expect(output).to include('(fournisseur : test-provider)')
       end
 
       it 'shows provider filter in bar chart' do
         output = capture_stdout { subject.print_time_to_submit_by_duration(step: :hour) }
-        expect(output).to include('(provider: test-provider)')
+        expect(output).to include('(fournisseur : test-provider)')
       end
     end
   end
@@ -1173,9 +1173,9 @@ RSpec.describe Stats::Report, type: :service do
     it 'prints volume bar chart by type' do
       output = capture_stdout { subject.print_volume_by_type }
       
-      expect(output).to include('Volume of authorization requests by type')
+      expect(output).to include('Volume de demandes par type')
       expect(output).to include('│')
-      expect(output).to include('Total:')
+      expect(output).to include('Total')
       expect(output).to include('APIEntreprise')
       expect(output).to include('APIParticulier')
     end
@@ -1207,9 +1207,9 @@ RSpec.describe Stats::Report, type: :service do
     it 'prints volume bar chart by provider' do
       output = capture_stdout { subject.print_volume_by_provider }
       
-      expect(output).to include('Volume of authorization requests by provider')
+      expect(output).to include('Volume de demandes par fournisseur')
       expect(output).to include('│')
-      expect(output).to include('Total:')
+      expect(output).to include('Total')
     end
   end
 
@@ -1251,9 +1251,9 @@ RSpec.describe Stats::Report, type: :service do
     it 'prints split bar chart by type with states' do
       output = capture_stdout { subject.print_volume_by_type_with_states }
       
-      expect(output).to include('Volume of authorization requests by type (validated vs refused)')
+      expect(output).to include('Volume de demandes par type (validées vs refusées)')
       expect(output).to include('│')
-      expect(output).to include('Legend: █ = Validated, ▓ = Refused')
+      expect(output).to include('Légende : █ = Validées, ▓ = Refusées')
       expect(output).to include('APIEntreprise')
     end
   end
@@ -1284,9 +1284,9 @@ RSpec.describe Stats::Report, type: :service do
     it 'prints split bar chart by provider with states' do
       output = capture_stdout { subject.print_volume_by_provider_with_states }
       
-      expect(output).to include('Volume of authorization requests by provider (validated vs refused)')
+      expect(output).to include('Volume de demandes par fournisseur (validées vs refusées)')
       expect(output).to include('│')
-      expect(output).to include('Legend: █ = Validated, ▓ = Refused')
+      expect(output).to include('Légende : █ = Validées, ▓ = Refusées')
     end
   end
 

@@ -5,55 +5,57 @@
 ---
 
  
-# 📊 Report of 2025 (types by: FranceConnect):
+# 📊 Rapport de 2025 (types par : FranceConnect):
 
 ## Volume
-- 983 authorization requests created
-- 1017 reopen events
-## Time to submit
-- Average time to submit: 12 jours
-- Median time to submit: 15 minutes
-- Mode time to submit: 5 minutes
-- Standard deviation time to submit: environ un mois
-## Time to first instruction
-- Average time to first instruction: 5 jours
-- Median time to first instruction: 1 jour
-- Mode time to first instruction: 1 jour
-- Standard deviation time to first instruction: 8 jours
+- 983 demandes créées
+- 1017 réouvertures
+## Durée d'une soumission
+(Entre la création d'une demande et sa première soumission)
+- Durée moyenne d'une soumission: 12 jours
+- Durée médiane d'une soumission: 15 minutes
+- Durée de soumission la plus fréquente: 5 minutes
+- Écart-type des durées de soumission: environ un mois
+## Durée d'instruction
+(Entre une soumission et la première instruction qui suit)
+- Durée moyenne d'une instruction: 5 jours
+- Durée médiane d'une instruction: 1 jour
+- Durée d'instruction la plus fréquente: 1 jour
+- Écart-type des durées d'instruction: 8 jours
 
 
-## Volume of authorization requests by type for 2025 (types by: FranceConnect):
+## Volume de demandes par type pour 2025 (types par : FranceConnect):
 
 ```
 FranceConnect (983) │ ██████████████████████████████████████████████████
 
-Total: 983 authorization requests
-Scale: each █ represents 19.7 request(s)
+Total : 983 demandes
+Échelle : chaque █ représente 19.7 demande(s)
 ```
 
 
-## Volume of authorization requests by type (validated vs refused) for 2025 (types by: FranceConnect):
+## Volume de demandes par type (validées vs refusées) pour 2025 (types par : FranceConnect):
 
 ```
 FranceConnect (654:  72.9%V  27.1%R) │ ████████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 
-Legend: █ = Validated, ▓ = Refused
-Total: 477 validated, 177 refused (654 total)
-Scale: each character represents 13.1 request(s)
+Légende : █ = Validées, ▓ = Refusées
+Total : 477 validées, 177 refusées (654 total)
+Échelle : chaque caractère représente 13.1 demande(s)
 ```
 
 
-## Median time to submit by type for 2025 (types by: FranceConnect):
+## Durée médiane de soumission par type pour 2025 (types par : FranceConnect):
 
-### Under 1 hour:
+### Moins d'1 heure:
 ```
 FranceConnect (15.3 minutes, n=503) │ ███████████████
 
-Total: 503 authorization requests
+Total : 503 demandes
 ```
 
 
-## Time to submit by minute of 2025 (types by: FranceConnect):
+## Durée de soumission par minute de 2025 (types par : FranceConnect):
 
 ```
   <1 (  0) │ 
@@ -119,21 +121,21 @@ Total: 503 authorization requests
   60 (  2) │ █
 > 60 (141) │ ██████████████████████████████████████████████████
 
-Total: 503 authorization requests
-Scale: each █ represents 2.8 request(s)
+Total : 503 demandes
+Échelle : chaque █ représente 2.8 demande(s)
 ```
 
 
-## Median time to first instruction by type for 2025 (types by: FranceConnect):
+## Durée médiane d'instruction par type pour 2025 (types par : FranceConnect):
 
 ```
-FranceConnect (1.7 days, n=1138) │ ██
+FranceConnect (1.7 jours, n=1138) │ ██
 
-Total: 1138 authorization requests
+Total : 1138 demandes
 ```
 
 
-## Time to first instruction by day of 2025 (types by: FranceConnect):
+## Durée d'instruction par jour de 2025 (types par : FranceConnect):
 
 ```
   <1 (  0) │ 
@@ -169,61 +171,63 @@ Total: 1138 authorization requests
   30 (  2) │ 
 > 30 ( 17) │ ██
 
-Total: 1138 authorization requests
-Scale: each █ represents 9.3 request(s)
+Total : 1138 demandes
+Échelle : chaque █ représente 9.3 demande(s)
 ```
 
  
-# 📊 Report of 2024 (types by: FranceConnect):
+# 📊 Rapport de 2024 (types par : FranceConnect):
 
 ## Volume
-- 796 authorization requests created
-- 89 reopen events
-## Time to submit
-- Average time to submit: environ un an
-- Median time to submit: environ un an
-- Mode time to submit: 12 mois
-- Standard deviation time to submit: 3 mois
-## Time to first instruction
-- Average time to first instruction: 7 jours
-- Median time to first instruction: 4 jours
-- Mode time to first instruction: 1 jour
-- Standard deviation time to first instruction: 11 jours
+- 796 demandes créées
+- 89 réouvertures
+## Durée d'une soumission
+(Entre la création d'une demande et sa première soumission)
+- Durée moyenne d'une soumission: environ un an
+- Durée médiane d'une soumission: environ un an
+- Durée de soumission la plus fréquente: 12 mois
+- Écart-type des durées de soumission: 3 mois
+## Durée d'instruction
+(Entre une soumission et la première instruction qui suit)
+- Durée moyenne d'une instruction: 7 jours
+- Durée médiane d'une instruction: 4 jours
+- Durée d'instruction la plus fréquente: 1 jour
+- Écart-type des durées d'instruction: 11 jours
 
 
-## Volume of authorization requests by type for 2024 (types by: FranceConnect):
+## Volume de demandes par type pour 2024 (types par : FranceConnect):
 
 ```
 FranceConnect (796) │ ██████████████████████████████████████████████████
 
-Total: 796 authorization requests
-Scale: each █ represents 15.9 request(s)
+Total : 796 demandes
+Échelle : chaque █ représente 15.9 demande(s)
 ```
 
 
-## Volume of authorization requests by type (validated vs refused) for 2024 (types by: FranceConnect):
+## Volume de demandes par type (validées vs refusées) pour 2024 (types par : FranceConnect):
 
 ```
 FranceConnect (509:  68.2%V  31.8%R) │ ██████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 
-Legend: █ = Validated, ▓ = Refused
-Total: 347 validated, 162 refused (509 total)
-Scale: each character represents 10.2 request(s)
+Légende : █ = Validées, ▓ = Refusées
+Total : 347 validées, 162 refusées (509 total)
+Échelle : chaque caractère représente 10.2 demande(s)
 ```
 
 
-## Median time to submit by type for 2024 (types by: FranceConnect):
+## Durée médiane de soumission par type pour 2024 (types par : FranceConnect):
 
-### 1 hour or more:
+### 1 heure ou plus:
 ```
 FranceConnect (372.8 days, n=71) │ ██████████████████████████████████████████████████
 
-Total: 71 authorization requests
-Scale: each █ represents 179.0 request(s)
+Total : 71 demandes
+Échelle : chaque █ représente 179.0 demande(s)
 ```
 
 
-## Time to submit by minute of 2024 (types by: FranceConnect):
+## Durée de soumission par minute de 2024 (types par : FranceConnect):
 
 ```
   <1 ( 0) │ 
@@ -289,21 +293,21 @@ Scale: each █ represents 179.0 request(s)
   60 ( 0) │ 
 > 60 (71) │ ██████████████████████████████████████████████████
 
-Total: 71 authorization requests
-Scale: each █ represents 1.4 request(s)
+Total : 71 demandes
+Échelle : chaque █ représente 1.4 demande(s)
 ```
 
 
-## Median time to first instruction by type for 2024 (types by: FranceConnect):
+## Durée médiane d'instruction par type pour 2024 (types par : FranceConnect):
 
 ```
-FranceConnect (3.6 days, n=950) │ ████
+FranceConnect (3.6 jours, n=950) │ ████
 
-Total: 950 authorization requests
+Total : 950 demandes
 ```
 
 
-## Time to first instruction by day of 2024 (types by: FranceConnect):
+## Durée d'instruction par jour de 2024 (types par : FranceConnect):
 
 ```
   <1 (  0) │ 
@@ -339,61 +343,63 @@ Total: 950 authorization requests
   30 (  1) │ 
 > 30 ( 50) │ █████████
 
-Total: 950 authorization requests
-Scale: each █ represents 5.7 request(s)
+Total : 950 demandes
+Échelle : chaque █ représente 5.7 demande(s)
 ```
 
  
-# 📊 Report of 2023 (types by: FranceConnect):
+# 📊 Rapport de 2023 (types par : FranceConnect):
 
 ## Volume
-- 720 authorization requests created
-- 0 reopen events
-## Time to submit
-- Average time to submit: environ 2 ans
-- Median time to submit: environ 2 ans
-- Mode time to submit: presque 3 ans
-- Standard deviation time to submit: 4 mois
-## Time to first instruction
-- Average time to first instruction: 8 jours
-- Median time to first instruction: 2 jours
-- Mode time to first instruction: 1 jour
-- Standard deviation time to first instruction: 15 jours
+- 720 demandes créées
+- 0 réouvertures
+## Durée d'une soumission
+(Entre la création d'une demande et sa première soumission)
+- Durée moyenne d'une soumission: environ 2 ans
+- Durée médiane d'une soumission: environ 2 ans
+- Durée de soumission la plus fréquente: presque 3 ans
+- Écart-type des durées de soumission: 4 mois
+## Durée d'instruction
+(Entre une soumission et la première instruction qui suit)
+- Durée moyenne d'une instruction: 8 jours
+- Durée médiane d'une instruction: 2 jours
+- Durée d'instruction la plus fréquente: 1 jour
+- Écart-type des durées d'instruction: 15 jours
 
 
-## Volume of authorization requests by type for 2023 (types by: FranceConnect):
+## Volume de demandes par type pour 2023 (types par : FranceConnect):
 
 ```
 FranceConnect (720) │ ██████████████████████████████████████████████████
 
-Total: 720 authorization requests
-Scale: each █ represents 14.4 request(s)
+Total : 720 demandes
+Échelle : chaque █ représente 14.4 demande(s)
 ```
 
 
-## Volume of authorization requests by type (validated vs refused) for 2023 (types by: FranceConnect):
+## Volume de demandes par type (validées vs refusées) pour 2023 (types par : FranceConnect):
 
 ```
 FranceConnect (456:  72.1%V  27.9%R) │ ████████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 
-Legend: █ = Validated, ▓ = Refused
-Total: 329 validated, 127 refused (456 total)
-Scale: each character represents 9.1 request(s)
+Légende : █ = Validées, ▓ = Refusées
+Total : 329 validées, 127 refusées (456 total)
+Échelle : chaque caractère représente 9.1 demande(s)
 ```
 
 
-## Median time to submit by type for 2023 (types by: FranceConnect):
+## Durée médiane de soumission par type pour 2023 (types par : FranceConnect):
 
-### 1 hour or more:
+### 1 heure ou plus:
 ```
 FranceConnect (819.1 days, n=34) │ ██████████████████████████████████████████████████
 
-Total: 34 authorization requests
-Scale: each █ represents 393.2 request(s)
+Total : 34 demandes
+Échelle : chaque █ représente 393.2 demande(s)
 ```
 
 
-## Time to submit by minute of 2023 (types by: FranceConnect):
+## Durée de soumission par minute de 2023 (types par : FranceConnect):
 
 ```
   <1 ( 0) │ 
@@ -459,20 +465,20 @@ Scale: each █ represents 393.2 request(s)
   60 ( 0) │ 
 > 60 (34) │ ██████████████████████████████████
 
-Total: 34 authorization requests
+Total : 34 demandes
 ```
 
 
-## Median time to first instruction by type for 2023 (types by: FranceConnect):
+## Durée médiane d'instruction par type pour 2023 (types par : FranceConnect):
 
 ```
-FranceConnect (2.1 days, n=907) │ ██
+FranceConnect (2.1 jours, n=907) │ ██
 
-Total: 907 authorization requests
+Total : 907 demandes
 ```
 
 
-## Time to first instruction by day of 2023 (types by: FranceConnect):
+## Durée d'instruction par jour de 2023 (types par : FranceConnect):
 
 ```
   <1 (  0) │ 
@@ -508,7 +514,7 @@ Total: 907 authorization requests
   30 (  5) │ █
 > 30 ( 68) │ ██████████
 
-Total: 907 authorization requests
-Scale: each █ represents 7.1 request(s)
+Total : 907 demandes
+Échelle : chaque █ représente 7.1 demande(s)
 ```
 

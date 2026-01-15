@@ -5,55 +5,57 @@
 ---
 
  
-# 📊 Report of 2025 (types by: APIEntreprise):
+# 📊 Rapport de 2025 (types par : APIEntreprise):
 
 ## Volume
-- 433 authorization requests created
-- 210 reopen events
-## Time to submit
-- Average time to submit: 1 jour
-- Median time to submit: 14 minutes
-- Mode time to submit: 1 minute
-- Standard deviation time to submit: 7 jours
-## Time to first instruction
-- Average time to first instruction: 13 jours
-- Median time to first instruction: 6 jours
-- Mode time to first instruction: 1 jour
-- Standard deviation time to first instruction: 18 jours
+- 433 demandes créées
+- 210 réouvertures
+## Durée d'une soumission
+(Entre la création d'une demande et sa première soumission)
+- Durée moyenne d'une soumission: 1 jour
+- Durée médiane d'une soumission: 14 minutes
+- Durée de soumission la plus fréquente: 1 minute
+- Écart-type des durées de soumission: 7 jours
+## Durée d'instruction
+(Entre une soumission et la première instruction qui suit)
+- Durée moyenne d'une instruction: 13 jours
+- Durée médiane d'une instruction: 6 jours
+- Durée d'instruction la plus fréquente: 1 jour
+- Écart-type des durées d'instruction: 18 jours
 
 
-## Volume of authorization requests by type for 2025 (types by: APIEntreprise):
+## Volume de demandes par type pour 2025 (types par : APIEntreprise):
 
 ```
 APIEntreprise (433) │ ██████████████████████████████████████████████████
 
-Total: 433 authorization requests
-Scale: each █ represents 8.7 request(s)
+Total : 433 demandes
+Échelle : chaque █ représente 8.7 demande(s)
 ```
 
 
-## Volume of authorization requests by type (validated vs refused) for 2025 (types by: APIEntreprise):
+## Volume de demandes par type (validées vs refusées) pour 2025 (types par : APIEntreprise):
 
 ```
 APIEntreprise (173:  63.0%V  37.0%R) │ ████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 
-Legend: █ = Validated, ▓ = Refused
-Total: 109 validated, 64 refused (173 total)
-Scale: each character represents 3.5 request(s)
+Légende : █ = Validées, ▓ = Refusées
+Total : 109 validées, 64 refusées (173 total)
+Échelle : chaque caractère représente 3.5 demande(s)
 ```
 
 
-## Median time to submit by type for 2025 (types by: APIEntreprise):
+## Durée médiane de soumission par type pour 2025 (types par : APIEntreprise):
 
-### Under 1 hour:
+### Moins d'1 heure:
 ```
 APIEntreprise (13.6 minutes, n=232) │ ██████████████
 
-Total: 232 authorization requests
+Total : 232 demandes
 ```
 
 
-## Time to submit by minute of 2025 (types by: APIEntreprise):
+## Durée de soumission par minute de 2025 (types par : APIEntreprise):
 
 ```
   <1 ( 0) │ 
@@ -119,21 +121,21 @@ Total: 232 authorization requests
   60 ( 2) │ ██
 > 60 (59) │ ██████████████████████████████████████████████████
 
-Total: 232 authorization requests
-Scale: each █ represents 1.2 request(s)
+Total : 232 demandes
+Échelle : chaque █ représente 1.2 demande(s)
 ```
 
 
-## Median time to first instruction by type for 2025 (types by: APIEntreprise):
+## Durée médiane d'instruction par type pour 2025 (types par : APIEntreprise):
 
 ```
-APIEntreprise (6.3 days, n=277) │ ██████
+APIEntreprise (6.3 jours, n=277) │ ██████
 
-Total: 277 authorization requests
+Total : 277 demandes
 ```
 
 
-## Time to first instruction by day of 2025 (types by: APIEntreprise):
+## Durée d'instruction par jour de 2025 (types par : APIEntreprise):
 
 ```
   <1 ( 0) │ 
@@ -169,60 +171,62 @@ Total: 277 authorization requests
   30 ( 1) │ █
 > 30 (40) │ ████████████████████████████████
 
-Total: 277 authorization requests
-Scale: each █ represents 1.3 request(s)
+Total : 277 demandes
+Échelle : chaque █ représente 1.3 demande(s)
 ```
 
  
-# 📊 Report of 2024 (types by: APIEntreprise):
+# 📊 Rapport de 2024 (types par : APIEntreprise):
 
 ## Volume
-- 425 authorization requests created
-- 136 reopen events
-## Time to submit
-- Average time to submit: environ un mois
-- Median time to submit: 13 minutes
-- Mode time to submit: 1 minute
-- Standard deviation time to submit: 4 mois
-## Time to first instruction
-- Average time to first instruction: 13 jours
-- Median time to first instruction: 4 jours
-- Mode time to first instruction: 1 jour
-- Standard deviation time to first instruction: 29 jours
+- 425 demandes créées
+- 136 réouvertures
+## Durée d'une soumission
+(Entre la création d'une demande et sa première soumission)
+- Durée moyenne d'une soumission: environ un mois
+- Durée médiane d'une soumission: 13 minutes
+- Durée de soumission la plus fréquente: 1 minute
+- Écart-type des durées de soumission: 4 mois
+## Durée d'instruction
+(Entre une soumission et la première instruction qui suit)
+- Durée moyenne d'une instruction: 13 jours
+- Durée médiane d'une instruction: 4 jours
+- Durée d'instruction la plus fréquente: 1 jour
+- Écart-type des durées d'instruction: 29 jours
 
 
-## Volume of authorization requests by type for 2024 (types by: APIEntreprise):
+## Volume de demandes par type pour 2024 (types par : APIEntreprise):
 
 ```
 APIEntreprise (425) │ ██████████████████████████████████████████████████
 
-Total: 425 authorization requests
-Scale: each █ represents 8.5 request(s)
+Total : 425 demandes
+Échelle : chaque █ représente 8.5 demande(s)
 ```
 
 
-## Volume of authorization requests by type (validated vs refused) for 2024 (types by: APIEntreprise):
+## Volume de demandes par type (validées vs refusées) pour 2024 (types par : APIEntreprise):
 
 ```
 APIEntreprise (165:  70.3%V  29.7%R) │ ███████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 
-Legend: █ = Validated, ▓ = Refused
-Total: 116 validated, 49 refused (165 total)
-Scale: each character represents 3.3 request(s)
+Légende : █ = Validées, ▓ = Refusées
+Total : 116 validées, 49 refusées (165 total)
+Échelle : chaque caractère représente 3.3 demande(s)
 ```
 
 
-## Median time to submit by type for 2024 (types by: APIEntreprise):
+## Durée médiane de soumission par type pour 2024 (types par : APIEntreprise):
 
-### Under 1 hour:
+### Moins d'1 heure:
 ```
 APIEntreprise (13.0 minutes, n=177) │ █████████████
 
-Total: 177 authorization requests
+Total : 177 demandes
 ```
 
 
-## Time to submit by minute of 2024 (types by: APIEntreprise):
+## Durée de soumission par minute de 2024 (types par : APIEntreprise):
 
 ```
   <1 ( 0) │ 
@@ -288,20 +292,20 @@ Total: 177 authorization requests
   60 ( 0) │ 
 > 60 (50) │ ██████████████████████████████████████████████████
 
-Total: 177 authorization requests
+Total : 177 demandes
 ```
 
 
-## Median time to first instruction by type for 2024 (types by: APIEntreprise):
+## Durée médiane d'instruction par type pour 2024 (types par : APIEntreprise):
 
 ```
-APIEntreprise (4.0 days, n=325) │ ████
+APIEntreprise (4.0 jours, n=325) │ ████
 
-Total: 325 authorization requests
+Total : 325 demandes
 ```
 
 
-## Time to first instruction by day of 2024 (types by: APIEntreprise):
+## Durée d'instruction par jour de 2024 (types par : APIEntreprise):
 
 ```
   <1 (  0) │ 
@@ -337,60 +341,62 @@ Total: 325 authorization requests
   30 (  2) │ █
 > 30 ( 37) │ ██████████████████
 
-Total: 325 authorization requests
-Scale: each █ represents 2.1 request(s)
+Total : 325 demandes
+Échelle : chaque █ représente 2.1 demande(s)
 ```
 
  
-# 📊 Report of 2023 (types by: APIEntreprise):
+# 📊 Rapport de 2023 (types par : APIEntreprise):
 
 ## Volume
-- 312 authorization requests created
-- 0 reopen events
-## Time to submit
-- Average time to submit: 3 mois
-- Median time to submit: 3 minutes
-- Mode time to submit: 1 minute
-- Standard deviation time to submit: 8 mois
-## Time to first instruction
-- Average time to first instruction: 13 jours
-- Median time to first instruction: 5 jours
-- Mode time to first instruction: 1 jour
-- Standard deviation time to first instruction: environ un mois
+- 312 demandes créées
+- 0 réouvertures
+## Durée d'une soumission
+(Entre la création d'une demande et sa première soumission)
+- Durée moyenne d'une soumission: 3 mois
+- Durée médiane d'une soumission: 3 minutes
+- Durée de soumission la plus fréquente: 1 minute
+- Écart-type des durées de soumission: 8 mois
+## Durée d'instruction
+(Entre une soumission et la première instruction qui suit)
+- Durée moyenne d'une instruction: 13 jours
+- Durée médiane d'une instruction: 5 jours
+- Durée d'instruction la plus fréquente: 1 jour
+- Écart-type des durées d'instruction: environ un mois
 
 
-## Volume of authorization requests by type for 2023 (types by: APIEntreprise):
+## Volume de demandes par type pour 2023 (types par : APIEntreprise):
 
 ```
 APIEntreprise (312) │ ██████████████████████████████████████████████████
 
-Total: 312 authorization requests
-Scale: each █ represents 6.2 request(s)
+Total : 312 demandes
+Échelle : chaque █ représente 6.2 demande(s)
 ```
 
 
-## Volume of authorization requests by type (validated vs refused) for 2023 (types by: APIEntreprise):
+## Volume de demandes par type (validées vs refusées) pour 2023 (types par : APIEntreprise):
 
 ```
 APIEntreprise (216:  75.9%V  24.1%R) │ ██████████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓
 
-Legend: █ = Validated, ▓ = Refused
-Total: 164 validated, 52 refused (216 total)
-Scale: each character represents 4.3 request(s)
+Légende : █ = Validées, ▓ = Refusées
+Total : 164 validées, 52 refusées (216 total)
+Échelle : chaque caractère représente 4.3 demande(s)
 ```
 
 
-## Median time to submit by type for 2023 (types by: APIEntreprise):
+## Durée médiane de soumission par type pour 2023 (types par : APIEntreprise):
 
-### Under 1 hour:
+### Moins d'1 heure:
 ```
 APIEntreprise (2.9 minutes, n=184) │ ███
 
-Total: 184 authorization requests
+Total : 184 demandes
 ```
 
 
-## Time to submit by minute of 2023 (types by: APIEntreprise):
+## Durée de soumission par minute de 2023 (types par : APIEntreprise):
 
 ```
   <1 ( 0) │ 
@@ -456,21 +462,21 @@ Total: 184 authorization requests
   60 ( 0) │ 
 > 60 (56) │ █████████████████████████████████████████████
 
-Total: 184 authorization requests
-Scale: each █ represents 1.2 request(s)
+Total : 184 demandes
+Échelle : chaque █ représente 1.2 demande(s)
 ```
 
 
-## Median time to first instruction by type for 2023 (types by: APIEntreprise):
+## Durée médiane d'instruction par type pour 2023 (types par : APIEntreprise):
 
 ```
-APIEntreprise (5.0 days, n=418) │ █████
+APIEntreprise (5.0 jours, n=418) │ █████
 
-Total: 418 authorization requests
+Total : 418 demandes
 ```
 
 
-## Time to first instruction by day of 2023 (types by: APIEntreprise):
+## Durée d'instruction par jour de 2023 (types par : APIEntreprise):
 
 ```
   <1 (  0) │ 
@@ -506,7 +512,7 @@ Total: 418 authorization requests
   30 (  0) │ 
 > 30 ( 33) │ ████████████████
 
-Total: 418 authorization requests
-Scale: each █ represents 2.1 request(s)
+Total : 418 demandes
+Échelle : chaque █ représente 2.1 demande(s)
 ```
 

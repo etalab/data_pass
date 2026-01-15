@@ -5,58 +5,60 @@
 ---
 
  
-# 📊 Report of 2025 (types by: HubEECertDC, HubEEDila):
+# 📊 Rapport de 2025 (types par : HubEECertDC, HubEEDila):
 
 ## Volume
-- 1352 authorization requests created
-- 340 reopen events
-## Time to submit
-- Average time to submit: 1 jour
-- Median time to submit: moins d'une minute
-- Mode time to submit: 1 minute
-- Standard deviation time to submit: 12 jours
-## Time to first instruction
-- Average time to first instruction: 1 jour
-- Median time to first instruction: environ 6 heures
-- Mode time to first instruction: 1 jour
-- Standard deviation time to first instruction: 3 jours
+- 1352 demandes créées
+- 340 réouvertures
+## Durée d'une soumission
+(Entre la création d'une demande et sa première soumission)
+- Durée moyenne d'une soumission: 1 jour
+- Durée médiane d'une soumission: moins d'une minute
+- Durée de soumission la plus fréquente: 1 minute
+- Écart-type des durées de soumission: 12 jours
+## Durée d'instruction
+(Entre une soumission et la première instruction qui suit)
+- Durée moyenne d'une instruction: 1 jour
+- Durée médiane d'une instruction: environ 6 heures
+- Durée d'instruction la plus fréquente: 1 jour
+- Écart-type des durées d'instruction: 3 jours
 
 
-## Volume of authorization requests by type for 2025 (types by: HubEECertDC, HubEEDila):
+## Volume de demandes par type pour 2025 (types par : HubEECertDC, HubEEDila):
 
 ```
 HubEECertDC (864) │ ██████████████████████████████████████████████████
 HubEEDila   (488) │ ████████████████████████████
 
-Total: 1352 authorization requests
-Scale: each █ represents 17.3 request(s)
+Total : 1352 demandes
+Échelle : chaque █ représente 17.3 demande(s)
 ```
 
 
-## Volume of authorization requests by type (validated vs refused) for 2025 (types by: HubEECertDC, HubEEDila):
+## Volume de demandes par type (validées vs refusées) pour 2025 (types par : HubEECertDC, HubEEDila):
 
 ```
 HubEECertDC (701:  98.4%V   1.6%R) │ █████████████████████████████████████████████████▓
 HubEEDila   (318:  98.1%V   1.9%R) │ ██████████████████████
 
-Legend: █ = Validated, ▓ = Refused
-Total: 1002 validated, 17 refused (1019 total)
-Scale: each character represents 14.0 request(s)
+Légende : █ = Validées, ▓ = Refusées
+Total : 1002 validées, 17 refusées (1019 total)
+Échelle : chaque caractère représente 14.0 demande(s)
 ```
 
 
-## Median time to submit by type for 2025 (types by: HubEECertDC, HubEEDila):
+## Durée médiane de soumission par type pour 2025 (types par : HubEECertDC, HubEEDila):
 
-### Under 1 hour:
+### Moins d'1 heure:
 ```
 HubEEDila   (0.3 minutes, n=459) │ 
 HubEECertDC (0.3 minutes, n=801) │ 
 
-Total: 1260 authorization requests
+Total : 1260 demandes
 ```
 
 
-## Time to submit by minute of 2025 (types by: HubEECertDC, HubEEDila):
+## Durée de soumission par minute de 2025 (types par : HubEECertDC, HubEEDila):
 
 ```
   <1 (   0) │ 
@@ -122,22 +124,22 @@ Total: 1260 authorization requests
   60 (   0) │ 
 > 60 (  59) │ ███
 
-Total: 1260 authorization requests
-Scale: each █ represents 20.2 request(s)
+Total : 1260 demandes
+Échelle : chaque █ représente 20.2 demande(s)
 ```
 
 
-## Median time to first instruction by type for 2025 (types by: HubEECertDC, HubEEDila):
+## Durée médiane d'instruction par type pour 2025 (types par : HubEECertDC, HubEEDila):
 
 ```
-HubEECertDC (0.0 days, n=971) │ 
-HubEEDila   (1.2 days, n=766) │ █
+HubEECertDC (0.0 jours, n=971) │ 
+HubEEDila   (1.2 jours, n=766) │ █
 
-Total: 1737 authorization requests
+Total : 1737 demandes
 ```
 
 
-## Time to first instruction by day of 2025 (types by: HubEECertDC, HubEEDila):
+## Durée d'instruction par jour de 2025 (types par : HubEECertDC, HubEEDila):
 
 ```
   <1 (   0) │ 
@@ -173,63 +175,65 @@ Total: 1737 authorization requests
   30 (   1) │ 
 > 30 (   4) │ 
 
-Total: 1737 authorization requests
-Scale: each █ represents 22.3 request(s)
+Total : 1737 demandes
+Échelle : chaque █ représente 22.3 demande(s)
 ```
 
  
-# 📊 Report of 2024 (types by: HubEECertDC, HubEEDila):
+# 📊 Rapport de 2024 (types par : HubEECertDC, HubEEDila):
 
 ## Volume
-- 1684 authorization requests created
-- 183 reopen events
-## Time to submit
-- Average time to submit: 7 jours
-- Median time to submit: moins d'une minute
-- Mode time to submit: 1 minute
-- Standard deviation time to submit: environ 2 mois
-## Time to first instruction
-- Average time to first instruction: 2 jours
-- Median time to first instruction: environ 19 heures
-- Mode time to first instruction: 1 jour
-- Standard deviation time to first instruction: 6 jours
+- 1684 demandes créées
+- 183 réouvertures
+## Durée d'une soumission
+(Entre la création d'une demande et sa première soumission)
+- Durée moyenne d'une soumission: 7 jours
+- Durée médiane d'une soumission: moins d'une minute
+- Durée de soumission la plus fréquente: 1 minute
+- Écart-type des durées de soumission: environ 2 mois
+## Durée d'instruction
+(Entre une soumission et la première instruction qui suit)
+- Durée moyenne d'une instruction: 2 jours
+- Durée médiane d'une instruction: environ 19 heures
+- Durée d'instruction la plus fréquente: 1 jour
+- Écart-type des durées d'instruction: 6 jours
 
 
-## Volume of authorization requests by type for 2024 (types by: HubEECertDC, HubEEDila):
+## Volume de demandes par type pour 2024 (types par : HubEECertDC, HubEEDila):
 
 ```
 HubEECertDC (1145) │ ██████████████████████████████████████████████████
 HubEEDila   ( 539) │ ████████████████████████
 
-Total: 1684 authorization requests
-Scale: each █ represents 22.9 request(s)
+Total : 1684 demandes
+Échelle : chaque █ représente 22.9 demande(s)
 ```
 
 
-## Volume of authorization requests by type (validated vs refused) for 2024 (types by: HubEECertDC, HubEEDila):
+## Volume de demandes par type (validées vs refusées) pour 2024 (types par : HubEECertDC, HubEEDila):
 
 ```
 HubEECertDC (989:  97.0%V   3.0%R) │ ████████████████████████████████████████████████▓▓
 HubEEDila   (367:  95.1%V   4.9%R) │ ██████████████████▓
 
-Legend: █ = Validated, ▓ = Refused
-Total: 1308 validated, 48 refused (1356 total)
-Scale: each character represents 19.8 request(s)
+Légende : █ = Validées, ▓ = Refusées
+Total : 1308 validées, 48 refusées (1356 total)
+Échelle : chaque caractère représente 19.8 demande(s)
 ```
 
 
-## Median time to submit by type for 2024 (types by: HubEECertDC, HubEEDila):
+## Durée médiane de soumission par type pour 2024 (types par : HubEECertDC, HubEEDila):
 
-### Under 1 hour:
+### Moins d'1 heure:
 ```
 HubEECertDC (0.1 minutes, n=996) │ 
 HubEEDila   (0.1 minutes, n=384) │ 
 
-Total: 1380 authorization requests
+Total : 1380 demandes
 ```
 
 
-## Time to submit by minute of 2024 (types by: HubEECertDC, HubEEDila):
+## Durée de soumission par minute de 2024 (types par : HubEECertDC, HubEEDila):
 
 ```
   <1 (   0) │ 
@@ -295,22 +299,22 @@ Total: 1380 authorization requests
   60 (   0) │ 
 > 60 (  64) │ ███
 
-Total: 1380 authorization requests
-Scale: each █ represents 23.3 request(s)
+Total : 1380 demandes
+Échelle : chaque █ représente 23.3 demande(s)
 ```
 
 
-## Median time to first instruction by type for 2024 (types by: HubEECertDC, HubEEDila):
+## Durée médiane d'instruction par type pour 2024 (types par : HubEECertDC, HubEEDila):
 
 ```
-HubEECertDC (0.2 days, n=1345) │ 
-HubEEDila   (1.7 days, n= 905) │ ██
+HubEECertDC (0.2 jours, n=1345) │ 
+HubEEDila   (1.7 jours, n= 905) │ ██
 
-Total: 2250 authorization requests
+Total : 2250 demandes
 ```
 
 
-## Time to first instruction by day of 2024 (types by: HubEECertDC, HubEEDila):
+## Durée d'instruction par jour de 2024 (types par : HubEECertDC, HubEEDila):
 
 ```
   <1 (   0) │ 
@@ -346,60 +350,62 @@ Total: 2250 authorization requests
   30 (   0) │ 
 > 30 (   4) │ 
 
-Total: 2250 authorization requests
-Scale: each █ represents 25.6 request(s)
+Total : 2250 demandes
+Échelle : chaque █ représente 25.6 demande(s)
 ```
 
  
-# 📊 Report of 2023 (types by: HubEECertDC, HubEEDila):
+# 📊 Rapport de 2023 (types par : HubEECertDC, HubEEDila):
 
 ## Volume
-- 2054 authorization requests created
-- 0 reopen events
-## Time to submit
-- Average time to submit: 9 jours
-- Median time to submit: moins d'une minute
-- Mode time to submit: 1 minute
-- Standard deviation time to submit: 3 mois
-## Time to first instruction
-- Average time to first instruction: 3 jours
-- Median time to first instruction: environ 20 heures
-- Mode time to first instruction: 1 jour
-- Standard deviation time to first instruction: 17 jours
+- 2054 demandes créées
+- 0 réouvertures
+## Durée d'une soumission
+(Entre la création d'une demande et sa première soumission)
+- Durée moyenne d'une soumission: 9 jours
+- Durée médiane d'une soumission: moins d'une minute
+- Durée de soumission la plus fréquente: 1 minute
+- Écart-type des durées de soumission: 3 mois
+## Durée d'instruction
+(Entre une soumission et la première instruction qui suit)
+- Durée moyenne d'une instruction: 3 jours
+- Durée médiane d'une instruction: environ 20 heures
+- Durée d'instruction la plus fréquente: 1 jour
+- Écart-type des durées d'instruction: 17 jours
 
 
-## Volume of authorization requests by type for 2023 (types by: HubEECertDC, HubEEDila):
+## Volume de demandes par type pour 2023 (types par : HubEECertDC, HubEEDila):
 
 ```
 HubEEDila   (1176) │ ██████████████████████████████████████████████████
 HubEECertDC ( 878) │ █████████████████████████████████████
 
-Total: 2054 authorization requests
-Scale: each █ represents 23.5 request(s)
+Total : 2054 demandes
+Échelle : chaque █ représente 23.5 demande(s)
 ```
 
 
-## Volume of authorization requests by type (validated vs refused) for 2023 (types by: HubEECertDC, HubEEDila):
+## Volume de demandes par type (validées vs refusées) pour 2023 (types par : HubEECertDC, HubEEDila):
 
 ```
 HubEEDila   (1126:  98.5%V   1.5%R) │ █████████████████████████████████████████████████▓
 HubEECertDC ( 840:  92.4%V   7.6%R) │ ██████████████████████████████████▓▓▓
 
-Legend: █ = Validated, ▓ = Refused
-Total: 1885 validated, 81 refused (1966 total)
-Scale: each character represents 22.5 request(s)
+Légende : █ = Validées, ▓ = Refusées
+Total : 1885 validées, 81 refusées (1966 total)
+Échelle : chaque caractère représente 22.5 demande(s)
 ```
 
 
-## Median time to submit by type for 2023 (types by: HubEECertDC, HubEEDila):
+## Durée médiane de soumission par type pour 2023 (types par : HubEECertDC, HubEEDila):
 
-### Under 1 hour:
+### Moins d'1 heure:
 ```
-No data
+Aucune donnée
 ```
 
 
-## Time to submit by minute of 2023 (types by: HubEECertDC, HubEEDila):
+## Durée de soumission par minute de 2023 (types par : HubEECertDC, HubEEDila):
 
 ```
   <1 (   0) │ 
@@ -465,22 +471,22 @@ No data
   60 (   0) │ 
 > 60 (  49) │ ██
 
-Total: 1463 authorization requests
-Scale: each █ represents 25.9 request(s)
+Total : 1463 demandes
+Échelle : chaque █ représente 25.9 demande(s)
 ```
 
 
-## Median time to first instruction by type for 2023 (types by: HubEECertDC, HubEEDila):
+## Durée médiane d'instruction par type pour 2023 (types par : HubEECertDC, HubEEDila):
 
 ```
-HubEECertDC (0.7 days, n=1551) │ █
-HubEEDila   (1.0 days, n=1340) │ █
+HubEECertDC (0.7 jours, n=1551) │ █
+HubEEDila   (1.0 jours, n=1340) │ █
 
-Total: 2891 authorization requests
+Total : 2891 demandes
 ```
 
 
-## Time to first instruction by day of 2023 (types by: HubEECertDC, HubEEDila):
+## Durée d'instruction par jour de 2023 (types par : HubEECertDC, HubEEDila):
 
 ```
   <1 (   0) │ 
@@ -516,7 +522,7 @@ Total: 2891 authorization requests
   30 (   5) │ 
 > 30 (  38) │ █
 
-Total: 2891 authorization requests
-Scale: each █ represents 32.3 request(s)
+Total : 2891 demandes
+Échelle : chaque █ représente 32.3 demande(s)
 ```
 

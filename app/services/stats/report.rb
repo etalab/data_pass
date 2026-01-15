@@ -16,66 +16,68 @@ module Stats
     end
 
     def print_report
-      result =  " \n# 📊 Report of #{human_readable_date_range}#{type_filter_label}:\n\n"
+      result =  " \n# 📊 Rapport de #{human_readable_date_range}#{type_filter_label}:\n\n"
       result += "## Volume\n"
       result += "- #{number_of_authorization_requests_created}\n"
       result += "- #{number_of_reopen_events}\n"
-      result += "## Time to submit\n"
+      result += "## Durée d'une soumission\n"
+      result += "(Entre la création d'une demande et sa première soumission)\n"
       result += "- #{average_time_to_submit}\n- #{median_time_to_submit}\n- #{mode_time_to_submit}\n- #{stddev_time_to_submit}\n"
-      result += "## Time to first instruction\n"
+      result += "## Durée d'instruction\n"
+      result += "(Entre une soumission et la première instruction qui suit)\n"
       result += "- #{average_time_to_first_instruction}\n- #{median_time_to_first_instruction}\n- #{mode_time_to_first_instruction}\n- #{stddev_time_to_first_instruction}\n"
       puts result
     end
 
     def number_of_authorization_requests_created
-      "#{@authorization_requests_created_in_range.count} authorization requests created"
+      "#{@authorization_requests_created_in_range.count} demandes créées"
     end
 
     def number_of_reopen_events
-      "#{@reopen_aggregator.reopen_events_count} reopen events"
+      "#{@reopen_aggregator.reopen_events_count} réouvertures"
     end
 
     def average_time_to_submit
-      format_metric('Average time to submit', @create_aggregator.average_time_to_submit)
+      format_metric('Durée moyenne d\'une soumission', @create_aggregator.average_time_to_submit)
     end
 
     def median_time_to_submit
-      format_metric('Median time to submit', @create_aggregator.median_time_to_submit)
+      format_metric('Durée médiane d\'une soumission', @create_aggregator.median_time_to_submit)
     end
 
     def stddev_time_to_submit
-      format_metric('Standard deviation time to submit', @create_aggregator.stddev_time_to_submit)
+      format_metric('Écart-type des durées de soumission', @create_aggregator.stddev_time_to_submit)
     end
 
     def mode_time_to_submit
-      format_metric('Mode time to submit', @create_aggregator.mode_time_to_submit)
+      format_metric('Durée de soumission la plus fréquente', @create_aggregator.mode_time_to_submit)
     end
 
     def average_time_to_first_instruction
-      format_metric('Average time to first instruction', @create_aggregator.average_time_to_first_instruction)
+      format_metric('Durée moyenne d\'une instruction', @create_aggregator.average_time_to_first_instruction)
     end
 
     def median_time_to_first_instruction
-      format_metric('Median time to first instruction', @create_aggregator.median_time_to_first_instruction)
+      format_metric('Durée médiane d\'une instruction', @create_aggregator.median_time_to_first_instruction)
     end
 
     def stddev_time_to_first_instruction
-      format_metric('Standard deviation time to first instruction', @create_aggregator.stddev_time_to_first_instruction)
+      format_metric('Écart-type des durées d\'instruction', @create_aggregator.stddev_time_to_first_instruction)
     end
 
     def mode_time_to_first_instruction
-      format_metric('Mode time to first instruction', @create_aggregator.mode_time_to_first_instruction)
+      format_metric('Durée d\'instruction la plus fréquente', @create_aggregator.mode_time_to_first_instruction)
     end
 
     def print_time_to_submit_by_type_table
       stats = @create_aggregator.time_to_submit_by_type
       
       if stats.empty?
-        puts "\nNo data available for statistics by type."
+        puts "\nAucune donnée disponible pour les statistiques par type."
         return
       end
 
-      puts "\n## Time to submit by Authorization Request Type of #{human_readable_date_range}#{type_filter_label}:\n\n"
+      puts "\n## Durée de soumission par type de demande de #{human_readable_date_range}#{type_filter_label}:\n\n"
       puts format_table_header
       puts format_table_separator(stats)
       
@@ -86,7 +88,7 @@ module Stats
 
     def time_to_submit_by_type_table
       stats = @create_aggregator.time_to_submit_by_type
-      return "No data available" if stats.empty?
+      return "Aucune donnée disponible" if stats.empty?
 
       lines = []
       lines << format_table_header
@@ -97,62 +99,62 @@ module Stats
 
     def print_time_to_submit_by_duration(step: :day)
       buckets = @create_aggregator.time_to_submit_by_duration_buckets(step: step)
-      print_chart_with_title(buckets, "Time to submit by #{step_label_text(step)}", preposition: 'of')
+      print_chart_with_title(buckets, "Durée de soumission par #{step_label_text(step)}", preposition: 'de')
     end
 
     def print_time_to_first_instruction_by_duration(step: :day)
       buckets = @create_aggregator.time_to_first_instruction_by_duration_buckets(step: step)
-      print_chart_with_title(buckets, "Time to first instruction by #{step_label_text(step)}", preposition: 'of')
+      print_chart_with_title(buckets, "Durée d'instruction par #{step_label_text(step)}", preposition: 'de')
     end
 
     def print_volume_by_type
       data = @create_aggregator.volume_by_type
       buckets = data.map { |item| { bucket: extract_type_name(item[:type]), count: item[:count] } }
-      print_chart_with_title(buckets, "Volume of authorization requests by type", method: :format_volume_bar_chart)
+      print_chart_with_title(buckets, "Volume de demandes par type", method: :format_volume_bar_chart)
     end
 
     def print_volume_by_provider
       data = @create_aggregator.volume_by_provider
       buckets = data.map { |item| { bucket: item[:provider], count: item[:count] } }
-      print_chart_with_title(buckets, "Volume of authorization requests by provider", method: :format_volume_bar_chart)
+      print_chart_with_title(buckets, "Volume de demandes par fournisseur", method: :format_volume_bar_chart)
     end
 
     def print_volume_by_type_with_states
       data = @create_aggregator.volume_by_type_with_states
       items = data.map { |item| transform_state_data(item, extract_type_name(item[:type])) }
-      print_chart_with_title(items, "Volume of authorization requests by type (validated vs refused)", method: :format_split_bar_chart)
+      print_chart_with_title(items, "Volume de demandes par type (validées vs refusées)", method: :format_split_bar_chart)
     end
 
     def print_volume_by_provider_with_states
       data = @create_aggregator.volume_by_provider_with_states
       items = data.map { |item| transform_state_data(item, item[:provider]) }
-      print_chart_with_title(items, "Volume of authorization requests by provider (validated vs refused)", method: :format_split_bar_chart)
+      print_chart_with_title(items, "Volume de demandes par fournisseur (validées vs refusées)", method: :format_split_bar_chart)
     end
 
     def print_median_time_to_submit_by_type
       data = @create_aggregator.median_time_to_submit_by_type
-      return puts "\nNo data available for median time to submit by type." if data.empty?
+      return puts "\nAucune donnée disponible pour la durée médiane de soumission par type." if data.empty?
 
-      puts "\n## Median time to submit by type for #{human_readable_date_range}#{type_filter_label}:\n"
+      puts "\n## Durée médiane de soumission par type pour #{human_readable_date_range}#{type_filter_label}:\n"
 
       one_hour = 3600.0
       under_one_hour = data.select { |item| item[:median_time] < one_hour }
       one_hour_or_more = data.select { |item| item[:median_time] >= one_hour }
       
-      print_time_buckets('Under 1 hour', under_one_hour, 60.0) if under_one_hour.any?
-      print_time_buckets('1 hour or more', one_hour_or_more, 3600.0) if one_hour_or_more.any?
+      print_time_buckets('Moins d\'1 heure', under_one_hour, 60.0) if under_one_hour.any?
+      print_time_buckets('1 heure ou plus', one_hour_or_more, 3600.0) if one_hour_or_more.any?
     end
 
     def print_median_time_to_first_instruction_by_type
       data = @create_aggregator.median_time_to_first_instruction_by_type
-      return puts "\nNo data available for median time to first instruction by type." if data.empty?
+      return puts "\nAucune donnée disponible pour la durée médiane d'instruction par type." if data.empty?
 
-      puts "\n## Median time to first instruction by type for #{human_readable_date_range}#{type_filter_label}:\n\n"
+      puts "\n## Durée médiane d'instruction par type pour #{human_readable_date_range}#{type_filter_label}:\n\n"
       
       buckets = data.map { |item| transform_time_bucket(item, 86400.0) }
       
       puts "```"
-      puts format_time_bar_chart(buckets, 'days')
+      puts format_time_bar_chart(buckets, 'jours')
       puts "```"
     end
 
@@ -183,8 +185,8 @@ module Stats
       }
     end
 
-    def print_chart_with_title(data, title, method: :format_bar_chart, unit: nil, preposition: 'for')
-      return puts "\nNo data available for #{title.downcase}." if data.empty?
+    def print_chart_with_title(data, title, method: :format_bar_chart, unit: nil, preposition: 'pour')
+      return puts "\nAucune donnée disponible pour #{title.downcase}." if data.empty?
 
       puts "\n## #{title} #{preposition} #{human_readable_date_range}#{type_filter_label}:\n\n"
       puts "```"
@@ -212,7 +214,7 @@ module Stats
 
     def build_bar_chart(items, value_key:, label_align:, unit: nil, show_count: false, display_value_key: nil)
       max_value = items.map { |item| item[value_key] }.max
-      return "No data" if max_value.nil? || max_value == 0
+      return "Aucune donnée" if max_value.nil? || max_value == 0
 
       max_bar_length = 50
       scale = max_value > max_bar_length ? (max_bar_length.to_f / max_value) : 1.0
@@ -270,15 +272,15 @@ module Stats
       lines = [""]
       
       if items.first&.key?(:validated)
-        lines << "Legend: █ = Validated, ▓ = Refused"
-        lines << "Total: #{items.sum { |i| i[:validated] }} validated, #{items.sum { |i| i[:refused] }} refused (#{items.sum { |i| i[:total] }} total)"
+        lines << "Légende : █ = Validées, ▓ = Refusées"
+        lines << "Total : #{items.sum { |i| i[:validated] }} validées, #{items.sum { |i| i[:refused] }} refusées (#{items.sum { |i| i[:total] }} total)"
       else
-        lines << "Total: #{items.sum { |i| i[:count] }} authorization requests"
+        lines << "Total : #{items.sum { |i| i[:count] }} demandes"
       end
       
       if scale < 1.0
-        scale_label = unit ? "#{unit}" : "request(s)"
-        lines << "Scale: each █ represents #{(1.0 / scale).round(1)} #{scale_label}"
+        scale_label = unit ? "#{unit}" : "demande(s)"
+        lines << "Échelle : chaque █ représente #{(1.0 / scale).round(1)} #{scale_label}"
       end
       
       lines
@@ -334,13 +336,13 @@ module Stats
       return "" unless @authorization_types.present?
       
       if @provider.present?
-        " (provider: #{@provider})"
+        " (fournisseur : #{@provider})"
       else
         type_names = @authorization_types.map do |type|
           format_type_name(type.split('::').last)
         end
         
-        " (types by: #{type_names.join(', ')})"
+        " (types par : #{type_names.join(', ')})"
       end
     end
 
@@ -371,7 +373,7 @@ module Stats
     end
 
     def format_table_header
-      format("%-50s | %5s | %20s | %20s | %20s", "Type", "Count", "Min", "Avg", "Max")
+      format("%-50s | %5s | %20s | %20s | %20s", "Type", "Nombre", "Min", "Moy", "Max")
     end
 
     def format_table_separator(stats)
@@ -400,9 +402,9 @@ module Stats
       when :minute
         "minute"
       when :hour
-        "hour"
+        "heure"
       when :day
-        "day"
+        "jour"
       else
         step.to_s
       end
@@ -418,7 +420,7 @@ module Stats
 
     def format_split_bar_chart(items)
       max_total = items.map { |i| i[:total] }.max
-      return "No data" if max_total == 0
+      return "Aucune donnée" if max_total == 0
       
       # Calculate bar scale - aim for max bar length of 50 characters
       max_bar_length = 50
@@ -450,9 +452,9 @@ module Stats
       end
       
       lines << ""
-      lines << "Legend: █ = Validated, ▓ = Refused"
-      lines << "Total: #{items.sum { |i| i[:validated] }} validated, #{items.sum { |i| i[:refused] }} refused (#{items.sum { |i| i[:total] }} total)"
-      lines << "Scale: each character represents #{(1.0 / scale).round(1)} request(s)" if scale < 1.0
+      lines << "Légende : █ = Validées, ▓ = Refusées"
+      lines << "Total : #{items.sum { |i| i[:validated] }} validées, #{items.sum { |i| i[:refused] }} refusées (#{items.sum { |i| i[:total] }} total)"
+      lines << "Échelle : chaque caractère représente #{(1.0 / scale).round(1)} demande(s)" if scale < 1.0
       
       lines.join("\n")
     end

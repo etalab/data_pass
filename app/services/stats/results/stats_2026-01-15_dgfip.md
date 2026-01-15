@@ -5,24 +5,26 @@
 ---
 
  
-# 📊 Report of 2025 (provider: dgfip):
+# 📊 Rapport de 2025 (fournisseur : dgfip):
 
 ## Volume
-- 558 authorization requests created
-- 123 reopen events
-## Time to submit
-- Average time to submit: environ un mois
-- Median time to submit: 27 minutes
-- Mode time to submit: 8 minutes
-- Standard deviation time to submit: 2 mois
-## Time to first instruction
-- Average time to first instruction: 10 jours
-- Median time to first instruction: 2 jours
-- Mode time to first instruction: 1 jour
-- Standard deviation time to first instruction: environ un mois
+- 558 demandes créées
+- 123 réouvertures
+## Durée d'une soumission
+(Entre la création d'une demande et sa première soumission)
+- Durée moyenne d'une soumission: environ un mois
+- Durée médiane d'une soumission: 27 minutes
+- Durée de soumission la plus fréquente: 8 minutes
+- Écart-type des durées de soumission: 2 mois
+## Durée d'instruction
+(Entre une soumission et la première instruction qui suit)
+- Durée moyenne d'une instruction: 10 jours
+- Durée médiane d'une instruction: 2 jours
+- Durée d'instruction la plus fréquente: 1 jour
+- Écart-type des durées d'instruction: environ un mois
 
 
-## Volume of authorization requests by type for 2025 (provider: dgfip):
+## Volume de demandes par type pour 2025 (fournisseur : dgfip):
 
 ```
 APIR2P                     (85) │ ██████████████████████████████████████████████████
@@ -41,12 +43,12 @@ APIFicoba                  ( 7) │ ████
 APIRial                    ( 3) │ ██
 APIImprimfipSandbox        ( 2) │ █
 
-Total: 558 authorization requests
-Scale: each █ represents 1.7 request(s)
+Total : 558 demandes
+Échelle : chaque █ représente 1.7 demande(s)
 ```
 
 
-## Volume of authorization requests by type (validated vs refused) for 2025 (provider: dgfip):
+## Volume de demandes par type (validées vs refusées) pour 2025 (fournisseur : dgfip):
 
 ```
 APIINFINOESandbox          (55:  65.5%V  34.5%R) │ █████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
@@ -62,15 +64,15 @@ APISFiP                    ( 7:  71.4%V  28.6%R) │ █████▓▓
 APISFiPR2PSandbox          ( 6:  66.7%V  33.3%R) │ ████▓▓
 APISFiPR2P                 ( 4:  25.0%V  75.0%R) │ █▓▓▓
 
-Legend: █ = Validated, ▓ = Refused
-Total: 108 validated, 119 refused (227 total)
-Scale: each character represents 1.1 request(s)
+Légende : █ = Validées, ▓ = Refusées
+Total : 108 validées, 119 refusées (227 total)
+Échelle : chaque caractère représente 1.1 demande(s)
 ```
 
 
-## Median time to submit by type for 2025 (provider: dgfip):
+## Durée médiane de soumission par type pour 2025 (fournisseur : dgfip):
 
-### Under 1 hour:
+### Moins d'1 heure:
 ```
 APIRialSandbox             ( 4.9 minutes, n= 1) │ █████
 APIINFINOE                 ( 8.4 minutes, n=14) │ ████████
@@ -81,10 +83,10 @@ APIINFINOESandbox          (11.7 minutes, n=19) │ █████████�
 APIR2PSandbox              (12.1 minutes, n=20) │ ████████████
 APISFiPR2P                 (25.6 minutes, n=11) │ ██████████████████████████
 
-Total: 114 authorization requests
+Total : 114 demandes
 ```
 
-### 1 hour or more:
+### 1 heure ou plus:
 ```
 APIFicoba           (  1.1 days, n= 1) │ 
 APIImpotParticulier (  6.5 days, n=28) │ ███
@@ -93,12 +95,12 @@ APISFiPSandbox      ( 28.4 days, n= 6) │ ████████████
 APIRial             ( 42.1 days, n= 2) │ █████████████████
 APISFiP             (120.7 days, n=16) │ ██████████████████████████████████████████████████
 
-Total: 73 authorization requests
-Scale: each █ represents 57.9 request(s)
+Total : 73 demandes
+Échelle : chaque █ représente 57.9 demande(s)
 ```
 
 
-## Time to submit by minute of 2025 (provider: dgfip):
+## Durée de soumission par minute de 2025 (fournisseur : dgfip):
 
 ```
   <1 ( 0) │ 
@@ -164,34 +166,34 @@ Scale: each █ represents 57.9 request(s)
   60 ( 1) │ █
 > 60 (79) │ ██████████████████████████████████████████████████
 
-Total: 187 authorization requests
-Scale: each █ represents 1.6 request(s)
+Total : 187 demandes
+Échelle : chaque █ représente 1.6 demande(s)
 ```
 
 
-## Median time to first instruction by type for 2025 (provider: dgfip):
+## Durée médiane d'instruction par type pour 2025 (fournisseur : dgfip):
 
 ```
-APIFicoba                  (0.1 days, n= 4) │ 
-APIINFINOESandbox          (0.7 days, n=75) │ █
-APIR2PSandbox              (0.7 days, n=54) │ █
-APIINFINOE                 (0.8 days, n=22) │ █
-APIImpotParticulier        (1.2 days, n=64) │ █
-APISFiP                    (1.8 days, n=47) │ ██
-APIR2P                     (1.8 days, n=69) │ ██
-APIImpotParticulierSandbox (2.0 days, n=49) │ ██
-APISFiPR2P                 (2.2 days, n=16) │ ██
-APISFiPSandbox             (2.9 days, n=38) │ ███
-APIFicobaSandbox           (3.0 days, n=41) │ ███
-APISFiPR2PSandbox          (3.0 days, n=14) │ ███
-APIRial                    (6.5 days, n= 8) │ ███████
-APIRialSandbox             (6.8 days, n=12) │ ███████
+APIFicoba                  (0.1 jours, n= 4) │ 
+APIINFINOESandbox          (0.7 jours, n=75) │ █
+APIR2PSandbox              (0.7 jours, n=54) │ █
+APIINFINOE                 (0.8 jours, n=22) │ █
+APIImpotParticulier        (1.2 jours, n=64) │ █
+APISFiP                    (1.8 jours, n=47) │ ██
+APIR2P                     (1.8 jours, n=69) │ ██
+APIImpotParticulierSandbox (2.0 jours, n=49) │ ██
+APISFiPR2P                 (2.2 jours, n=16) │ ██
+APISFiPSandbox             (2.9 jours, n=38) │ ███
+APIFicobaSandbox           (3.0 jours, n=41) │ ███
+APISFiPR2PSandbox          (3.0 jours, n=14) │ ███
+APIRial                    (6.5 jours, n= 8) │ ███████
+APIRialSandbox             (6.8 jours, n=12) │ ███████
 
-Total: 513 authorization requests
+Total : 513 demandes
 ```
 
 
-## Time to first instruction by day of 2025 (provider: dgfip):
+## Durée d'instruction par jour de 2025 (fournisseur : dgfip):
 
 ```
   <1 (  0) │ 
@@ -227,29 +229,31 @@ Total: 513 authorization requests
   30 (  0) │ 
 > 30 ( 31) │ ███████
 
-Total: 513 authorization requests
-Scale: each █ represents 4.4 request(s)
+Total : 513 demandes
+Échelle : chaque █ représente 4.4 demande(s)
 ```
 
  
-# 📊 Report of 2024 (provider: dgfip):
+# 📊 Rapport de 2024 (fournisseur : dgfip):
 
 ## Volume
-- 1022 authorization requests created
-- 0 reopen events
-## Time to submit
-- Average time to submit: plus d'un an
-- Median time to submit: plus d'un an
-- Mode time to submit: plus d'un an
-- Standard deviation time to submit: 4 mois
-## Time to first instruction
-- Average time to first instruction: 21 jours
-- Median time to first instruction: environ 3 heures
-- Mode time to first instruction: 1 jour
-- Standard deviation time to first instruction: 3 mois
+- 1022 demandes créées
+- 0 réouvertures
+## Durée d'une soumission
+(Entre la création d'une demande et sa première soumission)
+- Durée moyenne d'une soumission: plus d'un an
+- Durée médiane d'une soumission: plus d'un an
+- Durée de soumission la plus fréquente: plus d'un an
+- Écart-type des durées de soumission: 4 mois
+## Durée d'instruction
+(Entre une soumission et la première instruction qui suit)
+- Durée moyenne d'une instruction: 21 jours
+- Durée médiane d'une instruction: environ 3 heures
+- Durée d'instruction la plus fréquente: 1 jour
+- Écart-type des durées d'instruction: 3 mois
 
 
-## Volume of authorization requests by type for 2024 (provider: dgfip):
+## Volume de demandes par type pour 2024 (fournisseur : dgfip):
 
 ```
 APIINFINOESandbox          (664) │ ██████████████████████████████████████████████████
@@ -266,12 +270,12 @@ APIImprimfipSandbox        (  2) │
 APICprProAdelieSandbox     (  1) │ 
 APIRialSandbox             (  1) │ 
 
-Total: 1022 authorization requests
-Scale: each █ represents 13.3 request(s)
+Total : 1022 demandes
+Échelle : chaque █ représente 13.3 demande(s)
 ```
 
 
-## Volume of authorization requests by type (validated vs refused) for 2024 (provider: dgfip):
+## Volume de demandes par type (validées vs refusées) pour 2024 (fournisseur : dgfip):
 
 ```
 APIINFINOESandbox          (612:  76.6%V  23.4%R) │ ██████████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓
@@ -286,15 +290,15 @@ APIFicoba                  (  2: 100.0%V   0.0%R) │
 APICprProAdelieSandbox     (  1:   0.0%V 100.0%R) │ 
 APISFiP                    (  1: 100.0%V   0.0%R) │ 
 
-Legend: █ = Validated, ▓ = Refused
-Total: 560 validated, 216 refused (776 total)
-Scale: each character represents 12.2 request(s)
+Légende : █ = Validées, ▓ = Refusées
+Total : 560 validées, 216 refusées (776 total)
+Échelle : chaque caractère représente 12.2 demande(s)
 ```
 
 
-## Median time to submit by type for 2024 (provider: dgfip):
+## Durée médiane de soumission par type pour 2024 (fournisseur : dgfip):
 
-### 1 hour or more:
+### 1 heure ou plus:
 ```
 APIImpotParticulierSandbox (333.2 days, n= 1) │ ████████████████████████████
 APIR2P                     (336.4 days, n= 8) │ ████████████████████████████
@@ -305,12 +309,12 @@ APIINFINOE                 (541.7 days, n=20) │ ██████████
 APIR2PSandbox              (580.9 days, n= 1) │ █████████████████████████████████████████████████
 APIFicobaSandbox           (598.7 days, n= 3) │ ██████████████████████████████████████████████████
 
-Total: 47 authorization requests
-Scale: each █ represents 287.4 request(s)
+Total : 47 demandes
+Échelle : chaque █ représente 287.4 demande(s)
 ```
 
 
-## Time to submit by minute of 2024 (provider: dgfip):
+## Durée de soumission par minute de 2024 (fournisseur : dgfip):
 
 ```
   <1 ( 0) │ 
@@ -376,31 +380,31 @@ Scale: each █ represents 287.4 request(s)
   60 ( 0) │ 
 > 60 (47) │ ███████████████████████████████████████████████
 
-Total: 47 authorization requests
+Total : 47 demandes
 ```
 
 
-## Median time to first instruction by type for 2024 (provider: dgfip):
+## Durée médiane d'instruction par type pour 2024 (fournisseur : dgfip):
 
 ```
-APIINFINOESandbox          (  0.0 days, n=1022) │ 
-APIINFINOE                 (  0.2 days, n= 272) │ 
-APIR2PSandbox              (  0.7 days, n=  83) │ 
-APIImpotParticulierSandbox (  0.8 days, n= 110) │ 
-APIR2P                     (  0.9 days, n=  92) │ 
-APIImpotParticulier        (  1.0 days, n= 116) │ 
-APISFiP                    (  1.3 days, n=  14) │ █
-APIFicoba                  (  2.5 days, n=  26) │ █
-APISFiPSandbox             (  3.8 days, n=  46) │ ██
-APIFicobaSandbox           (  4.0 days, n=  35) │ ██
-APICprProAdelieSandbox     (109.0 days, n=   1) │ ██████████████████████████████████████████████████
+APIINFINOESandbox          (  0.0 jours, n=1022) │ 
+APIINFINOE                 (  0.2 jours, n= 272) │ 
+APIR2PSandbox              (  0.7 jours, n=  83) │ 
+APIImpotParticulierSandbox (  0.8 jours, n= 110) │ 
+APIR2P                     (  0.9 jours, n=  92) │ 
+APIImpotParticulier        (  1.0 jours, n= 116) │ 
+APISFiP                    (  1.3 jours, n=  14) │ █
+APIFicoba                  (  2.5 jours, n=  26) │ █
+APISFiPSandbox             (  3.8 jours, n=  46) │ ██
+APIFicobaSandbox           (  4.0 jours, n=  35) │ ██
+APICprProAdelieSandbox     (109.0 jours, n=   1) │ ██████████████████████████████████████████████████
 
-Total: 1817 authorization requests
-Scale: each █ represents 2.2 days
+Total : 1817 demandes
+Échelle : chaque █ représente 2.2 jours
 ```
 
 
-## Time to first instruction by day of 2024 (provider: dgfip):
+## Durée d'instruction par jour de 2024 (fournisseur : dgfip):
 
 ```
   <1 (   0) │ 
@@ -436,29 +440,31 @@ Scale: each █ represents 2.2 days
   30 (   3) │ 
 > 30 ( 113) │ ████
 
-Total: 1817 authorization requests
-Scale: each █ represents 26.1 request(s)
+Total : 1817 demandes
+Échelle : chaque █ représente 26.1 demande(s)
 ```
 
  
-# 📊 Report of 2023 (provider: dgfip):
+# 📊 Rapport de 2023 (fournisseur : dgfip):
 
 ## Volume
-- 739 authorization requests created
-- 0 reopen events
-## Time to submit
-- Average time to submit: environ 2 ans
-- Median time to submit: environ 2 ans
-- Mode time to submit: plus d'un an
-- Standard deviation time to submit: 5 mois
-## Time to first instruction
-- Average time to first instruction: 24 jours
-- Median time to first instruction: 5 jours
-- Mode time to first instruction: 1 jour
-- Standard deviation time to first instruction: 3 mois
+- 739 demandes créées
+- 0 réouvertures
+## Durée d'une soumission
+(Entre la création d'une demande et sa première soumission)
+- Durée moyenne d'une soumission: environ 2 ans
+- Durée médiane d'une soumission: environ 2 ans
+- Durée de soumission la plus fréquente: plus d'un an
+- Écart-type des durées de soumission: 5 mois
+## Durée d'instruction
+(Entre une soumission et la première instruction qui suit)
+- Durée moyenne d'une instruction: 24 jours
+- Durée médiane d'une instruction: 5 jours
+- Durée d'instruction la plus fréquente: 1 jour
+- Écart-type des durées d'instruction: 3 mois
 
 
-## Volume of authorization requests by type for 2023 (provider: dgfip):
+## Volume de demandes par type pour 2023 (fournisseur : dgfip):
 
 ```
 APIINFINOESandbox          (202) │ ██████████████████████████████████████████████████
@@ -474,12 +480,12 @@ APIFicoba                  (  7) │ ██
 APIOpaleSandbox            (  2) │ 
 APIRobfSandbox             (  1) │ 
 
-Total: 739 authorization requests
-Scale: each █ represents 4.0 request(s)
+Total : 739 demandes
+Échelle : chaque █ représente 4.0 demande(s)
 ```
 
 
-## Volume of authorization requests by type (validated vs refused) for 2023 (provider: dgfip):
+## Volume de demandes par type (validées vs refusées) pour 2023 (fournisseur : dgfip):
 
 ```
 APIINFINOESandbox          (172:  69.2%V  30.8%R) │ ███████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
@@ -493,15 +499,15 @@ APISFiP                    (  8: 100.0%V   0.0%R) │ ██
 APISFiPSandbox             (  6:  33.3%V  66.7%R) │ █▓
 APIFicoba                  (  5:  60.0%V  40.0%R) │ █▓
 
-Legend: █ = Validated, ▓ = Refused
-Total: 306 validated, 200 refused (506 total)
-Scale: each character represents 3.4 request(s)
+Légende : █ = Validées, ▓ = Refusées
+Total : 306 validées, 200 refusées (506 total)
+Échelle : chaque caractère représente 3.4 demande(s)
 ```
 
 
-## Median time to submit by type for 2023 (provider: dgfip):
+## Durée médiane de soumission par type pour 2023 (fournisseur : dgfip):
 
-### 1 hour or more:
+### 1 heure ou plus:
 ```
 APISFiP                    (634.1 days, n=3) │ █████████████████████████████████████
 APIImpotParticulier        (745.2 days, n=8) │ ███████████████████████████████████████████
@@ -512,12 +518,12 @@ APIINFINOE                 (766.1 days, n=8) │ ██████████�
 APIFicoba                  (800.4 days, n=2) │ ██████████████████████████████████████████████
 APIImpotParticulierSandbox (868.5 days, n=8) │ ██████████████████████████████████████████████████
 
-Total: 40 authorization requests
-Scale: each █ represents 416.9 request(s)
+Total : 40 demandes
+Échelle : chaque █ représente 416.9 demande(s)
 ```
 
 
-## Time to submit by minute of 2023 (provider: dgfip):
+## Durée de soumission par minute de 2023 (fournisseur : dgfip):
 
 ```
   <1 ( 0) │ 
@@ -583,31 +589,31 @@ Scale: each █ represents 416.9 request(s)
   60 ( 0) │ 
 > 60 (40) │ ████████████████████████████████████████
 
-Total: 40 authorization requests
+Total : 40 demandes
 ```
 
 
-## Median time to first instruction by type for 2023 (provider: dgfip):
+## Durée médiane d'instruction par type pour 2023 (fournisseur : dgfip):
 
 ```
-APIINFINOESandbox          ( 1.5 days, n=301) │ ██
-APIINFINOE                 ( 3.7 days, n=308) │ ████
-APIR2P                     ( 4.6 days, n= 76) │ █████
-APIImpotParticulier        ( 5.2 days, n=343) │ █████
-APIR2PSandbox              ( 6.0 days, n=133) │ ██████
-APIFicoba                  ( 7.2 days, n= 34) │ ███████
-APIImpotParticulierSandbox ( 7.2 days, n=276) │ ███████
-APISFiP                    ( 8.7 days, n= 33) │ █████████
-APIOpaleSandbox            (11.5 days, n=  4) │ ████████████
-APIRobfSandbox             (14.0 days, n=  1) │ ██████████████
-APIFicobaSandbox           (20.1 days, n= 66) │ ████████████████████
-APISFiPSandbox             (24.6 days, n=  9) │ █████████████████████████
+APIINFINOESandbox          ( 1.5 jours, n=301) │ ██
+APIINFINOE                 ( 3.7 jours, n=308) │ ████
+APIR2P                     ( 4.6 jours, n= 76) │ █████
+APIImpotParticulier        ( 5.2 jours, n=343) │ █████
+APIR2PSandbox              ( 6.0 jours, n=133) │ ██████
+APIFicoba                  ( 7.2 jours, n= 34) │ ███████
+APIImpotParticulierSandbox ( 7.2 jours, n=276) │ ███████
+APISFiP                    ( 8.7 jours, n= 33) │ █████████
+APIOpaleSandbox            (11.5 jours, n=  4) │ ████████████
+APIRobfSandbox             (14.0 jours, n=  1) │ ██████████████
+APIFicobaSandbox           (20.1 jours, n= 66) │ ████████████████████
+APISFiPSandbox             (24.6 jours, n=  9) │ █████████████████████████
 
-Total: 1584 authorization requests
+Total : 1584 demandes
 ```
 
 
-## Time to first instruction by day of 2023 (provider: dgfip):
+## Durée d'instruction par jour de 2023 (fournisseur : dgfip):
 
 ```
   <1 (  0) │ 
@@ -643,7 +649,7 @@ Total: 1584 authorization requests
   30 ( 16) │ ██
 > 30 (201) │ █████████████████████
 
-Total: 1584 authorization requests
-Scale: each █ represents 9.5 request(s)
+Total : 1584 demandes
+Échelle : chaque █ représente 9.5 demande(s)
 ```
 

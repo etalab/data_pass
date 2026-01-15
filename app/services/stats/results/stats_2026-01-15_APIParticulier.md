@@ -5,55 +5,57 @@
 ---
 
  
-# 📊 Report of 2025 (types by: APIParticulier):
+# 📊 Rapport de 2025 (types par : APIParticulier):
 
 ## Volume
-- 873 authorization requests created
-- 274 reopen events
-## Time to submit
-- Average time to submit: 3 jours
-- Median time to submit: 9 minutes
-- Mode time to submit: 5 minutes
-- Standard deviation time to submit: 16 jours
-## Time to first instruction
-- Average time to first instruction: 7 jours
-- Median time to first instruction: 6 jours
-- Mode time to first instruction: 1 jour
-- Standard deviation time to first instruction: 6 jours
+- 873 demandes créées
+- 274 réouvertures
+## Durée d'une soumission
+(Entre la création d'une demande et sa première soumission)
+- Durée moyenne d'une soumission: 3 jours
+- Durée médiane d'une soumission: 9 minutes
+- Durée de soumission la plus fréquente: 5 minutes
+- Écart-type des durées de soumission: 16 jours
+## Durée d'instruction
+(Entre une soumission et la première instruction qui suit)
+- Durée moyenne d'une instruction: 7 jours
+- Durée médiane d'une instruction: 6 jours
+- Durée d'instruction la plus fréquente: 1 jour
+- Écart-type des durées d'instruction: 6 jours
 
 
-## Volume of authorization requests by type for 2025 (types by: APIParticulier):
+## Volume de demandes par type pour 2025 (types par : APIParticulier):
 
 ```
 APIParticulier (873) │ ██████████████████████████████████████████████████
 
-Total: 873 authorization requests
-Scale: each █ represents 17.5 request(s)
+Total : 873 demandes
+Échelle : chaque █ représente 17.5 demande(s)
 ```
 
 
-## Volume of authorization requests by type (validated vs refused) for 2025 (types by: APIParticulier):
+## Volume de demandes par type (validées vs refusées) pour 2025 (types par : APIParticulier):
 
 ```
 APIParticulier (502:  95.6%V   4.4%R) │ ████████████████████████████████████████████████▓▓
 
-Legend: █ = Validated, ▓ = Refused
-Total: 480 validated, 22 refused (502 total)
-Scale: each character represents 10.0 request(s)
+Légende : █ = Validées, ▓ = Refusées
+Total : 480 validées, 22 refusées (502 total)
+Échelle : chaque caractère représente 10.0 demande(s)
 ```
 
 
-## Median time to submit by type for 2025 (types by: APIParticulier):
+## Durée médiane de soumission par type pour 2025 (types par : APIParticulier):
 
-### Under 1 hour:
+### Moins d'1 heure:
 ```
 APIParticulier (9.0 minutes, n=573) │ █████████
 
-Total: 573 authorization requests
+Total : 573 demandes
 ```
 
 
-## Time to submit by minute of 2025 (types by: APIParticulier):
+## Durée de soumission par minute de 2025 (types par : APIParticulier):
 
 ```
   <1 (  0) │ 
@@ -119,21 +121,21 @@ Total: 573 authorization requests
   60 (  0) │ 
 > 60 (108) │ ██████████████████████████████████████████████████
 
-Total: 573 authorization requests
-Scale: each █ represents 2.2 request(s)
+Total : 573 demandes
+Échelle : chaque █ représente 2.2 demande(s)
 ```
 
 
-## Median time to first instruction by type for 2025 (types by: APIParticulier):
+## Durée médiane d'instruction par type pour 2025 (types par : APIParticulier):
 
 ```
-APIParticulier (6.2 days, n=799) │ ██████
+APIParticulier (6.2 jours, n=799) │ ██████
 
-Total: 799 authorization requests
+Total : 799 demandes
 ```
 
 
-## Time to first instruction by day of 2025 (types by: APIParticulier):
+## Durée d'instruction par jour de 2025 (types par : APIParticulier):
 
 ```
   <1 (  0) │ 
@@ -169,60 +171,62 @@ Total: 799 authorization requests
   30 (  0) │ 
 > 30 (  3) │ █
 
-Total: 799 authorization requests
-Scale: each █ represents 2.4 request(s)
+Total : 799 demandes
+Échelle : chaque █ représente 2.4 demande(s)
 ```
 
  
-# 📊 Report of 2024 (types by: APIParticulier):
+# 📊 Rapport de 2024 (types par : APIParticulier):
 
 ## Volume
-- 845 authorization requests created
-- 225 reopen events
-## Time to submit
-- Average time to submit: environ un mois
-- Median time to submit: 7 minutes
-- Mode time to submit: 1 minute
-- Standard deviation time to submit: 4 mois
-## Time to first instruction
-- Average time to first instruction: 4 jours
-- Median time to first instruction: 3 jours
-- Mode time to first instruction: 1 jour
-- Standard deviation time to first instruction: 5 jours
+- 845 demandes créées
+- 225 réouvertures
+## Durée d'une soumission
+(Entre la création d'une demande et sa première soumission)
+- Durée moyenne d'une soumission: environ un mois
+- Durée médiane d'une soumission: 7 minutes
+- Durée de soumission la plus fréquente: 1 minute
+- Écart-type des durées de soumission: 4 mois
+## Durée d'instruction
+(Entre une soumission et la première instruction qui suit)
+- Durée moyenne d'une instruction: 4 jours
+- Durée médiane d'une instruction: 3 jours
+- Durée d'instruction la plus fréquente: 1 jour
+- Écart-type des durées d'instruction: 5 jours
 
 
-## Volume of authorization requests by type for 2024 (types by: APIParticulier):
+## Volume de demandes par type pour 2024 (types par : APIParticulier):
 
 ```
 APIParticulier (845) │ ██████████████████████████████████████████████████
 
-Total: 845 authorization requests
-Scale: each █ represents 16.9 request(s)
+Total : 845 demandes
+Échelle : chaque █ représente 16.9 demande(s)
 ```
 
 
-## Volume of authorization requests by type (validated vs refused) for 2024 (types by: APIParticulier):
+## Volume de demandes par type (validées vs refusées) pour 2024 (types par : APIParticulier):
 
 ```
 APIParticulier (497:  90.3%V   9.7%R) │ █████████████████████████████████████████████▓▓▓▓▓
 
-Legend: █ = Validated, ▓ = Refused
-Total: 449 validated, 48 refused (497 total)
-Scale: each character represents 9.9 request(s)
+Légende : █ = Validées, ▓ = Refusées
+Total : 449 validées, 48 refusées (497 total)
+Échelle : chaque caractère représente 9.9 demande(s)
 ```
 
 
-## Median time to submit by type for 2024 (types by: APIParticulier):
+## Durée médiane de soumission par type pour 2024 (types par : APIParticulier):
 
-### Under 1 hour:
+### Moins d'1 heure:
 ```
 APIParticulier (7.3 minutes, n=428) │ ███████
 
-Total: 428 authorization requests
+Total : 428 demandes
 ```
 
 
-## Time to submit by minute of 2024 (types by: APIParticulier):
+## Durée de soumission par minute de 2024 (types par : APIParticulier):
 
 ```
   <1 (  0) │ 
@@ -288,21 +292,21 @@ Total: 428 authorization requests
   60 (  1) │ 
 > 60 (114) │ ██████████████████████████████████████████████████
 
-Total: 428 authorization requests
-Scale: each █ represents 2.3 request(s)
+Total : 428 demandes
+Échelle : chaque █ représente 2.3 demande(s)
 ```
 
 
-## Median time to first instruction by type for 2024 (types by: APIParticulier):
+## Durée médiane d'instruction par type pour 2024 (types par : APIParticulier):
 
 ```
-APIParticulier (2.9 days, n=1193) │ ███
+APIParticulier (2.9 jours, n=1193) │ ███
 
-Total: 1193 authorization requests
+Total : 1193 demandes
 ```
 
 
-## Time to first instruction by day of 2024 (types by: APIParticulier):
+## Durée d'instruction par jour de 2024 (types par : APIParticulier):
 
 ```
   <1 (  0) │ 
@@ -338,60 +342,62 @@ Total: 1193 authorization requests
   30 (  0) │ 
 > 30 (  7) │ █
 
-Total: 1193 authorization requests
-Scale: each █ represents 5.9 request(s)
+Total : 1193 demandes
+Échelle : chaque █ représente 5.9 demande(s)
 ```
 
  
-# 📊 Report of 2023 (types by: APIParticulier):
+# 📊 Rapport de 2023 (types par : APIParticulier):
 
 ## Volume
-- 638 authorization requests created
-- 0 reopen events
-## Time to submit
-- Average time to submit: 2 mois
-- Median time to submit: 3 minutes
-- Mode time to submit: 1 minute
-- Standard deviation time to submit: 6 mois
-## Time to first instruction
-- Average time to first instruction: 5 jours
-- Median time to first instruction: 3 jours
-- Mode time to first instruction: 1 jour
-- Standard deviation time to first instruction: 8 jours
+- 638 demandes créées
+- 0 réouvertures
+## Durée d'une soumission
+(Entre la création d'une demande et sa première soumission)
+- Durée moyenne d'une soumission: 2 mois
+- Durée médiane d'une soumission: 3 minutes
+- Durée de soumission la plus fréquente: 1 minute
+- Écart-type des durées de soumission: 6 mois
+## Durée d'instruction
+(Entre une soumission et la première instruction qui suit)
+- Durée moyenne d'une instruction: 5 jours
+- Durée médiane d'une instruction: 3 jours
+- Durée d'instruction la plus fréquente: 1 jour
+- Écart-type des durées d'instruction: 8 jours
 
 
-## Volume of authorization requests by type for 2023 (types by: APIParticulier):
+## Volume de demandes par type pour 2023 (types par : APIParticulier):
 
 ```
 APIParticulier (638) │ ██████████████████████████████████████████████████
 
-Total: 638 authorization requests
-Scale: each █ represents 12.8 request(s)
+Total : 638 demandes
+Échelle : chaque █ représente 12.8 demande(s)
 ```
 
 
-## Volume of authorization requests by type (validated vs refused) for 2023 (types by: APIParticulier):
+## Volume de demandes par type (validées vs refusées) pour 2023 (types par : APIParticulier):
 
 ```
 APIParticulier (421:  94.8%V   5.2%R) │ ███████████████████████████████████████████████▓▓▓
 
-Legend: █ = Validated, ▓ = Refused
-Total: 399 validated, 22 refused (421 total)
-Scale: each character represents 8.4 request(s)
+Légende : █ = Validées, ▓ = Refusées
+Total : 399 validées, 22 refusées (421 total)
+Échelle : chaque caractère représente 8.4 demande(s)
 ```
 
 
-## Median time to submit by type for 2023 (types by: APIParticulier):
+## Durée médiane de soumission par type pour 2023 (types par : APIParticulier):
 
-### Under 1 hour:
+### Moins d'1 heure:
 ```
 APIParticulier (2.9 minutes, n=373) │ ███
 
-Total: 373 authorization requests
+Total : 373 demandes
 ```
 
 
-## Time to submit by minute of 2023 (types by: APIParticulier):
+## Durée de soumission par minute de 2023 (types par : APIParticulier):
 
 ```
   <1 (  0) │ 
@@ -457,21 +463,21 @@ Total: 373 authorization requests
   60 (  0) │ 
 > 60 (114) │ ██████████████████████████████████████
 
-Total: 373 authorization requests
-Scale: each █ represents 3.0 request(s)
+Total : 373 demandes
+Échelle : chaque █ représente 3.0 demande(s)
 ```
 
 
-## Median time to first instruction by type for 2023 (types by: APIParticulier):
+## Durée médiane d'instruction par type pour 2023 (types par : APIParticulier):
 
 ```
-APIParticulier (2.6 days, n=952) │ ███
+APIParticulier (2.6 jours, n=952) │ ███
 
-Total: 952 authorization requests
+Total : 952 demandes
 ```
 
 
-## Time to first instruction by day of 2023 (types by: APIParticulier):
+## Durée d'instruction par jour de 2023 (types par : APIParticulier):
 
 ```
   <1 (  0) │ 
@@ -507,7 +513,7 @@ Total: 952 authorization requests
   30 (  1) │ 
 > 30 (  9) │ █
 
-Total: 952 authorization requests
-Scale: each █ represents 6.3 request(s)
+Total : 952 demandes
+Échelle : chaque █ représente 6.3 demande(s)
 ```
 
