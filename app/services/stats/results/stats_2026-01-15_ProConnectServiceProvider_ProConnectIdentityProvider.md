@@ -5,20 +5,21 @@
 ---
 
  
-# Report of 2025 (types by: ProConnectServiceProvider, ProConnectIdentityProvider):
+# 📊 Report of 2025 (types by: ProConnectServiceProvider, ProConnectIdentityProvider):
 
-205 authorization requests created
-11 reopen events
-
-Average time to submit: 6 jours
-Median time to submit: 31 minutes
-Mode time to submit: 2 minutes
-Standard deviation time to submit: 28 jours
-
-Average time to first instruction: 7 jours
-Median time to first instruction: 4 jours
-Mode time to first instruction: 22 minutes
-Standard deviation time to first instruction: 10 jours
+## Volume
+- 205 authorization requests created
+- 11 reopen events
+## Time to submit
+- Average time to submit: 6 jours
+- Median time to submit: 31 minutes
+- Mode time to submit: 2 minutes
+- Standard deviation time to submit: 28 jours
+## Time to first instruction
+- Average time to first instruction: 7 jours
+- Median time to first instruction: 4 jours
+- Mode time to first instruction: 22 minutes
+- Standard deviation time to first instruction: 10 jours
 
 
 # Volume of authorization requests by type for 2025 (types by: ProConnectServiceProvider, ProConnectIdentityProvider):
@@ -174,20 +175,21 @@ Total: 141 authorization requests
 ```
 
  
-# Report of 2024 (types by: ProConnectServiceProvider, ProConnectIdentityProvider):
+# 📊 Report of 2024 (types by: ProConnectServiceProvider, ProConnectIdentityProvider):
 
-124 authorization requests created
-6 reopen events
-
-Average time to submit: 10 mois
-Median time to submit: 10 mois
-Mode time to submit: 10 mois
-Standard deviation time to submit: moins d'une minute
-
-Average time to first instruction: 3 jours
-Median time to first instruction: environ 18 heures
-Mode time to first instruction: environ une heure
-Standard deviation time to first instruction: 6 jours
+## Volume
+- 124 authorization requests created
+- 6 reopen events
+## Time to submit
+- Average time to submit: 10 mois
+- Median time to submit: 10 mois
+- Mode time to submit: 10 mois
+- Standard deviation time to submit: moins d'une minute
+## Time to first instruction
+- Average time to first instruction: 3 jours
+- Median time to first instruction: environ 18 heures
+- Mode time to first instruction: environ une heure
+- Standard deviation time to first instruction: 6 jours
 
 
 # Volume of authorization requests by type for 2024 (types by: ProConnectServiceProvider, ProConnectIdentityProvider):
@@ -343,20 +345,21 @@ Scale: each █ represents 1.1 request(s)
 ```
 
  
-# Report of 2023 (types by: ProConnectServiceProvider, ProConnectIdentityProvider):
+# 📊 Report of 2023 (types by: ProConnectServiceProvider, ProConnectIdentityProvider):
 
-59 authorization requests created
-0 reopen events
-
-Average time to submit: plus de 2 ans
-Median time to submit: plus de 2 ans
-Mode time to submit: plus de 2 ans
-Standard deviation time to submit: moins d'une minute
-
-Average time to first instruction: 8 jours
-Median time to first instruction: 3 jours
-Mode time to first instruction: 5 minutes
-Standard deviation time to first instruction: 13 jours
+## Volume
+- 59 authorization requests created
+- 0 reopen events
+## Time to submit
+- Average time to submit: plus de 2 ans
+- Median time to submit: plus de 2 ans
+- Mode time to submit: plus de 2 ans
+- Standard deviation time to submit: moins d'une minute
+## Time to first instruction
+- Average time to first instruction: 8 jours
+- Median time to first instruction: 3 jours
+- Mode time to first instruction: 5 minutes
+- Standard deviation time to first instruction: 13 jours
 
 
 # Volume of authorization requests by type for 2023 (types by: ProConnectServiceProvider, ProConnectIdentityProvider):

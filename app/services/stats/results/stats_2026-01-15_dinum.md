@@ -5,20 +5,21 @@
 ---
 
  
-# Report of 2025 (provider: dinum):
+# 📊 Report of 2025 (provider: dinum):
 
-2703 authorization requests created
-1515 reopen events
-
-Average time to submit: 6 jours
-Median time to submit: 11 minutes
-Mode time to submit: 4 minutes
-Standard deviation time to submit: 27 jours
-
-Average time to first instruction: 7 jours
-Median time to first instruction: 3 jours
-Mode time to first instruction: 1 minute
-Standard deviation time to first instruction: 10 jours
+## Volume
+- 2703 authorization requests created
+- 1515 reopen events
+## Time to submit
+- Average time to submit: 6 jours
+- Median time to submit: 11 minutes
+- Mode time to submit: 4 minutes
+- Standard deviation time to submit: 27 jours
+## Time to first instruction
+- Average time to first instruction: 7 jours
+- Median time to first instruction: 3 jours
+- Mode time to first instruction: 1 minute
+- Standard deviation time to first instruction: 10 jours
 
 
 # Volume of authorization requests by type for 2025 (provider: dinum):
@@ -200,20 +201,21 @@ Scale: each █ represents 15.2 request(s)
 ```
 
  
-# Report of 2024 (provider: dinum):
+# 📊 Report of 2024 (provider: dinum):
 
-2218 authorization requests created
-456 reopen events
-
-Average time to submit: 2 mois
-Median time to submit: 11 minutes
-Mode time to submit: moins d'une minute
-Standard deviation time to submit: 5 mois
-
-Average time to first instruction: 6 jours
-Median time to first instruction: 3 jours
-Mode time to first instruction: moins d'une minute
-Standard deviation time to first instruction: 13 jours
+## Volume
+- 2218 authorization requests created
+- 456 reopen events
+## Time to submit
+- Average time to submit: 2 mois
+- Median time to submit: 11 minutes
+- Mode time to submit: moins d'une minute
+- Standard deviation time to submit: 5 mois
+## Time to first instruction
+- Average time to first instruction: 6 jours
+- Median time to first instruction: 3 jours
+- Mode time to first instruction: moins d'une minute
+- Standard deviation time to first instruction: 13 jours
 
 
 # Volume of authorization requests by type for 2024 (provider: dinum):
@@ -396,20 +398,21 @@ Scale: each █ represents 14.8 request(s)
 ```
 
  
-# Report of 2023 (provider: dinum):
+# 📊 Report of 2023 (provider: dinum):
 
-1774 authorization requests created
-0 reopen events
-
-Average time to submit: 4 mois
-Median time to submit: 4 minutes
-Mode time to submit: moins d'une minute
-Standard deviation time to submit: 9 mois
-
-Average time to first instruction: 8 jours
-Median time to first instruction: 3 jours
-Mode time to first instruction: moins d'une minute
-Standard deviation time to first instruction: 18 jours
+## Volume
+- 1774 authorization requests created
+- 0 reopen events
+## Time to submit
+- Average time to submit: 4 mois
+- Median time to submit: 4 minutes
+- Mode time to submit: moins d'une minute
+- Standard deviation time to submit: 9 mois
+## Time to first instruction
+- Average time to first instruction: 8 jours
+- Median time to first instruction: 3 jours
+- Mode time to first instruction: moins d'une minute
+- Standard deviation time to first instruction: 18 jours
 
 
 # Volume of authorization requests by type for 2023 (provider: dinum):

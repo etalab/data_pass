@@ -5,20 +5,21 @@
 ---
 
  
-# Report of 2025 (provider: dgfip):
+# 📊 Report of 2025 (provider: dgfip):
 
-558 authorization requests created
-123 reopen events
-
-Average time to submit: environ un mois
-Median time to submit: 27 minutes
-Mode time to submit: 5 minutes
-Standard deviation time to submit: 2 mois
-
-Average time to first instruction: 10 jours
-Median time to first instruction: 2 jours
-Mode time to first instruction: environ une heure
-Standard deviation time to first instruction: environ un mois
+## Volume
+- 558 authorization requests created
+- 123 reopen events
+## Time to submit
+- Average time to submit: environ un mois
+- Median time to submit: 27 minutes
+- Mode time to submit: 5 minutes
+- Standard deviation time to submit: 2 mois
+## Time to first instruction
+- Average time to first instruction: 10 jours
+- Median time to first instruction: 2 jours
+- Mode time to first instruction: environ une heure
+- Standard deviation time to first instruction: environ un mois
 
 
 # Volume of authorization requests by type for 2025 (provider: dgfip):
@@ -230,20 +231,21 @@ Scale: each █ represents 4.4 request(s)
 ```
 
  
-# Report of 2024 (provider: dgfip):
+# 📊 Report of 2024 (provider: dgfip):
 
-1022 authorization requests created
-0 reopen events
-
-Average time to submit: plus d'un an
-Median time to submit: plus d'un an
-Mode time to submit: plus d'un an
-Standard deviation time to submit: 4 mois
-
-Average time to first instruction: 21 jours
-Median time to first instruction: environ 3 heures
-Mode time to first instruction: 7 minutes
-Standard deviation time to first instruction: 3 mois
+## Volume
+- 1022 authorization requests created
+- 0 reopen events
+## Time to submit
+- Average time to submit: plus d'un an
+- Median time to submit: plus d'un an
+- Mode time to submit: plus d'un an
+- Standard deviation time to submit: 4 mois
+## Time to first instruction
+- Average time to first instruction: 21 jours
+- Median time to first instruction: environ 3 heures
+- Mode time to first instruction: 7 minutes
+- Standard deviation time to first instruction: 3 mois
 
 
 # Volume of authorization requests by type for 2024 (provider: dgfip):
@@ -436,20 +438,21 @@ Scale: each █ represents 26.1 request(s)
 ```
 
  
-# Report of 2023 (provider: dgfip):
+# 📊 Report of 2023 (provider: dgfip):
 
-739 authorization requests created
-0 reopen events
-
-Average time to submit: environ 2 ans
-Median time to submit: environ 2 ans
-Mode time to submit: plus d'un an
-Standard deviation time to submit: 5 mois
-
-Average time to first instruction: 24 jours
-Median time to first instruction: 5 jours
-Mode time to first instruction: 1 minute
-Standard deviation time to first instruction: 3 mois
+## Volume
+- 739 authorization requests created
+- 0 reopen events
+## Time to submit
+- Average time to submit: environ 2 ans
+- Median time to submit: environ 2 ans
+- Mode time to submit: plus d'un an
+- Standard deviation time to submit: 5 mois
+## Time to first instruction
+- Average time to first instruction: 24 jours
+- Median time to first instruction: 5 jours
+- Mode time to first instruction: 1 minute
+- Standard deviation time to first instruction: 3 mois
 
 
 # Volume of authorization requests by type for 2023 (provider: dgfip):

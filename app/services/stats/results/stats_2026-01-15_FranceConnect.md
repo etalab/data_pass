@@ -5,20 +5,21 @@
 ---
 
  
-# Report of 2025 (types by: FranceConnect):
+# 📊 Report of 2025 (types by: FranceConnect):
 
-983 authorization requests created
-1017 reopen events
-
-Average time to submit: 12 jours
-Median time to submit: 15 minutes
-Mode time to submit: 5 minutes
-Standard deviation time to submit: environ un mois
-
-Average time to first instruction: 5 jours
-Median time to first instruction: 1 jour
-Mode time to first instruction: environ une heure
-Standard deviation time to first instruction: 8 jours
+## Volume
+- 983 authorization requests created
+- 1017 reopen events
+## Time to submit
+- Average time to submit: 12 jours
+- Median time to submit: 15 minutes
+- Mode time to submit: 5 minutes
+- Standard deviation time to submit: environ un mois
+## Time to first instruction
+- Average time to first instruction: 5 jours
+- Median time to first instruction: 1 jour
+- Mode time to first instruction: environ une heure
+- Standard deviation time to first instruction: 8 jours
 
 
 # Volume of authorization requests by type for 2025 (types by: FranceConnect):
@@ -172,20 +173,21 @@ Scale: each █ represents 9.3 request(s)
 ```
 
  
-# Report of 2024 (types by: FranceConnect):
+# 📊 Report of 2024 (types by: FranceConnect):
 
-796 authorization requests created
-89 reopen events
-
-Average time to submit: environ un an
-Median time to submit: environ un an
-Mode time to submit: 12 mois
-Standard deviation time to submit: 3 mois
-
-Average time to first instruction: 7 jours
-Median time to first instruction: 4 jours
-Mode time to first instruction: 16 minutes
-Standard deviation time to first instruction: 11 jours
+## Volume
+- 796 authorization requests created
+- 89 reopen events
+## Time to submit
+- Average time to submit: environ un an
+- Median time to submit: environ un an
+- Mode time to submit: 12 mois
+- Standard deviation time to submit: 3 mois
+## Time to first instruction
+- Average time to first instruction: 7 jours
+- Median time to first instruction: 4 jours
+- Mode time to first instruction: 16 minutes
+- Standard deviation time to first instruction: 11 jours
 
 
 # Volume of authorization requests by type for 2024 (types by: FranceConnect):
@@ -339,20 +341,21 @@ Scale: each █ represents 5.7 request(s)
 ```
 
  
-# Report of 2023 (types by: FranceConnect):
+# 📊 Report of 2023 (types by: FranceConnect):
 
-720 authorization requests created
-0 reopen events
-
-Average time to submit: environ 2 ans
-Median time to submit: environ 2 ans
-Mode time to submit: presque 3 ans
-Standard deviation time to submit: 4 mois
-
-Average time to first instruction: 8 jours
-Median time to first instruction: 2 jours
-Mode time to first instruction: 7 minutes
-Standard deviation time to first instruction: 15 jours
+## Volume
+- 720 authorization requests created
+- 0 reopen events
+## Time to submit
+- Average time to submit: environ 2 ans
+- Median time to submit: environ 2 ans
+- Mode time to submit: presque 3 ans
+- Standard deviation time to submit: 4 mois
+## Time to first instruction
+- Average time to first instruction: 8 jours
+- Median time to first instruction: 2 jours
+- Mode time to first instruction: 7 minutes
+- Standard deviation time to first instruction: 15 jours
 
 
 # Volume of authorization requests by type for 2023 (types by: FranceConnect):

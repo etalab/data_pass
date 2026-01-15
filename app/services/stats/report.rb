@@ -16,13 +16,14 @@ module Stats
     end
 
     def print_report
-      result =  " \n# Report of #{human_readable_date_range}#{type_filter_label}:\n\n"
-      result += "#{number_of_authorization_requests_created}\n"
-      result += "#{number_of_reopen_events}\n"
-      result += "\n"
-      result += "#{average_time_to_submit}\n#{median_time_to_submit}\n#{mode_time_to_submit}\n#{stddev_time_to_submit}\n"
-      result += "\n"
-      result += "#{average_time_to_first_instruction}\n#{median_time_to_first_instruction}\n#{mode_time_to_first_instruction}\n#{stddev_time_to_first_instruction}\n"
+      result =  " \n# 📊 Report of #{human_readable_date_range}#{type_filter_label}:\n\n"
+      result += "## Volume\n"
+      result += "- #{number_of_authorization_requests_created}\n"
+      result += "- #{number_of_reopen_events}\n"
+      result += "## Time to submit\n"
+      result += "- #{average_time_to_submit}\n- #{median_time_to_submit}\n- #{mode_time_to_submit}\n- #{stddev_time_to_submit}\n"
+      result += "## Time to first instruction\n"
+      result += "- #{average_time_to_first_instruction}\n- #{median_time_to_first_instruction}\n- #{mode_time_to_first_instruction}\n- #{stddev_time_to_first_instruction}\n"
       puts result
     end
 

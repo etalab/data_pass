@@ -5,20 +5,21 @@
 ---
 
  
-# Report of 2025 (types by: APIEntreprise):
+# 📊 Report of 2025 (types by: APIEntreprise):
 
-433 authorization requests created
-210 reopen events
-
-Average time to submit: 1 jour
-Median time to submit: 14 minutes
-Mode time to submit: 11 minutes
-Standard deviation time to submit: 7 jours
-
-Average time to first instruction: 13 jours
-Median time to first instruction: 6 jours
-Mode time to first instruction: moins d'une minute
-Standard deviation time to first instruction: 18 jours
+## Volume
+- 433 authorization requests created
+- 210 reopen events
+## Time to submit
+- Average time to submit: 1 jour
+- Median time to submit: 14 minutes
+- Mode time to submit: 11 minutes
+- Standard deviation time to submit: 7 jours
+## Time to first instruction
+- Average time to first instruction: 13 jours
+- Median time to first instruction: 6 jours
+- Mode time to first instruction: moins d'une minute
+- Standard deviation time to first instruction: 18 jours
 
 
 # Volume of authorization requests by type for 2025 (types by: APIEntreprise):
@@ -172,20 +173,21 @@ Scale: each █ represents 1.3 request(s)
 ```
 
  
-# Report of 2024 (types by: APIEntreprise):
+# 📊 Report of 2024 (types by: APIEntreprise):
 
-425 authorization requests created
-136 reopen events
-
-Average time to submit: environ un mois
-Median time to submit: 13 minutes
-Mode time to submit: moins d'une minute
-Standard deviation time to submit: 4 mois
-
-Average time to first instruction: 13 jours
-Median time to first instruction: 4 jours
-Mode time to first instruction: moins d'une minute
-Standard deviation time to first instruction: 29 jours
+## Volume
+- 425 authorization requests created
+- 136 reopen events
+## Time to submit
+- Average time to submit: environ un mois
+- Median time to submit: 13 minutes
+- Mode time to submit: moins d'une minute
+- Standard deviation time to submit: 4 mois
+## Time to first instruction
+- Average time to first instruction: 13 jours
+- Median time to first instruction: 4 jours
+- Mode time to first instruction: moins d'une minute
+- Standard deviation time to first instruction: 29 jours
 
 
 # Volume of authorization requests by type for 2024 (types by: APIEntreprise):
@@ -338,20 +340,21 @@ Scale: each █ represents 2.1 request(s)
 ```
 
  
-# Report of 2023 (types by: APIEntreprise):
+# 📊 Report of 2023 (types by: APIEntreprise):
 
-312 authorization requests created
-0 reopen events
-
-Average time to submit: 3 mois
-Median time to submit: 3 minutes
-Mode time to submit: moins d'une minute
-Standard deviation time to submit: 8 mois
-
-Average time to first instruction: 13 jours
-Median time to first instruction: 5 jours
-Mode time to first instruction: moins d'une minute
-Standard deviation time to first instruction: environ un mois
+## Volume
+- 312 authorization requests created
+- 0 reopen events
+## Time to submit
+- Average time to submit: 3 mois
+- Median time to submit: 3 minutes
+- Mode time to submit: moins d'une minute
+- Standard deviation time to submit: 8 mois
+## Time to first instruction
+- Average time to first instruction: 13 jours
+- Median time to first instruction: 5 jours
+- Mode time to first instruction: moins d'une minute
+- Standard deviation time to first instruction: environ un mois
 
 
 # Volume of authorization requests by type for 2023 (types by: APIEntreprise):

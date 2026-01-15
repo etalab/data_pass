@@ -5,20 +5,21 @@
 ---
 
  
-# Report of 2025 (types by: HubEECertDC, HubEEDila):
+# 📊 Report of 2025 (types by: HubEECertDC, HubEEDila):
 
-1352 authorization requests created
-340 reopen events
-
-Average time to submit: 1 jour
-Median time to submit: moins d'une minute
-Mode time to submit: moins d'une minute
-Standard deviation time to submit: 12 jours
-
-Average time to first instruction: 1 jour
-Median time to first instruction: environ 6 heures
-Mode time to first instruction: 1 minute
-Standard deviation time to first instruction: 3 jours
+## Volume
+- 1352 authorization requests created
+- 340 reopen events
+## Time to submit
+- Average time to submit: 1 jour
+- Median time to submit: moins d'une minute
+- Mode time to submit: moins d'une minute
+- Standard deviation time to submit: 12 jours
+## Time to first instruction
+- Average time to first instruction: 1 jour
+- Median time to first instruction: environ 6 heures
+- Mode time to first instruction: 1 minute
+- Standard deviation time to first instruction: 3 jours
 
 
 # Volume of authorization requests by type for 2025 (types by: HubEECertDC, HubEEDila):
@@ -176,20 +177,21 @@ Scale: each █ represents 22.3 request(s)
 ```
 
  
-# Report of 2024 (types by: HubEECertDC, HubEEDila):
+# 📊 Report of 2024 (types by: HubEECertDC, HubEEDila):
 
-1684 authorization requests created
-183 reopen events
-
-Average time to submit: 7 jours
-Median time to submit: moins d'une minute
-Mode time to submit: moins d'une minute
-Standard deviation time to submit: environ 2 mois
-
-Average time to first instruction: 2 jours
-Median time to first instruction: environ 19 heures
-Mode time to first instruction: 1 minute
-Standard deviation time to first instruction: 6 jours
+## Volume
+- 1684 authorization requests created
+- 183 reopen events
+## Time to submit
+- Average time to submit: 7 jours
+- Median time to submit: moins d'une minute
+- Mode time to submit: moins d'une minute
+- Standard deviation time to submit: environ 2 mois
+## Time to first instruction
+- Average time to first instruction: 2 jours
+- Median time to first instruction: environ 19 heures
+- Mode time to first instruction: 1 minute
+- Standard deviation time to first instruction: 6 jours
 
 
 # Volume of authorization requests by type for 2024 (types by: HubEECertDC, HubEEDila):
@@ -347,20 +349,21 @@ Scale: each █ represents 25.6 request(s)
 ```
 
  
-# Report of 2023 (types by: HubEECertDC, HubEEDila):
+# 📊 Report of 2023 (types by: HubEECertDC, HubEEDila):
 
-2054 authorization requests created
-0 reopen events
-
-Average time to submit: 9 jours
-Median time to submit: moins d'une minute
-Mode time to submit: moins d'une minute
-Standard deviation time to submit: 3 mois
-
-Average time to first instruction: 3 jours
-Median time to first instruction: environ 20 heures
-Mode time to first instruction: 8 minutes
-Standard deviation time to first instruction: 17 jours
+## Volume
+- 2054 authorization requests created
+- 0 reopen events
+## Time to submit
+- Average time to submit: 9 jours
+- Median time to submit: moins d'une minute
+- Mode time to submit: moins d'une minute
+- Standard deviation time to submit: 3 mois
+## Time to first instruction
+- Average time to first instruction: 3 jours
+- Median time to first instruction: environ 20 heures
+- Mode time to first instruction: 8 minutes
+- Standard deviation time to first instruction: 17 jours
 
 
 # Volume of authorization requests by type for 2023 (types by: HubEECertDC, HubEEDila):

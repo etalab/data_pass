@@ -5,20 +5,21 @@
 ---
 
  
-# Report of 2025:
+# 📊 Report of 2025:
 
-5324 authorization requests created
-2020 reopen events
-
-Average time to submit: 5 jours
-Median time to submit: 5 minutes
-Mode time to submit: moins d'une minute
-Standard deviation time to submit: 27 jours
-
-Average time to first instruction: 7 jours
-Median time to first instruction: 1 jour
-Mode time to first instruction: 1 minute
-Standard deviation time to first instruction: 18 jours
+## Volume
+- 5324 authorization requests created
+- 2020 reopen events
+## Time to submit
+- Average time to submit: 5 jours
+- Median time to submit: 5 minutes
+- Mode time to submit: moins d'une minute
+- Standard deviation time to submit: 27 jours
+## Time to first instruction
+- Average time to first instruction: 7 jours
+- Median time to first instruction: 1 jour
+- Mode time to first instruction: 1 minute
+- Standard deviation time to first instruction: 18 jours
 
 
 # Volume of authorization requests by type for 2025:
@@ -303,20 +304,21 @@ Scale: each █ represents 47.3 request(s)
 ```
 
  
-# Report of 2024:
+# 📊 Report of 2024:
 
-5697 authorization requests created
-688 reopen events
-
-Average time to submit: environ un mois
-Median time to submit: moins d'une minute
-Mode time to submit: moins d'une minute
-Standard deviation time to submit: 4 mois
-
-Average time to first instruction: 12 jours
-Median time to first instruction: 1 jour
-Mode time to first instruction: 2 minutes
-Standard deviation time to first instruction: environ 2 mois
+## Volume
+- 5697 authorization requests created
+- 688 reopen events
+## Time to submit
+- Average time to submit: environ un mois
+- Median time to submit: moins d'une minute
+- Mode time to submit: moins d'une minute
+- Standard deviation time to submit: 4 mois
+## Time to first instruction
+- Average time to first instruction: 12 jours
+- Median time to first instruction: 1 jour
+- Mode time to first instruction: 2 minutes
+- Standard deviation time to first instruction: environ 2 mois
 
 
 # Volume of authorization requests by type for 2024:
@@ -573,20 +575,21 @@ Scale: each █ represents 71.4 request(s)
 ```
 
  
-# Report of 2023:
+# 📊 Report of 2023:
 
-5359 authorization requests created
-0 reopen events
-
-Average time to submit: environ 2 mois
-Median time to submit: moins d'une minute
-Mode time to submit: moins d'une minute
-Standard deviation time to submit: 6 mois
-
-Average time to first instruction: 15 jours
-Median time to first instruction: 2 jours
-Mode time to first instruction: 1 minute
-Standard deviation time to first instruction: environ 2 mois
+## Volume
+- 5359 authorization requests created
+- 0 reopen events
+## Time to submit
+- Average time to submit: environ 2 mois
+- Median time to submit: moins d'une minute
+- Mode time to submit: moins d'une minute
+- Standard deviation time to submit: 6 mois
+## Time to first instruction
+- Average time to first instruction: 15 jours
+- Median time to first instruction: 2 jours
+- Mode time to first instruction: 1 minute
+- Standard deviation time to first instruction: environ 2 mois
 
 
 # Volume of authorization requests by type for 2023:
