@@ -24,6 +24,19 @@ module Stats
       result&.to_f
     end
 
+    def mode_time_to_submit
+      # Get all time to submit values in seconds, rounded to nearest minute
+      time_values = authorizations_with_first_create_and_submit_events
+        .pluck(Arel.sql("ROUND(EXTRACT(EPOCH FROM (first_submit_events.event_time - first_create_events.event_time)) / 60) * 60"))
+        .map(&:to_f)
+      
+      return nil if time_values.empty?
+      
+      # Find the most frequent value
+      frequency = time_values.group_by(&:itself).transform_values(&:count)
+      frequency.max_by { |_, count| count }&.first
+    end
+
     def average_time_to_first_instruction
       authorizations_with_submit_and_first_instruction_events.average("EXTRACT(EPOCH FROM (first_instruction_events.event_time - submit_events.event_time))")
     end
@@ -42,6 +55,19 @@ module Stats
         .first
       
       result&.to_f
+    end
+
+    def mode_time_to_first_instruction
+      # Get all time to first instruction values in seconds, rounded to nearest minute
+      time_values = authorizations_with_submit_and_first_instruction_events
+        .pluck(Arel.sql("ROUND(EXTRACT(EPOCH FROM (first_instruction_events.event_time - submit_events.event_time)) / 60) * 60"))
+        .map(&:to_f)
+      
+      return nil if time_values.empty?
+      
+      # Find the most frequent value
+      frequency = time_values.group_by(&:itself).transform_values(&:count)
+      frequency.max_by { |_, count| count }&.first
     end
 
     def first_create_events_subquery

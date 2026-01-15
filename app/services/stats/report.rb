@@ -20,9 +20,9 @@ module Stats
       result += "#{number_of_authorization_requests_created}\n"
       result += "#{number_of_reopen_events}\n"
       result += "\n"
-      result += "#{average_time_to_submit}\n#{median_time_to_submit}\n#{stddev_time_to_submit}\n"
+      result += "#{average_time_to_submit}\n#{median_time_to_submit}\n#{mode_time_to_submit}\n#{stddev_time_to_submit}\n"
       result += "\n"
-      result += "#{average_time_to_first_instruction}\n#{median_time_to_first_instruction}\n#{stddev_time_to_first_instruction}\n"
+      result += "#{average_time_to_first_instruction}\n#{median_time_to_first_instruction}\n#{mode_time_to_first_instruction}\n#{stddev_time_to_first_instruction}\n"
       puts result
     end
 
@@ -46,6 +46,10 @@ module Stats
       "Standard deviation time to submit: #{format_duration(@create_aggregator.stddev_time_to_submit)}"
     end
 
+    def mode_time_to_submit
+      "Mode time to submit: #{format_duration(@create_aggregator.mode_time_to_submit)}"
+    end
+
     def average_time_to_first_instruction
       "Average time to first instruction: #{format_duration(@create_aggregator.average_time_to_first_instruction)}"
     end
@@ -56,6 +60,10 @@ module Stats
 
     def stddev_time_to_first_instruction
       "Standard deviation time to first instruction: #{format_duration(@create_aggregator.stddev_time_to_first_instruction)}"
+    end
+
+    def mode_time_to_first_instruction
+      "Mode time to first instruction: #{format_duration(@create_aggregator.mode_time_to_first_instruction)}"
     end
 
     def print_time_to_submit_by_type_table
