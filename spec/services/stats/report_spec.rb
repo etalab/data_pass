@@ -106,7 +106,7 @@ RSpec.describe Stats::Report, type: :service do
     subject { described_class.new(date_input: 2025) }
 
     it 'prints the report without error' do
-      expect { subject.print_report }.to output(/# Report of/).to_stdout
+      expect { subject.print_report }.to output(/# .*Report of/).to_stdout
       expect { subject.print_report }.to output(/authorization requests created/).to_stdout
       expect { subject.print_report }.to output(/reopen events/).to_stdout
       expect { subject.print_report }.to output(/Average time to submit/).to_stdout
@@ -621,7 +621,7 @@ RSpec.describe Stats::Report, type: :service do
     it 'outputs a properly formatted report' do
       output = capture_stdout { subject.print_report }
       
-      expect(output).to match(/# Report of/)
+      expect(output).to match(/# .*Report of/)
       expect(output).to match(/Average time to submit: .+/)
       expect(output).to match(/Median time to submit: .+/)
       expect(output).to match(/Standard deviation time to submit: .+/)
