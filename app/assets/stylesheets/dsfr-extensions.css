@@ -40,6 +40,17 @@
   transition-duration: 0.3s, 0s;
 }
 
+/* Fix tabs height when using turbo-frame navigation (all panels visible) */
+.fr-tabs[data-controller="auto-height"] {
+  --tabs-height: auto;
+  height: auto;
+}
+
+/* Add border to the tabs wrapper when using auto-height */
+[data-controller="scroll-to-top"]:has(.fr-tabs[data-controller="auto-height"]) {
+  border-bottom: 1px solid var(--border-default-grey);
+}
+
 /* Dropdown based on fr-translate component */
 
 .fr-dropdown.fr-translate .fr-translate__btn::before {

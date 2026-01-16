@@ -1,7 +1,10 @@
 # rubocop:disable Metrics/ClassLength
 class AuthorizationRequestFormsController < AuthenticatedUserController
   helper AuthorizationRequestsHelpers
+  helper DemandesHabilitations::CommonHelper
   include AuthorizationRequestsFlashes
+
+  decorates_assigned :authorization_request
 
   rescue_from StaticApplicationRecord::EntryNotFound do
     redirect_to root_path, alert: t('authorization_request_forms.form_not_found')
@@ -321,7 +324,17 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   end
 
   def layout_name
+    return 'authorization_request_with_tabs' if show_tabs?
+
     'authorization_request'
+  end
+
+  def show_tabs?
+    return false unless action_name == 'summary'
+    return false if @authorization_request.nil?
+    return false if @authorization_request.new_record?
+
+    @authorization_request.state != 'draft'
   end
 
   def clean_wizard_step!

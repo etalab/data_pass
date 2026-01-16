@@ -1,5 +1,6 @@
 class MessagesController < AuthenticatedUserController
-  before_action :extract_authorization_request
+  include AuthorizationOrRequestContext
+
   before_action :mark_messages_as_read!, only: [:index]
 
   def index
@@ -21,7 +22,7 @@ class MessagesController < AuthenticatedUserController
       build_models
 
       respond_to do |format|
-        format.html { redirect_to authorization_request_messages_path(@authorization_request) }
+        format.html { redirect_to messages_index_path }
         format.turbo_stream
       end
     else
@@ -46,11 +47,13 @@ class MessagesController < AuthenticatedUserController
     )
   end
 
-  def extract_authorization_request
-    @authorization_request = AuthorizationRequest.find(params[:authorization_request_id])
-  end
-
   def model_to_track_for_impersonation
     @organizer&.message || @message
+  end
+
+  def messages_index_path
+    return authorization_messages_path(@authorization) if @authorization.present?
+
+    authorization_request_messages_path(@authorization_request)
   end
 end

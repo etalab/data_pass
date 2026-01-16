@@ -446,12 +446,12 @@ RSpec.describe AuthorizationRequest do
     let(:sandbox_authorization) { authorization_request.authorizations.find_by(authorization_request_class: 'AuthorizationRequest::APIImpotParticulierSandbox') }
     let(:production_authorization) { authorization_request.authorizations.find_by(authorization_request_class: 'AuthorizationRequest::APIImpotParticulier') }
 
-    it { is_expected.to eq([sandbox_authorization, production_authorization]) }
+    it { is_expected.to contain_exactly(sandbox_authorization, production_authorization) }
 
     context 'when there is a newer sandbox authorization' do
       let!(:new_sandbox_authorization) { create(:authorization, request: authorization_request, authorization_request_class: 'AuthorizationRequest::APIImpotParticulierSandbox', created_at: Date.tomorrow) }
 
-      it { is_expected.to eq([new_sandbox_authorization, production_authorization]) }
+      it { is_expected.to contain_exactly(new_sandbox_authorization, production_authorization) }
     end
   end
 
