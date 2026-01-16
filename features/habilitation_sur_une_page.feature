@@ -90,7 +90,7 @@ Fonctionnalité: Interactions sur une demande d'habilitation simple (sur une seu
 
   @javascript
   Scénario: Je démarre une demande avec un contact à remplir ne nécessitant pas un email nominatif
-    Quand je veux remplir une demande pour "API Entreprise" via le formulaire "Conformité titulaires de marchés" de l'éditeur "e-Attestations"
+    Quand je veux remplir une demande pour "API Entreprise" via le formulaire "Conformité titulaires de marchés" de l'éditeur "Approval"
     Et que je clique sur "Débuter ma demande"
     Et que je remplis les informations du contact "Responsable de traitement" avec :
       | Email          |
