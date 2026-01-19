@@ -16,7 +16,7 @@
 - Durée médiane d'une soumission: 31 minutes
 - Durée de soumission la plus fréquente: 3 minutes
 - Écart-type des durées de soumission: 28 jours
-## Durée d'instruction
+## Durée de première instruction
 (Entre une soumission et la première instruction qui suit)
 - Durée moyenne d'une instruction: 7 jours
 - Durée médiane d'une instruction: 4 jours
@@ -128,7 +128,7 @@ Total : 95 demandes
 ```
 
 
-## Durée médiane d'instruction par type pour 2025 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
+## Durée médiane de première instruction par type pour 2025 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
 
 ```
 ProConnectIdentityProvider (1.2 jours, n= 19) │ █
@@ -138,7 +138,7 @@ Total : 141 demandes
 ```
 
 
-## Durée d'instruction par jour de 2025 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
+## Durée de première instruction par jour de 2025 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
 
 ```
   <1 ( 0) │ 
@@ -189,7 +189,7 @@ Total : 141 demandes
 - Durée médiane d'une soumission: 10 mois
 - Durée de soumission la plus fréquente: 10 mois
 - Écart-type des durées de soumission: moins d'une minute
-## Durée d'instruction
+## Durée de première instruction
 (Entre une soumission et la première instruction qui suit)
 - Durée moyenne d'une instruction: 3 jours
 - Durée médiane d'une instruction: environ 18 heures
@@ -301,7 +301,7 @@ Total : 1 demandes
 ```
 
 
-## Durée médiane d'instruction par type pour 2024 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
+## Durée médiane de première instruction par type pour 2024 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
 
 ```
 ProConnectServiceProvider  (0.3 jours, n=70) │ 
@@ -311,7 +311,7 @@ Total : 92 demandes
 ```
 
 
-## Durée d'instruction par jour de 2024 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
+## Durée de première instruction par jour de 2024 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
 
 ```
   <1 ( 0) │ 

@@ -14,13 +14,13 @@
 - Durée médiane d'une soumission: 14 minutes
 - Durée de soumission la plus fréquente: 8 minutes
 - Écart-type des durées de soumission: 17 jours
-## Durée d'instruction
+## Durée de première instruction
 (Entre une soumission et la première instruction qui suit)
 - Durée moyenne d'une instruction: 6 jours
 - Durée médiane d'une instruction: 1 jour
 - Durée d'instruction la plus fréquente: 1 jour
 - Écart-type des durées d'instruction: 16 jours
-## Durée d'instruction production
+## Durée de première instruction de production
 (Entre le premier événement start_next_stage et la première instruction qui suit)
 - Durée moyenne d'une instruction production: 28 jours
 - Durée médiane d'une instruction production: 7 jours
@@ -171,7 +171,7 @@ Total : 142 demandes
 ```
 
 
-## Durée médiane d'instruction par type pour 18/06/2025 - 19/01/2026 (fournisseur : dgfip):
+## Durée médiane de première instruction par type pour 18/06/2025 - 19/01/2026 (fournisseur : dgfip):
 
 ```
 APIFicoba                  ( 0.1 jours, n= 1) │ 
@@ -192,7 +192,7 @@ Total : 197 demandes
 ```
 
 
-## Durée d'instruction par jour de 18/06/2025 - 19/01/2026 (fournisseur : dgfip):
+## Durée de première instruction par jour de 18/06/2025 - 19/01/2026 (fournisseur : dgfip):
 
 ```
   <1 ( 0) │ 
@@ -233,7 +233,7 @@ Total : 197 demandes
 ```
 
 
-## Durée médiane d'instruction production par type pour 18/06/2025 - 19/01/2026 (fournisseur : dgfip):
+## Durée médiane de première instruction production par type pour 18/06/2025 - 19/01/2026 (fournisseur : dgfip):
 
 ```
 APIINFINOE          ( 1.8 jours, n= 5) │ ██
@@ -247,7 +247,7 @@ Total : 51 demandes
 ```
 
 
-## Durée d'instruction production par jour de 18/06/2025 - 19/01/2026 (fournisseur : dgfip):
+## Durée de première instruction production par jour de 18/06/2025 - 19/01/2026 (fournisseur : dgfip):
 
 ```
   <1 ( 0) │ 

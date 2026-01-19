@@ -14,7 +14,7 @@
 - Durée médiane d'une soumission: 14 minutes
 - Durée de soumission la plus fréquente: 5 minutes
 - Écart-type des durées de soumission: 9 jours
-## Durée d'instruction
+## Durée de première instruction
 (Entre une soumission et la première instruction qui suit)
 - Durée moyenne d'une instruction: 4 jours
 - Durée médiane d'une instruction: 1 jour
@@ -124,7 +124,7 @@ Total : 442 demandes
 ```
 
 
-## Durée médiane d'instruction par type pour 18/06/2025 - 19/01/2026 (types par : FranceConnect):
+## Durée médiane de première instruction par type pour 18/06/2025 - 19/01/2026 (types par : FranceConnect):
 
 ```
 FranceConnect (1.1 jours, n=677) │ █
@@ -133,7 +133,7 @@ Total : 677 demandes
 ```
 
 
-## Durée d'instruction par jour de 18/06/2025 - 19/01/2026 (types par : FranceConnect):
+## Durée de première instruction par jour de 18/06/2025 - 19/01/2026 (types par : FranceConnect):
 
 ```
   <1 (  0) │ 

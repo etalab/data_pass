@@ -26,12 +26,12 @@ module Stats
       result += "## Durée d'une soumission\n"
       result += "(Entre la création d'une demande et sa première soumission)\n"
       result += "- #{average_time_to_submit}\n- #{median_time_to_submit}\n- #{mode_time_to_submit}\n- #{stddev_time_to_submit}\n"
-      result += "## Durée d'instruction\n"
+      result += "## Durée de première instruction\n"
       result += "(Entre une soumission et la première instruction qui suit)\n"
       result += "- #{average_time_to_first_instruction}\n- #{median_time_to_first_instruction}\n- #{mode_time_to_first_instruction}\n- #{stddev_time_to_first_instruction}\n"
       
       if dgfip_report?
-        result += "## Durée d'instruction production\n"
+        result += "## Durée de première instruction de production\n"
         result += "(Entre le premier événement start_next_stage et la première instruction qui suit)\n"
         result += "- #{average_time_to_production_instruction}\n- #{median_time_to_production_instruction}\n- #{mode_time_to_production_instruction}\n- #{stddev_time_to_production_instruction}\n"
       end
@@ -134,7 +134,7 @@ module Stats
 
     def print_time_to_first_instruction_by_duration(step: :day)
       buckets = @create_aggregator.time_to_first_instruction_by_duration_buckets(step: step)
-      print_chart_with_title(buckets, "Durée d'instruction par #{step_label_text(step)}", preposition: 'de')
+      print_chart_with_title(buckets, "Durée de première instruction par #{step_label_text(step)}", preposition: 'de')
     end
 
     def print_volume_by_type
@@ -177,9 +177,9 @@ module Stats
 
     def print_median_time_to_first_instruction_by_type
       data = @create_aggregator.median_time_to_first_instruction_by_type
-      return puts "\nAucune donnée disponible pour la durée médiane d'instruction par type." if data.empty?
+      return puts "\nAucune donnée disponible pour la durée médiane de première instruction par type." if data.empty?
 
-      puts "\n## Durée médiane d'instruction par type pour #{human_readable_date_range}#{type_filter_label}:\n\n"
+      puts "\n## Durée médiane de première instruction par type pour #{human_readable_date_range}#{type_filter_label}:\n\n"
       
       buckets = data.map { |item| transform_time_bucket(item, 86400.0) }
       
@@ -192,9 +192,9 @@ module Stats
       return unless dgfip_report?
       
       data = @production_aggregator.median_time_to_production_instruction_by_type
-      return puts "\nAucune donnée disponible pour la durée médiane d'instruction production par type." if data.empty?
+      return puts "\nAucune donnée disponible pour la durée médiane de première instruction production par type." if data.empty?
 
-      puts "\n## Durée médiane d'instruction production par type pour #{human_readable_date_range}#{type_filter_label}:\n\n"
+      puts "\n## Durée médiane de première instruction production par type pour #{human_readable_date_range}#{type_filter_label}:\n\n"
       
       buckets = data.map { |item| transform_time_bucket(item, 86400.0) }
       
@@ -207,7 +207,7 @@ module Stats
       return unless dgfip_report?
       
       buckets = @production_aggregator.time_to_production_instruction_by_duration_buckets(step: step)
-      print_chart_with_title(buckets, "Durée d'instruction production par #{step_label_text(step)}", preposition: 'de')
+      print_chart_with_title(buckets, "Durée de première instruction production par #{step_label_text(step)}", preposition: 'de')
     end
 
     private

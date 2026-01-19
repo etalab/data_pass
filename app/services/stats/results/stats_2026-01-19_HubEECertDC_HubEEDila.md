@@ -16,7 +16,7 @@
 - Durée médiane d'une soumission: moins d'une minute
 - Durée de soumission la plus fréquente: 1 minute
 - Écart-type des durées de soumission: 12 jours
-## Durée d'instruction
+## Durée de première instruction
 (Entre une soumission et la première instruction qui suit)
 - Durée moyenne d'une instruction: 1 jour
 - Durée médiane d'une instruction: environ 6 heures
@@ -129,7 +129,7 @@ Total : 1260 demandes
 ```
 
 
-## Durée médiane d'instruction par type pour 2025 (types par : HubEECertDC, HubEEDila):
+## Durée médiane de première instruction par type pour 2025 (types par : HubEECertDC, HubEEDila):
 
 ```
 HubEECertDC (0.0 jours, n=971) │ 
@@ -139,7 +139,7 @@ Total : 1737 demandes
 ```
 
 
-## Durée d'instruction par jour de 2025 (types par : HubEECertDC, HubEEDila):
+## Durée de première instruction par jour de 2025 (types par : HubEECertDC, HubEEDila):
 
 ```
   <1 (   0) │ 
@@ -191,7 +191,7 @@ Total : 1737 demandes
 - Durée médiane d'une soumission: moins d'une minute
 - Durée de soumission la plus fréquente: 1 minute
 - Écart-type des durées de soumission: environ 2 mois
-## Durée d'instruction
+## Durée de première instruction
 (Entre une soumission et la première instruction qui suit)
 - Durée moyenne d'une instruction: 2 jours
 - Durée médiane d'une instruction: environ 19 heures
@@ -304,7 +304,7 @@ Total : 1380 demandes
 ```
 
 
-## Durée médiane d'instruction par type pour 2024 (types par : HubEECertDC, HubEEDila):
+## Durée médiane de première instruction par type pour 2024 (types par : HubEECertDC, HubEEDila):
 
 ```
 HubEECertDC (0.2 jours, n=1345) │ 
@@ -314,7 +314,7 @@ Total : 2250 demandes
 ```
 
 
-## Durée d'instruction par jour de 2024 (types par : HubEECertDC, HubEEDila):
+## Durée de première instruction par jour de 2024 (types par : HubEECertDC, HubEEDila):
 
 ```
   <1 (   0) │ 

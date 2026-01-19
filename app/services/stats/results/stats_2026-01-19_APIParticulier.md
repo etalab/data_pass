@@ -16,7 +16,7 @@
 - Durée médiane d'une soumission: 9 minutes
 - Durée de soumission la plus fréquente: 5 minutes
 - Écart-type des durées de soumission: 16 jours
-## Durée d'instruction
+## Durée de première instruction
 (Entre une soumission et la première instruction qui suit)
 - Durée moyenne d'une instruction: 7 jours
 - Durée médiane d'une instruction: 6 jours
@@ -126,7 +126,7 @@ Total : 573 demandes
 ```
 
 
-## Durée médiane d'instruction par type pour 2025 (types par : APIParticulier):
+## Durée médiane de première instruction par type pour 2025 (types par : APIParticulier):
 
 ```
 APIParticulier (6.2 jours, n=799) │ ██████
@@ -135,7 +135,7 @@ Total : 799 demandes
 ```
 
 
-## Durée d'instruction par jour de 2025 (types par : APIParticulier):
+## Durée de première instruction par jour de 2025 (types par : APIParticulier):
 
 ```
   <1 (  0) │ 
@@ -187,7 +187,7 @@ Total : 799 demandes
 - Durée médiane d'une soumission: 7 minutes
 - Durée de soumission la plus fréquente: 1 minute
 - Écart-type des durées de soumission: 4 mois
-## Durée d'instruction
+## Durée de première instruction
 (Entre une soumission et la première instruction qui suit)
 - Durée moyenne d'une instruction: 4 jours
 - Durée médiane d'une instruction: 3 jours
@@ -297,7 +297,7 @@ Total : 428 demandes
 ```
 
 
-## Durée médiane d'instruction par type pour 2024 (types par : APIParticulier):
+## Durée médiane de première instruction par type pour 2024 (types par : APIParticulier):
 
 ```
 APIParticulier (2.9 jours, n=1193) │ ███
@@ -306,7 +306,7 @@ Total : 1193 demandes
 ```
 
 
-## Durée d'instruction par jour de 2024 (types par : APIParticulier):
+## Durée de première instruction par jour de 2024 (types par : APIParticulier):
 
 ```
   <1 (  0) │ 
