@@ -7,7 +7,8 @@ export default class extends Controller {
     const hiddenField = document.getElementById(fieldId)
 
     if (hiddenField) {
-      hiddenField.remove()
+      hiddenField.value = ''
+      hiddenField.dispatchEvent(new Event('input', { bubbles: true }))
 
       const fileDisplay = button.closest('.file-with-remove-button')
       if (fileDisplay) {

@@ -305,6 +305,14 @@ Quand('cette habilitation a une pièce jointe {string}') do |safety_state|
   MalwareScan.create!(sha256: SecureRandom.hex(32), attachment:, safety_state:)
 end
 
+Quand('cette demande possède une maquette du projet {string}') do |filename|
+  AuthorizationRequest.last.maquette_projet.attach(io: Rails.root.join('spec/fixtures', filename).open, filename:)
+end
+
+Quand('cette demande possède un document d\'expression de besoin spécifique') do
+  AuthorizationRequest.last.specific_requirements_document.attach(io: Rails.root.join('spec/fixtures/dummy.csv').open, filename: 'dummy.csv')
+end
+
 Alors('un scan antivirus est lancé') do
   malware_scan_jobs = ActiveJob::Base.queue_adapter.enqueued_jobs.select do |job|
     job['job_class'] == 'MalwareScanJob' && job['arguments'].first.is_a?(Integer)
