@@ -80,13 +80,3 @@ Fonctionnalité: Persistance des documents dans la demande d'habilitation
       Et que je clique sur le premier "Consulter"
       Alors la page contient "dummy.pdf"
       Et la page contient "another_dummy.pdf"
-
-    @javascript @pending
-    Scénario: Annulation d'une réouverture avec suppression de document après enregistrement des modifications
-      Quand je supprime le document "another_dummy.pdf"
-      Et que je clique sur "Enregistrer les modifications"
-      Et que je clique sur "Annuler ma demande de modification"
-      Et que je me rends sur mon tableau de bord demandeur habilitations
-      Et que je clique sur le premier "Consulter"
-      Alors la page contient "dummy.pdf"
-      Et la page contient "another_dummy.pdf"
