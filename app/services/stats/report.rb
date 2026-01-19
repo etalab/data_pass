@@ -16,6 +16,12 @@ module Stats
 
       @authorization_requests_with_start_next_stage_in_range = authorization_requests_with_start_next_stage_events_in_range
       @production_aggregator = Stats::Aggregator.new(@authorization_requests_with_start_next_stage_in_range)
+
+      @authorization_requests_with_approve_in_range = authorization_requests_with_approve_events_in_range
+      @approve_aggregator = Stats::Aggregator.new(@authorization_requests_with_approve_in_range)
+
+      @authorization_requests_with_refuse_in_range = authorization_requests_with_refuse_events_in_range
+      @refuse_aggregator = Stats::Aggregator.new(@authorization_requests_with_refuse_in_range)
     end
 
     def print_report
@@ -23,6 +29,8 @@ module Stats
       result += "## Volume\n"
       result += "- #{number_of_authorization_requests_created}\n"
       result += "- #{number_of_reopen_events}\n"
+      result += "- #{number_of_validated_events}\n"
+      result += "- #{number_of_refused_events}\n"
       result += "## Durée d'une soumission\n"
       result += "(Entre la création d'une demande et sa première soumission)\n"
       result += "- #{average_time_to_submit}\n- #{median_time_to_submit}\n- #{mode_time_to_submit}\n- #{stddev_time_to_submit}\n"
@@ -45,6 +53,14 @@ module Stats
 
     def number_of_reopen_events
       "#{@reopen_aggregator.reopen_events_count} réouvertures"
+    end
+
+    def number_of_validated_events
+      "#{@approve_aggregator.validated_events_count(@date_range)} validations"
+    end
+
+    def number_of_refused_events
+      "#{@refuse_aggregator.refused_events_count(@date_range)} refus"
     end
 
     def average_time_to_submit
@@ -364,6 +380,26 @@ module Stats
 
       authorization_requests_with_type
         .where(id: start_next_stage_events_subquery)
+    end
+
+    def authorization_requests_with_approve_events_in_range
+      approve_events_subquery = AuthorizationRequestEvent
+        .where(name: 'approve')
+        .where(created_at: @date_range)
+        .select('DISTINCT authorization_request_id')
+
+      authorization_requests_with_type
+        .where(id: approve_events_subquery)
+    end
+
+    def authorization_requests_with_refuse_events_in_range
+      refuse_events_subquery = AuthorizationRequestEvent
+        .where(name: 'refuse')
+        .where(created_at: @date_range)
+        .select('DISTINCT authorization_request_id')
+
+      authorization_requests_with_type
+        .where(id: refuse_events_subquery)
     end
 
   def authorization_requests_with_type

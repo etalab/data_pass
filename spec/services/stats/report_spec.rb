@@ -981,7 +981,7 @@ RSpec.describe Stats::Report, type: :service do
     context 'with step: :minute' do
       it 'outputs bar chart with minute buckets' do
         output = capture_stdout { subject.print_time_to_first_instruction_by_duration(step: :minute) }
-        expect(output).to include('Durée d\'instruction par minute')
+        expect(output).to include('Durée de première instruction par minute')
         expect(output).to include('<1')
         expect(output).to include('> 60')
         expect(output).to include('│')
@@ -992,7 +992,7 @@ RSpec.describe Stats::Report, type: :service do
     context 'with step: :hour' do
       it 'outputs bar chart with hour buckets' do
         output = capture_stdout { subject.print_time_to_first_instruction_by_duration(step: :hour) }
-        expect(output).to include('Durée d\'instruction par heure')
+        expect(output).to include('Durée de première instruction par heure')
         expect(output).to include('<1')
         expect(output).to include('> 24')
         expect(output).to include('│')
@@ -1003,7 +1003,7 @@ RSpec.describe Stats::Report, type: :service do
     context 'with step: :day' do
       it 'outputs bar chart with day buckets' do
         output = capture_stdout { subject.print_time_to_first_instruction_by_duration(step: :day) }
-        expect(output).to include('Durée d\'instruction par jour')
+        expect(output).to include('Durée de première instruction par jour')
         expect(output).to include('<1')
         expect(output).to include('> 30')
         expect(output).to include('│')
@@ -1378,7 +1378,7 @@ RSpec.describe Stats::Report, type: :service do
       it 'prints the graph for dgfip reports' do
         output = capture_stdout { subject.print_median_time_to_production_instruction_by_type }
         
-        expect(output).to include('Durée médiane d\'instruction production par type')
+        expect(output).to include('Durée médiane de première instruction production par type')
         expect(output).to include('│')
         expect(output).to include('jours')
       end
@@ -1409,7 +1409,7 @@ RSpec.describe Stats::Report, type: :service do
       it 'prints the graph for dgfip reports' do
         output = capture_stdout { subject.print_time_to_production_instruction_by_duration(step: :day) }
         
-        expect(output).to include('Durée d\'instruction production par jour')
+        expect(output).to include('Durée de première instruction production par jour')
         expect(output).to include('│')
         expect(output).to include('Total')
       end
@@ -1429,7 +1429,7 @@ RSpec.describe Stats::Report, type: :service do
       context 'with step: :day' do
         it 'outputs bar chart with day buckets' do
           output = capture_stdout { subject.print_time_to_production_instruction_by_duration(step: :day) }
-          expect(output).to include('Durée d\'instruction production par jour')
+          expect(output).to include('Durée de première instruction production par jour')
           expect(output).to include('<1')
           expect(output).to include('> 30')
         end

@@ -10,6 +10,8 @@
 ## Volume
 - 558 demandes créées
 - 123 réouvertures
+- 408 validations
+- 157 refus
 ## Durée d'une soumission
 (Entre la création d'une demande et sa première soumission)
 - Durée moyenne d'une soumission: environ un mois
@@ -299,6 +301,8 @@ Total : 55 demandes
 ## Volume
 - 1022 demandes créées
 - 0 réouvertures
+- 1000 validations
+- 273 refus
 ## Durée d'une soumission
 (Entre la création d'une demande et sa première soumission)
 - Durée moyenne d'une soumission: plus d'un an

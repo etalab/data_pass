@@ -62,6 +62,28 @@ module Stats
       end.count
     end
 
+    def validated_events_count(date_range)
+      # Count approve events for the authorization requests in the date range
+      authorization_request_ids = @authorization_requests.pluck(:id)
+      
+      AuthorizationRequestEvent
+        .where(name: 'approve')
+        .where(authorization_request_id: authorization_request_ids)
+        .where(created_at: date_range)
+        .count
+    end
+
+    def refused_events_count(date_range)
+      # Count refuse events for the authorization requests in the date range
+      authorization_request_ids = @authorization_requests.pluck(:id)
+      
+      AuthorizationRequestEvent
+        .where(name: 'refuse')
+        .where(authorization_request_id: authorization_request_ids)
+        .where(created_at: date_range)
+        .count
+    end
+
     def volume_by_type
       @authorization_requests
         .group(:type)
