@@ -1,300 +1,582 @@
-> **⚠️ Données uniquement à partir du 18/06/2025, date de la migration vers DataPass v2 **
+> **⚠️ Attention à la qualité des données**
+> 
+> Les données de 2023-2024 ont été migrées depuis DataPass v1 en début 2025. Certains évènements de ces années ont été reconstitués et peuvent ne pas refléter exactement le comportement des utilisateurs - en particulier les métriques de durée desoumission.
 
 ---
 
  
-# 📊 Rapport de 18/06/2025 - 19/01/2026:
+# 📊 Rapport de 2025:
 
 ## Volume
-- 3241 demandes créées
-- 1551 réouvertures
+- 5324 demandes créées
+- 2020 réouvertures
 ## Durée d'une soumission
 (Entre la création d'une demande et sa première soumission)
-- Durée moyenne d'une soumission: 1 jour
+- Durée moyenne d'une soumission: 5 jours
 - Durée médiane d'une soumission: 5 minutes
 - Durée de soumission la plus fréquente: 1 minute
-- Écart-type des durées de soumission: 9 jours
+- Écart-type des durées de soumission: 27 jours
 ## Durée de première instruction
 (Entre une soumission et la première instruction qui suit)
-- Durée moyenne d'une instruction: 5 jours
+- Durée moyenne d'une instruction: 7 jours
 - Durée médiane d'une instruction: 1 jour
 - Durée d'instruction la plus fréquente: 1 jour
-- Écart-type des durées d'instruction: 12 jours
+- Écart-type des durées d'instruction: 18 jours
 
 
-## Volume de demandes par type pour 18/06/2025 - 19/01/2026:
+## Volume de demandes par type pour 2025:
 
 ```
-FranceConnect                  (599) │ ██████████████████████████████████████████████████
-HubEECertDC                    (525) │ ████████████████████████████████████████████
-APIParticulier                 (523) │ ████████████████████████████████████████████
-HubEEDila                      (291) │ ████████████████████████
-APIProSanteConnect             (257) │ █████████████████████
-APIEntreprise                  (206) │ █████████████████
-AnnuaireDesEntreprises         (132) │ ███████████
-ProConnectServiceProvider      ( 99) │ ████████
-APIDeclarationCESU             ( 68) │ ██████
-APIR2P                         ( 61) │ █████
-FormulaireQF                   ( 54) │ █████
-APIImpotParticulier            ( 52) │ ████
-APIDeclarationAutoEntrepreneur ( 52) │ ████
-APIFicobaSandbox               ( 44) │ ████
-APISFiPR2P                     ( 40) │ ███
-APICaptchEtat                  ( 31) │ ███
-APISFiPR2PSandbox              ( 29) │ ██
-APIR2PSandbox                  ( 28) │ ██
-ProConnectIdentityProvider     ( 20) │ ██
-APIINFINOESandbox              ( 19) │ ██
-APIINFINOE                     ( 18) │ ██
+FranceConnect                  (983) │ ██████████████████████████████████████████████████
+APIParticulier                 (873) │ ████████████████████████████████████████████
+HubEECertDC                    (864) │ ████████████████████████████████████████████
+HubEEDila                      (488) │ █████████████████████████
+APIEntreprise                  (433) │ ██████████████████████
+APIProSanteConnect             (404) │ █████████████████████
+ProConnectServiceProvider      (180) │ █████████
+APIDeclarationCESU             (119) │ ██████
+FormulaireQF                   ( 99) │ █████
+AnnuaireDesEntreprises         ( 95) │ █████
+APIDeclarationAutoEntrepreneur ( 87) │ ████
+APIR2P                         ( 85) │ ████
+APIImpotParticulier            ( 71) │ ████
+APIFicobaSandbox               ( 68) │ ███
+APICaptchEtat                  ( 67) │ ███
+APIINFINOESandbox              ( 63) │ ███
+APIR2PSandbox                  ( 59) │ ███
+APIImpotParticulierSandbox     ( 51) │ ███
+APISFiP                        ( 32) │ ██
+APISFiPSandbox                 ( 31) │ ██
+APISFiPR2P                     ( 29) │ █
+ProConnectIdentityProvider     ( 25) │ █
+APISFiPR2PSandbox              ( 23) │ █
+APIINFINOE                     ( 21) │ █
 APIMobilic                     ( 16) │ █
-APIImpotParticulierSandbox     ( 16) │ █
-APISFiP                        ( 15) │ █
-APISFiPSandbox                 ( 13) │ █
-LeTaxi                         ( 11) │ █
-APIFicoba                      (  7) │ █
-APIIngres                      (  5) │ 
-APIRialSandbox                 (  3) │ 
-APIScolarite                   (  3) │ 
-APIIndemnitesJournalieresCNAM  (  2) │ 
+LeTaxi                         ( 15) │ █
+APIRialSandbox                 ( 13) │ █
+APIFicoba                      (  7) │ 
+APIIngres                      (  7) │ 
+APIScolarite                   (  6) │ 
+APIIndemnitesJournalieresCNAM  (  4) │ 
+APIRial                        (  3) │ 
+APIImprimfipSandbox            (  2) │ 
 APIDroitsCNAM                  (  1) │ 
-APIImprimfipSandbox            (  1) │ 
 
-Total : 3241 demandes
-Échelle : chaque █ représente 12.0 demande(s)
+Total : 5324 demandes
+Échelle : chaque █ représente 19.7 demande(s)
 ```
 
 
-## Volume de demandes par type (validées vs refusées) pour 18/06/2025 - 19/01/2026:
+## Volume de demandes par type (validées vs refusées) pour 2025:
 
 ```
-HubEECertDC                    (424:  98.3%V   1.7%R) │ █████████████████████████████████████████████████▓
-FranceConnect                  (386:  76.2%V  23.8%R) │ ███████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓
-APIParticulier                 (301:  94.7%V   5.3%R) │ ██████████████████████████████████▓▓
-APIProSanteConnect             (180:  97.2%V   2.8%R) │ █████████████████████▓
-HubEEDila                      (176:  98.3%V   1.7%R) │ ████████████████████
-APIEntreprise                  ( 85:  61.2%V  38.8%R) │ ██████▓▓▓▓
-AnnuaireDesEntreprises         ( 72:  81.9%V  18.1%R) │ ███████▓▓
-ProConnectServiceProvider      ( 65:  90.8%V   9.2%R) │ ███████▓
-FormulaireQF                   ( 36: 100.0%V   0.0%R) │ ████
-APIDeclarationCESU             ( 25:  12.0%V  88.0%R) │ ▓▓▓
-APICaptchEtat                  ( 23:  95.7%V   4.3%R) │ ███
-APIFicobaSandbox               ( 15:   0.0%V 100.0%R) │ ▓▓
-APIINFINOESandbox              ( 13:  84.6%V  15.4%R) │ █
-APIDeclarationAutoEntrepreneur ( 13:  23.1%V  76.9%R) │ ▓
-APIR2PSandbox                  ( 12:  58.3%V  41.7%R) │ █▓
-APIImpotParticulier            ( 12:  66.7%V  33.3%R) │ █
-APIINFINOE                     ( 11:   0.0%V 100.0%R) │ ▓
-ProConnectIdentityProvider     ( 11: 100.0%V   0.0%R) │ █
-APIR2P                         (  9:  77.8%V  22.2%R) │ █
+HubEECertDC                    (701:  98.4%V   1.6%R) │ █████████████████████████████████████████████████▓
+FranceConnect                  (654:  72.9%V  27.1%R) │ ██████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓
+APIParticulier                 (502:  95.6%V   4.4%R) │ ██████████████████████████████████▓▓
+HubEEDila                      (318:  98.1%V   1.9%R) │ ██████████████████████
+APIProSanteConnect             (290:  96.2%V   3.8%R) │ ████████████████████▓
+APIEntreprise                  (173:  63.0%V  37.0%R) │ ████████▓▓▓▓▓
+ProConnectServiceProvider      (106:  90.6%V   9.4%R) │ ███████▓
+FormulaireQF                   ( 61:  96.7%V   3.3%R) │ ████
+APIINFINOESandbox              ( 55:  65.5%V  34.5%R) │ ███▓
+AnnuaireDesEntreprises         ( 55:  85.5%V  14.5%R) │ ███▓
+APIDeclarationCESU             ( 55:  16.4%V  83.6%R) │ █▓▓▓
+APICaptchEtat                  ( 50:  96.0%V   4.0%R) │ ███
+APIFicobaSandbox               ( 37:   2.7%V  97.3%R) │ ▓▓▓
+APIR2PSandbox                  ( 34:  38.2%V  61.8%R) │ █▓
+APIDeclarationAutoEntrepreneur ( 31:  25.8%V  74.2%R) │ █▓▓
+APIImpotParticulierSandbox     ( 25:  40.0%V  60.0%R) │ █▓
+ProConnectIdentityProvider     ( 17: 100.0%V   0.0%R) │ █
+APIImpotParticulier            ( 17:  64.7%V  35.3%R) │ █
+APIR2P                         ( 14:  85.7%V  14.3%R) │ █
+APISFiPSandbox                 ( 12:  75.0%V  25.0%R) │ █
+APIINFINOE                     (  9:   0.0%V 100.0%R) │ ▓
+APISFiP                        (  7:  71.4%V  28.6%R) │ 
+APIRialSandbox                 (  7:  85.7%V  14.3%R) │ 
 APISFiPR2PSandbox              (  6:  66.7%V  33.3%R) │ 
-APIImpotParticulierSandbox     (  6:  50.0%V  50.0%R) │ 
+APIIngres                      (  6: 100.0%V   0.0%R) │ 
 APISFiPR2P                     (  4:  25.0%V  75.0%R) │ 
-APIIngres                      (  4: 100.0%V   0.0%R) │ 
-APISFiPSandbox                 (  3:  66.7%V  33.3%R) │ 
+APIScolarite                   (  3: 100.0%V   0.0%R) │ 
 APIMobilic                     (  3: 100.0%V   0.0%R) │ 
-APIRialSandbox                 (  1:   0.0%V 100.0%R) │ 
-APISFiP                        (  1: 100.0%V   0.0%R) │ 
+LeTaxi                         (  1: 100.0%V   0.0%R) │ 
 
 Légende : █ = Validées, ▓ = Refusées
-Total : 1640 validées, 257 refusées (1897 total)
-Échelle : chaque caractère représente 8.5 demande(s)
+Total : 2752 validées, 501 refusées (3253 total)
+Échelle : chaque caractère représente 14.0 demande(s)
 ```
 
 
-## Durée médiane de soumission par type pour 18/06/2025 - 19/01/2026:
+## Durée médiane de soumission par type pour 2025:
 
 ### Moins d'1 heure:
 ```
-HubEEDila                      ( 0.2 minutes, n=265) │ 
-HubEECertDC                    ( 0.2 minutes, n=485) │ 
-APICaptchEtat                  ( 0.3 minutes, n= 28) │ 
-AnnuaireDesEntreprises         ( 2.1 minutes, n= 97) │ ██
-FormulaireQF                   ( 3.9 minutes, n= 44) │ ████
-APIRialSandbox                 ( 4.9 minutes, n=  1) │ █████
-APIDroitsCNAM                  ( 6.2 minutes, n=  1) │ ██████
-APIProSanteConnect             ( 7.0 minutes, n=202) │ ███████
-APIINFINOE                     ( 7.5 minutes, n= 13) │ ████████
-APIIndemnitesJournalieresCNAM  ( 7.9 minutes, n=  2) │ ████████
-APIINFINOESandbox              ( 8.5 minutes, n= 13) │ █████████
-APIDeclarationCESU             ( 8.8 minutes, n= 41) │ █████████
-APIParticulier                 ( 9.1 minutes, n=354) │ █████████
-APISFiP                        ( 9.4 minutes, n=  5) │ █████████
-APISFiPR2PSandbox              (10.2 minutes, n= 12) │ ██████████
-APIImpotParticulierSandbox     (10.3 minutes, n=  7) │ ██████████
-APIMobilic                     (10.8 minutes, n=  4) │ ███████████
-APIFicobaSandbox               (11.1 minutes, n= 27) │ ███████████
-APIEntreprise                  (11.1 minutes, n=114) │ ███████████
-APIR2PSandbox                  (12.7 minutes, n= 14) │ █████████████
-FranceConnect                  (13.7 minutes, n=442) │ ██████████████
-APIIngres                      (14.3 minutes, n=  4) │ ██████████████
-ProConnectIdentityProvider     (18.4 minutes, n= 12) │ ██████████████████
-ProConnectServiceProvider      (21.3 minutes, n= 74) │ █████████████████████
-LeTaxi                         (21.7 minutes, n=  5) │ ██████████████████████
-APISFiPR2P                     (25.6 minutes, n= 11) │ ██████████████████████████
-APIDeclarationAutoEntrepreneur (38.4 minutes, n= 19) │ ██████████████████████████████████████
+HubEEDila                     ( 0.3 minutes, n=459) │ 
+HubEECertDC                   ( 0.3 minutes, n=801) │ 
+APICaptchEtat                 ( 0.8 minutes, n= 33) │ █
+AnnuaireDesEntreprises        ( 2.3 minutes, n= 68) │ ██
+FormulaireQF                  ( 3.6 minutes, n= 77) │ ████
+APIRialSandbox                ( 4.9 minutes, n=  1) │ █████
+APIDroitsCNAM                 ( 6.2 minutes, n=  1) │ ██████
+APIProSanteConnect            ( 7.1 minutes, n=232) │ ███████
+APIIndemnitesJournalieresCNAM ( 7.9 minutes, n=  2) │ ████████
+APIINFINOE                    ( 8.4 minutes, n= 14) │ ████████
+APIParticulier                ( 9.0 minutes, n=573) │ █████████
+APIImpotParticulierSandbox    (10.4 minutes, n= 10) │ ██████████
+APIMobilic                    (10.8 minutes, n=  4) │ ███████████
+APIFicobaSandbox              (10.9 minutes, n= 28) │ ███████████
+APISFiPR2PSandbox             (11.5 minutes, n= 11) │ ████████████
+APIINFINOESandbox             (11.7 minutes, n= 19) │ ████████████
+APIDeclarationCESU            (11.8 minutes, n= 45) │ ████████████
+APIR2PSandbox                 (12.1 minutes, n= 20) │ ████████████
+APIEntreprise                 (13.6 minutes, n=232) │ ██████████████
+APIIngres                     (14.3 minutes, n=  4) │ ██████████████
+LeTaxi                        (14.9 minutes, n=  7) │ ███████████████
+FranceConnect                 (15.3 minutes, n=503) │ ███████████████
+ProConnectIdentityProvider    (15.4 minutes, n= 14) │ ███████████████
+APISFiPR2P                    (25.6 minutes, n= 11) │ ██████████████████████████
+ProConnectServiceProvider     (39.4 minutes, n= 81) │ ███████████████████████████████████████
 
-Total : 2296 demandes
+Total : 3250 demandes
 ```
 
 ### 1 heure ou plus:
 ```
-APIR2P              ( 3.8 hours, n=13) │ █
-APISFiPSandbox      ( 9.3 hours, n= 4) │ ████
-APIFicoba           (13.0 hours, n= 2) │ █████
-APIScolarite        (  2.8 days, n= 1) │ █████████████████████████
-APIImpotParticulier (  5.5 days, n=20) │ ██████████████████████████████████████████████████
+APIDeclarationAutoEntrepreneur ( 3.9 hours, n=23) │ 
+APIFicoba                      (  1.1 days, n= 1) │ 
+APIScolarite                   (  2.8 days, n= 1) │ █
+APIImpotParticulier            (  6.5 days, n=28) │ ███
+APIR2P                         ( 19.5 days, n=20) │ ████████
+APISFiPSandbox                 ( 28.4 days, n= 6) │ ████████████
+APIRial                        ( 42.1 days, n= 2) │ █████████████████
+APISFiP                        (120.7 days, n=16) │ ██████████████████████████████████████████████████
 
-Total : 40 demandes
-Échelle : chaque █ représente 2.6 demande(s)
+Total : 97 demandes
+Échelle : chaque █ représente 57.9 demande(s)
 ```
 
 
-## Durée de soumission par minute de 18/06/2025 - 19/01/2026:
-
-```
-  <1 (  0) │ 
-   1 (670) │ ██████████████████████████████████████████████████
-   2 (122) │ █████████
-   3 (134) │ ██████████
-   4 (112) │ ████████
-   5 (108) │ ████████
-   6 ( 69) │ █████
-   7 ( 98) │ ███████
-   8 ( 74) │ ██████
-   9 ( 71) │ █████
-  10 ( 53) │ ████
-  11 ( 46) │ ███
-  12 ( 33) │ ██
-  13 ( 35) │ ███
-  14 ( 35) │ ███
-  15 ( 34) │ ███
-  16 ( 25) │ ██
-  17 ( 24) │ ██
-  18 ( 14) │ █
-  19 ( 19) │ █
-  20 ( 13) │ █
-  21 ( 16) │ █
-  22 ( 13) │ █
-  23 (  6) │ 
-  24 ( 11) │ █
-  25 ( 11) │ █
-  26 (  7) │ █
-  27 (  9) │ █
-  28 (  2) │ 
-  29 (  7) │ █
-  30 (  7) │ █
-  31 (  4) │ 
-  32 (  7) │ █
-  33 (  2) │ 
-  34 (  7) │ █
-  35 (  6) │ 
-  36 (  6) │ 
-  37 (  3) │ 
-  38 (  3) │ 
-  39 (  5) │ 
-  40 (  5) │ 
-  41 (  0) │ 
-  42 (  4) │ 
-  43 (  3) │ 
-  44 (  2) │ 
-  45 (  0) │ 
-  46 (  0) │ 
-  47 (  3) │ 
-  48 (  3) │ 
-  49 (  1) │ 
-  50 (  6) │ 
-  51 (  1) │ 
-  52 (  1) │ 
-  53 (  0) │ 
-  54 (  1) │ 
-  55 (  2) │ 
-  56 (  5) │ 
-  57 (  2) │ 
-  58 (  5) │ 
-  59 (  2) │ 
-  60 (  4) │ 
-> 60 (365) │ ███████████████████████████
-
-Total : 2336 demandes
-Échelle : chaque █ représente 13.4 demande(s)
-```
-
-
-## Durée médiane de première instruction par type pour 18/06/2025 - 19/01/2026:
-
-```
-HubEECertDC                    ( 0.0 jours, n=574) │ 
-APIFicoba                      ( 0.1 jours, n=  1) │ 
-ProConnectIdentityProvider     ( 0.2 jours, n= 13) │ 
-APICaptchEtat                  ( 0.6 jours, n= 46) │ 
-APIINFINOE                     ( 0.7 jours, n= 13) │ █
-APIIngres                      ( 0.7 jours, n=  4) │ █
-APIR2PSandbox                  ( 0.7 jours, n= 23) │ █
-APIProSanteConnect             ( 0.8 jours, n=263) │ █
-APIINFINOESandbox              ( 0.9 jours, n= 18) │ █
-AnnuaireDesEntreprises         ( 0.9 jours, n=103) │ █
-FranceConnect                  ( 1.1 jours, n=677) │ █
-APIImpotParticulier            ( 1.2 jours, n= 37) │ █
-HubEEDila                      ( 1.2 jours, n=420) │ █
-APIFicobaSandbox               ( 1.9 jours, n= 16) │ █
-APIImpotParticulierSandbox     ( 2.0 jours, n= 11) │ ██
-APISFiP                        ( 2.2 jours, n=  6) │ ██
-APISFiPR2P                     ( 2.2 jours, n= 16) │ ██
-APISFiPR2PSandbox              ( 2.7 jours, n= 15) │ ██
-APIMobilic                     ( 3.0 jours, n=  4) │ ██
-APIR2P                         ( 3.9 jours, n= 31) │ ███
-ProConnectServiceProvider      ( 4.3 jours, n= 75) │ ███
-APISFiPSandbox                 ( 5.9 jours, n=  9) │ █████
-APIParticulier                 ( 6.8 jours, n=457) │ █████
-APIScolarite                   ( 7.0 jours, n=  1) │ █████
-APIEntreprise                  (10.1 jours, n=120) │ ████████
-FormulaireQF                   (10.3 jours, n= 59) │ ████████
-APIDeclarationAutoEntrepreneur (24.6 jours, n= 15) │ ███████████████████
-APIRialSandbox                 (32.1 jours, n=  1) │ █████████████████████████
-APIDeclarationCESU             (64.1 jours, n= 25) │ ██████████████████████████████████████████████████
-
-Total : 3053 demandes
-Échelle : chaque █ représente 1.3 jours
-```
-
-
-## Durée de première instruction par jour de 18/06/2025 - 19/01/2026:
+## Durée de soumission par minute de 2025:
 
 ```
   <1 (   0) │ 
-   1 (1458) │ ██████████████████████████████████████████████████
-   2 ( 291) │ ██████████
-   3 ( 189) │ ██████
-   4 ( 164) │ ██████
-   5 ( 140) │ █████
-   6 (  98) │ ███
-   7 (  96) │ ███
-   8 (  67) │ ██
-   9 (  56) │ ██
-  10 (  27) │ █
-  11 (  33) │ █
-  12 (  50) │ ██
-  13 (  46) │ ██
-  14 (  35) │ █
-  15 (  40) │ █
-  16 (  18) │ █
-  17 (  23) │ █
-  18 (  14) │ 
-  19 (  16) │ █
-  20 (  14) │ 
-  21 (  16) │ █
-  22 (  22) │ █
-  23 (   9) │ 
-  24 (  12) │ 
-  25 (   4) │ 
-  26 (   6) │ 
-  27 (   6) │ 
-  28 (   5) │ 
-  29 (   3) │ 
-  30 (   1) │ 
-> 30 (  94) │ ███
+   1 (1070) │ ██████████████████████████████████████████████████
+   2 ( 168) │ ████████
+   3 ( 172) │ ████████
+   4 ( 138) │ ██████
+   5 ( 156) │ ███████
+   6 (  92) │ ████
+   7 ( 122) │ ██████
+   8 (  89) │ ████
+   9 (  86) │ ████
+  10 (  63) │ ███
+  11 (  63) │ ███
+  12 (  58) │ ███
+  13 (  47) │ ██
+  14 (  38) │ ██
+  15 (  40) │ ██
+  16 (  28) │ █
+  17 (  29) │ █
+  18 (  16) │ █
+  19 (  24) │ █
+  20 (  15) │ █
+  21 (  23) │ █
+  22 (  17) │ █
+  23 (   7) │ 
+  24 (  13) │ █
+  25 (  14) │ █
+  26 (  13) │ █
+  27 (  15) │ █
+  28 (   4) │ 
+  29 (   8) │ 
+  30 (  11) │ █
+  31 (   7) │ 
+  32 (   7) │ 
+  33 (   3) │ 
+  34 (  11) │ █
+  35 (  10) │ 
+  36 (   6) │ 
+  37 (   4) │ 
+  38 (   4) │ 
+  39 (   6) │ 
+  40 (   4) │ 
+  41 (   2) │ 
+  42 (   6) │ 
+  43 (   4) │ 
+  44 (   5) │ 
+  45 (   1) │ 
+  46 (   0) │ 
+  47 (   4) │ 
+  48 (   5) │ 
+  49 (   1) │ 
+  50 (   6) │ 
+  51 (   1) │ 
+  52 (   1) │ 
+  53 (   0) │ 
+  54 (   1) │ 
+  55 (   5) │ 
+  56 (   6) │ 
+  57 (   3) │ 
+  58 (   5) │ 
+  59 (   4) │ 
+  60 (   6) │ 
+> 60 ( 580) │ ███████████████████████████
 
-Total : 3053 demandes
-Échelle : chaque █ représente 29.2 demande(s)
+Total : 3347 demandes
+Échelle : chaque █ représente 21.4 demande(s)
+```
+
+
+## Durée médiane de première instruction par type pour 2025:
+
+```
+HubEECertDC                    ( 0.0 jours, n= 971) │ 
+APIFicoba                      ( 0.1 jours, n=   4) │ 
+LeTaxi                         ( 0.6 jours, n=   2) │ 
+APIINFINOESandbox              ( 0.7 jours, n=  75) │ 
+APICaptchEtat                  ( 0.7 jours, n= 113) │ 
+APIR2PSandbox                  ( 0.7 jours, n=  54) │ 
+APIINFINOE                     ( 0.8 jours, n=  22) │ █
+APIImpotParticulier            ( 1.2 jours, n=  64) │ █
+ProConnectIdentityProvider     ( 1.2 jours, n=  19) │ █
+HubEEDila                      ( 1.2 jours, n= 766) │ █
+APIIngres                      ( 1.5 jours, n=   6) │ █
+APIProSanteConnect             ( 1.7 jours, n= 398) │ █
+FranceConnect                  ( 1.7 jours, n=1138) │ █
+APISFiP                        ( 1.8 jours, n=  47) │ █
+APIR2P                         ( 1.8 jours, n=  69) │ █
+AnnuaireDesEntreprises         ( 1.9 jours, n=  83) │ █
+APIImpotParticulierSandbox     ( 2.0 jours, n=  49) │ █
+APISFiPR2P                     ( 2.2 jours, n=  16) │ ██
+APISFiPSandbox                 ( 2.9 jours, n=  38) │ ██
+APIFicobaSandbox               ( 3.0 jours, n=  41) │ ██
+APISFiPR2PSandbox              ( 3.0 jours, n=  14) │ ██
+APIMobilic                     ( 3.0 jours, n=   4) │ ██
+ProConnectServiceProvider      ( 4.0 jours, n= 122) │ ███
+APIParticulier                 ( 6.2 jours, n= 799) │ ████
+APIEntreprise                  ( 6.3 jours, n= 277) │ ████
+APIRial                        ( 6.5 jours, n=   8) │ █████
+FormulaireQF                   ( 6.6 jours, n= 106) │ █████
+APIRialSandbox                 ( 6.8 jours, n=  12) │ █████
+APIDeclarationAutoEntrepreneur (23.8 jours, n=  36) │ █████████████████
+APIScolarite                   (34.6 jours, n=   4) │ █████████████████████████
+APIDeclarationCESU             (70.1 jours, n=  55) │ ██████████████████████████████████████████████████
+
+Total : 5412 demandes
+Échelle : chaque █ représente 1.4 jours
+```
+
+
+## Durée de première instruction par jour de 2025:
+
+```
+  <1 (   0) │ 
+   1 (2363) │ ██████████████████████████████████████████████████
+   2 ( 602) │ █████████████
+   3 ( 325) │ ███████
+   4 ( 314) │ ███████
+   5 ( 262) │ ██████
+   6 ( 187) │ ████
+   7 ( 185) │ ████
+   8 ( 137) │ ███
+   9 ( 104) │ ██
+  10 (  62) │ █
+  11 (  64) │ █
+  12 (  78) │ ██
+  13 (  74) │ ██
+  14 (  58) │ █
+  15 (  66) │ █
+  16 (  39) │ █
+  17 (  28) │ █
+  18 (  25) │ █
+  19 (  32) │ █
+  20 (  34) │ █
+  21 (  27) │ █
+  22 (  33) │ █
+  23 (  12) │ 
+  24 (  19) │ 
+  25 (  10) │ 
+  26 (   8) │ 
+  27 (  16) │ 
+  28 (  11) │ 
+  29 (   6) │ 
+  30 (   6) │ 
+> 30 ( 225) │ █████
+
+Total : 5412 demandes
+Échelle : chaque █ représente 47.3 demande(s)
+```
+
+ 
+# 📊 Rapport de 2024:
+
+## Volume
+- 5697 demandes créées
+- 688 réouvertures
+## Durée d'une soumission
+(Entre la création d'une demande et sa première soumission)
+- Durée moyenne d'une soumission: environ un mois
+- Durée médiane d'une soumission: moins d'une minute
+- Durée de soumission la plus fréquente: 1 minute
+- Écart-type des durées de soumission: 4 mois
+## Durée de première instruction
+(Entre une soumission et la première instruction qui suit)
+- Durée moyenne d'une instruction: 12 jours
+- Durée médiane d'une instruction: 1 jour
+- Durée d'instruction la plus fréquente: 1 jour
+- Écart-type des durées d'instruction: environ 2 mois
+
+
+## Volume de demandes par type pour 2024:
+
+```
+HubEECertDC                    (1145) │ ██████████████████████████████████████████████████
+APIParticulier                 ( 845) │ █████████████████████████████████████
+FranceConnect                  ( 796) │ ███████████████████████████████████
+APIINFINOESandbox              ( 664) │ █████████████████████████████
+HubEEDila                      ( 539) │ ████████████████████████
+APIEntreprise                  ( 425) │ ███████████████████
+APIProSanteConnect             ( 405) │ ██████████████████
+APIDeclarationCESU             ( 142) │ ██████
+APIINFINOE                     ( 102) │ ████
+APICaptchEtat                  ( 101) │ ████
+APIDeclarationAutoEntrepreneur ( 101) │ ████
+ProConnectServiceProvider      (  98) │ ████
+APIImpotParticulierSandbox     (  85) │ ████
+APIR2PSandbox                  (  62) │ ███
+APIFicobaSandbox               (  29) │ █
+ProConnectIdentityProvider     (  26) │ █
+APIImpotParticulier            (  24) │ █
+LeTaxi                         (  23) │ █
+APIR2P                         (  22) │ █
+APISFiPSandbox                 (  21) │ █
+APIIngres                      (  10) │ 
+APIScolarite                   (  10) │ 
+APIFicoba                      (   6) │ 
+FormulaireQF                   (   5) │ 
+APIDroitsCNAM                  (   4) │ 
+APISFiP                        (   3) │ 
+APIImprimfipSandbox            (   2) │ 
+APIRialSandbox                 (   1) │ 
+APICprProAdelieSandbox         (   1) │ 
+
+Total : 5697 demandes
+Échelle : chaque █ représente 22.9 demande(s)
+```
+
+
+## Volume de demandes par type (validées vs refusées) pour 2024:
+
+```
+HubEECertDC                    (989:  97.0%V   3.0%R) │ ████████████████████████████████████████████████▓▓
+APIINFINOESandbox              (612:  76.6%V  23.4%R) │ ████████████████████████▓▓▓▓▓▓▓
+FranceConnect                  (509:  68.2%V  31.8%R) │ ██████████████████▓▓▓▓▓▓▓▓
+APIParticulier                 (497:  90.3%V   9.7%R) │ ███████████████████████▓▓
+HubEEDila                      (367:  95.1%V   4.9%R) │ ██████████████████▓
+APIProSanteConnect             (318:  76.4%V  23.6%R) │ ████████████▓▓▓▓
+APIEntreprise                  (165:  70.3%V  29.7%R) │ ██████▓▓
+APIDeclarationCESU             ( 93:  15.1%V  84.9%R) │ █▓▓▓▓
+APICaptchEtat                  ( 78: 100.0%V   0.0%R) │ ████
+ProConnectServiceProvider      ( 51:  96.1%V   3.9%R) │ ██
+APIImpotParticulierSandbox     ( 51:  45.1%V  54.9%R) │ █▓
+APIDeclarationAutoEntrepreneur ( 46:  10.9%V  89.1%R) │ ▓▓
+APIR2PSandbox                  ( 43:  48.8%V  51.2%R) │ █▓
+APIImpotParticulier            ( 19:  89.5%V  10.5%R) │ █
+ProConnectIdentityProvider     ( 16:  93.8%V   6.3%R) │ █
+APIFicobaSandbox               ( 15:  46.7%V  53.3%R) │ 
+APISFiPSandbox                 ( 14:  57.1%V  42.9%R) │ 
+APIR2P                         ( 13:  84.6%V  15.4%R) │ █
+LeTaxi                         ( 12: 100.0%V   0.0%R) │ █
+APIIngres                      (  5:  40.0%V  60.0%R) │ 
+APIScolarite                   (  5: 100.0%V   0.0%R) │ 
+APIINFINOE                     (  5:  20.0%V  80.0%R) │ 
+APIFicoba                      (  2: 100.0%V   0.0%R) │ 
+FormulaireQF                   (  2: 100.0%V   0.0%R) │ 
+APISFiP                        (  1: 100.0%V   0.0%R) │ 
+APICprProAdelieSandbox         (  1:   0.0%V 100.0%R) │ 
+
+Légende : █ = Validées, ▓ = Refusées
+Total : 3205 validées, 724 refusées (3929 total)
+Échelle : chaque caractère représente 19.8 demande(s)
+```
+
+
+## Durée médiane de soumission par type pour 2024:
+
+### Moins d'1 heure:
+```
+HubEECertDC    ( 0.1 minutes, n=996) │ 
+HubEEDila      ( 0.1 minutes, n=384) │ 
+FormulaireQF   ( 2.4 minutes, n=  3) │ ██
+APIParticulier ( 7.3 minutes, n=428) │ ███████
+APIEntreprise  (13.0 minutes, n=177) │ █████████████
+
+Total : 1988 demandes
+```
+
+### 1 heure ou plus:
+```
+APIDeclarationAutoEntrepreneur (163.3 days, n= 1) │ ██████████████
+ProConnectServiceProvider      (292.2 days, n= 1) │ ████████████████████████
+APIImpotParticulierSandbox     (333.2 days, n= 1) │ ████████████████████████████
+APIR2P                         (336.4 days, n= 8) │ ████████████████████████████
+FranceConnect                  (372.8 days, n=71) │ ███████████████████████████████
+APIFicoba                      (394.1 days, n= 1) │ █████████████████████████████████
+APIImpotParticulier            (407.2 days, n= 5) │ ██████████████████████████████████
+APIProSanteConnect             (462.2 days, n= 3) │ ███████████████████████████████████████
+APIINFINOESandbox              (512.3 days, n= 8) │ ███████████████████████████████████████████
+APIINFINOE                     (541.7 days, n=20) │ █████████████████████████████████████████████
+APICaptchEtat                  (550.6 days, n= 2) │ ██████████████████████████████████████████████
+APIR2PSandbox                  (580.9 days, n= 1) │ █████████████████████████████████████████████████
+APIFicobaSandbox               (598.7 days, n= 3) │ ██████████████████████████████████████████████████
+
+Total : 125 demandes
+Échelle : chaque █ représente 287.4 demande(s)
+```
+
+
+## Durée de soumission par minute de 2024:
+
+```
+  <1 (   0) │ 
+   1 (1286) │ ██████████████████████████████████████████████████
+   2 ( 118) │ █████
+   3 (  50) │ ██
+   4 (  39) │ ██
+   5 (  27) │ █
+   6 (  19) │ █
+   7 (  31) │ █
+   8 (  22) │ █
+   9 (  19) │ █
+  10 (   8) │ 
+  11 (  13) │ █
+  12 (  12) │ 
+  13 (  15) │ █
+  14 (  10) │ 
+  15 (   8) │ 
+  16 (   4) │ 
+  17 (   5) │ 
+  18 (  10) │ 
+  19 (   3) │ 
+  20 (   3) │ 
+  21 (   4) │ 
+  22 (   3) │ 
+  23 (   2) │ 
+  24 (   2) │ 
+  25 (   6) │ 
+  26 (   3) │ 
+  27 (   4) │ 
+  28 (   4) │ 
+  29 (   0) │ 
+  30 (   0) │ 
+  31 (   5) │ 
+  32 (   2) │ 
+  33 (   1) │ 
+  34 (   3) │ 
+  35 (   1) │ 
+  36 (   1) │ 
+  37 (   1) │ 
+  38 (   1) │ 
+  39 (   2) │ 
+  40 (   1) │ 
+  41 (   3) │ 
+  42 (   0) │ 
+  43 (   0) │ 
+  44 (   2) │ 
+  45 (   0) │ 
+  46 (   2) │ 
+  47 (   0) │ 
+  48 (   1) │ 
+  49 (   0) │ 
+  50 (   0) │ 
+  51 (   0) │ 
+  52 (   1) │ 
+  53 (   0) │ 
+  54 (   0) │ 
+  55 (   0) │ 
+  56 (   1) │ 
+  57 (   0) │ 
+  58 (   0) │ 
+  59 (   1) │ 
+  60 (   1) │ 
+> 60 ( 353) │ ██████████████
+
+Total : 2113 demandes
+Échelle : chaque █ représente 25.7 demande(s)
+```
+
+
+## Durée médiane de première instruction par type pour 2024:
+
+```
+APIINFINOESandbox              (  0.0 jours, n=1022) │ 
+HubEECertDC                    (  0.2 jours, n=1345) │ 
+APIINFINOE                     (  0.2 jours, n= 272) │ 
+ProConnectServiceProvider      (  0.3 jours, n=  70) │ 
+APIR2PSandbox                  (  0.7 jours, n=  83) │ 
+APIImpotParticulierSandbox     (  0.8 jours, n= 110) │ 
+APIR2P                         (  0.9 jours, n=  92) │ 
+ProConnectIdentityProvider     (  0.9 jours, n=  22) │ 
+APIImpotParticulier            (  1.0 jours, n= 116) │ 
+APICaptchEtat                  (  1.0 jours, n= 139) │ 
+APISFiP                        (  1.3 jours, n=  14) │ █
+HubEEDila                      (  1.7 jours, n= 905) │ █
+APIFicoba                      (  2.5 jours, n=  26) │ █
+APIParticulier                 (  2.9 jours, n=1193) │ █
+FranceConnect                  (  3.6 jours, n= 950) │ ██
+APISFiPSandbox                 (  3.8 jours, n=  46) │ ██
+APIEntreprise                  (  4.0 jours, n= 325) │ ██
+APIFicobaSandbox               (  4.0 jours, n=  35) │ ██
+APIProSanteConnect             (  4.2 jours, n= 444) │ ██
+FormulaireQF                   (  4.5 jours, n=   4) │ ██
+APIIngres                      (  5.9 jours, n=   5) │ ███
+LeTaxi                         ( 13.1 jours, n=  16) │ ██████
+APIScolarite                   ( 21.1 jours, n=   9) │ ██████████
+APIDeclarationAutoEntrepreneur ( 27.4 jours, n=  50) │ █████████████
+APIDeclarationCESU             (101.0 jours, n=  95) │ ██████████████████████████████████████████████
+APICprProAdelieSandbox         (109.0 jours, n=   1) │ ██████████████████████████████████████████████████
+
+Total : 7389 demandes
+Échelle : chaque █ représente 2.2 jours
+```
+
+
+## Durée de première instruction par jour de 2024:
+
+```
+  <1 (   0) │ 
+   1 (3572) │ ██████████████████████████████████████████████████
+   2 ( 735) │ ██████████
+   3 ( 487) │ ███████
+   4 ( 442) │ ██████
+   5 ( 436) │ ██████
+   6 ( 242) │ ███
+   7 ( 227) │ ███
+   8 ( 156) │ ██
+   9 (  65) │ █
+  10 (  62) │ █
+  11 (  65) │ █
+  12 (  61) │ █
+  13 (  40) │ █
+  14 (  46) │ █
+  15 (  54) │ █
+  16 (  25) │ 
+  17 (  32) │ 
+  18 (  23) │ 
+  19 (  28) │ 
+  20 (  26) │ 
+  21 (  32) │ 
+  22 (  18) │ 
+  23 (  14) │ 
+  24 (  10) │ 
+  25 (   6) │ 
+  26 (   6) │ 
+  27 (   4) │ 
+  28 (   8) │ 
+  29 (  13) │ 
+  30 (   9) │ 
+> 30 ( 445) │ ██████
+
+Total : 7389 demandes
+Échelle : chaque █ représente 71.4 demande(s)
 ```
 

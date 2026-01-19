@@ -38,6 +38,8 @@ module Stats
         "_global"
       end
       
+      filename_suffix += "_post_migration_only" if @post_migration_only
+      
       output_dir.join("stats_#{Date.today}#{filename_suffix}.md")
     end
 
