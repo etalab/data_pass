@@ -3,10 +3,10 @@
 ---
 
  
-# 📊 Rapport de 18/06/2025 - 15/01/2026 (fournisseur : dgfip):
+# 📊 Rapport de 18/06/2025 - 19/01/2026 (fournisseur : dgfip):
 
 ## Volume
-- 345 demandes créées
+- 346 demandes créées
 - 121 réouvertures
 ## Durée d'une soumission
 (Entre la création d'une demande et sa première soumission)
@@ -20,14 +20,20 @@
 - Durée médiane d'une instruction: 1 jour
 - Durée d'instruction la plus fréquente: 1 jour
 - Écart-type des durées d'instruction: 16 jours
+## Durée d'instruction production
+(Entre le premier événement start_next_stage et la première instruction qui suit)
+- Durée moyenne d'une instruction production: 28 jours
+- Durée médiane d'une instruction production: 7 jours
+- Durée d'instruction production la plus fréquente: 1 jour
+- Écart-type des durées d'instruction production: environ un mois
 
 
-## Volume de demandes par type pour 18/06/2025 - 15/01/2026 (fournisseur : dgfip):
+## Volume de demandes par type pour 18/06/2025 - 19/01/2026 (fournisseur : dgfip):
 
 ```
 APIR2P                     (61) │ ██████████████████████████████████████████████████
 APIImpotParticulier        (52) │ ███████████████████████████████████████████
-APIFicobaSandbox           (43) │ ███████████████████████████████████
+APIFicobaSandbox           (44) │ ████████████████████████████████████
 APISFiPR2P                 (40) │ █████████████████████████████████
 APISFiPR2PSandbox          (29) │ ████████████████████████
 APIR2PSandbox              (28) │ ███████████████████████
@@ -40,12 +46,12 @@ APIFicoba                  ( 7) │ ██████
 APIRialSandbox             ( 3) │ ██
 APIImprimfipSandbox        ( 1) │ █
 
-Total : 345 demandes
+Total : 346 demandes
 Échelle : chaque █ représente 1.2 demande(s)
 ```
 
 
-## Volume de demandes par type (validées vs refusées) pour 18/06/2025 - 15/01/2026 (fournisseur : dgfip):
+## Volume de demandes par type (validées vs refusées) pour 18/06/2025 - 19/01/2026 (fournisseur : dgfip):
 
 ```
 APIFicobaSandbox           (15:   0.0%V 100.0%R) │ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
@@ -66,7 +72,7 @@ Total : 44 validées, 49 refusées (93 total)
 ```
 
 
-## Durée médiane de soumission par type pour 18/06/2025 - 15/01/2026 (fournisseur : dgfip):
+## Durée médiane de soumission par type pour 18/06/2025 - 19/01/2026 (fournisseur : dgfip):
 
 ### Moins d'1 heure:
 ```
@@ -95,7 +101,7 @@ Total : 39 demandes
 ```
 
 
-## Durée de soumission par minute de 18/06/2025 - 15/01/2026 (fournisseur : dgfip):
+## Durée de soumission par minute de 18/06/2025 - 19/01/2026 (fournisseur : dgfip):
 
 ```
   <1 ( 0) │ 
@@ -165,7 +171,7 @@ Total : 142 demandes
 ```
 
 
-## Durée médiane d'instruction par type pour 18/06/2025 - 15/01/2026 (fournisseur : dgfip):
+## Durée médiane d'instruction par type pour 18/06/2025 - 19/01/2026 (fournisseur : dgfip):
 
 ```
 APIFicoba                  ( 0.1 jours, n= 1) │ 
@@ -186,7 +192,7 @@ Total : 197 demandes
 ```
 
 
-## Durée d'instruction par jour de 18/06/2025 - 15/01/2026 (fournisseur : dgfip):
+## Durée d'instruction par jour de 18/06/2025 - 19/01/2026 (fournisseur : dgfip):
 
 ```
   <1 ( 0) │ 
@@ -224,5 +230,59 @@ Total : 197 demandes
 
 Total : 197 demandes
 Échelle : chaque █ représente 1.7 demande(s)
+```
+
+
+## Durée médiane d'instruction production par type pour 18/06/2025 - 19/01/2026 (fournisseur : dgfip):
+
+```
+APIINFINOE          ( 1.8 jours, n= 5) │ ██
+APIFicoba           ( 1.9 jours, n= 4) │ ██
+APIImpotParticulier ( 3.0 jours, n=23) │ ███
+APIR2P              (10.9 jours, n=11) │ ███████████
+APISFiP             (51.9 jours, n= 8) │ ██████████████████████████████████████████████████
+
+Total : 51 demandes
+Échelle : chaque █ représente 1.0 jours
+```
+
+
+## Durée d'instruction production par jour de 18/06/2025 - 19/01/2026 (fournisseur : dgfip):
+
+```
+  <1 ( 0) │ 
+   1 (13) │ █████████████
+   2 ( 6) │ ██████
+   3 ( 2) │ ██
+   4 ( 1) │ █
+   5 ( 0) │ 
+   6 ( 2) │ ██
+   7 ( 3) │ ███
+   8 ( 0) │ 
+   9 ( 0) │ 
+  10 ( 0) │ 
+  11 ( 1) │ █
+  12 ( 0) │ 
+  13 ( 0) │ 
+  14 ( 0) │ 
+  15 ( 1) │ █
+  16 ( 0) │ 
+  17 ( 0) │ 
+  18 ( 0) │ 
+  19 ( 3) │ ███
+  20 ( 0) │ 
+  21 ( 0) │ 
+  22 ( 0) │ 
+  23 ( 0) │ 
+  24 ( 0) │ 
+  25 ( 1) │ █
+  26 ( 1) │ █
+  27 ( 1) │ █
+  28 ( 1) │ █
+  29 ( 1) │ █
+  30 ( 0) │ 
+> 30 (14) │ ██████████████
+
+Total : 51 demandes
 ```
 

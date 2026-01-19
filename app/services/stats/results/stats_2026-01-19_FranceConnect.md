@@ -3,7 +3,7 @@
 ---
 
  
-# 📊 Rapport de 18/06/2025 - 15/01/2026 (types par : FranceConnect):
+# 📊 Rapport de 18/06/2025 - 19/01/2026 (types par : FranceConnect):
 
 ## Volume
 - 599 demandes créées
@@ -22,7 +22,7 @@
 - Écart-type des durées d'instruction: 6 jours
 
 
-## Volume de demandes par type pour 18/06/2025 - 15/01/2026 (types par : FranceConnect):
+## Volume de demandes par type pour 18/06/2025 - 19/01/2026 (types par : FranceConnect):
 
 ```
 FranceConnect (599) │ ██████████████████████████████████████████████████
@@ -32,7 +32,7 @@ Total : 599 demandes
 ```
 
 
-## Volume de demandes par type (validées vs refusées) pour 18/06/2025 - 15/01/2026 (types par : FranceConnect):
+## Volume de demandes par type (validées vs refusées) pour 18/06/2025 - 19/01/2026 (types par : FranceConnect):
 
 ```
 FranceConnect (386:  76.2%V  23.8%R) │ ██████████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓
@@ -43,7 +43,7 @@ Total : 294 validées, 92 refusées (386 total)
 ```
 
 
-## Durée médiane de soumission par type pour 18/06/2025 - 15/01/2026 (types par : FranceConnect):
+## Durée médiane de soumission par type pour 18/06/2025 - 19/01/2026 (types par : FranceConnect):
 
 ### Moins d'1 heure:
 ```
@@ -53,7 +53,7 @@ Total : 442 demandes
 ```
 
 
-## Durée de soumission par minute de 18/06/2025 - 15/01/2026 (types par : FranceConnect):
+## Durée de soumission par minute de 18/06/2025 - 19/01/2026 (types par : FranceConnect):
 
 ```
   <1 ( 0) │ 
@@ -124,7 +124,7 @@ Total : 442 demandes
 ```
 
 
-## Durée médiane d'instruction par type pour 18/06/2025 - 15/01/2026 (types par : FranceConnect):
+## Durée médiane d'instruction par type pour 18/06/2025 - 19/01/2026 (types par : FranceConnect):
 
 ```
 FranceConnect (1.1 jours, n=677) │ █
@@ -133,7 +133,7 @@ Total : 677 demandes
 ```
 
 
-## Durée d'instruction par jour de 18/06/2025 - 15/01/2026 (types par : FranceConnect):
+## Durée d'instruction par jour de 18/06/2025 - 19/01/2026 (types par : FranceConnect):
 
 ```
   <1 (  0) │ 

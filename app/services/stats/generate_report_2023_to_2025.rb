@@ -77,6 +77,13 @@ module Stats
         puts "\n"
         report.print_time_to_first_instruction_by_duration(step: :day)
         puts "\n"
+        
+        if report.dgfip_report?
+          report.print_median_time_to_production_instruction_by_type
+          puts "\n"
+          report.print_time_to_production_instruction_by_duration(step: :day)
+          puts "\n"
+        end
       end
 
       # Restore stdout

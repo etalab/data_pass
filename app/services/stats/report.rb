@@ -13,6 +13,9 @@ module Stats
 
       @authorization_requests_with_reopen_in_range = authorization_requests_with_reopen_events_in_range
       @reopen_aggregator = Stats::Aggregator.new(@authorization_requests_with_reopen_in_range)
+
+      @authorization_requests_with_start_next_stage_in_range = authorization_requests_with_start_next_stage_events_in_range
+      @production_aggregator = Stats::Aggregator.new(@authorization_requests_with_start_next_stage_in_range)
     end
 
     def print_report
@@ -26,6 +29,13 @@ module Stats
       result += "## Durée d'instruction\n"
       result += "(Entre une soumission et la première instruction qui suit)\n"
       result += "- #{average_time_to_first_instruction}\n- #{median_time_to_first_instruction}\n- #{mode_time_to_first_instruction}\n- #{stddev_time_to_first_instruction}\n"
+      
+      if dgfip_report?
+        result += "## Durée d'instruction production\n"
+        result += "(Entre le premier événement start_next_stage et la première instruction qui suit)\n"
+        result += "- #{average_time_to_production_instruction}\n- #{median_time_to_production_instruction}\n- #{mode_time_to_production_instruction}\n- #{stddev_time_to_production_instruction}\n"
+      end
+      
       puts result
     end
 
@@ -67,6 +77,26 @@ module Stats
 
     def mode_time_to_first_instruction
       format_metric('Durée d\'instruction la plus fréquente', @create_aggregator.mode_time_to_first_instruction)
+    end
+
+    def average_time_to_production_instruction
+      format_metric('Durée moyenne d\'une instruction production', @production_aggregator.average_time_to_production_instruction)
+    end
+
+    def median_time_to_production_instruction
+      format_metric('Durée médiane d\'une instruction production', @production_aggregator.median_time_to_production_instruction)
+    end
+
+    def stddev_time_to_production_instruction
+      format_metric('Écart-type des durées d\'instruction production', @production_aggregator.stddev_time_to_production_instruction)
+    end
+
+    def mode_time_to_production_instruction
+      format_metric('Durée d\'instruction production la plus fréquente', @production_aggregator.mode_time_to_production_instruction)
+    end
+
+    def dgfip_report?
+      @provider == 'dgfip'
     end
 
     def print_time_to_submit_by_type_table
@@ -156,6 +186,28 @@ module Stats
       puts "```"
       puts format_time_bar_chart(buckets, 'jours')
       puts "```"
+    end
+
+    def print_median_time_to_production_instruction_by_type
+      return unless dgfip_report?
+      
+      data = @production_aggregator.median_time_to_production_instruction_by_type
+      return puts "\nAucune donnée disponible pour la durée médiane d'instruction production par type." if data.empty?
+
+      puts "\n## Durée médiane d'instruction production par type pour #{human_readable_date_range}#{type_filter_label}:\n\n"
+      
+      buckets = data.map { |item| transform_time_bucket(item, 86400.0) }
+      
+      puts "```"
+      puts format_time_bar_chart(buckets, 'jours')
+      puts "```"
+    end
+
+    def print_time_to_production_instruction_by_duration(step: :day)
+      return unless dgfip_report?
+      
+      buckets = @production_aggregator.time_to_production_instruction_by_duration_buckets(step: step)
+      print_chart_with_title(buckets, "Durée d'instruction production par #{step_label_text(step)}", preposition: 'de')
     end
 
     private
@@ -302,6 +354,16 @@ module Stats
 
       authorization_requests_with_type
         .where(id: reopen_events_subquery)
+    end
+
+    def authorization_requests_with_start_next_stage_events_in_range
+      start_next_stage_events_subquery = AuthorizationRequestEvent
+        .where(name: 'start_next_stage')
+        .where(created_at: @date_range)
+        .select('DISTINCT authorization_request_id')
+
+      authorization_requests_with_type
+        .where(id: start_next_stage_events_subquery)
     end
 
   def authorization_requests_with_type

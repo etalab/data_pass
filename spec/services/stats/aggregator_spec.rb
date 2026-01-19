@@ -1318,4 +1318,305 @@ RSpec.describe Stats::Aggregator, type: :service do
       end
     end
   end
+
+  describe '#average_time_to_production_instruction' do
+    let(:base_time) { Time.zone.parse('2025-07-01 10:00:00') }
+    let!(:user) { create(:user) }
+    let!(:organization) { create(:organization) }
+    
+    before do
+      user.add_to_organization(organization, current: true)
+    end
+
+    let!(:ar1) do
+      create(:authorization_request, :api_impot_particulier, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :start_next_stage, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :approve, authorization_request: ar, user: user, created_at: base_time + 2.days)
+      end
+    end
+
+    let!(:ar2) do
+      create(:authorization_request, :api_r2p_production, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :start_next_stage, authorization_request: ar, user: user, created_at: base_time + 1.day)
+        create(:authorization_request_event, :refuse, authorization_request: ar, user: user, created_at: base_time + 1.day + 5.days)
+      end
+    end
+
+    let(:authorization_requests) { AuthorizationRequest.where(id: [ar1.id, ar2.id]) }
+    subject { described_class.new(authorization_requests) }
+
+    it 'returns average time from start_next_stage to first instruction' do
+      avg_time = subject.average_time_to_production_instruction
+      
+      # ar1: 2 days = 172800 seconds
+      # ar2: 5 days = 432000 seconds
+      # Average: (172800 + 432000) / 2 = 302400 seconds
+      expect(avg_time).to be_within(1).of(302400)
+    end
+  end
+
+  describe '#median_time_to_production_instruction' do
+    let(:base_time) { Time.zone.parse('2025-07-01 10:00:00') }
+    let!(:user) { create(:user) }
+    let!(:organization) { create(:organization) }
+    
+    before do
+      user.add_to_organization(organization, current: true)
+    end
+
+    let!(:ar1) do
+      create(:authorization_request, :api_impot_particulier, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :start_next_stage, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :approve, authorization_request: ar, user: user, created_at: base_time + 1.day)
+      end
+    end
+
+    let!(:ar2) do
+      create(:authorization_request, :api_r2p_production, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :start_next_stage, authorization_request: ar, user: user, created_at: base_time + 1.day)
+        create(:authorization_request_event, :refuse, authorization_request: ar, user: user, created_at: base_time + 1.day + 3.days)
+      end
+    end
+
+    let(:authorization_requests) { AuthorizationRequest.where(id: [ar1.id, ar2.id]) }
+    subject { described_class.new(authorization_requests) }
+
+    it 'returns median time from start_next_stage to first instruction' do
+      median_time = subject.median_time_to_production_instruction
+      
+      # ar1: 1 day = 86400 seconds
+      # ar2: 3 days = 259200 seconds
+      # Median of 2 values: (86400 + 259200) / 2 = 172800 seconds
+      expect(median_time).to be_within(1).of(172800)
+    end
+  end
+
+  describe '#stddev_time_to_production_instruction' do
+    let(:base_time) { Time.zone.parse('2025-07-01 10:00:00') }
+    let!(:user) { create(:user) }
+    let!(:organization) { create(:organization) }
+    
+    before do
+      user.add_to_organization(organization, current: true)
+    end
+
+    let!(:ar1) do
+      create(:authorization_request, :api_impot_particulier, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :start_next_stage, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :approve, authorization_request: ar, user: user, created_at: base_time + 1.day)
+      end
+    end
+
+    let!(:ar2) do
+      create(:authorization_request, :api_r2p_production, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :start_next_stage, authorization_request: ar, user: user, created_at: base_time + 1.day)
+        create(:authorization_request_event, :refuse, authorization_request: ar, user: user, created_at: base_time + 1.day + 5.days)
+      end
+    end
+
+    let(:authorization_requests) { AuthorizationRequest.where(id: [ar1.id, ar2.id]) }
+    subject { described_class.new(authorization_requests) }
+
+    it 'returns standard deviation of time to production instruction' do
+      stddev_time = subject.stddev_time_to_production_instruction
+      
+      # ar1: 86400 seconds
+      # ar2: 432000 seconds
+      # Mean: 259200
+      # Variance: ((86400-259200)^2 + (432000-259200)^2) / 2 = (29859840000 + 29859840000) / 2 = 29859840000
+      # StdDev: sqrt(29859840000) ≈ 172800 seconds
+      expect(stddev_time).to be_within(1000).of(172800)
+    end
+  end
+
+  describe '#mode_time_to_production_instruction' do
+    let(:base_time_mode) { Time.zone.parse('2025-07-15 10:00:00') }
+    let!(:user_mode) { create(:user) }
+    let!(:organization_mode) { create(:organization) }
+    
+    before do
+      user_mode.add_to_organization(organization_mode, current: true)
+    end
+
+    let!(:ar_mode_1) do
+      create(:authorization_request, :api_impot_particulier, applicant: user_mode, organization: organization_mode, created_at: base_time_mode).tap do |ar|
+        create(:authorization_request_event, :start_next_stage, authorization_request: ar, user: user_mode, created_at: base_time_mode)
+        create(:authorization_request_event, :approve, authorization_request: ar, user: user_mode, created_at: base_time_mode + 1.day + 2.hours)
+      end
+    end
+
+    let!(:ar_mode_2) do
+      create(:authorization_request, :api_r2p_production, applicant: user_mode, organization: organization_mode, created_at: base_time_mode).tap do |ar|
+        create(:authorization_request_event, :start_next_stage, authorization_request: ar, user: user_mode, created_at: base_time_mode)
+        create(:authorization_request_event, :approve, authorization_request: ar, user: user_mode, created_at: base_time_mode + 1.day + 3.hours)
+      end
+    end
+
+    let!(:ar_mode_3) do
+      create(:authorization_request, :api_sfip_production, applicant: user_mode, organization: organization_mode, created_at: base_time_mode).tap do |ar|
+        create(:authorization_request_event, :start_next_stage, authorization_request: ar, user: user_mode, created_at: base_time_mode)
+        create(:authorization_request_event, :request_changes, authorization_request: ar, user: user_mode, created_at: base_time_mode + 5.days)
+      end
+    end
+
+    let(:mode_authorization_requests) { AuthorizationRequest.where(id: [ar_mode_1.id, ar_mode_2.id, ar_mode_3.id]) }
+    subject { described_class.new(mode_authorization_requests) }
+
+    it 'returns the most frequent time to production instruction (rounded up to nearest day)' do
+      mode_time = subject.mode_time_to_production_instruction
+      
+      # ar_mode_1: 1 day + 2 hours = 93600 seconds, ceils to 2 days (172800 seconds)
+      # ar_mode_2: 1 day + 3 hours = 97200 seconds, ceils to 2 days (172800 seconds)
+      # ar_mode_3: 5 days = 432000 seconds, ceils to 5 days (432000 seconds)
+      # Most frequent is 2 days (172800 seconds)
+      expect(mode_time).to eq(172800.0)
+    end
+  end
+
+  describe '#median_time_to_production_instruction_by_type' do
+    let(:base_time) { Time.zone.parse('2025-08-01 10:00:00') }
+    let!(:user) { create(:user) }
+    let!(:organization) { create(:organization) }
+    
+    before do
+      user.add_to_organization(organization, current: true)
+    end
+
+    let!(:ar1) do
+      create(:authorization_request, :api_impot_particulier, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :start_next_stage, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :approve, authorization_request: ar, user: user, created_at: base_time + 2.days)
+      end
+    end
+
+    let!(:ar2) do
+      create(:authorization_request, :api_impot_particulier, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :start_next_stage, authorization_request: ar, user: user, created_at: base_time + 1.day)
+        create(:authorization_request_event, :refuse, authorization_request: ar, user: user, created_at: base_time + 1.day + 4.days)
+      end
+    end
+
+    let!(:ar3) do
+      create(:authorization_request, :api_r2p_production, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :start_next_stage, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :approve, authorization_request: ar, user: user, created_at: base_time + 10.days)
+      end
+    end
+
+    let(:authorization_requests) { AuthorizationRequest.where(id: [ar1.id, ar2.id, ar3.id]) }
+    subject { described_class.new(authorization_requests) }
+
+    it 'returns median time grouped by type' do
+      result = subject.median_time_to_production_instruction_by_type
+      
+      expect(result).to be_an(Array)
+      expect(result.length).to eq(2)
+      
+      # Find the types
+      api_impot = result.find { |r| r[:type].include?('APIImpotParticulier') }
+      api_r2p = result.find { |r| r[:type].include?('APIR2P') }
+      
+      expect(api_impot).to be_present
+      expect(api_r2p).to be_present
+      
+      # APIImpotParticulier: 2 days and 4 days, median = 3 days
+      expect(api_impot[:median_time]).to be_within(100).of(259200) # 3 days in seconds
+      expect(api_impot[:count]).to eq(2)
+      
+      # APIR2P: 10 days
+      expect(api_r2p[:median_time]).to be_within(100).of(864000) # 10 days in seconds
+      expect(api_r2p[:count]).to eq(1)
+    end
+  end
+
+  describe '#time_to_production_instruction_by_duration_buckets' do
+    let(:base_time) { Time.zone.parse('2025-08-15 10:00:00') }
+    let!(:user) { create(:user) }
+    let!(:organization) { create(:organization) }
+    
+    before do
+      user.add_to_organization(organization, current: true)
+    end
+
+    let!(:ar_1_day) do
+      create(:authorization_request, :api_impot_particulier, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :start_next_stage, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :approve, authorization_request: ar, user: user, created_at: base_time + 1.day)
+      end
+    end
+
+    let!(:ar_3_days) do
+      create(:authorization_request, :api_r2p_production, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :start_next_stage, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :refuse, authorization_request: ar, user: user, created_at: base_time + 3.days)
+      end
+    end
+
+    let!(:ar_7_days) do
+      create(:authorization_request, :api_sfip_production, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :start_next_stage, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :request_changes, authorization_request: ar, user: user, created_at: base_time + 7.days)
+      end
+    end
+
+    let(:authorization_requests) { AuthorizationRequest.where(id: [ar_1_day.id, ar_3_days.id, ar_7_days.id]) }
+    subject { described_class.new(authorization_requests) }
+
+    context 'with step: :day' do
+      it 'returns buckets grouped by days' do
+        buckets = subject.time_to_production_instruction_by_duration_buckets(step: :day)
+        
+        expect(buckets).to be_an(Array)
+        expect(buckets.first[:bucket]).to eq('<1')
+        expect(buckets.last[:bucket]).to eq('> 30')
+        
+        # Should have 32 buckets: <1, 1-30, > 30
+        expect(buckets.size).to eq(32)
+      end
+
+      it 'distributes values correctly' do
+        buckets = subject.time_to_production_instruction_by_duration_buckets(step: :day)
+        
+        total = buckets.sum { |b| b[:count] }
+        expect(total).to eq(3)
+        
+        # Check that day 1 has 1, day 3 has 1, day 7 has 1
+        day_1 = buckets.find { |b| b[:bucket] == '1' }
+        day_3 = buckets.find { |b| b[:bucket] == '3' }
+        day_7 = buckets.find { |b| b[:bucket] == '7' }
+        
+        expect(day_1[:count]).to eq(1)
+        expect(day_3[:count]).to eq(1)
+        expect(day_7[:count]).to eq(1)
+      end
+    end
+
+    context 'with no authorization requests with production instruction events' do
+      subject { described_class.new(AuthorizationRequest.none) }
+
+      it 'returns empty array' do
+        buckets = subject.time_to_production_instruction_by_duration_buckets(step: :day)
+        expect(buckets).to eq([])
+      end
+    end
+
+    context 'with authorization request without instruction event after start_next_stage' do
+      let!(:ar_no_instruction) do
+        create(:authorization_request, :api_impot_particulier, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+          create(:authorization_request_event, :start_next_stage, authorization_request: ar, user: user, created_at: base_time)
+          # No instruction event
+        end
+      end
+
+      let(:authorization_requests_with_no_instruction) { AuthorizationRequest.where(id: [ar_1_day.id, ar_no_instruction.id]) }
+      subject { described_class.new(authorization_requests_with_no_instruction) }
+
+      it 'excludes authorization requests without instruction events' do
+        buckets = subject.time_to_production_instruction_by_duration_buckets(step: :day)
+        
+        total = buckets.sum { |b| b[:count] }
+        expect(total).to eq(1) # Only ar_1_day should be counted
+      end
+    end
+  end
 end

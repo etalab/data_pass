@@ -1290,6 +1290,183 @@ RSpec.describe Stats::Report, type: :service do
     end
   end
 
+  describe 'production instruction metrics for dgfip reports' do
+    let(:base_time) { Time.zone.parse('2025-07-01 10:00:00') }
+    let!(:user) { create(:user) }
+    let!(:organization) { create(:organization) }
+    
+    let!(:data_provider) { create(:data_provider, slug: 'dgfip', name: 'DGFiP') }
+    
+    before do
+      user.add_to_organization(organization, current: true)
+      
+      allow(DataProvider).to receive(:friendly).and_return(DataProvider)
+      allow(DataProvider).to receive(:find).with('dgfip').and_return(data_provider)
+      
+      # Mock authorization definitions for dgfip provider
+      api_impot_def = instance_double(AuthorizationDefinition, authorization_request_class_as_string: 'AuthorizationRequest::APIImpotParticulier')
+      api_r2p_def = instance_double(AuthorizationDefinition, authorization_request_class_as_string: 'AuthorizationRequest::APIR2P')
+      
+      allow(data_provider).to receive(:authorization_definitions).and_return([api_impot_def, api_r2p_def])
+    end
+
+    let!(:ar1) do
+      create(:authorization_request, :api_impot_particulier, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :start_next_stage, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :approve, authorization_request: ar, user: user, created_at: base_time + 2.days)
+      end
+    end
+
+    let!(:ar2) do
+      create(:authorization_request, :api_r2p_production, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :start_next_stage, authorization_request: ar, user: user, created_at: base_time + 1.day)
+        create(:authorization_request_event, :refuse, authorization_request: ar, user: user, created_at: base_time + 1.day + 5.days)
+      end
+    end
+
+    subject { described_class.new(date_input: 2025, provider: 'dgfip') }
+
+    describe '#print_report' do
+      it 'includes production instruction metrics for dgfip reports' do
+        output = capture_stdout { subject.print_report }
+        
+        expect(output).to include('Durée d\'instruction production')
+        expect(output).to include('Durée moyenne d\'une instruction production')
+        expect(output).to include('Durée médiane d\'une instruction production')
+        expect(output).to include('Durée d\'instruction production la plus fréquente')
+        expect(output).to include('Écart-type des durées d\'instruction production')
+      end
+
+      it 'does not include production instruction metrics for non-dgfip reports' do
+        dinum_provider = create(:data_provider, slug: 'dinum', name: 'DINUM')
+        allow(DataProvider).to receive(:find).with('dinum').and_return(dinum_provider)
+        api_entreprise_def = instance_double(AuthorizationDefinition, authorization_request_class_as_string: 'AuthorizationRequest::APIEntreprise')
+        allow(dinum_provider).to receive(:authorization_definitions).and_return([api_entreprise_def])
+        
+        non_dgfip_report = described_class.new(date_input: 2025, provider: 'dinum')
+        output = capture_stdout { non_dgfip_report.print_report }
+        
+        expect(output).not_to include('Durée d\'instruction production')
+      end
+    end
+
+    describe '#average_time_to_production_instruction' do
+      it 'returns a formatted string with the average time' do
+        expect(subject.average_time_to_production_instruction).to match(/Durée moyenne d'une instruction production: .+/)
+      end
+    end
+
+    describe '#median_time_to_production_instruction' do
+      it 'returns a formatted string with the median time' do
+        expect(subject.median_time_to_production_instruction).to match(/Durée médiane d'une instruction production: .+/)
+      end
+    end
+
+    describe '#stddev_time_to_production_instruction' do
+      it 'returns a formatted string with the standard deviation' do
+        expect(subject.stddev_time_to_production_instruction).to match(/Écart-type des durées d'instruction production: .+/)
+      end
+    end
+
+    describe '#mode_time_to_production_instruction' do
+      it 'returns a formatted string with the mode time' do
+        expect(subject.mode_time_to_production_instruction).to match(/Durée d'instruction production la plus fréquente: .+/)
+      end
+    end
+
+    describe '#print_median_time_to_production_instruction_by_type' do
+      it 'prints the graph for dgfip reports' do
+        output = capture_stdout { subject.print_median_time_to_production_instruction_by_type }
+        
+        expect(output).to include('Durée médiane d\'instruction production par type')
+        expect(output).to include('│')
+        expect(output).to include('jours')
+      end
+
+      it 'does not print for non-dgfip reports' do
+        dinum_provider = create(:data_provider, slug: 'dinum', name: 'DINUM')
+        allow(DataProvider).to receive(:find).with('dinum').and_return(dinum_provider)
+        api_entreprise_def = instance_double(AuthorizationDefinition, authorization_request_class_as_string: 'AuthorizationRequest::APIEntreprise')
+        allow(dinum_provider).to receive(:authorization_definitions).and_return([api_entreprise_def])
+        
+        non_dgfip_report = described_class.new(date_input: 2025, provider: 'dinum')
+        output = capture_stdout { non_dgfip_report.print_median_time_to_production_instruction_by_type }
+        
+        expect(output).to be_empty
+      end
+
+      context 'with no data' do
+        subject { described_class.new(date_input: 2020, provider: 'dgfip') }
+
+        it 'prints a message when no data is available' do
+          output = capture_stdout { subject.print_median_time_to_production_instruction_by_type }
+          expect(output).to include('Aucune donnée disponible')
+        end
+      end
+    end
+
+    describe '#print_time_to_production_instruction_by_duration' do
+      it 'prints the graph for dgfip reports' do
+        output = capture_stdout { subject.print_time_to_production_instruction_by_duration(step: :day) }
+        
+        expect(output).to include('Durée d\'instruction production par jour')
+        expect(output).to include('│')
+        expect(output).to include('Total')
+      end
+
+      it 'does not print for non-dgfip reports' do
+        dinum_provider = create(:data_provider, slug: 'dinum', name: 'DINUM')
+        allow(DataProvider).to receive(:find).with('dinum').and_return(dinum_provider)
+        api_entreprise_def = instance_double(AuthorizationDefinition, authorization_request_class_as_string: 'AuthorizationRequest::APIEntreprise')
+        allow(dinum_provider).to receive(:authorization_definitions).and_return([api_entreprise_def])
+        
+        non_dgfip_report = described_class.new(date_input: 2025, provider: 'dinum')
+        output = capture_stdout { non_dgfip_report.print_time_to_production_instruction_by_duration(step: :day) }
+        
+        expect(output).to be_empty
+      end
+
+      context 'with step: :day' do
+        it 'outputs bar chart with day buckets' do
+          output = capture_stdout { subject.print_time_to_production_instruction_by_duration(step: :day) }
+          expect(output).to include('Durée d\'instruction production par jour')
+          expect(output).to include('<1')
+          expect(output).to include('> 30')
+        end
+      end
+
+      context 'with no data' do
+        subject { described_class.new(date_input: 2020, provider: 'dgfip') }
+
+        it 'outputs no data message' do
+          output = capture_stdout { subject.print_time_to_production_instruction_by_duration(step: :day) }
+          expect(output).to include('Aucune donnée disponible')
+        end
+      end
+    end
+
+    describe '#dgfip_report?' do
+      it 'returns true for dgfip provider' do
+        expect(subject.dgfip_report?).to be true
+      end
+
+      it 'returns false for non-dgfip provider' do
+        dinum_provider = create(:data_provider, slug: 'dinum', name: 'DINUM')
+        allow(DataProvider).to receive(:find).with('dinum').and_return(dinum_provider)
+        api_entreprise_def = instance_double(AuthorizationDefinition, authorization_request_class_as_string: 'AuthorizationRequest::APIEntreprise')
+        allow(dinum_provider).to receive(:authorization_definitions).and_return([api_entreprise_def])
+        
+        non_dgfip_report = described_class.new(date_input: 2025, provider: 'dinum')
+        expect(non_dgfip_report.dgfip_report?).to be false
+      end
+
+      it 'returns false when no provider is specified' do
+        no_provider_report = described_class.new(date_input: 2025)
+        expect(no_provider_report.dgfip_report?).to be false
+      end
+    end
+  end
+
   # Helper method to capture stdout
   def capture_stdout
     original_stdout = $stdout

@@ -210,6 +210,37 @@ module Stats
       )
     end
 
+    def average_time_to_production_instruction
+      authorizations_with_start_next_stage_and_production_instruction_events.average("EXTRACT(EPOCH FROM (first_production_instruction_events.event_time - start_next_stage_events.event_time))")
+    end
+
+    def median_time_to_production_instruction
+      calculate_percentile(authorizations_with_start_next_stage_and_production_instruction_events, time_difference_sql('first_production_instruction_events', 'start_next_stage_events'))
+    end
+
+    def stddev_time_to_production_instruction
+      calculate_stddev(authorizations_with_start_next_stage_and_production_instruction_events, time_difference_sql('first_production_instruction_events', 'start_next_stage_events'))
+    end
+
+    def mode_time_to_production_instruction
+      calculate_mode(authorizations_with_start_next_stage_and_production_instruction_events, time_difference_sql('first_production_instruction_events', 'start_next_stage_events'), 86400)
+    end
+
+    def median_time_to_production_instruction_by_type
+      calculate_median_by_type(
+        authorizations_with_start_next_stage_and_production_instruction_events,
+        time_difference_sql('first_production_instruction_events', 'start_next_stage_events')
+      )
+    end
+
+    def time_to_production_instruction_by_duration_buckets(step: :day)
+      time_values = authorizations_with_start_next_stage_and_production_instruction_events
+        .pluck(Arel.sql("EXTRACT(EPOCH FROM (first_production_instruction_events.event_time - start_next_stage_events.event_time))"))
+        .map(&:to_f)
+      
+      create_duration_buckets(time_values, step)
+    end
+
     private
 
     def time_difference_sql(later_event, earlier_event)
@@ -371,6 +402,56 @@ module Stats
         .select(
           "instruction_events.authorization_request_id",
           "submit_events.id as submit_event_id",
+          "MIN(instruction_events.created_at) as event_time"
+        )
+    end
+
+    def production_authorization_requests
+      # Filter authorization requests that are production types
+      production_types = AuthorizationDefinition.all.select do |def_item|
+        def_item.stage.exists? && def_item.stage.type == 'production'
+      end.map(&:authorization_request_class_as_string)
+      
+      @authorization_requests.where(type: production_types)
+    end
+
+    def first_start_next_stage_events_subquery
+      # Find the first start_next_stage event for each authorization request using DISTINCT ON
+      # We need to use raw SQL because we need both the id and the min created_at
+      sql = <<-SQL.squish
+        SELECT DISTINCT ON (authorization_request_events.authorization_request_id)
+          authorization_request_events.id as event_id,
+          authorization_request_events.authorization_request_id,
+          authorization_request_events.created_at as event_time
+        FROM authorization_request_events
+        WHERE authorization_request_events.name = 'start_next_stage'
+          AND authorization_request_events.authorization_request_id IS NOT NULL
+        ORDER BY authorization_request_events.authorization_request_id, authorization_request_events.created_at ASC
+      SQL
+      
+      AuthorizationRequestEvent.from("(#{sql}) AS start_next_stage_events")
+        .select("start_next_stage_events.event_id, start_next_stage_events.authorization_request_id, start_next_stage_events.event_time")
+    end
+
+    def authorizations_with_start_next_stage_and_production_instruction_events
+      production_authorization_requests
+        .joins("INNER JOIN (#{first_start_next_stage_events_subquery.to_sql}) start_next_stage_events ON start_next_stage_events.authorization_request_id = authorization_requests.id")
+        .joins("INNER JOIN (#{first_production_instruction_events_subquery.to_sql}) first_production_instruction_events ON first_production_instruction_events.authorization_request_id = authorization_requests.id AND first_production_instruction_events.start_next_stage_event_id = start_next_stage_events.event_id")
+        .where("first_production_instruction_events.event_time > start_next_stage_events.event_time")
+    end
+
+    def first_production_instruction_events_subquery
+      # For each start_next_stage event, find the first instruction event (approve, refuse, or request_changes) that follows it
+      AuthorizationRequestEvent
+        .from("authorization_request_events AS instruction_events")
+        .joins("INNER JOIN authorization_request_events AS start_next_stage_events ON instruction_events.authorization_request_id = start_next_stage_events.authorization_request_id")
+        .where("start_next_stage_events.name = 'start_next_stage'")
+        .where("instruction_events.name IN ('approve', 'refuse', 'request_changes')")
+        .where("instruction_events.created_at > start_next_stage_events.created_at")
+        .group("instruction_events.authorization_request_id, start_next_stage_events.id")
+        .select(
+          "instruction_events.authorization_request_id",
+          "start_next_stage_events.id as start_next_stage_event_id",
           "MIN(instruction_events.created_at) as event_time"
         )
     end
