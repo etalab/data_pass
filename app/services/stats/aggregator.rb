@@ -232,6 +232,20 @@ module Stats
       )
     end
 
+    def median_time_to_submit_by_provider
+      calculate_median_by_provider(
+        authorizations_with_first_create_and_submit_events,
+        time_difference_sql('first_submit_events', 'first_create_events')
+      )
+    end
+
+    def median_time_to_first_instruction_by_provider
+      calculate_median_by_provider(
+        authorizations_with_submit_and_first_instruction_events,
+        time_difference_sql('first_instruction_events', 'submit_events')
+      )
+    end
+
     def average_time_to_production_instruction
       authorizations_with_start_next_stage_and_production_instruction_events.average("EXTRACT(EPOCH FROM (first_production_instruction_events.event_time - start_next_stage_events.event_time))")
     end
@@ -348,6 +362,39 @@ module Stats
       by_type.map do |type, times|
         {
           type: type,
+          median_time: calculate_array_median(times),
+          count: times.length
+        }
+      end.sort_by { |item| item[:median_time] }
+    end
+
+    def calculate_median_by_provider(scope, time_expression)
+      results = scope.pluck(
+        Arel.sql("authorization_requests.type"),
+        Arel.sql(time_expression)
+      )
+      
+      # Group by provider
+      by_provider = Hash.new { |h, k| h[k] = [] }
+      
+      results.each do |type, time|
+        # Get the definition for this type
+        definition = AuthorizationDefinition.all.find do |def_item|
+          def_item.authorization_request_class_as_string == type
+        end
+        
+        provider_name = if definition && definition.provider
+          definition.provider.name
+        else
+          type
+        end
+        
+        by_provider[provider_name] << time.to_f
+      end
+      
+      by_provider.map do |provider, times|
+        {
+          provider: provider,
           median_time: calculate_array_median(times),
           count: times.length
         }

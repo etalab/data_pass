@@ -55,6 +55,15 @@ Total : 442 demandes
 ```
 
 
+## Durée médiane de soumission par fournisseur pour 18/06/2025 - 19/01/2026 (types par : FranceConnect):
+
+```
+DINUM (13.7 minutes, n=442) │ ██████████████
+
+Total : 442 demandes
+```
+
+
 ## Durée de soumission par minute de 18/06/2025 - 19/01/2026 (types par : FranceConnect):
 
 ```
@@ -130,6 +139,15 @@ Total : 442 demandes
 
 ```
 FranceConnect (1.1 jours, n=677) │ █
+
+Total : 677 demandes
+```
+
+
+## Durée médiane de première instruction par fournisseur pour 18/06/2025 - 19/01/2026 (types par : FranceConnect):
+
+```
+DINUM (1.1 jours, n=677) │ █
 
 Total : 677 demandes
 ```

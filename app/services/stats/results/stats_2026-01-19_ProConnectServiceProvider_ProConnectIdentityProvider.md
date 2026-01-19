@@ -60,6 +60,15 @@ Total : 95 demandes
 ```
 
 
+## Durée médiane de soumission par fournisseur pour 2025 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
+
+```
+DINUM (30.9 minutes, n=95) │ ███████████████████████████████
+
+Total : 95 demandes
+```
+
+
 ## Durée de soumission par minute de 2025 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
 
 ```
@@ -135,6 +144,15 @@ Total : 95 demandes
 ```
 ProConnectIdentityProvider (1.2 jours, n= 19) │ █
 ProConnectServiceProvider  (4.0 jours, n=122) │ ████
+
+Total : 141 demandes
+```
+
+
+## Durée médiane de première instruction par fournisseur pour 2025 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
+
+```
+DINUM (3.7 jours, n=141) │ ████
 
 Total : 141 demandes
 ```
@@ -235,6 +253,16 @@ Total : 1 demandes
 ```
 
 
+## Durée médiane de soumission par fournisseur pour 2024 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
+
+```
+DINUM (420773.9 minutes, n=1) │ ██████████████████████████████████████████████████
+
+Total : 1 demandes
+Échelle : chaque █ représente 8415.5 minutes
+```
+
+
 ## Durée de soumission par minute de 2024 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
 
 ```
@@ -310,6 +338,15 @@ Total : 1 demandes
 ```
 ProConnectServiceProvider  (0.3 jours, n=70) │ 
 ProConnectIdentityProvider (0.9 jours, n=22) │ █
+
+Total : 92 demandes
+```
+
+
+## Durée médiane de première instruction par fournisseur pour 2024 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
+
+```
+DINUM (0.7 jours, n=92) │ █
 
 Total : 92 demandes
 ```

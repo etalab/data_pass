@@ -108,6 +108,15 @@ Total : 73 demandes
 ```
 
 
+## Durée médiane de soumission par fournisseur pour 2025 (fournisseur : dgfip):
+
+```
+DGFIP (26.8 minutes, n=187) │ ███████████████████████████
+
+Total : 187 demandes
+```
+
+
 ## Durée de soumission par minute de 2025 (fournisseur : dgfip):
 
 ```
@@ -196,6 +205,15 @@ APIFicobaSandbox           (3.0 jours, n=41) │ ███
 APISFiPR2PSandbox          (3.0 jours, n=14) │ ███
 APIRial                    (6.5 jours, n= 8) │ ███████
 APIRialSandbox             (6.8 jours, n=12) │ ███████
+
+Total : 513 demandes
+```
+
+
+## Durée médiane de première instruction par fournisseur pour 2025 (fournisseur : dgfip):
+
+```
+DGFIP (1.8 jours, n=513) │ ██
 
 Total : 513 demandes
 ```
@@ -384,6 +402,16 @@ Total : 47 demandes
 ```
 
 
+## Durée médiane de soumission par fournisseur pour 2024 (fournisseur : dgfip):
+
+```
+DGFIP (705891.4 minutes, n=47) │ ██████████████████████████████████████████████████
+
+Total : 47 demandes
+Échelle : chaque █ représente 14117.8 minutes
+```
+
+
 ## Durée de soumission par minute de 2024 (fournisseur : dgfip):
 
 ```
@@ -471,6 +499,15 @@ APICprProAdelieSandbox     (109.0 jours, n=   1) │ █████████
 
 Total : 1817 demandes
 Échelle : chaque █ représente 2.2 jours
+```
+
+
+## Durée médiane de première instruction par fournisseur pour 2024 (fournisseur : dgfip):
+
+```
+DGFIP (0.1 jours, n=1817) │ 
+
+Total : 1817 demandes
 ```
 
 

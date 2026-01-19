@@ -57,6 +57,15 @@ Total : 232 demandes
 ```
 
 
+## Durée médiane de soumission par fournisseur pour 2025 (types par : APIEntreprise):
+
+```
+DINUM (13.6 minutes, n=232) │ ██████████████
+
+Total : 232 demandes
+```
+
+
 ## Durée de soumission par minute de 2025 (types par : APIEntreprise):
 
 ```
@@ -132,6 +141,15 @@ Total : 232 demandes
 
 ```
 APIEntreprise (6.3 jours, n=277) │ ██████
+
+Total : 277 demandes
+```
+
+
+## Durée médiane de première instruction par fournisseur pour 2025 (types par : APIEntreprise):
+
+```
+DINUM (6.3 jours, n=277) │ ██████
 
 Total : 277 demandes
 ```
@@ -230,6 +248,15 @@ Total : 177 demandes
 ```
 
 
+## Durée médiane de soumission par fournisseur pour 2024 (types par : APIEntreprise):
+
+```
+DINUM (13.0 minutes, n=177) │ █████████████
+
+Total : 177 demandes
+```
+
+
 ## Durée de soumission par minute de 2024 (types par : APIEntreprise):
 
 ```
@@ -304,6 +331,15 @@ Total : 177 demandes
 
 ```
 APIEntreprise (4.0 jours, n=325) │ ████
+
+Total : 325 demandes
+```
+
+
+## Durée médiane de première instruction par fournisseur pour 2024 (types par : APIEntreprise):
+
+```
+DINUM (4.0 jours, n=325) │ ████
 
 Total : 325 demandes
 ```

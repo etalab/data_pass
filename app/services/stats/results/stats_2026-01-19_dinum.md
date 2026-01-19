@@ -78,6 +78,15 @@ Total : 1555 demandes
 ```
 
 
+## Durée médiane de soumission par fournisseur pour 2025 (fournisseur : dinum):
+
+```
+DINUM (11.1 minutes, n=1555) │ ███████████
+
+Total : 1555 demandes
+```
+
+
 ## Durée de soumission par minute de 2025 (fournisseur : dinum):
 
 ```
@@ -160,6 +169,15 @@ ProConnectServiceProvider  (4.0 jours, n= 122) │ ████
 APIParticulier             (6.2 jours, n= 799) │ ██████
 APIEntreprise              (6.3 jours, n= 277) │ ██████
 FormulaireQF               (6.6 jours, n= 106) │ ███████
+
+Total : 2546 demandes
+```
+
+
+## Durée médiane de première instruction par fournisseur pour 2025 (fournisseur : dinum):
+
+```
+DINUM (3.2 jours, n=2546) │ ███
 
 Total : 2546 demandes
 ```
@@ -281,6 +299,15 @@ Total : 72 demandes
 ```
 
 
+## Durée médiane de soumission par fournisseur pour 2024 (fournisseur : dinum):
+
+```
+DINUM (11.5 minutes, n=680) │ ████████████
+
+Total : 680 demandes
+```
+
+
 ## Durée de soumission par minute de 2024 (fournisseur : dinum):
 
 ```
@@ -362,6 +389,15 @@ FranceConnect              ( 3.6 jours, n= 950) │ ████
 APIEntreprise              ( 4.0 jours, n= 325) │ ████
 FormulaireQF               ( 4.5 jours, n=   4) │ █████
 LeTaxi                     (13.1 jours, n=  16) │ █████████████
+
+Total : 2580 demandes
+```
+
+
+## Durée médiane de première instruction par fournisseur pour 2024 (fournisseur : dinum):
+
+```
+DINUM (3.1 jours, n=2580) │ ███
 
 Total : 2580 demandes
 ```

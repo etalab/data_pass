@@ -157,6 +157,26 @@ Total : 97 demandes
 ```
 
 
+## Durée médiane de soumission par fournisseur pour 2025:
+
+```
+Direction de l'information légale et administrative (DILA)                          (   0.3 minutes, n= 459) │ 
+Organisation de la direction générale de la santé (DGS)                             (   0.3 minutes, n= 801) │ 
+Agence pour l'Information Financière de l'État                                      (   0.8 minutes, n=  33) │ 
+CNAM                                                                                (   6.2 minutes, n=   3) │ 
+Agence du Numérique en Santé (ANS)                                                  (   7.1 minutes, n= 232) │ 
+Ministère de la Transition écologique                                               (  10.8 minutes, n=   4) │ 
+DINUM                                                                               (  11.1 minutes, n=1555) │ 
+Centre Interministériel des Systèmes d'Information relatifs aux Ressources Humaines (  14.3 minutes, n=   4) │ 
+URSSAF                                                                              (  15.2 minutes, n=  68) │ 
+DGFIP                                                                               (  26.8 minutes, n= 187) │ 
+Ministère de l'Éducation Nationale et de la Jeunesse                                (3977.9 minutes, n=   1) │ ██████████████████████████████████████████████████
+
+Total : 3347 demandes
+Échelle : chaque █ représente 79.6 minutes
+```
+
+
 ## Durée de soumission par minute de 2025:
 
 ```
@@ -265,6 +285,25 @@ APIDeclarationCESU             (70.1 jours, n=  55) │ ████████
 
 Total : 5412 demandes
 Échelle : chaque █ représente 1.4 jours
+```
+
+
+## Durée médiane de première instruction par fournisseur pour 2025:
+
+```
+Organisation de la direction générale de la santé (DGS)                             ( 0.0 jours, n= 971) │ 
+Agence pour l'Information Financière de l'État                                      ( 0.7 jours, n= 113) │ █
+Direction de l'information légale et administrative (DILA)                          ( 1.2 jours, n= 766) │ █
+Centre Interministériel des Systèmes d'Information relatifs aux Ressources Humaines ( 1.5 jours, n=   6) │ █
+Agence du Numérique en Santé (ANS)                                                  ( 1.7 jours, n= 398) │ █
+DGFIP                                                                               ( 1.8 jours, n= 513) │ ██
+Ministère de la Transition écologique                                               ( 3.0 jours, n=   4) │ ███
+DINUM                                                                               ( 3.2 jours, n=2546) │ ███
+Ministère de l'Éducation Nationale et de la Jeunesse                                (34.6 jours, n=   4) │ ██████████████████████████████
+URSSAF                                                                              (57.8 jours, n=  91) │ ██████████████████████████████████████████████████
+
+Total : 5412 demandes
+Échelle : chaque █ représente 1.2 jours
 ```
 
 
@@ -438,6 +477,22 @@ Total : 125 demandes
 ```
 
 
+## Durée médiane de soumission par fournisseur pour 2024:
+
+```
+Organisation de la direction générale de la santé (DGS)    (     0.1 minutes, n=996) │ 
+Direction de l'information légale et administrative (DILA) (     0.1 minutes, n=384) │ 
+DINUM                                                      (    11.5 minutes, n=680) │ 
+URSSAF                                                     (235132.3 minutes, n=  1) │ ███████████████
+Agence du Numérique en Santé (ANS)                         (665637.5 minutes, n=  3) │ ██████████████████████████████████████████
+DGFIP                                                      (705891.4 minutes, n= 47) │ █████████████████████████████████████████████
+Agence pour l'Information Financière de l'État             (792871.8 minutes, n=  2) │ ██████████████████████████████████████████████████
+
+Total : 2113 demandes
+Échelle : chaque █ représente 15857.4 minutes
+```
+
+
 ## Durée de soumission par minute de 2024:
 
 ```
@@ -541,6 +596,24 @@ APICprProAdelieSandbox         (109.0 jours, n=   1) │ ███████�
 
 Total : 7389 demandes
 Échelle : chaque █ représente 2.2 jours
+```
+
+
+## Durée médiane de première instruction par fournisseur pour 2024:
+
+```
+DGFIP                                                                               ( 0.1 jours, n=1817) │ 
+Organisation de la direction générale de la santé (DGS)                             ( 0.2 jours, n=1345) │ 
+Agence pour l'Information Financière de l'État                                      ( 1.0 jours, n= 139) │ █
+Direction de l'information légale et administrative (DILA)                          ( 1.7 jours, n= 905) │ █
+DINUM                                                                               ( 3.1 jours, n=2580) │ ██
+Agence du Numérique en Santé (ANS)                                                  ( 4.2 jours, n= 444) │ ██
+Centre Interministériel des Systèmes d'Information relatifs aux Ressources Humaines ( 5.9 jours, n=   5) │ ███
+Ministère de l'Éducation Nationale et de la Jeunesse                                (21.1 jours, n=   9) │ ████████████
+URSSAF                                                                              (89.2 jours, n= 145) │ ██████████████████████████████████████████████████
+
+Total : 7389 demandes
+Échelle : chaque █ représente 1.8 jours
 ```
 
 

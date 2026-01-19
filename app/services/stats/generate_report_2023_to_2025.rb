@@ -73,9 +73,13 @@ module Stats
         puts "\n"
         report.print_median_time_to_submit_by_type
         puts "\n"
+        report.print_median_time_to_submit_by_provider
+        puts "\n"
         report.print_time_to_submit_by_duration(step: :minute)
         puts "\n"
         report.print_median_time_to_first_instruction_by_type
+        puts "\n"
+        report.print_median_time_to_first_instruction_by_provider
         puts "\n"
         report.print_time_to_first_instruction_by_duration(step: :day)
         puts "\n"

@@ -204,6 +204,32 @@ module Stats
       puts "```"
     end
 
+    def print_median_time_to_submit_by_provider
+      data = @create_aggregator.median_time_to_submit_by_provider
+      return puts "\nAucune donnée disponible pour la durée médiane de soumission par fournisseur." if data.empty?
+
+      puts "\n## Durée médiane de soumission par fournisseur pour #{human_readable_date_range}#{type_filter_label}:\n\n"
+      
+      buckets = data.map { |item| transform_time_bucket_by_provider(item, 60.0) }
+      
+      puts "```"
+      puts format_time_bar_chart(buckets, 'minutes')
+      puts "```"
+    end
+
+    def print_median_time_to_first_instruction_by_provider
+      data = @create_aggregator.median_time_to_first_instruction_by_provider
+      return puts "\nAucune donnée disponible pour la durée médiane de première instruction par fournisseur." if data.empty?
+
+      puts "\n## Durée médiane de première instruction par fournisseur pour #{human_readable_date_range}#{type_filter_label}:\n\n"
+      
+      buckets = data.map { |item| transform_time_bucket_by_provider(item, 86400.0) }
+      
+      puts "```"
+      puts format_time_bar_chart(buckets, 'jours')
+      puts "```"
+    end
+
     def print_median_time_to_production_instruction_by_type
       return unless dgfip_report?
       
@@ -248,6 +274,14 @@ module Stats
     def transform_time_bucket(item, divisor)
       {
         bucket: extract_type_name(item[:type]),
+        value: (item[:median_time] / divisor).round(1),
+        count: item[:count]
+      }
+    end
+
+    def transform_time_bucket_by_provider(item, divisor)
+      {
+        bucket: item[:provider],
         value: (item[:median_time] / divisor).round(1),
         count: item[:count]
       }

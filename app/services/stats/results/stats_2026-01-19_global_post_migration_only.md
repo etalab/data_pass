@@ -151,6 +151,26 @@ Total : 40 demandes
 ```
 
 
+## Durée médiane de soumission par fournisseur pour 18/06/2025 - 19/01/2026:
+
+```
+Direction de l'information légale et administrative (DILA)                          (   0.2 minutes, n= 265) │ 
+Organisation de la direction générale de la santé (DGS)                             (   0.2 minutes, n= 485) │ 
+Agence pour l'Information Financière de l'État                                      (   0.3 minutes, n=  28) │ 
+CNAM                                                                                (   6.2 minutes, n=   3) │ 
+Agence du Numérique en Santé (ANS)                                                  (   7.0 minutes, n= 202) │ 
+DINUM                                                                               (  10.3 minutes, n=1142) │ 
+Ministère de la Transition écologique                                               (  10.8 minutes, n=   4) │ 
+URSSAF                                                                              (  12.6 minutes, n=  60) │ 
+DGFIP                                                                               (  13.7 minutes, n= 142) │ 
+Centre Interministériel des Systèmes d'Information relatifs aux Ressources Humaines (  14.3 minutes, n=   4) │ 
+Ministère de l'Éducation Nationale et de la Jeunesse                                (3977.9 minutes, n=   1) │ ██████████████████████████████████████████████████
+
+Total : 2336 demandes
+Échelle : chaque █ représente 79.6 minutes
+```
+
+
 ## Durée de soumission par minute de 18/06/2025 - 19/01/2026:
 
 ```
@@ -257,6 +277,25 @@ APIDeclarationCESU             (64.1 jours, n= 25) │ ████████�
 
 Total : 3053 demandes
 Échelle : chaque █ représente 1.3 jours
+```
+
+
+## Durée médiane de première instruction par fournisseur pour 18/06/2025 - 19/01/2026:
+
+```
+Organisation de la direction générale de la santé (DGS)                             ( 0.0 jours, n= 574) │ 
+Agence pour l'Information Financière de l'État                                      ( 0.6 jours, n=  46) │ █
+Centre Interministériel des Systèmes d'Information relatifs aux Ressources Humaines ( 0.7 jours, n=   4) │ █
+Agence du Numérique en Santé (ANS)                                                  ( 0.8 jours, n= 263) │ █
+Direction de l'information légale et administrative (DILA)                          ( 1.2 jours, n= 420) │ █
+DGFIP                                                                               ( 1.5 jours, n= 197) │ █
+Ministère de la Transition écologique                                               ( 3.0 jours, n=   4) │ ███
+DINUM                                                                               ( 3.1 jours, n=1504) │ ███
+Ministère de l'Éducation Nationale et de la Jeunesse                                ( 7.0 jours, n=   1) │ ██████
+URSSAF                                                                              (56.3 jours, n=  40) │ ██████████████████████████████████████████████████
+
+Total : 3053 demandes
+Échelle : chaque █ représente 1.1 jours
 ```
 
 

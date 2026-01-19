@@ -57,6 +57,15 @@ Total : 503 demandes
 ```
 
 
+## Durée médiane de soumission par fournisseur pour 2025 (types par : FranceConnect):
+
+```
+DINUM (15.3 minutes, n=503) │ ███████████████
+
+Total : 503 demandes
+```
+
+
 ## Durée de soumission par minute de 2025 (types par : FranceConnect):
 
 ```
@@ -132,6 +141,15 @@ Total : 503 demandes
 
 ```
 FranceConnect (1.7 jours, n=1138) │ ██
+
+Total : 1138 demandes
+```
+
+
+## Durée médiane de première instruction par fournisseur pour 2025 (types par : FranceConnect):
+
+```
+DINUM (1.7 jours, n=1138) │ ██
 
 Total : 1138 demandes
 ```
@@ -231,6 +249,16 @@ Total : 71 demandes
 ```
 
 
+## Durée médiane de soumission par fournisseur pour 2024 (types par : FranceConnect):
+
+```
+DINUM (536865.3 minutes, n=71) │ ██████████████████████████████████████████████████
+
+Total : 71 demandes
+Échelle : chaque █ représente 10737.3 minutes
+```
+
+
 ## Durée de soumission par minute de 2024 (types par : FranceConnect):
 
 ```
@@ -306,6 +334,15 @@ Total : 71 demandes
 
 ```
 FranceConnect (3.6 jours, n=950) │ ████
+
+Total : 950 demandes
+```
+
+
+## Durée médiane de première instruction par fournisseur pour 2024 (types par : FranceConnect):
+
+```
+DINUM (3.6 jours, n=950) │ ████
 
 Total : 950 demandes
 ```

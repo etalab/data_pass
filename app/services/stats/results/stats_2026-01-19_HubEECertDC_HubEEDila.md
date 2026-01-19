@@ -60,6 +60,16 @@ Total : 1260 demandes
 ```
 
 
+## Durée médiane de soumission par fournisseur pour 2025 (types par : HubEECertDC, HubEEDila):
+
+```
+Direction de l'information légale et administrative (DILA) (0.3 minutes, n=459) │ 
+Organisation de la direction générale de la santé (DGS)    (0.3 minutes, n=801) │ 
+
+Total : 1260 demandes
+```
+
+
 ## Durée de soumission par minute de 2025 (types par : HubEECertDC, HubEEDila):
 
 ```
@@ -136,6 +146,16 @@ Total : 1260 demandes
 ```
 HubEECertDC (0.0 jours, n=971) │ 
 HubEEDila   (1.2 jours, n=766) │ █
+
+Total : 1737 demandes
+```
+
+
+## Durée médiane de première instruction par fournisseur pour 2025 (types par : HubEECertDC, HubEEDila):
+
+```
+Organisation de la direction générale de la santé (DGS)    (0.0 jours, n=971) │ 
+Direction de l'information légale et administrative (DILA) (1.2 jours, n=766) │ █
 
 Total : 1737 demandes
 ```
@@ -237,6 +257,16 @@ Total : 1380 demandes
 ```
 
 
+## Durée médiane de soumission par fournisseur pour 2024 (types par : HubEECertDC, HubEEDila):
+
+```
+Organisation de la direction générale de la santé (DGS)    (0.1 minutes, n=996) │ 
+Direction de l'information légale et administrative (DILA) (0.1 minutes, n=384) │ 
+
+Total : 1380 demandes
+```
+
+
 ## Durée de soumission par minute de 2024 (types par : HubEECertDC, HubEEDila):
 
 ```
@@ -313,6 +343,16 @@ Total : 1380 demandes
 ```
 HubEECertDC (0.2 jours, n=1345) │ 
 HubEEDila   (1.7 jours, n= 905) │ ██
+
+Total : 2250 demandes
+```
+
+
+## Durée médiane de première instruction par fournisseur pour 2024 (types par : HubEECertDC, HubEEDila):
+
+```
+Organisation de la direction générale de la santé (DGS)    (0.2 jours, n=1345) │ 
+Direction de l'information légale et administrative (DILA) (1.7 jours, n= 905) │ ██
 
 Total : 2250 demandes
 ```

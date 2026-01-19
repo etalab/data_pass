@@ -103,6 +103,15 @@ Total : 39 demandes
 ```
 
 
+## Durée médiane de soumission par fournisseur pour 18/06/2025 - 19/01/2026 (fournisseur : dgfip):
+
+```
+DGFIP (13.7 minutes, n=142) │ ██████████████
+
+Total : 142 demandes
+```
+
+
 ## Durée de soumission par minute de 18/06/2025 - 19/01/2026 (fournisseur : dgfip):
 
 ```
@@ -189,6 +198,15 @@ APISFiPR2PSandbox          ( 2.7 jours, n=15) │ ███
 APIR2P                     ( 3.9 jours, n=31) │ ████
 APISFiPSandbox             ( 5.9 jours, n= 9) │ ██████
 APIRialSandbox             (32.1 jours, n= 1) │ ████████████████████████████████
+
+Total : 197 demandes
+```
+
+
+## Durée médiane de première instruction par fournisseur pour 18/06/2025 - 19/01/2026 (fournisseur : dgfip):
+
+```
+DGFIP (1.5 jours, n=197) │ ██
 
 Total : 197 demandes
 ```
