@@ -428,6 +428,20 @@ fr:
       <<: *api_particulier_editor_common_wordings
     api_particulier_coexya:
       <<: *api_particulier_editor_common_wordings
+      legal: &legal_with_operateur_transport
+        justificatif:
+          title: Veuillez joindre les justificatifs explicitant l'usage des données demandées
+          description: Pour en savoir plus, consultez <a href="https://api.gouv.fr/guides/deliberation-api-part" target="_blank">notre guide sur ce qu’est une bonne délibération.</a>
+
+      cadre_juridique_document: &cadre_juridique_document_with_operateur_transport
+        label: Délibération avec les conditions tarifaires* & autre justificatif**
+        hint: |
+          *La délibération est à fournir dans tous les cas et doit permettre de justifier les données demandées. En savoir plus sur la délibération attendue par API Particulier
+          <br />
+          **Si vous êtes un opérateur de transport, veuillez fournir également le contrat de délégation de service public précisant que vous êtes habilité à gérer la billettique pour le compte de l’Autorité organisatrice.
+      cadre_juridique_url: &cadre_juridique_url_with_operateur_transport
+        label: Indiquez une URL vers la délibération si vous n'avez que ce justificatif à fournir
+
     api_particulier_jcdeveloppement_familyclic:
       <<: *api_particulier_editor_common_wordings
     api_particulier_extenso_partner_extenso-cloud:
@@ -438,10 +452,19 @@ fr:
       <<: *api_particulier_editor_common_wordings
     api_particulier_monkey_factory_maasify:
       <<: *api_particulier_editor_common_wordings
+      legal: *legal_with_operateur_transport
+      cadre_juridique_document: *cadre_juridique_document_with_operateur_transport
+      cadre_juridique_url: *cadre_juridique_url_with_operateur_transport
     api_particulier_esabora_pourmesdossiers:
       <<: *api_particulier_editor_common_wordings
+      legal: *legal_with_operateur_transport
+      cadre_juridique_document: *cadre_juridique_document_with_operateur_transport
+      cadre_juridique_url: *cadre_juridique_url_with_operateur_transport
     api_particulier_airweb:
       <<: *api_particulier_editor_common_wordings
+      legal: *legal_with_operateur_transport
+      cadre_juridique_document: *cadre_juridique_document_with_operateur_transport
+      cadre_juridique_url: *cadre_juridique_url_with_operateur_transport
     api_particulier_noethys:
       <<: *api_particulier_editor_common_wordings
     api_particulier_carte_plus:
@@ -616,6 +639,9 @@ fr:
       cadre_juridique_url: *api_particulier_use_cases_forms_cadre_juridique_url
 
     api_particulier_tarification_transports:
+      legal: *legal_with_operateur_transport
+      cadre_juridique_document: *cadre_juridique_document_with_operateur_transport
+      cadre_juridique_url: *cadre_juridique_url_with_operateur_transport
       description:
         hint: |
           Décrivez-nous précisémment votre projet :
@@ -638,12 +664,6 @@ fr:
           </ul>
       destinataire_donnees_caractere_personnel: *api_particulier_use_cases_forms_destinataire_donnees_caractere_personnel
       duree_conservation_donnees_caractere_personnel: *api_particulier_use_cases_forms_duree_conservation_donnees_caractere_personnel
-      cadre_juridique_nature:
-        label: Description du cadre juridique autorisant à traiter les données*
-        hint: Le cadre général est déjà spécifié. Veuillez garder le cadre juridique spécifique à votre situation (transport en commun / transport scolaire / utilisation de la C2S). Veuillez citer le texte du document qui spécifie les conditions tarifaires et mentionner la page.
-      legal: *api_particulier_use_cases_forms_legal_tarification
-      cadre_juridique_document: *api_particulier_use_cases_forms_cadre_juridique_document
-      cadre_juridique_url: *api_particulier_use_cases_forms_cadre_juridique_url
 
     api_particulier_gestion_rh_secteur_public:
       description:

@@ -43,8 +43,9 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
     * je renseigne les infos de bases du projet
     * je clique sur "Suivant"
 
-    * je remplis "Description du cadre juridique autorisant à traiter les données*" avec "Article 42"
-    * je remplis "Indiquez une URL vers la délibération" avec "https://legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000006430983&cidTexte=LEGITEXT000006070721"
+    * je remplis "données" avec "Article 42"
+
+    * je remplis "URL" avec "https://legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000006430983&cidTexte=LEGITEXT000006070721"
     * je clique sur "Suivant"
 
     * je clique sur "Suivant"
@@ -356,7 +357,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
 
     * je clique sur "Suivant"
 
-    * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
+    * je remplis "URL" avec "https://mairie.fr/deliberation-tarifaire.pdf"
     * je clique sur "Suivant"
 
     * je renseigne les infos concernant les données personnelles
@@ -394,7 +395,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
     * je clique sur "Suivant"
 
     * je remplis "Précisez la nature et les références du texte vous autorisant à traiter les données" avec "Article 42"
-    * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
+    * je remplis "URL" avec "https://mairie.fr/deliberation-tarifaire.pdf"
     * je clique sur "Suivant"
 
     * je renseigne les infos concernant les données personnelles
@@ -425,7 +426,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
 
     * je clique sur "Suivant"
 
-    * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
+    * je remplis "URL" avec "https://mairie.fr/deliberation-tarifaire.pdf"
     * je clique sur "Suivant"
 
     * je renseigne les infos concernant les données personnelles
@@ -455,7 +456,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
     * je clique sur "Suivant"
     * je clique sur "Suivant"
 
-    * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
+    * je remplis "Indiquez une URL vers la délibération si vous n'avez que ce justificatif à fournir" avec "https://mairie.fr/deliberation-tarifaire.pdf"
     * je clique sur "Suivant"
 
     * je renseigne les infos concernant les données personnelles
@@ -486,7 +487,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
     * je clique sur "Suivant"
     * je clique sur "Suivant"
 
-    * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
+    * je remplis "Indiquez une URL vers la délibération si vous n'avez que ce justificatif à fournir" avec "https://mairie.fr/deliberation-tarifaire.pdf"
     * je clique sur "Suivant"
 
     * je sélectionne la première option pour "FranceConnect"
