@@ -240,6 +240,32 @@ Cette documentation couvre :
 
 **Note** : Le `slug` du provider doit correspondre à la valeur du champ `provider:` dans la configuration `AuthorizationDefinition` ci-dessus.
 
+### 1.2 Ajout d'un Service Provider (éditeur/SaaS)
+
+Les Service Providers (éditeurs et SaaS) sont configurés dans le fichier [`config/service_providers.yml`](../config/service_providers.yml).
+
+```yaml
+  # Identifiant unique du service provider (utilisé dans service_provider_id des formulaires)
+  mon_editeur:
+    # Type : 'editor' pour un éditeur, 'saas' pour un SaaS
+    type: editor
+    # Nom affiché
+    name: Mon Éditeur
+    # Optionnel. SIRET de l'organisation
+    siret: "12345678900001"
+    # Optionnel. Liste des APIs pour lesquelles l'éditeur est déjà intégré
+    already_integrated:
+      - api_entreprise
+    # Optionnel. Indique si l'éditeur est certifié FranceConnect. Par défaut : false
+    fc_certified: true
+```
+
+Le modèle `ServiceProvider` expose les méthodes suivantes :
+- `editor?` : retourne `true` si le type est `editor`
+- `saas?` : retourne `true` si le type est `saas`
+- `already_integrated?(scope:)` : retourne `true` si l'éditeur est déjà intégré pour le scope donné
+- `france_connect_certified?` : retourne `true` si `fc_certified` est `true`
+
 ## 2. Ajouter et configurer le modèle de données
 
 En reprenant l'exemple ci-dessus, il faut créer le fichier
