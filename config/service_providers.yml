@@ -8,6 +8,7 @@ shared:
     type: editor
     name: MGDIS
     siret: "32816124500027"
+    fc_certified: true
   setec:
     type: editor
     name: SETEC
@@ -36,11 +37,13 @@ shared:
     type: editor
     name: "Entr'ouvert"
     siret: '44317013900036'
+    fc_certified: true
 
   aiga:
     type: editor
     name: Aiga
     siret: "39825361700045"
+    fc_certified: true
   abelium:
     type: editor
     name: Abelium Collectivités
@@ -81,10 +84,12 @@ shared:
     type: editor
     name: CapDemat
     siret: "79529105300010"
+    fc_certified: true
   ciril_group:
     type: editor
     name: Ciril GROUP
     siret: "30516304000119"
+    fc_certified: true
   cosoluce:
     type: editor
     name: Cosoluce
@@ -137,6 +142,7 @@ shared:
     type: editor
     name: Waigeo
     siret: "80321944300014"
+    fc_certified: true
   3d_ouest:
     type: editor
     name: 3D Ouest
@@ -189,6 +195,7 @@ shared:
     type: editor
     name: Ypok
     siret: "43494076300064"
+    fc_certified: true
   ars-data:
     type: editor
     name: Ars Data
