@@ -66,6 +66,16 @@ class AuthorizationRequestPolicy < ApplicationPolicy
       record.applicant == user
   end
 
+  def events?
+    summary?
+  end
+
+  def france_connected_authorizations?
+    summary? &&
+      record.definition.france_connect? &&
+      record.france_connected_authorizations.exists?
+  end
+
   def send_message?
     messages?
   end

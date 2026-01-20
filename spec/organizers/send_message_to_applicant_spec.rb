@@ -33,10 +33,10 @@ RSpec.describe SendMessageToApplicant do
       end
     end
 
-    it 'increments the unread messages count for applicant, not for instructors' do
-      expect { send_message_to_applicant }.to change(authorization_request, :unread_messages_from_applicant_count).by(1)
+    it 'increments the unread messages count from instructors, not from applicant' do
+      expect { send_message_to_applicant }.to change(authorization_request, :unread_messages_from_instructors_count).by(1)
 
-      expect(authorization_request.unread_messages_from_instructors_count).to eq(0)
+      expect(authorization_request.unread_messages_from_applicant_count).to eq(0)
     end
 
     it_behaves_like 'creates an event', event_name: :instructor_message, entity_type: :message

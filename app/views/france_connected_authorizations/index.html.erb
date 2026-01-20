@@ -1,0 +1,21 @@
+<h3><%= t('.title') %></h3>
+
+<ul class="fr-mt-2w fr-p-0">
+  <% @france_connected_authorizations.each do |authorization| %>
+    <li class="authorization-row fr-mb-4w fr-pb-2w">
+      <div class="fr-grid-row fr-grid-row--middle">
+        <div class="fr-col">
+          <%= render 'authorizations/authorization_badges', authorization: authorization %>
+
+          <div>
+            Habilitation pour <strong><%= authorization.definition.name %></strong> intitulée « <%= authorization.name %> »
+          </div>
+        </div>
+
+        <div>
+          <%= link_to t('.show_cta'), authorization_path(authorization), class: 'fr-btn' %>
+        </div>
+      </div>
+    </li>
+  <% end %>
+</ul>

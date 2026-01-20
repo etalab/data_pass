@@ -7,7 +7,7 @@ class SendMessageToApplicant < ApplicationOrganizer
 
     context.mailer_method = :to_applicant
 
-    context.unread_counter_target = :applicant
+    context.unread_counter_target = :instructors
   end
 
   organize CreateMessageModel,

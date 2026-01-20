@@ -56,9 +56,9 @@
                 }) do
               %>
               <%= t(".tabs.#{id}.title") %>
-              <% if id == :messages && @authorization_request.unread_messages_from_instructors_count > 0 %>
+              <% if id == :messages && @authorization_request.unread_messages_from_applicant_count > 0 %>
                 <span class="unread-message-dot fr-ml-2v">
-                  <%= @authorization_request.unread_messages_from_instructors_count %>
+                  <%= @authorization_request.unread_messages_from_applicant_count %>
                 </span>
               <% end %>
             <% end %>

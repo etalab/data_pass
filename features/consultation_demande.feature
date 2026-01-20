@@ -16,6 +16,8 @@ Fonctionnalité: Consultation d'une demande d'habilitation
     Alors il y a un message d'erreur contenant "a été refusée"
     Et il n'y a pas de bouton "Sauvegarder"
     Et il y a un formulaire en mode résumé
+    Et je vois l'onglet "Demande"
+    Et je vois l'onglet "Historique"
 
   Scénario: Je consulte une demande d'habilitation demandant des modifications m'appartenant
     Quand je me rends sur une demande d'habilitation "API Entreprise" à modifier

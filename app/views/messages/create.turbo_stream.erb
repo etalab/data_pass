@@ -1,5 +1,9 @@
-<%= turbo_stream.replace('main-modal-content') do %>
-  <turbo-frame id="main-modal-content">
-    <%= render 'index' %>
-  </turbo-frame>
+<% messages_url = @authorization.present? ? authorization_messages_path(@authorization) : authorization_request_messages_path(@authorization_request) %>
+
+<%= turbo_stream.update(dom_id(@authorization_request, :messages)) do %>
+  <%= render @messages %>
+<% end %>
+
+<%= turbo_stream.update(dom_id(@authorization_request, :message_form)) do %>
+  <%= render partial: 'form', locals: { url: messages_url } %>
 <% end %>
