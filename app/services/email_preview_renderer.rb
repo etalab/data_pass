@@ -55,6 +55,7 @@ class EmailPreviewRenderer
 
   def build_preview_request
     authorization_request.dup.tap do |request|
+      request.id = authorization_request.id
       request.define_singleton_method(:denial) { DenialOfAuthorization.new(reason: PLACEHOLDER_MESSAGE) }
       request.define_singleton_method(:modification_request) { InstructorModificationRequest.new(reason: PLACEHOLDER_MESSAGE) }
 
