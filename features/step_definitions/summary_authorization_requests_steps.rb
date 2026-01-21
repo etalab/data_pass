@@ -1,4 +1,5 @@
 def summary_block_testing(block_title, &)
+  expect(page).to have_css('.summary-block__title', text: block_title)
   summary_block = find('.summary-block__title', text: block_title).ancestor('.summary-block')
 
   within(summary_block, &)
