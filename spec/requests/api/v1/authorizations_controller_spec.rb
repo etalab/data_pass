@@ -110,6 +110,51 @@ RSpec.describe 'API: Authorizations' do
       end
     end
 
+    context 'with siret filter' do
+      let(:target_organization) { create(:organization, siret: '13002526500013') }
+      let(:other_organization) { create(:organization, siret: '21920023500014') }
+      let(:target_organization_request) { create(:authorization_request, :api_entreprise, organization: target_organization) }
+      let(:other_organization_request) { create(:authorization_request, :api_entreprise, organization: other_organization) }
+      let!(:target_organization_authorizations) { create_list(:authorization, 2, request: target_organization_request) }
+      let!(:other_organization_authorizations) { create_list(:authorization, 3, request: other_organization_request) }
+
+      it 'filters by SIRET' do
+        get '/api/v1/habilitations', params: { siret: '13002526500013' }, headers: { 'Authorization' => "Bearer #{access_token.token}" }
+
+        expect(response).to have_http_status(:ok)
+        expect(response.parsed_body.count).to eq(2)
+        expect(response.parsed_body.pluck('id')).to match_array(target_organization_authorizations.pluck(:id))
+        expect(response.parsed_body.first['organisation']['siret']).to eq('13002526500013')
+
+        validate_request_and_response!
+      end
+
+      it 'returns empty array when no authorizations match the SIRET' do
+        get '/api/v1/habilitations', params: { siret: '99999999999999' }, headers: { 'Authorization' => "Bearer #{access_token.token}" }
+
+        expect(response).to have_http_status(:ok)
+        expect(response.parsed_body).to be_empty
+
+        validate_request_and_response!
+      end
+
+      it 'can be combined with state filter' do
+        target_organization_authorizations.first.update!(state: 'active')
+        target_organization_authorizations.second.update!(state: 'revoked')
+        other_organization_authorizations.each { |auth| auth.update!(state: 'active') }
+
+        get '/api/v1/habilitations', params: { siret: '13002526500013', state: 'active' }, headers: { 'Authorization' => "Bearer #{access_token.token}" }
+
+        expect(response).to have_http_status(:ok)
+        expect(response.parsed_body.count).to eq(1)
+        expect(response.parsed_body.first['id']).to eq(target_organization_authorizations.first.id)
+        expect(response.parsed_body.first['state']).to eq('active')
+        expect(response.parsed_body.first['organisation']['siret']).to eq('13002526500013')
+
+        validate_request_and_response!
+      end
+    end
+
     context 'when user has no access to any authorization' do
       let(:user) { create(:user, :developer, authorization_request_types: %w[api_particulier]) }
 

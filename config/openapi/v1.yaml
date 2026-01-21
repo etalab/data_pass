@@ -712,6 +712,13 @@ paths:
                 items:
                   type: string
                   enum: [draft, submitted, changes_requested, validated, refused, archived, revoked]
+        - name: siret
+          in: query
+          description: "Filtrer les demandes par SIRET de l'organisation (ex: 13002526500013)"
+          required: false
+          schema:
+            type: string
+            example: "13002526500013"
       responses:
         200:
           description: Liste des demandes récupérée avec succès
@@ -819,6 +826,13 @@ paths:
                 items:
                   type: string
                   enum: [active, obsolete, revoked]
+        - name: siret
+          in: query
+          description: "Filtrer les habilitations par SIRET de l'organisation (ex: 13002526500013)"
+          required: false
+          schema:
+            type: string
+            example: "13002526500013"
       responses:
         200:
           description: Liste des habilitations récupérée avec succès
