@@ -900,9 +900,15 @@ fr:
           with_ficoba_siren:
             label: Via SIREN/SIRET
           with_ficoba_personne_physique:
-            label: Via personne physique
+            label: Via l'état civil - personne physique
           with_ficoba_personne_morale:
-            label: Via personne morale
+            label: Via la raison sociale - personne morale
+          with_ficoba_iban_siren:
+            label: Via IBAN+SIREN/SIRET
+          with_ficoba_iban_personne_physique:
+            label: Via IBAN + état civil - personne physique
+          with_ficoba_iban_personne_morale:
+            label: Via IBAN + raison sociale - personne morale
       scopes:
         info:
           title: Comment choisir les données ?
@@ -947,10 +953,32 @@ fr:
             Le non-respect du principe de proportionnalité vous expose vis à vis de la
             CNIL.
             </p>
+            Afin de vous accompagner dans le choix de vos données, vous pouvez consulter notre documentation qui vous permettra de comprendre le fonctionnement de notre API ainsi que les données que nous proposons.
+            </br>
+            <a href="/doc/ProtocoleTechniqueFicoba3_v11.pdf", target="_blank">Voir la documentation de l’API FICOBA</a>
+        groups:
+          'Contrôle multi-détention PER - établissements bancaires uniquement': |
+            <strong>Accord client</strong> :
+            L'établissement bancaire doit s'assurer lorsqu'un client ouvre un PER qu'il autorise l'administration fiscale à communiquer à l'établissement de crédit saisi d'une demande d'ouverture d'un PER les informations relatives au compte présent en base FICOBA en multi-détention. Si le client n'a pas donné son accord, l'API restitue un booléen : oui/non (en multi-détention).
 
     api_ficoba_production: &api_ficoba_production
       <<: *api_ficoba_sandbox
 
+    api_ficoba_recouvrement_sandbox: *api_ficoba_sandbox
+    api_ficoba_verification_iban_sandbox: *api_ficoba_sandbox
+    api_ficoba_verification_existence_sandbox: *api_ficoba_sandbox
+    api_ficoba_fraude_sandbox: *api_ficoba_sandbox
+    api_ficoba_multi_detention_sandbox: *api_ficoba_sandbox
+    api_ficoba_recouvrement_production: *api_ficoba_production
+    api_ficoba_recouvrement_editeur: *api_ficoba_production
+    api_ficoba_verification_iban_production: *api_ficoba_production
+    api_ficoba_verification_iban_editeur: *api_ficoba_production
+    api_ficoba_verification_existence_production: *api_ficoba_production
+    api_ficoba_verification_existence_editeur: *api_ficoba_production
+    api_ficoba_fraude_production: *api_ficoba_production
+    api_ficoba_fraude_editeur: *api_ficoba_production
+    api_ficoba_multi_detention_production: *api_ficoba_production
+    api_ficoba_multi_detention_editeur: *api_ficoba_production
     api_ficoba_production_editeur: *api_ficoba_production
 
     api_r2p_sandbox: &api_r2p_sandbox
