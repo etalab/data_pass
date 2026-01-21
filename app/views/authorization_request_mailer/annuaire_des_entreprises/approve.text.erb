@@ -7,4 +7,9 @@ Vous bénéficiez de vos nouveaux droits et désormais, sur votre compte agent, 
 - la possibilité d’ajouter des collaborateurs et de leurs partager vos droits sur la page “Mes groupes” : https://annuaire-entreprises.data.gouv.fr/api/auth/agent-connect/login?pathFrom=%2Fcompte%2Fmes-groupes
 - un récapitulatif de vos droits sur la page “Mon espace” : https://annuaire-entreprises.data.gouv.fr/api/auth/agent-connect/login?pathFrom=%2Fcompte%2Faccueil
 
+<% if @authorization_request.latest_authorization&.message.present? %>
+Message associée à la validation de votre habilitation :
+<%= @authorization_request.latest_authorization.message %>
+<% end %>
+
 <%= render partial: 'mailer/shared/applicant/footer', locals: { authorization_definition_name: @authorization_request.definition.name } %>

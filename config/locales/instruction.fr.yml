@@ -1,5 +1,11 @@
 fr:
   instruction:
+    shared:
+      message_templates_section:
+        choose_template: Vous pouvez choisir un modèle ci-dessous.
+        edit_templates_link: modifier les modèles
+      email_preview_accordion:
+        title: Voir un aperçu de l'email
     dashboard:
       authorization_requests:
         tabs:
@@ -279,6 +285,10 @@ fr:
         approve:
           message_summary: |
             <strong>%{user_full_name}</strong> a approuvé la demande.
+          message_details: |
+            <blockquote>
+              %{message_details_text}
+            </blockquote>
           view_authorization: Consulter l'habilitation <strong>%{formatted_id}</strong>.
         request_changes:
           message_summary: |

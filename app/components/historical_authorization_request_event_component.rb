@@ -1,6 +1,10 @@
 class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
   with_collection_parameter :authorization_request_event
 
+  REASON_EVENTS = %w[request_changes revoke refuse bulk_update].freeze
+  MESSAGE_EVENTS = %w[applicant_message instructor_message].freeze
+  CHANGELOG_EVENTS = %w[initial_submit_with_changes_on_prefilled_data submit_with_changes legacy_submit_with_changes].freeze
+
   delegate :user_full_name, :entity, to: :authorization_request_event
   delegate :authorization_request_authorization_path, to: :helpers
 
@@ -27,16 +31,7 @@ class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
   end
 
   def message_details_text
-    @message_details_text ||= case name
-                              when 'request_changes', 'revoke', 'refuse', 'bulk_update'
-                                simple_format(entity.reason)
-                              when 'applicant_message', 'instructor_message'
-                                simple_format(entity.body)
-                              when 'initial_submit_with_changes_on_prefilled_data', 'submit_with_changes', 'legacy_submit_with_changes'
-                                humanized_changelog
-                              when 'admin_update'
-                                humanized_changelog(from_admin: true)
-                              end
+    @message_details_text ||= compute_message_details_text
   end
 
   def message_expandable?
@@ -94,6 +89,31 @@ class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
 
   private
 
+  def compute_message_details_text
+    return formatted_reason if REASON_EVENTS.include?(name)
+    return formatted_body if MESSAGE_EVENTS.include?(name)
+    return formatted_approval_message if approval_with_message?
+    return humanized_changelog if CHANGELOG_EVENTS.include?(name)
+
+    humanized_changelog(from_admin: true) if name == 'admin_update'
+  end
+
+  def formatted_reason
+    simple_format(entity.reason)
+  end
+
+  def formatted_body
+    simple_format(entity.body)
+  end
+
+  def formatted_approval_message
+    simple_format(entity.message)
+  end
+
+  def approval_with_message?
+    name == 'approve' && entity.message.present?
+  end
+
   def humanized_changelog(from_admin: false)
     helpers.content_tag(:ul) do
       changelog_presenter(from_admin:).consolidated_changelog_entries.map { |entry|
@@ -116,7 +136,7 @@ class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
 
   def event_kind
     case event.name
-    when 'refuse', 'revoke', 'request_changes', 'applicant_message', 'instructor_message', 'bulk_update'
+    when 'refuse', 'revoke', 'request_changes', 'applicant_message', 'instructor_message', 'bulk_update', 'approve'
       :message
     when 'submit', 'admin_update'
       :changelog

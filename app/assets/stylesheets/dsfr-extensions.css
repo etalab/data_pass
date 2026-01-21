@@ -235,3 +235,11 @@ fr-badge--grey {
   right: 1.5rem;
   top: 1rem;
 }
+
+/* Fix: DSFR accordion expands over sticky modal footer.
+   The accordion's fr-collapse has no stacking context, so it overlaps
+   the footer despite position:sticky. Adding z-index creates a stacking
+   context that keeps the footer above expanded accordion content. */
+.fr-modal__footer--above-accordion {
+  z-index: 1;
+}

@@ -9,4 +9,8 @@
   )
 %>
 
+<% if @authorization_request.latest_authorization&.message.present? %>
+<%= t('.additional_message', message: @authorization_request.latest_authorization.message) %>
+<% end %>
+
 <%= render partial: 'mailer/shared/applicant/footer', locals: { authorization_definition_name: @authorization_request.definition.name } %>

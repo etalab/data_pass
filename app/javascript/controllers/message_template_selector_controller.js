@@ -1,10 +1,26 @@
 import { Controller } from '@hotwired/stimulus'
 
 export default class extends Controller {
-  static targets = ['textarea']
+  static targets = ['textarea', 'previewMessage']
   static values = {
     templates: Array,
     authorizationRequestData: Object
+  }
+
+  connect () {
+    this.boundUpdatePreview = this.updatePreview.bind(this)
+    this.textareaTarget.addEventListener('input', this.boundUpdatePreview)
+  }
+
+  disconnect () {
+    this.textareaTarget.removeEventListener('input', this.boundUpdatePreview)
+  }
+
+  updatePreview () {
+    if (!this.hasPreviewMessageTarget) return
+
+    const message = this.textareaTarget.value.trim()
+    this.previewMessageTarget.textContent = message || '<MESSAGE PERSONNALISÉ>'
   }
 
   applyTemplate (event) {

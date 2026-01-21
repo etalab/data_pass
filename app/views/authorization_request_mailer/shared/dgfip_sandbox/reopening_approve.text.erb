@@ -25,4 +25,8 @@ Cordialement
 Le pôle données de la DGFiP
 Contact : dtnum.donnees.demande-acces@dgfip.finances.gouv.fr
 
+<% if @authorization_request.latest_authorization&.message.present? %>
+Message associé à la validation de votre habilitation :
+<%= @authorization_request.latest_authorization.message %>
+<% end %>
 Pour consulter cette mise à jour, veuillez cliquer sur le lien suivant <%= authorization_request_url(@authorization_request) %>

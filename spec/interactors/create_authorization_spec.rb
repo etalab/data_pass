@@ -1,14 +1,35 @@
 RSpec.describe CreateAuthorization, type: :interactor do
   describe '#call' do
-    subject(:create_authorization) { described_class.call(authorization_request:) }
+    subject(:create_authorization) { described_class.call(authorization_request:, authorization_message:) }
 
     let!(:authorization_request) { create(:authorization_request, form_uid, fill_all_attributes: true) }
+    let(:authorization_message) { nil }
 
     context 'when authorization is created' do
       let(:form_uid) { :api_particulier }
 
       it 'creates an authorization for api_particulier' do
         expect { subject }.to change(Authorization, :count).by(1)
+      end
+    end
+
+    context 'when authorization message is provided' do
+      let(:form_uid) { :api_particulier }
+      let(:authorization_message) { 'Custom approval message' }
+
+      it 'stores the message in the authorization' do
+        subject
+        expect(create_authorization.authorization.message).to eq('Custom approval message')
+      end
+    end
+
+    context 'when authorization message is blank' do
+      let(:form_uid) { :api_particulier }
+      let(:authorization_message) { '' }
+
+      it 'creates authorization with blank message' do
+        subject
+        expect(create_authorization.authorization.message).to be_blank
       end
     end
 

@@ -145,6 +145,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_06_171655) do
     t.string "authorization_request_class", null: false
     t.datetime "created_at", null: false
     t.hstore "data", default: {}, null: false
+    t.text "message"
     t.bigint "request_id", null: false
     t.boolean "revoked", default: false
     t.string "slug"
