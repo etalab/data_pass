@@ -22,6 +22,27 @@ RSpec.describe MessageTemplateInterpolator do
         expect { interpolate }.to raise_error(ArgumentError)
       end
     end
+
+    context 'with URL containing percent signs' do
+      let(:content) { 'Visit https://example.com/path%20with%20spaces and %{demande_url}' }
+
+      it 'interpolates correctly' do
+        result = interpolate
+        expect(result).to include('https://example.com/path%20with%20spaces')
+        expect(result).to include("http://localhost:3000/demandes/#{authorization_request.id}")
+      end
+    end
+
+    context 'with percent signs in content' do
+      let(:content) { 'This is 50% complete. URL: https://staging.datapass.api.gouv.fr/instruction/modeles-messages%20/new' }
+
+      it 'interpolates correctly without errors' do
+        expect { interpolate }.not_to raise_error
+        result = interpolate
+        expect(result).to include('50%')
+        expect(result).to include('https://staging.datapass.api.gouv.fr/instruction/modeles-messages%20/new')
+      end
+    end
   end
 
   describe '#valid?' do
@@ -37,6 +58,18 @@ RSpec.describe MessageTemplateInterpolator do
       let(:content) { 'test1 %{demande_url} test2 %{invalid}' }
 
       it { is_expected.not_to be true }
+    end
+
+    context 'with URL containing percent signs' do
+      let(:content) { 'Visit https://example.com/path%20with%20spaces and %{demande_url}' }
+
+      it { is_expected.to be true }
+    end
+
+    context 'with percent signs in content' do
+      let(:content) { 'This is 50% complete. URL: https://staging.datapass.api.gouv.fr/instruction/modeles-messages%20/new' }
+
+      it { is_expected.to be true }
     end
   end
 end

@@ -7,7 +7,8 @@ class MessageTemplateInterpolator
   end
 
   def interpolate(object)
-    format(content, build_variables(object))
+    escaped_content = escape_percent_signs_outside_variables(content)
+    format(escaped_content, build_variables(object))
   rescue KeyError => e
     raise ArgumentError, "Missing variable in template interpolation: #{e.key}"
   end
@@ -42,5 +43,9 @@ class MessageTemplateInterpolator
 
   def extract_object_name(object)
     object.class.name.underscore.split('/').first
+  end
+
+  def escape_percent_signs_outside_variables(text)
+    text.gsub(/%(?!\{)/, '%%')
   end
 end
