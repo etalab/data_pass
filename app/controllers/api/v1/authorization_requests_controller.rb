@@ -7,6 +7,7 @@ class API::V1::AuthorizationRequestsController < API::V1Controller
       .includes(:authorizations, :organization, :events_without_bulk_update)
       .where(type: current_user_authorization_request_types)
       .merge(state_filter)
+      .merge(siret_filter)
       .offset(params[:offset])
       .limit(maxed_limit(params[:limit]))
 
@@ -29,5 +30,11 @@ class API::V1::AuthorizationRequestsController < API::V1Controller
     return AuthorizationRequest.all if params[:state].blank?
 
     AuthorizationRequest.where(state: Array(params[:state]))
+  end
+
+  def siret_filter
+    return AuthorizationRequest.all if params[:siret].blank?
+
+    AuthorizationRequest.joins(:organization).where(organizations: { legal_entity_id: params[:siret] })
   end
 end

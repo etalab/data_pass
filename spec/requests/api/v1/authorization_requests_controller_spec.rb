@@ -50,6 +50,47 @@ RSpec.describe 'API: Authorization requests' do
         expect(response.parsed_body[0]['id']).to eq(valid_revoked_authorization_request.id)
       end
 
+      context 'with siret filter' do
+        let(:target_organization) { create(:organization, siret: '13002526500013') }
+        let(:other_organization) { create(:organization, siret: '21920023500014') }
+        let!(:target_organization_request) { create(:authorization_request, :api_entreprise, organization: target_organization) }
+        let!(:other_organization_request) { create(:authorization_request, :api_entreprise, organization: other_organization) }
+
+        it 'filters by SIRET' do
+          get '/api/v1/demandes', params: { siret: '13002526500013' }, headers: { 'Authorization' => "Bearer #{access_token.token}" }
+
+          expect(response).to have_http_status(:ok)
+          expect(response.parsed_body.count).to eq(1)
+          expect(response.parsed_body[0]['id']).to eq(target_organization_request.id)
+          expect(response.parsed_body[0]['organisation']['siret']).to eq('13002526500013')
+
+          validate_request_and_response!
+        end
+
+        it 'returns empty array when no requests match the SIRET' do
+          get '/api/v1/demandes', params: { siret: '99999999999999' }, headers: { 'Authorization' => "Bearer #{access_token.token}" }
+
+          expect(response).to have_http_status(:ok)
+          expect(response.parsed_body).to be_empty
+
+          validate_request_and_response!
+        end
+
+        it 'can be combined with state filter' do
+          target_organization_request.update_column(:state, 'submitted')
+          other_organization_request.update_column(:state, 'draft')
+
+          get '/api/v1/demandes', params: { siret: '13002526500013', state: 'submitted' }, headers: { 'Authorization' => "Bearer #{access_token.token}" }
+
+          expect(response).to have_http_status(:ok)
+          expect(response.parsed_body.count).to eq(1)
+          expect(response.parsed_body[0]['id']).to eq(target_organization_request.id)
+          expect(response.parsed_body[0]['state']).to eq('submitted')
+
+          validate_request_and_response!
+        end
+      end
+
       context 'when authorization request has authorizations' do
         let!(:authorization) { create(:authorization, request: valid_draft_authorization_request) }
 
