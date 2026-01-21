@@ -5,7 +5,8 @@ class ServiceProvider < StaticApplicationRecord
     :name,
     :siret,
     :type,
-    :already_integrated
+    :already_integrated,
+    :fc_certified
 
   TYPES = { saas: 'saas', editor: 'editor' }.freeze
 
@@ -22,6 +23,7 @@ class ServiceProvider < StaticApplicationRecord
         :siret,
         :type,
         :already_integrated,
+        :fc_certified,
       ).merge(
         id: uid.to_s,
       )
@@ -42,5 +44,9 @@ class ServiceProvider < StaticApplicationRecord
 
   def saas?
     type == TYPES[:saas]
+  end
+
+  def france_connect_certified?
+    fc_certified || false
   end
 end

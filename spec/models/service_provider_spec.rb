@@ -28,4 +28,26 @@ RSpec.describe ServiceProvider do
       it { is_expected.to be false }
     end
   end
+
+  describe '#france_connect_certified?' do
+    subject(:france_connect_certified) { editor.france_connect_certified? }
+
+    context 'when fc_certified is true' do
+      let(:editor) { described_class.new(fc_certified: true) }
+
+      it { is_expected.to be true }
+    end
+
+    context 'when fc_certified is false' do
+      let(:editor) { described_class.new(fc_certified: false) }
+
+      it { is_expected.to be false }
+    end
+
+    context 'when fc_certified is not set' do
+      let(:editor) { described_class.new }
+
+      it { is_expected.to be false }
+    end
+  end
 end
