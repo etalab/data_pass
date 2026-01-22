@@ -689,3 +689,32 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le c
       | Nom du formulaire               | Nom de l'éditeur  |
       | iNoé \| Malice Petite enfance   | Aiga              |
 
+  Plan du scénario: Je soumets une demande d'habilitation d'un éditeur fc_certified avec le contact technique non renseigné, des scopes non modifiables et la modalité en première étape
+    Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
+    Et que je clique sur "Débuter ma demande"
+
+    * je clique sur "Suivant"
+
+    * je clique sur "Suivant"
+
+    * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
+    * je clique sur "Suivant"
+
+    * je renseigne les infos concernant les données personnelles
+    * je clique sur "Suivant"
+
+    * je renseigne les informations du délégué à la protection des données
+    * je renseigne les informations du contact technique
+    * je renseigne les informations du contact métier
+
+    * je clique sur "Suivant"
+
+    * j'adhère aux conditions générales
+    * je clique sur "Soumettre la demande d'habilitation"
+
+    Alors il y a un message de succès contenant "soumise avec succès"
+    Et je suis sur la page "Demandes et habilitations"
+
+    Exemples:
+      | Nom du formulaire | Nom de l'éditeur |
+      | Publik Famille    | Entr'ouvert      |

@@ -1727,9 +1727,15 @@ api-particulier-entrouvert-publik:
     socio-culturelles et sportives pour les enfants ou les adultes inscrits
   authorization_request: APIParticulier
   use_case: tarification_municipale_enfance
-  single_page_view: "api_particulier_through_editor_without_contact_technique"
   service_provider_id: entrouvert
-  static_blocks: *api_particulier_through_editor_static_blocks
+  introduction: *api_particulier_introduction_editor_with_fixed_scopes
+  steps:
+    - name: modalities
+    - name: basic_infos
+    - name: legal
+    - name: personal_data
+    - name: scopes
+    - name: contacts
   initialize_with:
     intitule:
       Calcul du tarif des activités péri-extrascolaires, petite enfance, socio-culturelles
@@ -1744,6 +1750,8 @@ api-particulier-entrouvert-publik:
       - cnaf_quotient_familial
       - cnaf_allocataires
       - cnaf_enfants
+    modalities:
+      - params
 
 api-particulier-ccas-melissandre-afi:
   name: Mélissandre
