@@ -25,6 +25,7 @@ fr:
       unauthorized:
         title: "Accès non autorisé"
         subtitle: *generic_subtitle
-      unprocessable_entity:
+      unprocessable_entity: &unprocessable
         title: "Impossible de mettre à jour cette ressource"
         subtitle: *generic_subtitle
+      unprocessable_content: *unprocessable
