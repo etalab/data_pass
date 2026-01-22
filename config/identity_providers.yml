@@ -67,6 +67,7 @@ shared:
     choose_organization_on_sign_in: false
     siret_verified: true
     can_link_to_organizations: false
+    mfa_required: true
   3f3b319e-3be5-4031-90f7-e79d1b3ecdf2:
     name: Authentification Orion du CEREMA
     choose_organization_on_sign_in: false

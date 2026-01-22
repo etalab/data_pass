@@ -35,6 +35,20 @@ class SessionsController < ApplicationController
   end
 
   def create_from_proconnect
+    return redirect_to_mfa_reauthentication if requires_mfa_reauthentication?
+
+    complete_proconnect_sign_in
+  end
+
+  def redirect_to_mfa_reauthentication
+    uri = OmniAuth::Strategies::Proconnect.authorization_uri_with_mfa(
+      session:,
+      login_hint: proconnect_raw_info['email']
+    )
+    redirect_to uri, allow_other_host: true
+  end
+
+  def complete_proconnect_sign_in
     organizer = authenticate_user(identity_federator: 'proconnect')
     user = organizer.user
 
@@ -47,6 +61,24 @@ class SessionsController < ApplicationController
 
   def mon_compte_pro_connect?
     params[:provider] == 'mon_compte_pro'
+  end
+
+  def requires_mfa_reauthentication?
+    identity_provider = IdentityProvider.find(proconnect_raw_info['idp_id'])
+
+    identity_provider.mfa_required? && proconnect_id_token_amr.exclude?('mfa')
+  end
+
+  def proconnect_id_token_amr
+    id_token = session['omniauth.pc.id_token']
+    return [] unless id_token
+
+    claims = JSON::JWT.decode(id_token, :skip_verification)
+    claims['amr'] || []
+  end
+
+  def proconnect_raw_info
+    request.env['omniauth.auth'].dig('extra', 'raw_info') || {}
   end
 
   def authenticate_user(identity_federator: 'mon_compte_pro')
