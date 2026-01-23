@@ -41,7 +41,14 @@ class AuthorizationRequest::APIParticulier < AuthorizationRequest
     true
   end
 
+  def skip_france_connect_authorization?
+    form.service_provider&.france_connect_certified? &&
+      Rails.application.credentials.dig(:feature_flags, :apipfc) == true
+  end
+
   def requires_france_connect_authorization?
+    return false if skip_france_connect_authorization?
+
     need_complete_validation?(:modalities) &&
       modalities.include?('france_connect')
   end
