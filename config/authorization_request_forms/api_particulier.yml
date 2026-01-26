@@ -365,13 +365,13 @@ api-particulier-civil-enfance-ciril-group:
   description: *api_particulier_form_description_petite_enfance
   authorization_request: APIParticulier
   introduction: *api_particulier_introduction_editor_with_fixed_scopes
-  steps:
+  steps: &api_particulier_fc_certified_editor_steps_with_fixed_scopes
+    - name: modalities
     - name: basic_infos
     - name: legal
     - name: personal_data
-    - name: modalities
     - name: contacts
-  static_blocks:
+  static_blocks: &api_particulier_fc_certified_editor_static_blocks_with_fixed_scopes
     - name: scopes
   use_case: tarification_municipale_enfance
   service_provider_id: ciril_group
@@ -501,8 +501,8 @@ api-particulier-waigeo-myperischool:
   use_case: tarification_municipale_enfance
   service_provider_id: waigeo
   introduction: *api_particulier_introduction_editor_with_fixed_scopes
-  steps: *api_particulier_editor_steps_with_fixed_scopes
-  static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
+  steps: *api_particulier_fc_certified_editor_steps_with_fixed_scopes
+  static_blocks: *api_particulier_fc_certified_editor_static_blocks_with_fixed_scopes
   scopes_config:
     disabled:
       - cnaf_quotient_familial
@@ -703,8 +703,8 @@ api-particulier-aiga:
   use_case: tarification_municipale_enfance
   service_provider_id: aiga
   introduction: *api_particulier_introduction_editor_with_fixed_scopes
-  steps: *api_particulier_editor_steps_with_fixed_scopes
-  static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
+  steps: *api_particulier_fc_certified_editor_steps_with_fixed_scopes
+  static_blocks: *api_particulier_fc_certified_editor_static_blocks_with_fixed_scopes
   scopes_config:
     disabled:
       - cnaf_quotient_familial
@@ -805,8 +805,8 @@ api-particulier-capdemat-capdemat-evolution:
   service_provider_id: capdemat
   public: true
   introduction: *api_particulier_introduction_editor_with_fixed_scopes
-  steps: *api_particulier_editor_steps_with_fixed_scopes
-  static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
+  steps: *api_particulier_fc_certified_editor_steps_with_fixed_scopes
+  static_blocks: *api_particulier_fc_certified_editor_static_blocks_with_fixed_scopes
   scopes_config:
     disabled:
       - cnaf_quotient_familial
@@ -1265,8 +1265,14 @@ api-particulier-ypok:
   description: Facturation des familles pour les services enfance
   authorization_request: APIParticulier
   introduction: *api_particulier_introduction_editor_with_editable_scopes
-  steps: *api_particulier_editor_steps_with_editable_scopes
-  static_blocks: *api_particulier_editor_static_blocks_with_editable_scopes
+  steps:
+    - name: modalities
+    - name: basic_infos
+    - name: scopes
+    - name: legal
+    - name: personal_data
+    - name: contacts
+  static_blocks: []
   use_case: tarification_municipale_enfance
   service_provider_id: ypok
   scopes_config:
@@ -1545,14 +1551,13 @@ api-particulier-mgdis-tarification-cantines-lycees:
   authorization_request: APIParticulier
   use_case: cantines-colleges-lycees-tarification
   service_provider_id: mgdis
-  steps:
+  steps: &api_particulier_fc_certified_editor_steps_with_editable_scopes
+    - name: modalities
     - name: basic_infos
     - name: scopes
     - name: legal
-    - name: modalities
     - name: personal_data
     - name: contacts
-
   scopes_config:
     disabled:
         - cnaf_quotient_familial
@@ -1727,9 +1732,19 @@ api-particulier-entrouvert-publik:
     socio-culturelles et sportives pour les enfants ou les adultes inscrits
   authorization_request: APIParticulier
   use_case: tarification_municipale_enfance
-  single_page_view: "api_particulier_through_editor_without_contact_technique"
   service_provider_id: entrouvert
-  static_blocks: *api_particulier_through_editor_static_blocks
+  introduction: *api_particulier_introduction_editor_with_fixed_scopes
+  steps: *api_particulier_fc_certified_editor_steps_with_fixed_scopes
+  static_blocks: *api_particulier_fc_certified_editor_static_blocks_with_fixed_scopes
+  scopes_config:
+    disabled:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_enfants
+    displayed:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_enfants
   initialize_with:
     intitule:
       Calcul du tarif des activités péri-extrascolaires, petite enfance, socio-culturelles
@@ -1744,6 +1759,8 @@ api-particulier-entrouvert-publik:
       - cnaf_quotient_familial
       - cnaf_allocataires
       - cnaf_enfants
+    modalities:
+      - params
 
 api-particulier-ccas-melissandre-afi:
   name: Mélissandre
@@ -1863,8 +1880,8 @@ api-particulier-aiga-petite-enfance:
   use_case: tarification_eaje
   service_provider_id: aiga
   introduction: *api_particulier_introduction_editor_with_fixed_scopes
-  steps: *api_particulier_editor_steps_with_fixed_scopes
-  static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
+  steps: *api_particulier_fc_certified_editor_steps_with_fixed_scopes
+  static_blocks: *api_particulier_fc_certified_editor_static_blocks_with_fixed_scopes
   scopes_config:
     disabled:
       - cnav_participation_familiale_eaje_allocataires

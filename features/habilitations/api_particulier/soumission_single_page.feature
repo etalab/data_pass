@@ -50,7 +50,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en une
     Exemples:
       | Nom du formulaire         | Nom de l'éditeur      |
       | FAST                      | DOCAPOSTE             |
-      | Publik Famille            | Entr'ouvert           |
       | Axel                      | Teamnet               |
 
   Scénario: Je soumets une demande d'habilitation de l'éditeur AFI avec le contact technique déjà renseigné pour un cas d'usage lié au CCAS

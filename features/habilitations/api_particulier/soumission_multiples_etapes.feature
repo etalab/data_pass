@@ -231,7 +231,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
       | Proxima.ENF         | AGEDI                     |
       | FamilyClic          | JCDeveloppement           |
       | Carte Plus          | Carte Plus                |
-      | YGRC                | Ypok                      |
 
    Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique non renseigné et des scopes non modifiables pour un cas d'usage lié au portail famille ou à la tarification QF
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
@@ -261,7 +260,6 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
     Exemples:
       | Nom du formulaire         | Nom de l'éditeur  |
       | Concerto                  | Arpège            |
-      | Civil Enfance             | Ciril GROUP       |
       | ILE - Kiosque famille     | Technocarte       |
       | Loyfeey                   | Ecorestauration   |
       | Kosmos Education          | Kosmos            |
@@ -379,10 +377,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
       | Cantine de France     | JDéalise                  |
       | Malice                | Amiciel                   |
       | Logiciel Enfance      | 3D Ouest                  |
-      | MyPérischool          | Waigeo                    |
       | Fluo                  | Cosoluce                  |
-      | iNoé                  | Aiga                      |
-      | CapDemat Evolution    | CapDemat                  |
       | PourMesDossiers       | Esabora                   |
       | BL Enfance            | Berger-Levrault           |
       | Mairistem             | JVS-Mairistem             |
@@ -574,20 +569,19 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
       | Nom du formulaire   | Nom de l'éditeur          |
       | Keolis              | Keolis                    |
 
- Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique déjà renseigné et des scopes modifiables pour un cas d'usage lié à la tarification des cantines dans les lycées, où le cadre juridique est déjà renseigné et avec le choix de la modalité
-    Sachant que mon organisation a 1 demande d'habilitation "FranceConnect" validée
+ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur fc_certified avec le contact technique déjà renseigné et des scopes modifiables pour un cas d'usage lié à la tarification des cantines dans les lycées, où le cadre juridique est déjà renseigné et la modalité en première étape
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
     Et la page contient "Nous avons pré-rempli des informations pour vous aider"
 
     * je clique sur "Suivant"
+
+    * je clique sur "Suivant"
+
     * je clique sur "Suivant"
 
     * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
-    * je clique sur "Suivant"
-
-    * je sélectionne la première option pour "FranceConnect"
     * je clique sur "Suivant"
 
     * je renseigne les infos concernant les données personnelles
@@ -662,11 +656,13 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le c
       | Concerto Petite enfance   | Arpège            |
       | Axel petite enfance       | Teamnet           |
 
-Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique déjà renseigné et des scopes non modifiables pour un cas d'usage lié à la tarification dans les établissements d'accueil du jeune enfant
+Plan du scénario: Je soumets une demande d'habilitation d'un éditeur fc_certified avec le contact technique déjà renseigné et des scopes non modifiables pour un cas d'usage lié à la tarification dans les établissements d'accueil du jeune enfant
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
     Et la page contient "Nous avons pré-rempli des informations pour vous aider"
+
+    * je clique sur "Suivant"
 
     * je clique sur "Suivant"
 
@@ -689,3 +685,97 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le c
       | Nom du formulaire               | Nom de l'éditeur  |
       | iNoé \| Malice Petite enfance   | Aiga              |
 
+  Plan du scénario: Je soumets une demande d'habilitation d'un éditeur fc_certified avec le contact technique non renseigné, des scopes non modifiables et la modalité en première étape
+    Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
+    Et que je clique sur "Débuter ma demande"
+
+    * je clique sur "Suivant"
+
+    * je clique sur "Suivant"
+
+    * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
+    * je clique sur "Suivant"
+
+    * je renseigne les infos concernant les données personnelles
+    * je clique sur "Suivant"
+
+    * je renseigne les informations du délégué à la protection des données
+    * je renseigne les informations du contact technique
+    * je renseigne les informations du contact métier
+
+    * je clique sur "Suivant"
+
+    * j'adhère aux conditions générales
+    * je clique sur "Soumettre la demande d'habilitation"
+
+    Alors il y a un message de succès contenant "soumise avec succès"
+    Et je suis sur la page "Demandes et habilitations"
+
+    Exemples:
+      | Nom du formulaire | Nom de l'éditeur |
+      | Publik Famille    | Entr'ouvert      |
+      | Civil Enfance     | Ciril GROUP      |
+
+  Plan du scénario: Je soumets une demande d'habilitation d'un éditeur fc_certified avec le contact technique déjà renseigné, des scopes non modifiables et la modalité en première étape
+    Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
+    Et que je clique sur "Débuter ma demande"
+
+    * je clique sur "Suivant"
+
+    * je clique sur "Suivant"
+
+    * je remplis "URL" avec "https://mairie.fr/deliberation-tarifaire.pdf"
+    * je clique sur "Suivant"
+
+    * je renseigne les infos concernant les données personnelles
+    * je clique sur "Suivant"
+
+    * je renseigne les informations du délégué à la protection des données
+    * je renseigne les informations du contact métier
+
+    * je clique sur "Suivant"
+
+    * j'adhère aux conditions générales
+    * je clique sur "Soumettre la demande d'habilitation"
+
+    Alors il y a un message de succès contenant "soumise avec succès"
+    Et je suis sur la page "Demandes et habilitations"
+
+    Exemples:
+      | Nom du formulaire     | Nom de l'éditeur |
+      | MyPérischool          | Waigeo           |
+      | iNoé                  | Aiga             |
+      | CapDemat Evolution    | CapDemat         |
+
+  Plan du scénario: Je soumets une demande d'habilitation d'un éditeur fc_certified avec le contact technique déjà renseigné, des scopes modifiables et la modalité en première étape
+    Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
+    Et que je clique sur "Débuter ma demande"
+
+    Et la page contient "Nous avons pré-rempli des informations pour vous aider"
+
+    * je clique sur "Suivant"
+
+    * je clique sur "Suivant"
+
+    * je clique sur "Suivant"
+
+    * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
+    * je clique sur "Suivant"
+
+    * je renseigne les infos concernant les données personnelles
+    * je clique sur "Suivant"
+
+    * je renseigne les informations du délégué à la protection des données
+    * je renseigne les informations du contact métier
+
+    * je clique sur "Suivant"
+
+    * j'adhère aux conditions générales
+    * je clique sur "Soumettre la demande d'habilitation"
+
+    Alors il y a un message de succès contenant "soumise avec succès"
+    Et je suis sur la page "Demandes et habilitations"
+
+    Exemples:
+      | Nom du formulaire | Nom de l'éditeur |
+      | YGRC              | Ypok             |
