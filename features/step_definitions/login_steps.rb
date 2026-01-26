@@ -31,13 +31,17 @@ def mock_proconnect(user, identity_provider_uid: '71144ab3-ee1a-4401-b7b3-79b44f
     }
   )
 
+  proconnect_omniauth_payload['credentials'] = { 'id_token' => build_mfa_id_token }
+
   OmniAuth.config.mock_auth[:proconnect] = OmniAuth::AuthHash.new(
     {
       provider: :proconnect,
     }.merge(proconnect_omniauth_payload)
   )
+end
 
-  stub_request(:get, "#{Rails.application.credentials.proconnect_url}/.well-known/openid-configuration")
+def build_mfa_id_token
+  JSON::JWT.new(amr: ['mfa'], exp: 1.hour.from_now.to_i).to_s
 end
 
 Sachantque('je suis un demandeur') do

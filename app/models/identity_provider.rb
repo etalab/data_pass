@@ -7,7 +7,8 @@ class IdentityProvider < StaticApplicationRecord
 
   attr_writer :choose_organization_on_sign_in,
     :siret_verified,
-    :can_link_to_organizations
+    :can_link_to_organizations,
+    :mfa_required
 
   def self.backend
     Rails.application.config_for(:identity_providers).map do |uid, hash|
@@ -43,5 +44,9 @@ class IdentityProvider < StaticApplicationRecord
 
   def unknown?
     @unknown.nil? ? false : @unknown
+  end
+
+  def mfa_required?
+    @mfa_required.nil? ? false : @mfa_required
   end
 end

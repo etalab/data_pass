@@ -1,5 +1,11 @@
 OmniAuth.config.test_mode = true
 
+OmniAuth.config.before_callback_phase do |env|
+  if (id_token = env['omniauth.auth']&.dig('credentials', 'id_token'))
+    env['rack.session']['omniauth.pc.id_token'] = id_token
+  end
+end
+
 def current_user
   if instance_variable_defined?(:@current_user)
     @current_user

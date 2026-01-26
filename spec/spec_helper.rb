@@ -23,6 +23,14 @@ RSpec.configure do |config|
   config.before(:all) do
     Seeds.new.flushdb
   end
+
+  config.before do
+    stub_request(:get, %r{.well-known/openid-configuration$}).to_return(
+      status: 200,
+      body: { authorization_endpoint: 'https://test.proconnect.gouv.fr/authorize' }.to_json,
+      headers: { 'Content-Type' => 'application/json' }
+    )
+  end
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
