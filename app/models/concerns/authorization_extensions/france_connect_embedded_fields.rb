@@ -79,20 +79,13 @@ module AuthorizationExtensions::FranceConnectEmbeddedFields
   end
 
   def france_connect_contacts_attributes
-    contact_attributes_for(:contact_technique)
-      .merge(contact_attributes_for(:responsable_traitement, source: :contact_metier))
-      .merge(contact_attributes_for(:delegue_protection_donnees))
+    contact_for(:contact_technique).to_attributes(prefix: :contact_technique)
+      .merge(contact_for(:contact_metier).to_attributes(prefix: :responsable_traitement))
+      .merge(contact_for(:delegue_protection_donnees).to_attributes(prefix: :delegue_protection_donnees))
   end
 
-  def contact_attributes_for(contact_type, source: nil)
-    source_contact = source || contact_type
-    contact_fields = %i[family_name given_name email phone_number job_title]
-
-    contact_fields.each_with_object({}) do |field, hash|
-      source_key = "#{source_contact}_#{field}"
-      target_key = "#{contact_type}_#{field}"
-      hash[target_key.to_sym] = send(source_key) if respond_to?(source_key)
-    end
+  def contact_for(type)
+    Contact.new(type, self)
   end
 
   def common_attributes_for_france_connect
