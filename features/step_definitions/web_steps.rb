@@ -37,6 +37,14 @@ Quand(/je clique sur (le (?:dernier|premier) )?"([^"]+)"\s*$/) do |position, lab
   end
 end
 
+Quand('je clique sur {string} et confirme dans la modale') do |label|
+  click_link_or_button label
+  within('turbo-frame#main-modal-content', wait: 5) do
+    click_link_or_button label
+  end
+  expect(page).to have_no_css('turbo-frame#main-modal-content', wait: 5)
+end
+
 Alors('la page contient {string}') do |content|
   expect(page).to have_content(content, normalize_ws: true)
 end
