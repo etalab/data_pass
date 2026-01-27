@@ -187,17 +187,161 @@ RSpec.describe AuthorizationRequestPolicy do
     subject { instance.events? }
 
     let(:authorization_request_class) { authorization_request }
+    let(:authorization_request) { create(:authorization_request, :api_entreprise, :submitted, applicant: user) }
 
-    context 'when user has summary access' do
-      let(:authorization_request) { create(:authorization_request, :api_entreprise, :submitted, applicant: user) }
+    context 'when user is the applicant' do
+      it { is_expected.to be true }
+    end
+
+    context 'when user is a verified organization member' do
+      let(:org_member) { create(:user) }
+      let(:user_context) { UserContext.new(org_member) }
+
+      before do
+        org_member.add_to_organization(authorization_request.organization, verified: true, current: true)
+      end
 
       it { is_expected.to be true }
     end
 
-    context 'when user does not have summary access' do
-      let(:authorization_request) { create(:authorization_request, :api_entreprise, :draft, applicant: user) }
-      let(:another_user) { create(:user) }
-      let(:user_context) { UserContext.new(another_user) }
+    context 'when user is a reporter for the authorization type' do
+      let(:reporter) { create(:user, :reporter, authorization_request_types: %i[api_entreprise]) }
+      let(:user_context) { UserContext.new(reporter) }
+
+      it { is_expected.to be true }
+    end
+
+    context 'when user is a designated contact' do
+      let(:contact_user) { create(:user) }
+      let(:user_context) { UserContext.new(contact_user) }
+
+      before do
+        authorization_request.update!(data: authorization_request.data.merge('contact_metier_email' => contact_user.email))
+      end
+
+      it { is_expected.to be false }
+    end
+
+    context 'when user has no relation to the request' do
+      let(:random_user) { create(:user) }
+      let(:user_context) { UserContext.new(random_user) }
+
+      it { is_expected.to be false }
+    end
+  end
+
+  describe '#messages?' do
+    subject { instance.messages? }
+
+    let(:authorization_request_class) { authorization_request }
+    let(:authorization_request) { create(:authorization_request, :api_entreprise, :submitted, applicant: user) }
+
+    context 'when user is the applicant' do
+      it { is_expected.to be true }
+    end
+
+    context 'when user is a verified organization member' do
+      let(:org_member) { create(:user) }
+      let(:user_context) { UserContext.new(org_member) }
+
+      before do
+        org_member.add_to_organization(authorization_request.organization, verified: true, current: true)
+      end
+
+      it { is_expected.to be true }
+    end
+
+    context 'when user is a reporter for the authorization type' do
+      let(:reporter) { create(:user, :reporter, authorization_request_types: %i[api_entreprise]) }
+      let(:user_context) { UserContext.new(reporter) }
+
+      it { is_expected.to be true }
+    end
+
+    context 'when user is a designated contact' do
+      let(:contact_user) { create(:user) }
+      let(:user_context) { UserContext.new(contact_user) }
+
+      before do
+        authorization_request.update!(data: authorization_request.data.merge('contact_metier_email' => contact_user.email))
+      end
+
+      it { is_expected.to be false }
+    end
+
+    context 'when messaging feature is disabled' do
+      before do
+        allow(authorization_request.definition).to receive(:feature?).with(:messaging).and_return(false)
+      end
+
+      it { is_expected.to be false }
+    end
+  end
+
+  describe '#send_message?' do
+    subject { instance.send_message? }
+
+    let(:authorization_request_class) { authorization_request }
+    let(:authorization_request) { create(:authorization_request, :api_entreprise, :submitted, applicant: user) }
+
+    context 'when user is the applicant' do
+      it { is_expected.to be true }
+    end
+
+    context 'when user is a verified organization member but not the applicant' do
+      let(:org_member) { create(:user) }
+      let(:user_context) { UserContext.new(org_member) }
+
+      before do
+        org_member.add_to_organization(authorization_request.organization, verified: true, current: true)
+      end
+
+      it { is_expected.to be false }
+    end
+
+    context 'when user is a reporter for the authorization type' do
+      let(:reporter) { create(:user, :reporter, authorization_request_types: %i[api_entreprise]) }
+      let(:user_context) { UserContext.new(reporter) }
+
+      it { is_expected.to be false }
+    end
+  end
+
+  describe '#authorizations?' do
+    subject { instance.authorizations? }
+
+    let(:authorization_request_class) { authorization_request }
+    let(:authorization_request) { create(:authorization_request, :api_entreprise, :submitted, applicant: user) }
+
+    context 'when user is the applicant' do
+      it { is_expected.to be true }
+    end
+
+    context 'when user is a verified organization member' do
+      let(:org_member) { create(:user) }
+      let(:user_context) { UserContext.new(org_member) }
+
+      before do
+        org_member.add_to_organization(authorization_request.organization, verified: true, current: true)
+      end
+
+      it { is_expected.to be true }
+    end
+
+    context 'when user is a reporter for the authorization type' do
+      let(:reporter) { create(:user, :reporter, authorization_request_types: %i[api_entreprise]) }
+      let(:user_context) { UserContext.new(reporter) }
+
+      it { is_expected.to be true }
+    end
+
+    context 'when user is a designated contact' do
+      let(:contact_user) { create(:user) }
+      let(:user_context) { UserContext.new(contact_user) }
+
+      before do
+        authorization_request.update!(data: authorization_request.data.merge('contact_metier_email' => contact_user.email))
+      end
 
       it { is_expected.to be false }
     end

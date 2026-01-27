@@ -18,6 +18,11 @@ class AuthorizationPolicy < ApplicationPolicy
       user.reporter?(record.kind)
   end
 
+  delegate :events?,
+           :messages?,
+           :authorizations?,
+           to: :authorization_request_policy
+
   def start_next_stage?
     record.active? &&
       authorization_request_policy.start_next_stage?

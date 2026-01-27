@@ -141,6 +141,16 @@ Quand('je me rends sur cette demande d\'habilitation') do
   end
 end
 
+Quand('je me rends sur la page demandeur de cette demande') do
+  authorization_request = @authorization_request || AuthorizationRequest.last
+  visit authorization_request_path(authorization_request)
+end
+
+Quand('je me rends sur la page demandeur de cette habilitation') do
+  authorization = @authorization || Authorization.last
+  visit authorization_path(authorization)
+end
+
 Quand(/je me rends via l'espace usager sur une demande d'habilitation "([^"]+)"/) do |type|
   authorization_request = create_authorization_requests_with_status(type).first
 

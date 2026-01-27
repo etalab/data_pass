@@ -6,7 +6,7 @@ class AuthorizationsController < AuthenticatedUserController
   decorates_assigned :authorization, :authorizations, :authorization_request
 
   def index
-    authorize @authorization_request, :summary?
+    authorize @authorization_request, :authorizations?
 
     @authorizations = @authorization_request
       .authorizations
