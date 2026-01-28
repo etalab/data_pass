@@ -97,6 +97,8 @@ class Seeds
     france_connect_authorization_request_for_dgfip = create_validated_authorization_request(:france_connect, attributes: { intitule: 'Connexion FranceConnect ImpotPart', applicant: demandeur })
     create_validated_authorization_request(:api_impot_particulier_sandbox, attributes: { modalities: ['with_france_connect'], france_connect_authorization_id: france_connect_authorization_request_for_dgfip.latest_authorization.id, intitule: 'Demande de retraite progressive en ligne', applicant: demandeur })
 
+    create_api_particulier_with_france_connect_embedded_fields
+
     create_fully_approved_api_impot_particulier_authorization_request
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
@@ -340,6 +342,24 @@ class Seeds
       public_id: '00000000-0000-0000-0000-000000000000',
       data: FactoryBot.build(:authorization_request, :api_entreprise, fill_all_attributes: true).data.merge('intitule' => 'Portail des aides publiques')
     )
+  end
+
+  def create_api_particulier_with_france_connect_embedded_fields
+    authorization_request = FactoryBot.create(
+      :authorization_request,
+      :api_particulier,
+      :with_france_connect_embedded_fields,
+      fill_all_attributes: true,
+      applicant: demandeur,
+      organization: demandeur.current_organization,
+      intitule: 'Portail famille avec FranceConnect unifié',
+      description: random_description
+    )
+
+    SubmitAuthorizationRequest.call(authorization_request:, user: demandeur)
+    ApproveAuthorizationRequest.call(authorization_request: authorization_request.reload, user: api_entreprise_instructor)
+
+    authorization_request
   end
 
   # rubocop:disable Metrics/AbcSize

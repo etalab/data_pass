@@ -330,6 +330,25 @@ FactoryBot.define do
       end
     end
 
+    trait :with_france_connect_embedded_fields do
+      after(:build) do |authorization_request, evaluator|
+        authorization_request.modalities = ['france_connect']
+        authorization_request.fc_cadre_juridique_nature ||= 'CRPA Article L311-1'
+        authorization_request.fc_cadre_juridique_url ||= 'https://legifrance.gouv.fr/legal'
+        authorization_request.fc_scopes = AuthorizationExtensions::FranceConnectEmbeddedFields::FRANCE_CONNECT_SCOPES if authorization_request.fc_scopes.blank?
+        authorization_request.fc_alternative_connexion ||= false
+        authorization_request.fc_eidas ||= 'eidas_1'
+
+        if authorization_request.need_complete_validation? || evaluator.fill_all_attributes
+          authorization_request.contact_technique_phone_number = '0612345678'
+          authorization_request.contact_technique_family_name ||= 'Dupont'
+          authorization_request.contact_technique_given_name ||= 'Jean'
+          authorization_request.contact_technique_email ||= 'jean.dupont@gouv.fr'
+          authorization_request.contact_technique_job_title ||= 'Responsable technique'
+        end
+      end
+    end
+
     trait :hubee_cert_dc do
       type { 'AuthorizationRequest::HubEECertDC' }
     end

@@ -4,6 +4,7 @@ class AuthorizationRequest::APIParticulier < AuthorizationRequest
   include AuthorizationExtensions::CadreJuridique
   include AuthorizationExtensions::Modalities
   include AuthorizationExtensions::FranceConnect
+  include AuthorizationExtensions::FranceConnectEmbeddedFields
 
   MODALITIES = %w[params formulaire_qf france_connect].freeze
 
@@ -23,6 +24,9 @@ class AuthorizationRequest::APIParticulier < AuthorizationRequest
   ].each do |contact_kind|
     contact contact_kind, validation_condition: ->(record) { record.need_complete_validation?(:contacts) }
   end
+
+  validate :contact_technique_phone_number_must_be_mobile_if_france_connect,
+    if: ->(record) { record.need_complete_validation?(:contacts) }
 
   after_initialize :set_default_modalities
 
@@ -49,7 +53,25 @@ class AuthorizationRequest::APIParticulier < AuthorizationRequest
   def requires_france_connect_authorization?
     return false if skip_france_connect_authorization?
 
-    need_complete_validation?(:modalities) &&
-      modalities.include?('france_connect')
+    return false unless need_complete_validation?(:modalities)
+    return false unless modalities.include?('france_connect')
+
+    !embeds_france_connect_fields?
+  end
+
+  def embeds_france_connect_fields?
+    fc_cadre_juridique_nature.present? ||
+      fc_cadre_juridique_url.present? ||
+      fc_scopes.present?
+  end
+
+  private
+
+  def contact_technique_phone_number_must_be_mobile_if_france_connect
+    return unless france_connect_modality?
+    return if contact_technique_phone_number.blank?
+
+    validator = FrenchPhoneNumberValidator.new(attributes: [:contact_technique_phone_number], mobile: true)
+    validator.validate_each(self, :contact_technique_phone_number, contact_technique_phone_number)
   end
 end
