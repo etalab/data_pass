@@ -335,7 +335,7 @@ FactoryBot.define do
         authorization_request.modalities = ['france_connect']
         authorization_request.fc_cadre_juridique_nature ||= 'CRPA Article L311-1'
         authorization_request.fc_cadre_juridique_url ||= 'https://legifrance.gouv.fr/legal'
-        authorization_request.fc_scopes = AuthorizationExtensions::FranceConnectEmbeddedFields::FRANCE_CONNECT_SCOPES if authorization_request.fc_scopes.blank?
+        authorization_request.fc_scopes = authorization_request.send(:france_connect_scope_values) if authorization_request.fc_scopes.blank?
         authorization_request.fc_alternative_connexion ||= false
         authorization_request.fc_eidas ||= 'eidas_1'
 
