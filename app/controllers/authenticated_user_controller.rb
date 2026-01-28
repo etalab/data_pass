@@ -9,7 +9,7 @@ class AuthenticatedUserController < ApplicationController
   allow_unauthenticated_access only: :bypass_login
 
   def bypass_login
-    return unless Rails.env.development?
+    return unless Rails.env.development? || Rails.env.staging? || Rails.env.sandbox?
 
     user = User.find_by(email: params[:email])
     sign_in(user, identity_federator: :bypass_login, identity_provider_uid: 'bypass')
