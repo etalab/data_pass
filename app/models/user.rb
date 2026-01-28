@@ -249,7 +249,7 @@ class User < ApplicationRecord
     opts = defaults.merge(options)
 
     organizations_users.find_or_create_by(organization:).tap do |org_user|
-      updates = opts.slice(:identity_federator, :verified, :verified_reason).compact
+      updates = opts.slice(:identity_federator, :verified, :verified_reason)
       updates[:identity_provider_uid] = opts[:identity_provider_uid]
       org_user.update!(updates) if updates.any?
       org_user.set_as_current! if opts[:current]
