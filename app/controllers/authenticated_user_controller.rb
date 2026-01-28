@@ -12,6 +12,8 @@ class AuthenticatedUserController < ApplicationController
     return unless Rails.env.development? || Rails.env.staging? || Rails.env.sandbox?
 
     user = User.find_by(email: params[:email])
+    return redirect_to root_path, alert: t('errors.user_not_found') unless user
+
     sign_in(user, identity_federator: :bypass_login, identity_provider_uid: 'bypass')
 
     redirect_to dashboard_path
