@@ -1,16 +1,6 @@
 module AuthorizationExtensions::FranceConnectEmbeddedFields
   extend ActiveSupport::Concern
 
-  FRANCE_CONNECT_SCOPES = %w[
-    family_name
-    given_name
-    birthdate
-    birthplace
-    birthcountry
-    gender
-    openid
-  ].freeze
-
   included do
     add_attribute :fc_cadre_juridique_nature
     add_attribute :fc_cadre_juridique_url
@@ -58,9 +48,15 @@ module AuthorizationExtensions::FranceConnectEmbeddedFields
   end
 
   def fc_scopes_must_be_complete
-    return if fc_scopes.present? && fc_scopes.sort == FRANCE_CONNECT_SCOPES.sort
+    return if fc_scopes.present? && fc_scopes.sort == france_connect_scope_values.sort
 
     errors.add(:fc_scopes, :incomplete_scopes)
+  end
+
+  def france_connect_scope_values
+    self.class.definition.scopes
+      .select { |scope| scope.group == 'FranceConnect' }
+      .map(&:value)
   end
 
   def france_connect_core_attributes

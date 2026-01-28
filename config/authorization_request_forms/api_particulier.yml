@@ -14,6 +14,16 @@ api-particulier:
     - name: scopes
     - name: personal_data
     - name: contacts
+  scopes_config:
+    hide:
+      # Scopes FranceConnect
+      - family_name
+      - given_name
+      - birthdate
+      - birthplace
+      - birthcountry
+      - gender
+      - openid
 
 # Editeur (cas 2)
 # 1. Contact technique renseigné et non modifiable
@@ -377,8 +387,26 @@ api-particulier-civil-enfance-ciril-group:
   service_provider_id: ciril_group
   scopes_config:
     disabled:
+      # Scopes FranceConnect
+      - family_name
+      - given_name
+      - birthdate
+      - birthplace
+      - birthcountry
+      - gender
+      - openid
+      # Scopes API Particulier
       - cnaf_quotient_familial
     displayed:
+      # Scopes FranceConnect
+      - family_name
+      - given_name
+      - birthdate
+      - birthplace
+      - birthcountry
+      - gender
+      - openid
+      # Scopes API Particulier
       - cnaf_quotient_familial
       - cnaf_allocataires
       - cnaf_enfants
@@ -506,11 +534,29 @@ api-particulier-waigeo-myperischool:
   static_blocks: *api_particulier_fc_certified_editor_static_blocks_with_fixed_scopes
   scopes_config:
     disabled:
+      # Scopes FranceConnect
+      - family_name
+      - given_name
+      - birthdate
+      - birthplace
+      - birthcountry
+      - gender
+      - openid
+      # Scopes API Particulier
       - cnaf_quotient_familial
       - cnaf_allocataires
       - cnaf_adresse
       - cnaf_enfants
     displayed:
+      # Scopes FranceConnect
+      - family_name
+      - given_name
+      - birthdate
+      - birthplace
+      - birthcountry
+      - gender
+      - openid
+      # Scopes API Particulier
       - cnaf_quotient_familial
       - cnaf_allocataires
       - cnaf_adresse
@@ -709,8 +755,26 @@ api-particulier-aiga:
   static_blocks: *api_particulier_fc_certified_editor_static_blocks_with_fixed_scopes
   scopes_config:
     disabled:
+      # Scopes FranceConnect
+      - family_name
+      - given_name
+      - birthdate
+      - birthplace
+      - birthcountry
+      - gender
+      - openid
+      # Scopes API Particulier
       - cnaf_quotient_familial
     displayed:
+      # Scopes FranceConnect
+      - family_name
+      - given_name
+      - birthdate
+      - birthplace
+      - birthcountry
+      - gender
+      - openid
+      # Scopes API Particulier
       - cnaf_quotient_familial
 
   initialize_with:
@@ -812,8 +876,26 @@ api-particulier-capdemat-capdemat-evolution:
   static_blocks: *api_particulier_fc_certified_editor_static_blocks_with_fixed_scopes
   scopes_config:
     disabled:
+      # Scopes FranceConnect
+      - family_name
+      - given_name
+      - birthdate
+      - birthplace
+      - birthcountry
+      - gender
+      - openid
+      # Scopes API Particulier
       - cnaf_quotient_familial
     displayed:
+      # Scopes FranceConnect
+      - family_name
+      - given_name
+      - birthdate
+      - birthplace
+      - birthcountry
+      - gender
+      - openid
+      # Scopes API Particulier
       - cnaf_quotient_familial
 
   initialize_with:
@@ -1281,8 +1363,26 @@ api-particulier-ypok:
   service_provider_id: ypok
   scopes_config:
     disabled:
+      # Scopes FranceConnect
+      - family_name
+      - given_name
+      - birthdate
+      - birthplace
+      - birthcountry
+      - gender
+      - openid
+      # Scopes API Particulier
       - cnaf_quotient_familial
     displayed:
+      # Scopes FranceConnect
+      - family_name
+      - given_name
+      - birthdate
+      - birthplace
+      - birthcountry
+      - gender
+      - openid
+      # Scopes API Particulier
       - cnaf_quotient_familial
       - cnaf_allocataires
       - cnaf_enfants
@@ -1564,8 +1664,26 @@ api-particulier-mgdis-tarification-cantines-lycees:
     - name: contacts
   scopes_config:
     disabled:
+        # Scopes FranceConnect
+        - family_name
+        - given_name
+        - birthdate
+        - birthplace
+        - birthcountry
+        - gender
+        - openid
+        # Scopes API Particulier
         - cnaf_quotient_familial
     displayed:
+        # Scopes FranceConnect
+        - family_name
+        - given_name
+        - birthdate
+        - birthplace
+        - birthcountry
+        - gender
+        - openid
+        # Scopes API Particulier
         - cnaf_quotient_familial
         - cnaf_allocataires
         - cnaf_enfants
@@ -1743,10 +1861,28 @@ api-particulier-entrouvert-publik:
   static_blocks: *api_particulier_fc_certified_editor_static_blocks_with_fixed_scopes
   scopes_config:
     disabled:
+      # Scopes FranceConnect
+      - family_name
+      - given_name
+      - birthdate
+      - birthplace
+      - birthcountry
+      - gender
+      - openid
+      # Scopes API Particulier
       - cnaf_quotient_familial
       - cnaf_allocataires
       - cnaf_enfants
     displayed:
+      # Scopes FranceConnect
+      - family_name
+      - given_name
+      - birthdate
+      - birthplace
+      - birthcountry
+      - gender
+      - openid
+      # Scopes API Particulier
       - cnaf_quotient_familial
       - cnaf_allocataires
       - cnaf_enfants
@@ -1762,6 +1898,13 @@ api-particulier-entrouvert-publik:
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_municipale_enfance
     fc_eidas: 'eidas_1'
     scopes:
+      - family_name
+      - given_name
+      - birthdate
+      - birthplace
+      - birthcountry
+      - gender
+      - openid
       - cnaf_quotient_familial
       - cnaf_allocataires
       - cnaf_enfants
@@ -1890,11 +2033,29 @@ api-particulier-aiga-petite-enfance:
   static_blocks: *api_particulier_fc_certified_editor_static_blocks_with_fixed_scopes
   scopes_config:
     disabled:
+      # Scopes FranceConnect
+      - family_name
+      - given_name
+      - birthdate
+      - birthplace
+      - birthcountry
+      - gender
+      - openid
+      # Scopes API Particulier
       - cnav_participation_familiale_eaje_allocataires
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
     displayed:
+      # Scopes FranceConnect
+      - family_name
+      - given_name
+      - birthdate
+      - birthplace
+      - birthcountry
+      - gender
+      - openid
+      # Scopes API Particulier
       - cnav_participation_familiale_eaje_allocataires
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse

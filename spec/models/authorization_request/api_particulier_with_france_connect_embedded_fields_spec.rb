@@ -70,7 +70,7 @@ RSpec.describe AuthorizationRequest::APIParticulier do
 
       describe 'fc_scopes' do
         it 'requires all FranceConnect scopes to be present' do
-          authorization_request.fc_scopes = AuthorizationExtensions::FranceConnectEmbeddedFields::FRANCE_CONNECT_SCOPES
+          authorization_request.fc_scopes = authorization_request.send(:france_connect_scope_values)
           authorization_request.validate(:submit)
           expect(authorization_request.errors[:fc_scopes]).to be_empty
         end
@@ -88,7 +88,7 @@ RSpec.describe AuthorizationRequest::APIParticulier do
         end
 
         it 'rejects scope list with extra invalid scopes' do
-          authorization_request.fc_scopes = AuthorizationExtensions::FranceConnectEmbeddedFields::FRANCE_CONNECT_SCOPES + ['invalid_scope']
+          authorization_request.fc_scopes = authorization_request.send(:france_connect_scope_values) + ['invalid_scope']
           expect(authorization_request.validate(:submit)).to be false
           expect(authorization_request.errors[:fc_scopes]).to be_present
         end
