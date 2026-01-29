@@ -4,7 +4,9 @@ RSpec.describe AuthorizationTabsBuilder do
   subject(:tabs) { described_class.new(authorization, policy).build }
 
   let(:authorization) { create(:authorization) }
-  let(:policy) { instance_double(AuthorizationPolicy, events?: true, messages?: true, authorizations?: true) }
+  let(:full_policy) { instance_double(AuthorizationPolicy, events?: true, messages?: true, authorizations?: true) }
+  let(:no_policy) { instance_double(AuthorizationPolicy, events?: false, messages?: false, authorizations?: false) }
+  let(:policy) { full_policy }
 
   describe '#build' do
     it 'always includes authorization tab' do
@@ -54,7 +56,7 @@ RSpec.describe AuthorizationTabsBuilder do
 
       it 'includes authorizations tab' do
         expect(tabs).to have_key(:authorizations)
-        expect(tabs[:authorizations]).to eq(authorization_request_authorizations_path(authorization.request))
+        expect(tabs[:authorizations]).to eq(authorization_related_authorizations_path(authorization))
       end
     end
 
@@ -77,7 +79,7 @@ RSpec.describe AuthorizationTabsBuilder do
     end
 
     context 'when policy denies authorizations' do
-      let(:policy) { instance_double(AuthorizationPolicy, events?: false, messages?: false, authorizations?: false) }
+      let(:policy) { no_policy }
 
       it 'does not include authorizations tab' do
         expect(tabs).not_to have_key(:authorizations)
@@ -85,7 +87,7 @@ RSpec.describe AuthorizationTabsBuilder do
     end
 
     context 'when policy denies events' do
-      let(:policy) { instance_double(AuthorizationPolicy, events?: false, messages?: false, authorizations?: false) }
+      let(:policy) { no_policy }
 
       it 'does not include authorization_request_events tab' do
         expect(tabs).not_to have_key(:authorization_request_events)
@@ -93,7 +95,7 @@ RSpec.describe AuthorizationTabsBuilder do
     end
 
     context 'when policy denies messages' do
-      let(:policy) { instance_double(AuthorizationPolicy, events?: false, messages?: false, authorizations?: false) }
+      let(:policy) { no_policy }
 
       it 'does not include messages tab' do
         expect(tabs).not_to have_key(:messages)

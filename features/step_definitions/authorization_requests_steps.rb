@@ -141,6 +141,16 @@ Quand('je me rends sur cette demande d\'habilitation') do
   end
 end
 
+Quand('je me rends sur la page demandeur de cette demande') do
+  authorization_request = @authorization_request || AuthorizationRequest.last
+  visit authorization_request_path(authorization_request)
+end
+
+Quand('je me rends sur la page demandeur de cette habilitation') do
+  authorization = @authorization || Authorization.last
+  visit authorization_path(authorization)
+end
+
 Quand(/je me rends via l'espace usager sur une demande d'habilitation "([^"]+)"/) do |type|
   authorization_request = create_authorization_requests_with_status(type).first
 
@@ -177,6 +187,20 @@ Quand('je change d\'organisation courante pour {string}') do |organization_name|
   organization = find_or_create_organization_by_name(organization_name)
   current_user.organizations_users.find_by(organization: organization).set_as_current!
   current_user.reload
+end
+
+Quand(/une autre organisation a (\d+) demandes? d'habilitation "([^"]+)" ?(?:via le formulaire "([^"]+)")? ?(?:à l'étape "([^"]+)")? ?(?:en )?(.+)?/) do |count, type, form, stage, status|
+  foreign_user = create(:user)
+
+  create_authorization_requests_with_status(
+    type,
+    status,
+    count,
+    stage,
+    form,
+    applicant: foreign_user,
+    organization: foreign_user.current_organization
+  )
 end
 
 Quand(/je suis mentionné dans (\d+) demandes? d'habilitation "([^"]+)" en tant que "([^"]+)"/) do |count, type, role_humanized|

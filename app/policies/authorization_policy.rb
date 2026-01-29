@@ -18,6 +18,23 @@ class AuthorizationPolicy < ApplicationPolicy
       user.reporter?(record.kind)
   end
 
+  def events?
+    same_request_user_and_organization? || full_access_to_authorization_tabs?
+  end
+
+  def messages?
+    feature_enabled?(:messaging) &&
+      (same_request_user_and_organization? || full_access_to_authorization_tabs?)
+  end
+
+  def authorizations?
+    same_request_user_and_organization? || full_access_to_authorization_tabs?
+  end
+
+  def send_message?
+    messages? && same_request_user_and_organization?
+  end
+
   def start_next_stage?
     record.active? &&
       authorization_request_policy.start_next_stage?
@@ -46,6 +63,14 @@ class AuthorizationPolicy < ApplicationPolicy
   def same_current_verified_organization?
     same_current_organization? &&
       user.current_organization_verified?
+  end
+
+  def full_access_to_authorization_tabs?
+    same_current_verified_organization? || reporter_for_record?
+  end
+
+  def reporter_for_record?
+    user.reporter?(record.kind)
   end
 
   def same_request_user_and_organization?

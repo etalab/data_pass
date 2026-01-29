@@ -51,6 +51,7 @@ Rails.application.routes.draw do
     resources :authorizations, only: :show, path: 'habilitations' do
       resources :messages, only: %w[index create], path: 'messages'
       resources :authorization_request_events, only: :index, path: 'historique', as: :events
+      resources :authorizations, only: :index, path: 'associees', as: :related_authorizations
       resources :france_connected_authorizations, only: :index, path: 'habilitations-france-connectees'
     end
 

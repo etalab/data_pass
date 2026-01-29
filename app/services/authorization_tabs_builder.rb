@@ -19,7 +19,7 @@ class AuthorizationTabsBuilder
   end
 
   def authorizations_path
-    authorization_request_authorizations_path(authorization_request)
+    authorization_related_authorizations_path(authorization)
   end
 
   def conditional_tabs

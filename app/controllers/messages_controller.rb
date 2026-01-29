@@ -4,13 +4,13 @@ class MessagesController < AuthenticatedUserController
   before_action :mark_messages_as_read!, only: [:index]
 
   def index
-    authorize @authorization_request, :messages?
+    authorize authorization_or_request, :messages?
 
     build_models
   end
 
   def create
-    authorize @authorization_request, :send_message?
+    authorize authorization_or_request, :send_message?
 
     @organizer = SendMessageToInstructors.call(
       authorization_request: @authorization_request,
@@ -55,5 +55,9 @@ class MessagesController < AuthenticatedUserController
     return authorization_messages_path(@authorization) if @authorization.present?
 
     authorization_request_messages_path(@authorization_request)
+  end
+
+  def authorization_or_request
+    @authorization || @authorization_request
   end
 end

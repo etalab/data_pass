@@ -1,12 +1,12 @@
 class AuthorizationsController < AuthenticatedUserController
   helper DemandesHabilitations::CommonHelper
 
-  before_action :set_authorization_request, only: :index
+  before_action :set_context, only: :index
   before_action :set_authorization, only: :show
   decorates_assigned :authorization, :authorizations, :authorization_request
 
   def index
-    authorize @authorization_request, :summary?
+    authorize authorization_or_request, :authorizations?
 
     @authorizations = @authorization_request
       .authorizations
@@ -21,17 +21,26 @@ class AuthorizationsController < AuthenticatedUserController
 
   private
 
-  def set_authorization_request
-    @authorization_request = AuthorizationRequest.find(params[:authorization_request_id])
+  def set_context
+    if params[:authorization_id].present?
+      @authorization = Authorization.friendly.find(params[:authorization_id])
+      @authorization_request = @authorization.request
+    else
+      @authorization_request = AuthorizationRequest.find(params[:authorization_request_id])
+    end
   end
 
   def set_authorization
     @authorization = Authorization.friendly.find(params[:id])
   end
 
-  def layout_name
-    return 'authorization_request_with_tabs' if action_name == 'index'
+  def authorization_or_request
+    @authorization || @authorization_request
+  end
 
-    'authorization_with_tabs'
+  def layout_name
+    return 'authorization_with_tabs' if @authorization.present?
+
+    'authorization_request_with_tabs'
   end
 end
