@@ -10,7 +10,7 @@
   <% end %>
 <% end %>
 
-<% unless show_tabs_for_authorization_request?(@authorization_request) %>
+<% unless show_authorization_request_tabs?(@authorization_request) %>
   <%= render partial: 'authorization_request_forms/build/header', locals: { f: } %>
 <% end %>
 
