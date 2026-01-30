@@ -2178,6 +2178,9 @@ api-particulier-tarification-cantines-lycees:
   scopes_config:
     displayed:
       - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_adresse
+      - cnaf_enfants
       - men_statut_scolarite
       - men_statut_boursier
       - men_echelon_bourse
@@ -2204,6 +2207,9 @@ api-particulier-tarification-cantines-colleges:
   scopes_config:
     displayed:
       - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_adresse
+      - cnaf_enfants
       - men_statut_scolarite
       - men_statut_boursier
       - men_echelon_bourse
