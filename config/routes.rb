@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')
 
-  get 'local-sign-in', to: 'authenticated_user#bypass_login' if Rails.env.development?
+  get 'local-sign-in', to: 'authenticated_user#bypass_login' unless Rails.env.production?
 
   get 'compte/deconnexion', to: 'sessions#destroy', as: :signout
 
