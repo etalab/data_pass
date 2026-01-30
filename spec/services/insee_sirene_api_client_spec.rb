@@ -53,5 +53,19 @@ RSpec.describe INSEESireneAPIClient do
         expect { etablissement_payload }.to raise_error(Faraday::Error)
       end
     end
+
+    context 'when API returns HTML instead of JSON' do
+      before do
+        stub_request(:get, "https://api.insee.fr/api-sirene/prive/3.11/siret/#{siret}").to_return(
+          status: 200,
+          headers: { 'Content-Type' => 'text/html' },
+          body: '<!DOCTYPE html><html><body>Service unavailable</body></html>'
+        )
+      end
+
+      it 'raises an InvalidResponseError' do
+        expect { etablissement_payload }.to raise_error(INSEESireneAPIClient::InvalidResponseError)
+      end
+    end
   end
 end
