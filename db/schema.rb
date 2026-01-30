@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_06_171655) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_30_165452) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_catalog.plpgsql"
@@ -87,7 +87,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_06_171655) do
     t.index ["user_id"], name: "index_authorization_request_events_on_user_id"
     t.check_constraint "name::text !~~ 'system_%'::text AND user_id IS NOT NULL OR name::text ~~ 'system_%'::text", name: "user_id_not_null_unless_system_event"
     t.check_constraint "name::text = 'bulk_update'::text AND authorization_request_id IS NULL OR name::text <> 'bulk_update'::text AND authorization_request_id IS NOT NULL", name: "authorization_request_events_auth_req_id_not_null_except_bulk"
-    t.check_constraint "name::text = 'refuse'::text AND entity_type::text = 'DenialOfAuthorization'::text OR name::text = 'request_changes'::text AND entity_type::text = 'InstructorModificationRequest'::text OR name::text = 'approve'::text AND entity_type::text = 'Authorization'::text OR name::text = 'reopen'::text AND entity_type::text = 'Authorization'::text OR name::text = 'submit'::text AND entity_type::text = 'AuthorizationRequestChangelog'::text OR name::text = 'admin_update'::text AND entity_type::text = 'AuthorizationRequestChangelog'::text OR name::text = 'applicant_message'::text AND entity_type::text = 'Message'::text OR name::text = 'instructor_message'::text AND entity_type::text = 'Message'::text OR name::text = 'revoke'::text AND entity_type::text = 'RevocationOfAuthorization'::text OR name::text = 'transfer'::text AND entity_type::text = 'AuthorizationRequestTransfer'::text OR name::text = 'cancel_reopening'::text AND entity_type::text = 'AuthorizationRequestReopeningCancellation'::text OR name::text = 'bulk_update'::text AND entity_type::text = 'BulkAuthorizationRequestUpdate'::text OR name::text = 'claim'::text AND entity_type::text = 'InstructorDraftRequest'::text OR entity_type::text = 'AuthorizationRequest'::text", name: "entity_type_validation"
+    t.check_constraint "name::text = 'refuse'::text AND entity_type::text = 'DenialOfAuthorization'::text OR name::text = 'request_changes'::text AND entity_type::text = 'InstructorModificationRequest'::text OR name::text = 'approve'::text AND entity_type::text = 'Authorization'::text OR name::text = 'auto_generate'::text AND entity_type::text = 'Authorization'::text OR name::text = 'reopen'::text AND entity_type::text = 'Authorization'::text OR name::text = 'submit'::text AND entity_type::text = 'AuthorizationRequestChangelog'::text OR name::text = 'admin_update'::text AND entity_type::text = 'AuthorizationRequestChangelog'::text OR name::text = 'applicant_message'::text AND entity_type::text = 'Message'::text OR name::text = 'instructor_message'::text AND entity_type::text = 'Message'::text OR name::text = 'revoke'::text AND entity_type::text = 'RevocationOfAuthorization'::text OR name::text = 'transfer'::text AND entity_type::text = 'AuthorizationRequestTransfer'::text OR name::text = 'cancel_reopening'::text AND entity_type::text = 'AuthorizationRequestReopeningCancellation'::text OR name::text = 'bulk_update'::text AND entity_type::text = 'BulkAuthorizationRequestUpdate'::text OR name::text = 'claim'::text AND entity_type::text = 'InstructorDraftRequest'::text OR entity_type::text = 'AuthorizationRequest'::text", name: "entity_type_validation"
   end
 
   create_table "authorization_request_reopening_cancellations", force: :cascade do |t|
@@ -146,6 +146,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_06_171655) do
     t.datetime "created_at", null: false
     t.hstore "data", default: {}, null: false
     t.text "message"
+    t.bigint "parent_authorization_id"
     t.bigint "request_id", null: false
     t.boolean "revoked", default: false
     t.string "slug"
@@ -153,6 +154,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_06_171655) do
     t.datetime "updated_at", null: false
     t.index "((data -> 'france_connect_authorization_id'::text))", name: "idx_authorizations_fc_auth_id", where: "(data ? 'france_connect_authorization_id'::text)"
     t.index ["applicant_id"], name: "index_authorizations_on_applicant_id"
+    t.index ["parent_authorization_id"], name: "index_authorizations_on_parent_authorization_id"
     t.index ["request_id"], name: "index_authorizations_on_request_id"
     t.index ["slug", "request_id"], name: "index_authorizations_on_slug_and_request_id", unique: true
     t.index ["state"], name: "index_authorizations_on_state"
@@ -526,6 +528,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_06_171655) do
   add_foreign_key "authorization_requests", "authorization_requests", column: "copied_from_request_id", name: "fk_authorization_requests_copied_from_request", on_delete: :nullify
   add_foreign_key "authorization_requests", "users", column: "applicant_id"
   add_foreign_key "authorizations", "authorization_requests", column: "request_id"
+  add_foreign_key "authorizations", "authorizations", column: "parent_authorization_id"
   add_foreign_key "authorizations", "users", column: "applicant_id"
   add_foreign_key "bulk_authorization_request_update_notification_reads", "bulk_authorization_request_updates"
   add_foreign_key "bulk_authorization_request_update_notification_reads", "users"

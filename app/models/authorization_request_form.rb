@@ -50,6 +50,7 @@ class AuthorizationRequestForm < StaticApplicationRecord
   # rubocop:enable Metrics/AbcSize
 
   delegate :provider, to: :authorization_definition
+  delegate :france_connect_certified?, to: :service_provider, allow_nil: true
 
   def id
     uid

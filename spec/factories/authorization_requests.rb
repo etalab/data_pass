@@ -340,6 +340,9 @@ FactoryBot.define do
         authorization_request.fc_eidas ||= 'eidas_1'
 
         if authorization_request.need_complete_validation? || evaluator.fill_all_attributes
+          fc_scopes = %w[openid family_name given_name birthdate birthplace birthcountry gender]
+          authorization_request.scopes = ((authorization_request.scopes || []) + fc_scopes).uniq
+
           authorization_request.contact_technique_phone_number = '0612345678'
           authorization_request.contact_technique_family_name ||= 'Dupont'
           authorization_request.contact_technique_given_name ||= 'Jean'

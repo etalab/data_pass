@@ -20,5 +20,9 @@ FactoryBot.define do
 
       authorization.data['what'] = 'ever' if authorization.data.blank?
     end
+
+    trait :auto_generated do
+      parent_authorization factory: %i[authorization]
+    end
   end
 end
