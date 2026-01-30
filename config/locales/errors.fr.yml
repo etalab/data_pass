@@ -1,6 +1,5 @@
 fr:
   errors:
-    user_not_found: "Utilisateur non trouvé"
     show:
       not_found:
         title: Page non trouvée
