@@ -230,6 +230,38 @@ module Stats
       puts "```"
     end
 
+    def print_volume_by_form
+      data = @create_aggregator.volume_by_form
+      buckets = data.map { |item| { bucket: format_form_name(item[:form_uid]), count: item[:count] } }
+      print_chart_with_title(buckets, "Volume de demandes par formulaire", method: :format_volume_bar_chart)
+    end
+
+    def print_median_time_to_submit_by_form
+      data = @create_aggregator.median_time_to_submit_by_form
+      return puts "\nAucune donnée disponible pour la durée médiane de soumission par formulaire." if data.empty?
+
+      puts "\n## Durée médiane de soumission par formulaire pour #{human_readable_date_range}#{type_filter_label}:\n\n"
+      
+      buckets = data.map { |item| transform_time_bucket_by_form(item, 60.0) }
+      
+      puts "```"
+      puts format_time_bar_chart(buckets, 'minutes')
+      puts "```"
+    end
+
+    def print_median_time_to_first_instruction_by_form
+      data = @create_aggregator.median_time_to_first_instruction_by_form
+      return puts "\nAucune donnée disponible pour la durée médiane de première instruction par formulaire." if data.empty?
+
+      puts "\n## Durée médiane de première instruction par formulaire pour #{human_readable_date_range}#{type_filter_label}:\n\n"
+      
+      buckets = data.map { |item| transform_time_bucket_by_form(item, 86400.0) }
+      
+      puts "```"
+      puts format_time_bar_chart(buckets, 'jours')
+      puts "```"
+    end
+
     def print_median_time_to_production_instruction_by_type
       return unless dgfip_report?
       
@@ -285,6 +317,23 @@ module Stats
         value: (item[:median_time] / divisor).round(1),
         count: item[:count]
       }
+    end
+
+    def transform_time_bucket_by_form(item, divisor)
+      {
+        bucket: format_form_name(item[:form_uid]),
+        value: (item[:median_time] / divisor).round(1),
+        count: item[:count]
+      }
+    end
+
+    def format_form_name(form_uid)
+      return form_uid if form_uid.blank?
+
+      form = AuthorizationRequestForm.find(form_uid)
+      form&.name_with_service_provider || form_uid
+    rescue ActiveRecord::RecordNotFound
+      form_uid
     end
 
     def print_chart_with_title(data, title, method: :format_bar_chart, unit: nil, preposition: 'pour')

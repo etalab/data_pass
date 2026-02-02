@@ -12,7 +12,7 @@ RSpec.describe Stats::GenerateReport2023To2025, type: :service do
         expect(subject.instance_variable_get(:@provider)).to be_nil
         expect(subject.instance_variable_get(:@authorization_types)).to be_nil
         expect(subject.instance_variable_get(:@post_migration_only)).to be false
-        expect(subject.instance_variable_get(:@years)).to eq([2025, 2024, 2023])
+        expect(subject.instance_variable_get(:@years)).to eq([2025, 2024])
       end
     end
 
@@ -54,9 +54,17 @@ RSpec.describe Stats::GenerateReport2023To2025, type: :service do
         print_volume_by_type: nil,
         print_volume_by_type_with_states: nil,
         print_median_time_to_submit_by_type: nil,
+        print_median_time_to_submit_by_provider: nil,
         print_time_to_submit_by_duration: nil,
         print_median_time_to_first_instruction_by_type: nil,
-        print_time_to_first_instruction_by_duration: nil
+        print_median_time_to_first_instruction_by_provider: nil,
+        print_time_to_first_instruction_by_duration: nil,
+        print_volume_by_form: nil,
+        print_median_time_to_submit_by_form: nil,
+        print_median_time_to_first_instruction_by_form: nil,
+        dgfip_report?: false,
+        print_median_time_to_production_instruction_by_type: nil,
+        print_time_to_production_instruction_by_duration: nil
       )
     end
 
@@ -80,13 +88,13 @@ RSpec.describe Stats::GenerateReport2023To2025, type: :service do
 
     context 'with post_migration_only: true' do
       let(:service) { described_class.new(post_migration_only: true) }
-      let(:output_file) { output_dir.join("stats_#{today}_global.md") }
+      let(:output_file) { output_dir.join("stats_#{today}_global_post_migration_only.md") }
 
       it 'includes the post-migration warning' do
         service.call
         content = File.read(output_file)
         expect(content).to include('⚠️ Données uniquement à partir du')
-        expect(content).to include('01/06/2025')
+        expect(content).to include('18/06/2025')
         expect(content).to include('date de la migration vers DataPass v2')
         expect(content).not_to include('Attention à la qualité des données')
       end
@@ -100,7 +108,7 @@ RSpec.describe Stats::GenerateReport2023To2025, type: :service do
         service.call
         expect(years_called.length).to eq(1)
         expect(years_called.first).to be_a(Range)
-        expect(years_called.first.first).to eq(Date.new(2025, 6, 1))
+        expect(years_called.first.first).to eq(Date.new(2025, 6, 18))
         expect(years_called.first.last).to eq(Date.today)
       end
     end
@@ -116,14 +124,14 @@ RSpec.describe Stats::GenerateReport2023To2025, type: :service do
         expect(content).not_to include('Données uniquement à partir du')
       end
 
-      it 'processes all years (2025, 2024, 2023)' do
+      it 'processes all years (2025, 2024)' do
         years_called = []
         allow(Stats::Report).to receive(:new) do |args|
           years_called << args[:date_input] if args[:date_input].is_a?(Integer)
           report_double
         end
         service.call
-        expect(years_called).to include(2025, 2024, 2023)
+        expect(years_called).to include(2025, 2024)
       end
     end
 
@@ -172,10 +180,10 @@ RSpec.describe Stats::GenerateReport2023To2025, type: :service do
     context 'with post_migration_only: true and year 2025' do
       let(:service) { described_class.new(post_migration_only: true) }
 
-      it 'converts year to date range from June 1, 2025 to today' do
+      it 'converts year to date range from June 18, 2025 to today' do
         params = service.send(:report_params, 2025)
         expect(params[:date_input]).to be_a(Range)
-        expect(params[:date_input].first).to eq(Date.new(2025, 6, 1))
+        expect(params[:date_input].first).to eq(Date.new(2025, 6, 18))
         expect(params[:date_input].last).to eq(Date.today)
       end
     end

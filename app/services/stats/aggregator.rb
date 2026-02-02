@@ -118,6 +118,14 @@ module Stats
         .sort_by { |item| -item[:count] }
     end
 
+    def volume_by_form
+      @authorization_requests
+        .group(:form_uid)
+        .count
+        .map { |form_uid, count| { form_uid: form_uid, count: count } }
+        .sort_by { |item| -item[:count] }
+    end
+
     def volume_by_type_with_states
       # Get counts for validated and refused states only
       validated_refused = @authorization_requests
@@ -241,6 +249,20 @@ module Stats
 
     def median_time_to_first_instruction_by_provider
       calculate_median_by_provider(
+        authorizations_with_submit_and_first_instruction_events,
+        time_difference_sql('first_instruction_events', 'submit_events')
+      )
+    end
+
+    def median_time_to_submit_by_form
+      calculate_median_by_form(
+        authorizations_with_first_create_and_submit_events,
+        time_difference_sql('first_submit_events', 'first_create_events')
+      )
+    end
+
+    def median_time_to_first_instruction_by_form
+      calculate_median_by_form(
         authorizations_with_submit_and_first_instruction_events,
         time_difference_sql('first_instruction_events', 'submit_events')
       )
@@ -395,6 +417,24 @@ module Stats
       by_provider.map do |provider, times|
         {
           provider: provider,
+          median_time: calculate_array_median(times),
+          count: times.length
+        }
+      end.sort_by { |item| item[:median_time] }
+    end
+
+    def calculate_median_by_form(scope, time_expression)
+      results = scope.pluck(
+        Arel.sql("authorization_requests.form_uid"),
+        Arel.sql(time_expression)
+      )
+      
+      by_form = Hash.new { |h, k| h[k] = [] }
+      results.each { |form_uid, time| by_form[form_uid] << time.to_f }
+      
+      by_form.map do |form_uid, times|
+        {
+          form_uid: form_uid,
           median_time: calculate_array_median(times),
           count: times.length
         }

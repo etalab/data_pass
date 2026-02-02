@@ -1210,6 +1210,161 @@ RSpec.describe Stats::Aggregator, type: :service do
     end
   end
 
+  describe '#volume_by_form' do
+    let(:base_time) { Time.zone.parse('2025-03-15 10:00:00') }
+    let!(:user) { create(:user) }
+    let!(:organization) { create(:organization) }
+    
+    before do
+      user.add_to_organization(organization, current: true)
+    end
+
+    let!(:ar1) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+      end
+    end
+
+    let!(:ar2) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+      end
+    end
+
+    let!(:ar3) do
+      create(:authorization_request, :api_particulier, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+      end
+    end
+
+    let(:authorization_requests) { AuthorizationRequest.where(id: [ar1.id, ar2.id, ar3.id]) }
+    subject { described_class.new(authorization_requests) }
+
+    it 'returns volume grouped by form_uid' do
+      result = subject.volume_by_form
+      
+      expect(result).to be_an(Array)
+      expect(result.length).to be >= 1
+      
+      result.each do |item|
+        expect(item).to have_key(:form_uid)
+        expect(item).to have_key(:count)
+        expect(item[:count]).to be > 0
+      end
+      
+      total_count = result.sum { |r| r[:count] }
+      expect(total_count).to eq(3)
+    end
+
+    it 'sorts results by count descending' do
+      result = subject.volume_by_form
+      
+      counts = result.map { |r| r[:count] }
+      expect(counts).to eq(counts.sort.reverse)
+    end
+  end
+
+  describe '#median_time_to_submit_by_form' do
+    let(:base_time) { Time.zone.parse('2025-03-15 10:00:00') }
+    let!(:user) { create(:user) }
+    let!(:organization) { create(:organization) }
+    
+    before do
+      user.add_to_organization(organization, current: true)
+    end
+
+    let!(:ar1) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 1.hour)
+      end
+    end
+
+    let!(:ar2) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 3.hours)
+      end
+    end
+
+    let!(:ar3) do
+      create(:authorization_request, :api_particulier, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 5.hours)
+      end
+    end
+
+    subject { described_class.new }
+
+    it 'returns median time grouped by form_uid' do
+      result = subject.median_time_to_submit_by_form
+      
+      expect(result).to be_an(Array)
+      expect(result.length).to be >= 1
+      
+      result.each do |item|
+        expect(item).to have_key(:form_uid)
+        expect(item).to have_key(:median_time)
+        expect(item).to have_key(:count)
+      end
+    end
+
+    it 'sorts results by median time ascending' do
+      result = subject.median_time_to_submit_by_form
+      
+      median_times = result.map { |r| r[:median_time] }
+      expect(median_times).to eq(median_times.sort)
+    end
+  end
+
+  describe '#median_time_to_first_instruction_by_form' do
+    let(:base_time) { Time.zone.parse('2025-03-15 10:00:00') }
+    let!(:user) { create(:user) }
+    let!(:organization) { create(:organization) }
+    
+    before do
+      user.add_to_organization(organization, current: true)
+    end
+
+    let!(:ar1) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 1.hour)
+        create(:authorization_request_event, :approve, authorization_request: ar, user: user, created_at: base_time + 1.day)
+      end
+    end
+
+    let!(:ar2) do
+      create(:authorization_request, :api_particulier, applicant: user, organization: organization, created_at: base_time).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: base_time)
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: base_time + 2.hours)
+        create(:authorization_request_event, :request_changes, authorization_request: ar, user: user, created_at: base_time + 2.days)
+      end
+    end
+
+    subject { described_class.new }
+
+    it 'returns median time grouped by form_uid' do
+      result = subject.median_time_to_first_instruction_by_form
+      
+      expect(result).to be_an(Array)
+      expect(result.length).to be >= 1
+      
+      result.each do |item|
+        expect(item).to have_key(:form_uid)
+        expect(item).to have_key(:median_time)
+        expect(item).to have_key(:count)
+      end
+    end
+
+    it 'sorts results by median time ascending' do
+      result = subject.median_time_to_first_instruction_by_form
+      
+      median_times = result.map { |r| r[:median_time] }
+      expect(median_times).to eq(median_times.sort)
+    end
+  end
+
   describe '#time_to_first_instruction_by_duration_buckets' do
     let(:base_time) { Time.zone.parse('2025-03-15 10:00:00') }
     let!(:user) { create(:user) }
