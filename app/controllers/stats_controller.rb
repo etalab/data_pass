@@ -9,9 +9,12 @@ class StatsController < PublicController
     end
 
     types = AuthorizationDefinition.all.map do |definition|
+      name = definition.name
+      name += " (#{definition.stage.name})" if definition.stage.exists?
+
       {
         class_name: definition.authorization_request_class.name,
-        name: definition.name,
+        name: name,
         provider_slug: definition.provider&.slug
       }
     end
