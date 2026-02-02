@@ -1,12 +1,188 @@
 <% set_title! t('page_titles.stats') %>
 
-<div id="content">
-  <h1 class="fr-mt-5v"><%= t('.title') %></h1>
-  <iframe
-      class="fr-col-12"
-      height="810"
-      src="https://metabase.entreprise.api.gouv.fr/public/dashboard/0e3575a3-3d93-4f1a-8550-f8f25fdbce35"
-      frameborder="0"
-      allowtransparency
-  ></iframe>
+<div id="content" data-controller="stats">
+  <div class="fr-container fr-py-6w">
+    <h1 class="fr-h1 fr-mb-4w" style="text-align: center;">Statistiques DataPass</h1>
+    
+    <!-- Loading indicator -->
+    <div data-stats-target="loadingIndicator" class="fr-alert fr-alert--info fr-mb-4w" style="display: none;">
+      <p>Chargement des statistiques en cours...</p>
+    </div>
+    
+    <!-- Filters Section -->
+    <!-- Date range picker -->
+    <div class="fr-mb-4w">
+      <!-- Custom date pickers first -->
+      <div class="fr-grid-row fr-grid-row--center fr-mb-3w">
+        <div class="fr-col-auto">
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <label for="startDate" class="fr-label fr-mb-0" style="white-space: nowrap;">Du</label>
+            <input type="date" id="startDate" class="fr-input" data-stats-target="startDate" data-action="change->stats#updateFilters" style="width: 180px;" />
+            <label for="endDate" class="fr-label fr-mb-0" style="white-space: nowrap;">au</label>
+            <input type="date" id="endDate" class="fr-input" data-stats-target="endDate" data-action="change->stats#updateFilters" style="width: 180px;" />
+          </div>
+        </div>
+      </div>
+      
+      <!-- Quick presets below -->
+      <div class="fr-grid-row fr-grid-row--center">
+        <div class="fr-col-12">
+          <div class="fr-btns-group fr-btns-group--inline-md fr-btns-group--center" data-stats-target="quickRanges">
+            <button class="fr-btn fr-btn--sm fr-btn--tertiary-no-outline" type="button" data-action="click->stats#setDateRange" data-range="last-30-days">
+              30 derniers jours
+            </button>
+            <button class="fr-btn fr-btn--sm fr-btn--tertiary-no-outline" type="button" data-action="click->stats#setDateRange" data-range="last-3-months">
+              3 derniers mois
+            </button>
+            <button class="fr-btn fr-btn--sm fr-btn--tertiary-no-outline" type="button" data-action="click->stats#setDateRange" data-range="last-6-months">
+              6 derniers mois
+            </button>
+            <button class="fr-btn fr-btn--sm fr-btn--tertiary-no-outline" type="button" data-action="click->stats#setDateRange" data-range="last-year">
+              12 derniers mois
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Other filters - second row -->
+    <div class="fr-grid-row fr-grid-row--center fr-grid-row--gutters fr-mb-2w">
+      <!-- Fournisseurs de données -->
+      <div class="fr-col-12 fr-col-md-4">
+        <div class="fr-select-group">
+          <label class="fr-label">Fournisseur de données</label>
+          <select class="fr-select" data-stats-target="providerSelect" data-action="change->stats#updateFilters">
+            <option value="">Tous les fournisseurs</option>
+          </select>
+        </div>
+      </div>
+      
+      <!-- Types d'habilitation -->
+      <div class="fr-col-12 fr-col-md-4">
+        <div class="fr-select-group">
+          <label class="fr-label">Type d'habilitation</label>
+          <select class="fr-select" data-stats-target="typeSelect" data-action="change->stats#updateFilters">
+            <option value="">Tous les types</option>
+          </select>
+        </div>
+      </div>
+      
+      <!-- Formulaires -->
+      <div class="fr-col-12 fr-col-md-4">
+        <div class="fr-select-group">
+          <label class="fr-label">Formulaire</label>
+          <select class="fr-select" data-stats-target="formSelect" data-action="change->stats#updateFilters">
+            <option value="">Tous les formulaires</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Clear filters button -->
+    <div class="fr-grid-row fr-grid-row--center fr-mb-6w">
+      <div class="fr-col-auto">
+        <button class="fr-btn fr-btn--secondary fr-btn--sm" type="button" data-action="click->stats#clearFilters">
+          🔄 Réinitialiser les filtres
+        </button>
+      </div>
+    </div>
+    
+    <!-- Summary Cards (4 equal cards) -->
+    <h2 class="fr-h2 fr-mb-4w">Volumes sur la période</h2>
+    <div class="fr-grid-row fr-grid-row--gutters fr-mb-6w">
+      <div class="fr-col-12 fr-col-md-6 fr-col-lg-3">
+        <div class="fr-card fr-card--no-border fr-p-4w" style="background-color: #e3e3fd; text-align: center;">
+          <p class="fr-text--md fr-mb-2v" style="color: #161616; font-weight: bold;">Nouvelles demandes</p>
+          <p class="fr-display--xs fr-mb-0" style="color: #000091;"><strong data-stats-target="newRequestsCount">-</strong></p>
+        </div>
+      </div>
+      <div class="fr-col-12 fr-col-md-6 fr-col-lg-3">
+        <div class="fr-card fr-card--no-border fr-p-4w" style="background-color: #fef7da; text-align: center;">
+          <p class="fr-text--md fr-mb-2v" style="color: #161616; font-weight: bold;">Réouvertures</p>
+          <p class="fr-display--xs fr-mb-0" style="color: #fc5d00;"><strong data-stats-target="reopeningsCount">-</strong></p>
+        </div>
+      </div>
+      <div class="fr-col-12 fr-col-md-6 fr-col-lg-3">
+        <div class="fr-card fr-card--no-border fr-p-4w" style="background-color: #b8fec9; text-align: center;">
+          <p class="fr-text--md fr-mb-2v" style="color: #161616; font-weight: bold;">Validations</p>
+          <p class="fr-display--xs fr-mb-0" style="color: #18753c;"><strong data-stats-target="validationsCount">-</strong></p>
+        </div>
+      </div>
+      <div class="fr-col-12 fr-col-md-6 fr-col-lg-3">
+        <div class="fr-card fr-card--no-border fr-p-4w" style="background-color: #ffe9e6; text-align: center;">
+          <p class="fr-text--md fr-mb-2v" style="color: #161616; font-weight: bold;">Refus</p>
+          <p class="fr-display--xs fr-mb-0" style="color: #ce0500;"><strong data-stats-target="refusalsCount">-</strong></p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Duration Cards Section -->
+    <h2 class="fr-h2 fr-mb-4w">Durées médianes pour les nouvelles demandes</h2>
+    <div class="fr-grid-row fr-grid-row--gutters fr-mb-6w">
+      <div class="fr-col-12 fr-col-lg-4">
+        <div class="fr-card fr-card--no-border fr-p-4w" style="background-color: #f6f6f6;">
+          <p class="fr-h6 fr-mb-2v" style="color: #161616;">Durée de remplissage</p>
+          <p class="fr-h3 fr-mb-2v" style="color: #000091;"><strong data-stats-target="medianTimeToSubmit">-</strong></p>
+          <p class="fr-text--sm fr-mb-0" style="color: #666;">
+            Écart-type : <span data-stats-target="stddevTimeToSubmit">-</span>
+          </p>
+        </div>
+      </div>
+      <div class="fr-col-12 fr-col-lg-4">
+        <div class="fr-card fr-card--no-border fr-p-4w" style="background-color: #f6f6f6;">
+          <p class="fr-h6 fr-mb-2v" style="color: #161616;">Durée de première instruction</p>
+          <p class="fr-h3 fr-mb-2v" style="color: #000091;"><strong data-stats-target="medianTimeToFirstInstruction">-</strong></p>
+          <p class="fr-text--sm fr-mb-0" style="color: #666;">
+            Écart-type : <span data-stats-target="stddevTimeToFirstInstruction">-</span>
+          </p>
+        </div>
+      </div>
+      <div class="fr-col-12 fr-col-lg-4">
+        <div class="fr-card fr-card--no-border fr-p-4w" style="background-color: #f6f6f6;">
+          <p class="fr-h6 fr-mb-2v" style="color: #161616;">Durée d'instruction finale</p>
+          <p class="fr-h3 fr-mb-2v" style="color: #000091;"><strong data-stats-target="medianTimeToFinalInstruction">-</strong></p>
+          <p class="fr-text--sm fr-mb-0" style="color: #666;">
+            Écart-type : <span data-stats-target="stddevTimeToFinalInstruction">-</span>
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Breakdown Section with Charts -->
+    <div data-stats-target="breakdownSection">
+      <div class="fr-grid-row fr-grid-row--middle fr-mb-4w">
+        <div class="fr-col-auto">
+          <h2 class="fr-h2 fr-mb-0">Statistiques par</h2>
+        </div>
+        <div class="fr-col-auto fr-ml-2w">
+          <select class="fr-select" data-stats-target="dimensionSelect" data-action="change->stats#updateDimension">
+            <option value="provider">Fournisseur de données</option>
+            <option value="type">Type d'habilitation</option>
+            <option value="form">Formulaire</option>
+          </select>
+        </div>
+      </div>
+      
+      <!-- Horizontal Bar Charts -->
+      <div class="fr-mb-6w">
+        <h3 class="fr-h3 fr-mb-3w">Nombre de nouvelles demandes soumises</h3>
+        <canvas data-stats-target="volumeBreakdownChart" style="max-height: 400px;"></canvas>
+      </div>
+      
+      <div class="fr-mb-6w">
+        <h3 class="fr-h3 fr-mb-3w">Durée médiane de remplissage d'une nouvelle demande</h3>
+        <canvas data-stats-target="timeToSubmitBreakdownChart" style="max-height: 400px;"></canvas>
+      </div>
+      
+      <div class="fr-mb-6w">
+        <h3 class="fr-h3 fr-mb-3w">Durée médiane de première instruction</h3>
+        <canvas data-stats-target="timeToFirstInstructionBreakdownChart" style="max-height: 400px;"></canvas>
+      </div>
+      
+      <div class="fr-mb-6w">
+        <h3 class="fr-h3 fr-mb-3w">Durée médiane d'instruction finale</h3>
+        <canvas data-stats-target="timeToFinalInstructionBreakdownChart" style="max-height: 400px;"></canvas>
+      </div>
+    </div>
+  </div>
 </div>
