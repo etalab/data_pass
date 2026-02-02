@@ -478,13 +478,13 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
 
     Et la page contient "Nous avons pré-rempli des informations pour vous aider"
 
+    * je sélectionne la première option pour "FranceConnect"
+    * je clique sur "Suivant"
+
     * je clique sur "Suivant"
     * je clique sur "Suivant"
 
     * je remplis "Indiquez une URL vers la délibération si vous n'avez que ce justificatif à fournir" avec "https://mairie.fr/deliberation-tarifaire.pdf"
-    * je clique sur "Suivant"
-
-    * je sélectionne la première option pour "FranceConnect"
     * je clique sur "Suivant"
 
     * je renseigne les infos concernant les données personnelles
@@ -492,7 +492,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
 
     * je renseigne les informations du délégué à la protection des données
     * je renseigne les informations du contact métier
-    * je renseigne les informations du contact technique
+    * je renseigne les informations du contact technique avec un numéro de mobile
 
     * je clique sur "Suivant"
     Et j'adhère aux conditions générales
@@ -541,13 +541,14 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
 
     Et la page contient "Nous avons pré-rempli des informations pour vous aider"
 
+    * je sélectionne la première option pour "FranceConnect"
     * je clique sur "Suivant"
+
+    * je clique sur "Suivant"
+
     * je clique sur "Suivant"
 
     * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
-    * je clique sur "Suivant"
-
-    * je sélectionne la première option pour "FranceConnect"
     * je clique sur "Suivant"
 
     * je renseigne les infos concernant les données personnelles
@@ -555,7 +556,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
 
     * je renseigne les informations du délégué à la protection des données
     * je renseigne les informations du contact métier
-    * je renseigne les informations du contact technique
+    * je renseigne les informations du contact technique avec un numéro de mobile
 
     * je clique sur "Suivant"
     Et j'adhère aux conditions générales
@@ -588,6 +589,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
 
     * je renseigne les informations du délégué à la protection des données
     * je renseigne les informations du contact métier
+    * je renseigne les informations du contact technique avec un numéro de mobile
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales
@@ -595,7 +597,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
     Alors il y a un message de succès contenant "soumise avec succès"
     Et je suis sur la page "Demandes et habilitations"
 
-        Exemples:
+    Exemples:
       | Nom du formulaire           | Nom de l'éditeur|
       | Aiden, Tarification cantine | MGDIS           |
 
@@ -699,7 +701,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur fc_certif
     * je clique sur "Suivant"
 
     * je renseigne les informations du délégué à la protection des données
-    * je renseigne les informations du contact technique
+    * je renseigne les informations du contact technique avec un numéro de mobile
     * je renseigne les informations du contact métier
 
     * je clique sur "Suivant"
