@@ -173,13 +173,21 @@ module Stats
 
     def print_active_authorizations_by_organization_type
       data = @create_aggregator.active_authorizations_by_organization_type
+      total_count = data.sum { |item| item[:count] }
+      
       buckets = data.map do |item|
-        { bucket: format_organization_category_label(item[:category_code]), count: item[:count] }
+        percentage = total_count > 0 ? (item[:count].to_f / total_count * 100).round(1) : 0
+        {
+          bucket: format_organization_category_label(item[:category_code]),
+          count: item[:count],
+          percentage: percentage
+        }
       end
+      
       print_chart_with_title(
         buckets,
         "Volume d'habilitations actives par type d'organisation",
-        method: :format_volume_bar_chart,
+        method: :format_volume_bar_chart_with_percentage,
         preposition: 'au'
       )
     end
@@ -647,6 +655,33 @@ show_count, display_value_key, max_display_width = 0)
 
     def format_volume_bar_chart(buckets)
       build_bar_chart(buckets, value_key: :count, label_align: :ljust)
+    end
+
+    def format_volume_bar_chart_with_percentage(buckets)
+      max_count = buckets.map { |b| b[:count] }.max
+      return "Aucune donnée" if max_count == 0
+      
+      max_bar_length = 50
+      scale = max_count > max_bar_length ? (max_bar_length.to_f / max_count) : 1.0
+      
+      max_label_width = buckets.map { |b| b[:bucket].to_s.length }.max || 0
+      max_count_width = buckets.map { |b| b[:count].to_s.length }.max || 0
+      
+      lines = buckets.map do |bucket|
+        bar = "█" * (bucket[:count] * scale).round
+        label = bucket[:bucket].to_s.ljust(max_label_width)
+        count = bucket[:count].to_s.rjust(max_count_width)
+        percentage = bucket[:percentage].to_s.rjust(5)
+        
+        "#{label} (#{count}, #{percentage}%) │ #{bar}"
+      end
+      
+      total = buckets.sum { |b| b[:count] }
+      lines << ""
+      lines << "Total : #{total} habilitations actives"
+      lines << "Échelle : chaque █ représente #{(1.0 / scale).round(1)} habilitation(s)" if scale < 1.0
+      
+      lines.join("\n")
     end
 
     def format_split_bar_chart(items)

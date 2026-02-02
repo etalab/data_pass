@@ -77,114 +77,114 @@ Total : 44 validées, 49 refusées (93 total)
 ## Volume d'habilitations actives par type d'organisation au 18/06/2025 - 02/02/2026 (fournisseur : dgfip):
 
 ```
-Commune et commune nouvelle (7210)                                                                       (20278) │ ██████████████████████████████████████████████████
-SAS, société par actions simplifiée (5710)                                                               ( 1528) │ ████
-Établissement public national à caractère administratif (7389)                                           (  664) │ ██
-Communauté de communes (7346)                                                                            (  652) │ ██
-Groupement d'intérêt public (GIP) (7410)                                                                 (  609) │ ██
-Communauté d'agglomération (7348)                                                                        (  567) │ █
-Service central d'un ministère (7120)                                                                    (  565) │ █
-Département (7220)                                                                                       (  548) │ █
-Association déclarée (9220)                                                                              (  358) │ █
-Ministère (7113)                                                                                         (  350) │ █
-Région (7230)                                                                                            (  345) │ █
-SA à conseil d'administration (s.a.i.) (5599)                                                            (  288) │ █
-Métropole (7344)                                                                                         (  264) │ █
-Centre communal d'action sociale (7361)                                                                  (  264) │ █
-Établissement public national à caractère scientifique culturel et professionnel (7383)                  (  255) │ █
-Caisse de crédit agricole mutuel (6596)                                                                  (  224) │ █
-Société à responsabilité limitée (sans autre indication) (5499)                                          (  210) │ █
-SA à directoire (s.a.i.) (5699)                                                                          (  156) │ 
-Établissement d'hospitalisation (7364)                                                                   (  136) │ 
-(Autre) Collectivité territoriale (7229)                                                                 (  127) │ 
-Établissement public national à caractère industriel ou commercial doté d'un comptable public (4110)     (  125) │ 
-Organisme consulaire (7381)                                                                              (  120) │ 
-Autre établissement public national d'enseignement (7384)                                                (   95) │ 
-Autre établissement public national administratif à compétence territoriale limitée (7385)               (   86) │ 
-Groupement d'intérêt économique (GIE) (6220)                                                             (   79) │ 
-Communauté urbaine (7343)                                                                                (   76) │ 
-Entrepreneur individuel (1000)                                                                           (   75) │ 
-Syndicat mixte ouvert (7355)                                                                             (   67) │ 
-Syndicat mixte fermé (7354)                                                                              (   67) │ 
-Syndicat intercommunal à vocation multiple (SIVOM) (7345)                                                (   66) │ 
-Syndicat intercommunal à vocation unique (SIVU) (7353)                                                   (   62) │ 
-Société coopérative de banque populaire (5192)                                                           (   59) │ 
-Service déconcentré à compétence nationale d'un ministère (hors Défense) (7160)                          (   59) │ 
-Établissement public local à caractère industriel ou commercial (4140)                                   (   53) │ 
-Autre personne morale de droit administratif (7490)                                                      (   53) │ 
-Autre SA coopérative à directoire (5660)                                                                 (   51) │ 
-Autorité administrative ou publique indépendante (7112)                                                  (   47) │ 
-Régime général de la Sécurité Sociale (8110)                                                             (   45) │ 
-Régime spécial de Sécurité Sociale (8120)                                                                (   42) │ 
-Caisse des écoles (7362)                                                                                 (   42) │ 
-Service déconcentré de l'État à compétence (inter) régionale (7171)                                      (   40) │ 
-Autre SA coopérative à conseil d'administration (5560)                                                   (   37) │ 
-(Autre) Établissement public administratif local (7379)                                                  (   33) │ 
-Institution de retraite complémentaire (8130)                                                            (   32) │ 
-Mutuelle (8210)                                                                                          (   31) │ 
-Autorité constitutionnelle (7111)                                                                        (   31) │ 
-Établissement public local d'enseignement (7331)                                                         (   29) │ 
-Autre SARL coopérative (5460)                                                                            (   29) │ 
-Régie d'une collectivité locale à caractère industriel ou commercial (4150)                              (   27) │ 
-Fondation (9300)                                                                                         (   27) │ 
-(Autre) Service déconcentré de l'État à compétence territoriale (7179)                                   (   23) │ 
-Caisse d'épargne et de prévoyance à forme coopérative (5196)                                             (   21) │ 
-Service du ministère de la Défense (7150)                                                                (   18) │ 
-Caisse (fédérale) de crédit mutuel (5194)                                                                (   18) │ 
-Centre Intercommunal d'action sociale (CIAS) (7367)                                                      (   18) │ 
-SA d'économie mixte à conseil d'administration (5515)                                                    (   18) │ 
-Autre personne morale de droit privé (9900)                                                              (   16) │ 
-Groupement de coopération sanitaire à gestion privée (9970)                                              (   16) │ 
-Ordre professionnel ou assimilé (8450)                                                                   (   15) │ 
-Établissement public national à caractère industriel ou commercial non doté d'un comptable public (4120) (   14) │ 
-Société commerciale étrangère immatriculée au RCS (3120)                                                 (   14) │ 
-Pôle d'équilibre territorial et rural (PETR) (7357)                                                      (   14) │ 
-Autre société civile coopérative (6560)                                                                  (   12) │ 
-Service déconcentré de l'État à compétence (inter) départementale (7172)                                 (   11) │ 
-SARL coopérative artisanale (5453)                                                                       (   11) │ 
-Collectivité et territoire d'Outre Mer (7225)                                                            (   11) │ 
-Caisse d'Épargne et de Prévoyance (6100)                                                                 (   10) │ 
-SA d'économie mixte à directoire (5615)                                                                  (    9) │ 
-Mutualité sociale agricole (8140)                                                                        (    9) │ 
-Association déclarée, reconnue d'utilité publique (9230)                                                 (    8) │ 
-Régime vieillesse ne dépendant pas du régime général de la Sécurité Sociale (8160)                       (    8) │ 
-Société en nom collectif (5202)                                                                          (    8) │ 
-Établissement public national ayant fonction d'administration centrale (7382)                            (    8) │ 
-Association de droit local (Bas-Rhin, Haut-Rhin et Moselle) (9260)                                       (    8) │ 
-SA d'intérêt collectif agricole (SICA) à conseil d'administration (5532)                                 (    6) │ 
-Commune associée et commune déléguée (7312)                                                              (    6) │ 
-Service départemental d'incendie et de secours (SDIS) (7372)                                             (    6) │ 
-Syndicat patronal (8420)                                                                                 (    5) │ 
-Institution Banque de France (4160)                                                                      (    5) │ 
-SA coopérative artisanale à conseil d'administration (5553)                                              (    5) │ 
-Société d'exercice libéral par action simplifiée (5785)                                                  (    5) │ 
-Société étrangère non immatriculée au RCS (3220)                                                         (    4) │ 
-Autre personne de droit privé inscrite au registre du commerce et des sociétés (6901)                    (    4) │ 
-SA d'aménagement foncier et d'équipement rural (SAFER) à conseil d'administration (5530)                 (    4) │ 
-Société d'exercice libéral à responsabilité limitée (5485)                                               (    4) │ 
-SA nationale à conseil d'administration (5510)                                                           (    3) │ 
-Société civile d'intérêt collectif agricole (SICA) (6532)                                                (    3) │ 
-SARL coopérative de production (SCOP) (5458)                                                             (    2) │ 
-SA coopérative de production  (SCOP) à conseil d'administration (5558)                                   (    2) │ 
-Société d'assurance à forme mutuelle (6411)                                                              (    2) │ 
-Régie d'une collectivité locale à caractère administratif (7378)                                         (    2) │ 
-SA de HLM à conseil d'administration (5546)                                                              (    2) │ 
-Établissement public local social et médico-social (7366)                                                (    2) │ 
-Autre organisme professionnel (8490)                                                                     (    2) │ 
-Société civile de moyens (6589)                                                                          (    1) │ 
-Association non déclarée (9210)                                                                          (    1) │ 
-Société civile immobilière (6540)                                                                        (    1) │ 
-Autre société civile (6599)                                                                              (    1) │ 
-Syndicat de salariés (8410)                                                                              (    1) │ 
-Société en commandite par actions (5308)                                                                 (    1) │ 
-Groupement de coopération sanitaire à gestion publique (7470)                                            (    1) │ 
-Établissement public local culturel (7373)                                                               (    1) │ 
-SCP de médecins (6571)                                                                                   (    1) │ 
-SA nationale à directoire (5610)                                                                         (    1) │ 
-Société européenne (5800)                                                                                (    1) │ 
+Commune et commune nouvelle (7210)                                                                       (20278,  66.5%) │ ██████████████████████████████████████████████████
+SAS, société par actions simplifiée (5710)                                                               ( 1528,   5.0%) │ ████
+Établissement public national à caractère administratif (7389)                                           (  664,   2.2%) │ ██
+Communauté de communes (7346)                                                                            (  652,   2.1%) │ ██
+Groupement d'intérêt public (GIP) (7410)                                                                 (  609,   2.0%) │ ██
+Communauté d'agglomération (7348)                                                                        (  567,   1.9%) │ █
+Service central d'un ministère (7120)                                                                    (  565,   1.9%) │ █
+Département (7220)                                                                                       (  548,   1.8%) │ █
+Association déclarée (9220)                                                                              (  358,   1.2%) │ █
+Ministère (7113)                                                                                         (  350,   1.1%) │ █
+Région (7230)                                                                                            (  345,   1.1%) │ █
+SA à conseil d'administration (s.a.i.) (5599)                                                            (  288,   0.9%) │ █
+Métropole (7344)                                                                                         (  264,   0.9%) │ █
+Centre communal d'action sociale (7361)                                                                  (  264,   0.9%) │ █
+Établissement public national à caractère scientifique culturel et professionnel (7383)                  (  255,   0.8%) │ █
+Caisse de crédit agricole mutuel (6596)                                                                  (  224,   0.7%) │ █
+Société à responsabilité limitée (sans autre indication) (5499)                                          (  210,   0.7%) │ █
+SA à directoire (s.a.i.) (5699)                                                                          (  156,   0.5%) │ 
+Établissement d'hospitalisation (7364)                                                                   (  136,   0.4%) │ 
+(Autre) Collectivité territoriale (7229)                                                                 (  127,   0.4%) │ 
+Établissement public national à caractère industriel ou commercial doté d'un comptable public (4110)     (  125,   0.4%) │ 
+Organisme consulaire (7381)                                                                              (  120,   0.4%) │ 
+Autre établissement public national d'enseignement (7384)                                                (   95,   0.3%) │ 
+Autre établissement public national administratif à compétence territoriale limitée (7385)               (   86,   0.3%) │ 
+Groupement d'intérêt économique (GIE) (6220)                                                             (   79,   0.3%) │ 
+Communauté urbaine (7343)                                                                                (   76,   0.2%) │ 
+Entrepreneur individuel (1000)                                                                           (   75,   0.2%) │ 
+Syndicat mixte ouvert (7355)                                                                             (   67,   0.2%) │ 
+Syndicat mixte fermé (7354)                                                                              (   67,   0.2%) │ 
+Syndicat intercommunal à vocation multiple (SIVOM) (7345)                                                (   66,   0.2%) │ 
+Syndicat intercommunal à vocation unique (SIVU) (7353)                                                   (   62,   0.2%) │ 
+Société coopérative de banque populaire (5192)                                                           (   59,   0.2%) │ 
+Service déconcentré à compétence nationale d'un ministère (hors Défense) (7160)                          (   59,   0.2%) │ 
+Établissement public local à caractère industriel ou commercial (4140)                                   (   53,   0.2%) │ 
+Autre personne morale de droit administratif (7490)                                                      (   53,   0.2%) │ 
+Autre SA coopérative à directoire (5660)                                                                 (   51,   0.2%) │ 
+Autorité administrative ou publique indépendante (7112)                                                  (   47,   0.2%) │ 
+Régime général de la Sécurité Sociale (8110)                                                             (   45,   0.1%) │ 
+Régime spécial de Sécurité Sociale (8120)                                                                (   42,   0.1%) │ 
+Caisse des écoles (7362)                                                                                 (   42,   0.1%) │ 
+Service déconcentré de l'État à compétence (inter) régionale (7171)                                      (   40,   0.1%) │ 
+Autre SA coopérative à conseil d'administration (5560)                                                   (   37,   0.1%) │ 
+(Autre) Établissement public administratif local (7379)                                                  (   33,   0.1%) │ 
+Institution de retraite complémentaire (8130)                                                            (   32,   0.1%) │ 
+Mutuelle (8210)                                                                                          (   31,   0.1%) │ 
+Autorité constitutionnelle (7111)                                                                        (   31,   0.1%) │ 
+Établissement public local d'enseignement (7331)                                                         (   29,   0.1%) │ 
+Autre SARL coopérative (5460)                                                                            (   29,   0.1%) │ 
+Régie d'une collectivité locale à caractère industriel ou commercial (4150)                              (   27,   0.1%) │ 
+Fondation (9300)                                                                                         (   27,   0.1%) │ 
+(Autre) Service déconcentré de l'État à compétence territoriale (7179)                                   (   23,   0.1%) │ 
+Caisse d'épargne et de prévoyance à forme coopérative (5196)                                             (   21,   0.1%) │ 
+Service du ministère de la Défense (7150)                                                                (   18,   0.1%) │ 
+Caisse (fédérale) de crédit mutuel (5194)                                                                (   18,   0.1%) │ 
+Centre Intercommunal d'action sociale (CIAS) (7367)                                                      (   18,   0.1%) │ 
+SA d'économie mixte à conseil d'administration (5515)                                                    (   18,   0.1%) │ 
+Autre personne morale de droit privé (9900)                                                              (   16,   0.1%) │ 
+Groupement de coopération sanitaire à gestion privée (9970)                                              (   16,   0.1%) │ 
+Ordre professionnel ou assimilé (8450)                                                                   (   15,   0.0%) │ 
+Établissement public national à caractère industriel ou commercial non doté d'un comptable public (4120) (   14,   0.0%) │ 
+Société commerciale étrangère immatriculée au RCS (3120)                                                 (   14,   0.0%) │ 
+Pôle d'équilibre territorial et rural (PETR) (7357)                                                      (   14,   0.0%) │ 
+Autre société civile coopérative (6560)                                                                  (   12,   0.0%) │ 
+Service déconcentré de l'État à compétence (inter) départementale (7172)                                 (   11,   0.0%) │ 
+SARL coopérative artisanale (5453)                                                                       (   11,   0.0%) │ 
+Collectivité et territoire d'Outre Mer (7225)                                                            (   11,   0.0%) │ 
+Caisse d'Épargne et de Prévoyance (6100)                                                                 (   10,   0.0%) │ 
+SA d'économie mixte à directoire (5615)                                                                  (    9,   0.0%) │ 
+Mutualité sociale agricole (8140)                                                                        (    9,   0.0%) │ 
+Association déclarée, reconnue d'utilité publique (9230)                                                 (    8,   0.0%) │ 
+Régime vieillesse ne dépendant pas du régime général de la Sécurité Sociale (8160)                       (    8,   0.0%) │ 
+Société en nom collectif (5202)                                                                          (    8,   0.0%) │ 
+Établissement public national ayant fonction d'administration centrale (7382)                            (    8,   0.0%) │ 
+Association de droit local (Bas-Rhin, Haut-Rhin et Moselle) (9260)                                       (    8,   0.0%) │ 
+SA d'intérêt collectif agricole (SICA) à conseil d'administration (5532)                                 (    6,   0.0%) │ 
+Commune associée et commune déléguée (7312)                                                              (    6,   0.0%) │ 
+Service départemental d'incendie et de secours (SDIS) (7372)                                             (    6,   0.0%) │ 
+Syndicat patronal (8420)                                                                                 (    5,   0.0%) │ 
+Institution Banque de France (4160)                                                                      (    5,   0.0%) │ 
+SA coopérative artisanale à conseil d'administration (5553)                                              (    5,   0.0%) │ 
+Société d'exercice libéral par action simplifiée (5785)                                                  (    5,   0.0%) │ 
+Société étrangère non immatriculée au RCS (3220)                                                         (    4,   0.0%) │ 
+Autre personne de droit privé inscrite au registre du commerce et des sociétés (6901)                    (    4,   0.0%) │ 
+SA d'aménagement foncier et d'équipement rural (SAFER) à conseil d'administration (5530)                 (    4,   0.0%) │ 
+Société d'exercice libéral à responsabilité limitée (5485)                                               (    4,   0.0%) │ 
+SA nationale à conseil d'administration (5510)                                                           (    3,   0.0%) │ 
+Société civile d'intérêt collectif agricole (SICA) (6532)                                                (    3,   0.0%) │ 
+SARL coopérative de production (SCOP) (5458)                                                             (    2,   0.0%) │ 
+SA coopérative de production  (SCOP) à conseil d'administration (5558)                                   (    2,   0.0%) │ 
+Société d'assurance à forme mutuelle (6411)                                                              (    2,   0.0%) │ 
+Régie d'une collectivité locale à caractère administratif (7378)                                         (    2,   0.0%) │ 
+SA de HLM à conseil d'administration (5546)                                                              (    2,   0.0%) │ 
+Établissement public local social et médico-social (7366)                                                (    2,   0.0%) │ 
+Autre organisme professionnel (8490)                                                                     (    2,   0.0%) │ 
+Société civile de moyens (6589)                                                                          (    1,   0.0%) │ 
+Association non déclarée (9210)                                                                          (    1,   0.0%) │ 
+Société civile immobilière (6540)                                                                        (    1,   0.0%) │ 
+Autre société civile (6599)                                                                              (    1,   0.0%) │ 
+Syndicat de salariés (8410)                                                                              (    1,   0.0%) │ 
+Société en commandite par actions (5308)                                                                 (    1,   0.0%) │ 
+Groupement de coopération sanitaire à gestion publique (7470)                                            (    1,   0.0%) │ 
+Établissement public local culturel (7373)                                                               (    1,   0.0%) │ 
+SCP de médecins (6571)                                                                                   (    1,   0.0%) │ 
+SA nationale à directoire (5610)                                                                         (    1,   0.0%) │ 
+Société européenne (5800)                                                                                (    1,   0.0%) │ 
 
-Total : 30476 demandes
-Échelle : chaque █ représente 405.6 demande(s)
+Total : 30476 habilitations actives
+Échelle : chaque █ représente 405.6 habilitation(s)
 ```
 
 
