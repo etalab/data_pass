@@ -196,9 +196,15 @@ export default class extends Controller {
     const currentValue = this.typeSelectTarget.value
     this.typeSelectTarget.innerHTML = '<option value="">Tous les types</option>'
 
-    const filteredTypes = selectedProviders.length > 0
-      ? this.allTypes.filter(type => selectedProviders.includes(type.provider_slug))
-      : this.allTypes
+    // Disable if no provider selected
+    if (selectedProviders.length === 0) {
+      this.typeSelectTarget.disabled = true
+      return
+    }
+
+    this.typeSelectTarget.disabled = false
+
+    const filteredTypes = this.allTypes.filter(type => selectedProviders.includes(type.provider_slug))
 
     filteredTypes.forEach(type => {
       const option = document.createElement('option')
@@ -214,13 +220,20 @@ export default class extends Controller {
   }
 
   populateFormSelect () {
+    const selectedProviders = this.getSelectedProviders()
     const selectedTypes = this.getSelectedTypes()
     const currentValue = this.formSelectTarget.value
     this.formSelectTarget.innerHTML = '<option value="">Tous les formulaires</option>'
 
-    const filteredForms = selectedTypes.length > 0
-      ? this.allForms.filter(form => selectedTypes.includes(form.authorization_type))
-      : this.allForms
+    // Disable if no provider or no type selected
+    if (selectedProviders.length === 0 || selectedTypes.length === 0) {
+      this.formSelectTarget.disabled = true
+      return
+    }
+
+    this.formSelectTarget.disabled = false
+
+    const filteredForms = this.allForms.filter(form => selectedTypes.includes(form.authorization_type))
 
     filteredForms.forEach(form => {
       const option = document.createElement('option')
