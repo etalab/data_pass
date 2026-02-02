@@ -71,6 +71,8 @@ module Stats
         puts "\n"
         report.print_volume_by_type_with_states
         puts "\n"
+        report.print_active_authorizations_by_organization_type
+        puts "\n"
         report.print_median_time_to_submit_by_type
         puts "\n"
         report.print_median_time_to_submit_by_provider

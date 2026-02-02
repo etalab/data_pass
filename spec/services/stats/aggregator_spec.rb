@@ -1365,6 +1365,143 @@ RSpec.describe Stats::Aggregator, type: :service do
     end
   end
 
+  describe '#active_authorizations_by_organization_type' do
+    let(:base_time) { Time.zone.parse('2025-03-15 10:00:00') }
+    let!(:user) { create(:user) }
+    
+    let!(:organization_sas) do
+      create(:organization, insee_payload: {
+        'etablissement' => {
+          'uniteLegale' => {
+            'categorieJuridiqueUniteLegale' => '5710'
+          }
+        }
+      })
+    end
+    
+    let!(:organization_sarl) do
+      create(:organization, insee_payload: {
+        'etablissement' => {
+          'uniteLegale' => {
+            'categorieJuridiqueUniteLegale' => '5499'
+          }
+        }
+      })
+    end
+    
+    let!(:organization_commune) do
+      create(:organization, insee_payload: {
+        'etablissement' => {
+          'uniteLegale' => {
+            'categorieJuridiqueUniteLegale' => '7210'
+          }
+        }
+      })
+    end
+    
+    let!(:organization_no_payload) do
+      create(:organization, insee_payload: nil)
+    end
+    
+    before do
+      user.add_to_organization(organization_sas, current: true)
+      user.add_to_organization(organization_sarl)
+      user.add_to_organization(organization_commune)
+      user.add_to_organization(organization_no_payload)
+    end
+
+    let!(:ar_sas_1) do
+      create(:authorization_request, :api_entreprise, :validated, applicant: user, organization: organization_sas, created_at: base_time)
+    end
+    
+    let!(:ar_sas_2) do
+      create(:authorization_request, :api_particulier, :validated, applicant: user, organization: organization_sas, created_at: base_time)
+    end
+    
+    let!(:ar_sarl) do
+      create(:authorization_request, :api_entreprise, :validated, applicant: user, organization: organization_sarl, created_at: base_time)
+    end
+    
+    let!(:ar_commune_1) do
+      create(:authorization_request, :api_particulier, :validated, applicant: user, organization: organization_commune, created_at: base_time)
+    end
+    
+    let!(:ar_commune_2) do
+      create(:authorization_request, :api_entreprise, :validated, applicant: user, organization: organization_commune, created_at: base_time)
+    end
+    
+    let!(:ar_commune_3) do
+      create(:authorization_request, :api_particulier, :validated, applicant: user, organization: organization_commune, created_at: base_time)
+    end
+    
+    let!(:ar_no_payload) do
+      create(:authorization_request, :api_entreprise, :validated, applicant: user, organization: organization_no_payload, created_at: base_time)
+    end
+    
+    let!(:ar_draft) do
+      create(:authorization_request, :api_entreprise, :draft, applicant: user, organization: organization_sas, created_at: base_time)
+    end
+
+    subject { described_class.new }
+
+    it 'returns active authorizations grouped by organization type' do
+      result = subject.active_authorizations_by_organization_type
+      
+      expect(result).to be_an(Array)
+      expect(result.length).to eq(3)
+      
+      sas_item = result.find { |item| item[:category_code] == '5710' }
+      sarl_item = result.find { |item| item[:category_code] == '5499' }
+      commune_item = result.find { |item| item[:category_code] == '7210' }
+      
+      expect(sas_item).to be_present
+      expect(sas_item[:count]).to eq(2)
+      
+      expect(sarl_item).to be_present
+      expect(sarl_item[:count]).to eq(1)
+      
+      expect(commune_item).to be_present
+      expect(commune_item[:count]).to eq(3)
+    end
+
+    it 'excludes organizations without insee_payload' do
+      result = subject.active_authorizations_by_organization_type
+      
+      expect(result.any? { |item| item[:category_code].nil? }).to be false
+    end
+
+    it 'excludes non-validated authorizations' do
+      result = subject.active_authorizations_by_organization_type
+      
+      total_count = result.sum { |item| item[:count] }
+      expect(total_count).to eq(6)
+    end
+
+    it 'sorts results by count descending' do
+      result = subject.active_authorizations_by_organization_type
+      
+      counts = result.map { |item| item[:count] }
+      expect(counts).to eq(counts.sort.reverse)
+    end
+    
+    context 'with revoked authorizations' do
+      let!(:ar_sas_revoked) do
+        create(:authorization_request, :api_entreprise, :validated, applicant: user, organization: organization_sas, created_at: base_time).tap do |ar|
+          authorization = ar.latest_authorization
+          authorization.revoke!
+          authorization.update!(revoked: true)
+        end
+      end
+      
+      it 'excludes revoked authorizations' do
+        result = subject.active_authorizations_by_organization_type
+        
+        sas_item = result.find { |item| item[:category_code] == '5710' }
+        expect(sas_item[:count]).to eq(2)
+      end
+    end
+  end
+
   describe '#time_to_first_instruction_by_duration_buckets' do
     let(:base_time) { Time.zone.parse('2025-03-15 10:00:00') }
     let!(:user) { create(:user) }

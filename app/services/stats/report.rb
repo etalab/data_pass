@@ -1,3 +1,5 @@
+require 'csv'
+
 module Stats
   class Report
     include ActionView::Helpers::DateHelper
@@ -96,19 +98,23 @@ module Stats
     end
 
     def average_time_to_production_instruction
-      format_metric('Durée moyenne d\'une instruction production', @production_aggregator.average_time_to_production_instruction)
+      format_metric('Durée moyenne d\'une instruction production', 
+@production_aggregator.average_time_to_production_instruction)
     end
 
     def median_time_to_production_instruction
-      format_metric('Durée médiane d\'une instruction production', @production_aggregator.median_time_to_production_instruction)
+      format_metric('Durée médiane d\'une instruction production', 
+@production_aggregator.median_time_to_production_instruction)
     end
 
     def stddev_time_to_production_instruction
-      format_metric('Écart-type des durées d\'instruction production', @production_aggregator.stddev_time_to_production_instruction)
+      format_metric('Écart-type des durées d\'instruction production', 
+@production_aggregator.stddev_time_to_production_instruction)
     end
 
     def mode_time_to_production_instruction
-      format_metric('Durée d\'instruction production la plus fréquente', @production_aggregator.mode_time_to_production_instruction)
+      format_metric('Durée d\'instruction production la plus fréquente', 
+@production_aggregator.mode_time_to_production_instruction)
     end
 
     def dgfip_report?
@@ -165,16 +171,31 @@ module Stats
       print_chart_with_title(buckets, "Volume de demandes par fournisseur", method: :format_volume_bar_chart)
     end
 
+    def print_active_authorizations_by_organization_type
+      data = @create_aggregator.active_authorizations_by_organization_type
+      buckets = data.map do |item|
+        { bucket: format_organization_category_label(item[:category_code]), count: item[:count] }
+      end
+      print_chart_with_title(
+        buckets,
+        "Volume d'habilitations actives par type d'organisation",
+        method: :format_volume_bar_chart,
+        preposition: 'au'
+      )
+    end
+
     def print_volume_by_type_with_states
       data = @create_aggregator.volume_by_type_with_states
       items = data.map { |item| transform_state_data(item, extract_type_name(item[:type])) }
-      print_chart_with_title(items, "Volume de demandes par type (validées vs refusées)", method: :format_split_bar_chart)
+      print_chart_with_title(items, "Volume de demandes par type (validées vs refusées)", 
+method: :format_split_bar_chart)
     end
 
     def print_volume_by_provider_with_states
       data = @create_aggregator.volume_by_provider_with_states
       items = data.map { |item| transform_state_data(item, item[:provider]) }
-      print_chart_with_title(items, "Volume de demandes par fournisseur (validées vs refusées)", method: :format_split_bar_chart)
+      print_chart_with_title(items, "Volume de demandes par fournisseur (validées vs refusées)", 
+method: :format_split_bar_chart)
     end
 
     def print_median_time_to_submit_by_type
@@ -281,7 +302,8 @@ module Stats
       return unless dgfip_report?
       
       buckets = @production_aggregator.time_to_production_instruction_by_duration_buckets(step: step)
-      print_chart_with_title(buckets, "Durée de première instruction production par #{step_label_text(step)}", preposition: 'de')
+      print_chart_with_title(buckets, "Durée de première instruction production par #{step_label_text(step)}", 
+preposition: 'de')
     end
 
     private
@@ -336,6 +358,30 @@ module Stats
       form_uid
     end
 
+    def format_organization_category_label(category_code)
+      return 'Non renseigné' if category_code.blank?
+
+      label = organization_categories[category_code]
+      label ? "#{label} (#{category_code})" : category_code
+    end
+
+    def organization_categories
+      @organization_categories ||= load_organization_categories
+    end
+
+    def load_organization_categories
+      csv_path = Rails.root.join('app', 'services', 'stats', 'cj_septembre_2022.csv')
+      categories = {}
+      
+      CSV.foreach(csv_path, headers: true, col_sep: ',') do |row|
+        code = row['Code']
+        label = row['Libellé']&.strip
+        categories[code] = label if code && label
+      end
+      
+      categories
+    end
+
     def print_chart_with_title(data, title, method: :format_bar_chart, unit: nil, preposition: 'pour')
       return puts "\nAucune donnée disponible pour #{title.downcase}." if data.empty?
 
@@ -383,11 +429,13 @@ module Stats
       max_count_width = items.map { |item| (item[:count] || item[:total]).to_s.length }.max || 0
 
       items.map do |item|
-        build_chart_line(item, value_key, label_align, scale, max_label_width, max_value_width, max_count_width, unit, show_count, display_value_key, max_display_width)
+        build_chart_line(item, value_key, label_align, scale, max_label_width, max_value_width, max_count_width, unit, 
+show_count, display_value_key, max_display_width)
       end
     end
 
-    def build_chart_line(item, value_key, label_align, scale, max_label_width, max_value_width, max_count_width, unit, show_count, display_value_key, max_display_width = 0)
+    def build_chart_line(item, value_key, label_align, scale, max_label_width, max_value_width, max_count_width, unit, 
+show_count, display_value_key, max_display_width = 0)
       bar = "█" * (item[value_key] * scale).round
       label = (item[:bucket] || item[:label]).to_s.send(label_align, max_label_width)
       
@@ -424,7 +472,9 @@ module Stats
       
       if items.first&.key?(:validated)
         lines << "Légende : █ = Validées, ▓ = Refusées"
-        lines << "Total : #{items.sum { |i| i[:validated] }} validées, #{items.sum { |i| i[:refused] }} refusées (#{items.sum { |i| i[:total] }} total)"
+        lines << "Total : #{items.sum { |i| i[:validated] }} validées, #{items.sum { |i|
+ i[:refused] }} refusées (#{items.sum { |i|
+ i[:total] }} total)"
       else
         lines << "Total : #{items.sum { |i| i[:count] }} demandes"
       end
@@ -634,7 +684,9 @@ module Stats
       
       lines << ""
       lines << "Légende : █ = Validées, ▓ = Refusées"
-      lines << "Total : #{items.sum { |i| i[:validated] }} validées, #{items.sum { |i| i[:refused] }} refusées (#{items.sum { |i| i[:total] }} total)"
+      lines << "Total : #{items.sum { |i| i[:validated] }} validées, #{items.sum { |i|
+ i[:refused] }} refusées (#{items.sum { |i|
+ i[:total] }} total)"
       lines << "Échelle : chaque caractère représente #{(1.0 / scale).round(1)} demande(s)" if scale < 1.0
       
       lines.join("\n")
@@ -658,7 +710,8 @@ module Stats
     end
 
     def format_time_bar_chart_with_labels(buckets)
-      build_bar_chart(buckets, value_key: :value, label_align: :ljust, display_value_key: :display_value, show_count: true)
+      build_bar_chart(buckets, value_key: :value, label_align: :ljust, display_value_key: :display_value, 
+show_count: true)
     end
   end
 end
