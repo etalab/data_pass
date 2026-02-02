@@ -2,13 +2,29 @@
 
 ## Build/Test/Lint Commands
 
-- Run server: `bin/local_run.sh` or with Docker: `make up`
-- Run all tests: `bundle exec rspec` or `make tests`
+**IMPORTANT**: This project supports both Docker and non-Docker environments.
+
+### With Docker (recommended)
+Always use `make` commands - they handle Docker setup including Chrome for tests:
+- Run server: `make up`
+- Run all tests: **`make tests`**
+- Run specific test: `make tests spec/path/to/file_spec.rb:LINE_NUMBER`
+- Run E2E tests: `make e2e` or `make e2e features/path/to/file.feature:LINE_NUMBER`
+- Run linter: `make lint`
+- Fix linting issues: `make fix-lint`
+- JS linting: `make js-lint`
+
+### Without Docker (local development)
+If the user is NOT using Docker, you can use these commands directly:
+- Run server: `bin/local_run.sh`
+- Run all tests: `bundle exec rspec`
 - Run specific test: `bundle exec rspec spec/path/to/file_spec.rb:LINE_NUMBER`
-- Run specific E2E test: `bundle exec cucumber features/path/to/file.feature:LINE_NUMBER`
-- Run linter: `bundle exec rubocop` or `make lint`
-- Fix linting issues: `bundle exec rubocop -A` or `make fix-lint`
-- JS linting: `standard app/javascript` or `make js-lint`
+- Run E2E tests: `bundle exec cucumber features/path/to/file.feature:LINE_NUMBER`
+- Run linter: `bundle exec rubocop`
+- Fix linting issues: `bundle exec rubocop -A`
+- JS linting: `standard app/javascript`
+
+**Ask the user which environment they're using if unclear**, or check for running Docker containers.
 
 ## Code Style Guidelines
 
