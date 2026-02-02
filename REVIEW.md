@@ -11,9 +11,15 @@ This branch replaces the Metabase iframe at `/stats` with a native, interactive 
 
 ---
 
-## 📦 Commit Structure (7 commits)
+## 📦 Commit Structure (12 commits)
 
-The commits are organized by layer, making the review logical and easy to follow:
+### **Core Implementation (commits 1-7)**
+The foundation of the stats page - queries, service, controller, view, frontend, tests.
+
+### **Polish & UX (commits 8-12)**
+Improvements based on testing and user feedback - documentation, labels, loading, filters, sorting.
+
+---
 
 ### 1️⃣ Add Stats query architecture for statistical calculations
 **Files:** `app/queries/stats/*.rb` (7 files)
@@ -141,6 +147,93 @@ The frontend brain - handles all interactivity.
 
 ---
 
+### 8️⃣ Add comprehensive review guide for stats page implementation
+**Files:** `REVIEW.md`
+
+This document! Helps reviewers understand the implementation.
+
+**What to review:**
+- Clear documentation of all commits
+- Explanation of technical decisions
+- Review checklist
+- Deployment notes
+
+---
+
+### 9️⃣ Add stage suffix to authorization type labels to distinguish sandbox/production
+**Files:** `app/controllers/stats_controller.rb`
+
+**What to review:**
+- Fixes duplicate labels for sandbox/production APIs
+- DGFIP APIs now show "API Impôt Particulier (Production)" vs "(Bac à sable)"
+- Uses `definition.stage.name` to distinguish environments
+- Makes filter dropdown much clearer
+
+**Before:** "API Impôt Particulier" appears twice  
+**After:** "API Impôt Particulier (Production)" and "API Impôt Particulier (Bac à sable)"
+
+---
+
+### 🔟 Improve loading indicator with full-page overlay
+**Files:** `app/views/stats/index.html.erb`
+
+**What to review:**
+- Replaces simple alert with modal-style overlay
+- Semi-transparent backdrop (50% black + blur) blocks all interaction
+- Centered spinner with DSFR Marianne blue (#000091)
+- Prevents race conditions from rapid filter changes
+- Professional appearance with animation
+
+**UX improvement:**
+- Users cannot click filters during loading
+- Much more obvious loading state
+- Prevents confusion and errors
+
+---
+
+### 1️⃣1️⃣ Disable cascading filters until dependencies are selected
+**Files:** `app/javascript/controllers/stats_controller.js`
+
+**What to review:**
+- Type filter: `disabled=true` until a provider is selected
+- Form filter: `disabled=true` until both provider AND type are selected
+- Clear visual feedback (grayed out)
+- Better UX for cascading dependencies
+
+**Logic:**
+```javascript
+// Type disabled if no provider
+if (selectedProviders.length === 0) {
+  this.typeSelectTarget.disabled = true
+}
+
+// Form disabled if no provider OR no type
+if (selectedProviders.length === 0 || selectedTypes.length === 0) {
+  this.formSelectTarget.disabled = true
+}
+```
+
+---
+
+### 1️⃣2️⃣ Sort duration breakdowns by ascending value (shorter is better)
+**Files:** `app/queries/stats/breakdown_stats_query.rb`
+
+**What to review:**
+- Duration charts now show fastest (best performance) at top
+- Slowest (needs improvement) at bottom
+- Makes performance comparison intuitive
+- Volume charts still sort descending (more is notable)
+
+**Change:**
+```ruby
+# Before: data.sort_by { |item| -item[:value] }  # Descending
+# After:  data.sort_by { |item| item[:value] }   # Ascending
+```
+
+**Rationale:** For durations, shorter times indicate better performance (faster processing).
+
+---
+
 ## 🎨 Key Features Implemented
 
 ### Date Filtering
@@ -156,6 +249,7 @@ The frontend brain - handles all interactivity.
 - ✅ Selection preservation during updates
 - ✅ URL query parameters for bookmarking
 - ✅ Clear all filters button
+- ✅ Disabled state for dependent filters
 
 ### Metrics Display
 - ✅ 4 volume cards (nouvelles demandes, réouvertures, validations, refus)
@@ -170,13 +264,15 @@ The frontend brain - handles all interactivity.
 - ✅ Auto-dimension selection based on filters
 - ✅ Percentage display on charts
 - ✅ Charts hide when form selected
+- ✅ Duration charts sorted by performance (faster first)
 
 ### UX Polish
-- ✅ Loading indicator during fetch
+- ✅ Full-page loading overlay (blocks interaction)
 - ✅ No console.log spam
 - ✅ Responsive layout (DSFR grid)
 - ✅ Proper spacing and alignment
 - ✅ Accessible markup
+- ✅ Stage labels for authorization types
 
 ---
 
@@ -216,6 +312,8 @@ All tests pass ✅
 - [ ] Chart.js integration is clean
 - [ ] No memory leaks (chart cleanup)
 - [ ] URL parameters work correctly
+- [ ] Loading overlay prevents race conditions
+- [ ] Disabled filters provide clear visual feedback
 
 ### Tests
 - [ ] RSpec tests cover critical paths
@@ -227,8 +325,10 @@ All tests pass ✅
 - [ ] Page loads quickly
 - [ ] Filters respond instantly
 - [ ] Charts render smoothly
-- [ ] Loading states are clear
+- [ ] Loading states are clear and block interaction
 - [ ] Errors are user-friendly
+- [ ] Cascading dependencies are intuitive
+- [ ] Stage labels distinguish sandbox/production
 
 ---
 
@@ -244,8 +344,8 @@ All tests pass ✅
 ## 📊 Files Changed
 
 ```
-app/controllers/stats_controller.rb                |  60 ++
-app/javascript/controllers/stats_controller.js     | 708 +++++++++++++++
+app/controllers/stats_controller.rb                |  64 ++
+app/javascript/controllers/stats_controller.js     | 721 +++++++++++++++
 app/queries/stats/base_stats_query.rb              |  86 +++
 app/queries/stats/breakdown_stats_query.rb         | 192 ++++++
 app/queries/stats/duration_stats_query.rb          |  33 +
@@ -254,18 +354,18 @@ app/queries/stats/time_to_first_instruction_query.rb |  35 +
 app/queries/stats/time_to_submit_query.rb          |  26 +
 app/queries/stats/volume_stats_query.rb            |  67 ++
 app/services/stats/data_service.rb                 | 111 ++++
-app/views/stats/index.html.erb                     | 194 +++++-
+app/views/stats/index.html.erb                     | 204 +++++-
 config/routes.rb                                   |   2 +
 features/stats_page.feature                        |  23 +
 features/step_definitions/stats_steps.rb           |  20 +
 spec/controllers/stats_controller_spec.rb          |  66 ++
 spec/queries/stats/base_stats_query_spec.rb        |  99 +++
 spec/queries/stats/time_to_submit_query_spec.rb    |  59 ++
-spec/queries/stats/volume_stats_query.rb           |  72 +++
+spec/queries/stats/volume_stats_query_spec.rb      |  72 +++
 spec/services/stats/data_service_spec.rb           |  49 ++
 ```
 
-**Total:** 19 files, 1,928 insertions(+), 9 deletions(-)
+**Total:** 19 files, 1,964 insertions(+), 9 deletions(-)
 
 ---
 
@@ -294,6 +394,7 @@ spec/services/stats/data_service_spec.rb           |  49 ++
 - Clear visual feedback
 - Accessible design
 - Intuitive filters
+- Professional loading states
 
 ---
 
@@ -323,6 +424,24 @@ spec/services/stats/data_service_spec.rb           |  49 ++
 - Cleaner UI
 - Avoids confusion
 
+### Why disable dependent filters?
+- Clear visual feedback about dependencies
+- Prevents confusion about empty dropdowns
+- Guides users through filter selection flow
+- Standard UX pattern for cascading filters
+
+### Why full-page loading overlay?
+- Prevents race conditions from rapid clicks
+- Clear indication of loading state
+- Blocks interaction until data ready
+- Professional appearance
+
+### Why sort durations ascending?
+- Shorter durations = better performance
+- Fastest at top = easy to identify best performers
+- Intuitive for performance metrics
+- Different from volume (where more is notable)
+
 ---
 
 ## ✅ Ready for Review
@@ -333,5 +452,6 @@ This implementation is production-ready with:
 - ✅ Accessible, DSFR-compliant UI
 - ✅ All features working correctly
 - ✅ No known bugs
+- ✅ Polished UX with loading states and visual feedback
 
-Review should be straightforward following the 7-commit structure! 🎉
+Review should be straightforward following the 12-commit structure! 🎉
