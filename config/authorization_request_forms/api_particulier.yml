@@ -2716,3 +2716,54 @@ api-particulier-abelium-petite-enfance:
       - cnav_participation_familiale_eaje_parametres_calcul
     modalities:
       - params
+
+api-particulier-polycea:
+  name: eovia
+  authorization_request: APIParticulier
+  use_case: stationnement_residentiel
+  service_provider_id: polycea
+  introduction: *api_particulier_introduction_editor_with_fixed_scopes
+  steps:
+    - name: modalities
+    - name: basic_infos
+    - name: legal
+    - name: personal_data
+    - name: contacts
+  static_blocks:
+    - name: scopes
+  scopes_config:
+    disabled:
+      - ants_extrait_immatriculation_vehicule_identite_particulier
+      - ants_extrait_immatriculation_vehicule_adresse_particulier
+      - ants_extrait_immatriculation_vehicule_statut_rattachement
+      - ants_extrait_immatriculation_vehicule_donnees_immatriculation_vehicule
+      - ants_extrait_immatriculation_vehicule_caracteristiques_techniques_vehicule
+    displayed:
+      - ants_extrait_immatriculation_vehicule_identite_particulier
+      - ants_extrait_immatriculation_vehicule_adresse_particulier
+      - ants_extrait_immatriculation_vehicule_statut_rattachement
+      - ants_extrait_immatriculation_vehicule_donnees_immatriculation_vehicule
+      - ants_extrait_immatriculation_vehicule_caracteristiques_techniques_vehicule
+
+  initialize_with:
+    intitule: Tarification du stationnement résidentiel
+    description:
+      Le logiciel permet la gestion des abonnements de stationnement (résidentiels). Il est disponible en 2 parties, 1 back-office pour les agents du service public et 1 front-office à destination des administrés.
+    cadre_juridique_nature:
+      L'article L114-8 du code des relations entre le public
+      et l'administration fixe le cadre général des échanges de données au sein de
+      l'administration.
+    scopes:
+      - ants_extrait_immatriculation_vehicule_identite_particulier
+      - ants_extrait_immatriculation_vehicule_adresse_particulier
+      - ants_extrait_immatriculation_vehicule_statut_rattachement
+      - ants_extrait_immatriculation_vehicule_donnees_immatriculation_vehicule
+      - ants_extrait_immatriculation_vehicule_caracteristiques_techniques_vehicule
+    contact_technique_email: "<%= Rails.application.credentials.api_particulier_polycea_contact_technique_email || 'tech-polycea@yopmail.com' %>"
+    contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_polycea_contact_technique_given_name || 'Jean' %>"
+    contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_polycea_contact_technique_family_name || 'Dupont' %>"
+    contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_polycea_contact_technique_phone_number || '0836656565' %>"
+    contact_technique_job_title: Responsable produit
+    modalities:
+      - params
+      - france_connect
