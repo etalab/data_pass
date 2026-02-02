@@ -180,7 +180,7 @@ module Stats
       max_value = data.pluck(:value).max
       return [] if max_value.zero?
 
-      data.sort_by { |item| -item[:value] }.map do |item|
+      data.sort_by { |item| item[:value] }.map do |item|
         {
           label: item[:name],
           value: item[:value].round(0),
