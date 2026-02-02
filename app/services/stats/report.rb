@@ -192,6 +192,27 @@ module Stats
       )
     end
 
+    def print_active_authorizations_by_organization_category
+      data = @create_aggregator.active_authorizations_by_organization_category
+      total_count = data.sum { |item| item[:count] }
+      
+      buckets = data.map do |item|
+        percentage = total_count > 0 ? (item[:count].to_f / total_count * 100).round(1) : 0
+        {
+          bucket: item[:category],
+          count: item[:count],
+          percentage: percentage
+        }
+      end
+      
+      print_chart_with_title(
+        buckets,
+        "Volume d'habilitations actives par catégorie d'organisation",
+        method: :format_volume_bar_chart_with_percentage,
+        preposition: 'au'
+      )
+    end
+
     def print_volume_by_type_with_states
       data = @create_aggregator.volume_by_type_with_states
       items = data.map { |item| transform_state_data(item, extract_type_name(item[:type])) }

@@ -1,3 +1,5 @@
+require 'csv'
+
 module Stats
   class Aggregator
     def initialize(authorization_requests = nil)
@@ -133,6 +135,25 @@ module Stats
         .group(Arel.sql("organizations.insee_payload -> 'etablissement' -> 'uniteLegale' ->> 'categorieJuridiqueUniteLegale'"))
         .count
         .map { |category_code, count| { category_code: category_code, count: count } }
+        .sort_by { |item| -item[:count] }
+    end
+
+    def active_authorizations_by_organization_category
+      raw_data = Authorization
+        .validated
+        .joins(request: :organization)
+        .where.not(organizations: { insee_payload: nil })
+        .group(Arel.sql("organizations.insee_payload -> 'etablissement' -> 'uniteLegale' ->> 'categorieJuridiqueUniteLegale'"))
+        .count
+
+      category_counts = Hash.new(0)
+      
+      raw_data.each do |category_code, count|
+        category = get_organization_category_for_code(category_code)
+        category_counts[category] += count
+      end
+      
+      category_counts.map { |category, count| { category: category, count: count } }
         .sort_by { |item| -item[:count] }
     end
 
@@ -571,6 +592,27 @@ module Stats
           'start_next_stage_events.id as start_next_stage_event_id',
           'MIN(instruction_events.created_at) as event_time'
         )
+    end
+
+    def get_organization_category_for_code(code)
+      organization_categories_map[code] || 'Non classé'
+    end
+
+    def organization_categories_map
+      @organization_categories_map ||= load_organization_categories_map
+    end
+
+    def load_organization_categories_map
+      csv_path = Rails.root.join('app', 'services', 'stats', 'cj_septembre_2022.csv')
+      categories = {}
+      
+      CSV.foreach(csv_path, headers: true, col_sep: ',') do |row|
+        code = row['Code']
+        category = row['Catégorie']&.strip
+        categories[code] = category if code && category
+      end
+      
+      categories
     end
   end
 end

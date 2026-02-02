@@ -108,6 +108,18 @@ Total : 2752 validées, 501 refusées (3253 total)
 ```
 
 
+## Volume d'habilitations actives par catégorie d'organisation au 2025:
+
+```
+Public - collectivité (23529,  77.2%) │ ██████████████████████████████████████████████████
+Autre                 ( 4570,  15.0%) │ ██████████
+Public - état         ( 2377,   7.8%) │ █████
+
+Total : 30476 habilitations actives
+Échelle : chaque █ représente 470.6 habilitation(s)
+```
+
+
 ## Volume d'habilitations actives par type d'organisation au 2025:
 
 ```
@@ -951,6 +963,18 @@ APICprProAdelieSandbox         (  1:   0.0%V 100.0%R) │
 Légende : █ = Validées, ▓ = Refusées
 Total : 3205 validées, 724 refusées (3929 total)
 Échelle : chaque caractère représente 19.8 demande(s)
+```
+
+
+## Volume d'habilitations actives par catégorie d'organisation au 2024:
+
+```
+Public - collectivité (23529,  77.2%) │ ██████████████████████████████████████████████████
+Autre                 ( 4570,  15.0%) │ ██████████
+Public - état         ( 2377,   7.8%) │ █████
+
+Total : 30476 habilitations actives
+Échelle : chaque █ représente 470.6 habilitation(s)
 ```
 
 

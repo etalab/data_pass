@@ -49,6 +49,18 @@ Total : 113 validées, 10 refusées (123 total)
 ```
 
 
+## Volume d'habilitations actives par catégorie d'organisation au 2025 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
+
+```
+Public - collectivité (23529,  77.2%) │ ██████████████████████████████████████████████████
+Autre                 ( 4570,  15.0%) │ ██████████
+Public - état         ( 2377,   7.8%) │ █████
+
+Total : 30476 habilitations actives
+Échelle : chaque █ représente 470.6 habilitation(s)
+```
+
+
 ## Volume d'habilitations actives par type d'organisation au 2025 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
 
 ```
@@ -384,6 +396,18 @@ ProConnectIdentityProvider (16:  93.8%V   6.3%R) │ █████████
 Légende : █ = Validées, ▓ = Refusées
 Total : 64 validées, 3 refusées (67 total)
 Échelle : chaque caractère représente 1.0 demande(s)
+```
+
+
+## Volume d'habilitations actives par catégorie d'organisation au 2024 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
+
+```
+Public - collectivité (23529,  77.2%) │ ██████████████████████████████████████████████████
+Autre                 ( 4570,  15.0%) │ ██████████
+Public - état         ( 2377,   7.8%) │ █████
+
+Total : 30476 habilitations actives
+Échelle : chaque █ représente 470.6 habilitation(s)
 ```
 
 

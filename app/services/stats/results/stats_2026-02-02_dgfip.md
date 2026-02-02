@@ -78,6 +78,18 @@ Total : 108 validées, 119 refusées (227 total)
 ```
 
 
+## Volume d'habilitations actives par catégorie d'organisation au 2025 (fournisseur : dgfip):
+
+```
+Public - collectivité (23529,  77.2%) │ ██████████████████████████████████████████████████
+Autre                 ( 4570,  15.0%) │ ██████████
+Public - état         ( 2377,   7.8%) │ █████
+
+Total : 30476 habilitations actives
+Échelle : chaque █ représente 470.6 habilitation(s)
+```
+
+
 ## Volume d'habilitations actives par type d'organisation au 2025 (fournisseur : dgfip):
 
 ```
@@ -644,6 +656,18 @@ APISFiP                    (  1: 100.0%V   0.0%R) │
 Légende : █ = Validées, ▓ = Refusées
 Total : 560 validées, 216 refusées (776 total)
 Échelle : chaque caractère représente 12.2 demande(s)
+```
+
+
+## Volume d'habilitations actives par catégorie d'organisation au 2024 (fournisseur : dgfip):
+
+```
+Public - collectivité (23529,  77.2%) │ ██████████████████████████████████████████████████
+Autre                 ( 4570,  15.0%) │ ██████████
+Public - état         ( 2377,   7.8%) │ █████
+
+Total : 30476 habilitations actives
+Échelle : chaque █ représente 470.6 habilitation(s)
 ```
 
 

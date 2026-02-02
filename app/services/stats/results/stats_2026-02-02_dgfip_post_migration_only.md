@@ -74,6 +74,18 @@ Total : 44 validées, 49 refusées (93 total)
 ```
 
 
+## Volume d'habilitations actives par catégorie d'organisation au 18/06/2025 - 02/02/2026 (fournisseur : dgfip):
+
+```
+Public - collectivité (23529,  77.2%) │ ██████████████████████████████████████████████████
+Autre                 ( 4570,  15.0%) │ ██████████
+Public - état         ( 2377,   7.8%) │ █████
+
+Total : 30476 habilitations actives
+Échelle : chaque █ représente 470.6 habilitation(s)
+```
+
+
 ## Volume d'habilitations actives par type d'organisation au 18/06/2025 - 02/02/2026 (fournisseur : dgfip):
 
 ```

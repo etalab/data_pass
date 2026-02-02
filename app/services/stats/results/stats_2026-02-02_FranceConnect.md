@@ -47,6 +47,18 @@ Total : 477 validées, 177 refusées (654 total)
 ```
 
 
+## Volume d'habilitations actives par catégorie d'organisation au 2025 (types par : FranceConnect):
+
+```
+Public - collectivité (23529,  77.2%) │ ██████████████████████████████████████████████████
+Autre                 ( 4570,  15.0%) │ ██████████
+Public - état         ( 2377,   7.8%) │ █████
+
+Total : 30476 habilitations actives
+Échelle : chaque █ représente 470.6 habilitation(s)
+```
+
+
 ## Volume d'habilitations actives par type d'organisation au 2025 (types par : FranceConnect):
 
 ```
@@ -387,6 +399,18 @@ FranceConnect (509:  68.2%V  31.8%R) │ █████████████
 Légende : █ = Validées, ▓ = Refusées
 Total : 347 validées, 162 refusées (509 total)
 Échelle : chaque caractère représente 10.2 demande(s)
+```
+
+
+## Volume d'habilitations actives par catégorie d'organisation au 2024 (types par : FranceConnect):
+
+```
+Public - collectivité (23529,  77.2%) │ ██████████████████████████████████████████████████
+Autre                 ( 4570,  15.0%) │ ██████████
+Public - état         ( 2377,   7.8%) │ █████
+
+Total : 30476 habilitations actives
+Échelle : chaque █ représente 470.6 habilitation(s)
 ```
 
 

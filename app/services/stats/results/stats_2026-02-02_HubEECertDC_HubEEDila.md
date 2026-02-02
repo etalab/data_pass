@@ -49,6 +49,18 @@ Total : 1002 validées, 17 refusées (1019 total)
 ```
 
 
+## Volume d'habilitations actives par catégorie d'organisation au 2025 (types par : HubEECertDC, HubEEDila):
+
+```
+Public - collectivité (23529,  77.2%) │ ██████████████████████████████████████████████████
+Autre                 ( 4570,  15.0%) │ ██████████
+Public - état         ( 2377,   7.8%) │ █████
+
+Total : 30476 habilitations actives
+Échelle : chaque █ représente 470.6 habilitation(s)
+```
+
+
 ## Volume d'habilitations actives par type d'organisation au 2025 (types par : HubEECertDC, HubEEDila):
 
 ```
@@ -388,6 +400,18 @@ HubEEDila   (367:  95.1%V   4.9%R) │ █████████████�
 Légende : █ = Validées, ▓ = Refusées
 Total : 1308 validées, 48 refusées (1356 total)
 Échelle : chaque caractère représente 19.8 demande(s)
+```
+
+
+## Volume d'habilitations actives par catégorie d'organisation au 2024 (types par : HubEECertDC, HubEEDila):
+
+```
+Public - collectivité (23529,  77.2%) │ ██████████████████████████████████████████████████
+Autre                 ( 4570,  15.0%) │ ██████████
+Public - état         ( 2377,   7.8%) │ █████
+
+Total : 30476 habilitations actives
+Échelle : chaque █ représente 470.6 habilitation(s)
 ```
 
 

@@ -1502,6 +1502,103 @@ RSpec.describe Stats::Aggregator, type: :service do
     end
   end
 
+  describe '#active_authorizations_by_organization_category' do
+    let(:base_time) { Time.zone.parse('2025-03-15 10:00:00') }
+    let!(:user) { create(:user) }
+    
+    let!(:organization_sas) do
+      create(:organization, insee_payload: {
+        'etablissement' => {
+          'uniteLegale' => {
+            'categorieJuridiqueUniteLegale' => '5710'
+          }
+        }
+      })
+    end
+    
+    let!(:organization_commune) do
+      create(:organization, insee_payload: {
+        'etablissement' => {
+          'uniteLegale' => {
+            'categorieJuridiqueUniteLegale' => '7210'
+          }
+        }
+      })
+    end
+    
+    let!(:organization_ministere) do
+      create(:organization, insee_payload: {
+        'etablissement' => {
+          'uniteLegale' => {
+            'categorieJuridiqueUniteLegale' => '7113'
+          }
+        }
+      })
+    end
+    
+    before do
+      user.add_to_organization(organization_sas, current: true)
+      user.add_to_organization(organization_commune)
+      user.add_to_organization(organization_ministere)
+    end
+
+    let!(:ar_sas_1) do
+      create(:authorization_request, :api_entreprise, :validated, applicant: user, organization: organization_sas, created_at: base_time)
+    end
+    
+    let!(:ar_sas_2) do
+      create(:authorization_request, :api_particulier, :validated, applicant: user, organization: organization_sas, created_at: base_time)
+    end
+    
+    let!(:ar_commune_1) do
+      create(:authorization_request, :api_particulier, :validated, applicant: user, organization: organization_commune, created_at: base_time)
+    end
+    
+    let!(:ar_commune_2) do
+      create(:authorization_request, :api_entreprise, :validated, applicant: user, organization: organization_commune, created_at: base_time)
+    end
+    
+    let!(:ar_ministere) do
+      create(:authorization_request, :api_particulier, :validated, applicant: user, organization: organization_ministere, created_at: base_time)
+    end
+
+    subject { described_class.new }
+
+    it 'returns active authorizations grouped by organization category' do
+      result = subject.active_authorizations_by_organization_category
+      
+      expect(result).to be_an(Array)
+      expect(result.length).to eq(3)
+      
+      public_collectivite = result.find { |item| item[:category] == 'Public - collectivité' }
+      public_etat = result.find { |item| item[:category] == 'Public - état' }
+      autre = result.find { |item| item[:category] == 'Autre' }
+      
+      expect(public_collectivite).to be_present
+      expect(public_collectivite[:count]).to eq(2)
+      
+      expect(public_etat).to be_present
+      expect(public_etat[:count]).to eq(1)
+      
+      expect(autre).to be_present
+      expect(autre[:count]).to eq(2)
+    end
+
+    it 'aggregates multiple organization types into same category' do
+      result = subject.active_authorizations_by_organization_category
+      
+      public_collectivite = result.find { |item| item[:category] == 'Public - collectivité' }
+      expect(public_collectivite[:count]).to eq(2)
+    end
+
+    it 'sorts results by count descending' do
+      result = subject.active_authorizations_by_organization_category
+      
+      counts = result.map { |item| item[:count] }
+      expect(counts).to eq(counts.sort.reverse)
+    end
+  end
+
   describe '#time_to_first_instruction_by_duration_buckets' do
     let(:base_time) { Time.zone.parse('2025-03-15 10:00:00') }
     let!(:user) { create(:user) }

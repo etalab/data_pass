@@ -61,6 +61,18 @@ Total : 1286 validées, 283 refusées (1569 total)
 ```
 
 
+## Volume d'habilitations actives par catégorie d'organisation au 2025 (fournisseur : dinum):
+
+```
+Public - collectivité (23529,  77.2%) │ ██████████████████████████████████████████████████
+Autre                 ( 4570,  15.0%) │ ██████████
+Public - état         ( 2377,   7.8%) │ █████
+
+Total : 30476 habilitations actives
+Échelle : chaque █ représente 470.6 habilitation(s)
+```
+
+
 ## Volume d'habilitations actives par type d'organisation au 2025 (fournisseur : dinum):
 
 ```
@@ -630,6 +642,18 @@ FormulaireQF               (  2: 100.0%V   0.0%R) │
 Légende : █ = Validées, ▓ = Refusées
 Total : 990 validées, 262 refusées (1252 total)
 Échelle : chaque caractère représente 10.2 demande(s)
+```
+
+
+## Volume d'habilitations actives par catégorie d'organisation au 2024 (fournisseur : dinum):
+
+```
+Public - collectivité (23529,  77.2%) │ ██████████████████████████████████████████████████
+Autre                 ( 4570,  15.0%) │ ██████████
+Public - état         ( 2377,   7.8%) │ █████
+
+Total : 30476 habilitations actives
+Échelle : chaque █ représente 470.6 habilitation(s)
 ```
 
 

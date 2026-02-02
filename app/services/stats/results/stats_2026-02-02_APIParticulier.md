@@ -47,6 +47,18 @@ Total : 480 validées, 22 refusées (502 total)
 ```
 
 
+## Volume d'habilitations actives par catégorie d'organisation au 2025 (types par : APIParticulier):
+
+```
+Public - collectivité (23529,  77.2%) │ ██████████████████████████████████████████████████
+Autre                 ( 4570,  15.0%) │ ██████████
+Public - état         ( 2377,   7.8%) │ █████
+
+Total : 30476 habilitations actives
+Échelle : chaque █ représente 470.6 habilitation(s)
+```
+
+
 ## Volume d'habilitations actives par type d'organisation au 2025 (types par : APIParticulier):
 
 ```
@@ -509,6 +521,18 @@ APIParticulier (497:  90.3%V   9.7%R) │ ████████████�
 Légende : █ = Validées, ▓ = Refusées
 Total : 449 validées, 48 refusées (497 total)
 Échelle : chaque caractère représente 9.9 demande(s)
+```
+
+
+## Volume d'habilitations actives par catégorie d'organisation au 2024 (types par : APIParticulier):
+
+```
+Public - collectivité (23529,  77.2%) │ ██████████████████████████████████████████████████
+Autre                 ( 4570,  15.0%) │ ██████████
+Public - état         ( 2377,   7.8%) │ █████
+
+Total : 30476 habilitations actives
+Échelle : chaque █ représente 470.6 habilitation(s)
 ```
 
 
