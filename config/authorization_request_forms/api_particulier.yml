@@ -427,6 +427,7 @@ api-particulier-civil-enfance-ciril-group:
       - cnaf_adresse
     modalities:
       - params
+      - france_connect
 
 api-particulier-cosoluce-fluo:
   name: Fluo
@@ -1026,10 +1027,10 @@ api-particulier-airweb:
   public: true
   introduction: *api_particulier_introduction_editor_with_editable_scopes
   steps:
+    - name: modalities
     - name: basic_infos
     - name: scopes
     - name: legal
-    - name: modalities
     - name: personal_data
     - name: contacts
 
@@ -1081,6 +1082,7 @@ api-particulier-airweb:
     delegue_protection_donnees_job_title: Chef de projet
     modalities:
       - params
+      - france_connect
 
 api-particulier-bl-enfance-berger-levrault:
   name: BL Enfance
@@ -1601,10 +1603,10 @@ api-particulier-keolis:
   public: true
   introduction: *api_particulier_introduction_editor_with_editable_scopes
   steps:
+    - name: modalities
     - name: basic_infos
     - name: scopes
     - name: legal
-    - name: modalities
     - name: personal_data
     - name: contacts
   scopes_config:
@@ -1648,6 +1650,7 @@ api-particulier-keolis:
       - pole_emploi_paiements
     modalities:
       - params
+      - france_connect
 
 api-particulier-mgdis-tarification-cantines-lycees:
   name: Aiden, Tarification cantine
@@ -1705,6 +1708,7 @@ api-particulier-mgdis-tarification-cantines-lycees:
     contact_technique_job_title: Responsable produit
     modalities:
       - params
+      - france_connect
 
 # ------------------------------- #
 # ------------------------------- #
