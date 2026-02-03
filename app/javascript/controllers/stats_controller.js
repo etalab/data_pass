@@ -1,6 +1,8 @@
 import { Controller } from '@hotwired/stimulus'
 
 export default class extends Controller {
+  static DEBOUNCE_DELAY_MS = 1000
+
   static targets = [
     'startDate',
     'endDate',
@@ -29,6 +31,7 @@ export default class extends Controller {
     this.allForms = []
     this.timeSeriesChartInstance = null
     this.isInitializing = true
+    this.debounceTimeout = null
     this.addDynamicYearButtons()
     this.loadFiltersFromURL()
     this.highlightActiveQuickRange()
@@ -354,6 +357,20 @@ export default class extends Controller {
     const offset = date.getTimezoneOffset()
     const localDate = new Date(date.getTime() - (offset * 60 * 1000))
     return localDate.toISOString().split('T')[0]
+  }
+
+  updateFiltersDebounced () {
+    if (this.isInitializing) {
+      return
+    }
+
+    if (this.debounceTimeout) {
+      clearTimeout(this.debounceTimeout)
+    }
+
+    this.debounceTimeout = setTimeout(() => {
+      this.updateFilters()
+    }, this.constructor.DEBOUNCE_DELAY_MS)
   }
 
   async updateFilters () {

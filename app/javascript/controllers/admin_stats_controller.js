@@ -1,6 +1,8 @@
 import { Controller } from '@hotwired/stimulus'
 
 export default class extends Controller {
+  static DEBOUNCE_DELAY_MS = 1000
+
   static targets = [
     'startDate',
     'endDate',
@@ -33,6 +35,8 @@ export default class extends Controller {
     this.allProviders = []
     this.allTypes = []
     this.allForms = []
+    this.debounceTimeout = null
+    this.isInitializing = true
     this.addDynamicYearButtons()
     this.loadFiltersFromURL()
     this.highlightActiveQuickRange()
@@ -138,9 +142,11 @@ export default class extends Controller {
 
       this.restoreFiltersFromURL()
 
+      this.isInitializing = false
       this.loadData()
     } catch (error) {
       console.error('Error loading filter options:', error)
+      this.isInitializing = false
       this.loadData()
     }
   }
@@ -355,7 +361,25 @@ export default class extends Controller {
     return localDate.toISOString().split('T')[0]
   }
 
+  updateFiltersDebounced () {
+    if (this.isInitializing) {
+      return
+    }
+
+    if (this.debounceTimeout) {
+      clearTimeout(this.debounceTimeout)
+    }
+
+    this.debounceTimeout = setTimeout(() => {
+      this.updateFilters()
+    }, this.constructor.DEBOUNCE_DELAY_MS)
+  }
+
   async updateFilters () {
+    if (this.isInitializing) {
+      return
+    }
+
     this.populateTypeSelect()
     this.populateFormSelect()
 

@@ -5,9 +5,9 @@
     <div class="fr-col-auto">
       <div style="display: flex; align-items: center; gap: 1rem;">
         <label for="startDate" class="fr-label fr-mb-0" style="white-space: nowrap;">Du</label>
-        <input type="date" id="startDate" class="fr-input" data-<%= controller_name %>-target="startDate" data-action="change-><%= controller_name %>#updateFilters" style="width: 180px;" />
+        <input type="date" id="startDate" class="fr-input" data-<%= controller_name %>-target="startDate" data-action="input-><%= controller_name %>#updateFiltersDebounced" style="width: 180px;" />
         <label for="endDate" class="fr-label fr-mb-0" style="white-space: nowrap;">au</label>
-        <input type="date" id="endDate" class="fr-input" data-<%= controller_name %>-target="endDate" data-action="change-><%= controller_name %>#updateFilters" style="width: 180px;" />
+        <input type="date" id="endDate" class="fr-input" data-<%= controller_name %>-target="endDate" data-action="input-><%= controller_name %>#updateFiltersDebounced" style="width: 180px;" />
       </div>
     </div>
   </div>
