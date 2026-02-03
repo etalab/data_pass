@@ -27,6 +27,7 @@ export default class extends Controller {
     this.allTypes = []
     this.allForms = []
     this.timeSeriesChartInstance = null
+    this.isInitializing = true
     this.addDynamicYearButtons()
     this.loadFiltersFromURL()
     this.highlightActiveQuickRange()
@@ -124,7 +125,6 @@ export default class extends Controller {
 
   async loadFilterOptions () {
     try {
-      // Load all available filters from the backend
       const response = await fetch('/stats/filters')
       const filters = await response.json()
 
@@ -136,15 +136,14 @@ export default class extends Controller {
       this.populateTypeSelect()
       this.populateFormSelect()
 
-      // Restore filter values from URL after populating dropdowns
       this.restoreFiltersFromURL()
 
-      // Load data after filters are populated
-      this.loadData()
+      this.isInitializing = false
+      await this.loadData()
     } catch (error) {
       console.error('Error loading filter options:', error)
-      // Load data anyway with no filters
-      this.loadData()
+      this.isInitializing = false
+      await this.loadData()
     }
   }
 
@@ -357,14 +356,15 @@ export default class extends Controller {
   }
 
   async updateFilters () {
-    // Update cascading filters
+    if (this.isInitializing) {
+      return
+    }
+
     this.populateTypeSelect()
     this.populateFormSelect()
 
-    // Highlight active quick range button
     this.highlightActiveQuickRange()
 
-    // Update URL with current filter state
     this.updateURL()
 
     await this.loadData()
