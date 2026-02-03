@@ -1,0 +1,23 @@
+<%
+  bg_color ||= '#f6f6f6'
+  value_color ||= '#000091'
+  text_align ||= 'left'
+  col_classes ||= 'fr-col-12 fr-col-lg-4'
+  title_class ||= 'fr-h6'
+  value_class ||= 'fr-h3'
+%>
+<div class="<%= col_classes %>">
+  <div class="fr-card fr-card--no-border fr-p-4w" style="background-color: <%= bg_color %>; text-align: <%= text_align %>;">
+    <p class="<%= title_class %> fr-mb-2v" style="color: #161616;<%= ' font-weight: bold;' if text_align == 'center' %>"><%= title %></p>
+    <p class="<%= value_class %> fr-mb-0" style="color: <%= value_color %>;"><strong data-<%= controller_name %>-target="<%= target %>">-</strong></p>
+    <% if local_assigns[:subtitle_target].present? %>
+      <p class="fr-text--sm fr-mb-0" style="color: #666;">
+        Peut varier de ± <span data-<%= controller_name %>-target="<%= subtitle_target %>">-</span> autour de cette médiane
+      </p>
+    <% elsif local_assigns[:subtitle].present? %>
+      <p class="fr-text--sm fr-mb-0" style="color: #666;">
+        <%= subtitle %>
+      </p>
+    <% end %>
+  </div>
+</div>
