@@ -430,7 +430,7 @@ export default class extends Controller {
       selectedTypes.forEach(t => params.append('authorization_types[]', t))
       selectedForms.forEach(f => params.append('forms[]', f))
 
-      const response = await fetch(`/stats/data?${params}`)
+      const response = await fetch(`/admin/stats/data?${params}`)
       const data = await response.json()
 
       this.updateSummaryCards(data.volume)

@@ -42,7 +42,8 @@ class StatsController < PublicController
       date_range: start_date..end_date,
       providers: parse_array_param(params[:providers]),
       authorization_types: parse_array_param(params[:authorization_types]),
-      forms: parse_array_param(params[:forms])
+      forms: parse_array_param(params[:forms]),
+      include_breakdowns: false
     )
 
     render json: service.call

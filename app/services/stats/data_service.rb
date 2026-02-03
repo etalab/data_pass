@@ -1,14 +1,15 @@
 module Stats
   class DataService
-    def initialize(date_range:, providers: nil, authorization_types: nil, forms: nil)
+    def initialize(date_range:, providers: nil, authorization_types: nil, forms: nil, include_breakdowns: true)
       @date_range = date_range
       @providers = providers
       @authorization_types = authorization_types
       @forms = forms
+      @include_breakdowns = include_breakdowns
     end
 
     def call
-      {
+      result = {
         filters: filters_data,
         dimension: determine_dimension,
         volume: volume_data,
@@ -16,9 +17,12 @@ module Stats
           time_to_submit: time_to_submit_data,
           time_to_first_instruction: time_to_first_instruction_data,
           time_to_final_instruction: time_to_final_instruction_data
-        },
-        breakdowns: breakdown_data
+        }
       }
+
+      result[:breakdowns] = breakdown_data if @include_breakdowns
+
+      result
     end
 
     private
