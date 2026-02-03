@@ -7,6 +7,7 @@ export default class extends Controller {
     'providerSelect',
     'typeSelect',
     'formSelect',
+    'dimensionSelect',
     'newRequestsCount',
     'reopeningsCount',
     'validationsCount',
@@ -17,11 +18,17 @@ export default class extends Controller {
     'stddevTimeToFirstInstruction',
     'medianTimeToFinalInstruction',
     'stddevTimeToFinalInstruction',
+    'volumeBreakdownChart',
+    'timeToSubmitBreakdownChart',
+    'timeToFirstInstructionBreakdownChart',
+    'timeToFinalInstructionBreakdownChart',
     'loadingIndicator',
+    'breakdownSection',
     'quickRanges'
   ]
 
   connect () {
+    this.charts = {}
     this.allProviders = []
     this.allTypes = []
     this.allForms = []
@@ -38,14 +45,14 @@ export default class extends Controller {
     const lastYearBtn = document.createElement('button')
     lastYearBtn.className = 'fr-btn fr-btn--sm fr-btn--tertiary-no-outline'
     lastYearBtn.type = 'button'
-    lastYearBtn.dataset.action = 'click->stats#setDateRange'
+    lastYearBtn.dataset.action = 'click->admin-stats#setDateRange'
     lastYearBtn.dataset.range = `year-${lastYear}`
     lastYearBtn.textContent = `Année ${lastYear}`
 
     const currentYearBtn = document.createElement('button')
     currentYearBtn.className = 'fr-btn fr-btn--sm fr-btn--tertiary-no-outline'
     currentYearBtn.type = 'button'
-    currentYearBtn.dataset.action = 'click->stats#setDateRange'
+    currentYearBtn.dataset.action = 'click->admin-stats#setDateRange'
     currentYearBtn.dataset.range = `year-${currentYear}`
     currentYearBtn.textContent = `Année ${currentYear}`
 
@@ -54,15 +61,7 @@ export default class extends Controller {
   }
 
   disconnect () {
-  }
-
-  setDefaultDates () {
-    const endDate = new Date()
-    const startDate = new Date()
-    startDate.setFullYear(startDate.getFullYear() - 1)
-
-    this.endDateTarget.valueAsDate = endDate
-    this.startDateTarget.valueAsDate = startDate
+    Object.values(this.charts).forEach(chart => chart.destroy())
   }
 
   loadFiltersFromURL () {
@@ -93,6 +92,10 @@ export default class extends Controller {
     if (params.has('form')) {
       this.formSelectTarget.value = params.get('form')
     }
+
+    if (params.has('dimension')) {
+      this.dimensionSelectTarget.value = params.get('dimension')
+    }
   }
 
   updateURL () {
@@ -113,13 +116,14 @@ export default class extends Controller {
       params.set('form', this.formSelectTarget.value)
     }
 
+    params.set('dimension', this.dimensionSelectTarget.value)
+
     const newURL = `${window.location.pathname}?${params.toString()}`
     window.history.pushState({}, '', newURL)
   }
 
   async loadFilterOptions () {
     try {
-      // Load all available filters from the backend
       const response = await fetch('/stats/filters')
       const filters = await response.json()
 
@@ -131,14 +135,11 @@ export default class extends Controller {
       this.populateTypeSelect()
       this.populateFormSelect()
 
-      // Restore filter values from URL after populating dropdowns
       this.restoreFiltersFromURL()
 
-      // Load data after filters are populated
       this.loadData()
     } catch (error) {
       console.error('Error loading filter options:', error)
-      // Load data anyway with no filters
       this.loadData()
     }
   }
@@ -159,6 +160,12 @@ export default class extends Controller {
     if (params.has('form')) {
       this.formSelectTarget.value = params.get('form')
     }
+
+    if (params.has('dimension')) {
+      this.dimensionSelectTarget.value = params.get('dimension')
+    } else {
+      this.updateDimensionSelector()
+    }
   }
 
   populateProviderSelect () {
@@ -176,7 +183,6 @@ export default class extends Controller {
     const currentValue = this.typeSelectTarget.value
     this.typeSelectTarget.innerHTML = '<option value="">Tous les types</option>'
 
-    // Disable if no provider selected
     if (selectedProviders.length === 0) {
       this.typeSelectTarget.disabled = true
       return
@@ -193,7 +199,6 @@ export default class extends Controller {
       this.typeSelectTarget.appendChild(option)
     })
 
-    // Restore previous selection if still available
     if (currentValue && Array.from(this.typeSelectTarget.options).some(opt => opt.value === currentValue)) {
       this.typeSelectTarget.value = currentValue
     }
@@ -205,7 +210,6 @@ export default class extends Controller {
     const currentValue = this.formSelectTarget.value
     this.formSelectTarget.innerHTML = '<option value="">Tous les formulaires</option>'
 
-    // Disable if no provider or no type selected
     if (selectedProviders.length === 0 || selectedTypes.length === 0) {
       this.formSelectTarget.disabled = true
       return
@@ -222,7 +226,6 @@ export default class extends Controller {
       this.formSelectTarget.appendChild(option)
     })
 
-    // Restore previous selection if still available
     if (currentValue && Array.from(this.formSelectTarget.options).some(opt => opt.value === currentValue)) {
       this.formSelectTarget.value = currentValue
     }
@@ -244,7 +247,6 @@ export default class extends Controller {
   }
 
   clearFilters () {
-    // Reset date range to last 12 months
     const endDate = new Date()
     const startDate = new Date()
     startDate.setFullYear(startDate.getFullYear() - 1)
@@ -252,12 +254,12 @@ export default class extends Controller {
     this.startDateTarget.valueAsDate = startDate
     this.endDateTarget.valueAsDate = endDate
 
-    // Reset all filter dropdowns
     this.providerSelectTarget.value = ''
     this.typeSelectTarget.value = ''
     this.formSelectTarget.value = ''
 
-    // Update everything
+    this.dimensionSelectTarget.value = 'provider'
+
     this.updateFilters()
   }
 
@@ -314,8 +316,6 @@ export default class extends Controller {
 
       startDate = new Date(year, 0, 1)
 
-      // For current year, use today as end date
-      // For past years, use Dec 31
       if (year === currentYear) {
         endDate = new Date(today)
       } else {
@@ -349,24 +349,57 @@ export default class extends Controller {
   }
 
   formatDate (date) {
-    // Handle timezone offset to get local date string
     const offset = date.getTimezoneOffset()
     const localDate = new Date(date.getTime() - (offset * 60 * 1000))
     return localDate.toISOString().split('T')[0]
   }
 
   async updateFilters () {
-    // Update cascading filters
     this.populateTypeSelect()
     this.populateFormSelect()
 
-    // Highlight active quick range button
+    this.updateDimensionSelector()
+
+    this.updateBreakdownSectionVisibility()
+
     this.highlightActiveQuickRange()
 
-    // Update URL with current filter state
     this.updateURL()
 
     await this.loadData()
+  }
+
+  updateBreakdownSectionVisibility () {
+    const selectedForms = this.getSelectedForms()
+
+    if (this.hasBreakdownSectionTarget) {
+      if (selectedForms.length > 0) {
+        this.breakdownSectionTarget.style.display = 'none'
+      } else {
+        this.breakdownSectionTarget.style.display = 'block'
+      }
+    }
+  }
+
+  async updateDimension () {
+    this.updateURL()
+    await this.loadData()
+  }
+
+  updateDimensionSelector () {
+    const selectedProviders = this.getSelectedProviders()
+    const selectedTypes = this.getSelectedTypes()
+    const selectedForms = this.getSelectedForms()
+
+    let newDimension = 'provider'
+
+    if (selectedTypes.length === 1 || selectedForms.length > 0) {
+      newDimension = 'form'
+    } else if (selectedProviders.length === 1 || selectedTypes.length > 0) {
+      newDimension = 'type'
+    }
+
+    this.dimensionSelectTarget.value = newDimension
   }
 
   showLoading () {
@@ -402,6 +435,7 @@ export default class extends Controller {
 
       this.updateSummaryCards(data.volume)
       this.updateDurationCards(data.durations)
+      await this.updateBreakdownCharts(data.breakdowns, data.dimension)
 
       this.hideLoading()
     } catch (error) {
@@ -428,6 +462,157 @@ export default class extends Controller {
     this.stddevTimeToFinalInstructionTarget.textContent = this.formatDuration(durations.time_to_final_instruction.stddev_seconds)
   }
 
+  async updateBreakdownCharts (breakdowns, dimension) {
+    if (!breakdowns) {
+      return
+    }
+
+    try {
+      if (breakdowns.volume && breakdowns.volume.length > 0) {
+        await this.createHorizontalBarChart(
+          this.volumeBreakdownChartTarget,
+          'volumeBreakdown',
+          breakdowns.volume,
+          'Nombre de demandes'
+        )
+      }
+
+      if (breakdowns.time_to_submit && breakdowns.time_to_submit.length > 0) {
+        await this.createDurationBarChart(
+          this.timeToSubmitBreakdownChartTarget,
+          'timeToSubmitBreakdown',
+          breakdowns.time_to_submit,
+          'Durée médiane (secondes)'
+        )
+      }
+
+      if (breakdowns.time_to_first_instruction && breakdowns.time_to_first_instruction.length > 0) {
+        await this.createDurationBarChart(
+          this.timeToFirstInstructionBreakdownChartTarget,
+          'timeToFirstInstructionBreakdown',
+          breakdowns.time_to_first_instruction,
+          'Durée médiane (secondes)'
+        )
+      }
+
+      if (breakdowns.time_to_final_instruction && breakdowns.time_to_final_instruction.length > 0) {
+        await this.createDurationBarChart(
+          this.timeToFinalInstructionBreakdownChartTarget,
+          'timeToFinalInstructionBreakdown',
+          breakdowns.time_to_final_instruction,
+          'Durée médiane (secondes)'
+        )
+      }
+    } catch (error) {
+      console.error('Error creating breakdown charts:', error)
+    }
+  }
+
+  async createHorizontalBarChart (canvas, chartId, data, label) {
+    if (this.charts[chartId]) {
+      this.charts[chartId].destroy()
+    }
+
+    if (!window.Chart) {
+      await this.loadChartJS()
+    }
+
+    const labels = data.map(item => item.label)
+    const values = data.map(item => item.value)
+    const percentages = data.map(item => item.percentage)
+
+    this.charts[chartId] = new window.Chart(canvas, {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [{
+          label,
+          data: values,
+          backgroundColor: '#000091',
+          borderColor: '#000091',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+            callbacks: {
+              label: function (context) {
+                const index = context.dataIndex
+                return `${context.parsed.x} (${percentages[index]}%)`
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            beginAtZero: true
+          }
+        }
+      }
+    })
+  }
+
+  async createDurationBarChart (canvas, chartId, data, label) {
+    if (this.charts[chartId]) {
+      this.charts[chartId].destroy()
+    }
+
+    if (!window.Chart) {
+      await this.loadChartJS()
+    }
+
+    const labels = data.map(item => item.label)
+    const values = data.map(item => item.value)
+
+    this.charts[chartId] = new window.Chart(canvas, {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [{
+          label,
+          data: values,
+          backgroundColor: '#18753C',
+          borderColor: '#18753C',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+            callbacks: {
+              label: (context) => {
+                return this.formatDuration(context.parsed.x)
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            beginAtZero: true,
+            ticks: {
+              callback: (value) => {
+                return this.formatDuration(value)
+              }
+            }
+          }
+        }
+      }
+    })
+  }
+
   formatDuration (seconds) {
     if (!seconds || seconds === null || isNaN(seconds)) return 'N/A'
 
@@ -444,5 +629,25 @@ export default class extends Controller {
     } else {
       return `${Math.floor(seconds)} seconde${seconds > 1 ? 's' : ''}`
     }
+  }
+
+  loadChartJS () {
+    return new Promise((resolve, reject) => {
+      if (window.Chart) {
+        resolve()
+        return
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js'
+      script.onload = () => {
+        resolve()
+      }
+      script.onerror = () => {
+        console.error('Failed to load Chart.js')
+        reject(new Error('Failed to load Chart.js'))
+      }
+      document.head.appendChild(script)
+    })
   }
 }

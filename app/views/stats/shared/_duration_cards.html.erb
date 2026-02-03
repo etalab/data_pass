@@ -1,0 +1,30 @@
+<h2 class="fr-h2 fr-mb-4w">Durées médianes pour les nouvelles demandes</h2>
+<div class="fr-grid-row fr-grid-row--gutters fr-mb-6w">
+  <div class="fr-col-12 fr-col-lg-4">
+    <div class="fr-card fr-card--no-border fr-p-4w" style="background-color: #f6f6f6;">
+      <p class="fr-h6 fr-mb-2v" style="color: #161616;">Durée de remplissage</p>
+      <p class="fr-h3 fr-mb-2v" style="color: #000091;"><strong data-<%= controller_name %>-target="medianTimeToSubmit">-</strong></p>
+      <p class="fr-text--sm fr-mb-0" style="color: #666;">
+        La moitié des demandes varient de ± <span data-<%= controller_name %>-target="stddevTimeToSubmit">-</span> autour de cette médiane
+      </p>
+    </div>
+  </div>
+  <div class="fr-col-12 fr-col-lg-4">
+    <div class="fr-card fr-card--no-border fr-p-4w" style="background-color: #f6f6f6;">
+      <p class="fr-h6 fr-mb-2v" style="color: #161616;">Durée de première instruction</p>
+      <p class="fr-h3 fr-mb-2v" style="color: #000091;"><strong data-<%= controller_name %>-target="medianTimeToFirstInstruction">-</strong></p>
+      <p class="fr-text--sm fr-mb-0" style="color: #666;">
+        La moitié des demandes varient de ± <span data-<%= controller_name %>-target="stddevTimeToFirstInstruction">-</span> autour de cette médiane
+      </p>
+    </div>
+  </div>
+  <div class="fr-col-12 fr-col-lg-4">
+    <div class="fr-card fr-card--no-border fr-p-4w" style="background-color: #f6f6f6;">
+      <p class="fr-h6 fr-mb-2v" style="color: #161616;">Durée d'instruction finale</p>
+      <p class="fr-h3 fr-mb-2v" style="color: #000091;"><strong data-<%= controller_name %>-target="medianTimeToFinalInstruction">-</strong></p>
+      <p class="fr-text--sm fr-mb-0" style="color: #666;">
+        La moitié des demandes varient de ± <span data-<%= controller_name %>-target="stddevTimeToFinalInstruction">-</span> autour de cette médiane
+      </p>
+    </div>
+  </div>
+</div>
