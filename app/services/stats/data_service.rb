@@ -13,6 +13,7 @@ module Stats
         filters: filters_data,
         dimension: determine_dimension,
         volume: volume_data,
+        time_series: time_series_data,
         durations: {
           time_to_submit: time_to_submit_data,
           time_to_first_instruction: time_to_first_instruction_data,
@@ -67,6 +68,11 @@ module Stats
         validations: query.validations_count,
         refusals: query.refusals_count
       }
+    end
+
+    def time_series_data
+      query = Stats::TimeSeriesQuery.new(**query_filters)
+      query.time_series_data
     end
 
     def time_to_submit_data

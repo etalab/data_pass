@@ -18,13 +18,15 @@ export default class extends Controller {
     'medianTimeToFinalInstruction',
     'stddevTimeToFinalInstruction',
     'loadingIndicator',
-    'quickRanges'
+    'quickRanges',
+    'timeSeriesChart'
   ]
 
   connect () {
     this.allProviders = []
     this.allTypes = []
     this.allForms = []
+    this.timeSeriesChartInstance = null
     this.addDynamicYearButtons()
     this.loadFiltersFromURL()
     this.highlightActiveQuickRange()
@@ -54,6 +56,9 @@ export default class extends Controller {
   }
 
   disconnect () {
+    if (this.timeSeriesChartInstance) {
+      this.timeSeriesChartInstance.destroy()
+    }
   }
 
   setDefaultDates () {
@@ -332,10 +337,6 @@ export default class extends Controller {
           startDate = new Date(today)
           startDate.setMonth(startDate.getMonth() - 3)
           break
-        case 'last-6-months':
-          startDate = new Date(today)
-          startDate.setMonth(startDate.getMonth() - 6)
-          break
         case 'last-year':
           startDate = new Date(today)
           startDate.setFullYear(startDate.getFullYear() - 1)
@@ -401,6 +402,7 @@ export default class extends Controller {
       const data = await response.json()
 
       this.updateSummaryCards(data.volume)
+      await this.updateTimeSeriesChart(data.time_series)
       this.updateDurationCards(data.durations)
 
       this.hideLoading()
@@ -444,5 +446,116 @@ export default class extends Controller {
     } else {
       return `${Math.floor(seconds)} seconde${seconds > 1 ? 's' : ''}`
     }
+  }
+
+  async updateTimeSeriesChart (timeSeries) {
+    if (!this.hasTimeSeriesChartTarget || !timeSeries) return
+
+    await this.loadChartJS()
+
+    const labels = timeSeries.data.map(item => this.formatPeriodLabel(item.period, timeSeries.unit))
+    const newRequestsAndReopeningsData = timeSeries.data.map(item => item.new_requests + item.reopenings)
+    const completedInstructionsData = timeSeries.data.map(item => item.validations + item.refusals)
+
+    if (this.timeSeriesChartInstance) {
+      this.timeSeriesChartInstance.destroy()
+    }
+
+    const ctx = this.timeSeriesChartTarget.getContext('2d')
+    this.timeSeriesChartInstance = new window.Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [
+          {
+            label: 'Demandes soumises',
+            data: newRequestsAndReopeningsData,
+            backgroundColor: '#000091'
+          },
+          {
+            label: 'Instructions terminées',
+            data: completedInstructionsData,
+            backgroundColor: '#18753c'
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        aspectRatio: 2.5,
+        interaction: {
+          mode: 'index',
+          intersect: false
+        },
+        plugins: {
+          legend: {
+            display: true,
+            position: 'bottom'
+          },
+          tooltip: {
+            mode: 'index',
+            intersect: false
+          }
+        },
+        scales: {
+          x: {
+            grid: {
+              display: false
+            }
+          },
+          y: {
+            beginAtZero: true,
+            ticks: {
+              precision: 0
+            }
+          }
+        }
+      }
+    })
+  }
+
+  formatPeriodLabel (period, unit) {
+    const date = new Date(period)
+
+    switch (unit) {
+      case 'day':
+        return date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' })
+      case 'week':
+        return `Sem. ${this.getWeekNumber(date)} ${date.getFullYear()}`
+      case 'month':
+        return date.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' })
+      case 'year':
+        return date.getFullYear().toString()
+      default:
+        return period
+    }
+  }
+
+  getWeekNumber (date) {
+    const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()))
+    const dayNum = d.getUTCDay() || 7
+    d.setUTCDate(d.getUTCDate() + 4 - dayNum)
+    const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1))
+    return Math.ceil((((d - yearStart) / 86400000) + 1) / 7)
+  }
+
+  loadChartJS () {
+    return new Promise((resolve, reject) => {
+      if (window.Chart) {
+        resolve()
+        return
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js'
+      script.onload = () => {
+        resolve()
+      }
+      script.onerror = () => {
+        console.error('Failed to load Chart.js')
+        reject(new Error('Failed to load Chart.js'))
+      }
+      document.head.appendChild(script)
+    })
   }
 }

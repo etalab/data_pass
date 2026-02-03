@@ -35,6 +35,15 @@ RSpec.describe Stats::DataService do
 
         expect(result).to have_key(:durations)
       end
+
+      it 'includes time_series data' do
+        result = service.call
+
+        expect(result).to have_key(:time_series)
+        expect(result[:time_series]).to be_a(Hash)
+        expect(result[:time_series]).to have_key(:unit)
+        expect(result[:time_series]).to have_key(:data)
+      end
     end
 
     context 'when include_breakdowns is not specified' do
