@@ -437,13 +437,19 @@ export default class extends Controller {
 
   updateDurationCards (durations) {
     this.medianTimeToSubmitTarget.textContent = this.formatDuration(durations.time_to_submit.median_seconds)
-    this.stddevTimeToSubmitTarget.textContent = this.formatDuration(durations.time_to_submit.stddev_seconds)
+    this.stddevTimeToSubmitTarget.textContent = this.formatDuration(
+      durations.time_to_submit.median_seconds + (durations.time_to_submit.stddev_seconds / 2)
+    )
 
     this.medianTimeToFirstInstructionTarget.textContent = this.formatDuration(durations.time_to_first_instruction.median_seconds)
-    this.stddevTimeToFirstInstructionTarget.textContent = this.formatDuration(durations.time_to_first_instruction.stddev_seconds)
+    this.stddevTimeToFirstInstructionTarget.textContent = this.formatDuration(
+      durations.time_to_first_instruction.median_seconds + (durations.time_to_first_instruction.stddev_seconds / 2)
+    )
 
     this.medianTimeToFinalInstructionTarget.textContent = this.formatDuration(durations.time_to_final_instruction.median_seconds)
-    this.stddevTimeToFinalInstructionTarget.textContent = this.formatDuration(durations.time_to_final_instruction.stddev_seconds)
+    this.stddevTimeToFinalInstructionTarget.textContent = this.formatDuration(
+      durations.time_to_final_instruction.median_seconds + (durations.time_to_final_instruction.stddev_seconds / 2)
+    )
   }
 
   formatDuration (seconds) {
