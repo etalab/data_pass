@@ -1,11 +1,9 @@
-<%= render 'stats/shared/stat_card',
-  controller_name: controller_name,
-  title: title,
-  target: median_target,
-  bg_color: '#f6f6f6',
-  value_color: '#000091',
-  text_align: 'left',
-  col_classes: 'fr-col-12 fr-col-lg-4',
-  title_class: 'fr-h6',
-  value_class: 'fr-h3',
-  subtitle_target: stddev_target %>
+<div class="fr-col-12 fr-col-lg-4">
+  <div class="fr-card fr-card--no-border fr-p-4w" style="background-color: #f6f6f6;">
+    <p class="fr-h6 fr-mb-2v" style="color: #161616;"><%= title %></p>
+    <p class="fr-h3 fr-mb-0" style="color: #000091;"><strong data-<%= controller_name %>-target="<%= median_target %>">-</strong></p>
+    <p class="fr-text--sm fr-mb-0" style="color: #666;">
+      Peut varier de ± <span data-<%= controller_name %>-target="<%= stddev_target %>">-</span> autour de cette médiane
+    </p>
+  </div>
+</div>
