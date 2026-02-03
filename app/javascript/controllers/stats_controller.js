@@ -286,50 +286,12 @@ export default class extends Controller {
 
   setDateRange (event) {
     const range = event.currentTarget.dataset.range
-    const today = new Date()
-    let startDate, endDate
+    const { startDate, endDate } = this.calculateRangeDates(range)
+    
+    if (!startDate || !endDate) return
 
-    // Handle dynamic year ranges
-    if (range.startsWith('year-')) {
-      const year = parseInt(range.replace('year-', ''))
-      const currentYear = today.getFullYear()
-      
-      startDate = new Date(year, 0, 1)
-      
-      // For current year, use today as end date
-      // For past years, use Dec 31
-      if (year === currentYear) {
-        endDate = new Date(today)
-      } else {
-        endDate = new Date(year, 11, 31)
-      }
-    } else {
-      // Handle relative ranges
-      endDate = new Date(today)
-      switch (range) {
-        case 'last-30-days':
-          startDate = new Date(today)
-          startDate.setDate(startDate.getDate() - 30)
-          break
-        case 'last-3-months':
-          startDate = new Date(today)
-          startDate.setMonth(startDate.getMonth() - 3)
-          break
-        case 'last-6-months':
-          startDate = new Date(today)
-          startDate.setMonth(startDate.getMonth() - 6)
-          break
-        case 'last-year':
-          startDate = new Date(today)
-          startDate.setFullYear(startDate.getFullYear() - 1)
-          break
-        default:
-          return
-      }
-    }
-
-    this.startDateTarget.valueAsDate = startDate
-    this.endDateTarget.valueAsDate = endDate
+    this.startDateTarget.value = this.formatDate(startDate)
+    this.endDateTarget.value = this.formatDate(endDate)
 
     this.updateFilters()
   }
@@ -349,8 +311,11 @@ export default class extends Controller {
         return
       }
 
-      const startMatches = this.formatDate(startDate) === currentStart
-      const endMatches = this.formatDate(endDate) === currentEnd
+      const formattedStart = this.formatDate(startDate)
+      const formattedEnd = this.formatDate(endDate)
+      
+      const startMatches = formattedStart === currentStart
+      const endMatches = formattedEnd === currentEnd
 
       if (startMatches && endMatches) {
         button.classList.remove('fr-btn--tertiary-no-outline')
