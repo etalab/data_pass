@@ -407,10 +407,10 @@ export default class extends Controller {
   }
 
   formatDate (date) {
-    const year = date.getFullYear()
-    const month = String(date.getMonth() + 1).padStart(2, '0')
-    const day = String(date.getDate()).padStart(2, '0')
-    return `${year}-${month}-${day}`
+    // Handle timezone offset to get local date string
+    const offset = date.getTimezoneOffset()
+    const localDate = new Date(date.getTime() - (offset * 60 * 1000))
+    return localDate.toISOString().split('T')[0]
   }
 
   async updateFilters () {
