@@ -31,11 +31,52 @@ RSpec.describe Stats::TimeToSubmitQuery, type: :query do
       expect(median).to be_between(2.hours.to_i, 4.hours.to_i)
     end
 
+    context 'with quasi-instantaneous requests' do
+      let!(:instant_request) do
+        create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: Date.new(2025, 6, 3)).tap do |ar|
+          create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: Time.zone.local(2025, 6, 3, 10, 0, 0))
+          create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: Time.zone.local(2025, 6, 3, 10, 0, 10))
+        end
+      end
+
+      it 'filters out quasi-instantaneous durations from median calculation' do
+        query = described_class.new(date_range: date_range)
+        median = query.median
+
+        expect(median).to be_a(Numeric)
+        expect(median).to be > 60
+        expect(median).to be_between(2.hours.to_i, 4.hours.to_i)
+      end
+    end
+
     context 'with no data' do
       let(:empty_date_range) { Date.new(2024, 1, 1)..Date.new(2024, 1, 31) }
 
       it 'returns nil' do
         query = described_class.new(date_range: empty_date_range)
+        expect(query.median).to be_nil
+      end
+    end
+
+    context 'with only quasi-instantaneous requests' do
+      let!(:first_instant_request) do
+        create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: Date.new(2025, 6, 3)).tap do |ar|
+          create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: Time.zone.local(2025, 6, 3, 10, 0, 0))
+          create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: Time.zone.local(2025, 6, 3, 10, 0, 10))
+        end
+      end
+
+      let!(:second_instant_request) do
+        create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: Date.new(2025, 6, 4)).tap do |ar|
+          create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: Time.zone.local(2025, 6, 4, 10, 0, 0))
+          create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: Time.zone.local(2025, 6, 4, 10, 0, 5))
+        end
+      end
+
+      let(:only_instant_date_range) { Date.new(2025, 6, 3)..Date.new(2025, 6, 5) }
+
+      it 'returns nil when all requests are filtered out' do
+        query = described_class.new(date_range: only_instant_date_range)
         expect(query.median).to be_nil
       end
     end
