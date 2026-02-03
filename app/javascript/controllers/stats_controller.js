@@ -19,7 +19,8 @@ export default class extends Controller {
     'stddevTimeToFinalInstruction',
     'loadingIndicator',
     'quickRanges',
-    'timeSeriesChart'
+    'timeSeriesChart',
+    'migrationWarning'
   ]
 
   connect () {
@@ -385,6 +386,8 @@ export default class extends Controller {
   async loadData () {
     try {
       this.showLoading()
+      this.updateMigrationWarning()
+
       const params = new URLSearchParams({
         start_date: this.startDateTarget.value,
         end_date: this.endDateTarget.value
@@ -409,6 +412,19 @@ export default class extends Controller {
     } catch (error) {
       console.error('Error loading stats:', error)
       this.hideLoading()
+    }
+  }
+
+  updateMigrationWarning () {
+    if (!this.hasMigrationWarningTarget) return
+
+    const startDate = new Date(this.startDateTarget.value)
+    const migrationDate = new Date('2025-01-01')
+
+    if (startDate < migrationDate) {
+      this.migrationWarningTarget.style.display = 'block'
+    } else {
+      this.migrationWarningTarget.style.display = 'none'
     }
   }
 

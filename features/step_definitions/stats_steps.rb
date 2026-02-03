@@ -6,6 +6,10 @@ Alors('je vois {string}') do |text|
   expect(page).to have_content(text)
 end
 
+Alors('je ne vois pas {string}') do |text|
+  expect(page).to have_no_content(text)
+end
+
 Alors('je vois un champ de date pour la période de début') do
   expect(page).to have_field('startDate', type: 'date')
 end

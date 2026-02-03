@@ -9,10 +9,12 @@
     
     <%= render 'stats/shared/filters', controller_name: controller_name %>
     
+    <%= render 'stats/shared/migration_warning', controller_name: controller_name %>
+    
     <%= render 'stats/shared/summary_cards', controller_name: controller_name %>
     
     <%= render 'stats/shared/duration_cards', controller_name: controller_name %>
-    
+
     <%= render 'stats/shared/time_series_chart', controller_name: controller_name %>
   </div>
 </div>
