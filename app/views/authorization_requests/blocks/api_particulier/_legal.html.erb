@@ -1,0 +1,75 @@
+<%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { authorization_request:, title: f.wording_for('steps.legal'), block_id: :legal, f:, editable: } do %>
+
+  <% if authorization_request.embeds_france_connect_fields? %>
+    <h3 class="fr-h6 fr-h6--blue fr-mb-3w"><%= t('authorization_request.blocks.legal.france_connect_section') %></h3>
+
+    <div class="fr-mb-4w">
+      <% if authorization_request.fc_cadre_juridique_nature.present? %>
+        <div class="fr-mb-2w">
+          <p>
+            <strong><%= f.label_value('fc_cadre_juridique_nature') %> :</strong>
+          </p>
+          <p class="fr-mb-0"><%= simple_format(authorization_request.fc_cadre_juridique_nature) %></p>
+        </div>
+      <% end %>
+
+      <% if authorization_request.fc_cadre_juridique_url.present? %>
+        <p>
+          <strong>
+            <%= t('authorization_request.blocks.legal.link_label') %>
+          </strong>
+          <%= link_to authorization_request.fc_cadre_juridique_url, authorization_request.fc_cadre_juridique_url, target: '_blank', rel: 'noopener', class: 'fr-link' %>
+        </p>
+      <% end %>
+
+      <% if authorization_request.fc_cadre_juridique_document.attached? %>
+        <div>
+          <p>
+            <strong>
+              <%= t('authorization_request.blocks.legal.document_label') %>
+            </strong>
+          </p>
+
+          <div class="fr-grid-row">
+            <%= render "shared/display_documents", documents: authorization_request.fc_cadre_juridique_document, f: f %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <h3 class="fr-h6 fr-h6--blue fr-mb-3w fr-mt-5w"><%= t('authorization_request.blocks.legal.api_particulier_section') %></h3>
+  <% end %>
+
+  <div class="fr-mb-4w">
+    <p>
+      <strong>
+        <%= f.label_value(:cadre_juridique_nature) %>
+      </strong>
+    </p>
+
+    <%= simple_format_without_html_tags(authorization_request.cadre_juridique_nature) %>
+
+    <% if authorization_request.cadre_juridique_url.present? %>
+      <p>
+        <strong>
+          <%= t('authorization_request.blocks.legal.link_label') %>
+        </strong>
+        <%= link_to authorization_request.cadre_juridique_url, authorization_request.cadre_juridique_url, target: '_blank' %>
+      </p>
+    <% end %>
+
+    <% if authorization_request.cadre_juridique_document.attached? %>
+      <div>
+        <p>
+          <strong>
+            <%= t('authorization_request.blocks.legal.document_label') %>
+          </strong>
+        </p>
+
+        <div class="fr-grid-row">
+          <%= render "shared/display_documents", documents: authorization_request.cadre_juridique_document, f: f %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

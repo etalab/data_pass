@@ -67,6 +67,12 @@ fr:
     contacts:
       responsable_traitement: Responsable de traitement
       delegue_protection_donnees: Délégué à la protection des données
+    blocks:
+      legal:
+        link_label: "Lien relatif au traitement :"
+        document_label: "Document relatif au traitement :"
+        api_particulier_section: "Pour API Particulier"
+        france_connect_section: "Pour FranceConnect"
     france_connect_eidas:
       eidas_1_description: |
           Le niveau recommandé si vous n'avez pas d'exigence particulière sur le niveau eIDAS
