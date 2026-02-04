@@ -1,19 +1,19 @@
 <div class="fr-grid-row fr-grid-row--gutters fr-mb-6w">
   <%= render 'stats/shared/duration_stat_card',
     controller_name: controller_name,
-    title: 'Durée de remplissage d\'une demande',
+    title: 'Remplissage d\'une nouvelle demande',
     median_target: 'medianTimeToSubmit',
     stddev_target: 'stddevTimeToSubmit' %>
 
   <%= render 'stats/shared/duration_stat_card',
     controller_name: controller_name,
-    title: 'Durée de première instruction d\'une demande',
+    title: 'Première instruction d\'une demande',
     median_target: 'medianTimeToFirstInstruction',
     stddev_target: 'stddevTimeToFirstInstruction' %>
 
   <%= render 'stats/shared/duration_stat_card',
     controller_name: controller_name,
-    title: "Durée d'instruction finale d'une demande",
+    title: "Instruction finale d'une demande",
     median_target: 'medianTimeToFinalInstruction',
     stddev_target: 'stddevTimeToFinalInstruction' %>
 </div>
