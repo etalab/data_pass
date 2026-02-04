@@ -511,7 +511,7 @@ export default class extends Controller {
           },
           {
             type: 'bar',
-            label: 'Instructions terminées',
+            label: 'Demandes validées ou refusées',
             data: completedInstructionsData,
             backgroundColor: 'rgba(24, 117, 60, 0.2)',
             borderWidth: 0,
@@ -519,7 +519,7 @@ export default class extends Controller {
           },
           {
             type: 'line',
-            label: 'Demandes en attente d\'instruction',
+            label: 'Demandes en attente de réponse',
             data: backlogData,
             borderColor: '#e1000f',
             backgroundColor: '#e1000f',
