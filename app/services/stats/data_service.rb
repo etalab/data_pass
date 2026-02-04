@@ -13,7 +13,7 @@ module Stats
         filters: filters_data,
         dimension: determine_dimension,
         volume: volume_data,
-        time_series: time_series_data,
+        time_series: backlog_evolution_data,
         durations: {
           time_to_submit: time_to_submit_data,
           time_to_first_instruction: time_to_first_instruction_data,
@@ -73,6 +73,23 @@ module Stats
     def time_series_data
       query = Stats::TimeSeriesQuery.new(**query_filters)
       query.time_series_data
+    end
+
+    def backlog_evolution_data
+      time_series = Stats::TimeSeriesQuery.new(**query_filters).time_series_data
+      backlog_query = Stats::BacklogEvolutionQuery.new(**query_filters)
+
+      merged_data = time_series[:data].map do |ts_data|
+        period_date = Date.parse(ts_data[:period])
+        period_end = period_date.end_of_day
+        
+        ts_data.merge(backlog: backlog_query.send(:calculate_backlog_at, period_end))
+      end
+
+      {
+        unit: time_series[:unit],
+        data: merged_data
+      }
     end
 
     def time_to_submit_data

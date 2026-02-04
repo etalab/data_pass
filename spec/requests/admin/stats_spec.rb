@@ -81,7 +81,7 @@ RSpec.describe 'Admin::Stats' do
       it 'returns JSON with breakdowns' do
         get data_admin_stats_path(start_date: start_date, end_date: end_date)
 
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response).to have_key('breakdowns')
       end
     end

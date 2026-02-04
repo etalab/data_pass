@@ -20,6 +20,10 @@
     <%= render 'stats/shared/summary_cards', controller_name: controller_name %>
     
     <%= render 'stats/shared/duration_cards', controller_name: controller_name %>
+
+    <h2 class="fr-h2 fr-mb-4w">Évolution du stock de demandes en attente d'instruction</h2>
+
+    <%= render 'stats/shared/time_series_chart', controller_name: controller_name %>
     
     <%= render 'stats/shared/breakdown_charts', controller_name: controller_name %>
   </div>

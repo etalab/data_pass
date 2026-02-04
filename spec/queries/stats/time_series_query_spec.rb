@@ -24,14 +24,15 @@ RSpec.describe Stats::TimeSeriesQuery do
       expect(result[:data]).to be_an(Array)
     end
 
-    it 'includes new_requests, reopenings, validations, and refusals in each data point' do
+    it 'includes new_requests, reopenings, validations, refusals, and first_instructions in each data point' do
       result = query.time_series_data
 
       expect(result[:data]).to all(have_key(:period)
         .and(have_key(:new_requests))
         .and(have_key(:reopenings))
         .and(have_key(:validations))
-        .and(have_key(:refusals)))
+        .and(have_key(:refusals))
+        .and(have_key(:first_instructions)))
     end
 
     context 'with date range of 30 days or less' do
@@ -125,6 +126,53 @@ RSpec.describe Stats::TimeSeriesQuery do
 
         expect(total_reopenings).to eq(1)
         expect(total_refusals).to eq(1)
+      end
+    end
+
+    context 'with first instructions' do
+      let(:second_authorization_request) { create(:authorization_request, :api_entreprise, created_at: start_date + 10.days) }
+      let(:third_authorization_request) { create(:authorization_request, :api_entreprise, created_at: start_date + 15.days) }
+
+      before do
+        create(:authorization_request_event, :submit,
+          authorization_request: second_authorization_request,
+          created_at: start_date + 10.days)
+
+        create(:authorization_request_event, :submit,
+          authorization_request: third_authorization_request,
+          created_at: start_date + 15.days)
+
+        create(:authorization_request_event, :approve,
+          authorization_request: authorization_request,
+          created_at: start_date + 7.days)
+
+        create(:authorization_request_event, :refuse,
+          authorization_request: second_authorization_request,
+          created_at: start_date + 12.days)
+
+        create(:authorization_request_event, :request_changes,
+          authorization_request: third_authorization_request,
+          created_at: start_date + 18.days)
+      end
+
+      it 'counts first instruction events correctly' do
+        result = query.time_series_data
+
+        total_first_instructions = result[:data].sum { |d| d[:first_instructions] }
+
+        expect(total_first_instructions).to eq(3)
+      end
+
+      it 'counts only the first instruction event per request' do
+        create(:authorization_request_event, :approve,
+          authorization_request: authorization_request,
+          created_at: start_date + 20.days)
+
+        result = query.time_series_data
+
+        total_first_instructions = result[:data].sum { |d| d[:first_instructions] }
+
+        expect(total_first_instructions).to eq(3)
       end
     end
   end

@@ -487,8 +487,9 @@ export default class extends Controller {
     await this.loadChartJS()
 
     const labels = timeSeries.data.map(item => this.formatPeriodLabel(item.period, timeSeries.unit))
-    const newRequestsAndReopeningsData = timeSeries.data.map(item => item.new_requests + item.reopenings)
+    const submissionsData = timeSeries.data.map(item => item.new_requests + item.reopenings)
     const completedInstructionsData = timeSeries.data.map(item => item.validations + item.refusals)
+    const backlogData = timeSeries.data.map(item => item.backlog)
 
     if (this.timeSeriesChartInstance) {
       this.timeSeriesChartInstance.destroy()
@@ -501,14 +502,34 @@ export default class extends Controller {
         labels,
         datasets: [
           {
+            type: 'bar',
             label: 'Demandes soumises',
-            data: newRequestsAndReopeningsData,
-            backgroundColor: '#000091'
+            data: submissionsData,
+            backgroundColor: 'rgba(0, 0, 145, 0.3)',
+            borderColor: '#000091',
+            borderWidth: 1,
+            order: 2
           },
           {
+            type: 'bar',
             label: 'Instructions terminées',
             data: completedInstructionsData,
-            backgroundColor: '#18753c'
+            backgroundColor: 'rgba(24, 117, 60, 0.3)',
+            borderColor: '#18753c',
+            borderWidth: 1,
+            order: 2
+          },
+          {
+            type: 'line',
+            label: 'Demandes en attente d\'instruction',
+            data: backlogData,
+            borderColor: '#e1000f',
+            backgroundColor: '#e1000f',
+            borderWidth: 4,
+            pointRadius: 5,
+            pointHoverRadius: 7,
+            tension: 0.1,
+            order: 1
           }
         ]
       },

@@ -27,12 +27,14 @@ module Stats
       reopenings_by_period = fetch_reopenings_by_period(trunc_format)
       validations_by_period = fetch_validations_by_period(trunc_format)
       refusals_by_period = fetch_refusals_by_period(trunc_format)
+      first_instructions_by_period = fetch_first_instructions_by_period(trunc_format)
 
       all_periods = collect_all_periods([
         new_requests_by_period,
         reopenings_by_period,
         validations_by_period,
-        refusals_by_period
+        refusals_by_period,
+        first_instructions_by_period
       ])
 
       all_periods.sort.map do |period|
@@ -41,7 +43,8 @@ module Stats
           new_requests: new_requests_by_period[period] || 0,
           reopenings: reopenings_by_period[period] || 0,
           validations: validations_by_period[period] || 0,
-          refusals: refusals_by_period[period] || 0
+          refusals: refusals_by_period[period] || 0,
+          first_instructions: first_instructions_by_period[period] || 0
         }
       end
     end
@@ -102,6 +105,24 @@ module Stats
         .where(authorization_request_id: authorization_request_ids)
         .where(created_at: date_range)
         .group("DATE_TRUNC('#{trunc_format}', created_at)")
+        .count
+
+      result.transform_keys { |key| key.to_date.iso8601 }
+    end
+
+    def fetch_first_instructions_by_period(trunc_format)
+      authorization_request_ids = filtered_requests.pluck(:id)
+
+      first_instruction_events = AuthorizationRequestEvent
+        .select('authorization_request_id, MIN(created_at) as first_instruction_time')
+        .where(name: %w[approve refuse request_changes])
+        .where(authorization_request_id: authorization_request_ids)
+        .where(created_at: date_range)
+        .group(:authorization_request_id)
+
+      result = AuthorizationRequestEvent
+        .from("(#{first_instruction_events.to_sql}) first_instructions")
+        .group("DATE_TRUNC('#{trunc_format}', first_instruction_time)")
         .count
 
       result.transform_keys { |key| key.to_date.iso8601 }

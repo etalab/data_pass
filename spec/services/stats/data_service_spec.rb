@@ -36,13 +36,26 @@ RSpec.describe Stats::DataService do
         expect(result).to have_key(:durations)
       end
 
-      it 'includes time_series data' do
+      it 'includes time_series data with backlog evolution' do
         result = service.call
 
         expect(result).to have_key(:time_series)
         expect(result[:time_series]).to be_a(Hash)
         expect(result[:time_series]).to have_key(:unit)
         expect(result[:time_series]).to have_key(:data)
+      end
+
+      it 'includes backlog data in time_series' do
+        result = service.call
+
+        expect(result[:time_series][:data]).to all(
+          have_key(:backlog)
+            .and(have_key(:new_requests))
+            .and(have_key(:reopenings))
+            .and(have_key(:validations))
+            .and(have_key(:refusals))
+            .and(have_key(:first_instructions))
+        )
       end
     end
 
