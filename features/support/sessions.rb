@@ -6,20 +6,28 @@ OmniAuth.config.before_callback_phase do |env|
   end
 end
 
+Before do
+  @current_user = nil
+  @current_user_email = nil
+end
+
 def current_user
-  if instance_variable_defined?(:@current_user)
-    @current_user
-  else
-    @current_user = User.find_by(email: @current_user_email)
-  end
+  return @current_user if defined?(@current_user) && @current_user
+
+  @current_user = User.find_by(email: @current_user_email)
 end
 
 def create_admin
   email = 'admin@gouv.fr'
-  user = User.find_by(email:) || FactoryBot.create(:user, email:)
+  user = User.find_by(email:)
+
+  if user
+    user.roles = []
+  else
+    user = FactoryBot.create(:user, email:)
+  end
 
   user.roles << 'admin'
-  user.roles.uniq!
   user.save!
 
   user
@@ -38,12 +46,16 @@ def create_manager(kind)
 end
 
 def create_user_with_role(role, kind)
-  email ||= "#{kind.parameterize}@gouv.fr"
+  email = "#{kind.parameterize}@gouv.fr"
+  user = User.find_by(email:)
 
-  user = User.find_by(email:) || FactoryBot.create(:user, email:)
+  if user
+    user.roles = []
+  else
+    user = FactoryBot.create(:user, email:)
+  end
 
   user.roles << "#{find_factory_trait_from_name(kind)}:#{role}"
-  user.roles.uniq!
   user.save!
 
   user
