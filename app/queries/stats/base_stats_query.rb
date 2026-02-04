@@ -39,30 +39,25 @@ module Stats
       requests.where(form_uid: forms)
     end
 
-    def calculate_median(relation, expression)
+    def calculate_percentile_50(relation, expression)
+      calculate_percentile(relation, expression, 0.5)
+    end
+
+    def calculate_percentile_90(relation, expression)
+      calculate_percentile(relation, expression, 0.90)
+    end
+
+    def calculate_percentile(relation, expression, percentile)
       return nil unless relation.exists?
 
       result = ActiveRecord::Base.connection.execute(
-        'SELECT PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY duration) as median_value ' \
+        "SELECT PERCENTILE_CONT(#{percentile}) WITHIN GROUP (ORDER BY duration) as percentile_value " \
         "FROM (#{relation.select("#{expression} as duration").to_sql}) as durations"
       )
-      result.first&.fetch('median_value', nil)&.to_f
+      result.first&.fetch('percentile_value', nil)&.to_f
     end
 
-    def calculate_stddev(relation, expression)
-      return nil unless relation.exists?
-
-      result = ActiveRecord::Base.connection.execute(
-        'SELECT STDDEV(duration) as stddev_value ' \
-        "FROM (#{relation.select("#{expression} as duration").to_sql}) as durations"
-      )
-      result.first&.fetch('stddev_value', nil)&.to_f
-    end
-
-    def first_event_subquery(event_name, alias_name = nil)
-      default_alias = "first_#{event_name}_events"
-      alias_name ||= default_alias
-
+    def first_event_subquery(event_name, _alias_name = nil)
       AuthorizationRequestEvent
         .select('authorization_request_id, MIN(created_at) as event_time')
         .where(name: event_name)

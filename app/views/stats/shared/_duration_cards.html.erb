@@ -2,18 +2,18 @@
   <%= render 'stats/shared/duration_stat_card',
     controller_name: controller_name,
     title: 'Remplissage d\'une nouvelle demande',
-    median_target: 'medianTimeToSubmit',
-    stddev_target: 'stddevTimeToSubmit' %>
+    percentile_50_target: 'percentile50TimeToSubmit',
+    percentile_90_target: 'percentile90TimeToSubmit' %>
 
   <%= render 'stats/shared/duration_stat_card',
     controller_name: controller_name,
     title: 'Première instruction d\'une demande',
-    median_target: 'medianTimeToFirstInstruction',
-    stddev_target: 'stddevTimeToFirstInstruction' %>
+    percentile_50_target: 'percentile50TimeToFirstInstruction',
+    percentile_90_target: 'percentile90TimeToFirstInstruction' %>
 
   <%= render 'stats/shared/duration_stat_card',
     controller_name: controller_name,
     title: "Instruction finale d'une demande",
-    median_target: 'medianTimeToFinalInstruction',
-    stddev_target: 'stddevTimeToFinalInstruction' %>
+    percentile_50_target: 'percentile50TimeToFinalInstruction',
+    percentile_90_target: 'percentile90TimeToFinalInstruction' %>
 </div>

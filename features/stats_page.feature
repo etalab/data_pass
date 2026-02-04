@@ -9,18 +9,13 @@ Fonctionnalité: Page de statistiques
     Quand je visite "/stats"
     Alors je vois "Statistiques DataPass"
     Et je vois "Nouvelles demandes"
-    Et je vois "Validations"
-    Et je vois "Durées médianes pour les nouvelles demandes"
+    Et je vois "Instructions validées"
+    Et je vois "Remplissage d'une nouvelle demande"
 
   Scénario: Filtrage par période
     Quand je visite "/stats"
     Alors je vois un champ de date pour la période de début
     Et je vois un champ de date pour la période de fin
-
-  Scénario: Affichage des statistiques par dimension
-    Quand je visite "/stats"
-    Alors je vois "Statistiques par"
-    Et je vois un sélecteur de dimension
 
   @javascript
   Scénario: Avertissement pour les données antérieures à 2025

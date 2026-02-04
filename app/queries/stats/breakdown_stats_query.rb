@@ -102,12 +102,12 @@ module Stats
           date_range: date_range,
           authorization_types: data[:types]
         )
-        median = query.median
-        next if median.nil?
+        percentile_50 = query.percentile_50
+        next if percentile_50.nil?
 
         {
           name: data[:name],
-          value: median.to_f
+          value: percentile_50.to_f
         }
       end
 
@@ -123,12 +123,12 @@ module Stats
           date_range: date_range,
           authorization_types: [type]
         )
-        median = query.median
-        next if median.nil?
+        percentile_50 = query.percentile_50
+        next if percentile_50.nil?
 
         {
           name: definition.name,
-          value: median.to_f
+          value: percentile_50.to_f
         }
       end
 
@@ -149,12 +149,12 @@ module Stats
           authorization_types: authorization_types,
           forms: [form_uid]
         )
-        median = query.median
-        next if median.nil?
+        percentile_50 = query.percentile_50
+        next if percentile_50.nil?
 
         {
           name: form.name,
-          value: median.to_f
+          value: percentile_50.to_f
         }
       end
 

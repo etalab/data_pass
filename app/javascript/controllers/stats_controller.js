@@ -13,12 +13,12 @@ export default class extends Controller {
     'reopeningsCount',
     'validationsCount',
     'refusalsCount',
-    'medianTimeToSubmit',
-    'stddevTimeToSubmit',
-    'medianTimeToFirstInstruction',
-    'stddevTimeToFirstInstruction',
-    'medianTimeToFinalInstruction',
-    'stddevTimeToFinalInstruction',
+    'percentile50TimeToSubmit',
+    'percentile90TimeToSubmit',
+    'percentile50TimeToFirstInstruction',
+    'percentile90TimeToFirstInstruction',
+    'percentile50TimeToFinalInstruction',
+    'percentile90TimeToFinalInstruction',
     'loadingIndicator',
     'quickRanges',
     'timeSeriesChart',
@@ -453,20 +453,14 @@ export default class extends Controller {
   }
 
   updateDurationCards (durations) {
-    this.medianTimeToSubmitTarget.textContent = this.formatDuration(durations.time_to_submit.median_seconds)
-    this.stddevTimeToSubmitTarget.textContent = this.formatDuration(
-      durations.time_to_submit.median_seconds + (durations.time_to_submit.stddev_seconds / 2)
-    )
+    this.percentile50TimeToSubmitTarget.textContent = this.formatDuration(durations.time_to_submit.percentile_50_seconds)
+    this.percentile90TimeToSubmitTarget.textContent = this.formatDuration(durations.time_to_submit.percentile_90_seconds)
 
-    this.medianTimeToFirstInstructionTarget.textContent = this.formatDuration(durations.time_to_first_instruction.median_seconds)
-    this.stddevTimeToFirstInstructionTarget.textContent = this.formatDuration(
-      durations.time_to_first_instruction.median_seconds + (durations.time_to_first_instruction.stddev_seconds / 2)
-    )
+    this.percentile50TimeToFirstInstructionTarget.textContent = this.formatDuration(durations.time_to_first_instruction.percentile_50_seconds)
+    this.percentile90TimeToFirstInstructionTarget.textContent = this.formatDuration(durations.time_to_first_instruction.percentile_90_seconds)
 
-    this.medianTimeToFinalInstructionTarget.textContent = this.formatDuration(durations.time_to_final_instruction.median_seconds)
-    this.stddevTimeToFinalInstructionTarget.textContent = this.formatDuration(
-      durations.time_to_final_instruction.median_seconds + (durations.time_to_final_instruction.stddev_seconds / 2)
-    )
+    this.percentile50TimeToFinalInstructionTarget.textContent = this.formatDuration(durations.time_to_final_instruction.percentile_50_seconds)
+    this.percentile90TimeToFinalInstructionTarget.textContent = this.formatDuration(durations.time_to_final_instruction.percentile_90_seconds)
   }
 
   formatDuration (seconds) {

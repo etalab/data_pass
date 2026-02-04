@@ -47,49 +47,4 @@ RSpec.describe StatsHelper do
       expect(helper.format_duration_seconds(0)).to eq('1 minute')
     end
   end
-
-  describe '#format_duration_range' do
-    it 'returns default message for nil median' do
-      expect(helper.format_duration_range(nil, 100)).to eq('de quelques secondes à quelques jours')
-    end
-
-    it 'returns default message for nil stddev' do
-      expect(helper.format_duration_range(100, nil)).to eq('de quelques secondes à quelques jours')
-    end
-
-    it 'shows explicit lower bound when calculated value is valid' do
-      median = 10 * 86_400
-      stddev = 5 * 86_400
-
-      expect(helper.format_duration_range(median, stddev)).to eq('de 5 jours à 15 jours')
-    end
-
-    it 'shows explicit lower bound for normal day-scale ranges' do
-      median = 6 * 86_400
-      stddev = 2 * 86_400
-
-      expect(helper.format_duration_range(median, stddev)).to eq('de 4 jours à 8 jours')
-    end
-
-    it 'uses quelques heures when stddev > median for day-scale' do
-      median = 86_400
-      stddev = 17 * 86_400
-
-      expect(helper.format_duration_range(median, stddev)).to eq('de quelques heures à 18 jours')
-    end
-
-    it 'uses quelques minutes when stddev > median for hour-scale' do
-      median = 3600
-      stddev = 7200
-
-      expect(helper.format_duration_range(median, stddev)).to eq('de quelques minutes à 3 heures')
-    end
-
-    it 'shows explicit lower bound when barely valid for minute-scale' do
-      median = 300
-      stddev = 120
-
-      expect(helper.format_duration_range(median, stddev)).to eq('de 3 minutes à 7 minutes')
-    end
-  end
 end

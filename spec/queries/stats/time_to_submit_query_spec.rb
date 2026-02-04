@@ -7,7 +7,7 @@ RSpec.describe Stats::TimeToSubmitQuery, type: :query do
     user.add_to_organization(organization, current: true)
   end
 
-  describe '#median' do
+  describe '#percentile_50' do
     let!(:fast_request) do
       create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: Date.new(2025, 6, 1)).tap do |ar|
         create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: Time.zone.local(2025, 6, 1, 10, 0))
@@ -22,13 +22,13 @@ RSpec.describe Stats::TimeToSubmitQuery, type: :query do
       end
     end
 
-    it 'calculates median time between create and submit events' do
+    it 'calculates 50th percentile of time between create and submit events' do
       query = described_class.new(date_range: date_range)
-      median = query.median
+      percentile_50 = query.percentile_50
 
-      expect(median).to be_a(Numeric)
-      expect(median).to be > 0
-      expect(median).to be_between(2.hours.to_i, 4.hours.to_i)
+      expect(percentile_50).to be_a(Numeric)
+      expect(percentile_50).to be > 0
+      expect(percentile_50).to be_between(2.hours.to_i, 4.hours.to_i)
     end
 
     context 'with quasi-instantaneous requests' do
@@ -39,13 +39,13 @@ RSpec.describe Stats::TimeToSubmitQuery, type: :query do
         end
       end
 
-      it 'filters out quasi-instantaneous durations from median calculation' do
+      it 'filters out quasi-instantaneous durations from percentile calculation' do
         query = described_class.new(date_range: date_range)
-        median = query.median
+        percentile_50 = query.percentile_50
 
-        expect(median).to be_a(Numeric)
-        expect(median).to be > 60
-        expect(median).to be_between(2.hours.to_i, 4.hours.to_i)
+        expect(percentile_50).to be_a(Numeric)
+        expect(percentile_50).to be > 60
+        expect(percentile_50).to be_between(2.hours.to_i, 4.hours.to_i)
       end
     end
 
@@ -54,7 +54,7 @@ RSpec.describe Stats::TimeToSubmitQuery, type: :query do
 
       it 'returns nil' do
         query = described_class.new(date_range: empty_date_range)
-        expect(query.median).to be_nil
+        expect(query.percentile_50).to be_nil
       end
     end
 
@@ -77,24 +77,73 @@ RSpec.describe Stats::TimeToSubmitQuery, type: :query do
 
       it 'returns nil when all requests are filtered out' do
         query = described_class.new(date_range: only_instant_date_range)
-        expect(query.median).to be_nil
+        expect(query.percentile_50).to be_nil
       end
     end
   end
 
-  describe '#stddev' do
-    let!(:request_with_events) do
+  describe '#percentile_90' do
+    let!(:fast_request) do
       create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: Date.new(2025, 6, 1)).tap do |ar|
         create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: Time.zone.local(2025, 6, 1, 10, 0))
-        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: Time.zone.local(2025, 6, 1, 12, 0))
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: Time.zone.local(2025, 6, 1, 11, 0))
       end
     end
 
-    it 'calculates standard deviation' do
-      query = described_class.new(date_range: date_range)
-      stddev = query.stddev
+    let!(:medium_request) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: Date.new(2025, 6, 2)).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: Time.zone.local(2025, 6, 2, 10, 0))
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: Time.zone.local(2025, 6, 2, 12, 0))
+      end
+    end
 
-      expect(stddev).to be_a(Numeric).or(be_nil)
+    let!(:slow_request) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: Date.new(2025, 6, 3)).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: Time.zone.local(2025, 6, 3, 10, 0))
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: Time.zone.local(2025, 6, 3, 14, 0))
+      end
+    end
+
+    let!(:very_slow_request) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: Date.new(2025, 6, 4)).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: Time.zone.local(2025, 6, 4, 10, 0))
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: Time.zone.local(2025, 6, 4, 16, 0))
+      end
+    end
+
+    it 'calculates 90th percentile of time between create and submit events' do
+      query = described_class.new(date_range: date_range)
+      percentile_90 = query.percentile_90
+
+      expect(percentile_90).to be_a(Numeric)
+      expect(percentile_90).to be > 0
+      expect(percentile_90).to be_between(2.hours.to_i, 6.hours.to_i)
+    end
+
+    context 'with no data' do
+      let(:empty_date_range) { Date.new(2024, 1, 1)..Date.new(2024, 1, 31) }
+
+      it 'returns nil' do
+        query = described_class.new(date_range: empty_date_range)
+        expect(query.percentile_90).to be_nil
+      end
+    end
+
+    context 'with quasi-instantaneous requests' do
+      let!(:instant_request) do
+        create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: Date.new(2025, 6, 5)).tap do |ar|
+          create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: Time.zone.local(2025, 6, 5, 10, 0, 0))
+          create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: Time.zone.local(2025, 6, 5, 10, 0, 10))
+        end
+      end
+
+      it 'filters out quasi-instantaneous durations from percentile calculation' do
+        query = described_class.new(date_range: date_range)
+        percentile_90 = query.percentile_90
+
+        expect(percentile_90).to be_a(Numeric)
+        expect(percentile_90).to be > 60
+      end
     end
   end
 end

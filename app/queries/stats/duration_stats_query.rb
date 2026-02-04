@@ -2,12 +2,12 @@ module Stats
   class DurationStatsQuery < BaseStatsQuery
     MINIMUM_DURATION_SECONDS = 60
 
-    def median
-      calculate_median_duration(requests_with_events_filtered, duration_expression)
+    def percentile_50
+      calculate_percentile_50_duration(requests_with_events_filtered, duration_expression)
     end
 
-    def stddev
-      calculate_stddev_duration(requests_with_events_filtered, duration_expression)
+    def percentile_90
+      calculate_percentile_90_duration(requests_with_events_filtered, duration_expression)
     end
 
     protected
@@ -24,12 +24,12 @@ module Stats
       requests_with_events.where("#{duration_expression} >= ?", MINIMUM_DURATION_SECONDS)
     end
 
-    def calculate_median_duration(relation, expression)
-      calculate_median(relation, expression)
+    def calculate_percentile_50_duration(relation, expression)
+      calculate_percentile_50(relation, expression)
     end
 
-    def calculate_stddev_duration(relation, expression)
-      calculate_stddev(relation, expression)
+    def calculate_percentile_90_duration(relation, expression)
+      calculate_percentile_90(relation, expression)
     end
 
     def join_first_event_of_type(event_name, alias_name)

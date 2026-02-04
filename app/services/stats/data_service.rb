@@ -78,24 +78,24 @@ module Stats
     def time_to_submit_data
       query = Stats::TimeToSubmitQuery.new(**query_filters)
       {
-        median_seconds: query.median&.to_f,
-        stddev_seconds: query.stddev&.to_f
+        percentile_50_seconds: query.percentile_50&.to_f,
+        percentile_90_seconds: query.percentile_90&.to_f
       }
     end
 
     def time_to_first_instruction_data
       query = Stats::TimeToFirstInstructionQuery.new(**query_filters)
       {
-        median_seconds: query.median&.to_f,
-        stddev_seconds: query.stddev&.to_f
+        percentile_50_seconds: query.percentile_50&.to_f,
+        percentile_90_seconds: query.percentile_90&.to_f
       }
     end
 
     def time_to_final_instruction_data
       query = Stats::TimeToFinalInstructionQuery.new(**query_filters)
       {
-        median_seconds: query.median&.to_f,
-        stddev_seconds: query.stddev&.to_f
+        percentile_50_seconds: query.percentile_50&.to_f,
+        percentile_90_seconds: query.percentile_90&.to_f
       }
     end
 
