@@ -1,4 +1,4 @@
-import StatsController from './stats_controller'
+import StatsController from 'controllers/stats_controller'
 
 export default class extends StatsController {
   static targets = [
