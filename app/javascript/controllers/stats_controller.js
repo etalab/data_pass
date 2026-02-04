@@ -505,18 +505,16 @@ export default class extends Controller {
             type: 'bar',
             label: 'Demandes soumises',
             data: submissionsData,
-            backgroundColor: 'rgba(0, 0, 145, 0.3)',
-            borderColor: '#000091',
-            borderWidth: 1,
+            backgroundColor: 'rgba(0, 0, 145, 0.2)',
+            borderWidth: 0,
             order: 2
           },
           {
             type: 'bar',
             label: 'Instructions terminées',
             data: completedInstructionsData,
-            backgroundColor: 'rgba(24, 117, 60, 0.3)',
-            borderColor: '#18753c',
-            borderWidth: 1,
+            backgroundColor: 'rgba(24, 117, 60, 0.2)',
+            borderWidth: 0,
             order: 2
           },
           {
@@ -555,13 +553,20 @@ export default class extends Controller {
           x: {
             grid: {
               display: false
-            }
+            },
+            stacked: false
           },
           y: {
             beginAtZero: true,
             ticks: {
               precision: 0
             }
+          }
+        },
+        datasets: {
+          bar: {
+            barPercentage: 1.0,
+            categoryPercentage: 0.8
           }
         }
       }
