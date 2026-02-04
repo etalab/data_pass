@@ -1,3 +1,7 @@
+Before do
+  @user_sessions = nil
+end
+
 # rubocop:disable Metrics/AbcSize
 def user_session(user)
   return user_sessions[user.email] if user_sessions[user.email].present?
