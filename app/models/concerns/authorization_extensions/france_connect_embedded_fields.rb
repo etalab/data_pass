@@ -10,16 +10,21 @@ module AuthorizationExtensions::FranceConnectEmbeddedFields
     validates :fc_cadre_juridique_nature, presence: true, if: -> { embeds_france_connect_fields? && need_complete_validation?(:legal) }
     validates :fc_cadre_juridique_url, format: { with: %r{\A((http|https)://)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(/[\w\-._~:/?#\[\]@!$&'()*+,;%=]*)?\z}, message: I18n.t('activemodel.errors.messages.url_format') }, allow_blank: true, if: -> { embeds_france_connect_fields? && need_complete_validation?(:legal) }
 
-    add_attribute :fc_scopes, type: :array
     add_attribute :fc_alternative_connexion, type: :boolean
     add_attribute :fc_eidas
 
-    validate :fc_scopes_must_be_complete,
+    validate :france_connect_scopes_must_be_complete,
       if: -> { embeds_france_connect_fields? && need_complete_validation?(:scopes) }
   end
 
   def france_connect_modality?
     modalities&.include?('france_connect')
+  end
+
+  def fc_scopes
+    return [] if scopes.blank?
+
+    Array(scopes) & france_connect_scope_values
   end
 
   def france_connect_attributes
@@ -47,10 +52,12 @@ module AuthorizationExtensions::FranceConnectEmbeddedFields
     errors.add(:fc_cadre_juridique_url, :blank)
   end
 
-  def fc_scopes_must_be_complete
-    return if fc_scopes.present? && fc_scopes.sort == france_connect_scope_values.sort
+  def france_connect_scopes_must_be_complete
+    missing_scopes = france_connect_scope_values - scopes
 
-    errors.add(:fc_scopes, :incomplete_scopes)
+    return if missing_scopes.empty?
+
+    errors.add(:scopes, :incomplete_france_connect_scopes)
   end
 
   def france_connect_scope_values

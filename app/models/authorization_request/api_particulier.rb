@@ -60,9 +60,13 @@ class AuthorizationRequest::APIParticulier < AuthorizationRequest
   end
 
   def embeds_france_connect_fields?
-    fc_cadre_juridique_nature.present? ||
-      fc_cadre_juridique_url.present? ||
-      fc_scopes.present?
+    return false unless france_connect_modality?
+
+    [
+      fc_cadre_juridique_nature,
+      fc_cadre_juridique_url,
+      fc_scopes
+    ].any?(&:present?)
   end
 
   private
