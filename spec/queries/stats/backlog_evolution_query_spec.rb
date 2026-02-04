@@ -104,6 +104,51 @@ RSpec.describe Stats::BacklogEvolutionQuery, type: :query do
       expect(backlog_count).to be >= 0
     end
 
+    context 'with authorization type filters' do
+      let!(:api_particulier_request) do
+        create(:authorization_request, :api_particulier, :submitted,
+          applicant: user,
+          organization: organization,
+          created_at: Date.new(2025, 6, 8)).tap do |ar|
+          create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: Date.new(2025, 6, 8))
+          create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: Date.new(2025, 6, 9))
+        end
+      end
+
+      it 'only counts requests from filtered authorization types' do
+        end_of_june = Date.new(2025, 6, 30).end_of_day
+        query = described_class.new(
+          date_range: date_range,
+          authorization_types: ['AuthorizationRequest::APIParticulier']
+        )
+
+        backlog_count = query.send(:calculate_backlog_at, end_of_june)
+
+        expect(backlog_count).to eq(1)
+      end
+
+      it 'excludes requests from other authorization types' do
+        end_of_june = Date.new(2025, 6, 30).end_of_day
+        query = described_class.new(
+          date_range: date_range,
+          authorization_types: ['AuthorizationRequest::APIEntreprise']
+        )
+
+        backlog_count = query.send(:calculate_backlog_at, end_of_june)
+
+        expect(backlog_count).to eq(2)
+      end
+
+      it 'counts all types when no filter is applied' do
+        end_of_june = Date.new(2025, 6, 30).end_of_day
+        query = described_class.new(date_range: date_range)
+
+        backlog_count = query.send(:calculate_backlog_at, end_of_june)
+
+        expect(backlog_count).to eq(3)
+      end
+    end
+
     context 'with reopenings' do
       let!(:reopened_request) do
         create(:authorization_request, :api_entreprise, :submitted,

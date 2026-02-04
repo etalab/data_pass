@@ -2,10 +2,22 @@ module Stats
   class BacklogEvolutionQuery < BaseStatsQuery
     private
 
+    def filtered_requests_for_backlog
+      requests = AuthorizationRequest.all
+      requests = filter_by_providers(requests) if providers.present?
+      requests = filter_by_authorization_types(requests) if authorization_types.present?
+      requests = filter_by_forms(requests) if forms.present?
+      requests
+    end
+
     def calculate_backlog_at(timestamp)
       archived_or_revoked_ids = AuthorizationRequest
         .where(state: %w[archived revoked])
         .pluck(:id)
+
+      filtered_request_ids = filtered_requests_for_backlog.pluck(:id)
+
+      return 0 if filtered_request_ids.empty?
 
       submit_events = AuthorizationRequestEvent
         .select(:id, :authorization_request_id, :created_at)
@@ -13,6 +25,7 @@ module Stats
         .where(created_at: ..timestamp)
         .where.not(authorization_request_id: nil)
         .where.not(authorization_request_id: archived_or_revoked_ids)
+        .where(authorization_request_id: filtered_request_ids)
         .order(:authorization_request_id, created_at: :desc)
 
       instruction_events = AuthorizationRequestEvent
@@ -20,6 +33,7 @@ module Stats
         .where(name: %w[approve refuse request_changes])
         .where(created_at: ..timestamp)
         .where.not(authorization_request_id: nil)
+        .where(authorization_request_id: filtered_request_ids)
         .order(:authorization_request_id, created_at: :desc)
 
       submit_by_request = submit_events.group_by(&:authorization_request_id)

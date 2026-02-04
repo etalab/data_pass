@@ -82,7 +82,7 @@ module Stats
       merged_data = time_series[:data].map do |ts_data|
         period_date = Date.parse(ts_data[:period])
         period_end = period_date.end_of_day
-        
+
         ts_data.merge(backlog: backlog_query.send(:calculate_backlog_at, period_end))
       end
 
