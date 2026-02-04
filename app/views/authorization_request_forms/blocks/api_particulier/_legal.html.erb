@@ -6,12 +6,12 @@
 
 <%= render Organisms::AuthorizationRequestForms::LegalFrameworkComponent.new(
   form: f,
-  field_prefix: 'cadre_juridique'
+  field_prefix: :cadre_juridique
 ) %>
 
 <% if @authorization_request.france_connect_modality? %>
   <%= render Organisms::AuthorizationRequestForms::LegalFrameworkComponent.new(
     form: f,
-    field_prefix: 'fc_cadre_juridique'
+    field_prefix: :fc_cadre_juridique
   ) %>
 <% end %>

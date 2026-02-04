@@ -15,6 +15,7 @@ FactoryBot.define do
 
       authorization_request.form.initialize_with.each do |key, value|
         next if authorization_request.data[key.to_s].present?
+        next unless authorization_request.respond_to?(:"#{key}=")
 
         authorization_request.public_send(:"#{key}=", value)
       end
@@ -335,7 +336,6 @@ FactoryBot.define do
         authorization_request.modalities = ['france_connect']
         authorization_request.fc_cadre_juridique_nature ||= 'CRPA Article L311-1'
         authorization_request.fc_cadre_juridique_url ||= 'https://legifrance.gouv.fr/legal'
-        authorization_request.fc_scopes = authorization_request.send(:france_connect_scope_values) if authorization_request.fc_scopes.blank?
         authorization_request.fc_alternative_connexion ||= false
         authorization_request.fc_eidas ||= 'eidas_1'
 
@@ -410,7 +410,24 @@ FactoryBot.define do
       with_basic_infos
       with_personal_data
       with_cadre_juridique
+      with_modalities
       with_scopes
+
+      after(:build) do |authorization_request, evaluator|
+        next unless evaluator.fill_all_attributes || authorization_request.need_complete_validation?
+
+        if authorization_request.respond_to?(:france_connect_scope_values) && authorization_request.scopes.present?
+          france_connect_scope_values = authorization_request.france_connect_scope_values
+
+          has_fc_scopes = authorization_request.scopes.intersect?(france_connect_scope_values)
+
+          if has_fc_scopes
+            authorization_request.fc_cadre_juridique_nature ||= 'CRPA Article L311-1'
+            authorization_request.fc_cadre_juridique_url ||= 'https://legifrance.gouv.fr/legal'
+            authorization_request.scopes = (authorization_request.scopes + france_connect_scope_values).uniq
+          end
+        end
+      end
     end
 
     %w[

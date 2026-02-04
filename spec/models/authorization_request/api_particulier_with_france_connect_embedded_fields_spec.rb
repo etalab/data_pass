@@ -4,7 +4,7 @@ RSpec.describe AuthorizationRequest::APIParticulier do
       modalities: ['france_connect'],
       fc_cadre_juridique_nature: 'CRPA Article L311-1',
       fc_cadre_juridique_url: 'https://legifrance.gouv.fr/legal',
-      fc_scopes: %w[openid family_name given_name],
+      scopes: %w[openid family_name given_name birthdate birthplace birthcountry gender cnaf_quotient_familial],
       fc_alternative_connexion: '1',
       fc_eidas: 'eidas_1',
       contact_technique_family_name: 'Dupont',
@@ -68,29 +68,29 @@ RSpec.describe AuthorizationRequest::APIParticulier do
         end
       end
 
-      describe 'fc_scopes' do
-        it 'requires all FranceConnect scopes to be present' do
-          authorization_request.fc_scopes = authorization_request.send(:france_connect_scope_values)
+      describe 'FranceConnect scopes validation' do
+        it 'accepts when all FranceConnect scopes are present in scopes' do
+          authorization_request.scopes = authorization_request.send(:france_connect_scope_values) + %w[cnaf_quotient_familial]
           authorization_request.validate(:submit)
-          expect(authorization_request.errors[:fc_scopes]).to be_empty
+          expect(authorization_request.errors[:scopes]).to be_empty
         end
 
-        it 'rejects incomplete scope list' do
-          authorization_request.fc_scopes = %w[family_name given_name]
+        it 'rejects when some FranceConnect scopes are missing from scopes' do
+          authorization_request.scopes = %w[family_name given_name cnaf_quotient_familial]
           expect(authorization_request.validate(:submit)).to be false
-          expect(authorization_request.errors[:fc_scopes]).to be_present
+          expect(authorization_request.errors[:scopes]).to be_present
         end
 
-        it 'rejects empty scope list' do
-          authorization_request.fc_scopes = []
+        it 'rejects when no FranceConnect scopes in scopes' do
+          authorization_request.scopes = %w[cnaf_quotient_familial]
           expect(authorization_request.validate(:submit)).to be false
-          expect(authorization_request.errors[:fc_scopes]).to be_present
+          expect(authorization_request.errors[:scopes]).to be_present
         end
 
-        it 'rejects scope list with extra invalid scopes' do
-          authorization_request.fc_scopes = authorization_request.send(:france_connect_scope_values) + ['invalid_scope']
-          expect(authorization_request.validate(:submit)).to be false
-          expect(authorization_request.errors[:fc_scopes]).to be_present
+        it 'accepts extra non-FranceConnect scopes' do
+          authorization_request.scopes = authorization_request.send(:france_connect_scope_values) + %w[cnaf_quotient_familial cnaf_allocataires]
+          authorization_request.validate(:submit)
+          expect(authorization_request.errors[:scopes]).to be_empty
         end
       end
 
@@ -132,12 +132,12 @@ RSpec.describe AuthorizationRequest::APIParticulier do
       it 'does not require fc fields' do
         authorization_request.fc_cadre_juridique_nature = nil
         authorization_request.fc_cadre_juridique_url = nil
-        authorization_request.fc_scopes = []
+        authorization_request.scopes = %w[cnaf_quotient_familial]
 
         authorization_request.validate(:submit)
         expect(authorization_request.errors[:fc_cadre_juridique_nature]).to be_empty
         expect(authorization_request.errors[:fc_cadre_juridique_url]).to be_empty
-        expect(authorization_request.errors[:fc_scopes]).to be_empty
+        expect(authorization_request.errors[:scopes]).to be_empty
       end
 
       it 'accepts landline phone numbers for contact_technique' do
@@ -156,7 +156,7 @@ RSpec.describe AuthorizationRequest::APIParticulier do
         expect(attrs[:cadre_juridique_nature]).to eq('CRPA Article L311-1')
         expect(attrs[:cadre_juridique_url]).to eq('https://legifrance.gouv.fr/legal')
         expect(attrs[:france_connect_eidas]).to eq('eidas_1')
-        expect(attrs[:scopes]).to match_array(%w[family_name given_name openid])
+        expect(attrs[:scopes]).to match_array(%w[openid family_name given_name birthdate birthplace birthcountry gender])
         expect(attrs[:alternative_connexion]).to be true
       end
 
@@ -222,19 +222,24 @@ RSpec.describe AuthorizationRequest::APIParticulier do
     end
   end
 
-  describe 'fc_scopes attribute' do
-    it 'is an array' do
+  describe 'fc_scopes method' do
+    it 'returns an array' do
       expect(authorization_request.fc_scopes).to be_a(Array)
     end
 
-    it 'stores and retrieves scopes correctly' do
-      authorization_request.fc_scopes = %w[family_name birthdate]
-      expect(authorization_request.fc_scopes).to match_array(%w[birthdate family_name])
+    it 'returns only FranceConnect scopes from scopes' do
+      authorization_request.scopes = %w[cnaf_quotient_familial family_name given_name birthdate]
+      expect(authorization_request.fc_scopes).to match_array(%w[family_name given_name birthdate])
     end
 
-    it 'removes duplicates' do
-      authorization_request.fc_scopes = %w[family_name birthdate family_name]
-      expect(authorization_request.fc_scopes).to match_array(%w[birthdate family_name])
+    it 'returns empty array when no scopes' do
+      authorization_request.scopes = []
+      expect(authorization_request.fc_scopes).to eq([])
+    end
+
+    it 'filters out non-FranceConnect scopes' do
+      authorization_request.scopes = %w[cnaf_quotient_familial cnaf_allocataires]
+      expect(authorization_request.fc_scopes).to eq([])
     end
   end
 

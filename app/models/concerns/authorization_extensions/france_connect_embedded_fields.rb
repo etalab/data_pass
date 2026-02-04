@@ -1,6 +1,8 @@
 module AuthorizationExtensions::FranceConnectEmbeddedFields
   extend ActiveSupport::Concern
 
+  FRANCE_CONNECT_GROUP = 'FranceConnect'.freeze
+
   included do
     add_attribute :fc_cadre_juridique_nature
     add_attribute :fc_cadre_juridique_url
@@ -62,7 +64,7 @@ module AuthorizationExtensions::FranceConnectEmbeddedFields
 
   def france_connect_scope_values
     self.class.definition.scopes
-      .select { |scope| scope.group == 'FranceConnect' }
+      .select { |scope| scope.group == FRANCE_CONNECT_GROUP }
       .map(&:value)
   end
 

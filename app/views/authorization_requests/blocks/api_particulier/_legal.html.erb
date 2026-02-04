@@ -1,7 +1,7 @@
 <%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { authorization_request:, title: f.wording_for('steps.legal'), block_id: :legal, f:, editable: } do %>
 
   <% if authorization_request.embeds_france_connect_fields? %>
-    <h3 class="fr-h6 fr-h6--blue fr-mb-3w"><%= t('authorization_request.blocks.legal.france_connect_section') %></h3>
+    <h3 class="fr-h6 fr-text-title--blue-france fr-mb-3w"><%= t('authorization_request.blocks.legal.france_connect_section') %></h3>
 
     <div class="fr-mb-4w">
       <% if authorization_request.fc_cadre_juridique_nature.present? %>
@@ -18,7 +18,7 @@
           <strong>
             <%= t('authorization_request.blocks.legal.link_label') %>
           </strong>
-          <%= link_to authorization_request.fc_cadre_juridique_url, authorization_request.fc_cadre_juridique_url, target: '_blank', rel: 'noopener', class: 'fr-link' %>
+          <%= link_to authorization_request.fc_cadre_juridique_url, authorization_request.fc_cadre_juridique_url, target: '_blank', rel: 'noopener external', class: 'fr-link', title: 'Lien relatif au traitement - nouvelle fenêtre' %>
         </p>
       <% end %>
 
@@ -37,7 +37,7 @@
       <% end %>
     </div>
 
-    <h3 class="fr-h6 fr-h6--blue fr-mb-3w fr-mt-5w"><%= t('authorization_request.blocks.legal.api_particulier_section') %></h3>
+    <h3 class="fr-h6 fr-text-title--blue-france fr-mb-3w fr-mt-5w"><%= t('authorization_request.blocks.legal.api_particulier_section') %></h3>
   <% end %>
 
   <div class="fr-mb-4w">
@@ -54,7 +54,7 @@
         <strong>
           <%= t('authorization_request.blocks.legal.link_label') %>
         </strong>
-        <%= link_to authorization_request.cadre_juridique_url, authorization_request.cadre_juridique_url, target: '_blank' %>
+        <%= link_to authorization_request.cadre_juridique_url, authorization_request.cadre_juridique_url, target: '_blank', rel: 'noopener external', class: 'fr-link', title: 'Lien relatif au traitement - nouvelle fenêtre' %>
       </p>
     <% end %>
 

@@ -9,7 +9,7 @@ module Organisms
 
         render Organisms::AuthorizationRequestForms::LegalFrameworkComponent.new(
           form: form,
-          field_prefix: 'cadre_juridique'
+          field_prefix: :cadre_juridique
         )
       end
 
@@ -22,7 +22,7 @@ module Organisms
 
         render Organisms::AuthorizationRequestForms::LegalFrameworkComponent.new(
           form: form,
-          field_prefix: 'fc_cadre_juridique'
+          field_prefix: :fc_cadre_juridique
         )
       end
 

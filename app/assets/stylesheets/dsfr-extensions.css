@@ -243,8 +243,3 @@ fr-badge--grey {
 .fr-modal__footer--above-accordion {
   z-index: 1;
 }
-
-/* Blue heading variant - Override default grey color for headings */
-.fr-h6--blue {
-  color: var(--blue-france-sun-113-625) !important;
-}
