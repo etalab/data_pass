@@ -1,19 +1,22 @@
 <div class="fr-grid-row fr-grid-row--gutters fr-mb-6w">
   <%= render 'stats/shared/duration_stat_card',
     controller_name: controller_name,
-    title: 'Remplissage d\'une nouvelle demande',
+    title: 'Durée de remplissage d\'une nouvelle demande',
     percentile_50_target: 'percentile50TimeToSubmit',
-    percentile_90_target: 'percentile90TimeToSubmit' %>
+    percentile_90_target: 'percentile90TimeToSubmit',
+    type: :duration %>
 
   <%= render 'stats/shared/duration_stat_card',
     controller_name: controller_name,
-    title: 'Première instruction d\'une demande',
+    title: 'Délai de première réponse à une demande',
     percentile_50_target: 'percentile50TimeToFirstInstruction',
-    percentile_90_target: 'percentile90TimeToFirstInstruction' %>
+    percentile_90_target: 'percentile90TimeToFirstInstruction',
+    type: :delay %>
 
   <%= render 'stats/shared/duration_stat_card',
     controller_name: controller_name,
-    title: "Instruction finale d'une demande",
+    title: "Délai de réponse définitive à une demande",
     percentile_50_target: 'percentile50TimeToFinalInstruction',
-    percentile_90_target: 'percentile90TimeToFinalInstruction' %>
+    percentile_90_target: 'percentile90TimeToFinalInstruction',
+    type: :delay %>
 </div>
