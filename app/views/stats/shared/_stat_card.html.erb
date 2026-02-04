@@ -1,6 +1,9 @@
 <div class="<%= col_classes %>">
-  <div class="fr-card fr-card--no-border fr-p-4w" style="background-color: <%= bg_color %>; text-align: center;">
-    <p class="fr-text--md fr-mb-2v fr-col" style="color: #161616; font-weight: bold;"><%= title %></p>
-    <p class="fr-display--xs fr-mb-0" style="color: <%= value_color %>;"><strong data-<%= controller_name %>-target="<%= target %>">-</strong></p>
+  <div class="fr-card fr-card--no-border fr-p-2w fr-py-4w" style="background-color: <%= bg_color %>; text-align: center;">
+    <p class="fr-text--md fr-mb-2v" style="color: #161616; font-weight: bold;"><%= title %></p>
+    <p class="fr-display--sm <%= defined?(subtitle_target) && subtitle_target.present? ? 'fr-mb-1v' : 'fr-mb-0' %>" style="color: <%= value_color %>;"><strong data-<%= controller_name %>-target="<%= target %>">-</strong></p>
+    <% if defined?(subtitle_target) && subtitle_target.present? %>
+      <p class="fr-text--sm fr-mb-0" style="color: #666666;">dont <strong data-<%= controller_name %>-target="<%= subtitle_target %>">-</strong> demandes de mises à jour</p>
+    <% end %>
   </div>
 </div>

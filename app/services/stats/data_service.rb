@@ -63,6 +63,7 @@ module Stats
     def volume_data
       query = Stats::VolumeStatsQuery.new(**query_filters)
       {
+        total_requests_submitted: query.total_requests_submitted_count,
         new_requests_submitted: query.new_requests_submitted_count,
         reopenings_submitted: query.reopenings_submitted_count,
         validations: query.validations_count,

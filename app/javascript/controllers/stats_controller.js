@@ -9,7 +9,7 @@ export default class extends Controller {
     'providerSelect',
     'typeSelect',
     'formSelect',
-    'newRequestsCount',
+    'totalRequestsCount',
     'reopeningsCount',
     'validationsCount',
     'refusalsCount',
@@ -446,7 +446,7 @@ export default class extends Controller {
   }
 
   updateSummaryCards (volume) {
-    this.newRequestsCountTarget.textContent = volume.new_requests_submitted || 0
+    this.totalRequestsCountTarget.textContent = volume.total_requests_submitted || 0
     this.reopeningsCountTarget.textContent = volume.reopenings_submitted || 0
     this.validationsCountTarget.textContent = volume.validations || 0
     this.refusalsCountTarget.textContent = volume.refusals || 0

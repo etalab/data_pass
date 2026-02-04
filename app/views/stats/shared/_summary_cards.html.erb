@@ -1,19 +1,12 @@
 <div class="fr-grid-row fr-grid-row--gutters fr-mb-6w">
   <%= render 'stats/shared/stat_card',
     controller_name: controller_name,
-    title: 'Nouvelles demandes',
-    target: 'newRequestsCount',
+    title: 'Demandes soumises',
+    target: 'totalRequestsCount',
+    subtitle_target: 'reopeningsCount',
     bg_color: '#e3e3fd',
     value_color: '#000091',
-    col_classes: 'fr-col-12 fr-col-md-6 fr-col-lg-3' %>
-
-  <%= render 'stats/shared/stat_card',
-    controller_name: controller_name,
-    title: 'Demandes de réouvertures',
-    target: 'reopeningsCount',
-    bg_color: '#fef7da',
-    value_color: '#fc5d00',
-    col_classes: 'fr-col-12 fr-col-md-6 fr-col-lg-3' %>
+    col_classes: 'fr-col-12 fr-col-md-6 fr-col-lg-4' %>
 
   <%= render 'stats/shared/stat_card',
     controller_name: controller_name,
@@ -21,7 +14,7 @@
     target: 'validationsCount',
     bg_color: '#b8fec9',
     value_color: '#18753c',
-    col_classes: 'fr-col-12 fr-col-md-6 fr-col-lg-3' %>
+    col_classes: 'fr-col-12 fr-col-md-6 fr-col-lg-4' %>
 
   <%= render 'stats/shared/stat_card',
     controller_name: controller_name,
@@ -29,5 +22,5 @@
     target: 'refusalsCount',
     bg_color: '#ffe9e6',
     value_color: '#ce0500',
-    col_classes: 'fr-col-12 fr-col-md-6 fr-col-lg-3' %>
+    col_classes: 'fr-col-12 fr-col-md-6 fr-col-lg-4' %>
 </div>

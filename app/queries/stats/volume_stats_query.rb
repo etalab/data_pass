@@ -1,5 +1,15 @@
 module Stats
   class VolumeStatsQuery < BaseStatsQuery
+    def total_requests_submitted_count
+      authorization_request_ids = filtered_requests.pluck(:id)
+
+      AuthorizationRequestEvent
+        .where(name: 'submit')
+        .where(authorization_request_id: authorization_request_ids)
+        .where(created_at: date_range)
+        .count
+    end
+
     def new_requests_submitted_count
       filtered_requests_with_first_submit_in_range.count
     end

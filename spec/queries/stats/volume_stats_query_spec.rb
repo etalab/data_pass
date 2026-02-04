@@ -7,6 +7,29 @@ RSpec.describe Stats::VolumeStatsQuery, type: :query do
     user.add_to_organization(organization, current: true)
   end
 
+  describe '#total_requests_submitted_count' do
+    let!(:request_with_multiple_submits) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: Date.new(2025, 5, 1)).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: Date.new(2025, 5, 1))
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: Date.new(2025, 5, 2))
+        create(:authorization_request_event, :reopen, authorization_request: ar, user: user, created_at: Date.new(2025, 6, 1))
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: Date.new(2025, 6, 2))
+      end
+    end
+
+    let!(:request_submitted_outside_range) do
+      create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: Date.new(2024, 6, 1)).tap do |ar|
+        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: Date.new(2024, 6, 1))
+        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: Date.new(2024, 6, 2))
+      end
+    end
+
+    it 'counts all submit events in date range' do
+      query = described_class.new(date_range: date_range)
+      expect(query.total_requests_submitted_count).to eq(2)
+    end
+  end
+
   describe '#new_requests_submitted_count' do
     let!(:request_submitted_in_range) do
       create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: Date.new(2025, 6, 1)).tap do |ar|
