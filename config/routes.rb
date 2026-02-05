@@ -24,7 +24,6 @@ Rails.application.routes.draw do
   get '/stats', to: 'stats#index'
 
   scope(path_names: { new: 'nouveau', edit: 'modifier' }) do
-
     namespace :user, path: 'usager' do
       resources :organizations, only: %i[index create], path: 'organisations' do
         member do
@@ -134,7 +133,7 @@ Rails.application.routes.draw do
         get :start, path: 'commencer'
       end
 
-      resources :invite, only: [:new, :create], controller: 'instructor_draft_requests/invite'
+      resources :invite, only: %i[new create], controller: 'instructor_draft_requests/invite'
     end
   end
 
@@ -205,8 +204,8 @@ Rails.application.routes.draw do
   get '/dgfip/export', to: 'dgfip/export#show', as: :dgfip_export
 
   if Rails.env.local?
-    post '/dummy/valid/webhooks', to: ->(_env) { [200, { 'Content-Type' => 'application/json' }, [{token_id: SecureRandom.hex(16)}.to_json]] }
-    post '/dummy/invalid/webhooks', to: ->(_env) { [422, { 'Content-Type' => 'application/json' }, [{hello: 'world'}.to_json]] }
+    post '/dummy/valid/webhooks', to: ->(_env) { [200, { 'Content-Type' => 'application/json' }, [{ token_id: SecureRandom.hex(16) }.to_json]] }
+    post '/dummy/invalid/webhooks', to: ->(_env) { [422, { 'Content-Type' => 'application/json' }, [{ hello: 'world' }.to_json]] }
   end
 
   mount Lookbook::Engine, at: '/lookbook' if Rails.env.development? || Rails.env.sandbox?
