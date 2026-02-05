@@ -1,0 +1,17 @@
+<%= render partial: 'mailer/shared/applicant/header', locals: { entity_name: @authorization_request.applicant.full_name } %>
+
+Votre habilitation FranceConnect a été automatiquement créée suite à la validation de votre demande API Particulier.
+
+Vous trouverez toutes les informations sur les prochaines étapes pour devenir fournisseur de service sur la documentation :
+https://docs.partenaires.franceconnect.gouv.fr/fs/devenir-fs/pilotage-etapes/
+
+<% if @authorization.message.present? %>
+Message associé à la validation de votre habilitation :
+<%= @authorization.message %>
+<% end %>
+
+Pour consulter cette habilitation, veuillez cliquer sur le lien suivant <%= authorization_request_url(@authorization.request) %>.
+
+Bien cordialement,
+
+<%= render partial: 'mailer/shared/applicant/footer', locals: { authorization_definition_name: 'FranceConnect' } %>
