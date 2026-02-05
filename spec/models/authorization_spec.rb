@@ -194,6 +194,23 @@ RSpec.describe Authorization do
     end
   end
 
+  describe '#auto_generated?' do
+    subject { authorization.auto_generated? }
+
+    let(:authorization) { build(:authorization) }
+
+    context 'when parent_authorization_id is nil' do
+      it { is_expected.to be false }
+    end
+
+    context 'when parent_authorization_id is present' do
+      let(:parent_authorization) { create(:authorization) }
+      let(:authorization) { build(:authorization, parent_authorization: parent_authorization) }
+
+      it { is_expected.to be true }
+    end
+  end
+
   describe '#reopenable?' do
     subject { authorization.reopenable? }
 
@@ -202,6 +219,16 @@ RSpec.describe Authorization do
 
     context 'when all conditions are met' do
       it { is_expected.to be true }
+    end
+
+    context 'when authorization is auto-generated' do
+      let(:parent_authorization) { create(:authorization) }
+
+      before do
+        authorization.update!(parent_authorization: parent_authorization)
+      end
+
+      it { is_expected.to be false }
     end
 
     context 'when authorization is not latest' do

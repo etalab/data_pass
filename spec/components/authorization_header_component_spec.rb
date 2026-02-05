@@ -7,6 +7,8 @@ RSpec.describe AuthorizationHeaderComponent, type: :component do
     instance_double(AuthorizationRequest,
       id: 123,
       latest_authorization: authorization,
+      latest_authorization_of_class: authorization,
+      france_connect_certified_form?: false,
       name: 'Test Authorization Request',)
   end
 

@@ -14,6 +14,17 @@ class Authorization < ApplicationRecord
     class_name: 'AuthorizationRequest',
     inverse_of: :authorizations
 
+  belongs_to :parent_authorization,
+    class_name: 'Authorization',
+    inverse_of: :child_authorizations,
+    optional: true
+
+  has_many :child_authorizations,
+    class_name: 'Authorization',
+    foreign_key: :parent_authorization_id,
+    inverse_of: :parent_authorization,
+    dependent: :nullify
+
   has_one :organization,
     through: :request
 
@@ -131,14 +142,20 @@ class Authorization < ApplicationRecord
   end
 
   def common_reopenable?
+    return false if auto_generated?
+
     latest? &&
       !request.currently_reopen? &&
       active? &&
       !request.dirty_from_v1?
   end
 
+  def auto_generated?
+    parent_authorization_id.present?
+  end
+
   def latest?
-    if definition.stage.exists?
+    if definition.stage.exists? || request.france_connect_certified_form?
       request.latest_authorization_of_class(authorization_request_class) == self
     else
       request.latest_authorization == self

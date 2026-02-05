@@ -57,7 +57,8 @@ class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
       "instruction.authorization_request_events.authorization_request_event.#{name}.message_summary",
       user_full_name: event.user_full_name,
       copied_from_authorization_request_id:,
-      transfer_text:
+      transfer_text:,
+      definition_name: event.entity.try(:definition)&.name
     ).html_safe
   end
 
@@ -80,7 +81,7 @@ class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
   end
 
   def external_link?
-    event.name == 'approve'
+    %w[approve auto_generate].include?(event.name)
   end
 
   def formatted_created_at_date

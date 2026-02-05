@@ -178,6 +178,10 @@ class AuthorizationRequest < ApplicationRecord
 
   delegate :service_provider, to: :form
 
+  def france_connect_certified_form?
+    form&.france_connect_certified? || false
+  end
+
   def name
     data['intitule'].presence ||
       form.name ||

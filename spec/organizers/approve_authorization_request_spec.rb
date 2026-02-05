@@ -95,6 +95,23 @@ RSpec.describe ApproveAuthorizationRequest do
 
       it_behaves_like 'creates an event', event_name: :approve, entity_type: :authorization
       it_behaves_like 'delivers a webhook', event_name: :approve
+
+      context 'when authorization request is API Particulier with FranceConnect embedded fields' do
+        let(:authorization_request) { create(:authorization_request, :api_particulier, :submitted, :with_france_connect_embedded_fields, fill_all_attributes: true) }
+
+        it 'creates an auto_generate event for the linked FranceConnect authorization' do
+          expect { approve_authorization_request }.to change { AuthorizationRequestEvent.where(name: 'auto_generate').count }.by(1)
+        end
+
+        it 'links the auto_generate event to the FranceConnect authorization' do
+          approve_authorization_request
+
+          fc_authorization = Authorization.find_by(authorization_request_class: 'AuthorizationRequest::FranceConnect')
+          auto_generate_event = AuthorizationRequestEvent.find_by(name: 'auto_generate')
+
+          expect(auto_generate_event.entity).to eq(fc_authorization)
+        end
+      end
     end
 
     context 'with authorization request in draft state' do

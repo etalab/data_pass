@@ -75,6 +75,18 @@ FactoryBot.define do
       end
     end
 
+    trait :auto_generate do
+      name { 'auto_generate' }
+
+      entity factory: %i[authorization]
+
+      after(:build) do |authorization_request_event, evaluator|
+        next if evaluator.authorization_request.blank?
+
+        authorization_request_event.entity = build(:authorization, request: evaluator.authorization_request)
+      end
+    end
+
     trait :refuse do
       name { 'refuse' }
 

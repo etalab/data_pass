@@ -290,6 +290,14 @@ fr:
               %{message_details_text}
             </blockquote>
           view_authorization: Consulter l'habilitation <strong>%{formatted_id}</strong>.
+        auto_generate:
+          message_summary: |
+            Une habilitation <strong>%{definition_name}</strong> a été automatiquement créée.
+          message_details: |
+            <blockquote>
+              %{message_details_text}
+            </blockquote>
+          view_authorization: Consulter l'habilitation <strong>%{formatted_id}</strong>.
         request_changes:
           message_summary: |
             <strong>%{user_full_name}</strong> a demandé des modifications sur la demande :
