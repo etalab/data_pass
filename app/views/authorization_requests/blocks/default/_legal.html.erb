@@ -8,7 +8,7 @@
   <% if authorization_request.cadre_juridique_url.present? %>
     <p>
       <strong>
-        Lien relatif au traitement :
+        <%= t('authorization_request.blocks.legal.link_label') %>
       </strong>
       <%= link_to authorization_request.cadre_juridique_url, authorization_request.cadre_juridique_url, target: '_blank' %>
     </p>
@@ -16,12 +16,13 @@
 
   <% if authorization_request.cadre_juridique_document.attached? %>
     <div>
-      <strong>
-        Document relatif au traitement :
-      </strong>
-      <br />
+      <p>
+        <strong>
+          <%= t('authorization_request.blocks.legal.document_label') %>
+        </strong>
+      </p>
 
-      <div class="fr-grid-row fr-mt-1w">
+      <div class="fr-grid-row">
         <%= render "shared/display_documents", documents: authorization_request.cadre_juridique_document, f: f %>
       </div>
     </div>

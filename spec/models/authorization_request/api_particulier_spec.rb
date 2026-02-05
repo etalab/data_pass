@@ -88,7 +88,7 @@ RSpec.describe AuthorizationRequest::APIParticulier do
         build(:authorization_request, :api_particulier_entrouvert_publik, modalities: ['france_connect'])
       end
 
-      it { is_expected.to be true }
+      it { is_expected.to be false }
     end
   end
 end

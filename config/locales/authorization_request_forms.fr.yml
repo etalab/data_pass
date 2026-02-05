@@ -328,10 +328,38 @@ fr:
       steps:
         <<: *authorization_request_forms_default_steps
         modalities: "Les modalités d'appel de l'API"
+      cadre_juridique:
+        title: Le cadre juridique pour les données API Particulier
+        description: Vous souhaitez accéder, traiter et conserver des données personnelles. Quel est le cadre juridique qui autorise votre organisation à accéder à ces données ?
+        justificatif:
+          title: Les justificatifs
+          description: Veuillez joindre la délibération du conseil municipal, vous pouvez nous transmettre un document ou nous fournir un lien.
+          document_label: Veuillez joindre la délibération du conseil municipal
+          document_hint: Consultez <a href="https://api.gouv.fr/guides/deliberation-api-part" target="_blank" rel="noopener">notre guide sur ce qu'est une bonne délibération.</a>
+          separator: OU
+          url_label: Veuillez nous indiquer l'url d'accès à votre délibération
       cadre_juridique_nature:
         label: Précisez la nature et les références du texte vous autorisant à traiter les données
       cadre_juridique_document:
         label: Ajoutez votre délibération
+      fc_cadre_juridique:
+        title: Le cadre juridique pour les données FranceConnect
+        description: Vous souhaitez accéder, traiter et conserver des données personnelles. Quel est le cadre juridique qui autorise votre organisation à accéder à ces données ?
+        justificatif:
+          title: Les justificatifs
+          description: Veuillez joindre la délibération du conseil municipal, vous pouvez nous transmettre un document ou nous fournir un lien.
+          document_label: Veuillez joindre la délibération du conseil municipal
+          document_hint: Consultez <a href="https://api.gouv.fr/guides/deliberation-api-part" target="_blank" rel="noopener">notre guide sur ce qu'est une bonne délibération.</a>
+          separator: OU
+          url_label: Veuillez nous indiquer l'url d'accès à votre délibération
+      fc_cadre_juridique_nature:
+        label: Précisez la nature et les références du texte vous autorisant à traiter les données FranceConnect
+        hint: loi, décret, arrêté, délibération, etc.
+      fc_cadre_juridique_url:
+        label: URL du texte relatif au traitement FranceConnect
+      fc_cadre_juridique_document:
+        label: Ajoutez votre document pour FranceConnect
+        hint: "Taille maximale: 10 Mo. Formats supportés: pdf"
 
       modalities:
         intro: "Vous pourrez accéder au service API Particulier via les modalités ci-dessous :"

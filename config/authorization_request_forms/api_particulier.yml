@@ -387,17 +387,8 @@ api-particulier-civil-enfance-ciril-group:
   service_provider_id: ciril_group
   scopes_config:
     disabled:
-      # Scopes FranceConnect
-      - family_name
-      - given_name
-      - birthdate
-      - birthplace
-      - birthcountry
-      - gender
-      - openid
-      # Scopes API Particulier
       - cnaf_quotient_familial
-    displayed:
+
       # Scopes FranceConnect
       - family_name
       - given_name
@@ -406,11 +397,21 @@ api-particulier-civil-enfance-ciril-group:
       - birthcountry
       - gender
       - openid
-      # Scopes API Particulier
+    displayed:
       - cnaf_quotient_familial
       - cnaf_allocataires
       - cnaf_enfants
       - cnaf_adresse
+
+      # Scopes FranceConnect
+      - family_name
+      - given_name
+      - birthdate
+      - birthplace
+      - birthcountry
+      - gender
+      - openid
+
   initialize_with:
     intitule:
       Déclaration et calcul du quotient familial pour la facturation des activités
@@ -425,6 +426,15 @@ api-particulier-civil-enfance-ciril-group:
       - cnaf_allocataires
       - cnaf_enfants
       - cnaf_adresse
+
+      # Scopes FranceConnect
+      - family_name
+      - given_name
+      - birthdate
+      - birthplace
+      - birthcountry
+      - gender
+      - openid
     modalities:
       - params
 
@@ -534,34 +544,33 @@ api-particulier-waigeo-myperischool:
   static_blocks: *api_particulier_fc_certified_editor_static_blocks_with_fixed_scopes
   scopes_config:
     disabled:
-      # Scopes FranceConnect
-      - family_name
-      - given_name
-      - birthdate
-      - birthplace
-      - birthcountry
-      - gender
-      - openid
-      # Scopes API Particulier
-      - cnaf_quotient_familial
-      - cnaf_allocataires
-      - cnaf_adresse
-      - cnaf_enfants
-    displayed:
-      # Scopes FranceConnect
-      - family_name
-      - given_name
-      - birthdate
-      - birthplace
-      - birthcountry
-      - gender
-      - openid
-      # Scopes API Particulier
       - cnaf_quotient_familial
       - cnaf_allocataires
       - cnaf_adresse
       - cnaf_enfants
 
+      # Scopes FranceConnect
+      - family_name
+      - given_name
+      - birthdate
+      - birthplace
+      - birthcountry
+      - gender
+      - openid
+    displayed:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_adresse
+      - cnaf_enfants
+
+      # Scopes FranceConnect
+      - family_name
+      - given_name
+      - birthdate
+      - birthplace
+      - birthcountry
+      - gender
+      - openid
   initialize_with:
     intitule:
       Calcul de la tarification pour la facturation des services périscolaires,
@@ -571,6 +580,15 @@ api-particulier-waigeo-myperischool:
     fc_eidas: 'eidas_1'
     scopes:
       - cnaf_quotient_familial
+
+      # Scopes FranceConnect
+      - family_name
+      - given_name
+      - birthdate
+      - birthplace
+      - birthcountry
+      - gender
+      - openid
     # contact_technique_editable: false
     contact_technique_email: dev@waigeo.fr
     contact_technique_phone_number: "0970805210"
@@ -755,6 +773,8 @@ api-particulier-aiga:
   static_blocks: *api_particulier_fc_certified_editor_static_blocks_with_fixed_scopes
   scopes_config:
     disabled:
+      - cnaf_quotient_familial
+
       # Scopes FranceConnect
       - family_name
       - given_name
@@ -763,9 +783,9 @@ api-particulier-aiga:
       - birthcountry
       - gender
       - openid
-      # Scopes API Particulier
-      - cnaf_quotient_familial
     displayed:
+      - cnaf_quotient_familial
+
       # Scopes FranceConnect
       - family_name
       - given_name
@@ -774,8 +794,6 @@ api-particulier-aiga:
       - birthcountry
       - gender
       - openid
-      # Scopes API Particulier
-      - cnaf_quotient_familial
 
   initialize_with:
     intitule: Tarification sur Quotient Familial des services municipaux liés à l'enfance
@@ -785,6 +803,15 @@ api-particulier-aiga:
     fc_eidas: 'eidas_1'
     scopes:
       - cnaf_quotient_familial
+
+      # Scopes FranceConnect
+      - family_name
+      - given_name
+      - birthdate
+      - birthplace
+      - birthcountry
+      - gender
+      - openid
     contact_technique_type: "organization"
     contact_technique_email: "api-particulier@aiga.fr"
     contact_technique_phone_number: "0472532200"
@@ -876,6 +903,8 @@ api-particulier-capdemat-capdemat-evolution:
   static_blocks: *api_particulier_fc_certified_editor_static_blocks_with_fixed_scopes
   scopes_config:
     disabled:
+      - cnaf_quotient_familial
+
       # Scopes FranceConnect
       - family_name
       - given_name
@@ -884,9 +913,9 @@ api-particulier-capdemat-capdemat-evolution:
       - birthcountry
       - gender
       - openid
-      # Scopes API Particulier
-      - cnaf_quotient_familial
     displayed:
+      - cnaf_quotient_familial
+
       # Scopes FranceConnect
       - family_name
       - given_name
@@ -895,8 +924,6 @@ api-particulier-capdemat-capdemat-evolution:
       - birthcountry
       - gender
       - openid
-      # Scopes API Particulier
-      - cnaf_quotient_familial
 
   initialize_with:
     intitule: Tarification sur Quotient Familial des cantines
@@ -905,6 +932,15 @@ api-particulier-capdemat-capdemat-evolution:
     fc_eidas: 'eidas_1'
     scopes:
       - cnaf_quotient_familial
+
+      # Scopes FranceConnect
+      - family_name
+      - given_name
+      - birthdate
+      - birthplace
+      - birthcountry
+      - gender
+      - openid
     contact_technique_email: "<%= Rails.application.credentials.api_particulier_capdemat_contact_technique_email || 'tech-capdemat@yopmail.com' %>"
     contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_capdemat_contact_technique_given_name || 'Jean' %>"
     contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_capdemat_contact_technique_family_name || 'Dupont' %>"
@@ -1363,17 +1399,8 @@ api-particulier-ypok:
   service_provider_id: ypok
   scopes_config:
     disabled:
-      # Scopes FranceConnect
-      - family_name
-      - given_name
-      - birthdate
-      - birthplace
-      - birthcountry
-      - gender
-      - openid
-      # Scopes API Particulier
       - cnaf_quotient_familial
-    displayed:
+
       # Scopes FranceConnect
       - family_name
       - given_name
@@ -1382,11 +1409,20 @@ api-particulier-ypok:
       - birthcountry
       - gender
       - openid
-      # Scopes API Particulier
+    displayed:
       - cnaf_quotient_familial
       - cnaf_allocataires
       - cnaf_enfants
       - cnaf_adresse
+
+      # Scopes FranceConnect
+      - family_name
+      - given_name
+      - birthdate
+      - birthplace
+      - birthcountry
+      - gender
+      - openid
 
   initialize_with:
     intitule: Facturation des familles pour les services enfance
@@ -1399,6 +1435,15 @@ api-particulier-ypok:
       - cnaf_allocataires
       - cnaf_enfants
       - cnaf_adresse
+
+      # Scopes FranceConnect
+      - family_name
+      - given_name
+      - birthdate
+      - birthplace
+      - birthcountry
+      - gender
+      - openid
     contact_technique_email: "<%= Rails.application.credentials.api_particulier_ypok_contact_technique_email || 'tech-ypok@yopmail.com' %>"
     contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_ypok_contact_technique_given_name || 'Jeanne' %>"
     contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_ypok_contact_technique_family_name || 'Martin' %>"
@@ -1664,18 +1709,9 @@ api-particulier-mgdis-tarification-cantines-lycees:
     - name: contacts
   scopes_config:
     disabled:
-        # Scopes FranceConnect
-        - family_name
-        - given_name
-        - birthdate
-        - birthplace
-        - birthcountry
-        - gender
-        - openid
-        # Scopes API Particulier
         - cnaf_quotient_familial
-    displayed:
-        # Scopes FranceConnect
+
+      # Scopes FranceConnect
         - family_name
         - given_name
         - birthdate
@@ -1683,11 +1719,20 @@ api-particulier-mgdis-tarification-cantines-lycees:
         - birthcountry
         - gender
         - openid
-        # Scopes API Particulier
+    displayed:
         - cnaf_quotient_familial
         - cnaf_allocataires
         - cnaf_enfants
         - cnaf_adresse
+
+      # Scopes FranceConnect
+        - family_name
+        - given_name
+        - birthdate
+        - birthplace
+        - birthcountry
+        - gender
+        - openid
   introduction: |
     En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier la <strong>"Tarification des cantines"</strong>. <a href="https://particulier.api.gouv.fr/cas_usages/tarification_municipale_enfance">En savoir plus sur ce cas d'usage</a>.
 
@@ -1861,6 +1906,10 @@ api-particulier-entrouvert-publik:
   static_blocks: *api_particulier_fc_certified_editor_static_blocks_with_fixed_scopes
   scopes_config:
     disabled:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_enfants
+
       # Scopes FranceConnect
       - family_name
       - given_name
@@ -1869,11 +1918,11 @@ api-particulier-entrouvert-publik:
       - birthcountry
       - gender
       - openid
-      # Scopes API Particulier
-      - cnaf_quotient_familial
-      - cnaf_allocataires
-      - cnaf_enfants
     displayed:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_enfants
+
       # Scopes FranceConnect
       - family_name
       - given_name
@@ -1882,10 +1931,6 @@ api-particulier-entrouvert-publik:
       - birthcountry
       - gender
       - openid
-      # Scopes API Particulier
-      - cnaf_quotient_familial
-      - cnaf_allocataires
-      - cnaf_enfants
   initialize_with:
     intitule:
       Calcul du tarif des activités péri-extrascolaires, petite enfance, socio-culturelles
@@ -1898,6 +1943,11 @@ api-particulier-entrouvert-publik:
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_municipale_enfance
     fc_eidas: 'eidas_1'
     scopes:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_enfants
+
+      # Scopes FranceConnect
       - family_name
       - given_name
       - birthdate
@@ -1905,9 +1955,6 @@ api-particulier-entrouvert-publik:
       - birthcountry
       - gender
       - openid
-      - cnaf_quotient_familial
-      - cnaf_allocataires
-      - cnaf_enfants
     modalities:
       - params
 
@@ -2033,6 +2080,11 @@ api-particulier-aiga-petite-enfance:
   static_blocks: *api_particulier_fc_certified_editor_static_blocks_with_fixed_scopes
   scopes_config:
     disabled:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+
       # Scopes FranceConnect
       - family_name
       - given_name
@@ -2041,12 +2093,12 @@ api-particulier-aiga-petite-enfance:
       - birthcountry
       - gender
       - openid
-      # Scopes API Particulier
-      - cnav_participation_familiale_eaje_allocataires
-      - cnav_participation_familiale_eaje_enfants
-      - cnav_participation_familiale_eaje_adresse
-      - cnav_participation_familiale_eaje_parametres_calcul
     displayed:
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+
       # Scopes FranceConnect
       - family_name
       - given_name
@@ -2055,11 +2107,6 @@ api-particulier-aiga-petite-enfance:
       - birthcountry
       - gender
       - openid
-      # Scopes API Particulier
-      - cnav_participation_familiale_eaje_allocataires
-      - cnav_participation_familiale_eaje_enfants
-      - cnav_participation_familiale_eaje_adresse
-      - cnav_participation_familiale_eaje_parametres_calcul
   initialize_with:
     intitule: Tarification des services municipaux liés à la petite enfance
     description: |
@@ -2071,6 +2118,15 @@ api-particulier-aiga-petite-enfance:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
+
+      # Scopes FranceConnect
+      - family_name
+      - given_name
+      - birthdate
+      - birthplace
+      - birthcountry
+      - gender
+      - openid
     contact_technique_type: "organization"
     contact_technique_email: "api-particulier@aiga.fr"
     contact_technique_phone_number: "0472532200"

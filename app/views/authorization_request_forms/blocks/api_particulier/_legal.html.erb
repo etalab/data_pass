@@ -1,0 +1,17 @@
+<% if @authorization_request.display_prefilled_banner_for_each_block? && @authorization_request.prefilled_data?(%i[cadre_juridique_nature cadre_juridique_url]) %>
+  <%= render partial: "authorization_request_forms/shared/prefilled_banner" %>
+<% end %>
+
+<%= f.info_for(:legal) %>
+
+<%= render Organisms::AuthorizationRequestForms::LegalFrameworkComponent.new(
+  form: f,
+  field_prefix: :cadre_juridique
+) %>
+
+<% if @authorization_request.france_connect_modality? %>
+  <%= render Organisms::AuthorizationRequestForms::LegalFrameworkComponent.new(
+    form: f,
+    field_prefix: :fc_cadre_juridique
+  ) %>
+<% end %>

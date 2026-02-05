@@ -39,3 +39,20 @@
 .legal-input__width {
     max-width: 50%;
 }
+
+.legal-framework__grid {
+    align-items: flex-start;
+}
+
+.legal-framework__separator-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+}
+
+.legal-framework__separator-badge {
+    background-color: var(--background-contrast-grey);
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+}

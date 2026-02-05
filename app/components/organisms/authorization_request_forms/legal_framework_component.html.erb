@@ -1,0 +1,70 @@
+<div class="legal-border-card fr-mt-5w">
+  <% if show_header? %>
+    <p class="fr-h5 legal-subtitle">
+      <%= title %>
+    </p>
+
+    <% if description.present? %>
+      <p>
+        <%= description.html_safe %>
+      </p>
+    <% end %>
+  <% end %>
+
+  <fieldset class="fr-fieldset" aria-label="<%= form.wording_for("#{field_prefix}_nature.label") %>" aria-describedby="<%= field_prefix %>-nature-messages">
+    <div class="fr-fieldset__element fr-mb-3w">
+      <%= form.dsfr_text_area "#{field_prefix}_nature", rows: 5 %>
+    </div>
+  </fieldset>
+
+  <div class="legal-bloc-space">
+    <hr>
+  </div>
+
+  <% if supporting_documents_title.present? %>
+    <p class="fr-h5 legal-subtitle fr-mt-3w fr-mb-1w">
+      <%= supporting_documents_title %><span class="fr-ml-1w fr-text-error">*</span>
+    </p>
+  <% end %>
+
+  <% if supporting_documents_description.present? %>
+    <p>
+      <%= supporting_documents_description.html_safe %>
+    </p>
+  <% end %>
+
+  <div class="fr-grid-row fr-grid-row--gutters fr-mt-3w legal-framework__grid">
+    <div class="fr-col-12 fr-col-md-5">
+      <% if document_label.present? %>
+        <p class="legal-text__bold fr-mb-1w"><%= document_label %></p>
+      <% end %>
+      <% if document_hint.present? %>
+        <p class="fr-text--sm fr-mb-3w">
+          <%= document_hint.html_safe %>
+        </p>
+      <% end %>
+      <fieldset class="fr-fieldset" aria-label="<%= form.wording_for("#{field_prefix}_document.label") %>" aria-describedby="<%= field_prefix %>-document-messages">
+        <div class="fr-fieldset__element">
+          <%= form.dsfr_file_field "#{field_prefix}_document", multiple: true %>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="fr-col-12 fr-col-md-2 legal-framework__separator-container">
+      <div class="legal-framework__separator-badge">
+        <span class="fr-text--lg fr-text--bold"><%= separator_text %></span>
+      </div>
+    </div>
+
+    <div class="fr-col-12 fr-col-md-5">
+      <% if url_label.present? %>
+        <p class="legal-text__bold"><%= url_label %></p>
+      <% end %>
+      <fieldset class="fr-fieldset" aria-label="<%= form.wording_for("#{field_prefix}_url.label") %>" aria-describedby="<%= field_prefix %>-url-messages">
+        <div class="fr-fieldset__element">
+          <%= form.dsfr_url_field "#{field_prefix}_url" %>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+</div>

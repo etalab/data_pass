@@ -119,6 +119,9 @@ RSpec.describe 'Authorization requests forms validations', type: :acceptance do
       'legal' => %w[
         cadre_juridique_url
         cadre_juridique_nature
+        fc_cadre_juridique_url
+        fc_cadre_juridique_nature
+        fc_cadre_juridique_document
       ],
       'france_connect_eidas' => %w[france_connect_eidas],
       'technical_team' => %w[
