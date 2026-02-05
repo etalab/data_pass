@@ -209,9 +209,9 @@ Rails.application.routes.draw do
     post '/dummy/invalid/webhooks', to: ->(_env) { [422, { 'Content-Type' => 'application/json' }, [{hello: 'world'}.to_json]] }
   end
 
-  if Rails.env.development? || Rails.env.sandbox?
-    mount Lookbook::Engine, at: '/lookbook'
-  end
+  mount Lookbook::Engine, at: '/lookbook' if Rails.env.development? || Rails.env.sandbox?
+
+  mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 
   mount GoodJob::Engine => '/workers'
   mount RailsPulse::Engine => '/rails_pulse'
