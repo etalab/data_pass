@@ -75,7 +75,7 @@ Fonctionnalité: Persistance des documents dans la demande d'habilitation
     Scénario: Annulation d'une réouverture avec suppression de document dans l'étape de modification
       Quand je supprime le document "another_dummy.pdf"
       Et que je clique sur "Retour à la synthèse"
-      Et que je clique sur "Annuler ma demande de modification"
+      Et que je clique sur "Annuler ma demande de modification" et confirme dans la modale
       Et que je me rends sur mon tableau de bord demandeur habilitations
       Et que je clique sur le premier "Consulter"
       Alors la page contient "dummy.pdf"

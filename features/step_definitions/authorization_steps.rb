@@ -90,3 +90,25 @@ Quand('je me rends sur la première habilitation validée') do
 
   visit authorization_path(first_authorization)
 end
+
+Quand(/une autre organisation a (\d+) habilitation.? "([^"]+)" (.+?)(?: (?:de|à) l'étape "([^"]+)")?(?: via le formulaire "([^"]+)")?$/) do |count, type, state, stage, form|
+  foreign_user = create(:user)
+
+  @authorization_requests = create_authorization_requests_with_status(
+    type,
+    state == 'révoquée' ? 'révoquée' : 'validée',
+    count.to_i,
+    stage,
+    form,
+    applicant: foreign_user,
+    organization: foreign_user.current_organization
+  )
+
+  @authorization_request = @authorization_requests.first
+
+  @authorizations = @authorization_requests.map do |request|
+    create_or_find_authorization(request, foreign_user, extract_state_from_french_status(state))
+  end
+
+  @authorization = @authorizations.first
+end

@@ -63,11 +63,15 @@ class AuthorizationRequestPolicy < ApplicationPolicy
   def messages?
     feature_enabled?(:messaging) &&
       record.persisted? &&
-      record.applicant == user
+      (same_user_and_organization? || (!record.draft? && full_access_to_tabs?))
   end
 
   def events?
-    summary?
+    same_user_and_organization? || (!record.draft? && full_access_to_tabs?)
+  end
+
+  def authorizations?
+    same_user_and_organization? || full_access_to_tabs?
   end
 
   def france_connected_authorizations?
@@ -77,7 +81,7 @@ class AuthorizationRequestPolicy < ApplicationPolicy
   end
 
   def send_message?
-    messages?
+    messages? && same_user_and_organization?
   end
 
   def transfer?
@@ -111,6 +115,12 @@ class AuthorizationRequestPolicy < ApplicationPolicy
   end
 
   protected
+
+  def full_access_to_tabs?
+    same_user_and_organization? ||
+      (same_current_organization? && user.current_organization_verified?) ||
+      reporter_for_record?
+  end
 
   def common_transfer?
     record.persisted? &&
@@ -159,6 +169,10 @@ class AuthorizationRequestPolicy < ApplicationPolicy
 
   def current_user_is_contact?
     record.contact_types_for(user).any?
+  end
+
+  def reporter_for_record?
+    user.reporter?(record.type.underscore.split('/').last)
   end
 
   class Scope < Scope

@@ -6,7 +6,7 @@
 
     <div class="fr-tabs fr-background-action-high--blue-france" data-controller="auto-height">
       <ul class="fr-tabs__list fr-container" role="tablist" aria-label="Menu secondaire">
-          <% authorization_tabs_for(authorization).each do |id, path| %>
+          <% authorization_tabs(authorization).each do |id, path| %>
             <li role="presentation">
               <%=
                 link_to(
@@ -38,7 +38,7 @@
           <% end %>
       </ul>
 
-      <% authorization_tabs_for(authorization).each do |id, path| %>
+      <% authorization_tabs(authorization).each do |id, path| %>
         <turbo-frame id="tab-<%= id %>-panel" class="fr-tabs__panel fr-tabs__panel--selected fr-bg-white" role="tabpanel" aria-labelledby="tab-<%= id %>" tabindex="0" data-turbo-action="advance">
           <div class="fr-container">
             <%= render partial: 'shared/alerts' %>
