@@ -1,23 +1,23 @@
 <%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { authorization_request:, title: f.wording_for('steps.scopes'), block_id: :scopes, f:, editable: } do %>
-  <% authorization_request.available_scopes.group_by(&:group).each do |group_name, scopes| %>
-    <%
-      is_france_connect_group = group_name == 'FranceConnect'
-      should_display_group = !is_france_connect_group || authorization_request.state != 'validated'
-    %>
+  <%
+    show_fc_fields = !local_assigns[:authorization] || local_assigns[:authorization]&.authorization_request_class == 'AuthorizationRequest::FranceConnect'
+    grouped_scopes = authorization_request.available_scopes.group_by(&:group)
+  %>
 
-    <% if should_display_group %>
-      <div class="fr-form-group scopes-group">
-        <h3 class="scopes-group__title fr-h5">
-          <%= group_name %>
-        </h3>
+  <% grouped_scopes.each do |group_name, scopes| %>
+    <% next if group_name == 'FranceConnect' && !show_fc_fields %>
 
-        <div class="scopes-group__grid">
-          <% scopes.each do |scope| %>
-            <%= f.dsfr_scope scope, disabled: true %>
-          <% end %>
-        </div>
+    <div class="fr-form-group scopes-group">
+      <h3 class="scopes-group__title fr-h5">
+        <%= group_name %>
+      </h3>
+
+      <div class="scopes-group__grid">
+        <% scopes.each do |scope| %>
+          <%= f.dsfr_scope scope, disabled: true %>
+        <% end %>
       </div>
-    <% end %>
+    </div>
   <% end %>
 
   <% if authorization_request.legacy_scope_values.any? %>
@@ -29,4 +29,5 @@
       <% end %>
     </ul>
   <% end %>
+
 <% end %>
