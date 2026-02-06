@@ -13,6 +13,7 @@ class ApproveAuthorizationRequest < ApplicationOrganizer
     DeprecateLinkedAuthorizations,
     ExecuteAuthorizationRequestTransitionWithCallbacks,
     CreateLinkedFranceConnectAuthorizationEvent,
+    DeliverLinkedFranceConnectNotification,
     DeliverLinkedFranceConnectWebhook,
     ExecuteAuthorizationRequestBridge
 end
