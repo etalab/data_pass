@@ -336,7 +336,7 @@ FactoryBot.define do
         authorization_request.modalities = ['france_connect']
         authorization_request.fc_cadre_juridique_nature ||= 'CRPA Article L311-1'
         authorization_request.fc_cadre_juridique_url ||= 'https://legifrance.gouv.fr/legal'
-        authorization_request.fc_alternative_connexion ||= false
+        authorization_request.fc_alternative_connexion ||= true
         authorization_request.fc_eidas ||= 'eidas_1'
 
         if authorization_request.need_complete_validation? || evaluator.fill_all_attributes

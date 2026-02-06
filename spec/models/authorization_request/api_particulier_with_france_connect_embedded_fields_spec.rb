@@ -157,7 +157,7 @@ RSpec.describe AuthorizationRequest::APIParticulier do
         expect(attrs[:cadre_juridique_url]).to eq('https://legifrance.gouv.fr/legal')
         expect(attrs[:france_connect_eidas]).to eq('eidas_1')
         expect(attrs[:scopes]).to match_array(%w[openid family_name given_name birthdate birthplace birthcountry gender])
-        expect(attrs[:alternative_connexion]).to be true
+        expect(attrs[:alternative_connexion]).to eq '1'
       end
 
       it 'includes common attributes' do
@@ -244,14 +244,14 @@ RSpec.describe AuthorizationRequest::APIParticulier do
   end
 
   describe 'fc_alternative_connexion checkbox' do
-    it 'defaults to false' do
+    it 'defaults to nil' do
       new_request = build(:authorization_request, :api_particulier, modalities: ['france_connect'])
-      expect(new_request.fc_alternative_connexion).to be false
+      expect(new_request.fc_alternative_connexion).to be_nil
     end
 
-    it 'can be set to true' do
+    it 'can be set to 1' do
       authorization_request.fc_alternative_connexion = '1'
-      expect(authorization_request.fc_alternative_connexion).to be true
+      expect(authorization_request.fc_alternative_connexion).to eq '1'
     end
   end
 
