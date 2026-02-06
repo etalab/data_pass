@@ -36,6 +36,36 @@ Sachantque('il y a une demande API Particulier avec champs FranceConnect intégr
   ApproveAuthorizationRequest.call(authorization_request: @authorization_request, user: instructor)
 end
 
+Sachantque("j'ai une demande API Particulier avec champs FranceConnect intégrés validée") do
+  @authorization_request = FactoryBot.create(
+    :authorization_request,
+    :api_particulier,
+    :submitted,
+    :with_france_connect_embedded_fields,
+    applicant: current_user,
+    organization: current_user.current_organization
+  )
+
+  instructor = FactoryBot.create(:user, :instructor, authorization_request_types: %w[api_particulier])
+  ApproveAuthorizationRequest.call(authorization_request: @authorization_request, user: instructor)
+
+  @authorization = @authorization_request.authorizations.find_by(authorization_request_class: 'AuthorizationRequest::APIParticulier')
+end
+
+Quand('je me rends sur la demande instruction d\'une API Particulier avec champs FranceConnect intégrés validée') do
+  @authorization_request = FactoryBot.create(
+    :authorization_request,
+    :api_particulier,
+    :submitted,
+    :with_france_connect_embedded_fields
+  )
+
+  instructor = FactoryBot.create(:user, :instructor, authorization_request_types: %w[api_particulier])
+  ApproveAuthorizationRequest.call(authorization_request: @authorization_request, user: instructor)
+
+  visit instruction_authorization_request_path(@authorization_request)
+end
+
 Alors('il y a {int} habilitation(s) pour cette demande') do |count|
   expect(@authorization_request.reload.authorizations.count).to eq(count)
 end

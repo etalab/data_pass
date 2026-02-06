@@ -6,6 +6,7 @@ Fonctionnalité: Instruction: consultation d'une demande d'habilitation
   Contexte:
     Sachant que je suis un instructeur "API Entreprise"
     Et que je suis un instructeur "API Impôt Particulier"
+    Et que je suis un instructeur "API Particulier"
     Et que je me connecte
 
   Scénario: Je vois les informations sur l'organisation et le demandeur
@@ -49,8 +50,14 @@ Fonctionnalité: Instruction: consultation d'une demande d'habilitation
     Et que je clique sur le dernier "Consulter l'habilitation"
     Alors la page ne contient pas "Production"
 
-  Scénario: Je ne vois pas de bouton "Démarrer ma demande d’habilitation en production" sur une habilitation sandbox
+  Scénario: Je ne vois pas de bouton "Démarrer ma demande d'habilitation en production" sur une habilitation sandbox
     Quand je me rends sur une demande d'habilitation "API Impôt Particulier" validée
     Et que je clique sur "Toutes les habilitations"
     Et que je clique sur le dernier "Consulter l'habilitation"
-    Et la page ne contient pas "Démarrer ma demande d’habilitation en production"
+    Et la page ne contient pas "Démarrer ma demande d'habilitation en production"
+
+  Scénario: Je vois les messages de validation pour une demande APIPFC avec habilitation auto-générée
+    Quand je me rends sur la demande instruction d'une API Particulier avec champs FranceConnect intégrés validée
+    Et que je clique sur "Toutes les habilitations"
+    Alors la page contient "Habilitation FranceConnect automatiquement délivrée"
+    Et la page contient "Habilitation API Particulier"
