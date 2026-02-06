@@ -38,6 +38,10 @@ shared:
     name: "Entr'ouvert"
     siret: '44317013900036'
     fc_certified: true
+  polycea:
+    type: editor
+    name: "Polycea"
+    siret: '35285599300072'
 
   aiga:
     type: editor

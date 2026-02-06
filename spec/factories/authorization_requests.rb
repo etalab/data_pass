@@ -501,6 +501,7 @@ FactoryBot.define do
       api-particulier-city-family-mushroom-software-petite-enfance
       api-particulier-carte-plus-petite-enfance
       api-particulier-abelium-petite-enfance
+      api-particulier-polycea
     ].each do |form_uid|
       trait form_uid.tr('-', '_') do
         api_particulier
