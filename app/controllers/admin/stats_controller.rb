@@ -1,38 +1,7 @@
-class StatsController < PublicController
-  helper_method :user_signed_in?
+class Admin::StatsController < AdminController
+  layout 'application'
 
   def index; end
-
-  def filters
-    providers = DataProvider.all.map do |provider|
-      { slug: provider.slug, name: provider.name }
-    end
-
-    types = AuthorizationDefinition.all.map do |definition|
-      name = definition.name
-      name += " (#{definition.stage.name})" if definition.stage.exists?
-
-      {
-        class_name: definition.authorization_request_class.name,
-        name: name,
-        provider_slug: definition.provider&.slug
-      }
-    end
-
-    forms = AuthorizationRequestForm.all.map do |form|
-      {
-        uid: form.uid,
-        name: form.name,
-        authorization_type: form.authorization_request_class.name
-      }
-    end
-
-    render json: {
-      providers: providers,
-      types: types,
-      forms: forms
-    }
-  end
 
   def data
     start_date = parse_date(params[:start_date]) || 1.year.ago.to_date
@@ -43,7 +12,7 @@ class StatsController < PublicController
       providers: parse_array_param(params[:providers]),
       authorization_types: parse_array_param(params[:authorization_types]),
       forms: parse_array_param(params[:forms]),
-      include_breakdowns: false
+      include_breakdowns: true
     )
 
     render json: service.call

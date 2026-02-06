@@ -1,11 +1,17 @@
-<% set_title! t('page_titles.stats') %>
-<% controller_name = 'stats' %>
+<% set_title! 'Statistiques détaillées' %>
+<% controller_name = 'admin-stats' %>
+
+<% content_for :skip_links do %>
+  <%= skip_link('Contenu principal', 'content') %>
+  <%= skip_link('Menu', 'header') %>
+  <%= skip_link('Pied de page', 'footer') %>
+<% end %>
 
 <div id="content" data-controller="<%= controller_name %>">
   <%= render 'stats/shared/loading_overlay', controller_name: controller_name %>
 
   <div class="fr-container fr-py-6w">
-    <h1 class="fr-h1 fr-mb-4w" style="text-align: center;">Statistiques DataPass</h1>
+    <h1 class="fr-h1 fr-mb-4w" style="text-align: center;">Statistiques détaillées DataPass</h1>
     
     <%= render 'stats/shared/filters', controller_name: controller_name %>
     
@@ -18,5 +24,7 @@
     <h2 class="fr-h2 fr-mb-4w">Évolution des demandes en attente de réponse</h2>
 
     <%= render 'stats/shared/time_series_chart', controller_name: controller_name %>
+    
+    <%= render 'stats/shared/breakdown_charts', controller_name: controller_name %>
   </div>
 </div>

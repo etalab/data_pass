@@ -22,6 +22,8 @@ Rails.application.routes.draw do
   post '/demandes-instructeurs/:id/finaliser', to: 'claim_instructor_draft_requests#create'
 
   get '/stats', to: 'stats#index'
+  get '/stats/filters', to: 'stats#filters'
+  get '/stats/data', to: 'stats#data'
 
   scope(path_names: { new: 'nouveau', edit: 'modifier' }) do
 
@@ -148,6 +150,11 @@ Rails.application.routes.draw do
     resources :user_organization_verifications, only: %i[index], path: 'verifications-organisations'
     resources :mark_user_organization_as_verified, only: %i[new create edit update], path: 'marquer-verifie'
     resources :unmark_user_organization_as_verified, only: %i[destroy], path: 'retirer-verification'
+    resources :stats, only: %i[index] do
+      collection do
+        get :data
+      end
+    end
   end
 
   %w[/api/oauth /api/v1/oauth].each do |path|

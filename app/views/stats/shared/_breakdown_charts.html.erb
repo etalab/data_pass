@@ -1,0 +1,35 @@
+<div data-<%= controller_name %>-target="breakdownSection">
+  <div class="fr-grid-row fr-grid-row--middle fr-mb-4w">
+    <div class="fr-col-auto">
+      <h2 class="fr-h2 fr-mb-0">Statistiques par</h2>
+    </div>
+    <div class="fr-col-auto fr-ml-2w">
+      <select class="fr-select" data-<%= controller_name %>-target="dimensionSelect" data-action="change-><%= controller_name %>#updateDimension">
+        <option value="provider">Fournisseur de données</option>
+        <option value="type">Type d'habilitation</option>
+        <option value="form">Formulaire</option>
+      </select>
+    </div>
+  </div>
+  
+  <!-- Horizontal Bar Charts -->
+  <div class="fr-mb-6w">
+    <h3 class="fr-h3 fr-mb-3w">Nombre de nouvelles demandes soumises</h3>
+    <canvas data-<%= controller_name %>-target="volumeBreakdownChart" style="max-height: 400px;"></canvas>
+  </div>
+  
+  <div class="fr-mb-6w">
+    <h3 class="fr-h3 fr-mb-3w">Durée médiane de remplissage d'une nouvelle demande</h3>
+    <canvas data-<%= controller_name %>-target="timeToSubmitBreakdownChart" style="max-height: 400px;"></canvas>
+  </div>
+  
+  <div class="fr-mb-6w">
+    <h3 class="fr-h3 fr-mb-3w">Durée médiane de première instruction</h3>
+    <canvas data-<%= controller_name %>-target="timeToFirstInstructionBreakdownChart" style="max-height: 400px;"></canvas>
+  </div>
+  
+  <div class="fr-mb-6w">
+    <h3 class="fr-h3 fr-mb-3w">Durée médiane d'instruction finale</h3>
+    <canvas data-<%= controller_name %>-target="timeToFinalInstructionBreakdownChart" style="max-height: 400px;"></canvas>
+  </div>
+</div>
