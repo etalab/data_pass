@@ -1,0 +1,708 @@
+> **⚠️ Attention à la qualité des données**
+> 
+> Les données de 2023-2024 ont été migrées depuis DataPass v1 en début 2025. Certains évènements de ces années ont été reconstitués et peuvent ne pas refléter exactement le comportement des utilisateurs - en particulier les métriques de durée desoumission.
+
+---
+
+ 
+# 📊 Rapport de 2025 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
+
+## Volume
+- 205 demandes créées
+- 11 réouvertures
+- 124 validations
+- 12 refus
+## Durée d'une soumission
+(Entre la création d'une demande et sa première soumission)
+- Durée moyenne d'une soumission: 6 jours
+- Durée médiane d'une soumission: 31 minutes
+- Durée de soumission la plus fréquente: 3 minutes
+- Écart-type des durées de soumission: 28 jours
+## Durée de première instruction
+(Entre une soumission et la première instruction qui suit)
+- Durée moyenne d'une instruction: 7 jours
+- Durée médiane d'une instruction: 4 jours
+- Durée d'instruction la plus fréquente: 1 jour
+- Écart-type des durées d'instruction: 10 jours
+
+
+## Volume de demandes par type pour 2025 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
+
+```
+ProConnectServiceProvider  (180) │ ██████████████████████████████████████████████████
+ProConnectIdentityProvider ( 25) │ ███████
+
+Total : 205 demandes
+Échelle : chaque █ représente 3.6 demande(s)
+```
+
+
+## Volume de demandes par type (validées vs refusées) pour 2025 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
+
+```
+ProConnectServiceProvider  (106:  90.6%V   9.4%R) │ █████████████████████████████████████████████▓▓▓▓▓
+ProConnectIdentityProvider ( 17: 100.0%V   0.0%R) │ ████████
+
+Légende : █ = Validées, ▓ = Refusées
+Total : 113 validées, 10 refusées (123 total)
+Échelle : chaque caractère représente 2.1 demande(s)
+```
+
+
+## Volume d'habilitations actives par catégorie d'organisation au 2025 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
+
+```
+Public - collectivité (23529,  77.2%) │ ██████████████████████████████████████████████████
+Autre                 ( 4570,  15.0%) │ ██████████
+Public - état         ( 2377,   7.8%) │ █████
+
+Total : 30476 habilitations actives
+Échelle : chaque █ représente 470.6 habilitation(s)
+```
+
+
+## Volume d'habilitations actives par type d'organisation au 2025 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
+
+```
+Commune et commune nouvelle (7210)                                                                       (20278,  66.5%) │ ██████████████████████████████████████████████████
+SAS, société par actions simplifiée (5710)                                                               ( 1528,   5.0%) │ ████
+Établissement public national à caractère administratif (7389)                                           (  664,   2.2%) │ ██
+Communauté de communes (7346)                                                                            (  652,   2.1%) │ ██
+Groupement d'intérêt public (GIP) (7410)                                                                 (  609,   2.0%) │ ██
+Communauté d'agglomération (7348)                                                                        (  567,   1.9%) │ █
+Service central d'un ministère (7120)                                                                    (  565,   1.9%) │ █
+Département (7220)                                                                                       (  548,   1.8%) │ █
+Association déclarée (9220)                                                                              (  358,   1.2%) │ █
+Ministère (7113)                                                                                         (  350,   1.1%) │ █
+Région (7230)                                                                                            (  345,   1.1%) │ █
+SA à conseil d'administration (s.a.i.) (5599)                                                            (  288,   0.9%) │ █
+Métropole (7344)                                                                                         (  264,   0.9%) │ █
+Centre communal d'action sociale (7361)                                                                  (  264,   0.9%) │ █
+Établissement public national à caractère scientifique culturel et professionnel (7383)                  (  255,   0.8%) │ █
+Caisse de crédit agricole mutuel (6596)                                                                  (  224,   0.7%) │ █
+Société à responsabilité limitée (sans autre indication) (5499)                                          (  210,   0.7%) │ █
+SA à directoire (s.a.i.) (5699)                                                                          (  156,   0.5%) │ 
+Établissement d'hospitalisation (7364)                                                                   (  136,   0.4%) │ 
+(Autre) Collectivité territoriale (7229)                                                                 (  127,   0.4%) │ 
+Établissement public national à caractère industriel ou commercial doté d'un comptable public (4110)     (  125,   0.4%) │ 
+Organisme consulaire (7381)                                                                              (  120,   0.4%) │ 
+Autre établissement public national d'enseignement (7384)                                                (   95,   0.3%) │ 
+Autre établissement public national administratif à compétence territoriale limitée (7385)               (   86,   0.3%) │ 
+Groupement d'intérêt économique (GIE) (6220)                                                             (   79,   0.3%) │ 
+Communauté urbaine (7343)                                                                                (   76,   0.2%) │ 
+Entrepreneur individuel (1000)                                                                           (   75,   0.2%) │ 
+Syndicat mixte ouvert (7355)                                                                             (   67,   0.2%) │ 
+Syndicat mixte fermé (7354)                                                                              (   67,   0.2%) │ 
+Syndicat intercommunal à vocation multiple (SIVOM) (7345)                                                (   66,   0.2%) │ 
+Syndicat intercommunal à vocation unique (SIVU) (7353)                                                   (   62,   0.2%) │ 
+Société coopérative de banque populaire (5192)                                                           (   59,   0.2%) │ 
+Service déconcentré à compétence nationale d'un ministère (hors Défense) (7160)                          (   59,   0.2%) │ 
+Établissement public local à caractère industriel ou commercial (4140)                                   (   53,   0.2%) │ 
+Autre personne morale de droit administratif (7490)                                                      (   53,   0.2%) │ 
+Autre SA coopérative à directoire (5660)                                                                 (   51,   0.2%) │ 
+Autorité administrative ou publique indépendante (7112)                                                  (   47,   0.2%) │ 
+Régime général de la Sécurité Sociale (8110)                                                             (   45,   0.1%) │ 
+Régime spécial de Sécurité Sociale (8120)                                                                (   42,   0.1%) │ 
+Caisse des écoles (7362)                                                                                 (   42,   0.1%) │ 
+Service déconcentré de l'État à compétence (inter) régionale (7171)                                      (   40,   0.1%) │ 
+Autre SA coopérative à conseil d'administration (5560)                                                   (   37,   0.1%) │ 
+(Autre) Établissement public administratif local (7379)                                                  (   33,   0.1%) │ 
+Institution de retraite complémentaire (8130)                                                            (   32,   0.1%) │ 
+Mutuelle (8210)                                                                                          (   31,   0.1%) │ 
+Autorité constitutionnelle (7111)                                                                        (   31,   0.1%) │ 
+Établissement public local d'enseignement (7331)                                                         (   29,   0.1%) │ 
+Autre SARL coopérative (5460)                                                                            (   29,   0.1%) │ 
+Régie d'une collectivité locale à caractère industriel ou commercial (4150)                              (   27,   0.1%) │ 
+Fondation (9300)                                                                                         (   27,   0.1%) │ 
+(Autre) Service déconcentré de l'État à compétence territoriale (7179)                                   (   23,   0.1%) │ 
+Caisse d'épargne et de prévoyance à forme coopérative (5196)                                             (   21,   0.1%) │ 
+Service du ministère de la Défense (7150)                                                                (   18,   0.1%) │ 
+Caisse (fédérale) de crédit mutuel (5194)                                                                (   18,   0.1%) │ 
+Centre Intercommunal d'action sociale (CIAS) (7367)                                                      (   18,   0.1%) │ 
+SA d'économie mixte à conseil d'administration (5515)                                                    (   18,   0.1%) │ 
+Autre personne morale de droit privé (9900)                                                              (   16,   0.1%) │ 
+Groupement de coopération sanitaire à gestion privée (9970)                                              (   16,   0.1%) │ 
+Ordre professionnel ou assimilé (8450)                                                                   (   15,   0.0%) │ 
+Établissement public national à caractère industriel ou commercial non doté d'un comptable public (4120) (   14,   0.0%) │ 
+Société commerciale étrangère immatriculée au RCS (3120)                                                 (   14,   0.0%) │ 
+Pôle d'équilibre territorial et rural (PETR) (7357)                                                      (   14,   0.0%) │ 
+Autre société civile coopérative (6560)                                                                  (   12,   0.0%) │ 
+Service déconcentré de l'État à compétence (inter) départementale (7172)                                 (   11,   0.0%) │ 
+SARL coopérative artisanale (5453)                                                                       (   11,   0.0%) │ 
+Collectivité et territoire d'Outre Mer (7225)                                                            (   11,   0.0%) │ 
+Caisse d'Épargne et de Prévoyance (6100)                                                                 (   10,   0.0%) │ 
+SA d'économie mixte à directoire (5615)                                                                  (    9,   0.0%) │ 
+Mutualité sociale agricole (8140)                                                                        (    9,   0.0%) │ 
+Association déclarée, reconnue d'utilité publique (9230)                                                 (    8,   0.0%) │ 
+Régime vieillesse ne dépendant pas du régime général de la Sécurité Sociale (8160)                       (    8,   0.0%) │ 
+Société en nom collectif (5202)                                                                          (    8,   0.0%) │ 
+Établissement public national ayant fonction d'administration centrale (7382)                            (    8,   0.0%) │ 
+Association de droit local (Bas-Rhin, Haut-Rhin et Moselle) (9260)                                       (    8,   0.0%) │ 
+SA d'intérêt collectif agricole (SICA) à conseil d'administration (5532)                                 (    6,   0.0%) │ 
+Commune associée et commune déléguée (7312)                                                              (    6,   0.0%) │ 
+Service départemental d'incendie et de secours (SDIS) (7372)                                             (    6,   0.0%) │ 
+Syndicat patronal (8420)                                                                                 (    5,   0.0%) │ 
+Institution Banque de France (4160)                                                                      (    5,   0.0%) │ 
+SA coopérative artisanale à conseil d'administration (5553)                                              (    5,   0.0%) │ 
+Société d'exercice libéral par action simplifiée (5785)                                                  (    5,   0.0%) │ 
+Société étrangère non immatriculée au RCS (3220)                                                         (    4,   0.0%) │ 
+Autre personne de droit privé inscrite au registre du commerce et des sociétés (6901)                    (    4,   0.0%) │ 
+SA d'aménagement foncier et d'équipement rural (SAFER) à conseil d'administration (5530)                 (    4,   0.0%) │ 
+Société d'exercice libéral à responsabilité limitée (5485)                                               (    4,   0.0%) │ 
+SA nationale à conseil d'administration (5510)                                                           (    3,   0.0%) │ 
+Société civile d'intérêt collectif agricole (SICA) (6532)                                                (    3,   0.0%) │ 
+SARL coopérative de production (SCOP) (5458)                                                             (    2,   0.0%) │ 
+SA coopérative de production  (SCOP) à conseil d'administration (5558)                                   (    2,   0.0%) │ 
+Société d'assurance à forme mutuelle (6411)                                                              (    2,   0.0%) │ 
+Régie d'une collectivité locale à caractère administratif (7378)                                         (    2,   0.0%) │ 
+SA de HLM à conseil d'administration (5546)                                                              (    2,   0.0%) │ 
+Établissement public local social et médico-social (7366)                                                (    2,   0.0%) │ 
+Autre organisme professionnel (8490)                                                                     (    2,   0.0%) │ 
+Société civile de moyens (6589)                                                                          (    1,   0.0%) │ 
+Association non déclarée (9210)                                                                          (    1,   0.0%) │ 
+Société civile immobilière (6540)                                                                        (    1,   0.0%) │ 
+Autre société civile (6599)                                                                              (    1,   0.0%) │ 
+Syndicat de salariés (8410)                                                                              (    1,   0.0%) │ 
+Société en commandite par actions (5308)                                                                 (    1,   0.0%) │ 
+Groupement de coopération sanitaire à gestion publique (7470)                                            (    1,   0.0%) │ 
+Établissement public local culturel (7373)                                                               (    1,   0.0%) │ 
+SCP de médecins (6571)                                                                                   (    1,   0.0%) │ 
+SA nationale à directoire (5610)                                                                         (    1,   0.0%) │ 
+Société européenne (5800)                                                                                (    1,   0.0%) │ 
+
+Total : 30476 habilitations actives
+Échelle : chaque █ représente 405.6 habilitation(s)
+```
+
+
+## Durée médiane de soumission par type pour 2025 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
+
+### Moins d'1 heure:
+```
+ProConnectIdentityProvider (15.4 minutes, n=14) │ ███████████████
+ProConnectServiceProvider  (39.4 minutes, n=81) │ ███████████████████████████████████████
+
+Total : 95 demandes
+```
+
+
+## Durée médiane de soumission par fournisseur pour 2025 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
+
+```
+DINUM (30.9 minutes, n=95) │ ███████████████████████████████
+
+Total : 95 demandes
+```
+
+
+## Durée de soumission par minute de 2025 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
+
+```
+  <1 ( 0) │ 
+   1 ( 0) │ 
+   2 ( 2) │ ██
+   3 ( 6) │ ██████
+   4 ( 2) │ ██
+   5 ( 4) │ ████
+   6 ( 1) │ █
+   7 ( 5) │ █████
+   8 ( 2) │ ██
+   9 ( 3) │ ███
+  10 ( 1) │ █
+  11 ( 5) │ █████
+  12 ( 1) │ █
+  13 ( 0) │ 
+  14 ( 2) │ ██
+  15 ( 3) │ ███
+  16 ( 1) │ █
+  17 ( 1) │ █
+  18 ( 1) │ █
+  19 ( 1) │ █
+  20 ( 2) │ ██
+  21 ( 1) │ █
+  22 ( 1) │ █
+  23 ( 1) │ █
+  24 ( 0) │ 
+  25 ( 0) │ 
+  26 ( 0) │ 
+  27 ( 1) │ █
+  28 ( 0) │ 
+  29 ( 0) │ 
+  30 ( 0) │ 
+  31 ( 1) │ █
+  32 ( 0) │ 
+  33 ( 0) │ 
+  34 ( 0) │ 
+  35 ( 1) │ █
+  36 ( 0) │ 
+  37 ( 0) │ 
+  38 ( 0) │ 
+  39 ( 0) │ 
+  40 ( 1) │ █
+  41 ( 0) │ 
+  42 ( 0) │ 
+  43 ( 0) │ 
+  44 ( 1) │ █
+  45 ( 0) │ 
+  46 ( 0) │ 
+  47 ( 0) │ 
+  48 ( 0) │ 
+  49 ( 0) │ 
+  50 ( 0) │ 
+  51 ( 0) │ 
+  52 ( 0) │ 
+  53 ( 0) │ 
+  54 ( 0) │ 
+  55 ( 0) │ 
+  56 ( 0) │ 
+  57 ( 0) │ 
+  58 ( 1) │ █
+  59 ( 0) │ 
+  60 ( 0) │ 
+> 60 (43) │ ███████████████████████████████████████████
+
+Total : 95 demandes
+```
+
+
+## Durée médiane de première instruction par type pour 2025 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
+
+```
+ProConnectIdentityProvider (1.2 jours, n= 19) │ █
+ProConnectServiceProvider  (4.0 jours, n=122) │ ████
+
+Total : 141 demandes
+```
+
+
+## Durée médiane de première instruction par fournisseur pour 2025 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
+
+```
+DINUM (3.7 jours, n=141) │ ████
+
+Total : 141 demandes
+```
+
+
+## Durée de première instruction par jour de 2025 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
+
+```
+  <1 ( 0) │ 
+   1 (50) │ ██████████████████████████████████████████████████
+   2 ( 8) │ ████████
+   3 ( 6) │ ██████
+   4 (12) │ ████████████
+   5 (16) │ ████████████████
+   6 ( 8) │ ████████
+   7 ( 7) │ ███████
+   8 ( 5) │ █████
+   9 ( 0) │ 
+  10 ( 1) │ █
+  11 ( 0) │ 
+  12 ( 2) │ ██
+  13 ( 2) │ ██
+  14 ( 1) │ █
+  15 ( 3) │ ███
+  16 ( 2) │ ██
+  17 ( 0) │ 
+  18 ( 2) │ ██
+  19 ( 1) │ █
+  20 ( 0) │ 
+  21 ( 3) │ ███
+  22 ( 2) │ ██
+  23 ( 0) │ 
+  24 ( 1) │ █
+  25 ( 1) │ █
+  26 ( 0) │ 
+  27 ( 1) │ █
+  28 ( 0) │ 
+  29 ( 0) │ 
+  30 ( 1) │ █
+> 30 ( 6) │ ██████
+
+Total : 141 demandes
+```
+
+
+## Volume de demandes par formulaire pour 2025 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
+
+```
+ProConnect - Fournisseur de services (180) │ ██████████████████████████████████████████████████
+ProConnect - Fournisseur d'identité  ( 25) │ ███████
+
+Total : 205 demandes
+Échelle : chaque █ représente 3.6 demande(s)
+```
+
+
+## Durée médiane de soumission par formulaire pour 2025 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
+
+```
+ProConnect - Fournisseur d'identité  (15.4 minutes, n=14) │ ███████████████
+ProConnect - Fournisseur de services (39.4 minutes, n=81) │ ███████████████████████████████████████
+
+Total : 95 demandes
+```
+
+
+## Durée médiane de première instruction par formulaire pour 2025 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
+
+```
+ProConnect - Fournisseur d'identité  (1.2 jours, n= 19) │ █
+ProConnect - Fournisseur de services (4.0 jours, n=122) │ ████
+
+Total : 141 demandes
+```
+
+ 
+# 📊 Rapport de 2024 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
+
+## Volume
+- 124 demandes créées
+- 6 réouvertures
+- 80 validations
+- 2 refus
+## Durée d'une soumission
+(Entre la création d'une demande et sa première soumission)
+- Durée moyenne d'une soumission: 10 mois
+- Durée médiane d'une soumission: 10 mois
+- Durée de soumission la plus fréquente: 10 mois
+- Écart-type des durées de soumission: moins d'une minute
+## Durée de première instruction
+(Entre une soumission et la première instruction qui suit)
+- Durée moyenne d'une instruction: 3 jours
+- Durée médiane d'une instruction: environ 18 heures
+- Durée d'instruction la plus fréquente: 1 jour
+- Écart-type des durées d'instruction: 6 jours
+
+
+## Volume de demandes par type pour 2024 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
+
+```
+ProConnectServiceProvider  (98) │ ██████████████████████████████████████████████████
+ProConnectIdentityProvider (26) │ █████████████
+
+Total : 124 demandes
+Échelle : chaque █ représente 2.0 demande(s)
+```
+
+
+## Volume de demandes par type (validées vs refusées) pour 2024 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
+
+```
+ProConnectServiceProvider  (51:  96.1%V   3.9%R) │ ████████████████████████████████████████████████▓▓
+ProConnectIdentityProvider (16:  93.8%V   6.3%R) │ ███████████████▓
+
+Légende : █ = Validées, ▓ = Refusées
+Total : 64 validées, 3 refusées (67 total)
+Échelle : chaque caractère représente 1.0 demande(s)
+```
+
+
+## Volume d'habilitations actives par catégorie d'organisation au 2024 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
+
+```
+Public - collectivité (23529,  77.2%) │ ██████████████████████████████████████████████████
+Autre                 ( 4570,  15.0%) │ ██████████
+Public - état         ( 2377,   7.8%) │ █████
+
+Total : 30476 habilitations actives
+Échelle : chaque █ représente 470.6 habilitation(s)
+```
+
+
+## Volume d'habilitations actives par type d'organisation au 2024 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
+
+```
+Commune et commune nouvelle (7210)                                                                       (20278,  66.5%) │ ██████████████████████████████████████████████████
+SAS, société par actions simplifiée (5710)                                                               ( 1528,   5.0%) │ ████
+Établissement public national à caractère administratif (7389)                                           (  664,   2.2%) │ ██
+Communauté de communes (7346)                                                                            (  652,   2.1%) │ ██
+Groupement d'intérêt public (GIP) (7410)                                                                 (  609,   2.0%) │ ██
+Communauté d'agglomération (7348)                                                                        (  567,   1.9%) │ █
+Service central d'un ministère (7120)                                                                    (  565,   1.9%) │ █
+Département (7220)                                                                                       (  548,   1.8%) │ █
+Association déclarée (9220)                                                                              (  358,   1.2%) │ █
+Ministère (7113)                                                                                         (  350,   1.1%) │ █
+Région (7230)                                                                                            (  345,   1.1%) │ █
+SA à conseil d'administration (s.a.i.) (5599)                                                            (  288,   0.9%) │ █
+Métropole (7344)                                                                                         (  264,   0.9%) │ █
+Centre communal d'action sociale (7361)                                                                  (  264,   0.9%) │ █
+Établissement public national à caractère scientifique culturel et professionnel (7383)                  (  255,   0.8%) │ █
+Caisse de crédit agricole mutuel (6596)                                                                  (  224,   0.7%) │ █
+Société à responsabilité limitée (sans autre indication) (5499)                                          (  210,   0.7%) │ █
+SA à directoire (s.a.i.) (5699)                                                                          (  156,   0.5%) │ 
+Établissement d'hospitalisation (7364)                                                                   (  136,   0.4%) │ 
+(Autre) Collectivité territoriale (7229)                                                                 (  127,   0.4%) │ 
+Établissement public national à caractère industriel ou commercial doté d'un comptable public (4110)     (  125,   0.4%) │ 
+Organisme consulaire (7381)                                                                              (  120,   0.4%) │ 
+Autre établissement public national d'enseignement (7384)                                                (   95,   0.3%) │ 
+Autre établissement public national administratif à compétence territoriale limitée (7385)               (   86,   0.3%) │ 
+Groupement d'intérêt économique (GIE) (6220)                                                             (   79,   0.3%) │ 
+Communauté urbaine (7343)                                                                                (   76,   0.2%) │ 
+Entrepreneur individuel (1000)                                                                           (   75,   0.2%) │ 
+Syndicat mixte ouvert (7355)                                                                             (   67,   0.2%) │ 
+Syndicat mixte fermé (7354)                                                                              (   67,   0.2%) │ 
+Syndicat intercommunal à vocation multiple (SIVOM) (7345)                                                (   66,   0.2%) │ 
+Syndicat intercommunal à vocation unique (SIVU) (7353)                                                   (   62,   0.2%) │ 
+Société coopérative de banque populaire (5192)                                                           (   59,   0.2%) │ 
+Service déconcentré à compétence nationale d'un ministère (hors Défense) (7160)                          (   59,   0.2%) │ 
+Établissement public local à caractère industriel ou commercial (4140)                                   (   53,   0.2%) │ 
+Autre personne morale de droit administratif (7490)                                                      (   53,   0.2%) │ 
+Autre SA coopérative à directoire (5660)                                                                 (   51,   0.2%) │ 
+Autorité administrative ou publique indépendante (7112)                                                  (   47,   0.2%) │ 
+Régime général de la Sécurité Sociale (8110)                                                             (   45,   0.1%) │ 
+Régime spécial de Sécurité Sociale (8120)                                                                (   42,   0.1%) │ 
+Caisse des écoles (7362)                                                                                 (   42,   0.1%) │ 
+Service déconcentré de l'État à compétence (inter) régionale (7171)                                      (   40,   0.1%) │ 
+Autre SA coopérative à conseil d'administration (5560)                                                   (   37,   0.1%) │ 
+(Autre) Établissement public administratif local (7379)                                                  (   33,   0.1%) │ 
+Institution de retraite complémentaire (8130)                                                            (   32,   0.1%) │ 
+Mutuelle (8210)                                                                                          (   31,   0.1%) │ 
+Autorité constitutionnelle (7111)                                                                        (   31,   0.1%) │ 
+Établissement public local d'enseignement (7331)                                                         (   29,   0.1%) │ 
+Autre SARL coopérative (5460)                                                                            (   29,   0.1%) │ 
+Régie d'une collectivité locale à caractère industriel ou commercial (4150)                              (   27,   0.1%) │ 
+Fondation (9300)                                                                                         (   27,   0.1%) │ 
+(Autre) Service déconcentré de l'État à compétence territoriale (7179)                                   (   23,   0.1%) │ 
+Caisse d'épargne et de prévoyance à forme coopérative (5196)                                             (   21,   0.1%) │ 
+Service du ministère de la Défense (7150)                                                                (   18,   0.1%) │ 
+Caisse (fédérale) de crédit mutuel (5194)                                                                (   18,   0.1%) │ 
+Centre Intercommunal d'action sociale (CIAS) (7367)                                                      (   18,   0.1%) │ 
+SA d'économie mixte à conseil d'administration (5515)                                                    (   18,   0.1%) │ 
+Autre personne morale de droit privé (9900)                                                              (   16,   0.1%) │ 
+Groupement de coopération sanitaire à gestion privée (9970)                                              (   16,   0.1%) │ 
+Ordre professionnel ou assimilé (8450)                                                                   (   15,   0.0%) │ 
+Établissement public national à caractère industriel ou commercial non doté d'un comptable public (4120) (   14,   0.0%) │ 
+Société commerciale étrangère immatriculée au RCS (3120)                                                 (   14,   0.0%) │ 
+Pôle d'équilibre territorial et rural (PETR) (7357)                                                      (   14,   0.0%) │ 
+Autre société civile coopérative (6560)                                                                  (   12,   0.0%) │ 
+Service déconcentré de l'État à compétence (inter) départementale (7172)                                 (   11,   0.0%) │ 
+SARL coopérative artisanale (5453)                                                                       (   11,   0.0%) │ 
+Collectivité et territoire d'Outre Mer (7225)                                                            (   11,   0.0%) │ 
+Caisse d'Épargne et de Prévoyance (6100)                                                                 (   10,   0.0%) │ 
+SA d'économie mixte à directoire (5615)                                                                  (    9,   0.0%) │ 
+Mutualité sociale agricole (8140)                                                                        (    9,   0.0%) │ 
+Association déclarée, reconnue d'utilité publique (9230)                                                 (    8,   0.0%) │ 
+Régime vieillesse ne dépendant pas du régime général de la Sécurité Sociale (8160)                       (    8,   0.0%) │ 
+Société en nom collectif (5202)                                                                          (    8,   0.0%) │ 
+Établissement public national ayant fonction d'administration centrale (7382)                            (    8,   0.0%) │ 
+Association de droit local (Bas-Rhin, Haut-Rhin et Moselle) (9260)                                       (    8,   0.0%) │ 
+SA d'intérêt collectif agricole (SICA) à conseil d'administration (5532)                                 (    6,   0.0%) │ 
+Commune associée et commune déléguée (7312)                                                              (    6,   0.0%) │ 
+Service départemental d'incendie et de secours (SDIS) (7372)                                             (    6,   0.0%) │ 
+Syndicat patronal (8420)                                                                                 (    5,   0.0%) │ 
+Institution Banque de France (4160)                                                                      (    5,   0.0%) │ 
+SA coopérative artisanale à conseil d'administration (5553)                                              (    5,   0.0%) │ 
+Société d'exercice libéral par action simplifiée (5785)                                                  (    5,   0.0%) │ 
+Société étrangère non immatriculée au RCS (3220)                                                         (    4,   0.0%) │ 
+Autre personne de droit privé inscrite au registre du commerce et des sociétés (6901)                    (    4,   0.0%) │ 
+SA d'aménagement foncier et d'équipement rural (SAFER) à conseil d'administration (5530)                 (    4,   0.0%) │ 
+Société d'exercice libéral à responsabilité limitée (5485)                                               (    4,   0.0%) │ 
+SA nationale à conseil d'administration (5510)                                                           (    3,   0.0%) │ 
+Société civile d'intérêt collectif agricole (SICA) (6532)                                                (    3,   0.0%) │ 
+SARL coopérative de production (SCOP) (5458)                                                             (    2,   0.0%) │ 
+SA coopérative de production  (SCOP) à conseil d'administration (5558)                                   (    2,   0.0%) │ 
+Société d'assurance à forme mutuelle (6411)                                                              (    2,   0.0%) │ 
+Régie d'une collectivité locale à caractère administratif (7378)                                         (    2,   0.0%) │ 
+SA de HLM à conseil d'administration (5546)                                                              (    2,   0.0%) │ 
+Établissement public local social et médico-social (7366)                                                (    2,   0.0%) │ 
+Autre organisme professionnel (8490)                                                                     (    2,   0.0%) │ 
+Société civile de moyens (6589)                                                                          (    1,   0.0%) │ 
+Association non déclarée (9210)                                                                          (    1,   0.0%) │ 
+Société civile immobilière (6540)                                                                        (    1,   0.0%) │ 
+Autre société civile (6599)                                                                              (    1,   0.0%) │ 
+Syndicat de salariés (8410)                                                                              (    1,   0.0%) │ 
+Société en commandite par actions (5308)                                                                 (    1,   0.0%) │ 
+Groupement de coopération sanitaire à gestion publique (7470)                                            (    1,   0.0%) │ 
+Établissement public local culturel (7373)                                                               (    1,   0.0%) │ 
+SCP de médecins (6571)                                                                                   (    1,   0.0%) │ 
+SA nationale à directoire (5610)                                                                         (    1,   0.0%) │ 
+Société européenne (5800)                                                                                (    1,   0.0%) │ 
+
+Total : 30476 habilitations actives
+Échelle : chaque █ représente 405.6 habilitation(s)
+```
+
+
+## Durée médiane de soumission par type pour 2024 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
+
+### 1 heure ou plus:
+```
+ProConnectServiceProvider (292.2 days, n=1) │ ██████████████████████████████████████████████████
+
+Total : 1 demandes
+Échelle : chaque █ représente 140.3 demande(s)
+```
+
+
+## Durée médiane de soumission par fournisseur pour 2024 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
+
+```
+DINUM (420773.9 minutes, n=1) │ ██████████████████████████████████████████████████
+
+Total : 1 demandes
+Échelle : chaque █ représente 8415.5 minutes
+```
+
+
+## Durée de soumission par minute de 2024 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
+
+```
+  <1 (0) │ 
+   1 (0) │ 
+   2 (0) │ 
+   3 (0) │ 
+   4 (0) │ 
+   5 (0) │ 
+   6 (0) │ 
+   7 (0) │ 
+   8 (0) │ 
+   9 (0) │ 
+  10 (0) │ 
+  11 (0) │ 
+  12 (0) │ 
+  13 (0) │ 
+  14 (0) │ 
+  15 (0) │ 
+  16 (0) │ 
+  17 (0) │ 
+  18 (0) │ 
+  19 (0) │ 
+  20 (0) │ 
+  21 (0) │ 
+  22 (0) │ 
+  23 (0) │ 
+  24 (0) │ 
+  25 (0) │ 
+  26 (0) │ 
+  27 (0) │ 
+  28 (0) │ 
+  29 (0) │ 
+  30 (0) │ 
+  31 (0) │ 
+  32 (0) │ 
+  33 (0) │ 
+  34 (0) │ 
+  35 (0) │ 
+  36 (0) │ 
+  37 (0) │ 
+  38 (0) │ 
+  39 (0) │ 
+  40 (0) │ 
+  41 (0) │ 
+  42 (0) │ 
+  43 (0) │ 
+  44 (0) │ 
+  45 (0) │ 
+  46 (0) │ 
+  47 (0) │ 
+  48 (0) │ 
+  49 (0) │ 
+  50 (0) │ 
+  51 (0) │ 
+  52 (0) │ 
+  53 (0) │ 
+  54 (0) │ 
+  55 (0) │ 
+  56 (0) │ 
+  57 (0) │ 
+  58 (0) │ 
+  59 (0) │ 
+  60 (0) │ 
+> 60 (1) │ █
+
+Total : 1 demandes
+```
+
+
+## Durée médiane de première instruction par type pour 2024 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
+
+```
+ProConnectServiceProvider  (0.3 jours, n=70) │ 
+ProConnectIdentityProvider (0.9 jours, n=22) │ █
+
+Total : 92 demandes
+```
+
+
+## Durée médiane de première instruction par fournisseur pour 2024 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
+
+```
+DINUM (0.7 jours, n=92) │ █
+
+Total : 92 demandes
+```
+
+
+## Durée de première instruction par jour de 2024 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
+
+```
+  <1 ( 0) │ 
+   1 (54) │ ██████████████████████████████████████████████████
+   2 ( 5) │ █████
+   3 ( 4) │ ████
+   4 ( 8) │ ███████
+   5 ( 7) │ ██████
+   6 ( 6) │ ██████
+   7 ( 0) │ 
+   8 ( 0) │ 
+   9 ( 1) │ █
+  10 ( 0) │ 
+  11 ( 1) │ █
+  12 ( 1) │ █
+  13 ( 0) │ 
+  14 ( 2) │ ██
+  15 ( 0) │ 
+  16 ( 0) │ 
+  17 ( 0) │ 
+  18 ( 1) │ █
+  19 ( 0) │ 
+  20 ( 0) │ 
+  21 ( 0) │ 
+  22 ( 0) │ 
+  23 ( 0) │ 
+  24 ( 0) │ 
+  25 ( 0) │ 
+  26 ( 0) │ 
+  27 ( 0) │ 
+  28 ( 0) │ 
+  29 ( 0) │ 
+  30 ( 0) │ 
+> 30 ( 2) │ ██
+
+Total : 92 demandes
+Échelle : chaque █ représente 1.1 demande(s)
+```
+
+
+## Volume de demandes par formulaire pour 2024 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
+
+```
+ProConnect - Fournisseur de services (98) │ ██████████████████████████████████████████████████
+ProConnect - Fournisseur d'identité  (26) │ █████████████
+
+Total : 124 demandes
+Échelle : chaque █ représente 2.0 demande(s)
+```
+
+
+## Durée médiane de soumission par formulaire pour 2024 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
+
+```
+ProConnect - Fournisseur de services (420773.9 minutes, n=1) │ ██████████████████████████████████████████████████
+
+Total : 1 demandes
+Échelle : chaque █ représente 8415.5 minutes
+```
+
+
+## Durée médiane de première instruction par formulaire pour 2024 (types par : ProConnectServiceProvider, ProConnectIdentityProvider):
+
+```
+ProConnect - Fournisseur de services (0.3 jours, n=70) │ 
+ProConnect - Fournisseur d'identité  (0.9 jours, n=22) │ █
+
+Total : 92 demandes
+```
+
