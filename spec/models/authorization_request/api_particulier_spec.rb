@@ -91,4 +91,161 @@ RSpec.describe AuthorizationRequest::APIParticulier do
       it { is_expected.to be false }
     end
   end
+
+  describe 'contact_technique_phone_number mobile validation' do
+    context 'when service provider is FC certified' do
+      let(:authorization_request) do
+        build(
+          :authorization_request,
+          :api_particulier_entrouvert_publik,
+          modalities:,
+          contact_technique_phone_number: phone_number
+        )
+      end
+
+      before do
+        allow(authorization_request).to receive(:need_complete_validation?) do |key|
+          key == :contacts
+        end
+      end
+
+      context 'with france_connect modality' do
+        let(:modalities) { ['france_connect'] }
+
+        context 'with valid mobile phone number' do
+          let(:phone_number) { '06 12 34 56 78' }
+
+          it 'does not add mobile validation error' do
+            authorization_request.valid?
+            expect(authorization_request.errors[:contact_technique_phone_number]).not_to include(
+              I18n.t('activemodel.errors.messages.invalid_french_phone_mobile_format')
+            )
+          end
+        end
+
+        context 'with valid mobile phone number (alternative format)' do
+          let(:phone_number) { '+33 6 12 34 56 78' }
+
+          it 'does not add mobile validation error' do
+            authorization_request.valid?
+            expect(authorization_request.errors[:contact_technique_phone_number]).not_to include(
+              I18n.t('activemodel.errors.messages.invalid_french_phone_mobile_format')
+            )
+          end
+        end
+
+        context 'with landline phone number' do
+          let(:phone_number) { '01 23 45 67 89' }
+
+          it 'adds mobile validation error' do
+            authorization_request.valid?
+            expect(authorization_request.errors[:contact_technique_phone_number]).to include(
+              I18n.t('activemodel.errors.messages.invalid_french_phone_mobile_format')
+            )
+          end
+        end
+      end
+
+      context 'without france_connect modality' do
+        let(:modalities) { ['params'] }
+
+        context 'with landline phone number' do
+          let(:phone_number) { '01 23 45 67 89' }
+
+          it 'does not add mobile validation error' do
+            authorization_request.valid?
+            expect(authorization_request.errors[:contact_technique_phone_number]).not_to include(
+              I18n.t('activemodel.errors.messages.invalid_french_phone_mobile_format')
+            )
+          end
+        end
+      end
+    end
+
+    context 'when service provider is NOT FC certified' do
+      let(:authorization_request) do
+        build(
+          :authorization_request,
+          :api_particulier_airweb,
+          modalities:,
+          contact_technique_phone_number: phone_number
+        )
+      end
+
+      before do
+        allow(authorization_request).to receive(:need_complete_validation?) do |key|
+          key == :contacts
+        end
+      end
+
+      context 'with france_connect modality' do
+        let(:modalities) { ['france_connect'] }
+
+        context 'with landline phone number' do
+          let(:phone_number) { '01 23 45 67 89' }
+
+          it 'does not add mobile validation error (mobile validation not applied)' do
+            authorization_request.valid?
+            expect(authorization_request.errors[:contact_technique_phone_number]).not_to include(
+              I18n.t('activemodel.errors.messages.invalid_french_phone_mobile_format')
+            )
+          end
+        end
+
+        context 'with mobile phone number' do
+          let(:phone_number) { '06 12 34 56 78' }
+
+          it 'does not add mobile validation error' do
+            authorization_request.valid?
+            expect(authorization_request.errors[:contact_technique_phone_number]).not_to include(
+              I18n.t('activemodel.errors.messages.invalid_french_phone_mobile_format')
+            )
+          end
+        end
+      end
+
+      context 'without france_connect modality' do
+        let(:modalities) { ['params'] }
+
+        context 'with landline phone number' do
+          let(:phone_number) { '01 23 45 67 89' }
+
+          it 'does not add mobile validation error' do
+            authorization_request.valid?
+            expect(authorization_request.errors[:contact_technique_phone_number]).not_to include(
+              I18n.t('activemodel.errors.messages.invalid_french_phone_mobile_format')
+            )
+          end
+        end
+      end
+    end
+
+    context 'when form has no service provider' do
+      let(:authorization_request) do
+        build(
+          :authorization_request,
+          :api_particulier,
+          modalities: ['france_connect'],
+          contact_technique_phone_number: phone_number
+        )
+      end
+
+      before do
+        allow(authorization_request).to receive(:need_complete_validation?) do |key|
+          key == :contacts
+        end
+      end
+
+      context 'with landline phone number' do
+        let(:phone_number) { '01 23 45 67 89' }
+
+        it 'does not add mobile validation error (mobile validation not applied)' do
+          authorization_request.valid?
+          expect(authorization_request.errors[:contact_technique_phone_number]).not_to include(
+            I18n.t('activemodel.errors.messages.invalid_french_phone_mobile_format')
+          )
+        end
+      end
+    end
+  end
 end

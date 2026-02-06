@@ -1,17 +1,9 @@
 RSpec.describe AuthorizationRequest::APIParticulier do
   let(:authorization_request) do
-    build(:authorization_request, :api_particulier,
-      modalities: ['france_connect'],
-      fc_cadre_juridique_nature: 'CRPA Article L311-1',
-      fc_cadre_juridique_url: 'https://legifrance.gouv.fr/legal',
+    build(:authorization_request, :api_particulier_entrouvert_publik, :with_france_connect_embedded_fields, :submitted,
       scopes: %w[openid family_name given_name birthdate birthplace birthcountry gender cnaf_quotient_familial],
-      fc_alternative_connexion: '1',
-      fc_eidas: 'eidas_1',
-      contact_technique_family_name: 'Dupont',
-      contact_technique_given_name: 'Jean',
-      contact_technique_email: 'jean.dupont@gouv.fr',
-      contact_technique_phone_number: '0612345678',
-      contact_technique_job_title: 'Responsable technique')
+      fc_cadre_juridique_nature: 'CRPA Article L311-1',
+      fc_cadre_juridique_url: 'https://legifrance.gouv.fr/legal')
   end
 
   describe '#france_connect_modality?' do
@@ -187,11 +179,11 @@ RSpec.describe AuthorizationRequest::APIParticulier do
       it 'includes contact_technique attributes' do
         attrs = authorization_request.france_connect_attributes
 
-        expect(attrs[:contact_technique_family_name]).to eq('Dupont')
-        expect(attrs[:contact_technique_given_name]).to eq('Jean')
-        expect(attrs[:contact_technique_email]).to eq('jean.dupont@gouv.fr')
+        expect(attrs[:contact_technique_family_name]).to eq('Dupont Contact technique')
+        expect(attrs[:contact_technique_given_name]).to eq('Jean Contact technique')
+        expect(attrs[:contact_technique_email]).to eq('jean.dupont.contact_technique@gouv.fr')
         expect(attrs[:contact_technique_phone_number]).to eq('0612345678')
-        expect(attrs[:contact_technique_job_title]).to eq('Responsable technique')
+        expect(attrs[:contact_technique_job_title]).to eq('Agent Contact technique')
       end
 
       it 'includes responsable_traitement attributes mapped from contact_metier' do
