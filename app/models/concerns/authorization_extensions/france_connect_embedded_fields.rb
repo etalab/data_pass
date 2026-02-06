@@ -12,7 +12,7 @@ module AuthorizationExtensions::FranceConnectEmbeddedFields
     validates :fc_cadre_juridique_nature, presence: true, if: -> { embeds_france_connect_fields? && need_complete_validation?(:legal) }
     validates :fc_cadre_juridique_url, format: { with: %r{\A((http|https)://)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(/[\w\-._~:/?#\[\]@!$&'()*+,;%=]*)?\z}, message: I18n.t('activemodel.errors.messages.url_format') }, allow_blank: true, if: -> { embeds_france_connect_fields? && need_complete_validation?(:legal) }
 
-    add_attribute :fc_alternative_connexion, type: :boolean
+    add_attribute :fc_alternative_connexion
     add_attribute :fc_eidas
 
     validate :france_connect_scopes_must_be_complete,
