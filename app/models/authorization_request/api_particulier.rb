@@ -73,6 +73,7 @@ class AuthorizationRequest::APIParticulier < AuthorizationRequest
 
   def contact_technique_phone_number_must_be_mobile_if_france_connect
     return unless france_connect_modality?
+    return unless form.france_connect_certified?
     return if contact_technique_phone_number.blank?
 
     validator = FrenchPhoneNumberValidator.new(attributes: [:contact_technique_phone_number], mobile: true)
