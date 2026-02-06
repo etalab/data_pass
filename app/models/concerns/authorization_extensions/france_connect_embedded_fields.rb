@@ -17,10 +17,16 @@ module AuthorizationExtensions::FranceConnectEmbeddedFields
 
     validate :france_connect_scopes_must_be_complete,
       if: -> { embeds_france_connect_fields? && need_complete_validation?(:scopes) }
+
+    before_validation :remove_france_connect_scopes_if_modality_not_selected
   end
 
   def france_connect_modality?
     modalities&.include?('france_connect')
+  end
+
+  def available_scopes
+    super.reject { |scope| scope.group == FRANCE_CONNECT_GROUP && !france_connect_modality? }
   end
 
   def fc_scopes
@@ -46,6 +52,13 @@ module AuthorizationExtensions::FranceConnectEmbeddedFields
   end
 
   private
+
+  def remove_france_connect_scopes_if_modality_not_selected
+    return if france_connect_modality?
+    return if scopes.blank?
+
+    self.scopes = scopes - france_connect_scope_values
+  end
 
   def fc_cadre_juridique_document_or_fc_cadre_juridique_url_present
     return if fc_cadre_juridique_document.attached? || fc_cadre_juridique_url.present?
