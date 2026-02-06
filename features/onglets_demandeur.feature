@@ -22,6 +22,15 @@ Fonctionnalité: Visibilité des onglets sur les pages demandeur
     Et je vois l'onglet "Messagerie"
     Et je vois l'onglet "Toutes les habilitations"
 
+  Scénario: Un demandeur voit le message automatique pour une habilitation auto-générée
+    Sachant que je suis un demandeur
+    Et que je me connecte
+    Sachant que j'ai une demande API Particulier avec champs FranceConnect intégrés validée
+    Et je visite la page de mon habilitation
+    Et que je clique sur "Toutes les habilitations"
+    Alors la page contient "Habilitation FranceConnect automatiquement délivrée"
+    Et la page contient "Habilitation API Particulier"
+
   Scénario: Un membre de l'organisation voit tous les onglets sur une demande de son organisation
     Sachant que je suis un demandeur
     Et que je me connecte

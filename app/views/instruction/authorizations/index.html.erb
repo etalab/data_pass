@@ -28,11 +28,13 @@
             </li>
           </ul>
 
-          <% if authorization.approving_instructor.present? %>
-            <div>
-              Validé par <strong><%= authorization.approving_instructor.email %></strong>
-            </div>
-          <% end %>
+          <div>
+            <% if authorization.auto_generated? %>
+              <%= t('authorizations.index.auto_generated', type: authorization.definition.name) %>
+            <% elsif authorization.approving_instructor.present? %>
+              <%= t('authorizations.index.validated_by', type: authorization.definition.name, email: authorization.approving_instructor.email).html_safe %>
+            <% end %>
+          </div>
         </div>
 
         <div>

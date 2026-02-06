@@ -321,7 +321,8 @@ fr:
     index:
       title: Historique des habilitations
       show_cta: Consulter
-      validated_by: Validée par <strong>%{email}</strong>
+      validated_by: Habilitation %{type} validée par <strong>%{email}</strong>
+      auto_generated: Habilitation %{type} automatiquement délivrée
     card:
       validated_at: Validée le %{date}
       current_user_mentions: "vous avez été référencé comme %{contact_types}"
