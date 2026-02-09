@@ -1,0 +1,23 @@
+<div class="fr-grid-row fr-grid-row--gutters fr-mb-6w">
+  <%= render 'stats/shared/stat_card',
+    stimulus_controller: stimulus_controller,
+    title: 'Demandes soumises',
+    target: 'totalRequestsCount',
+    subtitle_target: 'reopeningsCount',
+    variant: 'submissions',
+    col_classes: 'fr-col-12 fr-col-md-6 fr-col-lg-4' %>
+
+  <%= render 'stats/shared/stat_card',
+    stimulus_controller: stimulus_controller,
+    title: 'Demandes validées',
+    target: 'validationsCount',
+    variant: 'validations',
+    col_classes: 'fr-col-12 fr-col-md-6 fr-col-lg-4' %>
+
+  <%= render 'stats/shared/stat_card',
+    stimulus_controller: stimulus_controller,
+    title: 'Demandes refusées',
+    target: 'refusalsCount',
+    variant: 'refusals',
+    col_classes: 'fr-col-12 fr-col-md-6 fr-col-lg-4' %>
+</div>

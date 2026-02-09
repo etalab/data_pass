@@ -1,12 +1,29 @@
 <% set_title! t('page_titles.stats') %>
+<% stimulus_controller = 'stats' %>
+<% migration_date = '2025-01-01' %>
 
-<div id="content">
-  <h1 class="fr-mt-5v"><%= t('.title') %></h1>
-  <iframe
-      class="fr-col-12"
-      height="810"
-      src="https://metabase.entreprise.api.gouv.fr/public/dashboard/0e3575a3-3d93-4f1a-8550-f8f25fdbce35"
-      frameborder="0"
-      allowtransparency
-  ></iframe>
+<div id="content" data-controller="<%= stimulus_controller %>" data-<%= stimulus_controller %>-migration-date-value="<%= migration_date %>">
+  <%= render 'stats/shared/loading_overlay', stimulus_controller: stimulus_controller %>
+
+  <div class="fr-container fr-py-6w">
+    <h1 class="fr-h1 fr-mb-4w center">Statistiques DataPass</h1>
+
+    <%= render 'stats/shared/filters', stimulus_controller: stimulus_controller %>
+
+    <div data-<%= stimulus_controller %>-target="errorAlert" class="fr-mb-4w" style="display: none;">
+      <div class="fr-alert fr-alert--error">
+        <p></p>
+      </div>
+    </div>
+
+    <%= render 'stats/shared/migration_warning', stimulus_controller: stimulus_controller %>
+
+    <%= render 'stats/shared/summary_cards', stimulus_controller: stimulus_controller %>
+
+    <%= render 'stats/shared/duration_cards', stimulus_controller: stimulus_controller %>
+
+    <h2 class="fr-h2 fr-mb-4w">Évolution des demandes en attente de réponse</h2>
+
+    <%= render 'stats/shared/time_series_chart', stimulus_controller: stimulus_controller %>
+  </div>
 </div>

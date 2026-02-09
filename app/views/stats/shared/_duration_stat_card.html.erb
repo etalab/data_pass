@@ -1,0 +1,16 @@
+<%
+  type ||= :duration
+  text = type == :delay ? 'au bout de' : 'durent moins de'
+%>
+<div class="fr-col-12 fr-col-lg-4">
+  <div class="fr-card fr-card--no-border fr-p-4w stats-duration-card">
+    <p class="fr-h6 fr-mb-4v stats-duration-card__title"><%= title %></p>
+    <p class="fr-text--sm fr-mb-0 stats-duration-card__percentile-50" style="visibility: hidden;">50% <%= text %></p>
+    <p class="fr-h2 fr-mb-4v stats-duration-card__percentile-50">
+      <strong data-<%= stimulus_controller %>-target="<%= percentile_50_target %>">-</strong>
+    </p>
+    <p class="fr-text--sm fr-mb-0 stats-duration-card__percentile-90" style="visibility: hidden;">
+      90% <%= text %> <span data-<%= stimulus_controller %>-target="<%= percentile_90_target %>">-</span>
+    </p>
+  </div>
+</div>

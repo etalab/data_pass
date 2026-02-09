@@ -1,0 +1,9 @@
+<div class="<%= col_classes %>">
+  <div class="fr-card fr-card--no-border fr-p-2w fr-py-4w stats-stat-card stats-stat-card--<%= variant %>">
+    <p class="fr-text--md fr-mb-2v stats-stat-card__title"><%= title %></p>
+    <p class="fr-display--sm <%= local_assigns.key?(:subtitle_target) && subtitle_target.present? ? 'fr-mb-1v' : 'fr-mb-0' %> stats-stat-card__value"><strong data-<%= stimulus_controller %>-target="<%= target %>">-</strong></p>
+    <% if local_assigns.key?(:subtitle_target) && subtitle_target.present? %>
+      <p class="fr-text--sm fr-mb-0 stats-stat-card__subtitle">dont <strong data-<%= stimulus_controller %>-target="<%= subtitle_target %>">-</strong> demandes de mises à jour</p>
+    <% end %>
+  </div>
+</div>

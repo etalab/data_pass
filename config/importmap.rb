@@ -5,6 +5,7 @@ pin "@hotwired/turbo-rails", to: "turbo.min.js", preload: true
 pin "@hotwired/stimulus", to: "https://ga.jspm.io/npm:@hotwired/stimulus@3.2.2/dist/stimulus.js"
 pin "@hotwired/stimulus-loading", to: "stimulus-loading.js", preload: true
 pin_all_from "app/javascript/controllers", under: "controllers"
+pin_all_from "app/javascript/stats", under: "stats"
 pin "stimulus-library", to: "https://ga.jspm.io/npm:stimulus-library@1.2.1/dist/index.js"
 pin "@stimulus-library/controllers", to: "https://ga.jspm.io/npm:@stimulus-library/controllers@1.2.1/dist/index.js"
 pin "@stimulus-library/mixins", to: "https://ga.jspm.io/npm:@stimulus-library/mixins@1.2.1/dist/index.js"
@@ -15,3 +16,5 @@ pin "date-fns/intervalToDuration", to: "https://ga.jspm.io/npm:date-fns@3.6.0/in
 pin "date-fns/isPast", to: "https://ga.jspm.io/npm:date-fns@3.6.0/isPast.mjs"
 pin "date-fns/toDate", to: "https://ga.jspm.io/npm:date-fns@3.6.0/toDate.mjs"
 pin "mitt", to: "https://ga.jspm.io/npm:mitt@3.0.1/dist/mitt.mjs"
+pin "chart.js", to: "https://ga.jspm.io/npm:chart.js@4.5.1/dist/chart.js"
+pin "@kurkle/color", to: "https://ga.jspm.io/npm:@kurkle/color@0.3.4/dist/color.esm.js"

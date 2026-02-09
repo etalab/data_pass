@@ -1,0 +1,22 @@
+<div class="fr-grid-row fr-grid-row--gutters fr-mb-6w">
+  <%= render 'stats/shared/duration_stat_card',
+    stimulus_controller: stimulus_controller,
+    title: "Durée de remplissage d\u2019une nouvelle demande",
+    percentile_50_target: 'percentile50TimeToSubmit',
+    percentile_90_target: 'percentile90TimeToSubmit',
+    type: :duration %>
+
+  <%= render 'stats/shared/duration_stat_card',
+    stimulus_controller: stimulus_controller,
+    title: "Délai de première réponse à une demande",
+    percentile_50_target: 'percentile50TimeToFirstInstruction',
+    percentile_90_target: 'percentile90TimeToFirstInstruction',
+    type: :delay %>
+
+  <%= render 'stats/shared/duration_stat_card',
+    stimulus_controller: stimulus_controller,
+    title: "Délai de réponse définitive à une demande",
+    percentile_50_target: 'percentile50TimeToFinalInstruction',
+    percentile_90_target: 'percentile90TimeToFinalInstruction',
+    type: :delay %>
+</div>
