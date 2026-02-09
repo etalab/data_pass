@@ -223,7 +223,7 @@ class User < ApplicationRecord
   end
 
   ransacker :api_role do |_parent|
-    Arel.sql <<-SQL.squish
+    Arel.sql <<~SQL.squish
       COALESCE(
         array_to_string(
           ARRAY(
