@@ -17,7 +17,7 @@ class Adhoc::FillAuthorizationStates < ApplicationInteractor
       .where(revoked: false)
       .to_sql
 
-    result = Authorization.connection.execute(<<-SQL.squish)
+    result = Authorization.connection.execute(<<~SQL.squish)
       SELECT request_id, array_agg(id) as authorization_ids
       FROM (#{subquery}) as latest_auths
       WHERE rn = 1
