@@ -1,12 +1,38 @@
 <% set_title! t('page_titles.stats') %>
+<% stimulus_controller = 'stats' %>
+<% migration_date = '2025-01-01' %>
+<% chart_labels = [t('stats.chart.labels.submitted'), t('stats.chart.labels.validated_or_refused'), t('stats.chart.labels.pending')].to_json %>
 
-<div id="content">
-  <h1 class="fr-mt-5v"><%= t('.title') %></h1>
-  <iframe
-      class="fr-col-12"
-      height="810"
-      src="https://metabase.entreprise.api.gouv.fr/public/dashboard/0e3575a3-3d93-4f1a-8550-f8f25fdbce35"
-      frameborder="0"
-      allowtransparency
-  ></iframe>
+<div id="content"
+     data-controller="<%= stimulus_controller %>"
+     data-<%= stimulus_controller %>-migration-date-value="<%= migration_date %>"
+     data-<%= stimulus_controller %>-chart-labels-value="<%= h(chart_labels) %>"
+     data-<%= stimulus_controller %>-error-load-filters-value="<%= h(t('stats.errors.load_filters')) %>"
+     data-<%= stimulus_controller %>-error-load-stats-value="<%= h(t('stats.errors.load_stats')) %>"
+     data-<%= stimulus_controller %>-all-providers-label-value="<%= h(t('stats.filters.all_providers')) %>"
+     data-<%= stimulus_controller %>-all-types-label-value="<%= h(t('stats.filters.all_types')) %>"
+     data-<%= stimulus_controller %>-all-forms-label-value="<%= h(t('stats.filters.all_forms')) %>">
+  <%= render Organisms::Stats::LoadingOverlayComponent.new(stimulus_controller: stimulus_controller) %>
+
+  <div class="fr-container fr-py-6w">
+    <h1 class="fr-h1 fr-mb-4w center"><%= t('stats.index.page_heading') %></h1>
+
+    <%= render Organisms::Stats::FiltersComponent.new(stimulus_controller: stimulus_controller) %>
+
+    <div data-<%= stimulus_controller %>-target="errorAlert" class="fr-mb-4w fr-hidden">
+      <%= dsfr_alert(type: :error) do %>
+        <p></p>
+      <% end %>
+    </div>
+
+    <%= render 'stats/shared/migration_warning', stimulus_controller: stimulus_controller %>
+
+    <%= render Organisms::Stats::SummaryCardsComponent.new(stimulus_controller: stimulus_controller) %>
+
+    <%= render Organisms::Stats::DurationCardsComponent.new(stimulus_controller: stimulus_controller) %>
+
+    <h2 class="fr-h2 fr-mb-4w"><%= t('stats.index.evolution_title') %></h2>
+
+    <%= render Organisms::Stats::TimeSeriesChartComponent.new(stimulus_controller: stimulus_controller) %>
+  </div>
 </div>
