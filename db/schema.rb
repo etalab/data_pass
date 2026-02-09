@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_30_165452) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_09_124241) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_catalog.plpgsql"
@@ -84,6 +84,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_30_165452) do
     t.bigint "user_id"
     t.index ["authorization_request_id"], name: "index_authorization_request_events_on_authorization_request_id"
     t.index ["entity_type", "entity_id"], name: "index_authorization_request_events_on_entity"
+    t.index ["name", "authorization_request_id", "created_at"], name: "idx_auth_req_events_name_request_id_created_at"
+    t.index ["name", "created_at"], name: "idx_auth_req_events_name_created_at"
     t.index ["user_id"], name: "index_authorization_request_events_on_user_id"
     t.check_constraint "name::text !~~ 'system_%'::text AND user_id IS NOT NULL OR name::text ~~ 'system_%'::text", name: "user_id_not_null_unless_system_event"
     t.check_constraint "name::text = 'bulk_update'::text AND authorization_request_id IS NULL OR name::text <> 'bulk_update'::text AND authorization_request_id IS NOT NULL", name: "authorization_request_events_auth_req_id_not_null_except_bulk"
@@ -135,9 +137,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_30_165452) do
     t.datetime "updated_at", null: false
     t.index ["applicant_id"], name: "index_authorization_requests_on_applicant_id"
     t.index ["copied_from_request_id"], name: "idx_authorization_requests_copied_from_request_id"
+    t.index ["form_uid"], name: "index_authorization_requests_on_form_uid"
     t.index ["organization_id"], name: "index_authorization_requests_on_organization_id"
     t.index ["public_id"], name: "index_authorization_requests_on_public_id"
     t.index ["type", "organization_id"], name: "index_authorization_requests_on_type_and_organization_id", unique: true, where: "(((type)::text = 'AuthorizationRequest::HubEECertDC'::text) AND ((state)::text <> 'archived'::text))"
+    t.index ["type"], name: "index_authorization_requests_on_type"
   end
 
   create_table "authorizations", force: :cascade do |t|
