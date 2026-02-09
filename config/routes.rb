@@ -21,7 +21,9 @@ Rails.application.routes.draw do
   get '/demandes-instructeurs/:id/finaliser', to: 'claim_instructor_draft_requests#show', as: :claim_instructor_draft_request
   post '/demandes-instructeurs/:id/finaliser', to: 'claim_instructor_draft_requests#create'
 
-  get '/stats', to: 'stats#index'
+  get '/stats', to: 'stats#index', as: :stats
+  get '/stats/filters', to: 'stats#filters', as: :stats_filters
+  get '/stats/data', to: 'stats#data', as: :stats_data
 
   scope(path_names: { new: 'nouveau', edit: 'modifier' }) do
 

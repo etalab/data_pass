@@ -10,11 +10,11 @@ class AuthorizationDefinition < StaticApplicationRecord
     :scopes,
     :blocks,
     :features,
-    :stage
+    :stage,
+    :provider_slug
 
   attr_writer :startable_by_applicant,
     :public,
-    :provider_slug,
     :unique
 
   def self.backend
