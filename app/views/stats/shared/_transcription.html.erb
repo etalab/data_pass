@@ -1,0 +1,44 @@
+<div class="fr-transcription fr-mt-1w" id="transcription-<%= id %>">
+  <button class="fr-transcription__btn"
+          aria-expanded="false"
+          aria-controls="fr-transcription-collapse-<%= id %>">
+    Transcription
+  </button>
+  <div class="fr-collapse" id="fr-transcription-collapse-<%= id %>">
+    <div class="fr-transcription__footer">
+      <div class="fr-transcription__actions-group">
+        <button aria-controls="fr-transcription-modal-<%= id %>"
+                aria-label="Agrandir la transcription"
+                data-fr-opened="false"
+                class="fr-btn--fullscreen fr-btn">
+          Agrandir
+        </button>
+      </div>
+    </div>
+    <dialog id="fr-transcription-modal-<%= id %>"
+            class="fr-modal"
+            aria-labelledby="fr-transcription-modal-<%= id %>-title">
+      <div class="fr-container fr-container--fluid fr-container-md">
+        <div class="fr-grid-row fr-grid-row--center">
+          <div class="fr-col-12 fr-col-md-10 fr-col-lg-8">
+            <div class="fr-modal__body">
+              <div class="fr-modal__header">
+                <button aria-controls="fr-transcription-modal-<%= id %>"
+                        title="Fermer"
+                        class="fr-btn--close fr-btn">
+                  Fermer
+                </button>
+              </div>
+              <div class="fr-modal__content">
+                <h1 id="fr-transcription-modal-<%= id %>-title" class="fr-modal__title">
+                  <%= title %>
+                </h1>
+                <p><%= description %></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </dialog>
+  </div>
+</div>
