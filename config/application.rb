@@ -6,18 +6,23 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-# Temporarily capture and filter deprecation warnings from dsfr-view-components
+# Temporarily suppress stderr while loading dsfr-view-components to hide its deprecation warning
 original_stderr = $stderr
-$stderr = StringIO.new
+begin
+  $stderr = StringIO.new
+  require 'dsfr/components'
+ensure
+  $stderr = original_stderr
+end
 
-require 'dsfr/components'
-
-$stderr = original_stderr
-
-# Patch Dsfr::Components to use mattr_accessor instead of ActiveSupport::Configurable
+# Monkey patch Dsfr::Components to replace ActiveSupport::Configurable with mattr_accessor
+# This is necessary because the gem uses ActiveSupport::Configurable which is deprecated
+# in Rails 8.2. This patch should be removed when dsfr-view-components is updated to
+# support Rails 8.2 or later.
+# See: https://github.com/etalab/data_pass/issues/XXX
 module Dsfr
   module Components
-    # Remove the Configurable dependency by providing the config methods directly
+    # Replace the Configurable-based config methods with direct implementations
     class << self
       remove_method :config if respond_to?(:config)
       remove_method :configure if respond_to?(:configure)
