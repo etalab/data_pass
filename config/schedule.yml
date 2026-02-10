@@ -1,9 +1,21 @@
-development: {}
+development:
+  rails_pulse_summary:
+    cron: '5 * * * *'
+    class: 'RailsPulse::SummaryJob'
+  rails_pulse_cleanup:
+    cron: '0 3 * * *'
+    class: 'RailsPulse::CleanupJob'
 
 production: &deployed
   healthcheck:
-    cron: "*/5 * * * *"
-    class: "HealthcheckJob"
+    cron: '*/5 * * * *'
+    class: 'HealthcheckJob'
+  rails_pulse_summary:
+    cron: '5 * * * *'
+    class: 'RailsPulse::SummaryJob'
+  rails_pulse_cleanup:
+    cron: '0 3 * * *'
+    class: 'RailsPulse::CleanupJob'
 
 staging: *deployed
 sandbox: *deployed
