@@ -6,7 +6,44 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+# Temporarily capture and filter deprecation warnings from dsfr-view-components
+original_stderr = $stderr
+$stderr = StringIO.new
+
 require 'dsfr/components'
+
+$stderr = original_stderr
+
+# Patch Dsfr::Components to use mattr_accessor instead of ActiveSupport::Configurable
+module Dsfr
+  module Components
+    # Remove the Configurable dependency by providing the config methods directly
+    class << self
+      remove_method :config if respond_to?(:config)
+      remove_method :configure if respond_to?(:configure)
+      remove_method :reset! if respond_to?(:reset!)
+
+      def config
+        self
+      end
+
+      def configure
+        yield(config)
+      end
+
+      def reset!
+        configure do |c|
+          DEFAULTS.each { |k, v| c.send("#{k}=", v) }
+        end
+      end
+    end
+
+    # Replace config_accessor with mattr_accessor for each default
+    DEFAULTS.each_key do |k|
+      mattr_accessor k, default: DEFAULTS[k]
+    end
+  end
+end
 
 module DataPass
   class Application < Rails::Application
