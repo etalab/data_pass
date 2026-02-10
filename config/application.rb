@@ -7,6 +7,8 @@ require 'rails/all'
 Bundler.require(*Rails.groups)
 
 # Temporarily suppress stderr while loading dsfr-view-components to hide its deprecation warning
+# Note: This suppresses all stderr output during gem loading. Any real errors will cause
+# an exception which will be raised after stderr is restored.
 original_stderr = $stderr
 begin
   $stderr = StringIO.new
@@ -19,33 +21,35 @@ end
 # This is necessary because the gem uses ActiveSupport::Configurable which is deprecated
 # in Rails 8.2. This patch should be removed when dsfr-view-components is updated to
 # support Rails 8.2 or later.
-# See: https://github.com/etalab/data_pass/issues/XXX
 module Dsfr
   module Components
-    # Replace the Configurable-based config methods with direct implementations
-    class << self
-      remove_method :config if respond_to?(:config)
-      remove_method :configure if respond_to?(:configure)
-      remove_method :reset! if respond_to?(:reset!)
+    # Verify DEFAULTS is defined (it should be after requiring the gem)
+    if defined?(DEFAULTS)
+      # Replace the Configurable-based config methods with direct implementations
+      class << self
+        undef_method :config if Dsfr::Components.respond_to?(:config)
+        undef_method :configure if Dsfr::Components.respond_to?(:configure)
+        undef_method :reset! if Dsfr::Components.respond_to?(:reset!)
 
-      def config
-        self
-      end
+        def config
+          self
+        end
 
-      def configure
-        yield(config)
-      end
+        def configure
+          yield(config)
+        end
 
-      def reset!
-        configure do |c|
-          DEFAULTS.each { |k, v| c.send("#{k}=", v) }
+        def reset!
+          configure do |c|
+            DEFAULTS.each { |k, v| c.send("#{k}=", v) }
+          end
         end
       end
-    end
 
-    # Replace config_accessor with mattr_accessor for each default
-    DEFAULTS.each_key do |k|
-      mattr_accessor k, default: DEFAULTS[k]
+      # Replace config_accessor with mattr_accessor for each default
+      DEFAULTS.each_key do |k|
+        mattr_accessor k, default: DEFAULTS[k]
+      end
     end
   end
 end
