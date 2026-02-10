@@ -11,6 +11,7 @@ class Seeds
     create_instructor_draft_request(applicant: demandeur)
     create_message_templates
     create_webhooks
+    create_stats_data
   end
 
   def flushdb
@@ -565,5 +566,9 @@ class Seeds
 
   def create_message_templates
     Seeds::MessageTemplates.create
+  end
+
+  def create_stats_data
+    Seeds::Stats.new(self).perform
   end
 end
