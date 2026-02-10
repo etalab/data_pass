@@ -247,6 +247,62 @@ RSpec.describe AuthorizationRequest::APIParticulier do
     end
   end
 
+  describe '#available_scopes' do
+    let(:authorization_request) { build(:authorization_request, :api_particulier_entrouvert_publik, modalities:) }
+    let(:france_connect_scope_values) { %w[family_name given_name birthdate birthplace birthcountry gender openid] }
+
+    context 'when france_connect modality is selected' do
+      let(:modalities) { %w[france_connect] }
+
+      it 'includes FranceConnect scopes' do
+        fc_scopes = authorization_request.available_scopes.select { |s| s.group == 'FranceConnect' }
+        expect(fc_scopes.map(&:value)).to match_array(france_connect_scope_values)
+      end
+    end
+
+    context 'when france_connect modality is not selected' do
+      let(:modalities) { %w[params] }
+
+      it 'excludes FranceConnect scopes' do
+        fc_scopes = authorization_request.available_scopes.select { |s| s.group == 'FranceConnect' }
+        expect(fc_scopes).to be_empty
+      end
+
+      it 'still includes non-FranceConnect scopes' do
+        non_fc_scopes = authorization_request.available_scopes.reject { |s| s.group == 'FranceConnect' }
+        expect(non_fc_scopes).not_to be_empty
+      end
+    end
+  end
+
+  describe 'automatic removal of FranceConnect scopes' do
+    let(:authorization_request) do
+      create(
+        :authorization_request,
+        :api_particulier_entrouvert_publik,
+        modalities: %w[france_connect],
+        scopes: %w[cnaf_quotient_familial family_name given_name birthdate]
+      )
+    end
+
+    it 'removes FranceConnect scopes when modality is deselected' do
+      expect(authorization_request.scopes).to include('family_name', 'given_name', 'birthdate')
+
+      authorization_request.modalities = %w[params]
+      authorization_request.valid?
+
+      expect(authorization_request.scopes).to include('cnaf_quotient_familial')
+      expect(authorization_request.scopes).not_to include('family_name', 'given_name', 'birthdate')
+    end
+
+    it 'keeps FranceConnect scopes when modality remains selected' do
+      authorization_request.modalities = %w[france_connect]
+      authorization_request.valid?
+
+      expect(authorization_request.scopes).to include('family_name', 'given_name', 'birthdate', 'cnaf_quotient_familial')
+    end
+  end
+
   describe '#attach_documents_to_france_connect_authorization' do
     let(:france_connect_authorization) { build(:authorization_request, :france_connect) }
 

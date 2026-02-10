@@ -94,8 +94,19 @@ RSpec.describe 'Authorization requests forms validations', type: :acceptance do
     initially_affected_scopes_from_form = authorization_request.form.initialize_with[:scopes] || []
 
     initially_affected_scopes_from_form.each do |scope_value|
+      next if france_connect_scope_without_modality?(authorization_request, scope_value)
+
       fail "The scope '#{scope_value}' is initially affected in the form but not displayed for this request form #{authorization_request.form.uid}" unless authorization_request.available_scopes.map(&:value).include?(scope_value)
     end
+  end
+
+  def france_connect_scope_without_modality?(authorization_request, scope_value)
+    return false unless authorization_request.respond_to?(:france_connect_modality?)
+
+    scope = authorization_request.definition.scopes.find { |s| s.value == scope_value }
+    return false unless scope&.group == 'FranceConnect'
+
+    !authorization_request.france_connect_modality?
   end
 
   def attributes_for_step(step_name, authorization_request)
