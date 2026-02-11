@@ -20,6 +20,18 @@ RSpec.describe FranceConnectDataBuilder do
       expect(data['cadre_juridique_nature']).to be_present
     end
 
+    it 'normalizes alternative_connexion checkbox value to "1" not "true"' do
+      authorization_request.fc_alternative_connexion = '1'
+
+      expect(data['alternative_connexion']).to eq('1')
+    end
+
+    it 'normalizes alternative_connexion checkbox value to "0" when unchecked' do
+      authorization_request.fc_alternative_connexion = '0'
+
+      expect(data['alternative_connexion']).to eq('0')
+    end
+
     context 'when the request does not have france_connect modality' do
       let(:authorization_request) do
         create(:authorization_request, :api_particulier, fill_all_attributes: true)

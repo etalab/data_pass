@@ -360,6 +360,8 @@ fr:
       fc_cadre_juridique_document:
         label: Ajoutez votre document pour FranceConnect
         hint: "Taille maximale: 10 Mo. Formats supportés: pdf"
+      fc_alternative_connexion:
+        label: J’atteste que mon service propose une alternative à la connexion avec FranceConnect, et que cette alternative permet l’accès, dans des conditions analogues, à la même prestation de service public.
 
       modalities:
         intro: "Vous pourrez accéder au service API Particulier via les modalités ci-dessous :"

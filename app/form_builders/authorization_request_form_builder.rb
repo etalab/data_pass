@@ -86,11 +86,9 @@ class AuthorizationRequestFormBuilder < DsfrFormBuilder
   end
 
   def term_checkbox(name, opts = {})
-    opts[:required] = true unless opts[:disabled]
-    opts[:class] ||= []
-    opts[:class] << 'fr-input-group--error' if all_terms_not_accepted_error?(name)
-    opts[:class] << 'fr-checkbox-group--no-disabled-text' if opts[:disabled]
+    return if should_skip_checkbox?(name)
 
+    prepare_term_checkbox_options(name, opts)
     yield(opts) if block_given?
 
     dsfr_check_box(name, opts)
@@ -227,5 +225,17 @@ class AuthorizationRequestFormBuilder < DsfrFormBuilder
     @object.errors.any? do |error|
       error.attribute == :base && error.type == :all_terms_not_accepted
     end
+  end
+
+  def should_skip_checkbox?(name)
+    skip_method = "skip_#{name}_check_box?"
+    @object.respond_to?(skip_method) && @object.public_send(skip_method)
+  end
+
+  def prepare_term_checkbox_options(name, opts)
+    opts[:required] = true unless opts[:disabled]
+    opts[:class] ||= []
+    opts[:class] << 'fr-input-group--error' if all_terms_not_accepted_error?(name)
+    opts[:class] << 'fr-checkbox-group--no-disabled-text' if opts[:disabled]
   end
 end

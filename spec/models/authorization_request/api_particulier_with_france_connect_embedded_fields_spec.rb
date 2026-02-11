@@ -236,14 +236,64 @@ RSpec.describe AuthorizationRequest::APIParticulier do
   end
 
   describe 'fc_alternative_connexion checkbox' do
-    it 'defaults to nil' do
+    it 'defaults to false' do
       new_request = build(:authorization_request, :api_particulier, modalities: ['france_connect'])
-      expect(new_request.fc_alternative_connexion).to be_nil
+      expect(new_request.fc_alternative_connexion).to be false
     end
 
-    it 'can be set to 1' do
+    it 'can be set to true' do
       authorization_request.fc_alternative_connexion = '1'
-      expect(authorization_request.fc_alternative_connexion).to eq '1'
+      expect(authorization_request.fc_alternative_connexion).to be true
+    end
+
+    it 'normalizes to "1" in france_connect_attributes' do
+      authorization_request.fc_alternative_connexion = '1'
+      expect(authorization_request.france_connect_attributes[:alternative_connexion]).to eq '1'
+    end
+
+    it 'normalizes to "0" in france_connect_attributes when false' do
+      authorization_request.fc_alternative_connexion = '0'
+      expect(authorization_request.france_connect_attributes[:alternative_connexion]).to eq '0'
+    end
+  end
+
+  describe '#skip_fc_alternative_connexion_check_box?' do
+    context 'when authorization request does not respond to france_connect_modality?' do
+      let(:authorization_request) { build(:authorization_request, :api_entreprise) }
+
+      it 'returns true' do
+        expect(authorization_request.skip_fc_alternative_connexion_check_box?).to be true
+      end
+    end
+
+    context 'when france_connect modality is not selected' do
+      let(:authorization_request) do
+        build(:authorization_request, :api_particulier, modalities: ['params'])
+      end
+
+      it 'returns true' do
+        expect(authorization_request.skip_fc_alternative_connexion_check_box?).to be true
+      end
+    end
+
+    context 'when france_connect modality is selected but form is not certified' do
+      let(:authorization_request) do
+        build(:authorization_request, :api_particulier, modalities: ['france_connect'])
+      end
+
+      before do
+        allow(authorization_request).to receive(:france_connect_certified_form?).and_return(false)
+      end
+
+      it 'returns true' do
+        expect(authorization_request.skip_fc_alternative_connexion_check_box?).to be true
+      end
+    end
+
+    context 'when france_connect modality is selected and form is certified' do
+      it 'returns false' do
+        expect(authorization_request.skip_fc_alternative_connexion_check_box?).to be false
+      end
     end
   end
 
