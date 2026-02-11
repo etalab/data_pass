@@ -779,6 +779,15 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur fc_certif
       | Nom du formulaire | Nom de l'éditeur |
       | YGRC              | Ypok             |
 
+  Plan du scénario: La modalité FranceConnect est cochée par défaut pour un cas d'usage FranceConnect obligatoire
+    Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>"
+    Et que je clique sur "Débuter ma demande"
+    Alors "Via FranceConnect" est coché et non modifiable
+
+    Exemples:
+      | Nom du formulaire                    |
+      | Gestion du stationnement résidentiel |
+
   Plan du scénario: Je ne peux pas soumettre une demande FranceConnect obligatoire si je n'ai pas d'habilitation FranceConnect
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>"
     Et que je clique sur "Débuter ma demande"
