@@ -1,5 +1,4 @@
 api-mobilic:
-  description: TODO
   introduction: |
     Cette demande d’habilitation est obligatoire pour mettre en place l’interconnexion avec l’API Mobilic et vise à recueillir les informations nécessaires à garantir le traitement des données personnelles.
   authorization_request: APIMobilic

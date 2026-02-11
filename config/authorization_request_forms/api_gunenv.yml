@@ -1,0 +1,13 @@
+api-gunenv:
+  introduction: |
+    Les données disponibles dans l'API GUNenv sont des données à diffusion restreinte. Elles peuvent contenir des données personnelles et/ou des données sensibles au sens de l'instruction du 12 septembre 2023 précisant les modalités de mise à disposition des informations sensibles pour éviter les actes de malveillance dans les ICPE. 
+    <br />
+    <br />
+    Une habilitation juridique est nécessaires pour utiliser ces données. Si cette habilitation vous est délivrée, il vous sera demandé de faire preuve d'une grande vigilance dans le traitement, le stockage et la diffusion de ces données.
+  authorization_request: APIGunenv
+  steps:
+    - name: basic_infos
+    - name: legal
+    - name: personal_data
+    - name: scopes
+    - name: contacts
