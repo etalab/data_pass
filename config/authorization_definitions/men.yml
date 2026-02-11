@@ -50,3 +50,24 @@ api_gfe_echange_editeurs_restauration:
     - name: "personal_data"
     - name: "legal"
     - name: "contacts"
+
+api_inser_jeunes_sup:
+    name: API Exposition InserJeunes InserSup
+    description: Exposition au grand public et aux futurs élèves des indicateurs clés sur les formations. Ces indicateurs ont vocation à éclairer sur les chances d’employabilité des élèves en sortie de formation, mais aussi sur les possibilités de poursuite d’études. Les données sont exposées sur différentes plateformes partenaires telles que ParcourSup, AFFELNET ou l’ONISEP.
+    provider: "menj"
+    link: https://documentation-api-exposition-inser-jeunes-sup.phm.education.gouv.fr
+    cgu_link: https://api.education.gouv.fr/?api_portal=1&api_portal_id=e7010ade-8abc-3e6c-a0f9-4abc53a19df1
+    access_link:
+    support_email: osmose.coord-gen@ac-dijon.fr
+    kind: 'api'
+    public: true
+    unique: false
+    startable_by_applicant: true
+    features:
+      messaging: true
+      transfer: true
+      reopening: true
+    blocks:
+      - name: basic_infos
+      - name: legal
+      - name: contacts

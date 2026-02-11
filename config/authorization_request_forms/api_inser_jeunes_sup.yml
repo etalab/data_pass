@@ -1,0 +1,18 @@
+# Identifiant unique qui sera utilisé dans les URLs
+api-inser-jeunes-sup:
+  name: API Exposition InserJeunes InserSup
+  authorization_request: APIInserJeunesSup
+  introduction: |
+    Notre mission est de soutenir la liberté de choisir son avenir professionnel en exposant au grand public et aux futurs élèves des indicateurs clés sur les formations. Ces indicateurs ont vocation a éclairer sur les chances d’employabilité des élèves en sortie de formation, mais aussi sur les possibilités de poursuite d’études.
+    La qualité des données et le taux de couverture sont nos priorités. 
+    <br />
+    <br />
+    Le taux de couverture correspond au nombre de formations exposant des données fiables. Cette couverture des données doit tendre à la plus grande exhaustivité.
+    Nos données sont exposées sur différentes plateformes partenaires telles que ParcourSup, AFFELNET ou l’ONISEP.
+    <br />
+    <br />
+    La demande d'habilitation vous permettra d'obtenir vos identifiants pour accéder à l'API.
+  steps:
+    - name: basic_infos
+    - name: legal
+    - name: contacts
