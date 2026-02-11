@@ -11,7 +11,7 @@ api-inser-jeunes-sup:
     Nos données sont exposées sur différentes plateformes partenaires telles que ParcourSup, AFFELNET ou l’ONISEP.
     <br />
     <br />
-    La demande d'habilitation vous permettra d'obtenir vos identifiants pour accéder à l'API.
+    La demande d’habilitation vous permettra d’obtenir vos identifiants pour accéder à l’API.
   steps:
     - name: basic_infos
     - name: legal
