@@ -3,7 +3,10 @@
     show_fc_fields = if local_assigns[:authorization]
       local_assigns[:authorization].authorization_request_class == 'AuthorizationRequest::FranceConnect'
     else
-      authorization_request.respond_to?(:france_connect_modality?) && authorization_request.france_connect_modality?
+      authorization_request.is_a?(AuthorizationRequest::FranceConnect) ||
+        (authorization_request.respond_to?(:france_connect_modality?) &&
+         authorization_request.france_connect_modality? &&
+         authorization_request.france_connect_certified_form?)
     end
     grouped_scopes = authorization_request.available_scopes.group_by(&:group)
   %>

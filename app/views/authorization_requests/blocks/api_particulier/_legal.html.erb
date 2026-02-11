@@ -1,12 +1,14 @@
 <%= render layout: 'authorization_requests/shared/blocks/summary_block', locals: { authorization_request:, title: f.wording_for('steps.legal'), block_id: :legal, f:, editable: } do %>
-<%
+  <%
     show_fc_fields = if local_assigns[:authorization]
       local_assigns[:authorization].authorization_request_class == 'AuthorizationRequest::FranceConnect'
     else
-      authorization_request.respond_to?(:france_connect_modality?) && authorization_request.france_connect_modality?
+      authorization_request.is_a?(AuthorizationRequest::FranceConnect) ||
+        (authorization_request.respond_to?(:france_connect_modality?) &&
+         authorization_request.france_connect_modality? &&
+         authorization_request.france_connect_certified_form?)
     end
   %>
-
   <% if show_fc_fields %>
     <h3 class="fr-h6 fr-text-title--blue-france fr-mb-3w"><%= t('authorization_request.blocks.legal.france_connect_section') %></h3>
 
