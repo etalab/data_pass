@@ -1,0 +1,42 @@
+<%= f.info_for(:modalities) %>
+
+<div class="fr-col-lg-9">
+  <% @authorization_request.available_modalities.each do |modality| %>
+    <% next if modality == 'formulaire_qf' %>
+    <% locked = modality == 'france_connect' %>
+
+    <div class="fr-input-group">
+      <div class="fr-checkbox-group">
+        <%= f.checkbox :modalities,
+              {
+                multiple: true,
+                checked: locked || @authorization_request.modalities.include?(modality),
+                disabled: locked,
+                class: 'fr-checkbox-group'
+              },
+              modality,
+              nil %>
+        <%= f.dsfr_radio_label(:modalities, modality) %>
+        <% if locked %>
+          <%= f.hidden_field :modalities, value: modality, name: "#{@authorization_request.model_name.param_key}[modalities][]" %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<div class="fr-col-lg-9 fr-mt-5w">
+  <% if @authorization_request.france_connect_authorizations.empty? %>
+    <div class="fr-callout red-callout">
+      <h3 class="fr-callout__title">
+        <%= f.wording_for("modalities.callout.title") %>
+      </h3>
+      <p class="fr-callout__text fr-my-3w">
+        <%= f.wording_for("modalities.callout.content") %>
+      </p>
+      <%= link_to f.wording_for("modalities.callout.link"), new_authorization_request_path("france-connect"), class: "fr-link fr-btn--icon-right fr-icon-arrow-right-line" %>
+    </div>
+  <% else %>
+    <%= f.france_connect_authorization_select %>
+  <% end %>
+</div>

@@ -2493,11 +2493,13 @@ api-particulier-stationnement-residentiel:
   authorization_request: APIParticulier
   use_case: stationnement_residentiel
   introduction: |
-    En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier la <strong>"l'abonnement et le droit au stationnement résidentiel"</strong>. <a href="https://particulier.api.gouv.fr/cas_usages/stationnement-residentiel">En savoir plus sur ce cas d'usage</a>.
+    En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier <strong>"l'abonnement et le droit au stationnement résidentiel"</strong>. <a href="https://particulier.api.gouv.fr/cas_usages/stationnement-residentiel">En savoir plus sur ce cas d'usage</a>.
+    <br />
+    <strong>Vous devez faire une demande de raccordement à FranceConnect préalablement à cette demande d'accès</strong> car l'<a href="https://particulier.api.gouv.fr/catalogue/ants/extrait_immatriculation_vehicule">API "Extrait d'immatriculation véhicule"</a> n'est accessible qu'avec FranceConnect.
   steps:
+    - name: modalities
     - name: basic_infos
     - name: legal
-    - name: modalities
     - name: scopes
     - name: personal_data
     - name: contacts
@@ -2519,13 +2521,16 @@ api-particulier-stationnement-residentiel:
       - ants_extrait_immatriculation_vehicule_caracteristiques_techniques_vehicule
   initialize_with:
     intitule: Gestion du stationnement résidentiel
-    cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager."
+    cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l'administration fixe le cadre général qui oblige l'administration à échanger des données lors d'une démarche d'un usager. Article L2333-87 du Code général des collectivités territoriales. Article L2333-87-3 du Code général des collectivités territoriales "
     scopes:
       - ants_extrait_immatriculation_vehicule_identite_particulier
       - ants_extrait_immatriculation_vehicule_adresse_particulier
       - ants_extrait_immatriculation_vehicule_statut_rattachement
       - ants_extrait_immatriculation_vehicule_donnees_immatriculation_vehicule
       - ants_extrait_immatriculation_vehicule_caracteristiques_techniques_vehicule
+    modalities:
+      - params
+      - france_connect
 
 api-particulier-tarification-eaje:
   name: Tarification sociale des services municipaux à la petite enfance
