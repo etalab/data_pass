@@ -134,7 +134,7 @@ panel, without any code change or deployment.
 |------|-----------|
 | **CUR1** | **AuthorizationDefinition** — `StaticApplicationRecord` loaded from YAML (`config/authorization_definitions/*.yml`). In-memory, no DB. |
 | **CUR2** | **AuthorizationRequestForm** — `StaticApplicationRecord` loaded from YAML (`config/authorization_request_forms/*.yml`). In-memory, no DB. |
-| **CUR3** | **AuthorizationRequest** — DB model with STI. References definition via class name (`to_s.demodulize.underscore`), form via `form_uid` column. |
+| **CUR3** | **AuthorizationRequest** — DB model with STI (Single Table Inheritance). References definition via class name (`to_s.demodulize.underscore`), form via `form_uid` column. |
 | **CUR4** | **Ruby model per type** — Each type has `app/models/authorization_request/<type>.rb` with concerns (BasicInfos, CadreJuridique, PersonalData, Contacts, Scopes). |
 | **CUR5** | **I18n** — Labels, hints, titles configured in `authorization_request_forms.fr.yml` and `activerecord.fr.yml`. |
 | **CUR6** | **Views** — Block partials in `app/views/authorization_request_forms/build/` and `app/views/authorization_requests/blocks/`. Custom overrides possible per definition or form. |
