@@ -207,3 +207,15 @@ panel, without any code change or deployment.
 | R9 | Backend keeps the door open for future provider self-service | Nice-to-have | ✅ |
 
 **All requirements pass.** All three spikes (A1, A3, A4) resolved with low-to-medium risk mechanisms.
+
+---
+
+## Slices
+
+Shape A is selected and fully validated. See [slices doc](./create_new_authorizations%20-%20slices.md) for the implementation breakdown:
+
+| Slice | What it delivers |
+|-------|-----------------|
+| **V1** | End-to-end proof: admin creates a minimal type (basic_infos only), applicant fills it, instructor reviews |
+| **V2** | Block selection + scopes builder + contacts configuration |
+| **V3** | Full configuration: links, custom legal labels, provider creation, introduction text |
