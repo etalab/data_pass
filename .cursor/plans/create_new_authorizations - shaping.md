@@ -99,7 +99,7 @@ panel, without any code change or deployment.
 | Scopes | Simplified: name, value, group only (no deprecated/included/disabled) |
 | Form introduction | Optional text before first step |
 
-### Defaulted (not configurable in V1)
+### Defaulted (not configurable for now)
 
 | Field | Default | Notes |
 |-------|---------|-------|
