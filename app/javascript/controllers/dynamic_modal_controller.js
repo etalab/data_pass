@@ -18,10 +18,13 @@ export default class extends Controller {
     this.boundApplySizeClasses = this.applySizeClasses.bind(this)
     this.contentTarget.addEventListener('turbo:frame-load', this.boundApplySizeClasses)
     this.applySizeClasses()
+    this.preventBackdropCloseOnTextSelection()
   }
 
   disconnect () {
     this.contentTarget.removeEventListener('turbo:frame-load', this.boundApplySizeClasses)
+    this.element.removeEventListener('mousedown', this.boundTrackMouseDown)
+    this.element.removeEventListener('click', this.boundPreventClose, true)
   }
 
   applySizeClasses () {
@@ -55,6 +58,24 @@ export default class extends Controller {
 
   getPredefinedSizeClasses (size) {
     return this.constructor.SIZE_MAP[size] || this.defaultClassesValue
+  }
+
+  preventBackdropCloseOnTextSelection () {
+    this._mouseDownInsideContent = false
+
+    this.boundTrackMouseDown = (event) => {
+      this._mouseDownInsideContent = event.target !== this.element
+    }
+
+    this.boundPreventClose = (event) => {
+      if (event.target === this.element && this._mouseDownInsideContent) {
+        event.stopPropagation()
+      }
+      this._mouseDownInsideContent = false
+    }
+
+    this.element.addEventListener('mousedown', this.boundTrackMouseDown)
+    this.element.addEventListener('click', this.boundPreventClose, true)
   }
 
   updateContainerClasses (newClasses) {
