@@ -9,11 +9,12 @@ shaping: true
 ### Source
 
 > Aujourd'hui, la création d'un nouveau type d'habilitation se fait comme ça :
-> https://github.com/etalab/data_pass/blob/develop/docs/nouveau_type_d_habilitation.md
 > 
-> ![](https://i.imgflip.com/ajxxik.jpg)
+> ![](https://i.imgflip.com/ajy6oh.jpg)
+> 
+> CF [cette documentation](https://github.com/etalab/data_pass/blob/develop/docs/nouveau_type_d_habilitation.md).
 >
-> Je souhaite proposer une nouvelle fonctionnalité pour DataPass : « Création de
+> J'aimerais proposer une nouvelle fonctionnalité pour DataPass : « Création de
 > nouveaux types d'habilitation dans l'UI ». Elle permettrait de créer de nouveaux
 > types d'habilitation sans avoir à modifier le code.
 >
@@ -38,12 +39,20 @@ shaping: true
 Creating a new authorization type requires a developer to: modify YAML config,
 create a Ruby model, add views, configure I18n, and write tests. The bizdev team
 is blocked by the tech team for what is essentially a configuration task. There
-are 55+ types, and each follows this same manual 6-step process.
+are 55+ types, and each has followed   this same manual 6-step process.
+
+> _Me when I create a new habilitation type, have hair and am a bit fatter_
+> 
+> ![](https://media1.tenor.com/m/wVj3vy6H8EIAAAAd/bookio.gif)
+
 
 ### Outcome
 
 The bizdev team can create new authorization types autonomously through the admin
 panel, without any code change or deployment.
+
+> ![](https://i.imgflip.com/ajy8qk.jpg)
+
 
 ---
 
@@ -82,6 +91,8 @@ panel, without any code change or deployment.
 ---
 
 ## Scope decisions
+
+![](https://i.imgflip.com/ajy992.jpg)
 
 ### Configurable by bizdev (in the creation UI)
 
@@ -151,6 +162,8 @@ panel, without any code change or deployment.
 
 ## Shape A: Hybrid Lookup + Metaprogrammed Classes
 
+![](https://media1.tenor.com/m/3t1n2hPcCEwAAAAC/kronk-emperors-new-groove.gif)
+
 | Part | Mechanism | Flag |
 |------|-----------|:----:|
 | **A1** | **Hybrid backend** — No new base class needed. Override `backend` in `AuthorizationDefinition` and `AuthorizationRequestForm` to return YAML records + DB records merged. DB records are wrapped into the same object (`AuthorizationDefinition.new(...)`) via a `build_from_record` method. All consumers see identical objects. Add `reset!` to bust `@all` cache when new types are created. | |
@@ -219,3 +232,14 @@ Shape A is selected and fully validated. See [slices doc](./create_new_authoriza
 | **V1** | End-to-end proof: admin creates a minimal type (basic_infos only), applicant fills it, instructor reviews |
 | **V2** | Block selection + scopes builder + contacts configuration |
 | **V3** | Full configuration: links, custom legal labels, provider creation, introduction text |
+
+
+## Quelques memes en vrac pour conclure
+
+![](https://i.imgflip.com/ajy9j0.jpg)
+
+![](https://i.imgflip.com/ajy674.jpg)
+
+![](https://i.imgflip.com/ajxxik.jpg)
+
+![](https://i.imgflip.com/ajy9oj.gif)
