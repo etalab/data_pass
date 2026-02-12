@@ -197,7 +197,11 @@ class AuthorizationRequest < ApplicationRecord
   end
 
   def all_terms_accepted
-    return if terms_of_service_accepted && (skip_data_protection_officer_informed_check_box? || data_protection_officer_informed) && all_extra_checkboxes_checked?
+    cgu_required = definition.cgu_link.present?
+
+    return if (!cgu_required || terms_of_service_accepted) &&
+              (skip_data_protection_officer_informed_check_box? || data_protection_officer_informed) &&
+              all_extra_checkboxes_checked?
 
     errors.add(:base, :all_terms_not_accepted)
   end

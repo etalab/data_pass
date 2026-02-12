@@ -63,6 +63,8 @@ class AuthorizationRequestFormBuilder < DsfrFormBuilder
   end
 
   def cgu_check_box(opts = {}, label_opts = {})
+    return nil if @object.definition.cgu_link.blank?
+
     checkbox_opts = opts.dup
 
     label_opts = label_opts.merge(disabled: opts[:disabled])

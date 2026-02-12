@@ -619,4 +619,30 @@ RSpec.describe AuthorizationRequest do
       end
     end
   end
+
+  describe 'all_terms_accepted validation' do
+    context 'when API has cgu_link' do
+      let(:authorization_request) do
+        build(:authorization_request, :api_entreprise,
+          fill_all_attributes: true,
+          terms_of_service_accepted: false)
+      end
+
+      it 'is invalid on submit' do
+        expect(authorization_request).not_to be_valid(:submit)
+      end
+    end
+
+    context 'when API has no cgu_link' do
+      let(:authorization_request) do
+        build(:authorization_request, :api_gunenv,
+          fill_all_attributes: true,
+          terms_of_service_accepted: false)
+      end
+
+      it 'is valid on submit if other terms are accepted' do
+        expect(authorization_request).to be_valid(:submit)
+      end
+    end
+  end
 end
