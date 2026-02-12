@@ -16,8 +16,17 @@ module AuthorizationCore::Checkboxes
     end
   end
 
+  def skip_extra_checkbox?(checkbox_name)
+    skip_method = "skip_#{checkbox_name}_check_box?"
+    return false unless respond_to?(skip_method)
+
+    public_send(skip_method)
+  end
+
   def all_extra_checkboxes_checked?
     self.class.extra_checkboxes.all? do |extra_checkbox_name|
+      next true if skip_extra_checkbox?(extra_checkbox_name)
+
       public_send(extra_checkbox_name)
     end
   end

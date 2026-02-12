@@ -196,6 +196,14 @@ class AuthorizationRequest < ApplicationRecord
     self.class.contacts.none? { |c| c.type == :delegue_protection_donnees }
   end
 
+  def skip_fc_alternative_connexion_check_box?
+    return true unless respond_to?(:france_connect_modality?)
+    return true unless france_connect_modality?
+    return true unless france_connect_certified_form?
+
+    false
+  end
+
   def all_terms_accepted
     return if terms_of_service_accepted && (skip_data_protection_officer_informed_check_box? || data_protection_officer_informed) && all_extra_checkboxes_checked?
 

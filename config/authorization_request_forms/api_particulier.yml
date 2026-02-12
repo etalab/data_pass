@@ -421,7 +421,6 @@ api-particulier-civil-enfance-ciril-group:
       Récupération des données nécessaires pour le calcul des tarifs des différentes prestations. L'application est soit utilisée par les agents habilités des collectivités locales soit utilisée par les parents des enfants scolarisés dans ces communes en front sur le portail famille.
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_qf
     fc_eidas: 'eidas_1'
-    fc_alternative_connexion: '1'
     fc_cadre_juridique_nature: 'Arrêté du 8 novembre 2018'
     fc_cadre_juridique_url: 'https://www.legifrance.gouv.fr/loda/id/JORFTEXT000037611479'
     scopes:
@@ -581,7 +580,6 @@ api-particulier-waigeo-myperischool:
     description: MyPérischool dispose d'un front accessible pour les citoyens et les agents pour la gestion de la petite enfance et des activités periscolaires
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_qf
     fc_eidas: 'eidas_1'
-    fc_alternative_connexion: '1'
     fc_cadre_juridique_nature: 'Arrêté du 8 novembre 2018'
     fc_cadre_juridique_url: 'https://www.legifrance.gouv.fr/loda/id/JORFTEXT000037611479f'
     scopes:
@@ -807,7 +805,6 @@ api-particulier-aiga:
       Gestion de la tarification des services scolaires et péri scolaires en backoffice par des agents habilités
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_municipale_enfance
     fc_eidas: 'eidas_1'
-    fc_alternative_connexion: '1'
     fc_cadre_juridique_nature: 'Arrêté du 8 novembre 2018'
     fc_cadre_juridique_url: 'https://www.legifrance.gouv.fr/loda/id/JORFTEXT000037611479f'
     scopes:
@@ -955,7 +952,6 @@ api-particulier-capdemat-capdemat-evolution:
     description: Logiciel de Gestion de la Relation usager à destination des collectivités intégrant un portail pour les citoyens et un back office agent.
     cadre_juridique_nature: l’Article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d'un usage. L’article R531-52 du Code de l’éducation donne compétence aux collectivités pour fixer les tarifs des cantines.
     fc_eidas: 'eidas_1'
-    fc_alternative_connexion: '1'
     fc_cadre_juridique_nature: 'Arrêté du 8 novembre 2018'
     fc_cadre_juridique_url: 'https://www.legifrance.gouv.fr/loda/id/JORFTEXT000037611479'
     scopes:
@@ -1458,7 +1454,6 @@ api-particulier-ypok:
       Gestion des structures enfance, jeunesse pour la facturation de la cantine, le service periscolaire et extrascolaire
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_qf
     fc_eidas: 'eidas_1'
-    fc_alternative_connexion: '1'
     fc_cadre_juridique_nature: 'Arrêté du 8 novembre 2018'
     fc_cadre_juridique_url: 'https://www.legifrance.gouv.fr/loda/id/JORFTEXT000037611479'
     scopes:
@@ -1772,7 +1767,6 @@ api-particulier-mgdis-tarification-cantines-lycees:
     description: TODO
     cadre_juridique_nature: "\n- Cadre légal général : L’article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Cadre légal spécifique aux régions : L’article L216-6 du Code de l’éducation qui donne compétence aux lycées pour la gestion des cantines.\r\n- La délibération [À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]"
     fc_eidas: 'eidas_1'
-    fc_alternative_connexion: '1'
     fc_cadre_juridique_nature: 'Arrêté du 8 novembre 2018'
     fc_cadre_juridique_url: 'https://www.legifrance.gouv.fr/loda/id/JORFTEXT000037611479'
     scopes:
@@ -1985,7 +1979,6 @@ api-particulier-entrouvert-publik:
       Publik de la collectivité, éditée par la société Entr'ouvert
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_municipale_enfance
     fc_eidas: 'eidas_1'
-    fc_alternative_connexion: '1'
     fc_cadre_juridique_nature: 'Arrêté du 8 novembre 2018'
     fc_cadre_juridique_url: 'https://www.legifrance.gouv.fr/loda/id/JORFTEXT000037611479'
     scopes:
@@ -2159,7 +2152,6 @@ api-particulier-aiga-petite-enfance:
       Gestion de la tarification des établissement d’acceuil du jeune enfant en backoffice par des agents habilités
     cadre_juridique_nature: Cadre légal général L’article L114-8 du Code des relations entre le public et l’administration qui fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Délibération.[À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]"_eaje
     fc_eidas: 'eidas_1'
-    fc_alternative_connexion: '1'
     fc_cadre_juridique_nature: 'Arrêté du 8 novembre 2018'
     fc_cadre_juridique_url: 'https://www.legifrance.gouv.fr/loda/id/JORFTEXT000037611479'
     scopes:
