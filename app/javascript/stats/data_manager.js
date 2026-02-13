@@ -33,31 +33,31 @@ export function updateTimeSeriesChart (canvasElement, timeSeries, existingChartI
 export function updateDurationCards (targets, durations) {
   updateSingleDurationCard(
     targets.percentile50TimeToSubmit,
-    targets.percentile90TimeToSubmit,
+    targets.percentile80TimeToSubmit,
     durations?.time_to_submit
   )
   updateSingleDurationCard(
     targets.percentile50TimeToFirstInstruction,
-    targets.percentile90TimeToFirstInstruction,
+    targets.percentile80TimeToFirstInstruction,
     durations?.time_to_first_instruction
   )
   updateSingleDurationCard(
     targets.percentile50TimeToFinalInstruction,
-    targets.percentile90TimeToFinalInstruction,
+    targets.percentile80TimeToFinalInstruction,
     durations?.time_to_final_instruction
   )
 }
 
-function updateSingleDurationCard (percentile50Target, percentile90Target, data) {
+function updateSingleDurationCard (percentile50Target, percentile80Target, data) {
   const p50Seconds = data?.percentile_50_seconds
-  const p90Seconds = data?.percentile_90_seconds
+  const p80Seconds = data?.percentile_80_seconds
 
   percentile50Target.textContent = formatDuration(p50Seconds)
-  percentile90Target.textContent = formatDuration(p90Seconds)
+  percentile80Target.textContent = formatDuration(p80Seconds)
 
   const p50Label = percentile50Target.closest('p')?.previousElementSibling
   if (p50Label) p50Label.style.visibility = p50Seconds ? 'visible' : 'hidden'
 
-  const p90Paragraph = percentile90Target.closest('p')
-  if (p90Paragraph) p90Paragraph.style.visibility = p90Seconds ? 'visible' : 'hidden'
+  const p80Paragraph = percentile80Target.closest('p')
+  if (p80Paragraph) p80Paragraph.style.visibility = p80Seconds ? 'visible' : 'hidden'
 }

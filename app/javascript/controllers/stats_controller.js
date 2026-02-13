@@ -9,9 +9,9 @@ export default class extends Controller {
   static targets = [
     'startDate', 'endDate', 'providerSelect', 'typeSelect', 'formSelect',
     'totalRequestsCount', 'reopeningsCount', 'validationsCount', 'refusalsCount',
-    'percentile50TimeToSubmit', 'percentile90TimeToSubmit',
-    'percentile50TimeToFirstInstruction', 'percentile90TimeToFirstInstruction',
-    'percentile50TimeToFinalInstruction', 'percentile90TimeToFinalInstruction',
+    'percentile50TimeToSubmit', 'percentile80TimeToSubmit',
+    'percentile50TimeToFirstInstruction', 'percentile80TimeToFirstInstruction',
+    'percentile50TimeToFinalInstruction', 'percentile80TimeToFinalInstruction',
     'loadingIndicator', 'quickRanges', 'timeSeriesChart', 'migrationWarning', 'errorAlert'
   ]
 
@@ -139,7 +139,7 @@ export default class extends Controller {
       .reduce((acc, key) => ({
         ...acc,
         [`percentile50${key}`]: this[`percentile50${key}Target`],
-        [`percentile90${key}`]: this[`percentile90${key}Target`]
+        [`percentile80${key}`]: this[`percentile80${key}Target`]
       }), {})
   }
 

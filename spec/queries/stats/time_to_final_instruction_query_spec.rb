@@ -31,8 +31,8 @@ RSpec.describe Stats::TimeToFinalInstructionQuery, type: :query do
       expect(result[:p50]).to be_a(Numeric)
       expect(result[:p50]).to be > 0
       expect(result[:p50]).to be_between(4.hours.to_i, 48.hours.to_i)
-      expect(result[:p90]).to be_a(Numeric)
-      expect(result[:p90]).to be >= result[:p50]
+      expect(result[:p80]).to be_a(Numeric)
+      expect(result[:p80]).to be >= result[:p50]
     end
 
     it 'only considers approve and refuse as final decisions' do
@@ -49,7 +49,7 @@ RSpec.describe Stats::TimeToFinalInstructionQuery, type: :query do
         result = query.percentiles
 
         expect(result[:p50]).to be_nil
-        expect(result[:p90]).to be_nil
+        expect(result[:p80]).to be_nil
       end
     end
 
@@ -72,7 +72,7 @@ RSpec.describe Stats::TimeToFinalInstructionQuery, type: :query do
       end
     end
 
-    context 'with enough data for meaningful 90th percentile' do
+    context 'with enough data for meaningful 80th percentile' do
       let!(:medium_decision_request) do
         create(:authorization_request, :api_entreprise, applicant: user, organization: organization, created_at: Date.new(2025, 6, 3)).tap do |ar|
           create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: Time.zone.local(2025, 6, 3, 10, 0))
@@ -89,13 +89,13 @@ RSpec.describe Stats::TimeToFinalInstructionQuery, type: :query do
         end
       end
 
-      it 'calculates 90th percentile higher than or equal to 50th percentile' do
+      it 'calculates 80th percentile higher than or equal to 50th percentile' do
         query = described_class.new(date_range: date_range)
         result = query.percentiles
 
-        expect(result[:p90]).to be_a(Numeric)
-        expect(result[:p90]).to be > 0
-        expect(result[:p90]).to be_between(4.hours.to_i, 96.hours.to_i)
+        expect(result[:p80]).to be_a(Numeric)
+        expect(result[:p80]).to be > 0
+        expect(result[:p80]).to be_between(4.hours.to_i, 96.hours.to_i)
       end
     end
   end

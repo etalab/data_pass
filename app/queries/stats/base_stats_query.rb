@@ -46,17 +46,17 @@ class Stats::BaseStatsQuery
   end
 
   def calculate_percentiles(relation, expression)
-    return { p50: nil, p90: nil } unless relation.exists?
+    return { p50: nil, p80: nil } unless relation.exists?
 
     subquery = relation.select(Arel.sql("#{expression} as duration")).to_sql
 
     result = ActiveRecord::Base.connection.execute(
       'SELECT PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY duration) as p50, ' \
-      'PERCENTILE_CONT(0.9) WITHIN GROUP (ORDER BY duration) as p90 ' \
+      'PERCENTILE_CONT(0.8) WITHIN GROUP (ORDER BY duration) as p80 ' \
       "FROM (#{subquery}) as durations"
     )
     row = result.first
-    { p50: row&.fetch('p50', nil)&.to_f, p90: row&.fetch('p90', nil)&.to_f }
+    { p50: row&.fetch('p50', nil)&.to_f, p80: row&.fetch('p80', nil)&.to_f }
   end
 
   def first_event_subquery(event_name)

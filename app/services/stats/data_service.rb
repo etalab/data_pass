@@ -75,7 +75,7 @@ class Stats::DataService
   def percentiles_to_hash(percentiles)
     {
       percentile_50_seconds: percentiles[:p50],
-      percentile_90_seconds: percentiles[:p90]
+      percentile_80_seconds: percentiles[:p80]
     }
   end
 end

@@ -3,20 +3,20 @@
     stimulus_controller: stimulus_controller,
     title: "Durée de remplissage d\u2019une nouvelle demande",
     percentile_50_target: 'percentile50TimeToSubmit',
-    percentile_90_target: 'percentile90TimeToSubmit',
+    percentile_80_target: 'percentile80TimeToSubmit',
     type: :duration %>
 
   <%= render 'stats/shared/duration_stat_card',
     stimulus_controller: stimulus_controller,
     title: "Délai de première réponse à une demande",
     percentile_50_target: 'percentile50TimeToFirstInstruction',
-    percentile_90_target: 'percentile90TimeToFirstInstruction',
+    percentile_80_target: 'percentile80TimeToFirstInstruction',
     type: :delay %>
 
   <%= render 'stats/shared/duration_stat_card',
     stimulus_controller: stimulus_controller,
     title: "Délai de réponse définitive à une demande",
     percentile_50_target: 'percentile50TimeToFinalInstruction',
-    percentile_90_target: 'percentile90TimeToFinalInstruction',
+    percentile_80_target: 'percentile80TimeToFinalInstruction',
     type: :delay %>
 </div>
