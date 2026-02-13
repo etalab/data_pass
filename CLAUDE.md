@@ -79,6 +79,16 @@ If the user is NOT using Docker, you can use these commands directly:
 - Components are documented here
     https://www.systeme-de-design.gouv.fr/version-courante/fr/composants
 
+## Worktrees
+
+Multiple worktrees can run simultaneously with isolated databases and ports.
+Each worktree has a `.env.local` (gitignored) setting `DATABASE_DEVELOPMENT_NAME`,
+`DATABASE_TEST_NAME`, `PORT`, and `ACTION_CABLE_CHANNEL_PREFIX`.
+Redis is shared across worktrees.
+
+- Create a new worktree: `bin/worktree-build <folder> <branch> [port]`
+- Reconfigure an existing worktree: `bin/worktree-build --setup-only <folder> [port]`
+
 ## Git
 
 - When you move files, use `git mv` to keep history.

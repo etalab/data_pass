@@ -89,6 +89,24 @@ Then go to [http://localhost:3000](http://localhost:3000)
 
 For mailer preview: [http://localhost:3000/rails/mailers](http://localhost:3000/rails/mailers)
 
+### Worktrees
+
+You can run multiple worktrees simultaneously, each with its own database and
+web port. From the main worktree:
+
+```sh
+# Create a new worktree
+bin/worktree-build ../my-worktree feature/my-feature 3001
+
+# Reconfigure an existing worktree
+bin/worktree-build --setup-only ../my-worktree 3001
+```
+
+Each worktree gets its own `.env.local` with isolated `DATABASE_DEVELOPMENT_NAME`,
+`DATABASE_TEST_NAME`, `PORT`, and `ACTION_CABLE_CHANNEL_PREFIX`. Redis is shared.
+
+Start each worktree independently with `bin/local_run.sh`.
+
 ### Avec un sous-domaine référencé
 
 Il est possible de restreindre l'application à un sous-ensemble de type
