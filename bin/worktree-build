@@ -1,26 +1,91 @@
 #!/bin/bash
 
-if [ $# -ne 1 ]; then
-    echo "Usage: $0 <feature-name>"
-    exit 1
+set -e
+
+setup_only=false
+if [ "$1" = "--setup-only" ]; then
+  setup_only=true
+  shift
 fi
 
-feature=$1
-folder=../data_pass_$feature
-db_suffix=`echo $feature | tr '/-' '_'`
+if $setup_only; then
+  if [ $# -lt 1 ] || [ $# -gt 2 ]; then
+    echo "Usage: $0 --setup-only <folder-path> [port]"
+    echo ""
+    echo "Reconfigure an existing worktree (generates .env.local, .env symlink)."
+    echo "Does NOT create databases - run db:create + db:schema:load manually if needed."
+    echo ""
+    echo "Examples:"
+    echo "  $0 --setup-only ../dp-gandalf 3001"
+    echo "  $0 --setup-only /home/alice/worktrees/my-feature 3005"
+    exit 1
+  fi
+  folder=$1
+  port=${2:-}
+else
+  if [ $# -lt 2 ] || [ $# -gt 3 ]; then
+    echo "Usage: $0 <folder-path> <branch> [port]"
+    echo "       $0 --setup-only <folder-path> [port]"
+    echo ""
+    echo "Create a new worktree with isolated database, port, and ActionCable prefix."
+    echo ""
+    echo "Examples:"
+    echo "  $0 ../dp-gandalf feature/setup-rails-pulse 3001"
+    echo "  $0 /home/alice/worktrees/my-feature develop 3005"
+    echo "  $0 ../fix-login feature/fix-login"
+    exit 1
+  fi
+  folder=$1
+  branch=$2
+  port=${3:-}
+fi
 
-echo "Prepare worktree for $feature within $folder"
+basename=$(basename "$folder")
+db_suffix=$(echo "$basename" | tr '/-' '_')
 
-git worktree add $folder -b feature/$feature
-cp -r .claude $folder/.claude
-cp .env.local $folder/.env.local
-cd $folder
+if ! $setup_only; then
+  echo "=== Creating worktree at $folder (branch: $branch) ==="
+  git worktree add "$folder" "$branch"
+fi
 
-touch .env.local
-echo "DATABASE_DEVELOPMENT_NAME=data_pass_development_$1" >> .env.local
-echo "DATABASE_TEST_NAME=data_pass_test_$1" >> .env.local
-rails db:create
-rails db:schema:load
-rails db:seed:replant
+if [ ! -d "$folder" ]; then
+  echo "Error: $folder does not exist."
+  exit 1
+fi
 
-echo "Ready ✅"
+echo "--- Generating .env.local ---"
+cat > "$folder/.env.local" <<EOF
+DATABASE_DEVELOPMENT_NAME=data_pass_development_${db_suffix}
+DATABASE_TEST_NAME=data_pass_test_${db_suffix}
+ACTION_CABLE_CHANNEL_PREFIX=data_pass_development_${db_suffix}
+EOF
+
+if [ -n "$port" ]; then
+  echo "PORT=$port" >> "$folder/.env.local"
+fi
+
+echo "--- Creating .env symlink for foreman ---"
+rm -f "$folder/.env"
+ln -s .env.local "$folder/.env"
+
+if [ -d .claude ]; then
+  echo "--- Copying .claude settings ---"
+  cp -r .claude "$folder/.claude"
+fi
+
+if ! $setup_only; then
+  echo "--- Setting up databases ---"
+  cd "$folder"
+  bin/rails db:create
+  bin/rails db:schema:load
+  bin/rails db:seed:replant
+fi
+
+echo ""
+echo "=== Worktree '$basename' is ready ==="
+echo "  Path:     $folder"
+echo "  Dev DB:   data_pass_development_${db_suffix}"
+echo "  Test DB:  data_pass_test_${db_suffix}"
+[ -n "$port" ] && echo "  Port:     $port"
+echo ""
+echo "  Start with: cd $folder && bin/local_run.sh"
