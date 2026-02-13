@@ -68,8 +68,16 @@ panel, without any code change or deployment.
 | **R5** | Blocks individually selectable; all optional, all included by default | Must-have |
 | **R6** | New type auto-generates associated « demande libre » form | Must-have |
 | **R7** | Bizdev can create a new DataProvider from the same UI flow | Must-have |
-| **R8** | Editing/versioning of types deferred, but architecture must not block it | Nice-to-have (deferred) |
+| **R8** | Types can be edited and deleted from the admin UI | Must-have |
 | **R9** | Backend keeps the door open for future provider self-service | Nice-to-have |
+
+### R8 sub-requirements (type lifecycle)
+
+| ID | Requirement | Status |
+|----|-------------|--------|
+| **R8.1** | Types with no requests: freely editable and deletable | Must-have |
+| **R8.2** | Types with requests: editing or deletion requires explicit confirmation showing request count and affected organizations (cascade delete of all requests before applying the change) | Must-have |
+| **R8.3** | Confirmation dialog disables the confirm button for 5 seconds to prevent accidental destructive actions | Must-have |
 
 ### R5 sub-requirements (block behaviors)
 
@@ -171,7 +179,8 @@ panel, without any code change or deployment.
 | **A3** | **Dynamic class generation** — `DynamicAuthorizationTypeRegistrar` service. At boot (`to_prepare`), loads all DB definitions and for each: creates `Class.new(AuthorizationRequest)`, dynamically includes the right concerns based on block config, registers with `const_set(uid.classify, klass)`. On admin creation, registers immediately + calls `reset!`. `to_prepare` handles dev reloading (runs on every request) and production boot. | |
 | **A4** | **I18n from DB** — Custom labels stored in `custom_labels` jsonb column on `AuthorizationDefinitionRecord`. Single change: add a `custom_label_for` check as "level 0" in `wording_for` (the form builder method all labels flow through). DB labels checked first, then existing I18n cascade continues. YAML types unaffected (custom_labels is nil). | |
 | **A5** | **Admin builder UI** — Form in admin panel. Fields: name, description, provider (select or create new), link, cgu_link, access_link, support_email, kind. Block checkboxes (all checked by default). Contact type selection (when contacts block is active). Scopes builder (add/remove rows with name/value/group). Legal label customization. Form introduction text. | |
-| **A6** | **DataProvider inline creation** — A "create new provider" option in the provider dropdown. Since DataProvider is already a DB model (PR #1175), this is a simple nested form or modal. | |
+| **A6** | **DataProvider inline creation** — A "create new provider" option in the provider dropdown. Since DataProvider is already a DB model (PR #1175), this is a simple nested form or modal. |
+| **A7** | **Type lifecycle (edit/delete)** — No requests: edit freely (pre-filled form), delete freely. With requests: both edit and delete trigger the same confirmation page showing request count + sample organization names (up to 3 + « etc... »). Message: « Cette action va SUPPRIMER N DEMANDES. Ces demandes proviennent (entre autres) de ORG1, ORG2, ORG3, etc... Êtes vous sûrs, super sûrs de vouloir faire ça ? ». Confirm button is disabled for 5 seconds (countdown) to prevent accidental clicks. On confirm: cascade-destroy all requests + authorizations, then apply edit or delete. This sidesteps versioning entirely — no need to reconcile old requests with new config. | | |
 
 ### Resolved unknowns (from spikes)
 
@@ -216,10 +225,13 @@ panel, without any code change or deployment.
 | R5.2 | Legal block: bizdev can customize labels (initialized with defaults) | Must-have | ✅ |
 | R6 | New type auto-generates associated « demande libre » form | Must-have | ✅ |
 | R7 | Bizdev can create a new DataProvider from the same UI flow | Must-have | ✅ |
-| R8 | Editing/versioning deferred, but architecture must not block it | Nice-to-have | ✅ |
+| R8 | Types can be edited and deleted from the admin UI | Must-have | ✅ |
+| R8.1 | Types with no requests: freely editable and deletable | Must-have | ✅ |
+| R8.2 | Types with requests: edit or delete triggers confirmation with count + orgs, cascade delete before applying | Must-have | ✅ |
+| R8.3 | Confirmation dialog disables confirm button for 5 seconds | Must-have | ✅ |
 | R9 | Backend keeps the door open for future provider self-service | Nice-to-have | ✅ |
 
-**All requirements pass.** All three spikes (A1, A3, A4) resolved with low-to-medium risk mechanisms.
+**All requirements pass.** R8 is fully handled by A7 (Type lifecycle): free edit/delete when no requests, cascade-delete + confirmation when requests exist — same flow for both edit and delete, which sidesteps the versioning problem entirely. All three spikes (A1, A3, A4) resolved with low-to-medium risk mechanisms. A7 requires no spike — standard Rails CRUD + cascade delete + 5s countdown.
 
 ---
 
@@ -229,8 +241,8 @@ Shape A is selected and fully validated. See [slices doc](./create_new_authoriza
 
 | Slice | What it delivers |
 |-------|-----------------|
-| **V1** | End-to-end proof: admin creates a minimal type (basic_infos only), applicant fills it, instructor reviews |
-| **V2** | Block selection + scopes builder + contacts configuration |
+| **V1** | End-to-end proof: admin creates a minimal type (basic_infos only), edits/deletes it, applicant fills it, instructor reviews |
+| **V2** | Block selection + scopes builder + contacts configuration + destructive edit/delete with confirmation |
 | **V3** | Full configuration: links, custom legal labels, provider creation, introduction text |
 
 
