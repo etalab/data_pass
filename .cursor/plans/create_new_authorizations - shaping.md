@@ -246,6 +246,22 @@ Shape A is selected and fully validated. See [slices doc](./create_new_authoriza
 | **V3** | Full configuration: links, custom legal labels, provider creation, introduction text |
 
 
+## Wireframes
+
+### Liste des types
+
+![Liste des types d'habilitation](./mockups/admin-list.svg)
+
+### Formulaire de création / édition
+
+![Formulaire de création](./mockups/admin-create-form.svg)
+
+### Gestion des fournisseurs
+
+![Gestion des fournisseurs](./mockups/admin-providers.svg)
+
+---
+
 ## Quelques memes en vrac pour conclure
 
 ![](https://i.imgflip.com/ajy9j0.jpg)

@@ -1,38 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 340" font-family="Arial, sans-serif">
-  <rect width="720" height="340" fill="white" stroke="#ccc"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 340" font-family="Arial, sans-serif">
+  <rect width="780" height="340" fill="white" stroke="#ccc"/>
 
   <text x="24" y="36" fill="#333" font-size="20" font-weight="bold">Types d&#x27;habilitation</text>
-  <rect x="520" y="14" width="180" height="34" rx="4" fill="none" stroke="#333"/>
-  <text x="536" y="38" fill="#333" font-size="13">+ Nouveau type</text>
+  <rect x="580" y="14" width="180" height="34" rx="4" fill="none" stroke="#333"/>
+  <text x="596" y="38" fill="#333" font-size="13">+ Nouveau type</text>
 
-  <line x1="24" y1="56" x2="696" y2="56" stroke="#ccc"/>
+  <line x1="24" y1="56" x2="756" y2="56" stroke="#ccc"/>
 
   <text x="24" y="80" fill="#999" font-size="11">NOM</text>
-  <text x="280" y="80" fill="#999" font-size="11">FOURNISSEUR</text>
-  <text x="440" y="80" fill="#999" font-size="11">TYPE</text>
-  <text x="560" y="80" fill="#999" font-size="11">DATE DE CR&#xc9;ATION</text>
-  <line x1="24" y1="90" x2="696" y2="90" stroke="#eee"/>
+  <text x="260" y="80" fill="#999" font-size="11">FOURNISSEUR</text>
+  <text x="400" y="80" fill="#999" font-size="11">TYPE</text>
+  <text x="480" y="80" fill="#999" font-size="11">DATE DE CR&#xc9;ATION</text>
+  <text x="640" y="80" fill="#999" font-size="11">DEMANDES</text>
+  <text x="720" y="80" fill="#999" font-size="11">ACTIONS</text>
+  <line x1="24" y1="90" x2="756" y2="90" stroke="#eee"/>
 
+  <!-- Row 1 -->
   <text x="24" y="116" fill="#333" font-size="13" text-decoration="underline">API Cantine</text>
-  <text x="280" y="116" fill="#333" font-size="13">DINUM</text>
-  <text x="440" y="116" fill="#333" font-size="13">api</text>
-  <text x="560" y="116" fill="#333" font-size="13">12/02/2026</text>
-  <line x1="24" y1="130" x2="696" y2="130" stroke="#eee"/>
+  <text x="260" y="116" fill="#333" font-size="13">DINUM</text>
+  <text x="400" y="116" fill="#333" font-size="13">api</text>
+  <text x="480" y="116" fill="#333" font-size="13">12/02/2026</text>
+  <text x="640" y="116" fill="#333" font-size="13">12</text>
+  <!-- Edit icon (pencil) -->
+  <g transform="translate(720,104)">
+    <rect width="24" height="20" rx="3" fill="none" stroke="#999"/>
+    <line x1="7" y1="13" x2="17" y2="3" stroke="#666" stroke-width="1.5"/>
+    <line x1="15" y1="5" x2="17" y2="3" stroke="#666" stroke-width="1.5"/>
+  </g>
+  <!-- Delete icon (trash) -->
+  <g transform="translate(750,104)">
+    <rect width="24" height="20" rx="3" fill="none" stroke="#c00"/>
+    <line x1="8" y1="7" x2="16" y2="7" stroke="#c00" stroke-width="1.2"/>
+    <rect x="9" y="8" width="6" height="8" rx="1" fill="none" stroke="#c00" stroke-width="1.2"/>
+    <line x1="11" y1="6" x2="13" y2="6" stroke="#c00" stroke-width="1.2"/>
+  </g>
+  <line x1="24" y1="130" x2="756" y2="130" stroke="#eee"/>
 
+  <!-- Row 2 -->
   <text x="24" y="156" fill="#333" font-size="13" text-decoration="underline">Service Transport</text>
-  <text x="280" y="156" fill="#333" font-size="13">Min. Transports</text>
-  <text x="440" y="156" fill="#333" font-size="13">service</text>
-  <text x="560" y="156" fill="#333" font-size="13">10/02/2026</text>
-  <line x1="24" y1="170" x2="696" y2="170" stroke="#eee"/>
+  <text x="260" y="156" fill="#333" font-size="13">Min. Transports</text>
+  <text x="400" y="156" fill="#333" font-size="13">service</text>
+  <text x="480" y="156" fill="#333" font-size="13">10/02/2026</text>
+  <text x="640" y="156" fill="#333" font-size="13">3</text>
+  <g transform="translate(720,144)">
+    <rect width="24" height="20" rx="3" fill="none" stroke="#999"/>
+    <line x1="7" y1="13" x2="17" y2="3" stroke="#666" stroke-width="1.5"/>
+    <line x1="15" y1="5" x2="17" y2="3" stroke="#666" stroke-width="1.5"/>
+  </g>
+  <g transform="translate(750,144)">
+    <rect width="24" height="20" rx="3" fill="none" stroke="#c00"/>
+    <line x1="8" y1="7" x2="16" y2="7" stroke="#c00" stroke-width="1.2"/>
+    <rect x="9" y="8" width="6" height="8" rx="1" fill="none" stroke="#c00" stroke-width="1.2"/>
+    <line x1="11" y1="6" x2="13" y2="6" stroke="#c00" stroke-width="1.2"/>
+  </g>
+  <line x1="24" y1="170" x2="756" y2="170" stroke="#eee"/>
 
+  <!-- Row 3 -->
   <text x="24" y="196" fill="#333" font-size="13" text-decoration="underline">API Logement Social</text>
-  <text x="280" y="196" fill="#333" font-size="13">Min. Logement</text>
-  <text x="440" y="196" fill="#333" font-size="13">api</text>
-  <text x="560" y="196" fill="#333" font-size="13">05/02/2026</text>
-  <line x1="24" y1="210" x2="696" y2="210" stroke="#eee"/>
+  <text x="260" y="196" fill="#333" font-size="13">Min. Logement</text>
+  <text x="400" y="196" fill="#333" font-size="13">api</text>
+  <text x="480" y="196" fill="#333" font-size="13">05/02/2026</text>
+  <text x="640" y="196" fill="#333" font-size="13">0</text>
+  <g transform="translate(720,184)">
+    <rect width="24" height="20" rx="3" fill="none" stroke="#999"/>
+    <line x1="7" y1="13" x2="17" y2="3" stroke="#666" stroke-width="1.5"/>
+    <line x1="15" y1="5" x2="17" y2="3" stroke="#666" stroke-width="1.5"/>
+  </g>
+  <g transform="translate(750,184)">
+    <rect width="24" height="20" rx="3" fill="none" stroke="#c00"/>
+    <line x1="8" y1="7" x2="16" y2="7" stroke="#c00" stroke-width="1.2"/>
+    <rect x="9" y="8" width="6" height="8" rx="1" fill="none" stroke="#c00" stroke-width="1.2"/>
+    <line x1="11" y1="6" x2="13" y2="6" stroke="#c00" stroke-width="1.2"/>
+  </g>
+  <line x1="24" y1="210" x2="756" y2="210" stroke="#eee"/>
 
-  <text x="360" y="260" fill="#999" font-size="12" text-anchor="middle">3 types</text>
+  <text x="390" y="260" fill="#999" font-size="12" text-anchor="middle">3 types</text>
 
-  <text x="360" y="320" fill="#bbb" font-size="10" text-anchor="middle" font-style="italic">Liste des types cr&#xe9;&#xe9;s via l&#x27;UI</text>
+  <text x="390" y="320" fill="#bbb" font-size="10" text-anchor="middle" font-style="italic">Liste des types cr&#xe9;&#xe9;s via l&#x27;UI &#x2014; les boutons modifier/supprimer d&#xe9;clenchent une confirmation si des demandes existent</text>
 </svg>
