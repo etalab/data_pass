@@ -356,6 +356,14 @@ Quand("j'adhère aux conditions générales") do
       Quand je coche "Je confirme que le délégué à la protection des données de mon organisation est informé de ma demande."
     )
   end
+
+  if authorization_request.respond_to?(:skip_france_connect_authorization?) &&
+     authorization_request.skip_france_connect_authorization? &&
+     !authorization_request.skip_fc_alternative_connexion_check_box?
+    steps %(
+      Quand je coche "J\u2019atteste que mon service propose une alternative"
+    )
+  end
 end
 
 Quand('je renseigne les infos de bases du projet') do
