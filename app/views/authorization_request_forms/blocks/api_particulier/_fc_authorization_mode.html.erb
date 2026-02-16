@@ -7,7 +7,7 @@
     </p>
   </div>
 <% else %>
-  <div data-controller="show-and-hide" data-show-and-hide-targets-value="#fc-use-existing-container">
+  <div data-controller="fc-authorization-mode">
     <fieldset class="fr-fieldset">
       <legend class="fr-fieldset__legend--regular fr-fieldset__legend">
         <%= t('authorization_request_forms.api_particulier.fc_authorization_mode.legend') %>
@@ -15,8 +15,7 @@
 
       <%= f.dsfr_radio_option(:fc_authorization_mode, 'generate_new',
             input_options: {
-              "data-action": "change->show-and-hide#trigger",
-              "data-show-and-hide-target-param": "#fc-generate-new-info"
+              "data-action": "change->fc-authorization-mode#toggle"
             }) do %>
         <span class="fr-text-lg">
           <%= t('authorization_request_forms.api_particulier.fc_authorization_mode.generate_new_label') %>
@@ -30,8 +29,7 @@
 
       <%= f.dsfr_radio_option(:fc_authorization_mode, 'use_existing',
             input_options: {
-              "data-action": "change->show-and-hide#trigger",
-              "data-show-and-hide-target-param": "#fc-use-existing-container"
+              "data-action": "change->fc-authorization-mode#toggle"
             }) do %>
         <span class="fr-text-lg">
           <%= t('authorization_request_forms.api_particulier.fc_authorization_mode.use_existing_label') %>
@@ -43,10 +41,9 @@
       <% end %>
     </fieldset>
 
-    <div id="fc-generate-new-info" class="fr-mt-3w <%= 'fr-hidden' unless authorization_request.fc_authorization_mode != 'use_existing' %>" aria-hidden="<%= authorization_request.fc_authorization_mode == 'use_existing' %>">
-    </div>
-
-    <div id="fc-use-existing-container" class="fr-mt-3w <%= 'fr-hidden' unless authorization_request.using_existing_france_connect_authorization? %>" aria-hidden="<%= !authorization_request.using_existing_france_connect_authorization? %>">
+    <div data-fc-authorization-mode-target="selectContainer"
+         class="fr-mt-3w <%= 'fr-hidden' unless authorization_request.using_existing_france_connect_authorization? %>"
+         aria-hidden="<%= !authorization_request.using_existing_france_connect_authorization? %>">
       <%= f.france_connect_authorization_select %>
     </div>
   </div>
