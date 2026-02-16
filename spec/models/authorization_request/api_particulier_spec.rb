@@ -90,6 +90,21 @@ RSpec.describe AuthorizationRequest::APIParticulier do
 
       it { is_expected.to be false }
     end
+
+    context 'when using existing FC authorization on certified form' do
+      before do
+        allow(Rails.application.credentials).to receive(:dig).with(:feature_flags, :apipfc).and_return(true)
+        allow(authorization_request).to receive(:need_complete_validation?).with(:modalities).and_return(true)
+      end
+
+      let(:authorization_request) do
+        build(:authorization_request, :api_particulier_entrouvert_publik,
+          modalities: ['france_connect'],
+          fc_authorization_mode: 'use_existing')
+      end
+
+      it { is_expected.to be true }
+    end
   end
 
   describe 'contact_technique_phone_number mobile validation' do

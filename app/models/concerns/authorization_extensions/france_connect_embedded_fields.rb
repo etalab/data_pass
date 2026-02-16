@@ -6,6 +6,7 @@ module AuthorizationExtensions::FranceConnectEmbeddedFields
   included do
     add_attribute :fc_cadre_juridique_nature
     add_attribute :fc_cadre_juridique_url
+    add_attribute :fc_authorization_mode
     add_documents :fc_cadre_juridique_document, content_type: ['application/pdf'], size: { less_than: 10.megabytes }, if: -> { embeds_france_connect_fields? && need_complete_validation?(:legal) }
 
     validate :fc_cadre_juridique_document_or_fc_cadre_juridique_url_present, if: -> { embeds_france_connect_fields? && need_complete_validation?(:legal) }
@@ -26,7 +27,11 @@ module AuthorizationExtensions::FranceConnectEmbeddedFields
   end
 
   def available_scopes
-    super.reject { |scope| scope.group == FRANCE_CONNECT_GROUP && !france_connect_modality? }
+    super.reject { |scope| scope.group == FRANCE_CONNECT_GROUP && !show_france_connect_scopes? }
+  end
+
+  def using_existing_france_connect_authorization?
+    fc_authorization_mode == 'use_existing'
   end
 
   def fc_scopes
@@ -53,8 +58,12 @@ module AuthorizationExtensions::FranceConnectEmbeddedFields
 
   private
 
+  def show_france_connect_scopes?
+    france_connect_modality? && !using_existing_france_connect_authorization?
+  end
+
   def remove_france_connect_scopes_if_modality_not_selected
-    return if france_connect_modality?
+    return if show_france_connect_scopes?
     return if scopes.blank?
 
     self.scopes = scopes - france_connect_scope_values

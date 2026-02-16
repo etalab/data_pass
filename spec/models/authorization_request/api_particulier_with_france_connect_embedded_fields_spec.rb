@@ -257,6 +257,48 @@ RSpec.describe AuthorizationRequest::APIParticulier do
     end
   end
 
+  describe '#using_existing_france_connect_authorization?' do
+    context 'when fc_authorization_mode is use_existing' do
+      before { authorization_request.fc_authorization_mode = 'use_existing' }
+
+      it 'returns true' do
+        expect(authorization_request.using_existing_france_connect_authorization?).to be true
+      end
+    end
+
+    context 'when fc_authorization_mode is generate_new' do
+      before { authorization_request.fc_authorization_mode = 'generate_new' }
+
+      it 'returns false' do
+        expect(authorization_request.using_existing_france_connect_authorization?).to be false
+      end
+    end
+
+    context 'when fc_authorization_mode is nil' do
+      it 'returns false' do
+        expect(authorization_request.using_existing_france_connect_authorization?).to be false
+      end
+    end
+  end
+
+  describe '#embeds_france_connect_fields? with fc_authorization_mode' do
+    context 'when using existing FC authorization' do
+      before { authorization_request.fc_authorization_mode = 'use_existing' }
+
+      it 'returns false' do
+        expect(authorization_request.embeds_france_connect_fields?).to be false
+      end
+    end
+
+    context 'when generating new FC authorization' do
+      before { authorization_request.fc_authorization_mode = 'generate_new' }
+
+      it 'returns true when FC fields are present' do
+        expect(authorization_request.embeds_france_connect_fields?).to be true
+      end
+    end
+  end
+
   describe '#skip_fc_alternative_connexion_check_box?' do
     context 'when authorization request does not respond to france_connect_modality?' do
       let(:authorization_request) { build(:authorization_request, :api_entreprise) }
@@ -295,6 +337,14 @@ RSpec.describe AuthorizationRequest::APIParticulier do
         expect(authorization_request.skip_fc_alternative_connexion_check_box?).to be false
       end
     end
+
+    context 'when using existing FC authorization on certified form' do
+      before { authorization_request.fc_authorization_mode = 'use_existing' }
+
+      it 'returns true' do
+        expect(authorization_request.skip_fc_alternative_connexion_check_box?).to be true
+      end
+    end
   end
 
   describe '#available_scopes' do
@@ -307,6 +357,15 @@ RSpec.describe AuthorizationRequest::APIParticulier do
       it 'includes FranceConnect scopes' do
         fc_scopes = authorization_request.available_scopes.select { |s| s.group == 'FranceConnect' }
         expect(fc_scopes.map(&:value)).to match_array(france_connect_scope_values)
+      end
+
+      context 'when using existing FC authorization' do
+        before { authorization_request.fc_authorization_mode = 'use_existing' }
+
+        it 'excludes FranceConnect scopes' do
+          fc_scopes = authorization_request.available_scopes.select { |s| s.group == 'FranceConnect' }
+          expect(fc_scopes).to be_empty
+        end
       end
     end
 
