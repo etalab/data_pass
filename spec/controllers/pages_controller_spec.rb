@@ -19,4 +19,11 @@ RSpec.describe PagesController do
       expect(response).to have_http_status(:ok)
     end
   end
+
+  describe 'GET #politique_confidentialite' do
+    it 'returns a 200 response' do
+      get :politique_confidentialite
+      expect(response).to have_http_status(:ok)
+    end
+  end
 end
