@@ -50,6 +50,12 @@ class Instruction::AuthorizationRequestPolicy < ApplicationPolicy
       record.can_cancel_reopening?
   end
 
+  def cancel_next_stage?
+    show? &&
+      instructor_for_record? &&
+      record.can_cancel_next_stage?
+  end
+
   def transfer?
     show? &&
       instructor_for_record? &&
@@ -63,7 +69,8 @@ class Instruction::AuthorizationRequestPolicy < ApplicationPolicy
       refuse? ||
       revoke? ||
       request_changes? ||
-      cancel_reopening?
+      cancel_reopening? ||
+      cancel_next_stage?
   end
 
   private

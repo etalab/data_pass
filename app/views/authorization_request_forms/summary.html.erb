@@ -49,6 +49,18 @@
         </div>
       </div>
     <% end %>
+  <% elsif policy(@authorization_request).cancel_next_stage? %>
+    <% content_for :sticky_bar do %>
+      <div class="fr-container fr-grid-row">
+        <div class="fr-col-12">
+          <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--icon-left fr-btns-group--between">
+            <li>
+              <%= dsfr_main_modal_button(t('authorization_request_forms.form.cancel_next_stage'), cancel_next_authorization_request_stage_path(authorization_request_id: @authorization_request.id), class: %w(fr-btn fr-btn--secondary fr-icon-error-line fr-btn--icon-left fr-mb-0)) %>
+            </li>
+          </ul>
+        </div>
+      </div>
+    <% end %>
   <% elsif policy(@authorization_request).submit? %>
     <% content_for :sticky_bar do %>
       <div class="fr-container fr-grid-row">
