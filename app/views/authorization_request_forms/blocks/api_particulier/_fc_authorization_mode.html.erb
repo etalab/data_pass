@@ -20,8 +20,7 @@
         <span class="fr-text-lg">
           <%= t('authorization_request_forms.api_particulier.fc_authorization_mode.generate_new_label') %>
         </span>
-        <br>
-        <small class="fr-text-grey fr-text--sm">
+        <small class="fr-text-grey fr-text--sm fr-mt-1w">
           <%= t('authorization_request_forms.api_particulier.fc_authorization_mode.generate_new_hint',
                 service_provider_name: authorization_request.form.service_provider&.name) %>
         </small>
@@ -34,8 +33,7 @@
         <span class="fr-text-lg">
           <%= t('authorization_request_forms.api_particulier.fc_authorization_mode.use_existing_label') %>
         </span>
-        <br>
-        <small class="fr-text-grey fr-text--sm">
+        <small class="fr-text-grey fr-text--sm fr fr-mt-1w">
           <%= t('authorization_request_forms.api_particulier.fc_authorization_mode.use_existing_hint') %>
         </small>
       <% end %>
