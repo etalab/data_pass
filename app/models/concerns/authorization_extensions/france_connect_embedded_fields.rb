@@ -18,8 +18,6 @@ module AuthorizationExtensions::FranceConnectEmbeddedFields
 
     validate :france_connect_scopes_must_be_complete,
       if: -> { embeds_france_connect_fields? && need_complete_validation?(:scopes) }
-
-    before_validation :sanitize_france_connect_fields
   end
 
   def france_connect_modality?
@@ -60,13 +58,6 @@ module AuthorizationExtensions::FranceConnectEmbeddedFields
 
   def show_france_connect_scopes?
     france_connect_modality? && !using_existing_france_connect_authorization?
-  end
-
-  def sanitize_france_connect_fields
-    return if france_connect_modality?
-    return if scopes.blank?
-
-    self.scopes = scopes - france_connect_scope_values
   end
 
   def fc_cadre_juridique_document_or_fc_cadre_juridique_url_present

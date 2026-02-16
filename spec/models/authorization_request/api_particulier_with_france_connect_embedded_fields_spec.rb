@@ -421,7 +421,7 @@ RSpec.describe AuthorizationRequest::APIParticulier do
     end
   end
 
-  describe 'automatic removal of FranceConnect scopes' do
+  describe 'preservation of FranceConnect scopes' do
     let(:authorization_request) do
       create(
         :authorization_request,
@@ -431,14 +431,13 @@ RSpec.describe AuthorizationRequest::APIParticulier do
       )
     end
 
-    it 'removes FranceConnect scopes when modality is deselected' do
+    it 'keeps FC scopes when modality is deselected so they can be restored when re-checked' do
       expect(authorization_request.scopes).to include('family_name', 'given_name', 'birthdate')
 
       authorization_request.modalities = %w[params]
       authorization_request.valid?
 
-      expect(authorization_request.scopes).to include('cnaf_quotient_familial')
-      expect(authorization_request.scopes).not_to include('family_name', 'given_name', 'birthdate')
+      expect(authorization_request.scopes).to include('family_name', 'given_name', 'birthdate', 'cnaf_quotient_familial')
     end
 
     it 'keeps FranceConnect scopes when modality remains selected' do
