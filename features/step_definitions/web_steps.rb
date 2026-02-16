@@ -171,6 +171,15 @@ Quand('je coche {string}') do |label|
   end
 end
 
+Quand('je décoche {string}') do |label|
+  if javascript?
+    find('label', text: label, visible: :all).trigger('click')
+  else
+    label = find('label', text: label, visible: :all)
+    find_by_id(label[:for]).set(false)
+  end
+end
+
 Quand('je supprime le document {string}') do |document_name|
   if javascript?
     within('.file-with-remove-button', text: document_name) do
