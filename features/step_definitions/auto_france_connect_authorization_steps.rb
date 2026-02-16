@@ -41,6 +41,45 @@ Sachantque('il y a une demande API Particulier utilisant une habilitation France
   )
 end
 
+Sachantque("j'ai une demande API Particulier d'éditeur certifié FC en brouillon") do
+  @authorization_request = FactoryBot.create(
+    :authorization_request,
+    :api_particulier_entrouvert_publik,
+    :draft_and_filled,
+    applicant: current_user,
+    organization: current_user.current_organization
+  )
+end
+
+Sachantque("j'ai une demande API Particulier d'éditeur certifié FC utilisant une habilitation existante en brouillon") do
+  fc_request = FactoryBot.create(
+    :authorization_request,
+    :france_connect,
+    :validated,
+    applicant: current_user,
+    organization: current_user.current_organization
+  )
+
+  @authorization_request = FactoryBot.create(
+    :authorization_request,
+    :api_particulier_entrouvert_publik,
+    :draft_and_filled,
+    applicant: current_user,
+    organization: current_user.current_organization,
+    modalities: ['france_connect'],
+    fc_authorization_mode: 'use_existing',
+    france_connect_authorization_id: fc_request.latest_authorization.id.to_s,
+    contact_technique_phone_number: '0612345678'
+  )
+end
+
+Quand('je me rends sur le résumé de cette demande') do
+  authorization_request = @authorization_request || AuthorizationRequest.last
+  form = authorization_request.form
+
+  visit summary_authorization_request_form_path(form_uid: form.uid, id: authorization_request.id)
+end
+
 Sachantque('il y a une demande API Particulier sans champs FranceConnect à modérer') do
   @authorization_request = FactoryBot.create(
     :authorization_request,

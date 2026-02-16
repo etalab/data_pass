@@ -384,6 +384,43 @@ RSpec.describe AuthorizationRequest::APIParticulier do
     end
   end
 
+  describe 'FranceConnect legal fields when switching authorization mode' do
+    let(:authorization_request) do
+      create(
+        :authorization_request,
+        :api_particulier_entrouvert_publik,
+        modalities: %w[france_connect],
+        scopes: %w[cnaf_quotient_familial family_name given_name birthdate],
+        fc_cadre_juridique_nature: 'CRPA Article L311-1',
+        fc_cadre_juridique_url: 'https://legifrance.gouv.fr/legal'
+      )
+    end
+
+    it 'keeps FC legal fields when use_existing so they can be restored when switching back' do
+      authorization_request.fc_authorization_mode = 'use_existing'
+      authorization_request.valid?
+
+      expect(authorization_request.fc_cadre_juridique_nature).to eq('CRPA Article L311-1')
+      expect(authorization_request.fc_cadre_juridique_url).to eq('https://legifrance.gouv.fr/legal')
+    end
+
+    it 'keeps FC legal fields when generating new authorization' do
+      authorization_request.fc_authorization_mode = 'generate_new'
+      authorization_request.valid?
+
+      expect(authorization_request.fc_cadre_juridique_nature).to eq('CRPA Article L311-1')
+      expect(authorization_request.fc_cadre_juridique_url).to eq('https://legifrance.gouv.fr/legal')
+    end
+
+    it 'keeps FC legal fields when fc_authorization_mode is nil' do
+      authorization_request.fc_authorization_mode = nil
+      authorization_request.valid?
+
+      expect(authorization_request.fc_cadre_juridique_nature).to eq('CRPA Article L311-1')
+      expect(authorization_request.fc_cadre_juridique_url).to eq('https://legifrance.gouv.fr/legal')
+    end
+  end
+
   describe 'automatic removal of FranceConnect scopes' do
     let(:authorization_request) do
       create(

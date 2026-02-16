@@ -19,7 +19,7 @@ module AuthorizationExtensions::FranceConnectEmbeddedFields
     validate :france_connect_scopes_must_be_complete,
       if: -> { embeds_france_connect_fields? && need_complete_validation?(:scopes) }
 
-    before_validation :remove_france_connect_scopes_if_modality_not_selected
+    before_validation :sanitize_france_connect_fields
   end
 
   def france_connect_modality?
@@ -62,8 +62,8 @@ module AuthorizationExtensions::FranceConnectEmbeddedFields
     france_connect_modality? && !using_existing_france_connect_authorization?
   end
 
-  def remove_france_connect_scopes_if_modality_not_selected
-    return if show_france_connect_scopes?
+  def sanitize_france_connect_fields
+    return if france_connect_modality?
     return if scopes.blank?
 
     self.scopes = scopes - france_connect_scope_values
@@ -106,13 +106,9 @@ module AuthorizationExtensions::FranceConnectEmbeddedFields
   end
 
   def france_connect_contacts_attributes
-    contact_for(:contact_technique).to_attributes(prefix: :contact_technique)
-      .merge(contact_for(:contact_metier).to_attributes(prefix: :responsable_traitement))
-      .merge(contact_for(:delegue_protection_donnees).to_attributes(prefix: :delegue_protection_donnees))
-  end
-
-  def contact_for(type)
-    Contact.new(type, self)
+    Contact.new(:contact_technique, self).to_attributes(prefix: :contact_technique)
+      .merge(Contact.new(:contact_metier, self).to_attributes(prefix: :responsable_traitement))
+      .merge(Contact.new(:delegue_protection_donnees, self).to_attributes(prefix: :delegue_protection_donnees))
   end
 
   def common_attributes_for_france_connect

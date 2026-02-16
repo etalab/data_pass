@@ -337,7 +337,8 @@ Alors('je peux cocher {string}') do |checkbox_label|
 end
 
 Alors('un champ contient {string}') do |text|
-  expect(all('input').any? { |input| input.value == text }).to be_truthy, "Expected to find a field with value '#{text}'"
+  fields = all('input').to_a + all('textarea').to_a
+  expect(fields.any? { |field| field.value == text }).to be_truthy, "Expected to find a field with value '#{text}'"
 end
 
 Alors('le champ {string} contient {string}') do |label, text|
