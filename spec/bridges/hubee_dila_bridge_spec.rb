@@ -104,6 +104,16 @@ RSpec.describe HubEEDilaBridge do
           expect(stored['etat_civil']).to eq(existing_subscription_id)
           expect(stored['depot_dossier_pacs']).to eq('other-sub-id')
         end
+
+        context 'when the subscription is not found on HubEE during the recovery' do
+          before do
+            allow(hubee_api_client).to receive(:find_subscriptions).and_return([])
+          end
+
+          it 'raises an error' do
+            expect { hubee_dila_bridge }.to raise_error(RuntimeError, /HubEE subscription should exist but was not found/)
+          end
+        end
       end
 
       context 'with a reopened authorisation request with an added scope' do
