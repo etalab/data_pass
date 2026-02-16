@@ -17,6 +17,12 @@ module HubEEAPIClientMocks
     )
   end
 
+  def stub_hubee_find_subscriptions(datapass_id, response_body)
+    stub_request(:get, "#{Rails.application.credentials.hubee_host}/referential/v1/subscriptions")
+      .with(query: { 'datapassId' => datapass_id.to_s })
+      .to_return(status: 200, body: response_body.to_json, headers: { 'Content-Type' => 'application/json' })
+  end
+
   def stub_hubee_create_organization_error(factory_trait)
     stub_hubee_api_error('referential/v1/organizations', factory_trait)
   end

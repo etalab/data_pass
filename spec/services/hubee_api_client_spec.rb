@@ -85,6 +85,35 @@ RSpec.describe HubEEAPIClient do
     end
   end
 
+  describe '#find_subscriptions' do
+    subject(:find_subscriptions) { hubee_api_client.find_subscriptions(datapassId: authorization_request.id) }
+
+    let(:subscriptions_response) do
+      [
+        build(:hubee_subscription_response_payload, :etat_civil, id: 'sub-1', authorization_request:),
+        build(:hubee_subscription_response_payload, :depot_dossier_pacs, id: 'sub-2', authorization_request:)
+      ]
+    end
+
+    let!(:stubbed_request) do
+      stub_hubee_find_subscriptions(authorization_request.id, subscriptions_response)
+    end
+
+    it 'calls the HubEE API' do
+      find_subscriptions
+
+      expect(stubbed_request).to have_been_requested
+    end
+
+    it 'returns the subscriptions as an array of hashes with indifferent access' do
+      result = find_subscriptions
+
+      expect(result.length).to eq(2)
+      expect(result.first[:processCode]).to eq('EtatCivil')
+      expect(result.second[:processCode]).to eq('depotDossierPACS')
+    end
+  end
+
   describe '#create_subscription' do
     subject(:create_subscription) { hubee_api_client.create_subscription(subscription_body) }
 

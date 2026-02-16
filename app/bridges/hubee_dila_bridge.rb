@@ -27,7 +27,26 @@ class HubEEDilaBridge < HubEEBaseBridge
     subscription_hubee_payload = hubee_api_client.create_subscription(subscription_body(organization_hubee_payload, process_code(scope)))
     store_external_provider_id(scope, subscription_hubee_payload['id'])
   rescue HubEEAPIClient::AlreadyExistsError
-    # do nothing
+    recover_existing_subscription(scope)
+  end
+
+  def recover_existing_subscription(scope)
+    existing_subscription = find_existing_subscription(scope)
+
+    raise "HubEE subscription should exist but was not found during recovery for authorization_request ##{authorization_request.id} (scope: #{scope})" unless existing_subscription
+
+    Sentry.capture_message(
+      "HubEE subscription already exists for authorization_request ##{authorization_request.id} (scope: #{scope})",
+      level: :warning,
+      extra: { subscription_id: existing_subscription[:id], scope: }
+    )
+
+    store_external_provider_id(scope, existing_subscription[:id])
+  end
+
+  def find_existing_subscription(scope)
+    hubee_api_client.find_subscriptions(datapassId: authorization_request.id)
+      .find { |s| s[:processCode] == process_code(scope) }
   end
 
   def store_external_provider_id(scope, token)

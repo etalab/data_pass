@@ -7,7 +7,8 @@ module HubEEHelpers
       allow(hubee_api_client).to receive_messages(
         create_organization: organization_payload.with_indifferent_access,
         create_subscription: subscription_response.with_indifferent_access,
-        get_organization: organization_payload.with_indifferent_access
+        get_organization: organization_payload.with_indifferent_access,
+        find_subscriptions: []
       )
     end
   end
