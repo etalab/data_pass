@@ -9,7 +9,7 @@
   field_prefix: :cadre_juridique
 ) %>
 
-<% if @authorization_request.france_connect_modality? && @authorization_request.france_connect_certified_form? %>
+<% if @authorization_request.france_connect_modality? && @authorization_request.france_connect_certified_form? && !@authorization_request.using_existing_france_connect_authorization? %>
   <%= render Organisms::AuthorizationRequestForms::LegalFrameworkComponent.new(
     form: f,
     field_prefix: :fc_cadre_juridique

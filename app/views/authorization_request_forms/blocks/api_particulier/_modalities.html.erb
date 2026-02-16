@@ -29,7 +29,12 @@
     <% end %>
   </div>
 
-  <% unless skip_france_connect_authorization? %>
+  <% if skip_france_connect_authorization? %>
+    <div id="france-connect-container" class="fr-col-lg-9 fr-mt-5w <%= 'fr-hidden' unless @authorization_request.modalities.include?('france_connect') %>">
+      <%= render partial: 'authorization_request_forms/blocks/api_particulier/fc_authorization_mode',
+                 locals: { f:, authorization_request: @authorization_request } %>
+    </div>
+  <% else %>
     <div id="france-connect-container" class="fr-col-lg-9 fr-mt-5w <%= 'fr-hidden' unless @authorization_request.modalities.include?('france_connect') %>">
       <% if @authorization_request.france_connect_authorizations.empty? %>
         <div class="fr-callout red-callout">
