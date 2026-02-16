@@ -39,7 +39,7 @@ class HubEEDilaBridge < HubEEBaseBridge
       extra: { subscription_id: existing_subscription&.dig(:id), scope: }
     )
 
-    store_external_provider_id(scope, existing_subscription[:id]) if existing_subscription
+    store_external_provider_id(scope, existing_subscription[:id])
   end
 
   def find_existing_subscription(scope)
