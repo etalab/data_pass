@@ -1,9 +1,11 @@
 <%= render partial: 'mailer/shared/applicant/header', locals: { entity_name: @authorization_request.applicant.full_name } %>
 
-Votre habilitation FranceConnect a été automatiquement créée suite à la validation de votre demande API Particulier.
+Comme votre éditeur <%= @service_provider.name %> est déjà certifié par FranceConnect, votre habilitation FranceConnect a été automatiquement créée suite à la validation de votre demande API Particulier.
 
-Vous trouverez toutes les informations sur les prochaines étapes pour devenir fournisseur de service sur la documentation :
-https://docs.partenaires.franceconnect.gouv.fr/fs/devenir-fs/pilotage-etapes/
+Il est nécessaire d'utiliser la démarche en ligne suivante pour demander les clés de production : https://demarche.numerique.gouv.fr/commencer/demande-creation-fs-fc
+Veillez à bien préciser lors de votre demande qu'elle concerne l'environnement de production.
+
+Le client_id sera communiqué par mail et le client_secret sera communiqué par sms au responsable technique défini dans votre habilitation Datapass.
 
 <% if @authorization.message.present? %>
 Message associé à la validation de votre habilitation :
