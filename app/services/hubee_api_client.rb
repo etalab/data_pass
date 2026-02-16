@@ -13,6 +13,14 @@ class HubEEAPIClient
     post('referential/v1/subscriptions', subscription_body.to_json)
   end
 
+  def find_subscriptions(params = {})
+    response = faraday_connection.get do |req|
+      req.url "#{api_host}/referential/v1/subscriptions"
+      req.params = params
+    end
+    response.body.map(&:with_indifferent_access)
+  end
+
   private
 
   def access_token

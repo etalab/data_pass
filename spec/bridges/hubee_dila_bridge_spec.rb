@@ -61,12 +61,48 @@ RSpec.describe HubEEDilaBridge do
       end
 
       describe 'when scope already exists in HubEE' do
+        let(:existing_subscription_id) { 'existing-sub-id-123' }
+        let(:existing_subscriptions) do
+          [
+            { 'id' => existing_subscription_id, 'processCode' => 'EtatCivil', 'datapassId' => authorization_request.id },
+            { 'id' => 'other-sub-id', 'processCode' => 'depotDossierPACS', 'datapassId' => authorization_request.id }
+          ]
+        end
+
         before do
           allow(hubee_api_client).to receive(:create_subscription).and_raise(HubEEAPIClient::AlreadyExistsError)
+          allow(hubee_api_client).to receive(:find_subscriptions).and_return(existing_subscriptions.map(&:with_indifferent_access))
+          allow(Sentry).to receive(:capture_message)
         end
 
         it 'does not raise an error' do
           expect { hubee_dila_bridge }.not_to raise_error
+        end
+
+        it 'fetches existing subscriptions from HubEE' do
+          hubee_dila_bridge
+
+          expect(hubee_api_client).to have_received(:find_subscriptions).with(datapassId: authorization_request.id).twice
+        end
+
+        it 'sends a warning to Sentry for each existing subscription' do
+          hubee_dila_bridge
+
+          %w[etat_civil depot_dossier_pacs].each do |scope|
+            expect(Sentry).to have_received(:capture_message).with(
+              "HubEE subscription already exists for authorization_request ##{authorization_request.id} (scope: #{scope})",
+              level: :warning,
+              extra: hash_including(scope:)
+            )
+          end
+        end
+
+        it 'stores the existing HubEE subscription IDs' do
+          hubee_dila_bridge
+
+          stored = JSON.parse(authorization_request.reload.external_provider_id)
+          expect(stored['etat_civil']).to eq(existing_subscription_id)
+          expect(stored['depot_dossier_pacs']).to eq('other-sub-id')
         end
       end
 
