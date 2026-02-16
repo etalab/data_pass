@@ -16,6 +16,31 @@ Sachantque('il y a une demande API Particulier avec champs FranceConnect intégr
   )
 end
 
+Sachantque('il y a une demande API Particulier utilisant une habilitation FranceConnect existante à modérer') do
+  applicant = FactoryBot.create(:user)
+  organization = applicant.current_organization
+
+  fc_request = FactoryBot.create(
+    :authorization_request,
+    :france_connect,
+    :validated,
+    applicant:,
+    organization:
+  )
+
+  @authorization_request = FactoryBot.create(
+    :authorization_request,
+    :api_particulier_entrouvert_publik,
+    :submitted,
+    applicant:,
+    organization:,
+    modalities: ['france_connect'],
+    fc_authorization_mode: 'use_existing',
+    france_connect_authorization_id: fc_request.latest_authorization.id.to_s,
+    contact_technique_phone_number: '0612345678'
+  )
+end
+
 Sachantque('il y a une demande API Particulier sans champs FranceConnect à modérer') do
   @authorization_request = FactoryBot.create(
     :authorization_request,

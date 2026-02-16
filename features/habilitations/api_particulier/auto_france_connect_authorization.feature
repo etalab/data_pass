@@ -35,6 +35,15 @@ Fonctionnalité: Création automatique d'habilitation FranceConnect pour API Par
     Et je clique sur "Valider la demande d'habilitation"
     Alors un webhook avec l'évènement "approve" est envoyé pour FranceConnect
 
+  @FlushJobQueue
+  Scénario: Validation avec habilitation existante crée une seule habilitation
+    Sachant qu'il y a une demande API Particulier utilisant une habilitation FranceConnect existante à modérer
+    Quand je me rends sur cette demande d'habilitation
+    Et je clique sur "Valider"
+    Et je clique sur "Valider la demande d'habilitation"
+    Alors je suis sur la page "Liste des demandes et habilitations"
+    Et il y a 1 habilitation pour cette demande
+
   Scénario: L'habilitation FranceConnect liée n'est pas réouvrable
     Sachant qu'il y a une demande API Particulier avec champs FranceConnect intégrés validée
     Alors l'habilitation FranceConnect liée n'est pas réouvrable
