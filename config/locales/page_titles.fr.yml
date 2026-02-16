@@ -4,6 +4,7 @@ fr:
     faq: Foire aux questions
     stats: Statistiques
     accessibility: Déclaration d’accessibilité
+    legal_notice: Mentions légales
     cgu_api_impot_particulier_sandbox: CGU API Impôt Particulier - Bac à sable
     cgu_api_impot_particulier_production: CGU API Impôt Particulier - Production
     api_documentation: Documentation API

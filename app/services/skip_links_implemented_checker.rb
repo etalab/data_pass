@@ -35,6 +35,7 @@ class SkipLinksImplementedChecker
     pages#home
     pages#accessibilite
     pages#faq
+    pages#mentions_legales
     pages#cgu_api_impot_particulier_bas
     pages#cgu_api_impot_particulier_prod
 
