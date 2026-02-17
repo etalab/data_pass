@@ -194,16 +194,12 @@ api-entreprise-detection-fraude:
       - data_subvention_subventions
       - effectifs_urssaf
       - mandataires_sociaux_infogreffe
-      - chiffre_affaires_dgfip
       - bilans_bdf
-      - liasses_fiscales_dgfip
-      - attestation_fiscale_dgfip
       - attestation_sociale_urssaf
       - cotisations_msa
       - cotisations_probtp
       - attestation_cotisations_conges_payes_chomage_intemperies_cibtp_cnetp
       - certifications_qualiopi_france_competences
-      - liens_capitalistiques_dgfip
 
 api-entreprise-editeur:
   name: "Formulaire spécifique aux éditeurs de logiciels"
