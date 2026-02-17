@@ -29,7 +29,7 @@
     <% end %>
   </div>
 
-  <% unless skip_france_connect_authorization? %>
+  <% unless skip_france_connect_authorization?(authorization_request) %>
     <div id="france-connect-container" class="fr-col-lg-9 fr-mt-5w <%= 'fr-hidden' unless @authorization_request.modalities.include?('france_connect') %>">
       <% if @authorization_request.france_connect_authorizations.empty? %>
         <div class="fr-callout red-callout">

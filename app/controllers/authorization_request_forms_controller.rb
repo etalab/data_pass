@@ -4,8 +4,6 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   helper DemandesHabilitations::CommonHelper
   include AuthorizationRequestsFlashes
 
-  helper_method :skip_france_connect_authorization?
-
   decorates_assigned :authorization_request
 
   rescue_from StaticApplicationRecord::EntryNotFound do
@@ -345,10 +343,6 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
 
   def model_to_track_for_impersonation
     @authorization_request
-  end
-
-  def skip_france_connect_authorization?
-    @authorization_request&.skip_france_connect_authorization? || false
   end
 end
 # rubocop:enable Metrics/ClassLength

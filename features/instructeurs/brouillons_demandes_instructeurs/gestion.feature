@@ -62,6 +62,16 @@ Fonctionnalité: Instruction: gestion des demandes d'habilitations d'instructeur
     Alors il y a un message de succès contenant "La demande d'habilitation a bien été mis à jour"
     Et le champ "Nom du projet" contient "Conquérir le monde"
 
+  Scénario: Je peux mettre à jour une demande d'habilitation d'instructeur pour API Particulier
+    Sachant que je suis un instructeur "API Particulier"
+    Quand j'ai une demande d'habilitation à partager pour "API Particulier" intitulée "Projet cantine"
+    Et que je clique sur "Demandes initiés par des instructeurs"
+    Et que je clique sur "Modifier"
+    Et que je remplis "Nom du projet" avec "Projet cantine v2"
+    Et que je clique sur "Sauvegarder"
+    Alors il y a un message de succès contenant "La demande d'habilitation a bien été mis à jour"
+    Et le champ "Nom du projet" contient "Projet cantine v2"
+
   Scénario: Je peux supprimer une demande d'habilitation d'instructeur
     Quand j'ai une demande d'habilitation à partager pour "API Entreprise" intitulée "Super secret"
     Et que je clique sur "Demandes initiés par des instructeurs"
