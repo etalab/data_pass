@@ -35,6 +35,12 @@
           </li>
         <% end %>
 
+        <% if policy([:instruction, @authorization_request]).cancel_next_stage? %>
+          <li>
+            <%= dsfr_main_modal_button(t('.cancel_next_stage'), new_instruction_authorization_request_cancel_next_stage_path(@authorization_request), class: %w(fr-translate__language fr-nav__link fr-icon-error-line)) %>
+          </li>
+        <% end %>
+
         <% if policy([:instruction, @authorization_request]).transfer? %>
           <li>
             <%= dsfr_main_modal_button(t('.transfer'), new_instruction_authorization_request_transfer_path(@authorization_request), class: %w(fr-translate__language fr-nav__link fr-icon-arrow-up-down-line)) %>

@@ -56,6 +56,8 @@ class SkipLinksImplementedChecker
     instruction/messages#index
     instruction/cancel_authorization_reopenings#new
     instruction/cancel_authorization_reopenings#create
+    instruction/cancel_next_authorization_request_stages#new
+    instruction/cancel_next_authorization_request_stages#create
     instruction/revoke_authorization_requests#new
     instruction/revoke_authorization_requests#create
     instruction/instructor_draft_requests/invite#new
