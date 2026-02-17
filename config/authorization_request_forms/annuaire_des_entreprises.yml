@@ -46,6 +46,7 @@ annuaire-des-entreprises-lutte-contre-la-fraude:
   authorization_request: AnnuaireDesEntreprises
   steps: *ade_steps
 
+
 annuaire-des-entreprises-subventions-associations:
   name: Subventions de fonctionnement des associations
   description: Cas d'usage liés aux subventions de fonctionnement des associations
@@ -58,7 +59,8 @@ annuaire-des-entreprises-subventions-associations:
       - chiffre_affaires
       - bilans_bdf
       - liasses_fiscales
-      - conformite
+      - conformite_fiscale
+      - conformite_sociale
       - travaux_publics
       - liens_capitalistiques
       - beneficiaires
@@ -108,7 +110,8 @@ annuaire-des-entreprises-traitement-aides-financieres:
       Arrêté programme du 3 octobre 2001 relatif à l'action sociale des Caisses d'allocations familiales
     cadre_juridique_url: 'https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000048599900'
     scopes:
-      - conformite
+      - conformite_fiscale
+      - conformite_sociale
 
 annuaire-des-entreprises:
   name: Demande libre
