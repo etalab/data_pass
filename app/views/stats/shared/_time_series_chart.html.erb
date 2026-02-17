@@ -1,0 +1,15 @@
+<div class="fr-mb-6w">
+  <div class="fr-card fr-p-4w">
+    <canvas data-<%= stimulus_controller %>-target="timeSeriesChart"
+            role="img"
+            aria-label="Graphique d’évolution des demandes en attente de réponse (description détaillée disponible ci-après)"></canvas>
+  </div>
+  <%= render 'stats/shared/transcription',
+              id: 'time-series',
+              title: 'Évolution des demandes en attente de réponse',
+              description: "Ce graphique présente l’évolution des demandes sur la période sélectionnée. " \
+                          "Trois séries de données sont représentées : " \
+                          "les demandes soumises (barres bleues), les demandes validées ou refusées (barres vertes) " \
+                          "et les demandes en attente de réponse (ligne rouge)." %>
+
+</div>

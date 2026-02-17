@@ -1,0 +1,75 @@
+<% last_year = Date.current.year - 1 %>
+<% two_years_ago = Date.current.year - 2 %>
+
+<div class="fr-mb-4w">
+  <div class="fr-grid-row fr-grid-row--center fr-mb-3w">
+    <div class="fr-col-auto">
+      <div class="stats-filters__date-row">
+        <label for="startDate" class="fr-label fr-mb-0 fr-pt-2v">Du</label>
+        <input type="date" id="startDate" class="fr-input stats-filters__date-input" data-<%= stimulus_controller %>-target="startDate" data-action="input-><%= stimulus_controller %>#updateFiltersDebounced" />
+        <label for="endDate" class="fr-label fr-mb-0 fr-pt-2v">au</label>
+        <input type="date" id="endDate" class="fr-input stats-filters__date-input" data-<%= stimulus_controller %>-target="endDate" data-action="input-><%= stimulus_controller %>#updateFiltersDebounced" />
+        <span class="fr-pt-2v">inclus</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="fr-grid-row fr-grid-row--center">
+    <div class="fr-col-12">
+      <div class="fr-btns-group fr-btns-group--inline-md fr-btns-group--center" data-<%= stimulus_controller %>-target="quickRanges">
+        <button class="fr-btn fr-btn--sm fr-btn--tertiary-no-outline" type="button" data-action="click-><%= stimulus_controller %>#setDateRange" data-range="year-<%= two_years_ago %>">
+          Année <%= two_years_ago %>
+        </button>
+        <button class="fr-btn fr-btn--sm fr-btn--tertiary-no-outline" type="button" data-action="click-><%= stimulus_controller %>#setDateRange" data-range="year-<%= last_year %>">
+          Année <%= last_year %>
+        </button>
+        <button class="fr-btn fr-btn--sm fr-btn--tertiary-no-outline" type="button" data-action="click-><%= stimulus_controller %>#setDateRange" data-range="last-year">
+          12 derniers mois
+        </button>
+        <button class="fr-btn fr-btn--sm fr-btn--tertiary-no-outline" type="button" data-action="click-><%= stimulus_controller %>#setDateRange" data-range="last-3-months">
+          3 derniers mois
+        </button>
+        <button class="fr-btn fr-btn--sm fr-btn--tertiary-no-outline" type="button" data-action="click-><%= stimulus_controller %>#setDateRange" data-range="last-30-days">
+          30 derniers jours
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="fr-grid-row fr-grid-row--center fr-grid-row--gutters fr-mb-2w">
+  <div class="fr-col-12 fr-col-md-4">
+    <div class="fr-select-group">
+      <label class="fr-label" for="statsProviderSelect">Fournisseur des données demandées</label>
+      <select class="fr-select" id="statsProviderSelect" data-<%= stimulus_controller %>-target="providerSelect" data-action="change-><%= stimulus_controller %>#updateFilters">
+        <option value="">Tous les fournisseurs</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="fr-col-12 fr-col-md-4">
+    <div class="fr-select-group">
+      <label class="fr-label" for="statsTypeSelect">Demande d&#x2019;habilitation à</label>
+      <select class="fr-select" id="statsTypeSelect" data-<%= stimulus_controller %>-target="typeSelect" data-action="change-><%= stimulus_controller %>#updateFilters">
+        <option value="">Tous les types</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="fr-col-12 fr-col-md-4">
+    <div class="fr-select-group">
+      <label class="fr-label" for="statsFormSelect">Formulaire utilisé</label>
+      <select class="fr-select" id="statsFormSelect" data-<%= stimulus_controller %>-target="formSelect" data-action="change-><%= stimulus_controller %>#updateFilters">
+        <option value="">Tous les formulaires</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div class="fr-grid-row fr-grid-row--center fr-mb-6w">
+  <div class="fr-col-auto">
+    <button class="fr-btn fr-btn--tertiary-no-outline fr-btn--sm" type="button" data-action="click-><%= stimulus_controller %>#clearFilters">
+      Réinitialiser les filtres
+    </button>
+  </div>
+</div>

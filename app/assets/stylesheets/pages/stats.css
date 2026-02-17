@@ -1,0 +1,104 @@
+.stats-loading-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  backdrop-filter: blur(2px);
+}
+
+.stats-loading-overlay__content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 2rem 3rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+.stats-loading-overlay__spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid var(--grey-925-125);
+  border-top-color: var(--blue-france-sun-113-625);
+  border-radius: 50%;
+  animation: stats-spin 1s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes stats-spin {
+  to { transform: rotate(360deg); }
+}
+
+.stats-filters__date-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.stats-filters__date-input {
+  width: 180px;
+}
+
+.stats-stat-card {
+  text-align: center;
+}
+
+.stats-stat-card__title {
+  color: var(--grey-50-1000);
+  font-weight: bold;
+}
+
+.stats-stat-card__value {
+  color: var(--grey-50-1000);
+}
+
+.stats-stat-card__subtitle {
+  color: var(--grey-425-625);
+}
+
+.stats-stat-card--submissions {
+  background-color: var(--blue-france-925-125);
+}
+
+.stats-stat-card--submissions .stats-stat-card__value {
+  color: var(--blue-france-sun-113-625);
+}
+
+.stats-stat-card--validations {
+  background-color: var(--success-950-100);
+}
+
+.stats-stat-card--validations .stats-stat-card__value {
+  color: var(--success-425-625);
+}
+
+.stats-stat-card--refusals {
+  background-color: #ffe9e6;
+}
+
+.stats-stat-card--refusals .stats-stat-card__value {
+  color: var(--error-425-625);
+}
+
+.stats-duration-card {
+  background-color: var(--grey-975-75);
+}
+
+.stats-duration-card__title {
+  color: var(--grey-50-1000);
+}
+
+.stats-duration-card__percentile-50 {
+  color: var(--blue-france-sun-113-625);
+}
+
+.stats-duration-card__percentile-80 {
+  color: var(--grey-425-625);
+}
