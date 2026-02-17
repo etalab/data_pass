@@ -6,7 +6,8 @@ class ServiceProvider < StaticApplicationRecord
     :siret,
     :type,
     :already_integrated,
-    :fc_certified
+    :fc_certified,
+    :apipfc_enabled
 
   TYPES = { saas: 'saas', editor: 'editor' }.freeze
 
@@ -24,6 +25,7 @@ class ServiceProvider < StaticApplicationRecord
         :type,
         :already_integrated,
         :fc_certified,
+        :apipfc_enabled,
       ).merge(
         id: uid.to_s,
       )
@@ -48,5 +50,9 @@ class ServiceProvider < StaticApplicationRecord
 
   def france_connect_certified?
     fc_certified || false
+  end
+
+  def apipfc_enabled?
+    apipfc_enabled || false
   end
 end
