@@ -674,6 +674,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur fc_certif
     * je clique sur "Suivant"
 
     * je renseigne les informations du délégué à la protection des données
+    * je renseigne le numéro de téléphone mobile du contact technique
     * je renseigne les informations du contact métier
     * je clique sur "Suivant"
 
@@ -732,6 +733,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur fc_certif
     * je clique sur "Suivant"
 
     * je renseigne les informations du délégué à la protection des données
+    * je renseigne le numéro de téléphone mobile du contact technique
     * je renseigne les informations du contact métier
 
     * je clique sur "Suivant"
@@ -767,6 +769,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur fc_certif
     * je clique sur "Suivant"
 
     * je renseigne les informations du délégué à la protection des données
+    * je renseigne le numéro de téléphone mobile du contact technique
     * je renseigne les informations du contact métier
 
     * je clique sur "Suivant"

@@ -441,6 +441,15 @@ Quand('je renseigne les informations du contact technique avec un numéro de mob
   )
 end
 
+Quand('je renseigne le numéro de téléphone mobile du contact technique') do
+  contact_title_node = find('.contact-form-card__title', text: 'Contact technique')
+  contact_node = contact_title_node.find(:xpath, '../../..')
+
+  within(contact_node) do
+    fill_in 'Téléphone', with: '0612345678'
+  end
+end
+
 Quand('je renseigne les informations du contact métier') do
   steps %(
     * je remplis les informations du contact "Contact métier" avec :
