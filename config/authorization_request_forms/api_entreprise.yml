@@ -187,6 +187,12 @@ api-entreprise-detection-fraude:
     - name: "scopes"
     - name: "personal_data"
     - name: "contacts"
+  scopes_config:
+    hide:
+      - chiffre_affaires
+      - liasses_fiscales
+      - conformite_fiscale
+      - liens_capitalistiques
   initialize_with:
     scopes:
       - unites_legales_etablissements_insee
