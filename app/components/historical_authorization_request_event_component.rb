@@ -1,7 +1,7 @@
 class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
   with_collection_parameter :authorization_request_event
 
-  REASON_EVENTS = %w[request_changes revoke refuse bulk_update].freeze
+  REASON_EVENTS = %w[request_changes revoke refuse bulk_update cancel_reopening_from_instructor].freeze
   MESSAGE_EVENTS = %w[applicant_message instructor_message].freeze
   CHANGELOG_EVENTS = %w[initial_submit_with_changes_on_prefilled_data submit_with_changes legacy_submit_with_changes].freeze
 
@@ -137,7 +137,7 @@ class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
 
   def event_kind
     case event.name
-    when 'refuse', 'revoke', 'request_changes', 'applicant_message', 'instructor_message', 'bulk_update', 'approve'
+    when 'refuse', 'revoke', 'request_changes', 'applicant_message', 'instructor_message', 'bulk_update', 'approve', 'cancel_reopening'
       :message
     when 'submit', 'admin_update'
       :changelog
