@@ -16,23 +16,50 @@ api_mobilic:
   scopes:
     - name: "J’envoie les données d’enregistrement d’une mission - workflow disponible ici :"
       value: "donnees_enregistrement_mission"
-      group: "J'envoie des données à Mobilic"
       link: "https://developers.mobilic.beta.gouv.fr/workflow-a-respecter"
     - name: "Je m'engage à la sécurisation des données"
       value: "securisation_donnees"
-      group: "J'envoie des données à Mobilic"
     - name: "J’envoie les données relatives à la modification et à la validation par le salarié"
       value: "donnees_modification_salarie"
-      group: "J'envoie des données à Mobilic"
     - name: "J’intègre le code à réponse rapide de contrôle Mobilic dans mon logiciel"
       value: "code_reponse_rapide"
-      group: "J'envoie des données à Mobilic"
     - name: "J’envoie les données relatives à la modification et à la validation par le gestionnaire"
       value: "donnees_modification_gestionnaire"
-      group: "J'envoie des données à Mobilic"
     - name: "Je confirme informer mes clients sur la nécessité de créer un compte Mobilic"
       value: "information_clients"
-      group: "J'envoie des données à Mobilic"
     - name: "Je récupère les données contenues dans Mobilic"
       value: "recuperation_donnees_mobilic"
-      group: "Je récupère les données contenues dans Mobilic"
+
+api_gunenv:
+  name: APIGUNenv
+  description: "L’application GUNenv permet l’instruction de dossiers ICPE, IOTA et MINES et le suivi des sites inspectés par l’inspection de l’environnement et les services des préfectures. Ces sites sont appelés des AIOT (Activités, Installations, Ouvrages, Travaux). L’API GUNenv met à disposition des consommateurs un ensemble de données organisées en ressources : les AIOT et leurs actes, les procédures et téléprocédures associées ainsi que les correspondances, documents et référentiels qu’ils contiennent."
+  provider: "mtes"
+  kind: 'api'
+  link:
+  cgu_link:
+  access_link:
+  public: true
+  support_email: gunenv@developpement-durable.gouv.fr
+  blocks:
+    - name: "basic_infos"
+    - name: "legal"
+    - name: "personal_data"
+    - name: "scopes"
+    - name: "contacts"
+  scopes:
+    - name: "Téléprocédures"
+      value: "teleprocedures"
+    - name: "Procédures"
+      value: "procedures"
+    - name: "AIOT"
+      value: "aiot"
+    - name: "Documents"
+      value: "documents"
+    - name: "Correspondances"
+      value: "correspondances"
+    - name: "Actes"
+      value: "actes"
+    - name: "Services"
+      value: "services"
+    - name: "Sous-Services"
+      value: "sous-services"

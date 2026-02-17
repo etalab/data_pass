@@ -1586,6 +1586,26 @@ FactoryBot.define do
       with_scopes
     end
 
+    trait :api_gunenv do
+      type { 'AuthorizationRequest::APIGunenv' }
+
+      form_uid { 'api-gunenv' }
+
+      with_basic_infos
+      with_personal_data
+      with_cadre_juridique
+      with_scopes
+    end
+
+    trait :api_inser_jeunes_sup do
+      type { 'AuthorizationRequest::APIInserJeunesSup' }
+
+      form_uid { 'api-inser-jeunes-sup' }
+
+      with_basic_infos
+      with_cadre_juridique
+    end
+
     trait :aides_etat do
       type { 'AuthorizationRequest::AidesEtat' }
 

@@ -39,7 +39,7 @@ D'un point de vue de la couche modèle il y a :
 
 #### Configuration du `AuthorizationDefinition`
 
-Pour la configuration de la [définition (1.)](../config/authorization_definitions.yml):
+Pour la configuration de la [définition (1.)](../config/authorization_definitions/):
 
 ```yaml
   # Il s'agit du nom de la classe en underscore. Ici `MonAPI`
@@ -70,10 +70,14 @@ Pour la configuration de la [définition (1.)](../config/authorization_definitio
     # Optionnel. Détermine si ce formulaire peut être démarré à l'initiative de
     # l'utilisateur. Cet attribut sert principalement aux habilitations en 2
     # étapes (bac à sable puis production), lorsque la 1ʳᵉ est validé la 2e est
-    # crée par le système. Par défaut à `true`
+    # crée par le système. Valeur par défaut : true
+    # Ne spécifier cette clé que si vous voulez la désactiver :
     startable_by_applicant: false
     # Optionnel. Permet de désactiver des fonctionnalités pour ce type de
-    # demande. Seules la messagerie (messaging), le transfert et la réouverture (reopening) sont supportés pour le moment
+    # demande. Seules la messagerie (messaging), le transfert (transfer) et la
+    # réouverture (reopening) sont supportés pour le moment.
+    # Valeurs par défaut : true pour chaque fonctionnalité
+    # Ne spécifier ces clés que si vous voulez désactiver une fonctionnalité :
     features:
       messaging: false
       transfer: false
@@ -130,15 +134,18 @@ Pour la configuration de la [définition (1.)](../config/authorization_definitio
     # Liste des blocs à afficher dans le résumé
     # Ces blocs peuvent correspondre aux 'steps' des formulaires définis
     # ci-dessous, mais ce n'est pas une obligation. Chaque bloc doit être défini
-    # dans app/views/authorization_requests/shared/blocks/
+    # dans app/views/authorization_requests/shared/blocks/default/
     blocks:
       - name: basic_infos
+      - name: legal
       - name: personal_data
+      - name: scopes
+      - name: contacts
 ```
 
 #### Configuration du `AuthorizationRequestForm`
 
-Pour la configuration d'un [formulaire (2.)](../config/authorization_request_forms.yml):
+Pour la configuration d'un [formulaire (2.)](../config/authorization_request_forms/):
 
 ```yaml
   # Identifiant unique qui sera utilisé dans les URLs
