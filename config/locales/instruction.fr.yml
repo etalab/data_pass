@@ -179,7 +179,7 @@ fr:
               Vous êtes sur le point d'annuler la réouverture de l'habilitation '%{authorization_request_name}' au profit de l'organisation '%{organization_name}' (numéro de siret: %{organization_siret}).
             disclaimer: |
               <strong>Cette action est irréversible</strong>.
-              Merci de renseigner les motifs de cette annulation, ceci à des fins d'historisation.
+              Merci de renseigner les motifs de cette annulation, qui sera affichée dans l'historique de la demande.
           cancel: Annuler
           cancel_reopening: Annuler la réouverture de cette demande
 

@@ -101,6 +101,31 @@ RSpec.describe HistoricalAuthorizationRequestEventComponent, type: :component do
         expect(page).to have_text(revoked_reason)
       end
     end
+
+    context 'when event_name is cancel_reopening from instructor' do
+      let(:authorization_request_event) { create(:authorization_request_event, :cancel_reopening_from_instructor) }
+      let(:cancellation_reason) { 'L\'usager s\'est trompé de bouton' }
+
+      it 'renders component with instructor cancellation reason' do
+        authorization_request_event.entity.reason = cancellation_reason
+        page = render_inline(subject)
+
+        expect(page).to have_text('a annulé la réouverture de l\'habilitation pour la raison suivante')
+        expect(page).to have_text(cancellation_reason)
+      end
+    end
+
+    context 'when event_name is cancel_reopening from applicant' do
+      let(:authorization_request_event) { create(:authorization_request_event, :cancel_reopening) }
+
+      it 'renders only the summary without expandable reason' do
+        page = render_inline(subject)
+
+        expect(page).to have_text('a annulé la réouverture de l\'habilitation')
+        expect(page).to have_no_text('pour la raison suivante')
+        expect(page).to have_no_css('button[data-action="click->show-and-hide#trigger"]')
+      end
+    end
   end
 
   describe 'expand/collapse link text' do
@@ -125,6 +150,17 @@ RSpec.describe HistoricalAuthorizationRequestEventComponent, type: :component do
         expect(page).to have_text('masquer le message')
       end
     end
+
+    context 'with cancel_reopening from instructor' do
+      let(:authorization_request_event) { create(:authorization_request_event, :cancel_reopening_from_instructor) }
+
+      it 'uses show/hide message' do
+        page = render_inline(subject)
+
+        expect(page).to have_text('voir le message')
+        expect(page).to have_text('masquer le message')
+      end
+    end
   end
 
   describe '#message_details_text' do
@@ -135,6 +171,26 @@ RSpec.describe HistoricalAuthorizationRequestEventComponent, type: :component do
         render_inline(subject)
 
         expect(subject.message_details_text).to include(authorization_request_event.entity.reason)
+      end
+    end
+
+    context 'when event_name is cancel_reopening from instructor' do
+      let(:authorization_request_event) { create(:authorization_request_event, :cancel_reopening_from_instructor) }
+
+      it 'returns the cancellation reason' do
+        render_inline(subject)
+
+        expect(subject.message_details_text).to include(authorization_request_event.entity.reason)
+      end
+    end
+
+    context 'when event_name is cancel_reopening from applicant' do
+      let(:authorization_request_event) { create(:authorization_request_event, :cancel_reopening) }
+
+      it 'returns no message details' do
+        render_inline(subject)
+
+        expect(subject.message_details_text).to be_blank
       end
     end
   end
