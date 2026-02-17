@@ -2446,10 +2446,6 @@ api-particulier-gestion-rh-secteur-public:
     - name: contacts
   scopes_config:
     disabled:
-      - cnaf_quotient_familial
-      - cnaf_allocataires
-      - cnaf_enfants
-      - cnaf_adresse
       - pole_emploi_identite
       - pole_emploi_contact
       - pole_emploi_adresse
