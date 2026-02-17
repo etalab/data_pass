@@ -214,4 +214,5 @@ Rails.application.routes.draw do
   end
 
   mount GoodJob::Engine => '/workers'
+  mount RailsPulse::Engine => '/rails_pulse'
 end
