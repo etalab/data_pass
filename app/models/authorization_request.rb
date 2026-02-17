@@ -200,6 +200,7 @@ class AuthorizationRequest < ApplicationRecord
     return true unless respond_to?(:france_connect_modality?)
     return true unless france_connect_modality?
     return true unless france_connect_certified_form?
+    return true if respond_to?(:using_existing_france_connect_authorization?) && using_existing_france_connect_authorization?
 
     false
   end

@@ -171,6 +171,15 @@ Quand('je coche {string}') do |label|
   end
 end
 
+Quand('je décoche {string}') do |label|
+  if javascript?
+    find('label', text: label, visible: :all).trigger('click')
+  else
+    label = find('label', text: label, visible: :all)
+    find_by_id(label[:for]).set(false)
+  end
+end
+
 Quand('je supprime le document {string}') do |document_name|
   if javascript?
     within('.file-with-remove-button', text: document_name) do
@@ -337,7 +346,8 @@ Alors('je peux cocher {string}') do |checkbox_label|
 end
 
 Alors('un champ contient {string}') do |text|
-  expect(all('input').any? { |input| input.value == text }).to be_truthy, "Expected to find a field with value '#{text}'"
+  fields = all('input').to_a + all('textarea').to_a
+  expect(fields.any? { |field| field.value == text }).to be_truthy, "Expected to find a field with value '#{text}'"
 end
 
 Alors('le champ {string} contient {string}') do |label, text|

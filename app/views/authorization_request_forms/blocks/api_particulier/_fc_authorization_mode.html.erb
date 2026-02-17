@@ -1,0 +1,48 @@
+<% if authorization_request.france_connect_authorizations.empty? %>
+  <%= f.hidden_field :fc_authorization_mode, value: 'generate_new' %>
+  <div class="fr-callout">
+    <p class="fr-callout__text">
+      <%= t('authorization_request_forms.api_particulier.fc_authorization_mode.generate_new_info',
+            service_provider_name: authorization_request.form.service_provider&.name) %>
+    </p>
+  </div>
+<% else %>
+  <div data-controller="fc-authorization-mode">
+    <fieldset class="fr-fieldset">
+      <legend class="fr-fieldset__legend--regular fr-fieldset__legend">
+        <%= t('authorization_request_forms.api_particulier.fc_authorization_mode.legend') %>
+      </legend>
+
+      <%= f.dsfr_radio_option(:fc_authorization_mode, 'generate_new',
+            input_options: {
+              "data-action": "change->fc-authorization-mode#toggle"
+            }) do %>
+        <span class="fr-text-lg">
+          <%= t('authorization_request_forms.api_particulier.fc_authorization_mode.generate_new_label') %>
+        </span>
+        <small class="fr-text-grey fr-text--sm fr-mt-1w">
+          <%= t('authorization_request_forms.api_particulier.fc_authorization_mode.generate_new_hint',
+                service_provider_name: authorization_request.form.service_provider&.name) %>
+        </small>
+      <% end %>
+
+      <%= f.dsfr_radio_option(:fc_authorization_mode, 'use_existing',
+            input_options: {
+              "data-action": "change->fc-authorization-mode#toggle"
+            }) do %>
+        <span class="fr-text-lg">
+          <%= t('authorization_request_forms.api_particulier.fc_authorization_mode.use_existing_label') %>
+        </span>
+        <small class="fr-text-grey fr-text--sm fr fr-mt-1w">
+          <%= t('authorization_request_forms.api_particulier.fc_authorization_mode.use_existing_hint') %>
+        </small>
+      <% end %>
+    </fieldset>
+
+    <div data-fc-authorization-mode-target="selectContainer"
+         class="fr-mt-3w <%= 'fr-hidden' unless authorization_request.using_existing_france_connect_authorization? %>"
+         aria-hidden="<%= !authorization_request.using_existing_france_connect_authorization? %>">
+      <%= f.france_connect_authorization_select %>
+    </div>
+  </div>
+<% end %>

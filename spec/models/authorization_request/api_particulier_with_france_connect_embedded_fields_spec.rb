@@ -257,6 +257,48 @@ RSpec.describe AuthorizationRequest::APIParticulier do
     end
   end
 
+  describe '#using_existing_france_connect_authorization?' do
+    context 'when fc_authorization_mode is use_existing' do
+      before { authorization_request.fc_authorization_mode = 'use_existing' }
+
+      it 'returns true' do
+        expect(authorization_request.using_existing_france_connect_authorization?).to be true
+      end
+    end
+
+    context 'when fc_authorization_mode is generate_new' do
+      before { authorization_request.fc_authorization_mode = 'generate_new' }
+
+      it 'returns false' do
+        expect(authorization_request.using_existing_france_connect_authorization?).to be false
+      end
+    end
+
+    context 'when fc_authorization_mode is nil' do
+      it 'returns false' do
+        expect(authorization_request.using_existing_france_connect_authorization?).to be false
+      end
+    end
+  end
+
+  describe '#embeds_france_connect_fields? with fc_authorization_mode' do
+    context 'when using existing FC authorization' do
+      before { authorization_request.fc_authorization_mode = 'use_existing' }
+
+      it 'returns false' do
+        expect(authorization_request.embeds_france_connect_fields?).to be false
+      end
+    end
+
+    context 'when generating new FC authorization' do
+      before { authorization_request.fc_authorization_mode = 'generate_new' }
+
+      it 'returns true when FC fields are present' do
+        expect(authorization_request.embeds_france_connect_fields?).to be true
+      end
+    end
+  end
+
   describe '#skip_fc_alternative_connexion_check_box?' do
     context 'when authorization request does not respond to france_connect_modality?' do
       let(:authorization_request) { build(:authorization_request, :api_entreprise) }
@@ -295,6 +337,14 @@ RSpec.describe AuthorizationRequest::APIParticulier do
         expect(authorization_request.skip_fc_alternative_connexion_check_box?).to be false
       end
     end
+
+    context 'when using existing FC authorization on certified form' do
+      before { authorization_request.fc_authorization_mode = 'use_existing' }
+
+      it 'returns true' do
+        expect(authorization_request.skip_fc_alternative_connexion_check_box?).to be true
+      end
+    end
   end
 
   describe '#available_scopes' do
@@ -307,6 +357,15 @@ RSpec.describe AuthorizationRequest::APIParticulier do
       it 'includes FranceConnect scopes' do
         fc_scopes = authorization_request.available_scopes.select { |s| s.group == 'FranceConnect' }
         expect(fc_scopes.map(&:value)).to match_array(france_connect_scope_values)
+      end
+
+      context 'when using existing FC authorization' do
+        before { authorization_request.fc_authorization_mode = 'use_existing' }
+
+        it 'excludes FranceConnect scopes' do
+          fc_scopes = authorization_request.available_scopes.select { |s| s.group == 'FranceConnect' }
+          expect(fc_scopes).to be_empty
+        end
       end
     end
 
@@ -325,7 +384,44 @@ RSpec.describe AuthorizationRequest::APIParticulier do
     end
   end
 
-  describe 'automatic removal of FranceConnect scopes' do
+  describe 'FranceConnect legal fields when switching authorization mode' do
+    let(:authorization_request) do
+      create(
+        :authorization_request,
+        :api_particulier_entrouvert_publik,
+        modalities: %w[france_connect],
+        scopes: %w[cnaf_quotient_familial family_name given_name birthdate],
+        fc_cadre_juridique_nature: 'CRPA Article L311-1',
+        fc_cadre_juridique_url: 'https://legifrance.gouv.fr/legal'
+      )
+    end
+
+    it 'keeps FC legal fields when use_existing so they can be restored when switching back' do
+      authorization_request.fc_authorization_mode = 'use_existing'
+      authorization_request.valid?
+
+      expect(authorization_request.fc_cadre_juridique_nature).to eq('CRPA Article L311-1')
+      expect(authorization_request.fc_cadre_juridique_url).to eq('https://legifrance.gouv.fr/legal')
+    end
+
+    it 'keeps FC legal fields when generating new authorization' do
+      authorization_request.fc_authorization_mode = 'generate_new'
+      authorization_request.valid?
+
+      expect(authorization_request.fc_cadre_juridique_nature).to eq('CRPA Article L311-1')
+      expect(authorization_request.fc_cadre_juridique_url).to eq('https://legifrance.gouv.fr/legal')
+    end
+
+    it 'keeps FC legal fields when fc_authorization_mode is nil' do
+      authorization_request.fc_authorization_mode = nil
+      authorization_request.valid?
+
+      expect(authorization_request.fc_cadre_juridique_nature).to eq('CRPA Article L311-1')
+      expect(authorization_request.fc_cadre_juridique_url).to eq('https://legifrance.gouv.fr/legal')
+    end
+  end
+
+  describe 'preservation of FranceConnect scopes' do
     let(:authorization_request) do
       create(
         :authorization_request,
@@ -335,14 +431,13 @@ RSpec.describe AuthorizationRequest::APIParticulier do
       )
     end
 
-    it 'removes FranceConnect scopes when modality is deselected' do
+    it 'keeps FC scopes when modality is deselected so they can be restored when re-checked' do
       expect(authorization_request.scopes).to include('family_name', 'given_name', 'birthdate')
 
       authorization_request.modalities = %w[params]
       authorization_request.valid?
 
-      expect(authorization_request.scopes).to include('cnaf_quotient_familial')
-      expect(authorization_request.scopes).not_to include('family_name', 'given_name', 'birthdate')
+      expect(authorization_request.scopes).to include('family_name', 'given_name', 'birthdate', 'cnaf_quotient_familial')
     end
 
     it 'keeps FranceConnect scopes when modality remains selected' do

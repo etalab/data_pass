@@ -6,6 +6,7 @@ module AuthorizationExtensions::FranceConnectEmbeddedFields
   included do
     add_attribute :fc_cadre_juridique_nature
     add_attribute :fc_cadre_juridique_url
+    add_attribute :fc_authorization_mode
     add_documents :fc_cadre_juridique_document, content_type: ['application/pdf'], size: { less_than: 10.megabytes }, if: -> { embeds_france_connect_fields? && need_complete_validation?(:legal) }
 
     validate :fc_cadre_juridique_document_or_fc_cadre_juridique_url_present, if: -> { embeds_france_connect_fields? && need_complete_validation?(:legal) }
@@ -17,8 +18,6 @@ module AuthorizationExtensions::FranceConnectEmbeddedFields
 
     validate :france_connect_scopes_must_be_complete,
       if: -> { embeds_france_connect_fields? && need_complete_validation?(:scopes) }
-
-    before_validation :remove_france_connect_scopes_if_modality_not_selected
   end
 
   def france_connect_modality?
@@ -26,7 +25,11 @@ module AuthorizationExtensions::FranceConnectEmbeddedFields
   end
 
   def available_scopes
-    super.reject { |scope| scope.group == FRANCE_CONNECT_GROUP && !france_connect_modality? }
+    super.reject { |scope| scope.group == FRANCE_CONNECT_GROUP && !show_france_connect_scopes? }
+  end
+
+  def using_existing_france_connect_authorization?
+    fc_authorization_mode == 'use_existing'
   end
 
   def fc_scopes
@@ -53,11 +56,8 @@ module AuthorizationExtensions::FranceConnectEmbeddedFields
 
   private
 
-  def remove_france_connect_scopes_if_modality_not_selected
-    return if france_connect_modality?
-    return if scopes.blank?
-
-    self.scopes = scopes - france_connect_scope_values
+  def show_france_connect_scopes?
+    france_connect_modality? && !using_existing_france_connect_authorization?
   end
 
   def fc_cadre_juridique_document_or_fc_cadre_juridique_url_present
@@ -97,13 +97,9 @@ module AuthorizationExtensions::FranceConnectEmbeddedFields
   end
 
   def france_connect_contacts_attributes
-    contact_for(:contact_technique).to_attributes(prefix: :contact_technique)
-      .merge(contact_for(:contact_metier).to_attributes(prefix: :responsable_traitement))
-      .merge(contact_for(:delegue_protection_donnees).to_attributes(prefix: :delegue_protection_donnees))
-  end
-
-  def contact_for(type)
-    Contact.new(type, self)
+    Contact.new(:contact_technique, self).to_attributes(prefix: :contact_technique)
+      .merge(Contact.new(:contact_metier, self).to_attributes(prefix: :responsable_traitement))
+      .merge(Contact.new(:delegue_protection_donnees, self).to_attributes(prefix: :delegue_protection_donnees))
   end
 
   def common_attributes_for_france_connect

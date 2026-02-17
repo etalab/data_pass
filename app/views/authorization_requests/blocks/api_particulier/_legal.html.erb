@@ -6,7 +6,8 @@
       authorization_request.is_a?(AuthorizationRequest::FranceConnect) ||
         (authorization_request.respond_to?(:france_connect_modality?) &&
          authorization_request.france_connect_modality? &&
-         authorization_request.france_connect_certified_form?)
+         authorization_request.france_connect_certified_form? &&
+         !authorization_request.using_existing_france_connect_authorization?)
     end
   %>
   <% if show_fc_fields %>

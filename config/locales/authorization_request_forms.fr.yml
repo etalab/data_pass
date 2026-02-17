@@ -363,6 +363,14 @@ fr:
       fc_alternative_connexion:
         label: J’atteste que mon service propose une alternative à la connexion avec FranceConnect, et que cette alternative permet l’accès, dans des conditions analogues, à la même prestation de service public.
 
+      fc_authorization_mode:
+        legend: Comment souhaitez-vous gérer l’habilitation FranceConnect ?
+        generate_new_label: Générer automatiquement une nouvelle habilitation FranceConnect
+        generate_new_hint: "L’éditeur %{service_provider_name} étant déjà certifié pour intégrer FranceConnect, une habilitation FranceConnect sera générée automatiquement à la validation de votre demande."
+        generate_new_info: "L’éditeur %{service_provider_name} étant déjà certifié pour intégrer FranceConnect, une habilitation FranceConnect sera générée automatiquement à la validation de votre demande."
+        use_existing_label: Utiliser une habilitation FranceConnect existante
+        use_existing_hint: "Si vous choisissez une habilitation FranceConnect existante, celle-ci doit être pertinente pour votre cas d’usage d’API Particulier."
+
       modalities:
         intro: "Vous pourrez accéder au service API Particulier via les modalités ci-dessous :"
         values:

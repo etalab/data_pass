@@ -51,16 +51,17 @@ class AuthorizationRequest::APIParticulier < AuthorizationRequest
   end
 
   def requires_france_connect_authorization?
-    return false if skip_france_connect_authorization?
-
     return false unless need_complete_validation?(:modalities)
     return false unless modalities.include?('france_connect')
+    return true if using_existing_france_connect_authorization?
+    return false if skip_france_connect_authorization?
 
     !embeds_france_connect_fields?
   end
 
   def embeds_france_connect_fields?
     return false unless france_connect_modality?
+    return false if using_existing_france_connect_authorization?
 
     [
       fc_cadre_juridique_nature,

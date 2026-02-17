@@ -27,3 +27,9 @@ Alors('il y a {string} dans le bloc de résumé {string}') do |text, block_title
     expect(page).to have_content(text)
   end
 end
+
+Alors("il n'y a pas {string} dans le bloc de résumé {string}") do |text, block_title|
+  summary_block_testing(block_title) do
+    expect(page).to have_no_content(text)
+  end
+end
