@@ -1,4 +1,3 @@
-# rubocop:disable Metrics/ClassLength
 class DsfrFormBuilder < ActionView::Helpers::FormBuilder
   include Rails.application.routes.url_helpers
 
@@ -354,4 +353,3 @@ class DsfrFormBuilder < ActionView::Helpers::FormBuilder
     required?(attribute, opts) && !existing_file_link
   end
 end
-# rubocop:enable Metrics/ClassLength
