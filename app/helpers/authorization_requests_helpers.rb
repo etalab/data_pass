@@ -109,6 +109,11 @@ module AuthorizationRequestsHelpers
     authorization_request.filling?
   end
 
+  def skip_france_connect_authorization?(authorization_request)
+    authorization_request.respond_to?(:skip_france_connect_authorization?) &&
+      authorization_request.skip_france_connect_authorization?
+  end
+
   def render_custom_editable_block_or_default(authorization_request, block_id, locals = {})
     render partial: "authorization_request_forms/blocks/#{authorization_request.definition.id}/#{block_id}", locals: { authorization_request:, **locals }
   rescue ActionView::MissingTemplate
