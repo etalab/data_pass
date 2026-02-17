@@ -4,7 +4,7 @@
 
 api-entreprise-socle-de-base:
   name: "Socle de base DLNUF"
-  description: | 
+  description: |
     Accéder aux données de base, utilisables par toute administration ou assimilé, pour mettre en oeuvre le principe du « Dites-le nous une fois ».
     <br/>
     <br/>
@@ -12,8 +12,8 @@ api-entreprise-socle-de-base:
   use_case: "socle_de_base"
   introduction: |
     Ce formulaire permet d'accéder aux API de l'API Entreprise distribuant les <strong>données de base accessibles à tout acteur public ou assimilé pour satisfaire le principe du « Dites-le nous une fois »</strong> consacré par l'article L114-8 du Code des relations entre le public et l'administration.
-    Les données accessibles via ce formulaire : 
-    - Données publiques : données des répertoires Sirene, RNE et RNA ; actes et bilans de l'Inpi ; numéros TVA et EORI ; certifications Bio, RGE, OPQIBI, Qualifelec, Qualibat et carte professionnelle de travaux public de la FNTP. 
+    Les données accessibles via ce formulaire :
+    - Données publiques : données des répertoires Sirene, RNE et RNA ; actes et bilans de l'Inpi ; numéros TVA et EORI ; certifications Bio, RGE, OPQIBI, Qualifelec, Qualibat et carte professionnelle de travaux public de la FNTP.
     - Données protégées : données des unités en diffusion partielle des répertoire RNE et RNA ; montant des subventions et documents administratifs complémentaires (DAC) des associations.
     <br />
     <i>💡 Votre cas d'usage concerne les marchés publics ? la délivrance d'aides ou de subventions ?</i>
@@ -25,7 +25,7 @@ api-entreprise-socle-de-base:
     - name: "personal_data"
     - name: "contacts"
   scopes_config:
-    disabled: 
+    disabled:
       - unites_legales_etablissements_insee
       - data_subvention_subventions
       - associations_djepva
@@ -49,9 +49,9 @@ api-entreprise-socle-de-base:
     intitule: "Socle de base - Mise en oeuvre du Dites-le nous une fois"
     cadre_juridique_nature: |
       Accès aux données de base des entreprises et associations, utilisables par toute administration ou assimilé, pour satisfaire le principe du « Dites-le nous une fois » consacré par l'article L114-8 du Code des relations entre le public et l'administration.
-      Ces données ont des conditions d'utilisation différentes : 
+      Ces données ont des conditions d'utilisation différentes :
       <br />
-      - Données publiques : données des répertoires Sirene, RNE et RNA ; actes et bilans de l'Inpi ; numéros TVA et EORI ; certifications Bio, RGE, OPQIBI, Qualifelec, Qualibat et carte professionnelle de travaux public de la FNTP. 
+      - Données publiques : données des répertoires Sirene, RNE et RNA ; actes et bilans de l'Inpi ; numéros TVA et EORI ; certifications Bio, RGE, OPQIBI, Qualifelec, Qualibat et carte professionnelle de travaux public de la FNTP.
       - Données protégées : données des unités en diffusion partielle des répertoire RNE et RNA ; montant des subventions et documents administratifs complémentaires (DAC) des associations.
       <br />
       ⚠️ Les données protégées doivent uniquement être utilisées par un agent habilité ou après authentification de l'usager. Elles ne doivent pas être diffusées en ligne ou à des tiers non-autorisés.
@@ -64,7 +64,7 @@ api-entreprise-socle-de-base:
 api-entreprise-marches-publics:
   name: "Marchés publics"
   description: |
-    Simplifier le dépôt des candidatures et récupérer les justificatifs administratifs des entreprises/associations. 
+    Simplifier le dépôt des candidatures et récupérer les justificatifs administratifs des entreprises/associations.
     <br/>
     <br/>
     <i>Socle de base + Données autorisées pour ce cas d'usage.</i>
@@ -98,7 +98,7 @@ api-entreprise-marches-publics:
 api-entreprise-aides-publiques:
   name: "Aides publiques"
   description: |
-    Simplifier le dépôt et l'instruction des demandes d'aides publiques et autres démarches d'accompagnement. 
+    Simplifier le dépôt et l'instruction des demandes d'aides publiques et autres démarches d'accompagnement.
     <br/>
     <br/>
     <i>Socle de base + Données autorisées pour ce cas d'usage.</i>
@@ -129,11 +129,11 @@ api-entreprise-aides-publiques:
       - attestation_fiscale_dgfip
       - attestation_sociale_urssaf
       - cotisations_msa
-      
+
 api-entreprise-subventions-associations:
   name: "Subventions des associations"
   description: |
-    Simplifier la dépôt et l'instruction des demandes de subventions des associations. 
+    Simplifier la dépôt et l'instruction des demandes de subventions des associations.
     <br/>
     <br/>
     <i>Socle de base + Données autorisées pour ce cas d'usage.</i>
