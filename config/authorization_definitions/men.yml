@@ -61,12 +61,6 @@ api_inser_jeunes_sup:
     support_email: "osmose.coord-gen@ac-dijon.fr"
     kind: 'api'
     public: true
-    unique: false
-    startable_by_applicant: true
-    features:
-      messaging: true
-      transfer: true
-      reopening: true
     blocks:
       - name: basic_infos
       - name: legal

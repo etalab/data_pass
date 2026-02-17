@@ -70,14 +70,18 @@ Pour la configuration de la [définition (1.)](../config/authorization_definitio
     # Optionnel. Détermine si ce formulaire peut être démarré à l'initiative de
     # l'utilisateur. Cet attribut sert principalement aux habilitations en 2
     # étapes (bac à sable puis production), lorsque la 1ʳᵉ est validé la 2e est
-    # crée par le système. Par défaut à `true`
-    startable_by_applicant: true
+    # crée par le système. Valeur par défaut : true
+    # Ne spécifier cette clé que si vous voulez la désactiver :
+    startable_by_applicant: false
     # Optionnel. Permet de désactiver des fonctionnalités pour ce type de
-    # demande. Seules la messagerie (messaging), le transfert et la réouverture (reopening) sont supportés pour le moment
+    # demande. Seules la messagerie (messaging), le transfert (transfer) et la
+    # réouverture (reopening) sont supportés pour le moment.
+    # Valeurs par défaut : true pour chaque fonctionnalité
+    # Ne spécifier ces clés que si vous voulez désactiver une fonctionnalité :
     features:
-      messaging: true
-      transfer: true
-      reopening: true
+      messaging: false
+      transfer: false
+      reopening: false
     # Optionnel. Permet de définir des étapes (ex : sandbox -> production)
     stage:
       # Type: sandbox / production
