@@ -205,7 +205,7 @@ class AuthorizationRequest < ApplicationRecord
   end
 
   def all_terms_accepted
-    return if terms_of_service_accepted && (skip_data_protection_officer_informed_check_box? || data_protection_officer_informed) && all_extra_checkboxes_checked?
+    return if all_required_terms_accepted?
 
     errors.add(:base, :all_terms_not_accepted)
   end
@@ -439,6 +439,24 @@ class AuthorizationRequest < ApplicationRecord
   end
 
   private
+
+  def all_required_terms_accepted?
+    cgu_terms_satisfied? &&
+      dpo_terms_satisfied? &&
+      all_extra_checkboxes_checked?
+  end
+
+  def cgu_terms_satisfied?
+    !cgu_required? || terms_of_service_accepted
+  end
+
+  def cgu_required?
+    definition.cgu_link.present?
+  end
+
+  def dpo_terms_satisfied?
+    skip_data_protection_officer_informed_check_box? || data_protection_officer_informed
+  end
 
   def extract_authorization_request_class_from_stage(stage_type)
     if stage_type == definition.stage.type
