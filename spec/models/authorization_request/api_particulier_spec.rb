@@ -93,8 +93,43 @@ RSpec.describe AuthorizationRequest::APIParticulier do
     end
   end
 
+  describe '#available_modalities' do
+    subject { authorization_request.available_modalities }
+
+    context 'when service provider is fc_certified and apipfc_enabled' do
+      let(:authorization_request) { build(:authorization_request, :api_particulier_entrouvert_publik) }
+
+      around do |example|
+        authorization_request.form.service_provider.apipfc_enabled = true
+        example.run
+      ensure
+        authorization_request.form.service_provider.apipfc_enabled = false
+      end
+
+      it { is_expected.to include('france_connect') }
+    end
+
+    context 'when service provider is fc_certified but not apipfc_enabled' do
+      let(:authorization_request) { build(:authorization_request, :api_particulier_entrouvert_publik) }
+
+      it { is_expected.not_to include('france_connect') }
+    end
+
+    context 'when service provider is not fc_certified' do
+      let(:authorization_request) { build(:authorization_request, :api_particulier_arpege_concerto) }
+
+      it { is_expected.not_to include('france_connect') }
+    end
+
+    context 'when form has no service provider' do
+      let(:authorization_request) { build(:authorization_request, :api_particulier) }
+
+      it { is_expected.to include('france_connect') }
+    end
+  end
+
   describe 'contact_technique_phone_number mobile validation' do
-    context 'when service provider is FC certified' do
+    context 'when service provider is FC certified and apipfc enabled' do
       let(:authorization_request) do
         build(
           :authorization_request,
@@ -102,6 +137,13 @@ RSpec.describe AuthorizationRequest::APIParticulier do
           modalities:,
           contact_technique_phone_number: phone_number
         )
+      end
+
+      around do |example|
+        authorization_request.form.service_provider.apipfc_enabled = true
+        example.run
+      ensure
+        authorization_request.form.service_provider.apipfc_enabled = false
       end
 
       before do

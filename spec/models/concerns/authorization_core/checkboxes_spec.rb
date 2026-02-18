@@ -1,4 +1,11 @@
 RSpec.describe AuthorizationCore::Checkboxes do
+  around do |example|
+    ServiceProvider.find('entrouvert').apipfc_enabled = true
+    example.run
+  ensure
+    ServiceProvider.find('entrouvert').apipfc_enabled = false
+  end
+
   let(:authorization_request) do
     build(:authorization_request, :api_particulier_entrouvert_publik, :with_france_connect_embedded_fields)
   end
