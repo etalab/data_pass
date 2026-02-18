@@ -1,14 +1,24 @@
-Bonjour,
+<%= t('mailer.shared.header.hello') %>
 
-Une <%= @authorization_request.reopening? ? 'mise à jour' : 'habilitation' %> <%= @authorization_request.definition.name_with_stage %> pour le FS <%= @authorization_request.organization.name %> vient d'être validée.
-Identifiant DataPass de l'habilitation FranceConnect associée : <%= authorization_request_url(@linked_authorization.request) %> (<%= @linked_authorization.formatted_id %>).
-
-En conséquence, merci d'autoriser les scopes suivants pour le sus-mentionné FS :
-
+<%=
+  t(
+    '.description',
+    request_type: @authorization_request.reopening? ? 'mise à jour' : 'habilitation',
+    definition_name: @authorization_request.definition.name_with_stage,
+    organization_name: @authorization_request.organization.name,
+    linked_authorization_url: authorization_request_url(@linked_authorization.request),
+    linked_authorization_id: @linked_authorization.formatted_id
+  )
+%>
 <% @authorization_request.scopes.each do |scope| %>
 - <%= scope %>
 <% end %>
 
-Pour consulter cette <%= @authorization_request.reopening? ? 'mise à jour' : 'habilitation' %>, veuillez cliquer sur le lien suivant <%= authorization_request_url(@authorization_request) %> .
-
-L'équipe DataPass
+<%=
+  t(
+    '.consultation',
+    request_type: @authorization_request.reopening? ? 'mise à jour' : 'habilitation',
+    authorization_request_url: authorization_request_url(@authorization_request)
+  )
+%>
+<%= t('mailer.shared.instruction.footer.text') %>
