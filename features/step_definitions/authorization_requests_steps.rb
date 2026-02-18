@@ -345,9 +345,9 @@ Alors('un scan antivirus est lancé') do
   expect(malware_scan_jobs.count).to eq(1)
 end
 
-Quand("j'adhère aux conditions générales") do
+Quand("j'adhère aux conditions générales d’utilisation") do
   steps %(
-    Quand je coche "conditions générales d'utilisation"
+    Quand je coche "conditions générales"
   )
 
   authorization_request = @authorization_request || AuthorizationRequest.last

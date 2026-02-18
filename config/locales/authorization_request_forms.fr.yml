@@ -24,8 +24,8 @@ fr:
         france_connect: "L'habilitation FranceConnect"
         finish: "La synthèse"
       terms_of_service_accepted:
-        label: J'ai pris connaissance des&nbsp;<a href="%{link}" target="_blank">conditions générales d'utilisation</a>&nbsp;et je les valide.
-        label_with_france_connect: "J’ai pris connaissance des&nbsp;<a href=\"%{api_particulier_link}\" target=\"_blank\" rel=\"noopener\">conditions générales d’utilisation de l’API Particulier</a>&nbsp;et des&nbsp;<a href=\"%{france_connect_link}\" target=\"_blank\" rel=\"noopener\">conditions générales d’utilisation de FranceConnect</a>&nbsp;et je les valide."
+        label: J’ai pris connaissance des&nbsp;<a href="%{link}" target="_blank" rel="noopener">conditions générales d’utilisation</a>&nbsp;et je les valide.
+        label_with_france_connect: "J’ai pris connaissance des&nbsp;<a href=\"%{api_particulier_link}\" target=\"_blank\" rel=\"noopener\" title=\"conditions générales d’utilisation de l’API Particulier - Nouvelle fenêtre\">conditions générales d’utilisation de l’API Particulier</a>&nbsp;et des&nbsp;<a href=\"%{france_connect_link}\" target=\"_blank\" rel=\"noopener\" title=\"conditions générales d’utilisation de FranceConnect - Nouvelle fenêtre\">conditions générales d’utilisation de FranceConnect</a>&nbsp;et je les valide."
       intitule:
         hint: Cette information sera rendue publique
       description:
