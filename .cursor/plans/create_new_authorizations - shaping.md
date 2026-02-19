@@ -37,6 +37,16 @@ shaping: true
 > 
 > Ouais, y'a du taf. Donc on va déjà commencer par se permettre à nous-même de créer des types d'habilitations via l'UI, pour raffiner le besoin via notre propre usage.
 
+**Critères de réussite** : 
+- On arrive à créer des nouveaux providers et des nouveaux types d'habilitation
+- Des demandes sont soumises avec le nouveau type et sont validées par les instructeurs du Fournisseur de Données
+
+**Critères d'échec (lol)** : 
+- Le Bizdev pas à finaliser la création d'un nouveau type par ce qu'il manque des fonctionnalités trop importantes pour le Fournisseur de Données
+- La création rapide de nouveaux types ne permet pas de convaincre des Fournisseurs de Données de passer le pas
+- Aucune demande n'est soumise ou validée avec le nouveau type
+
+
 ### Problem
 
 Creating a new authorization type requires a developer to: modify YAML config,
