@@ -29,6 +29,10 @@ Fonctionnalité: Titres de page des pages publiques
     Quand je me rends sur le chemin "/accessibilite"
     Alors le titre de la page est "Déclaration d’accessibilité - DataPass"
 
+  Scénario: Le titre de la page des mentions légales est Mentions légales
+    Quand je me rends sur le chemin "/mentions-legales"
+    Alors le titre de la page est "Mentions légales - DataPass"
+
   Scénario: Le titre de la page CGU API Impôt Particulier (bac à sable) est CGU API Impôt Particulier - Bac à sable - DataPass
     Quand je me rends sur le chemin "/cgu_api_impot_particulier_bas"
     Alors le titre de la page est "CGU API Impôt Particulier - Bac à sable - DataPass"

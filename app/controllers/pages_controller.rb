@@ -20,4 +20,8 @@ class PagesController < ApplicationController
   def accessibilite
     render 'static_pages/accessibilite'
   end
+
+  def mentions_legales
+    render 'static_pages/mentions_legales'
+  end
 end

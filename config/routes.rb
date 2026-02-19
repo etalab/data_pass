@@ -90,6 +90,7 @@ Rails.application.routes.draw do
 
     get 'faq', to: 'pages#faq', as: :faq
     get 'accessibilite', to: 'pages#accessibilite', as: :accessibilite
+    get 'mentions-legales', to: 'pages#mentions_legales', as: :mentions_legales
 
     get 'cgu_api_impot_particulier_bas', to: 'pages#cgu_api_impot_particulier_bas', as: :cgu_api_impot_particulier_bas
     get 'cgu_api_impot_particulier_prod', to: 'pages#cgu_api_impot_particulier_prod', as: :cgu_api_impot_particulier_prod

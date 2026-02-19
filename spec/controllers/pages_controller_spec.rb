@@ -12,4 +12,11 @@ RSpec.describe PagesController do
       expect(response).to have_http_status(:ok)
     end
   end
+
+  describe 'GET #mentions_legales' do
+    it 'returns a 200 response' do
+      get :mentions_legales
+      expect(response).to have_http_status(:ok)
+    end
+  end
 end
