@@ -347,7 +347,13 @@ end
 
 Quand("j'adhère aux conditions générales") do
   steps %(
-    Quand je coche "conditions générales d'utilisation"
+    Quand j'adhère aux conditions générales d'utilisation
+  )
+end
+
+Quand("j'adhère aux conditions générales d'utilisation") do
+  steps %(
+    Quand je coche "conditions générales"
   )
 
   authorization_request = @authorization_request || AuthorizationRequest.last

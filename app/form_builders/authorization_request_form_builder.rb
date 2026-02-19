@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ClassLength
 class AuthorizationRequestFormBuilder < DsfrFormBuilder
   include Dsfr::Accordion
 
@@ -205,11 +206,23 @@ class AuthorizationRequestFormBuilder < DsfrFormBuilder
 
   def cgu_check_box_label(label_opts = {})
     label_text = [
-      wording_for('terms_of_service_accepted.label', link: object.definition.cgu_link).html_safe,
+      cgu_label_text.html_safe,
       (required_tag unless label_opts[:disabled])
     ].compact.join(' ').html_safe
 
     label(:terms_of_service_accepted, label_text, label_opts)
+  end
+
+  def cgu_label_text
+    return wording_for('terms_of_service_accepted.label', link: object.definition.cgu_link) unless france_connect_cgu_required?
+
+    wording_for('terms_of_service_accepted.label_with_france_connect', api_particulier_link: object.definition.cgu_link, france_connect_link: AuthorizationDefinition.find('france_connect').cgu_link)
+  end
+
+  def france_connect_cgu_required?
+    object.respond_to?(:france_connect_modality?) &&
+      object.france_connect_modality? &&
+      object.france_connect_certified_form?
   end
 
   def france_connect_options_for_select
@@ -241,3 +254,4 @@ class AuthorizationRequestFormBuilder < DsfrFormBuilder
     opts[:class] << 'fr-checkbox-group--no-disabled-text' if opts[:disabled]
   end
 end
+# rubocop:enable Metrics/ClassLength
