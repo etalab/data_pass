@@ -93,7 +93,8 @@ panel, without any code change or deployment.
 | ID | Requirement | Status |
 |----|-------------|--------|
 | **R5.1** | **basic_infos** — always includes intitule + description, both required | Must-have |
-| **R5.2** | **legal** — always includes cadre_juridique_nature (required), cadre_juridique_url OR cadre_juridique_document (one required). Bizdev can customize labels (initialized with defaults): nature field label, nature hint, document field label | Must-have |
+| **R5.2** | **legal** — always includes cadre_juridique_nature (required), cadre_juridique_url OR cadre_juridique_document (one required). | Must-have |
+| **R5.2.1** | **legal** — Bizdev can customize labels (initialized with defaults): nature field label, nature hint, document field label | Nice-to-have |
 | **R5.3** | **personal_data** — always includes destinataire, durée conservation (required), justification if > 36 months | Must-have |
 | **R5.4** | **contacts** — bizdev picks from predefined list: contact_technique, contact_metier, responsable_traitement, delegue_protection_donnees. GDPR contacts are optional, not forced | Must-have |
 | **R5.5** | **scopes** — simplified config (name/value/group). At least one scope must be selected by applicant | Must-have |
