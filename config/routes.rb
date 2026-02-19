@@ -43,7 +43,7 @@ Rails.application.routes.draw do
       resources :blocks, only: %w[edit update], path: 'blocs', controller: 'authorization_requests/blocks'
       resources :cancel_authorization_reopenings, only: %w[new create], path: 'annuler_reouverture', as: :cancel_reopening
 
-      resources :authorizations, only: %i[show index], path: 'habilitations'
+      resources :authorizations, only: :index, path: 'habilitations'
       resources :authorization_request_events, only: :index, path: 'historique', as: :events
       resources :france_connected_authorizations, only: :index, path: 'habilitations-france-connectees'
     end
