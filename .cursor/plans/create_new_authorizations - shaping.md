@@ -86,6 +86,7 @@ panel, without any code change or deployment.
 | **R8** | Types can be edited and deleted from the admin UI | Must-have |
 | **R9** | Backend keeps the door open for future provider self-service | Nice-to-have |
 | **R10** | Roles can be assigned to users for the DB-created types | Must-have |
+| **R11** | Les emails habituels du cycle de vie d'une demande sont envoyés (demandeurs et instructeurs) | Must-have |
 
 ### R8 sub-requirements (type lifecycle)
 
