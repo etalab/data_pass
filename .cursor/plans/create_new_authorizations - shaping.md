@@ -4,6 +4,9 @@ shaping: true
 
 # Création de types d'habilitation dans l'UI — Shaping
 
+**Vocabulaire** : On appelera dans ce document "Types d'habilitation" ou "types" ce qui dans le code s'appelle une "authorization definition". Par exemple, `api_particulier`, `annuaire_des_entreprises` sont des types d'habilitation. On peut aussi dire que c'est la classe d'une demande, genre `AuthorizationRequest::APIParticulier` ou `AuthorizationRequest::AnnuaireDesEntreprises`.
+
+
 ## Frame
 
 ### Source
