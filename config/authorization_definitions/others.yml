@@ -41,7 +41,7 @@ annuaire_des_entreprises:
   link: "https://annuaire-entreprises.data.gouv.fr/"
   cgu_link: "https://annuaire-entreprises.data.gouv.fr/cgu"
   access_link: "https://annuaire-entreprises.data.gouv.fr/compte"
-  support_email: "support@annuaire-entreprises.data.gouv.fr"
+  support_email: "annuaire-entreprises@data.gouv.fr"
   public: true
   blocks:
     - name: "basic_infos"
@@ -60,9 +60,12 @@ annuaire_des_entreprises:
     - name: "Liasses fiscales"
       group: "Données financières"
       value: "liasses_fiscales"
-    - name: "Attestations de conformité fiscale et sociale"
+    - name: "Attestation de conformité fiscale"
       group: "Données financières"
-      value: "conformite"
+      value: "conformite_fiscale"
+    - name: "Attestation de conformité sociale"
+      group: "Données financières"
+      value: "conformite_sociale"
     - name: "Certifications travaux publics"
       group: "Données travaux publics"
       value: "travaux_publics"
