@@ -97,7 +97,14 @@ RSpec.describe ApproveAuthorizationRequest do
       it_behaves_like 'delivers a webhook', event_name: :approve
 
       context 'when authorization request is API Particulier with FranceConnect embedded fields' do
-        let(:authorization_request) { create(:authorization_request, :api_particulier, :submitted, :with_france_connect_embedded_fields, fill_all_attributes: true) }
+        let(:authorization_request) { create(:authorization_request, :api_particulier_entrouvert_publik, :submitted, :with_france_connect_embedded_fields, fill_all_attributes: true) }
+
+        around do |example|
+          ServiceProvider.find('entrouvert').apipfc_enabled = true
+          example.run
+        ensure
+          ServiceProvider.find('entrouvert').apipfc_enabled = false
+        end
 
         it 'creates an auto_generate event for the linked FranceConnect authorization' do
           expect { approve_authorization_request }.to change { AuthorizationRequestEvent.where(name: 'auto_generate').count }.by(1)

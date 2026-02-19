@@ -8,9 +8,11 @@ Sachantque('il existe un webhook activé pour FranceConnect avec l\'URL {string}
 end
 
 Sachantque('il y a une demande API Particulier avec champs FranceConnect intégrés à modérer') do
+  ServiceProvider.find('entrouvert').apipfc_enabled = true
+
   @authorization_request = FactoryBot.create(
     :authorization_request,
-    :api_particulier,
+    :api_particulier_entrouvert_publik,
     :submitted,
     :with_france_connect_embedded_fields
   )
@@ -25,9 +27,11 @@ Sachantque('il y a une demande API Particulier sans champs FranceConnect à mod�
 end
 
 Sachantque('il y a une demande API Particulier avec champs FranceConnect intégrés validée') do
+  ServiceProvider.find('entrouvert').apipfc_enabled = true
+
   @authorization_request = FactoryBot.create(
     :authorization_request,
-    :api_particulier,
+    :api_particulier_entrouvert_publik,
     :submitted,
     :with_france_connect_embedded_fields
   )
@@ -37,9 +41,11 @@ Sachantque('il y a une demande API Particulier avec champs FranceConnect intégr
 end
 
 Sachantque("j'ai une demande API Particulier avec champs FranceConnect intégrés validée") do
+  ServiceProvider.find('entrouvert').apipfc_enabled = true
+
   @authorization_request = FactoryBot.create(
     :authorization_request,
-    :api_particulier,
+    :api_particulier_entrouvert_publik,
     :submitted,
     :with_france_connect_embedded_fields,
     applicant: current_user,
@@ -53,9 +59,11 @@ Sachantque("j'ai une demande API Particulier avec champs FranceConnect intégré
 end
 
 Quand('je me rends sur la demande instruction d\'une API Particulier avec champs FranceConnect intégrés validée') do
+  ServiceProvider.find('entrouvert').apipfc_enabled = true
+
   @authorization_request = FactoryBot.create(
     :authorization_request,
-    :api_particulier,
+    :api_particulier_entrouvert_publik,
     :submitted,
     :with_france_connect_embedded_fields
   )
@@ -94,4 +102,8 @@ Alors("l'habilitation FranceConnect liée n'est pas réouvrable") do
 
   expect(fc_authorization).not_to be_nil
   expect(fc_authorization.reopenable?).to be false
+end
+
+After do
+  ServiceProvider.find('entrouvert').apipfc_enabled = false
 end

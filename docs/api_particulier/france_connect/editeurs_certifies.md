@@ -4,7 +4,7 @@ Ce document liste les éditeurs de logiciels certifiés FranceConnect pour l'API
 
 ## Liste des éditeurs certifiés
 
-Les éditeurs suivants ont l'attribut `fc_certified: true` dans le fichier `config/service_providers.yml` :
+Les éditeurs suivants ont les attributs `fc_certified: true` et `apipfc_enabled: true` dans le fichier `config/service_providers.yml` :
 
 | # | ID | Nom | Formulaires associés |
 |---|---|---|---|
@@ -71,7 +71,7 @@ api-particulier-exemple-editeur:
 
 ## Notes importantes
 
-1. **Certification FranceConnect** : Seuls les éditeurs avec `fc_certified: true` peuvent proposer l'option FranceConnect
+1. **Certification FranceConnect** : Seuls les éditeurs avec `fc_certified: true` et `apipfc_enabled: true` peuvent bénéficier du skip de l'autorisation FranceConnect. L'attribut `apipfc_enabled` permet d'activer la fonctionnalité indépendamment pour chaque éditeur
 2. **Modalités multiples** : Les demandes peuvent combiner `params`, `formulaire_qf` et `france_connect`
 3. **Validation conditionnelle** : Les champs FranceConnect ne sont validés que si la modalité `france_connect` est sélectionnée
 4. **Documents** : Le document `fc_cadre_juridique_document` est automatiquement copié vers l'habilitation FranceConnect créée
@@ -79,4 +79,4 @@ api-particulier-exemple-editeur:
 
 ---
 
-**Dernière mise à jour** : 2026-01-26
+**Dernière mise à jour** : 2026-02-16

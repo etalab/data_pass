@@ -1,4 +1,11 @@
 RSpec.describe AuthorizationRequest::APIParticulier do
+  around do |example|
+    ServiceProvider.find('entrouvert').apipfc_enabled = true
+    example.run
+  ensure
+    ServiceProvider.find('entrouvert').apipfc_enabled = false
+  end
+
   let(:authorization_request) do
     build(:authorization_request, :api_particulier_entrouvert_publik, :with_france_connect_embedded_fields, :submitted,
       scopes: %w[openid family_name given_name birthdate birthplace birthcountry gender cnaf_quotient_familial],
