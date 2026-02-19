@@ -345,7 +345,13 @@ Alors('un scan antivirus est lancé') do
   expect(malware_scan_jobs.count).to eq(1)
 end
 
-Quand("j'adhère aux conditions générales d’utilisation") do
+Quand("j'adhère aux conditions générales") do
+  steps %(
+    Quand j'adhère aux conditions générales d'utilisation
+  )
+end
+
+Quand("j'adhère aux conditions générales d'utilisation") do
   steps %(
     Quand je coche "conditions générales"
   )

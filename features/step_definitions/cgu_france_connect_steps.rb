@@ -1,4 +1,6 @@
 Sachantque("j'ai une demande API Particulier certifiée FranceConnect avec modalité FranceConnect en cours de remplissage") do
+  ServiceProvider.find('entrouvert').apipfc_enabled = true
+
   @authorization_request = FactoryBot.create(
     :authorization_request,
     :api_particulier_entrouvert_publik,

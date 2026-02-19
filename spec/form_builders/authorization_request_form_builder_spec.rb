@@ -11,6 +11,13 @@ RSpec.describe AuthorizationRequestFormBuilder, type: :helper do
         build(:authorization_request, :api_particulier_entrouvert_publik, :with_france_connect_embedded_fields)
       end
 
+      around do |example|
+        ServiceProvider.find('entrouvert').apipfc_enabled = true
+        example.run
+      ensure
+        ServiceProvider.find('entrouvert').apipfc_enabled = false
+      end
+
       it 'returns true' do
         expect(builder.send(:france_connect_cgu_required?)).to be true
       end
@@ -47,6 +54,13 @@ RSpec.describe AuthorizationRequestFormBuilder, type: :helper do
     context 'when france_connect cgu is required' do
       let(:authorization_request) do
         build(:authorization_request, :api_particulier_entrouvert_publik, :with_france_connect_embedded_fields)
+      end
+
+      around do |example|
+        ServiceProvider.find('entrouvert').apipfc_enabled = true
+        example.run
+      ensure
+        ServiceProvider.find('entrouvert').apipfc_enabled = false
       end
 
       it 'includes the API Particulier CGU link' do
