@@ -24,4 +24,8 @@ class PagesController < ApplicationController
   def mentions_legales
     render 'static_pages/mentions_legales'
   end
+
+  def politique_confidentialite
+    render 'static_pages/politique_confidentialite'
+  end
 end
