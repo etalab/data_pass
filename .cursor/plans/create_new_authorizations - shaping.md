@@ -98,7 +98,7 @@ panel, without any code change or deployment.
 | **R5.3** | **personal_data** — always includes destinataire, durée conservation (required), justification if > 36 months | Must-have |
 | **R5.4** | **contacts** — bizdev picks from predefined list: contact_technique, contact_metier, responsable_traitement, delegue_protection_donnees. GDPR contacts are optional, not forced | Must-have |
 | **R5.5** | **scopes** — simplified config (name/value/group). At least one scope must be selected by applicant | Must-have |
-| **R5.6** | **UI behavior** — unchecking a block disables and hides its configuration section (contacts, scopes, legal labels). Values filled before unchecking are ignored on submit. | Must-have |
+| **R5.6** | **UI behavior** — unchecking a block disables and hides its configuration section (contacts, scopes, legal labels). Values filled before unchecking are ignored on submit. | Nice-to-have |
 
 ### R6 sub-requirements
 
