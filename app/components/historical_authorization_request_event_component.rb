@@ -6,7 +6,6 @@ class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
   CHANGELOG_EVENTS = %w[initial_submit_with_changes_on_prefilled_data submit_with_changes legacy_submit_with_changes].freeze
 
   delegate :user_full_name, :entity, to: :authorization_request_event
-  delegate :authorization_request_authorization_path, to: :helpers
 
   attr_reader :authorization_request_event
   alias event authorization_request_event
