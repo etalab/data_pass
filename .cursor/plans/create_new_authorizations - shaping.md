@@ -75,6 +75,7 @@ panel, without any code change or deployment.
 | **R7.2** | Created Providers can have a logo  | Nice-to-have |
 | **R8** | Types can be edited and deleted from the admin UI | Must-have |
 | **R9** | Backend keeps the door open for future provider self-service | Nice-to-have |
+| **R10** | Roles can be assigned to users for the DB-created types | Must-have |
 
 ### R8 sub-requirements (type lifecycle)
 
