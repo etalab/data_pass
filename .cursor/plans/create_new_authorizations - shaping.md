@@ -70,7 +70,8 @@ panel, without any code change or deployment.
 | **R4** | Creation UI in admin panel, admin-only; UI can be rough, backend must be solid | Must-have |
 | **R5** | Blocks individually selectable; all optional, all included by default | Must-have |
 | **R6** | New type auto-generates associated « demande libre » form | Must-have |
-| **R7** | Bizdev can create a new DataProvider from the same UI flow | Must-have |
+| **R7** | Bizdev can create a new DataProvider and use it for a new type | Must-have |
+| **R7.1** | Bizdev can create a new DataProvider from the same UI flow | Nice-to-have |
 | **R8** | Types can be edited and deleted from the admin UI | Must-have |
 | **R9** | Backend keeps the door open for future provider self-service | Nice-to-have |
 
