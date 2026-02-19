@@ -72,6 +72,7 @@ panel, without any code change or deployment.
 | **R6** | New type auto-generates associated « demande libre » form | Must-have |
 | **R7** | Bizdev can create a new DataProvider and use it for a new type | Must-have |
 | **R7.1** | Bizdev can create a new DataProvider from the same UI flow | Nice-to-have |
+| **R7.2** | Created Providers can have a logo  | Nice-to-have |
 | **R8** | Types can be edited and deleted from the admin UI | Must-have |
 | **R9** | Backend keeps the door open for future provider self-service | Nice-to-have |
 
