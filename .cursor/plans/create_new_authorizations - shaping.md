@@ -82,8 +82,11 @@ panel, without any code change or deployment.
 | ID | Requirement | Status |
 |----|-------------|--------|
 | **R8.1** | Types with no requests: freely editable and deletable | Must-have |
-| **R8.2** | Types with requests: editing or deletion requires explicit confirmation showing request count and affected organizations (cascade delete of all requests before applying the change) | Must-have |
-| **R8.3** | Confirmation dialog disables the confirm button for 5 seconds to prevent accidental destructive actions | Must-have |
+| **R8.1.1** | Edit and delete should be possible in development, sandbox & staging even if there is existing requests or authorizations (we can destroy them) : this is to allow tests and iterations for the bizdev | Must-have |
+| **R8.1.2** | Edit and delete should be possible in production if there is no request or authorization | Must-have |
+| **R8.2** | If we don't want to have environment-specific behaviors : Editing or deletion a type **with requests** requires explicit confirmation showing request count and affected organizations (cascade delete of all requests before applying the change) | Nice-to-have |
+| **R8.2.1** | Confirmation dialog disables the confirm button for 5 seconds to prevent accidental destructive actions | Nice-to-have |
+
 
 ### R5 sub-requirements (block behaviors)
 
