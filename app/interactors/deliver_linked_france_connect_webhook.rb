@@ -30,8 +30,12 @@ class DeliverLinkedFranceConnectWebhook < ApplicationInteractor
 
   def webhook_payload
     WebhookSerializer.new(
-      context.authorization_request,
+      france_connect_request,
       event_name
     ).serializable_hash
+  end
+
+  def france_connect_request
+    context.linked_france_connect_authorization.request_as_validated(load_documents: false)
   end
 end

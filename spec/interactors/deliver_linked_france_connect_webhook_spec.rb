@@ -23,12 +23,15 @@ RSpec.describe DeliverLinkedFranceConnectWebhook do
         create(:webhook, authorization_definition_id: 'france_connect', events: ['approve'], enabled: true, validated: true)
       end
 
-      it 'enqueues a webhook delivery job' do
+      it 'enqueues a webhook delivery job with france_connect model_type' do
         expect { interactor }.to have_enqueued_job(DeliverAuthorizationRequestWebhookJob).with(
           webhook.id,
           authorization_request.id,
           'approve',
-          hash_including(event: 'approve')
+          hash_including(
+            event: 'approve',
+            model_type: 'authorization_request/france_connect'
+          )
         )
       end
     end
