@@ -569,7 +569,8 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
       | Nom du formulaire   | Nom de l'éditeur          |
       | Keolis              | Keolis                    |
 
- Plan du scénario: Je soumets une demande d'habilitation d'un éditeur fc_certified avec le contact technique déjà renseigné et des scopes modifiables pour un cas d'usage lié à la tarification des cantines dans les lycées, où le cadre juridique est déjà renseigné et la modalité en première étape
+ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique déjà renseigné et des scopes modifiables pour un cas d'usage lié à la tarification des cantines dans les lycées, où le cadre juridique est déjà renseigné
+    Sachant que mon organisation a 1 demande d'habilitation "FranceConnect" validée
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
@@ -579,9 +580,10 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
 
     * je clique sur "Suivant"
 
+    * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
     * je clique sur "Suivant"
 
-    * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
+    * je sélectionne la première option pour "FranceConnect"
     * je clique sur "Suivant"
 
     * je renseigne les infos concernant les données personnelles
@@ -589,7 +591,6 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
 
     * je renseigne les informations du délégué à la protection des données
     * je renseigne les informations du contact métier
-    * je renseigne les informations du contact technique avec un numéro de mobile
     * je clique sur "Suivant"
 
     * j'adhère aux conditions générales

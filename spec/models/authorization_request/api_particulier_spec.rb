@@ -96,29 +96,10 @@ RSpec.describe AuthorizationRequest::APIParticulier do
   describe '#available_modalities' do
     subject { authorization_request.available_modalities }
 
-    context 'when service provider is fc_certified and apipfc_enabled' do
-      let(:authorization_request) { build(:authorization_request, :api_particulier_entrouvert_publik) }
-
-      around do |example|
-        authorization_request.form.service_provider.apipfc_enabled = true
-        example.run
-      ensure
-        authorization_request.form.service_provider.apipfc_enabled = false
-      end
-
-      it { is_expected.to include('france_connect') }
-    end
-
-    context 'when service provider is fc_certified but not apipfc_enabled' do
-      let(:authorization_request) { build(:authorization_request, :api_particulier_entrouvert_publik) }
-
-      it { is_expected.not_to include('france_connect') }
-    end
-
-    context 'when service provider is not fc_certified' do
+    context 'when form has a service provider' do
       let(:authorization_request) { build(:authorization_request, :api_particulier_arpege_concerto) }
 
-      it { is_expected.not_to include('france_connect') }
+      it { is_expected.to include('france_connect') }
     end
 
     context 'when form has no service provider' do

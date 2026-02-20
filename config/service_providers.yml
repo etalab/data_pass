@@ -8,8 +8,6 @@ shared:
     type: editor
     name: MGDIS
     siret: "32816124500027"
-    fc_certified: true
-    apipfc_enabled: false
   setec:
     type: editor
     name: SETEC
