@@ -1,0 +1,24 @@
+<%= t('mailer.shared.header.hello') %>
+
+<%=
+  t(
+    '.description',
+    request_type: @authorization_request.reopening? ? 'mise à jour' : 'habilitation',
+    definition_name: @authorization_request.definition.name_with_stage,
+    organization_name: @authorization_request.organization.name,
+    linked_authorization_url: authorization_request_url(@linked_authorization.request),
+    linked_authorization_id: @linked_authorization.formatted_id
+  )
+%>
+<% @authorization_request.scopes.each do |scope| %>
+- <%= scope %>
+<% end %>
+
+<%=
+  t(
+    '.consultation',
+    request_type: @authorization_request.reopening? ? 'mise à jour' : 'habilitation',
+    authorization_request_url: authorization_request_url(@authorization_request)
+  )
+%>
+<%= t('mailer.shared.instruction.footer.text') %>

@@ -18,6 +18,45 @@ fr:
         footer:
           text: L'équipe DataPass
 
+  auto_generated_france_connect_mailer:
+    approve:
+      subject: Votre habilitation FranceConnect associée à la demande numéro %{authorization_request_id} a été créée
+      description: |
+        Pour obtenir l'accès FranceConnect, il faut habituellement suivre cette documentation :
+        https://docs.partenaires.franceconnect.gouv.fr/fs/devenir-fs/pilotage-etapes/
+
+        Votre éditeur %{service_provider_name} étant certifié FranceConnect, il ne reste que la dernière étape à effectuer pour demander les clefs de production :
+
+        https://demarche.numerique.gouv.fr/commencer/demande-creation-fs-fc
+        Veillez à bien préciser lors de votre demande qu'elle concerne l'environnement de production.
+
+        Le client_id sera communiqué par mail et le client_secret sera communiqué par sms au responsable technique défini dans votre habilitation Datapass.
+      additional_message: |
+        Message associé à la validation de votre habilitation :
+
+        %{message}
+      consultation: |
+        Pour consulter cette habilitation, veuillez cliquer sur le lien suivant %{authorization_request_url}.
+
+        Bien cordialement,
+    new_scopes:
+      subject: "[DataPass] nouveaux scopes pour « %{organization_name} - %{authorization_request_id} »"
+      description: |
+        Une %{request_type} %{definition_name} pour le FS %{organization_name} vient d'être validée.
+        Identifiant DataPass de l'habilitation FranceConnect associée : %{linked_authorization_url} (%{linked_authorization_id}).
+
+        En conséquence, merci d'autoriser les scopes suivants pour le sus-mentionné FS :
+      consultation: |
+        Pour consulter cette %{request_type}, veuillez cliquer sur le lien suivant %{authorization_request_url} .
+    revoke:
+      subject: Votre habilitation FranceConnect associée à la demande numéro %{authorization_request_id} a été révoquée
+      description: |
+        Votre habilitation FranceConnect associée à « %{authorization_request_name} » (numéro %{authorization_request_id}) a été révoquée par nos équipes pour la raison suivante:
+
+        %{authorization_request_revocation_reason}
+
+        Vous pouvez consulter votre habilitation en suivant le lien suivant: %{authorization_request_url}
+
   authorization_request_mailer:
     approve:
       subject: Votre habilitation numéro %{authorization_request_id} vient d'être validée
@@ -162,7 +201,18 @@ fr:
   dgfip_apim_mailer:
     approve:
       subject: "Nouvelle habilitation %{authorization_request_id} validée"
-      reopening_subject: "Mise à jour de l’habilitation %{authorization_request_id} validée"
+      reopening_subject: "Mise à jour de l'habilitation %{authorization_request_id} validée"
+  dgfip:
+    api_m_mailer:
+      approve:
+        description: >-
+          Nous vous informons que la demande %{formatted_id} d'accès %{stage_label} a été validée,
+          elle a donné lieu à l'habilitation %{slug}. Les détails de cette habilitation sont
+          disponibles via le lien suivant : %{instruction_url}
+        reopening_description: >-
+          Nous vous informons que la demande de mise à jour %{formatted_id} d'accès %{stage_label}
+          a été validée, elle a donné lieu à l'habilitation %{slug}. Les détails de cette
+          habilitation sont disponibles via le lien suivant : %{instruction_url}
   webhook_mailer:
     fail:
       subject: "[ DataPass ] Erreur de communication avec votre %{authorization_definition_name}"

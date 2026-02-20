@@ -7,5 +7,6 @@ class RevokeAuthorizationRequest < ApplicationOrganizer
   organize CreateRevocationOfAuthorizationModel,
     MarkAuthorizationsAsRevoked,
     ExecuteAuthorizationRequestTransitionWithCallbacks,
+    DeliverLinkedFranceConnectRevocationNotification,
     ExecuteAuthorizationRequestBridge
 end
