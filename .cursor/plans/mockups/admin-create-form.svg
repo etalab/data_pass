@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 1300" font-family="Arial, sans-serif">
+  <rect width="600" height="1300" fill="white" stroke="#ccc"/>
+
+  <text x="24" y="36" fill="#333" font-size="18" font-weight="bold">Nouveau type d&#x27;habilitation</text>
+  <line x1="24" y1="50" x2="576" y2="50" stroke="#ccc"/>
+
+  <!-- Section 1: Informations generales + introduction -->
+  <text x="24" y="80" fill="#333" font-size="14" font-weight="bold">Informations g&#xe9;n&#xe9;rales</text>
+
+  <text x="24" y="108" fill="#666" font-size="11">Nom *</text>
+  <rect x="24" y="114" width="340" height="28" rx="3" fill="none" stroke="#999"/>
+
+  <text x="24" y="162" fill="#666" font-size="11">Description *</text>
+  <rect x="24" y="168" width="552" height="48" rx="3" fill="none" stroke="#999"/>
+
+  <text x="24" y="238" fill="#666" font-size="11">Fournisseur *</text>
+  <rect x="24" y="244" width="240" height="28" rx="3" fill="none" stroke="#999"/>
+  <text x="250" y="264" fill="#999" font-size="11">v</text>
+  <text x="24" y="286" fill="#999" font-size="10" text-decoration="underline">+ nouveau fournisseur</text>
+
+  <text x="320" y="238" fill="#666" font-size="11">Type *</text>
+  <circle cx="332" cy="256" r="6" fill="none" stroke="#999"/>
+  <circle cx="332" cy="256" r="3" fill="#333"/>
+  <text x="344" y="260" fill="#333" font-size="11">API</text>
+  <circle cx="400" cy="256" r="6" fill="none" stroke="#999"/>
+  <text x="412" y="260" fill="#333" font-size="11">Service</text>
+
+  <text x="24" y="316" fill="#666" font-size="11">Introduction du formulaire</text>
+  <text x="210" y="316" fill="#999" font-size="10">(optionnel, affich&#xe9; avant la 1&#xe8;re &#xe9;tape)</text>
+  <rect x="24" y="322" width="552" height="48" rx="3" fill="none" stroke="#999"/>
+
+  <line x1="24" y1="390" x2="576" y2="390" stroke="#eee"/>
+
+  <!-- Section 2: Liens -->
+  <text x="24" y="416" fill="#333" font-size="14" font-weight="bold">Liens</text>
+
+  <text x="24" y="440" fill="#666" font-size="10">Lien en savoir plus</text>
+  <rect x="24" y="446" width="250" height="24" rx="2" fill="none" stroke="#ccc"/>
+  <text x="300" y="440" fill="#666" font-size="10">CGU</text>
+  <rect x="300" y="446" width="250" height="24" rx="2" fill="none" stroke="#ccc"/>
+
+  <text x="24" y="492" fill="#666" font-size="10">Lien d&#x27;acc&#xe8;s (affich&#xe9; apr&#xe8;s validation)</text>
+  <rect x="24" y="498" width="250" height="24" rx="2" fill="none" stroke="#ccc"/>
+  <text x="300" y="492" fill="#666" font-size="10">Email support</text>
+  <rect x="300" y="498" width="250" height="24" rx="2" fill="none" stroke="#ccc"/>
+
+  <line x1="24" y1="542" x2="576" y2="542" stroke="#eee"/>
+
+  <!-- Section 3: Blocs -->
+  <text x="24" y="568" fill="#333" font-size="14" font-weight="bold">Blocs</text>
+
+  <rect x="24" y="584" width="12" height="12" rx="2" fill="#333"/>
+  <text x="44" y="595" fill="#333" font-size="12">Informations de base</text>
+
+  <rect x="24" y="606" width="12" height="12" rx="2" fill="#333"/>
+  <text x="44" y="617" fill="#333" font-size="12">Cadre juridique</text>
+
+  <rect x="24" y="628" width="12" height="12" rx="2" fill="#333"/>
+  <text x="44" y="639" fill="#333" font-size="12">Donn&#xe9;es personnelles</text>
+
+  <rect x="24" y="650" width="12" height="12" rx="2" fill="#333"/>
+  <text x="44" y="661" fill="#333" font-size="12">Contacts</text>
+
+  <rect x="24" y="672" width="12" height="12" rx="2" fill="#333"/>
+  <text x="44" y="683" fill="#333" font-size="12">Donn&#xe9;es (scopes)</text>
+
+  <line x1="24" y1="704" x2="576" y2="704" stroke="#eee"/>
+
+  <!-- Section 4: Scopes builder -->
+  <text x="24" y="730" fill="#333" font-size="14" font-weight="bold">Scopes</text>
+
+  <text x="24" y="752" fill="#999" font-size="10">NOM</text>
+  <text x="200" y="752" fill="#999" font-size="10">VALEUR</text>
+  <text x="380" y="752" fill="#999" font-size="10">GROUPE</text>
+  <line x1="24" y1="758" x2="540" y2="758" stroke="#eee"/>
+
+  <rect x="24" y="764" width="160" height="24" rx="2" fill="none" stroke="#ccc"/>
+  <text x="30" y="781" fill="#999" font-size="10">Nom de famille</text>
+  <rect x="200" y="764" width="160" height="24" rx="2" fill="none" stroke="#ccc"/>
+  <text x="206" y="781" fill="#999" font-size="10">family_name</text>
+  <rect x="380" y="764" width="120" height="24" rx="2" fill="none" stroke="#ccc"/>
+  <text x="386" y="781" fill="#999" font-size="10">Identit&#xe9;</text>
+  <text x="520" y="781" fill="#999" font-size="12">x</text>
+
+  <rect x="24" y="796" width="160" height="24" rx="2" fill="none" stroke="#ccc"/>
+  <text x="30" y="813" fill="#999" font-size="10">Pr&#xe9;nom</text>
+  <rect x="200" y="796" width="160" height="24" rx="2" fill="none" stroke="#ccc"/>
+  <text x="206" y="813" fill="#999" font-size="10">given_name</text>
+  <rect x="380" y="796" width="120" height="24" rx="2" fill="none" stroke="#ccc"/>
+  <text x="386" y="813" fill="#999" font-size="10">Identit&#xe9;</text>
+  <text x="520" y="813" fill="#999" font-size="12">x</text>
+
+  <rect x="24" y="828" width="160" height="24" rx="2" fill="none" stroke="#ccc"/>
+  <rect x="200" y="828" width="160" height="24" rx="2" fill="none" stroke="#ccc"/>
+  <rect x="380" y="828" width="120" height="24" rx="2" fill="none" stroke="#ccc"/>
+
+  <text x="24" y="872" fill="#333" font-size="11" text-decoration="underline">+ ajouter un scope</text>
+
+  <line x1="24" y1="894" x2="576" y2="894" stroke="#eee"/>
+
+  <!-- Section 5: Labels juridiques -->
+  <text x="24" y="920" fill="#333" font-size="14" font-weight="bold">Labels juridiques</text>
+  <text x="24" y="936" fill="#999" font-size="10">Personnalisez les libell&#xe9;s du bloc cadre juridique</text>
+
+  <text x="24" y="960" fill="#666" font-size="10">Label du champ nature</text>
+  <rect x="24" y="966" width="552" height="24" rx="2" fill="none" stroke="#ccc"/>
+  <text x="30" y="983" fill="#bbb" font-size="10">Pr&#xe9;cisez la nature et les r&#xe9;f&#xe9;rences du texte...</text>
+
+  <text x="24" y="1008" fill="#666" font-size="10">Hint du champ nature</text>
+  <rect x="24" y="1014" width="552" height="24" rx="2" fill="none" stroke="#ccc"/>
+  <text x="30" y="1031" fill="#bbb" font-size="10">loi, d&#xe9;cret, arr&#xea;t&#xe9;, d&#xe9;lib&#xe9;ration, etc.</text>
+
+  <text x="24" y="1056" fill="#666" font-size="10">Titre de la section justificatifs</text>
+  <rect x="24" y="1062" width="552" height="24" rx="2" fill="none" stroke="#ccc"/>
+  <text x="30" y="1079" fill="#bbb" font-size="10">Les justificatifs de votre cadre juridique</text>
+
+  <line x1="24" y1="1104" x2="576" y2="1104" stroke="#eee"/>
+
+  <!-- Section 6: Contacts (last) -->
+  <text x="24" y="1130" fill="#333" font-size="14" font-weight="bold">Contacts</text>
+
+  <rect x="24" y="1144" width="12" height="12" rx="2" fill="#333"/>
+  <text x="44" y="1155" fill="#333" font-size="12">Contact technique</text>
+  <rect x="220" y="1144" width="12" height="12" rx="2" fill="none" stroke="#999"/>
+  <text x="240" y="1155" fill="#333" font-size="12">Contact m&#xe9;tier</text>
+
+  <rect x="24" y="1168" width="12" height="12" rx="2" fill="#333"/>
+  <text x="44" y="1179" fill="#333" font-size="12">Resp. traitement</text>
+  <rect x="220" y="1168" width="12" height="12" rx="2" fill="#333"/>
+  <text x="240" y="1179" fill="#333" font-size="12">DPO</text>
+
+  <line x1="24" y1="1204" x2="576" y2="1204" stroke="#eee"/>
+
+  <!-- Submit -->
+  <rect x="24" y="1220" width="180" height="34" rx="4" fill="none" stroke="#333" stroke-width="2"/>
+  <text x="60" y="1242" fill="#333" font-size="13" font-weight="bold">Cr&#xe9;er</text>
+</svg>
