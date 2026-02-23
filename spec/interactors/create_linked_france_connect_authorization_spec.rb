@@ -51,6 +51,32 @@ RSpec.describe CreateLinkedFranceConnectAuthorization do
       end
     end
 
+    context 'when the authorization request is being reopened' do
+      let(:authorization_request) do
+        create(:authorization_request, :api_particulier_entrouvert_publik,
+          :reopened_and_submitted, :with_france_connect_embedded_fields,
+          fill_all_attributes: true)
+      end
+      let!(:authorization) { create(:authorization, request: authorization_request) }
+
+      around do |example|
+        ServiceProvider.find('entrouvert').apipfc_enabled = true
+        example.run
+      ensure
+        ServiceProvider.find('entrouvert').apipfc_enabled = false
+      end
+
+      it { is_expected.to be_success }
+
+      it 'does not create a FranceConnect authorization' do
+        expect { interactor }.not_to change(Authorization, :count)
+      end
+
+      it 'does not set linked_france_connect_authorization in context' do
+        expect(interactor.linked_france_connect_authorization).to be_nil
+      end
+    end
+
     context 'when authorization request is not API Particulier' do
       let(:authorization_request) { create(:authorization_request, :api_entreprise) }
       let!(:authorization) { create(:authorization, request: authorization_request) }

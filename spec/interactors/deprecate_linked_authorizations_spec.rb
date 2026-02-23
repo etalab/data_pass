@@ -31,6 +31,19 @@ RSpec.describe DeprecateLinkedAuthorizations do
       end
     end
 
+    context 'when the authorization request is being reopened' do
+      subject(:interactor) { described_class.call(deprecated_authorizations:, authorization_request:) }
+
+      let(:authorization_request) { create(:authorization_request, :api_particulier, :reopened_and_submitted, fill_all_attributes: true) }
+      let!(:parent_authorization) { create(:authorization, request: authorization_request) }
+      let!(:linked_fc_authorization) { create(:authorization, request: authorization_request, parent_authorization:) }
+      let(:deprecated_authorizations) { [parent_authorization] }
+
+      it 'does not deprecate the linked FC authorizations' do
+        expect { interactor }.not_to change { linked_fc_authorization.reload.state }
+      end
+    end
+
     context 'when deprecated authorizations is nil' do
       let(:deprecated_authorizations) { nil }
 
