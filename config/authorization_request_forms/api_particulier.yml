@@ -596,6 +596,7 @@ api-particulier-waigeo-myperischool:
       - openid
     # contact_technique_editable: false
     contact_technique_email: dev@waigeo.fr
+    contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_waigeo_contact_technique_phone_number || '0970805210' %>"
     contact_technique_type: organization
     modalities:
       - params
