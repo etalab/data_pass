@@ -3,6 +3,8 @@ class PagesController < ApplicationController
 
   allow_unauthenticated_access
 
+  before_action :ensure_html_format
+
   def home
     redirect_to dashboard_path if user_signed_in?
   end
@@ -27,5 +29,11 @@ class PagesController < ApplicationController
 
   def politique_confidentialite
     render 'static_pages/politique_confidentialite'
+  end
+
+  private
+
+  def ensure_html_format
+    head :not_acceptable unless request.format.html?
   end
 end
