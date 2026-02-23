@@ -3,6 +3,31 @@ RSpec.describe AuthorizationDefinition do
     it 'returns a list of all authorizations definition' do
       expect(described_class.all).to be_all { |a| a.is_a? AuthorizationDefinition }
     end
+
+    context 'with DB records' do
+      let(:db_definition) do
+        described_class.build('mon_api', name: 'Mon API', description: 'Une API de test', kind: 'api', blocks: [], features: {})
+      end
+
+      before do
+        allow(described_class).to receive(:db_records).and_return([db_definition])
+        described_class.reset!
+      end
+
+      after { described_class.reset! }
+
+      it 'includes YAML definitions' do
+        expect(described_class.all.map(&:id)).to include('api_entreprise')
+      end
+
+      it 'includes DB definitions' do
+        expect(described_class.all.map(&:id)).to include('mon_api')
+      end
+
+      it 'returns AuthorizationDefinition instances for DB records' do
+        expect(described_class.all.find { |d| d.id == 'mon_api' }).to be_a(described_class)
+      end
+    end
   end
 
   describe '.where' do
@@ -62,6 +87,27 @@ RSpec.describe AuthorizationDefinition do
         expect {
           described_class.where(non_existent_attribute: 'value')
         }.to raise_error(NoMethodError)
+      end
+    end
+  end
+
+  describe '.find' do
+    context 'with a DB record' do
+      let(:db_definition) do
+        described_class.build('mon_api', name: 'Mon API', blocks: [], features: {})
+      end
+
+      before do
+        allow(described_class).to receive(:db_records).and_return([db_definition])
+        described_class.reset!
+      end
+
+      after { described_class.reset! }
+
+      it 'finds a DB definition by uid' do
+        result = described_class.find('mon_api')
+        expect(result.id).to eq('mon_api')
+        expect(result.name).to eq('Mon API')
       end
     end
   end

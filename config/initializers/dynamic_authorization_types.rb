@@ -1,0 +1,9 @@
+Rails.application.config.to_prepare do
+  next unless defined?(AuthorizationDefinitionRecord) &&
+              AuthorizationDefinitionRecord.table_exists? &&
+              AuthorizationDefinitionRecord.any?
+
+  AuthorizationDefinitionRecord.find_each { |record| DynamicAuthorizationRequestRegistrar.call(record) }
+rescue ActiveRecord::NoDatabaseError, ActiveRecord::StatementInvalid
+  nil
+end

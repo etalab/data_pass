@@ -18,10 +18,37 @@ class AuthorizationDefinition < StaticApplicationRecord
     :unique
 
   def self.backend
-    AuthorizationDefinitionConfigurations.instance.all.map do |uid, hash|
-      build(uid, hash)
-    end
+    yaml_records + db_records
   end
+
+  def self.yaml_records
+    AuthorizationDefinitionConfigurations.instance.all.map { |uid, hash| build(uid, hash) }
+  end
+
+  def self.db_records
+    return [] unless AuthorizationDefinitionRecord.table_exists?
+
+    AuthorizationDefinitionRecord.all.map { |record| build_from_db_record(record) }
+  end
+
+  def self.build_from_db_record(record)
+    build(record.uid, {
+      name: record.name,
+      description: record.description,
+      link: record.link,
+      access_link: record.access_link,
+      cgu_link: record.cgu_link,
+      support_email: record.support_email,
+      public: record.public,
+      kind: record.kind,
+      startable_by_applicant: record.startable_by_applicant,
+      unique: record.unique,
+      blocks: record.blocks || [],
+      features: record.features || {},
+    })
+  end
+
+  private_class_method :yaml_records, :db_records, :build_from_db_record
 
   def editors
     available_forms.select { |form|
