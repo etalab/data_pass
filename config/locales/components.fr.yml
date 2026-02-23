@@ -14,4 +14,6 @@ fr:
       contact_support_subject: "Habilitation %{formatted_id} révoquée"
       old_version: "Cette habilitation est obsolète, elle a été remplacée par %{link}"
       old_version_link: "l’habilitation N°%{id}"
+      revoke: "Révoquer"
+      revoke_modal_title: "Révocation de l’habilitation"
 

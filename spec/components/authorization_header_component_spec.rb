@@ -1,7 +1,8 @@
 RSpec.describe AuthorizationHeaderComponent, type: :component do
   let(:auth_policy) { instance_double(AuthorizationPolicy, reopen?: true, transfer?: false, manual_transfer_from_instructor?: false, start_next_stage?: false, contact_support?: false) }
   let(:authorization) { create(:authorization) }
-  let(:instruction_policy) { instance_double(Instruction::AuthorizationRequestPolicy, show?: false) }
+  let(:instruction_request_policy) { instance_double(Instruction::AuthorizationRequestPolicy, show?: false) }
+  let(:instruction_authorization_policy) { instance_double(Instruction::AuthorizationPolicy, revoke?: false) }
 
   let(:authorization_request) do
     instance_double(AuthorizationRequest,
@@ -13,19 +14,14 @@ RSpec.describe AuthorizationHeaderComponent, type: :component do
   end
 
   let(:component) do
-    component = described_class.new(authorization: authorization, current_user: authorization.applicant)
-    component
+    described_class.new(authorization: authorization, current_user: authorization.applicant)
   end
 
   before do
     allow(authorization).to receive(:request).and_return(authorization_request)
-    allow(component).to receive(:policy) do |record|
-      if Array(record).first == :instruction
-        instruction_policy
-      else
-        auth_policy
-      end
-    end
+    allow(component).to receive(:policy).with(authorization).and_return(auth_policy)
+    allow(component).to receive(:policy).with([:instruction, authorization]).and_return(instruction_authorization_policy)
+    allow(component).to receive(:policy).with([:instruction, authorization_request]).and_return(instruction_request_policy)
   end
 
   context 'when rendering the component' do
@@ -151,6 +147,26 @@ RSpec.describe AuthorizationHeaderComponent, type: :component do
     end
   end
 
+  describe 'revoke button' do
+    context 'when instructor can revoke' do
+      subject { render_inline(component) }
+
+      let(:instruction_authorization_policy) { instance_double(Instruction::AuthorizationPolicy, revoke?: true) }
+
+      it 'renders the revoke button' do
+        expect(subject).to have_content('Révoquer')
+      end
+    end
+
+    context 'when instructor cannot revoke' do
+      subject { render_inline(component) }
+
+      it 'does not render the revoke button' do
+        expect(subject).to have_no_content('Révoquer')
+      end
+    end
+  end
+
   describe 'old version alert' do
     context 'when viewing old version' do
       let(:authorization_request) { create(:authorization_request, :api_entreprise, :validated) }
@@ -165,13 +181,9 @@ RSpec.describe AuthorizationHeaderComponent, type: :component do
 
       before do
         new_authorization
-        allow(component).to receive(:policy) do |record|
-          if Array(record).first == :instruction
-            instruction_policy
-          else
-            auth_policy
-          end
-        end
+        allow(component).to receive(:policy).with(authorization).and_return(auth_policy)
+        allow(component).to receive(:policy).with([:instruction, authorization]).and_return(instruction_authorization_policy)
+        allow(component).to receive(:policy).with([:instruction, authorization_request]).and_return(instruction_request_policy)
       end
 
       it 'shows old version alert' do
