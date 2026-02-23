@@ -1,4 +1,4 @@
-class DynamicAuthorizationTypeRegistrar
+class DynamicAuthorizationRequestRegistrar
   BLOCK_HANDLERS = {
     'basic_infos' => ->(klass, _record) { klass.include(AuthorizationExtensions::BasicInfos) },
     'cadre_juridique' => ->(klass, _record) { klass.include(AuthorizationExtensions::CadreJuridique) },

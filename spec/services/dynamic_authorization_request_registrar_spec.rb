@@ -1,4 +1,4 @@
-RSpec.describe DynamicAuthorizationTypeRegistrar do
+RSpec.describe DynamicAuthorizationRequestRegistrar do
   DynamicRecord = Struct.new(:uid, :blocks, :contact_types)
 
   let(:uid) { 'test_dynamic_api' }
