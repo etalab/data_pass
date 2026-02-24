@@ -78,6 +78,7 @@ end
 group :development do
   gem 'hotwire-spark'
   gem 'letter_opener_web'
+  gem 'pry-rails'
   gem 'rubocop', require: false
   gem 'rubocop-capybara', require: false
   gem 'rubocop-factory_bot', require: false
