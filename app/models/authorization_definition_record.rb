@@ -1,0 +1,2 @@
+class AuthorizationDefinitionRecord < ApplicationRecord
+end
