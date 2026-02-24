@@ -11,6 +11,7 @@ class Seeds
     create_instructor_draft_request(applicant: demandeur)
     create_message_templates
     create_webhooks
+    create_stats_data
   end
 
   def flushdb
@@ -130,6 +131,8 @@ class Seeds
     ApproveAuthorizationRequest.call(authorization_request: authorization_request.reload, user: api_entreprise_instructor)
     authorization_request
   end
+
+  protected
 
   def demandeur
     @demandeur ||= User.create!(
@@ -306,6 +309,8 @@ class Seeds
 
     authorization_request
   end
+
+  private
 
   def create_reopened_authorization_request(kind, attributes: {})
     authorization_request = create_validated_authorization_request(kind, attributes:)
@@ -565,5 +570,9 @@ class Seeds
 
   def create_message_templates
     Seeds::MessageTemplates.create
+  end
+
+  def create_stats_data
+    Seeds::Stats.new(self).perform
   end
 end

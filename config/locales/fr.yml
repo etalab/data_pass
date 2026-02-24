@@ -745,7 +745,64 @@ fr:
       success: Votre demande d'habilitation en production a été annulée
   stats:
     index:
-      title: Statistiques d'utilisation
+      title: Statistiques d’utilisation
+      page_heading: Statistiques DataPass
+      evolution_title: Évolution des demandes en attente de réponse
+    filters:
+      start_label: Date de début
+      end_label: Date de fin
+      from: Du
+      to: au
+      inclusive: inclus
+      quick_ranges:
+        year: Année %{year}
+        last_year: 12 derniers mois
+        last_3_months: 3 derniers mois
+        last_30_days: 30 derniers jours
+      provider_label: Fournisseur des données demandées
+      type_label: Demande d’habilitation à
+      form_label: Formulaire utilisé
+      all_providers: Tous les fournisseurs
+      all_types: Tous les types
+      all_forms: Tous les formulaires
+      reset: Réinitialiser les filtres
+    loading:
+      label: Chargement des statistiques
+      message: Chargement des statistiques…
+    migration_warning:
+      title: Données antérieures à 2025
+      description: Vous consultez des données antérieures à 2025. Une partie de ces données a été migrée depuis une ancienne version de l’application et peut présenter des anomalies, notamment sur les durées calculées.
+    summary:
+      submitted: Demandes soumises
+      validated: Demandes validées
+      refused: Demandes refusées
+      reopenings_prefix: dont
+      reopenings_suffix: demandes de mises à jour
+    durations:
+      fill_title: Durée de remplissage d’une nouvelle demande
+      first_response_title: Délai de première réponse à une demande
+      final_response_title: Délai de réponse définitive à une demande
+      within: au bout de
+      less_than: durent moins de
+    chart:
+      aria_label: Graphique d’évolution des demandes en attente de réponse (description détaillée disponible ci-après)
+      transcription_title: Évolution des demandes en attente de réponse
+      transcription_description: "Ce graphique présente l’évolution des demandes sur la période sélectionnée. Trois séries de données sont représentées : les demandes soumises (barres bleues), les demandes validées ou refusées (barres vertes) et les demandes en attente de réponse (ligne rouge)."
+      labels:
+        submitted: Demandes soumises
+        validated_or_refused: Demandes validées ou refusées
+        pending: Demandes en attente de réponse
+    transcription:
+      button: Transcription
+      button_aria: Afficher la description détaillée du graphique
+      expand: Agrandir
+      expand_aria: Agrandir la transcription
+      close: Fermer
+    errors:
+      invalid_date_format: Format de date invalide
+      start_before_end: La date de début doit être antérieure à la date de fin
+      load_filters: Impossible de charger les filtres. Veuillez réessayer.
+      load_stats: Impossible de charger les statistiques. Veuillez réessayer.
   manual_transfer_authorization_requests:
     new:
       title: "Transfert manuel requis"

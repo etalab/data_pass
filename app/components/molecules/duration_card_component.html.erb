@@ -1,0 +1,12 @@
+<div class="fr-col-12 fr-col-lg-4">
+  <div class="fr-card fr-card--no-border fr-p-4w fr-background-alt--grey">
+    <p class="fr-h6 fr-mb-4v"><%= title %></p>
+    <p class="fr-text--sm fr-mb-0 fr-hidden fr-text-action-high--blue-france" data-stats-percentile-label="50">50% <%= percentile_text %></p>
+    <p class="fr-h2 fr-mb-4v fr-text-action-high--blue-france">
+      <strong data-<%= stimulus_controller %>-target="<%= percentile_50_target %>">-</strong>
+    </p>
+    <p class="fr-text--sm fr-mb-0 fr-hidden" data-stats-percentile-label="80">
+      80% <%= percentile_text %> <span data-<%= stimulus_controller %>-target="<%= percentile_80_target %>">-</span>
+    </p>
+  </div>
+</div>

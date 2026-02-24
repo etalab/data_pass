@@ -1,0 +1,14 @@
+<div class="fr-mb-6w">
+  <div class="fr-card fr-p-4w stats-chart-card">
+    <div class="stats-chart-container">
+      <canvas data-<%= stimulus_controller %>-target="timeSeriesChart"
+              role="img"
+              aria-label="<%= t('stats.chart.aria_label') %>"></canvas>
+    </div>
+  </div>
+  <%= render Organisms::Stats::TranscriptionComponent.new(
+    id: 'time-series',
+    title: t('stats.chart.transcription_title'),
+    description: t('stats.chart.transcription_description')
+  ) %>
+</div>

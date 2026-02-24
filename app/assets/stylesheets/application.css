@@ -156,3 +156,14 @@ h3.with-icon img {
   left: 24.82%;
   right: 24.82%;
 }
+
+.stats-chart-card {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.stats-chart-container {
+  position: relative;
+  width: 100%;
+  min-width: 560px;
+}

@@ -1,0 +1,9 @@
+<div class="<%= col_classes %>">
+  <div class="fr-card fr-card--no-border fr-p-4w center <%= card_classes %>">
+    <p class="fr-h6 fr-mb-4v"><%= title %></p>
+    <p class="fr-display--sm <%= value_classes %> <%= value_mb_class %>"><strong data-<%= stimulus_controller %>-target="<%= target %>">-</strong></p>
+    <% if subtitle? %>
+      <p class="fr-text--sm fr-mb-0"><%= t('stats.summary.reopenings_prefix') %> <strong data-<%= stimulus_controller %>-target="<%= subtitle_target %>">-</strong> <%= t('stats.summary.reopenings_suffix') %></p>
+    <% end %>
+  </div>
+</div>

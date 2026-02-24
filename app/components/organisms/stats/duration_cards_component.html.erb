@@ -1,0 +1,23 @@
+<div class="fr-grid-row fr-grid-row--gutters fr-mb-6w">
+  <%= render Molecules::DurationCardComponent.new(
+    stimulus_controller: stimulus_controller,
+    title: t('stats.durations.fill_title'),
+    percentile_50_target: 'percentile50TimeToSubmit',
+    percentile_80_target: 'percentile80TimeToSubmit',
+    type: :duration
+  ) %>
+  <%= render Molecules::DurationCardComponent.new(
+    stimulus_controller: stimulus_controller,
+    title: t('stats.durations.first_response_title'),
+    percentile_50_target: 'percentile50TimeToFirstInstruction',
+    percentile_80_target: 'percentile80TimeToFirstInstruction',
+    type: :delay
+  ) %>
+  <%= render Molecules::DurationCardComponent.new(
+    stimulus_controller: stimulus_controller,
+    title: t('stats.durations.final_response_title'),
+    percentile_50_target: 'percentile50TimeToFinalInstruction',
+    percentile_80_target: 'percentile80TimeToFinalInstruction',
+    type: :delay
+  ) %>
+</div>
