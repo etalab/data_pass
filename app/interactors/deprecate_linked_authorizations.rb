@@ -1,8 +1,9 @@
 class DeprecateLinkedAuthorizations < ApplicationInteractor
-  delegate :deprecated_authorizations, to: :context
+  delegate :deprecated_authorizations, :authorization_request, to: :context
 
   def call
     return if deprecated_authorizations.blank?
+    return if authorization_request&.reopening?
 
     linked_authorizations.each(&:deprecate!)
   end

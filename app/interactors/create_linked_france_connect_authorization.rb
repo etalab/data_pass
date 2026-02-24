@@ -15,7 +15,15 @@ class CreateLinkedFranceConnectAuthorization < ApplicationInteractor
   def should_create_linked_fc_authorization?
     authorization_request.is_a?(AuthorizationRequest::APIParticulier) &&
       authorization_request.france_connect_certified_form? &&
-      authorization_request.embeds_france_connect_fields?
+      authorization_request.embeds_france_connect_fields? &&
+      !existing_linked_fc_authorization?
+  end
+
+  def existing_linked_fc_authorization?
+    Authorization.exists?(
+      request: authorization_request,
+      authorization_request_class: 'AuthorizationRequest::FranceConnect'
+    )
   end
 
   def create_fc_authorization!

@@ -51,6 +51,66 @@ RSpec.describe CreateLinkedFranceConnectAuthorization do
       end
     end
 
+    context 'when the authorization request is reopened and already has an FC authorization' do
+      let(:authorization_request) do
+        create(:authorization_request, :api_particulier_entrouvert_publik,
+          :reopened_and_submitted, :with_france_connect_embedded_fields,
+          fill_all_attributes: true)
+      end
+      let!(:authorization) { create(:authorization, request: authorization_request) }
+      let!(:existing_fc_authorization) do
+        create(:authorization,
+          request: authorization_request,
+          authorization_request_class: 'AuthorizationRequest::FranceConnect')
+      end
+
+      around do |example|
+        ServiceProvider.find('entrouvert').apipfc_enabled = true
+        example.run
+      ensure
+        ServiceProvider.find('entrouvert').apipfc_enabled = false
+      end
+
+      it { is_expected.to be_success }
+
+      it 'does not create a FranceConnect authorization' do
+        expect { interactor }.not_to change(Authorization, :count)
+      end
+
+      it 'does not set linked_france_connect_authorization in context' do
+        expect(interactor.linked_france_connect_authorization).to be_nil
+      end
+    end
+
+    context 'when the authorization request is reopened but has no FC authorization' do
+      let(:authorization_request) do
+        create(:authorization_request, :api_particulier_entrouvert_publik,
+          :reopened_and_submitted, :with_france_connect_embedded_fields,
+          fill_all_attributes: true)
+      end
+      let!(:authorization) { create(:authorization, request: authorization_request) }
+
+      around do |example|
+        ServiceProvider.find('entrouvert').apipfc_enabled = true
+        example.run
+      ensure
+        ServiceProvider.find('entrouvert').apipfc_enabled = false
+      end
+
+      it { is_expected.to be_success }
+
+      it 'creates a FranceConnect authorization' do
+        expect { interactor }.to change(Authorization, :count).by(1)
+      end
+
+      it 'creates an authorization with FranceConnect authorization_request_class' do
+        interactor
+        fc_authorization = interactor.linked_france_connect_authorization
+
+        expect(fc_authorization.authorization_request_class).to eq('AuthorizationRequest::FranceConnect')
+      end
+    end
+
     context 'when authorization request is not API Particulier' do
       let(:authorization_request) { create(:authorization_request, :api_entreprise) }
       let!(:authorization) { create(:authorization, request: authorization_request) }

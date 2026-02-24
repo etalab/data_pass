@@ -89,6 +89,32 @@ Redis is shared across worktrees.
 - Create a new worktree: `bin/worktree-build <folder> <branch> [port]`
 - Reconfigure an existing worktree: `bin/worktree-build --setup-only <folder> [port]`
 
+## Local Authentication
+
+In development, ProConnect authentication can be bypassed by visiting:
+
+```
+/local-sign-in?email=EMAIL
+```
+
+Available test accounts:
+- `user@yopmail.com` — basic user account (demandeur)
+- `datapass@yopmail.com` — admin and instructor on all authorization requests
+
+### Quick sign-in links
+
+**Local** (http://localhost:3000) (always check the port in your `.env.local`):
+- [user@yopmail.com](http://localhost:3000/local-sign-in?email=user@yopmail.com)
+- [datapass@yopmail.com](http://localhost:3000/local-sign-in?email=datapass@yopmail.com)
+
+**Sandbox** (https://sandbox.datapass.api.gouv.fr):
+- [user@yopmail.com](https://sandbox.datapass.api.gouv.fr/local-sign-in?email=user@yopmail.com)
+- [datapass@yopmail.com](https://sandbox.datapass.api.gouv.fr/local-sign-in?email=datapass@yopmail.com)
+
+**Staging** (https://staging.datapass.api.gouv.fr):
+- [user@yopmail.com](https://staging.datapass.api.gouv.fr/local-sign-in?email=user@yopmail.com)
+- [datapass@yopmail.com](https://staging.datapass.api.gouv.fr/local-sign-in?email=datapass@yopmail.com)
+
 ## Git
 
 - When you move files, use `git mv` to keep history.
