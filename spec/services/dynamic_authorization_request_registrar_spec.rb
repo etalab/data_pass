@@ -7,8 +7,8 @@ RSpec.describe DynamicAuthorizationRequestRegistrar do
     stub_const("AuthorizationRequest::#{uid.classify}", Class.new(AuthorizationRequest))
   end
 
-  describe '.register' do
-    subject(:register) { described_class.register(record) }
+  describe '.call' do
+    subject(:register) { described_class.call(record) }
 
     context 'with basic_infos block' do
       let(:record) { DynamicRecord.new(uid, %w[basic_infos], []) }
@@ -32,8 +32,8 @@ RSpec.describe DynamicAuthorizationRequestRegistrar do
       end
     end
 
-    context 'with cadre_juridique block' do
-      let(:record) { DynamicRecord.new(uid, %w[cadre_juridique], []) }
+    context 'with legal block' do
+      let(:record) { DynamicRecord.new(uid, %w[legal], []) }
 
       it 'adds cadre_juridique_url accessor' do
         register
@@ -73,7 +73,7 @@ RSpec.describe DynamicAuthorizationRequestRegistrar do
     end
 
     context 'with multiple blocks' do
-      let(:record) { DynamicRecord.new(uid, %w[basic_infos cadre_juridique], []) }
+      let(:record) { DynamicRecord.new(uid, %w[basic_infos legal], []) }
 
       it 'applies all blocks' do
         register
@@ -85,8 +85,26 @@ RSpec.describe DynamicAuthorizationRequestRegistrar do
     context 'with an unknown block' do
       let(:record) { DynamicRecord.new(uid, %w[unknown_block], []) }
 
-      it 'silently ignores it' do
+      it 'does not raise' do
         expect { register }.not_to raise_error
+      end
+
+      it 'logs a warning' do
+        expect(Rails.logger).to receive(:warn).with(/unknown block 'unknown_block'/)
+        register
+      end
+    end
+
+    context 'with an invalid uid' do
+      let(:record) { DynamicRecord.new('123 invalid!', %w[basic_infos], []) }
+
+      it 'does not raise' do
+        expect { register }.not_to raise_error
+      end
+
+      it 'logs an error' do
+        expect(Rails.logger).to receive(:error).with(/invalid uid '123 invalid!'/)
+        register
       end
     end
 
@@ -95,16 +113,16 @@ RSpec.describe DynamicAuthorizationRequestRegistrar do
 
       it 'is idempotent — no error on re-registration' do
         expect {
-          described_class.register(record)
-          described_class.register(record)
+          described_class.call(record)
+          described_class.call(record)
         }.not_to raise_error
       end
 
       it 'returns the latest class after re-registration' do
-        described_class.register(record)
+        described_class.call(record)
         first_klass = AuthorizationRequest.const_get(uid.classify)
 
-        described_class.register(record)
+        described_class.call(record)
         second_klass = AuthorizationRequest.const_get(uid.classify)
 
         expect(second_klass).not_to equal(first_klass)

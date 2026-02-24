@@ -3,5 +3,5 @@ Rails.application.config.to_prepare do
               AuthorizationDefinitionRecord.table_exists? &&
               AuthorizationDefinitionRecord.any?
 
-  AuthorizationDefinitionRecord.find_each { |record| DynamicAuthorizationRequestRegistrar.register(record) }
+  AuthorizationDefinitionRecord.find_each { |record| DynamicAuthorizationRequestRegistrar.call(record) }
 end
