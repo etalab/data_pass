@@ -592,10 +592,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_24_140002) do
   end
 
   create_table "revocation_of_authorizations", force: :cascade do |t|
+    t.bigint "authorization_id"
     t.bigint "authorization_request_id", null: false
     t.datetime "created_at", null: false
     t.string "reason", null: false
     t.datetime "updated_at", null: false
+    t.index ["authorization_id"], name: "index_revocation_of_authorizations_on_authorization_id"
     t.index ["authorization_request_id"], name: "index_revocation_of_authorizations_on_authorization_request_id"
   end
 
@@ -695,6 +697,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_24_140002) do
   add_foreign_key "rails_pulse_operations", "rails_pulse_requests", column: "request_id"
   add_foreign_key "rails_pulse_requests", "rails_pulse_routes", column: "route_id"
   add_foreign_key "revocation_of_authorizations", "authorization_requests"
+  add_foreign_key "revocation_of_authorizations", "authorizations"
   add_foreign_key "webhook_attempts", "authorization_requests"
   add_foreign_key "webhook_attempts", "webhooks"
 end

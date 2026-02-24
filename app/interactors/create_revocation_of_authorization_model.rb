@@ -1,7 +1,7 @@
 class CreateRevocationOfAuthorizationModel < ApplicationInteractor
   def call
     context.revocation_of_authorization = authorization_request.revocations.build(
-      revocation_of_authorization_params
+      revocation_of_authorization_params.merge(authorization_params)
     )
 
     return if context.revocation_of_authorization.save
@@ -17,5 +17,11 @@ class CreateRevocationOfAuthorizationModel < ApplicationInteractor
 
   def revocation_of_authorization_params
     context.revocation_of_authorization_params
+  end
+
+  def authorization_params
+    return {} unless context.authorization
+
+    { authorization: context.authorization }
   end
 end

@@ -146,6 +146,7 @@ ignore_unused:
   - 'authorization.states.*'
   - 'instruction.dashboard.*.tabs.*'
   - 'authorization_requests.show.{reopening_,}{changes_requested,refused}.*'
+  - 'instruction.revoke_authorizations.create.*'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'
 # - 'simple_form.{placeholders,hints,labels}.*'
