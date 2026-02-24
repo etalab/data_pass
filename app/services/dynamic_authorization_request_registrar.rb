@@ -26,6 +26,7 @@ class DynamicAuthorizationRequestRegistrar
 
     klass = Class.new(AuthorizationRequest)
     @record.blocks.each { |block| apply_block(klass, block) }
+    AuthorizationRequest.send(:remove_const, class_name) if AuthorizationRequest.const_defined?(class_name, false)
     AuthorizationRequest.const_set(class_name, klass)
   end
 
