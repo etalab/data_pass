@@ -33,10 +33,11 @@ class DynamicAuthorizationRequestRegistrar
   private
 
   def apply_block(klass, block)
-    if BLOCK_HANDLERS.key?(block)
-      BLOCK_HANDLERS[block].call(klass, @record)
+    block_name = block['name']
+    if BLOCK_HANDLERS.key?(block_name)
+      BLOCK_HANDLERS[block_name].call(klass, @record)
     else
-      Rails.logger.warn("DynamicAuthorizationRequestRegistrar: unknown block '#{block}' for uid '#{@record.uid}', skipping")
+      Rails.logger.warn("DynamicAuthorizationRequestRegistrar: unknown block '#{block_name}' for uid '#{@record.uid}', skipping")
     end
   end
 

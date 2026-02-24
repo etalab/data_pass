@@ -11,7 +11,7 @@ RSpec.describe DynamicAuthorizationRequestRegistrar do
     subject(:register) { described_class.call(record) }
 
     context 'with basic_infos block' do
-      let(:record) { DynamicRecord.new(uid, %w[basic_infos], []) }
+      let(:record) { DynamicRecord.new(uid, [{ 'name' => 'basic_infos' }], []) }
 
       it 'registers a class accessible via const_get' do
         register
@@ -33,7 +33,7 @@ RSpec.describe DynamicAuthorizationRequestRegistrar do
     end
 
     context 'with legal block' do
-      let(:record) { DynamicRecord.new(uid, %w[legal], []) }
+      let(:record) { DynamicRecord.new(uid, [{ 'name' => 'legal' }], []) }
 
       it 'adds cadre_juridique_url accessor' do
         register
@@ -43,7 +43,7 @@ RSpec.describe DynamicAuthorizationRequestRegistrar do
     end
 
     context 'with personal_data block' do
-      let(:record) { DynamicRecord.new(uid, %w[personal_data], []) }
+      let(:record) { DynamicRecord.new(uid, [{ 'name' => 'personal_data' }], []) }
 
       it 'adds personal_data attributes' do
         register
@@ -53,7 +53,7 @@ RSpec.describe DynamicAuthorizationRequestRegistrar do
     end
 
     context 'with scopes block' do
-      let(:record) { DynamicRecord.new(uid, %w[scopes], []) }
+      let(:record) { DynamicRecord.new(uid, [{ 'name' => 'scopes' }], []) }
 
       it 'enables scopes on the class' do
         register
@@ -63,7 +63,7 @@ RSpec.describe DynamicAuthorizationRequestRegistrar do
     end
 
     context 'with contacts block' do
-      let(:record) { DynamicRecord.new(uid, %w[contacts], %i[contact_metier contact_technique]) }
+      let(:record) { DynamicRecord.new(uid, [{ 'name' => 'contacts' }], %i[contact_metier contact_technique]) }
 
       it 'registers the contact kinds on the class' do
         register
@@ -73,7 +73,7 @@ RSpec.describe DynamicAuthorizationRequestRegistrar do
     end
 
     context 'with multiple blocks' do
-      let(:record) { DynamicRecord.new(uid, %w[basic_infos legal], []) }
+      let(:record) { DynamicRecord.new(uid, [{ 'name' => 'basic_infos' }, { 'name' => 'legal' }], []) }
 
       it 'applies all blocks' do
         register
@@ -83,7 +83,7 @@ RSpec.describe DynamicAuthorizationRequestRegistrar do
     end
 
     context 'with an unknown block' do
-      let(:record) { DynamicRecord.new(uid, %w[unknown_block], []) }
+      let(:record) { DynamicRecord.new(uid, [{ 'name' => 'unknown_block' }], []) }
 
       it 'does not raise' do
         expect { register }.not_to raise_error
@@ -96,7 +96,7 @@ RSpec.describe DynamicAuthorizationRequestRegistrar do
     end
 
     context 'with an invalid uid' do
-      let(:record) { DynamicRecord.new('123 invalid!', %w[basic_infos], []) }
+      let(:record) { DynamicRecord.new('123 invalid!', [{ 'name' => 'basic_infos' }], []) }
 
       it 'does not raise' do
         expect { register }.not_to raise_error
@@ -109,7 +109,7 @@ RSpec.describe DynamicAuthorizationRequestRegistrar do
     end
 
     context 'when called twice with the same uid' do
-      let(:record) { DynamicRecord.new(uid, %w[basic_infos], []) }
+      let(:record) { DynamicRecord.new(uid, [{ 'name' => 'basic_infos' }], []) }
 
       it 'is idempotent — no error on re-registration' do
         expect {

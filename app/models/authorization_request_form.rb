@@ -18,10 +18,50 @@ class AuthorizationRequestForm < StaticApplicationRecord
     :public
 
   def self.backend
+    yaml_records + db_records
+  end
+
+  def self.yaml_records
     AuthorizationRequestFormConfigurations.instance.all.map do |uid, hash|
       build(uid, hash.deep_symbolize_keys)
     end
   end
+
+  def self.db_records
+    return [] unless HabilitationType.table_exists?
+
+    HabilitationType.includes(:data_provider).filter_map do |record|
+      build_form_from_habilitation_type(record)
+    end
+  rescue ActiveRecord::NoDatabaseError, ActiveRecord::StatementInvalid
+    []
+  end
+
+  def self.build_form_from_habilitation_type(record)
+    klass = authorization_request_class_for(record)
+    return unless klass
+
+    new(
+      uid: record.slug,
+      default: true,
+      introduction: record.form_introduction,
+      authorization_request_class: klass,
+      steps: record.ordered_steps.map { |name| { name: name } },
+      static_blocks: [],
+      service_provider: nil,
+      use_case: nil,
+      single_page_view: nil,
+      scopes_config: {},
+    )
+  end
+
+  def self.authorization_request_class_for(record)
+    AuthorizationRequest.const_get(record.uid.classify)
+  rescue NameError
+    nil
+  end
+
+  private_class_method :yaml_records, :db_records, :build_form_from_habilitation_type, :authorization_request_class_for
 
   # rubocop:disable Metrics/AbcSize
   def self.build(uid, hash)
