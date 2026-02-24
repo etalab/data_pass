@@ -323,6 +323,15 @@ fr:
       show_cta: Consulter
       validated_by: Habilitation %{type} validée par <strong>%{email}</strong>
       auto_generated: Habilitation %{type} automatiquement délivrée
+    instruction_header_info:
+      with_form_and_instructor_html: "Cette habilitation a été créée par la %{request_link} via le formulaire « %{form_name} » et a été validée par <strong>%{email}</strong>"
+      with_form_html: "Cette habilitation a été créée par la %{request_link} via le formulaire « %{form_name} »"
+      without_form_and_instructor_html: "Cette habilitation est liée à la %{request_link} et a été validée par <strong>%{email}</strong>"
+      without_form_html: "Cette habilitation est liée à la %{request_link}"
+      auto_generated_with_form_and_instructor_html: "Cette habilitation a été automatiquement délivrée par la %{request_link} via le formulaire « %{form_name} » et a été validée par <strong>%{email}</strong>"
+      auto_generated_with_form_html: "Cette habilitation a été automatiquement délivrée par la %{request_link} via le formulaire « %{form_name} »"
+      auto_generated_and_instructor_html: "Cette habilitation a été automatiquement délivrée par la %{request_link} et a été validée par <strong>%{email}</strong>"
+      auto_generated_html: "Cette habilitation a été automatiquement délivrée par la %{request_link}"
     card:
       validated_at: Validée le %{date}
       current_user_mentions: "vous avez été référencé comme %{contact_types}"

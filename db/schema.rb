@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_17_150000) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_24_140002) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_catalog.plpgsql"
@@ -149,6 +149,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_17_150000) do
     t.string "authorization_request_class", null: false
     t.datetime "created_at", null: false
     t.hstore "data", default: {}, null: false
+    t.string "form_uid"
     t.text "message"
     t.bigint "parent_authorization_id"
     t.bigint "request_id", null: false
