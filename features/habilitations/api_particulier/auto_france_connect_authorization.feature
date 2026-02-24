@@ -35,6 +35,24 @@ Fonctionnalité: Création automatique d'habilitation FranceConnect pour API Par
     Et je clique sur "Valider la demande d'habilitation"
     Alors un webhook avec l'évènement "approve" est envoyé pour FranceConnect
 
+  @FlushJobQueue
+  Scénario: Réouverture ne recrée pas l'habilitation FranceConnect
+    Sachant qu'il y a une demande API Particulier avec champs FranceConnect intégrés validée et réouverte
+    Quand je me rends sur cette demande d'habilitation
+    Et je clique sur "Valider"
+    Et je clique sur "Valider la demande de mise à jour"
+    Alors je suis sur la page "Liste des demandes et habilitations"
+    Et il y a 1 habilitation FranceConnect pour cette demande
+
+  @FlushJobQueue
+  Scénario: Réouverture crée l'habilitation FranceConnect si elle n'existait pas
+    Sachant qu'il y a une demande API Particulier sans habilitation FranceConnect réouverte avec champs FranceConnect
+    Quand je me rends sur cette demande d'habilitation
+    Et je clique sur "Valider"
+    Et je clique sur "Valider la demande de mise à jour"
+    Alors je suis sur la page "Liste des demandes et habilitations"
+    Et il y a 1 habilitation FranceConnect pour cette demande
+
   Scénario: L'habilitation FranceConnect liée n'est pas réouvrable
     Sachant qu'il y a une demande API Particulier avec champs FranceConnect intégrés validée
     Alors l'habilitation FranceConnect liée n'est pas réouvrable
