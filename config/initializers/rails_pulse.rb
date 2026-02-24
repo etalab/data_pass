@@ -70,24 +70,3 @@ RailsPulse.configure do |config|
   }
 end
 # rubocop:enable Metrics/BlockLength
-
-Rails.application.config.after_initialize do
-  ActionView::Helpers::UrlHelper.module_eval do
-    def link_to(*args, &)
-      if respond_to?(:controller) && rails_pulse_controller?
-        options = args.extract_options!
-        options[:data] ||= {}
-        options[:data][:turbo] = false unless options[:data].key?(:turbo)
-        args << options
-      end
-      original_link_to(*args, &)
-    end
-
-    private
-
-    def rails_pulse_controller?
-      controller_name = controller&.class&.name
-      controller_name&.start_with?('RailsPulse::')
-    end
-  end
-end
