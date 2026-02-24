@@ -29,6 +29,8 @@ class AuthorizationDefinition < StaticApplicationRecord
     return [] unless AuthorizationDefinitionRecord.table_exists?
 
     AuthorizationDefinitionRecord.all.map { |record| build_from_db_record(record) }
+  rescue ActiveRecord::NoDatabaseError, ActiveRecord::StatementInvalid
+    []
   end
 
   def self.build_from_db_record(record)
