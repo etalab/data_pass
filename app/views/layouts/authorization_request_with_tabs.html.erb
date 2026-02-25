@@ -94,9 +94,8 @@
       <% authorization_request_tabs(authorization_request).each do |id, path| %>
         <turbo-frame id="tab-<%= id %>-panel" class="fr-tabs__panel fr-tabs__panel--selected fr-bg-white" role="tabpanel" aria-labelledby="tab-<%= id %>" tabindex="0" data-turbo-action="advance">
           <div class="fr-container">
-            <%= render partial: 'shared/alerts' %>
-
             <% if current_page?(path) %>
+              <%= render partial: 'shared/alerts' %>
               <div data-auto-height-target="source">
                 <%= yield %>
               </div>

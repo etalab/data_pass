@@ -15,7 +15,9 @@
 <% end %>
 
 <div class="fr-container fr-container--with-tiny-alert">
-  <%= render partial: 'shared/alerts' %>
+  <% unless show_authorization_request_tabs?(@authorization_request) %>
+    <%= render partial: 'shared/alerts' %>
+  <% end %>
 
   <% if within_wizard? %>
     <%=
