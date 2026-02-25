@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_24_140002) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_25_111739) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_catalog.plpgsql"
@@ -286,6 +286,28 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_24_140002) do
     t.index ["priority", "scheduled_at"], name: "index_good_jobs_on_priority_scheduled_at_unfinished_unlocked", where: "((finished_at IS NULL) AND (locked_by_id IS NULL))"
     t.index ["queue_name", "scheduled_at"], name: "index_good_jobs_on_queue_name_and_scheduled_at", where: "(finished_at IS NULL)"
     t.index ["scheduled_at"], name: "index_good_jobs_on_scheduled_at", where: "(finished_at IS NULL)"
+  end
+
+  create_table "habilitation_types", force: :cascade do |t|
+    t.string "access_link"
+    t.jsonb "blocks", default: [], null: false
+    t.string "cgu_link"
+    t.jsonb "contact_types", default: [], null: false
+    t.datetime "created_at", null: false
+    t.jsonb "custom_labels", default: {}, null: false
+    t.bigint "data_provider_id", null: false
+    t.text "description"
+    t.jsonb "features", default: {}, null: false
+    t.text "form_introduction"
+    t.string "kind", default: "api", null: false
+    t.string "link"
+    t.string "name", null: false
+    t.jsonb "scopes", default: [], null: false
+    t.string "slug", null: false
+    t.string "support_email"
+    t.datetime "updated_at", null: false
+    t.index ["data_provider_id"], name: "index_habilitation_types_on_data_provider_id"
+    t.index ["slug"], name: "index_habilitation_types_on_slug", unique: true
   end
 
   create_table "impersonation_actions", force: :cascade do |t|
@@ -677,6 +699,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_24_140002) do
   add_foreign_key "bulk_authorization_request_update_notification_reads", "bulk_authorization_request_updates"
   add_foreign_key "bulk_authorization_request_update_notification_reads", "users"
   add_foreign_key "denial_of_authorizations", "authorization_requests"
+  add_foreign_key "habilitation_types", "data_providers"
   add_foreign_key "impersonation_actions", "impersonations"
   add_foreign_key "impersonations", "users"
   add_foreign_key "impersonations", "users", column: "admin_id"
