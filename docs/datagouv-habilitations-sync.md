@@ -33,7 +33,26 @@ La configuration est lue depuis les **Rails credentials** sous la clé `data_gou
 - `api_key` (obligatoire en production) : clé API data.gouv.fr (compte DINUM ou dédié) avec droits d’édition sur le dataset.
 - `base_url` (optionnel) : URL de base de l’API (défaut : `https://demo.data.gouv.fr/api/1`). En production, définir `https://www.data.gouv.fr/api/1`.
 - `dataset_slug` (optionnel) : slug ou id du dataset (défaut : `habilitations-datapass-validees`).
-- `resource_id` (optionnel) : id de la ressource CSV à mettre à jour (défaut : id de la ressource du dataset démo).
+- `resource_id` (optionnel) : id de la ressource CSV à mettre à jour (défaut : un UUID de démo qui peut ne pas exister).
+
+### En développement / démo (demo.data.gouv.fr)
+
+Les valeurs par défaut (`dataset_slug`, `resource_id`) peuvent ne pas exister sur demo.data.gouv.fr. En cas de 404 à l’upload :
+
+1. Aller sur [demo.data.gouv.fr](https://demo.data.gouv.fr), se connecter avec le compte associé à ta clé API.
+2. Créer un jeu de données (ou en choisir un existant) sur lequel tu as les droits d’édition.
+3. Ajouter une ressource (fichier CSV) à ce dataset, ou noter l’ID d’une ressource existante.
+4. Dans les credentials, renseigner explicitement le `dataset_slug` (slug ou ID du dataset) et le `resource_id` (ID de la ressource) :
+
+   ```yaml
+   data_gouv_fr:
+     api_key: ta-cle-demo
+     base_url: https://demo.data.gouv.fr/api/1
+     dataset_slug: ton-dataset-slug-ou-id
+     resource_id: "<uuid-de-la-ressource>"
+   ```
+
+   L’ID de la ressource s’obtient via l’API (GET sur le dataset) ou dans l’URL d’édition de la ressource sur le site.
 
 ### Ajout de la clé API dans les credentials
 

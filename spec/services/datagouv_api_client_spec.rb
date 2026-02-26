@@ -7,7 +7,7 @@ RSpec.describe DatagouvAPIClient do
 
   let(:base_url) { 'https://demo.data.gouv.fr/api/1' }
   let(:dataset_id) { 'habilitations-datapass-validees' }
-  let(:resource_id) { 'da9ef212-0df6-4703-bf98-187c79d31a60' }
+  let(:resource_id) { 'a9707b92-10fb-428e-8f59-c9e2af368e4f' }
   let(:upload_url) { "#{base_url}/datasets/#{dataset_id}/resources/#{resource_id}/upload/" }
   let(:resource_url) { "#{base_url}/datasets/#{dataset_id}/resources/#{resource_id}/" }
   let(:dataset_url) { "#{base_url}/datasets/#{dataset_id}/" }
@@ -64,12 +64,20 @@ RSpec.describe DatagouvAPIClient do
   end
 
   describe '#update_dataset_temporal_coverage' do
-    let!(:patch_stub) do
-      stub_request(:patch, dataset_url)
+    let(:dataset_payload) { { 'title' => 'Test', 'slug' => dataset_id } }
+    let!(:get_stub) do
+      stub_request(:get, dataset_url)
+        .with(headers: { 'X-API-KEY' => 'test-api-key' })
+        .to_return(status: 200, body: dataset_payload.to_json)
+    end
+    let!(:put_stub) do
+      stub_request(:put, dataset_url)
         .with(
-          headers: { 'X-API-KEY' => 'test-api-key', 'Content-Type' => 'application/json' },
-          body: { temporal_coverage: { start: '2025-03-01', end: nil } }.to_json
-        )
+          headers: { 'X-API-KEY' => 'test-api-key', 'Content-Type' => 'application/json' }
+        ) do |req|
+          parsed = JSON.parse(req.body)
+          parsed['temporal_coverage'] == { 'start' => '2025-03-01', 'end' => nil }
+        end
         .to_return(status: 200, body: '{}')
     end
 
@@ -77,10 +85,11 @@ RSpec.describe DatagouvAPIClient do
       allow(Time.zone).to receive(:today).and_return(Date.new(2025, 3, 1))
     end
 
-    it 'sends a PATCH with temporal coverage (start only, no end) to the dataset endpoint' do
+    it 'fetches the dataset then sends a PUT with temporal coverage (start only, no end)' do
       client.update_dataset_temporal_coverage(start_date: Date.new(2025, 3, 1))
 
-      expect(patch_stub).to have_been_requested
+      expect(get_stub).to have_been_requested
+      expect(put_stub).to have_been_requested
     end
   end
 end

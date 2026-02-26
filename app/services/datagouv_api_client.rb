@@ -1,8 +1,14 @@
 class DatagouvAPIClient
+  class ServerError < StandardError; end
+
   def upload_resource(file_path)
     connection.post(upload_path) do |req|
       req.body = { file: Faraday::FilePart.new(file_path, 'text/csv', File.basename(file_path)) }
     end
+  rescue Faraday::ServerError => e
+    body = e.response&.body
+    message = "data.gouv.fr upload returned #{e.response&.status}: #{body.presence || e.message}"
+    raise ServerError, message, e.backtrace
   end
 
   def update_resource_title(title)
@@ -13,14 +19,15 @@ class DatagouvAPIClient
   end
 
   def update_dataset_temporal_coverage(start_date:)
-    connection.patch(dataset_path) do |req|
+    payload = fetch_dataset.merge(
+      'temporal_coverage' => {
+        'start' => start_date.to_s,
+        'end' => nil
+      }
+    )
+    connection.put(dataset_path) do |req|
       req.headers['Content-Type'] = 'application/json'
-      req.body = {
-        temporal_coverage: {
-          start: start_date.to_s,
-          end: nil
-        }
-      }.to_json
+      req.body = payload.to_json.dup.force_encoding(Encoding::UTF_8)
     end
   end
 
@@ -54,7 +61,7 @@ class DatagouvAPIClient
   end
 
   def demo_resource_id
-    'da9ef212-0df6-4703-bf98-187c79d31a60'
+    'a9707b92-10fb-428e-8f59-c9e2af368e4f'
   end
 
   def upload_path
@@ -67,5 +74,10 @@ class DatagouvAPIClient
 
   def dataset_path
     "datasets/#{dataset_id}/"
+  end
+
+  def fetch_dataset
+    response = connection.get(dataset_path)
+    response.body.is_a?(Hash) ? response.body : JSON.parse(response.body.to_s)
   end
 end

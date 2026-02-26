@@ -7,19 +7,21 @@ RSpec.describe ExportDatagouvHabilitations, type: :organizer do
 
   let(:base_url) { 'https://demo.data.gouv.fr/api/1' }
   let(:dataset_id) { 'habilitations-datapass-validees' }
-  let(:resource_id) { 'da9ef212-0df6-4703-bf98-187c79d31a60' }
+  let(:resource_id) { 'a9707b92-10fb-428e-8f59-c9e2af368e4f' }
   let(:upload_url) { %r{#{Regexp.escape(base_url)}/datasets/#{dataset_id}/resources/#{resource_id}/upload/} }
   let(:resource_url) { %r{#{Regexp.escape(base_url)}/datasets/#{dataset_id}/resources/#{resource_id}/} }
   let(:dataset_url) { %r{#{Regexp.escape(base_url)}/datasets/#{dataset_id}/} }
 
   before do
+    allow(Rails.application.credentials).to receive(:dig).and_return(nil)
     allow(Rails.application.credentials).to receive(:dig).with(:data_gouv_fr, :api_key).and_return('test-key')
     allow(Rails.application.credentials).to receive(:dig).with(:data_gouv_fr, :base_url).and_return(nil)
     allow(Rails.application.credentials).to receive(:dig).with(:data_gouv_fr, :dataset_slug).and_return(nil)
     allow(Rails.application.credentials).to receive(:dig).with(:data_gouv_fr, :resource_id).and_return(nil)
     stub_request(:post, upload_url).to_return(status: 200, body: '{}')
     stub_request(:put, resource_url).to_return(status: 200, body: '{}')
-    stub_request(:patch, dataset_url).to_return(status: 200, body: '{}')
+    stub_request(:get, dataset_url).to_return(status: 200, body: '{}')
+    stub_request(:put, dataset_url).to_return(status: 200, body: '{}')
   end
 
   after do
@@ -40,7 +42,7 @@ RSpec.describe ExportDatagouvHabilitations, type: :organizer do
 
       expect(WebMock).to have_requested(:post, upload_url).once
       expect(WebMock).to have_requested(:put, resource_url).once
-      expect(WebMock).to have_requested(:patch, dataset_url).once
+      expect(WebMock).to have_requested(:get, dataset_url).once
     end
   end
 
@@ -49,7 +51,7 @@ RSpec.describe ExportDatagouvHabilitations, type: :organizer do
       expect(result).to be_success
       expect(WebMock).to have_requested(:post, upload_url).once
       expect(WebMock).to have_requested(:put, resource_url).once
-      expect(WebMock).to have_requested(:patch, dataset_url).once
+      expect(WebMock).to have_requested(:get, dataset_url).once
     end
   end
 end
