@@ -49,6 +49,13 @@ RSpec.describe CreateLinkedFranceConnectAuthorization do
         expect(fc_authorization.data['scopes']).to be_present
         expect(fc_authorization.data['cadre_juridique_nature']).to be_present
       end
+
+      it 'stores the form_uid from the authorization request' do
+        interactor
+        fc_authorization = interactor.linked_france_connect_authorization
+
+        expect(fc_authorization.form_uid).to eq(authorization_request.form_uid)
+      end
     end
 
     context 'when the authorization request is reopened and already has an FC authorization' do

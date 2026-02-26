@@ -11,6 +11,11 @@ RSpec.describe CreateAuthorization, type: :interactor do
       it 'creates an authorization for api_particulier' do
         expect { subject }.to change(Authorization, :count).by(1)
       end
+
+      it 'stores the form_uid from the authorization request' do
+        subject
+        expect(create_authorization.authorization.form_uid).to eq(authorization_request.form_uid)
+      end
     end
 
     context 'when authorization message is provided' do

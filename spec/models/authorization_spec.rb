@@ -3,6 +3,23 @@ RSpec.describe Authorization do
     expect(build(:authorization)).to be_valid
   end
 
+  describe '#form' do
+    subject { authorization.form }
+
+    context 'when form_uid is present' do
+      let(:authorization) { build(:authorization, form_uid: 'api-entreprise') }
+
+      it { is_expected.to be_a(AuthorizationRequestForm) }
+      it { expect(subject.uid).to eq('api-entreprise') }
+    end
+
+    context 'when form_uid is blank' do
+      let(:authorization) { build(:authorization, form_uid: nil) }
+
+      it { is_expected.to be_nil }
+    end
+  end
+
   describe '#formatted_id' do
     subject { authorization.formatted_id }
 

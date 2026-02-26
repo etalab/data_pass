@@ -86,7 +86,7 @@
     </div>
 
     <% if policy([:instruction, @authorization.request]).show? %>
-      <%= render partial: 'authorizations/instruction_header_info', locals: { authorization: @authorization } %>
+      <%= render Habilitation::OriginHeaderInfo.new(authorization: @authorization) %>
     <% end %>
   </div>
 </div>

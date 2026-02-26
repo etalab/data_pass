@@ -32,7 +32,8 @@ class CreateLinkedFranceConnectAuthorization < ApplicationInteractor
       applicant: authorization_applicant,
       authorization_request_class: 'AuthorizationRequest::FranceConnect',
       parent_authorization_id: authorization.id,
-      data: france_connect_data
+      data: france_connect_data,
+      form_uid: authorization_request.form_uid
     )
   end
 

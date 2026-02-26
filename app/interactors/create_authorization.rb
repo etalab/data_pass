@@ -28,7 +28,8 @@ class CreateAuthorization < ApplicationInteractor
     {
       data: authorization_request.data,
       applicant: authorization_request.applicant,
-      message: context.authorization_message
+      message: context.authorization_message,
+      form_uid: authorization_request.form_uid
     }
   end
 end

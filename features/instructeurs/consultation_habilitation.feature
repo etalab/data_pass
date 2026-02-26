@@ -34,8 +34,10 @@ Fonctionnalité: Instruction: consultation d'une demande d'habilitation
     Quand je me rends sur une demande d'habilitation "API Entreprise" validée
     Et que je clique sur "Toutes les habilitations"
     Et que je clique sur "Consulter l'habilitation"
-    Alors la page contient "Cette habilitation est liée à la demande N°"
-    Et que je clique sur "demande N°"
+    Alors la page contient "créée par la"
+    Et la page contient "via le formulaire"
+    Et la page contient "demande D"
+    Et que je clique sur "demande D"
     Alors la page contient "Toutes les habilitations"
 
   Scénario: Je vois les habilitations de sandbox et production d'une demande DGFiP validée

@@ -51,6 +51,12 @@ class Authorization < ApplicationRecord
 
   delegate :name, :kind, to: :request
 
+  def form
+    return if form_uid.blank?
+
+    AuthorizationRequestForm.find(form_uid)
+  end
+
   def formatted_id
     "H#{id}"
   end
