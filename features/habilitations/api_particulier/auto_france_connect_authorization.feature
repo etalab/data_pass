@@ -53,6 +53,18 @@ Fonctionnalité: Création automatique d'habilitation FranceConnect pour API Par
     Alors je suis sur la page "Liste des demandes et habilitations"
     Et il y a 1 habilitation FranceConnect pour cette demande
 
+  @FlushJobQueue
+  Scénario: Réouverture avec ajout de la modalité FranceConnect crée l'habilitation FC
+    Sachant qu'il y a une demande API Particulier validée compatible FranceConnect, mais sans modalité FranceConnect
+    Et que le demandeur réouvre l'habilitation
+    Et que le demandeur coche "Via FranceConnect" dans la section "Les modalités d'appel de l'API"
+    Et que le demandeur soumet la demande de mise à jour
+    Quand je me rends sur cette demande d'habilitation
+    Et je clique sur "Valider"
+    Et je clique sur "Valider la demande de mise à jour"
+    Alors je suis sur la page "Liste des demandes et habilitations"
+    Et il y a 1 habilitation FranceConnect pour cette demande
+
   Scénario: L'habilitation FranceConnect liée n'est pas réouvrable
     Sachant qu'il y a une demande API Particulier avec champs FranceConnect intégrés validée
     Alors l'habilitation FranceConnect liée n'est pas réouvrable

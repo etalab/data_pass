@@ -96,6 +96,15 @@ Sachantque('il y a une demande API Particulier sans habilitation FranceConnect r
   )
 end
 
+Sachantque('il y a une demande API Particulier validée compatible FranceConnect, mais sans modalité FranceConnect') do
+  ServiceProvider.find('entrouvert').apipfc_enabled = true
+
+  @authorization_request = FactoryBot.create(
+    :authorization_request, :api_particulier_entrouvert_publik, :validated,
+    modalities: %w[params], contact_technique_phone_number: '0612345678'
+  )
+end
+
 Quand('je me rends sur la demande instruction d\'une API Particulier avec champs FranceConnect intégrés validée') do
   ServiceProvider.find('entrouvert').apipfc_enabled = true
 

@@ -5,6 +5,7 @@ class UpdateAuthorizationRequest < ApplicationOrganizer
   end
 
   organize AssignParamsToAuthorizationRequest,
+    AssignFranceConnectDefaultsOnReopening,
     VerifyContactsEmailsAsynchronously,
     CreateAuthorizationRequestEventModel,
     DeliverAuthorizationRequestNotification
