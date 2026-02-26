@@ -1,10 +1,10 @@
 class Datagouv::BuildHabilitationsRows < ApplicationInteractor
   CSV_HEADERS = [
-    'API ou Service demandé',
-    "Dénomination de l'unité légale du demandeur",
-    'SIRET du demandeur',
-    'Données demandées',
     "Fournisseur de l'API ou service",
+    'API ou Service demandé',
+    'SIRET du demandeur',
+    "Dénomination de l'unité légale du demandeur",
+    'Données demandées',
     'Fondement juridique',
     'Date de validation'
   ].freeze
@@ -22,11 +22,11 @@ class Datagouv::BuildHabilitationsRows < ApplicationInteractor
 
   def row_for(authorization)
     [
-      request_type(authorization),
-      authorization.organization.denomination.to_s,
-      authorization.organization.siret.to_s,
-      scopes_for(authorization),
       fournisseur_for(authorization),
+      request_type(authorization),
+      authorization.organization.siret.to_s,
+      authorization.organization.denomination.to_s,
+      scopes_for(authorization),
       cadre_juridique_for(authorization),
       date_validation_for(authorization)
     ]

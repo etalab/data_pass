@@ -12,11 +12,11 @@ Une demande peut être en brouillon de réouverture tout en ayant des habilitati
 
 | Colonne | Source |
 |---------|--------|
-| API ou Service demandé | Classe de la demande (partie après `::`) |
-| Dénomination de l'unité légale du demandeur | `organization.denomination` |
-| SIRET du demandeur | `organization.siret` |
-| Données demandées | `authorization.data['scopes']` |
 | Fournisseur de l'API ou service | Nom du fournisseur (définition) |
+| API ou Service demandé | Classe de la demande (partie après `::`) |
+| SIRET du demandeur | `organization.siret` |
+| Dénomination de l'unité légale du demandeur | `organization.denomination` |
+| Données demandées | `authorization.data['scopes']` |
 | Fondement juridique | `authorization.data['cadre_juridique_nature']` |
 | Date de validation | `authorization.created_at` (format AAAA-MM-JJ) |
 
