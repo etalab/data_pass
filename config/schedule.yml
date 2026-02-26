@@ -6,7 +6,7 @@ development:
     cron: '0 3 * * *'
     class: 'RailsPulse::CleanupJob'
 
-production: &deployed
+staging: &deployed
   healthcheck:
     cron: '*/5 * * * *'
     class: 'HealthcheckJob'
@@ -17,5 +17,10 @@ production: &deployed
     cron: '0 3 * * *'
     class: 'RailsPulse::CleanupJob'
 
-staging: *deployed
+production:
+  <<: *deployed
+  datagouv_habilitations_sync:
+    cron: '0 2 1 * *'
+    class: 'DatagouvHabilitationsSyncJob'
+
 sandbox: *deployed
