@@ -3,11 +3,14 @@ import { formatPeriodLabel } from 'stats/date_utils'
 
 Chart.register(...registerables)
 
+const STACK_REQUESTS = 'requests'
+const STACK_INSTRUCTIONS = 'instructions'
+
 function buildChartDatasets (labels) {
-  if (!labels || labels.length !== 3) {
-    throw new Error('Chart labels are required (expected 3 labels: submitted, validatedOrRefused, pending).')
+  if (!labels || labels.length !== 4) {
+    throw new Error('Chart labels are required (expected 4 labels: submitted, validated, refused, pending).')
   }
-  const [submitted, validatedOrRefused, pending] = labels
+  const [submitted, validated, refused, pending] = labels
   return [
     {
       type: 'bar',
@@ -15,21 +18,32 @@ function buildChartDatasets (labels) {
       backgroundColor: 'rgba(0, 0, 145, 0.2)',
       borderWidth: 0,
       order: 2,
+      stack: STACK_REQUESTS,
       dataKey: (item) => item.new_requests + item.reopenings
     },
     {
       type: 'bar',
-      label: validatedOrRefused,
+      label: validated,
       backgroundColor: 'rgba(24, 117, 60, 0.2)',
       borderWidth: 0,
-      order: 2,
-      dataKey: (item) => item.validations + item.refusals
+      order: 3,
+      stack: STACK_INSTRUCTIONS,
+      dataKey: (item) => item.validations
+    },
+    {
+      type: 'bar',
+      label: refused,
+      backgroundColor: 'rgba(225, 0, 15, 0.2)',
+      borderWidth: 0,
+      order: 3,
+      stack: STACK_INSTRUCTIONS,
+      dataKey: (item) => item.refusals
     },
     {
       type: 'line',
       label: pending,
-      borderColor: '#e1000f',
-      backgroundColor: '#e1000f',
+      borderColor: '#3d3d3d',
+      backgroundColor: '#3d3d3d',
       borderWidth: 4,
       pointRadius: 5,
       pointHoverRadius: 7,
@@ -68,7 +82,7 @@ function getChartOptions () {
     scales: {
       x: {
         grid: { display: false },
-        stacked: false,
+        stacked: true,
         ticks: {
           maxTicksLimit: 12,
           maxRotation: 45,
@@ -77,6 +91,7 @@ function getChartOptions () {
       },
       y: {
         beginAtZero: true,
+        stacked: true,
         ticks: { precision: 0 }
       }
     },

@@ -18,20 +18,19 @@ export function loadFiltersFromURL (startDateTarget, endDateTarget) {
   }
 }
 
-export function updateURL (startDate, endDate, provider, type, form) {
+export function updateURL (startDate, endDate, provider, type) {
   const params = new URLSearchParams()
 
   params.set('start_date', startDate)
   params.set('end_date', endDate)
   if (provider) params.set('provider', provider)
   if (type) params.set('type', type)
-  if (form) params.set('form', form)
 
   const newURL = `${window.location.pathname}?${params.toString()}`
   window.history.pushState({}, '', newURL)
 }
 
-export function restoreFiltersFromURL (providerSelect, typeSelect, formSelect, populateTypeSelect, populateFormSelect) {
+export function restoreFiltersFromURL (providerSelect, typeSelect, populateTypeSelect) {
   const params = new URLSearchParams(window.location.search)
 
   if (params.has('provider')) {
@@ -41,11 +40,6 @@ export function restoreFiltersFromURL (providerSelect, typeSelect, formSelect, p
 
   if (params.has('type')) {
     typeSelect.value = params.get('type')
-    populateFormSelect()
-  }
-
-  if (params.has('form')) {
-    formSelect.value = params.get('form')
   }
 }
 
@@ -59,9 +53,9 @@ export function populateProviderSelect (selectElement, providers, allProvidersLa
   })
 }
 
-export function populateTypeSelect (selectElement, allTypes, selectedProviders, allTypesLabel) {
+export function populateTypeSelect (selectElement, allTypes, selectedProviders, allDefinitionsLabel) {
   const currentValue = selectElement.value
-  selectElement.innerHTML = `<option value="">${allTypesLabel}</option>`
+  selectElement.innerHTML = `<option value="">${allDefinitionsLabel}</option>`
 
   if (selectedProviders.length === 0) {
     selectElement.disabled = true
@@ -76,31 +70,6 @@ export function populateTypeSelect (selectElement, allTypes, selectedProviders, 
     const option = document.createElement('option')
     option.value = type.class_name
     option.textContent = type.name
-    selectElement.appendChild(option)
-  })
-
-  if (currentValue && Array.from(selectElement.options).some(opt => opt.value === currentValue)) {
-    selectElement.value = currentValue
-  }
-}
-
-export function populateFormSelect (selectElement, allForms, selectedProviders, selectedTypes, allFormsLabel) {
-  const currentValue = selectElement.value
-  selectElement.innerHTML = `<option value="">${allFormsLabel}</option>`
-
-  if (selectedProviders.length === 0 || selectedTypes.length === 0) {
-    selectElement.disabled = true
-    return
-  }
-
-  selectElement.disabled = false
-
-  const filteredForms = allForms.filter(form => selectedTypes.includes(form.authorization_type))
-
-  filteredForms.forEach(form => {
-    const option = document.createElement('option')
-    option.value = form.uid
-    option.textContent = form.name
     selectElement.appendChild(option)
   })
 

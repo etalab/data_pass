@@ -1,7 +1,7 @@
 <% set_title! t('page_titles.stats') %>
 <% stimulus_controller = 'stats' %>
 <% migration_date = '2025-01-01' %>
-<% chart_labels = [t('stats.chart.labels.submitted'), t('stats.chart.labels.validated_or_refused'), t('stats.chart.labels.pending')].to_json %>
+<% chart_labels = [t('stats.chart.labels.submitted'), t('stats.chart.labels.validated'), t('stats.chart.labels.refused'), t('stats.chart.labels.pending')].to_json %>
 
 <div id="content"
      data-controller="<%= stimulus_controller %>"
@@ -10,8 +10,7 @@
      data-<%= stimulus_controller %>-error-load-filters-value="<%= h(t('stats.errors.load_filters')) %>"
      data-<%= stimulus_controller %>-error-load-stats-value="<%= h(t('stats.errors.load_stats')) %>"
      data-<%= stimulus_controller %>-all-providers-label-value="<%= h(t('stats.filters.all_providers')) %>"
-     data-<%= stimulus_controller %>-all-types-label-value="<%= h(t('stats.filters.all_types')) %>"
-     data-<%= stimulus_controller %>-all-forms-label-value="<%= h(t('stats.filters.all_forms')) %>">
+     data-<%= stimulus_controller %>-all-definitions-label-value="<%= h(t('stats.filters.all_definitions')) %>">
   <%= render Organisms::Stats::LoadingOverlayComponent.new(stimulus_controller: stimulus_controller) %>
 
   <div class="fr-container fr-py-6w">

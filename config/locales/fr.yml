@@ -768,12 +768,10 @@ fr:
         last_year: 12 derniers mois
         last_3_months: 3 derniers mois
         last_30_days: 30 derniers jours
-      provider_label: Fournisseur des données demandées
-      type_label: Demande d’habilitation à
-      form_label: Formulaire utilisé
+      provider_label: Fournisseur d'API ou Service
+      type_label: API ou Service
       all_providers: Tous les fournisseurs
-      all_types: Tous les types
-      all_forms: Tous les formulaires
+      all_definitions: Toutes les API et services
       reset: Réinitialiser les filtres
     loading:
       label: Chargement des statistiques
@@ -796,10 +794,11 @@ fr:
     chart:
       aria_label: Graphique d’évolution des demandes en attente de réponse (description détaillée disponible ci-après)
       transcription_title: Évolution des demandes en attente de réponse
-      transcription_description: "Ce graphique présente l’évolution des demandes sur la période sélectionnée. Trois séries de données sont représentées : les demandes soumises (barres bleues), les demandes validées ou refusées (barres vertes) et les demandes en attente de réponse (ligne rouge)."
+      transcription_description: "Ce graphique présente l'évolution des demandes sur la période sélectionnée. Quatre séries sont représentées : les demandes soumises (barres bleues), les demandes validées (barres vertes empilées), les demandes refusées (barres rouges empilées) et les demandes en attente de réponse (ligne grise)."
       labels:
         submitted: Demandes soumises
-        validated_or_refused: Demandes validées ou refusées
+        validated: Demandes validées
+        refused: Demandes refusées
         pending: Demandes en attente de réponse
     transcription:
       button: Transcription

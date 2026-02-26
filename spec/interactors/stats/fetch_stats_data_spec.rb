@@ -6,8 +6,7 @@ RSpec.describe Stats::FetchStatsData do
       result_context = described_class.call(
         date_range: date_range,
         providers: nil,
-        authorization_types: nil,
-        forms: nil
+        authorization_types: nil
       )
       {
         volume: result_context.volume,

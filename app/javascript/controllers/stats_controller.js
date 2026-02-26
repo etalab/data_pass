@@ -7,7 +7,7 @@ import * as ui from 'stats/ui_manager'
 export default class extends Controller {
   static DEBOUNCE_DELAY_MS = 1000
   static targets = [
-    'startDate', 'endDate', 'providerSelect', 'typeSelect', 'formSelect',
+    'startDate', 'endDate', 'providerSelect', 'typeSelect',
     'totalRequestsCount', 'reopeningsCount', 'validationsCount', 'refusalsCount',
     'percentile50TimeToSubmit', 'percentile80TimeToSubmit',
     'percentile50TimeToFirstInstruction', 'percentile80TimeToFirstInstruction',
@@ -21,14 +21,12 @@ export default class extends Controller {
     errorLoadFilters: String,
     errorLoadStats: String,
     allProvidersLabel: String,
-    allTypesLabel: String,
-    allFormsLabel: String
+    allDefinitionsLabel: String
   }
 
   connect () {
     this.allProviders = []
     this.allTypes = []
-    this.allForms = []
     this.timeSeriesChartInstance = null
     this.isInitializing = true
     this.debounceTimeout = null
@@ -49,14 +47,12 @@ export default class extends Controller {
       const filtersData = await dataManager.fetchFilterOptions()
       this.allProviders = filtersData.providers || []
       this.allTypes = filtersData.types || []
-      this.allForms = filtersData.forms || []
 
       filterManager.populateProviderSelect(this.providerSelectTarget, this.allProviders, this.allProvidersLabelValue)
       this.refreshTypeSelect()
-      this.refreshFormSelect()
       filterManager.restoreFiltersFromURL(
-        this.providerSelectTarget, this.typeSelectTarget, this.formSelectTarget,
-        () => this.refreshTypeSelect(), () => this.refreshFormSelect()
+        this.providerSelectTarget, this.typeSelectTarget,
+        () => this.refreshTypeSelect()
       )
       this.isInitializing = false
       await this.loadData()
@@ -74,7 +70,6 @@ export default class extends Controller {
     this.endDateTarget.value = formatDate(endDate)
     this.providerSelectTarget.value = ''
     this.typeSelectTarget.value = ''
-    this.formSelectTarget.value = ''
     this.updateFilters()
   }
 
@@ -95,11 +90,10 @@ export default class extends Controller {
   async updateFilters () {
     if (this.isInitializing) return
     this.refreshTypeSelect()
-    this.refreshFormSelect()
     ui.highlightActiveQuickRange(this.quickRangesTarget, this.startDateTarget.value, this.endDateTarget.value)
     filterManager.updateURL(
       this.startDateTarget.value, this.endDateTarget.value,
-      this.providerSelectTarget.value, this.typeSelectTarget.value, this.formSelectTarget.value
+      this.providerSelectTarget.value, this.typeSelectTarget.value
     )
     await this.loadData()
   }
@@ -113,7 +107,7 @@ export default class extends Controller {
       ui.updateMigrationWarning(this.migrationElement, this.startDateTarget.value, this.migrationDateValue)
       const data = await dataManager.fetchStatsData(
         this.startDateTarget.value, this.endDateTarget.value,
-        this.selectedProviders, this.selectedTypes, this.selectedForms,
+        this.selectedProviders, this.selectedTypes,
         this.currentAbortController.signal
       )
       dataManager.updateSummaryCards(this.summaryTargets, data.volume)
@@ -135,7 +129,6 @@ export default class extends Controller {
   get migrationElement () { return this.hasMigrationWarningTarget ? this.migrationWarningTarget : null }
   get selectedProviders () { return this.providerSelectTarget.value ? [this.providerSelectTarget.value] : [] }
   get selectedTypes () { return this.typeSelectTarget.value ? [this.typeSelectTarget.value] : [] }
-  get selectedForms () { return this.formSelectTarget.value ? [this.formSelectTarget.value] : [] }
 
   get summaryTargets () {
     return ['totalRequestsCount', 'reopeningsCount', 'validationsCount', 'refusalsCount']
@@ -152,10 +145,6 @@ export default class extends Controller {
   }
 
   refreshTypeSelect () {
-    filterManager.populateTypeSelect(this.typeSelectTarget, this.allTypes, this.selectedProviders, this.allTypesLabelValue)
-  }
-
-  refreshFormSelect () {
-    filterManager.populateFormSelect(this.formSelectTarget, this.allForms, this.selectedProviders, this.selectedTypes, this.allFormsLabelValue)
+    filterManager.populateTypeSelect(this.typeSelectTarget, this.allTypes, this.selectedProviders, this.allDefinitionsLabelValue)
   }
 }

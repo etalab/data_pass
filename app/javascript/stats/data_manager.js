@@ -7,12 +7,11 @@ export async function fetchFilterOptions () {
   return response.json()
 }
 
-export async function fetchStatsData (startDate, endDate, providers, types, forms, signal) {
+export async function fetchStatsData (startDate, endDate, providers, types, signal) {
   const params = new URLSearchParams({ start_date: startDate, end_date: endDate })
 
   providers.forEach(p => params.append('providers[]', p))
   types.forEach(t => params.append('authorization_types[]', t))
-  forms.forEach(f => params.append('forms[]', f))
 
   const response = await fetch(`/stats/data?${params}`, { signal })
   if (!response.ok) {
