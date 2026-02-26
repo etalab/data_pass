@@ -52,16 +52,7 @@
     <div class="fr-select-group">
       <label class="fr-label" for="statsTypeSelect"><%= t('stats.filters.type_label') %></label>
       <select class="fr-select" id="statsTypeSelect" data-<%= stimulus_controller %>-target="typeSelect" data-action="change-><%= stimulus_controller %>#updateFilters">
-        <option value=""><%= t('stats.filters.all_types') %></option>
-      </select>
-    </div>
-  </div>
-
-  <div class="fr-col-12 fr-col-md-4">
-    <div class="fr-select-group">
-      <label class="fr-label" for="statsFormSelect"><%= t('stats.filters.form_label') %></label>
-      <select class="fr-select" id="statsFormSelect" data-<%= stimulus_controller %>-target="formSelect" data-action="change-><%= stimulus_controller %>#updateFilters">
-        <option value=""><%= t('stats.filters.all_forms') %></option>
+        <option value=""><%= t('stats.filters.all_definitions') %></option>
       </select>
     </div>
   </div>

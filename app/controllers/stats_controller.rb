@@ -34,8 +34,7 @@ class StatsController < PublicController
     {
       date_range: date_range,
       providers: parse_array_param(params[:providers]),
-      authorization_types: parse_array_param(params[:authorization_types]),
-      forms: parse_array_param(params[:forms])
+      authorization_types: parse_array_param(params[:authorization_types])
     }
   end
 
@@ -45,8 +44,7 @@ class StatsController < PublicController
       start_date.iso8601,
       end_date.iso8601,
       sorted_array_param(:providers).inspect,
-      sorted_array_param(:authorization_types).inspect,
-      sorted_array_param(:forms).inspect
+      sorted_array_param(:authorization_types).inspect
     ].join('/')
   end
 

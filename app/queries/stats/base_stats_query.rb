@@ -4,13 +4,12 @@ class Stats::BaseStatsQuery
     first_instruction_events final_decision_events
   ].freeze
 
-  attr_reader :date_range, :providers, :authorization_types, :forms
+  attr_reader :date_range, :providers, :authorization_types
 
-  def initialize(date_range:, providers: nil, authorization_types: nil, forms: nil)
+  def initialize(date_range:, providers: nil, authorization_types: nil)
     @date_range = date_range
     @providers = providers
     @authorization_types = authorization_types
-    @forms = forms
   end
 
   protected
@@ -20,7 +19,6 @@ class Stats::BaseStatsQuery
       requests = AuthorizationRequest.all
       requests = filter_by_providers(requests) if providers.present?
       requests = filter_by_authorization_types(requests) if authorization_types.present?
-      requests = filter_by_forms(requests) if forms.present?
       requests
     end
   end
@@ -39,10 +37,6 @@ class Stats::BaseStatsQuery
 
   def filter_by_authorization_types(requests)
     requests.where(type: authorization_types)
-  end
-
-  def filter_by_forms(requests)
-    requests.where(form_uid: forms)
   end
 
   def calculate_percentiles(relation, expression)

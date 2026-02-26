@@ -21,14 +21,6 @@ RSpec.describe 'Stats' do
       expect(json_response).to have_key('types')
       expect(json_response['types']).to be_an(Array)
     end
-
-    it 'returns forms list' do
-      get stats_filters_path
-
-      json_response = response.parsed_body
-      expect(json_response).to have_key('forms')
-      expect(json_response['forms']).to be_an(Array)
-    end
   end
 
   describe 'GET /stats/data' do

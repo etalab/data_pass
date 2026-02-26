@@ -15,8 +15,7 @@ class Stats::FetchStatsData < ApplicationInteractor
     @query_filters ||= {
       date_range: context.date_range,
       providers: context.providers,
-      authorization_types: context.authorization_types,
-      forms: context.forms
+      authorization_types: context.authorization_types
     }
   end
 

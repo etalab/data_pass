@@ -2,8 +2,7 @@ class Stats::FiltersFacade
   def to_h
     {
       providers: providers_list,
-      types: types_list,
-      forms: forms_list
+      types: types_list
     }
   end
 
@@ -27,16 +26,6 @@ class Stats::FiltersFacade
         class_name: definition.authorization_request_class.name,
         name: definition.name_with_stage,
         provider_slug: provider&.slug
-      }
-    end
-  end
-
-  def forms_list
-    AuthorizationRequestForm.all.map do |form|
-      {
-        uid: form.uid,
-        name: form.name,
-        authorization_type: form.authorization_request_class.name
       }
     end
   end

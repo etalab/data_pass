@@ -79,29 +79,4 @@ RSpec.describe Stats::BaseStatsQuery, type: :query do
       expect(query.total_requests_submitted_count).to eq(1)
     end
   end
-
-  describe 'filtering by forms' do
-    let!(:request_with_api_entreprise_form) do
-      create(:authorization_request, :api_entreprise, applicant: user, organization: organization).tap do |ar|
-        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: Date.new(2025, 6, 1))
-        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: Date.new(2025, 6, 2))
-      end
-    end
-
-    let!(:request_with_api_particulier_form) do
-      create(:authorization_request, :api_particulier, applicant: user, organization: organization).tap do |ar|
-        create(:authorization_request_event, :create, authorization_request: ar, user: user, created_at: Date.new(2025, 6, 1))
-        create(:authorization_request_event, :submit, authorization_request: ar, user: user, created_at: Date.new(2025, 6, 2))
-      end
-    end
-
-    it 'only counts requests matching the form UID' do
-      query = Stats::VolumeStatsQuery.new(
-        date_range: date_range,
-        forms: ['api-entreprise']
-      )
-
-      expect(query.total_requests_submitted_count).to eq(1)
-    end
-  end
 end
