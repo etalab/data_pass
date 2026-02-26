@@ -10,7 +10,8 @@ class Seeds::Stats < Seeds
     'menj' => %i[api_scolarite api_gfe_echange_collectivites],
     'cnam' => %i[api_indemnites_journalieres_cnam],
     'cisirh' => %i[services_cisirh],
-    'mtes' => %i[api_mobilic]
+    'mtes' => %i[api_mobilic],
+    'dge' => %i[aides_etat]
   }.freeze
 
   FORMS_PER_TYPE = {
