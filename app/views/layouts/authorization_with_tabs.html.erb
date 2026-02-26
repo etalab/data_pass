@@ -1,10 +1,10 @@
 <% set_title! t('page_titles.authorization_show', definition_name: authorization.definition.name, authorization_name: authorization.name) %>
 
 <%= content_for(:body) do %>
-  <div class="fr-background-alt--blue-france" data-controller="scroll-to-top">
+  <div class="<%= authorization.decorate.background_color_class == 'fr-background-alt--grey' ? 'fr-background-alt--grey' : 'fr-background-alt--blue-france' %>" data-controller="scroll-to-top">
     <%= render AuthorizationHeaderComponent.new(authorization: authorization, current_user: current_user) %>
 
-    <div class="fr-tabs fr-background-action-high--blue-france" data-controller="auto-height">
+    <div class="fr-tabs <%= authorization.decorate.background_color_class %>" data-controller="auto-height">
       <ul class="fr-tabs__list fr-container" role="tablist" aria-label="Menu secondaire">
           <% authorization_tabs(authorization).each do |id, path| %>
             <li role="presentation">

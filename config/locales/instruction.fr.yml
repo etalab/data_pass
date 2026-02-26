@@ -168,7 +168,23 @@ fr:
 
       create:
         success:
-          title: L'habilitation %{name} a été révoquée
+          title: &revoke_authorization_success_title L'habilitation %{name} a été révoquée
+
+    revoke_authorizations:
+      new:
+        title: Révocation de l'habilitation
+        description:
+          organization: |
+            Vous êtes sur le point de révoquer l'habilitation '%{authorization_name}' (%{formatted_id}) au profit de l'organisation '%{organization_name}' (numéro de siret: %{organization_siret}).
+          disclaimer: |
+            <strong>Cette action est irréversible</strong>.
+            Merci de renseigner les motifs qui seront communiqués au demandeur.
+        cancel: Annuler
+        revoke: Révoquer l'habilitation
+
+      create:
+        success:
+          title: *revoke_authorization_success_title
 
     cancel_authorization_reopenings:
       new:

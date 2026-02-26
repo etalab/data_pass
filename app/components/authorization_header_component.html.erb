@@ -77,9 +77,9 @@
 
           <% if policy([:instruction, authorization]).revoke? %>
             <%= dsfr_main_modal_button t('components.authorization_header_component.revoke'),
-                                               new_instruction_authorization_request_revocation_path(authorization.request),
+                                               new_instruction_authorization_revocation_path(authorization),
                                                title: t('components.authorization_header_component.revoke_modal_title'),
-                                               class: "fr-btn fr-btn--sm fr-btn--icon-left fr-icon-error-line" %>
+                                               class: "fr-btn fr-btn--sm fr-btn--icon-left fr-icon-error-line fr-btn--secondary__custom" %>
           <% end %>
         </div>
       </div>

@@ -33,6 +33,10 @@ class Authorization < ApplicationRecord
     inverse_of: :authorization,
     dependent: :destroy
 
+  has_many :revocations,
+    class_name: 'RevocationOfAuthorization',
+    dependent: :nullify
+
   has_many :authorization_request_events,
     as: :entity,
     dependent: :nullify

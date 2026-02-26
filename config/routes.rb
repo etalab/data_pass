@@ -132,6 +132,10 @@ Rails.application.routes.draw do
       resources :messages, only: %w[index create], path: 'messages'
     end
 
+    resources :authorizations, only: [], path: 'habilitations' do
+      resources :revoke_authorizations, only: %w[new create], path: 'révoquer', as: :revocation
+    end
+
     resources :instructor_draft_requests, path: 'instructeurs-demandes', except: :show do
       collection do
         get :start, path: 'commencer'
