@@ -12,6 +12,18 @@ class DatagouvAPIClient
     end
   end
 
+  def update_dataset_temporal_coverage(start_date:)
+    connection.patch(dataset_path) do |req|
+      req.headers['Content-Type'] = 'application/json'
+      req.body = {
+        temporal_coverage: {
+          start: start_date.to_s,
+          end: nil
+        }
+      }.to_json
+    end
+  end
+
   private
 
   def connection
@@ -51,5 +63,9 @@ class DatagouvAPIClient
 
   def resource_path
     "datasets/#{dataset_id}/resources/#{resource_id}/"
+  end
+
+  def dataset_path
+    "datasets/#{dataset_id}/"
   end
 end

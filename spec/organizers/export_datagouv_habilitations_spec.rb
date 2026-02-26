@@ -10,6 +10,7 @@ RSpec.describe ExportDatagouvHabilitations, type: :organizer do
   let(:resource_id) { 'da9ef212-0df6-4703-bf98-187c79d31a60' }
   let(:upload_url) { %r{#{Regexp.escape(base_url)}/datasets/#{dataset_id}/resources/#{resource_id}/upload/} }
   let(:resource_url) { %r{#{Regexp.escape(base_url)}/datasets/#{dataset_id}/resources/#{resource_id}/} }
+  let(:dataset_url) { %r{#{Regexp.escape(base_url)}/datasets/#{dataset_id}/} }
 
   before do
     allow(Rails.application.credentials).to receive(:dig).with(:data_gouv_fr, :api_key).and_return('test-key')
@@ -18,6 +19,7 @@ RSpec.describe ExportDatagouvHabilitations, type: :organizer do
     allow(Rails.application.credentials).to receive(:dig).with(:data_gouv_fr, :resource_id).and_return(nil)
     stub_request(:post, upload_url).to_return(status: 200, body: '{}')
     stub_request(:put, resource_url).to_return(status: 200, body: '{}')
+    stub_request(:patch, dataset_url).to_return(status: 200, body: '{}')
   end
 
   after do
@@ -33,19 +35,21 @@ RSpec.describe ExportDatagouvHabilitations, type: :organizer do
       expect(result).to be_success
     end
 
-    it 'uploads the CSV and updates the resource title' do
+    it 'uploads the CSV, updates the resource title and dataset temporal coverage' do
       result
 
       expect(WebMock).to have_requested(:post, upload_url).once
       expect(WebMock).to have_requested(:put, resource_url).once
+      expect(WebMock).to have_requested(:patch, dataset_url).once
     end
   end
 
   context 'when there are no active authorizations' do
-    it 'succeeds and still calls upload and update title' do
+    it 'succeeds and still calls upload, update title and dataset temporal coverage' do
       expect(result).to be_success
       expect(WebMock).to have_requested(:post, upload_url).once
       expect(WebMock).to have_requested(:put, resource_url).once
+      expect(WebMock).to have_requested(:patch, dataset_url).once
     end
   end
 end

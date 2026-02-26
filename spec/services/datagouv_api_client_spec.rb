@@ -10,6 +10,7 @@ RSpec.describe DatagouvAPIClient do
   let(:resource_id) { 'da9ef212-0df6-4703-bf98-187c79d31a60' }
   let(:upload_url) { "#{base_url}/datasets/#{dataset_id}/resources/#{resource_id}/upload/" }
   let(:resource_url) { "#{base_url}/datasets/#{dataset_id}/resources/#{resource_id}/" }
+  let(:dataset_url) { "#{base_url}/datasets/#{dataset_id}/" }
 
   before do
     allow(Rails.application.credentials).to receive(:dig).with(:data_gouv_fr, :base_url).and_return(nil)
@@ -59,6 +60,27 @@ RSpec.describe DatagouvAPIClient do
       client.update_resource_title('Habilitations Datapass validées au 01.03.25.csv')
 
       expect(put_stub).to have_been_requested
+    end
+  end
+
+  describe '#update_dataset_temporal_coverage' do
+    let!(:patch_stub) do
+      stub_request(:patch, dataset_url)
+        .with(
+          headers: { 'X-API-KEY' => 'test-api-key', 'Content-Type' => 'application/json' },
+          body: { temporal_coverage: { start: '2025-03-01', end: nil } }.to_json
+        )
+        .to_return(status: 200, body: '{}')
+    end
+
+    before do
+      allow(Time.zone).to receive(:today).and_return(Date.new(2025, 3, 1))
+    end
+
+    it 'sends a PATCH with temporal coverage (start only, no end) to the dataset endpoint' do
+      client.update_dataset_temporal_coverage(start_date: Date.new(2025, 3, 1))
+
+      expect(patch_stub).to have_been_requested
     end
   end
 end

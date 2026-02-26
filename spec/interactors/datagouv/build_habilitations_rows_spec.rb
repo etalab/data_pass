@@ -21,13 +21,14 @@ RSpec.describe Datagouv::BuildHabilitationsRows do
     expect(result.rows.size).to eq(1)
   end
 
-  it 'includes request type, denomination, siret, scopes and cadre juridique' do
+  it 'includes API/service, denomination, siret, données demandées, fournisseur, cadre juridique et date de validation' do
     row = result.rows.first
 
     expect(row[0]).to eq('APIEntreprise')
     expect(row[2]).to eq('21920023500014')
     expect(row[3]).to eq('dummy_scope')
-    expect(row[4]).to eq('Loi')
+    expect(row[5]).to eq('Loi')
+    expect(row[6]).to eq(active_authorization.created_at.strftime('%Y-%m-%d'))
   end
 
   context 'when an authorization is obsolete' do

@@ -2,6 +2,7 @@ class Datagouv::UploadHabilitationsCsv < ApplicationInteractor
   def call
     client.upload_resource(context.csv_path)
     client.update_resource_title(resource_title)
+    client.update_dataset_temporal_coverage(start_date: Time.zone.today.beginning_of_month)
   end
 
   private

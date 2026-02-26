@@ -6,6 +6,20 @@ Le job `DatagouvHabilitationsSyncJob` met à jour le jeu de données [Habilitati
 
 Une demande peut être en brouillon de réouverture tout en ayant des habilitations actives ; le CSV reflète les habilitations actuellement actives.
 
+À chaque exécution, le job met aussi à jour les métadonnées du dataset : la couverture temporelle est positionnée sur le 1er du mois en cours, sans date de fin.
+
+## Colonnes du CSV
+
+| Colonne | Source |
+|---------|--------|
+| API ou Service demandé | Classe de la demande (partie après `::`) |
+| Dénomination de l'unité légale du demandeur | `organization.denomination` |
+| SIRET du demandeur | `organization.siret` |
+| Données demandées | `authorization.data['scopes']` |
+| Fournisseur de l'API ou service | Nom du fournisseur (définition) |
+| Fondement juridique | `authorization.data['cadre_juridique_nature']` |
+| Date de validation | `authorization.created_at` (format AAAA-MM-JJ) |
+
 ## Fréquence
 
 Le job est planifié en **production uniquement** : exécution le 1er de chaque mois à 2 h (cron : `0 2 1 * *`).

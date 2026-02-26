@@ -8,10 +8,12 @@ RSpec.describe DatagouvHabilitationsSyncJob do
   let(:base_url) { 'https://www.data.gouv.fr/api/1' }
   let(:upload_url) { %r{data\.gouv\.fr/api/1/datasets/.*/resources/.*/upload/} }
   let(:resource_url) { %r{data\.gouv\.fr/api/1/datasets/.*/resources/.*/} }
+  let(:dataset_url) { %r{data\.gouv\.fr/api/1/datasets/.*/} }
 
   before do
     stub_request(:post, upload_url).to_return(status: 200, body: '{}')
     stub_request(:put, resource_url).to_return(status: 200, body: '{}')
+    stub_request(:patch, dataset_url).to_return(status: 200, body: '{}')
   end
 
   context 'when data_gouv_fr api_key is configured' do
@@ -25,6 +27,7 @@ RSpec.describe DatagouvHabilitationsSyncJob do
 
       expect(WebMock).to have_requested(:post, upload_url).once
       expect(WebMock).to have_requested(:put, resource_url).once
+      expect(WebMock).to have_requested(:patch, dataset_url).once
     end
   end
 
@@ -38,6 +41,7 @@ RSpec.describe DatagouvHabilitationsSyncJob do
 
       expect(WebMock).not_to have_requested(:post, upload_url)
       expect(WebMock).not_to have_requested(:put, resource_url)
+      expect(WebMock).not_to have_requested(:patch, dataset_url)
     end
   end
 end
