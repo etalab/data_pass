@@ -1,6 +1,9 @@
 class DatagouvHabilitationsSyncJob < ApplicationJob
   queue_as :default
 
+  retry_on Faraday::ServerError, wait: :polynomially_longer, attempts: 5
+  retry_on Faraday::ConnectionFailed, wait: :polynomially_longer, attempts: 5
+
   def perform
     return unless api_key_configured?
 

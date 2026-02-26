@@ -10,6 +10,7 @@ class Datagouv::BuildHabilitationsRows < ApplicationInteractor
   ].freeze
 
   def call
+    @provider_name_cache = {}
     context.rows = authorizations.map { |authorization| row_for(authorization) }
   end
 
@@ -36,7 +37,16 @@ class Datagouv::BuildHabilitationsRows < ApplicationInteractor
   end
 
   def fournisseur_for(authorization)
-    authorization.definition.provider&.name.to_s
+    slug = authorization.definition.provider_slug
+    provider_name_for_slug(slug).to_s
+  end
+
+  def provider_name_for_slug(slug)
+    return nil if slug.blank?
+
+    @provider_name_cache[slug] ||= DataProvider.friendly.find(slug).name
+  rescue ActiveRecord::RecordNotFound
+    @provider_name_cache[slug] = nil
   end
 
   def date_validation_for(authorization)
