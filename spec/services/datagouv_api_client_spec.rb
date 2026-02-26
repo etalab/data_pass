@@ -74,10 +74,10 @@ RSpec.describe DatagouvAPIClient do
       stub_request(:put, dataset_url)
         .with(
           headers: { 'X-API-KEY' => 'test-api-key', 'Content-Type' => 'application/json' }
-        ) do |req|
+        ) { |req|
           parsed = JSON.parse(req.body)
           parsed['temporal_coverage'] == { 'start' => '2025-03-01', 'end' => nil }
-        end
+        }
         .to_return(status: 200, body: '{}')
     end
 
