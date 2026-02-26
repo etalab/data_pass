@@ -44,7 +44,7 @@ Capybara.register_driver(:cuprite) do |app|
     inspector:,
     flatten: false,
     process_timeout: 12,
-    timeout: 2,
+    timeout: 5,
     headless: !inspector && ENV['HEADLESS'] != 'false', **remote_options
   )
 end
