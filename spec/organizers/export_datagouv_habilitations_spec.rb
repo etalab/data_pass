@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe ExportDatagouvHabilitations, type: :organizer do
   subject(:result) { described_class.call }
 
-  let(:base_url) { 'https://www.data.gouv.fr/api/1' }
+  let(:base_url) { 'https://demo.data.gouv.fr/api/1' }
   let(:dataset_id) { 'habilitations-datapass-validees' }
   let(:resource_id) { 'da9ef212-0df6-4703-bf98-187c79d31a60' }
   let(:upload_url) { %r{#{Regexp.escape(base_url)}/datasets/#{dataset_id}/resources/#{resource_id}/upload/} }

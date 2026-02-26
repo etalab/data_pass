@@ -17,9 +17,9 @@ En staging et sandbox, le job n’est pas planifié ; des tests manuels sont pos
 La configuration est lue depuis les **Rails credentials** sous la clé `data_gouv_fr` :
 
 - `api_key` (obligatoire en production) : clé API data.gouv.fr (compte DINUM ou dédié) avec droits d’édition sur le dataset.
-- `base_url` (optionnel) : URL de base de l’API (défaut : `https://www.data.gouv.fr/api/1`). En staging/sandbox, utiliser `https://demo.data.gouv.fr/api/1` pour les tests.
+- `base_url` (optionnel) : URL de base de l’API (défaut : `https://demo.data.gouv.fr/api/1`). En production, définir `https://www.data.gouv.fr/api/1`.
 - `dataset_slug` (optionnel) : slug ou id du dataset (défaut : `habilitations-datapass-validees`).
-- `resource_id` (optionnel) : id de la ressource CSV à mettre à jour (défaut : `da9ef212-0df6-4703-bf98-187c79d31a60`).
+- `resource_id` (optionnel) : id de la ressource CSV à mettre à jour (défaut : id de la ressource du dataset démo).
 
 ### Ajout de la clé API dans les credentials
 
@@ -38,9 +38,9 @@ La configuration est lue depuis les **Rails credentials** sous la clé `data_gou
    ```yaml
    data_gouv_fr:
      api_key: VOTRE_CLE_API
-     base_url: https://www.data.gouv.fr/api/1   # optionnel en prod
+     base_url: https://www.data.gouv.fr/api/1   # obligatoire en prod (défaut = demo)
      dataset_slug: habilitations-datapass-validees
-     resource_id: da9ef212-0df6-4703-bf98-187c79d31a60
+     resource_id: <id de la ressource>   # obligatoire en prod (défaut = ressource démo)
    ```
 
 ## Test manuel

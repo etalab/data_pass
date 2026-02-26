@@ -39,6 +39,6 @@ class Datagouv::BuildHabilitationsRows < ApplicationInteractor
   end
 
   def cadre_juridique_for(authorization)
-    authorization.data['cadre_juridique_nature'].to_s
+    authorization.data['cadre_juridique_nature']
   end
 end

@@ -26,7 +26,7 @@ class DatagouvAPIClient
   end
 
   def base_url
-    Rails.application.credentials.dig(:data_gouv_fr, :base_url) || 'https://www.data.gouv.fr/api/1'
+    Rails.application.credentials.dig(:data_gouv_fr, :base_url) || 'https://demo.data.gouv.fr/api/1'
   end
 
   def api_key
@@ -38,7 +38,11 @@ class DatagouvAPIClient
   end
 
   def resource_id
-    Rails.application.credentials.dig(:data_gouv_fr, :resource_id) || 'da9ef212-0df6-4703-bf98-187c79d31a60'
+    Rails.application.credentials.dig(:data_gouv_fr, :resource_id) || demo_resource_id
+  end
+
+  def demo_resource_id
+    'da9ef212-0df6-4703-bf98-187c79d31a60'
   end
 
   def upload_path
