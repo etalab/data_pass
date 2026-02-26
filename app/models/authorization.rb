@@ -47,6 +47,7 @@ class Authorization < ApplicationRecord
     through: :approve_authorization_request_event,
     source: :user
 
+  scope :active, -> { where(state: 'active') }
   scope :validated, -> { where(revoked: false) }
 
   delegate :name, :kind, to: :request
