@@ -1606,12 +1606,6 @@ FactoryBot.define do
       with_cadre_juridique
     end
 
-    trait :aides_etat do
-      type { 'AuthorizationRequest::AidesEtat' }
-
-      form_uid { 'aides-etat' }
-    end
-
     trait :services_cisirh do
       type { 'AuthorizationRequest::ServicesCisirh' }
 
