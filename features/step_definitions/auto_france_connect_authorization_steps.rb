@@ -149,6 +149,24 @@ Alors('il y a {int} habilitation(s) FranceConnect pour cette demande') do |count
   expect(fc_authorizations.count).to eq(count)
 end
 
+Quand('je me rends sur l\'habilitation APIP de la demande') do
+  apip_authorization = @authorization_request.authorizations.find_by(
+    authorization_request_class: 'AuthorizationRequest::APIParticulier'
+  )
+
+  visit authorization_path(apip_authorization)
+end
+
+Alors('les {int} habilitations de la demande sont révoquées') do |count|
+  rows = page.all('.authorization-row')
+
+  expect(rows.size).to eq(count)
+
+  rows.each do |row|
+    expect(row).to have_css('.fr-badge', text: 'Révoquée')
+  end
+end
+
 Alors("l'habilitation FranceConnect liée n'est pas réouvrable") do
   fc_authorization = @authorization_request.authorizations.find_by(
     authorization_request_class: 'AuthorizationRequest::FranceConnect'

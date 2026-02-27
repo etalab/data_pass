@@ -11,5 +11,6 @@ class RevokeAuthorization < ApplicationOrganizer
     TransitionAuthorizationRequestToRevokedIfNeeded,
     CreateAuthorizationRequestEventModel,
     DeliverAuthorizationRequestNotification,
-    ExecuteAuthorizationRequestBridge
+    ExecuteAuthorizationRequestBridge,
+    RevokeChildAuthorizations
 end

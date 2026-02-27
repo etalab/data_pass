@@ -77,5 +77,32 @@ RSpec.describe RevokeAuthorization, type: :organizer do
         end
       end
     end
+
+    context 'with an APIP authorization that has an active FC child authorization' do
+      let(:user) { create(:user, :instructor, authorization_request_types: %w[api_particulier]) }
+      let!(:authorization_request) { create(:authorization_request, :api_particulier, :validated) }
+      let!(:authorization) { authorization_request.latest_authorization }
+      let!(:child_authorization) do
+        create(:authorization,
+          request: authorization_request,
+          applicant: authorization_request.applicant,
+          authorization_request_class: 'AuthorizationRequest::FranceConnect',
+          parent_authorization_id: authorization.id)
+      end
+
+      it { is_expected.to be_success }
+
+      it 'revokes the child FC authorization' do
+        expect { revoke_authorization }.to change { child_authorization.reload.state }.from('active').to('revoked')
+      end
+
+      it 'creates revocation records for both parent and child' do
+        expect { revoke_authorization }.to change(RevocationOfAuthorization, :count).by(2)
+      end
+
+      it 'transitions the authorization request to revoked' do
+        expect { revoke_authorization }.to change { authorization_request.reload.state }.from('validated').to('revoked')
+      end
+    end
   end
 end
