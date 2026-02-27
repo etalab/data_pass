@@ -620,6 +620,63 @@ RSpec.describe AuthorizationRequest do
     end
   end
 
+  describe '#france_connected_authorizations' do
+    subject { authorization_request.france_connected_authorizations }
+
+    let(:organization) { create(:organization) }
+
+    context 'when linked by france_connect_authorization_id in data' do
+      let(:fc_authorization_request) { create(:authorization_request, :france_connect, :validated, organization:) }
+      let(:fc_authorization) { fc_authorization_request.latest_authorization }
+      let(:authorization_request) do
+        create(:authorization_request, :api_droits_cnam, :validated, organization:).tap do |ar|
+          ar.update!(data: ar.data.merge('france_connect_authorization_id' => fc_authorization.id.to_s))
+        end
+      end
+
+      it { is_expected.to contain_exactly(fc_authorization) }
+    end
+
+    context 'when linked by parent_authorization_id (auto-generated)' do
+      let(:authorization_request) { create(:authorization_request, :api_particulier, :validated, organization:) }
+      let(:api_authorization) { authorization_request.latest_authorization }
+      let!(:fc_child_authorization) do
+        create(:authorization,
+          request: authorization_request,
+          authorization_request_class: 'AuthorizationRequest::FranceConnect',
+          parent_authorization_id: api_authorization.id)
+      end
+
+      it { is_expected.to contain_exactly(fc_child_authorization) }
+    end
+
+    context 'when no FC link exists' do
+      let(:authorization_request) { create(:authorization_request, :api_entreprise, :validated, organization:) }
+
+      it { is_expected.to be_empty }
+    end
+
+    context 'when FC request without referencing authorizations' do
+      let(:authorization_request) { create(:authorization_request, :france_connect, :validated, organization:) }
+
+      it { is_expected.to be_empty }
+    end
+
+    context 'when FC request with referencing authorizations' do
+      let(:authorization_request) { create(:authorization_request, :france_connect, :validated, organization:) }
+      let(:fc_authorization) { authorization_request.latest_authorization }
+      let!(:api_authorization_request) do
+        create(:authorization_request, :api_droits_cnam, :validated, organization:).tap do |ar|
+          merged_data = ar.data.merge('france_connect_authorization_id' => fc_authorization.id.to_s)
+          ar.update!(data: merged_data)
+          ar.latest_authorization.update_column(:data, merged_data)
+        end
+      end
+
+      it { is_expected.to contain_exactly(api_authorization_request.latest_authorization) }
+    end
+  end
+
   describe 'all_terms_accepted validation' do
     context 'when API has cgu_link' do
       let(:authorization_request) do
