@@ -134,7 +134,7 @@ end
 Quand('je me rends sur cette demande d\'habilitation') do
   authorization_request = @authorization_request || AuthorizationRequest.last
 
-  if current_user.instructor?
+  if current_user!.instructor?
     visit instruction_authorization_request_path(authorization_request)
   else
     visit authorization_request_path(authorization_request)
@@ -357,6 +357,8 @@ Quand("j'adhère aux conditions générales d'utilisation") do
   )
 
   authorization_request = @authorization_request || AuthorizationRequest.last
+  raise 'No authorization request found' unless authorization_request
+
   unless authorization_request.skip_data_protection_officer_informed_check_box?
     steps %(
       Quand je coche "Je confirme que le délégué à la protection des données de mon organisation est informé de ma demande."
@@ -503,7 +505,7 @@ Quand(/je me rends sur une demande d'habilitation "([^"]+)"(?: de l'organisation
   attributes = {}
   attributes[:organization] = find_or_create_organization_by_name(organization_name) if organization_name.present?
 
-  if current_user.instructor?
+  if current_user!.instructor?
     authorization_request = create_authorization_requests_with_status(type, status, 1, nil, nil, attributes).first
 
     visit instruction_authorization_request_path(authorization_request)

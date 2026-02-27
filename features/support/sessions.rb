@@ -17,6 +17,10 @@ def current_user
   @current_user = User.find_by(email: @current_user_email)
 end
 
+def current_user!
+  current_user || raise("current_user is nil — did you forget a 'je suis un(e) ...' step? (@current_user_email=#{@current_user_email.inspect})")
+end
+
 def create_admin
   email = 'admin@gouv.fr'
   user = User.find_by(email:)

@@ -7,9 +7,7 @@ Quand('je me rends sur le chemin {string}') do |string|
 end
 
 Alors('il y a un titre contenant {string}') do |text|
-  elements = page.all('h1, p.fr-h2, h2, table caption')
-
-  expect(elements.any? { |element| element&.text&.include?(text) }).to be_truthy
+  expect(page).to have_css('h1, p.fr-h2, h2, table caption', text:)
 end
 
 Alors('je suis sur la page {string}') do |text|
@@ -17,9 +15,7 @@ Alors('je suis sur la page {string}') do |text|
 end
 
 Alors("il n'y a pas de titre contenant {string}") do |text|
-  elements = page.all('h1, p.fr-h2, h2, table caption')
-
-  expect(elements.none? { |element| element&.text&.include?(text) }).to be_truthy
+  expect(page).to have_no_css('h1, p.fr-h2, h2, table caption', text:)
 end
 
 Quand(/je clique sur (le (?:dernier|premier) )?"([^"]+)"\s*$/) do |position, label|
@@ -40,6 +36,7 @@ end
 Quand('je clique sur {string} et confirme dans la modale') do |label|
   click_link_or_button label
   within('turbo-frame#main-modal-content', wait: 5) do
+    find(:link_or_button, label, wait: 5)
     click_link_or_button label
   end
   expect(page).to have_no_css('turbo-frame#main-modal-content', wait: 5)
