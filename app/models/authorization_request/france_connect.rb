@@ -23,11 +23,4 @@ class AuthorizationRequest::FranceConnect < AuthorizationRequest
       mobile: true
     },
     if: ->(record) { record.need_complete_validation?(:contacts) }
-
-  def france_connected_authorizations(ids = authorization_ids)
-    Authorization.where(
-      "data -> 'france_connect_authorization_id' in (?)",
-      ids.map(&:to_s).uniq
-    )
-  end
 end

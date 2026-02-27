@@ -75,9 +75,7 @@ class AuthorizationRequestPolicy < ApplicationPolicy
   end
 
   def france_connected_authorizations?
-    summary? &&
-      record.definition.france_connect? &&
-      record.france_connected_authorizations.exists?
+    summary? && record.france_connected_authorizations.exists?
   end
 
   def send_message?
