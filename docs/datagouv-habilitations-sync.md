@@ -6,7 +6,7 @@ Le job `DatagouvHabilitationsSyncJob` met à jour le jeu de données [Habilitati
 
 Une demande peut être en brouillon de réouverture tout en ayant des habilitations actives ; le CSV reflète les habilitations actuellement actives.
 
-À chaque exécution, le job met aussi à jour les métadonnées du dataset : la couverture temporelle est positionnée sur le 1er du mois en cours, sans date de fin.
+À chaque exécution, le job met aussi à jour les métadonnées du dataset : la couverture temporelle « début » est la date de validation de l’habilitation la plus ancienne, sans date de fin.
 
 ## Colonnes du CSV
 
