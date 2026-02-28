@@ -365,8 +365,7 @@ Quand("j'adhère aux conditions générales d'utilisation") do
     )
   end
 
-  if authorization_request.respond_to?(:skip_france_connect_authorization?) &&
-     authorization_request.skip_france_connect_authorization? &&
+  if authorization_request.respond_to?(:skip_fc_alternative_connexion_check_box?) &&
      !authorization_request.skip_fc_alternative_connexion_check_box?
     steps %(
       Quand je coche "J\u2019atteste que mon service propose une alternative"

@@ -131,6 +131,40 @@ RSpec.describe AssignFranceConnectDefaultsOnReopening do
       end
     end
 
+    context 'when france_connect_authorization_id is present (linked existing habilitation)' do
+      let(:authorization_request) do
+        create(:authorization_request, :api_particulier_entrouvert_publik, :reopened, fill_all_attributes: true)
+      end
+
+      around do |example|
+        ServiceProvider.find('entrouvert').apipfc_enabled = true
+        example.run
+      ensure
+        ServiceProvider.find('entrouvert').apipfc_enabled = false
+      end
+
+      before do
+        authorization_request.modalities = %w[params france_connect]
+        authorization_request.france_connect_authorization_id = '999'
+        authorization_request.fc_eidas = nil
+        authorization_request.scopes = %w[cnaf_quotient_familial]
+      end
+
+      it { is_expected.to be_success }
+
+      it 'does not fill fc_eidas' do
+        interactor
+
+        expect(authorization_request.fc_eidas).to be_nil
+      end
+
+      it 'does not add FC scopes' do
+        interactor
+
+        expect(authorization_request.scopes).to eq(%w[cnaf_quotient_familial])
+      end
+    end
+
     context 'when FC modality is not selected' do
       let(:authorization_request) do
         create(:authorization_request, :api_particulier_entrouvert_publik, :reopened, fill_all_attributes: true)

@@ -46,7 +46,7 @@ RSpec.describe AuthorizationRequest::APIParticulier do
         authorization_request.form.service_provider.apipfc_enabled = false
       end
 
-      it { is_expected.to be true }
+      it { is_expected.to be false }
     end
 
     context 'when service provider is fc_certified but not apipfc_enabled' do
@@ -57,6 +57,47 @@ RSpec.describe AuthorizationRequest::APIParticulier do
 
     context 'when service provider is not fc_certified' do
       let(:authorization_request) { build(:authorization_request, :api_particulier_arpege_concerto) }
+
+      it { is_expected.to be false }
+    end
+  end
+
+  describe '#embeds_france_connect_fields?' do
+    subject { authorization_request.embeds_france_connect_fields? }
+
+    context 'when france_connect modality with FC fields filled and no linked authorization' do
+      let(:authorization_request) do
+        build(:authorization_request, :api_particulier,
+          modalities: ['france_connect'],
+          fc_cadre_juridique_nature: 'some nature')
+      end
+
+      it { is_expected.to be true }
+    end
+
+    context 'when france_connect modality with FC fields filled and linked authorization' do
+      let(:authorization_request) do
+        build(:authorization_request, :api_particulier,
+          modalities: ['france_connect'],
+          fc_cadre_juridique_nature: 'some nature',
+          france_connect_authorization_id: '123')
+      end
+
+      it { is_expected.to be false }
+    end
+
+    context 'when france_connect modality without FC fields' do
+      let(:authorization_request) do
+        build(:authorization_request, :api_particulier, modalities: ['france_connect'])
+      end
+
+      it { is_expected.to be false }
+    end
+
+    context 'when no france_connect modality' do
+      let(:authorization_request) do
+        build(:authorization_request, :api_particulier, modalities: ['params'])
+      end
 
       it { is_expected.to be false }
     end

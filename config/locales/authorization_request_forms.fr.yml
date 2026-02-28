@@ -208,6 +208,8 @@ fr:
       france_connect_authorization_id:
         label: Sélectionnez une habilitation FranceConnect qui sera liée à cette demande
         select_blank: Sélectionner une option
+        auto_create: Générer automatiquement une nouvelle habilitation
+        auto_create_hint: "L'éditeur %{service_provider_name} étant déjà certifié pour intégrer FranceConnect, une habilitation FranceConnect sera générée automatiquement à la validation de votre demande. Vous pouvez aussi choisir une habilitation existante si elle correspond à votre cas d'usage."
 
     # End of default
 

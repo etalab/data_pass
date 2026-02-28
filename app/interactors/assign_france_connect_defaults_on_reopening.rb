@@ -17,6 +17,7 @@ class AssignFranceConnectDefaultsOnReopening < ApplicationInteractor
       authorization_request.france_connect_certified_form? &&
       authorization_request.france_connect_modality? &&
       authorization_request.reopening? &&
+      authorization_request.france_connect_authorization_id.blank? &&
       !existing_linked_fc_authorization?
   end
 
