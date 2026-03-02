@@ -193,6 +193,17 @@ class AuthorizationRequestDecorator < ApplicationDecorator # rubocop:disable Met
     )
   end
 
+  def unread_message_badge
+    count = context.fetch(:unread_from_applicant_count_by_id, {})[id].to_i
+    return if count <= 0
+
+    h.content_tag(
+      :span,
+      t('instruction.dashboard.authorization_requests.new_message_badge', count:),
+      class: 'fr-badge unread-message-dot',
+    )
+  end
+
   def france_connect_authorizations
     return [] if organization.blank?
 
