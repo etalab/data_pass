@@ -329,14 +329,15 @@ class AuthorizationRequest < ApplicationRecord
   def self.unread_messages_from_applicant_counts_for(records)
     return {} if records.blank?
 
-    redis = Kredis.configured_for(:shared)
     ids = records.map(&:id)
-    keys = records.map do |record|
-      key_base = "#{record.class.name.tableize.tr('/', ':')}:#{record.id}:redis_unread_messages_from_applicant"
-      Kredis.namespaced_key(key_base)
-    end
-    values = redis.mget(keys)
+    keys = records.map { |record| unread_from_applicant_redis_key_for(record) }
+    values = Kredis.configured_for(:shared).mget(keys)
     ids.zip(values).to_h.transform_values { |v| v.presence ? v.to_i : 0 }
+  end
+
+  def self.unread_from_applicant_redis_key_for(record)
+    key_base = "#{record.class.name.tableize.tr('/', ':')}:#{record.id}:redis_unread_messages_from_applicant"
+    Kredis.namespaced_key(key_base)
   end
 
   def unread_messages_from_instructors_count
