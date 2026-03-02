@@ -5,13 +5,14 @@ class Seeds
     create_oauth_app
     create_all_verified_emails
 
+    create_stats_data
     create_authorization_requests_for_clamart
     create_authorization_requests_for_dinum
+    create_unread_messages_from_applicant
     create_validated_authorization_request(:portail_hubee_demarche_certdc, attributes: { description: nil })
     create_instructor_draft_request(applicant: demandeur)
     create_message_templates
     create_webhooks
-    create_stats_data
   end
 
   def flushdb
@@ -440,6 +441,27 @@ class Seeds
     )
 
     authorization_request.mark_messages_as_read_by_applicant!
+  end
+
+  def create_unread_messages_from_applicant
+    authorization_request = create_submitted_authorization_request(:api_entreprise, attributes: { intitule: 'Demande avec nouveau message', applicant: demandeur })
+    SendMessageToInstructors.call(
+      authorization_request:,
+      user: authorization_request.applicant,
+      message_params: { body: 'Bonjour, j\'ai une question sur le périmètre de données.' },
+    )
+
+    authorization_request = create_submitted_authorization_request(:api_entreprise, attributes: { intitule: 'Autre demande avec message non lu', applicant: another_demandeur })
+    SendMessageToInstructors.call(
+      authorization_request:,
+      user: authorization_request.applicant,
+      message_params: { body: 'Pouvez-vous me préciser le délai d\'instruction ?' },
+    )
+    SendMessageToInstructors.call(
+      authorization_request:,
+      user: authorization_request.applicant,
+      message_params: { body: 'Et les pièces à joindre pour le justificatif ?' },
+    )
   end
 
   def send_message_to_applicant(authorization_request, message_params)

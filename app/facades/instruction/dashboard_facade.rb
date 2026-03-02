@@ -1,5 +1,5 @@
 class Instruction::DashboardFacade
-  attr_reader :tabs, :items, :search_engine, :partial
+  attr_reader :tabs, :items, :search_engine, :partial, :unread_from_applicant_count_by_id
 
   Tab = Data.define(:id, :path, :count)
 
@@ -17,6 +17,7 @@ class Instruction::DashboardFacade
     @items = search_object.paginated_results
     @tabs = build_tabs
     @partial = partial_name
+    @unread_from_applicant_count_by_id = {}
   end
 
   def build_tabs
