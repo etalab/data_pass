@@ -423,9 +423,9 @@ class AuthorizationRequest < ApplicationRecord
 
   def france_connected_authorizations
     if definition.france_connect?
-      fc_referencing_authorizations
+      related_apiparticulier_authorizations
     else
-      fc_linked_authorizations
+      related_franceconnect_authorizations
     end
   end
 
@@ -448,34 +448,37 @@ class AuthorizationRequest < ApplicationRecord
 
   private
 
-  def fc_referencing_authorizations
-    Authorization.where(
+  def related_apiparticulier_authorizations
+    by_data = Authorization.where(
       "data -> 'france_connect_authorization_id' IN (?)",
       authorization_ids.map(&:to_s).uniq
     )
+    by_parent = Authorization.where(
+      parent_authorization_id: authorization_ids
+    ).where.not(authorization_request_class: 'AuthorizationRequest::FranceConnect')
+
+    return Authorization.none if by_data.none? && by_parent.none?
+
+    Authorization.where(id: by_data.pluck(:id) + by_parent.pluck(:id))
   end
 
-  def fc_linked_authorizations
-    by_id = fc_linked_by_id
-    by_parent = fc_linked_by_parent
+  def related_franceconnect_authorizations
+    by_data = related_franceconnect_by_data
+    by_parent = Authorization.where(
+      parent_authorization_id: authorization_ids,
+      authorization_request_class: 'AuthorizationRequest::FranceConnect'
+    )
 
-    return Authorization.none if by_id.none? && by_parent.none?
+    return Authorization.none if by_data.none? && by_parent.none?
 
-    Authorization.where(id: by_id.pluck(:id) + by_parent.pluck(:id))
+    Authorization.where(id: by_data.pluck(:id) + by_parent.pluck(:id))
   end
 
-  def fc_linked_by_id
+  def related_franceconnect_by_data
     fc_id = data['france_connect_authorization_id']
     return Authorization.none if fc_id.blank?
 
     Authorization.where(id: fc_id)
-  end
-
-  def fc_linked_by_parent
-    Authorization.where(
-      parent_authorization_id: authorization_ids,
-      authorization_request_class: 'AuthorizationRequest::FranceConnect'
-    )
   end
 
   def all_required_terms_accepted?

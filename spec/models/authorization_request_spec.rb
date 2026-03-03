@@ -675,6 +675,19 @@ RSpec.describe AuthorizationRequest do
 
       it { is_expected.to contain_exactly(api_authorization_request.latest_authorization) }
     end
+
+    context 'when FC request with APIP child authorization linked by parent' do
+      let(:authorization_request) { create(:authorization_request, :france_connect, :validated, organization:) }
+      let(:fc_authorization) { authorization_request.latest_authorization }
+      let!(:apip_child_authorization) do
+        create(:authorization,
+          request: create(:authorization_request, :api_particulier, :validated, organization:),
+          authorization_request_class: 'AuthorizationRequest::APIParticulier',
+          parent_authorization_id: fc_authorization.id)
+      end
+
+      it { is_expected.to contain_exactly(apip_child_authorization) }
+    end
   end
 
   describe 'all_terms_accepted validation' do
