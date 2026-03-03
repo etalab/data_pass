@@ -1,14 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe AuthorizationRequestMailer do
-  def decoded_text_body(mail)
-    mail.multipart? ? mail.text_part.body.decoded : mail.body.decoded
-  end
-
-  def decoded_html_body(mail)
-    mail.html_part&.body&.decoded
-  end
-
   describe 'html rendering' do
     subject(:mail) do
       described_class.with(
@@ -23,6 +15,18 @@ RSpec.describe AuthorizationRequestMailer do
         html = decoded_html_body(mail)
         expect(html).to match('href')
         expect(html).to match('espace agent')
+      end
+    end
+
+    context 'when there is no custom HTML template for the kind' do
+      let(:authorization_request) { create(:authorization_request, :hubee_cert_dc, :validated) }
+
+      it 'renders the generic HTML template with linkified URLs' do
+        html = decoded_html_body(mail)
+        expect(html).to be_present
+        expect(html).to match(/<a href=/)
+        expect(html).to match('validée')
+        expect(html).to match('consulter')
       end
     end
   end
@@ -125,6 +129,13 @@ RSpec.describe AuthorizationRequestMailer do
 
     it 'renders valid template' do
       expect(decoded_text_body(mail)).to match('a été révoquée')
+    end
+
+    it 'renders HTML part with linkified content' do
+      html = decoded_html_body(mail)
+      expect(html).to be_present
+      expect(html).to match('href')
+      expect(html).to match('révoquée')
     end
   end
 
