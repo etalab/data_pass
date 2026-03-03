@@ -13,17 +13,31 @@ class AuthorizationRequestMailer < ApplicationMailer
             authorization_request_id: @authorization_request.id,
           )
         ) do |format|
-          format.text { render "authorization_request_mailer/#{@authorization_request.kind}/#{mth}" }
+          format.text { render text_template_path_for(@authorization_request.kind, mth) }
           html_path = html_template_path_for(@authorization_request.kind, mth)
           format.html { render html_path } if html_path
-        rescue ActionView::MissingTemplate
-          format.text
         end
       end
     end
   end
 
   private
+
+  def text_template_path_for(kind, action)
+    return "authorization_request_mailer/#{kind}/#{action}" if text_template_exists?(kind, action)
+
+    "authorization_request_mailer/#{action}"
+  end
+
+  def text_template_exists?(kind, action)
+    lookup_context.exists?(
+      "#{kind}/#{action}",
+      ['authorization_request_mailer'],
+      false,
+      [],
+      formats: [:text],
+    )
+  end
 
   def html_template_path_for(kind, action)
     return "authorization_request_mailer/#{kind}/#{action}" if html_template_exists?(kind, action)
