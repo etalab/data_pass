@@ -26,7 +26,11 @@ module AuthorizationExtensions::FranceConnectEmbeddedFields
   end
 
   def available_scopes
-    super.reject { |scope| scope.group == FRANCE_CONNECT_GROUP && !france_connect_modality? }
+    super.reject { |scope| scope.group == FRANCE_CONNECT_GROUP && !show_france_connect_scopes? }
+  end
+
+  def show_france_connect_scopes?
+    france_connect_modality? && france_connect_authorization_id.blank?
   end
 
   def fc_scopes
@@ -54,7 +58,7 @@ module AuthorizationExtensions::FranceConnectEmbeddedFields
   private
 
   def remove_france_connect_scopes_if_modality_not_selected
-    return if france_connect_modality?
+    return if show_france_connect_scopes?
     return if scopes.blank?
 
     self.scopes = scopes - france_connect_scope_values

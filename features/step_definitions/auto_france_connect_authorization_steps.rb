@@ -105,6 +105,26 @@ Sachantque('il y a une demande API Particulier validée compatible FranceConnect
   )
 end
 
+Sachantque('il y a une demande API Particulier avec une habilitation FC existante liée à modérer') do
+  ServiceProvider.find('entrouvert').apipfc_enabled = true
+
+  @authorization_request = FactoryBot.create(
+    :authorization_request,
+    :api_particulier_entrouvert_publik,
+    :submitted,
+    contact_technique_phone_number: '0612345678'
+  )
+
+  fc_request = FactoryBot.create(
+    :authorization_request,
+    :france_connect,
+    :validated,
+    organization: @authorization_request.organization
+  )
+  fc_authorization = fc_request.authorizations.find_by(authorization_request_class: 'AuthorizationRequest::FranceConnect')
+  @authorization_request.update!(data: @authorization_request.data.merge('france_connect_authorization_id' => fc_authorization.id.to_s, 'modalities' => %w[params france_connect]))
+end
+
 Quand('je me rends sur la demande instruction d\'une API Particulier avec champs FranceConnect intégrés validée') do
   ServiceProvider.find('entrouvert').apipfc_enabled = true
 

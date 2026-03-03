@@ -156,14 +156,31 @@ class AuthorizationRequestFormBuilder < DsfrFormBuilder
   end
 
   def france_connect_authorization_select
-    return unless @object.france_connect_authorizations.any?
+    options = france_connect_authorization_options
+    return if options.empty?
+
+    default_value = @object.france_connect_authorization_id || options.first&.last
 
     dsfr_select(
       :france_connect_authorization_id,
-      @template.options_for_select(*france_connect_options_for_select),
+      @template.options_for_select(options, default_value),
       label: wording_for('france_connect_authorization_id.label'),
       required: true,
       include_blank: wording_for('france_connect_authorization_id.select_blank'),
+      class: 'fr-select',
+    )
+  end
+
+  def france_connect_authorization_select_with_auto_create
+    auto_create_option = [[wording_for('france_connect_authorization_id.auto_create'), '']]
+    options = auto_create_option + france_connect_authorization_options
+
+    dsfr_select(
+      :france_connect_authorization_id,
+      @template.options_for_select(options, @object.france_connect_authorization_id),
+      label: wording_for('france_connect_authorization_id.label'),
+      required: false,
+      include_blank: false,
       class: 'fr-select',
     )
   end
@@ -225,13 +242,10 @@ class AuthorizationRequestFormBuilder < DsfrFormBuilder
       object.france_connect_certified_form?
   end
 
-  def france_connect_options_for_select
-    default_option = @object.france_connect_authorization_id || @object.france_connect_authorizations.first&.id
-
-    [
-      @object.france_connect_authorizations.map { |authorization| [authorization.name_for_select, authorization.id] },
-      default_option,
-    ]
+  def france_connect_authorization_options
+    @object.france_connect_authorizations.reject(&:auto_generated?).map do |authorization|
+      [authorization.name_for_select, authorization.id]
+    end
   end
 
   def all_terms_not_accepted_error?(attribute)
