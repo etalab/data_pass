@@ -10,7 +10,7 @@
   </h3>
   <div class="fr-collapse" id="email-preview-accordion">
     <div class="fr-p-3w" style="background-color: var(--background-contrast-grey);">
-      <%= simple_format(preview_with_marker, {}, sanitize: false) %>
+      <%= simple_format(linkify_urls(preview_with_marker), {}, sanitize: false) %>
     </div>
   </div>
 </section>
