@@ -1,4 +1,8 @@
 RSpec.describe MessageMailer do
+  def decoded_body(mail)
+    mail.multipart? ? mail.text_part.body.decoded : mail.body.decoded
+  end
+
   describe '#to_applicant' do
     let(:mail) { described_class.with(message:).to_applicant }
     let(:message) { create(:message) }
@@ -8,8 +12,9 @@ RSpec.describe MessageMailer do
     end
 
     it 'renders valid template' do
-      expect(mail.body.encoded).to match('un nouveau message')
-      expect(mail.body.encoded).to match('demande d\'habilitation')
+      body = decoded_body(mail)
+      expect(body).to match('un nouveau message')
+      expect(body).to match(/demande d'habilitation/)
     end
   end
 
@@ -22,8 +27,9 @@ RSpec.describe MessageMailer do
     end
 
     it 'renders valid template' do
-      expect(mail.body.encoded).to match('un nouveau message')
-      expect(mail.body.encoded).to match('demande de réouverture de l\'habilitation')
+      body = decoded_body(mail)
+      expect(body).to match('un nouveau message')
+      expect(body).to match(/demande de réouverture de l'habilitation/)
     end
   end
 
@@ -41,8 +47,9 @@ RSpec.describe MessageMailer do
     end
 
     it 'renders valid template' do
-      expect(mail.body.encoded).to match('un nouveau message')
-      expect(mail.body.encoded).to match('demande d\'habilitation')
+      body = decoded_body(mail)
+      expect(body).to match('un nouveau message')
+      expect(body).to match(/demande d'habilitation/)
     end
   end
 
@@ -58,8 +65,9 @@ RSpec.describe MessageMailer do
     end
 
     it 'renders valid template' do
-      expect(mail.body.encoded).to match('un nouveau message')
-      expect(mail.body.encoded).to match('demande de réouverture de l\'habilitation')
+      body = decoded_body(mail)
+      expect(body).to match('un nouveau message')
+      expect(body).to match(/demande de réouverture de l'habilitation/)
     end
   end
 end
