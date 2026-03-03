@@ -135,7 +135,9 @@ class AuthorizationRequestFormsController < AuthenticatedUserController
   end
 
   def redirect_to_current_build_step
-    step = cookies.fetch(current_build_step_cache_key, t("wicked.#{@authorization_request_form.steps.first[:name]}"))
+    first_step = t("wicked.#{@authorization_request_form.steps.first[:name]}")
+    step = cookies.fetch(current_build_step_cache_key, first_step)
+    step = first_step if step == Wicked::FINISH_STEP
 
     redirect_to authorization_request_form_build_path(
       form_uid: @authorization_request_form.uid,

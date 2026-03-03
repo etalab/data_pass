@@ -2,6 +2,12 @@ fr:
   admin:
     index:
       title: Espace administrateur
+      whitelisted_emails: Emails en liste blanche
+      users_with_roles: Utilisateurs avec des rôles
+      impersonate: Impersonner un utilisateur
+      transfer_authorization_request: Transférer une demande vers une autre organisation
+      user_organization_verification: "Vérification lien utilisateur / organisation"
+      habilitation_types: Types d’habilitation
     users_with_roles:
       index:
         title: Utilisateurs avec rôles
@@ -148,3 +154,55 @@ fr:
       destroy:
         success: "La vérification a été retirée"
         error: "Une erreur est survenue"
+
+    habilitation_types:
+      index:
+        title: "Types d’habilitation"
+        skip_to_list: "Aller au tableau des types d’habilitation"
+        empty: "Aucun type d’habilitation créé."
+        new: Nouveau type
+        edit: Modifier
+        delete: Supprimer
+        confirm_delete: "Supprimer le type « %{name} » ?"
+        table:
+          name: Nom
+          provider: Fournisseur
+          kind: Type
+          created_at: Date de création
+          requests_count: Demandes
+          actions: Actions
+      new:
+        title: "Nouveau type d’habilitation"
+        skip_to_form: Aller au formulaire
+      edit:
+        title: "Modifier le type d’habilitation"
+        skip_to_form: Aller au formulaire
+      form:
+        sections:
+          general: Informations générales
+          blocks: Blocs
+        uid_preview_label: Identifiant technique (UID)
+        kind_label: Type
+        select_provider: "— Sélectionner un fournisseur —"
+        kinds:
+          api: API
+          service: Service
+        blocks:
+          basic_infos: Informations de base
+          legal: Cadre juridique
+          personal_data: Données personnelles
+          contacts: Contacts
+          scopes: Données (scopes)
+        submit_new: Créer
+        submit_edit: Enregistrer
+        cancel: Annuler
+      create:
+        success: "Type d’habilitation créé avec succès"
+        error: "Une erreur est survenue lors de la création"
+      update:
+        success: "Type d’habilitation mis à jour"
+        error: "Une erreur est survenue lors de la mise à jour"
+      destroy:
+        success: "Type d’habilitation supprimé"
+        error: "Une erreur est survenue lors de la suppression"
+

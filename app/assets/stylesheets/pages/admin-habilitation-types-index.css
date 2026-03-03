@@ -1,0 +1,16 @@
+.admin-habilitation-types-table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.admin-habilitation-types-table col:nth-child(1) { width: 30%; }
+.admin-habilitation-types-table col:nth-child(2) { width: 32%; }
+.admin-habilitation-types-table col:nth-child(3) { width: 8%; }
+.admin-habilitation-types-table col:nth-child(4) { width: 12%; }
+.admin-habilitation-types-table col:nth-child(5) { width: 8%; }
+.admin-habilitation-types-table col:nth-child(6) { width: 10%; }
+
+.admin-habilitation-types-table .text-wrap-cell {
+  word-break: break-word;
+  white-space: normal;
+}

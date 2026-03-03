@@ -7,15 +7,15 @@ class HabilitationType < ApplicationRecord
 
   belongs_to :data_provider
 
-  enum :kind, { api: 'api', service: 'service' }
+  enum :kind, { api: 'api', service: 'service' }, validate: true
 
   validates :name, presence: true
   validates :slug, presence: true, uniqueness: true
-  validates :kind, presence: true, inclusion: { in: kinds.keys }
+  validates :kind, presence: true
   validate :slug_not_taken_by_yaml
 
-  after_create :register_dynamic_class
   after_destroy :reset_static_caches
+  after_save :register_dynamic_class
   after_save :reset_static_caches
 
   def public
@@ -39,6 +39,10 @@ class HabilitationType < ApplicationRecord
     BLOCK_ORDER.select { |name| block_names.include?(name) }
   end
 
+  def authorization_requests_count
+    AuthorizationRequest.where(type: "AuthorizationRequest::#{uid.classify}").count
+  end
+
   private
 
   def block_name_list
@@ -49,7 +53,7 @@ class HabilitationType < ApplicationRecord
     return if slug.blank?
     return unless AuthorizationDefinition.yaml_records.map(&:id).include?(uid)
 
-    errors.add(:slug, 'correspond à un type YAML existant')
+    errors.add(:slug, :taken_by_yaml_type)
   end
 
   def register_dynamic_class

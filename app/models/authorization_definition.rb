@@ -40,10 +40,15 @@ class AuthorizationDefinition < StaticApplicationRecord
       startable_by_applicant: record.startable_by_applicant,
       provider: record.data_provider&.slug,
       scopes: record.scopes&.map(&:symbolize_keys),
+      blocks: normalize_blocks(record.blocks),
     ))
   end
 
-  private_class_method :db_records, :build_from_db_record
+  def self.normalize_blocks(blocks)
+    (blocks || []).compact_blank.map { |b| b.is_a?(Hash) ? b.symbolize_keys : { name: b } }
+  end
+
+  private_class_method :db_records, :build_from_db_record, :normalize_blocks
 
   def editors
     available_forms.select { |form|

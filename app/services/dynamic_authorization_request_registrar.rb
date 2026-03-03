@@ -1,4 +1,6 @@
 class DynamicAuthorizationRequestRegistrar
+  VALID_RUBY_CLASSNAME = /\A[A-Z][a-zA-Z0-9]*\z/
+
   BLOCK_HANDLERS = {
     'basic_infos' => ->(klass, _record) { klass.include(AuthorizationExtensions::BasicInfos) },
     'legal' => ->(klass, _record) { klass.include(AuthorizationExtensions::CadreJuridique) },
@@ -33,16 +35,20 @@ class DynamicAuthorizationRequestRegistrar
   private
 
   def apply_block(klass, block)
-    block_name = block['name']
+    block_name = block.is_a?(Hash) ? block['name'] : block
     if BLOCK_HANDLERS.key?(block_name)
       BLOCK_HANDLERS[block_name].call(klass, @record)
     else
+      Sentry.capture_message(
+        "DynamicAuthorizationRequestRegistrar: unknown block '#{block_name}' for uid '#{@record.uid}'",
+        level: :warning
+      )
       Rails.logger.warn("DynamicAuthorizationRequestRegistrar: unknown block '#{block_name}' for uid '#{@record.uid}', skipping")
     end
   end
 
   def valid_class_name?
-    class_name.match?(/\A[A-Z][a-zA-Z0-9]*\z/)
+    class_name.match?(VALID_RUBY_CLASSNAME)
   end
 
   def class_name

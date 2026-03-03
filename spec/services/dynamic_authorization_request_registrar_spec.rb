@@ -82,6 +82,16 @@ RSpec.describe DynamicAuthorizationRequestRegistrar do
       end
     end
 
+    context 'with blocks stored as strings' do
+      let(:record) { DynamicRecord.new(uid, %w[basic_infos legal], []) }
+
+      it 'applies all blocks' do
+        register
+        klass = AuthorizationRequest.const_get(uid.classify)
+        expect(klass.extra_attributes).to include(:intitule, :cadre_juridique_url)
+      end
+    end
+
     context 'with an unknown block' do
       let(:record) { DynamicRecord.new(uid, [{ 'name' => 'unknown_block' }], []) }
 
