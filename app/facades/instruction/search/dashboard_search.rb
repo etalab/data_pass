@@ -42,7 +42,7 @@ class Instruction::Search::DashboardSearch
   end
 
   def includes_associations
-    [:organization]
+    [:organization, :applicant]
   end
 
   def build_search_engine
