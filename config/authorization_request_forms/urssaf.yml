@@ -14,7 +14,6 @@ api-declaration-auto-entrepreneur:
     cadre_juridique_url: https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000033686041/
 
 api-declaration-cesu:
-  introduction: ''
   authorization_request: APIDeclarationCESU
   introduction: |
     <p>L'API Tierce Déclaration Cesu (API TD Cesu) est un dispositif permettant aux éditeurs de logiciels, plateformes de mise en relation, et mandataires d’intégrer les outils de gestion des démarches administratives liées aux comptes Cesu des particuliers employeurs.</p> 
