@@ -11,6 +11,6 @@ class Admin::DestroyHabilitationType < ApplicationOrganizer
   organize Admin::TrackEvent
 
   after do
-    context.habilitation_type.destroy
+    context.fail!(error: context.habilitation_type.errors) unless context.habilitation_type.destroy
   end
 end

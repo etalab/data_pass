@@ -14,6 +14,8 @@ class HabilitationType < ApplicationRecord
   validates :kind, presence: true
   validate :slug_not_taken_by_yaml
 
+  before_destroy :ensure_no_authorization_requests
+  after_destroy :unregister_dynamic_class
   after_destroy :reset_static_caches
   after_save :register_dynamic_class
   after_save :reset_static_caches
@@ -54,6 +56,18 @@ class HabilitationType < ApplicationRecord
     return unless AuthorizationDefinition.yaml_records.map(&:id).include?(uid)
 
     errors.add(:slug, :taken_by_yaml_type)
+  end
+
+  def ensure_no_authorization_requests
+    return if authorization_requests_count.zero?
+
+    errors.add(:base, :has_authorization_requests)
+    throw :abort
+  end
+
+  def unregister_dynamic_class
+    class_name = uid.classify
+    AuthorizationRequest.send(:remove_const, class_name) if AuthorizationRequest.const_defined?(class_name, false)
   end
 
   def register_dynamic_class
