@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :habilitation_type do
-    sequence(:name) { |n| "Mon API #{n}" }
+    sequence(:name) { |n| "Mon portail test#{n}" }
     description { 'Une API de test' }
     kind { 'api' }
     data_provider

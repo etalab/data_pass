@@ -33,6 +33,25 @@ RSpec.describe HabilitationType do
     end
   end
 
+  describe 'uid classifiability validation' do
+    it 'is invalid when name ends with a pluralizable word' do
+      habilitation_type.name = 'Mon API scopes'
+      expect(habilitation_type).not_to be_valid
+      expect(habilitation_type.errors[:name]).to be_present
+    end
+
+    it 'is invalid when name starts with a digit' do
+      habilitation_type.name = '1er portail'
+      expect(habilitation_type).not_to be_valid
+      expect(habilitation_type.errors[:name]).to be_present
+    end
+
+    it 'is valid when name generates a classify-stable uid' do
+      habilitation_type.name = 'Mon API'
+      expect(habilitation_type).to be_valid
+    end
+  end
+
   describe 'slug collision with YAML' do
     it 'is invalid when uid matches an existing YAML definition' do
       existing_yaml_uid = AuthorizationDefinition.yaml_records.first.id
