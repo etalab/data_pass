@@ -5,6 +5,7 @@ class Admin::UpdateHabilitationType < ApplicationOrganizer
     context.admin_before_attributes = {
       name: context.habilitation_type.name,
       blocks: context.habilitation_type.blocks,
+      contact_types: context.habilitation_type.contact_types,
     }
   end
 

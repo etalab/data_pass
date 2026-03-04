@@ -1,5 +1,6 @@
 class HabilitationType < ApplicationRecord
   BLOCK_ORDER = %w[basic_infos legal personal_data scopes contacts].freeze
+  DEFAULT_BLOCKS = %w[basic_infos legal personal_data].freeze
 
   extend FriendlyId
 
@@ -13,6 +14,7 @@ class HabilitationType < ApplicationRecord
   validates :slug, presence: true, uniqueness: true
   validates :kind, presence: true
   validate :slug_not_taken_by_yaml
+  validates :contact_types, presence: true, if: :contacts_block_selected?
 
   before_destroy :ensure_no_authorization_requests
   after_destroy :unregister_dynamic_class
@@ -53,6 +55,10 @@ class HabilitationType < ApplicationRecord
 
   def block_name_list
     (blocks || []).map { |b| b.is_a?(Hash) ? b['name'] || b[:name] : b }
+  end
+
+  def contacts_block_selected?
+    block_name_list.include?('contacts')
   end
 
   def slug_not_taken_by_yaml
