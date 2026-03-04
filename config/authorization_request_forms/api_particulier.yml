@@ -1408,7 +1408,7 @@ api-particulier-ccas-paxtel:
       - params
 
 api-particulier-ypok:
-  name: YGRC
+  name: Ykidz
   description: Facturation des familles pour les services enfance
   authorization_request: APIParticulier
   introduction: *api_particulier_introduction_editor_with_editable_scopes
