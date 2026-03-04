@@ -508,7 +508,7 @@ fr:
       <<: *api_particulier_editor_common_wordings
     api_particulier_paxtel:
       <<: *api_particulier_editor_common_wordings
-    api_particulier_ypok:
+    api_particulier_ypok_ykidz:
       <<: *api_particulier_editor_common_wordings
     api_particulier_ars_data:
       <<: *api_particulier_editor_common_wordings
