@@ -47,6 +47,17 @@ api_declaration_auto_entrepreneur:
 api_declaration_cesu:
   name: API Tierce Déclaration CESU
   description: "Connectez-vous directement à l’Urssaf pour accéder aux services du Cesu pour le compte d’un particulier employeur en tant que tiers-déclarant"
+  introduction: |
+    <p>L'API Tierce Déclaration Cesu (API TD Cesu) est un dispositif permettant aux éditeurs de logiciels, plateformes de mise en relation, et mandataires d’intégrer les outils de gestion des démarches administratives liées aux comptes Cesu des particuliers employeurs.</p> 
+    <p>Elle permet notamment :
+    <ul>
+      <li>D'inscrire un particulier employeur au service Cesu</li>
+      <li>D'activer le service Cesu+</li>
+      <li>D'activer l'Avance immédiate de crédit d'impôt</li>
+      <li>D'établir les déclarations de salaires.</li>
+    </ul>
+    Le recours à l'API TD Cesu implique l'utilisation d'un logiciel compatible.</p>
+    <p>Bon à savoir : pour savoir auprès de quelle API votre structure doit procéder à sa demande d’habilitation, consultez la documentation <a href="/public/doc/infographie_api_urssaf.pdf">ci-jointe</a>.</p>
   provider: "urssaf"
   kind: 'api'
   link: "https://api.gouv.fr/les-api/api-declaration-cesu"
