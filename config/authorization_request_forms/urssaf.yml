@@ -25,7 +25,7 @@ api-declaration-cesu:
       <li>D'établir les déclarations de salaires.</li>
     </ul>
     Le recours à l'API TD Cesu implique l'utilisation d'un logiciel compatible.</p>
-    <p>Bon à savoir : pour savoir auprès de quelle API votre structure doit procéder à sa demande d’habilitation, consultez la documentation <a href="/public/doc/infographie_api_urssaf.pdf">ci-jointe</a>.</p>
+    <p>Bon à savoir : pour savoir auprès de quelle API votre structure doit procéder à sa demande d’habilitation, consultez la documentation <a href="/doc/infographie_api_urssaf.pdf">ci-jointe</a>.</p>
   steps:
     - name: basic_infos
     - name: personal_data
