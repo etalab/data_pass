@@ -52,6 +52,37 @@ RSpec.describe HabilitationType do
     end
   end
 
+  describe 'validation: contacts block requires contact_types' do
+    context 'when contacts block is selected' do
+      before { habilitation_type.blocks = [{ 'name' => 'contacts' }] }
+
+      it 'is invalid without contact_types' do
+        habilitation_type.contact_types = []
+        expect(habilitation_type).not_to be_valid
+        expect(habilitation_type.errors[:contact_types]).to be_present
+      end
+
+      it 'is valid with contact_types' do
+        habilitation_type.contact_types = ['contact_technique']
+        expect(habilitation_type).to be_valid
+      end
+    end
+
+    context 'when contacts block is not selected' do
+      before { habilitation_type.blocks = [{ 'name' => 'basic_infos' }] }
+
+      it 'is valid without contact_types' do
+        habilitation_type.contact_types = []
+        expect(habilitation_type).to be_valid
+      end
+
+      it 'is valid with contact_types' do
+        habilitation_type.contact_types = ['contact_technique']
+        expect(habilitation_type).to be_valid
+      end
+    end
+  end
+
   describe 'slug collision with YAML' do
     it 'is invalid when uid matches an existing YAML definition' do
       existing_yaml_uid = AuthorizationDefinition.yaml_records.first.id
