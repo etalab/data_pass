@@ -783,7 +783,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur fc_certif
 
     Exemples:
       | Nom du formulaire | Nom de l'éditeur |
-      | YGRC              | Ypok             |
+      | Ykidz             | Ypok             |
 
   Plan du scénario: La modalité FranceConnect est cochée par défaut pour un cas d'usage FranceConnect obligatoire
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>"

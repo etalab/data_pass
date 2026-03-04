@@ -474,7 +474,7 @@ FactoryBot.define do
       api-particulier-carte-plus
       api-particulier-ganesh-education
       api-particulier-paxtel
-      api-particulier-ypok
+      api-particulier-ypok-ykidz
       api-particulier-ars-data
       api-particulier-e1os
       api-particulier-acheteza
