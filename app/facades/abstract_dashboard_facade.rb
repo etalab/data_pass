@@ -62,8 +62,8 @@ class AbstractDashboardFacade
   end
 
   def total_count
-    highlighted_categories.values.sum(&:count) +
-      categories.values.sum(&:count)
+    highlighted_categories.values.sum(&:size) +
+      categories.values.sum(&:size)
   end
 
   def empty_with_filter?
