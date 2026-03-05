@@ -1,4 +1,6 @@
 class ApplicationMailer < ActionMailer::Base
+  helper ApplicationHelper
+
   default from: "DataPass <#{Rails.application.config.default_from}>"
 
   layout 'mailer'

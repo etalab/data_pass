@@ -12,7 +12,7 @@ Vous bénéficiez de vos nouveaux droits et désormais, sur votre compte agent, 
 <% if @authorization_request.latest_authorization&.message.present? %>
 Message associée à la validation de votre habilitation :
 </br>
-<%= @authorization_request.latest_authorization.message %>
+<%= simple_format(linkify_urls(@authorization_request.latest_authorization.message)) %>
 </br>
 <% end %>
 <%= render partial: 'mailer/shared/applicant/footer', locals: { authorization_definition_name: @authorization_request.definition.name } %>
