@@ -36,6 +36,10 @@ class HabilitationType < ApplicationRecord
     slug.underscore
   end
 
+  def authorization_request_type
+    "AuthorizationRequest::#{uid.classify}"
+  end
+
   def ordered_steps
     block_names = block_name_list
     BLOCK_ORDER.select { |name| block_names.include?(name) }
