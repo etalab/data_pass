@@ -13,11 +13,11 @@ export default class extends Controller {
   }
 
   updateVisibility () {
-    if (this.blockCheckbox?.checked) {
-      this.sectionTarget.classList.remove('fr-hidden')
-    } else {
-      this.sectionTarget.classList.add('fr-hidden')
-    }
+    const visible = this.blockCheckbox?.checked
+    this.sectionTarget.classList.toggle('fr-hidden', !visible)
+    this.sectionTarget.querySelectorAll('input[type="checkbox"]').forEach(input => {
+      input.disabled = !visible
+    })
   }
 
   get blockCheckbox () {
