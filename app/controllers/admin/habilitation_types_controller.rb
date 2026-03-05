@@ -56,7 +56,7 @@ class Admin::HabilitationTypesController < AdminController
     if organizer.success?
       success_message(title: t('.success'))
     else
-      error_message(title: t('.error'))
+      error_message_for(@habilitation_type, title: t('.error'))
     end
 
     redirect_to admin_habilitation_types_path
@@ -67,18 +67,14 @@ class Admin::HabilitationTypesController < AdminController
   def preload_requests_counts(habilitation_types)
     raw_counts = fetch_raw_counts(habilitation_types)
 
-    habilitation_types.each_with_object({}) do |ht, h|
-      h[ht.id] = raw_counts[authorization_request_type(ht)] || 0
+    habilitation_types.each_with_object({}) do |habilitation_type, counts|
+      counts[habilitation_type.id] = raw_counts[habilitation_type.authorization_request_type] || 0
     end
   end
 
   def fetch_raw_counts(habilitation_types)
-    types = habilitation_types.map { |ht| authorization_request_type(ht) }
+    types = habilitation_types.map(&:authorization_request_type)
     AuthorizationRequest.where(type: types).group(:type).count
-  end
-
-  def authorization_request_type(habilitation_type)
-    "AuthorizationRequest::#{habilitation_type.uid.classify}"
   end
 
   def set_habilitation_type
