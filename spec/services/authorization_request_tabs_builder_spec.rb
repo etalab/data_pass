@@ -20,13 +20,24 @@ RSpec.describe AuthorizationRequestTabsBuilder do
       expect(tabs.keys).to eq(%i[authorization_request authorization_request_events messages authorizations])
     end
 
-    context 'when france_connect request with linked authorizations' do
+    context 'when france_connect request without referencing authorizations' do
+      let(:authorization_request) { create(:authorization_request, :france_connect, :validated) }
+
+      it 'does not include france_connected_authorizations tab' do
+        expect(tabs).not_to have_key(:france_connected_authorizations)
+      end
+    end
+
+    context 'when france_connect request with referencing authorizations' do
       let(:authorization_request) { create(:authorization_request, :france_connect, :validated) }
 
       before do
-        linked_auth = create(:authorization)
-        linked_auth.data['france_connect_authorization_id'] = authorization_request.latest_authorization.id
-        linked_auth.save!
+        api_request = create(:authorization_request, :api_droits_cnam, :validated)
+        merged_data = api_request.data.merge(
+          'france_connect_authorization_id' => authorization_request.latest_authorization.id.to_s
+        )
+        api_request.update_column(:data, merged_data)
+        api_request.latest_authorization.update_column(:data, merged_data)
       end
 
       it 'includes france_connected_authorizations tab' do
@@ -37,15 +48,22 @@ RSpec.describe AuthorizationRequestTabsBuilder do
       end
     end
 
-    context 'when france_connect request without linked authorizations' do
-      let(:authorization_request) { create(:authorization_request, :france_connect, :validated) }
-
+    context 'when not a france_connect request' do
       it 'does not include france_connected_authorizations tab' do
         expect(tabs).not_to have_key(:france_connected_authorizations)
       end
     end
 
-    context 'when not a france_connect request' do
+    context 'when non-FC request with linked FC authorizations' do
+      let(:authorization_request) { create(:authorization_request, :api_droits_cnam, :validated) }
+
+      before do
+        create(:authorization,
+          request: authorization_request,
+          authorization_request_class: 'AuthorizationRequest::FranceConnect',
+          parent_authorization_id: authorization_request.latest_authorization.id)
+      end
+
       it 'does not include france_connected_authorizations tab' do
         expect(tabs).not_to have_key(:france_connected_authorizations)
       end

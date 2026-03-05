@@ -352,39 +352,67 @@ RSpec.describe AuthorizationRequestPolicy do
 
     let(:authorization_request_class) { authorization_request }
 
-    context 'when not a france_connect request' do
+    context 'when not a france_connect request without FC link' do
       let(:authorization_request) { create(:authorization_request, :api_entreprise, :submitted, applicant: user) }
 
       it { is_expected.to be false }
     end
 
-    context 'when france_connect request without linked authorizations' do
-      let(:authorization_request) { create(:authorization_request, :france_connect, :submitted, applicant: user) }
+    context 'when non-FC request with linked FC authorizations by france_connect_authorization_id' do
+      let(:fc_authorization_request) { create(:authorization_request, :france_connect, :validated, applicant: user) }
+      let(:authorization_request) do
+        create(:authorization_request, :api_droits_cnam, :validated, applicant: user).tap do |ar|
+          ar.update!(data: ar.data.merge('france_connect_authorization_id' => fc_authorization_request.latest_authorization.id.to_s))
+        end
+      end
+
+      it { is_expected.to be true }
+    end
+
+    context 'when non-FC request with auto-generated FC child authorization' do
+      let(:authorization_request) { create(:authorization_request, :api_particulier, :validated, applicant: user) }
+
+      before do
+        create(:authorization,
+          request: authorization_request,
+          authorization_request_class: 'AuthorizationRequest::FranceConnect',
+          parent_authorization_id: authorization_request.latest_authorization.id)
+      end
+
+      it { is_expected.to be true }
+    end
+
+    context 'when france_connect request without referencing authorizations' do
+      let(:authorization_request) { create(:authorization_request, :france_connect, :validated, applicant: user) }
 
       it { is_expected.to be false }
     end
 
-    context 'when france_connect request with linked authorizations' do
+    context 'when france_connect request with referencing authorizations' do
       let(:authorization_request) { create(:authorization_request, :france_connect, :validated, applicant: user) }
 
       before do
-        linked_auth = create(:authorization)
-        linked_auth.data['france_connect_authorization_id'] = authorization_request.latest_authorization.id
-        linked_auth.save!
+        api_request = create(:authorization_request, :api_droits_cnam, :validated, applicant: user)
+        merged_data = api_request.data.merge(
+          'france_connect_authorization_id' => authorization_request.latest_authorization.id.to_s
+        )
+        api_request.update!(data: merged_data)
+        api_request.latest_authorization.update_column(:data, merged_data)
       end
 
       it { is_expected.to be true }
     end
 
     context 'when user does not have summary access' do
-      let(:authorization_request) { create(:authorization_request, :france_connect, :validated, applicant: user) }
+      let(:authorization_request) { create(:authorization_request, :api_particulier, :validated, applicant: user) }
       let(:another_user) { create(:user) }
       let(:user_context) { UserContext.new(another_user) }
 
       before do
-        linked_auth = create(:authorization)
-        linked_auth.data['france_connect_authorization_id'] = authorization_request.latest_authorization.id
-        linked_auth.save!
+        create(:authorization,
+          request: authorization_request,
+          authorization_request_class: 'AuthorizationRequest::FranceConnect',
+          parent_authorization_id: authorization_request.latest_authorization.id)
       end
 
       it { is_expected.to be false }
