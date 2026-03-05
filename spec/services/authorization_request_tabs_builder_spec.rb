@@ -64,11 +64,8 @@ RSpec.describe AuthorizationRequestTabsBuilder do
           parent_authorization_id: authorization_request.latest_authorization.id)
       end
 
-      it 'includes france_connected_authorizations tab' do
-        expect(tabs).to have_key(:france_connected_authorizations)
-        expect(tabs[:france_connected_authorizations]).to eq(
-          authorization_request_france_connected_authorizations_path(authorization_request)
-        )
+      it 'does not include france_connected_authorizations tab' do
+        expect(tabs).not_to have_key(:france_connected_authorizations)
       end
     end
 

@@ -56,7 +56,7 @@ class AuthorizationTabsBuilder
   end
 
   def show_france_connected_tab?
-    !authorization.definition.france_connect? &&
+    authorization_request.definition.france_connect? &&
       authorization_request.france_connected_authorizations.exists?
   end
 
