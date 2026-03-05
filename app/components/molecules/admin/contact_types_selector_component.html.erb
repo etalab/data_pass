@@ -1,14 +1,21 @@
-<%= form.hidden_field :contact_types, value: '', name: 'habilitation_type[contact_types][]' %>
-
-<% CONTACT_TYPES.each do |contact_type| %>
-  <div class="fr-checkbox-group">
-    <input type="checkbox"
-           name="habilitation_type[contact_types][]"
-           value="<%= contact_type %>"
-           id="contact_type_<%= contact_type %>"
-           <%= 'checked' if checked_contact_types.include?(contact_type) %>>
-    <label class="fr-label" for="contact_type_<%= contact_type %>">
-      <%= t("admin.habilitation_types.form.contact_types.#{contact_type}") %>
-    </label>
+<fieldset class="fr-fieldset" id="contact-types-fieldset" aria-labelledby="contact-types-fieldset-legend">
+  <legend class="fr-fieldset__legend fr-text--regular" id="contact-types-fieldset-legend">
+    <%= t('admin.habilitation_types.form.sections.contact_types') %>
+  </legend>
+  <div class="fr-fieldset__content">
+    <%= form.hidden_field :contact_types, value: '', name: 'habilitation_type[contact_types][]' %>
+    <% CONTACT_TYPES.each do |contact_type| %>
+      <div class="fr-checkbox-group">
+        <input type="checkbox"
+               name="habilitation_type[contact_types][]"
+               value="<%= contact_type %>"
+               id="contact_type_<%= contact_type %>"
+               <%= 'checked' if checked_contact_types.include?(contact_type) %>>
+        <label class="fr-label" for="contact_type_<%= contact_type %>">
+          <%= t("admin.habilitation_types.form.contact_types.#{contact_type}") %>
+        </label>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</fieldset>
+
