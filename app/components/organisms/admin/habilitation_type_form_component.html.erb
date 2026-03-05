@@ -34,6 +34,18 @@
       ) %>
     </div>
 
+    <div data-controller="blocks-toggle"
+         data-blocks-toggle-block-name-value="contacts">
+      <div data-blocks-toggle-target="section">
+        <div class="fr-mb-4w">
+          <%= render Molecules::Admin::ContactTypesSelectorComponent.new(
+            form: f,
+            habilitation_type: @habilitation_type
+          ) %>
+        </div>
+      </div>
+    </div>
+
     <div class="fr-btns-group">
       <%= f.button @habilitation_type.new_record? ? t('admin.habilitation_types.form.submit_new') : t('admin.habilitation_types.form.submit_edit'),
           type: :submit, class: %w[fr-btn] %>

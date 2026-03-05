@@ -225,6 +225,8 @@ fr:
               has_authorization_requests: "ne peut pas être supprimé car des demandes d’habilitation existent pour ce type"
             slug:
               taken_by_yaml_type: "est déjà utilisé"
+            contact_types:
+              blank: "doit contenir au moins un type de contact lorsque le bloc « Contacts » est sélectionné"
         impersonation:
           attributes:
             user:

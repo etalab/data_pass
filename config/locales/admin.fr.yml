@@ -181,6 +181,7 @@ fr:
         sections:
           general: Informations générales
           blocks: Blocs
+          contact_types: Types de contacts
         uid_preview_label: Identifiant technique (UID)
         kind_label: Type
         select_provider: "— Sélectionner un fournisseur —"
@@ -193,13 +194,20 @@ fr:
           personal_data: Données personnelles
           contacts: Contacts
           scopes: Données (scopes)
+        contact_types:
+          contact_technique: Contact technique
+          contact_metier: Contact métier
+          responsable_traitement: Responsable de traitement
+          delegue_protection_donnees: Délégué à la protection des données
         submit_new: Créer
         submit_edit: Enregistrer
         cancel: Annuler
       create:
+        title: "Nouveau type d’habilitation"
         success: "Type d’habilitation créé avec succès"
         error: "Une erreur est survenue lors de la création"
       update:
+        title: "Modifier le type d’habilitation"
         success: "Type d’habilitation mis à jour"
         error: "Une erreur est survenue lors de la mise à jour"
       destroy:
