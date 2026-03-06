@@ -18,6 +18,10 @@ class StaticApplicationRecord
       @all ||= backend
     end
 
+    def reset!
+      @all = nil
+    end
+
     def backend
       fail NotImplementedError
     end

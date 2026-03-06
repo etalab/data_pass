@@ -18,10 +18,37 @@ class AuthorizationDefinition < StaticApplicationRecord
     :unique
 
   def self.backend
-    AuthorizationDefinitionConfigurations.instance.all.map do |uid, hash|
-      build(uid, hash)
-    end
+    yaml_records + db_records
   end
+
+  def self.yaml_records
+    AuthorizationDefinitionConfigurations.instance.all.map { |uid, hash| build(uid, hash) }
+  end
+
+  def self.db_records
+    return [] unless HabilitationType.table_exists?
+
+    HabilitationType.includes(:data_provider).map { |record| build_from_db_record(record) }
+  rescue ActiveRecord::NoDatabaseError, ActiveRecord::StatementInvalid
+    []
+  end
+
+  def self.build_from_db_record(record)
+    build(record.uid, record.attributes.symbolize_keys.merge(
+      public: record.public,
+      unique: record.unique,
+      startable_by_applicant: record.startable_by_applicant,
+      provider: record.data_provider&.slug,
+      scopes: record.scopes&.map(&:symbolize_keys),
+      blocks: normalize_blocks(record.blocks),
+    ))
+  end
+
+  def self.normalize_blocks(blocks)
+    (blocks || []).compact_blank.map { |b| b.is_a?(Hash) ? b.symbolize_keys : { name: b } }
+  end
+
+  private_class_method :db_records, :build_from_db_record, :normalize_blocks
 
   def editors
     available_forms.select { |form|

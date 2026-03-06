@@ -1,0 +1,9 @@
+<% content_for(:skip_links) do %>
+  <%= skip_link t('.skip_to_form'), '#habilitation-type-form' %>
+<% end %>
+
+<% set_title! t('.title') %>
+
+<%= render Organisms::Admin::HabilitationTypeFormComponent.new(
+  habilitation_type: @habilitation_type
+) %>
