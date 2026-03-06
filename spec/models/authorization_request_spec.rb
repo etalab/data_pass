@@ -645,4 +645,30 @@ RSpec.describe AuthorizationRequest do
       end
     end
   end
+
+  describe '.unread_messages_from_applicant_counts_for' do
+    it 'returns empty hash for blank records' do
+      expect(described_class.unread_messages_from_applicant_counts_for([])).to eq({})
+    end
+
+    it 'returns id => count for each record using a single Redis MGET' do
+      ar1 = create(:authorization_request, :api_entreprise)
+      ar2 = create(:authorization_request, :api_entreprise)
+      SendMessageToInstructors.call(
+        authorization_request: ar1,
+        user: ar1.applicant,
+        message_params: { body: 'Hello' }
+      )
+      SendMessageToInstructors.call(
+        authorization_request: ar1,
+        user: ar1.applicant,
+        message_params: { body: 'Again' }
+      )
+
+      result = described_class.unread_messages_from_applicant_counts_for([ar1, ar2])
+
+      expect(result[ar1.id]).to eq(2)
+      expect(result[ar2.id]).to eq(0)
+    end
+  end
 end

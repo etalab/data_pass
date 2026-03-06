@@ -82,6 +82,12 @@
                     <%= authorization_request.status_badge %>
                     <%= authorization_request.reopening_badge %>
                     <%= authorization_request.stage_badge %>
+                    <% count = (local_assigns[:unread_from_applicant_count_by_id] || {})[authorization_request.id].to_i %>
+                    <% if count > 0 %>
+                      <span class="fr-badge unread-message-dot">
+                        <%= t('instruction.dashboard.authorization_requests.new_message_badge', count: count) %>
+                      </span>
+                    <% end %>
                   </span>
                 </td>
                 <td class="authorization-request-last_submitted_at">

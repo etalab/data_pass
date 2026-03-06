@@ -29,6 +29,12 @@ Fonctionnalité: Instruction: messagerie
     Alors la page contient "Messagerie"
     Et la page ne contient pas "Messagerie 1"
 
+  Scénario: Je vois une pastille sur la liste des demandes lorsqu'un nouveau message du demandeur est présent
+    Quand je me rends sur une demande d'habilitation "API Entreprise" à modérer
+    Et que cette habilitation a un message du demandeur avec comme corps "Question"
+    Et que je me rends sur mon tableau de bord instructeur demandes
+    Alors je vois un badge de nouveau message contenant "1 nouveau message"
+
   @AvecCourriels
   Scénario: J'envoie un message au demandeur
     Quand je me rends sur une demande d'habilitation "API Entreprise" à modérer
