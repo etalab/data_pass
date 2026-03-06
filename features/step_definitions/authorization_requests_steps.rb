@@ -35,7 +35,8 @@ Quand('je veux remplir une demande pour {string} via le formulaire {string} de l
     name: authorization_request_form_name,
     authorization_request_class: find_authorization_request_class_from_name(authorization_request_name),
   ).select do |form|
-    form.service_provider.present? &&
+    form.public &&
+      form.service_provider.present? &&
       form.service_provider.name == service_provider_name
   end
 

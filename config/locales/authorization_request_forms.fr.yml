@@ -408,13 +408,17 @@ fr:
     api_particulier_abelium: &api_particulier_editor_common_wordings
       legal:
         justificatif:
-          title: Veuillez joindre la délibération tarifaire explicitant l'usage des données demandées.
+          title: Veuillez joindre la délibération tarifaire explicitant l’usage des données demandées.
           description: Pour en savoir plus, consultez <a href="https://api.gouv.fr/guides/deliberation-api-part" target="_blank">notre guide sur ce qu’est une bonne délibération.</a>
       cadre_juridique_url:
-        title: Veuillez indiquer l'url de de la délibération tarifiaire explicitant l'usage des données demandées.
+        title: Veuillez indiquer l’url de de la délibération tarifiaire explicitant l’usage des données demandées.
         label: URL de la délibération tarifaire
       cadre_juridique_nature:
-        hint: Si vous avez plus d'informations à ajouter vous pouvez le faire à la suite des textes légaux ci-dessous
+        hint: Si vous avez plus d’informations à ajouter vous pouvez le faire à la suite des textes légaux ci-dessous
+    api_particulier_familea:
+      <<: *api_particulier_editor_common_wordings
+    api_particulier_familea_petite_enfance:
+      <<: *api_particulier_editor_common_wordings
     api_particulier_sigec_maelis:
       <<: *api_particulier_editor_common_wordings
     api_particulier_arpege_concerto:

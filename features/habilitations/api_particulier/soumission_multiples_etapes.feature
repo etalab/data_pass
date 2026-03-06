@@ -224,7 +224,7 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier (en plu
 
     Exemples:
       | Nom du formulaire   | Nom de l'éditeur          |
-      | Domino web 2.0      | Abelium Collectivités     |
+      | Domino web 2.0      | Familea                   |
       | City Family         | Mushroom Software         |
       | NFI                 | Nord France Informatique  |
       | Proxima.ENF         | AGEDI                     |
