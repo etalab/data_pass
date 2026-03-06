@@ -231,6 +231,10 @@ fr:
               taken_by_yaml_type: "est déjà utilisé"
             contact_types:
               blank: "doit contenir au moins un type de contact lorsque le bloc « Contacts » est sélectionné"
+            scopes:
+              blank: "doit contenir au moins un scope lorsque le bloc « Données (scopes) » est sélectionné"
+              scope_name_blank: "ne peut pas être vide"
+              scope_value_blank: "ne peut pas être vide"
         impersonation:
           attributes:
             user:
