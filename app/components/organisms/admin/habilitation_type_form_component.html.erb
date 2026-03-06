@@ -35,6 +35,19 @@
     </div>
 
     <div data-controller="blocks-toggle"
+         data-blocks-toggle-block-name-value="scopes">
+      <div data-blocks-toggle-target="section">
+        <div class="fr-mb-4w">
+          <h2 class="fr-h3"><%= t('admin.habilitation_types.form.scopes_editor.title') %></h2>
+          <%= render Molecules::Admin::ScopesEditorComponent.new(
+            form: f,
+            habilitation_type: @habilitation_type
+          ) %>
+        </div>
+      </div>
+    </div>
+
+    <div data-controller="blocks-toggle"
          data-blocks-toggle-block-name-value="contacts">
       <div data-blocks-toggle-target="section">
         <div class="fr-mb-4w">

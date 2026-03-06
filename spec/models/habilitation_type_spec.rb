@@ -64,6 +64,32 @@ RSpec.describe HabilitationType do
     end
   end
 
+  describe 'validation: scopes block requires scopes' do
+    context 'when scopes block is selected' do
+      before { habilitation_type.blocks = [{ 'name' => 'scopes' }] }
+
+      it 'is invalid without scopes' do
+        habilitation_type.scopes = []
+        expect(habilitation_type).not_to be_valid
+        expect(habilitation_type.errors[:scopes]).to be_present
+      end
+
+      it 'is valid with scopes' do
+        habilitation_type.scopes = [{ 'name' => 'test', 'value' => 'test', 'group' => 'group' }]
+        expect(habilitation_type).to be_valid
+      end
+    end
+
+    context 'when scopes block is not selected' do
+      before { habilitation_type.blocks = [{ 'name' => 'basic_infos' }] }
+
+      it 'is valid without scopes' do
+        habilitation_type.scopes = []
+        expect(habilitation_type).to be_valid
+      end
+    end
+  end
+
   describe 'slug collision with YAML' do
     it 'is invalid when uid matches an existing YAML definition' do
       existing_yaml_uid = AuthorizationDefinition.yaml_records.first.id

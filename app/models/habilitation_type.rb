@@ -15,6 +15,7 @@ class HabilitationType < ApplicationRecord
   validates :kind, presence: true
   validate :slug_not_taken_by_yaml
   validates :contact_types, presence: true, if: :contacts_block_selected?
+  validates :scopes, presence: true, if: :scopes_block_selected?
 
   before_destroy :ensure_no_authorization_requests
   after_destroy :unregister_dynamic_class
@@ -59,6 +60,10 @@ class HabilitationType < ApplicationRecord
 
   def contacts_block_selected?
     block_name_list.include?('contacts')
+  end
+
+  def scopes_block_selected?
+    block_name_list.include?('scopes')
   end
 
   def slug_not_taken_by_yaml
