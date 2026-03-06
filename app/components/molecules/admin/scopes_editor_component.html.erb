@@ -1,0 +1,63 @@
+<div data-controller="nested-form">
+  <script type="text/x-template" data-nested-form-target="template">
+    <div class="nested-fields fr-grid-row fr-grid-row--gutters fr-mb-2w" data-new-record="true">
+      <div class="fr-col-4">
+        <div class="fr-input-group">
+          <label class="fr-label"><%= t('admin.habilitation_types.form.scopes_editor.name') %></label>
+          <input type="text" name="habilitation_type[scopes][][name]" class="fr-input">
+        </div>
+      </div>
+      <div class="fr-col-3">
+        <div class="fr-input-group">
+          <label class="fr-label"><%= t('admin.habilitation_types.form.scopes_editor.value') %></label>
+          <input type="text" name="habilitation_type[scopes][][value]" class="fr-input">
+        </div>
+      </div>
+      <div class="fr-col-3">
+        <div class="fr-input-group">
+          <label class="fr-label"><%= t('admin.habilitation_types.form.scopes_editor.group') %></label>
+          <input type="text" name="habilitation_type[scopes][][group]" class="fr-input">
+        </div>
+      </div>
+      <div class="fr-col-2 fr-mt-4w">
+        <button type="button" class="fr-btn fr-btn--tertiary fr-btn--sm" data-action="click->nested-form#remove">
+          <%= t('admin.habilitation_types.form.scopes_editor.remove') %>
+        </button>
+      </div>
+    </div>
+  </script>
+
+  <div data-nested-form-target="target">
+    <% existing_scopes.each do |scope| %>
+      <div class="nested-fields fr-grid-row fr-grid-row--gutters fr-mb-2w" data-new-record="true">
+        <div class="fr-col-4">
+          <div class="fr-input-group">
+            <label class="fr-label"><%= t('admin.habilitation_types.form.scopes_editor.name') %></label>
+            <input type="text" name="habilitation_type[scopes][][name]" value="<%= scope['name'] || scope[:name] %>" class="fr-input">
+          </div>
+        </div>
+        <div class="fr-col-3">
+          <div class="fr-input-group">
+            <label class="fr-label"><%= t('admin.habilitation_types.form.scopes_editor.value') %></label>
+            <input type="text" name="habilitation_type[scopes][][value]" value="<%= scope['value'] || scope[:value] %>" class="fr-input">
+          </div>
+        </div>
+        <div class="fr-col-3">
+          <div class="fr-input-group">
+            <label class="fr-label"><%= t('admin.habilitation_types.form.scopes_editor.group') %></label>
+            <input type="text" name="habilitation_type[scopes][][group]" value="<%= scope['group'] || scope[:group] %>" class="fr-input">
+          </div>
+        </div>
+        <div class="fr-col-2 fr-mt-4w">
+          <button type="button" class="fr-btn fr-btn--tertiary fr-btn--sm" data-action="click->nested-form#remove">
+            <%= t('admin.habilitation_types.form.scopes_editor.remove') %>
+          </button>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <button type="button" class="fr-btn fr-btn--secondary fr-btn--sm" data-action="click->nested-form#add">
+    <%= t('admin.habilitation_types.form.scopes_editor.add') %>
+  </button>
+</div>

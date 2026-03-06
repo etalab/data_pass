@@ -199,6 +199,13 @@ fr:
           contact_metier: Contact métier
           responsable_traitement: Responsable de traitement
           delegue_protection_donnees: Délégué à la protection des données
+        scopes_editor:
+          title: Données (scopes)
+          name: Nom
+          value: Valeur
+          group: Groupe
+          add: Ajouter un scope
+          remove: Supprimer
         submit_new: Créer
         submit_edit: Enregistrer
         cancel: Annuler
