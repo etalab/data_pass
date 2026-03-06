@@ -1,0 +1,87 @@
+# Synchronisation des habilitations DataPass vers data.gouv.fr
+
+## Rôle
+
+Le job `DatagouvHabilitationsSyncJob` met à jour le jeu de données [Habilitations Datapass validées](https://www.data.gouv.fr/datasets/habilitations-datapass-validees) sur data.gouv.fr avec la liste des **habilitations actives** (et non des demandes au statut « validé »).
+
+Une demande peut être en brouillon de réouverture tout en ayant des habilitations actives ; le CSV reflète les habilitations actuellement actives.
+
+À chaque exécution, le job met aussi à jour les métadonnées du dataset : la couverture temporelle « début » est la date de validation de l’habilitation la plus ancienne, sans date de fin.
+
+## Colonnes du CSV
+
+| Colonne | Source |
+|---------|--------|
+| Fournisseur de l'API ou service | Nom du fournisseur (définition) |
+| API ou Service demandé | Classe de la demande (partie après `::`) |
+| SIRET du demandeur | `organization.siret` |
+| Dénomination de l'unité légale du demandeur | `organization.denomination` |
+| Données demandées | `authorization.data['scopes']` |
+| Fondement juridique | `authorization.data['cadre_juridique_nature']` |
+| Date de validation | `authorization.created_at` (format AAAA-MM-JJ) |
+
+## Fréquence
+
+Le job est planifié en **production uniquement** : exécution le 1er de chaque mois à 2 h (cron : `0 2 1 * *`).
+
+En staging et sandbox, le job n’est pas planifié ; des tests manuels sont possibles en pointant la configuration vers `https://demo.data.gouv.fr/api/1` et le dataset démo [habilitations-datapass-validees](https://demo.data.gouv.fr/datasets/habilitations-datapass-validees).
+
+## Configuration
+
+La configuration est lue depuis les **Rails credentials** sous la clé `data_gouv_fr` :
+
+- `api_key` (obligatoire en production) : clé API data.gouv.fr (compte DINUM ou dédié) avec droits d’édition sur le dataset.
+- `base_url` (optionnel) : URL de base de l’API (défaut : `https://demo.data.gouv.fr/api/1`). En production, définir `https://www.data.gouv.fr/api/1`.
+- `dataset_slug` (optionnel) : slug ou id du dataset (défaut : `habilitations-datapass-validees`).
+- `resource_id` (optionnel) : id de la ressource CSV à mettre à jour (défaut : un UUID de démo qui peut ne pas exister).
+
+### En développement / démo (demo.data.gouv.fr)
+
+Les valeurs par défaut (`dataset_slug`, `resource_id`) peuvent ne pas exister sur demo.data.gouv.fr. En cas de 404 à l’upload :
+
+1. Aller sur [demo.data.gouv.fr](https://demo.data.gouv.fr), se connecter avec le compte associé à ta clé API.
+2. Créer un jeu de données (ou en choisir un existant) sur lequel tu as les droits d’édition.
+3. Ajouter une ressource (fichier CSV) à ce dataset, ou noter l’ID d’une ressource existante.
+4. Dans les credentials, renseigner explicitement le `dataset_slug` (slug ou ID du dataset) et le `resource_id` (ID de la ressource) :
+
+   ```yaml
+   data_gouv_fr:
+     api_key: ta-cle-demo
+     base_url: https://demo.data.gouv.fr/api/1
+     dataset_slug: ton-dataset-slug-ou-id
+     resource_id: "<uuid-de-la-ressource>"
+   ```
+
+   L’ID de la ressource s’obtient via l’API (GET sur le dataset) ou dans l’URL d’édition de la ressource sur le site.
+
+### Ajout de la clé API dans les credentials
+
+À faire manuellement pour la production (et optionnellement pour démo/staging) :
+
+1. Créer ou utiliser un compte data.gouv.fr avec droits d’édition sur le dataset « Habilitations Datapass validées ».
+2. Générer une clé API dans les paramètres du compte.
+3. Ajouter la clé dans les credentials Rails :
+
+   ```bash
+   EDITOR=nano rails credentials:edit
+   ```
+
+   Puis ajouter (ou compléter) :
+
+   ```yaml
+   data_gouv_fr:
+     api_key: VOTRE_CLE_API
+     base_url: https://www.data.gouv.fr/api/1   # obligatoire en prod (défaut = demo)
+     dataset_slug: habilitations-datapass-validees
+     resource_id: <id de la ressource>   # obligatoire en prod (défaut = ressource démo)
+   ```
+
+## Test manuel
+
+En staging ou sandbox, après avoir configuré `base_url` (et éventuellement `dataset_slug` / `resource_id`) vers la démo et une clé API valide sur demo.data.gouv.fr :
+
+```bash
+rails runner "DatagouvHabilitationsSyncJob.perform_now"
+```
+
+Vérifier sur data.gouv.fr (ou demo.data.gouv.fr) que le fichier et la date de mise à jour du jeu de données sont corrects.
