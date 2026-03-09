@@ -2502,20 +2502,24 @@ api-particulier-tarification-eaje:
     En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier la <strong>"Tarification sociale dans les établissements d'accueil du jeune enfant"</strong>.
   static_blocks:
     - name: modalities
+    - name: scopes
+  scopes_config:
+    disabled: &tarification_eaje_fixed_scopes
+      - cnav_participation_familiale_eaje_allocataires
+      - cnav_participation_familiale_eaje_enfants
+      - cnav_participation_familiale_eaje_adresse
+      - cnav_participation_familiale_eaje_parametres_calcul
+    displayed: *tarification_eaje_fixed_scopes
   steps:
     - name: basic_infos
     - name: legal
-    - name: scopes
     - name: personal_data
     - name: contacts
   initialize_with:
     intitule: Tarification sociale des établissements d'accueil du jeune enfant
     cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l'administration qui fixe le cadre général qui oblige l'administration à échanger des données lors d'une démarche d'un usager.\r\n- Délibération.[À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]"
-    scopes:
-      - cnav_participation_familiale_eaje_allocataires
-      - cnav_participation_familiale_eaje_enfants
-      - cnav_participation_familiale_eaje_adresse
-      - cnav_participation_familiale_eaje_parametres_calcul
+    scopes: *tarification_eaje_fixed_scopes
+
 
 api-particulier-technocarte-babicarte:
   name: Babicarte Petite enfance
