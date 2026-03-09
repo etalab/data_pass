@@ -1,5 +1,6 @@
 class HabilitationType < ApplicationRecord
   BLOCK_ORDER = %w[basic_infos legal personal_data scopes contacts].freeze
+  VALID_RUBY_CLASSNAME = /\A[A-Z][a-zA-Z0-9]*\z/
 
   extend FriendlyId
 
@@ -13,6 +14,7 @@ class HabilitationType < ApplicationRecord
   validates :slug, presence: true, uniqueness: true
   validates :kind, presence: true
   validate :slug_not_taken_by_yaml
+  validate :name_generates_reachable_uid
 
   before_destroy :ensure_no_authorization_requests
   after_destroy :unregister_dynamic_class
@@ -53,6 +55,16 @@ class HabilitationType < ApplicationRecord
 
   def block_name_list
     (blocks || []).map { |b| b.is_a?(Hash) ? b['name'] || b[:name] : b }
+  end
+
+  def name_generates_reachable_uid
+    return if slug.blank?
+
+    class_name = uid.classify
+    return if class_name.match?(VALID_RUBY_CLASSNAME) &&
+              class_name.underscore == uid
+
+    errors.add(:name, :unreachable_uid)
   end
 
   def slug_not_taken_by_yaml
