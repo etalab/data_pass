@@ -67,8 +67,8 @@ class Admin::HabilitationTypesController < AdminController
   def preload_requests_counts(habilitation_types)
     raw_counts = fetch_raw_counts(habilitation_types)
 
-    habilitation_types.each_with_object({}) do |habilitation_type, counts|
-      counts[habilitation_type.id] = raw_counts[habilitation_type.authorization_request_type] || 0
+    habilitation_types.to_h do |habilitation_type|
+      [habilitation_type.id, raw_counts[habilitation_type.authorization_request_type] || 0]
     end
   end
 

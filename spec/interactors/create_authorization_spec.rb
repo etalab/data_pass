@@ -43,7 +43,9 @@ RSpec.describe CreateAuthorization, type: :interactor do
       let(:file) { fixture_file_upload('spec/fixtures/another_dummy.pdf', 'application/pdf') }
 
       before do
-        authorization_request.cadre_juridique_document.attach(io: File.open('spec/fixtures/another_dummy.pdf'), filename: 'another_document.pdf')
+        File.open('spec/fixtures/another_dummy.pdf') do |file|
+          authorization_request.cadre_juridique_document.attach(io: file, filename: 'another_document.pdf')
+        end
       end
 
       it 'attaches the file to the document' do

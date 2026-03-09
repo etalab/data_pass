@@ -86,8 +86,8 @@ end
 Quand('cette demande a été modifiée avec les informations suivantes :') do |table|
   authorization_request = AuthorizationRequest.last
 
-  params = table.hashes.each_with_object({}) do |hash, data|
-    data[hash['champ']] = hash['nouvelle valeur']
+  params = table.hashes.to_h do |hash|
+    [hash['champ'], hash['nouvelle valeur']]
   end
 
   authorization_request.update!(params)

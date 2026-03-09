@@ -1,21 +1,23 @@
-class FrenchPhoneNumberValidatable
-  include ActiveModel::Validations
-
-  attr_accessor :phone_number
-
-  validates :phone_number, french_phone_number: true
-end
-
-class FrenchMobilePhoneValidatable
-  include ActiveModel::Validations
-
-  attr_accessor :phone_number
-
-  validates :phone_number, french_phone_number: { mobile: true }
-end
-
 RSpec.describe FrenchPhoneNumberValidator do
   subject { FrenchPhoneNumberValidatable.new }
+
+  before do
+    stub_const('FrenchPhoneNumberValidatable', Class.new do
+      include ActiveModel::Validations
+
+      attr_accessor :phone_number
+
+      validates :phone_number, french_phone_number: true
+    end)
+
+    stub_const('FrenchMobilePhoneValidatable', Class.new do
+      include ActiveModel::Validations
+
+      attr_accessor :phone_number
+
+      validates :phone_number, french_phone_number: { mobile: true }
+    end)
+  end
 
   describe 'valid French phone numbers' do
     context 'with French mobile numbers starting with 0' do
