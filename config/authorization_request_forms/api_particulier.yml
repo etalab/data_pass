@@ -2188,6 +2188,13 @@ api-particulier-tarification-municipale-enfance:
   use_case: tarification_municipale_enfance
   introduction: |
     En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier la <strong>"Tarification sociale des services municipaux à l'enfance"</strong>. <a href="https://particulier.api.gouv.fr/cas_usages/tarification_municipale_enfance">En savoir plus sur ce cas d'usage</a>.
+  scopes_config:
+    displayed:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_enfants
+      - cnaf_adresse
+      - cnav_allocation_enfant_handicape
   static_blocks:
     - name: modalities
   steps:
