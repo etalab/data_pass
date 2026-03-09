@@ -145,6 +145,15 @@ fr:
         admin: Administrateur
         user: Usager
 
+      habilitation_type:
+        name: Nom
+        description: Description
+        data_provider_id: Fournisseur
+        kind: Type
+        form_introduction: Introduction du formulaire
+      habilitation_type/kind/values:
+        api: API
+        service: Service
       instructor_draft_request:
         applicant_email: Adresse email du demandeur
         organization_siret: Numéro de SIRET de l'organisation
@@ -210,6 +219,12 @@ fr:
           attributes:
             content:
               invalid_variables: "contient des variables invalides"
+        habilitation_type:
+          attributes:
+            base:
+              has_authorization_requests: "ne peut pas être supprimé car des demandes d’habilitation existent pour ce type"
+            slug:
+              taken_by_yaml_type: "est déjà utilisé"
         impersonation:
           attributes:
             user:

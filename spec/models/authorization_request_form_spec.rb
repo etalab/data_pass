@@ -3,6 +3,53 @@ RSpec.describe AuthorizationRequestForm do
     it 'returns a list of all authorizations forms' do
       expect(described_class.all).to be_all { |a| a.is_a? AuthorizationRequestForm }
     end
+
+    context 'with DB records' do
+      before do
+        stub_const('AuthorizationRequest::MonAPI', Class.new(AuthorizationRequest))
+        allow(described_class).to receive(:db_records).and_return([db_form])
+        described_class.reset!
+      end
+
+      after { described_class.reset! }
+
+      let(:db_form) do
+        described_class.new(
+          uid: 'mon-api',
+          default: true,
+          introduction: 'Mon introduction',
+          authorization_request_class: AuthorizationRequest::MonAPI,
+          steps: [{ name: 'basic_infos' }],
+          static_blocks: [],
+          service_provider: nil,
+          use_case: nil,
+          single_page_view: nil,
+          scopes_config: {},
+        )
+      end
+
+      it 'includes YAML forms' do
+        expect(described_class.all.map(&:uid)).to include('api-entreprise')
+      end
+
+      it 'includes DB forms' do
+        expect(described_class.all.map(&:uid)).to include('mon-api')
+      end
+
+      it 'returns AuthorizationRequestForm instances for DB records' do
+        expect(described_class.all.find { |f| f.uid == 'mon-api' }).to be_a(described_class)
+      end
+
+      it 'has default: true for DB forms' do
+        form = described_class.all.find { |f| f.uid == 'mon-api' }
+        expect(form.default).to be(true)
+      end
+
+      it 'has the correct authorization_request_class' do
+        form = described_class.all.find { |f| f.uid == 'mon-api' }
+        expect(form.authorization_request_class).to eq(AuthorizationRequest::MonAPI)
+      end
+    end
   end
 
   describe '#prefilled?' do
