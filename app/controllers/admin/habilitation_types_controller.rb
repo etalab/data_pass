@@ -10,7 +10,7 @@ class Admin::HabilitationTypesController < AdminController
   end
 
   def new
-    @habilitation_type = HabilitationType.new(blocks: HabilitationType::BLOCK_ORDER)
+    @habilitation_type = HabilitationType.new(blocks: HabilitationType::DEFAULT_BLOCKS)
   end
 
   def create
@@ -85,9 +85,11 @@ class Admin::HabilitationTypesController < AdminController
     permitted = params.expect(
       habilitation_type: [
         :name, :description, :data_provider_id, :kind, :form_introduction,
-        { blocks: [] },
+        { blocks: [], contact_types: [] },
       ],
     )
-    permitted.merge(blocks: (permitted[:blocks] || []).compact_blank)
+    permitted
+      .merge(blocks: (permitted[:blocks] || []).compact_blank)
+      .merge(contact_types: (permitted[:contact_types] || []).compact_blank)
   end
 end

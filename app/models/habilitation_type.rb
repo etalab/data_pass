@@ -1,6 +1,7 @@
 class HabilitationType < ApplicationRecord
   BLOCK_ORDER = %w[basic_infos legal personal_data scopes contacts].freeze
   VALID_RUBY_CLASSNAME = /\A[A-Z][a-zA-Z0-9]*\z/
+  DEFAULT_BLOCKS = %w[basic_infos legal personal_data].freeze
 
   extend FriendlyId
 
@@ -15,6 +16,7 @@ class HabilitationType < ApplicationRecord
   validates :kind, presence: true
   validate :slug_not_taken_by_yaml
   validate :name_generates_reachable_uid
+  validates :contact_types, presence: true, if: :contacts_block_selected?
 
   before_destroy :ensure_no_authorization_requests
   after_destroy :unregister_dynamic_class
@@ -65,6 +67,10 @@ class HabilitationType < ApplicationRecord
               class_name.underscore == uid
 
     errors.add(:name, :unreachable_uid)
+  end
+
+  def contacts_block_selected?
+    block_name_list.include?('contacts')
   end
 
   def slug_not_taken_by_yaml

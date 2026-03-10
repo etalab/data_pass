@@ -229,6 +229,8 @@ fr:
               unreachable_uid: "génère un identifiant inaccessible (ex : préférez « api » à « apis »)"
             slug:
               taken_by_yaml_type: "est déjà utilisé"
+            contact_types:
+              blank: "doit contenir au moins un type de contact lorsque le bloc « Contacts » est sélectionné"
         impersonation:
           attributes:
             user:
