@@ -151,6 +151,9 @@ fr:
         data_provider_id: Fournisseur
         kind: Type
         form_introduction: Introduction du formulaire
+        link: Lien vers le service
+        cgu_link: "Lien vers les conditions générales d’utilisation"
+        access_link: "Lien d'accès (après validation)"
       habilitation_type/kind/values:
         api: API
         service: Service
@@ -162,6 +165,7 @@ fr:
     hints:
       habilitation_type:
         name: "Le nom doit commencer par une lettre et ne pas se terminer par un pluriel (ex : utilisez « scope » plutôt que « scopes »)"
+        access_link: "Vous pouvez utiliser %{external_provider_id} comme variable dans l'URL"
       france_connect:
         contact_technique_phone_number: Le numéro de téléphone doit être un numéro de portable
       authorization_request:

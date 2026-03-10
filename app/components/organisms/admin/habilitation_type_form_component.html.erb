@@ -28,6 +28,14 @@
     </div>
 
     <div class="fr-mb-4w">
+      <h2 class="fr-h3"><%= t('admin.habilitation_types.form.sections.links') %></h2>
+
+      <%= f.dsfr_text_field :link %>
+      <%= f.dsfr_text_field :cgu_link %>
+      <%= f.dsfr_text_field :access_link %>
+    </div>
+
+    <div class="fr-mb-4w">
       <%= render Molecules::Admin::BlocksSelectionComponent.new(
         form: f,
         habilitation_type: @habilitation_type
@@ -59,12 +67,16 @@
       </div>
     </div>
 
-    <div class="fr-btns-group">
-      <%= f.button @habilitation_type.new_record? ? t('admin.habilitation_types.form.submit_new') : t('admin.habilitation_types.form.submit_edit'),
-          type: :submit, class: %w[fr-btn] %>
-      <%= link_to t('admin.habilitation_types.form.cancel'), admin_habilitation_types_path,
-          class: %w[fr-btn fr-btn--tertiary] %>
-    </div>
+    <ul class="fr-btns-group fr-btns-group--inline">
+      <li>
+        <%= link_to t('admin.habilitation_types.form.cancel'), admin_habilitation_types_path,
+            class: %w[fr-btn fr-btn--tertiary] %>
+      </li>
+      <li class="fr-ml-auto">
+        <%= f.button @habilitation_type.new_record? ? t('admin.habilitation_types.form.submit_new') : t('admin.habilitation_types.form.submit_edit'),
+            type: :submit, class: %w[fr-btn] %>
+      </li>
+    </ul>
 
   <% end %>
 </div>

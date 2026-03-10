@@ -85,6 +85,7 @@ class Admin::HabilitationTypesController < AdminController
     permitted = params.expect(
       habilitation_type: [
         :name, :description, :data_provider_id, :kind, :form_introduction,
+        :cgu_link, :access_link, :link,
         { blocks: [], contact_types: [], scopes: [%i[name value group]] },
       ],
     )

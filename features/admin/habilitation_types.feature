@@ -28,6 +28,18 @@ Fonctionnalité: Espace admin: types d'habilitation
     Alors la page contient "API Test"
     Et il y a un message de succès contenant "créé"
 
+  Scénario: Je crée un type d'habilitation avec un lien CGU
+    Sachant que je me connecte
+    Et qu'un fournisseur de données "DINUM" existe
+    Quand je me rends sur le chemin "/admin/types-habilitation/new"
+    Et que je remplis "Nom" avec "API CGU Test"
+    Et que je sélectionne "DINUM" pour "Fournisseur"
+    Et que je choisis le type "API"
+    Et que je remplis "Lien vers les conditions générales d’utilisation" avec "https://example.com/cgu"
+    Et que je clique sur "Créer"
+    Alors la page contient "API CGU Test"
+    Et il y a un message de succès contenant "créé"
+
   Scénario: Un utilisateur non-admin ne peut pas accéder à la liste
     Sachant que je suis un demandeur
     Et que je me connecte
