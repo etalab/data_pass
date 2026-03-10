@@ -44,6 +44,9 @@ fr:
         all_types: Tous les types de demandes
         type_filter_label: Type de demande
         state_filter_label: Statut
+        new_message_badge:
+          one: "1 nouveau message"
+          other: "%{count} nouveaux messages"
 
       authorizations:
         all_status: Tous les statuts

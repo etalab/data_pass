@@ -35,7 +35,7 @@
         <turbo-frame id="tab-<%= tab.id %>-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tab-<%= tab.id %>" tabindex="0" data-turbo-action="advance">
           <% if current_page?(tab.path) %>
             <div data-auto-height-target="source">
-              <%= render @facade.partial, items: @facade.items, search_engine: @facade.search_engine %>
+              <%= render @facade.partial, items: @facade.items, search_engine: @facade.search_engine, unread_from_applicant_count_by_id: @facade.unread_from_applicant_count_by_id %>
             </div>
           <% else %>
             <div data-auto-height-target="destination">

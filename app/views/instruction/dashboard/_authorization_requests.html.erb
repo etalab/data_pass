@@ -72,7 +72,7 @@
           </thead>
 
           <tbody data-controller="clickable-rows">
-            <% items.decorate.each do |authorization_request| %>
+            <% items.decorate(context: { unread_from_applicant_count_by_id: local_assigns.fetch(:unread_from_applicant_count_by_id, {}) }).each do |authorization_request| %>
               <tr id="<%= dom_id(authorization_request) %>" class="authorization-request clickable-row" data-action="click->clickable-rows#visit" data-href="<%= instruction_authorization_request_path(authorization_request) %>">
                 <td class="authorization-request-id">
                   <%= link_to authorization_request.formatted_id, instruction_authorization_request_path(authorization_request) %>
@@ -82,6 +82,7 @@
                     <%= authorization_request.status_badge %>
                     <%= authorization_request.reopening_badge %>
                     <%= authorization_request.stage_badge %>
+                    <%= authorization_request.unread_message_badge %>
                   </span>
                 </td>
                 <td class="authorization-request-last_submitted_at">
