@@ -28,22 +28,22 @@ api-particulier:
 # Editeur (cas 2)
 # 1. Contact technique renseigné et non modifiable
 # 2. Scopes modifiables
-api-particulier-abelium:
+api-particulier-familea: &api_particulier_familea
   name: Domino web 2.0
   description: &api_particulier_form_description_petite_enfance |
     Gestion des structures de petites enfances, enfance et jeunesse
   authorization_request: APIParticulier
   use_case: tarification_municipale_enfance
-  service_provider_id: abelium
+  service_provider_id: familea
   introduction: &api_particulier_introduction_editor_with_editable_scopes |
-    Ce formulaire simplifié vous permet d'obtenir une habilitation pour le logiciel %{form_name} de l'éditeur %{service_provider_name}.
+    Ce formulaire simplifié vous permet d’obtenir une habilitation pour le logiciel %{form_name} de l’éditeur %{service_provider_name}.
     <br />
     Une partie des informations contractuelles sont fixes et ne peuvent être modifiées.
     <br />
     Celles-ci vous seront résumées à la fin, et ne nécessitent aucune intervention de votre part.
     <br />
     <br />
-    Assurez-vous d'être en possession de la délibération tarifaire justifiant l'usage de l'API, celle-ci vous sera demandé dans les prochaines étapes.
+    Assurez-vous d’être en possession de la délibération tarifaire justifiant l’usage de l’API, celle-ci vous sera demandé dans les prochaines étapes.
     <br />
     <br />
     Votre éditeur %{service_provider_name} propose au sein de son logiciel de traiter des données supplémentaires sur les allocataires. Vous pourrez cocher ces données dans les étapes suivantes. Avant de les sélectionner assurez-vous que votre délibération mentionne bien ces données.
@@ -71,19 +71,23 @@ api-particulier-abelium:
       Gestion des structures de petite enfance, enfance, jeunesse pour la facturation de la cantine le service periscolaire et extrascolaire
     cadre_juridique_nature:
       &api_particulier_cadre_juridique_nature_tarification_municipale_enfance |
-      L'Article L114-8 du Code des relations entre le public et l'administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usage
+      L’Article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usage
 
-      L'article R531-52 du Code de l'éducation donne compétence aux collectivités pour fixer les tarifs des cantines.
+      L’article R531-52 du Code de l’éducation donne compétence aux collectivités pour fixer les tarifs des cantines.
     scopes:
       - cnaf_quotient_familial
-    # contact_technique_editable: false
-    contact_technique_email: "<%= Rails.application.credentials.api_particulier_abelium_collectivites_contact_technique_email || 'tech-abelium-collectivite@yopmail.com' %>"
-    contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_abelium_collectivites_contact_technique_given_name || 'Jean' %>"
-    contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_abelium_collectivites_contact_technique_family_name || 'Dupont' %>"
-    contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_abelium_collectivites_contact_technique_phone_number || '0836656565' %>"
-    contact_technique_job_title: Support client
+    <<: &api_particulier_familea_contact_technique
+      contact_technique_email: "<%= Rails.application.credentials.api_particulier_familea_contact_technique_email || 'tech-familea@yopmail.com' %>"
+      contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_familea_contact_technique_given_name || 'Jean' %>"
+      contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_familea_contact_technique_family_name || 'Dupont' %>"
+      contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_familea_contact_technique_phone_number || '0836656565' %>"
+      contact_technique_job_title: Support client
     modalities:
       - params
+
+api-particulier-abelium:
+  <<: *api_particulier_familea
+  public: false
 
 # Editeur (cas 3)
 # 1. Contact technique non renseigné
@@ -2659,12 +2663,12 @@ api-particulier-carte-plus-petite-enfance:
     modalities:
       - params
 
-api-particulier-abelium-petite-enfance:
+api-particulier-familea-petite-enfance: &api_particulier_familea_petite_enfance
   name: Domino Web 2.0 Petite enfance
   description: Tarification PSU dans les établissements d'acceuil du jeune enfant
   authorization_request: APIParticulier
   use_case: tarification_eaje
-  service_provider_id: abelium
+  service_provider_id: familea
   introduction: *api_particulier_introduction_editor_with_fixed_scopes
   steps: *api_particulier_editor_steps_with_fixed_scopes
   static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
@@ -2689,8 +2693,11 @@ api-particulier-abelium-petite-enfance:
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
-    modalities:
-      - params
+    <<: *api_particulier_familea_contact_technique
+
+api-particulier-abelium-petite-enfance:
+  <<: *api_particulier_familea_petite_enfance
+  public: false
 
 api-particulier-polycea:
   name: eovia

@@ -366,7 +366,7 @@ RSpec.describe AuthorizationRequest do
       end
 
       context 'with displayed config on form' do
-        let(:authorization_request) { create(:authorization_request, :api_particulier_abelium) }
+        let(:authorization_request) { create(:authorization_request, :api_particulier_familea) }
 
         it { expect(available_scopes.map(&:value)).to match_array(%w[cnaf_quotient_familial cnaf_allocataires cnaf_enfants cnaf_adresse]) }
       end
@@ -382,7 +382,7 @@ RSpec.describe AuthorizationRequest do
       end
 
       context 'with disabled scopes config on form' do
-        let(:authorization_request) { create(:authorization_request, :api_particulier_abelium) }
+        let(:authorization_request) { create(:authorization_request, :api_particulier_familea) }
 
         it { expect(disabled_scopes.map(&:value)).to contain_exactly('cnaf_quotient_familial') }
       end

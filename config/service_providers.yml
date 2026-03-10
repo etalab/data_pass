@@ -49,9 +49,9 @@ shared:
     siret: "39825361700045"
     fc_certified: true
     apipfc_enabled: true
-  abelium:
+  familea:
     type: editor
-    name: Abelium Collectivités
+    name: Familea
     siret: "42172024400050"
   agora_plus:
     type: editor
