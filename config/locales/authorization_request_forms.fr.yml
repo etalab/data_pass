@@ -1121,4 +1121,7 @@ fr:
             Le mail du contact technique sera utilisé pour accéder à PISTE et utiliser les API, pour assurer la continuité de votre service en cas de mobilité du responsable technique, veuillez indiquer un mail générique et éviter les emails personnels.
           </p>
 
+    api_gunenv:
+      volumetrie_approximative:
+        hint: "Volumétrie prévue d'appels à l'API par minute (si connue)"
 

@@ -59,7 +59,3 @@ api_gunenv:
       value: "correspondances"
     - name: "Actes"
       value: "actes"
-    - name: "Services"
-      value: "services"
-    - name: "Sous-Services"
-      value: "sous-services"
