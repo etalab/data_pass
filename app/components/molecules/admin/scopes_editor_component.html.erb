@@ -1,0 +1,85 @@
+<div data-controller="nested-form">
+  <% if scopes_errors.any? %>
+    <div class="fr-alert fr-alert--error fr-alert--sm fr-mb-2w" role="alert">
+      <% scopes_errors.each do |msg| %>
+        <p><%= msg %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <script type="text/x-template" data-nested-form-target="template">
+    <div class="nested-fields fr-grid-row fr-grid-row--gutters fr-mb-2w" data-new-record="true">
+      <div class="fr-col-4">
+        <div class="fr-input-group">
+          <label class="fr-label" for="scope-NEW_RECORD-name"><%= t('admin.habilitation_types.form.scopes_editor.name') %> <span class="fr-ml-1w fr-text-error">*</span></label>
+          <input type="text" id="scope-NEW_RECORD-name" name="habilitation_type[scopes][][name]" class="fr-input" required>
+        </div>
+      </div>
+      <div class="fr-col-3">
+        <div class="fr-input-group">
+          <label class="fr-label" for="scope-NEW_RECORD-value"><%= t('admin.habilitation_types.form.scopes_editor.value') %> <span class="fr-ml-1w fr-text-error">*</span></label>
+          <input type="text" id="scope-NEW_RECORD-value" name="habilitation_type[scopes][][value]" class="fr-input" required>
+        </div>
+      </div>
+      <div class="fr-col-3">
+        <div class="fr-input-group">
+          <label class="fr-label" for="scope-NEW_RECORD-group"><%= t('admin.habilitation_types.form.scopes_editor.group') %></label>
+          <input type="text" id="scope-NEW_RECORD-group" name="habilitation_type[scopes][][group]" class="fr-input">
+        </div>
+      </div>
+      <div class="fr-col-2 fr-mt-4w">
+        <button type="button" class="fr-btn fr-btn--tertiary fr-btn--sm" data-action="click->nested-form#remove">
+          <%= t('admin.habilitation_types.form.scopes_editor.remove') %>
+        </button>
+      </div>
+    </div>
+  </script>
+
+  <div data-nested-form-target="target">
+    <% existing_scopes.each_with_index do |scope, index| %>
+      <div class="nested-fields fr-grid-row fr-grid-row--gutters fr-mb-2w" data-new-record="true">
+        <div class="fr-col-4">
+          <div class="fr-input-group <%= scope_field_error_class(index, :name) %>">
+            <label class="fr-label" for="scope-<%= index %>-name"><%= t('admin.habilitation_types.form.scopes_editor.name') %> <span class="fr-ml-1w fr-text-error">*</span></label>
+            <input type="text" id="scope-<%= index %>-name" name="habilitation_type[scopes][][name]" value="<%= scope['name'] %>" class="fr-input" required aria-describedby="scope-<%= index %>-name-error">
+            <% if scope_field_errors(index, :name).any? %>
+              <p class="fr-messages-group" id="scope-<%= index %>-name-error">
+                <% scope_field_errors(index, :name).each do |msg| %>
+                  <span class="fr-message fr-message--error"><%= msg %></span>
+                <% end %>
+              </p>
+            <% end %>
+          </div>
+        </div>
+        <div class="fr-col-3">
+          <div class="fr-input-group <%= scope_field_error_class(index, :value) %>">
+            <label class="fr-label" for="scope-<%= index %>-value"><%= t('admin.habilitation_types.form.scopes_editor.value') %> <span class="fr-ml-1w fr-text-error">*</span></label>
+            <input type="text" id="scope-<%= index %>-value" name="habilitation_type[scopes][][value]" value="<%= scope['value'] %>" class="fr-input" required aria-describedby="scope-<%= index %>-value-error">
+            <% if scope_field_errors(index, :value).any? %>
+              <p class="fr-messages-group" id="scope-<%= index %>-value-error">
+                <% scope_field_errors(index, :value).each do |msg| %>
+                  <span class="fr-message fr-message--error"><%= msg %></span>
+                <% end %>
+              </p>
+            <% end %>
+          </div>
+        </div>
+        <div class="fr-col-3">
+          <div class="fr-input-group">
+            <label class="fr-label" for="scope-<%= index %>-group"><%= t('admin.habilitation_types.form.scopes_editor.group') %></label>
+            <input type="text" id="scope-<%= index %>-group" name="habilitation_type[scopes][][group]" value="<%= scope['group'] %>" class="fr-input">
+          </div>
+        </div>
+        <div class="fr-col-2 fr-mt-4w">
+          <button type="button" class="fr-btn fr-btn--tertiary fr-btn--sm" data-action="click->nested-form#remove">
+            <%= t('admin.habilitation_types.form.scopes_editor.remove') %>
+          </button>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <button type="button" class="fr-btn fr-btn--secondary fr-btn--sm" data-action="click->nested-form#add">
+    <%= t('admin.habilitation_types.form.scopes_editor.add') %>
+  </button>
+</div>

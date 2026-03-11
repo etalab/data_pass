@@ -17,6 +17,8 @@ class HabilitationType < ApplicationRecord
   validate :slug_not_taken_by_yaml
   validate :name_generates_reachable_uid
   validates :contact_types, presence: true, if: :contacts_block_selected?
+  validates :scopes, presence: true, if: :scopes_block_selected?
+  validate :validate_each_scope, if: :scopes_block_selected?
 
   before_destroy :ensure_no_authorization_requests
   after_destroy :unregister_dynamic_class
@@ -71,6 +73,19 @@ class HabilitationType < ApplicationRecord
 
   def contacts_block_selected?
     block_name_list.include?('contacts')
+  end
+
+  def validate_each_scope
+    (scopes || []).each_with_index do |scope, index|
+      scope_name = scope['name']
+      scope_value = scope['value']
+      errors.add(:scopes, :scope_name_blank, index: index) if scope_name.blank?
+      errors.add(:scopes, :scope_value_blank, index: index) if scope_value.blank?
+    end
+  end
+
+  def scopes_block_selected?
+    block_name_list.include?('scopes')
   end
 
   def slug_not_taken_by_yaml

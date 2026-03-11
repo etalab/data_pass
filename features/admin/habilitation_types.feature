@@ -47,6 +47,32 @@ Fonctionnalité: Espace admin: types d'habilitation
     Alors la page contient "API Contacts Test"
     Et il y a un message de succès contenant "créé"
 
+  @javascript
+  Scénario: Je crée un type d'habilitation avec des scopes
+    Sachant que je me connecte
+    Et qu'un fournisseur de données "DINUM" existe
+    Quand je me rends sur le chemin "/admin/types-habilitation/new"
+    Et que je remplis "Nom" avec "API Scopes Test"
+    Et que je sélectionne "DINUM" pour "Fournisseur"
+    Et que je choisis le type "API"
+    Et que je coche "Données (scopes)"
+    Et que je clique sur "Ajouter un scope"
+    Et que je remplis le scope 1 avec nom "Revenu fiscal" valeur "rfr" groupe "Revenus"
+    Et que je clique sur "Créer"
+    Alors la page contient "API Scopes Test"
+    Et il y a un message de succès contenant "créé"
+
+  Scénario: Je ne peux pas créer un type avec le bloc scopes mais sans scope
+    Sachant que je me connecte
+    Et qu'un fournisseur de données "DINUM" existe
+    Quand je me rends sur le chemin "/admin/types-habilitation/new"
+    Et que je remplis "Nom" avec "API Sans Scope"
+    Et que je sélectionne "DINUM" pour "Fournisseur"
+    Et que je choisis le type "API"
+    Et que je coche "Données (scopes)"
+    Et que je clique sur "Créer"
+    Alors il y a un message d'erreur contenant "erreur"
+
   Scénario: Je ne peux pas créer un type avec le bloc contacts mais sans type de contact
     Sachant que je me connecte
     Et qu'un fournisseur de données "DINUM" existe

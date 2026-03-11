@@ -118,3 +118,13 @@ Available test accounts:
 ## Git
 
 - When you move files, use `git mv` to keep history.
+
+## ViewComponents Guidelines
+
+- **Creating a ViewComponent**: consult `.claude/skills/component-creation/SKILL.md`
+  - Follow Atomic Design Pattern (atoms/molecules/organisms/dsfr)
+  - Use DSFR components and helpers when available
+  - Create previews with real objects from seeds (NOT FactoryBot)
+- **Using DSFR without ViewComponent**: consult `.claude/skills/dsfr-skill/skills/dsfr-skill/SKILL.md`
+  - 23 composants documentés avec HTML, CSS, accessibilité RGAA et exemples
+- Respect RGAA accessibility guidelines in all cases

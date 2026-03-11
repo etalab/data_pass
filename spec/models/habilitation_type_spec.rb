@@ -83,6 +83,60 @@ RSpec.describe HabilitationType do
     end
   end
 
+  describe 'validation: scopes block requires scopes' do
+    context 'when scopes block is selected' do
+      before { habilitation_type.blocks = [{ 'name' => 'scopes' }] }
+
+      it 'is invalid without scopes' do
+        habilitation_type.scopes = []
+        expect(habilitation_type).not_to be_valid
+        expect(habilitation_type.errors[:scopes]).to be_present
+      end
+
+      it 'is valid with scopes' do
+        habilitation_type.scopes = [{ 'name' => 'test', 'value' => 'test', 'group' => 'group' }]
+        expect(habilitation_type).to be_valid
+      end
+
+      it 'is invalid when a scope has a blank name' do
+        habilitation_type.scopes = [{ 'name' => '', 'value' => 'rfr', 'group' => 'Revenus' }]
+        expect(habilitation_type).not_to be_valid
+        expect(habilitation_type.errors.where(:scopes, :scope_name_blank, index: 0)).to be_present
+      end
+
+      it 'is invalid when a scope has a blank value' do
+        habilitation_type.scopes = [{ 'name' => 'Revenu fiscal', 'value' => '', 'group' => 'Revenus' }]
+        expect(habilitation_type).not_to be_valid
+        expect(habilitation_type.errors.where(:scopes, :scope_value_blank, index: 0)).to be_present
+      end
+
+      it 'is valid when a scope has a blank group' do
+        habilitation_type.scopes = [{ 'name' => 'Revenu fiscal', 'value' => 'rfr', 'group' => '' }]
+        expect(habilitation_type).to be_valid
+      end
+
+      it 'validates each scope independently' do
+        habilitation_type.scopes = [
+          { 'name' => 'Valid', 'value' => 'valid', 'group' => '' },
+          { 'name' => '', 'value' => '', 'group' => '' },
+        ]
+        expect(habilitation_type).not_to be_valid
+        expect(habilitation_type.errors.where(:scopes, :scope_name_blank, index: 0)).to be_empty
+        expect(habilitation_type.errors.where(:scopes, :scope_name_blank, index: 1)).to be_present
+        expect(habilitation_type.errors.where(:scopes, :scope_value_blank, index: 1)).to be_present
+      end
+    end
+
+    context 'when scopes block is not selected' do
+      before { habilitation_type.blocks = [{ 'name' => 'basic_infos' }] }
+
+      it 'is valid without scopes' do
+        habilitation_type.scopes = []
+        expect(habilitation_type).to be_valid
+      end
+    end
+  end
+
   describe 'slug collision with YAML' do
     it 'is invalid when uid matches an existing YAML definition' do
       existing_yaml_uid = AuthorizationDefinition.yaml_records.first.id
