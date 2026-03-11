@@ -3,7 +3,8 @@ class Molecules::Admin::BlocksSelectionComponentPreview < ViewComponent::Preview
     record = HabilitationType.new(blocks: HabilitationType::BLOCK_ORDER)
     render Molecules::Admin::BlocksSelectionComponent.new(
       form: create_form_builder(record),
-      habilitation_type: record
+      habilitation_type: record,
+      title: 'Blocs'
     )
   end
 
@@ -11,7 +12,8 @@ class Molecules::Admin::BlocksSelectionComponentPreview < ViewComponent::Preview
     record = HabilitationType.first
     render Molecules::Admin::BlocksSelectionComponent.new(
       form: create_form_builder(record),
-      habilitation_type: record
+      habilitation_type: record,
+      title: 'Blocs'
     )
   end
 
