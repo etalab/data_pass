@@ -30,10 +30,22 @@
     <div class="fr-mb-4w">
       <h2 class="fr-h3"><%= t('admin.habilitation_types.form.sections.links') %></h2>
 
-      <%= f.dsfr_text_field :link %>
-      <%= f.dsfr_text_field :cgu_link %>
-      <%= f.dsfr_text_field :access_link %>
-      <%= f.dsfr_email_field :support_email %>
+      <div class="fr-grid-row fr-grid-row--gutters fr-mb-2w">
+        <div class="fr-col-6">
+          <%= f.dsfr_url_field :link %>
+        </div>
+        <div class="fr-col-6">
+          <%= f.dsfr_url_field :cgu_link %>
+        </div>
+      </div>
+      <div class="fr-grid-row fr-grid-row--gutters" style="align-items: flex-end;">
+        <div class="fr-col-6">
+          <%= f.dsfr_url_field :access_link %>
+        </div>
+        <div class="fr-col-6">
+          <%= f.dsfr_email_field :support_email %>
+        </div>
+      </div>
     </div>
 
     <div class="fr-mb-4w">

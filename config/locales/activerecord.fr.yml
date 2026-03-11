@@ -152,7 +152,7 @@ fr:
         kind: Type
         form_introduction: Introduction du formulaire
         link: Lien en savoir plus
-        cgu_link: "Lien vers les conditions générales d’utilisation"
+        cgu_link: CGU
         access_link: "Lien d’accès (affiché après validation)"
         support_email: Email de support
       habilitation_type/kind/values:
@@ -166,7 +166,7 @@ fr:
     hints:
       habilitation_type:
         name: "Le nom doit commencer par une lettre et ne pas se terminer par un pluriel (ex : utilisez « scope » plutôt que « scopes »)"
-        access_link: "Utilisez %{external_provider_id} pour insérer l’identifiant de jeton renvoyé par votre webhook lors de la validation (ex : https://mon-api.gouv.fr/jetons/%{external_provider_id})"
+        access_link: "Utilisez %{external_provider_id} pour insérer l’identifiant de jeton webhook<br>(ex : https://mon-api.gouv.fr/jetons/%{external_provider_id})"
       france_connect:
         contact_technique_phone_number: Le numéro de téléphone doit être un numéro de portable
       authorization_request:

@@ -35,7 +35,7 @@ Fonctionnalité: Espace admin: types d'habilitation
     Et que je remplis "Nom" avec "API CGU Test"
     Et que je sélectionne "DINUM" pour "Fournisseur"
     Et que je choisis le type "API"
-    Et que je remplis "Lien vers les conditions générales d’utilisation" avec "https://example.com/cgu"
+    Et que je remplis "CGU" avec "https://example.com/cgu"
     Et que je clique sur "Créer"
     Alors la page contient "API CGU Test"
     Et il y a un message de succès contenant "créé"
