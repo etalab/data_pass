@@ -150,7 +150,9 @@ RSpec.describe CreateAuthorizationRequestChangelog, type: :interactor do
         let!(:authorization_request) { create(:authorization_request, :api_entreprise_mgdis, fill_all_attributes: true) }
 
         let(:change_document_attribute!) do
-          authorization_request.cadre_juridique_document.attach(io: File.open('spec/fixtures/another_dummy.pdf'), filename: 'another_document.pdf')
+          File.open('spec/fixtures/another_dummy.pdf') do |file|
+            authorization_request.cadre_juridique_document.attach(io: file, filename: 'another_document.pdf')
+          end
         end
 
         describe 'on first submit' do
