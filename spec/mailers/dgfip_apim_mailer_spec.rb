@@ -13,8 +13,8 @@ RSpec.describe DGFIP::APIMMailer do
         ).approve
       end
 
-      it 'sends to the DGFiP APIM email' do
-        expect(mail.to).to eq([DGFIP::APIMMailer::DGFIP_APIM_EMAIL])
+      it 'sends to the DGFiP APIM emails from test credentials' do
+        expect(mail.to).to eq ['test1@dgfip.finances.gouv.fr', 'test2@dgfip.finances.gouv.fr']
       end
 
       it 'has the correct subject for new request' do
