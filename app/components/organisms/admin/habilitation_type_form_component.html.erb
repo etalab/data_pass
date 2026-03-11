@@ -4,54 +4,44 @@
     builder: DsfrFormBuilder
   ) do |f| %>
 
-    <div class="fr-mb-4w">
+    <div class="fr-mb-8w">
       <h2 class="fr-h3"><%= t('admin.habilitation_types.form.sections.general') %></h2>
 
-      <%= render Molecules::Admin::NameWithUidPreviewComponent.new(
-        form: f,
-        record: @habilitation_type,
-        uid_label: t('admin.habilitation_types.form.uid_preview_label')
-      ) %>
+      <div class="fr-col-4">
+        <%= render Molecules::Admin::NameWithUidPreviewComponent.new(
+          form: f,
+          record: @habilitation_type,
+          uid_label: t('admin.habilitation_types.form.uid_preview_label')
+        ) %>
+      </div>
 
-      <%= f.dsfr_text_area :description %>
+      <%= f.dsfr_text_area :description, rows: 5 %>
 
-      <%= f.dsfr_select :data_provider_id,
-          @data_providers.map { |data_provider| [data_provider.name, data_provider.id] },
-          required: true,
-          include_blank: t('admin.habilitation_types.form.select_provider') %>
+      <div class="fr-col-4 fr-mb-3w">
+        <%= f.dsfr_select :data_provider_id,
+            @data_providers.map { |data_provider| [data_provider.name, data_provider.id] },
+            required: true,
+            include_blank: t('admin.habilitation_types.form.select_provider') %>
+      </div>
 
       <%= f.dsfr_radio_buttons :kind,
           HabilitationType.kinds.keys,
           required: true %>
 
-      <%= f.dsfr_text_area :form_introduction %>
+      <%= f.dsfr_text_area :form_introduction, rows: 5  %>
     </div>
 
-    <div class="fr-mb-4w">
+    <div class="fr-mb-8w">
       <h2 class="fr-h3"><%= t('admin.habilitation_types.form.sections.links') %></h2>
 
-      <div class="fr-grid-row fr-grid-row--gutters fr-mb-2w">
-        <div class="fr-col-6">
-          <%= f.dsfr_url_field :link %>
-        </div>
-        <div class="fr-col-6">
-          <%= f.dsfr_url_field :cgu_link %>
-        </div>
-      </div>
-      <div class="fr-grid-row fr-grid-row--gutters" style="align-items: flex-end;">
-        <div class="fr-col-6">
-          <%= f.dsfr_url_field :access_link %>
-        </div>
-        <div class="fr-col-6">
-          <%= f.dsfr_email_field :support_email %>
-        </div>
-      </div>
+      <%= render Molecules::Admin::LinksFormSectionComponent.new(form: f) %>
     </div>
 
-    <div class="fr-mb-4w">
+    <div class="fr-mb-8w">
       <%= render Molecules::Admin::BlocksSelectionComponent.new(
         form: f,
-        habilitation_type: @habilitation_type
+        habilitation_type: @habilitation_type,
+        title: t('admin.habilitation_types.form.sections.blocks')
       ) %>
     </div>
 
@@ -71,10 +61,11 @@
     <div data-controller="blocks-toggle"
          data-blocks-toggle-block-name-value="contacts">
       <div data-blocks-toggle-target="section">
-        <div class="fr-mb-4w">
+        <div class="fr-mb-8w">
           <%= render Molecules::Admin::ContactTypesSelectorComponent.new(
             form: f,
-            habilitation_type: @habilitation_type
+            habilitation_type: @habilitation_type,
+            title: t('admin.habilitation_types.form.sections.contact_types')
           ) %>
         </div>
       </div>
