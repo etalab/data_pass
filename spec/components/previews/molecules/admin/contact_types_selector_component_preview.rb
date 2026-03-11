@@ -5,7 +5,8 @@ class Molecules::Admin::ContactTypesSelectorComponentPreview < ViewComponent::Pr
     )
     render Molecules::Admin::ContactTypesSelectorComponent.new(
       form: create_form_builder(record),
-      habilitation_type: record
+      habilitation_type: record,
+      title: 'Types de contacts'
     )
   end
 
@@ -13,7 +14,8 @@ class Molecules::Admin::ContactTypesSelectorComponentPreview < ViewComponent::Pr
     record = HabilitationType.new(contact_types: [])
     render Molecules::Admin::ContactTypesSelectorComponent.new(
       form: create_form_builder(record),
-      habilitation_type: record
+      habilitation_type: record,
+      title: 'Types de contacts'
     )
   end
 
@@ -21,7 +23,8 @@ class Molecules::Admin::ContactTypesSelectorComponentPreview < ViewComponent::Pr
     record = HabilitationType.first
     render Molecules::Admin::ContactTypesSelectorComponent.new(
       form: create_form_builder(record),
-      habilitation_type: record
+      habilitation_type: record,
+      title: 'Types de contacts'
     )
   end
 
