@@ -39,6 +39,35 @@ RSpec.describe DynamicAuthorizationRequestRegistrar do
         klass = AuthorizationRequest.const_get(uid.classify)
         expect(klass.extra_attributes).to include(:cadre_juridique_url)
       end
+
+      context 'when submitted' do
+        let(:habilitation_type) { create(:habilitation_type, blocks: [{ 'name' => 'legal' }]) }
+        let(:klass) { AuthorizationRequest.const_get(habilitation_type.uid.classify) }
+
+        it 'is invalid without document nor url' do
+          demande = klass.new
+          demande.valid?(:submit)
+          expect(demande.errors[:cadre_juridique_document]).to be_present
+          expect(demande.errors[:cadre_juridique_url]).to be_present
+        end
+
+        it 'is valid with a document attached' do
+          demande = klass.new
+          File.open('spec/fixtures/dummy.pdf') do |file|
+            demande.cadre_juridique_document.attach(io: file, filename: 'dummy.pdf')
+          end
+          demande.valid?(:submit)
+          expect(demande.errors[:cadre_juridique_document]).to be_empty
+          expect(demande.errors[:cadre_juridique_url]).to be_empty
+        end
+
+        it 'is valid with a url' do
+          demande = klass.new(cadre_juridique_url: 'https://example.gouv.fr/loi')
+          demande.valid?(:submit)
+          expect(demande.errors[:cadre_juridique_document]).to be_empty
+          expect(demande.errors[:cadre_juridique_url]).to be_empty
+        end
+      end
     end
 
     context 'with personal_data block' do
