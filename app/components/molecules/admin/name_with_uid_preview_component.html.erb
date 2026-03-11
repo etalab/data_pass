@@ -1,18 +1,25 @@
-<div data-controller="name-with-uid-preview">
-  <%= form.dsfr_text_field :name,
-      required: true,
-      data: {
-        'name-with-uid-preview-target': 'name',
-        action: 'input->name-with-uid-preview#update'
-      } %>
+<% if record.persisted? %>
+  <%= form.dsfr_text_field :name, required: true %>
 
   <p class="fr-hint-text">
-    <%= uid_label %> :
-    <span
-      data-name-with-uid-preview-target="preview"
-      aria-live="polite"
-      aria-atomic="true">
-      <%= record.uid if record.persisted? %>
-    </span>
+    <%= uid_label %> : <strong><%= record.uid %></strong>
   </p>
-</div>
+<% else %>
+  <div data-controller="name-with-uid-preview">
+    <%= form.dsfr_text_field :name,
+        required: true,
+        data: {
+          'name-with-uid-preview-target': 'name',
+          action: 'input->name-with-uid-preview#update'
+        } %>
+
+    <p class="fr-hint-text">
+      <%= uid_label %> :
+      <span
+        data-name-with-uid-preview-target="preview"
+        aria-live="polite"
+        aria-atomic="true">
+      </span>
+    </p>
+  </div>
+<% end %>

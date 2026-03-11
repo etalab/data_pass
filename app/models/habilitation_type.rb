@@ -42,6 +42,10 @@ class HabilitationType < ApplicationRecord
     slug.underscore
   end
 
+  def should_generate_new_friendly_id?
+    slug.blank?
+  end
+
   def authorization_request_type
     "AuthorizationRequest::#{uid.classify}"
   end
