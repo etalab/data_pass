@@ -41,31 +41,38 @@ RSpec.describe DynamicAuthorizationRequestRegistrar do
       end
 
       context 'when submitted' do
+        subject(:valid?) { demande.valid?(:submit) }
+
         let(:habilitation_type) { create(:habilitation_type, blocks: [{ 'name' => 'legal' }]) }
         let(:klass) { AuthorizationRequest.const_get(habilitation_type.uid.classify) }
+        let(:demande) { klass.new(**params) }
+        let(:params) { {} }
 
-        it 'has errors on cadre_juridique without document nor url' do
-          demande = klass.new
-          demande.valid?(:submit)
-          expect(demande.errors[:cadre_juridique_document]).to be_present
-          expect(demande.errors[:cadre_juridique_url]).to be_present
+        before { valid? }
+
+        context 'without document nor url' do
+          it { expect(demande.errors[:cadre_juridique_document]).to be_present }
+          it { expect(demande.errors[:cadre_juridique_url]).to be_present }
         end
 
-        it 'has no errors on cadre_juridique when document is attached' do
-          demande = klass.new
-          File.open('spec/fixtures/dummy.pdf') do |file|
-            demande.cadre_juridique_document.attach(io: file, filename: 'dummy.pdf')
+        context 'with a document attached' do
+          let(:demande) do
+            klass.new.tap do |d|
+              File.open('spec/fixtures/dummy.pdf') do |file|
+                d.cadre_juridique_document.attach(io: file, filename: 'dummy.pdf')
+              end
+            end
           end
-          demande.valid?(:submit)
-          expect(demande.errors[:cadre_juridique_document]).to be_empty
-          expect(demande.errors[:cadre_juridique_url]).to be_empty
+
+          it { expect(demande.errors[:cadre_juridique_document]).to be_empty }
+          it { expect(demande.errors[:cadre_juridique_url]).to be_empty }
         end
 
-        it 'has no errors on cadre_juridique when url is provided' do
-          demande = klass.new(cadre_juridique_url: 'https://example.gouv.fr/loi')
-          demande.valid?(:submit)
-          expect(demande.errors[:cadre_juridique_document]).to be_empty
-          expect(demande.errors[:cadre_juridique_url]).to be_empty
+        context 'with a url' do
+          let(:params) { { cadre_juridique_url: 'https://example.gouv.fr/loi' } }
+
+          it { expect(demande.errors[:cadre_juridique_document]).to be_empty }
+          it { expect(demande.errors[:cadre_juridique_url]).to be_empty }
         end
       end
     end
@@ -80,34 +87,31 @@ RSpec.describe DynamicAuthorizationRequestRegistrar do
       end
 
       context 'when submitted' do
+        subject(:valid?) { demande.valid?(:submit) }
+
         let(:habilitation_type) { create(:habilitation_type, blocks: [{ 'name' => 'personal_data' }]) }
         let(:klass) { AuthorizationRequest.const_get(habilitation_type.uid.classify) }
+        let(:demande) { klass.new(**params) }
+        let(:params) { {} }
 
-        it 'requires justification when duree_conservation > 36 months' do
-          demande = klass.new(
-            duree_conservation_donnees_caractere_personnel: 37,
-            duree_conservation_donnees_caractere_personnel_justification: nil
-          )
-          demande.valid?(:submit)
-          expect(demande.errors[:duree_conservation_donnees_caractere_personnel_justification]).to be_present
+        before { valid? }
+
+        context 'when duree_conservation > 36 months without justification' do
+          let(:params) { { duree_conservation_donnees_caractere_personnel: 37, duree_conservation_donnees_caractere_personnel_justification: nil } }
+
+          it { expect(demande.errors[:duree_conservation_donnees_caractere_personnel_justification]).to be_present }
         end
 
-        it 'does not require justification when duree_conservation <= 36 months' do
-          demande = klass.new(
-            duree_conservation_donnees_caractere_personnel: 36,
-            duree_conservation_donnees_caractere_personnel_justification: nil
-          )
-          demande.valid?(:submit)
-          expect(demande.errors[:duree_conservation_donnees_caractere_personnel_justification]).to be_empty
+        context 'when duree_conservation <= 36 months' do
+          let(:params) { { duree_conservation_donnees_caractere_personnel: 36, duree_conservation_donnees_caractere_personnel_justification: nil } }
+
+          it { expect(demande.errors[:duree_conservation_donnees_caractere_personnel_justification]).to be_empty }
         end
 
-        it 'accepts justification when duree_conservation > 36 months and justification is provided' do
-          demande = klass.new(
-            duree_conservation_donnees_caractere_personnel: 37,
-            duree_conservation_donnees_caractere_personnel_justification: 'Raison valable'
-          )
-          demande.valid?(:submit)
-          expect(demande.errors[:duree_conservation_donnees_caractere_personnel_justification]).to be_empty
+        context 'when duree_conservation > 36 months with justification' do
+          let(:params) { { duree_conservation_donnees_caractere_personnel: 37, duree_conservation_donnees_caractere_personnel_justification: 'Raison valable' } }
+
+          it { expect(demande.errors[:duree_conservation_donnees_caractere_personnel_justification]).to be_empty }
         end
       end
     end
