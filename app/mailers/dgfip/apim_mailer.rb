@@ -1,6 +1,4 @@
 class DGFIP::APIMMailer < ApplicationMailer
-  DGFIP_APIM_EMAIL = 'dtnum.donnees.demande-acces@dgfip.finances.gouv.fr'.freeze
-
   def approve
     @authorization = params[:authorization]
     @authorization_request = @authorization.request
@@ -8,7 +6,7 @@ class DGFIP::APIMMailer < ApplicationMailer
     @stage_label = stage_label
 
     mail(
-      to: DGFIP_APIM_EMAIL,
+      to: dgfip_apim_emails,
       subject: subject_for_approve
     )
   end
@@ -27,6 +25,10 @@ class DGFIP::APIMMailer < ApplicationMailer
         authorization_request_id: @authorization_request.id
       )
     end
+  end
+
+  def dgfip_apim_emails
+    Rails.application.credentials.dgfip_apim_emails || []
   end
 
   def stage_label
