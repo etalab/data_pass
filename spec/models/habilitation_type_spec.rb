@@ -9,6 +9,20 @@ RSpec.describe HabilitationType do
     end
   end
 
+  describe '#should_generate_new_friendly_id?' do
+    it 'generates slug on first save' do
+      habilitation_type.save!
+      expect(habilitation_type.slug).to be_present
+    end
+
+    it 'does not change slug when name is updated after creation' do
+      habilitation_type.save!
+      original_slug = habilitation_type.slug
+      habilitation_type.update!(name: 'Nouveau Nom Différent')
+      expect(habilitation_type.reload.slug).to eq(original_slug)
+    end
+  end
+
   describe '#ordered_steps' do
     it 'returns blocks in BLOCK_ORDER regardless of storage order' do
       habilitation_type.blocks = [

@@ -161,7 +161,7 @@ fr:
 
     hints:
       habilitation_type:
-        name: "Le nom doit commencer par une lettre et ne pas se terminer par un pluriel (ex : utilisez « scope » plutôt que « scopes »)"
+        name: "À la création, le nom génère l’identifiant technique : il doit commencer par une lettre et ne pas se terminer par un pluriel (ex : utilisez « scope » plutôt que « scopes »)"
       france_connect:
         contact_technique_phone_number: Le numéro de téléphone doit être un numéro de portable
       authorization_request:
