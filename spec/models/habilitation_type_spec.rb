@@ -137,6 +137,31 @@ RSpec.describe HabilitationType do
     end
   end
 
+  describe 'versioning' do
+    it 'creates a version on create' do
+      expect { habilitation_type.save! }.to change(PaperTrail::Version, :count).by(1)
+    end
+
+    it 'creates a version on update' do
+      habilitation_type.save!
+      expect { habilitation_type.update!(name: 'Nouveau Nom') }.to change(PaperTrail::Version, :count).by(1)
+    end
+
+    it 'creates a version on destroy' do
+      habilitation_type.save!
+      expect { habilitation_type.destroy! }.to change(PaperTrail::Version, :count).by(1)
+    end
+
+    it 'tracks attribute changes as a Hash in object_changes' do
+      habilitation_type.save!
+      habilitation_type.update!(name: 'Nouveau Nom')
+
+      version = habilitation_type.versions.last
+      expect(version.object_changes).to be_a(Hash)
+      expect(version.object_changes['name'].last).to eq('Nouveau Nom')
+    end
+  end
+
   describe 'slug collision with YAML' do
     it 'is invalid when uid matches an existing YAML definition' do
       existing_yaml_uid = AuthorizationDefinition.yaml_records.first.id

@@ -5,6 +5,8 @@ class HabilitationType < ApplicationRecord
 
   extend FriendlyId
 
+  has_paper_trail
+
   friendly_id :name, use: :slugged
 
   belongs_to :data_provider

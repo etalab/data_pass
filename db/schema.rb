@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_25_111739) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_12_154855) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pg_catalog.plpgsql"
@@ -650,6 +650,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_25_111739) do
     t.datetime "updated_at", null: false
     t.datetime "verified_at"
     t.index ["email"], name: "index_verified_emails_on_email", unique: true
+  end
+
+  create_table "versions", force: :cascade do |t|
+    t.datetime "created_at"
+    t.string "event", null: false
+    t.bigint "item_id", null: false
+    t.string "item_type", null: false
+    t.jsonb "object"
+    t.jsonb "object_changes"
+    t.string "whodunnit"
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
   create_table "webhook_attempts", force: :cascade do |t|
