@@ -16,12 +16,12 @@ Fonctionnalité: Instruction: gestion des demandes d'habilitations d'instructeur
 
   Scénario: Je peux voir les demande d'habilitations d'instructeur depuis la page d'instruction
     Quand j'ai une demande d'habilitation à partager pour "API Entreprise" intitulée "Super secret"
-    Et que je clique sur "Demandes initiés par des instructeurs"
+    Et que je clique sur "Demandes initiées par des instructeurs"
     Alors la page contient "Super secret"
     Et la page contient "API Entreprise"
 
   Scénario: Je peux créer une demande d'habilitation d'instructeur
-    Quand je clique sur "Demandes initiés par des instructeurs"
+    Quand je clique sur "Demandes initiées par des instructeurs"
     Et que je clique sur "Initier une nouvelle demande d'habilitation"
     Et que je clique sur "Démarrer le brouillon"
     Et que je remplis "Nom du projet" avec "Conquérir le monde"
@@ -34,14 +34,14 @@ Fonctionnalité: Instruction: gestion des demandes d'habilitations d'instructeur
 
   Scénario: Si je suis instructeur de plusieurs type de demande, je peux choisir le type de demande que je veux
     Sachant que je suis un instructeur "API Particulier"
-    Quand je clique sur "Demandes initiés par des instructeurs"
+    Quand je clique sur "Demandes initiées par des instructeurs"
     Et que je clique sur "Initier une nouvelle demande d'habilitation"
     Alors la page contient "API Entreprise"
     Et la page contient "API Particulier"
 
   @javascript
   Scénario: Je peux choisir un formulaire spécifique lors de la création d'une demande d'habilitation d'instructeur
-    Quand je clique sur "Demandes initiés par des instructeurs"
+    Quand je clique sur "Demandes initiées par des instructeurs"
     Et que je clique sur "Initier une nouvelle demande d'habilitation"
     Et que je sélectionne "Marchés publics" pour "Sélectionner un formulaire"
     Alors la page contient "Simplifier le dépôt des candidatures"
@@ -55,7 +55,7 @@ Fonctionnalité: Instruction: gestion des demandes d'habilitations d'instructeur
 
   Scénario: Je peux mettre à jour une demande d'habilitation d'instructeur
     Quand j'ai une demande d'habilitation à partager pour "API Entreprise" intitulée "Super secret"
-    Et que je clique sur "Demandes initiés par des instructeurs"
+    Et que je clique sur "Demandes initiées par des instructeurs"
     Et que je clique sur "Modifier"
     Et que je remplis "Nom du projet" avec "Conquérir le monde"
     Et que je clique sur "Sauvegarder"
@@ -65,7 +65,7 @@ Fonctionnalité: Instruction: gestion des demandes d'habilitations d'instructeur
   Scénario: Je peux mettre à jour une demande d'habilitation d'instructeur pour API Particulier
     Sachant que je suis un instructeur "API Particulier"
     Quand j'ai une demande d'habilitation à partager pour "API Particulier" intitulée "Projet cantine"
-    Et que je clique sur "Demandes initiés par des instructeurs"
+    Et que je clique sur "Demandes initiées par des instructeurs"
     Et que je clique sur "Modifier"
     Et que je remplis "Nom du projet" avec "Projet cantine v2"
     Et que je clique sur "Sauvegarder"
@@ -74,8 +74,8 @@ Fonctionnalité: Instruction: gestion des demandes d'habilitations d'instructeur
 
   Scénario: Je peux supprimer une demande d'habilitation d'instructeur
     Quand j'ai une demande d'habilitation à partager pour "API Entreprise" intitulée "Super secret"
-    Et que je clique sur "Demandes initiés par des instructeurs"
+    Et que je clique sur "Demandes initiées par des instructeurs"
     Et que je clique sur "Supprimer"
     Alors il y a un message de succès contenant "La demande d'habilitation a bien été supprimé"
     Et la page ne contient pas "Super secret"
-    Et je suis sur la page "Demandes initiés par des instructeurs"
+    Et je suis sur la page "Demandes initiées par des instructeurs"

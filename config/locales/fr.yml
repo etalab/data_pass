@@ -106,7 +106,7 @@ fr:
             title: Se déconnecter
       menu:
         instruction:
-          instructor_authorization_requests: Demandes initiés par des instructeurs
+          instructor_authorization_requests: Demandes initiées par des instructeurs
           authorizations_and_requests: Demandes / habilitations
           message_templates: Modèles de messages
     footer:
