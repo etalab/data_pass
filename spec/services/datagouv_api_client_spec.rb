@@ -20,23 +20,14 @@ RSpec.describe DatagouvAPIClient do
   end
 
   describe '#upload_resource' do
-    let(:csv_path) { Rails.root.join('tmp/test-habilitations.csv').to_s }
     let!(:upload_stub) do
       stub_request(:post, upload_url)
         .with(headers: { 'X-API-KEY' => 'test-api-key' })
         .to_return(status: 200, body: '{}')
     end
 
-    before do
-      File.write(csv_path, 'col1,col2')
-    end
-
-    after do
-      FileUtils.rm_f(csv_path)
-    end
-
     it 'sends a multipart POST to the upload endpoint' do
-      client.upload_resource(csv_path)
+      client.upload_resource('col1,col2', 'habilitations.csv')
 
       expect(upload_stub).to have_been_requested
     end

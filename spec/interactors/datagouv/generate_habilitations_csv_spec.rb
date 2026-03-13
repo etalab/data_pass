@@ -12,16 +12,12 @@ RSpec.describe Datagouv::GenerateHabilitationsCsv do
     ]
   end
 
-  after do
-    File.delete(result.csv_path) if result.csv_path.present? && File.exist?(result.csv_path)
-  end
-
   it 'succeeds' do
     expect(result).to be_success
   end
 
-  it 'writes a CSV file with headers and rows' do
-    content = File.read(result.csv_path)
+  it 'generates CSV content in memory with headers and rows' do
+    content = result.csv_content
 
     expect(content).to include('API ou Service demandé')
     expect(content).to include("Dénomination de l'unité légale du demandeur")

@@ -24,10 +24,6 @@ RSpec.describe ExportDatagouvHabilitations, type: :organizer do
     stub_request(:put, dataset_url).to_return(status: 200, body: '{}')
   end
 
-  after do
-    File.delete(result.csv_path) if result.csv_path.present? && File.exist?(result.csv_path)
-  end
-
   context 'when there are active authorizations' do
     let!(:organization) { create(:organization, siret: '21920023500014') }
     let!(:authorization_request) { create(:authorization_request, :api_entreprise, :validated, organization:) }

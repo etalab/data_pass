@@ -9,7 +9,6 @@ class DatagouvHabilitationsSyncJob < ApplicationJob
     return unless api_key_configured?
 
     result = ExportDatagouvHabilitations.call
-    cleanup_csv(result)
     raise result.error if result.failure?
   end
 
@@ -17,11 +16,5 @@ class DatagouvHabilitationsSyncJob < ApplicationJob
 
   def api_key_configured?
     Rails.application.credentials.dig(:data_gouv_fr, :api_key).present?
-  end
-
-  def cleanup_csv(result)
-    return unless result.csv_path.present? && File.exist?(result.csv_path)
-
-    File.delete(result.csv_path)
   end
 end

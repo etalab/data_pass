@@ -1,9 +1,9 @@
 class DatagouvAPIClient
   class ServerError < StandardError; end
 
-  def upload_resource(file_path)
+  def upload_resource(csv_content, filename)
     connection.post(upload_path) do |req|
-      req.body = { file: Faraday::FilePart.new(file_path, 'text/csv', File.basename(file_path)) }
+      req.body = { file: Faraday::FilePart.new(StringIO.new(csv_content), 'text/csv', filename) }
     end
   rescue Faraday::ServerError => e
     body = e.response&.body
