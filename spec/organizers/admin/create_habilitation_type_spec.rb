@@ -24,6 +24,10 @@ RSpec.describe Admin::CreateHabilitationType, type: :organizer do
       expect(AdminEvent.last.name).to eq('habilitation_type_created')
     end
 
+    it 'creates a PaperTrail version' do
+      expect { organizer }.to change(PaperTrail::Version, :count).by(1)
+    end
+
     context 'when params are invalid' do
       let(:params) { { name: '', kind: 'api', data_provider_id: data_provider.id } }
 
