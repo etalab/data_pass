@@ -38,7 +38,7 @@
         </p>
       </div>
       <%= f.france_connect_authorization_select_with_auto_create %>
-    <% elsif @authorization_request.france_connect_authorizations.empty? %>
+    <% elsif @authorization_request.available_france_connect_authorizations.empty? %>
       <div class="fr-callout red-callout">
         <h3 class="fr-callout__title">
           <%= f.wording_for("modalities.callout.title") %>

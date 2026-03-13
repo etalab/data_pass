@@ -23,7 +23,7 @@
   </div>
 
   <div class="fr-col-lg-9 fr-mb-5w <%= 'fr-hidden' unless @authorization_request.with_france_connect? %>" data-choose-modalite-with-france-connect-target="franceConnectContainer">
-    <% if @authorization_request.france_connect_authorizations.empty? %>
+    <% if @authorization_request.available_france_connect_authorizations.empty? %>
       <div class="fr-callout red-callout">
         <h3 class="fr-callout__title">
           <%= f.wording_for("modalities.callout.title") %>
