@@ -14,6 +14,14 @@ module ApplicationHelper
     simple_format(text, html_options, { sanitize_options: { tags: [], attributes: [] } }.merge(options))
   end
 
+  def linkify_urls(text)
+    return '' if text.blank?
+
+    escaped = ERB::Util.html_escape(text.to_s)
+    pattern = %r{(https?://[^\s<>"']+)}
+    escaped.gsub(pattern) { |url| %(<a href="#{url}" target="_blank" rel="noopener">#{url}</a>) }.html_safe
+  end
+
   def provider_logo_image_tag(authorization_definition, options = {})
     return nil unless authorization_definition.provider
 

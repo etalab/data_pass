@@ -8,8 +8,16 @@ RSpec.describe MessageMailer do
     end
 
     it 'renders valid template' do
-      expect(mail.body.encoded).to match('un nouveau message')
-      expect(mail.body.encoded).to match('demande d\'habilitation')
+      body = decoded_body(mail)
+      expect(body).to match('un nouveau message')
+      expect(body).to match(/demande d'habilitation/)
+    end
+
+    it 'renders HTML part with linkified authorization request URL' do
+      html = decoded_html_body(mail)
+      expect(html).to be_present
+      expect(html).to match(/<a href=/)
+      expect(html).to match('consulter')
     end
   end
 
@@ -22,8 +30,9 @@ RSpec.describe MessageMailer do
     end
 
     it 'renders valid template' do
-      expect(mail.body.encoded).to match('un nouveau message')
-      expect(mail.body.encoded).to match('demande de réouverture de l\'habilitation')
+      body = decoded_body(mail)
+      expect(body).to match('un nouveau message')
+      expect(body).to match(/demande de réouverture de l'habilitation/)
     end
   end
 
@@ -41,8 +50,9 @@ RSpec.describe MessageMailer do
     end
 
     it 'renders valid template' do
-      expect(mail.body.encoded).to match('un nouveau message')
-      expect(mail.body.encoded).to match('demande d\'habilitation')
+      body = decoded_body(mail)
+      expect(body).to match('un nouveau message')
+      expect(body).to match(/demande d'habilitation/)
     end
   end
 
@@ -58,8 +68,9 @@ RSpec.describe MessageMailer do
     end
 
     it 'renders valid template' do
-      expect(mail.body.encoded).to match('un nouveau message')
-      expect(mail.body.encoded).to match('demande de réouverture de l\'habilitation')
+      body = decoded_body(mail)
+      expect(body).to match('un nouveau message')
+      expect(body).to match(/demande de réouverture de l'habilitation/)
     end
   end
 end
