@@ -48,9 +48,9 @@ annuaire_des_entreprises:
     - name: "legal"
     - name: "scopes"
   scopes:
-    - name: "Effectifs annuels"
+    - name: "Effectifs annuels et mensuels"
       group: "Données générales"
-      value: "effectifs_annuels"
+      value: "effectifs"
     - name: "Chiffre d'affaires"
       group: "Données financières"
       value: "chiffre_affaires"
