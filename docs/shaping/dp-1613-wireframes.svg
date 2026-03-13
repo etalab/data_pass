@@ -1,0 +1,685 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="900"
+   height="1090"
+   viewBox="0 0 900 1090"
+   font-family="Arial, sans-serif"
+   font-size="13"
+   fill="none"
+   stroke="none"
+   version="1.1"
+   id="svg182"
+   sodipodi:docname="dp-1613-wireframes.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs186" />
+  <sodipodi:namedview
+     id="namedview184"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="1.3710864"
+     inkscape:cx="430.31571"
+     inkscape:cy="443.80866"
+     inkscape:window-width="1854"
+     inkscape:window-height="1131"
+     inkscape:window-x="66"
+     inkscape:window-y="32"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg182" />
+  <rect
+     width="900"
+     height="1090"
+     fill="white"
+     id="rect2" />
+  <!-- ============================== -->
+  <!-- SCREEN 1 — Liste des droits   -->
+  <!-- ============================== -->
+  <text
+     x="450"
+     y="24"
+     text-anchor="middle"
+     font-size="13"
+     font-weight="bold"
+     fill="black"
+     id="text4">1 — Liste des droits</text>
+  <rect
+     x="20"
+     y="34"
+     width="860"
+     height="490"
+     stroke="black"
+     stroke-width="1.5"
+     fill="none"
+     id="rect6" />
+  <!-- Header bar -->
+  <rect
+     x="20"
+     y="34"
+     width="860"
+     height="40"
+     stroke="black"
+     stroke-width="1"
+     fill="#ddd"
+     id="rect8" />
+  <text
+     x="50"
+     y="60"
+     fill="black"
+     id="text10">DataPass</text>
+  <text
+     x="200"
+     y="60"
+     fill="black"
+     id="text12">Espace instructeur</text>
+  <!-- Nav tabs -->
+  <rect
+     x="20"
+     y="74"
+     width="860"
+     height="36"
+     stroke="black"
+     stroke-width="1"
+     fill="#eee"
+     id="rect14" />
+  <text
+     x="60"
+     y="97"
+     fill="black"
+     id="text16">Demandes / habilitations</text>
+  <text
+     x="280"
+     y="97"
+     fill="black"
+     id="text18">Modèles de messages</text>
+  <text
+     x="470"
+     y="97"
+     fill="black"
+     font-weight="bold"
+     id="text20">Droits</text>
+  <line
+     x1="470"
+     y1="110"
+     x2="510"
+     y2="110"
+     stroke="black"
+     stroke-width="2"
+     id="line22" />
+  <!-- Page title + button -->
+  <text
+     x="50"
+     y="140"
+     fill="black"
+     font-size="15"
+     font-weight="bold"
+     id="text24">Droits d'accès — API Entreprise</text>
+  <g
+     id="g518"
+     transform="translate(-10)">
+    <rect
+       x="560"
+       y="122"
+       width="300"
+       height="30"
+       stroke="#000000"
+       stroke-width="1"
+       fill="none"
+       id="rect26" />
+    <text
+       x="710"
+       y="142"
+       text-anchor="middle"
+       fill="#000000"
+       id="text28">+ Ajouter des droits à un utilisateur sans droits</text>
+  </g>
+  <!-- Table header -->
+  <rect
+     x="50"
+     y="160"
+     width="800"
+     height="30"
+     stroke="black"
+     stroke-width="1"
+     fill="#ddd"
+     id="rect30" />
+  <text
+     x="70"
+     y="180"
+     fill="black"
+     font-size="11"
+     font-weight="bold"
+     id="text32">EMAIL</text>
+  <text
+     x="320"
+     y="180"
+     fill="black"
+     font-size="11"
+     font-weight="bold"
+     id="text34">DROITS</text>
+  <text
+     x="716"
+     y="180"
+     fill="black"
+     font-size="11"
+     font-weight="bold"
+     id="text36">ACTIONS</text>
+  <!-- Row 1 — self, actions disabled, 1 droit -->
+  <rect
+     x="50"
+     y="190"
+     width="800"
+     height="42"
+     stroke="black"
+     stroke-width="1"
+     fill="#f5f5f5"
+     id="rect42" />
+  <text
+     x="70"
+     y="208"
+     fill="black"
+     font-size="12"
+     id="text44">manager@api-entreprise.fr</text>
+  <text
+     x="70"
+     y="224"
+     fill="black"
+     font-size="10"
+     id="text46">(vous)</text>
+  <text
+     x="328"
+     y="215"
+     fill="black"
+     font-size="11"
+     id="text48">API Entreprise (Tous) — Manager</text>
+  <text
+     x="716"
+     y="208"
+     fill="#aaa"
+     font-size="11"
+     id="text50">Modifier</text>
+  <text
+     x="790"
+     y="208"
+     fill="#aaaaaa"
+     font-size="11px"
+     id="text52">Supprimer</text>
+  <text
+     x="716"
+     y="222"
+     fill="#aaa"
+     font-size="9"
+     id="text54">[bloqué]</text>
+  <!-- Row 2 — 2 droits -->
+  <rect
+     x="50"
+     y="232"
+     width="800"
+     height="52"
+     stroke="black"
+     stroke-width="1"
+     fill="none"
+     id="rect56" />
+  <text
+     x="70"
+     y="253"
+     fill="black"
+     font-size="12"
+     id="text58">instructeur@dgfip.gouv.fr</text>
+  <text
+     x="328"
+     y="249"
+     fill="black"
+     font-size="11"
+     id="text60">API Entreprise (Tous) — Instructeur</text>
+  <text
+     x="328"
+     y="265"
+     fill="black"
+     font-size="11"
+     id="text62">Contrat de service général — Reporter</text>
+  <text
+     x="716"
+     y="263"
+     fill="black"
+     font-size="11"
+     id="text64">Modifier</text>
+  <text
+     x="790"
+     y="263"
+     fill="#000000"
+     font-size="11px"
+     id="text66">Supprimer</text>
+  <!-- Row 3 — 1 droit -->
+  <rect
+     x="50"
+     y="284"
+     width="800"
+     height="36"
+     stroke="black"
+     stroke-width="1"
+     fill="#f5f5f5"
+     id="rect68" />
+  <text
+     x="70"
+     y="307"
+     fill="black"
+     font-size="12"
+     id="text70">reporter@acoss.fr</text>
+  <text
+     x="328"
+     y="307"
+     fill="black"
+     font-size="11"
+     id="text72">API Entreprise (Tous) — Reporter</text>
+  <text
+     x="716"
+     y="307"
+     fill="black"
+     font-size="11"
+     id="text74">Modifier</text>
+  <text
+     x="790"
+     y="307"
+     fill="#000000"
+     font-size="11px"
+     id="text76">Supprimer</text>
+  <!-- Row 4 — 3 droits -->
+  <rect
+     x="50"
+     y="320"
+     width="800"
+     height="64"
+     stroke="black"
+     stroke-width="1"
+     fill="none"
+     id="rect78" />
+  <text
+     x="70"
+     y="340"
+     fill="black"
+     font-size="12"
+     id="text80">manager2@api-entreprise.fr</text>
+  <text
+     x="328"
+     y="336"
+     fill="black"
+     font-size="11"
+     id="text82">API Entreprise (Tous) — Manager</text>
+  <text
+     x="328"
+     y="352"
+     fill="black"
+     font-size="11"
+     id="text84">Contrat de service général — Instructeur</text>
+  <text
+     x="328"
+     y="368"
+     fill="black"
+     font-size="11"
+     id="text86">Extrait de données DGFIP — Reporter</text>
+  <text
+     x="716"
+     y="352"
+     fill="black"
+     font-size="11"
+     id="text88">Modifier</text>
+  <text
+     x="790"
+     y="352"
+     fill="#000000"
+     font-size="11px"
+     id="text90">Supprimer</text>
+  <!-- Close table -->
+  <line
+     x1="50"
+     y1="384"
+     x2="850"
+     y2="384"
+     stroke="black"
+     stroke-width="1"
+     id="line92" />
+  <!-- Notice -->
+  <text
+     x="50"
+     y="416"
+     fill="black"
+     font-size="11"
+     id="text94">ℹ Les admins DataPass ne sont pas listés (accès implicite).</text>
+  <!-- ============================== -->
+  <!-- SCREEN 2 — Formulaire         -->
+  <!-- ============================== -->
+  <text
+     x="450"
+     y="582"
+     text-anchor="middle"
+     font-size="13"
+     font-weight="bold"
+     fill="black"
+     id="text96">2 — Ajouter / Modifier les droits d'un utilisateur</text>
+  <rect
+     x="20"
+     y="594"
+     width="860"
+     height="480"
+     stroke="black"
+     stroke-width="1.5"
+     fill="none"
+     id="rect98" />
+  <!-- Header + nav -->
+  <rect
+     x="20"
+     y="594"
+     width="860"
+     height="40"
+     stroke="black"
+     stroke-width="1"
+     fill="#ddd"
+     id="rect100" />
+  <text
+     x="50"
+     y="620"
+     fill="black"
+     id="text102">DataPass</text>
+  <text
+     x="200"
+     y="620"
+     fill="black"
+     id="text104">Espace instructeur</text>
+  <rect
+     x="20"
+     y="634"
+     width="860"
+     height="36"
+     stroke="black"
+     stroke-width="1"
+     fill="#eee"
+     id="rect106" />
+  <text
+     x="60"
+     y="657"
+     fill="black"
+     id="text108">Demandes / habilitations</text>
+  <text
+     x="280"
+     y="657"
+     fill="black"
+     id="text110">Modèles de messages</text>
+  <text
+     x="470"
+     y="657"
+     fill="black"
+     font-weight="bold"
+     id="text112">Droits</text>
+  <line
+     x1="470"
+     y1="670"
+     x2="510"
+     y2="670"
+     stroke="black"
+     stroke-width="2"
+     id="line114" />
+  <!-- Back link -->
+  <text
+     x="50"
+     y="696"
+     fill="black"
+     font-size="12"
+     id="text116">← Retour à la liste</text>
+  <!-- Title -->
+  <text
+     x="50"
+     y="724"
+     fill="black"
+     font-size="15"
+     font-weight="bold"
+     id="text118">Ajouter des droits à un utilisateur sans droits</text>
+  <text
+     x="395"
+     y="724"
+     fill="#000000"
+     font-size="11px"
+     id="text120">[variante : « Modifier les droits de xxx@… »]</text>
+  <!-- Field: Email -->
+  <text
+     x="50"
+     y="756"
+     fill="black"
+     font-size="12"
+     id="text122">Email *</text>
+  <rect
+     x="50"
+     y="762"
+     width="380"
+     height="32"
+     stroke="black"
+     stroke-width="1"
+     fill="none"
+     id="rect124" />
+  <text
+     x="66"
+     y="783"
+     fill="#aaa"
+     font-size="12"
+     id="text126">agent@ministere.gouv.fr</text>
+  <text
+     x="440"
+     y="780"
+     fill="black"
+     font-size="10"
+     id="text128">  [désactivé en mode modifier]</text>
+  <!-- Droits list header -->
+  <text
+     x="50"
+     y="820"
+     fill="black"
+     font-size="12"
+     id="text130">Droits *</text>
+  <!-- Droit 1 (pre-filled / example) -->
+  <rect
+     x="50"
+     y="828"
+     width="300"
+     height="32"
+     stroke="black"
+     stroke-width="1"
+     fill="none"
+     id="rect132" />
+  <text
+     x="66"
+     y="849"
+     fill="black"
+     font-size="12"
+     id="text134">API Entreprise (Tous)</text>
+  <text
+     x="336"
+     y="849"
+     fill="black"
+     font-size="12"
+     id="text136">▾</text>
+  <rect
+     x="368"
+     y="828"
+     width="160"
+     height="32"
+     stroke="black"
+     stroke-width="1"
+     fill="none"
+     id="rect138" />
+  <text
+     x="384"
+     y="849"
+     fill="black"
+     font-size="12"
+     id="text140">Instructeur</text>
+  <text
+     x="514"
+     y="849"
+     fill="black"
+     font-size="12"
+     id="text142">▾</text>
+  <text
+     x="540"
+     y="849"
+     fill="black"
+     font-size="12"
+     id="text144">×</text>
+  <!-- Droit 2 -->
+  <rect
+     x="50"
+     y="870"
+     width="300"
+     height="32"
+     stroke="black"
+     stroke-width="1"
+     fill="none"
+     id="rect146" />
+  <text
+     x="66"
+     y="891"
+     fill="black"
+     font-size="12"
+     id="text148">Contrat de service général</text>
+  <text
+     x="336"
+     y="891"
+     fill="black"
+     font-size="12"
+     id="text150">▾</text>
+  <rect
+     x="368"
+     y="870"
+     width="160"
+     height="32"
+     stroke="black"
+     stroke-width="1"
+     fill="none"
+     id="rect152" />
+  <text
+     x="384"
+     y="891"
+     fill="black"
+     font-size="12"
+     id="text154">Reporter</text>
+  <text
+     x="514"
+     y="891"
+     fill="black"
+     font-size="12"
+     id="text156">▾</text>
+  <text
+     x="540"
+     y="891"
+     fill="black"
+     font-size="12"
+     id="text158">×</text>
+  <!-- Droit 3 — empty row (add) -->
+  <rect
+     x="50"
+     y="912"
+     width="300"
+     height="32"
+     stroke="black"
+     stroke-width="1"
+     stroke-dasharray="4,3"
+     fill="none"
+     id="rect160" />
+  <text
+     x="66"
+     y="933"
+     fill="#aaa"
+     font-size="12"
+     id="text162">Portée…</text>
+  <text
+     x="336"
+     y="933"
+     fill="black"
+     font-size="12"
+     id="text164">▾</text>
+  <rect
+     x="368"
+     y="912"
+     width="160"
+     height="32"
+     stroke="black"
+     stroke-width="1"
+     stroke-dasharray="4,3"
+     fill="none"
+     id="rect166" />
+  <text
+     x="384"
+     y="933"
+     fill="#aaa"
+     font-size="12"
+     id="text168">Rôle…</text>
+  <text
+     x="514"
+     y="933"
+     fill="black"
+     font-size="12"
+     id="text170">▾</text>
+  <!-- Add another line -->
+  <text
+     x="50"
+     y="964"
+     fill="black"
+     font-size="12"
+     id="text172">+ Ajouter une ligne</text>
+  <!-- Buttons -->
+  <rect
+     x="50"
+     y="986"
+     width="130"
+     height="34"
+     stroke="black"
+     stroke-width="1.5"
+     fill="#ddd"
+     id="rect174" />
+  <text
+     x="115"
+     y="1008"
+     text-anchor="middle"
+     fill="black"
+     font-weight="bold"
+     id="text176">Enregistrer</text>
+  <rect
+     x="196"
+     y="986"
+     width="90"
+     height="34"
+     stroke="black"
+     stroke-width="1"
+     fill="none"
+     id="rect178" />
+  <text
+     x="241"
+     y="1008"
+     text-anchor="middle"
+     fill="black"
+     id="text180">Annuler</text>
+  <line
+     x1="310"
+     y1="160"
+     x2="310"
+     y2="383.64682"
+     stroke="#000000"
+     stroke-width="1"
+     id="line38" />
+  <line
+     x1="704"
+     y1="160"
+     x2="704"
+     y2="384.41489"
+     stroke="#000000"
+     stroke-width="1"
+     id="line40" />
+</svg>

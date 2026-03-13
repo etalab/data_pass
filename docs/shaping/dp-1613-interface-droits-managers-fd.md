@@ -29,6 +29,9 @@ Ce shaping définit une interface dans l'espace instructeur permettant à un man
 | R8 | Un manager ne peut pas se retirer ses propres droits de manager (auto-révocation bloquée) | Nice-to-have |
 | R9 | Les modifications sont tracées (AdminEvent) et notifient les admins DataPass | Must-have |
 
+### Wireframe
+
+![wireframe](./dp-1613-wireframes.svg)
 ---
 
 ## A: Interface de gestion des droits FD dans l'espace instructeur
