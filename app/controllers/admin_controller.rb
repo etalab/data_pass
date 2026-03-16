@@ -1,5 +1,6 @@
 class AdminController < AuthenticatedUserController
   before_action :check_user_is_admin!
+  before_action :set_paper_trail_whodunnit
 
   def index
     render layout: 'application'
@@ -9,6 +10,8 @@ class AdminController < AuthenticatedUserController
     'admin'
   end
 
+  private
+
   def check_user_is_admin!
     return if true_user.admin?
 
@@ -17,5 +20,9 @@ class AdminController < AuthenticatedUserController
     }
 
     redirect_to dashboard_path
+  end
+
+  def set_paper_trail_whodunnit
+    PaperTrail.request.whodunnit = current_user&.id&.to_s
   end
 end

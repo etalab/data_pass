@@ -5,6 +5,8 @@ class HabilitationType < ApplicationRecord
 
   extend FriendlyId
 
+  has_paper_trail
+
   friendly_id :name, use: :slugged
 
   belongs_to :data_provider
@@ -40,6 +42,10 @@ class HabilitationType < ApplicationRecord
 
   def uid
     slug.underscore
+  end
+
+  def should_generate_new_friendly_id?
+    slug.blank?
   end
 
   def authorization_request_type

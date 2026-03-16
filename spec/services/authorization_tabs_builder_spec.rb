@@ -18,25 +18,7 @@ RSpec.describe AuthorizationTabsBuilder do
       expect(tabs.keys).to eq(%i[authorization authorization_request_events messages authorizations])
     end
 
-    context 'when france_connect authorization with linked authorizations' do
-      let(:authorization_request) { create(:authorization_request, :france_connect, :validated) }
-      let(:authorization) { authorization_request.latest_authorization }
-
-      before do
-        linked_auth = create(:authorization)
-        linked_auth.data['france_connect_authorization_id'] = authorization.id
-        linked_auth.save!
-      end
-
-      it 'includes france_connected_authorizations tab' do
-        expect(tabs).to have_key(:france_connected_authorizations)
-        expect(tabs[:france_connected_authorizations]).to eq(
-          authorization_france_connected_authorizations_path(authorization)
-        )
-      end
-    end
-
-    context 'when france_connect authorization without linked authorizations' do
+    context 'when france_connect authorization' do
       let(:authorization_request) { create(:authorization_request, :france_connect, :validated) }
       let(:authorization) { authorization_request.latest_authorization }
 
@@ -46,6 +28,54 @@ RSpec.describe AuthorizationTabsBuilder do
     end
 
     context 'when not a france_connect authorization' do
+      it 'does not include france_connected_authorizations tab' do
+        expect(tabs).not_to have_key(:france_connected_authorizations)
+      end
+    end
+
+    context 'when viewing auto-generated FC authorization on a non-FC request' do
+      let(:authorization_request) { create(:authorization_request, :api_particulier, :validated) }
+      let(:api_authorization) { authorization_request.latest_authorization }
+      let(:authorization) do
+        create(:authorization,
+          request: authorization_request,
+          authorization_request_class: 'AuthorizationRequest::FranceConnect',
+          parent_authorization_id: api_authorization.id)
+      end
+
+      it 'includes france_connected_authorizations tab' do
+        expect(tabs).to have_key(:france_connected_authorizations)
+      end
+    end
+
+    context 'when auto-generated FC authorization with APIP parent' do
+      let(:organization) { create(:organization) }
+      let(:apip_request) { create(:authorization_request, :api_particulier, :validated, organization:) }
+      let(:apip_authorization) { apip_request.latest_authorization }
+      let(:fc_request) { create(:authorization_request, :france_connect, :validated, organization:) }
+      let(:authorization) do
+        create(:authorization,
+          request: fc_request,
+          authorization_request_class: 'AuthorizationRequest::FranceConnect',
+          parent_authorization_id: apip_authorization.id)
+      end
+
+      it 'includes france_connected_authorizations tab' do
+        expect(tabs).to have_key(:france_connected_authorizations)
+      end
+    end
+
+    context 'when non-FC authorization with linked FC authorizations' do
+      let(:authorization_request) { create(:authorization_request, :api_droits_cnam, :validated) }
+      let(:authorization) { authorization_request.latest_authorization }
+
+      before do
+        create(:authorization,
+          request: authorization_request,
+          authorization_request_class: 'AuthorizationRequest::FranceConnect',
+          parent_authorization_id: authorization.id)
+      end
+
       it 'does not include france_connected_authorizations tab' do
         expect(tabs).not_to have_key(:france_connected_authorizations)
       end

@@ -39,6 +39,42 @@ RSpec.describe DynamicAuthorizationRequestRegistrar do
         klass = AuthorizationRequest.const_get(uid.classify)
         expect(klass.extra_attributes).to include(:cadre_juridique_url)
       end
+
+      context 'when submitted' do
+        subject(:valid?) { demande.valid?(:submit) }
+
+        let(:habilitation_type) { create(:habilitation_type, blocks: [{ 'name' => 'legal' }]) }
+        let(:klass) { AuthorizationRequest.const_get(habilitation_type.uid.classify) }
+        let(:demande) { klass.new(**params) }
+        let(:params) { {} }
+
+        before { valid? }
+
+        context 'without document nor url' do
+          it { expect(demande.errors[:cadre_juridique_document]).to be_present }
+          it { expect(demande.errors[:cadre_juridique_url]).to be_present }
+        end
+
+        context 'with a document attached' do
+          let(:demande) do
+            klass.new.tap do |d|
+              File.open('spec/fixtures/dummy.pdf') do |file|
+                d.cadre_juridique_document.attach(io: file, filename: 'dummy.pdf')
+              end
+            end
+          end
+
+          it { expect(demande.errors[:cadre_juridique_document]).to be_empty }
+          it { expect(demande.errors[:cadre_juridique_url]).to be_empty }
+        end
+
+        context 'with a url' do
+          let(:params) { { cadre_juridique_url: 'https://example.gouv.fr/loi' } }
+
+          it { expect(demande.errors[:cadre_juridique_document]).to be_empty }
+          it { expect(demande.errors[:cadre_juridique_url]).to be_empty }
+        end
+      end
     end
 
     context 'with personal_data block' do
@@ -48,6 +84,35 @@ RSpec.describe DynamicAuthorizationRequestRegistrar do
         register
         klass = AuthorizationRequest.const_get(uid.classify)
         expect(klass.extra_attributes).to include(:destinataire_donnees_caractere_personnel)
+      end
+
+      context 'when submitted' do
+        subject(:valid?) { demande.valid?(:submit) }
+
+        let(:habilitation_type) { create(:habilitation_type, blocks: [{ 'name' => 'personal_data' }]) }
+        let(:klass) { AuthorizationRequest.const_get(habilitation_type.uid.classify) }
+        let(:demande) { klass.new(**params) }
+        let(:params) { {} }
+
+        before { valid? }
+
+        context 'when duree_conservation > 36 months without justification' do
+          let(:params) { { duree_conservation_donnees_caractere_personnel: 37, duree_conservation_donnees_caractere_personnel_justification: nil } }
+
+          it { expect(demande.errors[:duree_conservation_donnees_caractere_personnel_justification]).to be_present }
+        end
+
+        context 'when duree_conservation <= 36 months' do
+          let(:params) { { duree_conservation_donnees_caractere_personnel: 36, duree_conservation_donnees_caractere_personnel_justification: nil } }
+
+          it { expect(demande.errors[:duree_conservation_donnees_caractere_personnel_justification]).to be_empty }
+        end
+
+        context 'when duree_conservation > 36 months with justification' do
+          let(:params) { { duree_conservation_donnees_caractere_personnel: 37, duree_conservation_donnees_caractere_personnel_justification: 'Raison valable' } }
+
+          it { expect(demande.errors[:duree_conservation_donnees_caractere_personnel_justification]).to be_empty }
+        end
       end
     end
 

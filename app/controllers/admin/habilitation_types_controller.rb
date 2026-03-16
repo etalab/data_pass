@@ -20,7 +20,7 @@ class Admin::HabilitationTypesController < AdminController
     )
 
     if organizer.success?
-      success_message(title: t('.success'))
+      success_message(title: t('.success', name: organizer.habilitation_type.name))
       redirect_to admin_habilitation_types_path
     else
       @habilitation_type = organizer.habilitation_type
@@ -39,7 +39,7 @@ class Admin::HabilitationTypesController < AdminController
     )
 
     if organizer.success?
-      success_message(title: t('.success'))
+      success_message(title: t('.success', name: @habilitation_type.name))
       redirect_to admin_habilitation_types_path
     else
       error_message(title: t('.error'))
@@ -54,7 +54,7 @@ class Admin::HabilitationTypesController < AdminController
     )
 
     if organizer.success?
-      success_message(title: t('.success'))
+      success_message(title: t('.success', name: @habilitation_type.name))
     else
       error_message_for(@habilitation_type, title: t('.error'))
     end

@@ -9,5 +9,6 @@ class Admin::DestroyHabilitationType < ApplicationOrganizer
   end
 
   organize Admin::DestroyHabilitationTypeRecord,
+    Admin::RemoveHabilitationTypeRoles,
     Admin::TrackEvent
 end

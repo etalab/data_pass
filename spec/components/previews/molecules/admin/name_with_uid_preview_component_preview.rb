@@ -3,7 +3,8 @@ class Molecules::Admin::NameWithUidPreviewComponentPreview < ViewComponent::Prev
     record = HabilitationType.new
     render Molecules::Admin::NameWithUidPreviewComponent.new(
       form: create_form_builder(record),
-      record: record
+      record: record,
+      uid_label: 'Identifiant technique'
     )
   end
 
@@ -11,7 +12,8 @@ class Molecules::Admin::NameWithUidPreviewComponentPreview < ViewComponent::Prev
     record = HabilitationType.first
     render Molecules::Admin::NameWithUidPreviewComponent.new(
       form: create_form_builder(record),
-      record: record
+      record: record,
+      uid_label: 'Identifiant technique'
     )
   end
 

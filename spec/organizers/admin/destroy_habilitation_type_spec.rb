@@ -17,5 +17,15 @@ RSpec.describe Admin::DestroyHabilitationType, type: :organizer do
       expect { organizer }.to change(AdminEvent, :count).by(1)
       expect(AdminEvent.last.name).to eq('habilitation_type_destroyed')
     end
+
+    context 'when users have roles linked to the habilitation type' do
+      let!(:instructor) { create(:user, roles: ["#{habilitation_type.uid}:instructor", 'other_type:manager']) }
+
+      it 'removes roles linked to the habilitation type' do
+        organizer
+
+        expect(instructor.reload.roles).to eq(['other_type:manager'])
+      end
+    end
   end
 end

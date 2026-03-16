@@ -26,7 +26,7 @@ Fonctionnalité: Espace admin: types d'habilitation
     Et que je choisis le type "API"
     Et que je clique sur "Créer"
     Alors la page contient "API Test"
-    Et il y a un message de succès contenant "créé"
+    Et il y a un message de succès contenant "API Test"
 
   Scénario: Je crée un type d'habilitation avec un lien CGU
     Sachant que je me connecte
@@ -107,4 +107,16 @@ Fonctionnalité: Espace admin: types d'habilitation
     Et que je coche "Contacts"
     Et que je clique sur "Créer"
     Alors il y a un message d'erreur contenant "erreur"
+
+  Scénario: Je peux modifier le nom d'un type sans changer son identifiant technique
+    Sachant que je me connecte
+    Et qu'un type d'habilitation "API Cantine" existe
+    Quand je me rends sur le chemin "/admin/types-habilitation"
+    Et que je clique sur "Modifier" dans la rangée "API Cantine"
+    Et que je remplis "Nom" avec "API Cantine V2"
+    Et que je clique sur "Enregistrer"
+    Alors il y a un message de succès contenant "mis à jour"
+    Et la page contient "API Cantine V2"
+    Quand je clique sur "Modifier" dans la rangée "API Cantine V2"
+    Alors la page contient "api_cantine"
 

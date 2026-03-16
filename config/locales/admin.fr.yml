@@ -177,7 +177,7 @@ fr:
       create:
         title: *habilitation_type_new_title
         skip_to_form: *habilitation_type_skip_to_form
-        success: "Type d’habilitation créé avec succès"
+        success: "« %{name} » créé avec succès"
         error: "Une erreur est survenue lors de la création"
       edit:
         title: &habilitation_type_edit_title "Modifier le type d’habilitation"
@@ -185,7 +185,7 @@ fr:
       update:
         title: *habilitation_type_edit_title
         skip_to_form: *habilitation_type_skip_to_form
-        success: "Type d’habilitation mis à jour"
+        success: "« %{name} » mis à jour"
         error: "Une erreur est survenue lors de la mise à jour"
       form:
         sections:
@@ -221,6 +221,6 @@ fr:
         submit_edit: Enregistrer
         cancel: Annuler
       destroy:
-        success: "Type d’habilitation supprimé"
+        success: "« %{name} » supprimé"
         error: "Une erreur est survenue lors de la suppression"
 

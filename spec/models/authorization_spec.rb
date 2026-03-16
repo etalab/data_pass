@@ -3,6 +3,16 @@ RSpec.describe Authorization do
     expect(build(:authorization)).to be_valid
   end
 
+  describe '.active' do
+    it 'returns only authorizations with state active' do
+      active_auth = create(:authorization, state: 'active')
+      create(:authorization, state: 'obsolete')
+      create(:authorization, state: 'revoked')
+
+      expect(described_class.active).to contain_exactly(active_auth)
+    end
+  end
+
   describe '#form' do
     subject { authorization.form }
 

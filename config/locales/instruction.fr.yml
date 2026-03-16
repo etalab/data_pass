@@ -458,7 +458,7 @@ fr:
 
     instructor_draft_requests:
       index:
-        title: Demandes initiés par des instructeurs
+        title: Demandes initiées par des instructeurs
         new: Initier une nouvelle demande d'habilitation
         table:
           header:
