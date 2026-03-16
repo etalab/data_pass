@@ -4,6 +4,6 @@ class MessageTemplateDecorator < ApplicationDecorator
   def preview_mail(entity_name:)
     rendered = MessageTemplatePreviewRenderer.new(object, entity_name:).render
 
-    h.simple_format(rendered)
+    h.simple_format(h.linkify_urls(rendered))
   end
 end
