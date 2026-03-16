@@ -26,7 +26,7 @@
 </div>
 
 <div class="fr-col-lg-9 fr-mt-5w">
-  <% if @authorization_request.france_connect_authorizations.empty? %>
+  <% if @authorization_request.available_france_connect_authorizations.empty? %>
     <div class="fr-callout red-callout">
       <h3 class="fr-callout__title">
         <%= f.wording_for("modalities.callout.title") %>
