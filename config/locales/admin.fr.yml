@@ -190,6 +190,7 @@ fr:
       form:
         sections:
           general: Informations générales
+          links: "Liens et conditions générales d’utilisation"
           blocks: Blocs
           contact_types: Types de contacts
         uid_preview_label: Identifiant technique (UID)
