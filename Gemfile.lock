@@ -554,6 +554,9 @@ GEM
     openapi_parameters (0.11.0)
       rack (>= 2.2)
     ostruct (0.6.3)
+    paper_trail (17.0.0)
+      activerecord (>= 7.1)
+      request_store (~> 1.4)
     parallel (1.27.0)
     parser (3.3.10.2)
       ast (~> 2.4.1)
@@ -892,6 +895,7 @@ DEPENDENCIES
   omniauth-rails_csrf_protection
   openapi3_parser
   openapi_first
+  paper_trail
   pg (~> 1.6)
   pretender
   propshaft
