@@ -2,7 +2,7 @@ class Instruction::Search::DashboardHabilitationsSearch < Instruction::Search::D
   private
 
   def includes_associations
-    super + [:request]
+    super + %i[request]
   end
 
   def base_relation

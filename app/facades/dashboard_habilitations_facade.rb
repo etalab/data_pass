@@ -1,13 +1,14 @@
 class DashboardHabilitationsFacade < AbstractDashboardFacade
   def data
     builder = search_builder
-    grouped = builder.build_relation(scoped_relation.where(state: displayed_states)).to_a.group_by(&:state)
+    relation = builder.build_relation(scoped_relation.where(state: displayed_states))
+    authorizations_by_state = relation.to_a.group_by(&:state)
 
     {
       highlighted_categories: {},
       categories: {
-        active: grouped.fetch('active', []),
-        revoked: grouped.fetch('revoked', []),
+        active: authorizations_by_state.fetch('active', []),
+        revoked: authorizations_by_state.fetch('revoked', []),
       },
       search_engine: builder.search_engine
     }
