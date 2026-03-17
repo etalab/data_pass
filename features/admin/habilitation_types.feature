@@ -21,7 +21,7 @@ Fonctionnalité: Espace admin: types d'habilitation
     Sachant que je me connecte
     Et qu'un fournisseur de données "DINUM" existe
     Quand je me rends sur le chemin "/admin/types-habilitation/new"
-    Et que je remplis "Nom" avec "API Test"
+    Et que je remplis "Nom du formulaire" avec "API Test"
     Et que je sélectionne "DINUM" pour "Fournisseur"
     Et que je choisis le type "API"
     Et que je clique sur "Créer"
@@ -32,7 +32,7 @@ Fonctionnalité: Espace admin: types d'habilitation
     Sachant que je me connecte
     Et qu'un fournisseur de données "DINUM" existe
     Quand je me rends sur le chemin "/admin/types-habilitation/new"
-    Et que je remplis "Nom" avec "API CGU Test"
+    Et que je remplis "Nom du formulaire" avec "API CGU Test"
     Et que je sélectionne "DINUM" pour "Fournisseur"
     Et que je choisis le type "API"
     Et que je remplis "CGU" avec "https://example.com/cgu"
@@ -44,7 +44,7 @@ Fonctionnalité: Espace admin: types d'habilitation
     Sachant que je me connecte
     Et qu'un fournisseur de données "DINUM" existe
     Quand je me rends sur le chemin "/admin/types-habilitation/new"
-    Et que je remplis "Nom" avec "API Support Test"
+    Et que je remplis "Nom du formulaire" avec "API Support Test"
     Et que je sélectionne "DINUM" pour "Fournisseur"
     Et que je choisis le type "API"
     Et que je remplis "Email de support" avec "support@example.com"
@@ -62,7 +62,7 @@ Fonctionnalité: Espace admin: types d'habilitation
     Sachant que je me connecte
     Et qu'un fournisseur de données "DINUM" existe
     Quand je me rends sur le chemin "/admin/types-habilitation/new"
-    Et que je remplis "Nom" avec "API Contacts Test"
+    Et que je remplis "Nom du formulaire" avec "API Contacts Test"
     Et que je sélectionne "DINUM" pour "Fournisseur"
     Et que je choisis le type "API"
     Et que je coche "Contacts"
@@ -76,7 +76,7 @@ Fonctionnalité: Espace admin: types d'habilitation
     Sachant que je me connecte
     Et qu'un fournisseur de données "DINUM" existe
     Quand je me rends sur le chemin "/admin/types-habilitation/new"
-    Et que je remplis "Nom" avec "API Scopes Test"
+    Et que je remplis "Nom du formulaire" avec "API Scopes Test"
     Et que je sélectionne "DINUM" pour "Fournisseur"
     Et que je choisis le type "API"
     Et que je coche "Données (scopes)"
@@ -90,7 +90,7 @@ Fonctionnalité: Espace admin: types d'habilitation
     Sachant que je me connecte
     Et qu'un fournisseur de données "DINUM" existe
     Quand je me rends sur le chemin "/admin/types-habilitation/new"
-    Et que je remplis "Nom" avec "API Sans Scope"
+    Et que je remplis "Nom du formulaire" avec "API Sans Scope"
     Et que je sélectionne "DINUM" pour "Fournisseur"
     Et que je choisis le type "API"
     Et que je coche "Données (scopes)"
@@ -101,7 +101,7 @@ Fonctionnalité: Espace admin: types d'habilitation
     Sachant que je me connecte
     Et qu'un fournisseur de données "DINUM" existe
     Quand je me rends sur le chemin "/admin/types-habilitation/new"
-    Et que je remplis "Nom" avec "API Sans Contact"
+    Et que je remplis "Nom du formulaire" avec "API Sans Contact"
     Et que je sélectionne "DINUM" pour "Fournisseur"
     Et que je choisis le type "API"
     Et que je coche "Contacts"
@@ -113,7 +113,7 @@ Fonctionnalité: Espace admin: types d'habilitation
     Et qu'un type d'habilitation "API Cantine" existe
     Quand je me rends sur le chemin "/admin/types-habilitation"
     Et que je clique sur "Modifier" dans la rangée "API Cantine"
-    Et que je remplis "Nom" avec "API Cantine V2"
+    Et que je remplis "Nom du formulaire" avec "API Cantine V2"
     Et que je clique sur "Enregistrer"
     Alors il y a un message de succès contenant "mis à jour"
     Et la page contient "API Cantine V2"

@@ -146,7 +146,7 @@ fr:
         user: Usager
 
       habilitation_type:
-        name: Nom
+        name: Nom du formulaire
         description: Description
         data_provider_id: Fournisseur
         kind: Type
