@@ -202,6 +202,12 @@ RSpec.describe HabilitationType do
       expect(AuthorizationRequestForm).to receive(:reset!)
       habilitation_type.save!
     end
+
+    it 'generates User notification methods for the new type' do
+      habilitation_type.save!
+      user = build(:user)
+      expect(user).to respond_to(:"instruction_submit_notifications_for_#{habilitation_type.uid}")
+    end
   end
 
   describe 'callbacks on destroy' do
