@@ -1,0 +1,42 @@
+<% content_for(:header_action) do %>
+  <%= link_to t('.new'), new_admin_data_provider_path, class: %w[fr-btn fr-btn--icon-left fr-icon-add-circle-line] %>
+<% end %>
+
+<div class="fr-table fr-table--bordered">
+  <div class="fr-table__container">
+    <div class="fr-table__content">
+      <table>
+        <caption class="fr-sr-only"><%= t('.title') %></caption>
+        <thead>
+          <tr>
+            <th scope="col"><%= t('.table.name') %></th>
+            <th scope="col"><%= t('.table.link') %></th>
+            <th scope="col" class="fr-cell--center"><%= t('.table.actions') %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if @data_providers.empty? %>
+            <tr>
+              <td colspan="3"><%= t('.empty') %></td>
+            </tr>
+          <% else %>
+            <% @data_providers.each do |data_provider| %>
+              <tr>
+                <td><%= data_provider.name %></td>
+                <td><%= link_to data_provider.link, data_provider.link,
+                        target: '_blank',
+                        rel: 'noopener external',
+                        title: "#{data_provider.name} - #{t('shared.new_window')}" %></td>
+                <td class="fr-cell--center">
+                  <%= link_to t('.edit'), edit_admin_data_provider_path(data_provider),
+                      class: %w[fr-btn fr-btn--sm fr-btn--tertiary fr-btn--icon-left fr-icon-edit-line],
+                      aria: { label: "#{t('.edit')} #{data_provider.name}" } %>
+                </td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

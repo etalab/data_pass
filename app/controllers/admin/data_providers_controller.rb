@@ -55,7 +55,7 @@ class Admin::DataProvidersController < AdminController
 
   def handle_standalone_create(organizer)
     if organizer.success?
-      success_message(title: t('.success'))
+      success_message(title: t('admin.data_providers.create.success'))
       redirect_to admin_data_providers_path
     else
       render :new, status: :unprocessable_content
