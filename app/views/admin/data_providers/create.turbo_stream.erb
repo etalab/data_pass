@@ -1,0 +1,21 @@
+<%= turbo_stream.replace 'data-provider-selection-wrapper' do %>
+  <div id="data-provider-selection-wrapper">
+    <%= turbo_frame_tag :data_provider_selection do %>
+      <%= render Molecules::Admin::DataProviderSelectorComponent.new(
+        data_providers: @data_providers,
+        selected_provider_id: @data_provider.id,
+        show_form: false,
+        form_data_provider: DataProvider.new
+      ) %>
+    <% end %>
+  </div>
+<% end %>
+
+<%= turbo_stream.replace 'flash-alerts' do %>
+  <div id="flash-alerts">
+    <%= render FlashAlertComponent.new(
+      type: :success,
+      data: { 'title' => t('admin.data_providers.create.success') }
+    ) %>
+  </div>
+<% end %>

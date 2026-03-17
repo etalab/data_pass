@@ -16,6 +16,7 @@ module ApplicationHelper
 
   def provider_logo_image_tag(authorization_definition, options = {})
     return nil unless authorization_definition.provider
+    return nil unless authorization_definition.provider.logo.attached?
 
     options = options.merge(alt: "#{authorization_definition.provider.name}, fournisseur de données")
     image_tag(authorization_definition.provider.logo, options)

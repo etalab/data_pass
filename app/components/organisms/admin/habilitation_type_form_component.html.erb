@@ -1,6 +1,16 @@
 <div id="habilitation-type-form">
+  <div id="data-provider-selection-wrapper">
+    <%= helpers.turbo_frame_tag :data_provider_selection do %>
+      <%= render Molecules::Admin::DataProviderSelectorComponent.new(
+        data_providers: @data_providers,
+        selected_provider_id: @habilitation_type.data_provider_id
+      ) %>
+    <% end %>
+  </div>
+
   <%= form_with(
     model: [:admin, @habilitation_type],
+    html: { id: 'habilitation-type-form-fields' },
     builder: DsfrFormBuilder
   ) do |f| %>
 
@@ -16,13 +26,6 @@
       </div>
 
       <%= f.dsfr_text_area :description, rows: 5 %>
-
-      <div class="fr-col-4 fr-mb-3w">
-        <%= f.dsfr_select :data_provider_id,
-            @data_providers.map { |data_provider| [data_provider.name, data_provider.id] },
-            required: true,
-            include_blank: t('admin.habilitation_types.form.select_provider') %>
-      </div>
 
       <%= f.dsfr_radio_buttons :kind,
           HabilitationType.kinds.keys,
