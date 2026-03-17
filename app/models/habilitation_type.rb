@@ -57,8 +57,19 @@ class HabilitationType < ApplicationRecord
     BLOCK_ORDER.select { |name| block_names.include?(name) }
   end
 
+  def self.preload_requests_counts!(habilitation_types)
+    types = habilitation_types.map(&:authorization_request_type)
+    counts = AuthorizationRequest.where(type: types).group(:type).count
+
+    habilitation_types.each do |ht|
+      ht.authorization_requests_count = counts[ht.authorization_request_type] || 0
+    end
+  end
+
+  attr_writer :authorization_requests_count
+
   def authorization_requests_count
-    AuthorizationRequest.where(type: "AuthorizationRequest::#{uid.classify}").count
+    @authorization_requests_count ||= AuthorizationRequest.where(type: authorization_request_type).count
   end
 
   private

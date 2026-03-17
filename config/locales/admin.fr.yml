@@ -157,6 +157,7 @@ fr:
         error: "Une erreur est survenue"
 
     habilitation_types:
+      not_authorized: "Ce type d'habilitation a des demandes liées, il ne peut pas être modifié ou supprimé"
       index:
         title: "Types d’habilitation"
         skip_to_list: "Aller au tableau des types d’habilitation"
@@ -172,6 +173,9 @@ fr:
           created_at: Date de création
           requests_count: Demandes
           actions: Actions
+      show:
+        title: "Détail du type d’habilitation"
+        skip_to_details: Aller aux détails
       new:
         title: &habilitation_type_new_title "Nouveau type d’habilitation"
         skip_to_form: &habilitation_type_skip_to_form Aller au formulaire
