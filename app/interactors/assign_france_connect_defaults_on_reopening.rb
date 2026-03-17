@@ -17,15 +17,7 @@ class AssignFranceConnectDefaultsOnReopening < ApplicationInteractor
       authorization_request.france_connect_certified_form? &&
       authorization_request.france_connect_modality? &&
       authorization_request.reopening? &&
-      authorization_request.france_connect_authorization_id.blank? &&
-      !existing_linked_fc_authorization?
-  end
-
-  def existing_linked_fc_authorization?
-    Authorization.exists?(
-      request: authorization_request,
-      authorization_request_class: 'AuthorizationRequest::FranceConnect'
-    )
+      authorization_request.france_connect_authorization_id.blank?
   end
 
   def assign_fc_attributes

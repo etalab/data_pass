@@ -437,24 +437,16 @@ class AuthorizationRequest < ApplicationRecord
 
   def france_connect_authorizations
     referenced = data['france_connect_authorization_id']
-    by_data = referenced.present? ? Authorization.where(id: referenced) : Authorization.none
-    non_fc_ids = authorizations.where.not(authorization_request_class: 'AuthorizationRequest::FranceConnect').pluck(:id)
-    by_parent = Authorization.where(
-      parent_authorization_id: non_fc_ids,
-      authorization_request_class: 'AuthorizationRequest::FranceConnect'
-    )
+    return Authorization.none if referenced.blank?
 
-    merge_authorizations(by_data, by_parent)
+    Authorization.where(id: referenced)
   end
 
   def france_connected_authorizations
     fc_ids = own_fc_authorization_ids
     return Authorization.none if fc_ids.empty?
 
-    merge_authorizations(
-      authorizations_linked_to_fc_by_data(fc_ids),
-      authorizations_linked_to_fc_by_parent(fc_ids)
-    )
+    authorizations_linked_to_fc_by_data(fc_ids)
   end
 
   def with_france_connect?
@@ -482,20 +474,6 @@ class AuthorizationRequest < ApplicationRecord
 
   def authorizations_linked_to_fc_by_data(fc_ids)
     Authorization.where("data -> 'france_connect_authorization_id' IN (?)", fc_ids.map(&:to_s))
-  end
-
-  def authorizations_linked_to_fc_by_parent(fc_ids)
-    parent_ids = authorizations.where(id: fc_ids).where.not(parent_authorization_id: nil).pluck(:parent_authorization_id)
-    return Authorization.none if parent_ids.empty?
-
-    Authorization.where(id: parent_ids)
-  end
-
-  def merge_authorizations(*scopes)
-    ids = scopes.flat_map { |scope| scope.pluck(:id) }.uniq
-    return Authorization.none if ids.empty?
-
-    Authorization.where(id: ids)
   end
 
   def all_required_terms_accepted?

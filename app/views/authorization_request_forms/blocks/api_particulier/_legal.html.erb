@@ -9,9 +9,23 @@
   field_prefix: :cadre_juridique
 ) %>
 
-<% if @authorization_request.france_connect_modality? && @authorization_request.france_connect_certified_form? && @authorization_request.france_connect_authorization_id.blank? %>
-  <%= render Organisms::AuthorizationRequestForms::LegalFrameworkComponent.new(
-    form: f,
-    field_prefix: :fc_cadre_juridique
-  ) %>
+<% if @authorization_request.france_connect_modality? && @authorization_request.france_connect_certified_form? %>
+  <% if @authorization_request.france_connect_authorization_id.blank? %>
+    <%= render Organisms::AuthorizationRequestForms::LegalFrameworkComponent.new(
+      form: f,
+      field_prefix: :fc_cadre_juridique
+    ) %>
+  <% else %>
+    <div class="fr-callout fr-mb-3w">
+      <p class="fr-callout__text">
+        <%= t('authorization_request_forms.api_particulier.legal.fc_linked_readonly') %>
+      </p>
+    </div>
+    <fieldset disabled>
+      <%= render Organisms::AuthorizationRequestForms::LegalFrameworkComponent.new(
+        form: f,
+        field_prefix: :fc_cadre_juridique
+      ) %>
+    </fieldset>
+  <% end %>
 <% end %>

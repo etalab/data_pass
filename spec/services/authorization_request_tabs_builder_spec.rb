@@ -33,11 +33,7 @@ RSpec.describe AuthorizationRequestTabsBuilder do
 
       before do
         api_request = create(:authorization_request, :api_droits_cnam, :validated)
-        merged_data = api_request.data.merge(
-          'france_connect_authorization_id' => authorization_request.latest_authorization.id.to_s
-        )
-        api_request.update_column(:data, merged_data)
-        api_request.latest_authorization.update_column(:data, merged_data)
+        link_fc_authorization_to_request(api_request, authorization_request.latest_authorization)
       end
 
       it 'includes france_connected_authorizations tab' do
@@ -55,10 +51,11 @@ RSpec.describe AuthorizationRequestTabsBuilder do
       let(:authorization_request) { create(:authorization_request, :france_connect, :validated, organization:) }
 
       before do
-        create(:authorization,
+        fc_auth = create(:authorization,
           request: authorization_request,
           authorization_request_class: 'AuthorizationRequest::FranceConnect',
           parent_authorization_id: apip_authorization.id)
+        link_fc_authorization_to_request(apip_request, fc_auth)
       end
 
       it 'includes france_connected_authorizations tab' do
