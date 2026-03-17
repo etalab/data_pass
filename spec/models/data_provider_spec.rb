@@ -2,8 +2,9 @@ RSpec.describe DataProvider do
   describe 'validations' do
     subject { build(:data_provider) }
 
-    it 'validates presence of slug' do
+    it 'validates presence of slug when name is also blank' do
       subject.slug = nil
+      subject.name = nil
       expect(subject).not_to be_valid
       expect(subject.errors[:slug]).to be_present
     end
@@ -52,11 +53,11 @@ RSpec.describe DataProvider do
     end
 
     describe 'logo attachment' do
-      it 'validates logo is attached' do
+      it 'attaches placeholder logo when logo is purged before validation' do
         provider = build(:data_provider)
         provider.logo.purge
-        expect(provider).not_to be_valid
-        expect(provider.errors[:logo]).to be_present
+        expect(provider).to be_valid
+        expect(provider.logo).to be_attached
       end
 
       it 'validates logo content type' do
@@ -66,11 +67,44 @@ RSpec.describe DataProvider do
       end
 
       it 'accepts valid image types' do
-        %w[image/png image/jpeg].each do |content_type|
+        %w[image/png image/jpeg image/svg+xml].each do |content_type|
           provider = build(:data_provider)
           provider.logo.attach(io: StringIO.new('content'), filename: 'test.png', content_type:)
           expect(provider).to be_valid, "Expected #{content_type} to be valid"
         end
+      end
+    end
+  end
+
+  describe 'callbacks' do
+    describe '#set_slug_from_name' do
+      it 'generates slug from name when slug is blank' do
+        provider = described_class.new(name: 'Mon API', link: 'https://mon-api.fr')
+        provider.valid?
+        expect(provider.slug).to eq('mon-api')
+      end
+
+      it 'does not override existing slug' do
+        provider = described_class.new(name: 'Mon API', slug: 'custom-slug', link: 'https://mon-api.fr')
+        provider.valid?
+        expect(provider.slug).to eq('custom-slug')
+      end
+    end
+
+    describe '#attach_placeholder_logo' do
+      it 'attaches city-hall.svg when no logo is provided' do
+        provider = described_class.new(name: 'Mon API', link: 'https://mon-api.fr')
+        provider.valid?
+        expect(provider.logo).to be_attached
+        expect(provider.logo.content_type).to eq('image/svg+xml')
+        expect(provider.logo.filename.to_s).to eq('city-hall.svg')
+      end
+
+      it 'keeps existing logo when one is already attached' do
+        provider = build(:data_provider)
+        original_filename = provider.logo.filename.to_s
+        provider.valid?
+        expect(provider.logo.filename.to_s).to eq(original_filename)
       end
     end
   end

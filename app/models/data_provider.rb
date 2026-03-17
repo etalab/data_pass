@@ -7,10 +7,13 @@ class DataProvider < ApplicationRecord
 
   has_one_attached :logo
 
+  before_validation :set_slug_from_name, if: -> { slug.blank? && name.present? }
+  before_validation :attach_placeholder_logo, if: -> { !logo.attached? }
+
   validates :slug, presence: true, uniqueness: true
   validates :name, presence: true
   validates :link, presence: true, format: { with: URL_REGEX, message: I18n.t('activemodel.errors.messages.url_format') }
-  validates :logo, attached: true, content_type: ['image/png', 'image/jpeg']
+  validates :logo, attached: true, content_type: %w[image/png image/jpeg image/svg+xml]
 
   def authorization_definitions
     @authorization_definitions ||= AuthorizationDefinition.all.select do |authorization_definition|
@@ -27,6 +30,18 @@ class DataProvider < ApplicationRecord
   end
 
   private
+
+  def set_slug_from_name
+    self.slug = name.parameterize
+  end
+
+  def attach_placeholder_logo
+    logo.attach(
+      io: Rails.root.join('app/assets/images/artwork/pictograms/buildings/city-hall.svg').open,
+      filename: 'city-hall.svg',
+      content_type: 'image/svg+xml'
+    )
+  end
 
   def users_for_roles(roles)
     User.where(
