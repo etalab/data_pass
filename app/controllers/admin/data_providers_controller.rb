@@ -1,8 +1,12 @@
 class Admin::DataProvidersController < AdminController
-  before_action :set_data_provider, only: %i[edit update]
+  before_action :set_data_provider, only: %i[edit update confirm_destroy destroy]
+  before_action :authorize_data_provider!
+
+  rescue_from Pundit::NotAuthorizedError, with: :data_provider_not_authorized
 
   def index
     @data_providers = DataProvider.order(:name)
+    DataProvider.preload_linked_habilitation_types!(@data_providers)
   end
 
   def new
@@ -39,6 +43,23 @@ class Admin::DataProvidersController < AdminController
     end
   end
 
+  def confirm_destroy; end
+
+  def destroy
+    organizer = Admin::DestroyDataProvider.call(
+      admin: current_user,
+      data_provider: @data_provider,
+    )
+
+    if organizer.success?
+      success_message(title: t('.success', name: @data_provider.name))
+    else
+      error_message_for(@data_provider, title: t('.error'))
+    end
+
+    redirect_to admin_data_providers_path
+  end
+
   private
 
   def handle_inline_create(organizer)
@@ -60,6 +81,15 @@ class Admin::DataProvidersController < AdminController
     else
       render :new, status: :unprocessable_content
     end
+  end
+
+  def authorize_data_provider!
+    authorize(@data_provider || DataProvider)
+  end
+
+  def data_provider_not_authorized
+    flash[:error] = { title: t('admin.data_providers.not_authorized') }
+    redirect_to admin_data_providers_path
   end
 
   def set_data_provider

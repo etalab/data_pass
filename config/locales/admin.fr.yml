@@ -227,10 +227,12 @@ fr:
         error: "Une erreur est survenue lors de la suppression"
 
     data_providers:
+      not_authorized: "Ce fournisseur de données ne peut pas être supprimé car des types d'habilitation y sont rattachés"
       index:
         title: Fournisseurs de données
         new: Ajouter un fournisseur
         edit: Modifier
+        delete: Supprimer
         empty: Aucun fournisseur de données
         table:
           name: Nom
@@ -246,6 +248,14 @@ fr:
       update:
         success: Fournisseur de données mis à jour
         error: Une erreur est survenue
+      confirm_destroy:
+        title: "Supprimer « %{name} » ?"
+        disclaimer: Cette action est irréversible. Le fournisseur de données sera définitivement supprimé.
+        cancel: Annuler
+        confirm: Supprimer
+      destroy:
+        success: "Fournisseur de données « %{name} » supprimé"
+        error: Une erreur est survenue lors de la suppression
       form:
         cancel: Annuler
         submit: Créer le fournisseur
