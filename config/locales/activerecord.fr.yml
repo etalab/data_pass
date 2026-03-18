@@ -231,6 +231,11 @@ fr:
           attributes:
             content:
               invalid_variables: "contient des variables invalides"
+        data_provider:
+          attributes:
+            base:
+              has_habilitation_types: "ne peut pas être supprimé car des types d’habilitation y sont rattachés"
+              has_authorization_definitions: "ne peut pas être supprimé car des types d’habilitation statiques référencent ce fournisseur"
         habilitation_type:
           attributes:
             base:
