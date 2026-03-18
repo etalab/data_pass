@@ -139,4 +139,18 @@ RSpec.describe DataProvider do
 
     it { is_expected.to match_array(valid_users) }
   end
+
+  describe 'callbacks on save' do
+    subject(:data_provider) { build(:data_provider) }
+
+    it 'resets AuthorizationDefinition cache' do
+      expect(AuthorizationDefinition).to receive(:reset!)
+      data_provider.save!
+    end
+
+    it 'resets AuthorizationRequestForm cache' do
+      expect(AuthorizationRequestForm).to receive(:reset!)
+      data_provider.save!
+    end
+  end
 end
