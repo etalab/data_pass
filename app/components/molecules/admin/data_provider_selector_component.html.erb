@@ -1,0 +1,33 @@
+<div class="fr-select-group">
+  <label class="fr-label" for="habilitation_type_data_provider_id">
+    <%= HabilitationType.human_attribute_name(:data_provider_id) %>
+  </label>
+  <%= select_tag 'habilitation_type[data_provider_id]',
+      options_for_select(
+        data_providers.map { |dp| [dp.name, dp.id] },
+        selected_provider_id
+      ),
+      id: 'habilitation_type_data_provider_id',
+      include_blank: t('admin.habilitation_types.form.select_provider'),
+      class: 'fr-select',
+      required: true,
+      form: 'habilitation-type-form-fields' %>
+</div>
+
+<div class="fr-my-3w" data-controller="toggle-section">
+  <button type="button"
+          class="fr-btn fr-btn--tertiary-no-outline fr-btn--icon-left fr-icon-add-line fr-btn--sm"
+          aria-expanded="<%= show_form ? 'true' : 'false' %>"
+          aria-controls="new-data-provider-form"
+          data-toggle-section-target="button"
+          data-action="click->toggle-section#toggle">
+    <%= t('admin.habilitation_types.form.add_provider') %>
+  </button>
+
+  <div data-toggle-section-target="section" <%= 'hidden' unless show_form %> class="fr-mt-3w">
+    <%= render Molecules::Admin::DataProviderFormComponent.new(
+      data_provider: form_data_provider,
+      inline: true
+    ) %>
+  </div>
+</div>

@@ -1,4 +1,8 @@
 <%= turbo_frame_tag :data_provider_selection do %>
-  <%= render Molecules::Admin::DataProviderFormComponent.new(data_provider: @data_provider) %>
+  <%= render Molecules::Admin::DataProviderSelectorComponent.new(
+    data_providers: @data_providers,
+    selected_provider_id: @data_provider.id,
+    show_form: @show_form,
+    form_data_provider: @form_data_provider || @data_provider
+  ) %>
 <% end %>
-

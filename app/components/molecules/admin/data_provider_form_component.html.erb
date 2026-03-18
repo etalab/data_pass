@@ -4,7 +4,7 @@
     url: (admin_data_providers_path if inline?),
     builder: DsfrFormBuilder,
     html: { novalidate: inline? },
-    data: {}
+    data: (inline? ? { turbo_frame: 'data_provider_selection' } : {})
   ) do |f| %>
 
     <% if data_provider.errors.any? %>

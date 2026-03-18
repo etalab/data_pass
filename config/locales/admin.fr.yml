@@ -197,6 +197,7 @@ fr:
         uid_preview_label: Identifiant technique (UID)
         kind_label: Type
         select_provider: "— Sélectionner un fournisseur —"
+        add_provider: Ajouter un fournisseur de données
         kinds:
           api: API
           service: Service
