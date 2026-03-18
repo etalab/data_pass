@@ -97,6 +97,11 @@ class SkipLinksImplementedChecker
     admin/mark_user_organization_as_verified#edit
     admin/mark_user_organization_as_verified#update
     admin/unmark_user_organization_as_verified#destroy
+    admin/data_providers#index
+    admin/data_providers#new
+    admin/data_providers#create
+    admin/data_providers#edit
+    admin/data_providers#update
 
     developers/open_api#show
     developers/oauth_applications#index

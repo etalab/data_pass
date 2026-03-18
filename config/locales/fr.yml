@@ -860,3 +860,6 @@ fr:
       entreprise_ou_association: "Une entreprise ou une association"
     cta:
       request_access: "Demander l'accès aux données"
+
+  shared:
+    new_window: nouvelle fenêtre

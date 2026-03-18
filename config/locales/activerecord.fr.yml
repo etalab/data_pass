@@ -145,6 +145,11 @@ fr:
         admin: Administrateur
         user: Usager
 
+      data_provider:
+        name: Nom
+        link: Lien
+        logo: Logo
+
       habilitation_type:
         name: Nom du formulaire
         description: Description

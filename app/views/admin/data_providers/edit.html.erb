@@ -1,0 +1,3 @@
+<% content_for(:admin_page_title, t('.title', name: @data_provider.name)) %>
+
+<%= render Molecules::Admin::DataProviderFormComponent.new(data_provider: @data_provider) %>

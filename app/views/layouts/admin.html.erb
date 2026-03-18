@@ -1,4 +1,5 @@
-<% set_title! t("admin.#{controller_name}.#{action_name}.page_title", default: t("admin.#{controller_name}.#{action_name}.title")) %>
+<% admin_title = content_for?(:admin_page_title) ? content_for(:admin_page_title) : t("admin.#{controller_name}.#{action_name}.page_title", default: t("admin.#{controller_name}.#{action_name}.title")) %>
+<% set_title!(admin_title) %>
 
 <%= content_for(:body) do %>
   <div class="fr-container">
@@ -7,7 +8,7 @@
         <div class="sub-header-content">
           <div>
             <h1 class="fr-m-0">
-              <%= t("admin.#{controller_name}.#{action_name}.title") %>
+              <%= admin_title %>
             </h1>
           </div>
 
@@ -20,7 +21,9 @@
       </div>
     </div>
 
-    <%= render partial: 'shared/alerts' %>
+    <div id="flash-alerts">
+      <%= render partial: 'shared/alerts' %>
+    </div>
 
     <%= yield %>
   </div>

@@ -8,6 +8,7 @@ fr:
       transfer_authorization_request: Transférer une demande vers une autre organisation
       user_organization_verification: "Vérification lien utilisateur / organisation"
       habilitation_types: Types d’habilitation
+      data_providers: Fournisseurs de données
     users_with_roles:
       index:
         title: Utilisateurs avec rôles
@@ -224,3 +225,27 @@ fr:
         success: "« %{name} » supprimé"
         error: "Une erreur est survenue lors de la suppression"
 
+    data_providers:
+      index:
+        title: Fournisseurs de données
+        new: Ajouter un fournisseur
+        edit: Modifier
+        empty: Aucun fournisseur de données
+        table:
+          name: Nom
+          link: Lien
+          actions: Actions
+      new:
+        title: Nouveau fournisseur de données
+      create:
+        title: Fournisseur de données
+        success: Fournisseur de données créé
+      edit:
+        title: "Modifier : %{name}"
+      update:
+        success: Fournisseur de données mis à jour
+        error: Une erreur est survenue
+      form:
+        cancel: Annuler
+        submit: Créer le fournisseur
+        update: Mettre à jour
