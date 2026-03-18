@@ -240,7 +240,7 @@ fr-badge--grey {
 .fr-fieldset--raw {
   border: none;
   padding: 0;
-  margin: 0;
+  margin: 1.5rem 0 0;
 }
 
 /* Grid row vertical alignment */

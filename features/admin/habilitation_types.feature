@@ -120,17 +120,26 @@ Fonctionnalité: Espace admin: types d'habilitation
     Quand je clique sur "Modifier" dans la rangée "API Cantine V2"
     Alors la page contient "api_cantine"
 
-  Scénario: Les boutons modifier et supprimer ne sont pas affichés pour un type avec des demandes liées
+  Scénario: Le bouton supprimer n'est pas affiché pour un type avec des demandes liées
     Sachant que je me connecte
     Et qu'un type d'habilitation "API Protégée" avec des demandes liées existe
     Quand je me rends sur le chemin "/admin/types-habilitation"
     Alors la page contient "API Protégée"
-    Et la page ne contient pas "Modifier"
+    Et la page contient "Modifier"
     Et la page ne contient pas "Supprimer"
 
-  Scénario: Un admin ne peut pas accéder directement à la page d'édition d'un type avec des demandes liées
+  Scénario: Un admin peut modifier les champs éditoriaux d'un type avec des demandes liées
     Sachant que je me connecte
     Et qu'un type d'habilitation "API Protégée" avec des demandes liées existe
     Quand je me rends sur le chemin "/admin/types-habilitation/api-protegee/edit"
-    Alors il y a un message d'erreur contenant "demandes liées"
+    Et que je remplis "Description" avec "Nouvelle description"
+    Et que je clique sur "Enregistrer"
+    Alors il y a un message de succès contenant "mis à jour"
+
+  Scénario: Les champs structurels sont désactivés pour un type avec des demandes liées
+    Sachant que je me connecte
+    Et qu'un type d'habilitation "API Protégée" avec des demandes liées existe
+    Quand je me rends sur le chemin "/admin/types-habilitation/api-protegee/edit"
+    Alors le champ "Fournisseur" est désactivé
+    Et le champ radio "API" est désactivé
 

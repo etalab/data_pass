@@ -3,7 +3,8 @@
     <%= helpers.turbo_frame_tag :data_provider_selection do %>
       <%= render Molecules::Admin::DataProviderSelectorComponent.new(
         data_providers: @data_providers,
-        selected_provider_id: @habilitation_type.data_provider_id
+        selected_provider_id: @habilitation_type.data_provider_id,
+        disabled: structural_fields_locked?
       ) %>
     <% end %>
   </div>
@@ -14,10 +15,10 @@
     builder: DsfrFormBuilder
   ) do |f| %>
 
-    <fieldset class="fr-fieldset--raw"<%= ' disabled' if disabled? %>>
-      <div class="fr-mb-8w">
-        <h2 class="fr-h3"><%= t('admin.habilitation_types.form.sections.general') %></h2>
+    <div class="fr-mb-8w">
+      <h2 class="fr-h3"><%= t('admin.habilitation_types.form.sections.general') %></h2>
 
+      <fieldset class="fr-fieldset--raw"<%= ' disabled' if disabled? %>>
         <div class="fr-col-4">
           <%= render Molecules::Admin::NameWithUidPreviewComponent.new(
             form: f,
@@ -28,19 +29,25 @@
 
         <%= f.dsfr_text_area :description, rows: 5 %>
 
+        <%= f.dsfr_text_area :form_introduction, rows: 5 %>
+      </fieldset>
+
+      <fieldset class="fr-fieldset--raw"<%= ' disabled' if structural_fields_locked? %>>
         <%= f.dsfr_radio_buttons :kind,
             HabilitationType.kinds.keys,
             required: true %>
+      </fieldset>
+    </div>
 
-        <%= f.dsfr_text_area :form_introduction, rows: 5  %>
-      </div>
-
+    <fieldset class="fr-fieldset--raw"<%= ' disabled' if disabled? %>>
       <div class="fr-mb-8w">
         <h2 class="fr-h3"><%= t('admin.habilitation_types.form.sections.links') %></h2>
 
         <%= render Molecules::Admin::LinksFormSectionComponent.new(form: f) %>
       </div>
+    </fieldset>
 
+    <fieldset class="fr-fieldset--raw"<%= ' disabled' if structural_fields_locked? %>>
       <div class="fr-mb-8w">
         <%= render Molecules::Admin::BlocksSelectionComponent.new(
           form: f,
@@ -48,20 +55,23 @@
           title: t('admin.habilitation_types.form.sections.blocks')
         ) %>
       </div>
+    </fieldset>
 
-      <div data-controller="blocks-toggle"
-           data-blocks-toggle-block-name-value="scopes">
-        <div data-blocks-toggle-target="section">
-          <div class="fr-mb-4w">
-            <h2 class="fr-h3"><%= t('admin.habilitation_types.form.scopes_editor.title') %></h2>
-            <%= render Molecules::Admin::ScopesEditorComponent.new(
-              form: f,
-              habilitation_type: @habilitation_type
-            ) %>
-          </div>
+    <div data-controller="blocks-toggle"
+         data-blocks-toggle-block-name-value="scopes">
+      <div data-blocks-toggle-target="section">
+        <div class="fr-mb-4w">
+          <h2 class="fr-h3"><%= t('admin.habilitation_types.form.scopes_editor.title') %></h2>
+          <%= render Molecules::Admin::ScopesEditorComponent.new(
+            form: f,
+            habilitation_type: @habilitation_type,
+            disabled: @disabled
+          ) %>
         </div>
       </div>
+    </div>
 
+    <fieldset class="fr-fieldset--raw"<%= ' disabled' if structural_fields_locked? %>>
       <div data-controller="blocks-toggle"
            data-blocks-toggle-block-name-value="contacts">
         <div data-blocks-toggle-target="section">

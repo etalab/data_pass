@@ -1,7 +1,16 @@
 class Molecules::Admin::ScopesEditorComponent < ApplicationComponent
-  def initialize(form:, habilitation_type:)
+  def initialize(form:, habilitation_type:, disabled: false)
     @form = form
     @habilitation_type = habilitation_type
+    @disabled = disabled
+  end
+
+  def disabled?
+    @disabled == true
+  end
+
+  def structural_fields_locked?
+    @disabled == :structural || disabled?
   end
 
   private

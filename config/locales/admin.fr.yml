@@ -157,7 +157,7 @@ fr:
         error: "Une erreur est survenue"
 
     habilitation_types:
-      not_authorized: "Ce type d'habilitation a des demandes liées, il ne peut pas être modifié ou supprimé"
+      not_authorized: "Ce type d'habilitation a des demandes liées, seuls les champs éditoriaux peuvent être modifiés"
       index:
         title: "Types d’habilitation"
         skip_to_list: "Aller au tableau des types d’habilitation"
