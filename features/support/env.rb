@@ -52,6 +52,8 @@ end
 After do
   Capybara.reset_sessions!
   DatabaseCleaner.clean
+  AuthorizationDefinition.reset!
+  AuthorizationRequestForm.reset!
 end
 
 ActiveJob::Base.queue_adapter = :test
