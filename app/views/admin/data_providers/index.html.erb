@@ -28,9 +28,20 @@
                         rel: 'noopener external',
                         title: "#{data_provider.name} - #{t('shared.new_window')}" %></td>
                 <td class="fr-cell--center">
-                  <%= link_to t('.edit'), edit_admin_data_provider_path(data_provider),
-                      class: %w[fr-btn fr-btn--sm fr-btn--tertiary fr-btn--icon-left fr-icon-edit-line],
-                      aria: { label: "#{t('.edit')} #{data_provider.name}" } %>
+                  <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--sm">
+                    <li>
+                      <%= link_to t('.edit'), edit_admin_data_provider_path(data_provider),
+                          class: %w[fr-btn fr-btn--sm fr-btn--tertiary fr-btn--icon-left fr-icon-edit-line],
+                          aria: { label: "#{t('.edit')} #{data_provider.name}" } %>
+                    </li>
+                    <% if policy(data_provider).destroy? %>
+                      <li>
+                        <%= dsfr_main_modal_button t('.delete'), confirm_destroy_admin_data_provider_path(data_provider),
+                            class: %w[fr-btn fr-btn--sm fr-btn--tertiary fr-btn--icon-left fr-icon-delete-line fr-text-default--error],
+                            aria: { label: "#{t('.delete')} #{data_provider.name}" } %>
+                      </li>
+                    <% end %>
+                  </ul>
                 </td>
               </tr>
             <% end %>

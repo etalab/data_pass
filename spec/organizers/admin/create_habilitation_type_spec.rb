@@ -25,7 +25,7 @@ RSpec.describe Admin::CreateHabilitationType, type: :organizer do
     end
 
     it 'creates a PaperTrail version' do
-      expect { organizer }.to change(PaperTrail::Version, :count).by(1)
+      expect { organizer }.to change { PaperTrail::Version.where(item_type: 'HabilitationType').count }.by(1)
     end
 
     context 'when params are invalid' do

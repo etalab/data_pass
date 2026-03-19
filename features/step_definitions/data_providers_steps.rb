@@ -2,6 +2,11 @@ Soit('un fournisseur de données {string} existe') do |name|
   FactoryBot.create(:data_provider, name:, slug: name.parameterize)
 end
 
+Soit("un fournisseur de données {string} avec des types d'habilitation liés existe") do |name|
+  data_provider = FactoryBot.create(:data_provider, name:, slug: name.parameterize)
+  FactoryBot.create(:habilitation_type, data_provider:)
+end
+
 Alors('le formulaire de création est visible') do
   expect(page).to have_css('#new-data-provider-form', visible: :visible)
 end

@@ -153,7 +153,7 @@ RSpec.describe HabilitationType do
 
   describe 'versioning' do
     it 'creates a version on create' do
-      expect { habilitation_type.save! }.to change(PaperTrail::Version, :count).by(1)
+      expect { habilitation_type.save! }.to change { PaperTrail::Version.where(item_type: 'HabilitationType').count }.by(1)
     end
 
     it 'creates a version on update' do
