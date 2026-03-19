@@ -1,13 +1,18 @@
 class Admin::HabilitationTypesController < AdminController
-  before_action :set_habilitation_type, only: %i[edit update destroy]
+  before_action :set_habilitation_type, only: %i[show edit update destroy]
+  before_action :authorize_habilitation_type!
+
+  rescue_from Pundit::NotAuthorizedError, with: :habilitation_type_not_authorized
 
   def index
     @habilitation_types = HabilitationType.includes(:data_provider)
       .order(created_at: :desc)
       .page(params[:page]).per(50)
 
-    @requests_counts = preload_requests_counts(@habilitation_types)
+    HabilitationType.preload_requests_counts!(@habilitation_types)
   end
+
+  def show; end
 
   def new
     @habilitation_type = HabilitationType.new(blocks: HabilitationType::DEFAULT_BLOCKS)
@@ -64,17 +69,13 @@ class Admin::HabilitationTypesController < AdminController
 
   private
 
-  def preload_requests_counts(habilitation_types)
-    raw_counts = fetch_raw_counts(habilitation_types)
-
-    habilitation_types.to_h do |habilitation_type|
-      [habilitation_type.id, raw_counts[habilitation_type.authorization_request_type] || 0]
-    end
+  def authorize_habilitation_type!
+    authorize(@habilitation_type || HabilitationType)
   end
 
-  def fetch_raw_counts(habilitation_types)
-    types = habilitation_types.map(&:authorization_request_type)
-    AuthorizationRequest.where(type: types).group(:type).count
+  def habilitation_type_not_authorized
+    flash[:error] = { title: t('admin.habilitation_types.not_authorized') }
+    redirect_to admin_habilitation_types_path
   end
 
   def set_habilitation_type

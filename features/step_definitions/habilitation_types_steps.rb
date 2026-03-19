@@ -3,6 +3,15 @@ Sachantque("un type d'habilitation {string} existe") do |name|
   FactoryBot.create(:habilitation_type, name:, data_provider:)
 end
 
+Sachantque("un type d'habilitation {string} avec des demandes liées existe") do |name|
+  data_provider = DataProvider.first || FactoryBot.create(:data_provider)
+  habilitation_type = FactoryBot.create(:habilitation_type, name:, data_provider:)
+  FactoryBot.create(
+    :authorization_request,
+    type: habilitation_type.authorization_request_type
+  )
+end
+
 Quand('je choisis le type {string}') do |kind|
   choose kind, allow_label_click: true
 end

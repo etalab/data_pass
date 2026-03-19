@@ -236,6 +236,13 @@ fr-badge--grey {
   top: 1rem;
 }
 
+/* Reset default fieldset styles (used for disabled state wrapper) */
+.fr-fieldset--raw {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
 /* Grid row vertical alignment */
 .fr-grid-row--align-bottom {
   align-items: flex-end;
