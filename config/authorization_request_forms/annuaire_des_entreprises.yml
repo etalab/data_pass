@@ -81,7 +81,7 @@ annuaire-des-entreprises-traitement-aides-financieres:
     - name: "legal"
   scopes_config:
     disabled:
-      - effectifs_annuels
+      - effectifs
       - chiffre_affaires
       - bilans_bdf
       - liasses_fiscales
