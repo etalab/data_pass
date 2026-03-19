@@ -120,5 +120,6 @@ class HabilitationType < ApplicationRecord
   def reset_static_caches
     AuthorizationDefinition.reset!
     AuthorizationRequestForm.reset!
+    User.add_instruction_boolean_settings(:submit_notifications, :messages_notifications)
   end
 end
