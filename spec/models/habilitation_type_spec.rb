@@ -194,12 +194,12 @@ RSpec.describe HabilitationType do
     end
 
     it 'resets AuthorizationDefinition cache' do
-      expect(AuthorizationDefinition).to receive(:reset!)
+      expect(AuthorizationDefinition).to receive(:reset!).at_least(:once)
       habilitation_type.save!
     end
 
     it 'resets AuthorizationRequestForm cache' do
-      expect(AuthorizationRequestForm).to receive(:reset!)
+      expect(AuthorizationRequestForm).to receive(:reset!).at_least(:once)
       habilitation_type.save!
     end
 

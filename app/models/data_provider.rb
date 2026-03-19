@@ -14,6 +14,8 @@ class DataProvider < ApplicationRecord
   validates :link, presence: true, format: { with: URL_REGEX, message: I18n.t('activemodel.errors.messages.url_format') }
   validates :logo, content_type: %w[image/png image/jpeg image/svg+xml], if: -> { logo.attached? }
 
+  after_save :reset_static_caches
+
   def authorization_definitions
     @authorization_definitions ||= AuthorizationDefinition.all.select do |authorization_definition|
       authorization_definition.provider&.slug == slug
@@ -29,6 +31,11 @@ class DataProvider < ApplicationRecord
   end
 
   private
+
+  def reset_static_caches
+    AuthorizationDefinition.reset!
+    AuthorizationRequestForm.reset!
+  end
 
   def set_slug_from_name
     self.slug = name.parameterize

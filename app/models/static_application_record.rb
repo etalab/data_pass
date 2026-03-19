@@ -15,11 +15,16 @@ class StaticApplicationRecord
 
   module ClassMethods
     def all
+      invalidate_if_stale
       @all ||= backend
     end
 
     def reset!
       @all = nil
+      @cache_version = nil
+      Kredis.counter(redis_cache_key).increment
+    rescue Redis::BaseError
+      nil
     end
 
     def backend
@@ -62,6 +67,26 @@ class StaticApplicationRecord
       end
 
       array_values.include?(entry_attribute_value)
+    end
+
+    private
+
+    def invalidate_if_stale
+      current_version = redis_cache_version
+      return if @cache_version == current_version
+
+      @all = nil
+      @cache_version = current_version
+    end
+
+    def redis_cache_key
+      "static_application_record:cache_version:#{name.underscore}"
+    end
+
+    def redis_cache_version
+      Kredis.counter(redis_cache_key).value
+    rescue Redis::BaseError
+      nil
     end
   end
 
