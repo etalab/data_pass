@@ -9,5 +9,6 @@ FactoryBot.define do
     scopes { [] }
     contact_types { [] }
     custom_labels { {} }
+    support_email { 'support@yopmail.com' }
   end
 end
