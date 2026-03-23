@@ -865,10 +865,6 @@ api-particulier-extenso-partner-extenso-cloud:
       et l'administration fixe le cadre général des échanges de données au sein de
       l'administration.
     scopes:
-      - cnaf_quotient_familial
-      - cnaf_adresse
-      - mesri_identite
-      - mesri_admissions
       - ants_extrait_immatriculation_vehicule_identite_particulier
       - ants_extrait_immatriculation_vehicule_adresse_particulier
       - ants_extrait_immatriculation_vehicule_statut_rattachement
