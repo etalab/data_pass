@@ -836,7 +836,13 @@ api-particulier-extenso-partner-extenso-cloud:
   use_case: stationnement_residentiel
   service_provider_id: extenso_partner
   introduction: *api_particulier_introduction_editor_with_editable_scopes
-  steps: *api_particulier_editor_steps_with_editable_scopes
+  steps:
+    - name: modalities
+    - name: basic_infos
+    - name: scopes
+    - name: legal
+    - name: personal_data
+    - name: contacts
   static_blocks: *api_particulier_editor_static_blocks_with_editable_scopes
   scopes_config:
     displayed:
@@ -877,6 +883,7 @@ api-particulier-extenso-partner-extenso-cloud:
     contact_technique_job_title: Directeur technique
     modalities:
       - params
+      - france_connect
 
 api-particulier-arche-mc2-solis:
   name: Solis
