@@ -204,6 +204,31 @@ RSpec.describe HabilitationType do
     end
   end
 
+  describe 'validation on destroy' do
+    let!(:record) { create(:habilitation_type) }
+
+    context 'when no authorization requests exist' do
+      it 'allows destroy' do
+        expect { record.destroy }.to change(described_class, :count).by(-1)
+      end
+    end
+
+    context 'when authorization requests exist for this type' do
+      before do
+        allow(record).to receive(:authorization_requests_count).and_return(1)
+      end
+
+      it 'prevents destroy' do
+        expect { record.destroy }.not_to change(described_class, :count)
+      end
+
+      it 'adds an error on base' do
+        record.destroy
+        expect(record.errors[:base]).to be_present
+      end
+    end
+  end
+
   describe 'callbacks on destroy' do
     before { habilitation_type.save! }
 

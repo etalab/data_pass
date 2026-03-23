@@ -22,6 +22,7 @@ class HabilitationType < ApplicationRecord
   validates :scopes, presence: true, if: :scopes_block_selected?
   validate :validate_each_scope, if: :scopes_block_selected?
 
+  before_destroy :ensure_no_authorization_requests
   after_destroy :unregister_dynamic_class
   after_destroy :reset_static_caches
   after_save :register_dynamic_class
@@ -98,6 +99,13 @@ class HabilitationType < ApplicationRecord
     return unless AuthorizationDefinition.yaml_records.map(&:id).include?(uid)
 
     errors.add(:slug, :taken_by_yaml_type)
+  end
+
+  def ensure_no_authorization_requests
+    return if authorization_requests_count.zero?
+
+    errors.add(:base, :has_authorization_requests)
+    throw :abort
   end
 
   def unregister_dynamic_class
