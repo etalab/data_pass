@@ -831,7 +831,7 @@ api-particulier-aiga:
 
 api-particulier-extenso-partner-extenso-cloud:
   name: Extenso Cloud
-  description: *api_particulier_form_description_tarification_qf
+  description: "Tarification stationnement résidentiel"
   authorization_request: APIParticulier
   use_case: stationnement_residentiel
   service_provider_id: extenso_partner
