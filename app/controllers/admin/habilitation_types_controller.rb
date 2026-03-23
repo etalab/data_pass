@@ -83,6 +83,16 @@ class Admin::HabilitationTypesController < AdminController
   end
 
   def habilitation_type_params
+    permitted = permitted_habilitation_type_params
+    return permitted unless @habilitation_type&.persisted?
+    return permitted if policy(@habilitation_type).edit_structural_fields?
+
+    editorial = permitted.slice(*HabilitationType::EDITORIAL_PARAMS)
+    editorial[:scopes] = sanitize_locked_scopes(permitted[:scopes])
+    editorial
+  end
+
+  def permitted_habilitation_type_params
     permitted = params.expect(
       habilitation_type: [
         :name, :description, :data_provider_id, :kind, :form_introduction,
@@ -94,5 +104,15 @@ class Admin::HabilitationTypesController < AdminController
       .merge(blocks: (permitted[:blocks] || []).compact_blank)
       .merge(contact_types: (permitted[:contact_types] || []).compact_blank)
       .merge(scopes: (permitted[:scopes] || []).reject { |s| s.values.all?(&:blank?) })
+  end
+
+  def sanitize_locked_scopes(submitted_scopes)
+    existing = @habilitation_type.scopes || []
+    return existing if submitted_scopes.blank?
+
+    existing.each_with_index.map do |scope, i|
+      submitted = (submitted_scopes[i] || {}).stringify_keys
+      scope.merge(submitted.slice(*HabilitationType::EDITORIAL_SCOPE_PARAMS))
+    end
   end
 end

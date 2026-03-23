@@ -6,7 +6,11 @@ class Organisms::Admin::HabilitationTypeFormComponent < ApplicationComponent
   end
 
   def disabled?
-    @disabled
+    @disabled == true
+  end
+
+  def structural_fields_locked?
+    @disabled == :structural || disabled?
   end
 
   private

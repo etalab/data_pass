@@ -11,9 +11,11 @@
       include_blank: t('admin.habilitation_types.form.select_provider'),
       class: 'fr-select',
       required: true,
+      disabled: disabled?,
       form: 'habilitation-type-form-fields' %>
 </div>
 
+<% unless disabled? %>
 <div class="fr-my-3w" data-controller="toggle-section">
   <button type="button"
           class="fr-btn fr-btn--tertiary-no-outline fr-btn--icon-left fr-icon-add-line fr-btn--sm"
@@ -31,3 +33,4 @@
     ) %>
   </div>
 </div>
+<% end %>

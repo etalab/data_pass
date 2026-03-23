@@ -44,12 +44,32 @@ RSpec.describe HabilitationTypePolicy do
         allow(habilitation_type).to receive(:authorization_requests_count).and_return(1)
       end
 
-      it { is_expected.to be false }
+      it { is_expected.to be true }
     end
   end
 
   describe '#edit?' do
     subject { instance.edit? }
+
+    context 'when habilitation type has no authorization requests' do
+      before do
+        allow(habilitation_type).to receive(:authorization_requests_count).and_return(0)
+      end
+
+      it { is_expected.to be true }
+    end
+
+    context 'when habilitation type has authorization requests' do
+      before do
+        allow(habilitation_type).to receive(:authorization_requests_count).and_return(1)
+      end
+
+      it { is_expected.to be true }
+    end
+  end
+
+  describe '#edit_structural_fields?' do
+    subject { instance.edit_structural_fields? }
 
     context 'when habilitation type has no authorization requests' do
       before do

@@ -24,3 +24,11 @@ Quand('je remplis le scope {int} avec nom {string} valeur {string} groupe {strin
   inputs[1].fill_in with: value
   inputs[2].fill_in with: group
 end
+
+Alors('le champ {string} est désactivé') do |label|
+  expect(page).to have_field(label, disabled: true)
+end
+
+Alors('le champ radio {string} est désactivé') do |label|
+  expect(page).to have_field(label, disabled: true, visible: :all)
+end

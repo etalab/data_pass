@@ -20,6 +20,10 @@ class HabilitationTypePolicy < ApplicationPolicy
   end
 
   def update?
+    user.admin?
+  end
+
+  def edit_structural_fields?
     user.admin? && without_requests?
   end
 

@@ -2,6 +2,8 @@ class HabilitationType < ApplicationRecord
   BLOCK_ORDER = %w[basic_infos legal personal_data scopes contacts].freeze
   VALID_RUBY_CLASSNAME = /\A[A-Z][a-zA-Z0-9]*\z/
   DEFAULT_BLOCKS = %w[basic_infos legal personal_data].freeze
+  EDITORIAL_PARAMS = %i[name description form_introduction link cgu_link access_link support_email].freeze
+  EDITORIAL_SCOPE_PARAMS = %w[name group].freeze
 
   extend FriendlyId
 

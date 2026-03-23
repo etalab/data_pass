@@ -1,9 +1,14 @@
 class Molecules::Admin::DataProviderSelectorComponent < ApplicationComponent
-  def initialize(data_providers:, selected_provider_id: nil, show_form: false, form_data_provider: DataProvider.new)
+  def initialize(data_providers:, selected_provider_id: nil, show_form: false, form_data_provider: DataProvider.new, disabled: false)
     @data_providers = data_providers
     @selected_provider_id = selected_provider_id
     @show_form = show_form
     @form_data_provider = form_data_provider
+    @disabled = disabled
+  end
+
+  def disabled?
+    @disabled
   end
 
   private
