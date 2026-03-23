@@ -207,7 +207,10 @@ class AuthorizationRequestDecorator < ApplicationDecorator # rubocop:disable Met
   def available_france_connect_authorizations
     return [] if organization.blank?
 
-    organization.valid_authorizations_of(AuthorizationRequest::FranceConnect).map(&:decorate)
+    organization
+      .valid_authorizations_of(AuthorizationRequest::FranceConnect)
+      .reject(&:auto_generated?)
+      .map(&:decorate)
   end
 
   private

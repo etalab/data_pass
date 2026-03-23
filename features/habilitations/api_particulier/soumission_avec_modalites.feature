@@ -28,6 +28,13 @@ Fonctionnalité: Soumission d'une demande d'habilitation API Particulier avec le
     Et que je clique sur "Suivant"
     Alors la page contient "Quelles sont les données dont vous avez besoin ?"
 
+  Scénario: Je choisis la modalité FranceConnect alors que j'ai uniquement une habilitation FranceConnect générée automatiquement
+    Sachant que j'ai une demande API Particulier avec champs FranceConnect intégrés validée
+    Quand je rafraîchis la page
+    Et que je coche "Via FranceConnect"
+    Alors la page contient "il vous faudra au préalable demander une habilitation FranceConnect"
+    Et la page ne contient pas "Sélectionnez une habilitation FranceConnect qui sera liée à cette demande"
+
   Scénario: Je ne vois pas la modalité Formulaire national QF
     Alors la page ne contient pas "formulaire national QF"
     Et la page contient "Comment vos usagers accèderont aux données ?"
