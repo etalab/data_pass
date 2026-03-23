@@ -27,5 +27,17 @@ RSpec.describe Admin::DestroyHabilitationType, type: :organizer do
         expect(instructor.reload.roles).to eq(['other_type:manager'])
       end
     end
+
+    context 'when authorization requests exist for this type' do
+      before do
+        allow(habilitation_type).to receive(:authorization_requests_count).and_return(1)
+      end
+
+      it { is_expected.to be_failure }
+
+      it 'does not destroy the habilitation type' do
+        expect { organizer }.not_to change(HabilitationType, :count)
+      end
+    end
   end
 end

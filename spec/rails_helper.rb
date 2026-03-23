@@ -89,9 +89,7 @@ RSpec.configure do |config|
   end
 
   config.before do
-    StaticApplicationRecord.descendants.each do |model|
-      model.class.instance_variable_set(:@backend, nil)
-    end
+    StaticApplicationRecord.descendants.each(&:reset!)
   end
 
   # Filter lines from Rails gems in backtraces.

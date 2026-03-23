@@ -8,7 +8,8 @@ class Admin::DestroyHabilitationType < ApplicationOrganizer
     }
   end
 
-  organize Admin::DestroyHabilitationTypeRecord,
+  organize Admin::CheckHabilitationTypeDeletable,
+    Admin::DestroyHabilitationTypeRecord,
     Admin::RemoveHabilitationTypeRoles,
     Admin::TrackEvent
 end
