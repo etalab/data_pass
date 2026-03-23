@@ -833,6 +833,7 @@ api-particulier-extenso-partner-extenso-cloud:
   name: Extenso Cloud
   description: *api_particulier_form_description_tarification_qf
   authorization_request: APIParticulier
+  use_case: stationnement_residentiel
   service_provider_id: extenso_partner
   introduction: *api_particulier_introduction_editor_with_editable_scopes
   steps: *api_particulier_editor_steps_with_editable_scopes
