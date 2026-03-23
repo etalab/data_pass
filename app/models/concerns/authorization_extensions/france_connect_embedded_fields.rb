@@ -50,8 +50,10 @@ module AuthorizationExtensions::FranceConnectEmbeddedFields
   def attach_documents_to_france_connect_authorization(france_connect_authorization)
     return unless fc_cadre_juridique_document.attached?
 
+    document = france_connect_authorization.documents.create!(identifier: 'cadre_juridique_document')
+
     fc_cadre_juridique_document.each do |file|
-      france_connect_authorization.cadre_juridique_document.attach(file.blob)
+      document.files.attach(file.blob)
     end
   end
 

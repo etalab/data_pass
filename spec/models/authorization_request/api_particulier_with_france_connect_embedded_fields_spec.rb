@@ -361,7 +361,9 @@ RSpec.describe AuthorizationRequest::APIParticulier do
   end
 
   describe '#attach_documents_to_france_connect_authorization' do
-    let(:france_connect_authorization) { build(:authorization_request, :france_connect) }
+    let(:france_connect_authorization) do
+      create(:authorization, request: authorization_request, authorization_request_class: 'AuthorizationRequest::FranceConnect')
+    end
 
     context 'when fc_cadre_juridique_document is attached' do
       before do
@@ -369,31 +371,29 @@ RSpec.describe AuthorizationRequest::APIParticulier do
         authorization_request.fc_cadre_juridique_document.attach(file)
       end
 
-      it 'copies the document to the FranceConnect authorization' do
-        expect(france_connect_authorization.cadre_juridique_document).not_to be_attached
+      it 'creates an AuthorizationDocument on the FranceConnect authorization' do
+        expect { authorization_request.attach_documents_to_france_connect_authorization(france_connect_authorization) }
+          .to change { france_connect_authorization.documents.count }.from(0).to(1)
 
-        authorization_request.attach_documents_to_france_connect_authorization(france_connect_authorization)
-
-        expect(france_connect_authorization.cadre_juridique_document).to be_attached
-        expect(france_connect_authorization.cadre_juridique_document.count).to eq(1)
+        document = france_connect_authorization.documents.find_by(identifier: 'cadre_juridique_document')
+        expect(document).to be_present
+        expect(document.files.count).to eq(1)
       end
 
       it 'uses the same blob' do
         authorization_request.attach_documents_to_france_connect_authorization(france_connect_authorization)
 
-        expect(france_connect_authorization.cadre_juridique_document.first.blob).to eq(
+        document = france_connect_authorization.documents.find_by(identifier: 'cadre_juridique_document')
+        expect(document.files.first.blob).to eq(
           authorization_request.fc_cadre_juridique_document.first.blob
         )
       end
     end
 
     context 'when fc_cadre_juridique_document is not attached' do
-      it 'does not attach anything' do
-        expect(france_connect_authorization.cadre_juridique_document).not_to be_attached
-
-        authorization_request.attach_documents_to_france_connect_authorization(france_connect_authorization)
-
-        expect(france_connect_authorization.cadre_juridique_document).not_to be_attached
+      it 'does not create any document' do
+        expect { authorization_request.attach_documents_to_france_connect_authorization(france_connect_authorization) }
+          .not_to change { france_connect_authorization.documents.count }
       end
     end
   end
