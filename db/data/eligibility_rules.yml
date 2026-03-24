@@ -202,9 +202,10 @@
     body: Vous n’êtes pas autorisé à accéder aux données de cette API. L'API est réservée
       aux administrations.
   - type: entreprise_ou_association
-    eligible: 'no'
-    body: Vous n’êtes pas autorisé à accéder aux données de cette API. L'API est réservée
-      aux administrations.
+    eligible: 'yes'
+    body: <p>Les entreprises/associations souhaitant utiliser cette API peuvent soumettre une demande d’accès via le formulaire dédié.</p>
+          <p>Chaque demande est examinée individuellement par notre équipe.</p>
+          <p>Les accès ne seront accordés qu’après validation et approbation de la demande.</p>
   - type: collectivite_ou_administration
     eligible: maybe
     body: |-
