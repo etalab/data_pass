@@ -243,7 +243,7 @@ class AuthorizationRequestFormBuilder < DsfrFormBuilder
   end
 
   def france_connect_authorization_options
-    @object.available_france_connect_authorizations.reject(&:auto_generated?).map do |authorization|
+    @object.available_france_connect_authorizations.map do |authorization|
       [authorization.name_for_select, authorization.id]
     end
   end

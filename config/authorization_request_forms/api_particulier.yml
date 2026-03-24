@@ -831,11 +831,18 @@ api-particulier-aiga:
 
 api-particulier-extenso-partner-extenso-cloud:
   name: Extenso Cloud
-  description: *api_particulier_form_description_tarification_qf
+  description: "Tarification stationnement résidentiel"
   authorization_request: APIParticulier
+  use_case: stationnement_residentiel
   service_provider_id: extenso_partner
   introduction: *api_particulier_introduction_editor_with_editable_scopes
-  steps: *api_particulier_editor_steps_with_editable_scopes
+  steps:
+    - name: modalities
+    - name: basic_infos
+    - name: scopes
+    - name: legal
+    - name: personal_data
+    - name: contacts
   static_blocks: *api_particulier_editor_static_blocks_with_editable_scopes
   scopes_config:
     displayed:
@@ -864,10 +871,6 @@ api-particulier-extenso-partner-extenso-cloud:
       et l'administration fixe le cadre général des échanges de données au sein de
       l'administration.
     scopes:
-      - cnaf_quotient_familial
-      - cnaf_adresse
-      - mesri_identite
-      - mesri_admissions
       - ants_extrait_immatriculation_vehicule_identite_particulier
       - ants_extrait_immatriculation_vehicule_adresse_particulier
       - ants_extrait_immatriculation_vehicule_statut_rattachement
@@ -880,6 +883,7 @@ api-particulier-extenso-partner-extenso-cloud:
     contact_technique_job_title: Directeur technique
     modalities:
       - params
+      - france_connect
 
 api-particulier-arche-mc2-solis:
   name: Solis

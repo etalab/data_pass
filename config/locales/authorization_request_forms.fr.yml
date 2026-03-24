@@ -377,7 +377,7 @@ fr:
             label: Via FranceConnect
         callout:
           title: Pour proposer FranceConnect à vos utilisateurs, il vous faudra au préalable demander une habilitation FranceConnect.
-          content: Vous pouvez demander cette habilitation en remplissant le formulaire ci-dessous. Une fois votre demande validée, vous pourrez sélectionner FranceConnect dans les modalités d'appel de l'API Particulier. Vous pouvez cependant dès à présent utiliser les autres modalités d'appel de l'API Particulier, et réouvrir la demande ultérieurement pour ajouter FranceConnect.
+          content: "Vous pouvez demander cette habilitation en remplissant le formulaire ci-dessous. Une fois votre demande validée, vous pourrez sélectionner FranceConnect dans les modalités d'appel de l'API Particulier. Vous pouvez cependant dès à présent utiliser les autres modalités d'appel de l'API Particulier, et réouvrir la demande ultérieurement pour ajouter FranceConnect. Note : Les habilitations FranceConnect générées automatiquement pour d'autres cas d'usage ne sont pas éligibles."
           link: Demander une habilitation FranceConnect
 
       scopes:
