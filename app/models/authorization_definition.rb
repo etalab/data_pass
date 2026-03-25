@@ -104,8 +104,16 @@ class AuthorizationDefinition < StaticApplicationRecord
     User.instructor_for(id)
   end
 
+  def managers
+    User.manager_for(id)
+  end
+
   def reporters
     User.reporter_for(id)
+  end
+
+  def instructors_and_managers
+    (instructors + managers).uniq
   end
 
   def instructors_or_reporters
