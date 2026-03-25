@@ -212,4 +212,15 @@ Fonctionnalité: Réouverture d'une habilitation validée
     Et que je clique sur "Envoyer ma demande"
     Alors il y a un message d'erreur contenant "n'est pas un lien valide"
 
+  Scénario: Réouverture d'une demande avec des dates d'homologation identiques n'entraîne pas de boucle de redirection (DP-1484)
+    Quand j'ai 1 demande d'habilitation "API Impôt Particulier" à l'étape "Production" réouverte
+    Et que cette demande possède les informations potentiellement non intègres suivantes :
+      | champ                           | nouvelle valeur |
+      | safety_certification_begin_date | 2026-01-13      |
+      | safety_certification_end_date   | 2026-01-13      |
+    Et que je vais sur la page tableau de bord
+    Et que je clique sur le dernier "Consulter"
+    Et que je clique sur "Envoyer ma demande de modification"
+    Alors il y a un message d'erreur contenant "doit être supérieure à la date de début"
+
 
