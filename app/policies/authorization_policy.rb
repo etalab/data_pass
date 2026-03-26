@@ -14,6 +14,7 @@ class AuthorizationPolicy < ApplicationPolicy
 
   def show?
     same_current_verified_organization? ||
+      record.request.applicant_id == user.id ||
       record.request.contact_types_for(user).any? ||
       user.reporter?(record.kind)
   end

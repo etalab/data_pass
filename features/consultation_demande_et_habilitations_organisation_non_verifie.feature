@@ -2,7 +2,7 @@
 
 Fonctionnalité: Consultation de demandes et habilitations avec une organisation dont le lien n'est pas vérifié
   En tant qu'usager lié à une organisation dont le lien n'est pas vérifié, je ne peux pas consulter
-  les autres demandes de l'organisation
+  les autres demandes de l'organisation, mais je peux consulter mes propres habilitations
 
   Contexte:
     Sachant que je suis un demandeur
@@ -30,5 +30,16 @@ Fonctionnalité: Consultation de demandes et habilitations avec une organisation
 
   Scénario: Je ne peux pas consulter une habilitation de mon organisation
     Quand je me rends sur la dernière demande "API CaptchEtat"
+    Alors je suis sur la page "Demandes et habilitations"
+    Et il y a un message d'erreur contenant "pas le droit"
+
+  Scénario: Je peux consulter ma propre habilitation même si mon lien avec mon organisation n'est pas vérifié
+    Quand j'ai 1 habilitation "API Entreprise" active
+    Et mon organisation n'est pas vérifiée
+    Et je visite la page de mon habilitation
+    Alors il y a un formulaire en mode résumé non modifiable
+
+  Scénario: Je ne peux pas consulter directement l'habilitation d'un autre membre de mon organisation non vérifiée
+    Quand je me rends sur la dernière habilitation "API CaptchEtat"
     Alors je suis sur la page "Demandes et habilitations"
     Et il y a un message d'erreur contenant "pas le droit"
