@@ -45,6 +45,6 @@ class MessageMailer < ApplicationMailer
   end
 
   def instructors(definition)
-    definition.instructors
+    definition.instructors_and_managers
   end
 end
