@@ -10,7 +10,7 @@ class AuthorizationRequestPolicy < ApplicationPolicy
     if same_user_and_organization?
       !record.draft? ||
         record.reopening? ||
-        review_authorization_request.success?
+        record.valid?(:review)
     elsif same_current_organization? && user.current_organization_verified?
       true
     else
@@ -156,13 +156,6 @@ class AuthorizationRequestPolicy < ApplicationPolicy
     return record.object if record.decorated?
 
     record
-  end
-
-  def review_authorization_request
-    ReviewAuthorizationRequest.call(
-      authorization_request: record,
-      user:,
-    )
   end
 
   def current_user_is_contact?
