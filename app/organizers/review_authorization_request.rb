@@ -7,7 +7,7 @@ class ReviewAuthorizationRequest < ApplicationOrganizer
   end
 
   organize AssignParamsToAuthorizationRequest,
-    AssignFranceConnectDefaultsOnReopening
+    AssignFranceConnectDefaults
 
   after do
     context.authorization_request.save(context: context.save_context) ||

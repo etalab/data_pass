@@ -424,23 +424,11 @@ api-particulier-civil-enfance-ciril-group:
       L'application Civil Enfance est utilisée par les agents habilités des collectivités locales et notre portail famille en front est utilisé par les parents des enfants scolarisés dans ces communes.
       Récupération des données nécessaires pour le calcul des tarifs des différentes prestations. L'application est soit utilisée par les agents habilités des collectivités locales soit utilisée par les parents des enfants scolarisés dans ces communes en front sur le portail famille.
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_qf
-    fc_eidas: 'eidas_1'
-    fc_cadre_juridique_nature: 'Arrêté du 8 novembre 2018'
-    fc_cadre_juridique_url: 'https://www.legifrance.gouv.fr/loda/id/JORFTEXT000037611479'
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
       - cnaf_enfants
       - cnaf_adresse
-
-      # Scopes FranceConnect
-      - family_name
-      - given_name
-      - birthdate
-      - birthplace
-      - birthcountry
-      - gender
-      - openid
     modalities:
       - params
       - france_connect
@@ -584,20 +572,8 @@ api-particulier-waigeo-myperischool:
       restauration scolaire et des accueils de loisirs.
     description: MyPérischool dispose d'un front accessible pour les citoyens et les agents pour la gestion de la petite enfance et des activités periscolaires
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_qf
-    fc_eidas: 'eidas_1'
-    fc_cadre_juridique_nature: 'Arrêté du 8 novembre 2018'
-    fc_cadre_juridique_url: 'https://www.legifrance.gouv.fr/loda/id/JORFTEXT000037611479'
     scopes:
       - cnaf_quotient_familial
-
-      # Scopes FranceConnect
-      - family_name
-      - given_name
-      - birthdate
-      - birthplace
-      - birthcountry
-      - gender
-      - openid
     # contact_technique_editable: false
     contact_technique_email: dev@waigeo.fr
     contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_waigeo_contact_technique_phone_number || '0970805210' %>"
@@ -809,20 +785,8 @@ api-particulier-aiga:
     description: |
       Gestion de la tarification des services scolaires et péri scolaires en backoffice par des agents habilités
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_municipale_enfance
-    fc_eidas: 'eidas_1'
-    fc_cadre_juridique_nature: 'Arrêté du 8 novembre 2018'
-    fc_cadre_juridique_url: 'https://www.legifrance.gouv.fr/loda/id/JORFTEXT000037611479'
     scopes:
       - cnaf_quotient_familial
-
-      # Scopes FranceConnect
-      - family_name
-      - given_name
-      - birthdate
-      - birthplace
-      - birthcountry
-      - gender
-      - openid
     contact_technique_type: "organization"
     contact_technique_email: "api-particulier@aiga.fr"
     contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_aiga_contact_technique_phone_number || '0472532200' %>"
@@ -958,20 +922,8 @@ api-particulier-capdemat-capdemat-evolution:
     intitule: Tarification sur Quotient Familial des cantines
     description: Logiciel de Gestion de la Relation usager à destination des collectivités intégrant un portail pour les citoyens et un back office agent.
     cadre_juridique_nature: l’Article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d'un usage. L’article R531-52 du Code de l’éducation donne compétence aux collectivités pour fixer les tarifs des cantines.
-    fc_eidas: 'eidas_1'
-    fc_cadre_juridique_nature: 'Arrêté du 8 novembre 2018'
-    fc_cadre_juridique_url: 'https://www.legifrance.gouv.fr/loda/id/JORFTEXT000037611479'
     scopes:
       - cnaf_quotient_familial
-
-      # Scopes FranceConnect
-      - family_name
-      - given_name
-      - birthdate
-      - birthplace
-      - birthcountry
-      - gender
-      - openid
     contact_technique_email: "<%= Rails.application.credentials.api_particulier_capdemat_contact_technique_email || 'tech-capdemat@yopmail.com' %>"
     contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_capdemat_contact_technique_given_name || 'Jean' %>"
     contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_capdemat_contact_technique_family_name || 'Dupont' %>"
@@ -1460,23 +1412,11 @@ api-particulier-ypok-ykidz:
     description: |
       Gestion des structures enfance, jeunesse pour la facturation de la cantine, le service periscolaire et extrascolaire
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_qf
-    fc_eidas: 'eidas_1'
-    fc_cadre_juridique_nature: 'Arrêté du 8 novembre 2018'
-    fc_cadre_juridique_url: 'https://www.legifrance.gouv.fr/loda/id/JORFTEXT000037611479'
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
       - cnaf_enfants
       - cnaf_adresse
-
-      # Scopes FranceConnect
-      - family_name
-      - given_name
-      - birthdate
-      - birthplace
-      - birthcountry
-      - gender
-      - openid
     contact_technique_email: "<%= Rails.application.credentials.api_particulier_ypok_contact_technique_email || 'tech-ypok@yopmail.com' %>"
     contact_technique_given_name: "<%= Rails.application.credentials.api_particulier_ypok_contact_technique_given_name || 'Jeanne' %>"
     contact_technique_family_name: "<%= Rails.application.credentials.api_particulier_ypok_contact_technique_family_name || 'Martin' %>"
@@ -1957,22 +1897,10 @@ api-particulier-entrouvert-publik:
       leurs démarches en ligne via la plateforme de Gestion de la relation usager
       Publik de la collectivité, éditée par la société Entr'ouvert
     cadre_juridique_nature: *api_particulier_cadre_juridique_nature_tarification_municipale_enfance
-    fc_eidas: 'eidas_1'
-    fc_cadre_juridique_nature: 'Arrêté du 8 novembre 2018'
-    fc_cadre_juridique_url: 'https://www.legifrance.gouv.fr/loda/id/JORFTEXT000037611479'
     scopes:
       - cnaf_quotient_familial
       - cnaf_allocataires
       - cnaf_enfants
-
-      # Scopes FranceConnect
-      - family_name
-      - given_name
-      - birthdate
-      - birthplace
-      - birthcountry
-      - gender
-      - openid
     modalities:
       - params
 
@@ -2130,23 +2058,11 @@ api-particulier-aiga-petite-enfance:
     description: |
       Gestion de la tarification des établissement d’acceuil du jeune enfant en backoffice par des agents habilités
     cadre_juridique_nature: Cadre légal général L’article L114-8 du Code des relations entre le public et l’administration qui fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Délibération.[À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]"_eaje
-    fc_eidas: 'eidas_1'
-    fc_cadre_juridique_nature: 'Arrêté du 8 novembre 2018'
-    fc_cadre_juridique_url: 'https://www.legifrance.gouv.fr/loda/id/JORFTEXT000037611479'
     scopes:
       - cnav_participation_familiale_eaje_allocataires
       - cnav_participation_familiale_eaje_enfants
       - cnav_participation_familiale_eaje_adresse
       - cnav_participation_familiale_eaje_parametres_calcul
-
-      # Scopes FranceConnect
-      - family_name
-      - given_name
-      - birthdate
-      - birthplace
-      - birthcountry
-      - gender
-      - openid
     contact_technique_type: "organization"
     contact_technique_email: "api-particulier@aiga.fr"
     contact_technique_phone_number: "<%= Rails.application.credentials.api_particulier_aiga_petite_enfance_contact_technique_phone_number || '0472532200' %>"
