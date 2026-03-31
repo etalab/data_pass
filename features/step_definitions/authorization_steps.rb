@@ -46,6 +46,12 @@ Et('je visite la page de mon habilitation') do
   visit authorization_path(@authorization)
 end
 
+Quand('je me rends sur la dernière habilitation {string}') do |type|
+  authorization_definition = find_authorization_definition_from_name(type)
+  authorization = Authorization.joins(:request).where(authorization_requests: { type: authorization_definition.authorization_request_class.to_s }).last
+  visit authorization_path(authorization)
+end
+
 Quand("j'ai une habilitation {string} liée à une demande d'habilitation ayant une habilitation obsolete ayant des données différentes") do |type|
   attributes = { applicant: current_user }
 
