@@ -637,14 +637,19 @@ RSpec.describe AuthorizationRequest do
       it { is_expected.to contain_exactly(fc_authorization) }
     end
 
-    context 'when linked by parent_authorization_id (auto-generated)' do
+    context 'when linked by france_connect_authorization_id (auto-generated)' do
       let(:authorization_request) { create(:authorization_request, :api_particulier, :validated, organization:) }
-      let(:api_authorization) { authorization_request.latest_authorization }
       let!(:fc_child_authorization) do
         create(:authorization,
           request: authorization_request,
           authorization_request_class: 'AuthorizationRequest::FranceConnect',
-          parent_authorization_id: api_authorization.id)
+          parent_authorization_id: authorization_request.latest_authorization.id)
+      end
+
+      before do
+        authorization_request.update!(
+          data: authorization_request.data.merge('france_connect_authorization_id' => fc_child_authorization.id.to_s)
+        )
       end
 
       it { is_expected.to contain_exactly(fc_child_authorization) }
@@ -673,27 +678,23 @@ RSpec.describe AuthorizationRequest do
       let(:fc_authorization) { authorization_request.latest_authorization }
       let!(:api_authorization_request) do
         create(:authorization_request, :api_droits_cnam, :validated, organization:).tap do |ar|
-          merged_data = ar.data.merge('france_connect_authorization_id' => fc_authorization.id.to_s)
-          ar.update!(data: merged_data)
-          ar.latest_authorization.update_column(:data, merged_data)
+          link_fc_authorization_to_request(ar, fc_authorization)
         end
       end
 
       it { is_expected.to contain_exactly(api_authorization_request.latest_authorization) }
     end
 
-    context 'when auto-generated FC request finds its APIP parent' do
-      let(:apip_request) { create(:authorization_request, :api_particulier, :validated, organization:) }
-      let(:apip_authorization) { apip_request.latest_authorization }
+    context 'when auto-generated FC request finds its APIP parent via data' do
       let(:authorization_request) { create(:authorization_request, :france_connect, :validated, organization:) }
-      let!(:fc_authorization) do
-        create(:authorization,
-          request: authorization_request,
-          authorization_request_class: 'AuthorizationRequest::FranceConnect',
-          parent_authorization_id: apip_authorization.id)
+      let(:fc_authorization) { authorization_request.latest_authorization }
+      let!(:apip_request) do
+        create(:authorization_request, :api_particulier, :validated, organization:).tap do |ar|
+          link_fc_authorization_to_request(ar, fc_authorization)
+        end
       end
 
-      it { is_expected.to contain_exactly(apip_authorization) }
+      it { is_expected.to contain_exactly(apip_request.latest_authorization) }
     end
   end
 

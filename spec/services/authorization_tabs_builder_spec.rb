@@ -37,10 +37,12 @@ RSpec.describe AuthorizationTabsBuilder do
       let(:authorization_request) { create(:authorization_request, :api_particulier, :validated) }
       let(:api_authorization) { authorization_request.latest_authorization }
       let(:authorization) do
-        create(:authorization,
+        fc_auth = create(:authorization,
           request: authorization_request,
           authorization_request_class: 'AuthorizationRequest::FranceConnect',
           parent_authorization_id: api_authorization.id)
+        link_fc_authorization_to_request(authorization_request, fc_auth)
+        fc_auth
       end
 
       it 'includes france_connected_authorizations tab' do
@@ -54,10 +56,12 @@ RSpec.describe AuthorizationTabsBuilder do
       let(:apip_authorization) { apip_request.latest_authorization }
       let(:fc_request) { create(:authorization_request, :france_connect, :validated, organization:) }
       let(:authorization) do
-        create(:authorization,
+        fc_auth = create(:authorization,
           request: fc_request,
           authorization_request_class: 'AuthorizationRequest::FranceConnect',
           parent_authorization_id: apip_authorization.id)
+        link_fc_authorization_to_request(apip_request, fc_auth)
+        fc_auth
       end
 
       it 'includes france_connected_authorizations tab' do

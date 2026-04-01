@@ -112,6 +112,7 @@ RSpec.describe AssignFranceConnectDefaultsOnReopening do
 
       before do
         authorization_request.modalities = %w[params france_connect]
+        authorization_request.france_connect_authorization_id = existing_fc_authorization.id.to_s
         authorization_request.fc_eidas = nil
         authorization_request.scopes = %w[cnaf_quotient_familial]
       end

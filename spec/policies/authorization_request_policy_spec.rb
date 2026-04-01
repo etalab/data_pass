@@ -373,10 +373,11 @@ RSpec.describe AuthorizationRequestPolicy do
       let(:authorization_request) { create(:authorization_request, :api_particulier, :validated, applicant: user) }
 
       before do
-        create(:authorization,
+        fc_auth = create(:authorization,
           request: authorization_request,
           authorization_request_class: 'AuthorizationRequest::FranceConnect',
           parent_authorization_id: authorization_request.latest_authorization.id)
+        link_fc_authorization_to_request(authorization_request, fc_auth)
       end
 
       it { is_expected.to be true }
@@ -393,11 +394,7 @@ RSpec.describe AuthorizationRequestPolicy do
 
       before do
         api_request = create(:authorization_request, :api_droits_cnam, :validated, applicant: user)
-        merged_data = api_request.data.merge(
-          'france_connect_authorization_id' => authorization_request.latest_authorization.id.to_s
-        )
-        api_request.update!(data: merged_data)
-        api_request.latest_authorization.update_column(:data, merged_data)
+        link_fc_authorization_to_request(api_request, authorization_request.latest_authorization)
       end
 
       it { is_expected.to be true }
@@ -409,10 +406,11 @@ RSpec.describe AuthorizationRequestPolicy do
       let(:user_context) { UserContext.new(another_user) }
 
       before do
-        create(:authorization,
+        fc_auth = create(:authorization,
           request: authorization_request,
           authorization_request_class: 'AuthorizationRequest::FranceConnect',
           parent_authorization_id: authorization_request.latest_authorization.id)
+        link_fc_authorization_to_request(authorization_request, fc_auth)
       end
 
       it { is_expected.to be false }

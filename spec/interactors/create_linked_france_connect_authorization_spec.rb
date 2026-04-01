@@ -56,6 +56,24 @@ RSpec.describe CreateLinkedFranceConnectAuthorization do
 
         expect(fc_authorization.form_uid).to eq(authorization_request.form_uid)
       end
+
+      it 'sets france_connect_authorization_id on the authorization request' do
+        interactor
+        authorization_request.reload
+
+        expect(authorization_request.france_connect_authorization_id).to eq(
+          interactor.linked_france_connect_authorization.id.to_s
+        )
+      end
+
+      it 'sets france_connect_authorization_id on the authorization data' do
+        interactor
+        authorization.reload
+
+        expect(authorization.data['france_connect_authorization_id']).to eq(
+          interactor.linked_france_connect_authorization.id.to_s
+        )
+      end
     end
 
     context 'when the authorization request is reopened and already has an FC authorization' do
@@ -76,6 +94,14 @@ RSpec.describe CreateLinkedFranceConnectAuthorization do
         example.run
       ensure
         ServiceProvider.find('entrouvert').apipfc_enabled = false
+      end
+
+      before do
+        authorization_request.update_column(
+          :data,
+          authorization_request.data.merge('france_connect_authorization_id' => existing_fc_authorization.id.to_s)
+        )
+        authorization_request.reload
       end
 
       it { is_expected.to be_success }
