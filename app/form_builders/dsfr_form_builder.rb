@@ -25,7 +25,7 @@ class DsfrFormBuilder < ActionView::Helpers::FormBuilder
     dsfr_input_field(attribute, :url_field, opts)
   end
 
-  def dsfr_file_field(attribute, opts = {})
+  def dsfr_file_field(attribute, opts = {}) # rubocop:disable Metrics/AbcSize
     opts[:class] ||= 'fr-upload-group'
 
     if multiple_attachment_field?(attribute, opts)
@@ -34,13 +34,14 @@ class DsfrFormBuilder < ActionView::Helpers::FormBuilder
       existing_file_link = link_to_files(attribute)
     end
 
-    required = file_field_required?(attribute, opts, existing_file_link)
+    opts[:required] = required?(attribute, opts)
+    html_input_required = opts[:required] && !existing_file_link
 
     dsfr_input_group(attribute, opts) do
       @template.safe_join(
         [
           label_with_hint(attribute, opts),
-          file_field(attribute, class: 'fr-upload', autocomplete: 'off', required:, **enhance_input_options(opts).except(:class, :required)),
+          file_field(attribute, class: 'fr-upload', autocomplete: 'off', required: html_input_required, **enhance_input_options(opts).except(:class, :required)),
           error_message(attribute),
           existing_file_link,
           hidden_fields,
@@ -347,9 +348,5 @@ class DsfrFormBuilder < ActionView::Helpers::FormBuilder
     return if opts[:skip_hidden_fields]
 
     hidden_fields_for_existing_attachments(attribute)
-  end
-
-  def file_field_required?(attribute, opts, existing_file_link)
-    required?(attribute, opts) && !existing_file_link
   end
 end

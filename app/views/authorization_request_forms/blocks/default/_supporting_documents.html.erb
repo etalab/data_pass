@@ -3,7 +3,7 @@
 <% if @authorization_request.respond_to?(:attestation_fiscale) %>
   <fieldset class="fr-fieldset fr-mb-4w">
     <div class="fr-fieldset__element">
-      <%= f.dsfr_file_field :attestation_fiscale, required: true %>
+      <%= f.dsfr_file_field :attestation_fiscale %>
     </div>
   </fieldset>
 <% end %>
