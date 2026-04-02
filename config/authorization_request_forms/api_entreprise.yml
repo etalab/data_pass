@@ -424,6 +424,9 @@ api-entreprise-entrouvert:
   service_provider_id: "entrouvert"
   single_page_view: "api_entreprise_through_editor"
   authorization_request: "APIEntreprise"
+  scopes_config:
+    disabled:
+      - beneficiaires_effectifs_inpi
   static_blocks:
     - name: "basic_infos"
     - name: "personal_data"
@@ -444,7 +447,6 @@ api-entreprise-entrouvert:
       - associations_djepva
       - effectifs_urssaf
       - mandataires_sociaux_infogreffe
-      - beneficiaires_effectifs_inpi
       - chiffre_affaires_dgfip
       - bilans_bdf
       - liasses_fiscales_dgfip
