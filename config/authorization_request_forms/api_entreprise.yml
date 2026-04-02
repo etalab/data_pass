@@ -444,7 +444,6 @@ api-entreprise-entrouvert:
       - associations_djepva
       - effectifs_urssaf
       - mandataires_sociaux_infogreffe
-      - beneficiaires_effectifs_inpi
       - chiffre_affaires_dgfip
       - bilans_bdf
       - liasses_fiscales_dgfip
