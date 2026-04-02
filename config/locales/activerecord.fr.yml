@@ -253,6 +253,7 @@ fr:
               blank: "doit contenir au moins un scope lorsque le bloc « Données (scopes) » est sélectionné"
               scope_name_blank: "ne peut pas être vide"
               scope_value_blank: "ne peut pas être vide"
+              scope_value_duplicate: "est déjà utilisée par un autre scope"
         impersonation:
           attributes:
             user:

@@ -101,12 +101,20 @@ class HabilitationType < ApplicationRecord
   end
 
   def validate_each_scope
+    seen_values = Set.new
     (scopes || []).each_with_index do |scope, index|
-      scope_name = scope['name']
-      scope_value = scope['value']
-      errors.add(:scopes, :scope_name_blank, index: index) if scope_name.blank?
-      errors.add(:scopes, :scope_value_blank, index: index) if scope_value.blank?
+      validate_scope_presence(scope, index)
+      validate_scope_value_uniqueness(scope['value'], index, seen_values)
     end
+  end
+
+  def validate_scope_presence(scope, index)
+    errors.add(:scopes, :scope_name_blank, index:) if scope['name'].blank?
+    errors.add(:scopes, :scope_value_blank, index:) if scope['value'].blank?
+  end
+
+  def validate_scope_value_uniqueness(value, index, seen_values)
+    errors.add(:scopes, :scope_value_duplicate, index:) if value.present? && !seen_values.add?(value)
   end
 
   def scopes_block_selected?

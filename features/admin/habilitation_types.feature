@@ -143,3 +143,33 @@ Fonctionnalité: Espace admin: types d'habilitation
     Alors le champ "Fournisseur" est désactivé
     Et le champ radio "API" est désactivé
 
+  Scénario: La page de consultation n'affiche pas le bouton d'ajout de scope et les champs sont désactivés
+    Sachant que je me connecte
+    Et qu'un type d'habilitation "API Protégée" avec des demandes liées et des scopes existe
+    Quand je me rends sur le chemin "/admin/types-habilitation/api-protegee-dyn"
+    Alors le champ du scope 1 "name" est désactivé
+    Et la page ne contient pas "Ajouter un scope"
+
+  @javascript
+  Scénario: Je peux ajouter un scope à un type avec des demandes liées
+    Sachant que je me connecte
+    Et qu'un type d'habilitation "API Protégée" avec des demandes liées et des scopes existe
+    Quand je me rends sur le chemin "/admin/types-habilitation/api-protegee-dyn/edit"
+    Et que je clique sur "Ajouter un scope"
+    Et que je remplis le scope 2 avec nom "Nouveau scope" valeur "new_scope" groupe "Groupe"
+    Et que je clique sur "Enregistrer"
+    Alors il y a un message de succès contenant "mis à jour"
+    Quand je me rends sur le chemin "/admin/types-habilitation/api-protegee-dyn"
+    Alors le scope 1 a pour nom "Revenu fiscal"
+    Et le scope 2 a pour nom "Nouveau scope"
+
+  @javascript
+  Scénario: Une erreur s'affiche quand deux scopes ont la même valeur
+    Sachant que je me connecte
+    Et qu'un type d'habilitation "API Protégée" avec des demandes liées et des scopes existe
+    Quand je me rends sur le chemin "/admin/types-habilitation/api-protegee-dyn/edit"
+    Et que je clique sur "Ajouter un scope"
+    Et que je remplis le scope 2 avec nom "Doublon" valeur "rfr" groupe "Revenus"
+    Et que je clique sur "Enregistrer"
+    Alors la page contient "est déjà utilisée par un autre scope"
+
