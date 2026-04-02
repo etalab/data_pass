@@ -170,7 +170,7 @@ fr:
 
     hints:
       habilitation_type:
-        name: "À la création, le nom génère l’identifiant technique : il doit commencer par une lettre et ne pas se terminer par un pluriel (ex : utilisez « scope » plutôt que « scopes »)"
+        name: "À la création, le nom génère l’identifiant technique : il doit commencer par une lettre (ex: « Espace agent de l'Annuaire des Entreprises »)"
         access_link: "Utilisez %{external_provider_id} pour insérer l’identifiant de jeton webhook<br>(ex : https://mon-api.gouv.fr/jetons/%{external_provider_id})"
       france_connect:
         contact_technique_phone_number: Le numéro de téléphone doit être un numéro de portable
@@ -241,7 +241,7 @@ fr:
             base:
               has_authorization_requests: "ne peut pas être supprimé car des demandes d’habilitation existent pour ce type"
             name:
-              unreachable_uid: "génère un identifiant inaccessible (ex : préférez « api » à « apis »)"
+              unreachable_uid: "génère un identifiant technique inaccessible (le nom doit commencer par une lettre, ex: « Espace agent de l'Annuaire des Entreprises »)"
             slug:
               taken_by_yaml_type: "est déjà utilisé"
             contact_types:

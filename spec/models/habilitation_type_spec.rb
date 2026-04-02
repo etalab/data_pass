@@ -2,17 +2,18 @@ RSpec.describe HabilitationType do
   subject(:habilitation_type) { build(:habilitation_type) }
 
   describe '#uid' do
-    it 'returns the slug in snake_case' do
+    it 'returns the slug in snake_case with dyn suffix' do
       habilitation_type.name = 'Mon API Test'
       habilitation_type.save!
-      expect(habilitation_type.uid).to eq('mon_api_test')
+      expect(habilitation_type.uid).to eq('mon_api_test_dyn')
     end
   end
 
   describe '#should_generate_new_friendly_id?' do
-    it 'generates slug on first save' do
+    it 'generates slug with -dyn suffix on first save' do
       habilitation_type.save!
       expect(habilitation_type.slug).to be_present
+      expect(habilitation_type.slug).to end_with('-dyn')
     end
 
     it 'does not change slug when name is updated after creation' do
@@ -47,13 +48,22 @@ RSpec.describe HabilitationType do
     end
   end
 
-  describe 'uid classifiability validation' do
-    it 'is invalid when name ends with a pluralizable word' do
-      habilitation_type.name = 'Mon API scopes'
-      expect(habilitation_type).not_to be_valid
-      expect(habilitation_type.errors[:name]).to be_present
+  describe '#normalize_friendly_id' do
+    it 'appends -dyn suffix to the slug' do
+      habilitation_type.name = 'Mon API Test'
+      habilitation_type.save!
+      expect(habilitation_type.slug).to eq('mon-api-test-dyn')
     end
 
+    it 'allows names ending with a pluralizable word' do
+      habilitation_type.name = 'Mon API scopes'
+      expect(habilitation_type).to be_valid
+      habilitation_type.save!
+      expect(habilitation_type.slug).to eq('mon-api-scopes-dyn')
+    end
+  end
+
+  describe 'uid classifiability validation' do
     it 'is invalid when name starts with a digit' do
       habilitation_type.name = '1er portail'
       expect(habilitation_type).not_to be_valid
@@ -177,13 +187,12 @@ RSpec.describe HabilitationType do
   end
 
   describe 'slug collision with YAML' do
-    it 'is invalid when uid matches an existing YAML definition' do
+    it 'does not collide with YAML definitions thanks to -dyn suffix' do
       existing_yaml_uid = AuthorizationDefinition.yaml_records.first.id
       habilitation_type.name = existing_yaml_uid.tr('_', ' ')
 
-      habilitation_type.save
-
-      expect(habilitation_type.errors[:slug]).to be_present
+      expect(habilitation_type).to be_valid
+      expect(habilitation_type.slug).to end_with('-dyn')
     end
   end
 

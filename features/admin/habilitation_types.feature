@@ -118,7 +118,7 @@ Fonctionnalité: Espace admin: types d'habilitation
     Alors il y a un message de succès contenant "mis à jour"
     Et la page contient "API Cantine V2"
     Quand je clique sur "Modifier" dans la rangée "API Cantine V2"
-    Alors la page contient "api_cantine"
+    Alors la page contient "api_cantine_dyn"
 
   Scénario: Le bouton supprimer n'est pas affiché pour un type avec des demandes liées
     Sachant que je me connecte
@@ -131,7 +131,7 @@ Fonctionnalité: Espace admin: types d'habilitation
   Scénario: Un admin peut modifier les champs éditoriaux d'un type avec des demandes liées
     Sachant que je me connecte
     Et qu'un type d'habilitation "API Protégée" avec des demandes liées existe
-    Quand je me rends sur le chemin "/admin/types-habilitation/api-protegee/edit"
+    Quand je me rends sur le chemin "/admin/types-habilitation/api-protegee-dyn/edit"
     Et que je remplis "Description" avec "Nouvelle description"
     Et que je clique sur "Enregistrer"
     Alors il y a un message de succès contenant "mis à jour"
@@ -139,7 +139,7 @@ Fonctionnalité: Espace admin: types d'habilitation
   Scénario: Les champs structurels sont désactivés pour un type avec des demandes liées
     Sachant que je me connecte
     Et qu'un type d'habilitation "API Protégée" avec des demandes liées existe
-    Quand je me rends sur le chemin "/admin/types-habilitation/api-protegee/edit"
+    Quand je me rends sur le chemin "/admin/types-habilitation/api-protegee-dyn/edit"
     Alors le champ "Fournisseur" est désactivé
     Et le champ radio "API" est désactivé
 
