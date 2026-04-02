@@ -8,6 +8,7 @@ class CreateAuthorizationRequest < ApplicationOrganizer
   organize AssignDefaultDataToAuthorizationRequest,
     CreateAuthorizationRequestModel,
     AssignParamsToAuthorizationRequest,
+    AssignFranceConnectDefaults,
     CreateAuthorizationRequestEventModel,
     DeliverAuthorizationRequestNotification
 
