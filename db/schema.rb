@@ -44,6 +44,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_16_154456) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "admin_changes", force: :cascade do |t|
+    t.bigint "authorization_request_id", null: false
+    t.datetime "created_at", null: false
+    t.json "diff", default: {}
+    t.text "private_reason"
+    t.text "public_reason", null: false
+    t.datetime "updated_at", null: false
+    t.index ["authorization_request_id"], name: "index_admin_changes_on_authorization_request_id"
+  end
+
   create_table "admin_events", force: :cascade do |t|
     t.bigint "admin_id", null: false
     t.json "after_attributes", default: {}
@@ -89,7 +99,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_16_154456) do
     t.index ["user_id"], name: "index_authorization_request_events_on_user_id"
     t.check_constraint "name::text !~~ 'system_%'::text AND user_id IS NOT NULL OR name::text ~~ 'system_%'::text", name: "user_id_not_null_unless_system_event"
     t.check_constraint "name::text = 'bulk_update'::text AND authorization_request_id IS NULL OR name::text <> 'bulk_update'::text AND authorization_request_id IS NOT NULL", name: "authorization_request_events_auth_req_id_not_null_except_bulk"
-    t.check_constraint "name::text = 'refuse'::text AND entity_type::text = 'DenialOfAuthorization'::text OR name::text = 'request_changes'::text AND entity_type::text = 'InstructorModificationRequest'::text OR name::text = 'approve'::text AND entity_type::text = 'Authorization'::text OR name::text = 'auto_generate'::text AND entity_type::text = 'Authorization'::text OR name::text = 'reopen'::text AND entity_type::text = 'Authorization'::text OR name::text = 'submit'::text AND entity_type::text = 'AuthorizationRequestChangelog'::text OR name::text = 'admin_update'::text AND entity_type::text = 'AuthorizationRequestChangelog'::text OR name::text = 'applicant_message'::text AND entity_type::text = 'Message'::text OR name::text = 'instructor_message'::text AND entity_type::text = 'Message'::text OR name::text = 'revoke'::text AND entity_type::text = 'RevocationOfAuthorization'::text OR name::text = 'transfer'::text AND entity_type::text = 'AuthorizationRequestTransfer'::text OR name::text = 'cancel_reopening'::text AND entity_type::text = 'AuthorizationRequestReopeningCancellation'::text OR name::text = 'bulk_update'::text AND entity_type::text = 'BulkAuthorizationRequestUpdate'::text OR name::text = 'claim'::text AND entity_type::text = 'InstructorDraftRequest'::text OR entity_type::text = 'AuthorizationRequest'::text", name: "entity_type_validation"
+    t.check_constraint "name::text = 'refuse'::text AND entity_type::text = 'DenialOfAuthorization'::text OR name::text = 'request_changes'::text AND entity_type::text = 'InstructorModificationRequest'::text OR name::text = 'approve'::text AND entity_type::text = 'Authorization'::text OR name::text = 'auto_generate'::text AND entity_type::text = 'Authorization'::text OR name::text = 'reopen'::text AND entity_type::text = 'Authorization'::text OR name::text = 'submit'::text AND entity_type::text = 'AuthorizationRequestChangelog'::text OR name::text = 'admin_update'::text AND entity_type::text = 'AuthorizationRequestChangelog'::text OR name::text = 'admin_change'::text AND entity_type::text = 'AdminChange'::text OR name::text = 'applicant_message'::text AND entity_type::text = 'Message'::text OR name::text = 'instructor_message'::text AND entity_type::text = 'Message'::text OR name::text = 'revoke'::text AND entity_type::text = 'RevocationOfAuthorization'::text OR name::text = 'transfer'::text AND entity_type::text = 'AuthorizationRequestTransfer'::text OR name::text = 'cancel_reopening'::text AND entity_type::text = 'AuthorizationRequestReopeningCancellation'::text OR name::text = 'bulk_update'::text AND entity_type::text = 'BulkAuthorizationRequestUpdate'::text OR name::text = 'claim'::text AND entity_type::text = 'InstructorDraftRequest'::text OR entity_type::text = 'AuthorizationRequest'::text", name: "entity_type_validation"
   end
 
   create_table "authorization_request_reopening_cancellations", force: :cascade do |t|
@@ -698,6 +708,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_16_154456) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "admin_changes", "authorization_requests"
   add_foreign_key "admin_events", "users", column: "admin_id"
   add_foreign_key "authorization_documents", "authorizations"
   add_foreign_key "authorization_request_changelogs", "authorization_requests"

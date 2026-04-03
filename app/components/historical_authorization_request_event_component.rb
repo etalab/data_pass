@@ -95,7 +95,9 @@ class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
     return formatted_approval_message if approval_with_message?
     return humanized_changelog if CHANGELOG_EVENTS.include?(name)
 
-    humanized_changelog(from_admin: true) if name == 'admin_update'
+    return humanized_changelog(from_admin: true) if name == 'admin_update'
+
+    formatted_admin_change if name == 'admin_change'
   end
 
   def formatted_reason
@@ -115,15 +117,20 @@ class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
   end
 
   def humanized_changelog(from_admin: false)
-    helpers.content_tag(:ul) do
-      changelog_presenter(from_admin:).consolidated_changelog_entries.map { |entry|
-        helpers.content_tag(:li, entry)
-      }.join.html_safe
-    end
+    render_diff_list(changelog_presenter(from_admin:).consolidated_changelog_entries)
   end
 
   def changelog_presenter(from_admin: false)
     @changelog_presenter ||= AuthorizationRequestChangelogPresenter.new(entity, from_admin:)
+  end
+
+  def formatted_admin_change
+    diff_entries = DiffPresenter.new(entity.diff, entity.authorization_request).entries
+    safe_join([simple_format(entity.public_reason), render_diff_list(diff_entries)])
+  end
+
+  def render_diff_list(entries)
+    helpers.render(DiffListComponent.new(entries:))
   end
 
   def name_for_cancel_reopening
@@ -138,6 +145,8 @@ class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
     case event.name
     when 'refuse', 'revoke', 'request_changes', 'applicant_message', 'instructor_message', 'bulk_update', 'approve', 'cancel_reopening'
       :message
+    when 'admin_change'
+      :details
     when 'submit', 'admin_update'
       :changelog
     end

@@ -402,6 +402,14 @@ fr:
               %{message_details_text}
             </p>
 
+        admin_change:
+          message_summary: |
+            L'administrateur <strong>%{user_full_name}</strong> a effectué une modification :
+          message_details: |
+            <blockquote>
+              %{message_details_text}
+            </blockquote>
+
         bulk_update:
           message_summary: |
             Une mise à jour globale sur ce type d'habilitation a été effectuée :

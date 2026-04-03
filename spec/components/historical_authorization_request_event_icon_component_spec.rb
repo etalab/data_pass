@@ -32,6 +32,14 @@ RSpec.describe HistoricalAuthorizationRequestEventIconComponent, type: :componen
       end
     end
 
+    context "when event_name is 'admin_change'" do
+      it 'renders the correct icon and color class' do
+        render_inline(described_class.new(name: 'admin_change'))
+
+        expect(page).to have_css("i.fr-icon-settings-5-line.fr-text-info[aria-hidden='true']")
+      end
+    end
+
     context 'when event_name is unknown' do
       it 'renders the default icon and color' do
         render_inline(described_class.new(name: 'unknown_event'))
