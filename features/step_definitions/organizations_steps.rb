@@ -25,7 +25,7 @@ Alors("l'organisation associée est marquée comme {string}") do |kind|
 end
 
 Quand("le lien entre le demandeur et l'organisation est marqué comme {string}") do |kind|
-  authorization_request = AuthorizationRequest.last
+  authorization_request = last_authorization_request
   applicant = authorization_request.applicant
   organization = authorization_request.organization
 

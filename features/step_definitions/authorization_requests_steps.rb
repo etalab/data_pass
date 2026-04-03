@@ -85,7 +85,7 @@ Quand('je remplis les informations du contact {string} avec :') do |string, tabl
 end
 
 Quand('cette demande a été modifiée avec les informations suivantes :') do |table|
-  authorization_request = AuthorizationRequest.last
+  authorization_request = last_authorization_request
 
   params = table.hashes.to_h do |hash|
     [hash['champ'], hash['nouvelle valeur']]
@@ -95,7 +95,7 @@ Quand('cette demande a été modifiée avec les informations suivantes :') do |t
 end
 
 Quand('cette demande possède les informations potentiellement non intègres suivantes :') do |table|
-  authorization_request = AuthorizationRequest.last
+  authorization_request = last_authorization_request
 
   data = authorization_request.data || {}
 
@@ -133,7 +133,7 @@ Alors("il n'y a pas de formulaire en mode résumé") do
 end
 
 Quand('je me rends sur cette demande d\'habilitation') do
-  authorization_request = @authorization_request || AuthorizationRequest.last
+  authorization_request = last_authorization_request
 
   if current_user!.instructor?
     visit instruction_authorization_request_path(authorization_request)
@@ -143,7 +143,7 @@ Quand('je me rends sur cette demande d\'habilitation') do
 end
 
 Quand('je me rends sur la page demandeur de cette demande') do
-  authorization_request = @authorization_request || AuthorizationRequest.last
+  authorization_request = last_authorization_request
   visit authorization_request_path(authorization_request)
 end
 
@@ -173,9 +173,9 @@ Quand(/(j'ai|il y a|mon organisation a) (\d+) demandes? d'habilitation "([^"]+)"
 end
 
 Quand("cette dernière demande d'habilitation s'appelait {string}") do |intitule|
-  last_authorization_request = AuthorizationRequest.last
-  last_authorization_request.intitule = intitule
-  last_authorization_request.save
+  ar = last_authorization_request
+  ar.intitule = intitule
+  ar.save
 end
 
 Quand('je change d\'organisation courante pour mon organisation initiale') do
@@ -208,7 +208,7 @@ Quand(/je suis mentionné dans (\d+) demandes? d'habilitation "([^"]+)" en tant 
   role = role_humanized.parameterize.underscore
   foreign_user = create(:user)
   options = {
-    "#{role}_email": current_user.email,
+    "#{role}_email": current_user!.email,
     applicant: foreign_user,
     organization: foreign_user.current_organization,
   }
@@ -241,7 +241,7 @@ Alors("l'utilisateur {string} possède une demande d'habilitation {string}") do 
 end
 
 Quand("un instructeur a révoqué la demande d'habilitation") do
-  authorization_request = AuthorizationRequest.last
+  authorization_request = last_authorization_request
   instructor = create_instructor(authorization_request.definition.name)
 
   using_user_session(instructor) do
@@ -256,14 +256,14 @@ Quand("un instructeur a révoqué la demande d'habilitation") do
 end
 
 Quand("un instructeur a validé la demande d'habilitation") do
-  authorization_request = AuthorizationRequest.last
+  authorization_request = last_authorization_request
   instructor = create_instructor(authorization_request.definition.id)
   instructor.update!(roles: AuthorizationDefinition.all.map { |definition| "#{definition.id}:instructor" })
   ApproveAuthorizationRequest.call(authorization_request: authorization_request, user: instructor)
 end
 
 Quand('cette demande a été {string}') do |status|
-  authorization_request = AuthorizationRequest.last
+  authorization_request = last_authorization_request
   user = User.last
 
   case extract_state_from_french_status(status)
@@ -283,7 +283,7 @@ Quand('cette demande a été {string}') do |status|
 end
 
 Quand('cette demande a été {string} avec le message {string}') do |status, message|
-  authorization_request = AuthorizationRequest.last
+  authorization_request = last_authorization_request
   user = User.last
 
   organizer = case extract_state_from_french_status(status)
@@ -325,17 +325,17 @@ Quand('je joins 2 documents au cadre juridique du projet {string}') do |authoriz
 end
 
 Quand('cette habilitation a une pièce jointe {string}') do |safety_state|
-  attachment = AuthorizationRequest.last.maquette_projet.attach([Rails.root.join('spec/fixtures/dummy.pdf')]).first
+  attachment = last_authorization_request.maquette_projet.attach([Rails.root.join('spec/fixtures/dummy.pdf')]).first
 
   MalwareScan.create!(sha256: SecureRandom.hex(32), attachment:, safety_state:)
 end
 
 Quand('cette demande possède une maquette du projet {string}') do |filename|
-  AuthorizationRequest.last.maquette_projet.attach(io: Rails.root.join('spec/fixtures', filename).open, filename:)
+  last_authorization_request.maquette_projet.attach(io: Rails.root.join('spec/fixtures', filename).open, filename:)
 end
 
 Quand('cette demande possède un document d\'expression de besoin spécifique') do
-  AuthorizationRequest.last.specific_requirements_document.attach(io: Rails.root.join('spec/fixtures/dummy.csv').open, filename: 'dummy.csv')
+  last_authorization_request.specific_requirements_document.attach(io: Rails.root.join('spec/fixtures/dummy.csv').open, filename: 'dummy.csv')
 end
 
 Alors('un scan antivirus est lancé') do
@@ -357,8 +357,7 @@ Quand("j'adhère aux conditions générales d'utilisation") do
     Quand je coche "conditions générales"
   )
 
-  authorization_request = @authorization_request || AuthorizationRequest.last
-  raise 'No authorization request found' unless authorization_request
+  authorization_request = last_authorization_request
 
   unless authorization_request.skip_data_protection_officer_informed_check_box?
     steps %(
@@ -484,7 +483,7 @@ Quand("j'enregistre et continue vers le résumé") do
 end
 
 Quand('il existe un instructeur pour cette demande d\'habilitation') do
-  definition = AuthorizationRequest.last.definition
+  definition = last_authorization_request.definition
 
   create_instructor(definition.name) unless definition.instructors.any?
 end
@@ -518,11 +517,11 @@ Quand(/je me rends sur une demande d'habilitation "([^"]+)"(?: de l'organisation
 end
 
 Quand('je me rends sur la dernière demande à instruire') do
-  visit instruction_authorization_request_path(AuthorizationRequest.last)
+  visit instruction_authorization_request_path(last_authorization_request)
 end
 
 Quand('je me rends sur la dernière demande') do
-  visit authorization_request_path(AuthorizationRequest.last)
+  visit authorization_request_path(last_authorization_request)
 end
 
 Quand('je me rends sur la dernière demande {string}') do |kind|
@@ -548,7 +547,7 @@ Alors(/je vois (\d+) habilitation(?: "([^"]+)")?(?:(?: en)? (.+))?/) do |count, 
 end
 
 Quand('je visite sa page publique') do
-  authorization_request = AuthorizationRequest.last
+  authorization_request = last_authorization_request
 
   visit public_authorization_request_path(authorization_request.public_id)
 end
@@ -571,7 +570,7 @@ end
 
 Quand(%r{cette demande a déjà été validée le (\d{1,2}/\d{2}/\d{4})}) do |date_string|
   date = Date.parse(date_string)
-  authorization_request = AuthorizationRequest.last
+  authorization_request = last_authorization_request
 
   organizer = ApproveAuthorizationRequest.call(authorization_request:, user: User.first)
 
@@ -582,7 +581,7 @@ Quand(%r{cette demande a déjà été validée le (\d{1,2}/\d{2}/\d{4})}) do |da
 end
 
 Quand(%r{je me rends sur l'habilitation validée(?: du (\d{1,2}/\d{2}/\d{4}))?}) do |date_string|
-  authorization_request = AuthorizationRequest.last
+  authorization_request = last_authorization_request
 
   if date_string.present?
     date = Date.parse(date_string)
@@ -598,7 +597,7 @@ end
 Quand("une mise à jour globale a été effectuée sur les demandes d'habilitations {string}") do |authorization_definition_name|
   definition = find_authorization_definition_from_name(authorization_definition_name)
 
-  AuthorizationRequest.last.update!(created_at: 2.days.ago)
+  last_authorization_request.update!(created_at: 2.days.ago)
 
   BulkAuthorizationRequestUpdate.create!(
     authorization_definition_uid: definition.id,

@@ -193,6 +193,7 @@ Sachantque('je me connecte') do
     Quand je me rends sur la page d'accueil
     Et que je clique sur "S’identifier avec ProConnect"
   )
+  raise "Login failed — still on homepage (@current_user_email=#{@current_user_email.inspect})" if page.has_content?(%(S\u2019identifier avec ProConnect), wait: 0)
 end
 
 Sachantque("je me connecte via ProConnect avec l'identité {string}") do |identity_provider_name|

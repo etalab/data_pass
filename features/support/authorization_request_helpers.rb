@@ -101,3 +101,8 @@ def create_authorization_requests_with_status(type, status = nil, count = 1, sta
   end
 end
 # rubocop:enable Metrics/MethodLength, Metrics/ParameterLists
+
+def last_authorization_request
+  @authorization_request || AuthorizationRequest.order(:created_at).last ||
+    raise('No authorization request found')
+end

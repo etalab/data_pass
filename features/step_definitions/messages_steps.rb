@@ -3,7 +3,7 @@ Quand('je clique sur la bulle de messagerie') do
 end
 
 Quand(/cette habilitation a un message (?:de l'|du )([^\s+]*) avec comme corps "([^"]*)"$/) do |entity_kind, message|
-  authorization_request = AuthorizationRequest.last
+  authorization_request = last_authorization_request
 
   case entity_kind
   when 'demandeur'

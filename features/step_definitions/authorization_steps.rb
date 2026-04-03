@@ -91,14 +91,14 @@ Alors('il y a un formulaire en mode résumé non modifiable') do
 end
 
 Quand('je me rends sur la première habilitation validée') do
-  authorization_request = AuthorizationRequest.last
+  authorization_request = last_authorization_request
   first_authorization = authorization_request.authorizations.first
 
   visit authorization_path(first_authorization)
 end
 
 Sachant('une seconde habilitation active existe sur la même demande') do
-  authorization_request = AuthorizationRequest.last
+  authorization_request = last_authorization_request
   @sister_authorization = FactoryBot.create(:authorization,
     request: authorization_request,
     applicant: authorization_request.applicant,
@@ -106,7 +106,7 @@ Sachant('une seconde habilitation active existe sur la même demande') do
 end
 
 Alors('la première habilitation de la demande est révoquée') do
-  authorization_request = AuthorizationRequest.last
+  authorization_request = last_authorization_request
   first_authorization = authorization_request.authorizations.order(:id).first
   expect(first_authorization.reload.state).to eq('revoked')
 end
@@ -116,12 +116,12 @@ Alors('la seconde habilitation de la demande est active') do
 end
 
 Alors('la demande est toujours validée') do
-  authorization_request = AuthorizationRequest.last
+  authorization_request = last_authorization_request
   expect(authorization_request.reload.state).to eq('validated')
 end
 
 Alors('la demande est révoquée') do
-  authorization_request = AuthorizationRequest.last
+  authorization_request = last_authorization_request
   expect(authorization_request.reload.state).to eq('revoked')
 end
 

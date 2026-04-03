@@ -26,5 +26,5 @@ def using_user_session(user, &)
 end
 
 def using_last_applicant_session(&)
-  using_user_session(AuthorizationRequest.last.applicant, &)
+  using_user_session(last_authorization_request.applicant, &)
 end

@@ -26,9 +26,7 @@ require 'cucumber/rails'
 ActionController::Base.allow_rescue = false
 
 DatabaseCleaner.allow_remote_database_url = true
-DatabaseCleaner.strategy = :transaction
 
-Cucumber::Rails::Database.javascript_strategy = :truncation
 Cucumber::Rails::Database.autorun_database_cleaner = false
 
 World(FactoryBot::Syntax::Methods)
@@ -36,14 +34,11 @@ World(FactoryBot::Syntax::Methods)
 Seeds.new.flushdb
 
 Before('@javascript') do
-  DatabaseCleaner.strategy = :truncation
-end
-
-Before('not @javascript') do
-  DatabaseCleaner.strategy = :transaction
+  ActiveRecord::Base.connection_pool.pin_connection!(true)
 end
 
 Before do
+  DatabaseCleaner.strategy = :transaction
   DatabaseCleaner.clean
   DatabaseCleaner.start
   Kredis.redis.flushdb
@@ -52,6 +47,7 @@ end
 After do
   Capybara.reset_sessions!
   DatabaseCleaner.clean
+  ActiveRecord::Base.connection_pool.unpin_connection! if javascript?
   AuthorizationDefinition.reset!
   AuthorizationRequestForm.reset!
 end

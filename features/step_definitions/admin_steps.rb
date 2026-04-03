@@ -23,7 +23,7 @@ Quand("je clique sur {string} pour l'utilisateur {string}") do |link, email|
 end
 
 Quand("je remplis {string} avec l'ID de la demande") do |label|
-  fill_in label, with: AuthorizationRequest.last.id
+  fill_in label, with: last_authorization_request.id
 end
 
 Soit("l'utilisateur {string}") do |email|
