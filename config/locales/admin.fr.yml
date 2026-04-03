@@ -163,6 +163,7 @@ fr:
         skip_to_list: "Aller au tableau des types d’habilitation"
         empty: "Aucun type d’habilitation créé."
         new: Nouveau type
+        new_request: Nouvelle demande
         edit: Modifier
         delete: Supprimer
         confirm_delete: "Supprimer le type « %{name} » ?"

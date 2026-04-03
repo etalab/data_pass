@@ -40,6 +40,11 @@
                 <td class="fr-cell--center"><%= habilitation_type.authorization_requests_count %></td>
                 <td class="fr-cell--center">
                   <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--sm">
+                    <li>
+                      <%= link_to t('.new_request'), new_authorization_request_path(definition_id: habilitation_type.uid.dasherize),
+                          class: %w[fr-btn fr-btn--sm fr-btn--tertiary fr-icon-add-circle-line fr-btn--icon-left],
+                          aria: { label: "#{t('.new_request')} #{habilitation_type.name}" } %>
+                    </li>
                     <% if policy(habilitation_type).edit? %>
                       <li>
                         <%= link_to t('.edit'), edit_admin_habilitation_type_path(habilitation_type),
