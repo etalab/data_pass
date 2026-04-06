@@ -64,7 +64,7 @@ class AuthorizationRequestFormBuilder < DsfrFormBuilder
   end
 
   def cgu_check_box(opts = {}, label_opts = {})
-    return unless @object.definition.cgu_link
+    return if @object.definition.cgu_link.blank?
 
     checkbox_opts = opts.dup
 
