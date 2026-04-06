@@ -203,7 +203,7 @@ fr:
       subject: "Nouvelle habilitation %{authorization_request_id} validée"
       reopening_subject: "Mise à jour de l'habilitation %{authorization_request_id} validée"
   dgfip:
-    api_m_mailer:
+    apim_mailer:
       approve:
         description: >-
           Nous vous informons que la demande %{formatted_id} d'accès %{stage_label} a été validée,
