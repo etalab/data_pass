@@ -4,7 +4,7 @@ COG_CODES='["92040"]'
 MIN_SCHOLARSHIP_LEVEL='0Bis'
 CAMPAIGN_YEAR='null'
 
-BASE_URL='https://api-boursier-preprod-app.in.nuonet.fr'
+BASE_URL='http://api-pp.lescrous.fr/statut-boursier'
 AUTH_URL='https://acces-pp.nuonet.fr/api-pp/oauth/token?grant_type=client_credentials'
 
 CREDENTIALS=$(echo -n "${CNOUS_CLIENT_ID}:${CNOUS_CLIENT_SECRET}" | base64 -w 0)

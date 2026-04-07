@@ -6,7 +6,7 @@ COG_CODES = ['92040'].freeze # 92040 = Issy-les-moulineaux
 MIN_SCHOLARSHIP_LEVEL = '0Bis' # available values are [0Bis, 1, 2, 3, 4, 5, 6, 7]
 CAMPAIGN_YEAR = nil # Leave at null to get the current data
 
-BASE_URL = 'https://api-boursier-preprod-app.in.nuonet.fr'
+BASE_URL = 'http://api-pp.lescrous.fr/statut-boursier'
 AUTH_URL = 'https://acces-pp.nuonet.fr/api-pp/oauth/token?grant_type=client_credentials'
 
 def fetch_access_token
@@ -36,7 +36,7 @@ def create_export(access_token)
     campaignYear: CAMPAIGN_YEAR
   })
 
-  Net::HTTP.start(uri.host, uri.port, use_ssl: true) { |http| http.request(request) }
+  Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https') { |http| http.request(request) }
 end
 
 access_token = fetch_access_token
