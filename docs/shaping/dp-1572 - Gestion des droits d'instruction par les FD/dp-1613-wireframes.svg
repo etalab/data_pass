@@ -16,7 +16,44 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <defs
-     id="defs186" />
+     id="defs186">
+    <rect
+       x="657.71768"
+       y="847.76629"
+       width="187.82116"
+       height="68.397576"
+       id="rect2356" />
+    <rect
+       x="660.1466"
+       y="767.7933"
+       width="194.39707"
+       height="66.831066"
+       id="rect2350" />
+    <rect
+       x="658.81778"
+       y="764.7448"
+       width="192.37659"
+       height="57.901724"
+       id="rect2344" />
+    <rect
+       x="659.50746"
+       y="820.76694"
+       width="155.21963"
+       height="23.361152"
+       id="rect2338" />
+    <rect
+       x="657.71768"
+       y="847.76629"
+       width="187.82116"
+       height="68.397576"
+       id="rect2364" />
+    <rect
+       x="657.71768"
+       y="847.76629"
+       width="187.82116"
+       height="68.397576"
+       id="rect2392" />
+  </defs>
   <sodipodi:namedview
      id="namedview184"
      pagecolor="#ffffff"
@@ -27,9 +64,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
-     inkscape:zoom="1.3710864"
-     inkscape:cx="430.31571"
-     inkscape:cy="443.80866"
+     inkscape:zoom="1.3425273"
+     inkscape:cx="426.80696"
+     inkscape:cy="332.58169"
      inkscape:window-width="1854"
      inkscape:window-height="1131"
      inkscape:window-x="66"
@@ -117,15 +154,15 @@
      id="line22" />
   <!-- Page title + button -->
   <text
-     x="50"
-     y="140"
-     fill="black"
-     font-size="15"
+     x="50.341301"
+     y="153.22955"
+     fill="#000000"
+     font-size="15px"
      font-weight="bold"
-     id="text24">Droits d'accès — API Entreprise</text>
+     id="text24">Droits d'accès</text>
   <g
      id="g518"
-     transform="translate(-10)">
+     transform="translate(-10,9.2481497)">
     <rect
        x="560"
        y="122"
@@ -143,218 +180,12 @@
        id="text28">+ Ajouter des droits à un utilisateur sans droits</text>
   </g>
   <!-- Table header -->
-  <rect
-     x="50"
-     y="160"
-     width="800"
-     height="30"
-     stroke="black"
-     stroke-width="1"
-     fill="#ddd"
-     id="rect30" />
-  <text
-     x="70"
-     y="180"
-     fill="black"
-     font-size="11"
-     font-weight="bold"
-     id="text32">EMAIL</text>
-  <text
-     x="320"
-     y="180"
-     fill="black"
-     font-size="11"
-     font-weight="bold"
-     id="text34">DROITS</text>
-  <text
-     x="716"
-     y="180"
-     fill="black"
-     font-size="11"
-     font-weight="bold"
-     id="text36">ACTIONS</text>
   <!-- Row 1 — self, actions disabled, 1 droit -->
-  <rect
-     x="50"
-     y="190"
-     width="800"
-     height="42"
-     stroke="black"
-     stroke-width="1"
-     fill="#f5f5f5"
-     id="rect42" />
-  <text
-     x="70"
-     y="208"
-     fill="black"
-     font-size="12"
-     id="text44">manager@api-entreprise.fr</text>
-  <text
-     x="70"
-     y="224"
-     fill="black"
-     font-size="10"
-     id="text46">(vous)</text>
-  <text
-     x="328"
-     y="215"
-     fill="black"
-     font-size="11"
-     id="text48">API Entreprise (Tous) — Manager</text>
-  <text
-     x="716"
-     y="208"
-     fill="#aaa"
-     font-size="11"
-     id="text50">Modifier</text>
-  <text
-     x="790"
-     y="208"
-     fill="#aaaaaa"
-     font-size="11px"
-     id="text52">Supprimer</text>
-  <text
-     x="716"
-     y="222"
-     fill="#aaa"
-     font-size="9"
-     id="text54">[bloqué]</text>
   <!-- Row 2 — 2 droits -->
-  <rect
-     x="50"
-     y="232"
-     width="800"
-     height="52"
-     stroke="black"
-     stroke-width="1"
-     fill="none"
-     id="rect56" />
-  <text
-     x="70"
-     y="253"
-     fill="black"
-     font-size="12"
-     id="text58">instructeur@dgfip.gouv.fr</text>
-  <text
-     x="328"
-     y="249"
-     fill="black"
-     font-size="11"
-     id="text60">API Entreprise (Tous) — Instructeur</text>
-  <text
-     x="328"
-     y="265"
-     fill="black"
-     font-size="11"
-     id="text62">Contrat de service général — Reporter</text>
-  <text
-     x="716"
-     y="263"
-     fill="black"
-     font-size="11"
-     id="text64">Modifier</text>
-  <text
-     x="790"
-     y="263"
-     fill="#000000"
-     font-size="11px"
-     id="text66">Supprimer</text>
   <!-- Row 3 — 1 droit -->
-  <rect
-     x="50"
-     y="284"
-     width="800"
-     height="36"
-     stroke="black"
-     stroke-width="1"
-     fill="#f5f5f5"
-     id="rect68" />
-  <text
-     x="70"
-     y="307"
-     fill="black"
-     font-size="12"
-     id="text70">reporter@acoss.fr</text>
-  <text
-     x="328"
-     y="307"
-     fill="black"
-     font-size="11"
-     id="text72">API Entreprise (Tous) — Reporter</text>
-  <text
-     x="716"
-     y="307"
-     fill="black"
-     font-size="11"
-     id="text74">Modifier</text>
-  <text
-     x="790"
-     y="307"
-     fill="#000000"
-     font-size="11px"
-     id="text76">Supprimer</text>
   <!-- Row 4 — 3 droits -->
-  <rect
-     x="50"
-     y="320"
-     width="800"
-     height="64"
-     stroke="black"
-     stroke-width="1"
-     fill="none"
-     id="rect78" />
-  <text
-     x="70"
-     y="340"
-     fill="black"
-     font-size="12"
-     id="text80">manager2@api-entreprise.fr</text>
-  <text
-     x="328"
-     y="336"
-     fill="black"
-     font-size="11"
-     id="text82">API Entreprise (Tous) — Manager</text>
-  <text
-     x="328"
-     y="352"
-     fill="black"
-     font-size="11"
-     id="text84">Contrat de service général — Instructeur</text>
-  <text
-     x="328"
-     y="368"
-     fill="black"
-     font-size="11"
-     id="text86">Extrait de données DGFIP — Reporter</text>
-  <text
-     x="716"
-     y="352"
-     fill="black"
-     font-size="11"
-     id="text88">Modifier</text>
-  <text
-     x="790"
-     y="352"
-     fill="#000000"
-     font-size="11px"
-     id="text90">Supprimer</text>
   <!-- Close table -->
-  <line
-     x1="50"
-     y1="384"
-     x2="850"
-     y2="384"
-     stroke="black"
-     stroke-width="1"
-     id="line92" />
   <!-- Notice -->
-  <text
-     x="50"
-     y="416"
-     fill="black"
-     font-size="11"
-     id="text94">ℹ Les admins DataPass ne sont pas listés (accès implicite).</text>
   <!-- ============================== -->
   <!-- SCREEN 2 — Formulaire         -->
   <!-- ============================== -->
@@ -468,9 +299,9 @@
   <text
      x="66"
      y="783"
-     fill="#aaa"
-     font-size="12"
-     id="text126">agent@ministere.gouv.fr</text>
+     fill="#aaaaaa"
+     font-size="12px"
+     id="text126">miryad@numerique.gouv.fr</text>
   <text
      x="440"
      y="780"
@@ -497,9 +328,9 @@
   <text
      x="66"
      y="849"
-     fill="black"
-     font-size="12"
-     id="text134">API Entreprise (Tous)</text>
+     fill="#000000"
+     font-size="12px"
+     id="text134">DINUM (Tous)</text>
   <text
      x="336"
      y="849"
@@ -518,9 +349,9 @@
   <text
      x="384"
      y="849"
-     fill="black"
-     font-size="12"
-     id="text140">Instructeur</text>
+     fill="#000000"
+     font-size="12px"
+     id="text140">Observateur</text>
   <text
      x="514"
      y="849"
@@ -546,9 +377,9 @@
   <text
      x="66"
      y="891"
-     fill="black"
-     font-size="12"
-     id="text148">Contrat de service général</text>
+     fill="#000000"
+     font-size="12px"
+     id="text148">API Particulier</text>
   <text
      x="336"
      y="891"
@@ -567,9 +398,9 @@
   <text
      x="384"
      y="891"
-     fill="black"
-     font-size="12"
-     id="text154">Reporter</text>
+     fill="#000000"
+     font-size="12px"
+     id="text154">Manager</text>
   <text
      x="514"
      y="891"
@@ -666,20 +497,465 @@
      text-anchor="middle"
      fill="black"
      id="text180">Annuler</text>
-  <line
-     x1="310"
-     y1="160"
-     x2="310"
-     y2="383.64682"
-     stroke="#000000"
-     stroke-width="1"
-     id="line38" />
-  <line
-     x1="704"
-     y1="160"
-     x2="704"
-     y2="384.41489"
-     stroke="#000000"
-     stroke-width="1"
-     id="line40" />
+  <g
+     id="g2780"
+     transform="translate(0,40)">
+    <text
+       x="327.49094"
+       y="384.27554"
+       fill="#000000"
+       font-size="11px"
+       id="text82-3">API Particulier - Observateur</text>
+    <rect
+       x="50"
+       y="160"
+       width="800"
+       height="30"
+       stroke="#000000"
+       stroke-width="1"
+       fill="#dddddd"
+       id="rect30" />
+    <text
+       x="70"
+       y="180"
+       fill="#000000"
+       font-size="11px"
+       font-weight="bold"
+       id="text32">EMAIL</text>
+    <text
+       x="320"
+       y="180"
+       fill="#000000"
+       font-size="11px"
+       font-weight="bold"
+       id="text34">DROITS</text>
+    <text
+       x="716"
+       y="180"
+       fill="#000000"
+       font-size="11px"
+       font-weight="bold"
+       id="text36">ACTIONS</text>
+    <rect
+       x="50"
+       y="190"
+       width="800"
+       height="42"
+       stroke="#000000"
+       stroke-width="1"
+       fill="#f5f5f5"
+       id="rect42" />
+    <text
+       x="70"
+       y="208"
+       fill="#000000"
+       font-size="12px"
+       id="text44">valentin@numerique.gouv.fr</text>
+    <text
+       x="70"
+       y="224"
+       fill="#000000"
+       font-size="10px"
+       id="text46">(vous)</text>
+    <text
+       x="328"
+       y="215"
+       fill="#000000"
+       font-size="11px"
+       id="text48">DINUM (Tous) - Manager</text>
+    <text
+       x="716"
+       y="208"
+       fill="#aaaaaa"
+       font-size="11px"
+       id="text50">Modifier</text>
+    <text
+       x="795.02917"
+       y="228.45587"
+       fill="#aaaaaa"
+       font-size="9px"
+       id="text54">[bloqué]</text>
+    <rect
+       x="50"
+       y="232"
+       width="800"
+       height="52"
+       stroke="#000000"
+       stroke-width="1"
+       fill="none"
+       id="rect56" />
+    <text
+       x="70"
+       y="253"
+       fill="#000000"
+       font-size="12px"
+       id="text58">miryad@numerique.gouv.fr</text>
+    <text
+       x="328"
+       y="249"
+       fill="#000000"
+       font-size="11px"
+       id="text60">DINUM (Tous) - Observateur</text>
+    <text
+       x="328"
+       y="265"
+       fill="#000000"
+       font-size="11px"
+       id="text62">API Particulier - Manager</text>
+    <text
+       x="716"
+       y="263"
+       fill="#000000"
+       font-size="11px"
+       id="text64">Modifier</text>
+    <text
+       x="811.06641"
+       y="255.65303"
+       fill="#000000"
+       font-size="11px"
+       id="text66"><tspan
+         sodipodi:role="line"
+         id="tspan755"
+         x="811.06641"
+         y="255.65303"
+         style="text-align:center;text-anchor:middle">Supprimer</tspan><tspan
+         sodipodi:role="line"
+         id="tspan757"
+         x="811.06641"
+         y="269.40305"
+         style="text-align:center;text-anchor:middle">tous les droits</tspan></text>
+    <rect
+       x="50"
+       y="284"
+       width="800"
+       height="36"
+       stroke="#000000"
+       stroke-width="1"
+       fill="#f5f5f5"
+       id="rect68" />
+    <text
+       x="70"
+       y="307"
+       fill="#000000"
+       font-size="12px"
+       id="text70">lauren@numerique.gouv.fr</text>
+    <text
+       x="328"
+       y="307"
+       fill="#000000"
+       font-size="11px"
+       id="text72">France Connect - Manager</text>
+    <text
+       x="716"
+       y="307"
+       fill="#000000"
+       font-size="11px"
+       id="text74">Modifier</text>
+    <rect
+       x="50"
+       y="320"
+       width="800"
+       height="72.544739"
+       stroke="#000000"
+       stroke-width="1"
+       fill="none"
+       id="rect78" />
+    <text
+       x="70"
+       y="340"
+       fill="#000000"
+       font-size="12px"
+       id="text80">techos-fc@numerique.gouv.fr</text>
+    <text
+       x="328"
+       y="336"
+       fill="#000000"
+       font-size="11px"
+       id="text82">France Connect - Observateur</text>
+    <text
+       x="328"
+       y="352"
+       fill="#000000"
+       font-size="11px"
+       id="text84">France Connect - Développeur</text>
+    <text
+       x="328"
+       y="368"
+       fill="#000000"
+       font-size="11px"
+       id="text86">API Particulier - Développeur</text>
+    <text
+       x="716"
+       y="352"
+       fill="#000000"
+       font-size="11px"
+       id="text88">Modifier</text>
+    <text
+       x="50"
+       y="416"
+       fill="#000000"
+       font-size="11px"
+       id="text94" />
+    <line
+       x1="310"
+       y1="160"
+       x2="310"
+       y2="383.64682"
+       stroke="#000000"
+       stroke-width="1"
+       id="line38" />
+    <line
+       x1="704"
+       y1="160"
+       x2="704"
+       y2="384.41489"
+       stroke="#000000"
+       stroke-width="1"
+       id="line40" />
+    <text
+       x="809.92279"
+       y="299.50034"
+       fill="#000000"
+       font-size="11px"
+       id="text66-6"><tspan
+         sodipodi:role="line"
+         id="tspan755-7"
+         x="809.92279"
+         y="299.50034"
+         style="text-align:center;text-anchor:middle">Supprimer</tspan><tspan
+         sodipodi:role="line"
+         id="tspan757-5"
+         x="809.92279"
+         y="313.25034"
+         style="text-align:center;text-anchor:middle">tous les droits</tspan></text>
+    <text
+       x="809.92401"
+       y="344.68701"
+       fill="#000000"
+       font-size="11px"
+       id="text66-3"><tspan
+         sodipodi:role="line"
+         id="tspan755-5"
+         x="809.92401"
+         y="344.68701"
+         style="text-align:center;text-anchor:middle">Supprimer</tspan><tspan
+         sodipodi:role="line"
+         id="tspan757-6"
+         x="809.92401"
+         y="358.43701"
+         style="text-align:center;text-anchor:middle">tous les droits</tspan></text>
+    <text
+       x="810.55975"
+       y="202.99005"
+       fill="#000000"
+       font-size="11px"
+       id="text919"
+       style="fill:#aeaeae;fill-opacity:1"><tspan
+         sodipodi:role="line"
+         id="tspan915"
+         x="810.55975"
+         y="202.99005"
+         style="text-align:center;text-anchor:middle;fill:#aeaeae;fill-opacity:1">Supprimer</tspan><tspan
+         sodipodi:role="line"
+         id="tspan917"
+         x="810.55975"
+         y="216.74005"
+         style="text-align:center;text-anchor:middle;fill:#aeaeae;fill-opacity:1">tous les droits</tspan></text>
+    <text
+       x="718.89429"
+       y="219.88928"
+       fill="#aaaaaa"
+       font-size="9px"
+       id="text1592">[bloqué]</text>
+  </g>
+  <text
+     xml:space="preserve"
+     style="font-weight:bold;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;opacity:0.777579;fill:#000000;fill-opacity:1;stroke-width:150;stroke-linecap:round;stroke-linejoin:round"
+     x="659.75311"
+     y="772.59467"
+     id="text2334"><tspan
+       sodipodi:role="line"
+       id="tspan2332"
+       x="659.75311"
+       y="772.59467" /></text>
+  <text
+     xml:space="preserve"
+     id="text2336"
+     style="font-weight:bold;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;white-space:pre;shape-inside:url(#rect2338);display:inline;opacity:0.777579;fill:#000000;fill-opacity:1;stroke-width:150;stroke-linecap:round;stroke-linejoin:round" />
+  <text
+     xml:space="preserve"
+     id="text2342"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;white-space:pre;shape-inside:url(#rect2344);display:inline;opacity:0.777579;fill:#000000;fill-opacity:1;stroke-width:150;stroke-linecap:round;stroke-linejoin:round" />
+  <g
+     id="g2573"
+     transform="translate(-2.4877599,-25.172703)">
+    <rect
+       style="opacity:0.777579;fill:#e0e0e0;fill-opacity:1;stroke-width:150;stroke-linecap:round;stroke-linejoin:round"
+       id="rect1954"
+       width="219.86096"
+       height="329.3942"
+       x="644.70868"
+       y="733.85718" />
+    <text
+       xml:space="preserve"
+       style="font-weight:bold;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;opacity:0.777579;fill:#e0e0e0;fill-opacity:1;stroke-width:150;stroke-linecap:round;stroke-linejoin:round"
+       x="686.27307"
+       y="758.07635"
+       id="text2164"><tspan
+         sodipodi:role="line"
+         id="tspan2162"
+         x="686.27307"
+         y="758.07635"
+         style="fill:#000000;fill-opacity:1">Manager</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-weight:bold;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;opacity:0.777579;fill:#e0e0e0;fill-opacity:1;stroke-width:150;stroke-linecap:round;stroke-linejoin:round"
+       x="695.1651"
+       y="855.11957"
+       id="text2220"><tspan
+         sodipodi:role="line"
+         id="tspan2218"
+         x="695.1651"
+         y="855.11957"
+         style="fill:#000000;fill-opacity:1">Instructeur</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-weight:bold;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;opacity:0.777579;fill:#e0e0e0;fill-opacity:1;stroke-width:150;stroke-linecap:round;stroke-linejoin:round"
+       x="698.3501"
+       y="905.46967"
+       id="text2224"><tspan
+         sodipodi:role="line"
+         id="tspan2222"
+         x="698.3501"
+         y="905.46967"
+         style="fill:#000000;fill-opacity:1">Observateur</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-weight:bold;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;opacity:0.777579;fill:#e0e0e0;fill-opacity:1;stroke-width:150;stroke-linecap:round;stroke-linejoin:round"
+       x="698.47357"
+       y="974.01453"
+       id="text2278"><tspan
+         sodipodi:role="line"
+         id="tspan2276"
+         x="698.47357"
+         y="974.01453"
+         style="fill:#000000;fill-opacity:1">Développeur</tspan></text>
+    <text
+       xml:space="preserve"
+       id="text2348"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;white-space:pre;shape-inside:url(#rect2350);display:inline;opacity:0.777579;fill:#000000;fill-opacity:1;stroke-width:150;stroke-linecap:round;stroke-linejoin:round"
+       x="-13.331492"
+       y="0"
+       transform="translate(-2.5773958)"><tspan
+         x="660.14648"
+         y="779.62135"
+         id="tspan5202"><tspan
+           style="text-align:start;text-anchor:start"
+           id="tspan5200">Peut gérer les droits des autres </tspan></tspan><tspan
+         x="660.14648"
+         y="795.87135"
+         id="tspan5206"><tspan
+           style="text-align:start;text-anchor:start"
+           id="tspan5204">utilisateurs, les modèles de </tspan></tspan><tspan
+         x="660.14648"
+         y="812.12135"
+         id="tspan5210"><tspan
+           style="text-align:start;text-anchor:start"
+           id="tspan5208">messages, et instruire les </tspan></tspan><tspan
+         x="660.14648"
+         y="828.37135"
+         id="tspan5214"><tspan
+           style="text-align:start;text-anchor:start"
+           id="tspan5212">demandes</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       id="text2354"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:start;white-space:pre;shape-inside:url(#rect2356);display:inline;opacity:0.777579;fill:#000000;fill-opacity:1;stroke-width:150;stroke-linecap:round;stroke-linejoin:round"
+       transform="translate(-0.69370828,12.29086)"><tspan
+         x="657.7168"
+         y="859.594"
+         id="tspan5216">Peut instruire les demandes</tspan></text>
+    <text
+       xml:space="preserve"
+       id="text2362"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:start;white-space:pre;shape-inside:url(#rect2364);display:inline;opacity:0.777579;fill:#000000;fill-opacity:1;stroke-width:150;stroke-linecap:round;stroke-linejoin:round"
+       transform="translate(-0.14770828,67.097832)"><tspan
+         x="657.7168"
+         y="859.594"
+         id="tspan5218">Peut consulter les demandes </tspan><tspan
+         x="657.7168"
+         y="875.844"
+         id="tspan5220">et habilitations</tspan></text>
+    <text
+       xml:space="preserve"
+       id="text2390"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:start;white-space:pre;shape-inside:url(#rect2392);display:inline;opacity:0.777579;fill:#000000;fill-opacity:1;stroke-width:150;stroke-linecap:round;stroke-linejoin:round"
+       transform="translate(0.42429172,135.31762)"><tspan
+         x="657.7168"
+         y="859.594"
+         id="tspan5222">Peut consulter les demandes </tspan><tspan
+         x="657.7168"
+         y="875.844"
+         id="tspan5224">et habilitations via l'API, et </tspan><tspan
+         x="657.7168"
+         y="892.094"
+         id="tspan5226">recevoir des events par </tspan><tspan
+         x="657.7168"
+         y="908.344"
+         id="tspan5228">webhook</tspan></text>
+  </g>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:start;text-anchor:start;opacity:0.777579;fill:#b5b5b5;fill-opacity:1;stroke-width:150;stroke-linecap:round;stroke-linejoin:round"
+     x="161.04622"
+     y="134.23422"
+     id="text3335"><tspan
+       sodipodi:role="line"
+       id="tspan3333"
+       x="161.04622"
+       y="134.23422"
+       style="fill:#6b6b6b;fill-opacity:1">[Ouvre une modale de définition des droits]</tspan></text>
+  <g
+     id="g3920"
+     transform="translate(-67.327841,1.7067182)">
+    <rect
+       style="opacity:0.777579;fill:#b5b5b5;fill-opacity:1;stroke-width:150;stroke-linecap:round;stroke-linejoin:round"
+       id="rect3899"
+       width="87.877975"
+       height="20.318481"
+       x="227.62819"
+       y="137.64224"
+       ry="6.4200501" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:start;text-anchor:start;opacity:0.777579;fill:#b5b5b5;fill-opacity:1;stroke-width:150;stroke-linecap:round;stroke-linejoin:round"
+       x="244.85588"
+       y="151.7357"
+       id="text3903"><tspan
+         sodipodi:role="line"
+         id="tspan3901"
+         x="244.85588"
+         y="151.7357"
+         style="fill:#000000;fill-opacity:1">Définitions</tspan></text>
+    <g
+       id="g3911">
+      <circle
+         style="opacity:0.777579;fill:#7f7f7f;fill-opacity:1;stroke-width:48.7809;stroke-linecap:round;stroke-linejoin:round"
+         id="path3002"
+         cx="236.66338"
+         cy="147.08359"
+         r="5.9389896" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:start;text-anchor:start;opacity:0.777579;fill:#000000;fill-opacity:1;stroke-width:66.6267;stroke-linecap:round;stroke-linejoin:round"
+         x="234.42337"
+         y="150.87027"
+         id="text3000"><tspan
+           sodipodi:role="line"
+           id="tspan2998"
+           x="234.42337"
+           y="150.87027"
+           style="font-size:10.6667px;stroke-width:66.6267">?</tspan></text>
+    </g>
+  </g>
 </svg>
