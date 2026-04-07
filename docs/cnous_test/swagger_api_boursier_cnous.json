@@ -1,0 +1,290 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Boursier",
+        "description": "API Boursier CROUS",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "https://api-boursier-preprod-app.in.nuonet.fr",
+            "description": "PP"
+        },
+        {
+            "url": "https://api-boursier.nuonet.fr",
+            "description": "PROD"
+        }
+    ],
+    "paths": {
+        "/v1/scholarship-holder-export/download/{export_id}": {
+            "get": {
+                "tags": [
+                    "Export"
+                ],
+                "summary": "T\u00e9l\u00e9chargement d'un export (\u00e9galement appel\u00e9 rapport d'import)",
+                "operationId": "get_api_download_scholarship_holder_export_file",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'export",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "export_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "202": {
+                        "description": "Export en cours de g\u00e9n\u00e9ration"
+                    },
+                    "401": {
+                        "description": "Authentification en \u00e9chec (possiblement token expir\u00e9)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDTO"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Ressource inconnue",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDTO"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erreur serveur interne",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDTO"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/export/{export_id}/download": {
+            "get": {
+                "tags": [
+                    "Export"
+                ],
+                "summary": "T\u00e9l\u00e9chargement d'un export (\u00e9galement appel\u00e9 rapport d'import)",
+                "operationId": "get_api_download_export",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'export",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "export_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "202": {
+                        "description": "Export en cours de g\u00e9n\u00e9ration"
+                    },
+                    "401": {
+                        "description": "Authentification en \u00e9chec (possiblement token expir\u00e9)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDTO"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Ressource inconnue",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDTO"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erreur serveur interne",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorDTO"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/scholarship-holder-api-export/create": {
+            "post": {
+                "tags": [
+                    "Export Boursier API"
+                ],
+                "summary": "Cr\u00e9er un export de boursiers (API)",
+                "description": "D\u00e9clenche la g\u00e9n\u00e9ration asynchrone d'un export filtr\u00e9 par codes COG, \u00e9chelon minimum et ann\u00e9e de campagne.",
+                "operationId": "createApiScholarshipHolderExport",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "cogCodes",
+                                    "minScholarshipLevel"
+                                ],
+                                "properties": {
+                                    "cogCodes": {
+                                        "description": "Liste de codes COG (ville d'\u00e9tude)",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "example": [
+                                            "75056",
+                                            "13055",
+                                            "69123"
+                                        ]
+                                    },
+                                    "minScholarshipLevel": {
+                                        "description": "\u00c9chelon de bourse minimum",
+                                        "type": "string",
+                                        "enum": [
+                                            "0Bis",
+                                            "1",
+                                            "2",
+                                            "3",
+                                            "4",
+                                            "5",
+                                            "6",
+                                            "7"
+                                        ],
+                                        "example": "0Bis"
+                                    },
+                                    "campaignYear": {
+                                        "description": "Ann\u00e9e de campagne (ann\u00e9e active par d\u00e9faut)",
+                                        "type": "string",
+                                        "example": "2025",
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Export cr\u00e9\u00e9",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "description": "ID de l'export cr\u00e9\u00e9",
+                                            "type": "integer"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Param\u00e8tres invalides"
+                    },
+                    "403": {
+                        "description": "R\u00f4le ETU_READ_FILE requis"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ErrorDTO": {
+                "required": [
+                    "status",
+                    "message"
+                ],
+                "properties": {
+                    "status": {
+                        "title": "Statut",
+                        "type": "integer"
+                    },
+                    "message": {
+                        "title": "Message",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "JWT": {
+                "type": "http",
+                "description": "Token fourni par Gravitee (API les CROUS)",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            },
+            "tokenFixe": {
+                "type": "http",
+                "description": "Pour CVEC",
+                "bearerFormat": "Token Fixe",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "security": [
+        {
+            "JWT": []
+        },
+        {
+            "tokenFixe": []
+        }
+    ],
+    "tags": [
+        {
+            "name": "Export",
+            "description": "API de gestion des exports"
+        },
+        {
+            "name": "Export Boursier API"
+        }
+    ]
+}
