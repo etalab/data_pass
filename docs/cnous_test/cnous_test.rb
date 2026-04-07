@@ -42,8 +42,11 @@ end
 access_token = fetch_access_token
 puts "Access token obtained."
 
-response = create_export(access_token)
-body = JSON.parse(response.body)
-
-puts "Response (#{response.code}): #{JSON.pretty_generate(body)}"
-puts "Export ID: #{body['id']}"
+begin
+  response = create_export(access_token)
+  body = JSON.parse(response.body)
+  puts "Response (#{response.code}): #{JSON.pretty_generate(body)}"
+  puts "Export ID: #{body['id']}"
+rescue => e
+  puts "Error: #{e.class} - #{e.message}"
+end
