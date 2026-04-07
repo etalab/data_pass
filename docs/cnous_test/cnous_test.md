@@ -22,3 +22,9 @@ We want to use the generated access_token to request a file creation with the ro
 
 Retreive the id of the created file and print it.
 
+
+# Get the file
+
+I updated the routes with the correct ones, the swagger was wrong.
+
+Now I want to make another file that makes a request to /v1/export/{export_id}/download to download the file with the given id

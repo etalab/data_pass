@@ -2,7 +2,7 @@ require 'net/http'
 require 'base64'
 require 'json'
 
-COG_CODES = ['92040'].freeze # 92040 = Issy-les-moulineaux
+COG_CODES = ARGV.empty? ? abort('Usage: ruby cnous_test.rb <cog_code> [cog_code ...]') : ARGV.freeze
 MIN_SCHOLARSHIP_LEVEL = '0Bis' # available values are [0Bis, 1, 2, 3, 4, 5, 6, 7]
 CAMPAIGN_YEAR = nil # Leave at null to get the current data
 
