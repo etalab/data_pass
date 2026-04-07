@@ -19,82 +19,12 @@ Ce shaping définit une interface dans l'espace instructeur permettant à un man
 | ID | Requirement | Status |
 |----|-------------|--------|
 | R0 | Un manager FD voit tous les utilisateurs ayant des droits sur son FD, qu'ils soient en FD-level (`fd:{slug}:{role}`) ou en definition-level (`{definition_id}:{role}`), hors admins DataPass | Core goal |
-| R1 | Un manager FD peut ajouter/modifier un droit en choisissant : email, portée (FD global = `fd:{slug}` ou une définition précise = `{definition_id}`), rôle (reporter/instructor/manager/developer) | Core goal |
-| R2 | Un manager FD peut modifier le rôle d'un user existant | Must-have |
-| R3 | Un manager FD peut retirer tous les droits d'un user sur son FD | Must-have |
-| R4 | L'interface s'adapte à la portée du user : manager FD → voit ses N FDs ; manager définition → voit ses définitions uniquement ; admin → voit tous les FDs ; dans chaque cas il peut attribuer/modifier/retirer des droits dans son périmètre (sauf le rôle admin) | Must-have |
-| R5 | Accessible via onglet « Droits » dans la nav de l'espace instructeur, visible managers et admins uniquement | Must-have |
-| R6 | Un manager ne peut pas attribuer des droits supérieurs aux siens | Must-have |
-| R7 | Un manager peut gérer uniquement les droits dans son périmètre : manager FD → droits de ses FDs (FD-level + definition-level) ; manager définition → droits scoped à ses définitions uniquement | Must-have |
-| R8 | Un manager ne peut pas se retirer ses propres droits de manager (auto-révocation bloquée) | Nice-to-have |
-| R9 | Les modifications sont tracées (AdminEvent) et notifient les admins DataPass | Must-have |
-| R10 | L'interface expose la définition de chaque rôle : bouton « Définitions » sur la liste (ouvre une modale), et panneau contextuel à droite du formulaire | Must-have |
-
-### Wireframe
-
-![wireframe](./dp-1613-wireframes.svg)
----
-
-## A: Interface de gestion des droits FD dans l'espace instructeur
-
-| Part | Mécanisme |
-|------|-----------|
-| A1 | **Nav** : `InstructorMenuComponent` ajoute param `show_rights` → lien « Droits » conditionnel (manager? ou admin?) |
-| A2 | **Liste** : `Instruction::UserRolesController#index` — liste les users avec droits sur tous les FDs accessibles au user courant (ses FDs de manager, ou tous les FDs si admin) via `User.with_rights_on_fd(data_providers)` ; admins DataPass exclus |
-| A3 | **Ajout/Modif** : `#new` / `#create` / `#edit` / `#update` — formulaire multi-lignes (email + N paires portée/rôle) + panneau contextuel à droite listant la définition de chaque rôle (Manager, Instructeur, Observateur, Développeur) — rendu statique, pas de JS requis |
-| A4 | **Suppression** : `#destroy` — retire les rôles FD-scoped d'un user (FD-level + definition-level du FD) |
-| A5 | **Policy** : `Instruction::UserRolePolicy` — accès restreint aux managers (FD-level ou definition-level) + admins ; périmètre : manager FD → tous les droits de ses FDs, manager définition → droits scoped à ses définitions uniquement ; vérifie non-élévation de privilège ; bloque auto-révocation |
-| A6 | **Organizer** : `Instruction::UpdateUserFdRoles` — orchestre la modification atomique d'un rôle FD-scoped ; réutilise `Admin::TrackEvent` et `Admin::NotifyAdminsForRolesUpdate` pour R9 |
-| A7 | **Scope User** : `User.with_rights_on_fd(data_providers)` — SQL sur `users.roles` pour `fd:{slug}:*` ou `{definition_id}:*` (toutes defs du FD) ; pour un manager définition-level : filtre sur ses `{definition_id}` uniquement |
-| A8 | **Modale Définitions** : bouton « @ Définitions » sur la page liste ouvre une modale (DSFR `fr-modal`) affichant la définition de chaque rôle — contenu statique partagé avec le panneau du formulaire (partial ou ViewComponent) |
-
-### Fit Check (R × A)
-
-| Req | Requirement | Status | A |
-|-----|-------------|--------|---|
-| R0 | Manager voit tous les users avec droits FD-level et definition-level (hors admins) | Core goal | ✅ |
-| R1 | Ajout/modif droit : portée FD-global ou définition précise + rôle | Core goal | ✅ |
-| R2 | Modification rôle existant | Must-have | ✅ |
-| R3 | Retrait droits user sur FD | Must-have | ✅ |
-| R4 | Interface adaptée à la portée (N FDs pour manager multi-FD, tous FDs pour admin) | Must-have | ✅ |
-| R5 | Onglet « Droits » dans nav instruction | Must-have | ✅ |
-| R6 | Pas d'élévation de privilège | Must-have | ✅ |
-| R7 | Manager limité à ses FDs de manager | Must-have | ✅ |
-| R8 | Auto-révocation bloquée | Nice-to-have | ✅ |
-| R9 | Traçage + notification admins | Must-have | ✅ |
-| R10 | Définitions des rôles accessibles depuis la liste (modale) et le formulaire (panneau) | Must-have | ✅ |
-
----
-
-## Décisions tranchées
-
-- **Nommage de l'onglet** : « Droits »
-- **Rôles gérables** : reporter, instructor, manager, developer (les 4 rôles)
-- **Portée** : FD-global (`fd:{slug}:{role}`) et definition-level (`{definition_id}:{role}`) tous deux gérables
-- **Admin / manager multi-FD** : vue unifiée sur tous les FDs accessibles
-- **Admins DataPass** : non listés dans l'interface, gestion console uniquement
-- **Formulaire** : selectboxes uniquement (pas de textarea)
-
----
-
-## Points d'attention techniques
-
-1. **`managed_authorization_definition_uids`** dans `Instruction::MessageTemplatesController` fait `role.split(':').first` sur `manager_roles`. Avec `fd:{slug}:manager`, ça retourne `fd` comme uid — à corriger dans DP-1612.
-2. **User non trouvé** : si l'email saisi ne correspond à aucun user DataPass → erreur explicite, hors périmètre la création.
-
----
-
-## Fichiers critiques
-
-| Fichier | Action |
-|---------|--------|
-| `app/components/instructor_menu_component.rb` | Ajouter param `show_rights` |
-| `app/components/instructor_menu_component.html.erb` | Ajouter lien conditionnel « Droits » |
-| `app/controllers/instruction/user_roles_controller.rb` | Nouveau contrôleur |
-| `app/policies/instruction/user_role_policy.rb` | Nouveau Pundit policy |
-| `app/organizers/instruction/update_user_fd_roles.rb` | Nouvel organizer |
-| `app/models/user.rb` | Ajouter `with_rights_on_fd` scope |
-| `app/views/instruction/user_roles/` | Vues index, new, edit |
-| `config/routes.rb` | Ajouter resource dans namespace instruction |
-| `spec/components/previews/instructor_menu_component_preview.rb` | Mettre à jour preview |
-| `app/views/instruction/user_roles/_role_definitions.html.erb` | Partial partagé : contenu des définitions de rôles (utilisé dans la modale liste et le panneau formulaire) |
+| R1 | Un manager FD peut ajouter ou modifier un droit en choisissant : email, portée (FD global = `fd:{slug}` ou une définition précise = `{definition_id}`), rôle (reporter/instructor/manager/developer) — vaut pour un nouvel utilisateur comme pour un utilisateur existant | Core goal |
+| R2 | Un manager peut retirer tous les droits d'un user dans son périmètre : si manager FD, retire les droits FD-level et les droits definition-level de toutes les définitions de ses FDs ; si manager définition, retire uniquement les droits definition-level de ses définitions | Must-have |
+| R3 | L'interface s'adapte à la portée du user : manager FD → voit ses N FDs ; manager définition → voit ses définitions uniquement ; admin → voit tous les FDs ; dans chaque cas il peut attribuer/modifier/retirer des droits dans son périmètre (sauf le rôle admin) | Must-have |
+| R4 | Accessible via onglet « Droits » dans la nav de l'espace instructeur, visible managers et admins uniquement | Must-have |
+| R5 | Un manager ne peut pas attribuer des droits supérieurs aux siens : seul un manager peut créer un autre manager ; instructor, reporter et developer sont des rôles inférieurs qu'un manager peut attribuer librement | Must-have |
+| R6 | Un manager peut gérer uniquement les droits dans son périmètre : manager FD → droits de ses FDs (FD-level + definition-level) ; manager définition → droits scoped à ses définitions uniquement | Must-have |
+| R7 | Un manager ne peut pas se retirer ses propres droits de manager (auto-révocation bloquée) | Nice-to-have |
+| R8 | Les modifications sont tracées (AdminEvent) et notifient les admins DataPass | Must-have |
+| R9 | L'interface expose la définition de chaque rôle : bouton « Définitions » sur la liste (ouvre une modale), et panneau contextuel à droite du formulaire | Must-have |
