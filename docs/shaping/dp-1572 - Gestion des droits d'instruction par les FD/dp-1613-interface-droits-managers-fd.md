@@ -28,6 +28,7 @@ Ce shaping définit une interface dans l'espace instructeur permettant à un man
 | R7 | Un manager peut gérer uniquement les droits des FDs sur lesquels il est lui-même manager | Must-have |
 | R8 | Un manager ne peut pas se retirer ses propres droits de manager (auto-révocation bloquée) | Nice-to-have |
 | R9 | Les modifications sont tracées (AdminEvent) et notifient les admins DataPass | Must-have |
+| R10 | L'interface expose la définition de chaque rôle : bouton « Définitions » sur la liste (ouvre une modale), et panneau contextuel à droite du formulaire | Must-have |
 
 ### Wireframe
 
@@ -40,11 +41,12 @@ Ce shaping définit une interface dans l'espace instructeur permettant à un man
 |------|-----------|
 | A1 | **Nav** : `InstructorMenuComponent` ajoute param `show_rights` → lien « Droits » conditionnel (manager? ou admin?) |
 | A2 | **Liste** : `Instruction::UserRolesController#index` — liste les users avec droits sur tous les FDs accessibles au user courant (ses FDs de manager, ou tous les FDs si admin) via `User.with_rights_on_fd(data_providers)` ; admins DataPass exclus |
-| A3 | **Ajout/Modif** : `#new` / `#create` / `#edit` / `#update` — formulaire 3 selectboxes : email (saisie, lookup user existant), portée (FD global = `fd:{slug}` ou définition précise), rôle (reporter/instructor/manager/developer) |
+| A3 | **Ajout/Modif** : `#new` / `#create` / `#edit` / `#update` — formulaire multi-lignes (email + N paires portée/rôle) + panneau contextuel à droite listant la définition de chaque rôle (Manager, Instructeur, Observateur, Développeur) — rendu statique, pas de JS requis |
 | A4 | **Suppression** : `#destroy` — retire les rôles FD-scoped d'un user (FD-level + definition-level du FD) |
 | A5 | **Policy** : `Instruction::UserRolePolicy` — accès restreint aux managers de ce FD + admins ; vérifie non-élévation de privilège ; bloque auto-révocation |
 | A6 | **Organizer** : `Instruction::UpdateUserFdRoles` — orchestre la modification atomique d'un rôle FD-scoped ; réutilise `Admin::TrackEvent` et `Admin::NotifyAdminsForRolesUpdate` pour R9 |
 | A7 | **Scope User** : `User.with_rights_on_fd(data_providers)` — SQL sur `users.roles` pour `fd:{slug}:*` ou `{definition_id}:*` (toutes defs du FD) |
+| A8 | **Modale Définitions** : bouton « @ Définitions » sur la page liste ouvre une modale (DSFR `fr-modal`) affichant la définition de chaque rôle — contenu statique partagé avec le panneau du formulaire (partial ou ViewComponent) |
 
 ### Fit Check (R × A)
 
@@ -60,6 +62,7 @@ Ce shaping définit une interface dans l'espace instructeur permettant à un man
 | R7 | Manager limité à ses FDs de manager | Must-have | ✅ |
 | R8 | Auto-révocation bloquée | Nice-to-have | ✅ |
 | R9 | Traçage + notification admins | Must-have | ✅ |
+| R10 | Définitions des rôles accessibles depuis la liste (modale) et le formulaire (panneau) | Must-have | ✅ |
 
 ---
 
@@ -94,3 +97,4 @@ Ce shaping définit une interface dans l'espace instructeur permettant à un man
 | `app/views/instruction/user_roles/` | Vues index, new, edit |
 | `config/routes.rb` | Ajouter resource dans namespace instruction |
 | `spec/components/previews/instructor_menu_component_preview.rb` | Mettre à jour preview |
+| `app/views/instruction/user_roles/_role_definitions.html.erb` | Partial partagé : contenu des définitions de rôles (utilisé dans la modale liste et le panneau formulaire) |
