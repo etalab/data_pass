@@ -2,7 +2,7 @@ require 'net/http'
 require 'base64'
 require 'json'
 
-COG_CODES = ARGV.empty? ? abort('Usage: ruby cnous_test.rb <cog_code> [cog_code ...]') : ARGV.freeze
+COG_CODES = ARGV.empty? ? abort('Usage: ruby cnous_test.rb <cog_code> [cog_code ...]') : ARGV.freeze # use 78590 or 75056 in preprod
 MIN_SCHOLARSHIP_LEVEL = '0Bis' # available values are [0Bis, 1, 2, 3, 4, 5, 6, 7]
 CAMPAIGN_YEAR = nil # Leave at null to get the current data
 
