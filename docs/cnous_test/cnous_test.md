@@ -14,4 +14,11 @@ I moved the file in docs/cnous_test/. And added a variable.
 
 We are going to use the API documented in docs/cnous_test/swagger_api_boursier_cnous.json.
 
-We want to use the generated access_token 
+We want to use the generated access_token to request a file creation with the route /v1/scholarship-holder-api-export/create.
+
+- use the cogCodes `[92040]` (store it in a variable upfront).
+- use the minScholarshipLevel `[ 0Bis, 1, 2, 3, 4, 5, 6, 7 ]` (store it in a variable upfront)
+- leave campaignYear null
+
+Retreive the id of the created file and print it.
+
