@@ -4,7 +4,7 @@ require 'json'
 
 COG_CODES = ARGV.empty? ? abort('Usage: ruby cnous_test.rb <cog_code> [cog_code ...]') : ARGV.freeze # use 78590 or 75056 in preprod
 MIN_SCHOLARSHIP_LEVEL = '0Bis' # available values are [0Bis, 1, 2, 3, 4, 5, 6, 7]
-CAMPAIGN_YEAR = nil # Leave at null to get the current data
+CAMPAIGN_YEAR = '2025' # Leave at null to get the current data
 
 BASE_URL = 'https://api-pp.nuonet.fr/statut-boursier'
 AUTH_URL = 'https://acces-pp.nuonet.fr/api-pp/oauth/token?grant_type=client_credentials'
