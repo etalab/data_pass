@@ -234,6 +234,38 @@ RSpec.describe HistoricalAuthorizationRequestEventComponent, type: :component do
         expect(page).to have_text('Migration technique')
       end
     end
+
+    context 'with show_private_reason: true' do
+      let(:component) { described_class.new(authorization_request_event:, show_private_reason: true) }
+
+      before do
+        authorization_request_event.entity.update!(
+          public_reason: 'Correction des données',
+          private_reason: 'Ticket #SP-1234',
+        )
+      end
+
+      it 'renders the private_reason' do
+        page = render_inline(component)
+
+        expect(page).to have_text('Ticket #SP-1234')
+      end
+    end
+
+    context 'with show_private_reason: false' do
+      before do
+        authorization_request_event.entity.update!(
+          public_reason: 'Correction des données',
+          private_reason: 'Ticket #SP-1234',
+        )
+      end
+
+      it 'does not render the private_reason' do
+        page = render_inline(subject)
+
+        expect(page).to have_no_text('Ticket #SP-1234')
+      end
+    end
   end
 
   describe '#message_expandable?' do

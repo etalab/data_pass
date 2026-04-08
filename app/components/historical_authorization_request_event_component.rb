@@ -10,8 +10,9 @@ class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
   attr_reader :authorization_request_event
   alias event authorization_request_event
 
-  def initialize(authorization_request_event:)
+  def initialize(authorization_request_event:, show_private_reason: false)
     @authorization_request_event = authorization_request_event
+    @show_private_reason = show_private_reason
   end
 
   def before_render
@@ -126,7 +127,21 @@ class HistoricalAuthorizationRequestEventComponent < ApplicationComponent
 
   def formatted_admin_change
     diff_entries = DiffPresenter.new(entity.diff, entity.authorization_request).entries
-    safe_join([simple_format(entity.public_reason), render_diff_list(diff_entries)])
+    parts = []
+    parts << formatted_private_reason if show_private_reason?
+    parts << simple_format(entity.public_reason)
+    parts << render_diff_list(diff_entries)
+    safe_join(parts)
+  end
+
+  def show_private_reason?
+    @show_private_reason && entity.private_reason.present?
+  end
+
+  def formatted_private_reason
+    helpers.content_tag(:div, class: 'fr-alert fr-alert--info fr-alert--sm fr-mb-2w fr-icon-eye-off-line') do
+      helpers.content_tag(:p, entity.private_reason)
+    end
   end
 
   def render_diff_list(entries)

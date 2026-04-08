@@ -97,7 +97,7 @@ class DiffPresenter
   end
 
   def build_attribute_change(attribute, values)
-    if values[0].blank?
+    if values[0].nil? || values[0] == ''
       build_attribute_initial_change(attribute, values)
     else
       build_attribute_change_with_values(attribute, values)

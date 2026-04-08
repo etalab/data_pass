@@ -75,4 +75,4 @@ L'évènement apparaît dans l'historique de la demande avec :
 - La raison publique
 - La liste des changements (si le diff est non vide)
 
-La raison privée n'est pas affichée dans l'interface pour le moment.
+La raison privée est affichée dans l'interface d'historique uniquement pour les utilisateurs admin.
