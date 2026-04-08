@@ -15,9 +15,11 @@
     <% next if group_name == 'FranceConnect' && !show_fc_fields %>
 
     <div class="fr-form-group scopes-group">
-      <h3 class="scopes-group__title fr-h5">
-        <%= group_name %>
-      </h3>
+      <% if group_name.present? %>
+        <h3 class="scopes-group__title fr-h5">
+          <%= group_name %>
+        </h3>
+      <% end %>
 
       <div class="scopes-group__grid">
         <% scopes.each do |scope| %>
