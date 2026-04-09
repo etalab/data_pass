@@ -91,6 +91,9 @@ api_particulier:
     - name: "Module élémentaire formation"
       value: "men_statut_module_elementaire_formation"
       group: "API Statut élève scolarisé et boursier"
+    - name: "Régime de pensionnat"
+      value: "men_regime_pensionnat"
+      group: "API Statut élève scolarisé et boursier"
 
     - name: "Statut étudiant boursier"
       value: "cnous_statut_boursier"
