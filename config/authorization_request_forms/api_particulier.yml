@@ -1536,6 +1536,7 @@ api-particulier-dialog:
       - men_statut_scolarite
       - men_statut_boursier
       - men_echelon_bourse
+      - men_regime_pensionnat
 
   initialize_with:
     intitule: Dématérialisation des dispositifs d'aides et de subventions
@@ -1584,6 +1585,7 @@ api-particulier-coexya:
       - men_statut_scolarite
       - men_statut_boursier
       - men_echelon_bourse
+      - men_regime_pensionnat
       - complementaire_sante_solidaire
 
   initialize_with:
@@ -2183,6 +2185,7 @@ api-particulier-tarification-cantines-lycees:
       - men_statut_scolarite
       - men_statut_boursier
       - men_echelon_bourse
+      - men_regime_pensionnat
   steps:
     - name: basic_infos
     - name: legal
@@ -2212,6 +2215,7 @@ api-particulier-tarification-cantines-colleges:
       - men_statut_scolarite
       - men_statut_boursier
       - men_echelon_bourse
+      - men_regime_pensionnat
   steps:
     - name: basic_infos
     - name: legal
@@ -2308,6 +2312,7 @@ api-particulier-tarification-transports:
       - men_statut_scolarite
       - men_statut_boursier
       - men_echelon_bourse
+      - men_regime_pensionnat
       - mesri_identite
       - mesri_admissions
       - mesri_admission_inscrit
@@ -2352,6 +2357,7 @@ api-particulier-gestion-rh-secteur-public:
       - men_statut_scolarite
       - men_statut_boursier
       - men_echelon_bourse
+      - men_regime_pensionnat
       - cnous_echelon_bourse
       - cnous_identite
       - cnous_email
