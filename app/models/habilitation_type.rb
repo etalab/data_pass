@@ -46,6 +46,10 @@ class HabilitationType < ApplicationRecord
     slug.underscore
   end
 
+  def normalize_friendly_id(input)
+    "#{input.to_s.parameterize}-dyn"
+  end
+
   def should_generate_new_friendly_id?
     slug.blank?
   end
@@ -80,14 +84,16 @@ class HabilitationType < ApplicationRecord
     (blocks || []).map { |b| b.is_a?(Hash) ? b['name'] || b[:name] : b }
   end
 
+  def classify_stable?(candidate)
+    candidate_uid = candidate.underscore
+    class_name = candidate_uid.classify
+    class_name.match?(VALID_RUBY_CLASSNAME) && class_name.underscore == candidate_uid
+  end
+
   def name_generates_reachable_uid
     return if slug.blank?
 
-    class_name = uid.classify
-    return if class_name.match?(VALID_RUBY_CLASSNAME) &&
-              class_name.underscore == uid
-
-    errors.add(:name, :unreachable_uid)
+    errors.add(:name, :unreachable_uid) unless classify_stable?(slug)
   end
 
   def contacts_block_selected?
