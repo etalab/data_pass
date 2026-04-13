@@ -1,7 +1,6 @@
 class AuthorizationsSearchEngineBuilder < AbstractSearchEngineBuilder
   def build_relation(policy_scope)
     base_items = policy_scope
-      .includes(:request, :applicant, :organization, request: %i[organization])
       .order(created_at: :desc)
 
     mentions_items = AuthorizationsMentionsQuery
@@ -11,7 +10,7 @@ class AuthorizationsSearchEngineBuilder < AbstractSearchEngineBuilder
     base_items = base_items.or(mentions_items)
     base_items = base_items.where(authorization_request_class: subdomain_types) if subdomain_types.present?
 
-    build_search_engine(base_items)
+    build_search_engine(base_items).preload(:request, :applicant, :organization)
   end
 
   private
