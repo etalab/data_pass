@@ -902,6 +902,7 @@ DEPENDENCIES
   rails-i18n
   rails_pulse (= 0.2.5.pre.14)
   ransack
+  redcarpet
   redis (>= 4.0.1)
   roo
   rspec-rails (~> 8.0)

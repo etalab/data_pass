@@ -1,9 +1,15 @@
 class Developers::WebhooksController < DevelopersController
+  allow_unauthenticated_access only: :documentation
+
   before_action :set_webhook, only: %i[edit update destroy enable disable regenerate_secret show_secret]
 
   def index
     authorize %i[developer webhook], :index?
     @webhooks = policy_scope([:developer, Webhook]).includes(:attempts).order(created_at: :desc)
+  end
+
+  def documentation
+    @html_content = MarkdownRenderer.new(Rails.root.join('docs/webhooks.md').read).to_html
   end
 
   def new

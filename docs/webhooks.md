@@ -68,7 +68,7 @@ Vous pouvez vérifier vos rôles développeur en vous connectant à DataPass et 
    - **Secret** : Un token de sécurité que vous générez (utilisé pour signer les requêtes avec HMAC-SHA256)
    - **Événements** : Cochez au moins un événement à écouter (obligatoire)
 
-3. **Test automatique** : Le système teste automatiquement votre webhook en envoyant un payload de test
+3. **Test automatique** : Le système teste automatiquement votre webhook en envoyant un payload de test (voir [Format du payload de test](#format-du-payload-de-test))
    - Si le test réussit (code HTTP 200), le webhook est créé et marqué comme valide
    - Si le test échoue, le webhook est créé mais reste invalide et désactivé
 
@@ -116,9 +116,27 @@ Vous pouvez souscrire aux événements suivants (sélection multiple possible) :
 Vous pouvez tester manuellement un webhook à tout moment :
 
 1. Depuis la page de détails du webhook, cliquez sur "Tester"
-2. Un payload de test est envoyé à votre endpoint
+2. Un payload de test est envoyé à votre endpoint (voir [Format du payload de test](#format-du-payload-de-test))
 3. Le résultat du test (code HTTP et extrait de la réponse) est affiché
 4. Si le test réussit, le webhook est marqué comme valide
+
+### Format du payload de test
+
+Lors d'un test (automatique à la création ou manuel), le payload envoyé est différent d'un payload d'événement classique. Il contient uniquement :
+
+```json
+{
+  "test": true,
+  "timestamp": "2024-01-15T10:30:00+01:00"
+}
+```
+
+- **`test`** (boolean) : Toujours `true`, permet de distinguer un appel de test d'un vrai événement
+- **`timestamp`** (string) : Horodatage ISO 8601 du moment où le test a été effectué
+
+Les headers HTTP restent identiques à un appel classique (`X-Hub-Signature-256`, `X-App-Environment`), ce qui permet de valider votre vérification HMAC dès le test.
+
+**Conseil** : Votre endpoint devrait accepter ce payload et retourner un code HTTP 200. Vous pouvez par exemple vérifier la présence du champ `test` pour ignorer le traitement métier tout en validant la signature.
 
 ### Consulter l'historique des appels
 
