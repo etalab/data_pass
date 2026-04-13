@@ -36,7 +36,7 @@ class AuthorizationsController < AuthenticatedUserController
   end
 
   def redirect_to_canonical
-    return unless params[:id] != @authorization.id.to_s
+    return unless params[:id] == @authorization.slug.to_s
 
     redirect_to authorization_path(@authorization), status: :moved_permanently
   end
