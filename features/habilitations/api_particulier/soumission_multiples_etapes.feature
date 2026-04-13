@@ -602,12 +602,13 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur dont le c
       | Nom du formulaire           | Nom de l'éditeur|
       | Aiden, Tarification cantine | MGDIS           |
 
-  Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique déjà renseigné et des scopes non modifiables pour un cas d'usage lié aux aides facultatives régionales ou aux aides facultatives départementales
+  Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le contact technique déjà renseigné et des scopes modifiables pour un cas d'usage lié aux aides facultatives
     Quand je veux remplir une demande pour "API Particulier" via le formulaire "<Nom du formulaire>" de l'éditeur "<Nom de l'éditeur>"
     Et que je clique sur "Débuter ma demande"
 
     Et la page contient "Nous avons pré-rempli des informations pour vous aider"
 
+    * je clique sur "Suivant"
     * je clique sur "Suivant"
 
     * je remplis "URL du texte relatif au traitement" avec "https://region.fr/deliberation.pdf"

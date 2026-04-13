@@ -857,8 +857,8 @@ api-particulier-arche-mc2-solis:
   service_provider_id: arche_mc2
   introduction:
     Ce formulaire simplifié vous permet d'obtenir une habilitation pour le logiciel Solis de l'éditeur Arche MC2. Ce logiciel est dédié à la gestion des conseils départementaux.
-  steps: *api_particulier_editor_steps_with_fixed_scopes
-  static_blocks: *api_particulier_editor_static_blocks_with_fixed_scopes
+  steps: *api_particulier_editor_steps_with_editable_scopes
+  static_blocks: *api_particulier_editor_static_blocks_with_editable_scopes
   scopes_config:
     disabled:
       - cnaf_allocataires
