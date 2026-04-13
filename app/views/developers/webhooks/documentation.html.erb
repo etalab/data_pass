@@ -1,0 +1,17 @@
+<% set_title! t('page_titles.webhooks_documentation') %>
+
+<% content_for :content_skip_link_text do %>
+  Documentation des webhooks
+<% end %>
+
+<% content_for :skip_links do %>
+  <%= skip_link("Contenu principal", "webhook-documentation") %>
+  <%= skip_link("Menu", "header") %>
+  <%= skip_link("Pied de page", "footer") %>
+<% end %>
+
+<div class="fr-container fr-my-4w" id="webhook-documentation">
+  <div class="markdown-content">
+    <%= @html_content %>
+  </div>
+</div>

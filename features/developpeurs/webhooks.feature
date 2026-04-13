@@ -9,6 +9,11 @@ Fonctionnalité: Développeurs: gestion des webhooks
     Sachant que je suis un développeur "API Entreprise"
     Et que je me connecte
 
+  Scénario: Je peux consulter la documentation des webhooks
+    Quand je me rends sur le chemin "/developpeurs/webhooks"
+    Et que je clique sur "Documentation"
+    Alors la page contient "DataPass propose un système de webhooks"
+
   Scénario: Je peux créer un nouveau webhook
     Quand je me rends sur le chemin "/developpeurs/webhooks"
     Et que je clique sur "Nouveau webhook"

@@ -24,6 +24,7 @@ fr:
     webhooks:
       index:
         title: Mes webhooks
+        documentation: Documentation
         new_webhook: Nouveau webhook
         no_webhooks: Vous n'avez pas encore de webhooks configurés
         active: Actif

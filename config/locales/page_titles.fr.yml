@@ -9,6 +9,7 @@ fr:
     cgu_api_impot_particulier_sandbox: CGU API Impôt Particulier - Bac à sable
     cgu_api_impot_particulier_production: CGU API Impôt Particulier - Production
     api_documentation: Documentation API
+    webhooks_documentation: Documentation des webhooks
 
     dashboard: Tableau de bord
     profile: Votre compte utilisateur

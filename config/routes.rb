@@ -179,6 +179,10 @@ Rails.application.routes.draw do
     get 'documentation', to: 'open_api#show'
 
     resources :webhooks, path: 'webhooks' do
+      collection do
+        get :documentation
+      end
+
       member do
         post :enable, path: 'activer'
         post :disable, path: 'desactiver'
