@@ -1,6 +1,10 @@
 class Instruction::Search::DashboardHabilitationsSearch < Instruction::Search::DashboardSearch
   private
 
+  def includes_associations
+    super + %i[request]
+  end
+
   def base_relation
     base_scope = super
     base_scope = base_scope.none if search_terms_is_a_possible_id?

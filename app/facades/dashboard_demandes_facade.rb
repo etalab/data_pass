@@ -1,16 +1,17 @@
 class DashboardDemandesFacade < AbstractDashboardFacade
   def data
     builder = search_builder
-    demandes = builder.build_relation(scoped_relation)
+    relation = builder.build_relation(scoped_relation.where(state: displayed_states))
+    requests_by_state = relation.to_a.group_by(&:state)
 
     {
       highlighted_categories: {
-        changes_requested: demandes.changes_requested,
+        changes_requested: requests_by_state.fetch('changes_requested', []),
       },
       categories: {
-        pending: demandes.in_instructions,
-        draft: demandes.drafts,
-        refused: demandes.refused,
+        pending: requests_by_state.fetch('submitted', []),
+        draft: requests_by_state.fetch('draft', []),
+        refused: requests_by_state.fetch('refused', []),
       },
       search_engine: builder.search_engine
     }

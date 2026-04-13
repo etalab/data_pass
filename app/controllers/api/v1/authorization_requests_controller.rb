@@ -4,7 +4,7 @@ class API::V1::AuthorizationRequestsController < API::V1Controller
 
   def index
     authorization_requests = AuthorizationRequest
-      .includes(:authorizations, :organization, :events_without_bulk_update)
+      .includes(:authorizations, :organization, :events_without_bulk_update, :applicant)
       .where(type: current_user_authorization_request_types)
       .merge(state_filter)
       .merge(siret_filter)
@@ -25,6 +25,13 @@ class API::V1::AuthorizationRequestsController < API::V1Controller
   end
 
   private
+
+  def set_authorization_request
+    @authorization_request = AuthorizationRequest
+      .includes(:authorizations, :organization, :events_without_bulk_update, :applicant)
+      .where(type: current_user_authorization_request_types)
+      .find(params[:authorization_request_id] || params[:id])
+  end
 
   def state_filter
     return AuthorizationRequest.all if params[:state].blank?
