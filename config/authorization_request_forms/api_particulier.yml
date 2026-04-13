@@ -1694,7 +1694,6 @@ api-particulier-mgdis-tarification-cantines-lycees:
 
   initialize_with:
     intitule: Tarification cantine
-    description: TODO
     cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager.\r\n- Cadre légal spécifique aux régions : L'article L216-6 du Code de l’éducation qui donne compétence aux lycées pour la gestion des cantines.\r\n- La délibération [À FOURNIR CI-DESSOUS - TEXTE À CITER ICI]"
     scopes :
       - cnaf_quotient_familial
@@ -1705,10 +1704,59 @@ api-particulier-mgdis-tarification-cantines-lycees:
     contact_technique_job_title: Responsable produit
     modalities:
       - params
-      - france_connect
 
-# ------------------------------- #
-# ------------------------------- #
+api-particulier-mgdis-aides-facultatives-departementales:
+  name: Aides facultatives départementales
+  description: Département, simplifiez l’attribution de vos aides facultatives.
+  authorization_request: APIParticulier
+  use_case: aides_facultatives
+  service_provider_id: mgdis
+  introduction: |
+    En complétant ce formulaire, vous allez demander un accès aux données API Particulier utiles pour simplifier l’attribution des <strong>« Aides facultatives départementales »</strong>. <a href="https://particulier.api.gouv.fr/cas_usages/aides_facultatives">En savoir plus sur ce cas d’usage</a>.
+  steps:
+    - name: basic_infos
+    - name: legal
+    - name: modalities
+    - name: scopes
+    - name: personal_data
+    - name: contacts
+
+  scopes_config:
+    displayed:
+      - cnaf_quotient_familial
+      - cnaf_allocataires
+      - cnaf_enfants
+      - cnaf_adresse
+      - pole_emploi_identite
+      - pole_emploi_contact
+      - pole_emploi_adresse
+      - pole_emploi_paiements
+      - men_statut_scolarite
+      - men_statut_boursier
+      - men_echelon_bourse
+      - mesri_identite
+      - mesri_admissions
+      - mesri_admission_inscrit
+      - mesri_admission_regime_formation
+      - mesri_admission_commune_etudes
+      - mesri_admission_etablissement_etudes
+      - cnous_echelon_bourse
+      - cnous_identite
+      - cnous_email
+      - cnous_periode_versement
+      - cnous_statut_bourse
+      - cnous_ville_etudes
+      - allocation_adulte_handicape
+      - revenu_solidarite_active
+      - revenu_solidarite_active_majoration
+      - cnav_allocation_enfant_handicape
+
+  initialize_with:
+    intitule: Aides facultatives départementales
+    cadre_juridique_nature: "\n- Cadre légal général : L'article L114-8 du Code des relations entre le public et l’administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager."
+    modalities:
+      - params
+
 # ------------------------------- #
 
 # Editeur single page (cas 1)
