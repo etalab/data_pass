@@ -484,6 +484,7 @@ FactoryBot.define do
       api-particulier-teamnet-axel-petite-enfance
       api-particulier-arpege-concerto-petite-enfance
       api-particulier-mgdis-tarification-cantines-lycees
+      api-particulier-mgdis-aides-facultatives-departementales
       api-particulier-arche-mc2-solis
       api-particulier-tarification-municipale-enfance
       api-particulier-aides-facultatives-regionales
