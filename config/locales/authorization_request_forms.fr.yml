@@ -416,10 +416,27 @@ fr:
         label: URL de la délibération tarifaire
       cadre_juridique_nature:
         hint: Si vous avez plus d’informations à ajouter vous pouvez le faire à la suite des textes légaux ci-dessous
+
+
+    api_particulier_tarification_eaje_cadre_juridique: &api_particulier_tarification_eaje_cadre_juridique
+      cadre_juridique:
+        justificatif:
+          description: "Veuillez joindre la délibération autorisant le maire à signer la convention d'objectif et de financement ou la convention d'objectif signée. Vous pouvez nous transmettre un document ou nous fournir un lien."
+          document_label: Veuillez joindre la délibération ou la convention d'objectif signée
+          url_label: Veuillez nous indiquer l'url d'accès à votre délibération ou à votre convention d'objectif signée
+      cadre_juridique_document:
+        label: Ajoutez votre délibération ou votre convention d'objectif signée
+      cadre_juridique_url:
+        title: Veuillez nous indiquer l'url d'accès à votre délibération ou à votre convention d'objectif signée
+        label: URL
+    api_particulier_tarification_eaje_editor: &api_particulier_tarification_eaje_editor_wordings
+      <<: [*api_particulier_tarification_eaje_cadre_juridique, *api_particulier_editor_common_wordings]
+
+
     api_particulier_familea:
       <<: *api_particulier_editor_common_wordings
     api_particulier_familea_petite_enfance:
-      <<: *api_particulier_editor_common_wordings
+      <<: *api_particulier_tarification_eaje_editor_wordings
     api_particulier_sigec_maelis:
       <<: *api_particulier_editor_common_wordings
     api_particulier_arpege_concerto:
@@ -528,11 +545,21 @@ fr:
     api_particulier_mgdis_tarification_cantines_lycees:
       <<: *api_particulier_editor_common_wordings
     api_particulier_arpege_concerto_petite_enfance:
-      <<: *api_particulier_editor_common_wordings
+      <<: *api_particulier_tarification_eaje_editor_wordings
     api_particulier_teamnet_axel_petite_enfance:
-      <<: *api_particulier_editor_common_wordings
+      <<: *api_particulier_tarification_eaje_editor_wordings
     api_particulier_aiga_petite_enfance:
-      <<: *api_particulier_editor_common_wordings
+      <<: *api_particulier_tarification_eaje_editor_wordings
+    api_particulier_technocarte_babicarte:
+      <<: *api_particulier_tarification_eaje_editor_wordings
+    api_particulier_sigec_maelis_petite_enfance:
+      <<: *api_particulier_tarification_eaje_editor_wordings
+    api_particulier_city_family_mushroom_software_petite_enfance:
+      <<: *api_particulier_tarification_eaje_editor_wordings
+    api_particulier_carte_plus_petite_enfance:
+      <<: *api_particulier_tarification_eaje_editor_wordings
+    api_particulier_tarification_eaje:
+      <<: *api_particulier_tarification_eaje_cadre_juridique
 
     api_particulier_tarification_municipale_enfance:
       description:

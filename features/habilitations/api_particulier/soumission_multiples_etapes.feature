@@ -635,7 +635,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur avec le c
 
     * je clique sur "Suivant"
 
-    * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
+    * je remplis "URL" avec "https://mairie.fr/deliberation-tarifaire.pdf"
     * je clique sur "Suivant"
 
     * je renseigne les infos concernant les données personnelles
@@ -668,7 +668,7 @@ Plan du scénario: Je soumets une demande d'habilitation d'un éditeur fc_certif
 
     * je clique sur "Suivant"
 
-    * je remplis "URL de la délibération tarifaire" avec "https://mairie.fr/deliberation-tarifaire.pdf"
+    * je remplis "URL" avec "https://mairie.fr/deliberation-tarifaire.pdf"
     * je clique sur "Suivant"
 
     * je renseigne les infos concernant les données personnelles
