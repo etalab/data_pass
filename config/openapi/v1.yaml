@@ -246,6 +246,7 @@ components:
           description: Identifiant unique de l'habilitation
         slug:
           type: string
+          nullable: true
           example: "habilitation-123"
           description: Slug de l'habilitation
         revoked:
@@ -279,7 +280,6 @@ components:
           description: Identifiant de la définition d'habilitation associée à cette habilitation. Voir le endpoint `GET /definitions` pour la liste des définitions d'habilitations auxquelles vous avez accès.
       required:
         - id
-        - slug
         - revoked
         - state
         - created_at

@@ -586,8 +586,7 @@ Quand(%r{je me rends sur l'habilitation validée(?: du (\d{1,2}/\d{2}/\d{4}))?})
 
   if date_string.present?
     date = Date.parse(date_string)
-    authorization = authorization_request.authorizations.friendly.find(date.strftime('%d-%m-%Y'))
-    raise "Authorization not found for #{date}" if authorization.nil?
+    authorization = authorization_request.authorizations.find_by!(created_at: date.all_day)
   else
     authorization = authorization_request.latest_authorization
   end

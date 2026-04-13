@@ -1,9 +1,9 @@
 <%= t('mailer.shared.header.hello') %>
 
 <% if @reopening -%>
-<%= t('.reopening_description', formatted_id: @authorization_request.formatted_id, stage_label: @stage_label, slug: @authorization.slug, instruction_url: instruction_authorization_request_url(@authorization_request)) %>
+<%= t('.reopening_description', formatted_id: @authorization_request.formatted_id, stage_label: @stage_label, authorization_formatted_id: @authorization.formatted_id, instruction_url: instruction_authorization_request_url(@authorization_request)) %>
 <% else -%>
-<%= t('.description', formatted_id: @authorization_request.formatted_id, stage_label: @stage_label, slug: @authorization.slug, instruction_url: instruction_authorization_request_url(@authorization_request)) %>
+<%= t('.description', formatted_id: @authorization_request.formatted_id, stage_label: @stage_label, authorization_formatted_id: @authorization.formatted_id, instruction_url: instruction_authorization_request_url(@authorization_request)) %>
 <% end -%>
 
 Cordialement,

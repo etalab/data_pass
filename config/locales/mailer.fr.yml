@@ -207,11 +207,11 @@ fr:
       approve:
         description: >-
           Nous vous informons que la demande %{formatted_id} d'accès %{stage_label} a été validée,
-          elle a donné lieu à l'habilitation %{slug}. Les détails de cette habilitation sont
+          elle a donné lieu à l'habilitation %{authorization_formatted_id}. Les détails de cette habilitation sont
           disponibles via le lien suivant : %{instruction_url}
         reopening_description: >-
           Nous vous informons que la demande de mise à jour %{formatted_id} d'accès %{stage_label}
-          a été validée, elle a donné lieu à l'habilitation %{slug}. Les détails de cette
+          a été validée, elle a donné lieu à l'habilitation %{authorization_formatted_id}. Les détails de cette
           habilitation sont disponibles via le lien suivant : %{instruction_url}
   webhook_mailer:
     fail:

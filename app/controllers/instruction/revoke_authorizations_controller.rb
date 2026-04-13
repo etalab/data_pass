@@ -33,7 +33,7 @@ class Instruction::RevokeAuthorizationsController < InstructionController
   private
 
   def extract_authorization
-    @authorization = Authorization.friendly.find(params[:authorization_id])
+    @authorization = Authorization.find(params[:authorization_id])
   end
 
   def revocation_of_authorization_params

@@ -12,7 +12,7 @@ module AuthorizationOrRequestContext
 
   def extract_authorization_or_request
     if params[:authorization_id].present?
-      @authorization = Authorization.friendly.find(params[:authorization_id])
+      @authorization = Authorization.find(params[:authorization_id])
       @authorization_request = @authorization.request
     else
       @authorization_request = AuthorizationRequest.find(params[:authorization_request_id])
