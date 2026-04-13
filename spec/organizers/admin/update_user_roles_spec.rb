@@ -42,6 +42,35 @@ RSpec.describe Admin::UpdateUserRoles, type: :organizer do
       }.to change { ActionMailer::Base.deliveries.count }.by(1)
     end
 
+    describe 'with empty roles' do
+      let(:roles) { [] }
+
+      it { is_expected.to be_success }
+
+      it 'removes all roles from the user' do
+        expect {
+          update_user_roles
+        }.to change { user.reload.roles }.from(%w[api_entreprise:reporter]).to([])
+      end
+
+      it 'creates an admin event' do
+        expect {
+          update_user_roles
+        }.to change(AdminEvent, :count).by(1)
+
+        admin_event = AdminEvent.last
+
+        expect(admin_event.before_attributes).to eq('roles' => %w[api_entreprise:reporter])
+        expect(admin_event.after_attributes).to eq('roles' => [])
+      end
+
+      it 'notifies admins for roles update' do
+        expect {
+          update_user_roles
+        }.to change { ActionMailer::Base.deliveries.count }.by(1)
+      end
+    end
+
     describe 'with invalid roles' do
       context 'when it is an invalid authorization request type' do
         let(:roles) { user.roles + %w[invalid_role:instructor] }
